@@ -7,6 +7,7 @@ import { Route } from 'react-router'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 
 import App from './App';
+import Top from './containers/Top';
 import registerServiceWorker from './registerServiceWorker';
 
 const history = createHistory();
@@ -22,7 +23,10 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Route exact path="/" component={App} />
+      <div>
+        <Route exact path="/" component={Top}/>
+        <Route path="/app" component={App}/>
+      </div>
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
