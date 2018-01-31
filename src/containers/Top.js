@@ -15,16 +15,23 @@ class Top extends React.Component {
     super(props);
     this.state = {
       location: '',
+      isDisableSearchButton: true
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
+    if(event.target.value === "") {
+      this.setState({isDisableSearchButton: true});
+    } else {
+      this.setState({isDisableSearchButton: false});
+    }
     this.setState({[event.target.id]: event.target.value});
   }
 
   render() {
     const { classes } = this.props;
+    console.log(this.state);
     return (
       <div className={classes.root}>
         <Header />
@@ -46,6 +53,7 @@ class Top extends React.Component {
             />
             <Button fab color="primary" mini
               component={Link} to={"/search/" + this.state.location}
+                    disabled={this.state.isDisableSearchButton}
             >
               <SearchIcon />
             </Button>
