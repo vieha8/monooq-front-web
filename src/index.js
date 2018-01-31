@@ -6,7 +6,9 @@ import createHistory from 'history/createBrowserHistory'
 import { Route } from 'react-router'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
 import registerServiceWorker from './registerServiceWorker';
+
 import Top from './containers/Top';
+import Search from './containers/Search';
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -23,6 +25,7 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <div>
         <Route exact path="/" component={Top}/>
+        <Route exact path="/search/:location" component={Search}/>
       </div>
     </ConnectedRouter>
   </Provider>,

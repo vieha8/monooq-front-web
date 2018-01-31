@@ -1,20 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import SearchIcon from 'material-ui-icons/Search';
+import { LinearProgress } from 'material-ui/Progress';
 
 import Header from '../components/Header';
+import HostCards from '../components/HostCards';
 
-class Top extends React.Component {
+class Search extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      location: '',
+      location: this.props.match.params.location,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -29,27 +30,12 @@ class Top extends React.Component {
       <div className={classes.root}>
         <Header />
         <Paper elevation={0} className={classes.contents}>
-          <Typography type="headline" component="h3">
-            家にモノがあふれていませんか?
+          <Typography type="title" component="h2">
+            {this.state.location}の検索結果
           </Typography>
-          <Typography component="p">
-            ご近所に安くモノを預けよう!
-          </Typography>
-          <div className={classes.search}>
-            <TextField
-              id="location"
-              placeholder="どこで預ける?"
-              className={classes.textField}
-              value={this.state.location}
-              onChange={this.handleChange}
-              margin="normal"
-            />
-            <Button fab color="primary" mini
-              component={Link} to={"/search/" + this.state.location}
-            >
-              <SearchIcon />
-            </Button>
-          </div>
+        </Paper>
+        <Paper elevation={0} style={{padding: 20}}>
+          <HostCards />
         </Paper>
       </div>
     );
@@ -75,7 +61,18 @@ const styles = theme => ({
   },
   search: {
     marginTop: 20
-  }
+  },
+  card: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 200,
+  },
+  title: {
+    marginBottom: 16,
+    fontSize: 14,
+    color: theme.palette.text.secondary,
+  },
 });
 
-export default withStyles(styles)(Top);
+export default withStyles(styles)(Search);
