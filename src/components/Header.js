@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Link} from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
@@ -18,7 +18,7 @@ const Header = (props) => {
       <AppBar position="static" color="default">
         <Toolbar>
           <Typography type="title" className={classes.flex}>
-            モノオク
+            <Link to="/" style={{textDecoration: 'none'}}>モノオク</Link>
           </Typography>
           <IconButton className={classes.searchButton} color="inherit" aria-label="Search">
             <SearchIcon />
