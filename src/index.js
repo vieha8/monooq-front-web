@@ -5,10 +5,8 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory'
 import { Route } from 'react-router'
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux'
-
-import App from './App';
-import Top from './containers/Top';
 import registerServiceWorker from './registerServiceWorker';
+import Top from './containers/Top';
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -25,7 +23,6 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <div>
         <Route exact path="/" component={Top}/>
-        <Route path="/app" component={App}/>
       </div>
     </ConnectedRouter>
   </Provider>,
