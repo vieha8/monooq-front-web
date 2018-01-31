@@ -5,7 +5,7 @@ import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import SearchIcon from 'material-ui-icons/Search';
-import { LinearProgress } from 'material-ui/Progress';
+import { CircularProgress } from 'material-ui/Progress';
 
 import Header from '../components/Header';
 import HostCards from '../components/HostCards';
@@ -16,12 +16,29 @@ class Search extends React.Component {
     super(props);
     this.state = {
       location: this.props.match.params.location,
+      isLoad: false,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.showHostCards = this.showHostCards.bind(this);
+    setTimeout(() => {
+      this.setState({isLoad: true});
+    }, 1500);
   }
 
   handleChange(event) {
     this.setState({[event.target.id]: event.target.value});
+  }
+
+  showHostCards() {
+    if(this.state.isLoad) {
+      return <HostCards />;
+    } else {
+      return (
+        <div style={{textAlign: 'center'}}>
+          <CircularProgress className={this.props.classes.progress} size={50} />
+        </div>
+      );
+    }
   }
 
   render() {
@@ -35,7 +52,7 @@ class Search extends React.Component {
           </Typography>
         </Paper>
         <Paper elevation={0} style={{padding: 20}}>
-          <HostCards />
+          {this.showHostCards()}
         </Paper>
       </div>
     );
@@ -72,6 +89,9 @@ const styles = theme => ({
     marginBottom: 16,
     fontSize: 14,
     color: theme.palette.text.secondary,
+  },
+  progress: {
+    margin: `0 ${theme.spacing.unit * 2}px`,
   },
 });
 
