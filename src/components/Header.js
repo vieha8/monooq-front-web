@@ -9,6 +9,7 @@ import IconButton from 'material-ui/IconButton';
 import SearchIcon from 'material-ui-icons/Search';
 import Hidden from 'material-ui/Hidden';
 
+import logo from '../images/monooq_logo.svg';
 import HeaderMenu from './HeaderMenu';
 
 const Header = (props) => {
@@ -18,7 +19,7 @@ const Header = (props) => {
       <AppBar position="static" color="default">
         <Toolbar>
           <Typography type="title" className={classes.flex}>
-            <Link to="/" style={{textDecoration: 'none'}}>モノオク</Link>
+            <Link to="/" style={{textDecoration: 'none'}}><img src={logo} alt="logo" /></Link>
           </Typography>
           <IconButton className={classes.searchButton} color="inherit" aria-label="Search">
             <SearchIcon />
