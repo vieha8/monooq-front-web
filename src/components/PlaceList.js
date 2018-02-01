@@ -1,20 +1,24 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 
-import HostCard from './HostCard';
+import Place from './Place';
 
-class HostCards extends React.Component {
+class PlaceList extends React.Component {
 
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <HostCard />
-        <HostCard />
-        <HostCard />
-        <HostCard />
-        <HostCard />
-        <HostCard />
+        <Place />
+        <Place />
+        <Place />
+        <Place />
+        <Place />
+        <Place />
+        <Place />
+        <Place />
+        <Place />
+        <Place />
       </div>
     );
   }
@@ -28,4 +32,4 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(HostCards);
+export default withStyles(styles)(PlaceList);

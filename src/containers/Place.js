@@ -5,9 +5,9 @@ import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 
 import Header from '../components/Header';
-import PlaceList from '../components/PlaceList';
+import HostCards from '../components/HostCards';
 
-class Search extends React.Component {
+class Host extends React.Component {
 
   constructor(props) {
     super(props);
@@ -16,7 +16,7 @@ class Search extends React.Component {
       isLoad: false,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.showPlaceList = this.showPlaceList.bind(this);
+    this.showHostCards = this.showHostCards.bind(this);
     setTimeout(() => {
       this.setState({isLoad: true});
     }, 1500);
@@ -26,9 +26,9 @@ class Search extends React.Component {
     this.setState({[event.target.id]: event.target.value});
   }
 
-  showPlaceList() {
+  showHostCards() {
     if(this.state.isLoad) {
-      return <PlaceList />;
+      return <HostCards />;
     } else {
       return (
         <div style={{textAlign: 'center'}}>
@@ -49,7 +49,7 @@ class Search extends React.Component {
           </Typography>
         </Paper>
         <Paper elevation={0} style={{padding: 20}}>
-          {this.showPlaceList()}
+          {this.showHostCards()}
         </Paper>
       </div>
     );
@@ -92,4 +92,4 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(Search);
+export default withStyles(styles)(Host);

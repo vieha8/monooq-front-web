@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
 
-class HostCard extends React.Component {
+class Place extends React.Component {
 
   render() {
     const { classes } = this.props;
@@ -47,4 +47,4 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(HostCard);
+export default withStyles(styles)(Place);
