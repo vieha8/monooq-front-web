@@ -5,6 +5,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import Hidden from 'material-ui/Hidden';
 import SearchIcon from 'material-ui-icons/Search';
 
 import Header from '../components/Header';
@@ -35,9 +36,16 @@ class Top extends React.Component {
       <div className={classes.root}>
         <Header />
         <Paper elevation={0} className={classes.contents}>
-          <Typography type="title" component="h1">
-            モノがあふれていませんか?
-          </Typography>
+          <Hidden xsDown>
+            <Typography type="body4" component="h1">
+              モノがあふれていませんか?
+            </Typography>
+          </Hidden>
+          <Hidden smUp>
+            <Typography type="title" component="h1" style={{fontWeight: 'bold'}}>
+              モノがあふれていませんか?
+            </Typography>
+          </Hidden>
           <Typography component="p">
             ご近所に安くモノを預けよう!
           </Typography>
