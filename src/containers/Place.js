@@ -10,6 +10,8 @@ import Table, { TableCell, TableRow } from 'material-ui/Table';
 import LocalShipping from 'material-ui-icons/LocalShipping';
 import People from 'material-ui-icons/People';
 
+import Dialog from '../components/Dialog';
+
 class Place extends React.Component {
 
   render() {
@@ -19,7 +21,7 @@ class Place extends React.Component {
         <AppBar position="fixed" color="default">
           <Toolbar>
             <Typography type="body2" component="p" style={{flex:1}}>1ヶ月あたり ¥20,000</Typography><br/>
-            <Button raised color="secondary">リクエスト</Button>
+            <Dialog />
           </Toolbar>
         </AppBar>
         <Card className={classes.card}>
