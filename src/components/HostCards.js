@@ -1,14 +1,9 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
 
 import HostCard from './HostCard';
 
 class HostCards extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     const { classes } = this.props;

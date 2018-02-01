@@ -19,14 +19,14 @@ const Header = (props) => {
       <AppBar position="static" color="default">
         <Toolbar>
           <Typography type="title" className={classes.flex}>
-            <Link to="/" style={{textDecoration: 'none'}}><img src={logo} alt="logo" /></Link>
+            <Link to="/" style={{textDecoration: 'none'}}><img src={logo} alt="logo" width="150" /></Link>
           </Typography>
-          <IconButton className={classes.searchButton} color="inherit" aria-label="Search">
+          <IconButton className={classes.searchButton} aria-label="Search">
             <SearchIcon />
           </IconButton>
           <Hidden xsDown>
-            <Button color="inherit">ログイン</Button>
-            <Button color="inherit">登録</Button>
+            <Button>ログイン</Button>
+            <Button>登録</Button>
           </Hidden>
           <HeaderMenu />
         </Toolbar>

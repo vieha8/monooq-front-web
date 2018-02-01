@@ -31,13 +31,12 @@ class Top extends React.Component {
 
   render() {
     const { classes } = this.props;
-    console.log(this.state);
     return (
       <div className={classes.root}>
         <Header />
         <Paper elevation={0} className={classes.contents}>
-          <Typography type="headline" component="h3">
-            家にモノがあふれていませんか?
+          <Typography type="title" component="h1">
+            モノがあふれていませんか?
           </Typography>
           <Typography component="p">
             ご近所に安くモノを預けよう!
@@ -69,7 +68,7 @@ const styles = theme => ({
     width: '100%',
   },
   contents: {
-    padding: 20,
+    padding: 40,
     textAlign: 'center'
   },
   container: {
