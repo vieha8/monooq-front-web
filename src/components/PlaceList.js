@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 
-import Place from './Place';
+import PlaceCard from './PlaceCard';
 
 class PlaceList extends React.Component {
 
@@ -9,16 +9,16 @@ class PlaceList extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Place />
-        <Place />
-        <Place />
-        <Place />
-        <Place />
-        <Place />
-        <Place />
-        <Place />
-        <Place />
-        <Place />
+        <PlaceCard />
+        <PlaceCard />
+        <PlaceCard />
+        <PlaceCard />
+        <PlaceCard />
+        <PlaceCard />
+        <PlaceCard />
+        <PlaceCard />
+        <PlaceCard />
+        <PlaceCard />
       </div>
     );
   }

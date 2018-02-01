@@ -1,95 +1,81 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
-import { CircularProgress } from 'material-ui/Progress';
+import Divider from 'material-ui/Divider';
+import Avatar from 'material-ui/Avatar';
+import Card, { CardHeader, CardContent, CardMedia } from 'material-ui/Card';
+import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+import LocalShipping from 'material-ui-icons/LocalShipping';
+import People from 'material-ui-icons/People';
 
 import Header from '../components/Header';
-import HostCards from '../components/HostCards';
 
-class Host extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      location: this.props.match.params.location,
-      isLoad: false,
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.showHostCards = this.showHostCards.bind(this);
-    setTimeout(() => {
-      this.setState({isLoad: true});
-    }, 1500);
-  }
-
-  handleChange(event) {
-    this.setState({[event.target.id]: event.target.value});
-  }
-
-  showHostCards() {
-    if(this.state.isLoad) {
-      return <HostCards />;
-    } else {
-      return (
-        <div style={{textAlign: 'center'}}>
-          <CircularProgress className={this.props.classes.progress} size={50} />
-        </div>
-      );
-    }
-  }
+class Place extends React.Component {
 
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
         <Header />
-        <Paper elevation={0} className={classes.contents}>
-          <Typography type="title" component="h2">
-            {this.state.location}の検索結果
-          </Typography>
-        </Paper>
-        <Paper elevation={0} style={{padding: 20}}>
-          {this.showHostCards()}
-        </Paper>
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography type="caption">高円寺</Typography>
+            <Typography type="title" component="p">
+              TOKYO DESIGN OFFICE ~ MONOOQ ~
+            </Typography>
+          </CardContent>
+          <CardMedia
+            className={classes.media}
+            image="https://s3-ap-northeast-1.amazonaws.com/monooq/uploads/place_image/id/267/12dd0fbf-d1c9-4b7f-b243-c45cfbf8fbed.jpg"
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <Typography component="p">
+              高円寺駅から徒歩5分、好立地の場所にあります。
+              デザイン事務所のマンションの1室、6帖の1室が空いたのでその場所を提供します。
+            </Typography>
+            <Divider className={classes.divider} />
+            <Table>
+              <TableRow>
+                <TableCell type="head">保管場所</TableCell>
+                <TableCell type="body">東京都杉並区高円寺</TableCell>
+              </TableRow>
+              <TableRow style={{verticalAlign: 'middle'}}>
+                <TableCell type="head">受取方法</TableCell>
+                <TableCell type="body">
+                  配送<LocalShipping /><br/>
+                  対面<People />
+                </TableCell>
+              </TableRow>
+            </Table>
+            <Divider className={classes.divider} />
+            <Typography component="p">
+              注意事項的なことをあばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばば
+            </Typography>
+          </CardContent>
+        </Card>
       </div>
     );
   }
 }
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-  },
-  contents: {
-    padding: 20,
-    textAlign: 'center'
-  },
   container: {
     display: 'flex',
     flexWrap: 'wrap',
   },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
-  search: {
-    marginTop: 20
-  },
   card: {
-    maxWidth: 345,
+    margin: 20,
   },
   media: {
     height: 200,
+    maxWidth: 300,
+    margin: 'auto'
   },
-  title: {
-    marginBottom: 16,
-    fontSize: 14,
-    color: theme.palette.text.secondary,
-  },
-  progress: {
-    margin: `0 ${theme.spacing.unit * 2}px`,
-  },
+  divider: {
+    marginTop: 20,
+    marginBottom: 20,
+  }
 });
 
-export default withStyles(styles)(Host);
+export default withStyles(styles)(Place);
