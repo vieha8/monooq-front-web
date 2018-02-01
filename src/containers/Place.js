@@ -1,14 +1,14 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
 import Divider from 'material-ui/Divider';
-import Avatar from 'material-ui/Avatar';
-import Card, { CardHeader, CardContent, CardMedia } from 'material-ui/Card';
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+import Card, { CardContent, CardMedia } from 'material-ui/Card';
+import Table, { TableCell, TableRow } from 'material-ui/Table';
 import LocalShipping from 'material-ui-icons/LocalShipping';
 import People from 'material-ui-icons/People';
-
-import Header from '../components/Header';
 
 class Place extends React.Component {
 
@@ -16,7 +16,12 @@ class Place extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Header />
+        <AppBar position="fixed" color="default">
+          <Toolbar>
+            <Typography type="body2" component="p" style={{flex:1}}>1ヶ月あたり ¥20,000</Typography><br/>
+            <Button raised color="secondary">リクエスト</Button>
+          </Toolbar>
+        </AppBar>
         <Card className={classes.card}>
           <CardContent>
             <Typography type="caption">高円寺</Typography>
@@ -66,6 +71,7 @@ const styles = theme => ({
   },
   card: {
     margin: 20,
+    marginTop: 80,
   },
   media: {
     height: 200,
