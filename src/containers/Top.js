@@ -37,7 +37,7 @@ class Top extends React.Component {
         <Header />
         <Paper elevation={0} className={classes.contents}>
           <Hidden xsDown>
-            <Typography type="body4" component="h1">
+            <Typography type="display2" component="h1">
               モノがあふれていませんか?
             </Typography>
           </Hidden>

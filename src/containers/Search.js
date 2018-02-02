@@ -5,7 +5,7 @@ import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 
 import Header from '../components/Header';
-import PlaceList from '../components/PlaceList';
+import SpaceList from '../components/SpaceList';
 
 class Search extends React.Component {
 
@@ -16,7 +16,7 @@ class Search extends React.Component {
       isLoad: false,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.showPlaceList = this.showPlaceList.bind(this);
+    this.showSpaceList = this.showSpaceList.bind(this);
     setTimeout(() => {
       this.setState({isLoad: true});
     }, 1500);
@@ -26,9 +26,9 @@ class Search extends React.Component {
     this.setState({[event.target.id]: event.target.value});
   }
 
-  showPlaceList() {
+  showSpaceList() {
     if(this.state.isLoad) {
-      return <PlaceList />;
+      return <SpaceList />;
     } else {
       return (
         <div style={{textAlign: 'center'}}>
@@ -49,7 +49,7 @@ class Search extends React.Component {
           </Typography>
         </Paper>
         <Paper elevation={0} style={{padding: 20}}>
-          {this.showPlaceList()}
+          {this.showSpaceList()}
         </Paper>
       </div>
     );

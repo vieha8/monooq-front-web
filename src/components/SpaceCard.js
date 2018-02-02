@@ -4,13 +4,13 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
 
-class PlaceCard extends React.Component {
+class SpaceCard extends React.Component {
 
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Link to="/place/1" style={{textDecoration: 'none'}}>
+        <Link to="/space/1" style={{textDecoration: 'none'}}>
           <Card className={classes.card}>
             <CardMedia
               className={classes.media}
@@ -47,4 +47,4 @@ const styles = theme => ({
   }
 });
 
-export default withStyles(styles)(PlaceCard);
+export default withStyles(styles)(SpaceCard);

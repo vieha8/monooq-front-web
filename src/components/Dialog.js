@@ -87,6 +87,7 @@ const styles = theme => ({
   },
   textField: {
     width: '100%',
+    fontSize: 8
   },
   menu: {
     width: 200,

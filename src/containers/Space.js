@@ -5,16 +5,15 @@ import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
 import Card, { CardHeader, CardContent, CardMedia } from 'material-ui/Card';
 import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import LocalShippingIcon from 'material-ui-icons/LocalShipping';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
 import People from 'material-ui-icons/People';
 
 import Dialog from '../components/Dialog';
+import SpaceMenu from '../components/SpaceMenu';
 
-class Place extends React.Component {
+class Space extends React.Component {
 
   render() {
     const { classes } = this.props;
@@ -27,11 +26,16 @@ class Place extends React.Component {
           </Toolbar>
         </AppBar>
         <Card className={classes.card}>
-          <CardContent>
+          <CardContent style={{display:'flex'}}>
+            <div style={{flex:1}}>
             <Typography type="caption">高円寺</Typography>
             <Typography type="title" component="p">
               TOKYO DESIGN OFFICE ~ MONOOQ ~
             </Typography>
+            </div>
+            <div>
+              <SpaceMenu />
+            </div>
           </CardContent>
           <CardMedia
             className={classes.media}
@@ -112,4 +116,4 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(Place);
+export default withStyles(styles)(Space);
