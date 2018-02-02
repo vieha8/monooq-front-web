@@ -3,11 +3,13 @@ import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
-import Card, { CardContent, CardMedia } from 'material-ui/Card';
-import Table, { TableCell, TableRow } from 'material-ui/Table';
-import LocalShipping from 'material-ui-icons/LocalShipping';
+import Button from 'material-ui/Button';
+import Card, { CardHeader, CardContent, CardMedia } from 'material-ui/Card';
+import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
+import LocalShippingIcon from 'material-ui-icons/LocalShipping';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
 import People from 'material-ui-icons/People';
 
 import Dialog from '../components/Dialog';
@@ -43,23 +45,48 @@ class Place extends React.Component {
             </Typography>
             <Divider className={classes.divider} />
             <Table>
-              <TableRow>
-                <TableCell type="head">保管場所</TableCell>
-                <TableCell type="body">東京都杉並区高円寺</TableCell>
-              </TableRow>
-              <TableRow style={{verticalAlign: 'middle'}}>
-                <TableCell type="head">受取方法</TableCell>
-                <TableCell type="body">
-                  配送<LocalShipping /><br/>
-                  対面<People />
-                </TableCell>
-              </TableRow>
+              <TableBody>
+                <TableRow>
+                  <TableCell type="head">保管場所</TableCell>
+                  <TableCell>東京都杉並区高円寺</TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell type="head">受取方法</TableCell>
+                  <TableCell>
+                    配送<LocalShippingIcon/><br/>
+                    対面<People />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
             </Table>
             <Divider className={classes.divider} />
-            <Typography component="p">
-              注意事項的なことをあばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばば
+            <Typography type="title">スペースについて</Typography>
+            <Typography component="p" style={{marginTop:5}}>
+              概要や注意事項的なことをあばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばば
             </Typography>
           </CardContent>
+          <Card>
+            <CardHeader
+              avatar={
+                <Avatar src="https://s3-ap-northeast-1.amazonaws.com/monooq/uploads/user/image/430/thumb_696dd0d4-8a36-4e1c-90e2-aa638dbcbf89.jpg">
+                </Avatar>
+              }
+              title="ホストはMasaya Kudoさん"
+              subheader="東京都"
+            />
+            <CardContent>
+              <Typography component="p">
+                こんにちは。ご覧いただきありがとうございます。普段はシステム開発の仕事をしています。
+                昔バンドをやっていたので、音楽関係で機材置き場に困ってる方などの力になれたら嬉しいです。
+                気軽にご相談ください。
+              </Typography>
+              <Divider className={classes.divider} />
+              <Typography type="caption" component="p">
+                連絡は常にモノオクを通して行いましょう。
+                お支払をお守りするためにも、モノオク以外の場所では決して送金や連絡を行わないようご注意ください。
+              </Typography>
+            </CardContent>
+          </Card>
         </Card>
       </div>
     );
@@ -83,7 +110,7 @@ const styles = theme => ({
   divider: {
     marginTop: 20,
     marginBottom: 20,
-  }
+  },
 });
 
 export default withStyles(styles)(Place);
