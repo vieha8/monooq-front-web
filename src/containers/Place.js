@@ -59,8 +59,7 @@ class Place extends React.Component {
                 </TableRow>
               </TableBody>
             </Table>
-            <Divider className={classes.divider} />
-            <Typography type="title">スペースについて</Typography>
+            <Typography type="title" style={{marginTop:5}}>スペースについて</Typography>
             <Typography component="p" style={{marginTop:5}}>
               概要や注意事項的なことをあばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばばば
             </Typography>
