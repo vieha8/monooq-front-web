@@ -119,8 +119,8 @@ class AlertDialogSlide extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
-        <Button raised color="secondary" onClick={this.handleClickOpen}>
+      <div style={{ padding: 20 }}>
+        <Button raised color="secondary" onClick={this.handleClickOpen} fullWidth>
           リクエスト
         </Button>
         <Dialog
