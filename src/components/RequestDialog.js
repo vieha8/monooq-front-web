@@ -16,7 +16,7 @@ class AlertDialogSlide extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true,
+      open: false,
       multiline: '',
       isSend: false,
       isSending: false,
