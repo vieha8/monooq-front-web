@@ -14,14 +14,16 @@ import Hidden from 'material-ui/Hidden';
 import logo from '../images/monooq_logo.svg';
 import HeaderMenu from './HeaderMenu';
 
-const Header = (props) => {
+const Header = props => {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar position="fixed" color="default">
         <Toolbar>
           <Typography type="title" className={classes.flex}>
-            <Link to="/" style={{textDecoration: 'none'}}><img src={logo} alt="logo" width="150" /></Link>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <img src={logo} alt="logo" width="150" />
+            </Link>
           </Typography>
           <IconButton
             className={classes.searchButton}
@@ -51,7 +53,7 @@ const Header = (props) => {
 const styles = {
   root: {
     width: '100%',
-    marginBottom: 20,
+    marginBottom: 80,
   },
   flex: {
     flex: 1,
