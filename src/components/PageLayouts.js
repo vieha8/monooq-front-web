@@ -10,14 +10,16 @@ function createOneColumnPageLayout(title, WrappedComponent) {
       return (
         <div className={classes.root}>
           <Header />
-          <Typography type="title" component="h2" className={classes.title}>{title}</Typography>
           <div className={classes.wrapper}>
+            <Typography type="title" component="h2" className={classes.title}>
+              {title}
+            </Typography>
             <WrappedComponent {...this.props} />
           </div>
         </div>
       );
     }
-  }
+  };
 }
 
 // TODO 2カラム
@@ -28,8 +30,9 @@ export const defaultPageFactory = (title, component) => {
       margin: 20,
     },
     wrapper: {
-      margin: 20,
-    }
+      maxWidth: 720,
+      margin: 'auto',
+    },
   };
   return withStyles(styles)(createOneColumnPageLayout(title, component));
 };

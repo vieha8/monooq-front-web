@@ -60,7 +60,7 @@ class AlertDialogSlide extends React.Component {
       return (
         <div style={{ textAlign: 'center' }}>
           <Button raised onClick={this.sendRequest} color="secondary">
-            リクエストを送信
+            メッセージを送信
           </Button>
         </div>
       );
@@ -76,7 +76,7 @@ class AlertDialogSlide extends React.Component {
           <DialogTitle id="alert-dialog-slide-title">{'送信完了'}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              リクエストありがとうございます。ホストからの連絡をしばらくお待ち下さい。
+              ありがとうございます。ホストからの連絡をしばらくお待ち下さい。
             </DialogContentText>
             <div style={{ textAlign: 'center' }}>
               <Button raised onClick={this.handleClose} color="primary">
@@ -121,7 +121,7 @@ class AlertDialogSlide extends React.Component {
     return (
       <div style={{ padding: 20 }}>
         <Button raised color="secondary" onClick={this.handleClickOpen} fullWidth>
-          リクエスト
+          相談する
         </Button>
         <Dialog
           open={this.state.open}

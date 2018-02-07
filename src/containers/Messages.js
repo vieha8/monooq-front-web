@@ -5,7 +5,6 @@ import Avatar from 'material-ui/Avatar';
 import { defaultPageFactory } from '../components/PageLayouts';
 
 class Messages extends React.Component {
-
   constructor(props) {
     super(props);
     this.pageTitle = 'メッセージ';
@@ -13,70 +12,25 @@ class Messages extends React.Component {
   }
 
   contents() {
-    const { classes } = this.props;
+    const { classes, history } = this.props;
     return (
       <div className={classes.root}>
         <List component="nav">
-          <ListItem button divider>
-            <Avatar>
-              MK
-            </Avatar>
-            <ListItemText primary="Masaya Kudo" secondary="こんにちは。来月から荷物を預かっていただきたいのですがお願い..." />
-          </ListItem>
-          <ListItem button divider>
-            <Avatar>
-              MK
-            </Avatar>
-            <ListItemText primary="Masaya Kudo" secondary="こんにちは。来月から荷物を預かっていただきたいのですがお願い..." />
-          </ListItem>
-          <ListItem button divider>
-            <Avatar>
-              MK
-            </Avatar>
-            <ListItemText primary="Masaya Kudo" secondary="こんにちは。来月から荷物を預かっていただきたいのですがお願い..." />
-          </ListItem>
-          <ListItem button divider>
-            <Avatar>
-              MK
-            </Avatar>
-            <ListItemText primary="Masaya Kudo" secondary="こんにちは。来月から荷物を預かっていただきたいのですがお願い..." />
-          </ListItem>
-          <ListItem button divider>
-            <Avatar>
-              MK
-            </Avatar>
-            <ListItemText primary="Masaya Kudo" secondary="こんにちは。来月から荷物を預かっていただきたいのですがお願い..." />
-          </ListItem>
-          <ListItem button divider>
-            <Avatar>
-              MK
-            </Avatar>
-            <ListItemText primary="Masaya Kudo" secondary="こんにちは。来月から荷物を預かっていただきたいのですがお願い..." />
-          </ListItem>
-          <ListItem button divider>
-            <Avatar>
-              MK
-            </Avatar>
-            <ListItemText primary="Masaya Kudo" secondary="こんにちは。来月から荷物を預かっていただきたいのですがお願い..." />
-          </ListItem>
-          <ListItem button divider>
-            <Avatar>
-              MK
-            </Avatar>
-            <ListItemText primary="Masaya Kudo" secondary="こんにちは。来月から荷物を預かっていただきたいのですがお願い..." />
-          </ListItem>
-          <ListItem button divider>
-            <Avatar>
-              MK
-            </Avatar>
-            <ListItemText primary="Masaya Kudo" secondary="こんにちは。来月から荷物を預かっていただきたいのですがお願い..." />
-          </ListItem>
-          <ListItem button>
-            <Avatar>
-              MK
-            </Avatar>
-            <ListItemText primary="Masaya Kudo" secondary="こんにちは。来月から荷物を預かっていただきたいのですがお願い..." />
-          </ListItem>
+          {[...Array(10)].map(() => (
+            <ListItem
+              button
+              divider
+              onClick={() => {
+                history.push('/message/1');
+              }}
+            >
+              <Avatar>MK</Avatar>
+              <ListItemText
+                primary="Masaya Kudo"
+                secondary="田中さん初めまして！メッセージありがとうございます。ぜひお預かりさ..."
+              />
+            </ListItem>
+          ))}
         </List>
       </div>
     );
@@ -86,14 +40,13 @@ class Messages extends React.Component {
     const Page = defaultPageFactory(this.pageTitle, this.contents);
     return <Page />;
   }
-
 }
 
 const styles = theme => ({
   root: {
-    width: '100%',
     maxWidth: 720,
     backgroundColor: theme.palette.background.paper,
+    margin: 'auto',
   },
 });
 
