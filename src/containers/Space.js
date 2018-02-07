@@ -10,7 +10,7 @@ import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import LocalShippingIcon from 'material-ui-icons/LocalShipping';
 import People from 'material-ui-icons/People';
 
-import Dialog from '../components/Dialog';
+import RequestDialog from '../components/RequestDialog';
 import SpaceMenu from '../components/SpaceMenu';
 
 class Space extends React.Component {
@@ -22,7 +22,7 @@ class Space extends React.Component {
         <AppBar position="fixed" color="default">
           <Toolbar>
             <Typography type="body2" component="p" style={{flex:1}}>1ヶ月あたり ¥20,000</Typography><br/>
-            <Dialog />
+            <RequestDialog />
           </Toolbar>
         </AppBar>
         <Card className={classes.card}>

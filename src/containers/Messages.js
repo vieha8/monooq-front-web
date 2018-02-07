@@ -23,7 +23,7 @@ class Messages extends React.Component {
     const Page = defaultPageFactory(this.pageTitle, this.contents);
     return <Page />;
   }
-  
+
 }
 
 const styles = {
