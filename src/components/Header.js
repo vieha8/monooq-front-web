@@ -38,6 +38,7 @@ const Header = (props) => {
 const styles = {
   root: {
     width: '100%',
+    marginBottom: 20,
   },
   flex: {
     flex: 1,

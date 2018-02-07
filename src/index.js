@@ -10,6 +10,7 @@ import registerServiceWorker from './registerServiceWorker';
 import Top from './containers/Top';
 import Search from './containers/Search';
 import Space from './containers/Space';
+import Messages from './containers/Messages';
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -28,6 +29,7 @@ ReactDOM.render(
         <Route exact path="/" component={Top}/>
         <Route exact path="/search/:location" component={Search}/>
         <Route exact path="/space/:id" component={Space}/>
+        <Route exact path="/messages" component={Messages}/>
       </div>
     </ConnectedRouter>
   </Provider>,
