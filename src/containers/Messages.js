@@ -10,11 +10,6 @@ class Messages extends React.Component {
     super(props);
     this.pageTitle = 'メッセージ';
     this.contents = this.contents.bind(this);
-    this.messages = [
-      {
-
-      }
-    ];
   }
 
   contents() {
