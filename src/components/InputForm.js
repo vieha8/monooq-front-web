@@ -6,7 +6,7 @@ const InputForm = ({text}) => {
   return (
     <TextField
       id="location"
-      placeholder={text}
+      label={text}
       className="inputForm"
       margin="normal"
     />
