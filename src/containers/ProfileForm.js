@@ -1,9 +1,11 @@
 // ユーザー登録(メールアドレス) > プロフィール入力
 import React from 'react';
-import Header from '../components/Header';
+import { Link } from 'react-router-dom';
+import Header from '../components/Header/';
 import Avator from '../components/Avator';
 import InputForm from '../components/InputForm';
 import SelectFormDefault from '../components/SelectFormDefault';
+import TextFieldFormDefault from '../components/TextFieldFormDefault';
 
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
@@ -35,6 +37,17 @@ const ProfileForm = () => {
         <InputForm text="電話番号" />
         <br />
         <SelectFormDefault />
+        <TextFieldFormDefault />
+      </div>
+
+      <div style={{textAlign:"center", margin: "20px"}}>
+        <Button
+          raised
+          color="primary"
+          component={Link} to={"/profile"}
+        >
+        プロフィール登録
+        </Button>
       </div>
     </div>
   );
