@@ -1,46 +1,33 @@
 import React from 'react';
-import { withRouter } from 'react-router';
-import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
-import Slide from 'material-ui/transitions/Slide';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
+import { createDialog } from '../../components/Dialog';
 
-class AcceptDialog extends React.Component {
+const openButtonComponent = props => (
+  <Button color="primary" {...props}>
+    承諾する
+  </Button>
+);
+
+class ContentsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
-      isSend: false,
       isSending: false,
     };
-    this.handleClose = this.handleClose.bind(this);
-    this.showDialogContents = this.showDialogContents.bind(this);
-    this.sendRequest = this.sendRequest.bind(this);
-    this.showSendButton = this.showSendButton.bind(this);
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose() {
-    this.setState({ open: false, isSend: false });
-  }
-
-  sendRequest() {
+  sendRequest = () => {
     this.setState({ isSending: true });
     setTimeout(() => {
-      this.setState({ isSend: true, isSending: false });
+      this.setState({ isSending: false });
+      this.props.handleClose();
     }, 2000);
-  }
+  };
 
-  showSendButton() {
+  showSendButton = () => {
     if (this.state.isSending) {
       return (
         <div style={{ textAlign: 'center' }}>
@@ -51,65 +38,31 @@ class AcceptDialog extends React.Component {
       return (
         <div style={{ textAlign: 'center' }}>
           <Button raised onClick={this.sendRequest} color="primary">
-            注意事項に同意し承諾する
+            注意事項に同意の上承諾する
           </Button>
         </div>
       );
     }
-  }
-
-  showDialogContents() {
-    if (this.state.isSend) {
-      this.handleClose();
-    } else {
-      return (
-        <div>
-          <DialogTitle id="alert-dialog-slide-title">契約確認</DialogTitle>
-          <DialogContent>
-            <Typography type="body2">
-              預かり開始日:2018/02/09<br />
-              預かり終了日:2018/03/09<br />
-              料金:¥20,000<br />
-            </Typography>
-            <Typography type="caption" style={{ marginTop: 10, marginBottom: 20 }}>
-              【注意事項】<br />
-              ・承諾するとリクエスト成立となります。<br />
-              ・承諾後にキャンセルする場合はホストのキャンセルポリシーに従う必要があります。<br />
-              ・みたいなことを色々と書く。<br />
-            </Typography>
-            {this.showSendButton()}
-          </DialogContent>
-        </div>
-      );
-    }
-  }
+  };
 
   render() {
     return (
       <div>
-        <Button color="primary" onClick={this.handleClickOpen}>
-          承諾する
-        </Button>
-        <Dialog
-          open={this.state.open}
-          transition={Transition}
-          keepMounted
-          onClose={this.handleClose}
-          aria-labelledby="alert-dialog-slide-title"
-          aria-describedby="alert-dialog-slide-description"
-        >
-          {this.showDialogContents()}
-        </Dialog>
+        <Typography type="body2">
+          預かり開始日:2018/02/09<br />
+          預かり終了日:2018/03/09<br />
+          料金:¥20,000<br />
+        </Typography>
+        <Typography type="caption" style={{ marginTop: 10, marginBottom: 20 }}>
+          【注意事項】<br />
+          ・承諾するとリクエスト成立となります。<br />
+          ・承諾後にキャンセルする場合はホストのキャンセルポリシーに従う必要があります。<br />
+          ・みたいなことを色々と書く。<br />
+        </Typography>
+        {this.showSendButton()}
       </div>
     );
   }
 }
 
-const styles = theme => ({
-  textField: {
-    width: '100%',
-    marginTop: 10,
-  },
-});
-
-export default withRouter(withStyles(styles)(AcceptDialog));
+export default createDialog('リクエスト確認', openButtonComponent, ContentsComponent);

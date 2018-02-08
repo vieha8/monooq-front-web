@@ -9,7 +9,7 @@ export const createDialog = (title, ButtonComponent, ContentsComponent) => {
     constructor(props) {
       super(props);
       this.state = {
-        isOpen: true,
+        isOpen: false,
       };
     }
 

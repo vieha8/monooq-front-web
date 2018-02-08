@@ -16,21 +16,24 @@ class Messages extends React.Component {
     return (
       <div className={classes.root}>
         <List component="nav">
-          {[...Array(10)].map(() => (
-            <ListItem
-              button
-              divider
-              onClick={() => {
-                history.push('/message/1');
-              }}
-            >
-              <Avatar>MK</Avatar>
-              <ListItemText
-                primary="Masaya Kudo"
-                secondary="田中さん初めまして！メッセージありがとうございます。ぜひお預かりさ..."
-              />
-            </ListItem>
-          ))}
+          {[...Array(10)].map((v, i) => {
+            return (
+              <ListItem
+                key={i}
+                button
+                divider
+                onClick={() => {
+                  history.push('/message/1');
+                }}
+              >
+                <Avatar>MK</Avatar>
+                <ListItemText
+                  primary="Masaya Kudo"
+                  secondary="田中さん初めまして！メッセージありがとうございます。ぜひお預かりさ..."
+                />
+              </ListItem>
+            );
+          })}
         </List>
       </div>
     );

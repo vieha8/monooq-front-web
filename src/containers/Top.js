@@ -17,17 +17,16 @@ class Top extends React.Component {
       location: '',
       isDisableSearchButton: true,
     };
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = event => {
     if (event.target.value === '') {
       this.setState({ isDisableSearchButton: true });
     } else {
       this.setState({ isDisableSearchButton: false });
     }
     this.setState({ [event.target.id]: event.target.value });
-  }
+  };
 
   render() {
     const { classes } = this.props;
