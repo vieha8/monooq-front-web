@@ -4,19 +4,18 @@ import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
-import TextField from 'material-ui/TextField';
+import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-class EstimateDialog extends React.Component {
+class RequestCancelDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      price: 20000,
       isSend: false,
       isSending: false,
     };
@@ -32,19 +31,12 @@ class EstimateDialog extends React.Component {
 
   handleClose() {
     this.setState({ open: false, isSend: false });
-    // this.props.history.push('/search/東京都');
   }
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
-  };
 
   sendRequest() {
     this.setState({ isSending: true });
     setTimeout(() => {
-      this.setState({ isSend: true, isSending: false, multiline: '' });
+      this.setState({ isSend: true, isSending: false });
     }, 2000);
   }
 
@@ -59,7 +51,7 @@ class EstimateDialog extends React.Component {
       return (
         <div style={{ textAlign: 'center' }}>
           <Button raised onClick={this.sendRequest} color="secondary">
-            送信
+            キャンセルする
           </Button>
         </div>
       );
@@ -67,54 +59,23 @@ class EstimateDialog extends React.Component {
   }
 
   showDialogContents() {
-    const { classes } = this.props;
-
     if (this.state.isSend) {
       this.handleClose();
     } else {
       return (
         <div>
-          <DialogTitle id="alert-dialog-slide-title">見積り</DialogTitle>
+          <DialogTitle id="alert-dialog-slide-title">キャンセル確認</DialogTitle>
           <DialogContent>
-            {/*<DialogContentText id="alert-dialog-slide-description">*/}
-            {/*預けたい期間、預けるモノの内容・大きさなどなるべく具体的に伝えてみましょう。*/}
-            {/*</DialogContentText>*/}
-            <TextField
-              id="date-start"
-              label="預かり開始日"
-              type="date"
-              defaultValue="2018-02-09"
-              className={classes.textField}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              disabled={this.state.isSending}
-            />
-            <TextField
-              id="date-end"
-              label="預かり終了日"
-              type="date"
-              defaultValue="2018-03-09"
-              className={classes.textField}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              disabled={this.state.isSending}
-            />
-            <TextField
-              id="number"
-              label="料金"
-              value={this.state.price}
-              onChange={this.handleChange('price')}
-              type="number"
-              className={classes.textField}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              margin="normal"
-              disabled={this.state.isSending}
-            />
-            <br />
+            <Typography type="body4">
+              預かり開始日:2018/02/09<br />
+              預かり終了日:2018/03/09<br />
+              料金:¥20,000<br />
+            </Typography>
+            <Typography type="caption" style={{ marginTop: 10, marginBottom: 20 }}>
+              【注意事項】<br />
+              ・キャンセルはホスト(もしくはユーザー)からの評価が下がる可能性があります。<br />
+              ・みたいなことを色々と書く。
+            </Typography>
             {this.showSendButton()}
           </DialogContent>
         </div>
@@ -124,9 +85,9 @@ class EstimateDialog extends React.Component {
 
   render() {
     return (
-      <div style={{ padding: 20 }}>
-        <Button raised color="secondary" onClick={this.handleClickOpen} fullWidth>
-          見積りを送る
+      <div>
+        <Button color="secondary" onClick={this.handleClickOpen}>
+          キャンセル
         </Button>
         <Dialog
           open={this.state.open}
@@ -150,4 +111,4 @@ const styles = theme => ({
   },
 });
 
-export default withRouter(withStyles(styles)(EstimateDialog));
+export default withRouter(withStyles(styles)(RequestCancelDialog));

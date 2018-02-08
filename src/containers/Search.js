@@ -8,7 +8,6 @@ import Header from '../components/Header';
 import SpaceList from '../components/SpaceList';
 
 class Search extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -18,20 +17,20 @@ class Search extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.showSpaceList = this.showSpaceList.bind(this);
     setTimeout(() => {
-      this.setState({isLoad: true});
+      this.setState({ isLoad: true });
     }, 1500);
   }
 
   handleChange(event) {
-    this.setState({[event.target.id]: event.target.value});
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   showSpaceList() {
-    if(this.state.isLoad) {
+    if (this.state.isLoad) {
       return <SpaceList />;
     } else {
       return (
-        <div style={{textAlign: 'center'}}>
+        <div style={{ textAlign: 'center' }}>
           <CircularProgress className={this.props.classes.progress} size={50} />
         </div>
       );
@@ -43,14 +42,16 @@ class Search extends React.Component {
     return (
       <div className={classes.root}>
         <Header />
-        <Paper elevation={0} className={classes.contents}>
-          <Typography type="title" component="h2">
-            {this.state.location}の検索結果
-          </Typography>
-        </Paper>
-        <Paper elevation={0} style={{padding: 20}}>
-          {this.showSpaceList()}
-        </Paper>
+        <div className={classes.wrapper}>
+          <Paper elevation={0} className={classes.contents}>
+            <Typography type="title" component="h2">
+              {this.state.location}の検索結果
+            </Typography>
+          </Paper>
+          <Paper elevation={0} style={{ padding: 20 }}>
+            {this.showSpaceList()}
+          </Paper>
+        </div>
       </div>
     );
   }
@@ -62,7 +63,7 @@ const styles = theme => ({
   },
   contents: {
     padding: 20,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   container: {
     display: 'flex',
@@ -74,7 +75,7 @@ const styles = theme => ({
     width: 200,
   },
   search: {
-    marginTop: 20
+    marginTop: 20,
   },
   card: {
     maxWidth: 345,
@@ -89,6 +90,10 @@ const styles = theme => ({
   },
   progress: {
     margin: `0 ${theme.spacing.unit * 2}px`,
+  },
+  wrapper: {
+    maxWidth: 720,
+    margin: 'auto',
   },
 });
 

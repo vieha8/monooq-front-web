@@ -10,6 +10,9 @@ import grey from 'material-ui/colors/grey';
 import green from 'material-ui/colors/green';
 import { defaultPageFactory } from '../components/PageLayouts';
 import EstimateDialog from '../components/EstimateDialog';
+import AcceptDialog from '../components/AcceptDialog';
+import PaymentDialog from '../components/PaymentDialog';
+import CancelDialog from '../components/RequestCancelDialog';
 
 class Message extends React.Component {
   constructor(props) {
@@ -65,20 +68,39 @@ class Message extends React.Component {
           預かり終了日:2018/03/09<br />
           料金:¥20,000<br />
           <div style={{ textAlign: 'right' }}>
-            <Button color="primary">承諾する</Button>
+            <AcceptDialog />
           </div>
         </div>
         <div className={classes.specialMessage}>
           <small style={{ color: 'gray' }}>02/07 18:12</small>
           <br />
           リクエストが成立しました!<br />
-          預かり開始日の前日までに、支払いをお願いします。<br />
+          預かり開始日の前日までに、お支払いをお願いします。<br />
           <div style={{ textAlign: 'right' }}>
-            <Button color="primary">支払い</Button>
+            <PaymentDialog />
           </div>
           <div style={{ textAlign: 'right' }}>
-            <Button color="secondary">キャンセル</Button>
+            <CancelDialog />
           </div>
+        </div>
+        <div className={classes.specialMessage}>
+          <small style={{ color: 'gray' }}>02/07 18:12</small>
+          <br />
+          お支払いが完了しました。<br />
+        </div>
+        <div>
+          <Avatar style={{ float: 'left', marginLeft: 20, marginTop: 50 }}>MK</Avatar>
+          <div className={classes.message}>
+            <small style={{ color: 'gray' }}>02/07 20:34</small>
+            <br />
+            申し訳ありません、やむを得ない事情によりキャンセルさせてください。
+          </div>
+        </div>
+        <div style={{ clear: 'both' }} />
+        <div className={classes.specialMessage}>
+          <small style={{ color: 'gray' }}>02/07 18:12</small>
+          <br />
+          Masaya Kudoさんによりリクエストがキャンセルされました。<br />
         </div>
         <div style={{ clear: 'both' }} />
         <Divider style={{ marginTop: 20, marginRight: 20, marginLeft: 20 }} />
