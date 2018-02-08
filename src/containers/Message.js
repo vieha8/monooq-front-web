@@ -4,10 +4,12 @@ import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
-import { defaultPageFactory } from '../components/PageLayouts';
 import TextField from 'material-ui/TextField';
 import red from 'material-ui/colors/red';
 import grey from 'material-ui/colors/grey';
+import green from 'material-ui/colors/green';
+import { defaultPageFactory } from '../components/PageLayouts';
+import EstimateDialog from '../components/EstimateDialog';
 
 class Message extends React.Component {
   constructor(props) {
@@ -55,9 +57,34 @@ class Message extends React.Component {
           </div>
         </div>
         <div style={{ clear: 'both' }} />
+        <div className={classes.specialMessage}>
+          <small style={{ color: 'gray' }}>02/07 18:12</small>
+          <br />
+          Masaya Kudoさんからの見積り<br />
+          預かり開始日:2018/02/09<br />
+          預かり終了日:2018/03/09<br />
+          料金:¥20,000<br />
+          <div style={{ textAlign: 'right' }}>
+            <Button color="primary">承諾する</Button>
+          </div>
+        </div>
+        <div className={classes.specialMessage}>
+          <small style={{ color: 'gray' }}>02/07 18:12</small>
+          <br />
+          リクエストが成立しました!<br />
+          預かり開始日の前日までに、支払いをお願いします。<br />
+          <div style={{ textAlign: 'right' }}>
+            <Button color="primary">支払い</Button>
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <Button color="secondary">キャンセル</Button>
+          </div>
+        </div>
+        <div style={{ clear: 'both' }} />
         <Divider style={{ marginTop: 20, marginRight: 20, marginLeft: 20 }} />
         <div style={{ padding: 20 }}>
           <TextField
+            id="message"
             multiline
             rows="4"
             placeholder="メッセージを送る"
@@ -70,10 +97,8 @@ class Message extends React.Component {
           <Button raised color="primary" fullWidth>
             送信
           </Button>
-          {/*<Button raised color="secondary" fullWidth style={{marginTop: 20}}>*/}
-          {/*見積りをする(ホストのみ表示)*/}
-          {/*</Button>*/}
         </div>
+        <EstimateDialog />
       </div>
     );
   }
@@ -92,7 +117,7 @@ const styles = theme => ({
   },
   myMessage: {
     float: 'right',
-    maxWidth: 250,
+    maxWidth: 200,
     borderRadius: 5,
     backgroundColor: red[100],
     padding: 10,
@@ -104,12 +129,22 @@ const styles = theme => ({
   },
   message: {
     float: 'left',
-    maxWidth: 250,
+    maxWidth: 200,
     borderRadius: 5,
     backgroundColor: grey[100],
     padding: 10,
     marginRight: 'auto',
     marginLeft: 20,
+    marginBottom: 10,
+    fontSize: 14,
+    wordWrap: 'break-word',
+  },
+  specialMessage: {
+    width: 300,
+    borderRadius: 5,
+    backgroundColor: green[100],
+    padding: 10,
+    margin: 'auto',
     marginBottom: 10,
     fontSize: 14,
     wordWrap: 'break-word',
