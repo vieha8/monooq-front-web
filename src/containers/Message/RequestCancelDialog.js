@@ -66,7 +66,7 @@ class RequestCancelDialog extends React.Component {
         <div>
           <DialogTitle id="alert-dialog-slide-title">キャンセル確認</DialogTitle>
           <DialogContent>
-            <Typography type="body4">
+            <Typography type="body2">
               預かり開始日:2018/02/09<br />
               預かり終了日:2018/03/09<br />
               料金:¥20,000<br />
