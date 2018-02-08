@@ -12,6 +12,8 @@ import Search from './containers/Search';
 import Space from './containers/Space';
 import Message from './containers/Message';
 import Messages from './containers/Messages';
+import Signup from './containers/Signup';
+import ProfileForm from './containers/ProfileForm'
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -32,6 +34,8 @@ ReactDOM.render(
         <Route exact path="/space/:id" component={Space} />
         <Route exact path="/messages" component={Messages} />
         <Route exact path="/message/:user_id" component={Message} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/edit/profile" component={ProfileForm} />
       </div>
     </ConnectedRouter>
   </Provider>,
