@@ -1,16 +1,15 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
 
 class SpaceCard extends React.Component {
-
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Link to="/space/1" style={{textDecoration: 'none'}}>
+        <Link to="/space/1" style={{ textDecoration: 'none' }}>
           <Card className={classes.card}>
             <CardMedia
               className={classes.media}
@@ -22,7 +21,11 @@ class SpaceCard extends React.Component {
               <Typography type="title" component="h2">
                 TOKYO DESIGN OFFICE ~ MONOOQ ~
               </Typography>
-              <Typography type="subheading" component="h3" style={{paddingTop:5, paddingBottom:5}}>
+              <Typography
+                type="subheading"
+                component="h3"
+                style={{ paddingTop: 5, paddingBottom: 5 }}
+              >
                 ¥20,000/月
               </Typography>
               <Typography type="caption" component="p">
@@ -40,11 +43,11 @@ class SpaceCard extends React.Component {
 const styles = theme => ({
   card: {
     maxWidth: 300,
-    margin: 10
+    margin: 10,
   },
   media: {
     height: 200,
-  }
+  },
 });
 
 export default withStyles(styles)(SpaceCard);

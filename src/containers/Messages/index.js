@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import { defaultPageFactory } from '../components/PageLayouts';
+import { defaultPageFactory } from '../../components/PageLayouts';
 
 class Messages extends React.Component {
   constructor(props) {

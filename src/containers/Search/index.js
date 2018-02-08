@@ -4,8 +4,8 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 
-import Header from '../components/Header';
-import SpaceList from '../components/SpaceList';
+import Header from '../../components/Header/';
+import SpaceList from './SpaceList';
 
 class Search extends React.Component {
   constructor(props) {

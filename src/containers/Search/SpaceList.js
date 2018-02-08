@@ -4,7 +4,6 @@ import { withStyles } from 'material-ui/styles';
 import SpaceCard from './SpaceCard';
 
 class SpaceList extends React.Component {
-
   render() {
     const { classes } = this.props;
     return (
@@ -30,7 +29,7 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'space-evenly',
     flexWrap: 'wrap',
-  }
+  },
 });
 
 export default withStyles(styles)(SpaceList);

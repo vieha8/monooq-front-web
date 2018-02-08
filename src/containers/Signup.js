@@ -11,25 +11,26 @@ const Signup = () => {
   return (
     <div>
       <Header />
-      <div style={{
-        textAlign: "center"
-      }}>
+      <div
+        style={{
+          textAlign: 'center',
+        }}
+      >
         <Typography component="p">
-          荷物を預けるために<br/>モノオクに登録をしましょう！
+          荷物を預けるために<br />モノオクに登録をしましょう！
         </Typography>
-        <InputForm text="メールアドレス" /><br/>
-        <InputForm text="パスワード" /><br/>
-        <InputForm text="確認用パスワード" /><br/>
-        <Button
-          raised
-          color="primary"
-          component={Link} to={"/edit/profile"}
-        >
-        次へ
+        <InputForm text="メールアドレス" />
+        <br />
+        <InputForm text="パスワード" />
+        <br />
+        <InputForm text="確認用パスワード" />
+        <br />
+        <Button raised color="primary" component={Link} to={'/edit/profile'}>
+          次へ
         </Button>
       </div>
     </div>
   );
-}
+};
 
 export default Signup;

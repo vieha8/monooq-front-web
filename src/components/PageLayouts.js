@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import Header from './Header';
+import Header from './Header/';
 import Typography from 'material-ui/Typography';
 
 function createOneColumnPageLayout(title, WrappedComponent) {

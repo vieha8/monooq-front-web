@@ -8,9 +8,9 @@ import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import LocalShippingIcon from 'material-ui-icons/LocalShipping';
 import People from 'material-ui-icons/People';
 
-import Header from '../components/Header';
-import RequestDialog from '../components/RequestDialog';
-import SpaceMenu from '../components/SpaceMenu';
+import Header from '../../components/Header/';
+import RequestDialog from './RequestDialog';
+import SpaceMenu from '../Search/SpaceMenu';
 
 class Space extends React.Component {
   render() {

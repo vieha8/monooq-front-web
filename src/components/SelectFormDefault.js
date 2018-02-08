@@ -7,8 +7,7 @@ import { FormControl, FormHelperText } from 'material-ui/Form';
 import Select from 'material-ui/Select';
 
 const styles = theme => ({
-  container: {
-  },
+  container: {},
   formControl: {
     margin: theme.spacing.unit,
     minWidth: 170,

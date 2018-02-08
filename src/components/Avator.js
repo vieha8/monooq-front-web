@@ -2,16 +2,16 @@
 // 汎用的なアバター
 import React from 'react';
 
-const Avator = ({url}) => {
+const Avator = ({ url }) => {
   return (
     <img
       src={url}
       style={{
-        width: "150px",
-        borderRadius: "75px",
+        width: '150px',
+        borderRadius: '75px',
       }}
     />
   );
-}
+};
 
 export default Avator;

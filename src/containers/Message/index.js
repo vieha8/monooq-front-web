@@ -8,11 +8,11 @@ import TextField from 'material-ui/TextField';
 import red from 'material-ui/colors/red';
 import grey from 'material-ui/colors/grey';
 import green from 'material-ui/colors/green';
-import { defaultPageFactory } from '../components/PageLayouts';
-import EstimateDialog from '../components/EstimateDialog';
-import AcceptDialog from '../components/AcceptDialog';
-import PaymentDialog from '../components/PaymentDialog';
-import CancelDialog from '../components/RequestCancelDialog';
+import { defaultPageFactory } from '../../components/PageLayouts';
+import EstimateDialog from './EstimateDialog';
+import AcceptDialog from './AcceptDialog';
+import PaymentDialog from './PaymentDialog';
+import CancelDialog from './RequestCancelDialog';
 
 class Message extends React.Component {
   constructor(props) {
