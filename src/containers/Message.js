@@ -10,6 +10,7 @@ import grey from 'material-ui/colors/grey';
 import green from 'material-ui/colors/green';
 import { defaultPageFactory } from '../components/PageLayouts';
 import EstimateDialog from '../components/EstimateDialog';
+import AcceptDialog from '../components/AcceptDialog';
 
 class Message extends React.Component {
   constructor(props) {
@@ -65,7 +66,7 @@ class Message extends React.Component {
           預かり終了日:2018/03/09<br />
           料金:¥20,000<br />
           <div style={{ textAlign: 'right' }}>
-            <Button color="primary">承諾する</Button>
+            <AcceptDialog />
           </div>
         </div>
         <div className={classes.specialMessage}>
