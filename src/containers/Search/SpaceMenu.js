@@ -4,7 +4,6 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 
 class SpaceMenu extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +13,7 @@ class SpaceMenu extends React.Component {
     this.handleClose = this.handleClose.bind(this);
   }
 
-  handleClick(event){
+  handleClick(event) {
     this.setState({ anchorEl: event.currentTarget });
   }
 

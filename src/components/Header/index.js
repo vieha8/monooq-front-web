@@ -11,7 +11,7 @@ import SearchIcon from 'material-ui-icons/Search';
 import MessageIcon from 'material-ui-icons/Message';
 import Hidden from 'material-ui/Hidden';
 
-import logo from '../images/monooq_logo.svg';
+import logo from '../../images/monooq_logo.svg';
 import HeaderMenu from './HeaderMenu';
 
 const Header = props => {

@@ -8,26 +8,25 @@ import Button from 'material-ui/Button';
 import Hidden from 'material-ui/Hidden';
 import SearchIcon from 'material-ui-icons/Search';
 
-import Header from '../components/Header';
+import Header from '../components/Header/';
 
 class Top extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       location: '',
-      isDisableSearchButton: true
+      isDisableSearchButton: true,
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    if(event.target.value === "") {
-      this.setState({isDisableSearchButton: true});
+    if (event.target.value === '') {
+      this.setState({ isDisableSearchButton: true });
     } else {
-      this.setState({isDisableSearchButton: false});
+      this.setState({ isDisableSearchButton: false });
     }
-    this.setState({[event.target.id]: event.target.value});
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   render() {
@@ -42,13 +41,11 @@ class Top extends React.Component {
             </Typography>
           </Hidden>
           <Hidden smUp>
-            <Typography type="title" component="h1" style={{fontWeight: 'bold'}}>
+            <Typography type="title" component="h1" style={{ fontWeight: 'bold' }}>
               モノがあふれていませんか?
             </Typography>
           </Hidden>
-          <Typography component="p">
-            ご近所に安くモノを預けよう!
-          </Typography>
+          <Typography component="p">ご近所に安くモノを預けよう!</Typography>
           <div className={classes.search}>
             <TextField
               id="location"
@@ -58,9 +55,13 @@ class Top extends React.Component {
               onChange={this.handleChange}
               margin="normal"
             />
-            <Button fab color="primary" mini
-              component={Link} to={"/search/" + this.state.location}
-                    disabled={this.state.isDisableSearchButton}
+            <Button
+              fab
+              color="primary"
+              mini
+              component={Link}
+              to={'/search/' + this.state.location}
+              disabled={this.state.isDisableSearchButton}
             >
               <SearchIcon />
             </Button>
@@ -77,7 +78,7 @@ const styles = theme => ({
   },
   contents: {
     padding: 40,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   container: {
     display: 'flex',
@@ -89,8 +90,8 @@ const styles = theme => ({
     width: 200,
   },
   search: {
-    marginTop: 20
-  }
+    marginTop: 20,
+  },
 });
 
 export default withStyles(styles)(Top);
