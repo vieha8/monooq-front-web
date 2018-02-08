@@ -44,7 +44,7 @@ const ProfileForm = () => {
         <Button
           raised
           color="primary"
-          component={Link} to={"/complete"}
+          component={Link} to={"/profile"}
         >
         プロフィール登録
         </Button>

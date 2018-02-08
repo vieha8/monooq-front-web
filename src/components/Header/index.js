@@ -41,7 +41,9 @@ const Header = props => {
           </IconButton>
           <Hidden xsDown>
             <Button>ログイン</Button>
-            <Button>登録</Button>
+            <Button
+              onClick={() => props.history.push('/signup')}
+            >登録</Button>
           </Hidden>
           <HeaderMenu />
         </Toolbar>
