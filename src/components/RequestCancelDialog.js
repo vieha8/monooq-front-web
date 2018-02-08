@@ -12,11 +12,11 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-class AcceptDialog extends React.Component {
+class RequestCancelDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false,
+      open: true,
       isSend: false,
       isSending: false,
     };
@@ -51,8 +51,8 @@ class AcceptDialog extends React.Component {
     } else {
       return (
         <div style={{ textAlign: 'center' }}>
-          <Button raised onClick={this.sendRequest} color="primary">
-            注意事項に同意し承諾する
+          <Button raised onClick={this.sendRequest} color="secondary">
+            キャンセルする
           </Button>
         </div>
       );
@@ -67,7 +67,7 @@ class AcceptDialog extends React.Component {
     } else {
       return (
         <div>
-          <DialogTitle id="alert-dialog-slide-title">契約確認</DialogTitle>
+          <DialogTitle id="alert-dialog-slide-title">キャンセル確認</DialogTitle>
           <DialogContent>
             <Typography type="body4">
               預かり開始日:2018/02/09<br />
@@ -76,9 +76,8 @@ class AcceptDialog extends React.Component {
             </Typography>
             <Typography type="caption" style={{ marginTop: 10, marginBottom: 20 }}>
               【注意事項】<br />
-              ・承諾するとリクエスト成立となります。<br />
-              ・承諾後にキャンセルする場合はホストのキャンセルポリシーに従う必要があります。<br />
-              ・みたいなことを色々と書く。<br />
+              ・キャンセルはホスト(もしくはユーザー)からの評価が下がる可能性があります。<br />
+              ・みたいなことを色々と書く。
             </Typography>
             {this.showSendButton()}
           </DialogContent>
@@ -90,8 +89,8 @@ class AcceptDialog extends React.Component {
   render() {
     return (
       <div>
-        <Button color="primary" onClick={this.handleClickOpen}>
-          承諾する
+        <Button color="secondary" onClick={this.handleClickOpen}>
+          キャンセル
         </Button>
         <Dialog
           open={this.state.open}
@@ -115,4 +114,4 @@ const styles = theme => ({
   },
 });
 
-export default withRouter(withStyles(styles)(AcceptDialog));
+export default withRouter(withStyles(styles)(RequestCancelDialog));
