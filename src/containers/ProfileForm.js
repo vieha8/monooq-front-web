@@ -1,7 +1,7 @@
 // ユーザー登録(メールアドレス) > プロフィール入力
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/Header/';
 import Avator from '../components/Avator';
 import InputForm from '../components/InputForm';
 import SelectFormDefault from '../components/SelectFormDefault';
