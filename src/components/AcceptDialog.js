@@ -2,11 +2,10 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import Dialog, { DialogContent, DialogContentText, DialogTitle } from 'material-ui/Dialog';
+import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
-import Divider from 'material-ui/Divider';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -60,8 +59,6 @@ class AcceptDialog extends React.Component {
   }
 
   showDialogContents() {
-    const { classes } = this.props;
-
     if (this.state.isSend) {
       this.handleClose();
     } else {

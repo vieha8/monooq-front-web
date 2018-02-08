@@ -4,7 +4,6 @@ import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import Dialog, { DialogContent, DialogContentText, DialogTitle } from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
-import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
 
@@ -32,14 +31,7 @@ class PaymentDialog extends React.Component {
 
   handleClose() {
     this.setState({ open: false, isSend: false });
-    // this.props.history.push('/search/東京都');
   }
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
-  };
 
   sendRequest() {
     this.setState({ isSending: true });

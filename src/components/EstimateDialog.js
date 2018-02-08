@@ -2,9 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import Dialog, { DialogContent, DialogContentText, DialogTitle } from 'material-ui/Dialog';
+import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
-import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
 
