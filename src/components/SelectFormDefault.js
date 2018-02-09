@@ -32,9 +32,10 @@ class SelectFormDefault extends React.Component {
 
     return (
       <form className={classes.container} autoComplete="off">
-        <FormControl className={classes.formControl}>
+        <FormControl fullWidth>
           <InputLabel htmlFor="age-simple">お住いの地域</InputLabel>
           <Select
+            fullWidth
             value={this.state.age}
             onChange={this.handleChange}
             inputProps={{

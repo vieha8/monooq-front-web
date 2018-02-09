@@ -14,6 +14,8 @@ const Signup = () => {
       <div
         style={{
           textAlign: 'center',
+          width: '300px',
+          margin: '0 auto',
         }}
       >
         <Typography component="p">

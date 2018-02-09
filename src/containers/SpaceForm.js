@@ -1,12 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header/';
+import InputForm from '../components/InputForm';
+import SelectFormDefault from '../components/SelectFormDefault';
+import TextFieldFormDefault from '../components/TextFieldFormDefault';
 
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/Icon';
+import { FormLabel, FormGroup, FormControlLabel } from 'material-ui/Form';
+import Checkbox from 'material-ui/Checkbox';
 
 const tileData = [
   {
@@ -32,7 +37,7 @@ const SpaceForm = () => {
     <div
       style={{
         width: '50vw',
-        margin: '0 auto',
+        margin: '20px auto',
       }}
     >
       <Header />
@@ -41,7 +46,7 @@ const SpaceForm = () => {
       </Typography>
       <hr color="#eee" />
 
-      <div style={{ textAlign: 'center' }}>
+      <div style={{marginBottom: "20px"}}>
         <img
           src="https://picsum.photos/900?image=65"
           style={{
@@ -65,9 +70,78 @@ const SpaceForm = () => {
           ))}
         </GridList>
         <br />
-        <Button raised>写真を変更する</Button>
+
+        <div style={{padding: '0 1vw'}}>
+          <Typography type="body2" component="h1">
+            場所に関して
+          </Typography>
+          <InputForm text="場所の名前" /><br />
+          <TextFieldFormDefault text="場所の説明" />
+        </div>
       </div>
 
+      <div style={{marginBottom: '20px', padding: '0 1vw'}}>
+        <Typography type="body2" component="h1">
+          料金に関して
+        </Typography>
+        <InputForm text="1日の料金" /><br />
+        <InputForm text="1ヶ月の料金" /><br />
+      </div>
+
+      <div style={{marginBottom: '20px', padding: '0 1vw'}}>
+        <Typography type="body2" component="h1">
+          荷物のやり取りに関して
+        </Typography>
+        <InputForm text="受け取り場所" /><br />
+        <FormLabel style={{marginTop: '10px'}} component="legend">受け取り・引き取りがしやすい曜日</FormLabel>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox
+                value="月"
+              />
+            }
+            label="月"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                value="火"
+              />
+            }
+            label="火"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                value="水"
+              />
+            }
+            label="水"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                value="木"
+              />
+            }
+            label="木"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                value="金"
+              />
+            }
+            label="金"
+          />
+        </FormGroup>
+        <TextFieldFormDefault text="やり取りに関する補足" /><br />
+      </div>
+
+
+      <Button color="primary" raised style={{marginRight: "10px"}}>場所を登録する</Button>
+      <Button raised>保存する</Button>
     </div>
   );
 }

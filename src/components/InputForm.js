@@ -9,6 +9,7 @@ const InputForm = ({text}) => {
       label={text}
       className="inputForm"
       margin="normal"
+      fullWidth
     />
   );
 }

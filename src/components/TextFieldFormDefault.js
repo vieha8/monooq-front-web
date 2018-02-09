@@ -2,11 +2,12 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
 
-const TextFieldFormDefault = () => {
+const TextFieldFormDefault = ({text}) => {
   return (
     <TextField
       multiline
-      label="あなたの紹介文"
+      label={text}
+      fullWidth
     />
   );
 }
