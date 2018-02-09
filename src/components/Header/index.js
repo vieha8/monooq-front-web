@@ -13,6 +13,7 @@ import Hidden from 'material-ui/Hidden';
 
 import logo from '../../images/monooq_logo.svg';
 import HeaderMenu from './HeaderMenu';
+import LoginDialog from './LoginDialog';
 
 const Header = props => {
   const { classes } = props;
@@ -40,10 +41,8 @@ const Header = props => {
             <MessageIcon />
           </IconButton>
           <Hidden xsDown>
-            <Button>ログイン</Button>
-            <Button
-              onClick={() => props.history.push('/signup')}
-            >登録</Button>
+            <LoginDialog />
+            <Button onClick={() => props.history.push('/signup')}>登録</Button>
           </Hidden>
           <HeaderMenu />
         </Toolbar>
