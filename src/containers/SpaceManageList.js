@@ -53,7 +53,7 @@ const SpaceManageList = () => {
                   primary="TOKYO DESIGN OFFICE ~ MONOOQ ~"
                 />
                 <ListItemSecondaryAction>
-                  <IconButton aria-label="settings">
+                  <IconButton aria-label="settings" component={Link} to={"/edit/space/1"}>
                     <Icon>settings</Icon>
                   </IconButton>
                 </ListItemSecondaryAction>

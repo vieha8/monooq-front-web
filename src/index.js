@@ -39,7 +39,7 @@ ReactDOM.render(
         <Route exact path="/message/:user_id" component={Message} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/edit/profile/:user_id" component={ProfileForm} />
-        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/profile/:user_id" component={Profile} />
         <Route exact path="/edit/space/:id" component={SpaceForm} />
         <Route exact path="/manage/space/list" component={SpaceManageList} />
       </div>

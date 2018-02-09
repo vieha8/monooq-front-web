@@ -140,7 +140,7 @@ const SpaceForm = () => {
       </div>
 
 
-      <Button color="primary" raised style={{marginRight: "10px"}}>場所を登録する</Button>
+      <Button color="primary" raised style={{marginRight: "10px"}} component={Link} to={"/manage/space/list"}>場所を登録する</Button>
       <Button raised>保存する</Button>
     </div>
   );

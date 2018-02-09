@@ -50,7 +50,7 @@ const ProfileForm = () => {
         <Button
           raised
           color="primary"
-          component={Link} to={"/profile"}
+          component={Link} to={"/profile/1"}
         >
         プロフィール登録
         </Button>
