@@ -15,6 +15,7 @@ import Messages from './containers/Messages/';
 import Signup from './containers/Signup';
 import ProfileForm from './containers/ProfileForm';
 import Profile from './containers/Profile';
+import SpaceForm from './containers/SpaceForm';
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -38,6 +39,7 @@ ReactDOM.render(
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/edit/profile" component={ProfileForm} />
         <Route exact path="/profile" component={Profile} />
+        <Route exact path="/edit/space" component={SpaceForm} />
       </div>
     </ConnectedRouter>
   </Provider>,
