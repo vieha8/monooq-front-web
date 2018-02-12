@@ -14,7 +14,7 @@ const ProfileForm = () => {
   return (
     <div
       style={{
-        width: '90vw',
+        width: '50vw',
         margin: '0 auto',
       }}
     >
@@ -32,7 +32,13 @@ const ProfileForm = () => {
         <Button raised>写真を変更する</Button>
       </div>
 
-      <div style={{ textAlign: 'center' }}>
+      <div
+        style={{
+          textAlign: 'center',
+          width: '300px',
+          margin: '0 auto',
+        }}
+      >
         <InputForm text="名前" />
         <br />
         <InputForm text="メールアドレス" />
@@ -40,11 +46,11 @@ const ProfileForm = () => {
         <InputForm text="電話番号" />
         <br />
         <SelectFormDefault />
-        <TextFieldFormDefault />
+        <TextFieldFormDefault text="あなたの紹介文" />
       </div>
 
       <div style={{ textAlign: 'center', margin: '20px' }}>
-        <Button raised color="primary" component={Link} to={'/profile'}>
+        <Button raised color="primary" component={Link} to={'/profile/1'}>
           プロフィール登録
         </Button>
       </div>

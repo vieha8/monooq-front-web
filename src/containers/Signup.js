@@ -14,6 +14,8 @@ const Signup = () => {
       <div
         style={{
           textAlign: 'center',
+          width: '300px',
+          margin: '0 auto',
         }}
       >
         <Typography component="p">
@@ -25,7 +27,7 @@ const Signup = () => {
         <br />
         <InputForm text="確認用パスワード" />
         <br />
-        <Button raised color="primary" component={Link} to={'/edit/profile'}>
+        <Button raised color="primary" component={Link} to={'/edit/profile/1'}>
           次へ
         </Button>
       </div>
