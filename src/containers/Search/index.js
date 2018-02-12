@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
@@ -14,18 +14,12 @@ class Search extends React.Component {
       location: this.props.match.params.location,
       isLoad: false,
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.showSpaceList = this.showSpaceList.bind(this);
     setTimeout(() => {
       this.setState({ isLoad: true });
     }, 1500);
   }
 
-  handleChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
-  }
-
-  showSpaceList() {
+  showSpaceList = () => {
     if (this.state.isLoad) {
       return <SpaceList />;
     } else {
@@ -35,12 +29,12 @@ class Search extends React.Component {
         </div>
       );
     }
-  }
+  };
 
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
+      <Fragment>
         <Header />
         <div className={classes.wrapper}>
           <Paper elevation={0} className={classes.contents}>
@@ -52,41 +46,15 @@ class Search extends React.Component {
             {this.showSpaceList()}
           </Paper>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-  },
   contents: {
     padding: 20,
     textAlign: 'center',
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
-  search: {
-    marginTop: 20,
-  },
-  card: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 200,
-  },
-  title: {
-    marginBottom: 16,
-    fontSize: 14,
-    color: theme.palette.text.secondary,
   },
   progress: {
     margin: `0 ${theme.spacing.unit * 2}px`,

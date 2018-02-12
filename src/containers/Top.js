@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
@@ -31,9 +30,9 @@ class Top extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
+      <Fragment>
         <Header />
-        <Paper elevation={0} className={classes.contents}>
+        <div className={classes.contents}>
           <Hidden xsDown>
             <Typography type="display2" component="h1">
               モノがあふれていませんか?
@@ -65,23 +64,16 @@ class Top extends React.Component {
               <SearchIcon />
             </Button>
           </div>
-        </Paper>
-      </div>
+        </div>
+      </Fragment>
     );
   }
 }
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-  },
   contents: {
-    padding: 40,
+    paddingTop: 80,
     textAlign: 'center',
-  },
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
   },
   textField: {
     marginLeft: theme.spacing.unit,
