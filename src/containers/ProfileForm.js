@@ -2,11 +2,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header/';
-import Avator from '../components/Avator';
 import InputForm from '../components/InputForm';
 import SelectFormDefault from '../components/SelectFormDefault';
 import TextFieldFormDefault from '../components/TextFieldFormDefault';
 
+import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 
@@ -24,7 +24,10 @@ const ProfileForm = () => {
       </Typography>
       <hr color="#eee" />
       <div style={{ textAlign: 'center' }}>
-        <Avator url="https://picsum.photos/300?image=65" />
+        <Avatar
+          src="https://picsum.photos/300?image=65"
+          style={{ width: 150, height: 150, margin: 'auto' }}
+        />
         <br />
         <Button raised>写真を変更する</Button>
       </div>
@@ -40,13 +43,9 @@ const ProfileForm = () => {
         <TextFieldFormDefault />
       </div>
 
-      <div style={{textAlign:"center", margin: "20px"}}>
-        <Button
-          raised
-          color="primary"
-          component={Link} to={"/profile"}
-        >
-        プロフィール登録
+      <div style={{ textAlign: 'center', margin: '20px' }}>
+        <Button raised color="primary" component={Link} to={'/profile'}>
+          プロフィール登録
         </Button>
       </div>
     </div>
