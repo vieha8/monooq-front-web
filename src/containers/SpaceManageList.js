@@ -5,22 +5,19 @@ import Header from '../components/Header/';
 import List, {
   ListItem,
   ListItemAvatar,
-  ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
 } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
-import { FormGroup, FormControlLabel } from 'material-ui/Form';
-import Checkbox from 'material-ui/Checkbox';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 import Icon from 'material-ui/Icon';
 
 const generate = element => {
-  return [0, 1, 2, 3].map(value =>
+  return [...Array(4)].map((v, i) =>
     React.cloneElement(element, {
-      key: value,
+      key: i,
     }),
   );
 };

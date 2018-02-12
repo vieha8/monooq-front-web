@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header/';
 import InputForm from '../components/InputForm';
-import SelectFormDefault from '../components/SelectFormDefault';
 import TextFieldFormDefault from '../components/TextFieldFormDefault';
 
 import Typography from 'material-ui/Typography';
@@ -54,6 +53,7 @@ const SpaceForm = () => {
             width: '100%',
             height: '450px',
           }}
+          alt="test"
         />
         <GridList className="gridList" cols={4} cellHeight={90}>
           {tileData.map(tile => (

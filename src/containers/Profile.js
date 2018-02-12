@@ -41,7 +41,6 @@ const Profile = () => {
         </Typography>
         <Typography
           gutterBottom
-          wrap
           style={{
             lineHeight: '1.5rem',
             padding: '5px 10px',
