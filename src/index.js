@@ -18,6 +18,10 @@ import Profile from './containers/Profile';
 import SpaceForm from './containers/SpaceForm';
 import SpaceManageList from './containers/SpaceManageList';
 import Login from './containers/Login';
+import Payment from './containers/Payment';
+import RequestCancel from './containers/RequestCancel';
+import Accept from './containers/Accept';
+import Estimate from './containers/Estimate';
 
 const history = createHistory();
 const middleware = routerMiddleware(history);
@@ -44,6 +48,10 @@ ReactDOM.render(
         <Route exact path="/edit/space/:id" component={SpaceForm} />
         <Route exact path="/manage/space/list" component={SpaceManageList} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/payment/:payment_id" component={Payment} />
+        <Route exact path="/cancel/:payment_id" component={RequestCancel} />
+        <Route exact path="/accept/:payment_id" component={Accept} />
+        <Route exact path="/estimate/:payment_id" component={Estimate} />
       </div>
     </ConnectedRouter>
   </Provider>,
