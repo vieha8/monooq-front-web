@@ -41,7 +41,7 @@ const Header = props => {
             <MessageIcon />
           </IconButton>
           <Hidden xsDown>
-            <LoginDialog />
+            <Button onClick={() => props.history.push('/login')}>ログイン</Button>
             <Button onClick={() => props.history.push('/signup')}>登録</Button>
           </Hidden>
           <HeaderMenu />
