@@ -1,90 +1,58 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Header from '../components/Header/';
-import { withStyles } from 'material-ui/styles';
+import React from 'react';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import firebase from 'firebase';
+import { firebaseApp } from '../libs/firebase';
 import Button from 'material-ui/Button';
-import { CircularProgress } from 'material-ui/Progress';
-import TextField from 'material-ui/TextField';
-import Typography from 'material-ui/Typography';
+import Header from '../components/Header';
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSending: false,
-    };
-  }
+class Login extends React.Component {
+  //TODO とりあえずFirebase UI component入れてるけどちゃんとスクラッチでつくる予定
 
-  sendRequest = () => {
-    this.setState({ isSending: true });
-    setTimeout(() => {
-      this.setState({ isSending: false });
-      // this.props.handleClose();
-    }, 2000);
+  // The component's Local state.
+  state = {
+    signedIn: false, // Local signed-in state.
   };
 
-  showSendButton = () => {
-    if (this.state.isSending) {
+  // Configure FirebaseUI.
+  uiConfig = {
+    // Popup signin flow rather than redirect flow.
+    signInFlow: 'redirect',
+    // We will display Google and Facebook as auth providers.
+    signInOptions: [
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    ],
+    callbacks: {
+      // Avoid redirects after sign-in.
+      signInSuccess: () => false,
+    },
+  };
+
+  // Listen to the Firebase Auth state and set the local state.
+  componentWillMount() {
+    firebaseApp.auth().onAuthStateChanged(user => this.setState({ signedIn: !!user }));
+  }
+
+  render() {
+    if (!this.state.signedIn) {
       return (
-        <div style={{ textAlign: 'center' }}>
-          <CircularProgress />
-        </div>
-      );
-    } else {
-      return (
-        <div style={{ textAlign: 'center' }}>
-          <Button raised onClick={this.sendRequest} color="primary">
-            ログイン
-          </Button>
+        <div>
+          <Header />
+          <div style={{ textAlign: 'center' }}>ログイン</div>
+          <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
         </div>
       );
     }
-  };
-
-  render() {
-    const { classes } = this.props;
     return (
       <div>
         <Header />
-        <div className={classes.login}>
-          <TextField
-            id="email"
-            label="メールアドレス"
-            type="email"
-            placeholder="xxx@xxx.com"
-            className={classes.textField}
-            disabled={this.state.isSending}
-          />
-          <TextField
-            id="password"
-            label="パスワード"
-            type="password"
-            placeholder="••••••••"
-            className={classes.textField}
-            disabled={this.state.isSending}
-          />
-          <br />
-          <br />
-          {this.showSendButton()}
-          <br />
-          <Typography type="caption">
-            メールアドレス・パスワードを忘れた方は<Link to="">こちら</Link>
-          </Typography>
-        </div>
+        <p>ようこそ {firebase.auth().currentUser.displayName}さん!</p>
+        <Button raised onClick={() => firebaseApp.auth().signOut()} color="primary">
+          ログアウト
+        </Button>
       </div>
     );
   }
 }
 
-const styles = () => ({
-  login: {
-    width: '300px',
-    margin: '0 auto',
-  },
-  textField: {
-    width: '100%',
-    marginTop: 10,
-  },
-});
-
-export default withStyles(styles)(Login);
+export default Login;
