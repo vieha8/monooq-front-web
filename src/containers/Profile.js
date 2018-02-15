@@ -11,59 +11,61 @@ const user = {
     'サンプルの文章です。サンプルの文章のために書かれました。サンプルの文章です。サンプルの文章です。サンプルの文章のために書かれました。サンプルの文章です。',
 };
 
-const Profile = () => {
-  return (
-    <div
-      style={{
-        width: '90vw',
-        margin: '0 auto',
-      }}
-    >
-      <Header />
-
+class Profile extends React.Component {
+  render() {
+    return (
       <div
         style={{
-          textAlign: 'center',
-          width: '50vw',
+          width: '90vw',
           margin: '0 auto',
         }}
       >
-        <Avatar
-          src="https://picsum.photos/300?image=65"
-          style={{ width: 150, height: 150, margin: 'auto' }}
-        />
-        <br />
-        <Typography type="title" gutterBottom>
-          {user.name}
-        </Typography>
-        <Typography type="subheading" gutterBottom>
-          {user.area}
-        </Typography>
-        <Typography
-          gutterBottom
+        <Header />
+
+        <div
           style={{
-            lineHeight: '1.5rem',
-            padding: '5px 10px',
+            textAlign: 'center',
+            width: '50vw',
+            margin: '0 auto',
           }}
         >
-          {user.description}
-        </Typography>
-      </div>
+          <Avatar
+            src="https://picsum.photos/300?image=65"
+            style={{ width: 150, height: 150, margin: 'auto' }}
+          />
+          <br />
+          <Typography type="title" gutterBottom>
+            {user.name}
+          </Typography>
+          <Typography type="subheading" gutterBottom>
+            {user.area}
+          </Typography>
+          <Typography
+            gutterBottom
+            style={{
+              lineHeight: '1.5rem',
+              padding: '5px 10px',
+            }}
+          >
+            {user.description}
+          </Typography>
+        </div>
 
-      <div
-        style={{
-          width: '50vw',
-          margin: '0 auto',
-        }}
-      >
-        <hr color="#eee" />
-        <Typography type="headline" gutterBottom>
-          {user.name}さんの場所
-        </Typography>
-        <SpaceList />
+        <div
+          style={{
+            width: '50vw',
+            margin: '0 auto',
+          }}
+        >
+          <hr color="#eee" />
+          <Typography type="headline" gutterBottom>
+            {user.name}さんの場所
+          </Typography>
+          <SpaceList />
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Profile;

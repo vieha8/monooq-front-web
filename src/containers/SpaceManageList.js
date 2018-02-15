@@ -22,42 +22,44 @@ const generate = element => {
   );
 };
 
-const SpaceManageList = () => {
-  return (
-    <div
-      style={{
-        width: '50vw',
-        margin: '20px auto',
-      }}
-    >
-      <Header />
-      <Typography type="title" component="h1">
-        場所の管理をする
-      </Typography>
-      <hr color="#eee" />
-      <Grid style={{ maxWidth: '100%' }} item xs={12} md={6}>
-        <div>
-          <List>
-            {generate(
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <Icon>place</Icon>
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="TOKYO DESIGN OFFICE ~ MONOOQ ~" />
-                <ListItemSecondaryAction>
-                  <IconButton aria-label="settings" component={Link} to={'/edit/space/1'}>
-                    <Icon>settings</Icon>
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>,
-            )}
-          </List>
-        </div>
-      </Grid>
-    </div>
-  );
-};
+class SpaceManageList extends React.Component {
+  render() {
+    return (
+      <div
+        style={{
+          width: '50vw',
+          margin: '20px auto',
+        }}
+      >
+        <Header />
+        <Typography type="title" component="h1">
+          場所の管理をする
+        </Typography>
+        <hr color="#eee" />
+        <Grid style={{ maxWidth: '100%' }} item xs={12} md={6}>
+          <div>
+            <List>
+              {generate(
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <Icon>place</Icon>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary="TOKYO DESIGN OFFICE ~ MONOOQ ~" />
+                  <ListItemSecondaryAction>
+                    <IconButton aria-label="settings" component={Link} to={'/edit/space/1'}>
+                      <Icon>settings</Icon>
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>,
+              )}
+            </List>
+          </div>
+        </Grid>
+      </div>
+    );
+  }
+}
 
 export default SpaceManageList;

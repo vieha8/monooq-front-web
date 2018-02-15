@@ -10,52 +10,54 @@ import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 
-const ProfileForm = () => {
-  return (
-    <div
-      style={{
-        width: '50vw',
-        margin: '0 auto',
-      }}
-    >
-      <Header />
-      <Typography type="title" component="h1">
-        プロフィール編集
-      </Typography>
-      <hr color="#eee" />
-      <div style={{ textAlign: 'center' }}>
-        <Avatar
-          src="https://picsum.photos/300?image=65"
-          style={{ width: 150, height: 150, margin: 'auto' }}
-        />
-        <br />
-        <Button raised>写真を変更する</Button>
-      </div>
-
+class ProfileForm extends React.Component {
+  render() {
+    return (
       <div
         style={{
-          textAlign: 'center',
-          width: '300px',
+          width: '50vw',
           margin: '0 auto',
         }}
       >
-        <InputForm text="名前" />
-        <br />
-        <InputForm text="メールアドレス" />
-        <br />
-        <InputForm text="電話番号" />
-        <br />
-        <SelectFormDefault />
-        <TextFieldFormDefault text="あなたの紹介文" />
-      </div>
+        <Header />
+        <Typography type="title" component="h1">
+          プロフィール編集
+        </Typography>
+        <hr color="#eee" />
+        <div style={{ textAlign: 'center' }}>
+          <Avatar
+            src="https://picsum.photos/300?image=65"
+            style={{ width: 150, height: 150, margin: 'auto' }}
+          />
+          <br />
+          <Button raised>写真を変更する</Button>
+        </div>
 
-      <div style={{ textAlign: 'center', margin: '20px' }}>
-        <Button raised color="primary" component={Link} to={'/profile/1'}>
-          プロフィール登録
-        </Button>
+        <div
+          style={{
+            textAlign: 'center',
+            width: '300px',
+            margin: '0 auto',
+          }}
+        >
+          <InputForm text="名前" />
+          <br />
+          <InputForm text="メールアドレス" />
+          <br />
+          <InputForm text="電話番号" />
+          <br />
+          <SelectFormDefault />
+          <TextFieldFormDefault text="あなたの紹介文" />
+        </div>
+
+        <div style={{ textAlign: 'center', margin: '20px' }}>
+          <Button raised color="primary" component={Link} to={'/profile/1'}>
+            プロフィール登録
+          </Button>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default ProfileForm;
