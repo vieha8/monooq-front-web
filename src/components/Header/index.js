@@ -13,7 +13,6 @@ import Hidden from 'material-ui/Hidden';
 
 import logo from '../../images/monooq_logo.svg';
 import HeaderMenu from './HeaderMenu';
-import LoginDialog from './LoginDialog';
 
 const Header = props => {
   const { classes } = props;

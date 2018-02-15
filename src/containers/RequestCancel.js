@@ -1,17 +1,11 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
-import Slide from 'material-ui/transitions/Slide';
+import { DialogContent, DialogTitle } from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 
 import Header from '../components/Header/';
-
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
 
 class RequestCancel extends React.Component {
   constructor(props) {
@@ -90,9 +84,7 @@ class RequestCancel extends React.Component {
     return (
       <div>
         <Header />
-        <div className={classes.cancel}>
-          {this.showDialogContents()}
-        </div>
+        <div className={classes.cancel}>{this.showDialogContents()}</div>
       </div>
     );
   }

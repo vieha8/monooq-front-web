@@ -9,10 +9,6 @@ import red from 'material-ui/colors/red';
 import grey from 'material-ui/colors/grey';
 import green from 'material-ui/colors/green';
 import { defaultPageFactory } from '../../components/PageLayouts';
-import EstimateDialog from './EstimateDialog';
-import AcceptDialog from './AcceptDialog';
-import PaymentDialog from './PaymentDialog';
-import CancelDialog from './RequestCancelDialog';
 
 class Message extends React.Component {
   constructor(props) {
@@ -68,7 +64,9 @@ class Message extends React.Component {
           預かり終了日:2018/03/09<br />
           料金:¥20,000<br />
           <div style={{ textAlign: 'right' }}>
-            <Button color='primary' onClick={() => this.props.history.push('/accept/1')}>承諾する</Button>
+            <Button color="primary" onClick={() => this.props.history.push('/accept/1')}>
+              承諾する
+            </Button>
           </div>
         </div>
         <div className={classes.specialMessage}>
@@ -77,10 +75,14 @@ class Message extends React.Component {
           リクエストが成立しました!<br />
           預かり開始日の前日までに、お支払いをお願いします。<br />
           <div style={{ textAlign: 'right' }}>
-            <Button color='primary' onClick={() => this.props.history.push('/payment/1')}>お支払い</Button>
+            <Button color="primary" onClick={() => this.props.history.push('/payment/1')}>
+              お支払い
+            </Button>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <Button color='secondary' onClick={() => this.props.history.push('/cancel/1')}>キャンセル</Button>
+            <Button color="secondary" onClick={() => this.props.history.push('/cancel/1')}>
+              キャンセル
+            </Button>
           </div>
         </div>
         <div className={classes.specialMessage}>
@@ -119,7 +121,14 @@ class Message extends React.Component {
           <Button raised color="primary" fullWidth>
             送信
           </Button>
-          <Button fullWidth raised color='secondary' onClick={() => this.props.history.push('/estimate/1')}>見積もりを送る</Button>
+          <Button
+            fullWidth
+            raised
+            color="secondary"
+            onClick={() => this.props.history.push('/estimate/1')}
+          >
+            見積もりを送る
+          </Button>
         </div>
       </div>
     );
