@@ -1,4 +1,5 @@
 import React from 'react';
+import { withStyles } from 'material-ui/styles';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header/';
 import InputForm from '../components/InputForm';
@@ -33,21 +34,18 @@ const tileData = [
 
 class SpaceForm extends React.Component {
   render() {
+    const { classes } = this.props;
     return (
-      <div
-        style={{
-          width: '50vw',
-          margin: '20px auto',
-        }}
-      >
+      <div className={classes.root}>
         <Header />
         <Typography type="title" component="h1">
           場所の登録をする
         </Typography>
         <hr color="#eee" />
 
-        <div style={{ marginBottom: '20px' }}>
+        <div>
           <img
+            className={classes.image}
             src="https://picsum.photos/900?image=65"
             style={{
               objectFit: 'cover',
@@ -72,7 +70,7 @@ class SpaceForm extends React.Component {
           </GridList>
           <br />
 
-          <div style={{ padding: '0 1vw' }}>
+          <div className={classes.form}>
             <Typography type="body2" component="h1">
               場所に関して
             </Typography>
@@ -127,4 +125,14 @@ class SpaceForm extends React.Component {
   }
 }
 
-export default SpaceForm;
+const styles = () => ({
+  root: {
+    width: '50vw',
+    margin: '5vh auto',
+  },
+  form: {
+    padding: '0 1vw',
+  },
+});
+
+export default withStyles(styles)(SpaceForm);

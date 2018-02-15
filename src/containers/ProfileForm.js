@@ -1,6 +1,7 @@
 // ユーザー登録(メールアドレス) > プロフィール入力
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { withStyles } from 'material-ui/styles';
 import Header from '../components/Header/';
 import InputForm from '../components/InputForm';
 import SelectFormDefault from '../components/SelectFormDefault';
@@ -12,34 +13,21 @@ import Button from 'material-ui/Button';
 
 class ProfileForm extends React.Component {
   render() {
+    const { classes } = this.props;
     return (
-      <div
-        style={{
-          width: '50vw',
-          margin: '0 auto',
-        }}
-      >
+      <div className={classes.root}>
         <Header />
         <Typography type="title" component="h1">
           プロフィール編集
         </Typography>
         <hr color="#eee" />
-        <div style={{ textAlign: 'center' }}>
-          <Avatar
-            src="https://picsum.photos/300?image=65"
-            style={{ width: 150, height: 150, margin: 'auto' }}
-          />
+        <div className={classes.profileForm}>
+          <Avatar src="https://picsum.photos/300?image=65" className={classes.avatar} />
           <br />
           <Button raised>写真を変更する</Button>
         </div>
 
-        <div
-          style={{
-            textAlign: 'center',
-            width: '300px',
-            margin: '0 auto',
-          }}
-        >
+        <div className={classes.form}>
           <InputForm text="名前" />
           <br />
           <InputForm text="メールアドレス" />
@@ -60,4 +48,23 @@ class ProfileForm extends React.Component {
   }
 }
 
-export default ProfileForm;
+const styles = () => ({
+  root: {
+    width: '50vw',
+    margin: '0 auto',
+  },
+  profileForm: {
+    textAlign: 'center',
+  },
+  avatar: {
+    width: 150,
+    height: 150,
+    margin: 'auto',
+  },
+  form: {
+    width: '300px',
+    margin: '0 auto',
+  },
+});
+
+export default withStyles(styles)(ProfileForm);
