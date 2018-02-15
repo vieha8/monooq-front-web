@@ -2,6 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { delay } from 'redux-saga';
 import { put, call, takeEvery } from 'redux-saga/effects';
 
+// Actions
 const FETCH_START_SEARCH = 'FETCH_START_SEARCH';
 const FETCH_SUCCESS_SEARCH = 'FETCH_SUCCESS_SEARCH';
 const FETCH_FAILED_SEARCH = 'FETCH_FAILED_SEARCH';
@@ -12,28 +13,38 @@ export const searchActions = createActions(
   FETCH_FAILED_SEARCH,
 );
 
-const initialState = { isLoading: false };
-
+// Reducer
+const initialState = {
+  isLoading: false,
+  location: '',
+  spaces: [],
+};
+const { fetchStartSearch, fetchSuccessSearch } = searchActions;
 export const searchReducer = handleActions(
   {
-    [searchActions.fetchStartSearch]: state => ({
+    [fetchStartSearch]: (state, action) => ({
       ...state,
       isLoading: true,
+      location: action.payload,
     }),
-    [searchActions.fetchSuccessSearch]: (state, action) => ({
+    [fetchSuccessSearch]: (state, action) => ({
       ...state,
       isLoading: false,
-      result: action.payload,
+      spaces: action.payload,
     }),
   },
   initialState,
 );
 
-function* getSearchAPI() {
+//Sagas
+function* getSearchAPI(action) {
   yield call(delay, 1000);
+
   // ここでAPIからデータとってきたりする
-  const result = { test: 1 };
-  yield put(searchActions.fetchSuccessSearch(result));
+  const location = action.payload;
+  const spaces = [...Array(10)];
+
+  yield put(fetchSuccessSearch(spaces));
 }
 
 export const searchSagas = [takeEvery(FETCH_START_SEARCH, getSearchAPI)];

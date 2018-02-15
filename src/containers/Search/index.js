@@ -8,7 +8,7 @@ import { CircularProgress } from 'material-ui/Progress';
 import { searchActions } from '../../modules/search';
 
 import Header from '../../components/Header/';
-import SpaceList from './SpaceList';
+import SpaceCard from './SpaceCard';
 
 class Search extends React.Component {
   constructor(props) {
@@ -16,12 +16,18 @@ class Search extends React.Component {
     this.state = {
       location: this.props.match.params.location,
     };
-    this.props.dispatch(searchActions.fetchStartSearch());
+    this.props.dispatch(searchActions.fetchStartSearch(this.state.location));
   }
 
   showSpaceList = () => {
     if (!this.props.isLoading) {
-      return <SpaceList />;
+      return (
+        <div className={this.props.classes.list}>
+          {this.props.spaces.map((v, i) => {
+            return <SpaceCard key={i} />;
+          })}
+        </div>
+      );
     } else {
       return (
         <div style={{ textAlign: 'center' }}>
@@ -39,7 +45,7 @@ class Search extends React.Component {
         <div className={classes.wrapper}>
           <Paper elevation={0} className={classes.contents}>
             <Typography type="title" component="h2">
-              {this.state.location}の検索結果
+              {this.props.location}の検索結果
             </Typography>
           </Paper>
           <Paper elevation={0} style={{ padding: 20 }}>
@@ -63,11 +69,18 @@ const styles = theme => ({
     maxWidth: 720,
     margin: 'auto',
   },
+  list: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    flexWrap: 'wrap',
+  },
 });
 
 const mapStateToProps = state => {
   return {
     isLoading: state.search.isLoading,
+    location: state.search.location,
+    spaces: state.search.spaces,
   };
 };
 
