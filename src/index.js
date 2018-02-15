@@ -2,10 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
 import createHistory from 'history/createBrowserHistory';
+import logger from 'redux-logger';
 import { Route } from 'react-router';
 import { ConnectedRouter, routerMiddleware, routerReducer } from 'react-router-redux';
 import registerServiceWorker from './registerServiceWorker';
+
+import { searchReducer } from './modules/search';
+import rootSaga from './modules/sagas';
 
 import Top from './containers/Top';
 import Search from './containers/Search/';
@@ -22,16 +27,21 @@ import Payment from './containers/Payment';
 import RequestCancel from './containers/RequestCancel';
 import Accept from './containers/Accept';
 import Estimate from './containers/Estimate';
+// TODO routerはindexから分離する
 
 const history = createHistory();
-const middleware = routerMiddleware(history);
+const sagaMiddleware = createSagaMiddleware();
+const middleware = [routerMiddleware(history), sagaMiddleware, logger]; // TODO productionはlogger切る
 
 const store = createStore(
   combineReducers({
     router: routerReducer,
+    search: searchReducer,
   }),
-  applyMiddleware(middleware),
+  applyMiddleware(...middleware),
 );
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
+
+import { searchActions } from '../../modules/search';
 
 import Header from '../../components/Header/';
 import SpaceList from './SpaceList';
@@ -12,15 +15,12 @@ class Search extends React.Component {
     super(props);
     this.state = {
       location: this.props.match.params.location,
-      isLoad: false,
     };
-    setTimeout(() => {
-      this.setState({ isLoad: true });
-    }, 1500);
+    this.props.dispatch(searchActions.fetchStartSearch());
   }
 
   showSpaceList = () => {
-    if (this.state.isLoad) {
+    if (!this.props.isLoading) {
       return <SpaceList />;
     } else {
       return (
@@ -65,4 +65,10 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(Search);
+const mapStateToProps = state => {
+  return {
+    isLoading: state.search.isLoading,
+  };
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(Search));
