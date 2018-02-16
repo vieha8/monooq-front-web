@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header/';
+import { withStyles } from 'material-ui/styles';
 
 import List, {
   ListItem,
@@ -22,42 +23,64 @@ const generate = element => {
   );
 };
 
-const SpaceManageList = () => {
-  return (
-    <div
-      style={{
-        width: '50vw',
-        margin: '20px auto',
-      }}
-    >
-      <Header />
-      <Typography type="title" component="h1">
-        場所の管理をする
-      </Typography>
-      <hr color="#eee" />
-      <Grid style={{ maxWidth: '100%' }} item xs={12} md={6}>
-        <div>
-          <List>
-            {generate(
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <Icon>place</Icon>
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="TOKYO DESIGN OFFICE ~ MONOOQ ~" />
-                <ListItemSecondaryAction>
-                  <IconButton aria-label="settings" component={Link} to={'/edit/space/1'}>
-                    <Icon>settings</Icon>
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>,
-            )}
-          </List>
-        </div>
-      </Grid>
-    </div>
-  );
-};
+class SpaceManageList extends React.Component {
+  render() {
+    const { classes } = this.props;
+    return (
+      <div
+        style={{
+          width: '50vw',
+          margin: '20px auto',
+        }}
+      >
+        <Header />
+        <Typography type="title" component="h1">
+          場所の管理をする
+        </Typography>
+        <hr color="#eee" />
+        <Grid style={{ maxWidth: '100%' }} item xs={12} md={6}>
+          <div>
+            <List>
+              {generate(
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>
+                      <Icon>place</Icon>
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary="TOKYO DESIGN OFFICE ~ MONOOQ ~" />
+                  <ListItemSecondaryAction>
+                    <IconButton aria-label="settings" component={Link} to={'/edit/space/1'}>
+                      <Icon>settings</Icon>
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>,
+              )}
+            </List>
+          </div>
+        </Grid>
+      </div>
+    );
+  }
+}
 
-export default SpaceManageList;
+const styles = () => ({
+  root: {
+    width: '50vw',
+    margin: '0 auto',
+  },
+  profileForm: {
+    textAlign: 'center',
+  },
+  avatar: {
+    width: 150,
+    height: 150,
+    margin: 'auto',
+  },
+  form: {
+    width: '300px',
+    margin: '0 auto',
+  },
+});
+
+export default withStyles(styles)(SpaceManageList);
