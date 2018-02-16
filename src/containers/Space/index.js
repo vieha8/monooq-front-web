@@ -8,7 +8,6 @@ import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table';
 import LocalShippingIcon from 'material-ui-icons/LocalShipping';
 import People from 'material-ui-icons/People';
 
-import Header from '../../components/Header/';
 import RequestDialog from './RequestDialog';
 import SpaceMenu from '../Search/SpaceMenu';
 
@@ -17,7 +16,6 @@ class Space extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Header />
         <div className={classes.wrapper}>
           <Card className={classes.card}>
             <CardContent style={{ display: 'flex' }}>

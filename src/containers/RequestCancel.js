@@ -5,8 +5,6 @@ import { DialogContent, DialogTitle } from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 
-import Header from '../components/Header/';
-
 class RequestCancel extends React.Component {
   constructor(props) {
     super(props);
@@ -81,12 +79,7 @@ class RequestCancel extends React.Component {
 
   render() {
     const { classes } = this.props;
-    return (
-      <div>
-        <Header />
-        <div className={classes.cancel}>{this.showDialogContents()}</div>
-      </div>
-    );
+    return <div className={classes.cancel}>{this.showDialogContents()}</div>;
   }
 }
 

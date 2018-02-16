@@ -1,31 +1,38 @@
-import { checkLogin } from '../libs/auth';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
+
+import { authActions } from '../modules/auth';
+
+class AuthComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.props.dispatch(authActions.checkLoginStart());
+  }
+
+  render() {
+    return null;
+  }
+}
+
+export const Auth = connect()(AuthComponent);
 
 export default function authRequired(WrappedComponent) {
   class loginRequiredComponent extends WrappedComponent {
-    constructor(props) {
-      super(props);
-      this.state = {
-        isLogin: false,
-      };
-    }
-
-    componentWillMount = async () => {
-      const isLogin = await checkLogin();
-      this.setState({ isLogin: isLogin });
-      if (!isLogin) {
-        // ログインしていないユーザが見た時のアクションを書く
-        this.props.history.push('/login');
-        //TODO ログイン前に最後にアクセスしたURL保持してログイン後飛ばしたい
-      }
-    };
-
     render() {
-      if (!this.state.isLogin) {
-        // ログインしていないユーザが閲覧したらレンダリングしない
+      if (this.props.isChecking) {
         return null;
+      }
+      if (!this.props.isLogin) {
+        return <Redirect to="/login" />;
       }
       return super.render();
     }
   }
-  return loginRequiredComponent;
+
+  const mapStateToProps = state => {
+    return { isLogin: state.auth.isLogin, isChecking: state.auth.isChecking };
+  };
+
+  return connect(mapStateToProps)(loginRequiredComponent);
 }

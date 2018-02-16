@@ -1,4 +1,4 @@
-export default () => {
+export const firebaseConfig = () => {
   if (process.env.NODE_ENV === 'production') {
     // TODO return production conf
   } else {

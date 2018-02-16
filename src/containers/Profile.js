@@ -2,7 +2,6 @@ import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
-import Header from '../components/Header/';
 import SpaceList from './Search/SpaceList';
 
 const user = {
@@ -17,8 +16,6 @@ class Profile extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Header />
-
         <div className={classes.profile}>
           <Avatar className={classes.avatar} src="https://picsum.photos/300?image=65" />
           <br />

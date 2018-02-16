@@ -1,7 +1,6 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header/';
 import InputForm from '../components/InputForm';
 import TextFieldFormDefault from '../components/TextFieldFormDefault';
 
@@ -37,7 +36,6 @@ class SpaceForm extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Header />
         <Typography type="title" component="h1">
           場所の登録をする
         </Typography>

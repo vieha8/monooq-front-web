@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
-import firebase from 'firebase';
 
 class HeaderMenu extends React.Component {
   constructor(props) {
@@ -22,11 +21,6 @@ class HeaderMenu extends React.Component {
     this.setState({ anchorEl: null });
   }
 
-  logout = async () => {
-    await firebase.auth().signOut();
-    this.props.history.push('/login');
-  };
-
   renderLoginComponent = () => {
     if (!this.props.isLogin) {
       return (
@@ -38,7 +32,7 @@ class HeaderMenu extends React.Component {
     } else {
       return (
         <Fragment>
-          <MenuItem onClick={this.logout}>ログアウト</MenuItem>
+          <MenuItem onClick={this.props.logout}>ログアウト</MenuItem>
         </Fragment>
       );
     }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header/';
 import { withStyles } from 'material-ui/styles';
 
 import List, {
@@ -32,7 +31,6 @@ class SpaceManageList extends React.Component {
           margin: '20px auto',
         }}
       >
-        <Header />
         <Typography type="title" component="h1">
           場所の管理をする
         </Typography>

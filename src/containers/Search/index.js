@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import Paper from 'material-ui/Paper';
@@ -7,7 +7,6 @@ import { CircularProgress } from 'material-ui/Progress';
 
 import { searchActions } from '../../modules/search';
 
-import Header from '../../components/Header/';
 import SpaceCard from './SpaceCard';
 
 class Search extends React.Component {
@@ -40,19 +39,16 @@ class Search extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Fragment>
-        <Header />
-        <div className={classes.wrapper}>
-          <Paper elevation={0} className={classes.contents}>
-            <Typography type="title" component="h2">
-              {this.props.location}の検索結果
-            </Typography>
-          </Paper>
-          <Paper elevation={0} style={{ padding: 20 }}>
-            {this.showSpaceList()}
-          </Paper>
-        </div>
-      </Fragment>
+      <div className={classes.wrapper}>
+        <Paper elevation={0} className={classes.contents}>
+          <Typography type="title" component="h2">
+            {this.props.location}の検索結果
+          </Typography>
+        </Paper>
+        <Paper elevation={0} style={{ padding: 20 }}>
+          {this.showSpaceList()}
+        </Paper>
+      </div>
     );
   }
 }

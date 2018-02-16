@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
@@ -12,24 +13,19 @@ import MessageIcon from 'material-ui-icons/Message';
 import Hidden from 'material-ui/Hidden';
 import logo from '../../images/monooq_logo.svg';
 import HeaderMenu from './HeaderMenu';
-import { checkLogin } from '../../libs/auth';
+import firebase from 'firebase';
+import { authActions } from '../../modules/auth';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLogin: false,
-    };
-  }
-
-  componentWillMount = async () => {
-    const isLogin = await checkLogin();
-    this.setState({ isLogin: isLogin });
+  logout = async () => {
+    await firebase.auth().signOut();
+    this.props.dispatch(authActions.logout());
+    this.props.history.push('/login');
   };
 
   renderLoginComponent = () => {
     const { classes } = this.props;
-    if (this.state.isLogin) {
+    if (this.props.isLogin) {
       return (
         <Fragment>
           <IconButton
@@ -72,7 +68,11 @@ class Header extends React.Component {
               <SearchIcon />
             </IconButton>
             {this.renderLoginComponent()}
-            <HeaderMenu isLogin={this.state.isLogin} history={this.props.history} />
+            <HeaderMenu
+              isLogin={this.props.isLogin}
+              history={this.props.history}
+              logout={this.logout}
+            />
           </Toolbar>
         </AppBar>
       </div>
@@ -94,4 +94,8 @@ const styles = {
   },
 };
 
-export default withRouter(withStyles(styles)(Header));
+const mapStateToProps = state => {
+  return { isLogin: state.auth.isLogin, isChecking: state.auth.isChecking };
+};
+
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(Header))); //TODO composeでまとめる

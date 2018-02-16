@@ -1,6 +1,5 @@
 import React from 'react';
 import { withStyles } from 'material-ui/styles';
-import Header from './Header/';
 import Typography from 'material-ui/Typography';
 
 function createOneColumnPageLayout(title, WrappedComponent) {
@@ -9,7 +8,6 @@ function createOneColumnPageLayout(title, WrappedComponent) {
       const { classes } = this.props;
       return (
         <div className={classes.root}>
-          <Header />
           <div className={classes.wrapper}>
             <Typography type="title" component="h2" className={classes.title}>
               {title}

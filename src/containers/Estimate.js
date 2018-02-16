@@ -5,8 +5,6 @@ import { DialogContent, DialogTitle } from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
 
-import Header from '../components/Header/';
-
 class Estimate extends React.Component {
   constructor(props) {
     super(props);
@@ -69,53 +67,50 @@ class Estimate extends React.Component {
       this.handleClose();
     } else {
       return (
-        <div>
-          <Header />
-          <div className={classes.estimate}>
-            <DialogTitle id="alert-dialog-slide-title">見積り</DialogTitle>
-            <DialogContent>
-              {/*<DialogContentText id="alert-dialog-slide-description">*/}
-              {/*預けたい期間、預けるモノの内容・大きさなどなるべく具体的に伝えてみましょう。*/}
-              {/*</DialogContentText>*/}
-              <TextField
-                id="date-start"
-                label="預かり開始日"
-                type="date"
-                defaultValue="2018-02-09"
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                disabled={this.state.isSending}
-              />
-              <TextField
-                id="date-end"
-                label="預かり終了日"
-                type="date"
-                defaultValue="2018-03-09"
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                disabled={this.state.isSending}
-              />
-              <TextField
-                id="number"
-                label="料金"
-                value={this.state.price}
-                onChange={this.handleChange('price')}
-                type="number"
-                className={classes.textField}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                margin="normal"
-                disabled={this.state.isSending}
-              />
-              <br />
-              {this.showSendButton()}
-            </DialogContent>
-          </div>
+        <div className={classes.estimate}>
+          <DialogTitle id="alert-dialog-slide-title">見積り</DialogTitle>
+          <DialogContent>
+            {/*<DialogContentText id="alert-dialog-slide-description">*/}
+            {/*預けたい期間、預けるモノの内容・大きさなどなるべく具体的に伝えてみましょう。*/}
+            {/*</DialogContentText>*/}
+            <TextField
+              id="date-start"
+              label="預かり開始日"
+              type="date"
+              defaultValue="2018-02-09"
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              disabled={this.state.isSending}
+            />
+            <TextField
+              id="date-end"
+              label="預かり終了日"
+              type="date"
+              defaultValue="2018-03-09"
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              disabled={this.state.isSending}
+            />
+            <TextField
+              id="number"
+              label="料金"
+              value={this.state.price}
+              onChange={this.handleChange('price')}
+              type="number"
+              className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              margin="normal"
+              disabled={this.state.isSending}
+            />
+            <br />
+            {this.showSendButton()}
+          </DialogContent>
         </div>
       );
     }

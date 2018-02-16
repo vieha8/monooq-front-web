@@ -8,7 +8,10 @@ import logger from 'redux-logger';
 import { Route } from 'react-router';
 import { ConnectedRouter, routerMiddleware, routerReducer } from 'react-router-redux';
 import registerServiceWorker from './registerServiceWorker';
+import firebase from 'firebase';
+import { firebaseConfig } from './config';
 
+import { authReducer } from './modules/auth';
 import { searchReducer } from './modules/search';
 import rootSaga from './modules/sagas';
 
@@ -27,6 +30,10 @@ import Payment from './containers/Payment';
 import RequestCancel from './containers/RequestCancel';
 import Accept from './containers/Accept';
 import Estimate from './containers/Estimate';
+
+import Header from './components/Header';
+import { Auth } from './components/Auth';
+
 // TODO routerはindexから分離する
 
 const history = createHistory();
@@ -35,6 +42,7 @@ const middleware = [routerMiddleware(history), sagaMiddleware, logger]; // TODO 
 
 const store = createStore(
   combineReducers({
+    auth: authReducer,
     router: routerReducer,
     search: searchReducer,
   }),
@@ -42,11 +50,14 @@ const store = createStore(
 );
 
 sagaMiddleware.run(rootSaga);
+firebase.initializeApp(firebaseConfig());
 
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div>
+        <Auth />
+        <Header />
         <Route exact path="/" component={Top} />
         <Route exact path="/search/:location" component={Search} />
         <Route exact path="/space/:id" component={Space} />

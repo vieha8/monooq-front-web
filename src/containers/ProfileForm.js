@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
-import Header from '../components/Header/';
 import InputForm from '../components/InputForm';
 import SelectFormDefault from '../components/SelectFormDefault';
 import TextFieldFormDefault from '../components/TextFieldFormDefault';
@@ -16,7 +15,6 @@ class ProfileForm extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <Header />
         <Typography type="title" component="h1">
           プロフィール編集
         </Typography>
