@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
+
+import { isLogin } from '../../libs/auth';
 
 class HeaderMenu extends React.Component {
   constructor(props) {
@@ -21,6 +23,17 @@ class HeaderMenu extends React.Component {
     this.setState({ anchorEl: null });
   }
 
+  renderLoginComponent = () => {
+    if (!isLogin()) {
+      return (
+        <Fragment>
+          <MenuItem onClick={this.handleClose}>ログイン</MenuItem>
+          <MenuItem onClick={this.handleClose}>会員登録</MenuItem>
+        </Fragment>
+      );
+    }
+  };
+
   render() {
     const { anchorEl } = this.state;
 
@@ -39,8 +52,7 @@ class HeaderMenu extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>ログイン</MenuItem>
-          <MenuItem onClick={this.handleClose}>会員登録</MenuItem>
+          {this.renderLoginComponent()}
           <MenuItem onClick={this.handleClose}>ホスト検索</MenuItem>
           <MenuItem onClick={this.handleClose}>はじめての方へ</MenuItem>
           <MenuItem onClick={this.handleClose}>運営会社</MenuItem>

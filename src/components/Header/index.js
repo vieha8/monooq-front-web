@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
@@ -10,12 +10,29 @@ import IconButton from 'material-ui/IconButton';
 import SearchIcon from 'material-ui-icons/Search';
 import MessageIcon from 'material-ui-icons/Message';
 import Hidden from 'material-ui/Hidden';
-
 import logo from '../../images/monooq_logo.svg';
 import HeaderMenu from './HeaderMenu';
+import { isLogin } from '../../libs/auth';
 
 const Header = props => {
   const { classes } = props;
+
+  const renderLoginComponent = () => {
+    if (isLogin()) {
+      return (
+        <Fragment>
+          <IconButton
+            className={classes.searchButton}
+            aria-label="Message"
+            onClick={() => props.history.push('/messages')}
+          >
+            <MessageIcon />
+          </IconButton>
+        </Fragment>
+      );
+    }
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed" color="default">
@@ -32,13 +49,7 @@ const Header = props => {
           >
             <SearchIcon />
           </IconButton>
-          <IconButton
-            className={classes.searchButton}
-            aria-label="Message"
-            onClick={() => props.history.push('/messages')}
-          >
-            <MessageIcon />
-          </IconButton>
+          {renderLoginComponent()}
           <Hidden xsDown>
             <Button onClick={() => props.history.push('/login')}>ログイン</Button>
             <Button onClick={() => props.history.push('/signup')}>登録</Button>
