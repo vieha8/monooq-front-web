@@ -1,56 +1,30 @@
-import React from 'react';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import React, { Fragment } from 'react';
 import firebase from 'firebase';
 import { firebaseApp } from '../libs/firebase';
 import Button from 'material-ui/Button';
 import Header from '../components/Header';
 
 class Login extends React.Component {
-  //TODO とりあえずFirebase UI component入れてるけどちゃんとスクラッチでつくる予定
-
-  // The component's Local state.
-  state = {
-    signedIn: false, // Local signed-in state.
-  };
-
-  // Configure FirebaseUI.
-  uiConfig = {
-    // Popup signin flow rather than redirect flow.
-    signInFlow: 'redirect',
-    // We will display Google and Facebook as auth providers.
-    signInOptions: [
-      firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    ],
-    callbacks: {
-      // Avoid redirects after sign-in.
-      signInSuccess: () => false,
-    },
-  };
-
-  // Listen to the Firebase Auth state and set the local state.
   componentWillMount() {
-    firebaseApp.auth().onAuthStateChanged(user => this.setState({ signedIn: !!user }));
+    // TODO ログイン済みだったら表示されないようにする
   }
 
+  loginFacebook = () => {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithRedirect(provider);
+    // TODO 認証後の戻りを/login以外のページに変えられないか調査
+  };
+
   render() {
-    if (!this.state.signedIn) {
-      return (
-        <div>
-          <Header />
-          <div style={{ textAlign: 'center' }}>ログイン</div>
-          <StyledFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebaseApp.auth()} />
-        </div>
-      );
-    }
     return (
-      <div>
+      <Fragment>
         <Header />
-        <p>ようこそ {firebase.auth().currentUser.displayName}さん!</p>
-        <Button raised onClick={() => firebaseApp.auth().signOut()} color="primary">
-          ログアウト
-        </Button>
-      </div>
+        <div style={{ textAlign: 'center' }}>
+          <Button raised color="primary" onClick={this.loginFacebook}>
+            Facebookログイン
+          </Button>
+        </div>
+      </Fragment>
     );
   }
 }

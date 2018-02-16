@@ -2,8 +2,7 @@ import React, { Fragment } from 'react';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
-
-import { isLogin } from '../../libs/auth';
+import firebase from 'firebase';
 
 class HeaderMenu extends React.Component {
   constructor(props) {
@@ -23,12 +22,23 @@ class HeaderMenu extends React.Component {
     this.setState({ anchorEl: null });
   }
 
+  logout = async () => {
+    await firebase.auth().signOut();
+    this.props.history.push('/login');
+  };
+
   renderLoginComponent = () => {
-    if (!isLogin()) {
+    if (!this.props.isLogin) {
       return (
         <Fragment>
           <MenuItem onClick={this.handleClose}>ログイン</MenuItem>
           <MenuItem onClick={this.handleClose}>会員登録</MenuItem>
+        </Fragment>
+      );
+    } else {
+      return (
+        <Fragment>
+          <MenuItem onClick={this.logout}>ログアウト</MenuItem>
         </Fragment>
       );
     }
