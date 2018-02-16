@@ -41,7 +41,7 @@ function* getSearchAPI(action) {
   yield call(delay, 1000);
 
   // ここでAPIからデータとってきたりする
-  const location = action.payload;
+  // const location = action.payload;
   const spaces = [...Array(10)];
 
   yield put(fetchSuccessSearch(spaces));

@@ -1,8 +1,10 @@
 import React from 'react';
+import { compose } from 'redux';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import { defaultPageFactory } from '../../components/PageLayouts';
+// import authRequired from '../../components/Auth';
 
 class Messages extends React.Component {
   constructor(props) {
@@ -53,4 +55,7 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(Messages);
+export default compose(
+  withStyles(styles),
+  // authRequired,
+)(Messages);
