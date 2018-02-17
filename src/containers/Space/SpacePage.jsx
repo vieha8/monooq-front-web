@@ -24,9 +24,11 @@ const SpacePage = styled.div`
 `;
 
 const SpaceCardContainer = styled.div`
-  width: 688px;
+  max-width: 688px;
+  width: 100%;
   margin-top: 80px;
-  margin-left: 120px;
+  padding: 0 8%;
+  padding-bottom: 80px;
 `;
 
 const MenuContainer = styled.div`
