@@ -30,9 +30,6 @@ const BaggetText = Text.extend`
 `;
 
 const ReceiveContainer = styled.div`
-  &:not(:first-child) {
-    margin-top: ${Dimens.medium}px;
-  }
 `;
 
 const ReceiveIconWrapper = styled.div`
@@ -51,6 +48,10 @@ const ReceiveSubText = SubText.extend`
   vertical-align: middle;
   margin-top: 0;
   margin-left: ${Dimens.medium}px;
+`;
+
+const ReceiveSupplementText = Text.extend`
+  line-height: 2;
 `;
 
 // 所在地
@@ -72,11 +73,11 @@ const SpaceType = props => (
 const BaggegeType = props => (
   <div>
     {props.typeOK && <TypeOKText>家具・家電OK</TypeOKText>}
-    <BaggetText typeOK={props.typeOK}>{props.comment}</BaggetText>
+    <BaggetText typeOK={props.typeOK}>{props.text}</BaggetText>
   </div>
 );
 
-// 受け取り方法
+// 受取り方法
 const HowToReceive = props => (
   <div>
     {props.delivery &&
@@ -100,10 +101,17 @@ const HowToReceive = props => (
   </div>
 );
 
+// 受取りについて補足
+const ReceiveSupplement = props => (
+  <div>
+    <ReceiveSupplementText>{props.text}</ReceiveSupplementText>
+  </div>
+);
+
 export default {
   Address,
   SpaceType,
   BaggegeType,
   HowToReceive,
-  ReceiveSupplement: '',
+  ReceiveSupplement,
 };

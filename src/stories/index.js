@@ -196,9 +196,11 @@ storiesOf('Space', module)
         comment="冷蔵庫や洗濯機など家具・家電もお預かり可能ですが、ボリュームによっては検討させていただきますのでご相談ください！"
       />
       <Title>預かることができる荷物 - 家具・家電NG</Title>
-      <DetailContent.BaggegeType comment="狭いクローゼットなので大きめの家具・家電はお預かりできかねます。リクエスト時にご相談ください。" />
-      <Title>受け取り方法</Title>
+      <DetailContent.BaggegeType text="狭いクローゼットなので大きめの家具・家電はお預かりできかねます。リクエスト時にご相談ください。" />
+      <Title>受取り方法</Title>
       <DetailContent.HowToReceive delivery meeting />
+      <Title>受取りについて補足</Title>
+      <DetailContent.ReceiveSupplement text="普段は会社勤めですので、基本的には平日の夜のご対応となります。土日でも対応できる時がありますので、事前にメッセージでお知らせください！" />
     </div>
   ));
 
