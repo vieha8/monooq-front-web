@@ -6,6 +6,7 @@ import SpaceMenu from '../Search/SpaceMenu';
 
 import { Colors, Dimens } from '../../variables';
 
+import { Footer } from '../../stories/shared';
 import {
   Card,
   Map,
@@ -141,5 +142,6 @@ export default props => (
         </Section>
       </Card>
     </SpaceCardContainer>
+    <Footer />
   </SpacePage>
 );

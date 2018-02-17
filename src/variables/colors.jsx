@@ -4,4 +4,5 @@ export default {
   gray: '#888787',
   lightGray: '#F7F7F7',
   borderGray: '#DBDBDB',
+  linkBlue: '#006494',
 };

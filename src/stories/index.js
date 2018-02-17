@@ -7,6 +7,7 @@ import { linkTo } from '@storybook/addon-links';
 import { Button, Welcome } from '@storybook/react/demo';
 import Title from './story/title';
 
+import { Footer } from './shared';
 import {
   Card,
   Map,
@@ -121,7 +122,7 @@ storiesOf('CheckBox', module).add('標準', () => (
 ));
 
 storiesOf('Footer', module)
-  .add('標準', () => <p>デフォルトのフッター</p>)
+  .add('標準', () => <Footer />)
   .add('サイドメニュー', () => <p>サイドメニューのフッター</p>);
 
 storiesOf('Header', module)
