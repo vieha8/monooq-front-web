@@ -8,6 +8,7 @@ import { Button, Welcome } from '@storybook/react/demo';
 import Title from './story/title';
 
 import {
+  Card,
   Map,
   PlaceText,
   HeaderTitle,
@@ -151,6 +152,15 @@ storiesOf('Image', module)
 storiesOf('Line', module).add('標準', () => <p>文章の区切り線</p>);
 
 storiesOf('Space', module)
+  .add('カード', () => (
+    <Card>
+      <h1>テスト</h1>
+      <h2>テスト</h2>
+      <h3>テスト</h3>
+      <h4>テスト</h4>
+      <h5>テスト</h5>
+    </Card>
+  ))
   .add('マップ', () => (
     <Map
       containerElement={<div style={{ height: '300px' }} />}
