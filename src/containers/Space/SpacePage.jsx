@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import RequestDialog from './RequestDialog';
 import SpaceMenu from '../Search/SpaceMenu';
 
+import { Dimens } from '../../variables';
+
 import {
   Card,
   Map,
@@ -22,6 +24,8 @@ const SpacePage = styled.div`
 
 const SpaceCardContainer = styled.div`
   width: 688px;
+  margin-top: 80px;
+  margin-left: 120px;
 `;
 
 export default props => (
