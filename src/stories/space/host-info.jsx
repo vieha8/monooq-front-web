@@ -8,9 +8,6 @@ const Container = styled.div`
   min-height: 80px;
   padding: ${Dimens.medium}px 0;
   background-color: ${Colors.lightGray};
-  &:not(:first-child) {
-    border-top: 1px solid ${Colors.borderGray};
-  }
   &::after {
     clear: both;
     content: "";

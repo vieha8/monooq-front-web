@@ -6,6 +6,7 @@ const Text = styled.span`
   display: block;
   font-size: ${FontSizes.medium}px;
   color: ${Colors.black};
+  line-height: 2;
 `;
 
 export default props => (

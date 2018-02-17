@@ -1,10 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import Card, { CardContent } from 'material-ui/Card';
 import { Dimens } from '../../variables';
 
+const cardStyle = {
+  padding: `${Dimens.medium2}px`,
+};
+
 export default props => (
-  <Card>
+  <Card style={cardStyle}>
     <CardContent>
       {props.children}
     </CardContent>

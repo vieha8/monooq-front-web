@@ -21,6 +21,7 @@ const Title = styled.span`
   display: table-cell;
   width: 100px;
   vertical-align: top;
+  line-height: 2;
   font-size: ${FontSizes.medium}px;
   text-align: left;
 `;
