@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-import registerServiceWorker from './registerServiceWorker';
 import firebase from 'firebase';
 import { firebaseConfig } from './config';
+import registerServiceWorker from './registerServiceWorker';
 
 import { authReducer } from './modules/auth';
 import { searchReducer } from './modules/search';
