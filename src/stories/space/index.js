@@ -1,3 +1,4 @@
+export { default as Map } from './map';
 export { default as PlaceText } from './place-text';
 export { default as HeaderTitle } from './header-title';
 export { default as SlideImage } from './slide-image';

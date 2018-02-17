@@ -8,6 +8,7 @@ import { Button, Welcome } from '@storybook/react/demo';
 import Title from './story/title';
 
 import {
+  Map,
   PlaceText,
   HeaderTitle,
   SlideImage,
@@ -150,6 +151,14 @@ storiesOf('Image', module)
 storiesOf('Line', module).add('標準', () => <p>文章の区切り線</p>);
 
 storiesOf('Space', module)
+  .add('マップ', () => (
+    <Map
+      containerElement={<div style={{ height: '300px' }} />}
+      mapElement={<div style={{ height: '100%' }} />}
+      loadingElement={<div style={{ height: '100%' }} />}
+      googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrHQDZXZI21cMEW8FIYYWKyvI2kLUDsbA&v=3.exp&libraries=geometry,drawing,places"
+    />
+  ))
   .add('場所テキスト', () => <PlaceText>東京都 港区 六本木</PlaceText>)
   .add('タイトル', () => (
     <HeaderTitle>東京タワーに近くて便利！大きい荷物も何人分でもOK</HeaderTitle>
@@ -236,9 +245,7 @@ storiesOf('Space', module)
     />
   ));
 
-storiesOf('Map', module)
-  .add('検索結果', () => <p>検索結果に表示されるサイズ大のマップ</p>)
-  .add('場所詳細', () => <p>場所詳細画面にて表示されるサイズ中のマップ</p>);
+storiesOf('Map', module).add('検索結果', () => <p>検索結果に表示されるサイズ大のマップ</p>);
 
 storiesOf('Menu', module).add('サイドメニュー', () => <p>サイドメニュー</p>);
 
