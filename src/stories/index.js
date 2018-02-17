@@ -10,6 +10,7 @@ import Title from './story/title';
 import {
   PlaceText,
   HeaderTitle,
+  SlideImage,
   Caption,
   DetailTitle,
   DetailContainer,
@@ -152,6 +153,26 @@ storiesOf('Space', module)
   .add('場所テキスト', () => <PlaceText>東京都 港区 六本木</PlaceText>)
   .add('タイトル', () => (
     <HeaderTitle>東京タワーに近くて便利！大きい荷物も何人分でもOK</HeaderTitle>
+  ))
+  .add('画像スライドショー', () => (
+    <div style={{ width: '400px' }}>
+      <SlideImage
+        images={[
+          {
+            original: 'http://placehold.jp/200x150.png',
+            thumbnail: 'http://placehold.jp/200x150.png',
+          },
+          {
+            original: 'http://placehold.jp/200x150.png',
+            thumbnail: 'http://placehold.jp/200x150.png',
+          },
+          {
+            original: 'http://placehold.jp/200x150.png',
+            thumbnail: 'http://placehold.jp/200x150.png',
+          },
+        ]}
+      />
+    </div>
   ))
   .add('説明', () => (
     <Caption>
