@@ -197,6 +197,8 @@ storiesOf('Space', module)
       />
       <Title>預かることができる荷物 - 家具・家電NG</Title>
       <DetailContent.BaggegeType comment="狭いクローゼットなので大きめの家具・家電はお預かりできかねます。リクエスト時にご相談ください。" />
+      <Title>受け取り方法</Title>
+      <DetailContent.HowToReceive delivery meeting />
     </div>
   ));
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import LocalShippingIcon from 'material-ui-icons/LocalShipping';
+import PeopleIcon from 'material-ui-icons/People';
 import { FontSizes, Colors, Dimens } from '../../variables';
 
 const Text = styled.span`
@@ -27,6 +29,30 @@ const BaggetText = Text.extend`
   margin-top: ${props => (props.typeOK ? Dimens.xsmall : 0)}px;
 `;
 
+const ReceiveContainer = styled.div`
+  &:not(:first-child) {
+    margin-top: ${Dimens.medium}px;
+  }
+`;
+
+const ReceiveIconWrapper = styled.div`
+  display: inline-block;
+  vertical-align: middle;
+`;
+
+const ReceiveText = Text.extend`
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: ${Dimens.small}px;
+`;
+
+const ReceiveSubText = SubText.extend`
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 0;
+  margin-left: ${Dimens.medium}px;
+`;
+
 // 所在地
 const Address = props => (
   <div>
@@ -50,10 +76,34 @@ const BaggegeType = props => (
   </div>
 );
 
+// 受け取り方法
+const HowToReceive = props => (
+  <div>
+    {props.delivery &&
+      <ReceiveContainer>
+        <ReceiveIconWrapper>
+          <LocalShippingIcon />
+        </ReceiveIconWrapper>
+        <ReceiveText>配送</ReceiveText>
+        <ReceiveSubText>Pickgo・ヤマト運輸など配送サービス</ReceiveSubText>
+      </ReceiveContainer>
+    }
+    {props.meeting &&
+      <ReceiveContainer>
+        <ReceiveIconWrapper>
+          <PeopleIcon />
+        </ReceiveIconWrapper>
+        <ReceiveText>対面</ReceiveText>
+        <ReceiveSubText>直接本人から荷物を受け取ります</ReceiveSubText>
+      </ReceiveContainer>
+    }
+  </div>
+);
+
 export default {
   Address,
   SpaceType,
   BaggegeType,
-  HowToReceive: '',
+  HowToReceive,
   ReceiveSupplement: '',
 };
