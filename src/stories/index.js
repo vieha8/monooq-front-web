@@ -6,7 +6,7 @@ import { linkTo } from '@storybook/addon-links';
 
 import { Button, Welcome } from '@storybook/react/demo';
 
-import { PlaceText, HeaderTitle, Caption, DetailTitle } from './space';
+import { PlaceText, HeaderTitle, Caption, DetailTitle, DetailContent } from './space';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -153,6 +153,21 @@ storiesOf('Space', module)
     <div>
       <DetailTitle>スペースについて</DetailTitle>
       <DetailTitle>荷物について</DetailTitle>
+    </div>
+  ))
+  .add('各項目内容', () => (
+    <div>
+      <DetailContent
+        title="所在地"
+        renderContent={() => (
+          <div>
+            <span>東京都港区西新橋</span>
+            <br />
+            <span>詳細な住所はリクエスト完了後に通知されます</span>
+          </div>
+        )}
+      />
+      <DetailContent title="種類" renderContent={() => <span>クローゼット</span>} />
     </div>
   ));
 
