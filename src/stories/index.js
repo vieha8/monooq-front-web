@@ -219,7 +219,7 @@ storiesOf('Space', module)
         renderContent={() => (
           <DetailContent.BaggegeType
             typeOK
-            comment="冷蔵庫や洗濯機など家具・家電もお預かり可能ですが、ボリュームによっては検討させていただきますのでご相談ください！"
+            text="冷蔵庫や洗濯機など家具・家電もお預かり可能ですが、ボリュームによっては検討させていただきますのでご相談ください！"
           />
         )}
       />
@@ -234,7 +234,7 @@ storiesOf('Space', module)
       <Title>預かることができる荷物 - 家具・家電OK</Title>
       <DetailContent.BaggegeType
         typeOK
-        comment="冷蔵庫や洗濯機など家具・家電もお預かり可能ですが、ボリュームによっては検討させていただきますのでご相談ください！"
+        text="冷蔵庫や洗濯機など家具・家電もお預かり可能ですが、ボリュームによっては検討させていただきますのでご相談ください！"
       />
       <Title>預かることができる荷物 - 家具・家電NG</Title>
       <DetailContent.BaggegeType text="狭いクローゼットなので大きめの家具・家電はお預かりできかねます。リクエスト時にご相談ください。" />

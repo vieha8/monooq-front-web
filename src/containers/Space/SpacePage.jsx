@@ -108,7 +108,7 @@ export default props => (
             renderContent={() => (
               <DetailContent.BaggegeType
                 typeOK
-                comment="冷蔵庫や洗濯機など家具・家電もお預かり可能ですが、ボリュームによっては検討させていただきますのでご相談ください！"
+                text="冷蔵庫や洗濯機など家具・家電もお預かり可能ですが、ボリュームによっては検討させていただきますのでご相談ください！"
               />
             )}
           />
