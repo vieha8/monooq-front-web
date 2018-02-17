@@ -15,6 +15,7 @@ import { searchReducer } from './modules/search';
 import rootSaga from './modules/sagas';
 
 import Routes from './routes';
+import './index.css';
 
 const history = createHistory();
 const sagaMiddleware = createSagaMiddleware();
