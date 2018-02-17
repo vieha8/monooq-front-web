@@ -43,6 +43,10 @@ const Section = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
+const SlideImageWrapper = styled.div`
+  margin-top: ${Dimens.medium3}px;
+`;
+
 export default props => (
   <SpacePage>
     {/* TODO マップのprops調整 */}
@@ -62,10 +66,8 @@ export default props => (
             <SpaceMenu />
           </TableCell>
         </MenuContainer>
-        <Section>
-          <HeaderTitle>東京タワーに近くて便利！大きい荷物も何人ぶんでもOK</HeaderTitle>
-        </Section>
-        <Section>
+        <HeaderTitle>東京タワーに近くて便利！大きい荷物も何人分でもOK</HeaderTitle>
+        <SlideImageWrapper>
           <SlideImage
             images={[
               {
@@ -82,7 +84,7 @@ export default props => (
               },
             ]}
           />
-        </Section>
+        </SlideImageWrapper>
         <Section>
           <Caption>閲覧頂き有り難うございます！赤羽橋、芝公園などの駅付近で預かることが可能です。玄関から入れば大きめの荷物も対応可能です！</Caption>
         </Section>

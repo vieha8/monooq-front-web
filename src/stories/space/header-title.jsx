@@ -6,6 +6,7 @@ const Text = styled.h1`
   display: block;
   font-size: ${FontSizes.xlarge}px;
   color: ${Colors.black};
+  line-height: 1.6;
 `;
 
 export default props => (
