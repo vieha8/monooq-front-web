@@ -14,6 +14,7 @@ import {
   DetailTitle,
   DetailContainer,
   DetailContent,
+  HostInfo,
 } from './space';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
@@ -202,6 +203,16 @@ storiesOf('Space', module)
       <Title>受取りについて補足</Title>
       <DetailContent.ReceiveSupplement text="普段は会社勤めですので、基本的には平日の夜のご対応となります。土日でも対応できる時がありますので、事前にメッセージでお知らせください！" />
     </div>
+  ))
+  .add('ホスト情報', () => (
+    <HostInfo
+      img={{
+        src: 'https://placehold.jp/150x150.png',
+        alt: 'YUKI HASHIDA',
+      }}
+      hostName="YUKI HASHIDA"
+      text="こんにちは。東京都港区芝に住む29才です。是非安心して荷物を預けてくださいね。こんにちは。東京都港区芝に住む29才です。是非安心して荷物を預けてくださいね。こんにちは。"
+    />
   ));
 
 storiesOf('Map', module)

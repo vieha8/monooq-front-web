@@ -4,3 +4,4 @@ export { default as Caption } from './caption';
 export { default as DetailContainer } from './detail-container';
 export { default as DetailTitle } from './detail-title';
 export { default as DetailContent } from './detail-content';
+export { default as HostInfo } from './host-info';
