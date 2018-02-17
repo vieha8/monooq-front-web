@@ -5,8 +5,16 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 import { Button, Welcome } from '@storybook/react/demo';
+import Title from './story/title';
 
-import { PlaceText, HeaderTitle, Caption, DetailTitle, DetailContent } from './space';
+import {
+  PlaceText,
+  HeaderTitle,
+  Caption,
+  DetailTitle,
+  DetailContainer,
+  DetailContent,
+} from './space';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -155,19 +163,40 @@ storiesOf('Space', module)
       <DetailTitle>荷物について</DetailTitle>
     </div>
   ))
-  .add('各項目内容', () => (
+  .add('各項目内容ボックス', () => (
     <div>
-      <DetailContent
+      <DetailContainer
         title="所在地"
+        renderContent={() => <DetailContent.Address>東京都港区西新橋</DetailContent.Address>}
+      />
+      <DetailContainer
+        title="種類"
+        renderContent={() => <DetailContent.SpaceType>クローゼット</DetailContent.SpaceType>}
+      />
+      <DetailContainer
+        title="預かることができる荷物"
         renderContent={() => (
-          <div>
-            <span>東京都港区西新橋</span>
-            <br />
-            <span>詳細な住所はリクエスト完了後に通知されます</span>
-          </div>
+          <DetailContent.BaggegeType
+            typeOK
+            comment="冷蔵庫や洗濯機など家具・家電もお預かり可能ですが、ボリュームによっては検討させていただきますのでご相談ください！"
+          />
         )}
       />
-      <DetailContent title="種類" renderContent={() => <span>クローゼット</span>} />
+    </div>
+  ))
+  .add('各項目内容', () => (
+    <div>
+      <Title>所在地</Title>
+      <DetailContent.Address>東京都港区西新橋</DetailContent.Address>
+      <Title>種類</Title>
+      <DetailContent.SpaceType>クローゼット</DetailContent.SpaceType>
+      <Title>預かることができる荷物 - 家具・家電OK</Title>
+      <DetailContent.BaggegeType
+        typeOK
+        comment="冷蔵庫や洗濯機など家具・家電もお預かり可能ですが、ボリュームによっては検討させていただきますのでご相談ください！"
+      />
+      <Title>預かることができる荷物 - 家具・家電NG</Title>
+      <DetailContent.BaggegeType comment="狭いクローゼットなので大きめの家具・家電はお預かりできかねます。リクエスト時にご相談ください。" />
     </div>
   ));
 

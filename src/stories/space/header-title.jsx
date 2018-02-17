@@ -4,7 +4,7 @@ import { FontSizes, Colors } from '../../variables';
 
 const Text = styled.h1`
   display: block;
-  font-size: ${FontSizes.large2}px;
+  font-size: ${FontSizes.xlarge}px;
   color: ${Colors.black};
 `;
 
