@@ -8,3 +8,5 @@ export { default as DetailContainer } from './detail-container';
 export { default as DetailTitle } from './detail-title';
 export { default as DetailContent } from './detail-content';
 export { default as HostInfo } from './host-info';
+export { default as PriceTitle } from './price-title';
+export { default as PriceContent } from './price-content';

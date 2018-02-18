@@ -19,6 +19,8 @@ import {
   DetailContainer,
   DetailContent,
   HostInfo,
+  PriceTitle,
+  PriceContent,
 } from './space';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
@@ -254,6 +256,26 @@ storiesOf('Space', module)
       hostName="YUKI HASHIDA"
       text="こんにちは。東京都港区芝に住む29才です。是非安心して荷物を預けてくださいね。こんにちは。東京都港区芝に住む29才です。是非安心して荷物を預けてくださいね。こんにちは。"
     />
+  ))
+  .add('価格タイトル', () => <PriceTitle />)
+  .add('価格表示', () => (
+    <div style={{ maxWidth: '250px' }}>
+      <PriceContent
+        title="スペースまるごと"
+        price="20000円"
+        caption="スペースのほとんどを使用する荷物の場合の料金"
+      />
+      <PriceContent
+        title="スペース半分"
+        price="10000円"
+        caption="スペースの半分程度を使用する荷物の場合の料金"
+      />
+      <PriceContent
+        title="スペース1/4"
+        price="5000円"
+        caption="スペースの4分の1程度を使用する荷物の場合の料金"
+      />
+    </div>
   ));
 
 storiesOf('Map', module).add('検索結果', () => <p>検索結果に表示されるサイズ大のマップ</p>);
