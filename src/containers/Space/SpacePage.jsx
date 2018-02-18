@@ -188,7 +188,11 @@ export default props => (
         </Card>
         <Card
           marginTop={`${Dimens.medium2}px`}
-          paddingTop={`${Dimens.medium}px`}>
+          paddingTop={`${Dimens.medium}px`}
+          paddingLeft={`${Dimens.medium}px`}
+          paddingRight={`${Dimens.medium}px`}
+          paddingBottom={0}
+        >
           <SendMessageButton
             onClickSendMessage={() => console.log('onClickSendMessage')}
           />
