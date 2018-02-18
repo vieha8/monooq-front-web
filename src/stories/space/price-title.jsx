@@ -12,7 +12,7 @@ const SubText = styled.span`
   display: inline-block;
   font-size: ${FontSizes.small}px;
   color: ${Colors.black};
-  margin-left: ${Dimens.medium}px;
+  margin-left: ${Dimens.small}px;
 `;
 
 export default () => (

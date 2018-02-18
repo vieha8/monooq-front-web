@@ -21,6 +21,7 @@ import {
   HostInfo,
   PriceTitle,
   PriceContent,
+  SendMessageButton,
 } from './space';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
@@ -276,6 +277,9 @@ storiesOf('Space', module)
         caption="スペースの4分の1程度を使用する荷物の場合の料金"
       />
     </div>
+  ))
+  .add('メッセージを送るボタン', () => (
+    <SendMessageButton onClickSendMessage={() => console.log('onClickSendMessage')} />
   ));
 
 storiesOf('Map', module).add('検索結果', () => <p>検索結果に表示されるサイズ大のマップ</p>);

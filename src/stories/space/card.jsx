@@ -7,7 +7,7 @@ const cardStyle = {
 };
 
 export default props => (
-  <Card style={cardStyle}>
+  <Card style={{ cardStyle, ...props }}>
     <CardContent>
       {props.children}
     </CardContent>

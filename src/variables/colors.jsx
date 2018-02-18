@@ -1,5 +1,8 @@
 export default {
+  white: '#FFFFFF',
   pink: '#FF5A60',
+  buttonPink: '#E85258',
+  buttonPinkHover: '#D65258',
   black: '#333333',
   gray: '#888787',
   lightGray: '#F7F7F7',
