@@ -3,7 +3,7 @@ export const firebaseConfig = () => {
     // TODO return production conf
   } else {
     return {
-      apiKey: 'AIzaSyAi3A3gJonR9pyB0HARfbmnCXgM3tmIgUI',
+      apiKey: 'AIzaSyC9htXu8mTlahcjjia1qZ0UevLuKhk_QqU',
       authDomain: 'monooq-dev.firebaseapp.com',
       databaseURL: 'https://monooq-dev.firebaseio.com',
       projectId: 'monooq-dev',
