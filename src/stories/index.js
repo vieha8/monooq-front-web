@@ -5,6 +5,25 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 import { Button, Welcome } from '@storybook/react/demo';
+import Title from './story/title';
+
+import { Footer } from './shared';
+import {
+  Card,
+  Map,
+  PlaceText,
+  HeaderTitle,
+  SlideImage,
+  Caption,
+  DetailTitle,
+  DetailContainer,
+  DetailContent,
+  HostInfo,
+  PriceTitle,
+  PriceContent,
+  SendMessageButton,
+  ReportLink,
+} from './space';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -12,7 +31,6 @@ storiesOf('Avatar', module)
   .add('標準', () => <p>ログイン時のユーザーのアイコン</p>)
   .add('プロフィール表示', () => <p>プロフィール登録時、編集時のアイコン</p>)
   .add('プロフィール登録完了時', () => <p>プロフィール登録完了時のアイコン</p>);
-
 
 storiesOf('AvatarPresence', module)
   .add('標準', () => <p>ログイン時のユーザーのアイコンと名前とステータス一式(サイドバーに表示)</p>)
@@ -33,12 +51,16 @@ storiesOf('Buttons', module)
   .add('SNS', () => <p>SNS連携のボタン「登録」「ログイン」の2パターン</p>)
   .add('メッセージを見る', () => <p>メッセージの確認ボタン</p>)
   .add('キャンセルをする(テキスト)', () => <p>キャンセルするボタン。テキスト</p>)
-  .add('レビューを投稿(荷物の引き渡しが完了した)', () => <p>レビューを投稿するボタン(荷物の引き渡しが完了したボタン)</p>)
+  .add('レビューを投稿(荷物の引き渡しが完了した)', () => (
+    <p>レビューを投稿するボタン(荷物の引き渡しが完了したボタン)</p>
+  ))
   .add('次へ', () => <p>次へ進むボタン 「次へ」「本人確認」など</p>)
   .add('SMSを再送する', () => <p>「SMSを再送する」など</p>)
   .add('写真を登録する(ユーザー)', () => <p>ユーザー側の「写真を登録する」など</p>)
   .add('場所を探す/ホストになる', () => <p>プロフィール登録完了時など</p>)
-  .add('写真を登録する(場所)', () => <p>場所の「写真を登録(更新)する」「場所を登録(更新)する」など</p>)
+  .add('写真を登録する(場所)', () => (
+    <p>場所の「写真を登録(更新)する」「場所を登録(更新)する」など</p>
+  ))
   .add('保存する', () => <p>登録情報を保存(削除)するボタン・登録した場所を見る</p>)
   .add('編集する', () => <p>場所の管理</p>)
   .add('非公開にする', () => <p>場所の管理</p>)
@@ -63,31 +85,48 @@ storiesOf('Buttons', module)
 
 storiesOf('Box', module)
   .add('スケジュール', () => <p>「預ける日時」「引き取る日時」「預かる日時」など</p>)
-  .add('売上・(支払)予定金額・支払い金額', () => <p>売上の表示・(支払)予定金額・支払い金額の表示</p>)
+  .add('売上・(支払)予定金額・支払い金額', () => (
+    <p>売上の表示・(支払)予定金額・支払い金額の表示</p>
+  ))
   .add('場所情報(場所の管理)', () => <p>「場所の写真」「場所」「説明」「条件」の表示一式</p>)
   .add('場所情報(検索結果)', () => <p>「場所の写真」「場所」「説明」「条件」の表示一式</p>)
   .add('場所情報(地図検索時の結果)', () => <p>「場所の写真」「場所」「説明」「条件」の表示一式</p>)
-  .add('メッセージ(メッセージ一覧)', () => <p>「相手のアイコン」「○○さんから~届いています」「受信日時」の表示一式</p>)
-  .add('預けるスケジュール(預けるスケジュール一覧)', () => <p>「場所情報」「スケジュール」「ホスト情報」「メッセージを見るボタン」「キャンセルするボタン」の表示一式</p>)
-  .add('預けるスケジュール・キャンセル時(預けるスケジュール一覧)', () => <p>「場所情報」「スケジュール」「ホスト情報」「メッセージを見るボタン」「キャンセルするボタン」の表示一式</p>);
+  .add('メッセージ(メッセージ一覧)', () => (
+    <p>「相手のアイコン」「○○さんから~届いています」「受信日時」の表示一式</p>
+  ))
+  .add('預けるスケジュール(預けるスケジュール一覧)', () => (
+    <p>
+      「場所情報」「スケジュール」「ホスト情報」「メッセージを見るボタン」「キャンセルするボタン」の表示一式
+    </p>
+  ))
+  .add('預けるスケジュール・キャンセル時(預けるスケジュール一覧)', () => (
+    <p>
+      「場所情報」「スケジュール」「ホスト情報」「メッセージを見るボタン」「キャンセルするボタン」の表示一式
+    </p>
+  ));
 
-storiesOf('CatchCopy', module)
-  .add('トップ', () => <p>トップのキャッチコピー</p>);
+storiesOf('CatchCopy', module).add('トップ', () => <p>トップのキャッチコピー</p>);
 
 storiesOf('Chat', module)
   .add('標準(自分)', () => <p>「吹き出しメッセージ」「送信日時」の表示一式</p>)
   .add('標準(相手)', () => <p>「相手のアイコン」「吹き出しメッセージ」「受信日時」の表示一式</p>)
-  .add('標準(自分)添付画像あり', () => <p>「吹き出しメッセージ」「送信日時」「添付画像」の表示一式</p>)
-  .add('標準(相手)添付画像あり', () => <p>「相手のアイコン」「吹き出しメッセージ」「受信日時」「添付画像」の表示一式</p>);
+  .add('標準(自分)添付画像あり', () => (
+    <p>「吹き出しメッセージ」「送信日時」「添付画像」の表示一式</p>
+  ))
+  .add('標準(相手)添付画像あり', () => (
+    <p>「相手のアイコン」「吹き出しメッセージ」「受信日時」「添付画像」の表示一式</p>
+  ));
 
-storiesOf('ChatAttachment', module)
-  .add('標準', () => <p>「カメラアイコン」「写真アイコン」「テキストインプット」「絵文字」「送信ボタン」の一式</p>);
+storiesOf('ChatAttachment', module).add('標準', () => (
+  <p>「カメラアイコン」「写真アイコン」「テキストインプット」「絵文字」「送信ボタン」の一式</p>
+));
 
-storiesOf('CheckBox', module)
-  .add('標準', () => <p>「受取・引取がしやすい曜日」「利用規約同意のチェック」など</p>);
+storiesOf('CheckBox', module).add('標準', () => (
+  <p>「受取・引取がしやすい曜日」「利用規約同意のチェック」など</p>
+));
 
 storiesOf('Footer', module)
-  .add('標準', () => <p>デフォルトのフッター</p>)
+  .add('標準', () => <Footer />)
   .add('サイドメニュー', () => <p>サイドメニューのフッター</p>);
 
 storiesOf('Header', module)
@@ -115,15 +154,139 @@ storiesOf('Image', module)
   .add('画像表示(場所の管理)', () => <p>場所の管理で表示される場所の画像</p>)
   .add('画像表示(リクエストを送信する)', () => <p>リクエスト送信時に表示される場所の画像</p>);
 
-storiesOf('Line', module)
-  .add('標準', () => <p>文章の区切り線</p>);
+storiesOf('Line', module).add('標準', () => <p>文章の区切り線</p>);
 
-storiesOf('Map', module)
-  .add('検索結果', () => <p>検索結果に表示されるサイズ大のマップ</p>)
-  .add('場所詳細', () => <p>場所詳細画面にて表示されるサイズ中のマップ</p>);
+storiesOf('Space', module)
+  .add('カード', () => (
+    <Card>
+      <h1>テスト</h1>
+      <h2>テスト</h2>
+      <h3>テスト</h3>
+      <h4>テスト</h4>
+      <h5>テスト</h5>
+    </Card>
+  ))
+  .add('マップ', () => (
+    <Map
+      containerElement={<div style={{ height: '300px' }} />}
+      mapElement={<div style={{ height: '100%' }} />}
+      loadingElement={<div style={{ height: '100%' }} />}
+      googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrHQDZXZI21cMEW8FIYYWKyvI2kLUDsbA&v=3.exp&libraries=geometry,drawing,places"
+    />
+  ))
+  .add('場所テキスト', () => <PlaceText>東京都 港区 六本木</PlaceText>)
+  .add('タイトル', () => (
+    <HeaderTitle>東京タワーに近くて便利！大きい荷物も何人分でもOK</HeaderTitle>
+  ))
+  .add('画像スライドショー', () => (
+    <div style={{ width: '400px' }}>
+      <SlideImage
+        images={[
+          {
+            original: 'http://placehold.jp/200x150.png',
+            thumbnail: 'http://placehold.jp/200x150.png',
+          },
+          {
+            original: 'http://placehold.jp/200x150.png',
+            thumbnail: 'http://placehold.jp/200x150.png',
+          },
+          {
+            original: 'http://placehold.jp/200x150.png',
+            thumbnail: 'http://placehold.jp/200x150.png',
+          },
+        ]}
+      />
+    </div>
+  ))
+  .add('説明', () => (
+    <Caption>
+      閲覧頂き有り難うございます！赤羽橋、芝公園などの駅付近で預かることが可能です。玄関から入れば大きめの荷物も対応可能です！
+    </Caption>
+  ))
+  .add('各項目タイトル', () => (
+    <div>
+      <DetailTitle>スペースについて</DetailTitle>
+      <DetailTitle>荷物について</DetailTitle>
+    </div>
+  ))
+  .add('各項目内容ボックス', () => (
+    <div>
+      <DetailContainer
+        title="所在地"
+        renderContent={() => <DetailContent.Address>東京都港区西新橋</DetailContent.Address>}
+      />
+      <DetailContainer
+        title="種類"
+        renderContent={() => <DetailContent.SpaceType>クローゼット</DetailContent.SpaceType>}
+      />
+      <DetailContainer
+        title="預かることができる荷物"
+        renderContent={() => (
+          <DetailContent.BaggegeType
+            typeOK
+            text="冷蔵庫や洗濯機など家具・家電もお預かり可能ですが、ボリュームによっては検討させていただきますのでご相談ください！"
+          />
+        )}
+      />
+    </div>
+  ))
+  .add('各項目内容', () => (
+    <div>
+      <Title>所在地</Title>
+      <DetailContent.Address>東京都港区西新橋</DetailContent.Address>
+      <Title>種類</Title>
+      <DetailContent.SpaceType>クローゼット</DetailContent.SpaceType>
+      <Title>預かることができる荷物 - 家具・家電OK</Title>
+      <DetailContent.BaggegeType
+        typeOK
+        text="冷蔵庫や洗濯機など家具・家電もお預かり可能ですが、ボリュームによっては検討させていただきますのでご相談ください！"
+      />
+      <Title>預かることができる荷物 - 家具・家電NG</Title>
+      <DetailContent.BaggegeType text="狭いクローゼットなので大きめの家具・家電はお預かりできかねます。リクエスト時にご相談ください。" />
+      <Title>受取り方法</Title>
+      <DetailContent.HowToReceive delivery meeting />
+      <Title>受取りについて補足</Title>
+      <DetailContent.ReceiveSupplement text="普段は会社勤めですので、基本的には平日の夜のご対応となります。土日でも対応できる時がありますので、事前にメッセージでお知らせください！" />
+    </div>
+  ))
+  .add('ホスト情報', () => (
+    <HostInfo
+      img={{
+        src: 'https://placehold.jp/150x150.png',
+        alt: 'YUKI HASHIDA',
+      }}
+      hostName="YUKI HASHIDA"
+      text="こんにちは。東京都港区芝に住む29才です。是非安心して荷物を預けてくださいね。こんにちは。東京都港区芝に住む29才です。是非安心して荷物を預けてくださいね。こんにちは。"
+    />
+  ))
+  .add('価格タイトル', () => <PriceTitle />)
+  .add('価格表示', () => (
+    <div style={{ maxWidth: '250px' }}>
+      <PriceContent
+        title="スペースまるごと"
+        price="20000円"
+        caption="スペースのほとんどを使用する荷物の場合の料金"
+      />
+      <PriceContent
+        title="スペース半分"
+        price="10000円"
+        caption="スペースの半分程度を使用する荷物の場合の料金"
+      />
+      <PriceContent
+        title="スペース1/4"
+        price="5000円"
+        caption="スペースの4分の1程度を使用する荷物の場合の料金"
+      />
+    </div>
+  ))
+  .add('メッセージを送るボタン', () => (
+    <SendMessageButton onClickSendMessage={() => console.log('onClickSendMessage')} />
+  ))
+  .add('不適切な内容を報告', () => <ReportLink />);
 
-storiesOf('Menu', module)
-  .add('サイドメニュー', () => <p>サイドメニュー</p>);
+storiesOf('Map', module).add('検索結果', () => <p>検索結果に表示されるサイズ大のマップ</p>);
+
+storiesOf('Menu', module).add('サイドメニュー', () => <p>サイドメニュー</p>);
 
 storiesOf('SlectBox', module)
   .add('標準', () => <p>「お住いの地域」「予定時刻」など</p>)
