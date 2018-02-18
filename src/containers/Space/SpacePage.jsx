@@ -21,6 +21,7 @@ import {
   PriceTitle,
   PriceContent,
   SendMessageButton,
+  ReportLink,
 } from '../../stories/space';
 
 const SpacePage = styled.div`
@@ -192,6 +193,9 @@ export default props => (
             onClickSendMessage={() => console.log('onClickSendMessage')}
           />
         </Card>
+        <Section>
+          <ReportLink />
+        </Section>
       </PriceCardContainer>
     </CardContainer>
     <Footer />

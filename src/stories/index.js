@@ -22,6 +22,7 @@ import {
   PriceTitle,
   PriceContent,
   SendMessageButton,
+  ReportLink,
 } from './space';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
@@ -280,7 +281,8 @@ storiesOf('Space', module)
   ))
   .add('メッセージを送るボタン', () => (
     <SendMessageButton onClickSendMessage={() => console.log('onClickSendMessage')} />
-  ));
+  ))
+  .add('不適切な内容を報告', () => <ReportLink />);
 
 storiesOf('Map', module).add('検索結果', () => <p>検索結果に表示されるサイズ大のマップ</p>);
 

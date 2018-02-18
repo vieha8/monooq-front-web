@@ -11,3 +11,4 @@ export { default as HostInfo } from './host-info';
 export { default as PriceTitle } from './price-title';
 export { default as PriceContent } from './price-content';
 export { default as SendMessageButton } from './send-message-button';
+export { default as ReportLink } from './report-link';
