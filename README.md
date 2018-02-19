@@ -11,6 +11,8 @@ npm install
 npm start
 ```
 
+storybook の起動は`npm run stroybook`
+
 ## 特徴
 
 * React&Redux
