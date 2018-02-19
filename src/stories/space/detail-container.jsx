@@ -17,9 +17,9 @@ const Container = styled.div`
     display: block;
   }
 
-  ${isMobile(`
+  ${isMobile`
     display: block;
-  `)}
+  `}
 `;
 
 const Title = styled.span`
@@ -29,21 +29,21 @@ const Title = styled.span`
   font-size: ${FontSizes.medium}px;
   text-align: left;
 
-  ${isMobile(`
+  ${isMobile`
     display: block;
     width: 100%;
-  `)}
+  `}
 `;
 
 const ContentContainer = styled.div`
   display: table-cell;
   vertical-align: top;
   padding-left: ${Dimens.medium2}px;
-  ${isMobile(`
+  ${isMobile`
     display: block;
     padding-left: 0;
     margin-top: ${Dimens.medium}px;
-  `)}
+  `}
 `;
 
 export default props => (

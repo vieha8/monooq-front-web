@@ -45,11 +45,11 @@ const SpaceCardContainer = styled.div`
   padding-bottom: 80px;
   float: left;
 
-  ${isMobile(`
+  ${isMobile`
     padding: 0;
     margin-top: 0;
     float: none;
-  `)}
+  `}
 `;
 
 const PriceCardContainer = styled.div`
@@ -60,12 +60,12 @@ const PriceCardContainer = styled.div`
   padding-right: 9%;
   padding-bottom: 80px;
 
-  ${isMobile(`
+  ${isMobile`
     float: none;
     max-width: 100%;
     margin-top: 0;
     padding: 0;
-  `)}
+  `}
 `;
 
 const MenuContainer = styled.div`
@@ -85,17 +85,17 @@ const Section = styled.div`
 const SlideImageWrapper = styled.div`
   margin-top: ${Dimens.medium3}px;
   
-  ${isMobile(`
+  ${isMobile`
     margin-top: ${Dimens.medium}px;
-  `)}
+  `}
 `;
 
 const MapContainer = styled.div`
   margin-top: -20px;
   height: 360px;
-  ${isMobile(`
+  ${isMobile`
     height: 240px;  
-  `)}
+  `}
 `;
 
 export default props => (

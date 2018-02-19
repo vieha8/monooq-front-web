@@ -35,11 +35,11 @@ const MobileCard = props => (
 
 const ButtonContainer = styled.div`
   text-align: center;
-  ${isMobile(`
+  ${isMobile`
     display: table;
     text-align: center;
     width: 100%;
-  `)}
+  `}
 `;
 
 const Button = styled.button`
@@ -56,11 +56,11 @@ const Button = styled.button`
   border: none;
   outline:none;
 
-  ${isMobile(`
+  ${isMobile`
     display: table-cell;
     padding: 9px 20px;
     vertical-align: middle;
-  `)}
+  `}
 `;
 
 const SubText = styled.span`
@@ -69,10 +69,10 @@ const SubText = styled.span`
   color: ${Colors.gray};
   margin-top: ${Dimens.medium}px;
 
-  ${isMobile(`
+  ${isMobile`
     display: table-cell;
     vertical-align: middle;
-  `)}
+  `}
 `;
 
 export default (props) => {

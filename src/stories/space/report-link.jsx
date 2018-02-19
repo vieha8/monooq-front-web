@@ -7,9 +7,9 @@ import { FontSizes, Colors, Dimens } from '../../variables';
 const Container = styled.div`
   text-align: center;
   
-  ${isMobile(`
+  ${isMobile`
     padding-bottom: 110px;
-  `)}
+  `}
 `;
 
 const IconWrapper = styled.span`

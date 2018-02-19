@@ -9,9 +9,9 @@ const Text = styled.h1`
   color: ${Colors.black};
   line-height: 1.6;
   
-  ${isMobile(`
+  ${isMobile`
     font-size: ${FontSizes.medium2}px;
-  `)}
+  `}
 `;
 
 export default props => (

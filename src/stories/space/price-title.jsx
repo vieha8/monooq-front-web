@@ -8,9 +8,9 @@ const Text = styled.span`
   font-size: ${FontSizes.large}px;
   color: ${Colors.black};
 
-  ${isMobile(`
+  ${isMobile`
     font-size: ${FontSizes.medium}px;
-  `)}
+  `}
 `;
 
 const SubText = styled.span`

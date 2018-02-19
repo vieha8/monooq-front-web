@@ -15,9 +15,9 @@ const Container = styled.div`
     display: block;
   }
 
-  ${isMobile(`
+  ${isMobile`
     display: block;
-  `)}
+  `}
 `;
 
 const ImageWrapper = styled.span`
@@ -27,11 +27,11 @@ const ImageWrapper = styled.span`
   font-size: ${FontSizes.medium}px;
   text-align: right;
 
-  ${isMobile(`
+  ${isMobile`
     display: block;
     width: 100%;
     text-align: center;
-  `)}
+  `}
 `;
 
 const Image = styled.img`
@@ -45,9 +45,9 @@ const ContentContainer = styled.div`
   vertical-align: top;
   padding-left: ${Dimens.medium2}px;
 
-  ${isMobile(`
+  ${isMobile`
     padding-left: 0;
-  `)}
+  `}
 `;
 
 const HostName = styled.span`
@@ -57,20 +57,20 @@ const HostName = styled.span`
   line-height: 1.8;
   font-weight: bold;
 
-  ${isMobile(`
+  ${isMobile`
     display: block;
     width: 100%;
     font-size: ${FontSizes.medium}px;
     text-align: center;
-  `)}
+  `}
 `;
 
 const IntroduceText = HostName.extend`
   font-weight: normal;
   
-  ${isMobile(`
+  ${isMobile`
     margin-top: ${Dimens.medium}px;
-  `)}
+  `}
 `;
 
 export default props => (
