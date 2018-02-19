@@ -46,7 +46,7 @@ export default props => (
     <div>
       <Auth />
       <Header />
-      {routes.map(r => <Route exact path={r.path} component={r.component} />)}
+      {routes.map((r, i) => <Route key={`route_${i}`} exact path={r.path} component={r.component} />)}
     </div>
   </ConnectedRouter>
 );

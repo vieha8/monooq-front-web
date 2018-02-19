@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import RequestDialog from './RequestDialog';
 import SpaceMenu from '../Search/SpaceMenu';
 
+import { isMobile, isMobileWindow } from '../../helpers/style/media-query';
 import { Colors, Dimens } from '../../variables';
 
 import { Footer } from '../../stories/shared';
@@ -43,6 +44,12 @@ const SpaceCardContainer = styled.div`
   padding-left: 8%;
   padding-bottom: 80px;
   float: left;
+
+  ${isMobile(`
+    padding: 0;
+    margin-top: 0;
+    float: none;
+  `)}
 `;
 
 const PriceCardContainer = styled.div`
@@ -52,6 +59,13 @@ const PriceCardContainer = styled.div`
   margin-top: 80px;
   padding-right: 9%;
   padding-bottom: 80px;
+
+  ${isMobile(`
+    float: none;
+    max-width: 100%;
+    margin-top: 0;
+    padding: 0;
+  `)}
 `;
 
 const MenuContainer = styled.div`
@@ -70,13 +84,25 @@ const Section = styled.div`
 
 const SlideImageWrapper = styled.div`
   margin-top: ${Dimens.medium3}px;
+  
+  ${isMobile(`
+    margin-top: ${Dimens.medium}px;
+  `)}
+`;
+
+const MapContainer = styled.div`
+  margin-top: -20px;
+  height: 360px;
+  ${isMobile(`
+    height: 240px;  
+  `)}
 `;
 
 export default props => (
   <SpacePage>
     {/* TODO マップのprops調整 */}
     <Map
-      containerElement={<div style={{ marginTop: '-20px', height: '360px' }} />}
+      containerElement={<MapContainer />}
       mapElement={<div style={{ height: '100%' }} />}
       loadingElement={<div style={{ height: '100%' }} />}
       googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrHQDZXZI21cMEW8FIYYWKyvI2kLUDsbA&v=3.exp&libraries=geometry,drawing,places"
@@ -186,22 +212,21 @@ export default props => (
             />
           </div>
         </Card>
-        <Card
-          marginTop={`${Dimens.medium2}px`}
-          paddingTop={`${Dimens.medium}px`}
-          paddingLeft={`${Dimens.medium}px`}
-          paddingRight={`${Dimens.medium}px`}
-          paddingBottom={0}
-        >
-          <SendMessageButton
-            onClickSendMessage={() => console.log('onClickSendMessage')}
-          />
-        </Card>
-        <Section>
-          <ReportLink />
-        </Section>
+        {isMobileWindow() &&
+          <Section>
+            <ReportLink />
+          </Section>
+        }
+        <SendMessageButton
+          onClickSendMessage={() => console.log('onClickSendMessage')}
+        />
+        {!isMobileWindow() &&
+          <Section>
+            <ReportLink />
+          </Section>
+        }
       </PriceCardContainer>
     </CardContainer>
-    <Footer />
+    {!isMobileWindow() && <Footer />}
   </SpacePage>
 );

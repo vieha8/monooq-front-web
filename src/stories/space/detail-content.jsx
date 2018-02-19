@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import LocalShippingIcon from 'material-ui-icons/LocalShipping';
 import PeopleIcon from 'material-ui-icons/People';
+import { isMobile } from '../../helpers/style/media-query';
 import { FontSizes, Colors, Dimens } from '../../variables';
 
 const Text = styled.span`
