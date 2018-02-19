@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { isMobile, isMobileWindow } from '../../helpers/style/media-query';
 import { FontSizes, Colors, Dimens } from '../../variables';
 
 const Container = styled.div`
@@ -13,6 +14,10 @@ const Container = styled.div`
     content: "";
     display: block;
   }
+
+  ${isMobile`
+    display: block;
+  `}
 `;
 
 const ImageWrapper = styled.span`
@@ -21,6 +26,12 @@ const ImageWrapper = styled.span`
   vertical-align: top;
   font-size: ${FontSizes.medium}px;
   text-align: right;
+
+  ${isMobile`
+    display: block;
+    width: 100%;
+    text-align: center;
+  `}
 `;
 
 const Image = styled.img`
@@ -33,6 +44,10 @@ const ContentContainer = styled.div`
   display: table-cell;
   vertical-align: top;
   padding-left: ${Dimens.medium2}px;
+
+  ${isMobile`
+    padding-left: 0;
+  `}
 `;
 
 const HostName = styled.span`
@@ -41,17 +56,28 @@ const HostName = styled.span`
   font-size: ${FontSizes.medium}px;
   line-height: 1.8;
   font-weight: bold;
+
+  ${isMobile`
+    display: block;
+    width: 100%;
+    font-size: ${FontSizes.medium}px;
+    text-align: center;
+  `}
 `;
 
 const IntroduceText = HostName.extend`
   font-weight: normal;
+  
+  ${isMobile`
+    margin-top: ${Dimens.medium}px;
+  `}
 `;
 
 export default props => (
   <Container>
     <ImageWrapper><Image {...props.img} /></ImageWrapper>
     <ContentContainer>
-      <HostName>ホストは{props.hostName}さん</HostName>
+      <HostName>ホストは{isMobileWindow() && <br />}{props.hostName}さん</HostName>
       <IntroduceText>{props.text}</IntroduceText>
     </ContentContainer>
   </Container>
