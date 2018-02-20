@@ -1,24 +1,27 @@
 import React from 'react';
 import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import { defaultPageFactory } from '../../components/PageLayouts';
 import authRequired from '../../components/Auth';
+import { messagesActions } from '../../modules/messages';
 
 class Messages extends React.Component {
   constructor(props) {
     super(props);
     this.pageTitle = 'メッセージ';
-    this.contents = this.contents.bind(this);
+    this.props.dispatch(messagesActions.fetchRoomsStart());
   }
 
-  contents() {
+  contents = () => {
     const { classes, history } = this.props;
     return (
       <div className={classes.root}>
         <List component="nav">
-          {[...Array(10)].map((v, i) => {
+          {this.props.rooms.map((v, i) => {
+            console.log(v);
             return (
               <ListItem
                 key={i}
@@ -28,18 +31,15 @@ class Messages extends React.Component {
                   history.push('/message/1');
                 }}
               >
-                <Avatar>MK</Avatar>
-                <ListItemText
-                  primary="Masaya Kudo"
-                  secondary="田中さん初めまして！メッセージありがとうございます。ぜひお預かりさ..."
-                />
+                <Avatar src={v.guestUserImgUrl} />
+                <ListItemText primary={v.guestUserName} secondary={v.lastMessage} />
               </ListItem>
             );
           })}
         </List>
       </div>
     );
-  }
+  };
 
   render() {
     const Page = defaultPageFactory(this.pageTitle, this.contents);
@@ -55,4 +55,11 @@ const styles = theme => ({
   },
 });
 
-export default compose(withStyles(styles), authRequired)(Messages);
+const mapStateToProps = state => {
+  return {
+    rooms: state.messages.rooms,
+    isLoading: state.messages.isLoading,
+  };
+};
+
+export default compose(withStyles(styles), authRequired, connect(mapStateToProps))(Messages);

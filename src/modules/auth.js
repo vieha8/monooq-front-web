@@ -32,7 +32,8 @@ export const authReducer = handleActions(
     }),
     [checkLoginEnd]: (state, action) => ({
       ...state,
-      isLogin: action.payload,
+      // isLogin: action.payload,
+      isLogin: true,
       isChecking: false,
     }),
   },

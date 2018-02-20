@@ -12,6 +12,7 @@ import registerServiceWorker from './registerServiceWorker';
 
 import { authReducer } from './modules/auth';
 import { searchReducer } from './modules/search';
+import { messagesReducer } from './modules/messages';
 import rootSaga from './modules/sagas';
 
 import Routes from './routes';
@@ -26,6 +27,7 @@ const store = createStore(
     auth: authReducer,
     router: routerReducer,
     search: searchReducer,
+    messages: messagesReducer,
   }),
   applyMiddleware(...middleware),
 );
