@@ -15,6 +15,7 @@ const Container = styled.div`
 
 const Content = styled.div`
   padding: ${Dimens.small}px ${Dimens.medium}px;
+  text-align: left;
 `;
 
 const Image = styled.img`
