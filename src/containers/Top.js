@@ -78,6 +78,13 @@ const ToHostRegist = styled.a`
   margin-left: 175px;
 `;
 
+const TopHr = styled.hr`
+  margin: 0;
+  height: 60px;
+  border: 0;
+  background: rgb(232, 82, 88);
+`;
+
 class Top extends React.Component {
   constructor(props) {
     super(props);
@@ -141,6 +148,7 @@ class Top extends React.Component {
             </ToHostRegist>
           </div>
         </TopView>
+        <TopHr />
       </TopPage>
     );
   }
