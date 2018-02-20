@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Colors, FontSizes, Dimens } from '../../variables/';
+import { media } from '../../helpers/style/media-query';
+import { Colors, FontSizes, Dimens } from '../../variables';
 
 const Container = styled.div`
   border-radius: 3px;
@@ -9,8 +10,12 @@ const Container = styled.div`
   height: 331px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.4);
   cursor: pointer;
-  margin: ${Dimens.medium}px;
-  margin-top: ${Dimens.medium3}px;
+  margin: ${Dimens.medium3}px ${Dimens.medium}px 0 ${Dimens.medium}px;
+
+  ${media.phone`
+    width: 160px;
+    margin: ${Dimens.xsmall}px;
+  `}
 `;
 
 const Content = styled.div`

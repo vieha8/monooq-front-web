@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import ResultItem from './result-item';
+import { media } from '../../helpers/style/media-query';
+import { Dimens } from '../../variables';
 
 const Container = styled.div`
   text-align: center;
@@ -9,6 +11,10 @@ const Container = styled.div`
     content: "";
     display: block;
   }
+
+  ${media.phone`
+    margin-top: ${Dimens.medium}px;
+  `}
 `;
 
 const Cell = styled.div`

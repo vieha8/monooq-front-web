@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { isMobile, isMobileWindow } from '../../helpers/style/media-query';
+import { media, isMobileWindow } from '../../helpers/style/media-query';
 import { FontSizes, Colors, Dimens } from '../../variables';
 
 const Container = styled.div`
@@ -15,7 +15,7 @@ const Container = styled.div`
     display: block;
   }
 
-  ${isMobile`
+  ${media.phone`
     display: block;
   `}
 `;
@@ -27,7 +27,7 @@ const ImageWrapper = styled.span`
   font-size: ${FontSizes.medium}px;
   text-align: right;
 
-  ${isMobile`
+  ${media.phone`
     display: block;
     width: 100%;
     text-align: center;
@@ -45,7 +45,7 @@ const ContentContainer = styled.div`
   vertical-align: top;
   padding-left: ${Dimens.medium2}px;
 
-  ${isMobile`
+  ${media.phone`
     padding-left: 0;
   `}
 `;
@@ -57,7 +57,7 @@ const HostName = styled.span`
   line-height: 1.8;
   font-weight: bold;
 
-  ${isMobile`
+  ${media.phone`
     display: block;
     width: 100%;
     font-size: ${FontSizes.medium}px;
@@ -68,7 +68,7 @@ const HostName = styled.span`
 const IntroduceText = HostName.extend`
   font-weight: normal;
   
-  ${isMobile`
+  ${media.phone`
     margin-top: ${Dimens.medium}px;
   `}
 `;

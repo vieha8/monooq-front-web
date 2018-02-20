@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { isMobile } from '../../helpers/style/media-query';
+import { media } from '../../helpers/style/media-query';
 import { FontSizes, Colors, Dimens } from '../../variables';
 
 const Container = styled.div`
@@ -17,7 +17,7 @@ const Container = styled.div`
     display: block;
   }
 
-  ${isMobile`
+  ${media.phone`
     display: block;
   `}
 `;
@@ -29,7 +29,7 @@ const Title = styled.span`
   font-size: ${FontSizes.medium}px;
   text-align: left;
 
-  ${isMobile`
+  ${media.phone`
     display: block;
     width: 100%;
   `}
@@ -39,10 +39,10 @@ const ContentContainer = styled.div`
   display: table-cell;
   vertical-align: top;
   padding-left: ${Dimens.medium2}px;
-  ${isMobile`
+  ${media.phone`
     display: block;
     padding-left: 0;
-    margin-top: ${Dimens.medium}px;
+    margin-top: ${Dimens.small}px;
   `}
 `;
 
