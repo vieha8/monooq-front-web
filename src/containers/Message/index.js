@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -24,9 +24,9 @@ class Message extends React.Component {
       isSending: false,
     };
 
-    this.pageTitle = 'Masaya Kudoさんとのメッセージ';
+    this.pageTitle = 'Masaya Kudoさんとのメッセージ'; //TODO ルーム情報を取得する
 
-    const roomId = props.match.params.room_id;
+    const roomId = props.match.params.room_id; //TODO roomId書き換えで関係ないルームのデータを取得できないようにする
     this.props.dispatch(messagesActions.fetchMessagesStart(roomId));
   }
 
@@ -37,80 +37,35 @@ class Message extends React.Component {
   };
 
   contents = () => {
-    const { classes } = this.props;
+    const { classes, messages } = this.props;
+    const userId = '1'; //TODO auth reducerから取る
     return (
       <div className={classes.root}>
-        <div className={classes.myMessage}>
-          <small style={{ color: 'gray' }}>02/07 18:11</small>
-          <br />
-          はじめまして。日曜日夕方から月曜日昼まで、大型のキャリーケースとカメラの三脚（ケース入り、どちらも1畳分で余裕です）を預かっていただきたいのですが可能でしょうか？ご検討よろしくお願い致します。
-        </div>
-        <div style={{ clear: 'both' }} />
-        <div className={classes.myMessage}>
-          <small style={{ color: 'gray' }}>02/07 18:12</small>
-          <br />
-          あ、すみません追加で冷蔵庫もお願いできますでしょうか。
-        </div>
-        <div style={{ clear: 'both' }} />
-        <div>
-          <Avatar style={{ float: 'left', marginLeft: 20, marginTop: 50 }}>MK</Avatar>
-          <div className={classes.message}>
-            <small style={{ color: 'gray' }}>02/07 20:34</small>
-            <br />
-            田中さん初めまして！メッセージありがとうございます。ぜひお預かりさせてください。
-            2/11(日)〜2/12(月)の1日で、金額は2000円でいかがでしょうか。もしよろしければ田中さんの都合の良い場所まで車で引き取りに伺います。
-          </div>
-        </div>
-        <div style={{ clear: 'both' }} />
-        <div className={classes.specialMessage}>
-          <small style={{ color: 'gray' }}>02/07 18:12</small>
-          <br />
-          Masaya Kudoさんからの見積り<br />
-          預かり開始日:2018/02/09<br />
-          預かり終了日:2018/03/09<br />
-          料金:¥20,000<br />
-          <div style={{ textAlign: 'right' }}>
-            <Button color="primary" onClick={() => this.props.history.push('/accept/1')}>
-              承諾する
-            </Button>
-          </div>
-        </div>
-        <div className={classes.specialMessage}>
-          <small style={{ color: 'gray' }}>02/07 18:12</small>
-          <br />
-          リクエストが成立しました!<br />
-          預かり開始日の前日までに、お支払いをお願いします。<br />
-          <div style={{ textAlign: 'right' }}>
-            <Button color="primary" onClick={() => this.props.history.push('/payment/1')}>
-              お支払い
-            </Button>
-          </div>
-          <div style={{ textAlign: 'right' }}>
-            <Button color="secondary" onClick={() => this.props.history.push('/cancel/1')}>
-              キャンセル
-            </Button>
-          </div>
-        </div>
-        <div className={classes.specialMessage}>
-          <small style={{ color: 'gray' }}>02/07 18:12</small>
-          <br />
-          お支払いが完了しました。<br />
-        </div>
-        <div>
-          <Avatar style={{ float: 'left', marginLeft: 20, marginTop: 50 }}>MK</Avatar>
-          <div className={classes.message}>
-            <small style={{ color: 'gray' }}>02/07 20:34</small>
-            <br />
-            申し訳ありません、やむを得ない事情によりキャンセルさせてください。
-          </div>
-        </div>
-        <div style={{ clear: 'both' }} />
-        <div className={classes.specialMessage}>
-          <small style={{ color: 'gray' }}>02/07 18:12</small>
-          <br />
-          Masaya Kudoさんによりリクエストがキャンセルされました。<br />
-        </div>
-        <div style={{ clear: 'both' }} />
+        {messages.map(message => {
+          let className = classes.myMessage;
+          if (message.userId !== userId) {
+            className = classes.message;
+          }
+
+          const date = message.createDt.toLocaleDateString('ja-JP', {
+            year: '2-digit',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+          });
+
+          return (
+            <div key={message.id}>
+              <div className={className}>
+                <small style={{ color: 'gray' }}>{date}</small>
+                <br />
+                {message.text}
+              </div>
+              <div style={{ clear: 'both' }} />
+            </div>
+          );
+        })}
         <Divider style={{ marginTop: 20, marginRight: 20, marginLeft: 20 }} />
         <div style={{ padding: 20 }}>
           <TextField
