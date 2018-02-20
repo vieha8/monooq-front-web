@@ -85,6 +85,68 @@ const TopHr = styled.hr`
   background: rgb(232, 82, 88);
 `;
 
+const DefaultView = styled.div`
+  padding: 80px 116px;
+  background-size: cover;
+  color: rgb(51, 51, 51);
+  box-sizing: border-box;
+  ${props =>
+    props.isReason
+      ? `
+        background: #fff;
+    `
+      : ''};
+`;
+
+const HilightCopy = styled.span`
+  display: block;
+  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 21px;
+  margin-bottom: 9px;
+  color: rgb(232, 82, 88);
+`;
+
+const DefaultTitle = styled.span`
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 38px;
+  line-height: 51px;
+  margin-bottom: 80px;
+`;
+
+const ExplainTitle = styled.span`
+  display: block;
+  font-family: sans-serif;
+  font-size: 22px;
+`;
+
+const ExplainDescription = styled.span`
+  display: block;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 32px;
+  font-weight: 100;
+`;
+
+const ExplainSection = ({ title, description, isRight = false }) => {
+  const style = {
+    root: {
+      width: '417px',
+      marginBottom: '40px',
+    },
+    title: {
+      marginBottom: '10px',
+    },
+  };
+  return (
+    <div className="explain-section" style={style.root}>
+      <ExplainTitle style={style.title}>{title}</ExplainTitle>
+      <ExplainDescription>{description}</ExplainDescription>
+    </div>
+  );
+};
+
 class Top extends React.Component {
   constructor(props) {
     super(props);
@@ -149,6 +211,50 @@ class Top extends React.Component {
           </div>
         </TopView>
         <TopHr />
+        <DefaultView isReason>
+          <HilightCopy>小さいモノから大きなモノまで。</HilightCopy>
+          <DefaultTitle>モノオクで荷物を預ける理由</DefaultTitle>
+          <ExplainSection
+            title="安心の料金"
+            description="ホストから提示される金額のみをお支払い。余計な費用なしに荷物を預けることができます。※配送料金は別途"
+          />
+          <ExplainSection
+            title="面倒な手続きが不要"
+            description="面倒くさい申込書の記入や内覧の必要はありません。必要なのはメッセージや荷物写真のやりとりだけです。"
+          />
+          <ExplainSection
+            title="拠点数が多い"
+            description="モノオクだからできる日本全国に広がる拠点数。あなたのお部屋や引越し先のご近所でも見つかるはず。"
+          />
+          <ExplainSection
+            title="1ヶ月だけでもOK"
+            description="3ヶ月や半年などの契約期間の縛りはありません。ホストと相談して必要な期間だけ預けることができます。"
+          />
+          <ExplainSection
+            title="交渉が可能"
+            description="もう少し延長できませんか？荷物の搬入を手伝ってくれませんか？など、ホストと気軽に交渉することが可能です。"
+          />
+        </DefaultView>
+        <DefaultView>
+          <HilightCopy>余っているスペースはありませんか？</HilightCopy>
+          <DefaultTitle>モノオクでホストをする理由</DefaultTitle>
+          <ExplainSection
+            title="新しい副収入につなげる"
+            description="余っているスペースとスキマ時間で、新しいおこづかいが生まれます。"
+          />
+          <ExplainSection
+            title="余ったスペースが活用できる"
+            description="使っていないクローゼットや押入れ・空き部屋はありませんか？モノオクならどんな場所でも活用できます。"
+          />
+          <ExplainSection
+            title="かんたんに誰でもできる"
+            description="荷物をたいせつに預かって、最後は持ち主まで返す。これだけで喜んでくれる人がいます。"
+          />
+          <ExplainSection
+            title="誰かの役にたつ"
+            description="引っ越しやリフォーム、片付けなど荷物を預けられる場所を探すのは意外と大変なんです。困っている誰かの力になってくれませんか？"
+          />
+        </DefaultView>
       </TopPage>
     );
   }
