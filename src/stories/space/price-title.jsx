@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { isMobile } from '../../helpers/style/media-query';
+import { media } from '../../helpers/style/media-query';
 import { FontSizes, Colors, Dimens } from '../../variables';
 
 const Text = styled.span`
@@ -8,7 +8,7 @@ const Text = styled.span`
   font-size: ${FontSizes.large}px;
   color: ${Colors.black};
 
-  ${isMobile`
+  ${media.phone`
     font-size: ${FontSizes.medium}px;
   `}
 `;

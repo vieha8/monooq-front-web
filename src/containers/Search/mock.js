@@ -1,0 +1,98 @@
+export const spaceList = [
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+  {
+    place: '六本木',
+    name: '麻布十番駅から徒歩3分',
+    typeOK: true,
+    price: '1000/2000/5000',
+  },
+];

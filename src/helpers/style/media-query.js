@@ -1,25 +1,29 @@
 import { css } from 'styled-components';
 
-export const isMobileWindow = () => window && window.innerWidth <= 480;
+const sizes = {
+  giant: 1170,
+  desktop: 1024,
+  tablet: 768,
+  phone: 480,
+};
 
-export const isMobile = style => css`
-  @media screen and (max-width: 480px) {
-    ${css(style)};
-  }
-`;
+// iterate through the sizes and create a media template
+export const media = Object.keys(sizes).reduce((_accumulator, label) => {
+  // use em in breakpoints to work properly cross-browser and support users
+  // changing their browsers font-size: https://zellwk.com/blog/media-query-units/
+  const accumulator = Object.assign({}, _accumulator);
+  const emSize = sizes[label] / 16;
+  accumulator[label] = (...args) => css`
+    @media (max-width: ${emSize}em) {
+      ${css(...args)};
+    }
+  `;
+  return accumulator;
+}, {});
 
-export const isTabletWindow = () => window && window.innerWidth >= 768 && window.innerWidth <= 1024;
+export const isMobileWindow = () => window && window.innerWidth <= sizes.phone;
 
-export const isTablet = style => css`
-  @media screen and (min-width: 768px) and (max-width: 1024px) {
-    ${css(style)};
-  }
-`;
+export const isTabletWindow = () =>
+  window && window.innerWidth >= sizes.phone && window.innerWidth <= sizes.desktop;
 
-export const isPcWindow = () => window && window.innerWidth >= 1024;
-
-export const isPc = style => css`
-  @media screen and (min-width: 1024px) {
-    ${css(style)};
-  }
-`;
+export const isPcWindow = () => window && window.innerWidth >= sizes.desktop;
