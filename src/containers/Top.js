@@ -7,6 +7,30 @@ import Button from 'material-ui/Button';
 import Hidden from 'material-ui/Hidden';
 import SearchIcon from 'material-ui-icons/Search';
 
+import styled from 'styled-components';
+import { Colors, Dimens } from '../variables';
+
+const IMAGE_URL = 'https://picsum.photos/1280/800?image=20';
+
+const TopPage = styled.div`
+  margin-top: -20px;
+  background: ${Colors.lightGray};
+`;
+
+const TopView = styled.div`
+  height: 800px;
+  background-image: url(${IMAGE_URL});
+  background-size: cover;
+`;
+
+const CatchPhrase = styled.div`
+  font-size: 34px;
+  font-family: sans-serif;
+  text-align: left;
+  width: 556px;
+  height: 114px;
+`;
+
 class Top extends React.Component {
   constructor(props) {
     super(props);
@@ -28,39 +52,43 @@ class Top extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.contents}>
-        <Hidden xsDown>
-          <Typography type="display2" component="h1">
-            モノがあふれていませんか?
-          </Typography>
-        </Hidden>
-        <Hidden smUp>
-          <Typography type="title" component="h1" style={{ fontWeight: 'bold' }}>
-            モノがあふれていませんか?
-          </Typography>
-        </Hidden>
-        <Typography component="p">ご近所に安くモノを預けよう!</Typography>
-        <div className={classes.search}>
-          <TextField
-            id="location"
-            placeholder="どこで預ける?"
-            className={classes.textField}
-            value={this.state.location}
-            onChange={this.handleChange}
-            margin="normal"
-          />
-          <Button
-            fab
-            color="primary"
-            mini
-            component={Link}
-            to={'/search/' + this.state.location}
-            disabled={this.state.isDisableSearchButton}
-          >
-            <SearchIcon />
-          </Button>
-        </div>
-      </div>
+      <TopPage>
+        <TopView>
+          <div className={classes.contents}>
+            <Hidden xsDown>
+              <CatchPhrase>
+                個人間だからできる、<br />荷物を預けるための新しい方法。
+              </CatchPhrase>
+            </Hidden>
+            <Hidden smUp>
+              <Typography type="title" component="h1" style={{ fontWeight: 'bold' }}>
+                モノがあふれていませんか?
+              </Typography>
+            </Hidden>
+            <Typography component="p">ご近所に安くモノを預けよう!</Typography>
+            <div className={classes.search}>
+              <TextField
+                id="location"
+                placeholder="どこで預ける?"
+                className={classes.textField}
+                value={this.state.location}
+                onChange={this.handleChange}
+                margin="normal"
+              />
+              <Button
+                fab
+                color="primary"
+                mini
+                component={Link}
+                to={'/search/' + this.state.location}
+                disabled={this.state.isDisableSearchButton}
+              >
+                <SearchIcon />
+              </Button>
+            </div>
+          </div>
+        </TopView>
+      </TopPage>
     );
   }
 }
