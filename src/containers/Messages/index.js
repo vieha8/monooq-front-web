@@ -12,7 +12,8 @@ class Messages extends React.Component {
   constructor(props) {
     super(props);
     this.pageTitle = 'メッセージ';
-    this.props.dispatch(messagesActions.fetchRoomsStart());
+    const userId = '1';
+    this.props.dispatch(messagesActions.fetchRoomsStart(userId));
   }
 
   contents = () => {

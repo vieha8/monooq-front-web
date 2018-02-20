@@ -27,8 +27,8 @@ export const messagesReducer = handleActions(
 );
 
 //Sagas
-function* fetchRooms() {
-  const rooms = yield call(() => getRooms());
+function* fetchRooms(action) {
+  const rooms = yield call(() => getRooms(action.payload));
   yield put(fetchRoomsEnd(rooms));
 }
 
@@ -56,12 +56,12 @@ export const createRoom = async () => {
 };
 
 //ルーム取得
-export const getRooms = () => {
+export const getRooms = userId => {
   return new Promise(async resolve => {
     const db = firebase.firestore();
     const rooms = await db
       .collection('rooms')
-      .where('ownerUserId', '==', '1')
+      .where('ownerUserId', '==', userId)
       .get();
     const res = [];
     rooms.forEach(room => {
