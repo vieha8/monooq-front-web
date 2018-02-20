@@ -12,7 +12,7 @@ class Messages extends React.Component {
   constructor(props) {
     super(props);
     this.pageTitle = 'メッセージ';
-    const userId = '1';
+    const userId = '1'; //TODO authのReducerから取る
     this.props.dispatch(messagesActions.fetchRoomsStart(userId));
   }
 
@@ -22,14 +22,13 @@ class Messages extends React.Component {
       <div className={classes.root}>
         <List component="nav">
           {this.props.rooms.map((v, i) => {
-            console.log(v);
             return (
               <ListItem
                 key={i}
                 button
                 divider
                 onClick={() => {
-                  history.push('/message/1');
+                  history.push('/messages/' + v.id);
                 }}
               >
                 <Avatar src={v.guestUserImgUrl} />

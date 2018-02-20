@@ -1,4 +1,6 @@
 import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
@@ -9,6 +11,8 @@ import red from 'material-ui/colors/red';
 import grey from 'material-ui/colors/grey';
 import green from 'material-ui/colors/green';
 import { defaultPageFactory } from '../../components/PageLayouts';
+import authRequired from '../../components/Auth';
+import { messagesActions } from '../../modules/messages';
 
 class Message extends React.Component {
   constructor(props) {
@@ -21,7 +25,9 @@ class Message extends React.Component {
     };
 
     this.pageTitle = 'Masaya Kudoさんとのメッセージ';
-    this.contents = this.contents.bind(this);
+
+    const roomId = props.match.params.room_id;
+    this.props.dispatch(messagesActions.fetchMessagesStart(roomId));
   }
 
   handleChange = name => event => {
@@ -30,7 +36,7 @@ class Message extends React.Component {
     });
   };
 
-  contents() {
+  contents = () => {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
@@ -132,7 +138,7 @@ class Message extends React.Component {
         </div>
       </div>
     );
-  }
+  };
 
   render() {
     const Page = defaultPageFactory(this.pageTitle, this.contents);
@@ -185,4 +191,13 @@ const styles = theme => ({
   },
 });
 
-export default withRouter(withStyles(styles)(Message));
+const mapStateToProps = state => {
+  return {
+    messages: state.messages.messages,
+    isLoading: state.messages.isLoading,
+  };
+};
+
+export default compose(withRouter, withStyles(styles), authRequired, connect(mapStateToProps))(
+  Message,
+);

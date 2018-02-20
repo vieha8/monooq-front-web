@@ -27,7 +27,7 @@ const routes = [
   { path: '/search/:lcoation',          component: Search },
   { path: '/space/:id',                 component: Space },
   { path: '/messages',                  component: Messages },
-  { path: '/message/:user_id',          component: Message },
+  { path: '/messages/:room_id',         component: Message },
   { path: '/signup',                    component: Signup },
   { path: '/edit/profile/:user_id',     component: ProfileForm },
   { path: '/profile/:user_id',          component: Profile },
