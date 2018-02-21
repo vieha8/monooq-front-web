@@ -4,5 +4,10 @@ import { searchSagas } from './search';
 import { messagesSagas } from './messages';
 
 export default function* rootSaga() {
-  yield all([...authSagas, ...searchSagas, ...messagesSagas]);
+  try {
+    yield all([...authSagas, ...searchSagas, ...messagesSagas]);
+  } catch (e) {
+    // TODO error handing
+    console.log(e);
+  }
 }
