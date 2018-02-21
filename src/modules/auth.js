@@ -53,7 +53,12 @@ function* checkLoginFirebaseAuth() {
       });
     });
   });
-  yield put(checkLoginEnd(isLogin));
+  try {
+    yield put(checkLoginEnd(isLogin));
+  } catch (e) {
+    // TODO error handing
+    console.log(e);
+  }
 }
 
 export const authSagas = [takeEvery(CHECK_LOGIN_START, checkLoginFirebaseAuth)];
