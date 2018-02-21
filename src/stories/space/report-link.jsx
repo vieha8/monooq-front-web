@@ -8,7 +8,7 @@ const Container = styled.div`
   text-align: center;
   
   ${media.phone`
-    padding-bottom: 110px;
+    padding-bottom: 40px;
   `}
 `;
 

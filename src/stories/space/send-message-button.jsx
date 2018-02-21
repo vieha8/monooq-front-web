@@ -6,11 +6,10 @@ import { FontSizes, Colors, Dimens, ZIndexes } from '../../variables';
 
 const DefaultCard = props => (
   <Card
-    marginTop={`${Dimens.medium2}px`}
-    paddingTop={`${Dimens.medium}px`}
-    paddingLeft={`${Dimens.medium}px`}
-    paddingRight={`${Dimens.medium}px`}
-    paddingBottom={0}
+    customStyle={`
+      margin-top: ${Dimens.medium2}px;
+      padding: ${Dimens.medium}px;
+    `}
   >
     {props.children}
   </Card>
@@ -18,16 +17,15 @@ const DefaultCard = props => (
 
 const MobileCard = props => (
   <Card
-    marginTop={`${Dimens.medium2}px`}
-    paddingTop={`${Dimens.medium}px`}
-    paddingLeft={0}
-    paddingRight={0}
-    paddingBottom={0}
-    position="fixed"
-    left={0}
-    right={0}
-    bottom={0}
-    zIndex={ZIndexes.topmost}
+    customStyle={`
+      padding-top: ${Dimens.small2}px;
+      padding-bottom: ${Dimens.small2}px;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: ${ZIndexes.topmost};
+    `}
   >
     {props.children}
   </Card>

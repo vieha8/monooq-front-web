@@ -17,6 +17,7 @@ const Container = styled.div`
 
   ${media.phone`
     display: block;
+    padding: ${Dimens.medium}px;
   `}
 `;
 
