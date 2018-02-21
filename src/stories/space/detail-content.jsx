@@ -2,8 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import LocalShippingIcon from 'material-ui-icons/LocalShipping';
 import PeopleIcon from 'material-ui-icons/People';
-import { isMobile } from '../../helpers/style/media-query';
+import { media } from '../../helpers/style/media-query';
 import { FontSizes, Colors, Dimens } from '../../variables';
+
+const Container = styled.div`
+  ${media.phone`
+    margin-top: ${Dimens.medium}px;
+  `}
+`;
 
 const Text = styled.span`
   display: block;
@@ -57,30 +63,30 @@ const ReceiveSupplementText = Text.extend`
 
 // 所在地
 const Address = props => (
-  <div>
+  <Container>
     <Text>{props.children}</Text>
     <SubText>詳細な住所はリクエスト完了後にホストより連絡があります。</SubText>
-  </div>
+  </Container>
 );
 
 // 種類
 const SpaceType = props => (
-  <div>
+  <Container>
     <Text>{props.children}</Text>
-  </div>
+  </Container>
 );
 
 // 預かることができる荷物
 const BaggegeType = props => (
-  <div>
+  <Container>
     {props.typeOK && <TypeOKText>家具・家電OK</TypeOKText>}
     <BaggetText typeOK={props.typeOK}>{props.text}</BaggetText>
-  </div>
+  </Container>
 );
 
 // 受取り方法
 const HowToReceive = props => (
-  <div>
+  <Container>
     {props.delivery &&
       <ReceiveContainer>
         <ReceiveIconWrapper>
@@ -99,14 +105,14 @@ const HowToReceive = props => (
         <ReceiveSubText>直接本人から荷物を受け取ります</ReceiveSubText>
       </ReceiveContainer>
     }
-  </div>
+  </Container>
 );
 
 // 受取りについて補足
 const ReceiveSupplement = props => (
-  <div>
+  <Container>
     <ReceiveSupplementText>{props.text}</ReceiveSupplementText>
-  </div>
+  </Container>
 );
 
 export default {

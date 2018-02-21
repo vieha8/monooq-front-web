@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import FlagIcon from 'material-ui-icons/Flag';
-import { isMobile } from '../../helpers/style/media-query';
+import { media } from '../../helpers/style/media-query';
 import { FontSizes, Colors, Dimens } from '../../variables';
 
 const Container = styled.div`
   text-align: center;
   
-  ${isMobile`
+  ${media.phone`
     padding-bottom: 110px;
   `}
 `;

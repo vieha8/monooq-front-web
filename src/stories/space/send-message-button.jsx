@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Card from './card';
-import { isMobile, isMobileWindow } from '../../helpers/style/media-query';
+import { media, isMobileWindow } from '../../helpers/style/media-query';
 import { FontSizes, Colors, Dimens, ZIndexes } from '../../variables';
 
 const DefaultCard = props => (
@@ -35,7 +35,7 @@ const MobileCard = props => (
 
 const ButtonContainer = styled.div`
   text-align: center;
-  ${isMobile`
+  ${media.phone`
     display: table;
     text-align: center;
     width: 100%;
@@ -56,7 +56,7 @@ const Button = styled.button`
   border: none;
   outline:none;
 
-  ${isMobile`
+  ${media.phone`
     display: table-cell;
     padding: 9px 20px;
     vertical-align: middle;
@@ -69,7 +69,7 @@ const SubText = styled.span`
   color: ${Colors.gray};
   margin-top: ${Dimens.medium}px;
 
-  ${isMobile`
+  ${media.phone`
     display: table-cell;
     vertical-align: middle;
   `}

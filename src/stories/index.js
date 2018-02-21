@@ -8,6 +8,7 @@ import { Button, Welcome } from '@storybook/react/demo';
 import Title from './story/title';
 
 import { Footer } from './shared';
+import { ResultItem } from './search';
 import {
   Card,
   Map,
@@ -155,6 +156,10 @@ storiesOf('Image', module)
   .add('画像表示(リクエストを送信する)', () => <p>リクエスト送信時に表示される場所の画像</p>);
 
 storiesOf('Line', module).add('標準', () => <p>文章の区切り線</p>);
+
+storiesOf('Search', module).add('検索結果 項目', () => (
+  <ResultItem place="六本木" name="麻布十番駅から徒歩3分" typeOK price="1000/2000/5000" />
+));
 
 storiesOf('Space', module)
   .add('カード', () => (

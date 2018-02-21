@@ -3,8 +3,8 @@ import { Route } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 
 import Top from './containers/Top';
-import Search from './containers/Search/';
-import Space from './containers/Space/SpacePage';
+import SearchPage from './containers/Search/SearchPage';
+import SpacePage from './containers/Space/SpacePage';
 import Message from './containers/Message/';
 import Messages from './containers/Messages/';
 import Signup from './containers/Signup';
@@ -24,8 +24,8 @@ import { Auth } from './components/Auth';
 /* eslint-disable no-multi-spaces */
 const routes = [
   { path: '/',                          component: Top },
-  { path: '/search/:lcoation',          component: Search },
-  { path: '/space/:id',                 component: Space },
+  { path: '/search/:location',          component: SearchPage },
+  { path: '/space/:id',                 component: SpacePage },
   { path: '/messages',                  component: Messages },
   { path: '/messages/:room_id',         component: Message },
   { path: '/signup',                    component: Signup },

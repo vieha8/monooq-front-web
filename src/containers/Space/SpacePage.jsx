@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import RequestDialog from './RequestDialog';
 import SpaceMenu from '../Search/SpaceMenu';
 
-import { isMobile, isMobileWindow } from '../../helpers/style/media-query';
+import { media, isMobileWindow } from '../../helpers/style/media-query';
 import { Colors, Dimens } from '../../variables';
 
 import { Footer } from '../../stories/shared';
@@ -45,7 +45,7 @@ const SpaceCardContainer = styled.div`
   padding-bottom: 80px;
   float: left;
 
-  ${isMobile`
+  ${media.phone`
     padding: 0;
     margin-top: 0;
     float: none;
@@ -60,7 +60,7 @@ const PriceCardContainer = styled.div`
   padding-right: 9%;
   padding-bottom: 80px;
 
-  ${isMobile`
+  ${media.phone`
     float: none;
     max-width: 100%;
     margin-top: 0;
@@ -85,7 +85,7 @@ const Section = styled.div`
 const SlideImageWrapper = styled.div`
   margin-top: ${Dimens.medium3}px;
   
-  ${isMobile`
+  ${media.phone`
     margin-top: ${Dimens.medium}px;
   `}
 `;
@@ -93,7 +93,7 @@ const SlideImageWrapper = styled.div`
 const MapContainer = styled.div`
   margin-top: -20px;
   height: 360px;
-  ${isMobile`
+  ${media.phone`
     height: 240px;  
   `}
 `;
