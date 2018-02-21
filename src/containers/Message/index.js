@@ -24,7 +24,6 @@ class Message extends React.Component {
     };
 
     this.pageTitle = 'Masaya Kudoさんとのメッセージ'; // TODO ルーム情報を取得する
-
     this.roomId = props.match.params.room_id; // TODO roomId書き換えで関係ないルームのデータを取得できないようにする
     this.props.dispatch(messagesActions.fetchMessagesStart(this.roomId));
   }
@@ -42,7 +41,7 @@ class Message extends React.Component {
     this.props.dispatch(
       messagesActions.sendMessage({
         roomId: this.roomId,
-        userId: '1', // TODO auth reducerから取る
+        userId: this.props.userId,
         text: this.state.message,
       }),
     );
@@ -50,9 +49,7 @@ class Message extends React.Component {
   };
 
   contents = () => {
-    const { classes, messages } = this.props;
-    const userId = '1'; // TODO auth reducerから取る
-
+    const { classes, messages, userId } = this.props;
     return (
       <div className={classes.root}>
         {messages.map(message => {
@@ -170,6 +167,7 @@ const mapStateToProps = state => {
   return {
     messages: state.messages.messages,
     isLoading: state.messages.isLoading,
+    userId: state.auth.user.id,
   };
 };
 

@@ -14,6 +14,7 @@ export const authActions = createActions(LOGIN, LOGOUT, CHECK_LOGIN_START, CHECK
 const initialState = {
   isLogin: false,
   isChecking: false,
+  user: {},
 };
 const { login, logout, checkLoginStart, checkLoginEnd } = authActions;
 export const authReducer = handleActions(
@@ -32,7 +33,7 @@ export const authReducer = handleActions(
     }),
     [checkLoginEnd]: (state, action) => ({
       ...state,
-      isLogin: action.payload,
+      ...action.payload,
       isChecking: false,
     }),
   },
@@ -45,9 +46,9 @@ function* checkLoginFirebaseAuth() {
     return new Promise(resolve => {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          resolve(true);
+          resolve({ isLogin: true, user: { id: user.uid } });
         } else {
-          resolve(false);
+          resolve({ isLogin: false });
         }
       });
     });

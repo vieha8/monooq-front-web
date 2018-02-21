@@ -84,14 +84,14 @@ export const messagesSagas = [
 
 //ルーム作成
 
-export const createRoom = async () => {
+export const createRoom = async userId => {
   const fn = faker.name.firstName();
   const ln = faker.name.lastName();
   const name = fn + ' ' + ln;
   const profile = faker.image.avatar();
 
   const roomSample = {
-    ownerUserId: '1',
+    ownerUserId: userId,
     guestUserId: '1',
     guestUserName: name,
     guestUserImgUrl: profile,
@@ -103,7 +103,7 @@ export const createRoom = async () => {
   const roomRef = await db.collection('rooms').add(roomSample);
 
   const messageSample = {
-    userId: '1',
+    userId: userId,
     messageType: 1,
     text: '田中さん初めまして!メッセージありがとうございます。ぜひお預かりさせてください。',
     createDt: new Date(),
