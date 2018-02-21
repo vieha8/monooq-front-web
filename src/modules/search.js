@@ -16,17 +16,15 @@ export const searchActions = createActions(
 // Reducer
 const initialState = {
   isLoading: false,
-  isFailed: false,
   location: '',
   spaces: [],
 };
-const { fetchStartSearch, fetchSuccessSearch, fetchFailedSearch } = searchActions;
+const { fetchStartSearch, fetchSuccessSearch } = searchActions;
 export const searchReducer = handleActions(
   {
     [fetchStartSearch]: (state, action) => ({
       ...state,
       isLoading: true,
-      isFailed: false,
       location: action.payload,
     }),
     [fetchSuccessSearch]: (state, action) => ({
@@ -34,30 +32,19 @@ export const searchReducer = handleActions(
       isLoading: false,
       spaces: action.payload,
     }),
-    [fetchFailedSearch]: state => ({
-      ...state,
-      isLoading: false,
-      isFailed: true,
-      spaces: [],
-    }),
   },
   initialState,
 );
 
 //Sagas
 function* getSearchAPI(action) {
-  try {
-    yield call(delay, 1000);
+  yield call(delay, 1000);
 
-    // ここでAPIからデータとってきたりする
-    // const location = action.payload;
-    const spaces = [...Array(10)];
+  // ここでAPIからデータとってきたりする
+  // const location = action.payload;
+  const spaces = [...Array(10)];
 
-    yield put(fetchSuccessSearch(spaces));
-  } catch (e) {
-    console.log(e);
-    yield put(fetchFailedSearch());
-  }
+  yield put(fetchSuccessSearch(spaces));
 }
 
 export const searchSagas = [takeEvery(FETCH_START_SEARCH, getSearchAPI)];
