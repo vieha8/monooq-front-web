@@ -55,6 +55,7 @@ function* getSearchAPI(action) {
 
     yield put(fetchSuccessSearch(spaces));
   } catch (e) {
+    console.log(e);
     yield put(fetchFailedSearch());
   }
 }
