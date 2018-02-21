@@ -24,10 +24,10 @@ class Message extends React.Component {
       isSending: false,
     };
 
-    this.pageTitle = 'Masaya Kudoさんとのメッセージ'; //TODO ルーム情報を取得する
+    this.pageTitle = 'Masaya Kudoさんとのメッセージ'; // TODO ルーム情報を取得する
 
-    const roomId = props.match.params.room_id; //TODO roomId書き換えで関係ないルームのデータを取得できないようにする
-    this.props.dispatch(messagesActions.fetchMessagesStart(roomId));
+    this.roomId = props.match.params.room_id; // TODO roomId書き換えで関係ないルームのデータを取得できないようにする
+    this.props.dispatch(messagesActions.fetchMessagesStart(this.roomId));
   }
 
   handleChange = name => event => {
@@ -36,9 +36,24 @@ class Message extends React.Component {
     });
   };
 
+  sendTextMessage = () => {
+    if (this.state.message === '') {
+      return;
+    }
+    this.props.dispatch(
+      messagesActions.sendMessage({
+        roomId: this.roomId,
+        userId: '1', // TODO auth reducerから取る
+        text: this.state.message,
+      }),
+    );
+    this.setState({ message: '' });
+  };
+
   contents = () => {
     const { classes, messages } = this.props;
-    const userId = '1'; //TODO auth reducerから取る
+    const userId = '1'; // TODO auth reducerから取る
+
     return (
       <div className={classes.root}>
         {messages.map(message => {
@@ -66,10 +81,21 @@ class Message extends React.Component {
             </div>
           );
         })}
+      </div>
+    );
+  };
+
+  render() {
+    const Page = defaultPageFactory(this.pageTitle, this.contents);
+    const { classes } = this.props;
+    //TODO contents内にTextFieldいれるとonChangeの挙動がおかしくなるので仮でこの形に
+    return (
+      <Fragment>
+        <Page />
         <Divider style={{ marginTop: 20, marginRight: 20, marginLeft: 20 }} />
         <div style={{ padding: 20 }}>
           <TextField
-            id="message"
+            id="message-text"
             multiline
             rows="4"
             placeholder="メッセージを送る"
@@ -79,7 +105,7 @@ class Message extends React.Component {
             margin="normal"
             disabled={this.state.isSending}
           />
-          <Button raised color="primary" fullWidth>
+          <Button raised color="primary" fullWidth onClick={this.sendTextMessage}>
             送信
           </Button>
           <Button
@@ -91,13 +117,8 @@ class Message extends React.Component {
             見積もりを送る
           </Button>
         </div>
-      </div>
+      </Fragment>
     );
-  };
-
-  render() {
-    const Page = defaultPageFactory(this.pageTitle, this.contents);
-    return <Page />;
   }
 }
 

@@ -9,12 +9,14 @@ const FETCH_ROOMS_START = 'FETCH_ROOMS_START';
 const FETCH_ROOMS_END = 'FETCH_ROOMS_END';
 const FETCH_MESSAGES_START = 'FETCH_MESSAGES_START';
 const FETCH_MESSAGES_END = 'FETCH_MESSAGES_END';
+const SEND_MESSAGE = 'SEND_MESSAGE';
 
 export const messagesActions = createActions(
   FETCH_ROOMS_START,
   FETCH_ROOMS_END,
   FETCH_MESSAGES_START,
   FETCH_MESSAGES_END,
+  SEND_MESSAGE,
 );
 
 //Reducer
@@ -25,7 +27,13 @@ const initialState = {
   isLoading: false,
 };
 
-const { fetchRoomsStart, fetchRoomsEnd, fetchMessagesStart, fetchMessagesEnd } = messagesActions;
+const {
+  fetchRoomsStart,
+  fetchRoomsEnd,
+  fetchMessagesStart,
+  fetchMessagesEnd,
+  sendMessage,
+} = messagesActions;
 export const messagesReducer = handleActions(
   {
     [fetchRoomsStart]: state => ({ ...state, isLoading: true }),
@@ -36,24 +44,42 @@ export const messagesReducer = handleActions(
       isLoading: false,
       messages: action.payload,
     }),
+    [sendMessage]: state => ({ ...state }),
   },
   initialState,
 );
 
 //Sagas
-function* fetchRooms(action) {
-  const rooms = yield call(() => getRooms(action.payload));
-  yield put(fetchRoomsEnd(rooms));
-}
-
-function* fetchMessages(action) {
-  const messages = yield call(() => getMessages(action.payload));
-  yield put(fetchMessagesEnd(messages));
-}
-
 export const messagesSagas = [
-  takeEvery(FETCH_ROOMS_START, fetchRooms),
-  takeEvery(FETCH_MESSAGES_START, fetchMessages),
+  takeEvery(FETCH_ROOMS_START, function*(action) {
+    const rooms = yield call(() => getRooms(action.payload));
+    yield put(fetchRoomsEnd(rooms));
+  }),
+  takeEvery(FETCH_MESSAGES_START, function*(action) {
+    const messages = yield call(() => getMessages(action.payload));
+    yield put(fetchMessagesEnd(messages));
+  }),
+  takeEvery(SEND_MESSAGE, function*(action) {
+    const { roomId, userId, text } = action.payload;
+    yield call(() => {
+      return new Promise(async resolve => {
+        const db = firebase.firestore();
+        const message = {
+          userId: userId,
+          text: text,
+          messageType: 1,
+          createDt: new Date(),
+        };
+        await db
+          .collection('rooms')
+          .doc(roomId)
+          .collection('messages')
+          .add(message);
+        resolve();
+      });
+    });
+    yield put(fetchMessagesStart(roomId));
+  }),
 ];
 
 //ルーム作成
