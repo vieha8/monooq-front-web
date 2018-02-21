@@ -1,8 +1,10 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Card } from 'semantic-ui-react';
-import { media } from '../../helpers/style/media-query';
+import { media, isMobileWindow } from '../../helpers/style/media-query';
 import { Colors, Dimens } from '../../variables';
+
+const MobileContainer = styled.div``;
 
 const CardContent = styled.div`
   padding: ${Dimens.medium2}px;
@@ -14,10 +16,13 @@ const CardContent = styled.div`
   ${props => css`${props.customStyle}`}
 `;
 
-export default props => (
-  <Card fluid>
-    <CardContent customStyle={props.customStyle}>
-      {props.children}
-    </CardContent>
-  </Card>
-);
+export default (props) => {
+  const Container = isMobileWindow() ? MobileContainer : Card;
+  return (
+    <Container fluid>
+      <CardContent customStyle={props.customStyle}>
+        {props.children}
+      </CardContent>
+    </Container>
+  );
+};
