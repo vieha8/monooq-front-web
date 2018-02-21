@@ -14,7 +14,7 @@ import Hidden from 'material-ui/Hidden';
 import logo from '../../images/monooq_logo.svg';
 import HeaderMenu from './HeaderMenu';
 import firebase from 'firebase';
-import { authActions } from '../../modules/auth';
+import { authActions } from '../../redux/modules/auth';
 
 class Header extends React.Component {
   logout = async () => {

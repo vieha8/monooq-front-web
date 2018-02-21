@@ -2,24 +2,24 @@ import React from 'react';
 import { Route } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 
-import Top from './containers/Top';
-import SearchPage from './containers/Search/SearchPage';
-import SpacePage from './containers/Space/SpacePage';
-import Message from './containers/Message/';
-import Messages from './containers/Messages/';
-import Signup from './containers/Signup';
-import ProfileForm from './containers/ProfileForm';
-import Profile from './containers/Profile';
-import SpaceForm from './containers/SpaceForm';
-import SpaceManageList from './containers/SpaceManageList';
-import Login from './containers/Login';
-import Payment from './containers/Payment';
-import RequestCancel from './containers/RequestCancel';
-import Accept from './containers/Accept';
-import Estimate from './containers/Estimate';
+import Top from '../containers/Top';
+import SearchPage from '../containers/Search/SearchPage';
+import SpacePage from '../containers/Space/SpacePage';
+import Message from '../containers/Message/';
+import Messages from '../containers/Messages/';
+import Signup from '../containers/Signup';
+import ProfileForm from '../containers/ProfileForm';
+import Profile from '../containers/Profile';
+import SpaceForm from '../containers/SpaceForm';
+import SpaceManageList from '../containers/SpaceManageList';
+import Login from '../containers/Login';
+import Payment from '../containers/Payment';
+import RequestCancel from '../containers/RequestCancel';
+import Accept from '../containers/Accept';
+import Estimate from '../containers/Estimate';
 
-import Header from './components/Header';
-import { Auth } from './components/Auth';
+import Header from '../components/Header';
+import { Auth } from '../components/Auth';
 
 /* eslint-disable no-multi-spaces */
 const routes = [

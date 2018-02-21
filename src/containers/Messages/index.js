@@ -6,10 +6,10 @@ import List, { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 import { defaultPageFactory } from '../../components/PageLayouts';
 import authRequired from '../../components/Auth';
-import { messagesActions } from '../../modules/messages';
+import { messagesActions } from '../../redux/modules/messages';
 
 import Button from 'material-ui/Button';
-import { createRoom } from '../../modules/messages';
+import { createRoom } from '../../redux/modules/messages';
 
 class Messages extends React.Component {
   constructor(props) {

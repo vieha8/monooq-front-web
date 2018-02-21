@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 
-import { searchActions } from '../../modules/search';
+import { searchActions } from '../../redux/modules/search';
 
 import SpaceCard from './SpaceCard';
 

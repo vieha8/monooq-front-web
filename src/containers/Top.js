@@ -8,7 +8,7 @@ import SearchIcon from 'material-ui-icons/Search';
 
 import styled from 'styled-components';
 import { FontSizes, Colors } from '../variables';
-import { media, isMobileWindow } from '../helpers/style/media-query';
+import { media } from '../helpers/style/media-query';
 import { Footer } from '../stories/shared';
 
 const IMAGE_URL = 'https://picsum.photos/1280/800?image=1012';

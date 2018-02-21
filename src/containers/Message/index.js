@@ -11,7 +11,7 @@ import grey from 'material-ui/colors/grey';
 import green from 'material-ui/colors/green';
 import { defaultPageFactory } from '../../components/PageLayouts';
 import authRequired from '../../components/Auth';
-import { messagesActions } from '../../modules/messages';
+import { messagesActions } from '../../redux/modules/messages';
 
 class Message extends React.Component {
   constructor(props) {

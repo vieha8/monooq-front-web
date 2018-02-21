@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {withStyles} from 'material-ui/styles';
 import {CircularProgress} from 'material-ui/Progress';
 
-import {searchActions} from '../../modules/search';
+import {searchActions} from '../../redux/modules/search';
 import {isMobileWindow, media} from '../../helpers/style/media-query';
 import {Footer} from '../../stories/shared';
 import {ResultList} from '../../stories/search';
