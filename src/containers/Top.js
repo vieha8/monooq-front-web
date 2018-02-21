@@ -2,13 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
-import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 import Hidden from 'material-ui/Hidden';
 import SearchIcon from 'material-ui-icons/Search';
 
 import styled from 'styled-components';
-import { Colors, Dimens, FontSizes } from '../variables';
+import { Colors } from '../variables';
 
 const IMAGE_URL = 'https://picsum.photos/1280/800?image=1012';
 

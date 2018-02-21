@@ -3,7 +3,6 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
-import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import TextField from 'material-ui/TextField';

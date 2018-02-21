@@ -1,28 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-
-import RequestDialog from './RequestDialog';
 import SpaceMenu from '../Search/SpaceMenu';
 
-import { media, isMobileWindow } from '../../helpers/style/media-query';
-import { Colors, Dimens } from '../../variables';
+import {isMobileWindow, media} from '../../helpers/style/media-query';
+import {Colors, Dimens} from '../../variables';
 
-import { Footer } from '../../stories/shared';
+import {Footer} from '../../stories/shared';
 import {
-  Card,
-  Map,
-  PlaceText,
-  HeaderTitle,
-  SlideImage,
   Caption,
-  DetailTitle,
+  Card,
   DetailContainer,
   DetailContent,
+  DetailTitle,
+  HeaderTitle,
   HostInfo,
-  PriceTitle,
+  Map,
+  PlaceText,
   PriceContent,
-  SendMessageButton,
+  PriceTitle,
   ReportLink,
+  SendMessageButton,
+  SlideImage,
 } from '../../stories/space';
 
 const SpacePage = styled.div`

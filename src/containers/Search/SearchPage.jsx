@@ -1,18 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { withStyles } from 'material-ui/styles';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
-import { CircularProgress } from 'material-ui/Progress';
+import {connect} from 'react-redux';
+import {withStyles} from 'material-ui/styles';
+import {CircularProgress} from 'material-ui/Progress';
 
-import { searchActions } from '../../modules/search';
-import { media, isMobileWindow } from '../../helpers/style/media-query';
-import { Footer } from '../../stories/shared';
-import { ResultList } from '../../stories/search';
-import { Colors, FontSizes, Dimens } from '../../variables/';
+import {searchActions} from '../../modules/search';
+import {isMobileWindow, media} from '../../helpers/style/media-query';
+import {Footer} from '../../stories/shared';
+import {ResultList} from '../../stories/search';
+import {Colors, Dimens, FontSizes} from '../../variables/';
 
-import { spaceList } from './mock';
+import {spaceList} from './mock';
 
 const SearchPageContainer = styled.div`
 `;
@@ -56,7 +54,7 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
 
-    const { match, dispatch } = props;
+    const {match, dispatch} = props;
 
     dispatch(searchActions.fetchStartSearch(match.params.location));
   }
@@ -68,13 +66,13 @@ class Search extends React.Component {
       />
     ) : (
       <ProgressContainer>
-        <CircularProgress className={this.props.classes.progress} size={50} />
+        <CircularProgress className={this.props.classes.progress} size={50}/>
       </ProgressContainer>
     )
   )
 
   render() {
-    const { match } = this.props;
+    const {match} = this.props;
     return (
       <SearchPageContainer>
         <ContentContainer>
@@ -88,7 +86,7 @@ class Search extends React.Component {
           </SelectContainer>
           {this.showSpaceList()}
         </ContentContainer>
-        {!isMobileWindow() && <Footer />}
+        {!isMobileWindow() && <Footer/>}
       </SearchPageContainer>
     );
   }
