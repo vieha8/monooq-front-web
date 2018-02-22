@@ -4,8 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import { Button, Welcome } from '@storybook/react/demo';
-import Title from './story/title';
+import Title from './story/Title';
 
 import { Footer } from './shared';
 import { ResultItem } from './search';
@@ -25,8 +24,6 @@ import {
   SendMessageButton,
   ReportLink,
 } from './space';
-
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
 storiesOf('Avatar', module)
   .add('標準', () => <p>ログイン時のユーザーのアイコン</p>)

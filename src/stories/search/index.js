@@ -1,2 +1,2 @@
-export { default as ResultItem } from './result-item';
-export { default as ResultList } from './result-list';
+export { default as ResultItem } from './ResultItem';
+export { default as ResultList } from './ResultList';

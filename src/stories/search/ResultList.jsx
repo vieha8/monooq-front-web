@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ResultItem from './result-item';
+import ResultItem from './ResultItem';
 import { media } from '../../helpers/style/media-query';
 import { Dimens } from '../../variables';
 

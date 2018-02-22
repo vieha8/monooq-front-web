@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Card from './card';
+import Card from './Card';
 import { media, isMobileWindow } from '../../helpers/style/media-query';
 import { FontSizes, Colors, Dimens, ZIndexes } from '../../variables';
 
