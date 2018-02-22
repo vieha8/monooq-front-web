@@ -6,6 +6,7 @@ import { linkTo } from '@storybook/addon-links';
 
 import Title from './story/Title';
 
+import { SpacePage } from './create-space';
 import { Footer } from './shared';
 import { ResultItem } from './search';
 import {
@@ -157,6 +158,8 @@ storiesOf('Line', module).add('標準', () => <p>文章の区切り線</p>);
 storiesOf('Search', module).add('検索結果 項目', () => (
   <ResultItem place="六本木" name="麻布十番駅から徒歩3分" typeOK price="1000/2000/5000" />
 ));
+
+storiesOf('CreateSpace', module).add('スペース登録', () => <SpacePage />);
 
 storiesOf('Space', module)
   .add('カード', () => (
