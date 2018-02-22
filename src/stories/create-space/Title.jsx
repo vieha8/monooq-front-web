@@ -22,6 +22,6 @@ const SubTitle = styled.span`
 export default props => (
   <Container>
     <Title>{props.title}</Title>
-    <SubTitle>{props.subTitle}</SubTitle>
+    {props.subTitle && <SubTitle>{props.subTitle}</SubTitle>}
   </Container>
 );

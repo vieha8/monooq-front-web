@@ -1,4 +1,9 @@
 export { default as Header } from './Header';
 export { default as Title } from './Title';
 export { default as ImageDrop } from './ImageDrop';
+export { default as InputTitle } from './InputTitle';
+export { default as SelectType } from './SelectType';
+export { default as InputIntro } from './InputIntro';
+export { default as InputAddress } from './InputAddress';
+export { default as Button } from './Button';
 export { default as SpacePage } from './page/Space';
