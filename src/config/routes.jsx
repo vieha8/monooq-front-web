@@ -5,6 +5,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import Top from '../containers/Top';
 import SearchPage from '../containers/Search/SearchPage';
 import SpacePage from '../containers/Space/SpacePage';
+import CreateSpaceSpaceInfo from '../containers/CreateSpace/SpaceInfo';
 import Message from '../containers/Message/';
 import Messages from '../containers/Messages/';
 import Signup from '../containers/Signup';
@@ -25,6 +26,7 @@ import { Auth } from '../components/Auth';
 const routes = [
   { path: '/',                          component: Top },
   { path: '/search/:location',          component: SearchPage },
+  { path: '/space/new/info',            component: CreateSpaceSpaceInfo },
   { path: '/space/:id',                 component: SpacePage },
   { path: '/messages',                  component: Messages },
   { path: '/messages/:room_id',         component: Message },
