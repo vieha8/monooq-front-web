@@ -8,4 +8,5 @@ export { default as InputAddress } from './InputAddress';
 export { default as Button } from './Button';
 export { default as SideBar } from './SideBar';
 export { default as SaveBox } from './SaveBox';
+export { default as HintBox } from './HintBox';
 export { default as SpacePage } from './page/Space';

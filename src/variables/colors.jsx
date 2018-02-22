@@ -9,4 +9,5 @@ export default {
   lightGray: '#F7F7F7',
   borderGray: '#DBDBDB',
   linkBlue: '#006494',
+  lightYellow: '#F5ECCE',
 };

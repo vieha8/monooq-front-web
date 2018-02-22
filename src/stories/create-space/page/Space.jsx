@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ImageDrop, InputTitle, SelectType, InputIntro, InputAddress, Button, SideBar, SaveBox } from '../index';
+import { ImageDrop, InputTitle, SelectType, InputIntro, InputAddress, Button, SideBar, SaveBox, HintBox } from '../index';
 
 const Container = styled.div`
   &::after {
@@ -26,7 +26,12 @@ export default () => (
     </PageContent>
     <SideBar
       renderSaveContent={() => <SaveBox />}
-      renderHintContent={() => <div>hinthint</div>}
+      renderHintContent={() => (
+        <HintBox
+          title="スペース登録のヒント"
+          text="ユーザーが自分の荷物が入るかイメージできるようにスペースの情報やアピールポイントを掲載しましょう！"
+        />
+      )}
     />
   </Container>
 );
