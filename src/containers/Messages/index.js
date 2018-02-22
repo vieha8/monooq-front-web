@@ -11,6 +11,80 @@ import { messagesActions } from '../../redux/modules/messages';
 import Button from 'material-ui/Button';
 import { createRoom } from '../../redux/modules/messages';
 
+import styled from 'styled-components';
+import { isMobileWindow, media } from '../../helpers/style/media-query';
+import { Colors, Dimens } from '../../variables';
+
+const MessagesPage = styled.div`
+  background: #fff;
+  font-family: sans-serif;
+`;
+
+const MessagesContainer = styled.div`
+  width: 1048px;
+  margin: 0 auto;
+`;
+
+const PageTitle = styled.div`
+  font-size: 34px;
+  line-height: 51px;
+  letter-spacing: -0.5px;
+  margin-bottom: 52px;
+`;
+
+const MessagesMenuContainer = styled.div`
+  float: left;
+  width: 328px;
+`;
+
+const MessagesListContainer = styled.div`
+  float: right;
+  width: 688px;
+`;
+
+const MessagesMenu = () => {
+  const Menu = styled.ul`
+    width: 100%;
+    ${media.phone`
+    `};
+  `;
+
+  const Item = props => {
+    const StyledContainer = styled.li`
+      width: 100%;
+      height: 57px;
+      line-height: 57px;
+      font-size: 14px;
+      color: rgba(0, 0, 0, 0.5);
+      padding-left: 18px;
+      :hover {
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.1);
+      }
+      ${media.phone`
+      `};
+    `;
+    // {TODO}通知iconを追加
+    return (
+      <StyledContainer>
+        <span>{props.title}</span>
+      </StyledContainer>
+    );
+  };
+
+  return (
+    <Menu>
+      <Item title="メッセージ" />
+      <Item title="預かりスケジュール" />
+      <Item title="支払い履歴" />
+      <Item title="ホストになる" />
+      <Item title="ホストモードに切り替える" />
+      <Item title="お問い合わせ" />
+      <Item title="ログアウト" />
+    </Menu>
+  );
+};
+
 class Messages extends React.Component {
   constructor(props) {
     super(props);
@@ -28,39 +102,42 @@ class Messages extends React.Component {
     this.props.dispatch(messagesActions.fetchRoomsStart(this.props.userId));
   };
 
-  contents = () => {
+  render() {
     const { classes, history } = this.props;
     return (
-      <div className={classes.root}>
-        <List component="nav">
-          {this.props.rooms.map((v, i) => {
-            return (
-              <ListItem
-                key={i}
-                button
-                divider
-                onClick={() => {
-                  history.push('/messages/' + v.id);
-                }}
-              >
-                <Avatar src={v.guestUserImgUrl} />
-                <ListItemText primary={v.guestUserName} secondary={v.lastMessage} />
-              </ListItem>
-            );
-          })}
-        </List>
-        {(() => {
-          if (this.props.rooms.length === 0) {
-            return <Button onClick={this.createSampleRoom}>サンプルルーム作成</Button>;
-          }
-        })()}
-      </div>
-    );
-  };
+      <MessagesPage>
+        <MessagesContainer>
+          <PageTitle>{this.pageTitle}一覧</PageTitle>
+          <MessagesMenuContainer>
+            <MessagesMenu />
+          </MessagesMenuContainer>
 
-  render() {
-    const Page = defaultPageFactory(this.pageTitle, this.contents);
-    return <Page />;
+          <MessagesListContainer>
+            {this.props.rooms.map((v, i) => {
+              return (
+                <ListItem
+                  key={i}
+                  button
+                  divider
+                  onClick={() => {
+                    history.push('/messages/' + v.id);
+                  }}
+                >
+                  <Avatar src={v.guestUserImgUrl} />
+                  <ListItemText primary={v.guestUserName} secondary={v.lastMessage} />
+                </ListItem>
+              );
+            })}
+          </MessagesListContainer>
+
+          {(() => {
+            if (this.props.rooms.length === 0) {
+              return <Button onClick={this.createSampleRoom}>サンプルルーム作成</Button>;
+            }
+          })()}
+        </MessagesContainer>
+      </MessagesPage>
+    );
   }
 }
 
