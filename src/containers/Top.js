@@ -26,13 +26,15 @@ const TopView = styled.div`
   background-size: cover;
   color: rgb(255, 255, 255);
   box-sizing: border-box;
+  ${media.phone`
+    padding: 196px 10px 0 10px;
+  `};
 `;
 
 const Monooq = styled.span`
   display: inline-block;
   font-family: sans-serif;
   font-size: 20px;
-  width: 561px;
   font-weight: 100;
 `;
 
@@ -43,6 +45,12 @@ const CatchPhrase = styled.div`
   text-align: left;
   width: 556px;
   height: 114px;
+  ${media.phone`
+    font-size: 28px;
+    line-height: 48px;
+    width: 100%;
+    height: inherit;
+  `};
 `;
 
 const SubCatchPhrase = styled.span`
@@ -53,6 +61,11 @@ const SubCatchPhrase = styled.span`
   font-weight: 100;
   line-height: 42px;
   margin-top: 9px;
+  ${media.phone`
+    font-size: 24px;
+    line-height: 30px;
+    width: 100%;
+  `};
 `;
 
 const SearchInput = styled.input`
@@ -69,6 +82,16 @@ const SearchInput = styled.input`
   box-sizing: border-box;
   font-size: 14px;
   font-family: sans-serif;
+  ${media.phone`
+    width: 100%;
+  `};
+`;
+
+const ToHostRegistContainer = styled.div`
+  ${media.phone`
+    text-align: center;
+    width: 100%;
+  `};
 `;
 
 const ToHostRegist = styled.a`
@@ -77,6 +100,10 @@ const ToHostRegist = styled.a`
   color: rgb(255, 255, 255);
   line-height: 42px;
   margin-left: 175px;
+  text-decoration: underline;
+  ${media.phone`
+    margin: 0;
+  `};
 `;
 
 const TopHr = styled.hr`
@@ -88,6 +115,9 @@ const TopHr = styled.hr`
 
 const DefaultView = styled.div`
   padding: 80px 116px;
+  ${media.phone`
+    padding: 80px 10px;
+  `};
   color: rgb(51, 51, 51);
   box-sizing: border-box;
   ${props =>
@@ -100,6 +130,15 @@ const DefaultView = styled.div`
         background-position-y: 388px;
     `
       : ''};
+  ${media.phone`
+    ${props =>
+      props.isReasonUser
+        ? `
+          background: #fff;
+          background-image: inherit;
+      `
+        : ''};
+  `};
   ${props =>
     props.isReasonHost
       ? `
@@ -123,6 +162,14 @@ const DefaultView = styled.div`
         display: flex;
     `
       : ''};
+  ${media.phone`
+    ${props =>
+      props.isPickGo
+        ? `
+          display: block;
+      `
+        : ''};
+  `};
 `;
 
 const HilightCopy = styled.span`
@@ -140,6 +187,10 @@ const DefaultTitle = styled.span`
   font-size: 38px;
   line-height: 51px;
   margin-bottom: 80px;
+  ${media.phone`
+    font-size: 28px;
+    margin-bottom: 40px;
+  `};
 `;
 
 const ExplainTitle = styled.span`
@@ -223,12 +274,15 @@ const ForSafeSectionButton = styled.button`
 `;
 
 const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
+  const StyledContainer = styled.div`
+    width: 327px;
+    font-family: sans-serif;
+    font-weight: 100;
+    ${media.phone`
+      margin-bottom: 30px;
+    `};
+  `;
   const style = {
-    root: {
-      width: '327px',
-      fontFamily: 'sans-serif',
-      fontWeight: 100,
-    },
     title: {
       height: '60px',
       lineHeight: '60px',
@@ -246,7 +300,7 @@ const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
     },
   };
   return (
-    <div style={style.root}>
+    <StyledContainer>
       <div style={style.title}>
         <span className="fa-layers fa-fw fa-2x" style={style.titleIcon}>
           <i className="fas fa-circle" style={{ color: '#E85258' }} />
@@ -256,20 +310,22 @@ const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
       </div>
       <div style={style.description}>{description}</div>
       <ForSafeSectionButton>{buttonText}</ForSafeSectionButton>
-    </div>
+    </StyledContainer>
   );
 };
 
 const ForSafeSectionList = () => {
-  const style = {
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
-    },
-  };
+  const StyledContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    ${media.phone`
+      justify-content: center;
+    `};
+  `;
+
   return (
-    <div className="for-safe-section-list" style={style.root}>
+    <StyledContainer className="for-safe-section-list">
       <ForSafeSection
         iconClass="far fa-heart"
         title="はじめての方へ"
@@ -288,7 +344,7 @@ const ForSafeSectionList = () => {
         description="モノオクは個人間の物置きシェアサービスです。トラブルや揉め事がないようにルールを設けています。みんなが安心して使えるようにマナーを大切にしましょう。"
         buttonText="ルールとマナーについて"
       />
-    </div>
+    </StyledContainer>
   );
 };
 
@@ -297,6 +353,7 @@ const LinkToPickGo = styled.a`
   font-size: 18px;
   color: rgb(255, 255, 255);
   line-height: 42px;
+  text-decoration: underline;
 `;
 
 const PickGoSection = styled.div`
@@ -305,6 +362,9 @@ const PickGoSection = styled.div`
   text-align: center;
   margin-left: 181px;
   margin-top: 87px;
+  ${media.phone`
+    margin: 30px auto;
+  `};
 `;
 
 const PickGoMedia = styled.img`
@@ -317,6 +377,34 @@ const PickGoDescription = styled.div`
   font-size: 14px;
   line-height: 27px;
 `;
+
+const LineUpNewsMedia = () => {
+  const style = {
+    title: {
+      fontFamily: 'sans-serif',
+      fontSize: '22px',
+      marginBottom: '40px',
+    },
+    list: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-between',
+    },
+  };
+  return (
+    <div style={style.root}>
+      <div style={style.title}>メディア掲載</div>
+      <div style={style.list}>
+        <img src="http://placehold.jp/114x26.png" />
+        <img src="http://placehold.jp/114x26.png" />
+        <img src="http://placehold.jp/114x26.png" />
+        <img src="http://placehold.jp/114x26.png" />
+        <img src="http://placehold.jp/114x26.png" />
+        <img src="http://placehold.jp/114x26.png" />
+      </div>
+    </div>
+  );
+};
 
 class Top extends React.Component {
   constructor(props) {
@@ -342,20 +430,13 @@ class Top extends React.Component {
       <TopPage>
         <TopView>
           <div className={classes.contents}>
-            <Hidden xsDown>
-              <Monooq>monooQ</Monooq>
-              <CatchPhrase>
-                個人間だからできる、<br />荷物を預けるための新しい方法。
-              </CatchPhrase>
-              <SubCatchPhrase>
-                モノオクは余った個人のスペースを活用して、荷物を預けることができるサービスです。
-              </SubCatchPhrase>
-            </Hidden>
-            <Hidden smUp>
-              <Typography type="title" component="h1" style={{ fontWeight: 'bold' }}>
-                モノがあふれていませんか?
-              </Typography>
-            </Hidden>
+            <Monooq>monooQ</Monooq>
+            <CatchPhrase>
+              個人間だからできる、<br />荷物を預けるための新しい方法。
+            </CatchPhrase>
+            <SubCatchPhrase>
+              モノオクは余った個人のスペースを活用して、荷物を預けることができるサービスです。
+            </SubCatchPhrase>
             <div className={classes.search}>
               <SearchInput
                 id="location"
@@ -376,9 +457,11 @@ class Top extends React.Component {
                 <SearchIcon />
               </Button>
             </div>
-            <ToHostRegist component={Link} href={'/edit/profile/1'}>
-              ホスト登録はこちら
-            </ToHostRegist>
+            <ToHostRegistContainer>
+              <ToHostRegist component={Link} href={'/edit/profile/1'}>
+                ホスト登録はこちら
+              </ToHostRegist>
+            </ToHostRegistContainer>
           </div>
         </TopView>
         <TopHr />
@@ -450,6 +533,9 @@ class Top extends React.Component {
               サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
             </PickGoDescription>
           </PickGoSection>
+        </DefaultView>
+        <DefaultView>
+          <LineUpNewsMedia />
         </DefaultView>
         <Footer />
       </TopPage>
