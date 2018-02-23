@@ -31,7 +31,7 @@ export default () => (
       <Button position="right">次へ</Button>
     </PageContent>
     <SideBar
-      renderSaveContent={() => <SaveBox step={2} />}
+      renderSaveContent={() => <SaveBox step={4} />}
       renderHintContent={() => (
         <HintBox
           title="料金設定に関するヒント"
