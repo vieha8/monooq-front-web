@@ -1,9 +1,9 @@
 import React from 'react';
 import { Page } from '../../stories/create-space/page/Shared';
-import SpaceInfo from '../../stories/create-space/page/SpaceInfo';
+import SpaceSize from '../../stories/create-space/page/SpaceSize';
 
 export default () => (
   <Page>
-    <SpaceInfo />
+    <SpaceSize />
   </Page>
 );

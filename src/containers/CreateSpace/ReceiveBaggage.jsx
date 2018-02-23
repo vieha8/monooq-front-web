@@ -1,9 +1,9 @@
 import React from 'react';
 import { Page } from '../../stories/create-space/page/Shared';
-import SpaceInfo from '../../stories/create-space/page/SpaceInfo';
+import ReceiveBaggage from '../../stories/create-space/page/ReceiveBaggage';
 
 export default () => (
   <Page>
-    <SpaceInfo />
+    <ReceiveBaggage />
   </Page>
 );

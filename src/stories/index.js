@@ -6,13 +6,13 @@ import { linkTo } from '@storybook/addon-links';
 
 import Title from './story/Title';
 
-import SpacePage from './create-space/page/Space';
+import SpaceInfo from './create-space/page/SpaceInfo';
 import AboutBaggage from './create-space/page/AboutBaggage';
 import ReceiveBaggage from './create-space/page/ReceiveBaggage';
 import SpaceSize from './create-space/page/SpaceSize';
 import AboutPrice from './create-space/page/AboutPrice';
 import AllUsePrice from './create-space/page/AllUsePrice';
-import SpaceCompletion from './create-space/page/SpaceCompletion';
+import SpaceCreatedCompletion from './create-space/page/SpaceCreatedCompletion';
 import { Footer } from './shared';
 import { ResultItem } from './search';
 import {
@@ -166,13 +166,13 @@ storiesOf('Search', module).add('検索結果 項目', () => (
 ));
 
 storiesOf('CreateSpace', module)
-  .add('スペース登録', () => <SpacePage />)
+  .add('スペース登録', () => <SpaceInfo />)
   .add('預かる荷物について', () => <AboutBaggage />)
   .add('荷物の受け取り', () => <ReceiveBaggage />)
   .add('料金目安を設定する1', () => <SpaceSize />)
   .add('料金目安を設定する2', () => <AboutPrice />)
   .add('料金目安を設定する3', () => <AllUsePrice />)
-  .add('スペース登録完了', () => <SpaceCompletion />);
+  .add('スペース登録完了', () => <SpaceCreatedCompletion />);
 
 storiesOf('Space', module)
   .add('カード', () => (

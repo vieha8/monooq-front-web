@@ -6,6 +6,12 @@ import Top from '../containers/Top';
 import SearchPage from '../containers/Search/SearchPage';
 import SpacePage from '../containers/Space/SpacePage';
 import CreateSpaceSpaceInfo from '../containers/CreateSpace/SpaceInfo';
+import AboutBaggage from '../containers/CreateSpace/AboutBaggage';
+import ReceiveBaggage from '../containers/CreateSpace/ReceiveBaggage';
+import SpaceSize from '../containers/CreateSpace/SpaceSize';
+import AboutPrice from '../containers/CreateSpace/AboutPrice';
+import AllUsePrice from '../containers/CreateSpace/AllUsePrice';
+import SpaceCreatedCompletion from '../containers/CreateSpace/SpaceCreatedCompletion';
 import Message from '../containers/Message/';
 import Messages from '../containers/Messages/';
 import Signup from '../containers/Signup';
@@ -27,6 +33,12 @@ const routes = [
   { path: '/',                          component: Top },
   { path: '/search/:location',          component: SearchPage },
   { path: '/space/new/info',            component: CreateSpaceSpaceInfo },
+  { path: '/space/new/about_baggage',   component: AboutBaggage },
+  { path: '/space/new/receive_baggage', component: ReceiveBaggage },
+  { path: '/space/new/space_size',      component: SpaceSize },
+  { path: '/space/new/about_price',     component: AboutPrice },
+  { path: '/space/new/all_use_price',   component: AllUsePrice },
+  { path: '/space/new/space_created',   component: SpaceCreatedCompletion },
   { path: '/space/:id',                 component: SpacePage },
   { path: '/messages',                  component: Messages },
   { path: '/messages/:room_id',         component: Message },
