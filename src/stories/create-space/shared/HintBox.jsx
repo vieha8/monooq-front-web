@@ -1,27 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Colors, FontSizes, Dimens } from '../../variables';
+import { Colors, Dimens, FontSizes } from '../../../variables';
 
 const Container = styled.div`
-  margin-top: ${Dimens.large}px;
+  width: 100%;
+  background-color: ${Colors.lightYellow};
+  padding: ${Dimens.medium2}px;
 `;
 
-const Title = styled.h3`
+const Title = styled.span`
   display: block;
   color: ${Colors.black};
-  font-size: ${FontSizes.medium}px;
+  font-size: ${FontSizes.medium1}px;
 `;
 
-const SubTitle = styled.span`
+const Text = styled.span`
   display: block;
-  color: ${Colors.gray};
+  color: ${Colors.black};
   font-size: ${FontSizes.small}px;
   margin-top: ${Dimens.medium}px;
+  line-height: 2;
 `;
 
 export default props => (
   <Container>
     <Title>{props.title}</Title>
-    {props.subTitle && <SubTitle>{props.subTitle}</SubTitle>}
+    <Text>{props.text}</Text>
   </Container>
 );

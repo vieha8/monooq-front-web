@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card, Button } from 'semantic-ui-react';
-import { Colors, FontSizes, Dimens } from '../../variables';
+import { Colors, FontSizes, Dimens } from '../../../variables';
 
 const Container = styled.div`
 `;

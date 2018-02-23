@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Select } from 'semantic-ui-react';
-import { Title } from './index';
-import { Colors, FontSizes, Dimens } from '../../variables';
+import Title from '../shared/Title';
+import { Colors, FontSizes, Dimens } from '../../../variables';
 
 const Container = styled.div`
   margin-top: ${Dimens.medium}px;

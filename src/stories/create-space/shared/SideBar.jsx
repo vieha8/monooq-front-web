@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Dimens } from '../../variables';
+import { Dimens } from '../../../variables';
 
 const Container = styled.div`
   width: 340px;
