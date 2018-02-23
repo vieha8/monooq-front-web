@@ -49,14 +49,19 @@ const MessagesMenu = () => {
     `};
   `;
 
-  const Item = props => {
+  const MenuIcon = styled.span`
+    font-size: 1.5rem;
+    float: right;
+  `;
+
+  const MenuItem = props => {
     const StyledContainer = styled.li`
       width: 100%;
       height: 57px;
       line-height: 57px;
       font-size: 14px;
       color: rgba(0, 0, 0, 0.5);
-      padding-left: 18px;
+      padding: 0 18px;
       :hover {
         cursor: pointer;
         background: rgba(0, 0, 0, 0.1);
@@ -64,23 +69,34 @@ const MessagesMenu = () => {
       ${media.phone`
       `};
     `;
-    // {TODO}通知iconを追加
     return (
       <StyledContainer>
-        <span>{props.title}</span>
+        {props.title}
+        {props.notice ? (
+          <MenuIcon>
+            <span className="fa-layers fa-fw">
+              <i className="fas fa-circle" style={{ color: '#e85258' }} />
+              <span className="fa-layers-text fa-inverse" data-fa-transform="shrink-9">
+                99
+              </span>
+            </span>
+          </MenuIcon>
+        ) : (
+          ``
+        )}
       </StyledContainer>
     );
   };
 
   return (
     <Menu>
-      <Item title="メッセージ" />
-      <Item title="預かりスケジュール" />
-      <Item title="支払い履歴" />
-      <Item title="ホストになる" />
-      <Item title="ホストモードに切り替える" />
-      <Item title="お問い合わせ" />
-      <Item title="ログアウト" />
+      <MenuItem title="メッセージ" notice={true} />
+      <MenuItem title="預かりスケジュール" />
+      <MenuItem title="支払い履歴" notice={true} />
+      <MenuItem title="ホストになる" />
+      <MenuItem title="ホストモードに切り替える" />
+      <MenuItem title="お問い合わせ" />
+      <MenuItem title="ログアウト" />
     </Menu>
   );
 };
