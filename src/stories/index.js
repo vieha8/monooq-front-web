@@ -9,6 +9,7 @@ import Title from './story/Title';
 import SpacePage from './create-space/page/Space';
 import AboutBaggage from './create-space/page/AboutBaggage';
 import ReceiveBaggage from './create-space/page/ReceiveBaggage';
+import SpaceSize from './create-space/page/SpaceSize';
 import { Footer } from './shared';
 import { ResultItem } from './search';
 import {
@@ -164,7 +165,8 @@ storiesOf('Search', module).add('検索結果 項目', () => (
 storiesOf('CreateSpace', module)
   .add('スペース登録', () => <SpacePage />)
   .add('預かる荷物について', () => <AboutBaggage />)
-  .add('荷物の受け取り', () => <ReceiveBaggage />);
+  .add('荷物の受け取り', () => <ReceiveBaggage />)
+  .add('料金目安を設定する1', () => <SpaceSize />);
 
 storiesOf('Space', module)
   .add('カード', () => (
