@@ -16,7 +16,7 @@ export default () => (
       />
       <InputPriceOfAll />
       <Button border>戻る</Button>
-      <Button position="right">次へ</Button>
+      <Button position="right">登録を完了する</Button>
     </PageContent>
     <SideBar
       renderSaveContent={() => <SaveBox step={4} />}

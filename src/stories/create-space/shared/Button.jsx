@@ -37,7 +37,7 @@ export default props => (
   <Container position={props.position}>
     <Button
       style={{
-        ...(props.border ? styles.button : styles.borderButton),
+        ...(props.border ? styles.borderButton : styles.button),
         ...styles.buttonDisabled,
       }}
     >
