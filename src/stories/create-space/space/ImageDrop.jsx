@@ -3,11 +3,9 @@ import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import { Button, Card } from 'semantic-ui-react';
 import Title from '../shared/Title';
-import Header from '../shared/Header';
 import { Colors, FontSizes, Dimens } from '../../../variables';
 
 const Container = styled.div`
-  margin-top: ${Dimens.medium}px;
 `;
 
 const DragText = styled.span`
@@ -40,10 +38,6 @@ const styles = {
 
 export default () => (
   <Container>
-    <Header
-      header="スペースを登録する"
-      subHeader="どんなスペースを掲載しますか？"
-    />
     <Title
       title="スペースの様子を写真で登録しよう"
       subTitle="最大4枚まで登録可能です。"

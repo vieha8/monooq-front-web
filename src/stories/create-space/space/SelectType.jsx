@@ -35,7 +35,22 @@ export default () => (
         {
           key: 2,
           value: 'type2',
-          text: 'トランクルーム',
+          text: '押入れ',
+        },
+        {
+          key: 3,
+          value: 'type3',
+          text: '部屋',
+        },
+        {
+          key: 4,
+          value: 'type4',
+          text: '屋外倉庫',
+        },
+        {
+          key: 5,
+          value: 'type5',
+          text: 'その他',
         },
       ]}
     />

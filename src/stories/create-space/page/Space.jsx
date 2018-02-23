@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Header from '../shared/Header';
 import Button from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
@@ -25,6 +26,10 @@ const PageContent = styled.div`
 export default () => (
   <Container>
     <PageContent>
+      <Header
+        header="スペースを登録する"
+        subHeader="どんなスペースを掲載しますか？"
+      />
       <ImageDrop />
       <InputTitle />
       <SelectType />
@@ -33,7 +38,7 @@ export default () => (
       <Button>次へ</Button>
     </PageContent>
     <SideBar
-      renderSaveContent={() => <SaveBox />}
+      renderSaveContent={() => <SaveBox step={1} />}
       renderHintContent={() => (
         <HintBox
           title="スペース登録のヒント"

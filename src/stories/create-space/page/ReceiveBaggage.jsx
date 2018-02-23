@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import Header from '../shared/Header';
 import Button from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
-import ImageDrop from '../space/ImageDrop';
-import InputTitle from '../space/InputTitle';
-import SelectType from '../space/SelectType';
-import InputIntro from '../space/InputIntro';
-import InputAddress from '../space/InputAddress';
+import HowToReceive from '../receive/HowToReceive';
+import ReceiveDetail from '../receive/ReceiveDetail';
 
 const Container = styled.div`
   &::after {
@@ -25,15 +23,17 @@ const PageContent = styled.div`
 export default () => (
   <Container>
     <PageContent>
-      <ImageDrop />
-      <InputTitle />
-      <SelectType />
-      <InputIntro />
-      <InputAddress />
-      <Button>次へ</Button>
+      <Header
+        header="荷物の受け取りについて"
+        subHeader="どのように荷物を受け取りますか？"
+      />
+      <HowToReceive />
+      <ReceiveDetail />
+      <Button border>戻る</Button>
+      <Button position="right">次へ</Button>
     </PageContent>
     <SideBar
-      renderSaveContent={() => <SaveBox />}
+      renderSaveContent={() => <SaveBox step={3} />}
       renderHintContent={() => (
         <HintBox
           title="荷物受け取りのヒント"
