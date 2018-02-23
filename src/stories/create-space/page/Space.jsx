@@ -1,6 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ImageDrop, InputTitle, SelectType, InputIntro, InputAddress, Button, SideBar, SaveBox, HintBox } from '../index';
+import Button from '../shared/Button';
+import SideBar from '../shared/SideBar';
+import SaveBox from '../shared/SaveBox';
+import HintBox from '../shared/HintBox';
+import ImageDrop from '../space/ImageDrop';
+import InputTitle from '../space/InputTitle';
+import SelectType from '../space/SelectType';
+import InputIntro from '../space/InputIntro';
+import InputAddress from '../space/InputAddress';
 
 const Container = styled.div`
   &::after {
