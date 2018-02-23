@@ -7,6 +7,7 @@ import { linkTo } from '@storybook/addon-links';
 import Title from './story/Title';
 
 import SpacePage from './create-space/page/Space';
+import AboutBaggage from './create-space/page/AboutBaggage';
 import ReceiveBaggage from './create-space/page/ReceiveBaggage';
 import { Footer } from './shared';
 import { ResultItem } from './search';
@@ -162,6 +163,7 @@ storiesOf('Search', module).add('検索結果 項目', () => (
 
 storiesOf('CreateSpace', module)
   .add('スペース登録', () => <SpacePage />)
+  .add('預かる荷物について', () => <AboutBaggage />)
   .add('荷物の受け取り', () => <ReceiveBaggage />);
 
 storiesOf('Space', module)

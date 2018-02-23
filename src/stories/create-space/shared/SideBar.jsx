@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Dimens } from '../../../variables';
 
 const Container = styled.div`
-  width: 340px;
+  max-width: 340px;
+  width: 40%;
   height: 100%;
   float: right;
   margin-top: 100px;

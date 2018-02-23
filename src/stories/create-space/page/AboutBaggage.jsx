@@ -5,27 +5,25 @@ import Button from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
-import HowToReceive from '../receive/HowToReceive';
-import ReceiveDetail from '../receive/ReceiveDetail';
+import InputAboutBaggage from '../baggage/InputAboutBaggage';
 
 export default () => (
   <Container>
     <PageContent>
       <Header
-        header="荷物の受け取りについて"
-        subHeader="どのように荷物を受け取りますか？"
+        header="預かる荷物について"
+        subHeader="あなたのスペースでどんな荷物を預かりますか？"
       />
-      <HowToReceive />
-      <ReceiveDetail />
+      <InputAboutBaggage />
       <Button border>戻る</Button>
       <Button position="right">次へ</Button>
     </PageContent>
     <SideBar
-      renderSaveContent={() => <SaveBox step={3} />}
+      renderSaveContent={() => <SaveBox step={2} />}
       renderHintContent={() => (
         <HintBox
-          title="荷物受け取りのヒント"
-          text="もし、あなたが車でお手伝いができるならアピールをしましょう。ユーザーに喜んでもらえますよ！"
+          title="荷物情報のヒント"
+          text="ユーザーには大きな荷物を預けられるスペースが人気です。あなたのスペースでも無理のない保管ができる内容を記載しましょう。"
         />
       )}
     />

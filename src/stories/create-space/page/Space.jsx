@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Button from '../shared/Button';
 import SideBar from '../shared/SideBar';
@@ -10,18 +10,6 @@ import InputTitle from '../space/InputTitle';
 import SelectType from '../space/SelectType';
 import InputIntro from '../space/InputIntro';
 import InputAddress from '../space/InputAddress';
-
-const Container = styled.div`
-  &::after {
-    clear: both;
-    content: "";
-    display: block;
-  }
-`;
-
-const PageContent = styled.div`
-  float: left;
-`;
 
 export default () => (
   <Container>

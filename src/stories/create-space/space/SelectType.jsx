@@ -11,7 +11,6 @@ const Container = styled.div`
 const styles = {
   select: {
     width: '100%',
-    maxWidth: '600px',
     marginTop: `${Dimens.medium}px`,
     color: Colors.black,
     fontSize: FontSizes.medium,

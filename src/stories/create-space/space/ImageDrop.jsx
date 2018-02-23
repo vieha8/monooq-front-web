@@ -31,7 +31,6 @@ const styles = {
   },
   dnd: {
     width: '100%',
-    maxWidth: '600px',
     marginTop: `${Dimens.medium}px`,
   },
 };
