@@ -12,6 +12,7 @@ import ReceiveBaggage from './create-space/page/ReceiveBaggage';
 import SpaceSize from './create-space/page/SpaceSize';
 import AboutPrice from './create-space/page/AboutPrice';
 import AllUsePrice from './create-space/page/AllUsePrice';
+import SpaceCompletion from './create-space/page/SpaceCompletion';
 import { Footer } from './shared';
 import { ResultItem } from './search';
 import {
@@ -170,7 +171,8 @@ storiesOf('CreateSpace', module)
   .add('荷物の受け取り', () => <ReceiveBaggage />)
   .add('料金目安を設定する1', () => <SpaceSize />)
   .add('料金目安を設定する2', () => <AboutPrice />)
-  .add('料金目安を設定する3', () => <AllUsePrice />);
+  .add('料金目安を設定する3', () => <AllUsePrice />)
+  .add('スペース登録完了', () => <SpaceCompletion />);
 
 storiesOf('Space', module)
   .add('カード', () => (

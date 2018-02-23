@@ -21,7 +21,7 @@ const HintContainer = styled.div`
 
 export default props => (
   <Container>
-    <SaveContainer>{props.renderSaveContent()}</SaveContainer>
-    <HintContainer>{props.renderHintContent()}</HintContainer>
+    <SaveContainer>{props.renderSaveContent && props.renderSaveContent()}</SaveContainer>
+    <HintContainer>{props.renderHintContent && props.renderHintContent()}</HintContainer>
   </Container>
 );

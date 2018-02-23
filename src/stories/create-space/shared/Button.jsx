@@ -6,7 +6,7 @@ import { Colors, FontSizes, Dimens } from '../../../variables';
 const Container = styled.div`
   display: inline-block;
   text-align: right;
-  width: 50%;
+  width: ${props => (props.fill ? '100%' : '50%')};
   max-width: 600px;
   margin-top: ${Dimens.medium3}px;
   text-align: ${props => props.position || 'left'};
@@ -28,16 +28,20 @@ const styles = {
     fontSize: FontSizes.medium,
     border: `1px solid ${Colors.pink}`,
   },
+  fillButton: {
+    width: '100%',
+  },
   buttonDisabled: {
     opacity: 0.7,
   },
 };
 
 export default props => (
-  <Container position={props.position}>
+  <Container fill={props.fill} position={props.position}>
     <Button
       style={{
         ...(props.border ? styles.borderButton : styles.button),
+        ...(props.fill ? styles.fillButton : {}),
         ...styles.buttonDisabled,
       }}
     >
