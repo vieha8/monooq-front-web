@@ -11,6 +11,13 @@ import SelectType from '../space/SelectType';
 import InputIntro from '../space/InputIntro';
 import InputAddress from '../space/InputAddress';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
+import HintBoxMobile from '../shared/HintBoxMobile';
+import FloatHintButton from '../shared/FloatHintButton';
+
+const hintProps = {
+  title: 'スペース登録のヒント',
+  text: 'ユーザーが自分の荷物が入るかイメージできるようにスペースの情報やアピールポイントを掲載しましょう！',
+};
 
 export default () => (
   <Container>
@@ -29,12 +36,11 @@ export default () => (
     <SideBar
       renderMainContent={() => <SaveBox step={1} />}
       renderHintContent={() => (
-        <HintBox
-          title="スペース登録のヒント"
-          text="ユーザーが自分の荷物が入るかイメージできるようにスペースの情報やアピールポイントを掲載しましょう！"
-        />
+        <HintBox {...hintProps} />
       )}
     />
     <SaveBoxMobile />
+    <FloatHintButton />
+    <HintBoxMobile {...hintProps} />
   </Container>
 );

@@ -11,4 +11,5 @@ export default {
   borderGray: '#DBDBDB',
   linkBlue: '#006494',
   lightYellow: '#F5ECCE',
+  orange: '#FF8000',
 };
