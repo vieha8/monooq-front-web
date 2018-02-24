@@ -10,7 +10,7 @@ const Container = styled.div`
   margin-top: 100px;
 `;
 
-const SaveContainer = styled.div`
+const MainContainer = styled.div`
   width: 100%;
 `;
 
@@ -21,7 +21,7 @@ const HintContainer = styled.div`
 
 export default props => (
   <Container>
-    <SaveContainer>{props.renderSaveContent && props.renderSaveContent()}</SaveContainer>
+    <MainContainer>{props.renderMainContent && props.renderMainContent()}</MainContainer>
     <HintContainer>{props.renderHintContent && props.renderHintContent()}</HintContainer>
   </Container>
 );

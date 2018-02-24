@@ -19,7 +19,7 @@ export default () => (
       <Button position="right">登録を完了する</Button>
     </PageContent>
     <SideBar
-      renderSaveContent={() => <SaveBox step={4} />}
+      renderMainContent={() => <SaveBox step={4} />}
       renderHintContent={() => (
         <HintBox
           title="料金設定に関するヒント"

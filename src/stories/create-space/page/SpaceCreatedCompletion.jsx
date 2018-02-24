@@ -4,6 +4,7 @@ import Header from '../shared/Header';
 import Title from '../shared/Title';
 import Button from '../shared/Button';
 import SideBar from '../shared/SideBar';
+import MySpaceRow from '../shared/MySpaceRow';
 
 export default () => (
   <Container>
@@ -16,6 +17,8 @@ export default () => (
       />
       <Button fill>登録した場所を見る</Button>
     </PageContent>
-    <SideBar />
+    <SideBar
+      renderMainContent={() => <MySpaceRow place="東京都" title="東京タワーにも近くて便利！大きい荷物も何人分でもOK大きい荷物も何人分でもOK大きい荷物も何人分でもOK大きい荷物も何人分でもOK" />}
+    />
   </Container>
 );
