@@ -1,10 +1,22 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Title from '../shared/Title';
 import Button from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import MySpaceRow from '../shared/MySpaceRow';
+import { Colors, FontSizes, Dimens } from '../../../variables';
+
+const SpaceListTitle = styled.span`
+  dipslay: block;
+  color: ${Colors.black};
+  font-size: ${FontSizes.medium}px;
+`;
+
+const SpaceListWrapper = styled.div`
+  margin-top: ${Dimens.medium}px;
+`;
 
 export default () => (
   <Container>
@@ -18,7 +30,14 @@ export default () => (
       <Button fill>登録した場所を見る</Button>
     </PageContent>
     <SideBar
-      renderMainContent={() => <MySpaceRow place="東京都" title="東京タワーにも近くて便利！大きい荷物も何人分でもOK大きい荷物も何人分でもOK大きい荷物も何人分でもOK大きい荷物も何人分でもOK" />}
+      renderMainContent={() => (
+        <div>
+          <SpaceListTitle>登録済みの場所</SpaceListTitle>
+          <SpaceListWrapper>
+            <MySpaceRow place="東京都" title="東京タワーにも近くて便利！大きい荷物も何人分でもOK大きい荷物も何人分でもOK大きい荷物も何人分でもOK大きい荷物も何人分でもOK" />
+          </SpaceListWrapper>
+        </div>
+      )}
     />
   </Container>
 );
