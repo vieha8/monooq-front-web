@@ -8,7 +8,6 @@ import HintBox from '../shared/HintBox';
 import InputAboutBaggage from '../baggage/InputAboutBaggage';
 import CheckTypeFurniture from '../baggage/CheckTypeFurniture';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import HintBoxMobile from '../shared/HintBoxMobile';
 import FloatHintButton from '../shared/FloatHintButton';
 
 const hintProps = {
@@ -35,7 +34,6 @@ export default () => (
       )}
     />
     <SaveBoxMobile />
-    <FloatHintButton />
-    <HintBoxMobile {...hintProps} />
+    <FloatHintButton {...hintProps} />
   </Container>
 );

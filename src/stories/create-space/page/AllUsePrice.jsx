@@ -33,7 +33,6 @@ export default () => (
       )}
     />
     <SaveBoxMobile />
-    <FloatHintButton />
-    <HintBoxMobile {...hintProps} />
+    <FloatHintButton {...hintProps} />
   </Container>
 );
