@@ -8,7 +8,6 @@ import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
 import SpaceSizeCriterion from '../price/SpaceSizeCriterion';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import HintBoxMobile from '../shared/HintBoxMobile';
 import FloatHintButton from '../shared/FloatHintButton';
 
 const hintProps = {
