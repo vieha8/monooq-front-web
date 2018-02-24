@@ -11,7 +11,6 @@ import SelectType from '../space/SelectType';
 import InputIntro from '../space/InputIntro';
 import InputAddress from '../space/InputAddress';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import HintBoxMobile from '../shared/HintBoxMobile';
 import FloatHintButton from '../shared/FloatHintButton';
 
 const hintProps = {
@@ -40,7 +39,6 @@ export default () => (
       )}
     />
     <SaveBoxMobile />
-    <FloatHintButton />
-    <HintBoxMobile {...hintProps} />
+    <FloatHintButton {...hintProps} />
   </Container>
 );

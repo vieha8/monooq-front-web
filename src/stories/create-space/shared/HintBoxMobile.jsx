@@ -4,9 +4,42 @@ import { media } from '../../../helpers/style/media-query';
 import { Colors, Dimens, FontSizes, ZIndexes } from '../../../variables';
 
 const Container = styled.div`
+  @keyframes show {
+    0% {
+      display: block;
+      opacity: 0;
+    }
+    100% {
+      display: block;
+      opacity: 1;
+    }
+  }
+  @keyframes hide {
+    0% {
+      display: block;
+      opacity: 1;
+    }
+    99% {
+      display: block;
+      opacity: 0;
+    }
+    100% {
+      display: none;
+      opacity: 0;
+    }
+  }
+
   display: none;
   ${media.phone`
-    display: block;
+    ${props => (props.show ? `
+        display: block;
+        animation show 1s ease 0s;
+        animation-fill-mode: forwards;
+      ` : `
+        display: none;
+        animation hide 1s ease 0s;
+        animation-fill-mode: forwards;
+      `)}
   `}
 `;
 
@@ -48,8 +81,8 @@ const Text = styled.span`
 `;
 
 export default props => (
-  <Container>
-    <Screen />
+  <Container show={props.show}>
+    <Screen onClick={props.onClickOutside} />
     <Box>
       <Title>{props.title}</Title>
       <Text>{props.text}</Text>
