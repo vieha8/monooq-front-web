@@ -8,7 +8,7 @@ const Container = styled.div`
   display: none;
   position: fixed;
   width: 100%;
-  height: 80px;
+  height: 70px;
   left: 0;
   bottom: 0;
   background: ${Colors.white};
@@ -20,18 +20,30 @@ const Container = styled.div`
 
 const Text = styled.div`
   display: inline-block;
-  width: 50%;
+  width: 40%;
   text-align: center;
   vertical-align: middel;
 `;
 
+const SaveText = Text.extend`
+  color: ${Colors.black};
+  vertical-align: middle;
+  ${media.phone`
+    font-size: ${FontSizes.xsmall}px;
+  `}
+`;
+
 const ButtonWrapper = styled.div`
   display: inline-block;
-  width: 50%;
+  width: 60%;
   padding: ${Dimens.medium}px ${Dimens.medium2}px;
-  text-align: right;
-  vertical-align: middel;
+  text-align: center;
+  vertical-align: middle;
+  ${media.phone`
+    padding: ${Dimens.small}px ${Dimens.medium2}px;
+  `}
 `;
+
 
 const styles = {
   button: {
@@ -46,7 +58,7 @@ const styles = {
 
 export default props => (
   <Container>
-    <Text active>下書き保存が可能です</Text>
+    <SaveText>下書き保存が可能です</SaveText>
     <ButtonWrapper>
       <Button style={styles.button}>保存する</Button>
     </ButtonWrapper>

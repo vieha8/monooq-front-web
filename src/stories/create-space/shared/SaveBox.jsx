@@ -28,6 +28,8 @@ const Text = styled.span`
   }
 `;
 
+const SaveText = Text.extend``;
+
 const ButtonWrapper = styled.div`
   padding: ${Dimens.medium}px ${Dimens.medium2}px;
   text-align: center;
@@ -51,7 +53,7 @@ export default props => (
   <Container>
     <Card style={styles.card}>
       <SaveArea>
-        <Text active>下書き保存が可能です</Text>
+        <SaveText>下書き保存が可能です</SaveText>
         <ButtonWrapper>
           <Button style={styles.button}>保存する</Button>
         </ButtonWrapper>

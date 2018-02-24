@@ -23,6 +23,7 @@ export const PageContent = styled.div`
   ${media.phone`
     width: 100%;
     float: none;
+    padding-bottom: 110px;
   `}
 `;
 
