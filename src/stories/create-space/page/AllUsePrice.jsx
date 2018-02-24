@@ -7,7 +7,6 @@ import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
 import InputPriceOfAll from '../price/InputPriceOfAll';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import HintBoxMobile from '../shared/HintBoxMobile';
 import FloatHintButton from '../shared/FloatHintButton';
 
 const hintProps = {
@@ -24,7 +23,7 @@ export default () => (
       />
       <InputPriceOfAll />
       <Button border>戻る</Button>
-      <Button position="right">登録を完了する</Button>
+      <Button position="right" wide>登録を完了する</Button>
     </PageContent>
     <SideBar
       renderMainContent={() => <SaveBox step={4} />}

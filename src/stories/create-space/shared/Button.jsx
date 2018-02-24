@@ -13,6 +13,9 @@ const Container = styled.div`
   text-align: ${props => props.position || 'left'};
   ${media.phone`
     width: 120px;
+    ${props => props.wide && `
+      width: 200px;
+    `}
   `}
 `;
 
@@ -20,6 +23,9 @@ const ButtonWrapper = styled.div`
   width: 200px;
   ${media.phone`
     width: 100px;
+    ${props => props.wide && `
+      width: 200px;
+    `}
   `}
 `;
 
@@ -48,12 +54,12 @@ const styles = {
 };
 
 export default props => (
-  <Container fill={props.fill} position={props.position}>
-    <ButtonWrapper>
+  <Container fill={props.fill} wide={props.wide} position={props.position}>
+    <ButtonWrapper wide={props.wide}>
       <Button
         style={{
           ...(props.border ? styles.borderButton : styles.button),
-          ...(props.fill ? styles.fillButton : {}),
+          ...(props.fill || props.wide ? styles.fillButton : {}),
           ...styles.buttonDisabled,
         }}
       >
