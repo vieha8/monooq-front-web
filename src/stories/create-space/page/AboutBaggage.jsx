@@ -5,8 +5,16 @@ import Button from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
-import SaveBoxMobile from '../shared/SaveBoxMobile';
 import InputAboutBaggage from '../baggage/InputAboutBaggage';
+import CheckTypeFurniture from '../baggage/CheckTypeFurniture';
+import SaveBoxMobile from '../shared/SaveBoxMobile';
+import HintBoxMobile from '../shared/HintBoxMobile';
+import FloatHintButton from '../shared/FloatHintButton';
+
+const hintProps = {
+  title: '荷物情報のヒント',
+  text: 'ユーザーには大きな荷物を預けられるスペースが人気です。あなたのスペースでも無理のない保管ができる内容を記載しましょう。',
+};
 
 export default () => (
   <Container>
@@ -16,18 +24,18 @@ export default () => (
         subHeader="あなたのスペースでどんな荷物を預かりますか？"
       />
       <InputAboutBaggage />
+      <CheckTypeFurniture />
       <Button border>戻る</Button>
       <Button position="right">次へ</Button>
     </PageContent>
     <SideBar
       renderMainContent={() => <SaveBox step={2} />}
       renderHintContent={() => (
-        <HintBox
-          title="荷物情報のヒント"
-          text="ユーザーには大きな荷物を預けられるスペースが人気です。あなたのスペースでも無理のない保管ができる内容を記載しましょう。"
-        />
+        <HintBox {...hintProps} />
       )}
     />
     <SaveBoxMobile />
+    <FloatHintButton />
+    <HintBoxMobile {...hintProps} />
   </Container>
 );

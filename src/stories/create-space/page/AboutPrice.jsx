@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Title from '../shared/Title';
@@ -8,6 +7,15 @@ import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
 import InputPriceOfType from '../price/InputPriceOfType';
+import SaveBoxMobile from '../shared/SaveBoxMobile';
+import HintBoxMobile from '../shared/HintBoxMobile';
+import FloatHintButton from '../shared/FloatHintButton';
+
+const hintProps = {
+  title: '料金設定に関するヒント',
+  text: '荷物が思っていたよりも大きかったなど、荷物が届いた後でも柔軟に対応できる料金設定をしましょう。',
+};
+
 
 export default () => (
   <Container>
@@ -42,11 +50,11 @@ export default () => (
     <SideBar
       renderMainContent={() => <SaveBox step={4} />}
       renderHintContent={() => (
-        <HintBox
-          title="料金設定に関するヒント"
-          text="荷物が思っていたよりも大きかったなど、荷物が届いた後でも柔軟に対応できる料金設定をしましょう。"
-        />
+        <HintBox {...hintProps} />
       )}
     />
+    <SaveBoxMobile />
+    <FloatHintButton />
+    <HintBoxMobile {...hintProps} />
   </Container>
 );

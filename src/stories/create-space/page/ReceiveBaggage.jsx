@@ -7,6 +7,14 @@ import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
 import HowToReceive from '../receive/HowToReceive';
 import ReceiveDetail from '../receive/ReceiveDetail';
+import SaveBoxMobile from '../shared/SaveBoxMobile';
+import HintBoxMobile from '../shared/HintBoxMobile';
+import FloatHintButton from '../shared/FloatHintButton';
+
+const hintProps = {
+  title: '荷物受け取りのヒント',
+  text: 'もし、あなたが車でお手伝いができるならアピールをしましょう。ユーザーに喜んでもらえますよ！',
+};
 
 export default () => (
   <Container>
@@ -23,11 +31,11 @@ export default () => (
     <SideBar
       renderMainContent={() => <SaveBox step={3} />}
       renderHintContent={() => (
-        <HintBox
-          title="荷物受け取りのヒント"
-          text="もし、あなたが車でお手伝いができるならアピールをしましょう。ユーザーに喜んでもらえますよ！"
-        />
+        <HintBox {...hintProps} />
       )}
     />
+    <SaveBoxMobile />
+    <FloatHintButton />
+    <HintBoxMobile {...hintProps} />
   </Container>
 );
