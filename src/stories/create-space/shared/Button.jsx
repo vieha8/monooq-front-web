@@ -4,28 +4,29 @@ import { Button } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from '../../../variables';
 import { media } from '../../../helpers/style/media-query';
 
+export const ButtonsContainer = styled.div`
+  width: 100%;
+`;
+
 const Container = styled.div`
   display: inline-block;
-  text-align: right;
-  width: ${props => (props.fill ? '100%' : '50%')};
-  max-width: 600px;
   margin-top: ${Dimens.medium3}px;
   text-align: ${props => props.position || 'left'};
+  width: 50%;
   ${media.phone`
-    width: 120px;
-    ${props => props.wide && `
-      width: 200px;
-    `}
+    width: auto;
+    &:not(:first-child) {
+      margin-left: ${Dimens.medium}px;
+    }
   `}
 `;
 
-const ButtonWrapper = styled.div`
-  width: 200px;
+const Wrapper = styled.div`
+  display: inline-block;
+  width: 100%;
+  max-width: ${props => props.width || 200}px;
   ${media.phone`
-    width: 100px;
-    ${props => props.wide && `
-      width: 200px;
-    `}
+    max-width: ${props => props.width || 100}px;
   `}
 `;
 
@@ -54,8 +55,8 @@ const styles = {
 };
 
 export default props => (
-  <Container fill={props.fill} wide={props.wide} position={props.position}>
-    <ButtonWrapper wide={props.wide}>
+  <Container position={props.position}>
+    <Wrapper width={props.width}>
       <Button
         style={{
           ...(props.border ? styles.borderButton : styles.button),
@@ -65,6 +66,6 @@ export default props => (
       >
         {props.children}
       </Button>
-    </ButtonWrapper>
+    </Wrapper>
   </Container>
 );

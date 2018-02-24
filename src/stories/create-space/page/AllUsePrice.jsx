@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
-import Button from '../shared/Button';
+import Button, { ButtonsContainer } from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
@@ -22,8 +22,10 @@ export default () => (
         subHeader="あなたのスペースで荷物を預かる料金はいくら？"
       />
       <InputPriceOfAll />
-      <Button border>戻る</Button>
-      <Button position="right" wide>登録を完了する</Button>
+      <ButtonsContainer>
+        <Button border>戻る</Button>
+        <Button position="right" width="180">登録を完了する</Button>
+      </ButtonsContainer>
     </PageContent>
     <SideBar
       renderMainContent={() => <SaveBox step={4} />}

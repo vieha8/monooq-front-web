@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Title from '../shared/Title';
-import Button from '../shared/Button';
+import Button, { ButtonsContainer } from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import MySpaceRow from '../shared/MySpaceRow';
 import { Colors, FontSizes, Dimens } from '../../../variables';
@@ -27,7 +27,9 @@ export default () => (
       <Title
         title="ユーザーからの相談を待ちましょう。安心してもらえるようにメッセージは素早い対応を心がけましょう！"
       />
-      <Button fill>登録した場所を見る</Button>
+      <ButtonsContainer>
+        <Button wide width={220}>登録した場所を見る</Button>
+      </ButtonsContainer>
     </PageContent>
     <SideBar
       renderMainContent={() => (

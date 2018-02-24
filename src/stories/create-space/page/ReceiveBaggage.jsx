@@ -1,14 +1,13 @@
 import React from 'react';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
-import Button from '../shared/Button';
+import Button, { ButtonsContainer } from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
 import HowToReceive from '../receive/HowToReceive';
 import ReceiveDetail from '../receive/ReceiveDetail';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import HintBoxMobile from '../shared/HintBoxMobile';
 import FloatHintButton from '../shared/FloatHintButton';
 
 const hintProps = {
@@ -25,8 +24,10 @@ export default () => (
       />
       <HowToReceive />
       <ReceiveDetail />
-      <Button border>戻る</Button>
-      <Button position="right">次へ</Button>
+      <ButtonsContainer>
+        <Button border>戻る</Button>
+        <Button position="right">次へ</Button>
+      </ButtonsContainer>
     </PageContent>
     <SideBar
       renderMainContent={() => <SaveBox step={3} />}

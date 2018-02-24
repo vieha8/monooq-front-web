@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Input } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from '../../../variables';
+import { media } from '../../../helpers/style/media-query';
 
 const Container = styled.div`
   border: 1px solid ${Colors.borderGray};
@@ -19,19 +20,38 @@ const Container = styled.div`
     border-bottom-style: solid;
     border-radius: 0 0 3px 3px;
   }
+
+  &::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
 `;
 
 const PriceContainer = styled.div`
-  display: inline-block;
-  vertical-align: top;
+  display: block;
   width: 50%;
+  float: left;
+  ${media.phone`
+    width: 100%;
+    margin-top: ${Dimens.medium}px;
+    float: none;
+  `}
+`;
+
+const Image = styled.img`
+  width: 100%;
 `;
 
 const ImageContainer = styled.div`
-  display: inline-block;
-  vertical-align: top;
+  display: block;
   width: 50%;
   text-align: center;
+  float: right;
+  ${media.phone`
+    width: 100%;
+    float: none;
+  `}
 `;
 
 const Title = styled.span`
@@ -47,6 +67,13 @@ const Caption = styled.span`
   margin-top: ${Dimens.medium2}px;
 `;
 
+const InputWrapper = styled.div`
+  display: inline-block;
+  ${media.phone`
+    width: 120px;
+  `}
+`;
+
 const PriceWrapper = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
@@ -60,19 +87,21 @@ const Unit = styled.span`
 
 export default props => (
   <Container>
+    <ImageContainer>
+      <Image src="http://placehold.jp/250x120.png" alt="" />
+    </ImageContainer>
     <PriceContainer>
       <Title>{props.title}</Title>
       <Caption>{props.caption}</Caption>
       <PriceWrapper>
-        <Input
-          placeholder={props.placeholder}
-          size={8}
-        />
+        <InputWrapper>
+          <Input
+            placeholder={props.placeholder}
+            style={{ width: '100%' }}
+          />
+        </InputWrapper>
         <Unit>円／30日間</Unit>
       </PriceWrapper>
     </PriceContainer>
-    <ImageContainer>
-      <img src="http://placehold.jp/280x120.png" alt="" />
-    </ImageContainer>
   </Container>
 );

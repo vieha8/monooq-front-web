@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
-import Hidden from 'material-ui/Hidden';
 import SearchIcon from 'material-ui-icons/Search';
 
 import styled from 'styled-components';

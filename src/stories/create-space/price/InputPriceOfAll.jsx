@@ -28,7 +28,6 @@ export default () => (
     <PriceWrapper>
       <Input
         placeholder="20000"
-        size={8}
         style={{ width: '70%' }}
       />
       <Unit>円／30日間</Unit>
