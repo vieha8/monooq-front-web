@@ -25,7 +25,6 @@ export default () => (
     />
     <Input
       style={styles.input}
-      size={40}
       placeholder="例）東京都港区六本木6丁目1−25"
     />
   </Container>

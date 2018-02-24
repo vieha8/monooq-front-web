@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from '../../../variables';
+import { media } from '../../../helpers/style/media-query';
 
 const Container = styled.div`
   display: inline-block;
@@ -12,18 +13,25 @@ const Container = styled.div`
   text-align: ${props => props.position || 'left'};
 `;
 
+const ButtonWrapper = styled.div`
+  width: 200px;
+  ${media.phone`
+    width: 100px;
+  `}
+`;
+
 const styles = {
   button: {
     backgroundColor: Colors.pink,
     color: Colors.white,
-    width: '200px',
+    width: '100%',
     height: '60px',
     fontSize: FontSizes.medium,
   },
   borderButton: {
     backgroundColor: Colors.white,
     color: Colors.pink,
-    width: '200px',
+    width: '100%',
     height: '60px',
     fontSize: FontSizes.medium,
     border: `1px solid ${Colors.pink}`,
@@ -38,14 +46,16 @@ const styles = {
 
 export default props => (
   <Container fill={props.fill} position={props.position}>
-    <Button
-      style={{
-        ...(props.border ? styles.borderButton : styles.button),
-        ...(props.fill ? styles.fillButton : {}),
-        ...styles.buttonDisabled,
-      }}
-    >
-      {props.children}
-    </Button>
+    <ButtonWrapper>
+      <Button
+        style={{
+          ...(props.border ? styles.borderButton : styles.button),
+          ...(props.fill ? styles.fillButton : {}),
+          ...styles.buttonDisabled,
+        }}
+      >
+        {props.children}
+      </Button>
+    </ButtonWrapper>
   </Container>
 );

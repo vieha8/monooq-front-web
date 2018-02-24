@@ -1,7 +1,11 @@
 import styled from 'styled-components';
+import { media } from '../../../helpers/style/media-query';
 
 export const Page = styled.div`
   padding: 80px 10%;
+  ${media.phone`
+    padding: 80px 10% 100px 10%;
+  `}
 `;
 
 export const Container = styled.div`
@@ -16,6 +20,10 @@ export const Container = styled.div`
 export const PageContent = styled.div`
   width: 60%;
   float: left;
+  ${media.phone`
+    width: 100%;
+    float: none;
+  `}
 `;
 
 export default {};

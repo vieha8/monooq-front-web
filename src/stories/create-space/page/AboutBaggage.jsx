@@ -5,6 +5,7 @@ import Button from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
+import SaveBoxMobile from '../shared/SaveBoxMobile';
 import InputAboutBaggage from '../baggage/InputAboutBaggage';
 
 export default () => (
@@ -27,5 +28,6 @@ export default () => (
         />
       )}
     />
+    <SaveBoxMobile />
   </Container>
 );

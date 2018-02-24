@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from '../../../variables';
+import { media } from '../../../helpers/style/media-query';
 
 const Container = styled.div`
   max-width: 340px;
@@ -8,6 +9,9 @@ const Container = styled.div`
   height: 100%;
   float: right;
   margin-top: 100px;
+  ${media.phone`
+    display: none;
+  `}
 `;
 
 const MainContainer = styled.div`

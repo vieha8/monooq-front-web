@@ -25,7 +25,6 @@ export default () => (
     />
     <Input
       style={styles.input}
-      size={40}
       placeholder="例）六本木駅チカで便利です。港区のど真ん中！長期預かりもOKです！"
     />
   </Container>

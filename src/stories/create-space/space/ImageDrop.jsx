@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
-import { Button, Card } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import Title from '../shared/Title';
 import { Colors, FontSizes, Dimens } from '../../../variables';
+import { media } from '../../../helpers/style/media-query';
 
 const Container = styled.div`
 `;
@@ -13,25 +14,46 @@ const DragText = styled.span`
   color: ${Colors.black};
   font-size: ${FontSizes.small}px;
   margin-top: ${Dimens.medium}px;
+  ${media.phone`
+    display: none;
+  `}
+`;
+
+const DndContent = styled.div`
+  text-align: center;
+  padding: ${Dimens.medium}px;
+  width: 100%;
+  height: 240px;
+  border: 1px solid ${Colors.borderGray};
+  border-radius: 3px;
+  ${media.phone`
+    height: 100px;
+    border: none;
+  `}
+`;
+
+const ButtonWrapper = styled.div`
+  margin-top: ${Dimens.large}px;
+  ${media.phone`
+    margin-top: ${Dimens.medium}px;
+  `}
 `;
 
 const styles = {
   button: {
-    marginTop: `${Dimens.medium3}px`,
     color: Colors.pink,
     border: `1px solid ${Colors.pink}`,
     background: 'white',
     fontWeight: 'normal',
   },
-  cardStyle: {
-    textAlign: 'center',
-    padding: `${Dimens.medium}px`,
-    width: '100%',
-    height: '240px',
-  },
   dnd: {
     width: '100%',
     marginTop: `${Dimens.medium}px`,
+  },
+  mobile: {
+    cardStyle: {
+      border: 'none',
+    },
   },
 };
 
@@ -46,12 +68,12 @@ export default () => (
       accept="image/jpeg, image/png"
       onDrop={(accepted, rejected) => { console.log({ accepted, rejected }); }}
     >
-      <Card style={styles.cardStyle}>
-        <Card.Content>
+      <DndContent>
+        <ButtonWrapper>
           <Button style={styles.button}>写真をアップロードする</Button>
-          <DragText>または画像をドラッグする</DragText>
-        </Card.Content>
-      </Card>
+        </ButtonWrapper>
+        <DragText>または画像をドラッグする</DragText>
+      </DndContent>
     </Dropzone>
   </Container>
 );

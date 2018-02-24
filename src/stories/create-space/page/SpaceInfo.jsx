@@ -10,6 +10,7 @@ import InputTitle from '../space/InputTitle';
 import SelectType from '../space/SelectType';
 import InputIntro from '../space/InputIntro';
 import InputAddress from '../space/InputAddress';
+import SaveBoxMobile from '../shared/SaveBoxMobile';
 
 export default () => (
   <Container>
@@ -34,5 +35,6 @@ export default () => (
         />
       )}
     />
+    <SaveBoxMobile />
   </Container>
 );
