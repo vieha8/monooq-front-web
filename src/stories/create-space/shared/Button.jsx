@@ -11,6 +11,9 @@ const Container = styled.div`
   max-width: 600px;
   margin-top: ${Dimens.medium3}px;
   text-align: ${props => props.position || 'left'};
+  ${media.phone`
+    width: 120px;
+  `}
 `;
 
 const ButtonWrapper = styled.div`

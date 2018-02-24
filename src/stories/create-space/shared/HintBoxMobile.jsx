@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from '../../../helpers/style/media-query';
 import { Colors, Dimens, FontSizes, ZIndexes } from '../../../variables';
@@ -80,12 +80,27 @@ const Text = styled.span`
   line-height: 2;
 `;
 
-export default props => (
-  <Container show={props.show}>
-    <Screen onClick={props.onClickOutside} />
-    <Box>
-      <Title>{props.title}</Title>
-      <Text>{props.text}</Text>
-    </Box>
-  </Container>
-);
+export default class HintBoxMobile extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (document && document.body && document.body.style) {
+      if (nextProps.show) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
+    }
+  }
+
+  render() {
+    const { show, title, text, onClickOutside } = this.props;
+    return (
+      <Container show={show}>
+        <Screen onClick={onClickOutside} />
+        <Box>
+          <Title>{title}</Title>
+          <Text>{text}</Text>
+        </Box>
+      </Container>
+    );
+  }
+}

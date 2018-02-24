@@ -5,13 +5,13 @@ import { Colors, Dimens, ZIndexes } from '../../../variables';
 import { media } from '../../../helpers/style/media-query';
 import HintBoxMobile from '../shared/HintBoxMobile';
 
-const BUTTON_SIZE = 64;
+const BUTTON_SIZE = 60;
 
 const Container = styled.div`
   display: none;
   position: fixed;
-  right: ${Dimens.medium2}px;
-  bottom: 100px;
+  right: ${Dimens.medium}px;
+  bottom: 80px;
   width: ${BUTTON_SIZE}px;
   height: ${BUTTON_SIZE}px;
   border-radius: ${BUTTON_SIZE / 2}px;
@@ -51,7 +51,7 @@ export default class FloatHintButton extends Component {
     return (
       <div>
         <Container onClick={this.toggleModal}>
-          <Icon name="lightbulb" size={64} fontSize={32} />
+          <Icon name="lightbulb" size={BUTTON_SIZE} fontSize={30} />
         </Container>
         <HintBoxMobile
           show={isModalShow}
