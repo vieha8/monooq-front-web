@@ -31,14 +31,12 @@ const TopView = styled.div`
 
 const Monooq = styled.span`
   display: inline-block;
-  font-family: sans-serif;
   font-size: 20px;
   font-weight: 100;
 `;
 
 const CatchPhrase = styled.div`
   font-size: 34px;
-  font-family: sans-serif;
   line-height: 57px;
   text-align: left;
   width: 556px;
@@ -53,7 +51,6 @@ const CatchPhrase = styled.div`
 
 const SubCatchPhrase = styled.span`
   display: block;
-  font-family: sans-serif;
   font-size: 26px;
   width: 561px;
   font-weight: 100;
@@ -79,7 +76,6 @@ const SearchInput = styled.input`
   line-height: 20px;
   box-sizing: border-box;
   font-size: 14px;
-  font-family: sans-serif;
   ${media.phone`
     width: 100%;
   `};
@@ -109,7 +105,6 @@ const ToHostRegistContainer = styled.div`
 `;
 
 const ToHostRegist = styled.a`
-  font-family: sans-serif;
   font-size: 18px;
   color: rgb(255, 255, 255);
   line-height: 42px;
@@ -188,7 +183,6 @@ const DefaultView = styled.div`
 
 const HilightCopy = styled.span`
   display: block;
-  font-family: sans-serif;
   font-size: 14px;
   line-height: 21px;
   margin-bottom: 9px;
@@ -197,7 +191,6 @@ const HilightCopy = styled.span`
 
 const DefaultTitle = styled.span`
   display: inline-block;
-  font-family: sans-serif;
   font-size: 38px;
   line-height: 51px;
   margin-bottom: 80px;
@@ -209,13 +202,11 @@ const DefaultTitle = styled.span`
 
 const ExplainTitle = styled.span`
   display: block;
-  font-family: sans-serif;
   font-size: 22px;
 `;
 
 const ExplainDescription = styled.span`
   display: block;
-  font-family: sans-serif;
   font-size: 16px;
   line-height: 32px;
   font-weight: 100;
@@ -290,7 +281,6 @@ const ForSafeSectionButton = styled.button`
 const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
   const StyledContainer = styled.div`
     width: 327px;
-    font-family: sans-serif;
     font-weight: 100;
     ${media.phone`
       margin-bottom: 30px;
@@ -363,7 +353,6 @@ const ForSafeSectionList = () => {
 };
 
 const LinkToPickGo = styled.a`
-  font-family: sans-serif;
   font-size: 18px;
   color: rgb(255, 255, 255);
   line-height: 42px;
@@ -387,7 +376,6 @@ const PickGoMedia = styled.img`
 `;
 
 const PickGoDescription = styled.div`
-  font-family: sans-serif;
   font-size: 14px;
   line-height: 27px;
 `;
