@@ -85,6 +85,22 @@ const SearchInput = styled.input`
   `};
 `;
 
+const SearchButton = styled(Button)`
+  &&& {
+    left: -50px;
+    background-color: transparent;
+    box-shadow: none;
+  }
+`;
+
+const StyledSearchIcon = styled(SearchIcon)`
+  && {
+    height: 32px;
+    width: 32px;
+    color: ${Colors.buttonPink};
+  }
+`;
+
 const ToHostRegistContainer = styled.div`
   ${media.phone`
     text-align: center;
@@ -443,7 +459,7 @@ class Top extends React.Component {
                 onChange={this.handleChange}
                 margin="normal"
               />
-              <Button
+              <SearchButton
                 className={classes.button}
                 fab
                 color="primary"
@@ -452,8 +468,8 @@ class Top extends React.Component {
                 to={'/search/' + this.state.location}
                 disabled={this.state.isDisableSearchButton}
               >
-                <SearchIcon />
-              </Button>
+                <StyledSearchIcon />
+              </SearchButton>
             </div>
             <ToHostRegistContainer>
               <ToHostRegist component={Link} href={'/edit/profile/1'}>
@@ -550,9 +566,6 @@ const styles = theme => ({
   search: {
     marginTop: 20,
     marginBottom: '40px',
-  },
-  button: {
-    left: '-50px',
   },
 });
 
