@@ -63,11 +63,21 @@ const SubCatchPhrase = styled.span`
   `};
 `;
 
+const SearchWrapper = styled.div`
+  width: 507px;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  ${media.phone`
+    width: calc(100vw - 20px);
+  `};
+`;
+
 const SearchInput = styled.input`
   margin: 0;
   border: 1px solid #eee;
   border-radius: 5px;
-  padding: 20px;
+  padding: 20px 60px 20px 20px;
   display: inline-block;
   vertical-align: middle;
   background: #fff;
@@ -77,13 +87,15 @@ const SearchInput = styled.input`
   box-sizing: border-box;
   font-size: 14px;
   ${media.phone`
-    width: 100%;
+    width: calc(100vw - 20px);
   `};
 `;
 
 const SearchButton = styled(Button)`
   &&& {
-    left: -50px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
     background-color: transparent;
     box-shadow: none;
   }
@@ -439,7 +451,7 @@ class Top extends React.Component {
             <SubCatchPhrase>
               モノオクは余った個人のスペースを活用して、荷物を預けることができるサービスです。
             </SubCatchPhrase>
-            <div className={classes.search}>
+            <SearchWrapper>
               <SearchInput
                 id="location"
                 placeholder="近くの場所を検索してみよう！　例）東京都港区?"
@@ -458,7 +470,7 @@ class Top extends React.Component {
               >
                 <StyledSearchIcon />
               </SearchButton>
-            </div>
+            </SearchWrapper>
             <ToHostRegistContainer>
               <ToHostRegist component={Link} href={'/edit/profile/1'}>
                 ホスト登録はこちら
@@ -550,10 +562,6 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
     marginRight: theme.spacing.unit,
     width: 200,
-  },
-  search: {
-    marginTop: 20,
-    marginBottom: '40px',
   },
 });
 
