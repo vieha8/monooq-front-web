@@ -32,12 +32,13 @@ const TopView = styled.div`
 const Monooq = styled.span`
   display: inline-block;
   font-size: 20px;
-  font-weight: 100;
+  margin-bottom: 10px;
 `;
 
 const CatchPhrase = styled.div`
   font-size: 34px;
-  line-height: 57px;
+  font-weight: bold;
+  line-height: 52px;
   text-align: left;
   width: 556px;
   height: 114px;
@@ -55,7 +56,6 @@ const SubCatchPhrase = styled.span`
   width: 561px;
   font-weight: 100;
   line-height: 42px;
-  margin-top: 9px;
   ${media.phone`
     font-size: 24px;
     line-height: 30px;
@@ -110,6 +110,9 @@ const StyledSearchIcon = styled(SearchIcon)`
 `;
 
 const ToHostRegistContainer = styled.div`
+  width: 507px;
+  display: flex;
+  justify-content: center;
   ${media.phone`
     text-align: center;
     width: 100%;
@@ -118,9 +121,8 @@ const ToHostRegistContainer = styled.div`
 
 const ToHostRegist = styled.a`
   font-size: 18px;
-  color: rgb(255, 255, 255);
   line-height: 42px;
-  margin-left: 175px;
+  color: ${Colors.white};
   text-decoration: underline;
   ${media.phone`
     margin: 0;
