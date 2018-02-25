@@ -32,16 +32,17 @@ const TopView = styled.div`
 const Monooq = styled.span`
   display: inline-block;
   font-size: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 `;
 
 const CatchPhrase = styled.div`
-  font-size: 34px;
+  font-size: ${FontSizes.xxlarge}px;
   font-weight: bold;
-  line-height: 52px;
+  line-height: 56px;
   text-align: left;
-  width: 556px;
+  width: 570px;
   height: 114px;
+  margin-bottom: 10px;
   ${media.phone`
     font-size: 28px;
     line-height: 48px;
@@ -55,7 +56,7 @@ const SubCatchPhrase = styled.span`
   font-size: 26px;
   width: 561px;
   font-weight: 100;
-  line-height: 42px;
+  line-height: 40px;
   ${media.phone`
     font-size: 24px;
     line-height: 30px;
@@ -85,7 +86,7 @@ const SearchInput = styled.input`
   width: 507px;
   line-height: 20px;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: ${FontSizes.small}px;
   ${media.phone`
     width: calc(100vw - 20px);
   `};
@@ -197,7 +198,7 @@ const DefaultView = styled.div`
 
 const HilightCopy = styled.span`
   display: block;
-  font-size: 14px;
+  font-size: ${FontSizes.small}px;
   line-height: 21px;
   margin-bottom: 9px;
   color: rgb(232, 82, 88);
@@ -205,7 +206,7 @@ const HilightCopy = styled.span`
 
 const DefaultTitle = styled.span`
   display: inline-block;
-  font-size: 38px;
+  font-size: ${FontSizes.xxlarge}px;
   line-height: 51px;
   margin-bottom: 80px;
   ${media.phone`
@@ -221,7 +222,7 @@ const ExplainTitle = styled.span`
 
 const ExplainDescription = styled.span`
   display: block;
-  font-size: 16px;
+  font-size: ${FontSizes.medium}px;
   line-height: 32px;
   font-weight: 100;
 `;
@@ -390,7 +391,7 @@ const PickGoMedia = styled.img`
 `;
 
 const PickGoDescription = styled.div`
-  font-size: 14px;
+  font-size: ${FontSizes.small}px;
   line-height: 27px;
 `;
 

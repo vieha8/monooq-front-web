@@ -5,4 +5,5 @@ export default {
   medium2: 24,
   large: 30,
   xlarge: 34,
+  xxlarge: 38,
 };
