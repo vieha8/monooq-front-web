@@ -62,16 +62,19 @@ const Title = styled.span`
 
 const Caption = styled.span`
   display: block;
+  width: 160px;
   color: ${Colors.gray};
   font-size: ${FontSizes.xsmall}px;
   margin-top: ${Dimens.medium2}px;
+  line-height: 1.6;
+  ${media.phone`
+    width: 100%;
+  `}
 `;
 
 const InputWrapper = styled.div`
   display: inline-block;
-  ${media.phone`
-    width: 120px;
-  `}
+  width: 120px;
 `;
 
 const PriceWrapper = styled.div`

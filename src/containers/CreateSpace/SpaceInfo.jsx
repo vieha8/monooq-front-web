@@ -1,9 +1,12 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import { Page } from '../../stories/create-space/page/Shared';
 import SpaceInfo from '../../stories/create-space/page/SpaceInfo';
 
-export default () => (
+const SpaceInfoContainer = props => (
   <Page>
-    <SpaceInfo />
+    <SpaceInfo {...props} />
   </Page>
 );
+
+export default withRouter(SpaceInfoContainer);

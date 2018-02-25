@@ -28,39 +28,110 @@ import Estimate from '../containers/Estimate';
 import Header from '../components/Header';
 import { Auth } from '../components/Auth';
 
-/* eslint-disable no-multi-spaces */
-const routes = [
-  { path: '/',                          component: Top },
-  { path: '/search/:location',          component: SearchPage },
-  { path: '/space/new/info',            component: CreateSpaceSpaceInfo },
-  { path: '/space/new/about_baggage',   component: AboutBaggage },
-  { path: '/space/new/receive_baggage', component: ReceiveBaggage },
-  { path: '/space/new/space_size',      component: SpaceSize },
-  { path: '/space/new/about_price',     component: AboutPrice },
-  { path: '/space/new/all_use_price',   component: AllUsePrice },
-  { path: '/space/new/space_created',   component: SpaceCreatedCompletion },
-  { path: '/space/:id',                 component: SpacePage },
-  { path: '/messages',                  component: Messages },
-  { path: '/messages/:room_id',         component: Message },
-  { path: '/signup',                    component: Signup },
-  { path: '/edit/profile/:user_id',     component: ProfileForm },
-  { path: '/profile/:user_id',          component: Profile },
-  { path: '/edit/space/:id',            component: SpaceForm },
-  { path: '/manage/space/list',         component: SpaceManageList },
-  { path: '/login',                     component: Login },
-  { path: '/payment/:payment_id',       component: Payment },
-  { path: '/cancel/:payment_id',        component: RequestCancel },
-  { path: '/accept/:payment_id',        component: Accept },
-  { path: '/estimate/:payment_id',      component: Estimate },
-];
-/* eslint-enable no-multi-spaces */
+export const routes = {
+  root: {
+    path: '/',
+    component: Top,
+  },
+  search: {
+    path: '/search/:location',
+    component: SearchPage,
+  },
+  spaceNewInfo: {
+    path: '/space/new/info',
+    component: CreateSpaceSpaceInfo,
+  },
+  spaceNewBaggage: {
+    path: '/space/new/about_baggage',
+    component: AboutBaggage,
+  },
+  spaceNewReceive: {
+    path: '/space/new/receive_baggage',
+    component: ReceiveBaggage,
+  },
+  spaceNewSize: {
+    path: '/space/new/space_size',
+    component: SpaceSize,
+  },
+  spaceNewPrice: {
+    path: '/space/new/about_price',
+    component: AboutPrice,
+  },
+  spaceNewAllPrice: {
+    path: '/space/new/all_use_price',
+    component: AllUsePrice,
+  },
+  spaceCreated: {
+    path: '/space/new/space_created',
+    component: SpaceCreatedCompletion,
+  },
+  space: {
+    path: '/space/:id',
+    component: SpacePage,
+  },
+  messages: {
+    path: '/messages',
+    component: Messages,
+  },
+  messageOfRoom: {
+    path: '/messages/:room_id',
+    component: Message,
+  },
+  signup: {
+    path: '/signup',
+    component: Signup,
+  },
+  editProfile: {
+    path: '/edit/profile/:user_id',
+    component: ProfileForm,
+  },
+  profile: {
+    path: '/profile/:user_id',
+    component: Profile,
+  },
+  editSpace: {
+    path: '/edit/space/:id',
+    component: SpaceForm,
+  },
+  spaceList: {
+    path: '/manage/space/list',
+    component: SpaceManageList,
+  },
+  login: {
+    path: '/login',
+    component: Login,
+  },
+  payment: {
+    path: '/payment/:payment_id',
+    component: Payment,
+  },
+  cancel: {
+    path: '/cancel/:payment_id',
+    component: RequestCancel,
+  },
+  accept: {
+    path: '/accept/:payment_id',
+    component: Accept,
+  },
+  estimate: {
+    path: '/estimate/:payment_id',
+    component: Estimate,
+  },
+};
 
 export default props => (
   <ConnectedRouter history={props.history}>
     <div>
       <Auth />
       <Header />
-      {routes.map((r, i) => <Route key={`route_${i}`} exact path={r.path} component={r.component} />)}
+      {Object.keys(routes).map((routeKey, i) => (
+        <Route
+          key={`route_${i}`}
+          exact
+          path={routes[routeKey].path}
+          component={routes[routeKey].component}
+        />
+      ))}
     </div>
   </ConnectedRouter>
 );

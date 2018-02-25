@@ -62,7 +62,11 @@ const Image = styled.img`
 `;
 
 export default props => (
-  <Container position={props.position} selected={props.selected}>
+  <Container
+    position={props.position}
+    selected={props.selected}
+    onClick={props.onClick}
+  >
     <Card selected={props.selected}>
       <Text>{props.text}</Text>
       <Image src="http://placehold.jp/230x130.png" alt={props.text} />
