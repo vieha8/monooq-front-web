@@ -10,6 +10,7 @@ import HintBox from '../shared/HintBox';
 import SpaceSizeCriterion from '../price/SpaceSizeCriterion';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
 import FloatHintButton from '../../../containers/CreateSpace/FloatHintButton';
+import { uiActions } from '../../../redux/modules/ui';
 
 const hintProps = {
   title: '荷物受け取りのヒント',
@@ -33,14 +34,13 @@ export default class SpaceSize extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
+    this.props.dispatch(uiActions.setUiState({
       type: 0,
-    };
+    }));
   }
 
   render() {
-    const { history } = this.props;
-    const { type } = this.state;
+    const { history, ui } = this.props;
     return (
       <Container>
         <PageContent>
@@ -50,16 +50,24 @@ export default class SpaceSize extends Component {
           />
           <CriterionWrapper>
             <SpaceSizeCriterion
-              selected={type === SpaceSize.Type.Small}
+              selected={ui.type === SpaceSize.Type.Small}
               position="left"
               text="1人用ソファが入るくらい、またはそれ以下"
-              onClick={() => this.setState({ type: SpaceSize.Type.Small })}
+              onClick={() => {
+                this.props.dispatch(uiActions.setUiState({
+                  type: SpaceSize.Type.Small,
+                }));
+              }}
             />
             <SpaceSizeCriterion
-              selected={type === SpaceSize.Type.Large}
+              selected={ui.type === SpaceSize.Type.Large}
               position="right"
               text="1人用引っ越しの荷物が入るくらい、またはそれ以上"
-              onClick={() => this.setState({ type: SpaceSize.Type.Large })}
+              onClick={() => {
+                this.props.dispatch(uiActions.setUiState({
+                  type: SpaceSize.Type.Large,
+                }));
+              }}
             />
           </CriterionWrapper>
           <ButtonsContainer>
@@ -69,7 +77,7 @@ export default class SpaceSize extends Component {
             <Button
               position="right"
               onClick={() => {
-                switch (type) {
+                switch (ui.type) {
                   case SpaceSize.Type.Small:
                     history.push(routes.spaceNewAllPrice.path);
                     break;
