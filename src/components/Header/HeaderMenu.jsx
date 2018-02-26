@@ -9,19 +9,19 @@ class HeaderMenu extends React.Component {
     super(props);
 
     this.props.dispatch(uiActions.setUiState({
-      anchorDom: null,
+      anchorHeaderMenuDom: null,
     }));
   }
 
   handleClick = (event) => {
     this.props.dispatch(uiActions.setUiState({
-      anchorDom: event.currentTarget,
+      anchorHeaderMenuDom: event.currentTarget,
     }));
   }
 
   handleClose = () => {
     this.props.dispatch(uiActions.setUiState({
-      anchorDom: null,
+      anchorHeaderMenuDom: null,
     }));
   }
 
@@ -47,7 +47,7 @@ class HeaderMenu extends React.Component {
     return (
       <div>
         <IconButton
-          aria-owns={ui.anchorDom ? 'simple-menu' : null}
+          aria-owns={ui.anchorHeaderMenuDom ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
         >
@@ -55,8 +55,8 @@ class HeaderMenu extends React.Component {
         </IconButton>
         <Menu
           id="simple-menu"
-          anchorEl={ui.anchorDom}
-          open={Boolean(ui.anchorDom)}
+          anchorEl={ui.anchorHeaderMenuDom}
+          open={Boolean(ui.anchorHeaderMenuDom)}
           onClose={this.handleClose}
         >
           {this.renderLoginComponent()}

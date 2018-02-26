@@ -1,33 +1,38 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
+import { uiActions } from '../../redux/modules/ui';
 
 class SpaceMenu extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      anchorEl: null,
-    };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+
+    this.props.dispatch(uiActions.setUiState({
+      anchorSpaceMenuDom: null,
+    }));
   }
 
-  handleClick(event) {
-    this.setState({ anchorEl: event.currentTarget });
+  handleClick = (event) => {
+    this.props.dispatch(uiActions.setUiState({
+      anchorSpaceMenuDom: event.currentTarget,
+    }));
   }
 
-  handleClose() {
-    this.setState({ anchorEl: null });
+  handleClose = () => {
+    this.props.dispatch(uiActions.setUiState({
+      anchorSpaceMenuDom: null,
+    }));
   }
 
   render() {
-    const { anchorEl } = this.state;
+    const { ui } = this.props;
 
     return (
       <div>
         <IconButton
-          aria-owns={anchorEl ? 'simple-menu' : null}
+          aria-owns={ui.anchorSpaceMenuDom ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
         >
@@ -36,8 +41,8 @@ class SpaceMenu extends React.Component {
 
         <Menu
           id="simple-menu"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
+          anchorEl={ui.anchorSpaceMenuDom}
+          open={Boolean(ui.anchorSpaceMenuDom)}
           onClose={this.handleClose}
         >
           <MenuItem onClick={this.handleClose}>シェアする</MenuItem>
@@ -48,4 +53,8 @@ class SpaceMenu extends React.Component {
   }
 }
 
-export default SpaceMenu;
+const mapStateToProps = state => ({
+  ui: state.ui,
+});
+
+export default connect(mapStateToProps)(SpaceMenu);
