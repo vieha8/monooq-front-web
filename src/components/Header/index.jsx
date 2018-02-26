@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
+import firebase from 'firebase';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -13,7 +14,6 @@ import MessageIcon from 'material-ui-icons/Message';
 import Hidden from 'material-ui/Hidden';
 import logo from '../../images/monooq_logo.svg';
 import HeaderMenu from './HeaderMenu';
-import firebase from 'firebase';
 import { authActions } from '../../redux/modules/auth';
 
 class Header extends React.Component {
@@ -37,16 +37,15 @@ class Header extends React.Component {
           </IconButton>
         </Fragment>
       );
-    } else {
-      return (
-        <Fragment>
-          <Hidden xsDown>
-            <Button onClick={() => this.props.history.push('/login')}>ログイン</Button>
-            <Button onClick={() => this.props.history.push('/signup')}>登録</Button>
-          </Hidden>
-        </Fragment>
-      );
     }
+    return (
+      <Fragment>
+        <Hidden xsDown>
+          <Button onClick={() => this.props.history.push('/login')}>ログイン</Button>
+          <Button onClick={() => this.props.history.push('/signup')}>登録</Button>
+        </Hidden>
+      </Fragment>
+    );
   };
 
   render() {
@@ -69,8 +68,7 @@ class Header extends React.Component {
             </IconButton>
             {this.renderLoginComponent()}
             <HeaderMenu
-              isLogin={this.props.isLogin}
-              history={this.props.history}
+              {...this.props}
               logout={this.logout}
             />
           </Toolbar>
@@ -94,8 +92,12 @@ const styles = {
   },
 };
 
-const mapStateToProps = state => {
-  return { isLogin: state.auth.isLogin, isChecking: state.auth.isChecking };
-};
+const mapStateToProps = state => ({
+  isLogin: state.auth.isLogin,
+  isChecking:
+  state.auth.isChecking,
+  ui: state.ui,
+});
 
-export default connect(mapStateToProps)(withRouter(withStyles(styles)(Header))); //TODO composeでまとめる
+// TODO composeでまとめる
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(Header)));

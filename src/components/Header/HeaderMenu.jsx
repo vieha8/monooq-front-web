@@ -2,23 +2,27 @@ import React, { Fragment } from 'react';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
+import { uiActions } from '../../redux/modules/ui';
 
 class HeaderMenu extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      anchorEl: null,
-    };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+
+    this.props.dispatch(uiActions.setUiState({
+      anchorDom: null,
+    }));
   }
 
-  handleClick(event) {
-    this.setState({ anchorEl: event.currentTarget });
+  handleClick = (event) => {
+    this.props.dispatch(uiActions.setUiState({
+      anchorDom: event.currentTarget,
+    }));
   }
 
-  handleClose() {
-    this.setState({ anchorEl: null });
+  handleClose = () => {
+    this.props.dispatch(uiActions.setUiState({
+      anchorDom: null,
+    }));
   }
 
   renderLoginComponent = () => {
@@ -29,22 +33,21 @@ class HeaderMenu extends React.Component {
           <MenuItem onClick={this.handleClose}>会員登録</MenuItem>
         </Fragment>
       );
-    } else {
-      return (
-        <Fragment>
-          <MenuItem onClick={this.props.logout}>ログアウト</MenuItem>
-        </Fragment>
-      );
     }
+    return (
+      <Fragment>
+        <MenuItem onClick={this.props.logout}>ログアウト</MenuItem>
+      </Fragment>
+    );
   };
 
   render() {
-    const { anchorEl } = this.state;
+    const { ui } = this.props;
 
     return (
       <div>
         <IconButton
-          aria-owns={anchorEl ? 'simple-menu' : null}
+          aria-owns={ui.anchorDom ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
         >
@@ -52,8 +55,8 @@ class HeaderMenu extends React.Component {
         </IconButton>
         <Menu
           id="simple-menu"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
+          anchorEl={ui.anchorDom}
+          open={Boolean(ui.anchorDom)}
           onClose={this.handleClose}
         >
           {this.renderLoginComponent()}
