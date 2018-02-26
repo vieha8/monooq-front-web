@@ -7,6 +7,7 @@ import logger from 'redux-logger';
 import { authReducer } from '../modules/auth';
 import { searchReducer } from '../modules/search';
 import { messagesReducer } from '../modules/messages';
+import { uiReducer } from '../modules/ui';
 import rootSaga from '../modules/sagas';
 
 export default history => {
@@ -23,6 +24,7 @@ export default history => {
       router: routerReducer,
       search: searchReducer,
       messages: messagesReducer,
+      ui: uiReducer,
     }),
     applyMiddleware(...middleware),
   );
