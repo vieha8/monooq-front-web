@@ -4,6 +4,7 @@ import Icon from '../../shared/Icon';
 import { Colors, Dimens, ZIndexes } from '../../../variables';
 import { media } from '../../../helpers/style/media-query';
 import HintBoxMobile from '../shared/HintBoxMobile';
+import { uiActions } from '../../../redux/modules/ui';
 
 const BUTTON_SIZE = 60;
 
@@ -32,31 +33,32 @@ export default class FloatHintButton extends Component {
   constructor(props) {
     super(props);
 
-    this.toggleModal = this.toggleModal.bind(this);
-
-    this.state = {
-      modalType: false,
-    };
+    this.props.dispatch(uiActions.setUiState({
+      isModalShow: false,
+      title: props.title,
+      text: props.text,
+    }));
   }
 
-  toggleModal() {
-    this.setState({
-      isModalShow: !this.state.isModalShow,
-    });
+  toggleModal = () => {
+    const { ui } = this.props;
+    this.props.dispatch(uiActions.setUiState({
+      isModalShow: !ui.isModalShow,
+    }));
   }
 
   render() {
-    const { title, text } = this.props;
-    const { isModalShow } = this.state;
+    const { ui } = this.props;
+
     return (
       <div>
         <Container onClick={this.toggleModal}>
           <Icon name="lightbulb" size={BUTTON_SIZE} fontSize={30} />
         </Container>
         <HintBoxMobile
-          show={isModalShow}
-          title={title}
-          text={text}
+          show={ui.isModalShow}
+          title={ui.title}
+          text={ui.text}
           onClickOutside={this.toggleModal}
         />
       </div>

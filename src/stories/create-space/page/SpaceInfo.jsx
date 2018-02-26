@@ -12,7 +12,7 @@ import SelectType from '../space/SelectType';
 import InputIntro from '../space/InputIntro';
 import InputAddress from '../space/InputAddress';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import FloatHintButton from '../shared/FloatHintButton';
+import FloatHintButton from '../../../containers/CreateSpace/FloatHintButton';
 
 const hintProps = {
   title: 'スペース登録のヒント',

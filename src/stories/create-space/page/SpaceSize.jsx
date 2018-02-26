@@ -9,7 +9,7 @@ import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
 import SpaceSizeCriterion from '../price/SpaceSizeCriterion';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import FloatHintButton from '../shared/FloatHintButton';
+import FloatHintButton from '../../../containers/CreateSpace/FloatHintButton';
 
 const hintProps = {
   title: '荷物受け取りのヒント',

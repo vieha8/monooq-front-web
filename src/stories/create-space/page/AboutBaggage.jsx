@@ -9,7 +9,7 @@ import HintBox from '../shared/HintBox';
 import InputAboutBaggage from '../baggage/InputAboutBaggage';
 import CheckTypeFurniture from '../baggage/CheckTypeFurniture';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import FloatHintButton from '../shared/FloatHintButton';
+import FloatHintButton from '../../../containers/CreateSpace/FloatHintButton';
 
 const hintProps = {
   title: '荷物情報のヒント',
@@ -46,4 +46,4 @@ export default (props) => {
       <FloatHintButton {...hintProps} />
     </Container>
   );
-}
+};

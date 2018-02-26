@@ -9,7 +9,7 @@ import HintBox from '../shared/HintBox';
 import HowToReceive from '../receive/HowToReceive';
 import ReceiveDetail from '../receive/ReceiveDetail';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import FloatHintButton from '../shared/FloatHintButton';
+import FloatHintButton from '../../../containers/CreateSpace/FloatHintButton';
 
 const hintProps = {
   title: '荷物受け取りのヒント',

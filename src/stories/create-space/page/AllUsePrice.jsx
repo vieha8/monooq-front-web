@@ -8,7 +8,7 @@ import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
 import InputPriceOfAll from '../price/InputPriceOfAll';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import FloatHintButton from '../shared/FloatHintButton';
+import FloatHintButton from '../../../containers/CreateSpace/FloatHintButton';
 
 const hintProps = {
   title: '料金設定に関するヒント',
