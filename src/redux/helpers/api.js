@@ -1,10 +1,10 @@
 import axios from 'axios';
 import apiConfig from '../../config/api';
 
-export const createAsyncConstants = constant => ({
+const createAsyncConstants = constant => ({
   REQUEST: constant,
   SUCCESS: `${constant}_SUCCESS`,
-  FAILURE: `${constant}_FAILURE`,
+  FAILED: `${constant}_FAILED`,
 });
 
 export const createRESTConstants = constant => ({
@@ -16,15 +16,16 @@ export const createRESTConstants = constant => ({
 
 export const getApiRequest = (path, params) => {
   const url = apiConfig().baseURI + path;
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     axios
       .get(url, { params: params })
       .then(res => {
-        resolve(res.data);
+        resolve({ status: res.status, data: res.data });
       })
-      .catch(err => {
-        // エラー(200以外)の場合はこちらにくる
-        reject(err);
+      .catch(({ response }) => {
+        // エラーの場合こちらにくる
+        // TODO 鯖落ちてた場合の処理
+        resolve({ status: response.status, err: response.statusText });
       });
   });
 };

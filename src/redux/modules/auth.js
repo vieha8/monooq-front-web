@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery } from 'redux-saga/effects';
+import { put, call, takeEvery, take } from 'redux-saga/effects';
 import firebase from 'firebase';
-import { getApiRequest } from '../helpers/api';
+import { apiActions, API_ACTIONS } from './api';
 
 // Actions
 const LOGIN = 'LOGIN';
@@ -72,18 +72,12 @@ function* checkLoginFirebaseAuth() {
   yield put(authActions.checkLoginEnd(isLogin));
 }
 
-function* verifyPassword(action) {
-  console.log('verifyPassword');
-  const { email, password } = action.payload;
+function* verifyPassword({ payload: { email, password } }) {
+  yield put(apiActions.usersOldGet(email));
+  const { payload } = yield take(API_ACTIONS.USERS_OLD.GET.SUCCESS);
 
   //元々登録されていたユーザーかチェック
-  const isOldApiResponse = yield call(() =>
-    getApiRequest('/users/old', { email: email }).catch(e => {
-      console.log(e);
-    }),
-  );
-  const isOld = isOldApiResponse.result;
-  console.log('isOld:' + isOld);
+  const isOld = payload.result;
 
   if (isOld) {
     //元々登録されていた場合パスワードが正しいかチェックする

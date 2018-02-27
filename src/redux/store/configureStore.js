@@ -8,6 +8,7 @@ import { authReducer } from '../modules/auth';
 import { searchReducer } from '../modules/search';
 import { messagesReducer } from '../modules/messages';
 import { uiReducer } from '../modules/ui';
+import { apiReducer } from '../modules/api';
 import rootSaga from '../modules/sagas';
 
 export default history => {
@@ -20,6 +21,7 @@ export default history => {
 
   const store = createStore(
     combineReducers({
+      api: apiReducer,
       auth: authReducer,
       router: routerReducer,
       search: searchReducer,
