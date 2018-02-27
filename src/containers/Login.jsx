@@ -2,34 +2,25 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import firebase from 'firebase';
-import Button from 'material-ui/Button';
 import Login from 'components/Login';
 
-class _Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLogin: false,
-    };
-  }
-
+class LoginContainer extends React.Component {
   loginFacebook = () => {
     const provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithRedirect(provider);
     // TODO 認証後の戻りを/login以外のページに変えられないか調査
   };
 
-  showLoginButton = () => {
+  showLoginForm = () => {
     if (this.props.isChecking) {
       return null;
     }
+
     if (!this.props.isLogin) {
       return (
-        <div style={{ textAlign: 'center' }}>
-          <Button raised color="primary" onClick={this.loginFacebook}>
-            Facebookログイン
-          </Button>
-        </div>
+        <Login
+          onClickLoginFacebook={this.loginFacebook}
+        />
       );
     }
 
@@ -37,7 +28,7 @@ class _Login extends React.Component {
   };
 
   render() {
-    return <Fragment>{this.showLoginButton()}</Fragment>;
+    return <Fragment>{this.showLoginForm()}</Fragment>;
   }
 }
 
@@ -47,4 +38,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(LoginContainer);

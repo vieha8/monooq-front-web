@@ -64,7 +64,7 @@ const ToSignUpLinkCointainer = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-export default () => (
+export default props => (
   <Container>
     <Logo src={logoUri} />
     <Title>ログインする</Title>
@@ -102,6 +102,7 @@ export default () => (
       <Button
         bgColor={Colors.facebook}
         fluid
+        onClick={props.onClickLoginFacebook}
       >
         <IconWrapper>
           <Icon name="facebook square" />

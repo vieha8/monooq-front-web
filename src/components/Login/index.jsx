@@ -20,7 +20,9 @@ export default class Login extends Component {
   render() {
     return (
       <Container>
-        <Form />
+        <Form
+          {...this.props}
+        />
       </Container>
     );
   }
