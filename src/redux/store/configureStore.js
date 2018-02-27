@@ -4,11 +4,11 @@ import { applyMiddleware, combineReducers, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 
-import { authReducer } from '../modules/auth';
-import { searchReducer } from '../modules/search';
-import { messagesReducer } from '../modules/messages';
-import { uiReducer } from '../modules/ui';
-import rootSaga from '../modules/sagas';
+import { authReducer } from 'redux/modules/auth';
+import { searchReducer } from 'redux/modules/search';
+import { messagesReducer } from 'redux/modules/messages';
+import { uiReducer } from 'redux/modules/ui';
+import rootSaga from 'redux/modules/sagas';
 
 export default history => {
   const sagaMiddleware = createSagaMiddleware();

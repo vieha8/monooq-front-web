@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Input } from 'semantic-ui-react';
+import { Colors, FontSizes, Dimens } from 'variables';
 import Title from '../shared/Title';
-import { Colors, FontSizes, Dimens } from '../../../variables';
 
 const Container = styled.div`
   width: 100%;

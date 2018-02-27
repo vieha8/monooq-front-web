@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Dimens } from '../../../variables';
-import { media } from '../../../helpers/style/media-query';
+import { Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
   max-width: 340px;

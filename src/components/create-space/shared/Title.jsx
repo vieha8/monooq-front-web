@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Colors, FontSizes, Dimens } from '../../../variables';
+import { Colors, FontSizes, Dimens } from 'variables';
 
 const Container = styled.div`
   margin-top: ${Dimens.large}px;

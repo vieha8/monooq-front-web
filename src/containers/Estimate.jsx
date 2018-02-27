@@ -5,7 +5,7 @@ import Button from 'material-ui/Button';
 import { DialogContent, DialogTitle } from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
-import { uiActions } from '../redux/modules/ui';
+import { uiActions } from 'redux/modules/ui';
 
 class Estimate extends React.Component {
   constructor(props) {

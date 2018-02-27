@@ -1,5 +1,6 @@
 import React from 'react';
-import { routes } from '../../../config/routes';
+import { routes } from 'config/routes';
+import FloatHintButton from 'containers/CreateSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Title from '../shared/Title';
@@ -9,7 +10,6 @@ import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
 import InputPriceOfType from '../price/InputPriceOfType';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import FloatHintButton from '../../../containers/CreateSpace/FloatHintButton';
 
 const hintProps = {
   title: '料金設定に関するヒント',

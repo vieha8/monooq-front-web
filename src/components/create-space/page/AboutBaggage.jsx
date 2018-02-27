@@ -1,15 +1,15 @@
 import React from 'react';
-import { routes } from '../../../config/routes';
+import { routes } from 'config/routes';
+import Header from 'components/create-space/shared/Header';
+import Button, { ButtonsContainer } from 'components/create-space/shared/Button';
+import SideBar from 'components/create-space/shared/SideBar';
+import SaveBox from 'components/create-space/shared/SaveBox';
+import HintBox from 'components/create-space/shared/HintBox';
+import InputAboutBaggage from 'components/create-space/baggage/InputAboutBaggage';
+import CheckTypeFurniture from 'components/create-space/baggage/CheckTypeFurniture';
+import SaveBoxMobile from 'components/create-space/shared/SaveBoxMobile';
+import FloatHintButton from 'containers/CreateSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
-import Header from '../shared/Header';
-import Button, { ButtonsContainer } from '../shared/Button';
-import SideBar from '../shared/SideBar';
-import SaveBox from '../shared/SaveBox';
-import HintBox from '../shared/HintBox';
-import InputAboutBaggage from '../baggage/InputAboutBaggage';
-import CheckTypeFurniture from '../baggage/CheckTypeFurniture';
-import SaveBoxMobile from '../shared/SaveBoxMobile';
-import FloatHintButton from '../../../containers/CreateSpace/FloatHintButton';
 
 const hintProps = {
   title: '荷物情報のヒント',

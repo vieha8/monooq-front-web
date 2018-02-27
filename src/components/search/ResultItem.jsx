@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card } from 'semantic-ui-react';
-import { media } from '../../helpers/style/media-query';
-import { Colors, FontSizes, Dimens } from '../../variables';
+import { media } from 'helpers/style/media-query';
+import { Colors, FontSizes, Dimens } from 'variables';
 
 const Container = styled.div`
   width: 237px;

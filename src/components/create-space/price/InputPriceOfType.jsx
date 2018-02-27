@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Input } from 'semantic-ui-react';
-import { Colors, FontSizes, Dimens } from '../../../variables';
-import { media } from '../../../helpers/style/media-query';
+import { Colors, FontSizes, Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
   border: 1px solid ${Colors.borderGray};

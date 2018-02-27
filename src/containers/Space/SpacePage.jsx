@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import SpaceMenu from '../Search/SpaceMenu';
 
-import { isMobileWindow, media } from '../../helpers/style/media-query';
-import { Colors, Dimens } from '../../variables';
+import { isMobileWindow, media } from 'helpers/style/media-query';
+import { Colors, Dimens } from 'variables';
 
 import { Footer } from 'components/shared';
 import {

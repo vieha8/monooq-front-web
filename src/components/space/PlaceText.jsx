@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontSizes, Colors } from '../../variables';
+import { FontSizes, Colors } from 'variables';
 
 const Text = styled.span`
   display: inline-block;

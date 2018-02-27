@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Icon from '../../shared/Icon';
-import { Colors, Dimens, ZIndexes } from '../../../variables';
-import { media } from '../../../helpers/style/media-query';
+import { Colors, Dimens, ZIndexes } from 'variables';
+import { media } from 'helpers/style/media-query';
+import { uiActions } from 'redux/modules/ui';
 import HintBoxMobile from '../shared/HintBoxMobile';
-import { uiActions } from '../../../redux/modules/ui';
+import Icon from '../../shared/Icon';
 
 const BUTTON_SIZE = 60;
 

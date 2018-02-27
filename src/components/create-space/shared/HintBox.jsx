@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Colors, Dimens, FontSizes } from '../../../variables';
+import { Colors, Dimens, FontSizes } from 'variables';
 
 const Container = styled.div`
   width: 100%;

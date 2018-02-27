@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { media } from '../../../helpers/style/media-query';
-import { Colors, Dimens, FontSizes, ZIndexes } from '../../../variables';
+import { media } from 'helpers/style/media-query';
+import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 
 const Container = styled.div`
   @keyframes show {

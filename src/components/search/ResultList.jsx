@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
+import { Dimens } from 'variables';
 import ResultItem from './ResultItem';
-import { media } from '../../helpers/style/media-query';
-import { Dimens } from '../../variables';
 
 const Container = styled.div`
   text-align: center;

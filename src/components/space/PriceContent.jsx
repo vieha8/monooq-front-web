@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontSizes, Colors, Dimens } from '../../variables';
+import { FontSizes, Colors, Dimens } from 'variables';
 
 const Container = styled.div`
   padding: ${Dimens.medium2}px 0;

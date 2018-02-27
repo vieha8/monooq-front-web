@@ -1,5 +1,6 @@
 import React from 'react';
-import { routes } from '../../../config/routes';
+import { routes } from 'config/routes';
+import FloatHintButton from 'containers/CreateSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Button, { ButtonsContainer } from '../shared/Button';
@@ -9,7 +10,6 @@ import HintBox from '../shared/HintBox';
 import HowToReceive from '../receive/HowToReceive';
 import ReceiveDetail from '../receive/ReceiveDetail';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import FloatHintButton from '../../../containers/CreateSpace/FloatHintButton';
 
 const hintProps = {
   title: '荷物受け取りのヒント',

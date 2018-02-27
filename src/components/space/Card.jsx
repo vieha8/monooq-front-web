@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { Card } from 'semantic-ui-react';
-import { media, isMobileWindow } from '../../helpers/style/media-query';
-import { Colors, Dimens } from '../../variables';
+import { media, isMobileWindow } from 'helpers/style/media-query';
+import { Colors, Dimens } from 'variables';
 
 const MobileContainer = styled.div``;
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { media, isMobileWindow } from 'helpers/style/media-query';
+import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import Card from './Card';
-import { media, isMobileWindow } from '../../helpers/style/media-query';
-import { FontSizes, Colors, Dimens, ZIndexes } from '../../variables';
 
 const DefaultCard = props => (
   <Card

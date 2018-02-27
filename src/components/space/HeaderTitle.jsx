@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { media } from '../../helpers/style/media-query';
-import { FontSizes, Colors } from '../../variables';
+import { media } from 'helpers/style/media-query';
+import { FontSizes, Colors } from 'variables';
 
 const Text = styled.h1`
   display: block;

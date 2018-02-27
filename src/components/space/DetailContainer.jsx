@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { media } from '../../helpers/style/media-query';
-import { FontSizes, Colors, Dimens } from '../../variables';
+import { media } from 'helpers/style/media-query';
+import { FontSizes, Colors, Dimens } from 'variables';
 
 const Container = styled.div`
   display: table;

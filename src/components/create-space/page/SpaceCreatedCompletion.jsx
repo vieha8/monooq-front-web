@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Colors, FontSizes, Dimens } from 'variables';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Title from '../shared/Title';
 import Button, { ButtonsContainer } from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import MySpaceRow from '../shared/MySpaceRow';
-import { Colors, FontSizes, Dimens } from '../../../variables';
 
 const SpaceListTitle = styled.span`
   dipslay: block;

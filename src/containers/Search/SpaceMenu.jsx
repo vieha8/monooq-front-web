@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
-import { uiActions } from '../../redux/modules/ui';
+import { uiActions } from 'redux/modules/ui';
 
 class SpaceMenu extends React.Component {
   constructor(props) {

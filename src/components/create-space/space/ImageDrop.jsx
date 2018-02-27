@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import { Button } from 'semantic-ui-react';
+import { Colors, FontSizes, Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 import Title from '../shared/Title';
-import { Colors, FontSizes, Dimens } from '../../../variables';
-import { media } from '../../../helpers/style/media-query';
 
 const Container = styled.div`
 `;

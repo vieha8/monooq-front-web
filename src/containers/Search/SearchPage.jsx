@@ -4,11 +4,11 @@ import {connect} from 'react-redux';
 import {withStyles} from 'material-ui/styles';
 import {CircularProgress} from 'material-ui/Progress';
 
-import {searchActions} from '../../redux/modules/search';
-import {isMobileWindow, media} from '../../helpers/style/media-query';
+import {searchActions} from 'redux/modules/search';
+import {isMobileWindow, media} from 'helpers/style/media-query';
 import {Footer} from 'components/shared';
 import {ResultList} from 'components/search';
-import {Colors, Dimens, FontSizes} from '../../variables/';
+import {Colors, Dimens, FontSizes} from 'variables/';
 
 import {spaceList} from './mock';
 

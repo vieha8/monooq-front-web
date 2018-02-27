@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { routes } from '../../../config/routes';
+import { uiActions } from 'redux/modules/ui';
+import { routes } from 'config/routes';
+import FloatHintButton from 'containers/CreateSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Button, { ButtonsContainer } from '../shared/Button';
@@ -9,8 +11,6 @@ import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
 import SpaceSizeCriterion from '../price/SpaceSizeCriterion';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
-import FloatHintButton from '../../../containers/CreateSpace/FloatHintButton';
-import { uiActions } from '../../../redux/modules/ui';
 
 const hintProps = {
   title: '荷物受け取りのヒント',

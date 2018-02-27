@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Checkbox } from 'semantic-ui-react';
-import { Dimens } from '../../../variables';
+import { Dimens } from 'variables';
 
 const Container = styled.div`
   margin-top: ${Dimens.medium}px;

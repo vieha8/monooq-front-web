@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { media } from '../../../helpers/style/media-query';
+import { media } from 'helpers/style/media-query';
 
 export const Page = styled.div`
   padding: 80px 10%;
