@@ -4,16 +4,15 @@ import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import { defaultPageFactory } from '../../components/PageLayouts';
-import authRequired from '../../components/Auth';
-import { messagesActions } from '../../redux/modules/messages';
+import { defaultPageFactory } from 'components/PageLayouts';
+import authRequired from 'components/Auth';
+import { messagesActions, createRoom } from 'redux/modules/messages';
 
 import Button from 'material-ui/Button';
-import { createRoom } from '../../redux/modules/messages';
 
 import styled from 'styled-components';
-import { isMobileWindow, media } from '../../helpers/style/media-query';
-import { Colors, Dimens } from '../../variables';
+import { isMobileWindow, media } from 'helpers/style/media-query';
+import { Colors, Dimens } from 'variables';
 
 const MessagesPage = styled.div`
   background: #fff;

@@ -7,7 +7,7 @@ import { CircularProgress } from 'material-ui/Progress';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
 import { uiActions } from '../../redux/modules/ui';
-import { createDialog } from '../../components/Dialog';
+import { createDialog } from 'components/Dialog';
 
 const openButtonComponent = props => <Button {...props}>ログイン</Button>;
 

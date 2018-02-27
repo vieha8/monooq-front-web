@@ -4,17 +4,15 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import Title from './story/Title';
-
-import SpaceInfo from './create-space/page/SpaceInfo';
-import AboutBaggage from './create-space/page/AboutBaggage';
-import ReceiveBaggage from './create-space/page/ReceiveBaggage';
-import SpaceSize from './create-space/page/SpaceSize';
-import AboutPrice from './create-space/page/AboutPrice';
-import AllUsePrice from './create-space/page/AllUsePrice';
-import SpaceCreatedCompletion from './create-space/page/SpaceCreatedCompletion';
-import { Footer } from './shared';
-import { ResultItem } from './search';
+import SpaceInfo from 'components/create-space/page/SpaceInfo';
+import AboutBaggage from 'components/create-space/page/AboutBaggage';
+import ReceiveBaggage from 'components/create-space/page/ReceiveBaggage';
+import SpaceSize from 'components/create-space/page/SpaceSize';
+import AboutPrice from 'components/create-space/page/AboutPrice';
+import AllUsePrice from 'components/create-space/page/AllUsePrice';
+import SpaceCreatedCompletion from 'components/create-space/page/SpaceCreatedCompletion';
+import { Footer } from 'components/shared';
+import { ResultItem } from 'components/search';
 import {
   Card,
   Map,
@@ -30,7 +28,9 @@ import {
   PriceContent,
   SendMessageButton,
   ReportLink,
-} from './space';
+} from 'components/space';
+
+import Title from './story/Title';
 
 storiesOf('Avatar', module)
   .add('標準', () => <p>ログイン時のユーザーのアイコン</p>)

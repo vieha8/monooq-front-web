@@ -6,8 +6,8 @@ import {CircularProgress} from 'material-ui/Progress';
 
 import {searchActions} from '../../redux/modules/search';
 import {isMobileWindow, media} from '../../helpers/style/media-query';
-import {Footer} from '../../stories/shared';
-import {ResultList} from '../../stories/search';
+import {Footer} from 'components/shared';
+import {ResultList} from 'components/search';
 import {Colors, Dimens, FontSizes} from '../../variables/';
 
 import {spaceList} from './mock';

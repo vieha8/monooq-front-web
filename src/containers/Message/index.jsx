@@ -9,10 +9,10 @@ import TextField from 'material-ui/TextField';
 import red from 'material-ui/colors/red';
 import grey from 'material-ui/colors/grey';
 import green from 'material-ui/colors/green';
-import { defaultPageFactory } from '../../components/PageLayouts';
-import authRequired from '../../components/Auth';
-import { messagesActions } from '../../redux/modules/messages';
-import { uiActions } from '../../redux/modules/ui';
+import { defaultPageFactory } from 'components/PageLayouts';
+import authRequired from 'components/Auth';
+import { messagesActions } from 'redux/modules/messages';
+import { uiActions } from 'redux/modules/ui';
 
 class Message extends React.Component {
   constructor(props) {
