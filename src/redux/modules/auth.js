@@ -1,8 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery } from 'redux-saga/effects';
 import firebase from 'firebase';
-import axios from 'axios';
-import apiConfig from '../../config/api';
+import { getApiRequest } from '../helpers/api';
 
 // Actions
 const LOGIN = 'LOGIN';
@@ -78,23 +77,12 @@ function* verifyPassword(action) {
   const { email, password } = action.payload;
 
   //元々登録されていたユーザーかチェック
-  const isOld = yield call(() => {
-    //TODO GETリクエストの汎用的な関数作る
-    return new Promise((resolve, reject) => {
-      const isOldAPIUrl = apiConfig().baseURI + '/users/old';
-      axios
-        .get(isOldAPIUrl, { params: { email: email } })
-        .then(res => {
-          //TODO statusが200以外の時、errに入るのかresに入るのか確認
-          console.log(res);
-          resolve(res.data.result);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    });
-  });
-
+  const isOldApiResponse = yield call(() =>
+    getApiRequest('/users/old', { email: email }).catch(e => {
+      console.log(e);
+    }),
+  );
+  const isOld = isOldApiResponse.result;
   console.log('isOld:' + isOld);
 
   if (isOld) {
