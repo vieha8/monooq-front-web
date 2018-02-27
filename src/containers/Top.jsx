@@ -10,8 +10,7 @@ import { FontSizes, Colors } from '../variables';
 import { media } from '../helpers/style/media-query';
 import { Footer } from '../stories/shared';
 import { uiActions } from '../redux/modules/ui';
-
-const IMAGE_URL = 'https://picsum.photos/1280/800?image=1012';
+import mainVisual from '../images/main_visual.jpg';
 
 const TopPage = styled.div`
   margin-top: -20px;
@@ -19,13 +18,18 @@ const TopPage = styled.div`
 `;
 
 const TopView = styled.div`
-  padding: 196px 116px 0 116px;
   height: 800px;
   margin-top: -64px;
-  background-image: url(${IMAGE_URL});
+  background-image: url(${mainVisual});
   background-size: cover;
   color: rgb(255, 255, 255);
+`;
+
+const TopViewFilter = styled.div`
+  height: 100%;
+  padding: 196px 116px 0 116px;
   box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.4);
   ${media.phone`
     padding: 196px 10px 0 10px;
   `};
@@ -429,23 +433,29 @@ class Top extends React.Component {
   constructor(props) {
     super(props);
 
-    this.props.dispatch(uiActions.setUiState({
-      locationText: '',
-      searchButtonDisabled: false,
-    }));
+    this.props.dispatch(
+      uiActions.setUiState({
+        locationText: '',
+        searchButtonDisabled: false,
+      }),
+    );
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     if (event.target.value === '') {
-      this.props.dispatch(uiActions.setUiState({
-        searchButtonDisabled: false,
-        locationText: '',
-      }));
+      this.props.dispatch(
+        uiActions.setUiState({
+          searchButtonDisabled: false,
+          locationText: '',
+        }),
+      );
     } else {
-      this.props.dispatch(uiActions.setUiState({
-        searchButtonDisabled: true,
-        locationText: event.target.value,
-      }));
+      this.props.dispatch(
+        uiActions.setUiState({
+          searchButtonDisabled: true,
+          locationText: event.target.value,
+        }),
+      );
     }
   };
 
@@ -454,7 +464,7 @@ class Top extends React.Component {
     return (
       <TopPage>
         <TopView>
-          <div className={classes.contents}>
+          <TopViewFilter className={classes.contents}>
             <Monooq>monooQ</Monooq>
             <CatchPhrase>
               個人間だからできる、<br />荷物を預けるための新しい方法。
@@ -487,7 +497,7 @@ class Top extends React.Component {
                 ホスト登録はこちら
               </ToHostRegist>
             </ToHostRegistContainer>
-          </div>
+          </TopViewFilter>
         </TopView>
         <TopHr />
         <DefaultView isReasonUser>
