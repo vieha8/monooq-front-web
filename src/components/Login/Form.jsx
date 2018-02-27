@@ -4,6 +4,7 @@ import { Input, Icon } from 'semantic-ui-react';
 import Button from 'components/shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
+import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -13,6 +14,11 @@ const Container = styled.div`
   padding: ${Dimens.large}px;
   border-radius: 3px;
   text-align: center;
+  ${media.phone`
+    width: 90%;
+    margin-top: ${Dimens.medium}px;
+    padding: ${Dimens.large}px ${Dimens.medium}px;
+  `}
 `;
 
 const Logo = styled.img`
@@ -54,7 +60,7 @@ const OtherLoginLabel = styled.div`
 `;
 
 const ToSignUpLinkCointainer = styled.div`
-  padding-top: ${Dimens.large}px;
+  margin-top: ${Dimens.medium}px;
   border-top: 1px solid ${Colors.borderGray};
 `;
 
