@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import firebase from 'firebase';
 import Button from 'material-ui/Button';
+import Login from 'components/Login';
 
-class Login extends React.Component {
+class _Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,9 +31,9 @@ class Login extends React.Component {
           </Button>
         </div>
       );
-    } else {
-      return <Redirect to="/" />;
     }
+
+    return <Redirect to="/" />;
   };
 
   render() {
@@ -40,8 +41,10 @@ class Login extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { isLogin: state.auth.isLogin, isChecking: state.auth.isChecking };
-};
+const mapStateToProps = state => ({
+  isLogin: state.auth.isLogin,
+  isChecking: state.auth.isChecking,
+  ui: state.ui,
+});
 
 export default connect(mapStateToProps)(Login);
