@@ -58,6 +58,7 @@ export default props => (
   <Container position={props.position}>
     <Wrapper width={props.width}>
       <Button
+        onClick={props.onClick}
         style={{
           ...(props.border ? styles.borderButton : styles.button),
           ...(props.fill || props.wide ? styles.fillButton : {}),

@@ -1,9 +1,12 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import { Page } from '../../stories/create-space/page/Shared';
-import SpaceCreatedCompletion from '../../stories/create-space/page/SpaceCreatedCompletion';
+import SpaceCratedCompletion from '../../stories/create-space/page/SpaceCreatedCompletion';
 
-export default () => (
+const SpaceCratedCompletionContainer = props => (
   <Page>
-    <SpaceCreatedCompletion />
+    <SpaceCratedCompletion {...props} />
   </Page>
 );
+
+export default withRouter(SpaceCratedCompletionContainer);

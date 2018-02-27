@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
@@ -8,6 +9,7 @@ import styled from 'styled-components';
 import { FontSizes, Colors } from '../variables';
 import { media } from '../helpers/style/media-query';
 import { Footer } from '../stories/shared';
+import { uiActions } from '../redux/modules/ui';
 
 const IMAGE_URL = 'https://picsum.photos/1280/800?image=1012';
 
@@ -426,23 +428,29 @@ const LineUpNewsMedia = () => {
 class Top extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      location: '',
-      isDisableSearchButton: true,
-    };
+
+    this.props.dispatch(uiActions.setUiState({
+      locationText: '',
+      searchButtonDisabled: false,
+    }));
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     if (event.target.value === '') {
-      this.setState({ isDisableSearchButton: true });
+      this.props.dispatch(uiActions.setUiState({
+        searchButtonDisabled: false,
+        locationText: '',
+      }));
     } else {
-      this.setState({ isDisableSearchButton: false });
+      this.props.dispatch(uiActions.setUiState({
+        searchButtonDisabled: true,
+        locationText: event.target.value,
+      }));
     }
-    this.setState({ [event.target.id]: event.target.value });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, ui } = this.props;
     return (
       <TopPage>
         <TopView>
@@ -458,7 +466,7 @@ class Top extends React.Component {
               <SearchInput
                 id="location"
                 placeholder="近くの場所を検索してみよう！　例）東京都港区?"
-                value={this.state.location}
+                value={ui.locationText}
                 onChange={this.handleChange}
                 margin="normal"
               />
@@ -468,8 +476,8 @@ class Top extends React.Component {
                 color="primary"
                 mini
                 component={Link}
-                to={'/search/' + this.state.location}
-                disabled={this.state.isDisableSearchButton}
+                to={`/search/${ui.locationText}`}
+                disabled={!ui.searchButtonDisabled}
               >
                 <StyledSearchIcon />
               </SearchButton>
@@ -568,4 +576,8 @@ const styles = theme => ({
   },
 });
 
-export default withStyles(styles)(Top);
+const mapStateToProps = state => ({
+  ui: state.ui,
+});
+
+export default connect(mapStateToProps)(withStyles(styles)(Top));

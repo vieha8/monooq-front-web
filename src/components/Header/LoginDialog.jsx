@@ -1,11 +1,12 @@
 import React from 'react';
+import { connect } from 'redux';
 import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import { CircularProgress } from 'material-ui/Progress';
 import TextField from 'material-ui/TextField';
 import Typography from 'material-ui/Typography';
-
+import { uiActions } from '../../redux/modules/ui';
 import { createDialog } from '../../components/Dialog';
 
 const openButtonComponent = props => <Button {...props}>ログイン</Button>;
@@ -13,39 +14,45 @@ const openButtonComponent = props => <Button {...props}>ログイン</Button>;
 class ContentsComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.props.dispatch(uiActions.setUiState({
       isSending: false,
-    };
+    }));
   }
 
   sendRequest = () => {
-    this.setState({ isSending: true });
+    this.props.dispatch(uiActions.setUiState({
+      isSending: true,
+    }));
+
     setTimeout(() => {
-      this.setState({ isSending: false });
+      this.props.dispatch(uiActions.setUiState({
+        isSending: false,
+      }));
       this.props.handleClose();
     }, 2000);
   };
 
   showSendButton = () => {
-    if (this.state.isSending) {
+    const { ui } = this.props;
+    if (ui.isSending) {
       return (
         <div style={{ textAlign: 'center' }}>
           <CircularProgress />
         </div>
       );
-    } else {
-      return (
-        <div style={{ textAlign: 'center' }}>
-          <Button raised onClick={this.sendRequest} color="primary">
-            ログイン
-          </Button>
-        </div>
-      );
     }
+
+    return (
+      <div style={{ textAlign: 'center' }}>
+        <Button raised onClick={this.sendRequest} color="primary">
+          ログイン
+        </Button>
+      </div>
+    );
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, ui } = this.props;
     return (
       <div>
         <TextField
@@ -54,7 +61,7 @@ class ContentsComponent extends React.Component {
           type="email"
           placeholder="xxx@xxx.com"
           className={classes.textField}
-          disabled={this.state.isSending}
+          disabled={ui.isSending}
         />
         <TextField
           id="password"
@@ -62,7 +69,7 @@ class ContentsComponent extends React.Component {
           type="password"
           placeholder="••••••••"
           className={classes.textField}
-          disabled={this.state.isSending}
+          disabled={ui.isSending}
         />
         <br />
         <br />
@@ -83,4 +90,8 @@ const styles = () => ({
   },
 });
 
-export default createDialog('ログイン', openButtonComponent, withStyles(styles)(ContentsComponent));
+const mapStateToProps = state => ({
+  ui: state.ui,
+});
+
+export default connect(mapStateToProps)(createDialog('ログイン', openButtonComponent, withStyles(styles)(ContentsComponent)));

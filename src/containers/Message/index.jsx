@@ -12,47 +12,52 @@ import green from 'material-ui/colors/green';
 import { defaultPageFactory } from '../../components/PageLayouts';
 import authRequired from '../../components/Auth';
 import { messagesActions } from '../../redux/modules/messages';
+import { uiActions } from '../../redux/modules/ui';
 
 class Message extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      message: '',
-      isSend: false,
-      isSending: false,
-    };
+    console.log(uiActions);
 
     this.pageTitle = 'Masaya Kudoさんとのメッセージ'; // TODO ルーム情報を取得する
     this.roomId = props.match.params.room_id; // TODO roomId書き換えで関係ないルームのデータを取得できないようにする
     this.props.dispatch(messagesActions.fetchMessagesStart(this.roomId));
+    this.props.dispatch(uiActions.setUiState({
+      message: '',
+      isSend: false,
+      isSending: false,
+    }));
   }
 
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
+  handleChange = (event) => {
+    this.props.dispatch(uiActions.setUiState({
+      message: event.target.value,
+    }));
   };
 
   sendTextMessage = () => {
-    if (this.state.message === '') {
+    const { ui } = this.props;
+    if (ui.message === '') {
       return;
     }
     this.props.dispatch(
       messagesActions.sendMessage({
         roomId: this.roomId,
         userId: this.props.userId,
-        text: this.state.message,
+        text: ui.message,
       }),
     );
-    this.setState({ message: '' });
+    this.props.dispatch(uiActions.setUiState({
+      message: '',
+    }));
   };
 
   contents = () => {
     const { classes, messages, userId } = this.props;
     return (
       <div className={classes.root}>
-        {messages.map(message => {
+        {messages.map((message) => {
           let className = classes.myMessage;
           if (message.userId !== userId) {
             className = classes.message;
@@ -83,8 +88,8 @@ class Message extends React.Component {
 
   render() {
     const Page = defaultPageFactory(this.pageTitle, this.contents);
-    const { classes } = this.props;
-    //TODO contents内にTextFieldいれるとonChangeの挙動がおかしくなるので仮でこの形に
+    const { classes, ui } = this.props;
+    // TODO contents内にTextFieldいれるとonChangeの挙動がおかしくなるので仮でこの形に
     return (
       <Fragment>
         <Page />
@@ -95,11 +100,11 @@ class Message extends React.Component {
             multiline
             rows="4"
             placeholder="メッセージを送る"
-            value={this.state.message}
-            onChange={this.handleChange('message')}
+            value={ui.message}
+            onChange={this.handleChange}
             className={classes.textField}
             margin="normal"
-            disabled={this.state.isSending}
+            disabled={ui.isSending}
           />
           <Button raised color="primary" fullWidth onClick={this.sendTextMessage}>
             送信
@@ -163,13 +168,12 @@ const styles = theme => ({
   },
 });
 
-const mapStateToProps = state => {
-  return {
-    messages: state.messages.messages,
-    isLoading: state.messages.isLoading,
-    userId: state.auth.user.id,
-  };
-};
+const mapStateToProps = state => ({
+  messages: state.messages.messages,
+  isLoading: state.messages.isLoading,
+  userId: state.auth.user.id,
+  ui: state.ui,
+});
 
 export default compose(withRouter, withStyles(styles), authRequired, connect(mapStateToProps))(
   Message,
