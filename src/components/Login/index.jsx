@@ -17,6 +17,10 @@ export default class Login extends Component {
     document.body.style.background = Colors.yellow;
   }
 
+  componentWillUnmount() {
+    document.body.style.background = Colors.white;
+  }
+
   render() {
     return (
       <Container>
