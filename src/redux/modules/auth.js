@@ -4,21 +4,18 @@ import firebase from 'firebase';
 import { apiActions, API_ACTIONS } from './api';
 
 // Actions
-const LOGIN = 'LOGIN';
+const LOGIN_EMAIL = 'LOGIN_EMAIL';
+const LOGIN_FACEBOOK = 'LOGIN_FACEBOOK';
 const LOGOUT = 'LOGOUT';
 const CHECK_LOGIN_START = 'CHECK_LOGIN_START';
 const CHECK_LOGIN_END = 'CHECK_LOGIN_END';
 
-const VERIFY_PASSWORD_START = 'VERIFY_PASSWORD_START';
-const VERIFY_PASSWORD_END = 'VERIFY_PASSWORD_END';
-
 export const authActions = createActions(
-  LOGIN,
+  LOGIN_EMAIL,
+  LOGIN_FACEBOOK,
   LOGOUT,
   CHECK_LOGIN_START,
   CHECK_LOGIN_END,
-  VERIFY_PASSWORD_START,
-  VERIFY_PASSWORD_END,
 );
 
 // Reducer
@@ -29,9 +26,11 @@ const initialState = {
 };
 export const authReducer = handleActions(
   {
-    [LOGIN]: state => ({
+    [LOGIN_EMAIL]: state => ({
       ...state,
-      isLogin: true,
+    }),
+    [LOGIN_FACEBOOK]: state => ({
+      ...state,
     }),
     [LOGOUT]: state => ({
       ...state,
@@ -45,12 +44,6 @@ export const authReducer = handleActions(
       ...state,
       ...action.payload,
       isChecking: false,
-    }),
-    [VERIFY_PASSWORD_START]: state => ({
-      ...state,
-    }),
-    [VERIFY_PASSWORD_END]: state => ({
-      ...state,
     }),
   },
   initialState,
@@ -72,13 +65,12 @@ function* checkLoginFirebaseAuth() {
   yield put(authActions.checkLoginEnd(isLogin));
 }
 
-function* verifyPassword({ payload: { email, password } }) {
+function* loginEmail({ payload: { email, password } }) {
   yield put(apiActions.usersOldGet(email));
   const { payload } = yield take(API_ACTIONS.USERS_OLD.GET.SUCCESS);
 
   //元々登録されていたユーザーかチェック
   const isOld = payload.result;
-
   if (isOld) {
     firebase
       .auth()
@@ -86,7 +78,6 @@ function* verifyPassword({ payload: { email, password } }) {
       .catch(err => {
         console.error(err);
       });
-
     // 元々登録されていた場合パスワードが正しいかチェックする
     // パスワードが正しければfirebase APIでcreateUserWithEmailAndPasswordを叩く
     // firebase uidとデータを紐付けるAPIを叩く
@@ -95,11 +86,10 @@ function* verifyPassword({ payload: { email, password } }) {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch(err => {
+        //未登録の場合やフォーマットが間違ってた場合エラーでる
         console.error(err);
       });
   }
-
-  yield put(authActions.verifyPasswordEnd());
 }
 
 function* logout() {
@@ -108,6 +98,6 @@ function* logout() {
 
 export const authSagas = [
   takeEvery(CHECK_LOGIN_START, checkLoginFirebaseAuth),
-  takeEvery(VERIFY_PASSWORD_START, verifyPassword),
+  takeEvery(LOGIN_EMAIL, loginEmail),
   takeEvery(LOGOUT, logout),
 ];

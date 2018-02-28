@@ -76,6 +76,8 @@ export default props => (
           icon="envelope"
           iconPosition="left"
           fluid
+          value={props.email}
+          onChange={props.handleChangeEmail}
         />
       </InputWrapper>
       <InputWrapper>
@@ -85,6 +87,8 @@ export default props => (
           icon="lock"
           iconPosition="left"
           fluid
+          value={props.password}
+          onChange={props.handleChangePassword}
         />
       </InputWrapper>
     </InputContainer>
@@ -93,6 +97,7 @@ export default props => (
       <Button
         bgColor={Colors.pink}
         fluid
+        onClick={props.onClickLoginEmail}
       >
         ログインする
       </Button>
