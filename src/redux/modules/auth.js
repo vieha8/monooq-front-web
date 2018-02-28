@@ -6,6 +6,8 @@ import { apiActions, API_ACTIONS } from './api';
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
 const LOGIN_FACEBOOK = 'LOGIN_FACEBOOK';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const LOGIN_FAILED = 'LOGIN_FAILED';
 const LOGOUT = 'LOGOUT';
 const CHECK_LOGIN_START = 'CHECK_LOGIN_START';
 const CHECK_LOGIN_END = 'CHECK_LOGIN_END';
@@ -13,6 +15,8 @@ const CHECK_LOGIN_END = 'CHECK_LOGIN_END';
 export const authActions = createActions(
   LOGIN_EMAIL,
   LOGIN_FACEBOOK,
+  LOGIN_SUCCESS,
+  LOGIN_FAILED,
   LOGOUT,
   CHECK_LOGIN_START,
   CHECK_LOGIN_END,
@@ -23,6 +27,7 @@ const initialState = {
   isLogin: false,
   isChecking: false,
   user: {},
+  error: '',
 };
 export const authReducer = handleActions(
   {
@@ -35,6 +40,14 @@ export const authReducer = handleActions(
     [LOGOUT]: state => ({
       ...state,
       isLogin: false,
+    }),
+    [LOGIN_SUCCESS]: state => ({
+      ...state,
+      isLogin: true,
+    }),
+    [LOGIN_FAILED]: (state, action) => ({
+      ...state,
+      error: action.payload,
     }),
     [CHECK_LOGIN_START]: state => ({
       ...state,
@@ -72,23 +85,23 @@ function* loginEmail({ payload: { email, password } }) {
   //元々登録されていたユーザーかチェック
   const isOld = payload.result;
   if (isOld) {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .catch(err => {
-        console.error(err);
-      });
-    // 元々登録されていた場合パスワードが正しいかチェックする
-    // パスワードが正しければfirebase APIでcreateUserWithEmailAndPasswordを叩く
-    // firebase uidとデータを紐付けるAPIを叩く
+    try {
+      // 元々登録されていた場合パスワードが正しいかチェックする
+      // パスワードが正しければfirebase APIでcreateUserWithEmailAndPasswordを叩く
+      // firebase uidとデータを紐付けるAPIを叩く
+      firebase.auth().createUserWithEmailAndPassword(email, password);
+    } catch (err) {
+      console.error(err);
+      yield put(authActions.loginFailed(err));
+    }
   } else {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch(err => {
-        //未登録の場合やフォーマットが間違ってた場合エラーでる
-        console.error(err);
-      });
+    try {
+      yield firebase.auth().signInWithEmailAndPassword(email, password);
+      yield put(authActions.loginSuccess());
+    } catch (err) {
+      console.error(err);
+      yield put(authActions.loginFailed(err));
+    }
   }
 }
 
