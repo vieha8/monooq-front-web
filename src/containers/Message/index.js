@@ -25,9 +25,6 @@ const MessagePage = styled.div`
 const MessageContainer = styled.div`
   max-width: 1048px;
   margin: 0 auto;
-  ${media.phone`
-    padding: 80px 10px;
-  `};
 `;
 
 const PageTitle = styled.div`
@@ -35,6 +32,12 @@ const PageTitle = styled.div`
   line-height: 51px;
   letter-spacing: -0.5px;
   margin-bottom: 52px;
+  ${media.phone`
+    padding: 0 20px;
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 20px;
+  `};
 `;
 
 const Information = props => {
@@ -81,13 +84,33 @@ const Information = props => {
   );
 };
 
+// {todo}
+const MobileInformation = styled.div`
+  display: none;
+  ${media.phone`
+    display: block;
+    width: 100%;
+    height: 50px;
+    background: #f7f7f7;
+  `};
+`;
+
 const InformationContainer = styled.div`
   width: 328px;
   font-weiht: 100;
+  ${media.phone`
+    display: none;
+  `};
 `;
 
 const RecordsContainer = styled.div`
   width: 688px;
+`;
+
+const ContentsWrapper = styled.div`
+  ${media.phone`
+    padding: 0 20px;
+  `};
 `;
 
 const FlexWrapper = styled.div`
@@ -130,6 +153,11 @@ const StyledRecord = styled(Record)`
   line-height: 28px;
   font-weight: 100;
   word-wrap: break-word;
+  ${media.phone`
+    max-width: 260px;
+    font-size: 11px;
+    line-height: 18px;
+  `};
   ${props =>
     props.myMessage
       ? `
@@ -167,6 +195,9 @@ const AddFileText = styled.div`
   &:hover {
     cursor: pointer;
   }
+  ${media.phone`
+    font-size: 12px;
+  `};
 `;
 
 const AddFileTextarea = styled.textarea`
@@ -221,6 +252,10 @@ const AddFileButton = styled.div`
 
 const SubmitMessageForm = styled.div`
   margin-top: 110px;
+  ${media.phone`
+    margin-top: 24px;
+    padding: 0 20px;
+  `};
 `;
 
 const PastRecord = styled.div`
@@ -231,6 +266,25 @@ const PastRecord = styled.div`
   :hover {
     cursor: pointer;
   }
+  ${media.phone`
+    font-size: 12px;
+    line-height: 18px;
+    border-top: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    width: 100%;
+    padding: 13px 20px;
+  `};
+`;
+
+const RequestStatus = styled.div`
+  color: #888787;
+  text-align: center;
+  display: none;
+  ${media.phone`
+    display: inherit;
+    font-size: 11px;
+    line-height: 16.5px;
+  `};
 `;
 
 class Message extends React.Component {
@@ -309,6 +363,7 @@ class Message extends React.Component {
               <div style={{ clear: 'both' }} />
               <StyledDate>{date}</StyledDate>
               <div style={{ clear: 'both' }} />
+              <RequestStatus>ホストがリクエストの承認を行いました。</RequestStatus>
             </div>
           );
         })}
@@ -330,7 +385,9 @@ class Message extends React.Component {
 
             <RecordsContainer>
               <PastRecord>過去のメッセージを見る</PastRecord>
-              <this.contents />
+              <ContentsWrapper>
+                <this.contents />
+              </ContentsWrapper>
               <SubmitMessageForm>
                 <AddFile>
                   <AddFileIcon>
