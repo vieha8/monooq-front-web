@@ -1,13 +1,13 @@
 import React from 'react';
 import { routes } from 'config/routes';
-import Header from 'components/create-space/shared/Header';
-import Button, { ButtonsContainer } from 'components/create-space/shared/Button';
-import SideBar from 'components/create-space/shared/SideBar';
-import SaveBox from 'components/create-space/shared/SaveBox';
-import HintBox from 'components/create-space/shared/HintBox';
-import InputAboutBaggage from 'components/create-space/baggage/InputAboutBaggage';
-import CheckTypeFurniture from 'components/create-space/baggage/CheckTypeFurniture';
-import SaveBoxMobile from 'components/create-space/shared/SaveBoxMobile';
+import Header from 'components/NewSpace/shared/Header';
+import Button, { ButtonsContainer } from 'components/NewSpace/shared/Button';
+import SideBar from 'components/NewSpace/shared/SideBar';
+import SaveBox from 'components/NewSpace/shared/SaveBox';
+import HintBox from 'components/NewSpace/shared/HintBox';
+import InputAboutBaggage from 'components/NewSpace/baggage/InputAboutBaggage';
+import CheckTypeFurniture from 'components/NewSpace/baggage/CheckTypeFurniture';
+import SaveBoxMobile from 'components/NewSpace/shared/SaveBoxMobile';
 import FloatHintButton from 'containers/CreateSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 
