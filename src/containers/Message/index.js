@@ -97,7 +97,24 @@ const FlexWrapper = styled.div`
 `;
 
 const Record = props => {
-  return <div className={props.className}>{props.text}</div>;
+  const RecordLink = styled.div`
+    color: #006494;
+    float: right;
+    margin-top: 30px;
+    :hover {
+      cursor: pointer;
+    }
+  `;
+  let RecordLinkComponent = '';
+  if (props.hasLink) {
+    RecordLinkComponent = <RecordLink>この見積もりでお支払いに進む</RecordLink>;
+  }
+  return (
+    <div className={props.className}>
+      {props.text}
+      {RecordLinkComponent}
+    </div>
+  );
 };
 
 const StyledRecord = styled(Record)`
@@ -108,7 +125,7 @@ const StyledRecord = styled(Record)`
   border: 1px solid #d6d6d6;
   padding: 20px;
   margin-right: auto;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   font-size: 14px;
   line-height: 28px;
   font-weight: 100;
@@ -125,10 +142,10 @@ const StyledRecord = styled(Record)`
   ${props =>
     props.specialMessage
       ? `
-        width: 300px;
+        width: 100%;
         background-color: #d9ffe5;
-        margin: auto;
         border: 0;
+        max-width: 100%;
     `
       : ''};
 `;
@@ -206,6 +223,16 @@ const SubmitMessageForm = styled.div`
   margin-top: 110px;
 `;
 
+const PastRecord = styled.div`
+  font-size: 16px;
+  line-height: 24px;
+  color: #006494;
+  margin-bottom: 30px;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 class Message extends React.Component {
   constructor(props) {
     super(props);
@@ -269,6 +296,13 @@ class Message extends React.Component {
             RecordComponent = () => <StyledRecord date={date} text={message.text} />;
           }
 
+          // 見積もり発生時
+          if (false) {
+            RecordComponent = () => (
+              <StyledRecord specialMessage hasLink={true} date={date} text={message.text} />
+            );
+          }
+
           return (
             <div key={message.id}>
               <RecordComponent />
@@ -295,6 +329,7 @@ class Message extends React.Component {
             </InformationContainer>
 
             <RecordsContainer>
+              <PastRecord>過去のメッセージを見る</PastRecord>
               <this.contents />
               <SubmitMessageForm>
                 <AddFile>
