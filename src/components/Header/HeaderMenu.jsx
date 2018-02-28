@@ -17,13 +17,18 @@ class HeaderMenu extends React.Component {
     this.props.dispatch(uiActions.setUiState({
       anchorHeaderMenuDom: event.currentTarget,
     }));
-  }
+  };
 
   handleClose = () => {
     this.props.dispatch(uiActions.setUiState({
       anchorHeaderMenuDom: null,
     }));
-  }
+  };
+
+  logout = () => {
+    this.handleClose();
+    this.props.logout();
+  };
 
   renderLoginComponent = () => {
     if (!this.props.isLogin) {
@@ -36,7 +41,7 @@ class HeaderMenu extends React.Component {
     }
     return (
       <Fragment>
-        <MenuItem onClick={this.props.logout}>ログアウト</MenuItem>
+        <MenuItem onClick={this.logout}>ログアウト</MenuItem>
       </Fragment>
     );
   };

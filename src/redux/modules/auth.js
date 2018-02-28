@@ -97,8 +97,6 @@ function* verifyPassword({ payload: { email, password } }) {
       .catch(err => {
         console.error(err);
       });
-
-    //firebase apiの場合、loginWithEmailAndPassword叩く
   }
 
   yield put(authActions.verifyPasswordEnd());
