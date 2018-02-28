@@ -80,17 +80,36 @@ function* verifyPassword({ payload: { email, password } }) {
   const isOld = payload.result;
 
   if (isOld) {
-    //元々登録されていた場合パスワードが正しいかチェックする
-    //パスワードが正しければfirebase APIでcreateUserWithEmailAndPassowrdを叩く
-    //firebase uidとデータを紐付けるAPIを叩く
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch(err => {
+        console.error(err);
+      });
+
+    // 元々登録されていた場合パスワードが正しいかチェックする
+    // パスワードが正しければfirebase APIでcreateUserWithEmailAndPasswordを叩く
+    // firebase uidとデータを紐付けるAPIを叩く
   } else {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch(err => {
+        console.error(err);
+      });
+
     //firebase apiの場合、loginWithEmailAndPassword叩く
   }
 
   yield put(authActions.verifyPasswordEnd());
 }
 
+function* logout() {
+  yield firebase.auth().signOut();
+}
+
 export const authSagas = [
   takeEvery(CHECK_LOGIN_START, checkLoginFirebaseAuth),
   takeEvery(VERIFY_PASSWORD_START, verifyPassword),
+  takeEvery(LOGOUT, logout),
 ];

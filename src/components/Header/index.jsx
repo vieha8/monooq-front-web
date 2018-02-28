@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
-import firebase from 'firebase';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -18,7 +17,6 @@ import { authActions } from '../../redux/modules/auth';
 
 class Header extends React.Component {
   logout = async () => {
-    await firebase.auth().signOut();
     this.props.dispatch(authActions.logout());
     this.props.history.push('/login');
   };
