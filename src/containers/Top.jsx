@@ -11,6 +11,8 @@ import { media } from '../helpers/style/media-query';
 import { Footer } from '../stories/shared';
 import { uiActions } from '../redux/modules/ui';
 import mainVisual from '../images/main_visual.jpg';
+import topImage1 from '../images/top1.png';
+import topImage2 from '../images/top2.png';
 
 const TopPage = styled.div`
   margin-top: -20px;
@@ -154,10 +156,11 @@ const DefaultView = styled.div`
     props.isReasonUser
       ? `
         background: #fff;
-        background-image: url('http://placehold.jp/714x535.png');
+        background-image: url(${topImage1});
         background-repeat: no-repeat;
         background-position: right;
         background-position-y: 388px;
+        background-size: 714px 490px;
     `
       : ''};
   ${media.phone`
@@ -172,10 +175,11 @@ const DefaultView = styled.div`
   ${props =>
     props.isReasonHost
       ? `
-        background-image: url('http://placehold.jp/F7F7F7/eee/530x989.png');
+        background-image: url(${topImage2});
         background-repeat: no-repeat;
         background-position: left;
         padding: 80px 116px 80px 656px;
+        background-size: 500px 947px;
     `
       : ''};
   ${props =>
