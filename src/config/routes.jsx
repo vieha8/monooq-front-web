@@ -14,7 +14,7 @@ import AllUsePrice from 'containers/NewSpace/AllUsePrice';
 import SpaceCreatedCompletion from 'containers/NewSpace/SpaceCreatedCompletion';
 import Message from 'containers/Message/';
 import Messages from 'containers/Messages/';
-import Signup from 'containers/Signup';
+import SignUp from 'containers/SignUp';
 import ProfileForm from 'containers/ProfileForm';
 import Profile from 'containers/Profile';
 import SpaceForm from 'containers/SpaceForm';
@@ -79,7 +79,7 @@ export const routes = {
   },
   signup: {
     path: '/signup',
-    component: Signup,
+    component: SignUp,
   },
   editProfile: {
     path: '/edit/profile/:user_id',

@@ -165,7 +165,7 @@ storiesOf('Search', module).add('検索結果 項目', () => (
   <ResultItem place="六本木" name="麻布十番駅から徒歩3分" typeOK price="1000/2000/5000" />
 ));
 
-storiesOf('CreateSpace', module)
+storiesOf('NewSpace', module)
   .add('スペース登録', () => <SpaceInfo />)
   .add('預かる荷物について', () => <AboutBaggage />)
   .add('荷物の受け取り', () => <ReceiveBaggage />)

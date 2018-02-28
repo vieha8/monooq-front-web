@@ -8,7 +8,7 @@ import HintBox from 'components/NewSpace/shared/HintBox';
 import InputAboutBaggage from 'components/NewSpace/baggage/InputAboutBaggage';
 import CheckTypeFurniture from 'components/NewSpace/baggage/CheckTypeFurniture';
 import SaveBoxMobile from 'components/NewSpace/shared/SaveBoxMobile';
-import FloatHintButton from 'containers/CreateSpace/FloatHintButton';
+import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 
 const hintProps = {
