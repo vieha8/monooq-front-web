@@ -5,6 +5,7 @@ import SignUpForm from './Form';
 import AuthTelForm from './AuthTelForm';
 import InputPinForm from './InputPinForm';
 import ConfirmedForm from './ConfirmedForm';
+import ProfileForm from './ProfileForm';
 
 const Container = styled.div`
   position: absolute;
@@ -36,6 +37,8 @@ export default class SignUp extends Component {
           return InputPinForm;
         case 3:
           return ConfirmedForm;
+        case 4:
+          return ProfileForm;
         default:
           return null;
       }
