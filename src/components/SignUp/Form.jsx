@@ -100,7 +100,7 @@ export default props => (
           iconPosition="left"
           fluid
           value={props.password}
-          onChange={props.handleChangePassword}
+          onChange={props.handleChangeRePassword}
         />
       </InputWrapper>
     </InputContainer>
@@ -109,7 +109,7 @@ export default props => (
       <Button
         bgColor={Colors.pink}
         fluid
-        onClick={props.onClickLoginEmail}
+        onClick={props.onClickSignUpEmail}
       >
         次へ
       </Button>
@@ -119,7 +119,7 @@ export default props => (
       <Button
         bgColor={Colors.facebook}
         fluid
-        onClick={props.onClickLoginFacebook}
+        onClick={props.onClickSignUpFacebook}
       >
         <IconWrapper>
           <Icon name="facebook square" />

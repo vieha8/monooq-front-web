@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Colors } from 'variables';
-import Form from './Form';
+import SignUpForm from './Form';
+import AuthTelForm from './AuthTelForm';
+import InputPinForm from './InputPinForm';
 
 const Container = styled.div`
   position: absolute;
@@ -12,7 +14,7 @@ const Container = styled.div`
   background: ${Colors.yellow};
 `;
 
-export default class Login extends Component {
+export default class SignUp extends Component {
   componentDidMount() {
     document.body.style.background = Colors.yellow;
   }
@@ -22,6 +24,20 @@ export default class Login extends Component {
   }
 
   render() {
+    const { step } = this.props;
+    const Form = (() => {
+      switch (step) {
+        case 0:
+          return SignUpForm;
+        case 1:
+          return AuthTelForm;
+        case 2:
+          return InputPinForm;
+        default:
+          return null;
+      }
+    })();
+
     return (
       <Container>
         <Form
