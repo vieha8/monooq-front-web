@@ -4,6 +4,7 @@ import { Colors } from 'variables';
 import SignUpForm from './Form';
 import AuthTelForm from './AuthTelForm';
 import InputPinForm from './InputPinForm';
+import ConfirmedForm from './ConfirmedForm';
 
 const Container = styled.div`
   position: absolute;
@@ -33,6 +34,8 @@ export default class SignUp extends Component {
           return AuthTelForm;
         case 2:
           return InputPinForm;
+        case 3:
+          return ConfirmedForm;
         default:
           return null;
       }

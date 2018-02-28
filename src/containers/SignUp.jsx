@@ -5,7 +5,7 @@ import SignUp from 'components/SignUp';
 
 class SignUpContainer extends React.Component {
   render() {
-    return <SignUp step={2} />;
+    return <SignUp step={3} />;
   }
 }
 
