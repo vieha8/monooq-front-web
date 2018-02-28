@@ -45,6 +45,12 @@ const StyledButton = styled(Button)`
   }
 `;
 
+const Logo = styled.img`
+  border-radius: 4px;
+  // FIXME: 背景色の調整
+  background-color: rgba(255, 255, 255, 0.9);
+`;
+
 class Header extends React.Component {
   logout = async () => {
     await firebase.auth().signOut();
@@ -84,8 +90,8 @@ class Header extends React.Component {
         <StyledAppBar position="fixed" color="default">
           <StyledToolbar>
             <Typography type="title" className={classes.flex}>
-              <Link to="/" style={{ textDecoration: 'none' }}>
-                <img src={logo} alt="logo" width="150" />
+              <Link to="/">
+                <Logo src={logo} alt="logo" width="150" />
               </Link>
             </Typography>
             <StyledIconButton
