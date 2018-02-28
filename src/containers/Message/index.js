@@ -23,8 +23,11 @@ const MessagePage = styled.div`
 `;
 
 const MessageContainer = styled.div`
-  width: 1048px;
+  max-width: 1048px;
   margin: 0 auto;
+  ${media.phone`
+    padding: 80px 10px;
+  `};
 `;
 
 const PageTitle = styled.div`
@@ -130,6 +133,79 @@ const StyledRecord = styled(Record)`
       : ''};
 `;
 
+const AddFile = styled.div`
+  display: flex;
+`;
+
+const AddFileIcon = styled.div`
+  color: #bcbcbc;
+  font-size: 30px;
+`;
+
+const AddFileText = styled.div`
+  color: #bcbcbc;
+  font-size: 12px;
+  line-height: 30px;
+  padding-left: 9px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const AddFileTextarea = styled.textarea`
+  width: 100%;
+  height: 160px;
+  font-size: 14px;
+  color: #bcbcbc;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  border: 1px solid #bcbcbc;
+  border-radius: 2px;
+  background-color: #fafafa;
+  resize: none;
+  &::-webkit-input-placeholder {
+    color: #bcbcbc;
+  }
+`;
+
+const AddFileButton = styled.div`
+  text-align: center;
+  font-size: 16px;
+  line-height: 16px;
+  padding: 18px 0;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  ${props =>
+    props.submit
+      ? `
+      color: #fff;
+      background: #e85258;
+      :hover {
+        cursor: pointer;
+        background: rgba(232, 82, 88, .5);
+      }
+    `
+      : ''};
+  ${props =>
+    props.estimate
+      ? `
+      color: #e85258;
+      background: #fff;
+      border: 1px solid;
+      :hover {
+        cursor: pointer;
+        background: rgba(232, 82, 88, .5);
+      }
+    `
+      : ''};
+`;
+
+const SubmitMessageForm = styled.div`
+  margin-top: 110px;
+`;
+
 class Message extends React.Component {
   constructor(props) {
     super(props);
@@ -220,31 +296,26 @@ class Message extends React.Component {
 
             <RecordsContainer>
               <this.contents />
-              <Divider style={{ marginTop: 20, marginRight: 20, marginLeft: 20 }} />
-              <div style={{ padding: 20 }}>
-                <TextField
-                  id="message-text"
-                  multiline
-                  rows="4"
-                  placeholder="メッセージを送る"
+              <SubmitMessageForm>
+                <AddFile>
+                  <AddFileIcon>
+                    <i className="far fa-image" />
+                  </AddFileIcon>
+                  <AddFileText>写真を送信する</AddFileText>
+                </AddFile>
+                <AddFileTextarea
+                  placeholder="メッセージを入力する…"
                   value={this.state.message}
                   onChange={this.handleChange('message')}
-                  className={classes.textField}
-                  margin="normal"
                   disabled={this.state.isSending}
                 />
-                <Button raised color="primary" fullWidth onClick={this.sendTextMessage}>
+                <AddFileButton submit onClick={this.sendTextMessage}>
                   送信
-                </Button>
-                <Button
-                  fullWidth
-                  raised
-                  color="secondary"
-                  onClick={() => this.props.history.push('/estimate/1')}
-                >
+                </AddFileButton>
+                <AddFileButton estimate onClick={() => this.props.history.push('/estimate/1')}>
                   見積もりを送る
-                </Button>
-              </div>
+                </AddFileButton>
+              </SubmitMessageForm>
             </RecordsContainer>
           </FlexWrapper>
         </MessageContainer>
