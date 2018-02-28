@@ -13,6 +13,123 @@ import { defaultPageFactory } from '../../components/PageLayouts';
 import authRequired from '../../components/Auth';
 import { messagesActions } from '../../redux/modules/messages';
 
+import styled from 'styled-components';
+import { isMobileWindow, media } from '../../helpers/style/media-query';
+import { Colors, Dimens } from '../../variables';
+
+const MessagePage = styled.div`
+  background: #fff;
+  font-family: sans-serif;
+`;
+
+const MessageContainer = styled.div`
+  width: 1048px;
+  margin: 0 auto;
+`;
+
+const PageTitle = styled.div`
+  font-size: 34px;
+  line-height: 51px;
+  letter-spacing: -0.5px;
+  margin-bottom: 52px;
+`;
+
+const Information = props => {
+  const Title = styled.div`
+    font-size: 18px;
+    line-height: 32px;
+    margin-bottom: 15px;
+  `;
+  const Wrapper = styled.div`
+    display: flex;
+  `;
+  const Image = styled.img`
+    width: 104px;
+    height: 79px;
+    object-fit: cover;
+    margin-right: 20px;
+  `;
+
+  const Area = styled.div`
+    font-size: 12px;
+    line-height: 18px;
+    margin-bottom: 5px;
+    color: #e85258;
+  `;
+
+  const Description = styled.div`
+    font-size: 12px;
+    line-height: 18px;
+  `;
+
+  return (
+    <div className={props.className}>
+      <Title>ホストは YUKI HASHIDA さん</Title>
+      <Wrapper>
+        <Image src="https://picsum.photos/150?image=42" />
+        <div>
+          <Area>東京都 港区 六本木</Area>
+          <Description>
+            東京タワーに近くて便利！大きい荷物も何人分でもOK何人分で荷物も何人分でもOK何人分で…
+          </Description>
+        </div>
+      </Wrapper>
+    </div>
+  );
+};
+
+const InformationContainer = styled.div`
+  width: 328px;
+  font-weiht: 100;
+`;
+
+const RecordsContainer = styled.div`
+  width: 688px;
+`;
+
+const FlexWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const Record = props => {
+  return <div className={props.className}>{props.text}</div>;
+};
+
+const StyledRecord = styled(Record)`
+  float: left;
+  max-width: 584px;
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #d6d6d6;
+  padding: 20px;
+  margin-right: auto;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 28px;
+  font-weight: 100;
+  word-wrap: break-word;
+  ${props =>
+    props.myMessage
+      ? `
+        float: right;
+        background-color: #feebeb;
+        margin-left: auto;
+        border: 0;
+    `
+      : ''};
+  ${props =>
+    props.specialMessage
+      ? `
+        width: 300px;
+        background-color: #d9ffe5;
+        margin: auto;
+        border: 0;
+    `
+      : ''};
+`;
+
 class Message extends React.Component {
   constructor(props) {
     super(props);
@@ -53,11 +170,6 @@ class Message extends React.Component {
     return (
       <div className={classes.root}>
         {messages.map(message => {
-          let className = classes.myMessage;
-          if (message.userId !== userId) {
-            className = classes.message;
-          }
-
           const date = message.createDt.toLocaleDateString('ja-JP', {
             year: '2-digit',
             month: '2-digit',
@@ -66,13 +178,26 @@ class Message extends React.Component {
             minute: '2-digit',
           });
 
+          const StyledDate = styled.div`
+            font-size: 12px;
+            line-height: 14px;
+            color: #b4b4b4;
+            float: right;
+            margin-bottom: 20px;
+          `;
+
+          let RecordComponent = () => <StyledRecord myMessage date={date} text={message.text} />;
+
+          let className = classes.myMessage;
+          if (message.userId !== userId) {
+            RecordComponent = () => <StyledRecord date={date} text={message.text} />;
+          }
+
           return (
             <div key={message.id}>
-              <div className={className}>
-                <small style={{ color: 'gray' }}>{date}</small>
-                <br />
-                {message.text}
-              </div>
+              <RecordComponent />
+              <div style={{ clear: 'both' }} />
+              <StyledDate>{date}</StyledDate>
               <div style={{ clear: 'both' }} />
             </div>
           );
@@ -82,82 +207,53 @@ class Message extends React.Component {
   };
 
   render() {
-    const Page = defaultPageFactory(this.pageTitle, this.contents);
     const { classes } = this.props;
     //TODO contents内にTextFieldいれるとonChangeの挙動がおかしくなるので仮でこの形に
     return (
-      <Fragment>
-        <Page />
-        <Divider style={{ marginTop: 20, marginRight: 20, marginLeft: 20 }} />
-        <div style={{ padding: 20 }}>
-          <TextField
-            id="message-text"
-            multiline
-            rows="4"
-            placeholder="メッセージを送る"
-            value={this.state.message}
-            onChange={this.handleChange('message')}
-            className={classes.textField}
-            margin="normal"
-            disabled={this.state.isSending}
-          />
-          <Button raised color="primary" fullWidth onClick={this.sendTextMessage}>
-            送信
-          </Button>
-          <Button
-            fullWidth
-            raised
-            color="secondary"
-            onClick={() => this.props.history.push('/estimate/1')}
-          >
-            見積もりを送る
-          </Button>
-        </div>
-      </Fragment>
+      <MessagePage>
+        <MessageContainer>
+          <PageTitle>{this.pageTitle}</PageTitle>
+          <FlexWrapper>
+            <InformationContainer>
+              <Information />
+            </InformationContainer>
+
+            <RecordsContainer>
+              <this.contents />
+              <Divider style={{ marginTop: 20, marginRight: 20, marginLeft: 20 }} />
+              <div style={{ padding: 20 }}>
+                <TextField
+                  id="message-text"
+                  multiline
+                  rows="4"
+                  placeholder="メッセージを送る"
+                  value={this.state.message}
+                  onChange={this.handleChange('message')}
+                  className={classes.textField}
+                  margin="normal"
+                  disabled={this.state.isSending}
+                />
+                <Button raised color="primary" fullWidth onClick={this.sendTextMessage}>
+                  送信
+                </Button>
+                <Button
+                  fullWidth
+                  raised
+                  color="secondary"
+                  onClick={() => this.props.history.push('/estimate/1')}
+                >
+                  見積もりを送る
+                </Button>
+              </div>
+            </RecordsContainer>
+          </FlexWrapper>
+        </MessageContainer>
+      </MessagePage>
     );
   }
 }
 
 const styles = theme => ({
-  root: {
-    maxWidth: 720,
-    backgroundColor: theme.palette.background.paper,
-    margin: 'auto',
-  },
-  myMessage: {
-    float: 'right',
-    maxWidth: 200,
-    borderRadius: 5,
-    backgroundColor: red[100],
-    padding: 10,
-    marginLeft: 'auto',
-    marginRight: 20,
-    marginBottom: 10,
-    fontSize: 14,
-    wordWrap: 'break-word',
-  },
-  message: {
-    float: 'left',
-    maxWidth: 200,
-    borderRadius: 5,
-    backgroundColor: grey[100],
-    padding: 10,
-    marginRight: 'auto',
-    marginLeft: 20,
-    marginBottom: 10,
-    fontSize: 14,
-    wordWrap: 'break-word',
-  },
-  specialMessage: {
-    width: 300,
-    borderRadius: 5,
-    backgroundColor: green[100],
-    padding: 10,
-    margin: 'auto',
-    marginBottom: 10,
-    fontSize: 14,
-    wordWrap: 'break-word',
-  },
   textField: {
     width: '100%',
   },

@@ -40,6 +40,7 @@ const MessagesMenuContainer = styled.div`
 const MessagesListContainer = styled.div`
   float: right;
   width: 688px;
+  border: 1px solid #dbdbdb;
 `;
 
 const MessagesMenu = () => {
@@ -101,6 +102,55 @@ const MessagesMenu = () => {
   );
 };
 
+const MessagesItem = props => {
+  return (
+    <li
+      onClick={() => {
+        props.onClickdMessagesItem();
+      }}
+      className={props.className}
+    >
+      {props.children}
+    </li>
+  );
+};
+
+const StyledMessagesItem = styled(MessagesItem)`
+  height: 104px;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 20px;
+  display: flex;
+  :hover {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+  }
+`;
+
+const MessagesItemText = props => {
+  const PrimaryText = styled.div`
+    font-size: 14px;
+    line-height: 28px;
+  `;
+  const SecondaryText = styled.div`
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 100;
+    color: #b4b4b4;
+  `;
+  return (
+    <div className={props.className} onClick={() => props.onClick}>
+      <PrimaryText>{props.primary}</PrimaryText>
+      <SecondaryText>
+        <i className="far fa-clock" /> {props.secondary}
+      </SecondaryText>
+    </div>
+  );
+};
+
+const StyledMessagesItemText = styled(MessagesItemText)`
+  padding-left: 20px;
+`;
+
 class Messages extends React.Component {
   constructor(props) {
     super(props);
@@ -131,17 +181,17 @@ class Messages extends React.Component {
           <MessagesListContainer>
             {this.props.rooms.map((v, i) => {
               return (
-                <ListItem
+                <StyledMessagesItem
                   key={i}
                   button
                   divider
-                  onClick={() => {
+                  onClickdMessagesItem={() => {
                     history.push('/messages/' + v.id);
                   }}
                 >
                   <Avatar src={v.guestUserImgUrl} />
-                  <ListItemText primary={v.guestUserName} secondary={v.lastMessage} />
-                </ListItem>
+                  <StyledMessagesItemText primary={v.guestUserName} secondary={v.lastMessage} />
+                </StyledMessagesItem>
               );
             })}
           </MessagesListContainer>
