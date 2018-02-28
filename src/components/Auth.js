@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-
 import { authActions } from 'redux/modules/auth';
 
 class AuthComponent extends React.Component {

@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import firebase from 'firebase';
 import Login from 'components/Login';
 import { uiActions } from "../redux/modules/ui";
 import { authActions } from "../redux/modules/auth";
@@ -17,10 +16,7 @@ class LoginContainer extends React.Component {
   }
 
   loginFacebook = () => {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
-    // TODO 認証後の戻りを/login以外のページに変えられないか調査
-    // TODO authReducerに移動する
+    this.props.dispatch(authActions.loginFacebook());
   };
 
   loginEmail = () => {

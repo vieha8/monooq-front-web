@@ -64,7 +64,19 @@ export const authReducer = handleActions(
 
 //Sagas
 function* checkLoginFirebaseAuth() {
-  const isLogin = yield call(() => {
+  //TODO とりあえずここでやってるけどなんか違う気はする
+  try {
+    const result = yield firebase.auth().getRedirectResult();
+    // TODO result.additionalUserInfo.isNewUserがtrueだと新規登録なので会員登録動線に飛ばす必要あり
+    if (result.user) {
+      yield put(authActions.loginSuccess());
+    }
+  } catch (err) {
+    console.error(err);
+    yield put(authActions.loginFailed(err));
+  }
+
+  const payload = yield call(() => {
     return new Promise(resolve => {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -75,7 +87,7 @@ function* checkLoginFirebaseAuth() {
       });
     });
   });
-  yield put(authActions.checkLoginEnd(isLogin));
+  yield put(authActions.checkLoginEnd(payload));
 }
 
 function* loginEmail({ payload: { email, password } }) {
@@ -89,7 +101,7 @@ function* loginEmail({ payload: { email, password } }) {
       // 元々登録されていた場合パスワードが正しいかチェックする
       // パスワードが正しければfirebase APIでcreateUserWithEmailAndPasswordを叩く
       // firebase uidとデータを紐付けるAPIを叩く
-      firebase.auth().createUserWithEmailAndPassword(email, password);
+      yield firebase.auth().createUserWithEmailAndPassword(email, password);
     } catch (err) {
       console.error(err);
       yield put(authActions.loginFailed(err));
@@ -105,6 +117,11 @@ function* loginEmail({ payload: { email, password } }) {
   }
 }
 
+function* loginFacebook() {
+  const provider = new firebase.auth.FacebookAuthProvider();
+  yield firebase.auth().signInWithRedirect(provider);
+}
+
 function* logout() {
   yield firebase.auth().signOut();
 }
@@ -112,5 +129,6 @@ function* logout() {
 export const authSagas = [
   takeEvery(CHECK_LOGIN_START, checkLoginFirebaseAuth),
   takeEvery(LOGIN_EMAIL, loginEmail),
+  takeEvery(LOGIN_FACEBOOK, loginFacebook),
   takeEvery(LOGOUT, logout),
 ];
