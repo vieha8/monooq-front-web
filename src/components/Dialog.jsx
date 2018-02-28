@@ -1,7 +1,7 @@
 import React from 'react';
 import Dialog, { DialogContent, DialogTitle } from 'material-ui/Dialog';
 import Slide from 'material-ui/transitions/Slide';
-import { uiActions } from '../redux/modules/ui';
+import { uiActions } from 'redux/modules/ui';
 
 export default {};
 export const createDialog = (title, ButtonComponent, ContentsComponent) => {

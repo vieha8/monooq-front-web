@@ -10,6 +10,8 @@ export default {
   lightGray: '#F7F7F7',
   borderGray: '#DBDBDB',
   linkBlue: '#006494',
+  yellow: '#E7BD63',
   lightYellow: '#F5ECCE',
   orange: '#FF8000',
+  facebook: '#3B5998',
 };

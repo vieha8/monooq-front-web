@@ -6,10 +6,10 @@ import Button from 'material-ui/Button';
 import SearchIcon from 'material-ui-icons/Search';
 
 import styled from 'styled-components';
-import { FontSizes, Colors } from '../variables';
-import { media } from '../helpers/style/media-query';
-import { Footer } from '../stories/shared';
-import { uiActions } from '../redux/modules/ui';
+import { FontSizes, Colors } from 'variables';
+import { media } from 'helpers/style/media-query';
+import { uiActions } from 'redux/modules/ui';
+import { Footer } from 'components/shared';
 
 const IMAGE_URL = 'https://picsum.photos/1280/800?image=1012';
 

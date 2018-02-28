@@ -3,7 +3,7 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 
-import { createDialog } from '../../components/Dialog';
+import { createDialog } from 'components/Dialog';
 
 const openButtonComponent = props => (
   <Button color="primary" {...props}>

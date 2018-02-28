@@ -11,9 +11,9 @@ import IconButton from 'material-ui/IconButton';
 import SearchIcon from 'material-ui-icons/Search';
 import MessageIcon from 'material-ui-icons/Message';
 import Hidden from 'material-ui/Hidden';
-import logo from '../../images/monooq_logo.svg';
+import logo from 'images/monooq_logo.svg';
+import { authActions } from 'redux/modules/auth';
 import HeaderMenu from './HeaderMenu';
-import { authActions } from '../../redux/modules/auth';
 
 class Header extends React.Component {
   logout = async () => {

@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import SpaceMenu from '../Search/SpaceMenu';
 
-import { isMobileWindow, media } from '../../helpers/style/media-query';
-import { Colors, Dimens } from '../../variables';
+import { isMobileWindow, media } from 'helpers/style/media-query';
+import { Colors, Dimens } from 'variables';
 
-import { Footer } from '../../stories/shared';
+import { Footer } from 'components/shared';
 import {
   Caption,
   Card,
@@ -21,7 +21,7 @@ import {
   ReportLink,
   SendMessageButton,
   SlideImage,
-} from '../../stories/space';
+} from 'components/space';
 
 const SpacePage = styled.div`
   background: ${Colors.lightGray};

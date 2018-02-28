@@ -1,7 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { Page } from '../../stories/create-space/page/Shared';
-import AboutBaggage from '../../stories/create-space/page/AboutBaggage';
+import { Page } from 'components/create-space/page/Shared';
+import AboutBaggage from 'components/create-space/page/AboutBaggage';
+
 
 const AboutBaggageContainer = props => (
   <Page>
