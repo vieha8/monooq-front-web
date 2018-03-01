@@ -11,6 +11,7 @@ import IconButton from 'material-ui/IconButton';
 import SearchIcon from 'material-ui-icons/Search';
 import MessageIcon from 'material-ui-icons/Message';
 import Hidden from 'material-ui/Hidden';
+import { media } from 'helpers/style/media-query';
 import logo from 'images/monooq_logo.svg';
 import { authActions } from 'redux/modules/auth';
 
@@ -20,6 +21,9 @@ import HeaderMenu from './HeaderMenu';
 const Root = styled.div`
   width: 100%;
   margin-bottom: 100px;
+  ${media.phone`
+    margin-bottom: 80px;
+  `};
 `;
 
 const StyledAppBar = styled(AppBar)`
