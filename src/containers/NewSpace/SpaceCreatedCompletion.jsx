@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
-import { Page } from 'components/create-space/page/Shared';
-import SpaceCratedCompletion from 'components/create-space/page/SpaceCreatedCompletion';
+import { Page } from 'components/NewSpace/page/Shared';
+import SpaceCratedCompletion from 'components/NewSpace/page/SpaceCreatedCompletion';
 
 const SpaceCratedCompletionContainer = props => (
   <Page>

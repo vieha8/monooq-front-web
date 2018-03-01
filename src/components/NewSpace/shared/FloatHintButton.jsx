@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { uiActions } from 'redux/modules/ui';
+import Icon from 'components/Shared/Icon';
 import HintBoxMobile from '../shared/HintBoxMobile';
-import Icon from '../../shared/Icon';
 
 const BUTTON_SIZE = 60;
 

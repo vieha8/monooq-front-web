@@ -5,16 +5,16 @@ import { ConnectedRouter } from 'react-router-redux';
 import Top from 'containers/Top';
 import SearchPage from 'containers/Search/SearchPage';
 import SpacePage from 'containers/Space/SpacePage';
-import CreateSpaceSpaceInfo from 'containers/CreateSpace/SpaceInfo';
-import AboutBaggage from 'containers/CreateSpace/AboutBaggage';
-import ReceiveBaggage from 'containers/CreateSpace/ReceiveBaggage';
-import SpaceSize from 'containers/CreateSpace/SpaceSize';
-import AboutPrice from 'containers/CreateSpace/AboutPrice';
-import AllUsePrice from 'containers/CreateSpace/AllUsePrice';
-import SpaceCreatedCompletion from 'containers/CreateSpace/SpaceCreatedCompletion';
+import NewSpaceSpaceInfo from 'containers/NewSpace/SpaceInfo';
+import AboutBaggage from 'containers/NewSpace/AboutBaggage';
+import ReceiveBaggage from 'containers/NewSpace/ReceiveBaggage';
+import SpaceSize from 'containers/NewSpace/SpaceSize';
+import AboutPrice from 'containers/NewSpace/AboutPrice';
+import AllUsePrice from 'containers/NewSpace/AllUsePrice';
+import SpaceCreatedCompletion from 'containers/NewSpace/SpaceCreatedCompletion';
 import Message from 'containers/Message/';
 import Messages from 'containers/Messages/';
-import Signup from 'containers/Signup';
+import SignUp from 'containers/SignUp';
 import ProfileForm from 'containers/ProfileForm';
 import Profile from 'containers/Profile';
 import SpaceForm from 'containers/SpaceForm';
@@ -39,7 +39,7 @@ export const routes = {
   },
   spaceNewInfo: {
     path: '/space/new/info',
-    component: CreateSpaceSpaceInfo,
+    component: NewSpaceSpaceInfo,
   },
   spaceNewBaggage: {
     path: '/space/new/about_baggage',
@@ -79,7 +79,7 @@ export const routes = {
   },
   signup: {
     path: '/signup',
-    component: Signup,
+    component: SignUp,
   },
   editProfile: {
     path: '/edit/profile/:user_id',

@@ -20,8 +20,17 @@ const MessagesPage = styled.div`
 `;
 
 const MessagesContainer = styled.div`
-  width: 1048px;
+  max-width: 1048px;
   margin: 0 auto;
+  ${media.phone`
+    width: 100%;
+  `};
+`;
+
+const FlexWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const PageTitle = styled.div`
@@ -29,16 +38,24 @@ const PageTitle = styled.div`
   line-height: 51px;
   letter-spacing: -0.5px;
   margin-bottom: 52px;
+  ${media.phone`
+    font-size: 22px;
+    line-height: inherit;
+    padding: 0 20px;
+    margin-bottom: 20px;
+  `};
 `;
 
 const MessagesMenuContainer = styled.div`
-  float: left;
   width: 328px;
+  ${media.phone`
+    display: none;
+  `};
 `;
 
 const MessagesListContainer = styled.div`
-  float: right;
   width: 688px;
+  border: 1px solid #dbdbdb;
 `;
 
 const MessagesMenu = () => {
@@ -48,14 +65,19 @@ const MessagesMenu = () => {
     `};
   `;
 
-  const Item = props => {
+  const MenuIcon = styled.span`
+    font-size: 1.5rem;
+    float: right;
+  `;
+
+  const MenuItem = props => {
     const StyledContainer = styled.li`
       width: 100%;
       height: 57px;
       line-height: 57px;
       font-size: 14px;
       color: rgba(0, 0, 0, 0.5);
-      padding-left: 18px;
+      padding: 0 18px;
       :hover {
         cursor: pointer;
         background: rgba(0, 0, 0, 0.1);
@@ -63,26 +85,90 @@ const MessagesMenu = () => {
       ${media.phone`
       `};
     `;
-    // {TODO}通知iconを追加
     return (
       <StyledContainer>
-        <span>{props.title}</span>
+        {props.title}
+        {props.notice ? (
+          <MenuIcon>
+            <span className="fa-layers fa-fw">
+              <i className="fas fa-circle" style={{ color: '#e85258' }} />
+              <span className="fa-layers-text fa-inverse" data-fa-transform="shrink-9">
+                99
+              </span>
+            </span>
+          </MenuIcon>
+        ) : (
+          ``
+        )}
       </StyledContainer>
     );
   };
 
   return (
     <Menu>
-      <Item title="メッセージ" />
-      <Item title="預かりスケジュール" />
-      <Item title="支払い履歴" />
-      <Item title="ホストになる" />
-      <Item title="ホストモードに切り替える" />
-      <Item title="お問い合わせ" />
-      <Item title="ログアウト" />
+      <MenuItem title="メッセージ" notice={true} />
+      <MenuItem title="預かりスケジュール" />
+      <MenuItem title="支払い履歴" notice={true} />
+      <MenuItem title="ホストになる" />
+      <MenuItem title="ホストモードに切り替える" />
+      <MenuItem title="お問い合わせ" />
+      <MenuItem title="ログアウト" />
     </Menu>
   );
 };
+
+const MessagesItem = props => {
+  return (
+    <li
+      onClick={() => {
+        props.onClickdMessagesItem();
+      }}
+      className={props.className}
+    >
+      {props.children}
+    </li>
+  );
+};
+
+const StyledMessagesItem = styled(MessagesItem)`
+  height: 104px;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 20px;
+  display: flex;
+  :hover {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+  }
+`;
+
+const MessagesItemText = props => {
+  const PrimaryText = styled.div`
+    font-size: 14px;
+    line-height: 28px;
+    ${media.phone`
+      font-size: 11px;
+      line-height: 18px;
+    `};
+  `;
+  const SecondaryText = styled.div`
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 100;
+    color: #b4b4b4;
+  `;
+  return (
+    <div className={props.className} onClick={() => props.onClick}>
+      <PrimaryText>{props.primary}</PrimaryText>
+      <SecondaryText>
+        <i className="far fa-clock" /> {props.secondary}
+      </SecondaryText>
+    </div>
+  );
+};
+
+const StyledMessagesItemText = styled(MessagesItemText)`
+  padding-left: 20px;
+`;
 
 class Messages extends React.Component {
   constructor(props) {
@@ -107,27 +193,29 @@ class Messages extends React.Component {
       <MessagesPage>
         <MessagesContainer>
           <PageTitle>{this.pageTitle}一覧</PageTitle>
-          <MessagesMenuContainer>
-            <MessagesMenu />
-          </MessagesMenuContainer>
+          <FlexWrapper>
+            <MessagesMenuContainer>
+              <MessagesMenu />
+            </MessagesMenuContainer>
 
-          <MessagesListContainer>
-            {this.props.rooms.map((v, i) => {
-              return (
-                <ListItem
-                  key={i}
-                  button
-                  divider
-                  onClick={() => {
-                    history.push('/messages/' + v.id);
-                  }}
-                >
-                  <Avatar src={v.guestUserImgUrl} />
-                  <ListItemText primary={v.guestUserName} secondary={v.lastMessage} />
-                </ListItem>
-              );
-            })}
-          </MessagesListContainer>
+            <MessagesListContainer>
+              {this.props.rooms.map((v, i) => {
+                return (
+                  <StyledMessagesItem
+                    key={i}
+                    button
+                    divider
+                    onClickdMessagesItem={() => {
+                      history.push('/messages/' + v.id);
+                    }}
+                  >
+                    <Avatar src={v.guestUserImgUrl} />
+                    <StyledMessagesItemText primary={v.guestUserName} secondary={v.lastMessage} />
+                  </StyledMessagesItem>
+                );
+              })}
+            </MessagesListContainer>
+          </FlexWrapper>
 
           {(() => {
             if (this.props.rooms.length === 0) {

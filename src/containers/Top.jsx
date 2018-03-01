@@ -9,7 +9,7 @@ import styled from 'styled-components';
 import { FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { uiActions } from 'redux/modules/ui';
-import { Footer } from 'components/shared';
+import { Footer } from 'components/Shared';
 
 const IMAGE_URL = 'https://picsum.photos/1280/800?image=1012';
 

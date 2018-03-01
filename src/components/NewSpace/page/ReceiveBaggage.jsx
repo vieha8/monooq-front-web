@@ -1,6 +1,6 @@
 import React from 'react';
 import { routes } from 'config/routes';
-import FloatHintButton from 'containers/CreateSpace/FloatHintButton';
+import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Button, { ButtonsContainer } from '../shared/Button';

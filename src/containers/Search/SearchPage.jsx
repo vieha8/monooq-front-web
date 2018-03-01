@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
-import {withStyles} from 'material-ui/styles';
-import {CircularProgress} from 'material-ui/Progress';
+import { connect } from 'react-redux';
+import { withStyles } from 'material-ui/styles';
+import { CircularProgress } from 'material-ui/Progress';
 
-import {searchActions} from 'redux/modules/search';
-import {isMobileWindow, media} from 'helpers/style/media-query';
-import {Footer} from 'components/shared';
-import {ResultList} from 'components/search';
-import {Colors, Dimens, FontSizes} from 'variables/';
+import { searchActions } from 'redux/modules/search';
+import { isMobileWindow, media } from 'helpers/style/media-query';
+import { Footer } from 'components/Shared';
+import { ResultList } from 'components/Search';
+import { Colors, Dimens, FontSizes } from 'variables/';
 
-import {spaceList} from './mock';
+import { spaceList } from './mock';
 
 const SearchPageContainer = styled.div`
 `;
@@ -54,7 +54,7 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
 
-    const {match, dispatch} = props;
+    const { match, dispatch } = props;
 
     dispatch(searchActions.fetchStartSearch(match.params.location));
   }
@@ -66,13 +66,13 @@ class Search extends React.Component {
       />
     ) : (
       <ProgressContainer>
-        <CircularProgress className={this.props.classes.progress} size={50}/>
+        <CircularProgress className={this.props.classes.progress} size={50} />
       </ProgressContainer>
     )
   )
 
   render() {
-    const {match} = this.props;
+    const { match } = this.props;
     return (
       <SearchPageContainer>
         <ContentContainer>
@@ -86,7 +86,7 @@ class Search extends React.Component {
           </SelectContainer>
           {this.showSpaceList()}
         </ContentContainer>
-        {!isMobileWindow() && <Footer/>}
+        {!isMobileWindow() && <Footer />}
       </SearchPageContainer>
     );
   }

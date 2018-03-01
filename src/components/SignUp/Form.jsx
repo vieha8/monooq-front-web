@@ -43,6 +43,7 @@ const LinkText = styled.a`
   font-size: ${FontSizes.xsmall}px;
   color: ${Colors.linkBlue};
   margin-top: ${Dimens.medium}px;
+  line-height: 1.6;
 `;
 
 const ButtonWrapper = styled.div`
@@ -67,7 +68,7 @@ const ToSignUpLinkCointainer = styled.div`
 export default props => (
   <Container>
     <Logo src={logoUri} />
-    <Title>ログインする</Title>
+    <Title>登録する</Title>
     <InputContainer>
       <InputWrapper>
         <Input
@@ -84,39 +85,50 @@ export default props => (
         <Input
           type="password"
           placeholder="パスワード"
-          icon="lock"
+          icon="unlock"
           iconPosition="left"
           fluid
           value={props.password}
           onChange={props.handleChangePassword}
         />
       </InputWrapper>
+      <InputWrapper>
+        <Input
+          type="password"
+          placeholder="パスワードを再入力"
+          icon="unlock alternate"
+          iconPosition="left"
+          fluid
+          value={props.password}
+          onChange={props.handleChangeRePassword}
+        />
+      </InputWrapper>
     </InputContainer>
-    <LinkText href="/">パスワードを忘れた方はこちら</LinkText>
+    <LinkText href="/">利用規約とプライバシーポリシーに同意の上、次へボタンを押してください。</LinkText>
     <ButtonWrapper>
       <Button
         bgColor={Colors.pink}
         fluid
-        onClick={props.onClickLoginEmail}
+        onClick={props.onClickSignUpEmail}
       >
-        ログインする
+        次へ
       </Button>
     </ButtonWrapper>
     <ButtonWrapper>
-      <OtherLoginLabel>お持ちのアカウントでログイン</OtherLoginLabel>
+      <OtherLoginLabel>お持ちのアカウントで登録</OtherLoginLabel>
       <Button
         bgColor={Colors.facebook}
         fluid
-        onClick={props.onClickLoginFacebook}
+        onClick={props.onClickSignUpFacebook}
       >
         <IconWrapper>
           <Icon name="facebook square" />
         </IconWrapper>
-        Facebookでログインする
+        Facebookで登録
       </Button>
     </ButtonWrapper>
     <ToSignUpLinkCointainer>
-      <LinkText href="/signup">初めてのご利用ですか？新規登録はこちら</LinkText>
+      <LinkText href="/login">ログインはこちら</LinkText>
     </ToSignUpLinkCointainer>
   </Container>
 );
