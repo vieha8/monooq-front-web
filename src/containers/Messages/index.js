@@ -5,6 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import authRequired from 'components/Auth';
 import { createRoom, messagesActions } from 'redux/modules/messages';
+import { Footer } from 'components/Shared';
 
 import Button from 'material-ui/Button';
 
@@ -18,7 +19,7 @@ const MessagesPage = styled.div`
 
 const MessagesContainer = styled.div`
   max-width: 1048px;
-  margin: 0 auto;
+  margin: 0 auto 100px;
   ${media.phone`
     width: 100%;
   `};
@@ -220,6 +221,7 @@ class Messages extends React.Component {
             }
           })()}
         </MessagesContainer>
+        <Footer />
       </MessagesPage>
     );
   }
