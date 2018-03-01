@@ -29,20 +29,20 @@ const Image = styled.img`
 const Text = styled.span`
   display: block;
   font-size: ${FontSizes.medium}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
 `;
 
 const Price = styled.span`
   display: block;
   font-size: ${FontSizes.medium}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   margin-top: ${Dimens.medium}px;
 `;
 
 const Caption = styled.span`
   display: block;
   font-size: ${FontSizes.xsmall}px;
-  color: ${Colors.gray};
+  color: ${Colors.darkGray2};
   margin-top: ${Dimens.medium}px;
 `;
 

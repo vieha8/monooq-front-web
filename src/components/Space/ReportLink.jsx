@@ -21,7 +21,7 @@ const Text = styled.a`
   display: inline-block;
   vertical-align: middle;
   font-size: ${FontSizes.small}px;
-  color: ${Colors.gray};
+  color: ${Colors.darkGray2};
   margin-left: ${Dimens.small}px;
   text-decoration: none;
   cursor: pointer;
@@ -30,7 +30,7 @@ const Text = styled.a`
 export default props => (
   <Container>
     <IconWrapper>
-      <FlagIcon style={{ color: Colors.gray }}/>
+      <FlagIcon style={{ color: Colors.darkGray2 }}/>
     </IconWrapper>
     <Text href="/">不適切な内容を報告</Text>
   </Container>

@@ -25,7 +25,7 @@ const Logo = styled.img`
 `;
 
 const Title = styled.div`
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium2}px;
   margin-top: ${Dimens.medium}px;
 `;
@@ -45,7 +45,7 @@ const ButtonWrapper = styled.div`
 const CaptionText = styled.div`
   margin-top: ${Dimens.medium2}px;
   font-size: ${FontSizes.xsmall}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   text-align: center;
   line-height: 1.6;
 `;
@@ -53,7 +53,7 @@ const CaptionText = styled.div`
 const HelpText = styled.div`
   margin-top: ${Dimens.medium3}px;
   font-size: ${FontSizes.xsmall}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
 `;
 
 export default props => (
@@ -73,7 +73,7 @@ export default props => (
     </InputContainer>
     <ButtonWrapper>
       <Button
-        bgColor={Colors.pink}
+        bgColor={Colors.brandPrimary}
         fluid
         onClick={props.onClickAuthTel}
       >
@@ -85,7 +85,7 @@ export default props => (
       <Button
         basic
         bgColor={Colors.white}
-        fontColor={Colors.black}
+        fontColor={Colors.darkGray1}
         fluid
         onClick={props.onClickReSendSMS}
       >
@@ -96,7 +96,7 @@ export default props => (
       <Button
         basic
         bgColor={Colors.white}
-        fontColor={Colors.black}
+        fontColor={Colors.darkGray1}
         fluid
         onClick={props.onClickCallToPin}
       >

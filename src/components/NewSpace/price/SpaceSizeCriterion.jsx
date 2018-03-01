@@ -29,7 +29,7 @@ const Card = styled.div`
   border: 1px solid ${Colors.borderGray};
   border-radius: 3px;
   ${props => props.selected && `
-    background: ${Colors.lightPink};
+    background: ${Colors.brandTerciary};
   `}
   ${media.phone`
     height: 100px;
@@ -37,7 +37,7 @@ const Card = styled.div`
 `;
 
 const Text = styled.div`
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium}px;
   line-height: 1.6;
   ${media.phone`

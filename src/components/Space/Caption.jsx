@@ -5,7 +5,7 @@ import { FontSizes, Colors } from 'variables';
 const Text = styled.span`
   display: block;
   font-size: ${FontSizes.medium}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   line-height: 2;
 `;
 

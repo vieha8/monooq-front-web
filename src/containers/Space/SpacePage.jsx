@@ -25,7 +25,7 @@ import {
 import SpaceMenu from 'containers/Search/SpaceMenu';
 
 const SpacePage = styled.div`
-  background: ${Colors.lightGray};
+  background: ${Colors.lightGray2Bg};
 `;
 
 const CardContainer = styled.div`

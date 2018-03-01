@@ -17,7 +17,7 @@ import topImage2 from 'images/top2.png';
 
 const TopPage = styled.div`
   margin-top: -20px;
-  background: ${Colors.lightGray};
+  background: ${Colors.lightGray2Bg};
 `;
 
 const TopView = styled.div`
@@ -412,7 +412,6 @@ const PickGoDescription = styled.div`
 const LineUpNewsMedia = () => {
   const style = {
     title: {
-      fontFamily: 'sans-serif',
       fontSize: '22px',
       marginBottom: '40px',
     },

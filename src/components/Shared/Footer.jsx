@@ -30,7 +30,7 @@ const Copyright = styled.span`
   font-size: ${FontSizes.xsmall}px;
   text-align: right;
   vertical-align: middle;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   padding: ${Dimens.medium2}px ${Dimens.small}px;
   float: right;
 `;

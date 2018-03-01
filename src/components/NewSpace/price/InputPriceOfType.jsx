@@ -56,14 +56,14 @@ const ImageContainer = styled.div`
 
 const Title = styled.span`
   display: block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.small}px;
 `;
 
 const Caption = styled.span`
   display: block;
   width: 160px;
-  color: ${Colors.gray};
+  color: ${Colors.darkGray2};
   font-size: ${FontSizes.xsmall}px;
   margin-top: ${Dimens.medium2}px;
   line-height: 1.6;
@@ -83,7 +83,7 @@ const PriceWrapper = styled.div`
 
 const Unit = styled.span`
   display: inline-block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.small}px;
   margin-left: ${Dimens.small}px;
 `;

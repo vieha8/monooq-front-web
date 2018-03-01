@@ -64,7 +64,7 @@ const Button = styled.button`
 const SubText = styled.span`
   display: inline-block;
   font-size: ${FontSizes.xsmall}px;
-  color: ${Colors.gray};
+  color: ${Colors.darkGray2};
   margin-top: ${Dimens.medium}px;
 
   ${media.phone`

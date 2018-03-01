@@ -20,7 +20,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium2}px;
 `;
 
@@ -51,7 +51,7 @@ const WelcomeText = styled.span`
 const CaptionText = styled.div`
   margin-bottom: ${Dimens.medium}px;
   font-size: ${FontSizes.xsmall}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   text-align: left;
   line-height: 1.6;
 `;
@@ -68,7 +68,7 @@ export default props => (
       <ButtonWrapper>
         <CaptionText>荷物を預ける場所をお探しですか？</CaptionText>
         <Button
-          bgColor={Colors.pink}
+          bgColor={Colors.brandPrimary}
           fluid
           onClick={props.onClickGuest}
         >
@@ -79,8 +79,8 @@ export default props => (
         <CaptionText>誰かのお役に立てるスペースを掲載しますか？</CaptionText>
         <Button
           bgColor={Colors.white}
-          fontColor={Colors.pink}
-          borderColor={Colors.pink}
+          fontColor={Colors.brandPrimary}
+          borderColor={Colors.brandPrimary}
           fluid
           onClick={props.onClickHost}
         >

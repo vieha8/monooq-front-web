@@ -12,7 +12,7 @@ const styles = {
   select: {
     width: '100%',
     marginTop: `${Dimens.medium}px`,
-    color: Colors.black,
+    color: Colors.darkGray1,
     fontSize: FontSizes.medium,
   },
 };

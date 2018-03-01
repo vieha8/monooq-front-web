@@ -24,7 +24,7 @@ const Logo = styled.img`
 `;
 
 const Title = styled.div`
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium2}px;
   margin-top: ${Dimens.medium}px;
 `;
@@ -36,7 +36,7 @@ const ButtonWrapper = styled.div`
 const CaptionText = styled.div`
   margin-top: ${Dimens.large}px;
   font-size: ${FontSizes.xsmall}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   text-align: center;
   line-height: 1.6;
 `;
@@ -48,7 +48,7 @@ export default props => (
     <CaptionText>プロフィール登録画面へ進みます。</CaptionText>
     <ButtonWrapper>
       <Button
-        bgColor={Colors.pink}
+        bgColor={Colors.brandPrimary}
         fluid
         onClick={props.onClickToProfile}
       >

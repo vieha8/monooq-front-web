@@ -12,10 +12,7 @@ import Button from 'material-ui/Button';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 
-const MessagesPage = styled.div`
-  background: #fff;
-  font-family: sans-serif;
-`;
+const MessagesPage = styled.div``;
 
 const MessagesContainer = styled.div`
   max-width: 1048px;

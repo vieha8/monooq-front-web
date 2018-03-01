@@ -11,10 +11,7 @@ import styled from 'styled-components';
 import { FontSizes, Colors } from 'variables';
 import { media } from '../../helpers/style/media-query';
 
-const MessagePage = styled.div`
-  background: #fff;
-  font-family: sans-serif;
-`;
+const MessagePage = styled.div``;
 
 const MessageContainer = styled.div`
   max-width: 1048px;
@@ -235,7 +232,7 @@ const AddMessageTextarea = styled.textarea`
   width: 100%;
   height: 160px;
   font-size: 14px;
-  color: #bcbcbc;
+  color: ${Colors.darkGray1};
   padding: 15px;
   margin-bottom: 20px;
   box-sizing: border-box;
@@ -243,8 +240,11 @@ const AddMessageTextarea = styled.textarea`
   border-radius: 2px;
   background-color: #fafafa;
   resize: none;
-  &::-webkit-input-placeholder {
-    color: #bcbcbc;
+  &:placeholder-shown,
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder {
+    color: ${Colors.lightGray1};
   }
 `;
 

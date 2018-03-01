@@ -6,7 +6,7 @@ import { FontSizes, Colors } from 'variables';
 const Text = styled.h2`
   display: block;
   font-size: ${FontSizes.large}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   line-height: 2;
   
   ${media.phone`

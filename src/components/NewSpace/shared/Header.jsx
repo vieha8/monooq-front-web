@@ -9,7 +9,7 @@ const Container = styled.div`
 
 const Header = styled.h1`
   display: block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.xlarge}px;
   ${media.phone`
     font-size: ${FontSizes.large}px;
@@ -18,7 +18,7 @@ const Header = styled.h1`
 
 const SubHeader = styled.h2`
   display: block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.large}px;
   margin-top: ${Dimens.large}px;
   ${media.phone`

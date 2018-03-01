@@ -8,14 +8,14 @@ const Container = styled.div`
 
 const Title = styled.h3`
   display: block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium}px;
   line-height: 2;
 `;
 
 const SubTitle = styled.span`
   display: block;
-  color: ${Colors.gray};
+  color: ${Colors.darkGray2};
   font-size: ${FontSizes.small}px;
   margin-top: ${Dimens.medium}px;
   line-height: 1.6;
