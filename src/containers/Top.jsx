@@ -56,7 +56,7 @@ const CatchPhrase = styled.div`
     font-size: 28px;
     line-height: 48px;
     width: 100%;
-    height: inherit;
+    height: auto;
   `};
 `;
 
@@ -78,6 +78,7 @@ const SearchWrapper = styled.div`
   position: relative;
   margin-top: 20px;
   margin-bottom: 40px;
+  overflow: hidden;
   ${media.phone`
     width: calc(100vw - 20px);
   `};
@@ -104,8 +105,10 @@ const SearchInput = styled.input`
 const SearchButton = styled(Button)`
   &&& {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0;
+    right: -10px;
+    height: 100%;
+    padding: 0;
     background-color: transparent;
     box-shadow: none;
   }
