@@ -4,15 +4,6 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { uiActions } from 'redux/modules/ui';
 
-import styled from 'styled-components';
-import { Colors } from 'variables';
-
-const StyledMoreVertIcon = styled(MoreVertIcon)`
-  && {
-    color: ${Colors.white};
-  }
-`;
-
 class HeaderMenu extends React.Component {
   constructor(props) {
     super(props);
@@ -71,7 +62,7 @@ class HeaderMenu extends React.Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <StyledMoreVertIcon />
+          <MoreVertIcon />
         </IconButton>
         <Menu
           id="simple-menu"

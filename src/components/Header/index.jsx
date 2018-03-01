@@ -18,32 +18,6 @@ import styled from 'styled-components';
 import { Colors } from 'variables';
 import HeaderMenu from './HeaderMenu';
 
-const StyledAppBar = styled(AppBar)`
-  && {
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: none;
-    height: 80px;
-  }
-`;
-
-const StyledToolbar = styled(Toolbar)`
-  && {
-    height: 100%;
-  }
-`;
-
-const StyledIconButton = styled(IconButton)`
-  && {
-    color: ${Colors.white};
-  }
-`;
-
-const StyledButton = styled(Button)`
-  && {
-    color: ${Colors.white};
-  }
-`;
-
 class Header extends React.Component {
   logout = async () => {
     this.props.dispatch(authActions.logout());
@@ -55,21 +29,21 @@ class Header extends React.Component {
     if (this.props.isLogin) {
       return (
         <Fragment>
-          <StyledIconButton
+          <IconButton
             className={classes.searchButton}
             aria-label="Message"
             onClick={() => this.props.history.push('/messages')}
           >
             <MessageIcon />
-          </StyledIconButton>
+          </IconButton>
         </Fragment>
       );
     }
     return (
       <Fragment>
         <Hidden xsDown>
-          <StyledButton onClick={() => this.props.history.push('/login')}>ログイン</StyledButton>
-          <StyledButton onClick={() => this.props.history.push('/signup')}>登録</StyledButton>
+          <Button onClick={() => this.props.history.push('/login')}>ログイン</Button>
+          <Button onClick={() => this.props.history.push('/signup')}>登録</Button>
         </Hidden>
       </Fragment>
     );
@@ -78,31 +52,35 @@ class Header extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div>
-        <StyledAppBar position="fixed" color="default">
-          <StyledToolbar>
+      <div className={classes.root}>
+        <AppBar position="fixed" color="default">
+          <Toolbar>
             <Typography type="title" className={classes.flex}>
               <Link to="/">
                 <img src={logo} alt="logo" width="150" />
               </Link>
             </Typography>
-            <StyledIconButton
+            <IconButton
               className={classes.searchButton}
               aria-label="Search"
               onClick={() => this.props.history.push('/search/東京都')}
             >
               <SearchIcon />
-            </StyledIconButton>
+            </IconButton>
             {this.renderLoginComponent()}
             <HeaderMenu {...this.props} logout={this.logout} />
-          </StyledToolbar>
-        </StyledAppBar>
+          </Toolbar>
+        </AppBar>
       </div>
     );
   }
 }
 
 const styles = {
+  root: {
+    width: '100%',
+    marginBottom: 80,
+  },
   flex: {
     flex: 1,
   },
