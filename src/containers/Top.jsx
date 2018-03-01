@@ -395,12 +395,12 @@ const LineUpNewsMedia = () => {
     <div style={style.root}>
       <div style={style.title}>メディア掲載</div>
       <div style={style.list}>
-        <img src="http://placehold.jp/114x26.png" />
-        <img src="http://placehold.jp/114x26.png" />
-        <img src="http://placehold.jp/114x26.png" />
-        <img src="http://placehold.jp/114x26.png" />
-        <img src="http://placehold.jp/114x26.png" />
-        <img src="http://placehold.jp/114x26.png" />
+        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
+        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
+        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
+        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
+        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
+        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
       </div>
     </div>
   );

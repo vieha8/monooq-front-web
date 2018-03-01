@@ -1,22 +1,14 @@
-import React, { Fragment } from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { withStyles } from 'material-ui/styles';
-import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
-import TextField from 'material-ui/TextField';
-import red from 'material-ui/colors/red';
-import grey from 'material-ui/colors/grey';
-import green from 'material-ui/colors/green';
-import { defaultPageFactory } from 'components/PageLayouts';
+import React from 'react';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+import {withStyles} from 'material-ui/styles';
 import authRequired from 'components/Auth';
-import { messagesActions } from 'redux/modules/messages';
-import { uiActions } from 'redux/modules/ui';
+import {messagesActions} from 'redux/modules/messages';
+import {uiActions} from 'redux/modules/ui';
 
 import styled from 'styled-components';
-import { isMobileWindow, media } from '../../helpers/style/media-query';
-import { Colors, Dimens } from '../../variables';
+import {media} from '../../helpers/style/media-query';
 
 const MessagePage = styled.div`
   background: #fff;
@@ -393,7 +385,6 @@ class Message extends React.Component {
 
           let RecordComponent = () => <StyledRecord myMessage date={date} text={message.text} />;
 
-          let className = classes.myMessage;
           if (message.userId !== userId) {
             RecordComponent = () => <StyledRecord date={date} text={message.text} />;
           }
@@ -420,7 +411,7 @@ class Message extends React.Component {
   };
 
   render() {
-    const { classes, ui  } = this.props;
+    const { ui  } = this.props;
     //TODO contents内にTextFieldいれるとonChangeの挙動がおかしくなるので仮でこの形に
     return (
       <MessagePage>
