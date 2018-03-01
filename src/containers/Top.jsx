@@ -472,7 +472,7 @@ class Top extends React.Component {
     return (
       <TopPage>
         <TopView>
-          <TopViewFilter className={classes.contents}>
+          <TopViewFilter>
             <Monooq>monooQ</Monooq>
             <CatchPhrase>
               個人間だからできる、<br />荷物を預けるための新しい方法。
@@ -489,7 +489,6 @@ class Top extends React.Component {
                 margin="normal"
               />
               <SearchButton
-                className={classes.button}
                 fab
                 color="primary"
                 mini
@@ -586,16 +585,8 @@ class Top extends React.Component {
   }
 }
 
-const styles = theme => ({
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
-});
-
 const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Top));
+export default connect(mapStateToProps)(Top);

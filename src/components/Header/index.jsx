@@ -17,10 +17,24 @@ import { authActions } from 'redux/modules/auth';
 import styled from 'styled-components';
 import HeaderMenu from './HeaderMenu';
 
+const Root = styled.div`
+  width: 100%;
+  margin-bottom: 100px;
+`;
+
 const StyledAppBar = styled(AppBar)`
   && {
     box-shadow: none;
   }
+`;
+
+const StyledTypography = styled(Typography)`
+  flex: 1;
+`;
+
+const StyledIconButton = styled(IconButton)`
+  margin-left: -12px;
+  margin-right: 20px;
 `;
 
 class Header extends React.Component {
@@ -34,13 +48,12 @@ class Header extends React.Component {
     if (this.props.isLogin) {
       return (
         <Fragment>
-          <IconButton
-            className={classes.searchButton}
+          <StyledIconButton
             aria-label="Message"
             onClick={() => this.props.history.push('/messages')}
           >
             <MessageIcon />
-          </IconButton>
+          </StyledIconButton>
         </Fragment>
       );
     }
@@ -57,43 +70,28 @@ class Header extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
+      <Root>
         <StyledAppBar position="fixed" color="default">
           <Toolbar>
-            <Typography type="title" className={classes.flex}>
+            <StyledTypography type="title">
               <Link to="/">
                 <img src={logo} alt="logo" width="150" />
               </Link>
-            </Typography>
-            <IconButton
-              className={classes.searchButton}
+            </StyledTypography>
+            <StyledIconButton
               aria-label="Search"
               onClick={() => this.props.history.push('/search/東京都')}
             >
               <SearchIcon />
-            </IconButton>
+            </StyledIconButton>
             {this.renderLoginComponent()}
             <HeaderMenu {...this.props} logout={this.logout} />
           </Toolbar>
         </StyledAppBar>
-      </div>
+      </Root>
     );
   }
 }
-
-const styles = {
-  root: {
-    width: '100%',
-    marginBottom: 80,
-  },
-  flex: {
-    flex: 1,
-  },
-  searchButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-};
 
 const mapStateToProps = state => ({
   isLogin: state.auth.isLogin,
@@ -102,4 +100,4 @@ const mapStateToProps = state => ({
 });
 
 // TODO composeでまとめる
-export default connect(mapStateToProps)(withRouter(withStyles(styles)(Header)));
+export default connect(mapStateToProps)(withRouter(Header));
