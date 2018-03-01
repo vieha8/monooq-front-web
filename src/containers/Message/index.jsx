@@ -1,14 +1,14 @@
 import React from 'react';
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
-import {withStyles} from 'material-ui/styles';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { withStyles } from 'material-ui/styles';
 import authRequired from 'components/Auth';
-import {messagesActions} from 'redux/modules/messages';
-import {uiActions} from 'redux/modules/ui';
+import { messagesActions } from 'redux/modules/messages';
+import { uiActions } from 'redux/modules/ui';
 
 import styled from 'styled-components';
-import {media} from '../../helpers/style/media-query';
+import { media } from '../../helpers/style/media-query';
 
 const MessagePage = styled.div`
   background: #fff;
@@ -332,17 +332,21 @@ class Message extends React.Component {
     this.pageTitle = 'Masaya Kudoさんとのメッセージ'; // TODO ルーム情報を取得する
     this.roomId = props.match.params.room_id; // TODO roomId書き換えで関係ないルームのデータを取得できないようにする
     this.props.dispatch(messagesActions.fetchMessagesStart(this.roomId));
-    this.props.dispatch(uiActions.setUiState({
-      message: '',
-      isSend: false,
-      isSending: false,
-    }));
+    this.props.dispatch(
+      uiActions.setUiState({
+        message: '',
+        isSend: false,
+        isSending: false,
+      }),
+    );
   }
 
-  handleChange = (event) => {
-    this.props.dispatch(uiActions.setUiState({
-      message: event.target.value,
-    }));
+  handleChange = event => {
+    this.props.dispatch(
+      uiActions.setUiState({
+        message: event.target.value,
+      }),
+    );
   };
 
   sendTextMessage = () => {
@@ -357,16 +361,18 @@ class Message extends React.Component {
         text: ui.message,
       }),
     );
-    this.props.dispatch(uiActions.setUiState({
-      message: '',
-    }));
+    this.props.dispatch(
+      uiActions.setUiState({
+        message: '',
+      }),
+    );
   };
 
   contents = () => {
     const { classes, messages, userId } = this.props;
     return (
       <div className={classes.root}>
-        {messages.map((message) => {
+        {messages.map(message => {
           const date = message.createDt.toLocaleDateString('ja-JP', {
             year: '2-digit',
             month: '2-digit',
@@ -411,7 +417,7 @@ class Message extends React.Component {
   };
 
   render() {
-    const { ui  } = this.props;
+    const { ui } = this.props;
     //TODO contents内にTextFieldいれるとonChangeの挙動がおかしくなるので仮でこの形に
     return (
       <MessagePage>
