@@ -11,7 +11,6 @@ import { media } from 'helpers/style/media-query';
 import { uiActions } from 'redux/modules/ui';
 import { Footer } from 'components/Shared';
 
-const IMAGE_URL = 'https://picsum.photos/1280/800?image=1012';
 import mainVisual from 'images/main_visual.jpg';
 import topImage1 from 'images/top1.png';
 import topImage2 from 'images/top2.png';
