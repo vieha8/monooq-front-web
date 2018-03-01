@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { uiActions } from 'redux/modules/ui';
 import { routes } from 'config/routes';
-import FloatHintButton from 'containers/CreateSpace/FloatHintButton';
+import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Button, { ButtonsContainer } from '../shared/Button';

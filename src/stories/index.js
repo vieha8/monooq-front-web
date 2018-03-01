@@ -4,14 +4,14 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import SpaceInfo from 'components/create-space/page/SpaceInfo';
-import AboutBaggage from 'components/create-space/page/AboutBaggage';
-import ReceiveBaggage from 'components/create-space/page/ReceiveBaggage';
-import SpaceSize from 'components/create-space/page/SpaceSize';
-import AboutPrice from 'components/create-space/page/AboutPrice';
-import AllUsePrice from 'components/create-space/page/AllUsePrice';
-import SpaceCreatedCompletion from 'components/create-space/page/SpaceCreatedCompletion';
-import { Footer } from 'components/shared';
+import SpaceInfo from 'components/NewSpace/page/SpaceInfo';
+import AboutBaggage from 'components/NewSpace/page/AboutBaggage';
+import ReceiveBaggage from 'components/NewSpace/page/ReceiveBaggage';
+import SpaceSize from 'components/NewSpace/page/SpaceSize';
+import AboutPrice from 'components/NewSpace/page/AboutPrice';
+import AllUsePrice from 'components/NewSpace/page/AllUsePrice';
+import SpaceCreatedCompletion from 'components/NewSpace/page/SpaceCreatedCompletion';
+import { Footer } from 'components/Shared';
 import { ResultItem } from 'components/search';
 import {
   Card,
@@ -165,7 +165,7 @@ storiesOf('Search', module).add('検索結果 項目', () => (
   <ResultItem place="六本木" name="麻布十番駅から徒歩3分" typeOK price="1000/2000/5000" />
 ));
 
-storiesOf('CreateSpace', module)
+storiesOf('NewSpace', module)
   .add('スペース登録', () => <SpaceInfo />)
   .add('預かる荷物について', () => <AboutBaggage />)
   .add('荷物の受け取り', () => <ReceiveBaggage />)

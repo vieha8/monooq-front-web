@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Form, TextArea } from 'semantic-ui-react';
-import Title from 'components/create-space/shared/Title';
+import Title from 'components/NewSpace/shared/Title';
 import { Colors, FontSizes, Dimens } from 'variables';
 
 const Container = styled.div`

@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { Page } from 'components/create-space/page/Shared';
-import SpaceSize from 'components/create-space/page/SpaceSize';
+import { Page } from 'components/NewSpace/page/Shared';
+import SpaceSize from 'components/NewSpace/page/SpaceSize';
 
 const SpaceSizeContainer = props => (
   <Page>
