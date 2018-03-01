@@ -4,25 +4,40 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { uiActions } from 'redux/modules/ui';
 
+import styled from 'styled-components';
+import { Colors } from 'variables';
+
+const StyledMoreVertIcon = styled(MoreVertIcon)`
+  && {
+    color: ${Colors.white};
+  }
+`;
+
 class HeaderMenu extends React.Component {
   constructor(props) {
     super(props);
 
-    this.props.dispatch(uiActions.setUiState({
-      anchorHeaderMenuDom: null,
-    }));
+    this.props.dispatch(
+      uiActions.setUiState({
+        anchorHeaderMenuDom: null,
+      }),
+    );
   }
 
-  handleClick = (event) => {
-    this.props.dispatch(uiActions.setUiState({
-      anchorHeaderMenuDom: event.currentTarget,
-    }));
+  handleClick = event => {
+    this.props.dispatch(
+      uiActions.setUiState({
+        anchorHeaderMenuDom: event.currentTarget,
+      }),
+    );
   };
 
   handleClose = () => {
-    this.props.dispatch(uiActions.setUiState({
-      anchorHeaderMenuDom: null,
-    }));
+    this.props.dispatch(
+      uiActions.setUiState({
+        anchorHeaderMenuDom: null,
+      }),
+    );
   };
 
   logout = () => {
@@ -56,7 +71,7 @@ class HeaderMenu extends React.Component {
           aria-haspopup="true"
           onClick={this.handleClick}
         >
-          <MoreVertIcon />
+          <StyledMoreVertIcon />
         </IconButton>
         <Menu
           id="simple-menu"

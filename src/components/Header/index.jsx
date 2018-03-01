@@ -13,7 +13,36 @@ import MessageIcon from 'material-ui-icons/Message';
 import Hidden from 'material-ui/Hidden';
 import logo from 'images/monooq_logo.svg';
 import { authActions } from 'redux/modules/auth';
+
+import styled from 'styled-components';
+import { Colors } from 'variables';
 import HeaderMenu from './HeaderMenu';
+
+const StyledAppBar = styled(AppBar)`
+  && {
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+    height: 80px;
+  }
+`;
+
+const StyledToolbar = styled(Toolbar)`
+  && {
+    height: 100%;
+  }
+`;
+
+const StyledIconButton = styled(IconButton)`
+  && {
+    color: ${Colors.white};
+  }
+`;
+
+const StyledButton = styled(Button)`
+  && {
+    color: ${Colors.white};
+  }
+`;
 
 class Header extends React.Component {
   logout = async () => {
@@ -26,21 +55,21 @@ class Header extends React.Component {
     if (this.props.isLogin) {
       return (
         <Fragment>
-          <IconButton
+          <StyledIconButton
             className={classes.searchButton}
             aria-label="Message"
             onClick={() => this.props.history.push('/messages')}
           >
             <MessageIcon />
-          </IconButton>
+          </StyledIconButton>
         </Fragment>
       );
     }
     return (
       <Fragment>
         <Hidden xsDown>
-          <Button onClick={() => this.props.history.push('/login')}>ログイン</Button>
-          <Button onClick={() => this.props.history.push('/signup')}>登録</Button>
+          <StyledButton onClick={() => this.props.history.push('/login')}>ログイン</StyledButton>
+          <StyledButton onClick={() => this.props.history.push('/signup')}>登録</StyledButton>
         </Hidden>
       </Fragment>
     );
@@ -49,38 +78,31 @@ class Header extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <AppBar position="fixed" color="default">
-          <Toolbar>
+      <div>
+        <StyledAppBar position="fixed" color="default">
+          <StyledToolbar>
             <Typography type="title" className={classes.flex}>
-              <Link to="/" style={{ textDecoration: 'none' }}>
+              <Link to="/">
                 <img src={logo} alt="logo" width="150" />
               </Link>
             </Typography>
-            <IconButton
+            <StyledIconButton
               className={classes.searchButton}
               aria-label="Search"
               onClick={() => this.props.history.push('/search/東京都')}
             >
               <SearchIcon />
-            </IconButton>
+            </StyledIconButton>
             {this.renderLoginComponent()}
-            <HeaderMenu
-              {...this.props}
-              logout={this.logout}
-            />
-          </Toolbar>
-        </AppBar>
+            <HeaderMenu {...this.props} logout={this.logout} />
+          </StyledToolbar>
+        </StyledAppBar>
       </div>
     );
   }
 }
 
 const styles = {
-  root: {
-    width: '100%',
-    marginBottom: 80,
-  },
   flex: {
     flex: 1,
   },
@@ -92,8 +114,7 @@ const styles = {
 
 const mapStateToProps = state => ({
   isLogin: state.auth.isLogin,
-  isChecking:
-  state.auth.isChecking,
+  isChecking: state.auth.isChecking,
   ui: state.ui,
 });
 
