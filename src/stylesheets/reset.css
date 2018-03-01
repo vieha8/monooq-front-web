@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
 v2.0 | 20110126
 License: none (public domain)
 */
@@ -105,7 +105,10 @@ section {
   display: block;
 }
 body {
+  margin: 0;
+  padding: 0;
   line-height: 1;
+  color: #333;
 }
 ol,
 ul {
