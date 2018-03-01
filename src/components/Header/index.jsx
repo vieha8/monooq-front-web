@@ -15,8 +15,13 @@ import logo from 'images/monooq_logo.svg';
 import { authActions } from 'redux/modules/auth';
 
 import styled from 'styled-components';
-import { Colors } from 'variables';
 import HeaderMenu from './HeaderMenu';
+
+const StyledAppBar = styled(AppBar)`
+  && {
+    box-shadow: none;
+  }
+`;
 
 class Header extends React.Component {
   logout = async () => {
@@ -53,7 +58,7 @@ class Header extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <AppBar position="fixed" color="default">
+        <StyledAppBar position="fixed" color="default">
           <Toolbar>
             <Typography type="title" className={classes.flex}>
               <Link to="/">
@@ -70,7 +75,7 @@ class Header extends React.Component {
             {this.renderLoginComponent()}
             <HeaderMenu {...this.props} logout={this.logout} />
           </Toolbar>
-        </AppBar>
+        </StyledAppBar>
       </div>
     );
   }
