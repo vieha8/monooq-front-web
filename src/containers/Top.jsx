@@ -118,7 +118,7 @@ const StyledSearchIcon = styled(SearchIcon)`
   && {
     height: 32px;
     width: 32px;
-    color: ${Colors.buttonPink};
+    color: ${Colors.brandPrimary};
   }
 `;
 
@@ -262,7 +262,7 @@ const ExplainSection = ({ title, description }) => {
 
 const ToHostRegistButton = styled.button`
   display: inline-block;
-  background: ${Colors.buttonPink};
+  background: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium}px;
   color: ${Colors.white};
   border-radius: 3px;
@@ -270,7 +270,7 @@ const ToHostRegistButton = styled.button`
   height: 50px;
   box-sizing: border-box;
   &:hover {
-    background: ${Colors.buttonPinkHover};
+    background: ${Colors.brandTerciary};
   }
   cursor: pointer;
   border: none;
@@ -285,7 +285,7 @@ const ToHostRegistButton = styled.button`
 
 const ForSafeSectionButton = styled.button`
   display: inline-block;
-  color: ${Colors.buttonPink};
+  color: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium}px;
   background: ${Colors.white};
   border-radius: 3px;
@@ -293,7 +293,7 @@ const ForSafeSectionButton = styled.button`
   height: 50px;
   box-sizing: border-box;
   &:hover {
-    background: ${Colors.buttonPinkHover};
+    background: ${Colors.brandTerciary};
     color: ${Colors.white};
   }
   cursor: pointer;
