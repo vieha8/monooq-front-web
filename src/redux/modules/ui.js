@@ -7,7 +7,7 @@ export const uiActions = createActions(SET_UI_STATE);
 
 // Reducer
 
-const initialState = {};
+const initialState = { locationText: '' };
 
 const { setUiState } = uiActions;
 export const uiReducer = handleActions(

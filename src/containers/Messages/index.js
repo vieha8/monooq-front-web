@@ -2,17 +2,14 @@ import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
-import List, { ListItem, ListItemText } from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
-import { defaultPageFactory } from 'components/PageLayouts';
 import authRequired from 'components/Auth';
-import { messagesActions, createRoom } from 'redux/modules/messages';
+import { createRoom, messagesActions } from 'redux/modules/messages';
 
 import Button from 'material-ui/Button';
 
 import styled from 'styled-components';
-import { isMobileWindow, media } from 'helpers/style/media-query';
-import { Colors, Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 
 const MessagesPage = styled.div`
   background: #fff;
@@ -188,7 +185,7 @@ class Messages extends React.Component {
   };
 
   render() {
-    const { classes, history } = this.props;
+    const { history } = this.props;
     return (
       <MessagesPage>
         <MessagesContainer>
