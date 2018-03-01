@@ -21,8 +21,17 @@ const MessagesPage = styled.div`
 `;
 
 const MessagesContainer = styled.div`
-  width: 1048px;
+  max-width: 1048px;
   margin: 0 auto;
+  ${media.phone`
+    width: 100%;
+  `};
+`;
+
+const FlexWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 const PageTitle = styled.div`
@@ -30,15 +39,22 @@ const PageTitle = styled.div`
   line-height: 51px;
   letter-spacing: -0.5px;
   margin-bottom: 52px;
+  ${media.phone`
+    font-size: 22px;
+    line-height: inherit;
+    padding: 0 20px;
+    margin-bottom: 20px;
+  `};
 `;
 
 const MessagesMenuContainer = styled.div`
-  float: left;
   width: 328px;
+  ${media.phone`
+    display: none;
+  `};
 `;
 
 const MessagesListContainer = styled.div`
-  float: right;
   width: 688px;
   border: 1px solid #dbdbdb;
 `;
@@ -130,6 +146,10 @@ const MessagesItemText = props => {
   const PrimaryText = styled.div`
     font-size: 14px;
     line-height: 28px;
+    ${media.phone`
+      font-size: 11px;
+      line-height: 18px;
+    `};
   `;
   const SecondaryText = styled.div`
     font-size: 12px;
@@ -174,27 +194,29 @@ class Messages extends React.Component {
       <MessagesPage>
         <MessagesContainer>
           <PageTitle>{this.pageTitle}一覧</PageTitle>
-          <MessagesMenuContainer>
-            <MessagesMenu />
-          </MessagesMenuContainer>
+          <FlexWrapper>
+            <MessagesMenuContainer>
+              <MessagesMenu />
+            </MessagesMenuContainer>
 
-          <MessagesListContainer>
-            {this.props.rooms.map((v, i) => {
-              return (
-                <StyledMessagesItem
-                  key={i}
-                  button
-                  divider
-                  onClickdMessagesItem={() => {
-                    history.push('/messages/' + v.id);
-                  }}
-                >
-                  <Avatar src={v.guestUserImgUrl} />
-                  <StyledMessagesItemText primary={v.guestUserName} secondary={v.lastMessage} />
-                </StyledMessagesItem>
-              );
-            })}
-          </MessagesListContainer>
+            <MessagesListContainer>
+              {this.props.rooms.map((v, i) => {
+                return (
+                  <StyledMessagesItem
+                    key={i}
+                    button
+                    divider
+                    onClickdMessagesItem={() => {
+                      history.push('/messages/' + v.id);
+                    }}
+                  >
+                    <Avatar src={v.guestUserImgUrl} />
+                    <StyledMessagesItemText primary={v.guestUserName} secondary={v.lastMessage} />
+                  </StyledMessagesItem>
+                );
+              })}
+            </MessagesListContainer>
+          </FlexWrapper>
 
           {(() => {
             if (this.props.rooms.length === 0) {
