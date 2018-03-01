@@ -1,8 +1,10 @@
 export default {
+  brandPrimary: '#E85258',
+  brandSecondary: '#ED7579',
+  brandTerciary: '#F1979B',
+  brandAccent: '#E8BE5D',
   white: '#FFFFFF',
   pink: '#FF5A60',
-  buttonPink: '#E85258',
-  buttonPinkHover: '#D65258',
   lightPink: '#F6CED8',
   black: '#333333',
   disabled: '#aaabab',
