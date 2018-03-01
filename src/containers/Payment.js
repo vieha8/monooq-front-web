@@ -3,7 +3,6 @@ import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import { DialogContentText } from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
-import { CircularProgress } from 'material-ui/Progress';
 
 class Payment extends Component {
   constructor(props) {
@@ -13,30 +12,13 @@ class Payment extends Component {
     };
   }
 
-  sendRequest = () => {
-    this.setState({ isSending: true });
-    setTimeout(() => {
-      this.setState({ isSending: false });
-    }, 2000);
-  };
-
-  showSendButton = () => {
-    if (this.state.isSending) {
-      return (
-        <div style={{ textAlign: 'center' }}>
-          <CircularProgress />
-        </div>
-      );
-    } else {
-      return (
-        <div style={{ textAlign: 'center' }}>
-          <Button raised onClick={this.sendRequest} color="primary">
-            送信
-          </Button>
-        </div>
-      );
-    }
-  };
+  componentWillMount() {
+    // TODO ちょっと魔改造感あるから他のやり方ないか検証したい
+    const script = document.createElement('script');
+    script.src = 'http://localhost:3000/omise.js';
+    script.async = true;
+    document.body.appendChild(script);
+  }
 
   render() {
     const { classes } = this.props;
@@ -46,41 +28,57 @@ class Payment extends Component {
           VISA、Mastercard、JCB、Diners
           Club、AMEXのクレジットカードもしくはデビットカードがご利用いただけます。
         </DialogContentText>
-        <TextField
-          id="card-number"
-          label="カード番号"
-          type="text"
-          placeholder="•••• •••• •••• ••••"
-          className={classes.textField}
-          disabled={this.state.isSending}
-        />
-        <TextField
-          id="card-name"
-          label="カード名義"
-          type="text"
-          placeholder="姓名"
-          className={classes.textField}
-          disabled={this.state.isSending}
-        />
-        <TextField
-          id="card-limit"
-          label="有効期限"
-          type="text"
-          placeholder="YY/MM"
-          className={classes.textField}
-          disabled={this.state.isSending}
-        />
-        <TextField
-          id="card-security"
-          label="セキュリティコード"
-          type="text"
-          placeholder="•••"
-          className={classes.textField}
-          disabled={this.state.isSending}
-        />
         <br />
-        <br />
-        {this.showSendButton()}
+        <form id="checkout-form" method="post" action="">
+          <input type="hidden" name="omiseToken" />
+
+          <TextField
+            id="nameOnCard"
+            label="カード名義"
+            type="text"
+            className={classes.textField}
+            value="Tarou Tanaka"
+          />
+
+          <TextField
+            id="cardNumber"
+            label="カード番号"
+            type="text"
+            className={classes.textField}
+            value="4242424242424242"
+          />
+
+          <TextField
+            id="expiryYear"
+            label="有効期限(年)"
+            type="text"
+            className={classes.textField}
+            value="2018"
+          />
+
+          <TextField
+            id="expiryMonth"
+            label="有効期限(月)"
+            type="text"
+            className={classes.textField}
+            value="12"
+          />
+
+          <TextField
+            id="securityCode"
+            label="セキュリティコード"
+            type="text"
+            className={classes.textField}
+            value="222"
+          />
+          <br />
+          <br />
+          <div style={{ textAlign: 'center' }}>
+            <Button raised type="submit" color="primary">
+              送信
+            </Button>
+          </div>
+        </form>
       </div>
     );
   }
