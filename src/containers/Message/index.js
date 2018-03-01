@@ -84,13 +84,56 @@ const Information = props => {
   );
 };
 
-// {todo}
-const MobileInformation = styled.div`
+const MobileInformation = props => {
+  const NoticeIcon = styled.div`
+    font-size: 20px;
+    margin-right: 10px;
+  `;
+  const NoticeContainer = styled.div`
+    font-size: 11px;
+    display: flex;
+  `;
+  const MobileInformationButtonContainer = styled.div`
+    font-size: 11px;
+    display: flex;
+  `;
+  const ButtonIcon = styled.div`
+    font-size: 20px;
+    margin-left: 10px;
+    :hover {
+      cursor: pointer;
+    }
+  `;
+  return (
+    <div className={props.className}>
+      <NoticeContainer>
+        <NoticeIcon>
+          <i className="far fa-bell" />
+        </NoticeIcon>
+        <div>ホストの承認を待っています</div>
+      </NoticeContainer>
+      <MobileInformationButtonContainer>
+        <div>リクエスト詳細</div>
+        <ButtonIcon>
+          <i className="fas fa-angle-down" />
+        </ButtonIcon>
+      </MobileInformationButtonContainer>
+    </div>
+  );
+};
+
+const StyledMobileInformation = styled(MobileInformation)`
   display: none;
   ${media.phone`
-    display: block;
+    color: #888787;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    padding: 0 14px;
+    display: flex;
+    justify-content: space-between;
     width: 100%;
     height: 50px;
+    line-height: 50px;
     background: #f7f7f7;
   `};
 `;
@@ -200,7 +243,7 @@ const AddFileText = styled.div`
   `};
 `;
 
-const AddFileTextarea = styled.textarea`
+const AddMessageTextarea = styled.textarea`
   width: 100%;
   height: 160px;
   font-size: 14px;
@@ -217,7 +260,7 @@ const AddFileTextarea = styled.textarea`
   }
 `;
 
-const AddFileButton = styled.div`
+const AddMessageButton = styled.div`
   text-align: center;
   font-size: 16px;
   line-height: 16px;
@@ -377,6 +420,7 @@ class Message extends React.Component {
     return (
       <MessagePage>
         <MessageContainer>
+          <StyledMobileInformation />
           <PageTitle>{this.pageTitle}</PageTitle>
           <FlexWrapper>
             <InformationContainer>
@@ -395,18 +439,18 @@ class Message extends React.Component {
                   </AddFileIcon>
                   <AddFileText>写真を送信する</AddFileText>
                 </AddFile>
-                <AddFileTextarea
+                <AddMessageTextarea
                   placeholder="メッセージを入力する…"
                   value={this.state.message}
                   onChange={this.handleChange('message')}
                   disabled={this.state.isSending}
                 />
-                <AddFileButton submit onClick={this.sendTextMessage}>
+                <AddMessageButton submit onClick={this.sendTextMessage}>
                   送信
-                </AddFileButton>
-                <AddFileButton estimate onClick={() => this.props.history.push('/estimate/1')}>
+                </AddMessageButton>
+                <AddMessageButton estimate onClick={() => this.props.history.push('/estimate/1')}>
                   見積もりを送る
-                </AddFileButton>
+                </AddMessageButton>
               </SubmitMessageForm>
             </RecordsContainer>
           </FlexWrapper>
