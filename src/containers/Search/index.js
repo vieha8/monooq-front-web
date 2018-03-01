@@ -5,7 +5,7 @@ import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import { CircularProgress } from 'material-ui/Progress';
 
-import { searchActions } from '../../redux/modules/search';
+import { searchActions } from 'redux/modules/search';
 
 import SpaceCard from './SpaceCard';
 
@@ -16,6 +16,7 @@ class Search extends React.Component {
       location: this.props.match.params.location,
     };
     this.props.dispatch(searchActions.fetchStartSearch(this.state.location));
+    console.log(this.props);
   }
 
   showSpaceList = () => {
@@ -77,6 +78,7 @@ const mapStateToProps = state => {
     isLoading: state.search.isLoading,
     location: state.search.location,
     spaces: state.search.spaces,
+    ui: state.ui,
   };
 };
 

@@ -5,7 +5,7 @@ import { DialogContentText } from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
 
-import { createDialog } from '../../components/Dialog';
+import { createDialog } from 'components/Dialog';
 
 const openButtonComponent = props => {
   return (

@@ -4,11 +4,15 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import { Button, Welcome } from '@storybook/react/demo';
-import Title from './story/title';
-
-import { Footer } from './shared';
-import { ResultItem } from './search';
+import SpaceInfo from 'components/NewSpace/page/SpaceInfo';
+import AboutBaggage from 'components/NewSpace/page/AboutBaggage';
+import ReceiveBaggage from 'components/NewSpace/page/ReceiveBaggage';
+import SpaceSize from 'components/NewSpace/page/SpaceSize';
+import AboutPrice from 'components/NewSpace/page/AboutPrice';
+import AllUsePrice from 'components/NewSpace/page/AllUsePrice';
+import SpaceCreatedCompletion from 'components/NewSpace/page/SpaceCreatedCompletion';
+import { Footer } from 'components/Shared';
+import { ResultItem } from 'components/search';
 import {
   Card,
   Map,
@@ -24,9 +28,9 @@ import {
   PriceContent,
   SendMessageButton,
   ReportLink,
-} from './space';
+} from 'components/space';
 
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
+import Title from './story/Title';
 
 storiesOf('Avatar', module)
   .add('標準', () => <p>ログイン時のユーザーのアイコン</p>)
@@ -160,6 +164,15 @@ storiesOf('Line', module).add('標準', () => <p>文章の区切り線</p>);
 storiesOf('Search', module).add('検索結果 項目', () => (
   <ResultItem place="六本木" name="麻布十番駅から徒歩3分" typeOK price="1000/2000/5000" />
 ));
+
+storiesOf('NewSpace', module)
+  .add('スペース登録', () => <SpaceInfo />)
+  .add('預かる荷物について', () => <AboutBaggage />)
+  .add('荷物の受け取り', () => <ReceiveBaggage />)
+  .add('料金目安を設定する1', () => <SpaceSize />)
+  .add('料金目安を設定する2', () => <AboutPrice />)
+  .add('料金目安を設定する3', () => <AllUsePrice />)
+  .add('スペース登録完了', () => <SpaceCreatedCompletion />);
 
 storiesOf('Space', module)
   .add('カード', () => (
