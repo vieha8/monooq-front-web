@@ -23,7 +23,7 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium2}px;
 `;
 
@@ -32,7 +32,7 @@ const Content = styled.div`
 `;
 
 const Label = styled.div`
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium}px;
   padding: ${Dimens.medium}px 0;
   text-align: left;
@@ -48,7 +48,7 @@ const ButtonWrapper = styled.div`
 const CaptionText = styled.div`
   margin-bottom: ${Dimens.medium}px;
   font-size: ${FontSizes.xsmall}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   text-align: left;
   line-height: 1.6;
 `;
@@ -59,7 +59,7 @@ const DndContent = styled.div`
 
 const IconWrapper = styled.span`
   display: inline-block;
-  color: ${Colors.gray};
+  color: ${Colors.darkGray2};
 `;
 
 const styles = {
@@ -80,7 +80,7 @@ export default props => (
       >
         <DndContent>
           <IconWrapper>
-            <Icon name="image" size={64} fontSize={64} color={Colors.gray} />
+            <Icon name="image" size={64} fontSize={64} color={Colors.darkGray2} />
           </IconWrapper>
           <CaptionText>写真を登録する</CaptionText>
         </DndContent>
@@ -118,7 +118,7 @@ export default props => (
       </InputContainer>
       <ButtonWrapper>
         <Button
-          bgColor={Colors.pink}
+          bgColor={Colors.brandPrimary}
           fluid
           onClick={props.onClickRegisterProfile}
         >

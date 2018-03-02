@@ -26,7 +26,7 @@ const Text = styled.div`
 `;
 
 const SaveText = Text.extend`
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   vertical-align: middle;
   ${media.phone`
     font-size: ${FontSizes.xsmall}px;
@@ -48,8 +48,8 @@ const ButtonWrapper = styled.div`
 const styles = {
   button: {
     backgroundColor: Colors.white,
-    border: `1px solid ${Colors.pink}`,
-    color: Colors.pink,
+    border: `1px solid ${Colors.brandPrimary}`,
+    color: Colors.brandPrimary,
     width: '100%',
     height: '50px',
     fontSize: FontSizes.medium,

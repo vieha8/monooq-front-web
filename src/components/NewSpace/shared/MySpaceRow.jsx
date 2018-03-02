@@ -24,14 +24,14 @@ const Content = styled.div`
 
 const PlaceText = styled.span`
   dipslay: block;
-  color: ${Colors.pink};
+  color: ${Colors.brandPrimary};
   font-size: ${FontSizes.xsmall}px;
 `;
 
 const Title = styled.span`
   display: block;
   max-height: calc(1.4em * 3);
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.xsmall}px;
   margin-top: ${Dimens.small}px;
   line-height: 1.4em;

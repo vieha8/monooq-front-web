@@ -32,7 +32,7 @@ const Wrapper = styled.div`
 
 const styles = {
   button: {
-    backgroundColor: Colors.pink,
+    backgroundColor: Colors.brandPrimary,
     color: Colors.white,
     width: '100%',
     height: '50px',
@@ -40,11 +40,11 @@ const styles = {
   },
   borderButton: {
     backgroundColor: Colors.white,
-    color: Colors.pink,
+    color: Colors.brandPrimary,
     width: '100%',
     height: '50px',
     fontSize: FontSizes.medium,
-    border: `1px solid ${Colors.pink}`,
+    border: `1px solid ${Colors.brandPrimary}`,
   },
   fillButton: {
     width: '100%',

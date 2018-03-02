@@ -8,21 +8,27 @@ class HeaderMenu extends React.Component {
   constructor(props) {
     super(props);
 
-    this.props.dispatch(uiActions.setUiState({
-      anchorHeaderMenuDom: null,
-    }));
+    this.props.dispatch(
+      uiActions.setUiState({
+        anchorHeaderMenuDom: null,
+      }),
+    );
   }
 
-  handleClick = (event) => {
-    this.props.dispatch(uiActions.setUiState({
-      anchorHeaderMenuDom: event.currentTarget,
-    }));
+  handleClick = event => {
+    this.props.dispatch(
+      uiActions.setUiState({
+        anchorHeaderMenuDom: event.currentTarget,
+      }),
+    );
   };
 
   handleClose = () => {
-    this.props.dispatch(uiActions.setUiState({
-      anchorHeaderMenuDom: null,
-    }));
+    this.props.dispatch(
+      uiActions.setUiState({
+        anchorHeaderMenuDom: null,
+      }),
+    );
   };
 
   logout = () => {

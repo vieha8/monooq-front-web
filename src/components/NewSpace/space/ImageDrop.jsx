@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const DragText = styled.span`
   display: block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.small}px;
   margin-top: ${Dimens.medium}px;
   ${media.phone`
@@ -41,8 +41,8 @@ const ButtonWrapper = styled.div`
 
 const styles = {
   button: {
-    color: Colors.pink,
-    border: `1px solid ${Colors.pink}`,
+    color: Colors.brandPrimary,
+    border: `1px solid ${Colors.brandPrimary}`,
     background: 'white',
     fontWeight: 'normal',
   },

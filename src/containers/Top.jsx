@@ -11,21 +11,28 @@ import { media } from 'helpers/style/media-query';
 import { uiActions } from 'redux/modules/ui';
 import { Footer } from 'components/Shared';
 
-const IMAGE_URL = 'https://picsum.photos/1280/800?image=1012';
+import mainVisual from 'images/main_visual.jpg';
+import topImage1 from 'images/top1.png';
+import topImage2 from 'images/top2.png';
 
 const TopPage = styled.div`
   margin-top: -20px;
-  background: ${Colors.lightGray};
+  background: ${Colors.lightGray2Bg};
 `;
 
 const TopView = styled.div`
-  padding: 196px 116px 0 116px;
   height: 800px;
   margin-top: -64px;
-  background-image: url(${IMAGE_URL});
+  background-image: url(${mainVisual});
   background-size: cover;
   color: rgb(255, 255, 255);
+`;
+
+const TopViewFilter = styled.div`
+  height: 100%;
+  padding: 196px 116px 0 116px;
   box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.4);
   ${media.phone`
     padding: 196px 10px 0 10px;
   `};
@@ -33,34 +40,32 @@ const TopView = styled.div`
 
 const Monooq = styled.span`
   display: inline-block;
-  font-family: sans-serif;
   font-size: 20px;
-  font-weight: 100;
+  margin-bottom: 8px;
 `;
 
 const CatchPhrase = styled.div`
-  font-size: 34px;
-  font-family: sans-serif;
-  line-height: 57px;
+  font-size: ${FontSizes.xxlarge}px;
+  font-weight: bold;
+  line-height: 56px;
   text-align: left;
-  width: 556px;
+  width: 570px;
   height: 114px;
+  margin-bottom: 10px;
   ${media.phone`
     font-size: 28px;
     line-height: 48px;
     width: 100%;
-    height: inherit;
+    height: auto;
   `};
 `;
 
 const SubCatchPhrase = styled.span`
   display: block;
-  font-family: sans-serif;
   font-size: 26px;
   width: 561px;
   font-weight: 100;
-  line-height: 42px;
-  margin-top: 9px;
+  line-height: 40px;
   ${media.phone`
     font-size: 24px;
     line-height: 30px;
@@ -68,11 +73,22 @@ const SubCatchPhrase = styled.span`
   `};
 `;
 
+const SearchWrapper = styled.div`
+  width: 507px;
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  overflow: hidden;
+  ${media.phone`
+    width: calc(100vw - 20px);
+  `};
+`;
+
 const SearchInput = styled.input`
   margin: 0;
   border: 1px solid #eee;
   border-radius: 5px;
-  padding: 20px;
+  padding: 20px 60px 20px 20px;
   display: inline-block;
   vertical-align: middle;
   background: #fff;
@@ -80,14 +96,36 @@ const SearchInput = styled.input`
   width: 507px;
   line-height: 20px;
   box-sizing: border-box;
-  font-size: 14px;
-  font-family: sans-serif;
+  font-size: ${FontSizes.small}px;
   ${media.phone`
-    width: 100%;
+    width: calc(100vw - 20px);
   `};
 `;
 
+const SearchButton = styled(Button)`
+  &&& {
+    position: absolute;
+    top: 0;
+    right: -10px;
+    height: 100%;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+`;
+
+const StyledSearchIcon = styled(SearchIcon)`
+  && {
+    height: 32px;
+    width: 32px;
+    color: ${Colors.brandPrimary};
+  }
+`;
+
 const ToHostRegistContainer = styled.div`
+  width: 507px;
+  display: flex;
+  justify-content: center;
   ${media.phone`
     text-align: center;
     width: 100%;
@@ -95,11 +133,9 @@ const ToHostRegistContainer = styled.div`
 `;
 
 const ToHostRegist = styled.a`
-  font-family: sans-serif;
   font-size: 18px;
-  color: rgb(255, 255, 255);
   line-height: 42px;
-  margin-left: 175px;
+  color: ${Colors.white};
   text-decoration: underline;
   ${media.phone`
     margin: 0;
@@ -124,10 +160,11 @@ const DefaultView = styled.div`
     props.isReasonUser
       ? `
         background: #fff;
-        background-image: url('http://placehold.jp/714x535.png');
+        background-image: url(${topImage1});
         background-repeat: no-repeat;
         background-position: right;
         background-position-y: 388px;
+        background-size: 714px 490px;
     `
       : ''};
   ${media.phone`
@@ -142,10 +179,11 @@ const DefaultView = styled.div`
   ${props =>
     props.isReasonHost
       ? `
-        background-image: url('http://placehold.jp/F7F7F7/eee/530x989.png');
+        background-image: url(${topImage2});
         background-repeat: no-repeat;
         background-position: left;
         padding: 80px 116px 80px 656px;
+        background-size: 500px 947px;
     `
       : ''};
   ${props =>
@@ -174,8 +212,7 @@ const DefaultView = styled.div`
 
 const HilightCopy = styled.span`
   display: block;
-  font-family: sans-serif;
-  font-size: 14px;
+  font-size: ${FontSizes.small}px;
   line-height: 21px;
   margin-bottom: 9px;
   color: rgb(232, 82, 88);
@@ -183,8 +220,7 @@ const HilightCopy = styled.span`
 
 const DefaultTitle = styled.span`
   display: inline-block;
-  font-family: sans-serif;
-  font-size: 38px;
+  font-size: ${FontSizes.xxlarge}px;
   line-height: 51px;
   margin-bottom: 80px;
   ${media.phone`
@@ -195,14 +231,12 @@ const DefaultTitle = styled.span`
 
 const ExplainTitle = styled.span`
   display: block;
-  font-family: sans-serif;
   font-size: 22px;
 `;
 
 const ExplainDescription = styled.span`
   display: block;
-  font-family: sans-serif;
-  font-size: 16px;
+  font-size: ${FontSizes.medium}px;
   line-height: 32px;
   font-weight: 100;
 `;
@@ -228,7 +262,7 @@ const ExplainSection = ({ title, description }) => {
 
 const ToHostRegistButton = styled.button`
   display: inline-block;
-  background: ${Colors.buttonPink};
+  background: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium}px;
   color: ${Colors.white};
   border-radius: 3px;
@@ -236,7 +270,7 @@ const ToHostRegistButton = styled.button`
   height: 50px;
   box-sizing: border-box;
   &:hover {
-    background: ${Colors.buttonPinkHover};
+    background: ${Colors.brandTerciary};
   }
   cursor: pointer;
   border: none;
@@ -251,7 +285,7 @@ const ToHostRegistButton = styled.button`
 
 const ForSafeSectionButton = styled.button`
   display: inline-block;
-  color: ${Colors.buttonPink};
+  color: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium}px;
   background: ${Colors.white};
   border-radius: 3px;
@@ -259,7 +293,7 @@ const ForSafeSectionButton = styled.button`
   height: 50px;
   box-sizing: border-box;
   &:hover {
-    background: ${Colors.buttonPinkHover};
+    background: ${Colors.brandTerciary};
     color: ${Colors.white};
   }
   cursor: pointer;
@@ -276,7 +310,6 @@ const ForSafeSectionButton = styled.button`
 const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
   const StyledContainer = styled.div`
     width: 327px;
-    font-family: sans-serif;
     font-weight: 100;
     ${media.phone`
       margin-bottom: 30px;
@@ -349,7 +382,6 @@ const ForSafeSectionList = () => {
 };
 
 const LinkToPickGo = styled.a`
-  font-family: sans-serif;
   font-size: 18px;
   color: rgb(255, 255, 255);
   line-height: 42px;
@@ -373,15 +405,13 @@ const PickGoMedia = styled.img`
 `;
 
 const PickGoDescription = styled.div`
-  font-family: sans-serif;
-  font-size: 14px;
+  font-size: ${FontSizes.small}px;
   line-height: 27px;
 `;
 
 const LineUpNewsMedia = () => {
   const style = {
     title: {
-      fontFamily: 'sans-serif',
       fontSize: '22px',
       marginBottom: '40px',
     },
@@ -410,23 +440,29 @@ class Top extends React.Component {
   constructor(props) {
     super(props);
 
-    this.props.dispatch(uiActions.setUiState({
-      locationText: '',
-      searchButtonDisabled: false,
-    }));
+    this.props.dispatch(
+      uiActions.setUiState({
+        locationText: '',
+        searchButtonDisabled: false,
+      }),
+    );
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     if (event.target.value === '') {
-      this.props.dispatch(uiActions.setUiState({
-        searchButtonDisabled: false,
-        locationText: '',
-      }));
+      this.props.dispatch(
+        uiActions.setUiState({
+          searchButtonDisabled: false,
+          locationText: '',
+        }),
+      );
     } else {
-      this.props.dispatch(uiActions.setUiState({
-        searchButtonDisabled: true,
-        locationText: event.target.value,
-      }));
+      this.props.dispatch(
+        uiActions.setUiState({
+          searchButtonDisabled: true,
+          locationText: event.target.value,
+        }),
+      );
     }
   };
 
@@ -435,7 +471,7 @@ class Top extends React.Component {
     return (
       <TopPage>
         <TopView>
-          <div className={classes.contents}>
+          <TopViewFilter>
             <Monooq>monooQ</Monooq>
             <CatchPhrase>
               個人間だからできる、<br />荷物を預けるための新しい方法。
@@ -443,7 +479,7 @@ class Top extends React.Component {
             <SubCatchPhrase>
               モノオクは余った個人のスペースを活用して、荷物を預けることができるサービスです。
             </SubCatchPhrase>
-            <div className={classes.search}>
+            <SearchWrapper>
               <SearchInput
                 id="location"
                 placeholder="近くの場所を検索してみよう！　例）東京都港区?"
@@ -451,8 +487,7 @@ class Top extends React.Component {
                 onChange={this.handleChange}
                 margin="normal"
               />
-              <Button
-                className={classes.button}
+              <SearchButton
                 fab
                 color="primary"
                 mini
@@ -460,15 +495,15 @@ class Top extends React.Component {
                 to={`/search/${ui.locationText}`}
                 disabled={!ui.searchButtonDisabled}
               >
-                <SearchIcon />
-              </Button>
-            </div>
+                <StyledSearchIcon />
+              </SearchButton>
+            </SearchWrapper>
             <ToHostRegistContainer>
               <ToHostRegist component={Link} href={'/edit/profile/1'}>
                 ホスト登録はこちら
               </ToHostRegist>
             </ToHostRegistContainer>
-          </div>
+          </TopViewFilter>
         </TopView>
         <TopHr />
         <DefaultView isReasonUser>
@@ -549,23 +584,8 @@ class Top extends React.Component {
   }
 }
 
-const styles = theme => ({
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 200,
-  },
-  search: {
-    marginTop: 20,
-    marginBottom: '40px',
-  },
-  button: {
-    left: '-50px',
-  },
-});
-
 const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Top));
+export default connect(mapStateToProps)(Top);

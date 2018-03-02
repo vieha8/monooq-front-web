@@ -11,9 +11,35 @@ import IconButton from 'material-ui/IconButton';
 import SearchIcon from 'material-ui-icons/Search';
 import MessageIcon from 'material-ui-icons/Message';
 import Hidden from 'material-ui/Hidden';
+import { media } from 'helpers/style/media-query';
 import logo from 'images/monooq_logo.svg';
 import { authActions } from 'redux/modules/auth';
+
+import styled from 'styled-components';
 import HeaderMenu from './HeaderMenu';
+
+const Root = styled.div`
+  width: 100%;
+  margin-bottom: 100px;
+  ${media.phone`
+    margin-bottom: 80px;
+  `};
+`;
+
+const StyledAppBar = styled(AppBar)`
+  && {
+    box-shadow: none;
+  }
+`;
+
+const StyledTypography = styled(Typography)`
+  flex: 1;
+`;
+
+const StyledIconButton = styled(IconButton)`
+  margin-left: -12px;
+  margin-right: 20px;
+`;
 
 class Header extends React.Component {
   logout = async () => {
@@ -26,13 +52,12 @@ class Header extends React.Component {
     if (this.props.isLogin) {
       return (
         <Fragment>
-          <IconButton
-            className={classes.searchButton}
+          <StyledIconButton
             aria-label="Message"
             onClick={() => this.props.history.push('/messages')}
           >
             <MessageIcon />
-          </IconButton>
+          </StyledIconButton>
         </Fragment>
       );
     }
@@ -49,53 +74,34 @@ class Header extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <AppBar position="fixed" color="default">
+      <Root>
+        <StyledAppBar position="fixed" color="default">
           <Toolbar>
-            <Typography type="title" className={classes.flex}>
-              <Link to="/" style={{ textDecoration: 'none' }}>
+            <StyledTypography type="title">
+              <Link to="/">
                 <img src={logo} alt="logo" width="150" />
               </Link>
-            </Typography>
-            <IconButton
-              className={classes.searchButton}
+            </StyledTypography>
+            <StyledIconButton
               aria-label="Search"
               onClick={() => this.props.history.push('/search/東京都')}
             >
               <SearchIcon />
-            </IconButton>
+            </StyledIconButton>
             {this.renderLoginComponent()}
-            <HeaderMenu
-              {...this.props}
-              logout={this.logout}
-            />
+            <HeaderMenu {...this.props} logout={this.logout} />
           </Toolbar>
-        </AppBar>
-      </div>
+        </StyledAppBar>
+      </Root>
     );
   }
 }
 
-const styles = {
-  root: {
-    width: '100%',
-    marginBottom: 80,
-  },
-  flex: {
-    flex: 1,
-  },
-  searchButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
-};
-
 const mapStateToProps = state => ({
   isLogin: state.auth.isLogin,
-  isChecking:
-  state.auth.isChecking,
+  isChecking: state.auth.isChecking,
   ui: state.ui,
 });
 
 // TODO composeでまとめる
-export default connect(mapStateToProps)(withRouter(withStyles(styles)(Header)));
+export default connect(mapStateToProps)(withRouter(Header));

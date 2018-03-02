@@ -13,14 +13,14 @@ const SaveArea = styled.div`
 
 const Title = styled.span`
   display: block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium1}px;
   margin: ${Dimens.medium2}px 0 ${Dimens.small}px ${Dimens.medium2}px;
 `;
 
 const Text = styled.span`
   display: block;
-  color: ${props => (props.active ? Colors.black : Colors.disabled)};
+  color: ${props => (props.active ? Colors.darkGray1 : Colors.disabled)};
   font-size: ${FontSizes.small}px;
   margin: ${Dimens.medium}px 0 0 ${Dimens.medium2}px;
   &:last-child {
@@ -41,8 +41,8 @@ const styles = {
   },
   button: {
     backgroundColor: Colors.white,
-    border: `1px solid ${Colors.pink}`,
-    color: Colors.pink,
+    border: `1px solid ${Colors.brandPrimary}`,
+    color: Colors.brandPrimary,
     width: '100%',
     height: '50px',
     fontSize: FontSizes.medium,

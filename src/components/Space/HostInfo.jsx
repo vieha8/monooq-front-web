@@ -8,7 +8,7 @@ const Container = styled.div`
   width: 100%;
   min-height: 80px;
   padding: ${Dimens.medium}px 0;
-  background-color: ${Colors.lightGray};
+  background-color: ${Colors.lightGray2Bg};
   &::after {
     clear: both;
     content: "";
@@ -53,7 +53,7 @@ const ContentContainer = styled.div`
 
 const HostName = styled.span`
   display: block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium}px;
   line-height: 1.8;
   font-weight: bold;

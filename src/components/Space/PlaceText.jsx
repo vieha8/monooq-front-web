@@ -5,7 +5,7 @@ import { FontSizes, Colors } from 'variables';
 const Text = styled.span`
   display: inline-block;
   font-size: ${FontSizes.small}px;
-  color: ${Colors.pink};
+  color: ${Colors.brandPrimary};
 `;
 
 export default props => (

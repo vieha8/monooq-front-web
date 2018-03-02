@@ -10,7 +10,7 @@ import MySpaceRow from '../shared/MySpaceRow';
 
 const SpaceListTitle = styled.span`
   dipslay: block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium}px;
 `;
 

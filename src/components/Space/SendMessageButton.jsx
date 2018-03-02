@@ -42,13 +42,13 @@ const ButtonContainer = styled.div`
 
 const Button = styled.button`
   display: inline-block;
-  background: ${Colors.buttonPink};
+  background: ${Colors.brandPrimary};
   padding: 9px 70px;
   font-size: ${FontSizes.medium}px;
   color: ${Colors.white};
   border-radius: 3px;
   &:hover {
-    background: ${Colors.buttonPinkHover};
+    background: ${Colors.brandTerciary};
   }
   cursor: pointer;
   border: none;
@@ -64,7 +64,7 @@ const Button = styled.button`
 const SubText = styled.span`
   display: inline-block;
   font-size: ${FontSizes.xsmall}px;
-  color: ${Colors.gray};
+  color: ${Colors.darkGray2};
   margin-top: ${Dimens.medium}px;
 
   ${media.phone`

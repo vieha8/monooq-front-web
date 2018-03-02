@@ -21,7 +21,7 @@ const Container = styled.div`
   transition: 0.5s;
   &:hover {
     transition: 0.5s;
-    background-color: ${Colors.lightGray};
+    background-color: ${Colors.lightGray2Bg};
   }
   z-index: ${ZIndexes.float};
   ${media.phone`

@@ -13,13 +13,13 @@ const Container = styled.div`
 
 const Text = styled.span`
   display: block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium}px;
 `;
 
 const SubText = styled.span`
   display: block;
-  color: ${Colors.gray};
+  color: ${Colors.darkGray2};
   font-size: ${FontSizes.xsmall}px;
   margin-top: ${Dimens.xsmall}px;
 `;
@@ -27,7 +27,7 @@ const SubText = styled.span`
 const TypeOKText = styled.span`
   display: inline-block;
   font-size: ${FontSizes.small}px;
-  color: ${Colors.pink};
+  color: ${Colors.brandPrimary};
   font-weight: bold;
 `;
 

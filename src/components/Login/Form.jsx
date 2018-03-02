@@ -25,7 +25,7 @@ const Logo = styled.img`
 `;
 
 const Title = styled.div`
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium2}px;
   margin-top: ${Dimens.medium}px;
 `;
@@ -56,7 +56,7 @@ const IconWrapper = styled.div`
 const OtherLoginLabel = styled.div`
   margin-bottom: ${Dimens.medium}px;
   font-size: ${FontSizes.xsmall}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
 `;
 
 const ToSignUpLinkCointainer = styled.div`
@@ -95,7 +95,7 @@ export default props => (
     <LinkText href="/">パスワードを忘れた方はこちら</LinkText>
     <ButtonWrapper>
       <Button
-        bgColor={Colors.pink}
+        bgColor={Colors.brandPrimary}
         fluid
         onClick={props.onClickLoginEmail}
       >

@@ -38,7 +38,7 @@ const Text = styled.span`
 `;
 
 const PlaceText = Text.extend`
-  color: ${Colors.pink};
+  color: ${Colors.brandPrimary};
   margin-top: ${Dimens.small}px;
 `;
 

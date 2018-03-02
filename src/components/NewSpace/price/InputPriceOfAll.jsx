@@ -14,7 +14,7 @@ const PriceWrapper = styled.div`
 
 const Unit = styled.span`
   display: inline-block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.small}px;
   margin-left: ${Dimens.small}px;
 `;

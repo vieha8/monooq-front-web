@@ -6,7 +6,7 @@ import { FontSizes, Colors, Dimens } from 'variables';
 const Text = styled.span`
   display: inline-block;
   font-size: ${FontSizes.large}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
 
   ${media.phone`
     font-size: ${FontSizes.medium}px;
@@ -16,7 +16,7 @@ const Text = styled.span`
 const SubText = styled.span`
   display: inline-block;
   font-size: ${FontSizes.small}px;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   margin-left: ${Dimens.small}px;
 `;
 

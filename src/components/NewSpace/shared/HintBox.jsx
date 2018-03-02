@@ -10,13 +10,13 @@ const Container = styled.div`
 
 const Title = styled.span`
   display: block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium1}px;
 `;
 
 const Text = styled.span`
   display: block;
-  color: ${Colors.black};
+  color: ${Colors.darkGray1};
   font-size: ${FontSizes.small}px;
   margin-top: ${Dimens.medium}px;
   line-height: 2;

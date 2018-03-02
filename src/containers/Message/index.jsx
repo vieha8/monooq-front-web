@@ -1,19 +1,17 @@
 import React from 'react';
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
-import {withStyles} from 'material-ui/styles';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { withStyles } from 'material-ui/styles';
 import authRequired from 'components/Auth';
-import {messagesActions} from 'redux/modules/messages';
-import {uiActions} from 'redux/modules/ui';
+import { messagesActions } from 'redux/modules/messages';
+import { uiActions } from 'redux/modules/ui';
 
 import styled from 'styled-components';
-import {media} from '../../helpers/style/media-query';
+import { FontSizes, Colors } from 'variables';
+import { media } from '../../helpers/style/media-query';
 
-const MessagePage = styled.div`
-  background: #fff;
-  font-family: sans-serif;
-`;
+const MessagePage = styled.div``;
 
 const MessageContainer = styled.div`
   max-width: 1048px;
@@ -93,9 +91,7 @@ const MobileInformation = props => {
   const ButtonIcon = styled.div`
     font-size: 20px;
     margin-left: 10px;
-    :hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   `;
   return (
     <div className={props.className}>
@@ -160,9 +156,7 @@ const Record = props => {
     color: #006494;
     float: right;
     margin-top: 30px;
-    :hover {
-      cursor: pointer;
-    }
+    cursor: pointer;
   `;
   let RecordLinkComponent = '';
   if (props.hasLink) {
@@ -228,9 +222,7 @@ const AddFileText = styled.div`
   font-size: 12px;
   line-height: 30px;
   padding-left: 9px;
-  &:hover {
-    cursor: pointer;
-  }
+  cursor: pointer;
   ${media.phone`
     font-size: 12px;
   `};
@@ -240,7 +232,7 @@ const AddMessageTextarea = styled.textarea`
   width: 100%;
   height: 160px;
   font-size: 14px;
-  color: #bcbcbc;
+  color: ${Colors.darkGray1};
   padding: 15px;
   margin-bottom: 20px;
   box-sizing: border-box;
@@ -248,8 +240,11 @@ const AddMessageTextarea = styled.textarea`
   border-radius: 2px;
   background-color: #fafafa;
   resize: none;
-  &::-webkit-input-placeholder {
-    color: #bcbcbc;
+  &:placeholder-shown,
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder,
+  &:-ms-input-placeholder {
+    color: ${Colors.lightGray1};
   }
 `;
 
@@ -261,26 +256,31 @@ const AddMessageButton = styled.div`
   margin-bottom: 20px;
   border-radius: 5px;
   box-sizing: border-box;
+  cursor: pointer;
   ${props =>
     props.submit
       ? `
-      color: #fff;
-      background: #e85258;
+      color: ${Colors.white};
+      background: ${Colors.brandPrimary};
       :hover {
-        cursor: pointer;
-        background: rgba(232, 82, 88, .5);
+        background: ${Colors.brandTerciary};
+      }
+      :active {
+        background: ${Colors.brandSecondary};
       }
     `
       : ''};
   ${props =>
     props.estimate
       ? `
-      color: #e85258;
-      background: #fff;
+      color: ${Colors.brandPrimary};
+      background: ${Colors.white};
       border: 1px solid;
       :hover {
-        cursor: pointer;
-        background: rgba(232, 82, 88, .5);
+        color: ${Colors.brandTerciary};
+      }
+      :active {
+        color: ${Colors.brandSecondary};
       }
     `
       : ''};
@@ -332,17 +332,21 @@ class Message extends React.Component {
     this.pageTitle = 'Masaya Kudoさんとのメッセージ'; // TODO ルーム情報を取得する
     this.roomId = props.match.params.room_id; // TODO roomId書き換えで関係ないルームのデータを取得できないようにする
     this.props.dispatch(messagesActions.fetchMessagesStart(this.roomId));
-    this.props.dispatch(uiActions.setUiState({
-      message: '',
-      isSend: false,
-      isSending: false,
-    }));
+    this.props.dispatch(
+      uiActions.setUiState({
+        message: '',
+        isSend: false,
+        isSending: false,
+      }),
+    );
   }
 
-  handleChange = (event) => {
-    this.props.dispatch(uiActions.setUiState({
-      message: event.target.value,
-    }));
+  handleChange = event => {
+    this.props.dispatch(
+      uiActions.setUiState({
+        message: event.target.value,
+      }),
+    );
   };
 
   sendTextMessage = () => {
@@ -357,16 +361,18 @@ class Message extends React.Component {
         text: ui.message,
       }),
     );
-    this.props.dispatch(uiActions.setUiState({
-      message: '',
-    }));
+    this.props.dispatch(
+      uiActions.setUiState({
+        message: '',
+      }),
+    );
   };
 
   contents = () => {
     const { classes, messages, userId } = this.props;
     return (
       <div className={classes.root}>
-        {messages.map((message) => {
+        {messages.map(message => {
           const date = message.createDt.toLocaleDateString('ja-JP', {
             year: '2-digit',
             month: '2-digit',
@@ -411,7 +417,7 @@ class Message extends React.Component {
   };
 
   render() {
-    const { ui  } = this.props;
+    const { ui } = this.props;
     //TODO contents内にTextFieldいれるとonChangeの挙動がおかしくなるので仮でこの形に
     return (
       <MessagePage>
