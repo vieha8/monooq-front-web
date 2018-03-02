@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors, ZIndexes } from 'variables';
+import { media } from 'helpers/style/media-query';
 
 const SIZE = 140;
 const Container = styled.div`
@@ -15,6 +16,9 @@ const Container = styled.div`
   background-color: ${Colors.brandPrimary};
   z-index: ${ZIndexes.float};
   cursor: pointer;
+  ${media.phone`
+    display: none;
+  `}
 `;
 
 const Text1 = styled.div`
