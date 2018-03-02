@@ -1,49 +1,24 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import Avatar from 'material-ui/Avatar';
 import authRequired from 'components/Auth';
 import { createRoom, messagesActions } from 'redux/modules/messages';
-import { Footer } from 'components/Shared';
 import UserMenu from 'components/Menu/UserMenu';
 import Button from 'material-ui/Button';
-
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-
-const MessagesPage = styled.div``;
-
-const MessagesContainer = styled.div`
-  max-width: 1048px;
-  margin: 0 auto 100px;
-  ${media.phone`
-    width: 100%;
-  `};
-`;
-
-const FlexWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-
-const PageTitle = styled.div`
-  font-size: 34px;
-  line-height: 51px;
-  letter-spacing: -0.5px;
-  margin-bottom: 52px;
-  ${media.phone`
-    font-size: 22px;
-    line-height: inherit;
-    padding: 0 20px;
-    margin-bottom: 20px;
-  `};
-`;
+import Page from 'components/Page';
 
 const MessagesListContainer = styled.div`
   width: 688px;
   border: 1px solid #dbdbdb;
+  float: right;
+  ${media.phone`
+    float: none;
+    width: 100%;
+  `}
 `;
 
 const MessageListItem = styled.li``;
@@ -104,7 +79,7 @@ const StyledMessagesItemText = styled(MessagesItemText) `
 class Messages extends React.Component {
   constructor(props) {
     super(props);
-    this.pageTitle = 'メッセージ';
+
     const userId = this.props.userId;
     this.props.dispatch(messagesActions.fetchRoomsStart(userId));
   }
@@ -121,33 +96,29 @@ class Messages extends React.Component {
   render() {
     const { history } = this.props;
     return (
-      <MessagesPage>
-        <MessagesContainer>
-          <PageTitle>{this.pageTitle}一覧</PageTitle>
-          <FlexWrapper>
-            <UserMenu messageCount={99} scheduleCount={9} />
-            <MessagesListContainer>
-              {this.props.rooms.map((v, i) => (
-                <StyledMessagesItem
-                  key={i}
-                  button
-                  divider
-                  onClickdMessagesItem={() => {
-                    history.push(`/messages/${v.id}`);
-                  }}
-                >
-                  <Avatar src={v.guestUserImgUrl} />
-                  <StyledMessagesItemText primary={v.guestUserName} secondary={v.lastMessage} />
-                </StyledMessagesItem>
-              ))}
-            </MessagesListContainer>
-          </FlexWrapper>
+      <Page title="メッセージ一覧">
+        <Fragment>
+          <UserMenu messageCount={99} scheduleCount={9} />
+          <MessagesListContainer>
+            {this.props.rooms.map((v, i) => (
+              <StyledMessagesItem
+                key={i}
+                button
+                divider
+                onClickdMessagesItem={() => {
+                  history.push(`/messages/${v.id}`);
+                }}
+              >
+                <Avatar src={v.guestUserImgUrl} />
+                <StyledMessagesItemText primary={v.guestUserName} secondary={v.lastMessage} />
+              </StyledMessagesItem>
+            ))}
+          </MessagesListContainer>
           {this.props.rooms.length === 0 &&
             <Button onClick={this.createSampleRoom}>サンプルルーム作成</Button>
           }
-        </MessagesContainer>
-        <Footer />
-      </MessagesPage>
+        </Fragment>
+      </Page>
     );
   }
 }

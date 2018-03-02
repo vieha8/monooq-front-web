@@ -5,9 +5,10 @@ import { media } from 'helpers/style/media-query';
 
 export const Container = styled.div`
   width: 328px;
+  float: left;
   ${media.phone`
     display: none;
-  `};
+  `}
 `;
 
 export const Menu = styled.ul`
