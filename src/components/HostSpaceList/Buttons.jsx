@@ -28,8 +28,8 @@ export default props => (
         fluid
         fontSize={FontSizes.xsmall}
         bgColor={Colors.white}
-        fontColor={Colors.brandPrimary}
-        borderColor={Colors.brandPrimary}
+        fontColor={Colors.darkGray1}
+        borderColor={Colors.darkGray1}
       >
         非公開にする
       </Button>

@@ -4,6 +4,7 @@ import { Dimens } from 'variables';
 import { ContentContainer } from 'components/Page';
 import { media } from 'helpers/style/media-query';
 import ListItem from './ListItem';
+import RegistButton from './RegistButton';
 
 const Content = styled.div`
   margin-top: -${Dimens.medium2}px;
@@ -21,5 +22,6 @@ export default () => (
       <ListItem />
       <ListItem />
     </Content>
+    <RegistButton />
   </ContentContainer>
 );
