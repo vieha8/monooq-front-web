@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import SearchIcon from 'material-ui-icons/Search';
 
@@ -448,7 +447,7 @@ class Top extends React.Component {
     );
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     if (event.target.value === '') {
       this.props.dispatch(
         uiActions.setUiState({
@@ -467,7 +466,7 @@ class Top extends React.Component {
   };
 
   render() {
-    const { classes, ui } = this.props;
+    const { ui } = this.props;
     return (
       <TopPage>
         <TopView>

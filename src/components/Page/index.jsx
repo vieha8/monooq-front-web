@@ -30,13 +30,40 @@ const Title = styled.div`
   font-size: ${FontSizes.xlarge}px;
   line-height: 51px;
   letter-spacing: -0.5px;
-  margin-bottom: ${Dimens.large}px;
   color: ${Colors.black};
   ${media.phone`
     font-size: ${FontSizes.medium2}px;
     line-height: inherit;
     padding: 0 ${Dimens.medium}px;
-    margin-bottom: ${Dimens.medium}px;
+  `}
+`;
+
+const SubTitle = styled.div`
+  margin-top: ${Dimens.medium}px;
+  ${media.phone`
+    margin-top: ${Dimens.small2}px;
+    padding: 0 ${Dimens.medium}px;
+  `}
+`;
+
+const Content = styled.div`
+  margin-top: ${Dimens.large}px;
+  ${media.phone`
+    margin-top: ${Dimens.medium}px;
+  `}
+`;
+
+export const ContentContainer = styled.div`
+  width: 688px;
+  float: right;
+  &:after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+  ${media.phone`
+    float: none;
+    width: 100%;
   `}
 `;
 
@@ -45,7 +72,10 @@ export default props => (
     <Page>
       <Container>
         <Title>{props.title}</Title>
-        {props.children}
+        {props.subTitle && <SubTitle>{props.subTitle}</SubTitle>}
+        <Content>
+          {props.children}
+        </Content>
       </Container>
     </Page>
     <Footer />

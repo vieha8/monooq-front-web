@@ -25,6 +25,7 @@ import Payment from 'containers/Payment';
 import RequestCancel from 'containers/RequestCancel';
 import Accept from 'containers/Accept';
 import Estimate from 'containers/Estimate';
+import HostSpaceList from 'containers/HostSpaceList';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -117,6 +118,10 @@ export const routes = {
   estimate: {
     path: '/estimate/:payment_id',
     component: Estimate,
+  },
+  mySpaceList: {
+    path: '/:host_id/space_list',
+    component: HostSpaceList,
   },
 };
 

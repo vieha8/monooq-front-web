@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -20,9 +19,9 @@ import HeaderMenu from './HeaderMenu';
 
 const Root = styled.div`
   width: 100%;
-  margin-bottom: 100px;
+  padding-bottom: 100px;
   ${media.phone`
-    margin-bottom: 80px;
+    padding-bottom: 80px;
   `};
 `;
 
@@ -48,7 +47,6 @@ class Header extends React.Component {
   };
 
   renderLoginComponent = () => {
-    const { classes } = this.props;
     if (this.props.isLogin) {
       return (
         <Fragment>
@@ -72,7 +70,6 @@ class Header extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     return (
       <Root>
         <StyledAppBar position="fixed" color="default">

@@ -9,17 +9,7 @@ import UserMenu from 'components/Menu/UserMenu';
 import Button from 'material-ui/Button';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import Page from 'components/Page';
-
-const MessagesListContainer = styled.div`
-  width: 688px;
-  border: 1px solid #dbdbdb;
-  float: right;
-  ${media.phone`
-    float: none;
-    width: 100%;
-  `}
-`;
+import Page, { ContentContainer } from 'components/Page';
 
 const MessageListItem = styled.li``;
 const MessagesItem = props => (
@@ -35,7 +25,10 @@ const MessagesItem = props => (
 
 const StyledMessagesItem = styled(MessagesItem) `
   height: 104px;
-  border-bottom: 1px solid #dbdbdb;
+  border: 1px solid #dbdbdb;
+  &:not(:first-child) {
+    border-top: none;
+  }
   padding: 20px;
   display: flex;
   :hover {
@@ -99,7 +92,7 @@ class Messages extends React.Component {
       <Page title="メッセージ一覧">
         <Fragment>
           <UserMenu messageCount={99} scheduleCount={9} />
-          <MessagesListContainer>
+          <ContentContainer>
             {this.props.rooms.map((v, i) => (
               <StyledMessagesItem
                 key={i}
@@ -113,7 +106,7 @@ class Messages extends React.Component {
                 <StyledMessagesItemText primary={v.guestUserName} secondary={v.lastMessage} />
               </StyledMessagesItem>
             ))}
-          </MessagesListContainer>
+          </ContentContainer>
           {this.props.rooms.length === 0 &&
             <Button onClick={this.createSampleRoom}>サンプルルーム作成</Button>
           }

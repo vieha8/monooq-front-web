@@ -8,7 +8,7 @@ import { messagesActions } from 'redux/modules/messages';
 import { uiActions } from 'redux/modules/ui';
 
 import styled from 'styled-components';
-import { FontSizes, Colors } from 'variables';
+import { Colors } from 'variables';
 import { media } from '../../helpers/style/media-query';
 
 const MessagePage = styled.div``;
