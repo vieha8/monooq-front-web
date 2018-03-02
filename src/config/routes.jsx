@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
+import Intercom from 'react-intercom';
 
 import Top from 'containers/Top';
 import SearchPage from 'containers/Search/SearchPage';
@@ -123,6 +124,7 @@ export default props => (
   <ConnectedRouter history={props.history}>
     <div>
       <Auth />
+      <Intercom appID="v0rdx0ap" />
       <Header />
       {Object.keys(routes).map((routeKey, i) => (
         <Route

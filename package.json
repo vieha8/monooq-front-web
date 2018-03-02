@@ -24,6 +24,7 @@
     "react-firebaseui": "^1.1.8",
     "react-google-maps": "^9.4.5",
     "react-image-gallery": "^0.8.7",
+    "react-intercom": "^1.0.14",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
