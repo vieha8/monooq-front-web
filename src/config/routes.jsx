@@ -28,6 +28,7 @@ import Estimate from 'containers/Estimate';
 import HostSpaceList from 'containers/HostSpaceList';
 import DepositSchedule from 'containers/DepositSchedule';
 import CancelSchedule from 'containers/CancelSchedule';
+import PostHostReview from 'containers/PostHostReview';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -132,6 +133,10 @@ export const routes = {
   cancelSchedule: {
     path: '/:host_id/deposit_schedule/:schedule_id/cancel',
     component: CancelSchedule,
+  },
+  postHostReview: {
+    path: '/:host_id/review/new',
+    component: PostHostReview,
   },
 };
 
