@@ -13,8 +13,21 @@ const Container = styled.div`
   `}
 `;
 
+const ToTopLink = styled.a`
+  display: block;
+  font-size: ${FontSizes.small}px;
+  color: ${Colors.linkBlue};
+  margin-top: ${Dimens.medium}px;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover {
+    color: ${Colors.linkBlue};    
+  }
+`;
+
 export default () => (
   <Container>
     この予定をキャンセルしました
+    <ToTopLink href="/">トップページから他の場所を探す</ToTopLink>
   </Container>
 );
