@@ -57,11 +57,13 @@ export default props => (
       </ScheduleContaienr>
     </DepositContainer>
     <Sales salesAmount={4000} />
-    <Operation
-      other={{
-        text: props.otherText,
-        href: props.otherLink,
-      }}
-    />
+    {props.otherText && props.otherLink &&
+      <Operation
+        other={{
+          text: props.otherText,
+          href: props.otherLink,
+        }}
+      />
+    }
   </Container>
 );

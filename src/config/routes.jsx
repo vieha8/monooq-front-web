@@ -27,6 +27,7 @@ import Accept from 'containers/Accept';
 import Estimate from 'containers/Estimate';
 import HostSpaceList from 'containers/HostSpaceList';
 import DepositSchedule from 'containers/DepositSchedule';
+import CancelSchedule from 'containers/CancelSchedule';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -127,6 +128,10 @@ export const routes = {
   depositSchedule: {
     path: '/:host_id/deposit_schedule',
     component: DepositSchedule,
+  },
+  cancelSchedule: {
+    path: '/:host_id/deposit_schedule/:schedule_id/cancel',
+    component: CancelSchedule,
   },
 };
 
