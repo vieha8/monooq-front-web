@@ -4,7 +4,8 @@ import { Colors, FontSizes, Dimens } from 'variables';
 import { ContentContainer } from 'components/Page';
 import { media } from 'helpers/style/media-query';
 import ReservationInfo from '../DepositSchedule/ReservationInfo';
-import Cancel from './Cancel';
+import ConfirmCancel from './ConfirmCancel';
+import Cancelled from './Cancelled';
 
 const Title = styled.div`
   font-size: ${FontSizes.xlarge}px;
@@ -18,9 +19,9 @@ const Title = styled.div`
   `}
 `;
 
-export default () => (
+export default props => (
   <ContentContainer>
-    <Title>この予定をキャンセルしますか？</Title>
+    {props.confirm && <Title>この予定をキャンセルしますか？</Title>}
     <ReservationInfo
       username="YUKI HASHIDA"
       place="東京都"
@@ -28,6 +29,6 @@ export default () => (
       salesAmount={4000}
       cancel
     />
-    <Cancel />
+    {props.confirm ? <ConfirmCancel onClickCancel={props.onClickCancel} /> : <Cancelled />}
   </ContentContainer>
 );

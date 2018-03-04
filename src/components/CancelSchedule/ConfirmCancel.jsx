@@ -52,6 +52,7 @@ export default props => (
         bgColor={Colors.white}
         fontColor={Colors.darkGray1}
         borderColor={Colors.darkGray1}
+        onClick={props.onClickCancel}
       >
         キャンセルする
       </Button>
