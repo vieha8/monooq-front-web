@@ -34,7 +34,7 @@ const Container = styled.div`
 
   ${media.phone`
     width: 100%;
-    height: 80px;
+    min-height: 80px;
     display: table;
   `}
 `;
@@ -75,6 +75,12 @@ const Count = styled.div`
   color: ${Colors.black};
   text-align: center;
   margin-top: ${Dimens.medium}px;
+  ${media.phone`
+    padding: 0;
+    display: table-cell;
+    vertical-align: middle;
+    width: 60px;
+  `}
 `;
 
 export default props => (

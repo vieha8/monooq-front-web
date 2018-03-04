@@ -17,6 +17,9 @@ const Container = styled.div`
 const Content = styled.div`
   padding: 0 20%;
   margin-bottom: ${Dimens.huge}px;
+  ${media.phone`
+    padding: 0;
+  `}
 `;
 
 const MenuContainer = styled.div`
@@ -102,7 +105,7 @@ const ButtonContainer = styled.div`
   border-top: 1px solid ${Colors.borderGray};
   padding: ${Dimens.medium2}px 30% 0;
   ${media.phone`
-    padding: ${Dimens.medium2}px 20% 0;  
+    padding: ${Dimens.medium2}px 10% 0;  
   `}
 `;
 
@@ -186,11 +189,11 @@ export default props => (
         )}
         <Header>{props.host.name} さんのスペース</Header>
         <SpaceListContainer>
-          <SpaceItem />
-          <SpaceItem />
-          <SpaceItem />
-          <SpaceItem />
-          <SpaceItem />
+          <SpaceItem place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
+          <SpaceItem place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
+          <SpaceItem place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
+          <SpaceItem place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
+          <SpaceItem place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
         </SpaceListContainer>
       </ReviewContainer>
     </Content>

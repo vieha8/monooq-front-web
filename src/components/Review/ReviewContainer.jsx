@@ -4,7 +4,10 @@ import { Card } from 'semantic-ui-react';
 import { media, isMobileWindow } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
 
-const MobileContainer = styled.div``;
+const MobileContainer = styled.div`
+  padding: 0 ${Dimens.medium}px;
+  background: ${Colors.white};
+`;
 
 const CardContent = styled.div`
   padding: ${Dimens.medium2}px;

@@ -6,11 +6,11 @@ import { Colors, FontSizes, Dimens } from 'variables';
 const Container = styled.li`
   display: table-cell;
   cursor: pointer;
-  padding: 0 ${Dimens.medium}px;
+  padding: 0 ${Dimens.small}px;
 `;
 
-const Wrapper = styled.li`
-  width: 180px;
+const Wrapper = styled.div`
+  width: 160px;
   cursor: pointer;
   box-shadow: none;
   transition: 0.3s;
@@ -27,31 +27,31 @@ const Content = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: 160px;
+  height: 100px;
 `;
 
 const Text = styled.span`
   display: block;
   font-size: ${FontSizes.xsmall}px;
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.small}px;
 `;
 
 const PlaceText = Text.extend`
   color: ${Colors.brandPrimary};
-  margin-top: ${Dimens.small}px;
+  margin-top: ${Dimens.xsmall}px;
 `;
 
 const TypeOK = Text.extend`
   font-weight: bold;
-  margin-top: ${Dimens.medium1}px;
+  margin-top: ${Dimens.small}px;
 `;
 
 const PriceTitle = Text.extend`
-  margin-top: ${Dimens.medium1}px;
+  margin-top: ${Dimens.xsmall}px;
 `;
 
 const Price = Text.extend`
-  margin-top: ${Dimens.small2}px;
+  margin-top: ${Dimens.xsmall}px;
 `;
 
 export default props => (
