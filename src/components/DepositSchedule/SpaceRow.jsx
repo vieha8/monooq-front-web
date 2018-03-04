@@ -13,6 +13,8 @@ const ImageWrapper = styled.div`
 
 const Image = styled.img`
   display: block;
+  width: 100px;
+  height: 70px;
   border-radius: 6px;
   margin-right: ${Dimens.medium}px;
 `;
@@ -43,7 +45,7 @@ const Title = styled.span`
 export default props => (
   <Container>
     <ImageWrapper>
-      <Image src="http://placehold.jp/100x60.png" alt={props.name} />
+      <Image src="http://placehold.jp/100x70.png" alt={props.name} />
     </ImageWrapper>
     <Content>
       <PlaceText>{props.place}</PlaceText>
