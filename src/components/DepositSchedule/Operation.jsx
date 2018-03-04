@@ -38,7 +38,7 @@ const Other = Message.extend`
 export default props => (
   <Container>
     <OperationContainer>
-      <Message href="/messages/1">メッセージを見る</Message>
+      <Message href="/messages/1">メッセージをみる</Message>
       <Other href={props.other.href}>{props.other.text}</Other>
     </OperationContainer>
   </Container>
