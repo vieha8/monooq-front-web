@@ -15,7 +15,7 @@ const Image = styled.img`
   display: block;
   width: 100px;
   height: 70px;
-  border-radius: 3px;
+  border-radius: 6px;
   margin-right: ${Dimens.medium}px;
 `;
 

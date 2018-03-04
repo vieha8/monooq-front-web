@@ -27,7 +27,7 @@ const Card = styled.div`
   padding: ${Dimens.medium}px;
   width: 100%;
   border: 1px solid ${Colors.borderGray};
-  border-radius: 3px;
+  border-radius: 6px;
   ${props => props.selected && `
     background: ${Colors.brandTerciary};
   `}

@@ -46,7 +46,7 @@ const Button = styled.button`
   padding: 9px 70px;
   font-size: ${FontSizes.medium}px;
   color: ${Colors.white};
-  border-radius: 3px;
+  border-radius: 6px;
   &:hover {
     background: ${Colors.brandTerciary};
   }

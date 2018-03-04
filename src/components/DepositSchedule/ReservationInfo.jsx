@@ -3,8 +3,16 @@ import styled from 'styled-components';
 import { Colors, FontSizes, Dimens } from 'variables';
 import SpaceRow from './SpaceRow';
 import Schedule from './Schedule';
+import Sales from './Sales';
+import Operation from './Operation';
 
 const Container = styled.div`
+  &:not(:first-child) {
+    margin-top: ${Dimens.large}px;
+  }
+`;
+
+const DepositContainer = styled.div`
   &:after {
     clear: both;
     content: "";
@@ -31,20 +39,29 @@ const ScheduleContaienr = styled.div`
 
 export default props => (
   <Container>
-    <SpaceContainer>
-      <UserName>ユーザーは{props.username}さん</UserName>
-      <SpaceRowWrapper>
-        <SpaceRow
-          place={props.place}
-          title={props.title}
+    <DepositContainer>
+      <SpaceContainer>
+        <UserName>ユーザーは{props.username}さん</UserName>
+        <SpaceRowWrapper>
+          <SpaceRow
+            place={props.place}
+            title={props.title}
+          />
+        </SpaceRowWrapper>
+      </SpaceContainer>
+      <ScheduleContaienr>
+        <Schedule
+          begin={{ date: '2018.03.31', time: '午前中' }}
+          end={{ date: '2018.05.31', time: '夕方' }}
         />
-      </SpaceRowWrapper>
-    </SpaceContainer>
-    <ScheduleContaienr>
-      <Schedule
-        begin={{ date: '2018.03.31', time: '午前中' }}
-        end={{ date: '2018.05.31', time: '夕方' }}
-      />
-    </ScheduleContaienr>
+      </ScheduleContaienr>
+    </DepositContainer>
+    <Sales salesAmount={4000} />
+    <Operation
+      other={{
+        text: props.otherText,
+        href: props.otherLink,
+      }}
+    />
   </Container>
 );

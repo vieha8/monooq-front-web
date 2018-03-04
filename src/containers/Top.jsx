@@ -264,7 +264,7 @@ const ToHostRegistButton = styled.button`
   background: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium}px;
   color: ${Colors.white};
-  border-radius: 3px;
+  border-radius: 6px;
   width: 264px;
   height: 50px;
   box-sizing: border-box;
@@ -287,7 +287,7 @@ const ForSafeSectionButton = styled.button`
   color: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium}px;
   background: ${Colors.white};
-  border-radius: 3px;
+  border-radius: 6px;
   width: 100%;
   height: 50px;
   box-sizing: border-box;

@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Dimens } from 'variables';
+import { Colors, FontSizes, Dimens } from 'variables';
 import { ContentContainer } from 'components/Page';
-import { media } from 'helpers/style/media-query';
 import ReservationInfo from './ReservationInfo';
+
+const AutoDeleteCaption = styled.span`
+  display: block;
+  font-size: ${FontSizes.xsmall}px;
+  color: ${Colors.lightGray1};
+  margin-top: ${Dimens.large}px;
+  text-align: center;
+`;
 
 export default () => (
   <ContentContainer>
@@ -11,6 +18,16 @@ export default () => (
       username="YUKI HASHIDA"
       place="東京都"
       title="東京タワーに近くて便利！"
+      otherText="キャンセルする"
+      otherLink="/"
     />
+    <ReservationInfo
+      username="YUKI HASHIDA"
+      place="東京都"
+      title="東京タワーに近くて便利！"
+      otherText="何かお困りですか？"
+      otherLink="/"
+    />
+    <AutoDeleteCaption>取引完了後、40日が経過した取引履歴は自動的に削除されます。</AutoDeleteCaption>
   </ContentContainer>
 );
