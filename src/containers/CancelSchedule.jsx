@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Page from 'components/Page';
 import CancelSchedule from 'components/CancelSchedule';
-import HostMenu from 'components/Menu/HostMenu';
+import UserMenu from 'components/Menu/UserMenu';
 import { uiActions } from 'redux/modules/ui';
 
 class HostSpaceListContainer extends Component {
@@ -19,7 +19,7 @@ class HostSpaceListContainer extends Component {
         title="キャンセルする"
         subTitle="預かり開始日の15日前まではキャンセル手数料はかかりません。"
       >
-        <HostMenu />
+        <UserMenu />
         <CancelSchedule onClickCancel={onClickCancel} confirm />
       </Page>
     );
@@ -31,7 +31,7 @@ class HostSpaceListContainer extends Component {
         title="キャンセルが完了しました"
         subTitle="予定のキャンセルが完了しました。キャンセル手数料を引いた返金処理は数日以内に行われます。"
       >
-        <HostMenu />
+        <UserMenu />
         <CancelSchedule />
       </Page>
     );
