@@ -1,6 +1,12 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery } from 'redux-saga/effects';
-import { getApiRequest, postApiRequest, createRESTConstants } from '../helpers/api';
+import {
+  getApiRequest,
+  postApiRequest,
+  putApiRequest,
+  deleteApiRequest,
+  createRESTConstants,
+} from '../helpers/api';
 
 // Actions
 const END_POINTS = {
@@ -9,6 +15,7 @@ const END_POINTS = {
   AUTH_FIREBASE: 'AUTH_FIREBASE',
   USERS: 'USERS',
   SPACES: 'SPACES',
+  SPACE: 'SPACE',
   SPACES_IMAGE: 'SPACES_IMAGE',
   REQUESTS: 'REQUESTS',
   PAYMENTS: 'PAYMENTS',
@@ -39,8 +46,8 @@ export const apiReducer = handleActions({}, initialState);
 
 //Sagas
 
-function* authPastGet({ payload }) {
-  const { data, err } = yield call(() => getApiRequest('/auth/past', { email: payload }));
+function* authPastGet({ payload: { query } }) {
+  const { data, err } = yield call(() => getApiRequest('/auth/past', query));
   if (!err) {
     yield put(apiActions.authPastGetSuccess(data));
   } else {
@@ -59,7 +66,47 @@ function* tokenGeneratePost() {
   }
 }
 
+function* spacesPost({ payload: { body } }) {
+  const { data, err } = yield call(() => postApiRequest('/spaces', body));
+  if (!err) {
+    yield put(apiActions.spacesPostSuccess(data));
+  } else {
+    yield put(apiActions.spacesPostFailed(err));
+  }
+}
+
+function* spaceGet({ payload: { id } }) {
+  const { data, err } = yield call(() => getApiRequest(`/spaces/${id}`));
+  if (!err) {
+    yield put(apiActions.spaceGetSuccess(data));
+  } else {
+    yield put(apiActions.spaceGetFailed(err));
+  }
+}
+
+function* spacePut({ payload: { id, body } }) {
+  const { data, err } = yield call(() => putApiRequest(`/spaces/${id}`, body));
+  if (!err) {
+    yield put(apiActions.spacePutSuccess(data));
+  } else {
+    yield put(apiActions.spacePutFailed(err));
+  }
+}
+
+function* spaceDelete({ payload: { id } }) {
+  const { data, err } = yield call(() => deleteApiRequest(`/spaces/${id}`));
+  if (!err) {
+    yield put(apiActions.spaceDeleteSuccess(data));
+  } else {
+    yield put(apiActions.spaceDeleteFailed(err));
+  }
+}
+
 export const apiSagas = [
   takeEvery(API_ACTIONS.AUTH_PAST.GET.REQUEST, authPastGet),
   takeEvery(API_ACTIONS.TOKEN_GENERATE.POST.REQUEST, tokenGeneratePost),
+  takeEvery(API_ACTIONS.SPACES.POST.REQUEST, spacesPost),
+  takeEvery(API_ACTIONS.SPACE.GET.REQUEST, spaceGet),
+  takeEvery(API_ACTIONS.SPACE.PUT.REQUEST, spacePut),
+  takeEvery(API_ACTIONS.SPACE.DELETE.REQUEST, spaceDelete),
 ];

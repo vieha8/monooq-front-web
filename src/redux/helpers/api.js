@@ -18,7 +18,11 @@ const createApiInstance = token => {
   return axios.create({
     baseURL: apiConfig().baseURI,
     timeout: 3000,
-    headers: { 'x-application-header': token },
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'X-Application-Header': token,
+    },
   });
 };
 
@@ -37,7 +41,7 @@ const responseErrorHandler = (resolve, response) => {
     resolve({ status: 503, err: 'Service Unavailable' });
     return;
   }
-  resolve({ status: response.status, err: response.data.error });
+  resolve({ status: response.status, err: response.statusText });
 };
 
 export const getApiRequest = (path, params) => {
@@ -57,6 +61,30 @@ export const postApiRequest = (path, body) => {
   return new Promise(resolve => {
     api
       .post(path, body)
+      .then(res => {
+        resolve({ status: res.status, data: res.data });
+      })
+      .catch(({ response }) => responseErrorHandler(resolve, response));
+  });
+};
+
+export const putApiRequest = (path, body) => {
+  const api = createApiInstance(getToken());
+  return new Promise(resolve => {
+    api
+      .put(path, body)
+      .then(res => {
+        resolve({ status: res.status, data: res.data });
+      })
+      .catch(({ response }) => responseErrorHandler(resolve, response));
+  });
+};
+
+export const deleteApiRequest = path => {
+  const api = createApiInstance(getToken());
+  return new Promise(resolve => {
+    api
+      .delete(path)
       .then(res => {
         resolve({ status: res.status, data: res.data });
       })
