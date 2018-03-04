@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Colors, FontSizes, Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 import SpaceRow from './SpaceRow';
 import Schedule from './Schedule';
 import ScheduleSales from './Sales';
@@ -11,6 +12,9 @@ const Container = styled.div`
   &:not(:first-child) {
     margin-top: ${Dimens.large}px;
   }
+  ${media.phone`
+    padding: 0 ${Dimens.medium}px;
+  `}
 `;
 
 const DepositContainer = styled.div`
@@ -32,10 +36,17 @@ const SpaceRowWrapper = styled.div`
 
 const SpaceContainer = styled.div`
   float: left;
+  ${media.phone`
+    float: none;
+  `}
 `;
 
 const ScheduleContaienr = styled.div`
   float: right;
+  ${media.phone`
+    float: none;
+    margin-top: ${Dimens.medium}px;
+  `}
 `;
 
 export default props => (
