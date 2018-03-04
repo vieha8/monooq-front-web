@@ -50,8 +50,8 @@ export default props => (
       <Button
         fluid
         bgColor={Colors.white}
-        fontColor={Colors.lightGray1}
-        borderColor={Colors.lightGray1}
+        fontColor={Colors.darkGray1}
+        borderColor={Colors.darkGray1}
       >
         キャンセルする
       </Button>
