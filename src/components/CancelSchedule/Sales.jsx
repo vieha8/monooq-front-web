@@ -31,7 +31,7 @@ const Sales = LabelContainer.extend`
 export default props => (
   <Container>
     <LabelContainer>
-      <Label>売上</Label>
+      <Label>料金</Label>
     </LabelContainer>
     <Sales>
       {props.salesAmount}円

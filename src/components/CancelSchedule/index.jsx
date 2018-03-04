@@ -25,6 +25,8 @@ export default () => (
       username="YUKI HASHIDA"
       place="東京都"
       title="東京タワーに近くて便利！"
+      salesAmount={4000}
+      cancel
     />
     <Cancel />
   </ContentContainer>

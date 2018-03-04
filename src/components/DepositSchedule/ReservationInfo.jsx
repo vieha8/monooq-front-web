@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import { Colors, FontSizes, Dimens } from 'variables';
 import SpaceRow from './SpaceRow';
 import Schedule from './Schedule';
-import Sales from './Sales';
+import ScheduleSales from './Sales';
+import CancelSales from '../CancelSchedule/Sales';
 import Operation from './Operation';
 
 const Container = styled.div`
@@ -56,7 +57,10 @@ export default props => (
         />
       </ScheduleContaienr>
     </DepositContainer>
-    <Sales salesAmount={4000} />
+    {props.cancel
+      ? <CancelSales salesAmount={props.salesAmount} />
+      : <ScheduleSales salesAmount={props.salesAmount} />
+    }
     {props.otherText && props.otherLink &&
       <Operation
         other={{

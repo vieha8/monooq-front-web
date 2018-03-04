@@ -20,6 +20,7 @@ export default () => (
       title="東京タワーに近くて便利！"
       otherText="キャンセルする"
       otherLink="/"
+      salesAmount={4000}
     />
     <ReservationInfo
       username="YUKI HASHIDA"
@@ -27,6 +28,7 @@ export default () => (
       title="東京タワーに近くて便利！"
       otherText="何かお困りですか？"
       otherLink="/"
+      salesAmount={4000}
     />
     <AutoDeleteCaption>取引完了後、40日が経過した取引履歴は自動的に削除されます。</AutoDeleteCaption>
   </ContentContainer>
