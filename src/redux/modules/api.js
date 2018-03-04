@@ -1,10 +1,17 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery } from 'redux-saga/effects';
-import { getApiRequest, createRESTConstants } from '../helpers/api';
+import { getApiRequest, postApiRequest, createRESTConstants } from '../helpers/api';
 
 // Actions
 const END_POINTS = {
-  USERS_OLD: 'USERS_OLD',
+  TOKEN_GENERATE: 'TOKEN_GENERATE',
+  AUTH_PAST: 'AUTH_PAST',
+  AUTH_FIREBASE: 'AUTH_FIREBASE',
+  USERS: 'USERS',
+  SPACES: 'SPACES',
+  SPACES_IMAGE: 'SPACES_IMAGE',
+  REQUESTS: 'REQUESTS',
+  PAYMENTS: 'PAYMENTS',
 };
 
 export const API_ACTIONS = {};
@@ -28,23 +35,31 @@ export const apiActions = createActions(...actionsArr());
 
 const initialState = {};
 
-export const apiReducer = handleActions(
-  {
-    [API_ACTIONS.USERS_OLD.GET.REQUEST]: state => ({
-      ...state,
-    }),
-  },
-  initialState,
-);
+export const apiReducer = handleActions({}, initialState);
 
 //Sagas
-function* usersOldGet({ payload }) {
-  const { data, err } = yield call(() => getApiRequest('/users/old', { email: payload }));
+
+function* authPastGet({ payload }) {
+  const { data, err } = yield call(() => getApiRequest('/auth/past', { email: payload }));
   if (!err) {
-    yield put(apiActions.usersOldGetSuccess(data));
+    yield put(apiActions.authPastGetSuccess(data));
   } else {
-    yield put(apiActions.usersOldGetFailed(err));
+    yield put(apiActions.authPastGetFailed(err));
   }
 }
 
-export const apiSagas = [takeEvery(API_ACTIONS.USERS_OLD.GET.REQUEST, usersOldGet)];
+function* tokenGeneratePost() {
+  const { data, err } = yield call(() => postApiRequest('/token/generate'));
+  if (!err) {
+    const obj = JSON.stringify(data);
+    localStorage.setItem('token', obj);
+    yield put(apiActions.tokenGeneratePostSuccess(data));
+  } else {
+    yield put(apiActions.tokenGeneratePostFailed(err));
+  }
+}
+
+export const apiSagas = [
+  takeEvery(API_ACTIONS.AUTH_PAST.GET.REQUEST, authPastGet),
+  takeEvery(API_ACTIONS.TOKEN_GENERATE.POST.REQUEST, tokenGeneratePost),
+];
