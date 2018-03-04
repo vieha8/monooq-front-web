@@ -13,7 +13,7 @@ const Container = styled.div`
   width: 420px;
   margin-top: ${Dimens.large}px;
   padding: ${Dimens.large}px;
-  border-radius: 3px;
+  border-radius: 6px;
   text-align: center;
   ${media.phone`
     width: 90%;
