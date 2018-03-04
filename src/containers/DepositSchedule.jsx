@@ -3,7 +3,7 @@ import Page from 'components/Page';
 import DepositSchedule from 'components/DepositSchedule';
 import HostMenu from 'components/Menu/HostMenu';
 
-class HostSpaceListContainer extends Component {
+class DepositScheduleContainer extends Component {
   render() {
     return (
       <Page title="預かるスケジュール">
@@ -14,4 +14,4 @@ class HostSpaceListContainer extends Component {
   }
 }
 
-export default HostSpaceListContainer;
+export default DepositScheduleContainer;

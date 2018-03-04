@@ -5,7 +5,7 @@ import CancelSchedule from 'components/CancelSchedule';
 import UserMenu from 'components/Menu/UserMenu';
 import { uiActions } from 'redux/modules/ui';
 
-class HostSpaceListContainer extends Component {
+class CancelScheduleContainer extends Component {
   renderConfirmCancel = () => {
     const { dispatch } = this.props;
     const onClickCancel = () => {
@@ -51,4 +51,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(HostSpaceListContainer);
+export default connect(mapStateToProps)(CancelScheduleContainer);
