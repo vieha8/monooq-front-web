@@ -13,12 +13,13 @@ const END_POINTS = {
   TOKEN_GENERATE: 'TOKEN_GENERATE',
   AUTH_PAST: 'AUTH_PAST',
   AUTH_FIREBASE: 'AUTH_FIREBASE',
-  USERS: 'USERS',
+  USER: 'USER',
+  USER_BANK: 'USER_BANK',
   SPACES: 'SPACES',
   SPACE: 'SPACE',
-  SPACES_IMAGE: 'SPACES_IMAGE',
-  REQUESTS: 'REQUESTS',
-  PAYMENTS: 'PAYMENTS',
+  SPACE_IMAGE: 'SPACE_IMAGE',
+  REQUEST: 'REQUEST',
+  PAYMENT: 'PAYMENT',
 };
 
 export const API_ACTIONS = {};
@@ -55,6 +56,24 @@ function* authPastGet({ payload: { query } }) {
   }
 }
 
+function* authPastPost({ payload: { body } }) {
+  const { data, err } = yield call(() => postApiRequest('/auth/past', body));
+  if (!err) {
+    yield put(apiActions.authPastPostSuccess(data));
+  } else {
+    yield put(apiActions.authPastPostFailed(err));
+  }
+}
+
+function* authFirebasePut({ payload: { body } }) {
+  const { data, err } = yield call(() => putApiRequest('/auth/firebase', body));
+  if (!err) {
+    yield put(apiActions.authFirebasePutSuccess(data));
+  } else {
+    yield put(apiActions.authFirebasePutFailed(err));
+  }
+}
+
 function* tokenGeneratePost() {
   const { data, err } = yield call(() => postApiRequest('/token/generate'));
   if (!err) {
@@ -66,12 +85,66 @@ function* tokenGeneratePost() {
   }
 }
 
-function* spacesPost({ payload: { body } }) {
+function* userPost({ payload: { body } }) {
+  const { data, err } = yield call(() => postApiRequest('/users', body));
+  if (!err) {
+    yield put(apiActions.userPostSuccess(data));
+  } else {
+    yield put(apiActions.userPostFailed(err));
+  }
+}
+
+function* userGet({ payload: { id } }) {
+  const { data, err } = yield call(() => getApiRequest(`/users/${id}`));
+  if (!err) {
+    yield put(apiActions.userGetSuccess(data));
+  } else {
+    yield put(apiActions.userGetFailed(err));
+  }
+}
+
+function* userPut({ payload: { id, body } }) {
+  const { data, err } = yield call(() => putApiRequest(`/users/${id}`, body));
+  if (!err) {
+    yield put(apiActions.userPutSuccess(data));
+  } else {
+    yield put(apiActions.userPutFailed(err));
+  }
+}
+
+function* userDelete({ payload: { id } }) {
+  const { data, err } = yield call(() => deleteApiRequest(`/users/${id}`));
+  if (!err) {
+    yield put(apiActions.userDeleteSuccess(data));
+  } else {
+    yield put(apiActions.userDeleteFailed(err));
+  }
+}
+
+function* userBankPut({ payload: { id, body } }) {
+  const { data, err } = yield call(() => putApiRequest(`/users/${id}`, body));
+  if (!err) {
+    yield put(apiActions.userBankPutSuccess(data));
+  } else {
+    yield put(apiActions.userBankPutFailed(err));
+  }
+}
+
+function* spacesGet() {
+  const { data, err } = yield call(() => getApiRequest(`/spaces`));
+  if (!err) {
+    yield put(apiActions.spacesGetSuccess(data));
+  } else {
+    yield put(apiActions.spacesGetFailed(err));
+  }
+}
+
+function* spacePost({ payload: { body } }) {
   const { data, err } = yield call(() => postApiRequest('/spaces', body));
   if (!err) {
-    yield put(apiActions.spacesPostSuccess(data));
+    yield put(apiActions.spacePostSuccess(data));
   } else {
-    yield put(apiActions.spacesPostFailed(err));
+    yield put(apiActions.spacePostFailed(err));
   }
 }
 
@@ -102,11 +175,119 @@ function* spaceDelete({ payload: { id } }) {
   }
 }
 
+function* spaceImagePost({ payload: { id, body } }) {
+  const { data, err } = yield call(() => postApiRequest(`/spaces/${id}/image`, body));
+  if (!err) {
+    yield put(apiActions.spacesPostSuccess(data));
+  } else {
+    yield put(apiActions.spacesPostFailed(err));
+  }
+}
+
+function* spaceImageDelete({ payload: { spaceId, imageId } }) {
+  const { data, err } = yield call(() => deleteApiRequest(`/spaces/${spaceId}/image/${imageId}`));
+  if (!err) {
+    yield put(apiActions.spacesPostSuccess(data));
+  } else {
+    yield put(apiActions.spacesPostFailed(err));
+  }
+}
+
+function* requestPost({ payload: { body } }) {
+  const { data, err } = yield call(() => postApiRequest('/requests', body));
+  if (!err) {
+    yield put(apiActions.requestPostSuccess(data));
+  } else {
+    yield put(apiActions.requestPostFailed(err));
+  }
+}
+
+function* requestGet({ payload: { id } }) {
+  const { data, err } = yield call(() => getApiRequest(`/requests/${id}`));
+  if (!err) {
+    yield put(apiActions.requestGetSuccess(data));
+  } else {
+    yield put(apiActions.requestGetFailed(err));
+  }
+}
+
+function* requestPut({ payload: { id, body } }) {
+  const { data, err } = yield call(() => putApiRequest(`/requests/${id}`, body));
+  if (!err) {
+    yield put(apiActions.requestPutSuccess(data));
+  } else {
+    yield put(apiActions.requestPutFailed(err));
+  }
+}
+
+function* requestDelete({ payload: { id } }) {
+  const { data, err } = yield call(() => deleteApiRequest(`/requests/${id}`));
+  if (!err) {
+    yield put(apiActions.requestDeleteSuccess(data));
+  } else {
+    yield put(apiActions.requestDeleteFailed(err));
+  }
+}
+
+function* paymentPost({ payload: { body } }) {
+  const { data, err } = yield call(() => postApiRequest('/payments', body));
+  if (!err) {
+    yield put(apiActions.paymentPostSuccess(data));
+  } else {
+    yield put(apiActions.paymentPostFailed(err));
+  }
+}
+
+function* paymentGet({ payload: { id } }) {
+  const { data, err } = yield call(() => getApiRequest(`/payments/${id}`));
+  if (!err) {
+    yield put(apiActions.paymentGetSuccess(data));
+  } else {
+    yield put(apiActions.paymentGetFailed(err));
+  }
+}
+
+function* paymentPut({ payload: { id, body } }) {
+  const { data, err } = yield call(() => putApiRequest(`/payments/${id}`, body));
+  if (!err) {
+    yield put(apiActions.paymentPutSuccess(data));
+  } else {
+    yield put(apiActions.paymentPutFailed(err));
+  }
+}
+
+function* paymentDelete({ payload: { id } }) {
+  const { data, err } = yield call(() => deleteApiRequest(`/payments/${id}`));
+  if (!err) {
+    yield put(apiActions.paymentDeleteSuccess(data));
+  } else {
+    yield put(apiActions.paymentDeleteFailed(err));
+  }
+}
+
 export const apiSagas = [
   takeEvery(API_ACTIONS.AUTH_PAST.GET.REQUEST, authPastGet),
+  takeEvery(API_ACTIONS.AUTH_PAST.POST.REQUEST, authPastPost),
+  takeEvery(API_ACTIONS.AUTH_FIREBASE.PUT.REQUEST, authFirebasePut),
   takeEvery(API_ACTIONS.TOKEN_GENERATE.POST.REQUEST, tokenGeneratePost),
-  takeEvery(API_ACTIONS.SPACES.POST.REQUEST, spacesPost),
+  takeEvery(API_ACTIONS.USER.POST.REQUEST, userPost),
+  takeEvery(API_ACTIONS.USER.GET.REQUEST, userGet),
+  takeEvery(API_ACTIONS.USER.PUT.REQUEST, userPut),
+  takeEvery(API_ACTIONS.USER.DELETE.REQUEST, userDelete),
+  takeEvery(API_ACTIONS.USER_BANK.PUT.REQUEST, userBankPut),
+  takeEvery(API_ACTIONS.SPACES.GET.REQUEST, spacesGet),
+  takeEvery(API_ACTIONS.SPACE.POST.REQUEST, spacePost),
   takeEvery(API_ACTIONS.SPACE.GET.REQUEST, spaceGet),
   takeEvery(API_ACTIONS.SPACE.PUT.REQUEST, spacePut),
   takeEvery(API_ACTIONS.SPACE.DELETE.REQUEST, spaceDelete),
+  takeEvery(API_ACTIONS.SPACE_IMAGE.POST.REQUEST, spaceImagePost),
+  takeEvery(API_ACTIONS.SPACE_IMAGE.DELETE.REQUEST, spaceImageDelete),
+  takeEvery(API_ACTIONS.REQUEST.POST.REQUEST, requestPost),
+  takeEvery(API_ACTIONS.REQUEST.GET.REQUEST, requestGet),
+  takeEvery(API_ACTIONS.REQUEST.PUT.REQUEST, requestPut),
+  takeEvery(API_ACTIONS.REQUEST.DELETE.REQUEST, requestDelete),
+  takeEvery(API_ACTIONS.PAYMENT.POST.REQUEST, paymentPost),
+  takeEvery(API_ACTIONS.PAYMENT.GET.REQUEST, paymentGet),
+  takeEvery(API_ACTIONS.PAYMENT.PUT.REQUEST, paymentPut),
+  takeEvery(API_ACTIONS.PAYMENT.DELETE.REQUEST, paymentDelete),
 ];
