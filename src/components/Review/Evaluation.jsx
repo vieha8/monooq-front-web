@@ -26,24 +26,57 @@ const Container = styled.div`
   text-align: center;
   padding: ${Dimens.medium}px;
   cursor: pointer;
+
+  ${props => props.selected && `
+    border: 1px solid ${Colors.brandTerciary};
+    background: ${Colors.brandTerciary};    
+  `}
+
+  ${media.phone`
+    width: 100%;
+    height: 80px;
+    display: table;
+  `}
 `;
 
 const Text = styled.span`
   display: block;
   font-size: ${FontSizes.small};
   color: ${Colors.black};
+
+  ${media.phone`
+    display: table-cell;
+    vertical-align: middle;
+  `}
 `;
 
-const Image = styled.img`
+const ImageWrapper = styled.span`
   display: block;
   width: 60px;
   height: 60px;
   margin: ${Dimens.medium}px auto 0;
+
+  ${media.phone`
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0;
+    text-align: right;
+  `}
+`;
+
+const Image = styled.img`
+  width: 60px;
+  height: 60px;
 `;
 
 export default props => (
-  <Container>
+  <Container
+    selected={props.selected}
+    onClick={() => props.onClick(props.evaluate)}
+  >
     <Text>{evaluateTitles[props.evaluate]}</Text>
-    <Image src={evaluateImages[props.evaluate]} alt={props.title} />
+    <ImageWrapper>
+      <Image src={evaluateImages[props.evaluate]} alt={props.title} />
+    </ImageWrapper>
   </Container>
 );

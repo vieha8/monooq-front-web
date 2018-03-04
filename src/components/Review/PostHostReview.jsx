@@ -7,16 +7,17 @@ import { ContentContainer } from 'components/Page';
 import { media } from 'helpers/style/media-query';
 import Evaluation from './Evaluation';
 
+const Content = styled.div`
+  ${media.phone`
+    padding: 0 ${Dimens.medium}px;
+  `}
+`;
+
 const Header = styled.div`
   font-size: ${FontSizes.large}px;
   line-height: 51px;
   letter-spacing: -0.5px;
   color: ${Colors.black};
-  ${media.phone`
-    font-size: ${FontSizes.medium2}px;
-    line-height: inherit;
-    padding: 0 ${Dimens.medium}px;
-  `}
 `;
 
 const Caption = styled.div`
@@ -50,6 +51,9 @@ const EvaluationContainer = styled.div`
 const Evaluations = styled.div`
   display: table;
   margin-top: ${Dimens.medium}px;
+  ${media.phone`
+    width: 100%;
+  `}
 `;
 
 const EvaluationWrapper = styled.div`
@@ -57,6 +61,13 @@ const EvaluationWrapper = styled.div`
   &:not(:first-child) {
     padding-left: ${Dimens.medium}px;
   }
+  ${media.phone`
+    display: block;
+    &:not(:first-child) {
+      padding-left: 0;
+      margin-top: ${Dimens.medium}px;
+    }
+  `}
 `;
 
 const CommentContainer = styled.div`
@@ -79,43 +90,57 @@ const styles = {
 
 export default props => (
   <ContentContainer>
-    <Header>ホストは{props.hostName}さん</Header>
-    <ImageWrapper>
-      <Image src="http://placehold.jp/300x300.png" alt={props.hostName} />
-    </ImageWrapper>
-    <ResidenceText>{props.hostResidence} 在住</ResidenceText>
-    <EvaluationContainer>
-      <Header>取引はいかがでしたか？</Header>
-      <Caption>とても良い・ふつう・悪いから選択してください</Caption>
-      <Evaluations>
-        <EvaluationWrapper>
-          <Evaluation evaluate={0} />
-        </EvaluationWrapper>
-        <EvaluationWrapper>
-          <Evaluation evaluate={1} />
-        </EvaluationWrapper>
-        <EvaluationWrapper>
-          <Evaluation evaluate={2} />
-        </EvaluationWrapper>
-      </Evaluations>
-    </EvaluationContainer>
-    <CommentContainer>
-      <Header>コメントする</Header>
-      <Caption>お礼の気持ちを伝えましょう！</Caption>
-      <Form>
-        <TextArea
-          style={styles.textarea}
-          placeholder="どうもありがとうございました！"
-          rows={5}
-        />
-      </Form>
-    </CommentContainer>
-    <ButtonWrapper>
-      <Button
-        fluid
-      >
-        レビューを投稿する
-      </Button>
-    </ButtonWrapper>
+    <Content>
+      <Header>ホストは{props.hostName}さん</Header>
+      <ImageWrapper>
+        <Image src="http://placehold.jp/300x300.png" alt={props.hostName} />
+      </ImageWrapper>
+      <ResidenceText>{props.hostResidence} 在住</ResidenceText>
+      <EvaluationContainer>
+        <Header>取引はいかがでしたか？</Header>
+        <Caption>とても良い・ふつう・悪いから選択してください</Caption>
+        <Evaluations>
+          <EvaluationWrapper>
+            <Evaluation
+              evaluate={0}
+              selected={props.evaluate === 0}
+              onClick={props.onClickEvaluate}
+            />
+          </EvaluationWrapper>
+          <EvaluationWrapper>
+            <Evaluation
+              evaluate={1}
+              selected={props.evaluate === 1}
+              onClick={props.onClickEvaluate}
+            />
+          </EvaluationWrapper>
+          <EvaluationWrapper>
+            <Evaluation
+              evaluate={2}
+              selected={props.evaluate === 2}
+              onClick={props.onClickEvaluate}
+            />
+          </EvaluationWrapper>
+        </Evaluations>
+      </EvaluationContainer>
+      <CommentContainer>
+        <Header>コメントする</Header>
+        <Caption>お礼の気持ちを伝えましょう！</Caption>
+        <Form>
+          <TextArea
+            style={styles.textarea}
+            placeholder="どうもありがとうございました！"
+            rows={5}
+          />
+        </Form>
+      </CommentContainer>
+      <ButtonWrapper>
+        <Button
+          fluid
+        >
+          レビューを投稿する
+        </Button>
+      </ButtonWrapper>
+    </Content>
   </ContentContainer>
 );
