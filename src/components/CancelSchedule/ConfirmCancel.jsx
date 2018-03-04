@@ -2,9 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
   border-top: 1px solid ${Colors.borderGray};
+  ${media.phone`
+    padding: 0 ${Dimens.medium}px;
+  `}
 `;
 
 const PolicyContainer = styled.div`
@@ -32,6 +36,9 @@ const Policy = styled.a`
 const ButtonContainer = styled.div`
   border-top: 1px solid ${Colors.borderGray};
   padding: ${Dimens.medium2}px 30% 0;
+  ${media.phone`
+    padding: ${Dimens.medium2}px 20% 0;  
+  `}
 `;
 
 export default props => (
