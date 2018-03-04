@@ -20,7 +20,7 @@ const evaluateTitles = [
 
 const Container = styled.div`
   width: 180px;
-  height: 140px;
+  min-height: 140px;
   border: 1px solid ${Colors.borderGray};
   border-radius: 6px;
   text-align: center;
@@ -34,7 +34,7 @@ const Container = styled.div`
 
   ${media.phone`
     width: 100%;
-    height: 80px;
+    min-height: 80px;
     display: table;
   `}
 `;
@@ -69,14 +69,31 @@ const Image = styled.img`
   height: 60px;
 `;
 
+const Count = styled.div`
+  display: block;
+  font-size: ${FontSizes.small};
+  color: ${Colors.black};
+  text-align: center;
+  margin-top: ${Dimens.medium}px;
+  ${media.phone`
+    padding: 0;
+    display: table-cell;
+    vertical-align: middle;
+    width: 60px;
+  `}
+`;
+
 export default props => (
   <Container
     selected={props.selected}
-    onClick={() => props.onClick(props.evaluate)}
+    onClick={() => props.onClick && props.onClick(props.evaluate)}
   >
     <Text>{evaluateTitles[props.evaluate]}</Text>
     <ImageWrapper>
       <Image src={evaluateImages[props.evaluate]} alt={props.title} />
     </ImageWrapper>
+    {props.count && (
+      <Count>{props.count}</Count>
+    )}
   </Container>
 );

@@ -29,6 +29,7 @@ import HostSpaceList from 'containers/HostSpaceList';
 import DepositSchedule from 'containers/DepositSchedule';
 import CancelSchedule from 'containers/CancelSchedule';
 import PostHostReview from 'containers/PostHostReview';
+import HostReview from 'containers/HostReview';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -137,6 +138,10 @@ export const routes = {
   postHostReview: {
     path: '/:host_id/review/new',
     component: PostHostReview,
+  },
+  hostReview: {
+    path: '/:host_id/review',
+    component: HostReview,
   },
 };
 
