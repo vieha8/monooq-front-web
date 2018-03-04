@@ -4,6 +4,7 @@ import { Colors, FontSizes, Dimens } from 'variables';
 import { ContentContainer } from 'components/Page';
 import { media } from 'helpers/style/media-query';
 import ReservationInfo from '../DepositSchedule/ReservationInfo';
+import Cancel from './Cancel';
 
 const Title = styled.div`
   font-size: ${FontSizes.xlarge}px;
@@ -25,5 +26,6 @@ export default () => (
       place="東京都"
       title="東京タワーに近くて便利！"
     />
+    <Cancel />
   </ContentContainer>
 );
