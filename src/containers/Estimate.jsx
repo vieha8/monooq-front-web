@@ -11,9 +11,7 @@ import styled from 'styled-components';
 import { FontSizes, Colors } from 'variables';
 import { media } from '../helpers/style/media-query';
 
-// {TODO}あとで内容消す
 const EstimatePage = styled.div`
-  font-family: sans-serif;
 `;
 
 const EstimateContainer = styled.div`
