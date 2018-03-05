@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Page from 'components/Page';
 import UserMenu from 'components/Menu/UserMenu';
-import Profile from 'components/Profile';
-import ProfileEditCompleted from 'components/Profile/EditCompleted';
+import EditProfile from 'components/EditProfile';
+import EditProfileCompleted from 'components/EditProfile/Completed';
 import { uiActions } from 'redux/modules/ui';
 
 class ProfileContainer extends Component {
@@ -18,7 +18,7 @@ class ProfileContainer extends Component {
     return (
       <Page title="プロフィールを編集する">
         <UserMenu />
-        <Profile
+        <EditProfile
           hostName="YUKI HASHIDA"
           onClickSave={this.onClickSave}
         />
@@ -30,7 +30,7 @@ class ProfileContainer extends Component {
     return (
       <Page title="プロフィールの更新が完了しました">
         <UserMenu />
-        <ProfileEditCompleted />
+        <EditProfileCompleted />
       </Page>
     );
   }
