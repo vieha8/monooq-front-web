@@ -1,14 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
-import { DialogContent, DialogTitle } from 'material-ui/Dialog';
-import TextField from 'material-ui/TextField';
 import { CircularProgress } from 'material-ui/Progress';
 import { uiActions } from 'redux/modules/ui';
-
-import styled from 'styled-components';
-import { FontSizes, Colors } from 'variables';
+import { Colors } from 'variables';
 import { media } from '../helpers/style/media-query';
 
 // {TODO}あとで内容消す
@@ -66,12 +62,6 @@ const EstimateSideContainer = styled.div`
     width: 100%;
   `};
 `;
-
-const ToDoTitle = styled.div`
-  font-size: 30px;
-  line-height: 45px;
-`;
-
 
 const SelectScheduleTerm = (props) => {
 
