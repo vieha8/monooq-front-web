@@ -114,7 +114,7 @@ export default props => (
         </InputWrapper>
       </InputContainer>
       <ButtonWrapper>
-        <Button fluid>プロフィールを更新する</Button>
+        <Button fluid onClick={props.onClickSave}>プロフィールを更新する</Button>
       </ButtonWrapper>
       <UnsubscribeText href="/">退会申請をする</UnsubscribeText>
     </Content>
