@@ -17,7 +17,6 @@ import Message from 'containers/Message/';
 import Messages from 'containers/Messages/';
 import SignUp from 'containers/SignUp';
 import ProfileForm from 'containers/ProfileForm';
-import Profile from 'containers/Profile';
 import SpaceForm from 'containers/SpaceForm';
 import SpaceManageList from 'containers/SpaceManageList';
 import Login from 'containers/Login';
@@ -30,6 +29,7 @@ import DepositSchedule from 'containers/DepositSchedule';
 import CancelSchedule from 'containers/CancelSchedule';
 import PostHostReview from 'containers/PostHostReview';
 import HostReview from 'containers/HostReview';
+import Profile from 'containers/Profile';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -87,13 +87,13 @@ export const routes = {
     path: '/signup',
     component: SignUp,
   },
-  editProfile: {
-    path: '/edit/profile/:user_id',
-    component: ProfileForm,
-  },
   profile: {
     path: '/profile/:user_id',
     component: Profile,
+  },
+  editProfile: {
+    path: '/profile/:user_id/edit',
+    component: ProfileForm,
   },
   editSpace: {
     path: '/edit/space/:id',
