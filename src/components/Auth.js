@@ -3,10 +3,16 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { authActions } from 'redux/modules/auth';
 
+import { apiActions } from '../redux/modules/api';
+
 class AuthComponent extends React.Component {
   constructor(props) {
     super(props);
     this.props.dispatch(authActions.checkLoginStart());
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.props.dispatch(apiActions.tokenGeneratePost());
+    }
   }
 
   render() {

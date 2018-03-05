@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
   width: 100%;
@@ -10,6 +11,9 @@ const Container = styled.div`
     content: "";
     display: block;
   }
+  ${media.phone`
+    padding-top: ${Dimens.medium}px;
+  `}
 `;
 
 const Menu = styled.a`
@@ -22,6 +26,13 @@ const Menu = styled.a`
   padding: ${Dimens.medium2}px ${Dimens.small2}px;
   cursor: pointer;
   float: left;
+  ${media.phone`
+    float: none;
+    font-size: ${FontSizes.xsmall}px;
+    padding: ${Dimens.small}px ${Dimens.small}px; 
+    text-align: left;
+    margin-left: ${Dimens.medium}px; 
+  `}
 `;
 
 const Copyright = styled.span`
@@ -33,6 +44,10 @@ const Copyright = styled.span`
   color: ${Colors.darkGray1};
   padding: ${Dimens.medium2}px ${Dimens.small}px;
   float: right;
+  ${media.phone`
+    float: none;
+    margin-left: ${Dimens.medium}px;
+  `}
 `;
 
 export default () => (

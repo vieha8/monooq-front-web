@@ -13,7 +13,7 @@ const ImageWrapper = styled.div`
 
 const Image = styled.img`
   display: block;
-  border-radius: 3px;
+  border-radius: 6px;
   margin-right: ${Dimens.medium}px;
 `;
 

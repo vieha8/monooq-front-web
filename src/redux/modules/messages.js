@@ -2,6 +2,8 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery } from 'redux-saga/effects';
 import firebase from 'firebase';
 import faker from 'faker';
+import fileType from 'file-type';
+import { uploadImage } from '../helpers/firebase';
 require('firebase/firestore');
 
 //Actions
@@ -60,7 +62,24 @@ export const messagesSagas = [
     yield put(fetchMessagesEnd(messages));
   }),
   takeEvery(SEND_MESSAGE, function*(action) {
-    const { roomId, userId, text } = action.payload;
+    const { roomId, userId, text, image } = action.payload;
+
+    let imageUrl;
+    if (image) {
+      const fileReader = new FileReader();
+      fileReader.readAsArrayBuffer(image);
+      const ext = yield call(() => {
+        return new Promise(resolve => {
+          fileReader.onload = () => {
+            const imageType = fileType(fileReader.result);
+            resolve(imageType.ext);
+          };
+        });
+      });
+      const timeStamp = Date.now();
+      imageUrl = yield call(() => uploadImage(`/${roomId}/${userId}/${timeStamp}.${ext}`, image));
+    }
+
     yield call(() => {
       return new Promise(async resolve => {
         const db = firebase.firestore();
@@ -70,6 +89,9 @@ export const messagesSagas = [
           messageType: 1,
           createDt: new Date(),
         };
+        if (imageUrl) {
+          message.image = imageUrl;
+        }
         await db
           .collection('rooms')
           .doc(roomId)

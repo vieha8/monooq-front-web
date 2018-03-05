@@ -25,6 +25,11 @@ import Payment from 'containers/Payment';
 import RequestCancel from 'containers/RequestCancel';
 import Accept from 'containers/Accept';
 import Estimate from 'containers/Estimate';
+import HostSpaceList from 'containers/HostSpaceList';
+import DepositSchedule from 'containers/DepositSchedule';
+import CancelSchedule from 'containers/CancelSchedule';
+import PostHostReview from 'containers/PostHostReview';
+import HostReview from 'containers/HostReview';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -117,6 +122,26 @@ export const routes = {
   estimate: {
     path: '/estimate/:payment_id',
     component: Estimate,
+  },
+  mySpaceList: {
+    path: '/:host_id/space_list',
+    component: HostSpaceList,
+  },
+  depositSchedule: {
+    path: '/:host_id/deposit_schedule',
+    component: DepositSchedule,
+  },
+  cancelSchedule: {
+    path: '/:host_id/deposit_schedule/:schedule_id/cancel',
+    component: CancelSchedule,
+  },
+  postHostReview: {
+    path: '/:host_id/review/new',
+    component: PostHostReview,
+  },
+  hostReview: {
+    path: '/:host_id/review',
+    component: HostReview,
   },
 };
 

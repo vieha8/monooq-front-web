@@ -8,7 +8,7 @@ import { messagesActions } from 'redux/modules/messages';
 import { uiActions } from 'redux/modules/ui';
 
 import styled from 'styled-components';
-import { FontSizes, Colors } from 'variables';
+import { Colors } from 'variables';
 import { media } from '../../helpers/style/media-query';
 
 const MessagePage = styled.div``;
@@ -349,6 +349,14 @@ class Message extends React.Component {
     );
   };
 
+  handleChangeFile = event => {
+    this.props.dispatch(
+      uiActions.setUiState({
+        messageImage: event.target.files.item(0)
+      }),
+    );
+  };
+
   sendTextMessage = () => {
     const { ui } = this.props;
     if (ui.message === '') {
@@ -359,6 +367,7 @@ class Message extends React.Component {
         roomId: this.roomId,
         userId: this.props.userId,
         text: ui.message,
+        image: ui.messageImage
       }),
     );
     this.props.dispatch(
@@ -440,6 +449,7 @@ class Message extends React.Component {
                     <i className="far fa-image" />
                   </AddFileIcon>
                   <AddFileText>写真を送信する</AddFileText>
+                  <input type="file" onChange={this.handleChangeFile} accept=".jpg,.png,image/jpeg,image/png" />
                 </AddFile>
                 <AddMessageTextarea
                   placeholder="メッセージを入力する…"

@@ -91,8 +91,8 @@ function* checkLoginFirebaseAuth() {
 }
 
 function* loginEmail({ payload: { email, password } }) {
-  yield put(apiActions.usersOldGet(email));
-  const { payload } = yield take(API_ACTIONS.USERS_OLD.GET.SUCCESS);
+  yield put(apiActions.authPastGet({ query: { email: email } }));
+  const { payload } = yield take(API_ACTIONS.AUTH_PAST.GET.SUCCESS);
 
   //元々登録されていたユーザーかチェック
   const isOld = payload.result;

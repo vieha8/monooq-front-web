@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import SearchIcon from 'material-ui-icons/Search';
 
@@ -265,7 +264,7 @@ const ToHostRegistButton = styled.button`
   background: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium}px;
   color: ${Colors.white};
-  border-radius: 3px;
+  border-radius: 6px;
   width: 264px;
   height: 50px;
   box-sizing: border-box;
@@ -288,7 +287,7 @@ const ForSafeSectionButton = styled.button`
   color: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium}px;
   background: ${Colors.white};
-  border-radius: 3px;
+  border-radius: 6px;
   width: 100%;
   height: 50px;
   box-sizing: border-box;
@@ -448,7 +447,7 @@ class Top extends React.Component {
     );
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     if (event.target.value === '') {
       this.props.dispatch(
         uiActions.setUiState({
@@ -467,7 +466,7 @@ class Top extends React.Component {
   };
 
   render() {
-    const { classes, ui } = this.props;
+    const { ui } = this.props;
     return (
       <TopPage>
         <TopView>
