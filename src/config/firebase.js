@@ -4,7 +4,7 @@ export default () => {
     authDomain: 'monooq-dev.firebaseapp.com',
     databaseURL: 'https://monooq-dev.firebaseio.com',
     projectId: 'monooq-dev',
-    storageBucket: '',
+    storageBucket: 'gs://monooq-dev.appspot.com/',
     messagingSenderId: '752653028012',
   };
   // TODO return production conf
