@@ -76,7 +76,8 @@ export const messagesSagas = [
           };
         });
       });
-      imageUrl = yield call(() => uploadImage(`/${roomId}/test.${ext}`, image));
+      const timeStamp = Date.now();
+      imageUrl = yield call(() => uploadImage(`/${roomId}/${userId}/${timeStamp}.${ext}`, image));
     }
 
     yield call(() => {
