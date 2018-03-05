@@ -19,6 +19,7 @@ import SignUp from 'containers/SignUp';
 import SpaceForm from 'containers/SpaceForm';
 import SpaceManageList from 'containers/SpaceManageList';
 import Login from 'containers/Login';
+import Logout from 'containers/Logout';
 import Payment from 'containers/Payment';
 import RequestCancel from 'containers/RequestCancel';
 import Accept from 'containers/Accept';
@@ -106,6 +107,10 @@ export const routes = {
   login: {
     path: '/login',
     component: Login,
+  },
+  logout: {
+    path: '/logout',
+    component: Logout,
   },
   payment: {
     path: '/payment/:payment_id',
