@@ -1,6 +1,6 @@
 export default () => {
   const configDevelopment = {
-    baseURI: 'http://192.168.33.110:9090/v1',
+    baseURI: 'http://13.113.136.46:9090//v1',
   };
   // TODO return production conf
   const configProduction = configDevelopment;
