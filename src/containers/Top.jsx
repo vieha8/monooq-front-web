@@ -11,9 +11,9 @@ import { media } from 'helpers/style/media-query';
 import { uiActions } from 'redux/modules/ui';
 import { Footer } from 'components/Shared';
 
-import mainVisual from 'images/main_visual.jpg';
-import topImage1 from 'images/top1.png';
-import topImage2 from 'images/top2.png';
+import mainVisual from 'images/main_visual@2x.jpg';
+import topImage1 from 'images/top1@2x.png';
+import topImage2 from 'images/top2@2x.png';
 import logoPickgo from 'images/logo-pickgo@2x.png';
 import logoAppliv from 'images/logo-appliv@2x.png';
 import logoAscii from 'images/logo-ascii@2x.png';
