@@ -32,6 +32,7 @@ import HostReview from 'containers/HostReview';
 import EditProfile from 'containers/EditProfile';
 import Inquiry from 'containers/Inquiry';
 import Unsubscribe from 'containers/Unsubscribe';
+import SalesTransferList from 'containers/SalesTransfer/ListPage';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -152,6 +153,10 @@ export const routes = {
   unsubscribe: {
     path: '/unsubscribe',
     component: Unsubscribe,
+  },
+  salesTransferList: {
+    path: '/:host_id/sales-transfer',
+    component: SalesTransferList,
   },
 };
 
