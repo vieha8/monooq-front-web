@@ -1,6 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
-import { delay } from 'redux-saga';
-import { put, call, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery, take } from 'redux-saga/effects';
+import { apiActions } from './api';
 
 // Actions
 const FETCH_START_SEARCH = 'FETCH_START_SEARCH';
@@ -37,14 +37,10 @@ export const searchReducer = handleActions(
 );
 
 //Sagas
-function* getSearchAPI(action) {
-  yield call(delay, 1000);
-
-  // ここでAPIからデータとってきたりする
-  // const location = action.payload;
-  const spaces = [...Array(10)];
-
-  yield put(fetchSuccessSearch(spaces));
+function* search({ payload: { location } }) {
+  yield put(apiActions.spacesGet(location));
+  const { payload } = yield take(apiActions.spacesGetSuccess);
+  yield put(fetchSuccessSearch(payload));
 }
 
-export const searchSagas = [takeEvery(FETCH_START_SEARCH, getSearchAPI)];
+export const searchSagas = [takeEvery(FETCH_START_SEARCH, search)];

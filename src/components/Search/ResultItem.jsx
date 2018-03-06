@@ -57,7 +57,7 @@ const Price = Text.extend`
 
 export default props => (
   <Container
-    onClick={() => window.open('/space/1')}
+    onClick={() => window.open(`/space/${props.ID}`)}
   >
     <Card>
       <Image
@@ -65,11 +65,11 @@ export default props => (
         alt=""
       />
       <Content>
-        <PlaceText>{props.place}</PlaceText>
-        <Text>{props.name}</Text>
-        {props.typeOK && <TypeOK>家具・家電OK</TypeOK>}
+        <PlaceText>東京都港区六本木</PlaceText>
+        <Text>{props.Title}</Text>
+        {props.Type && <TypeOK>家具・家電OK</TypeOK>}
         <PriceTitle>料金目安（30日間）</PriceTitle>
-        <Price>{props.price}</Price>
+        <Price>{props.PriceFull}/{props.PriceHalf}/{props.PriceQuarter}円</Price>
       </Content>
     </Card>
   </Container>

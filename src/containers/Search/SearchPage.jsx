@@ -10,8 +10,6 @@ import { Footer } from 'components/Shared';
 import { ResultList } from 'components/Search';
 import { Colors, Dimens, FontSizes } from 'variables/';
 
-import { spaceList } from './mock';
-
 const SearchPageContainer = styled.div``;
 
 const ContentContainer = styled.div`
@@ -60,7 +58,7 @@ class Search extends React.Component {
 
   showSpaceList = () =>
     !this.props.search.isLoading ? (
-      <ResultList spaces={spaceList} />
+      <ResultList spaces={this.props.spaces} />
     ) : (
       <ProgressContainer>
         <CircularProgress className={this.props.classes.progress} size={50} />
@@ -72,7 +70,7 @@ class Search extends React.Component {
     return (
       <SearchPageContainer>
         <ContentContainer>
-          <Title>{match.params.location}の場所</Title>
+          <Title>{match.params.location}のスペース</Title>
           <Caption>
             預ける荷物の量と期間によって最適な料金をホストが提示してくれます。数日などの短い期間で預ける場合でも同じ料金目安です。
           </Caption>
@@ -98,6 +96,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
   search: state.search,
+  spaces: state.search.spaces,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Search));
