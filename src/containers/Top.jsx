@@ -159,7 +159,7 @@ const TopHr = styled.hr`
 const DefaultView = styled.div`
   padding: 80px 116px;
   ${media.phone`
-    padding: 80px 10px;
+    padding: 80px 8vw;
   `};
   color: rgb(51, 51, 51);
   box-sizing: border-box;
@@ -222,6 +222,15 @@ const DefaultView = styled.div`
         padding-bottom: 40px;
     `
       : ''};
+  ${media.phone`
+    ${props =>
+      props.isMeiaLineup
+        ? `
+          padding-top: 40px;
+          padding-bottom: 40px;
+      `
+        : ''};
+  `};
 `;
 
 const HilightCopy = styled.span`
@@ -432,11 +441,17 @@ const LineupTitle = styled.div`
 const LineupList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 const LineupItem = styled.li`
   height: 26px;
+  margin-right: 48px;
+  ${media.phone`
+    height: 16px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+  `};
   img {
     height: 100%;
   }
@@ -485,7 +500,7 @@ class Top extends React.Component {
     );
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     if (event.target.value === '') {
       this.props.dispatch(
         uiActions.setUiState({
