@@ -7,9 +7,7 @@ import { uiActions } from 'redux/modules/ui';
 import { Colors } from 'variables';
 import { media } from '../helpers/style/media-query';
 
-// {TODO}あとで内容消す
 const EstimatePage = styled.div`
-  font-family: sans-serif;
 `;
 
 const EstimateContainer = styled.div`
