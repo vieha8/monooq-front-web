@@ -16,11 +16,10 @@ import SpaceCreatedCompletion from 'containers/NewSpace/SpaceCreatedCompletion';
 import Message from 'containers/Message/';
 import Messages from 'containers/Messages/';
 import SignUp from 'containers/SignUp';
-import ProfileForm from 'containers/ProfileForm';
-import Profile from 'containers/Profile';
 import SpaceForm from 'containers/SpaceForm';
 import SpaceManageList from 'containers/SpaceManageList';
 import Login from 'containers/Login';
+import Logout from 'containers/Logout';
 import Payment from 'containers/Payment';
 import RequestCancel from 'containers/RequestCancel';
 import Accept from 'containers/Accept';
@@ -30,6 +29,8 @@ import DepositSchedule from 'containers/DepositSchedule';
 import CancelSchedule from 'containers/CancelSchedule';
 import PostHostReview from 'containers/PostHostReview';
 import HostReview from 'containers/HostReview';
+import EditProfile from 'containers/EditProfile';
+import Inquiry from 'containers/Inquiry';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -87,13 +88,13 @@ export const routes = {
     path: '/signup',
     component: SignUp,
   },
-  editProfile: {
-    path: '/edit/profile/:user_id',
-    component: ProfileForm,
-  },
   profile: {
     path: '/profile/:user_id',
-    component: Profile,
+    component: HostReview,
+  },
+  editProfile: {
+    path: '/profile/:user_id/edit',
+    component: EditProfile,
   },
   editSpace: {
     path: '/edit/space/:id',
@@ -106,6 +107,10 @@ export const routes = {
   login: {
     path: '/login',
     component: Login,
+  },
+  logout: {
+    path: '/logout',
+    component: Logout,
   },
   payment: {
     path: '/payment/:payment_id',
@@ -139,9 +144,9 @@ export const routes = {
     path: '/:host_id/review/new',
     component: PostHostReview,
   },
-  hostReview: {
-    path: '/:host_id/review',
-    component: HostReview,
+  inquiry: {
+    path: '/inquiry',
+    component: Inquiry,
   },
 };
 
