@@ -25,8 +25,8 @@ const PageTitle = styled.div`
   margin-bottom: 52px;
   ${media.phone`
     padding: 0 20px;
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 22px;
+    line-height: 33px;
     margin-bottom: 20px;
   `};
 `;
@@ -35,18 +35,53 @@ const PageTitleSub = styled.div`
   font-size: 30px;
   line-height: 45px;
   margin-bottom: 30px;
+  ${props =>
+    props.isMobile
+      ? `
+      display: none;
+    `
+      : ''};
   ${media.phone`
     padding: 0 20px;
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 20px;
+    line-height: 29px;
     margin-bottom: 20px;
+    ${props =>
+      props.isMobile
+        ? `
+        display: block;
+        margin-top: 40px;
+      `
+        : ''};
   `};
 `;
 
 const FlexWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap-reverse;
   justify-content: space-between;
+`;
+
+const DefaultHr = styled.hr`
+  border: 0;
+  height: 1px;
+  background-color: #dbdbdb;
+`;
+
+const MobileHr = DefaultHr.extend`
+  margin-top: 22px;
+  margin-bottom: 37px;
+  display: none;
+  ${media.phone`
+    display: block;
+  `};
+  ${props =>
+    props.isLong
+      ? `
+      margin-top: 0;
+      margin-bottom: 17px;
+    `
+      : ''};
 `;
 
 const PaymentFormContainer = styled.div`
@@ -242,7 +277,14 @@ const InputPaymentInfo = props => {
       `
         : ''};
     ${media.phone`
-      width: 90%;
+      width: 100%;
+      ${props =>
+        props.isSmall
+          ? `
+          height: 40px;
+          width: 100px;
+        `
+          : ''};
     `};
   `;
   return (
@@ -346,6 +388,10 @@ const InputPaymentTermInfo = props => {
 const StyledInputPaymentTermInfo = styled(InputPaymentTermInfo)`
   color: #333333;
   margin-bottom: 30px;
+  ${media.phone`
+    padding: 0 20px;
+    width: 100%;
+  `};
 `;
 
 const StyledInputPaymentInfo = styled(InputPaymentInfo)`
@@ -463,27 +509,28 @@ const EstimateInfo = props => {
     margin-bottom: 10px;
   `;
 
-  const Hr = styled.hr`
+  const EstimateInfoHr = DefaultHr.extend`
     margin-bottom: 15px;
-    border: 0;
-    height: 1px;
-    background-color: #dbdbdb;
+    margin-top: 0;
   `;
 
   const NoticeText = styled.div`
     color: #888787;
     font-size: 12px;
     line-height: 18px;
+    ${media.phone`
+      display: none;
+    `};
   `;
 
   return (
     <div className={props.className}>
       <Label>日時</Label>
       <Content>2018/10/01から2018/10/31まで</Content>
-      <Hr />
+      <EstimateInfoHr />
       <Label>期間</Label>
       <Content>30日間</Content>
-      <Hr />
+      <EstimateInfoHr />
       <Label>お支払い金額</Label>
       <Content>5000円（サ・税込み）</Content>
       <NoticeText>
@@ -502,9 +549,17 @@ const StyledEstimateInfo = styled(EstimateInfo)`
   `};
 `;
 
+const StyledEstimateInfoMobile = styled(EstimateInfo)`
+  display: none;
+  padding: 0 20px;
+  ${media.phone`
+    display: block;
+  `};
+`;
+
 const PaymentButtonWrapper = styled.div`
   ${media.phone`
-    padding: 0 46px;
+    padding: 0 46px 137px 46px;
     width: 100%;
   `};
 `;
@@ -556,6 +611,9 @@ class Payment extends Component {
                 id="card-code"
                 isSmall
               />
+              <PageTitleSub isMobile>お支払い内容の確認</PageTitleSub>
+              <StyledEstimateInfoMobile />
+              <MobileHr isLong />
 
               <PaymentNotice>
                 ・決済後にキャンセルされた場合、預ける日の15日前までは全額ご返金させていただきます。<br />・決済後、預かり開始予定日の15日前からキャンセル手数料が発生します。<br />・「決済する」ボタンを押すことで、お客様は当サイトのプライバシーポリシーと利用規約に同意の上、モノオクサービスの予約を確定したことになります。
@@ -565,12 +623,15 @@ class Payment extends Component {
                 キャンセルについて
               </StyledPaymentAnchor>
 
-              <PaymentButton>決済する</PaymentButton>
+              <PaymentButtonWrapper>
+                <PaymentButton>決済する</PaymentButton>
+              </PaymentButtonWrapper>
             </PaymentFormContainer>
 
             <PaymentSideContainer>
               <Information />
               <StyledEstimateInfo />
+              <MobileHr />
             </PaymentSideContainer>
           </FlexWrapper>
         </PaymentContainer>
