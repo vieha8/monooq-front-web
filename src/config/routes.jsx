@@ -33,6 +33,7 @@ import EditProfile from 'containers/EditProfile';
 import Inquiry from 'containers/Inquiry';
 import Unsubscribe from 'containers/Unsubscribe';
 import SalesTransferList from 'containers/SalesTransfer/ListPage';
+import EditBankAccount from 'containers/SalesTransfer/EditBankAccount';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -157,6 +158,10 @@ export const routes = {
   salesTransferList: {
     path: '/:host_id/sales-transfer',
     component: SalesTransferList,
+  },
+  editBankAccount: {
+    path: '/:host_id/bank-account/edit',
+    component: EditBankAccount,
   },
 };
 

@@ -89,7 +89,7 @@ export default props => (
           borderColor={Colors.darkGray1}
           fluid
         >
-          振込申請をする
+          口座情報を変更する
         </Button>
       </ButtonWrapper>
     </Content>

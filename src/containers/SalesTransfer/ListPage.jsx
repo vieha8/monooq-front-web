@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Page from 'components/Page';
 import HostMenu from 'components/Menu/HostMenu';
-import SalesTransferListPage from 'components/SalesTransfer/ListPage';
+import SalesTransferList from 'components/SalesTransfer/SalesTransferList';
 import { uiActions } from 'redux/modules/ui';
 
 class UnsubscribeContainer extends Component {
@@ -12,7 +12,7 @@ class UnsubscribeContainer extends Component {
     return (
       <Page title="売上・振込申請">
         <HostMenu />
-        <SalesTransferListPage
+        <SalesTransferList
           currentSales={27000}
           receivableSales={13000}
           transfers={[
