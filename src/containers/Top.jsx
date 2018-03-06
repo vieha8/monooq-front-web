@@ -10,9 +10,17 @@ import { media } from 'helpers/style/media-query';
 import { uiActions } from 'redux/modules/ui';
 import { Footer } from 'components/Shared';
 
-import mainVisual from 'images/main_visual.jpg';
-import topImage1 from 'images/top1.png';
-import topImage2 from 'images/top2.png';
+import mainVisual from 'images/main_visual@2x.jpg';
+import topImage1 from 'images/top1@2x.png';
+import topImage2 from 'images/top2@2x.png';
+import logoPickgo from 'images/logo-pickgo@2x.png';
+import logoAppliv from 'images/logo-appliv@2x.png';
+import logoAscii from 'images/logo-ascii@2x.png';
+import logoBridge from 'images/logo-bridge@2x.png';
+import logoCnet from 'images/logo-cnet@2x.png';
+import logoLifehacker from 'images/logo-lifehacker@2x.png';
+import logoTechcrunch from 'images/logo-techcrunch@2x.png';
+import logoTechable from 'images/logo-techable@2x.png';
 
 const TopPage = styled.div`
   margin-top: -20px;
@@ -207,6 +215,13 @@ const DefaultView = styled.div`
       `
         : ''};
   `};
+  ${props =>
+    props.isMeiaLineup
+      ? `
+        padding-top: 40px;
+        padding-bottom: 40px;
+    `
+      : ''};
 `;
 
 const HilightCopy = styled.span`
@@ -399,6 +414,7 @@ const PickGoSection = styled.div`
 `;
 
 const PickGoMedia = styled.img`
+  height: 42px;
   margin: 0 15.5px;
   margin-bottom: 20px;
 `;
@@ -408,29 +424,51 @@ const PickGoDescription = styled.div`
   line-height: 27px;
 `;
 
-const LineUpNewsMedia = () => {
-  const style = {
-    title: {
-      fontSize: '22px',
-      marginBottom: '40px',
-    },
-    list: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
-    },
-  };
+const LineupTitle = styled.div`
+  font-size: 22px;
+  margin-bottom: 40px;
+`;
+
+const LineupList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const LineupItem = styled.li`
+  height: 26px;
+  img {
+    height: 100%;
+  }
+`;
+
+const MediaLineup = () => {
   return (
-    <div style={style.root}>
-      <div style={style.title}>メディア掲載</div>
-      <div style={style.list}>
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-      </div>
+    <div>
+      <LineupTitle>メディア掲載</LineupTitle>
+      <LineupList>
+        <LineupItem>
+          <img src={logoCnet} alt="CNET Japan" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoAscii} alt="ASCII.jp" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoBridge} alt="THE BRIDGE" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoAppliv} alt="Appliv" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoLifehacker} alt="lifehacker" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoTechcrunch} alt="TechCrunch" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoTechable} alt="TECHABLE" />
+        </LineupItem>
+      </LineupList>
     </div>
   );
 };
@@ -568,14 +606,14 @@ class Top extends React.Component {
             </LinkToPickGo>
           </div>
           <PickGoSection>
-            <PickGoMedia src="http://placehold.jp/163x42.png" />
+            <PickGoMedia src={logoPickgo} />
             <PickGoDescription>
               サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
             </PickGoDescription>
           </PickGoSection>
         </DefaultView>
-        <DefaultView>
-          <LineUpNewsMedia />
+        <DefaultView isMeiaLineup>
+          <MediaLineup />
         </DefaultView>
         <Footer />
       </TopPage>
