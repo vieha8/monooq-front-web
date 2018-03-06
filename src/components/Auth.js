@@ -10,10 +10,15 @@ class AuthComponent extends React.Component {
     super(props);
     this.props.dispatch(authActions.checkLoginStart());
     const token = localStorage.getItem('token');
-    const { Expire } = JSON.parse(token);
-    const now = parseInt(Date.now() / 1000, 10);
-    if (!token || Expire < now) {
-      //TODO 本来有効期限切れの場合はRefreshToken叩く
+    console.log(token);
+    if (token) {
+      const { Expire } = JSON.parse(token);
+      const now = parseInt(Date.now() / 1000, 10);
+      if (Expire < now) {
+        //TODO 本来有効期限切れの場合はRefreshToken叩く
+        this.props.dispatch(apiActions.tokenGeneratePost());
+      }
+    } else {
       this.props.dispatch(apiActions.tokenGeneratePost());
     }
   }
