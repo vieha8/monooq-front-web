@@ -5,7 +5,7 @@ import HostMenu from 'components/Menu/HostMenu';
 import SalesTransferList from 'components/SalesTransfer/SalesTransferList';
 import { uiActions } from 'redux/modules/ui';
 
-class UnsubscribeContainer extends Component {
+class SalesTransferListContainer extends Component {
   render() {
     // const { ui } = this.props;
 
@@ -30,4 +30,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(UnsubscribeContainer);
+export default connect(mapStateToProps)(SalesTransferListContainer);

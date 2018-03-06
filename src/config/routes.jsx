@@ -32,8 +32,9 @@ import HostReview from 'containers/HostReview';
 import EditProfile from 'containers/EditProfile';
 import Inquiry from 'containers/Inquiry';
 import Unsubscribe from 'containers/Unsubscribe';
-import SalesTransferList from 'containers/SalesTransfer/ListPage';
+import SalesTransferList from 'containers/SalesTransfer/SalesTransferList';
 import EditBankAccount from 'containers/SalesTransfer/EditBankAccount';
+import TransferRequest from 'containers/SalesTransfer/TransferRequest';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -162,6 +163,10 @@ export const routes = {
   editBankAccount: {
     path: '/:host_id/bank-account/edit',
     component: EditBankAccount,
+  },
+  transferRequest: {
+    path: '/:host_id/transfer-request',
+    component: TransferRequest,
   },
 };
 

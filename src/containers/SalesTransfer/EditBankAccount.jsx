@@ -5,7 +5,7 @@ import HostMenu from 'components/Menu/HostMenu';
 import EditBankAccount from 'components/SalesTransfer/EditBankAccount';
 import { uiActions } from 'redux/modules/ui';
 
-class UnsubscribeContainer extends Component {
+class EditBankAccountContainer extends Component {
   onClickConfirmButton = () => {
     const { dispatch } = this.props;
     dispatch(uiActions.setUiState({
@@ -66,4 +66,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(UnsubscribeContainer);
+export default connect(mapStateToProps)(EditBankAccountContainer);
