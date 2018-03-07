@@ -21,6 +21,7 @@ import SpaceManageList from 'containers/SpaceManageList';
 import Login from 'containers/Login';
 import Logout from 'containers/Logout';
 import Payment from 'containers/Payment';
+import Payments from 'containers/Payments/';
 import RequestCancel from 'containers/RequestCancel';
 import Accept from 'containers/Accept';
 import Estimate from 'containers/Estimate';
@@ -119,6 +120,10 @@ export const routes = {
   payment: {
     path: '/payment/:payment_id',
     component: Payment,
+  },
+  payments: {
+    path: '/payments',
+    component: Payments,
   },
   cancel: {
     path: '/cancel/:payment_id',
