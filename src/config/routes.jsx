@@ -32,6 +32,10 @@ import PostHostReview from 'containers/PostHostReview';
 import HostReview from 'containers/HostReview';
 import EditProfile from 'containers/EditProfile';
 import Inquiry from 'containers/Inquiry';
+import Unsubscribe from 'containers/Unsubscribe';
+import SalesTransferList from 'containers/SalesTransfer/SalesTransferList';
+import EditBankAccount from 'containers/SalesTransfer/EditBankAccount';
+import TransferRequest from 'containers/SalesTransfer/TransferRequest';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -50,27 +54,27 @@ export const routes = {
     component: NewSpaceSpaceInfo,
   },
   spaceNewBaggage: {
-    path: '/space/new/about_baggage',
+    path: '/space/new/about-baggage',
     component: AboutBaggage,
   },
   spaceNewReceive: {
-    path: '/space/new/receive_baggage',
+    path: '/space/new/receive-baggage',
     component: ReceiveBaggage,
   },
   spaceNewSize: {
-    path: '/space/new/space_size',
+    path: '/space/new/space-size',
     component: SpaceSize,
   },
   spaceNewPrice: {
-    path: '/space/new/about_price',
+    path: '/space/new/about-price',
     component: AboutPrice,
   },
   spaceNewAllPrice: {
-    path: '/space/new/all_use_price',
+    path: '/space/new/all-use-price',
     component: AllUsePrice,
   },
   spaceCreated: {
-    path: '/space/new/space_created',
+    path: '/space/new/space-created',
     component: SpaceCreatedCompletion,
   },
   space: {
@@ -134,15 +138,15 @@ export const routes = {
     component: Estimate,
   },
   mySpaceList: {
-    path: '/:host_id/space_list',
+    path: '/:host_id/space-list',
     component: HostSpaceList,
   },
   depositSchedule: {
-    path: '/:host_id/deposit_schedule',
+    path: '/:host_id/deposit-schedule',
     component: DepositSchedule,
   },
   cancelSchedule: {
-    path: '/:host_id/deposit_schedule/:schedule_id/cancel',
+    path: '/:host_id/deposit-schedule/:schedule_id/cancel',
     component: CancelSchedule,
   },
   postHostReview: {
@@ -152,6 +156,22 @@ export const routes = {
   inquiry: {
     path: '/inquiry',
     component: Inquiry,
+  },
+  unsubscribe: {
+    path: '/unsubscribe',
+    component: Unsubscribe,
+  },
+  salesTransferList: {
+    path: '/:host_id/sales-transfer',
+    component: SalesTransferList,
+  },
+  editBankAccount: {
+    path: '/:host_id/bank-account/edit',
+    component: EditBankAccount,
+  },
+  transferRequest: {
+    path: '/:host_id/transfer-request',
+    component: TransferRequest,
   },
 };
 

@@ -10,9 +10,19 @@ import { media } from 'helpers/style/media-query';
 import { uiActions } from 'redux/modules/ui';
 import { Footer } from 'components/Shared';
 
-import mainVisual from 'images/main_visual.jpg';
-import topImage1 from 'images/top1.png';
-import topImage2 from 'images/top2.png';
+import mainVisual from 'images/main_visual@2x.jpg';
+import mainVisualSp from 'images/main_visual_sp@2x.jpg';
+import topImage1 from 'images/top1@2x.png';
+import topImage1Sp from 'images/top1_sp@2x.png';
+import topImage2 from 'images/top2@2x.png';
+import logoPickgo from 'images/logo-pickgo@2x.png';
+import logoAppliv from 'images/logo-appliv@2x.png';
+import logoAscii from 'images/logo-ascii@2x.png';
+import logoBridge from 'images/logo-bridge@2x.png';
+import logoCnet from 'images/logo-cnet@2x.png';
+import logoLifehacker from 'images/logo-lifehacker@2x.png';
+import logoTechcrunch from 'images/logo-techcrunch@2x.png';
+import logoTechable from 'images/logo-techable@2x.png';
 
 const TopPage = styled.div`
   margin-top: -20px;
@@ -25,6 +35,12 @@ const TopView = styled.div`
   background-image: url(${mainVisual});
   background-size: cover;
   color: rgb(255, 255, 255);
+  ${media.phone`
+    height: 480px;
+    background-image: url(${mainVisualSp});
+    background-size: contain;
+    background-position: 0 56px;
+  `};
 `;
 
 const TopViewFilter = styled.div`
@@ -33,7 +49,7 @@ const TopViewFilter = styled.div`
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.4);
   ${media.phone`
-    padding: 196px 10px 0 10px;
+    padding: 108px 8vw 0 8vw;
   `};
 `;
 
@@ -41,6 +57,9 @@ const Monooq = styled.span`
   display: inline-block;
   font-size: 20px;
   margin-bottom: 8px;
+  ${media.phone`
+    display: none;
+  `};
 `;
 
 const CatchPhrase = styled.div`
@@ -52,8 +71,8 @@ const CatchPhrase = styled.div`
   height: 114px;
   margin-bottom: 10px;
   ${media.phone`
-    font-size: 28px;
-    line-height: 48px;
+    font-size: 1.3em;
+    line-height: 1.8em;
     width: 100%;
     height: auto;
   `};
@@ -62,14 +81,18 @@ const CatchPhrase = styled.div`
 const SubCatchPhrase = styled.span`
   display: block;
   font-size: 26px;
-  width: 561px;
+  width: 560px;
   font-weight: 100;
   line-height: 40px;
   ${media.phone`
-    font-size: 24px;
+    font-size: 1.1em;
     line-height: 30px;
     width: 100%;
   `};
+`;
+
+const SubCatchPhraseNarrow = SubCatchPhrase.extend`
+  width: 540px;
 `;
 
 const SearchWrapper = styled.div`
@@ -79,7 +102,7 @@ const SearchWrapper = styled.div`
   margin-bottom: 40px;
   overflow: hidden;
   ${media.phone`
-    width: calc(100vw - 20px);
+    width: 84vw;
   `};
 `;
 
@@ -97,7 +120,7 @@ const SearchInput = styled.input`
   box-sizing: border-box;
   font-size: ${FontSizes.small}px;
   ${media.phone`
-    width: calc(100vw - 20px);
+    width: 84vw;
   `};
 `;
 
@@ -110,6 +133,9 @@ const SearchButton = styled(Button)`
     padding: 0;
     background-color: transparent;
     box-shadow: none;
+    ${media.phone`
+      right: -20px;
+    `};
   }
 `;
 
@@ -151,7 +177,7 @@ const TopHr = styled.hr`
 const DefaultView = styled.div`
   padding: 80px 116px;
   ${media.phone`
-    padding: 80px 10px;
+    padding: 30px 8vw;
   `};
   color: rgb(51, 51, 51);
   box-sizing: border-box;
@@ -170,8 +196,11 @@ const DefaultView = styled.div`
     ${props =>
       props.isReasonUser
         ? `
-          background: #fff;
-          background-image: inherit;
+          background-image: url(${topImage1Sp});
+          background-position: right 0 bottom 30px;
+          background-size: contain;
+          padding-bottom: 40vh;
+
       `
         : ''};
   `};
@@ -185,6 +214,15 @@ const DefaultView = styled.div`
         background-size: 500px 947px;
     `
       : ''};
+  ${media.phone`
+    ${props =>
+      props.isReasonHost
+        ? `
+          background-image: none;
+          background-color: ${Colors.lightGray1Bg};
+      `
+        : ''};
+  `};
   ${props =>
     props.isForSafe
       ? `
@@ -207,6 +245,13 @@ const DefaultView = styled.div`
       `
         : ''};
   `};
+  ${props =>
+    props.isMeiaLineup
+      ? `
+        padding-top: 40px;
+        padding-bottom: 40px;
+    `
+      : ''};
 `;
 
 const HilightCopy = styled.span`
@@ -238,6 +283,9 @@ const ExplainDescription = styled.span`
   font-size: ${FontSizes.medium}px;
   line-height: 32px;
   font-weight: 100;
+  ${media.phone`
+    width: 84vw;
+  `};
 `;
 
 const ExplainSection = ({ title, description }) => {
@@ -276,9 +324,7 @@ const ToHostRegistButton = styled.button`
   outline: none;
 
   ${media.phone`
-    display: table-cell;
-    padding: 9px 20px;
-    vertical-align: middle;
+    width: 84vw;
   `};
 `;
 
@@ -314,13 +360,14 @@ const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
       margin-bottom: 30px;
     `};
   `;
+  const StyledTitle = styled.div`
+    height: 60px;
+    font-size: 22px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  `;
   const style = {
-    title: {
-      height: '60px',
-      lineHeight: '60px',
-      fontSize: '22px',
-      marginBottom: '20px',
-    },
     titleIcon: {
       marginRight: '20px',
       fontSize: '60px',
@@ -333,13 +380,13 @@ const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
   };
   return (
     <StyledContainer>
-      <div style={style.title}>
+      <StyledTitle>
         <span className="fa-layers fa-fw fa-2x" style={style.titleIcon}>
           <i className="fas fa-circle" style={{ color: '#E85258' }} />
           <i className={iconClass} style={{ color: '#fff' }} data-fa-transform="shrink-6" />
         </span>
         <span>{title}</span>
-      </div>
+      </StyledTitle>
       <div style={style.description}>{description}</div>
       <ForSafeSectionButton>{buttonText}</ForSafeSectionButton>
     </StyledContainer>
@@ -380,6 +427,11 @@ const ForSafeSectionList = () => {
   );
 };
 
+const PickgoWrapper = styled.div`
+  position: relative;
+  width: 100%;
+`;
+
 const LinkToPickGo = styled.a`
   font-size: 18px;
   color: rgb(255, 255, 255);
@@ -388,6 +440,9 @@ const LinkToPickGo = styled.a`
 `;
 
 const PickGoSection = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
   width: 294px;
   color: #333333;
   text-align: center;
@@ -395,10 +450,12 @@ const PickGoSection = styled.div`
   margin-top: 87px;
   ${media.phone`
     margin: 30px auto;
+    position: relative;
   `};
 `;
 
 const PickGoMedia = styled.img`
+  height: 42px;
   margin: 0 15.5px;
   margin-bottom: 20px;
 `;
@@ -408,29 +465,57 @@ const PickGoDescription = styled.div`
   line-height: 27px;
 `;
 
-const LineUpNewsMedia = () => {
-  const style = {
-    title: {
-      fontSize: '22px',
-      marginBottom: '40px',
-    },
-    list: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
-    },
-  };
+const LineupTitle = styled.div`
+  font-size: 22px;
+  margin-bottom: 40px;
+`;
+
+const LineupList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+const LineupItem = styled.li`
+  height: 26px;
+  margin-right: 48px;
+  ${media.phone`
+    height: 16px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+  `};
+  img {
+    height: 100%;
+  }
+`;
+
+const MediaLineup = () => {
   return (
-    <div style={style.root}>
-      <div style={style.title}>メディア掲載</div>
-      <div style={style.list}>
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-        <img src="http://placehold.jp/114x26.png" alt="placeholder" />
-      </div>
+    <div>
+      <LineupTitle>メディア掲載</LineupTitle>
+      <LineupList>
+        <LineupItem>
+          <img src={logoCnet} alt="CNET Japan" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoAscii} alt="ASCII.jp" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoBridge} alt="THE BRIDGE" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoAppliv} alt="Appliv" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoLifehacker} alt="lifehacker" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoTechcrunch} alt="TechCrunch" />
+        </LineupItem>
+        <LineupItem>
+          <img src={logoTechable} alt="TECHABLE" />
+        </LineupItem>
+      </LineupList>
     </div>
   );
 };
@@ -447,7 +532,7 @@ class Top extends React.Component {
     );
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     if (event.target.value === '') {
       this.props.dispatch(
         uiActions.setUiState({
@@ -556,26 +641,26 @@ class Top extends React.Component {
           <ForSafeSectionList />
         </DefaultView>
         <DefaultView isPickGo>
-          <div>
+          <PickgoWrapper>
             <CatchPhrase>
               荷物の配送だって<br />もっと便利に安くできる。
             </CatchPhrase>
-            <SubCatchPhrase>
-              Pickgoを使えば、引っ越しが5000円から。<br />モノオクから簡単に配送依頼ができます。
-            </SubCatchPhrase>
+            <PickGoSection>
+              <PickGoMedia src={logoPickgo} />
+              <PickGoDescription>
+                サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
+              </PickGoDescription>
+            </PickGoSection>
+            <SubCatchPhraseNarrow>
+              Pickgoを使えば、引っ越しが5000円から。モノオクから簡単に配送依頼ができます。
+            </SubCatchPhraseNarrow>
             <LinkToPickGo component={Link} href={'#'}>
               Pickgoのサイトを見る
             </LinkToPickGo>
-          </div>
-          <PickGoSection>
-            <PickGoMedia src="http://placehold.jp/163x42.png" />
-            <PickGoDescription>
-              サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
-            </PickGoDescription>
-          </PickGoSection>
+          </PickgoWrapper>
         </DefaultView>
-        <DefaultView>
-          <LineUpNewsMedia />
+        <DefaultView isMeiaLineup>
+          <MediaLineup />
         </DefaultView>
         <Footer />
       </TopPage>
