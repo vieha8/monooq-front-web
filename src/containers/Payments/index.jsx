@@ -22,6 +22,9 @@ const SubTitle = styled.div`
   font-size: 30px;
   line-height: 45px;
   margin-bottom: 25px;
+  ${media.phone`
+    display: none;
+  `};
 `;
 
 const RecordContent = (props) => {
@@ -64,6 +67,9 @@ const StyledRecordContent = styled(RecordContent)`
   color: #333333;
   font-size: 14px;
   line-height: 28px;
+  ${media.phone`
+    padding: 20px 20px;
+  `};
 `;
 
 class Payments extends React.Component {
