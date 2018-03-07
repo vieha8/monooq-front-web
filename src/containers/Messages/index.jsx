@@ -71,7 +71,6 @@ const StyledMessagesItemText = styled(MessagesItemText) `
 class Messages extends React.Component {
   constructor(props) {
     super(props);
-
     const userId = this.props.userId;
     this.props.dispatch(messagesActions.fetchRoomsStart(userId));
   }
@@ -92,8 +91,8 @@ class Messages extends React.Component {
                   history.push(`/messages/${v.id}`);
                 }}
               >
-                <Avatar src={v.guestUserImgUrl} />
-                <StyledMessagesItemText primary={v.guestUserName} secondary={v.lastMessage} />
+                <Avatar src={v.img} />
+                <StyledMessagesItemText primary={v.name} secondary={v.lastMessage} />
               </StyledMessagesItem>
             ))}
           </ContentContainer>

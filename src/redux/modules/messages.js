@@ -2,6 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery } from 'redux-saga/effects';
 import firebase from 'firebase';
 import fileType from 'file-type';
+import faker from 'faker';
 import { uploadImage } from '../helpers/firebase';
 require('firebase/firestore');
 
@@ -65,6 +66,8 @@ export const createRoom = (userId1, userId2) => {
     const room = {
       [userId1]: true,
       [userId2]: true,
+      userId1: userId1,
+      userId2: userId2,
     };
     const db = firebase.firestore();
     const roomRef = await db.collection('rooms').add(room);
@@ -99,8 +102,11 @@ const getRooms = userId => {
       .get();
     const res = [];
     rooms.forEach(room => {
+      //TODO 相手のユーザー情報を取得する
       res.push({
         id: room.id,
+        name: faker.name.firstName() + ' ' + faker.name.lastName(),
+        img: faker.image.avatar(),
         ...room.data(),
       });
     });

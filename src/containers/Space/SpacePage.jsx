@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 
@@ -114,8 +115,8 @@ const MapContainer = styled.div`
 
 const sendMessage = async(props) => {
   //TODO ホストとユーザーのIDをpropsからひっぱってくる
-  const userId1 = "a";
-  const userId2 = "b";
+  const userId1 = props.userId;
+  const userId2 = "hogehoge";
   let roomId = await isExistRoom(userId1, userId2);
   if(!roomId) {
     roomId = await createRoom(userId1, userId2);
@@ -260,4 +261,8 @@ const spacePage = props => (
   </SpacePage>
 );
 
-export default withRouter(spacePage);
+const mapStateToProps = state => ({
+  userId: state.auth.user.id
+});
+
+export default connect(mapStateToProps)(withRouter(spacePage));
