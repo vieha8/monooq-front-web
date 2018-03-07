@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Path from 'config/path';
 import Button from 'material-ui/Button';
 import SearchIcon from 'material-ui-icons/Search';
 
@@ -543,14 +544,14 @@ export default props => (
             color="primary"
             mini
             component={Link}
-            to={`/search/${props.locationText}`}
+            to={`${Path.search()}?location=${props.locationText}`}
             disabled={!props.searchButtonDisabled}
           >
             <StyledSearchIcon />
           </SearchButton>
         </SearchWrapper>
         <ToHostRegistContainer>
-          <ToHostRegist component={Link} href={'/edit/profile/1'}>
+          <ToHostRegist component={Link} href={Path.signup()}>
             ホスト登録はこちら
           </ToHostRegist>
         </ToHostRegistContainer>
@@ -600,7 +601,7 @@ export default props => (
         title="誰かの役にたつ"
         description="引っ越しやリフォーム、片付けなど荷物を預けられる場所を探すのは意外と大変なんです。困っている誰かの力になってくれませんか？"
       />
-      <ToHostRegistButton>ホスト登録はこちら</ToHostRegistButton>
+      <ToHostRegistButton onClick={props.onClickSignup}>ホスト登録はこちら</ToHostRegistButton>
     </DefaultView>
     <DefaultView isForSafe>
       <HilightCopy>みんなでもっと便利に物置きシェアができる世の中へ。</HilightCopy>

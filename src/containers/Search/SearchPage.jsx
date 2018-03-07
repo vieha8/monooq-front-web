@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
 
 import { searchActions } from 'redux/modules/search';
+import { uiActions } from 'redux/modules/ui';
 import { isMobileWindow, media } from 'helpers/style/media-query';
 import { Footer } from 'components/Shared';
 import { ResultList } from 'components/Search';
@@ -51,26 +53,31 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
 
-    const { match, dispatch } = props;
+    const { location, dispatch } = props;
 
-    dispatch(searchActions.fetchStartSearch(match.params.location));
+    const query = queryString.parse(location.search);
+    dispatch(uiActions.setUiState({ query }));
+    dispatch(searchActions.fetchStartSearch(query.location || ''));
   }
 
-  showSpaceList = () =>
+  showSpaceList = () => (
     !this.props.search.isLoading ? (
       <ResultList spaces={this.props.spaces} />
     ) : (
       <ProgressContainer>
         <CircularProgress className={this.props.classes.progress} size={50} />
       </ProgressContainer>
-    );
+    )
+  )
 
   render() {
-    const { match } = this.props;
+    const { ui } = this.props;
+    if (!ui.query) return null;
+
     return (
       <SearchPageContainer>
         <ContentContainer>
-          <Title>{match.params.location}のスペース</Title>
+          <Title>{ui.query.location}のスペース</Title>
           <Caption>
             預ける荷物の量と期間によって最適な料金をホストが提示してくれます。数日などの短い期間で預ける場合でも同じ料金目安です。
           </Caption>
@@ -97,6 +104,7 @@ const styles = theme => ({
 const mapStateToProps = state => ({
   search: state.search,
   spaces: state.search.spaces,
+  ui: state.ui,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Search));

@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import Intercom from 'react-intercom';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
+import Path from 'config/path';
 import Top from 'components/Top';
 
 class TopContainer extends React.Component {
@@ -42,6 +43,7 @@ class TopContainer extends React.Component {
           locationText={ui.locationText}
           searchButtonDisabled={ui.searchButtonDisabled}
           handleChangeLocation={this.handleChangeLocation}
+          onClickSignup={() => { window.location.href = Path.signup(); }}
         />
         <Intercom appID="v0rdx0ap" />
       </Fragment>
