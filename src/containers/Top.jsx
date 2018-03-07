@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import Intercom from 'react-intercom';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import Top from 'components/Top';
@@ -36,11 +37,14 @@ class TopContainer extends React.Component {
   render() {
     const { ui } = this.props;
     return (
-      <Top
-        locationText={ui.locationText}
-        searchButtonDisabled={ui.searchButtonDisabled}
-        handleChangeLocation={this.handleChangeLocation}
-      />
+      <Fragment>
+        <Top
+          locationText={ui.locationText}
+          searchButtonDisabled={ui.searchButtonDisabled}
+          handleChangeLocation={this.handleChangeLocation}
+        />
+        <Intercom appID="v0rdx0ap" />
+      </Fragment>
     );
   }
 }
