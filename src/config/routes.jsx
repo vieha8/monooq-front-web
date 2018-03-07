@@ -36,6 +36,7 @@ import Unsubscribe from 'containers/Unsubscribe';
 import SalesTransferList from 'containers/SalesTransfer/SalesTransferList';
 import EditBankAccount from 'containers/SalesTransfer/EditBankAccount';
 import TransferRequest from 'containers/SalesTransfer/TransferRequest';
+import Report from 'containers/Report';
 
 import Header from 'components/Header';
 import { Auth } from 'components/Auth';
@@ -172,6 +173,10 @@ export const routes = {
   transferRequest: {
     path: '/:host_id/transfer-request',
     component: TransferRequest,
+  },
+  report: {
+  path: '/report',
+  component: Report,
   },
 };
 
