@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
+import Path from 'config/path';
 import Avatar from 'material-ui/Avatar';
 import authRequired from 'components/Auth';
 import { messagesActions } from 'redux/modules/messages';
@@ -88,7 +89,7 @@ class Messages extends React.Component {
                 button
                 divider
                 onClickdMessagesItem={() => {
-                  history.push(`/messages/${v.id}`);
+                  history.push(Path.message(v.id));
                 }}
               >
                 <Avatar src={v.img} />

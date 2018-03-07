@@ -3,6 +3,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { withStyles } from 'material-ui/styles';
+import Path from 'config/path';
 import authRequired from 'components/Auth';
 import { messagesActions } from 'redux/modules/messages';
 import { uiActions } from 'redux/modules/ui';
@@ -327,10 +328,8 @@ class Message extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(uiActions);
-
     this.pageTitle = 'Masaya Kudoさんとのメッセージ'; // TODO ルーム情報を取得する
-    this.roomId = props.match.params.room_id; // TODO roomId書き換えで関係ないルームのデータを取得できないようにする
+    this.roomId = props.match.params.message_room_id; // TODO roomId書き換えで関係ないルームのデータを取得できないようにする
     this.props.dispatch(messagesActions.fetchMessagesStart(this.roomId));
     this.props.dispatch(
       uiActions.setUiState({
@@ -426,8 +425,8 @@ class Message extends React.Component {
   };
 
   render() {
-    const { ui } = this.props;
-    //TODO contents内にTextFieldいれるとonChangeの挙動がおかしくなるので仮でこの形に
+    const { ui, history } = this.props;
+    // TODO contents内にTextFieldいれるとonChangeの挙動がおかしくなるので仮でこの形に
     return (
       <MessagePage>
         <MessageContainer>
@@ -460,7 +459,7 @@ class Message extends React.Component {
                 <AddMessageButton submit onClick={this.sendTextMessage}>
                   送信
                 </AddMessageButton>
-                <AddMessageButton estimate onClick={() => this.props.history.push('/estimate/1')}>
+                <AddMessageButton estimate onClick={() => history.push(Path.estimate(this.roomId))}>
                   見積もりを送る
                 </AddMessageButton>
               </SubmitMessageForm>

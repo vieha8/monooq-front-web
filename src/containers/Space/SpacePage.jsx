@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
-
+import Path from 'config/path';
 import { isMobileWindow, media } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
 
@@ -25,7 +25,7 @@ import {
 } from 'components/Space';
 
 import SpaceMenu from 'containers/Search/SpaceMenu';
-import { isExistRoom, createRoom } from "../../redux/modules/messages";
+import { isExistRoom, createRoom } from 'redux/modules/messages';
 
 const SpacePage = styled.div`
   background: ${Colors.lightGray2Bg};
@@ -113,15 +113,15 @@ const MapContainer = styled.div`
   `}
 `;
 
-const sendMessage = async(props) => {
-  //TODO ホストとユーザーのIDをpropsからひっぱってくる
+const sendMessage = async (props) => {
+  // TODO ホストとユーザーのIDをpropsからひっぱってくる
   const userId1 = props.userId;
-  const userId2 = "hogehoge";
+  const userId2 = 'hogehoge';
   let roomId = await isExistRoom(userId1, userId2);
-  if(!roomId) {
+  if (!roomId) {
     roomId = await createRoom(userId1, userId2);
   }
-  props.history.push(`/messages/${roomId}`);
+  props.history.push(Path.message(roomId));
 };
 
 const spacePage = props => (
@@ -262,7 +262,7 @@ const spacePage = props => (
 );
 
 const mapStateToProps = state => ({
-  userId: state.auth.user.id
+  userId: state.auth.user.id,
 });
 
 export default connect(mapStateToProps)(withRouter(spacePage));

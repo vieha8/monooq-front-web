@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import Intercom from 'react-intercom';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
@@ -36,14 +37,14 @@ class TopContainer extends React.Component {
   };
 
   render() {
-    const { ui } = this.props;
+    const { ui, history } = this.props;
     return (
       <Fragment>
         <Top
           locationText={ui.locationText}
           searchButtonDisabled={ui.searchButtonDisabled}
           handleChangeLocation={this.handleChangeLocation}
-          onClickSignup={() => { window.location.href = Path.signup(); }}
+          onClickSignup={() => history.push(Path.signup())}
         />
         <Intercom appID="v0rdx0ap" />
       </Fragment>
@@ -55,4 +56,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(TopContainer);
+export default withRouter(connect(mapStateToProps)(TopContainer));

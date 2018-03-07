@@ -1,8 +1,9 @@
 const HOST_ID = ':host_id';
 const USER_ID = ':user_id';
 const SPACE_ID = ':space_id';
-const MESSAGE_ID = ':message_id';
+const MESSAGE_ROOM_ID = ':message_room_id';
 const SCHEDULE_ID = ':schedule_id';
+const ESTIMATE_ID = ':estimate_id';
 
 export default {
   // トップ
@@ -17,9 +18,6 @@ export default {
   // スペース詳細
   space: (spaceId = SPACE_ID) =>
     `/space/${spaceId}`,
-  // 決済
-  payment: (spaceId = SPACE_ID) =>
-    `/space/${spaceId}/payment`,
   // スペース作成
   createSpaceInfo: (hostId = HOST_ID) =>
     `/host/${hostId}/space/new/info`,
@@ -45,11 +43,14 @@ export default {
   messages: (hostId = HOST_ID) =>
     `/host/${hostId}/messages`,
   // メッセージ詳細
-  message: (messageId = MESSAGE_ID) =>
-    `/message/${messageId}`,
+  message: (messageRoomId = MESSAGE_ROOM_ID) =>
+    `/message/${messageRoomId}`,
   // 見積もり
-  estimate: (messageId = MESSAGE_ID) =>
-    `/message/${messageId}/estimate/new`,
+  estimate: (messageRoomId = MESSAGE_ROOM_ID) =>
+    `/message/${messageRoomId}/estimate/new`,
+  // 決済
+  payment: (estimateId = ESTIMATE_ID) =>
+    `/estimate/${estimateId}/payment`,
   // プロフィール
   profile: (userId = USER_ID) =>
     `/user/${userId}`,

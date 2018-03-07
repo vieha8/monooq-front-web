@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import Path from 'config/path';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Typography from 'material-ui/Typography';
@@ -43,7 +44,7 @@ const StyledIconButton = styled(IconButton)`
 class Header extends React.Component {
   logout = async () => {
     this.props.dispatch(authActions.logout());
-    this.props.history.push('/login');
+    this.props.history.push(Path.login());
   };
 
   renderLoginComponent = () => {
@@ -52,7 +53,7 @@ class Header extends React.Component {
         <Fragment>
           <StyledIconButton
             aria-label="Message"
-            onClick={() => this.props.history.push('/messages')}
+            onClick={() => this.props.history.push(Path.messages('test_host_id'))}
           >
             <MessageIcon />
           </StyledIconButton>
@@ -62,8 +63,8 @@ class Header extends React.Component {
     return (
       <Fragment>
         <Hidden xsDown>
-          <Button onClick={() => this.props.history.push('/login')}>ログイン</Button>
-          <Button onClick={() => this.props.history.push('/signup')}>登録</Button>
+          <Button onClick={() => this.props.history.push(Path.login())}>ログイン</Button>
+          <Button onClick={() => this.props.history.push(Path.signup())}>登録</Button>
         </Hidden>
       </Fragment>
     );
@@ -81,7 +82,7 @@ class Header extends React.Component {
             </StyledTypography>
             <StyledIconButton
               aria-label="Search"
-              onClick={() => this.props.history.push('/search/東京都')}
+              onClick={() => this.props.history.push(`${Path.search()}?location=東京都`)}
             >
               <SearchIcon />
             </StyledIconButton>
