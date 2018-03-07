@@ -92,7 +92,7 @@ class Messages extends React.Component {
                 }}
               >
                 <Avatar src={v.img} />
-                <StyledMessagesItemText primary={v.name} secondary={v.lastMessage} />
+                <StyledMessagesItemText primary={v.name} secondary={v.lastMessageDt.toLocaleDateString() + ' ' + v.lastMessageDt.toLocaleTimeString()} />
               </StyledMessagesItem>
             ))}
           </ContentContainer>

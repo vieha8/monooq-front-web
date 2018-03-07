@@ -56,6 +56,7 @@ export const messagesSagas = [
   }),
   takeEvery(SEND_MESSAGE, function*({ payload }) {
     yield sendMessage(payload);
+    // TODO 都度fetchせずonSnapshot使った方が良い
     yield put(messagesActions.fetchMessagesStart(payload.roomId));
   }),
 ];
@@ -166,11 +167,17 @@ const sendMessage = function*(payload) {
     if (imageUrl) {
       message.image = imageUrl;
     }
-    await db
-      .collection('rooms')
-      .doc(roomId)
-      .collection('messages')
-      .add(message);
+
+    const roomDoc = db.collection('rooms').doc(roomId);
+    await roomDoc.collection('messages').add(message);
+    await roomDoc.set(
+      {
+        lastMessage: message.text,
+        lastMessageDt: new Date(),
+      },
+      { merge: true },
+    );
+
     resolve();
   });
 };
