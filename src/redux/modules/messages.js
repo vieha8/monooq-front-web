@@ -1,7 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery } from 'redux-saga/effects';
 import firebase from 'firebase';
-import faker from 'faker';
 import fileType from 'file-type';
 import { uploadImage } from '../helpers/firebase';
 require('firebase/firestore');
@@ -105,37 +104,32 @@ export const messagesSagas = [
 ];
 
 //ルーム作成
+const createRoom = (userId1, userId2) => {
+  return new Promise(async resolve => {
+    const room = {
+      [userId1]: true,
+      [userId2]: true,
+    };
+    const db = firebase.firestore();
+    const roomRef = await db.collection('rooms').add(room);
+    resolve(roomRef.id);
+  });
+};
 
-export const createRoom = async userId => {
-  const fn = faker.name.firstName();
-  const ln = faker.name.lastName();
-  const name = fn + ' ' + ln;
-  const profile = faker.image.avatar();
-
-  const roomSample = {
-    ownerUserId: userId,
-    guestUserId: '1',
-    guestUserName: name,
-    guestUserImgUrl: profile,
-    lastMessage: '田中さん初めまして!メッセージありがとうございます。ぜひお預かりさせてください。',
-    lastMessageDt: new Date(),
-  };
-
-  const db = firebase.firestore();
-  const roomRef = await db.collection('rooms').add(roomSample);
-
-  const messageSample = {
-    userId: userId,
-    messageType: 1,
-    text: '田中さん初めまして!メッセージありがとうございます。ぜひお預かりさせてください。',
-    createDt: new Date(),
-  };
-
-  roomRef.collection('messages').add(messageSample);
-  roomRef.collection('messages').add(messageSample);
-  roomRef.collection('messages').add(messageSample);
-  roomRef.collection('messages').add(messageSample);
-  roomRef.collection('messages').add(messageSample);
+const IsExistRoom = (userId1, userId2) => {
+  return new Promise(async resolve => {
+    const db = firebase.firestore();
+    const rooms = await db
+      .collection('rooms')
+      .where(userId1, '==', true)
+      .where(userId2, '==', true)
+      .get();
+    if (rooms.size > 0) {
+      resolve(true);
+      return;
+    }
+    resolve(false);
+  });
 };
 
 //ルーム取得
@@ -144,8 +138,7 @@ const getRooms = userId => {
     const db = firebase.firestore();
     const rooms = await db
       .collection('rooms')
-      .where('ownerUserId', '==', userId)
-      // .orderBy('lastMessageDt', 'desc') TODO なんかエラー出る
+      .where(userId, '==', true)
       .get();
     const res = [];
     rooms.forEach(room => {
@@ -157,8 +150,6 @@ const getRooms = userId => {
     resolve(res);
   });
 };
-
-//最終メッセージ更新
 
 //メッセージ取得
 const getMessages = roomId => {
@@ -180,5 +171,3 @@ const getMessages = roomId => {
     resolve(res);
   });
 };
-
-//メッセージ追加

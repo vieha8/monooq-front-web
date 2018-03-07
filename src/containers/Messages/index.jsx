@@ -77,15 +77,6 @@ class Messages extends React.Component {
     this.props.dispatch(messagesActions.fetchRoomsStart(userId));
   }
 
-  createSampleRoom = () => {
-    createRoom(this.props.userId);
-    createRoom(this.props.userId);
-    createRoom(this.props.userId);
-    createRoom(this.props.userId);
-    createRoom(this.props.userId);
-    this.props.dispatch(messagesActions.fetchRoomsStart(this.props.userId));
-  };
-
   render() {
     const { history } = this.props;
     return (
@@ -107,9 +98,6 @@ class Messages extends React.Component {
               </StyledMessagesItem>
             ))}
           </ContentContainer>
-          {this.props.rooms.length === 0 &&
-            <Button onClick={this.createSampleRoom}>サンプルルーム作成</Button>
-          }
         </Fragment>
       </Page>
     );

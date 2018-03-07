@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { authActions } from 'redux/modules/auth';
-
 import { apiActions } from '../redux/modules/api';
 
 class AuthComponent extends React.Component {
@@ -10,7 +9,6 @@ class AuthComponent extends React.Component {
     super(props);
     this.props.dispatch(authActions.checkLoginStart());
     const token = localStorage.getItem('token');
-    console.log(token);
     if (token) {
       const { Expire } = JSON.parse(token);
       const now = parseInt(Date.now() / 1000, 10);
