@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import styled from 'styled-components';
 
 import { isMobileWindow, media } from 'helpers/style/media-query';
@@ -23,6 +24,7 @@ import {
 } from 'components/Space';
 
 import SpaceMenu from 'containers/Search/SpaceMenu';
+import { isExistRoom, createRoom } from "../../redux/modules/messages";
 
 const SpacePage = styled.div`
   background: ${Colors.lightGray2Bg};
@@ -110,7 +112,18 @@ const MapContainer = styled.div`
   `}
 `;
 
-export default props => (
+const sendMessage = async(props) => {
+  //TODO ホストとユーザーのIDをpropsからひっぱってくる
+  const userId1 = "a";
+  const userId2 = "b";
+  let roomId = await isExistRoom(userId1, userId2);
+  if(!roomId) {
+    roomId = await createRoom(userId1, userId2);
+  }
+  props.history.push(`/messages/${roomId}`);
+};
+
+const spacePage = props => (
   <SpacePage>
     {/* TODO マップのprops調整 */}
     <Map
@@ -234,7 +247,7 @@ export default props => (
           </Section>
         }
         <SendMessageButton
-          onClickSendMessage={() => console.log('onClickSendMessage')}
+          onClickSendMessage={() => sendMessage(props)}
         />
         {!isMobileWindow() &&
           <Section>
@@ -246,3 +259,5 @@ export default props => (
     {!isMobileWindow() && <Footer />}
   </SpacePage>
 );
+
+export default withRouter(spacePage);

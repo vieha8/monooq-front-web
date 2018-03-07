@@ -104,7 +104,7 @@ export const messagesSagas = [
 ];
 
 //ルーム作成
-const createRoom = (userId1, userId2) => {
+export const createRoom = (userId1, userId2) => {
   return new Promise(async resolve => {
     const room = {
       [userId1]: true,
@@ -116,7 +116,7 @@ const createRoom = (userId1, userId2) => {
   });
 };
 
-const IsExistRoom = (userId1, userId2) => {
+export const isExistRoom = (userId1, userId2) => {
   return new Promise(async resolve => {
     const db = firebase.firestore();
     const rooms = await db
@@ -124,8 +124,9 @@ const IsExistRoom = (userId1, userId2) => {
       .where(userId1, '==', true)
       .where(userId2, '==', true)
       .get();
-    if (rooms.size > 0) {
-      resolve(true);
+
+    if (rooms.size === 1) {
+      resolve(rooms.docs[0].id);
       return;
     }
     resolve(false);
