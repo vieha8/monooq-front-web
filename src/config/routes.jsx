@@ -32,10 +32,13 @@ import Login from 'containers/Login';
 import Logout from 'containers/Logout';
 import Unsubscribe from 'containers/Unsubscribe';
 
-import Header from 'components/Header';
+import NavigationHeader from 'containers/NavigationHeader';
+import { TopPadding as HeaderPadding } from 'components/NavigationHeader';
 import { Auth } from 'components/Auth';
 
 import Path from './path';
+
+require('./fontawesome-all.min.js');
 
 export const routes = [
   { path: Path.top(), component: Top },
@@ -73,7 +76,8 @@ export default props => (
   <ConnectedRouter history={props.history}>
     <div>
       <Auth />
-      <Header />
+      <NavigationHeader />
+      <HeaderPadding />
       {routes.map((route, i) => (
         <Route
           key={`route_${i}`}
