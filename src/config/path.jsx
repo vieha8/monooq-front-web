@@ -74,6 +74,12 @@ export default {
   // お問い合わせ
   inquiry: (userId = USER_ID) =>
     `/user/${userId}/inquiry`,
+  // ホストモード切り替え
+  hostMode: (userId = USER_ID) =>
+    `/user/${userId}/hostmode`,
+  // ユーザーモード切り替え
+  userMode: (hostId = HOST_ID) =>
+    `/host/${hostId}/usermode`,
   // 登録
   signup: () =>
     '/signup',

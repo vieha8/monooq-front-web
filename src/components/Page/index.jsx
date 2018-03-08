@@ -14,6 +14,7 @@ const Page = styled.div`
     width: 100%;
   `}
   margin: 0 auto;
+  padding: 60px 0 120px;
 `;
 
 const Container = styled.div`
