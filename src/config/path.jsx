@@ -34,14 +34,14 @@ export default {
   createSpaceCompletion: (hostId = HOST_ID) =>
     `/host/${hostId}/space/new/completion`,
   // スケジュール
-  schedule: (hostId = HOST_ID) =>
-    `/host/${hostId}/schedule`,
+  schedule: (userId = USER_ID) =>
+    `/user/${userId}/schedule`,
   // キャンセル確認
   confirmCancel: (scheduleId = SCHEDULE_ID) =>
     `/schedule/${scheduleId}/cancel`,
   // メッセージ一覧
-  messages: (hostId = HOST_ID) =>
-    `/host/${hostId}/messages`,
+  messages: (userId = USER_ID) =>
+    `/host/${userId}/messages`,
   // メッセージ詳細
   message: (messageRoomId = MESSAGE_ROOM_ID) =>
     `/message/${messageRoomId}`,

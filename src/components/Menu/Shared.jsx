@@ -24,7 +24,6 @@ export const MenuItem = styled.li`
   display: table;
   width: 100%;
   border: 1px solid ${Colors.borderGray};
-  padding: 20px ${Dimens.medium}px;
   &:hover {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.1);
@@ -32,6 +31,14 @@ export const MenuItem = styled.li`
   &:not(:last-child) {
     border-bottom: none;
   }
+`;
+
+export const MenuLink = styled.a`
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  padding: 20px ${Dimens.medium}px;
 `;
 
 export const MenuText = styled.span`
