@@ -24,8 +24,12 @@ import logoTechcrunch from 'images/logo-techcrunch@2x.png';
 import logoTechable from 'images/logo-techable@2x.png';
 
 const TopPage = styled.div`
+  min-width: 1048px;
   margin-top: -20px;
   background: ${Colors.lightGray2Bg};
+  ${media.phone`
+    min-width: 0;
+  `};
 `;
 
 const TopView = styled.div`
@@ -44,7 +48,7 @@ const TopView = styled.div`
 
 const TopViewFilter = styled.div`
   height: 100%;
-  padding: 196px 116px 0 116px;
+  padding: 196px 0 0 116px;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.4);
   ${media.phone`
@@ -203,7 +207,7 @@ const DefaultView = styled.div`
         background-image: url(${topImage2});
         background-repeat: no-repeat;
         background-position: left;
-        padding: 80px 116px 80px 656px;
+        padding: 80px 116px 80px 600px;
         background-size: 500px 947px;
     `
       : ''};
