@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Path from 'config/path';
 import { Colors, FontSizes, Dimens } from 'variables';
 
 const Container = styled.div`
@@ -38,7 +39,7 @@ const Other = Message.extend`
 export default props => (
   <Container>
     <OperationContainer>
-      <Message href="/messages/1">メッセージをみる</Message>
+      <Message href={Path.message('iKuod7UQgX50rappC5Fs')}>メッセージをみる</Message>
       <Other href={props.other.href}>{props.other.text}</Other>
     </OperationContainer>
   </Container>

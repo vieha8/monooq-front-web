@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Path from 'config/path';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { ContentContainer } from 'components/Page';
 import ReservationInfo from './ReservationInfo';
@@ -12,14 +13,14 @@ const AutoDeleteCaption = styled.span`
   text-align: center;
 `;
 
-export default () => (
+export default props => (
   <ContentContainer>
     <ReservationInfo
       username="YUKI HASHIDA"
       place="東京都"
       title="東京タワーに近くて便利！"
       otherText="キャンセルする"
-      otherLink="/"
+      otherLink={Path.confirmCancel('scheduleHOGEHOGE')}
       salesAmount={4000}
     />
     <ReservationInfo
@@ -27,7 +28,7 @@ export default () => (
       place="東京都"
       title="東京タワーに近くて便利！"
       otherText="何かお困りですか？"
-      otherLink="/"
+      otherLink={Path.inquiry(props.userId)}
       salesAmount={4000}
     />
     <AutoDeleteCaption>取引完了後、40日が経過した取引履歴は自動的に削除されます。</AutoDeleteCaption>
