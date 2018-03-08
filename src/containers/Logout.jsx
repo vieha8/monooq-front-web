@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Page from 'components/Page';
-import UserMenu from 'components/Menu/UserMenu';
+import Menu from 'containers/Menu';
 import Logout from 'components/Logout';
 
 class LogoutContainer extends Component {
   render() {
     return (
       <Page title="ログアウト">
-        <UserMenu />
+        <Menu />
         <Logout />
       </Page>
     );

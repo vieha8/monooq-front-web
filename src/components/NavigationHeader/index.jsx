@@ -2,8 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Path from 'config/path';
 import Icon from 'components/Shared/Icon';
-import UserMenu from 'components/Menu/UserMenu';
-import HostMenu from 'components/Menu/HostMenu';
+import Menu from 'containers/Menu';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import logoUri from 'images/monooq_logo.svg';
@@ -117,7 +116,7 @@ function renderMenu(props) {
     <Fragment>
       <MenuBackground onClick={() => onClickToggleMenu()} />
       <MenuContainer>
-        <UserMenu showMobile />
+        <Menu showMobile />
       </MenuContainer>
     </Fragment>
   );

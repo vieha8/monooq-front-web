@@ -46,6 +46,7 @@ export const MenuText = styled.span`
   vertical-align: middle;
   color: ${Colors.darkGray2};
   font-size: ${FontSizes.small}px;
+  width: 92%;
 `;
 
 const NoticeCountCircle = styled.span`

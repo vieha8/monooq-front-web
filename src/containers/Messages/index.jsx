@@ -6,7 +6,7 @@ import Path from 'config/path';
 import Avatar from 'material-ui/Avatar';
 import authRequired from 'components/Auth';
 import { messagesActions } from 'redux/modules/messages';
-import UserMenu from 'components/Menu/UserMenu';
+import Menu from 'containers/Menu';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Page, { ContentContainer } from 'components/Page';
@@ -81,7 +81,7 @@ class Messages extends React.Component {
     return (
       <Page title="メッセージ一覧">
         <Fragment>
-          <UserMenu messageCount={99} scheduleCount={9} />
+          <Menu />
           <ContentContainer>
             {this.props.rooms.map((v, i) => (
               <StyledMessagesItem

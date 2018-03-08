@@ -2,20 +2,12 @@ import React, { Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
-import Avatar from 'material-ui/Avatar';
 import authRequired from 'components/Auth';
-import { createRoom, messagesActions } from 'redux/modules/messages';
-import UserMenu from 'components/Menu/UserMenu';
-import Button from 'material-ui/Button';
+import { messagesActions } from 'redux/modules/messages';
+import Menu from 'containers/Menu';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Page, { ContentContainer } from 'components/Page';
-
-const FlexWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
 
 const SubTitle = styled.div`
   color: #333333;
@@ -31,10 +23,10 @@ const RecordContent = (props) => {
   const record = props.record;
 
   let descriptionText = `ホストは${record.hostUserName}さん`;
-  if(record.status == `canceled`) descriptionText = `キャンセル手数料を引いた返金`;
+  if (record.status === 'canceled') descriptionText = 'キャンセル手数料を引いた返金';
 
-  let statusText = `決済完了`;
-  if(record.status == `canceled`) statusText = `キャンセル`;
+  let statusText = '決済完了';
+  if (record.status === 'canceled') statusText = 'キャンセル';
 
   const Description = styled.div`
     margin-bottom: 4px;
@@ -61,7 +53,7 @@ const RecordContent = (props) => {
   );
 }
 
-const StyledRecordContent = styled(RecordContent)`
+const StyledRecordContent = styled(RecordContent) `
   padding: 20px 10px;
   border-bottom: 1px solid #bcbcbc;
   color: #333333;
@@ -110,12 +102,12 @@ class Payments extends React.Component {
     return (
       <Page title="支払い履歴" >
         <Fragment>
-          <UserMenu messageCount={99} scheduleCount={9}/>
+          <Menu />
           <ContentContainer>
             <SubTitle>支払いの詳細</SubTitle>
-            {this.createSampleRecord().map((v)=>{
-              return(
-                <StyledRecordContent record={v}/>
+            {this.createSampleRecord().map((v) => {
+              return (
+                <StyledRecordContent record={v} />
               )
             })}
           </ContentContainer>

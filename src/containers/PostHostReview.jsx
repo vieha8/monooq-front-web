@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Path from 'config/path';
 import Page from 'components/Page';
 import PostHostReview from 'components/Review/PostHostReview';
-import UserMenu from 'components/Menu/UserMenu';
+import Menu from 'containers/Menu';
 import { uiActions } from 'redux/modules/ui';
 
 class PostHostReviewContainer extends Component {
@@ -34,7 +34,7 @@ class PostHostReviewContainer extends Component {
 
     return (
       <Page title="レビューを投稿する">
-        <UserMenu />
+        <Menu />
         <PostHostReview
           hostName="HASHIDA YUKI"
           hostResidence="東京都"
