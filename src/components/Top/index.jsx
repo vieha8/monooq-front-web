@@ -52,15 +52,6 @@ const TopViewFilter = styled.div`
   `};
 `;
 
-const Monooq = styled.span`
-  display: inline-block;
-  font-size: 20px;
-  margin-bottom: 8px;
-  ${media.phone`
-    display: none;
-  `};
-`;
-
 const CatchPhrase = styled.div`
   font-size: ${FontSizes.xxlarge}px;
   font-weight: bold;
@@ -80,7 +71,7 @@ const CatchPhrase = styled.div`
 const SubCatchPhrase = styled.span`
   display: block;
   font-size: 26px;
-  width: 560px;
+  width: 480px;
   font-weight: 100;
   line-height: 40px;
   ${media.phone`
@@ -90,7 +81,7 @@ const SubCatchPhrase = styled.span`
   `};
 `;
 
-const SubCatchPhraseNarrow = SubCatchPhrase.extend`
+const SubCatchPhraseWide = SubCatchPhrase.extend`
   width: 540px;
 `;
 
@@ -126,7 +117,7 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchButton = styled(Button) `
+const SearchButton = styled(Button)`
   &&& {
     position: absolute;
     top: 0;
@@ -141,7 +132,7 @@ const SearchButton = styled(Button) `
   }
 `;
 
-const StyledSearchIcon = styled(SearchIcon) `
+const StyledSearchIcon = styled(SearchIcon)`
   && {
     height: 32px;
     width: 32px;
@@ -369,15 +360,19 @@ const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
     display: flex;
     align-items: center;
   `;
+  const Description = styled.div`
+    height: 160px;
+    font-size: 16px;
+    line-height: 32px;
+    margin-bottom: 30px;
+    ${media.phone`
+      height: auto;
+    `};
+  `;
   const style = {
     titleIcon: {
       marginRight: '20px',
       fontSize: '60px',
-    },
-    description: {
-      fontSize: '16px',
-      lineHeight: '32px',
-      marginBottom: '30px',
     },
   };
   return (
@@ -389,7 +384,7 @@ const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
         </span>
         <span>{title}</span>
       </StyledTitle>
-      <div style={style.description}>{description}</div>
+      <Description>{description}</Description>
       <ForSafeSectionButton>{buttonText}</ForSafeSectionButton>
     </StyledContainer>
   );
@@ -410,13 +405,13 @@ const ForSafeSectionList = () => {
       <ForSafeSection
         iconClass="far fa-heart"
         title="はじめての方へ"
-        description="モノオクは物置きの場所を探して、ホストにメッセージで荷物を預かってもらえるか交渉をします。サービスの使い方がよくわからない、お困りの方はこちら。"
+        description="まずは自分に合う物置きスペースを探し、メッセージで荷物を置かせてもらえるかホストに相談をします。サービスの使い方がよくわからない、お困りの方はこちら。"
         buttonText="使い方について"
       />
       <ForSafeSection
         iconClass="far fa-bookmark"
         title="荷物に対する保険"
-        description="モノオクで取引された荷物には最大10万円までの補償があります。もし預かった荷物を破損・紛失してしまった場合も最大100000円までの補償が受けられるので安心です。"
+        description="サービス内の記録であなたの荷物だと証明できる荷物には最大10万円までの補償があります。あなたがホストの時に、もし誰かの荷物を破損・紛失してしまっても同じ補償が受けられるので安心です。"
         buttonText="保険について"
       />
       <ForSafeSection
@@ -524,17 +519,16 @@ export default props => (
   <TopPage>
     <TopView>
       <TopViewFilter>
-        <Monooq>monooQ</Monooq>
         <CatchPhrase>
-          個人間だからできる、<br />荷物を預けるための新しい方法。
+          個人間だからできる、<br />荷物を置くための新しい方法。
         </CatchPhrase>
         <SubCatchPhrase>
-          モノオクは余った個人のスペースを活用して、荷物を預けることができるサービスです。
+          モノオクは空きスペースを活用できる、物置きシェアサービスです。
         </SubCatchPhrase>
         <SearchWrapper>
           <SearchInput
             id="location"
-            placeholder="近くの場所を検索してみよう！　例）東京都港区"
+            placeholder="近くのスペースを検索してみよう！　例）東京都港区"
             value={props.locationText}
             onChange={props.handleChangeLocation}
             margin="normal"
@@ -560,10 +554,10 @@ export default props => (
     <TopHr />
     <DefaultView isReasonUser>
       <HilightCopy>小さいモノから大きなモノまで。</HilightCopy>
-      <DefaultTitle>モノオクで荷物を預ける理由</DefaultTitle>
+      <DefaultTitle>モノオクで物置きスペースを探す理由</DefaultTitle>
       <ExplainSection
         title="安心の料金"
-        description="ホストから提示される金額のみをお支払い。余計な費用なしに荷物を預けることができます。※配送料金は別途"
+        description="ホストから提示される金額のみをお支払い。余計な費用なしに荷物を置くことがができます。※配送は別途"
       />
       <ExplainSection
         title="面倒な手続きが不要"
@@ -575,7 +569,7 @@ export default props => (
       />
       <ExplainSection
         title="1ヶ月だけでもOK"
-        description="3ヶ月や半年などの契約期間の縛りはありません。ホストと相談して必要な期間だけ預けることができます。"
+        description="3ヶ月や半年などの契約期間の縛りはありません。ホストと相談して必要な期間だけ期間だけ荷物を置くことができます。"
       />
       <ExplainSection
         title="交渉が可能"
@@ -599,7 +593,7 @@ export default props => (
       />
       <ExplainSection
         title="誰かの役にたつ"
-        description="引っ越しやリフォーム、片付けなど荷物を預けられる場所を探すのは意外と大変なんです。困っている誰かの力になってくれませんか？"
+        description="引っ越しやリフォーム、片付けなど荷物を置ける場所を探すのは意外と大変なんです。困っている誰かの力になってくれませんか？"
       />
       <ToHostRegistButton onClick={props.onClickSignup}>ホスト登録はこちら</ToHostRegistButton>
     </DefaultView>
@@ -619,9 +613,9 @@ export default props => (
             サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
           </PickGoDescription>
         </PickGoSection>
-        <SubCatchPhraseNarrow>
+        <SubCatchPhraseWide>
           Pickgoを使えば、引っ越しが5000円から。モノオクから簡単に配送依頼ができます。
-        </SubCatchPhraseNarrow>
+        </SubCatchPhraseWide>
         <LinkToPickGo component={Link} href={'#'}>
           Pickgoのサイトを見る
         </LinkToPickGo>
