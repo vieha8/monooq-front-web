@@ -24,7 +24,7 @@ export default (props) => {
         </MenuItem>
         {!hostId &&
           <MenuItem>
-            <MenuLink href={Path.createSpaceInfo(hostId)}>
+            <MenuLink href={Path.createSpaceInfo(userId)}>
               <MenuText>ホストになる</MenuText>
             </MenuLink>
           </MenuItem>
@@ -36,11 +36,6 @@ export default (props) => {
             </MenuLink>
           </MenuItem>
         }
-        <MenuItem>
-          <MenuLink href={Path.messages(hostId)}>
-            <MenuText>ユーザーモードに切り替える</MenuText>
-          </MenuLink>
-        </MenuItem>
         <MenuItem>
           <MenuLink href={Path.inquiry(userId)}>
             <MenuText>お問い合わせ</MenuText>

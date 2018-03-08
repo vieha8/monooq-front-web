@@ -5,9 +5,11 @@ import HostMenu from 'components/Menu/HostMenu';
 
 class InquiryContainer extends Component {
   render() {
-    const { showMobile } = this.props;
+    const { auth, showMobile } = this.props;
     return (
-      <UserMenu showMobile={showMobile} />
+      <UserMenu showMobile={showMobile} userId={auth.user.id} />
+      // ホストメニュー出す場合 (TODO ホストID指定する)
+      // <HostMenu showMobile={showMobile} hostId={auth.user.id} />
     );
   }
 }
