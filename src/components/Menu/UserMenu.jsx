@@ -2,9 +2,9 @@ import React from 'react';
 import { Container, Menu, MenuItem, MenuText, NoticeCount } from './Shared';
 
 export default (props) => {
-  const { messageCount, scheduleCount } = props;
+  const { messageCount, scheduleCount, showMobile } = props;
   return (
-    <Container>
+    <Container showMobile={showMobile}>
       <Menu>
         <MenuItem><MenuText>メッセージ</MenuText><NoticeCount count={messageCount} /></MenuItem>
         <MenuItem><MenuText>預かりスケジュール</MenuText><NoticeCount count={scheduleCount} /></MenuItem>

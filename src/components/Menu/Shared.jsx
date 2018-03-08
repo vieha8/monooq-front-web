@@ -8,6 +8,11 @@ export const Container = styled.div`
   float: left;
   ${media.phone`
     display: none;
+    ${props => props.showMobile && `
+      display: block;
+      float: none;
+      width: 100%;
+    `}
   `}
 `;
 
