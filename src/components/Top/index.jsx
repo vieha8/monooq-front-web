@@ -30,12 +30,12 @@ const TopPage = styled.div`
 
 const TopView = styled.div`
   height: 800px;
-  margin-top: -64px;
   background-image: url(${mainVisual});
   background-size: cover;
   color: rgb(255, 255, 255);
   ${media.phone`
     height: 480px;
+    margin-top: -64px;
     background-image: url(${mainVisualSp});
     background-size: contain;
     background-position: 0 56px;
