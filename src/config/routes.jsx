@@ -33,6 +33,7 @@ import SignUp from 'containers/SignUp';
 import Login from 'containers/Login';
 import Logout from 'containers/Logout';
 import Unsubscribe from 'containers/Unsubscribe';
+import Report from 'containers/Report';
 
 import NavigationHeader from 'containers/NavigationHeader';
 import { TopPadding as HeaderPadding } from 'components/NavigationHeader';
@@ -74,6 +75,7 @@ export const routes = [
   { path: Path.login(), component: Login },
   { path: Path.logout(), component: Logout },
   { path: Path.unsubscribe(), component: Unsubscribe },
+  { path: Path.report(), component: Report },
 ];
 
 export default props => (
