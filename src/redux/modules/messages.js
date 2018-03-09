@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery } from 'redux-saga/effects';
 import firebase from 'firebase';
-// import fileType from 'file-type';
+import fileType from '../../helpers/file-type';
 import faker from 'faker';
 import { uploadImage } from '../helpers/firebase';
 require('firebase/firestore');
@@ -147,9 +147,8 @@ const sendMessage = function*(payload) {
     const ext = yield call(() => {
       return new Promise(resolve => {
         fileReader.onload = () => {
-          // const imageType = fileType(fileReader.result);
-          // resolve(imageType.ext);
-          resolve('png'); // TODO
+          const imageType = fileType(fileReader.result);
+          resolve(imageType.ext);
         };
       });
     });
