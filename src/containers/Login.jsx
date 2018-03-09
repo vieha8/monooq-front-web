@@ -2,17 +2,16 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import Login from 'components/Login';
-import { uiActions } from "../redux/modules/ui";
-import { authActions } from "../redux/modules/auth";
+import { uiActions } from 'redux/modules/ui';
+import { authActions } from 'redux/modules/auth';
 
 class LoginContainer extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
-    }
+      password: '',
+    };
   }
 
   loginFacebook = () => {
@@ -21,7 +20,7 @@ class LoginContainer extends React.Component {
 
   loginEmail = () => {
     const { email, password } = this.props.ui;
-    this.props.dispatch(authActions.loginEmail({email, password}));
+    this.props.dispatch(authActions.loginEmail({ email, password }));
   };
 
   handleChangeEmail = (event) => {

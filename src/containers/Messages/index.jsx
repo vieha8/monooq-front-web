@@ -2,10 +2,11 @@ import React, { Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
+import Path from 'config/path';
 import Avatar from 'material-ui/Avatar';
 import authRequired from 'components/Auth';
 import { messagesActions } from 'redux/modules/messages';
-import UserMenu from 'components/Menu/UserMenu';
+import Menu from 'containers/Menu';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Page, { ContentContainer } from 'components/Page';
@@ -80,7 +81,7 @@ class Messages extends React.Component {
     return (
       <Page title="メッセージ一覧">
         <Fragment>
-          <UserMenu messageCount={99} scheduleCount={9} />
+          <Menu />
           <ContentContainer>
             {this.props.rooms.map((v, i) => (
               <StyledMessagesItem
@@ -88,7 +89,7 @@ class Messages extends React.Component {
                 button
                 divider
                 onClickdMessagesItem={() => {
-                  history.push(`/messages/${v.id}`);
+                  history.push(Path.message(v.id));
                 }}
               >
                 <Avatar src={v.img} />

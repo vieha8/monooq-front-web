@@ -137,6 +137,7 @@ export default props => (
       <ButtonWrapper>
         <Button
           fluid
+          onClick={props.onClickPostReview}
         >
           レビューを投稿する
         </Button>

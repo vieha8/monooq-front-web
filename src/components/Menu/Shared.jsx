@@ -8,6 +8,11 @@ export const Container = styled.div`
   float: left;
   ${media.phone`
     display: none;
+    ${props => props.showMobile && `
+      display: block;
+      float: none;
+      width: 100%;
+    `}
   `}
 `;
 
@@ -19,7 +24,6 @@ export const MenuItem = styled.li`
   display: table;
   width: 100%;
   border: 1px solid ${Colors.borderGray};
-  padding: 20px ${Dimens.medium}px;
   &:hover {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.1);
@@ -29,11 +33,20 @@ export const MenuItem = styled.li`
   }
 `;
 
+export const MenuLink = styled.a`
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  padding: 20px ${Dimens.medium}px;
+`;
+
 export const MenuText = styled.span`
   display: table-cell;
   vertical-align: middle;
   color: ${Colors.darkGray2};
   font-size: ${FontSizes.small}px;
+  width: 92%;
 `;
 
 const NoticeCountCircle = styled.span`

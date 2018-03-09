@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import Path from 'config/path';
 import Page from 'components/Page';
 import PostHostReview from 'components/Review/PostHostReview';
-import UserMenu from 'components/Menu/UserMenu';
+import Menu from 'containers/Menu';
 import { uiActions } from 'redux/modules/ui';
 
 class PostHostReviewContainer extends Component {
@@ -22,17 +24,23 @@ class PostHostReviewContainer extends Component {
     }));
   }
 
+  onClickPostReview = () => {
+    const { history } = this.props;
+    history.push(Path.profile('user_id_test'));
+  }
+
   render() {
     const { ui } = this.props;
 
     return (
       <Page title="レビューを投稿する">
-        <UserMenu />
+        <Menu />
         <PostHostReview
           hostName="HASHIDA YUKI"
           hostResidence="東京都"
           evaluate={ui.evaluate}
           onClickEvaluate={this.onClickEvaluate}
+          onClickPostReview={this.onClickPostReview}
         />
       </Page>
     );
@@ -43,4 +51,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(PostHostReviewContainer);
+export default withRouter(connect(mapStateToProps)(PostHostReviewContainer));
