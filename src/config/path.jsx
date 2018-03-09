@@ -92,4 +92,7 @@ export default {
   // 退会
   unsubscribe: (userId = USER_ID) =>
     `/user/${userId}/unsubscribe`,
+  // 違反報告
+  report: () =>
+    `/report`,
 };

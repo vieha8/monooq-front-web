@@ -8,10 +8,7 @@ import styled from 'styled-components';
 import { FontSizes, Colors } from 'variables';
 import { media } from '../helpers/style/media-query';
 
-// {TODO}あとで内容消す
-const PaymentPage = styled.div`
-  font-family: sans-serif;
-`;
+const PaymentPage = styled.div``;
 
 const PaymentContainer = styled.div`
   max-width: 1048px;
