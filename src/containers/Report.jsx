@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Page from 'components/Page';
 import UserMenu from 'components/Menu/UserMenu';
-import EditProfile from 'components/Report';
-import EditProfileCompleted from 'components/Report/Completed';
+import Report from 'components/Report';
+import ReportUserOrHost from 'components/Report/UserOrHost';
+import ReportCompleted from 'components/Report/Completed';
 import { uiActions } from 'redux/modules/ui';
 
 class ReportContainer extends Component {
@@ -14,23 +15,35 @@ class ReportContainer extends Component {
     }));
   }
 
-  renderEditProfile() {
+  renderReport() {
     return (
       <Page title="不適切な場所を報告">
         <UserMenu />
-        <EditProfile
-          hostName="YUKI HASHIDA"
+        <Report
           onClickSave={this.onClickSave}
         />
       </Page>
     );
   }
 
-  renderEditProfileCompoleted() {
+  renderReportUserOrHost() {
+    return (
+      <Page title="不適切なユーザー・ホストを報告">
+        <UserMenu />
+        <ReportUserOrHost
+          hostName="YUKI HASHIDA"
+          hostArea="東京都"
+          onClickSave={this.onClickSave}
+        />
+      </Page>
+    );
+  }
+
+  renderReportCompoleted() {
     return (
       <Page title="送信完了しました">
         <UserMenu />
-        <EditProfileCompleted />
+        <ReportCompleted />
       </Page>
     );
   }
@@ -38,10 +51,11 @@ class ReportContainer extends Component {
   render() {
     const { ui } = this.props;
 
+    // [TODO]ホスト・ユーザー報告画面を出すのかスペース報告画面を出すのかの分岐
     return (
       ui.reportCompleted
-        ? this.renderEditProfileCompoleted()
-        : this.renderEditProfile()
+        ? this.renderReportCompoleted()
+        : this.renderReportUserOrHost()
     );
   }
 }

@@ -28,51 +28,41 @@ const ButtonWrapper = styled.div`
 `;
 
 const Information = props => {
-  const Title = styled.div`
-    font-size: 18px;
-    line-height: 32px;
-    margin-bottom: 15px;
+  const ImageWrapper = styled.div`
+    width: 100%;
+    text-align: center;
   `;
-  const Wrapper = styled.div`
-    display: flex;
-  `;
+  const IMAGE_SIZE = 100;
   const Image = styled.img`
-    width: 104px;
-    height: 79px;
-    object-fit: cover;
-    margin-right: 20px;
+    width: ${IMAGE_SIZE}px;
+    height: ${IMAGE_SIZE}px;
+    border-radius: ${IMAGE_SIZE / 2}px;
   `;
 
+  const Name = styled.div`
+    font-size: 24px;
+    line-height: 36px;
+    text-align: center;
+  `;
   const Area = styled.div`
-    font-size: 12px;
-    line-height: 18px;
-    margin-bottom: 5px;
-    color: #e85258;
-  `;
-
-  const Description = styled.div`
-    font-size: 12px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 21px;
+    text-align: center;
   `;
 
   return (
     <div className={props.className}>
-      <Title>ホストは YUKI HASHIDA さん</Title>
-      <Wrapper>
-        <Image src="https://picsum.photos/150?image=42" />
-        <div>
-          <Area>東京都 港区 六本木</Area>
-          <Description>
-            東京タワーに近くて便利！大きい荷物も何人分でもOK何人分で荷物も何人分でもOK何人分で…
-          </Description>
-        </div>
-      </Wrapper>
+      <ImageWrapper>
+        <Image src="http://placehold.jp/150x150.png" alt={props.hostName} />
+      </ImageWrapper>
+      <Name>{props.hostName}</Name>
+      <Area>{props.hostArea} 在住</Area>
     </div>
   );
 };
 
 const InformationWrapper = styled.div`
-  width: 360px;
+  width: 100%;
   margin-bottom: 40px;
 `;
 
@@ -141,9 +131,12 @@ export default props => (
   <ContentContainer>
     <Content>
       <ReportContainer>
-        <Title>対象の場所</Title>
+        <Title>対象のユーザー・ホスト</Title>
         <InformationWrapper>
-          <Information />
+          <Information
+            hostName={props.hostName}
+            hostArea={props.hostArea}
+          />
         </InformationWrapper>
         <Title>違反・不適切と思われる内容</Title>
         <StyledSelectContainer>
