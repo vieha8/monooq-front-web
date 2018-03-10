@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 
 import InputField from './index';
 
-storiesOf('Atoms/InputField', module)
+storiesOf('Atoms/Forms/InputField', module)
   .add('Available', () => (
     <div style={{ width: '300px' }}>
       <InputField />

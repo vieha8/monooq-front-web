@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 
 import Button from './index';
 
-storiesOf('Atoms/Button', module)
+storiesOf('Atoms/Buttons/Button', module)
   .add('Primary', () => (
     <Fragment>
       <Button.Primary>Primary</Button.Primary>

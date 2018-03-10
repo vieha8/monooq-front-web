@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 
 import Select from './index';
 
-storiesOf('Atoms/Select', module)
+storiesOf('Atoms/Forms/Select', module)
   .add('Normal', () => (
     <div style={{ width: '140px' }}>
       <Select>

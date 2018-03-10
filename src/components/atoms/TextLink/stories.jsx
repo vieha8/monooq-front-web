@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 
 import TextLink from './index';
 
-storiesOf('Atoms/TextLink', module)
+storiesOf('Atoms/Buttons/TextLink', module)
   .add('Normal', () => (
     <Fragment>
       <div>

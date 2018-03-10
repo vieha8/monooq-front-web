@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 
 import TextArea from './index';
 
-storiesOf('Atoms/TextArea', module)
+storiesOf('Atoms/Forms/TextArea', module)
   .add('Available', () => (
     <div style={{ width: '300px' }}>
       <TextArea rows={5} />
