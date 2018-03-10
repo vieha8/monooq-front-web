@@ -48,7 +48,7 @@ const TopView = styled.div`
 
 const TopViewFilter = styled.div`
   height: 100%;
-  padding: 196px 0 0 116px;
+  padding: 196px 0 0 10%;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.4);
   ${media.phone`
@@ -172,7 +172,7 @@ const TopHr = styled.hr`
 `;
 
 const DefaultView = styled.div`
-  padding: 80px 116px;
+  padding: 80px 10%;
   ${media.phone`
     padding: 30px 8vw;
   `};
@@ -207,7 +207,7 @@ const DefaultView = styled.div`
         background-image: url(${topImage2});
         background-repeat: no-repeat;
         background-position: left;
-        padding: 80px 116px 80px 600px;
+        padding: 80px 10% 80px 600px;
         background-size: 500px 947px;
     `
       : ''};
@@ -271,11 +271,14 @@ const DefaultTitle = styled.span`
 `;
 
 const ExplainContainerLeft = styled.div`
-  width 48%;
+  width: 48%;
+  ${media.phone`
+    width: 100%;
+  `};
 `;
 
 const ExplainContainerRight = styled.div`
-  width 100%;
+  width: 100%;
 `;
 
 const ExplainSection = ({ title, description, isLeft }) => {
@@ -354,9 +357,10 @@ const ForSafeSectionButton = styled.button`
 
 const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
   const StyledContainer = styled.div`
-    width: 327px;
+    width: 32%;
     font-weight: 100;
     ${media.phone`
+      width: 100%;
       margin-bottom: 30px;
     `};
   `;
@@ -368,7 +372,7 @@ const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
     align-items: center;
   `;
   const Description = styled.div`
-    height: 160px;
+    height: 54%;
     font-size: 16px;
     line-height: 32px;
     margin-bottom: 30px;
@@ -477,15 +481,15 @@ const LineupTitle = styled.div`
 const LineupList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
 `;
 
 const LineupItem = styled.li`
   height: 26px;
-  margin-right: 48px;
+  margin-bottom: 20px;
+  margin-right: 40px;
   ${media.phone`
     height: 16px;
-    margin-bottom: 20px;
     margin-right: 10px;
   `};
   img {
