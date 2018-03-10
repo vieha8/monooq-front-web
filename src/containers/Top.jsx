@@ -13,23 +13,23 @@ class TopContainer extends React.Component {
     this.props.dispatch(
       uiActions.setUiState({
         locationText: '',
-        searchButtonDisabled: false,
+        searchButtonDisabled: true,
       }),
     );
   }
 
-  handleChangeLocation = (event) => {
+  handleChangeLocation = event => {
     if (event.target.value === '') {
       this.props.dispatch(
         uiActions.setUiState({
-          searchButtonDisabled: false,
+          searchButtonDisabled: true,
           locationText: '',
         }),
       );
     } else {
       this.props.dispatch(
         uiActions.setUiState({
-          searchButtonDisabled: true,
+          searchButtonDisabled: false,
           locationText: event.target.value,
         }),
       );
