@@ -11,15 +11,15 @@ const Tertiary = Primary.extend`
   ${props =>
     props.disabled
       ? `
-    cursor: not-allowed;
-    border-color: ${Colors.lightGray1};
-    color: ${Colors.lightGray1};    
-  `
+      cursor: not-allowed;
+      border-color: ${Colors.lightGray1};
+      color: ${Colors.lightGray1};    
+    `
       : `
-    &:hover {
-      background: ${Colors.lightGray1};
-    }
-  `};
+      &:hover {
+        background: ${Colors.lightGray1};
+      }
+    `};
 `;
 
 export default Tertiary;
