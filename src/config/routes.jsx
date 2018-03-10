@@ -2,6 +2,7 @@ import React from 'react';
 import { Route } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 
+import Root from 'containers/Root';
 import Top from 'containers/Top';
 import SearchPage from 'containers/Search/SearchPage';
 import HostSpaceList from 'containers/HostSpaceList';
@@ -80,7 +81,7 @@ export const routes = [
 
 export default props => (
   <ConnectedRouter history={props.history}>
-    <div>
+    <Root>
       <Auth />
       <NavigationHeader />
       <HeaderPadding />
@@ -92,6 +93,6 @@ export default props => (
           component={route.component}
         />
       ))}
-    </div>
+    </Root>
   </ConnectedRouter>
 );

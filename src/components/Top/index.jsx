@@ -24,8 +24,12 @@ import logoTechcrunch from 'images/logo-techcrunch@2x.png';
 import logoTechable from 'images/logo-techable@2x.png';
 
 const TopPage = styled.div`
+  min-width: 1048px;
   margin-top: -20px;
   background: ${Colors.lightGray2Bg};
+  ${media.phone`
+    min-width: 0;
+  `};
 `;
 
 const TopView = styled.div`
@@ -44,7 +48,7 @@ const TopView = styled.div`
 
 const TopViewFilter = styled.div`
   height: 100%;
-  padding: 196px 116px 0 116px;
+  padding: 196px 0 0 10%;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.4);
   ${media.phone`
@@ -168,26 +172,26 @@ const TopHr = styled.hr`
 `;
 
 const DefaultView = styled.div`
-  padding: 80px 116px;
+  padding: 80px 10%;
   ${media.phone`
     padding: 30px 8vw;
   `};
   color: rgb(51, 51, 51);
   box-sizing: border-box;
   ${props =>
-    props.isReasonUser
+    props.isUserReason
       ? `
         background: #fff;
         background-image: url(${topImage1});
         background-repeat: no-repeat;
         background-position: right;
         background-position-y: 388px;
-        background-size: 714px 490px;
+        background-size: 50%;
     `
       : ''};
   ${media.phone`
     ${props =>
-      props.isReasonUser
+      props.isUserReason
         ? `
           background-image: url(${topImage1Sp});
           background-position: right 0 bottom 30px;
@@ -198,18 +202,18 @@ const DefaultView = styled.div`
         : ''};
   `};
   ${props =>
-    props.isReasonHost
+    props.isHostReason
       ? `
         background-image: url(${topImage2});
         background-repeat: no-repeat;
         background-position: left;
-        padding: 80px 116px 80px 656px;
+        padding: 80px 10% 80px 600px;
         background-size: 500px 947px;
     `
       : ''};
   ${media.phone`
     ${props =>
-      props.isReasonHost
+      props.isHostReason
         ? `
           background-image: none;
           background-color: ${Colors.lightGray1Bg};
@@ -266,37 +270,43 @@ const DefaultTitle = styled.span`
   `};
 `;
 
-const ExplainTitle = styled.span`
-  display: block;
-  font-size: 22px;
-`;
-
-const ExplainDescription = styled.span`
-  display: block;
-  font-size: ${FontSizes.medium}px;
-  line-height: 32px;
-  font-weight: 100;
+const ExplainContainerLeft = styled.div`
+  width: 48%;
   ${media.phone`
-    width: 84vw;
+    width: 100%;
   `};
 `;
 
-const ExplainSection = ({ title, description }) => {
-  const style = {
-    root: {
-      width: '417px',
-      marginBottom: '40px',
-    },
-    title: {
-      marginBottom: '10px',
-    },
-  };
+const ExplainContainerRight = styled.div`
+  width: 100%;
+`;
+
+const ExplainSection = ({ title, description, isLeft }) => {
+  const Root = styled.div`
+    margin-bottom: 40px;
+  `;
+
+  const ExplainTitle = styled.span`
+    display: block;
+    font-size: 22px;
+    margin-bottom: 10px;
+  `;
+
+  const ExplainDescription = styled.span`
+    display: block;
+    font-size: ${FontSizes.medium}px;
+    line-height: 32px;
+    font-weight: 100;
+    ${media.phone`
+      width: 84vw;
+    `};
+  `;
 
   return (
-    <div className="explain-section" style={style.root}>
-      <ExplainTitle style={style.title}>{title}</ExplainTitle>
+    <Root>
+      <ExplainTitle>{title}</ExplainTitle>
       <ExplainDescription>{description}</ExplainDescription>
-    </div>
+    </Root>
   );
 };
 
@@ -347,9 +357,10 @@ const ForSafeSectionButton = styled.button`
 
 const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
   const StyledContainer = styled.div`
-    width: 327px;
+    width: 32%;
     font-weight: 100;
     ${media.phone`
+      width: 100%;
       margin-bottom: 30px;
     `};
   `;
@@ -361,7 +372,7 @@ const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
     align-items: center;
   `;
   const Description = styled.div`
-    height: 160px;
+    height: 54%;
     font-size: 16px;
     line-height: 32px;
     margin-bottom: 30px;
@@ -470,15 +481,15 @@ const LineupTitle = styled.div`
 const LineupList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
 `;
 
 const LineupItem = styled.li`
   height: 26px;
-  margin-right: 48px;
+  margin-bottom: 20px;
+  margin-right: 40px;
   ${media.phone`
     height: 16px;
-    margin-bottom: 20px;
     margin-right: 10px;
   `};
   img {
@@ -552,49 +563,59 @@ export default props => (
       </TopViewFilter>
     </TopView>
     <TopHr />
-    <DefaultView isReasonUser>
+    <DefaultView isUserReason>
       <HilightCopy>小さいモノから大きなモノまで。</HilightCopy>
       <DefaultTitle>モノオクで物置きスペースを探す理由</DefaultTitle>
-      <ExplainSection
-        title="安心の料金"
-        description="ホストから提示される金額のみをお支払い。余計な費用なしに荷物を置くことがができます。※配送は別途"
-      />
-      <ExplainSection
-        title="面倒な手続きが不要"
-        description="面倒くさい申込書の記入や内覧の必要はありません。必要なのはメッセージや荷物写真のやりとりだけです。"
-      />
-      <ExplainSection
-        title="拠点数が多い"
-        description="モノオクだからできる日本全国に広がる拠点数。あなたのお部屋や引越し先のご近所でも見つかるはず。"
-      />
-      <ExplainSection
-        title="1ヶ月だけでもOK"
-        description="3ヶ月や半年などの契約期間の縛りはありません。ホストと相談して必要な期間だけ期間だけ荷物を置くことができます。"
-      />
-      <ExplainSection
-        title="交渉が可能"
-        description="もう少し延長できませんか？荷物の搬入を手伝ってくれませんか？など、ホストと気軽に交渉することが可能です。"
-      />
+
+      <ExplainContainerLeft>
+        <ExplainSection
+          title="安心の料金"
+          description="ホストから提示される金額のみをお支払い。余計な費用なしに荷物を置くことがができます。※配送は別途"
+          isLeft
+        />
+        <ExplainSection
+          title="面倒な手続きが不要"
+          description="面倒くさい申込書の記入や内覧の必要はありません。必要なのはメッセージや荷物写真のやりとりだけです。"
+          isLeft
+        />
+        <ExplainSection
+          title="拠点数が多い"
+          description="モノオクだからできる日本全国に広がる拠点数。あなたのお部屋や引越し先のご近所でも見つかるはず。"
+          isLeft
+        />
+        <ExplainSection
+          title="1ヶ月だけでもOK"
+          description="3ヶ月や半年などの契約期間の縛りはありません。ホストと相談して必要な期間だけ期間だけ荷物を置くことができます。"
+          isLeft
+        />
+        <ExplainSection
+          title="交渉が可能"
+          description="もう少し延長できませんか？荷物の搬入を手伝ってくれませんか？など、ホストと気軽に交渉することが可能です。"
+          isLeft
+        />
+      </ExplainContainerLeft>
     </DefaultView>
-    <DefaultView isReasonHost>
+    <DefaultView isHostReason>
       <HilightCopy>余っているスペースはありませんか？</HilightCopy>
       <DefaultTitle>モノオクでホストをする理由</DefaultTitle>
-      <ExplainSection
-        title="新しい副収入につなげる"
-        description="余っているスペースとスキマ時間で、新しいおこづかいが生まれます。"
-      />
-      <ExplainSection
-        title="余ったスペースが活用できる"
-        description="使っていないクローゼットや押入れ・空き部屋はありませんか？モノオクならどんな場所でも活用できます。"
-      />
-      <ExplainSection
-        title="かんたんに誰でもできる"
-        description="荷物をたいせつに預かって、最後は持ち主まで返す。これだけで喜んでくれる人がいます。"
-      />
-      <ExplainSection
-        title="誰かの役にたつ"
-        description="引っ越しやリフォーム、片付けなど荷物を置ける場所を探すのは意外と大変なんです。困っている誰かの力になってくれませんか？"
-      />
+      <ExplainContainerRight>
+        <ExplainSection
+          title="新しい副収入につなげる"
+          description="余っているスペースとスキマ時間で、新しいおこづかいが生まれます。"
+        />
+        <ExplainSection
+          title="余ったスペースが活用できる"
+          description="使っていないクローゼットや押入れ・空き部屋はありませんか？モノオクならどんな場所でも活用できます。"
+        />
+        <ExplainSection
+          title="かんたんに誰でもできる"
+          description="荷物をたいせつに預かって、最後は持ち主まで返す。これだけで喜んでくれる人がいます。"
+        />
+        <ExplainSection
+          title="誰かの役にたつ"
+          description="引っ越しやリフォーム、片付けなど荷物を置ける場所を探すのは意外と大変なんです。困っている誰かの力になってくれませんか？"
+        />
+      </ExplainContainerRight>
       <ToHostRegistButton onClick={props.onClickSignup}>ホスト登録はこちら</ToHostRegistButton>
     </DefaultView>
     <DefaultView isForSafe>
