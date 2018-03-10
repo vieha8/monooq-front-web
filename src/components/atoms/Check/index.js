@@ -7,29 +7,30 @@ import { Colors } from 'variables';
 const Container = styled.div`
   display: inline-block;
   cursor: pointer;
+  vertical-align: top;
 `;
 
-const RADIO_SIZE = 20;
-const RADIO_CHECK_SIZE = 8;
-const Radio = styled.div`
+const CHECK_SIZE = 20;
+const Check = styled.div`
   display: inline-block;
-  position: relative;
-  width: ${RADIO_SIZE}px;
-  height: ${RADIO_SIZE}px;
+  width: ${CHECK_SIZE}px;
+  height: ${CHECK_SIZE}px;
   background: ${Colors.white};
   border: 1px solid ${Colors.brandPrimary};
-  border-radius: 10px;
+  border-color: ${Colors.lightGray1};
+  border-radius: 3px;
+  text-align: center;
   ${props =>
     props.checked &&
     `
+    border-color: ${Colors.brandPrimary};
     &:after {
-      content: "";
+      content: "\f00c";
+      font-family: "Fontawesome";
       display: block;
-      margin-top: ${(RADIO_SIZE - RADIO_CHECK_SIZE) / 2 - 1}px;
-      margin-left: ${(RADIO_SIZE - RADIO_CHECK_SIZE) / 2 - 1}px;
-      width: ${RADIO_CHECK_SIZE}px;
-      height: ${RADIO_CHECK_SIZE}px;
-      border-radius: ${RADIO_CHECK_SIZE / 2}px;
+      color: ${Colors.white};
+      width: 100%;
+      height: 100%;
       background: ${Colors.brandPrimary};
     }
   `};
@@ -41,7 +42,7 @@ const Label = styled.div`
   color: ${Colors.black};
   margin-left: 20px;
   vertical-align: top;
-  line-height: ${RADIO_SIZE}px;
+  line-height: ${CHECK_SIZE}px;
 `;
 
 type PropTypes = {
@@ -51,7 +52,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Container>
-    <Radio checked={props.checked} />
+    <Check checked={props.checked} />
     <Label>{props.children}</Label>
   </Container>
 );

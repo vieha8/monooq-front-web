@@ -8,7 +8,11 @@ import Radio from './index';
 storiesOf('Atoms/Forms/Radio', module)
   .add('Normal', () => (
     <div>
-      <Radio checked>家具・家電あり</Radio>
-      <Radio>なし</Radio>
+      <div>
+        <Radio checked>家具・家電あり</Radio>
+      </div>
+      <div>
+        <Radio>なし</Radio>
+      </div>
     </div>
   ));
