@@ -94,5 +94,5 @@ export default {
     `/user/${userId}/unsubscribe`,
   // 違反報告
   report: () =>
-    `/report`,
+    '/report',
 };
