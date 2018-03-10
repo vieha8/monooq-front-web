@@ -1,9 +1,13 @@
 import { configure } from '@storybook/react';
 
-import 'index.css';
+import '../src/index.css';
+
+function requireAll(requireContext) {
+  return requireContext.keys().map(requireContext);
+}
 
 function loadStories() {
-  require('stories');
+  requireAll(require.context('../src/', true, /stories\.jsx?$/));
 }
 
 configure(loadStories, module);
