@@ -32,10 +32,6 @@ const TextLink = styled.a`
     &:visited { color: ${Colors.lightGray1}; }
     &:hover { color: ${Colors.lightGray1}; opacity: 1; }
     &:active { color: ${Colors.lightGray1}; }
-  `} ${props =>
-      props.small &&
-      `
-    font-size: 12px;
   `};
 `;
 
