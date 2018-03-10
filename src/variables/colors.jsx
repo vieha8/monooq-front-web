@@ -5,6 +5,7 @@ export default {
   brandAccent: '#E8BE5D',
   white: '#FFFFFF',
   black: '#000000',
+  red: '#FF0000',
   darkGray1: '#333333',
   darkGray2: '#888787',
   disabled: '#aaabab',
