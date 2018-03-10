@@ -141,6 +141,12 @@ const StyledSearchIcon = styled(SearchIcon)`
     height: 32px;
     width: 32px;
     color: ${Colors.brandPrimary};
+    ${props =>
+      props.disabled
+        ? `
+          color: ${Colors.darkGray2};
+        `
+        : ''};
   }
 `;
 
@@ -545,14 +551,13 @@ export default props => (
             margin="normal"
           />
           <SearchButton
-            fab
             color="primary"
             mini
             component={Link}
             to={`${Path.search()}?location=${props.locationText}`}
-            disabled={!props.searchButtonDisabled}
+            disabled={props.searchButtonDisabled}
           >
-            <StyledSearchIcon />
+            <StyledSearchIcon disabled={props.searchButtonDisabled} />
           </SearchButton>
         </SearchWrapper>
         <ToHostRegistContainer>
