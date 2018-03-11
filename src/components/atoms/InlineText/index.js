@@ -1,0 +1,37 @@
+// @flow
+
+import styled from 'styled-components';
+import { Colors } from 'variables';
+
+const Base = styled.span`
+  color: ${props => props.color || Colors.black};
+  font-size: 16px;
+  line-height: 1.6;
+`;
+
+const Strong = Base.withComponent('strong').extend`
+  font-weight: bold;
+`;
+
+const Bold = Strong.withComponent('b');
+
+const Del = Base.withComponent('del');
+
+const Ins = Base.withComponent('ins');
+
+const Small = Base.extend`
+  font-size: 12px;
+`;
+
+const Emphasis = Base.extend`
+  font-size: 11px;
+`;
+
+export default {
+  Strong,
+  Bold,
+  Del,
+  Ins,
+  Small,
+  Emphasis,
+};

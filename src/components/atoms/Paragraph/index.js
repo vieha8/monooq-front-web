@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 
-export const Paragraph = styled.p`
+const Paragraph = styled.p`
   color: ${Colors.black};
   font-size: 16px;
   line-height: 1.6;
