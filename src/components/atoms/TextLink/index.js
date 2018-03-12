@@ -6,7 +6,7 @@ import { Colors } from 'variables';
 const TextLink = styled.a`
   color: ${Colors.linkBlue};
   line-height: 1.6;
-  font-size: 16px;
+  font-size: ${props => props.fontSize || 16}px;
   cursor: pointer;
 
   &:link {

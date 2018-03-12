@@ -8,6 +8,7 @@ import arrowImageUri from './drop-down-arrow.png';
 const Select = styled.select`
   appearance: none;
   width: ${props => props.width || '100%'};
+  height: 50px;
   padding: 9px 14px;
   font-size: 14px;
   border: 1px solid ${Colors.lightGray1};

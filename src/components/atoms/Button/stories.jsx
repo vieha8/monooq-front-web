@@ -23,4 +23,10 @@ storiesOf('Atoms/Buttons/Button', module)
       <Button.Tertiary>Tertiary</Button.Tertiary>
       <Button.Tertiary disabled>Tertiary</Button.Tertiary>
     </Fragment>
+  ))
+  .add('Facebook', () => (
+    <Fragment>
+      <Button.Facebook>Facebook</Button.Facebook>
+      <Button.Facebook disabled>Facebook</Button.Facebook>
+    </Fragment>
   ));

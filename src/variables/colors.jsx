@@ -20,4 +20,5 @@ export default {
   lightYellow: '#F5ECCE',
   orange: '#FF8000',
   facebook: '#3B5998',
+  facebookHover: '#4C75C9',
 };
