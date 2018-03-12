@@ -6,8 +6,9 @@ import { storiesOf } from '@storybook/react';
 import SearchIcon from './SearchIcon';
 import MessageIcon from './MessageIcon';
 import AvatarIcon from './AvatarIcon';
+import Anonymouse from './Anonymouse';
 
-storiesOf('Molecules/Header/HeaderIcon', module)
+storiesOf('Molecules/HeaderAction', module)
   .add('SearchIcon', () => (
     <div>
       <SearchIcon
@@ -33,6 +34,14 @@ storiesOf('Molecules/Header/HeaderIcon', module)
         imageSrc="http://placehold.jp/500x500.png"
         imageAlt=""
         onClick={() => console.log('onClick AvatarIcon')}
+      />
+    </div>
+  ))
+  .add('Anonymouse', () => (
+    <div>
+      <Anonymouse
+        loginUri="#"
+        signupUri="#"
       />
     </div>
   ));
