@@ -75,6 +75,15 @@ function* authFirebasePut({ payload: { body } }) {
   }
 }
 
+function* authFirebaseGet({ payload: { id } }) {
+  const { data, err } = yield call(() => getApiRequest(`/auth/firebase/${id}`));
+  if (!err) {
+    yield put(apiActions.authFirebaseGetSuccess(data));
+  } else {
+    yield put(apiActions.authFirebaseGetFailed(err));
+  }
+}
+
 function* tokenGeneratePost() {
   const { data, err } = yield call(() => postApiRequest('/token/generate'));
   if (!err) {
@@ -270,6 +279,7 @@ export const apiSagas = [
   takeEvery(API_ACTIONS.AUTH_PAST.GET.REQUEST, authPastGet),
   takeEvery(API_ACTIONS.AUTH_PAST.POST.REQUEST, authPastPost),
   takeEvery(API_ACTIONS.AUTH_FIREBASE.PUT.REQUEST, authFirebasePut),
+  takeEvery(API_ACTIONS.AUTH_FIREBASE.GET.REQUEST, authFirebaseGet),
   takeEvery(API_ACTIONS.TOKEN_GENERATE.POST.REQUEST, tokenGeneratePost),
   takeEvery(API_ACTIONS.USER.POST.REQUEST, userPost),
   takeEvery(API_ACTIONS.USER.GET.REQUEST, userGet),

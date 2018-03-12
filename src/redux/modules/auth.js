@@ -75,7 +75,7 @@ function* checkLoginFirebaseAuth() {
   //TODO とりあえずここでやってるけどなんか違う気はする
   try {
     const result = yield firebase.auth().getRedirectResult();
-    // TODO result.additionalUserInfo.isNewUserがtrueだと新規登録なので会員登録動線に飛ばす必要あり
+    // TODO result.additionalUserInfo.isNewUserがtrueだと新規登録なので会員登録動線に飛ばす必要あり(signUpFormのstep4)
     if (result.user) {
       yield put(authActions.loginSuccess());
     }
@@ -84,18 +84,25 @@ function* checkLoginFirebaseAuth() {
     yield put(authActions.loginFailed(err));
   }
 
-  const payload = yield call(() => {
+  const status = yield call(() => {
     return new Promise(resolve => {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          resolve({ isLogin: true, user: { id: user.uid } });
+          resolve({ isLogin: true, user: user });
         } else {
           resolve({ isLogin: false });
         }
       });
     });
   });
-  yield put(authActions.checkLoginEnd(payload));
+
+  if (status.isLogin) {
+    yield put(apiActions.authFirebaseGet({ id: status.user.uid }));
+    const { payload } = yield take(apiActions.authFirebaseGetSuccess);
+    status.user = payload;
+  }
+
+  yield put(authActions.checkLoginEnd(status));
 }
 
 function* loginEmail({ payload: { email, password } }) {

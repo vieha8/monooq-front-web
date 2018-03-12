@@ -10,6 +10,7 @@ import { messagesReducer } from '../modules/messages';
 import { uiReducer } from '../modules/ui';
 import { apiReducer } from '../modules/api';
 import { spaceReducer } from '../modules/space';
+import { userReducer } from '../modules/user';
 import rootSaga from '../modules/sagas';
 
 export default history => {
@@ -28,6 +29,7 @@ export default history => {
       search: searchReducer,
       messages: messagesReducer,
       space: spaceReducer,
+      user: userReducer,
       ui: uiReducer,
     }),
     applyMiddleware(...middleware),

@@ -36,10 +36,6 @@ class SignUpContainer extends React.Component {
     );
   };
 
-  test = () => {
-
-  };
-
   onClickSignUpEmail = () => {
     const {email, password, passwordConfirm} = this.props.ui;
 
@@ -59,7 +55,6 @@ class SignUpContainer extends React.Component {
     }
 
     this.props.dispatch(authActions.signupEmail({ email: email, password: password }));
-    // this.setState({step: 4});
   };
 
   onClickRegisterProfile = () => {
