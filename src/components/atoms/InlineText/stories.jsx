@@ -6,6 +6,11 @@ import { storiesOf } from '@storybook/react';
 import Inline from './index';
 
 storiesOf('Atoms/Text/InlineText', module)
+  .add('Base', () => (
+    <div style={{ width: '100%', maxWidth: '300px' }}>
+      <Inline.Base>通常の文字列</Inline.Base>
+    </div>
+  ))
   .add('Strong', () => (
     <div style={{ width: '100%', maxWidth: '300px' }}>
       <Inline.Strong>強調したい文字列</Inline.Strong>

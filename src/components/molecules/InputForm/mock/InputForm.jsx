@@ -14,9 +14,7 @@ export default class HeaderMock extends React.Component {
     const { value } = this.state;
     return (
       <InputForm
-        label="エリアや特徴がわかるタイトルをつけましょう"
-        hint="全角40文字まで"
-        placeholder="例）六本木駅チカで便利です。"
+        {...this.props}
         value={value}
         onChange={e => this.setState({ value: e.target.value })}
       />

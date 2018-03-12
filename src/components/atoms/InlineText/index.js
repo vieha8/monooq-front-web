@@ -29,6 +29,7 @@ const Emphasis = Base.extend`
 `;
 
 export default {
+  Base,
   Strong,
   Bold,
   Del,
