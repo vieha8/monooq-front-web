@@ -11,5 +11,6 @@ const Logo = styled.img`
 
 export default {
   Base: () => <Logo src={logoImageUri} alt="logo" width={240} />,
+  Header: () => <Logo src={logoImageUri} alt="logo" width={80} />,
   Footer: () => <Logo src={logoImageUri} alt="logo" width={120} />,
 };
