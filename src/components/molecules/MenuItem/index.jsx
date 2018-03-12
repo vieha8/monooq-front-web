@@ -30,7 +30,13 @@ const MenuLink = styled.a`
 const MenuText = styled.span`
   display: table-cell;
   vertical-align: middle;
-  width: 92%;
+  width: 90vw;
+`;
+
+const NotificationWrapper = styled.span`
+  display: table-cell;
+  vertical-align: middle;
+  width: 10vw;
 `;
 
 type PropTypes = {
@@ -45,7 +51,9 @@ export default (props: PropTypes) => (
       <MenuText>
         <InlineText.Small>{props.title}</InlineText.Small>
       </MenuText>
-      <NotificationCount count={props.notificationCount} />
+      <NotificationWrapper>
+        <NotificationCount count={props.notificationCount} />
+      </NotificationWrapper>
     </MenuLink>
   </MenuItem>
 );
