@@ -119,8 +119,8 @@ export default props => (
       <ButtonWrapper>
         <Button
           bgColor={Colors.brandPrimary}
-          fluid
           onClick={props.onClickRegisterProfile}
+          fluid
         >
           プロフィールを登録する
         </Button>

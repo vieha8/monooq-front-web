@@ -22,7 +22,7 @@ const CustomButton = styled(Button)`
 
 export default props => (
   <Container {...props}>
-    <CustomButton fluid={props.fluid} onClick={props.onClick} style={props}>
+    <CustomButton fluid={props.fluid} style={props}>
       {props.children}
     </CustomButton>
   </Container>

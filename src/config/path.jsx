@@ -11,7 +11,7 @@ export default {
     '/',
   // 検索
   search: () =>
-    '/search',
+    `/search`,
   // スペース一覧
   spaces: (hostId = HOST_ID) =>
     `/host/${hostId}/spaces`,
@@ -19,20 +19,20 @@ export default {
   space: (spaceId = SPACE_ID) =>
     `/space/${spaceId}`,
   // スペース作成
-  createSpaceInfo: (hostId = HOST_ID) =>
-    `/host/${hostId}/space/new/info`,
-  createSpaceBaggage: (hostId = HOST_ID) =>
-    `/host/${hostId}/space/new/baggage`,
-  createSpaceReceive: (hostId = HOST_ID) =>
-    `/host/${hostId}/space/new/receive`,
-  createSpaceAreaSize: (hostId = HOST_ID) =>
-    `/host/${hostId}/space/new/areasize`,
-  createSpaceAreaPrice: (hostId = HOST_ID) =>
-    `/host/${hostId}/space/new/areaprice`,
-  createSpaceAllPrice: (hostId = HOST_ID) =>
-    `/host/${hostId}/space/new/allprice`,
-  createSpaceCompletion: (hostId = HOST_ID) =>
-    `/host/${hostId}/space/new/completion`,
+  createSpaceInfo: () =>
+    `/space/new/info`,
+  createSpaceBaggage: () =>
+    `/space/new/baggage`,
+  createSpaceReceive: () =>
+    `/space/new/receive`,
+  createSpaceAreaSize: () =>
+    `/space/new/areasize`,
+  createSpaceAreaPrice: () =>
+    `/space/new/areaprice`,
+  createSpaceAllPrice: () =>
+    `/space/new/allprice`,
+  createSpaceCompletion: () =>
+    `/space/new/completion`,
   // スケジュール
   schedule: (userId = USER_ID) =>
     `/user/${userId}/schedule`,
@@ -41,7 +41,7 @@ export default {
     `/schedule/${scheduleId}/cancel`,
   // メッセージ一覧
   messages: (userId = USER_ID) =>
-    `/host/${userId}/messages`,
+    `/messages`,
   // メッセージ詳細
   message: (messageRoomId = MESSAGE_ROOM_ID) =>
     `/message/${messageRoomId}`,
