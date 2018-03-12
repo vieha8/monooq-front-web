@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 
 import MenuItem from './index';
 
-storiesOf('Atoms/Menu/MenuItem', module)
+storiesOf('Molecules/Menu/MenuItem', module)
   .add('Normal', () => (
     <div style={{ width: '320px' }}>
       <MenuItem
