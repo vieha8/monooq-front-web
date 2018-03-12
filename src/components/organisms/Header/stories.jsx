@@ -12,6 +12,7 @@ storiesOf('Organisms/Header', module)
         homeUri="#"
         searchUri="#"
         messageUri="#"
+        messageCount={4}
         user={{
           image: 'http://placehold.jp/500x500.png',
           name: 'name',
