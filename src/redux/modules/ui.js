@@ -7,7 +7,7 @@ export const uiActions = createActions(SET_UI_STATE);
 
 // Reducer
 
-const initialState = { locationText: '' };
+const initialState = { locationText: '', signUpStep: 0 };
 
 const { setUiState } = uiActions;
 export const uiReducer = handleActions(

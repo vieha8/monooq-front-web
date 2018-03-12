@@ -40,6 +40,7 @@ const actionsArr = () => {
 };
 
 export const apiActions = createActions(...actionsArr());
+// console.log(apiActions);
 
 const initialState = {};
 

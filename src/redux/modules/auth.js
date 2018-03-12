@@ -2,6 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take } from 'redux-saga/effects';
 import firebase from 'firebase';
 import { apiActions, API_ACTIONS } from './api';
+import { uiActions } from './ui';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -9,6 +10,10 @@ const LOGIN_FACEBOOK = 'LOGIN_FACEBOOK';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILED = 'LOGIN_FAILED';
 const LOGOUT = 'LOGOUT';
+const SIGNUP_EMAIL = 'SIGNUP_EMAIL';
+const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+const SIGNUP_FAILED = 'SIGNUP_FAILED';
+
 const CHECK_LOGIN_START = 'CHECK_LOGIN_START';
 const CHECK_LOGIN_END = 'CHECK_LOGIN_END';
 
@@ -20,6 +25,9 @@ export const authActions = createActions(
   LOGOUT,
   CHECK_LOGIN_START,
   CHECK_LOGIN_END,
+  SIGNUP_EMAIL,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAILED,
 );
 
 // Reducer
@@ -126,9 +134,24 @@ function* logout() {
   yield firebase.auth().signOut();
 }
 
+function* signUpEmail({ payload: { email, password } }) {
+  try {
+    const result = yield firebase.auth().createUserWithEmailAndPassword(email, password);
+    const firebaseUid = result.uid;
+    yield put(apiActions.userPost({ body: { Email: email, FirebaseUid: firebaseUid } }));
+    const { payload } = yield take(apiActions.userPostSuccess);
+    yield put(authActions.signupSuccess(payload));
+    yield put(uiActions.setUiState({ signUpStep: 4 }));
+  } catch (err) {
+    console.error(err.message);
+    yield put(authActions.signupFailed(err.message));
+  }
+}
+
 export const authSagas = [
   takeEvery(CHECK_LOGIN_START, checkLoginFirebaseAuth),
   takeEvery(LOGIN_EMAIL, loginEmail),
   takeEvery(LOGIN_FACEBOOK, loginFacebook),
   takeEvery(LOGOUT, logout),
+  takeEvery(SIGNUP_EMAIL, signUpEmail),
 ];

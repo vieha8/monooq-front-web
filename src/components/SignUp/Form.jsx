@@ -65,11 +65,6 @@ const ToSignUpLinkCointainer = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-const test = () => {
-  console.log("AAAA");
-  console.log("AAAAB");
-};
-
 export default props => (
   <Container>
     <Logo src={logoUri} />
@@ -104,7 +99,7 @@ export default props => (
           icon="unlock alternate"
           iconPosition="left"
           fluid
-          value={props.password}
+          value={props.passwordConfirm}
           onChange={props.handleChangeRePassword}
         />
       </InputWrapper>
