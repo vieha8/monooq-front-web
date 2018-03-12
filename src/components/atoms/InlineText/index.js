@@ -25,6 +25,7 @@ const Small = Base.extend`
 
 const Emphasis = Base.extend`
   font-size: 11px;
+  color: ${Colors.darkGray2};
 `;
 
 export default {

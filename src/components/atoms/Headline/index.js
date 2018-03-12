@@ -8,7 +8,7 @@ export const H1 = styled.h1`
   color: ${Colors.black};
   font-size: 34px;
   line-height: 1.6;
-  font-weight: bold;
+  font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   ${media.phone`
     font-size: 22px;
   `};
