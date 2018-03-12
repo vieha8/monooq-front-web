@@ -1,14 +1,18 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Logo from 'components/atoms/Logo';
 import SearchIcon from 'components/molecules/HeaderAction/SearchIcon';
 import MessageIcon from 'components/molecules/HeaderAction/MessageIcon';
 import AvatarIcon from 'components/molecules/HeaderAction/AvatarIcon';
 import Anonymouse from 'components/molecules/HeaderAction/Anonymouse';
+import Menu from 'components/organisms/Menu';
 import { media } from 'helpers/style/media-query';
-import { Colors } from 'variables';
+import { Colors, ZIndexes } from 'variables';
+
+const HeightDesktop = 80;
+const HeightSmp = 48;
 
 const Container = styled.header`
   position: fixed;
@@ -20,10 +24,11 @@ const Container = styled.header`
 const Nav = styled.nav`
   display: flex;
   align-items: center;
-  height: 80px;
+  height: ${HeightDesktop}px;
   ${media.phone`
-    height: 48px;  
+    height: ${HeightSmp}px;  
   `}
+  z-index: ${ZIndexes.nav};
 `;
 
 const LogoWrapper = styled.a`
@@ -37,7 +42,7 @@ const LogoWrapper = styled.a`
 const ActionWrapper = styled.div`
   display: inline-flex;
   margin-left: auto;
-  cursor: pointer;
+  margin-right: 12px;
 `;
 
 const ActionContainer = styled.div`
@@ -50,7 +55,39 @@ const ActionContainer = styled.div`
 const ActionCell = styled.div`
   display: table-cell;
   vertical-align: middle;
-  padding-right: 12px;
+  cursor: pointer;
+  &:not(:last-child) {
+    padding-right: 12px;
+  }
+`;
+
+const MenuWrapper = styled.div`
+  position: fixed;
+  top: ${HeightDesktop}px;
+  width: 328px;
+  ${media.phone`
+    position: fixed;
+    overflow: scroll;
+    top: ${HeightSmp}px;
+    bottom: 0;
+    width: 100%;
+  `}
+  right: 0;
+  z-index: ${ZIndexes.nav};
+`;
+
+const MenuBackground = styled.div`
+  position: fixed;
+  top: ${HeightDesktop}px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255 ,0.6);
+  z-index: ${ZIndexes.modal};
+  ${media.phone`
+    display: none;
+  `}
 `;
 
 type PropTypes = {
@@ -65,6 +102,9 @@ type PropTypes = {
   loginUri: string,
   signupUri: string,
   onClickAvatar: Function,
+  onClickCloseMenu: Function,
+  showMenu: boolean,
+  menu: React.Element<Menu>,
 }
 
 export default (props: PropTypes) => (
@@ -98,5 +138,13 @@ export default (props: PropTypes) => (
         )}
       </ActionWrapper>
     </Nav>
+    {props.showMenu && (
+      <Fragment>
+        <MenuBackground onClick={props.onClickCloseMenu} />
+        <MenuWrapper>
+          {props.menu}
+        </MenuWrapper>
+      </Fragment>
+    )}
   </Container>
 );

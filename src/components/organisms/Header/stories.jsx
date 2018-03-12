@@ -4,23 +4,12 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import Header from './index';
+import HeaderMock from './mock/header';
 
 storiesOf('Organisms/Header', module)
   .add('Logged In', () => (
     <div>
-      <Header
-        homeUri="#"
-        searchUri="#"
-        messageUri="#"
-        messageCount={4}
-        user={{
-          image: 'http://placehold.jp/500x500.png',
-          name: 'name',
-        }}
-        loginUri="#"
-        signupUri="#"
-        onClickAvatar={() => console.log('onClickAvatar')}
-      />
+      <HeaderMock />
     </div>
   ))
   .add('Anonymouse', () => (
