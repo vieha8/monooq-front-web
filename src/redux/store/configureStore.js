@@ -9,6 +9,7 @@ import { searchReducer } from '../modules/search';
 import { messagesReducer } from '../modules/messages';
 import { uiReducer } from '../modules/ui';
 import { apiReducer } from '../modules/api';
+import { spaceReducer } from '../modules/space';
 import rootSaga from '../modules/sagas';
 
 export default history => {
@@ -26,6 +27,7 @@ export default history => {
       router: routerReducer,
       search: searchReducer,
       messages: messagesReducer,
+      space: spaceReducer,
       ui: uiReducer,
     }),
     applyMiddleware(...middleware),

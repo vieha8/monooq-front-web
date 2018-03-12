@@ -51,7 +51,7 @@ export default props => (
     <PriceContainer>
       <TextContainer>
         <Text>{props.title}</Text>
-        <Price>{props.price}</Price>
+        <Price>{props.price}円</Price>
       </TextContainer>
       <Image src="https://placehold.jp/115x56.png" />
     </PriceContainer>
