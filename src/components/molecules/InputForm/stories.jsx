@@ -7,7 +7,7 @@ import InputFormMock from './mock/InputForm';
 
 storiesOf('Molecules/InputForm', module)
   .add('Normal', () => (
-    <div style={{ width: '400px' }}>
+    <div style={{ width: '100%', maxWidth: '400px' }}>
       <InputFormMock />
     </div>
   ));
