@@ -14,6 +14,10 @@ moment.locale('ja');
 
 const Container = styled.div`
   width: 100%;
+  border: 1px solid ${Colors.borderGray};
+  ${props => props.focused && `
+    border: 1px solid ${Colors.brandPrimary};
+  `}
 `;
 
 type PropTypes = {
@@ -25,11 +29,12 @@ type PropTypes = {
 }
 
 export default (props: PropTypes) => (
-  <Container>
+  <Container focused={props.focused}>
     <SingleDatePicker
       date={props.date}
       placeholder={props.placeholder || '日付を選択してください'}
       block
+      showDefaultInputIcon
       onDateChange={props.onDateChange}
       focused={props.focused}
       onFocusChange={props.onFocusChange}

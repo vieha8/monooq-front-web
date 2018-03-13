@@ -14,8 +14,16 @@
   border: #e85258;
 }
 
+.DateInput__block {
+  width: 80%;
+}
+
+.SingleDatePickerInput__block {
+  border: none;
+}
+
 .DateInput_input__focused {
-  border-bottom: 2px solid #e85258;
+  border: none;
 }
 
 .DayPickerKeyboardShortcuts_show__bottomRight {
