@@ -12,26 +12,10 @@ class SignUpContainer extends React.Component {
     super(props);
   }
 
-  handleChangeEmail = (e) => {
+  handleChangeText = ({target}) => {
     this.props.dispatch(
       uiActions.setUiState({
-        email: e.target.value,
-      }),
-    );
-  };
-
-  handleChangePassword = (e) => {
-    this.props.dispatch(
-      uiActions.setUiState({
-        password: e.target.value,
-      }),
-    );
-  };
-
-  handleChangeRePassword = (e) => {
-    this.props.dispatch(
-      uiActions.setUiState({
-        passwordConfirm: e.target.value,
+        [target.name]: target.value,
       }),
     );
   };
@@ -77,12 +61,8 @@ class SignUpContainer extends React.Component {
         onClickRegisterProfile={this.onClickRegisterProfile}
         onClickGuest={this.onClickGuest}
         onClickHost={this.onClickHost}
-        handleChangeEmail={this.handleChangeEmail}
-        handleChangePassword={this.handleChangePassword}
-        handleChangeRePassword={this.handleChangeRePassword}
-        email={this.props.ui.email}
-        password={this.props.ui.password}
-        passwordConfirm={this.props.ui.passwordConfirm}
+        handleChangeText={this.handleChangeText}
+        {...this.props.ui}
       />
     );
   }

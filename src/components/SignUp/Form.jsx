@@ -73,34 +73,37 @@ export default props => (
       <InputWrapper>
         <Input
           type="email"
+          name="email"
           placeholder="example@monooq.com"
           icon="envelope"
           iconPosition="left"
           fluid
           value={props.email}
-          onChange={props.handleChangeEmail}
+          onChange={props.handleChangeText}
         />
       </InputWrapper>
       <InputWrapper>
         <Input
           type="password"
+          name="password"
           placeholder="パスワード"
           icon="unlock"
           iconPosition="left"
           fluid
           value={props.password}
-          onChange={props.handleChangePassword}
+          onChange={props.handleChangeText}
         />
       </InputWrapper>
       <InputWrapper>
         <Input
           type="password"
+          name="passwordConfirm"
           placeholder="パスワードを再入力"
           icon="unlock alternate"
           iconPosition="left"
           fluid
           value={props.passwordConfirm}
-          onChange={props.handleChangeRePassword}
+          onChange={props.handleChangeText}
         />
       </InputWrapper>
     </InputContainer>
