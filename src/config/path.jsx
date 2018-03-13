@@ -40,7 +40,7 @@ export default {
   confirmCancel: (scheduleId = SCHEDULE_ID) =>
     `/schedule/${scheduleId}/cancel`,
   // メッセージ一覧
-  messages: (userId = USER_ID) =>
+  messages: () =>
     `/messages`,
   // メッセージ詳細
   message: (messageRoomId = MESSAGE_ROOM_ID) =>
@@ -87,11 +87,11 @@ export default {
   login: () =>
     '/login',
   // ログアウト
-  logout: (userId = USER_ID) =>
-    `/user/${userId}/logout`,
+  logout: () =>
+    `/logout`,
   // 退会
-  unsubscribe: (userId = USER_ID) =>
-    `/user/${userId}/unsubscribe`,
+  unsubscribe: () =>
+    `/unsubscribe`,
   // 違反報告
   report: () =>
     '/report',
