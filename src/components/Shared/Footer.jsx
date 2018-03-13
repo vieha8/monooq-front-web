@@ -59,7 +59,8 @@ export default () => (
     <Menu href="/">利用規約</Menu>
     <Menu href="/">特定商取引法に基づく表記</Menu>
     <Menu href="/">キャンセルポリシー</Menu>
-    <Menu href="/">荷物に対する保険</Menu>
+    <Menu href="/insurance">荷物に対する保険</Menu>
+    <Menu href="/rule">ルールとマナー</Menu>
     <Copyright>©︎モノオク</Copyright>
   </Container>
 );
