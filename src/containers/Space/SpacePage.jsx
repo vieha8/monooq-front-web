@@ -123,7 +123,7 @@ class Space extends React.Component {
 
   sendMessage = async (props) => {
     // TODO ホストとユーザーのIDをpropsからひっぱってくる
-    const userId1 = props.userId;
+    const userId1 = props.userId.toString();
     const userId2 = 'hogehoge';
     let roomId = await isExistRoom(userId1, userId2);
     if (!roomId) {
@@ -284,7 +284,7 @@ class Space extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  userId: state.auth.user.id,
+  userId: state.auth.user.ID,
   space: state.space.space,
 });
 
