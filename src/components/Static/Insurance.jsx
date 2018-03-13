@@ -19,8 +19,7 @@ const MainTitle = styled.div`
   line-height: 51px;
   margin-bottom: 44px;
   ${media.phone`
-    font-size: 28px;
-    line-height: 40px;
+    font-size: 32px;
   `};
 `;
 
@@ -39,6 +38,15 @@ const Text = styled.div`
   line-height: 32px;
 `;
 
+const List = styled.li`
+  font-size: 16px;
+  line-height: 32px;
+`;
+
+const ListWrapper = styled.div`
+  margin-bottom: 30px;
+`;
+
 const Hr = styled.hr`
   border: 0;
   height: 1px;
@@ -52,6 +60,9 @@ const Hr = styled.hr`
 
 const MainTitleContainer = DefaultContainer.extend`
   margin-top: 80px;
+  ${media.phone`
+    margin-top: 40px;
+  `};
 `;
 
 const WhySafeContainer = DefaultContainer.extend`
@@ -114,6 +125,9 @@ const HowSafeContent = (props) => {
   const Image = styled.img`
     width: 246px;
     border-radius: 123px;
+    ${media.phone`
+      margin-bottom: 23px;
+    `};
   `;
   const Wrapper = styled.div`
     width: 688px;
@@ -142,6 +156,32 @@ const StyledHowSafeContent = styled(HowSafeContent)`
   justify-content: space-between;
   width: 100%;
   margin-bottom: 50px;
+  ${media.phone`
+    justify-content: center;
+  `};
+`;
+
+const WhenAttentionContainer = DefaultContainer.extend`
+`;
+
+const WhenAttentionHilightText = styled.div`
+  font-size: 22px;
+  line-height: 32px;
+  margin-bottom: 23px;
+`;
+
+const QuestionContainer = DefaultContainer.extend`
+  margin-bottom: 110px;
+`;
+
+const QuestionWrapper = styled.div`
+  margin-bottom: 50px;
+`;
+
+const QuestionTitle = styled.div`
+  font-size: 22px;
+  line-height: 32px;
+  margin-bottom: 23px;
 `;
 
 export default props => (
@@ -214,7 +254,39 @@ export default props => (
       </HowSafeContentWrapper>
     </HowSafeContainer>
 
-    
+    <WhenAttentionContainer>
+      <SubTitle>こんな場合もご注意を。</SubTitle>
+      <WhenAttentionHilightText>以下のサービス利用上の注意が守られていない場合は、一切の保証を行うことができません。</WhenAttentionHilightText>
+      <List>モノオクに掲載されていないスペースに置いた荷物の場合。</List>
+      <List>ホスト登録した本人が管理していない荷物の場合。</List>
+      <List>メッセージ上で記録に残っていない、ホストが把握していない荷物の場合。</List>
+
+      <Hr />
+    </WhenAttentionContainer>
+
+    <QuestionContainer>
+      <SubTitle>よくある質問</SubTitle>
+
+      <QuestionWrapper>
+        <QuestionTitle>保証の適用範囲は？</QuestionTitle>
+        <Text>受託者賠償責任保険が適応され・・・</Text>
+      </QuestionWrapper>
+
+      <QuestionWrapper>
+        <QuestionTitle>保証対象外の荷物は？</QuestionTitle>
+        <ListWrapper>
+          <List>サービス内で確認が不可能な荷物の場合。</List>
+          <List>モノオクで定める取引ができない荷物ページに記載された違反の荷物の場合。</List>
+        </ListWrapper>
+        <Text>受託者賠償責任保険が適応され受託者賠償責任保険が適応され・・・</Text>
+      </QuestionWrapper>
+
+      <QuestionWrapper>
+        <QuestionTitle>緊急なトラブルの時は？</QuestionTitle>
+        <Text>受託者賠償責任保険が適応され・・・</Text>
+      </QuestionWrapper>
+    </QuestionContainer>
+
     <Footer />
   </Fragment>
 );
