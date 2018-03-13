@@ -7,10 +7,21 @@ import { FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { Footer } from 'components/Shared';
 
+const DefaultContainer = styled.div`
+  padding: 0 116px;
+  ${media.phone`
+    padding: 0 8vw;
+  `};
+`;
+
 const SubTitle = styled.div`
   font-size: 30px;
   line-height: 45px;
   margin-bottom: 45px;
+  ${media.phone`
+    font-size: 28px;
+    line-height: 40px;
+  `};
 `;
 
 const Text = styled.div`
@@ -24,6 +35,9 @@ const Hr = styled.hr`
   width: 100%;
   background-color: #DBDBDB;
   margin: 50px 0;
+  ${media.phone`
+    margin: 20px 0;
+  `};
 `;
 
 const ForBegginnersContainer = styled.div`
@@ -38,6 +52,9 @@ const ForBegginnersTransparency = styled.div`
   padding: 100px 387px 116px 387px;
   height: 100%;
   background: rgba(0,0,0,0.4);
+  ${media.phone`
+    padding: 100px 8vw 116px 8vw;
+  `};
 `;
 
 const ForBegginnersTitle = styled.div`
@@ -57,6 +74,9 @@ const ForBegginnersLabelWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  ${media.phone`
+    width: 100%;
+  `};
 `;
 
 const ForBegginnersLabel = styled.div`
@@ -77,10 +97,17 @@ const ForBegginnersLabel = styled.div`
   text-shadow: 0 1px 6px 0 rgba(0,0,0,0.1);
   padding: 9px 0 8px 0;
   margin-bottom: 10px;
+  ${media.phone`
+    width: 100%;
+    margin-bottom: 20px;
+  `};
 `;
 
-const WhenIUseContainer = styled.div`
-  padding: 50px 116px;
+const WhenIUseContainer = DefaultContainer.extend`
+  padding-top: 50px;
+  ${media.phone`
+    padding-top: 20px;
+  `};
 `;
 
 const WhenIUseContentWrapper = styled.div`
@@ -109,12 +136,10 @@ const StyledWhenIUseContent = styled(WhenIUseContent)`
   margin-bottom: 15px;
 `;
 
-const HowIFindContainer = styled.div`
-  padding: 50px 116px;
+const HowIFindContainer = DefaultContainer.extend`
 `;
 
-const IfIFindContainer = styled.div`
-  padding: 50px 116px;
+const IfIFindContainer = DefaultContainer.extend`
 `;
 
 const IfIFindContentWrapper = styled.div`
@@ -134,6 +159,10 @@ const IfIFindContent = (props) => {
     text-align: center;
     color: #E85258;
     padding: 30px 0;
+    margin-right: 30px;
+    ${media.phone`
+      margin-right: 30px;
+    `};
   `;
 
   const LabelNumber = styled.div`
@@ -152,7 +181,9 @@ const IfIFindContent = (props) => {
   `;
 
   const IfIFindContentText = Text.extend`
-    width: 380px;
+    ${media.phone`
+      width: 50%;
+    `};
   `;
 
   return (
@@ -169,9 +200,19 @@ const IfIFindContent = (props) => {
 const StyledIfIFindContent = styled(IfIFindContent)`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   width: 510px;
   margin-bottom: 30px;
+  ${media.phone`
+    width: 100%;
+  `};
+`;
+
+const NeedToHelpContainer = DefaultContainer.extend`
+  margin-bottom: 164px;
+  ${media.phone`
+    margin-bottom: 80px;
+  `};
 `;
 
 export default props => (
@@ -279,7 +320,14 @@ export default props => (
         );
       })}
       </IfIFindContentWrapper>
+
+      <Hr />
     </IfIFindContainer>
+
+    <NeedToHelpContainer>
+      <SubTitle>お困りの際はモノオクカスタマーサポートまで。</SubTitle>
+      <Text>「こんな場合はどうするの？」「ホスト登録について教えて！」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。</Text>
+    </NeedToHelpContainer>
 
     <Footer />
   </Fragment>
