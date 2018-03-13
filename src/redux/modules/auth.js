@@ -3,6 +3,8 @@ import { put, call, takeEvery, take } from 'redux-saga/effects';
 import firebase from 'firebase';
 import { apiActions, API_ACTIONS } from './api';
 import { uiActions } from './ui';
+import { push } from 'react-router-redux';
+import { store } from '../store/configureStore';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -100,6 +102,10 @@ function* checkLoginFirebaseAuth() {
     yield put(apiActions.authFirebaseGet({ id: status.user.uid }));
     const { payload } = yield take(apiActions.authFirebaseGetSuccess);
     status.user = payload;
+    if (payload.Profile === '') {
+      yield put(uiActions.setUiState({ signUpStep: 4 }));
+      store.dispatch(push('/signup'));
+    }
   }
 
   yield put(authActions.checkLoginEnd(status));

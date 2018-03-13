@@ -13,6 +13,8 @@ import { spaceReducer } from '../modules/space';
 import { userReducer } from '../modules/user';
 import rootSaga from '../modules/sagas';
 
+export let store = null;
+
 export default history => {
   const sagaMiddleware = createSagaMiddleware();
   const middleware = [routerMiddleware(history), sagaMiddleware];
@@ -21,7 +23,7 @@ export default history => {
     middleware.push(logger);
   }
 
-  const store = createStore(
+  store = createStore(
     combineReducers({
       api: apiReducer,
       auth: authReducer,

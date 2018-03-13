@@ -26,7 +26,11 @@ class AuthComponent extends React.Component {
   }
 }
 
-export const Auth = connect()(AuthComponent);
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export const Auth = connect(mapStateToProps)(AuthComponent);
 
 export default function authRequired(WrappedComponent) {
   class loginRequiredComponent extends WrappedComponent {
