@@ -4,6 +4,7 @@ import path from '../config/path';
 
 import SignUp from 'components/SignUp';
 import { authActions } from "../redux/modules/auth";
+import { userActions } from "../redux/modules/user";
 import {uiActions} from "../redux/modules/ui";
 
 class SignUpContainer extends React.Component {
@@ -42,7 +43,27 @@ class SignUpContainer extends React.Component {
   };
 
   onClickRegisterProfile = () => {
-    this.setState({step: 5});
+    const {name, address, profile} = this.props.ui;
+
+    if(!name || name === '') {
+      //TODO エラー
+      return;
+    }
+
+    if(!address || address === '') {
+      //TODO エラー
+      return;
+    }
+
+    if(!profile || profile === '') {
+      //TODO エラー
+      return;
+    }
+
+    this.props.dispatch(userActions.updateUser({
+      userId: this.props.user.ID,
+      body:{ Name: name, PrefCode: '13', Profile: profile}
+    }));
   };
 
   onClickGuest = () => {
@@ -70,6 +91,7 @@ class SignUpContainer extends React.Component {
 
 const mapStateToProps = state => ({
   ui: state.ui,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps)(SignUpContainer);

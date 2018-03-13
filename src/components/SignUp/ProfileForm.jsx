@@ -89,18 +89,20 @@ export default props => (
         <Label>お名前</Label>
         <Input
           fluid
+          name="name"
           placeholder="ニックネームでも可"
           value={props.name}
-          onChange={props.handleChangeName}
+          onChange={props.handleChangeText}
         />
       </InputContainer>
       <InputContainer>
         <Label>お住いの地域</Label>
         <Input
           fluid
+          name="address"
           placeholder="東京都"
           value={props.address}
-          onChange={props.handleChangeAddress}
+          onChange={props.handleChangeText}
         />
       </InputContainer>
       <InputContainer>
@@ -109,9 +111,10 @@ export default props => (
         <Form>
           <TextArea
             fluid
+            name="profile"
             placeholder="例）はじめまして！モノオクホストのYUKIです。大きめの荷物でも柔軟に対応しております。いつでもチャットでご連絡くださいください！"
-            value={props.introduction}
-            onChange={props.handleChangeIntroduction}
+            value={props.profile}
+            onChange={props.handleChangeText}
             rows={4}
           />
         </Form>

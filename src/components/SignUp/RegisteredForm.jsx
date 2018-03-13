@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import {connect} from "react-redux";
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -56,7 +57,7 @@ const CaptionText = styled.div`
   line-height: 1.6;
 `;
 
-export default props => (
+const registeredForm = props => (
   <Container>
     <Title>プロフィールの登録が完了しました！</Title>
     <Content>
@@ -64,7 +65,7 @@ export default props => (
         <Image src="http://placehold.jp/500x300.png" />
       </ImageWrapper>
       <WelcomeText>モノオクへようこそ！</WelcomeText>
-      <WelcomeText>YUKI HASHIDさん</WelcomeText> {/* TODO 動的セット */}
+      <WelcomeText>{props.user.Name}さん</WelcomeText> {/* TODO 動的セット */}
       <ButtonWrapper>
         <CaptionText>荷物を預ける場所をお探しですか？</CaptionText>
         <Button
@@ -90,3 +91,9 @@ export default props => (
     </Content>
   </Container>
 );
+
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
+
+export default connect(mapStateToProps)(registeredForm);

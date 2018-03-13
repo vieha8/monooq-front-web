@@ -154,6 +154,7 @@ function* signUpEmail({ payload: { email, password } }) {
     yield put(apiActions.userPost({ body: { Email: email, FirebaseUid: firebaseUid } }));
     const { payload } = yield take(apiActions.userPostSuccess);
     yield put(authActions.signupSuccess(payload));
+    yield put(authActions.checkLoginStart());
     yield put(uiActions.setUiState({ signUpStep: 4 }));
   } catch (err) {
     console.error(err.message);

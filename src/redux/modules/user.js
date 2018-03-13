@@ -1,6 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take } from 'redux-saga/effects';
 import { apiActions } from './api';
+import { uiActions } from './ui';
 
 // Actions
 const FETCH_USER = 'FETCH_USER';
@@ -54,7 +55,8 @@ function* getUser({ payload: { userId } }) {
 function* updateUser({ payload: { userId, body } }) {
   yield put(apiActions.userPut({ id: userId, body: body }));
   const { payload } = yield take(apiActions.userPutSuccess);
-  yield put(userActions.uploadSuccessUser(payload));
+  yield put(userActions.updateSuccessUser(payload));
+  yield put(uiActions.setUiState({ signUpStep: 5 }));
 }
 
 export const userSagas = [takeEvery(FETCH_USER, getUser), takeEvery(UPDATE_USER, updateUser)];
