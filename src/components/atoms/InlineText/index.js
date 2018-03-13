@@ -5,7 +5,7 @@ import { Colors } from 'variables';
 
 const Base = styled.span`
   color: ${props => props.color || Colors.black};
-  font-size: 16px;
+  font-size: ${props => props.fontSize || 16}px;
   line-height: 1.6;
 `;
 

@@ -37,7 +37,7 @@ export default (props: PropTypes) => (
       </AvatarWrapper>
       <CardWrapper>
         <Card block>
-          <InlineText.Base>{props.message}</InlineText.Base>
+          <InlineText.Base fontSize={14}>{props.message}</InlineText.Base>
         </Card>
       </CardWrapper>
     </div>

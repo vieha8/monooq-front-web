@@ -9,6 +9,16 @@ const Card = styled.div`
   border-radius: 6px;
   padding: 20px;
   vertical-align: top;
+
+  ${props =>
+    props.background &&
+    `
+    background: ${props.background};
+  `} ${props =>
+      props.noBorder &&
+      `
+    border: none;
+  `};
 `;
 
 export default Card;
