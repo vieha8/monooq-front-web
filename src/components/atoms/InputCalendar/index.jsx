@@ -38,6 +38,7 @@ export default (props: PropTypes) => (
       onDateChange={props.onDateChange}
       focused={props.focused}
       onFocusChange={props.onFocusChange}
+      numberOfMonths={1}
     />
   </Container>
 );

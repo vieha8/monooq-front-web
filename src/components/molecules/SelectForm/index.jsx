@@ -3,6 +3,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { H3 } from 'components/atoms/Headline';
+import InlineText from 'components/atoms/InlineText';
 import Select from 'components/atoms/Select';
 
 const SelectWrapper = styled.div`
@@ -12,7 +13,7 @@ const SelectWrapper = styled.div`
 type PropTypes = {
   label: string,
   options: Array<{
-    name: string,
+    text: string,
     value: any,
   }>,
   hint?: string,

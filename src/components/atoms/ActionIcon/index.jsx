@@ -6,7 +6,7 @@ import { Colors } from 'variables';
 
 const Icon = styled.i`
   font-size: ${props => props.fontSize || 20}px;
-  color: ${Colors.lightGray1};
+  color: ${props => props.color || Colors.lightGray1};
   ${props => props.rotateY180 && `
     transform: rotateY(180deg);
   `}

@@ -19,6 +19,10 @@ const Container = styled.header`
   top: 0;
   width: 100%;
   border-bottom: 2px solid ${Colors.borderGray};
+  background: ${Colors.white};
+  ${props => props.top && `
+    background: rgba(255, 255, 255, 0.6);
+  `}
 `;
 
 const Nav = styled.nav`
@@ -105,10 +109,11 @@ type PropTypes = {
   onClickCloseMenu: Function,
   showMenu: boolean,
   menu: React.Element<Menu>,
+  top?: boolean,
 }
 
 export default (props: PropTypes) => (
-  <Container>
+  <Container top={props.top}>
     <Nav>
       <LogoWrapper href={props.homeUri}>
         <Logo.Header />
@@ -117,10 +122,17 @@ export default (props: PropTypes) => (
         {props.user ? (
           <ActionContainer>
             <ActionCell>
-              <SearchIcon href={props.searchUri} />
+              <SearchIcon
+                color={props.top && Colors.white}
+                href={props.searchUri}
+              />
             </ActionCell>
             <ActionCell>
-              <MessageIcon href={props.messageUri} notificationCount={props.messageCount} />
+              <MessageIcon
+                color={props.top && Colors.white}
+                href={props.messageUri}
+                notificationCount={props.messageCount}
+              />
             </ActionCell>
             <ActionCell>
               <AvatarIcon
