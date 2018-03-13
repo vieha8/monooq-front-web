@@ -37,6 +37,12 @@ import Unsubscribe from 'containers/Unsubscribe';
 import Report from 'containers/Report';
 
 import About from 'containers/Static/About';
+import Insurance from 'containers/Static/Insurance';
+import Rule from 'containers/Static/Rule';
+import Maintenance from 'containers/Static/Maintenance';
+import NotFound from 'containers/Static/NotFound';
+import CancellationPolicies from 'containers/Static/CancellationPolicies';
+import Asct from 'containers/Static/Asct';
 
 import NavigationHeader from 'containers/NavigationHeader';
 import { TopPadding as HeaderPadding } from 'components/NavigationHeader';
@@ -80,6 +86,12 @@ export const routes = [
   { path: Path.unsubscribe(), component: Unsubscribe },
   { path: Path.report(), component: Report },
   { path: Path.about(), component: About },
+  { path: Path.insurance(), component: Insurance },
+  { path: Path.rule(), component: Rule },
+  { path: Path.maintenance(), component: Maintenance },
+  { path: Path.notFound(), component: NotFound },
+  { path: Path.cancellationPolicies(), component: CancellationPolicies },
+  { path: Path.asct(), component: Asct },
 ];
 
 export default props => (

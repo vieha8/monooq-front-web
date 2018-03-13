@@ -98,4 +98,16 @@ export default {
   // 静的ページ
   about: () =>
     '/about',
+  insurance: () =>
+    '/insurance',
+  rule: () =>
+    '/rule',
+  maintenance: () =>
+    '/maintenance',
+  notFound: () =>
+    '/notFound',
+  cancellationPolicies: () =>
+    '/cancellationPolicies',
+  asct: () =>
+    '/asct',
 };

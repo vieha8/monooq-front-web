@@ -10,11 +10,7 @@ class AboutContainer extends React.Component {
     const { ui, history } = this.props;
     return (
       <Fragment>
-        <About
-          locationText={ui.locationText}
-          searchButtonDisabled={ui.searchButtonDisabled}
-          onClickSignup={() => history.push(Path.signup())}
-        />
+        <About />
       </Fragment>
     );
   }
