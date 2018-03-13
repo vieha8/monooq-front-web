@@ -29,9 +29,9 @@ const Menu = styled.a`
   ${media.phone`
     float: none;
     font-size: ${FontSizes.xsmall}px;
-    padding: ${Dimens.small}px ${Dimens.small}px; 
+    padding: ${Dimens.small}px ${Dimens.small}px;
     text-align: left;
-    margin-left: ${Dimens.medium}px; 
+    margin-left: ${Dimens.medium}px;
   `}
 `;
 
@@ -52,7 +52,7 @@ const Copyright = styled.span`
 
 export default () => (
   <Container>
-    <Menu href="/">はじめての方へ</Menu>
+    <Menu href="/about">はじめての方へ</Menu>
     <Menu href="/">運営会社</Menu>
     <Menu href="/">お問い合わせ</Menu>
     <Menu href="/">プライバシーポリシー</Menu>
