@@ -9,15 +9,17 @@ storiesOf('Molecules/EntryButtons', module)
   .add('Enabled', () => (
     <div>
       <EntryButtons
-        backButton={(
-          <Button.Secondary>戻る</Button.Secondary>
-        )}
-        enabledButton={(
-          <Button.Primary>次へ</Button.Primary>
-        )}
-        disabledButton={(
-          <Button.Primary disabled>次へ</Button.Primary>
-        )}
+        backButton={{
+          text: '戻る',
+          onClick: () => console.log('戻る'),
+        }}
+        enabledButton={{
+          text: '次へ',
+          onClick: () => console.log('次へ'),
+        }}
+        disabledButton={{
+          text: '次へ',
+        }}
         enabled
       />
     </div>
@@ -25,15 +27,17 @@ storiesOf('Molecules/EntryButtons', module)
   .add('Disabled', () => (
     <div>
       <EntryButtons
-        backButton={(
-          <Button.Secondary>戻る</Button.Secondary>
-        )}
-        enabledButton={(
-          <Button.Primary>次へ</Button.Primary>
-        )}
-        disabledButton={(
-          <Button.Primary disabled>次へ</Button.Primary>
-        )}
+        backButton={{
+          text: '戻る',
+          onClick: () => console.log('戻る'),
+        }}
+        enabledButton={{
+          text: '次へ',
+          onClick: () => console.log('次へ'),
+        }}
+        disabledButton={{
+          text: '次へ',
+        }}
       />
     </div>
   ));

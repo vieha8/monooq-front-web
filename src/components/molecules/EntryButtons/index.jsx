@@ -20,15 +20,45 @@ const Wrapper = styled.div`
 `;
 
 type PropTypes = {
-  backButton: React.Element<Button.Secondary>,
-  disabledButton: React.Element<Button.Primary>,
-  enabledButton: React.Element<Button.Primary>,
+  backButton: {
+    text: string,
+    onClick: Function,
+  },
+  disabledButton: {
+    text: string,
+  },
+  enabledButton: {
+    text: string,
+    onClick: Function,
+  },
   enabled: boolean,
 }
 
 export default (props: PropTypes) => (
   <Container>
-    <Cell align="left"><Wrapper>{props.backButton}</Wrapper></Cell>
-    <Cell align="right"><Wrapper>{props.enabled ? props.enabledButton : props.disabledButton}</Wrapper></Cell>
+    <Cell align="left">
+      <Wrapper>
+        <Button.Secondary
+          onClick={props.backButton.onClick}
+        >
+          {props.backButton.text}
+        </Button.Secondary>
+      </Wrapper>
+    </Cell>
+    <Cell align="right">
+      <Wrapper>
+        {props.enabled ? (
+          <Button.Primary
+            onClick={props.enabledButton.onClick}
+          >
+            {props.enabledButton.text}
+          </Button.Primary>
+        ) : (
+            <Button.Primary disabled>
+              {props.disabledButton.text}
+            </Button.Primary>
+          )}
+      </Wrapper>
+    </Cell>
   </Container>
 );
