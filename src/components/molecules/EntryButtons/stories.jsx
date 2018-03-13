@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Button from 'components/atoms/Button';
 import EntryButtons from './index';
 
 storiesOf('Molecules/EntryButtons', module)
