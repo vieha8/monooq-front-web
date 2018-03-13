@@ -13,6 +13,7 @@ const Container = styled.div`
 const CHECK_SIZE = 20;
 const Check = styled.div`
   display: inline-block;
+  vertical-align: top;
   width: ${CHECK_SIZE}px;
   height: ${CHECK_SIZE}px;
   background: ${Colors.white};
@@ -48,10 +49,11 @@ const Label = styled.div`
 type PropTypes = {
   checked?: boolean,
   children: string,
+  onClick: Function,
 };
 
 export default (props: PropTypes) => (
-  <Container>
+  <Container onClick={props.onClick}>
     <Check checked={props.checked} />
     <Label>{props.children}</Label>
   </Container>
