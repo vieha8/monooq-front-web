@@ -36,6 +36,8 @@ import Logout from 'containers/Logout';
 import Unsubscribe from 'containers/Unsubscribe';
 import Report from 'containers/Report';
 
+import About from 'containers/Static/About';
+
 import NavigationHeader from 'containers/NavigationHeader';
 import { TopPadding as HeaderPadding } from 'components/NavigationHeader';
 import { Auth } from 'components/Auth';
@@ -77,6 +79,7 @@ export const routes = [
   { path: Path.logout(), component: Logout },
   { path: Path.unsubscribe(), component: Unsubscribe },
   { path: Path.report(), component: Report },
+  { path: Path.about(), component: About },
 ];
 
 export default props => (

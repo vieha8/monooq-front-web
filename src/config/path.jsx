@@ -95,4 +95,7 @@ export default {
   // 違反報告
   report: () =>
     '/report',
+  // 静的ページ
+  about: () =>
+    '/about',
 };
