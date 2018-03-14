@@ -1,5 +1,5 @@
 import React from 'react';
-import { routes } from 'config/routes';
+import path from '../../../config/path';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
@@ -34,7 +34,7 @@ export default (props) => {
         <InputIntro />
         <InputAddress />
         <ButtonsContainer>
-          <Button onClick={() => history.push(routes.spaceNewBaggage.path)}>
+          <Button onClick={() => history.push(path.createSpaceBaggage())}>
             次へ
           </Button>
         </ButtonsContainer>

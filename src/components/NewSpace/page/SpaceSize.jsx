@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import path from '../../../config/path';
 import styled from 'styled-components';
 import { uiActions } from 'redux/modules/ui';
-import { routes } from 'config/routes';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
@@ -71,7 +71,7 @@ export default class SpaceSize extends Component {
             />
           </CriterionWrapper>
           <ButtonsContainer>
-            <Button border onClick={() => history.push(routes.spaceNewReceive.path)}>
+            <Button border onClick={() => history.push(path.createSpaceReceive())}>
               戻る
             </Button>
             <Button
@@ -79,10 +79,10 @@ export default class SpaceSize extends Component {
               onClick={() => {
                 switch (ui.type) {
                   case SpaceSize.Type.Small:
-                    history.push(routes.spaceNewAllPrice.path);
+                    history.push(path.createSpaceAllPrice());
                     break;
                   case SpaceSize.Type.Large:
-                    history.push(routes.spaceNewPrice.path);
+                    history.push(path.createSpaceAreaPrice());
                     break;
                   default:
                     break;

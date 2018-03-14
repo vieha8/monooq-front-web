@@ -1,5 +1,5 @@
 import React from 'react';
-import { routes } from 'config/routes';
+import path from '../../../config/path';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
@@ -15,7 +15,6 @@ const hintProps = {
   title: '料金設定に関するヒント',
   text: '荷物が思っていたよりも大きかったなど、荷物が届いた後でも柔軟に対応できる料金設定をしましょう。',
 };
-
 
 export default (props) => {
   const { history } = props;
@@ -50,7 +49,7 @@ export default (props) => {
           <Button border onClick={() => history.goBack()}>
             戻る
           </Button>
-          <Button position="right" width="180" onClick={() => history.push(routes.spaceCreated.path)}>
+          <Button position="right" width="180" onClick={() => history.push(path.createSpaceCompletion())}>
             登録を完了する
           </Button>
         </ButtonsContainer>

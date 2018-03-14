@@ -1,5 +1,5 @@
 import React from 'react';
-import { routes } from 'config/routes';
+import path from '../../../config/path';
 import Header from 'components/NewSpace/shared/Header';
 import Button, { ButtonsContainer } from 'components/NewSpace/shared/Button';
 import SideBar from 'components/NewSpace/shared/SideBar';
@@ -28,10 +28,10 @@ export default (props) => {
         <InputAboutBaggage />
         <CheckTypeFurniture />
         <ButtonsContainer>
-          <Button border onClick={() => history.push(routes.spaceNewInfo.path)}>
+          <Button border onClick={() => history.push(path.createSpaceInfo())}>
             戻る
           </Button>
-          <Button position="right" onClick={() => history.push(routes.spaceNewReceive.path)}>
+          <Button position="right" onClick={() => history.push(path.createSpaceReceive())}>
             次へ
           </Button>
         </ButtonsContainer>

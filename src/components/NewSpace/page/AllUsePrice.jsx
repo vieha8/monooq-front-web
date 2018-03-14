@@ -1,5 +1,5 @@
 import React from 'react';
-import { routes } from 'config/routes';
+import path from '../../../config/path';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
@@ -29,7 +29,7 @@ export default (props) => {
           <Button border onClick={() => history.goBack()}>
             戻る
           </Button>
-          <Button position="right" width="180" onClick={() => history.push(routes.spaceCreated.path)}>
+          <Button position="right" width="180" onClick={() => history.push(path.createSpaceCompletion())}>
             登録を完了する
           </Button>
         </ButtonsContainer>
