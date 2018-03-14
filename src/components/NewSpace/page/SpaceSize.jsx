@@ -29,15 +29,13 @@ export default class SpaceSize extends Component {
   static Type = {
     Small: 1,
     Large: 2,
-  }
+  };
 
-  constructor(props) {
-    super(props);
-
-    this.props.dispatch(uiActions.setUiState({
-      type: 0,
-    }));
-  }
+  handleChangeType = (type) => {
+    const {space} = this.props.ui;
+    Object.assign(space, {sizeType: type});
+    this.props.dispatch(uiActions.setUiState({space}));
+  };
 
   render() {
     const { history, ui } = this.props;
@@ -50,23 +48,19 @@ export default class SpaceSize extends Component {
           />
           <CriterionWrapper>
             <SpaceSizeCriterion
-              selected={ui.type === SpaceSize.Type.Small}
+              selected={ui.space.sizeType === SpaceSize.Type.Small}
               position="left"
               text="1人用ソファが入るくらい、またはそれ以下"
               onClick={() => {
-                this.props.dispatch(uiActions.setUiState({
-                  type: SpaceSize.Type.Small,
-                }));
+                this.handleChangeType(SpaceSize.Type.Small)
               }}
             />
             <SpaceSizeCriterion
-              selected={ui.type === SpaceSize.Type.Large}
+              selected={ui.space.sizeType === SpaceSize.Type.Large}
               position="right"
               text="1人用引っ越しの荷物が入るくらい、またはそれ以上"
               onClick={() => {
-                this.props.dispatch(uiActions.setUiState({
-                  type: SpaceSize.Type.Large,
-                }));
+                this.handleChangeType(SpaceSize.Type.Large)
               }}
             />
           </CriterionWrapper>
