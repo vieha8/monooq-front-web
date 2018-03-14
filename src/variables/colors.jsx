@@ -19,7 +19,7 @@ export default {
   error: '#BA4246',
   yellow: '#E7BD63',
   lightGreen: '#D9FFE5',
-  lightYellow: '#F5ECCE',
+  lightYellow: '#FFFCEC',
   orange: '#FF8000',
   facebook: '#3B5998',
   facebookHover: '#4C75C9',
