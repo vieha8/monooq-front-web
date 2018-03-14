@@ -10,6 +10,15 @@ const Icon = styled.i`
   ${props => props.rotateY180 && `
     transform: rotateY(180deg);
   `}
+  ${props => props.verticalTop && `
+    vertical-align: top;
+  `}
+  ${props => props.verticalMiddle && `
+    vertical-align: middle;
+  `}
+  ${props => props.verticalBottom && `
+    vertical-align: bottom;
+  `}
 `;
 
 type PropTypes = {
@@ -18,3 +27,4 @@ type PropTypes = {
 
 export const SearchIcon = (props: PropTypes) => <Icon {...props} className="fal fa-search" />;
 export const MessageIcon = (props: PropTypes) => <Icon {...props} className="fas fa-comment" rotateY180 />;
+export const PictureIcon = (props: PropTypes) => <Icon {...props} className="fal fa-image" />;

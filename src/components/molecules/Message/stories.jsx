@@ -8,6 +8,7 @@ import MySelf from './MySelf';
 import Admin from './Admin';
 import Estimate from './Estimate';
 import Photo from './Photo';
+import Input from './Input';
 
 storiesOf('Molecules/Message', module)
   .add('Other', () => (
@@ -65,6 +66,15 @@ storiesOf('Molecules/Message', module)
         src="http://placehold.jp/500x500.png"
         alt="photo"
         receivedAt="2018/03/02 10:52"
+      />
+    </div>
+  ))
+  .add('Input', () => (
+    <div>
+      <Input
+        onClickPickImage={() => console.log('onClickPickImage')}
+        value={'test input'}
+        onChange={() => console.log('onChange')}
       />
     </div>
   ));
