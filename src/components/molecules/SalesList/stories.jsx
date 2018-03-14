@@ -11,6 +11,7 @@ storiesOf('Molecules/SalesList', module)
       <SalesList
         sales={[
           {
+            label: 'ホストはYUKI HASHIDAさん',
             date: '2018年01月12日',
             status: '処理中',
             price: 12000,
@@ -26,6 +27,33 @@ storiesOf('Molecules/SalesList', module)
             price: 12000,
           },
         ]}
+      />
+    </div>
+  ))
+  .add('Has supplement', () => (
+    <div>
+      <SalesList
+        sales={[
+          {
+            label: 'ホストはYUKI HASHIDAさん',
+            date: '2018年01月12日',
+            status: '処理中',
+            price: 12000,
+          },
+          {
+            date: '2018年01月12日',
+            status: '処理中',
+            price: 12000,
+          },
+          {
+            date: '2018年01月12日',
+            status: '処理中',
+            price: 12000,
+          },
+        ]}
+        supplement={{
+          price: 36000,
+        }}
       />
     </div>
   ));
