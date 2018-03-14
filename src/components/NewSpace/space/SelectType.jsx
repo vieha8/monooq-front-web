@@ -17,38 +17,41 @@ const styles = {
   },
 };
 
-export default () => (
+export default (props) => (
   <Container>
     <Title
       title="スペースの種類は？"
     />
     <Select
+      name="type"
+      value={props.ui.space.type}
+      onChange={props.handleChangeSelect}
       style={styles.select}
       placeholder="選択してください"
       options={[
         {
           key: 1,
-          value: 'type1',
+          value: 1,
           text: 'クローゼット',
         },
         {
           key: 2,
-          value: 'type2',
+          value: 2,
           text: '押入れ',
         },
         {
           key: 3,
-          value: 'type3',
+          value: 3,
           text: '部屋',
         },
         {
           key: 4,
-          value: 'type4',
+          value: 4,
           text: '屋外倉庫',
         },
         {
           key: 5,
-          value: 'type5',
+          value: 5,
           text: 'その他',
         },
       ]}

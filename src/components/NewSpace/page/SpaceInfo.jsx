@@ -29,10 +29,10 @@ export default (props) => {
           subHeader="どんなスペースを掲載しますか？"
         />
         <ImageDrop />
-        <InputTitle />
-        <SelectType />
-        <InputIntro />
-        <InputAddress />
+        <InputTitle {...props} />
+        <SelectType {...props} />
+        <InputIntro {...props} />
+        <InputAddress {...props} />
         <ButtonsContainer>
           <Button onClick={() => history.push(path.createSpaceBaggage())}>
             次へ

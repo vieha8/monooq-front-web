@@ -9,10 +9,6 @@ import {uiActions} from "../redux/modules/ui";
 
 class SignUpContainer extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   handleChangeText = ({target}) => {
     this.props.dispatch(
       uiActions.setUiState({
