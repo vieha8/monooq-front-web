@@ -7,6 +7,19 @@ const Base = styled.span`
   color: ${props => props.color || Colors.black};
   font-size: ${props => props.fontSize || 16}px;
   line-height: 1.6;
+  ${props =>
+    props.verticalTop &&
+    `
+    vertical-align: top;
+  `} ${props =>
+      props.verticalMiddle &&
+      `
+    vertical-align: middle;
+  `} ${props =>
+      props.verticalBottom &&
+      `
+    vertical-align: bottom;
+  `};
 `;
 
 const Strong = Base.withComponent('strong').extend`

@@ -18,23 +18,26 @@ const SpaceListWrapper = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
-export default () => (
+export default (props) => (
   <Container>
     <PageContent>
       <Header
-        header="場所の登録が完了しました！"
+        header="スペースの登録が完了しました！"
       />
       <Title
         title="ユーザーからの相談を待ちましょう。安心してもらえるようにメッセージは素早い対応を心がけましょう！"
       />
       <ButtonsContainer>
-        <Button wide width={220}>登録した場所を見る</Button>
+        <Button wide width={220} onClick={() => {
+          console.log(props);
+          props.history.push(`/space/${props.space.ID}`);
+        }}>登録したスペースを見る</Button>
       </ButtonsContainer>
     </PageContent>
     <SideBar
       renderMainContent={() => (
         <div>
-          <SpaceListTitle>登録済みの場所</SpaceListTitle>
+          <SpaceListTitle>登録済みのスペース</SpaceListTitle>
           <SpaceListWrapper>
             <MySpaceRow place="東京都" title="東京タワーにも近くて便利！大きい荷物も何人分でもOK大きい荷物も何人分でもOK大きい荷物も何人分でもOK大きい荷物も何人分でもOK" />
           </SpaceListWrapper>

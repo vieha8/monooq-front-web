@@ -1,5 +1,4 @@
 import React from 'react';
-import { routes } from 'config/routes';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
@@ -24,12 +23,12 @@ export default (props) => {
           header="料金目安を設定する"
           subHeader="あなたのスペースで荷物を預かる料金はいくら？"
         />
-        <InputPriceOfAll />
+        <InputPriceOfAll {...props} />
         <ButtonsContainer>
           <Button border onClick={() => history.goBack()}>
             戻る
           </Button>
-          <Button position="right" width="180" onClick={() => history.push(routes.spaceCreated.path)}>
+          <Button position="right" width="180" onClick={props.onClickComplete}>
             登録を完了する
           </Button>
         </ButtonsContainer>

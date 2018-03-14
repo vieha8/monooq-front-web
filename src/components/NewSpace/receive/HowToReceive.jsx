@@ -17,28 +17,31 @@ const styles = {
   },
 };
 
-export default () => (
+export default (props) => (
   <Container>
     <Title
       title="受け取り方法"
     />
     <Select
+      name="receiptType"
+      value={props.ui.space.receiptType}
+      onChange={props.handleChangeSelect}
       style={styles.select}
       placeholder="選択してください"
       options={[
         {
           key: 1,
-          value: 'type1',
+          value: 1,
           text: '対面・配送の両方に対応する',
         },
         {
           key: 2,
-          value: 'type2',
+          value: 2,
           text: '対面',
         },
         {
           key: 3,
-          value: 'type3',
+          value: 3,
           text: '配送',
         },
       ]}

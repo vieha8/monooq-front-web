@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-export default () => (
+export default (props) => (
   <Container>
     <Title
       title="スペースの紹介文"
@@ -25,6 +25,9 @@ export default () => (
     />
     <Form>
       <TextArea
+        name="introduction"
+        value={props.ui.space.introduction}
+        onChange={props.handleChangeText}
         style={styles.textarea}
         placeholder="例）広めの1ルームで預かります。短期でも長期でも可能です。普段は主婦をしているので、夕方までなら物の物の出し入れにも対応できると思います。"
         rows={5}

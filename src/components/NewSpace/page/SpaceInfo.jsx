@@ -1,5 +1,5 @@
 import React from 'react';
-import { routes } from 'config/routes';
+import path from '../../../config/path';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
@@ -29,12 +29,12 @@ export default (props) => {
           subHeader="どんなスペースを掲載しますか？"
         />
         <ImageDrop />
-        <InputTitle />
-        <SelectType />
-        <InputIntro />
-        <InputAddress />
+        <InputTitle {...props} />
+        <SelectType {...props} />
+        <InputIntro {...props} />
+        <InputAddress {...props} />
         <ButtonsContainer>
-          <Button onClick={() => history.push(routes.spaceNewBaggage.path)}>
+          <Button onClick={() => history.push(path.createSpaceBaggage())}>
             次へ
           </Button>
         </ButtonsContainer>

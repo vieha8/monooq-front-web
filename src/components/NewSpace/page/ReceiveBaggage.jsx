@@ -1,5 +1,5 @@
 import React from 'react';
-import { routes } from 'config/routes';
+import path from '../../../config/path';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
@@ -25,13 +25,13 @@ export default (props) => {
           header="荷物の受け取りについて"
           subHeader="どのように荷物を受け取りますか？"
         />
-        <HowToReceive />
-        <ReceiveDetail />
+        <HowToReceive {...props} />
+        <ReceiveDetail {...props} />
         <ButtonsContainer>
-          <Button border onClick={() => history.push(routes.spaceNewBaggage.path)}>
+          <Button border onClick={() => history.push(path.createSpaceBaggage())}>
             戻る
           </Button>
-          <Button position="right" onClick={() => history.push(routes.spaceNewSize.path)}>
+          <Button position="right" onClick={() => history.push(path.createSpaceAreaSize())}>
             次へ
           </Button>
         </ButtonsContainer>

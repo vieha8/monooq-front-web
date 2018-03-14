@@ -62,7 +62,7 @@ export const routes = [
   { path: Path.createSpaceBaggage(), component: AboutBaggage },
   { path: Path.createSpaceReceive(), component: ReceiveBaggage },
   { path: Path.createSpaceAreaSize(), component: SpaceSize },
-  { path: Path.createSpaceAreaPrice(), compoennt: AboutPrice },
+  { path: Path.createSpaceAreaPrice(), component: AboutPrice },
   { path: Path.createSpaceAllPrice(), component: AllUsePrice },
   { path: Path.createSpaceCompletion(), component: SpaceCreatedCompletion },
   { path: Path.schedule(), component: DepositSchedule },

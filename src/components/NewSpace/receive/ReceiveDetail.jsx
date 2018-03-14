@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-export default () => (
+export default (props) => (
   <Container>
     <Title
       title="対応できる曜日や時間帯はいつですか？"
@@ -25,6 +25,9 @@ export default () => (
     />
     <Form>
       <TextArea
+        name="receiptAbout"
+        value={props.ui.space.receiptAbout}
+        onChange={props.handleChangeText}
         style={styles.textarea}
         placeholder="例）普段は会社勤めですので、基本的には平日の夜の対応となります。土日でも対応できる時がありますので、事前にチャットでおしらせください！"
         rows={5}

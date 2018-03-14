@@ -99,6 +99,10 @@ export default props => (
       <PriceWrapper>
         <InputWrapper>
           <Input
+            type="number"
+            name={props.name}
+            value={props.value}
+            onChange={props.handleChangeText}
             placeholder={props.placeholder}
             style={{ width: '100%' }}
           />

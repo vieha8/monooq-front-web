@@ -1,5 +1,4 @@
 import React from 'react';
-import { routes } from 'config/routes';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
@@ -16,7 +15,6 @@ const hintProps = {
   text: '荷物が思っていたよりも大きかったなど、荷物が届いた後でも柔軟に対応できる料金設定をしましょう。',
 };
 
-
 export default (props) => {
   const { history } = props;
   return (
@@ -31,16 +29,25 @@ export default (props) => {
         />
         <div>
           <InputPriceOfType
+            {...props}
+            name="priceFull"
+            value={props.ui.space.priceFull}
             title="スペースまるごと"
             caption="あなたのスペースのほとんどを使用する荷物の場合の料金"
             placeholder="20000"
           />
           <InputPriceOfType
+            {...props}
+            name="priceHalf"
+            value={props.ui.space.priceHalf}
             title="スペース半分"
             caption="あなたのスペースの「半分」を使用する荷物の場合の料金"
             placeholder="10000"
           />
           <InputPriceOfType
+            {...props}
+            name="priceQuarter"
+            value={props.ui.space.priceQuarter}
             title="スペース1/4"
             caption="あなたのスペースの「4分の1」を使用する荷物の場合の料金"
             placeholder="5000"
@@ -50,7 +57,7 @@ export default (props) => {
           <Button border onClick={() => history.goBack()}>
             戻る
           </Button>
-          <Button position="right" width="180" onClick={() => history.push(routes.spaceCreated.path)}>
+          <Button position="right" width="180" onClick={props.onClickComplete}>
             登録を完了する
           </Button>
         </ButtonsContainer>

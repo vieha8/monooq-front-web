@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UserMenu from 'components/Menu/UserMenu';
-import HostMenu from 'components/Menu/HostMenu';
 
 class InquiryContainer extends Component {
   render() {

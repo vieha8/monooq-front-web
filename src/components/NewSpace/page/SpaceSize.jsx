@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import path from '../../../config/path';
 import styled from 'styled-components';
 import { uiActions } from 'redux/modules/ui';
-import { routes } from 'config/routes';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
@@ -29,15 +29,13 @@ export default class SpaceSize extends Component {
   static Type = {
     Small: 1,
     Large: 2,
-  }
+  };
 
-  constructor(props) {
-    super(props);
-
-    this.props.dispatch(uiActions.setUiState({
-      type: 0,
-    }));
-  }
+  handleChangeType = (type) => {
+    const {space} = this.props.ui;
+    Object.assign(space, {sizeType: type});
+    this.props.dispatch(uiActions.setUiState({space}));
+  };
 
   render() {
     const { history, ui } = this.props;
@@ -50,39 +48,35 @@ export default class SpaceSize extends Component {
           />
           <CriterionWrapper>
             <SpaceSizeCriterion
-              selected={ui.type === SpaceSize.Type.Small}
+              selected={ui.space.sizeType === SpaceSize.Type.Small}
               position="left"
               text="1人用ソファが入るくらい、またはそれ以下"
               onClick={() => {
-                this.props.dispatch(uiActions.setUiState({
-                  type: SpaceSize.Type.Small,
-                }));
+                this.handleChangeType(SpaceSize.Type.Small)
               }}
             />
             <SpaceSizeCriterion
-              selected={ui.type === SpaceSize.Type.Large}
+              selected={ui.space.sizeType === SpaceSize.Type.Large}
               position="right"
               text="1人用引っ越しの荷物が入るくらい、またはそれ以上"
               onClick={() => {
-                this.props.dispatch(uiActions.setUiState({
-                  type: SpaceSize.Type.Large,
-                }));
+                this.handleChangeType(SpaceSize.Type.Large)
               }}
             />
           </CriterionWrapper>
           <ButtonsContainer>
-            <Button border onClick={() => history.push(routes.spaceNewReceive.path)}>
+            <Button border onClick={() => history.push(path.createSpaceReceive())}>
               戻る
             </Button>
             <Button
               position="right"
               onClick={() => {
-                switch (ui.type) {
+                switch (ui.space.sizeType) {
                   case SpaceSize.Type.Small:
-                    history.push(routes.spaceNewAllPrice.path);
+                    history.push(path.createSpaceAllPrice());
                     break;
                   case SpaceSize.Type.Large:
-                    history.push(routes.spaceNewPrice.path);
+                    history.push(path.createSpaceAreaPrice());
                     break;
                   default:
                     break;

@@ -17,13 +17,16 @@ const styles = {
   },
 };
 
-export default () => (
+export default (props) => (
   <Container>
     <Title
       title="エリアや特徴がわかるタイトルをつけましょう"
       subTitle="全角40文字まで。"
     />
     <Input
+      name="title"
+      value={props.ui.space.title}
+      onChange={props.handleChangeText}
       style={styles.input}
       placeholder="例）六本木駅チカで便利です。港区のど真ん中！長期預かりもOKです！"
     />

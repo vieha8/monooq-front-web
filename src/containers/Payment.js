@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
-import { DialogContentText } from 'material-ui/Dialog';
-import TextField from 'material-ui/TextField';
 
 import styled from 'styled-components';
-import { FontSizes, Colors } from 'variables';
+import { Colors } from 'variables';
 import { media } from '../helpers/style/media-query';
 
 const PaymentPage = styled.div``;
@@ -90,161 +87,6 @@ const PaymentFormContainer = styled.div`
 
 const PaymentSideContainer = styled.div`
   width: 327px;
-  ${media.phone`
-    padding: 0 20px;
-    width: 100%;
-  `};
-`;
-
-const SelectScheduleTerm = props => {
-  const Label = styled.label`
-    font-size: 16px;
-    display: block;
-    height: 24px;
-    line-height: 24px;
-    margin-bottom: 20px;
-  `;
-
-  const DateSelector = styled.div`
-    ${media.phone`
-      padding: 0 20px;
-      width: 100%;
-    `};
-  `;
-
-  const InputContainer = styled.div`
-    position: relative;
-    float: left;
-    ${media.phone`
-      width: 100%;
-    `};
-  `;
-
-  const InputSchedule = styled.input`
-    font-size: 14px;
-    line-height: 21px;
-    padding: 10px 14px;
-    width: 170px;
-    height: 40px;
-    box-sizing: border-box;
-    border: 1px solid #bcbcbc;
-    border-radius: 2px;
-    color: #333333;
-    background: #fafafa;
-
-    :focus {
-      border: 1px solid #f1979b;
-      outline: 0;
-    }
-    ::before {
-      content: attr(data-placeholder);
-      width: inherit;
-    }
-    :focus::before,
-    :valid::before {
-      display: none;
-    }
-
-    ::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-    }
-
-    ::-webkit-clear-button {
-      -webkit-appearance: none;
-    }
-    ::-webkit-calendar-picker-indicator {
-      color: transparent;
-      position: relative;
-      :hover {
-        cursor: pointer;
-      }
-    }
-
-    ${media.phone`
-      width: 100%;
-    `};
-  `;
-
-  const OpenSelector = styled.span`
-    position: absolute;
-    top: 10px;
-    right: 3px;
-    width: 25px;
-    height: 25px;
-    color: #bcbcbc;
-    background: #fafafa;
-    pointer-events: none;
-  `;
-
-  const FlowIcon = styled.div`
-    height: 40px;
-    line-height: 40px;
-    font-size: 18px;
-    width: 18px;
-    margin: 0 15px;
-    color: #bcbcbc;
-    ${media.phone`
-      display: none;
-    `};
-  `;
-
-  return (
-    <div className={props.className}>
-      <DateSelector>
-        <Label>預かり開始日</Label>
-        <InputContainer>
-          <InputSchedule
-            type="date"
-            data-placeholder="日付を選ぶ"
-            required
-            aria-required="true"
-            id="date-start"
-            disabled={props.isSending}
-          />
-          <OpenSelector>
-            <i className="far fa-calendar" />
-          </OpenSelector>
-        </InputContainer>
-      </DateSelector>
-
-      <FlowIcon>
-        <i className="fas fa-arrow-right" />
-      </FlowIcon>
-
-      <DateSelector>
-        <Label>預かり終了日</Label>
-        <InputContainer>
-          <InputSchedule
-            type="date"
-            data-placeholder="日付を選ぶ"
-            required
-            aria-required="true"
-            id="date-end"
-            disabled={props.isSending}
-          />
-          <OpenSelector>
-            <i className="far fa-calendar" />
-          </OpenSelector>
-        </InputContainer>
-      </DateSelector>
-    </div>
-  );
-};
-
-const StyledSelectScheduleTerm = styled(SelectScheduleTerm)`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: flex-end;
-  margin-bottom: 40px;
-`;
-
-const DescriptionText = styled.div`
-  font-size: 12px;
-  line-height: 18px;
-  letter-spacing: 0.6px;
-  color: #888787;
-  margin-bottom: 21px;
   ${media.phone`
     padding: 0 20px;
     width: 100%;
@@ -578,7 +420,6 @@ class Payment extends Component {
   }
 
   render() {
-    const { classes } = this.props;
     return (
       <PaymentPage>
         <PaymentContainer>
