@@ -36,6 +36,13 @@ const Button = styled.div`
     padding: 8px 4px;
     font-size: 12px;
   `};
+
+  ${props =>
+    props.medium &&
+    `
+    padding: 12px 8px;
+    font-size: 16px;
+  `};
 `;
 
 export default Button;
