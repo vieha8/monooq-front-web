@@ -25,8 +25,8 @@ export default (props) => {
           header="預かる荷物について"
           subHeader="あなたのスペースでどんな荷物を預かりますか？"
         />
-        <InputAboutBaggage />
-        <CheckTypeFurniture />
+        <InputAboutBaggage {...props} />
+        <CheckTypeFurniture {...props} />
         <ButtonsContainer>
           <Button border onClick={() => history.push(path.createSpaceInfo())}>
             戻る

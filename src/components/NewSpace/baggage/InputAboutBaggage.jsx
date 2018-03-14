@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-export default () => (
+export default (props) => (
   <Container>
     <Title
       title="預かることができる荷物について"
@@ -25,6 +25,9 @@ export default () => (
     />
     <Form>
       <TextArea
+        name="about"
+        value={props.ui.space.about}
+        onChange={props.handleChangeText}
         style={styles.textarea}
         placeholder="例）ダンボールなどのサイズが決まったものや、大きな荷物でも対応可能です！一人暮らしの荷物一式程度ならお受けすることができます！まずはご相談ください！"
         rows={5}

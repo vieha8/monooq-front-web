@@ -1,13 +1,37 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import { Page } from 'components/NewSpace/page/Shared';
 import AboutBaggage from 'components/NewSpace/page/AboutBaggage';
+import {connect} from "react-redux";
+import {uiActions} from "../../redux/modules/ui";
 
+class AboutBaggageContainer extends React.Component {
 
-const AboutBaggageContainer = props => (
-  <Page>
-    <AboutBaggage {...props} />
-  </Page>
-);
+  handleChangeText = ({target}) => {
+    const {space} = this.props.ui;
+    Object.assign(space, {[target.name]: target.value});
+    this.props.dispatch(uiActions.setUiState({space}));
+  };
 
-export default withRouter(AboutBaggageContainer);
+  handleChangeCheckbox = (_, target) => {
+    target.value = target.checked;
+    this.handleChangeText({target});
+  };
+
+  render() {
+    return (
+      <Page>
+        <AboutBaggage
+          {...this.props}
+          handleChangeText={this.handleChangeText}
+          handleChangeCheckbox={this.handleChangeCheckbox}
+        />
+      </Page>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  ui: state.ui,
+});
+
+export default connect(mapStateToProps)(AboutBaggageContainer);

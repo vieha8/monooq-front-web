@@ -17,6 +17,7 @@ const initialState = {
     receiptAbout: '',
     address: '',
     type: null,
+    isFurniture: false,
   },
 };
 
