@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/Shared/Button';
 import { ContentContainer } from 'components/Page';
-import { Colors, FontSizes, Dimens } from 'variables';
+import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const Content = styled.div`

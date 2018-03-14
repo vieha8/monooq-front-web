@@ -1,11 +1,7 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import Path from 'config/path';
+import React from 'react';
 
 import styled from 'styled-components';
-import { FontSizes, Colors } from 'variables';
-import { media } from 'helpers/style/media-query';
-import { Footer } from 'components/Shared';
+import {media} from 'helpers/style/media-query';
 
 const MaintenancePage = styled.div`
   background: #F05356;
@@ -62,7 +58,7 @@ const Anchor = styled.a`
   }
 `;
 
-export default props => (
+export default () => (
   <MaintenancePage>
     <MainTitleContainer>
       <MainTitle>新しいモノオクの誕生です！</MainTitle>
@@ -70,7 +66,7 @@ export default props => (
 
     <LogoContainer>
       <CopyText>個人間の物置きシェアサービス</CopyText>
-      <img src="http://placehold.jp/270x60.png" />
+      <img src="http://placehold.jp/270x60.png" alt="" />
     </LogoContainer>
 
     <MessageContainer>

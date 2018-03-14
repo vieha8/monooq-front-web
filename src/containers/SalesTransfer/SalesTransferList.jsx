@@ -3,12 +3,9 @@ import { connect } from 'react-redux';
 import Page from 'components/Page';
 import HostMenu from 'components/Menu/HostMenu';
 import SalesTransferList from 'components/SalesTransfer/SalesTransferList';
-import { uiActions } from 'redux/modules/ui';
 
 class SalesTransferListContainer extends Component {
   render() {
-    // const { ui } = this.props;
-
     return (
       <Page title="売上・振込申請">
         <HostMenu />

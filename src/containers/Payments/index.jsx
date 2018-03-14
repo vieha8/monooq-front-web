@@ -98,7 +98,6 @@ class Payments extends React.Component {
   };
 
   render() {
-    const { history } = this.props;
     return (
       <Page title="支払い履歴" >
         <Fragment>
