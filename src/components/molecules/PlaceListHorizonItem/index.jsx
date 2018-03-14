@@ -8,6 +8,7 @@ import HeroImage from 'components/atoms/HeroImage';
 
 const Row = styled.div`
   display: table;
+  cursor: pointer;
 `;
 
 const ImageWrapper = styled.div`
@@ -41,10 +42,11 @@ type PropTypes = {
   },
   address: string,
   content: string,
+  onClick: Function,
 }
 
 export default (props: PropTypes) => (
-  <Row>
+  <Row onClick={props.onClick}>
     <ImageWrapper>
       <HeroImage small {...props.image} />
     </ImageWrapper>
