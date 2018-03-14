@@ -169,7 +169,6 @@ function* signUpFacebook() {
     const provider = new firebase.auth.FacebookAuthProvider();
     const result = yield firebase.auth().signInWithPopup(provider);
     const { isNewUser } = result.additionalUserInfo;
-    console.log(result);
     if (!isNewUser) {
       yield put(authActions.signupFailed('Already registered.'));
       return;

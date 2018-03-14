@@ -19,7 +19,7 @@ const Unit = styled.span`
   margin-left: ${Dimens.small}px;
 `;
 
-export default () => (
+export default (props) => (
   <Container>
     <Title
       title="荷物を預かる料金目安（スペースまるごと）"
@@ -27,6 +27,10 @@ export default () => (
     />
     <PriceWrapper>
       <Input
+        type="number"
+        name="priceFull"
+        value={props.ui.space.priceFull}
+        onChange={props.handleChangeText}
         placeholder="20000"
         style={{ width: '70%' }}
       />

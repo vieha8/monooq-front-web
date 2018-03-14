@@ -1,12 +1,24 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import { Page } from 'components/NewSpace/page/Shared';
 import SpaceCratedCompletion from 'components/NewSpace/page/SpaceCreatedCompletion';
+import {connect} from "react-redux";
 
-const SpaceCratedCompletionContainer = props => (
-  <Page>
-    <SpaceCratedCompletion {...props} />
-  </Page>
-);
+class SpaceCratedCompletionContainer extends React.Component {
 
-export default withRouter(SpaceCratedCompletionContainer);
+  render() {
+    return (
+      <Page>
+        <SpaceCratedCompletion
+          {...this.props}
+        />
+      </Page>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  ui: state.ui,
+  space: state.space.created,
+});
+
+export default connect(mapStateToProps)(SpaceCratedCompletionContainer);

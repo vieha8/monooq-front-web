@@ -71,7 +71,7 @@ export default class SpaceSize extends Component {
             <Button
               position="right"
               onClick={() => {
-                switch (ui.type) {
+                switch (ui.space.sizeType) {
                   case SpaceSize.Type.Small:
                     history.push(path.createSpaceAllPrice());
                     break;

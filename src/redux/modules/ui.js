@@ -10,15 +10,7 @@ export const uiActions = createActions(SET_UI_STATE);
 const initialState = {
   locationText: '',
   signUpStep: 0,
-  space: {
-    title: '',
-    introduction: '',
-    about: '',
-    receiptAbout: '',
-    address: '',
-    type: null,
-    isFurniture: false,
-  },
+  space: {},
 };
 
 const { setUiState } = uiActions;
