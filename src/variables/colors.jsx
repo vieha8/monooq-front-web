@@ -18,6 +18,7 @@ export default {
   linkBlue: '#006494',
   error: '#BA4246',
   yellow: '#E7BD63',
+  lightGreen: '#D9FFE5',
   lightYellow: '#F5ECCE',
   orange: '#FF8000',
   facebook: '#3B5998',

@@ -5,6 +5,8 @@ import { storiesOf } from '@storybook/react';
 
 import Other from './Other';
 import MySelf from './MySelf';
+import Admin from './Admin';
+import Estimate from './Estimate';
 
 storiesOf('Molecules/Message', module)
   .add('Other', () => (
@@ -33,6 +35,26 @@ storiesOf('Molecules/Message', module)
         sentAt="2018/03/03 20:10"
         onClickRetry={() => console.log('onClickRetry')}
         error
+      />
+    </div>
+  ))
+  .add('Admin', () => (
+    <div>
+      <Admin
+        message="取引成立です！あなたのお支払いが完了しました。荷物の準備を開始しましょう！"
+        receivedAt="2018/03/03 20:10"
+      />
+    </div>
+  ))
+  .add('Estimate', () => (
+    <div>
+      <Estimate
+        name="YUKI HASHIDA"
+        beginAt="2018年03月20日"
+        endAt="2018年03月24日"
+        price="24,000円"
+        paymentLink="#"
+        receivedAt="2018/03/02 10:52"
       />
     </div>
   ));
