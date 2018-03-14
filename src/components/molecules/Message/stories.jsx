@@ -7,6 +7,7 @@ import Other from './Other';
 import MySelf from './MySelf';
 import Admin from './Admin';
 import Estimate from './Estimate';
+import Photo from './Photo';
 
 storiesOf('Molecules/Message', module)
   .add('Other', () => (
@@ -54,6 +55,15 @@ storiesOf('Molecules/Message', module)
         endAt="2018年03月24日"
         price="24,000円"
         paymentLink="#"
+        receivedAt="2018/03/02 10:52"
+      />
+    </div>
+  ))
+  .add('Photo', () => (
+    <div style={{ width: '300px' }}>
+      <Photo
+        src="http://placehold.jp/500x500.png"
+        alt="photo"
         receivedAt="2018/03/02 10:52"
       />
     </div>
