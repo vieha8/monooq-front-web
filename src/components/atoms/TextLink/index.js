@@ -33,6 +33,16 @@ const TextLink = styled.a`
     &:hover { color: ${Colors.lightGray1}; opacity: 1; }
     &:active { color: ${Colors.lightGray1}; }
   `};
+
+  ${props =>
+    props.error &&
+    `
+    color: ${Colors.error};
+    &:link { color: ${Colors.error}; }
+    &:visited { color: ${Colors.error}; }
+    &:hover { color: ${Colors.error}; opacity: 0.8; }
+    &:active { color: ${Colors.error}; }
+  `};
 `;
 
 export default TextLink;

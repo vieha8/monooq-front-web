@@ -20,11 +20,12 @@ type PropTypes = {
   href?: string,
   onClick?: Function,
   notificationCount: number,
+  color?: string,
 }
 
 export default (props: PropTypes) => (
   <LinkWrapper href={props.href} onClick={props.onClick}>
-    <MessageIcon fontSize={22} />
+    <MessageIcon color={props.color} fontSize={22} />
     {props.notificationCount > 0 &&
       <CountWrapper>
         <NotificationCount

@@ -47,10 +47,11 @@ const Label = styled.div`
 type PropTypes = {
   checked?: boolean,
   children: string,
+  onClick: Function,
 };
 
 export default (props: PropTypes) => (
-  <Container>
+  <Container onClick={props.onClick}>
     <Radio checked={props.checked} />
     <Label>{props.children}</Label>
   </Container>

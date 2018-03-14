@@ -29,6 +29,13 @@ const Button = styled.div`
       background: ${Colors.brandTerciary};
     }
   `};
+
+  ${props =>
+    props.small &&
+    `
+    padding: 8px 4px;
+    font-size: 12px;
+  `};
 `;
 
 export default Button;

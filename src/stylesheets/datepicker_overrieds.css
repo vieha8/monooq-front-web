@@ -1,0 +1,39 @@
+.CalendarDay__selected,
+.CalendarDay__selected:active,
+.CalendarDay__selected:hover {
+  background: #ed7579;
+  color: white;
+  border: #e85258;
+}
+
+.CalendarDay__calendar,
+.CalendarDay__calendar:hover,
+.CalendarDay__calendar:active {
+  background: #ed7579;
+  color: white;
+  border: #e85258;
+}
+
+.DateInput__block {
+  width: 80%;
+}
+
+.SingleDatePickerInput__block {
+  border: none;
+}
+
+.DateInput_input__focused {
+  border: none;
+}
+
+.DayPickerKeyboardShortcuts_show__bottomRight {
+  border-right: 33px solid #e85258;
+}
+
+.DayPickerKeyboardShortcuts_show__bottomRight:hover {
+  border-right: 33px solid #ed7579;
+}
+
+.CalendarDay {
+  vertical-align: middle;
+}

@@ -28,6 +28,7 @@ export default class HeaderMock extends React.Component {
         onClickAvatar={() => this.setState({ showMenu: !showMenu })}
         onClickCloseMenu={() => this.setState({ showMenu: false })}
         showMenu={showMenu}
+        top={this.props.top}
         menu={(
           <Menu
             message={{ href: '#', notificationCount: 10 }}

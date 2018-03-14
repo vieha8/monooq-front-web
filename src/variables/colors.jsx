@@ -3,6 +3,7 @@ export default {
   brandSecondary: '#ED7579',
   brandTerciary: '#F1979B',
   brandAccent: '#E8BE5D',
+  pink: '#FEEBEB',
   white: '#FFFFFF',
   black: '#000000',
   red: '#FF0000',
