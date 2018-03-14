@@ -1,2 +1,1 @@
-web: bin/boot
-storybook: npm run storybook
+web: export NODE_PATH=src && start-storybook -p $PORT -s public
