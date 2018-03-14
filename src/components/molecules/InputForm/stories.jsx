@@ -4,6 +4,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import InputFormMock from './mock/InputForm';
+import Confirm from './confirm';
 
 storiesOf('Molecules/InputForm', module)
   .add('Hint', () => (
@@ -21,6 +22,14 @@ storiesOf('Molecules/InputForm', module)
         label="お見積もり料金"
         placeholder="金額を入力してください。"
         unit="円"
+      />
+    </div>
+  ))
+  .add('Confirm', () => (
+    <div>
+      <Confirm
+        label="銀行名"
+        value="モノオク銀行"
       />
     </div>
   ));

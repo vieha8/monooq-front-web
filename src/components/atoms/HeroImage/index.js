@@ -20,6 +20,12 @@ const HeroImage = styled.img`
     max-width: 104px;
     max-height: 79px;
   `} border-radius: 6px;
+
+  ${props =>
+    props.height &&
+    `
+    height: ${props.height};
+  `};
 `;
 
 export default HeroImage;
