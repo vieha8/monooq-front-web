@@ -103,7 +103,8 @@ const SelectScheduleTerm = (props) => {
       outline: 0;
     }
     ::before {
-      content: attr(data-placeholder);
+      font-family: "Fontawesome";
+      content: "\f133";
       width: inherit;
     }
     :focus::before, :valid::before { display: none }

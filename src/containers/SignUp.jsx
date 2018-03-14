@@ -42,6 +42,10 @@ class SignUpContainer extends React.Component {
     this.props.dispatch(authActions.signupEmail({ email: email, password: password }));
   };
 
+  onClickSignUpFacebook = () => {
+    this.props.dispatch(authActions.signupFacebook());
+  };
+
   onClickRegisterProfile = () => {
     const {name, address, profile} = this.props.ui;
 
@@ -79,6 +83,7 @@ class SignUpContainer extends React.Component {
       <SignUp
         step={this.props.ui.signUpStep}
         onClickSignUpEmail={this.onClickSignUpEmail}
+        onClickSignUpFacebook={this.onClickSignUpFacebook}
         onClickRegisterProfile={this.onClickRegisterProfile}
         onClickGuest={this.onClickGuest}
         onClickHost={this.onClickHost}

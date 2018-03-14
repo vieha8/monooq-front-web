@@ -13,6 +13,7 @@ const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILED = 'LOGIN_FAILED';
 const LOGOUT = 'LOGOUT';
 const SIGNUP_EMAIL = 'SIGNUP_EMAIL';
+const SIGNUP_FACEBOOK = 'SIGNUP_FACEBOOK';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNUP_FAILED = 'SIGNUP_FAILED';
 
@@ -28,6 +29,7 @@ export const authActions = createActions(
   CHECK_LOGIN_START,
   CHECK_LOGIN_END,
   SIGNUP_EMAIL,
+  SIGNUP_FACEBOOK,
   SIGNUP_SUCCESS,
   SIGNUP_FAILED,
 );
@@ -162,10 +164,37 @@ function* signUpEmail({ payload: { email, password } }) {
   }
 }
 
+function* signUpFacebook() {
+  try {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    const result = yield firebase.auth().signInWithPopup(provider);
+    const { isNewUser } = result.additionalUserInfo;
+    console.log(result);
+    if (!isNewUser) {
+      yield put(authActions.signupFailed('Already registered.'));
+      return;
+    }
+    const { displayName, email, uid, photoURL } = result.user;
+    yield put(
+      apiActions.userPost({
+        body: { Email: email, FirebaseUid: uid, Name: displayName, ImageUrl: photoURL },
+      }),
+    );
+    const { payload } = yield take(apiActions.userPostSuccess);
+    yield put(authActions.signupSuccess(payload));
+    yield put(authActions.checkLoginStart());
+    yield put(uiActions.setUiState({ signUpStep: 4, name: displayName }));
+  } catch (err) {
+    console.error(err.message);
+    yield put(authActions.signupFailed(err.message));
+  }
+}
+
 export const authSagas = [
   takeEvery(CHECK_LOGIN_START, checkLoginFirebaseAuth),
   takeEvery(LOGIN_EMAIL, loginEmail),
   takeEvery(LOGIN_FACEBOOK, loginFacebook),
   takeEvery(LOGOUT, logout),
   takeEvery(SIGNUP_EMAIL, signUpEmail),
+  takeEvery(SIGNUP_FACEBOOK, signUpFacebook),
 ];

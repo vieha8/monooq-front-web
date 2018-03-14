@@ -72,8 +72,7 @@ const StyledMessagesItemText = styled(MessagesItemText) `
 class Messages extends React.Component {
   constructor(props) {
     super(props);
-    const userId = this.props.userId;
-    this.props.dispatch(messagesActions.fetchRoomsStart(userId));
+    props.dispatch(messagesActions.fetchRoomsStart(props.user.ID.toString()));
   }
 
   render() {
@@ -114,7 +113,7 @@ const styles = theme => ({
 const mapStateToProps = state => ({
   rooms: state.messages.rooms,
   isLoading: state.messages.isLoading,
-  userId: state.auth.user.id,
+  user: state.auth.user,
 });
 
 export default compose(withStyles(styles), authRequired, connect(mapStateToProps))(Messages);

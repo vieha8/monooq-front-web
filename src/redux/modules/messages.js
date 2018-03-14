@@ -104,12 +104,14 @@ const getRooms = userId => {
     const res = [];
     rooms.forEach(room => {
       //TODO 相手のユーザー情報を取得する
-      res.push({
-        id: room.id,
-        name: faker.name.firstName() + ' ' + faker.name.lastName(),
-        img: faker.image.avatar(),
-        ...room.data(),
-      });
+      if (room.lastMessageDt) {
+        res.push({
+          id: room.id,
+          name: faker.name.firstName() + ' ' + faker.name.lastName(),
+          img: faker.image.avatar(),
+          ...room.data(),
+        });
+      }
     });
     resolve(res);
   });
