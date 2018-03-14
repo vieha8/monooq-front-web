@@ -25,8 +25,8 @@ export default (props) => {
           header="荷物の受け取りについて"
           subHeader="どのように荷物を受け取りますか？"
         />
-        <HowToReceive />
-        <ReceiveDetail />
+        <HowToReceive {...props} />
+        <ReceiveDetail {...props} />
         <ButtonsContainer>
           <Button border onClick={() => history.push(path.createSpaceBaggage())}>
             戻る
