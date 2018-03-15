@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import NavigationHeader from 'components/NavigationHeader';
 import { uiActions } from 'redux/modules/ui';
+import { withRouter } from 'react-router';
+
+const disusePage = [ '/maintenance' ];
 
 class NavigationHeaderContainer extends Component {
   toggleMenu = () => {
@@ -18,9 +21,8 @@ class NavigationHeaderContainer extends Component {
     }));
   }
 
-  render() {
-    const { ui, isLogin, isChecking } = this.props;
-
+  renderNavigationHeader() {
+    const { ui, isLogin, isChecking, location } = this.props;
     return (
       <NavigationHeader
         loginChecking={isChecking}
@@ -28,6 +30,17 @@ class NavigationHeaderContainer extends Component {
         showMenu={ui.showMenu}
         onClickToggleMenu={this.toggleMenu}
       />
+    );
+  }
+
+
+  render() {
+    const { ui, isLogin, isChecking, location } = this.props;
+
+    return (
+      location.pathname == disusePage[0]
+        ? ""
+        : this.renderNavigationHeader()
     );
   }
 }
@@ -38,4 +51,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(NavigationHeaderContainer);
+export default withRouter(connect(mapStateToProps)(NavigationHeaderContainer));
