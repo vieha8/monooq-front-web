@@ -16,6 +16,18 @@ class SpaceInfoContainer extends React.Component {
     this.handleChangeText({target});
   };
 
+  handleChangeImage = (accepted, rejected) => {
+    if(rejected.length > 0){
+      console.error(rejected);
+    }
+    if(accepted.length > 4) {
+      return;
+    }
+    const {space} = this.props.ui;
+    Object.assign(space, {images: [...space.images, ...accepted]});
+    this.props.dispatch(uiActions.setUiState({space}));
+  };
+
   render() {
     return (
       <Page>
@@ -23,6 +35,7 @@ class SpaceInfoContainer extends React.Component {
           {...this.props}
           handleChangeText={this.handleChangeText}
           handleChangeSelect={this.handleChangeSelect}
+          handleChangeImage={this.handleChangeImage}
         />
       </Page>
     );

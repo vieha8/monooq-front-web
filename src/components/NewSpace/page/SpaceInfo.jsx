@@ -28,7 +28,7 @@ export default (props) => {
           header="スペースを登録する"
           subHeader="どんなスペースを掲載しますか？"
         />
-        <ImageDrop />
+        <ImageDrop {...props} />
         <InputTitle {...props} />
         <SelectType {...props} />
         <InputIntro {...props} />
