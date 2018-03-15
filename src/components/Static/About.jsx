@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Footer } from 'components/Shared';
-import { FontSizes, Colors } from 'variables';
 
 import mainVisual from 'images/about_main_visual@2x.jpg';
 import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';
