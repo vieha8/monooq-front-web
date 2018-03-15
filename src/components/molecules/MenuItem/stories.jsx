@@ -3,12 +3,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import MenuItem from './index';
+import ServiceMenu from './ServiceMenu';
 
-storiesOf('Molecules/MenuItem', module)
+storiesOf('Molecules/MenuItem/ServiceMenu', module)
   .add('Normal', () => (
     <div style={{ width: '320px' }}>
-      <MenuItem
+      <ServiceMenu
         href="#"
         title="メッセージ"
         notificationCount={10}
