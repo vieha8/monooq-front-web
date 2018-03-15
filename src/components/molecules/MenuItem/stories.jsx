@@ -22,17 +22,20 @@ storiesOf('Molecules/MenuItem', module)
         onClick={() => console.log('onClick')}
         title="ナビゲーション"
         hasAngle
+        show
       />
       <HelpMenu
         onClick={() => console.log('onClick')}
         title="ナビゲーション"
         hasAngle
         open
+        show
       />
       <HelpMenu
         onClick={() => console.log('onClick')}
         title="サービスについて"
         fillColor
+        show
       />
     </div>
   ));

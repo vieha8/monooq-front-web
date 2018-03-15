@@ -32,6 +32,7 @@ const IconWrapper = styled.span`
 
 type PropTypes = {
   title: string,
+  show?: boolean,
   hasAngle?: boolean,
   fillColor?: boolean,
   open?: boolean,
@@ -40,16 +41,18 @@ type PropTypes = {
 }
 
 export default (props: PropTypes) => (
-  <MenuItem>
-    <MenuLink onClick={props.onClick} href={props.href} fillColor={props.fillColor}>
-      <MenuText>
-        <InlineText.Small>{props.title}</InlineText.Small>
-      </MenuText>
-      {props.hasAngle &&
-        <IconWrapper>
-          {props.open ? <AngleDown /> : <AngleRight />}
-        </IconWrapper>
-      }
-    </MenuLink>
-  </MenuItem>
+  props.show ? (
+    <MenuItem>
+      <MenuLink onClick={props.onClick} href={props.href} fillColor={props.fillColor}>
+        <MenuText>
+          <InlineText.Small>{props.title}</InlineText.Small>
+        </MenuText>
+        {props.hasAngle &&
+          <IconWrapper>
+            {props.open ? <AngleDown /> : <AngleRight />}
+          </IconWrapper>
+        }
+      </MenuLink>
+    </MenuItem>
+  ) : null
 );
