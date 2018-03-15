@@ -65,7 +65,7 @@ export default props => (
         alt=""
       />
       <Content>
-        <PlaceText>東京都港区六本木</PlaceText>
+        <PlaceText>{props.AddressTown}</PlaceText>
         <Text>{props.Title}</Text>
         {props.Type && <TypeOK>家具・家電OK</TypeOK>}
         <PriceTitle>料金目安（30日間）</PriceTitle>
