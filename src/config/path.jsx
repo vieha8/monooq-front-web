@@ -105,7 +105,7 @@ export default {
   maintenance: () =>
     '/maintenance',
   notFound: () =>
-    '/notFound',
+    '/404',
   cancellationPolicies: () =>
     '/cancellationPolicies',
   asct: () =>
