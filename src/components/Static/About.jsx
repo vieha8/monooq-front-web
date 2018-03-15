@@ -65,7 +65,7 @@ const TopContainer = styled.div`
   text-align: center;
   ${media.phone`
     height: 100%;
-    background-position: 50% 0;
+    background-position: 60% 0;
     background-image: url(${mainVisualSP});
   `};
 `;
