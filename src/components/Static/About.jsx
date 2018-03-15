@@ -270,11 +270,11 @@ export default props => (
             },
             {
               image: 'https://picsum.photos/600?image=60',
-              text: '引越しで一時的に荷物を置きたい。',
+              text: '海外出張・留学で荷物の保管に困っている。',
             },
             {
               image: 'https://picsum.photos/600?image=70',
-              text: '引越しで一時的に荷物を置きたい。',
+              text: '仕事場をもっと広く使いたい。',
             },
             {
               image: 'https://picsum.photos/600?image=80',
@@ -282,11 +282,11 @@ export default props => (
             },
             {
               image: 'https://picsum.photos/600?image=90',
-              text: '引越しで一時的に荷物を置きたい。',
+              text: '生活空間を広げるため。',
             },
-          ].map(v => {
-            return <StyledWhenIUseContent image={v.image} text={v.text} />;
-          })}
+            ].map(v => {
+              return <StyledWhenIUseContent image={v.image} text={v.text} />;
+            })}
         </WhenIUseContentWrapper>
 
         <Hr />
@@ -294,7 +294,9 @@ export default props => (
 
       <HowIFindContainer>
         <SubTitle>物置きスペースの探し方。</SubTitle>
-        <Text>お住まいの地域・引っ越し予定エリア・・・</Text>
+        <Text>
+          お住まいの地域・引っ越し予定エリアなどを入力するだけです。あなたにとって便利な物置きスペースを探しましょう！
+        </Text>
 
         <Hr />
       </HowIFindContainer>
@@ -305,31 +307,36 @@ export default props => (
           {[
             {
               label: '相談',
-              text: 'スペースがみつかったら・・・。',
+              text:
+                'スペースが見つかったら、まずはホストに内容と期間をメッセージで相談。事前におおよその料金目安がわかるので気軽に連絡してみましょう。',
             },
             {
               label: '見積もり',
-              text: 'スペースがみつかったら・・・。',
+              text: 'あなたの荷物内容と利用期間に応じて、ホストから見積もりが送られてきます。',
             },
             {
               label: 'お支払い',
-              text: 'スペースがみつかったら・・・。',
+              text:
+                '提示された見積もりに納得したらお支払へ進みます。ホストが困らないように支払い前までに荷物の詳細はすべて伝えておきましょう。',
             },
             {
               label: '取引成立',
-              text: 'スペースがみつかったら・・・。',
+              text:
+                'お支払いが完了したら取り引き成立です！直前に慌ただしくならないように荷物の準備はお早めに。',
             },
             {
               label: '利用開始',
-              text: 'スペースがみつかったら・・・。',
+              text:
+                'ホストのスペースへ荷物を置かせてもらいます。事前に連絡がない荷物は受けてもらえないこともあるので約束通り誠実な対応を。',
             },
             {
               label: '利用終了',
-              text: 'スペースがみつかったら・・・。',
+              text:
+                'スペース利用終了日はお忘れなく！無断で延長・あなたと連絡がとれない時は、ペナルティ料金または延長料金が発生する場合はがあります。',
             },
             {
               label: 'レビュー',
-              text: 'スペースがみつかったら・・・。',
+              text: '親切に預かってくれたホストに感謝の気持ちをこめてレビューを送りましょう！',
             },
           ].map((v, i) => {
             return <StyledIfIFindContent number={i + 1} label={v.label} text={v.text} />;
