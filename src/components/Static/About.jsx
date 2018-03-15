@@ -185,9 +185,9 @@ const IfIFindContent = props => {
     text-align: center;
     color: #e85258;
     padding: 30px 0;
-    margin-right: 30px;
+    margin-right: 20px;
     ${media.phone`
-      margin-right: 30px;
+      margin: 0 0 10px;
     `};
   `;
 
@@ -207,8 +207,11 @@ const IfIFindContent = props => {
   `;
 
   const IfIFindContentText = Text.extend`
+    width: 360px;
+    margin-right: 20px;
     ${media.phone`
-      width: 50%;
+      width: 100%;
+      margin-right: 0;
     `};
   `;
 
@@ -231,6 +234,8 @@ const StyledIfIFindContent = styled(IfIFindContent)`
   margin-bottom: 20px;
   ${media.phone`
     width: 100%;
+    flex-direction: column;
+    align-items: center;
   `};
 `;
 
@@ -284,9 +289,9 @@ export default props => (
               image: 'https://picsum.photos/600?image=90',
               text: '生活空間を広げるため。',
             },
-            ].map(v => {
-              return <StyledWhenIUseContent image={v.image} text={v.text} />;
-            })}
+          ].map(v => {
+            return <StyledWhenIUseContent image={v.image} text={v.text} />;
+          })}
         </WhenIUseContentWrapper>
 
         <Hr />
