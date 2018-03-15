@@ -4,7 +4,14 @@ import { media } from 'helpers/style/media-query';
 import { Footer } from 'components/Shared';
 import { FontSizes, Colors } from 'variables';
 
-import mainVisual from 'images/about_main_visual@2x.png';
+import mainVisual from 'images/about_main_visual@2x.jpg';
+import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';
+import useImage1 from 'images/about_use1@2x.jpg';
+import useImage2 from 'images/about_use2@2x.jpg';
+import useImage3 from 'images/about_use3@2x.jpg';
+import useImage4 from 'images/about_use4@2x.jpg';
+import useImage5 from 'images/about_use5@2x.jpg';
+import useImage6 from 'images/about_use6@2x.jpg';
 
 const DefaultContainer = styled.div`
   width: 1000px;
@@ -59,6 +66,7 @@ const TopContainer = styled.div`
   ${media.phone`
     height: 100%;
     background-position: 50% 0;
+    background-image: url(${mainVisualSP});
   `};
 `;
 
@@ -148,8 +156,7 @@ const WhenIUseContentWrapper = styled.div`
 const WhenIUseContent = props => {
   const ContentImage = styled.img`
     width: 100%;
-    height: 217px;
-    margin-bottom: 7px;
+    margin-bottom: 10px;
   `;
   return (
     <div className={props.className}>
@@ -160,8 +167,8 @@ const WhenIUseContent = props => {
 };
 
 const StyledWhenIUseContent = styled(WhenIUseContent)`
-  width: 327px;
-  margin-bottom: 15px;
+  width: 330px;
+  margin-bottom: 20px;
 `;
 
 const HowIFindContainer = DefaultContainer.extend``;
@@ -266,27 +273,27 @@ export default props => (
         <WhenIUseContentWrapper>
           {[
             {
-              image: 'https://picsum.photos/600?image=45',
+              image: useImage1,
               text: '引越しで一時的に荷物を置きたい。',
             },
             {
-              image: 'https://picsum.photos/600?image=55',
+              image: useImage2,
               text: '自宅リフォーム中の家具を置く場所がない。',
             },
             {
-              image: 'https://picsum.photos/600?image=60',
+              image: useImage3,
               text: '海外出張・留学で荷物の保管に困っている。',
             },
             {
-              image: 'https://picsum.photos/600?image=70',
+              image: useImage4,
               text: '仕事場をもっと広く使いたい。',
             },
             {
-              image: 'https://picsum.photos/600?image=80',
+              image: useImage5,
               text: 'トランクルームの代わりに。',
             },
             {
-              image: 'https://picsum.photos/600?image=90',
+              image: useImage6,
               text: '生活空間を広げるため。',
             },
           ].map(v => {
