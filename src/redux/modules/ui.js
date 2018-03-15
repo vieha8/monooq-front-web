@@ -13,6 +13,7 @@ const initialState = {
   space: {
     images: [],
   },
+  user: {},
 };
 
 const { setUiState } = uiActions;

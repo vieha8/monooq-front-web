@@ -22,11 +22,11 @@ class NavigationHeaderContainer extends Component {
   }
 
   renderNavigationHeader() {
-    const { ui, isLogin, isChecking } = this.props;
+    const { ui, isLogin, isChecking, user } = this.props;
     return (
       <NavigationHeader
         loginChecking={isChecking}
-        user={isLogin ? { name: 'テストユーザー', id: 'hogehoge' } : null}
+        user={isLogin ? user : null}
         showMenu={ui.showMenu}
         onClickToggleMenu={this.toggleMenu}
       />
@@ -49,6 +49,7 @@ const mapStateToProps = state => ({
   isChecking: state.auth.isChecking,
   isLogin: state.auth.isLogin,
   ui: state.ui,
+  user: state.auth.user,
 });
 
 export default withRouter(connect(mapStateToProps)(NavigationHeaderContainer));

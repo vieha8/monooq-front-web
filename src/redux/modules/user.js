@@ -2,6 +2,8 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take } from 'redux-saga/effects';
 import { apiActions } from './api';
 import { uiActions } from './ui';
+import { uploadImage } from '../helpers/firebase';
+import fileType from '../../helpers/file-type';
 
 // Actions
 const FETCH_USER = 'FETCH_USER';
@@ -53,6 +55,20 @@ function* getUser({ payload: { userId } }) {
 }
 
 function* updateUser({ payload: { userId, body } }) {
+  if (body.image) {
+    const fileReader = new FileReader();
+    fileReader.readAsArrayBuffer(body.image);
+    const ext = yield new Promise(resolve => {
+      fileReader.onload = () => {
+        const imageType = fileType(fileReader.result);
+        resolve(imageType.ext);
+      };
+    });
+    const timeStamp = Date.now();
+    const imagePath = `/img/users/${userId}/profile/${timeStamp}.${ext}`;
+    body.imageUrl = yield uploadImage(imagePath, body.image);
+  }
+
   yield put(apiActions.userPut({ id: userId, body: body }));
   const { payload } = yield take(apiActions.userPutSuccess);
   yield put(userActions.updateSuccessUser(payload));
