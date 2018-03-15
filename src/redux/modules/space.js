@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, call } from 'redux-saga/effects';
+import { put, takeEvery, take } from 'redux-saga/effects';
 import { apiActions } from './api';
 import { store } from '../store/configureStore';
 import { push } from 'react-router-redux';
