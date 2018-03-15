@@ -28,3 +28,7 @@ type PropTypes = {
 export const SearchIcon = (props: PropTypes) => <Icon {...props} className="fal fa-search" />;
 export const MessageIcon = (props: PropTypes) => <Icon {...props} className="fas fa-comment" rotateY180 />;
 export const PictureIcon = (props: PropTypes) => <Icon {...props} className="fal fa-image" />;
+export const AngleRight = (props: PropTypes) => <Icon {...props} className="fal fa-angle-right" />;
+export const AngleDown = (props: PropTypes) => <Icon {...props} className="fal fa-angle-down" />;
+export const CircleRight = (props: PropTypes) => <Icon {...props} className="fal fa-chevron-circle-right" />;
+export const CircleDown = (props: PropTypes) => <Icon {...props} className="fal fa-chevron-circle-down" />;

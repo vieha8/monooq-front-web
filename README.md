@@ -2,6 +2,8 @@
 
 master ブランチにプッシュすると自動的にビルドされて[ここ](https://monooq-v2.herokuapp.com/)にあがります
 
+storybook ブランチにプッシュすると[ここ](https://monooq-storybook.herokuapp.com/)に最新の storybook の状態が反映されます
+
 ## セットアップ手順
 
 ```
@@ -11,7 +13,7 @@ npm install
 npm start
 ```
 
-storybook の起動は`npm run stroybook`
+storybook の起動は`npm run storybook`
 
 ## 特徴
 

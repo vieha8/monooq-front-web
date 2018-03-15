@@ -10,7 +10,10 @@ export const uiActions = createActions(SET_UI_STATE);
 const initialState = {
   locationText: '',
   signUpStep: 0,
-  space: {},
+  space: {
+    images: [],
+  },
+  user: {},
 };
 
 const { setUiState } = uiActions;

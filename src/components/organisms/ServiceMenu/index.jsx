@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import MenuItem from 'components/molecules/MenuItem';
+import MenuItem from 'components/molecules/MenuItem/ServiceMenu';
 
 const Container = styled.ul`
   width: 100%;

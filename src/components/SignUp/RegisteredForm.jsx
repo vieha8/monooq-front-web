@@ -62,10 +62,10 @@ const registeredForm = props => (
     <Title>プロフィールの登録が完了しました！</Title>
     <Content>
       <ImageWrapper>
-        <Image src="http://placehold.jp/500x300.png" />
+        <Image src={props.user.ImageUrl} width="300" />
       </ImageWrapper>
       <WelcomeText>モノオクへようこそ！</WelcomeText>
-      <WelcomeText>{props.user.Name}さん</WelcomeText> {/* TODO 動的セット */}
+      <WelcomeText>{props.user.Name}さん</WelcomeText>
       <ButtonWrapper>
         <CaptionText>荷物を預ける場所をお探しですか？</CaptionText>
         <Button

@@ -57,7 +57,23 @@ const styles = {
   },
 };
 
-export default () => (
+const showImagePreview = (props) => {
+  //TODO 表示は仮なのでデザイン反映する
+  if(props.ui.space.images){
+    return (
+      <ul>
+        {props.ui.space.images.map((v, i) => (
+          <li key={i}>
+            {v.name}<br/>
+            <img alt="preview" src={v.preview} width="100" />
+          </li>
+        ))}
+      </ul>
+    );
+  }
+};
+
+export default (props) => (
   <Container>
     <Title
       title="スペースの様子を写真で登録しよう"
@@ -66,7 +82,7 @@ export default () => (
     <Dropzone
       style={styles.dnd}
       accept="image/jpeg, image/png"
-      onDrop={(accepted, rejected) => { console.log({ accepted, rejected }); }}
+      onDrop={props.handleChangeImage}
     >
       <DndContent>
         <ButtonWrapper>
@@ -75,5 +91,6 @@ export default () => (
         <DragText>または画像をドラッグする</DragText>
       </DndContent>
     </Dropzone>
+    {showImagePreview(props)}
   </Container>
 );

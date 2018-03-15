@@ -158,7 +158,7 @@ class Space extends React.Component {
               <MobileContainer>
                 <MenuContainer>
                   <TableCell>
-                    <PlaceText>東京都</PlaceText>
+                    <PlaceText>{space.AddressPref} {space.AddressCity} {space.AddressTown}</PlaceText>
                   </TableCell>
                   <TableCell align="right">
                     <SpaceMenu />
@@ -192,7 +192,7 @@ class Space extends React.Component {
                 <Section>
                   <DetailContainer
                     title="所在地"
-                    renderContent={() => <DetailContent.Address>{space.Address}</DetailContent.Address>}
+                    renderContent={() => <DetailContent.Address>{space.AddressPref}{space.AddressCity}{space.AddressTown}</DetailContent.Address>}
                   />
                   <DetailContainer
                     title="種類"

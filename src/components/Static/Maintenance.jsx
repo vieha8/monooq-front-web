@@ -8,6 +8,8 @@ const MaintenancePage = styled.div`
   height: 100%;
   padding-top: 150px;
   color: #fff;
+  position: relative;
+  top: -80px;
 `;
 
 const MobileContainer = styled.div`
