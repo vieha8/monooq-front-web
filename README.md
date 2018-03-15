@@ -13,7 +13,7 @@ npm install
 npm start
 ```
 
-storybook の起動は`npm run stroybook`
+storybook の起動は`npm run storybook`
 
 ## 特徴
 
