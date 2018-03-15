@@ -9,12 +9,12 @@ const Container = styled.div`
   border-top: 1px solid ${Colors.borderGray};
   &::after {
     clear: both;
-    content: "";
+    content: '';
     display: block;
   }
   ${media.phone`
     padding-top: ${Dimens.medium}px;
-  `}
+  `};
 `;
 
 const Menu = styled.a`
@@ -33,12 +33,11 @@ const Menu = styled.a`
     padding: ${Dimens.small}px ${Dimens.small}px;
     text-align: left;
     margin-left: ${Dimens.medium}px;
-  `}
+  `};
 `;
 
 const Copyright = styled.span`
   display: block;
-  width: 20%;
   font-size: ${FontSizes.xsmall}px;
   text-align: right;
   vertical-align: middle;
@@ -48,7 +47,7 @@ const Copyright = styled.span`
   ${media.phone`
     float: none;
     margin-left: ${Dimens.medium}px;
-  `}
+  `};
 `;
 
 export default () => (
