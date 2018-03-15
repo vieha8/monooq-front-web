@@ -3,7 +3,7 @@
 import React from 'react';
 
 import Header from '../index';
-import Menu from '../../Menu';
+import Menu from '../../ServiceMenu';
 
 export default class HeaderMock extends React.Component {
   constructor(props: Object) {
