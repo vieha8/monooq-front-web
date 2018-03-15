@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
 
 import Root from 'containers/Root';
@@ -100,14 +100,17 @@ export default props => (
       <Auth />
       <NavigationHeader />
       <HeaderPadding />
-      {routes.map((route, i) => (
-        <Route
-          key={`route_${i}`}
-          exact
-          path={route.path}
-          component={route.component}
-        />
-      ))}
+      <Switch>
+        {routes.map((route, i) => (
+          <Route
+            key={`route_${i}`}
+            exact
+            path={route.path}
+            component={route.component}
+          />
+        ))}
+        <Route component={NotFound} />
+      </Switch>
     </Root>
   </ConnectedRouter>
 );
