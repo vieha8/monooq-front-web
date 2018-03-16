@@ -128,7 +128,6 @@ function renderMenuIcon(props) {
   if (loginChecking) return null;
 
   if (user) {
-    console.log(user);
     return (
       <Fragment>
         <IconWrapper href={Path.messages(user.ID)}>

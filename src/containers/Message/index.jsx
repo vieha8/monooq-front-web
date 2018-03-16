@@ -480,7 +480,7 @@ const styles = theme => ({
 const mapStateToProps = state => ({
   messages: state.messages.messages,
   isLoading: state.messages.isLoading,
-  userId: state.auth.user.id,
+  userId: state.auth.user.ID,
   ui: state.ui,
 });
 
