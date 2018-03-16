@@ -155,7 +155,6 @@ const SelectScheduleTerm = (props) => {
 
   return (
     <div className={props.className}>
-
       <DateSelector>
         <Label>預かり開始日</Label>
         <InputContainer>
@@ -164,18 +163,20 @@ const SelectScheduleTerm = (props) => {
             data-placeholder="日付を選ぶ"
             required
             aria-required="true"
-
             id="date-start"
             disabled={props.isSending}
+            name="startDate"
+            value={props.ui.startDate}
+            onChange={props.handleChange}
           />
           <OpenSelector>
-            <i className="far fa-calendar"></i>
+            <i className="far fa-calendar" />
           </OpenSelector>
         </InputContainer>
       </DateSelector>
 
       <FlowIcon>
-        <i className="fas fa-arrow-right"></i>
+        <i className="fas fa-arrow-right" />
       </FlowIcon>
 
       <DateSelector>
@@ -186,12 +187,14 @@ const SelectScheduleTerm = (props) => {
             data-placeholder="日付を選ぶ"
             required
             aria-required="true"
-
             id="date-end"
             disabled={props.isSending}
+            name="endDate"
+            value={props.ui.endDate}
+            onChange={props.handleChange}
           />
           <OpenSelector>
-            <i className="far fa-calendar"></i>
+            <i className="far fa-calendar" />
           </OpenSelector>
         </InputContainer>
       </DateSelector>
@@ -244,11 +247,14 @@ const InputEstimate = (props) => {
     <div className={props.className}>
       <Label>お見積料金</Label>
       <InputEstimatePrice
+        name="price"
+        value={props.ui.price}
+        onChange={props.handleChange}
         type="number"
       />円
     </div>
   );
-}
+};
 
 const StyledInputEstimate = styled(InputEstimate)`
   margin-bottom: 40px;
@@ -315,34 +321,10 @@ const EstimateButtonWrapper = styled.div`
 `;
 
 class Estimate extends React.Component {
-  constructor(props) {
-    super(props);
 
+  handleChange = ({target}) => {
     this.props.dispatch(uiActions.setUiState({
-      open: false,
-      price: 20000,
-      isSend: false,
-      isSending: false,
-    }));
-  }
-
-  handleClickOpen = () => {
-    this.props.dispatch(uiActions.setUiState({
-      open: true,
-    }));
-  };
-
-  handleClose = () => {
-    this.props.dispatch(uiActions.setUiState({
-      open: false,
-      isSend: false,
-    }));
-    // this.props.history.push('/search/東京都');
-  }
-
-  handleChange = (event) => {
-    this.props.dispatch(uiActions.setUiState({
-      price: event.target.value,
+      [target.name]: target.value,
     }));
   };
 
@@ -355,7 +337,7 @@ class Estimate extends React.Component {
         isSend: true, isSending: false, multiline: '',
       }));
     }, 2000);
-  }
+  };
 
   showSendButton = () => {
     const { ui } = this.props;
@@ -369,10 +351,9 @@ class Estimate extends React.Component {
     return (
         <EstimateButton onClick={this.sendRequest}>見積もりを送信する</EstimateButton>
     );
-  }
+  };
 
   render() {
-    const { ui } = this.props;
     return (
       <EstimatePage>
         <EstimateContainer>
@@ -380,14 +361,20 @@ class Estimate extends React.Component {
           <FlexWrapper>
             <EstimateFormContainer>
               <PageTitleSub>スケジュールを入力</PageTitleSub>
-              <StyledSelectScheduleTerm isSending={ui.isSending} />
+              <StyledSelectScheduleTerm
+                {...this.props}
+                handleChange={this.handleChange}
+              />
 
               <PageTitleSub>このリクエストの見積もり料金</PageTitleSub>
               <DescriptionText>
                 ユーザーから連絡があったの荷物量・予定を元に最終的な見積もり料金を決めましょう。
 想定していたよりも荷物が多い場合や少ない場合、預けてくれる期間が長い場合の割引きなどユーザーの相談に合わせて料金を変更しましょう。
               </DescriptionText>
-              <StyledInputEstimate />
+              <StyledInputEstimate
+                {...this.props}
+                handleChange={this.handleChange}
+              />
               <EstimateButtonWrapper>
                 {this.showSendButton()}
               </EstimateButtonWrapper>
