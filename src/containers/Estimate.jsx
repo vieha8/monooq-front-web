@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
-import {CircularProgress} from 'material-ui/Progress';
 import {uiActions} from 'redux/modules/ui';
 import {Colors} from 'variables';
 import {media} from '../helpers/style/media-query';
+import { requestActions } from "../redux/modules/request";
 
 const EstimatePage = styled.div`
 `;
@@ -327,28 +327,12 @@ class Estimate extends React.Component {
   };
 
   sendRequest = () => {
-    this.props.dispatch(uiActions.setUiState({
-      isSending: true,
+    const userId = this.props.user.ID;
+    const spaceId = 1; // TODO URIにいれる
+    const {startDate, endDate, price} = this.props.ui;
+    this.props.dispatch(requestActions.estimate({
+      userId, spaceId, startDate, endDate, price
     }));
-    setTimeout(() => {
-      this.props.dispatch(uiActions.setUiState({
-        isSend: true, isSending: false, multiline: '',
-      }));
-    }, 2000);
-  };
-
-  showSendButton = () => {
-    const {ui} = this.props;
-    if (ui.isSending) {
-      return (
-        <div style={{textAlign: 'center'}}>
-          <CircularProgress/>
-        </div>
-      );
-    }
-    return (
-      <EstimateButton onClick={this.sendRequest}>見積もりを送信する</EstimateButton>
-    );
   };
 
   render() {
@@ -373,7 +357,7 @@ class Estimate extends React.Component {
                 handleChange={this.handleChange}
               />
               <EstimateButtonWrapper>
-                {this.showSendButton()}
+                <EstimateButton onClick={this.sendRequest}>見積もりを送信する</EstimateButton>
               </EstimateButtonWrapper>
             </EstimateFormContainer>
 
@@ -393,6 +377,7 @@ class Estimate extends React.Component {
 
 const mapStateToProps = state => ({
   ui: state.ui,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps)(Estimate);
