@@ -3,7 +3,7 @@ const USER_ID = ':user_id';
 const SPACE_ID = ':space_id';
 const MESSAGE_ROOM_ID = ':message_room_id';
 const SCHEDULE_ID = ':schedule_id';
-const ESTIMATE_ID = ':estimate_id';
+const REQUEST_ID = ':request_id';
 
 export default {
   // トップ
@@ -47,10 +47,10 @@ export default {
     `/message/${messageRoomId}`,
   // 見積もり
   estimate: (messageRoomId = MESSAGE_ROOM_ID) =>
-    `/message/${messageRoomId}/estimate/new`,
+    `/message/${messageRoomId}/estimate`,
   // 決済
-  payment: (estimateId = ESTIMATE_ID) =>
-    `/estimate/${estimateId}/payment`,
+  payment: (requestId = REQUEST_ID) =>
+    `/payment/${requestId}`,
   // プロフィール
   profile: (userId = USER_ID) =>
     `/user/${userId}`,

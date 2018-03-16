@@ -2,6 +2,7 @@ import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { Link } from "react-router-dom";
 import { withStyles } from 'material-ui/styles';
 import Path from 'config/path';
 import authRequired from 'components/Auth';
@@ -161,7 +162,7 @@ const Record = props => {
   `;
   let RecordLinkComponent = '';
   if (props.hasLink) {
-    RecordLinkComponent = <RecordLink>この見積もりでお支払いに進む</RecordLink>;
+    RecordLinkComponent = <RecordLink><Link to={props.linkUrl}>この見積もりでお支払いに進む</Link></RecordLink>;
   }
   return (
     <div className={props.className}>
@@ -378,6 +379,7 @@ class Message extends React.Component {
 
   contents = () => {
     const { classes, messages, userId } = this.props;
+
     return (
       <div className={classes.root}>
         {messages.map(message => {
@@ -397,17 +399,32 @@ class Message extends React.Component {
             margin-bottom: 20px;
           `;
 
+
           let RecordComponent = () => <StyledRecord myMessage date={date} text={message.text} />;
 
-          if (message.userId !== userId) {
-            RecordComponent = () => <StyledRecord date={date} text={message.text} />;
-          }
+          switch (message.messageType) {
+            case 1:
+              //通常のメッセージ
+              if (message.userId !== userId) {
+                RecordComponent = () => <StyledRecord date={date} text={message.text} />;
+              }
+              break;
+            case 2:
+              //見積りメッセージ
+              const {startDate, endDate, price, requestId} = message;
+              message.text = `お見積り 利用開始日:${startDate} 利用終了日:${endDate} 料金:${price}円`;
+              //TODO 改行いれられるようにしたい
+              RecordComponent = () => (
+                <StyledRecord
+                  specialMessage
+                  hasLink={true}
+                  linkUrl={`/payment/${requestId}`}
+                  date={date}
+                  text={message.text}
 
-          // 見積もり発生時
-          if (false) {
-            RecordComponent = () => (
-              <StyledRecord specialMessage hasLink={true} date={date} text={message.text} />
-            );
+                />
+              );
+              break;
           }
 
           return (
