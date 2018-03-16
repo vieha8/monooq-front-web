@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
-import { withStyles } from 'material-ui/styles';
-import { CircularProgress } from 'material-ui/Progress';
-import { uiActions } from 'redux/modules/ui';
-import { Colors } from 'variables';
-import { media } from '../helpers/style/media-query';
+import {connect} from 'react-redux';
+import {CircularProgress} from 'material-ui/Progress';
+import {uiActions} from 'redux/modules/ui';
+import {Colors} from 'variables';
+import {media} from '../helpers/style/media-query';
 
 const EstimatePage = styled.div`
 `;
@@ -170,13 +169,13 @@ const SelectScheduleTerm = (props) => {
             onChange={props.handleChange}
           />
           <OpenSelector>
-            <i className="far fa-calendar" />
+            <i className="far fa-calendar"/>
           </OpenSelector>
         </InputContainer>
       </DateSelector>
 
       <FlowIcon>
-        <i className="fas fa-arrow-right" />
+        <i className="fas fa-arrow-right"/>
       </FlowIcon>
 
       <DateSelector>
@@ -194,14 +193,13 @@ const SelectScheduleTerm = (props) => {
             onChange={props.handleChange}
           />
           <OpenSelector>
-            <i className="far fa-calendar" />
+            <i className="far fa-calendar"/>
           </OpenSelector>
         </InputContainer>
       </DateSelector>
-
     </div>
   );
-}
+};
 
 const StyledSelectScheduleTerm = styled(SelectScheduleTerm)`
   display: flex;
@@ -303,7 +301,7 @@ const Hint = (props) => {
       <Description>{props.children}</Description>
     </div>
   );
-}
+};
 
 const StyledHint = styled(Hint)`
   padding: 30px;
@@ -340,16 +338,16 @@ class Estimate extends React.Component {
   };
 
   showSendButton = () => {
-    const { ui } = this.props;
+    const {ui} = this.props;
     if (ui.isSending) {
       return (
-        <div style={{ textAlign: 'center' }}>
-          <CircularProgress />
+        <div style={{textAlign: 'center'}}>
+          <CircularProgress/>
         </div>
       );
     }
     return (
-        <EstimateButton onClick={this.sendRequest}>見積もりを送信する</EstimateButton>
+      <EstimateButton onClick={this.sendRequest}>見積もりを送信する</EstimateButton>
     );
   };
 
@@ -365,11 +363,10 @@ class Estimate extends React.Component {
                 {...this.props}
                 handleChange={this.handleChange}
               />
-
               <PageTitleSub>このリクエストの見積もり料金</PageTitleSub>
               <DescriptionText>
                 ユーザーから連絡があったの荷物量・予定を元に最終的な見積もり料金を決めましょう。
-想定していたよりも荷物が多い場合や少ない場合、預けてくれる期間が長い場合の割引きなどユーザーの相談に合わせて料金を変更しましょう。
+                想定していたよりも荷物が多い場合や少ない場合、預けてくれる期間が長い場合の割引きなどユーザーの相談に合わせて料金を変更しましょう。
               </DescriptionText>
               <StyledInputEstimate
                 {...this.props}
@@ -394,19 +391,8 @@ class Estimate extends React.Component {
   }
 }
 
-const styles = theme => ({
-  estimate: {
-    width: '300px',
-    margin: '0 auto',
-  },
-  textField: {
-    width: '100%',
-    marginTop: 10,
-  },
-});
-
 const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Estimate));
+export default connect(mapStateToProps)(Estimate);
