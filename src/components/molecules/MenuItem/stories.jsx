@@ -21,13 +21,13 @@ storiesOf('Molecules/MenuItem', module)
       <HelpMenu
         onClick={() => console.log('onClick')}
         title="ナビゲーション"
-        hasAngle
+        angleRight
         show
       />
       <HelpMenu
         onClick={() => console.log('onClick')}
         title="ナビゲーション"
-        hasAngle
+        angleDown
         open
         show
       />

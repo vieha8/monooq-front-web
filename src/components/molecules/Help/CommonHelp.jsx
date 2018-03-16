@@ -7,6 +7,12 @@ import TextLink from 'components/atoms/TextLink';
 import HelpButton from 'components/molecules/Help/HelpButton';
 import { Colors } from 'variables';
 
+const Container = styled.div`
+  &:not(:first-child) {
+    margin-top: 32px; 
+  }
+`;
+
 const ButtonsContainer = styled.div`
   width: 100%;
   margin-top: 32px;
@@ -38,7 +44,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => {
   return (
-    <div>
+    <Container>
       <H2>{props.headline}</H2>
       <ButtonsContainer>
         {props.buttons.map((button, i) => (
@@ -51,6 +57,6 @@ export default (props: PropTypes) => {
         <H3>よくある質問</H3>
         <TextLink href={props.helpLink}>{props.helpTitle}</TextLink>
       </HelpContainer>
-    </div>
+    </Container>
   );
 }

@@ -36,7 +36,7 @@ export default (props: PropTypes) => (
       {...props.howToUser}
       onClick={props.onClickHowToUser}
       show
-      hasAngle
+      angleDown
     />
     <MenuItem
       title="サービスについて"
@@ -53,7 +53,7 @@ export default (props: PropTypes) => (
       {...props.howToBeHost}
       onClick={props.onClickHowToBeHost}
       show
-      hasAngle
+      angleDown
     />
     <MenuItem
       title="ホストについて"
@@ -79,13 +79,13 @@ export default (props: PropTypes) => (
       title="登録・ログインについて"
       {...props.aboutLogin}
       show
-      hasAngle
+      angleRight
     />
     <MenuItem
       title="その他"
       {...props.other}
       show
-      hasAngle
+      angleRight
     />
   </Container>
 );
