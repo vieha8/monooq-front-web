@@ -129,7 +129,12 @@ const InputPaymentInfo = props => {
   return (
     <div className={props.className}>
       <InfoLabel>{props.label}</InfoLabel>
-      <InfoInput isSmall={props.isSmall} type={props.type} placeholder={props.placeholder} />
+      <InfoInput
+        id={props.id}
+        isSmall={props.isSmall}
+        type={props.type}
+        placeholder={props.placeholder}
+      />
     </div>
   );
 };
@@ -203,18 +208,26 @@ const InputPaymentTermInfo = props => {
       <Label>有効期限</Label>
       <Wrapper>
         <StyledSelectContainer>
-          <StyledSelect>
+          <StyledSelect id="expiryMonth">
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(item => {
-              return <option>{item}</option>;
+              return (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              );
             })}
           </StyledSelect>
         </StyledSelectContainer>
         <Unit>月 /</Unit>
 
         <StyledSelectContainer>
-          <StyledSelect>
-            {[18, 17, 16, 15, 14].map(item => {
-              return <option>20{item}</option>;
+          <StyledSelect id="expiryYear">
+            {[18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28].map(item => {
+              return (
+                <option key={item} value={`20${item}`}>
+                  20{item}
+                </option>
+              );
             })}
           </StyledSelect>
         </StyledSelectContainer>
@@ -427,43 +440,64 @@ class Payment extends Component {
           <FlexWrapper>
             <PaymentFormContainer>
               <PageTitleSub>クレジットカード情報の入力</PageTitleSub>
-              <StyledInputPaymentInfo
-                label="カード名義（半角ローマ字）"
-                placeholder="TARO YAMADA"
-                id="card-name"
-              />
+              <form id="checkout-form" method="post" action="">
+                <StyledInputPaymentInfo
+                  label="カード名義（半角ローマ字）"
+                  placeholder="TARO YAMADA"
+                  id="nameOnCard"
+                />
 
-              <StyledInputPaymentInfo
-                label="クレジットカード番号"
-                placeholder="1234 5678 9102 3456"
-                type="number"
-                id="card-name"
-              />
+                <StyledInputPaymentInfo
+                  label="クレジットカード番号"
+                  placeholder="1234 5678 9102 3456"
+                  type="number"
+                  id="cardNumber"
+                />
 
-              <StyledInputPaymentTermInfo />
+                {/*<StyledInputPaymentTermInfo />*/}
+                {/*TODO omise.js側のロジック修正必要なので年月は一旦テキスト入力で*/}
 
-              <StyledInputPaymentInfo
-                label="セキュリティコード"
-                placeholder="3桁の数字"
-                type="number"
-                id="card-code"
-                isSmall
-              />
-              <PageTitleSub isMobile>お支払い内容の確認</PageTitleSub>
-              <StyledEstimateInfoMobile />
-              <MobileHr isLong />
+                <StyledInputPaymentInfo
+                  label="有効期限(月)"
+                  placeholder="4"
+                  type="number"
+                  id="expiryMonth"
+                  isSmall
+                />
 
-              <PaymentNotice>
-                ・決済後にキャンセルされた場合、預ける日の15日前までは全額ご返金させていただきます。<br />・決済後、預かり開始予定日の15日前からキャンセル手数料が発生します。<br />・「決済する」ボタンを押すことで、お客様は当サイトのプライバシーポリシーと利用規約に同意の上、モノオクサービスの予約を確定したことになります。
-              </PaymentNotice>
+                <StyledInputPaymentInfo
+                  label="有効期限(年)"
+                  placeholder="2018"
+                  type="number"
+                  id="expiryYear"
+                  isSmall
+                />
 
-              <StyledPaymentAnchor href="#" isRight>
-                キャンセルについて
-              </StyledPaymentAnchor>
+                <StyledInputPaymentInfo
+                  label="セキュリティコード"
+                  placeholder="3桁の数字"
+                  type="number"
+                  id="securityCode"
+                  isSmall
+                />
+                <PageTitleSub isMobile>お支払い内容の確認</PageTitleSub>
+                <StyledEstimateInfoMobile />
+                <MobileHr isLong />
 
-              <PaymentButtonWrapper>
-                <PaymentButton>決済する</PaymentButton>
-              </PaymentButtonWrapper>
+                <PaymentNotice>
+                  ・決済後にキャンセルされた場合、預ける日の15日前までは全額ご返金させていただきます。<br />・決済後、預かり開始予定日の15日前からキャンセル手数料が発生します。<br />・「決済する」ボタンを押すことで、お客様は当サイトのプライバシーポリシーと利用規約に同意の上、モノオクサービスの予約を確定したことになります。
+                </PaymentNotice>
+
+                <StyledPaymentAnchor href="#" isRight>
+                  キャンセルについて
+                </StyledPaymentAnchor>
+
+                <PaymentButtonWrapper>
+                  <PaymentButton>
+                    <input type="submit" value="決済する" />
+                  </PaymentButton>
+                </PaymentButtonWrapper>
+              </form>
             </PaymentFormContainer>
 
             <PaymentSideContainer>
