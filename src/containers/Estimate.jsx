@@ -328,10 +328,10 @@ class Estimate extends React.Component {
 
   sendRequest = () => {
     const userId = this.props.user.ID;
-    const spaceId = 1; // TODO URIにいれる
+    const roomId = this.props.match.params.message_room_id;
     const {startDate, endDate, price} = this.props.ui;
     this.props.dispatch(requestActions.estimate({
-      userId, spaceId, startDate, endDate, price
+      userId, roomId, startDate, endDate, price
     }));
   };
 
