@@ -203,11 +203,12 @@ export default props => (
               label: 'ホストも安心',
               text: 'モノオクでは、あなたの荷物やホストをお守りするために保証制度をご用意しています。もしも、破損や・・・',
             },
-          ].map((v)=>{
+          ].map((v,i)=>{
             return (
               <StyledWhySafeContent
                 label={v.label}
                 text={v.text}
+                key={i}
               />
             );
           })
@@ -237,12 +238,13 @@ export default props => (
               label: '気持ちの良い取引をするには？',
               text: 'しっかりと荷物の内容と写真をメッセージに残しましょう。もしも事故が起こってしまった場合にスムーズな対応を行うためです。もし事前に連絡をしていない荷物をスペースに置こうとしたら、ホストに受け入れを断られてしまったり、保証の対象となりません。',
             },
-          ].map((v)=>{
+          ].map((v,i)=>{
             return (
               <StyledHowSafeContent
                 image={v.image}
                 label={v.label}
                 text={v.text}
+                key={i}
               />
             );
           })

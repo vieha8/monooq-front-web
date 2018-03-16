@@ -219,8 +219,8 @@ export default props => (
         <ForBegginnersTitle>はじめての方へ</ForBegginnersTitle>
         <ForBegginnersText>モノオクは空きスペースを活用する、<br />物置きシェアサービスです。</ForBegginnersText>
         <ForBegginnersLabelWrapper>
-          {[ '安心の料金', '面倒な手続きが不要', '拠点数が多い', '1ヶ月だけでもOK'].map((v)=>{
-            return <ForBegginnersLabel>{v}</ForBegginnersLabel>;
+          {[ '安心の料金', '面倒な手続きが不要', '拠点数が多い', '1ヶ月だけでもOK'].map((v,i)=>{
+            return <ForBegginnersLabel key={i}>{v}</ForBegginnersLabel>;
           })}
         </ForBegginnersLabelWrapper>
 
@@ -254,11 +254,12 @@ export default props => (
           image: 'https://picsum.photos/600?image=90',
           text: '引越しで一時的に荷物を置きたい。',
         },
-      ].map((v)=>{
+      ].map((v,i)=>{
         return(
           <StyledWhenIUseContent
             image={v.image}
             text={v.text}
+            key={i}
           />
         )
       })}
@@ -312,6 +313,7 @@ export default props => (
             number={i+1}
             label={v.label}
             text={v.text}
+            key={i}
           />
         );
       })}

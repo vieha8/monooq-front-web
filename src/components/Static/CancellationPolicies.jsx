@@ -175,11 +175,12 @@ export default () => (
             header: '利用開始日以降',
             data: '決済金額の100％（返金はありません）',
           },
-        ].map((v)=>{
+        ].map((v,i)=>{
           return (
             <StyledAboutCancellContent
               header={v.header}
               data={v.data}
+              key={i}
             />
           );
         })}
@@ -222,11 +223,12 @@ export default () => (
             header: 'アカウント停止',
             data: '1年間の間に3回以上キャンセルすると、スペース掲載が無効・アカウント停止などの対応をします。',
           },
-        ].map((v)=>{
+        ].map((v,i)=>{
           return (
             <StyledAboutCancellContent
               header={v.header}
               data={v.data}
+              key={i}
             />
           );
         })}
