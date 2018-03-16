@@ -14,7 +14,7 @@ const MenuLink = styled.a`
   text-decoration: none;
   padding: 12px 16px;
   ${props => props.fillColor && `
-    background: ${Colors.lightGray2Bg};
+    background: ${Colors.lightGray1Bg};
   `}
 `;
 
