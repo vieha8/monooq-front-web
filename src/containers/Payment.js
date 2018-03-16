@@ -424,14 +424,6 @@ class Payment extends Component {
     };
   }
 
-  componentWillMount() {
-    // TODO ちょっと魔改造感あるから他のやり方ないか検証したい
-    const script = document.createElement('script');
-    script.src = 'http://localhost:3000/omise.js';
-    script.async = true;
-    document.body.appendChild(script);
-  }
-
   render() {
     return (
       <PaymentPage>
@@ -454,24 +446,7 @@ class Payment extends Component {
                   id="cardNumber"
                 />
 
-                {/*<StyledInputPaymentTermInfo />*/}
-                {/*TODO omise.js側のロジック修正必要なので年月は一旦テキスト入力で*/}
-
-                <StyledInputPaymentInfo
-                  label="有効期限(月)"
-                  placeholder="4"
-                  type="number"
-                  id="expiryMonth"
-                  isSmall
-                />
-
-                <StyledInputPaymentInfo
-                  label="有効期限(年)"
-                  placeholder="2018"
-                  type="number"
-                  id="expiryYear"
-                  isSmall
-                />
+                <StyledInputPaymentTermInfo />
 
                 <StyledInputPaymentInfo
                   label="セキュリティコード"
@@ -493,9 +468,7 @@ class Payment extends Component {
                 </StyledPaymentAnchor>
 
                 <PaymentButtonWrapper>
-                  <PaymentButton>
-                    <input type="submit" value="決済する" />
-                  </PaymentButton>
+                  <PaymentButton>決済する</PaymentButton>
                 </PaymentButtonWrapper>
               </form>
             </PaymentFormContainer>
