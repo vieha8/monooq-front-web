@@ -3,15 +3,39 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import MenuItem from './index';
+import ServiceMenu from './ServiceMenu';
+import HelpMenu from './HelpMenu';
 
 storiesOf('Molecules/MenuItem', module)
-  .add('Normal', () => (
+  .add('ServiceMenu', () => (
     <div style={{ width: '320px' }}>
-      <MenuItem
+      <ServiceMenu
         href="#"
         title="メッセージ"
         notificationCount={10}
+      />
+    </div>
+  ))
+  .add('HelpMenu', () => (
+    <div style={{ width: '320px' }}>
+      <HelpMenu
+        onClick={() => console.log('onClick')}
+        title="ナビゲーション"
+        hasAngle
+        show
+      />
+      <HelpMenu
+        onClick={() => console.log('onClick')}
+        title="ナビゲーション"
+        hasAngle
+        open
+        show
+      />
+      <HelpMenu
+        onClick={() => console.log('onClick')}
+        title="サービスについて"
+        fillColor
+        show
       />
     </div>
   ));

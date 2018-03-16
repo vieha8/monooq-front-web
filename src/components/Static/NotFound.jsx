@@ -54,10 +54,6 @@ const List = styled.div`
   line-height: 24px;
 `;
 
-const ListWrapper = styled.div`
-  margin-bottom: 30px;
-`;
-
 export default () => (
   <Fragment>
     <MainTitleContainer>

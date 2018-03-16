@@ -123,7 +123,7 @@ class Space extends React.Component {
 
   sendMessage = async (props) => {
     const userId1 = props.userId.toString();
-    const userId2 = props.space.UserId;
+    const userId2 = props.space.UserID.toString();
     let roomId = await isExistRoom(userId1, userId2);
     if (!roomId) {
       roomId = await createRoom(userId1, userId2);

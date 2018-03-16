@@ -10,15 +10,26 @@ import {uiActions} from "../redux/modules/ui";
 class SignUpContainer extends React.Component {
 
   handleChangeText = ({target}) => {
-    this.props.dispatch(
-      uiActions.setUiState({
-        [target.name]: target.value,
-      }),
-    );
+    const {user} = this.props.ui;
+    Object.assign(user, {[target.name]: target.value});
+    this.props.dispatch(uiActions.setUiState({user}));
+  };
+
+  handleChangeSelect = (_, target) => {
+    this.handleChangeText({target});
+  };
+
+  handleChangeImage = (accepted, rejected) => {
+    if(rejected.length > 0){
+      console.error(rejected);
+    }
+    const {user} = this.props.ui;
+    Object.assign(user, {image: accepted[0]});
+    this.props.dispatch(uiActions.setUiState({user}));
   };
 
   onClickSignUpEmail = () => {
-    const {email, password, passwordConfirm} = this.props.ui;
+    const {email, password, passwordConfirm} = this.props.ui.user;
 
     if(!email || email === '') {
       // TODO エラー
@@ -43,7 +54,7 @@ class SignUpContainer extends React.Component {
   };
 
   onClickRegisterProfile = () => {
-    const {name, address, profile} = this.props.ui;
+    const {name, address, profile, image} = this.props.ui.user;
 
     if(!name || name === '') {
       //TODO エラー
@@ -62,7 +73,7 @@ class SignUpContainer extends React.Component {
 
     this.props.dispatch(userActions.updateUser({
       userId: this.props.user.ID,
-      body:{ Name: name, PrefCode: '13', Profile: profile}
+      body:{ name, profile, image, PrefCode: '13'}
     }));
   };
 
@@ -84,7 +95,8 @@ class SignUpContainer extends React.Component {
         onClickGuest={this.onClickGuest}
         onClickHost={this.onClickHost}
         handleChangeText={this.handleChangeText}
-        {...this.props.ui}
+        handleChangeImage={this.handleChangeImage}
+        {...this.props}
       />
     );
   }

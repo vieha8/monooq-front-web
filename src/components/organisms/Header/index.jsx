@@ -7,7 +7,7 @@ import SearchIcon from 'components/molecules/HeaderAction/SearchIcon';
 import MessageIcon from 'components/molecules/HeaderAction/MessageIcon';
 import AvatarIcon from 'components/molecules/HeaderAction/AvatarIcon';
 import Anonymouse from 'components/molecules/HeaderAction/Anonymouse';
-import Menu from 'components/organisms/Menu';
+import ServiceMenu from 'components/organisms/ServiceMenu';
 import { media } from 'helpers/style/media-query';
 import { Colors, ZIndexes } from 'variables';
 
@@ -22,6 +22,9 @@ const Container = styled.header`
   background: ${Colors.white};
   ${props => props.top && `
     background: rgba(255, 255, 255, 0.6);
+  `}
+  ${props => props.help && `
+    background: ${Colors.brandAccent};
   `}
 `;
 
@@ -108,12 +111,13 @@ type PropTypes = {
   onClickAvatar: Function,
   onClickCloseMenu: Function,
   showMenu: boolean,
-  menu: React.Element<Menu>,
+  menu: React.Element<ServiceMenu>,
   top?: boolean,
+  help?: boolean,
 }
 
 export default (props: PropTypes) => (
-  <Container top={props.top}>
+  <Container top={props.top} help={props.help}>
     <Nav>
       <LogoWrapper href={props.homeUri}>
         <Logo.Header />
@@ -123,13 +127,13 @@ export default (props: PropTypes) => (
           <ActionContainer>
             <ActionCell>
               <SearchIcon
-                color={props.top && Colors.white}
+                color={(props.top || props.help) && Colors.white}
                 href={props.searchUri}
               />
             </ActionCell>
             <ActionCell>
               <MessageIcon
-                color={props.top && Colors.white}
+                color={(props.top || props.help) && Colors.white}
                 href={props.messageUri}
                 notificationCount={props.messageCount}
               />

@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 
 import Menu from './index';
 
-storiesOf('Organisms/Menu', module)
+storiesOf('Organisms/ServiceMenu', module)
   .add('Host', () => (
     <div style={{ width: '320px' }}>
       <Menu

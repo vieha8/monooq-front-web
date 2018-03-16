@@ -130,11 +130,11 @@ function renderMenuIcon(props) {
   if (user) {
     return (
       <Fragment>
-        <IconWrapper href={Path.messages(user.id)}>
+        <IconWrapper href={Path.messages(user.ID)}>
           <Icon name="comment" fontSize={FontSizes.large} color={Colors.lightGray1} />
         </IconWrapper>
         <UserIconWrapper onClick={() => onClickToggleMenu()}>
-          <UserImage src="http://placehold.jp/500x500.png" alt="" />
+          <UserImage src={user.ImageUrl} alt="" />
         </UserIconWrapper>
         {showMenu && renderMenu(props)}
       </Fragment>

@@ -68,6 +68,19 @@ const styles = {
   },
 };
 
+const showImagePreview = (props) => {
+  //TODO 表示は仮なのでデザイン反映する
+  if(props.ui.user.image){
+    const { image } = props.ui.user;
+    return (
+      <div>
+        {image.name}<br/>
+        <img alt="preview" src={image.preview} width="100" />
+      </div>
+    );
+  }
+};
+
 export default props => (
   <Container>
     <Title>あなたのプロフィールを登録</Title>
@@ -76,7 +89,7 @@ export default props => (
       <Dropzone
         style={styles.dnd}
         accept="image/jpeg, image/png"
-        onDrop={(accepted, rejected) => { console.log({ accepted, rejected }); }}
+        onDrop={props.handleChangeImage}
       >
         <DndContent>
           <IconWrapper>
@@ -85,13 +98,14 @@ export default props => (
           <CaptionText>写真を登録する</CaptionText>
         </DndContent>
       </Dropzone>
+      {showImagePreview(props)}
       <InputContainer>
         <Label>お名前</Label>
         <Input
           fluid
           name="name"
           placeholder="ニックネームでも可"
-          value={props.name}
+          value={props.ui.name}
           onChange={props.handleChangeText}
         />
       </InputContainer>
@@ -101,7 +115,7 @@ export default props => (
           fluid
           name="address"
           placeholder="東京都"
-          value={props.address}
+          value={props.ui.address}
           onChange={props.handleChangeText}
         />
       </InputContainer>
@@ -113,7 +127,7 @@ export default props => (
             fluid
             name="profile"
             placeholder="例）はじめまして！モノオクホストのYUKIです。大きめの荷物でも柔軟に対応しております。いつでもチャットでご連絡くださいください！"
-            value={props.profile}
+            value={props.ui.profile}
             onChange={props.handleChangeText}
             rows={4}
           />
