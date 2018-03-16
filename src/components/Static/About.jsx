@@ -260,8 +260,8 @@ export default props => (
           <TopTitle>はじめての方へ</TopTitle>
           <TopText>モノオクは空きスペースを活用する、物置きシェアサービスです。</TopText>
           <TopLabelWrapper>
-            {['安心の料金', '面倒な手続きが不要', '拠点数が多い', '1ヶ月だけでもOK'].map(v => {
-              return <TopLabel>{v}</TopLabel>;
+            {['安心の料金', '面倒な手続きが不要', '拠点数が多い', '1ヶ月だけでもOK'].map((v,i) => {
+              return <TopLabel key={i}>{v}</TopLabel>;
             })}
           </TopLabelWrapper>
         </TopTransparency>
@@ -295,8 +295,8 @@ export default props => (
               image: useImage6,
               text: '生活空間を広げるため。',
             },
-          ].map(v => {
-            return <StyledWhenIUseContent image={v.image} text={v.text} />;
+          ].map((v,i) => {
+            return <StyledWhenIUseContent key={i} image={v.image} text={v.text} />;
           })}
         </WhenIUseContentWrapper>
 
@@ -350,7 +350,7 @@ export default props => (
               text: '親切に預かってくれたホストに感謝の気持ちをこめてレビューを送りましょう！',
             },
           ].map((v, i) => {
-            return <StyledIfIFindContent number={i + 1} label={v.label} text={v.text} />;
+            return <StyledIfIFindContent key={i} number={i + 1} label={v.label} text={v.text} />;
           })}
         </IfIFindContentWrapper>
 
