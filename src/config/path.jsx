@@ -110,4 +110,10 @@ export default {
     '/cancellationPolicies',
   asct: () =>
     '/asct',
+  company: () =>
+    '/company',
+  privacy: () =>
+    '/privacy',
+  terms: () =>
+    '/terms',
 };
