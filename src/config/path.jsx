@@ -115,4 +115,6 @@ export default {
     '/terms',
   helpTop: () =>
     '/help',
+  helpAboutService: () =>
+    '/help/aboutService',
 };

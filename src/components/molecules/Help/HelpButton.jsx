@@ -7,7 +7,7 @@ import InlineText from 'components/atoms/InlineText';
 import { AngleRight } from 'components/atoms/ActionIcon';
 import { Colors } from 'variables';
 
-const Container = styled.div`
+const Container = styled.a`
   display: table;
   width: 100%;
   padding: 8px 16px;
@@ -28,12 +28,13 @@ const Cell = styled.div`
 
 type PropTypes = {
   title: string,
-  onClick: Function,
+  href?: string,
+  onClick?: Function,
 }
 
 export default (props: PropTypes) => (
   <Card block noPadding>
-    <Container onClick={props.onClick}>
+    <Container href={props.href} onClick={props.onClick}>
       <Cell>
         <InlineText.Base fontSize={14}>{props.title}</InlineText.Base>
       </Cell>

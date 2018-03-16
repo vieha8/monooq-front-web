@@ -35,6 +35,8 @@ type PropTypes = {
   content: string,
   onClick: Function,
   open?: boolean,
+  circleDown?: boolean,
+  circleRight?: boolean,
 }
 
 export default (props: PropTypes) => (
@@ -44,9 +46,8 @@ export default (props: PropTypes) => (
         <TextButton fontSize={16}>{props.title}</TextButton>
       </Cell>
       <Cell right>
-        {props.open
-          ? <CircleDown fontSize={12} color={Colors.linkBlue} />
-          : <CircleRight fontSize={12} color={Colors.linkBlue} />}
+          {props.circleDown && <CircleDown fontSize={12} color={Colors.linkBlue} />}
+          {props.circleRight && <CircleRight fontSize={12} color={Colors.linkBlue} />}
       </Cell>
     </ButtonContainer>
     {props.open &&

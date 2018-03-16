@@ -46,7 +46,8 @@ import Company from 'containers/Static/Company';
 import Privacy from 'containers/Static/Privacy';
 import Terms from 'containers/Static/Terms';
 
-import HelpTop from 'containers/Static/HelpTop';
+import HelpTop from 'containers/Static/Help/Top';
+import HelpAboutService from 'containers/Static/Help/AboutService';
 
 import NavigationHeader from 'containers/NavigationHeader';
 import { TopPadding as HeaderPadding } from 'components/NavigationHeader';
@@ -99,6 +100,7 @@ export const routes = [
   { path: Path.privacy(), component: Privacy },
   { path: Path.terms(), component: Terms },
   { path: Path.helpTop(), component: HelpTop },
+  { path: Path.helpAboutService(), component: HelpAboutService },
 ];
 
 export default props => (

@@ -6,6 +6,7 @@ import Header from 'containers/Header';
 import Footer from 'components/molecules/Footer';
 import HelpMenu from 'components/organisms/HelpMenu';
 import CommonHelp from 'components/molecules/Help/CommonHelp';
+import Path from 'config/path';
 
 type PropTypes = {
   openHowToUser: boolean,
@@ -25,7 +26,7 @@ export default (props: PropTypes) => {
         <HelpMenu
           howToUser={{ open: openHowToUser }}
           onClickHowToUser={props.onClickHowToUser}
-          aboutService={{ href: '#', show: openHowToUser }}
+          aboutService={{ href: Path.helpAboutService(), show: openHowToUser }}
           aboutUserTransaction={{ href: '#', show: openHowToUser }}
           howToBeHost={{ open: openHowToBeHost }}
           onClickHowToBeHost={props.onClickHowToBeHost}
@@ -42,7 +43,7 @@ export default (props: PropTypes) => {
           <CommonHelp
             headline="物置きスペースを利用したい方へ"
             buttons={[
-              { title: 'サービスについて', onClick: () => console.log('onClick1') },
+              { title: 'サービスについて', href: Path.helpAboutService() },
               { title: '取引について', onClick: () => console.log('onClick2') },
             ]}
             helpTitle="スペースにはどれくらいのサイズ・量の荷物を置くことができますか？"
