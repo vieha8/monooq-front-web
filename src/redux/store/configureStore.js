@@ -11,6 +11,7 @@ import { uiReducer } from '../modules/ui';
 import { apiReducer } from '../modules/api';
 import { spaceReducer } from '../modules/space';
 import { userReducer } from '../modules/user';
+import { requestReducer } from '../modules/request';
 import rootSaga from '../modules/sagas';
 
 export let store = null;
@@ -33,6 +34,7 @@ export default history => {
       space: spaceReducer,
       user: userReducer,
       ui: uiReducer,
+      request: requestReducer,
     }),
     applyMiddleware(...middleware),
   );

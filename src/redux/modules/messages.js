@@ -62,13 +62,15 @@ export const messagesSagas = [
 ];
 
 //ルーム作成
-export const createRoom = (userId1, userId2) => {
+export const createRoom = (userId1, userId2, spaceId) => {
   return new Promise(async resolve => {
     const room = {
-      [userId1]: true,
-      [userId2]: true,
+      [`user${userId1}`]: true,
+      [`user${userId2}`]: true,
+      [`space${spaceId}`]: true,
       userId1: userId1,
       userId2: userId2,
+      spaceId: spaceId,
     };
     const db = firebase.firestore();
     const roomRef = await db.collection('rooms').add(room);
@@ -76,13 +78,14 @@ export const createRoom = (userId1, userId2) => {
   });
 };
 
-export const isExistRoom = (userId1, userId2) => {
+export const isExistRoom = (userId1, userId2, spaceId) => {
   return new Promise(async resolve => {
     const db = firebase.firestore();
     const rooms = await db
       .collection('rooms')
-      .where(userId1, '==', true)
-      .where(userId2, '==', true)
+      .where(`user${userId1}`, '==', true)
+      .where(`user${userId2}`, '==', true)
+      .where(`space${spaceId}`, '==', true)
       .get();
 
     if (rooms.size === 1) {
@@ -99,12 +102,12 @@ const getRooms = userId => {
     const db = firebase.firestore();
     const rooms = await db
       .collection('rooms')
-      .where(userId, '==', true)
+      .where(`user${userId}`, '==', true)
       .get();
     const res = [];
     rooms.forEach(room => {
-      //TODO 相手のユーザー情報を取得する
-      if (room.lastMessageDt) {
+      //TODO 相手のユーザー情報、スペース情報を取得する
+      if (room.data().lastMessageDt) {
         res.push({
           id: room.id,
           name: faker.name.firstName() + ' ' + faker.name.lastName(),
