@@ -70,6 +70,7 @@ const TopContainer = styled.div`
 `;
 
 const TopTransparency = styled.div`
+  height: 500px;
   padding: 100px 0;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
