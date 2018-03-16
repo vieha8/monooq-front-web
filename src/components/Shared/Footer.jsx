@@ -53,10 +53,10 @@ const Copyright = styled.span`
 export default () => (
   <Container>
     <Menu href={Path.about()}>はじめての方へ</Menu>
-    <Menu href="/">運営会社</Menu>
+    <Menu href={Path.company()}>運営会社</Menu>
     <Menu href="/">お問い合わせ</Menu>
-    <Menu href="/">プライバシーポリシー</Menu>
-    <Menu href="/">利用規約</Menu>
+    <Menu href={Path.privacy()}>プライバシーポリシー</Menu>
+    <Menu href={Path.terms()}>利用規約</Menu>
     <Menu href={Path.asct()}>特定商取引法に基づく表記</Menu>
     <Menu href={Path.cancellationPolicies()}>キャンセルポリシー</Menu>
     <Menu href={Path.insurance()}>荷物に対する保険</Menu>

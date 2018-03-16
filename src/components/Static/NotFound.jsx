@@ -83,9 +83,9 @@ export default () => (
           text: "よくあるご質問",
           path: "#",
         },
-      ].map((v)=>{
+      ].map((v,i)=>{
         return (
-          <List><Anchor href={v.path}>{v.text}</Anchor></List>
+          <List key={i}><Anchor href={v.path}>{v.text}</Anchor></List>
         );
       })}
     </RecommendLinkContainer>

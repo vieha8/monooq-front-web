@@ -231,12 +231,13 @@ export default props => (
             image: 'http://placehold.jp/70x60.png',
             text: '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',
           },
-        ].map((v)=>{
+        ].map((v,i)=>{
           return (
             <StyledHowSafeContent
               label={v.label}
               image={v.image}
               text={v.text}
+              key={i}
             />
           );
         })}
@@ -295,11 +296,12 @@ export default props => (
             header: 'その他',
             data: '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
           },
-        ].map((v)=>{
+        ].map((v,i)=>{
           return (
             <StyledNotAllowedContent
               header={v.header}
               data={v.data}
+              key={i}
             />
           );
         })}
@@ -334,9 +336,9 @@ export default props => (
             hilightText: '同意が取れていない方法で荷物を届けること。',
             text: 'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
           },
-        ].map((v)=>{
+        ].map((v,i)=>{
           return (
-            <TextWrapper>
+            <TextWrapper key={i}>
               <HilightText>{v.hilightText}</HilightText>
               <Text>{v.text}</Text>
             </TextWrapper>
@@ -362,9 +364,9 @@ export default props => (
             hilightText: '宣伝・勧誘などサービス利用に関係のない情報を掲載すること。',
             text: 'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
           },
-        ].map((v)=>{
+        ].map((v,i)=>{
           return (
-            <TextWrapper>
+            <TextWrapper key={i}>
               <HilightText>{v.hilightText}</HilightText>
               <Text>{v.text}</Text>
             </TextWrapper>
@@ -390,9 +392,9 @@ export default props => (
             hilightText: 'その他、モノオクカスタマーサポートにて不適切と判断する行為。',
             text: 'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
           },
-        ].map((v)=>{
+        ].map((v,i)=>{
           return (
-            <TextWrapper>
+            <TextWrapper key={i}>
               <HilightText>{v.hilightText}</HilightText>
               <Text>{v.text}</Text>
             </TextWrapper>

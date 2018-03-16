@@ -43,6 +43,9 @@ import Maintenance from 'containers/Static/Maintenance';
 import NotFound from 'containers/Static/NotFound';
 import CancellationPolicies from 'containers/Static/CancellationPolicies';
 import Asct from 'containers/Static/Asct';
+import Company from 'containers/Static/Company';
+import Privacy from 'containers/Static/Privacy';
+import Terms from 'containers/Static/Terms';
 
 import NavigationHeader from 'containers/NavigationHeader';
 import { TopPadding as HeaderPadding } from 'components/NavigationHeader';
@@ -92,6 +95,9 @@ export const routes = [
   { path: Path.notFound(), component: NotFound },
   { path: Path.cancellationPolicies(), component: CancellationPolicies },
   { path: Path.asct(), component: Asct },
+  { path: Path.company(), component: Company },
+  { path: Path.privacy(), component: Privacy },
+  { path: Path.terms(), component: Terms },
 ];
 
 export default props => (
