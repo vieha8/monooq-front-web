@@ -26,10 +26,6 @@ const Text = styled.div`
   line-height: 32px;
 `;
 
-const TextWrapper = styled.div`
-  margin-bottom: 40px;
-`;
-
 const Hr = styled.hr`
   border: 0;
   height: 1px;
