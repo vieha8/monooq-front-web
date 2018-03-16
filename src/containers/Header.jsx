@@ -19,6 +19,8 @@ type PropTypes = {
   user: {
 
   },
+  top: boolean,
+  help: boolean,
 }
 
 class HeaderContainer extends Component<PropTypes> {
@@ -52,10 +54,12 @@ class HeaderContainer extends Component<PropTypes> {
   }
 
   render() {
-    const { ui, isLogin, isChecking, user } = this.props;
+    const { ui, isLogin, isChecking, user, top, help } = this.props;
 
     return (
       <Header
+        top={top}
+        help={help}
         isCheckingLogin={isChecking}
         homeUri={Path.top()}
         searchUri={Path.search()}

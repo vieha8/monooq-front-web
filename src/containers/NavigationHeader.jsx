@@ -4,7 +4,7 @@ import NavigationHeader from 'components/NavigationHeader';
 import { uiActions } from 'redux/modules/ui';
 import { withRouter } from 'react-router';
 
-const disusePage = ['/maintenance'];
+const disusePage = ['/maintenance', '/help'];
 
 class NavigationHeaderContainer extends Component {
   toggleMenu = () => {
@@ -38,7 +38,7 @@ class NavigationHeaderContainer extends Component {
     const { location } = this.props;
 
     return (
-      location.pathname === disusePage[0]
+      disusePage.includes(location.pathname)
         ? ''
         : this.renderNavigationHeader()
     );
