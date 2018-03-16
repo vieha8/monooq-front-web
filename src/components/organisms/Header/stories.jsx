@@ -47,4 +47,20 @@ storiesOf('Organisms/Header', module)
         top
       />
     </BodyMock>
+  ))
+  .add('Logged In Help', () => (
+    <BodyMock>
+      <HeaderMock help />
+    </BodyMock>
+  ))
+  .add('Anonymouse Help', () => (
+    <BodyMock>
+      <Header
+        homeUri="#"
+        user={null}
+        loginUri="#"
+        signupUri="#"
+        help
+      />
+    </BodyMock>
   ));

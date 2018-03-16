@@ -3,7 +3,7 @@
 import React from 'react';
 
 import Header from '../index';
-import Menu from '../../Menu';
+import Menu from '../../ServiceMenu';
 
 export default class HeaderMock extends React.Component {
   constructor(props: Object) {
@@ -29,6 +29,7 @@ export default class HeaderMock extends React.Component {
         onClickCloseMenu={() => this.setState({ showMenu: false })}
         showMenu={showMenu}
         top={this.props.top}
+        help={this.props.help}
         menu={(
           <Menu
             message={{ href: '#', notificationCount: 10 }}

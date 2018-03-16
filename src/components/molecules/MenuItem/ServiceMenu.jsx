@@ -5,20 +5,7 @@ import styled from 'styled-components';
 import { Colors, Dimens } from 'variables';
 import InlineText from 'components/atoms/InlineText';
 import NotificationCount from 'components/atoms/NotificationCount';
-
-const MenuItem = styled.li`
-  display: table;
-  width: 100%;
-  border: 1px solid ${Colors.borderGray};
-  background: ${Colors.white};
-  &:hover {
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.1);
-  }
-  &:not(:last-child) {
-    border-bottom: none;
-  }
-`;
+import MenuItem from 'components/atoms/Menu/Item';
 
 const MenuLink = styled.a`
   display: block;

@@ -7,6 +7,7 @@ const Card = styled.div`
   display: ${props => (props.block ? 'block' : 'inline-block')};
   border: 1px solid ${Colors.borderGray};
   border-radius: 6px;
+  overflow: hidden;
   ${props =>
     !props.noPadding &&
     `
