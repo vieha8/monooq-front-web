@@ -425,6 +425,8 @@ class Message extends React.Component {
                 />
               );
               break;
+            default:
+              break;
           }
 
           return (

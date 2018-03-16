@@ -4,13 +4,24 @@ import { apiActions } from './api';
 import firebase from 'firebase';
 import { store } from '../store/configureStore';
 import { push } from 'react-router-redux';
+import { createOmiseToken } from '../helpers/omise';
 
 // Actions
 const ESTIMATE = 'ESTIMATE';
 const ESTIMATE_SUCCESS = 'ESTIMATE_SUCCESS';
 const ESTIMATE_FAILED = 'ESTIMATE_FAILED';
+const PAYMENT = 'PAYMENT';
+const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
+const PAYMENT_FAILED = 'PAYMENT_FAILED';
 
-export const requestActions = createActions(ESTIMATE, ESTIMATE_SUCCESS, ESTIMATE_FAILED);
+export const requestActions = createActions(
+  ESTIMATE,
+  ESTIMATE_SUCCESS,
+  ESTIMATE_FAILED,
+  PAYMENT,
+  PAYMENT_SUCCESS,
+  PAYMENT_FAILED,
+);
 
 // Reducer
 const initialState = {};
@@ -55,4 +66,22 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   store.dispatch(push(`/message/${roomId}`));
 }
 
-export const requestSagas = [takeEvery(ESTIMATE, estimate)];
+function* payment({ payload: { requestId, card } }) {
+  const { id: token } = yield createOmiseToken({
+    card: {
+      name: card.name,
+      number: card.number,
+      security_code: parseInt(card.code, 10),
+      expiration_month: parseInt(card.expiryMonth, 10),
+      expiration_year: parseInt(card.expiryYear, 10),
+    },
+  });
+  yield put(
+    apiActions.paymentPost({ body: { RequestId: parseInt(requestId, 10), CardToken: token } }),
+  );
+  const { payload } = take(apiActions.paymentPostSuccess);
+  //TODO 決済完了メッセージを送る
+  console.log(payload);
+}
+
+export const requestSagas = [takeEvery(ESTIMATE, estimate), takeEvery(PAYMENT, payment)];

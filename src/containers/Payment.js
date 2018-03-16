@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { withStyles } from 'material-ui/styles';
-
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Colors } from 'variables';
 import { media } from '../helpers/style/media-query';
+import { uiActions } from '../redux/modules/ui';
+import { requestActions } from '../redux/modules/request';
 
 const PaymentPage = styled.div``;
 
@@ -130,10 +131,12 @@ const InputPaymentInfo = props => {
     <div className={props.className}>
       <InfoLabel>{props.label}</InfoLabel>
       <InfoInput
-        id={props.id}
         isSmall={props.isSmall}
         type={props.type}
         placeholder={props.placeholder}
+        name={props.name}
+        value={props.value}
+        onChange={props.handleChange}
       />
     </div>
   );
@@ -208,7 +211,11 @@ const InputPaymentTermInfo = props => {
       <Label>有効期限</Label>
       <Wrapper>
         <StyledSelectContainer>
-          <StyledSelect id="expiryMonth">
+          <StyledSelect
+            name="expiryMonth"
+            value={props.ui.card.expiryMonth}
+            onChange={props.handleChange}
+          >
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(item => {
               return (
                 <option key={item} value={item}>
@@ -221,7 +228,11 @@ const InputPaymentTermInfo = props => {
         <Unit>月 /</Unit>
 
         <StyledSelectContainer>
-          <StyledSelect id="expiryYear">
+          <StyledSelect
+            name="expiryYear"
+            value={props.ui.card.expiryYear}
+            onChange={props.handleChange}
+          >
             {[18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28].map(item => {
               return (
                 <option key={item} value={`20${item}`}>
@@ -417,12 +428,17 @@ const PaymentButtonWrapper = styled.div`
 `;
 
 class Payment extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isSending: false,
-    };
-  }
+  handleChange = ({ target }) => {
+    const { card } = this.props.ui;
+    Object.assign(card, { [target.name]: target.value });
+    this.props.dispatch(uiActions.setUiState({ card }));
+  };
+
+  onClickPaymentButton = () => {
+    const { request_id: requestId } = this.props.match.params;
+    const { card } = this.props.ui;
+    this.props.dispatch(requestActions.payment({ requestId, card }));
+  };
 
   render() {
     return (
@@ -432,45 +448,49 @@ class Payment extends Component {
           <FlexWrapper>
             <PaymentFormContainer>
               <PageTitleSub>クレジットカード情報の入力</PageTitleSub>
-              <form id="checkout-form" method="post" action="">
-                <StyledInputPaymentInfo
-                  label="カード名義（半角ローマ字）"
-                  placeholder="TARO YAMADA"
-                  id="nameOnCard"
-                />
+              <StyledInputPaymentInfo
+                label="カード名義（半角ローマ字）"
+                placeholder="TARO YAMADA"
+                name="name"
+                value={this.props.ui.card.name}
+                handleChange={this.handleChange}
+              />
 
-                <StyledInputPaymentInfo
-                  label="クレジットカード番号"
-                  placeholder="1234 5678 9102 3456"
-                  type="number"
-                  id="cardNumber"
-                />
+              <StyledInputPaymentInfo
+                label="クレジットカード番号"
+                placeholder="1234 5678 9102 3456"
+                type="number"
+                name="number"
+                value={this.props.ui.card.number}
+                handleChange={this.handleChange}
+              />
 
-                <StyledInputPaymentTermInfo />
+              <StyledInputPaymentTermInfo {...this.props} handleChange={this.handleChange} />
 
-                <StyledInputPaymentInfo
-                  label="セキュリティコード"
-                  placeholder="3桁の数字"
-                  type="number"
-                  id="securityCode"
-                  isSmall
-                />
-                <PageTitleSub isMobile>お支払い内容の確認</PageTitleSub>
-                <StyledEstimateInfoMobile />
-                <MobileHr isLong />
+              <StyledInputPaymentInfo
+                label="セキュリティコード"
+                placeholder="3桁の数字"
+                type="number"
+                name="code"
+                value={this.props.ui.card.code}
+                handleChange={this.handleChange}
+                isSmall
+              />
+              <PageTitleSub isMobile>お支払い内容の確認</PageTitleSub>
+              <StyledEstimateInfoMobile />
+              <MobileHr isLong />
 
-                <PaymentNotice>
-                  ・決済後にキャンセルされた場合、預ける日の15日前までは全額ご返金させていただきます。<br />・決済後、預かり開始予定日の15日前からキャンセル手数料が発生します。<br />・「決済する」ボタンを押すことで、お客様は当サイトのプライバシーポリシーと利用規約に同意の上、モノオクサービスの予約を確定したことになります。
-                </PaymentNotice>
+              <PaymentNotice>
+                ・決済後にキャンセルされた場合、預ける日の15日前までは全額ご返金させていただきます。<br />・決済後、預かり開始予定日の15日前からキャンセル手数料が発生します。<br />・「決済する」ボタンを押すことで、お客様は当サイトのプライバシーポリシーと利用規約に同意の上、モノオクサービスの予約を確定したことになります。
+              </PaymentNotice>
 
-                <StyledPaymentAnchor href="#" isRight>
-                  キャンセルについて
-                </StyledPaymentAnchor>
+              <StyledPaymentAnchor href="#" isRight>
+                キャンセルについて
+              </StyledPaymentAnchor>
 
-                <PaymentButtonWrapper>
-                  <PaymentButton>決済する</PaymentButton>
-                </PaymentButtonWrapper>
-              </form>
+              <PaymentButtonWrapper>
+                <PaymentButton onClick={this.onClickPaymentButton}>決済する</PaymentButton>
+              </PaymentButtonWrapper>
             </PaymentFormContainer>
 
             <PaymentSideContainer>
@@ -485,15 +505,8 @@ class Payment extends Component {
   }
 }
 
-const styles = () => ({
-  payment: {
-    width: '300px',
-    margin: '0 auto',
-  },
-  textField: {
-    width: '100%',
-    marginTop: 10,
-  },
+const mapStateToProps = state => ({
+  ui: state.ui,
 });
 
-export default withStyles(styles)(Payment);
+export default connect(mapStateToProps)(Payment);
