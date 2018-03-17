@@ -1,6 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take } from 'redux-saga/effects';
 import { apiActions } from './api';
+import { authActions } from './auth';
 import firebase from 'firebase';
 import { store } from '../store/configureStore';
 import { push } from 'react-router-redux';
@@ -13,6 +14,9 @@ const ESTIMATE_FAILED = 'ESTIMATE_FAILED';
 const PAYMENT = 'PAYMENT';
 const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 const PAYMENT_FAILED = 'PAYMENT_FAILED';
+const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
+const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
+const FETCH_SCHEDULE_FAILED = 'FETCH_SCHEDULE_FAILED';
 
 export const requestActions = createActions(
   ESTIMATE,
@@ -21,12 +25,25 @@ export const requestActions = createActions(
   PAYMENT,
   PAYMENT_SUCCESS,
   PAYMENT_FAILED,
+  FETCH_SCHEDULE,
+  FETCH_SCHEDULE_SUCCESS,
+  FETCH_SCHEDULE_FAILED,
 );
 
 // Reducer
-const initialState = {};
+const initialState = {
+  schedule: {},
+};
 
-export const requestReducer = handleActions({}, initialState);
+export const requestReducer = handleActions(
+  {
+    [FETCH_SCHEDULE_SUCCESS]: (state, action) => ({
+      ...state,
+      schedule: action.payload,
+    }),
+  },
+  initialState,
+);
 
 //Sagas
 function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
@@ -101,4 +118,19 @@ function* payment({ payload: { roomId, requestId, card } }) {
   store.dispatch(push(`/message/${roomId}`));
 }
 
-export const requestSagas = [takeEvery(ESTIMATE, estimate), takeEvery(PAYMENT, payment)];
+function* fetchSchedule() {
+  const { payload: { user } } = yield take(authActions.checkLoginEnd); //TODO とりあえず動かすためにやってるけど、本当はよろしくない
+  yield put(apiActions.requestUserGet({ id: user.ID }));
+  const { payload: userRequests } = yield take(apiActions.requestUserGetSuccess);
+
+  yield put(apiActions.requestHostGet({ id: user.ID }));
+  const { payload: hostRequests } = yield take(apiActions.requestHostGetSuccess);
+
+  yield put(requestActions.fetchScheduleSuccess({ user: userRequests, host: hostRequests }));
+}
+
+export const requestSagas = [
+  takeEvery(ESTIMATE, estimate),
+  takeEvery(PAYMENT, payment),
+  takeEvery(FETCH_SCHEDULE, fetchSchedule),
+];

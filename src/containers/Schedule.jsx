@@ -3,21 +3,27 @@ import { connect } from 'react-redux';
 import Page from 'components/Page';
 import Schedule from 'components/Schedule';
 import UserMenu from 'components/Menu/UserMenu';
+import { requestActions } from "../redux/modules/request";
 
 class ScheduleContainer extends Component {
+
+  constructor(props){
+    super(props);
+    this.props.dispatch(requestActions.fetchSchedule());
+  }
+
   render() {
-    const { auth } = this.props;
     return (
       <Page title="スケジュール">
         <UserMenu />
-        <Schedule userId={auth.user.id} />
+        <Schedule userId={this.props.user.ID} />
       </Page>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps)(ScheduleContainer);

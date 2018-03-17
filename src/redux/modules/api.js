@@ -19,6 +19,9 @@ const END_POINTS = {
   SPACE: 'SPACE',
   SPACE_IMAGE: 'SPACE_IMAGE',
   REQUEST: 'REQUEST',
+  REQUEST_USER: 'REQUEST_USER',
+  REQUEST_SPACE: 'REQUEST_SPACE',
+  REQUEST_HOST: 'REQUEST_HOST',
   PAYMENT: 'PAYMENT',
 };
 
@@ -239,6 +242,33 @@ function* requestDelete({ payload: { id } }) {
   }
 }
 
+function* requestUserGet({ payload: { id } }) {
+  const { data, err } = yield call(() => getApiRequest(`/requests/user/${id}`));
+  if (!err) {
+    yield put(apiActions.requestUserGetSuccess(data));
+  } else {
+    yield put(apiActions.requestUserGetFailed(err));
+  }
+}
+
+function* requestSpaceGet({ payload: { id } }) {
+  const { data, err } = yield call(() => getApiRequest(`/requests/space/${id}`));
+  if (!err) {
+    yield put(apiActions.requestSpaceGetSuccess(data));
+  } else {
+    yield put(apiActions.requestSpaceGetFailed(err));
+  }
+}
+
+function* requestHostGet({ payload: { id } }) {
+  const { data, err } = yield call(() => getApiRequest(`/requests/host/${id}`));
+  if (!err) {
+    yield put(apiActions.requestHostGetSuccess(data));
+  } else {
+    yield put(apiActions.requestHostGetFailed(err));
+  }
+}
+
 function* paymentPost({ payload: { body } }) {
   const { data, err } = yield call(() => postApiRequest('/payments', body));
   if (!err) {
@@ -297,6 +327,9 @@ export const apiSagas = [
   takeEvery(API_ACTIONS.REQUEST.GET.REQUEST, requestGet),
   takeEvery(API_ACTIONS.REQUEST.PUT.REQUEST, requestPut),
   takeEvery(API_ACTIONS.REQUEST.DELETE.REQUEST, requestDelete),
+  takeEvery(API_ACTIONS.REQUEST_USER.GET.REQUEST, requestUserGet),
+  takeEvery(API_ACTIONS.REQUEST_SPACE.GET.REQUEST, requestSpaceGet),
+  takeEvery(API_ACTIONS.REQUEST_HOST.GET.REQUEST, requestHostGet),
   takeEvery(API_ACTIONS.PAYMENT.POST.REQUEST, paymentPost),
   takeEvery(API_ACTIONS.PAYMENT.GET.REQUEST, paymentGet),
   takeEvery(API_ACTIONS.PAYMENT.PUT.REQUEST, paymentPut),
