@@ -53,7 +53,7 @@ export default props => (
   <Container>
     <DepositContainer>
       <SpaceContainer>
-        <UserName>ユーザーは{props.username}さん</UserName>
+        <UserName>ホストは{props.username}さん</UserName>
         <SpaceRowWrapper>
           <SpaceRow
             place={props.place}
@@ -63,8 +63,8 @@ export default props => (
       </SpaceContainer>
       <ScheduleContaienr>
         <Schedule
-          begin={{ date: '2018.03.31', time: '午前中' }}
-          end={{ date: '2018.05.31', time: '夕方' }}
+          startDate={props.startDate}
+          endDate={props.endDate}
         />
       </ScheduleContaienr>
     </DepositContainer>

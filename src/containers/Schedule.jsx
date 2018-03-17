@@ -9,14 +9,14 @@ class ScheduleContainer extends Component {
 
   constructor(props){
     super(props);
-    this.props.dispatch(requestActions.fetchSchedule());
+    props.dispatch(requestActions.fetchSchedule());
   }
 
   render() {
     return (
       <Page title="スケジュール">
         <UserMenu />
-        <Schedule userId={this.props.user.ID} />
+        <Schedule {...this.props} />
       </Page>
     );
   }
@@ -24,6 +24,7 @@ class ScheduleContainer extends Component {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
+  schedule: state.request.schedule,
 });
 
 export default connect(mapStateToProps)(ScheduleContainer);

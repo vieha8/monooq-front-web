@@ -43,12 +43,12 @@ export default props => (
   <Container>
     <ScheduleContainer>
       <Label>利用開始日</Label>
-      <DateText>{props.begin.date}</DateText>
+      <DateText>{props.startDate}</DateText>
     </ScheduleContainer>
     <Arrow>→</Arrow>
     <ScheduleContainer>
       <Label>利用終了日</Label>
-      <DateText>{props.end.date}</DateText>
+      <DateText>{props.endDate}</DateText>
     </ScheduleContainer>
   </Container>
 );

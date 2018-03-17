@@ -32,7 +32,10 @@ export const requestActions = createActions(
 
 // Reducer
 const initialState = {
-  schedule: {},
+  schedule: {
+    user: [],
+    host: [],
+  },
 };
 
 export const requestReducer = handleActions(
