@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import Path from 'config/path';
 
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';

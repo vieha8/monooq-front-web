@@ -26,10 +26,6 @@ const Text = styled.div`
   line-height: 32px;
 `;
 
-const TextWrapper = styled.div`
-  margin-bottom: 40px;
-`;
-
 const MainTitleContainer = DefaultContainer.extend`
   margin-top: 80px;
   margin-bottom: 44px;

@@ -20,16 +20,6 @@ const MainTitle = styled.div`
   `};
 `;
 
-const SubTitle = styled.div`
-  font-size: 30px;
-  line-height: 45px;
-  margin-bottom: 45px;
-  ${media.phone`
-    font-size: 28px;
-    line-height: 40px;
-  `};
-`;
-
 const Text = styled.div`
   font-size: 16px;
   line-height: 32px;
@@ -39,10 +29,6 @@ const HilightText = styled.div`
   font-size: 22px;
   line-height: 32px;
   margin-bottom: 21px;
-`;
-
-const TextWrapper = styled.div`
-  margin-bottom: 40px;
 `;
 
 const Hr = styled.hr`
