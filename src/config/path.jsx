@@ -49,8 +49,8 @@ export default {
   estimate: (messageRoomId = MESSAGE_ROOM_ID) =>
     `/message/${messageRoomId}/estimate`,
   // 決済
-  payment: (requestId = REQUEST_ID) =>
-    `/payment/${requestId}`,
+  payment: (messageRoomId = MESSAGE_ROOM_ID, requestId = REQUEST_ID) =>
+    `/message/${messageRoomId}/payment/${requestId}`,
   // プロフィール
   profile: (userId = USER_ID) =>
     `/user/${userId}`,

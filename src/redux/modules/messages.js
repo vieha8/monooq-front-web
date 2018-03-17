@@ -78,7 +78,7 @@ export const createRoom = (userId1, userId2, spaceId) => {
   });
 };
 
-export const isExistRoom = (userId1, userId2, spaceId) => {
+export const getRoomId = (userId1, userId2, spaceId) => {
   return new Promise(async resolve => {
     const db = firebase.firestore();
     const rooms = await db

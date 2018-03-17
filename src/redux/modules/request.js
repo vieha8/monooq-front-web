@@ -66,7 +66,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   store.dispatch(push(`/message/${roomId}`));
 }
 
-function* payment({ payload: { requestId, card } }) {
+function* payment({ payload: { roomId, requestId, card } }) {
   const { id: token } = yield createOmiseToken({
     card: {
       name: card.name,
@@ -79,9 +79,26 @@ function* payment({ payload: { requestId, card } }) {
   yield put(
     apiActions.paymentPost({ body: { RequestId: parseInt(requestId, 10), CardToken: token } }),
   );
-  const { payload } = take(apiActions.paymentPostSuccess);
-  //TODO 決済完了メッセージを送る
-  console.log(payload);
+  yield take(apiActions.paymentPostSuccess);
+
+  const db = firebase.firestore();
+  const message = {
+    messageType: 3,
+    createDt: new Date(),
+    requestId: parseInt(requestId, 10),
+  };
+
+  const roomDoc = db.collection('rooms').doc(roomId);
+  yield roomDoc.collection('messages').add(message);
+  yield roomDoc.set(
+    {
+      lastMessage: 'お支払いが完了しました',
+      lastMessageDt: new Date(),
+    },
+    { merge: true },
+  );
+
+  store.dispatch(push(`/message/${roomId}`));
 }
 
 export const requestSagas = [takeEvery(ESTIMATE, estimate), takeEvery(PAYMENT, payment)];

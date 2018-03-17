@@ -24,7 +24,7 @@ import {
 } from 'components/Space';
 
 import SpaceMenu from 'containers/Search/SpaceMenu';
-import { isExistRoom, createRoom } from 'redux/modules/messages';
+import { getRoomId, createRoom } from 'redux/modules/messages';
 import { spaceActions } from "../../redux/modules/space";
 
 const SpacePage = styled.div`
@@ -125,7 +125,7 @@ class Space extends React.Component {
     const userId1 = props.userId;
     const userId2 = props.space.UserID;
     const spaceId = props.space.ID;
-    let roomId = await isExistRoom(userId1, userId2, spaceId);
+    let roomId = await getRoomId(userId1, userId2, spaceId);
     if (!roomId) {
       roomId = await createRoom(userId1, userId2, spaceId);
     }

@@ -418,10 +418,21 @@ class Message extends React.Component {
                 <StyledRecord
                   specialMessage
                   hasLink={true}
-                  linkUrl={`/payment/${requestId}`}
+                  linkUrl={`/message/${this.roomId}/payment/${requestId}`}
                   date={date}
                   text={message.text}
 
+                />
+              );
+              break;
+            case 3:
+              message.text = `取引成立です！あなたのお支払いが完了しました。届ける準備を始めましょう！`;
+              RecordComponent = () => (
+                <StyledRecord
+                  specialMessage
+                  hasLink={false}
+                  date={date}
+                  text={message.text}
                 />
               );
               break;
