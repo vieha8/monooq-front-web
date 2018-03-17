@@ -68,6 +68,11 @@ const ActionCell = styled.div`
   }
 `;
 
+const AnonymouseWrapper = styled.div`
+  display: inline-block;
+  margin-left: 16px;
+`;
+
 const MenuWrapper = styled.div`
   position: fixed;
   top: ${HeightDesktop}px;
@@ -149,10 +154,18 @@ export default (props: PropTypes) => (
               </ActionCell>
             </ActionContainer>
           ) : (
-            <Anonymouse
-              loginUri={props.loginUri}
-              signupUri={props.signupUri}
-            />
+            <Fragment>
+              <SearchIcon
+                color={(props.top || props.help) && Colors.white}
+                href={props.searchUri}
+              />
+              <AnonymouseWrapper>
+                <Anonymouse
+                  loginUri={props.loginUri}
+                  signupUri={props.signupUri}
+                />
+              </AnonymouseWrapper>
+            </Fragment>
           )}
         </ActionWrapper>
       )}
