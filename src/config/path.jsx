@@ -13,8 +13,8 @@ export default {
   search: () =>
     `/search`,
   // スペース一覧
-  spaces: (hostId = HOST_ID) =>
-    `/host/${hostId}/spaces`,
+  spaces: (userId = USER_ID) =>
+    `/user/${userId}/spaces`,
   // スペース詳細
   space: (spaceId = SPACE_ID) =>
     `/space/${spaceId}`,
@@ -34,8 +34,8 @@ export default {
   createSpaceCompletion: () =>
     `/space/new/completion`,
   // スケジュール
-  schedule: (userId = USER_ID) =>
-    `/user/${userId}/schedule`,
+  schedule: () =>
+    `/schedule`,
   // キャンセル確認
   confirmCancel: (scheduleId = SCHEDULE_ID) =>
     `/schedule/${scheduleId}/cancel`,

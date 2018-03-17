@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { ContentContainer } from 'components/Page';
 import { media } from 'helpers/style/media-query';
-import ReservationInfo from '../DepositSchedule/ReservationInfo';
+import ReservationInfo from '../Schedule/ReservationInfo';
 import ConfirmCancel from './ConfirmCancel';
 import Cancelled from './Cancelled';
 

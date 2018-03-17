@@ -15,7 +15,7 @@ import SpaceSize from 'containers/NewSpace/SpaceSize';
 import AboutPrice from 'containers/NewSpace/AboutPrice';
 import AllUsePrice from 'containers/NewSpace/AllUsePrice';
 import SpaceCreatedCompletion from 'containers/NewSpace/SpaceCreatedCompletion';
-import DepositSchedule from 'containers/DepositSchedule';
+import Schedule from 'containers/Schedule';
 import CancelSchedule from 'containers/CancelSchedule';
 import Messages from 'containers/Messages/';
 import Message from 'containers/Message/';
@@ -68,7 +68,7 @@ export const routes = [
   { path: Path.createSpaceAreaPrice(), component: AboutPrice },
   { path: Path.createSpaceAllPrice(), component: AllUsePrice },
   { path: Path.createSpaceCompletion(), component: SpaceCreatedCompletion },
-  { path: Path.schedule(), component: DepositSchedule },
+  { path: Path.schedule(), component: Schedule },
   { path: Path.confirmCancel(), component: CancelSchedule },
   { path: Path.messages(), component: Messages },
   { path: Path.message(), component: Message },

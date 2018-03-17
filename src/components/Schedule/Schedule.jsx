@@ -46,13 +46,13 @@ const TimeText = DateText.extend`
 export default props => (
   <Container>
     <ScheduleContainer>
-      <Label>預かり開始日</Label>
+      <Label>利用開始日</Label>
       <DateText>{props.begin.date}</DateText>
       <TimeText>{props.begin.time}</TimeText>
     </ScheduleContainer>
     <Arrow>→</Arrow>
     <ScheduleContainer>
-      <Label>預かり終了日</Label>
+      <Label>利用終了日</Label>
       <DateText>{props.end.date}</DateText>
       <TimeText>{props.end.time}</TimeText>
     </ScheduleContainer>
