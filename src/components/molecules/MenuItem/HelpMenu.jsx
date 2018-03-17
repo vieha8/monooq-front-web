@@ -14,7 +14,7 @@ const MenuLink = styled.a`
   text-decoration: none;
   padding: 12px 16px;
   ${props => props.fillColor && `
-    background: ${Colors.lightGray2Bg};
+    background: ${Colors.lightGray1Bg};
   `}
 `;
 
@@ -33,7 +33,8 @@ const IconWrapper = styled.span`
 type PropTypes = {
   title: string,
   show?: boolean,
-  hasAngle?: boolean,
+  angleRight?: boolean,
+  angleDown?: boolean,
   fillColor?: boolean,
   open?: boolean,
   href?: string,
@@ -41,18 +42,15 @@ type PropTypes = {
 }
 
 export default (props: PropTypes) => (
-  props.show ? (
-    <MenuItem>
-      <MenuLink onClick={props.onClick} href={props.href} fillColor={props.fillColor}>
-        <MenuText>
-          <InlineText.Small>{props.title}</InlineText.Small>
-        </MenuText>
-        {props.hasAngle &&
-          <IconWrapper>
-            {props.open ? <AngleDown /> : <AngleRight />}
-          </IconWrapper>
-        }
-      </MenuLink>
-    </MenuItem>
-  ) : null
+  <MenuItem show={props.show}>
+    <MenuLink onClick={props.onClick} href={props.href} fillColor={props.fillColor}>
+      <MenuText>
+        <InlineText.Small>{props.title}</InlineText.Small>
+      </MenuText>
+      <IconWrapper>
+        {props.angleDown && <AngleDown />}
+        {props.angleRight && <AngleRight />}
+      </IconWrapper>
+    </MenuLink>
+  </MenuItem>
 );

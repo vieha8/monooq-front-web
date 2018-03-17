@@ -86,9 +86,6 @@ export default {
   // ログイン
   login: () =>
     '/login',
-  // ログアウト
-  logout: () =>
-    `/logout`,
   // 退会
   unsubscribe: () =>
     `/unsubscribe`,
@@ -116,4 +113,8 @@ export default {
     '/privacy',
   terms: () =>
     '/terms',
+  helpTop: () =>
+    '/help',
+  helpAboutService: () =>
+    '/help/aboutService',
 };

@@ -15,6 +15,9 @@ const MenuItem = styled.li`
   &:not(:last-child) {
     border-bottom: none;
   }
+  ${props => !props.show && `
+    display: none;
+  `}
 `;
 
 export default MenuItem;
