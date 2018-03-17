@@ -32,7 +32,6 @@ import HostMode from 'containers/HostMode';
 import UserMode from 'containers/UserMode';
 import SignUp from 'containers/SignUp';
 import Login from 'containers/Login';
-import Logout from 'containers/Logout';
 import Unsubscribe from 'containers/Unsubscribe';
 import Report from 'containers/Report';
 
@@ -46,6 +45,9 @@ import Asct from 'containers/Static/Asct';
 import Company from 'containers/Static/Company';
 import Privacy from 'containers/Static/Privacy';
 import Terms from 'containers/Static/Terms';
+
+import HelpTop from 'containers/Static/Help/Top';
+import HelpAboutService from 'containers/Static/Help/AboutService';
 
 import NavigationHeader from 'containers/NavigationHeader';
 import { TopPadding as HeaderPadding } from 'components/NavigationHeader';
@@ -85,7 +87,6 @@ export const routes = [
   { path: Path.userMode(), component: UserMode },
   { path: Path.signup(), component: SignUp },
   { path: Path.login(), component: Login },
-  { path: Path.logout(), component: Logout },
   { path: Path.unsubscribe(), component: Unsubscribe },
   { path: Path.report(), component: Report },
   { path: Path.about(), component: About },
@@ -98,6 +99,8 @@ export const routes = [
   { path: Path.company(), component: Company },
   { path: Path.privacy(), component: Privacy },
   { path: Path.terms(), component: Terms },
+  { path: Path.helpTop(), component: HelpTop },
+  { path: Path.helpAboutService(), component: HelpAboutService },
 ];
 
 export default props => (

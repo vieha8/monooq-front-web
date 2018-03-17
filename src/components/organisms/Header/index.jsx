@@ -11,8 +11,8 @@ import ServiceMenu from 'components/organisms/ServiceMenu';
 import { media } from 'helpers/style/media-query';
 import { Colors, ZIndexes } from 'variables';
 
-const HeightDesktop = 80;
-const HeightSmp = 48;
+export const HeightDesktop = 80;
+export const HeightSmp = 48;
 
 const Container = styled.header`
   position: fixed;
@@ -68,6 +68,11 @@ const ActionCell = styled.div`
   }
 `;
 
+const AnonymouseWrapper = styled.div`
+  display: inline-block;
+  margin-left: 16px;
+`;
+
 const MenuWrapper = styled.div`
   position: fixed;
   top: ${HeightDesktop}px;
@@ -114,6 +119,7 @@ type PropTypes = {
   menu: React.Element<ServiceMenu>,
   top?: boolean,
   help?: boolean,
+  hideActions?: boolean,
 }
 
 export default (props: PropTypes) => (
@@ -122,37 +128,47 @@ export default (props: PropTypes) => (
       <LogoWrapper href={props.homeUri}>
         <Logo.Header />
       </LogoWrapper>
-      <ActionWrapper>
-        {props.user ? (
-          <ActionContainer>
-            <ActionCell>
+      {!props.hideActions && (
+        <ActionWrapper>
+          {props.user ? (
+            <ActionContainer>
+              <ActionCell>
+                <SearchIcon
+                  color={(props.top || props.help) && Colors.white}
+                  href={props.searchUri}
+                />
+              </ActionCell>
+              <ActionCell>
+                <MessageIcon
+                  color={(props.top || props.help) && Colors.white}
+                  href={props.messageUri}
+                  notificationCount={props.messageCount}
+                />
+              </ActionCell>
+              <ActionCell>
+                <AvatarIcon
+                  imageSrc={props.user.image}
+                  imageAlt={props.user.name}
+                  onClick={props.onClickAvatar}
+                />
+              </ActionCell>
+            </ActionContainer>
+          ) : (
+            <Fragment>
               <SearchIcon
                 color={(props.top || props.help) && Colors.white}
                 href={props.searchUri}
               />
-            </ActionCell>
-            <ActionCell>
-              <MessageIcon
-                color={(props.top || props.help) && Colors.white}
-                href={props.messageUri}
-                notificationCount={props.messageCount}
-              />
-            </ActionCell>
-            <ActionCell>
-              <AvatarIcon
-                imageSrc={props.user.image}
-                imageAlt={props.user.name}
-                onClick={props.onClickAvatar}
-              />
-            </ActionCell>
-          </ActionContainer>
-        ) : (
-          <Anonymouse
-            loginUri={props.loginUri}
-            signupUri={props.signupUri}
-          />
-        )}
-      </ActionWrapper>
+              <AnonymouseWrapper>
+                <Anonymouse
+                  loginUri={props.loginUri}
+                  signupUri={props.signupUri}
+                />
+              </AnonymouseWrapper>
+            </Fragment>
+          )}
+        </ActionWrapper>
+      )}
     </Nav>
     {props.showMenu && (
       <Fragment>
