@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
-import {uiActions} from 'redux/modules/ui';
-import {Colors} from 'variables';
-import {media} from '../helpers/style/media-query';
+import { connect } from 'react-redux';
+import { uiActions } from 'redux/modules/ui';
+import { Colors } from 'variables';
+import { media } from '../helpers/style/media-query';
 import { requestActions } from "../redux/modules/request";
 
 const EstimatePage = styled.div`
@@ -169,13 +169,13 @@ const SelectScheduleTerm = (props) => {
             onChange={props.handleChange}
           />
           <OpenSelector>
-            <i className="far fa-calendar"/>
+            <i className="far fa-calendar" />
           </OpenSelector>
         </InputContainer>
       </DateSelector>
 
       <FlowIcon>
-        <i className="fas fa-arrow-right"/>
+        <i className="fas fa-arrow-right" />
       </FlowIcon>
 
       <DateSelector>
@@ -193,7 +193,7 @@ const SelectScheduleTerm = (props) => {
             onChange={props.handleChange}
           />
           <OpenSelector>
-            <i className="far fa-calendar"/>
+            <i className="far fa-calendar" />
           </OpenSelector>
         </InputContainer>
       </DateSelector>
@@ -201,7 +201,7 @@ const SelectScheduleTerm = (props) => {
   );
 };
 
-const StyledSelectScheduleTerm = styled(SelectScheduleTerm)`
+const StyledSelectScheduleTerm = styled(SelectScheduleTerm) `
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -221,40 +221,28 @@ const DescriptionText = styled.div`
   `};
 `;
 
-const InputEstimate = (props) => {
-  const Label = styled.label`
+const Label = styled.label`
     font-size: 16px;
     display: block;
     height: 24px;
     line-height: 24px;
     margin-bottom: 17px;
   `;
-  const InputEstimatePrice = styled.input`
-    height: 50px;
-    width: 417px;
-    border: 1px solid #BCBCBC;
-    border-radius: 2px;
-    background-color: #FAFAFA;
-    padding: 15px 14px;
-    margin-right: 10px;
-    ${media.phone`
-      width: 90%;
-    `};
-  `;
-  return (
-    <div className={props.className}>
-      <Label>お見積料金</Label>
-      <InputEstimatePrice
-        name="price"
-        value={props.ui.price}
-        onChange={props.handleChange}
-        type="number"
-      />円
-    </div>
-  );
-};
 
-const StyledInputEstimate = styled(InputEstimate)`
+const InputEstimatePrice = styled.input`
+  height: 50px;
+  width: 417px;
+  border: 1px solid #BCBCBC;
+  border-radius: 2px;
+  background-color: #FAFAFA;
+  padding: 15px 14px;
+  margin-right: 10px;
+  ${media.phone`
+    width: 90%;
+  `};
+`;
+
+const InputEstimateContainer = styled.div`
   margin-bottom: 40px;
   ${media.phone`
     padding: 0 20px;
@@ -303,7 +291,7 @@ const Hint = (props) => {
   );
 };
 
-const StyledHint = styled(Hint)`
+const StyledHint = styled(Hint) `
   padding: 30px;
   background: rgba(232,190,93,0.1);
   ${media.phone`
@@ -320,7 +308,7 @@ const EstimateButtonWrapper = styled.div`
 
 class Estimate extends React.Component {
 
-  handleChange = ({target}) => {
+  handleChange = ({ target }) => {
     this.props.dispatch(uiActions.setUiState({
       [target.name]: target.value,
     }));
@@ -329,9 +317,9 @@ class Estimate extends React.Component {
   sendRequest = () => {
     const userId = this.props.user.ID;
     const roomId = this.props.match.params.message_room_id;
-    const {startDate, endDate, price} = this.props.ui;
+    const { startDate, endDate, price } = this.props.ui;
     this.props.dispatch(requestActions.estimate({
-      userId, roomId, startDate, endDate, price
+      userId, roomId, startDate, endDate, price,
     }));
   };
 
@@ -352,10 +340,15 @@ class Estimate extends React.Component {
                 ユーザーから連絡があったの荷物量・予定を元に最終的な見積もり料金を決めましょう。
                 想定していたよりも荷物が多い場合や少ない場合、預けてくれる期間が長い場合の割引きなどユーザーの相談に合わせて料金を変更しましょう。
               </DescriptionText>
-              <StyledInputEstimate
-                {...this.props}
-                handleChange={this.handleChange}
-              />
+              <InputEstimateContainer>
+                <Label>お見積料金</Label>
+                <InputEstimatePrice
+                  name="price"
+                  value={this.props.ui.price}
+                  onChange={this.handleChange}
+                  type="number"
+                />円
+              </InputEstimateContainer>
               <EstimateButtonWrapper>
                 <EstimateButton onClick={this.sendRequest}>見積もりを送信する</EstimateButton>
               </EstimateButtonWrapper>
@@ -365,7 +358,7 @@ class Estimate extends React.Component {
               <StyledHint
                 hintTitle="お見積りのヒント"
               >
-                メッセージの相談内容を元に最終的な見積りを相手に提示しましょう。<br/><br/>思っていたより荷物が少なかったり、期間が短い場合はちょっぴり値下げすると喜ばれます。
+                メッセージの相談内容を元に最終的な見積りを相手に提示しましょう。<br /><br />思っていたより荷物が少なかったり、期間が短い場合はちょっぴり値下げすると喜ばれます。
               </StyledHint>
             </EstimateSideContainer>
           </FlexWrapper>

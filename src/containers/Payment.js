@@ -94,54 +94,6 @@ const PaymentSideContainer = styled.div`
   `};
 `;
 
-const InputPaymentInfo = props => {
-  const InfoLabel = styled.label`
-    font-size: 16px;
-    display: block;
-    height: 24px;
-    line-height: 24px;
-    margin-bottom: 17px;
-  `;
-  const InfoInput = styled.input`
-    height: 50px;
-    width: 417px;
-    border: 1px solid #bcbcbc;
-    border-radius: 2px;
-    background-color: #fafafa;
-    padding: 15px 14px;
-    ${props =>
-      props.isSmall
-        ? `
-        height: 40px;
-        width: 100px;
-      `
-        : ''};
-    ${media.phone`
-      width: 100%;
-      ${props =>
-        props.isSmall
-          ? `
-          height: 40px;
-          width: 100px;
-        `
-          : ''};
-    `};
-  `;
-  return (
-    <div className={props.className}>
-      <InfoLabel>{props.label}</InfoLabel>
-      <InfoInput
-        isSmall={props.isSmall}
-        type={props.type}
-        placeholder={props.placeholder}
-        name={props.name}
-        value={props.value}
-        onChange={props.handleChange}
-      />
-    </div>
-  );
-};
-
 const InputPaymentTermInfo = props => {
   const Label = styled.div`
     margin-bottom: 17px;
@@ -257,13 +209,62 @@ const StyledInputPaymentTermInfo = styled(InputPaymentTermInfo)`
   `};
 `;
 
-const StyledInputPaymentInfo = styled(InputPaymentInfo)`
+const InputPaymentInfoContainer = styled.div`
   margin-bottom: 40px;
   ${media.phone`
     padding: 0 20px;
     width: 100%;
   `};
 `;
+
+const InfoLabel = styled.label`
+  font-size: 16px;
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  margin-bottom: 17px;
+`;
+const InfoInput = styled.input`
+  height: 50px;
+  width: 417px;
+  border: 1px solid #bcbcbc;
+  border-radius: 2px;
+  background-color: #fafafa;
+  padding: 15px 14px;
+  ${props =>
+    props.isSmall
+      ? `
+      height: 40px;
+      width: 100px;
+    `
+      : ''};
+  ${media.phone`
+    width: 100%;
+    ${props =>
+      props.isSmall
+        ? `
+        height: 40px;
+        width: 100px;
+      `
+        : ''};
+  `};
+`;
+
+const InputPaymentInfo = props => {
+  return (
+    <InputPaymentInfoContainer>
+      <InfoLabel>{props.label}</InfoLabel>
+      <InfoInput
+        isSmall={props.isSmall}
+        type={props.type}
+        placeholder={props.placeholder}
+        name={props.name}
+        value={props.value}
+        onChange={props.handleChange}
+      />
+    </InputPaymentInfoContainer>
+  );
+};
 
 const PaymentNotice = styled.div`
   color: #ba4246;
@@ -448,7 +449,7 @@ class Payment extends Component {
           <FlexWrapper>
             <PaymentFormContainer>
               <PageTitleSub>クレジットカード情報の入力</PageTitleSub>
-              <StyledInputPaymentInfo
+              <InputPaymentInfo
                 label="カード名義（半角ローマ字）"
                 placeholder="TARO YAMADA"
                 name="name"
@@ -456,7 +457,7 @@ class Payment extends Component {
                 handleChange={this.handleChange}
               />
 
-              <StyledInputPaymentInfo
+              <InputPaymentInfo
                 label="クレジットカード番号"
                 placeholder="1234 5678 9102 3456"
                 type="number"
@@ -467,7 +468,7 @@ class Payment extends Component {
 
               <StyledInputPaymentTermInfo {...this.props} handleChange={this.handleChange} />
 
-              <StyledInputPaymentInfo
+              <InputPaymentInfo
                 label="セキュリティコード"
                 placeholder="3桁の数字"
                 type="number"
