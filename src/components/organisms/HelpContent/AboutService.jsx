@@ -7,7 +7,7 @@ import HelpList from 'components/molecules/Help/ListItem';
 import TextButton from 'components/atoms/TextButton';
 
 const LinkWrapper = styled.div`
-  margin-top: 16px;
+  margin-top: 32px;
 `;
 
 const QandA = [
