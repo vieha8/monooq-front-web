@@ -9,7 +9,7 @@ import { Colors } from 'variables';
 
 const Container = styled.div`
   border-bottom: 1px solid ${Colors.borderGray};
-  padding-bottom: 16px;
+  padding: 16px 0;
 `;
 
 const ButtonContainer = styled.div`

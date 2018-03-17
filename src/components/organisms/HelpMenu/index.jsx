@@ -3,13 +3,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import MenuItem from 'components/molecules/MenuItem/HelpMenu';
+import Path from 'config/path';
 
 const Container = styled.ul`
   width: 100%;
 `;
 
 type MenuItemProps = {
-  href: string,
   show?: boolean,
   open?: boolean,
 }
@@ -25,8 +25,6 @@ type PropTypes = {
   aboutRegisterSpace: MenuItemProps,
   aboutHostTransaction: MenuItemProps,
   aboutSalesTransfer: MenuItemProps,
-  aboutLogin: MenuItemProps,
-  other: MenuItemProps,
 }
 
 export default (props: PropTypes) => (
@@ -41,11 +39,13 @@ export default (props: PropTypes) => (
     <MenuItem
       title="サービスについて"
       {...props.aboutService}
+      href={Path.helpAboutService()}
       fillColor
     />
     <MenuItem
       title="取引について"
       {...props.aboutUserTransaction}
+      href="#"
       fillColor
     />
     <MenuItem
@@ -58,32 +58,38 @@ export default (props: PropTypes) => (
     <MenuItem
       title="ホストについて"
       {...props.aboutHost}
+      href="#"
       fillColor
     />
     <MenuItem
       title="スペース登録について"
       {...props.aboutRegisterSpace}
+      href="#"
       fillColor
     />
     <MenuItem
       title="取引について"
       {...props.aboutHostTransaction}
+      href="#"
       fillColor
     />
     <MenuItem
       title="売上や振込について"
       {...props.aboutSalesTransfer}
+      href="#"
       fillColor
     />
     <MenuItem
       title="登録・ログインについて"
       {...props.aboutLogin}
+      href="#"
       show
       angleRight
     />
     <MenuItem
       title="その他"
       {...props.other}
+      href="#"
       show
       angleRight
     />

@@ -13,6 +13,9 @@ type PropTypes = {
     openHowToBeHost: boolean,
     openFlagList: Array<boolean>,
   },
+  history: {
+    goBack: Function,
+  },
 }
 
 class HelpTopContainer extends React.Component<PropTypes> {
@@ -39,6 +42,11 @@ class HelpTopContainer extends React.Component<PropTypes> {
     dispatch(uiActions.setUiState({ openFlagList: ui.openFlagList }));
   }
 
+  onClickBack = () => {
+    const { history } = this.props;
+    history.goBack();
+  }
+
   render() {
     const { ui } = this.props;
 
@@ -51,6 +59,7 @@ class HelpTopContainer extends React.Component<PropTypes> {
           onClickHowToBeHost={this.onClickHowToBeHost}
           onClickList={this.onClickList}
           openFlagList={ui.openFlagList || []}
+          onClickBack={this.onClickBack}
         />
       </Fragment>
     );

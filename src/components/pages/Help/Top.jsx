@@ -26,16 +26,14 @@ export default (props: PropTypes) => {
         <HelpMenu
           howToUser={{ open: openHowToUser }}
           onClickHowToUser={props.onClickHowToUser}
-          aboutService={{ href: Path.helpAboutService(), show: openHowToUser }}
-          aboutUserTransaction={{ href: '#', show: openHowToUser }}
+          aboutService={{ show: openHowToUser }}
+          aboutUserTransaction={{ show: openHowToUser }}
           howToBeHost={{ open: openHowToBeHost }}
           onClickHowToBeHost={props.onClickHowToBeHost}
-          aboutHost={{ href: '#', show: openHowToBeHost }}
-          aboutRegisterSpace={{ href: '#', show: openHowToBeHost }}
-          aboutHostTransaction={{ href: '#', show: openHowToBeHost }}
-          aboutSalesTransfer={{ href: '#', show: openHowToBeHost }}
-          aboutLogin={{ href: '#' }}
-          other={{ href: '#' }}
+          aboutHost={{ show: openHowToBeHost }}
+          aboutRegisterSpace={{ show: openHowToBeHost }}
+          aboutHostTransaction={{ show: openHowToBeHost }}
+          aboutSalesTransfer={{ show: openHowToBeHost }}
         />
       )}
       rightContent={(
