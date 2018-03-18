@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Footer } from 'components/Shared';
+import { Dimens } from 'variables';
 
 import mainVisual from 'images/about_main_visual@2x.jpg';
 import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';
@@ -13,7 +14,7 @@ import useImage5 from 'images/about_use5@2x.jpg';
 import useImage6 from 'images/about_use6@2x.jpg';
 
 const DefaultContainer = styled.div`
-  width: 1000px;
+  width: ${Dimens.fixedWidthPc}px;
   margin: 0 auto;
   ${media.phone`
     padding: 0 8vw;
