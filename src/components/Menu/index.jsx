@@ -49,6 +49,11 @@ export default (props) => {
           </MenuItem>
         }
         <MenuItem>
+          <MenuLink href={Path.editProfile(userId)}>
+            <MenuText>プロフィールを編集する</MenuText>
+          </MenuLink>
+        </MenuItem>
+        <MenuItem>
           <MenuLink href={Path.inquiry(userId)}>
             <MenuText>お問い合わせ</MenuText>
           </MenuLink>
