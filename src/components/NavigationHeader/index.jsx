@@ -46,12 +46,9 @@ const IconWrapper = styled.a`
   position: relative;
   display: inline-block;
   height: 100%;
-  padding: 16px ${Dimens.small}px 0;
+  padding: 18px ${Dimens.small}px 0;
   vertical-align: top;
   cursor: pointer;
-  ${media.phone`
-    padding: 16px ${Dimens.small}px 0;
-  `}
 `;
 
 const UserIconWrapper = IconWrapper.withComponent('div');
@@ -99,6 +96,28 @@ const MenuBackground = styled.div`
   z-index: ${ZIndexes.topmost - 1};
 `;
 
+const SearchFiled = styled.input`
+  @keyframes show {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 300px;
+    }
+  }
+
+  outline: none;
+  height: 32px;
+  width: 0;
+  border: none;
+  border-bottom: 1px solid ${Colors.borderGray};
+  ${props => props.show && `
+    animation show 0.5s ease 0s;
+    animation-fill-mode: forwards;
+    width: 300px;
+  `}
+`;
+
 function renderMenu(props) {
   const { onClickToggleMenu } = props;
 
@@ -140,6 +159,12 @@ function renderMenuIcon(props) {
   );
 }
 
+function refSearchField(ref, props) {
+  if (ref) {
+    ref.addEventListener('keydown', props.onKeyDownSearchField);
+  }
+}
+
 export default props => (
   <div>
     <Container>
@@ -147,7 +172,12 @@ export default props => (
         <Logo src={logoUri} />
       </LogoWrapper>
       <MenuWrapper>
-        <IconWrapper href={`${Path.search()}?location=東京都`}>
+        <SearchFiled
+          show={props.showSearchField}
+          innerRef={ref => refSearchField(ref, props)}
+          placeholder="どの場所で預けますか？"
+        />
+        <IconWrapper onClick={props.onClickSearchIcon}>
           <Icon name="fal fa-search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
         {renderMenuIcon(props)}

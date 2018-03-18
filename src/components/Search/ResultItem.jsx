@@ -63,7 +63,6 @@ export default props => (
   <Container
     onClick={() => window.open(`/space/${props.ID}`)}
   >
-    {console.log(props)}
     <Card>
       <Image
         src="http://placehold.jp/200x150.png"
