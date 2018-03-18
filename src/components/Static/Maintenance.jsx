@@ -1,14 +1,22 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import {media} from 'helpers/style/media-query';
-import Logo from 'components/atoms/Logo'
+import { media } from 'helpers/style/media-query';
+import { Colors, Dimens } from 'variables';
+
+import Logo from 'components/atoms/Logo';
 
 const MaintenancePage = styled.div`
-  background: #F05356;
+  background: ${Colors.brandPrimary};
   height: 100%;
-  padding-top: 150px;
-  color: #fff;
+  width: ${Dimens.fixedWidthPc};
+  padding: 120px 0;
+  color: ${Colors.white};
+  ${media.phone`
+    min-height: 100vh;
+    width: 100vw;
+    padding: 40px 0;
+  `};
 `;
 
 const MobileContainer = styled.div`
@@ -37,24 +45,40 @@ const CopyText = styled.div`
   font-size: 18px;
   line-height: 48px;
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 `;
 
 const MessageContainer = MobileContainer.extend`
   text-align: center;
-  margin-bottom: 216px;
+  font-size: 18px;
+  line-height: 36px;
 `;
 
 const MessageText = styled.div`
-  font-size: 18px;
-  line-height: 36px;
+  ${media.phone`
+    margin-bottom: 30px;
+    & br {
+      display: none;
+    }
+  `};
+`;
+
+const ContactText = styled.div`
+  & br {
+    display: none;
+  }
+  ${media.phone`
+    & br {
+      display: inline;
+    }
+  `};
 `;
 
 const Anchor = styled.a`
   color: inherit;
   text-decoration: underline;
   :hover {
-    color: #eee;
+    color: ${Colors.linkBlue};
     text-decoration: underline;
   }
 `;
@@ -75,8 +99,12 @@ export default () => (
         ただいまサービスのリニューアルを行っております。<br />
         ご不便をおかけいたしますが、もうしばらくお待ちくださいませ。<br />
         リニューアルの完了予定は3月26日午後3時です。<br /><br />
-        お困りのご用件は<Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor>までご連絡ください。
       </MessageText>
+      <ContactText>
+        お困りのご用件は <br />
+        <Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor> <br />
+        までご連絡ください。
+      </ContactText>
     </MessageContainer>
   </MaintenancePage>
 );
