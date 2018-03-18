@@ -31,11 +31,6 @@ const Title = styled.h1`
   padding: 0 4%;
 `;
 
-const SelectContainer = styled.div`
-  text-align: right;
-  padding: 0 4%;
-`;
-
 const Caption = styled.h2`
   font-size: ${FontSizes.medium}px;
   color: ${Colors.darkGray1};
@@ -81,12 +76,6 @@ class Search extends React.Component {
           <Caption>
             預ける荷物の量と期間によって最適な料金をホストが提示してくれます。数日などの短い期間で預ける場合でも同じ料金目安です。
           </Caption>
-          <SelectContainer>
-            <select>
-              <option>価格の安い順</option>
-              <option>家具・家電OK</option>
-            </select>
-          </SelectContainer>
           {this.showSpaceList()}
         </ContentContainer>
         {!isMobileWindow() && <Footer />}

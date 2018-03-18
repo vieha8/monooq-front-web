@@ -5,7 +5,7 @@ import { media } from 'helpers/style/media-query';
 import { Colors, FontSizes, Dimens } from 'variables';
 
 const Container = styled.div`
-  width: 237px;
+  width: 230px;
   cursor: pointer;
   margin: ${Dimens.medium3}px ${Dimens.medium}px 0 ${Dimens.medium}px;
   ${media.phone`
@@ -22,7 +22,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  padding: ${Dimens.small}px ${Dimens.medium}px;
+  padding: ${Dimens.medium}px;
   text-align: left;
 `;
 
@@ -33,7 +33,11 @@ const Image = styled.img`
 
 const Text = styled.span`
   display: block;
-  font-size: ${FontSizes.xsmall}px;
+  font-size: ${FontSizes.small}px;
+  ${media.phone`
+    font-size: ${FontSizes.xsmall}px;
+  `}
+  line-height: 1.3;
   margin-top: ${Dimens.medium}px;
 `;
 
@@ -59,15 +63,16 @@ export default props => (
   <Container
     onClick={() => window.open(`/space/${props.ID}`)}
   >
+    {console.log(props)}
     <Card>
       <Image
         src="http://placehold.jp/200x150.png"
         alt=""
       />
       <Content>
-        <PlaceText>{props.AddressTown}</PlaceText>
-        <Text>{props.Title}</Text>
-        {props.Type && <TypeOK>家具・家電OK</TypeOK>}
+        <PlaceText>{props.AddressTown || '未設定'}</PlaceText>
+        <Text>{props.Title || 'タイトル未入力'}</Text>
+        {props.Type ? <TypeOK>家具・家電OK</TypeOK> : null}
         <PriceTitle>料金目安（30日間）</PriceTitle>
         <Price>{props.PriceFull}/{props.PriceHalf}/{props.PriceQuarter}円</Price>
       </Content>

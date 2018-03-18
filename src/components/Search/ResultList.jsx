@@ -5,14 +5,10 @@ import { Dimens } from 'variables';
 import ResultItem from './ResultItem';
 
 const Container = styled.div`
-  text-align: center;
-  &::after {
-    clear: both;
-    content: "";
-    display: block;
-  }
-
+  max-width: 790px;
+  margin: 0 auto;
   ${media.phone`
+    max-width: 345px;
     margin-top: ${Dimens.medium}px;
   `}
 `;

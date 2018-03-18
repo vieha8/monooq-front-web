@@ -77,7 +77,7 @@ export default (props: PropTypes) => (
           <Link href={props.cancelPolicyUri}>キャンセルポリシー</Link>
         </Cell>
         <Cell>
-          <InlineText.Small color={Colors.lightGray1}>©️モノオク</InlineText.Small>
+          <InlineText.Small color={Colors.lightGray1}>@ 2018 Monooq</InlineText.Small>
         </Cell>
       </List>
     </nav>
