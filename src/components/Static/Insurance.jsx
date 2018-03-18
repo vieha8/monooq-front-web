@@ -4,6 +4,10 @@ import { media } from 'helpers/style/media-query';
 import { Footer } from 'components/Shared';
 import { Dimens } from 'variables';
 
+import howSafeImage1 from 'images/insurance-img01.svg';
+import howSafeImage2 from 'images/insurance-img02.svg';
+import howSafeImage3 from 'images/insurance-img03.svg';
+
 const DefaultContainer = styled.div`
   width: ${Dimens.fixedWidthPc}px;
   margin: 0 auto;
@@ -227,17 +231,17 @@ export default props => (
         {
           [
             {
-              image: 'http://placehold.jp/246x246.png',
+              image: howSafeImage1,
               label: 'ユーザーは何をすれば良い？',
               text: 'しっかりと荷物の内容と写真をメッセージに残しましょう。もしも事故が起こってしまった場合にスムーズな対応を行うためです。もし事前に連絡をしていない荷物をスペースに置こうとしたら、ホストに受け入れを断られてしまったり、保証の対象となりません。',
             },
             {
-              image: 'http://placehold.jp/246x246.png',
+              image: howSafeImage2,
               label: 'ホストは何をすれば良い？',
               text: 'しっかりと荷物の内容と写真をメッセージに残しましょう。もしも事故が起こってしまった場合にスムーズな対応を行うためです。もし事前に連絡をしていない荷物をスペースに置こうとしたら、ホストに受け入れを断られてしまったり、保証の対象となりません。',
             },
             {
-              image: 'http://placehold.jp/246x246.png',
+              image: howSafeImage3,
               label: '気持ちの良い取引をするには？',
               text: 'しっかりと荷物の内容と写真をメッセージに残しましょう。もしも事故が起こってしまった場合にスムーズな対応を行うためです。もし事前に連絡をしていない荷物をスペースに置こうとしたら、ホストに受け入れを断られてしまったり、保証の対象となりません。',
             },
