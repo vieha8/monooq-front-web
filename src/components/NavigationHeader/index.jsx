@@ -121,7 +121,7 @@ function renderMenuIcon(props) {
     return (
       <Fragment>
         <IconWrapper href={Path.messages(user.ID)}>
-          <Icon name="comment" reverse fontSize={FontSizes.medium2} color={Colors.lightGray1} />
+          <Icon name="fas fa-comment" reverse fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
         <UserIconWrapper onClick={() => onClickToggleMenu()}>
           <UserImage src={user.ImageUrl} alt={user.name} />
@@ -148,7 +148,7 @@ export default props => (
       </LogoWrapper>
       <MenuWrapper>
         <IconWrapper href={`${Path.search()}?location=東京都`}>
-          <Icon name="search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
+          <Icon name="fal fa-search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
         {renderMenuIcon(props)}
       </MenuWrapper>

@@ -25,7 +25,7 @@ const Icon = styled.i`
 export default props => (
   <Container {...props}>
     <IconWrapper>
-      <Icon className={`far fa-${props.name}`} {...props} />
+      <Icon className={`${props.name}`} {...props} />
     </IconWrapper>
   </Container>
 );
