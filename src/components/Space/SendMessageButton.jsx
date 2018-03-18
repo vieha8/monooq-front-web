@@ -80,12 +80,12 @@ export default (props) => {
       {isMobileWindow() &&
         <ButtonContainer>
           <SubText>ご請求はまだ発生しません</SubText>
-          <Button onClick={props.onClickSendMessage}>メッセージを送る</Button>
+          <Button onClick={props.onClickSendMessage}>相談する</Button>
         </ButtonContainer>
       }
       {!isMobileWindow() &&
         <ButtonContainer>
-          <Button onClick={props.onClickSendMessage}>メッセージを送る</Button>
+          <Button onClick={props.onClickSendMessage}>相談する</Button>
           <SubText>ご請求はまだ発生しません</SubText>
         </ButtonContainer>
       }
