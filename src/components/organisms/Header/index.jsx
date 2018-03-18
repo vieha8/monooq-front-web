@@ -11,8 +11,7 @@ import ServiceMenu from 'components/organisms/ServiceMenu';
 import { media } from 'helpers/style/media-query';
 import { Colors, ZIndexes } from 'variables';
 
-export const HeightDesktop = 80;
-export const HeightSmp = 48;
+export const Height = 60;
 
 const Container = styled.header`
   position: fixed;
@@ -34,9 +33,8 @@ const Container = styled.header`
 const Nav = styled.nav`
   display: flex;
   align-items: center;
-  height: ${HeightDesktop}px;
+  height: ${Height}px;
   ${media.phone`
-    height: ${HeightSmp}px;
   `} z-index: ${ZIndexes.nav};
 `;
 
@@ -77,12 +75,11 @@ const AnonymouseWrapper = styled.div`
 
 const MenuWrapper = styled.div`
   position: fixed;
-  top: ${HeightDesktop}px;
+  top: ${Height}px;
   width: 328px;
   ${media.phone`
     position: fixed;
     overflow: scroll;
-    top: ${HeightSmp}px;
     bottom: 0;
     width: 100%;
   `} right: 0;
@@ -91,7 +88,7 @@ const MenuWrapper = styled.div`
 
 const MenuBackground = styled.div`
   position: fixed;
-  top: ${HeightDesktop}px;
+  top: ${Height}px;
   left: 0;
   right: 0;
   bottom: 0;
