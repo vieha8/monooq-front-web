@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Footer } from 'components/Shared';
 import { Dimens } from 'variables';
+import Path from 'config/path';
 
 import howSafeImage1 from 'images/insurance-img01.svg';
 import howSafeImage2 from 'images/insurance-img02.svg';
@@ -262,9 +263,9 @@ export default props => (
     <WhenAttentionContainer>
       <SubTitle>こんな場合もご注意を。</SubTitle>
       <WhenAttentionHilightText>以下のサービス利用上の注意が守られていない場合は、一切の保証を行うことができません。</WhenAttentionHilightText>
-      <List>モノオクに掲載されていないスペースに置いた荷物の場合。</List>
-      <List>ホスト登録した本人が管理していない荷物の場合。</List>
       <List>メッセージ上で記録に残っていない、ホストが把握していない荷物の場合。</List>
+      <List>モノオクに登録していないスペースに置いた荷物の場合。</List>
+      <List>スペース登録をした本人が管理していない場合。</List>
 
       <Hr />
     </WhenAttentionContainer>
@@ -274,21 +275,21 @@ export default props => (
 
       <QuestionWrapper>
         <QuestionTitle>保証の適用範囲は？</QuestionTitle>
-        <Text>受託者賠償責任保険が適応され・・・</Text>
+        <Text>受託者賠償責任保険が適応され、モノオクで取引・決済を行ったスペースへ置いた荷物に対して最大10万円（免責金額 3,000円）までの補償を提供しています。</Text>
       </QuestionWrapper>
 
       <QuestionWrapper>
         <QuestionTitle>保証対象外の荷物は？</QuestionTitle>
         <ListWrapper>
           <List>サービス内で確認が不可能な荷物の場合。</List>
-          <List>モノオクで定める取引ができない荷物ページに記載された違反の荷物の場合。</List>
+          <List>モノオクで定める<a href={`${Path.rule()}#not-allowed`}>「取引ができない荷物」</a>に記載された違反の荷物の場合。</List>
         </ListWrapper>
-        <Text>受託者賠償責任保険が適応され受託者賠償責任保険が適応され・・・</Text>
+        <Text>これらに対しては保証対象外となります。</Text>
       </QuestionWrapper>
 
       <QuestionWrapper>
         <QuestionTitle>緊急なトラブルの時は？</QuestionTitle>
-        <Text>受託者賠償責任保険が適応され・・・</Text>
+        <Text>もしも緊急のトラブルが発生した場合は、警察・消防など所轄窓口に通報してください。その上でモノオクカスタマーサポートまでご連絡ください。</Text>
       </QuestionWrapper>
     </QuestionContainer>
 

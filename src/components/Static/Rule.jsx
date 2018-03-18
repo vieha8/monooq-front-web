@@ -246,7 +246,7 @@ export default props => (
       <Hr />
     </HowSafeContainer>
 
-    <NotAllowedContainer>
+    <NotAllowedContainer id="not-allowed">
       <SubTitle>取引ができない荷物</SubTitle>
       <HilightText>モノオクでは以下に相当する荷物の取り引きは禁止しています。</HilightText>
 
