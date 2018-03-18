@@ -65,7 +65,7 @@ const ReceiveSupplementText = Text.extend`
 const Address = props => (
   <Container>
     <Text>{props.children}</Text>
-    <SubText>詳細な住所はリクエスト完了後にホストより連絡があります。</SubText>
+    <SubText>詳しい住所はお支払い後にお知らせします。</SubText>
   </Container>
 );
 
