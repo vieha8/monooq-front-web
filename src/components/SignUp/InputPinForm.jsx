@@ -22,6 +22,8 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
+  width: 60px;
+  height: 60px;
 `;
 
 const Title = styled.div`
