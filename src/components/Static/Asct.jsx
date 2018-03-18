@@ -96,7 +96,7 @@ export default () => (
           },
           {
             header: 'ホームページ',
-            data: '<a href={Path.top()}>https://monooq.com/</a>',
+            data: `<a href=${Path.top()}>https://monooq.com/</a>`,
           },
           {
             header: 'メールアドレス',
