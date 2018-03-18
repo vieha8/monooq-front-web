@@ -29,7 +29,7 @@ const Card = styled.div`
   border: 1px solid ${Colors.borderGray};
   border-radius: 6px;
   ${props => props.selected && `
-    background: ${Colors.brandTerciary};
+    background: ${Colors.pink};
   `}
   ${media.phone`
     height: 100px;
@@ -51,6 +51,7 @@ const Text = styled.div`
 const Image = styled.img`
   display: block;
   margin-top: ${Dimens.medium}px;
+  width: 100%;
   ${media.phone`
     display: inline-block;
     vertical-align: middle;
@@ -69,7 +70,7 @@ export default props => (
   >
     <Card selected={props.selected}>
       <Text>{props.text}</Text>
-      <Image src="http://placehold.jp/230x130.png" alt={props.text} />
+      <Image src={props.image} alt={props.text} />
     </Card>
   </Container>
 );

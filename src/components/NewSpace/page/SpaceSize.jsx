@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import path from '../../../config/path';
+import path from 'config/path';
 import styled from 'styled-components';
 import { uiActions } from 'redux/modules/ui';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
+import imageFurnitureFull from 'images/furniture-full.svg';
+import imageFurnitureQuarter from 'images/furniture-quarter.svg';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Button, { ButtonsContainer } from '../shared/Button';
@@ -54,6 +56,7 @@ export default class SpaceSize extends Component {
               onClick={() => {
                 this.handleChangeType(SpaceSize.Type.Small)
               }}
+              image={imageFurnitureQuarter}
             />
             <SpaceSizeCriterion
               selected={ui.space.sizeType === SpaceSize.Type.Large}
@@ -62,6 +65,7 @@ export default class SpaceSize extends Component {
               onClick={() => {
                 this.handleChangeType(SpaceSize.Type.Large)
               }}
+              image={imageFurnitureFull}
             />
           </CriterionWrapper>
           <ButtonsContainer>
