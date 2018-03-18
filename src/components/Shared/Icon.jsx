@@ -7,6 +7,9 @@ const Container = styled.div`
   width: ${props => props.size || 16}px;
   height: ${props => props.size || 16}px;
   text-align: center;
+  ${props => props.reverse && `
+    transform: rotateY(180deg);
+  `}
 `;
 
 const IconWrapper = styled.div`
@@ -22,7 +25,7 @@ const Icon = styled.i`
 export default props => (
   <Container {...props}>
     <IconWrapper>
-      <Icon className={`far fa-${props.name}`} {...props} />
+      <Icon className={`${props.name}`} {...props} />
     </IconWrapper>
   </Container>
 );

@@ -50,7 +50,7 @@ const IconWrapper = styled.a`
   vertical-align: top;
   cursor: pointer;
   ${media.phone`
-    padding: 14px ${Dimens.small}px 0;
+    padding: 16px ${Dimens.small}px 0;
   `}
 `;
 
@@ -79,12 +79,11 @@ const AnonymousUserLink = styled.a`
 
 const MenuContainer = styled.div`
   position: fixed;
-  top: 80px;
+  top: 60px;
   right: 0;
   z-index: ${ZIndexes.topmost};
   background: ${Colors.white};
   ${media.phone`
-    top: 60px;
     left: 0;
     right: 0;
   `}
@@ -92,15 +91,12 @@ const MenuContainer = styled.div`
 
 const MenuBackground = styled.div`
   position: fixed;
-  top: 80px;
+  top: 60px;
   left: 0;
   right: 0;
   bottom: 0;
   background: rgba(255,255,255,0.6);
   z-index: ${ZIndexes.topmost - 1};
-  ${media.phone`
-    top: 60px;
-  `}
 `;
 
 function renderMenu(props) {
@@ -125,10 +121,10 @@ function renderMenuIcon(props) {
     return (
       <Fragment>
         <IconWrapper href={Path.messages(user.ID)}>
-          <Icon name="comment" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
+          <Icon name="fas fa-comment" reverse fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
         <UserIconWrapper onClick={() => onClickToggleMenu()}>
-          <UserImage src={user.ImageUrl} alt="" />
+          <UserImage src={user.ImageUrl} alt={user.name} />
         </UserIconWrapper>
         {showMenu && renderMenu(props)}
       </Fragment>
@@ -145,15 +141,18 @@ function renderMenuIcon(props) {
 }
 
 export default props => (
-  <Container>
-    <LogoWrapper href={Path.top()}>
-      <Logo src={logoUri} />
-    </LogoWrapper>
-    <MenuWrapper>
-      <IconWrapper href={`${Path.search()}?location=東京都`}>
-        <Icon name="search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
-      </IconWrapper>
-      {renderMenuIcon(props)}
-    </MenuWrapper>
-  </Container>
+  <div>
+    <Container>
+      <LogoWrapper href={Path.top()}>
+        <Logo src={logoUri} />
+      </LogoWrapper>
+      <MenuWrapper>
+        <IconWrapper href={`${Path.search()}?location=東京都`}>
+          <Icon name="fal fa-search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
+        </IconWrapper>
+        {renderMenuIcon(props)}
+      </MenuWrapper>
+    </Container>
+    <TopPadding />
+  </div>
 );

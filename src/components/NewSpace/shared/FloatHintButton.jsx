@@ -53,7 +53,7 @@ export default class FloatHintButton extends Component {
     return (
       <div>
         <Container onClick={this.toggleModal}>
-          <Icon name="lightbulb" size={BUTTON_SIZE} fontSize={30} />
+          <Icon name="far fa-lightbulb" size={BUTTON_SIZE} fontSize={30} />
         </Container>
         <HintBoxMobile
           show={ui.isModalShow}

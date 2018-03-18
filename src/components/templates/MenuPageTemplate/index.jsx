@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import ClearfixContainer from 'components/atoms/ClearfixContainer';
 import { H1 } from 'components/atoms/Headline';
-import { HeightDesktop as HeaderHeightDesktop, HeightSmp as HeaderHeightSmp } from 'components/organisms/Header';
+import { Height as HeaderHeight } from 'components/organisms/Header';
 
 const Page = styled.div`
-  padding: ${HeaderHeightDesktop}px 0 80px 10%;
+  padding: ${HeaderHeight}px 0 80px 10%;
   ${media.phone`
-    padding: ${HeaderHeightSmp}px 20px 40px;
+    padding: ${HeaderHeight}px 20px 40px;
   `}
 `;
 

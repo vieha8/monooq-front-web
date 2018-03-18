@@ -93,7 +93,7 @@ export default props => (
       >
         <DndContent>
           <IconWrapper>
-            <Icon name="image" size={64} fontSize={64} color={Colors.darkGray2} />
+            <Icon name="far fa-image" size={64} fontSize={64} color={Colors.darkGray2} />
           </IconWrapper>
           <CaptionText>写真を登録する</CaptionText>
         </DndContent>

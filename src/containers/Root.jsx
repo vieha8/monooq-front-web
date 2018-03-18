@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Root = styled.div`
-  overflow: scroll;
+  overflow: auto;
 `;
 
 export default Root;
