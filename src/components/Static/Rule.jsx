@@ -4,6 +4,10 @@ import { media } from 'helpers/style/media-query';
 import { Footer } from 'components/Shared';
 import { Dimens } from 'variables';
 
+import ruleImage1 from 'images/rule-img01.svg';
+import ruleImage2 from 'images/rule-img02.svg';
+import ruleImage3 from 'images/rule-img03.svg';
+
 const DefaultContainer = styled.div`
   width: ${Dimens.fixedWidthPc}px;
   margin: 0 auto;
@@ -40,7 +44,6 @@ const Text = styled.div`
 const HilightText = styled.div`
   font-size: 22px;
   line-height: 32px;
-  margin-bottom: 21px;
 `;
 
 const TextWrapper = styled.div`
@@ -86,8 +89,8 @@ const HowSafeContent = props => {
   `;
   return (
     <div className={props.className}>
-      <ImageArea />
       <HilightText>{props.label}</HilightText>
+      <ImageArea />
       <Text>{props.text}</Text>
     </div>
   );
@@ -230,19 +233,19 @@ export default props => (
         {[
           {
             label: 'あなたをサポート',
-            image: 'http://placehold.jp/80x80.png',
+            image: ruleImage1,
             text:
               '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',
           },
           {
             label: 'レビュー評価',
-            image: 'http://placehold.jp/60x60.png',
+            image: ruleImage2,
             text:
               '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',
           },
           {
             label: '違反報告',
-            image: 'http://placehold.jp/70x60.png',
+            image: ruleImage3,
             text:
               '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',
           },
