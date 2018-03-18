@@ -189,13 +189,13 @@ export default props => (
       <TextWrapper>
         <HilightText>連絡と支払いはモノオクで。</HilightText>
         <Text>
-          ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。
+          お支払い・荷物・あなた自身を守るために、相談から利用終了日までの決済・やり取りは必ずモノオクのプラットフォームで行ってください。もしも不必要なサービス以外の連絡手段を共用されたり、現金での支払いなどを求められたら、モノオクまでご報告ください。
         </Text>
       </TextWrapper>
       <TextWrapper>
         <HilightText>すべての荷物内容を連絡。</HilightText>
         <Text>
-          ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。
+          当日になって「聞いていた荷物と違う！」そんな状況はホストがとっても困ります。おなたの荷物が多くても少なくても、必ずホストへ荷物の内容の申告を行ってください。
         </Text>
       </TextWrapper>
 
@@ -214,13 +214,13 @@ export default props => (
       <TextWrapper>
         <HilightText>荷物の情報を必ず聞きましょう。</HilightText>
         <Text>
-          ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。
+          「思っていたより多い。聞いていたサイズと全然違う。」あなたのスペースを有効に使うためにも、メッセージで必ず確認してください。ホストをお守りするためにもとっても大事なことです。
         </Text>
       </TextWrapper>
       <TextWrapper>
         <HilightText>なぜ荷物を置きたいのかユーザーに聞いてみましょう。</HilightText>
         <Text>
-          ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。
+          なぜあなたのスペースが良いのか、事前に聞いてみましょう。引っ越しやトランクルームの代わりにしたいなど状況は様々です。
         </Text>
       </TextWrapper>
 
@@ -241,17 +241,17 @@ export default props => (
             label: 'レビュー評価',
             image: ruleImage2,
             text:
-              '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',
+              '誠実で健全なサービスを運営していくために、取り引き完了後に相互レビュー評価を行います。',
           },
           {
             label: '違反報告',
             image: ruleImage3,
             text:
-              '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',
+              '迷惑な行為をする人や、禁止されている情報を掲載しているスペースはモノオクまで通報することができます。不適切と判断した場合に随時対応を行っています。',
           },
-        ].map((v, i) => {
-          return <StyledHowSafeContent label={v.label} image={v.image} text={v.text} key={i} />;
-        })}
+          ].map((v, i) => {
+            return <StyledHowSafeContent label={v.label} image={v.image} text={v.text} key={i} />;
+          })}
       </HowSafeContentWrapper>
 
       <Hr />
@@ -259,7 +259,7 @@ export default props => (
 
     <NotAllowedContainer id="not-allowed">
       <SubTitle>取引ができない荷物</SubTitle>
-      <HilightText>モノオクでは以下に相当する荷物の取り引きは禁止しています。</HilightText>
+      <HilightText>モノオクでは、以下に相当する荷物のスペース利用を禁止しています。</HilightText>
 
       <NotAllowedContentWrapper>
         {[
@@ -314,13 +314,10 @@ export default props => (
             data:
               '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
           },
-        ].map((v, i) => {
-          return <StyledNotAllowedContent header={v.header} data={v.data} key={i} />;
-        })}
+          ].map((v, i) => {
+            return <StyledNotAllowedContent header={v.header} data={v.data} key={i} />;
+          })}
       </NotAllowedContentWrapper>
-      <Text>
-        貴重品や高価なもの、2度と手に入れることのない大切な思い出の品などは自分の手元に置いてくださいね。保証は最大10万円となり、それ以上の保証は一切できません。
-      </Text>
 
       <Hr />
     </NotAllowedContainer>
@@ -333,34 +330,34 @@ export default props => (
           {
             hilightText: 'モノオク以外で支払いを行うこと。',
             text:
-              'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+              'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。直接の口座振込や現金のお支払いは一切行わないでください。もしも、このような行為を持ちかけられた場合は、モノオクカスタマーサポートまでご連絡ください。',
           },
           {
             hilightText: '登録した本人以外が連絡や取引をすること。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: '必ずアカウント登録を行ったご本人が取引を行ってください。',
           },
           {
             hilightText: '申告と異なる荷物をホストへ強要すること。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: 'ホストが認識していない荷物を無理やりお願いすることは禁止です。事前にしっかりと内容を伝えましょう。',
           },
           {
             hilightText: '無断でスペース利用の延長をすること。',
             text:
-              'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+              '利用終了日に荷物を取りに来ない、連絡がとれない、などお互いが困る行為は禁止です。',
           },
           {
             hilightText: '同意が取れていない方法で荷物を届けること。',
             text:
-              'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+              '一方的に着払いをするなど、ホストが困る身勝手な行為は禁止です。荷物の配送方法に関してもお互いが同意の上で取り引きを進めてください。',
           },
-        ].map((v, i) => {
-          return (
-            <TextWrapper key={i}>
-              <HilightText>{v.hilightText}</HilightText>
-              <Text>{v.text}</Text>
-            </TextWrapper>
-          );
-        })}
+          ].map((v, i) => {
+            return (
+              <TextWrapper key={i}>
+                <HilightText>{v.hilightText}</HilightText>
+                <Text>{v.text}</Text>
+              </TextWrapper>
+            );
+          })}
       </DoNotActionContent>
 
       <DoNotActionContent title="スペース登録">
@@ -368,29 +365,29 @@ export default props => (
           {
             hilightText: '架空のスペースを登録すること。',
             text:
-              'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+              '実体のないスペースの登録は禁止です。このような掲載を見つけ次第、情報の非公開・アカウント停止などの対応を行います。',
           },
           {
             hilightText: '虚偽または誤りのある情報を掲載すること。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: '良く見せようとして、嘘の内容や過度な強調がされた内容を掲載するのは禁止です。',
           },
           {
             hilightText: '他のホストの文章・写真などを使用すること。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: 'あなたが管理するスペースの内容を掲載してください。',
           },
           {
             hilightText: '宣伝・勧誘などサービス利用に関係のない情報を掲載すること。',
             text:
-              'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+              '物置きシェアのために必要な情報を掲載してください。このような掲載を見つけ次第、情報の非公開・アカウント停止などの対応を行います。',
           },
-        ].map((v, i) => {
-          return (
-            <TextWrapper key={i}>
-              <HilightText>{v.hilightText}</HilightText>
-              <Text>{v.text}</Text>
-            </TextWrapper>
-          );
-        })}
+          ].map((v, i) => {
+            return (
+              <TextWrapper key={i}>
+                <HilightText>{v.hilightText}</HilightText>
+                <Text>{v.text}</Text>
+              </TextWrapper>
+            );
+          })}
       </DoNotActionContent>
 
       <DoNotActionContent title="その他">
@@ -398,20 +395,20 @@ export default props => (
           {
             hilightText: '物置きシェアに関係のない外部サービスへの誘導。',
             text:
-              'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+              'スペース掲載や取り引きに関係のないサービスへ誘導するのは禁止です。',
           },
           {
             hilightText: 'みんなに迷惑な行為。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: 'みんなが安心してサービス利用ができなくなる迷惑行為は禁止です。',
           },
           {
             hilightText: '個人を特定できるような情報を発信すること。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: 'だれかの誹謗中傷、個人情報や写真など、悪質な内容を発見したらすぐさま対応します。',
           },
           {
             hilightText: 'その他、モノオクカスタマーサポートにて不適切と判断する行為。',
             text:
-              'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+              'カスタマーサポートでは随時掲載内容のチェックを行っています。おかしいな？と思ったらモノオクまでご報告ください。',
           },
         ].map((v, i) => {
           return (
