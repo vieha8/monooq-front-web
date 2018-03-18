@@ -2,14 +2,13 @@ import React from 'react';
 
 import styled from 'styled-components';
 import {media} from 'helpers/style/media-query';
+import Logo from 'components/atoms/Logo'
 
 const MaintenancePage = styled.div`
   background: #F05356;
   height: 100%;
   padding-top: 150px;
   color: #fff;
-  position: relative;
-  top: -80px;
 `;
 
 const MobileContainer = styled.div`
@@ -68,14 +67,14 @@ export default () => (
 
     <LogoContainer>
       <CopyText>個人間の物置きシェアサービス</CopyText>
-      <img src="http://placehold.jp/270x60.png" alt="" />
+      <Logo.BaseWhite />
     </LogoContainer>
 
     <MessageContainer>
       <MessageText>
         ただいまサービスのリニューアルを行っております。<br />
         ご不便をおかけいたしますが、もうしばらくお待ちくださいませ。<br />
-        リニューアルの完了予定は3月15日午前10時です。<br /><br />
+        リニューアルの完了予定は3月26日午後3時です。<br /><br />
         お困りのご用件は<Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor>までご連絡ください。
       </MessageText>
     </MessageContainer>
