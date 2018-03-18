@@ -48,7 +48,6 @@ import HelpTop from 'containers/Static/Help/Top';
 import HelpAboutService from 'containers/Static/Help/AboutService';
 
 import NavigationHeader from 'containers/NavigationHeader';
-import { TopPadding as HeaderPadding } from 'components/NavigationHeader';
 import { Auth } from 'components/Auth';
 
 import Path from './path';
@@ -104,7 +103,6 @@ export default props => (
     <Root>
       <Auth />
       <NavigationHeader />
-      <HeaderPadding />
       <Switch>
         {routes.map((route, i) => (
           <Route

@@ -141,15 +141,18 @@ function renderMenuIcon(props) {
 }
 
 export default props => (
-  <Container>
-    <LogoWrapper href={Path.top()}>
-      <Logo src={logoUri} />
-    </LogoWrapper>
-    <MenuWrapper>
-      <IconWrapper href={`${Path.search()}?location=東京都`}>
-        <Icon name="search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
-      </IconWrapper>
-      {renderMenuIcon(props)}
-    </MenuWrapper>
-  </Container>
+  <div>
+    <Container>
+      <LogoWrapper href={Path.top()}>
+        <Logo src={logoUri} />
+      </LogoWrapper>
+      <MenuWrapper>
+        <IconWrapper href={`${Path.search()}?location=東京都`}>
+          <Icon name="search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
+        </IconWrapper>
+        {renderMenuIcon(props)}
+      </MenuWrapper>
+    </Container>
+    <TopPadding />
+  </div>
 );
