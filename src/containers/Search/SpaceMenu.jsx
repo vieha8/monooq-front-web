@@ -45,7 +45,8 @@ class SpaceMenu extends React.Component {
           open={Boolean(ui.anchorSpaceMenuDom)}
           onClose={this.handleClose}
         >
-          <MenuItem onClick={this.handleClose}>シェアする</MenuItem>
+          <MenuItem onClick={this.handleClose}>Facebookでシェアする</MenuItem>
+          <MenuItem onClick={this.handleClose}>Twitterでシェアする</MenuItem>
           <MenuItem onClick={this.handleClose}>不適切な内容を報告</MenuItem>
         </Menu>
       </div>

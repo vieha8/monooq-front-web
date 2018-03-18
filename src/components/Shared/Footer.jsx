@@ -12,7 +12,7 @@ const Container = styled.div`
     content: '';
     display: block;
   }
-  ${media.phone`
+  ${media.tablet`
     padding-top: ${Dimens.medium}px;
   `};
 `;
@@ -27,7 +27,7 @@ const Menu = styled.a`
   padding: ${Dimens.medium2}px ${Dimens.small2}px;
   cursor: pointer;
   float: left;
-  ${media.phone`
+  ${media.tablet`
     float: none;
     font-size: ${FontSizes.xsmall}px;
     padding: ${Dimens.small}px ${Dimens.small}px;
@@ -44,7 +44,7 @@ const Copyright = styled.span`
   color: ${Colors.darkGray1};
   padding: ${Dimens.medium2}px ${Dimens.small}px;
   float: right;
-  ${media.phone`
+  ${media.tablet`
     float: none;
     margin-left: ${Dimens.medium}px;
   `};

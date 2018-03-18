@@ -47,6 +47,8 @@ const ContentContainer = styled.div`
   padding-left: ${Dimens.medium2}px;
 
   ${media.phone`
+    display: block;
+    width: 100%;
     padding-left: 0;
   `}
 `;

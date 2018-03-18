@@ -32,7 +32,7 @@ const TypeOKText = styled.span`
 `;
 
 const BaggetText = Text.extend`
-  line-height: 2;
+  line-height: 1.5;
   margin-top: ${props => (props.typeOK ? Dimens.xsmall : 0)}px;
 `;
 
@@ -58,7 +58,7 @@ const ReceiveSubText = SubText.extend`
 `;
 
 const ReceiveSupplementText = Text.extend`
-  line-height: 2;
+  line-height: 1.5;
 `;
 
 // 所在地

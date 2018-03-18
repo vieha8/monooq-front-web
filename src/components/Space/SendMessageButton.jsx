@@ -7,7 +7,7 @@ import Card from './Card';
 const DefaultCard = props => (
   <Card
     customStyle={`
-      margin-top: ${Dimens.medium2}px;
+      margin-top: ${Dimens.small3}px;
       padding: ${Dimens.medium}px;
     `}
   >

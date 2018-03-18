@@ -28,6 +28,7 @@ const Title = styled.span`
   vertical-align: top;
   font-size: ${FontSizes.medium}px;
   text-align: left;
+  line-height: 1.5;
 
   ${media.phone`
     display: block;

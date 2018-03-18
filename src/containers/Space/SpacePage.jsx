@@ -25,14 +25,14 @@ import {
 
 import SpaceMenu from 'containers/Search/SpaceMenu';
 import { getRoomId, createRoom } from 'redux/modules/messages';
-import { spaceActions } from "../../redux/modules/space";
+import { spaceActions } from 'redux/modules/space';
 
 const SpacePage = styled.div`
   background: ${Colors.lightGray2Bg};
 `;
 
 const CardContainer = styled.div`
-  padding: 0 8%;
+  padding: 0 92px;
 
   &::after {
     clear: both;
@@ -40,26 +40,27 @@ const CardContainer = styled.div`
     display: block;
   }
 
-  ${media.phone`
+  ${media.tablet`
     padding: 0;
   `}
 `;
 
 const MobileContainer = styled.div`
-  ${media.phone`
+  ${media.tablet`
     padding: ${Dimens.medium}px;
   `}
 `;
 
 const SpaceCardContainer = styled.div`
-  max-width: 688px;
-  width: 100%;
+  max-width: 720px;
+  width: 60%;
   margin-top: 80px;
   padding-bottom: 80px;
   float: left;
 
-  ${media.phone`
+  ${media.tablet`
     float: none;
+    width: 100%;
     max-width: 100%;
     margin-top: 0;
     padding: 0 ${Dimens.medium};
@@ -69,13 +70,14 @@ const SpaceCardContainer = styled.div`
 
 const PriceCardContainer = styled.div`
   max-width: 340px;
-  width: 100%;
+  width: 40%;
   margin-top: 80px;
   padding-bottom: 80px;
   float: right;
 
-  ${media.phone`
+  ${media.tablet`
     float: none;
+    width: 100%;
     max-width: 100%;
     margin-top: 0;
     padding: 0 ${Dimens.medium};
@@ -100,7 +102,7 @@ const Section = styled.div`
 const SlideImageWrapper = styled.div`
   margin-top: ${Dimens.medium3}px;
   
-  ${media.phone`
+  ${media.tablet`
     margin-top: ${Dimens.medium}px;
   `}
 `;
@@ -108,7 +110,7 @@ const SlideImageWrapper = styled.div`
 const MapContainer = styled.div`
   margin-top: -20px;
   height: 360px;
-  ${media.phone`
+  ${media.tablet`
     height: 240px;  
   `}
 `;
@@ -197,7 +199,11 @@ class Space extends React.Component {
                   />
                   <DetailContainer
                     title="種類"
-                    renderContent={() => <DetailContent.SpaceType>{space.Type}</DetailContent.SpaceType>}
+                    renderContent={() => (
+                      <DetailContent.SpaceType>
+                        {space.Type}
+                      </DetailContent.SpaceType>
+                    )}
                   />
                 </Section>
                 <Section>
