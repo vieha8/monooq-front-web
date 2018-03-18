@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Page from 'components/Page';
-import UserMenu from 'components/Menu/UserMenu';
+import Menu from 'containers/Menu';
 import Report from 'components/Report';
 import ReportUserOrHost from 'components/Report/UserOrHost';
 import ReportCompleted from 'components/Report/Completed';
@@ -18,7 +18,7 @@ class ReportContainer extends Component {
   renderReport() {
     return (
       <Page title="不適切な場所を報告">
-        <UserMenu />
+        <Menu />
         <Report
           onClickSave={this.onClickSave}
         />
@@ -29,7 +29,7 @@ class ReportContainer extends Component {
   renderReportUserOrHost() {
     return (
       <Page title="不適切なユーザー・ホストを報告">
-        <UserMenu />
+        <Menu />
         <ReportUserOrHost
           hostName="YUKI HASHIDA"
           hostArea="東京都"
@@ -42,7 +42,7 @@ class ReportContainer extends Component {
   renderReportCompoleted() {
     return (
       <Page title="送信完了しました">
-        <UserMenu />
+        <Menu />
         <ReportCompleted />
       </Page>
     );

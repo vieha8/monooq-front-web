@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Path from 'config/path';
 import { Container, Menu, MenuLink, MenuItem, MenuText, NoticeCount } from './Shared';
 
 export default (props) => {
-  const { messageCount, scheduleCount, userId, hostId, showMobile } = props;
+  const { messageCount, scheduleCount, userId, hostId, hasSpace, showMobile } = props;
   return (
     <Container showMobile={showMobile}>
       <Menu>
@@ -17,22 +17,34 @@ export default (props) => {
             <MenuText>スケジュール</MenuText><NoticeCount count={scheduleCount} />
           </MenuLink>
         </MenuItem>
+        {hasSpace && (
+          <Fragment>
+            <MenuItem>
+              <MenuLink href={Path.spaces(userId)}>
+                <MenuText>スペースの管理</MenuText><NoticeCount count={scheduleCount} />
+              </MenuLink>
+            </MenuItem>
+            <MenuItem>
+              <MenuLink href={Path.createSpaceInfo()}>
+                <MenuText>スペースを追加する</MenuText><NoticeCount count={scheduleCount} />
+              </MenuLink>
+            </MenuItem>
+            <MenuItem>
+              <MenuLink href={Path.salesTransfers(hostId)}>
+                <MenuText>売上履歴・振込申請</MenuText><NoticeCount count={scheduleCount} />
+              </MenuLink>
+            </MenuItem>
+          </Fragment>
+        )}
         <MenuItem>
           <MenuLink href={Path.paid(userId)}>
             <MenuText>支払い履歴</MenuText>
           </MenuLink>
         </MenuItem>
-        {!hostId &&
+        {!hasSpace &&
           <MenuItem>
             <MenuLink href={Path.createSpaceInfo(userId)}>
-              <MenuText>ホストになる</MenuText>
-            </MenuLink>
-          </MenuItem>
-        }
-        {hostId &&
-          <MenuItem>
-            <MenuLink href={Path.hostMode(userId)}>
-              <MenuText>ホストモードに切り替える</MenuText>
+              <MenuText>ホスト登録する</MenuText>
             </MenuLink>
           </MenuItem>
         }

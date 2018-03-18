@@ -14,22 +14,16 @@ const Container = styled.nav`
   left: 0;
   right: 0;
   width: 100%;
-  height: 80px;
+  height: 60px;
   padding: 0 ${Dimens.small}px;
   border-bottom: 1px solid ${Colors.borderGray};
   background: ${Colors.white};
   z-index: ${ZIndexes.nav};
-  ${media.phone`
-    height: 60px;
-  `}
 `;
 
 export const TopPadding = styled.div`
-  height: 80px;
+  height: 60px;
   width: 100%;
-  ${media.phone`
-    height: 60px;
-  `}
 `;
 
 const LogoWrapper = styled.a`
@@ -52,7 +46,7 @@ const IconWrapper = styled.a`
   position: relative;
   display: inline-block;
   height: 100%;
-  padding: 22px ${Dimens.small}px 0;
+  padding: 16px ${Dimens.small}px 0;
   vertical-align: top;
   cursor: pointer;
   ${media.phone`
@@ -65,7 +59,7 @@ const UserIconWrapper = IconWrapper.withComponent('div');
 const LinkWrapper = styled.div`
   display: inline-block;
   height: 100%;
-  padding: 32px ${Dimens.small}px 0;
+  padding: 22px ${Dimens.small}px 0;
   cursor: pointer;
   ${media.phone`
     padding: 22px ${Dimens.small}px 0;
@@ -131,7 +125,7 @@ function renderMenuIcon(props) {
     return (
       <Fragment>
         <IconWrapper href={Path.messages(user.ID)}>
-          <Icon name="comment" fontSize={FontSizes.large} color={Colors.lightGray1} />
+          <Icon name="comment" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
         <UserIconWrapper onClick={() => onClickToggleMenu()}>
           <UserImage src={user.ImageUrl} alt="" />
@@ -157,7 +151,7 @@ export default props => (
     </LogoWrapper>
     <MenuWrapper>
       <IconWrapper href={`${Path.search()}?location=東京都`}>
-        <Icon name="search" fontSize={FontSizes.large} color={Colors.lightGray1} />
+        <Icon name="search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
       </IconWrapper>
       {renderMenuIcon(props)}
     </MenuWrapper>

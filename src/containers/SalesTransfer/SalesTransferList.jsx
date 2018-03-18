@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Page from 'components/Page';
-import HostMenu from 'components/Menu/HostMenu';
+import Menu from 'containers/Menu';
 import SalesTransferList from 'components/SalesTransfer/SalesTransferList';
 
 class SalesTransferListContainer extends Component {
   render() {
     return (
       <Page title="売上・振込申請">
-        <HostMenu />
+        <Menu />
         <SalesTransferList
           currentSales={27000}
           receivableSales={13000}

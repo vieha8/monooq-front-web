@@ -28,8 +28,6 @@ import SalesTransferList from 'containers/SalesTransfer/SalesTransferList';
 import TransferRequest from 'containers/SalesTransfer/TransferRequest';
 import EditBankAccount from 'containers/SalesTransfer/EditBankAccount';
 import Inquiry from 'containers/Inquiry';
-import HostMode from 'containers/HostMode';
-import UserMode from 'containers/UserMode';
 import SignUp from 'containers/SignUp';
 import Login from 'containers/Login';
 import Unsubscribe from 'containers/Unsubscribe';
@@ -83,8 +81,6 @@ export const routes = [
   { path: Path.requestTransfer(), component: TransferRequest },
   { path: Path.editBankAccount(), component: EditBankAccount },
   { path: Path.inquiry(), component: Inquiry },
-  { path: Path.hostMode(), component: HostMode },
-  { path: Path.userMode(), component: UserMode },
   { path: Path.signup(), component: SignUp },
   { path: Path.login(), component: Login },
   { path: Path.unsubscribe(), component: Unsubscribe },

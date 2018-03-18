@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Page from 'components/Page';
 import Schedule from 'components/Schedule';
-import UserMenu from 'components/Menu/UserMenu';
-import { requestActions } from "../redux/modules/request";
+import Menu from 'containers/Menu';
+import { requestActions } from 'redux/modules/request';
 
 class ScheduleContainer extends Component {
 
@@ -15,7 +15,7 @@ class ScheduleContainer extends Component {
   render() {
     return (
       <Page title="スケジュール">
-        <UserMenu />
+        <Menu />
         <Schedule {...this.props} />
       </Page>
     );

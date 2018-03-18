@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Page from 'components/Page';
-import HostMenu from 'components/Menu/HostMenu';
+import Menu from 'containers/Menu';
 import EditBankAccount from 'components/SalesTransfer/EditBankAccount';
 import { uiActions } from 'redux/modules/ui';
 
@@ -33,7 +33,7 @@ class EditBankAccountContainer extends Component {
   renderUpdated() {
     return (
       <Page title="振込口座情報を登録しました。" subTitle="※振込申請は3000円以上から可能です">
-        <HostMenu />
+        <Menu />
         <EditBankAccount
           updated
           onClickToRequestTransfer={this.onClickToRequestTransfer}
@@ -51,7 +51,7 @@ class EditBankAccountContainer extends Component {
 
     return (
       <Page title={ui.confirm ? '振込口座情報の確認' : '口座情報を登録する'} subTitle="※振込申請は3000円以上から可能です">
-        <HostMenu />
+        <Menu />
         <EditBankAccount
           {...ui}
           onClickConfirmButton={this.onClickConfirmButton}
