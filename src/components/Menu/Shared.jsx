@@ -6,7 +6,7 @@ import { media } from 'helpers/style/media-query';
 export const Container = styled.div`
   width: 328px;
   float: left;
-  ${media.phone`
+  ${media.tablet`
     display: none;
     ${props => props.showMobile && `
       display: block;

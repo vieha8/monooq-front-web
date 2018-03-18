@@ -8,7 +8,7 @@ const Container = styled.div`
   padding-top: ${Dimens.medium2}px;
   font-size: ${FontSizes.medium}px;
   color: black;
-  ${media.phone`
+  ${media.tablet`
     padding: ${Dimens.medium2}px ${Dimens.medium}px 0;
   `}
 `;
