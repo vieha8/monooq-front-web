@@ -16,13 +16,18 @@ storiesOf('Atoms/Images/Logo', module)
       <Logo.Header />
     </div>
   ))
-  .add('ColoredHeader', () => (
-    <div>
-      <Logo.ColoredHeader />
-    </div>
-  ))
   .add('Footer', () => (
     <div>
       <Logo.Footer />
+    </div>
+  ))
+  .add('NormalWhite', () => (
+    <div>
+      <Logo.BaseWhite />
+    </div>
+  ))
+  .add('HeaderWhite', () => (
+    <div>
+      <Logo.HeaderWhite />
     </div>
   ));

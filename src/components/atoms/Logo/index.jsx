@@ -7,12 +7,13 @@ import logoWhiteImage from './logo-white.svg';
 
 const Logo = styled.img`
   width: ${props => props.width}px;
-  height: ${props => props.width / 2}px;
+  height: ${props => props.width / 4}px;
 `;
 
 export default {
-  Base: () => <Logo src={logoImage} alt="logo" width={240} />,
+  Base: () => <Logo src={logoImage} alt="logo" width={280} />,
   Header: () => <Logo src={logoImage} alt="logo" width={80} />,
-  ColoredHeader: () => <Logo src={logoWhiteImage} alt="logo" width={80} />,
   Footer: () => <Logo src={logoImage} alt="logo" width={120} />,
+  BaseWhite: () => <Logo src={logoWhiteImage} alt="logo" width={280} />,
+  HeaderWhite: () => <Logo src={logoWhiteImage} alt="logo" width={80} />,
 };

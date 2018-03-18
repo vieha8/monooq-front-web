@@ -127,7 +127,7 @@ export default (props: PropTypes) => (
   <Container top={props.top} help={props.help}>
     <Nav>
       <LogoWrapper href={props.homeUri}>
-        {(props.top || props.help) ? <Logo.ColoredHeader /> : <Logo.Header />}
+        {(props.top || props.help) ? <Logo.HeaderWhite /> : <Logo.Header />}
       </LogoWrapper>
       {!props.hideActions && (
         <ActionWrapper>
