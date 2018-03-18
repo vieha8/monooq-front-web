@@ -86,12 +86,18 @@ const HowSafeContent = props => {
     height: 130px;
     width: 100%;
     background: url(${props.image}) center no-repeat;
+    ${media.phone`
+      height: 110px;
+    `};
+  `;
+  const TextArea = styled(Text)`
+    margin-bottom: 30px;
   `;
   return (
     <div className={props.className}>
       <HilightText>{props.label}</HilightText>
       <ImageArea />
-      <Text>{props.text}</Text>
+      <TextArea>{props.text}</TextArea>
     </div>
   );
 };
@@ -118,6 +124,7 @@ const NotAllowedContent = props => {
   const Data = styled.div`
     ${media.phone`
       line-height: 30px;
+      margin-bottom: 20px;
     `};
   `;
   return (
@@ -410,14 +417,14 @@ export default props => (
             text:
               'カスタマーサポートでは随時掲載内容のチェックを行っています。おかしいな？と思ったらモノオクまでご報告ください。',
           },
-        ].map((v, i) => {
-          return (
-            <TextWrapper key={i}>
-              <HilightText>{v.hilightText}</HilightText>
-              <Text>{v.text}</Text>
-            </TextWrapper>
-          );
-        })}
+          ].map((v, i) => {
+            return (
+              <TextWrapper key={i}>
+                <HilightText>{v.hilightText}</HilightText>
+                <Text>{v.text}</Text>
+              </TextWrapper>
+            );
+          })}
       </DoNotActionContent>
     </DoNotActionContainer>
 
