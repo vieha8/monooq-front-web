@@ -42,7 +42,7 @@ export default (props) => {
           </MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuLink href={Path.logout(userId)}>
+          <MenuLink onClick={props.onClickLogout}>
             <MenuText>ログアウト</MenuText>
           </MenuLink>
         </MenuItem>
