@@ -67,9 +67,10 @@ const StyledMessagesItemText = styled(MessagesItemText) `
 `;
 
 class Messages extends React.Component {
-  constructor(props) {
+
+  constructor(props){
     super(props);
-    props.dispatch(messagesActions.fetchRoomsStart(props.user.ID.toString()));
+    this.props.dispatch(messagesActions.fetchRoomsStart());
   }
 
   render() {

@@ -1,5 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery } from 'redux-saga/effects';
+import { put, call, takeEvery, take, select } from 'redux-saga/effects';
+import { authActions } from './auth';
 import firebase from 'firebase';
 import fileType from '../../helpers/file-type';
 import faker from 'faker';
@@ -46,8 +47,13 @@ export const messagesReducer = handleActions(
 
 //Sagas
 export const messagesSagas = [
-  takeEvery(FETCH_ROOMS_START, function*({ payload }) {
-    const rooms = yield getRooms(payload);
+  takeEvery(FETCH_ROOMS_START, function*() {
+    let user = yield select(state => state.auth.user);
+    if (!user.ID) {
+      yield take(authActions.checkLoginEnd);
+    }
+    user = yield select(state => state.auth.user);
+    const rooms = yield getRooms(user.ID);
     yield put(messagesActions.fetchRoomsEnd(rooms));
   }),
   takeEvery(FETCH_MESSAGES_START, function*({ payload }) {

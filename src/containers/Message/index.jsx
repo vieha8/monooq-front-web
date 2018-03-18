@@ -379,10 +379,10 @@ class Message extends React.Component {
   };
 
   contents = () => {
-    const { classes, messages, userId } = this.props;
+    const { messages, userId } = this.props;
 
     return (
-      <div className={classes.root}>
+      <div>
         {messages.map(message => {
           const date = message.createDt.toLocaleDateString('ja-JP', {
             year: '2-digit',
