@@ -37,6 +37,7 @@ const TopView = styled.div`
   background-image: url(${mainVisual});
   background-size: cover;
   color: rgb(255, 255, 255);
+  background-repeat: no-repeat;
   ${media.phone`
     height: 480px;
     margin-top: -64px;
@@ -614,7 +615,7 @@ export default props => (
         />
         <ExplainSection
           title="かんたんに誰でもできる"
-          description="荷物をたいせつに預かって、最後は持ち主まで返す。これだけで喜んでくれる人がいます。"
+          description="荷物を受け取ってスペースに置く、最後は持ち主まで返す。これだけで喜んでくれる人がいます。"
         />
         <ExplainSection
           title="誰かの役にたつ"
