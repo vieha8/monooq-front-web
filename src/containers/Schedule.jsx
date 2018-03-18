@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import Page from 'components/Page';
 import Schedule from 'components/Schedule';
 import Menu from 'containers/Menu';
 import { requestActions } from 'redux/modules/request';
+import { authConnect }  from "../components/Auth";
 
 class ScheduleContainer extends Component {
 
@@ -27,4 +27,4 @@ const mapStateToProps = state => ({
   schedule: state.request.schedule,
 });
 
-export default connect(mapStateToProps)(ScheduleContainer);
+export default authConnect(mapStateToProps)(ScheduleContainer);

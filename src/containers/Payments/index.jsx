@@ -1,13 +1,10 @@
 import React, { Fragment } from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { withStyles } from 'material-ui/styles';
-import authRequired from 'components/Auth';
 import { messagesActions } from 'redux/modules/messages';
 import Menu from 'containers/Menu';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Page, { ContentContainer } from 'components/Page';
+import {authConnect} from "../../components/Auth";
 
 const SubTitle = styled.div`
   color: #333333;
@@ -116,18 +113,10 @@ class Payments extends React.Component {
   }
 }
 
-const styles = theme => ({
-  root: {
-    maxWidth: 720,
-    backgroundColor: theme.palette.background.paper,
-    margin: 'auto',
-  },
-});
-
 const mapStateToProps = state => ({
   rooms: state.messages.rooms,
   isLoading: state.messages.isLoading,
   userId: state.auth.user.id,
 });
 
-export default compose(withStyles(styles), authRequired, connect(mapStateToProps))(Payments);
+export default authConnect(mapStateToProps)(Payments);

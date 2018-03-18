@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { authActions } from 'redux/modules/auth';
 import { apiActions } from '../redux/modules/api';
 
@@ -32,22 +33,28 @@ const mapStateToProps = state => ({
 
 export const Auth = connect(mapStateToProps)(AuthComponent);
 
-export default function authRequired(WrappedComponent) {
-  class loginRequiredComponent extends WrappedComponent {
-    render() {
-      if (this.props.isChecking) {
-        return null;
+export const authConnect = mapStateToProps => {
+  return WrappedComponent => {
+    class loginRequiredComponent extends WrappedComponent {
+      render() {
+        if (this.props.isChecking) {
+          return null;
+        }
+        if (!this.props.isLogin) {
+          return <Redirect to="/login" />;
+        }
+        return super.render();
       }
-      if (!this.props.isLogin) {
-        return <Redirect to="/login" />;
-      }
-      return super.render();
     }
-  }
-
-  const mapStateToProps = state => {
-    return { isLogin: state.auth.isLogin, isChecking: state.auth.isChecking };
+    const mergeMapStateToProps = state => {
+      return {
+        ...mapStateToProps(state),
+        ...{
+          isLogin: state.auth.isLogin,
+          isChecking: state.auth.isChecking,
+        },
+      };
+    };
+    return withRouter(connect(mergeMapStateToProps)(loginRequiredComponent));
   };
-
-  return connect(mapStateToProps)(loginRequiredComponent);
-}
+};

@@ -1,11 +1,7 @@
 import React from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { authConnect } from "../../components/Auth";
 import { Link } from 'react-router-dom';
-import { withStyles } from 'material-ui/styles';
 import Path from 'config/path';
-import authRequired from 'components/Auth';
 import { messagesActions } from 'redux/modules/messages';
 import { uiActions } from 'redux/modules/ui';
 
@@ -506,12 +502,6 @@ class Message extends React.Component {
   }
 }
 
-const styles = theme => ({
-  textField: {
-    width: '100%',
-  },
-});
-
 const mapStateToProps = state => ({
   messages: state.messages.messages,
   isLoading: state.messages.isLoading,
@@ -519,6 +509,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default compose(withRouter, withStyles(styles), authRequired, connect(mapStateToProps))(
-  Message,
-);
+export default authConnect(mapStateToProps)(Message);
