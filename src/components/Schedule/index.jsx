@@ -19,6 +19,7 @@ export default props => {
 
   return (
     <ContentContainer>
+      {(user.length === 0 && host.length === 0) ? <div>リクエストはありません</div>: null}
       {user.map((request, i) => {
         return (
           <ReservationInfo
