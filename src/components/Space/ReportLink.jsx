@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import FlagIcon from 'material-ui-icons/Flag';
 import { media } from 'helpers/style/media-query';
 import { FontSizes, Colors, Dimens } from 'variables';
+import Path from 'config/path';
 
 const Container = styled.div`
   text-align: center;
@@ -27,11 +28,11 @@ const Text = styled.a`
   cursor: pointer;
 `;
 
-export default props => (
+export default () => (
   <Container>
     <IconWrapper>
-      <FlagIcon style={{ color: Colors.darkGray2 }}/>
+      <FlagIcon style={{ color: Colors.darkGray2 }} />
     </IconWrapper>
-    <Text href="/">不適切な内容を報告</Text>
+    <Text href={Path.report()}>不適切な内容を報告</Text>
   </Container>
 );
