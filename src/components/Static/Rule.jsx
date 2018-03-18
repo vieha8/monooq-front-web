@@ -2,11 +2,18 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Footer } from 'components/Shared';
+import { Dimens } from 'variables';
+
+import ruleImage1 from 'images/rule-img01.svg';
+import ruleImage2 from 'images/rule-img02.svg';
+import ruleImage3 from 'images/rule-img03.svg';
 
 const DefaultContainer = styled.div`
-  padding: 0 116px;
+  width: ${Dimens.fixedWidthPc}px;
+  margin: 0 auto;
   ${media.phone`
     padding: 0 8vw;
+    width: 100vw;
   `};
 `;
 
@@ -37,7 +44,6 @@ const Text = styled.div`
 const HilightText = styled.div`
   font-size: 22px;
   line-height: 32px;
-  margin-bottom: 21px;
 `;
 
 const TextWrapper = styled.div`
@@ -48,7 +54,7 @@ const Hr = styled.hr`
   border: 0;
   height: 1px;
   width: 100%;
-  background-color: #DBDBDB;
+  background-color: #dbdbdb;
   margin: 50px 0;
   ${media.phone`
     margin: 20px 0;
@@ -62,14 +68,11 @@ const MainTitleContainer = DefaultContainer.extend`
   `};
 `;
 
-const WhoFindHostContainer = DefaultContainer.extend`
-`;
+const WhoFindHostContainer = DefaultContainer.extend``;
 
-const WhoWantBeHostContainer = DefaultContainer.extend`
-`;
+const WhoWantBeHostContainer = DefaultContainer.extend``;
 
-const HowSafeContainer = DefaultContainer.extend`
-`;
+const HowSafeContainer = DefaultContainer.extend``;
 
 const HowSafeContentWrapper = styled.div`
   width: 100%;
@@ -78,33 +81,38 @@ const HowSafeContentWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const HowSafeContent = (props) => {
+const HowSafeContent = props => {
   const ImageArea = styled.div`
     height: 130px;
     width: 100%;
     background: url(${props.image}) center no-repeat;
+    ${media.phone`
+      height: 110px;
+    `};
+  `;
+  const TextArea = styled(Text)`
+    margin-bottom: 30px;
   `;
   return (
     <div className={props.className}>
-      <ImageArea></ImageArea>
       <HilightText>{props.label}</HilightText>
-      <Text>{props.text}</Text>
+      <ImageArea />
+      <TextArea>{props.text}</TextArea>
     </div>
   );
-}
+};
 
 const StyledHowSafeContent = styled(HowSafeContent)`
   width: 326px;
 `;
 
-const NotAllowedContainer = DefaultContainer.extend`
-`;
+const NotAllowedContainer = DefaultContainer.extend``;
 
 const NotAllowedContentWrapper = styled.div`
   margin-bottom: 30px;
 `;
 
-const NotAllowedContent = (props) => {
+const NotAllowedContent = props => {
   const Header = styled.div`
     width: 178.22px;
     font-weight: bold;
@@ -116,6 +124,7 @@ const NotAllowedContent = (props) => {
   const Data = styled.div`
     ${media.phone`
       line-height: 30px;
+      margin-bottom: 20px;
     `};
   `;
   return (
@@ -124,7 +133,7 @@ const NotAllowedContent = (props) => {
       <Data>{props.data}</Data>
     </div>
   );
-}
+};
 
 const StyledNotAllowedContent = styled(NotAllowedContent)`
   width: 100%;
@@ -134,14 +143,14 @@ const StyledNotAllowedContent = styled(NotAllowedContent)`
   line-height: 60px;
   font-size: 14px;
   padding: 0 20px;
-  border-right: 1px solid #DBDBDB;
-  border-left: 1px solid #DBDBDB;
-  border-bottom: 1px solid #DBDBDB;
-  :nth-child(odd){
-      background-color: #F9FAFB;
+  border-right: 1px solid #dbdbdb;
+  border-left: 1px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
+  :nth-child(odd) {
+    background-color: #f9fafb;
   }
-  :first-child{
-    border-top: 1px solid #DBDBDB;
+  :first-child {
+    border-top: 1px solid #dbdbdb;
   }
 `;
 
@@ -149,7 +158,7 @@ const DoNotActionContainer = DefaultContainer.extend`
   margin-bottom: 135px;
 `;
 
-const DoNotActionContent = (props) => {
+const DoNotActionContent = props => {
   const Title = styled.div`
     font-size: 22px;
     line-height: 33px;
@@ -162,14 +171,15 @@ const DoNotActionContent = (props) => {
       {props.children}
     </div>
   );
-}
-
+};
 
 export default props => (
   <Fragment>
     <MainTitleContainer>
       <MainTitle>ルールとマナー</MainTitle>
-      <HilightText>モノオクは、みなさんのあたたかく誠実なご対応と共に運営を行っています。だれもが気持ちよく物置きシェアを行うためにルールとマナーは必ず守ってください。</HilightText>
+      <HilightText>
+        モノオクは、みなさんのあたたかく誠実なご対応と共に運営を行っています。だれもが気持ちよく物置きシェアを行うためにルールとマナーは必ず守ってください。
+      </HilightText>
 
       <Hr />
     </MainTitleContainer>
@@ -179,15 +189,21 @@ export default props => (
 
       <TextWrapper>
         <HilightText>スペース情報をしっかり確認。</HilightText>
-        <Text>ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。</Text>
+        <Text>
+          ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。
+        </Text>
       </TextWrapper>
       <TextWrapper>
         <HilightText>連絡と支払いはモノオクで。</HilightText>
-        <Text>ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。</Text>
+        <Text>
+          お支払い・荷物・あなた自身を守るために、相談から利用終了日までの決済・やり取りは必ずモノオクのプラットフォームで行ってください。もしも不必要なサービス以外の連絡手段を共用されたり、現金での支払いなどを求められたら、モノオクまでご報告ください。
+        </Text>
       </TextWrapper>
       <TextWrapper>
         <HilightText>すべての荷物内容を連絡。</HilightText>
-        <Text>ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。</Text>
+        <Text>
+          当日になって「聞いていた荷物と違う！」そんな状況はホストがとっても困ります。おなたの荷物が多くても少なくても、必ずホストへ荷物の内容の申告を行ってください。
+        </Text>
       </TextWrapper>
 
       <Hr />
@@ -198,15 +214,21 @@ export default props => (
 
       <TextWrapper>
         <HilightText>誠実なスペース情報を掲載しましょう。</HilightText>
-        <Text>より正確なスペース情報を掲載することで、ユーザーはあなたに安心して相談できます。</Text>
+        <Text>
+          より正確なスペース情報を掲載することで、ユーザーはあなたに安心して相談できます。
+        </Text>
       </TextWrapper>
       <TextWrapper>
         <HilightText>荷物の情報を必ず聞きましょう。</HilightText>
-        <Text>ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。</Text>
+        <Text>
+          「思っていたより多い。聞いていたサイズと全然違う。」あなたのスペースを有効に使うためにも、メッセージで必ず確認してください。ホストをお守りするためにもとっても大事なことです。
+        </Text>
       </TextWrapper>
       <TextWrapper>
         <HilightText>なぜ荷物を置きたいのかユーザーに聞いてみましょう。</HilightText>
-        <Text>ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。</Text>
+        <Text>
+          なぜあなたのスペースが良いのか、事前に聞いてみましょう。引っ越しやトランクルームの代わりにしたいなど状況は様々です。
+        </Text>
       </TextWrapper>
 
       <Hr />
@@ -218,29 +240,25 @@ export default props => (
         {[
           {
             label: 'あなたをサポート',
-            image: 'http://placehold.jp/80x80.png',
-            text: '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',
+            image: ruleImage1,
+            text:
+              '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',
           },
           {
             label: 'レビュー評価',
-            image: 'http://placehold.jp/60x60.png',
-            text: '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',
+            image: ruleImage2,
+            text:
+              '誠実で健全なサービスを運営していくために、取り引き完了後に相互レビュー評価を行います。',
           },
           {
             label: '違反報告',
-            image: 'http://placehold.jp/70x60.png',
-            text: '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',
+            image: ruleImage3,
+            text:
+              '迷惑な行為をする人や、禁止されている情報を掲載しているスペースはモノオクまで通報することができます。不適切と判断した場合に随時対応を行っています。',
           },
-        ].map((v,i)=>{
-          return (
-            <StyledHowSafeContent
-              label={v.label}
-              image={v.image}
-              text={v.text}
-              key={i}
-            />
-          );
-        })}
+          ].map((v, i) => {
+            return <StyledHowSafeContent label={v.label} image={v.image} text={v.text} key={i} />;
+          })}
       </HowSafeContentWrapper>
 
       <Hr />
@@ -248,13 +266,14 @@ export default props => (
 
     <NotAllowedContainer id="not-allowed">
       <SubTitle>取引ができない荷物</SubTitle>
-      <HilightText>モノオクでは以下に相当する荷物の取り引きは禁止しています。</HilightText>
+      <HilightText>モノオクでは、以下に相当する荷物のスペース利用を禁止しています。</HilightText>
 
       <NotAllowedContentWrapper>
         {[
           {
             header: '危険物・劇毒物',
-            data: '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+            data:
+              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
           },
           {
             header: '可燃物・特殊可燃物',
@@ -262,7 +281,8 @@ export default props => (
           },
           {
             header: '特殊品',
-            data: '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+            data:
+              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
           },
           {
             header: '生き物',
@@ -270,7 +290,8 @@ export default props => (
           },
           {
             header: '美術品・高価品',
-            data: '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+            data:
+              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
           },
           {
             header: '生鮮食品',
@@ -278,7 +299,8 @@ export default props => (
           },
           {
             header: '異臭のする物',
-            data: '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+            data:
+              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
           },
           {
             header: 'こわれやすい物',
@@ -286,27 +308,23 @@ export default props => (
           },
           {
             header: '特殊な衣料',
-            data: '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+            data:
+              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
           },
           {
             header: '慶事・祭事・仏事関連品',
-            data: '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+            data:
+              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
           },
           {
             header: 'その他',
-            data: '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+            data:
+              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
           },
-        ].map((v,i)=>{
-          return (
-            <StyledNotAllowedContent
-              header={v.header}
-              data={v.data}
-              key={i}
-            />
-          );
-        })}
+          ].map((v, i) => {
+            return <StyledNotAllowedContent header={v.header} data={v.data} key={i} />;
+          })}
       </NotAllowedContentWrapper>
-      <Text>貴重品や高価なもの、2度と手に入れることのない大切な思い出の品などは自分の手元に置いてくださいね。保証は最大10万円となり、それ以上の保証は一切できません。</Text>
 
       <Hr />
     </NotAllowedContainer>
@@ -318,88 +336,95 @@ export default props => (
         {[
           {
             hilightText: 'モノオク以外で支払いを行うこと。',
-            text: 'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+            text:
+              'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。直接の口座振込や現金のお支払いは一切行わないでください。もしも、このような行為を持ちかけられた場合は、モノオクカスタマーサポートまでご連絡ください。',
           },
           {
             hilightText: '登録した本人以外が連絡や取引をすること。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: '必ずアカウント登録を行ったご本人が取引を行ってください。',
           },
           {
             hilightText: '申告と異なる荷物をホストへ強要すること。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: 'ホストが認識していない荷物を無理やりお願いすることは禁止です。事前にしっかりと内容を伝えましょう。',
           },
           {
             hilightText: '無断でスペース利用の延長をすること。',
-            text: 'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+            text:
+              '利用終了日に荷物を取りに来ない、連絡がとれない、などお互いが困る行為は禁止です。',
           },
           {
             hilightText: '同意が取れていない方法で荷物を届けること。',
-            text: 'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+            text:
+              '一方的に着払いをするなど、ホストが困る身勝手な行為は禁止です。荷物の配送方法に関してもお互いが同意の上で取り引きを進めてください。',
           },
-        ].map((v,i)=>{
-          return (
-            <TextWrapper key={i}>
-              <HilightText>{v.hilightText}</HilightText>
-              <Text>{v.text}</Text>
-            </TextWrapper>
-          );
-        })}
+          ].map((v, i) => {
+            return (
+              <TextWrapper key={i}>
+                <HilightText>{v.hilightText}</HilightText>
+                <Text>{v.text}</Text>
+              </TextWrapper>
+            );
+          })}
       </DoNotActionContent>
 
       <DoNotActionContent title="スペース登録">
         {[
           {
             hilightText: '架空のスペースを登録すること。',
-            text: 'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+            text:
+              '実体のないスペースの登録は禁止です。このような掲載を見つけ次第、情報の非公開・アカウント停止などの対応を行います。',
           },
           {
             hilightText: '虚偽または誤りのある情報を掲載すること。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: '良く見せようとして、嘘の内容や過度な強調がされた内容を掲載するのは禁止です。',
           },
           {
             hilightText: '他のホストの文章・写真などを使用すること。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: 'あなたが管理するスペースの内容を掲載してください。',
           },
           {
             hilightText: '宣伝・勧誘などサービス利用に関係のない情報を掲載すること。',
-            text: 'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+            text:
+              '物置きシェアのために必要な情報を掲載してください。このような掲載を見つけ次第、情報の非公開・アカウント停止などの対応を行います。',
           },
-        ].map((v,i)=>{
-          return (
-            <TextWrapper key={i}>
-              <HilightText>{v.hilightText}</HilightText>
-              <Text>{v.text}</Text>
-            </TextWrapper>
-          );
-        })}
+          ].map((v, i) => {
+            return (
+              <TextWrapper key={i}>
+                <HilightText>{v.hilightText}</HilightText>
+                <Text>{v.text}</Text>
+              </TextWrapper>
+            );
+          })}
       </DoNotActionContent>
 
       <DoNotActionContent title="その他">
         {[
           {
             hilightText: '物置きシェアに関係のない外部サービスへの誘導。',
-            text: 'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+            text:
+              'スペース掲載や取り引きに関係のないサービスへ誘導するのは禁止です。',
           },
           {
             hilightText: 'みんなに迷惑な行為。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: 'みんなが安心してサービス利用ができなくなる迷惑行為は禁止です。',
           },
           {
             hilightText: '個人を特定できるような情報を発信すること。',
-            text: '必ずアカウント登録を行った本人が行ってください。',
+            text: 'だれかの誹謗中傷、個人情報や写真など、悪質な内容を発見したらすぐさま対応します。',
           },
           {
             hilightText: 'その他、モノオクカスタマーサポートにて不適切と判断する行為。',
-            text: 'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。',
+            text:
+              'カスタマーサポートでは随時掲載内容のチェックを行っています。おかしいな？と思ったらモノオクまでご報告ください。',
           },
-        ].map((v,i)=>{
-          return (
-            <TextWrapper key={i}>
-              <HilightText>{v.hilightText}</HilightText>
-              <Text>{v.text}</Text>
-            </TextWrapper>
-          );
-        })}
+          ].map((v, i) => {
+            return (
+              <TextWrapper key={i}>
+                <HilightText>{v.hilightText}</HilightText>
+                <Text>{v.text}</Text>
+              </TextWrapper>
+            );
+          })}
       </DoNotActionContent>
     </DoNotActionContainer>
 
