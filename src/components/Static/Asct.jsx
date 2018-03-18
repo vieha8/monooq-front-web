@@ -48,29 +48,31 @@ const AsctContent = (props) => {
     width: 150px;
     font-weight: bold;
     margin-right: 20px;
+    line-height: 1.5;
     ${media.phone`
       width: 100%;
     `};
   `;
   const Data = styled.div`
+    line-height: 1.5;
     ${media.phone`
-      line-height: 30px;
-    `};
+      margin-top: 16px;
+    `}
   `;
   return (
     <div className={props.className}>
       <Header>{props.header}</Header>
-      <Data>{props.data}</Data>
+      <Data dangerouslySetInnerHTML={{ __html: props.data }} />
     </div>
   );
 }
 
 const StyledAsctContent = styled(AsctContent)`
   width: 100%;
+  padding: 20px 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  line-height: 50px;
   font-size: 16px;
   border-bottom: 1px solid #DBDBDB;
 `;
@@ -94,7 +96,7 @@ export default () => (
           },
           {
             header: 'ホームページ',
-            data: <a href={Path.top()}>https://monooq.com/</a>,
+            data: '<a href={Path.top()}>https://monooq.com/</a>',
           },
           {
             header: 'メールアドレス',
@@ -102,7 +104,7 @@ export default () => (
           },
           {
             header: '所在地',
-            data: '〒166-0003 東京都杉並区高円寺南 2-48-12クリニカルコーポ1F',
+            data: '〒166-0003 東京都杉並区高円寺南 2-48-12 1F',
           },
           {
             header: '電話番号',
@@ -130,7 +132,7 @@ export default () => (
           },
           {
             header: '返品・交換について',
-            data: 'モノオクの定めるキャンセルポリシーがございます。お支払い前に必ずお読みください。',
+            data: `モノオクの定める<a href=${Path.cancellationPolicies()}>キャンセルポリシー</a>がございます。お支払い前に必ずお読みください。`,
           },
         ].map((v,i)=>{
           return (
