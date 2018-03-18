@@ -4,7 +4,7 @@ import Path from 'config/path';
 import Icon from 'components/Shared/Icon';
 import Menu from 'containers/Menu';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
-import { media } from 'helpers/style/media-query';
+import { media, isMobileWindow } from 'helpers/style/media-query';
 import logoUri from 'images/monooq_logo.svg';
 
 const Container = styled.nav`
@@ -102,12 +102,13 @@ const SearchFiled = styled.input`
       width: 0;
     }
     100% {
-      width: 300px;
+      width: ${props => (props.isMobile ? 100 : 300)}px;
     }
   }
 
   outline: none;
   height: 32px;
+  margin-top: 14px;
   width: 0;
   border: none;
   border-bottom: 1px solid ${Colors.borderGray};
@@ -115,6 +116,9 @@ const SearchFiled = styled.input`
     animation show 0.5s ease 0s;
     animation-fill-mode: forwards;
     width: 300px;
+    ${media.phone`
+      width: 100px;
+    `}
   `}
 `;
 
@@ -173,6 +177,7 @@ export default props => (
       </LogoWrapper>
       <MenuWrapper>
         <SearchFiled
+          isMobile={isMobileWindow()}
           show={props.showSearchField}
           innerRef={ref => refSearchField(ref, props)}
           placeholder="どの場所で預けますか？"
