@@ -15,23 +15,39 @@ const AutoDeleteCaption = styled.span`
 
 export default props => {
 
-  const { user } = props.schedule;
+  const { user, host } = props.schedule;
 
   return (
     <ContentContainer>
       {user.map((request, i) => {
-        console.log(request);
         return (
           <ReservationInfo
             key={i}
-            username={request.Space.Host.Name}
+            isHost={false}
+            userName={request.Space.Host.Name}
             place={request.Space.AddressPref}
             title={request.Space.Title}
             startDate={request.StartDate}
             endDate={request.EndDate}
             otherText="キャンセルする"
             otherLink={Path.confirmCancel('scheduleHOGEHOGE')}
-            salesAmount={request.Price}
+            price={request.Price}
+          />
+        );
+      })}
+      {host.map((request, i) => {
+        return (
+          <ReservationInfo
+            key={i}
+            isHost={true}
+            userName={request.User.Name}
+            place={request.Space.AddressPref}
+            title={request.Space.Title}
+            startDate={request.StartDate}
+            endDate={request.EndDate}
+            otherText="キャンセルする"
+            otherLink={Path.confirmCancel('scheduleHOGEHOGE')}
+            price={request.Price}
           />
         );
       })}

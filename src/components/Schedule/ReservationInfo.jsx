@@ -53,7 +53,7 @@ export default props => (
   <Container>
     <DepositContainer>
       <SpaceContainer>
-        <UserName>ホストは{props.username}さん</UserName>
+        <UserName>{props.isHost ? 'ユーザー' : 'ホスト'}は{props.userName}さん</UserName>
         <SpaceRowWrapper>
           <SpaceRow
             place={props.place}
@@ -68,9 +68,9 @@ export default props => (
         />
       </ScheduleContaienr>
     </DepositContainer>
-    {props.cancel
-      ? <CancelSales salesAmount={props.salesAmount} />
-      : <ScheduleSales salesAmount={props.salesAmount} />
+    {props.isHost
+      ? <ScheduleSales salesAmount={props.price} />
+      : <CancelSales salesAmount={props.price} />
     }
     {props.otherText && props.otherLink &&
       <Operation
