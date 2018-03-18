@@ -5,9 +5,9 @@ import { Footer } from 'components/Shared';
 import { Dimens } from 'variables';
 import Path from 'config/path';
 
-import howSafeImage1 from 'images/insurance-img01.svg';
-import howSafeImage2 from 'images/insurance-img02.svg';
-import howSafeImage3 from 'images/insurance-img03.svg';
+import insuranceImage1 from 'images/insurance-img01.svg';
+import insuranceImage2 from 'images/insurance-img02.svg';
+import insuranceImage3 from 'images/insurance-img03.svg';
 
 const DefaultContainer = styled.div`
   width: ${Dimens.fixedWidthPc}px;
@@ -232,17 +232,17 @@ export default props => (
         {
           [
             {
-              image: howSafeImage1,
+              image: insuranceImage1,
               label: 'ユーザーは何をすれば良い？',
               text: 'しっかりと荷物の内容と写真をメッセージに残しましょう。何かが起こった場合にスムーズな対応を行うためです。もし事前に連絡をしていない荷物はホストに受け入れを断られてしまったり、保証の対象となりません。',
             },
             {
-              image: howSafeImage2,
+              image: insuranceImage2,
               label: 'ホストは何をすれば良い？',
               text: '荷物の受け取りが完了したら、すべての荷物とスペース状況を写真に残しましょう。そして相手にメッセージで送信してください。もしも何かが起こった際に、発生した時期や内容を特定する参考として必要です。',
             },
             {
-              image: howSafeImage3,
+              image: insuranceImage3,
               label: '気持ちの良い取引をするには？',
               text: 'ユーザーもホストも荷物の内容やスペースに関して、事前にしっかりと確認しましょう。当日になって「思っていたのと内容が違う」なんてことはトラブルの原因です。お互いが気持ち良くサービスを使えるようなコミュニケーションを。',
             },
