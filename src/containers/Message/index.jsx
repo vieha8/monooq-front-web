@@ -2,7 +2,7 @@ import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Path from 'config/path';
 import authRequired from 'components/Auth';
@@ -13,7 +13,12 @@ import styled from 'styled-components';
 import { Colors } from 'variables';
 import { media } from '../../helpers/style/media-query';
 
-const MessagePage = styled.div``;
+const MessagePage = styled.div`
+  padding-top: 80px;
+  ${media.tablet`
+    padding-top: 60px;
+  `}
+`;
 
 const MessageContainer = styled.div`
   max-width: 1048px;
