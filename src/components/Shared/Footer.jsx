@@ -20,8 +20,8 @@ const Container = styled.div`
 `;
 
 const Menu = styled.a`
-  display: table-cell;
-  font-size: ${FontSizes.small}px;
+  display: inline-block;
+  font-size: ${FontSizes.xsmall}px;
   text-align: center;
   vertical-align: middle;
   text-decoration: none;
@@ -39,7 +39,7 @@ const Menu = styled.a`
 
 const Copyright = styled.span`
   display: table-cell;
-  font-size: ${FontSizes.small}px;
+  font-size: ${FontSizes.xsmall}px;
   text-align: right;
   vertical-align: middle;
   color: ${Colors.darkGray1};
