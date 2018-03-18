@@ -91,7 +91,7 @@ const Unit = styled.span`
 export default props => (
   <Container>
     <ImageContainer>
-      <Image src="http://placehold.jp/250x120.png" alt="" />
+      <Image src={props.image} alt="" />
     </ImageContainer>
     <PriceContainer>
       <Title>{props.title}</Title>

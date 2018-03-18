@@ -34,9 +34,9 @@ export default class SpaceSize extends Component {
   };
 
   handleChangeType = (type) => {
-    const {space} = this.props.ui;
-    Object.assign(space, {sizeType: type});
-    this.props.dispatch(uiActions.setUiState({space}));
+    const { space } = this.props.ui;
+    Object.assign(space, { sizeType: type });
+    this.props.dispatch(uiActions.setUiState({ space }));
   };
 
   render() {
