@@ -74,34 +74,23 @@ export const authReducer = handleActions(
   initialState,
 );
 
-//Sagas
-function* checkLoginFirebaseAuth() {
-  //TODO とりあえずここでやってるけどなんか違う気はする
-  try {
-    const result = yield firebase.auth().getRedirectResult();
-    // TODO result.additionalUserInfo.isNewUserがtrueだと新規登録なので会員登録動線に飛ばす必要あり(signUpFormのstep4)
-    if (result.user) {
-      yield put(authActions.loginSuccess());
-    }
-  } catch (err) {
-    console.error(err);
-    yield put(authActions.loginFailed(err));
-  }
-
-  const status = yield call(() => {
-    return new Promise(resolve => {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          resolve({ isLogin: true, user: user });
-        } else {
-          resolve({ isLogin: false });
-        }
-      });
+const getLoginUserFirebaseAuth = () => {
+  return new Promise(resolve => {
+    firebase.auth().onAuthStateChanged(user => {
+      resolve(user);
     });
   });
+};
 
-  if (status.isLogin) {
-    yield put(apiActions.authFirebaseGet({ id: status.user.uid }));
+//Sagas
+function* checkLoginFirebaseAuth() {
+  const user = yield call(getLoginUserFirebaseAuth);
+
+  const status = { isLogin: false };
+
+  if (user) {
+    status.isLogin = true;
+    yield put(apiActions.authFirebaseGet({ id: user.uid }));
     const { payload } = yield take(apiActions.authFirebaseGetSuccess);
     status.user = payload;
     if (payload.Profile === '') {
