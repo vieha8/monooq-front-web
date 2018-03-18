@@ -2,7 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import logoImageUri from './monooq_logo.svg';
+import logoImage from './logo.svg';
+import logoWhiteImage from './logo-white.svg';
 
 const Logo = styled.img`
   width: ${props => props.width}px;
@@ -11,6 +12,7 @@ const Logo = styled.img`
 
 export default {
   Base: () => <Logo src={logoImageUri} alt="logo" width={240} />,
-  Header: () => <Logo src={logoImageUri} alt="logo" width={80} />,
+  Header: () => <Logo src={logoImage} alt="logo" width={80} />,
+  ColoredHeader: () => <Logo src={logoWhiteImage} alt="logo" width={80} />,
   Footer: () => <Logo src={logoImageUri} alt="logo" width={120} />,
 };

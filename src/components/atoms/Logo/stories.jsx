@@ -11,6 +11,16 @@ storiesOf('Atoms/Images/Logo', module)
       <Logo.Base />
     </div>
   ))
+  .add('Header', () => (
+    <div>
+      <Logo.Header />
+    </div>
+  ))
+  .add('ColoredHeader', () => (
+    <div>
+      <Logo.ColoredHeader />
+    </div>
+  ))
   .add('Footer', () => (
     <div>
       <Logo.Footer />

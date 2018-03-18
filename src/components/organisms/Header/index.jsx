@@ -20,12 +20,15 @@ const Container = styled.header`
   width: 100%;
   border-bottom: 2px solid ${Colors.borderGray};
   background: ${Colors.white};
-  ${props => props.top && `
+  ${props =>
+    props.top &&
+    `
     background: rgba(255, 255, 255, 0.6);
-  `}
-  ${props => props.help && `
+  `} ${props =>
+      props.help &&
+      `
     background: ${Colors.brandAccent};
-  `}
+  `};
 `;
 
 const Nav = styled.nav`
@@ -33,9 +36,8 @@ const Nav = styled.nav`
   align-items: center;
   height: ${HeightDesktop}px;
   ${media.phone`
-    height: ${HeightSmp}px;  
-  `}
-  z-index: ${ZIndexes.nav};
+    height: ${HeightSmp}px;
+  `} z-index: ${ZIndexes.nav};
 `;
 
 const LogoWrapper = styled.a`
@@ -43,7 +45,7 @@ const LogoWrapper = styled.a`
   margin-left: 12px;
   ${media.phone`
     margin-top: 4px;
-  `}
+  `};
 `;
 
 const ActionWrapper = styled.div`
@@ -56,7 +58,7 @@ const ActionContainer = styled.div`
   display: table;
   ${media.phone`
     margin-top: 4px;
-  `}
+  `};
 `;
 
 const ActionCell = styled.div`
@@ -83,8 +85,7 @@ const MenuWrapper = styled.div`
     top: ${HeightSmp}px;
     bottom: 0;
     width: 100%;
-  `}
-  right: 0;
+  `} right: 0;
   z-index: ${ZIndexes.nav};
 `;
 
@@ -95,11 +96,11 @@ const MenuBackground = styled.div`
   right: 0;
   bottom: 0;
   cursor: pointer;
-  background: rgba(255, 255, 255 ,0.6);
+  background: rgba(255, 255, 255, 0.6);
   z-index: ${ZIndexes.modal};
   ${media.phone`
     display: none;
-  `}
+  `};
 `;
 
 type PropTypes = {
@@ -120,13 +121,13 @@ type PropTypes = {
   top?: boolean,
   help?: boolean,
   hideActions?: boolean,
-}
+};
 
 export default (props: PropTypes) => (
   <Container top={props.top} help={props.help}>
     <Nav>
       <LogoWrapper href={props.homeUri}>
-        <Logo.Header />
+        {(props.top || props.help) ? <Logo.ColoredHeader /> : <Logo.Header />}
       </LogoWrapper>
       {!props.hideActions && (
         <ActionWrapper>
@@ -160,10 +161,7 @@ export default (props: PropTypes) => (
                 href={props.searchUri}
               />
               <AnonymouseWrapper>
-                <Anonymouse
-                  loginUri={props.loginUri}
-                  signupUri={props.signupUri}
-                />
+                <Anonymouse loginUri={props.loginUri} signupUri={props.signupUri} />
               </AnonymouseWrapper>
             </Fragment>
           )}
@@ -173,9 +171,7 @@ export default (props: PropTypes) => (
     {props.showMenu && (
       <Fragment>
         <MenuBackground onClick={props.onClickCloseMenu} />
-        <MenuWrapper>
-          {props.menu}
-        </MenuWrapper>
+        <MenuWrapper>{props.menu}</MenuWrapper>
       </Fragment>
     )}
   </Container>
