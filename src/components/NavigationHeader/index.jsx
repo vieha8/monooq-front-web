@@ -180,7 +180,7 @@ export default props => (
           isMobile={isMobileWindow()}
           show={props.showSearchField}
           innerRef={ref => refSearchField(ref, props)}
-          placeholder="どの場所で預けますか？"
+          placeholder="どこの物置きを探す？"
         />
         <IconWrapper onClick={props.onClickSearchIcon}>
           <Icon name="fal fa-search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
