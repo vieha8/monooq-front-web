@@ -66,6 +66,12 @@ const ArtContainer = (props) => {
   );
 }
 
+const UpdatedText = styled.div`
+  line-height: 1.5;
+  text-align: right;
+  font-size: 16px;
+`;
+
 const StyledArtContainer = styled(ArtContainer)`
   margin-bottom: 80px;
   padding: 0 116px;
@@ -182,9 +188,9 @@ export default () => (
         開示等のお申出、ご意見、ご質問、苦情のお申出その他個人情報の取扱いに関するお問い合わせは、下記の窓口までお願い致します。
 
         <Address>
-          〒106-0044<br />
-          東京都港区東麻布1-29-9<br />
-          モノオク株式会社 個人情報担当者宛
+          〒166-0003<br />
+          東京都杉並区高円寺南 2-48-12 1F<br />
+          モノオク株式会社 個人情報担当者宛<br />
         </Address>
       </Para>
     </StyledArtContainer>
@@ -194,7 +200,10 @@ export default () => (
         当社は、個人情報の取扱いに関する運用状況を適宜見直し、継続的な改善に努めるものとし、必要に応じて、本プライバシーポリシーを変更することがあります。
       </Para>
     </StyledArtContainer>
-
+    <StyledArtContainer>
+      <UpdatedText>制定：2017年3月3日</UpdatedText>
+      <UpdatedText>改定：2018年3月26日</UpdatedText>
+    </StyledArtContainer>
     <Footer />
   </Fragment>
 );
