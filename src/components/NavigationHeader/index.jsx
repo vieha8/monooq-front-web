@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import Path from 'config/path';
 import Icon from 'components/Shared/Icon';
@@ -26,7 +27,7 @@ export const TopPadding = styled.div`
   width: 100%;
 `;
 
-const LogoWrapper = styled.a`
+const LogoWrapper = styled(Link)`
   display: table-cell;
   vertical-align: middle;
   width: 20%;
@@ -172,7 +173,7 @@ function refSearchField(ref, props) {
 export default props => (
   <div>
     <Container>
-      <LogoWrapper href={Path.top()}>
+      <LogoWrapper to={Path.top()}>
         <Logo src={logoUri} />
       </LogoWrapper>
       <MenuWrapper>
