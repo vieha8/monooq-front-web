@@ -1,11 +1,10 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import MenuPage from 'components/templates/MenuPageTemplate';
 import Header from 'containers/Header';
 import Footer from 'components/molecules/Footer';
 import HelpMenu from 'components/organisms/HelpMenu';
-import CommonHelp from 'components/molecules/Help/CommonHelp';
 import AboutService from 'components/organisms/HelpContent/AboutService';
 
 type PropTypes = {

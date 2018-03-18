@@ -15,7 +15,7 @@ const AutoDeleteCaption = styled.span`
 
 export default props => {
 
-  const { user, host } = props.schedule;
+  const { user } = props.schedule;
 
   return (
     <ContentContainer>

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Colors, Dimens } from 'variables';
+import { Colors } from 'variables';
 import InlineText from 'components/atoms/InlineText';
 import { AngleRight, AngleDown } from 'components/atoms/ActionIcon';
 import MenuItem from 'components/atoms/Menu/Item';

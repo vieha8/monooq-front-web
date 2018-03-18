@@ -39,7 +39,7 @@ class HeaderContainer extends Component<PropTypes> {
   }
 
   closeMenu = () => {
-    const { dispatch, ui } = this.props;
+    const { dispatch } = this.props;
 
     document.body.style.overflowY = 'auto';
 

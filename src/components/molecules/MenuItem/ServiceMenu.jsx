@@ -2,7 +2,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Colors, Dimens } from 'variables';
 import InlineText from 'components/atoms/InlineText';
 import NotificationCount from 'components/atoms/NotificationCount';
 import MenuItem from 'components/atoms/Menu/Item';

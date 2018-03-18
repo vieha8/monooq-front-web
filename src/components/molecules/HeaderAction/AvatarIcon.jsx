@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
 import AvatarImage from 'components/atoms/AvatarImage';
 
 type PropTypes = {
