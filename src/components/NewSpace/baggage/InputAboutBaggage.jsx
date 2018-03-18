@@ -20,7 +20,7 @@ const styles = {
 export default (props) => (
   <Container>
     <Title
-      title="預かることができる荷物について"
+      title="このスペースに置ける荷物について"
       subTitle="あなたのスペースで預かることができそうな荷物について説明しましょう"
     />
     <Form>

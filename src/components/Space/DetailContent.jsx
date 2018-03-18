@@ -76,7 +76,7 @@ const SpaceType = props => (
   </Container>
 );
 
-// 預かることができる荷物
+// このスペースに置ける荷物
 const BaggegeType = props => (
   <Container>
     {props.typeOK && <TypeOKText>家具・家電OK</TypeOKText>}

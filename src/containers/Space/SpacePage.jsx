@@ -211,7 +211,7 @@ class Space extends React.Component {
                 </Section>
                 <Section>
                   <DetailContainer
-                    title="預かることができる荷物"
+                    title="このスペースに置ける荷物"
                     renderContent={() => (
                       <DetailContent.BaggegeType
                         typeOK={space.IsFurniture}
