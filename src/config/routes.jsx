@@ -48,7 +48,6 @@ import HelpTop from 'containers/Static/Help/Top';
 import HelpAboutService from 'containers/Static/Help/AboutService';
 
 import NavigationHeader from 'containers/NavigationHeader';
-import { Auth } from 'components/Auth';
 
 import Path from './path';
 
@@ -101,7 +100,6 @@ export const routes = [
 export default props => (
   <ConnectedRouter history={props.history}>
     <Root>
-      <Auth />
       <NavigationHeader />
       <Switch>
         {routes.map((route, i) => (
