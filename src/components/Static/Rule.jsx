@@ -2,11 +2,14 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Footer } from 'components/Shared';
+import { Dimens } from 'variables';
 
 const DefaultContainer = styled.div`
-  padding: 0 116px;
+  width: ${Dimens.fixedWidthPc}px;
+  margin: 0 auto;
   ${media.phone`
     padding: 0 8vw;
+    width: 100vw;
   `};
 `;
 
