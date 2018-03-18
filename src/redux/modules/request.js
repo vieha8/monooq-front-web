@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take } from 'redux-saga/effects';
+import { put, takeEvery, take, select } from 'redux-saga/effects';
 import { apiActions } from './api';
 import { authActions } from './auth';
 import firebase from 'firebase';
@@ -122,7 +122,11 @@ function* payment({ payload: { roomId, requestId, card } }) {
 }
 
 function* fetchSchedule() {
-  const { payload: { user } } = yield take(authActions.checkLoginEnd); //TODO とりあえず動かすためにやってるけど、本当はよろしくない
+  let user = yield select(state => state.auth.user);
+  if (!user.ID) {
+    yield take(authActions.checkLoginEnd);
+  }
+  user = yield select(state => state.auth.user);
   yield put(apiActions.requestUserGet({ id: user.ID }));
   const { payload: userRequests } = yield take(apiActions.requestUserGetSuccess);
 
