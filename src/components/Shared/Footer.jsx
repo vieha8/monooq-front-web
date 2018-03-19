@@ -1,7 +1,8 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 import styled from 'styled-components';
-import { FontSizes, Colors, Dimens } from 'variables';
-import { media } from 'helpers/style/media-query';
+import {FontSizes, Colors, Dimens} from 'variables';
+import {media} from 'helpers/style/media-query';
 import Path from 'config/path';
 
 const Container = styled.div`
@@ -19,7 +20,7 @@ const Container = styled.div`
   `};
 `;
 
-const Menu = styled.a`
+const Menu = styled(Link)`
   display: inline-block;
   font-size: ${FontSizes.xsmall}px;
   text-align: center;
@@ -56,15 +57,15 @@ const Copyright = styled.span`
 
 export default () => (
   <Container>
-    <Menu href={Path.company()}>運営会社</Menu>
-    <Menu href={Path.about()}>はじめての方へ</Menu>
-    <Menu href={Path.insurance()}>荷物に対する保険</Menu>
-    <Menu href={Path.rule()}>ルールとマナー</Menu>
-    <Menu href={Path.helpTop()}>ヘルプ</Menu>
-    <Menu href={Path.terms()}>利用規約</Menu>
-    <Menu href={Path.privacy()}>プライバシーポリシー</Menu>
-    <Menu href={Path.asct()}>特定商取引法に基づく表記</Menu>
-    <Menu href={Path.cancellationPolicies()}>キャンセルポリシー</Menu>
-    <Copyright>@ 2017 Monooq</Copyright>
+    <Menu to={Path.company()}>運営会社</Menu>
+    <Menu to={Path.about()}>はじめての方へ</Menu>
+    <Menu to={Path.insurance()}>荷物に対する保険</Menu>
+    <Menu to={Path.rule()}>ルールとマナー</Menu>
+    <Menu to={Path.helpTop()}>ヘルプ</Menu>
+    <Menu to={Path.terms()}>利用規約</Menu>
+    <Menu to={Path.privacy()}>プライバシーポリシー</Menu>
+    <Menu to={Path.asct()}>特定商取引法に基づく表記</Menu>
+    <Menu to={Path.cancellationPolicies()}>キャンセルポリシー</Menu>
+    <Copyright>©モノオク</Copyright>
   </Container>
 );
