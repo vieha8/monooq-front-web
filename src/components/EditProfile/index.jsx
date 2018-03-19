@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import { Input, Form, TextArea, Select } from 'semantic-ui-react';
 import Button from 'components/Shared/Button';
 import { ContentContainer } from 'components/Page';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { prefectures } from "../../helpers/prefectures";
 
 const Content = styled.div`
   ${media.phone`
@@ -55,7 +57,7 @@ const ButtonWrapper = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
-const UnsubscribeText = styled.a`
+const UnsubscribeText = styled(Link)`
   display: block;
   font-size: ${FontSizes.xsmall}px;
   text-align: center;
@@ -66,9 +68,16 @@ const UnsubscribeText = styled.a`
   }
 `;
 
-const PREFECTURES = [
-  { key: 1, value: 1, text: '北海道' },
-];
+const getPrefectures = () => {
+  return prefectures.map((pref, i) => {
+    const prefCode = i + 1;
+    return ({
+      key: prefCode,
+      value: prefCode.toString(),
+      text: pref,
+    });
+  });
+};
 
 export default props => (
   <ContentContainer>
@@ -76,7 +85,7 @@ export default props => (
       <HostContainer>
         <Title>プロフィール写真</Title>
         <ImageWrapper>
-          <Image src="http://placehold.jp/500x500.png" alt={props.hostName} />
+          <Image src={props.user.ImageUrl} alt={props.user.Name} />
         </ImageWrapper>
         <ModProfileImageLink>
           <Caption align="center">写真を変更する</Caption>
@@ -85,19 +94,34 @@ export default props => (
       <InputContainer>
         <Title>お名前</Title>
         <InputWrapper>
-          <Input placeholder="ニックネーム" style={{ width: '70%' }} />
+          <Input placeholder="ニックネーム"
+                 name="name"
+                 value={props.ui.user.name}
+                 onChange={props.handleChangeText}
+                 style={{ width: '70%' }} />
         </InputWrapper>
       </InputContainer>
       <InputContainer>
         <Title>メールアドレス</Title>
         <InputWrapper>
-          <Input placeholder="info@monooq.com" style={{ width: '70%' }} />
+          <Input placeholder="info@monooq.com"
+                 name="email"
+                 value={props.ui.user.email}
+                 onChange={props.handleChangeText}
+                 style={{ width: '70%' }} />
         </InputWrapper>
       </InputContainer>
       <InputContainer>
         <Title>お住いの地域</Title>
         <InputWrapper>
-          <Select placeholder="選択してください" style={{ width: '70%' }} options={PREFECTURES} />
+          <Select
+            placeholder="選択してください"
+            style={{ width: '70%' }}
+            options={getPrefectures()}
+            name="prefCode"
+            value={props.ui.user.prefCode}
+            onChange={props.handleChangeSelect}
+          />
         </InputWrapper>
       </InputContainer>
       <InputContainer>
@@ -109,6 +133,9 @@ export default props => (
               placeholder="はじめまして！モノオクホストのYUKIです。大きめの荷物でも柔軟に対応しております、いつでもチャットでご連絡ください！"
               style={{ width: '100%' }}
               rows={5}
+              name="profile"
+              value={props.ui.user.profile}
+              onChange={props.handleChangeText}
             />
           </Form>
         </InputWrapper>
@@ -116,7 +143,7 @@ export default props => (
       <ButtonWrapper>
         <Button fluid onClick={props.onClickSave}>プロフィールを更新する</Button>
       </ButtonWrapper>
-      <UnsubscribeText href="/">退会申請をする</UnsubscribeText>
+      <UnsubscribeText to="/unsubscribe">退会申請をする</UnsubscribeText>
     </Content>
   </ContentContainer>
 );

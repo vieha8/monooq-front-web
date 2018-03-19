@@ -1,5 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select } from 'redux-saga/effects';
+import firebase from 'firebase';
 import { apiActions } from './api';
 import { uiActions } from './ui';
 import { uploadImage } from '../helpers/firebase';
@@ -84,7 +85,16 @@ function* updateUser({ payload: { userId, body } }) {
     const imagePath = `/img/users/${userId}/profile/${timeStamp}.${ext}`;
     body.imageUrl = yield uploadImage(imagePath, body.image);
   }
-
+  if (body.email) {
+    const user = firebase.auth().currentUser;
+    try {
+      yield user.updateEmail(body.email);
+    } catch (err) {
+      console.log(err.message);
+      yield put(userActions.updateFailedUser(err.message));
+      return;
+    }
+  }
   yield put(apiActions.userPut({ id: userId, body: body }));
   const { payload } = yield take(apiActions.userPutSuccess);
   yield put(userActions.updateSuccessUser(payload));
