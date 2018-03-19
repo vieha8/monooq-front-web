@@ -61,7 +61,7 @@ const Price = Text.extend`
 
 export default props => (
   <Container
-    onClick={() => window.open(`/space/${props.ID}`)}
+    onClick={() => props.history.push(`/space/${props.ID}`)}
   >
     <Card>
       <Image

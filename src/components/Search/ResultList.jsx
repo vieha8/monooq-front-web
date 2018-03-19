@@ -21,7 +21,7 @@ export default props => (
   <Container>
     {props.spaces.map((space, i) => (
       <Cell key={`result_list_cell_${i}`}>
-        <ResultItem {...space} />
+        <ResultItem {...space} history={props.history} />
       </Cell>
     ))}
   </Container>
