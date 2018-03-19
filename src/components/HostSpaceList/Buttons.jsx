@@ -13,12 +13,15 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-export default props => (
+export default (props) => (
   <Container>
     <ButtonWrapper>
       <Button
         fluid
         fontSize={FontSizes.xsmall}
+        onClick={() => {
+          props.history.push(`/user/spaces/${props.space.ID}/edit`)
+        }}
       >
         編集する
       </Button>

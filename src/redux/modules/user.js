@@ -1,9 +1,10 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take } from 'redux-saga/effects';
+import { put, takeEvery, take, select } from 'redux-saga/effects';
 import { apiActions } from './api';
 import { uiActions } from './ui';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
+import { authActions } from './auth';
 
 // Actions
 const FETCH_USER = 'FETCH_USER';
@@ -56,6 +57,14 @@ function* getUser({ payload: { userId } }) {
 }
 
 function* getSpaces({ payload: { userId } }) {
+  if (!userId) {
+    let user = yield select(state => state.auth.user);
+    if (!user.ID) {
+      yield take(authActions.checkLoginEnd);
+    }
+    user = yield select(state => state.auth.user);
+    userId = user.ID;
+  }
   yield put(apiActions.userSpacesGet({ id: userId }));
   const { payload } = yield take(apiActions.userSpacesGetSuccess);
   yield put(userActions.fetchSuccessUserSpaces(payload));

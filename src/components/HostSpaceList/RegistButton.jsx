@@ -30,8 +30,10 @@ const Text2 = Text1.extend`
   font-size: ${FontSizes.medium2}px;
 `;
 
-export default () => (
-  <Container>
+export default (props) => (
+  <Container onClick={() => {
+    props.history.push("/space/new/info")}
+  }>
     <Text1>スペースを</Text1>
     <Text2>登録する</Text2>
   </Container>

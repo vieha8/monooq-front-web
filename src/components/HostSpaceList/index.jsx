@@ -14,14 +14,15 @@ const Content = styled.div`
   `}
 `;
 
-export default () => (
+export default (props) => (
   <ContentContainer>
     <Content>
-      <ListItem />
-      <ListItem />
-      <ListItem />
-      <ListItem />
+      {props.spaces.map((space, i) => {
+        return (
+          <ListItem key={i} space={space} history={props.history} />
+        );
+      })}
     </Content>
-    <RegistButton />
+    <RegistButton {...props} />
   </ContentContainer>
 );

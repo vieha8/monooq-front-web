@@ -12,9 +12,6 @@ export default {
   // 検索
   search: () =>
     `/search`,
-  // スペース一覧
-  spaces: (userId = USER_ID) =>
-    `/user/${userId}/spaces`,
   // スペース詳細
   space: (spaceId = SPACE_ID) =>
     `/space/${spaceId}`,
@@ -57,6 +54,9 @@ export default {
   // プロフィール編集
   editProfile: () =>
     `/user/profile/edit`,
+  // スペース一覧
+  spaces: () =>
+    `/user/spaces`,
   // レビュー投稿
   hostReview: (hostId = HOST_ID, scheduleId = SCHEDULE_ID) =>
     `/host/${hostId}/schedule/${scheduleId}/review/new`,
