@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { authConnect } from "../components/Auth";
+import { connect } from "react-redux";
 import Profile from 'components/Profile/Profile';
 import { Colors } from 'variables';
 import { userActions } from "../redux/modules/user";
@@ -17,6 +17,9 @@ class ProfileContainer extends Component {
   }
 
   render() {
+    if(!this.props.user){
+      return null;
+    }
     return (
       <Profile
         {...this.props}
@@ -30,4 +33,4 @@ const mapStateToProps = state => ({
   spaces: []
 });
 
-export default authConnect(mapStateToProps)(ProfileContainer);
+export default connect(mapStateToProps)(ProfileContainer);
