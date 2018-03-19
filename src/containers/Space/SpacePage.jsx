@@ -198,20 +198,7 @@ class Space extends React.Component {
                 <HeaderTitle>{space.Title}</HeaderTitle>
                 <SlideImageWrapper>
                   <SlideImage
-                    images={[
-                      {
-                        original: 'http://placehold.jp/500x300.png',
-                        thumbnail: 'http://placehold.jp/500x300.png',
-                      },
-                      {
-                        original: 'http://placehold.jp/500x300.png',
-                        thumbnail: 'http://placehold.jp/500x300.png',
-                      },
-                      {
-                        original: 'http://placehold.jp/500x300.png',
-                        thumbnail: 'http://placehold.jp/500x300.png',
-                      },
-                    ]}
+                    images={space.Images.map((v) => ({original: v.ImageUrl, thumbnail: v.ImageUrl}))}
                   />
                 </SlideImageWrapper>
                 <Section>
@@ -264,7 +251,7 @@ class Space extends React.Component {
               <Section>
                 <HostInfo
                   img={{
-                    src: 'https://placehold.jp/150x150.png',
+                    src: space.Host.ImageUrl,
                     alt: space.Host.Name,
                   }}
                   hostName={space.Host.Name}

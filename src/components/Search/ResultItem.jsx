@@ -77,7 +77,7 @@ export default props => (
       <Content>
         <PlaceText>{props.AddressTown || '未設定'}</PlaceText>
         <Text>{props.Title || 'タイトル未入力'}</Text>
-        {props.Type ? <TypeOK>家具・家電OK</TypeOK> : null}
+        {props.IsFurniture ? <TypeOK>家具・家電OK</TypeOK> : null}
         <PriceTitle>料金目安（30日間）</PriceTitle>
         <Price>{props.PriceFull}/{props.PriceHalf}/{props.PriceQuarter}円</Price>
       </Content>
