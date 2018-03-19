@@ -64,10 +64,16 @@ export default props => (
     onClick={() => props.history.push(`/space/${props.ID}`)}
   >
     <Card>
-      <Image
+      {(props.Images && props.Images.length > 0) ? <Image
+        src={props.Images[0].ImageUrl}
+        alt={props.Title}
+        width="200"
+        height="150"
+      />: <Image
         src="http://placehold.jp/200x150.png"
         alt=""
-      />
+      />}
+
       <Content>
         <PlaceText>{props.AddressTown || '未設定'}</PlaceText>
         <Text>{props.Title || 'タイトル未入力'}</Text>
