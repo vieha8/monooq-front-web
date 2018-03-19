@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
 
-import Logo from 'components/atoms/Logo';
+import Logo from 'components/atomic/atoms/Logo';
 
 const MaintenancePage = styled.div`
   background: ${Colors.brandPrimary};

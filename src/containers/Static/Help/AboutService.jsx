@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
-import AboutService from 'components/pages/Help/AboutService';
+import AboutService from 'components/atomic/pages/Help/AboutService';
 
 type PropTypes = {
   dispatch: Function,
