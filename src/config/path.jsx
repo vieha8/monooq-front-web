@@ -53,7 +53,7 @@ export default {
     `/user/${userId}`,
   // プロフィール編集
   editProfile: () =>
-    `/user/profile/edit`,
+    `/profile/edit`,
   // スペース一覧
   spaces: () =>
     `/user/spaces`,
@@ -61,16 +61,16 @@ export default {
   hostReview: (hostId = HOST_ID, scheduleId = SCHEDULE_ID) =>
     `/host/${hostId}/schedule/${scheduleId}/review/new`,
   // 支払い一覧
-  paid: (userId = USER_ID) =>
-    `/user/${userId}/paid`,
+  paid: () =>
+    `/paid`,
   // 売上・振込一覧
-  salesTransfers: (hostId = HOST_ID) =>
-    `/host/${hostId}/sales-transfers`,
-  requestTransfer: (hostId = HOST_ID) =>
-    `/${hostId}/transfer/new`,
+  salesTransfers: () =>
+    `/sales`,
+  requestTransfer: () =>
+    `/sales/transfer/new`,
   // 口座編集
-  editBankAccount: (hostId = HOST_ID) =>
-    `/host/${hostId}/bankaccount/edit`,
+  editBankAccount: () =>
+    `/bank/edit`,
   // お問い合わせ
   inquiry: (userId = USER_ID) =>
     `/user/${userId}/inquiry`,

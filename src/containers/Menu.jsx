@@ -10,7 +10,7 @@ class MenuContainer extends Component {
     const { dispatch, history } = this.props;
     dispatch(authActions.logout());
     history.push(Path.top());
-  }
+  };
 
   render() {
     const { auth, showMobile } = this.props;

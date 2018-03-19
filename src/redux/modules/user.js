@@ -91,6 +91,7 @@ function* updateUser({ payload: { userId, body } }) {
       yield user.updateEmail(body.email);
     } catch (err) {
       console.log(err.message);
+      //TODO 再ログインを促す必要あり
       yield put(userActions.updateFailedUser(err.message));
       return;
     }

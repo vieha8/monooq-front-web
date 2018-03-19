@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { authConnect } from "../../components/Auth";
 import { routes } from 'config/routes';
 import Page from 'components/Page';
 import Menu from 'containers/Menu';
@@ -19,19 +19,19 @@ class TransferRequestContainer extends Component {
       accountLastName: 'ほげほげ',
       accountFirstName: 'ふがふが',
     }));
-  }
+  };
 
   onClickTransferRequest = () => {
     const { dispatch } = this.props;
     dispatch(uiActions.setUiState({
       requested: true,
     }));
-  }
+  };
 
   onClickToSalesTransferList = () => {
     const { history } = this.props;
     history.push(routes.salesTransferList.path);
-  }
+  };
 
   renderTransferRequested() {
     const { ui } = this.props;
@@ -70,4 +70,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(TransferRequestContainer);
+export default authConnect(mapStateToProps)(TransferRequestContainer);
