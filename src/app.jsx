@@ -11,6 +11,12 @@ import './index.css';
 import { Auth } from 'components/Auth';
 
 const history = createHistory();
+history.listen((location, action) => {
+  if(action === 'POP'){
+    return;
+  }
+  window.scrollTo(0, 0);
+});
 
 firebase.initializeApp(firebaseConfig());
 
