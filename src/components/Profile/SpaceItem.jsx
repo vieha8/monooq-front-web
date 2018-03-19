@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Card } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from 'variables';
+import { Link } from 'react-router-dom';
 
 const Container = styled.li`
   display: table-cell;
@@ -55,23 +56,23 @@ const Price = Text.extend`
 `;
 
 export default props => (
-  <Container
-    onClick={() => window.open('/space/1')}
-  >
-    <Wrapper>
-      <Card>
-        <Image
-          src="http://placehold.jp/200x150.png"
-          alt=""
-        />
-        <Content>
-          <PlaceText>{props.place}</PlaceText>
-          <Text>{props.name}</Text>
-          {props.typeOK && <TypeOK>家具・家電OK</TypeOK>}
-          <PriceTitle>料金目安（30日間）</PriceTitle>
-          <Price>{props.price}</Price>
-        </Content>
-      </Card>
-    </Wrapper>
+  <Container>
+    <Link to={`/space/${props.id}`}>
+      <Wrapper>
+        <Card>
+          <Image
+            src="http://placehold.jp/200x150.png"
+            alt=""
+          />
+          <Content>
+            <PlaceText>{props.place}</PlaceText>
+            <Text>{props.name}</Text>
+            {props.typeOK && <TypeOK>家具・家電OK</TypeOK>}
+            <PriceTitle>料金目安（30日間）</PriceTitle>
+            <Price>{props.price}</Price>
+          </Content>
+        </Card>
+      </Wrapper>
+    </Link>
   </Container>
 );

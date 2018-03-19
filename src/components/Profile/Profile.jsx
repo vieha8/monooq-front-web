@@ -86,7 +86,7 @@ export default props => (
         <SpaceListContainer>
           {props.spaces.map((space, i) => {
             return (
-              <SpaceItem key={i} place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
+              <SpaceItem key={i} place={space.AddressTown} id={space.ID} name={space.Title} typeOK price={`${space.PriceQuarter}/${space.PriceHalf}/${space.PriceFull}`} />
             );
           })}
         </SpaceListContainer>

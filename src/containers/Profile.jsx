@@ -13,7 +13,7 @@ class ProfileContainer extends Component {
     super(props);
     const userId = this.props.match.params.user_id;
     this.props.dispatch(userActions.fetchUser({userId}));
-    //TODO スペース情報も取得する
+    this.props.dispatch(userActions.fetchUserSpaces({userId}));
   }
 
   render() {
@@ -30,7 +30,7 @@ class ProfileContainer extends Component {
 
 const mapStateToProps = state => ({
   user: state.user.user,
-  spaces: []
+  spaces: state.user.spaces,
 });
 
 export default connect(mapStateToProps)(ProfileContainer);
