@@ -2,14 +2,20 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import TextLink from 'components/atomic/atoms/TextLink';
 import InlineText from 'components/atomic/atoms/InlineText';
 import { Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
+import Path from 'config/path';
 
 const Container = styled.footer`
   width: 100%;
   border-top: 1px solid ${Colors.borderGray};
+  padding: 0px 30px;
+  ${media.tablet`
+    padding: 0;
+  `}
 `;
 
 const List = styled.ul`
@@ -24,7 +30,7 @@ const List = styled.ul`
 
 const Cell = styled.li`
   display: inline-flex;
-  padding: 0 12px;
+  padding: 0 8px;
   &:last-child {
     margin-left: auto;
   }
@@ -37,44 +43,40 @@ const Cell = styled.li`
   `}
 `;
 
-const Link = TextLink.extend`
-  font-size: 12px;
+const FooterLink = TextLink.withComponent(Link).extend`
+  font-size: 11px;
 `;
 
-type PropTypes = {
-  beginnerUri: string,
-  companyUri: string,
-  inquiryUri: string,
-  privacyPolicyUri: string,
-  termsUri: string,
-  legalUri: string,
-  cancelPolicyUri: string,
-}
-
-export default (props: PropTypes) => (
+export default () => (
   <Container>
     <nav>
       <List>
         <Cell>
-          <Link href={props.beginnerUri}>はじめての方へ</Link>
+          <FooterLink to={Path.company()}>運営会社</FooterLink>
         </Cell>
         <Cell>
-          <Link href={props.companyUri}>運営会社</Link>
+          <FooterLink to={Path.about()}>はじめての方へ</FooterLink>
         </Cell>
         <Cell>
-          <Link href={props.inquiryUri}>お問い合わせ</Link>
+          <FooterLink to={Path.insurance()}>荷物に対する保険</FooterLink>
         </Cell>
         <Cell>
-          <Link href={props.privacyPolicyUri}>プライバシーポリシー</Link>
+          <FooterLink to={Path.rule()}>ルールとマナー</FooterLink>
         </Cell>
         <Cell>
-          <Link href={props.termsUri}>利用規約</Link>
+          <FooterLink to={Path.helpTop()}>ヘルプ</FooterLink>
         </Cell>
         <Cell>
-          <Link href={props.legalUri}>特定商取引に基づく表記</Link>
+          <FooterLink to={Path.terms()}>利用規約</FooterLink>
         </Cell>
         <Cell>
-          <Link href={props.cancelPolicyUri}>キャンセルポリシー</Link>
+          <FooterLink to={Path.privacy()}>プライバシーポリシー</FooterLink>
+        </Cell>
+        <Cell>
+          <FooterLink to={Path.asct()}>特定商取引に基づく表記</FooterLink>
+        </Cell>
+        <Cell>
+          <FooterLink to={Path.cancellationPolicies()}>キャンセルポリシー</FooterLink>
         </Cell>
         <Cell>
           <InlineText.Small color={Colors.lightGray1}>@ 2018 Monooq</InlineText.Small>
