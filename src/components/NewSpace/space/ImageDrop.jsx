@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
-import { Button } from 'semantic-ui-react';
+import Icon from 'components/Shared/Icon';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Title from '../shared/Title';
@@ -14,6 +14,7 @@ const DragText = styled.span`
   color: ${Colors.darkGray1};
   font-size: ${FontSizes.small}px;
   margin-top: ${Dimens.medium}px;
+  line-height: 2;
   ${media.phone`
     display: none;
   `}
@@ -32,39 +33,31 @@ const DndContent = styled.div`
   `}
 `;
 
-const ButtonWrapper = styled.div`
+const IconWrapper = styled.div`
   margin-top: ${Dimens.large}px;
+  text-align: center;
   ${media.phone`
     margin-top: ${Dimens.medium}px;
   `}
 `;
 
-const styles = {
-  button: {
-    color: Colors.brandPrimary,
-    border: `1px solid ${Colors.brandPrimary}`,
-    background: 'white',
-    fontWeight: 'normal',
-  },
-  dnd: {
-    width: '100%',
-    marginTop: `${Dimens.medium}px`,
-  },
-  mobile: {
-    cardStyle: {
-      border: 'none',
-    },
-  },
-};
+const StyledDropZone = styled(Dropzone)`
+  width: 100%;
+  margin-top: ${Dimens.medium}px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.6;
+  }
+`;
 
 const showImagePreview = (props) => {
   //TODO 表示は仮なのでデザイン反映する
-  if(props.ui.space.images){
+  if (props.ui.space.images) {
     return (
       <ul>
         {props.ui.space.images.map((v, i) => (
           <li key={i}>
-            {v.name}<br/>
+            {v.name}<br />
             <img alt="preview" src={v.preview} width="100" />
           </li>
         ))}
@@ -73,24 +66,23 @@ const showImagePreview = (props) => {
   }
 };
 
-export default (props) => (
+export default props => (
   <Container>
     <Title
       title="スペースの様子を写真で登録しよう"
       subTitle="最大4枚まで登録可能です。"
     />
-    <Dropzone
-      style={styles.dnd}
+    <StyledDropZone
       accept="image/jpeg, image/png"
       onDrop={props.handleChangeImage}
     >
       <DndContent>
-        <ButtonWrapper>
-          <Button style={styles.button}>写真をアップロードする</Button>
-        </ButtonWrapper>
-        <DragText>または画像をドラッグする</DragText>
+        <IconWrapper>
+          <Icon name="fal fa-images" color={Colors.darkGray1} fontSize={FontSizes.large} inlineBlock />
+        </IconWrapper>
+        <DragText>クリックして写真を追加<br />またはドラッグする</DragText>
       </DndContent>
-    </Dropzone>
+    </StyledDropZone>
     {showImagePreview(props)}
   </Container>
 );

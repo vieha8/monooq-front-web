@@ -10,6 +10,9 @@ const Container = styled.div`
   ${props => props.reverse && `
     transform: rotateY(180deg);
   `}
+  ${props => props.inlineBlock && `
+    display: inline-block;
+  `}
 `;
 
 const IconWrapper = styled.div`
