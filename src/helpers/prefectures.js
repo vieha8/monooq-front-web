@@ -49,5 +49,5 @@ export const prefectures = [
 ];
 
 export const getPrefecture = prefCode => {
-  return prefectures[prefCode + 1];
+  return prefectures[parseInt(prefCode, 10) - 1];
 };

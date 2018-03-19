@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { authConnect } from "../components/Auth";
 import Page from 'components/Page';
 import Menu from 'containers/Menu';
 import EditProfile from 'components/EditProfile';
@@ -50,4 +50,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(ProfileContainer);
+export default authConnect(mapStateToProps)(ProfileContainer);

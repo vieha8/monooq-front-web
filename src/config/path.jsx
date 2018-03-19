@@ -55,8 +55,8 @@ export default {
   profile: (userId = USER_ID) =>
     `/user/${userId}`,
   // プロフィール編集
-  editProfile: (userId = USER_ID) =>
-    `/user/${userId}/edit`,
+  editProfile: () =>
+    `/user/profile/edit`,
   // レビュー投稿
   hostReview: (hostId = HOST_ID, scheduleId = SCHEDULE_ID) =>
     `/host/${hostId}/schedule/${scheduleId}/review/new`,

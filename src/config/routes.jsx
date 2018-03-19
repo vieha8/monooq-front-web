@@ -20,7 +20,7 @@ import CancelSchedule from 'containers/CancelSchedule';
 import Messages from 'containers/Messages/';
 import Message from 'containers/Message/';
 import Estimate from 'containers/Estimate';
-import HostReview from 'containers/HostReview';
+import Profile from 'containers/Profile';
 import EditProfile from 'containers/EditProfile';
 import PostHostReview from 'containers/PostHostReview';
 import Payments from 'containers/Payments';
@@ -71,7 +71,7 @@ export const routes = [
   { path: Path.messages(), component: Messages },
   { path: Path.message(), component: Message },
   { path: Path.estimate(), component: Estimate },
-  { path: Path.profile(), component: HostReview },
+  { path: Path.profile(), component: Profile },
   { path: Path.editProfile(), component: EditProfile },
   { path: Path.hostReview(), component: PostHostReview },
   { path: Path.paid(), component: Payments },
