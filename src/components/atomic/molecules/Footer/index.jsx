@@ -73,7 +73,7 @@ export default () => (
           <FooterLink to={Path.privacy()}>プライバシーポリシー</FooterLink>
         </Cell>
         <Cell>
-          <FooterLink to={Path.asct()}>特定商取引に基づく表記</FooterLink>
+          <FooterLink to={Path.asct()}>特定商取引法に基づく表記</FooterLink>
         </Cell>
         <Cell>
           <FooterLink to={Path.cancellationPolicies()}>キャンセルポリシー</FooterLink>
