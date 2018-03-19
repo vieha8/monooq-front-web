@@ -44,7 +44,8 @@ class TopContainer extends React.Component {
           locationText={ui.locationText}
           searchButtonDisabled={ui.searchButtonDisabled}
           handleChangeLocation={this.handleChangeLocation}
-          onClickSignup={() => history.push(Path.signup())}
+          onClickSignup={() => history.push(Path.createSpaceInfo())}
+          history={history}
         />
         <Intercom />
       </Fragment>

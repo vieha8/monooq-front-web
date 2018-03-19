@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { authConnect } from '../components/Auth';
 import styled from 'styled-components';
 import { Colors } from 'variables';
 import { media } from '../helpers/style/media-query';
@@ -515,4 +515,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(Payment);
+export default authConnect(mapStateToProps)(Payment);

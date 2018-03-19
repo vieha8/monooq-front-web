@@ -1,7 +1,7 @@
 import React from 'react';
+import{ authConnect } from "../../components/Auth";
 import { Page } from 'components/NewSpace/page/Shared';
 import AboutBaggage from 'components/NewSpace/page/AboutBaggage';
-import {connect} from "react-redux";
 import {uiActions} from "../../redux/modules/ui";
 
 class AboutBaggageContainer extends React.Component {
@@ -34,4 +34,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(AboutBaggageContainer);
+export default authConnect(mapStateToProps)(AboutBaggageContainer);

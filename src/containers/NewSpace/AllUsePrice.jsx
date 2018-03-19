@@ -1,7 +1,7 @@
 import React from 'react';
+import { authConnect } from "../../components/Auth";
 import { Page } from 'components/NewSpace/page/Shared';
 import AllUsePrice from 'components/NewSpace/page/AllUsePrice';
-import {connect} from "react-redux";
 import {uiActions} from "../../redux/modules/ui"
 import { spaceActions } from "../../redux/modules/space";
 
@@ -37,4 +37,4 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps)(AllUsePriceContainer);
+export default authConnect(mapStateToProps)(AllUsePriceContainer);

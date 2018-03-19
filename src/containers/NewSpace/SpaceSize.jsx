@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import{ authConnect } from "../../components/Auth";
 import { withRouter } from 'react-router';
 import { Page } from 'components/NewSpace/page/Shared';
 import SpaceSize from 'components/NewSpace/page/SpaceSize';
@@ -14,4 +14,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(withRouter(SpaceSizeContainer));
+export default authConnect(mapStateToProps)(withRouter(SpaceSizeContainer));

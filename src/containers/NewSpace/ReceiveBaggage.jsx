@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { authConnect } from "../../components/Auth";
 import { Page } from 'components/NewSpace/page/Shared';
 import ReceiveBaggage from 'components/NewSpace/page/ReceiveBaggage';
 import {uiActions} from "../../redux/modules/ui";
@@ -33,4 +33,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(ReceiveBaggageContainer);
+export default authConnect(mapStateToProps)(ReceiveBaggageContainer);

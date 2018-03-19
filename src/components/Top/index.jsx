@@ -362,7 +362,7 @@ const ForSafeSectionButton = styled.button`
   `};
 `;
 
-const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
+const ForSafeSection = ({ iconClass, title, description, buttonText, onClick }) => {
   const StyledContainer = styled.div`
     width: 32%;
     font-weight: 100;
@@ -403,12 +403,12 @@ const ForSafeSection = ({ iconClass, title, description, buttonText }) => {
         <span>{title}</span>
       </StyledTitle>
       <Description>{description}</Description>
-      <ForSafeSectionButton>{buttonText}</ForSafeSectionButton>
+      <ForSafeSectionButton onClick={onClick}>{buttonText}</ForSafeSectionButton>
     </StyledContainer>
   );
 };
 
-const ForSafeSectionList = () => {
+const ForSafeSectionList = (props) => {
   const StyledContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -425,18 +425,21 @@ const ForSafeSectionList = () => {
         title="はじめての方へ"
         description="まずは自分に合う物置きスペースを探し、メッセージで荷物を置かせてもらえるかホストに相談をします。サービスの使い方がよくわからない、お困りの方はこちら。"
         buttonText="使い方について"
+        onClick={() => props.history.push(Path.about())}
       />
       <ForSafeSection
         iconClass="far fa-bookmark"
         title="荷物に対する保険"
         description="サービス内の記録であなたの荷物だと証明できる荷物には最大10万円までの補償があります。あなたがホストの時に、もし誰かの荷物を破損・紛失してしまっても同じ補償が受けられるので安心です。"
         buttonText="保険について"
+        onClick={() => props.history.push(Path.insurance())}
       />
       <ForSafeSection
         iconClass="far fa-handshake"
         title="ルールとマナー"
         description="モノオクは個人間の物置きシェアサービスです。トラブルや揉め事がないようにルールを設けています。みんなが安心して使えるようにマナーを大切にしましょう。"
         buttonText="ルールとマナーについて"
+        onClick={() => props.history.push(Path.rule())}
       />
     </StyledContainer>
   );
@@ -562,7 +565,7 @@ export default props => (
           </SearchButton>
         </SearchWrapper>
         <ToHostRegistContainer>
-          <ToHostRegist component={Link} href={Path.signup()}>
+          <ToHostRegist component={Link} href={Path.createSpaceInfo()}>
             ホスト登録はこちら
           </ToHostRegist>
         </ToHostRegistContainer>
@@ -627,7 +630,7 @@ export default props => (
     <DefaultView isForSafe>
       <HilightCopy>みんなでもっと便利に物置きシェアができる世の中へ。</HilightCopy>
       <DefaultTitle>安心して物置きのシェアをするために</DefaultTitle>
-      <ForSafeSectionList />
+      <ForSafeSectionList history={props.history} />
     </DefaultView>
     <DefaultView isPickGo>
       <PickgoWrapper>
@@ -643,7 +646,7 @@ export default props => (
         <SubCatchPhraseWide>
           Pickgoを使えば、引っ越しが5000円から。モノオクから簡単に配送依頼ができます。
         </SubCatchPhraseWide>
-        <LinkToPickGo component={Link} href={'#'}>
+        <LinkToPickGo component={Link} href={'http://pickgo.town/'}>
           Pickgoのサイトを見る
         </LinkToPickGo>
       </PickgoWrapper>
