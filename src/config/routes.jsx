@@ -32,6 +32,8 @@ import SignUp from 'containers/SignUp';
 import Login from 'containers/Login';
 import Unsubscribe from 'containers/Unsubscribe';
 import Report from 'containers/Report';
+import PasswordReset from 'containers/PasswordReset';
+import PasswordResetEnd from 'containers/PasswordResetEnd';
 
 import About from 'containers/Static/About';
 import Insurance from 'containers/Static/Insurance';
@@ -95,6 +97,8 @@ export const routes = [
   { path: Path.terms(), component: Terms },
   { path: Path.helpTop(), component: HelpTop },
   { path: Path.helpAboutService(), component: HelpAboutService },
+  { path: Path.passwordReset(), component: PasswordReset },
+  { path: Path.passwordResetEnd(), component: PasswordResetEnd },
 ];
 
 export default props => (

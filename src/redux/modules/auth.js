@@ -16,6 +16,9 @@ const SIGNUP_EMAIL = 'SIGNUP_EMAIL';
 const SIGNUP_FACEBOOK = 'SIGNUP_FACEBOOK';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNUP_FAILED = 'SIGNUP_FAILED';
+const PASSWORD_RESET = 'PASSWORD_RESET';
+const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
+const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
 
 const CHECK_LOGIN_START = 'CHECK_LOGIN_START';
 const CHECK_LOGIN_END = 'CHECK_LOGIN_END';
@@ -32,6 +35,9 @@ export const authActions = createActions(
   SIGNUP_FACEBOOK,
   SIGNUP_SUCCESS,
   SIGNUP_FAILED,
+  PASSWORD_RESET,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAILED,
 );
 
 // Reducer
@@ -178,6 +184,18 @@ function* signUpFacebook() {
   }
 }
 
+function* passwordReset({ payload: { email } }) {
+  const auth = firebase.auth();
+  try {
+    yield auth.sendPasswordResetEmail(email);
+    yield put(authActions.passwordResetSuccess());
+    store.dispatch(push('/password/reset/end'));
+  } catch (err) {
+    console.error(err);
+    yield put(authActions.passwordResetFailed(err));
+  }
+}
+
 export const authSagas = [
   takeEvery(CHECK_LOGIN_START, checkLoginFirebaseAuth),
   takeEvery(LOGIN_EMAIL, loginEmail),
@@ -185,4 +203,5 @@ export const authSagas = [
   takeEvery(LOGOUT, logout),
   takeEvery(SIGNUP_EMAIL, signUpEmail),
   takeEvery(SIGNUP_FACEBOOK, signUpFacebook),
+  takeEvery(PASSWORD_RESET, passwordReset),
 ];

@@ -5,6 +5,7 @@ import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
 import { media } from 'helpers/style/media-query';
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -40,7 +41,7 @@ const InputWrapper = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
-const LinkText = styled.a`
+const LinkText = styled(Link)`
   display: block;
   font-size: ${FontSizes.xsmall}px;
   color: ${Colors.linkBlue};
@@ -94,7 +95,7 @@ export default props => (
         />
       </InputWrapper>
     </InputContainer>
-    <LinkText href="/">パスワードを忘れた方はこちら</LinkText>
+    <LinkText to="/password/reset">パスワードを忘れた方はこちら</LinkText>
     <ButtonWrapper>
       <Button
         bgColor={Colors.brandPrimary}
@@ -118,7 +119,7 @@ export default props => (
       </Button>
     </ButtonWrapper>
     <ToSignUpLinkCointainer>
-      <LinkText href="/signup">初めてのご利用ですか？新規登録はこちら</LinkText>
+      <LinkText to="/signup">初めてのご利用ですか？新規登録はこちら</LinkText>
     </ToSignUpLinkCointainer>
   </Container>
 );

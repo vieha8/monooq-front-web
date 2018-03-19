@@ -83,6 +83,10 @@ export default {
   // 退会
   unsubscribe: () =>
     `/unsubscribe`,
+  passwordReset: () =>
+    `/password/reset`,
+  passwordResetEnd: () =>
+    `/password/reset/end`,
   // 違反報告
   report: () =>
     '/report',
