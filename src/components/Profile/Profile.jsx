@@ -82,14 +82,13 @@ export default props => (
           <ResidenceText>{getPrefecture(props.user.PrefCode)}在住</ResidenceText>
           <Profile>{props.user.Profile}</Profile>
         </HostContainer>
-
-        <Header>{props.user.Name} さんのスペース</Header>
+        {(props.spaces.length > 0)?<Header>{props.user.Name} さんのスペース</Header>:null}
         <SpaceListContainer>
-          <SpaceItem place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
-          <SpaceItem place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
-          <SpaceItem place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
-          <SpaceItem place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
-          <SpaceItem place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
+          {props.spaces.map((space, i) => {
+            return (
+              <SpaceItem key={i} place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />
+            );
+          })}
         </SpaceListContainer>
       </ProfileContainer>
     </Content>
