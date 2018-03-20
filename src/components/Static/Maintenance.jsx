@@ -57,6 +57,7 @@ const MessageContainer = MobileContainer.extend`
 const MessageText = styled.div`
   ${media.phone`
     margin-bottom: 30px;
+    // FIXME: できればbrは使いたくない…（pタグを使いたい）
     & br {
       display: none;
     }
