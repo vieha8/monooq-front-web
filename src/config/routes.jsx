@@ -16,8 +16,8 @@ import SpacePrice from 'containers/NewSpace/Price';
 import SpaceCreatedCompletion from 'containers/NewSpace/SpaceCreatedCompletion';
 import Schedule from 'containers/Schedule';
 import CancelSchedule from 'containers/CancelSchedule';
-import Messages from 'containers/Messages/';
-import Message from 'containers/Message/';
+import MessageRooms from 'containers/MessageRooms/';
+import MessageRoom from 'containers/MessageRoom/';
 import Estimate from 'containers/Estimate';
 import Profile from 'containers/Profile';
 import EditProfile from 'containers/EditProfile';
@@ -74,8 +74,8 @@ export const routes = [
   { path: Path.editSpaceCompletion(), component: SpaceCreatedCompletion },
   { path: Path.schedule(), component: Schedule },
   { path: Path.confirmCancel(), component: CancelSchedule },
-  { path: Path.messages(), component: Messages },
-  { path: Path.message(), component: Message },
+  { path: Path.messages(), component: MessageRooms },
+  { path: Path.message(), component: MessageRoom },
   { path: Path.estimate(), component: Estimate },
   { path: Path.profile(), component: Profile },
   { path: Path.editProfile(), component: EditProfile },

@@ -51,13 +51,13 @@ export default {
     `/messages`,
   // メッセージ詳細
   message: (messageRoomId = MESSAGE_ROOM_ID) =>
-    `/message/${messageRoomId}`,
+    `/messages/${messageRoomId}`,
   // 見積もり
   estimate: (messageRoomId = MESSAGE_ROOM_ID) =>
-    `/message/${messageRoomId}/estimate`,
+    `/messages/${messageRoomId}/estimate`,
   // 決済
   payment: (messageRoomId = MESSAGE_ROOM_ID, requestId = REQUEST_ID) =>
-    `/message/${messageRoomId}/payment/${requestId}`,
+    `/messages/${messageRoomId}/payment/${requestId}`,
   // プロフィール
   profile: (userId = USER_ID) =>
     `/user/${userId}`,
