@@ -50,7 +50,8 @@ const styles = {
     width: '100%',
   },
   buttonDisabled: {
-    opacity: 0.7,
+    backgroundColor: Colors.lightGray1bg,
+    cursor: 'not-allowed',
   },
 };
 
@@ -58,11 +59,11 @@ export default props => (
   <Container position={props.position}>
     <Wrapper width={props.width}>
       <Button
-        onClick={props.onClick}
+        onClick={props.disabled ? null : props.onClick}
         style={{
           ...(props.border ? styles.borderButton : styles.button),
           ...(props.fill || props.wide ? styles.fillButton : {}),
-          ...styles.buttonDisabled,
+          ...(props.disabled ? styles.buttonDisabled : {}),
         }}
       >
         {props.children}

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Select } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from 'variables';
+import ErrorText from 'components/Shared/ErrorText';
 import Title from '../shared/Title';
 
 const Container = styled.div`
@@ -17,7 +18,7 @@ const styles = {
   },
 };
 
-export default (props) => (
+export default props => (
   <Container>
     <Title
       title="スペースの種類は？"
@@ -25,7 +26,7 @@ export default (props) => (
     <Select
       name="type"
       value={props.ui.space.type}
-      onChange={props.handleChangeSelect}
+      onChange={(e, data) => props.handleChangeSpaceType(data.value)}
       style={styles.select}
       placeholder="選択してください"
       options={[
@@ -56,5 +57,6 @@ export default (props) => (
         },
       ]}
     />
+    {props.error.errors.type && <ErrorText errors={props.error.errors.type} />}
   </Container>
 );
