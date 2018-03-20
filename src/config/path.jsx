@@ -24,12 +24,22 @@ export default {
     `/space/new/receive`,
   createSpaceAreaSize: () =>
     `/space/new/areasize`,
-  createSpaceAreaPrice: () =>
-    `/space/new/areaprice`,
-  createSpaceAllPrice: () =>
-    `/space/new/allprice`,
+  createSpacePrice: (type = ':type') =>
+    `/space/new/price/${type}`,
   createSpaceCompletion: () =>
     `/space/new/completion`,
+  editSpaceInfo: (spaceId = SPACE_ID) =>
+    `/space/${spaceId}/edit/info`,
+  editSpaceBaggage: (spaceId = SPACE_ID) =>
+    `/space/${spaceId}/edit/baggage`,
+  editSpaceReceive: (spaceId = SPACE_ID) =>
+    `/space/${spaceId}/edit/receive`,
+  editSpaceAreaSize: (spaceId = SPACE_ID) =>
+    `/space/${spaceId}/edit/areasize`,
+  editSpacePrice: (spaceId = SPACE_ID, type = ':type') =>
+    `/space/${spaceId}/edit/price/${type}`,
+  editSpaceCompletion: (spaceId = SPACE_ID) =>
+    `/space/${spaceId}/edit/completion`,
   // スケジュール
   schedule: () =>
     `/schedule`,

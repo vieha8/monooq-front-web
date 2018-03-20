@@ -12,8 +12,7 @@ import NewSpaceSpaceInfo from 'containers/NewSpace/SpaceInfo';
 import AboutBaggage from 'containers/NewSpace/AboutBaggage';
 import ReceiveBaggage from 'containers/NewSpace/ReceiveBaggage';
 import SpaceSize from 'containers/NewSpace/SpaceSize';
-import AboutPrice from 'containers/NewSpace/AboutPrice';
-import AllUsePrice from 'containers/NewSpace/AllUsePrice';
+import SpacePrice from 'containers/NewSpace/Price';
 import SpaceCreatedCompletion from 'containers/NewSpace/SpaceCreatedCompletion';
 import Schedule from 'containers/Schedule';
 import CancelSchedule from 'containers/CancelSchedule';
@@ -65,9 +64,14 @@ export const routes = [
   { path: Path.createSpaceBaggage(), component: AboutBaggage },
   { path: Path.createSpaceReceive(), component: ReceiveBaggage },
   { path: Path.createSpaceAreaSize(), component: SpaceSize },
-  { path: Path.createSpaceAreaPrice(), component: AboutPrice },
-  { path: Path.createSpaceAllPrice(), component: AllUsePrice },
+  { path: Path.createSpacePrice(), component: SpacePrice },
   { path: Path.createSpaceCompletion(), component: SpaceCreatedCompletion },
+  { path: Path.editSpaceInfo(), component: NewSpaceSpaceInfo },
+  { path: Path.editSpaceBaggage(), component: AboutBaggage },
+  { path: Path.editSpaceReceive(), component: ReceiveBaggage },
+  { path: Path.editSpaceAreaSize(), component: SpaceSize },
+  { path: Path.editSpacePrice(), component: SpacePrice },
+  { path: Path.editSpaceCompletion(), component: SpaceCreatedCompletion },
   { path: Path.schedule(), component: Schedule },
   { path: Path.confirmCancel(), component: CancelSchedule },
   { path: Path.messages(), component: Messages },

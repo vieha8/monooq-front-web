@@ -21,11 +21,21 @@ const hintProps = {
 
 export default (props) => {
   const { history } = props;
+  const header = (props.ui.isEdit)? "編集" : "登録";
+
+  const onClickNext = () => {
+    if(props.ui.isEdit){
+      history.push(path.editSpaceBaggage(props.ui.spaceId));
+    }else{
+      history.push(path.createSpaceBaggage());
+    }
+  };
+
   return (
     <Container>
       <PageContent>
         <Header
-          header="スペースを登録する"
+          header={`スペースを${header}する`}
           subHeader="どんなスペースを掲載しますか？"
         />
         <ImageDrop {...props} />
@@ -34,7 +44,7 @@ export default (props) => {
         <InputIntro {...props} />
         <InputAddress {...props} />
         <ButtonsContainer>
-          <Button onClick={() => history.push(path.createSpaceBaggage())}>
+          <Button onClick={onClickNext}>
             次へ
           </Button>
         </ButtonsContainer>

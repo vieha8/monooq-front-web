@@ -18,6 +18,23 @@ const hintProps = {
 
 export default (props) => {
   const { history } = props;
+
+  const onClickNext = () => {
+    if(props.ui.isEdit){
+      history.push(path.editSpaceAreaSize(props.ui.spaceId));
+    }else{
+      history.push(path.createSpaceAreaSize());
+    }
+  };
+
+  const onClickBack = () => {
+    if(props.ui.isEdit){
+      history.push(path.editSpaceBaggage(props.ui.spaceId));
+    }else{
+      history.push(path.createSpaceBaggage());
+    }
+  };
+
   return (
     <Container>
       <PageContent>
@@ -28,10 +45,10 @@ export default (props) => {
         <HowToReceive {...props} />
         <ReceiveDetail {...props} />
         <ButtonsContainer>
-          <Button border onClick={() => history.push(path.createSpaceBaggage())}>
+          <Button border onClick={onClickBack}>
             戻る
           </Button>
-          <Button position="right" onClick={() => history.push(path.createSpaceAreaSize())}>
+          <Button position="right" onClick={onClickNext}>
             次へ
           </Button>
         </ButtonsContainer>

@@ -8,6 +8,7 @@ import SaveBox from '../shared/SaveBox';
 import HintBox from '../shared/HintBox';
 import InputPriceOfAll from '../price/InputPriceOfAll';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
+import path from "../../../config/path";
 
 const hintProps = {
   title: '料金設定に関するヒント',
@@ -16,6 +17,15 @@ const hintProps = {
 
 export default (props) => {
   const { history } = props;
+
+  const onClickBack = () => {
+    if(props.ui.isEdit){
+      history.push(path.editSpaceAreaSize(props.ui.spaceId));
+    }else{
+      history.push(path.createSpaceAreaSize());
+    }
+  };
+
   return (
     <Container>
       <PageContent>
@@ -25,7 +35,7 @@ export default (props) => {
         />
         <InputPriceOfAll {...props} />
         <ButtonsContainer>
-          <Button border onClick={() => history.goBack()}>
+          <Button border onClick={onClickBack}>
             戻る
           </Button>
           <Button position="right" width="180" onClick={props.onClickComplete}>
