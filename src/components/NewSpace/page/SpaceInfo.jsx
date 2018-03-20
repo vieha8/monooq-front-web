@@ -38,7 +38,7 @@ export default (props) => {
           header={`スペースを${header}する`}
           subHeader="どんなスペースを掲載しますか？"
         />
-        <ImageDrop {...props} />
+        <ImageDrop {...props} onClickImageDelete={props.onClickImageDelete} />
         <InputTitle {...props} />
         <SelectType {...props} />
         <InputIntro {...props} />

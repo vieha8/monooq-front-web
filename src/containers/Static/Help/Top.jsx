@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
-import HelpTop from 'components/pages/Help/Top';
+import HelpTop from 'components/atomic/pages/Help/Top';
 
 type PropTypes = {
   ui: {
