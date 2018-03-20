@@ -1,52 +1,50 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import path from '../config/path';
-
+import { connect } from 'react-redux';
 import SignUp from 'components/SignUp';
-import { authActions } from "../redux/modules/auth";
-import { userActions } from "../redux/modules/user";
-import {uiActions} from "../redux/modules/ui";
+import { authActions } from 'redux/modules/auth';
+import { userActions } from 'redux/modules/user';
+import { uiActions } from 'redux/modules/ui';
+import Path from 'config/path';
 
 class SignUpContainer extends React.Component {
-
-  handleChangeText = ({target}) => {
-    const {user} = this.props.ui;
-    Object.assign(user, {[target.name]: target.value});
-    this.props.dispatch(uiActions.setUiState({user}));
+  handleChangeText = ({ target }) => {
+    const { user } = this.props.ui;
+    Object.assign(user, { [target.name]: target.value });
+    this.props.dispatch(uiActions.setUiState({ user }));
   };
 
   handleChangeSelect = (_, target) => {
-    this.handleChangeText({target});
+    this.handleChangeText({ target });
   };
 
   handleChangeImage = (accepted, rejected) => {
-    if(rejected.length > 0){
+    if (rejected.length > 0) {
       console.error(rejected);
     }
-    const {user} = this.props.ui;
-    Object.assign(user, {image: accepted[0]});
-    this.props.dispatch(uiActions.setUiState({user}));
+    const { user } = this.props.ui;
+    Object.assign(user, { image: accepted[0] });
+    this.props.dispatch(uiActions.setUiState({ user }));
   };
 
   onClickSignUpEmail = () => {
-    const {email, password, passwordConfirm} = this.props.ui.user;
+    const { email, password, passwordConfirm } = this.props.ui.user;
 
-    if(!email || email === '') {
+    if (!email || email === '') {
       // TODO エラー
       return;
     }
 
-    if(!password || password === '') {
+    if (!password || password === '') {
       // TODO エラー
       return;
     }
 
-    if(password !== passwordConfirm) {
+    if (password !== passwordConfirm) {
       // TODO エラー
       return;
     }
 
-    this.props.dispatch(authActions.signupEmail({ email: email, password: password }));
+    this.props.dispatch(authActions.signupEmail({ email, password }));
   };
 
   onClickSignUpFacebook = () => {
@@ -54,35 +52,35 @@ class SignUpContainer extends React.Component {
   };
 
   onClickRegisterProfile = () => {
-    const {name, address, profile, image} = this.props.ui.user;
+    const { name, address, profile, image } = this.props.ui.user;
 
-    if(!name || name === '') {
+    if (!name || name === '') {
       //TODO エラー
       return;
     }
 
-    if(!address || address === '') {
+    if (!address || address === '') {
       //TODO エラー
       return;
     }
 
-    if(!profile || profile === '') {
+    if (!profile || profile === '') {
       //TODO エラー
       return;
     }
 
     this.props.dispatch(userActions.updateUser({
       userId: this.props.user.ID,
-      body:{ name, profile, image, PrefCode: '13'}
+      body: { name, profile, image, PrefCode: '13' },
     }));
   };
 
   onClickGuest = () => {
-    this.props.history.push(`${path.search()}?location=東京都`);
+    this.props.history.push(`${Path.search()}?location=東京都`);
   };
 
   onClickHost = () => {
-    this.props.history.push(`${path.createSpaceInfo()}`);
+    this.props.history.push(`${Path.createSpaceInfo()}`);
   };
 
   render() {

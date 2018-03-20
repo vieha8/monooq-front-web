@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import UserMenu from 'components/Menu/UserMenu';
+import Menu from 'components/Menu';
+import { authActions } from 'redux/modules/auth';
+import Path from 'config/path';
 
-class InquiryContainer extends Component {
+class MenuContainer extends Component {
+  logout = () => {
+    const { dispatch, history } = this.props;
+    dispatch(authActions.logout());
+    history.push(Path.top());
+  };
+
   render() {
     const { auth, showMobile } = this.props;
     return (
-      <UserMenu showMobile={showMobile} userId={auth.user.id} />
-      // ホストメニュー出す場合 (TODO ホストID指定する)
-      // <HostMenu showMobile={showMobile} hostId={auth.user.id} />
+      <Menu
+        showMobile={showMobile}
+        userId={auth.user.id}
+        onClickLogout={this.logout}  
+      />
     );
   }
 }
@@ -18,4 +29,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(InquiryContainer);
+export default withRouter(connect(mapStateToProps)(MenuContainer));

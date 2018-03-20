@@ -16,6 +16,9 @@ const SIGNUP_EMAIL = 'SIGNUP_EMAIL';
 const SIGNUP_FACEBOOK = 'SIGNUP_FACEBOOK';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNUP_FAILED = 'SIGNUP_FAILED';
+const PASSWORD_RESET = 'PASSWORD_RESET';
+const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
+const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
 
 const CHECK_LOGIN_START = 'CHECK_LOGIN_START';
 const CHECK_LOGIN_END = 'CHECK_LOGIN_END';
@@ -32,6 +35,9 @@ export const authActions = createActions(
   SIGNUP_FACEBOOK,
   SIGNUP_SUCCESS,
   SIGNUP_FAILED,
+  PASSWORD_RESET,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAILED,
 );
 
 // Reducer
@@ -74,34 +80,23 @@ export const authReducer = handleActions(
   initialState,
 );
 
-//Sagas
-function* checkLoginFirebaseAuth() {
-  //TODO とりあえずここでやってるけどなんか違う気はする
-  try {
-    const result = yield firebase.auth().getRedirectResult();
-    // TODO result.additionalUserInfo.isNewUserがtrueだと新規登録なので会員登録動線に飛ばす必要あり(signUpFormのstep4)
-    if (result.user) {
-      yield put(authActions.loginSuccess());
-    }
-  } catch (err) {
-    console.error(err);
-    yield put(authActions.loginFailed(err));
-  }
-
-  const status = yield call(() => {
-    return new Promise(resolve => {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          resolve({ isLogin: true, user: user });
-        } else {
-          resolve({ isLogin: false });
-        }
-      });
+const getLoginUserFirebaseAuth = () => {
+  return new Promise(resolve => {
+    firebase.auth().onAuthStateChanged(user => {
+      resolve(user);
     });
   });
+};
 
-  if (status.isLogin) {
-    yield put(apiActions.authFirebaseGet({ id: status.user.uid }));
+//Sagas
+function* checkLoginFirebaseAuth() {
+  const user = yield call(getLoginUserFirebaseAuth);
+
+  const status = { isLogin: false };
+
+  if (user) {
+    status.isLogin = true;
+    yield put(apiActions.authFirebaseGet({ id: user.uid }));
     const { payload } = yield take(apiActions.authFirebaseGetSuccess);
     status.user = payload;
     if (payload.Profile === '') {
@@ -189,6 +184,18 @@ function* signUpFacebook() {
   }
 }
 
+function* passwordReset({ payload: { email } }) {
+  const auth = firebase.auth();
+  try {
+    yield auth.sendPasswordResetEmail(email);
+    yield put(authActions.passwordResetSuccess());
+    store.dispatch(push('/password/reset/end'));
+  } catch (err) {
+    console.error(err);
+    yield put(authActions.passwordResetFailed(err));
+  }
+}
+
 export const authSagas = [
   takeEvery(CHECK_LOGIN_START, checkLoginFirebaseAuth),
   takeEvery(LOGIN_EMAIL, loginEmail),
@@ -196,4 +203,5 @@ export const authSagas = [
   takeEvery(LOGOUT, logout),
   takeEvery(SIGNUP_EMAIL, signUpEmail),
   takeEvery(SIGNUP_FACEBOOK, signUpFacebook),
+  takeEvery(PASSWORD_RESET, passwordReset),
 ];

@@ -20,7 +20,7 @@ import CancelSchedule from 'containers/CancelSchedule';
 import Messages from 'containers/Messages/';
 import Message from 'containers/Message/';
 import Estimate from 'containers/Estimate';
-import HostReview from 'containers/HostReview';
+import Profile from 'containers/Profile';
 import EditProfile from 'containers/EditProfile';
 import PostHostReview from 'containers/PostHostReview';
 import Payments from 'containers/Payments';
@@ -28,12 +28,12 @@ import SalesTransferList from 'containers/SalesTransfer/SalesTransferList';
 import TransferRequest from 'containers/SalesTransfer/TransferRequest';
 import EditBankAccount from 'containers/SalesTransfer/EditBankAccount';
 import Inquiry from 'containers/Inquiry';
-import HostMode from 'containers/HostMode';
-import UserMode from 'containers/UserMode';
 import SignUp from 'containers/SignUp';
 import Login from 'containers/Login';
 import Unsubscribe from 'containers/Unsubscribe';
 import Report from 'containers/Report';
+import PasswordReset from 'containers/PasswordReset';
+import PasswordResetEnd from 'containers/PasswordResetEnd';
 
 import About from 'containers/Static/About';
 import Insurance from 'containers/Static/Insurance';
@@ -50,8 +50,6 @@ import HelpTop from 'containers/Static/Help/Top';
 import HelpAboutService from 'containers/Static/Help/AboutService';
 
 import NavigationHeader from 'containers/NavigationHeader';
-import { TopPadding as HeaderPadding } from 'components/NavigationHeader';
-import { Auth } from 'components/Auth';
 
 import Path from './path';
 
@@ -75,7 +73,7 @@ export const routes = [
   { path: Path.messages(), component: Messages },
   { path: Path.message(), component: Message },
   { path: Path.estimate(), component: Estimate },
-  { path: Path.profile(), component: HostReview },
+  { path: Path.profile(), component: Profile },
   { path: Path.editProfile(), component: EditProfile },
   { path: Path.hostReview(), component: PostHostReview },
   { path: Path.paid(), component: Payments },
@@ -83,8 +81,6 @@ export const routes = [
   { path: Path.requestTransfer(), component: TransferRequest },
   { path: Path.editBankAccount(), component: EditBankAccount },
   { path: Path.inquiry(), component: Inquiry },
-  { path: Path.hostMode(), component: HostMode },
-  { path: Path.userMode(), component: UserMode },
   { path: Path.signup(), component: SignUp },
   { path: Path.login(), component: Login },
   { path: Path.unsubscribe(), component: Unsubscribe },
@@ -101,14 +97,14 @@ export const routes = [
   { path: Path.terms(), component: Terms },
   { path: Path.helpTop(), component: HelpTop },
   { path: Path.helpAboutService(), component: HelpAboutService },
+  { path: Path.passwordReset(), component: PasswordReset },
+  { path: Path.passwordResetEnd(), component: PasswordResetEnd },
 ];
 
 export default props => (
   <ConnectedRouter history={props.history}>
     <Root>
-      <Auth />
       <NavigationHeader />
-      <HeaderPadding />
       <Switch>
         {routes.map((route, i) => (
           <Route

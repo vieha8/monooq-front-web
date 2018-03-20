@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from 'components/organisms/Header';
-import ServiceMenu from 'components/organisms/ServiceMenu';
+import Header from 'components/atomic/organisms/Header';
+import ServiceMenu from 'components/atomic/organisms/ServiceMenu';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
 import { withRouter } from 'react-router';

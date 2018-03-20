@@ -5,6 +5,7 @@ import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
 import { media } from 'helpers/style/media-query';
+import Path from 'config/path';
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -22,6 +23,8 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
+  width: 60px;
+  height: 60px;
 `;
 
 const Title = styled.div`
@@ -38,12 +41,17 @@ const InputWrapper = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
-const LinkText = styled.a`
-  display: block;
+const LinkTextWrapper = styled.div`
+  display: inline-block;
   font-size: ${FontSizes.xsmall}px;
-  color: ${Colors.linkBlue};
+  color: ${Colors.black};
   margin-top: ${Dimens.medium}px;
   line-height: 1.6;
+`;
+
+const LinkText = styled.a`
+  display: inline;
+  color: ${Colors.linkBlue};
 `;
 
 const ButtonWrapper = styled.div`
@@ -107,7 +115,10 @@ export default props => (
         />
       </InputWrapper>
     </InputContainer>
-    <LinkText href="/">利用規約とプライバシーポリシーに同意の上、次へボタンを押してください。</LinkText>
+    <LinkTextWrapper>
+      <LinkText href={Path.terms()}>利用規約</LinkText>と
+      <LinkText href={Path.privacy()}>プライバシーポリシー</LinkText>に同意の上、<br />次へボタンを押してください。
+    </LinkTextWrapper>
     <ButtonWrapper>
       <Button
         bgColor={Colors.brandPrimary}

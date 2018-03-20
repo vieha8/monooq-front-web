@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
-import { withStyles } from 'material-ui/styles';
 import { CircularProgress } from 'material-ui/Progress';
+import { withRouter } from "react-router-dom";
 
 import { searchActions } from 'redux/modules/search';
 import { uiActions } from 'redux/modules/ui';
@@ -57,10 +57,10 @@ class Search extends React.Component {
 
   showSpaceList = () => (
     !this.props.search.isLoading ? (
-      <ResultList spaces={this.props.spaces} />
+      <ResultList spaces={this.props.spaces} history={this.props.history} />
     ) : (
       <ProgressContainer>
-        <CircularProgress className={this.props.classes.progress} size={50} />
+        <CircularProgress size={50} />
       </ProgressContainer>
     )
   )
@@ -84,16 +84,10 @@ class Search extends React.Component {
   }
 }
 
-const styles = theme => ({
-  progress: {
-    margin: `0 ${theme.spacing.unit * 2}px`,
-  },
-});
-
 const mapStateToProps = state => ({
   search: state.search,
   spaces: state.search.spaces,
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Search));
+export default withRouter(connect(mapStateToProps)(Search));

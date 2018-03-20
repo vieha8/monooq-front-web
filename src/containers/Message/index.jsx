@@ -1,11 +1,7 @@
 import React from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { Link } from "react-router-dom";
-import { withStyles } from 'material-ui/styles';
+import { authConnect } from "../../components/Auth";
+import { Link } from 'react-router-dom';
 import Path from 'config/path';
-import authRequired from 'components/Auth';
 import { messagesActions } from 'redux/modules/messages';
 import { uiActions } from 'redux/modules/ui';
 
@@ -13,7 +9,12 @@ import styled from 'styled-components';
 import { Colors } from 'variables';
 import { media } from '../../helpers/style/media-query';
 
-const MessagePage = styled.div``;
+const MessagePage = styled.div`
+  padding-top: 80px;
+  ${media.tablet`
+    padding-top: 60px;
+  `}
+`;
 
 const MessageContainer = styled.div`
   max-width: 1048px;
@@ -378,10 +379,10 @@ class Message extends React.Component {
   };
 
   contents = () => {
-    const { classes, messages, userId } = this.props;
+    const { messages, userId } = this.props;
 
     return (
-      <div className={classes.root}>
+      <div>
         {messages.map(message => {
           const date = message.createDt.toLocaleDateString('ja-JP', {
             year: '2-digit',
@@ -501,12 +502,6 @@ class Message extends React.Component {
   }
 }
 
-const styles = theme => ({
-  textField: {
-    width: '100%',
-  },
-});
-
 const mapStateToProps = state => ({
   messages: state.messages.messages,
   isLoading: state.messages.isLoading,
@@ -514,6 +509,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default compose(withRouter, withStyles(styles), authRequired, connect(mapStateToProps))(
-  Message,
-);
+export default authConnect(mapStateToProps)(Message);

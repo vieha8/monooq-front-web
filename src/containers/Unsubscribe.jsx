@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { authConnect } from "../components/Auth";
 import Page from 'components/Page';
 import Menu from 'containers/Menu';
 import Unsubscribe from 'components/Unsubscribe';
@@ -51,4 +51,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(UnsubscribeContainer);
+export default authConnect(mapStateToProps)(UnsubscribeContainer);

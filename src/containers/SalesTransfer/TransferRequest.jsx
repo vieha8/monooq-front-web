@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { authConnect } from "../../components/Auth";
 import { routes } from 'config/routes';
 import Page from 'components/Page';
-import HostMenu from 'components/Menu/HostMenu';
+import Menu from 'containers/Menu';
 import TransferRequest from 'components/SalesTransfer/TransferRequest';
 import { uiActions } from 'redux/modules/ui';
 
@@ -19,25 +19,25 @@ class TransferRequestContainer extends Component {
       accountLastName: 'ほげほげ',
       accountFirstName: 'ふがふが',
     }));
-  }
+  };
 
   onClickTransferRequest = () => {
     const { dispatch } = this.props;
     dispatch(uiActions.setUiState({
       requested: true,
     }));
-  }
+  };
 
   onClickToSalesTransferList = () => {
     const { history } = this.props;
     history.push(routes.salesTransferList.path);
-  }
+  };
 
   renderTransferRequested() {
     const { ui } = this.props;
     return (
       <Page title="振込申請が完了しました" subTitle="通常3,4営業日以内にお振込があります。">
-        <HostMenu />
+        <Menu />
         <TransferRequest
           {...ui}
           requested
@@ -56,7 +56,7 @@ class TransferRequestContainer extends Component {
 
     return (
       <Page title="振込申請" subTitle="取引が終了した売上合計の振込を申請できます。">
-        <HostMenu />
+        <Menu />
         <TransferRequest
           {...ui}
           onClickTransferRequest={this.onClickTransferRequest}
@@ -70,4 +70,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(TransferRequestContainer);
+export default authConnect(mapStateToProps)(TransferRequestContainer);

@@ -12,9 +12,6 @@ export default {
   // 検索
   search: () =>
     `/search`,
-  // スペース一覧
-  spaces: (userId = USER_ID) =>
-    `/user/${userId}/spaces`,
   // スペース詳細
   space: (spaceId = SPACE_ID) =>
     `/space/${spaceId}`,
@@ -55,31 +52,28 @@ export default {
   profile: (userId = USER_ID) =>
     `/user/${userId}`,
   // プロフィール編集
-  editProfile: (userId = USER_ID) =>
-    `/user/${userId}/edit`,
+  editProfile: () =>
+    `/profile/edit`,
+  // スペース一覧
+  spaces: () =>
+    `/user/spaces`,
   // レビュー投稿
   hostReview: (hostId = HOST_ID, scheduleId = SCHEDULE_ID) =>
     `/host/${hostId}/schedule/${scheduleId}/review/new`,
   // 支払い一覧
-  paid: (userId = USER_ID) =>
-    `/user/${userId}/paid`,
+  paid: () =>
+    `/paid`,
   // 売上・振込一覧
-  salesTransfers: (hostId = HOST_ID) =>
-    `/host/${hostId}/sales-transfers`,
-  requestTransfer: (hostId = HOST_ID) =>
-    `/${hostId}/transfer/new`,
+  salesTransfers: () =>
+    `/sales`,
+  requestTransfer: () =>
+    `/sales/transfer/new`,
   // 口座編集
-  editBankAccount: (hostId = HOST_ID) =>
-    `/host/${hostId}/bankaccount/edit`,
+  editBankAccount: () =>
+    `/bank/edit`,
   // お問い合わせ
   inquiry: (userId = USER_ID) =>
     `/user/${userId}/inquiry`,
-  // ホストモード切り替え
-  hostMode: (userId = USER_ID) =>
-    `/user/${userId}/hostmode`,
-  // ユーザーモード切り替え
-  userMode: (hostId = HOST_ID) =>
-    `/host/${hostId}/usermode`,
   // 登録
   signup: () =>
     '/signup',
@@ -89,6 +83,10 @@ export default {
   // 退会
   unsubscribe: () =>
     `/unsubscribe`,
+  passwordReset: () =>
+    `/password/reset`,
+  passwordResetEnd: () =>
+    `/password/reset/end`,
   // 違反報告
   report: () =>
     '/report',

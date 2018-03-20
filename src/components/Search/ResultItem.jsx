@@ -61,18 +61,23 @@ const Price = Text.extend`
 
 export default props => (
   <Container
-    onClick={() => window.open(`/space/${props.ID}`)}
+    onClick={() => props.history.push(`/space/${props.ID}`)}
   >
-    {console.log(props)}
     <Card>
-      <Image
+      {(props.Images && props.Images.length > 0) ? <Image
+        src={props.Images[0].ImageUrl}
+        alt={props.Title}
+        width="200"
+        height="150"
+      />: <Image
         src="http://placehold.jp/200x150.png"
         alt=""
-      />
+      />}
+
       <Content>
         <PlaceText>{props.AddressTown || '未設定'}</PlaceText>
         <Text>{props.Title || 'タイトル未入力'}</Text>
-        {props.Type ? <TypeOK>家具・家電OK</TypeOK> : null}
+        {props.IsFurniture ? <TypeOK>家具・家電OK</TypeOK> : null}
         <PriceTitle>料金目安（30日間）</PriceTitle>
         <Price>{props.PriceFull}/{props.PriceHalf}/{props.PriceQuarter}円</Price>
       </Content>

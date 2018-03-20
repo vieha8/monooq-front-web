@@ -14,6 +14,7 @@ const END_POINTS = {
   AUTH_PAST: 'AUTH_PAST',
   AUTH_FIREBASE: 'AUTH_FIREBASE',
   USER: 'USER',
+  USER_SPACES: 'USER_SPACES',
   USER_BANK: 'USER_BANK',
   SPACES: 'SPACES',
   SPACE: 'SPACE',
@@ -140,6 +141,15 @@ function* userBankPut({ payload: { id, body } }) {
     yield put(apiActions.userBankPutSuccess(data));
   } else {
     yield put(apiActions.userBankPutFailed(err));
+  }
+}
+
+function* userSpacesGet({ payload: { id } }) {
+  const { data, err } = yield call(() => getApiRequest(`/users/${id}/spaces`));
+  if (!err) {
+    yield put(apiActions.userSpacesGetSuccess(data));
+  } else {
+    yield put(apiActions.userSpacesGetFailed(err));
   }
 }
 
@@ -316,6 +326,7 @@ export const apiSagas = [
   takeEvery(API_ACTIONS.USER.PUT.REQUEST, userPut),
   takeEvery(API_ACTIONS.USER.DELETE.REQUEST, userDelete),
   takeEvery(API_ACTIONS.USER_BANK.PUT.REQUEST, userBankPut),
+  takeEvery(API_ACTIONS.USER_SPACES.GET.REQUEST, userSpacesGet),
   takeEvery(API_ACTIONS.SPACES.GET.REQUEST, spacesGet),
   takeEvery(API_ACTIONS.SPACE.POST.REQUEST, spacePost),
   takeEvery(API_ACTIONS.SPACE.GET.REQUEST, spaceGet),

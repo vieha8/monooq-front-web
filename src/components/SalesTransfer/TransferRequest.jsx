@@ -57,7 +57,7 @@ const ConfirmContentText = Label.extend`
 export default props => (
   <ContentContainer>
     <Content>
-      <Header>{props.requested ? '売上の詳細' : '口座情報の確認'}</Header>
+      <Header>売上詳細</Header>
       <Caption>売上は手数料を引いた金額が表示されます。</Caption>
       <Row>
         <RequestRow

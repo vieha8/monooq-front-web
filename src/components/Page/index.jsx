@@ -10,7 +10,7 @@ const PageContainer = styled.div`
 
 const Page = styled.div`
   max-width: 1048px;
-  ${media.phone`
+  ${media.tablet`
     width: 100%;
   `}
   margin: 0 auto;
@@ -32,7 +32,7 @@ const Title = styled.div`
   line-height: 51px;
   letter-spacing: -0.5px;
   color: ${Colors.black};
-  ${media.phone`
+  ${media.tablet`
     font-size: ${FontSizes.medium2}px;
     line-height: inherit;
     padding: 0 ${Dimens.medium}px;
@@ -42,7 +42,7 @@ const Title = styled.div`
 const SubTitle = styled.div`
   margin-top: ${Dimens.medium}px;
   line-height: 1.6;
-  ${media.phone`
+  ${media.tablet`
     margin-top: ${Dimens.small2}px;
     padding: 0 ${Dimens.medium}px;
   `}
@@ -50,22 +50,25 @@ const SubTitle = styled.div`
 
 const Content = styled.div`
   margin-top: ${Dimens.large}px;
-  ${media.phone`
+  ${media.tablet`
     margin-top: ${Dimens.medium}px;
   `}
 `;
 
 export const ContentContainer = styled.div`
-  width: 688px;
-  float: right;
+  max-width: 688px;
+  width: 50%;
+  float: left;
+  margin-left: ${Dimens.large}px;
   &:after {
     clear: both;
     content: "";
     display: block;
   }
-  ${media.phone`
+  ${media.tablet`
     float: none;
     width: 100%;
+    margin-left: 0;
   `}
 `;
 

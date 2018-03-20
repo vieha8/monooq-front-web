@@ -53,7 +53,7 @@ const Empty = () => (<span>&nbsp;</span>);
 
 export default props => (
   <Container
-    onClick={() => window.open('/space/1')}
+    onClick={() => props.history.push(`/space/${props.id}`)}
   >
     <Card>
       <Image

@@ -26,6 +26,8 @@ import {
 import SpaceMenu from 'containers/Search/SpaceMenu';
 import { getRoomId, createRoom } from 'redux/modules/messages';
 import { spaceActions } from 'redux/modules/space';
+import { uiActions } from 'redux/modules/ui';
+import axios from 'axios';
 
 const SpacePage = styled.div`
   background: ${Colors.lightGray2Bg};
@@ -115,30 +117,54 @@ const MapContainer = styled.div`
   `}
 `;
 
-class Space extends React.Component {
+const spaceTypes = [
+  '',
+  'クローゼット',
+  '押入れ',
+  '部屋',
+  '屋外倉庫',
+  'その他',
+];
+const KEY = 'AIzaSyCrHQDZXZI21cMEW8FIYYWKyvI2kLUDsbA';
 
+class Space extends React.Component {
   constructor(props) {
     super(props);
-    const spaceId = props.match.params.space_id;
-    props.dispatch(spaceActions.fetchSpace({ spaceId: spaceId }));
+
+    const { dispatch, match } = props;
+
+    const spaceId = match.params.space_id;
+    dispatch(spaceActions.fetchSpace({ spaceId }));
+
+    (async () => {
+      const places = await new Promise((resolve, reject) => {
+        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${KEY}&address=1660003`)
+          .then(result => resolve(result))
+          .catch(error => reject(error));
+      });
+      if (places.data.results.length > 0) {
+        const location = places.data.results[0].geometry.location;
+        dispatch(uiActions.setUiState({ location }));
+      }
+    })();
   }
 
-  sendMessage = async (props) => {
-    const userId1 = props.userId;
-    const userId2 = props.space.UserID;
-    const spaceId = props.space.ID;
+  sendMessage = async () => {
+    const { userId, space, history } = this.props;
+    const userId1 = userId;
+    const userId2 = space.UserID;
+    const spaceId = space.ID;
     let roomId = await getRoomId(userId1, userId2, spaceId);
     if (!roomId) {
       roomId = await createRoom(userId1, userId2, spaceId);
     }
-    props.history.push(Path.message(roomId));
+    history.push(Path.message(roomId));
   };
 
   render() {
-    const props = this.props;
-    const space = props.space;
+    const { ui, space } = this.props;
 
-    if(!space){
+    if (!space || !ui.location) {
       return (
         <SpacePage>
           {/*TODO インジケーター*/}
@@ -153,7 +179,9 @@ class Space extends React.Component {
           containerElement={<MapContainer />}
           mapElement={<div style={{ height: '100%' }} />}
           loadingElement={<div style={{ height: '100%' }} />}
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrHQDZXZI21cMEW8FIYYWKyvI2kLUDsbA&v=3.exp&libraries=geometry,drawing,places"
+          lat={ui.location.lat}
+          lng={ui.location.lng}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${KEY}&v=3.exp&libraries=geometry,drawing,places`}
         />
         <CardContainer>
           <SpaceCardContainer>
@@ -170,20 +198,7 @@ class Space extends React.Component {
                 <HeaderTitle>{space.Title}</HeaderTitle>
                 <SlideImageWrapper>
                   <SlideImage
-                    images={[
-                      {
-                        original: 'http://placehold.jp/500x300.png',
-                        thumbnail: 'http://placehold.jp/500x300.png',
-                      },
-                      {
-                        original: 'http://placehold.jp/500x300.png',
-                        thumbnail: 'http://placehold.jp/500x300.png',
-                      },
-                      {
-                        original: 'http://placehold.jp/500x300.png',
-                        thumbnail: 'http://placehold.jp/500x300.png',
-                      },
-                    ]}
+                    images={space.Images.map((v) => ({original: v.ImageUrl, thumbnail: v.ImageUrl}))}
                   />
                 </SlideImageWrapper>
                 <Section>
@@ -201,7 +216,7 @@ class Space extends React.Component {
                     title="種類"
                     renderContent={() => (
                       <DetailContent.SpaceType>
-                        {space.Type}
+                        {spaceTypes[space.Type]}
                       </DetailContent.SpaceType>
                     )}
                   />
@@ -236,7 +251,7 @@ class Space extends React.Component {
               <Section>
                 <HostInfo
                   img={{
-                    src: 'https://placehold.jp/150x150.png',
+                    src: space.Host.ImageUrl,
                     alt: space.Host.Name,
                   }}
                   hostName={space.Host.Name}
@@ -269,17 +284,17 @@ class Space extends React.Component {
               </MobileContainer>
             </Card>
             {isMobileWindow() &&
-            <Section>
-              <ReportLink />
-            </Section>
+              <Section>
+                <ReportLink />
+              </Section>
             }
             <SendMessageButton
-              onClickSendMessage={() => this.sendMessage(props)}
+              onClickSendMessage={() => this.sendMessage()}
             />
             {!isMobileWindow() &&
-            <Section>
-              <ReportLink />
-            </Section>
+              <Section>
+                <ReportLink />
+              </Section>
             }
           </PriceCardContainer>
         </CardContainer>
@@ -292,6 +307,7 @@ class Space extends React.Component {
 const mapStateToProps = state => ({
   userId: state.auth.user.ID,
   space: state.space.space,
+  ui: state.ui,
 });
 
 export default connect(mapStateToProps)(withRouter(Space));

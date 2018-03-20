@@ -1,10 +1,7 @@
 import React, { Fragment } from 'react';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { withStyles } from 'material-ui/styles';
 import Path from 'config/path';
 import Avatar from 'material-ui/Avatar';
-import authRequired from 'components/Auth';
+import { authConnect } from 'components/Auth';
 import { messagesActions } from 'redux/modules/messages';
 import Menu from 'containers/Menu';
 import styled from 'styled-components';
@@ -70,9 +67,10 @@ const StyledMessagesItemText = styled(MessagesItemText) `
 `;
 
 class Messages extends React.Component {
-  constructor(props) {
+
+  constructor(props){
     super(props);
-    props.dispatch(messagesActions.fetchRoomsStart(props.user.ID.toString()));
+    this.props.dispatch(messagesActions.fetchRoomsStart());
   }
 
   render() {
@@ -102,18 +100,10 @@ class Messages extends React.Component {
   }
 }
 
-const styles = theme => ({
-  root: {
-    maxWidth: 720,
-    backgroundColor: theme.palette.background.paper,
-    margin: 'auto',
-  },
-});
-
 const mapStateToProps = state => ({
   rooms: state.messages.rooms,
   isLoading: state.messages.isLoading,
   user: state.auth.user,
 });
 
-export default compose(withStyles(styles), authRequired, connect(mapStateToProps))(Messages);
+export default authConnect(mapStateToProps)(Messages);

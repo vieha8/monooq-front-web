@@ -1,5 +1,8 @@
 import React from 'react';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
+import imageFurnitureFull from 'images/furniture-full.svg';
+import imageFurnitureHalf from 'images/furniture-half.svg';
+import imageFurnitureQuarter from 'images/furniture-quarter.svg';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Title from '../shared/Title';
@@ -35,6 +38,7 @@ export default (props) => {
             title="スペースまるごと"
             caption="あなたのスペースのほとんどを使用する荷物の場合の料金"
             placeholder="20000"
+            image={imageFurnitureFull}
           />
           <InputPriceOfType
             {...props}
@@ -43,6 +47,7 @@ export default (props) => {
             title="スペース半分"
             caption="あなたのスペースの「半分」を使用する荷物の場合の料金"
             placeholder="10000"
+            image={imageFurnitureHalf}
           />
           <InputPriceOfType
             {...props}
@@ -51,6 +56,7 @@ export default (props) => {
             title="スペース1/4"
             caption="あなたのスペースの「4分の1」を使用する荷物の場合の料金"
             placeholder="5000"
+            image={imageFurnitureQuarter}
           />
         </div>
         <ButtonsContainer>

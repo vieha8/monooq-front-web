@@ -136,6 +136,7 @@ export default props => (
           <ResidenceText>{props.host.residence} 在住</ResidenceText>
           <Profile>{props.host.profile}</Profile>
         </HostContainer>
+
         <EvaluationContainer>
           <Header>レビュー</Header>
           <Evaluations>
@@ -187,6 +188,7 @@ export default props => (
         ) : (
           <NotExistsText>レビューはまだありません。</NotExistsText>
         )}
+
         <Header>{props.host.name} さんのスペース</Header>
         <SpaceListContainer>
           <SpaceItem place="麻布" name="東京タワーもバッチリ見えます" typeOK price="1000/5000/20000" />

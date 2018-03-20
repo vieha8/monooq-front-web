@@ -1,7 +1,7 @@
 import React from 'react';
+import { authConnect } from "../../components/Auth";
 import { Page } from 'components/NewSpace/page/Shared';
 import SpaceCratedCompletion from 'components/NewSpace/page/SpaceCreatedCompletion';
-import {connect} from "react-redux";
 
 class SpaceCratedCompletionContainer extends React.Component {
 
@@ -21,4 +21,4 @@ const mapStateToProps = state => ({
   space: state.space.created,
 });
 
-export default connect(mapStateToProps)(SpaceCratedCompletionContainer);
+export default authConnect(mapStateToProps)(SpaceCratedCompletionContainer);

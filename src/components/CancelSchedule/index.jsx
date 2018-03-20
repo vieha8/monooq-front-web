@@ -12,7 +12,7 @@ const Title = styled.div`
   line-height: 51px;
   letter-spacing: -0.5px;
   color: ${Colors.black};
-  ${media.phone`
+  ${media.tablet`
     font-size: ${FontSizes.medium2}px;
     line-height: inherit;
     padding: 0 ${Dimens.medium}px;

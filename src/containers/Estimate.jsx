@@ -3,10 +3,14 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import { Colors } from 'variables';
+import { requestActions } from 'redux/modules/request';
 import { media } from '../helpers/style/media-query';
-import { requestActions } from "../redux/modules/request";
 
 const EstimatePage = styled.div`
+  padding-top: 80px;
+  ${media.tablet`
+    padding-top: 60px;
+  `}
 `;
 
 const EstimateContainer = styled.div`
@@ -21,7 +25,7 @@ const PageTitle = styled.div`
   margin-bottom: 52px;
   ${media.phone`
     padding: 0 20px;
-    font-size: 12px;
+    font-size: 24px;
     line-height: 18px;
     margin-bottom: 20px;
   `};

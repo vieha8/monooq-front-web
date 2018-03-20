@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import Path from 'config/path';
 import Icon from 'components/Shared/Icon';
 import Menu from 'containers/Menu';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
-import { media } from 'helpers/style/media-query';
+import { media, isMobileWindow } from 'helpers/style/media-query';
 import logoUri from 'images/monooq_logo.svg';
 
 const Container = styled.nav`
@@ -14,25 +15,19 @@ const Container = styled.nav`
   left: 0;
   right: 0;
   width: 100%;
-  height: 80px;
+  height: 60px;
   padding: 0 ${Dimens.small}px;
   border-bottom: 1px solid ${Colors.borderGray};
   background: ${Colors.white};
   z-index: ${ZIndexes.nav};
-  ${media.phone`
-    height: 60px;
-  `}
 `;
 
 export const TopPadding = styled.div`
-  height: 80px;
+  height: 60px;
   width: 100%;
-  ${media.phone`
-    height: 60px;
-  `}
 `;
 
-const LogoWrapper = styled.a`
+const LogoWrapper = styled(Link)`
   display: table-cell;
   vertical-align: middle;
   width: 20%;
@@ -52,12 +47,9 @@ const IconWrapper = styled.a`
   position: relative;
   display: inline-block;
   height: 100%;
-  padding: 22px ${Dimens.small}px 0;
+  padding: 18px ${Dimens.small}px 0;
   vertical-align: top;
   cursor: pointer;
-  ${media.phone`
-    padding: 14px ${Dimens.small}px 0;
-  `}
 `;
 
 const UserIconWrapper = IconWrapper.withComponent('div');
@@ -65,7 +57,7 @@ const UserIconWrapper = IconWrapper.withComponent('div');
 const LinkWrapper = styled.div`
   display: inline-block;
   height: 100%;
-  padding: 32px ${Dimens.small}px 0;
+  padding: 22px ${Dimens.small}px 0;
   cursor: pointer;
   ${media.phone`
     padding: 22px ${Dimens.small}px 0;
@@ -85,12 +77,11 @@ const AnonymousUserLink = styled.a`
 
 const MenuContainer = styled.div`
   position: fixed;
-  top: 80px;
+  top: 60px;
   right: 0;
   z-index: ${ZIndexes.topmost};
   background: ${Colors.white};
   ${media.phone`
-    top: 60px;
     left: 0;
     right: 0;
   `}
@@ -98,14 +89,37 @@ const MenuContainer = styled.div`
 
 const MenuBackground = styled.div`
   position: fixed;
-  top: 80px;
+  top: 60px;
   left: 0;
   right: 0;
   bottom: 0;
   background: rgba(255,255,255,0.6);
   z-index: ${ZIndexes.topmost - 1};
-  ${media.phone`
-    top: 60px;
+`;
+
+const SearchFiled = styled.input`
+  @keyframes show {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: ${props => (props.isMobile ? 100 : 300)}px;
+    }
+  }
+
+  outline: none;
+  height: 32px;
+  margin-top: 14px;
+  width: 0;
+  border: none;
+  border-bottom: 1px solid ${Colors.borderGray};
+  ${props => props.show && `
+    animation show 0.5s ease 0s;
+    animation-fill-mode: forwards;
+    width: 300px;
+    ${media.phone`
+      width: 100px;
+    `}
   `}
 `;
 
@@ -131,10 +145,10 @@ function renderMenuIcon(props) {
     return (
       <Fragment>
         <IconWrapper href={Path.messages(user.ID)}>
-          <Icon name="comment" fontSize={FontSizes.large} color={Colors.lightGray1} />
+          <Icon name="fas fa-comment" reverse fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
         <UserIconWrapper onClick={() => onClickToggleMenu()}>
-          <UserImage src={user.ImageUrl} alt="" />
+          <UserImage src={user.ImageUrl} alt={user.name} />
         </UserIconWrapper>
         {showMenu && renderMenu(props)}
       </Fragment>
@@ -150,16 +164,31 @@ function renderMenuIcon(props) {
   );
 }
 
+function refSearchField(ref, props) {
+  if (ref) {
+    ref.addEventListener('keydown', props.onKeyDownSearchField);
+  }
+}
+
 export default props => (
-  <Container>
-    <LogoWrapper href={Path.top()}>
-      <Logo src={logoUri} />
-    </LogoWrapper>
-    <MenuWrapper>
-      <IconWrapper href={`${Path.search()}?location=東京都`}>
-        <Icon name="search" fontSize={FontSizes.large} color={Colors.lightGray1} />
-      </IconWrapper>
-      {renderMenuIcon(props)}
-    </MenuWrapper>
-  </Container>
+  <div>
+    <Container>
+      <LogoWrapper to={Path.top()}>
+        <Logo src={logoUri} />
+      </LogoWrapper>
+      <MenuWrapper>
+        <SearchFiled
+          isMobile={isMobileWindow()}
+          show={props.showSearchField}
+          innerRef={ref => refSearchField(ref, props)}
+          placeholder="どこの物置きを探す？"
+        />
+        <IconWrapper onClick={props.onClickSearchIcon}>
+          <Icon name="fal fa-search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
+        </IconWrapper>
+        {renderMenuIcon(props)}
+      </MenuWrapper>
+    </Container>
+    <TopPadding />
+  </div>
 );

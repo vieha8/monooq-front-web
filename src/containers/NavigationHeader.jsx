@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import NavigationHeader from 'components/NavigationHeader';
 import { uiActions } from 'redux/modules/ui';
 import { withRouter } from 'react-router';
+import Path from 'config/path';
 
 const disusePage = [/\/maintenance/, /\/help*/];
 
@@ -21,6 +22,20 @@ class NavigationHeaderContainer extends Component {
     }));
   }
 
+  onClickSearchIcon = () => {
+    const { dispatch } = this.props;
+
+    dispatch(uiActions.setUiState({
+      showSearchField: true,
+    }));
+  }
+
+  onKeyDownSearchField = (e) => {
+    if (e && e.keyCode === 13 && e.target.value) {
+      window.location.href = `${Path.search()}?location=${e.target.value}`;
+    }
+  }
+
   renderNavigationHeader() {
     const { ui, isLogin, isChecking, user } = this.props;
     return (
@@ -28,7 +43,10 @@ class NavigationHeaderContainer extends Component {
         loginChecking={isChecking}
         user={isLogin ? user : null}
         showMenu={ui.showMenu}
+        showSearchField={ui.showSearchField}
+        onKeyDownSearchField={this.onKeyDownSearchField}
         onClickToggleMenu={this.toggleMenu}
+        onClickSearchIcon={this.onClickSearchIcon}
       />
     );
   }

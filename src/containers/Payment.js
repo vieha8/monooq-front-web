@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { authConnect } from '../components/Auth';
 import styled from 'styled-components';
 import { Colors } from 'variables';
 import { media } from '../helpers/style/media-query';
 import { uiActions } from '../redux/modules/ui';
 import { requestActions } from '../redux/modules/request';
 
-const PaymentPage = styled.div``;
+const PaymentPage = styled.div`
+  padding-top: 80px;
+  ${media.tablet`
+    padding-top: 60px;
+  `};
+`;
 
 const PaymentContainer = styled.div`
   max-width: 1048px;
@@ -510,4 +515,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(Payment);
+export default authConnect(mapStateToProps)(Payment);

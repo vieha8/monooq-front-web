@@ -65,14 +65,19 @@ const AboutCancellContent = (props) => {
     width: 178.22px;
     font-weight: bold;
     margin-right: 20px;
+    display: table-cell;
     ${media.phone`
       width: 100%;
-    `};
+      display: block;
+      line-height: 3;
+    `}
   `;
   const Data = styled.div`
+    display: table-cell;
     ${media.phone`
-      line-height: 30px;
-    `};
+      display: block;
+      line-height: 3;
+    `}
   `;
   return (
     <div className={props.className}>
@@ -84,12 +89,9 @@ const AboutCancellContent = (props) => {
 
 const StyledAboutCancellContent = styled(AboutCancellContent)`
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  line-height: 60px;
+  display: table;
   font-size: 14px;
-  padding: 0 20px;
+  padding: 20px;
   border-right: 1px solid #DBDBDB;
   border-left: 1px solid #DBDBDB;
   border-bottom: 1px solid #DBDBDB;
@@ -111,17 +113,24 @@ const AboutCancellExampleWrapper = styled.div`
   border-radius: 7px;
 `;
 
+const ExampleTextContainer = styled.div`
+  margin-top: 30px;
+  display: table;
+  width: 100%;
+`;
+
 const ExampleText = styled.div`
+  display: table-cell;
   font-size: 14px;
   line-height: 28px;
   width: 50%;
-`;
-
-const FlexWrapper = styled.div`
-  margin-top: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  ${media.tablet`
+    &:not(:first-child) {
+      margin-top: 16px;
+    }
+    display: block;
+    width: 100%;
+  `}
 `;
 
 const AboutCancellHostContainer = DefaultContainer.extend`
@@ -133,12 +142,11 @@ export default () => (
     <MainTitleContainer>
       <MainTitle>キャンセルポリシー</MainTitle>
       <HilightText>キャンセルポリシーとは、モノオクが定める取引成立後のキャンセルに発生する手数料やご注意事項です。見積もりを送る前・お支払いの前に必ずご確認ください。</HilightText>
-
       <Hr />
     </MainTitleContainer>
 
     <AboutCancellContainer>
-      <MainTitle>荷物を預ける方のキャンセルについて</MainTitle>
+      <MainTitle>荷物を置く方のキャンセルについて</MainTitle>
       <AboutCancellHilightText>ホストはあなたのために荷物スペースや搬入の準備を整えてくれています。準備や確認不足による直前のキャンセルはとても迷惑です。ホストと契約した日程の15日前からキャンセル手数料が発生します。</AboutCancellHilightText>
 
       <HilightText>利用開始日から</HilightText>
@@ -173,18 +181,20 @@ export default () => (
       </AboutCancellContentWrapper>
       <NoticeWrapper>
         <Text>
-          ※連絡がつかないなど、無断でのキャンセルも利用開始日以降の返金はありません。<br />
-          ※取引成立日が利用開始日まで15日を切っている場合も、同様のキャンセル手数料が発生します。<br />
-          ※現在はサービス利用手数料0%のキャンペーン中となります。キャンペーンが終了し次第、手数料を差し引いた料金を返金いたします。
+          ※連絡がつかないなど、無断でのキャンセルも利用開始日以降の返金はありません。*1<br />
+          ※取引成立日が利用開始日まで15日未満の場合も、同様のキャンセル手数料が発生します。<br />
+          ※現在はサービス利用手数料0%のキャンペーン中となります。キャンペーンが終了し次第、手数料を差し引いた金額を返金いたします。<br />
+          <br />
+          *1 無断でのスペース利用延長は荷物を引き取る意思がないとみなし、利用規約に基づき荷物の引き取り費用10万円（税別）と処分に要した費用全額を請求いたします。
         </Text>
       </NoticeWrapper>
 
       <AboutCancellExampleWrapper>
         <Text>支払い金額が20,000円の場合のキャンセル例</Text>
-        <FlexWrapper>
+        <ExampleTextContainer>
           <ExampleText>開始日の15日前(00:00以降)のキャンセル<br />20000×0.75=15000円を返金</ExampleText>
           <ExampleText>開始日の7日前(00:00以降)のキャンセル<br />20000×0.5=10000円を返金</ExampleText>
-        </FlexWrapper>
+        </ExampleTextContainer>
       </AboutCancellExampleWrapper>
 
       <Hr />
@@ -221,7 +231,7 @@ export default () => (
       </AboutCancellContentWrapper>
       <NoticeWrapper>
         <Text>
-          避けられない事故や緊急な事情により、やむを得ずキャンセルしなければならない場合が発生することもあるかと思います。モノオクがホストのキャンセル理由が酌量すべき事情と判断した場合には、上記のペナルティを免除する配慮を行っています。キャンセルをしなくてはならない場合は、すみやかにユーザーに事情を連絡してください。その上でモノオクカスタマーサポートまでスペースや荷物の状況をご連絡くださいませ。
+          避けられない事故や緊急な事情により、やむを得ずキャンセルしなければならない場合など、モノオクがホストのキャンセル理由が酌量すべき事情と判断した場合には、上記のペナルティを免除される可能性があります。キャンセルをしなくてはならない場合は、すみやかにユーザーに事情を連絡してください。その上でモノオクカスタマーサポートまでスペースや荷物の状況をご連絡ください。
         </Text>
       </NoticeWrapper>
 
