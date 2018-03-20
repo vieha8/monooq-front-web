@@ -2,14 +2,7 @@ import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Footer } from 'components/Shared';
-
-const DefaultContainer = styled.div`
-  padding: 0 116px;
-  ${media.phone`
-    padding: 0 8vw;
-  `};
-`;
+import { Footer, DefaultContainer } from 'components/Shared';
 
 const MainTitle = styled.div`
   font-size: 34px;
@@ -69,14 +62,14 @@ const AboutCancellContent = (props) => {
     ${media.phone`
       width: 100%;
       display: block;
-      line-height: 3;
+      line-height: 2;
     `}
   `;
   const Data = styled.div`
     display: table-cell;
     ${media.phone`
       display: block;
-      line-height: 3;
+      line-height: 2;
     `}
   `;
   return (
@@ -101,6 +94,11 @@ const StyledAboutCancellContent = styled(AboutCancellContent)`
   :first-child{
     border-top: 1px solid #DBDBDB;
   }
+  ${media.phone`
+    width: 84vw;
+    padding: 16px;
+    box-sizing: border-box;
+  `}
 `;
 
 const NoticeWrapper = styled.div`
@@ -108,7 +106,7 @@ const NoticeWrapper = styled.div`
 `;
 
 const AboutCancellExampleWrapper = styled.div`
-  padding: 30px;
+  padding: 20px;
   border: 1px solid #D6D6D6;
   border-radius: 7px;
 `;
