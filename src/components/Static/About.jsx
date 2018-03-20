@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Footer } from 'components/Shared';
+import { Footer, DefaultContainer } from 'components/Shared';
 import { Dimens } from 'variables';
 
 import mainVisual from 'images/about_main_visual@2x.jpg';
@@ -12,15 +12,6 @@ import useImage3 from 'images/about_use3@2x.jpg';
 import useImage4 from 'images/about_use4@2x.jpg';
 import useImage5 from 'images/about_use5@2x.jpg';
 import useImage6 from 'images/about_use6@2x.jpg';
-
-const DefaultContainer = styled.div`
-  width: ${Dimens.fixedWidthPc}px;
-  margin: 0 auto;
-  ${media.phone`
-    padding: 0 8vw;
-    width: 100vw;
-  `};
-`;
 
 const SubTitle = styled.div`
   font-size: 30px;
@@ -194,6 +185,7 @@ const IfIFindContent = props => {
     color: #e85258;
     padding: 30px 0;
     margin-right: 20px;
+    box-sizing: border-box;
     ${media.phone`
       margin: 0 0 10px;
     `};
@@ -215,8 +207,8 @@ const IfIFindContent = props => {
   `;
 
   const IfIFindContentText = Text.extend`
-    width: 360px;
-    margin-right: 20px;
+    width: 374px;
+    margin-right: 30px;
     ${media.phone`
       width: 100%;
       margin-right: 0;
@@ -238,7 +230,7 @@ const StyledIfIFindContent = styled(IfIFindContent)`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  width: 500px;
+  width: 524px;
   margin-bottom: 20px;
   ${media.phone`
     width: 100%;

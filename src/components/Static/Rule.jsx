@@ -1,21 +1,12 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Footer } from 'components/Shared';
+import { Footer, DefaultContainer } from 'components/Shared';
 import { Dimens } from 'variables';
 
 import ruleImage1 from 'images/rule-img01.svg';
 import ruleImage2 from 'images/rule-img02.svg';
 import ruleImage3 from 'images/rule-img03.svg';
-
-const DefaultContainer = styled.div`
-  width: ${Dimens.fixedWidthPc}px;
-  margin: 0 auto;
-  ${media.phone`
-    padding: 0 8vw;
-    width: 100vw;
-  `};
-`;
 
 const MainTitle = styled.div`
   font-size: 34px;
@@ -109,12 +100,12 @@ const StyledHowSafeContent = styled(HowSafeContent)`
 const NotAllowedContainer = DefaultContainer.extend``;
 
 const NotAllowedContentWrapper = styled.div`
-  margin-bottom: 30px;
+  margin: 30px 0;
 `;
 
 const NotAllowedContent = props => {
   const Header = styled.div`
-    width: 178.22px;
+    width: 180px;
     font-weight: bold;
     margin-right: 20px;
     ${media.phone`
@@ -122,9 +113,14 @@ const NotAllowedContent = props => {
     `};
   `;
   const Data = styled.div`
+    width: 758px;
+    font-size: 14px;
+    line-height: 28px;
+    padding: 16px 0;
     ${media.phone`
       line-height: 30px;
       margin-bottom: 20px;
+      padding: 0;
     `};
   `;
   return (
@@ -136,7 +132,6 @@ const NotAllowedContent = props => {
 };
 
 const StyledNotAllowedContent = styled(NotAllowedContent)`
-  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -282,44 +277,44 @@ export default props => (
           {
             header: '特殊品',
             data:
-              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+              '磁気テープ類などの磁気の影響を受ける物、精密機器など',
           },
           {
             header: '生き物',
-            data: '塗料、マッチ、ライター、ゴム、タイヤ、燃料類など',
+            data: '植木類、苗および生花、種子、ペット類など',
           },
           {
             header: '美術品・高価品',
             data:
-              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+              '書画、骨董品、宝石類、毛皮品など',
           },
           {
             header: '生鮮食品',
-            data: '塗料、マッチ、ライター、ゴム、タイヤ、燃料類など',
+            data: '魚介類、野菜、果実など',
           },
           {
             header: '異臭のする物',
             data:
-              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+              '臭いの強い物など',
           },
           {
             header: 'こわれやすい物',
-            data: '塗料、マッチ、ライター、ゴム、タイヤ、燃料類など',
+            data: 'ガラス、陶磁器類など',
           },
           {
             header: '特殊な衣料',
             data:
-              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+              '毛皮、着物など',
           },
           {
             header: '慶事・祭事・仏事関連品',
             data:
-              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+              '仏壇、祭壇、神棚など',
           },
           {
             header: 'その他',
             data:
-              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+              'その他の個人の貴重品、ピアノ、電子オルガン、現金・有価証券の類、ゴミ、産業廃棄物およびこれらに類する物、常温では管理できない物、法令に定められている取り扱いできない物',
           },
           ].map((v, i) => {
             return <StyledNotAllowedContent header={v.header} data={v.data} key={i} />;

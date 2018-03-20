@@ -8,5 +8,5 @@ export default {
   medium3: 42,
   large: 54,
   huge: 84,
-  fixedWidthPc: 1000,
+  fixedWidthPc: 1048,
 };
