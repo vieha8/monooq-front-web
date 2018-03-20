@@ -16,9 +16,11 @@ import useImage6 from 'images/about_use6@2x.jpg';
 const DefaultContainer = styled.div`
   width: ${Dimens.fixedWidthPc}px;
   margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: initial;
   ${media.phone`
     padding: 0 8vw;
-    width: 100vw;
+    width: 84vw;
   `};
 `;
 
@@ -194,6 +196,7 @@ const IfIFindContent = props => {
     color: #e85258;
     padding: 30px 0;
     margin-right: 20px;
+    box-sizing: border-box;
     ${media.phone`
       margin: 0 0 10px;
     `};
