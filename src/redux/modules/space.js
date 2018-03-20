@@ -5,6 +5,7 @@ import { store } from '../store/configureStore';
 import { push } from 'react-router-redux';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
+import Path from '../../config/path';
 
 // Actions
 const FETCH_SPACE = 'FETCH_SPACE';
@@ -13,6 +14,9 @@ const FETCH_FAILED_SPACE = 'FETCH_FAILED_SPACE';
 const CREATE_SPACE = 'CREATE_SPACE';
 const CREATE_SUCCESS_SPACE = 'CREATE_SUCCESS_SPACE';
 const CREATE_FAILED_SPACE = 'CREATE_FAILED_SPACE';
+const UPDATE_SPACE = 'UPDATE_SPACE';
+const UPDATE_SUCCESS_SPACE = 'UPDATE_SUCCESS_SPACE';
+const UPDATE_FAILED_SPACE = 'UPDATE_FAILED_SPACE';
 
 export const spaceActions = createActions(
   FETCH_SPACE,
@@ -21,6 +25,9 @@ export const spaceActions = createActions(
   CREATE_SPACE,
   CREATE_SUCCESS_SPACE,
   CREATE_FAILED_SPACE,
+  UPDATE_SPACE,
+  UPDATE_SUCCESS_SPACE,
+  UPDATE_FAILED_SPACE,
 );
 
 // Reducer
@@ -92,7 +99,23 @@ function* createSpace({ payload: { body } }) {
     yield take(apiActions.spacePutSuccess);
   }
   yield put(spaceActions.createSuccessSpace(payload));
-  store.dispatch(push('/space/new/completion'));
+  store.dispatch(push(Path.createSpaceCompletion()));
 }
 
-export const spaceSagas = [takeEvery(FETCH_SPACE, getSpace), takeEvery(CREATE_SPACE, createSpace)];
+function* updateSpace({ payload: { spaceId, body } }) {
+  const { images } = body;
+  delete body.id;
+  if (images) {
+    //TODO 画像アップロード処理
+  }
+  yield put(apiActions.spacePut({ id: spaceId, body: body }));
+  const { payload } = yield take(apiActions.spacePutSuccess);
+  yield put(spaceActions.updateSuccessSpace(payload));
+  store.dispatch(push(Path.editSpaceCompletion(spaceId)));
+}
+
+export const spaceSagas = [
+  takeEvery(FETCH_SPACE, getSpace),
+  takeEvery(CREATE_SPACE, createSpace),
+  takeEvery(UPDATE_SPACE, updateSpace),
+];

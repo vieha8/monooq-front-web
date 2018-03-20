@@ -11,6 +11,7 @@ export default (props) => (
   <Container>
     <Checkbox
       name="isFurniture"
+      checked={props.ui.space.isFurniture}
       onChange={props.handleChangeCheckbox}
       label="家具や家電製品の保管に対応する"
     />

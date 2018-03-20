@@ -39,8 +39,32 @@ export default class SpaceSize extends Component {
     this.props.dispatch(uiActions.setUiState({ space }));
   };
 
+  onClickNext = () => {
+    if(this.props.ui.isEdit){
+      if(this.props.ui.space.sizeType === SpaceSize.Type.Small){
+        this.props.history.push(path.editSpacePrice(this.props.ui.spaceId, 'all'));
+      }else{
+        this.props.history.push(path.editSpacePrice(this.props.ui.spaceId, 'about'));
+      }
+    }else{
+      if(this.props.ui.space.sizeType === SpaceSize.Type.Small){
+        this.props.history.push(path.createSpacePrice(this.props.ui.spaceId, 'all'));
+      }else{
+        this.props.history.push(path.createSpacePrice(this.props.ui.spaceId, 'about'));
+      }
+    }
+  };
+
+  onClickBack = () => {
+    if(this.props.ui.isEdit){
+      this.props.history.push(path.editSpaceReceive(this.props.ui.spaceId));
+    }else{
+      this.props.history.push(path.createSpaceReceive());
+    }
+  };
+
   render() {
-    const { history, ui } = this.props;
+    const { ui } = this.props;
     return (
       <Container>
         <PageContent>
@@ -69,24 +93,12 @@ export default class SpaceSize extends Component {
             />
           </CriterionWrapper>
           <ButtonsContainer>
-            <Button border onClick={() => history.push(path.createSpaceReceive())}>
+            <Button border onClick={this.onClickBack}>
               戻る
             </Button>
             <Button
               position="right"
-              onClick={() => {
-                switch (ui.space.sizeType) {
-                  case SpaceSize.Type.Small:
-                    history.push(path.createSpaceAllPrice());
-                    break;
-                  case SpaceSize.Type.Large:
-                    history.push(path.createSpaceAreaPrice());
-                    break;
-                  default:
-                    break;
-                }
-              }}
-            >
+              onClick={this.onClickNext}>
               次へ
             </Button>
           </ButtonsContainer>

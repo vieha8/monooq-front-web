@@ -1,11 +1,12 @@
 import React from 'react';
 import { authConnect } from "../../components/Auth";
 import { Page } from 'components/NewSpace/page/Shared';
-import ReceiveBaggage from 'components/NewSpace/page/ReceiveBaggage';
-import {uiActions} from "../../redux/modules/ui";
-import {spaceActions} from "../../redux/modules/space";
+import AllUsePrice from 'components/NewSpace/page/AllUsePrice';
+import AboutPrice from 'components/NewSpace/page/AboutPrice';
+import {uiActions} from "../../redux/modules/ui"
+import { spaceActions } from "../../redux/modules/space";
 
-class ReceiveBaggageContainer extends React.Component {
+class PriceContainer extends React.Component {
 
   constructor(props){
     super(props);
@@ -21,22 +22,36 @@ class ReceiveBaggageContainer extends React.Component {
 
   handleChangeText = ({target}) => {
     const {space} = this.props.ui;
-    Object.assign(space, {[target.name]: target.value});
+    Object.assign(space, {[target.name]: parseInt(target.value, 10)});
     this.props.dispatch(uiActions.setUiState({space}));
   };
 
-  handleChangeSelect = (_, target) => {
-    this.handleChangeText({target});
+  onClickComplete = () => {
+    const {space, spaceId} = this.props.ui;
+    space.userId = this.props.user.ID;
+    if(this.props.ui.isEdit){
+      this.props.dispatch(spaceActions.updateSpace({spaceId, body: space}));
+    }else{
+      this.props.dispatch(spaceActions.createSpace({body: space}));
+    }
   };
 
   render() {
     return (
       <Page>
-        <ReceiveBaggage
-          {...this.props}
-          handleChangeText={this.handleChangeText}
-          handleChangeSelect={this.handleChangeSelect}
-        />
+        {this.props.match.params.type === 'all'?
+          <AllUsePrice
+            {...this.props}
+            handleChangeText={this.handleChangeText}
+            onClickComplete={this.onClickComplete}
+          />
+          :
+          <AboutPrice
+            {...this.props}
+            handleChangeText={this.handleChangeText}
+            onClickComplete={this.onClickComplete}
+          />
+        }
       </Page>
     );
   }
@@ -59,12 +74,13 @@ const mapStateToProps = state => {
       sizeType: space.SizeType,
       priceFull: space.PriceFull,
       priceHalf: space.PriceHalf,
-      priceQuarter: space.Quarter,
+      priceQuarter: space.PriceQuarter,
     };
   }
   return ({
     ui: state.ui,
+    user: state.auth.user,
   });
 };
 
-export default authConnect(mapStateToProps)(ReceiveBaggageContainer);
+export default authConnect(mapStateToProps)(PriceContainer);

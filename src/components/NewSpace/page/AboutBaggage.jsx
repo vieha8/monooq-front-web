@@ -18,6 +18,23 @@ const hintProps = {
 
 export default (props) => {
   const { history } = props;
+
+  const onClickNext = () => {
+    if(props.ui.isEdit){
+      history.push(path.editSpaceReceive(props.ui.spaceId));
+    }else{
+      history.push(path.createSpaceReceive());
+    }
+  };
+
+  const onClickBack = () => {
+    if(props.ui.isEdit){
+      history.push(path.editSpaceInfo(props.ui.spaceId));
+    }else{
+      history.push(path.createSpaceInfo());
+    }
+  };
+
   return (
     <Container>
       <PageContent>
@@ -28,10 +45,10 @@ export default (props) => {
         <InputAboutBaggage {...props} />
         <CheckTypeFurniture {...props} />
         <ButtonsContainer>
-          <Button border onClick={() => history.push(path.createSpaceInfo())}>
+          <Button border onClick={onClickBack}>
             戻る
           </Button>
-          <Button position="right" onClick={() => history.push(path.createSpaceReceive())}>
+          <Button position="right" onClick={onClickNext}>
             次へ
           </Button>
         </ButtonsContainer>
