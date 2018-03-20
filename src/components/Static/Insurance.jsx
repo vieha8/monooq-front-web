@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
-import { Dimens } from 'variables';
 import Path from 'config/path';
 
 import insuranceImage1 from 'images/insurance-img01.svg';
