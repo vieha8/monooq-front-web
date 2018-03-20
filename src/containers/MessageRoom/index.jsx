@@ -61,8 +61,12 @@ class Message extends React.Component {
   };
 
   render() {
+    if(this.props.isLoading){
+      return null;
+    }
+
     return (
-      <Page title="メッセージ">
+      <Page title={`${this.props.room.user.Name}さんとのメッセージ`}>
         <Menu />
         <ContentContainer>
           <MessageLog {...this.props} />
@@ -80,6 +84,7 @@ class Message extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  room: state.messages.room,
   messages: state.messages.messages,
   isLoading: state.messages.isLoading,
   userId: state.auth.user.ID,

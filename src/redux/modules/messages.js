@@ -27,6 +27,7 @@ export const messagesActions = createActions(
 const initialState = {
   rooms: [],
   messages: [],
+  room: null,
   isLoading: false,
 };
 
@@ -38,7 +39,8 @@ export const messagesReducer = handleActions(
     [FETCH_MESSAGES_END]: (state, action) => ({
       ...state,
       isLoading: false,
-      messages: action.payload,
+      messages: action.payload.messages,
+      room: action.payload.room,
     }),
     [SEND_MESSAGE]: state => ({ ...state }),
   },
@@ -68,8 +70,21 @@ export const messagesSagas = [
     yield put(messagesActions.fetchRoomsEnd(rooms));
   }),
   takeEvery(FETCH_MESSAGES_START, function*({ payload }) {
-    const messages = yield getMessages(payload);
-    yield put(messagesActions.fetchMessagesEnd(messages));
+    let user = yield select(state => state.auth.user);
+    if (!user.ID) {
+      yield take(authActions.checkLoginEnd);
+    }
+    user = yield select(state => state.auth.user);
+
+    const { messages, room } = yield getMessages(payload);
+
+    const { userId1, userId2 } = room;
+    const partnerUserId = user.ID === userId1 ? userId2 : userId1;
+    yield put(apiActions.userGet({ id: partnerUserId }));
+    const { payload: partnerUser } = yield take(apiActions.userGetSuccess);
+    room.user = partnerUser;
+
+    yield put(messagesActions.fetchMessagesEnd({ messages, room }));
   }),
   takeEvery(SEND_MESSAGE, function*({ payload }) {
     yield sendMessage(payload);
@@ -138,19 +153,19 @@ const getRooms = userId => {
 const getMessages = roomId => {
   return new Promise(async resolve => {
     const db = firebase.firestore();
-    const messages = await db
-      .collection('rooms')
-      .doc(roomId)
+
+    const roomDoc = db.collection('rooms').doc(roomId);
+    const room = await roomDoc.get();
+    const messages = await roomDoc
       .collection('messages')
       .orderBy('createDt')
       .get();
-    const res = [];
-    messages.forEach(message => {
-      res.push({
-        id: message.id,
-        ...message.data(),
-      });
-    });
+
+    const res = {
+      room: room.data(),
+      messages: messages.docs.map(v => ({ id: v.id, ...v.data() })),
+    };
+
     resolve(res);
   });
 };
