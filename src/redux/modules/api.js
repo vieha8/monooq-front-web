@@ -46,9 +46,7 @@ const actionsArr = () => {
 export const apiActions = createActions(...actionsArr());
 // console.log(apiActions);
 
-const initialState = {};
-
-export const apiReducer = handleActions({}, initialState);
+export const apiReducer = handleActions({}, {});
 
 //Sagas
 
@@ -80,9 +78,9 @@ function* authFirebasePut({ payload: { body } }) {
 }
 
 function* authFirebaseGet({ payload: { id } }) {
-  const { data, err } = yield call(() => getApiRequest(`/auth/firebase/${id}`));
+  const { data, err } = yield getApiRequest(`/auth/firebase/${id}`);
   if (!err) {
-    yield put(apiActions.authFirebaseGetSuccess(data));
+    yield put({ ...apiActions.authFirebaseGetSuccess(data), error: true });
   } else {
     yield put(apiActions.authFirebaseGetFailed(err));
   }

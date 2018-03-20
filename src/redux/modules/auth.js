@@ -2,6 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take } from 'redux-saga/effects';
 import firebase from 'firebase';
 import { apiActions, API_ACTIONS } from './api';
+import { apiEndpoint, apiActions2 } from './api2';
 import { uiActions } from './ui';
 import { push } from 'react-router-redux';
 import { store } from '../store/configureStore';
@@ -49,6 +50,12 @@ const initialState = {
 };
 export const authReducer = handleActions(
   {
+    [CHECK_LOGIN_START]: (state, action) => {
+      return {
+        ...state,
+        isChecking: true,
+      };
+    },
     [LOGIN_EMAIL]: state => ({
       ...state,
     }),
@@ -67,15 +74,16 @@ export const authReducer = handleActions(
       ...state,
       error: action.payload,
     }),
-    [CHECK_LOGIN_START]: state => ({
-      ...state,
-      isChecking: true,
-    }),
-    [CHECK_LOGIN_END]: (state, action) => ({
-      ...state,
-      ...action.payload,
-      isChecking: false,
-    }),
+    [CHECK_LOGIN_END]: {
+      next: (state, { payload }) => ({
+        ...state,
+        ...payload,
+        isChecking: false,
+      }),
+      throw: (state, { payload }) => ({
+        ...state,
+      }),
+    },
   },
   initialState,
 );
@@ -96,10 +104,15 @@ function* checkLoginFirebaseAuth() {
 
   if (user) {
     status.isLogin = true;
-    yield put(apiActions.authFirebaseGet({ id: user.uid }));
-    const { payload } = yield take(apiActions.authFirebaseGetSuccess);
-    status.user = payload;
-    if (payload.Profile === '') {
+    yield put(apiActions2.apiGetRequest({ path: apiEndpoint.authFirebase(user.uid + 'AAA') }));
+    const { payload: res, error, meta } = yield take(apiActions2.apiResponse);
+    if (error) {
+      console.error(meta);
+      return;
+    }
+
+    status.user = res;
+    if (status.user.Profile === '') {
       yield put(uiActions.setUiState({ signUpStep: 4 }));
       store.dispatch(push('/signup'));
     }
