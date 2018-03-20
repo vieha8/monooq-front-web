@@ -1,6 +1,6 @@
 import React from 'react';
-import path from '../../../config/path';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
+import Path from 'config/path';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Button, { ButtonsContainer } from '../shared/Button';
@@ -21,13 +21,13 @@ const hintProps = {
 
 export default (props) => {
   const { history } = props;
-  const header = (props.ui.isEdit)? "編集" : "登録";
+  const header = (props.ui.isEdit) ? '編集' : '登録';
 
   const onClickNext = () => {
-    if(props.ui.isEdit){
-      history.push(path.editSpaceBaggage(props.ui.spaceId));
-    }else{
-      history.push(path.createSpaceBaggage());
+    if (props.ui.isEdit) {
+      history.push(Path.editSpaceBaggage(props.ui.spaceId));
+    } else {
+      history.push(Path.createSpaceBaggage());
     }
   };
 

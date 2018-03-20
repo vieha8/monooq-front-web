@@ -1,27 +1,47 @@
 import React from 'react';
-import { authConnect } from "../../components/Auth";
+import { authConnect } from 'components/Auth';
 import { Page } from 'components/NewSpace/page/Shared';
 import SpaceInfo from 'components/NewSpace/page/SpaceInfo';
-import {uiActions} from "../../redux/modules/ui";
-import { spaceActions } from "../../redux/modules/space";
+import { uiActions } from 'redux/modules/ui';
+import { spaceActions } from 'redux/modules/space';
 
 class SpaceInfoContainer extends React.Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    if(props.match.params.space_id){
+    if (props.match.params.space_id) {
       const spaceId = parseInt(props.match.params.space_id, 10);
       this.props.dispatch(uiActions.setUiState({
         spaceId,
         isEdit: true,
       }));
-      this.props.dispatch(spaceActions.fetchSpace({spaceId}));
+      this.props.dispatch(spaceActions.fetchSpace({ spaceId }));
     }
+  }
+
+  onClickImageDelete = (deleteTargetIndex) => {
+    const { ui, dispatch } = this.props;
+    const { space } = ui;
+    const nextImages = Object.assign([], space.images);
+    nextImages.splice(deleteTargetIndex, 1);
+    Object.assign(space, { images: nextImages });
+    dispatch(uiActions.setUiState({ space }));
+  }
+
+  handleChangeTitle = (value) => {
+    this.changeUiState('title', value);
   };
 
-  handleChangeSelect = (_, target) => {
-    this.handleChangeText({ target });
+  handleChangeSpaceType = (value) => {
+    this.changeUiState('type', value);
   };
+
+  handleChangeIntroduction = (value) => {
+    this.changeUiState('introduction', value);
+  }
+
+  handleChangeAddress = (value) => {
+    this.changeUiState('address', value);
+  }
 
   handleChangeImage = (accepted, rejected) => {
     if (rejected.length > 0) {
@@ -35,13 +55,13 @@ class SpaceInfoContainer extends React.Component {
     this.props.dispatch(uiActions.setUiState({ space }));
   };
 
-  onClickImageDelete = (deleteTargetIndex) => {
-    const { ui, dispatch } = this.props;
-    const { space } = ui;
-    const nextImages = Object.assign([], space.images);
-    nextImages.splice(deleteTargetIndex, 1);
-    Object.assign(space, { images: nextImages });
-    dispatch(uiActions.setUiState({ space }));
+  changeUiState = (propName, value) => {
+    const { dispatch, ui } = this.props;
+    const nextSpace = Object.assign({}, ui.space);
+    nextSpace[propName] = value;
+    dispatch(uiActions.setUiState({
+      space: nextSpace,
+    }));
   }
 
   render() {
@@ -49,8 +69,10 @@ class SpaceInfoContainer extends React.Component {
       <Page>
         <SpaceInfo
           {...this.props}
-          handleChangeText={this.handleChangeText}
-          handleChangeSelect={this.handleChangeSelect}
+          handleChangeTitle={this.handleChangeTitle}
+          handleChangeSpaceType={this.handleChangeSpaceType}
+          handleChangeIntroduction={this.handleChangeIntroduction}
+          handleChangeAddress={this.handleChangeAddress}
           handleChangeImage={this.handleChangeImage}
           onClickImageDelete={this.onClickImageDelete}
         />
@@ -59,9 +81,9 @@ class SpaceInfoContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  if(!state.ui.space.id && state.space.space){
-    const {space} = state.space;
+const mapStateToProps = (state) => {
+  if (!state.ui.space.id && state.space.space) {
+    const { space } = state.space;
     state.ui.space = {
       id: space.ID,
       title: space.Title,

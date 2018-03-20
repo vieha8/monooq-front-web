@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-export default (props) => (
+export default props => (
   <Container>
     <Title
       title="エリアや特徴がわかるタイトルをつけましょう"
@@ -25,8 +25,8 @@ export default (props) => (
     />
     <Input
       name="title"
-      value={props.ui.space.title}
-      onChange={props.handleChangeText}
+      value={props.ui.space.title || ''}
+      onChange={e => props.handleChangeTitle(e.target.value)}
       style={styles.input}
       placeholder="例）六本木駅チカで便利です。港区のど真ん中！長期預かりもOKです！"
     />

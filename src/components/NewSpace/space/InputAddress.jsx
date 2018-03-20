@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-export default (props) => (
+export default props => (
   <Container>
     <Title
       title="所在地はどこ？"
@@ -25,8 +25,8 @@ export default (props) => (
     />
     <Input
       name="address"
-      value={props.ui.space.address}
-      onChange={props.handleChangeText}
+      value={props.ui.space.address || ''}
+      onChange={e => props.handleChangeAddress(e.target.value)}
       style={styles.input}
       placeholder="例）東京都港区六本木6丁目1−25"
     />

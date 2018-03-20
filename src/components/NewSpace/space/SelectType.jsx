@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-export default (props) => (
+export default props => (
   <Container>
     <Title
       title="スペースの種類は？"
@@ -25,7 +25,7 @@ export default (props) => (
     <Select
       name="type"
       value={props.ui.space.type}
-      onChange={props.handleChangeSelect}
+      onChange={(e, data) => props.handleChangeSpaceType(data.value)}
       style={styles.select}
       placeholder="選択してください"
       options={[
