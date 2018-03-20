@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Select } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from 'variables';
+import ErrorText from 'components/Shared/ErrorText';
 import Title from '../shared/Title';
 
 const Container = styled.div`
@@ -56,5 +57,6 @@ export default props => (
         },
       ]}
     />
+    {props.error.errors.type && <ErrorText errors={props.error.errors.type} />}
   </Container>
 );

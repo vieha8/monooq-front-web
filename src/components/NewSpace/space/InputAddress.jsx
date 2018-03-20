@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Input } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from 'variables';
+import ErrorText from 'components/Shared/ErrorText';
 import Title from '../shared/Title';
 
 const Container = styled.div`
@@ -30,5 +31,6 @@ export default props => (
       style={styles.input}
       placeholder="例）東京都港区六本木6丁目1−25"
     />
+    {props.error.errors.address && <ErrorText errors={props.error.errors.address} />}
   </Container>
 );

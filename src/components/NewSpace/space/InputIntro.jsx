@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Form, TextArea } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from 'variables';
+import ErrorText from 'components/Shared/ErrorText';
 import Title from '../shared/Title';
 
 const Container = styled.div`
@@ -33,5 +34,6 @@ export default props => (
         rows={5}
       />
     </Form>
+    {props.error.errors.introduction && <ErrorText errors={props.error.errors.introduction} />}
   </Container>
 );

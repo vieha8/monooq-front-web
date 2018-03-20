@@ -1,6 +1,5 @@
 import React from 'react';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
-import Path from 'config/path';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Button, { ButtonsContainer } from '../shared/Button';
@@ -20,16 +19,7 @@ const hintProps = {
 };
 
 export default (props) => {
-  const { history } = props;
   const header = (props.ui.isEdit) ? '編集' : '登録';
-
-  const onClickNext = () => {
-    if (props.ui.isEdit) {
-      history.push(Path.editSpaceBaggage(props.ui.spaceId));
-    } else {
-      history.push(Path.createSpaceBaggage());
-    }
-  };
 
   return (
     <Container>
@@ -44,7 +34,7 @@ export default (props) => {
         <InputIntro {...props} />
         <InputAddress {...props} />
         <ButtonsContainer>
-          <Button onClick={onClickNext}>
+          <Button onClick={props.onClickNext} disabled={props.buttonDisabled}>
             次へ
           </Button>
         </ButtonsContainer>

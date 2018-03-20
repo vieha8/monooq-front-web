@@ -1,9 +1,12 @@
 import React from 'react';
+import Path from 'config/path';
 import { authConnect } from 'components/Auth';
 import { Page } from 'components/NewSpace/page/Shared';
 import SpaceInfo from 'components/NewSpace/page/SpaceInfo';
 import { uiActions } from 'redux/modules/ui';
+import { errorActions } from 'redux/modules/error';
 import { spaceActions } from 'redux/modules/space';
+import { ErrorMessage } from 'strings';
 
 class SpaceInfoContainer extends React.Component {
   constructor(props) {
@@ -16,6 +19,10 @@ class SpaceInfoContainer extends React.Component {
       }));
       this.props.dispatch(spaceActions.fetchSpace({ spaceId }));
     }
+
+    this.props.dispatch(uiActions.setUiState({
+      buttonDisabled: true,
+    }));
   }
 
   onClickImageDelete = (deleteTargetIndex) => {
@@ -27,20 +34,53 @@ class SpaceInfoContainer extends React.Component {
     dispatch(uiActions.setUiState({ space }));
   }
 
+  onClickNext = () => {
+    const { history, ui } = this.props;
+    if (ui.isEdit) {
+      history.push(Path.editSpaceBaggage(ui.spaceId));
+    } else {
+      history.push(Path.createSpaceBaggage());
+    }
+  };
+
   handleChangeTitle = (value) => {
-    this.changeUiState('title', value);
+    const prop = 'title';
+    const errors = this.props.error[prop] || [];
+    if (value.length === 0) {
+      errors.push(ErrorMessage.PleaseInput);
+    }
+    this.changeErrorState(prop, errors);
+    this.changeUiState(prop, value);
   };
 
   handleChangeSpaceType = (value) => {
-    this.changeUiState('type', value);
+    const prop = 'type';
+    const errors = this.props.error[prop] || [];
+    if (value === 0) {
+      errors.push(ErrorMessage.PleaseSelect);
+    }
+    this.changeErrorState(prop, errors);
+    this.changeUiState(prop, value);
   };
 
   handleChangeIntroduction = (value) => {
-    this.changeUiState('introduction', value);
+    const prop = 'introduction';
+    const errors = this.props.error[prop] || [];
+    if (value.length === 0) {
+      errors.push(ErrorMessage.PleaseInput);
+    }
+    this.changeErrorState(prop, errors);
+    this.changeUiState(prop, value);
   }
 
   handleChangeAddress = (value) => {
-    this.changeUiState('address', value);
+    const prop = 'address';
+    const errors = this.props.error[prop] || [];
+    if (value.length === 0) {
+      errors.push(ErrorMessage.PleaseInput);
+    }
+    this.changeErrorState(prop, errors);
+    this.changeUiState(prop, value);
   }
 
   handleChangeImage = (accepted, rejected) => {
@@ -55,13 +95,31 @@ class SpaceInfoContainer extends React.Component {
     this.props.dispatch(uiActions.setUiState({ space }));
   };
 
+  validate = () => {
+    const { ui } = this.props;
+    const space = ui.space;
+    if (space.title && space.title.length > 0
+      && space.type > 0
+      && space.introduction && space.introduction.length > 0
+      && space.address && space.address.length > 0) {
+      return true;
+    }
+
+    return false;
+  }
+
   changeUiState = (propName, value) => {
     const { dispatch, ui } = this.props;
     const nextSpace = Object.assign({}, ui.space);
     nextSpace[propName] = value;
-    dispatch(uiActions.setUiState({
-      space: nextSpace,
-    }));
+    dispatch(uiActions.setUiState({ space: nextSpace }));
+  }
+
+  changeErrorState = (propName, propErrors) => {
+    const { dispatch, error } = this.props;
+    const nextErrors = Object.assign({}, error.errors);
+    nextErrors[propName] = propErrors;
+    dispatch(errorActions.setErrorState({ errors: nextErrors }));
   }
 
   render() {
@@ -69,12 +127,14 @@ class SpaceInfoContainer extends React.Component {
       <Page>
         <SpaceInfo
           {...this.props}
+          buttonDisabled={!this.validate()}
           handleChangeTitle={this.handleChangeTitle}
           handleChangeSpaceType={this.handleChangeSpaceType}
           handleChangeIntroduction={this.handleChangeIntroduction}
           handleChangeAddress={this.handleChangeAddress}
           handleChangeImage={this.handleChangeImage}
           onClickImageDelete={this.onClickImageDelete}
+          onClickNext={this.onClickNext}
         />
       </Page>
     );
@@ -103,6 +163,7 @@ const mapStateToProps = (state) => {
   }
   return ({
     ui: state.ui,
+    error: state.error,
   });
 };
 
