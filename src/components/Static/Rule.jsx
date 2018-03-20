@@ -1,23 +1,12 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Footer } from 'components/Shared';
+import { Footer, DefaultContainer } from 'components/Shared';
 import { Dimens } from 'variables';
 
 import ruleImage1 from 'images/rule-img01.svg';
 import ruleImage2 from 'images/rule-img02.svg';
 import ruleImage3 from 'images/rule-img03.svg';
-
-const DefaultContainer = styled.div`
-  width: ${Dimens.fixedWidthPc}px;
-  margin: 0 auto;
-  padding: 0 16px;
-  box-sizing: initial;
-  ${media.phone`
-    padding: 0 8vw;
-    width: 84vw;
-  `};
-`;
 
 const MainTitle = styled.div`
   font-size: 34px;

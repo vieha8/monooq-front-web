@@ -1,24 +1,13 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Footer } from 'components/Shared';
+import { Footer, DefaultContainer } from 'components/Shared';
 import { Dimens } from 'variables';
 import Path from 'config/path';
 
 import insuranceImage1 from 'images/insurance-img01.svg';
 import insuranceImage2 from 'images/insurance-img02.svg';
 import insuranceImage3 from 'images/insurance-img03.svg';
-
-const DefaultContainer = styled.div`
-  width: ${Dimens.fixedWidthPc}px;
-  margin: 0 auto;
-  padding: 0 16px;
-  box-sizing: initial;
-  ${media.phone`
-    padding: 0 8vw;
-    width: 84vw;
-  `};
-`;
 
 const MainTitle = styled.div`
   font-size: 34px;
