@@ -297,23 +297,23 @@ const SubmitMessageForm = styled.div`
   `};
 `;
 
-const PastRecord = styled.div`
-  font-size: 16px;
-  line-height: 24px;
-  color: #006494;
-  margin-bottom: 30px;
-  :hover {
-    cursor: pointer;
-  }
-  ${media.phone`
-    font-size: 12px;
-    line-height: 18px;
-    border-top: 1px solid #dbdbdb;
-    border-bottom: 1px solid #dbdbdb;
-    width: 100%;
-    padding: 13px 20px;
-  `};
-`;
+// const PastRecord = styled.div`
+//   font-size: 16px;
+//   line-height: 24px;
+//   color: #006494;
+//   margin-bottom: 30px;
+//   :hover {
+//     cursor: pointer;
+//   }
+//   ${media.phone`
+//     font-size: 12px;
+//     line-height: 18px;
+//     border-top: 1px solid #dbdbdb;
+//     border-bottom: 1px solid #dbdbdb;
+//     width: 100%;
+//     padding: 13px 20px;
+//   `};
+// `;
 
 const RequestStatus = styled.div`
   color: #888787;
@@ -457,7 +457,6 @@ class Message extends React.Component {
 
   render() {
     const { ui, history } = this.props;
-    // TODO contents内にTextFieldいれるとonChangeの挙動がおかしくなるので仮でこの形に
     return (
       <MessagePage>
         <MessageContainer>
@@ -469,7 +468,7 @@ class Message extends React.Component {
             </InformationContainer>
 
             <RecordsContainer>
-              <PastRecord>過去のメッセージを見る</PastRecord>
+              {/*<PastRecord>過去のメッセージを見る</PastRecord>*/}
               <ContentsWrapper>
                 <this.contents />
               </ContentsWrapper>

@@ -89,8 +89,8 @@ class Messages extends React.Component {
                   history.push(Path.message(v.id));
                 }}
               >
-                <Avatar src={v.img} />
-                <StyledMessagesItemText primary={v.name} secondary={v.lastMessageDt.toLocaleDateString() + ' ' + v.lastMessageDt.toLocaleTimeString()} />
+                <Avatar src={v.user.ImageUrl} />
+                <StyledMessagesItemText primary={`${v.user.Name}`} secondary={v.lastMessageDt.toLocaleDateString() + ' ' + v.lastMessageDt.toLocaleTimeString()} />
               </StyledMessagesItem>
             ))}
           </ContentContainer>

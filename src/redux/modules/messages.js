@@ -1,9 +1,9 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery, take, select } from 'redux-saga/effects';
+import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
 import { authActions } from './auth';
+import { apiActions } from './api';
 import firebase from 'firebase';
 import fileType from '../../helpers/file-type';
-import faker from 'faker';
 import { uploadImage } from '../helpers/firebase';
 require('firebase/firestore');
 
@@ -54,6 +54,17 @@ export const messagesSagas = [
     }
     user = yield select(state => state.auth.user);
     const rooms = yield getRooms(user.ID);
+
+    yield all(
+      rooms.map(function*(room, i) {
+        const { userId1, userId2 } = room;
+        const partnerUserId = user.ID === userId1 ? userId2 : userId1;
+        yield put(apiActions.userGet({ id: partnerUserId }));
+        const { payload: partnerUser } = yield take(apiActions.userGetSuccess);
+        rooms[i].user = partnerUser;
+      }),
+    );
+
     yield put(messagesActions.fetchRoomsEnd(rooms));
   }),
   takeEvery(FETCH_MESSAGES_START, function*({ payload }) {
@@ -112,12 +123,9 @@ const getRooms = userId => {
       .get();
     const res = [];
     rooms.forEach(room => {
-      //TODO 相手のユーザー情報、スペース情報を取得する
       if (room.data().lastMessageDt) {
         res.push({
           id: room.id,
-          name: faker.name.firstName() + ' ' + faker.name.lastName(),
-          img: faker.image.avatar(),
           ...room.data(),
         });
       }
