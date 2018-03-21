@@ -26,8 +26,6 @@ import {
 import SpaceMenu from 'containers/Search/SpaceMenu';
 import { getRoomId, createRoom } from 'redux/modules/messages';
 import { spaceActions } from 'redux/modules/space';
-import { uiActions } from 'redux/modules/ui';
-import axios from 'axios';
 
 const SpacePage = styled.div`
   background: ${Colors.lightGray2Bg};
@@ -135,18 +133,6 @@ class Space extends React.Component {
 
     const spaceId = match.params.space_id;
     dispatch(spaceActions.fetchSpace({ spaceId }));
-
-    (async () => {
-      const places = await new Promise((resolve, reject) => {
-        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?key=${KEY}&address=1660003`)
-          .then(result => resolve(result))
-          .catch(error => reject(error));
-      });
-      if (places.data.results.length > 0) {
-        const location = places.data.results[0].geometry.location;
-        dispatch(uiActions.setUiState({ location }));
-      }
-    })();
   }
 
   sendMessage = async () => {
@@ -162,9 +148,9 @@ class Space extends React.Component {
   };
 
   render() {
-    const { ui, space } = this.props;
+    const { space } = this.props;
 
-    if (!space || !ui.location) {
+    if (!space || !space.Images) {
       return (
         <SpacePage>
           {/*TODO インジケーター*/}
@@ -179,8 +165,8 @@ class Space extends React.Component {
           containerElement={<MapContainer />}
           mapElement={<div style={{ height: '100%' }} />}
           loadingElement={<div style={{ height: '100%' }} />}
-          lat={ui.location.lat}
-          lng={ui.location.lng}
+          lat={space.location.lat}
+          lng={space.location.lng}
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${KEY}&v=3.exp&libraries=geometry,drawing,places`}
         />
         <CardContainer>

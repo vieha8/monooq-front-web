@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take } from 'redux-saga/effects';
+import { put, takeEvery, take, call } from 'redux-saga/effects';
 import { apiActions, apiEndpoint } from './api';
 import { store } from '../store/configureStore';
 import { push } from 'react-router-redux';
@@ -7,6 +7,7 @@ import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import Path from '../../config/path';
 import { userActions } from './user';
+import axios from 'axios';
 
 // Actions
 const FETCH_SPACE = 'FETCH_SPACE';
@@ -72,6 +73,27 @@ function* getSpace({ payload: { spaceId } }) {
     yield put(spaceActions.fetchFailedSpace(meta));
     return;
   }
+
+  // TODO 本来はサーバー側でlat,lngは持つけど暫定的に
+  const KEY = 'AIzaSyCrHQDZXZI21cMEW8FIYYWKyvI2kLUDsbA';
+  const places = yield call(
+    () =>
+      new Promise((resolve, reject) => {
+        axios
+          .get(
+            `https://maps.googleapis.com/maps/api/geocode/json?key=${KEY}&address=${
+              payload.Address
+            }`,
+          )
+          .then(result => resolve(result))
+          .catch(error => reject(error));
+      }),
+  );
+
+  if (places.data.results.length > 0) {
+    payload.location = places.data.results[0].geometry.location;
+  }
+
   yield put(spaceActions.fetchSuccessSpace(payload));
 }
 
