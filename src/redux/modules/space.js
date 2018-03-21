@@ -86,7 +86,7 @@ function* createSpace({ payload: { body } }) {
     return;
   }
 
-  if (images) {
+  if (images.length > 0) {
     const spaceId = payload.ID;
     const imageUrls = yield Promise.all(
       images.map(async image => {

@@ -15,11 +15,13 @@ export default (props) => (
       <Title
         title="ユーザーからの相談を待ちましょう。安心してもらえるようにメッセージは素早い対応を心がけましょう！"
       />
-      <ButtonsContainer>
-        <Button wide width={220} onClick={() => {
-          props.history.push(`/space/${props.space.ID}`);
-        }}>{title(props.ui.isEdit)}したスペースを見る</Button>
-      </ButtonsContainer>
+      {props.space ?
+        <ButtonsContainer>
+          <Button wide width={220} onClick={() => {
+            props.history.push(`/space/${props.space.ID}`);
+          }}>{title(props.ui.isEdit)}したスペースを見る</Button>
+        </ButtonsContainer>
+        : null}
     </PageContent>
   </Container>
 );

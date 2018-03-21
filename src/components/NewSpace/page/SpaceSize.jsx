@@ -48,9 +48,9 @@ export default class SpaceSize extends Component {
       }
     }else{
       if(this.props.ui.space.sizeType === SpaceSize.Type.Small){
-        this.props.history.push(path.createSpacePrice(this.props.ui.spaceId, 'all'));
+        this.props.history.push(path.createSpacePrice('all'));
       }else{
-        this.props.history.push(path.createSpacePrice(this.props.ui.spaceId, 'about'));
+        this.props.history.push(path.createSpacePrice('about'));
       }
     }
   };
