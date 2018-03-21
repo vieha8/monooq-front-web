@@ -36,18 +36,20 @@ export default props => (
     <Label>{props.label}</Label>
     <div>
       <StyledSelect
-        defaultValue={1}
+        value={props.month}
         options={Array(12).fill(0).map((_, i) => ({ key: i, value: (i + 1), text: (i + 1) }))}
+        onChange={(_, data) => props.onChangeMonth(data.value)}
       />
       <Text>月</Text>
       <Text>/</Text>
       <StyledSelect
-        defaultValue={moment().year()}
+        value={props.year}
         options={
           Array(10)
             .fill(0)
             .map((_, i) => ({ key: i, value: moment().year() + i, text: moment().year() + i }))
         }
+        onChange={(_, data) => props.onChangeYear(data.value)}
       />
       <Text>年</Text>
     </div>

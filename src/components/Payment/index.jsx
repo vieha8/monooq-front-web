@@ -43,28 +43,41 @@ const LinkText = styled(Link)`
 export default props => (
   <Template
     title={<H1>支払いを行う</H1>}
-    paidError={<PaidError />}
+    paidError={props.paymentFailed ? <PaidError /> : null}
     subtitle={<H2>クレジットカード情報の入力</H2>}
     inputName={(
       <Input
         label="カード名義（半角ローマ字）"
         placeholder="TARO YAMADA"
+        onChange={value => props.handleChangeName(value)}
+        errors={props.nameErrors}
       />
     )}
     inputNumber={(
       <Input
         label="クレジットカード番号"
+        type="number"
         placeholder="1234 5678 9101 1121"
+        onChange={value => props.handleChangeNumber(value)}
+        errors={props.numberErrors}
       />
     )}
     inputExpires={(
-      <Expires />
+      <Expires
+        month={props.month}
+        year={props.year}
+        onChangeMonth={props.handleChangeMonth}
+        onChangeYear={props.handleChangeYear}
+      />
     )}
     inputCvc={(
       <Input
         width={120}
+        type="number"
         label="セキュリティコード"
         placeholder="3桁の数字"
+        onChange={value => props.handleChangeCvc(value)}
+        errors={props.cvcErrors}
       />
     )}
     mobileEstimate={(
