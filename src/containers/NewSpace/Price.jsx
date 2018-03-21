@@ -1,45 +1,44 @@
 import React from 'react';
-import { authConnect } from "../../components/Auth";
+import { authConnect } from 'components/Auth';
 import { Page } from 'components/NewSpace/page/Shared';
 import AllUsePrice from 'components/NewSpace/page/AllUsePrice';
 import AboutPrice from 'components/NewSpace/page/AboutPrice';
-import {uiActions} from "../../redux/modules/ui"
-import { spaceActions } from "../../redux/modules/space";
+import { uiActions } from 'redux/modules/ui';
+import { spaceActions } from 'redux/modules/space';
 
 class PriceContainer extends React.Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    if(props.match.params.space_id){
+    if (props.match.params.space_id) {
       const spaceId = parseInt(props.match.params.space_id, 10);
       this.props.dispatch(uiActions.setUiState({
         spaceId,
         isEdit: true,
       }));
-      this.props.dispatch(spaceActions.fetchSpace({spaceId}));
+      this.props.dispatch(spaceActions.fetchSpace({ spaceId }));
     }
   }
 
-  handleChangeText = ({target}) => {
-    const {space} = this.props.ui;
-    Object.assign(space, {[target.name]: parseInt(target.value, 10)});
-    this.props.dispatch(uiActions.setUiState({space}));
+  onClickComplete = () => {
+    const { space, spaceId } = this.props.ui;
+    space.userId = this.props.user.ID;
+    if (this.props.ui.isEdit) {
+      this.props.dispatch(spaceActions.updateSpace({ spaceId, body: space }));
+    } else {
+      this.props.dispatch(spaceActions.createSpace({ body: space }));
+    }
   };
 
-  onClickComplete = () => {
-    const {space, spaceId} = this.props.ui;
-    space.userId = this.props.user.ID;
-    if(this.props.ui.isEdit){
-      this.props.dispatch(spaceActions.updateSpace({spaceId, body: space}));
-    }else{
-      this.props.dispatch(spaceActions.createSpace({body: space}));
-    }
+  handleChangeText = ({ target }) => {
+    const { space } = this.props.ui;
+    Object.assign(space, { [target.name]: parseInt(target.value, 10) });
+    this.props.dispatch(uiActions.setUiState({ space }));
   };
 
   render() {
     return (
       <Page>
-        {this.props.match.params.type === 'all'?
+        {this.props.match.params.type === 'all' ?
           <AllUsePrice
             {...this.props}
             handleChangeText={this.handleChangeText}
@@ -57,9 +56,9 @@ class PriceContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  if(!state.ui.space.id && state.space.space){
-    const {space} = state.space;
+const mapStateToProps = (state) => {
+  if (!state.ui.space.id && state.space.space) {
+    const { space } = state.space;
     state.ui.space = {
       id: space.ID,
       title: space.Title,

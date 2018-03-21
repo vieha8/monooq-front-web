@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import path from 'config/path';
+import Path from 'config/path';
 import styled from 'styled-components';
 import { uiActions } from 'redux/modules/ui';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
@@ -33,35 +33,49 @@ export default class SpaceSize extends Component {
     Large: 2,
   };
 
-  handleChangeType = (type) => {
-    const { space } = this.props.ui;
-    Object.assign(space, { sizeType: type });
-    this.props.dispatch(uiActions.setUiState({ space }));
-  };
-
   onClickNext = () => {
-    if(this.props.ui.isEdit){
-      if(this.props.ui.space.sizeType === SpaceSize.Type.Small){
-        this.props.history.push(path.editSpacePrice(this.props.ui.spaceId, 'all'));
-      }else{
-        this.props.history.push(path.editSpacePrice(this.props.ui.spaceId, 'about'));
-      }
-    }else{
-      if(this.props.ui.space.sizeType === SpaceSize.Type.Small){
-        this.props.history.push(path.createSpacePrice(this.props.ui.spaceId, 'all'));
-      }else{
-        this.props.history.push(path.createSpacePrice(this.props.ui.spaceId, 'about'));
+    const { ui, history } = this.props;
+
+    if (ui.isEdit) {
+      if (ui.space.sizeType === SpaceSize.Type.Small) {
+        history.push(Path.editSpacePrice(ui.spaceId, 'all'));
+      } else {
+        history.push(Path.editSpacePrice(ui.spaceId, 'about'));
       }
     }
-  };
+
+    if (ui.space.sizeType === SpaceSize.Type.Small) {
+      history.push(Path.createSpacePrice('all'));
+    } else {
+      history.push(Path.createSpacePrice('about'));
+    }
+  }
 
   onClickBack = () => {
-    if(this.props.ui.isEdit){
-      this.props.history.push(path.editSpaceReceive(this.props.ui.spaceId));
-    }else{
-      this.props.history.push(path.createSpaceReceive());
+    const { ui, history } = this.props;
+
+    if (ui.isEdit) {
+      history.push(Path.editSpaceReceive(ui.spaceId));
+    } else {
+      history.push(Path.createSpaceReceive());
     }
-  };
+  }
+
+  handleChangeType = (type) => {
+    const { dispatch, ui } = this.props;
+    const { space } = ui;
+    Object.assign(space, { sizeType: type });
+    dispatch(uiActions.setUiState({ space }));
+  }
+
+  validation = () => {
+    const { ui } = this.props;
+
+    return (
+      ui.space.sizeType === SpaceSize.Type.Small
+      || ui.space.sizeType === SpaceSize.Type.Large
+    );
+  }
 
   render() {
     const { ui } = this.props;
@@ -77,18 +91,14 @@ export default class SpaceSize extends Component {
               selected={ui.space.sizeType === SpaceSize.Type.Small}
               position="left"
               text="1人用ソファが入るくらい、またはそれ以下"
-              onClick={() => {
-                this.handleChangeType(SpaceSize.Type.Small)
-              }}
+              onClick={() => this.handleChangeType(SpaceSize.Type.Small)}
               image={imageFurnitureQuarter}
             />
             <SpaceSizeCriterion
               selected={ui.space.sizeType === SpaceSize.Type.Large}
               position="right"
               text="1人用引っ越しの荷物が入るくらい、またはそれ以上"
-              onClick={() => {
-                this.handleChangeType(SpaceSize.Type.Large)
-              }}
+              onClick={() => this.handleChangeType(SpaceSize.Type.Large)}
               image={imageFurnitureFull}
             />
           </CriterionWrapper>
@@ -98,7 +108,9 @@ export default class SpaceSize extends Component {
             </Button>
             <Button
               position="right"
-              onClick={this.onClickNext}>
+              onClick={this.onClickNext}
+              disabled={!this.validation()}
+            >
               次へ
             </Button>
           </ButtonsContainer>
