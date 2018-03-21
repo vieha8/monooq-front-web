@@ -46,15 +46,16 @@ const DateLabel = styled.span`
   color: ${Colors.black};
 `;
 
-export default () => (
+export default props => (
   <Container>
     <DateCell>
       <DateLabel>利用開始日</DateLabel>
       <InputCalendar
         date={null}
         block
-        onDateChange={date => console.log(date)}
-        onFocusChange={e => console.log(e)}
+        focused={Boolean(props.beginDateFocused)}
+        onDateChange={date => props.onDateChangeBegin(date)}
+        onFocusChange={e => props.onFocusChangeBegin(e)}
       />
     </DateCell>
     <Arrow />
@@ -63,8 +64,9 @@ export default () => (
       <InputCalendar
         date={null}
         block
-        onDateChange={date => console.log(date)}
-        onFocusChange={e => console.log(e)}
+        focused={Boolean(props.endDateFocused)}
+        onDateChange={date => props.onDateChangeBegin(date)}
+        onFocusChange={e => props.onFocusChangeEnd(e)}
       />
     </DateCell>
   </Container>

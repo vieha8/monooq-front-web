@@ -4,14 +4,14 @@ import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
-  padding: 80px 10%;
+  padding: 80px 8%;
   &::after {
     clear: both;
     display: block;
     content: "";
   }
   ${media.tablet`
-    padding: 0;
+    padding: ${Dimens.medium}px;
   `}
 `;
 
@@ -19,6 +19,10 @@ const ContentContainer = styled.div`
   display: table-cell;
   width: 60%;
   vertical-align: top;
+  ${media.tablet`
+    display: block;
+    width: 100%;
+  `}
 `;
 
 const TitleContainer = styled.div`
@@ -50,7 +54,7 @@ const ButtonContainer = styled.div`
 const HintPopupContainer = styled.div`
   display: table-cell;
   padding-top: 100px;
-  width: 40%;
+  width: 30%;
   padding-left: ${Dimens.large}px;
   ${media.tablet`
     display: none;

@@ -4,7 +4,7 @@ import { FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import HintBox from 'components/Shared/HintBox';
 import Button from 'components/Shared/Button';
-import Template from './template';
+import Template from './Template';
 import DatePicker from './DatePicker';
 import PriceInput from './PriceInput';
 
@@ -29,14 +29,26 @@ const Caption = styled.span`
   color: ${Colors.lightGray1};
 `;
 
-export default () => (
+export default props => (
   <Template
     title={<H1>見積もりを送る</H1>}
     datePickerTitle={<H2>スケジュールを入力</H2>}
-    datePicker={<DatePicker />}
+    datePicker={(
+      <DatePicker
+        hoge={console.log(props)}
+        onDateChangeBegin={date => props.onDateChange('begin', date)}
+        onDateChangeEnd={date => props.onDateChange('end', date)}
+        beginDateFocused={props.beginDateFocused}
+        endDateFocused={props.endDateFocused}
+        onFocusChangeBegin={focus => props.onFocusChangeDatePicker('begin', focus)}
+        onFocusChangeEnd={focus => props.onFocusChangeDatePicker('end', focus)}
+      />
+    )}
     priceTitle={<H2>料金を入力</H2>}
     priceCaption={<Caption>相手の相談に応じて料金を決めましょう。</Caption>}
-    priceInput={<PriceInput />}
+    priceInput={(
+      <PriceInput />
+    )}
     button={(
       <Button
         bgColor={Colors.brandPrimary}

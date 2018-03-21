@@ -20,9 +20,32 @@ class EstimateContainer extends React.Component {
     }));
   };
 
+  onDateChange = (name, date) => {
+    const { dispatch, ui } = this.props;
+    const duration = Object.assign({}, ui.duration);
+    duration[name] = date;
+    dispatch(uiActions.setUiState({ duration }));
+  }
+
+  onFocusChangeDatePicker = (name, focus) => {
+    const { dispatch } = this.props;
+    const focusState = {};
+    focusState[name] = focus;
+    dispatch(uiActions.setUiState({
+      dateFocus: focusState,
+    }));
+  }
+
   render() {
+    const { ui } = this.props;
+    const dateFocus = ui.dateFocus || {};
     return (
-      <Estimate />
+      <Estimate
+        onDateChange={this.onDateChage}
+        beginDateFocused={dateFocus.begin}
+        endDateFocused={dateFocus.end}
+        onFocusChangeDatePicker={this.onFocusChangeDatePicker}
+      />
     );
   }
 }
