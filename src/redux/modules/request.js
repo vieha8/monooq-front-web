@@ -6,6 +6,7 @@ import firebase from 'firebase';
 import { store } from '../store/configureStore';
 import { push } from 'react-router-redux';
 import { createOmiseToken } from '../helpers/omise';
+import path from '../../config/path';
 
 // Actions
 const ESTIMATE = 'ESTIMATE';
@@ -89,7 +90,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
     { merge: true },
   );
   yield put(requestActions.estimateSuccess(requestInfo));
-  store.dispatch(push(`/message/${roomId}`));
+  store.dispatch(push(path.message(roomId)));
 }
 
 function* payment({ payload: { roomId, requestId, card } }) {
@@ -133,7 +134,7 @@ function* payment({ payload: { roomId, requestId, card } }) {
   );
 
   yield put(requestActions.paymentSuccess(payload));
-  store.dispatch(push(`/message/${roomId}`));
+  store.dispatch(push(path.message(roomId)));
 }
 
 function* fetchSchedule() {
