@@ -72,7 +72,7 @@ function* getSpace({ payload: { spaceId } }) {
     yield put(spaceActions.fetchFailedSpace(meta));
     return;
   }
-  yield put(spaceActions.fetchSuccessDpace(payload));
+  yield put(spaceActions.fetchSuccessSpace(payload));
 }
 
 function* createSpace({ payload: { body } }) {

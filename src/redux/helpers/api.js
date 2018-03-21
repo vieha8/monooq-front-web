@@ -1,19 +1,6 @@
 import axios from 'axios';
 import apiConfig from '../../config/api';
 
-const createAsyncConstants = constant => ({
-  REQUEST: constant,
-  SUCCESS: `${constant}_SUCCESS`,
-  FAILED: `${constant}_FAILED`,
-});
-
-export const createRESTConstants = constant => ({
-  GET: createAsyncConstants(`${constant}_GET`),
-  POST: createAsyncConstants(`${constant}_POST`),
-  PUT: createAsyncConstants(`${constant}_PUT`),
-  DELETE: createAsyncConstants(`${constant}_DELETE`),
-});
-
 const createApiInstance = token => {
   return axios.create({
     baseURL: apiConfig().baseURI,
