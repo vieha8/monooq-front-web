@@ -12,7 +12,6 @@ import MessageLog from './MessageLog';
 class Message extends React.Component {
   constructor(props) {
     super(props);
-
     this.roomId = props.match.params.message_room_id; // TODO roomId書き換えで関係ないルームのデータを取得できないようにする
     this.props.dispatch(messagesActions.fetchMessagesStart(this.roomId));
     this.props.dispatch(
@@ -20,6 +19,7 @@ class Message extends React.Component {
         message: '',
         isSend: false,
         isSending: false,
+        roomId: this.roomId,
       }),
     );
   }
@@ -61,7 +61,7 @@ class Message extends React.Component {
   };
 
   render() {
-    if(this.props.isLoading && !this.props.room){
+    if(this.props.isLoading || !this.props.room){
       return null;
     }
 
