@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Colors, FontSizes, Dimens } from 'variables';
 import { Select } from 'semantic-ui-react';
+import { Colors, FontSizes, Dimens } from 'variables';
 import Title from '../shared/Title';
 
 const Container = styled.div`
@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-export default (props) => (
+export default props => (
   <Container>
     <Title
       title="受け取り方法"
@@ -25,7 +25,7 @@ export default (props) => (
     <Select
       name="receiptType"
       value={props.ui.space.receiptType}
-      onChange={props.handleChangeSelect}
+      onChange={(_, data) => props.handleChangeSelect(data.value)}
       style={styles.select}
       placeholder="選択してください"
       options={[

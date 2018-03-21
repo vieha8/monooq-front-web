@@ -18,7 +18,7 @@ export default props => (
     <Input
       name="address"
       value={props.ui.space.address || ''}
-      onChange={e => props.handleChangeAddress(e.target.value)}
+      onChange={e => props.handleChangeText(e.target.value)}
       invalid={(props.error.errors.address || []).length}
       placeholder="例）東京都港区六本木6丁目1−25"
     />

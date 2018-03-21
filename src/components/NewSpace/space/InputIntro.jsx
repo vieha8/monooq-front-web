@@ -18,7 +18,7 @@ export default props => (
     <TextArea
       name="introduction"
       value={props.ui.space.introduction || ''}
-      onChange={e => props.handleChangeIntroduction(e.target.value)}
+      onChange={e => props.handleChangeText(e.target.value)}
       invalid={(props.error.errors.introduction || []).length}
       placeholder="例）広めの1ルームで預かります。短期でも長期でも可能です。普段は主婦をしているので、夕方までなら物の物の出し入れにも対応できると思います。"
       rows={5}

@@ -22,8 +22,8 @@ export default props => (
         header="預かる荷物について"
         subHeader="あなたのスペースでどんな荷物を預かりますか？"
       />
-      <InputAboutBaggage {...props} />
-      <CheckTypeFurniture {...props} />
+      <InputAboutBaggage {...props} handleChangeText={props.handleChangeAbout} />
+      <CheckTypeFurniture {...props} handleChangeCheck={props.handleChangeType} />
       <ButtonsContainer>
         <Button border onClick={props.onClickBack}>
           戻る

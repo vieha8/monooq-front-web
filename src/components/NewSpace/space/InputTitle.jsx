@@ -18,7 +18,7 @@ export default props => (
     <Input
       name="title"
       value={props.ui.space.title || ''}
-      onChange={e => props.handleChangeTitle(e.target.value)}
+      onChange={e => props.handleChangeText(e.target.value)}
       invalid={(props.error.errors.title || []).length}
       placeholder="例）六本木駅チカで便利です。港区のど真ん中！長期預かりもOKです！"
     />

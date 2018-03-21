@@ -29,10 +29,10 @@ export default (props) => {
           subHeader="どんなスペースを掲載しますか？"
         />
         <ImageDrop {...props} onClickImageDelete={props.onClickImageDelete} />
-        <InputTitle {...props} />
-        <SelectType {...props} />
-        <InputIntro {...props} />
-        <InputAddress {...props} />
+        <InputTitle {...props} handleChangeText={props.handleChangeTitle} />
+        <SelectType {...props} handleChangeSelect={props.handleChangeSpaceType} />
+        <InputIntro {...props} handleChangeText={props.handleChangeIntroduction} />
+        <InputAddress {...props} handleChangeText={props.handleChangeAddress} />
         <ButtonsContainer>
           <Button onClick={props.onClickNext} disabled={props.buttonDisabled}>
             次へ
