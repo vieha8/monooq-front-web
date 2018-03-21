@@ -55,8 +55,6 @@ export default props => (
     )}
     button={(
       <Button
-        bgColor={Colors.brandPrimary}
-        fluid
         disabled={props.buttonDisabled}
         onClick={props.onClickButton}
       >

@@ -4,7 +4,9 @@ import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
-  padding: 80px 8%;
+  padding: 80px 0;
+  max-width: 1024px;
+  margin: 0 auto;
   &::after {
     clear: both;
     display: block;
