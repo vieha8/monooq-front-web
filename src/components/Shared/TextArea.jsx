@@ -6,10 +6,15 @@ const TextArea = styled.textarea`
   margin-top: ${Dimens.medium}px;
   padding: ${Dimens.small2}px;
   color: ${Colors.darkGray1};
-  font-size: ${FontSizes.medium}px;
+  font-size: ${FontSizes.small}px;
+  line-height: 1.5;
   border: 1px solid ${Colors.borderGray};
-  border-radius: 6px;
+  border-radius: 3px;
   outline: none;
+  background: ${Colors.lightGray1Bg};
+  &:focus {
+    background: ${Colors.white};
+  }
   ${props => props.invalid && `
     border: 1px solid ${Colors.error};
   `}

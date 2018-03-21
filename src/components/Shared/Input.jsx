@@ -6,10 +6,15 @@ const Input = styled.input`
   padding: ${Dimens.small2}px;
   margin-top: ${Dimens.medium}px;
   color: ${Colors.darkGray1};
-  font-size: ${FontSizes.medium}px;
   border: 1px solid ${Colors.borderGray};
-  border-radius: 6px;
   outline: none;
+  font-size: ${FontSizes.small}px;
+  line-height: 1.5;
+  border-radius: 3px;
+  background: ${Colors.lightGray1Bg};
+  &:focus {
+    background: ${Colors.white};
+  }
   ${props => props.invalid && `
     border-color: ${Colors.error};
     background: ${Colors.white};

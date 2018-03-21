@@ -86,6 +86,8 @@ class AboutBaggageContainer extends React.Component {
           buttonDisabled={!this.validate()}
           handleChangeAbout={this.handleChangeAbout}
           handleChangeType={this.handleChangeType}
+          onClickNext={this.onClickNext}
+          onClickBack={this.onClickBack}
         />
       </Page>
     );
