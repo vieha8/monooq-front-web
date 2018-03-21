@@ -19,6 +19,7 @@ const SIGNUP_FAILED = 'SIGNUP_FAILED';
 const PASSWORD_RESET = 'PASSWORD_RESET';
 const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
+const TOKEN_GENERATE = 'TOKEN_GENERATE';
 
 const CHECK_LOGIN_START = 'CHECK_LOGIN_START';
 const CHECK_LOGIN_END = 'CHECK_LOGIN_END';
@@ -38,6 +39,7 @@ export const authActions = createActions(
   PASSWORD_RESET,
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILED,
+  TOKEN_GENERATE,
 );
 
 // Reducer
@@ -219,6 +221,21 @@ function* passwordReset({ payload: { email } }) {
   }
 }
 
+function* tokenGenerate() {
+  yield put(
+    apiActions.apiPostRequest({
+      path: apiEndpoint.tokenGenerate(),
+      body: {},
+    }),
+  );
+  const { payload, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    console.error(meta);
+    return;
+  }
+  localStorage.setItem('token', JSON.stringify(payload));
+}
+
 export const authSagas = [
   takeEvery(CHECK_LOGIN_START, checkLoginFirebaseAuth),
   takeEvery(LOGIN_EMAIL, loginEmail),
@@ -227,4 +244,5 @@ export const authSagas = [
   takeEvery(SIGNUP_EMAIL, signUpEmail),
   takeEvery(SIGNUP_FACEBOOK, signUpFacebook),
   takeEvery(PASSWORD_RESET, passwordReset),
+  takeEvery(TOKEN_GENERATE, tokenGenerate),
 ];

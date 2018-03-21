@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import { authActions } from 'redux/modules/auth';
-import { apiActions } from '../redux/modules/api';
 
 class AuthComponent extends React.Component {
   constructor(props) {
@@ -15,10 +14,10 @@ class AuthComponent extends React.Component {
       const now = parseInt(Date.now() / 1000, 10);
       if (Expire < now) {
         //TODO 本来有効期限切れの場合はRefreshToken叩く
-        this.props.dispatch(apiActions.tokenGeneratePost());
+        this.props.dispatch(authActions.tokenGenerate());
       }
     } else {
-      this.props.dispatch(apiActions.tokenGeneratePost());
+      this.props.dispatch(authActions.tokenGenerate());
     }
   }
 
