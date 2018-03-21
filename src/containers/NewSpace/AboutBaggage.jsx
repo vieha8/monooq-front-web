@@ -7,6 +7,7 @@ import { spaceActions } from 'redux/modules/space';
 import { errorActions } from 'redux/modules/error';
 import { ErrorMessage } from 'strings';
 import Path from 'config/path';
+import FormValidator from 'containers/helper/FormValidator';
 
 class AboutBaggageContainer extends React.Component {
   constructor(props) {
@@ -19,6 +20,8 @@ class AboutBaggageContainer extends React.Component {
       }));
       this.props.dispatch(spaceActions.fetchSpace({ spaceId }));
     }
+
+    FormValidator.initialize('space', props.dispatch, uiActions.setUiState, errorActions.setErrorState);
   }
 
   onClickNext = () => {
@@ -46,26 +49,12 @@ class AboutBaggageContainer extends React.Component {
       errors.push(ErrorMessage.PleaseInput);
     }
 
-    this.changeErrorState(prop, errors);
-    this.changeUiState(prop, value);
+    FormValidator.changeErrorState(prop, errors, this.props.error);
+    FormValidator.changeUiState(prop, value, this.props.ui);
   }
 
   handleChangeType = (checked) => {
-    this.changeUiState('isFurniture', checked ? '1' : '0');
-  }
-
-  changeUiState = (propName, value) => {
-    const { dispatch, ui } = this.props;
-    const nextSpace = Object.assign({}, ui.space);
-    nextSpace[propName] = value;
-    dispatch(uiActions.setUiState({ space: nextSpace }));
-  }
-
-  changeErrorState = (propName, propErrors) => {
-    const { dispatch, error } = this.props;
-    const nextErrors = Object.assign({}, error.errors);
-    nextErrors[propName] = propErrors;
-    dispatch(errorActions.setErrorState({ errors: nextErrors }));
+    FormValidator.changeUiState('isFurniture', checked ? '1' : '0', this.props.ui);
   }
 
   validate = () => {
