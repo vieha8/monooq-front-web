@@ -53,6 +53,12 @@ const QandA = [
   },
 ];
 
+type QA = {
+  title: string,
+  content: string,
+  circleDown?: boolean,
+  circleRight?: boolean,
+}
 
 type PropTypes = {
   onClickList: Function,
@@ -63,7 +69,7 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <Fragment>
     <H2>サービスについて</H2>
-    {QandA.map((qa, i) => (
+    {QandA.map((qa: QA, i) => (
       <HelpList
         key={`help_list_item_${i}`}
         title={qa.title}

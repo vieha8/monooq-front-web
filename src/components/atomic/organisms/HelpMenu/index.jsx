@@ -25,6 +25,8 @@ type PropTypes = {
   aboutRegisterSpace: MenuItemProps,
   aboutHostTransaction: MenuItemProps,
   aboutSalesTransfer: MenuItemProps,
+  aboutLogin: MenuItemProps,
+  other: MenuItemProps,
 }
 
 export default (props: PropTypes) => (
