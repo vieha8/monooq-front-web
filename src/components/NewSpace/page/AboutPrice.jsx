@@ -3,13 +3,13 @@ import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
+import HintBox from 'components/Shared/HintBox';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Title from '../shared/Title';
 import Button, { ButtonsContainer } from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
-import HintBox from '../shared/HintBox';
 import InputPriceOfType from '../price/InputPriceOfType';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
 

@@ -3,7 +3,7 @@ import Header from 'components/NewSpace/shared/Header';
 import Button, { ButtonsContainer } from 'components/NewSpace/shared/Button';
 import SideBar from 'components/NewSpace/shared/SideBar';
 import SaveBox from 'components/NewSpace/shared/SaveBox';
-import HintBox from 'components/NewSpace/shared/HintBox';
+import HintBox from 'components/Shared/HintBox';
 import InputAboutBaggage from 'components/NewSpace/baggage/InputAboutBaggage';
 import CheckTypeFurniture from 'components/NewSpace/baggage/CheckTypeFurniture';
 import SaveBoxMobile from 'components/NewSpace/shared/SaveBoxMobile';

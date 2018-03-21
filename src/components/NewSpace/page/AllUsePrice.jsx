@@ -1,11 +1,11 @@
 import React from 'react';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
+import HintBox from 'components/Shared/HintBox';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Button, { ButtonsContainer } from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
-import HintBox from '../shared/HintBox';
 import InputPriceOfAll from '../price/InputPriceOfAll';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
 

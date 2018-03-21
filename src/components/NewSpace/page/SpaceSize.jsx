@@ -5,12 +5,12 @@ import { uiActions } from 'redux/modules/ui';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
 import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
+import HintBox from 'components/Shared/HintBox';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Button, { ButtonsContainer } from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
-import HintBox from '../shared/HintBox';
 import SpaceSizeCriterion from '../price/SpaceSizeCriterion';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
 
