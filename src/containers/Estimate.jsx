@@ -1,30 +1,30 @@
 import React from 'react';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
+import { errorActions } from 'redux/modules/error';
 import { requestActions } from 'redux/modules/request';
+import { ErrorMessage } from 'strings';
 import Estimate from 'components/Estimate';
+import FormValidator from 'containers/helper/FormValidator';
+
+const Validate = {
+  Price: {
+    Min: 3000,
+  },
+};
 
 class EstimateContainer extends React.Component {
-  handleChange = ({ target }) => {
-    this.props.dispatch(uiActions.setUiState({
-      [target.name]: target.value,
-    }));
-  };
+  constructor(props) {
+    super(props);
 
-  sendRequest = () => {
-    const userId = this.props.user.ID;
-    const roomId = this.props.match.params.message_room_id;
-    const { startDate, endDate, price } = this.props.ui;
-    this.props.dispatch(requestActions.estimate({
-      userId, roomId, startDate, endDate, price,
-    }));
-  };
+    FormValidator.initialize('estimate', props.dispatch, uiActions.setUiState, errorActions.setErrorState);
+  }
 
   onDateChange = (name, date) => {
-    const { dispatch, ui } = this.props;
-    const duration = Object.assign({}, ui.duration);
-    duration[name] = date;
-    dispatch(uiActions.setUiState({ duration, dateFocus: null }));
+    const { dispatch } = this.props;
+    FormValidator.changeUiState(name, date, this.props.ui);
+    dispatch(uiActions.setUiState({ dateFocus: null }));
   }
 
   onFocusChangeDatePicker = (name, focus) => {
@@ -36,19 +36,60 @@ class EstimateContainer extends React.Component {
     }));
   }
 
-  render() {
+  handleChangePrice = (value) => {
+    const prop = 'price';
+    const errors = this.props.error[prop] || [];
+    if (value.length === 0) {
+      errors.push(ErrorMessage.PleaseInput);
+    }
+    if (parseInt(value, 10) < Validate.Price.Min) {
+      errors.push(ErrorMessage.EstimateMin(Validate.Price.Min));
+    }
+
+    FormValidator.changeErrorState(prop, errors, this.props.error);
+    FormValidator.changeUiState(prop, value, this.props.ui);
+  }
+
+  sendRequest = () => {
+    const userId = this.props.user.ID;
+    const roomId = this.props.match.params.message_room_id;
+    const { startDate, endDate, price } = this.props.ui;
+    this.props.dispatch(requestActions.estimate({
+      userId, roomId, startDate, endDate, price,
+    }));
+  }
+
+  validate = () => {
     const { ui } = this.props;
+    const estimate = ui.estimate || {};
+
+    return (
+      estimate.begin
+      && estimate.end
+      && estimate.begin.diff(estimate.end, 'hours') < 24
+      && estimate.price !== ''
+      && estimate.price >= Validate.Price.Min
+    );
+  }
+
+  render() {
+    const { ui, error } = this.props;
     const dateFocus = ui.dateFocus || {};
-    const duration = ui.duration || {};
+    const estimate = ui.estimate || {};
 
     return (
       <Estimate
         onDateChange={this.onDateChange}
-        beginDate={duration.begin}
-        endDate={duration.end}
+        beginDate={estimate.begin}
+        endDate={estimate.end}
         beginDateFocused={dateFocus.begin}
         endDateFocused={dateFocus.end}
         onFocusChangeDatePicker={this.onFocusChangeDatePicker}
+        price={ui.price}
+        handleChangePrice={this.handleChangePrice}
+        priceErrors={error.errors.price}
+        buttonDisabled={!this.validate()}
+        onClickButton={this.sendRequest}
       />
     );
   }
@@ -57,6 +98,7 @@ class EstimateContainer extends React.Component {
 const mapStateToProps = state => ({
   ui: state.ui,
   user: state.auth.user,
+  error: state.error,
 });
 
 export default connect(mapStateToProps)(EstimateContainer);

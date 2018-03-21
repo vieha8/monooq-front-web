@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Input from 'components/Shared/Input';
+import ErrorText from 'components/Shared/ErrorText';
 import { FontSizes, Colors, Dimens } from 'variables';
 
 const Container = styled.div`
@@ -27,16 +28,19 @@ const Unit = styled.span`
   margin-left: ${Dimens.small}px;
 `;
 
-export default () => (
+export default props => (
   <Container>
     <Label>お見積もり料金</Label>
     <div>
       <InputWrapper>
         <Input
           type="number"
+          onChange={e => props.onChange(e.target.value)}
+          invalid={(props.errors || []).length > 0}
         />
       </InputWrapper>
       <Unit>円</Unit>
     </div>
+    {props.errors && <ErrorText errors={props.errors} />}
   </Container>
 );

@@ -68,7 +68,7 @@ export default class SpaceSize extends Component {
     dispatch(uiActions.setUiState({ space }));
   }
 
-  validation = () => {
+  validate = () => {
     const { ui } = this.props;
 
     return (
@@ -109,7 +109,7 @@ export default class SpaceSize extends Component {
             <Button
               position="right"
               onClick={this.onClickNext}
-              disabled={!this.validation()}
+              disabled={!this.validate()}
             >
               次へ
             </Button>

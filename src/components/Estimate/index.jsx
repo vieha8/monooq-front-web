@@ -48,12 +48,17 @@ export default props => (
     priceTitle={<H2>料金を入力</H2>}
     priceCaption={<Caption>相手の相談に応じて料金を決めましょう。</Caption>}
     priceInput={(
-      <PriceInput />
+      <PriceInput
+        onChange={props.handleChangePrice}
+        errors={props.priceErrors}
+      />
     )}
     button={(
       <Button
         bgColor={Colors.brandPrimary}
         fluid
+        disabled={props.buttonDisabled}
+        onClick={props.onClickButton}
       >
         この見積もりを送る
       </Button>
