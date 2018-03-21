@@ -53,9 +53,9 @@ class EstimateContainer extends React.Component {
   sendRequest = () => {
     const userId = this.props.user.ID;
     const roomId = this.props.match.params.message_room_id;
-    const { startDate, endDate, price } = this.props.ui;
+    const { begin, end, price } = this.props.ui.estimate;
     this.props.dispatch(requestActions.estimate({
-      userId, roomId, startDate, endDate, price,
+      userId, roomId, startDate: begin.toDate(), endDate: end.toDate(), price,
     }));
   }
 
