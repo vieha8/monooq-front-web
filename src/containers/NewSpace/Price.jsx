@@ -50,23 +50,32 @@ class PriceContainer extends React.Component {
     }
   }
 
-  handleChangeText = ({ target }) => {
-    const { space } = this.props.ui;
-    Object.assign(space, { [target.name]: parseInt(target.value, 10) });
-    this.props.dispatch(uiActions.setUiState({ space }));
-  };
-
-  handleChangePriceAll = (value) => {
-    const prop = 'priceFull';
+  onChangePrice = (prop, value) => {
     const errors = this.props.error[prop] || [];
     if (value.length === 0) {
       errors.push(ErrorMessage.PleaseInput);
     }
     if (parseInt(value, 10) < Validate.Price.Min) {
-      errors.push(ErrorMessage.PriceMin(Validate.Price.Min))
+      errors.push(ErrorMessage.PriceMin(Validate.Price.Min));
     }
     FormValidator.changeErrorState(prop, errors, this.props.error);
     FormValidator.changeUiState(prop, value, this.props.ui);
+  }
+
+  handleChangePriceAll = (value) => {
+    this.onChangePrice('priceFull', value);
+  }
+
+  handleChangePriceFull = (value) => {
+    this.onChangePrice('priceFull', value);
+  }
+
+  handleChangePriceHalf = (value) => {
+    this.onChangePrice('priceHalf', value);
+  }
+
+  handleChangePriceQuarter = (value) => {
+    this.onChangePrice('priceQuarter', value);
   }
 
   validateAllUsePrice = () => {
@@ -78,6 +87,19 @@ class PriceContainer extends React.Component {
     );
   }
 
+  validateAboutPrice = () => {
+    const { ui } = this.props;
+
+    return (
+      ui.space.priceFull !== ''
+      && ui.space.priceFull >= Validate.Price.Min
+      && ui.space.priceHalf !== ''
+      && ui.space.priceHalf >= Validate.Price.Min
+      && ui.space.priceQuarter !== ''
+      && ui.space.priceQuarter >= Validate.Price.Min
+    );
+  }
+
   render() {
     return (
       <Page>
@@ -85,6 +107,7 @@ class PriceContainer extends React.Component {
           <AllUsePrice
             {...this.props}
             handleChangePriceAll={this.handleChangePriceAll}
+            onClickBack={this.onClickBack}
             onClickComplete={this.onClickComplete}
             buttonDisabled={!this.validateAllUsePrice()}
           />
@@ -92,7 +115,12 @@ class PriceContainer extends React.Component {
           <AboutPrice
             {...this.props}
             handleChangeText={this.handleChangeText}
+            onClickBack={this.onClickBack}
             onClickComplete={this.onClickComplete}
+            handleChangePriceFull={this.handleChangePriceFull}
+            handleChangePriceHalf={this.handleChangePriceHalf}
+            handleChangePriceQuarter={this.handleChangePriceQuarter}
+            buttonDisabled={!this.validateAboutPrice()}
           />
         }
       </Page>
