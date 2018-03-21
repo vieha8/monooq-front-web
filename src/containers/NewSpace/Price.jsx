@@ -4,7 +4,17 @@ import { Page } from 'components/NewSpace/page/Shared';
 import AllUsePrice from 'components/NewSpace/page/AllUsePrice';
 import AboutPrice from 'components/NewSpace/page/AboutPrice';
 import { uiActions } from 'redux/modules/ui';
+import { errorActions } from 'redux/modules/error';
 import { spaceActions } from 'redux/modules/space';
+import { ErrorMessage } from 'strings';
+import Path from 'config/path';
+import FormValidator from 'containers/helper/FormValidator';
+
+const Validate = {
+  Price: {
+    Min: 3000,
+  },
+};
 
 class PriceContainer extends React.Component {
   constructor(props) {
@@ -17,6 +27,8 @@ class PriceContainer extends React.Component {
       }));
       this.props.dispatch(spaceActions.fetchSpace({ spaceId }));
     }
+
+    FormValidator.initialize('space', props.dispatch, uiActions.setUiState, errorActions.setErrorState);
   }
 
   onClickComplete = () => {
@@ -27,7 +39,16 @@ class PriceContainer extends React.Component {
     } else {
       this.props.dispatch(spaceActions.createSpace({ body: space }));
     }
-  };
+  }
+
+  onClickBack = () => {
+    const { ui, history } = this.props;
+    if (ui.isEdit) {
+      history.push(Path.editSpaceAreaSize(ui.spaceId));
+    } else {
+      history.push(Path.createSpaceAreaSize());
+    }
+  }
 
   handleChangeText = ({ target }) => {
     const { space } = this.props.ui;
@@ -35,14 +56,37 @@ class PriceContainer extends React.Component {
     this.props.dispatch(uiActions.setUiState({ space }));
   };
 
+  handleChangePriceAll = (value) => {
+    const prop = 'priceFull';
+    const errors = this.props.error[prop] || [];
+    if (value.length === 0) {
+      errors.push(ErrorMessage.PleaseInput);
+    }
+    if (parseInt(value, 10) < Validate.Price.Min) {
+      errors.push(ErrorMessage.PriceMin(Validate.Price.Min))
+    }
+    FormValidator.changeErrorState(prop, errors, this.props.error);
+    FormValidator.changeUiState(prop, value, this.props.ui);
+  }
+
+  validateAllUsePrice = () => {
+    const { ui } = this.props;
+
+    return (
+      ui.space.priceFull !== ''
+      && ui.space.priceFull >= Validate.Price.Min
+    );
+  }
+
   render() {
     return (
       <Page>
         {this.props.match.params.type === 'all' ?
           <AllUsePrice
             {...this.props}
-            handleChangeText={this.handleChangeText}
+            handleChangePriceAll={this.handleChangePriceAll}
             onClickComplete={this.onClickComplete}
+            buttonDisabled={!this.validateAllUsePrice()}
           />
           :
           <AboutPrice
@@ -79,6 +123,7 @@ const mapStateToProps = (state) => {
   return ({
     ui: state.ui,
     user: state.auth.user,
+    error: state.error,
   });
 };
 
