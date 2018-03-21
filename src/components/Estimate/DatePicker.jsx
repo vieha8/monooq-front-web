@@ -51,22 +51,22 @@ export default props => (
     <DateCell>
       <DateLabel>利用開始日</DateLabel>
       <InputCalendar
-        date={null}
+        date={props.beginDate}
         block
         focused={Boolean(props.beginDateFocused)}
         onDateChange={date => props.onDateChangeBegin(date)}
-        onFocusChange={e => props.onFocusChangeBegin(e)}
+        onFocusChange={e => props.onFocusChangeBegin(e.focused)}
       />
     </DateCell>
     <Arrow />
     <DateCell>
       <DateLabel>利用終了日</DateLabel>
       <InputCalendar
-        date={null}
+        date={props.endDate}
         block
         focused={Boolean(props.endDateFocused)}
-        onDateChange={date => props.onDateChangeBegin(date)}
-        onFocusChange={e => props.onFocusChangeEnd(e)}
+        onDateChange={date => props.onDateChangeEnd(date)}
+        onFocusChange={e => props.onFocusChangeEnd(e.focused)}
       />
     </DateCell>
   </Container>

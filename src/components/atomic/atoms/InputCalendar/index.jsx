@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import 'moment/locale/ja';
 import moment from 'moment';
 import { Colors } from 'variables';
 

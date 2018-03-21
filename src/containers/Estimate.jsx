@@ -24,7 +24,7 @@ class EstimateContainer extends React.Component {
     const { dispatch, ui } = this.props;
     const duration = Object.assign({}, ui.duration);
     duration[name] = date;
-    dispatch(uiActions.setUiState({ duration }));
+    dispatch(uiActions.setUiState({ duration, dateFocus: null }));
   }
 
   onFocusChangeDatePicker = (name, focus) => {
@@ -39,9 +39,13 @@ class EstimateContainer extends React.Component {
   render() {
     const { ui } = this.props;
     const dateFocus = ui.dateFocus || {};
+    const duration = ui.duration || {};
+
     return (
       <Estimate
-        onDateChange={this.onDateChage}
+        onDateChange={this.onDateChange}
+        beginDate={duration.begin}
+        endDate={duration.end}
         beginDateFocused={dateFocus.begin}
         endDateFocused={dateFocus.end}
         onFocusChangeDatePicker={this.onFocusChangeDatePicker}

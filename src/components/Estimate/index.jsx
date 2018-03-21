@@ -35,9 +35,10 @@ export default props => (
     datePickerTitle={<H2>スケジュールを入力</H2>}
     datePicker={(
       <DatePicker
-        hoge={console.log(props)}
         onDateChangeBegin={date => props.onDateChange('begin', date)}
         onDateChangeEnd={date => props.onDateChange('end', date)}
+        beginDate={props.beginDate}
+        endDate={props.endDate}
         beginDateFocused={props.beginDateFocused}
         endDateFocused={props.endDateFocused}
         onFocusChangeBegin={focus => props.onFocusChangeDatePicker('begin', focus)}
