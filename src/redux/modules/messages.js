@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
 import { authActions } from './auth';
-import { apiActions } from './api';
+import { userActions } from './user';
 import firebase from 'firebase';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
@@ -61,8 +61,8 @@ export const messagesSagas = [
       rooms.map(function*(room, i) {
         const { userId1, userId2 } = room;
         const partnerUserId = user.ID === userId1 ? userId2 : userId1;
-        yield put(apiActions.userGet({ id: partnerUserId }));
-        const { payload: partnerUser } = yield take(apiActions.userGetSuccess);
+        yield put(userActions.fetchUser({ userId: partnerUserId }));
+        const { payload: partnerUser } = yield take(userActions.fetchSuccessUser);
         rooms[i].user = partnerUser;
       }),
     );
@@ -80,8 +80,9 @@ export const messagesSagas = [
 
     const { userId1, userId2 } = room;
     const partnerUserId = user.ID === userId1 ? userId2 : userId1;
-    yield put(apiActions.userGet({ id: partnerUserId }));
-    const { payload: partnerUser } = yield take(apiActions.userGetSuccess);
+
+    yield put(userActions.fetchUser({ userId: partnerUserId }));
+    const { payload: partnerUser } = yield take(userActions.fetchSuccessUser);
     room.user = partnerUser;
 
     yield put(messagesActions.fetchMessagesEnd({ messages, room }));

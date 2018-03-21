@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select } from 'redux-saga/effects';
 import firebase from 'firebase';
-import { apiActions } from './api';
+import { apiActions, apiEndpoint } from './api';
 import { uiActions } from './ui';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
@@ -52,8 +52,12 @@ export const userReducer = handleActions(
 
 //Sagas
 function* getUser({ payload: { userId } }) {
-  yield put(apiActions.userGet({ id: userId }));
-  const { payload } = yield take(apiActions.userGetSuccess);
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(userId) }));
+  const { payload, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(userActions.fetchFailedUser(meta));
+    return;
+  }
   yield put(userActions.fetchSuccessUser(payload));
 }
 
@@ -66,8 +70,13 @@ function* getSpaces({ payload: { userId } }) {
     user = yield select(state => state.auth.user);
     userId = user.ID;
   }
-  yield put(apiActions.userSpacesGet({ id: userId }));
-  const { payload } = yield take(apiActions.userSpacesGetSuccess);
+
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.userSpaces(userId) }));
+  const { payload, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(userActions.fetchFailedUserSpaces(meta));
+    return;
+  }
   yield put(userActions.fetchSuccessUserSpaces(payload));
 }
 
@@ -96,8 +105,12 @@ function* updateUser({ payload: { userId, body } }) {
       return;
     }
   }
-  yield put(apiActions.userPut({ id: userId, body: body }));
-  const { payload } = yield take(apiActions.userPutSuccess);
+  yield put(apiActions.apiPutRequest({ path: apiEndpoint.users(userId), body }));
+  const { payload, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(userActions.updateFailedUser(meta));
+    return;
+  }
   yield put(userActions.updateSuccessUser(payload));
   yield put(uiActions.setUiState({ signUpStep: 5 }));
 }

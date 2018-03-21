@@ -1,11 +1,12 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take } from 'redux-saga/effects';
-import { apiActions } from './api';
+import { apiActions, apiEndpoint } from './api';
 import { store } from '../store/configureStore';
 import { push } from 'react-router-redux';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import Path from '../../config/path';
+import { userActions } from './user';
 
 // Actions
 const FETCH_SPACE = 'FETCH_SPACE';
@@ -65,17 +66,25 @@ export const spaceReducer = handleActions(
 
 //Sagas
 function* getSpace({ payload: { spaceId } }) {
-  yield put(apiActions.spaceGet({ id: spaceId }));
-  const { payload } = yield take(apiActions.spaceGetSuccess);
-  yield put(spaceActions.fetchSuccessSpace(payload));
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.spaces(spaceId) }));
+  const { payload, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(spaceActions.fetchFailedSpace(meta));
+    return;
+  }
+  yield put(spaceActions.fetchSuccessDpace(payload));
 }
 
 function* createSpace({ payload: { body } }) {
   const { images } = body;
   body.images = null;
 
-  yield put(apiActions.spacePost({ body }));
-  const { payload } = yield take(apiActions.spacePostSuccess);
+  yield put(apiActions.apiPostRequest({ path: apiEndpoint.spaces(), body }));
+  const { payload, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(spaceActions.createFailedSpace(meta));
+    return;
+  }
 
   if (images) {
     const spaceId = payload.ID;
@@ -95,8 +104,13 @@ function* createSpace({ payload: { body } }) {
       }),
     );
     payload.images = imageUrls.map(url => ({ imageUrl: url }));
-    yield put(apiActions.spacePut({ id: spaceId, body: payload }));
-    yield take(apiActions.spacePutSuccess);
+
+    yield put(apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), payload }));
+    const { error, meta } = yield take(apiActions.apiResponse);
+    if (error) {
+      yield put(spaceActions.createFailedSpace(meta));
+      return;
+    }
   }
   yield put(spaceActions.createSuccessSpace(payload));
   store.dispatch(push(Path.createSpaceCompletion()));
@@ -108,8 +122,12 @@ function* updateSpace({ payload: { spaceId, body } }) {
   if (images) {
     //TODO 画像アップロード処理
   }
-  yield put(apiActions.spacePut({ id: spaceId, body: body }));
-  const { payload } = yield take(apiActions.spacePutSuccess);
+  yield put(apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body }));
+  const { payload, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(userActions.updateFailedSpace(meta));
+    return;
+  }
   yield put(spaceActions.updateSuccessSpace(payload));
   store.dispatch(push(Path.editSpaceCompletion(spaceId)));
 }

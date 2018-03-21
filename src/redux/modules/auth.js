@@ -1,8 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take } from 'redux-saga/effects';
 import firebase from 'firebase';
-import { apiActions, API_ACTIONS } from './api';
-import { apiEndpoint, apiActions2 } from './api2';
+import { apiEndpoint, apiActions } from './api';
 import { uiActions } from './ui';
 import { push } from 'react-router-redux';
 import { store } from '../store/configureStore';
@@ -50,12 +49,10 @@ const initialState = {
 };
 export const authReducer = handleActions(
   {
-    [CHECK_LOGIN_START]: (state, action) => {
-      return {
-        ...state,
-        isChecking: true,
-      };
-    },
+    [CHECK_LOGIN_START]: state => ({
+      ...state,
+      isChecking: true,
+    }),
     [LOGIN_EMAIL]: state => ({
       ...state,
     }),
@@ -74,16 +71,11 @@ export const authReducer = handleActions(
       ...state,
       error: action.payload,
     }),
-    [CHECK_LOGIN_END]: {
-      next: (state, { payload }) => ({
-        ...state,
-        ...payload,
-        isChecking: false,
-      }),
-      throw: (state, { payload }) => ({
-        ...state,
-      }),
-    },
+    [CHECK_LOGIN_END]: (state, { payload }) => ({
+      ...state,
+      ...payload,
+      isChecking: false,
+    }),
   },
   initialState,
 );
@@ -104,13 +96,12 @@ function* checkLoginFirebaseAuth() {
 
   if (user) {
     status.isLogin = true;
-    yield put(apiActions2.apiGetRequest({ path: apiEndpoint.authFirebase(user.uid + 'AAA') }));
-    const { payload: res, error, meta } = yield take(apiActions2.apiResponse);
+    yield put(apiActions.apiGetRequest({ path: apiEndpoint.authFirebase(user.uid) }));
+    const { payload: res, error, meta } = yield take(apiActions.apiResponse);
     if (error) {
       console.error(meta);
       return;
     }
-
     status.user = res;
     if (status.user.Profile === '') {
       yield put(uiActions.setUiState({ signUpStep: 4 }));
@@ -122,9 +113,12 @@ function* checkLoginFirebaseAuth() {
 }
 
 function* loginEmail({ payload: { email, password } }) {
-  yield put(apiActions.authPastGet({ query: { email: email } }));
-  const { payload } = yield take(API_ACTIONS.AUTH_PAST.GET.SUCCESS);
-
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.authPast(), params: { email } }));
+  const { payload, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(authActions.loginFailed(meta));
+    return;
+  }
   //元々登録されていたユーザーかチェック
   const isOld = payload.result;
   if (isOld) {
@@ -161,8 +155,18 @@ function* signUpEmail({ payload: { email, password } }) {
   try {
     const result = yield firebase.auth().createUserWithEmailAndPassword(email, password);
     const firebaseUid = result.uid;
-    yield put(apiActions.userPost({ body: { Email: email, FirebaseUid: firebaseUid } }));
-    const { payload } = yield take(apiActions.userPostSuccess);
+
+    yield put(
+      apiActions.apiPostRequest({
+        path: apiEndpoint.users(),
+        body: { Email: email, FirebaseUid: firebaseUid },
+      }),
+    );
+    const { payload, error, meta } = yield take(apiActions.apiResponse);
+    if (error) {
+      yield put(authActions.signupFailed(meta));
+      return;
+    }
     yield put(authActions.signupSuccess(payload));
     yield put(authActions.checkLoginStart());
     yield put(uiActions.setUiState({ signUpStep: 4 }));
@@ -182,12 +186,18 @@ function* signUpFacebook() {
       return;
     }
     const { displayName, email, uid, photoURL } = result.user;
+
     yield put(
-      apiActions.userPost({
+      apiActions.apiPostRequest({
+        path: apiEndpoint.users(),
         body: { Email: email, FirebaseUid: uid, Name: displayName, ImageUrl: photoURL },
       }),
     );
-    const { payload } = yield take(apiActions.userPostSuccess);
+    const { payload, error, meta } = yield take(apiActions.apiResponse);
+    if (error) {
+      yield put(authActions.signupFailed(meta));
+      return;
+    }
     yield put(authActions.signupSuccess(payload));
     yield put(authActions.checkLoginStart());
     yield put(uiActions.setUiState({ signUpStep: 4, name: displayName }));
