@@ -33,6 +33,6 @@ export default () => (
     <IconWrapper>
       <FlagIcon style={{ color: Colors.darkGray2 }} />
     </IconWrapper>
-    <Text href={Path.report()}>不適切な内容を報告</Text>
+    <Text href={Path.reportSpace()}>不適切な内容を報告</Text>
   </Container>
 );

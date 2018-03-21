@@ -44,6 +44,13 @@ const ButtonWrapper = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
+const Message = styled.div`
+  font-size: ${FontSizes.xsmall}px;
+  line-height: 1.5;
+  color: ${Colors.lightGray1};
+  margin-top: ${Dimens.medium}px;
+`;
+
 export default props => (
   <Container>
     <Logo src={logoUri} />
@@ -61,8 +68,7 @@ export default props => (
         />
       </InputWrapper>
     </InputContainer>
-    <br/>
-    <div>登録済みのメールアドレスを入力してください。再設定用メールをお送りします。</div>
+    <Message>登録済みのメールアドレスを入力してください。<br />再設定用メールをお送りします。</Message>
     <ButtonWrapper>
       <Button
         bgColor={Colors.brandPrimary}

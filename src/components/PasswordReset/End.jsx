@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Colors, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
 import { media } from 'helpers/style/media-query';
-import {FontSizes} from "../../variables";
+import { FontSizes } from "../../variables";
 
 const Logo = styled.img`
   width: 60px;
@@ -40,6 +40,13 @@ const Container2 = styled.div`
   `}
 `;
 
+const Message = styled.div`
+  font-size: ${FontSizes.xsmall}px;
+  line-height: 1.5;
+  color: ${Colors.lightGray1};
+  margin-top: ${Dimens.medium}px;
+`;
+
 export default class PasswordReset extends Component {
   componentDidMount() {
     document.body.style.background = Colors.yellow;
@@ -53,10 +60,9 @@ export default class PasswordReset extends Component {
     return (
       <Container>
         <Container2>
-        <Logo src={logoUri} />
-        <Title>再設定用メールを送信しました</Title>
-        <br/>
-        <div>パスワード再設定用のメールをお送りしました。メールの内容にしたがってお手続きください。</div>
+          <Logo src={logoUri} />
+          <Title>再設定用メールを送信しました</Title>
+          <Message>パスワード再設定用のメールをお送りしました。<br />メールの内容にしたがってお手続きください。</Message>
         </Container2>
       </Container>
     );
