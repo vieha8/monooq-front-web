@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Path from 'config/path';
 import Page from 'components/Page';
 import Menu from 'containers/Menu';
 import Report from 'components/Report';
@@ -15,7 +17,7 @@ class ReportContainer extends Component {
     }));
   }
 
-  renderReport() {
+  renderReportSpace() {
     return (
       <Page title="不適切な場所を報告">
         <Menu />
@@ -49,14 +51,21 @@ class ReportContainer extends Component {
   }
 
   render() {
-    const { ui } = this.props;
+    const { ui, location } = this.props;
 
-    // [TODO]ホスト・ユーザー報告画面を出すのかスペース報告画面を出すのかの分岐
-    return (
-      ui.reportCompleted
-        ? this.renderReportCompoleted()
-        : this.renderReportUserOrHost()
-    );
+    if (ui.reportCompleted) {
+      return this.renderReportCompoleted();
+    }
+
+    if (location.pathname === Path.reportUser()) {
+      return this.renderReportUserOrHost();
+    }
+
+    if (location.pathname === Path.reportSpace()) {
+      return this.renderReportSpace();
+    }
+
+    return null;
   }
 }
 
@@ -64,4 +73,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(mapStateToProps)(ReportContainer);
+export default withRouter(connect(mapStateToProps)(ReportContainer));

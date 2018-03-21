@@ -98,8 +98,10 @@ export default {
   passwordResetEnd: () =>
     `/password/reset/end`,
   // 違反報告
-  report: () =>
-    '/report',
+  reportUser: () =>
+    '/report/user',
+  reportSpace: () =>
+    '/report/space',
   // 静的ページ
   about: () =>
     '/about',

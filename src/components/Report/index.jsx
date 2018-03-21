@@ -148,9 +148,12 @@ export default props => (
         <Title>違反・不適切と思われる内容</Title>
         <StyledSelectContainer>
           <StyledSelect>
-            {["選択してください","個人情報の記載がある"].map(item => {
-              return <option>{item}</option>;
-            })}
+            <option value={0}>選択してください</option>
+            <option value={1}>このスペースはモノオクで取り扱うべきではありません。</option>
+            <option value={2}>不適切なコンテンツの記載や不正行為がされています。</option>
+            <option value={3}>スペースの実態がないのに掲載を行っている</option>
+            <option value={4}>他サービスへの勧誘・誘導をする記載がある</option>
+            <option value={5}>その他</option>
           </StyledSelect>
         </StyledSelectContainer>
       </ReportContainer>

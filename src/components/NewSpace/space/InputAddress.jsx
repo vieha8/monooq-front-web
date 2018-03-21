@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Input from 'components/Shared/Input';
-import { Colors, FontSizes, Dimens } from 'variables';
+import { Dimens } from 'variables';
 import ErrorText from 'components/Shared/ErrorText';
 import Title from '../shared/Title';
 
