@@ -1,11 +1,12 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take } from 'redux-saga/effects';
-import { apiActions } from './api';
+import { apiActions, apiEndpoint } from './api';
 
 // Actions
 const FETCH_START_SEARCH = 'FETCH_START_SEARCH';
 const FETCH_SUCCESS_SEARCH = 'FETCH_SUCCESS_SEARCH';
 const FETCH_FAILED_SEARCH = 'FETCH_FAILED_SEARCH';
+// TODO FETCHいらない、STARTいらない
 
 export const searchActions = createActions(
   FETCH_START_SEARCH,
@@ -19,15 +20,15 @@ const initialState = {
   location: '',
   spaces: [],
 };
-const { fetchStartSearch, fetchSuccessSearch } = searchActions;
+
 export const searchReducer = handleActions(
   {
-    [fetchStartSearch]: (state, action) => ({
+    [FETCH_START_SEARCH]: (state, action) => ({
       ...state,
       isLoading: true,
       location: action.payload,
     }),
-    [fetchSuccessSearch]: (state, action) => ({
+    [FETCH_SUCCESS_SEARCH]: (state, action) => ({
       ...state,
       isLoading: false,
       spaces: action.payload,
@@ -38,9 +39,13 @@ export const searchReducer = handleActions(
 
 //Sagas
 function* search({ payload: { location } }) {
-  yield put(apiActions.spacesGet(location));
-  const { payload } = yield take(apiActions.spacesGetSuccess);
-  yield put(fetchSuccessSearch(payload));
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.spaces(), params: { location } }));
+  const { payload, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(searchActions.fetchFailedSearch(meta));
+    return;
+  }
+  yield put(searchActions.fetchSuccessSearch(payload));
 }
 
 export const searchSagas = [takeEvery(FETCH_START_SEARCH, search)];

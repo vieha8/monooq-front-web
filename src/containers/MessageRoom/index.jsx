@@ -61,7 +61,7 @@ class Message extends React.Component {
   };
 
   render() {
-    if(this.props.isLoading){
+    if(this.props.isLoading && !this.props.room){
       return null;
     }
 

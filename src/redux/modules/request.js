@@ -1,6 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select } from 'redux-saga/effects';
-import { apiActions } from './api';
+import { apiActions, apiEndpoint } from './api';
 import { authActions } from './auth';
 import firebase from 'firebase';
 import { store } from '../store/configureStore';
@@ -61,11 +61,16 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   }
 
   yield put(
-    apiActions.requestPost({
+    apiActions.apiPostRequest({
+      path: apiEndpoint.requests(),
       body: { userId: requestUserId, spaceId, startDate, endDate, price: parseInt(price, 10) },
     }),
   );
-  const { payload: requestInfo } = yield take(apiActions.requestPostSuccess);
+  const { payload: requestInfo, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(requestActions.estimateFailed(meta));
+    return;
+  }
 
   const message = {
     messageType: 2,
@@ -83,6 +88,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
     },
     { merge: true },
   );
+  yield put(requestActions.estimateSuccess(requestInfo));
   store.dispatch(push(`/message/${roomId}`));
 }
 
@@ -96,10 +102,18 @@ function* payment({ payload: { roomId, requestId, card } }) {
       expiration_year: parseInt(card.expiryYear, 10),
     },
   });
+
   yield put(
-    apiActions.paymentPost({ body: { RequestId: parseInt(requestId, 10), CardToken: token } }),
+    apiActions.apiPostRequest({
+      path: apiEndpoint.payments(),
+      body: { RequestId: parseInt(requestId, 10), CardToken: token },
+    }),
   );
-  yield take(apiActions.paymentPostSuccess);
+  const { payload, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(requestActions.paymentFailed(meta));
+    return;
+  }
 
   const db = firebase.firestore();
   const message = {
@@ -118,6 +132,7 @@ function* payment({ payload: { roomId, requestId, card } }) {
     { merge: true },
   );
 
+  yield put(requestActions.paymentSuccess(payload));
   store.dispatch(push(`/message/${roomId}`));
 }
 
@@ -127,11 +142,20 @@ function* fetchSchedule() {
     yield take(authActions.checkLoginEnd);
   }
   user = yield select(state => state.auth.user);
-  yield put(apiActions.requestUserGet({ id: user.ID }));
-  const { payload: userRequests } = yield take(apiActions.requestUserGetSuccess);
 
-  yield put(apiActions.requestHostGet({ id: user.ID }));
-  const { payload: hostRequests } = yield take(apiActions.requestHostGetSuccess);
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.requestsByUserId(user.ID) }));
+  const { payload: userRequests, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(requestActions.fetchScheduleFailed(meta));
+    return;
+  }
+
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.requestsByHostUserId(user.ID) }));
+  const { payload: hostRequests, error: error2, meta: meta2 } = yield take(apiActions.apiResponse);
+  if (error2) {
+    yield put(requestActions.fetchScheduleFailed(meta2));
+    return;
+  }
 
   yield put(requestActions.fetchScheduleSuccess({ user: userRequests, host: hostRequests }));
 }
