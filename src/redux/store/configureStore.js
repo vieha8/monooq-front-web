@@ -1,5 +1,5 @@
 import { routerMiddleware, routerReducer } from 'react-router-redux';
-import { applyMiddleware, combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
@@ -25,6 +25,8 @@ export default history => {
     middleware.push(logger);
   }
 
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
   store = createStore(
     combineReducers({
       api: apiReducer,
@@ -38,7 +40,7 @@ export default history => {
       request: requestReducer,
       error: errorReducer,
     }),
-    applyMiddleware(...middleware),
+    composeEnhancers(applyMiddleware(...middleware)),
   );
   sagaMiddleware.run(rootSaga);
 
