@@ -9,17 +9,40 @@ const disusePage = [/\/maintenance/, /\/help*/];
 
 class NavigationHeaderContainer extends Component {
   onClickSearchIcon = () => {
+    const { dispatch, ui } = this.props;
+
+    if (ui.showSearchField && ui.keywordLocation) {
+      this.search(ui.keywordLocation);
+    } else {
+      dispatch(uiActions.setUiState({
+        showSearchField: true,
+      }));
+    }
+  }
+
+  onClickCloseSearch = () => {
     const { dispatch } = this.props;
 
     dispatch(uiActions.setUiState({
-      showSearchField: true,
+      showSearchField: false,
     }));
   }
 
   onKeyDownSearchField = (e) => {
     if (e && e.keyCode === 13 && e.target.value) {
-      window.location.href = `${Path.search()}?location=${e.target.value}`;
+      this.search(e.target.value);
     }
+  }
+
+  handleInputKeyword = (value) => {
+    const { dispatch } = this.props;
+    dispatch(uiActions.setUiState({
+      keywordLocation: value,
+    }));
+  }
+
+  search = (location) => {
+    window.location.href = `${Path.search()}?location=${location}`;
   }
 
   toggleMenu = () => {
@@ -47,6 +70,8 @@ class NavigationHeaderContainer extends Component {
         onKeyDownSearchField={this.onKeyDownSearchField}
         onClickToggleMenu={this.toggleMenu}
         onClickSearchIcon={this.onClickSearchIcon}
+        onClickCloseSearch={this.onClickCloseSearch}
+        onChangeKeyword={this.handleInputKeyword}
       />
     );
   }
