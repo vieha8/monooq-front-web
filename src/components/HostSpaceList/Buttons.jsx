@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/Shared/Button';
 import { FontSizes, Dimens } from 'variables';
-import path from '../../config/path'
+import Path from 'config/path';
 
 const Container = styled.div`
-  float: right;
+  float: left;
+  width: 120px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -14,15 +15,13 @@ const ButtonWrapper = styled.div`
   }
 `;
 
-export default (props) => (
+export default props => (
   <Container>
     <ButtonWrapper>
       <Button
-        fluid
+        small
         fontSize={FontSizes.xsmall}
-        onClick={() => {
-          props.history.push(path.editSpaceInfo(props.space.ID))
-        }}
+        onClick={() => props.history.push(Path.editSpaceInfo(props.space.ID))}
       >
         編集する
       </Button>

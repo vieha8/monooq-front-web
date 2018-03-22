@@ -118,7 +118,7 @@ export default (props) => {
         title="スペースの様子を写真で登録しよう"
         subTitle="最大4枚まで登録可能です。"
       />
-      {images.length === 0 ? (
+      {(images || []).length === 0 ? (
         <StyledDropZone
           accept="image/jpeg, image/png"
           onDrop={props.handleChangeImage}
