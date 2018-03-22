@@ -12,15 +12,15 @@ import { Container, PageContent } from './Shared';
 
 const hintProps = {
   title: '荷物情報のヒント',
-  text: 'ユーザーには大きな荷物を預けられるスペースが人気です。あなたのスペースでも無理のない保管ができる内容を記載しましょう。',
+  text: '大きな荷物を置けるスペースが人気です。管理に無理のない内容を記載しましょう。',
 };
 
 export default props => (
   <Container>
     <PageContent>
       <Header
-        header="預かる荷物について"
-        subHeader="あなたのスペースでどんな荷物を預かりますか？"
+        header="荷物の内容について"
+        subHeader="どのような荷物に対応しますか？"
       />
       <InputAboutBaggage {...props} handleChangeText={props.handleChangeAbout} />
       <CheckTypeFurniture {...props} handleChangeCheck={props.handleChangeType} />
