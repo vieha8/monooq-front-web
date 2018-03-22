@@ -28,9 +28,9 @@ const DndContent = styled.div`
   height: 200px;
   border: 1px solid ${Colors.borderGray};
   border-radius: 6px;
+  background: ${Colors.lightGray1Bg};
   ${media.phone`
     height: 100px;
-    border: none;
   `}
 `;
 

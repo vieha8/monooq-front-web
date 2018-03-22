@@ -14,7 +14,7 @@ import InputAddress from '../space/InputAddress';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
 
 const hintProps = {
-  title: 'スペース登録のヒント',
+  title: 'ヒント',
   text: 'ユーザーが自分の荷物が入るかイメージできるようにスペースの情報やアピールポイントを掲載しましょう！',
 };
 

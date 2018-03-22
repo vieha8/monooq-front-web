@@ -20,7 +20,7 @@ export default props => (
       value={props.ui.space.address || ''}
       onChange={e => props.handleChangeText(e.target.value)}
       invalid={(props.error.errors.address || []).length}
-      placeholder="例）東京都港区六本木6丁目1−25"
+      placeholder="例）東京都杉並区高円寺南 2-48-12"
     />
     {props.error.errors.address && <ErrorText errors={props.error.errors.address} />}
   </Container>
