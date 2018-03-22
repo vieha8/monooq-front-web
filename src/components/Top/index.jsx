@@ -469,6 +469,7 @@ const PickGoSection = styled.div`
   ${media.phone`
     margin: 30px auto;
     position: relative;
+    width: 84vw;
   `};
 `;
 
