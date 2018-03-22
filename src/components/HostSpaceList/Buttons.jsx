@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/Shared/Button';
-import { Colors, FontSizes, Dimens } from 'variables';
+import { FontSizes, Dimens } from 'variables';
+import path from '../../config/path'
 
 const Container = styled.div`
   float: right;
@@ -20,21 +21,10 @@ export default (props) => (
         fluid
         fontSize={FontSizes.xsmall}
         onClick={() => {
-          props.history.push(`/user/spaces/${props.space.ID}/edit`)
+          props.history.push(path.editSpaceInfo(props.space.ID))
         }}
       >
         編集する
-      </Button>
-    </ButtonWrapper>
-    <ButtonWrapper>
-      <Button
-        fluid
-        fontSize={FontSizes.xsmall}
-        bgColor={Colors.white}
-        fontColor={Colors.darkGray1}
-        borderColor={Colors.darkGray1}
-      >
-        非公開にする
       </Button>
     </ButtonWrapper>
   </Container>

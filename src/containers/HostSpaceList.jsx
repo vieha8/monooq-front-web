@@ -9,7 +9,7 @@ class HostSpaceListContainer extends Component {
 
   constructor(props){
     super(props);
-    this.props.dispatch(userActions.fetchUserSpaces({userId: null}));
+    this.props.dispatch(userActions.fetchUserSpaces());
   }
 
   render() {

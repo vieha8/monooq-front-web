@@ -97,7 +97,7 @@ function* postRequest({ payload: { path, body } }) {
     error: !!err,
     meta: { status: status, error: err },
   });
-  if (status !== 200 || status !== 201) {
+  if (status !== 200 && status !== 201) {
     store.dispatch(push(Path.error(status)));
   }
 }

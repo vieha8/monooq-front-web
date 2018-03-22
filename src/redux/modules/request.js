@@ -140,7 +140,7 @@ function* payment({ payload: { roomId, requestId, card } }) {
 function* fetchSchedule() {
   let user = yield select(state => state.auth.user);
   if (!user.ID) {
-    yield take(authActions.checkLoginEnd);
+    yield take(authActions.checkLoginSuccess);
   }
   user = yield select(state => state.auth.user);
 
