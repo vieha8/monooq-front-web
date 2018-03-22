@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import Login from 'components/Login';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
+import { Loader } from 'semantic-ui-react';
 
 class LoginContainer extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class LoginContainer extends React.Component {
 
   showLoginForm = () => {
     if (this.props.isChecking) {
-      return null;
+      return <Loader size="large" />;
     }
 
     if (!this.props.isLogin) {

@@ -7,7 +7,7 @@ import { authActions } from 'redux/modules/auth';
 class AuthComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.props.dispatch(authActions.checkLoginStart());
+    this.props.dispatch(authActions.checkLogin());
     const token = localStorage.getItem('token');
     if (token) {
       const { Expire } = JSON.parse(token);
