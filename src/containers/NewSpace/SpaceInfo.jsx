@@ -19,7 +19,7 @@ class SpaceInfoContainer extends React.Component {
         spaceId,
         isEdit: true,
       }));
-      this.props.dispatch(spaceActions.fetchSpace({ spaceId }));
+      this.props.dispatch(spaceActions.fetchSpace({ spaceId, isSelfOnly: true }));
     }
 
     this.props.dispatch(uiActions.setUiState({

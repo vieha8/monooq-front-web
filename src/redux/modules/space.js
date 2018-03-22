@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, call } from 'redux-saga/effects';
+import { put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { apiActions, apiEndpoint } from './api';
 import { store } from '../store/configureStore';
 import { push } from 'react-router-redux';
@@ -8,6 +8,7 @@ import fileType from '../../helpers/file-type';
 import Path from '../../config/path';
 import { userActions } from './user';
 import axios from 'axios';
+import { authActions } from './auth';
 
 // Actions
 const FETCH_SPACE = 'FETCH_SPACE';
@@ -66,12 +67,24 @@ export const spaceReducer = handleActions(
 );
 
 //Sagas
-function* getSpace({ payload: { spaceId } }) {
+function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   yield put(apiActions.apiGetRequest({ path: apiEndpoint.spaces(spaceId) }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error) {
     yield put(spaceActions.fetchFailedSpace(meta));
     return;
+  }
+
+  if (isSelfOnly) {
+    // 不正対策
+    let user = yield select(state => state.auth.user);
+    if (!user.ID) {
+      yield take(authActions.checkLoginSuccess);
+    }
+    user = yield select(state => state.auth.user);
+    if (payload.UserId !== user.ID) {
+      store.dispatch(push(Path.error(400)));
+    }
   }
 
   if (payload.Address) {
