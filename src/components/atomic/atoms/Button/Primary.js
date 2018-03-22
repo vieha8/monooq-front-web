@@ -6,7 +6,7 @@ import { Colors } from 'variables';
 const Button = styled.div`
   width: 100%;
   max-width: 300px;
-  padding: 17px 70px;
+  padding: 17px 10px;
   text-align: center;
   font-size: 16px;
   color: ${Colors.white};

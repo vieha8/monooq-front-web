@@ -7,7 +7,11 @@ export default (props) => {
   }
 
   if (props.tertiary) {
-    return <Buttons.Tertiary {...props}>{props.children}</Buttons.Tertiary>;    
+    return <Buttons.Tertiary {...props}>{props.children}</Buttons.Tertiary>;
+  }
+
+  if (props.facebook) {
+    return <Buttons.Facebook {...props}>{props.children}</Buttons.Facebook>;
   }
 
   return <Buttons.Primary {...props}>{props.children}</Buttons.Primary>;

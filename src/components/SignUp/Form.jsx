@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Input, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
@@ -49,8 +50,9 @@ const LinkTextWrapper = styled.div`
   line-height: 1.6;
 `;
 
-const LinkText = styled.a`
+const LinkText = styled(Link)`
   display: inline;
+  font-size: ${FontSizes.xsmall}px;
   color: ${Colors.linkBlue};
 `;
 
@@ -70,6 +72,7 @@ const OtherLoginLabel = styled.div`
 
 const ToSignUpLinkCointainer = styled.div`
   margin-top: ${Dimens.medium}px;
+  padding-top: ${Dimens.medium}px;
   border-top: 1px solid ${Colors.borderGray};
 `;
 
@@ -116,13 +119,11 @@ export default props => (
       </InputWrapper>
     </InputContainer>
     <LinkTextWrapper>
-      <LinkText href={Path.terms()}>利用規約</LinkText>と
-      <LinkText href={Path.privacy()}>プライバシーポリシー</LinkText>に同意の上、<br />次へボタンを押してください。
+      <LinkText to={Path.terms()}>利用規約</LinkText>と
+      <LinkText to={Path.privacy()}>プライバシーポリシー</LinkText>に同意の上、<br />次へボタンを押してください。
     </LinkTextWrapper>
     <ButtonWrapper>
       <Button
-        bgColor={Colors.brandPrimary}
-        fluid
         onClick={props.onClickSignUpEmail}
       >
         次へ
@@ -131,9 +132,8 @@ export default props => (
     <ButtonWrapper>
       <OtherLoginLabel>お持ちのアカウントで登録</OtherLoginLabel>
       <Button
-        bgColor={Colors.facebook}
-        fluid
         onClick={props.onClickSignUpFacebook}
+        facebook
       >
         <IconWrapper>
           <Icon name="facebook square" />
@@ -142,7 +142,7 @@ export default props => (
       </Button>
     </ButtonWrapper>
     <ToSignUpLinkCointainer>
-      <LinkText href="/login">ログインはこちら</LinkText>
+      <LinkText to={Path.login()}>ログインはこちら</LinkText>
     </ToSignUpLinkCointainer>
   </Container>
 );
