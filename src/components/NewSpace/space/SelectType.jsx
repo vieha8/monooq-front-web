@@ -12,7 +12,7 @@ const Container = styled.div`
 const styles = {
   select: {
     width: '100%',
-    marginTop: `${Dimens.medium}px`,
+    marginTop: `${Dimens.xsmall}px`,
     color: Colors.darkGray1,
     fontSize: FontSizes.medium,
   },

@@ -3,7 +3,7 @@ import { Colors, FontSizes, Dimens } from 'variables';
 
 const TextArea = styled.textarea`
   width: 100%;
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.small}px;
   padding: ${Dimens.small2}px;
   color: ${Colors.darkGray1};
   font-size: ${FontSizes.small}px;

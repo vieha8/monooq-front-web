@@ -17,8 +17,8 @@ const SubTitle = styled.span`
   display: block;
   color: ${Colors.darkGray2};
   font-size: ${FontSizes.small}px;
-  margin-top: ${Dimens.medium}px;
-  line-height: 1.6;
+  margin-top: ${Dimens.xsmall}px;
+  line-height: 1.5;
 `;
 
 export default (props) => {

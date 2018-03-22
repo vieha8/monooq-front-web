@@ -11,7 +11,7 @@ const Text = styled.h2`
   
   ${media.phone`
     font-size: ${FontSizes.medium2}px;
-    line-height: 1.6;
+    line-height: 1.5;
   `}
 `;
 

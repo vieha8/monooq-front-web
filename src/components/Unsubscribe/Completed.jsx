@@ -27,7 +27,7 @@ const Text = styled.div`
   font-size: ${FontSizes.medium}px;
   text-align: left;
   color: ${Colors.black};
-  line-height: 1.6;
+  line-height: 1.5;
 `;
 
 const Link = styled.a`

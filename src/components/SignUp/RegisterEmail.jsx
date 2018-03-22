@@ -48,7 +48,7 @@ const LinkTextWrapper = styled.div`
   font-size: ${FontSizes.xsmall}px;
   color: ${Colors.black};
   margin-top: ${Dimens.medium}px;
-  line-height: 1.6;
+  line-height: 1.5;
 `;
 
 const LinkText = styled(Link)`

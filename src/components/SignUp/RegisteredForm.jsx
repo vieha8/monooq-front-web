@@ -54,7 +54,7 @@ const CaptionText = styled.div`
   font-size: ${FontSizes.xsmall}px;
   color: ${Colors.darkGray1};
   text-align: left;
-  line-height: 1.6;
+  line-height: 1.5;
 `;
 
 const registeredForm = props => (

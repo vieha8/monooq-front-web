@@ -41,7 +41,7 @@ const Title = styled.div`
 
 const SubTitle = styled.div`
   margin-top: ${Dimens.medium}px;
-  line-height: 1.6;
+  line-height: 1.5;
   ${media.tablet`
     margin-top: ${Dimens.small2}px;
     padding: 0 ${Dimens.medium}px;

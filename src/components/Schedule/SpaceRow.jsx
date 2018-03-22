@@ -17,6 +17,7 @@ const Image = styled.img`
   height: 70px;
   border-radius: 6px;
   margin-right: ${Dimens.medium}px;
+  object-fit: cover;
 `;
 
 const Content = styled.div`

@@ -39,7 +39,7 @@ const Card = styled.div`
 const Text = styled.div`
   color: ${Colors.darkGray1};
   font-size: ${FontSizes.medium}px;
-  line-height: 1.6;
+  line-height: 1.5;
   ${media.phone`
     display: inline-block;
     vertical-align: middle;

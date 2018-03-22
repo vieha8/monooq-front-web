@@ -36,7 +36,7 @@ const Caption = styled.h2`
   color: ${Colors.darkGray1};
   padding: 0 4%;
   margin-top: ${Dimens.medium}px;
-  line-height: 1.6;
+  line-height: 1.5;
 `;
 
 const ProgressContainer = styled.div`

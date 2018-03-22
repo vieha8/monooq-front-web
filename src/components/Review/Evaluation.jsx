@@ -67,6 +67,7 @@ const ImageWrapper = styled.span`
 const Image = styled.img`
   width: 60px;
   height: 60px;
+  object-fit: cover;
 `;
 
 const Count = styled.div`
