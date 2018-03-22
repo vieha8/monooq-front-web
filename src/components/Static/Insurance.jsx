@@ -13,7 +13,9 @@ const MainTitle = styled.div`
   line-height: 51px;
   margin-bottom: 44px;
   ${media.phone`
-    font-size: 32px;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin-bottom: 20px;
   `};
 `;
 
@@ -22,8 +24,9 @@ const SubTitle = styled.div`
   line-height: 45px;
   margin-bottom: 45px;
   ${media.phone`
-    font-size: 28px;
-    line-height: 40px;
+    font-size: 1.25em;
+    line-height: 1.25em;
+    margin-bottom: 40px;
   `};
 `;
 
@@ -77,6 +80,18 @@ const WhySafeContent = (props) => {
     display: flex;
     align-items: center;
   `;
+  const IconWrapper = styled.span`
+    && {
+      margin-right: 20px;
+      font-size: 60px;
+    }
+    ${media.phone`
+      && {
+        margin-right: 10px;
+        font-size: 50px;
+      }
+    `};
+  `;
   const Text = styled.div`
     height: 54%;
     font-size: 16px;
@@ -84,15 +99,16 @@ const WhySafeContent = (props) => {
     margin-bottom: 30px;
     ${media.phone`
       height: auto;
+      margin-bottom: 0;
     `};
   `;
   return (
     <div className={props.className}>
       <Label>
-        <span className="fa-layers fa-fw fa-2x" style={{marginRight: '20px',fontSize: '60px'}}>
+        <IconWrapper className="fa-layers fa-fw fa-2x">
           <i className="fas fa-circle" style={{ color: '#E85258' }} />
           <i className="far fa-bookmark" style={{ color: '#fff' }} data-fa-transform="shrink-6" />
-        </span>
+        </IconWrapper>
         <span>{props.label}</span>
       </Label>
       <Text>{props.text}</Text>
@@ -105,7 +121,7 @@ const StyledWhySafeContent = styled(WhySafeContent)`
   font-weight: 100;
   ${media.phone`
     width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
   `};
 `;
 

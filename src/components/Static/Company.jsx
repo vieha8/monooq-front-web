@@ -8,9 +8,9 @@ import { Footer, DefaultContainer } from 'components/Shared';
 const MainTitle = styled.div`
   font-size: 34px;
   line-height: 51px;
-  margin-bottom: 44px;
   ${media.phone`
-    font-size: 32px;
+    font-size: 1.5em;
+    line-height: 1.5em;
   `};
 `;
 
@@ -22,6 +22,10 @@ const Text = styled.div`
 const MainTitleContainer = DefaultContainer.extend`
   margin-top: 80px;
   margin-bottom: 44px;
+  ${media.phone`
+    margin-top: 40px;
+    margin-bottom: 20px;
+  `};
 `;
 
 const DetailContainer = DefaultContainer.extend`

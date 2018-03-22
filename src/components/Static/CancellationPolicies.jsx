@@ -9,7 +9,9 @@ const MainTitle = styled.div`
   line-height: 51px;
   margin-bottom: 44px;
   ${media.phone`
-    font-size: 32px;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin-bottom: 20px;
   `};
 `;
 
@@ -22,6 +24,10 @@ const HilightText = styled.div`
   font-size: 22px;
   line-height: 32px;
   margin-bottom: 21px;
+  ${media.phone`
+    font-size: 1.0em;
+    line-height: 2em;
+  `};
 `;
 
 const Hr = styled.hr`

@@ -12,7 +12,9 @@ const MainTitle = styled.div`
   line-height: 51px;
   margin-bottom: 44px;
   ${media.phone`
-    font-size: 32px;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin-bottom: 20px;
   `};
 `;
 
@@ -21,8 +23,9 @@ const SubTitle = styled.div`
   line-height: 45px;
   margin-bottom: 45px;
   ${media.phone`
-    font-size: 28px;
-    line-height: 40px;
+    font-size: 1.25em;
+    line-height: 1.25em;
+    font-weight: bold;
   `};
 `;
 
@@ -34,6 +37,10 @@ const Text = styled.div`
 const HilightText = styled.div`
   font-size: 22px;
   line-height: 32px;
+  ${media.phone`
+    font-size: 1em;
+    line-height: 1.25em;
+  `};
 `;
 
 const TextWrapper = styled.div`
