@@ -7,6 +7,7 @@ import { Colors, FontSizes, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
+import ErrorText from 'components/Shared/ErrorText';
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -89,10 +90,10 @@ export default props => (
           icon="envelope"
           iconPosition="left"
           fluid
-          value={props.email}
-          onChange={props.handleChangeText}
+          onChange={(_, e) => props.handleChangeEmail(e.value)}
         />
       </InputWrapper>
+      {props.errors.email && <ErrorText errors={props.errors.email} />}
       <InputWrapper>
         <Input
           type="password"
@@ -101,10 +102,10 @@ export default props => (
           icon="unlock"
           iconPosition="left"
           fluid
-          value={props.password}
-          onChange={props.handleChangeText}
+          onChange={(_, e) => props.handleChangePassword(e.value)}
         />
       </InputWrapper>
+      {props.errors.password && <ErrorText errors={props.errors.password} />}
       <InputWrapper>
         <Input
           type="password"
@@ -113,18 +114,20 @@ export default props => (
           icon="unlock alternate"
           iconPosition="left"
           fluid
-          value={props.passwordConfirm}
-          onChange={props.handleChangeText}
+          onChange={(_, e) => props.handleChangePasswordConfirm(e.value)}
         />
       </InputWrapper>
     </InputContainer>
+    {props.errors.passwordConfirm && <ErrorText errors={props.errors.passwordConfirm} />}
     <LinkTextWrapper>
       <LinkText to={Path.terms()}>利用規約</LinkText>と
       <LinkText to={Path.privacy()}>プライバシーポリシー</LinkText>に同意の上、<br />次へボタンを押してください。
     </LinkTextWrapper>
+    {props.errors.signupFailed && <ErrorText errors={props.errors.signupFailed} />}
     <ButtonWrapper>
       <Button
         onClick={props.onClickSignUpEmail}
+        disabled={props.buttonDisabled}
       >
         次へ
       </Button>

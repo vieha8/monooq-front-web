@@ -85,6 +85,18 @@ export const authReducer = handleActions(
       ...payload,
       isChecking: false,
     }),
+    [SIGNUP_EMAIL]: state => ({
+      ...state,
+      isSignupFailed: false,
+    }),
+    [SIGNUP_FACEBOOK]: state => ({
+      ...state,
+      isSignupFailed: false,
+    }),
+    [SIGNUP_FAILED]: state => ({
+      ...state,
+      isSignupFailed: true,
+    }),
   },
   initialState,
 );
@@ -159,7 +171,7 @@ function* signUpEmail({ payload: { email, password } }) {
       return;
     }
     yield put(authActions.signupSuccess(payload));
-    yield put(authActions.checkLoginStart());
+    yield put(authActions.checkLogin());
     yield put(uiActions.setUiState({ signUpStep: 4 }));
   } catch (err) {
     console.error(err.message);
@@ -190,7 +202,7 @@ function* signUpFacebook() {
       return;
     }
     yield put(authActions.signupSuccess(payload));
-    yield put(authActions.checkLoginStart());
+    yield put(authActions.checkLogin());
     yield put(uiActions.setUiState({ signUpStep: 4, name: displayName }));
   } catch (err) {
     console.error(err.message);

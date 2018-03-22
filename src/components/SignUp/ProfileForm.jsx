@@ -70,11 +70,11 @@ const styles = {
 
 const showImagePreview = (props) => {
   //TODO 表示は仮なのでデザイン反映する
-  if(props.ui.user.image){
+  if (props.user.image) {
     const { image } = props.ui.user;
     return (
       <div>
-        {image.name}<br/>
+        {image.name}<br />
         <img alt="preview" src={image.preview} width="100" />
       </div>
     );

@@ -8,4 +8,9 @@ export default {
   AlphaOnly: name => `${name}は半角ローマ字で入力してください。`,
   CreditCardNumber: 'クレジットカード番号は16ケタの半角数字で入力してください。',
   Cvc: 'セキュリティコードは3ケタの半角数字で入力してください。',
+  InvalidEmail: 'これは正しいメールアドレスではないようです。',
+  InvalidPassword: 'パスワードは8ケタ以上の半角英数字で登録してください。',
+  NotMatchPassword:
+    '異なるパスワードが入力されています。同じ8ケタ以上の半角英数字を入力してください。',
+  FailedSignUp: 'このメールアドレスはすでに登録済みです。',
 };
