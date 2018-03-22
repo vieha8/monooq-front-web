@@ -39,11 +39,11 @@ class SignUpContainer extends React.Component {
   }
 
   onClickRegisterProfile = () => {
-    const { name, address, profile, image } = this.props.ui.signup;
+    const { name, prefCode, profile, image } = this.props.ui.signup;
 
     this.props.dispatch(userActions.updateUser({
       userId: this.props.user.ID,
-      body: { name, profile, image, PrefCode: '13' },
+      body: { name, profile, image, prefCode },
     }));
   };
 
@@ -121,14 +121,8 @@ class SignUpContainer extends React.Component {
     FormValidator.changeUiState(prop, value, this.props.ui);
   }
 
-  handleChangeAddress = (value) => {
-    const prop = 'address';
-    const errors = this.props.error[prop] || [];
-    if (value.length === 0) {
-      errors.push(ErrorMessage.PleaseInput);
-    }
-
-    FormValidator.changeErrorState(prop, errors, this.props.error);
+  handleChangePrefCode = (value) => {
+    const prop = 'prefCode';
     FormValidator.changeUiState(prop, value, this.props.ui);
   }
 
@@ -152,7 +146,7 @@ class SignUpContainer extends React.Component {
 
     return (
       signup.name && signup.name.length > 0
-      && signup.address && signup.address.length > 0
+      && signup.prefCode
       && signup.profile
       && signup.profile.length > 0
       && signup.profile.length <= Validate.Profile.Max
@@ -185,11 +179,11 @@ class SignUpContainer extends React.Component {
             image={(ui.signup || {}).image}
             handleChangeProfileImage={this.handleChangeProfileImage}
             handleChangeName={this.handleChangeName}
-            handleChangeAddress={this.handleChangeAddress}
+            handleChangePrefCode={this.handleChangePrefCode}
             handleChangeProfile={this.handleChangeProfile}
             errors={{
               name: error.errors.name,
-              address: error.errors.address,
+              prefCode: error.errors.prefCode,
               profile: error.errors.profile,
             }}
             buttonDisabled={!this.validateProfile()}

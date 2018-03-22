@@ -119,17 +119,16 @@ export default props => (
           placeholder="選択してください"
           style={{ width: '100%' }}
           options={selectOptionPrefectures()}
-          name="address"
-          onChange={(_, e) => props.handleChangeAddress(e.value)}
+          name="prefCode"
+          onChange={(_, e) => props.handleChangePrefCode(e.value)}
         />
       </InputContainer>
-      {props.errors.address && <ErrorText errors={props.errors.address} />}
+      {props.errors.prefCode && <ErrorText errors={props.errors.prefCode} />}
       <InputContainer>
         <Label>あなたの紹介文</Label>
         <CaptionText>ユーザー・ホストが安心するようにあなたの紹介文を掲載しましょう！</CaptionText>
         <Form>
           <TextArea
-            fluid
             name="profile"
             placeholder="例）はじめまして！モノオクホストのYUKIです。大きめの荷物でも柔軟に対応しております。いつでもチャットでご連絡くださいください！"
             onChange={(_, e) => props.handleChangeProfile(e.value)}
