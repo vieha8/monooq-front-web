@@ -26,7 +26,7 @@ export default props => (
     <Select
       name="type"
       value={props.ui.space.type}
-      onChange={(e, data) => props.handleChangeSpaceType(data.value)}
+      onChange={(e, data) => props.handleChangeSelect(data.value)}
       style={styles.select}
       placeholder="選択してください"
       options={[

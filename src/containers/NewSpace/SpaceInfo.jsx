@@ -7,10 +7,12 @@ import { uiActions } from 'redux/modules/ui';
 import { errorActions } from 'redux/modules/error';
 import { spaceActions } from 'redux/modules/space';
 import { ErrorMessage } from 'strings';
+import FormValidator from 'containers/helper/FormValidator';
 
 class SpaceInfoContainer extends React.Component {
   constructor(props) {
     super(props);
+
     if (props.match.params.space_id) {
       const spaceId = parseInt(props.match.params.space_id, 10);
       this.props.dispatch(uiActions.setUiState({
@@ -23,6 +25,8 @@ class SpaceInfoContainer extends React.Component {
     this.props.dispatch(uiActions.setUiState({
       buttonDisabled: true,
     }));
+
+    FormValidator.initialize('space', props.dispatch, uiActions.setUiState, errorActions.setErrorState);
   }
 
   onClickImageDelete = (deleteTargetIndex) => {
@@ -49,8 +53,8 @@ class SpaceInfoContainer extends React.Component {
     if (value.length === 0) {
       errors.push(ErrorMessage.PleaseInput);
     }
-    this.changeErrorState(prop, errors);
-    this.changeUiState(prop, value);
+    FormValidator.changeErrorState(prop, errors, this.props.error);
+    FormValidator.changeUiState(prop, value, this.props.ui);
   };
 
   handleChangeSpaceType = (value) => {
@@ -59,8 +63,8 @@ class SpaceInfoContainer extends React.Component {
     if (value === 0) {
       errors.push(ErrorMessage.PleaseSelect);
     }
-    this.changeErrorState(prop, errors);
-    this.changeUiState(prop, value);
+    FormValidator.changeErrorState(prop, errors, this.props.error);
+    FormValidator.changeUiState(prop, value, this.props.ui);
   };
 
   handleChangeIntroduction = (value) => {
@@ -69,8 +73,8 @@ class SpaceInfoContainer extends React.Component {
     if (value.length === 0) {
       errors.push(ErrorMessage.PleaseInput);
     }
-    this.changeErrorState(prop, errors);
-    this.changeUiState(prop, value);
+    FormValidator.changeErrorState(prop, errors, this.props.error);
+    FormValidator.changeUiState(prop, value, this.props.ui);
   }
 
   handleChangeAddress = (value) => {
@@ -79,8 +83,8 @@ class SpaceInfoContainer extends React.Component {
     if (value.length === 0) {
       errors.push(ErrorMessage.PleaseInput);
     }
-    this.changeErrorState(prop, errors);
-    this.changeUiState(prop, value);
+    FormValidator.changeErrorState(prop, errors, this.props.error);
+    FormValidator.changeUiState(prop, value, this.props.ui);
   }
 
   handleChangeImage = (accepted, rejected) => {
@@ -106,20 +110,6 @@ class SpaceInfoContainer extends React.Component {
     }
 
     return false;
-  }
-
-  changeUiState = (propName, value) => {
-    const { dispatch, ui } = this.props;
-    const nextSpace = Object.assign({}, ui.space);
-    nextSpace[propName] = value;
-    dispatch(uiActions.setUiState({ space: nextSpace }));
-  }
-
-  changeErrorState = (propName, propErrors) => {
-    const { dispatch, error } = this.props;
-    const nextErrors = Object.assign({}, error.errors);
-    nextErrors[propName] = propErrors;
-    dispatch(errorActions.setErrorState({ errors: nextErrors }));
   }
 
   render() {

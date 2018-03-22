@@ -1,11 +1,11 @@
 import React from 'react';
 import FloatHintButton from 'containers/NewSpace/FloatHintButton';
+import HintBox from 'components/Shared/HintBox';
 import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Button, { ButtonsContainer } from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
-import HintBox from '../shared/HintBox';
 import ImageDrop from '../space/ImageDrop';
 import InputTitle from '../space/InputTitle';
 import SelectType from '../space/SelectType';
@@ -29,10 +29,10 @@ export default (props) => {
           subHeader="どんなスペースを掲載しますか？"
         />
         <ImageDrop {...props} onClickImageDelete={props.onClickImageDelete} />
-        <InputTitle {...props} />
-        <SelectType {...props} />
-        <InputIntro {...props} />
-        <InputAddress {...props} />
+        <InputTitle {...props} handleChangeText={props.handleChangeTitle} />
+        <SelectType {...props} handleChangeSelect={props.handleChangeSpaceType} />
+        <InputIntro {...props} handleChangeText={props.handleChangeIntroduction} />
+        <InputAddress {...props} handleChangeText={props.handleChangeAddress} />
         <ButtonsContainer>
           <Button onClick={props.onClickNext} disabled={props.buttonDisabled}>
             次へ

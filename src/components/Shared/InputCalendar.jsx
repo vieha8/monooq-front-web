@@ -1,5 +1,11 @@
 // @flow
 
+// ##################################################################################
+//
+// (this component for renewal. deprecated since Ph2. instead atoms/InputCalendar.)
+//
+// ##################################################################################
+
 import React from 'react';
 import styled from 'styled-components';
 import 'moment/locale/ja';

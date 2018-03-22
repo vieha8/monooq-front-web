@@ -7,12 +7,11 @@ const Container = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
-export default (props) => (
+export default props => (
   <Container>
     <Checkbox
-      name="isFurniture"
-      checked={props.ui.space.isFurniture}
-      onChange={props.handleChangeCheckbox}
+      checked={props.ui.space.isFurniture === '1'}
+      onChange={(_, data) => props.handleChangeCheck(data.checked)}
       label="家具や家電製品の保管に対応する"
     />
   </Container>

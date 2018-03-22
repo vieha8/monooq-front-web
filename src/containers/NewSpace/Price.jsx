@@ -1,55 +1,126 @@
 import React from 'react';
-import { authConnect } from "../../components/Auth";
+import { authConnect } from 'components/Auth';
 import { Page } from 'components/NewSpace/page/Shared';
 import AllUsePrice from 'components/NewSpace/page/AllUsePrice';
 import AboutPrice from 'components/NewSpace/page/AboutPrice';
-import {uiActions} from "../../redux/modules/ui"
-import { spaceActions } from "../../redux/modules/space";
+import { uiActions } from 'redux/modules/ui';
+import { errorActions } from 'redux/modules/error';
+import { spaceActions } from 'redux/modules/space';
+import { ErrorMessage } from 'strings';
+import Path from 'config/path';
+import FormValidator from 'containers/helper/FormValidator';
+
+const Validate = {
+  Price: {
+    Min: 3000,
+  },
+};
 
 class PriceContainer extends React.Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    if(props.match.params.space_id){
+    if (props.match.params.space_id) {
       const spaceId = parseInt(props.match.params.space_id, 10);
       this.props.dispatch(uiActions.setUiState({
         spaceId,
         isEdit: true,
       }));
-      this.props.dispatch(spaceActions.fetchSpace({spaceId}));
+      this.props.dispatch(spaceActions.fetchSpace({ spaceId }));
+    }
+
+    FormValidator.initialize('space', props.dispatch, uiActions.setUiState, errorActions.setErrorState);
+  }
+
+  onClickComplete = () => {
+    const { space, spaceId } = this.props.ui;
+    space.userId = this.props.user.ID;
+    if (this.props.ui.isEdit) {
+      this.props.dispatch(spaceActions.updateSpace({ spaceId, body: space }));
+    } else {
+      this.props.dispatch(spaceActions.createSpace({ body: space }));
     }
   }
 
-  handleChangeText = ({target}) => {
-    const {space} = this.props.ui;
-    Object.assign(space, {[target.name]: parseInt(target.value, 10)});
-    this.props.dispatch(uiActions.setUiState({space}));
-  };
-
-  onClickComplete = () => {
-    const {space, spaceId} = this.props.ui;
-    space.userId = this.props.user.ID;
-    if(this.props.ui.isEdit){
-      this.props.dispatch(spaceActions.updateSpace({spaceId, body: space}));
-    }else{
-      this.props.dispatch(spaceActions.createSpace({body: space}));
+  onClickBack = () => {
+    const { ui, history } = this.props;
+    if (ui.isEdit) {
+      history.push(Path.editSpaceAreaSize(ui.spaceId));
+    } else {
+      history.push(Path.createSpaceAreaSize());
     }
-  };
+  }
+
+  onChangePrice = (prop, value) => {
+    const errors = this.props.error[prop] || [];
+    if (value.length === 0) {
+      errors.push(ErrorMessage.PleaseInput);
+    }
+    if (parseInt(value, 10) < Validate.Price.Min) {
+      errors.push(ErrorMessage.PriceMin(Validate.Price.Min));
+    }
+    FormValidator.changeErrorState(prop, errors, this.props.error);
+    FormValidator.changeUiState(prop, value, this.props.ui);
+  }
+
+  handleChangePriceAll = (value) => {
+    this.onChangePrice('priceFull', value);
+  }
+
+  handleChangePriceFull = (value) => {
+    this.onChangePrice('priceFull', value);
+  }
+
+  handleChangePriceHalf = (value) => {
+    this.onChangePrice('priceHalf', value);
+  }
+
+  handleChangePriceQuarter = (value) => {
+    this.onChangePrice('priceQuarter', value);
+  }
+
+  validateAllUsePrice = () => {
+    const { ui } = this.props;
+
+    return (
+      ui.space.priceFull !== ''
+      && ui.space.priceFull >= Validate.Price.Min
+    );
+  }
+
+  validateAboutPrice = () => {
+    const { ui } = this.props;
+
+    return (
+      ui.space.priceFull !== ''
+      && ui.space.priceFull >= Validate.Price.Min
+      && ui.space.priceHalf !== ''
+      && ui.space.priceHalf >= Validate.Price.Min
+      && ui.space.priceQuarter !== ''
+      && ui.space.priceQuarter >= Validate.Price.Min
+    );
+  }
 
   render() {
     return (
       <Page>
-        {this.props.match.params.type === 'all'?
+        {this.props.match.params.type === 'all' ?
           <AllUsePrice
             {...this.props}
-            handleChangeText={this.handleChangeText}
+            handleChangePriceAll={this.handleChangePriceAll}
+            onClickBack={this.onClickBack}
             onClickComplete={this.onClickComplete}
+            buttonDisabled={!this.validateAllUsePrice()}
           />
           :
           <AboutPrice
             {...this.props}
             handleChangeText={this.handleChangeText}
+            onClickBack={this.onClickBack}
             onClickComplete={this.onClickComplete}
+            handleChangePriceFull={this.handleChangePriceFull}
+            handleChangePriceHalf={this.handleChangePriceHalf}
+            handleChangePriceQuarter={this.handleChangePriceQuarter}
+            buttonDisabled={!this.validateAboutPrice()}
           />
         }
       </Page>
@@ -57,9 +128,9 @@ class PriceContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  if(!state.ui.space.id && state.space.space){
-    const {space} = state.space;
+const mapStateToProps = (state) => {
+  if (!state.ui.space.id && state.space.space) {
+    const { space } = state.space;
     state.ui.space = {
       id: space.ID,
       title: space.Title,
@@ -80,6 +151,7 @@ const mapStateToProps = state => {
   return ({
     ui: state.ui,
     user: state.auth.user,
+    error: state.error,
   });
 };
 

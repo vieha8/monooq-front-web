@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Input } from 'semantic-ui-react';
+import Input from 'components/Shared/Input';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import ErrorText from 'components/Shared/ErrorText';
 
 const Container = styled.div`
   border: 1px solid ${Colors.borderGray};
@@ -100,15 +101,16 @@ export default props => (
         <InputWrapper>
           <Input
             type="number"
-            name={props.name}
             value={props.value}
-            onChange={props.handleChangeText}
+            onChange={e => props.onChange(e.target.value)}
             placeholder={props.placeholder}
             style={{ width: '100%' }}
+            invalid={(props.errors || []).length > 0}
           />
         </InputWrapper>
         <Unit>円／30日間</Unit>
       </PriceWrapper>
+      {props.errors && <ErrorText errors={props.errors} />}
     </PriceContainer>
   </Container>
 );

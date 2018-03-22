@@ -1,21 +1,25 @@
 import styled from 'styled-components';
-import { Input } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from 'variables';
 
-const StyledInput = styled(Input)`
+const Input = styled.input`
   width: 100%;
+  padding: ${Dimens.small2}px;
   margin-top: ${Dimens.medium}px;
   color: ${Colors.darkGray1};
-  font-size: ${FontSizes.medium}px;
   border: 1px solid ${Colors.borderGray};
-  border-radius: 6px;
-  ${props => props.hasError && `
-    border: 1px solid ${Colors.error};
-  `}
-  input {
-    outline: none !important;
-    border: none !important;
+  outline: none;
+  font-size: ${FontSizes.small}px;
+  line-height: 1.5;
+  border-radius: 3px;
+  background: ${Colors.lightGray1Bg};
+  &:focus {
+    background: ${Colors.white};
   }
+  ${props => props.invalid && `
+    border-color: ${Colors.error};
+    background: ${Colors.white};
+    color: ${Colors.darkGray1};
+  `}
 `;
 
-export default StyledInput;
+export default Input;

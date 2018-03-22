@@ -1,23 +1,23 @@
 import styled from 'styled-components';
-import { TextArea } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from 'variables';
 
-const StyledInput = styled(TextArea)`
+const TextArea = styled.textarea`
   width: 100%;
-  margin-top: ${Dimens.medium}px !important;
+  margin-top: ${Dimens.medium}px;
+  padding: ${Dimens.small2}px;
   color: ${Colors.darkGray1};
-  font-size: ${FontSizes.medium}px;
+  font-size: ${FontSizes.small}px;
+  line-height: 1.5;
   border: 1px solid ${Colors.borderGray};
-  border-radius: 6px;
-  ${props => props.hasError && `
-    border: 1px solid ${Colors.error} !important;
-  `}
+  border-radius: 3px;
+  outline: none;
+  background: ${Colors.lightGray1Bg};
   &:focus {
-    border-color: ${Colors.borderGray} !important;  
-    ${props => props.hasError && `
-      border-color: ${Colors.error} !important;
-    `}
+    background: ${Colors.white};
   }
+  ${props => props.invalid && `
+    border: 1px solid ${Colors.error};
+  `}
 `;
 
-export default StyledInput;
+export default TextArea;

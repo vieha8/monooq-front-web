@@ -26,5 +26,6 @@ export default props => (
   <Container>
     <Title>{props.title}</Title>
     <Text>{props.text}</Text>
+    {props.text2 && <Text>{props.text2}</Text>}
   </Container>
 );

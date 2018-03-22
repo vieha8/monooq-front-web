@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Input } from 'semantic-ui-react';
+import Input from 'components/Shared/Input';
 import { Colors, FontSizes, Dimens } from 'variables';
+import ErrorText from 'components/Shared/ErrorText';
 import Title from '../shared/Title';
 
 const Container = styled.div`
@@ -19,7 +20,7 @@ const Unit = styled.span`
   margin-left: ${Dimens.small}px;
 `;
 
-export default (props) => (
+export default props => (
   <Container>
     <Title
       title="荷物を預かる料金目安（スペースまるごと）"
@@ -28,13 +29,14 @@ export default (props) => (
     <PriceWrapper>
       <Input
         type="number"
-        name="priceFull"
         value={props.ui.space.priceFull}
-        onChange={props.handleChangeText}
+        onChange={e => props.handleChangeText(e.target.value)}
         placeholder="20000"
         style={{ width: '70%' }}
+        invalid={(props.error.errors.priceFull || []).length > 0}
       />
       <Unit>円／30日間</Unit>
     </PriceWrapper>
+    {props.error.errors.priceFull && <ErrorText errors={props.error.errors.priceFull} />}
   </Container>
 );
