@@ -74,7 +74,7 @@ class Search extends React.Component {
         <ContentContainer>
           <Title>{ui.query.location}のスペース</Title>
           <Caption>
-            預ける荷物の量と期間によって最適な料金をホストが提示してくれます。数日などの短い期間で預ける場合でも同じ料金目安です。
+            荷物の量と期間によって最適な料金をホストが提示してくれます。長期間の物置きとして便利です。
           </Caption>
           {this.showSpaceList()}
         </ContentContainer>
