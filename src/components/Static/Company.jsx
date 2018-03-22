@@ -3,14 +3,7 @@ import Path from 'config/path';
 
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Footer } from 'components/Shared';
-
-const DefaultContainer = styled.div`
-  padding: 0 116px;
-  ${media.phone`
-    padding: 0 8vw;
-  `};
-`;
+import { Footer, DefaultContainer } from 'components/Shared';
 
 const MainTitle = styled.div`
   font-size: 34px;
