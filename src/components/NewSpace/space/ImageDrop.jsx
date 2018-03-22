@@ -75,7 +75,19 @@ const ImagePreviewWrapper = styled.li`
 `;
 
 const MAX_PREVIEW_COUNT = 4;
-const showImagePreview = (props) => {
+
+function handleChangeImage(data, props) {
+  const images = [];
+  const currentCount = props.ui.space.images.length;
+
+  for (let i = 0; i < MAX_PREVIEW_COUNT - currentCount && i < data.length; i += 1) {
+    images.push(data[i]);
+  }
+
+  props.handleChangeImage(images);
+}
+
+function showImagePreview(props) {
   const images = props.ui.space.images;
   if (images) {
     return (
@@ -92,7 +104,7 @@ const showImagePreview = (props) => {
         {images.length > 0 && images.length < MAX_PREVIEW_COUNT && (
           <StyledAddImageDropZone
             accept="image/jpeg, image/png"
-            onDrop={props.handleChangeImage}
+            onDrop={data => handleChangeImage(data, props)}
             remain={MAX_PREVIEW_COUNT - images.length}
           >
             <DndContent>
@@ -108,7 +120,7 @@ const showImagePreview = (props) => {
   }
 
   return null;
-};
+}
 
 export default (props) => {
   const images = props.ui.space.images;
@@ -133,4 +145,4 @@ export default (props) => {
       ) : showImagePreview(props)}
     </Container>
   );
-}
+};

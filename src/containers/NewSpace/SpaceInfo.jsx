@@ -87,14 +87,11 @@ class SpaceInfoContainer extends React.Component {
     FormValidator.changeUiState(prop, value, this.props.ui);
   }
 
-  handleChangeImage = (accepted, rejected) => {
-    if (rejected.length > 0) {
-      console.error(rejected);
-    }
-    if (accepted.length > 4) {
+  handleChangeImage = (accepted) => {
+    const { space } = this.props.ui;
+    if ((space.images || []).length + accepted.length > 4) {
       return;
     }
-    const { space } = this.props.ui;
     Object.assign(space, { images: [...space.images, ...accepted] });
     this.props.dispatch(uiActions.setUiState({ space }));
   };
