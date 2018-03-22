@@ -16,7 +16,7 @@ import SaveBoxMobile from '../shared/SaveBoxMobile';
 
 const hintProps = {
   title: '荷物受け取りのヒント',
-  text: 'もし、あなたが車でお手伝いができるならアピールをしましょう。ユーザーに喜んでもらえますよ！',
+  text: 'お部屋がまるごと余っている場合は「複数料金」でスペースを区分けして料金設定が可能です。',
 };
 
 const CriterionWrapper = styled.div`
@@ -90,14 +90,14 @@ export default class SpaceSize extends Component {
             <SpaceSizeCriterion
               selected={ui.space.sizeType === SpaceSize.Type.Small}
               position="left"
-              text="1人用ソファが入るくらい、またはそれ以下"
+              text="単一料金の設定／1人用ソファが入るくらい、またはそれ以下"
               onClick={() => this.handleChangeType(SpaceSize.Type.Small)}
               image={imageFurnitureQuarter}
             />
             <SpaceSizeCriterion
               selected={ui.space.sizeType === SpaceSize.Type.Large}
               position="right"
-              text="1人用引っ越しの荷物が入るくらい、またはそれ以上"
+              text="複数料金の設定／1人分の生活用品が入るくらい、またはそれ以上"
               onClick={() => this.handleChangeType(SpaceSize.Type.Large)}
               image={imageFurnitureFull}
             />
