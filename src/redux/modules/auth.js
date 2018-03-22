@@ -21,8 +21,9 @@ const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
 const TOKEN_GENERATE = 'TOKEN_GENERATE';
 
-const CHECK_LOGIN_START = 'CHECK_LOGIN_START';
-const CHECK_LOGIN_END = 'CHECK_LOGIN_END';
+const CHECK_LOGIN = 'CHECK_LOGIN';
+const CHECK_LOGIN_SUCCESS = 'CHECK_LOGIN_SUCCESS';
+const CHECK_LOGIN_FAILED = 'CHECK_LOGIN_FAILED';
 
 export const authActions = createActions(
   LOGIN_EMAIL,
@@ -30,8 +31,9 @@ export const authActions = createActions(
   LOGIN_SUCCESS,
   LOGIN_FAILED,
   LOGOUT,
-  CHECK_LOGIN_START,
-  CHECK_LOGIN_END,
+  CHECK_LOGIN,
+  CHECK_LOGIN_SUCCESS,
+  CHECK_LOGIN_FAILED,
   SIGNUP_EMAIL,
   SIGNUP_FACEBOOK,
   SIGNUP_SUCCESS,
@@ -51,10 +53,6 @@ const initialState = {
 };
 export const authReducer = handleActions(
   {
-    [CHECK_LOGIN_START]: state => ({
-      ...state,
-      isChecking: true,
-    }),
     [LOGIN_EMAIL]: state => ({
       ...state,
     }),
@@ -73,7 +71,16 @@ export const authReducer = handleActions(
       ...state,
       error: action.payload,
     }),
-    [CHECK_LOGIN_END]: (state, { payload }) => ({
+    [CHECK_LOGIN]: state => ({
+      ...state,
+      isChecking: true,
+    }),
+    [CHECK_LOGIN_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      ...payload,
+      isChecking: false,
+    }),
+    [CHECK_LOGIN_FAILED]: (state, { payload }) => ({
       ...state,
       ...payload,
       isChecking: false,
@@ -101,7 +108,9 @@ function* checkLoginFirebaseAuth() {
     yield put(apiActions.apiGetRequest({ path: apiEndpoint.authFirebase(user.uid) }));
     const { payload: res, error, meta } = yield take(apiActions.apiResponse);
     if (error) {
-      console.error(meta);
+      yield put(authActions.checkLoginFailed(meta));
+      yield put(authActions.logout());
+      window.location.reload(true);
       return;
     }
     status.user = res;
@@ -111,7 +120,7 @@ function* checkLoginFirebaseAuth() {
     }
   }
 
-  yield put(authActions.checkLoginEnd(status));
+  yield put(authActions.checkLoginSuccess(status));
 }
 
 function* loginEmail({ payload: { email, password } }) {
@@ -217,7 +226,7 @@ function* tokenGenerate() {
 }
 
 export const authSagas = [
-  takeEvery(CHECK_LOGIN_START, checkLoginFirebaseAuth),
+  takeEvery(CHECK_LOGIN, checkLoginFirebaseAuth),
   takeEvery(LOGIN_EMAIL, loginEmail),
   takeEvery(LOGIN_FACEBOOK, loginFacebook),
   takeEvery(LOGOUT, logout),
