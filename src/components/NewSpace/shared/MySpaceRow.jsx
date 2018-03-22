@@ -38,7 +38,7 @@ const Title = styled.span`
   line-height: 1.4em;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: no-wrap;
+  white-space: nowrap;
 `;
 
 export default props => (

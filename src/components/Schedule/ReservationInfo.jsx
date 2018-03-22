@@ -28,6 +28,10 @@ const DepositContainer = styled.div`
 const UserName = styled.div`
   font-size: ${FontSizes.medium}px;
   color: ${Colors.black};
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const SpaceRowWrapper = styled.div`

@@ -57,7 +57,7 @@ const Content = styled.div`
 
 export const ContentContainer = styled.div`
   max-width: 688px;
-  width: 50%;
+  width: 60%;
   float: left;
   margin-left: ${Dimens.large}px;
   &:after {
