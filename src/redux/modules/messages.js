@@ -52,7 +52,7 @@ export const messagesSagas = [
   takeEvery(FETCH_ROOMS_START, function*() {
     let user = yield select(state => state.auth.user);
     if (!user.ID) {
-      yield take(authActions.checkLoginEnd);
+      yield take(authActions.checkLoginSuccess);
     }
     user = yield select(state => state.auth.user);
     const rooms = yield getRooms(user.ID);
@@ -72,7 +72,7 @@ export const messagesSagas = [
   takeEvery(FETCH_MESSAGES_START, function*({ payload }) {
     let user = yield select(state => state.auth.user);
     if (!user.ID) {
-      yield take(authActions.checkLoginEnd);
+      yield take(authActions.checkLoginSuccess);
     }
     user = yield select(state => state.auth.user);
 
