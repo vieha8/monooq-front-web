@@ -15,6 +15,9 @@ const Input = styled.input`
   &:focus {
     background: ${Colors.white};
   }
+  &::placeholder {
+    color: ${Colors.lightGray1};
+  }
   ${props => props.invalid && `
     border-color: ${Colors.error};
     background: ${Colors.white};

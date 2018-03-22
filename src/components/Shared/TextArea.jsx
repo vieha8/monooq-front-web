@@ -15,6 +15,9 @@ const TextArea = styled.textarea`
   &:focus {
     background: ${Colors.white};
   }
+  &::placeholder {
+    color: ${Colors.lightGray1};
+  }
   ${props => props.invalid && `
     border: 1px solid ${Colors.error};
   `}
