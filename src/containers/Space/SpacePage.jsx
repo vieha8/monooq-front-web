@@ -161,6 +161,7 @@ class Space extends React.Component {
     return (
       <SpacePage>
         {/* TODO マップのprops調整 */}
+        { space.location &&
         <Map
           containerElement={<MapContainer />}
           mapElement={<div style={{ height: '100%' }} />}
@@ -169,6 +170,8 @@ class Space extends React.Component {
           lng={space.location.lng}
           googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${KEY}&v=3.exp&libraries=geometry,drawing,places`}
         />
+        }
+
         <CardContainer>
           <SpaceCardContainer>
             <Card>
