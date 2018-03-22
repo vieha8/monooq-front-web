@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SignUp from 'components/SignUp';
+import RegisterEmail from 'components/SignUp/RegisterEmail';
+import ProfileForm from 'components/SignUp/ProfileForm';
 import { authActions } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
 import { errorActions } from 'redux/modules/error';
@@ -11,6 +13,9 @@ const Validate = {
   Email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   Password: {
     Min: 8,
+  },
+  Profile: {
+    Max: 1000,
   },
 };
 
@@ -30,6 +35,10 @@ class SignUpContainer extends React.Component {
   onClickSignUpFacebook = () => {
     this.props.dispatch(authActions.signupFacebook());
   }
+
+  // -------------------------------------------
+  // メアド登録
+  // -------------------------------------------
 
   handleChangeEmail = (value) => {
     const prop = 'email';
@@ -70,7 +79,7 @@ class SignUpContainer extends React.Component {
     FormValidator.changeUiState(prop, value, this.props.ui);
   }
 
-  validate = () => {
+  validateRegisterEmail = () => {
     const { ui } = this.props;
     const signup = ui.signup || {};
 
@@ -81,23 +90,94 @@ class SignUpContainer extends React.Component {
     );
   }
 
+  // -------------------------------------------
+  // プロフィール登録
+  // -------------------------------------------
+
+  handleChangeName = (value) => {
+    const prop = 'name';
+    const errors = this.props.error[prop] || [];
+    if (value.length === 0) {
+      errors.push(ErrorMessage.PleaseInput);
+    }
+
+    FormValidator.changeErrorState(prop, errors, this.props.error);
+    FormValidator.changeUiState(prop, value, this.props.ui);
+  }
+
+  handleChangeAddress = (value) => {
+    const prop = 'address';
+    const errors = this.props.error[prop] || [];
+    if (value.length === 0) {
+      errors.push(ErrorMessage.PleaseInput);
+    }
+
+    FormValidator.changeErrorState(prop, errors, this.props.error);
+    FormValidator.changeUiState(prop, value, this.props.ui);
+  }
+
+  handleChangeProfile = (value) => {
+    const prop = 'profile';
+    const errors = this.props.error[prop] || [];
+    if (value.length === 0) {
+      errors.push(ErrorMessage.PleaseInput);
+    }
+    if (value.length > Validate.Profile.Max) {
+      errors.push(ErrorMessage.LengthMax('紹介文', Validate.Profile.Max));
+    }
+
+    FormValidator.changeErrorState(prop, errors, this.props.error);
+    FormValidator.changeUiState(prop, value, this.props.ui);
+  }
+
+  validateProfile = () => {
+    const { ui } = this.props;
+    const signup = ui.signup || {};
+
+    return (
+      signup.name && signup.name.length > 0
+      && signup.address && signup.address.length > 0
+      && signup.profile
+      && signup.profile.length > 0
+      && signup.profile.length <= Validate.Profile.Max
+    );
+  }
+
   render() {
-    const { error } = this.props;
+    const { error, user, ui } = this.props;
     return (
       <SignUp
-        step={this.props.ui.signUpStep}
-        onClickSignUpEmail={this.onClickSignUpEmail}
-        onClickSignUpFacebook={this.onClickSignUpFacebook}
-        handleChangeEmail={this.handleChangeEmail}
-        handleChangePassword={this.handleChangePassword}
-        handleChangePasswordConfirm={this.handleChangePasswordConfirm}
-        errors={{
-          email: error.errors.email,
-          password: error.errors.password,
-          passwordConfirm: error.errors.passwordConfirm,
-          signupFailed: this.props.isSignupFailed && [ErrorMessage.FailedSignUp],
-        }}
-        buttonDisabled={!this.validate()}
+        step={ui.signUpStep}
+        registerEmail={
+          <RegisterEmail
+            onClickSignUpEmail={this.onClickSignUpEmail}
+            onClickSignUpFacebook={this.onClickSignUpFacebook}
+            handleChangeEmail={this.handleChangeEmail}
+            handleChangePassword={this.handleChangePassword}
+            handleChangePasswordConfirm={this.handleChangePasswordConfirm}
+            errors={{
+              email: error.errors.email,
+              password: error.errors.password,
+              passwordConfirm: error.errors.passwordConfirm,
+              signupFailed: this.props.isSignupFailed && [ErrorMessage.FailedSignUp],
+            }}
+            buttonDisabled={!this.validateRegisterEmail()}
+          />
+        }
+        profileForm={
+          <ProfileForm
+            user={user}
+            handleChangeName={this.handleChangeName}
+            handleChangeAddress={this.handleChangeAddress}
+            handleChangeProfile={this.handleChangeProfile}
+            errors={{
+              name: error.errors.name,
+              address: error.errors.address,
+              profile: error.errors.profile,
+            }}
+            buttonDisabled={!this.validateProfile()}
+          />
+        }
         {...this.props}
       />
     );
