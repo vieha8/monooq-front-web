@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 import SignUp from 'components/SignUp';
 import RegisterEmail from 'components/SignUp/RegisterEmail';
 import ProfileForm from 'components/SignUp/ProfileForm';
+import RegisteredForm from 'components/SignUp/RegisteredForm';
 import { authActions } from 'redux/modules/auth';
+import { userActions } from 'redux/modules/user';
 import { uiActions } from 'redux/modules/ui';
 import { errorActions } from 'redux/modules/error';
 import { ErrorMessage } from 'strings';
 import FormValidator from 'containers/helper/FormValidator';
 
 const Validate = {
-  Email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  Email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
   Password: {
     Min: 8,
   },
@@ -36,8 +38,17 @@ class SignUpContainer extends React.Component {
     this.props.dispatch(authActions.signupFacebook());
   }
 
+  onClickRegisterProfile = () => {
+    const { name, address, profile, image } = this.props.ui.signup;
+
+    this.props.dispatch(userActions.updateUser({
+      userId: this.props.user.ID,
+      body: { name, profile, image, PrefCode: '13' },
+    }));
+  };
+
   // -------------------------------------------
-  // メアド登録
+  // メアド登録入力イベント
   // -------------------------------------------
 
   handleChangeEmail = (value) => {
@@ -91,8 +102,13 @@ class SignUpContainer extends React.Component {
   }
 
   // -------------------------------------------
-  // プロフィール登録
+  // プロフィール登録入力イベント
   // -------------------------------------------
+
+  handleChangeProfileImage = (image) => {
+    const prop = 'image';
+    FormValidator.changeUiState(prop, image, this.props.ui);
+  }
 
   handleChangeName = (value) => {
     const prop = 'name';
@@ -166,7 +182,8 @@ class SignUpContainer extends React.Component {
         }
         profileForm={
           <ProfileForm
-            user={user}
+            image={(ui.signup || {}).image}
+            handleChangeProfileImage={this.handleChangeProfileImage}
             handleChangeName={this.handleChangeName}
             handleChangeAddress={this.handleChangeAddress}
             handleChangeProfile={this.handleChangeProfile}
@@ -176,9 +193,14 @@ class SignUpContainer extends React.Component {
               profile: error.errors.profile,
             }}
             buttonDisabled={!this.validateProfile()}
+            onClickRegisterProfile={this.onClickRegisterProfile}
           />
         }
-        {...this.props}
+        registeredForm={
+          <RegisteredForm
+            user={user}
+          />
+        }
       />
     );
   }

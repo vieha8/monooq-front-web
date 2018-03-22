@@ -71,11 +71,10 @@ const styles = {
 
 const showImagePreview = (props) => {
   // TODO 表示は仮なのでデザイン反映する
-  if (props.user.image) {
-    const { image } = props.user;
+  if (props.image) {
+    const { image } = props;
     return (
       <div>
-        {image.name}<br />
         <img alt="preview" src={image.preview} width="100" />
       </div>
     );
@@ -92,16 +91,17 @@ export default props => (
       <Dropzone
         style={styles.dnd}
         accept="image/jpeg, image/png"
-        onDrop={props.handleChangeProfileImage}
+        onDrop={data => props.handleChangeProfileImage(data[0])}
       >
         <DndContent>
-          <IconWrapper>
-            <Icon name="far fa-image" size={64} fontSize={64} color={Colors.darkGray2} />
-          </IconWrapper>
+          {props.image ? showImagePreview(props) : (
+            <IconWrapper>
+              <Icon name="far fa-image" size={64} fontSize={64} color={Colors.darkGray2} />
+            </IconWrapper>
+          )}
           <CaptionText>写真を登録する</CaptionText>
         </DndContent>
       </Dropzone>
-      {showImagePreview(props)}
       <InputContainer>
         <Label>お名前</Label>
         <Input
