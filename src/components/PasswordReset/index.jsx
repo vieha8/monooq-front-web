@@ -5,7 +5,7 @@ import Form from './Form';
 
 const Container = styled.div`
   position: absolute;
-  top: 64px;
+  top: 60px;
   left: 0;
   right: 0;
   bottom: 0;

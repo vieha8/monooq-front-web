@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Colors, Dimens } from 'variables';
+import { FontSizes, Colors, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
 import { media } from 'helpers/style/media-query';
-import { FontSizes } from "../../variables";
 
 const Logo = styled.img`
   width: 60px;
@@ -18,7 +17,7 @@ const Title = styled.div`
 
 const Container = styled.div`
   position: absolute;
-  top: 64px;
+  top: 60px;
   left: 0;
   right: 0;
   bottom: 0;

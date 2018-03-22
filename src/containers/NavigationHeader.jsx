@@ -8,20 +8,6 @@ import Path from 'config/path';
 const disusePage = [/\/maintenance/, /\/help*/];
 
 class NavigationHeaderContainer extends Component {
-  toggleMenu = () => {
-    const { dispatch, ui } = this.props;
-
-    if (ui.showMenu) {
-      document.body.style.overflowY = 'auto';
-    } else {
-      document.body.style.overflowY = 'hidden';
-    }
-
-    dispatch(uiActions.setUiState({
-      showMenu: !ui.showMenu,
-    }));
-  }
-
   onClickSearchIcon = () => {
     const { dispatch } = this.props;
 
@@ -34,6 +20,20 @@ class NavigationHeaderContainer extends Component {
     if (e && e.keyCode === 13 && e.target.value) {
       window.location.href = `${Path.search()}?location=${e.target.value}`;
     }
+  }
+
+  toggleMenu = () => {
+    const { dispatch, ui } = this.props;
+
+    if (ui.showMenu) {
+      document.body.style.overflowY = 'auto';
+    } else {
+      document.body.style.overflowY = 'hidden';
+    }
+
+    dispatch(uiActions.setUiState({
+      showMenu: !ui.showMenu,
+    }));
   }
 
   renderNavigationHeader() {

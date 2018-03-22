@@ -112,7 +112,7 @@ export default {
   maintenance: () =>
     '/maintenance',
   notFound: () =>
-    '/404',
+    '/notfound',
   error: (status = ":status") =>
     `/error/${status}`,
   cancellationPolicies: () =>

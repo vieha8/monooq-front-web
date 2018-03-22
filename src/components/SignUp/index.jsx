@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Colors } from 'variables';
 
 const Container = styled.div`
-  padding: 40px 0;
   background: ${Colors.yellow};
 `;
 

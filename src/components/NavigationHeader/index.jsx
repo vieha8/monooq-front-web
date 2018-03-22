@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Path from 'config/path';
 import Icon from 'components/Shared/Icon';
@@ -70,7 +70,7 @@ const UserImage = styled.img`
   border-radius: 16px;
 `;
 
-const AnonymousUserLink = styled.a`
+const AnonymousUserLink = styled(Link)`
   color: ${Colors.linkBlue};
   font-size: ${FontSizes.medium}px;
 `;
@@ -157,9 +157,9 @@ function renderMenuIcon(props) {
 
   return (
     <LinkWrapper>
-      <AnonymousUserLink href={Path.login()}>ログイン</AnonymousUserLink>
+      <AnonymousUserLink to={Path.login()}>ログイン</AnonymousUserLink>
       &nbsp;/&nbsp;
-      <AnonymousUserLink href={Path.signup()}>登録</AnonymousUserLink>
+      <AnonymousUserLink to={Path.signup()}>登録</AnonymousUserLink>
     </LinkWrapper>
   );
 }
