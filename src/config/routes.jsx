@@ -39,6 +39,7 @@ import Insurance from 'containers/Static/Insurance';
 import Rule from 'containers/Static/Rule';
 import Maintenance from 'containers/Static/Maintenance';
 import NotFound from 'containers/Static/NotFound';
+import Error from 'containers/Static/Error';
 import CancellationPolicies from 'containers/Static/CancellationPolicies';
 import Asct from 'containers/Static/Asct';
 import Company from 'containers/Static/Company';
@@ -95,6 +96,7 @@ export const routes = [
   { path: Path.rule(), component: Rule },
   { path: Path.maintenance(), component: Maintenance },
   { path: Path.notFound(), component: NotFound },
+  { path: Path.error(), component: Error },
   { path: Path.cancellationPolicies(), component: CancellationPolicies },
   { path: Path.asct(), component: Asct },
   { path: Path.company(), component: Company },

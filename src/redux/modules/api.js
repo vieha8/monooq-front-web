@@ -1,6 +1,9 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery } from 'redux-saga/effects';
 import { getApiRequest, postApiRequest, putApiRequest, deleteApiRequest } from '../helpers/api';
+import { store } from '../store/configureStore';
+import Path from '../../config/path';
+import { push } from 'react-router-redux';
 
 export const apiEndpoint = {
   tokenGenerate: () => `/token/generate`,
@@ -72,23 +75,55 @@ export const apiReducer = handleActions(
 );
 
 function* getRequest({ payload: { path, params = {} } }) {
-  const { data, err } = yield getApiRequest(path, params);
-  yield put({ ...apiActions.apiResponse(data), error: !!err, meta: err });
+  const { data, err, status } = yield getApiRequest(path, params);
+  yield put({
+    ...apiActions.apiResponse(data),
+    error: !!err,
+    meta: { status: status, error: err },
+  });
+  if (status !== 200) {
+    if (status === 404) {
+      store.dispatch(push(Path.notFound()));
+    } else {
+      store.dispatch(push(Path.error(status)));
+    }
+  }
 }
 
 function* postRequest({ payload: { path, body } }) {
-  const { data, err } = yield postApiRequest(path, body);
-  yield put({ ...apiActions.apiResponse(data), error: !!err, meta: err });
+  const { data, err, status } = yield postApiRequest(path, body);
+  yield put({
+    ...apiActions.apiResponse(data),
+    error: !!err,
+    meta: { status: status, error: err },
+  });
+  if (status !== 200 || status !== 201) {
+    store.dispatch(push(Path.error(status)));
+  }
 }
 
 function* putRequest({ payload: { path, body } }) {
-  const { data, err } = yield putApiRequest(path, body);
-  yield put({ ...apiActions.apiResponse(data), error: !!err, meta: err });
+  const { data, err, status } = yield putApiRequest(path, body);
+  yield put({
+    ...apiActions.apiResponse(data),
+    error: !!err,
+    meta: { status: status, error: err },
+  });
+  if (status !== 200) {
+    store.dispatch(push(Path.error(status)));
+  }
 }
 
 function* deleteRequest({ payload: { path } }) {
-  const { data, err } = yield deleteApiRequest(path);
-  yield put({ ...apiActions.apiResponse(data), error: !!err, meta: err });
+  const { data, err, status } = yield deleteApiRequest(path);
+  yield put({
+    ...apiActions.apiResponse(data),
+    error: !!err,
+    meta: { status: status, error: err },
+  });
+  if (status !== 200) {
+    store.dispatch(push(Path.error(status)));
+  }
 }
 
 export const apiSagas = [
