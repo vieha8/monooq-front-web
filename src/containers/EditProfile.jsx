@@ -77,17 +77,32 @@ class ProfileContainer extends Component {
     FormValidator.changeUiState(prop, value, this.props.ui);
   }
 
+  validate = () => {
+    const { ui } = this.props;
+    const editProfile = ui.editProfile || {};
+
+    return (
+      editProfile.name && editProfile.name.length > 0
+      && editProfile.email && editProfile.email.match(Validate.Email)
+      && editProfile.prefCode
+      && editProfile.profile
+      && editProfile.profile.length > 0
+      && editProfile.profile.length <= Validate.Profile.Max
+    );
+  }
+
   renderEditProfileCompoleted = () => {
+    const { user } = this.props;
     return (
       <Page title="プロフィールの更新が完了しました">
         <Menu />
-        <EditProfileCompleted />
+        <EditProfileCompleted userId={user.ID} />
       </Page>
     );
   };
 
   renderEditProfile = () => {
-    const { ui } = this.props;
+    const { ui, error } = this.props;
     const editProfile = ui.editProfile || {};
     return (
       <Page title="プロフィールを編集する">
@@ -101,16 +116,22 @@ class ProfileContainer extends Component {
           handleChangePrefCode={this.handleChangePrefCode}
           handleChangeProfile={this.handleChangeProfile}
           user={editProfile}
+          errors={{
+            name: error.errors.name,
+            email: error.errors.email,
+            profile: error.errors.profile,
+          }}
+          buttonDisabled={!this.validate()}
         />
       </Page>
     );
   };
 
   render() {
-    const { ui } = this.props;
+    const { updateSuccess } = this.props;
 
     return (
-      ui.editCompleted
+      updateSuccess
         ? this.renderEditProfileCompoleted()
         : this.renderEditProfile()
     );
@@ -118,7 +139,7 @@ class ProfileContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  if (!(state.ui.editProfile || {}).name && state.auth.user.Name) {
+  if (!state.ui.editProfile && state.auth.user.Name) {
     const user = state.auth.user;
     state.ui.editProfile = {
       name: user.Name,
@@ -132,6 +153,7 @@ const mapStateToProps = (state) => {
     ui: state.ui,
     user: state.auth.user,
     error: state.error,
+    updateSuccess: state.user.updateSuccess,
   });
 };
 

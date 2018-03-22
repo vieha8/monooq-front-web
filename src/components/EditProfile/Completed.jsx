@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { ContentContainer } from 'components/Page';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import Path from 'config/path';
 
 const Content = styled.div`
   ${media.phone`
@@ -10,7 +12,7 @@ const Content = styled.div`
   `}
 `;
 
-const ToProfileLink = styled.a`
+const ToProfileLink = styled(Link)`
   display: block;
   font-size: ${FontSizes.medium}px;
   text-align: left;
@@ -23,7 +25,7 @@ const ToProfileLink = styled.a`
 export default props => (
   <ContentContainer>
     <Content>
-      <ToProfileLink href="/profile/1">自分のページを見る</ToProfileLink>
+      <ToProfileLink to={Path.profile(props.userId)}>自分のページを見る</ToProfileLink>
     </Content>
   </ContentContainer>
 );

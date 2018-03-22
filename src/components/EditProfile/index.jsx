@@ -7,6 +7,7 @@ import { ContentContainer } from 'components/Page';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { selectOptionPrefectures } from 'helpers/prefectures';
+import ErrorText from 'components/Shared/ErrorText';
 
 const Content = styled.div`
   ${media.phone`
@@ -92,6 +93,7 @@ export default props => (
           />
         </InputWrapper>
       </InputContainer>
+      {props.errors.name && <ErrorText errors={props.errors.name} />}
       <InputContainer>
         <Title>メールアドレス</Title>
         <InputWrapper>
@@ -104,6 +106,7 @@ export default props => (
           />
         </InputWrapper>
       </InputContainer>
+      {props.errors.email && <ErrorText errors={props.errors.email} />}
       <InputContainer>
         <Title>お住いの地域</Title>
         <InputWrapper>
@@ -133,10 +136,11 @@ export default props => (
           </Form>
         </InputWrapper>
       </InputContainer>
+      {props.errors.profile && <ErrorText errors={props.errors.profile} />}
       <ButtonWrapper>
         <Button
           onClick={props.onClickSave}
-          buttonDisabled={props.buttonDisabled}
+          disabled={props.buttonDisabled}
         >
           プロフィールを更新する
         </Button>

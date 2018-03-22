@@ -3,16 +3,44 @@ import Buttons from './Buttons';
 
 export default (props) => {
   if (props.secondary) {
-    return <Buttons.Secondary {...props}>{props.children}</Buttons.Secondary>;
+    return (
+      <Buttons.Secondary
+        {...props}
+        onClick={props.disabled ? null : props.onClick}
+      >
+        {props.children}
+      </Buttons.Secondary>
+    );
   }
 
   if (props.tertiary) {
-    return <Buttons.Tertiary {...props}>{props.children}</Buttons.Tertiary>;
+    return (
+      <Buttons.Tertiary
+        {...props}
+        onClick={props.disabled ? null : props.onClick}
+      >
+        {props.children}
+      </Buttons.Tertiary>
+    );
   }
 
   if (props.facebook) {
-    return <Buttons.Facebook {...props}>{props.children}</Buttons.Facebook>;
+    return (
+      <Buttons.Facebook
+        {...props}
+        onClick={props.disabled ? null : props.onClick}
+      >
+        {props.children}
+      </Buttons.Facebook>
+    );
   }
 
-  return <Buttons.Primary {...props}>{props.children}</Buttons.Primary>;
+  return (
+    <Buttons.Primary
+      {...props}
+      onClick={props.disabled ? null : props.onClick}
+    >
+      {props.children}
+    </Buttons.Primary>
+  );
 };
