@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import Icon from 'components/Shared/Icon';
-import { Input, Form, TextArea } from 'semantic-ui-react';
+import { Input, Form, TextArea, Select } from 'semantic-ui-react';
 import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import ErrorText from 'components/Shared/ErrorText';
+import { selectOptionPrefectures } from 'helpers/prefectures';
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -114,10 +115,11 @@ export default props => (
       {props.errors.name && <ErrorText errors={props.errors.name} />}
       <InputContainer>
         <Label>お住いの地域</Label>
-        <Input
-          fluid
+        <Select
+          placeholder="選択してください"
+          style={{ width: '100%' }}
+          options={selectOptionPrefectures()}
           name="address"
-          placeholder="東京都"
           onChange={(_, e) => props.handleChangeAddress(e.value)}
         />
       </InputContainer>

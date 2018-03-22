@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Input, Form, TextArea, Select } from 'semantic-ui-react';
 import Button from 'components/Shared/Button';
 import { ContentContainer } from 'components/Page';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { prefectures } from "../../helpers/prefectures";
+import { selectOptionPrefectures } from 'helpers/prefectures';
 
 const Content = styled.div`
   ${media.phone`
@@ -57,7 +57,7 @@ const ButtonWrapper = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
-const UnsubscribeText = styled(Link)`
+const UnsubscribeText = styled(Link) `
   display: block;
   font-size: ${FontSizes.xsmall}px;
   text-align: center;
@@ -67,17 +67,6 @@ const UnsubscribeText = styled(Link)`
     color: ${Colors.linkBlue};
   }
 `;
-
-const getPrefectures = () => {
-  return prefectures.map((pref, i) => {
-    const prefCode = i + 1;
-    return ({
-      key: prefCode,
-      value: prefCode.toString(),
-      text: pref,
-    });
-  });
-};
 
 export default props => (
   <ContentContainer>
@@ -94,21 +83,25 @@ export default props => (
       <InputContainer>
         <Title>お名前</Title>
         <InputWrapper>
-          <Input placeholder="ニックネーム"
-                 name="name"
-                 value={props.ui.user.name}
-                 onChange={props.handleChangeText}
-                 style={{ width: '70%' }} />
+          <Input
+            placeholder="ニックネーム"
+            name="name"
+            value={props.ui.user.name}
+            onChange={props.handleChangeText}
+            style={{ width: '70%' }}
+          />
         </InputWrapper>
       </InputContainer>
       <InputContainer>
         <Title>メールアドレス</Title>
         <InputWrapper>
-          <Input placeholder="info@monooq.com"
-                 name="email"
-                 value={props.ui.user.email}
-                 onChange={props.handleChangeText}
-                 style={{ width: '70%' }} />
+          <Input
+            placeholder="info@monooq.com"
+            name="email"
+            value={props.ui.user.email}
+            onChange={props.handleChangeText}
+            style={{ width: '70%' }}
+          />
         </InputWrapper>
       </InputContainer>
       <InputContainer>
@@ -117,7 +110,7 @@ export default props => (
           <Select
             placeholder="選択してください"
             style={{ width: '70%' }}
-            options={getPrefectures()}
+            options={selectOptionPrefectures()}
             name="prefCode"
             value={props.ui.user.prefCode}
             onChange={props.handleChangeSelect}

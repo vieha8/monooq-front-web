@@ -38,7 +38,7 @@ export const MenuLink = styled.a`
   width: 100%;
   height: 100%;
   text-decoration: none;
-  padding: 20px ${Dimens.medium}px;
+  padding: 20px ${Dimens.medium2}px;
 `;
 
 export const MenuText = styled.span`
@@ -47,6 +47,7 @@ export const MenuText = styled.span`
   color: ${Colors.darkGray2};
   font-size: ${FontSizes.small}px;
   width: 92%;
+  text-align: left;
 `;
 
 const NoticeCountCircle = styled.span`
