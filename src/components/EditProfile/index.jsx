@@ -86,8 +86,8 @@ export default props => (
           <Input
             placeholder="ニックネーム"
             name="name"
-            value={props.ui.user.name}
-            onChange={props.handleChangeText}
+            value={props.user.name}
+            onChange={(_, e) => props.handleChangeName(e.value)}
             style={{ width: '70%' }}
           />
         </InputWrapper>
@@ -98,8 +98,8 @@ export default props => (
           <Input
             placeholder="info@monooq.com"
             name="email"
-            value={props.ui.user.email}
-            onChange={props.handleChangeText}
+            value={props.user.email}
+            onChange={(_, e) => props.handleChangeEmail(e.value)}
             style={{ width: '70%' }}
           />
         </InputWrapper>
@@ -112,8 +112,8 @@ export default props => (
             style={{ width: '70%' }}
             options={selectOptionPrefectures()}
             name="prefCode"
-            value={props.ui.user.prefCode}
-            onChange={props.handleChangeSelect}
+            value={props.user.prefCode}
+            onChange={(_, e) => props.handleChangePrefCode(e.value)}
           />
         </InputWrapper>
       </InputContainer>
@@ -127,14 +127,19 @@ export default props => (
               style={{ width: '100%' }}
               rows={5}
               name="profile"
-              value={props.ui.user.profile}
-              onChange={props.handleChangeText}
+              value={props.user.profile}
+              onChange={(_, e) => props.handleChangeProfile(e.value)}
             />
           </Form>
         </InputWrapper>
       </InputContainer>
       <ButtonWrapper>
-        <Button fluid onClick={props.onClickSave}>プロフィールを更新する</Button>
+        <Button
+          onClick={props.onClickSave}
+          buttonDisabled={props.buttonDisabled}
+        >
+          プロフィールを更新する
+        </Button>
       </ButtonWrapper>
       <UnsubscribeText to="/unsubscribe">退会申請をする</UnsubscribeText>
     </Content>
