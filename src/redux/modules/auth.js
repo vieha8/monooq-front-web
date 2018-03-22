@@ -115,32 +115,12 @@ function* checkLoginFirebaseAuth() {
 }
 
 function* loginEmail({ payload: { email, password } }) {
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.authPast(), params: { email } }));
-  const { payload, error, meta } = yield take(apiActions.apiResponse);
-  if (error) {
-    yield put(authActions.loginFailed(meta));
-    return;
-  }
-  //元々登録されていたユーザーかチェック
-  const isOld = payload.result;
-  if (isOld) {
-    try {
-      // 元々登録されていた場合パスワードが正しいかチェックする
-      // パスワードが正しければfirebase APIでcreateUserWithEmailAndPasswordを叩く
-      // firebase uidとデータを紐付けるAPIを叩く
-      yield firebase.auth().createUserWithEmailAndPassword(email, password);
-    } catch (err) {
-      console.error(err);
-      yield put(authActions.loginFailed(err));
-    }
-  } else {
-    try {
-      yield firebase.auth().signInWithEmailAndPassword(email, password);
-      yield put(authActions.loginSuccess());
-    } catch (err) {
-      console.error(err);
-      yield put(authActions.loginFailed(err));
-    }
+  try {
+    yield firebase.auth().signInWithEmailAndPassword(email, password);
+    yield put(authActions.loginSuccess());
+  } catch (err) {
+    console.error(err);
+    yield put(authActions.loginFailed(err));
   }
 }
 
