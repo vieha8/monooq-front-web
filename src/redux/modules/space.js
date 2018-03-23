@@ -82,7 +82,8 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
       yield take(authActions.checkLoginSuccess);
     }
     user = yield select(state => state.auth.user);
-    if (payload.UserId !== user.ID) {
+
+    if (payload.UserID !== user.ID) {
       store.dispatch(push(Path.error(400)));
     }
   }
@@ -108,6 +109,8 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
       payload.location = places.data.results[0].geometry.location;
     }
   }
+
+  console.log(payload);
 
   yield put(spaceActions.fetchSuccessSpace(payload));
 }
