@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {Dimens} from "../../variables";
 import {media} from "../../helpers/style/media-query";
 import path from "../../config/path";
+import { Image } from "semantic-ui-react";
 
 const Container = styled.div`
   &:not(:first-child) {
@@ -98,7 +99,8 @@ export default props => {
     const params = {
       date: messageDateFormat(message.createDt),
       isSelf: message.userId === userId,
-      isSpecial: message.messageType !== 1
+      isSpecial: message.messageType !== 1,
+      imageUrl: message.image,
     };
 
     switch (message.messageType) {
@@ -137,10 +139,12 @@ export default props => {
           <StyledRecord isSelf={v.isSelf} isSpecial={v.isSpecial}>
             {v.text}
             {v.linkUrl && <RecordLink to={v.linkUrl}>この見積もりでお支払いに進む</RecordLink>}
+            {v.imageUrl && <Image src={v.imageUrl} rounded size="large" /> }
           </StyledRecord>
           <ClearBoth/>
           <StyledDate>{v.date}</StyledDate>
           <ClearBoth/>
+
         </div>
       ))}
     </Container>
