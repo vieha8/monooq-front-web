@@ -63,7 +63,7 @@ export default props => (
         />
       </div>
       <Caption>
-        取引成立時の売り上げは、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。
+        取引成立時の売上は、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。
       </Caption>
       <ButtonsContainer>
         <Button border onClick={props.onClickBack}>
