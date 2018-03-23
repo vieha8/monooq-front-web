@@ -49,6 +49,10 @@ const PriceInputContainer = styled.div`
   margin-top: ${Dimens.medium1}px;
 `;
 
+const CaptionInputContainer = styled.div`
+  margin-top: ${Dimens.medium1}px;
+`;
+
 const ButtonContainer = styled.div`
   margin-top: ${Dimens.medium1}px;
 `;
@@ -84,6 +88,9 @@ export default props => (
       <PriceInputContainer>
         {props.priceInput}
       </PriceInputContainer>
+      <CaptionInputContainer>
+        {props.caption}
+      </CaptionInputContainer>
       <ButtonContainer>
         {props.button}
       </ButtonContainer>
