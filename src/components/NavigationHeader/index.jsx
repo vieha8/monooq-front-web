@@ -49,7 +49,7 @@ const MenuWrapper = styled.div`
   width: 80%;
 `;
 
-const IconWrapper = styled.a`
+const IconWrapper = styled(Link)`
   position: relative;
   display: inline-block;
   height: 100%;
@@ -169,7 +169,7 @@ function renderMenuIcon(props) {
   if (user) {
     return (
       <HideSearchIconWrapper showSearchField={showSearchField}>
-        <IconWrapper href={Path.messages(user.ID)}>
+        <IconWrapper to={Path.messages(user.ID)}>
           <Icon name="fas fa-comment" reverse fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
         <UserIconWrapper onClick={() => onClickToggleMenu()}>
@@ -211,11 +211,11 @@ export default props => (
           placeholder="どこの物置きを探す？"
           onChange={e => props.onChangeKeyword(e.target.value)}
         />
-        <IconWrapper onClick={props.onClickSearchIcon}>
+        <IconWrapper to="" onClick={props.onClickSearchIcon}>
           <Icon name="fal fa-search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
         {props.showSearchField &&
-          <IconWrapper hidePc onClick={props.onClickCloseSearch}>
+          <IconWrapper to="" hidePc onClick={props.onClickCloseSearch}>
             <Icon name="fal fa-times" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
           </IconWrapper>
         }
