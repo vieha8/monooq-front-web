@@ -28,7 +28,10 @@ const responseErrorHandler = (resolve, response) => {
     resolve({ status: 503, err: 'Service Unavailable' });
     return;
   }
-  resolve({ status: response.status, err: response.statusText });
+  resolve({
+    status: response.status,
+    err: response.data ? response.data.error : response.statusText,
+  });
 };
 
 export const getApiRequest = (path, params) => {
