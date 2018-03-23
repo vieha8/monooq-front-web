@@ -30,11 +30,11 @@ export default (props) => {
                 <MenuText>スペースを追加する</MenuText><NoticeCount count={scheduleCount} />
               </MenuLink>
             </MenuItem>
-            <MenuItem>
-              <MenuLink href={Path.requestTransfer()}>
-                <MenuText>振込申請</MenuText><NoticeCount count={scheduleCount} />
-              </MenuLink>
-            </MenuItem>
+            {/*<MenuItem>*/}
+              {/*<MenuLink href={Path.requestTransfer()}>*/}
+                {/*<MenuText>振込申請</MenuText><NoticeCount count={scheduleCount} />*/}
+              {/*</MenuLink>*/}
+            {/*</MenuItem>*/}
           </Fragment>
         )}
         {/*<MenuItem>*/}
@@ -54,11 +54,11 @@ export default (props) => {
             <MenuText>プロフィールを編集する</MenuText>
           </MenuLink>
         </MenuItem>
-        <MenuItem>
-          <MenuLink href={Path.inquiry(userId)}>
-            <MenuText>お問い合わせ</MenuText>
-          </MenuLink>
-        </MenuItem>
+        {/*<MenuItem>*/}
+          {/*<MenuLink href={Path.inquiry(userId)}>*/}
+            {/*<MenuText>お問い合わせ</MenuText>*/}
+          {/*</MenuLink>*/}
+        {/*</MenuItem>*/}
         <MenuItem>
           <MenuLink onClick={props.onClickLogout}>
             <MenuText>ログアウト</MenuText>

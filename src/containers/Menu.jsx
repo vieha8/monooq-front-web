@@ -17,7 +17,7 @@ class MenuContainer extends Component {
     return (
       <Menu
         showMobile={showMobile}
-        userId={auth.user.id}
+        userId={auth.user.ID}
         onClickLogout={this.logout}  
       />
     );
