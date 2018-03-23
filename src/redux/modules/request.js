@@ -94,6 +94,29 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
 }
 
 function* payment({ payload: { roomId, requestId, card } }) {
+  //不正対策
+  yield put(
+    apiActions.apiGetRequest({
+      path: apiEndpoint.requests(requestId),
+    }),
+  );
+  const { payload: requestData, error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(requestActions.paymentFailed(meta));
+    return;
+  }
+  let user = yield select(state => state.auth.user);
+  if (!user.ID) {
+    yield take(authActions.checkLoginSuccess);
+  }
+  user = yield select(state => state.auth.user);
+  if (requestData.UserID !== user.ID) {
+    yield put(requestActions.paymentFailed());
+    store.dispatch(push(path.error(400)));
+    return;
+  }
+
+  //Omiseトークン生成
   const { id: token } = yield createOmiseToken({
     card: {
       name: card.name,
@@ -110,9 +133,9 @@ function* payment({ payload: { roomId, requestId, card } }) {
       body: { RequestId: parseInt(requestId, 10), CardToken: token },
     }),
   );
-  const { payload, error, meta } = yield take(apiActions.apiResponse);
-  if (error) {
-    yield put(requestActions.paymentFailed(meta));
+  const { payload, error2, meta2 } = yield take(apiActions.apiResponse);
+  if (error2) {
+    yield put(requestActions.paymentFailed(meta2));
     return;
   }
 
