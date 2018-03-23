@@ -62,6 +62,7 @@ export default props => (
           <SpaceRow
             place={props.place}
             title={props.title}
+            imageUrl={props.imageUrl}
           />
         </SpaceRowWrapper>
       </SpaceContainer>

@@ -16,60 +16,7 @@ class ScheduleContainer extends Component {
     return (
       <Page title="スケジュール">
         <Menu />
-        <Schedule {...this.props} schedule={{
-          user: [
-            {
-              Space: {
-                Host: {
-                  Name: 'hogehogehogehogehogehoge',
-                },
-                AddressPref: '12',
-                Title: 'hogehogehogehogehogehoge',
-              },
-              StartDate: '2019/12/20',
-              EndDate: '2019/12/20',
-              Price: 2000,
-            },
-            {
-              Space: {
-                Host: {
-                  Name: 'hogehogehogehogehogehoge',
-                },
-                AddressPref: '12',
-                Title: 'hogehogehogehogehogehoge',
-              },
-              StartDate: '2019/12/20',
-              EndDate: '2019/12/20',
-              Price: 2000,
-            },
-          ],
-          host: [
-            {
-              User: {
-                Name: 'hogehogehogehogehogehoge',
-              },
-              Space: {
-                AddressPref: '12',
-                Title: 'hogehogehogehogehogehogehogehoge',
-              },
-              StartDate: '2019/12/20',
-              EndDate: '2019/12/20',
-              Price: 2000,
-            },
-            {
-              User: {
-                Name: 'hosthost',
-              },
-              Space: {
-                AddressPref: '12',
-                Title: 'hogehogehogehogehogehoge',
-              },
-              StartDate: '2019/12/20',
-              EndDate: '2019/12/20',
-              Price: 2000,
-            },
-          ],
-        }} />
+        <Schedule {...this.props} />
       </Page>
     );
   }

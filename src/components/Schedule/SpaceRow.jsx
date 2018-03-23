@@ -46,7 +46,7 @@ const Title = styled.span`
 export default props => (
   <Container>
     <ImageWrapper>
-      <Image src="http://placehold.jp/100x70.png" alt={props.name} />
+      <Image src={props.imageUrl} alt={props.name} />
     </ImageWrapper>
     <Content>
       <PlaceText>{props.place}</PlaceText>

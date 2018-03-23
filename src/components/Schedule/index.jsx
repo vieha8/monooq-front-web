@@ -1,6 +1,15 @@
 import React from 'react';
 import { ContentContainer } from 'components/Page';
 import ReservationInfo from './ReservationInfo';
+import dummySpaceImage from 'images/dummy_space.png';
+
+const dateFormat = (date) => {
+  return date.toLocaleDateString('ja-JP-u-ca-japanese', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+};
 
 export default (props) => {
   const { user, host } = props.schedule;
@@ -15,8 +24,9 @@ export default (props) => {
           userName={request.Space.Host.Name}
           place={request.Space.AddressPref}
           title={request.Space.Title}
-          startDate={request.StartDate}
-          endDate={request.EndDate}
+          imageUrl={request.Space.ImageUrl || dummySpaceImage}
+          startDate={dateFormat(new Date(request.StartDate))}
+          endDate={dateFormat(new Date(request.EndDate))}
           price={request.Price}
         />
       ))}
@@ -27,8 +37,9 @@ export default (props) => {
           userName={request.User.Name}
           place={request.Space.AddressPref}
           title={request.Space.Title}
-          startDate={request.StartDate}
-          endDate={request.EndDate}
+          imageUrl={request.Space.ImageUrl || dummySpaceImage}
+          startDate={dateFormat(new Date(request.StartDate))}
+          endDate={dateFormat(new Date(request.EndDate))}
           price={request.Price}
         />
       ))}
