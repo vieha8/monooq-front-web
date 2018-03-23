@@ -136,13 +136,13 @@ class Space extends React.Component {
   }
 
   sendMessage = async () => {
-    const { userId, space, history } = this.props;
-    const userId1 = userId;
+    const { user, space, history } = this.props;
+    const userId1 = user.ID;
     const userId2 = space.UserID;
     const spaceId = space.ID;
     let roomId = await getRoomId(userId1, userId2, spaceId);
     if (!roomId) {
-      roomId = await createRoom(userId1, userId2, spaceId);
+      roomId = await createRoom(userId1, user.FirebaseUid, userId2, space.Host.FirebaseUid, spaceId);
     }
     history.push(Path.message(roomId));
   };
@@ -294,7 +294,7 @@ class Space extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  userId: state.auth.user.ID,
+  user: state.auth.user,
   space: state.space.space,
   ui: state.ui,
 });

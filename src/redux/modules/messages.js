@@ -5,6 +5,7 @@ import { userActions } from './user';
 import firebase from 'firebase';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
+
 require('firebase/firestore');
 
 //Actions
@@ -95,15 +96,17 @@ export const messagesSagas = [
 ];
 
 //ルーム作成
-export const createRoom = (userId1, userId2, spaceId) => {
+export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId) => {
   return new Promise(async resolve => {
     const room = {
       [`user${userId1}`]: true,
       [`user${userId2}`]: true,
       [`space${spaceId}`]: true,
-      userId1: userId1,
-      userId2: userId2,
-      spaceId: spaceId,
+      userId1,
+      userId2,
+      firebaseUid1,
+      firebaseUid2,
+      spaceId,
     };
     const db = firebase.firestore();
     const roomRef = await db.collection('rooms').add(room);
@@ -152,22 +155,25 @@ const getRooms = userId => {
 
 //メッセージ取得
 const getMessages = roomId => {
-  return new Promise(async resolve => {
-    const db = firebase.firestore();
+  return new Promise(async (resolve, reject) => {
+    try {
+      const db = firebase.firestore();
+      const roomDoc = db.collection('rooms').doc(roomId);
+      const messages = await roomDoc
+        .collection('messages')
+        .orderBy('createDt')
+        .get();
 
-    const roomDoc = db.collection('rooms').doc(roomId);
-    const room = await roomDoc.get();
-    const messages = await roomDoc
-      .collection('messages')
-      .orderBy('createDt')
-      .get();
-
-    const res = {
-      room: room.data(),
-      messages: messages.docs.map(v => ({ id: v.id, ...v.data() })),
-    };
-
-    resolve(res);
+      const room = await roomDoc.get();
+      const res = {
+        room: room.data(),
+        messages: messages.docs.map(v => ({ id: v.id, ...v.data() })),
+      };
+      resolve(res);
+    } catch (err) {
+      console.error(err);
+      reject(err);
+    }
   });
 };
 
