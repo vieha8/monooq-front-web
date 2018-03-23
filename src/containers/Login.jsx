@@ -4,7 +4,6 @@ import { Redirect } from 'react-router';
 import Login from 'components/Login';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
-import { Loader } from 'semantic-ui-react';
 
 class LoginContainer extends React.Component {
   loginFacebook = () => {
@@ -40,10 +39,6 @@ class LoginContainer extends React.Component {
   }
 
   showLoginForm = () => {
-    if (this.props.isChecking) {
-      return <Loader size="large" />;
-    }
-
     if (!this.props.isLogin) {
       return (
         <Login
@@ -55,6 +50,7 @@ class LoginContainer extends React.Component {
           password={this.props.ui.password}
           error={this.props.loginFailed}
           buttonDisabled={!this.validate()}
+          isLoginProcessing={this.props.isChecking}
         />
       );
     }

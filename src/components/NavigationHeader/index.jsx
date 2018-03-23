@@ -32,7 +32,7 @@ const LogoWrapper = styled(Link) `
   width: 20%;
   padding-left: ${Dimens.small2}px;
   ${media.phone`
-    ${props => props.showSearchField && `
+    ${props => props.hide && `
       display: none;
     `}
   `}
@@ -57,7 +57,7 @@ const IconWrapper = styled(Link)`
   vertical-align: top;
   cursor: pointer;
   ${media.phone`
-    ${props => props.showSearchFiled && `
+    ${props => props.hide && `
       display: none;
     `}
   `}
@@ -142,7 +142,7 @@ const SearchFiled = styled.input`
 const HideSearchIconWrapper = styled.span`
   display: inline;
   ${media.phone`
-    ${props => props.showSearchField && `
+    ${props => props.hide && `
       display: none;
     `}
   `}
@@ -168,7 +168,7 @@ function renderMenuIcon(props) {
 
   if (user) {
     return (
-      <HideSearchIconWrapper showSearchField={showSearchField}>
+      <HideSearchIconWrapper hide={showSearchField}>
         <IconWrapper to={Path.messages(user.ID)}>
           <Icon name="fas fa-comment" reverse fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
@@ -181,7 +181,7 @@ function renderMenuIcon(props) {
   }
 
   return (
-    <HideSearchIconWrapper showSearchField={showSearchField}>
+    <HideSearchIconWrapper hide={showSearchField}>
       <LinkWrapper>
         <AnonymousUserLink to={Path.login()}>ログイン</AnonymousUserLink>
         &nbsp;/&nbsp;
@@ -200,7 +200,7 @@ function refSearchField(ref, props) {
 export default props => (
   <div>
     <Container>
-      <LogoWrapper to={Path.top()} showSearchField={props.showSearchField}>
+      <LogoWrapper to={Path.top()} hide={props.showSearchField}>
         <Logo src={logoUri} />
       </LogoWrapper>
       <MenuWrapper>
