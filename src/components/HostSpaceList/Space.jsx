@@ -58,8 +58,8 @@ export default props => (
   >
     <Card>
       <Image
-        src="http://placehold.jp/200x150.png"
-        alt=""
+        src={props.imageUrl}
+        alt={props.name}
       />
       <Content>
         <PlaceText>{props.place || <Empty />}</PlaceText>

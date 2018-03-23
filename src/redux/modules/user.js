@@ -7,6 +7,8 @@ import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions } from './auth';
 
+import dummySpaceImage from 'images/dummy_space.png';
+
 // Actions
 const FETCH_USER = 'FETCH_USER';
 const FETCH_SUCCESS_USER = 'FETCH_SUCCESS_USER';
@@ -92,7 +94,15 @@ function* getSpaces() {
     yield put(userActions.fetchFailedUserSpaces(meta));
     return;
   }
-  yield put(userActions.fetchSuccessUserSpaces(payload));
+
+  const res = payload.map(v => {
+    if (v.Images.length === 0) {
+      v.Images[0] = { ImageUrl: dummySpaceImage };
+    }
+    return v;
+  });
+
+  yield put(userActions.fetchSuccessUserSpaces(res));
 }
 
 function* updateUser({ payload: { userId, body } }) {

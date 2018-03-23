@@ -10,6 +10,8 @@ import { userActions } from './user';
 import axios from 'axios';
 import { authActions } from './auth';
 
+import dummySpaceImage from 'images/dummy_space.png';
+
 // Actions
 const FETCH_SPACE = 'FETCH_SPACE';
 const FETCH_SUCCESS_SPACE = 'FETCH_SUCCESS_SPACE';
@@ -110,7 +112,9 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
     }
   }
 
-  console.log(payload);
+  if (payload.Images.length === 0) {
+    payload.Images[0] = { ImageUrl: dummySpaceImage };
+  }
 
   yield put(spaceActions.fetchSuccessSpace(payload));
 }

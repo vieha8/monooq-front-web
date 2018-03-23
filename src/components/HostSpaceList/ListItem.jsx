@@ -30,7 +30,8 @@ export default (props) => {
         place={space.AddressTown}
         id={space.ID}
         name={space.Title}
-        typeOK
+        typeOK={space.IsFurniture}
+        imageUrl={space.Images[0].ImageUrl}
         price={`${space.PriceQuarter}/${space.PriceHalf}/${space.PriceFull}`} history={props.history}
       />
       <Buttons {...props} />

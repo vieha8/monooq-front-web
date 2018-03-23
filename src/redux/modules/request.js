@@ -169,6 +169,7 @@ function* fetchSchedule() {
 
   yield put(apiActions.apiGetRequest({ path: apiEndpoint.requestsByUserId(user.ID) }));
   const { payload: userRequests, error, meta } = yield take(apiActions.apiResponse);
+
   if (error) {
     yield put(requestActions.fetchScheduleFailed(meta));
     return;

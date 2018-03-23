@@ -24,7 +24,7 @@ export default (props) => {
           userName={request.Space.Host.Name}
           place={request.Space.AddressPref}
           title={request.Space.Title}
-          imageUrl={request.Space.ImageUrl || dummySpaceImage}
+          imageUrl={request.Space.Images.length !== 0 ? request.Space.Images[0].ImageUrl : dummySpaceImage }
           startDate={dateFormat(new Date(request.StartDate))}
           endDate={dateFormat(new Date(request.EndDate))}
           price={request.Price}

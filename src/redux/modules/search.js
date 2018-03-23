@@ -2,6 +2,8 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take } from 'redux-saga/effects';
 import { apiActions, apiEndpoint } from './api';
 
+import dummySpaceImage from 'images/dummy_space.png';
+
 // Actions
 const FETCH_START_SEARCH = 'FETCH_START_SEARCH';
 const FETCH_SUCCESS_SEARCH = 'FETCH_SUCCESS_SEARCH';
@@ -45,7 +47,15 @@ function* search({ payload: { location } }) {
     yield put(searchActions.fetchFailedSearch(meta));
     return;
   }
-  yield put(searchActions.fetchSuccessSearch(payload));
+
+  const res = payload.map(v => {
+    if (v.Images.length === 0) {
+      v.Images[0] = { ImageUrl: dummySpaceImage };
+    }
+    return v;
+  });
+
+  yield put(searchActions.fetchSuccessSearch(res));
 }
 
 export const searchSagas = [takeEvery(FETCH_START_SEARCH, search)];

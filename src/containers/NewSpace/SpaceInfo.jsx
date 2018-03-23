@@ -105,7 +105,6 @@ class SpaceInfoContainer extends React.Component {
       && space.address && space.address.length > 0) {
       return true;
     }
-
     return false;
   }
 
@@ -123,6 +122,7 @@ class SpaceInfoContainer extends React.Component {
           onClickImageDelete={this.onClickImageDelete}
           onClickNext={this.onClickNext}
         />
+        {this.props.ui.space.id}
       </Page>
     );
   }
