@@ -68,7 +68,7 @@ export const userReducer = handleActions(
 );
 
 //Sagas
-function* getUser({ payload: { userId } }) {
+export function* getUser({ payload: { userId } }) {
   yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(userId) }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error) {

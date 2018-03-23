@@ -2,6 +2,8 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
 import { authActions } from './auth';
 import { userActions } from './user';
+import { apiEndpoint } from './api';
+import { getApiRequest } from '../helpers/api';
 import firebase from 'firebase';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
@@ -56,19 +58,24 @@ export const messagesSagas = [
       yield take(authActions.checkLoginSuccess);
     }
     user = yield select(state => state.auth.user);
+
     const rooms = yield getRooms(user.ID);
 
-    yield all(
-      rooms.map(function*(room, i) {
+    const users = yield all(
+      rooms.map(room => {
         const { userId1, userId2 } = room;
-        const partnerUserId = user.ID === userId1 ? userId2 : userId1;
-        yield put(userActions.fetchUser({ userId: partnerUserId }));
-        const { payload: partnerUser } = yield take(userActions.fetchSuccessUser);
-        rooms[i].user = partnerUser;
+        const id = user.ID === userId1 ? userId2 : userId1;
+        return call(getApiRequest, apiEndpoint.users(id));
       }),
     );
 
-    yield put(messagesActions.fetchRoomsEnd(rooms));
+    const res = rooms.map((room, i) => {
+      //TODO エラーハンドリング
+      room.user = users[i].data;
+      return room;
+    });
+
+    yield put(messagesActions.fetchRoomsEnd(res));
   }),
   takeEvery(FETCH_MESSAGES_START, function*({ payload }) {
     let user = yield select(state => state.auth.user);
