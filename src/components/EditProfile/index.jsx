@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Input, Form, TextArea, Select } from 'semantic-ui-react';
 import Button from 'components/Shared/Button';
@@ -59,16 +59,16 @@ const ButtonWrapper = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
-const UnsubscribeText = styled(Link) `
-  display: block;
-  font-size: ${FontSizes.xsmall}px;
-  text-align: center;
-  color: ${Colors.linkBlue};
-  margin-top: ${Dimens.medium2}px;
-  &:hover {
-    color: ${Colors.linkBlue};
-  }
-`;
+// const UnsubscribeText = styled(Link) `
+//   display: block;
+//   font-size: ${FontSizes.xsmall}px;
+//   text-align: center;
+//   color: ${Colors.linkBlue};
+//   margin-top: ${Dimens.medium2}px;
+//   &:hover {
+//     color: ${Colors.linkBlue};
+//   }
+// `;
 
 export default props => (
   <ContentContainer>
@@ -146,7 +146,7 @@ export default props => (
           プロフィールを更新する
         </Button>
       </ButtonWrapper>
-      <UnsubscribeText to="/unsubscribe">退会申請をする</UnsubscribeText>
+      {/*<UnsubscribeText to="/unsubscribe">退会申請をする</UnsubscribeText>*/}
     </Content>
   </ContentContainer>
 );
