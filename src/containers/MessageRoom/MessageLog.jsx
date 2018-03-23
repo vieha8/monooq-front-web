@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import {Dimens} from "../../variables";
 import {media} from "../../helpers/style/media-query";
+import path from "../../config/path";
 
 const Container = styled.div`
   &:not(:first-child) {
@@ -112,7 +113,7 @@ export default props => {
               <StyledRecord
                 specialMessage
                 hasLink={true}
-                linkUrl={`/message/${this.roomId}/payment/${requestId}`}
+                linkUrl={path.payment(props.ui.roomId, requestId)}
                 date={date}
                 text={message.text}
 
