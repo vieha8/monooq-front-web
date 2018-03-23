@@ -68,7 +68,9 @@ const IconWrapper = styled(Link)`
   `}
 `;
 
-const UserIconWrapper = IconWrapper.withComponent('div');
+const UserIconWrapper = IconWrapper.withComponent('div').extend`
+  padding: 14px 14px 0 ${Dimens.small}px;
+`;
 
 const LinkWrapper = styled.div`
   display: inline-block;
