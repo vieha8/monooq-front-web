@@ -513,25 +513,25 @@ const MediaLineup = () => (
     <LineupTitle>メディア掲載</LineupTitle>
     <LineupList>
       <LineupItem>
-        <img src={logoCnet} alt="CNET Japan" />
+        <a href="https://japan.cnet.com/" target="_blank"><img src={logoCnet} alt="CNET Japan" /></a>
       </LineupItem>
       <LineupItem>
-        <img src={logoAscii} alt="ASCII.jp" />
+        <a href="http://ascii.jp/" target="_blank"><img src={logoAscii} alt="ASCII.jp" /></a>
       </LineupItem>
       <LineupItem>
-        <img src={logoBridge} alt="THE BRIDGE" />
+        <a href="http://thebridge.jp/" target="_blank"><img src={logoBridge} alt="THE BRIDGE" /></a>
       </LineupItem>
       <LineupItem>
-        <img src={logoAppliv} alt="Appliv" />
+        <a href="https://mag.app-liv.jp/" target="_blank"><img src={logoAppliv} alt="Appliv" /></a>
       </LineupItem>
       <LineupItem>
-        <img src={logoLifehacker} alt="lifehacker" />
+        <a href="https://www.lifehacker.jp/" target="_blank"><img src={logoLifehacker} alt="lifehacker" /></a>
       </LineupItem>
       <LineupItem>
-        <img src={logoTechcrunch} alt="TechCrunch" />
+        <a href="https://jp.techcrunch.com/" target="_blank"><img src={logoTechcrunch} alt="TechCrunch" /></a>
       </LineupItem>
       <LineupItem>
-        <img src={logoTechable} alt="TECHABLE" />
+        <a href="https://techable.jp" target="_blank"><img src={logoTechable} alt="TECHABLE" /></a>
       </LineupItem>
     </LineupList>
   </div>
