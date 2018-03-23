@@ -92,7 +92,7 @@ const estimateDateFormat = (date) => {
 
 export default props => {
 
-  const {messages, userId} = props;
+  const {messages, userId, room, ui} = props;
 
   const data = messages.map(message => {
     const params = {
@@ -112,7 +112,11 @@ export default props => {
         params.text += `利用開始日:${estimateDateFormat(startDate)}\n`;
         params.text += `利用終了日:${estimateDateFormat(endDate)}\n`;
         params.text += `料金:${price}円`;
-        params.linkUrl = path.payment(props.ui.roomId, requestId);
+
+        if(room.space.UserID !== userId) {
+          params.linkUrl = path.payment(ui.roomId, requestId);
+        }
+
         break;
       case 3:
         params.text = `取引成立です！あなたのお支払いが完了しました。届ける準備を始めましょう！`;

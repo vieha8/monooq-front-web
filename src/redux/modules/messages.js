@@ -2,6 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
 import { authActions } from './auth';
 import { userActions } from './user';
+import { spaceActions } from './space';
 import { apiEndpoint } from './api';
 import { getApiRequest } from '../helpers/api';
 import firebase from 'firebase';
@@ -56,62 +57,66 @@ export const messagesReducer = handleActions(
   initialState,
 );
 
-//Sagas
-export const messagesSagas = [
-  takeEvery(FETCH_ROOMS_START, function*() {
-    let user = yield select(state => state.auth.user);
-    if (!user.ID) {
-      yield take(authActions.checkLoginSuccess);
+function* fetchRoomStart() {
+  let user = yield select(state => state.auth.user);
+  if (!user.ID) {
+    yield take(authActions.checkLoginSuccess);
+  }
+  user = yield select(state => state.auth.user);
+
+  const rooms = yield getRooms(user.ID);
+
+  const users = yield all(
+    rooms.map(room => {
+      const { userId1, userId2 } = room;
+      const id = user.ID === userId1 ? userId2 : userId1;
+      return call(getApiRequest, apiEndpoint.users(id));
+    }),
+  );
+
+  const res = rooms.map((room, i) => {
+    //TODO エラーハンドリング
+    room.user = users[i].data;
+    return room;
+  });
+
+  yield put(messagesActions.fetchRoomsEnd(res));
+}
+
+function* fetchMessagesStart({ payload }) {
+  let user = yield select(state => state.auth.user);
+  if (!user.ID) {
+    yield take(authActions.checkLoginSuccess);
+  }
+  user = yield select(state => state.auth.user);
+
+  const { messages, room, messageObserver } = yield getMessages(payload);
+
+  messageObserver.onSnapshot(snapshot => {
+    if (snapshot.docChanges.length === 1) {
+      const message = snapshot.docChanges[0].doc.data();
+      store.dispatch(messagesActions.updateMessage(message));
     }
-    user = yield select(state => state.auth.user);
+  });
 
-    const rooms = yield getRooms(user.ID);
+  const { userId1, userId2, spaceId } = room;
+  const partnerUserId = user.ID === userId1 ? userId2 : userId1;
 
-    const users = yield all(
-      rooms.map(room => {
-        const { userId1, userId2 } = room;
-        const id = user.ID === userId1 ? userId2 : userId1;
-        return call(getApiRequest, apiEndpoint.users(id));
-      }),
-    );
+  yield put(userActions.fetchUser({ userId: partnerUserId }));
+  const { payload: partnerUser } = yield take(userActions.fetchSuccessUser);
+  room.user = partnerUser;
 
-    const res = rooms.map((room, i) => {
-      //TODO エラーハンドリング
-      room.user = users[i].data;
-      return room;
-    });
+  yield put(spaceActions.fetchSpace({ spaceId }));
+  const { payload: space } = yield take(spaceActions.fetchSuccessSpace);
+  room.space = space;
 
-    yield put(messagesActions.fetchRoomsEnd(res));
-  }),
-  takeEvery(FETCH_MESSAGES_START, function*({ payload }) {
-    let user = yield select(state => state.auth.user);
-    if (!user.ID) {
-      yield take(authActions.checkLoginSuccess);
-    }
-    user = yield select(state => state.auth.user);
+  yield put(messagesActions.fetchMessagesEnd({ messages, room }));
+}
 
-    const { messages, room, messageObserver } = yield getMessages(payload);
-
-    messageObserver.onSnapshot(snapshot => {
-      if (snapshot.docChanges.length === 1) {
-        const message = snapshot.docChanges[0].doc.data();
-        store.dispatch(messagesActions.updateMessage(message));
-      }
-    });
-
-    const { userId1, userId2 } = room;
-    const partnerUserId = user.ID === userId1 ? userId2 : userId1;
-
-    yield put(userActions.fetchUser({ userId: partnerUserId }));
-    const { payload: partnerUser } = yield take(userActions.fetchSuccessUser);
-    room.user = partnerUser;
-
-    yield put(messagesActions.fetchMessagesEnd({ messages, room }));
-  }),
-  takeEvery(SEND_MESSAGE, function*({ payload }) {
-    yield sendMessage(payload);
-  }),
-];
+const roomCollection = () => {
+  const db = firebase.firestore();
+  return db.collection('rooms');
+};
 
 //ルーム作成
 export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId) => {
@@ -126,17 +131,14 @@ export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId
       firebaseUid2,
       spaceId,
     };
-    const db = firebase.firestore();
-    const roomRef = await db.collection('rooms').add(room);
+    const roomRef = await roomCollection().add(room);
     resolve(roomRef.id);
   });
 };
 
 export const getRoomId = (userId1, userId2, spaceId) => {
   return new Promise(async resolve => {
-    const db = firebase.firestore();
-    const rooms = await db
-      .collection('rooms')
+    const rooms = await roomCollection()
       .where(`user${userId1}`, '==', true)
       .where(`user${userId2}`, '==', true)
       .where(`space${spaceId}`, '==', true)
@@ -153,9 +155,7 @@ export const getRoomId = (userId1, userId2, spaceId) => {
 //ルーム取得
 const getRooms = userId => {
   return new Promise(async resolve => {
-    const db = firebase.firestore();
-    const rooms = await db
-      .collection('rooms')
+    const rooms = await roomCollection()
       .where(`user${userId}`, '==', true)
       .get();
     const res = [];
@@ -175,8 +175,7 @@ const getRooms = userId => {
 const getMessages = roomId => {
   return new Promise(async (resolve, reject) => {
     try {
-      const db = firebase.firestore();
-      const roomDoc = db.collection('rooms').doc(roomId);
+      const roomDoc = roomCollection().doc(roomId);
       const messages = await roomDoc
         .collection('messages')
         .orderBy('createDt')
@@ -205,20 +204,20 @@ const sendMessage = function*(payload) {
   if (image) {
     const fileReader = new FileReader();
     fileReader.readAsArrayBuffer(image);
-    const ext = yield call(() => {
-      return new Promise(resolve => {
-        fileReader.onload = () => {
-          const imageType = fileType(fileReader.result);
-          resolve(imageType.ext);
-        };
-      });
-    });
+    const ext = yield call(
+      () =>
+        new Promise(resolve => {
+          fileReader.onload = () => {
+            const imageType = fileType(fileReader.result);
+            resolve(imageType.ext);
+          };
+        }),
+    );
     const timeStamp = Date.now();
     imageUrl = yield call(() => uploadImage(`/${roomId}/${userId}/${timeStamp}.${ext}`, image));
   }
 
   return yield new Promise(async resolve => {
-    const db = firebase.firestore();
     const message = {
       userId: userId,
       text: text,
@@ -229,7 +228,7 @@ const sendMessage = function*(payload) {
       message.image = imageUrl;
     }
 
-    const roomDoc = db.collection('rooms').doc(roomId);
+    const roomDoc = roomCollection().doc(roomId);
     await roomDoc.collection('messages').add(message);
     await roomDoc.set(
       {
@@ -242,3 +241,12 @@ const sendMessage = function*(payload) {
     resolve();
   });
 };
+
+//Sagas
+export const messagesSagas = [
+  takeEvery(FETCH_ROOMS_START, fetchRoomStart),
+  takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),
+  takeEvery(SEND_MESSAGE, function*({ payload }) {
+    yield sendMessage(payload);
+  }),
+];

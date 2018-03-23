@@ -22,9 +22,13 @@ export default props => (
     <AddMessageButton submit onClick={props.sendTextMessage}>
       送信
     </AddMessageButton>
-    <AddMessageButton estimate onClick={() => props.history.push(Path.estimate(props.ui.roomId))}>
-      見積もりを送る
-    </AddMessageButton>
+
+    { (props.room.space.UserID === props.userId) &&
+      <AddMessageButton estimate onClick={() => props.history.push(Path.estimate(props.ui.roomId))}>
+        見積もりを送る
+      </AddMessageButton>
+    }
+
   </SubmitMessageForm>
 );
 
