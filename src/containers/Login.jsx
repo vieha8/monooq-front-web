@@ -7,34 +7,37 @@ import { authActions } from 'redux/modules/auth';
 import { Loader } from 'semantic-ui-react';
 
 class LoginContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
-
   loginFacebook = () => {
     this.props.dispatch(authActions.loginFacebook());
   };
 
   loginEmail = () => {
     const { email, password } = this.props.ui;
+    this.props.dispatch(uiActions.setUiState({ inputed: false }));
     this.props.dispatch(authActions.loginEmail({ email, password }));
   };
 
   handleChangeEmail = (event) => {
     this.props.dispatch(uiActions.setUiState({
       email: event.target.value,
+      inputed: true,
     }));
   };
 
   handleChangePassword = (event) => {
     this.props.dispatch(uiActions.setUiState({
       password: event.target.value,
+      inputed: true,
     }));
   };
+
+  validate = () => {
+    const { ui } = this.props;
+    return (
+      ui.email && ui.email.length > 0
+      && ui.password && ui.password.length > 0
+    );
+  }
 
   showLoginForm = () => {
     if (this.props.isChecking) {
@@ -50,6 +53,8 @@ class LoginContainer extends React.Component {
           handleChangePassword={this.handleChangePassword}
           email={this.props.ui.email}
           password={this.props.ui.password}
+          error={this.props.loginFailed}
+          buttonDisabled={!this.validate()}
         />
       );
     }
@@ -65,6 +70,7 @@ class LoginContainer extends React.Component {
 const mapStateToProps = state => ({
   isLogin: state.auth.isLogin,
   isChecking: state.auth.isChecking,
+  loginFailed: state.auth.error && !state.ui.inputed,
   ui: state.ui,
 });
 

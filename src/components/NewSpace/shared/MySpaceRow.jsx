@@ -15,6 +15,7 @@ const Image = styled.img`
   display: block;
   border-radius: 6px;
   margin-right: ${Dimens.medium}px;
+  object-fit: cover;
 `;
 
 const Content = styled.div`
@@ -37,7 +38,7 @@ const Title = styled.span`
   line-height: 1.4em;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: no-wrap;
+  white-space: nowrap;
 `;
 
 export default props => (

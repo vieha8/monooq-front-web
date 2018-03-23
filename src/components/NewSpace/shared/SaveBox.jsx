@@ -1,14 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Button } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from 'variables';
 
 const Container = styled.div`
-`;
-
-const SaveArea = styled.div`
-  border-bottom: 1px solid ${Colors.borderGray};
-  padding: ${Dimens.medium2}px 0;
 `;
 
 const Title = styled.span`
@@ -28,13 +23,6 @@ const Text = styled.span`
   }
 `;
 
-const SaveText = Text.extend``;
-
-const ButtonWrapper = styled.div`
-  padding: ${Dimens.medium}px ${Dimens.medium2}px;
-  text-align: center;
-`;
-
 const styles = {
   card: {
     width: '100%',
@@ -52,17 +40,11 @@ const styles = {
 export default props => (
   <Container>
     <Card style={styles.card}>
-      <SaveArea>
-        <SaveText>下書き保存が可能です</SaveText>
-        <ButtonWrapper>
-          <Button style={styles.button}>保存する</Button>
-        </ButtonWrapper>
-      </SaveArea>
-      <Title>場所登録のステップ</Title>
+      <Title>登録の流れ</Title>
       <Text active={props.step >= 1}>1.スペースを登録する</Text>
-      <Text active={props.step >= 2}>2.預かる荷物について</Text>
-      <Text active={props.step >= 3}>3.荷物の受け取りについて</Text>
-      <Text active={props.step >= 4}>4.料金の目安を設定する</Text>
+      <Text active={props.step >= 2}>2.荷物について</Text>
+      <Text active={props.step >= 3}>3.受け取りについて</Text>
+      <Text active={props.step >= 4}>4.料金目安を設定する</Text>
     </Card>
   </Container>
 );

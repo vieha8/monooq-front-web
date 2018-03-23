@@ -8,9 +8,9 @@ import { Footer, DefaultContainer } from 'components/Shared';
 const MainTitle = styled.div`
   font-size: 34px;
   line-height: 51px;
-  margin-bottom: 44px;
   ${media.phone`
-    font-size: 32px;
+    font-size: 1.5em;
+    line-height: 1.5em;
   `};
 `;
 
@@ -27,7 +27,7 @@ const MainTitleContainer = DefaultContainer.extend`
   margin-top: 80px;
   margin-bottom: 44px;
   ${media.phone`
-    margin: 40px 0;
+    margin: 40px 0 20px;
   `};
 `;
 
@@ -44,15 +44,17 @@ const AsctContent = (props) => {
     width: 150px;
     font-weight: bold;
     margin-right: 20px;
-    line-height: 1.5;
+    line-height: 1.5em;
     ${media.phone`
       width: 100%;
+      line-height: 30px;
     `};
   `;
   const Data = styled.div`
-    line-height: 1.5;
+    line-height: 1.5em;
     ${media.phone`
       margin-top: 16px;
+      line-height: 30px;
     `}
   `;
   return (
@@ -71,6 +73,9 @@ const StyledAsctContent = styled(AsctContent)`
   justify-content: flex-start;
   font-size: 16px;
   border-bottom: 1px solid #DBDBDB;
+  ${media.phone`
+    padding-bottom: 0;
+  `};
 `;
 
 export default () => (

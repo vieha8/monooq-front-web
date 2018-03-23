@@ -17,6 +17,7 @@ const Image = styled.img`
   height: 70px;
   border-radius: 6px;
   margin-right: ${Dimens.medium}px;
+  object-fit: cover;
 `;
 
 const Content = styled.div`
@@ -32,14 +33,14 @@ const PlaceText = styled.span`
 
 const Title = styled.span`
   display: block;
+  max-width: 160px;
   max-height: calc(1.4em * 3);
   color: ${Colors.darkGray1};
   font-size: ${FontSizes.xsmall}px;
   margin-top: ${Dimens.small}px;
   line-height: 1.4em;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: no-wrap;
+  word-wrap: break-word;
 `;
 
 export default props => (

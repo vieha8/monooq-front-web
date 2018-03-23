@@ -11,7 +11,7 @@ export const Content = styled.div`
 export const Text = styled.div`
   font-size: ${FontSizes.medium}px;
   color: ${Colors.black};
-  line-height: 1.6;
+  line-height: 1.5;
 `;
 
 export const ToTopLink = styled.a`

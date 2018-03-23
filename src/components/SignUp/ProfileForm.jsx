@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import Icon from 'components/Shared/Icon';
-import { Input, Form, TextArea } from 'semantic-ui-react';
+import { Input, Form, TextArea, Select } from 'semantic-ui-react';
 import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import ErrorText from 'components/Shared/ErrorText';
+import { selectOptionPrefectures } from 'helpers/prefectures';
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -50,7 +52,7 @@ const CaptionText = styled.div`
   font-size: ${FontSizes.xsmall}px;
   color: ${Colors.darkGray1};
   text-align: left;
-  line-height: 1.6;
+  line-height: 1.5;
 `;
 
 const DndContent = styled.div`
@@ -69,16 +71,17 @@ const styles = {
 };
 
 const showImagePreview = (props) => {
-  //TODO 表示は仮なのでデザイン反映する
-  if(props.ui.user.image){
-    const { image } = props.ui.user;
+  // TODO 表示は仮なのでデザイン反映する
+  if (props.image) {
+    const { image } = props;
     return (
       <div>
-        {image.name}<br/>
         <img alt="preview" src={image.preview} width="100" />
       </div>
     );
   }
+
+  return null;
 };
 
 export default props => (
@@ -89,55 +92,55 @@ export default props => (
       <Dropzone
         style={styles.dnd}
         accept="image/jpeg, image/png"
-        onDrop={props.handleChangeImage}
+        onDrop={data => props.handleChangeProfileImage(data[0])}
       >
         <DndContent>
-          <IconWrapper>
-            <Icon name="far fa-image" size={64} fontSize={64} color={Colors.darkGray2} />
-          </IconWrapper>
+          {props.image ? showImagePreview(props) : (
+            <IconWrapper>
+              <Icon name="far fa-image" size={64} fontSize={64} color={Colors.darkGray2} />
+            </IconWrapper>
+          )}
           <CaptionText>写真を登録する</CaptionText>
         </DndContent>
       </Dropzone>
-      {showImagePreview(props)}
       <InputContainer>
         <Label>お名前</Label>
         <Input
           fluid
           name="name"
           placeholder="ニックネームでも可"
-          value={props.ui.name}
-          onChange={props.handleChangeText}
+          onChange={(_, e) => props.handleChangeName(e.value)}
         />
       </InputContainer>
+      {props.errors.name && <ErrorText errors={props.errors.name} />}
       <InputContainer>
         <Label>お住いの地域</Label>
-        <Input
-          fluid
-          name="address"
-          placeholder="東京都"
-          value={props.ui.address}
-          onChange={props.handleChangeText}
+        <Select
+          placeholder="選択してください"
+          style={{ width: '100%' }}
+          options={selectOptionPrefectures()}
+          name="prefCode"
+          onChange={(_, e) => props.handleChangePrefCode(e.value)}
         />
       </InputContainer>
+      {props.errors.prefCode && <ErrorText errors={props.errors.prefCode} />}
       <InputContainer>
         <Label>あなたの紹介文</Label>
         <CaptionText>ユーザー・ホストが安心するようにあなたの紹介文を掲載しましょう！</CaptionText>
         <Form>
           <TextArea
-            fluid
             name="profile"
             placeholder="例）はじめまして！モノオクホストのYUKIです。大きめの荷物でも柔軟に対応しております。いつでもチャットでご連絡くださいください！"
-            value={props.ui.profile}
-            onChange={props.handleChangeText}
+            onChange={(_, e) => props.handleChangeProfile(e.value)}
             rows={4}
           />
         </Form>
       </InputContainer>
+      {props.errors.profile && <ErrorText errors={props.errors.profile} />}
       <ButtonWrapper>
         <Button
-          bgColor={Colors.brandPrimary}
           onClick={props.onClickRegisterProfile}
-          fluid
+          disabled={props.buttonDisabled}
         >
           プロフィールを登録する
         </Button>

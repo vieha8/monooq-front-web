@@ -41,7 +41,7 @@ const Title = styled.div`
 
 const SubTitle = styled.div`
   margin-top: ${Dimens.medium}px;
-  line-height: 1.6;
+  line-height: 1.5;
   ${media.tablet`
     margin-top: ${Dimens.small2}px;
     padding: 0 ${Dimens.medium}px;
@@ -57,7 +57,7 @@ const Content = styled.div`
 
 export const ContentContainer = styled.div`
   max-width: 688px;
-  width: 50%;
+  width: 60%;
   float: left;
   margin-left: ${Dimens.large}px;
   &:after {

@@ -4,7 +4,7 @@ import { Colors, FontSizes, Dimens } from 'variables';
 const Input = styled.input`
   width: 100%;
   padding: ${Dimens.small2}px;
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.small}px;
   color: ${Colors.darkGray1};
   border: 1px solid ${Colors.borderGray};
   outline: none;
@@ -14,6 +14,9 @@ const Input = styled.input`
   background: ${Colors.lightGray1Bg};
   &:focus {
     background: ${Colors.white};
+  }
+  &::placeholder {
+    color: ${Colors.lightGray1};
   }
   ${props => props.invalid && `
     border-color: ${Colors.error};

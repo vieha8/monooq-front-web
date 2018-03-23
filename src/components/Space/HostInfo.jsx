@@ -39,6 +39,7 @@ const Image = styled.img`
   width: 60px;
   height: 60px;
   border-radius: 30px;
+  object-fit: cover;
 `;
 
 const ContentContainer = styled.div`

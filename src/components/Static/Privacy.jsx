@@ -9,7 +9,9 @@ const MainTitle = styled.div`
   line-height: 51px;
   margin-bottom: 44px;
   ${media.phone`
-    font-size: 32px;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin-bottom: 20px;
   `};
 `;
 
@@ -35,6 +37,9 @@ const Address = styled.address`
 
 const MainTitleContainer = DefaultContainer.extend`
   margin-top: 80px;
+  ${media.phone`
+    margin-top: 40px;
+  `};
 `;
 
 // 条
@@ -66,7 +71,7 @@ const UpdatedText = styled.div`
 `;
 
 const StyledArtContainer = styled(ArtContainer)`
-  margin-bottom: 64px;
+  margin-bottom: 80px;
 `;
 
 export default () => (

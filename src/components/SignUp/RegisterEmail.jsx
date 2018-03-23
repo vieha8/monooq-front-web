@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Input, Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
+import ErrorText from 'components/Shared/ErrorText';
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -46,11 +48,12 @@ const LinkTextWrapper = styled.div`
   font-size: ${FontSizes.xsmall}px;
   color: ${Colors.black};
   margin-top: ${Dimens.medium}px;
-  line-height: 1.6;
+  line-height: 1.5;
 `;
 
-const LinkText = styled.a`
+const LinkText = styled(Link)`
   display: inline;
+  font-size: ${FontSizes.xsmall}px;
   color: ${Colors.linkBlue};
 `;
 
@@ -70,6 +73,7 @@ const OtherLoginLabel = styled.div`
 
 const ToSignUpLinkCointainer = styled.div`
   margin-top: ${Dimens.medium}px;
+  padding-top: ${Dimens.medium}px;
   border-top: 1px solid ${Colors.borderGray};
 `;
 
@@ -86,10 +90,10 @@ export default props => (
           icon="envelope"
           iconPosition="left"
           fluid
-          value={props.email}
-          onChange={props.handleChangeText}
+          onChange={(_, e) => props.handleChangeEmail(e.value)}
         />
       </InputWrapper>
+      {props.errors.email && <ErrorText errors={props.errors.email} />}
       <InputWrapper>
         <Input
           type="password"
@@ -98,10 +102,10 @@ export default props => (
           icon="unlock"
           iconPosition="left"
           fluid
-          value={props.password}
-          onChange={props.handleChangeText}
+          onChange={(_, e) => props.handleChangePassword(e.value)}
         />
       </InputWrapper>
+      {props.errors.password && <ErrorText errors={props.errors.password} />}
       <InputWrapper>
         <Input
           type="password"
@@ -110,20 +114,20 @@ export default props => (
           icon="unlock alternate"
           iconPosition="left"
           fluid
-          value={props.passwordConfirm}
-          onChange={props.handleChangeText}
+          onChange={(_, e) => props.handleChangePasswordConfirm(e.value)}
         />
       </InputWrapper>
     </InputContainer>
+    {props.errors.passwordConfirm && <ErrorText errors={props.errors.passwordConfirm} />}
     <LinkTextWrapper>
-      <LinkText href={Path.terms()}>利用規約</LinkText>と
-      <LinkText href={Path.privacy()}>プライバシーポリシー</LinkText>に同意の上、<br />次へボタンを押してください。
+      <LinkText to={Path.terms()}>利用規約</LinkText>と
+      <LinkText to={Path.privacy()}>プライバシーポリシー</LinkText>に同意の上、<br />次へボタンを押してください。
     </LinkTextWrapper>
+    {props.errors.signupFailed && <ErrorText errors={props.errors.signupFailed} />}
     <ButtonWrapper>
       <Button
-        bgColor={Colors.brandPrimary}
-        fluid
         onClick={props.onClickSignUpEmail}
+        disabled={props.buttonDisabled}
       >
         次へ
       </Button>
@@ -131,9 +135,8 @@ export default props => (
     <ButtonWrapper>
       <OtherLoginLabel>お持ちのアカウントで登録</OtherLoginLabel>
       <Button
-        bgColor={Colors.facebook}
-        fluid
         onClick={props.onClickSignUpFacebook}
+        facebook
       >
         <IconWrapper>
           <Icon name="facebook square" />
@@ -142,7 +145,7 @@ export default props => (
       </Button>
     </ButtonWrapper>
     <ToSignUpLinkCointainer>
-      <LinkText href="/login">ログインはこちら</LinkText>
+      <LinkText to={Path.login()}>ログインはこちら</LinkText>
     </ToSignUpLinkCointainer>
   </Container>
 );

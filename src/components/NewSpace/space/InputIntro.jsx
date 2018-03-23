@@ -13,14 +13,14 @@ export default props => (
   <Container>
     <Title
       title="スペースの紹介文"
-      subTitle="荷物を預けても安心できるように、スペースやあなたが出来ることをアピールしましょう！"
+      subTitle="スペース情報やあなたができることをアピールしましょう！"
     />
     <TextArea
       name="introduction"
       value={props.ui.space.introduction || ''}
       onChange={e => props.handleChangeText(e.target.value)}
       invalid={(props.error.errors.introduction || []).length}
-      placeholder="例）広めの1ルームで預かります。短期でも長期でも可能です。普段は主婦をしているので、夕方までなら物の物の出し入れにも対応できると思います。"
+      placeholder="例）家具も入れられるワンルームが余っています。数ヶ月の長期間でも可能です！朝〜夕方までなら荷物の出し入れにも対応できる日もあると思います。"
       rows={5}
     />
     {props.error.errors.introduction && <ErrorText errors={props.error.errors.introduction} />}

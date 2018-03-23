@@ -67,7 +67,7 @@ const Caption = styled.span`
   color: ${Colors.darkGray2};
   font-size: ${FontSizes.xsmall}px;
   margin-top: ${Dimens.medium2}px;
-  line-height: 1.6;
+  line-height: 1.5;
   ${media.phone`
     width: 100%;
   `}

@@ -48,6 +48,17 @@ export const prefectures = [
   '沖縄県',
 ];
 
-export const getPrefecture = prefCode => {
+export function getPrefecture(prefCode) {
   return prefectures[parseInt(prefCode, 10) - 1];
-};
+}
+
+export function selectOptionPrefectures() {
+  return prefectures.map((pref, i) => {
+    const prefCode = i + 1;
+    return {
+      key: prefCode,
+      value: prefCode.toString(),
+      text: pref,
+    };
+  });
+}

@@ -7,7 +7,7 @@ const Text = styled.h1`
   display: block;
   font-size: ${FontSizes.xlarge}px;
   color: ${Colors.darkGray1};
-  line-height: 1.6;
+  line-height: 1.5;
   
   ${media.phone`
     font-size: ${FontSizes.medium2}px;

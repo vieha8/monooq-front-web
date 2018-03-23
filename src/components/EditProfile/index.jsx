@@ -1,12 +1,13 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Input, Form, TextArea, Select } from 'semantic-ui-react';
 import Button from 'components/Shared/Button';
 import { ContentContainer } from 'components/Page';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { prefectures } from "../../helpers/prefectures";
+import { selectOptionPrefectures } from 'helpers/prefectures';
+import ErrorText from 'components/Shared/ErrorText';
 
 const Content = styled.div`
   ${media.phone`
@@ -34,6 +35,7 @@ const Image = styled.img`
   width: ${IMAGE_SIZE}px;
   height: ${IMAGE_SIZE}px;
   border-radius: ${IMAGE_SIZE / 2}px;
+  object-fit: cover;
 `;
 
 const Title = styled.div`
@@ -57,7 +59,7 @@ const ButtonWrapper = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
-const UnsubscribeText = styled(Link)`
+const UnsubscribeText = styled(Link) `
   display: block;
   font-size: ${FontSizes.xsmall}px;
   text-align: center;
@@ -67,17 +69,6 @@ const UnsubscribeText = styled(Link)`
     color: ${Colors.linkBlue};
   }
 `;
-
-const getPrefectures = () => {
-  return prefectures.map((pref, i) => {
-    const prefCode = i + 1;
-    return ({
-      key: prefCode,
-      value: prefCode.toString(),
-      text: pref,
-    });
-  });
-};
 
 export default props => (
   <ContentContainer>
@@ -94,33 +85,39 @@ export default props => (
       <InputContainer>
         <Title>お名前</Title>
         <InputWrapper>
-          <Input placeholder="ニックネーム"
-                 name="name"
-                 value={props.ui.user.name}
-                 onChange={props.handleChangeText}
-                 style={{ width: '70%' }} />
+          <Input
+            placeholder="ニックネーム"
+            name="name"
+            value={props.user.name}
+            onChange={(_, e) => props.handleChangeName(e.value)}
+            style={{ width: '70%' }}
+          />
         </InputWrapper>
       </InputContainer>
+      {props.errors.name && <ErrorText errors={props.errors.name} />}
       <InputContainer>
         <Title>メールアドレス</Title>
         <InputWrapper>
-          <Input placeholder="info@monooq.com"
-                 name="email"
-                 value={props.ui.user.email}
-                 onChange={props.handleChangeText}
-                 style={{ width: '70%' }} />
+          <Input
+            placeholder="info@monooq.com"
+            name="email"
+            value={props.user.email}
+            onChange={(_, e) => props.handleChangeEmail(e.value)}
+            style={{ width: '70%' }}
+          />
         </InputWrapper>
       </InputContainer>
+      {props.errors.email && <ErrorText errors={props.errors.email} />}
       <InputContainer>
         <Title>お住いの地域</Title>
         <InputWrapper>
           <Select
             placeholder="選択してください"
             style={{ width: '70%' }}
-            options={getPrefectures()}
+            options={selectOptionPrefectures()}
             name="prefCode"
-            value={props.ui.user.prefCode}
-            onChange={props.handleChangeSelect}
+            value={props.user.prefCode}
+            onChange={(_, e) => props.handleChangePrefCode(e.value)}
           />
         </InputWrapper>
       </InputContainer>
@@ -134,14 +131,20 @@ export default props => (
               style={{ width: '100%' }}
               rows={5}
               name="profile"
-              value={props.ui.user.profile}
-              onChange={props.handleChangeText}
+              value={props.user.profile}
+              onChange={(_, e) => props.handleChangeProfile(e.value)}
             />
           </Form>
         </InputWrapper>
       </InputContainer>
+      {props.errors.profile && <ErrorText errors={props.errors.profile} />}
       <ButtonWrapper>
-        <Button fluid onClick={props.onClickSave}>プロフィールを更新する</Button>
+        <Button
+          onClick={props.onClickSave}
+          disabled={props.buttonDisabled}
+        >
+          プロフィールを更新する
+        </Button>
       </ButtonWrapper>
       <UnsubscribeText to="/unsubscribe">退会申請をする</UnsubscribeText>
     </Content>

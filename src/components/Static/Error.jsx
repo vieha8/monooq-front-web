@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import Path from 'config/path';
 
 import styled from 'styled-components';
-import {media} from 'helpers/style/media-query';
-
+import { media } from 'helpers/style/media-query';
+import Intercom from 'components/Shared/Intercom';
 import { Footer } from 'components/Shared';
 
 const DefaultContainer = styled.div`
@@ -68,28 +68,28 @@ export default () => (
       <Text>参考のリンク</Text>
       {[
         {
-          text: "トップページへ戻る",
-          path: "/",
+          text: 'トップページへ戻る',
+          path: '/',
         },
         {
-          text: "ホストになる",
+          text: 'ホストになる',
           path: Path.signup(),
         },
         {
-          text: "はじめての方へ",
+          text: 'はじめての方へ',
           path: Path.about(),
         },
         {
-          text: "よくあるご質問",
-          path: "#",
+          text: 'よくあるご質問',
+          path: '#',
         },
-      ].map((v,i)=>{
+      ].map((v, i) => {
         return (
           <List key={i}><Anchor href={v.path}>{v.text}</Anchor></List>
         );
       })}
     </RecommendLinkContainer>
-
+    <Intercom />
     <Footer />
   </Fragment>
 );

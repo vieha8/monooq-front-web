@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Dimens} from 'variables';
-import {media} from 'helpers/style/media-query';
+import { Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 import Space from './Space';
 import Buttons from './Buttons';
 
@@ -23,12 +23,17 @@ const Container = styled.div`
 `;
 
 export default (props) => {
-  const {space} = props;
+  const { space } = props;
   return (
     <Container>
-      <Space place={space.AddressTown} id={space.ID} name={space.Title} typeOK
-             price={`${space.PriceQuarter}/${space.PriceHalf}/${space.PriceFull}`} history={props.history} />
+      <Space
+        place={space.AddressTown}
+        id={space.ID}
+        name={space.Title}
+        typeOK
+        price={`${space.PriceQuarter}/${space.PriceHalf}/${space.PriceFull}`} history={props.history}
+      />
       <Buttons {...props} />
     </Container>
-  )
+  );
 };

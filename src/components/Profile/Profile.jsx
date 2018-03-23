@@ -31,6 +31,7 @@ const Image = styled.img`
   width: ${IMAGE_SIZE}px;
   height: ${IMAGE_SIZE}px;
   border-radius: ${IMAGE_SIZE / 2}px;
+  object-fit: cover;
 `;
 
 const HostName = styled.div`

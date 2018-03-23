@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Path from 'config/path';
 import Icon from 'components/Shared/Icon';
 import Menu from 'containers/Menu';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
-import { media, isMobileWindow } from 'helpers/style/media-query';
+import { media, mediaMin, isMobileWindow } from 'helpers/style/media-query';
 import logoUri from 'images/monooq_logo.svg';
 
 const Container = styled.nav`
@@ -16,7 +16,6 @@ const Container = styled.nav`
   right: 0;
   width: 100%;
   height: 60px;
-  padding: 0 ${Dimens.small}px;
   border-bottom: 1px solid ${Colors.borderGray};
   background: ${Colors.white};
   z-index: ${ZIndexes.nav};
@@ -27,14 +26,21 @@ export const TopPadding = styled.div`
   width: 100%;
 `;
 
-const LogoWrapper = styled(Link)`
+const LogoWrapper = styled(Link) `
   display: table-cell;
   vertical-align: middle;
   width: 20%;
+  padding-left: ${Dimens.small2}px;
+  ${media.phone`
+    ${props => props.showSearchField && `
+      display: none;
+    `}
+  `}
 `;
 
 const Logo = styled.img`
-  width: 120px;
+  width: 80px;
+  height: 20px;
 `;
 
 const MenuWrapper = styled.div`
@@ -50,6 +56,16 @@ const IconWrapper = styled.a`
   padding: 18px ${Dimens.small}px 0;
   vertical-align: top;
   cursor: pointer;
+  ${media.phone`
+    ${props => props.showSearchFiled && `
+      display: none;
+    `}
+  `}
+  ${mediaMin.desktop`
+    ${props => props.hidePc && `
+      display: none;
+    `}
+  `}
 `;
 
 const UserIconWrapper = IconWrapper.withComponent('div');
@@ -70,7 +86,7 @@ const UserImage = styled.img`
   border-radius: 16px;
 `;
 
-const AnonymousUserLink = styled.a`
+const AnonymousUserLink = styled(Link) `
   color: ${Colors.linkBlue};
   font-size: ${FontSizes.medium}px;
 `;
@@ -103,7 +119,7 @@ const SearchFiled = styled.input`
       width: 0;
     }
     100% {
-      width: ${props => (props.isMobile ? 100 : 300)}px;
+      width: ${props => (props.isMobile ? '70%' : '300px')};
     }
   }
 
@@ -118,7 +134,16 @@ const SearchFiled = styled.input`
     animation-fill-mode: forwards;
     width: 300px;
     ${media.phone`
-      width: 100px;
+      width: 70%;
+    `}
+  `}
+`;
+
+const HideSearchIconWrapper = styled.span`
+  display: inline;
+  ${media.phone`
+    ${props => props.showSearchField && `
+      display: none;
     `}
   `}
 `;
@@ -137,13 +162,13 @@ function renderMenu(props) {
 }
 
 function renderMenuIcon(props) {
-  const { user, loginChecking, showMenu, onClickToggleMenu } = props;
+  const { user, loginChecking, showMenu, onClickToggleMenu, showSearchField } = props;
 
   if (loginChecking) return null;
 
   if (user) {
     return (
-      <Fragment>
+      <HideSearchIconWrapper showSearchField={showSearchField}>
         <IconWrapper href={Path.messages(user.ID)}>
           <Icon name="fas fa-comment" reverse fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
@@ -151,16 +176,18 @@ function renderMenuIcon(props) {
           <UserImage src={user.ImageUrl} alt={user.name} />
         </UserIconWrapper>
         {showMenu && renderMenu(props)}
-      </Fragment>
+      </HideSearchIconWrapper>
     );
   }
 
   return (
-    <LinkWrapper>
-      <AnonymousUserLink href={Path.login()}>ログイン</AnonymousUserLink>
-      &nbsp;/&nbsp;
-      <AnonymousUserLink href={Path.signup()}>登録</AnonymousUserLink>
-    </LinkWrapper>
+    <HideSearchIconWrapper showSearchField={showSearchField}>
+      <LinkWrapper>
+        <AnonymousUserLink to={Path.login()}>ログイン</AnonymousUserLink>
+        &nbsp;/&nbsp;
+        <AnonymousUserLink to={Path.signup()}>登録</AnonymousUserLink>
+      </LinkWrapper>
+    </HideSearchIconWrapper>
   );
 }
 
@@ -173,7 +200,7 @@ function refSearchField(ref, props) {
 export default props => (
   <div>
     <Container>
-      <LogoWrapper to={Path.top()}>
+      <LogoWrapper to={Path.top()} showSearchField={props.showSearchField}>
         <Logo src={logoUri} />
       </LogoWrapper>
       <MenuWrapper>
@@ -182,10 +209,16 @@ export default props => (
           show={props.showSearchField}
           innerRef={ref => refSearchField(ref, props)}
           placeholder="どこの物置きを探す？"
+          onChange={e => props.onChangeKeyword(e.target.value)}
         />
         <IconWrapper onClick={props.onClickSearchIcon}>
           <Icon name="fal fa-search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
+        {props.showSearchField &&
+          <IconWrapper hidePc onClick={props.onClickCloseSearch}>
+            <Icon name="fal fa-times" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
+          </IconWrapper>
+        }
         {renderMenuIcon(props)}
       </MenuWrapper>
     </Container>

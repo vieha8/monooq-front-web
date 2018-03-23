@@ -23,6 +23,7 @@ const Content = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 90px;
+  object-fit: cover;
 `;
 
 const Text = styled.span`

@@ -5,6 +5,7 @@ import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
 import { media } from 'helpers/style/media-query';
+import ErrorText from 'components/Shared/ErrorText';
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -64,16 +65,16 @@ export default props => (
           iconPosition="left"
           fluid
           value={props.email}
-          onChange={props.handleChangeEmail}
+          onChange={(_, e) => props.handleChangeEmail(e.value)}
         />
       </InputWrapper>
     </InputContainer>
+    {props.errors.email && <ErrorText errors={props.errors.email} />}
     <Message>登録済みのメールアドレスを入力してください。<br />再設定用メールをお送りします。</Message>
     <ButtonWrapper>
       <Button
-        bgColor={Colors.brandPrimary}
-        fluid
         onClick={props.onClickPasswordReset}
+        disabled={props.buttonDisabled}
       >
         再設定用メールを送信
       </Button>

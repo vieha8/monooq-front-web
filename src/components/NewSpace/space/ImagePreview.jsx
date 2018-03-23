@@ -21,6 +21,7 @@ const Image = styled.img`
   height: 100%;
   border-radius: 6px;
   overflow: hidden;
+  object-fit: cover;
 `;
 
 const Content = styled.div`

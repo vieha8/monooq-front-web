@@ -12,7 +12,7 @@ const Container = styled.div`
 export default props => (
   <Container>
     <Title
-      title="エリアや特徴がわかるタイトルをつけましょう"
+      title="特徴がわかるタイトルをつけましょう"
       subTitle="全角40文字まで。"
     />
     <Input

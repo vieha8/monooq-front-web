@@ -5,7 +5,8 @@ import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
 import { media } from 'helpers/style/media-query';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import ErrorText from 'components/Shared/ErrorText';
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -79,7 +80,6 @@ export default props => (
           icon="envelope"
           iconPosition="left"
           fluid
-          value={props.email}
           onChange={props.handleChangeEmail}
         />
       </InputWrapper>
@@ -90,17 +90,16 @@ export default props => (
           icon="lock"
           iconPosition="left"
           fluid
-          value={props.password}
           onChange={props.handleChangePassword}
         />
       </InputWrapper>
     </InputContainer>
+    {props.error && <ErrorText errors={['ユーザー名またはパスワードに誤りがあります。']} />}
     <LinkText to="/password/reset">パスワードを忘れた方はこちら</LinkText>
     <ButtonWrapper>
       <Button
-        bgColor={Colors.brandPrimary}
-        fluid
         onClick={props.onClickLoginEmail}
+        disabled={props.buttonDisabled}
       >
         ログインする
       </Button>
@@ -108,9 +107,8 @@ export default props => (
     <ButtonWrapper>
       <OtherLoginLabel>お持ちのアカウントでログイン</OtherLoginLabel>
       <Button
-        bgColor={Colors.facebook}
-        fluid
         onClick={props.onClickLoginFacebook}
+        facebook
       >
         <IconWrapper>
           <Icon name="facebook square" />

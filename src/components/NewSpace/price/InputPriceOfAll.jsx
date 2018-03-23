@@ -23,7 +23,7 @@ const Unit = styled.span`
 export default props => (
   <Container>
     <Title
-      title="荷物を預かる料金目安（スペースまるごと）"
+      title="料金目安（スペースまるごと）"
       subTitle="スペースの全体を使用する荷物の場合の料金"
     />
     <PriceWrapper>

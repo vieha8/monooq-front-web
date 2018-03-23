@@ -41,6 +41,7 @@ const Information = props => {
     height: 79px;
     object-fit: cover;
     margin-right: 20px;
+    object-fit: cover;
   `;
 
   const Area = styled.div`

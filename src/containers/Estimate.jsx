@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import { errorActions } from 'redux/modules/error';

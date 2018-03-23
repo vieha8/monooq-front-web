@@ -9,7 +9,9 @@ const MainTitle = styled.div`
   line-height: 51px;
   margin-bottom: 44px;
   ${media.phone`
-    font-size: 32px;
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin-bottom: 20px;
   `};
 `;
 
@@ -31,6 +33,9 @@ const Hr = styled.hr`
 
 const MainTitleContainer = DefaultContainer.extend`
   margin-top: 80px;
+  ${media.phone`
+    margin-top: 40px;
+  `};
 `;
 
 // 章
@@ -38,6 +43,11 @@ const Chapter = styled.div`
   font-size: 30px;
   line-height: 45px;
   margin-bottom: 44px;
+  ${media.phone`
+    font-size: 1.5em;
+    line-height: 1.5em;
+    margin-bottom: 30px;
+  `};
 `;
 
 // 条
@@ -45,6 +55,11 @@ const Art = styled.div`
   font-size: 22px;
   line-height: 33px;
   margin-bottom: 30px;
+  ${media.phone`
+    font-size: 1.25em;
+    line-height: 1.25em;
+    margin-bottom: 20px;
+  `};
 `;
 
 // 項

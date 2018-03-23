@@ -9,7 +9,7 @@ const Button = styled.div`
     props.width &&
     `
     max-width: ${props.width}px;  
-  `} padding: 17px 70px;
+  `} padding: 17px 10px;
   text-align: center;
   font-size: 16px;
   color: ${Colors.white};

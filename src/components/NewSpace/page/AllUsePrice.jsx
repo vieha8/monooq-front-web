@@ -19,7 +19,7 @@ export default props => (
     <PageContent>
       <Header
         header="料金目安を設定する"
-        subHeader="あなたのスペースで荷物を預かる料金はいくら？"
+        subHeader="あなたのスペース料金はいくら？"
       />
       <InputPriceOfAll {...props} handleChangeText={props.handleChangePriceAll} />
       <ButtonsContainer>
