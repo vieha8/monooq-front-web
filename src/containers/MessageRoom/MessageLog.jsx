@@ -14,26 +14,7 @@ const Container = styled.div`
   `}
 `;
 
-const Record = props => {
-  const RecordLink = styled.div`
-    color: #006494;
-    float: right;
-    margin-top: 30px;
-    cursor: pointer;
-  `;
-  let RecordLinkComponent = '';
-  if (props.hasLink) {
-    RecordLinkComponent = <RecordLink><Link to={props.linkUrl}>この見積もりでお支払いに進む</Link></RecordLink>;
-  }
-  return (
-    <div className={props.className}>
-      {props.text}
-      {RecordLinkComponent}
-    </div>
-  );
-};
-
-const StyledRecord = styled(Record)`
+const StyledRecord = styled.div`
   float: left;
   max-width: 584px;
   border-radius: 5px;
@@ -46,6 +27,7 @@ const StyledRecord = styled(Record)`
   line-height: 28px;
   font-weight: 100;
   word-wrap: break-word;
+  white-space: pre-wrap;
   ${media.phone`
     max-width: 260px;
     font-size: 11px;
@@ -71,6 +53,13 @@ const StyledRecord = styled(Record)`
     : ''};
 `;
 
+const RecordLink = styled(Link)`
+    color: #006494;
+    float: right;
+    margin-top: 30px;
+    cursor: pointer;
+  `;
+
 const StyledDate = styled.div`
             font-size: 12px;
             line-height: 14px;
@@ -83,7 +72,7 @@ const ClearBoth = styled.div`
   clear: both;
 `;
 
-const dateFormat = (date) => {
+const messageDateFormat = (date) => {
   return date.toLocaleDateString('ja-JP', {
     year: '2-digit',
     month: '2-digit',
@@ -93,53 +82,62 @@ const dateFormat = (date) => {
   });
 };
 
+const estimateDateFormat = (date) => {
+  return date.toLocaleDateString('ja-JP-u-ca-japanese', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+};
+
 export default props => {
 
   const { messages, userId } = props;
 
+  const data = messages.map(message => {
+    const params = {
+      date : messageDateFormat(message.createDt),
+      isSelf: message.userId === userId,
+      isSpecial: message.messageType !== 1
+    };
+
+    switch (message.messageType) {
+      case 1:
+        params.text = message.text;
+        break;
+      case 2:
+        //見積りメッセージ
+        const {startDate, endDate, price, requestId} = message;
+        params.text = `お見積り\n`;
+        params.text += `利用開始日:${estimateDateFormat(startDate)}\n`;
+        params.text += `利用終了日:${estimateDateFormat(endDate)}\n`;
+        params.text += `料金:${price}円`;
+        params.hasLink = true;
+        params.linkUrl = path.payment(props.ui.roomId, requestId);
+        break;
+      case 3:
+        params.text = `取引成立です！あなたのお支払いが完了しました。届ける準備を始めましょう！`;
+        break;
+      default:
+        break;
+    }
+
+    return params;
+  });
+
   return (
     <Container>
-      {messages.map(message => {
-        const date = dateFormat(message.createDt);
-
-        const isSelf = message.userId !== userId;
-        const isSpecial = message.messageType !== 1;
-
-        const params = {
-          date,
-          isSelf,
-          isSpecial
-        };
-
-        switch (message.messageType) {
-          case 1:
-            params.text = message.text;
-            break;
-          case 2:
-            //見積りメッセージ
-            const {startDate, endDate, price, requestId} = message;
-            params.text = `お見積り 利用開始日:${startDate} 利用終了日:${endDate} 料金:${price}円`;
-            params.hasLink = true;
-            params.linkUrl = path.payment(props.ui.roomId, requestId);
-            break;
-          case 3:
-            params.text = `取引成立です！あなたのお支払いが完了しました。届ける準備を始めましょう！`;
-            break;
-          default:
-            break;
-        }
-
-        const RecordComponent = () => <StyledRecord {...params} text={message.text} />;
-
-        return (
-          <div key={message.id}>
-            <RecordComponent />
-            <ClearBoth />
-            <StyledDate>{date}</StyledDate>
-            <ClearBoth />
-          </div>
-        );
-      })}
+      {data.map((v, i) => (
+        <div key={i}>
+          <StyledRecord isSelf={v.isSelf} isSpecial={v.isSpecial} >
+            {v.text}
+            {v.linkUrl && <RecordLink to={v.linkUrl}>この見積もりでお支払いに進む</RecordLink>}
+          </StyledRecord>
+          <ClearBoth />
+          <StyledDate>{v.date}</StyledDate>
+          <ClearBoth />
+        </div>
+      ))}
     </Container>
   );
 };
