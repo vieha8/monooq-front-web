@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import styled from 'styled-components';
 import {Dimens} from "../../variables";
 import {media} from "../../helpers/style/media-query";
@@ -54,19 +54,19 @@ const StyledRecord = styled.div`
 `;
 
 const RecordLink = styled(Link)`
-    color: #006494;
-    float: right;
-    margin-top: 30px;
-    cursor: pointer;
-  `;
+  color: #006494;
+  float: right;
+  margin-top: 30px;
+  cursor: pointer;
+`;
 
 const StyledDate = styled.div`
-            font-size: 12px;
-            line-height: 14px;
-            color: #b4b4b4;
-            float: right;
-            margin-bottom: 20px;
-          `;
+  font-size: 12px;
+  line-height: 14px;
+  color: #b4b4b4;
+  float: right;
+  margin-bottom: 20px;
+`;
 
 const ClearBoth = styled.div`
   clear: both;
@@ -92,11 +92,11 @@ const estimateDateFormat = (date) => {
 
 export default props => {
 
-  const { messages, userId } = props;
+  const {messages, userId} = props;
 
   const data = messages.map(message => {
     const params = {
-      date : messageDateFormat(message.createDt),
+      date: messageDateFormat(message.createDt),
       isSelf: message.userId === userId,
       isSpecial: message.messageType !== 1
     };
@@ -112,7 +112,6 @@ export default props => {
         params.text += `利用開始日:${estimateDateFormat(startDate)}\n`;
         params.text += `利用終了日:${estimateDateFormat(endDate)}\n`;
         params.text += `料金:${price}円`;
-        params.hasLink = true;
         params.linkUrl = path.payment(props.ui.roomId, requestId);
         break;
       case 3:
@@ -125,17 +124,19 @@ export default props => {
     return params;
   });
 
+  // TODO props.room.user.ImageUrlに相手のアイコン画像が入ってるからメッセージ横に表示したい
+
   return (
     <Container>
       {data.map((v, i) => (
         <div key={i}>
-          <StyledRecord isSelf={v.isSelf} isSpecial={v.isSpecial} >
+          <StyledRecord isSelf={v.isSelf} isSpecial={v.isSpecial}>
             {v.text}
             {v.linkUrl && <RecordLink to={v.linkUrl}>この見積もりでお支払いに進む</RecordLink>}
           </StyledRecord>
-          <ClearBoth />
+          <ClearBoth/>
           <StyledDate>{v.date}</StyledDate>
-          <ClearBoth />
+          <ClearBoth/>
         </div>
       ))}
     </Container>

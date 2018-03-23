@@ -7,6 +7,7 @@ import { getApiRequest } from '../helpers/api';
 import firebase from 'firebase';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
+import { store } from '../store/configureStore';
 
 require('firebase/firestore');
 
@@ -16,6 +17,7 @@ const FETCH_ROOMS_END = 'FETCH_ROOMS_END';
 const FETCH_MESSAGES_START = 'FETCH_MESSAGES_START';
 const FETCH_MESSAGES_END = 'FETCH_MESSAGES_END';
 const SEND_MESSAGE = 'SEND_MESSAGE';
+const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 
 export const messagesActions = createActions(
   FETCH_ROOMS_START,
@@ -23,6 +25,7 @@ export const messagesActions = createActions(
   FETCH_MESSAGES_START,
   FETCH_MESSAGES_END,
   SEND_MESSAGE,
+  UPDATE_MESSAGE,
 );
 
 //Reducer
@@ -45,7 +48,10 @@ export const messagesReducer = handleActions(
       messages: action.payload.messages,
       room: action.payload.room,
     }),
-    [SEND_MESSAGE]: state => ({ ...state }),
+    [UPDATE_MESSAGE]: (state, action) => ({
+      ...state,
+      messages: [...state.messages, action.payload],
+    }),
   },
   initialState,
 );
@@ -84,7 +90,14 @@ export const messagesSagas = [
     }
     user = yield select(state => state.auth.user);
 
-    const { messages, room } = yield getMessages(payload);
+    const { messages, room, messageObserver } = yield getMessages(payload);
+
+    messageObserver.onSnapshot(snapshot => {
+      if (snapshot.docChanges.length === 1) {
+        const message = snapshot.docChanges[0].doc.data();
+        store.dispatch(messagesActions.updateMessage(message));
+      }
+    });
 
     const { userId1, userId2 } = room;
     const partnerUserId = user.ID === userId1 ? userId2 : userId1;
@@ -97,8 +110,6 @@ export const messagesSagas = [
   }),
   takeEvery(SEND_MESSAGE, function*({ payload }) {
     yield sendMessage(payload);
-    // TODO 都度fetchせずonSnapshot使った方が良い
-    yield put(messagesActions.fetchMessagesStart(payload.roomId));
   }),
 ];
 
@@ -175,7 +186,9 @@ const getMessages = roomId => {
       const res = {
         room: room.data(),
         messages: messages.docs.map(v => ({ id: v.id, ...v.data() })),
+        messageObserver: roomDoc.collection('messages'),
       };
+
       resolve(res);
     } catch (err) {
       console.error(err);
