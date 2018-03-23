@@ -52,7 +52,7 @@ const StyledRecord = styled(Record)`
     line-height: 18px;
   `};
   ${props =>
-  props.myMessage
+  props.isSelf
     ? `
         float: right;
         background-color: #feebeb;
@@ -61,7 +61,7 @@ const StyledRecord = styled(Record)`
     `
     : ''};
   ${props =>
-  props.specialMessage
+  props.isSpecial
     ? `
         width: 100%;
         background-color: #d9ffe5;
@@ -71,6 +71,27 @@ const StyledRecord = styled(Record)`
     : ''};
 `;
 
+const StyledDate = styled.div`
+            font-size: 12px;
+            line-height: 14px;
+            color: #b4b4b4;
+            float: right;
+            margin-bottom: 20px;
+          `;
+
+const ClearBoth = styled.div`
+  clear: both;
+`;
+
+const dateFormat = (date) => {
+  return date.toLocaleDateString('ja-JP', {
+    year: '2-digit',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
 
 export default props => {
 
@@ -79,68 +100,43 @@ export default props => {
   return (
     <Container>
       {messages.map(message => {
-        const date = message.createDt.toLocaleDateString('ja-JP', {
-          year: '2-digit',
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit',
-        });
+        const date = dateFormat(message.createDt);
 
-        const StyledDate = styled.div`
-            font-size: 12px;
-            line-height: 14px;
-            color: #b4b4b4;
-            float: right;
-            margin-bottom: 20px;
-          `;
+        const isSelf = message.userId !== userId;
+        const isSpecial = message.messageType !== 1;
 
-        let RecordComponent = () => <StyledRecord myMessage date={date} text={message.text} />;
+        const params = {
+          date,
+          isSelf,
+          isSpecial
+        };
 
         switch (message.messageType) {
           case 1:
-            //通常のメッセージ
-            if (message.userId !== userId) {
-              RecordComponent = () => <StyledRecord date={date} text={message.text} />;
-            }
+            params.text = message.text;
             break;
           case 2:
             //見積りメッセージ
             const {startDate, endDate, price, requestId} = message;
-            message.text = `お見積り 利用開始日:${startDate} 利用終了日:${endDate} 料金:${price}円`;
-            //TODO 改行いれられるようにしたい
-            RecordComponent = () => (
-              <StyledRecord
-                specialMessage
-                hasLink={true}
-                linkUrl={path.payment(props.ui.roomId, requestId)}
-                date={date}
-                text={message.text}
-
-              />
-            );
+            params.text = `お見積り 利用開始日:${startDate} 利用終了日:${endDate} 料金:${price}円`;
+            params.hasLink = true;
+            params.linkUrl = path.payment(props.ui.roomId, requestId);
             break;
           case 3:
-            message.text = `取引成立です！あなたのお支払いが完了しました。届ける準備を始めましょう！`;
-            RecordComponent = () => (
-              <StyledRecord
-                specialMessage
-                hasLink={false}
-                date={date}
-                text={message.text}
-              />
-            );
+            params.text = `取引成立です！あなたのお支払いが完了しました。届ける準備を始めましょう！`;
             break;
           default:
             break;
         }
 
+        const RecordComponent = () => <StyledRecord {...params} text={message.text} />;
+
         return (
           <div key={message.id}>
             <RecordComponent />
-            <div style={{ clear: 'both' }} />
+            <ClearBoth />
             <StyledDate>{date}</StyledDate>
-            <div style={{ clear: 'both' }} />
+            <ClearBoth />
           </div>
         );
       })}
