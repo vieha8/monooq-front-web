@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import Path from 'config/path';
-import { isMobileWindow, media } from 'helpers/style/media-query';
+import { media } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
 import { Footer } from 'components/Shared';
 import {
@@ -32,7 +32,9 @@ const SpacePage = styled.div`
 `;
 
 const CardContainer = styled.div`
+  position: relative;
   padding: 0 92px;
+  margin-top: 80px;
 
   &::after {
     clear: both;
@@ -54,7 +56,6 @@ const MobileContainer = styled.div`
 const SpaceCardContainer = styled.div`
   max-width: 720px;
   width: 60%;
-  margin-top: 80px;
   padding-bottom: 80px;
   float: left;
 
@@ -68,15 +69,26 @@ const SpaceCardContainer = styled.div`
   `}
 `;
 
+const PriceCardWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 60%;
+  right: 0;
+  bottom: 0;
+  ${media.tablet`
+    position: static;
+  `}
+`;
+
 const PriceCardContainer = styled.div`
+  position: fixed;
   max-width: 340px;
   width: 40%;
-  margin-top: 80px;
   padding-bottom: 80px;
-  float: right;
 
   ${media.tablet`
-    float: none;
+    position: static;
+    margin-left: 0;
     width: 100%;
     max-width: 100%;
     margin-top: 0;
@@ -246,38 +258,44 @@ class Space extends React.Component {
               </Section>
             </Card>
           </SpaceCardContainer>
-          <PriceCardContainer>
-            <Card>
-              <MobileContainer>
-                <PriceTitle />
-                <div>
-                  <PriceContent
-                    title="スペースまるごと"
-                    price={space.PriceFull}
-                    caption="スペースのほとんどを使用する荷物の場合の料金"
-                    image={imageFurnitureFull}
-                  />
-                  <PriceContent
-                    title="スペース半分"
-                    price={space.PriceHalf}
-                    caption="スペースの半分程度を使用する荷物の場合の料金"
-                    image={imageFurnitureHalf}
-                  />
-                  <PriceContent
-                    title="スペース1/4"
-                    price={space.PriceQuarter}
-                    caption="スペースの4分の1程度を使用する荷物の場合の料金"
-                    image={imageFurnitureQuarter}
-                  />
-                </div>
-              </MobileContainer>
-            </Card>
-            <SendMessageButton
-              onClickSendMessage={() => this.sendMessage()}
-            />
-          </PriceCardContainer>
+          <PriceCardWrapper>
+            <PriceCardContainer>
+              <Card>
+                <MobileContainer>
+                  <PriceTitle />
+                  <div>
+                    <PriceContent
+                      title="スペースまるごと"
+                      price={space.PriceFull}
+                      caption="スペースのほとんどを使用する荷物の場合の料金"
+                      image={imageFurnitureFull}
+                    />
+                    {space.PriceHalf > 0 && (
+                      <PriceContent
+                        title="スペース半分"
+                        price={space.PriceHalf}
+                        caption="スペースの半分程度を使用する荷物の場合の料金"
+                        image={imageFurnitureHalf}
+                      />
+                    )}
+                    {space.PriceQuarter > 0 && (
+                      <PriceContent
+                        title="スペース1/4"
+                        price={space.PriceQuarter}
+                        caption="スペースの4分の1程度を使用する荷物の場合の料金"
+                        image={imageFurnitureQuarter}
+                      />
+                    )}
+                  </div>
+                </MobileContainer>
+              </Card>
+              <SendMessageButton
+                onClickSendMessage={() => this.sendMessage()}
+              />
+            </PriceCardContainer>
+          </PriceCardWrapper>
         </CardContainer>
-        {!isMobileWindow() && <Footer />}
+        <Footer />
       </SpacePage>
     );
   }
