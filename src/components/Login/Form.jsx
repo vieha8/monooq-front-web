@@ -42,7 +42,7 @@ const InputWrapper = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
-const LinkTet = styled(Link)`
+const LinkText = styled(Link)`
   display: block;
   font-size: ${FontSizes.small}px;
   color: ${Colors.linkBlue};
