@@ -7,6 +7,7 @@ import Menu from 'containers/Menu';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Page, { ContentContainer } from 'components/Page';
+import { Dimens } from 'variables';
 
 const MessageListItem = styled.li``;
 const MessagesItem = props => (
@@ -66,9 +67,15 @@ const StyledMessagesItemText = styled(MessagesItemText) `
   padding-left: 20px;
 `;
 
-class Messages extends React.Component {
+const Empty = styled.div`
+  line-height: 1.5;
+  ${media.phone`
+    padding: 0 ${Dimens.medium}px;
+  `}
+`;
 
-  constructor(props){
+class Messages extends React.Component {
+  constructor(props) {
     super(props);
     this.props.dispatch(messagesActions.fetchRoomsStart());
   }
@@ -80,7 +87,7 @@ class Messages extends React.Component {
         <Fragment>
           <Menu />
           <ContentContainer>
-            {(rooms.length === 0) ? <div>メッセージはまだありません。</div> : null}
+            {(rooms.length === 0) ? <Empty>メッセージはまだありません。</Empty> : null}
             {rooms.map((v, i) => (
               <StyledMessagesItem
                 key={i}
@@ -91,7 +98,10 @@ class Messages extends React.Component {
                 }}
               >
                 <Avatar src={v.user.ImageUrl} />
-                <StyledMessagesItemText primary={`${v.user.Name}`} secondary={v.lastMessageDt.toLocaleDateString() + ' ' + v.lastMessageDt.toLocaleTimeString()} />
+                <StyledMessagesItemText
+                  primary={v.user.Name}
+                  secondary={`${v.lastMessageDt.toLocaleDateString()} ${v.lastMessageDt.toLocaleTimeString()}`}
+                />
               </StyledMessagesItem>
             ))}
           </ContentContainer>
