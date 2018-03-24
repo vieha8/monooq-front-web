@@ -213,11 +213,11 @@ export default props => (
           placeholder="どこの物置きを探す？"
           onChange={e => props.onChangeKeyword(e.target.value)}
         />
-        <IconWrapper to="" onClick={props.onClickSearchIcon}>
+        <IconWrapper to="" onClick={(e) => { e.preventDefault(); props.onClickSearchIcon(); }}>
           <Icon name="fal fa-search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
         {props.showSearchField &&
-          <IconWrapper to="" hidepc={1} onClick={props.onClickCloseSearch}>
+          <IconWrapper to="" hidepc={1} onClick={(e) => { e.preventDefault(); props.onClickCloseSearch(); }}>
             <Icon name="fal fa-times" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
           </IconWrapper>
         }

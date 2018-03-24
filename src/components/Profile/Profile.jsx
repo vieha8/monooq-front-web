@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import Footer from 'components/Shared/Footer';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { getPrefecture } from 'helpers/prefectures';
 import ProfileContainer from './ProfileContainer';
 import SpaceItem from './SpaceItem';
-import { getPrefecture } from "../../helpers/prefectures";
 
 const Container = styled.div`
   width: 100%;
