@@ -7,9 +7,9 @@ import Path from 'config/path';
 
 class MenuContainer extends Component {
   logout = () => {
-    const { dispatch, history } = this.props;
+    const { dispatch } = this.props;
     dispatch(authActions.logout());
-    history.push(Path.top());
+    window.location.href = Path.top();
   };
 
   render() {
