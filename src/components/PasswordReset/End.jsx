@@ -16,12 +16,9 @@ const Title = styled.div`
 `;
 
 const Container = styled.div`
-  position: absolute;
-  top: 60px;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: ${Colors.yellow};
+  margin-top: -60px;
+  padding: 80px 0;
 `;
 
 const Container2 = styled.div`

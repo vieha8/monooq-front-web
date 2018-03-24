@@ -4,12 +4,9 @@ import { Colors } from 'variables';
 import Form from './Form';
 
 const Container = styled.div`
-  position: absolute;
-  top: 60px;
-  left: 0;
-  right: 0;
-  bottom: 0;
   background: ${Colors.yellow};
+  margin-top: -60px;
+  padding: 80px 0;
 `;
 
 export default class PasswordReset extends Component {
