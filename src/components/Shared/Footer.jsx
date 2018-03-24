@@ -66,6 +66,6 @@ export default () => (
     <Menu to={Path.privacy()}>プライバシーポリシー</Menu>
     <Menu to={Path.asct()}>特定商取引法に基づく表記</Menu>
     <Menu to={Path.cancellationPolicies()}>キャンセルポリシー</Menu>
-    <Copyright>©モノオク</Copyright>
+    <Copyright>@ 2018 MonooQ</Copyright>
   </Container>
 );

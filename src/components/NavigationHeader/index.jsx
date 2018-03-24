@@ -32,7 +32,7 @@ const LogoWrapper = styled(Link) `
   width: 20%;
   padding-left: ${Dimens.small2}px;
   ${media.phone`
-    ${props => props.showSearchField && `
+    ${props => props.hide && `
       display: none;
     `}
   `}
@@ -57,18 +57,20 @@ const IconWrapper = styled(Link)`
   vertical-align: top;
   cursor: pointer;
   ${media.phone`
-    ${props => props.showSearchFiled && `
+    ${props => props.hide && `
       display: none;
     `}
   `}
   ${mediaMin.desktop`
-    ${props => props.hidePc && `
+    ${props => props.hidepc && `
       display: none;
     `}
   `}
 `;
 
-const UserIconWrapper = IconWrapper.withComponent('div');
+const UserIconWrapper = IconWrapper.withComponent('div').extend`
+  padding: 14px 14px 0 ${Dimens.small}px;
+`;
 
 const LinkWrapper = styled.div`
   display: inline-block;
@@ -142,7 +144,7 @@ const SearchFiled = styled.input`
 const HideSearchIconWrapper = styled.span`
   display: inline;
   ${media.phone`
-    ${props => props.showSearchField && `
+    ${props => props.hide && `
       display: none;
     `}
   `}
@@ -168,7 +170,7 @@ function renderMenuIcon(props) {
 
   if (user) {
     return (
-      <HideSearchIconWrapper showSearchField={showSearchField}>
+      <HideSearchIconWrapper hide={showSearchField ? 1 : 0}>
         <IconWrapper to={Path.messages(user.ID)}>
           <Icon name="fas fa-comment" reverse fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
@@ -181,7 +183,7 @@ function renderMenuIcon(props) {
   }
 
   return (
-    <HideSearchIconWrapper showSearchField={showSearchField}>
+    <HideSearchIconWrapper hide={showSearchField ? 1 : 0}>
       <LinkWrapper>
         <AnonymousUserLink to={Path.login()}>ログイン</AnonymousUserLink>
         &nbsp;/&nbsp;
@@ -200,7 +202,7 @@ function refSearchField(ref, props) {
 export default props => (
   <div>
     <Container>
-      <LogoWrapper to={Path.top()} showSearchField={props.showSearchField}>
+      <LogoWrapper to={Path.top()} hide={props.showSearchField ? 1 : 0}>
         <Logo src={logoUri} />
       </LogoWrapper>
       <MenuWrapper>
@@ -215,7 +217,7 @@ export default props => (
           <Icon name="fal fa-search" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
         {props.showSearchField &&
-          <IconWrapper to="" hidePc onClick={props.onClickCloseSearch}>
+          <IconWrapper to="" hidepc={1} onClick={props.onClickCloseSearch}>
             <Icon name="fal fa-times" fontSize={FontSizes.medium2} color={Colors.lightGray1} />
           </IconWrapper>
         }

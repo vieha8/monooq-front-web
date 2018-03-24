@@ -8,6 +8,7 @@ import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import InputPriceOfAll from '../price/InputPriceOfAll';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
+import Caption from '../shared/Caption';
 
 const hintProps = {
   title: '料金設定に関するヒント',
@@ -22,6 +23,9 @@ export default props => (
         subHeader="あなたのスペース料金はいくら？"
       />
       <InputPriceOfAll {...props} handleChangeText={props.handleChangePriceAll} />
+      <Caption>
+        取引成立時の売上は、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。。
+      </Caption>
       <ButtonsContainer>
         <Button border onClick={props.onClickBack}>
           戻る

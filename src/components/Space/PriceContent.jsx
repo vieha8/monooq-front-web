@@ -24,6 +24,8 @@ const TextContainer = styled.div`
 const Image = styled.img`
   display: block;
   float: right;
+  width: 115px;
+  height: 56px;
 `;
 
 const Text = styled.span`
@@ -53,7 +55,7 @@ export default props => (
         <Text>{props.title}</Text>
         <Price>{props.price}円</Price>
       </TextContainer>
-      <Image src="https://placehold.jp/115x56.png" />
+      <Image src={props.image} alt={props.title} />
     </PriceContainer>
     <Caption>{props.caption}</Caption>
   </Container>

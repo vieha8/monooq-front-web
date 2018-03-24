@@ -99,6 +99,7 @@ export default props => (
     <ButtonWrapper>
       <Button
         onClick={props.onClickLoginEmail}
+        loading={props.isLoginProcessing}
         disabled={props.buttonDisabled}
       >
         ログインする
@@ -108,6 +109,7 @@ export default props => (
       <OtherLoginLabel>お持ちのアカウントでログイン</OtherLoginLabel>
       <Button
         onClick={props.onClickLoginFacebook}
+        loading={props.isLoginProcessing}
         facebook
       >
         <IconWrapper>
