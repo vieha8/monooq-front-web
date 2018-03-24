@@ -78,7 +78,7 @@ export default () => (
           <FooterLink to={Path.cancellationPolicies()}>キャンセルポリシー</FooterLink>
         </Cell>
         <Cell>
-          <InlineText.Small color={Colors.lightGray1}>@ 2018 Monooq</InlineText.Small>
+          <InlineText.Base fontSize={11}>@ 2018 MonooQ</InlineText.Base>
         </Cell>
       </List>
     </nav>
