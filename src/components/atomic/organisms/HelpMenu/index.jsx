@@ -60,38 +60,38 @@ export default (props: PropTypes) => (
     <MenuItem
       title="ホストについて"
       {...props.aboutHost}
-      href="#"
+      href={Path.helpHost()}
       fillColor
     />
     <MenuItem
       title="スペース登録について"
       {...props.aboutRegisterSpace}
-      href="#"
+      href={Path.helpSpace()}
       fillColor
     />
     <MenuItem
       title="取引について"
       {...props.aboutHostTransaction}
-      href="#"
+      href={Path.helpTransaction()}
       fillColor
     />
     <MenuItem
       title="売上や振込について"
       {...props.aboutSalesTransfer}
-      href="#"
+      href={Path.helpSalesTransfer()}
       fillColor
     />
     <MenuItem
       title="登録・ログインについて"
       {...props.aboutLogin}
-      href="#"
+      href={Path.helpSignin()}
       show
       angleRight
     />
     <MenuItem
       title="その他"
       {...props.other}
-      href="#"
+      href={Path.helpOther()}
       show
       angleRight
     />
