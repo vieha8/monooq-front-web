@@ -34,7 +34,7 @@ const SpacePage = styled.div`
 const CardContainer = styled.div`
   position: relative;
   padding: 0 92px;
-  margin-top: 80px;
+  padding-top: 80px;
 
   &::after {
     clear: both;
@@ -71,7 +71,7 @@ const SpaceCardContainer = styled.div`
 
 const PriceCardWrapper = styled.div`
   position: absolute;
-  top: 0;
+  top: 80px;
   left: 60%;
   right: 0;
   bottom: 0;
