@@ -118,7 +118,6 @@ const WhySafeContent = (props) => {
 
 const StyledWhySafeContent = styled(WhySafeContent)`
   width: 32%;
-  font-weight: 100;
   ${media.phone`
     width: 100%;
     margin-bottom: 40px;

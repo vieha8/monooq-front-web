@@ -79,7 +79,6 @@ const SubCatchPhrase = styled.span`
   display: block;
   font-size: 26px;
   width: 480px;
-  font-weight: 100;
   line-height: 40px;
   ${media.phone`
     font-size: 1.1em;
@@ -329,7 +328,6 @@ const ExplainSection = ({ title, description, isLeft }) => {
     display: block;
     font-size: ${FontSizes.medium}px;
     line-height: 32px;
-    font-weight: 100;
     ${media.phone`
       width: 84vw;
     `};
@@ -391,7 +389,6 @@ const ForSafeSectionButton = styled.button`
 const ForSafeSection = ({ iconClass, title, description, buttonText, onClick }) => {
   const StyledContainer = styled.div`
     width: 32%;
-    font-weight: 100;
     ${media.phone`
       width: 100%;
       margin-bottom: 30px;

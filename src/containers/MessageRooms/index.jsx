@@ -47,7 +47,6 @@ const PrimaryText = styled.div`
 const SecondaryText = styled.div`
   font-size: 12px;
   line-height: 14px;
-  font-weight: 100;
   color: #b4b4b4;
 `;
 

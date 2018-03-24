@@ -26,7 +26,6 @@ const StyledRecord = styled.div`
   margin-bottom: 20px;
   font-size: 14px;
   line-height: 28px;
-  font-weight: 100;
   word-wrap: break-word;
   white-space: pre-wrap;
   ${media.phone`
