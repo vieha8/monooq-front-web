@@ -49,7 +49,7 @@ const ButtonWrapper = styled.div`
 
 const CaptionText = styled.div`
   margin-bottom: ${Dimens.medium}px;
-  font-size: ${FontSizes.xsmall}px;
+  font-size: ${FontSizes.small}px;
   color: ${Colors.darkGray1};
   text-align: left;
   line-height: 1.5;
