@@ -55,9 +55,11 @@ export const authReducer = handleActions(
   {
     [LOGIN_EMAIL]: state => ({
       ...state,
+      isChecking: true,
     }),
     [LOGIN_FACEBOOK]: state => ({
       ...state,
+      isChecking: true,
     }),
     [LOGOUT]: state => ({
       ...state,
@@ -66,10 +68,12 @@ export const authReducer = handleActions(
     [LOGIN_SUCCESS]: state => ({
       ...state,
       isLogin: true,
+      isChecking: false,
     }),
     [LOGIN_FAILED]: (state, action) => ({
       ...state,
       error: action.payload,
+      isChecking: false,
     }),
     [CHECK_LOGIN]: state => ({
       ...state,

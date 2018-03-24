@@ -12,6 +12,7 @@ import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import InputPriceOfType from '../price/InputPriceOfType';
 import SaveBoxMobile from '../shared/SaveBoxMobile';
+import Caption from '../shared/Caption';
 
 const hintProps = {
   title: '料金設定に関するヒント',
@@ -45,7 +46,7 @@ export default props => (
           value={props.ui.space.priceHalf}
           title="スペース半分"
           caption="あなたのスペースの「半分」を使用する荷物の場合の料金"
-          placeholder="10000"
+          placeholder="12000"
           image={imageFurnitureHalf}
           onChange={props.handleChangePriceHalf}
           errors={props.error.errors.priceHalf}
@@ -55,12 +56,15 @@ export default props => (
           value={props.ui.space.priceQuarter}
           title="スペース1/4"
           caption="あなたのスペースの「4分の1」を使用する荷物の場合の料金"
-          placeholder="5000"
+          placeholder="7000"
           image={imageFurnitureQuarter}
           onChange={props.handleChangePriceQuarter}
           errors={props.error.errors.priceQuarter}
         />
       </div>
+      <Caption>
+        取引成立時の売上は、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。
+      </Caption>
       <ButtonsContainer>
         <Button border onClick={props.onClickBack}>
           戻る
