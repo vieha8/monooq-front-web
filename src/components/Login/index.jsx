@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Colors } from 'variables';
 import Form from './Form';
@@ -12,22 +12,10 @@ const Container = styled.div`
   background: ${Colors.yellow};
 `;
 
-export default class Login extends Component {
-  componentDidMount() {
-    document.body.style.background = Colors.yellow;
-  }
-
-  componentWillUnmount() {
-    document.body.style.background = Colors.white;
-  }
-
-  render() {
-    return (
-      <Container>
-        <Form
-          {...this.props}
-        />
-      </Container>
-    );
-  }
-}
+export default props => (
+  <Container>
+    <Form
+      {...props}
+    />
+  </Container>
+);

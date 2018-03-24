@@ -1,45 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Colors } from 'variables';
+import { Colors, Dimens } from 'variables';
 
 const Container = styled.div`
   background: ${Colors.yellow};
+  padding: ${Dimens.large}px 0;
 `;
 
-export default class SignUp extends Component {
-  componentDidMount() {
-    document.body.style.background = Colors.yellow;
-  }
+export default (props) => {
+  const {
+    step,
+    registerEmail,
+    authTelForm,
+    inputPinForm,
+    confirmedForm,
+    profileForm,
+    registeredForm,
+  } = props;
 
-  componentWillUnmount() {
-    document.body.style.background = Colors.white;
-  }
+  const forms = [
+    registerEmail,
+    authTelForm,
+    inputPinForm,
+    confirmedForm,
+    profileForm,
+    registeredForm,
+  ];
+  const form = forms[step];
 
-  render() {
-    const {
-      step,
-      registerEmail,
-      authTelForm,
-      inputPinForm,
-      confirmedForm,
-      profileForm,
-      registeredForm,
-    } = this.props;
-
-    const forms = [
-      registerEmail,
-      authTelForm,
-      inputPinForm,
-      confirmedForm,
-      profileForm,
-      registeredForm,
-    ];
-    const form = forms[step];
-
-    return (
-      <Container>
-        {form}
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      {form}
+    </Container>
+  );
+};

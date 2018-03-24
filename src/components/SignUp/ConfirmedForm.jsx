@@ -9,7 +9,6 @@ const Container = styled.div`
   background: ${Colors.white};
   margin: 0 auto;
   width: 420px;
-  margin-top: ${Dimens.large}px;
   padding: ${Dimens.large}px;
   border-radius: 6px;
   text-align: center;

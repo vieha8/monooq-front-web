@@ -1,15 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import {connect} from "react-redux";
 
 const Container = styled.div`
   background: ${Colors.white};
   margin: 0 auto;
   width: 420px;
-  margin-top: ${Dimens.large}px;
   padding: ${Dimens.large}px;
   border-radius: 6px;
   text-align: center;
