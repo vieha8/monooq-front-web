@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
-import AboutService from 'components/atomic/pages/Help/AboutService';
+import HelpService from 'components/atomic/pages/Help/Service';
 
 type PropTypes = {
   dispatch: Function,
@@ -52,7 +52,7 @@ class HelpTopContainer extends React.Component<PropTypes> {
 
     return (
       <Fragment>
-        <AboutService
+        <HelpService
           openHowToUser={ui.openHowToUser}
           onClickHowToUser={this.onClickHowToUser}
           openHowToBeHost={ui.openHowToBeHost}

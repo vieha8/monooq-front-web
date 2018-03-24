@@ -41,7 +41,7 @@ export default (props: PropTypes) => (
     <MenuItem
       title="サービスについて"
       {...props.aboutService}
-      href={Path.helpAboutService()}
+      href={Path.helpService()}
       fillColor
     />
     <MenuItem

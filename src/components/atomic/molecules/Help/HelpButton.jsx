@@ -2,12 +2,13 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Card from 'components/atomic/atoms/Card';
 import InlineText from 'components/atomic/atoms/InlineText';
 import { AngleRight } from 'components/atomic/atoms/ActionIcon';
 import { Colors } from 'variables';
 
-const Container = styled.a`
+const Container = styled(Link)`
   display: table;
   width: 100%;
   padding: 8px 16px;
@@ -34,7 +35,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Card block noPadding>
-    <Container href={props.href} onClick={props.onClick}>
+    <Container to={props.href || ''} onClick={props.onClick}>
       <Cell>
         <InlineText.Base fontSize={14}>{props.title}</InlineText.Base>
       </Cell>

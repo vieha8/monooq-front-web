@@ -2,7 +2,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import TextLink from 'components/atomic/atoms/TextLink';
 import InlineText from 'components/atomic/atoms/InlineText';
 import { Colors } from 'variables';
@@ -43,9 +42,9 @@ const Cell = styled.li`
   `}
 `;
 
-const FooterLink = TextLink.withComponent(Link).extend`
-  font-size: 11px;
-`;
+const FooterLink = (props: Object) => (
+  <TextLink {...props} fontSize={11}>{props.children}</TextLink>
+);
 
 export default () => (
   <Container>
