@@ -2,18 +2,19 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Colors } from 'variables';
 import InlineText from 'components/atomic/atoms/InlineText';
 import { AngleRight, AngleDown } from 'components/atomic/atoms/ActionIcon';
 import MenuItem from 'components/atomic/atoms/Menu/Item';
 
-const MenuLink = styled.a`
+const MenuLink = styled(Link)`
   display: block;
   width: 100%;
   height: 100%;
   text-decoration: none;
   padding: 12px 16px;
-  ${props => props.fillColor && `
+  ${props => props.fill && `
     background: ${Colors.lightGray1Bg};
   `}
 `;
@@ -41,16 +42,28 @@ type PropTypes = {
   onClick?: Function,
 }
 
-export default (props: PropTypes) => (
-  <MenuItem show={props.show}>
-    <MenuLink onClick={props.onClick} href={props.href} fillColor={props.fillColor}>
-      <MenuText>
-        <InlineText.Small>{props.title}</InlineText.Small>
-      </MenuText>
-      <IconWrapper>
-        {props.angleDown && <AngleDown />}
-        {props.angleRight && <AngleRight />}
-      </IconWrapper>
-    </MenuLink>
-  </MenuItem>
-);
+export default (props: PropTypes) => {
+  console.log(props);
+  return (
+    <MenuItem show={props.show}>
+      <MenuLink
+        onClick={(e) => {
+          if (props.onClick) {
+            e.preventDefault();
+            props.onClick();
+          }
+        }}
+        to={props.href || ''}
+        fill={props.fillColor ? 1 : 0}
+      >
+        <MenuText>
+          <InlineText.Small>{props.title}</InlineText.Small>
+        </MenuText>
+        <IconWrapper>
+          {props.angleDown && <AngleDown />}
+          {props.angleRight && <AngleRight />}
+        </IconWrapper>
+      </MenuLink>
+    </MenuItem>
+  );
+}

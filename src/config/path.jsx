@@ -11,23 +11,23 @@ export default {
     '/',
   // 検索
   search: () =>
-    `/search`,
+    '/search',
   // スペース詳細
   space: (spaceId = SPACE_ID) =>
     `/space/${spaceId}`,
   // スペース作成
   createSpaceInfo: () =>
-    `/space/new/info`,
+    '/space/new/info',
   createSpaceBaggage: () =>
-    `/space/new/baggage`,
+    '/space/new/baggage',
   createSpaceReceive: () =>
-    `/space/new/receive`,
+    '/space/new/receive',
   createSpaceAreaSize: () =>
-    `/space/new/areasize`,
+    '/space/new/areasize',
   createSpacePrice: (type = ':type') =>
     `/space/new/price/${type}`,
   createSpaceCompletion: () =>
-    `/space/new/completion`,
+    '/space/new/completion',
   editSpaceInfo: (spaceId = SPACE_ID) =>
     `/space/${spaceId}/edit/info`,
   editSpaceBaggage: (spaceId = SPACE_ID) =>
@@ -42,13 +42,13 @@ export default {
     `/space/${spaceId}/edit/completion`,
   // スケジュール
   schedule: () =>
-    `/schedule`,
+    '/schedule',
   // キャンセル確認
   confirmCancel: (scheduleId = SCHEDULE_ID) =>
     `/schedule/${scheduleId}/cancel`,
   // メッセージ一覧
   messages: () =>
-    `/messages`,
+    '/messages',
   // メッセージ詳細
   message: (messageRoomId = MESSAGE_ROOM_ID) =>
     `/messages/${messageRoomId}`,
@@ -63,24 +63,24 @@ export default {
     `/user/${userId}`,
   // プロフィール編集
   editProfile: () =>
-    `/profile/edit`,
+    '/profile/edit',
   // スペース一覧
   spaces: () =>
-    `/user/spaces`,
+    '/user/spaces',
   // レビュー投稿
   hostReview: (hostId = HOST_ID, scheduleId = SCHEDULE_ID) =>
     `/host/${hostId}/schedule/${scheduleId}/review/new`,
   // 支払い一覧
   paid: () =>
-    `/paid`,
+    '/paid',
   // 売上・振込一覧
   salesTransfers: () =>
-    `/sales`,
+    '/sales',
   requestTransfer: () =>
-    `/sales/transfer/new`,
+    '/sales/transfer/new',
   // 口座編集
   editBankAccount: () =>
-    `/bank/edit`,
+    '/bank/edit',
   // お問い合わせ
   inquiry: (userId = USER_ID) =>
     `/user/${userId}/inquiry`,
@@ -92,11 +92,11 @@ export default {
     '/login',
   // 退会
   unsubscribe: () =>
-    `/unsubscribe`,
+    '/unsubscribe',
   passwordReset: () =>
-    `/password/reset`,
+    '/password/reset',
   passwordResetEnd: () =>
-    `/password/reset/end`,
+    '/password/reset/end',
   // 違反報告
   reportUser: () =>
     '/report/user',
@@ -113,7 +113,7 @@ export default {
     '/maintenance',
   notFound: () =>
     '/notfound',
-  error: (status = ":status") =>
+  error: (status = ':status') =>
     `/error/${status}`,
   cancellationPolicies: () =>
     '/cancellationPolicies',
@@ -127,6 +127,18 @@ export default {
     '/terms',
   helpTop: () =>
     '/help',
-  helpAboutService: () =>
-    '/help/aboutService',
+  helpService: () =>
+    '/help/service',
+  helpTransaction: () =>
+    '/help/transaction',
+  helpHost: () =>
+    'help/host',
+  helpSpace: () =>
+    'help/space',
+  helpSalesTransfer: () =>
+    'help/salesTransfer',
+  helpSignin: () =>
+    'help/signin',
+  helpOther: () =>
+    'help/other',
 };

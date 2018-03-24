@@ -47,7 +47,7 @@ import Privacy from 'containers/Static/Privacy';
 import Terms from 'containers/Static/Terms';
 
 import HelpTop from 'containers/Static/Help/Top';
-import HelpAboutService from 'containers/Static/Help/AboutService';
+import HelpService from 'containers/Static/Help/Service';
 
 import NavigationHeader from 'containers/NavigationHeader';
 
@@ -103,7 +103,13 @@ export const routes = [
   { path: Path.privacy(), component: Privacy },
   { path: Path.terms(), component: Terms },
   { path: Path.helpTop(), component: HelpTop },
-  { path: Path.helpAboutService(), component: HelpAboutService },
+  { path: Path.helpService(), component: HelpService },
+  { path: Path.helpTransaction(), component: HelpService },
+  { path: Path.helpHost(), component: HelpService },
+  { path: Path.helpSpace(), component: HelpService },
+  { path: Path.helpSalesTransfer(), component: HelpService },
+  { path: Path.helpSignin(), component: HelpService },
+  { path: Path.helpOther(), component: HelpService },
   { path: Path.passwordReset(), component: PasswordReset },
   { path: Path.passwordResetEnd(), component: PasswordResetEnd },
 ];

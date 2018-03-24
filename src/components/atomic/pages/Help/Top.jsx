@@ -41,7 +41,7 @@ export default (props: PropTypes) => {
           <CommonHelp
             headline="物置きスペースを利用したい方へ"
             buttons={[
-              { title: 'サービスについて', href: Path.helpAboutService() },
+              { title: 'サービスについて', href: Path.helpService() },
               { title: '取引について', onClick: () => console.log('onClick2') },
             ]}
             helpTitle="スペースにはどれくらいのサイズ・量の荷物を置くことができますか？"
