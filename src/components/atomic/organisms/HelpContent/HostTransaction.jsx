@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
 import Template from './Template';
 
 const QandA = [
@@ -32,12 +31,12 @@ const QandA = [
   },
   {
     title: 'スペースに置いてはいけない荷物はありますか？',
-    content: 'スペースの利用を行う前にルールとマナーに記載の「取引ができない荷物」をお読みください。',
+    content: 'スペースの利用を行う前にルールとマナーに記載の「<a href="/rule">取引ができない荷物</a>」をお読みください。',
     circleDown: true,
   },
   {
     title: '荷物を破損または紛失してしまいました。どうすれば良いでしょうか？',
-    content: 'もしスペースに置いた荷物に何かあった場合、保険が適用される場合があります。こちらの「荷物に関する保険」ページをお読みください。',
+    content: 'もしスペースに置いた荷物に何かあった場合、保険が適用される場合があります。こちらの「<a href="/insurance">荷物に関する保険</a>」ページをお読みください。',
     circleDown: true,
   },
   {
@@ -57,7 +56,7 @@ const QandA = [
   },
   {
     title: 'ホストですが、取引成立後にキャンセルをしたいのですが可能ですか？',
-    content: '可能ですがホスト都合による取引のキャンセルはペナルティが発生します。取引契約をする前にこちらの「キャンセルポリシー」を必ずお読みください。',
+    content: '可能ですがホスト都合による取引のキャンセルはペナルティが発生します。取引契約をする前にこちらの「<a href="/cancellationPolicies">キャンセルポリシー</a>」を必ずお読みください。',
     circleDown: true,
   },
   {

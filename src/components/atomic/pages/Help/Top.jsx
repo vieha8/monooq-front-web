@@ -42,37 +42,37 @@ export default (props: PropTypes) => {
             headline="物置きスペースを利用したい方へ"
             buttons={[
               { title: 'サービスについて', href: Path.helpService() },
-              { title: '取引について', onClick: () => console.log('onClick2') },
+              { title: '取引について', href: Path.helpUserTransaction() },
             ]}
             helpTitle="スペースにはどれくらいのサイズ・量の荷物を置くことができますか？"
-            helpLink="#"
+            helpLink={`${Path.helpService()}#common1`}
           />
           <CommonHelp
             headline="ホストになりたい方へ"
             buttons={[
-              { title: 'ホストについて', onClick: () => console.log('onClick1') },
-              { title: 'スペース登録について', onClick: () => console.log('onClick2') },
-              { title: '取引について', onClick: () => console.log('onClick3') },
-              { title: '売上や振込について', onClick: () => console.log('onClick4') },
+              { title: 'ホストについて', href: Path.helpHost() },
+              { title: 'スペース登録について', href: Path.helpSpace() },
+              { title: '取引について', href: Path.helpHostTransaction() },
+              { title: '売上や振込について', href: Path.helpSalesTransfer() },
             ]}
             helpTitle="モノオクのホストになる方法は？"
-            helpLink="#"
+            helpLink={`${Path.helpHost()}#common2`}
           />
           <CommonHelp
             headline="登録・ログインについて"
             buttons={[
-              { title: '一覧を見る', onClick: () => console.log('onClick1') },
+              { title: '一覧を見る', href: Path.helpSignin() },
             ]}
             helpTitle="パスワードを忘れてしまいました。"
-            helpLink="#"
+            helpLink={`${Path.helpSignin()}#common3`}
           />
           <CommonHelp
             headline="その他"
             buttons={[
-              { title: '一覧を見る', onClick: () => console.log('onClick1') },
+              { title: '一覧を見る', href: Path.helpOther() },
             ]}
             helpTitle="レビューはどこから投稿するのですか？"
-            helpLink="#"
+            helpLink={`${Path.helpOther()}#common4`}
           />
         </Fragment>
       )}

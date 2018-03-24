@@ -19,6 +19,7 @@ type PropTypes = {
   },
   location: {
     pathname: string,
+    hash: string,
   },
 }
 
@@ -49,8 +50,31 @@ class HelpTopContainer extends React.Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
-    const { dispatch } = props;
-    dispatch(uiActions.setUiState({ openFlagList: [] }));
+    const { dispatch, location } = props;
+    const openFlagList = [];
+
+    switch (location.hash) {
+      case '#common1':
+        // スペースにはどれくらいのサイズ・量の荷物を置くことができますか？
+        openFlagList[10] = true;
+        break;
+      case '#common2':
+        // モノオクのホストになる方法は？
+        openFlagList[0] = true;
+        break;
+      case '#common3':
+        // パスワードを忘れてしまいました。
+        openFlagList[1] = true;
+        break;
+      case '#common4':
+        // レビューはどこから投稿するのですか？
+        openFlagList[2] = true;
+        break;
+      default:
+        break;
+    }
+
+    dispatch(uiActions.setUiState({ openFlagList }));
   }
 
   onClickHowToUser = () => {

@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
 import Template from './Template';
 
 const QandA = [
@@ -12,12 +11,13 @@ const QandA = [
   },
   {
     title: 'パスワードを忘れてしまいました。',
-    content: 'ログイン画面の「パスワードを忘れた方はこちら」よりお手続きください。',
+    content: 'ログイン画面の「<a href="/password/reset">パスワードを忘れた方はこちら</a>」よりお手続きください。',
     circleDown: true,
+    anchor: 'common3',
   },
   {
     title: 'ログイン情報を忘れてしまいました。',
-    content: 'アカウント登録を行った「お名前」をご記入の上、info@monooq.comまでご連絡ください。',
+    content: 'アカウント登録を行った「お名前」をご記入の上、<a href="mailto:info@monooq.com">info@monooq.com</a>までご連絡ください。',
     circleDown: true,
   },
   {

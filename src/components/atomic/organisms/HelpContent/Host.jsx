@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
 import Template from './Template';
 
 const QandA = [
@@ -9,6 +8,7 @@ const QandA = [
     title: 'モノオクのホストになる方法は？',
     content: 'アカウント登録後にメニュー「ホストになる」より、掲載するスペース登録を行ってください。',
     circleDown: true,
+    anchor: 'common2',
   },
   {
     title: '私もモノオクのホストになれますか？',
