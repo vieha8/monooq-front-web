@@ -7,7 +7,7 @@ import SearchIcon from 'material-ui-icons/Search';
 import styled from 'styled-components';
 import { FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { Footer } from 'components/Shared';
+import { Footer, DefaultContainer } from 'components/Shared';
 
 import mainVisual from 'images/main_visual@2x.jpg';
 import mainVisualSp from 'images/main_visual_sp@2x.jpg';
@@ -49,13 +49,15 @@ const TopView = styled.div`
 
 const TopViewFilter = styled.div`
   height: 100%;
-  padding: 196px 0 0 10%;
+  padding-top: 196px;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.4);
   ${media.phone`
-    padding: 108px 8vw 0 8vw;
+    padding-top: 108px;
   `};
 `;
+
+const TopViewContainer = styled(DefaultContainer)``;
 
 const CatchPhrase = styled.div`
   font-size: ${FontSizes.xxlarge}px;
@@ -171,91 +173,114 @@ const ToHostRegist = styled.a`
   `};
 `;
 
-const TopHr = styled.hr`
-  margin: 0;
-  height: 60px;
-  border: 0;
-  background: #e85258;
+const ColoredContainer = styled.div`
+  background-color: ${Colors.brandPrimary};
 `;
 
-const DefaultView = styled.div`
-  padding: 80px 10%;
-  ${media.phone`
-    padding: 30px 8vw;
-  `};
-  color: rgb(51, 51, 51);
-  box-sizing: border-box;
-  ${props =>
-    props.isUserReason
-      ? `
-        background: #fff;
-        background-image: url(${topImage1});
-        background-repeat: no-repeat;
-        background-position: right;
-        background-position-y: 388px;
-        background-size: 50%;
-    `
-      : ''};
-  ${media.phone`
-    ${props =>
-      props.isUserReason
-        ? `
-          background-image: url(${topImage1Sp});
-          background-position: right 0 bottom 30px;
-          background-size: contain;
-          padding-bottom: 40vh;
+const ColoredContainerGray = styled.div`
+  background-color: ${Colors.lightGray1Bg};
+`
 
-      `
-        : ''};
-  `};
-  ${props =>
-    props.isHostReason
-      ? `
-        background-image: url(${topImage2});
-        background-repeat: no-repeat;
-        background-position: left;
-        padding: 80px 10% 80px 600px;
-        background-size: 500px 947px;
-    `
-      : ''};
+const MovieContainer = styled(DefaultContainer)`
+  padding-top: 70px;
+  padding-bottom: 70px;
+  display: flex;
   ${media.phone`
-    ${props =>
-      props.isHostReason
-        ? `
-          background-image: none;
-          background-color: ${Colors.lightGray1Bg};
-      `
-        : ''};
+    flex-direction: column;
   `};
-  ${props =>
-    props.isForSafe
-      ? `
-        background: #fff;
-    `
-      : ''};
-  ${props =>
-    props.isPickGo
-      ? `
-        background: #E85258;
-        color: #fff;
-        display: flex;
-    `
-      : ''};
+`;
+
+const MovieFrameWrapper = styled.div`
   ${media.phone`
-    ${props =>
-      props.isPickGo
-        ? `
-          display: block;
-      `
-        : ''};
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
   `};
-  ${props =>
-    props.isMeiaLineup
-      ? `
-        padding-top: 40px;
-        padding-bottom: 40px;
-    `
-      : ''};
+`;
+
+const MovieFrame = styled.iframe`
+  height: 281px;
+  width: 500px;
+  border-radius: 4px;
+  ${media.phone`
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  `};
+`;
+
+const MovieExplanContainer = styled.div`
+  margin-left: 40px;
+  color: ${Colors.white};
+  ${media.phone`
+    margin-left: 0;
+    & br {
+      display: none;
+    }
+  `};
+`;
+
+const MovieExplanTitle = styled.div`
+  margin: 30px 0;
+  font-size: ${FontSizes.medium2}px;
+  line-height: ${FontSizes.medium2 * 1.5}px;
+  font-weight: bold;
+`;
+
+const MovieExplanText = styled.div`
+  font-size: ${FontSizes.medium}px;
+  line-height: ${FontSizes.medium * 2}px;
+`;
+
+
+const StyledDefaultContainer = styled(DefaultContainer)`
+  padding-top: 80px;
+  padding-bottom: 80px;
+  color: ${Colors.darkGray1};
+  ${media.phone`
+    padding-top: 40px;
+    padding-bottom: 40px;
+  `};
+`;
+
+const UserReasonContainer = styled(StyledDefaultContainer)`
+  background-image: url(${topImage1});
+  background-repeat: no-repeat;
+  background-position: right;
+  background-position-y: 388px;
+  background-size: 50%;
+  ${media.phone`
+      background-image: url(${topImage1Sp});
+      background-position: right 0 bottom 30px;
+      background-size: contain;
+      padding-bottom: 40vh;
+  `};
+`;
+
+const HostReasonContainer = styled(StyledDefaultContainer)`
+  background-image: url(${topImage2});
+  background-repeat: no-repeat;
+  background-position: left;
+  padding: 80px 10% 80px 600px;
+  background-size: 500px 947px;
+  ${media.phone`
+    background-image: none;
+    padding: 40px 0;
+  `};
+`;
+
+const ForSafeContainer = styled(StyledDefaultContainer)``;
+
+const PickgoContainer = styled(StyledDefaultContainer)`
+  display: flex;
+  color: ${Colors.white};
+`;
+
+const MediaLineupContainer = styled(StyledDefaultContainer)`
+  padding-top: 40px;
+  padding-bottom: 40px;
 `;
 
 const HilightCopy = styled.span`
@@ -509,7 +534,7 @@ const LineupItem = styled.li`
 `;
 
 const MediaLineup = () => (
-  <div>
+  <MediaLineupContainer>
     <LineupTitle>メディア掲載</LineupTitle>
     <LineupList>
       <LineupItem>
@@ -534,46 +559,67 @@ const MediaLineup = () => (
         <a href="https://techable.jp" target="_blank" rel="noopener noreferrer" ><img src={logoTechable} alt="TECHABLE" /></a>
       </LineupItem>
     </LineupList>
-  </div>
+  </MediaLineupContainer>
 );
 
 export default props => (
   <TopPage>
     <TopView>
       <TopViewFilter>
-        <CatchPhrase>
-          個人間だからできる、<br />荷物を置くための新しい方法。
-        </CatchPhrase>
-        <SubCatchPhrase>
-          モノオクは空きスペースを活用できる、物置きシェアサービスです。
-        </SubCatchPhrase>
-        <SearchWrapper>
-          <SearchInput
-            id="location"
-            placeholder="近くのスペースを検索してみよう！　例）東京都港区"
-            value={props.locationText}
-            onChange={props.handleChangeLocation}
-            margin="normal"
-          />
-          <SearchButton
-            color="primary"
-            mini
-            component={Link}
-            to={`${Path.search()}?location=${props.locationText}`}
-            disabled={props.searchButtonDisabled}
-          >
-            <StyledSearchIcon disabled={props.searchButtonDisabled} />
-          </SearchButton>
-        </SearchWrapper>
-        <ToHostRegistContainer>
-          <ToHostRegist component={Link} href={Path.createSpaceInfo()}>
-            ホスト登録はこちら
-          </ToHostRegist>
-        </ToHostRegistContainer>
+        <TopViewContainer>
+          <CatchPhrase>
+            個人間だからできる、<br />荷物を置くための新しい方法。
+          </CatchPhrase>
+          <SubCatchPhrase>
+            モノオクは空きスペースを活用できる、物置きシェアサービスです。
+          </SubCatchPhrase>
+          <SearchWrapper>
+            <SearchInput
+              id="location"
+              placeholder="近くのスペースを検索してみよう！　例）東京都港区"
+              value={props.locationText}
+              onChange={props.handleChangeLocation}
+              margin="normal"
+            />
+            <SearchButton
+              color="primary"
+              mini
+              component={Link}
+              to={`${Path.search()}?location=${props.locationText}`}
+              disabled={props.searchButtonDisabled}
+            >
+              <StyledSearchIcon disabled={props.searchButtonDisabled} />
+            </SearchButton>
+          </SearchWrapper>
+
+          <ToHostRegistContainer>
+            <ToHostRegist component={Link} href={Path.createSpaceInfo()}>
+              ホスト登録はこちら
+            </ToHostRegist>
+          </ToHostRegistContainer>
+        </TopViewContainer>
       </TopViewFilter>
     </TopView>
-    <TopHr />
-    <DefaultView isUserReason>
+    <ColoredContainer>
+      <MovieContainer>
+        <MovieFrameWrapper>
+          <MovieFrame src="https://www.youtube.com/embed/t0t50WBDwzc?showinfo=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen />
+        </MovieFrameWrapper>
+        <MovieExplanContainer>
+          <MovieExplanTitle>
+            モノオクは、<br />
+            荷物の置き場所に困っている人と、<br />
+            余ったスペースを活用したい人をつなぎます。
+          </MovieExplanTitle>
+          <MovieExplanText>
+            1分でわかるサービスの流れ。<br />
+            誰でもかんたんに物置きスペースを探せて、気軽にホストになる<br />
+            ことができます。
+          </MovieExplanText>
+        </MovieExplanContainer>
+      </MovieContainer>
+    </ColoredContainer>
+    <UserReasonContainer>
       <HilightCopy>小さいモノから大きなモノまで。</HilightCopy>
       <DefaultTitle>モノオクで物置きスペースを探す理由</DefaultTitle>
 
@@ -604,57 +650,59 @@ export default props => (
           isLeft
         />
       </ExplainContainerLeft>
-    </DefaultView>
-    <DefaultView isHostReason>
-      <HilightCopy>余っているスペースはありませんか？</HilightCopy>
-      <DefaultTitle>モノオクでホストをする理由</DefaultTitle>
-      <ExplainContainerRight>
-        <ExplainSection
-          title="新しい副収入につなげる"
-          description="余っているスペースとスキマ時間で、新しいおこづかいが生まれます。"
-        />
-        <ExplainSection
-          title="余ったスペースが活用できる"
-          description="使っていないクローゼットや押入れ・空き部屋はありませんか？モノオクならどんな場所でも活用できます。"
-        />
-        <ExplainSection
-          title="かんたんに誰でもできる"
-          description="荷物を受け取ってスペースに置く、最後は持ち主まで返す。これだけで喜んでくれる人がいます。"
-        />
-        <ExplainSection
-          title="誰かの役にたつ"
-          description="引っ越しやリフォーム、片付けなど荷物を置ける場所を探すのは意外と大変なんです。困っている誰かの力になってくれませんか？"
-        />
-      </ExplainContainerRight>
-      <ToHostRegistButton onClick={props.onClickSignup}>ホスト登録はこちら</ToHostRegistButton>
-    </DefaultView>
-    <DefaultView isForSafe>
+    </UserReasonContainer>
+    <ColoredContainerGray>
+      <HostReasonContainer>
+        <HilightCopy>余っているスペースはありませんか？</HilightCopy>
+        <DefaultTitle>モノオクでホストをする理由</DefaultTitle>
+        <ExplainContainerRight>
+          <ExplainSection
+            title="新しい副収入につなげる"
+            description="余っているスペースとスキマ時間で、新しいおこづかいが生まれます。"
+          />
+          <ExplainSection
+            title="余ったスペースが活用できる"
+            description="使っていないクローゼットや押入れ・空き部屋はありませんか？モノオクならどんな場所でも活用できます。"
+          />
+          <ExplainSection
+            title="かんたんに誰でもできる"
+            description="荷物を受け取ってスペースに置く、最後は持ち主まで返す。これだけで喜んでくれる人がいます。"
+          />
+          <ExplainSection
+            title="誰かの役にたつ"
+            description="引っ越しやリフォーム、片付けなど荷物を置ける場所を探すのは意外と大変なんです。困っている誰かの力になってくれませんか？"
+          />
+        </ExplainContainerRight>
+        <ToHostRegistButton onClick={props.onClickSignup}>ホスト登録はこちら</ToHostRegistButton>
+      </HostReasonContainer>
+    </ColoredContainerGray>
+    <ForSafeContainer>
       <HilightCopy>みんなでもっと便利に物置きシェアができる世の中へ。</HilightCopy>
       <DefaultTitle>安心して物置きのシェアをするために</DefaultTitle>
       <ForSafeSectionList history={props.history} />
-    </DefaultView>
-    <DefaultView isPickGo>
-      <PickgoWrapper>
-        <CatchPhrase>
-          荷物の配送だって<br />もっと便利に安くできる。
-        </CatchPhrase>
-        <PickGoSection>
-          <PickGoMedia src={logoPickgo} />
-          <PickGoDescription>
-            サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
-          </PickGoDescription>
-        </PickGoSection>
-        <SubCatchPhraseWide>
-          Pickgoを使えば、引っ越しが5000円から。モノオクから簡単に配送依頼ができます。
-        </SubCatchPhraseWide>
-        <LinkToPickGo component={Link} href={'http://pickgo.town/'}>
-          Pickgoのサイトを見る
-        </LinkToPickGo>
-      </PickgoWrapper>
-    </DefaultView>
-    <DefaultView isMeiaLineup>
-      <MediaLineup />
-    </DefaultView>
+    </ForSafeContainer>
+    <ColoredContainer>
+      <PickgoContainer>
+        <PickgoWrapper>
+          <CatchPhrase>
+            荷物の配送だって<br />もっと便利に安くできる。
+          </CatchPhrase>
+          <PickGoSection>
+            <PickGoMedia src={logoPickgo} />
+            <PickGoDescription>
+              サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
+            </PickGoDescription>
+          </PickGoSection>
+          <SubCatchPhraseWide>
+            Pickgoを使えば、引っ越しが5000円から。モノオクから簡単に配送依頼ができます。
+          </SubCatchPhraseWide>
+          <LinkToPickGo component={Link} href={'http://pickgo.town/'}>
+            Pickgoのサイトを見る
+          </LinkToPickGo>
+        </PickgoWrapper>
+      </PickgoContainer>
+    </ColoredContainer>
+    <MediaLineup />
     <Footer />
   </TopPage>
 );
