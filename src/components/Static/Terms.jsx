@@ -2,7 +2,11 @@ import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
+import { Link } from 'react-router-dom';
+import Path from 'config/path';
+import { Colors, FontSizes } from 'variables';
 import { Footer, DefaultContainer } from 'components/Shared';
+
 
 const MainTitle = styled.div`
   font-size: 34px;
@@ -18,6 +22,10 @@ const MainTitle = styled.div`
 const Text = styled.div`
   font-size: 16px;
   line-height: 32px;
+`;
+
+const LinkText = styled(Link)`
+  color: ${Colors.linkBlue};
 `;
 
 const Hr = styled.hr`
@@ -238,7 +246,7 @@ export default () => (
     <StyledChapterContainer title="第4章　その他">
       <StyledArtContainer title="第1条 個人情報等の取扱い">
         <Para>
-          1.登録利用者は、登録情報に含まれる登録利用者の個人情報（個人情報の保護に関する法律（以下「個人情報保護法」といいます。）第2条1項に定義する個人情報を意味します。）について、当社のプライバシーポリシーに従って取り扱われることに同意するものとします。<br />
+          1.登録利用者は、登録情報に含まれる登録利用者の個人情報（個人情報の保護に関する法律（以下「個人情報保護法」といいます。）第2条1項に定義する個人情報を意味します。）について、当社の<LinkText to={Path.privacy()}>プライバシーポリシー</LinkText>に従って取り扱われることに同意するものとします。<br />
           2.登録利用者は、スペース利用契約の締結及びその交渉に必要な範囲で他の登録利用者に自身の電話番号や住所等が他の登録利用者に提供されることを了承するものとします。この場合、当該情報を提供された登録利用者は個人情報保護法その他の法令に従い適切に管理するものとします。<br />
           3.登録利用者は、当社が本サービスを提供するために必要な範囲で登録利用者の氏名、メールアドレス、電話番号、住所その他の登録情報を保険会社に提供する場合があることを了承するものとします。<br />
           4.当社は、本サービスを提供するにあたり知り得た情報を特定の個人を識別することができないように匿名化した上で、統計情報その他の情報として自由にこれを利用（第三者への提供を含むが、これに限られません。）することができるものとします。<br />
