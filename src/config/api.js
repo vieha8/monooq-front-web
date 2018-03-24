@@ -8,8 +8,8 @@ export default () => {
     baseURI: 'https://prod-api.monooq.com/v1',
   };
 
-  if (process.env.NODE_ENV === 'production') {
-    return configDevelopment;
+  if (process.env.REACT_APP_ENV && process.env.REACT_APP_ENV === 'production') {
+    return configProduction;
   }
 
   return configDevelopment;

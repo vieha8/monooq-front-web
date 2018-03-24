@@ -19,8 +19,8 @@ export default () => {
 
   console.log('ENV:' + JSON.stringify(process.env));
 
-  if (process.env.NODE_ENV === 'production') {
-    return configDevelopment;
+  if (process.env.REACT_APP_ENV && process.env.REACT_APP_ENV === 'production') {
+    return configProduction;
   }
 
   return configDevelopment;
