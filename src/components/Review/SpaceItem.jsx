@@ -70,7 +70,7 @@ export default props => (
           <Text>{props.name}</Text>
           {props.typeOK && <TypeOK>家具・家電OK</TypeOK>}
           <PriceTitle>料金目安（30日間）</PriceTitle>
-          <Price>{props.price}</Price>
+          <Price>{props.price} 円</Price>
         </Content>
       </Card>
     </Wrapper>

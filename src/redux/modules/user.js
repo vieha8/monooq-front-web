@@ -85,6 +85,12 @@ function* getSpaces() {
   let user = yield select(state => state.auth.user);
   if (!user.ID) {
     yield take(authActions.checkLoginSuccess);
+    const { payload, error, meta } = yield take(apiActions.apiResponse);
+    if (error) {
+      yield put(userActions.fetchFailedUserSpaces(meta));
+      return;
+    }
+    yield put(authActions.setUser(payload));
   }
   user = yield select(state => state.auth.user);
   const userId = user.ID;

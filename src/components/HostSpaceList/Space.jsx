@@ -34,7 +34,7 @@ const Text = styled.span`
 
 const PlaceText = Text.extend`
   color: ${Colors.brandPrimary};
-  margin-top: ${Dimens.xsmall}px;
+  margin-top: 0;
 `;
 
 const TypeOK = Text.extend`
@@ -66,7 +66,7 @@ export default props => (
         <Text>{props.name || <Empty />}</Text>
         {props.typeOK ? <TypeOK>家具・家電OK</TypeOK> : <Empty />}
         <PriceTitle>料金目安（30日間）</PriceTitle>
-        <Price>{props.price || <Empty />}</Price>
+        <Price>{props.price ? `${props.price} 円` : <Empty />}</Price>
       </Content>
     </Card>
   </Container>
