@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media, isMobileWindow } from 'helpers/style/media-query';
 import { FontSizes, Colors, Dimens } from 'variables';
+import Path from 'config/path';
 
 const Container = styled.div`
   display: table;
@@ -21,12 +22,13 @@ const Container = styled.div`
   `}
 `;
 
-const ImageWrapper = styled.span`
+const ImageWrapper = styled.a`
   display: table-cell;
   width: 100px;
   vertical-align: top;
   font-size: ${FontSizes.medium}px;
   text-align: right;
+  cursor: pointer;
 
   ${media.phone`
     display: block;
@@ -79,7 +81,7 @@ const IntroduceText = HostName.extend`
 
 export default props => (
   <Container>
-    <ImageWrapper><Image {...props.img} /></ImageWrapper>
+    <ImageWrapper href={Path.profile(props.id)}><Image {...props.img} /></ImageWrapper>
     <ContentContainer>
       <HostName>ホストは{isMobileWindow() && <br />}{props.hostName}さん</HostName>
       <IntroduceText>{props.text}</IntroduceText>

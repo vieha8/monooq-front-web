@@ -12,15 +12,16 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 0 20%;
-  margin: ${Dimens.huge}px 0;
+  padding: ${Dimens.huge}px 20%;
   ${media.phone`
     padding: 0;
   `}
 `;
 
 const HostContainer = styled.div`
-  margin-top: -${Dimens.medium2}px;
+  ${media.phone`
+    padding: ${Dimens.medium2}px 0;
+  `}
 `;
 
 const ImageWrapper = styled.div`

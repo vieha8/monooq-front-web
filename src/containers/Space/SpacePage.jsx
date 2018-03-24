@@ -248,6 +248,7 @@ class Space extends React.Component {
               </MobileContainer>
               <Section>
                 <HostInfo
+                  id={space.Host.ID}
                   img={{
                     src: space.Host.ImageUrl,
                     alt: space.Host.Name,
