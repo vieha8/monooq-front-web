@@ -62,6 +62,7 @@ export default () => (
 
     <MessageContainer>
       <Text>しばらくお待ちいただくか、お急ぎの場合はお問い合わせください。</Text>
+      <Text><Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor></Text>
     </MessageContainer>
 
     <RecommendLinkContainer>
@@ -80,12 +81,12 @@ export default () => (
           path: Path.about(),
         },
         {
-          text: 'よくあるご質問',
-          path: '#',
+          text: 'ヘルプ',
+          path: Path.helpTop(),
         },
-      ].map((v, i) => {
-        return (
-          <List key={i}><Anchor href={v.path}>{v.text}</Anchor></List>
+        ].map((v, i) => {
+          return (
+            <List key={i}><Anchor href={v.path}>{v.text}</Anchor></List>
         );
       })}
     </RecommendLinkContainer>
