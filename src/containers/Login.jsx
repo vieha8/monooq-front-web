@@ -64,7 +64,7 @@ class LoginContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  isLogin: state.auth.isLogin,
+  isLogin: state.auth.isLogin && state.auth.user.Name,
   isChecking: state.auth.isChecking,
   loginFailed: state.auth.error && !state.ui.inputed,
   ui: state.ui,
