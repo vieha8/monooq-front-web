@@ -6,7 +6,7 @@ import Template from './Template';
 const QandA = [
   {
     title: 'PickGoとはなんですか？',
-    content: '単身の引越しや少し大きな荷物の配達に便利な、お客様と配送員を直接つないでくれる配送サービスです。配送料金5000円〜から交渉・依頼できます。詳細はこちら',
+    content: '単身の引越しや少し大きな荷物の配達に便利な、お客様と配送員を直接つないでくれる配送サービスです。配送料金5000円〜から交渉・依頼できます。<a href="http://pickgo.town/personal/" target="_blank">詳細はこちら</a>',
     circleDown: true,
   },
   {
