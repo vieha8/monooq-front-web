@@ -49,14 +49,19 @@ const ButtonWrapper = styled.div`
 
 const CaptionText = styled.div`
   margin-bottom: ${Dimens.medium}px;
-  font-size: ${FontSizes.xsmall}px;
+  font-size: ${FontSizes.small}px;
   color: ${Colors.darkGray1};
   text-align: left;
   line-height: 1.5;
 `;
 
+const CenteringCaptionText = CaptionText.extend`
+  text-align: center;
+`;
+
 const DndContent = styled.div`
   text-align: center;
+  cursor: pointer;
 `;
 
 const IconWrapper = styled.span`
@@ -100,7 +105,7 @@ export default props => (
               <Icon name="far fa-image" size={64} fontSize={64} color={Colors.darkGray2} />
             </IconWrapper>
           )}
-          <CaptionText>写真を登録する</CaptionText>
+          <CenteringCaptionText>写真を登録する</CenteringCaptionText>
         </DndContent>
       </Dropzone>
       <InputContainer>
@@ -130,7 +135,7 @@ export default props => (
         <Form>
           <TextArea
             name="profile"
-            placeholder="例）はじめまして！モノオクホストのYUKIです。大きめの荷物でも柔軟に対応しております。いつでもチャットでご連絡くださいください！"
+            placeholder="例）はじめまして！ホストのYUKIです。大きめの荷物でも柔軟に対応しております。お気軽にご相談ください。"
             onChange={(_, e) => props.handleChangeProfile(e.value)}
             rows={4}
           />

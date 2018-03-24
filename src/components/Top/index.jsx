@@ -265,6 +265,7 @@ const HostReasonContainer = styled(StyledDefaultContainer)`
   background-position: left;
   padding: 80px 10% 80px 600px;
   background-size: 500px 947px;
+  box-sizing: border-box;
   ${media.phone`
     background-image: none;
     padding: 40px 0;
@@ -626,7 +627,7 @@ export default props => (
       <ExplainContainerLeft>
         <ExplainSection
           title="安心の料金"
-          description="ホストから提示される金額のみをお支払い。余計な費用なしに荷物を置くことがができます。※配送は別途"
+          description="ホストから提示される金額のみをお支払い。余計な費用なしに荷物を置くことができます。※配送は別途"
           isLeft
         />
         <ExplainSection
@@ -641,7 +642,7 @@ export default props => (
         />
         <ExplainSection
           title="1ヶ月だけでもOK"
-          description="3ヶ月や半年などの契約期間の縛りはありません。ホストと相談して必要な期間だけ期間だけ荷物を置くことができます。"
+          description="3ヶ月や半年などの契約期間の縛りはありません。ホストと相談して必要な期間だけ荷物を置くことができます。"
           isLeft
         />
         <ExplainSection

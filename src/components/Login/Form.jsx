@@ -44,7 +44,7 @@ const InputWrapper = styled.div`
 
 const LinkText = styled(Link)`
   display: block;
-  font-size: ${FontSizes.xsmall}px;
+  font-size: ${FontSizes.small}px;
   color: ${Colors.linkBlue};
   margin-top: ${Dimens.medium}px;
 `;
@@ -59,7 +59,7 @@ const IconWrapper = styled.div`
 
 const OtherLoginLabel = styled.div`
   margin-bottom: ${Dimens.medium}px;
-  font-size: ${FontSizes.xsmall}px;
+  font-size: ${FontSizes.small}px;
   color: ${Colors.darkGray1};
 `;
 

@@ -45,7 +45,7 @@ const InputWrapper = styled.div`
 
 const LinkTextWrapper = styled.div`
   display: inline-block;
-  font-size: ${FontSizes.xsmall}px;
+  font-size: ${FontSizes.small}px;
   color: ${Colors.black};
   margin-top: ${Dimens.medium}px;
   line-height: 1.5;
@@ -53,7 +53,7 @@ const LinkTextWrapper = styled.div`
 
 const LinkText = styled(Link)`
   display: inline;
-  font-size: ${FontSizes.xsmall}px;
+  font-size: ${FontSizes.small}px;
   color: ${Colors.linkBlue};
 `;
 
@@ -67,7 +67,7 @@ const IconWrapper = styled.div`
 
 const OtherLoginLabel = styled.div`
   margin-bottom: ${Dimens.medium}px;
-  font-size: ${FontSizes.xsmall}px;
+  font-size: ${FontSizes.small}px;
   color: ${Colors.darkGray1};
 `;
 
@@ -120,8 +120,8 @@ export default props => (
     </InputContainer>
     {props.errors.passwordConfirm && <ErrorText errors={props.errors.passwordConfirm} />}
     <LinkTextWrapper>
-      <LinkText to={Path.terms()}>利用規約</LinkText>と
-      <LinkText to={Path.privacy()}>プライバシーポリシー</LinkText>に同意の上、<br />次へボタンを押してください。
+      <LinkText to={Path.terms()} target="_blank" rel="noopener noreferrer">利用規約</LinkText>と
+      <LinkText to={Path.privacy()} target="_blank" rel="noopener noreferrer">プライバシーポリシー</LinkText>に同意の上、<br />次へボタンを押してください。
     </LinkTextWrapper>
     {props.errors.signupFailed && <ErrorText errors={props.errors.signupFailed} />}
     <ButtonWrapper>
