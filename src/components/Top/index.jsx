@@ -265,6 +265,7 @@ const HostReasonContainer = styled(StyledDefaultContainer)`
   background-position: left;
   padding: 80px 10% 80px 600px;
   background-size: 500px 947px;
+  box-sizing: border-box;
   ${media.phone`
     background-image: none;
     padding: 40px 0;
