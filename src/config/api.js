@@ -5,7 +5,7 @@ export default () => {
   };
 
   const configProduction = {
-    baseURI: 'https://dev-api.monooq.com/v1',
+    baseURI: 'https://prod-api.monooq.com/v1',
   };
 
   if (process.env.NODE_ENV === 'production') {
