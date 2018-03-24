@@ -121,6 +121,7 @@ type PropTypes = {
   onClickSearchIcon: Function,
   showSearchField: boolean,
   onKeyDownSearch: Function,
+  onChangeSearchField: Function,
   onClickAvatar: Function,
   onClickCloseMenu: Function,
   showMenu: boolean,
@@ -148,6 +149,7 @@ export default (props: PropTypes) => (
                   show={props.showSearchField}
                   onClickIcon={props.onClickSearchIcon}
                   onKeyDownInputField={props.onKeyDownSearch}
+                  onChange={props.onChangeSearchField}
                 />
               </SearchFiledCell>
               <ActionCell>
@@ -175,6 +177,7 @@ export default (props: PropTypes) => (
                   show={props.showSearchField}
                   onClickIcon={props.onClickSearchIcon}
                   onKeyDownInputField={props.onKeyDownSearch}
+                  onChange={props.onChangeSearchField}
                 />
               </SearchFiledCell>
               <AnonymouseWrapper>

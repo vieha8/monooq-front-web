@@ -29,6 +29,7 @@ type PropTypes = {
   iconColor: string,
   onClickIcon: Function,
   onKeyDownInputField?: Function,
+  onChange?: Function,
 }
 
 function Icon(props: PropTypes) {
@@ -55,6 +56,7 @@ export default (props: PropTypes) => (
         show={props.show}
         placeholder={props.placeholder}
         innerRef={ref => refInputField(ref, props)}
+        onChange={e => props.onChange(e.target.value)}
       />
     </InputWrapper>
     {props.iconRight && Icon(props)}

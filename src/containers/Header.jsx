@@ -13,6 +13,8 @@ type PropTypes = {
   dispatch: Function,
   ui: {
     showMenu: boolean,
+    showSearchField: boolean,
+    location: string,
   },
   isChecking: boolean,
   isLogin: boolean,
@@ -24,6 +26,35 @@ type PropTypes = {
 }
 
 class HeaderContainer extends Component<PropTypes> {
+  onClickSearch = () => {
+    const { dispatch, ui } = this.props;
+
+    if (ui.showSearchField && ui.location) {
+      this.search();
+    } else {
+      dispatch(uiActions.setUiState({ showSearchField: true }));
+    }
+  }
+
+  handleKeyDownSearch = (e) => {
+    const { dispatch, ui } = this.props;
+
+    if (e && e.keyCode === 13 && e.target.value) {
+      this.search();
+    }
+  }
+
+  handleChangeSearchField = (value: string) => {
+    const { dispatch } = this.props;
+    dispatch(uiActions.setUiState({ location: value }));
+  }
+
+  search = () => {
+    const { dispatch, ui, history } = this.props;
+    history.push(`${Path.search()}?location=${ui.location}`);
+    dispatch(uiActions.setUiState({ location: '', showSearchField: false }));
+  }
+
   toggleMenu = () => {
     const { dispatch, ui } = this.props;
 
@@ -49,6 +80,7 @@ class HeaderContainer extends Component<PropTypes> {
   }
 
   logout = () => {
+    document.body.style.overflowY = 'auto';
     const { dispatch } = this.props;
     dispatch(authActions.logout());
   }
@@ -72,6 +104,10 @@ class HeaderContainer extends Component<PropTypes> {
         loginUri={Path.login()}
         signupUri={Path.signup()}
         onClickAvatar={this.toggleMenu}
+        onClickSearchIcon={this.onClickSearch}
+        showSearchField={ui.showSearchField}
+        onKeyDownSearch={this.handleKeyDownSearch}
+        onChangeSearchField={this.handleChangeSearchField}
         onClickCloseMenu={this.closeMenu}
         showMenu={ui.showMenu}
         menu={(
