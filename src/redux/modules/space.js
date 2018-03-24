@@ -123,6 +123,22 @@ function* createSpace({ payload: { body } }) {
   const { images } = body;
   body.images = null;
 
+  if (body.priceFull) {
+    body.priceFull = parseInt(body.priceFull, 10);
+  }
+
+  if (body.priceHalf) {
+    body.priceHalf = parseInt(body.priceHalf, 10);
+  }
+
+  if (body.priceQuarter) {
+    body.priceQuarter = parseInt(body.priceQuarter, 10);
+  }
+
+  if (body.isFurniture) {
+    body.isFurniture = body.isFurniture === '1';
+  }
+
   yield put(apiActions.apiPostRequest({ path: apiEndpoint.spaces(), body }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error) {
@@ -163,6 +179,23 @@ function* createSpace({ payload: { body } }) {
 function* updateSpace({ payload: { spaceId, body } }) {
   const { images } = body;
   delete body.id;
+
+  if (body.priceFull) {
+    body.priceFull = parseInt(body.priceFull, 10);
+  }
+
+  if (body.priceHalf) {
+    body.priceHalf = parseInt(body.priceHalf, 10);
+  }
+
+  if (body.priceQuarter) {
+    body.priceQuarter = parseInt(body.priceQuarter, 10);
+  }
+
+  if (body.isFurniture) {
+    body.isFurniture = body.isFurniture === '1';
+  }
+
   if (images) {
     //TODO 画像アップロード処理
   }
