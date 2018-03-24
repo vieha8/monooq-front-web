@@ -3,12 +3,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import AnimateIconInputField from './index';
+import AnimateSearchInputField from './index';
 
-storiesOf('Molecules/AnimateIconInputField', module)
+storiesOf('Molecules/AnimateSearchInputField', module)
   .add('IconLeft', () => (
     <div style={{ width: '100%', maxWidth: '320px' }}>
-      <AnimateIconInputField
+      <AnimateSearchInputField
         iconLeft
         show
         placeholder="プレースホルダー"
@@ -18,7 +18,7 @@ storiesOf('Molecules/AnimateIconInputField', module)
   ))
   .add('IconRight', () => (
     <div style={{ width: '100%', maxWidth: '320px' }}>
-      <AnimateIconInputField
+      <AnimateSearchInputField
         iconRight
         show
         placeholder="プレースホルダー"

@@ -43,7 +43,6 @@ type PropTypes = {
 }
 
 export default (props: PropTypes) => {
-  console.log(props);
   return (
     <MenuItem show={props.show}>
       <MenuLink

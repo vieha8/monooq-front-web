@@ -4,10 +4,16 @@ import React from 'react';
 import styled from 'styled-components';
 import TextLink from 'components/atomic/atoms/TextLink';
 
+const Container = styled.span`
+  display: table;
+  height: 100%;
+`;
+
 const TextWrapper = styled.span`
-  display: inline-block;
+  display: table-cell;
+  vertical-align: middle;
   &:not(:first-child) {
-    margin-left: 8px;
+    padding-left: 8px;
   }
 `;
 
@@ -17,7 +23,7 @@ type PropTypes = {
 }
 
 export default (props: PropTypes) => (
-  <span>
+  <Container>
     <TextWrapper>
       <TextLink href={props.loginUri}>ログイン</TextLink>
     </TextWrapper>
@@ -27,5 +33,5 @@ export default (props: PropTypes) => (
     <TextWrapper>
       <TextLink href={props.signupUri}>登録</TextLink>
     </TextWrapper>
-  </span>
+  </Container>
 );

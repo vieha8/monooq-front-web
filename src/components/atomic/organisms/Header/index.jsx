@@ -3,10 +3,10 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Logo from 'components/atomic/atoms/Logo';
-import SearchIcon from 'components/atomic/molecules/HeaderAction/SearchIcon';
 import MessageIcon from 'components/atomic/molecules/HeaderAction/MessageIcon';
 import AvatarIcon from 'components/atomic/molecules/HeaderAction/AvatarIcon';
 import Anonymouse from 'components/atomic/molecules/HeaderAction/Anonymouse';
+import AnimateSearchInputField from 'components/atomic/molecules/AnimateSearchInputField';
 import ServiceMenu from 'components/atomic/organisms/ServiceMenu';
 import { media } from 'helpers/style/media-query';
 import { Colors, ZIndexes } from 'variables';
@@ -68,9 +68,17 @@ const ActionCell = styled.div`
   }
 `;
 
+const SearchFiledCell = styled.div`
+  display: inline-block;
+  vertical-align: middle;
+  width: 300px;
+  margin-right: 8px;
+`;
+
 const AnonymouseWrapper = styled.div`
   display: inline-block;
   margin-left: 16px;
+  vertical-align: middle;
 `;
 
 const MenuWrapper = styled.div`
@@ -102,7 +110,6 @@ const MenuBackground = styled.div`
 
 type PropTypes = {
   homeUri: string,
-  searchUri: string,
   messageUri: string,
   messageCount: number,
   user: {
@@ -111,6 +118,9 @@ type PropTypes = {
   },
   loginUri: string,
   signupUri: string,
+  onClickSearchIcon: Function,
+  showSearchField: boolean,
+  onKeyDownSearch: Function,
   onClickAvatar: Function,
   onClickCloseMenu: Function,
   showMenu: boolean,
@@ -130,12 +140,16 @@ export default (props: PropTypes) => (
         <ActionWrapper>
           {props.user ? (
             <ActionContainer>
-              <ActionCell>
-                <SearchIcon
-                  color={(props.top || props.help) && Colors.white}
-                  href={props.searchUri}
+              <SearchFiledCell>
+                <AnimateSearchInputField
+                  iconRight
+                  iconColor={(props.top || props.help) && Colors.white}
+                  placeholder="どこの物置きを探す？"
+                  show={props.showSearchField}
+                  onClickIcon={props.onClickSearchIcon}
+                  onKeyDownInputField={props.onKeyDownSearch}
                 />
-              </ActionCell>
+              </SearchFiledCell>
               <ActionCell>
                 <MessageIcon
                   color={(props.top || props.help) && Colors.white}
@@ -153,10 +167,16 @@ export default (props: PropTypes) => (
             </ActionContainer>
           ) : (
             <Fragment>
-              <SearchIcon
-                color={(props.top || props.help) && Colors.white}
-                href={props.searchUri}
-              />
+              <SearchFiledCell>
+                <AnimateSearchInputField
+                  iconRight
+                  iconColor={(props.top || props.help) && Colors.white}
+                  placeholder="どこの物置きを探す？"
+                  show={props.showSearchField}
+                  onClickIcon={props.onClickSearchIcon}
+                  onKeyDownInputField={props.onKeyDownSearch}
+                />
+              </SearchFiledCell>
               <AnonymouseWrapper>
                 <Anonymouse loginUri={props.loginUri} signupUri={props.signupUri} />
               </AnonymouseWrapper>

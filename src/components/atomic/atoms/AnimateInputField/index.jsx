@@ -12,7 +12,7 @@ const InputField = styled.input`
       width: 100%;
     }
   }
-
+  background: rgba(0,0,0,0);
   outline: none;
   height: 32px;
   width: 0;
@@ -20,11 +20,11 @@ const InputField = styled.input`
   font-size: 16px;
   line-height: 1.5;
   padding: 0 12px;
-  border-bottom: 1px solid ${Colors.borderGray};
   ${props => props.show && `
     animation show 0.5s ease 0s;
     animation-fill-mode: forwards;
     width: 100%;
+    border-bottom: 1px solid ${Colors.borderGray};
   `}
 `;
 

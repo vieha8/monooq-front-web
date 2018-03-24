@@ -26,6 +26,7 @@ type PropTypes = {
   iconRight?: boolean,
   show?: boolean,
   placeholder?: string,
+  iconColor: string,
   onClickIcon: Function,
   onKeyDownInputField?: Function,
 }
@@ -33,7 +34,7 @@ type PropTypes = {
 function Icon(props: PropTypes) {
   return (
     <IconWrapper onClick={props.onClickIcon}>
-      <SearchIcon />
+      <SearchIcon color={props.iconColor} />
     </IconWrapper>
   );
 }
