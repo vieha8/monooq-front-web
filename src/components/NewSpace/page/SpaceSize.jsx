@@ -121,7 +121,6 @@ export default class SpaceSize extends Component {
             <HintBox {...hintProps} />
           )}
         />
-        <SaveBoxMobile />
         <FloatHintButton {...hintProps} />
       </Container>
     );

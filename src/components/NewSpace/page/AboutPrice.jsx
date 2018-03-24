@@ -85,7 +85,6 @@ export default props => (
         <HintBox {...hintProps} />
       )}
     />
-    <SaveBoxMobile />
     <FloatHintButton {...hintProps} />
   </Container>
 );

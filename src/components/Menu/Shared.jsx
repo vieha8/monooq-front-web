@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
@@ -34,7 +33,7 @@ export const MenuItem = styled.li`
   }
 `;
 
-export const MenuLink = styled(Link)`
+export const MenuLink = styled.a`
   display: block;
   width: 100%;
   height: 100%;

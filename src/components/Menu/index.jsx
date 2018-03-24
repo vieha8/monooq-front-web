@@ -9,53 +9,53 @@ export default (props) => {
     <Container showMobile={showMobile}>
       <Menu>
         <MenuItem>
-          <MenuLink to={Path.messages(userId)}>
+          <MenuLink href={Path.messages(userId)}>
             <MenuText>メッセージ</MenuText><NoticeCount count={messageCount} />
           </MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuLink to={Path.schedule(userId)}>
+          <MenuLink href={Path.schedule(userId)}>
             <MenuText>スケジュール</MenuText><NoticeCount count={scheduleCount} />
           </MenuLink>
         </MenuItem>
         {hasSpace && (
           <Fragment>
             <MenuItem>
-              <MenuLink to={Path.spaces(userId)}>
+              <MenuLink href={Path.spaces(userId)}>
                 <MenuText>スペースの管理</MenuText><NoticeCount count={scheduleCount} />
               </MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink to={Path.createSpaceInfo()}>
+              <MenuLink href={Path.createSpaceInfo()}>
                 <MenuText>スペースを追加する</MenuText><NoticeCount count={scheduleCount} />
               </MenuLink>
             </MenuItem>
             {/*<MenuItem>*/}
-              {/*<MenuLink to={Path.requestTransfer()}>*/}
+              {/*<MenuLink href={Path.requestTransfer()}>*/}
                 {/*<MenuText>振込申請</MenuText><NoticeCount count={scheduleCount} />*/}
               {/*</MenuLink>*/}
             {/*</MenuItem>*/}
           </Fragment>
         )}
         {/*<MenuItem>*/}
-          {/*<MenuLink to={Path.paid(userId)}>*/}
+          {/*<MenuLink href={Path.paid(userId)}>*/}
             {/*<MenuText>支払い履歴</MenuText>*/}
           {/*</MenuLink>*/}
         {/*</MenuItem>*/}
         {!hasSpace &&
           <MenuItem>
-            <MenuLink to={Path.createSpaceInfo(userId)}>
+            <MenuLink href={Path.createSpaceInfo(userId)}>
               <MenuText>ホスト登録する</MenuText>
             </MenuLink>
           </MenuItem>
         }
         <MenuItem>
-          <MenuLink to={Path.editProfile(userId)}>
+          <MenuLink href={Path.editProfile(userId)}>
             <MenuText>プロフィールを編集する</MenuText>
           </MenuLink>
         </MenuItem>
         {/*<MenuItem>*/}
-          {/*<MenuLink to={Path.inquiry(userId)}>*/}
+          {/*<MenuLink href={Path.inquiry(userId)}>*/}
             {/*<MenuText>お問い合わせ</MenuText>*/}
           {/*</MenuLink>*/}
         {/*</MenuItem>*/}
@@ -65,7 +65,7 @@ export default (props) => {
               e.preventDefault();
               props.onClickLogout();
             }}
-            to=""
+            href=""
           >
             <MenuText>ログアウト</MenuText>
           </MenuLink>
