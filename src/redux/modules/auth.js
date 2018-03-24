@@ -186,7 +186,7 @@ function* signUpEmail({ payload: { email, password } }) {
 function* signUpFacebook() {
   try {
     const provider = new firebase.auth.FacebookAuthProvider();
-    const result = yield firebase.auth().signInWithPopup(provider);
+    const result = yield firebase.auth().signInWithRedirect(provider);
     const { isNewUser } = result.additionalUserInfo;
     if (!isNewUser) {
       yield put(authActions.signupFailed('Already registered.'));

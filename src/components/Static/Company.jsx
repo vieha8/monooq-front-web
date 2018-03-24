@@ -52,9 +52,9 @@ const DetailContent = (props) => {
       <Data>{props.data}</Data>
     </div>
   );
-}
+};
 
-const StyledDetailContent = styled(DetailContent)`
+const StyledDetailContent = styled(DetailContent) `
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -80,22 +80,62 @@ const NewsContent = (props) => {
     font-size: 14px;
     line-height: 28px;
   `;
+
+  const text = props.link ? (
+    <a href={props.link} target="_blank">
+      <Text>{props.text}</Text>
+    </a>
+  ) : (<Text>{props.text}</Text>);
   return (
     <div className={props.className}>
       <LabelContainer>
         <Date>{props.date}</Date>
         <Label>{props.label}</Label>
       </LabelContainer>
-      <Text>{props.text}</Text>
+      {text}
     </div>
   );
-}
+};
 
-const StyledNewsContent = styled(NewsContent)`
+const StyledNewsContent = styled(NewsContent) `
   width: 100%;
   border-bottom: 1px solid #DBDBDB;
   padding: 20px 0;
 `;
+
+const news = [
+  '2018/03/26,個人間の物置きシェアサービス「モノオク」をフルリニューアルしました。,プレスリリース,https://prtimes.jp/main/html/rd/p/000000014.000024093.html',
+  '2018/03/22,トーマツ ベンチャーサポート株式会社・野村證券株式会社が共同主催を行っている「Morning Pitch 03/22開催 第230回 物流特集」にて登壇いたしました。,登壇,http://morningpitch.com/theme/12491/',
+  '2018/03/19,東洋経済に取り上げていただきました,メディア掲載,http://toyokeizai.net/articles/-/212985',
+  '2018/02/25,SBアフタースクールで登壇いたしました,登壇,',
+  '2018/02/19,DIME4月号に取り上げていただきました,メディア掲載,',
+  '2018/02/05,リフォーム産業新聞に取り上げていただきました,メディア掲載,http://www.reform-online.jp/news/reform-shop/12934.php',
+  '2018/01/23,月刊「からだにいいこと2月号」に取り上げていただきました,メディア掲載,',
+  '2018/01/18,月刊「家主と地主」に12月7日の登壇の様子を取り上げていただきました,メディア掲載,',
+  '2017/12/27,(元)病院にオフィスをお借りしました。,プレスリリース,https://prtimes.jp/main/html/rd/p/000000013.000024093.html',
+  '2017/12/18,週間ビル経営にPickgoとの取り組みを取り上げていただきました,メディア掲載,',
+  '2017/12/07,シェアリングエコノミーについて登壇いたしました,登壇,',
+  '2017/11/16,TechCrunch tokyo 2017 スタートアップバトルにて登壇いたしました,登壇,https://jp.techcrunch.com/2017/11/17/the-winner-of-tctokyo2017-startupbattle/',
+  '2017/11/10,スマホ一台旅のスポンサーになりました,プレスリリース,http://www.dreamnews.jp/press/0000163418/',
+  '2017/11/09,Pickgoとの提携に関してLogisticsTodayに取り上げていただきました,メディア掲載,https://www.logi-today.com/303383',
+  '2017/11/06,Pickgoと提携しサービス上で配送が可能になりました。,プレスリリース,https://prtimes.jp/main/html/rd/p/000000009.000024093.html',
+  '2017/10/13,リサイクル通信に取り上げていただきました。,メディア掲載,http://www.recycle-tsushin.com/news/detail_2124.php',
+  '2017/10/11,テレビ東京【モーニングサテライト】に取り上げていただきました。,メディア掲載,http://www.tv-tokyo.co.jp/nms/',
+  '2017/10/05,第19回不動産ソリューションフェアに出展いたします。,告知,',
+  '2017/09/25,健美家に取り上げていただきました,メディア掲載,https://www.kenbiya.com/news/8123.html',
+  '2017/09/19,TechCrunchに取り上げていただきました,メディア掲載,https://jp.techcrunch.com/2017/09/15/trunkroom-sharing-monooq-launch/',
+  '2017/09/19,Cnetに取り上げていただきました,メディア掲載,https://japan.cnet.com/article/35107225/',
+  '2017/09/15,全国賃貸住宅新聞に実際のmonooQご利用の声を取り上げていただきました,メディア掲載,',
+  '2017/09/15,monooQでひと月からの長期保管ができるモノ置きのシェアリングエコノミーサービスを正式に開始しました。,プレスリリース,https://prtimes.jp/main/action.php?run=html&page=releasedetail&company_id=24093&release_id=7&owner=1',
+  '2017/09/07,テレビ東京【ゆうがたサテライト】にて取り上げていただきました,メディア掲載,http://www.tv-tokyo.co.jp/you/',
+  '2017/09/01,Techwaveに取り上げていただきました,メディア掲載,https://techwave.jp/archives/collaboration-monooq-and-spacer.html',
+  '2017/08/31,格安電子ロッカーSPACERと提携。ベータでのテスト運用を開始しました。,プレスリリース,https://prtimes.jp/main/html/rd/p/000000005.000024093.html',
+  '2017/08/25,初期投資を抑えた空き家活用法を探る！！にて登壇内容を民泊大学に記事にしていただきました。,メディア掲載,https://minpaku-univ.com/news/5560/',
+  '2017/08/22,Tokyo FM Blue oceanで紹介されました,メディア掲載,',
+  '2017/08/14,全国賃貸住宅新聞に取り上げていただきました,メディア掲載,http://www.zenchin.com/news/2017/08/post-3452.php',
+  '2017/08/08,個人間の荷物預かり『monooQ』で長期預かりサービスをベータで開始しました。,プレスリリース,https://www.value-press.com/pressrelease/187682',
+  '2017/08/07,週間ビル経営にmonooQを取り上げていただきました。,メディア掲載,',
+];
 
 export default () => (
   <Fragment>
@@ -141,15 +181,13 @@ export default () => (
           header: 'WEB',
           data: <a href={Path.top()}>https://monooq.com/</a>,
         },
-      ].map((v,i)=>{
-        return (
-          <StyledDetailContent
-            key={i}
-            header={v.header}
-            data={v.data}
-          />
-        );
-      })}
+      ].map((v, i) => (
+        <StyledDetailContent
+          key={i}
+          header={v.header}
+          data={v.data}
+        />
+      ))}
     </DetailContainer>
 
     <MainTitleContainer>
@@ -157,64 +195,15 @@ export default () => (
     </MainTitleContainer>
 
     <NewsContainer>
-      {[
-        {
-          date: '2018/03/26',
-          label: 'お知らせ',
-          text: '個人間の物置きシェアサービス「モノオク」をフルリニューアルしました。',
-        },
-        {
-          date: '2018/03/22',
-          label: '登壇',
-          text: 'トーマツ ベンチャーサポート株式会社・野村證券株式会社が共同主催を行っている「Morning Pitch 03/22開催 第230回 物流特集」にて登壇いたしました。',
-        },
-        {
-          date: '2018/02/19',
-          label: 'メディア掲載',
-          text: 'DIME4月号に取り上げていただきました。',
-        },
-        {
-          date: '2018/01/23',
-          label: 'メディア掲載',
-          text: '月刊「からだにいいこと2月号」に取り上げていただきました。',
-        },
-        {
-          date: '2018/01/18',
-          label: 'メディア掲載',
-          text: '月刊「家主と地主」に12月7日の登壇の様子を取り上げていただきました。',
-        },
-        {
-          date: '2017/12/27',
-          label: 'プレスリリース',
-          text: '(元)病院にオフィスをお借りしました。',
-        },
-        {
-          date: '2017/12/18',
-          label: 'メディア掲載',
-          text: '週間ビル経営にPickgoとの取り組みを取り上げていただきました。',
-        },
-        {
-          date: '2017/12/07',
-          label: 'メディア掲載',
-          text: 'シェアリングエコノミーについて登壇いたしました。',
-        },
-        {
-          date: '2017/11/16',
-          label: '登壇',
-          text: 'TechCrunch tokyo 2017 スタートアップバトルにて登壇いたしました。',
-        },
-        {
-          date: '2017/11/10',
-          label: 'プレスリリース',
-          text: 'スマホ一台旅のスポンサーになりました。',
-        },
-      ].map((v,i)=>{
+      {news.map((v, i) => {
+        const item = v.split(',');
         return (
           <StyledNewsContent
             key={i}
-            date={v.date}
-            label={v.label}
-            text={v.text}
+            date={item[0]}
+            text={item[1]}
+            label={item[2]}
+            link={item[3]}
           />
         );
       })}

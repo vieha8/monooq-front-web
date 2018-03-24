@@ -17,6 +17,8 @@ export default () => {
     messagingSenderId: '569699475393',
   };
 
+  console.log('ENV:' + JSON.stringify(process.env));
+
   if (process.env.NODE_ENV === 'production') {
     return configDevelopment;
   }
