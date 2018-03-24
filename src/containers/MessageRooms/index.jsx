@@ -74,13 +74,14 @@ class Messages extends React.Component {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, rooms } = this.props;
     return (
       <Page title="メッセージ一覧">
         <Fragment>
           <Menu />
           <ContentContainer>
-            {this.props.rooms.map((v, i) => (
+            {(rooms.length === 0) ? <div>メッセージはまだありません。</div> : null}
+            {rooms.map((v, i) => (
               <StyledMessagesItem
                 key={i}
                 button

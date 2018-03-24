@@ -16,7 +16,7 @@ export default (props) => {
 
   return (
     <ContentContainer>
-      {(user.length === 0 && host.length === 0) ? <div>リクエストはありません</div> : null}
+      {(user.length === 0 && host.length === 0) ? <div>取引が成立したスペースの利用はまだありません。</div> : null}
       {user.map((request, i) => (
         <ReservationInfo
           key={i}
