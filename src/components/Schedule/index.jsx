@@ -1,7 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
 import { ContentContainer } from 'components/Page';
-import ReservationInfo from './ReservationInfo';
 import dummySpaceImage from 'images/dummy_space.png';
+import { Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
+import ReservationInfo from './ReservationInfo';
+
+const Empty = styled.div`
+  line-height: 1.5;
+  ${media.phone`
+    padding: 0 ${Dimens.medium}px;
+  `}
+`;
 
 const dateFormat = (date) => {
   return date.toLocaleDateString('ja-JP-u-ca-japanese', {
@@ -16,7 +26,7 @@ export default (props) => {
 
   return (
     <ContentContainer>
-      {(user.length === 0 && host.length === 0) ? <div>取引が成立したスペースの利用はまだありません。</div> : null}
+      {(user.length === 0 && host.length === 0) ? <Empty>取引が成立したスペースの利用はまだありません。</Empty> : null}
       {user.map((request, i) => (
         <ReservationInfo
           key={i}
