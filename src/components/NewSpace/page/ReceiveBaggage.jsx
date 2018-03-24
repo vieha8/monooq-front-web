@@ -8,7 +8,7 @@ import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import HowToReceive from '../receive/HowToReceive';
 import ReceiveDetail from '../receive/ReceiveDetail';
-import SaveBoxMobile from '../shared/SaveBoxMobile';
+// import SaveBoxMobile from '../shared/SaveBoxMobile';
 
 const hintProps = {
   title: '荷物受け取りのヒント',
