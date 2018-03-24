@@ -1,6 +1,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Dropzone from 'react-dropzone';
 import { Input, Form, TextArea, Select } from 'semantic-ui-react';
 import Button from 'components/Shared/Button';
 import { ContentContainer } from 'components/Page';
@@ -59,6 +60,11 @@ const ButtonWrapper = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
+const DndContent = styled.div`
+  text-align: center;
+  cursor: pointer;
+`;
+
 // const UnsubscribeText = styled(Link) `
 //   display: block;
 //   font-size: ${FontSizes.xsmall}px;
@@ -70,17 +76,31 @@ const ButtonWrapper = styled.div`
 //   }
 // `;
 
+const styles = {
+  dnd: {
+    width: '100%',
+  },
+};
+
 export default props => (
   <ContentContainer>
     <Content>
       <HostContainer>
         <Title>プロフィール写真</Title>
         <ImageWrapper>
-          <Image src={props.user.ImageUrl} alt={props.user.Name} />
+          <Dropzone
+            style={styles.dnd}
+            accept="image/jpeg, image/png"
+            onDrop={data => props.handleChangeProfileImage(data[0])}
+          >
+            <DndContent>
+              <Image src={props.user.image} alt={props.user.Name} />
+              <ModProfileImageLink>
+                <Caption align="center">写真を変更する</Caption>
+              </ModProfileImageLink>
+            </DndContent>
+          </Dropzone>
         </ImageWrapper>
-        <ModProfileImageLink>
-          <Caption align="center">写真を変更する</Caption>
-        </ModProfileImageLink>
       </HostContainer>
       <InputContainer>
         <Title>お名前</Title>

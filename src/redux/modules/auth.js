@@ -1,9 +1,9 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take } from 'redux-saga/effects';
 import firebase from 'firebase';
+import { push } from 'react-router-redux';
 import { apiEndpoint, apiActions } from './api';
 import { uiActions } from './ui';
-import { push } from 'react-router-redux';
 import { store } from '../store/configureStore';
 
 // Actions
@@ -25,6 +25,8 @@ const CHECK_LOGIN = 'CHECK_LOGIN';
 const CHECK_LOGIN_SUCCESS = 'CHECK_LOGIN_SUCCESS';
 const CHECK_LOGIN_FAILED = 'CHECK_LOGIN_FAILED';
 
+const SET_USER = 'SET_USER';
+
 export const authActions = createActions(
   LOGIN_EMAIL,
   LOGIN_FACEBOOK,
@@ -42,6 +44,7 @@ export const authActions = createActions(
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILED,
   TOKEN_GENERATE,
+  SET_USER,
 );
 
 // Reducer
@@ -100,6 +103,10 @@ export const authReducer = handleActions(
     [SIGNUP_FAILED]: state => ({
       ...state,
       isSignupFailed: true,
+    }),
+    [SET_USER]: (state, action) => ({
+      ...state,
+      user: action.payload,
     }),
   },
   initialState,

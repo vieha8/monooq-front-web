@@ -29,12 +29,11 @@ const Container = styled.div`
 
 const Title = styled.div`
   font-size: ${FontSizes.xlarge}px;
-  line-height: 51px;
+  line-height: 1.5;
   letter-spacing: -0.5px;
   color: ${Colors.black};
   ${media.tablet`
     font-size: ${FontSizes.medium2}px;
-    line-height: inherit;
     padding: 0 ${Dimens.medium}px;
   `}
 `;

@@ -55,8 +55,9 @@ export const userReducer = handleActions(
       updateSuccess: false,
       updateFailed: false,
     }),
-    [UPDATE_SUCCESS_USER]: state => ({
+    [UPDATE_SUCCESS_USER]: (state, action) => ({
       ...state,
+      user: action.payload,
       updateSuccess: true,
       updateFailed: false,
     }),
@@ -106,9 +107,9 @@ function* getSpaces() {
 }
 
 function* updateUser({ payload: { userId, body } }) {
-  if (body.image) {
+  if (body.imageUri) {
     const fileReader = new FileReader();
-    fileReader.readAsArrayBuffer(body.image);
+    fileReader.readAsArrayBuffer(body.imageUri);
     const ext = yield new Promise(resolve => {
       fileReader.onload = () => {
         const imageType = fileType(fileReader.result);
@@ -117,7 +118,7 @@ function* updateUser({ payload: { userId, body } }) {
     });
     const timeStamp = Date.now();
     const imagePath = `/img/users/${userId}/profile/${timeStamp}.${ext}`;
-    body.imageUrl = yield uploadImage(imagePath, body.image);
+    body.imageUrl = yield uploadImage(imagePath, body.imageUri);
   }
   if (body.email) {
     const user = firebase.auth().currentUser;
@@ -136,6 +137,7 @@ function* updateUser({ payload: { userId, body } }) {
     yield put(userActions.updateFailedUser(meta));
     return;
   }
+  yield put(authActions.setUser(payload));
   yield put(userActions.updateSuccessUser(payload));
   yield put(uiActions.setUiState({ signUpStep: 5 }));
 }

@@ -42,9 +42,15 @@ class ProfileContainer extends Component {
     FormValidator.changeUiState(prop, value, this.props.ui);
   }
 
-  handleChangeProfileImage = (image) => {
-    const prop = 'image';
-    FormValidator.changeUiState(prop, image, this.props.ui);
+  handleChangeProfileImage = (pickedImage) => {
+    const { dispatch, ui } = this.props;
+    dispatch(uiActions.setUiState({
+      editProfile: {
+        ...ui.editProfile,
+        image: pickedImage.preview,
+        imageUri: pickedImage,
+      },
+    }));
   }
 
   handleChangeName = (value) => {
@@ -146,6 +152,7 @@ const mapStateToProps = (state) => {
       email: user.Email,
       prefCode: user.PrefCode,
       profile: user.Profile,
+      image: user.ImageUrl,
     };
   }
 
