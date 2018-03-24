@@ -79,7 +79,12 @@ export default props => (
         <Text>{props.Title || 'タイトル未入力'}</Text>
         {props.IsFurniture ? <TypeOK>家具・家電OK</TypeOK> : null}
         <PriceTitle>料金目安（30日間）</PriceTitle>
-        <Price>{props.PriceFull}/{props.PriceHalf}/{props.PriceQuarter}円</Price>
+        <Price>
+          {`
+            ${props.PriceFull}
+            ${props.PriceQuarter > 0 ? `/ ${props.PriceQuarter}` : ''}
+            ${props.PriceHalf > 0 ? `/ ${props.PriceHalf}` : ''}
+          `}円</Price>
       </Content>
     </Card>
   </Container>

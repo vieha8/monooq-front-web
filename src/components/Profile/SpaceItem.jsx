@@ -64,16 +64,24 @@ export default props => (
           alt={props.space.Title}
           width="200"
           height="150"
-        />: <Image
-          src="http://placehold.jp/200x150.png"
-          alt=""
-        />}
+        /> : (
+          <Image
+            src="http://placehold.jp/200x150.png"
+            alt=""
+          />
+        )}
         <Content>
           <PlaceText>{props.space.AddressTown}</PlaceText>
           <Text>{props.space.Title}</Text>
           {props.space.IsFurniture && <TypeOK>家具・家電OK</TypeOK>}
           <PriceTitle>料金目安（30日間）</PriceTitle>
-          <Price>{props.space.PriceFull}/{props.space.PriceHalf}/{props.space.PriceQuarter}円</Price>
+          <Price>
+            {`
+              ${props.space.PriceFull}
+              ${props.space.PriceQuarter > 0 ? `/ ${props.space.PriceQuarter}` : ''}
+              ${props.space.PriceHalf > 0 ? `/ ${props.space.PriceHalf}` : ''}
+            `}円
+          </Price>
         </Content>
       </Card>
     </Wrapper>
