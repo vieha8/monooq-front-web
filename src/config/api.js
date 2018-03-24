@@ -9,7 +9,7 @@ export default () => {
   };
 
   if (process.env.NODE_ENV === 'production') {
-    return configProduction;
+    return configDevelopment;
   }
 
   return configDevelopment;
