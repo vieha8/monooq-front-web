@@ -120,8 +120,8 @@ export default props => (
     </InputContainer>
     {props.errors.passwordConfirm && <ErrorText errors={props.errors.passwordConfirm} />}
     <LinkTextWrapper>
-      <LinkText to={Path.terms()}>利用規約</LinkText>と
-      <LinkText to={Path.privacy()}>プライバシーポリシー</LinkText>に同意の上、<br />次へボタンを押してください。
+      <LinkText to={Path.terms()} target="_blank">利用規約</LinkText>と
+      <LinkText to={Path.privacy()} target="_blank">プライバシーポリシー</LinkText>に同意の上、<br />次へボタンを押してください。
     </LinkTextWrapper>
     {props.errors.signupFailed && <ErrorText errors={props.errors.signupFailed} />}
     <ButtonWrapper>
