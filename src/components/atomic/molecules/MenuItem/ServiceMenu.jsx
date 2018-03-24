@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import InlineText from 'components/atomic/atoms/InlineText';
 import NotificationCount from 'components/atomic/atoms/NotificationCount';
 import MenuItem from 'components/atomic/atoms/Menu/Item';
@@ -33,8 +34,8 @@ type PropTypes = {
 }
 
 export default (props: PropTypes) => (
-  <MenuItem>
-    <MenuLink href={props.href}>
+  <MenuItem show>
+    <MenuLink href={props.href || ''}>
       <MenuText>
         <InlineText.Small>{props.title}</InlineText.Small>
       </MenuText>

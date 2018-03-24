@@ -19,7 +19,9 @@ type PropTypes = {
   isChecking: boolean,
   isLogin: boolean,
   user: {
-
+    ID: string,
+    ImageUrl: string,
+    Name: string,
   },
   top: boolean,
   help: boolean,
@@ -98,8 +100,8 @@ class HeaderContainer extends Component<PropTypes> {
         messageUri={Path.messages()}
         messageCount={0}
         user={isLogin ? {
-          image: '',
-          name: '',
+          image: user.ImageUrl,
+          name: user.Name,
         } : null}
         loginUri={Path.login()}
         signupUri={Path.signup()}
@@ -113,14 +115,14 @@ class HeaderContainer extends Component<PropTypes> {
         menu={(
           <ServiceMenu
             message={{ href: Path.message(), notificationCount: 0 }}
-            schedule={{ href: Path.schedule(user.id), notificationCount: 0 }}
-            spaces={{ href: Path.spaces(user.id) }}
+            schedule={{ href: Path.schedule(user.ID), notificationCount: 0 }}
+            spaces={{ href: Path.spaces(user.ID) }}
             addSpace={{ href: Path.createSpaceInfo() }}
-            salesTransfer={{ href: Path.salesTransfers(user.id) }}
-            paymentHistory={{ href: Path.paid(user.id) }}
+            salesTransfer={{ href: Path.salesTransfers(user.ID) }}
+            paymentHistory={{ href: Path.paid(user.ID) }}
             becomeHost={{ href: Path.createSpaceInfo() }}
-            editProfile={{ href: Path.editProfile(user.id) }}
-            inquiry={{ href: Path.inquiry(user.id) }}
+            editProfile={{ href: Path.editProfile(user.ID) }}
+            inquiry={{ href: Path.inquiry(user.ID) }}
             logout={{ onClick: () => this.logout() }}
             hasSpace
           />

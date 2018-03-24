@@ -2,11 +2,13 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import StoryRouter from 'storybook-router';
 
 import ServiceMenu from './ServiceMenu';
 import HelpMenu from './HelpMenu';
 
 storiesOf('Molecules/MenuItem', module)
+  .addDecorator(StoryRouter())
   .add('ServiceMenu', () => (
     <div style={{ width: '320px' }}>
       <ServiceMenu

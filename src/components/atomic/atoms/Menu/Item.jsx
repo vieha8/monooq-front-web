@@ -10,7 +10,7 @@ const MenuItem = styled.li`
   background: ${Colors.white};
   &:hover {
     cursor: pointer;
-    background: rgba(0, 0, 0, 0.1);
+    background: ${Colors.lightGray1Bg};
   }
   &:not(:last-child) {
     border-bottom: none;

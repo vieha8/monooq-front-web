@@ -2,10 +2,12 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import StoryRouter from 'storybook-router';
 
 import Menu from './index';
 
 storiesOf('Organisms/ServiceMenu', module)
+  .addDecorator(StoryRouter())
   .add('Host', () => (
     <div style={{ width: '320px' }}>
       <Menu
