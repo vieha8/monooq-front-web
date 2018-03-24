@@ -1,4 +1,5 @@
 import React from 'react';
+import { Loader } from 'semantic-ui-react';
 import Buttons from './Buttons';
 
 export default (props) => {
@@ -8,7 +9,7 @@ export default (props) => {
         {...props}
         onClick={props.disabled ? null : props.onClick}
       >
-        {props.children}
+        {props.loading ? <Loader active inline="centered" size="mini" /> : props.children}
       </Buttons.Secondary>
     );
   }
@@ -19,7 +20,7 @@ export default (props) => {
         {...props}
         onClick={props.disabled ? null : props.onClick}
       >
-        {props.children}
+        {props.loading ? <Loader active inverted inline="centered" size="mini" /> : props.children}
       </Buttons.Tertiary>
     );
   }
@@ -30,7 +31,7 @@ export default (props) => {
         {...props}
         onClick={props.disabled ? null : props.onClick}
       >
-        {props.children}
+        {props.loading ? <Loader active inverted inline="centered" size="mini" /> : props.children}
       </Buttons.Facebook>
     );
   }
@@ -40,7 +41,7 @@ export default (props) => {
       {...props}
       onClick={props.disabled ? null : props.onClick}
     >
-      {props.children}
+      {props.loading ? <Loader active inverted inline="centered" size="mini" /> : props.children}
     </Buttons.Primary>
   );
 };

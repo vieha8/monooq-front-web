@@ -18,14 +18,14 @@ import {
   PlaceText,
   PriceContent,
   PriceTitle,
-  ReportLink,
   SendMessageButton,
   SlideImage,
 } from 'components/Space';
-
-import SpaceMenu from 'containers/Search/SpaceMenu';
 import { getRoomId, createRoom } from 'redux/modules/messages';
 import { spaceActions } from 'redux/modules/space';
+import imageFurnitureFull from 'images/furniture-full.svg';
+import imageFurnitureHalf from 'images/furniture-half.svg';
+import imageFurnitureQuarter from 'images/furniture-quarter.svg';
 
 const SpacePage = styled.div`
   background: ${Colors.lightGray2Bg};
@@ -161,15 +161,15 @@ class Space extends React.Component {
     return (
       <SpacePage>
         {/* TODO マップのprops調整 */}
-        { space.location &&
-        <Map
-          containerElement={<MapContainer />}
-          mapElement={<div style={{ height: '100%' }} />}
-          loadingElement={<div style={{ height: '100%' }} />}
-          lat={space.location.lat}
-          lng={space.location.lng}
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${KEY}&v=3.exp&libraries=geometry,drawing,places`}
-        />
+        {space.location &&
+          <Map
+            containerElement={<MapContainer />}
+            mapElement={<div style={{ height: '100%' }} />}
+            loadingElement={<div style={{ height: '100%' }} />}
+            lat={space.location.lat}
+            lng={space.location.lng}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${KEY}&v=3.exp&libraries=geometry,drawing,places`}
+          />
         }
 
         <CardContainer>
@@ -180,14 +180,11 @@ class Space extends React.Component {
                   <TableCell>
                     <PlaceText>{space.AddressPref} {space.AddressCity} {space.AddressTown}</PlaceText>
                   </TableCell>
-                  <TableCell align="right">
-                    <SpaceMenu />
-                  </TableCell>
                 </MenuContainer>
                 <HeaderTitle>{space.Title}</HeaderTitle>
                 <SlideImageWrapper>
                   <SlideImage
-                    images={space.Images.map((v) => ({original: v.ImageUrl, thumbnail: v.ImageUrl}))}
+                    images={space.Images.map((v) => ({ original: v.ImageUrl, thumbnail: v.ImageUrl }))}
                   />
                 </SlideImageWrapper>
                 <Section>
@@ -258,33 +255,26 @@ class Space extends React.Component {
                     title="スペースまるごと"
                     price={space.PriceFull}
                     caption="スペースのほとんどを使用する荷物の場合の料金"
+                    image={imageFurnitureFull}
                   />
                   <PriceContent
                     title="スペース半分"
                     price={space.PriceHalf}
                     caption="スペースの半分程度を使用する荷物の場合の料金"
+                    image={imageFurnitureHalf}
                   />
                   <PriceContent
                     title="スペース1/4"
                     price={space.PriceQuarter}
                     caption="スペースの4分の1程度を使用する荷物の場合の料金"
+                    image={imageFurnitureQuarter}
                   />
                 </div>
               </MobileContainer>
             </Card>
-            {isMobileWindow() &&
-              <Section>
-                <ReportLink />
-              </Section>
-            }
             <SendMessageButton
               onClickSendMessage={() => this.sendMessage()}
             />
-            {!isMobileWindow() &&
-              <Section>
-                <ReportLink />
-              </Section>
-            }
           </PriceCardContainer>
         </CardContainer>
         {!isMobileWindow() && <Footer />}

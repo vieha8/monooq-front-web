@@ -26,7 +26,8 @@ const H2 = styled.h2`
 
 const Caption = styled.span`
   font-size: ${FontSizes.xsmall}px;
-  color: ${Colors.lightGray1};
+  color: ${Colors.black};
+  line-height: 1.5;
 `;
 
 export default props => (
@@ -52,6 +53,11 @@ export default props => (
         onChange={props.handleChangePrice}
         errors={props.priceErrors}
       />
+    )}
+    caption={(
+      <Caption>
+        取引成立時の売上は、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。
+      </Caption>
     )}
     button={(
       <Button
