@@ -7,8 +7,15 @@ export default () => {
     storageBucket: 'gs://monooq-dev.appspot.com/',
     messagingSenderId: '752653028012',
   };
-  // TODO return production conf
-  const configProduction = configDevelopment;
+
+  const configProduction = {
+    apiKey: 'AIzaSyAOzkRrYFUdzQ2kuwMyTjrjcsbhKOfuQVo',
+    authDomain: 'monooq-prod.firebaseapp.com',
+    databaseURL: 'https://monooq-prod.firebaseio.com',
+    projectId: 'monooq-prod',
+    storageBucket: 'monooq-prod.appspot.com',
+    messagingSenderId: '569699475393',
+  };
 
   if (process.env.NODE_ENV === 'production') {
     return configProduction;
