@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import NavigationHeader from 'components/NavigationHeader';
+import { authActions } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
@@ -8,6 +9,11 @@ import Path from 'config/path';
 const disusePage = [/\/maintenance/, /\/help*/];
 
 class NavigationHeaderContainer extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(authActions.checkLogin());
+  }
+
   onClickSearchIcon = () => {
     const { dispatch, ui } = this.props;
 

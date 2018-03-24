@@ -142,6 +142,7 @@ function* checkLoginFirebaseAuth() {
 function* loginEmail({ payload: { email, password } }) {
   try {
     yield firebase.auth().signInWithEmailAndPassword(email, password);
+    yield checkLoginFirebaseAuth();
     yield put(authActions.loginSuccess());
   } catch (err) {
     console.error(err);
