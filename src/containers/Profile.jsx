@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import Profile from 'components/Profile/Profile';
 import { Colors } from 'variables';
-import { userActions } from "../redux/modules/user";
+import { userActions } from 'redux/modules/user';
 
 class ProfileContainer extends Component {
-  componentDidMount = () => {
-    document.body.style.background = Colors.lightGray1Bg;
-  };
-
-  constructor(props){
+  constructor(props) {
     super(props);
     const userId = this.props.match.params.user_id;
-    this.props.dispatch(userActions.fetchUser({userId}));
-    this.props.dispatch(userActions.fetchUserSpaces({userId}));
+    this.props.dispatch(userActions.fetchUser({ userId }));
+    this.props.dispatch(userActions.fetchUserSpaces({ userId }));
+  }
+
+  componentDidMount = () => {
+    document.body.style.background = Colors.lightGray1Bg;
   }
 
   render() {
-    if(!this.props.user){
+    if (!this.props.user) {
       return null;
     }
     return (

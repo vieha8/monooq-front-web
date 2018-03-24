@@ -96,14 +96,15 @@ function* getSpaces() {
     return;
   }
 
-  const res = payload.map(v => {
-    if (v.Images.length === 0) {
-      v.Images[0] = { ImageUrl: dummySpaceImage };
-    }
-    return v;
-  });
-
-  yield put(userActions.fetchSuccessUserSpaces(res));
+  if (Array.isArray(payload)) {
+    const res = payload.map(v => {
+      if (v.Images.length === 0) {
+        v.Images[0] = { ImageUrl: dummySpaceImage };
+      }
+      return v;
+    });
+    yield put(userActions.fetchSuccessUserSpaces(res));
+  }
 }
 
 function* updateUser({ payload: { userId, body } }) {

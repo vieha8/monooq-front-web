@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const Content = styled.div`
   padding: 0 20%;
-  margin-bottom: ${Dimens.huge}px;
+  margin: ${Dimens.huge}px 0;
   ${media.phone`
     padding: 0;
   `}
@@ -83,13 +83,11 @@ export default props => (
           <ResidenceText>{getPrefecture(props.user.PrefCode)}在住</ResidenceText>
           <Profile>{props.user.Profile}</Profile>
         </HostContainer>
-        {(props.spaces.length > 0)?<Header>{props.user.Name} さんのスペース</Header>:null}
+        {(props.spaces.length > 0) ? <Header>{props.user.Name} さんのスペース</Header> : null}
         <SpaceListContainer>
-          {props.spaces.map((space, i) => {
-            return (
-              <SpaceItem key={i} space={space} history={props.history} />
-            );
-          })}
+          {props.spaces.map((space, i) => (
+            <SpaceItem key={i} space={space} history={props.history} />
+          ))}
         </SpaceListContainer>
       </ProfileContainer>
     </Content>
