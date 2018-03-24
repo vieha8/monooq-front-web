@@ -1,14 +1,8 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { H2 } from 'components/atomic/atoms/Headline';
-import HelpList from 'components/atomic/molecules/Help/ListItem';
-import TextButton from 'components/atomic/atoms/TextButton';
-
-const LinkWrapper = styled.div`
-  margin-top: 32px;
-`;
+import Template from './Template';
 
 const QandA = [
   {
@@ -83,13 +77,6 @@ const QandA = [
   },
 ];
 
-type QA = {
-  title: string,
-  content: string,
-  circleDown?: boolean,
-  circleRight?: boolean,
-}
-
 type PropTypes = {
   onClickList: Function,
   openFlagList: Array<boolean>,
@@ -97,28 +84,11 @@ type PropTypes = {
 }
 
 export default (props: PropTypes) => (
-  <Fragment>
-    <H2>サービスについて</H2>
-    {QandA.map((qa: QA, i) => (
-      <HelpList
-        key={`help_list_item_${i}`}
-        title={qa.title}
-        content={qa.content}
-        onClick={() => props.onClickList(i)}
-        open={props.openFlagList[i]}
-        circleDown={qa.circleDown}
-        circleRight={qa.circleRight}
-      />
-    ))}
-    <LinkWrapper>
-      <TextButton
-        onClick={(e) => {
-          e.preventDefault();
-          props.onClickBack();
-        }}
-      >
-        前のページへ戻る
-      </TextButton>
-    </LinkWrapper>
-  </Fragment>
+  <Template
+    headline="サービスについて"
+    qa={QandA}
+    openFlagList={props.openFlagList}
+    onClickList={props.onClickList}
+    onClickBack={props.onClickBack}
+  />
 );

@@ -14,7 +14,7 @@ const MenuLink = styled(Link)`
   height: 100%;
   text-decoration: none;
   padding: 12px 16px;
-  ${props => props.fillColor && `
+  ${props => props.fill && `
     background: ${Colors.lightGray1Bg};
   `}
 `;
@@ -54,7 +54,7 @@ export default (props: PropTypes) => {
           }
         }}
         to={props.href || ''}
-        fillColor={props.fillColor}
+        fill={props.fillColor ? 1 : 0}
       >
         <MenuText>
           <InlineText.Small>{props.title}</InlineText.Small>

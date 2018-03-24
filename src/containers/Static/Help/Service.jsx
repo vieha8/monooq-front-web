@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import HelpService from 'components/atomic/pages/Help/Service';
+import Path from 'config/path';
 
 type PropTypes = {
   dispatch: Function,
@@ -16,6 +17,20 @@ type PropTypes = {
   history: {
     goBack: Function,
   },
+  location: {
+    pathname: string,
+  },
+}
+
+function mapPathnameToContent(pathname: string) {
+  switch (pathname) {
+    case Path.helpService():
+      return 'service';
+    case Path.helpTransaction():
+      return 'transaction';
+    default:
+      return '';
+  }
 }
 
 class HelpTopContainer extends React.Component<PropTypes> {
@@ -48,7 +63,7 @@ class HelpTopContainer extends React.Component<PropTypes> {
   }
 
   render() {
-    const { ui } = this.props;
+    const { ui, location } = this.props;
 
     return (
       <Fragment>
@@ -60,6 +75,7 @@ class HelpTopContainer extends React.Component<PropTypes> {
           onClickList={this.onClickList}
           openFlagList={ui.openFlagList || []}
           onClickBack={this.onClickBack}
+          content={mapPathnameToContent(location.pathname)}
         />
       </Fragment>
     );
