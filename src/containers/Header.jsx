@@ -20,6 +20,7 @@ type PropTypes = {
   isLogin: boolean,
   user: {
     ID: string,
+    Name: string,
     ImageUrl: string,
   },
   top: boolean,
@@ -109,7 +110,7 @@ class HeaderContainer extends Component<PropTypes> {
         searchUri={Path.search()}
         messageUri={Path.messages()}
         messageCount={0}
-        user={isLogin ? {
+        user={(isLogin && user.Name) ? {
           image: user.ImageUrl,
         } : null}
         loginUri={Path.login()}

@@ -70,7 +70,7 @@ class NavigationHeaderContainer extends Component {
     return (
       <NavigationHeader
         loginChecking={isChecking}
-        user={isLogin ? user : null}
+        user={isLogin && user.Name ? user : null}
         showMenu={ui.showMenu}
         showSearchField={ui.showSearchField}
         onKeyDownSearchField={this.onKeyDownSearchField}
