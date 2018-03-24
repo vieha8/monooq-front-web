@@ -122,7 +122,6 @@ class SpaceInfoContainer extends React.Component {
           onClickImageDelete={this.onClickImageDelete}
           onClickNext={this.onClickNext}
         />
-        {this.props.ui.space.id}
       </Page>
     );
   }
@@ -150,6 +149,7 @@ const mapStateToProps = (state) => {
   }
   return ({
     ui: state.ui,
+    space: state.space,
     error: state.error,
   });
 };
