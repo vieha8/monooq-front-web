@@ -27,6 +27,11 @@ type PropTypes = {
 }
 
 class HeaderContainer extends Component<PropTypes> {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(authActions.checkLogin());
+  }
+
   onClickSearch = () => {
     const { dispatch, ui } = this.props;
 
