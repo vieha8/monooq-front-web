@@ -11,7 +11,7 @@ import Button, { ButtonsContainer } from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import InputPriceOfType from '../price/InputPriceOfType';
-import SaveBoxMobile from '../shared/SaveBoxMobile';
+// import SaveBoxMobile from 'components/NewSpace/shared/SaveBoxMobile';
 import Caption from '../shared/Caption';
 
 const hintProps = {

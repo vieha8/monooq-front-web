@@ -12,7 +12,7 @@ import Button, { ButtonsContainer } from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import SpaceSizeCriterion from '../price/SpaceSizeCriterion';
-import SaveBoxMobile from '../shared/SaveBoxMobile';
+// import SaveBoxMobile from 'components/NewSpace/shared/SaveBoxMobile';
 
 const hintProps = {
   title: '荷物受け取りのヒント',

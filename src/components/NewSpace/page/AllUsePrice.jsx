@@ -7,7 +7,7 @@ import Button, { ButtonsContainer } from '../shared/Button';
 import SideBar from '../shared/SideBar';
 import SaveBox from '../shared/SaveBox';
 import InputPriceOfAll from '../price/InputPriceOfAll';
-import SaveBoxMobile from '../shared/SaveBoxMobile';
+// import SaveBoxMobile from 'components/NewSpace/shared/SaveBoxMobile';
 import Caption from '../shared/Caption';
 
 const hintProps = {

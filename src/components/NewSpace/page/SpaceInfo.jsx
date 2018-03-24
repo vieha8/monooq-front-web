@@ -11,7 +11,7 @@ import InputTitle from '../space/InputTitle';
 import SelectType from '../space/SelectType';
 import InputIntro from '../space/InputIntro';
 import InputAddress from '../space/InputAddress';
-import SaveBoxMobile from '../shared/SaveBoxMobile';
+// import SaveBoxMobile from 'components/NewSpace/shared/SaveBoxMobile';
 
 const hintProps = {
   title: 'ヒント',
