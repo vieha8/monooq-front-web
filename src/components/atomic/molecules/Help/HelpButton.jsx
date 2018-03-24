@@ -40,7 +40,7 @@ export default (props: PropTypes) => (
         <InlineText.Base fontSize={14}>{props.title}</InlineText.Base>
       </Cell>
       <Cell right>
-        <AngleRight />
+        <AngleRight color={Colors.linkBlue} />
       </Cell>
     </Container>
   </Card>

@@ -55,7 +55,7 @@ export default (props: PropTypes) => {
       </ButtonsContainer>
       <HelpContainer>
         <H3>よくある質問</H3>
-        <TextLink to={props.helpLink}>{props.helpTitle}</TextLink>
+        <TextLink href={props.helpLink}>{props.helpTitle}</TextLink>
       </HelpContainer>
     </Container>
   );

@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
 import Template from './Template';
 
 const QandA = [
@@ -59,6 +58,7 @@ const QandA = [
     title: 'スペースにはどれくらいのサイズ・量の荷物を置くことができますか？',
     content: '掲載スペースにより異なります。可能かどうかはホストの判断となります。具体的な荷物の大きさや量を事前にホストへ伝えてください。',
     circleDown: true,
+    anchor: 'common1',
   },
   {
     title: '支払い方法は何ですか？',
@@ -67,7 +67,7 @@ const QandA = [
   },
   {
     title: '保険の適応ができない荷物はありますか？',
-    content: 'お支払い前に「荷物に対する保険」ページを必ずお読みください。',
+    content: 'お支払い前に「<a href="/insurance">荷物に対する保険</a>」ページを必ずお読みください。',
     circleDown: true,
   },
   {

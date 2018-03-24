@@ -19,6 +19,7 @@ type PropTypes = {
   },
   location: {
     pathname: string,
+    hash: string,
   },
 }
 
@@ -26,10 +27,22 @@ function mapPathnameToContent(pathname: string) {
   switch (pathname) {
     case Path.helpService():
       return 'service';
-    case Path.helpTransaction():
-      return 'transaction';
+    case Path.helpUserTransaction():
+      return 'usertransaction';
+    case Path.helpHost():
+      return 'host';
+    case Path.helpSpace():
+      return 'space';
+    case Path.helpHostTransaction():
+      return 'hosttransaction';
+    case Path.helpSalesTransfer():
+      return 'salestransfer';
+    case Path.helpSignin():
+      return 'signin';
+    case Path.helpOther():
+      return 'other';
     default:
-      return '';
+      return 'service';
   }
 }
 
@@ -37,8 +50,31 @@ class HelpTopContainer extends React.Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
-    const { dispatch } = props;
-    dispatch(uiActions.setUiState({ openFlagList: [] }));
+    const { dispatch, location } = props;
+    const openFlagList = [];
+
+    switch (location.hash) {
+      case '#common1':
+        // スペースにはどれくらいのサイズ・量の荷物を置くことができますか？
+        openFlagList[10] = true;
+        break;
+      case '#common2':
+        // モノオクのホストになる方法は？
+        openFlagList[0] = true;
+        break;
+      case '#common3':
+        // パスワードを忘れてしまいました。
+        openFlagList[1] = true;
+        break;
+      case '#common4':
+        // レビューはどこから投稿するのですか？
+        openFlagList[2] = true;
+        break;
+      default:
+        break;
+    }
+
+    dispatch(uiActions.setUiState({ openFlagList }));
   }
 
   onClickHowToUser = () => {

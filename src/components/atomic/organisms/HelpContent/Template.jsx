@@ -29,15 +29,17 @@ export default (props: PropTypes) => (
   <Fragment>
     <H2>{props.headline}</H2>
     {props.qa.map((qa: QA, i) => (
-      <HelpList
-        key={`help_list_item_${i}`}
-        title={qa.title}
-        content={qa.content}
-        onClick={() => props.onClickList(i)}
-        open={props.openFlagList[i]}
-        circleDown={qa.circleDown}
-        circleRight={qa.circleRight}
-      />
+      <Fragment key={`help_list_item_${i}`}>
+        {qa.anchor && <div id={qa.anchor} />}
+        <HelpList
+          title={qa.title}
+          content={qa.content}
+          onClick={() => props.onClickList(i)}
+          open={props.openFlagList[i]}
+          circleDown={qa.circleDown}
+          circleRight={qa.circleRight}
+        />
+      </Fragment>
     ))}
     <LinkWrapper>
       <TextButton

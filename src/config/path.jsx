@@ -129,16 +129,18 @@ export default {
     '/help',
   helpService: () =>
     '/help/service',
-  helpTransaction: () =>
-    '/help/transaction',
+  helpUserTransaction: () =>
+    '/help/usertransaction',
   helpHost: () =>
-    'help/host',
+    '/help/host',
   helpSpace: () =>
-    'help/space',
+    '/help/space',
+  helpHostTransaction: () =>
+    '/help/hosttransaction',
   helpSalesTransfer: () =>
-    'help/salesTransfer',
+    '/help/salestransfer',
   helpSignin: () =>
-    'help/signin',
+    '/help/signin',
   helpOther: () =>
-    'help/other',
+    '/help/other',
 };

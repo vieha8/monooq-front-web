@@ -49,6 +49,10 @@ const TextLink = styled(Link)`
   `};
 `;
 
+const HyperLink = TextLink.withComponent('a');
+
 export default (props: Object) => (
-  <TextLink {...props} to={props.to || ''}>{props.children}</TextLink>
+  props.href
+    ? <HyperLink {...props} href={props.href}>{props.children}</HyperLink>
+    : <TextLink {...props} to={props.to || ''}>{props.children}</TextLink>
 );

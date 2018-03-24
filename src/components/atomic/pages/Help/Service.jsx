@@ -6,7 +6,13 @@ import Header from 'containers/Header';
 import Footer from 'components/atomic/molecules/Footer';
 import HelpMenu from 'components/atomic/organisms/HelpMenu';
 import AboutService from 'components/atomic/organisms/HelpContent/AboutService';
-import Transaction from 'components/atomic/organisms/HelpContent/Transaction';
+import UserTransaction from 'components/atomic/organisms/HelpContent/UserTransaction';
+import Host from 'components/atomic/organisms/HelpContent/Host';
+import Space from 'components/atomic/organisms/HelpContent/Space';
+import HostTransaction from 'components/atomic/organisms/HelpContent/HostTransaction';
+import SalesTransfer from 'components/atomic/organisms/HelpContent/SalesTransfer';
+import Signin from 'components/atomic/organisms/HelpContent/Signin';
+import Other from 'components/atomic/organisms/HelpContent/Other';
 
 type PropTypes = {
   openHowToUser: boolean,
@@ -16,13 +22,19 @@ type PropTypes = {
   onClickList: Function,
   openFlagList: Array<boolean>,
   onClickBack: Function,
-  content: 'service' | 'transaction' | 'host' | 'space' | 'salesTransfer' | 'signin' | 'other',
+  content: string,
 }
 
 function getContent(props: PropTypes) {
   const Contents = {
     service: AboutService,
-    transaction: Transaction,
+    usertransaction: UserTransaction,
+    host: Host,
+    space: Space,
+    hosttransaction: HostTransaction,
+    salestransfer: SalesTransfer,
+    signin: Signin,
+    other: Other,
   };
   const Content = Contents[props.content] || AboutService;
 
