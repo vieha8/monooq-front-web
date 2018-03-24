@@ -30,6 +30,10 @@ const ContentContainer = styled.div`
   margin-top: 20px;
 `;
 
+const Content = styled.span`
+  white-space: pre-wrap;
+`;
+
 type PropTypes = {
   title: string,
   content: string,
@@ -46,13 +50,19 @@ export default (props: PropTypes) => (
         <TextButton fontSize={16}>{props.title}</TextButton>
       </Cell>
       <Cell right>
-          {props.circleDown && <CircleDown fontSize={12} color={Colors.linkBlue} />}
-          {props.circleRight && <CircleRight fontSize={12} color={Colors.linkBlue} />}
+        {props.circleDown && <CircleDown fontSize={12} color={Colors.linkBlue} />}
+        {props.circleRight && <CircleRight fontSize={12} color={Colors.linkBlue} />}
       </Cell>
     </ButtonContainer>
     {props.open &&
       <ContentContainer>
-        <InlineText.Base fontSize={14}>{props.content}</InlineText.Base>
+        <InlineText.Base fontSize={14}>
+          <Content
+            dangerouslySetInnerHTML={{
+              __html: props.content,
+            }}
+          />
+        </InlineText.Base>
       </ContentContainer>
     }
   </Container>

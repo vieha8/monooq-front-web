@@ -26,10 +26,22 @@ function mapPathnameToContent(pathname: string) {
   switch (pathname) {
     case Path.helpService():
       return 'service';
-    case Path.helpTransaction():
-      return 'transaction';
+    case Path.helpUserTransaction():
+      return 'usertransaction';
+    case Path.helpHost():
+      return 'host';
+    case Path.helpSpace():
+      return 'space';
+    case Path.helpHostTransaction():
+      return 'hosttransaction';
+    case Path.helpSalesTransfer():
+      return 'salestransfer';
+    case Path.helpSignin():
+      return 'signin';
+    case Path.helpOther():
+      return 'other';
     default:
-      return '';
+      return 'service';
   }
 }
 

@@ -47,7 +47,7 @@ export default (props: PropTypes) => (
     <MenuItem
       title="取引について"
       {...props.aboutUserTransaction}
-      href={Path.helpTransaction()}
+      href={Path.helpUserTransaction()}
       fillColor
     />
     <MenuItem
@@ -72,7 +72,7 @@ export default (props: PropTypes) => (
     <MenuItem
       title="取引について"
       {...props.aboutHostTransaction}
-      href={Path.helpTransaction()}
+      href={Path.helpHostTransaction()}
       fillColor
     />
     <MenuItem
