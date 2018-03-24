@@ -3,12 +3,13 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Logo from 'components/atomic/atoms/Logo';
+import CloseIcon from 'components/atomic/molecules/HeaderAction/CloseIcon';
 import MessageIcon from 'components/atomic/molecules/HeaderAction/MessageIcon';
 import AvatarIcon from 'components/atomic/molecules/HeaderAction/AvatarIcon';
 import Anonymouse from 'components/atomic/molecules/HeaderAction/Anonymouse';
 import AnimateSearchInputField from 'components/atomic/molecules/AnimateSearchInputField';
 import ServiceMenu from 'components/atomic/organisms/ServiceMenu';
-import { media } from 'helpers/style/media-query';
+import { media, isMobileWindow } from 'helpers/style/media-query';
 import { Colors, ZIndexes } from 'variables';
 
 export const Height = 60;
@@ -24,8 +25,8 @@ const Container = styled.header`
     `
     background: rgba(255, 255, 255, 0.6);
   `} ${props =>
-      props.help &&
-      `
+    props.help &&
+    `
     background: ${Colors.brandAccent};
   `};
 `;
@@ -41,6 +42,9 @@ const Nav = styled.nav`
 const LogoWrapper = styled.a`
   display: inline-flex;
   margin-left: 12px;
+  ${props => props.hide && `
+    display: none;
+  `}
   ${media.phone`
     margin-top: 4px;
   `};
@@ -66,6 +70,9 @@ const ActionCell = styled.div`
   &:not(:last-child) {
     padding-right: 12px;
   }
+  ${props => props.hide && `
+    display: none;
+  `}
 `;
 
 const SearchFiledCell = styled.div`
@@ -73,12 +80,21 @@ const SearchFiledCell = styled.div`
   vertical-align: middle;
   width: 300px;
   margin-right: 8px;
+  ${media.phone`
+    width: 150px
+    ${props => props.fill && `
+      width: 100%;
+    `}
+  `}
 `;
 
 const AnonymouseWrapper = styled.div`
   display: inline-block;
   margin-left: 16px;
   vertical-align: middle;
+  ${props => props.hide && `
+    display: none;
+  `}
 `;
 
 const MenuWrapper = styled.div`
@@ -114,11 +130,11 @@ type PropTypes = {
   messageCount: number,
   user: {
     image: string,
-    name: string,
   },
   loginUri: string,
   signupUri: string,
   onClickSearchIcon: Function,
+  onClickCloseSearch: Function,
   showSearchField: boolean,
   onKeyDownSearch: Function,
   onChangeSearchField: Function,
@@ -128,20 +144,20 @@ type PropTypes = {
   menu: React.Element<ServiceMenu>,
   top?: boolean,
   help?: boolean,
-  hideActions?: boolean,
 };
 
-export default (props: PropTypes) => (
-  <Container top={props.top} help={props.help}>
-    <Nav>
-      <LogoWrapper href={props.homeUri}>
-        {(props.top || props.help) ? <Logo.HeaderWhite /> : <Logo.Header />}
-      </LogoWrapper>
-      {!props.hideActions && (
+export default (props: PropTypes) => {
+  const isFillSearchField = (props.showSearchField && isMobileWindow()) ? 'fill' : '';
+  return (
+    <Container top={props.top} help={props.help}>
+      <Nav>
+        <LogoWrapper href={props.homeUri} hide={isFillSearchField}>
+          {(props.top || props.help) ? <Logo.HeaderWhite /> : <Logo.Header />}
+        </LogoWrapper>
         <ActionWrapper>
           {props.user ? (
             <ActionContainer>
-              <SearchFiledCell>
+              <SearchFiledCell fill={isFillSearchField}>
                 <AnimateSearchInputField
                   iconRight
                   iconColor={(props.top || props.help) && Colors.white}
@@ -152,17 +168,22 @@ export default (props: PropTypes) => (
                   onChange={props.onChangeSearchField}
                 />
               </SearchFiledCell>
-              <ActionCell>
+              <ActionCell hide={!isFillSearchField}>
+                <CloseIcon
+                  color={(props.top || props.help) && Colors.white}
+                  onClick={props.onClickCloseSearch}
+                />
+              </ActionCell>
+              <ActionCell hide={isFillSearchField}>
                 <MessageIcon
                   color={(props.top || props.help) && Colors.white}
                   href={props.messageUri}
                   notificationCount={props.messageCount}
                 />
               </ActionCell>
-              <ActionCell>
+              <ActionCell hide={isFillSearchField}>
                 <AvatarIcon
                   imageSrc={props.user.image}
-                  imageAlt={props.user.name}
                   onClick={props.onClickAvatar}
                 />
               </ActionCell>
@@ -180,19 +201,19 @@ export default (props: PropTypes) => (
                   onChange={props.onChangeSearchField}
                 />
               </SearchFiledCell>
-              <AnonymouseWrapper>
+              <AnonymouseWrapper hide={isFillSearchField}>
                 <Anonymouse loginUri={props.loginUri} signupUri={props.signupUri} />
               </AnonymouseWrapper>
             </Fragment>
           )}
         </ActionWrapper>
+      </Nav>
+      {props.showMenu && (
+        <Fragment>
+          <MenuBackground onClick={props.onClickCloseMenu} />
+          <MenuWrapper>{props.menu}</MenuWrapper>
+        </Fragment>
       )}
-    </Nav>
-    {props.showMenu && (
-      <Fragment>
-        <MenuBackground onClick={props.onClickCloseMenu} />
-        <MenuWrapper>{props.menu}</MenuWrapper>
-      </Fragment>
-    )}
-  </Container>
-);
+    </Container>
+  );
+}

@@ -32,3 +32,4 @@ export const AngleRight = (props: PropTypes) => <Icon {...props} className="fal 
 export const AngleDown = (props: PropTypes) => <Icon {...props} className="fal fa-angle-down" />;
 export const CircleRight = (props: PropTypes) => <Icon {...props} className="fal fa-chevron-circle-right" />;
 export const CircleDown = (props: PropTypes) => <Icon {...props} className="fal fa-chevron-circle-down" />;
+export const CloseIcon = (props: PropTypes) => <Icon {...props} className="fal fa-times" />;

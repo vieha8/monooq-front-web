@@ -2,7 +2,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import InlineText from 'components/atomic/atoms/InlineText';
 import NotificationCount from 'components/atomic/atoms/NotificationCount';
 import MenuItem from 'components/atomic/atoms/Menu/Item';

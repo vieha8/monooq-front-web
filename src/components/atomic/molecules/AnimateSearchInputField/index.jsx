@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const InputWrapper = styled.span`
   display: inline-block;
-  width: 90%;
+  width: calc(100% - 42px);
 `;
 
 const IconWrapper = styled.span`

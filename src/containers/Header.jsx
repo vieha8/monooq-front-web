@@ -21,7 +21,6 @@ type PropTypes = {
   user: {
     ID: string,
     ImageUrl: string,
-    Name: string,
   },
   top: boolean,
   help: boolean,
@@ -38,9 +37,15 @@ class HeaderContainer extends Component<PropTypes> {
     }
   }
 
-  handleKeyDownSearch = (e) => {
-    const { dispatch, ui } = this.props;
+  onClickCloseSearch = () => {
+    const { dispatch } = this.props;
+    dispatch(uiActions.setUiState({
+      showSearchField: false,
+      location: '',
+    }));
+  }
 
+  handleKeyDownSearch = (e) => {
     if (e && e.keyCode === 13 && e.target.value) {
       this.search();
     }
@@ -101,12 +106,12 @@ class HeaderContainer extends Component<PropTypes> {
         messageCount={0}
         user={isLogin ? {
           image: user.ImageUrl,
-          name: user.Name,
         } : null}
         loginUri={Path.login()}
         signupUri={Path.signup()}
         onClickAvatar={this.toggleMenu}
         onClickSearchIcon={this.onClickSearch}
+        onClickCloseSearch={this.onClickCloseSearch}
         showSearchField={ui.showSearchField}
         onKeyDownSearch={this.handleKeyDownSearch}
         onChangeSearchField={this.handleChangeSearchField}
