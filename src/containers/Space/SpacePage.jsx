@@ -116,6 +116,12 @@ const MapContainer = styled.div`
   `}
 `;
 
+const FooterWrapper = styled.div`
+  ${media.tablet`
+    display: none;
+  `}
+`;
+
 const spaceTypes = [
   '',
   'クローゼット',
@@ -149,7 +155,7 @@ class Space extends React.Component {
   };
 
   render() {
-    const { space } = this.props;
+    const { space, user } = this.props;
 
     if (!space || !space.Images) {
       return (
@@ -278,12 +284,16 @@ class Space extends React.Component {
                 </div>
               </MobileContainer>
             </Card>
-            <SendMessageButton
-              onClickSendMessage={() => this.sendMessage()}
-            />
+            {user.ID !== (space.Host || {}).ID && (
+              <SendMessageButton
+                onClickSendMessage={() => this.sendMessage()}
+              />
+            )}
           </PriceCardContainer>
         </CardContainer>
-        <Footer />
+        <FooterWrapper>
+          <Footer />
+        </FooterWrapper>
       </SpacePage>
     );
   }
