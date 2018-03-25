@@ -19,14 +19,6 @@ const Cell = styled.div`
 
 export default props => (
   <Container>
-    {props.spaces.length === 0 &&
-    <div>
-      <br/>
-      該当するスペースがありません<br/>
-      <br/>
-    </div>
-    }
-
     {props.spaces.map((space, i) => (
       <Cell key={`result_list_cell_${i}`}>
         <ResultItem {...space} history={props.history} />

@@ -44,6 +44,11 @@ const ProgressContainer = styled.div`
   padding: ${Dimens.medium}px; 0;
 `;
 
+const Empty = styled.div`
+  line-height: 1.5;
+  padding: 0 4%;
+`;
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -53,18 +58,30 @@ class Search extends React.Component {
     const query = queryString.parse(location.search);
     dispatch(uiActions.setUiState({ query }));
 
-    dispatch(searchActions.fetchStartSearch({location: query.location || ''}));
+    dispatch(searchActions.fetchStartSearch({ location: query.location || '' }));
   }
 
-  showSpaceList = () => (
-    !this.props.search.isLoading ? (
-      <ResultList spaces={this.props.spaces} history={this.props.history} />
-    ) : (
-      <ProgressContainer>
-        <CircularProgress size={50} />
-      </ProgressContainer>
-    )
-  )
+  showSpaceList = () => {
+    const { search, spaces, history } = this.props;
+
+    if (search.isLoading) {
+      return (
+        <ProgressContainer>
+          <CircularProgress size={50} />
+        </ProgressContainer>
+      );
+    }
+
+    if (spaces.length === 0) {
+      return (
+        <Empty>該当するスペースがありません</Empty>
+      );
+    }
+
+    return (
+      <ResultList spaces={spaces} history={history} />
+    );
+  }
 
   render() {
     const { ui } = this.props;
