@@ -16,10 +16,8 @@ const ContentContainer = styled.div`
 
   ${media.tablet`
     width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: ${Dimens.medium3}px;
-  `};
+    padding: ${Dimens.medium3}px 20px;
+  `}
 `;
 
 const Title = styled.h1`
