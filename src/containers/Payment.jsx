@@ -7,6 +7,7 @@ import { errorActions } from 'redux/modules/error';
 import { requestActions } from 'redux/modules/request';
 import { ErrorMessage } from 'strings';
 import Payment from 'components/Payment';
+import Paid from 'components/Payment/Paid';
 import FormValidator from 'containers/helper/FormValidator';
 import Path from 'config/path';
 
@@ -30,7 +31,13 @@ class PaymentContainer extends Component {
     const { request_id: requestId, message_room_id: roomId } = this.props.match.params;
     const { card } = this.props.ui;
     this.props.dispatch(requestActions.payment({ roomId, requestId, card }));
-  };
+  }
+
+  onClickPaidButton = () => {
+    const { match } = this.props;
+    const { message_room_id: roomId } = match.params;
+    window.location.href = Path.message(roomId);
+  }
 
   handleChangeName = (value) => {
     const prop = 'name';
@@ -96,11 +103,21 @@ class PaymentContainer extends Component {
   }
 
   render() {
-    const { ui, error, paymentFailed } = this.props;
+    const { ui, error, paymentFailed, isSending, isPaymentSuccess } = this.props;
     const payment = ui.payment || {};
 
     if (!ui.estimate || !ui.estimate.id) {
       return <Redirect to={Path.messages()} />;
+    }
+
+    if (isPaymentSuccess) {
+      return (
+        <Paid
+          onClickButton={this.onClickPaidButton}
+          estimate={ui.estimate}
+          space={ui.estimate.space}
+        />
+      );
     }
 
     return (
@@ -117,6 +134,7 @@ class PaymentContainer extends Component {
         handleChangeCvc={this.handleChangeCvc}
         cvcErrors={error.errors.cvc}
         buttonDisabled={!this.validate()}
+        buttonLoading={isSending}
         onClickButton={this.onClickPaymentButton}
         estimate={ui.estimate}
         space={ui.estimate.space}
@@ -127,6 +145,8 @@ class PaymentContainer extends Component {
 
 const mapStateToProps = state => ({
   paymentFailed: state.api.error,
+  isSending: state.request.payment.isSending,
+  isPaymentSuccess: state.request.payment.isSuccess,
   ui: state.ui,
   error: state.error,
 });
