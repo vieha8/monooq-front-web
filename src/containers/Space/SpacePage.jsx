@@ -151,20 +151,26 @@ class Space extends React.Component {
       dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
       history.push(Path.login());
     } else {
-      const userId1 = user.ID;
-      const userId2 = space.UserID;
-      const spaceId = space.ID;
-      let roomId = await getRoomId(userId1, userId2, spaceId);
-      if (!roomId) {
-        roomId = await createRoom(
-          userId1, user.FirebaseUid, userId2, space.Host.FirebaseUid, spaceId);
+      try {
+        dispatch(uiActions.setUiState({ isLoading: true }));
+        const userId1 = user.ID;
+        const userId2 = space.UserID;
+        const spaceId = space.ID;
+        let roomId = await getRoomId(userId1, userId2, spaceId);
+        if (!roomId) {
+          roomId = await createRoom(
+            userId1, user.FirebaseUid, userId2, space.Host.FirebaseUid, spaceId);
+        }
+        history.push(Path.message(roomId));
+      } finally {
+        // TODO sagaに乗せる
+        dispatch(uiActions.setUiState({ isLoading: false }));
       }
-      history.push(Path.message(roomId));
     }
   };
 
   render() {
-    const { space, user } = this.props;
+    const { space, user, ui } = this.props;
 
     if (!space || !space.Images) {
       return (
@@ -296,6 +302,7 @@ class Space extends React.Component {
             {user.ID !== (space.Host || {}).ID && (
               <SendMessageButton
                 onClickSendMessage={() => this.sendMessage()}
+                isLoading={ui.isLoading}
               />
             )}
           </PriceCardContainer>

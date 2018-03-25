@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Loader } from 'semantic-ui-react';
 import { media, isMobileWindow } from 'helpers/style/media-query';
 import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import Card from './Card';
@@ -41,8 +42,10 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-  display: inline-block;
+  display: block;
+  margin: 0 auto;
   background: ${Colors.brandPrimary};
+  width: 220px;
   padding: 9px 70px;
   font-size: ${FontSizes.medium}px;
   color: ${Colors.white};
@@ -55,6 +58,7 @@ const Button = styled.button`
   outline:none;
 
   ${media.phone`
+    width: 110px;
     display: table-cell;
     padding: 9px 20px;
     vertical-align: middle;
@@ -80,12 +84,22 @@ export default (props) => {
       {isMobileWindow() &&
         <ButtonContainer>
           <SubText>ご請求はまだ発生しません</SubText>
-          <Button onClick={props.onClickSendMessage}>相談する</Button>
+          <Button onClick={props.onClickSendMessage}>
+            {props.isLoading
+              ? <Loader active inverted inline="centered" size="mini" />
+              : '相談する'
+            }
+          </Button>
         </ButtonContainer>
       }
       {!isMobileWindow() &&
         <ButtonContainer>
-          <Button onClick={props.onClickSendMessage}>相談する</Button>
+          <Button onClick={props.onClickSendMessage}>
+            {props.isLoading
+              ? <Loader active inverted inline="centered" size="mini" />
+              : '相談する'
+            }
+          </Button>
           <SubText>ご請求はまだ発生しません</SubText>
         </ButtonContainer>
       }
