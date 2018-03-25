@@ -3,7 +3,7 @@ import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
 import { authActions } from './auth';
 import { userActions } from './user';
 import { spaceActions } from './space';
-import { apiEndpoint } from './api';
+import { apiActions, apiEndpoint } from './api';
 import { getApiRequest } from '../helpers/api';
 import firebase from 'firebase';
 import fileType from '../../helpers/file-type';
@@ -198,7 +198,7 @@ const getMessages = roomId => {
 
 //メッセージ送信
 const sendMessage = function*(payload) {
-  const { roomId, userId, text, image } = payload;
+  const { roomId, userId, toUserId, text, image } = payload;
 
   let imageUrl;
   if (image) {
@@ -217,6 +217,28 @@ const sendMessage = function*(payload) {
     imageUrl = yield call(() => uploadImage(`/${roomId}/${userId}/${timeStamp}.${ext}`, image));
   }
 
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(toUserId) }));
+  const { payload: toUser } = yield take(apiActions.apiResponse);
+
+  let messageBody = 'メッセージが届きました。\n\n';
+  messageBody += text || '\n\n';
+  messageBody += '\n\nメッセージに返信するには以下のリンクをクリックしてください。\n';
+
+  //TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  if (process.env.REACT_APP_ENV === 'production') {
+    messageBody += `https://monooq.com/messages/${roomId}`;
+  } else {
+    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
+  }
+
+  const body = {
+    Subject: 'メッセージが届いています：モノオクからのお知らせ',
+    Address: toUser.Email,
+    Body: messageBody,
+  };
+
+  yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
+
   return yield new Promise(async resolve => {
     const message = {
       userId: userId,
@@ -227,7 +249,6 @@ const sendMessage = function*(payload) {
     if (imageUrl) {
       message.image = imageUrl;
     }
-
     const roomDoc = roomCollection().doc(roomId);
     await roomDoc.collection('messages').add(message);
     await roomDoc.set(
@@ -237,7 +258,6 @@ const sendMessage = function*(payload) {
       },
       { merge: true },
     );
-
     resolve();
   });
 };
