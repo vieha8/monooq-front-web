@@ -104,7 +104,7 @@ function* getSpaces({ payload: { userId } }) {
   }
   user = yield select(state => state.auth.user);
 
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.userSpaces(userId) }));
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.userSpaces(userId || user.ID) }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error) {
     yield put(userActions.fetchFailedUserSpaces(meta));
