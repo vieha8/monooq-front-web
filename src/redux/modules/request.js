@@ -41,6 +41,10 @@ const initialState = {
   estimate: {
     isSending: false,
   },
+  payment: {
+    isSending: false,
+    isSuccess: false,
+  },
 };
 
 export const requestReducer = handleActions(
@@ -56,6 +60,18 @@ export const requestReducer = handleActions(
     [ESTIMATE_FAILED]: state => ({
       ...state,
       estimate: { isSending: false },
+    }),
+    [PAYMENT]: state => ({
+      ...state,
+      payment: { isSending: true, isSuccess: false },
+    }),
+    [PAYMENT_SUCCESS]: state => ({
+      ...state,
+      payment: { isSending: false, isSuccess: true },
+    }),
+    [PAYMENT_FAILED]: state => ({
+      ...state,
+      payment: { isSending: false, isSuccess: false },
     }),
     [FETCH_SCHEDULE]: state => ({
       ...state,
@@ -186,7 +202,6 @@ function* payment({ payload: { roomId, requestId, card } }) {
   );
 
   yield put(requestActions.paymentSuccess(payload));
-  store.dispatch(push(path.message(roomId)));
 }
 
 function* fetchSchedule() {
