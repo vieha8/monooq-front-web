@@ -93,8 +93,8 @@ export function* getUser({ payload: { userId } }) {
 
 function* getSpaces(params) {
   let targetUserId = '';
-  if (params && params.userId) {
-    targetUserId = params.userId;
+  if (params && params.payload && params.payload.userId) {
+    targetUserId = params.payload.userId;
   }
 
   let user = yield select(state => state.auth.user);
