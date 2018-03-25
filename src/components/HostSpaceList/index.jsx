@@ -15,9 +15,9 @@ const Empty = styled.div`
 `;
 
 const Content = styled.div`
-  margin-top: -${Dimens.medium2}px;
-  margin-left: -${Dimens.medium2}px;
+  width: 600px;
   ${media.phone`
+    width: 100%;
     margin: 0;
   `}
 `;
