@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
@@ -7,12 +7,15 @@ import path from 'config/path';
 import { Image } from 'semantic-ui-react';
 
 const Container = styled.div`
-  &:not(:first-child) {
-    margin-top: ${Dimens.large}px;
-  }
   ${media.phone`
     padding: 0 ${Dimens.medium}px;
   `}
+`;
+
+const MessageContainer = styled.div`
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
 `;
 
 const Message = styled.div`
@@ -34,34 +37,30 @@ const StyledRecord = styled.div`
   border: 1px solid #d6d6d6;
   padding: 20px;
   margin-right: auto;
-  margin-bottom: 20px;
   font-size: 14px;
-  line-height: 28px;
+  line-height: 2;
   word-wrap: break-word;
   white-space: pre-wrap;
+  ${props => props.isSelf && `
+    float: right;
+    background-color: #feebeb;
+    margin-left: auto;
+    border: 0;
+  `}
+  ${props => props.isSpecial && `
+    width: 100%;
+    background-color: #d9ffe5;
+    border: 0;
+    max-width: 100%;
+  `}
+
   ${media.phone`
     max-width: 260px;
-    font-size: 11px;
-    line-height: 18px;
-  `};
-  ${props => (
-    props.isSelf
-      ? `
-        float: right;
-        background-color: #feebeb;
-        margin-left: auto;
-        border: 0;
-    `
-      : '')};
-  ${props => (
-    props.isSpecial
-      ? `
-        width: 100%;
-        background-color: #d9ffe5;
-        border: 0;
-        max-width: 100%;
-    `
-      : '')};
+    ${props => props.isSpecial && `
+      width: 100%;
+      max-width: 100%;
+    `}
+  `}
 `;
 
 const RecordLink = styled(Link) `
@@ -76,7 +75,7 @@ const StyledDate = styled.div`
   line-height: 14px;
   color: #b4b4b4;
   text-align: right;
-  margin-bottom: 20px;
+  margin-top: 5px;
 `;
 
 const ClearBoth = styled.div`
@@ -97,11 +96,6 @@ const OtherPerson = styled.img`
     content: "";
     display: block;
   }
-  ${media.phone`
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
-  `}
 `;
 
 function messageDateFormat(date) {
@@ -195,7 +189,7 @@ export default (props) => {
   return (
     <Container>
       {messageData.map((v, i) => (
-        <Fragment key={`message_log_${i}`}>
+        <MessageContainer key={`message_log_${i}`}>
           {!v.isSelf && !v.isSpecial && (
             <OtherPerson
               src={(
@@ -216,7 +210,7 @@ export default (props) => {
             <ClearBoth />
             <StyledDate>{v.date}</StyledDate>
           </Message>
-        </Fragment>
+        </MessageContainer>
       ))}
     </Container>
   );
