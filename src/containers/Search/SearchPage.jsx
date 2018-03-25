@@ -12,6 +12,7 @@ import { Footer } from 'components/Shared';
 import { ResultList } from 'components/Search';
 import SearchNotFound from 'components/Search/SearchNotFound';
 import { Colors, Dimens, FontSizes } from 'variables/';
+import Path from 'config/path';
 
 const SearchPageContainer = styled.div``;
 
@@ -57,6 +58,16 @@ class Search extends React.Component {
     dispatch(searchActions.fetchStartSearch({ location: query.location || '' }));
   }
 
+  onChangeSearchField = (e) => {
+    const { dispatch } = this.props;
+    dispatch(uiActions.setUiState({ researchText: e.target.value }));
+  }
+
+  onClickSearchButton = (e) => {
+    e.preventDefault();
+    this.search();
+  }
+
   showSpaceList = () => {
     const { search, spaces, history } = this.props;
 
@@ -73,9 +84,27 @@ class Search extends React.Component {
     );
   }
 
+  handleKeyDownSearch = (e) => {
+    if (e && e.keyCode === 13 && e.target.value) {
+      this.search();
+    }
+  }
+
+  search = () => {
+    const { ui } = this.props;
+    window.location.href = `${Path.search()}?location=${ui.researchText}`;
+  }
+
   renderNotFound = () => {
+    const { ui } = this.props;
     return (
-      <SearchNotFound />
+      <SearchNotFound
+        locationText={ui.researchText}
+        onChangeLocation={this.onChangeSearchField}
+        onKeyDownSearchField={this.handleKeyDownSearch}
+        searchButtonDisabled={!ui.researchText}
+        onClickSearchButton={this.onClickSearchButton}
+      />
     );
   }
 

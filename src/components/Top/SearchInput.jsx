@@ -20,7 +20,7 @@ const SearchWrapper = styled.div`
 
 const SearchInput = styled.input`
   margin: 0;
-  border: 1px solid #eee;
+  border: 1px solid ${props => props.borderColor || '#eee'};
   border-radius: 5px;
   padding: 20px 60px 20px 20px;
   display: inline-block;
@@ -69,16 +69,17 @@ export default props => (
   <SearchWrapper>
     <SearchInput
       placeholder={props.placeholder}
-      value={props.locationText}
       onChange={props.onChange}
       innerRef={ref => props.onRef(ref)}
       margin="normal"
+      borderColor={props.borderColor}
     />
     <SearchButton
       color="primary"
       mini
       component={Link}
       to={`${Path.search()}?location=${props.locationText}`}
+      onClick={props.onClickSearchButton}
       disabled={props.searchButtonDisabled}
     >
       <StyledSearchIcon disabled={props.searchButtonDisabled} />
