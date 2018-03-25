@@ -74,7 +74,7 @@ export default props => (
         <Text>それとも、あなたが余ったスペースの登録をしてみますか？</Text>
         <Text>モノオクは誰でもかんたんにホストになることができます。</Text>
       </Group>
-      <ToHostLink to={Path.createSpaceInfo()}>ホストになる</ToHostLink>
+      <ToHostLink to={props.isLogin ? Path.createSpaceInfo() : Path.signup()}>ホストになる</ToHostLink>
     </ContentContainer>
   </PageContainer>
 );

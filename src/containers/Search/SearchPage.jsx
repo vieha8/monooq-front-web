@@ -96,7 +96,7 @@ class Search extends React.Component {
   }
 
   renderNotFound = () => {
-    const { ui } = this.props;
+    const { ui, isLogin } = this.props;
     return (
       <SearchNotFound
         locationText={ui.researchText}
@@ -104,6 +104,7 @@ class Search extends React.Component {
         onKeyDownSearchField={this.handleKeyDownSearch}
         searchButtonDisabled={!ui.researchText}
         onClickSearchButton={this.onClickSearchButton}
+        isLogin={isLogin}
       />
     );
   }
@@ -132,6 +133,7 @@ class Search extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  isLogin: state.auth.isLogin,
   search: state.search,
   spaces: state.search.spaces,
   ui: state.ui,
