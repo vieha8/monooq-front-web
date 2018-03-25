@@ -128,6 +128,8 @@ function* payment({ payload: { roomId, requestId, card } }) {
     return;
   }
 
+  yield sendPaymentEmail({ roomId, spaceId: requestData.SpaceID });
+
   //Omiseトークン生成
   const { id: token } = yield createOmiseToken({
     card: {
@@ -204,8 +206,8 @@ function* sendEstimateEmail(payload) {
   yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(toUserId) }));
   const { payload: toUser } = yield take(apiActions.apiResponse);
 
-  let messageBody = 'お見積りが届きました。\n\n';
-  messageBody += '\n\n確認するには以下のリンクをクリックしてください。\n';
+  let messageBody = 'お見積りが届きました。\n';
+  messageBody += '確認するには以下のリンクをクリックしてください。\n';
 
   //TODO 開発環境バレ防止の為、URLは環境変数にいれる
   if (process.env.REACT_APP_ENV === 'production') {
@@ -216,6 +218,36 @@ function* sendEstimateEmail(payload) {
 
   const body = {
     Subject: 'お見積りが届いています：モノオクからのお知らせ',
+    Address: toUser.Email,
+    Body: messageBody,
+  };
+
+  yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
+}
+
+function* sendPaymentEmail(payload) {
+  const { roomId, spaceId } = payload;
+
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.spaces(spaceId) }));
+  const { payload: space } = yield take(apiActions.apiResponse);
+
+  const toUserId = space.UserID;
+
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(toUserId) }));
+  const { payload: toUser } = yield take(apiActions.apiResponse);
+
+  let messageBody = '見積りに対するお支払いがありました。\n';
+  messageBody += '詳細を確認するには以下のリンクをクリックしてください。\n';
+
+  //TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  if (process.env.REACT_APP_ENV === 'production') {
+    messageBody += `https://monooq.com/messages/${roomId}`;
+  } else {
+    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
+  }
+
+  const body = {
+    Subject: 'ユーザーの支払いが完了されました：モノオクからのお知らせ',
     Address: toUser.Email,
     Body: messageBody,
   };
