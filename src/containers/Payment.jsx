@@ -118,6 +118,8 @@ class PaymentContainer extends Component {
         cvcErrors={error.errors.cvc}
         buttonDisabled={!this.validate()}
         onClickButton={this.onClickPaymentButton}
+        estimate={ui.estimate}
+        space={ui.estimate.space}
       />
     );
   }

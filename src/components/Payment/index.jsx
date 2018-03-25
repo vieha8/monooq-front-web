@@ -98,8 +98,8 @@ export default props => (
     )}
     sideContent={(
       <div>
-        <SpaceInfo />
-        <EstimateInfo />
+        <SpaceInfo {...props.space} />
+        <EstimateInfo {...props.estimate} />
       </div>
     )}
     button={(

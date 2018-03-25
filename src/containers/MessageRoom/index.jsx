@@ -37,6 +37,7 @@ class Message extends React.Component {
       estimate: {
         ...estimate.estimate,
         linkUrl: estimate.linkUrl,
+        space: estimate.space,
       },
     }));
   }
@@ -90,7 +91,7 @@ class Message extends React.Component {
         <ContentContainer>
           <MessageLog
             {...this.props}
-            onClickEstimate={this.onClickEstimate}  
+            onClickEstimate={this.onClickEstimate}
           />
           <Form
             {...this.props}

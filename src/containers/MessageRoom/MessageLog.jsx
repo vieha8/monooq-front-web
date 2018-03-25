@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import path from 'config/path';
+import Path from 'config/path';
 import { Image } from 'semantic-ui-react';
 
 const Container = styled.div`
@@ -140,6 +140,7 @@ export default (props) => {
       imageUrl: message.image,
       linkUrl: '',
       estimate: {},
+      space: {},
     };
 
     switch (message.messageType) {
@@ -155,10 +156,10 @@ export default (props) => {
         params.text += `料金:${price}円`;
 
         if (room.space.UserID !== userId) {
-          params.linkUrl = path.payment(ui.roomId, requestId);
+          params.linkUrl = Path.payment(ui.roomId, requestId);
+          params.estimate = message;
+          params.space = room.space;
         }
-
-        params.estimate = message;
 
         break;
       }

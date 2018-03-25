@@ -12,6 +12,7 @@ const Wrapper = styled.div`
 const Image = styled.img`
   width: 104px;
   height: 79px;
+  border-radius: 6px;
   object-fit: cover;
   margin-right: 20px;
 `;
@@ -28,15 +29,15 @@ const Description = styled.div`
   line-height: 18px;
 `;
 
-export default () => (
+export default props => (
   <div>
-    <Title>ホストは YUKI HASHIDA さん</Title>
+    <Title>{`ホストは ${props.Host.Name} さん`}</Title>
     <Wrapper>
-      <Image src="https://picsum.photos/150?image=42" />
+      <Image src={(props.Images[0] || {}).ImageUrl} />
       <div>
-        <Area>東京都 港区 六本木</Area>
+        <Area>{`${props.AddressPref} ${props.AddressCity} ${props.AddressTown}`}</Area>
         <Description>
-          東京タワーに近くて便利！大きい荷物も何人分でもOK何人分で荷物も何人分でもOK何人分で…
+          {props.About}
         </Description>
       </div>
     </Wrapper>

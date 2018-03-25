@@ -48,10 +48,10 @@ const NoticeText = styled.div`
 export default props => (
   <Container>
     <Label>日時</Label>
-    <Content>{moment(props.beginDate).format('YYYY/MM/DD')}から{moment(props.endDate).format('YYYY/MM/DD')}まで</Content>
+    <Content>{moment(props.startDate).format('YYYY/MM/DD')}から{moment(props.endDate).format('YYYY/MM/DD')}まで</Content>
     <EstimateInfoHr />
     <Label>期間</Label>
-    <Content>{props.duration}日間</Content>
+    <Content>{moment(props.endDate).diff(props.startDate, 'days')}日間</Content>
     <EstimateInfoHr />
     <Label>お支払い金額</Label>
     <Content>{props.price}円（税込み）</Content>
