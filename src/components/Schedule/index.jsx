@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { Loader } from 'semantic-ui-react';
 import { ContentContainer } from 'components/Page';
 import dummySpaceImage from 'images/dummy_space.png';
 import { Dimens } from 'variables';
@@ -22,37 +23,44 @@ const dateFormat = (date) => {
 };
 
 export default (props) => {
-  const { user, host } = props.schedule;
+  const { isLoading, schedule } = props;
+  const { user, host } = schedule;
 
   return (
     <ContentContainer>
-      {(user.length === 0 && host.length === 0) ? <Empty>取引が成立したスペースの利用はまだありません。</Empty> : null}
-      {user.map((request, i) => (
-        <ReservationInfo
-          key={i}
-          isHost={false}
-          userName={request.Space.Host.Name}
-          place={request.Space.AddressPref}
-          title={request.Space.Title}
-          imageUrl={request.Space.Images.length !== 0 ? request.Space.Images[0].ImageUrl : dummySpaceImage }
-          startDate={dateFormat(new Date(request.StartDate))}
-          endDate={dateFormat(new Date(request.EndDate))}
-          price={request.Price}
-        />
-      ))}
-      {host.map((request, i) => (
-        <ReservationInfo
-          key={i}
-          isHost
-          userName={request.User.Name}
-          place={request.Space.AddressPref}
-          title={request.Space.Title}
-          imageUrl={request.Space.ImageUrl || dummySpaceImage}
-          startDate={dateFormat(new Date(request.StartDate))}
-          endDate={dateFormat(new Date(request.EndDate))}
-          price={request.Price}
-        />
-      ))}
+      {isLoading ? (
+        <Loader active inline="centered" size="medium">読み込み中...</Loader>
+      ) : (
+        <Fragment>
+          {(user.length === 0 && host.length === 0) ? <Empty>取引が成立したスペースの利用はまだありません。</Empty> : null}
+          {user.map((request, i) => (
+            <ReservationInfo
+              key={i}
+              isHost={false}
+              userName={request.Space.Host.Name}
+              place={request.Space.AddressPref}
+              title={request.Space.Title}
+              imageUrl={request.Space.Images.length !== 0 ? request.Space.Images[0].ImageUrl : dummySpaceImage}
+              startDate={dateFormat(new Date(request.StartDate))}
+              endDate={dateFormat(new Date(request.EndDate))}
+              price={request.Price}
+            />
+          ))}
+          {host.map((request, i) => (
+            <ReservationInfo
+              key={i}
+              isHost
+              userName={request.User.Name}
+              place={request.Space.AddressPref}
+              title={request.Space.Title}
+              imageUrl={request.Space.ImageUrl || dummySpaceImage}
+              startDate={dateFormat(new Date(request.StartDate))}
+              endDate={dateFormat(new Date(request.EndDate))}
+              price={request.Price}
+            />
+          ))}
+        </Fragment>
+      )}
     </ContentContainer>
   );
 };

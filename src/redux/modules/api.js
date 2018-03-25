@@ -80,7 +80,7 @@ function* getRequest({ payload: { path, params } }) {
   yield put({
     ...apiActions.apiResponse(data),
     error: !!err,
-    meta: { status: status, error: err },
+    meta: { status: status, error: err, path },
   });
   if (status !== 200) {
     if (status === 404) {
@@ -96,7 +96,7 @@ function* postRequest({ payload: { path, body } }) {
   yield put({
     ...apiActions.apiResponse(data),
     error: !!err,
-    meta: { status: status, error: err },
+    meta: { status: status, error: err, path },
   });
   if (status !== 200 && status !== 201) {
     store.dispatch(push(Path.error(status)));
@@ -108,7 +108,7 @@ function* putRequest({ payload: { path, body } }) {
   yield put({
     ...apiActions.apiResponse(data),
     error: !!err,
-    meta: { status: status, error: err },
+    meta: { status: status, error: err, path },
   });
   if (status !== 200) {
     store.dispatch(push(Path.error(status)));
@@ -120,7 +120,7 @@ function* deleteRequest({ payload: { path } }) {
   yield put({
     ...apiActions.apiResponse(data),
     error: !!err,
-    meta: { status: status, error: err },
+    meta: { status: status, error: err, path },
   });
   if (status !== 200) {
     store.dispatch(push(Path.error(status)));
