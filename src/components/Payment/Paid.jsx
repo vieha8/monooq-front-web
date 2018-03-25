@@ -23,7 +23,7 @@ const Caption = styled.span`
 export default props => (
   <PaidTemplate
     title={<H1>お支払いが完了しました。</H1>}
-    subtitle={<Caption>「{props.space.About}」の予約とお支払いが完了しました。</Caption>}
+    subtitle={<Caption>「{props.space.Title}」の予約とお支払いが完了しました。</Caption>}
     sideContent={(
       <div>
         <SpaceInfo {...props.space} />
