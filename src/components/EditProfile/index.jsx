@@ -30,6 +30,9 @@ const InputWrapper = styled.div`
 const ImageWrapper = styled.div`
   width: 100%;
   text-align: center;
+  ${media.phone`
+    margin-top: 10px;
+  `}
 `;
 const IMAGE_SIZE = 100;
 const Image = styled.img`
@@ -41,7 +44,7 @@ const Image = styled.img`
 
 const Title = styled.div`
   color: ${Colors.black};
-  font-size: ${FontSizes.medium2}px;
+  font-size: ${FontSizes.medium1}px;
   text-align: left;
 `;
 

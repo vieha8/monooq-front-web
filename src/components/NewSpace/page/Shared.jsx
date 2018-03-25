@@ -4,7 +4,7 @@ import { media } from 'helpers/style/media-query';
 export const Page = styled.div`
   padding: 80px 10%;
   ${media.phone`
-    padding: 80px 5% 100px 5%;
+    padding: 40px 5% 100px 5%;
   `}
 `;
 

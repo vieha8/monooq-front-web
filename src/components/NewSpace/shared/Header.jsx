@@ -12,7 +12,7 @@ const Header = styled.h1`
   color: ${Colors.darkGray1};
   font-size: ${FontSizes.xlarge}px;
   ${media.phone`
-    font-size: ${FontSizes.large}px;
+    font-size: ${FontSizes.medium2}px;
   `}
 `;
 
@@ -22,7 +22,8 @@ const SubHeader = styled.h2`
   font-size: ${FontSizes.large}px;
   margin-top: ${Dimens.large}px;
   ${media.phone`
-    font-size: ${FontSizes.medium2}px;
+    font-size: ${FontSizes.medium}px;
+    margin-top: ${Dimens.medium2}px;
   `}
 `;
 

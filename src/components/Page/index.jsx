@@ -15,6 +15,9 @@ const Page = styled.div`
   `}
   margin: 0 auto;
   padding: 60px 0 120px;
+  ${media.tablet`
+    padding: 30px 0 60px;
+  `}
 `;
 
 const Container = styled.div`
