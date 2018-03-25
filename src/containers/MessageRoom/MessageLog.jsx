@@ -164,7 +164,7 @@ export default (props) => {
         break;
       }
       case 3:
-        params.text = '取引成立です！あなたのお支払いが完了しました。届ける準備を始めましょう！';
+        params.text = '決済が完了しました。スペース取引成立です！';
         break;
       default:
         break;
