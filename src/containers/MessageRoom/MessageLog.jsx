@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
@@ -83,6 +83,27 @@ const ClearBoth = styled.div`
   clear: both;
 `;
 
+const OtherPerson = styled.img`
+  display: block;
+  float: left;
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+  margin-right: ${Dimens.medium}px;
+  object-fit: cover;
+  vertical-align: middle;
+  &:after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+  ${media.phone`
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+  `}
+`;
+
 function messageDateFormat(date) {
   return (
     date.toLocaleDateString('ja-JP', {
@@ -101,6 +122,16 @@ function estimateDateFormat(date) {
     month: 'short',
     day: 'numeric',
   });
+}
+
+function getUserImageUrl(props) {
+  const { room } = props;
+  return (room.user || {}).ImageUrl;
+}
+
+function getHostImageUrl(props) {
+  const { room } = props;
+  return ((room.space || {}).Host || {}).ImageUrl;
 }
 
 export default (props) => {
@@ -149,15 +180,28 @@ export default (props) => {
   return (
     <Container>
       {data.map((v, i) => (
-        <Message key={`message_log_${i}`} isSelf={v.isSelf} isSpecial={v.isSpecial}>
-          <StyledRecord isSelf={v.isSelf} isSpecial={v.isSpecial}>
-            {v.text}
-            {v.linkUrl && <RecordLink to={v.linkUrl}>この見積もりでお支払いに進む</RecordLink>}
-            {v.imageUrl && <Image src={v.imageUrl} rounded size="large" />}
-          </StyledRecord>
-          <ClearBoth />
-          <StyledDate>{v.date}</StyledDate>
-        </Message>
+        <Fragment key={`message_log_${i}`}>
+          {!v.isSelf && !v.isSpecial && (
+            <OtherPerson
+              src={(
+                room.space.UserID === userId
+                  // 自分がホストの相手メッセージはユーザーの画像
+                  ? getUserImageUrl(props)
+                  // 自分がユーザーの相手メッセージはホストの画像
+                  : getHostImageUrl(props)
+              )}
+            />
+          )}
+          <Message isSelf={v.isSelf} isSpecial={v.isSpecial}>
+            <StyledRecord isSelf={v.isSelf} isSpecial={v.isSpecial}>
+              {v.text}
+              {v.linkUrl && <RecordLink to={v.linkUrl}>この見積もりでお支払いに進む</RecordLink>}
+              {v.imageUrl && <Image src={v.imageUrl} rounded size="large" />}
+            </StyledRecord>
+            <ClearBoth />
+            <StyledDate>{v.date}</StyledDate>
+          </Message>
+        </Fragment>
       ))}
     </Container>
   );
