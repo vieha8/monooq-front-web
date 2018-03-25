@@ -23,6 +23,25 @@ class Message extends React.Component {
     );
   }
 
+  componentWillReceiveProps = (nextProps) => {
+    const { history } = this.props;
+    const estimate = nextProps.ui.estimate;
+    if (estimate && estimate.id) {
+      history.push(estimate.linkUrl);
+    }
+  }
+
+  onClickEstimate = (estimate) => {
+    const { dispatch } = this.props;
+    dispatch(uiActions.setUiState({
+      estimate: {
+        ...estimate.estimate,
+        linkUrl: estimate.linkUrl,
+        space: estimate.space,
+      },
+    }));
+  }
+
   handleChange = (event) => {
     this.props.dispatch(
       uiActions.setUiState({
@@ -70,7 +89,10 @@ class Message extends React.Component {
       <Page title={`${this.props.room.user.Name}さんとのメッセージ`}>
         <Menu />
         <ContentContainer>
-          <MessageLog {...this.props} />
+          <MessageLog
+            {...this.props}
+            onClickEstimate={this.onClickEstimate}
+          />
           <Form
             {...this.props}
             handleChange={this.handleChange}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import path from 'config/path';
+import Path from 'config/path';
 import { Image } from 'semantic-ui-react';
 
 const Container = styled.div`
@@ -139,6 +139,8 @@ export default (props) => {
       isSpecial: message.messageType !== 1,
       imageUrl: message.image,
       linkUrl: '',
+      estimate: {},
+      space: {},
     };
 
     switch (message.messageType) {
@@ -154,7 +156,9 @@ export default (props) => {
         params.text += `料金:${price}円`;
 
         if (room.space.UserID !== userId) {
-          params.linkUrl = path.payment(ui.roomId, requestId);
+          params.linkUrl = Path.payment(ui.roomId, requestId);
+          params.estimate = message;
+          params.space = room.space;
         }
 
         break;
@@ -204,7 +208,17 @@ export default (props) => {
           <Message isSelf={v.isSelf} isSpecial={v.isSpecial}>
             <StyledRecord isSelf={v.isSelf} isSpecial={v.isSpecial}>
               {v.text}
-              {v.linkUrl && <RecordLink to={v.linkUrl}>この見積もりでお支払いに進む</RecordLink>}
+              {v.linkUrl && (
+                <RecordLink
+                  to=""
+                  onClick={(e) => {
+                    e.preventDefault();
+                    props.onClickEstimate(v);
+                  }}
+                >
+                  この見積もりでお支払いに進む
+                </RecordLink>
+              )}
               {v.imageUrl && <Image src={v.imageUrl} rounded size="large" />}
             </StyledRecord>
             <ClearBoth />

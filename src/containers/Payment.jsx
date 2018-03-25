@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import moment from 'moment';
 import { authConnect } from 'components/Auth';
 import { uiActions } from 'redux/modules/ui';
@@ -7,6 +8,7 @@ import { requestActions } from 'redux/modules/request';
 import { ErrorMessage } from 'strings';
 import Payment from 'components/Payment';
 import FormValidator from 'containers/helper/FormValidator';
+import Path from 'config/path';
 
 const ValidateRegExp = {
   CardName: /^[a-zA-Z\s]+$/,
@@ -96,6 +98,11 @@ class PaymentContainer extends Component {
   render() {
     const { ui, error, paymentFailed } = this.props;
     const payment = ui.payment || {};
+
+    if (!ui.estimate || !ui.estimate.id) {
+      return <Redirect to={Path.messages()} />;
+    }
+
     return (
       <Payment
         paymentFailed={paymentFailed}
@@ -111,6 +118,8 @@ class PaymentContainer extends Component {
         cvcErrors={error.errors.cvc}
         buttonDisabled={!this.validate()}
         onClickButton={this.onClickPaymentButton}
+        estimate={ui.estimate}
+        space={ui.estimate.space}
       />
     );
   }

@@ -32,6 +32,9 @@ const Caption = styled.span`
   font-size: ${FontSizes.xsmall}px;
   color: ${Colors.error};
   line-height: 1.5;
+  a {
+    color: ${Colors.linkBlue};
+  }
 `;
 
 const LinkText = styled(Link)`
@@ -90,7 +93,7 @@ export default props => (
       <Caption>
         ・決済後にキャンセルされた場合、預ける日の15日前までは全額ご返金させていただきます。<br />
         ・決済後、預かり開始予定日の15日前からキャンセル手数料が発生します。<br />
-        ・「決済する」ボタンを押すことで、お客様は当サイトのプライバシーポリシーと利用規約に同意の上、モノオクサービスの予約を確定したことになります。
+        ・「決済する」ボタンを押すことで、お客様は当サイトの<a href={Path.privacy()} target="_blank">プライバシーポリシー</a>と<a href={Path.terms()} target="_blank">利用規約</a>に同意の上、モノオクサービスの予約を確定したことになります。
       </Caption>
     )}
     aboutCancel={(
@@ -98,8 +101,8 @@ export default props => (
     )}
     sideContent={(
       <div>
-        <SpaceInfo />
-        <EstimateInfo />
+        <SpaceInfo {...props.space} />
+        <EstimateInfo {...props.estimate} />
       </div>
     )}
     button={(
