@@ -198,7 +198,7 @@ const getMessages = roomId => {
 
 //メッセージ送信
 const sendMessage = function*(payload) {
-  const { roomId, userId, toUserId, text, image } = payload;
+  const { roomId, userId, text, image } = payload;
 
   let imageUrl;
   if (image) {
@@ -216,28 +216,6 @@ const sendMessage = function*(payload) {
     const timeStamp = Date.now();
     imageUrl = yield call(() => uploadImage(`/${roomId}/${userId}/${timeStamp}.${ext}`, image));
   }
-
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(toUserId) }));
-  const { payload: toUser } = yield take(apiActions.apiResponse);
-
-  let messageBody = 'メッセージが届きました。\n\n';
-  messageBody += text || '\n\n';
-  messageBody += '\n\nメッセージに返信するには以下のリンクをクリックしてください。\n';
-
-  //TODO 開発環境バレ防止の為、URLは環境変数にいれる
-  if (process.env.REACT_APP_ENV === 'production') {
-    messageBody += `https://monooq.com/messages/${roomId}`;
-  } else {
-    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
-  }
-
-  const body = {
-    Subject: 'メッセージが届いています：モノオクからのお知らせ',
-    Address: toUser.Email,
-    Body: messageBody,
-  };
-
-  yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
 
   return yield new Promise(async resolve => {
     const message = {
@@ -262,11 +240,38 @@ const sendMessage = function*(payload) {
   });
 };
 
+const sendEmail = function*(payload) {
+  const { roomId, toUserId, text } = payload;
+
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(toUserId) }));
+  const { payload: toUser } = yield take(apiActions.apiResponse);
+
+  let messageBody = 'メッセージが届きました。\n\n';
+  messageBody += text || '\n\n';
+  messageBody += '\n\nメッセージに返信するには以下のリンクをクリックしてください。\n';
+
+  //TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  if (process.env.REACT_APP_ENV === 'production') {
+    messageBody += `https://monooq.com/messages/${roomId}`;
+  } else {
+    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
+  }
+
+  const body = {
+    Subject: 'メッセージが届いています：モノオクからのお知らせ',
+    Address: toUser.Email,
+    Body: messageBody,
+  };
+
+  yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
+};
+
 //Sagas
 export const messagesSagas = [
   takeEvery(FETCH_ROOMS_START, fetchRoomStart),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),
   takeEvery(SEND_MESSAGE, function*({ payload }) {
     yield sendMessage(payload);
+    yield sendEmail(payload);
   }),
 ];
