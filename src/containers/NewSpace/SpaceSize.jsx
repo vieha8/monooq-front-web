@@ -45,7 +45,7 @@ const mapStateToProps = state => {
       sizeType: space.SizeType,
       priceFull: space.PriceFull,
       priceHalf: space.PriceHalf,
-      priceQuarter: space.Quarter,
+      priceQuarter: space.PriceQuarter,
     };
   }
   return ({

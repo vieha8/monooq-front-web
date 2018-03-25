@@ -32,12 +32,24 @@ class PriceContainer extends React.Component {
   }
 
   onClickComplete = () => {
-    const { space, spaceId } = this.props.ui;
+    const { match, ui } = this.props;
+    const { space, spaceId } = ui;
     space.userId = this.props.user.ID;
+
+    let saveSpace = space;
+    if (match.params.type === 'all') {
+      // 単一金額の場合は、Half/Quarterの金額を0円にする
+      saveSpace = Object.assign(saveSpace, {
+        priceHalf: 0,
+        priceQuarter: 0,
+      });
+      console.log(saveSpace);
+    }
+
     if (this.props.ui.isEdit) {
-      this.props.dispatch(spaceActions.updateSpace({ spaceId, body: space }));
+      this.props.dispatch(spaceActions.updateSpace({ spaceId, body: saveSpace }));
     } else {
-      this.props.dispatch(spaceActions.createSpace({ body: space }));
+      this.props.dispatch(spaceActions.createSpace({ body: saveSpace }));
     }
   }
 

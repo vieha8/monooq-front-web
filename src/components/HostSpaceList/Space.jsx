@@ -43,6 +43,10 @@ const PriceTitle = Text.extend`
 
 const Price = Text.extend`
   margin-top: ${Dimens.xsmall}px;
+  max-height: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const Empty = () => (<span>&nbsp;</span>);
