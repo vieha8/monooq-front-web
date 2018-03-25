@@ -7,6 +7,7 @@ const AvaterImage = styled.img`
   width: ${props => props.size || DEFAULT_SIZE}px;
   height: ${props => props.size || DEFAULT_SIZE}px;
   border-radius: ${props => (props.size || DEFAULT_SIZE) / 2}px;
+  object-fit: cover;
 `;
 
 export default AvaterImage;

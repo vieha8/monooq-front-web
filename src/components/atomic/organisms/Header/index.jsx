@@ -81,7 +81,7 @@ const SearchFiledCell = styled.div`
   width: 300px;
   margin-right: 8px;
   ${media.phone`
-    width: 150px
+    width: 130px;
     ${props => props.fill && `
       width: 100%;
     `}
@@ -122,6 +122,11 @@ const MenuBackground = styled.div`
   ${media.phone`
     display: none;
   `};
+`;
+
+const CloseIconWrapper = styled.span`
+  display: inline-block;
+  margin-left: 12px;
 `;
 
 type PropTypes = {
@@ -169,10 +174,12 @@ export default (props: PropTypes) => {
                 />
               </SearchFiledCell>
               <ActionCell hide={!isFillSearchField}>
-                <CloseIcon
-                  color={(props.top || props.help) && Colors.white}
-                  onClick={props.onClickCloseSearch}
-                />
+                <CloseIconWrapper>
+                  <CloseIcon
+                    color={(props.top || props.help) && Colors.white}
+                    onClick={props.onClickCloseSearch}
+                  />
+                </CloseIconWrapper>
               </ActionCell>
               <ActionCell hide={isFillSearchField}>
                 <MessageIcon

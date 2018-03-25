@@ -38,17 +38,23 @@ const StyledMessagesItem = styled(MessagesItem) `
 
 const PrimaryText = styled.div`
   font-size: 14px;
-  line-height: 28px;
+  line-height: 2;
+  max-height: calc(2em * 2);
+  overflow: hidden;
   ${media.phone`
     font-size: 11px;
-    line-height: 18px;
-  `};
+    line-height: 1.5;
+    max-height: calc(1.5em * 3);
+  `}
 `;
 
 const SecondaryText = styled.div`
   font-size: 12px;
   line-height: 14px;
   color: #b4b4b4;
+  ${media.phone`
+    font-size: 11px;
+  `}
 `;
 
 const MessageTextBox = styled.div`
