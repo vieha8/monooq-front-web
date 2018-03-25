@@ -1,25 +1,24 @@
 import React from 'react';
-import{ authConnect } from "../../components/Auth";
+import { authConnect } from 'components/Auth';
 import { Page } from 'components/NewSpace/page/Shared';
 import SpaceSize from 'components/NewSpace/page/SpaceSize';
-import {uiActions} from "../../redux/modules/ui";
-import {spaceActions} from "../../redux/modules/space";
+import { uiActions } from 'redux/modules/ui';
+import { spaceActions } from 'redux/modules/space';
 
 class SpaceSizeContainer extends React.Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    if(props.match.params.space_id){
+    if (!(props.space.space || {}).ID && props.match.params.space_id) {
       const spaceId = parseInt(props.match.params.space_id, 10);
       this.props.dispatch(uiActions.setUiState({
         spaceId,
         isEdit: true,
       }));
-      this.props.dispatch(spaceActions.fetchSpace({spaceId}));
+      this.props.dispatch(spaceActions.fetchSpace({ spaceId }));
     }
   }
 
-  render(){
+  render() {
     return (
       <Page>
         <SpaceSize {...this.props} />
@@ -28,9 +27,9 @@ class SpaceSizeContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  if(!state.ui.space.id && state.space.space){
-    const {space} = state.space;
+const mapStateToProps = (state) => {
+  if (!state.ui.space.id && state.space.space) {
+    const { space } = state.space;
     state.ui.space = {
       id: space.ID,
       title: space.Title,
