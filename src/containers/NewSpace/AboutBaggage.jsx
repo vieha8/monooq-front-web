@@ -54,7 +54,7 @@ class AboutBaggageContainer extends React.Component {
   }
 
   handleChangeType = (checked) => {
-    FormValidator.changeUiState('isFurniture', checked ? '1' : '0', this.props.ui);
+    FormValidator.changeUiState('isFurniture', checked, this.props.ui);
   }
 
   validate = () => {

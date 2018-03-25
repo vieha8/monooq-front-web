@@ -17,7 +17,7 @@ export default (props) => (
       />
       {props.space ?
         <ButtonsContainer>
-          <Button wide width={220} onClick={() => {
+          <Button wide width={240} onClick={() => {
             props.history.push(`/space/${props.space.ID}`);
           }}>{title(props.ui.isEdit)}したスペースを見る</Button>
         </ButtonsContainer>

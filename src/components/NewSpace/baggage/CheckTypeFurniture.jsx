@@ -10,7 +10,7 @@ const Container = styled.div`
 export default props => (
   <Container>
     <Checkbox
-      checked={props.ui.space.isFurniture === '1'}
+      checked={props.ui.space.isFurniture}
       onChange={(_, data) => props.handleChangeCheck(data.checked)}
       label="家具や家電製品に対応する"
     />
