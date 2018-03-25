@@ -80,8 +80,8 @@ export default () => (
           path: Path.about(),
         },
         {
-          text: 'よくあるご質問',
-          path: '#',
+          text: 'ヘルプ',
+          path: Path.helpTop(),
         },
       ].map((v, i) => {
         return (
