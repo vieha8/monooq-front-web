@@ -175,11 +175,26 @@ export default (props) => {
     return params;
   });
 
-  // TODO props.room.user.ImageUrlに相手のアイコン画像が入ってるからメッセージ横に表示したい
+  // 自分がユーザーの場合は、初期メッセージを追加する
+  let messageData = [].concat(data);
+  if (room.space.UserID !== userId) {
+    messageData = []
+      .concat([
+        {
+          text: 'あなたの具体的な荷物の内容と予定日時をホストへ伝えましょう！量や大きさに適したお見積もりがホストから送られてきます。メッセージでは写真も送れます。詳細な住所はお支払い完了後にお知らせします。',
+          isSpecial: true,
+        },
+        {
+          text: '経年劣化によるショート・不具合の可能性がある製品に関して。自然発生的な故障のケースは一切の保証ができません。電化製品・家電などでスペース利用を検討している場合は予めご了承ください。',
+          isSpecial: true,
+        },
+      ])
+      .concat(data);
+  }
 
   return (
     <Container>
-      {data.map((v, i) => (
+      {messageData.map((v, i) => (
         <Fragment key={`message_log_${i}`}>
           {!v.isSelf && !v.isSpecial && (
             <OtherPerson
