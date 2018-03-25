@@ -35,6 +35,7 @@ export default props => (
           width="180"
           onClick={props.onClickComplete}
           disabled={props.buttonDisabled}
+          loading={props.buttonLoading}
         >
           登録を完了する
         </Button>

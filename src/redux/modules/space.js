@@ -61,10 +61,17 @@ export const spaceReducer = handleActions(
     [CREATE_SPACE]: state => ({
       ...state,
       created: null,
+      isLoading: true,
     }),
     [CREATE_SUCCESS_SPACE]: (state, action) => ({
       ...state,
       created: action.payload,
+      isLoading: false,
+    }),
+    [CREATE_FAILED_SPACE]: state => ({
+      ...state,
+      created: null,
+      isLoading: false,
     }),
     [SET_SPACE]: (state, action) => ({
       ...state,

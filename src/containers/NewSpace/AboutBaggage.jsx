@@ -12,7 +12,7 @@ import FormValidator from 'containers/helper/FormValidator';
 class AboutBaggageContainer extends React.Component {
   constructor(props) {
     super(props);
-    if (!(props.space.space || {}).ID && props.match.params.space_id) {
+    if (props.space && !(props.space.space || {}).ID && props.match.params.space_id) {
       const spaceId = parseInt(props.match.params.space_id, 10);
       this.props.dispatch(uiActions.setUiState({
         spaceId,

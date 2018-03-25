@@ -19,7 +19,7 @@ const Validate = {
 class PriceContainer extends React.Component {
   constructor(props) {
     super(props);
-    if (!(props.space.space || {}).ID && props.match.params.space_id) {
+    if (props.space && !(props.space.space || {}).ID && props.match.params.space_id) {
       const spaceId = parseInt(props.match.params.space_id, 10);
       this.props.dispatch(uiActions.setUiState({
         spaceId,
@@ -122,6 +122,7 @@ class PriceContainer extends React.Component {
             onClickBack={this.onClickBack}
             onClickComplete={this.onClickComplete}
             buttonDisabled={!this.validateAllUsePrice()}
+            buttonLoading={this.props.isLoading}
           />
           :
           <AboutPrice
@@ -133,6 +134,7 @@ class PriceContainer extends React.Component {
             handleChangePriceHalf={this.handleChangePriceHalf}
             handleChangePriceQuarter={this.handleChangePriceQuarter}
             buttonDisabled={!this.validateAboutPrice()}
+            buttonLoading={this.props.isLoading}
           />
         }
       </Page>
@@ -161,6 +163,7 @@ const mapStateToProps = (state) => {
     };
   }
   return ({
+    isLoading: state.space.isLoading,
     ui: state.ui,
     user: state.auth.user,
     error: state.error,
