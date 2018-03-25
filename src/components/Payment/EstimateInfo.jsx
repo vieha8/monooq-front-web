@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
 
@@ -44,16 +45,16 @@ const NoticeText = styled.div`
   `};
 `;
 
-export default () => (
+export default props => (
   <Container>
     <Label>日時</Label>
-    <Content>2018/10/01から2018/10/31まで</Content>
+    <Content>{moment(props.beginDate).format('YYYY/MM/DD')}から{moment(props.endDate).format('YYYY/MM/DD')}まで</Content>
     <EstimateInfoHr />
     <Label>期間</Label>
-    <Content>30日間</Content>
+    <Content>{props.duration}日間</Content>
     <EstimateInfoHr />
     <Label>お支払い金額</Label>
-    <Content>5000円（サ・税込み）</Content>
+    <Content>{props.price}円（税込み）</Content>
     <NoticeText>
       ※引き取り日に連絡がつかないなどの延長があった際は、見積もり料金×25％×延長日数が加算されホストへ支払われます。
     </NoticeText>

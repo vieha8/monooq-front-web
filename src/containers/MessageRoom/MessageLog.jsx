@@ -139,6 +139,7 @@ export default (props) => {
       isSpecial: message.messageType !== 1,
       imageUrl: message.image,
       linkUrl: '',
+      estimate: {},
     };
 
     switch (message.messageType) {
@@ -156,6 +157,8 @@ export default (props) => {
         if (room.space.UserID !== userId) {
           params.linkUrl = path.payment(ui.roomId, requestId);
         }
+
+        params.estimate = message;
 
         break;
       }
@@ -204,7 +207,17 @@ export default (props) => {
           <Message isSelf={v.isSelf} isSpecial={v.isSpecial}>
             <StyledRecord isSelf={v.isSelf} isSpecial={v.isSpecial}>
               {v.text}
-              {v.linkUrl && <RecordLink to={v.linkUrl}>この見積もりでお支払いに進む</RecordLink>}
+              {v.linkUrl && (
+                <RecordLink
+                  to=""
+                  onClick={(e) => {
+                    e.preventDefault();
+                    props.onClickEstimate(v);
+                  }}
+                >
+                  この見積もりでお支払いに進む
+                </RecordLink>
+              )}
               {v.imageUrl && <Image src={v.imageUrl} rounded size="large" />}
             </StyledRecord>
             <ClearBoth />
