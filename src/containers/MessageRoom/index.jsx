@@ -50,6 +50,7 @@ class Message extends React.Component {
         userId: this.props.userId,
         text: ui.message,
         image: ui.messageImage,
+        toUserId: this.props.room.user.ID,
       }),
     );
     this.props.dispatch(

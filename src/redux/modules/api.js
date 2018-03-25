@@ -18,6 +18,7 @@ export const apiEndpoint = {
   requestsByUserId: id => `/requests/user/${id}`,
   requestsByHostUserId: id => `/requests/host/${id}`,
   payments: id => (id ? `/payments/${id}` : `/payments`),
+  sendMail: () => `/mailer/send`,
 };
 
 const ACTIONS = {
