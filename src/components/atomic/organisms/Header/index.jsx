@@ -54,6 +54,9 @@ const ActionWrapper = styled.div`
   display: inline-flex;
   margin-left: auto;
   margin-right: 12px;
+  ${props => props.fill && `
+    margin-left: 0;
+  `}
 `;
 
 const ActionContainer = styled.div`
@@ -81,16 +84,15 @@ const SearchFiledCell = styled.div`
   width: 300px;
   margin-right: 8px;
   ${media.phone`
-    width: 130px;
+    width: 50px;
     ${props => props.fill && `
-      width: 100%;
+      width: 260px;
     `}
   `}
 `;
 
 const AnonymouseWrapper = styled.div`
   display: inline-block;
-  margin-left: 16px;
   vertical-align: middle;
   ${props => props.hide && `
     display: none;
@@ -103,7 +105,7 @@ const MenuWrapper = styled.div`
   width: 328px;
   ${media.phone`
     position: fixed;
-    overflow: scroll;
+    overflow: auto;
     bottom: 0;
     width: 100%;
   `} right: 0;
@@ -119,9 +121,6 @@ const MenuBackground = styled.div`
   cursor: pointer;
   background: rgba(255, 255, 255, 0.6);
   z-index: ${ZIndexes.modal};
-  ${media.phone`
-    display: none;
-  `};
 `;
 
 const CloseIconWrapper = styled.span`
@@ -159,7 +158,7 @@ export default (props: PropTypes) => {
         <LogoWrapper href={props.homeUri} hide={isFillSearchField}>
           {(props.top || props.help) ? <Logo.HeaderWhite /> : <Logo.Header />}
         </LogoWrapper>
-        <ActionWrapper>
+        <ActionWrapper fill={isFillSearchField}>
           {props.user ? (
             <ActionContainer>
               <SearchFiledCell fill={isFillSearchField}>
@@ -196,8 +195,8 @@ export default (props: PropTypes) => {
               </ActionCell>
             </ActionContainer>
           ) : (
-            <Fragment>
-              <SearchFiledCell>
+            <ActionContainer>
+              <SearchFiledCell fill={isFillSearchField}>
                 <AnimateSearchInputField
                   iconRight
                   iconColor={(props.top || props.help) && Colors.white}
@@ -208,10 +207,18 @@ export default (props: PropTypes) => {
                   onChange={props.onChangeSearchField}
                 />
               </SearchFiledCell>
+              <ActionCell hide={!isFillSearchField}>
+                <CloseIconWrapper>
+                  <CloseIcon
+                    color={(props.top || props.help) && Colors.white}
+                    onClick={props.onClickCloseSearch}
+                  />
+                </CloseIconWrapper>
+              </ActionCell>
               <AnonymouseWrapper hide={isFillSearchField}>
                 <Anonymouse loginUri={props.loginUri} signupUri={props.signupUri} />
               </AnonymouseWrapper>
-            </Fragment>
+            </ActionContainer>
           )}
         </ActionWrapper>
       </Nav>

@@ -33,10 +33,10 @@ export default (props: PropTypes) => (
     <MenuItem title="スケジュール" {...props.schedule} />
     {props.hasSpace && <MenuItem title="スペースの管理" {...props.spaces} />}
     {props.hasSpace && <MenuItem title="スペースを追加する" {...props.addSpace} />}
-    {props.hasSpace && <MenuItem title="売上履歴・振込申請" {...props.salesTransfer} />}
+    {/*{props.hasSpace && <MenuItem title="売上履歴・振込申請" {...props.salesTransfer} />}
     <MenuItem title="支払い履歴" {...props.paymentHistory} />
     {!props.hasSpace && <MenuItem title="ホスト登録する" {...props.becomeHost} />}
-    <MenuItem title="プロフィール編集" {...props.editProfile} />
+    <MenuItem title="プロフィール編集" {...props.editProfile} />*/}
     <MenuItem title="お問い合わせ" {...props.inquiry} />
     <MenuItem title="ログアウト" {...props.logout} />
   </Container>
