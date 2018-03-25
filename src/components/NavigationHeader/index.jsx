@@ -171,7 +171,7 @@ function renderMenuIcon(props) {
   if (user) {
     return (
       <HideSearchIconWrapper hide={showSearchField ? 1 : 0}>
-        <IconWrapper to={Path.messages(user.ID)}>
+        <IconWrapper to={Path.messages(user.ID)} onClick={props.closeMenu}>
           <Icon name="fas fa-comment" reverse fontSize={FontSizes.medium2} color={Colors.lightGray1} />
         </IconWrapper>
         <UserIconWrapper onClick={() => onClickToggleMenu()}>
@@ -202,7 +202,7 @@ function refSearchField(ref, props) {
 export default props => (
   <div>
     <Container>
-      <LogoWrapper to={Path.top()} hide={props.showSearchField ? 1 : 0}>
+      <LogoWrapper to={Path.top()} onClick={props.closeMenu} hide={props.showSearchField ? 1 : 0}>
         <Logo src={logoUri} />
       </LogoWrapper>
       <MenuWrapper>

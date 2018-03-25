@@ -65,6 +65,14 @@ class NavigationHeaderContainer extends Component {
     }));
   }
 
+  closeMenu = () => {
+    const { dispatch } = this.props;
+    document.body.style.overflowY = 'auto';
+    dispatch(uiActions.setUiState({
+      showMenu: false,
+    }));
+  }
+
   renderNavigationHeader() {
     const { ui, isLogin, isChecking, user } = this.props;
     return (
@@ -78,6 +86,7 @@ class NavigationHeaderContainer extends Component {
         onClickSearchIcon={this.onClickSearchIcon}
         onClickCloseSearch={this.onClickCloseSearch}
         onChangeKeyword={this.handleInputKeyword}
+        closeMenu={this.closeMenu}
       />
     );
   }
