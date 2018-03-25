@@ -70,7 +70,6 @@ class Message extends React.Component {
         <Menu />
         <ContentContainer>
           <MessageLog {...this.props} />
-
           <Form
             {...this.props}
             handleChange={this.handleChange}

@@ -38,6 +38,7 @@ const initialState = {
   spaces: [],
   updateSuccess: false,
   updateFailed: false,
+  isLoading: false,
 };
 
 export const userReducer = handleActions(
@@ -46,9 +47,18 @@ export const userReducer = handleActions(
       ...state,
       user: action.payload,
     }),
+    [FETCH_USER_SPACES]: state => ({
+      ...state,
+      isLoading: true,
+    }),
     [FETCH_SUCCESS_USER_SPACES]: (state, action) => ({
       ...state,
       spaces: action.payload,
+      isLoading: false,
+    }),
+    [FETCH_FAILED_USER_SPACES]: state => ({
+      ...state,
+      isLoading: false,
     }),
     [UPDATE_USER]: state => ({
       ...state,

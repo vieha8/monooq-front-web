@@ -25,6 +25,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.auth.user,
     spaces: state.user.spaces,
+    isLoading: state.user.isLoading,
   };
 };
 
