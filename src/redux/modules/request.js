@@ -38,10 +38,25 @@ const initialState = {
     host: [],
     isLoading: false,
   },
+  estimate: {
+    isSending: false,
+  },
 };
 
 export const requestReducer = handleActions(
   {
+    [ESTIMATE]: state => ({
+      ...state,
+      estimate: { isSending: true },
+    }),
+    [ESTIMATE_SUCCESS]: state => ({
+      ...state,
+      estimate: { isSending: false },
+    }),
+    [ESTIMATE_FAILED]: state => ({
+      ...state,
+      estimate: { isSending: false },
+    }),
     [FETCH_SCHEDULE]: state => ({
       ...state,
       isLoading: true,

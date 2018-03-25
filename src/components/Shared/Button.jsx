@@ -7,7 +7,7 @@ export default (props) => {
     return (
       <Buttons.Secondary
         {...props}
-        onClick={props.disabled ? null : props.onClick}
+        onClick={(props.disabled || props.loading) ? null : props.onClick}
       >
         {props.loading ? <Loader active inline="centered" size="mini" /> : props.children}
       </Buttons.Secondary>
@@ -18,7 +18,7 @@ export default (props) => {
     return (
       <Buttons.Tertiary
         {...props}
-        onClick={props.disabled ? null : props.onClick}
+        onClick={(props.disabled || props.loading) ? null : props.onClick}
       >
         {props.loading ? <Loader active inverted inline="centered" size="mini" /> : props.children}
       </Buttons.Tertiary>
@@ -29,7 +29,7 @@ export default (props) => {
     return (
       <Buttons.Facebook
         {...props}
-        onClick={props.disabled ? null : props.onClick}
+        onClick={(props.disabled || props.loading) ? null : props.onClick}
       >
         {props.loading ? <Loader active inverted inline="centered" size="mini" /> : props.children}
       </Buttons.Facebook>
@@ -39,7 +39,7 @@ export default (props) => {
   return (
     <Buttons.Primary
       {...props}
-      onClick={props.disabled ? null : props.onClick}
+      onClick={(props.disabled || props.loading) ? null : props.onClick}
     >
       {props.loading ? <Loader active inverted inline="centered" size="mini" /> : props.children}
     </Buttons.Primary>

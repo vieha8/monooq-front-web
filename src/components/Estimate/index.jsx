@@ -62,6 +62,7 @@ export default props => (
     button={(
       <Button
         disabled={props.buttonDisabled}
+        loading={props.buttonLoading}
         onClick={props.onClickButton}
       >
         この見積もりを送る

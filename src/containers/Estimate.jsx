@@ -88,6 +88,7 @@ class EstimateContainer extends React.Component {
         handleChangePrice={this.handleChangePrice}
         priceErrors={error.errors.price}
         buttonDisabled={!this.validate()}
+        buttonLoading={this.props.isSending}
         onClickButton={this.sendRequest}
       />
     );
@@ -98,6 +99,7 @@ const mapStateToProps = state => ({
   ui: state.ui,
   user: state.auth.user,
   error: state.error,
+  isSending: state.request.estimate.isSending,
 });
 
 export default connect(mapStateToProps)(EstimateContainer);
