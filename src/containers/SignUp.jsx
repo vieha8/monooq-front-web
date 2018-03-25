@@ -183,6 +183,7 @@ class SignUpContainer extends React.Component {
               signupFailed: this.props.isSignupFailed && [ErrorMessage.FailedSignUp],
             }}
             buttonDisabled={!this.validateRegisterEmail()}
+            buttonLoading={this.props.isLoading}
           />
         }
         profileForm={
@@ -216,6 +217,7 @@ class SignUpContainer extends React.Component {
 const mapStateToProps = state => ({
   ui: state.ui,
   user: state.auth.user,
+  isLoading: state.auth.isRegisting,
   isSignupFailed: state.auth.isSignupFailed,
   error: state.error,
 });

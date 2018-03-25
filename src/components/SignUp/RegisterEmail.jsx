@@ -124,9 +124,11 @@ export default props => (
     </LinkTextWrapper>
     {props.errors.signupFailed && <ErrorText errors={props.errors.signupFailed} />}
     <ButtonWrapper>
+      {console.log(props.buttonLoading)}
       <Button
         onClick={props.onClickSignUpEmail}
         disabled={props.buttonDisabled}
+        loading={props.buttonLoading}
       >
         次へ
       </Button>
@@ -135,6 +137,7 @@ export default props => (
       <OtherLoginLabel>お持ちのアカウントで登録</OtherLoginLabel>
       <Button
         onClick={props.onClickSignUpFacebook}
+        loading={props.buttonLoading}
         facebook
       >
         <IconWrapper>
