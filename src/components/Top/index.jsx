@@ -531,6 +531,12 @@ const LineupItem = styled.li`
   }
 `;
 
+function refSearchField(ref, props) {
+  if (ref) {
+    ref.addEventListener('keydown', props.onKeyDownSearchField);
+  }
+}
+
 const MediaLineup = () => (
   <MediaLineupContainer>
     <LineupTitle>メディア掲載</LineupTitle>
@@ -577,6 +583,7 @@ export default props => (
               placeholder="近くのスペースを検索してみよう！　例）東京都港区"
               value={props.locationText}
               onChange={props.handleChangeLocation}
+              innerRef={ref => refSearchField(ref, props)}
               margin="normal"
             />
             <SearchButton

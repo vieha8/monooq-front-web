@@ -36,6 +36,16 @@ class TopContainer extends React.Component {
     }
   };
 
+  onKeyDownSearchField = (e) => {
+    if (e && e.keyCode === 13 && e.target.value) {
+      this.search(e.target.value);
+    }
+  }
+
+  search = (location) => {
+    window.location.href = `${Path.search()}?location=${location}`;
+  }
+
   render() {
     const { ui, history } = this.props;
     return (
@@ -45,6 +55,7 @@ class TopContainer extends React.Component {
           searchButtonDisabled={ui.searchButtonDisabled}
           handleChangeLocation={this.handleChangeLocation}
           onClickSignup={() => history.push(Path.createSpaceInfo())}
+          onKeyDownSearchField={this.onKeyDownSearchField}
           history={history}
         />
         <Intercom />
