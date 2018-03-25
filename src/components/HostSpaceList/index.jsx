@@ -31,7 +31,7 @@ export default props => (
         <Fragment>
           {(props.spaces.length === 0) ? <Empty>スペース登録はまだありません。余っているスペースをお持ちなら、ぜひ登録してみてください！</Empty> : null}
           {props.spaces.map((space, i) => (
-            <ListItem key={i} space={space} history={props.history} />
+            <ListItem key={i} space={space} onClickEdit={() => props.onClickEdit(space)} />
           ))}
 
         </Fragment>

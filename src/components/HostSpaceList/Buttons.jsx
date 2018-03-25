@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/Shared/Button';
 import { FontSizes, Dimens } from 'variables';
-import Path from 'config/path';
 
 const Container = styled.div`
   float: left;
@@ -21,7 +20,7 @@ export default props => (
       <Button
         small
         fontSize={FontSizes.xsmall}
-        onClick={() => props.history.push(Path.editSpaceInfo(props.space.ID))}
+        onClick={props.onClickEdit}
       >
         編集する
       </Button>

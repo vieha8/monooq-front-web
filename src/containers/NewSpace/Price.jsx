@@ -19,7 +19,7 @@ const Validate = {
 class PriceContainer extends React.Component {
   constructor(props) {
     super(props);
-    if (props.match.params.space_id) {
+    if (!(props.space.space || {}).ID && props.match.params.space_id) {
       const spaceId = parseInt(props.match.params.space_id, 10);
       this.props.dispatch(uiActions.setUiState({
         spaceId,
