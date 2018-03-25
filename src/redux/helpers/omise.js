@@ -1,6 +1,9 @@
 import base64 from 'base-64';
 
-const publicKey = 'pkey_test_58fhk9rco4won6yvve5';
+const publicKey =
+  process.env.REACT_APP_ENV === 'production'
+    ? 'pkey_592yt9505djymotwq66'
+    : 'pkey_test_58fhk9rco4won6yvve5';
 const apiVersion = '2015-11-17';
 const tokenEndPoint = 'https://vault.omise.co/tokens';
 
