@@ -15,6 +15,7 @@ const Container = styled.div`
 
 const Cell = styled.div`
   display: inline-block;
+  vertical-align: top;
 `;
 
 export default props => (

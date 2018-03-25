@@ -7,6 +7,7 @@ const Container = styled.li`
   display: table-cell;
   cursor: pointer;
   padding: 0 ${Dimens.small}px;
+  vertical-align: top;
 `;
 
 const Wrapper = styled.div`
@@ -39,7 +40,7 @@ const Text = styled.span`
 
 const PlaceText = Text.extend`
   color: ${Colors.brandPrimary};
-  margin-top: ${Dimens.xsmall}px;
+  margin-top: 0;
 `;
 
 const TypeOK = Text.extend`
@@ -54,6 +55,8 @@ const PriceTitle = Text.extend`
 const Price = Text.extend`
   margin-top: ${Dimens.xsmall}px;
 `;
+
+const Empty = () => <span>&nbsp;</span>;
 
 export default props => (
   <Container onClick={() => props.history.push(`/space/${props.space.ID}`)}>
@@ -71,8 +74,8 @@ export default props => (
           />
         )}
         <Content>
-          <PlaceText>{props.space.AddressTown}</PlaceText>
-          <Text>{props.space.Title}</Text>
+          <PlaceText>{props.space.AddressTown || <Empty />}</PlaceText>
+          <Text>{props.space.Title || <Empty />}</Text>
           {props.space.IsFurniture && <TypeOK>家具・家電OK</TypeOK>}
           <PriceTitle>料金目安（30日間）</PriceTitle>
           <Price>
