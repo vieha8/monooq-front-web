@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
-import Button from 'material-ui/Button';
-import SearchIcon from 'material-ui-icons/Search';
 
 import styled from 'styled-components';
 import { FontSizes, Colors } from 'variables';
@@ -22,6 +20,8 @@ import logoCnet from 'images/logo-cnet@2x.png';
 import logoLifehacker from 'images/logo-lifehacker@2x.png';
 import logoTechcrunch from 'images/logo-techcrunch@2x.png';
 import logoTechable from 'images/logo-techable@2x.png';
+
+import SearchInput from './SearchInput';
 
 const TopPage = styled.div`
   min-width: 1048px;
@@ -89,67 +89,6 @@ const SubCatchPhrase = styled.span`
 
 const SubCatchPhraseWide = SubCatchPhrase.extend`
   width: 540px;
-`;
-
-const SearchWrapper = styled.div`
-  width: 507px;
-  position: relative;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  overflow: hidden;
-  ${media.phone`
-    width: 84vw;
-  `};
-`;
-
-const SearchInput = styled.input`
-  margin: 0;
-  border: 1px solid #eee;
-  border-radius: 5px;
-  padding: 20px 60px 20px 20px;
-  display: inline-block;
-  vertical-align: middle;
-  background: #fff;
-  height: 60px;
-  width: 507px;
-  line-height: 20px;
-  box-sizing: border-box;
-  font-size: ${FontSizes.small}px;
-  ${media.phone`
-    width: 84vw;
-  `};
-  &:focus {
-    outline: none;
-  }
-`;
-
-const SearchButton = styled(Button)`
-  &&& {
-    position: absolute;
-    top: 0;
-    right: -10px;
-    height: 100%;
-    padding: 0;
-    background-color: transparent;
-    box-shadow: none;
-    ${media.phone`
-      right: -20px;
-    `};
-  }
-`;
-
-const StyledSearchIcon = styled(SearchIcon)`
-  && {
-    height: 32px;
-    width: 32px;
-    color: ${Colors.brandPrimary};
-    ${props =>
-      props.disabled
-        ? `
-          color: ${Colors.darkGray2};
-        `
-        : ''};
-  }
 `;
 
 const ToHostRegistContainer = styled.div`
@@ -577,26 +516,13 @@ export default props => (
           <SubCatchPhrase>
             モノオクは空きスペースを活用できる、物置きシェアサービスです。
           </SubCatchPhrase>
-          <SearchWrapper>
-            <SearchInput
-              id="location"
-              placeholder="近くのスペースを検索してみよう！　例）東京都港区"
-              value={props.locationText}
-              onChange={props.handleChangeLocation}
-              innerRef={ref => refSearchField(ref, props)}
-              margin="normal"
-            />
-            <SearchButton
-              color="primary"
-              mini
-              component={Link}
-              to={`${Path.search()}?location=${props.locationText}`}
-              disabled={props.searchButtonDisabled}
-            >
-              <StyledSearchIcon disabled={props.searchButtonDisabled} />
-            </SearchButton>
-          </SearchWrapper>
-
+          <SearchInput
+            placeholder="近くのスペースを検索してみよう！　例）東京都港区"
+            locationText={props.locationText}
+            onChange={props.handleChangeLocation}
+            onRef={ref => refSearchField(ref, props)}
+            searchButtonDisabled={props.searchButtonDisabled}
+          />
           <ToHostRegistContainer>
             <ToHostRegist component={Link} href={Path.createSpaceInfo()}>
               ホスト登録はこちら

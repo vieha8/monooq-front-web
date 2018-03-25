@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { CircularProgress } from 'material-ui/Progress';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 import { searchActions } from 'redux/modules/search';
 import { uiActions } from 'redux/modules/ui';
 import { isMobileWindow, media } from 'helpers/style/media-query';
 import { Footer } from 'components/Shared';
 import { ResultList } from 'components/Search';
+import SearchNotFound from 'components/Search/SearchNotFound';
 import { Colors, Dimens, FontSizes } from 'variables/';
 
 const SearchPageContainer = styled.div``;
@@ -44,11 +45,6 @@ const ProgressContainer = styled.div`
   padding: ${Dimens.medium}px; 0;
 `;
 
-const Empty = styled.div`
-  line-height: 1.5;
-  padding: 0 4%;
-`;
-
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -72,20 +68,24 @@ class Search extends React.Component {
       );
     }
 
-    if (spaces.length === 0) {
-      return (
-        <Empty>該当するスペースがありません</Empty>
-      );
-    }
-
     return (
       <ResultList spaces={spaces} history={history} />
     );
   }
 
+  renderNotFound = () => {
+    return (
+      <SearchNotFound />
+    );
+  }
+
   render() {
-    const { ui } = this.props;
+    const { search, spaces, ui } = this.props;
     if (!ui.query) return null;
+
+    if (!search.isLoading && spaces.length === 0) {
+      return this.renderNotFound();
+    }
 
     return (
       <SearchPageContainer>
