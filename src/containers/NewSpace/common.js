@@ -30,6 +30,7 @@ export const mapStateToProps = state => {
     ui: state.ui,
     space: state.space,
     error: state.error,
+    user: state.auth.user,
   };
 };
 

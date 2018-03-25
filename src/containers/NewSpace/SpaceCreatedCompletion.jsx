@@ -2,20 +2,12 @@ import React from 'react';
 import { authConnect } from 'components/Auth';
 import { Page } from 'components/NewSpace/page/Shared';
 import SpaceCratedCompletion from 'components/NewSpace/page/SpaceCreatedCompletion';
-import { uiActions } from 'redux/modules/ui';
-import { spaceActions } from 'redux/modules/space';
+import { init } from "./common";
 
 class SpaceCratedCompletionContainer extends React.Component {
   constructor(props) {
     super(props);
-    if (props.space && !(props.space.space || {}).ID && props.match.params.space_id) {
-      const spaceId = parseInt(props.match.params.space_id, 10);
-      this.props.dispatch(uiActions.setUiState({
-        spaceId,
-        isEdit: true,
-      }));
-      this.props.dispatch(spaceActions.fetchSpace({ spaceId }));
-    }
+    init(props);
   }
 
   render() {
