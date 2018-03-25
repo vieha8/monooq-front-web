@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import Login from 'components/Login';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
+import Path from 'config/path';
 
 class LoginContainer extends React.Component {
   loginFacebook = () => {
@@ -39,7 +40,9 @@ class LoginContainer extends React.Component {
   }
 
   showLoginForm = () => {
-    if (!this.props.isLogin) {
+    const { dispatch, ui, isLogin } = this.props;
+
+    if (!isLogin) {
       return (
         <Login
           onClickLoginFacebook={this.loginFacebook}
@@ -55,7 +58,11 @@ class LoginContainer extends React.Component {
       );
     }
 
-    return <Redirect to="/" />;
+    // 多重render防止
+    if (ui.redirectPath) {
+      dispatch(uiActions.setUiState({ redirectPath: null }));
+    }
+    return <Redirect to={ui.redirectPath || Path.top()} />;
   };
 
   render() {

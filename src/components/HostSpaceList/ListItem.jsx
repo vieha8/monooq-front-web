@@ -13,12 +13,11 @@ const Container = styled.div`
     content: "";
     display: block;
   }
-  margin-top: ${Dimens.medium2}px;
-  margin-left: ${Dimens.medium2}px;
+  margin-bottom: ${Dimens.medium}px;
   float: left;
   ${media.phone`
     float: none;
-    margin: ${Dimens.medium2}px auto 0;
+    margin: ${Dimens.medium}px auto 0;
   `}
 `;
 

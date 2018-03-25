@@ -38,6 +38,7 @@ const initialState = {
   spaces: [],
   updateSuccess: false,
   updateFailed: false,
+  isLoading: false,
 };
 
 export const userReducer = handleActions(
@@ -46,9 +47,18 @@ export const userReducer = handleActions(
       ...state,
       user: action.payload,
     }),
+    [FETCH_USER_SPACES]: state => ({
+      ...state,
+      isLoading: true,
+    }),
     [FETCH_SUCCESS_USER_SPACES]: (state, action) => ({
       ...state,
       spaces: action.payload,
+      isLoading: false,
+    }),
+    [FETCH_FAILED_USER_SPACES]: state => ({
+      ...state,
+      isLoading: false,
     }),
     [UPDATE_USER]: state => ({
       ...state,
@@ -81,7 +91,12 @@ export function* getUser({ payload: { userId } }) {
   yield put(userActions.fetchSuccessUser(payload));
 }
 
-function* getSpaces() {
+function* getSpaces(params) {
+  let targetUserId = '';
+  if (params && params.payload && params.payload.userId) {
+    targetUserId = params.payload.userId;
+  }
+
   let user = yield select(state => state.auth.user);
   if (!user.ID) {
     yield take(authActions.checkLoginSuccess);
@@ -93,9 +108,8 @@ function* getSpaces() {
     yield put(authActions.setUser(payload));
   }
   user = yield select(state => state.auth.user);
-  const userId = user.ID;
 
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.userSpaces(userId) }));
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.userSpaces(targetUserId || user.ID) }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error) {
     yield put(userActions.fetchFailedUserSpaces(meta));

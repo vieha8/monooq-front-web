@@ -1,17 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card } from 'semantic-ui-react';
-import { media } from 'helpers/style/media-query';
 import { Colors, FontSizes, Dimens } from 'variables';
 
 const Container = styled.div`
   width: 140px;
   cursor: pointer;
   margin: 0 ${Dimens.medium}px 0 ${Dimens.medium}px;
-  ${media.phone`
-    width: 140px;
-    margin: ${Dimens.xsmall}px;
-  `}
   float: left;
 `;
 

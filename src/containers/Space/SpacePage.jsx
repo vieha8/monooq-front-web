@@ -23,6 +23,7 @@ import {
 } from 'components/Space';
 import { getRoomId, createRoom } from 'redux/modules/messages';
 import { spaceActions } from 'redux/modules/space';
+import { uiActions } from 'redux/modules/ui';
 import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
@@ -143,15 +144,23 @@ class Space extends React.Component {
   }
 
   sendMessage = async () => {
-    const { user, space, history } = this.props;
-    const userId1 = user.ID;
-    const userId2 = space.UserID;
-    const spaceId = space.ID;
-    let roomId = await getRoomId(userId1, userId2, spaceId);
-    if (!roomId) {
-      roomId = await createRoom(userId1, user.FirebaseUid, userId2, space.Host.FirebaseUid, spaceId);
+    const { dispatch, location, user, space, history } = this.props;
+
+    // 未ログインの場合はログイン画面へ
+    if (!user.ID) {
+      dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
+      history.push(Path.login());
+    } else {
+      const userId1 = user.ID;
+      const userId2 = space.UserID;
+      const spaceId = space.ID;
+      let roomId = await getRoomId(userId1, userId2, spaceId);
+      if (!roomId) {
+        roomId = await createRoom(
+          userId1, user.FirebaseUid, userId2, space.Host.FirebaseUid, spaceId);
+      }
+      history.push(Path.message(roomId));
     }
-    history.push(Path.message(roomId));
   };
 
   render() {

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import Path from 'config/path';
 import Avatar from 'material-ui/Avatar';
+import { Loader } from 'semantic-ui-react';
 import { authConnect } from 'components/Auth';
 import { messagesActions } from 'redux/modules/messages';
 import Menu from 'containers/Menu';
@@ -80,29 +81,35 @@ class Messages extends React.Component {
   }
 
   render() {
-    const { history, rooms } = this.props;
+    const { history, rooms, isLoading } = this.props;
     return (
       <Page title="メッセージ一覧">
         <Fragment>
           <Menu />
           <ContentContainer>
-            {(rooms.length === 0) ? <Empty>メッセージはまだありません。</Empty> : null}
-            {rooms.map((v, i) => (
-              <StyledMessagesItem
-                key={i}
-                button
-                divider
-                onClickdMessagesItem={() => {
-                  history.push(Path.message(v.id));
-                }}
-              >
-                <Avatar src={v.user.ImageUrl} />
-                <StyledMessagesItemText
-                  primary={v.user.Name}
-                  secondary={`${v.lastMessageDt.toLocaleDateString()} ${v.lastMessageDt.toLocaleTimeString()}`}
-                />
-              </StyledMessagesItem>
-            ))}
+            {isLoading ? (
+              <Loader active inline="centered" size="medium">読み込み中...</Loader>
+            ) : (
+              <Fragment>
+                {(rooms.length === 0) ? <Empty>メッセージはまだありません。</Empty> : null}
+                {rooms.map((v, i) => (
+                  <StyledMessagesItem
+                    key={i}
+                    button
+                    divider
+                    onClickdMessagesItem={() => {
+                      history.push(Path.message(v.id));
+                    }}
+                  >
+                    <Avatar src={v.user.ImageUrl} />
+                    <StyledMessagesItemText
+                      primary={v.user.Name}
+                      secondary={`${v.lastMessageDt.toLocaleDateString()} ${v.lastMessageDt.toLocaleTimeString()}`}
+                    />
+                  </StyledMessagesItem>
+                ))}
+              </Fragment>
+            )}
           </ContentContainer>
         </Fragment>
       </Page>

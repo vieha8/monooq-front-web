@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { Loader } from 'semantic-ui-react';
 import { Dimens } from 'variables';
 import { ContentContainer } from 'components/Page';
 import { media } from 'helpers/style/media-query';
@@ -14,22 +15,27 @@ const Empty = styled.div`
 `;
 
 const Content = styled.div`
-  margin-top: -${Dimens.medium2}px;
-  margin-left: -${Dimens.medium2}px;
+  width: 600px;
   ${media.phone`
+    width: 100%;
     margin: 0;
   `}
 `;
 
-export default (props) => (
+export default props => (
   <ContentContainer>
     <Content>
-      {(props.spaces.length === 0) ? <Empty>スペース登録はまだありません。余っているスペースをお持ちなら、ぜひ登録してみてください！</Empty> : null}
-      {props.spaces.map((space, i) => {
-        return (
-          <ListItem key={i} space={space} history={props.history} />
-        );
-      })}
+      {props.isLoading ? (
+        <Loader active inline="centered" size="medium">読み込み中...</Loader>
+      ) : (
+        <Fragment>
+          {(props.spaces.length === 0) ? <Empty>スペース登録はまだありません。余っているスペースをお持ちなら、ぜひ登録してみてください！</Empty> : null}
+          {props.spaces.map((space, i) => (
+            <ListItem key={i} space={space} history={props.history} />
+          ))}
+
+        </Fragment>
+      )}
     </Content>
     <RegistButton {...props} />
   </ContentContainer>
