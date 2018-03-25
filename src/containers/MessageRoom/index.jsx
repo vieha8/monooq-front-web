@@ -23,16 +23,8 @@ class Message extends React.Component {
     );
   }
 
-  componentWillReceiveProps = (nextProps) => {
-    const { history } = this.props;
-    const estimate = nextProps.ui.estimate;
-    if (estimate && estimate.id) {
-      history.push(estimate.linkUrl);
-    }
-  }
-
   onClickEstimate = (estimate) => {
-    const { dispatch } = this.props;
+    const { dispatch, history } = this.props;
     dispatch(uiActions.setUiState({
       estimate: {
         ...estimate.estimate,
@@ -40,6 +32,7 @@ class Message extends React.Component {
         space: estimate.space,
       },
     }));
+    history.push(estimate.linkUrl);
   }
 
   handleChange = (event) => {
