@@ -29,30 +29,37 @@ const Content = styled.div`
 const Image = styled.img`
   width: 100%;
   height: 160px;
+  object-fit: cover;
 `;
 
 const Text = styled.span`
   display: block;
   font-size: ${FontSizes.small}px;
+  line-height: 1.3;
+  margin-top: ${Dimens.medium}px;
   ${media.phone`
     font-size: ${FontSizes.xsmall}px;
   `}
-  line-height: 1.3;
-  margin-top: ${Dimens.medium}px;
 `;
 
 const PlaceText = Text.extend`
   color: ${Colors.brandPrimary};
-  margin-top: ${Dimens.small}px;
+  margin-top: 0;
 `;
 
 const TypeOK = Text.extend`
   font-weight: bold;
   margin-top: ${Dimens.medium1}px;
+  ${media.phone`
+    margin-top: ${Dimens.small}px;
+  `}
 `;
 
 const PriceTitle = Text.extend`
   margin-top: ${Dimens.medium1}px;
+  ${media.phone`
+    margin-top: ${Dimens.small}px;
+  `}
 `;
 
 const Price = Text.extend`
@@ -64,15 +71,19 @@ export default props => (
     onClick={() => props.history.push(`/space/${props.ID}`)}
   >
     <Card>
-      {(props.Images && props.Images.length > 0) ? <Image
-        src={props.Images[0].ImageUrl}
-        alt={props.Title}
-        width="200"
-        height="150"
-      />: <Image
-        src="http://placehold.jp/200x150.png"
-        alt=""
-      />}
+      {(props.Images && props.Images.length > 0) ? (
+        <Image
+          src={props.Images[0].ImageUrl}
+          alt={props.Title}
+          width="200"
+          height="150"
+        />
+      ) : (
+        <Image
+          src="http://placehold.jp/200x150.png"
+          alt=""
+        />
+      )}
 
       <Content>
         <PlaceText>{props.AddressTown || '未設定'}</PlaceText>
