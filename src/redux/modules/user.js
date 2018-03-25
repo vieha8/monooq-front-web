@@ -91,7 +91,7 @@ export function* getUser({ payload: { userId } }) {
   yield put(userActions.fetchSuccessUser(payload));
 }
 
-function* getSpaces() {
+function* getSpaces({ payload: { userId } }) {
   let user = yield select(state => state.auth.user);
   if (!user.ID) {
     yield take(authActions.checkLoginSuccess);
@@ -103,7 +103,6 @@ function* getSpaces() {
     yield put(authActions.setUser(payload));
   }
   user = yield select(state => state.auth.user);
-  const userId = user.ID;
 
   yield put(apiActions.apiGetRequest({ path: apiEndpoint.userSpaces(userId) }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
