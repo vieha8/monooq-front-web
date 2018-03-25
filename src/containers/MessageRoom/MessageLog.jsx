@@ -1,10 +1,10 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {Dimens} from "../../variables";
-import {media} from "../../helpers/style/media-query";
-import path from "../../config/path";
-import { Image } from "semantic-ui-react";
+import { Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
+import path from 'config/path';
+import { Image } from 'semantic-ui-react';
 
 const Container = styled.div`
   &:not(:first-child) {
@@ -34,26 +34,26 @@ const StyledRecord = styled.div`
     line-height: 18px;
   `};
   ${props =>
-  props.isSelf
-    ? `
+    props.isSelf
+      ? `
         float: right;
         background-color: #feebeb;
         margin-left: auto;
         border: 0;
     `
-    : ''};
+      : ''};
   ${props =>
-  props.isSpecial
-    ? `
+    props.isSpecial
+      ? `
         width: 100%;
         background-color: #d9ffe5;
         border: 0;
         max-width: 100%;
     `
-    : ''};
+      : ''};
 `;
 
-const RecordLink = styled(Link)`
+const RecordLink = styled(Link) `
   color: #006494;
   float: right;
   margin-top: 30px;
@@ -64,7 +64,10 @@ const StyledDate = styled.div`
   font-size: 12px;
   line-height: 14px;
   color: #b4b4b4;
-  float: right;
+  text-align: left;
+  ${props => props.right && `
+    text-align: right;
+  `}
   margin-bottom: 20px;
 `;
 
@@ -92,7 +95,7 @@ const estimateDateFormat = (date) => {
 
 export default props => {
 
-  const {messages, userId, room, ui} = props;
+  const { messages, userId, room, ui } = props;
 
   const data = messages.map(message => {
     const params = {
@@ -108,13 +111,13 @@ export default props => {
         break;
       case 2:
         //見積りメッセージ
-        const {startDate, endDate, price, requestId} = message;
+        const { startDate, endDate, price, requestId } = message;
         params.text = `お見積り\n`;
         params.text += `利用開始日:${estimateDateFormat(startDate)}\n`;
         params.text += `利用終了日:${estimateDateFormat(endDate)}\n`;
         params.text += `料金:${price}円`;
 
-        if(room.space.UserID !== userId) {
+        if (room.space.UserID !== userId) {
           params.linkUrl = path.payment(ui.roomId, requestId);
         }
 
@@ -138,11 +141,11 @@ export default props => {
           <StyledRecord isSelf={v.isSelf} isSpecial={v.isSpecial}>
             {v.text}
             {v.linkUrl && <RecordLink to={v.linkUrl}>この見積もりでお支払いに進む</RecordLink>}
-            {v.imageUrl && <Image src={v.imageUrl} rounded size="large" /> }
+            {v.imageUrl && <Image src={v.imageUrl} rounded size="large" />}
           </StyledRecord>
-          <ClearBoth/>
-          <StyledDate>{v.date}</StyledDate>
-          <ClearBoth/>
+          <ClearBoth />
+          <StyledDate right={v.isSelf}>{v.date}</StyledDate>
+          <ClearBoth />
 
         </div>
       ))}
