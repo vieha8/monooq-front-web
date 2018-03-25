@@ -200,6 +200,7 @@ function* updateSpace({ payload: { spaceId, body } }) {
 
   if (images) {
     //TODO 画像アップロード処理
+    delete body.images;
   }
   yield put(apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
