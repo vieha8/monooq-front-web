@@ -92,15 +92,25 @@ function showImagePreview(props) {
   if (images) {
     return (
       <ImagePreviewContainer>
-        {images.map((image, i) => (
-          <ImagePreviewWrapper key={`image_preivew_${i}`} widthRate={25}>
-            <ImagePreview
-              name={image.name}
-              imageUri={image.preview}
-              onClickDelete={() => props.onClickImageDelete(i)}
-            />
-          </ImagePreviewWrapper>
-        ))}
+        {images.map((image, i) => {
+          const imageName = image.name ? image.name : '';
+          const imageUrl = image.ImageUrl ? image.ImageUrl : image.preview;
+
+          if(imageUrl.includes('data:image/png;base64,')) {
+            //デフォルト画像は表示しない
+            return null;
+          }
+
+          return (
+            <ImagePreviewWrapper key={`image_preivew_${i}`} widthRate={25}>
+              <ImagePreview
+                name={imageName}
+                imageUri={imageUrl}
+                onClickDelete={() => props.onClickImageDelete(i)}
+              />
+            </ImagePreviewWrapper>
+          );
+        })}
         {images.length > 0 && images.length < MAX_PREVIEW_COUNT && (
           <StyledAddImageDropZone
             accept="image/jpeg, image/png"

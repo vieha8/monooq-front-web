@@ -206,8 +206,27 @@ function* updateSpace({ payload: { spaceId, body } }) {
     body.priceQuarter = parseInt(body.priceQuarter, 10);
   }
 
-  // TODO 画像アップロード処理
-  delete body.images;
+  if (body.images && body.images.length > 0) {
+    const imageUrls = yield Promise.all(
+      body.images.map(async image => {
+        if (image.ImageUrl) return image.ImageUrl;
+        const fileReader = new FileReader();
+        fileReader.readAsArrayBuffer(image);
+        const ext = await new Promise(resolve => {
+          fileReader.onload = () => {
+            const imageType = fileType(fileReader.result);
+            resolve(imageType.ext);
+          };
+        });
+        const timeStamp = Date.now();
+        const imagePath = `/img/spaces/${spaceId}/${timeStamp}.${ext}`;
+        return uploadImage(imagePath, image);
+      }),
+    );
+    body.images = imageUrls
+      .filter(url => url !== '')
+      .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
+  }
 
   yield put(apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
