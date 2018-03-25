@@ -106,7 +106,14 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   yield put(
     apiActions.apiPostRequest({
       path: apiEndpoint.requests(),
-      body: { userId: requestUserId, spaceId, startDate, endDate, price: parseInt(price, 10) },
+      body: {
+        userId: requestUserId,
+        spaceId,
+        startDate,
+        endDate,
+        price: parseInt(price, 10),
+        status: 'estimate',
+      },
     }),
   );
   const { payload: requestInfo, error, meta } = yield take(apiActions.apiResponse);
