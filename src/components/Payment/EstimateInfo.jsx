@@ -51,7 +51,7 @@ export default props => (
     <Content>{moment(props.startDate).format('YYYY/MM/DD')}から{moment(props.endDate).format('YYYY/MM/DD')}まで</Content>
     <EstimateInfoHr />
     <Label>期間</Label>
-    <Content>{moment(props.endDate).diff(props.startDate, 'days')}日間</Content>
+    <Content>{moment(props.endDate).diff(props.startDate, 'days') + 1}日間</Content>
     <EstimateInfoHr />
     <Label>お支払い金額</Label>
     <Content>{props.price}円（税込み）</Content>
