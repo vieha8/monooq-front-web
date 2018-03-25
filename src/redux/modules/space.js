@@ -163,9 +163,11 @@ function* createSpace({ payload: { body } }) {
         return uploadImage(imagePath, image);
       }),
     );
-    payload.images = imageUrls.map(url => ({ imageUrl: url }));
+    const imgs = imageUrls.map(url => ({ SpaceID: spaceId, ImageUrl: url }));
 
-    yield put(apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), payload }));
+    yield put(
+      apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body: { Images: imgs } }),
+    );
     const { error, meta } = yield take(apiActions.apiResponse);
     if (error) {
       yield put(spaceActions.createFailedSpace(meta));
