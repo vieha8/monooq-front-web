@@ -8,8 +8,8 @@ export const uploadImage = (path, file) => {
     task.on(
       'state_changed',
       snapshot => {
-        const progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
-        console.log('Upload is ' + progress + '% done');
+        // const progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+        // console.log('Upload is ' + progress + '% done');
       },
       error => {
         console.error(error);

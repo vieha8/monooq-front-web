@@ -25,7 +25,8 @@ export default history => {
     middleware.push(logger);
   }
 
-  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const composeEnhancers = compose;
 
   store = createStore(
     combineReducers({

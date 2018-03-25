@@ -124,7 +124,6 @@ export default props => (
     </LinkTextWrapper>
     {props.errors.signupFailed && <ErrorText errors={props.errors.signupFailed} />}
     <ButtonWrapper>
-      {console.log(props.buttonLoading)}
       <Button
         onClick={props.onClickSignUpEmail}
         disabled={props.buttonDisabled}

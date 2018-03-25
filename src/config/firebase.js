@@ -17,8 +17,6 @@ export default () => {
     messagingSenderId: '569699475393',
   };
 
-  console.log('ENV:' + JSON.stringify(process.env));
-
   if (process.env.REACT_APP_ENV && process.env.REACT_APP_ENV === 'production') {
     return configProduction;
   }
