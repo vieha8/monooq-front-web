@@ -186,7 +186,7 @@ function* payment({ payload: { roomId, requestId, card } }) {
       body: { RequestId: parseInt(requestId, 10), CardToken: token },
     }),
   );
-  const { payload, error2, meta2 } = yield take(apiActions.apiResponse);
+  const { payload, error: error2, meta: meta2 } = yield take(apiActions.apiResponse);
   if (error2) {
     yield put(requestActions.paymentFailed(meta2));
     return;
