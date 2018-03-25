@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Path from 'config/path';
 import SignUp from 'components/SignUp';
 import RegisterEmail from 'components/SignUp/RegisterEmail';
 import ProfileForm from 'components/SignUp/ProfileForm';
@@ -45,7 +46,17 @@ class SignUpContainer extends React.Component {
       userId: this.props.user.ID,
       body: { name, profile, image, prefCode },
     }));
-  };
+  }
+
+  onClickGuest = () => {
+    const { history } = this.props;
+    history.push(Path.top());
+  }
+
+  onClickHost = () => {
+    const { history } = this.props;
+    history.push(Path.createSpaceInfo());
+  }
 
   // -------------------------------------------
   // メアド登録入力イベント
@@ -193,6 +204,8 @@ class SignUpContainer extends React.Component {
         registeredForm={
           <RegisteredForm
             user={user}
+            onClickGuest={this.onClickGuest}
+            onClickHost={this.onClickHost}
           />
         }
       />
