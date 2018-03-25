@@ -33,7 +33,6 @@ class PriceContainer extends React.Component {
         priceHalf: 0,
         priceQuarter: 0,
       });
-      console.log(saveSpace);
     }
 
     if (this.props.ui.isEdit) {

@@ -206,10 +206,6 @@ function* updateSpace({ payload: { spaceId, body } }) {
     body.priceQuarter = parseInt(body.priceQuarter, 10);
   }
 
-  if (body.isFurniture) {
-    body.isFurniture = body.isFurniture === '1';
-  }
-
   // TODO 画像アップロード処理
   delete body.images;
 
