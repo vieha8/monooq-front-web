@@ -158,8 +158,15 @@ function* loginEmail({ payload: { email, password } }) {
 }
 
 function* loginFacebook() {
-  const provider = new firebase.auth.FacebookAuthProvider();
-  yield firebase.auth().signInWithRedirect(provider);
+  try {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    yield firebase.auth().signInWithPopup(provider);
+    yield checkLoginFirebaseAuth();
+    yield put(authActions.loginSuccess());
+  } catch (err) {
+    console.error(err);
+    yield put(authActions.loginFailed(err));
+  }
 }
 
 function* logout() {
@@ -194,7 +201,7 @@ function* signUpEmail({ payload: { email, password } }) {
 function* signUpFacebook() {
   try {
     const provider = new firebase.auth.FacebookAuthProvider();
-    const result = yield firebase.auth().signInWithRedirect(provider);
+    const result = yield firebase.auth().signInWithPopup(provider);
     const { isNewUser } = result.additionalUserInfo;
     if (!isNewUser) {
       yield put(authActions.signupFailed('Already registered.'));
@@ -215,7 +222,7 @@ function* signUpFacebook() {
     }
     yield put(authActions.signupSuccess(payload));
     yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signUpStep: 4, name: displayName }));
+    yield put(uiActions.setUiState({ signUpStep: 4, signup: { name: displayName } }));
   } catch (err) {
     console.error(err.message);
     yield put(authActions.signupFailed(err.message));
