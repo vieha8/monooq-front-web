@@ -61,6 +61,8 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
     requestUserId = userId2;
   }
 
+  yield sendEstimateEmail({ toUserId: requestUserId, roomId });
+
   yield put(
     apiActions.apiPostRequest({
       path: apiEndpoint.requests(),
@@ -183,6 +185,31 @@ function* fetchSchedule() {
   }
 
   yield put(requestActions.fetchScheduleSuccess({ user: userRequests, host: hostRequests }));
+}
+
+function* sendEstimateEmail(payload) {
+  const { roomId, toUserId } = payload;
+
+  yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(toUserId) }));
+  const { payload: toUser } = yield take(apiActions.apiResponse);
+
+  let messageBody = 'お見積りが届きました。\n\n';
+  messageBody += '\n\n確認するには以下のリンクをクリックしてください。\n';
+
+  //TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  if (process.env.REACT_APP_ENV === 'production') {
+    messageBody += `https://monooq.com/messages/${roomId}`;
+  } else {
+    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
+  }
+
+  const body = {
+    Subject: 'お見積りが届いています：モノオクからのお知らせ',
+    Address: toUser.Email,
+    Body: messageBody,
+  };
+
+  yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
 }
 
 export const requestSagas = [
