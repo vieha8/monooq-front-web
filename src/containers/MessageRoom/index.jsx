@@ -1,10 +1,9 @@
 import React from 'react';
-import { authConnect } from "../../components/Auth";
+import { authConnect } from 'components/Auth';
 import { messagesActions } from 'redux/modules/messages';
 import { uiActions } from 'redux/modules/ui';
-import Page from 'components/Page';
+import Page, { ContentContainer } from 'components/Page';
 import Menu from 'containers/Menu';
-import {ContentContainer} from 'components/Page';
 
 import Form from './Form';
 import MessageLog from './MessageLog';
@@ -24,7 +23,7 @@ class Message extends React.Component {
     );
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.props.dispatch(
       uiActions.setUiState({
         message: event.target.value,
@@ -32,10 +31,10 @@ class Message extends React.Component {
     );
   };
 
-  handleChangeFile = event => {
+  handleChangeFile = (image) => {
     this.props.dispatch(
       uiActions.setUiState({
-        messageImage: event.target.files.item(0)
+        messageImage: image,
       }),
     );
   };
@@ -50,18 +49,19 @@ class Message extends React.Component {
         roomId: this.roomId,
         userId: this.props.userId,
         text: ui.message,
-        image: ui.messageImage
+        image: ui.messageImage,
       }),
     );
     this.props.dispatch(
       uiActions.setUiState({
         message: '',
+        messageImage: null,
       }),
     );
   };
 
   render() {
-    if(this.props.isLoading || !this.props.room){
+    if (this.props.isLoading || !this.props.room) {
       return null;
     }
 
