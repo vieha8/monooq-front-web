@@ -35,19 +35,18 @@ export default class SpaceSize extends Component {
 
   onClickNext = () => {
     const { ui, history } = this.props;
-
     if (ui.isEdit) {
       if (ui.space.sizeType === SpaceSize.Type.Small) {
         history.push(Path.editSpacePrice(ui.spaceId, 'all'));
       } else {
         history.push(Path.editSpacePrice(ui.spaceId, 'about'));
       }
-    }
-
-    if (ui.space.sizeType === SpaceSize.Type.Small) {
-      history.push(Path.createSpacePrice('all'));
     } else {
-      history.push(Path.createSpacePrice('about'));
+      if (ui.space.sizeType === SpaceSize.Type.Small) {
+        history.push(Path.createSpacePrice('all'));
+      } else {
+        history.push(Path.createSpacePrice('about'));
+      }
     }
   }
 

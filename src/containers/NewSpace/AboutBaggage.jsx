@@ -2,26 +2,15 @@ import React from 'react';
 import { authConnect } from 'components/Auth';
 import { Page } from 'components/NewSpace/page/Shared';
 import AboutBaggage from 'components/NewSpace/page/AboutBaggage';
-import { uiActions } from 'redux/modules/ui';
-import { spaceActions } from 'redux/modules/space';
-import { errorActions } from 'redux/modules/error';
 import { ErrorMessage } from 'strings';
 import Path from 'config/path';
 import FormValidator from 'containers/helper/FormValidator';
+import { init, mapStateToProps } from "./common";
 
 class AboutBaggageContainer extends React.Component {
   constructor(props) {
     super(props);
-    if (props.space && !(props.space.space || {}).ID && props.match.params.space_id) {
-      const spaceId = parseInt(props.match.params.space_id, 10);
-      this.props.dispatch(uiActions.setUiState({
-        spaceId,
-        isEdit: true,
-      }));
-      this.props.dispatch(spaceActions.fetchSpace({ spaceId }));
-    }
-
-    FormValidator.initialize('space', props.dispatch, uiActions.setUiState, errorActions.setErrorState);
+    init(props);
   }
 
   onClickNext = () => {
@@ -82,31 +71,5 @@ class AboutBaggageContainer extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  if (!state.ui.space.id && state.space.space) {
-    const { space } = state.space;
-    state.ui.space = {
-      id: space.ID,
-      title: space.Title,
-      type: space.Type,
-      introduction: space.Introduction,
-      address: space.Address,
-      images: space.Images,
-      about: space.About,
-      isFurniture: space.IsFurniture,
-      receiptType: space.ReceiptType,
-      receiptAbout: space.ReceiptAbout,
-      sizeType: space.SizeType,
-      priceFull: space.PriceFull,
-      priceHalf: space.PriceHalf,
-      priceQuarter: space.PriceQuarter,
-    };
-  }
-  return ({
-    ui: state.ui,
-    error: state.error,
-  });
-};
 
 export default authConnect(mapStateToProps)(AboutBaggageContainer);

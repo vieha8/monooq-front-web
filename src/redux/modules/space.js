@@ -192,7 +192,6 @@ function* createSpace({ payload: { body } }) {
 }
 
 function* updateSpace({ payload: { spaceId, body } }) {
-  const { images } = body;
   delete body.id;
 
   if (body.priceFull) {
@@ -211,10 +210,9 @@ function* updateSpace({ payload: { spaceId, body } }) {
     body.isFurniture = body.isFurniture === '1';
   }
 
-  if (images) {
-    //TODO 画像アップロード処理
-    delete body.images;
-  }
+  // TODO 画像アップロード処理
+  delete body.images;
+
   yield put(apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error) {

@@ -3,12 +3,11 @@ import { authConnect } from 'components/Auth';
 import { Page } from 'components/NewSpace/page/Shared';
 import AllUsePrice from 'components/NewSpace/page/AllUsePrice';
 import AboutPrice from 'components/NewSpace/page/AboutPrice';
-import { uiActions } from 'redux/modules/ui';
-import { errorActions } from 'redux/modules/error';
 import { spaceActions } from 'redux/modules/space';
 import { ErrorMessage } from 'strings';
 import Path from 'config/path';
 import FormValidator from 'containers/helper/FormValidator';
+import { init, mapStateToProps } from "./common";
 
 const Validate = {
   Price: {
@@ -19,16 +18,7 @@ const Validate = {
 class PriceContainer extends React.Component {
   constructor(props) {
     super(props);
-    if (props.space && !(props.space.space || {}).ID && props.match.params.space_id) {
-      const spaceId = parseInt(props.match.params.space_id, 10);
-      this.props.dispatch(uiActions.setUiState({
-        spaceId,
-        isEdit: true,
-      }));
-      this.props.dispatch(spaceActions.fetchSpace({ spaceId }));
-    }
-
-    FormValidator.initialize('space', props.dispatch, uiActions.setUiState, errorActions.setErrorState);
+    init(props);
   }
 
   onClickComplete = () => {
@@ -141,33 +131,5 @@ class PriceContainer extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  if (!state.ui.space.id && state.space.space) {
-    const { space } = state.space;
-    state.ui.space = {
-      id: space.ID,
-      title: space.Title,
-      type: space.Type,
-      introduction: space.Introduction,
-      address: space.Address,
-      images: space.Images,
-      about: space.About,
-      isFurniture: space.IsFurniture,
-      receiptType: space.ReceiptType,
-      receiptAbout: space.ReceiptAbout,
-      sizeType: space.SizeType,
-      priceFull: space.PriceFull,
-      priceHalf: space.PriceHalf,
-      priceQuarter: space.PriceQuarter,
-    };
-  }
-  return ({
-    isLoading: state.space.isLoading,
-    ui: state.ui,
-    user: state.auth.user,
-    error: state.error,
-  });
-};
 
 export default authConnect(mapStateToProps)(PriceContainer);
