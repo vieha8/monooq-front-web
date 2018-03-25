@@ -52,7 +52,8 @@ class Search extends React.Component {
 
     const query = queryString.parse(location.search);
     dispatch(uiActions.setUiState({ query }));
-    dispatch(searchActions.fetchStartSearch(query.location || ''));
+
+    dispatch(searchActions.fetchStartSearch({location: query.location || ''}));
   }
 
   showSpaceList = () => (

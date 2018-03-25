@@ -74,7 +74,7 @@ export const apiReducer = handleActions(
   initialState,
 );
 
-function* getRequest({ payload: { path, params = {} } }) {
+function* getRequest({ payload: { path, params } }) {
   const { data, err, status } = yield getApiRequest(path, params);
   yield put({
     ...apiActions.apiResponse(data),
