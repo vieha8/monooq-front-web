@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, select } from 'redux-saga/effects';
+import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import { apiActions, apiEndpoint } from './api';
 import { authActions } from './auth';
 import firebase from 'firebase';
@@ -7,6 +7,7 @@ import { store } from '../store/configureStore';
 import { push } from 'react-router-redux';
 import { createOmiseToken } from '../helpers/omise';
 import path from '../../config/path';
+import { getApiRequest } from '../helpers/api';
 
 // Actions
 const ESTIMATE = 'ESTIMATE';
@@ -102,8 +103,6 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
     requestUserId = userId2;
   }
 
-  yield sendEstimateEmail({ toUserId: requestUserId, roomId });
-
   yield put(
     apiActions.apiPostRequest({
       path: apiEndpoint.requests(),
@@ -132,6 +131,10 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
     },
     { merge: true },
   );
+
+  yield sendEstimateEmail({ toUserId: requestUserId, roomId });
+  yield take(apiActions.apiResponse);
+
   yield put(requestActions.estimateSuccess(requestInfo));
   store.dispatch(push(path.message(roomId)));
 }
@@ -158,8 +161,6 @@ function* payment({ payload: { roomId, requestId, card } }) {
     store.dispatch(push(path.error(400)));
     return;
   }
-
-  yield sendPaymentEmail({ roomId, spaceId: requestData.SpaceID });
 
   //Omiseトークン生成
   const { id: token } = yield createOmiseToken({
@@ -201,6 +202,8 @@ function* payment({ payload: { roomId, requestId, card } }) {
     { merge: true },
   );
 
+  yield sendPaymentEmail({ roomId, spaceId: requestData.SpaceID });
+  yield take(apiActions.apiResponse);
   yield put(requestActions.paymentSuccess(payload));
 }
 
@@ -233,8 +236,7 @@ function* fetchSchedule() {
 function* sendEstimateEmail(payload) {
   const { roomId, toUserId } = payload;
 
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(toUserId) }));
-  const { payload: toUser } = yield take(apiActions.apiResponse);
+  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId));
 
   let messageBody = 'お見積りが届きました。\n';
   messageBody += '確認するには以下のリンクをクリックしてください。\n';
@@ -258,13 +260,8 @@ function* sendEstimateEmail(payload) {
 function* sendPaymentEmail(payload) {
   const { roomId, spaceId } = payload;
 
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.spaces(spaceId) }));
-  const { payload: space } = yield take(apiActions.apiResponse);
-
-  const toUserId = space.UserID;
-
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(toUserId) }));
-  const { payload: toUser } = yield take(apiActions.apiResponse);
+  const { data: space } = yield call(getApiRequest, apiEndpoint.spaces(spaceId));
+  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(space.UserID));
 
   let messageBody = '見積りに対するお支払いがありました。\n';
   messageBody += '詳細を確認するには以下のリンクをクリックしてください。\n';
