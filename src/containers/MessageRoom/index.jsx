@@ -41,7 +41,7 @@ class Message extends React.Component {
 
   sendTextMessage = () => {
     const { ui } = this.props;
-    if (ui.message === '') {
+    if (ui.message === '' && !ui.messageImage) {
       return;
     }
     this.props.dispatch(
