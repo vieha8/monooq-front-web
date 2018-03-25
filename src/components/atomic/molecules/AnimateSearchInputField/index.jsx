@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const InputWrapper = styled.span`
   display: inline-block;
-  width: calc(100% - 42px);
+  width: calc(100% - 30px);
 `;
 
 const IconWrapper = styled.span`
@@ -29,7 +29,7 @@ type PropTypes = {
   iconColor: string,
   onClickIcon: Function,
   onKeyDownInputField?: Function,
-  onChange?: Function,
+  onChange: Function,
 }
 
 function Icon(props: PropTypes) {

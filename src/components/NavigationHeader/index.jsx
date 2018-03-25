@@ -86,6 +86,7 @@ const UserImage = styled.img`
   width: 32px;
   height: 32px;
   border-radius: 16px;
+  object-fit: cover;
 `;
 
 const AnonymousUserLink = styled(Link) `
