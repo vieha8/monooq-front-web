@@ -15,6 +15,17 @@ const Container = styled.div`
   `}
 `;
 
+const Message = styled.div`
+  display: table;
+  margin-left: 0;
+  ${props => props.isSelf && `
+    margin-left: auto;
+  `}
+  ${props => props.isSpecial && `
+    display: block;
+  `}
+`;
+
 const StyledRecord = styled.div`
   float: left;
   max-width: 584px;
@@ -33,7 +44,7 @@ const StyledRecord = styled.div`
     font-size: 11px;
     line-height: 18px;
   `};
-  ${props =>
+  ${props => (
     props.isSelf
       ? `
         float: right;
@@ -41,8 +52,8 @@ const StyledRecord = styled.div`
         margin-left: auto;
         border: 0;
     `
-      : ''};
-  ${props =>
+      : '')};
+  ${props => (
     props.isSpecial
       ? `
         width: 100%;
@@ -50,7 +61,7 @@ const StyledRecord = styled.div`
         border: 0;
         max-width: 100%;
     `
-      : ''};
+      : '')};
 `;
 
 const RecordLink = styled(Link) `
@@ -64,10 +75,7 @@ const StyledDate = styled.div`
   font-size: 12px;
   line-height: 14px;
   color: #b4b4b4;
-  text-align: left;
-  ${props => props.right && `
-    text-align: right;
-  `}
+  text-align: right;
   margin-bottom: 20px;
 `;
 
@@ -75,44 +83,47 @@ const ClearBoth = styled.div`
   clear: both;
 `;
 
-const messageDateFormat = (date) => {
-  return date.toLocaleDateString('ja-JP', {
-    year: '2-digit',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-};
+function messageDateFormat(date) {
+  return (
+    date.toLocaleDateString('ja-JP', {
+      year: '2-digit',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+  );
+}
 
-const estimateDateFormat = (date) => {
+function estimateDateFormat(date) {
   return date.toLocaleDateString('ja-JP-u-ca-japanese', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
   });
-};
+}
 
-export default props => {
-
+export default (props) => {
   const { messages, userId, room, ui } = props;
 
-  const data = messages.map(message => {
+  const data = messages.map((message) => {
     const params = {
+      text: '',
       date: messageDateFormat(message.createDt),
       isSelf: message.userId === userId,
       isSpecial: message.messageType !== 1,
       imageUrl: message.image,
+      linkUrl: '',
     };
 
     switch (message.messageType) {
       case 1:
         params.text = message.text;
         break;
-      case 2:
-        //見積りメッセージ
+      case 2: {
+        // 見積りメッセージ
         const { startDate, endDate, price, requestId } = message;
-        params.text = `お見積り\n`;
+        params.text = 'お見積り\n';
         params.text += `利用開始日:${estimateDateFormat(startDate)}\n`;
         params.text += `利用終了日:${estimateDateFormat(endDate)}\n`;
         params.text += `料金:${price}円`;
@@ -122,8 +133,9 @@ export default props => {
         }
 
         break;
+      }
       case 3:
-        params.text = `取引成立です！あなたのお支払いが完了しました。届ける準備を始めましょう！`;
+        params.text = '取引成立です！あなたのお支払いが完了しました。届ける準備を始めましょう！';
         break;
       default:
         break;
@@ -137,17 +149,15 @@ export default props => {
   return (
     <Container>
       {data.map((v, i) => (
-        <div key={i}>
+        <Message key={`message_log_${i}`} isSelf={v.isSelf} isSpecial={v.isSpecial}>
           <StyledRecord isSelf={v.isSelf} isSpecial={v.isSpecial}>
             {v.text}
             {v.linkUrl && <RecordLink to={v.linkUrl}>この見積もりでお支払いに進む</RecordLink>}
             {v.imageUrl && <Image src={v.imageUrl} rounded size="large" />}
           </StyledRecord>
           <ClearBoth />
-          <StyledDate right={v.isSelf}>{v.date}</StyledDate>
-          <ClearBoth />
-
-        </div>
+          <StyledDate>{v.date}</StyledDate>
+        </Message>
       ))}
     </Container>
   );
