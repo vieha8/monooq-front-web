@@ -103,6 +103,7 @@ export default props => (
     )}
     <ButtonWrapper>
       <Button
+        disabled={props.ui.message === ''}
         primary
         onClick={props.sendTextMessage}
       >
@@ -112,6 +113,7 @@ export default props => (
     {(props.room.space.UserID === props.userId) &&
       <ButtonWrapper>
         <Button
+          disabled={props.ui.message === ''}
           secondary
           onClick={() => props.history.push(Path.estimate(props.ui.roomId))}
         >
