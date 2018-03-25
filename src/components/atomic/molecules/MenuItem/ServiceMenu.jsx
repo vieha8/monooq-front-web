@@ -30,11 +30,12 @@ type PropTypes = {
   href: string,
   title: string,
   notificationCount: number,
+  onClick?: Function,
 }
 
 export default (props: PropTypes) => (
   <MenuItem show>
-    <MenuLink href={props.href || ''}>
+    <MenuLink href={props.href || ''} onClick={props.onClick}>
       <MenuText>
         <InlineText.Small>{props.title}</InlineText.Small>
       </MenuText>

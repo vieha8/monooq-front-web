@@ -95,6 +95,9 @@ class HeaderContainer extends Component<PropTypes> {
   logout = () => {
     document.body.style.overflowY = 'auto';
     const { dispatch } = this.props;
+    dispatch(uiActions.setUiState({
+      showMenu: false,
+    }));
     dispatch(authActions.logout());
   }
 
@@ -134,7 +137,7 @@ class HeaderContainer extends Component<PropTypes> {
             becomeHost={{ href: Path.createSpaceInfo() }}
             editProfile={{ href: Path.editProfile(user.ID) }}
             inquiry={{ href: Path.inquiry(user.ID) }}
-            logout={{ onClick: () => this.logout() }}
+            logout={{ onClick: (e) => { e.preventDefault(); this.logout(); } }}
             hasSpace
           />
         )}
