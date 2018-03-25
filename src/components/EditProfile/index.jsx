@@ -165,6 +165,7 @@ export default props => (
         <Button
           onClick={props.onClickSave}
           disabled={props.buttonDisabled}
+          loading={props.buttonLoading}
         >
           プロフィールを更新する
         </Button>

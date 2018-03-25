@@ -128,6 +128,7 @@ class ProfileContainer extends Component {
             profile: error.errors.profile,
           }}
           buttonDisabled={!this.validate()}
+          buttonLoading={this.props.isLoading}
         />
       </Page>
     );
@@ -161,6 +162,7 @@ const mapStateToProps = (state) => {
     user: state.auth.user,
     error: state.error,
     updateSuccess: state.user.updateSuccess,
+    isLoading: state.user.isLoading,
   });
 };
 
