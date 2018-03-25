@@ -9,7 +9,7 @@ import Path from 'config/path';
 const disusePage = [/\/maintenance/, /\/help*/];
 
 class NavigationHeaderContainer extends Component {
-  componentDidMount() {
+  componentWillMount() {
     const { dispatch } = this.props;
     dispatch(authActions.checkLogin());
   }

@@ -36,14 +36,24 @@ const initialState = {
   schedule: {
     user: [],
     host: [],
+    isLoading: false,
   },
 };
 
 export const requestReducer = handleActions(
   {
+    [FETCH_SCHEDULE]: state => ({
+      ...state,
+      isLoading: true,
+    }),
     [FETCH_SCHEDULE_SUCCESS]: (state, action) => ({
       ...state,
       schedule: action.payload,
+      isLoading: false,
+    }),
+    [FETCH_SCHEDULE_FAILED]: state => ({
+      ...state,
+      isLoading: false,
     }),
   },
   initialState,
@@ -168,6 +178,7 @@ function* fetchSchedule() {
   user = yield select(state => state.auth.user);
 
   yield put(apiActions.apiGetRequest({ path: apiEndpoint.requestsByUserId(user.ID) }));
+  yield take(apiActions.apiResponse);
   const { payload: userRequests, error, meta } = yield take(apiActions.apiResponse);
 
   if (error) {

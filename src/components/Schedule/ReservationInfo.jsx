@@ -28,6 +28,7 @@ const DepositContainer = styled.div`
 const UserName = styled.div`
   font-size: ${FontSizes.medium}px;
   color: ${Colors.black};
+  line-height: 1.5;
   max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
