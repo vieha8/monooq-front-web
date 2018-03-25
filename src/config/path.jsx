@@ -82,8 +82,8 @@ export default {
   editBankAccount: () =>
     '/bank/edit',
   // お問い合わせ
-  inquiry: (userId = USER_ID) =>
-    `/user/${userId}/inquiry`,
+  inquiry: () =>
+    `/inquiry`,
   // 登録
   signup: () =>
     '/signup',
