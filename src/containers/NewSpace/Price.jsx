@@ -11,6 +11,7 @@ import { init, mapStateToProps } from "./common";
 
 const Validate = {
   Price: {
+    Max: 300000,
     Min: 3000,
   },
 };
@@ -59,6 +60,9 @@ class PriceContainer extends React.Component {
     if (parseInt(value, 10) < Validate.Price.Min) {
       errors.push(ErrorMessage.PriceMin(Validate.Price.Min));
     }
+    if (parseInt(value, 10) > Validate.Price.Max) {
+      errors.push(ErrorMessage.PriceMax(Validate.Price.Max));
+    }
     FormValidator.changeErrorState(prop, errors, this.props.error);
     FormValidator.changeUiState(prop, value, this.props.ui);
   }
@@ -85,6 +89,7 @@ class PriceContainer extends React.Component {
     return (
       ui.space.priceFull !== ''
       && ui.space.priceFull >= Validate.Price.Min
+      && ui.space.priceFull <= Validate.Price.Max
     );
   }
 
@@ -94,10 +99,13 @@ class PriceContainer extends React.Component {
     return (
       ui.space.priceFull !== ''
       && ui.space.priceFull >= Validate.Price.Min
+      && ui.space.priceFull <= Validate.Price.Max
       && ui.space.priceHalf !== ''
       && ui.space.priceHalf >= Validate.Price.Min
+      && ui.space.priceHalf <= Validate.Price.Max
       && ui.space.priceQuarter !== ''
       && ui.space.priceQuarter >= Validate.Price.Min
+      && ui.space.priceQuarter <= Validate.Price.Max
     );
   }
 
