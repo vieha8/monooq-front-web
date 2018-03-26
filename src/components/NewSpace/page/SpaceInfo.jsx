@@ -32,7 +32,11 @@ export default (props) => {
         <InputTitle {...props} handleChangeText={props.handleChangeTitle} />
         <SelectType {...props} handleChangeSelect={props.handleChangeSpaceType} />
         <InputIntro {...props} handleChangeText={props.handleChangeIntroduction} />
-        <InputAddress {...props} handleChangeText={props.handleChangeAddress} />
+        <InputAddress
+          {...props}
+          handleChangeText={props.handleChangeAddress}
+          handleChangePrefCode={props.handleChangePrefCode}
+        />
         <ButtonsContainer>
           <Button onClick={props.onClickNext} disabled={props.buttonDisabled}>
             次へ
