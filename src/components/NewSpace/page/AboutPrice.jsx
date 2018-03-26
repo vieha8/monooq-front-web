@@ -21,7 +21,6 @@ const hintProps = {
 
 export default props => (
   <Container>
-    {console.log(props)}
     <PageContent>
       <Header
         header="料金目安を設定する"
