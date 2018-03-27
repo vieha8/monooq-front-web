@@ -29,8 +29,8 @@ class PaymentContainer extends Component {
 
   onClickPaymentButton = () => {
     const { request_id: requestId, message_room_id: roomId } = this.props.match.params;
-    const { card } = this.props.ui;
-    this.props.dispatch(requestActions.payment({ roomId, requestId, card }));
+    const { payment } = this.props.ui;
+    this.props.dispatch(requestActions.payment({ roomId, requestId, payment }));
   }
 
   onClickPaidButton = () => {
