@@ -73,6 +73,18 @@ export const spaceReducer = handleActions(
       created: null,
       isLoading: false,
     }),
+    [UPDATE_SPACE]: state => ({
+      ...state,
+      isLoading: true,
+    }),
+    [UPDATE_SUCCESS_SPACE]: state => ({
+      ...state,
+      isLoading: false,
+    }),
+    [UPDATE_FAILED_SPACE]: state => ({
+      ...state,
+      isLoading: false,
+    }),
     [SET_SPACE]: (state, action) => ({
       ...state,
       space: action.payload.space,
@@ -158,15 +170,15 @@ function* createSpace({ payload: { body } }) {
 
   yield put(apiActions.apiPostRequest({ path: apiEndpoint.spaces(), body }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
-  if (error) {
+  if (error || !payload || !payload.ID) {
     yield put(spaceActions.createFailedSpace(meta));
     return;
   }
 
-  if (images.length > 0) {
+  if (images.length > 0 && payload) {
     const spaceId = payload.ID;
     const imageUrls = yield Promise.all(
-      images.map(async image => {
+      images.filter(image => !image.ID).map(async image => {
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);
         const ext = await new Promise(resolve => {
@@ -212,7 +224,7 @@ function* updateSpace({ payload: { spaceId, body } }) {
 
   if (body.images && body.images.length > 0) {
     const imageUrls = yield Promise.all(
-      body.images.map(async image => {
+      body.images.filter(image => !image.ID).map(async image => {
         if (image.ImageUrl) return image.ImageUrl;
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);

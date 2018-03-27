@@ -35,7 +35,7 @@ export const mapStateToProps = state => {
 };
 
 export const init = props => {
-  if (props.space && !(props.space.space || {}).ID && props.match.params.space_id) {
+  if (props.space && (props.space.space || {}).ID && props.match.params.space_id) {
     const spaceId = parseInt(props.match.params.space_id, 10);
     props.dispatch(
       uiActions.setUiState({

@@ -7,7 +7,7 @@ import { spaceActions } from 'redux/modules/space';
 import { ErrorMessage } from 'strings';
 import Path from 'config/path';
 import FormValidator from 'containers/helper/FormValidator';
-import { init, mapStateToProps } from "./common";
+import { init, mapStateToProps } from './common';
 
 const Validate = {
   Price: {
@@ -27,7 +27,7 @@ class PriceContainer extends React.Component {
     const { space, spaceId } = ui;
     space.userId = this.props.user.ID;
 
-    let saveSpace = space;
+    let saveSpace = space || {};
     if (match.params.type === 'all') {
       // 単一金額の場合は、Half/Quarterの金額を0円にする
       saveSpace = Object.assign(saveSpace, {
