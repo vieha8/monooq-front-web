@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { authConnect } from 'components/Auth';
 import { Page } from 'components/NewSpace/page/Shared';
 import AllUsePrice from 'components/NewSpace/page/AllUsePrice';
@@ -110,6 +111,12 @@ class PriceContainer extends React.Component {
   }
 
   render() {
+    const { ui } = this.props;
+
+    if (!ui.space.title) {
+      return <Redirect to={Path.createSpaceInfo()} />;
+    }
+
     return (
       <Page>
         {this.props.match.params.type === 'all' ?
