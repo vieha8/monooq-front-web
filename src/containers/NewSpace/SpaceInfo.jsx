@@ -6,7 +6,7 @@ import SpaceInfo from 'components/NewSpace/page/SpaceInfo';
 import { uiActions } from 'redux/modules/ui';
 import { ErrorMessage } from 'strings';
 import FormValidator from 'containers/helper/FormValidator';
-import { init, mapStateToProps } from "./common";
+import { init, mapStateToProps } from './common';
 
 class SpaceInfoContainer extends React.Component {
   constructor(props) {
@@ -62,6 +62,10 @@ class SpaceInfoContainer extends React.Component {
     FormValidator.changeUiState(prop, value, this.props.ui);
   }
 
+  handleChangePrefCode = (value) => {
+    FormValidator.changeUiState('prefecture', value, this.props.ui);
+  }
+
   handleChangeAddress = (value) => {
     const prop = 'address';
     const errors = this.props.error[prop] || [];
@@ -84,13 +88,13 @@ class SpaceInfoContainer extends React.Component {
   validate = () => {
     const { ui } = this.props;
     const space = ui.space;
-    if (space.title && space.title.length > 0
+    return (
+      space.title && space.title.length > 0
       && space.type > 0
       && space.introduction && space.introduction.length > 0
-      && space.address && space.address.length > 0) {
-      return true;
-    }
-    return false;
+      && space.address && space.address.length > 0
+      && space.prefecture
+    );
   }
 
   render() {
@@ -102,6 +106,7 @@ class SpaceInfoContainer extends React.Component {
           handleChangeTitle={this.handleChangeTitle}
           handleChangeSpaceType={this.handleChangeSpaceType}
           handleChangeIntroduction={this.handleChangeIntroduction}
+          handleChangePrefCode={this.handleChangePrefCode}
           handleChangeAddress={this.handleChangeAddress}
           handleChangeImage={this.handleChangeImage}
           onClickImageDelete={this.onClickImageDelete}

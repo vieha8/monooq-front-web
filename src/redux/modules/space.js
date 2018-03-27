@@ -152,6 +152,10 @@ function* createSpace({ payload: { body } }) {
     body.isFurniture = body.isFurniture === '1';
   }
 
+  if (body.prefecture) {
+    body.address = `${body.prefecture}${body.address}`;
+  }
+
   yield put(apiActions.apiPostRequest({ path: apiEndpoint.spaces(), body }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error) {
