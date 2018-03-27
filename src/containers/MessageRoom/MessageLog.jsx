@@ -195,15 +195,22 @@ export default (props) => {
       {messageData.map((v, i) => (
         <MessageContainer key={`message_log_${i}`}>
           {!v.isSelf && !v.isSpecial && (
-            <OtherPerson
-              src={(
-                room.space.UserID === userId
-                  // 自分がホストの相手メッセージはユーザーの画像
-                  ? getUserImageUrl(props)
-                  // 自分がユーザーの相手メッセージはホストの画像
-                  : getHostImageUrl(props)
-              )}
-            />
+            room.space.UserID === userId
+              ? (
+                // 自分がホストの相手メッセージはユーザーの画像
+                <Link to={Path.profile((room.user || {}).ID)}>
+                  <OtherPerson
+                    src={getUserImageUrl(props)}
+                  />
+                </Link>
+              ) : (
+                // 自分がユーザーの相手メッセージはホストの画像
+                <Link to={Path.profile(((room.space || {}).Host || {}).ID)}>
+                  <OtherPerson
+                    src={getHostImageUrl(props)}
+                  />
+                </Link>
+              )
           )}
           <Message isSelf={v.isSelf} isSpecial={v.isSpecial}>
             <StyledRecord isSelf={v.isSelf} isSpecial={v.isSpecial}>
