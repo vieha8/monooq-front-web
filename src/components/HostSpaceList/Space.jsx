@@ -1,13 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Path from 'config/path';
 import { Card } from 'semantic-ui-react';
 import { Colors, FontSizes, Dimens } from 'variables';
 
-const Container = styled.div`
+const Container = styled(Link)`
+  display: block;
   width: 140px;
   cursor: pointer;
   margin: 0 ${Dimens.medium}px 0 ${Dimens.medium}px;
   float: left;
+  color: ${Colors.black};
+  &:hover {
+    color: ${Colors.black};
+  }
 `;
 
 const Content = styled.div`
@@ -52,9 +59,7 @@ const Price = Text.extend`
 const Empty = () => (<span>&nbsp;</span>);
 
 export default props => (
-  <Container
-    onClick={() => props.history.push(`/space/${props.id}`)}
-  >
+  <Container to={Path.space(props.id)}>
     <Card>
       <Image
         src={props.imageUrl}
