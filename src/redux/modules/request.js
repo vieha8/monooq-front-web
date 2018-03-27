@@ -146,7 +146,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   store.dispatch(push(path.message(roomId)));
 }
 
-function* payment({ payload: { roomId, requestId, card } }) {
+function* payment({ payload: { roomId, requestId, payment: card } }) {
   //不正対策
   yield put(
     apiActions.apiGetRequest({
@@ -174,9 +174,9 @@ function* payment({ payload: { roomId, requestId, card } }) {
     card: {
       name: card.name,
       number: card.number,
-      security_code: parseInt(card.code, 10),
-      expiration_month: parseInt(card.expiryMonth, 10),
-      expiration_year: parseInt(card.expiryYear, 10),
+      security_code: parseInt(card.cvc, 10),
+      expiration_month: parseInt(card.month, 10),
+      expiration_year: parseInt(card.year, 10),
     },
   });
 

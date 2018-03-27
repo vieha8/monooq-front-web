@@ -14,13 +14,6 @@ const initialState = {
     images: [],
   },
   user: {},
-  card: {
-    name: 'MASYA KUDO',
-    number: '4242424242424242',
-    code: '111',
-    expiryMonth: '1',
-    expiryYear: '2019',
-  },
 };
 
 const { setUiState } = uiActions;
