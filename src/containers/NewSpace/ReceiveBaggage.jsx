@@ -56,9 +56,13 @@ class ReceiveBaggageContainer extends React.Component {
   }
 
   render() {
-    const { ui } = this.props;
+    const { ui, match } = this.props;
 
     if (!ui.space.title) {
+      if(match.params.space_id) {
+        const spaceId = parseInt(match.params.space_id, 10);
+        return <Redirect to={Path.editSpaceInfo(spaceId)} />;
+      }
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 

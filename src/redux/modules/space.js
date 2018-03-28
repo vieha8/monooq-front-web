@@ -137,7 +137,10 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
     }
   }
 
-  if (payload.Images.length === 0) {
+  if (!payload.Images || payload.Images.length === 0) {
+    if (!payload.Images) {
+      payload.Images = [];
+    }
     payload.Images[0] = { ImageUrl: dummySpaceImage };
   }
 
