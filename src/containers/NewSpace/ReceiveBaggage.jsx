@@ -1,11 +1,12 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import Path from 'config/path';
 import { authConnect } from 'components/Auth';
 import { Page } from 'components/NewSpace/page/Shared';
 import ReceiveBaggage from 'components/NewSpace/page/ReceiveBaggage';
 import { ErrorMessage } from 'strings';
 import FormValidator from 'containers/helper/FormValidator';
-import { init, mapStateToProps } from "./common";
+import { init, mapStateToProps } from './common';
 
 class ReceiveBaggageContainer extends React.Component {
   constructor(props) {
@@ -55,6 +56,12 @@ class ReceiveBaggageContainer extends React.Component {
   }
 
   render() {
+    const { ui } = this.props;
+
+    if (!ui.space.title) {
+      return <Redirect to={Path.createSpaceInfo()} />;
+    }
+
     return (
       <Page>
         <ReceiveBaggage

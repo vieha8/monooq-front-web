@@ -1,8 +1,10 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import Path from 'config/path';
 import { authConnect } from 'components/Auth';
 import { Page } from 'components/NewSpace/page/Shared';
 import SpaceCratedCompletion from 'components/NewSpace/page/SpaceCreatedCompletion';
-import { init } from "./common";
+import { init } from './common';
 
 class SpaceCratedCompletionContainer extends React.Component {
   constructor(props) {
@@ -11,6 +13,12 @@ class SpaceCratedCompletionContainer extends React.Component {
   }
 
   render() {
+    const { ui } = this.props;
+
+    if (!ui.space.title) {
+      return <Redirect to={Path.createSpaceInfo()} />;
+    }
+
     return (
       <Page>
         <SpaceCratedCompletion

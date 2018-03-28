@@ -81,7 +81,7 @@ class SpaceInfoContainer extends React.Component {
     if ((space.images || []).length + accepted.length > 4) {
       return;
     }
-    Object.assign(space, { images: [...space.images, ...accepted] });
+    Object.assign(space, { images: [...(space.images || []), ...accepted] });
     this.props.dispatch(uiActions.setUiState({ space }));
   };
 
