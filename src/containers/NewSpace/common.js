@@ -37,7 +37,7 @@ export const mapStateToProps = state => {
 export const init = props => {
   const { space, match, dispatch } = props;
 
-  if (space && !(space.space || {}).ID && match.params.space_id) {
+  if (match.params.space_id) {
     const spaceId = parseInt(match.params.space_id, 10);
     dispatch(
       uiActions.setUiState({
@@ -45,7 +45,9 @@ export const init = props => {
         isEdit: true,
       }),
     );
-    dispatch(spaceActions.fetchSpace({ spaceId, isSelfOnly: true }));
+    if (space && !(space.space || {}).ID) {
+      dispatch(spaceActions.fetchSpace({ spaceId, isSelfOnly: true }));
+    }
   }
 
   dispatch(
