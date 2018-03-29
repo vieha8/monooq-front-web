@@ -111,7 +111,8 @@ const NewsContent = (props) => {
 const StyledNewsContent = styled(NewsContent) `
   width: 100%;
   border-bottom: 1px solid #DBDBDB;
-  padding: 20px 0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 `;
 
 const news = [
