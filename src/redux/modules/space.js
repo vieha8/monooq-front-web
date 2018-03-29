@@ -228,7 +228,13 @@ function* updateSpace({ payload: { spaceId, body } }) {
   if (body.images && body.images.length > 0) {
     const imageUrls = yield Promise.all(
       body.images.filter(image => !image.ID).map(async image => {
-        if (image.ImageUrl) return image.ImageUrl;
+        if (image.ImageUrl) {
+          if (image.ImageUrl.includes('data:image/png;base64,')) {
+            return '';
+          } else {
+            return image.ImageUrl;
+          }
+        }
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);
         const ext = await new Promise(resolve => {
