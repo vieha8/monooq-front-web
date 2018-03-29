@@ -181,7 +181,7 @@ function* createSpace({ payload: { body } }) {
   if (images && images.length > 0) {
     const spaceId = payload.ID;
     const imageUrls = yield Promise.all(
-      body.images.filter(image => !image.ID).map(async image => {
+      images.filter(image => !image.ID).map(async image => {
         if (image.ImageUrl) {
           if (image.ImageUrl.includes('data:image/png;base64,')) {
             return '';
