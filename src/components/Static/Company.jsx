@@ -64,6 +64,17 @@ const StyledDetailContent = styled(DetailContent) `
   border-bottom: 1px solid #DBDBDB;
 `;
 
+const InterviewContainer = DefaultContainer.extend`
+  margin-bottom: 50px;
+`;
+
+const Anchor = styled.a`
+  text-decoration: none;
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 const NewsContainer = DefaultContainer.extend`
   margin-bottom: 80px;
 `;
@@ -100,7 +111,8 @@ const NewsContent = (props) => {
 const StyledNewsContent = styled(NewsContent) `
   width: 100%;
   border-bottom: 1px solid #DBDBDB;
-  padding: 20px 0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 `;
 
 const news = [
@@ -189,6 +201,15 @@ export default () => (
         />
       ))}
     </DetailContainer>
+
+    <MainTitleContainer>
+      <MainTitle>取材に関するお問い合わせ</MainTitle>
+    </MainTitleContainer>
+
+    <InterviewContainer>
+      <Text>新聞・雑誌・メディアなどの取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。</Text>
+      <Text><Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor></Text>
+    </InterviewContainer>
 
     <MainTitleContainer>
       <MainTitle>お知らせ</MainTitle>
