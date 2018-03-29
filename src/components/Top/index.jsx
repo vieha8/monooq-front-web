@@ -625,7 +625,7 @@ export default props => (
             </PickGoDescription>
           </PickGoSection>
           <SubCatchPhraseWide>
-            Pickgoを使えば、引っ越しが5000円から。モノオクから簡単に配送依頼ができます。
+            Pickgoを使えば、引っ越しが 5,000円 から。
           </SubCatchPhraseWide>
           <LinkToPickGo component={Link} href={'http://pickgo.town/'}>
             Pickgoのサイトを見る
