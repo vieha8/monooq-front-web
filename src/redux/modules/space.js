@@ -178,10 +178,17 @@ function* createSpace({ payload: { body } }) {
     return;
   }
 
-  if (images.length > 0 && payload) {
+  if (images && images.length > 0) {
     const spaceId = payload.ID;
     const imageUrls = yield Promise.all(
-      images.filter(image => !image.ID).map(async image => {
+      body.images.filter(image => !image.ID).map(async image => {
+        if (image.ImageUrl) {
+          if (image.ImageUrl.includes('data:image/png;base64,')) {
+            return '';
+          } else {
+            return image.ImageUrl;
+          }
+        }
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);
         const ext = await new Promise(resolve => {
@@ -195,17 +202,22 @@ function* createSpace({ payload: { body } }) {
         return uploadImage(imagePath, image);
       }),
     );
-    const imgs = imageUrls.map(url => ({ SpaceID: spaceId, ImageUrl: url }));
+    const imgs = imageUrls
+      .filter(url => url !== '')
+      .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
 
-    yield put(
-      apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body: { Images: imgs } }),
-    );
-    const { error, meta } = yield take(apiActions.apiResponse);
-    if (error) {
-      yield put(spaceActions.createFailedSpace(meta));
-      return;
+    if (imgs.length > 0) {
+      yield put(
+        apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body: { Images: imgs } }),
+      );
+      const { error, meta } = yield take(apiActions.apiResponse);
+      if (error) {
+        yield put(spaceActions.createFailedSpace(meta));
+        return;
+      }
     }
   }
+
   yield put(spaceActions.createSuccessSpace(payload));
   store.dispatch(push(Path.createSpaceCompletion()));
 }
