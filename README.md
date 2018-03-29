@@ -25,6 +25,10 @@ storybook の起動は`npm run storybook`
 
 * `style={{color: 'red'}}`みたいにコンポーネントにベタでスタイル書かない。
 
+* ESLint / Flow で静的解析しています。両者の警告は極力潰してください。
+
+* 使用しているエディタで ESLint / Flow が使えるように設定をしておいてください。
+
 ## 注意事項
 
 * yarn 使ってもいいけど yarn.lock はコミットしないように。heroku のビルドがこけるので。

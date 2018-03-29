@@ -5,10 +5,10 @@
   ],
   "parser": "babel-eslint",
   "plugins": [
-      "react",
-      "jsx-a11y",
-      "import",
-      "flowtype"
+    "react",
+    "jsx-a11y",
+    "import",
+    "flowtype"
   ],
   "globals": {
     "window": true,
@@ -16,7 +16,13 @@
   },
   "rules": {
     "react/prop-types": 0,
-    "react/prefer-stateless-function": 0
+    "react/prefer-stateless-function": 0,
+    "react/jsx-tag-spacing": [
+      "error",
+      {
+        "beforeSelfClosing": "always"
+      }
+    ]
   },
   "settings": {
     "import/resolver": {

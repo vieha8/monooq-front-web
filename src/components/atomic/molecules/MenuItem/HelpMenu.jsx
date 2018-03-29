@@ -49,7 +49,7 @@ export default (props: PropTypes) => {
         onClick={(e) => {
           if (props.onClick) {
             e.preventDefault();
-            props.onClick();
+            props.onClick && props.onClick();
           }
         }}
         to={props.href || ''}

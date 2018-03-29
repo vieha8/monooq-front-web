@@ -54,10 +54,12 @@ class NavigationHeaderContainer extends Component {
   toggleMenu = () => {
     const { dispatch, ui } = this.props;
 
-    if (ui.showMenu) {
-      document.body.style.overflowY = 'auto';
-    } else {
-      document.body.style.overflowY = 'hidden';
+    if (document.body) {
+      if (ui.showMenu) {
+        document.body.style.overflowY = 'auto';
+      } else {
+        document.body.style.overflowY = 'hidden';
+      }
     }
 
     dispatch(uiActions.setUiState({
@@ -67,7 +69,9 @@ class NavigationHeaderContainer extends Component {
 
   closeMenu = () => {
     const { dispatch } = this.props;
-    document.body.style.overflowY = 'auto';
+    if (document.body) {
+      document.body.style.overflowY = 'auto';
+    }
     dispatch(uiActions.setUiState({
       showMenu: false,
     }));
