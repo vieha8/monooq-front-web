@@ -72,9 +72,13 @@ class HeaderContainer extends Component<PropTypes> {
     const { dispatch, ui } = this.props;
 
     if (ui.showMenu) {
-      document.body.style.overflowY = 'auto';
+      document.body && (
+        document.body.style.overflowY = 'auto'
+      );
     } else {
-      document.body.style.overflowY = 'hidden';
+      document.body && (
+        document.body.style.overflowY = 'hidden'
+      );
     }
 
     dispatch(uiActions.setUiState({
@@ -85,7 +89,9 @@ class HeaderContainer extends Component<PropTypes> {
   closeMenu = () => {
     const { dispatch } = this.props;
 
-    document.body.style.overflowY = 'auto';
+    document.body && (
+      document.body.style.overflowY = 'auto'
+    );
 
     dispatch(uiActions.setUiState({
       showMenu: false,
@@ -93,7 +99,10 @@ class HeaderContainer extends Component<PropTypes> {
   }
 
   logout = () => {
-    document.body.style.overflowY = 'auto';
+    document.body && (
+      document.body.style.overflowY = 'auto'
+    );
+
     const { dispatch } = this.props;
     dispatch(uiActions.setUiState({
       showMenu: false,
