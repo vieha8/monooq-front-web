@@ -23,6 +23,7 @@ const UPDATE_SPACE = 'UPDATE_SPACE';
 const UPDATE_SUCCESS_SPACE = 'UPDATE_SUCCESS_SPACE';
 const UPDATE_FAILED_SPACE = 'UPDATE_FAILED_SPACE';
 const SET_SPACE = 'SET_SPACE';
+const DELETE_SPACE = 'DELETE_SPACE';
 
 export const spaceActions = createActions(
   FETCH_SPACE,
@@ -35,6 +36,7 @@ export const spaceActions = createActions(
   UPDATE_SUCCESS_SPACE,
   UPDATE_FAILED_SPACE,
   SET_SPACE,
+  DELETE_SPACE,
 );
 
 // Reducer
@@ -275,8 +277,19 @@ function* updateSpace({ payload: { spaceId, body } }) {
   store.dispatch(push(Path.editSpaceCompletion(spaceId)));
 }
 
+function* deleteSpace({ payload: { space } }) {
+  const user = yield select(state => state.auth.user);
+  if (space.UserID !== user.ID) {
+    store.dispatch(push(Path.error(400)));
+  }
+  yield put(apiActions.apiDeleteRequest({ path: apiEndpoint.spaces(space.ID) }));
+  yield take(apiActions.apiResponse);
+  window.location.reload();
+}
+
 export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
   takeEvery(UPDATE_SPACE, updateSpace),
+  takeEvery(DELETE_SPACE, deleteSpace),
 ];

@@ -19,7 +19,11 @@ class HostSpaceListContainer extends Component {
     dispatch(spaceActions.setSpace({ space }));
     dispatch(uiActions.setUiState({ space: {} }));
     history.push(Path.editSpaceInfo(space.ID));
-  }
+  };
+
+  onClickDelete = (space) => {
+    this.props.dispatch(spaceActions.deleteSpace({ space }));
+  };
 
   render() {
     return (
@@ -28,6 +32,7 @@ class HostSpaceListContainer extends Component {
         <HostSpaceList
           {...this.props}
           onClickEdit={this.onClickEdit}
+          onClickDelete={this.onClickDelete}
         />
       </Page>
     );
