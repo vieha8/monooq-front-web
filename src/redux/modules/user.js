@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, select } from 'redux-saga/effects';
+import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import firebase from 'firebase';
 import { apiActions, apiEndpoint } from './api';
 import { uiActions } from './ui';
@@ -8,6 +8,7 @@ import fileType from '../../helpers/file-type';
 import { authActions } from './auth';
 
 import dummySpaceImage from 'images/dummy_space.png';
+import { getApiRequest } from '../helpers/api';
 
 // Actions
 const FETCH_USER = 'FETCH_USER';
@@ -106,21 +107,22 @@ function* getSpaces(params) {
   }
   user = yield select(state => state.auth.user);
 
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.userSpaces(targetUserId || user.ID) }));
-  const { payload, error, meta } = yield take(apiActions.apiResponse);
-  if (error) {
-    yield put(userActions.fetchFailedUserSpaces(meta));
+  const { data, err } = yield call(getApiRequest, apiEndpoint.userSpaces(targetUserId || user.ID));
+  if (err) {
+    yield put(userActions.fetchFailedUserSpaces(err));
     return;
   }
 
-  if (Array.isArray(payload)) {
-    const res = payload.map(v => {
+  if (Array.isArray(data)) {
+    const res = data.map(v => {
       if (v.Images.length === 0) {
         v.Images[0] = { ImageUrl: dummySpaceImage };
       }
       return v;
     });
     yield put(userActions.fetchSuccessUserSpaces(res));
+  } else {
+    yield put(userActions.fetchFailedUserSpaces(data));
   }
 }
 
