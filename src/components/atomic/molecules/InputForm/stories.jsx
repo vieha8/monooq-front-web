@@ -32,4 +32,12 @@ storiesOf('Molecules/InputForm', module)
         value="モノオク銀行"
       />
     </div>
+  ))
+  .add('Extension', () => (
+    <div>
+      <InputFormMock
+        label="銀行名"
+        extension={<div>任意のコンポーネント</div>}
+      />
+    </div>
   ));

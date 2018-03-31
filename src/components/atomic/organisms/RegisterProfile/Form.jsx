@@ -29,6 +29,7 @@ const Button = styled.div`
 `;
 
 type PropTypes = {
+  title: React.Element<*>,
   image: React.Element<*>,
   name: React.Element<*>,
   area: React.Element<*>,

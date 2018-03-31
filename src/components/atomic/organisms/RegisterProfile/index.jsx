@@ -5,11 +5,11 @@ import styled from 'styled-components';
 import Path from 'config/path';
 import Button from 'components/atomic/atoms/Button';
 import InlineText from 'components/atomic/atoms/InlineText';
-import { H2 } from 'components/atomic/atoms/Headline';
 import TextLink from 'components/atomic/atoms/TextLink';
-import IconInputField from 'components/atomic/molecules/IconInputField';
+import RegsiterProfileImage from 'components/atomic/atoms/DragAndDrop/RegisterProfileImage';
+import InputForm from 'components/atomic/molecules/InputForm';
 import logoUri from 'images/monooq_logo_mark.svg';
-import { Colors } from 'variables';
+import { Colors, FontSizes, } from 'variables';
 import Form from './Form';
 
 const Logo = styled.img`
@@ -18,10 +18,21 @@ const Logo = styled.img`
 `;
 
 type PropTypes = {
+  onDrop: Function,
 }
 
 export default (props: PropTypes) => (
   <Form
-    title={<H2>あなたのプロフィールを登録</H2>}
+    title={<InlineText.Base fontSize={FontSizes.medium1}>あなたのプロフィールを登録</InlineText.Base>}
+    image={
+      <InputForm
+        label="プロフィール写真"
+        extension={
+          <RegsiterProfileImage
+            onDrop={props.onDrop}
+          />
+        }
+      />
+    }
   />
 );

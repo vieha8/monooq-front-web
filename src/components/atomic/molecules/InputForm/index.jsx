@@ -28,6 +28,7 @@ type PropTypes = {
   unit?: string,
   value: string,
   onChange: Function,
+  extension?: React.Element<*>,
 }
 
 export default (props: PropTypes) => (
@@ -35,12 +36,15 @@ export default (props: PropTypes) => (
     <H3>{props.label}</H3>
     {props.hint && <InlineText.Emphasis>{props.hint}</InlineText.Emphasis>}
     <InputFieldWrapper unit={props.unit}>
-      <InputField
-        {...props}
-        placeholder={props.placeholder}
-        value={props.value}
-        onChange={props.onChange}
-      />
+      {props.extension ? props.extension
+        : (
+          <InputField
+            {...props}
+            placeholder={props.placeholder}
+            value={props.value}
+            onChange={props.onChange}
+          />
+        )}
     </InputFieldWrapper>
     {props.unit && (
       <UnitWrapper>
