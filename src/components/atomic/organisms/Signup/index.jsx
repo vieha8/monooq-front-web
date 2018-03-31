@@ -25,13 +25,22 @@ export default (props: PropTypes) => (
     logo={<Logo src={logoUri} />}
     title={<H1>登録する</H1>}
     email={
-      <IconInputField iconClassName="fal fa-envelope" />
+      <IconInputField
+        iconClassName="fal fa-envelope"
+        placeholder="example.com"
+      />
     }
     pass={
-      <IconInputField iconClassName="fal fa-unlock-alt" />
+      <IconInputField
+        iconClassName="fal fa-unlock-alt"
+        placeholder="パスワード"
+      />
     }
     passConfirm={
-      <IconInputField iconClassName="fal fa-lock-open-alt" />
+      <IconInputField
+        iconClassName="fal fa-lock-open-alt"
+        placeholder="パスワードを再入力"  
+      />
     }
     terms={
       <Fragment>

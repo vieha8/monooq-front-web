@@ -25,10 +25,16 @@ export default (props: PropTypes) => (
     logo={<Logo src={logoUri} />}
     title={<H1>ログインする</H1>}
     email={
-      <IconInputField iconClassName="fal fa-envelope" />
+      <IconInputField
+        iconClassName="fal fa-envelope"
+        placeholder="example.com"
+      />
     }
     pass={
-      <IconInputField iconClassName="fal fa-unlock-alt" />
+      <IconInputField
+        iconClassName="fal fa-unlock-alt"
+        placeholder="パスワード"
+      />
     }
     remind={<TextLink to="">パスワードを忘れた方はこちら</TextLink>}
     login={
