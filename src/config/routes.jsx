@@ -60,6 +60,7 @@ require('./fontawesome-all.min.js');
 export const routes = [
   // new
   { path: `/new${Path.login()}`, component: Containers.Login },
+  { path: `/new${Path.signup()}`, component: Containers.Signup },
   // legacy
   { path: Path.top(), component: Top },
   { path: Path.search(), component: SearchPage },

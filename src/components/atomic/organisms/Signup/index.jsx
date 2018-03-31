@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Button from 'components/atomic/atoms/Button';
 import InlineText from 'components/atomic/atoms/InlineText';
@@ -23,29 +23,41 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <Form
     logo={<Logo src={logoUri} />}
-    title={<H1>ログインする</H1>}
+    title={<H1>登録する</H1>}
     email={
       <IconInputField iconClassName="fal fa-envelope" />
     }
     pass={
       <IconInputField iconClassName="fal fa-unlock-alt" />
     }
-    remind={<TextLink to="">パスワードを忘れた方はこちら</TextLink>}
-    login={
+    passConfirm={
+      <IconInputField iconClassName="fal fa-lock-open-alt" />
+    }
+    terms={
+      <Fragment>
+        <TextLink to="">利用規約</TextLink>
+        <InlineText.Base>と</InlineText.Base>
+        <TextLink to="">プライバシーポリシー</TextLink>
+        <InlineText.Base>に同意の上、</InlineText.Base>
+        <br />
+        <InlineText.Base>次へボタンを押してください。</InlineText.Base>
+      </Fragment>
+    }
+    next={
       <Button.Primary
         center
       >
-        ログインする
+        次へ
         </Button.Primary>
     }
-    otherLogin={<InlineText.Base>お持ちのアカウントでログイン</InlineText.Base>}
+    otherLogin={<InlineText.Base>お持ちのアカウントで登録</InlineText.Base>}
     facebook={
       <Button.Facebook
         center
       >
-        <i className="fab fa-facebook-square" />&nbsp;Facebookでログインする
+        <i className="fab fa-facebook-square" />&nbsp;Facebookで登録
         </Button.Facebook>
     }
-    toSignup={<TextLink to="">初めてのご利用ですか?新規登録はこちら</TextLink>}
+    toLogin={<TextLink to="">ログインはこちら</TextLink>}
   />
 );

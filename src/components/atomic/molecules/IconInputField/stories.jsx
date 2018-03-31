@@ -13,10 +13,10 @@ storiesOf('Molecules/IconInputField', module)
       />
     </div>
   ))
-  .add('Key', () => (
+  .add('Password', () => (
     <div style={{ width: '100%', maxWidth: '800px' }}>
       <IconInputField
-        iconClassName="fal fa-key"
+        iconClassName="fal fa-unlock-alt"
         type="password"
       />
     </div>
