@@ -6,6 +6,7 @@ import Register from 'components/atomic/organisms/Register';
 import { ErrorMessage } from 'strings';
 
 type PropTypes = {
+  dispatch: Function,
   signupStep: number,
   isRegisting: boolean,
   isSignupFailed: boolean,
@@ -49,6 +50,8 @@ export default class RegisterContainer extends Component {
     this.setState({ hasChanged: false, errors: {} });
 
     if (this.validate()) {
+      const { dispatch } = this.props;
+      dispatch(authActions.signupEmail({ email, password }));
       return;
     }
 
