@@ -1,9 +1,10 @@
 // @flow
 
+import React from 'react';
 import { Colors } from 'variables';
-import Primary from './Primary';
+import { Primary } from './Primary';
 
-const Tertiary = Primary.extend`
+const Facebook = Primary.extend`
   background: ${Colors.facebook};
   color: ${Colors.white};
 
@@ -21,4 +22,15 @@ const Tertiary = Primary.extend`
     `};
 `;
 
-export default Tertiary;
+export default (props: Object) => (
+  <Facebook {...props}>
+    {!props.loading && (
+      <span>
+        <i className="fab fa-facebook-square" />
+        &nbsp;
+      </span>
+    )}
+    {props.children}
+  </Facebook>
+);
+

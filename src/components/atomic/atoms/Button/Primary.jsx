@@ -1,9 +1,10 @@
 // @flow
 
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { Colors } from 'variables';
 
-const Button = styled.div`
+export const Primary = styled.div`
   width: 100%;
   max-width: 300px;
   padding: 17px 10px;
@@ -45,4 +46,6 @@ const Button = styled.div`
       `};
 `;
 
-export default Button;
+export default (props: Object) => (
+  <Primary {...props} />
+);
