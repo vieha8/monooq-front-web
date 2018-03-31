@@ -56,6 +56,7 @@ type PropTypes = {
   title: React.Element<*>,
   email: React.Element<*>,
   pass: React.Element<*>,
+  failed: React.Element<*>,
   remind: React.Element<*>,
   login: React.Element<*>,
   otherLogin: React.Element<*>,
