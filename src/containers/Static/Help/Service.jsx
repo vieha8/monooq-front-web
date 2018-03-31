@@ -1,10 +1,10 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
-import HelpService from 'components/atomic/pages/Help/Service';
+import HelpService from 'components/atomic/organisms/Help/Service';
 import Path from 'config/path';
 
 type PropTypes = {
@@ -102,18 +102,16 @@ class HelpTopContainer extends React.Component<PropTypes> {
     const { ui, location } = this.props;
 
     return (
-      <Fragment>
-        <HelpService
-          openHowToUser={ui.openHowToUser}
-          onClickHowToUser={this.onClickHowToUser}
-          openHowToBeHost={ui.openHowToBeHost}
-          onClickHowToBeHost={this.onClickHowToBeHost}
-          onClickList={this.onClickList}
-          openFlagList={ui.openFlagList || []}
-          onClickBack={this.onClickBack}
-          content={mapPathnameToContent(location.pathname)}
-        />
-      </Fragment>
+      <HelpService
+        openHowToUser={ui.openHowToUser}
+        onClickHowToUser={this.onClickHowToUser}
+        openHowToBeHost={ui.openHowToBeHost}
+        onClickHowToBeHost={this.onClickHowToBeHost}
+        onClickList={this.onClickList}
+        openFlagList={ui.openFlagList || []}
+        onClickBack={this.onClickBack}
+        content={mapPathnameToContent(location.pathname)}
+      />
     );
   }
 }

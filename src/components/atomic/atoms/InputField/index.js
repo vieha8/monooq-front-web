@@ -1,6 +1,6 @@
 // @flow
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Colors } from 'variables';
 
 const InputField = styled.input`
@@ -19,15 +19,17 @@ const InputField = styled.input`
     color: ${Colors.black};
   }
 
-  ${props =>
-    props.error &&
-    `
-    color: ${Colors.red};
-    border-color: ${Colors.error};
-    background: ${Colors.white};
-  `} :disabled {
+  &:disabled {
     cursor: not-allowed;
   }
+
+  ${props =>
+    props.error &&
+    css`
+      color: ${Colors.red};
+      border-color: ${Colors.error};
+      background: ${Colors.white};
+    `};
 `;
 
 export default InputField;

@@ -1,13 +1,51 @@
 // @flow
 
+import React from 'react';
+import { Loader } from 'semantic-ui-react';
+
 import Primary from './Primary';
 import Secondary from './Secondary';
 import Tertiary from './Tertiary';
 import Facebook from './Facebook';
 
-export default {
-  Primary,
-  Secondary,
-  Tertiary,
-  Facebook,
+type PropTypes = {
+  primary?: boolean,
+  secondary?: boolean,
+  tertiary?: boolean,
+  disabled?: boolean,
+  loading?: boolean,
+  onClick: Function,
+  children: any,
+};
+
+export default (props: PropTypes) => {
+  if (props.secondary) {
+    return (
+      <Secondary {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
+        {props.loading ? <Loader active inline="centered" size="mini" /> : props.children}
+      </Secondary>
+    );
+  }
+
+  if (props.tertiary) {
+    return (
+      <Tertiary {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
+        {props.loading ? <Loader active inverted inline="centered" size="mini" /> : props.children}
+      </Tertiary>
+    );
+  }
+
+  if (props.facebook) {
+    return (
+      <Facebook {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
+        {props.loading ? <Loader active inverted inline="centered" size="mini" /> : props.children}
+      </Facebook>
+    );
+  }
+
+  return (
+    <Primary {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
+      {props.loading ? <Loader active inverted inline="centered" size="mini" /> : props.children}
+    </Primary>
+  );
 };

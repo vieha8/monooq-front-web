@@ -8,25 +8,25 @@ import Button from './index';
 storiesOf('Atoms/Buttons/Button', module)
   .add('Primary', () => (
     <Fragment>
-      <Button.Primary>Primary</Button.Primary>
-      <Button.Primary disabled>Primary</Button.Primary>
+      <Button primary>Primary</Button>
+      <Button primary disabled>Primary</Button>
     </Fragment>
   ))
   .add('Secondary', () => (
     <Fragment>
-      <Button.Secondary>Secondary</Button.Secondary>
-      <Button.Secondary disabled>Secondary</Button.Secondary>
+      <Button secondary>Secondary</Button>
+      <Button secondary disabled>Secondary</Button>
     </Fragment>
   ))
   .add('Tertiary', () => (
     <Fragment>
-      <Button.Tertiary>Tertiary</Button.Tertiary>
-      <Button.Tertiary disabled>Tertiary</Button.Tertiary>
+      <Button tertiary>Tertiary</Button>
+      <Button tertiary disabled>Tertiary</Button>
     </Fragment>
   ))
   .add('Facebook', () => (
     <Fragment>
-      <Button.Facebook>Facebook</Button.Facebook>
-      <Button.Facebook disabled>Facebook</Button.Facebook>
+      <Button facebook>Facebook</Button>
+      <Button facebook disabled>Facebook</Button>
     </Fragment>
   ));

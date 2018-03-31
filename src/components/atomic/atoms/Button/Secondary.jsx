@@ -1,7 +1,8 @@
 // @flow
 
+import React from 'react';
 import { Colors } from 'variables';
-import Primary from './Primary';
+import { Primary } from './Primary';
 
 const Secondary = Primary.extend`
   background: ${Colors.white};
@@ -24,4 +25,6 @@ const Secondary = Primary.extend`
   `};
 `;
 
-export default Secondary;
+export default (props: Object) => (
+  <Secondary {...props} />
+);
