@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/atomic/atoms/Button';
+import { Primary } from 'components/atomic/atoms/Button/Primary'
 import { Colors } from 'variables';
 
 const Container = styled.div`
@@ -16,7 +17,7 @@ const Wrapper = styled.div`
 `;
 
 // atomsに無い特殊ボタンのため、ここで特別に定義
-const PrivateButton = Button.Primary.extend`
+const PrivateButton = Primary.extend`
   color: ${Colors.darkGray2};
   background: ${Colors.white};
   border: 1px solid ${Colors.lightGray1};
@@ -37,21 +38,23 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <Container>
     <Wrapper>
-      <Button.Primary
+      <Button
+        primary
         small
         onClick={props.onClickEdit}  
       >
         編集する
-      </Button.Primary>
+      </Button>
     </Wrapper>
     <Wrapper>
       {props.private ? (
-        <Button.Secondary
+        <Button
+          secondary
           small
           onClick={props.onClickPublic}
         >
           この場所を公開する
-        </Button.Secondary>
+        </Button>
       ) : (
         <PrivateButton
           small

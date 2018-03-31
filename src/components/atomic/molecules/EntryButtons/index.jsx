@@ -38,25 +38,27 @@ export default (props: PropTypes) => (
   <Container>
     <Cell align="left">
       <Wrapper>
-        <Button.Secondary
+        <Button
+          secondary
           onClick={props.backButton.onClick}
         >
           {props.backButton.text}
-        </Button.Secondary>
+        </Button>
       </Wrapper>
     </Cell>
     <Cell align="right">
       <Wrapper>
         {props.enabled ? (
-          <Button.Primary
+          <Button
+            primary
             onClick={props.enabledButton.onClick}
           >
             {props.enabledButton.text}
-          </Button.Primary>
+          </Button>
         ) : (
-            <Button.Primary disabled>
+            <Button primary disabled>
               {props.disabledButton.text}
-            </Button.Primary>
+            </Button>
           )}
       </Wrapper>
     </Cell>

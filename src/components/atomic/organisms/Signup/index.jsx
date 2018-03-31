@@ -7,7 +7,6 @@ import InlineText from 'components/atomic/atoms/InlineText';
 import { H1 } from 'components/atomic/atoms/Headline';
 import TextLink from 'components/atomic/atoms/TextLink';
 import IconInputField from 'components/atomic/molecules/IconInputField';
-import { Colors, FontSizes, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
 import Form from './Form';
 
@@ -53,19 +52,21 @@ export default (props: PropTypes) => (
       </Fragment>
     }
     next={
-      <Button.Primary
+      <Button
+        primary
         center
       >
         次へ
-        </Button.Primary>
+      </Button>
     }
     otherLogin={<InlineText.Base>お持ちのアカウントで登録</InlineText.Base>}
     facebook={
-      <Button.Facebook
+      <Button
+        facebook
         center
       >
         <i className="fab fa-facebook-square" />&nbsp;Facebookで登録
-        </Button.Facebook>
+      </Button>
     }
     toLogin={<TextLink to="">ログインはこちら</TextLink>}
   />

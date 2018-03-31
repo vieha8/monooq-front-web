@@ -2,12 +2,12 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import Path from 'config/path';
 import Button from 'components/atomic/atoms/Button';
 import InlineText from 'components/atomic/atoms/InlineText';
 import { H1 } from 'components/atomic/atoms/Headline';
 import TextLink from 'components/atomic/atoms/TextLink';
 import IconInputField from 'components/atomic/molecules/IconInputField';
-import { Colors, FontSizes, Dimens } from 'variables';
 import logoUri from 'images/monooq_logo_mark.svg';
 import Form from './Form';
 
@@ -17,7 +17,15 @@ const Logo = styled.img`
 `;
 
 type PropTypes = {
-
+  onClickFacebook: Function,
+  onClickLogin: Function,
+  onChangeEmail: Function,
+  onChangePassword: Function,
+  email: string,
+  password: string,
+  loginFailed: boolean,
+  buttonDisabled: boolean,
+  isLoginChecking: boolean,
 }
 
 export default (props: PropTypes) => (
@@ -28,30 +36,41 @@ export default (props: PropTypes) => (
       <IconInputField
         iconClassName="fal fa-envelope"
         placeholder="example.com"
+        value={props.email}
+        onChange={e => props.onChangeEmail(e.target.value)}
       />
     }
     pass={
       <IconInputField
         iconClassName="fal fa-unlock-alt"
         placeholder="パスワード"
+        value={props.password}
+        onChange={e => props.onChangePassword(e.target.value)}
       />
     }
-    remind={<TextLink to="">パスワードを忘れた方はこちら</TextLink>}
+    remind={<TextLink to={Path.passwordReset()}>パスワードを忘れた方はこちら</TextLink>}
     login={
-      <Button.Primary
+      <Button
+        primary
         center
+        onClick={props.onClickLogin}
+        disabled={props.buttonDisabled}
+        loading={props.isLoginChecking}
       >
         ログインする
-        </Button.Primary>
+      </Button>
     }
     otherLogin={<InlineText.Base>お持ちのアカウントでログイン</InlineText.Base>}
     facebook={
-      <Button.Facebook
+      <Button
+        facebook
         center
+        onClick={props.onClickFacebook}
+        loading={props.isLoginChecking}
       >
-        <i className="fab fa-facebook-square" />&nbsp;Facebookでログインする
-        </Button.Facebook>
+        Facebookでログインする
+      </Button>
     }
-    toSignup={<TextLink to="">初めてのご利用ですか?新規登録はこちら</TextLink>}
+    toSignup={<TextLink to={Path.signup()}>初めてのご利用ですか?新規登録はこちら</TextLink>}
   />
 );
