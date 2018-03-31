@@ -9,7 +9,7 @@ const Select = styled.select`
   appearance: none;
   width: ${props => props.width || '100%'};
   height: 50px;
-  padding: 9px 14px;
+  padding: 9px 22px;
   font-size: 14px;
   border: 1px solid ${Colors.lightGray1};
   color: ${Colors.lightGray1};
