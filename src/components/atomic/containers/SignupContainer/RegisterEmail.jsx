@@ -2,12 +2,11 @@
 
 import React, { Component } from 'react';
 import { authActions } from 'redux/modules/auth';
-import Register from 'components/atomic/organisms/Register';
+import RegisterEmail from 'components/atomic/organisms/RegisterEmail';
 import { ErrorMessage } from 'strings';
 
 type PropTypes = {
   dispatch: Function,
-  signupStep: number,
   isRegisting: boolean,
   isSignupFailed: boolean,
 }
@@ -95,12 +94,15 @@ export default class RegisterContainer extends Component {
     );
   }
 
+  props: PropTypes;
+  staet: State;
+
   render() {
-    const { signupStep, isRegisting, isSignupFailed } = this.props;
+    const { isRegisting } = this.props;
     const { email, password, passwordConfirm, hasChanged, errors } = this.state;
 
     return (
-      <Register
+      <RegisterEmail
         onClickNext={this.onClickNext}
         onClickFacebook={this.onClickFacebook}
         onChangeEmail={value => this.handleChangeForm('email', value)}

@@ -4,12 +4,12 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import StoryRouter from 'storybook-router';
 
-import Register from './index';
+import RegisterProfile from './index';
 
-storiesOf('Organisms/Register', module)
+storiesOf('Organisms/RegisterProfile', module)
   .addDecorator(StoryRouter())
   .add('Normal', () => (
-    <Register
+    <RegisterProfile
       onClickNext={() => {}}
       onClickFacebook={() => {}}
       onChangeEmail={() => {}}

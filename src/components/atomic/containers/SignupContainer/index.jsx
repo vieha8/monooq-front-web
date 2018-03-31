@@ -5,7 +5,8 @@ import React, { Component } from 'react';
 import AccountTemplate from 'components/atomic/templates/AccountTemplate';
 import Header from 'components/atomic/organisms/Header';
 
-import Register from './Register';
+import RegisterEmail from './RegisterEmail';
+import RegisterProfile from './RegisterProfile';
 import connect from '../connect';
 
 type PropTypes = {
@@ -16,7 +17,12 @@ class SignupContainer extends Component {
   getCurrentForm = () => {
     const { signupStep } = this.props;
     const forms = [
-      Register,
+      RegisterEmail,
+      () => <div />, // TODO,
+      () => <div />, // TODO,
+      () => <div />, // TODO,
+      RegisterProfile,
+      () => <div />, // TODO,
     ];
     return forms[signupStep];
   }
