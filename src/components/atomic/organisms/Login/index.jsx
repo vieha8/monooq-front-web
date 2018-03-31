@@ -9,6 +9,7 @@ import { H1 } from 'components/atomic/atoms/Headline';
 import TextLink from 'components/atomic/atoms/TextLink';
 import IconInputField from 'components/atomic/molecules/IconInputField';
 import logoUri from 'images/monooq_logo_mark.svg';
+import { Colors } from 'variables';
 import Form from './Form';
 
 const Logo = styled.img`
@@ -47,6 +48,10 @@ export default (props: PropTypes) => (
         value={props.password}
         onChange={e => props.onChangePassword(e.target.value)}
       />
+    }
+    failed={
+      props.loginFailed &&
+        <InlineText.Small color={Colors.error}>ユーザー名またはパスワードに誤りがあります。</InlineText.Small>
     }
     remind={<TextLink to={Path.passwordReset()}>パスワードを忘れた方はこちら</TextLink>}
     login={

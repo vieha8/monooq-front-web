@@ -90,7 +90,7 @@ class LoginContainer extends Component {
               onChangePassword={this.handleChangePassword}
               email={email}
               password={password}
-              loginFailed={loginFailed && hasChanged}
+              loginFailed={loginFailed && !hasChanged}
               buttonDisabled={!this.validate()}
               isLoginChecking={isChecking}
             />

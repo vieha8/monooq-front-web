@@ -21,6 +21,11 @@ const Pass = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
+const Failed = styled.div`
+  text-align: center;
+  margin-top: ${Dimens.small2}px;
+`;
+
 const Remind = styled.div`
   text-align: center;
   margin-top: ${Dimens.medium}px;
@@ -64,6 +69,7 @@ export default (props: PropTypes) => (
     <Title>{props.title}</Title>
     <Email>{props.email}</Email>
     <Pass>{props.pass}</Pass>
+    <Failed>{props.failed}</Failed>
     <Remind>{props.remind}</Remind>
     <Login>{props.login}</Login>
     <OtherLogin>{props.otherLogin}</OtherLogin>
