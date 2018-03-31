@@ -27,8 +27,6 @@ import SalesTransferList from 'containers/SalesTransfer/SalesTransferList';
 import TransferRequest from 'containers/SalesTransfer/TransferRequest';
 import EditBankAccount from 'containers/SalesTransfer/EditBankAccount';
 import Inquiry from 'containers/Inquiry';
-import SignUp from 'containers/SignUp';
-import Login from 'containers/Login';
 import Unsubscribe from 'containers/Unsubscribe';
 import Report from 'containers/Report';
 import PasswordReset from 'containers/PasswordReset';
@@ -59,8 +57,8 @@ require('./fontawesome-all.min.js');
 
 export const routes = [
   // new
-  { path: `/new${Path.login()}`, component: Containers.Login },
-  { path: `/new${Path.signup()}`, component: Containers.Signup },
+  { path: Path.login(), component: Containers.Login },
+  { path: Path.signup(), component: Containers.Signup },
   // legacy
   { path: Path.top(), component: Top },
   { path: Path.search(), component: SearchPage },
@@ -92,8 +90,6 @@ export const routes = [
   { path: Path.requestTransfer(), component: TransferRequest },
   { path: Path.editBankAccount(), component: EditBankAccount },
   { path: Path.inquiry(), component: Inquiry },
-  { path: Path.signup(), component: SignUp },
-  { path: Path.login(), component: Login },
   { path: Path.unsubscribe(), component: Unsubscribe },
   { path: Path.reportUser(), component: Report },
   { path: Path.reportSpace(), component: Report },
