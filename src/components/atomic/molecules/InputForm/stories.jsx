@@ -40,4 +40,12 @@ storiesOf('Molecules/InputForm', module)
         extension={<div>任意のコンポーネント</div>}
       />
     </div>
+  ))
+  .add('Multiline', () => (
+    <div>
+      <InputFormMock
+        label="銀行名"
+        multiline
+      />
+    </div>
   ));

@@ -6,6 +6,7 @@ import { H3 } from 'components/atomic/atoms/Headline';
 import ClearfixContainer from 'components/atomic/atoms/ClearfixContainer';
 import InlineText from 'components/atomic/atoms/InlineText';
 import InputField from 'components/atomic/atoms/InputField';
+import TextArea from 'components/atomic/atoms/TextArea';
 
 const InputFieldWrapper = styled.div`
   display: inline-block;
@@ -29,6 +30,7 @@ type PropTypes = {
   value: string,
   onChange: Function,
   extension?: React.Element<*>,
+  multiline?: boolean,
 }
 
 export default (props: PropTypes) => (
@@ -38,12 +40,19 @@ export default (props: PropTypes) => (
     <InputFieldWrapper unit={props.unit}>
       {props.extension ? props.extension
         : (
-          <InputField
-            {...props}
-            placeholder={props.placeholder}
-            value={props.value}
-            onChange={props.onChange}
-          />
+          props.multiline ?
+            <TextArea
+              {...props}
+              placeholder={props.placeholder}
+              value={props.value}
+              onChange={props.onChange}
+            />
+          : <InputField
+              {...props}
+              placeholder={props.placeholder}
+              value={props.value}
+              onChange={props.onChange}
+            />
         )}
     </InputFieldWrapper>
     {props.unit && (

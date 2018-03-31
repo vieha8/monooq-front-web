@@ -9,7 +9,7 @@ const Title = styled.div`
 `;
 
 const Image = styled.div`
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.medium2}px;
 `;
 
 const Name = styled.div`
@@ -34,6 +34,7 @@ type PropTypes = {
   name: React.Element<*>,
   area: React.Element<*>,
   profile: React.Element<*>,
+  button: React.Element<*>,
 }
 
 export default (props: PropTypes) => (
@@ -43,5 +44,6 @@ export default (props: PropTypes) => (
     <Name>{props.name}</Name>
     <Area>{props.area}</Area>
     <Profile>{props.profile}</Profile>
+    <Button>{props.button}</Button>
   </Fragment>
 );
