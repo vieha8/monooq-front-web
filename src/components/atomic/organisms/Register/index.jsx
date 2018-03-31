@@ -9,6 +9,7 @@ import { H1 } from 'components/atomic/atoms/Headline';
 import TextLink from 'components/atomic/atoms/TextLink';
 import IconInputField from 'components/atomic/molecules/IconInputField';
 import logoUri from 'images/monooq_logo_mark.svg';
+import { Colors } from 'variables';
 import Form from './Form';
 
 const Logo = styled.img`
@@ -17,7 +18,19 @@ const Logo = styled.img`
 `;
 
 type PropTypes = {
-
+  onClickNext: Function,
+  onClickFacebook: Function,
+  onChangeEmail: Function,
+  onChangePassword: Function,
+  onChangePasswordConfirm: Function,
+  email: string,
+  emailError: Array<string>,
+  password: string,
+  passError: Array<string>,
+  passwordConfirm: string,
+  passConfirmError: Array<string>,
+  buttonDisabled: boolean,
+  isRegisterChecking: boolean,
 }
 
 export default (props: PropTypes) => (
@@ -28,20 +41,43 @@ export default (props: PropTypes) => (
       <IconInputField
         iconClassName="fal fa-envelope"
         placeholder="example.com"
+        value={props.email}
+        onChange={e => props.onChangeEmail(e.target.value)}
       />
     }
+    emailError={props.emailError.map((text, i) => (
+      <InlineText.Small key={`email_error_${i}`} color={Colors.error}>
+        {text}
+      </InlineText.Small>
+    ))}
     pass={
       <IconInputField
+        type="password"
         iconClassName="fal fa-unlock-alt"
         placeholder="パスワード"
+        value={props.password}
+        onChange={e => props.onChangePassword(e.target.value)}
       />
     }
+    passError={props.passError.map((text, i) => (
+      <InlineText.Small key={`pass_error_${i}`} color={Colors.error}>
+        {text}
+      </InlineText.Small>
+    ))}
     passConfirm={
       <IconInputField
+        type="password"
         iconClassName="fal fa-lock-open-alt"
-        placeholder="パスワードを再入力"  
+        placeholder="パスワードを再入力"
+        value={props.passwordConfirm}
+        onChange={e => props.onChangePasswordConfirm(e.target.value)}
       />
     }
+    passConfirmError={props.passConfirmError.map((text, i) => (
+      <InlineText.Small key={`pass_confirm_error_${i}`} color={Colors.error}>
+        {text}
+      </InlineText.Small>
+    ))}
     terms={
       <Fragment>
         <TextLink to={Path.terms()} target="_blank">利用規約</TextLink>
@@ -56,6 +92,9 @@ export default (props: PropTypes) => (
       <Button
         primary
         center
+        onClick={props.onClickNext}
+        disabled={props.buttonDisabled}
+        loading={props.isRegisterChecking}
       >
         次へ
       </Button>
@@ -65,6 +104,8 @@ export default (props: PropTypes) => (
       <Button
         facebook
         center
+        onClick={props.onClickFacebook}
+        loading={props.isRegisterChecking}
       >
         Facebookで登録
       </Button>

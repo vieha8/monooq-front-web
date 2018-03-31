@@ -23,7 +23,7 @@ const Pass = styled.div`
 
 const Failed = styled.div`
   text-align: center;
-  margin-top: ${Dimens.small2}px;
+  margin-top: ${Dimens.xsmall}px;
 `;
 
 const Remind = styled.div`
@@ -56,6 +56,7 @@ type PropTypes = {
   title: React.Element<*>,
   email: React.Element<*>,
   pass: React.Element<*>,
+  failed: React.Element<*>,
   remind: React.Element<*>,
   login: React.Element<*>,
   otherLogin: React.Element<*>,

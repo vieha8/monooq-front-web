@@ -1,8 +1,8 @@
 import numeral from 'numeral';
 
 export default {
-  PleaseInput: '入力してください',
-  PleaseSelect: '選択してください',
+  PleaseInput: '入力してください。',
+  PleaseSelect: '選択してください。',
   PriceMin: val => `登録できる料金目安は${numeral(val).format('0,0')}円以上です。`,
   PriceMax: val => `登録できる料金目安は${numeral(val).format('0,0')}円以下です。`,
   LengthMax: (name, len) => `${name}は全角${len}文字まで登録できます。文字数を減らしください。`,
