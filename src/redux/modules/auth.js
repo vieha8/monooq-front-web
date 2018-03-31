@@ -149,7 +149,7 @@ function* checkLoginFirebaseAuth() {
     status.user = data;
 
     if (status.user.Profile === '') {
-      yield put(uiActions.setUiState({ signUpStep: 4 }));
+      yield put(uiActions.setUiState({ signupStep: 4 }));
       store.dispatch(push('/signup'));
     }
   }
@@ -205,7 +205,7 @@ function* signUpEmail({ payload: { email, password } }) {
     }
     yield put(authActions.signupSuccess(payload));
     yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signUpStep: 4 }));
+    yield put(uiActions.setUiState({ signupStep: 4 }));
   } catch (err) {
     console.error(err.message);
     yield put(authActions.signupFailed(err.message));
@@ -236,7 +236,7 @@ function* signUpFacebook() {
     }
     yield put(authActions.signupSuccess(payload));
     yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signUpStep: 4, signup: { name: displayName } }));
+    yield put(uiActions.setUiState({ signupStep: 4, signup: { name: displayName } }));
   } catch (err) {
     console.error(err.message);
     yield put(authActions.signupFailed(err.message));

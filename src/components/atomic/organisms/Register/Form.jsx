@@ -53,7 +53,7 @@ type PropTypes = {
   pass: React.Element<*>,
   passConfirm: React.Element<*>,
   terms: React.Element<*>,
-  login: React.Element<*>,
+  next: React.Element<*>,
   otherSignup: React.Element<*>,
   facebook: React.Element<*>,
   toLogin: React.Element<*>,
@@ -67,7 +67,7 @@ export default (props: PropTypes) => (
     <Pass>{props.pass}</Pass>
     <Pass>{props.passConfirm}</Pass>
     <Terms>{props.terms}</Terms>
-    <Next>{props.login}</Next>
+    <Next>{props.next}</Next>
     <OtherSignup>{props.otherSignup}</OtherSignup>
     <Facebook>{props.facebook}</Facebook>
     <ToLogin>{props.toLogin}</ToLogin>

@@ -12,7 +12,7 @@ import Header from 'components/atomic/organisms/Header';
 
 import Path from 'config/path';
 
-import connect from './connect';
+import connect from '../connect';
 
 type PropTypes = {
   dispatch: Function,

@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import Path from 'config/path';
 import Button from 'components/atomic/atoms/Button';
 import InlineText from 'components/atomic/atoms/InlineText';
 import { H1 } from 'components/atomic/atoms/Headline';
@@ -43,9 +44,9 @@ export default (props: PropTypes) => (
     }
     terms={
       <Fragment>
-        <TextLink to="">利用規約</TextLink>
+        <TextLink to={Path.terms()} target="_blank">利用規約</TextLink>
         <InlineText.Base>と</InlineText.Base>
-        <TextLink to="">プライバシーポリシー</TextLink>
+        <TextLink to={Path.privacy()} target="_blank">プライバシーポリシー</TextLink>
         <InlineText.Base>に同意の上、</InlineText.Base>
         <br />
         <InlineText.Base>次へボタンを押してください。</InlineText.Base>
@@ -65,9 +66,9 @@ export default (props: PropTypes) => (
         facebook
         center
       >
-        <i className="fab fa-facebook-square" />&nbsp;Facebookで登録
+        Facebookで登録
       </Button>
     }
-    toLogin={<TextLink to="">ログインはこちら</TextLink>}
+    toLogin={<TextLink to={Path.login()}>ログインはこちら</TextLink>}
   />
 );

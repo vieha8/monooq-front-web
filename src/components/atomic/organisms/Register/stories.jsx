@@ -6,7 +6,7 @@ import StoryRouter from 'storybook-router';
 
 import Signup from './index';
 
-storiesOf('Organisms/Signup', module)
+storiesOf('Organisms/Register', module)
   .addDecorator(StoryRouter())
   .add('Normal', () => (
     <Signup />
