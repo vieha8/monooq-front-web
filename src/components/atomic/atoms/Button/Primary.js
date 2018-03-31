@@ -1,6 +1,6 @@
 // @flow
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Colors } from 'variables';
 
 const Button = styled.div`
@@ -19,30 +19,30 @@ const Button = styled.div`
   }
 
   ${props =>
-    props.disabled
-      ? `
-    background: ${Colors.lightGray1};
-    cursor: not-allowed;
-  `
-      : `
-    &:hover {
-      background: ${Colors.brandTerciary};
-    }
-  `};
-
-  ${props =>
-    props.small &&
+    props.center &&
     `
-    padding: 8px 4px;
-    font-size: 12px;
-  `};
-
-  ${props =>
-    props.medium &&
-    `
-    padding: 12px 8px;
-    font-size: 16px;
-  `};
+    margin: 0 auto;
+  `} ${props =>
+      props.disabled
+        ? css`
+            background: ${Colors.lightGray1};
+            cursor: not-allowed;
+          `
+        : css`
+            &:hover {
+              background: ${Colors.brandTerciary};
+            }
+          `} ${props =>
+      props.small &&
+      css`
+        padding: 8px 4px;
+        font-size: 12px;
+      `} ${props =>
+      props.medium &&
+      css`
+        padding: 12px 8px;
+        font-size: 16px;
+      `};
 `;
 
 export default Button;
