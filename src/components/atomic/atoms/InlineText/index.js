@@ -1,6 +1,6 @@
 // @flow
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Colors } from 'variables';
 
 const Base = styled.span`
@@ -9,17 +9,17 @@ const Base = styled.span`
   line-height: 1.6;
   ${props =>
     props.verticalTop &&
-    `
-    vertical-align: top;
-  `} ${props =>
+    css`
+      vertical-align: top;
+    `} ${props =>
       props.verticalMiddle &&
-      `
-    vertical-align: middle;
-  `} ${props =>
+      css`
+        vertical-align: middle;
+      `} ${props =>
       props.verticalBottom &&
-      `
-    vertical-align: bottom;
-  `};
+      css`
+        vertical-align: bottom;
+      `};
 `;
 
 const Strong = Base.withComponent('strong').extend`
