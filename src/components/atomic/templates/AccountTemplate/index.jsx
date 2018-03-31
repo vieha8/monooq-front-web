@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Colors } from 'variables';
+import { Colors, Dimens } from 'variables';
 
 const Page = styled.div`
   background: ${Colors.yellow};
@@ -20,8 +20,14 @@ const HeaderContainer = styled.div`
 const Container = styled.div`
   width: 420px;
   margin: 0 auto;
+
+  background: ${Colors.white};
+  padding: ${Dimens.large}px;
+  border-radius: 6px;
+
   ${media.tablet`
-    width: 320px;
+    width: 340px;
+    padding: ${Dimens.medium}px;
   `}
 `;
 

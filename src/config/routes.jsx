@@ -51,11 +51,16 @@ import HelpService from 'containers/Static/Help/Service';
 
 import NavigationHeader from 'containers/NavigationHeader';
 
+import Containers from 'components/atomic/containers';
+
 import Path from './path';
 
 require('./fontawesome-all.min.js');
 
 export const routes = [
+  // new
+  { path: `/new${Path.login()}`, component: Containers.Login },
+  // legacy
   { path: Path.top(), component: Top },
   { path: Path.search(), component: SearchPage },
   { path: Path.spaces(), component: HostSpaceList },

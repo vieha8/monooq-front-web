@@ -3,11 +3,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import AccountPageTemplate from './index';
+import AccountTemplate from './index';
 
 storiesOf('Templates/AccountPageTemplate', module)
   .add('Normal', () => (
-    <AccountPageTemplate
+    <AccountTemplate
       header={(
         <div
           style={{
