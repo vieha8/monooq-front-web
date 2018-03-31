@@ -68,7 +68,6 @@ export default class RegisterContainer extends Component {
       errors.password = [].concat(errors.password, [ErrorMessage.InvalidPassword]);
     }
     // パスワード確認チェック
-    console.log(password, passwordConfirm);
     if (password !== passwordConfirm) {
       errors.passwordConfirm = [].concat(errors.password, [ErrorMessage.NotMatchPassword]);
     }
