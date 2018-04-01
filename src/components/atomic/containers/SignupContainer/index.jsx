@@ -7,6 +7,7 @@ import Header from 'components/atomic/organisms/Header';
 
 import RegisterEmail from './RegisterEmail';
 import RegisterProfile from './RegisterProfile';
+import Registered from './Registered';
 import connect from '../connect';
 
 type PropTypes = {
@@ -22,7 +23,7 @@ class SignupContainer extends Component<PropTypes> {
       () => <div />, // TODO,
       () => <div />, // TODO,
       RegisterProfile,
-      () => <div />, // TODO,
+      Registered,
     ];
     return forms[signupStep];
   }
