@@ -13,7 +13,7 @@ type PropTypes = {
   signupStep: number,
 }
 
-class SignupContainer extends Component {
+class SignupContainer extends Component<PropTypes> {
   getCurrentForm = () => {
     const { signupStep } = this.props;
     const forms = [
@@ -26,8 +26,6 @@ class SignupContainer extends Component {
     ];
     return forms[signupStep];
   }
-
-  props: PropTypes;
 
   render() {
     const Form = this.getCurrentForm();
@@ -46,6 +44,7 @@ function mapStateToProps(state) {
     signupStep: state.ui.signupStep || 0,
     user: state.auth.user,
     isRegisting: state.auth.isRegisting,
+    isLoading: state.user.isLoading,
     isSignupFailed: state.auth.isSignupFailed,
   });
 }

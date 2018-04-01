@@ -30,7 +30,7 @@ const Validate = {
   },
 };
 
-export default class RegisterContainer extends Component {
+export default class RegisterContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
 
@@ -93,9 +93,6 @@ export default class RegisterContainer extends Component {
       && passwordConfirm && password === passwordConfirm
     );
   }
-
-  props: PropTypes;
-  staet: State;
 
   render() {
     const { isRegisting } = this.props;

@@ -1,14 +1,12 @@
 // @flow
 
 import React, { Component } from 'react';
-import { authActions } from 'redux/modules/auth';
+import { userActions } from 'redux/modules/user';
 import RegisterProfile from 'components/atomic/organisms/RegisterProfile';
-import { ErrorMessage } from 'strings';
 
 type PropTypes = {
   dispatch: Function,
-  isRegisting: boolean,
-  isSignupFailed: boolean,
+  isLoading: boolean,
 }
 
 type State = {
@@ -16,6 +14,7 @@ type State = {
   name: string,
   prefCode: string,
   profile: string,
+  hasChanged: boolean,
 }
 
 const Validate = {
@@ -24,7 +23,7 @@ const Validate = {
   },
 };
 
-export default class RegisterContainer extends Component {
+export default class RegisterContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
 
@@ -33,10 +32,25 @@ export default class RegisterContainer extends Component {
       name: '',
       prefCode: '',
       profile: '',
+      hasChanged: false,
     };
   }
 
-  state: State;
+  onClickRegisterProfile = () => {
+    const { dispatch, user } = this.props;
+    const { image, name, prefCode, profile } = this.state;
+    dispatch(userActions.updateUser({
+      userId: user.ID,
+      body: { image, name, prefCode, profile },
+    }));
+  }
+
+  handleChangeForm = (name: string, value: any) => {
+    const state = this.state;
+    state[name] = value;
+    state.hasChanged = true;
+    this.setState(state);
+  }
 
   validate = () => {
     const { name, prefCode, profile } = this.state;
@@ -49,11 +63,23 @@ export default class RegisterContainer extends Component {
     );
   }
 
-  props: PropTypes;
-
   render() {
+    const { isLoading } = this.props;
+    const { image, name, prefCode, profile } = this.state;
+
     return (
       <RegisterProfile
+        onChangeImage={picked => this.handleChangeForm('image', picked)}
+        onChangeName={value => this.handleChangeForm('name', value)}
+        onChangeArea={value => this.handleChangeForm('prefCode', value)}
+        onChangeProfile={value => this.handleChangeForm('profile', value)}
+        image={image}
+        name={name}
+        prefCode={prefCode}
+        profile={profile}
+        onClickRegisterProfile={this.onClickRegisterProfile}
+        buttonDisabled={!this.validate()}
+        buttonLoading={isLoading}
       />
     );
   }
