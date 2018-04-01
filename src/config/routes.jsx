@@ -59,6 +59,7 @@ export const routes = [
   // new
   { path: Path.login(), component: Containers.Login },
   { path: Path.signup(), component: Containers.Signup },
+  { path: Path.resetPassword(), component: Containers.ResetPassword },
   // legacy
   { path: Path.top(), component: Top },
   { path: Path.search(), component: SearchPage },
@@ -113,8 +114,6 @@ export const routes = [
   { path: Path.helpSalesTransfer(), component: HelpService },
   { path: Path.helpSignin(), component: HelpService },
   { path: Path.helpOther(), component: HelpService },
-  { path: Path.passwordReset(), component: PasswordReset },
-  { path: Path.passwordResetEnd(), component: PasswordResetEnd },
 ];
 
 export default props => (

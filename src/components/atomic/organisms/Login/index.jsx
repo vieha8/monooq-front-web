@@ -54,7 +54,7 @@ export default (props: PropTypes) => (
       props.loginFailed &&
         <InlineText.Small color={Colors.error}>ユーザー名またはパスワードに誤りがあります。</InlineText.Small>
     }
-    remind={<TextLink to={Path.passwordReset()}>パスワードを忘れた方はこちら</TextLink>}
+    remind={<TextLink to={Path.resetPassword()}>パスワードを忘れた方はこちら</TextLink>}
     login={
       <Button
         primary
