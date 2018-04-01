@@ -18,12 +18,13 @@ export default (props: PropTypes) => (
   <div>
     <div><InlineText.Base>下書き保存が可能です</InlineText.Base></div>
     <Wrapper>
-      <Button.Secondary
+      <Button
+        secondary
         onClick={props.onClickSave}
         disabled={props.disabled}
       >
         保存する
-      </Button.Secondary>
+      </Button>
     </Wrapper>
   </div>
 );

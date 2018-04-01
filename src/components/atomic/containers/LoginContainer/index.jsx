@@ -12,7 +12,7 @@ import Header from 'components/atomic/organisms/Header';
 
 import Path from 'config/path';
 
-import connect from './connect';
+import connect from '../connect';
 
 type PropTypes = {
   dispatch: Function,
@@ -56,12 +56,11 @@ class LoginContainer extends Component {
     dispatch(authActions.loginFacebook());
   }
 
-  handleChangeEmail = (value) => {
-    this.setState({ email: value, hasChanged: true });
-  }
-
-  handleChangePassword = (value) => {
-    this.setState({ password: value, hasChanged: true });
+  handleChangeForm = (name: string, value: any) => {
+    const state = this.state;
+    state[name] = value;
+    state.hasChanged = true;
+    this.stateState(state);
   }
 
   validate = () => {
@@ -86,8 +85,8 @@ class LoginContainer extends Component {
             <Login
               onClickFacebook={this.loginFacebook}
               onClickLogin={this.loginEmail}
-              onChangeEmail={this.handleChangeEmail}
-              onChangePassword={this.handleChangePassword}
+              onChangeEmail={value => this.handleChangeForm('email', value)}
+              onChangePassword={value => this.handleChangeForm('password', value)}
               email={email}
               password={password}
               loginFailed={loginFailed && !hasChanged}

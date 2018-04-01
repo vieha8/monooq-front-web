@@ -11,7 +11,7 @@ storiesOf('Molecules/WrapButton', module)
     <div style={{ width: '100%', maxWidth: '400px' }}>
       <WrapButton
         label="下書き保存が可能です"
-        buttonComponent={Button.Secondary}
+        buttonComponent={<Button secondary />}
         button={{
           text: '保存する',
           onClick: () => console.log('onClick'),
@@ -24,7 +24,7 @@ storiesOf('Molecules/WrapButton', module)
     <div style={{ width: '100%', maxWidth: '400px' }}>
       <WrapButton
         label="ご請求はまだ発生しません"
-        buttonComponent={Button.Primary}
+        buttonComponent={<Button primary />}
         button={{
           text: 'リクエストを送る',
           onClick: () => console.log('onClick'),

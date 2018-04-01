@@ -9,9 +9,13 @@ const InputField = styled.input`
   font-size: 14px;
   border: 1px solid ${Colors.lightGray1};
   border-radius: 6px;
-  color: ${Colors.lightGray1};
+  color: ${Colors.black};
   outline: none;
   background: ${Colors.lightGray2Bg};
+
+  &:placeholder-shown {
+    color: ${Colors.black};
+  }
 
   &:focus {
     border-color: ${Colors.brandPrimary};

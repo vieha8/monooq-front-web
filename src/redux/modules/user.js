@@ -159,7 +159,7 @@ function* updateUser({ payload: { userId, body } }) {
   }
   yield put(authActions.setUser(payload));
   yield put(userActions.updateSuccessUser(payload));
-  yield put(uiActions.setUiState({ signUpStep: 5 }));
+  yield put(uiActions.setUiState({ signupStep: 5 }));
 }
 
 export const userSagas = [

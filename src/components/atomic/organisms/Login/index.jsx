@@ -43,6 +43,7 @@ export default (props: PropTypes) => (
     }
     pass={
       <IconInputField
+        type="password"
         iconClassName="fal fa-unlock-alt"
         placeholder="パスワード"
         value={props.password}

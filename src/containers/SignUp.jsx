@@ -168,7 +168,7 @@ class SignUpContainer extends React.Component {
     const { error, user, ui } = this.props;
     return (
       <SignUp
-        step={ui.signUpStep}
+        step={ui.signupStep}
         registerEmail={
           <RegisterEmail
             onClickSignUpEmail={this.onClickSignUpEmail}

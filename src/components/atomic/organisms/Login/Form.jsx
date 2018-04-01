@@ -23,7 +23,7 @@ const Pass = styled.div`
 
 const Failed = styled.div`
   text-align: center;
-  margin-top: ${Dimens.small2}px;
+  margin-top: ${Dimens.xsmall}px;
 `;
 
 const Remind = styled.div`
