@@ -60,7 +60,7 @@ class LoginContainer extends Component {
     const state = this.state;
     state[name] = value;
     state.hasChanged = true;
-    this.stateState(state);
+    this.setState(state);
   }
 
   validate = () => {
