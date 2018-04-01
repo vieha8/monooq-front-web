@@ -3,7 +3,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { H3 } from 'components/atomic/atoms/Headline';
-import ClearfixContainer from 'components/atomic/atoms/ClearfixContainer';
 import InlineText from 'components/atomic/atoms/InlineText';
 import InputField from 'components/atomic/atoms/InputField';
 import TextArea from 'components/atomic/atoms/TextArea';
@@ -20,7 +19,7 @@ const InputFieldWrapper = styled.div`
 const UnitWrapper = styled.div`
   display: inline-block;
   padding: 0 12px;
-`
+`;
 
 type PropTypes = {
   label: string,

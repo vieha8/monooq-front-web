@@ -15,4 +15,5 @@ export default {
   NotMatchPassword:
     '異なるパスワードが入力されています。同じ8ケタ以上の半角英数字を入力してください。',
   FailedSignUp: 'このメールアドレスはすでに登録済みです。',
+  FailedResetPassword: 'このメールアドレスは未登録です。',
 };
