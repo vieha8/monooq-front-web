@@ -30,7 +30,7 @@ const Container = styled.div`
   border-radius: 6px;
 
   ${media.tablet`
-    width: 340px;
+    width: 320px;
     padding: ${Dimens.medium}px;
   `}
 `;
