@@ -41,6 +41,7 @@ type PropTypes = {
   onChangeEmail: Function,
   onClickSend: Function,
   buttonDisabled: boolean,
+  buttonLoading: boolean,
   errors: Array<string>,
   sended: boolean,
 }
@@ -90,6 +91,7 @@ export default (props: PropTypes) => (
             center
             onClick={props.onClickSend}
             disabled={props.buttonDisabled}
+            loading={props.buttonLoading}
           >
             再設定用メールを送信
           </Button>

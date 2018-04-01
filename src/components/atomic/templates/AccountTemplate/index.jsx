@@ -8,10 +8,7 @@ import { Colors, Dimens } from 'variables';
 const Page = styled.div`
   background: ${Colors.yellow};
   padding: 40px 0;
-  height: calc(100vh - 60px);
-  ${media.tablet`
-    height: auto;
-  `}
+  min-height: calc(100vh - 60px);
 `;
 
 const HeaderContainer = styled.div`

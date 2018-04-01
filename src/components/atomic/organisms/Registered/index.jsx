@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/atomic/atoms/Button';
 import AvatarImage from 'components/atomic/atoms/AvatarImage';

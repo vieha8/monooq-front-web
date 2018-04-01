@@ -43,6 +43,11 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
     };
   }
 
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(authActions.initPasswordReset());
+  }
+
   onClickSend = () => {
     if (!this.validate()) {
       this.setState({
@@ -52,7 +57,7 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
       return;
     }
 
-    this.setState({ hasChanged: false, errors: [] });
+    this.setState({ hasChanged: false });
 
     const { dispatch } = this.props;
     const { email } = this.state;
@@ -60,7 +65,7 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
   };
 
   handleChangeEmail = (value) => {
-    this.setState({ email: value, hasChanged: true });
+    this.setState({ email: value, hasChanged: true, errors: [] });
   };
 
   validate = () => {
@@ -71,15 +76,19 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
   }
 
   render() {
-    const { isLogin, isChecking, emailSended } = this.props;
-    const { email, errors } = this.state;
-
-    if (isChecking) {
-      return null;
-    }
+    const { isLogin, isChecking, emailSended, resetError } = this.props;
+    const { email, hasChanged, errors } = this.state;
 
     if (isLogin) {
       return <Redirect to={Path.top()} />;
+    }
+
+    const dispErrors = [];
+    if (!hasChanged) {
+      dispErrors.push(...errors);
+      if (!isChecking && resetError) {
+        dispErrors.push(ErrorMessage.FailedResetPassword);
+      }
     }
 
     return (
@@ -90,9 +99,9 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
             email={email}
             onChangeEmail={this.handleChangeEmail}
             onClickSend={this.onClickSend}
-            buttonDisabled={!this.validate()}
-            errors={errors}
+            errors={dispErrors}
             sended={emailSended}
+            buttonLoading={isChecking}
           />
         }
       />
@@ -102,8 +111,9 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
 
 const mapStateToProps = state => ({
   isLogin: state.auth.isLogin,
-  isChecking: state.auth.isChecking,
-  emailSended: false,
+  isChecking: state.auth.isResetTrying,
+  emailSended: state.auth.isResetSuccess,
+  resetError: state.auth.error,
 });
 
 export default connect(ResetPasswordContainer, mapStateToProps);

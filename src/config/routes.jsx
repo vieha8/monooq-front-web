@@ -29,8 +29,6 @@ import EditBankAccount from 'containers/SalesTransfer/EditBankAccount';
 import Inquiry from 'containers/Inquiry';
 import Unsubscribe from 'containers/Unsubscribe';
 import Report from 'containers/Report';
-import PasswordReset from 'containers/PasswordReset';
-import PasswordResetEnd from 'containers/PasswordResetEnd';
 
 import About from 'containers/Static/About';
 import Insurance from 'containers/Static/Insurance';

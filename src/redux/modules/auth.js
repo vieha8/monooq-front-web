@@ -17,6 +17,7 @@ const SIGNUP_EMAIL = 'SIGNUP_EMAIL';
 const SIGNUP_FACEBOOK = 'SIGNUP_FACEBOOK';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNUP_FAILED = 'SIGNUP_FAILED';
+const INIT_PASSWORD_RESET = 'INIT_PASSWORD_RESET';
 const PASSWORD_RESET = 'PASSWORD_RESET';
 const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
@@ -41,6 +42,7 @@ export const authActions = createActions(
   SIGNUP_FACEBOOK,
   SIGNUP_SUCCESS,
   SIGNUP_FAILED,
+  INIT_PASSWORD_RESET,
   PASSWORD_RESET,
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILED,
@@ -53,6 +55,8 @@ const initialState = {
   isLogin: false,
   isChecking: false,
   isRegisting: false,
+  isResetTrying: false,
+  isResetSuccess: false,
   user: {},
   error: '',
 };
@@ -117,6 +121,28 @@ export const authReducer = handleActions(
     [SET_USER]: (state, action) => ({
       ...state,
       user: action.payload,
+    }),
+    [INIT_PASSWORD_RESET]: state => ({
+      ...state,
+      isResetTrying: false,
+      isResetSuccess: false,
+      error: '',
+    }),
+    [PASSWORD_RESET]: state => ({
+      ...state,
+      isResetTrying: true,
+    }),
+    [PASSWORD_RESET_SUCCESS]: state => ({
+      ...state,
+      isResetTrying: false,
+      isResetSuccess: true,
+      error: '',
+    }),
+    [PASSWORD_RESET_FAILED]: state => ({
+      ...state,
+      isResetTrying: false,
+      isResetSuccess: false,
+      error: 'reset password failed',
     }),
   },
   initialState,
@@ -248,7 +274,6 @@ function* passwordReset({ payload: { email } }) {
   try {
     yield auth.sendPasswordResetEmail(email);
     yield put(authActions.passwordResetSuccess());
-    store.dispatch(push('/password/reset/end'));
   } catch (err) {
     console.error(err);
     yield put(authActions.passwordResetFailed(err));
