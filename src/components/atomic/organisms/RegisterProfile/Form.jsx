@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Dimens, Colors } from 'variables';
+import { Dimens } from 'variables';
 
 const Title = styled.div`
   text-align: center;
