@@ -181,10 +181,10 @@ export default () => (
           header: '所在地',
           data: '〒166-0003 東京都杉並区高円寺南 2-48-12 1F',
         },
-        {
-          header: 'TEL',
-          data: '03-6869-2729',
-        },
+        // {
+        //   header: 'TEL',
+        //   data: '03-6869-2729',
+        // },
         {
           header: 'MAIL',
           data: 'info@monooq.com',
