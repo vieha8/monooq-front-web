@@ -28,6 +28,10 @@ const Card = styled.div`
     props.pointer &&
     `
     cursor: pointer;
+  `} ${props =>
+      props.customStyle &&
+      `
+    ${props.customStyle}
   `};
 `;
 

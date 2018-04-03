@@ -24,8 +24,9 @@ const HeroImage = styled.img`
   ${props =>
     props.height &&
     `
-    height: ${props.height};
+    height: ${props.height}px;
   `};
+  object-fit: cover;
 `;
 
 export default HeroImage;

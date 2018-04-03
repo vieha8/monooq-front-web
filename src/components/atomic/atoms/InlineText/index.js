@@ -20,6 +20,15 @@ const Base = styled.span`
       css`
         vertical-align: bottom;
       `};
+  ${props =>
+    props.singleLine &&
+    `
+    width: 100%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  `};
 `;
 
 const Strong = Base.withComponent('strong').extend`

@@ -8,7 +8,10 @@ import { H1 } from 'components/atomic/atoms/Headline';
 import { Height as HeaderHeight } from 'components/atomic/organisms/Header';
 
 const Page = styled.div`
-  padding: ${HeaderHeight}px 0 80px 10%;
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: ${HeaderHeight}px 0 80px;
   ${media.phone`
     padding: ${HeaderHeight}px 20px 40px;
   `}
