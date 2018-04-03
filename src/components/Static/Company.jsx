@@ -207,7 +207,7 @@ export default () => (
     </MainTitleContainer>
 
     <InterviewContainer>
-      <Text>新聞・雑誌・メディアなどの取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。</Text>
+      <Text>提携、取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。</Text>
       <Text><Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor></Text>
     </InterviewContainer>
 
