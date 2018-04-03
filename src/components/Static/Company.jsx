@@ -181,10 +181,10 @@ export default () => (
           header: '所在地',
           data: '〒166-0003 東京都杉並区高円寺南 2-48-12 1F',
         },
-        {
-          header: 'TEL',
-          data: '03-6869-2729',
-        },
+        // {
+        //   header: 'TEL',
+        //   data: '03-6869-2729',
+        // },
         {
           header: 'MAIL',
           data: 'info@monooq.com',
@@ -207,7 +207,7 @@ export default () => (
     </MainTitleContainer>
 
     <InterviewContainer>
-      <Text>新聞・雑誌・メディアなどの取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。</Text>
+      <Text>提携、取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。</Text>
       <Text><Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor></Text>
     </InterviewContainer>
 
