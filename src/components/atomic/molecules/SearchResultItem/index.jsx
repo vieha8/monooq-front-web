@@ -55,34 +55,35 @@ export default (props: PropTypes) => (
       <HeroImage
         src={props.image}
         alt={props.title}
-        height={150}
+        height={160}
       />
       <Content>
         <Row>
           <InlineText.Base
+            singleLine
             color={Colors.brandPrimary}
           >
             {props.addressTown}
           </InlineText.Base>
         </Row>
-        <Row>
-          <InlineText.Base>
+        <Row marginTop={Dimens.small}>
+          <InlineText.Base singleLine>
             {props.title}
           </InlineText.Base>
         </Row>
         {props.isFurniture &&
-          <Row>
+          <Row marginTop={Dimens.small}>
             <InlineText.Bold>
               家具・家電OK
             </InlineText.Bold>
           </Row>
         }
-        <Row>
+        <Row marginTop={Dimens.small}>
           <InlineText.Base>
             料金目安
           </InlineText.Base>
         </Row>
-        <Row>
+        <Row marginTop={Dimens.small}>
           <InlineText.Base>
             {`
               ${props.priceFull}

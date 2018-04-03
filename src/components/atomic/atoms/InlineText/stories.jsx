@@ -40,4 +40,11 @@ storiesOf('Atoms/Text/InlineText', module)
     <div style={{ width: '100%', maxWidth: '300px' }}>
       <Inline.Emphasis>重点として小さくする場合</Inline.Emphasis>
     </div>
+  ))
+  .add('SingleLine', () => (
+    <div style={{ width: '100%', maxWidth: '100px' }}>
+      <Inline.Base singleLine>
+        1行カット1行カット1行カット1行カット1行カット1行カット1行カット1行カット1行カット1行カット1行カット1行カット1行カット1行カット1行カット1行カット
+      </Inline.Base>
+    </div>
   ));
