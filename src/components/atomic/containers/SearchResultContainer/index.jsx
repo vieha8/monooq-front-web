@@ -9,6 +9,7 @@ import SearchResultTemplate from 'components/atomic/templates/SearchResult';
 import Header from 'components/atomic/organisms/Header';
 import Footer from 'components/atomic/molecules/Footer';
 import SearchResult from 'components/atomic/organisms/SearchResult';
+import SearchNotFound from 'components/atomic/organisms/SearchNotFound';
 
 import { searchActions } from 'redux/modules/search';
 
@@ -22,6 +23,7 @@ type PropTypes = {
   location: {
     search: string,
   },
+  isSearching: boolean,
   spaces: Array<{
     ID: number,
     Images: Array<{
@@ -38,6 +40,7 @@ type PropTypes = {
 
 type State = {
   location: string,
+  search: string,
 }
 
 class SearchResultContainer extends Component<PropTypes, State> {
@@ -51,6 +54,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
     this.state = {
       location: query.location,
+      search: '',
     };
   }
 
@@ -60,9 +64,43 @@ class SearchResultContainer extends Component<PropTypes, State> {
     history.push(Path.space(space.ID));
   }
 
+  research: Function;
+  research = () => {
+    const { search } = this.state;
+    if (window && window.location) {
+      window.location.href = `${Path.search()}?location=${search}`;
+    }
+  }
+
+  onKeyDownSearchField: Function;
+  onKeyDownSearchField = (e) => {
+    if (e && e.keyCode === 13 && e.target.value) {
+      this.research();
+    }
+  }
+
+  renderNotFound = () => {
+    const { search } = this.state;
+
+    return (
+      <SearchNotFound
+        locationText={search}
+        onChangeLocation={(value) => {
+          this.setState({ search: value });
+        }}
+        onClickSearchButton={this.research}
+        onKeyDownSearchField={this.onKeyDownSearchField}
+      />
+    );
+  }
+
   render() {
-    const { spaces } = this.props;
+    const { spaces, isSearching } = this.props;
     const { location } = this.state;
+
+    if (!isSearching && spaces.length === 0) {
+      return this.renderNotFound();
+    }
 
     return (
       <SearchResultTemplate
@@ -91,6 +129,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
 const mapStateToProps = state => ({
   isLogin: state.auth.isLogin,
+  isSearching: state.search.isLoading,
   search: state.search,
   spaces: state.search.spaces,
   ui: state.ui,
