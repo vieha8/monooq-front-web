@@ -13,9 +13,9 @@ import Path from 'config/path';
 const PageContainer = styled.div``;
 
 const ContentContainer = styled.div`
-  padding: ${Dimens.huge}px 8%;
-  padding-bottom: 80px;
-  width: 1024px;
+  padding: ${Dimens.huge}px 0;
+  width: 100%;
+  max-width: 1024px;
   margin: 0 auto;
 
   ${media.tablet`
@@ -36,7 +36,6 @@ const ToHostLink = styled.div`
 type PropTypes = {
   locationText: string,
   onChangeLocation: Function,
-  searchDisabled: boolean,
   onClickSearchButton: Function,
   onKeyDownSearchField: Function,
 }
@@ -59,9 +58,9 @@ export default (props: PropTypes) => (
         <SearchInput
           placeholder="近くのスペースを検索してみよう！　例）東京都港区"
           locationText={props.locationText}
-          onChange={props.onChangeLocation}
+          onChange={e => props.onChangeLocation(e.target.value)}
           onRef={ref => refSearchField(ref, props)}
-          searchDisabled={props.searchDisabled}
+          searchDisabled={props.locationText === ''}
           borderColor={Colors.borderGray}
           onClickSearchButton={props.onClickSearchButton}
         />

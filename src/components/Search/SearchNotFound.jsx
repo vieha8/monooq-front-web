@@ -11,9 +11,9 @@ import Path from 'config/path';
 const PageContainer = styled.div``;
 
 const ContentContainer = styled.div`
-  padding: ${Dimens.huge}px 8%;
-  padding-bottom: 80px;
-  width: 1024px;
+  padding: ${Dimens.huge}px 0;
+  width: 100%;
+  max-width: 1024px;
   margin: 0 auto;
 
   ${media.tablet`

@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import { SearchIcon } from 'components/atomic/atoms/ActionIcon';
 import styled from 'styled-components';
 import { FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -54,6 +53,14 @@ const SearchButton = styled.div`
   }
 `;
 
+const IconWrapper = styled.span`
+  color: ${props => props.color};
+`;
+
+const Icon = styled.i`
+  font-size: 20px;
+`;
+
 type PropTypes = {
   placeholder: string,
   onChange: Function,
@@ -73,15 +80,16 @@ export default (props: PropTypes) => (
       borderColor={props.borderColor}
     />
     <SearchButton
-      onClick={props.searchButtonDisabled ? null : props.onClickSearchButton}
+      onClick={props.searchDisabled ? null : props.onClickSearchButton}
       disabled={props.searchDisabled}
     >
-      <SearchIcon
-        color={props.searchDisabled
-          ? Colors.lightGray1
-          : Colors.brandPrimary
-        }
-      />
+      <IconWrapper
+        color={props.searchDisabled ? Colors.lightGray1 : Colors.brandPrimary}
+      >
+        <Icon
+          className="fal fa-search"
+        />
+      </IconWrapper>
     </SearchButton>
   </SearchWrapper>
 );

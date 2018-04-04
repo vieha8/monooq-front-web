@@ -13,7 +13,6 @@ storiesOf('Organisms/SearchNotFound', module)
       <SearchNotFound
         locationText="東京"
         onChangeLocation={() => console.log('onChangeLocation')}
-        searchDisabled={false}
         onClickSearchButton={() => console.log('onClickSearchButton')}
         onKeyDownSearchField={() => console.log('onKeyDownSearchField')}
       />
@@ -24,7 +23,6 @@ storiesOf('Organisms/SearchNotFound', module)
       <SearchNotFound
         locationText=""
         onChangeLocation={() => console.log('onChangeLocation')}
-        searchDisabled
         onClickSearchButton={() => console.log('onClickSearchButton')}
         onKeyDownSearchField={() => console.log('onKeyDownSearchField')}
       />
