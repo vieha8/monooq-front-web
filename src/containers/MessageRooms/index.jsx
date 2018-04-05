@@ -23,7 +23,6 @@ const MessagesItem = props => (
 );
 
 const StyledMessagesItem = styled(MessagesItem) `
-  height: 104px;
   border: 1px solid #dbdbdb;
   &:not(:first-child) {
     border-top: none;
