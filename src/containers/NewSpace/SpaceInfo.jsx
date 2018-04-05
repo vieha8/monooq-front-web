@@ -93,7 +93,7 @@ class SpaceInfoContainer extends React.Component {
       && space.type > 0
       && space.introduction && space.introduction.length > 0
       && space.address && space.address.length > 0
-      && space.prefecture
+      // && space.prefecture
     );
   }
 

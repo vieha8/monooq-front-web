@@ -23,6 +23,7 @@ const UPDATE_SPACE = 'UPDATE_SPACE';
 const UPDATE_SUCCESS_SPACE = 'UPDATE_SUCCESS_SPACE';
 const UPDATE_FAILED_SPACE = 'UPDATE_FAILED_SPACE';
 const SET_SPACE = 'SET_SPACE';
+const DELETE_SPACE = 'DELETE_SPACE';
 
 export const spaceActions = createActions(
   FETCH_SPACE,
@@ -35,6 +36,7 @@ export const spaceActions = createActions(
   UPDATE_SUCCESS_SPACE,
   UPDATE_FAILED_SPACE,
   SET_SPACE,
+  DELETE_SPACE,
 );
 
 // Reducer
@@ -137,7 +139,10 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
     }
   }
 
-  if (payload.Images.length === 0) {
+  if (!payload.Images || payload.Images.length === 0) {
+    if (!payload.Images) {
+      payload.Images = [];
+    }
     payload.Images[0] = { ImageUrl: dummySpaceImage };
   }
 
@@ -175,10 +180,17 @@ function* createSpace({ payload: { body } }) {
     return;
   }
 
-  if (images.length > 0 && payload) {
+  if (images && images.length > 0) {
     const spaceId = payload.ID;
     const imageUrls = yield Promise.all(
       images.filter(image => !image.ID).map(async image => {
+        if (image.ImageUrl) {
+          if (image.ImageUrl.includes('data:image/png;base64,')) {
+            return '';
+          } else {
+            return image.ImageUrl;
+          }
+        }
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);
         const ext = await new Promise(resolve => {
@@ -192,17 +204,22 @@ function* createSpace({ payload: { body } }) {
         return uploadImage(imagePath, image);
       }),
     );
-    const imgs = imageUrls.map(url => ({ SpaceID: spaceId, ImageUrl: url }));
+    const imgs = imageUrls
+      .filter(url => url !== '')
+      .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
 
-    yield put(
-      apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body: { Images: imgs } }),
-    );
-    const { error, meta } = yield take(apiActions.apiResponse);
-    if (error) {
-      yield put(spaceActions.createFailedSpace(meta));
-      return;
+    if (imgs.length > 0) {
+      yield put(
+        apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body: { Images: imgs } }),
+      );
+      const { error, meta } = yield take(apiActions.apiResponse);
+      if (error) {
+        yield put(spaceActions.createFailedSpace(meta));
+        return;
+      }
     }
   }
+
   yield put(spaceActions.createSuccessSpace(payload));
   store.dispatch(push(Path.createSpaceCompletion()));
 }
@@ -225,7 +242,13 @@ function* updateSpace({ payload: { spaceId, body } }) {
   if (body.images && body.images.length > 0) {
     const imageUrls = yield Promise.all(
       body.images.filter(image => !image.ID).map(async image => {
-        if (image.ImageUrl) return image.ImageUrl;
+        if (image.ImageUrl) {
+          if (image.ImageUrl.includes('data:image/png;base64,')) {
+            return '';
+          } else {
+            return image.ImageUrl;
+          }
+        }
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);
         const ext = await new Promise(resolve => {
@@ -254,8 +277,19 @@ function* updateSpace({ payload: { spaceId, body } }) {
   store.dispatch(push(Path.editSpaceCompletion(spaceId)));
 }
 
+function* deleteSpace({ payload: { space } }) {
+  const user = yield select(state => state.auth.user);
+  if (space.UserID !== user.ID) {
+    store.dispatch(push(Path.error(400)));
+  }
+  yield put(apiActions.apiDeleteRequest({ path: apiEndpoint.spaces(space.ID) }));
+  yield take(apiActions.apiResponse);
+  window.location.reload();
+}
+
 export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
   takeEvery(UPDATE_SPACE, updateSpace),
+  takeEvery(DELETE_SPACE, deleteSpace),
 ];

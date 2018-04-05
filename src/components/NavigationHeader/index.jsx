@@ -125,7 +125,7 @@ const SearchFiled = styled.input`
       width: ${props => (props.isMobile ? '70%' : '300px')};
     }
   }
-
+  display: none;
   outline: none;
   height: 32px;
   margin-top: 14px;
@@ -133,6 +133,7 @@ const SearchFiled = styled.input`
   border: none;
   border-bottom: 1px solid ${Colors.borderGray};
   ${props => props.show && `
+    display: inherit;
     animation show 0.5s ease 0s;
     animation-fill-mode: forwards;
     width: 300px;

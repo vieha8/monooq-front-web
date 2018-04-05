@@ -21,12 +21,12 @@ export default history => {
   const sagaMiddleware = createSagaMiddleware();
   const middleware = [routerMiddleware(history), sagaMiddleware];
 
+  let composeEnhancers = compose;
+
   if (process.env.NODE_ENV !== 'production') {
     middleware.push(logger);
+    composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   }
-
-  // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-  const composeEnhancers = compose;
 
   store = createStore(
     combineReducers({

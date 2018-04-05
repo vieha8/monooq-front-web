@@ -35,27 +35,26 @@ export const mapStateToProps = state => {
 };
 
 export const init = props => {
-  if (props.space && (props.space.space || {}).ID && props.match.params.space_id) {
-    const spaceId = parseInt(props.match.params.space_id, 10);
-    props.dispatch(
+  const { space, match, dispatch } = props;
+
+  if (match.params.space_id) {
+    const spaceId = parseInt(match.params.space_id, 10);
+    dispatch(
       uiActions.setUiState({
         spaceId,
         isEdit: true,
       }),
     );
-    props.dispatch(spaceActions.fetchSpace({ spaceId, isSelfOnly: true }));
+    if (space && !(space.space || {}).ID) {
+      dispatch(spaceActions.fetchSpace({ spaceId, isSelfOnly: true }));
+    }
   }
 
-  props.dispatch(
+  dispatch(
     uiActions.setUiState({
       buttonDisabled: true,
     }),
   );
 
-  FormValidator.initialize(
-    'space',
-    props.dispatch,
-    uiActions.setUiState,
-    errorActions.setErrorState,
-  );
+  FormValidator.initialize('space', dispatch, uiActions.setUiState, errorActions.setErrorState);
 };

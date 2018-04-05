@@ -27,6 +27,7 @@ class ProfileContainer extends Component {
   onClickSave = () => {
     const { dispatch, user, ui } = this.props;
     dispatch(userActions.updateUser({ userId: user.ID, body: ui.editProfile }));
+    window.scrollTo(0, 0);
   };
 
   handleChangeEmail = (value) => {
@@ -97,7 +98,7 @@ class ProfileContainer extends Component {
     );
   }
 
-  renderEditProfileCompoleted = () => {
+  renderEditProfileCompleted = () => {
     const { user } = this.props;
     return (
       <Page title="プロフィールの更新が完了しました">
@@ -139,7 +140,7 @@ class ProfileContainer extends Component {
 
     return (
       updateSuccess
-        ? this.renderEditProfileCompoleted()
+        ? this.renderEditProfileCompleted()
         : this.renderEditProfile()
     );
   }

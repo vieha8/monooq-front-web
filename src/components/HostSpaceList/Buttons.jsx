@@ -25,5 +25,15 @@ export default props => (
         編集する
       </Button>
     </ButtonWrapper>
+    <ButtonWrapper>
+      <Button
+        tertiary
+        small
+        fontSize={FontSizes.xsmall}
+        onClick={props.onClickDelete}
+      >
+        削除する
+      </Button>
+    </ButtonWrapper>
   </Container>
 );

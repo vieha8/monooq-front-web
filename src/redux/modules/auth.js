@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import { apiEndpoint, apiActions } from './api';
 import { uiActions } from './ui';
 import { store } from '../store/configureStore';
+import { getApiRequest } from '../helpers/api';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -137,15 +138,16 @@ function* checkLoginFirebaseAuth() {
 
   if (user) {
     status.isLogin = true;
-    yield put(apiActions.apiGetRequest({ path: apiEndpoint.authFirebase(user.uid) }));
-    const { payload: res, error, meta } = yield take(apiActions.apiResponse);
-    if (error) {
-      yield put(authActions.checkLoginFailed(meta));
+
+    const { data, err } = yield call(getApiRequest, apiEndpoint.authFirebase(user.uid));
+    if (err) {
+      yield put(authActions.checkLoginFailed({ error: err }));
       yield put(authActions.logout());
       window.location.reload(true);
       return;
     }
-    status.user = res;
+    status.user = data;
+
     if (status.user.Profile === '') {
       yield put(uiActions.setUiState({ signUpStep: 4 }));
       store.dispatch(push('/signup'));
