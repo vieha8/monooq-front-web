@@ -5,6 +5,7 @@ import { storiesOf } from '@storybook/react';
 import StoryRouter from 'storybook-router';
 
 import Detail from './Detail';
+import Price from './Price';
 
 storiesOf('Organisms/Space', module)
   .addDecorator(StoryRouter())
@@ -50,6 +51,15 @@ storiesOf('Organisms/Space', module)
           imageUrl: 'http://placehold.jp/100x100.png',
           profile: 'はじめまして！モノオク太郎です！よろしくお願いします。',
         }}
+      />
+    </div>
+  ))
+  .add('Price', () => (
+    <div style={{ width: '300px' }}>
+      <Price
+        full="50,000"
+        half="50,000"
+        quarter="50,000"
       />
     </div>
   ));

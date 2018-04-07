@@ -4,6 +4,17 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 
+import Card from 'components/atomic/atoms/Card';
+import { H2 } from 'components/atomic/atoms/Headline';
+import Header from 'components/atomic/molecules/Space/Header';
+import Image from 'components/atomic/molecules/Space/Image';
+import Address from 'components/atomic/molecules/Space/Address';
+import Type from 'components/atomic/molecules/Space/Type';
+import AboutBaggage from 'components/atomic/molecules/Space/AboutBaggage';
+import Receive from 'components/atomic/molecules/Space/Receive';
+import Supplement from 'components/atomic/molecules/Space/Supplement';
+import HostInfo from 'components/atomic/molecules/Space/HostInfo';
+
 const Container = styled.div`
   padding: 0 ${Dimens.medium}px;
 `;
@@ -15,17 +26,6 @@ const SectionHeader = styled.div`
 const ImageWrapper = styled.div`
   margin: ${Dimens.medium3}px 0;
 `;
-
-import Card from 'components/atomic/atoms/Card';
-import { H2 } from 'components/atomic/atoms/Headline';
-import Header from 'components/atomic/molecules/Space/Header';
-import Image from 'components/atomic/molecules/Space/Image';
-import Address from 'components/atomic/molecules/Space/Address';
-import Type from 'components/atomic/molecules/Space/Type';
-import AboutBaggage from 'components/atomic/molecules/Space/AboutBaggage';
-import Receive from 'components/atomic/molecules/Space/Receive';
-import Supplement from 'components/atomic/molecules/Space/Supplement';
-import HostInfo from 'components/atomic/molecules/Space/HostInfo';
 
 type PropTypes = {
   pref: string,
