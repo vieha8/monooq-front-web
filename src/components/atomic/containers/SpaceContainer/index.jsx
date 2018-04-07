@@ -16,6 +16,7 @@ import Detail from 'components/atomic/organisms/Space/Detail';
 import Price from 'components/atomic/organisms/Space/Price';
 import SendMessage from 'components/atomic/organisms/Space/SendMessage';
 import Footer from 'components/atomic/molecules/Footer';
+import LoadingPage from 'components/atomic/organisms/LoadingPage';
 
 import connect from '../connect';
 
@@ -125,7 +126,7 @@ class SpaceContainer extends Component<PropTypes, State> {
 
     if (!space || !space.Images) {
       // TODO インジケーター
-      return null;
+      return <LoadingPage />;
     }
 
     const isSelfSpace = user.ID === (space.Host || {}).ID;
