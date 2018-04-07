@@ -2,14 +2,14 @@
 
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { Colors } from 'variables';
+import { Colors, FontSizes } from 'variables';
 
-export const Primary = styled.div`
+export const PrimaryButton = styled.div`
   width: 100%;
   max-width: 300px;
   padding: 17px 10px;
   text-align: center;
-  font-size: 16px;
+  font-size: ${FontSizes.medium}px;
   color: ${Colors.white};
   background: ${Colors.brandPrimary};
   border-radius: 6px;
@@ -18,6 +18,11 @@ export const Primary = styled.div`
   &:focus {
     background: ${Colors.brandSecondary};
   }
+
+  ${props => props.height && `
+    height: ${props.height}px;
+    padding: ${(props.height / 2) - (FontSizes.medium / 2)}px 10px;
+  `}
 
   ${props =>
     props.center &&
@@ -47,5 +52,5 @@ export const Primary = styled.div`
 `;
 
 export default (props: Object) => (
-  <Primary {...props} />
+  <PrimaryButton {...props} />
 );

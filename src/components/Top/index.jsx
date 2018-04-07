@@ -197,15 +197,20 @@ const UserReasonContainer = styled(StyledDefaultContainer)`
   `};
 `;
 
-const HostReasonContainer = styled(StyledDefaultContainer)`
+const HostReasonBackground = styled.div`
   background-image: url(${topImage2});
   background-repeat: no-repeat;
   background-position: left;
-  padding: 80px 10% 80px 600px;
-  background-size: 500px 947px;
-  box-sizing: border-box;
+  background-size: auto 100%;
   ${media.phone`
     background-image: none;
+  `};
+`;
+
+const HostReasonContainer = styled(StyledDefaultContainer)`
+  padding: 80px 10% 80px 600px;
+  box-sizing: border-box;
+  ${media.phone`
     padding: 40px 0;
   `};
 `;
@@ -583,29 +588,31 @@ export default props => (
       </ExplainContainerLeft>
     </UserReasonContainer>
     <ColoredContainerGray>
-      <HostReasonContainer>
-        <HilightCopy>余っているスペースはありませんか？</HilightCopy>
-        <DefaultTitle>モノオクでホストをする理由</DefaultTitle>
-        <ExplainContainerRight>
-          <ExplainSection
-            title="新しい副収入につなげる"
-            description="余っているスペースとスキマ時間で、新しいおこづかいが生まれます。"
-          />
-          <ExplainSection
-            title="余ったスペースが活用できる"
-            description="使っていないクローゼットや押入れ・空き部屋はありませんか？モノオクならどんな場所でも活用できます。"
-          />
-          <ExplainSection
-            title="かんたんに誰でもできる"
-            description="荷物を受け取ってスペースに置く、最後は持ち主まで返す。これだけで喜んでくれる人がいます。"
-          />
-          <ExplainSection
-            title="誰かの役にたつ"
-            description="引っ越しやリフォーム、片付けなど荷物を置ける場所を探すのは意外と大変なんです。困っている誰かの力になってくれませんか？"
-          />
-        </ExplainContainerRight>
-        <ToHostRegistButton onClick={props.onClickSignup}>ホスト登録はこちら</ToHostRegistButton>
-      </HostReasonContainer>
+      <HostReasonBackground>
+        <HostReasonContainer>
+          <HilightCopy>余っているスペースはありませんか？</HilightCopy>
+          <DefaultTitle>モノオクでホストをする理由</DefaultTitle>
+          <ExplainContainerRight>
+            <ExplainSection
+              title="新しい副収入につなげる"
+              description="余っているスペースとスキマ時間で、新しいおこづかいが生まれます。"
+            />
+            <ExplainSection
+              title="余ったスペースが活用できる"
+              description="使っていないクローゼットや押入れ・空き部屋はありませんか？モノオクならどんな場所でも活用できます。"
+            />
+            <ExplainSection
+              title="かんたんに誰でもできる"
+              description="荷物を受け取ってスペースに置く、最後は持ち主まで返す。これだけで喜んでくれる人がいます。"
+            />
+            <ExplainSection
+              title="誰かの役にたつ"
+              description="引っ越しやリフォーム、片付けなど荷物を置ける場所を探すのは意外と大変なんです。困っている誰かの力になってくれませんか？"
+            />
+          </ExplainContainerRight>
+          <ToHostRegistButton onClick={props.onClickSignup}>ホスト登録はこちら</ToHostRegistButton>
+        </HostReasonContainer>
+      </HostReasonBackground>
     </ColoredContainerGray>
     <ForSafeContainer>
       <HilightCopy>みんなでもっと便利に物置きシェアができる世の中へ。</HilightCopy>
@@ -625,7 +632,7 @@ export default props => (
             </PickGoDescription>
           </PickGoSection>
           <SubCatchPhraseWide>
-            Pickgoを使えば、引っ越しが5000円から。モノオクから簡単に配送依頼ができます。
+            Pickgoを使えば、引っ越しが 5,000円 から。
           </SubCatchPhraseWide>
           <LinkToPickGo component={Link} href={'http://pickgo.town/'}>
             Pickgoのサイトを見る

@@ -4,18 +4,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { H1 } from 'components/atomic/atoms/Headline';
 import InlineText from 'components/atomic/atoms/InlineText';
-import { Height as HeaderHeight } from 'components/atomic/organisms/Header';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-
-const Page = styled.div`
-  width: 100%;
-  max-width: 1024px;
-  margin: 0 auto;
-  ${media.tablet`
-    padding: ${HeaderHeight}px 20px 40px;
-  `}
-`;
+import Page from '../Page';
 
 const H1Container = styled.div`
   margin: ${Dimens.medium3}px 0;
