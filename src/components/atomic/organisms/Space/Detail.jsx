@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 
 import Card from 'components/atomic/atoms/Card';
 import { H2 } from 'components/atomic/atoms/Headline';
@@ -17,6 +18,9 @@ import HostInfo from 'components/atomic/molecules/Space/HostInfo';
 
 const Container = styled.div`
   padding: 0 ${Dimens.medium}px;
+  ${media.phone`
+    padding: 0;
+  `}
 `;
 
 const SectionHeader = styled.div`
@@ -39,6 +43,7 @@ type PropTypes = {
   description: string,
   address: string,
   type: string,
+  furniture: boolean,
   aboutBaggage: string,
   delivery: boolean,
   meeting: boolean,
@@ -82,6 +87,7 @@ export default (props: PropTypes) => (
       </SectionHeader>
       <div>
         <AboutBaggage
+          furniture={props.furniture}
           content={props.aboutBaggage}
         />
         <Receive

@@ -8,6 +8,7 @@ import SendMessage from 'components/atomic/molecules/Space/SendMessage';
 type PropTypes = {
   onClick: Function,
   loading: boolean,
+  disabled: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -15,6 +16,7 @@ export default (props: PropTypes) => (
     <SendMessage
       onClick={props.onClick}
       loading={props.loading}
+      disabled={props.disabled}
     />
   </Card>
 );

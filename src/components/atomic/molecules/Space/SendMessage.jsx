@@ -14,6 +14,7 @@ const Caption = styled.div`
 type PropTypes = {
   onClick: Function,
   loading: boolean,
+  disabled: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -22,6 +23,7 @@ export default (props: PropTypes) => (
       center
       primary
       height={40}
+      disabled={props.disabled}
       loading={props.loading}
       onClick={props.onClick}
     >

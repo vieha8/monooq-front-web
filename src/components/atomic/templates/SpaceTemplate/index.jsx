@@ -70,24 +70,26 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Page>
+  <div>
     {props.header}
     <Map>{props.map}</Map>
-    <Container>
-      <ClearfixContainer>
-        <DetailContainer>
-          {props.detail}
-        </DetailContainer>
-        <PriceContainer>
-          {props.price}
-          <MarginTop>
-            {props.message}
-          </MarginTop>
-        </PriceContainer>
-      </ClearfixContainer>
-    </Container>
+    <Page fillPhone>
+      <Container>
+        <ClearfixContainer>
+          <DetailContainer>
+            {props.detail}
+          </DetailContainer>
+          <PriceContainer>
+            {props.price}
+            <MarginTop>
+              {props.message}
+            </MarginTop>
+          </PriceContainer>
+        </ClearfixContainer>
+      </Container>
+    </Page>
     <Footer>
       {props.footer}
     </Footer>
-  </Page>
+  </div>
 );

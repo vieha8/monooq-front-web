@@ -101,7 +101,7 @@ storiesOf('Molecules/Space', module)
   ))
   .add('AboutBaggage', () => (
     <div>
-      <AboutBaggage content="東京都杉並区高円寺" />
+      <AboutBaggage furniture content="東京都杉並区高円寺" />
     </div>
   ))
   .add('Receive', () => (
