@@ -14,6 +14,7 @@ import Supplement from './Supplement';
 import HostInfo from './HostInfo';
 import PriceHead from './PriceHead';
 import Price from './Price';
+import SendMessage from './SendMessage';
 
 storiesOf('Molecules/Space', module)
   .addDecorator(StoryRouter())
@@ -103,5 +104,16 @@ storiesOf('Molecules/Space', module)
       <Price full price="¥40,000" />
       <Price half price="¥20,000" />
       <Price quarter price="¥10,000" />
+    </div>
+  ))
+  .add('SendMessage', () => (
+    <div>
+      <SendMessage
+        onClick={() => console.log('onClick')}
+      />
+      <SendMessage
+        loading
+        onClick={() => console.log('onClick')}
+      />
     </div>
   ));

@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { Colors } from 'variables';
-import { Primary } from './Primary';
+import { PrimaryButton } from './Primary';
 
-const Facebook = Primary.extend`
+const Facebook = PrimaryButton.extend`
   background: ${Colors.facebook};
   color: ${Colors.white};
 

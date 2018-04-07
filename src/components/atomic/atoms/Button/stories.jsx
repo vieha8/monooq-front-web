@@ -29,4 +29,13 @@ storiesOf('Atoms/Buttons/Button', module)
       <Button facebook>Facebook</Button>
       <Button facebook disabled>Facebook</Button>
     </Fragment>
+  ))
+  .add('Custom Height', () => (
+    <Fragment>
+      <Button height={20}>Height 20</Button>
+      <br />
+      <Button height={40}>Height 40</Button>
+      <br />
+      <Button height={60}>Height 60</Button>
+    </Fragment>
   ));

@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { Colors } from 'variables';
-import { Primary } from './Primary';
+import { PrimaryButton } from './Primary';
 
-const Tertiary = Primary.extend`
+const Tertiary = PrimaryButton.extend`
   background: ${Colors.darkGray2};
   border: 1px solid ${Colors.white};
   color: ${Colors.white};
