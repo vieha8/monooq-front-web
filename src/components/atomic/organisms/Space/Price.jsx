@@ -13,7 +13,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Card>
+  <Card block>
     <PriceHead />
     {props.full && (
       <Price

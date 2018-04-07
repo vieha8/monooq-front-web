@@ -52,7 +52,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Card>
+  <Card block>
     <Container>
       <Header
         pref={props.pref}
