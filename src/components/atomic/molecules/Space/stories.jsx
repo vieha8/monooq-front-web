@@ -7,6 +7,7 @@ import StoryRouter from 'storybook-router';
 import Header from './Header';
 import Attribute from './Attribute';
 import Address from './Address';
+import Image from './Image';
 import Type from './Type';
 import AboutBaggage from './AboutBaggage';
 import Receive from './Receive';
@@ -62,6 +63,35 @@ storiesOf('Molecules/Space', module)
   .add('Address', () => (
     <div>
       <Address content="東京都杉並区高円寺" />
+    </div>
+  ))
+  .add('Image', () => (
+    <div>
+      <Image
+        images={[
+          {
+            original: 'http://placehold.jp/200x100.png',
+            thumbnail: 'http://placehold.jp/200x100.png',
+          },
+          {
+            original: 'http://placehold.jp/200x100.png',
+            thumbnail: 'http://placehold.jp/200x100.png',
+          },
+          {
+            original: 'http://placehold.jp/200x100.png',
+            thumbnail: 'http://placehold.jp/200x100.png',
+          },
+          {
+            original: 'http://placehold.jp/200x100.png',
+            thumbnail: 'http://placehold.jp/200x100.png',
+          },
+          {
+            original: 'http://placehold.jp/200x100.png',
+            thumbnail: 'http://placehold.jp/200x100.png',
+          },
+        ]}
+        description="これは説明です"
+      />
     </div>
   ))
   .add('Type', () => (

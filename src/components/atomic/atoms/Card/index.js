@@ -1,6 +1,7 @@
 // @flow
 
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import { Colors } from 'variables';
 
 const Card = styled.div`
@@ -32,6 +33,14 @@ const Card = styled.div`
       props.customStyle &&
       `
     ${props.customStyle}
+  `};
+
+  ${media.phone`
+    ${props =>
+      props.customStylePhone &&
+      `
+      ${props.customStylePhone}
+    `}
   `};
 `;
 
