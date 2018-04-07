@@ -37,9 +37,9 @@ const RightContent = styled.div`
 type PropTypes = {
   header: React.Element<*>,
   headline: string,
-  leftContent: React.Element <*>,
-  rightContent: React.Element <*>,
-  footer: React.Element <*>,
+  leftContent: React.Element<*>,
+  rightContent: React.Element<*>,
+  footer: React.Element<*>,
 }
 
 export default (props: PropTypes) => (
