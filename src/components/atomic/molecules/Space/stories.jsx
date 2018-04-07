@@ -12,6 +12,8 @@ import AboutBaggage from './AboutBaggage';
 import Receive from './Receive';
 import Supplement from './Supplement';
 import HostInfo from './HostInfo';
+import PriceHead from './PriceHead';
+import Price from './Price';
 
 storiesOf('Molecules/Space', module)
   .addDecorator(StoryRouter())
@@ -89,5 +91,17 @@ storiesOf('Molecules/Space', module)
         profile="よろしくお願いします！"
         imageUrl="http://placehold.jp/500x500.png"
       />
+    </div>
+  ))
+  .add('PriceHead', () => (
+    <div>
+      <PriceHead />
+    </div>
+  ))
+  .add('Price', () => (
+    <div>
+      <Price full price="¥40,000" />
+      <Price half price="¥20,000" />
+      <Price quarter price="¥10,000" />
     </div>
   ));
