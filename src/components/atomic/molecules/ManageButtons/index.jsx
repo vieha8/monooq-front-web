@@ -7,7 +7,7 @@ import { PrimaryButton } from 'components/atomic/atoms/Button/Primary';
 import { Colors } from 'variables';
 
 const Container = styled.div`
-  width: 147px;
+  width: 120px;
 `;
 
 const Wrapper = styled.div`
