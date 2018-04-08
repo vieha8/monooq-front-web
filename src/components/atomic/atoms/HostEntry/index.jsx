@@ -12,6 +12,9 @@ const Container = styled.div`
   color: ${Colors.white};
   background: ${Colors.brandPrimary};
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const Label1 = styled.div`
