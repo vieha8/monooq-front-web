@@ -8,7 +8,7 @@ type PropTypes = {
     original: string,
     thumbnail: string,
   }>,
-}
+};
 
 export default (props: PropTypes) => (
   <ImageGallery

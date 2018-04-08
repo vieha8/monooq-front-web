@@ -19,17 +19,19 @@ type PropTypes = {
 class ServiceMenuContainer extends Component<PropTypes> {
   logout: Function;
   logout = () => {
-    document && document.body && (
-      document.body.style.overflowY = 'auto'
-    );
+    if (document && document.body) {
+      document.body.style.overflowY = 'auto';
+    }
 
     const { dispatch } = this.props;
-    dispatch(uiActions.setUiState({
-      showMenu: false,
-    }));
+    dispatch(
+      uiActions.setUiState({
+        showMenu: false,
+      }),
+    );
     dispatch(authActions.logout());
     window.location.href = Path.top();
-  }
+  };
 
   render() {
     const { user } = this.props;
@@ -45,7 +47,12 @@ class ServiceMenuContainer extends Component<PropTypes> {
         becomeHost={{ href: Path.createSpaceInfo() }}
         editProfile={{ href: Path.editProfile(user.ID) }}
         inquiry={{ href: Path.inquiry(user.ID) }}
-        logout={{ onClick: (e) => { e.preventDefault(); this.logout(); } }}
+        logout={{
+          onClick: e => {
+            e.preventDefault();
+            this.logout();
+          },
+        }}
         hasSpace
       />
     );

@@ -70,7 +70,7 @@ type PropTypes = {
   furniture?: boolean,
   prices: Array<number>,
   onClick: Function,
-}
+};
 
 export default (props: PropTypes) => (
   <Container>
@@ -83,9 +83,7 @@ export default (props: PropTypes) => (
         <ContentText>{props.content ? props.content : '-'}</ContentText>
         <HomeApplianceText>{props.furniture ? '家具・家電OK' : '-'}</HomeApplianceText>
         <PriceLabel>料金目安（30日間）</PriceLabel>
-        <PriceText>
-          {props.prices.join(' / ')} 円
-        </PriceText>
+        <PriceText>{props.prices.join(' / ')} 円</PriceText>
       </ContentWrapper>
     </Card>
   </Container>

@@ -50,7 +50,8 @@
     "storybook": "export NODE_PATH=src && start-storybook -p 9009 -s public",
     "build-storybook": "export NODE_PATH=src && build-storybook -s public",
     "lint": "eslint src",
-    "flow": "flow"
+    "flow": "flow",
+    "precommit": "pretty-quick --staged"
   },
   "babel": {
     "presets": ["env", "react"]
@@ -58,17 +59,22 @@
   "devDependencies": {
     "@storybook/addon-viewport": "^3.3.14",
     "babel-eslint": "^8.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "eslint": "^3.9.1",
     "eslint-config-airbnb": "13.0.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-flowtype": "^2.44.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.6.1",
     "flow-bin": "^0.67.1",
     "flow-typed": "^2.3.0",
     "husky": "^0.14.3",
     "lint-staged": "^6.1.0",
+    "prettier": "1.11.1",
+    "pretty-quick": "^1.4.1",
     "storybook-router": "^0.3.3"
   }
 }

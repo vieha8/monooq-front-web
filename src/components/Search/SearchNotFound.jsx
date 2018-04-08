@@ -19,7 +19,7 @@ const ContentContainer = styled.div`
   ${media.tablet`
     width: 100%;
     padding: ${Dimens.medium3}px 20px;
-  `}
+  `};
 `;
 
 const Title = styled.h1`
@@ -53,26 +53,28 @@ type PropTypes = {
   onChangeLocation: Function,
   searchDisabled: boolean,
   onClickSearchButton: Function,
-}
+  onKeyDownSearchField: Function,
+};
 
-
-function refSearchField(ref, props: PropTypes) {
+function refSearchField(ref, listener: Function) {
   if (ref) {
-    ref.addEventListener('keydown', props.onKeyDownSearchField);
+    ref.addEventListener('keydown', listener);
   }
 }
 
 export default (props: PropTypes) => (
   <PageContainer>
     <ContentContainer>
-      <Title>ごめんなさい！<br />入力したキーワードの検索結果はありませんでした。</Title>
+      <Title>
+        ごめんなさい！<br />入力したキーワードの検索結果はありませんでした。
+      </Title>
       <Group>
         <Text>住所や地名を入れて、もう1度検索してみてください。</Text>
         <SearchInput
           placeholder="近くのスペースを検索してみよう！　例）東京都港区"
           locationText={props.locationText}
           onChange={props.onChangeLocation}
-          onRef={ref => refSearchField(ref, props)}
+          onRef={ref => refSearchField(ref, props.onKeyDownSearchField)}
           searchDisabled={props.searchDisabled}
           borderColor={Colors.borderGray}
           onClickSearchButton={props.onClickSearchButton}
@@ -82,7 +84,9 @@ export default (props: PropTypes) => (
         <Text>それとも、あなたが余ったスペースの登録をしてみますか？</Text>
         <Text>モノオクは誰でもかんたんにホストになることができます。</Text>
       </Group>
-      <ToHostLink to={props.isLogin ? Path.createSpaceInfo() : Path.signup()}>ホストになる</ToHostLink>
+      <ToHostLink to={props.isLogin ? Path.createSpaceInfo() : Path.signup()}>
+        ホストになる
+      </ToHostLink>
     </ContentContainer>
   </PageContainer>
 );

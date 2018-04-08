@@ -37,7 +37,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
   }
 
   onClickEdit: Function;
-  onClickEdit = (space) => {
+  onClickEdit = space => {
     const { dispatch, history } = this.props;
     dispatch(spaceActions.setSpace({ space }));
     dispatch(uiActions.setUiState({ space: {} }));
@@ -45,7 +45,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
   };
 
   onClickRemove: Function;
-  onClickRemove = (space) => {
+  onClickRemove = space => {
     const { dispatch } = this.props;
     dispatch(spaceActions.deleteSpace({ space }));
   };
@@ -54,13 +54,13 @@ class SpaceManagementContainer extends Component<PropTypes> {
   hostEntry = () => {
     const { history } = this.props;
     history.push(Path.createSpaceInfo());
-  }
+  };
 
   showSpace: Function;
   showSpace = (id: number) => {
     const { history } = this.props;
     history.push(Path.space(id));
-  }
+  };
 
   render() {
     const { isLoading, spaces } = this.props;
