@@ -10,13 +10,16 @@ import Page from '../Page';
 
 const HeadlineContainer = styled.div`
   margin-top: 40px;
+  ${media.tablet`
+    margin-top: 20px;
+  `};
 `;
 
 const Caption = styled.div`
   margin: 0 0 40px;
   ${media.tablet`
-    margin: 0;
-  `}
+    margin-bottom: 20px;
+  `};
 `;
 
 const LeftContent = styled.div`
@@ -25,7 +28,7 @@ const LeftContent = styled.div`
   ${media.tablet`
     display: none;
     float: none;
-  `}
+  `};
 `;
 
 const RightContent = styled.div`
@@ -36,7 +39,7 @@ const RightContent = styled.div`
     float: none;
     margin-left: 0;
     width: 100%;
-  `}
+  `};
 `;
 
 type PropTypes = {
@@ -46,15 +49,19 @@ type PropTypes = {
   leftContent: React.Element<*>,
   rightContent: React.Element<*>,
   footer: React.Element<*>,
-}
+};
 
 export default (props: PropTypes) => (
   <div>
     {props.header}
     <Page>
-      <HeadlineContainer><H1>{props.headline}</H1></HeadlineContainer>
+      <HeadlineContainer>
+        <H1>{props.headline}</H1>
+      </HeadlineContainer>
       {props.caption && (
-        <Caption><InlineText.Base>{props.caption}</InlineText.Base></Caption>
+        <Caption>
+          <InlineText.Base>{props.caption}</InlineText.Base>
+        </Caption>
       )}
       <ClearfixContainer>
         <LeftContent>{props.leftContent}</LeftContent>
