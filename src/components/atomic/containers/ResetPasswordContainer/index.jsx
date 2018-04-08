@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import Path from 'config/path';
 
 import AccountTemplate from 'components/atomic/templates/AccountTemplate';
-import Header from 'components/atomic/organisms/Header';
+import Header from 'components/atomic/containers/Header';
 import ResetPassword from 'components/atomic/organisms/ResetPassword';
 
 import { authActions } from 'redux/modules/auth';
@@ -24,13 +24,13 @@ type PropTypes = {
   isLogin: boolean,
   isChecking: boolean,
   emailSended: boolean,
-}
+};
 
 type State = {
   email: string,
   hasChanged: boolean,
   errors: Array<string>,
-}
+};
 
 class ResetPasswordContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
@@ -64,16 +64,14 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
     dispatch(authActions.passwordReset({ email }));
   };
 
-  handleChangeEmail = (value) => {
+  handleChangeEmail = value => {
     this.setState({ email: value, hasChanged: true, errors: [] });
   };
 
   validate = () => {
     const { email } = this.state;
-    return (
-      email && email.match(Validate.Email)
-    );
-  }
+    return email && email.match(Validate.Email);
+  };
 
   render() {
     const { isLogin, isChecking, emailSended, resetError } = this.props;

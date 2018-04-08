@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import MenuPage from 'components/atomic/templates/MenuPageTemplate';
-import Header from 'containers/Header';
+import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/molecules/Footer';
 import HelpMenu from 'components/atomic/organisms/HelpMenu';
 import CommonHelp from 'components/atomic/molecules/Help/CommonHelp';
@@ -13,7 +13,7 @@ type PropTypes = {
   onClickHowToUser: Function,
   openHowToBeHost: boolean,
   onClickHowToBeHost: Function,
-}
+};
 
 export default (props: PropTypes) => {
   const { openHowToUser, openHowToBeHost } = props;
@@ -22,7 +22,7 @@ export default (props: PropTypes) => {
     <MenuPage
       header={<Header help />}
       headline="何かお困りですか？"
-      leftContent={(
+      leftContent={
         <HelpMenu
           howToUser={{ open: openHowToUser }}
           onClickHowToUser={props.onClickHowToUser}
@@ -35,8 +35,8 @@ export default (props: PropTypes) => {
           aboutHostTransaction={{ show: openHowToBeHost }}
           aboutSalesTransfer={{ show: openHowToBeHost }}
         />
-      )}
-      rightContent={(
+      }
+      rightContent={
         <Fragment>
           <CommonHelp
             headline="物置きスペースを利用したい方へ"
@@ -60,22 +60,18 @@ export default (props: PropTypes) => {
           />
           <CommonHelp
             headline="登録・ログインについて"
-            buttons={[
-              { title: '一覧を見る', href: Path.helpSignin() },
-            ]}
+            buttons={[{ title: '一覧を見る', href: Path.helpSignin() }]}
             helpTitle="パスワードを忘れてしまいました。"
             helpLink={`${Path.helpSignin()}#common3`}
           />
           <CommonHelp
             headline="その他"
-            buttons={[
-              { title: '一覧を見る', href: Path.helpOther() },
-            ]}
+            buttons={[{ title: '一覧を見る', href: Path.helpOther() }]}
             helpTitle="レビューはどこから投稿するのですか？"
             helpLink={`${Path.helpOther()}#common4`}
           />
         </Fragment>
-      )}
+      }
       footer={<Footer />}
     />
   );

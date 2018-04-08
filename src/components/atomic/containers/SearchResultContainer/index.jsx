@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import Path from 'config/path';
 
 import SearchResultTemplate from 'components/atomic/templates/SearchResult';
-import Header from 'components/atomic/organisms/Header';
+import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/molecules/Footer';
 import SearchResult from 'components/atomic/organisms/SearchResult';
 import SearchNotFound from 'components/atomic/organisms/SearchNotFound';
@@ -35,13 +35,13 @@ type PropTypes = {
     PriceFull: number,
     PriceHalf: number,
     PriceQuarter: number,
-  }>
-}
+  }>,
+};
 
 type State = {
   location: string,
   search: string,
-}
+};
 
 class SearchResultContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
@@ -62,7 +62,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
   onClickSpace = (space: { ID: number }) => {
     const { history } = this.props;
     history.push(Path.space(space.ID));
-  }
+  };
 
   research: Function;
   research = () => {
@@ -70,14 +70,14 @@ class SearchResultContainer extends Component<PropTypes, State> {
     if (window && window.location) {
       window.location.href = `${Path.search()}?location=${search}`;
     }
-  }
+  };
 
   onKeyDownSearchField: Function;
-  onKeyDownSearchField = (e) => {
+  onKeyDownSearchField = e => {
     if (e && e.keyCode === 13 && e.target.value) {
       this.research();
     }
-  }
+  };
 
   renderNotFound = () => {
     const { search } = this.state;
@@ -85,14 +85,14 @@ class SearchResultContainer extends Component<PropTypes, State> {
     return (
       <SearchNotFound
         locationText={search}
-        onChangeLocation={(value) => {
+        onChangeLocation={value => {
           this.setState({ search: value });
         }}
         onClickSearchButton={this.research}
         onKeyDownSearchField={this.onKeyDownSearchField}
       />
     );
-  }
+  };
 
   render() {
     const { spaces, isSearching } = this.props;

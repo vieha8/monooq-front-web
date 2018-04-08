@@ -2,7 +2,7 @@
 
 import React from 'react';
 import MenuPage from 'components/atomic/templates/MenuPageTemplate';
-import Header from 'containers/Header';
+import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/molecules/Footer';
 import HelpMenu from 'components/atomic/organisms/HelpMenu';
 import AboutService from 'components/atomic/organisms/HelpContent/AboutService';
@@ -23,7 +23,7 @@ type PropTypes = {
   openFlagList: Array<boolean>,
   onClickBack: Function,
   content: string,
-}
+};
 
 function getContent(props: PropTypes) {
   const Contents = {
@@ -54,7 +54,7 @@ export default (props: PropTypes) => {
     <MenuPage
       header={<Header help />}
       headline="物置きスペースを利用したい方へ"
-      leftContent={(
+      leftContent={
         <HelpMenu
           howToUser={{ open: openHowToUser }}
           onClickHowToUser={props.onClickHowToUser}
@@ -67,7 +67,7 @@ export default (props: PropTypes) => {
           aboutHostTransaction={{ show: openHowToBeHost }}
           aboutSalesTransfer={{ show: openHowToBeHost }}
         />
-      )}
+      }
       rightContent={getContent(props)}
       footer={<Footer />}
     />

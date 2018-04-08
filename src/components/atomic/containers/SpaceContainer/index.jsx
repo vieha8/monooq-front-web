@@ -10,7 +10,7 @@ import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
 
 import SpaceTemplate from 'components/atomic/templates/SpaceTemplate';
-import Header from 'components/atomic/organisms/Header';
+import Header from 'components/atomic/containers/Header';
 import SpaceMap from 'components/atomic/atoms/SpaceMap';
 import Detail from 'components/atomic/organisms/Space/Detail';
 import Price from 'components/atomic/organisms/Space/Price';
@@ -36,20 +36,13 @@ type PropTypes = {
     ID: number,
   },
   space: SpaceType,
-}
+};
 
 type State = {
   isLoading: boolean,
 };
 
-const SPACE_TYPES = [
-  '',
-  'クローゼット',
-  '押入れ',
-  '部屋',
-  '屋外倉庫',
-  'その他',
-];
+const SPACE_TYPES = ['', 'クローゼット', '押入れ', '部屋', '屋外倉庫', 'その他'];
 
 class SpaceContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
@@ -86,7 +79,8 @@ class SpaceContainer extends Component<PropTypes, State> {
             user.FirebaseUid,
             spaceUserId,
             space.Host.FirebaseUid,
-            spaceId);
+            spaceId,
+          );
         }
         history.push(Path.message(roomId));
       } finally {
@@ -94,7 +88,7 @@ class SpaceContainer extends Component<PropTypes, State> {
         this.setState({ isLoading: false });
       }
     }
-  }
+  };
 
   render() {
     const { user, space } = this.props;
@@ -109,12 +103,7 @@ class SpaceContainer extends Component<PropTypes, State> {
     return (
       <SpaceTemplate
         header={<Header />}
-        map={
-          <SpaceMap
-            lat={(space.location || {}).lat}
-            lng={(space.location || {}).lng}
-          />
-        }
+        map={<SpaceMap lat={(space.location || {}).lat} lng={(space.location || {}).lng} />}
         detail={
           <Detail
             pref={space.AddressPref}
@@ -162,10 +151,10 @@ class SpaceContainer extends Component<PropTypes, State> {
 }
 
 function mapStateToProps(state) {
-  return ({
+  return {
     user: state.auth.user,
     space: state.space.space,
-  });
+  };
 }
 
 export default connect(SpaceContainer, mapStateToProps);

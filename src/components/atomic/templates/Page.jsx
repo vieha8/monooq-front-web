@@ -12,11 +12,13 @@ const Page = styled.div`
   ${media.phone`
     padding: ${HeaderHeight}px 20px 40px;
 
-    ${props => props.fillPhone && `
-      padding-left: 0;
-      padding-right: 0;
-    `}
-  `}
+    ${props =>
+      props.fillPhone &&
+      `
+        padding-left: 0;
+        padding-right: 0;
+      `}
+  `};
 `;
 
 export default Page;

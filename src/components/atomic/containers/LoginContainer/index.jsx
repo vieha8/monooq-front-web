@@ -8,7 +8,7 @@ import { uiActions } from 'redux/modules/ui';
 
 import AccountTemplate from 'components/atomic/templates/AccountTemplate';
 import Login from 'components/atomic/organisms/Login';
-import Header from 'components/atomic/organisms/Header';
+import Header from 'components/atomic/containers/Header';
 
 import Path from 'config/path';
 
@@ -22,13 +22,13 @@ type PropTypes = {
   ui: {
     redirectPath?: string,
   },
-}
+};
 
 type State = {
   email: string,
   password: string,
   hasChanged: boolean,
-}
+};
 
 class LoginContainer extends Component {
   constructor(props: PropTypes) {
@@ -49,29 +49,24 @@ class LoginContainer extends Component {
     const { email, password } = this.state;
     this.setState({ hasChanged: false });
     dispatch(authActions.loginEmail({ email, password }));
-  }
+  };
 
   loginFacebook = () => {
     const { dispatch } = this.props;
     dispatch(authActions.loginFacebook());
-  }
+  };
 
   handleChangeForm = (name: string, value: any) => {
     const state = this.state;
     state[name] = value;
     state.hasChanged = true;
     this.setState(state);
-  }
+  };
 
   validate = () => {
     const { email, password } = this.state;
-    return (
-      email
-      && email.length > 0
-      && password
-      && password.length > 0
-    );
-  }
+    return email && email.length > 0 && password && password.length > 0;
+  };
 
   render() {
     const { dispatch, ui, isLogin, isChecking, loginFailed } = this.props;
