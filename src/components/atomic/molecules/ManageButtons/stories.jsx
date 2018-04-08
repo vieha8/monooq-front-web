@@ -12,6 +12,7 @@ storiesOf('Molecules/ManageButtons', module)
         onClickEdit={() => console.log('onClickEdit')}
         onClickPublic={() => console.log('onClickPublic')}
         onClickPrivate={() => console.log('onClickPrivate')}
+        public
       />
     </div>
   ))
@@ -22,6 +23,16 @@ storiesOf('Molecules/ManageButtons', module)
         onClickPublic={() => console.log('onClickPublic')}
         onClickPrivate={() => console.log('onClickPrivate')}
         private
+      />
+    </div>
+  ))
+  .add('Removable', () => (
+    <div>
+      <ManageButtons
+        onClickEdit={() => console.log('onClickEdit')}
+        onClickPublic={() => console.log('onClickPublic')}
+        onClickPrivate={() => console.log('onClickPrivate')}
+        removable
       />
     </div>
   ));

@@ -45,6 +45,10 @@ const Small = Base.extend`
   font-size: 12px;
 `;
 
+const Tiny = Base.extend`
+  font-size: 11px;
+`;
+
 const Emphasis = Base.extend`
   font-size: 11px;
   color: ${Colors.darkGray2};
@@ -57,5 +61,6 @@ export default {
   Del,
   Ins,
   Small,
+  Tiny,
   Emphasis,
 };

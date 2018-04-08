@@ -31,8 +31,12 @@ const PrivateButton = PrimaryButton.extend`
 type PropTypes = {
   onClickEdit: Function,
   onClickPublic: Function,
-  onClickPrivate: Function,
-  private: boolean,
+  onClickPrivate?: Function,
+  onClickPublic?: Function,
+  onClickRemove?: Function,
+  private?: boolean,
+  public?: boolean,
+  removable?: boolean,
 }
 
 export default (props: PropTypes) => (
@@ -47,7 +51,7 @@ export default (props: PropTypes) => (
       </Button>
     </Wrapper>
     <Wrapper>
-      {props.private ? (
+      {props.private && (
         <Button
           secondary
           small
@@ -55,12 +59,21 @@ export default (props: PropTypes) => (
         >
           この場所を公開する
         </Button>
-      ) : (
+      )}
+      {props.public && (
         <PrivateButton
           small
           onClick={props.onClickPrivate}
         >
           非公開にする
+        </PrivateButton>
+      )}
+      {props.removable && (
+        <PrivateButton
+          small
+          onClick={props.onClickRemove}
+        >
+          削除する
         </PrivateButton>
       )}
     </Wrapper>

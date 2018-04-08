@@ -2,45 +2,59 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Colors } from 'variables';
+import { Colors, Dimens } from 'variables';
 import Card from 'components/atomic/atoms/Card';
 import InlineText from 'components/atomic/atoms/InlineText';
 import HeroImage from 'components/atomic/atoms/HeroImage';
 
+const Container = styled.div`
+  width: 142px;
+`;
+
 const ImageWrapper = styled.div`
-  height: 147px;
+  height: 90px;
 `;
 
 const ContentWrapper = styled.div`
-  padding: 20px;
+  padding: ${Dimens.small}px ${Dimens.medium}px;
 `;
 
-const AddressText = InlineText.Small.extend`
+const AddressText = InlineText.Tiny.extend`
   display: block;
   color: ${Colors.brandPrimary};
 `;
 
-const ContentText = InlineText.Small.extend`
+const ContentText = InlineText.Tiny.extend`
   display: block;
-  margin-top: 8px;
-  max-height: ${1.6 * 2}em;
+  max-height: 1.5em;
   overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
-const HomeApplianceText = InlineText.Small.extend`
+const HomeApplianceText = InlineText.Tiny.extend`
   display: block;
   font-weight: bold;
-  margin-top: 8px;
 `;
 
-const PriceLabel = InlineText.Small.extend`
+const PriceLabel = InlineText.Tiny.extend`
   display: block;
-  margin-top: 16px;
 `;
 
-const PriceText = InlineText.Small.extend`
+const PriceText = InlineText.Tiny.extend`
   display: block;
-  margin-top: 8px;
+  max-height: 1.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const CardShadowStyle = `
+  box-shadow: none;
+  transition: 0.3s;
+  &:hover {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    transition: 0.3s; 
+  }
+  width: 100%;
 `;
 
 type PropTypes = {
@@ -50,24 +64,29 @@ type PropTypes = {
   },
   address: string,
   content: string,
-  homeAppliances?: boolean,
+  furniture?: boolean,
   prices: Array<number>,
   onClick: Function,
 }
 
 export default (props: PropTypes) => (
-  <Card noPadding pointer onClick={props.onClick}>
-    <ImageWrapper>
-      <HeroImage height="147px" medium {...props.image} />
-    </ImageWrapper>
-    <ContentWrapper>
-      <AddressText>{props.address}</AddressText>
-      <ContentText>{props.content}</ContentText>
-      {props.homeAppliances && <HomeApplianceText>家具・家電OK</HomeApplianceText>}
-      <PriceLabel>料金目安（30日間）</PriceLabel>
-      <PriceText>
-        {props.prices.join('／')}円
-      </PriceText>
-    </ContentWrapper>
-  </Card>
+  <Container>
+    <Card noPadding pointer onClick={props.onClick} customStyle={CardShadowStyle}>
+      <ImageWrapper>
+        <HeroImage height="90" medium {...props.image} />
+      </ImageWrapper>
+      <ContentWrapper>
+        <AddressText>{props.address}</AddressText>
+        <ContentText>{props.content}</ContentText>
+        {props.furniture
+          ? <HomeApplianceText>家具・家電OK</HomeApplianceText>
+          : <HomeApplianceText>&nbsp;</HomeApplianceText>
+        }
+        <PriceLabel>料金目安（30日間）</PriceLabel>
+        <PriceText>
+          {props.prices.join(' / ')}円
+        </PriceText>
+      </ContentWrapper>
+    </Card>
+  </Container>
 );
