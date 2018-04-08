@@ -56,43 +56,63 @@ const CaptionText = styled.div`
   line-height: 1.5;
 `;
 
-const registeredForm = props => (
-  <Container>
-    <Title>プロフィールの登録が完了しました！</Title>
-    <Content>
-      <ImageWrapper>
-        <Image src={props.user.ImageUrl} width="300" />
-      </ImageWrapper>
-      <WelcomeText>モノオクへようこそ！</WelcomeText>
-      <WelcomeText>{props.user.Name}さん</WelcomeText>
-      <ButtonWrapper>
-        <CaptionText>荷物を預ける場所をお探しですか？</CaptionText>
-        <Button
-          bgColor={Colors.brandPrimary}
-          fluid
-          onClick={props.onClickGuest}
-        >
-          スペースを探す
-        </Button>
-      </ButtonWrapper>
-      <ButtonWrapper>
-        <CaptionText>誰かのお役に立てるスペースを掲載しますか？</CaptionText>
-        <Button
-          bgColor={Colors.white}
-          fontColor={Colors.brandPrimary}
-          borderColor={Colors.brandPrimary}
-          fluid
-          onClick={props.onClickHost}
-        >
-          ホストになる
-        </Button>
-      </ButtonWrapper>
-    </Content>
-  </Container>
-);
+
+class RegisteredForm extends React.Component {
+  componentDidMount() {
+    const script = document.createElement('script');
+
+    script.innerHTML = `var __atw = __atw || [];
+    __atw.push({ "merchant" : "monooq", "param" : {
+        "result_id" : "100",
+        "verify" : "user_register_${this.props.user.ID}",
+    }});
+(function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
+a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
+
+    document.body.appendChild(script);
+  }
+
+  render() {
+    const props = this.props;
+    return (
+      <Container>
+        <Title>プロフィールの登録が完了しました！</Title>
+        <Content>
+          <ImageWrapper>
+            <Image src={props.user.ImageUrl} width="300" />
+          </ImageWrapper>
+          <WelcomeText>モノオクへようこそ！</WelcomeText>
+          <WelcomeText>{props.user.Name}さん</WelcomeText>
+          <ButtonWrapper>
+            <CaptionText>荷物を預ける場所をお探しですか？</CaptionText>
+            <Button
+              bgColor={Colors.brandPrimary}
+              fluid
+              onClick={props.onClickGuest}
+            >
+              スペースを探す
+            </Button>
+          </ButtonWrapper>
+          <ButtonWrapper>
+            <CaptionText>誰かのお役に立てるスペースを掲載しますか？</CaptionText>
+            <Button
+              bgColor={Colors.white}
+              fontColor={Colors.brandPrimary}
+              borderColor={Colors.brandPrimary}
+              fluid
+              onClick={props.onClickHost}
+            >
+              ホストになる
+            </Button>
+          </ButtonWrapper>
+        </Content>
+      </Container>
+    );
+  }
+}
 
 const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps)(registeredForm);
+export default connect(mapStateToProps)(RegisteredForm);
