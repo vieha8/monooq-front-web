@@ -28,6 +28,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
       showMenu: false,
     }));
     dispatch(authActions.logout());
+    window.location.href = Path.top();
   }
 
   render() {
