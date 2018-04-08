@@ -5,6 +5,7 @@ import Signup from './SignupContainer';
 import ResetPassword from './ResetPasswordContainer';
 import SearchResult from './SearchResultContainer';
 import Space from './SpaceContainer';
+import SpaceManagement from './SpaceManagementContainer';
 
 export default {
   Login,
@@ -12,4 +13,5 @@ export default {
   ResetPassword,
   SearchResult,
   Space,
+  SpaceManagement,
 };

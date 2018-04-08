@@ -22,6 +22,9 @@ const ContentWrapper = styled.div`
 const AddressText = InlineText.Tiny.extend`
   display: block;
   color: ${Colors.brandPrimary};
+  max-height: 1.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const ContentText = InlineText.Tiny.extend`
@@ -76,15 +79,12 @@ export default (props: PropTypes) => (
         <HeroImage height="90" medium {...props.image} />
       </ImageWrapper>
       <ContentWrapper>
-        <AddressText>{props.address}</AddressText>
-        <ContentText>{props.content}</ContentText>
-        {props.furniture
-          ? <HomeApplianceText>家具・家電OK</HomeApplianceText>
-          : <HomeApplianceText>&nbsp;</HomeApplianceText>
-        }
+        <AddressText>{props.address ? props.address : '-'}</AddressText>
+        <ContentText>{props.content ? props.content : '-'}</ContentText>
+        <HomeApplianceText>{props.furniture ? '家具・家電OK' : '-'}</HomeApplianceText>
         <PriceLabel>料金目安（30日間）</PriceLabel>
         <PriceText>
-          {props.prices.join(' / ')}円
+          {props.prices.join(' / ')} 円
         </PriceText>
       </ContentWrapper>
     </Card>
