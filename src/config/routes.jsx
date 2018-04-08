@@ -42,8 +42,6 @@ import Terms from 'containers/Static/Terms';
 import HelpTop from 'containers/Static/Help/Top';
 import HelpService from 'containers/Static/Help/Service';
 
-import NavigationHeader from 'containers/NavigationHeader';
-
 import Containers from 'components/atomic/containers';
 
 import Path from './path';
@@ -114,15 +112,9 @@ export const routes = [
 export default props => (
   <ConnectedRouter history={props.history}>
     <Root>
-      <NavigationHeader />
       <Switch>
         {routes.map((route, i) => (
-          <Route
-            key={`route_${i}`}
-            exact
-            path={route.path}
-            component={route.component}
-          />
+          <Route key={`route_${i}`} exact path={route.path} component={route.component} />
         ))}
         <Route component={NotFound} />
       </Switch>
