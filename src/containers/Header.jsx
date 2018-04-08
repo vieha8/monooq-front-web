@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from 'components/atomic/organisms/Header';
-import ServiceMenu from 'components/atomic/organisms/ServiceMenu';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
 import { withRouter } from 'react-router';
@@ -98,18 +98,6 @@ class HeaderContainer extends Component<PropTypes> {
     }));
   }
 
-  logout = () => {
-    document.body && (
-      document.body.style.overflowY = 'auto'
-    );
-
-    const { dispatch } = this.props;
-    dispatch(uiActions.setUiState({
-      showMenu: false,
-    }));
-    dispatch(authActions.logout());
-  }
-
   render() {
     const { ui, isLogin, isChecking, user, top, help } = this.props;
 
@@ -135,21 +123,7 @@ class HeaderContainer extends Component<PropTypes> {
         onChangeSearchField={this.handleChangeSearchField}
         onClickCloseMenu={this.closeMenu}
         showMenu={ui.showMenu}
-        menu={(
-          <ServiceMenu
-            message={{ href: Path.message(), notificationCount: 0 }}
-            schedule={{ href: Path.schedule(user.ID), notificationCount: 0 }}
-            spaces={{ href: Path.spaces(user.ID) }}
-            addSpace={{ href: Path.createSpaceInfo() }}
-            salesTransfer={{ href: Path.salesTransfers(user.ID) }}
-            paymentHistory={{ href: Path.paid(user.ID) }}
-            becomeHost={{ href: Path.createSpaceInfo() }}
-            editProfile={{ href: Path.editProfile(user.ID) }}
-            inquiry={{ href: Path.inquiry(user.ID) }}
-            logout={{ onClick: (e) => { e.preventDefault(); this.logout(); } }}
-            hasSpace
-          />
-        )}
+        menu={<ServiceMenu />}
       />
     );
   }

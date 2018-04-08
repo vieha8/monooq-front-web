@@ -4,7 +4,6 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import Root from 'containers/Root';
 import Top from 'containers/Top';
-import HostSpaceList from 'containers/HostSpaceList';
 import Payment from 'containers/Payment';
 import NewSpaceSpaceInfo from 'containers/NewSpace/SpaceInfo';
 import AboutBaggage from 'containers/NewSpace/AboutBaggage';
@@ -58,9 +57,9 @@ export const routes = [
   { path: Path.resetPassword(), component: Containers.ResetPassword },
   { path: Path.search(), component: Containers.SearchResult },
   { path: Path.space(), component: Containers.Space },
+  { path: Path.spaces(), component: Containers.SpaceManagement },
   // legacy
   { path: Path.top(), component: Top },
-  { path: Path.spaces(), component: HostSpaceList },
   { path: Path.payment(), component: Payment },
   { path: Path.createSpaceInfo(), component: NewSpaceSpaceInfo },
   { path: Path.createSpaceBaggage(), component: AboutBaggage },

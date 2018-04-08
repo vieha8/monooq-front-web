@@ -36,6 +36,11 @@ storiesOf('Atoms/Text/InlineText', module)
       <Inline.Small>レイアウト的に小さくする場合</Inline.Small>
     </div>
   ))
+  .add('Tiny', () => (
+    <div style={{ width: '100%', maxWidth: '300px' }}>
+      <Inline.Tiny>最小の文字</Inline.Tiny>
+    </div>
+  ))
   .add('Emphasis', () => (
     <div style={{ width: '100%', maxWidth: '300px' }}>
       <Inline.Emphasis>重点として小さくする場合</Inline.Emphasis>
