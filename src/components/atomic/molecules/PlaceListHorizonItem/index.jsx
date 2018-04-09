@@ -43,7 +43,7 @@ type PropTypes = {
   address: string,
   content: string,
   onClick: Function,
-}
+};
 
 export default (props: PropTypes) => (
   <Row onClick={props.onClick}>
