@@ -37,7 +37,6 @@ const ScheduleWrapper = styled.div`
 `;
 
 type PropTypes = {
-  host: boolean,
   opponentName: string,
   space: {
     image: {
@@ -56,7 +55,7 @@ export default (props: PropTypes) => (
   <ClearfixContainer>
     <SpaceContainer>
       <UserName>
-        {props.host ? 'ホスト' : 'ユーザー'}は{props.opponentName}さん
+        {props.hostIsMySelf ? 'ユーザー' : 'ホスト'}は{props.opponentName}さん
       </UserName>
       <SpaceWrapper>
         <PlaceListHorizonItem {...props.space} />
