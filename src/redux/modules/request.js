@@ -222,7 +222,6 @@ function* fetchSchedule() {
   user = yield select(state => state.auth.user);
 
   yield put(apiActions.apiGetRequest({ path: apiEndpoint.requestsByUserId(user.ID) }));
-  yield take(apiActions.apiResponse);
   const { payload: userRequests, error, meta } = yield take(apiActions.apiResponse);
 
   if (error) {
