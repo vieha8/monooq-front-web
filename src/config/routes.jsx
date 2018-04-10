@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, Switch } from 'react-router';
-import { ConnectedRouter } from 'react-router-redux';
+import {Route, Switch} from 'react-router';
+import {ConnectedRouter} from 'react-router-redux';
 
 import Root from 'containers/Root';
 import Top from 'containers/Top';
@@ -51,85 +51,89 @@ import HelpService from 'containers/Static/Help/Service';
 
 import NavigationHeader from 'containers/NavigationHeader';
 
+import ErrorBoundary from 'components/ErrorBoundary';
+
 import Path from './path';
 
 require('./fontawesome-all.min.js');
 
 export const routes = [
-  { path: Path.top(), component: Top },
-  { path: Path.search(), component: SearchPage },
-  { path: Path.spaces(), component: HostSpaceList },
-  { path: Path.space(), component: SpacePage },
-  { path: Path.payment(), component: Payment },
-  { path: Path.createSpaceInfo(), component: NewSpaceSpaceInfo },
-  { path: Path.createSpaceBaggage(), component: AboutBaggage },
-  { path: Path.createSpaceReceive(), component: ReceiveBaggage },
-  { path: Path.createSpaceAreaSize(), component: SpaceSize },
-  { path: Path.createSpacePrice(), component: SpacePrice },
-  { path: Path.createSpaceCompletion(), component: SpaceCreatedCompletion },
-  { path: Path.editSpaceInfo(), component: NewSpaceSpaceInfo },
-  { path: Path.editSpaceBaggage(), component: AboutBaggage },
-  { path: Path.editSpaceReceive(), component: ReceiveBaggage },
-  { path: Path.editSpaceAreaSize(), component: SpaceSize },
-  { path: Path.editSpacePrice(), component: SpacePrice },
-  { path: Path.editSpaceCompletion(), component: SpaceCreatedCompletion },
-  { path: Path.schedule(), component: Schedule },
-  { path: Path.confirmCancel(), component: CancelSchedule },
-  { path: Path.messages(), component: MessageRooms },
-  { path: Path.message(), component: MessageRoom },
-  { path: Path.estimate(), component: Estimate },
-  { path: Path.profile(), component: Profile },
-  { path: Path.editProfile(), component: EditProfile },
-  { path: Path.hostReview(), component: PostHostReview },
-  { path: Path.paid(), component: Payments },
-  { path: Path.salesTransfers(), component: SalesTransferList },
-  { path: Path.requestTransfer(), component: TransferRequest },
-  { path: Path.editBankAccount(), component: EditBankAccount },
-  { path: Path.inquiry(), component: Inquiry },
-  { path: Path.signup(), component: SignUp },
-  { path: Path.login(), component: Login },
-  { path: Path.unsubscribe(), component: Unsubscribe },
-  { path: Path.reportUser(), component: Report },
-  { path: Path.reportSpace(), component: Report },
-  { path: Path.about(), component: About },
-  { path: Path.insurance(), component: Insurance },
-  { path: Path.rule(), component: Rule },
-  { path: Path.maintenance(), component: Maintenance },
-  { path: Path.notFound(), component: NotFound },
-  { path: Path.error(), component: Error },
-  { path: Path.cancellationPolicies(), component: CancellationPolicies },
-  { path: Path.asct(), component: Asct },
-  { path: Path.company(), component: Company },
-  { path: Path.privacy(), component: Privacy },
-  { path: Path.terms(), component: Terms },
-  { path: Path.helpTop(), component: HelpTop },
-  { path: Path.helpService(), component: HelpService },
-  { path: Path.helpUserTransaction(), component: HelpService },
-  { path: Path.helpHost(), component: HelpService },
-  { path: Path.helpSpace(), component: HelpService },
-  { path: Path.helpHostTransaction(), component: HelpService },
-  { path: Path.helpSalesTransfer(), component: HelpService },
-  { path: Path.helpSignin(), component: HelpService },
-  { path: Path.helpOther(), component: HelpService },
-  { path: Path.passwordReset(), component: PasswordReset },
-  { path: Path.passwordResetEnd(), component: PasswordResetEnd },
+  {path: Path.top(), component: Top},
+  {path: Path.search(), component: SearchPage},
+  {path: Path.spaces(), component: HostSpaceList},
+  {path: Path.space(), component: SpacePage},
+  {path: Path.payment(), component: Payment},
+  {path: Path.createSpaceInfo(), component: NewSpaceSpaceInfo},
+  {path: Path.createSpaceBaggage(), component: AboutBaggage},
+  {path: Path.createSpaceReceive(), component: ReceiveBaggage},
+  {path: Path.createSpaceAreaSize(), component: SpaceSize},
+  {path: Path.createSpacePrice(), component: SpacePrice},
+  {path: Path.createSpaceCompletion(), component: SpaceCreatedCompletion},
+  {path: Path.editSpaceInfo(), component: NewSpaceSpaceInfo},
+  {path: Path.editSpaceBaggage(), component: AboutBaggage},
+  {path: Path.editSpaceReceive(), component: ReceiveBaggage},
+  {path: Path.editSpaceAreaSize(), component: SpaceSize},
+  {path: Path.editSpacePrice(), component: SpacePrice},
+  {path: Path.editSpaceCompletion(), component: SpaceCreatedCompletion},
+  {path: Path.schedule(), component: Schedule},
+  {path: Path.confirmCancel(), component: CancelSchedule},
+  {path: Path.messages(), component: MessageRooms},
+  {path: Path.message(), component: MessageRoom},
+  {path: Path.estimate(), component: Estimate},
+  {path: Path.profile(), component: Profile},
+  {path: Path.editProfile(), component: EditProfile},
+  {path: Path.hostReview(), component: PostHostReview},
+  {path: Path.paid(), component: Payments},
+  {path: Path.salesTransfers(), component: SalesTransferList},
+  {path: Path.requestTransfer(), component: TransferRequest},
+  {path: Path.editBankAccount(), component: EditBankAccount},
+  {path: Path.inquiry(), component: Inquiry},
+  {path: Path.signup(), component: SignUp},
+  {path: Path.login(), component: Login},
+  {path: Path.unsubscribe(), component: Unsubscribe},
+  {path: Path.reportUser(), component: Report},
+  {path: Path.reportSpace(), component: Report},
+  {path: Path.about(), component: About},
+  {path: Path.insurance(), component: Insurance},
+  {path: Path.rule(), component: Rule},
+  {path: Path.maintenance(), component: Maintenance},
+  {path: Path.notFound(), component: NotFound},
+  {path: Path.error(), component: Error},
+  {path: Path.cancellationPolicies(), component: CancellationPolicies},
+  {path: Path.asct(), component: Asct},
+  {path: Path.company(), component: Company},
+  {path: Path.privacy(), component: Privacy},
+  {path: Path.terms(), component: Terms},
+  {path: Path.helpTop(), component: HelpTop},
+  {path: Path.helpService(), component: HelpService},
+  {path: Path.helpUserTransaction(), component: HelpService},
+  {path: Path.helpHost(), component: HelpService},
+  {path: Path.helpSpace(), component: HelpService},
+  {path: Path.helpHostTransaction(), component: HelpService},
+  {path: Path.helpSalesTransfer(), component: HelpService},
+  {path: Path.helpSignin(), component: HelpService},
+  {path: Path.helpOther(), component: HelpService},
+  {path: Path.passwordReset(), component: PasswordReset},
+  {path: Path.passwordResetEnd(), component: PasswordResetEnd},
 ];
 
 export default props => (
   <ConnectedRouter history={props.history}>
     <Root>
       <NavigationHeader />
-      <Switch>
-        {routes.map((route, i) => (
-          <Route
-            key={`route_${i}`}
-            exact
-            path={route.path}
-            component={route.component}
-          />
-        ))}
-        <Route component={NotFound} />
-      </Switch>
+      <ErrorBoundary>
+        <Switch>
+          {routes.map((route, i) => (
+            <Route
+              key={`route_${i}`}
+              exact
+              path={route.path}
+              component={route.component}
+            />
+          ))}
+          <Route component={NotFound} />
+        </Switch>
+      </ErrorBoundary>
     </Root>
   </ConnectedRouter>
 );
