@@ -58,6 +58,7 @@ export const routes = [
   { path: Path.search(), component: Containers.SearchResult },
   { path: Path.space(), component: Containers.Space },
   { path: Path.spaces(), component: Containers.SpaceManagement },
+  { path: Path.schedule(), component: Containers.Schedule },
   // legacy
   { path: Path.top(), component: Top },
   { path: Path.payment(), component: Payment },
@@ -73,7 +74,6 @@ export const routes = [
   { path: Path.editSpaceAreaSize(), component: SpaceSize },
   { path: Path.editSpacePrice(), component: SpacePrice },
   { path: Path.editSpaceCompletion(), component: SpaceCreatedCompletion },
-  { path: Path.schedule(), component: Schedule },
   { path: Path.confirmCancel(), component: CancelSchedule },
   { path: Path.messages(), component: MessageRooms },
   { path: Path.message(), component: MessageRoom },

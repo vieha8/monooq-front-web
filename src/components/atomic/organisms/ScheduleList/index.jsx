@@ -1,9 +1,17 @@
 // @flow
 
 import React, { Fragment } from 'react';
+import styled from 'styled-components';
 import ScheduleListItem, {
   type PropTypes as ScheduleListItemType,
 } from 'components/atomic/molecules/ScheduleListItem';
+import { Dimens } from 'variables';
+
+const Row = styled.div`
+  &:not(:first-child) {
+    margin-top: ${Dimens.medium3}px;
+  }
+`;
 
 type PropTypes = {
   schedules: Array<ScheduleListItemType>,
@@ -12,7 +20,9 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <Fragment>
     {props.schedules.map((schedule, i) => (
-      <ScheduleListItem key={`schedule_item_${i}`} {...schedule} />
+      <Row key={`schedule_item_${i}`}>
+        <ScheduleListItem {...schedule} />
+      </Row>
     ))}
   </Fragment>
 );
