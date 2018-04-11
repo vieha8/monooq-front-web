@@ -14,7 +14,7 @@ const Container = styled.footer`
   padding: 0px 30px;
   ${media.tablet`
     padding: 0;
-  `}
+  `};
 `;
 
 const List = styled.ul`
@@ -24,7 +24,7 @@ const List = styled.ul`
   ${media.phone`
     height: auto;
     display: block;
-  `}
+  `};
 `;
 
 const Cell = styled.li`
@@ -39,11 +39,13 @@ const Cell = styled.li`
     &:last-child {
       margin-left: none;
     }
-  `}
+  `};
 `;
 
 const FooterLink = (props: Object) => (
-  <TextLink {...props} fontSize={11}>{props.children}</TextLink>
+  <TextLink {...props} fontSize={11}>
+    {props.children}
+  </TextLink>
 );
 
 export default () => (
@@ -74,9 +76,9 @@ export default () => (
         <Cell>
           <FooterLink to={Path.asct()}>特定商取引法に基づく表記</FooterLink>
         </Cell>
-        <Cell>
-          <FooterLink to={Path.cancellationPolicies()}>キャンセルポリシー</FooterLink>
-        </Cell>
+        {/*<Cell>*/}
+        {/*<FooterLink to={Path.cancellationPolicies()}>キャンセルポリシー</FooterLink>*/}
+        {/*</Cell>*/}
         <Cell>
           <InlineText.Base fontSize={11}>@ 2018 MonooQ</InlineText.Base>
         </Cell>
