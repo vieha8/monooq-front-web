@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import numeral from 'numeral';
+import Path from 'config/path';
 
 import { requestActions } from 'redux/modules/request';
 
@@ -12,7 +13,8 @@ import Footer from 'components/atomic/molecules/Footer';
 import LoadingPage from 'components/atomic/organisms/LoadingPage';
 import ScheduleList from 'components/atomic/organisms/ScheduleList';
 
-import { authConnect } from 'components/Auth';
+import { checkAuthState, mergeAuthProps } from '../AuthRequired';
+import connect from '../connect';
 
 class ScheduleContainer extends Component {
   constructor(props) {
@@ -21,9 +23,6 @@ class ScheduleContainer extends Component {
     const { dispatch } = this.props;
     dispatch(requestActions.fetchSchedule());
   }
-
-  showSpace: Function;
-  showSpace = () => {};
 
   getScheduleProps = (schedule: Object, isHost: boolean) => {
     return {
@@ -37,7 +36,7 @@ class ScheduleContainer extends Component {
           },
           address: schedule.Space.Address,
           content: schedule.Space.Title,
-          onClick: () => this.showSpace(),
+          href: Path.space(schedule.Space.ID),
         },
         startDate: schedule.StartDate,
         endDate: schedule.EndDate,
@@ -49,6 +48,9 @@ class ScheduleContainer extends Component {
 
   render() {
     const { isLoading, schedule } = this.props;
+
+    const auth = checkAuthState(this.props);
+    if (!auth) return <auth />;
 
     return (
       <div>
@@ -72,10 +74,11 @@ class ScheduleContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  isLoading: state.request.isLoading,
-  user: state.auth.user,
-  schedule: state.request.schedule,
-});
+const mapStateToProps = state =>
+  mergeAuthProps(state, {
+    isLoading: state.request.isLoading,
+    user: state.auth.user,
+    schedule: state.request.schedule,
+  });
 
-export default authConnect(mapStateToProps)(ScheduleContainer);
+export default connect(ScheduleContainer, mapStateToProps);

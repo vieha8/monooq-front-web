@@ -18,7 +18,7 @@ type PropTypes = {
       },
       address: string,
       content: string,
-      onClick: Function,
+      href: string,
     },
     startDate: Date | string,
     endDate: Date | string,
