@@ -44,6 +44,8 @@ import HelpService from 'containers/Static/Help/Service';
 
 import Containers from 'components/atomic/containers';
 
+import ErrorBoundary from 'components/ErrorBoundary';
+
 import Path from './path';
 
 require('./fontawesome-all.min.js');
@@ -56,6 +58,7 @@ export const routes = [
   { path: Path.search(), component: Containers.SearchResult },
   { path: Path.space(), component: Containers.Space },
   { path: Path.spaces(), component: Containers.SpaceManagement },
+  { path: Path.schedule(), component: Containers.Schedule },
   // legacy
   { path: Path.top(), component: Top },
   { path: Path.payment(), component: Payment },
@@ -71,7 +74,6 @@ export const routes = [
   { path: Path.editSpaceAreaSize(), component: SpaceSize },
   { path: Path.editSpacePrice(), component: SpacePrice },
   { path: Path.editSpaceCompletion(), component: SpaceCreatedCompletion },
-  { path: Path.schedule(), component: Schedule },
   { path: Path.confirmCancel(), component: CancelSchedule },
   { path: Path.messages(), component: MessageRooms },
   { path: Path.message(), component: MessageRoom },
@@ -112,12 +114,14 @@ export const routes = [
 export default props => (
   <ConnectedRouter history={props.history}>
     <Root>
-      <Switch>
-        {routes.map((route, i) => (
-          <Route key={`route_${i}`} exact path={route.path} component={route.component} />
-        ))}
-        <Route component={NotFound} />
-      </Switch>
+      <ErrorBoundary>
+        <Switch>
+          {routes.map((route, i) => (
+            <Route key={`route_${i}`} exact path={route.path} component={route.component} />
+          ))}
+          <Route component={NotFound} />
+        </Switch>
+      </ErrorBoundary>
     </Root>
   </ConnectedRouter>
 );

@@ -53,7 +53,7 @@ export default (props: PropTypes) => {
               { title: 'ホストについて', href: Path.helpHost() },
               { title: 'スペース登録について', href: Path.helpSpace() },
               { title: '取引について', href: Path.helpHostTransaction() },
-              { title: '売上や振込について', href: Path.helpSalesTransfer() },
+              // { title: '売上や振込について', href: Path.helpSalesTransfer() },
             ]}
             helpTitle="モノオクのホストになる方法は？"
             helpLink={`${Path.helpHost()}#common2`}
@@ -67,7 +67,7 @@ export default (props: PropTypes) => {
           <CommonHelp
             headline="その他"
             buttons={[{ title: '一覧を見る', href: Path.helpOther() }]}
-            helpTitle="レビューはどこから投稿するのですか？"
+            helpTitle="PickGoとはなんですか?"
             helpLink={`${Path.helpOther()}#common4`}
           />
         </Fragment>

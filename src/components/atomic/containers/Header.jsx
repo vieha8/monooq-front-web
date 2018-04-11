@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Header from 'components/atomic/organisms/Header';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import { uiActions } from 'redux/modules/ui';
-import { authActions } from 'redux/modules/auth';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
 
@@ -28,11 +27,6 @@ type PropTypes = {
 };
 
 class HeaderContainer extends Component<PropTypes> {
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(authActions.checkLogin());
-  }
-
   onClickSearch: Function;
   onClickSearch = () => {
     const { dispatch, ui } = this.props;

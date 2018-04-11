@@ -12,7 +12,7 @@ const Container = styled.ul`
 type MenuItemProps = {
   show?: boolean,
   open?: boolean,
-}
+};
 
 type PropTypes = {
   howToUser: MenuItemProps,
@@ -27,7 +27,7 @@ type PropTypes = {
   aboutSalesTransfer: MenuItemProps,
   aboutLogin: MenuItemProps,
   other: MenuItemProps,
-}
+};
 
 export default (props: PropTypes) => (
   <Container>
@@ -57,12 +57,7 @@ export default (props: PropTypes) => (
       show
       angleDown
     />
-    <MenuItem
-      title="ホストについて"
-      {...props.aboutHost}
-      href={Path.helpHost()}
-      fillColor
-    />
+    <MenuItem title="ホストについて" {...props.aboutHost} href={Path.helpHost()} fillColor />
     <MenuItem
       title="スペース登録について"
       {...props.aboutRegisterSpace}
@@ -75,12 +70,12 @@ export default (props: PropTypes) => (
       href={Path.helpHostTransaction()}
       fillColor
     />
-    <MenuItem
-      title="売上や振込について"
-      {...props.aboutSalesTransfer}
-      href={Path.helpSalesTransfer()}
-      fillColor
-    />
+    {/*<MenuItem*/}
+    {/*title="売上や振込について"*/}
+    {/*{...props.aboutSalesTransfer}*/}
+    {/*href={Path.helpSalesTransfer()}*/}
+    {/*fillColor*/}
+    {/*/>*/}
     <MenuItem
       title="登録・ログインについて"
       {...props.aboutLogin}
@@ -88,12 +83,6 @@ export default (props: PropTypes) => (
       show
       angleRight
     />
-    <MenuItem
-      title="その他"
-      {...props.other}
-      href={Path.helpOther()}
-      show
-      angleRight
-    />
+    <MenuItem title="その他" {...props.other} href={Path.helpOther()} show angleRight />
   </Container>
 );
