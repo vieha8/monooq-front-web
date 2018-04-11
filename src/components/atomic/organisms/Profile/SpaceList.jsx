@@ -7,11 +7,9 @@ import Path from 'config/path';
 import PlaceListVerticalItem from 'components/atomic/molecules/PlaceListVerticalItem';
 
 const SpaceListContainer = styled.ul`
-  display: table;
-  width: 100%;
   overflow-x: auto;
   padding: ${Dimens.medium3}px 0;
-  &::scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 `;

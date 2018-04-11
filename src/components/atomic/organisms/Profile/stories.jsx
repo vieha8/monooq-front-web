@@ -22,7 +22,7 @@ function getSpaces() {
   return spaces;
 }
 
-storiesOf('Molecules/Profile', module)
+storiesOf('Organisms/Profile', module)
   .addDecorator(StorybookRouter())
   .add('Normal', () => (
     <div>
