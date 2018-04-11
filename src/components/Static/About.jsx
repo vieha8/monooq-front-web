@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
+import Intercom from 'components/Shared/Intercom';
 
 import mainVisual from 'images/about_main_visual@2x.jpg';
 import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';
@@ -338,10 +339,10 @@ export default props => (
               text:
                 'スペース利用終了日はお忘れなく！無断での延長・あなたと連絡がとれない時は、規約に基づいた対応やペナルティ料金が発生する場合があります。',
             },
-            {
-              label: 'レビュー',
-              text: '親切に預かってくれたホストに感謝の気持ちをこめてレビューを送りましょう！',
-            },
+            // {
+            //   label: 'レビュー',
+            //   text: '親切に預かってくれたホストに感謝の気持ちをこめてレビューを送りましょう！',
+            // },
           ].map((v, i) => {
             return <StyledIfIFindContent key={i} number={i + 1} label={v.label} text={v.text} />;
           })}
@@ -353,10 +354,11 @@ export default props => (
       <NeedToHelpContainer>
         <SubTitle>お困りの際はモノオクカスタマーサポートまで。</SubTitle>
         <Text>
-          「こんな場合はどうするの？」「ホスト登録について教えて！」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。
+          「こんな場合はどうするの？」「ホスト登録について教えて！」お困りの時は画面右下のボタンよりご連絡ください。
         </Text>
       </NeedToHelpContainer>
     </MainContainer>
     <Footer />
+    <Intercom />
   </Fragment>
 );

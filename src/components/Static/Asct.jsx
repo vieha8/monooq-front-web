@@ -131,10 +131,10 @@ export default () => (
             header: '商品代金以外に必要な費用',
             data: '輸送費（必要な場合のみ）',
           },
-          {
-            header: '返品・交換について',
-            data: `モノオクの定める<a href=${Path.cancellationPolicies()}>キャンセルポリシー</a>がございます。お支払い前に必ずお読みください。`,
-          },
+          // {
+          //   header: '返品・交換について',
+          //   data: `モノオクの定める<a href=${Path.cancellationPolicies()}>キャンセルポリシー</a>がございます。お支払い前に必ずお読みください。`,
+          // },
         ].map((v,i)=>{
           return (
             <StyledAsctContent

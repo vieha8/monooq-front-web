@@ -235,35 +235,35 @@ export default props => (
       <Hr />
     </WhoWantBeHostContainer>
 
-    <HowSafeContainer>
-      <SubTitle>安心して物置きシェアをしてもらうために。</SubTitle>
-      <HowSafeContentWrapper>
-        {[
-          {
-            label: 'あなたをサポート',
-            image: ruleImage1,
-            text:
-              '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',
-          },
-          {
-            label: 'レビュー評価',
-            image: ruleImage2,
-            text:
-              '誠実で健全なサービスを運営していくために、取り引き完了後に相互レビュー評価を行います。',
-          },
-          {
-            label: '違反報告',
-            image: ruleImage3,
-            text:
-              '迷惑な行為をする人や、禁止されている情報を掲載しているスペースはモノオクまで通報することができます。不適切と判断した場合に随時対応を行っています。',
-          },
-          ].map((v, i) => {
-            return <StyledHowSafeContent label={v.label} image={v.image} text={v.text} key={i} />;
-          })}
-      </HowSafeContentWrapper>
+    {/*<HowSafeContainer>*/}
+      {/*<SubTitle>安心して物置きシェアをしてもらうために。</SubTitle>*/}
+      {/*<HowSafeContentWrapper>*/}
+        {/*{[*/}
+          {/*{*/}
+            {/*label: 'あなたをサポート',*/}
+            {/*image: ruleImage1,*/}
+            {/*text:*/}
+              {/*'「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',*/}
+          {/*},*/}
+          {/*{*/}
+            {/*label: 'レビュー評価',*/}
+            {/*image: ruleImage2,*/}
+            {/*text:*/}
+              {/*'誠実で健全なサービスを運営していくために、取り引き完了後に相互レビュー評価を行います。',*/}
+          {/*},*/}
+          {/*{*/}
+            {/*label: '違反報告',*/}
+            {/*image: ruleImage3,*/}
+            {/*text:*/}
+              {/*'迷惑な行為をする人や、禁止されている情報を掲載しているスペースはモノオクまで通報することができます。不適切と判断した場合に随時対応を行っています。',*/}
+          {/*},*/}
+          {/*].map((v, i) => {*/}
+            {/*return <StyledHowSafeContent label={v.label} image={v.image} text={v.text} key={i} />;*/}
+          {/*})}*/}
+      {/*</HowSafeContentWrapper>*/}
 
-      <Hr />
-    </HowSafeContainer>
+      {/*<Hr />*/}
+    {/*</HowSafeContainer>*/}
 
     <NotAllowedContainer id="not-allowed">
       <SubTitle>取引ができない荷物</SubTitle>

@@ -75,12 +75,12 @@ export default (props: PropTypes) => (
       href={Path.helpHostTransaction()}
       fillColor
     />
-    <MenuItem
-      title="売上や振込について"
-      {...props.aboutSalesTransfer}
-      href={Path.helpSalesTransfer()}
-      fillColor
-    />
+    {/*<MenuItem*/}
+      {/*title="売上や振込について"*/}
+      {/*{...props.aboutSalesTransfer}*/}
+      {/*href={Path.helpSalesTransfer()}*/}
+      {/*fillColor*/}
+    {/*/>*/}
     <MenuItem
       title="登録・ログインについて"
       {...props.aboutLogin}
