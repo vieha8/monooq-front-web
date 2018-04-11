@@ -3,13 +3,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
+import { Dimens } from 'variables';
 import ClearfixContainer from 'components/atomic/atoms/ClearfixContainer';
 import { H1 } from 'components/atomic/atoms/Headline';
 import InlineText from 'components/atomic/atoms/InlineText';
 import Page from '../Page';
 
 const HeadlineContainer = styled.div`
-  margin-top: 40px;
+  margin-top: 80px;
   ${media.tablet`
     margin-top: 20px;
   `};
@@ -19,6 +20,13 @@ const Caption = styled.div`
   margin: 0 0 40px;
   ${media.tablet`
     margin-bottom: 20px;
+  `};
+`;
+
+const Content = styled.div`
+  margin-top: ${Dimens.huge}px;
+  ${media.tablet`
+    margin-top: ${Dimens.medium3}px;
   `};
 `;
 
@@ -64,8 +72,10 @@ export default (props: PropTypes) => (
         </Caption>
       )}
       <ClearfixContainer>
-        <LeftContent>{props.leftContent}</LeftContent>
-        <RightContent>{props.rightContent}</RightContent>
+        <Content>
+          <LeftContent>{props.leftContent}</LeftContent>
+          <RightContent>{props.rightContent}</RightContent>
+        </Content>
       </ClearfixContainer>
     </Page>
     {props.footer}

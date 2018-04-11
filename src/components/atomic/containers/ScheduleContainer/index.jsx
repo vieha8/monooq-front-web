@@ -13,12 +13,14 @@ import Footer from 'components/atomic/molecules/Footer';
 import LoadingPage from 'components/atomic/organisms/LoadingPage';
 import ScheduleList from 'components/atomic/organisms/ScheduleList';
 
-import { checkAuthState, mergeAuthProps } from '../AuthRequired';
+import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
 
 class ScheduleContainer extends Component {
   constructor(props) {
     super(props);
+
+    checkLogin(this.props);
 
     const { dispatch } = this.props;
     dispatch(requestActions.fetchSchedule());
@@ -50,7 +52,9 @@ class ScheduleContainer extends Component {
     const { isLoading, schedule } = this.props;
 
     const auth = checkAuthState(this.props);
-    if (!auth) return <auth />;
+    if (auth) {
+      return auth;
+    }
 
     return (
       <div>

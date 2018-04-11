@@ -7,7 +7,7 @@ import { Colors, Dimens } from 'variables';
 
 const Page = styled.div`
   background: ${Colors.yellow};
-  padding: 40px 0;
+  padding: 80px 0;
   min-height: calc(100vh - 60px);
 `;
 
@@ -29,21 +29,17 @@ const Container = styled.div`
   ${media.tablet`
     width: 320px;
     padding: ${Dimens.medium}px;
-  `}
+  `};
 `;
 
 type PropTypes = {
   header: React.Element<*>,
   form: React.Element<*>,
-}
+};
 
 export default (props: PropTypes) => (
   <Page>
-    <HeaderContainer>
-      {props.header}
-    </HeaderContainer>
-    <Container>
-      {props.form}
-    </Container>
+    <HeaderContainer>{props.header}</HeaderContainer>
+    <Container>{props.form}</Container>
   </Page>
 );
