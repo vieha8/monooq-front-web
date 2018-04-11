@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
 
-import ruleImage1 from 'images/rule-img01.svg';
-import ruleImage2 from 'images/rule-img02.svg';
-import ruleImage3 from 'images/rule-img03.svg';
+// import ruleImage1 from 'images/rule-img01.svg';
+// import ruleImage2 from 'images/rule-img02.svg';
+// import ruleImage3 from 'images/rule-img03.svg';
 
 const MainTitle = styled.div`
   font-size: 34px;
@@ -69,39 +69,39 @@ const WhoFindHostContainer = DefaultContainer.extend``;
 
 const WhoWantBeHostContainer = DefaultContainer.extend``;
 
-const HowSafeContainer = DefaultContainer.extend``;
+// const HowSafeContainer = DefaultContainer.extend``;
+//
+// const HowSafeContentWrapper = styled.div`
+//   width: 100%;
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: space-between;
+// `;
 
-const HowSafeContentWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
+// const HowSafeContent = props => {
+//   const ImageArea = styled.div`
+//     height: 130px;
+//     width: 100%;
+//     background: url(${props.image}) center no-repeat;
+//     ${media.phone`
+//       height: 110px;
+//     `};
+//   `;
+//   const TextArea = styled(Text)`
+//     margin-bottom: 30px;
+//   `;
+//   return (
+//     <div className={props.className}>
+//       <HilightText>{props.label}</HilightText>
+//       <ImageArea />
+//       <TextArea>{props.text}</TextArea>
+//     </div>
+//   );
+// };
 
-const HowSafeContent = props => {
-  const ImageArea = styled.div`
-    height: 130px;
-    width: 100%;
-    background: url(${props.image}) center no-repeat;
-    ${media.phone`
-      height: 110px;
-    `};
-  `;
-  const TextArea = styled(Text)`
-    margin-bottom: 30px;
-  `;
-  return (
-    <div className={props.className}>
-      <HilightText>{props.label}</HilightText>
-      <ImageArea />
-      <TextArea>{props.text}</TextArea>
-    </div>
-  );
-};
-
-const StyledHowSafeContent = styled(HowSafeContent)`
-  width: 326px;
-`;
+// const StyledHowSafeContent = styled(HowSafeContent)`
+//   width: 326px;
+// `;
 
 const NotAllowedContainer = DefaultContainer.extend``;
 

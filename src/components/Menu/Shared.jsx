@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
@@ -8,12 +9,14 @@ export const Container = styled.div`
   float: left;
   ${media.tablet`
     display: none;
-    ${props => props.showMobile && `
+    ${props =>
+      props.showMobile &&
+      `
       display: block;
       float: none;
       width: 100%;
     `}
-  `}
+  `};
 `;
 
 export const Menu = styled.ul`
@@ -33,7 +36,7 @@ export const MenuItem = styled.li`
   }
 `;
 
-export const MenuLink = styled.a`
+export const MenuLink = styled(Link)`
   display: block;
   width: 100%;
   height: 100%;
@@ -55,13 +58,12 @@ const NoticeCountCircle = styled.span`
   font-size: 20px;
 `;
 
-export const NoticeCount = props => (
-  (props.count > 0 ?
+export const NoticeCount = props =>
+  props.count > 0 ? (
     <NoticeCountCircle className="fa-layers fa-fw">
       <i className="fas fa-circle" style={{ color: Colors.brandPrimary }} />
       <span className="fa-layers-text fa-inverse" data-fa-transform="shrink-9">
         {props.count}
       </span>
     </NoticeCountCircle>
-    : null)
-);
+  ) : null;
