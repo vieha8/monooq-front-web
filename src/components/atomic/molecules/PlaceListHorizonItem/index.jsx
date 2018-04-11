@@ -2,11 +2,12 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Colors } from 'variables';
 import InlineText from 'components/atomic/atoms/InlineText';
 import HeroImage from 'components/atomic/atoms/HeroImage';
 
-const Row = styled.div`
+const Row = styled(Link)`
   display: table;
   cursor: pointer;
 `;
@@ -42,11 +43,12 @@ type PropTypes = {
   },
   address: string,
   content: string,
-  onClick: Function,
+  href?: string,
+  onClick?: Function,
 };
 
 export default (props: PropTypes) => (
-  <Row onClick={props.onClick}>
+  <Row to={props.href || ''} onClick={props.onClick}>
     <ImageWrapper>
       <HeroImage small {...props.image} />
     </ImageWrapper>

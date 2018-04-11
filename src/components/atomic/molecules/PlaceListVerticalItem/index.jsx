@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Colors, Dimens } from 'variables';
 import Card from 'components/atomic/atoms/Card';
 import InlineText from 'components/atomic/atoms/InlineText';
@@ -69,22 +70,25 @@ type PropTypes = {
   content: string,
   furniture?: boolean,
   prices: Array<number>,
-  onClick: Function,
+  href?: string,
+  onClick?: Function,
 };
 
 export default (props: PropTypes) => (
   <Container>
-    <Card noPadding pointer onClick={props.onClick} customStyle={CardShadowStyle}>
-      <ImageWrapper>
-        <HeroImage height="90" medium {...props.image} />
-      </ImageWrapper>
-      <ContentWrapper>
-        <AddressText>{props.address ? props.address : '-'}</AddressText>
-        <ContentText>{props.content ? props.content : '-'}</ContentText>
-        <HomeApplianceText>{props.furniture ? '家具・家電OK' : '-'}</HomeApplianceText>
-        <PriceLabel>料金目安（30日間）</PriceLabel>
-        <PriceText>{props.prices.join(' / ')} 円</PriceText>
-      </ContentWrapper>
-    </Card>
+    <Link to={props.href || ''}>
+      <Card noPadding pointer onClick={props.onClick} customStyle={CardShadowStyle}>
+        <ImageWrapper>
+          <HeroImage height="90" medium {...props.image} />
+        </ImageWrapper>
+        <ContentWrapper>
+          <AddressText>{props.address ? props.address : '-'}</AddressText>
+          <ContentText>{props.content ? props.content : '-'}</ContentText>
+          <HomeApplianceText>{props.furniture ? '家具・家電OK' : '-'}</HomeApplianceText>
+          <PriceLabel>料金目安（30日間）</PriceLabel>
+          <PriceText>{props.prices.join(' / ')} 円</PriceText>
+        </ContentWrapper>
+      </Card>
+    </Link>
   </Container>
 );

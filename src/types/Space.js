@@ -1,6 +1,7 @@
 // @flow
 
 export type SpaceType = {
+  ID: number,
   Host: {
     ID: number,
     FirebaseUid: string,

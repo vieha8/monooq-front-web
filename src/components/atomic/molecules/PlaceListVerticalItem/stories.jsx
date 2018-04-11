@@ -2,10 +2,12 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import StorybookRouter from 'storybook-router';
 
 import PlaceListVerticalItem from './index';
 
 storiesOf('Molecules/PlaceListVerticalItem', module)
+  .addDecorator(StorybookRouter())
   .add('IsFurniture', () => (
     <PlaceListVerticalItem
       image={{

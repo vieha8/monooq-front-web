@@ -2,10 +2,12 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import StorybookRouter from 'storybook-router';
 
 import PlaceListHorizonItem from './index';
 
 storiesOf('Molecules/PlaceListHorizonItem', module)
+  .addDecorator(StorybookRouter())
   .add('Normal', () => (
     <div>
       <PlaceListHorizonItem
