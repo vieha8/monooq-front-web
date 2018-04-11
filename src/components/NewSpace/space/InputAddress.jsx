@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Select } from 'semantic-ui-react';
+// import { Select } from 'semantic-ui-react';
 import Input from 'components/Shared/Input';
 import { Dimens } from 'variables';
 import ErrorText from 'components/Shared/ErrorText';
-import { prefectures, selectOptionPrefectures } from 'helpers/prefectures';
+// import { prefectures, selectOptionPrefectures } from 'helpers/prefectures';
 import Title from '../shared/Title';
 
 const Container = styled.div`
