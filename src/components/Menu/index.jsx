@@ -3,30 +3,30 @@ import Path from 'config/path';
 import { Container, Menu, MenuLink, MenuItem, MenuText, NoticeCount } from './Shared';
 
 export default (props) => {
-  const { messageCount, scheduleCount, userId, showMobile } = props;
+  const { messageCount, scheduleCount, userId, showMobile, onClickLink } = props;
   const hasSpace = true;
   return (
     <Container showMobile={showMobile}>
       <Menu>
         <MenuItem>
-          <MenuLink href={Path.messages(userId)}>
+          <MenuLink to={Path.messages(userId)} onClick={onClickLink}>
             <MenuText>メッセージ</MenuText><NoticeCount count={messageCount} />
           </MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuLink href={Path.schedule(userId)}>
+          <MenuLink to={Path.schedule(userId)} onClick={onClickLink}>
             <MenuText>スケジュール</MenuText><NoticeCount count={scheduleCount} />
           </MenuLink>
         </MenuItem>
         {hasSpace && (
           <Fragment>
             <MenuItem>
-              <MenuLink href={Path.spaces(userId)}>
+              <MenuLink to={Path.spaces(userId)} onClick={onClickLink}>
                 <MenuText>スペースの管理</MenuText><NoticeCount count={scheduleCount} />
               </MenuLink>
             </MenuItem>
             <MenuItem>
-              <MenuLink href={Path.createSpaceInfo()}>
+              <MenuLink to={Path.createSpaceInfo()} onClick={onClickLink}>
                 <MenuText>スペースを追加する</MenuText><NoticeCount count={scheduleCount} />
               </MenuLink>
             </MenuItem>
@@ -44,18 +44,18 @@ export default (props) => {
         {/*</MenuItem>*/}
         {!hasSpace &&
           <MenuItem>
-            <MenuLink href={Path.createSpaceInfo(userId)}>
+            <MenuLink to={Path.createSpaceInfo(userId)} onClick={onClickLink}>
               <MenuText>ホスト登録する</MenuText>
             </MenuLink>
           </MenuItem>
         }
         <MenuItem>
-          <MenuLink href={Path.editProfile(userId)}>
+          <MenuLink to={Path.editProfile(userId)} onClick={onClickLink}>
             <MenuText>プロフィールを編集する</MenuText>
           </MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuLink href={Path.inquiry()}>
+          <MenuLink to={Path.inquiry()} onClick={onClickLink}>
             <MenuText>お問い合わせ</MenuText>
           </MenuLink>
         </MenuItem>
@@ -65,7 +65,7 @@ export default (props) => {
               e.preventDefault();
               props.onClickLogout();
             }}
-            href=""
+            to=""
           >
             <MenuText>ログアウト</MenuText>
           </MenuLink>
