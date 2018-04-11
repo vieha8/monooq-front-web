@@ -57,32 +57,19 @@ const List = styled.div`
 export default () => (
   <Fragment>
     <MainTitleContainer>
-      <MainTitle>ごめんなさい！<br />処理に問題が発生しました。</MainTitle>
+      <MainTitle>ページが表示できません</MainTitle>
     </MainTitleContainer>
 
     <MessageContainer>
-      <Text>しばらくお待ちいただくか、お急ぎの場合はお問い合わせください。</Text>
-      <Text><Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor></Text>
+      <Text>ご不便をおかけし大変申し訳ございません。原因究明・改善に努めております。</Text>
+      <Text>しばらく時間を置いても解決されない場合は、お手数ですが画面右下のボタンからお問い合わせください。</Text>
     </MessageContainer>
 
     <RecommendLinkContainer>
-      <Text>参考のリンク</Text>
       {[
         {
           text: 'トップページへ戻る',
           path: '/',
-        },
-        {
-          text: 'ホストになる',
-          path: Path.signup(),
-        },
-        {
-          text: 'はじめての方へ',
-          path: Path.about(),
-        },
-        {
-          text: 'ヘルプ',
-          path: Path.helpTop(),
         },
         ].map((v, i) => {
           return (
