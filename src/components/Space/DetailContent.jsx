@@ -93,7 +93,7 @@ const HowToReceive = props => (
           <LocalShippingIcon />
         </ReceiveIconWrapper>
         <ReceiveText>配送</ReceiveText>
-        <ReceiveSubText>Pickgo・ヤマト運輸など配送サービス</ReceiveSubText>
+        <ReceiveSubText>PickGo・ヤマト運輸など配送サービス</ReceiveSubText>
       </ReceiveContainer>
     }
     {props.meeting &&
