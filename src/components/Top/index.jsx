@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Path from 'config/path';
 
 import styled from 'styled-components';
-import { FontSizes, Colors } from 'variables';
+import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
 
@@ -12,7 +12,7 @@ import mainVisualSp from 'images/main_visual_sp@2x.jpg';
 import topImage1 from 'images/top1@2x.png';
 import topImage1Sp from 'images/top1_sp@2x.png';
 import topImage2 from 'images/top2@2x.png';
-import logoPickgo from 'images/logo-pickgo@2x.png';
+import logoPickGo from 'images/logo-pickgo@2x.png';
 import logoAppliv from 'images/logo-appliv@2x.png';
 import logoAscii from 'images/logo-ascii@2x.png';
 import logoBridge from 'images/logo-bridge@2x.png';
@@ -24,11 +24,11 @@ import logoTechable from 'images/logo-techable@2x.png';
 import SearchInput from './SearchInput';
 
 const TopPage = styled.div`
-  min-width: 1048px;
+  min-width: ${Dimens.fixedWidthPc}px;
   margin-top: -20px;
   background: ${Colors.lightGray2Bg};
   ${media.phone`
-    min-width: 0;
+    min-width: auto;
   `};
 `;
 
@@ -36,7 +36,7 @@ const TopView = styled.div`
   height: 800px;
   background-image: url(${mainVisual});
   background-size: cover;
-  color: rgb(255, 255, 255);
+  color: ${Colors.white};
   background-repeat: no-repeat;
   ${media.phone`
     height: 480px;
@@ -61,15 +61,15 @@ const TopViewContainer = styled(DefaultContainer)``;
 
 const CatchPhrase = styled.div`
   font-size: ${FontSizes.xxlarge}px;
+  line-height: ${FontSizes.xxlarge * 1.5}px;
   font-weight: bold;
-  line-height: 56px;
   text-align: left;
   width: 570px;
   height: 114px;
   margin-bottom: 10px;
   ${media.phone`
-    font-size: 1.3em;
-    line-height: 1.8em;
+    font-size: ${FontSizes.medium1}px;
+    line-height: ${FontSizes.medium1 * 1.75}px;
     width: 100%;
     height: auto;
   `};
@@ -77,18 +77,14 @@ const CatchPhrase = styled.div`
 
 const SubCatchPhrase = styled.span`
   display: block;
-  font-size: 26px;
+  font-size: ${FontSizes.medium3}px;
+  line-height: ${FontSizes.medium3 * 1.5}px;
   width: 480px;
-  line-height: 40px;
   ${media.phone`
-    font-size: 1.1em;
-    line-height: 30px;
+    font-size: ${FontSizes.medium}px;
+    line-height: ${FontSizes.medium * 1.75}px;
     width: 100%;
   `};
-`;
-
-const SubCatchPhraseWide = SubCatchPhrase.extend`
-  width: 540px;
 `;
 
 const ToHostRegistContainer = styled.div`
@@ -102,8 +98,8 @@ const ToHostRegistContainer = styled.div`
 `;
 
 const ToHostRegist = styled.a`
-  font-size: 18px;
-  line-height: 42px;
+  font-size: ${FontSizes.medium}px;
+  line-height: ${FontSizes.medium * 2}px;
   color: ${Colors.white};
   text-decoration: underline;
   ${media.phone`
@@ -217,7 +213,7 @@ const HostReasonContainer = styled(StyledDefaultContainer)`
 
 const ForSafeContainer = styled(StyledDefaultContainer)``;
 
-const PickgoContainer = styled(StyledDefaultContainer)`
+const PickGoContainer = styled(StyledDefaultContainer)`
   display: flex;
   color: ${Colors.white};
 `;
@@ -230,18 +226,19 @@ const MediaLineupContainer = styled(StyledDefaultContainer)`
 const HilightCopy = styled.span`
   display: block;
   font-size: ${FontSizes.small}px;
-  line-height: 21px;
-  margin-bottom: 9px;
-  color: rgb(232, 82, 88);
+  line-height: ${FontSizes.small * 1.5}px;
+  margin-bottom: 8px;
+  color: ${Colors.brandPrimary};
 `;
 
 const DefaultTitle = styled.span`
   display: inline-block;
   font-size: ${FontSizes.xxlarge}px;
-  line-height: 51px;
+  line-height: ${FontSizes.xxlarge * 1.5}px;
   margin-bottom: 80px;
   ${media.phone`
-    font-size: 28px;
+    font-size: ${FontSizes.medium2}px;
+    line-height: ${FontSizes.medium2 * 1.5}px;
     margin-bottom: 40px;
   `};
 `;
@@ -264,14 +261,15 @@ const ExplainSection = ({ title, description, isLeft }) => {
 
   const ExplainTitle = styled.span`
     display: block;
-    font-size: 22px;
+    font-size: ${FontSizes.medium1}px;
+    line-height: ${FontSizes.medium1 * 1.5}px;
     margin-bottom: 10px;
   `;
 
   const ExplainDescription = styled.span`
     display: block;
     font-size: ${FontSizes.medium}px;
-    line-height: 32px;
+    line-height: ${FontSizes.medium * 2}px;
     ${media.phone`
       width: 84vw;
     `};
@@ -340,34 +338,45 @@ const ForSafeSection = ({ iconClass, title, description, buttonText, onClick }) 
   `;
   const StyledTitle = styled.div`
     height: 60px;
-    font-size: 22px;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
   `;
   const Description = styled.div`
     height: 54%;
-    font-size: 16px;
-    line-height: 32px;
+    font-size: ${FontSizes.medium}px;
+    line-height: ${FontSizes.medium * 2}px;
     margin-bottom: 30px;
     ${media.phone`
       height: auto;
     `};
   `;
-  const style = {
-    titleIcon: {
-      marginRight: '20px',
-      fontSize: '60px',
-    },
-  };
+  const TitleIcon = styled.span`
+    margin-right: 20px;
+    font-size: 60px;
+  `;
+  const CircleIcon = styled.i`
+    && {
+      color: ${Colors.brandPrimary};
+    }
+  `;
+  const InnerIcon = styled.i`
+    && {
+      color: ${Colors.white};
+    }
+  `;
+  const TitleText = styled.span`
+    font-size: ${FontSizes.medium1}px;
+  `;
+
   return (
     <StyledContainer>
       <StyledTitle>
-        <span className="fa-layers fa-fw fa-2x" style={style.titleIcon}>
-          <i className="fas fa-circle" style={{ color: '#E85258' }} />
-          <i className={iconClass} style={{ color: '#fff' }} data-fa-transform="shrink-6" />
-        </span>
-        <span>{title}</span>
+        <TitleIcon className="fa-layers fa-fw fa-2x">
+          <CircleIcon className="fas fa-circle" />
+          <InnerIcon className={iconClass} data-fa-transform="shrink-6" />
+        </TitleIcon>
+        <TitleText>{title}</TitleText>
       </StyledTitle>
       <Description>{description}</Description>
       <ForSafeSectionButton onClick={onClick}>{buttonText}</ForSafeSectionButton>
@@ -412,15 +421,20 @@ const ForSafeSectionList = (props) => {
   );
 };
 
-const PickgoWrapper = styled.div`
+const PickGoWrapper = styled.div`
   position: relative;
   width: 100%;
 `;
 
+const SubCatchPhrasePickGo = SubCatchPhrase.extend`
+  width: 540px;
+  margin-bottom: 20px;
+`;
+
 const LinkToPickGo = styled.a`
-  font-size: 18px;
-  color: rgb(255, 255, 255);
-  line-height: 42px;
+  font-size: ${FontSizes.medium}px;
+  line-height: ${FontSizes.medium * 2}px;
+  color: ${Colors.white};
   text-decoration: underline;
 `;
 
@@ -429,7 +443,7 @@ const PickGoSection = styled.div`
   top: 0;
   right: 0;
   width: 294px;
-  color: #333333;
+  color: ${Colors.darkGray1};
   text-align: center;
   margin-left: 181px;
   margin-top: 87px;
@@ -448,11 +462,11 @@ const PickGoMedia = styled.img`
 
 const PickGoDescription = styled.div`
   font-size: ${FontSizes.small}px;
-  line-height: 27px;
+  line-height: ${FontSizes.small * 2}px;
 `;
 
 const LineupTitle = styled.div`
-  font-size: 22px;
+  font-size: ${FontSizes.medium1}px;
   margin-bottom: 40px;
 `;
 
@@ -470,9 +484,10 @@ const LineupItem = styled.li`
     height: 16px;
     margin-right: 10px;
   `};
-  img {
-    height: 100%;
-  }
+`;
+
+const LineupImage = styled.img`
+  height: 100%;
 `;
 
 function refSearchField(ref, props) {
@@ -486,25 +501,39 @@ const MediaLineup = () => (
     <LineupTitle>メディア掲載</LineupTitle>
     <LineupList>
       <LineupItem>
-        <a href="https://japan.cnet.com/" target="_blank" rel="noopener noreferrer" ><img src={logoCnet} alt="CNET Japan" /></a>
+        <a component={Link} href="https://japan.cnet.com/" target="_blank" rel="noopener noreferrer" >
+          <LineupImage src={logoCnet} alt="CNET Japan" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="http://ascii.jp/" target="_blank" rel="noopener noreferrer" ><img src={logoAscii} alt="ASCII.jp" /></a>
+        <a href="http://ascii.jp/" target="_blank" rel="noopener noreferrer" >
+          <LineupImage src={logoAscii} alt="ASCII.jp" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="http://thebridge.jp/" target="_blank" rel="noopener noreferrer" ><img src={logoBridge} alt="THE BRIDGE" /></a>
+        <a href="http://thebridge.jp/" target="_blank" rel="noopener noreferrer" >
+          <LineupImage src={logoBridge} alt="THE BRIDGE" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://mag.app-liv.jp/" target="_blank" rel="noopener noreferrer" ><img src={logoAppliv} alt="Appliv" /></a>
+        <a href="https://mag.app-liv.jp/" target="_blank" rel="noopener noreferrer" >
+          <LineupImage src={logoAppliv} alt="Appliv" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://www.lifehacker.jp/" target="_blank" rel="noopener noreferrer" ><img src={logoLifehacker} alt="lifehacker" /></a>
+        <a href="https://www.lifehacker.jp/" target="_blank" rel="noopener noreferrer" >
+          <LineupImage src={logoLifehacker} alt="lifehacker" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://jp.techcrunch.com/" target="_blank" rel="noopener noreferrer" ><img src={logoTechcrunch} alt="TechCrunch" /></a>
+        <a href="https://jp.techcrunch.com/" target="_blank" rel="noopener noreferrer" >
+          <LineupImage src={logoTechcrunch} alt="TechCrunch" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://techable.jp" target="_blank" rel="noopener noreferrer" ><img src={logoTechable} alt="TECHABLE" /></a>
+        <a href="https://techable.jp" target="_blank" rel="noopener noreferrer" >
+          <LineupImage src={logoTechable} alt="TECHABLE" />
+        </a>
       </LineupItem>
     </LineupList>
   </MediaLineupContainer>
@@ -620,25 +649,25 @@ export default props => (
       <ForSafeSectionList history={props.history} />
     </ForSafeContainer>
     <ColoredContainer>
-      <PickgoContainer>
-        <PickgoWrapper>
+      <PickGoContainer>
+        <PickGoWrapper>
           <CatchPhrase>
             荷物の配送だって<br />もっと便利に安くできる。
           </CatchPhrase>
           <PickGoSection>
-            <PickGoMedia src={logoPickgo} />
+            <PickGoMedia src={logoPickGo} />
             <PickGoDescription>
               サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
             </PickGoDescription>
           </PickGoSection>
-          <SubCatchPhraseWide>
             Pickgoを使えば、引っ越しが 5,000円 から。
-          </SubCatchPhraseWide>
-          <LinkToPickGo component={Link} href={'http://pickgo.town/'}>
             Pickgoのサイトを見る
+          <SubCatchPhrasePickGo>
+          </SubCatchPhrasePickGo>
+          <LinkToPickGo component={Link} href={'http://pickgo.town/'}  target="_blank" rel="noopener noreferrer">
           </LinkToPickGo>
-        </PickgoWrapper>
-      </PickgoContainer>
+        </PickGoWrapper>
+      </PickGoContainer>
     </ColoredContainer>
     <MediaLineup />
     <Footer />
