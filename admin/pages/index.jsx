@@ -93,9 +93,13 @@ export default class extends React.Component {
           </Table.Header>
           <Table.Body>
             {this.props.rooms.map((room, i) => (
-              <Table.Row>
+              <Table.Row key={i}>
                 <Table.Cell>{i + 1}</Table.Cell>
-                <Table.Cell>{room.roomId}</Table.Cell>
+                <Table.Cell>
+                  <Link href={`/room?id=${room.roomId}`}>
+                    <a>{room.roomId}</a>
+                  </Link>
+                </Table.Cell>
                 <Table.Cell>
                   <Link href={`https://monooq.com/user/${room.userId1}`}>
                     <a target="_brank">{room.userId1}</a>
