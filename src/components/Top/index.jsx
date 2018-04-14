@@ -117,7 +117,7 @@ const ColoredContainer = styled.div`
 
 const ColoredContainerGray = styled.div`
   background-color: ${Colors.lightGray1Bg};
-`
+`;
 
 const MovieContainer = styled(DefaultContainer)`
   padding-top: 70px;
@@ -171,7 +171,6 @@ const MovieExplanText = styled.div`
   font-size: ${FontSizes.medium}px;
   line-height: ${FontSizes.medium * 2}px;
 `;
-
 
 const StyledDefaultContainer = styled(DefaultContainer)`
   padding-top: 80px;
@@ -375,7 +374,7 @@ const ForSafeSection = ({ iconClass, title, description, buttonText, onClick }) 
   );
 };
 
-const ForSafeSectionList = (props) => {
+const ForSafeSectionList = props => {
   const StyledContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -486,25 +485,39 @@ const MediaLineup = () => (
     <LineupTitle>メディア掲載</LineupTitle>
     <LineupList>
       <LineupItem>
-        <a href="https://japan.cnet.com/" target="_blank" rel="noopener noreferrer" ><img src={logoCnet} alt="CNET Japan" /></a>
+        <a href="https://japan.cnet.com/" target="_blank" rel="noopener noreferrer">
+          <img src={logoCnet} alt="CNET Japan" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="http://ascii.jp/" target="_blank" rel="noopener noreferrer" ><img src={logoAscii} alt="ASCII.jp" /></a>
+        <a href="http://ascii.jp/" target="_blank" rel="noopener noreferrer">
+          <img src={logoAscii} alt="ASCII.jp" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="http://thebridge.jp/" target="_blank" rel="noopener noreferrer" ><img src={logoBridge} alt="THE BRIDGE" /></a>
+        <a href="http://thebridge.jp/" target="_blank" rel="noopener noreferrer">
+          <img src={logoBridge} alt="THE BRIDGE" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://mag.app-liv.jp/" target="_blank" rel="noopener noreferrer" ><img src={logoAppliv} alt="Appliv" /></a>
+        <a href="https://mag.app-liv.jp/" target="_blank" rel="noopener noreferrer">
+          <img src={logoAppliv} alt="Appliv" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://www.lifehacker.jp/" target="_blank" rel="noopener noreferrer" ><img src={logoLifehacker} alt="lifehacker" /></a>
+        <a href="https://www.lifehacker.jp/" target="_blank" rel="noopener noreferrer">
+          <img src={logoLifehacker} alt="lifehacker" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://jp.techcrunch.com/" target="_blank" rel="noopener noreferrer" ><img src={logoTechcrunch} alt="TechCrunch" /></a>
+        <a href="https://jp.techcrunch.com/" target="_blank" rel="noopener noreferrer">
+          <img src={logoTechcrunch} alt="TechCrunch" />
+        </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://techable.jp" target="_blank" rel="noopener noreferrer" ><img src={logoTechable} alt="TECHABLE" /></a>
+        <a href="https://techable.jp" target="_blank" rel="noopener noreferrer">
+          <img src={logoTechable} alt="TECHABLE" />
+        </a>
       </LineupItem>
     </LineupList>
   </MediaLineupContainer>
@@ -539,7 +552,12 @@ export default props => (
     <ColoredContainer>
       <MovieContainer>
         <MovieFrameWrapper>
-          <MovieFrame src="https://www.youtube.com/embed/t0t50WBDwzc?showinfo=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen />
+          <MovieFrame
+            src="https://www.youtube.com/embed/t0t50WBDwzc?showinfo=0&rel=0"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+          />
         </MovieFrameWrapper>
         <MovieExplanContainer>
           <MovieExplanTitle>
@@ -631,11 +649,9 @@ export default props => (
               サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
             </PickGoDescription>
           </PickGoSection>
-          <SubCatchPhraseWide>
-            Pickgoを使えば、引っ越しが 5,000円 から。
-          </SubCatchPhraseWide>
+          <SubCatchPhraseWide>PickGoを使えば、引っ越しが 5,000円 から。</SubCatchPhraseWide>
           <LinkToPickGo component={Link} href={'http://pickgo.town/'}>
-            Pickgoのサイトを見る
+            PickGoのサイトを見る
           </LinkToPickGo>
         </PickgoWrapper>
       </PickgoContainer>

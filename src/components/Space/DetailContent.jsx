@@ -8,7 +8,7 @@ import { FontSizes, Colors, Dimens } from 'variables';
 const Container = styled.div`
   ${media.phone`
     margin-top: ${Dimens.medium}px;
-  `}
+  `};
 `;
 
 const Text = styled.span`
@@ -36,8 +36,7 @@ const BaggetText = Text.extend`
   margin-top: ${props => (props.typeOK ? Dimens.xsmall : 0)}px;
 `;
 
-const ReceiveContainer = styled.div`
-`;
+const ReceiveContainer = styled.div``;
 
 const ReceiveIconWrapper = styled.div`
   display: inline-block;
@@ -87,16 +86,16 @@ const BaggegeType = props => (
 // 受取り方法
 const HowToReceive = props => (
   <Container>
-    {props.delivery &&
+    {props.delivery && (
       <ReceiveContainer>
         <ReceiveIconWrapper>
           <LocalShippingIcon />
         </ReceiveIconWrapper>
         <ReceiveText>配送</ReceiveText>
-        <ReceiveSubText>Pickgo・ヤマト運輸など配送サービス</ReceiveSubText>
+        <ReceiveSubText>PickGo・ヤマト運輸など配送サービス</ReceiveSubText>
       </ReceiveContainer>
-    }
-    {props.meeting &&
+    )}
+    {props.meeting && (
       <ReceiveContainer>
         <ReceiveIconWrapper>
           <PeopleIcon />
@@ -104,7 +103,7 @@ const HowToReceive = props => (
         <ReceiveText>対面</ReceiveText>
         <ReceiveSubText>直接本人から荷物を受け取ります</ReceiveSubText>
       </ReceiveContainer>
-    }
+    )}
   </Container>
 );
 
