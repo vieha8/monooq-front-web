@@ -22,19 +22,18 @@ type PropTypes = {
   buttonDisabled: boolean,
   buttonLoading: boolean,
   onClickRegisterProfile: Function,
-}
+};
 
 export default (props: PropTypes) => (
   <Form
-    title={<InlineText.Base fontSize={FontSizes.medium1}>あなたのプロフィールを登録</InlineText.Base>}
+    title={
+      <InlineText.Base fontSize={FontSizes.medium1}>あなたのプロフィールを登録</InlineText.Base>
+    }
     image={
       <InputForm
         label="プロフィール写真"
         extension={
-          <RegsiterProfileImage
-            onDrop={data => props.onChangeImage(data[0])}
-            image={props.image}
-          />
+          <RegsiterProfileImage onDrop={data => props.onChangeImage(data[0])} image={props.image} />
         }
       />
     }

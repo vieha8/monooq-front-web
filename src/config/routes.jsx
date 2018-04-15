@@ -58,6 +58,7 @@ export const routes = [
   { path: Path.spaces(), component: Containers.SpaceManagement },
   { path: Path.schedule(), component: Containers.Schedule },
   { path: Path.profile(), component: Containers.Profile },
+  { path: Path.editProfile(), component: Containers.EditProfile },
   // legacy
   { path: Path.top(), component: Top },
   { path: Path.payment(), component: Payment },
@@ -77,7 +78,6 @@ export const routes = [
   { path: Path.messages(), component: MessageRooms },
   { path: Path.message(), component: MessageRoom },
   { path: Path.estimate(), component: Estimate },
-  { path: Path.editProfile(), component: EditProfile },
   { path: Path.hostReview(), component: PostHostReview },
   { path: Path.paid(), component: Payments },
   { path: Path.salesTransfers(), component: SalesTransferList },
