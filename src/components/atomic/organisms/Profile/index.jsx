@@ -3,7 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Colors, FontSizes, Dimens } from 'variables';
-import { media } from 'helpers/style/media-query';
 import { getPrefecture } from 'helpers/prefectures';
 import Card from 'components/atomic/atoms/Card';
 import InlineText from 'components/atomic/atoms/InlineText';

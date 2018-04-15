@@ -15,7 +15,6 @@ import CancelSchedule from 'containers/CancelSchedule';
 import MessageRooms from 'containers/MessageRooms/';
 import MessageRoom from 'containers/MessageRoom/';
 import Estimate from 'containers/Estimate';
-import EditProfile from 'containers/EditProfile';
 import PostHostReview from 'containers/PostHostReview';
 import Payments from 'containers/Payments';
 import SalesTransferList from 'containers/SalesTransfer/SalesTransferList';
