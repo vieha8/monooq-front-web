@@ -20,7 +20,6 @@ import Payments from 'containers/Payments';
 import SalesTransferList from 'containers/SalesTransfer/SalesTransferList';
 import TransferRequest from 'containers/SalesTransfer/TransferRequest';
 import EditBankAccount from 'containers/SalesTransfer/EditBankAccount';
-import Inquiry from 'containers/Inquiry';
 import Unsubscribe from 'containers/Unsubscribe';
 import Report from 'containers/Report';
 
@@ -58,6 +57,7 @@ export const routes = [
   { path: Path.schedule(), component: Containers.Schedule },
   { path: Path.profile(), component: Containers.Profile },
   { path: Path.editProfile(), component: Containers.EditProfile },
+  { path: Path.inquiry(), component: Containers.Inquiry },
   // legacy
   { path: Path.top(), component: Top },
   { path: Path.payment(), component: Payment },
@@ -82,7 +82,6 @@ export const routes = [
   { path: Path.salesTransfers(), component: SalesTransferList },
   { path: Path.requestTransfer(), component: TransferRequest },
   { path: Path.editBankAccount(), component: EditBankAccount },
-  { path: Path.inquiry(), component: Inquiry },
   { path: Path.unsubscribe(), component: Unsubscribe },
   { path: Path.reportUser(), component: Report },
   { path: Path.reportSpace(), component: Report },
