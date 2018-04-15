@@ -26,8 +26,9 @@ type PropTypes = {
   prefCode: string,
   onChangeProfile: Function,
   profile: string,
-  loading: boolean,
   onClickUpdate: Function,
+  buttonDisabled: boolean,
+  buttonLoading: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -77,9 +78,10 @@ export default (props: PropTypes) => (
     </Row>
     <Button
       primary
-      fill
-      onClick={props.loading ? null : props.onClickUpdate}
-      loading={props.loading}
+      fill={1}
+      disabled={props.buttonDisabled}
+      onClick={props.buttonLoading ? null : props.onClickUpdate}
+      loading={props.buttonLoading}
     >
       プロフィールを更新する
     </Button>

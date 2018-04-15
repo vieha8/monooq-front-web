@@ -1,7 +1,9 @@
 // @flow
 
 import React, { Component } from 'react';
-import Path from 'config/path';
+
+import { userActions } from 'redux/modules/user';
+import { uiActions } from 'redux/modules/ui';
 
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
@@ -9,57 +11,141 @@ import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/molecules/Footer';
 import LoadingPage from 'components/atomic/organisms/LoadingPage';
 import EditProfile from 'components/atomic/organisms/EditProfile';
+import EditProfileCompleted from 'components/atomic/organisms/EditProfile/Completed';
+import { ErrorMessage } from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
 
 type PropTypes = {
+  dispatch: Function,
+  user: {
+    ID: number,
+  },
   ui: {
-    name: string,
-    email: string,
-    prefCode: string,
-    profile: string,
-    image: string,
+    editProfile: {
+      name: string,
+      email: string,
+      prefCode: string,
+      profile: string,
+      imageUri: string,
+    },
+  },
+  isLoading: boolean,
+  updateSuccess: boolean,
+};
+
+const Validate = {
+  Email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
+  Profile: {
+    Max: 1000,
   },
 };
 
-type State = {
-  name: string,
-  email: string,
-  prefCode: string,
-  profile: string,
-  image: string,
-};
-
-class ProfileContainer extends Component<PropTypes, State> {
+class ProfileContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
     checkLogin(this.props);
-
-    this.state = {
-      ...props.ui,
-    };
   }
 
+  onClickUpdate = () => {
+    const { user, ui } = this.props;
+    const { name, email, prefCode, profile } = ui;
+
+    this.setState({ hasChanged: false, errors: {} });
+
+    if (this.validate()) {
+      const { dispatch } = this.props;
+      dispatch(userActions.updateUser({ userId: user.ID, body: ui.editProfile }));
+      return;
+    }
+
+    const errors = {};
+    // 名前チェック
+    if (!name) {
+      errors.name = [].concat(errors.name, [ErrorMessage.PleaseInput]);
+    }
+    // emailチェック
+    if (!email) {
+      errors.email = [].concat(errors.email, [ErrorMessage.PleaseInput]);
+    }
+    // お住いの地域選択
+    if (!prefCode) {
+      errors.email = [].concat(errors.prefCode, [ErrorMessage.PleaseSelect]);
+    }
+    // プロフィールチェック
+    if (!profile) {
+      errors.profile = [].concat(errors.profile, [ErrorMessage.PleaseInput]);
+    }
+
+    this.setState({ errors });
+  };
+
+  handleChangeUI = (propsName: string, value) => {
+    const { dispatch, ui } = this.props;
+    const nextUI = Object.assign({}, ui);
+    nextUI.editProfile[propsName] = value;
+    dispatch(uiActions.setUiState(nextUI));
+  };
+
+  validate: Function;
+  validate = () => {
+    const { ui } = this.props;
+    const { name, email, prefCode, profile } = ui.editProfile;
+
+    return (
+      name &&
+      name.length > 0 &&
+      email &&
+      email.match(Validate.Email) &&
+      prefCode &&
+      profile &&
+      profile.length > 0 &&
+      profile.length <= Validate.Profile.Max
+    );
+  };
+
   render() {
-    const { isLoading } = this.props;
+    const { updateSuccess, isLoading, user, ui } = this.props;
 
     const auth = checkAuthState(this.props);
     if (auth) {
       return auth;
     }
 
-    if (isLoading) {
+    if (!ui.editProfile) {
       return <LoadingPage />;
     }
+
+    const { imageUri, name, email, prefCode, profile } = ui.editProfile;
 
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline="プロフィールを編集する"
+        headline={updateSuccess ? 'プロフィールの更新が完了しました' : 'プロフィールを編集する'}
         leftContent={<ServiceMenu />}
-        rightContent={<EditProfile />}
+        rightContent={
+          updateSuccess ? (
+            <EditProfileCompleted userId={user.ID} />
+          ) : (
+            <EditProfile
+              image={imageUri}
+              name={name}
+              email={email}
+              prefCode={prefCode}
+              profile={profile}
+              onChangeImage={value => this.handleChangeUI('imageUri', value)}
+              onChangeName={value => this.handleChangeUI('name', value)}
+              onChangeEmail={value => this.handleChangeUI('email', value)}
+              onChangePrefCode={value => this.handleChangeUI('prefCode', value)}
+              onChangeProfile={value => this.handleChangeUI('profile', value)}
+              buttonDisabled={!this.validate()}
+              buttonLoading={isLoading}
+              onClickUpdate={this.onClickUpdate}
+            />
+          )
+        }
         footer={<Footer />}
       />
     );
@@ -67,23 +153,24 @@ class ProfileContainer extends Component<PropTypes, State> {
 }
 
 const mapStateToProps = state => {
-  let initialUI = {};
+  let editProfile = state.ui.editProfile;
 
-  if (!state.ui.editProfile && state.auth.user.Name) {
+  if (!editProfile && state.auth.user.Name) {
     const user = state.auth.user;
-    initialUI = {
+    editProfile = {
+      imageUri: user.ImageUrl,
       name: user.Name,
       email: user.Email,
       prefCode: user.PrefCode,
       profile: user.Profile,
-      image: user.ImageUrl,
     };
   }
 
   return mergeAuthProps(state, {
-    ui: initialUI,
+    ui: {
+      editProfile,
+    },
     user: state.auth.user,
-    error: state.error,
     updateSuccess: state.user.updateSuccess,
     isLoading: state.user.isLoading,
   });
