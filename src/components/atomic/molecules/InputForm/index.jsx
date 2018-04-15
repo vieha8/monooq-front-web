@@ -11,9 +11,11 @@ const InputFieldWrapper = styled.div`
   display: inline-block;
   margin-top: 4px;
   width: 100%;
-  ${props => props.unit && `
-    width: 85vw;
-  `}
+  ${props =>
+    props.unit &&
+    `
+      width: 85vw;
+    `};
 `;
 
 const UnitWrapper = styled.div`
@@ -30,29 +32,30 @@ type PropTypes = {
   onChange: Function,
   extension?: React.Element<*>,
   multiline?: boolean,
-}
+};
 
 export default (props: PropTypes) => (
   <Fragment>
     <H3>{props.label}</H3>
     {props.hint && <InlineText.Emphasis>{props.hint}</InlineText.Emphasis>}
     <InputFieldWrapper unit={props.unit}>
-      {props.extension ? props.extension
-        : (
-          props.multiline ?
-            <TextArea
-              {...props}
-              placeholder={props.placeholder}
-              value={props.value}
-              onChange={props.onChange}
-            />
-          : <InputField
-              {...props}
-              placeholder={props.placeholder}
-              value={props.value}
-              onChange={props.onChange}
-            />
-        )}
+      {props.extension ? (
+        props.extension
+      ) : props.multiline ? (
+        <TextArea
+          {...props}
+          placeholder={props.placeholder}
+          value={props.value}
+          onChange={props.onChange}
+        />
+      ) : (
+        <InputField
+          {...props}
+          placeholder={props.placeholder}
+          value={props.value}
+          onChange={props.onChange}
+        />
+      )}
     </InputFieldWrapper>
     {props.unit && (
       <UnitWrapper>

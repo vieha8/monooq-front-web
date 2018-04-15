@@ -6,7 +6,7 @@ import { Colors, FontSizes } from 'variables';
 
 export const PrimaryButton = styled.div`
   width: 100%;
-  max-width: 300px;
+  ${props => !props.fill && `max-width: 300px;`}
   padding: 17px 10px;
   text-align: center;
   font-size: ${FontSizes.medium}px;
@@ -19,38 +19,38 @@ export const PrimaryButton = styled.div`
     background: ${Colors.brandSecondary};
   }
 
-  ${props => props.height && `
-    height: ${props.height}px;
-    padding: ${(props.height / 2) - (FontSizes.medium / 2)}px 10px;
-  `}
+  ${props =>
+    props.height &&
+    `
+      height: ${props.height}px;
+      padding: ${props.height / 2 - FontSizes.medium / 2}px 10px;
+    `}
 
   ${props =>
     props.center &&
     `
     margin: 0 auto;
   `} ${props =>
-      props.disabled
-        ? css`
-            background: ${Colors.lightGray1};
-            cursor: not-allowed;
-          `
-        : css`
-            &:hover {
-              background: ${Colors.brandTerciary};
-            }
-          `} ${props =>
-      props.small &&
-      css`
-        padding: 8px 4px;
-        font-size: 12px;
+  props.disabled
+    ? css`
+        background: ${Colors.lightGray1};
+        cursor: not-allowed;
+      `
+    : css`
+        &:hover {
+          background: ${Colors.brandTerciary};
+        }
       `} ${props =>
-      props.medium &&
-      css`
-        padding: 12px 8px;
-        font-size: 16px;
-      `};
+  props.small &&
+  css`
+    padding: 8px 4px;
+    font-size: 12px;
+  `} ${props =>
+  props.medium &&
+  css`
+    padding: 12px 8px;
+    font-size: 16px;
+  `};
 `;
 
-export default (props: Object) => (
-  <PrimaryButton {...props} />
-);
+export default (props: Object) => <PrimaryButton {...props} />;

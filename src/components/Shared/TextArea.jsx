@@ -18,9 +18,11 @@ const TextArea = styled.textarea`
   &::placeholder {
     color: ${Colors.lightGray1};
   }
-  ${props => props.invalid && `
-    border: 1px solid ${Colors.error};
-  `}
+  ${props =>
+    props.invalid &&
+    `
+      border: 1px solid ${Colors.error};
+    `};
 `;
 
 export default TextArea;

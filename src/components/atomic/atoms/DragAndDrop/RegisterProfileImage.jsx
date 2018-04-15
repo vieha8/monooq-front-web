@@ -43,13 +43,10 @@ const Preview = styled.img`
 type PropTypes = {
   onDrop: Function,
   image: File | string,
-}
+};
 
 export default (props: PropTypes) => (
-  <StyledDropzone
-    accept="image/jpeg, image/png"
-    onDrop={props.onDrop}
-  >
+  <StyledDropzone accept="image/jpeg, image/png" onDrop={props.onDrop}>
     <Container>
       {props.image ? (
         <Preview src={props.image.preview || props.image} />
