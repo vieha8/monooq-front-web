@@ -8,6 +8,7 @@ import Space from './SpaceContainer';
 import SpaceManagement from './SpaceManagementContainer';
 import Schedule from './ScheduleContainer';
 import Profile from './ProfileContainer';
+import EditProfile from './EditProfileContainer';
 
 export default {
   Login,
@@ -18,4 +19,5 @@ export default {
   SpaceManagement,
   Schedule,
   Profile,
+  EditProfile,
 };
