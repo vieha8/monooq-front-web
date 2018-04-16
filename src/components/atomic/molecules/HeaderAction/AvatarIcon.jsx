@@ -7,10 +7,10 @@ type PropTypes = {
   href?: string,
   onClick?: Function,
   imageSrc: string,
-}
+};
 
 export default (props: PropTypes) => (
   <a href={props.href} onClick={props.onClick}>
-    <AvatarImage src={props.imageSrc} size={32}/>
+    <AvatarImage src={props.imageSrc} size={32} />
   </a>
 );

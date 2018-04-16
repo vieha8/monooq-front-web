@@ -38,7 +38,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
 
     return (
       <ServiceMenu
-        message={{ href: Path.message(), notificationCount: 0 }}
+        message={{ href: Path.messages(), notificationCount: 0 }}
         schedule={{ href: Path.schedule(user.ID), notificationCount: 0 }}
         spaces={{ href: Path.spaces(user.ID) }}
         addSpace={{ href: Path.createSpaceInfo() }}

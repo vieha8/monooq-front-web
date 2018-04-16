@@ -10,6 +10,7 @@ import Schedule from './ScheduleContainer';
 import Profile from './ProfileContainer';
 import EditProfile from './EditProfileContainer';
 import Inquiry from './InquiryContainer';
+import Inbox from './InboxContainer';
 
 export default {
   Login,
@@ -22,4 +23,5 @@ export default {
   Profile,
   EditProfile,
   Inquiry,
+  Inbox,
 };

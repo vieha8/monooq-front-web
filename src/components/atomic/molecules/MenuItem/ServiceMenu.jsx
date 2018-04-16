@@ -31,7 +31,7 @@ type PropTypes = {
   title: string,
   notificationCount: number,
   onClick?: Function,
-}
+};
 
 export default (props: PropTypes) => (
   <MenuItem show>
