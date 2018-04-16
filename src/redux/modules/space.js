@@ -41,6 +41,7 @@ export const spaceActions = createActions(
 
 // Reducer
 const initialState = {
+  isComplete: false,
   isLoading: false,
   space: null,
 };
@@ -64,28 +65,34 @@ export const spaceReducer = handleActions(
       ...state,
       created: null,
       isLoading: true,
+      isComplete: false,
     }),
     [CREATE_SUCCESS_SPACE]: (state, action) => ({
       ...state,
       created: action.payload,
       isLoading: false,
+      isComplete: true,
     }),
     [CREATE_FAILED_SPACE]: state => ({
       ...state,
       created: null,
       isLoading: false,
+      isComplete: false,
     }),
     [UPDATE_SPACE]: state => ({
       ...state,
       isLoading: true,
+      isComplete: false,
     }),
     [UPDATE_SUCCESS_SPACE]: state => ({
       ...state,
       isLoading: false,
+      isComplete: true,
     }),
     [UPDATE_FAILED_SPACE]: state => ({
       ...state,
       isLoading: false,
+      isComplete: false,
     }),
     [SET_SPACE]: (state, action) => ({
       ...state,
@@ -221,7 +228,6 @@ function* createSpace({ payload: { body } }) {
   }
 
   yield put(spaceActions.createSuccessSpace(payload));
-  store.dispatch(push(Path.createSpaceCompletion()));
 }
 
 function* updateSpace({ payload: { spaceId, body } }) {
@@ -274,7 +280,6 @@ function* updateSpace({ payload: { spaceId, body } }) {
     return;
   }
   yield put(spaceActions.updateSuccessSpace(payload));
-  store.dispatch(push(Path.editSpaceCompletion(spaceId)));
 }
 
 function* deleteSpace({ payload: { space } }) {
