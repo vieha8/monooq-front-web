@@ -42,7 +42,7 @@ class PriceContainer extends React.Component {
     } else {
       this.props.dispatch(spaceActions.createSpace({ body: saveSpace }));
     }
-  }
+  };
 
   onClickBack = () => {
     const { ui, history } = this.props;
@@ -51,7 +51,7 @@ class PriceContainer extends React.Component {
     } else {
       history.push(Path.createSpaceAreaSize());
     }
-  }
+  };
 
   onChangePrice = (prop, value) => {
     const errors = this.props.error[prop] || [];
@@ -66,49 +66,49 @@ class PriceContainer extends React.Component {
     }
     FormValidator.changeErrorState(prop, errors, this.props.error);
     FormValidator.changeUiState(prop, value, this.props.ui);
-  }
+  };
 
-  handleChangePriceAll = (value) => {
+  handleChangePriceAll = value => {
     this.onChangePrice('priceFull', value);
-  }
+  };
 
-  handleChangePriceFull = (value) => {
+  handleChangePriceFull = value => {
     this.onChangePrice('priceFull', value);
-  }
+  };
 
-  handleChangePriceHalf = (value) => {
+  handleChangePriceHalf = value => {
     this.onChangePrice('priceHalf', value);
-  }
+  };
 
-  handleChangePriceQuarter = (value) => {
+  handleChangePriceQuarter = value => {
     this.onChangePrice('priceQuarter', value);
-  }
+  };
 
   validateAllUsePrice = () => {
     const { ui } = this.props;
 
     return (
-      ui.space.priceFull !== ''
-      && ui.space.priceFull >= Validate.Price.Min
-      && ui.space.priceFull <= Validate.Price.Max
+      ui.space.priceFull !== '' &&
+      ui.space.priceFull >= Validate.Price.Min &&
+      ui.space.priceFull <= Validate.Price.Max
     );
-  }
+  };
 
   validateAboutPrice = () => {
     const { ui } = this.props;
 
     return (
-      ui.space.priceFull !== ''
-      && ui.space.priceFull >= Validate.Price.Min
-      && ui.space.priceFull <= Validate.Price.Max
-      && ui.space.priceHalf !== ''
-      && ui.space.priceHalf >= Validate.Price.Min
-      && ui.space.priceHalf <= Validate.Price.Max
-      && ui.space.priceQuarter !== ''
-      && ui.space.priceQuarter >= Validate.Price.Min
-      && ui.space.priceQuarter <= Validate.Price.Max
+      ui.space.priceFull !== '' &&
+      ui.space.priceFull >= Validate.Price.Min &&
+      ui.space.priceFull <= Validate.Price.Max &&
+      ui.space.priceHalf !== '' &&
+      ui.space.priceHalf >= Validate.Price.Min &&
+      ui.space.priceHalf <= Validate.Price.Max &&
+      ui.space.priceQuarter !== '' &&
+      ui.space.priceQuarter >= Validate.Price.Min &&
+      ui.space.priceQuarter <= Validate.Price.Max
     );
-  }
+  };
 
   render() {
     const { ui } = this.props;
@@ -117,9 +117,16 @@ class PriceContainer extends React.Component {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 
+    if (this.props.space.isComplete) {
+      if (ui.isEdit) {
+        return <Redirect to={Path.editSpaceCompletion(ui.space.id)} />;
+      }
+      return <Redirect to={Path.createSpaceCompletion()} />;
+    }
+
     return (
       <Page>
-        {this.props.match.params.type === 'all' ?
+        {this.props.match.params.type === 'all' ? (
           <AllUsePrice
             {...this.props}
             handleChangePriceAll={this.handleChangePriceAll}
@@ -128,7 +135,7 @@ class PriceContainer extends React.Component {
             buttonDisabled={!this.validateAllUsePrice()}
             buttonLoading={this.props.isLoading}
           />
-          :
+        ) : (
           <AboutPrice
             {...this.props}
             handleChangeText={this.handleChangeText}
@@ -140,7 +147,7 @@ class PriceContainer extends React.Component {
             buttonDisabled={!this.validateAboutPrice()}
             buttonLoading={this.props.isLoading}
           />
-        }
+        )}
       </Page>
     );
   }

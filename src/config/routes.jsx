@@ -110,14 +110,12 @@ export const routes = [
 export default props => (
   <ConnectedRouter history={props.history}>
     <Root>
-      <ErrorBoundary>
-        <Switch>
-          {routes.map((route, i) => (
-            <Route key={`route_${i}`} exact path={route.path} component={route.component} />
-          ))}
-          <Route component={NotFound} />
-        </Switch>
-      </ErrorBoundary>
+      <Switch>
+        {routes.map((route, i) => (
+          <Route key={`route_${i}`} exact path={route.path} component={route.component} />
+        ))}
+        <Route component={NotFound} />
+      </Switch>
     </Root>
   </ConnectedRouter>
 );
