@@ -29,7 +29,7 @@ type PropTypes = {
   sentAt: string,
   error?: boolean,
   onClickRetry: Function,
-}
+};
 
 export default (props: PropTypes) => (
   <ClearfixContainer>
@@ -38,11 +38,11 @@ export default (props: PropTypes) => (
     </Card>
     <ActionTable>
       <RetryCell>
-        {props.error &&
-          <TextLink error onClick={props.onClickRetry} fontSize={12}>
+        {props.error && (
+          <TextLink error={1} onClick={props.onClickRetry} fontSize={12}>
             エラー：送信されていません。クリックして再試行します。
           </TextLink>
-        }
+        )}
       </RetryCell>
       <DateCell>
         <InlineText.Emphasis>{props.sentAt}</InlineText.Emphasis>

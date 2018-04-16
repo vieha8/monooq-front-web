@@ -8,12 +8,20 @@ import Image16x9 from 'components/atomic/atoms/Image16x9';
 const ImageWrapper = styled.div`
   overflow: hidden;
   border-radius: 6px;
+  max-width: 400px;
   img {
     position: absolute;
     top: -100%;
     bottom: -100%;
     margin: auto;
+    object-fit: cover;
   }
+  ${props =>
+    props.align === 'right' &&
+    `
+      margin-right: 0;
+      margin-left: auto;
+    `};
 `;
 
 const DateWrapper = styled.div`
@@ -22,18 +30,16 @@ const DateWrapper = styled.div`
 `;
 
 type PropTypes = {
+  align: string,
   src: string,
-  alt: string,
+  alt?: string,
   receivedAt: string,
-}
+};
 
 export default (props: PropTypes) => (
   <div>
-    <ImageWrapper>
-      <Image16x9
-        src={props.src}
-        alt={props.alt}
-      />
+    <ImageWrapper align={props.align}>
+      <Image16x9 src={props.src} alt={props.alt || ''} />
     </ImageWrapper>
     <DateWrapper>
       <InlineText.Emphasis>{props.receivedAt}</InlineText.Emphasis>

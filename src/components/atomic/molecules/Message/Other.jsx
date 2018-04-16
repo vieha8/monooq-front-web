@@ -2,10 +2,12 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import ClearfixContainer from 'components/atomic/atoms/ClearfixContainer';
 import AvatarImage from 'components/atomic/atoms/AvatarImage';
 import Card from 'components/atomic/atoms/Card';
 import InlineText from 'components/atomic/atoms/InlineText';
+import Path from 'config/path';
 
 const AvatarWrapper = styled.div`
   float: left;
@@ -21,24 +23,29 @@ const DateWrapper = styled.div`
 `;
 
 type PropTypes = {
-  imageSrc: string,
-  imageAlt: string,
+  id: number,
+  image: string,
   message: string,
   receivedAt: string,
-}
+  extension: React.Element<*>,
+};
 
 export default (props: PropTypes) => (
   <ClearfixContainer>
     <div>
       <AvatarWrapper>
-        <AvatarImage
-          size={64} src={props.imageSrc} alt={props.imageAlt}
-        />
+        <Link to={Path.profile(props.id)}>
+          <AvatarImage size={64} src={props.image} alt="" />
+        </Link>
       </AvatarWrapper>
       <CardWrapper>
-        <Card block>
-          <InlineText.Base fontSize={14}>{props.message}</InlineText.Base>
-        </Card>
+        {props.extension ? (
+          props.extension
+        ) : (
+          <Card block>
+            <InlineText.Base fontSize={14}>{props.message}</InlineText.Base>
+          </Card>
+        )}
       </CardWrapper>
     </div>
     <DateWrapper>

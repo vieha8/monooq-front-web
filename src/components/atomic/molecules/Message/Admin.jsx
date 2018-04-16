@@ -14,7 +14,7 @@ const DateWrapper = styled.div`
 type PropTypes = {
   message: string,
   receivedAt: string,
-}
+};
 
 export default (props: PropTypes) => (
   <div>

@@ -33,7 +33,7 @@ type PropTypes = {
   price: string,
   paymentLink: string,
   receivedAt: string,
-}
+};
 
 export default (props: PropTypes) => (
   <div>
@@ -43,7 +43,9 @@ export default (props: PropTypes) => (
       <Text>利用終了日：{props.endAt}</Text>
       <Text>料金：{props.price}</Text>
       <CaptionWrapper>
-        <Text>お支払い期限は見積もり発行後より24時間です。もし24時間が経過してしまった場合は、ホストへ再度お見積もり送付を依頼してください。</Text>
+        <Text>
+          お支払い期限は見積もり発行後より24時間です。もし24時間が経過してしまった場合は、ホストへ再度お見積もり送付を依頼してください。
+        </Text>
       </CaptionWrapper>
       <LinkWrapper>
         <TextLink href={props.paymentLink}>この見積もりでお支払いに進む</TextLink>
