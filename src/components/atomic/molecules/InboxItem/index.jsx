@@ -29,7 +29,7 @@ const Cell = styled.div`
   }
 `;
 
-type PropTypes = {
+export type PropTypes = {
   link: string,
   image: string,
   name: string,
