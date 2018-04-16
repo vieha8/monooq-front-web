@@ -121,7 +121,7 @@ export default props => (
   <ConnectedRouter history={props.history}>
     <Root>
       <NavigationHeader />
-      <ErrorBoundary>
+      {/*<ErrorBoundary>*/}
         <Switch>
           {routes.map((route, i) => (
             <Route
@@ -133,7 +133,7 @@ export default props => (
           ))}
           <Route component={NotFound} />
         </Switch>
-      </ErrorBoundary>
+      {/*</ErrorBoundary>*/}
     </Root>
   </ConnectedRouter>
 );
