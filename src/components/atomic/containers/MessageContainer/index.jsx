@@ -7,6 +7,7 @@ import { messagesActions } from 'redux/modules/messages';
 
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import Messages from 'components/atomic/organisms/Messages';
 import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/molecules/Footer';
 import LoadingPage from 'components/atomic/organisms/LoadingPage';
@@ -21,7 +22,7 @@ type PropTypes = {
       message_room_id: string,
     },
   },
-  rooms: Array<{
+  room: Array<{
     id: string,
     user: {
       ID: number,
@@ -33,7 +34,17 @@ type PropTypes = {
   isLoading: boolean,
 };
 
-class InboxContainer extends Component<PropTypes> {
+type State = {
+  text: string,
+};
+
+const MessageType = {
+  Text: 1,
+  Estimate: 2,
+  Completed: 3,
+};
+
+class InboxContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
 
@@ -42,10 +53,47 @@ class InboxContainer extends Component<PropTypes> {
     const { dispatch, match } = this.props;
     const roomId = match.params.message_room_id;
     dispatch(messagesActions.fetchMessagesStart(roomId));
+
+    this.state = {
+      text: '',
+      image: null,
+    };
   }
 
+  handleChangeFile: Function;
+  handleChangeFile = (image: File) => {
+    this.setState({ image });
+  };
+
+  handleChangeText: Function;
+  handleChangeText = (text: string) => {
+    this.setState({ text });
+  };
+
+  sendMessage: Function;
+  sendMessage = () => {
+    const { match, room, userId, dispatch } = this.props;
+    const { text, image } = this.state;
+
+    if (text === '' && !image) {
+      return;
+    }
+
+    dispatch(
+      messagesActions.sendMessage({
+        roomId: match.params.message_room_id,
+        userId,
+        text,
+        image,
+        toUserId: room.user.ID,
+      }),
+    );
+
+    this.setState({ text: '', image: null });
+  };
+
   render() {
-    const { isLoading, rooms } = this.props;
+    const { match, isLoading, user, room, messages } = this.props;
 
     const auth = checkAuthState(this.props);
     if (auth) {
@@ -56,12 +104,70 @@ class InboxContainer extends Component<PropTypes> {
       return <LoadingPage />;
     }
 
+    const { text } = this.state;
+
+    const messageList = messages.map(message => {
+      switch (message.messageType) {
+        case MessageType.Text:
+          if (message.userId === user.ID) {
+            return {
+              self: {
+                message: message.text,
+                image: message.image,
+                sentAt: message.createDt,
+              },
+            };
+          }
+          return {
+            other: {
+              id: message.userId,
+              userImage: room.user.ImageUrl,
+              message: message.text,
+              image: message.image,
+              recevedAt: message.createDt,
+            },
+          };
+        case MessageType.Estimate: {
+          const { startDate, endDate, price, requestId } = message;
+          return {
+            estimate: {
+              name: room.user.Name,
+              beginAt: startDate,
+              endAt: endDate,
+              price,
+              link: Path.payment(match.params.message_room_id, requestId),
+              receivedAt: message.createDt,
+            },
+          };
+        }
+        case MessageType.Completed:
+          return {
+            admin: {
+              message: '決済が完了しました。スペース取引成立です！',
+              receivedAt: message.createDt,
+            },
+          };
+        default:
+          break;
+      }
+      return {};
+    });
+
     return (
       <MenuPageTemplate
         header={<Header />}
         headline="メッセージ一覧"
         leftContent={<ServiceMenu />}
-        rightContent={<div />}
+        rightContent={
+          <Messages
+            userMySelf={room.user.ID === user.ID}
+            messages={messageList}
+            onChangeText={this.handleChangeText}
+            text={text}
+            buttonDisabled={text === ''}
+            onClickSend={this.sendMessage}
+          />
+        }
         footer={<Footer />}
       />
     );

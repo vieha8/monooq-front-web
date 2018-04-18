@@ -7,6 +7,14 @@ import InlineText from 'components/atomic/atoms/InlineText';
 import TextLink from 'components/atomic/atoms/TextLink';
 import { Colors } from 'variables';
 
+function estimateDateFormat(date) {
+  return date.toLocaleDateString('ja-JP-u-ca-japanese', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
+
 const Text = InlineText.Base.extend`
   display: block;
   font-size: 14px;
@@ -39,8 +47,8 @@ export default (props: PropTypes) => (
   <div>
     <Card block noBorder background={Colors.lightGreen}>
       <Text>{props.name} さんからのお見積もり</Text>
-      <Text>利用開始日：{props.beginAt}</Text>
-      <Text>利用終了日：{props.endAt}</Text>
+      <Text>利用開始日：{estimateDateFormat(props.beginAt)}</Text>
+      <Text>利用終了日：{estimateDateFormat(props.endAt)}</Text>
       <Text>料金：{props.price}</Text>
       <CaptionWrapper>
         <Text>

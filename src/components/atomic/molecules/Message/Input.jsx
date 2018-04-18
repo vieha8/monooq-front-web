@@ -21,7 +21,7 @@ type PropTypes = {
   onClickPickImage: Function,
   value: string,
   onChange: Function,
-}
+};
 
 export default (props: PropTypes) => (
   <div>
@@ -35,7 +35,7 @@ export default (props: PropTypes) => (
       rows={5}
       placeholder="メッセージを入力する…"
       value={props.value}
-      onChange={props.onChange}
+      onChange={e => props.onChange(e.target.value)}
     />
   </div>
 );

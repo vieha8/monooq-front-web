@@ -59,4 +59,9 @@ storiesOf('Organisms/Messages', module)
     <div>
       <Messages userMySelf messages={getMessages()} />
     </div>
+  ))
+  .add('userIsHost', () => (
+    <div>
+      <Messages messages={getMessages()} />
+    </div>
   ));

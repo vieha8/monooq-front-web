@@ -8,6 +8,8 @@ import SelfMessage from 'components/atomic/molecules/Message/MySelf';
 import OtherMessage from 'components/atomic/molecules/Message/Other';
 import EstimateMessage from 'components/atomic/molecules/Message/Estimate';
 import PhotoMessage from 'components/atomic/molecules/Message/Photo';
+import MessageInput from 'components/atomic/molecules/Message/Input';
+import Button from 'components/atomic/atoms/Button';
 import { Dimens } from 'variables';
 
 const Row = styled.div`
@@ -30,6 +32,10 @@ const Row = styled.div`
   &:not(:first-child) {
     margin-top: ${Dimens.medium1}px;
   }
+`;
+
+const ButtonWrapper = styled.div`
+  margin-top: ${Dimens.medium}px;
 `;
 
 type PropTypes = {
@@ -60,6 +66,10 @@ type PropTypes = {
       receivedAt: string,
     },
   }>,
+  onChangeText: Function,
+  text: string,
+  onClickSend: Function,
+  buttonDisabled: boolean,
 };
 
 const dateFormat = 'YYYY/MM/DD hh:mm:ss';
@@ -70,18 +80,18 @@ export default (props: PropTypes) => {
   // 自分がユーザーの場合は、初期メッセージを追加する
   const messageList = []
     .concat(
-      userMySelf
+      !userMySelf
         ? []
         : [
             {
               admin: {
-                text:
+                message:
                   'あなたの具体的な荷物の内容と予定日時をホストへ伝えましょう！量や大きさに適したお見積もりがホストから送られてきます。メッセージでは写真も送れます。詳細な住所はお支払い完了後にお知らせします。',
               },
             },
             {
               admin: {
-                text:
+                message:
                   '経年劣化によるショート・不具合の可能性がある製品に関して。自然発生的な故障のケースは一切の保証ができません。電化製品・家電などでスペース利用を検討している場合は予めご了承ください。',
               },
             },
@@ -145,7 +155,9 @@ export default (props: PropTypes) => {
             <Row key={key} admin>
               <AdminMessage
                 message={message.admin.message || ''}
-                receivedAt={moment(message.admin.receivedAt || null).format(dateFormat)}
+                receivedAt={
+                  message.admin.receivedAt && moment(message.admin.receivedAt).format(dateFormat)
+                }
               />
             </Row>
           );
@@ -167,6 +179,17 @@ export default (props: PropTypes) => {
 
         return null;
       })}
+      <MessageInput onChange={props.onChangeText} value={props.text} />
+      <ButtonWrapper>
+        <Button
+          primary
+          fill={1}
+          disabled={props.buttonDisabled}
+          onClick={props.buttonDisabled ? null : props.onClickSend}
+        >
+          送信
+        </Button>
+      </ButtonWrapper>
     </div>
   );
 };
