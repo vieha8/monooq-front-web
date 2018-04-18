@@ -14,7 +14,7 @@ const DateWrapper = styled.div`
 type PropTypes = {
   message: string,
   receivedAt: string,
-}
+};
 
 export default (props: PropTypes) => (
   <div>
@@ -22,7 +22,7 @@ export default (props: PropTypes) => (
       <InlineText.Base fontSize={14}>{props.message}</InlineText.Base>
     </Card>
     <DateWrapper>
-      <InlineText.Emphasis>{props.receivedAt}</InlineText.Emphasis>
+      <InlineText.Emphasis>{props.receivedAt || ' '}</InlineText.Emphasis>
     </DateWrapper>
   </div>
 );

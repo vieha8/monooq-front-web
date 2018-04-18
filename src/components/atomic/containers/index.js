@@ -11,6 +11,7 @@ import Profile from './ProfileContainer';
 import EditProfile from './EditProfileContainer';
 import Inquiry from './InquiryContainer';
 import Inbox from './InboxContainer';
+import Message from './MessageContainer';
 
 export default {
   Login,
@@ -24,4 +25,5 @@ export default {
   EditProfile,
   Inquiry,
   Inbox,
+  Message,
 };

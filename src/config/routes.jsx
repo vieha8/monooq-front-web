@@ -12,7 +12,6 @@ import SpaceSize from 'containers/NewSpace/SpaceSize';
 import SpacePrice from 'containers/NewSpace/Price';
 import SpaceCreatedCompletion from 'containers/NewSpace/SpaceCreatedCompletion';
 import CancelSchedule from 'containers/CancelSchedule';
-import MessageRoom from 'containers/MessageRoom/';
 import Estimate from 'containers/Estimate';
 import PostHostReview from 'containers/PostHostReview';
 import Payments from 'containers/Payments';
@@ -58,6 +57,7 @@ export const routes = [
   { path: Path.editProfile(), component: Containers.EditProfile },
   { path: Path.inquiry(), component: Containers.Inquiry },
   { path: Path.messages(), component: Containers.Inbox },
+  { path: Path.message(), component: Containers.Message },
   // legacy
   { path: Path.top(), component: Top },
   { path: Path.payment(), component: Payment },
@@ -74,7 +74,6 @@ export const routes = [
   { path: Path.editSpacePrice(), component: SpacePrice },
   { path: Path.editSpaceCompletion(), component: SpaceCreatedCompletion },
   { path: Path.confirmCancel(), component: CancelSchedule },
-  { path: Path.message(), component: MessageRoom },
   { path: Path.estimate(), component: Estimate },
   { path: Path.hostReview(), component: PostHostReview },
   { path: Path.paid(), component: Payments },

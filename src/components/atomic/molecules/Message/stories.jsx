@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import StorybookRouter from 'storybook-router';
 
 import Other from './Other';
 import MySelf from './MySelf';
@@ -11,6 +12,7 @@ import Photo from './Photo';
 import Input from './Input';
 
 storiesOf('Molecules/Message', module)
+  .addDecorator(StorybookRouter())
   .add('Other', () => (
     <div>
       <Other
@@ -62,11 +64,7 @@ storiesOf('Molecules/Message', module)
   ))
   .add('Photo', () => (
     <div style={{ width: '300px' }}>
-      <Photo
-        src="http://placehold.jp/500x500.png"
-        alt="photo"
-        receivedAt="2018/03/02 10:52"
-      />
+      <Photo src="http://placehold.jp/500x500.png" alt="photo" receivedAt="2018/03/02 10:52" />
     </div>
   ))
   .add('Input', () => (
