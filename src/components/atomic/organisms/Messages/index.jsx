@@ -70,6 +70,8 @@ type PropTypes = {
   text: string,
   onClickSend: Function,
   buttonDisabled: boolean,
+  onPickImage: Function,
+  pickedImage: string,
 };
 
 const dateFormat = 'YYYY/MM/DD hh:mm:ss';
@@ -179,7 +181,12 @@ export default (props: PropTypes) => {
 
         return null;
       })}
-      <MessageInput onChange={props.onChangeText} value={props.text} />
+      <MessageInput
+        onChange={props.onChangeText}
+        value={props.text}
+        onPickImage={props.onPickImage}
+        preview={props.pickedImage}
+      />
       <ButtonWrapper>
         <Button
           primary

@@ -60,8 +60,8 @@ class InboxContainer extends Component<PropTypes, State> {
     };
   }
 
-  handleChangeFile: Function;
-  handleChangeFile = (image: File) => {
+  handlePickImage: Function;
+  handlePickImage = (image: File) => {
     this.setState({ image });
   };
 
@@ -72,7 +72,7 @@ class InboxContainer extends Component<PropTypes, State> {
 
   sendMessage: Function;
   sendMessage = () => {
-    const { match, room, userId, dispatch } = this.props;
+    const { match, room, user, dispatch } = this.props;
     const { text, image } = this.state;
 
     if (text === '' && !image) {
@@ -82,7 +82,7 @@ class InboxContainer extends Component<PropTypes, State> {
     dispatch(
       messagesActions.sendMessage({
         roomId: match.params.message_room_id,
-        userId,
+        userId: user.ID,
         text,
         image,
         toUserId: room.user.ID,
@@ -92,21 +92,10 @@ class InboxContainer extends Component<PropTypes, State> {
     this.setState({ text: '', image: null });
   };
 
-  render() {
-    const { match, isLoading, user, room, messages } = this.props;
-
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
-    if (isLoading) {
-      return <LoadingPage />;
-    }
-
-    const { text } = this.state;
-
-    const messageList = messages.map(message => {
+  createMessageList: Function;
+  createMessageList = () => {
+    const { messages, match, user, room } = this.props;
+    return messages.map(message => {
       switch (message.messageType) {
         case MessageType.Text:
           if (message.userId === user.ID) {
@@ -152,6 +141,23 @@ class InboxContainer extends Component<PropTypes, State> {
       }
       return {};
     });
+  };
+
+  render() {
+    const { isLoading, user, room } = this.props;
+
+    const auth = checkAuthState(this.props);
+    if (auth) {
+      return auth;
+    }
+
+    if (isLoading) {
+      return <LoadingPage />;
+    }
+
+    const { text, image } = this.state;
+
+    const messageList = this.createMessageList();
 
     return (
       <MenuPageTemplate
@@ -162,8 +168,10 @@ class InboxContainer extends Component<PropTypes, State> {
           <Messages
             userMySelf={room.user.ID === user.ID}
             messages={messageList}
+            onPickImage={this.handlePickImage}
             onChangeText={this.handleChangeText}
             text={text}
+            pickedImage={(image || {}).preview}
             buttonDisabled={text === ''}
             onClickSend={this.sendMessage}
           />
