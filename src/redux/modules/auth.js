@@ -21,6 +21,7 @@ const PASSWORD_RESET = 'PASSWORD_RESET';
 const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
 const TOKEN_GENERATE = 'TOKEN_GENERATE';
+const UNSUBSCRIBE = 'UNSUBSCRIBE';
 
 const CHECK_LOGIN = 'CHECK_LOGIN';
 const CHECK_LOGIN_SUCCESS = 'CHECK_LOGIN_SUCCESS';
@@ -46,6 +47,7 @@ export const authActions = createActions(
   PASSWORD_RESET_FAILED,
   TOKEN_GENERATE,
   SET_USER,
+  UNSUBSCRIBE,
 );
 
 // Reducer
@@ -270,6 +272,24 @@ function* tokenGenerate() {
   localStorage.setItem('token', JSON.stringify(payload));
 }
 
+function* unsubscribe({ payload: { userId, reason, description } }) {
+  const messageBody = `退会理由:${JSON.stringify(reason)}\n詳細:${description}\n`;
+  const body = {
+    Subject: `【退会完了】ユーザーID:${userId}`,
+    Address: 'info@monooq.com',
+    Body: messageBody,
+  };
+
+  yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
+
+  yield put(
+    apiActions.apiDeleteRequest({
+      path: apiEndpoint.users(userId),
+    }),
+  );
+  yield put(authActions.logout());
+}
+
 export const authSagas = [
   takeEvery(CHECK_LOGIN, checkLoginFirebaseAuth),
   takeEvery(LOGIN_EMAIL, loginEmail),
@@ -279,4 +299,5 @@ export const authSagas = [
   takeEvery(SIGNUP_FACEBOOK, signUpFacebook),
   takeEvery(PASSWORD_RESET, passwordReset),
   takeEvery(TOKEN_GENERATE, tokenGenerate),
+  takeEvery(UNSUBSCRIBE, unsubscribe),
 ];

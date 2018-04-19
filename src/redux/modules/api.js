@@ -7,7 +7,6 @@ import { push } from 'react-router-redux';
 
 export const apiEndpoint = {
   tokenGenerate: () => `/token/generate`,
-  authPast: () => `/auth/past`,
   authFirebase: id => (id ? `/auth/firebase/${id}` : `/auth/firebase`),
   users: id => (id ? `/users/${id}` : `/users`),
   userSpaces: id => `/users/${id}/spaces`,

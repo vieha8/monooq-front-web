@@ -22,4 +22,5 @@ yarn-error.log*
 
 yarn.lock
 /functions/node_modules/
-/admin/tools/firestore/node_modules
+/admin/node_modules/
+/admin/.next/

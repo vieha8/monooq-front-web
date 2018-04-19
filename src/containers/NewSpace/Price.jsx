@@ -117,6 +117,13 @@ class PriceContainer extends React.Component {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 
+    if (this.props.space.isComplete) {
+      if (ui.isEdit) {
+        return <Redirect to={Path.editSpaceCompletion(ui.space.id)} />;
+      }
+      return <Redirect to={Path.createSpaceCompletion()} />;
+    }
+
     return (
       <Page>
         {this.props.match.params.type === 'all' ?

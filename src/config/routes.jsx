@@ -51,7 +51,7 @@ import HelpService from 'containers/Static/Help/Service';
 
 import NavigationHeader from 'containers/NavigationHeader';
 
-import ErrorBoundary from 'components/ErrorBoundary';
+// import ErrorBoundary from 'components/ErrorBoundary';
 
 import Path from './path';
 
@@ -121,7 +121,7 @@ export default props => (
   <ConnectedRouter history={props.history}>
     <Root>
       <NavigationHeader />
-      <ErrorBoundary>
+      {/*<ErrorBoundary>*/}
         <Switch>
           {routes.map((route, i) => (
             <Route
@@ -133,7 +133,7 @@ export default props => (
           ))}
           <Route component={NotFound} />
         </Switch>
-      </ErrorBoundary>
+      {/*</ErrorBoundary>*/}
     </Root>
   </ConnectedRouter>
 );

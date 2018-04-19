@@ -1,47 +1,59 @@
 import React, { Component } from 'react';
-import { authConnect } from "../components/Auth";
+import { connect } from 'react-redux';
 import Page from 'components/Page';
 import Menu from 'containers/Menu';
 import Unsubscribe from 'components/Unsubscribe';
 import UnsubscribeCompleted from 'components/Unsubscribe/Completed';
-import UnsubscribeFailed from 'components/Unsubscribe/Failed';
 import { uiActions } from 'redux/modules/ui';
+import { authActions } from "../redux/modules/auth";
 
 class UnsubscribeContainer extends Component {
   onClickUnsubscribe = () => {
-    const { dispatch } = this.props;
-    dispatch(uiActions.setUiState({
-      completion: true,
+    const { dispatch, auth, ui } = this.props;
+
+    dispatch(authActions.unsubscribe({userId: auth.user.ID, reason: ui.reason, description: ui.description}));
+
+    // dispatch(uiActions.setUiState({
+    //   completion: true,
+    // }));
+
+    window.scrollTo(0, 0);
+  }
+
+  renderCompleted = () => (
+    <Page>
+      <UnsubscribeCompleted />
+    </Page>
+  );
+
+  handleChangeText = (event) => {
+    this.props.dispatch(uiActions.setUiState({
+      description: event.target.value,
     }));
-  }
+  };
 
-  renderCompleted() {
-    return (
-      <Page>
-        <UnsubscribeCompleted />
-      </Page>
-    );
-  }
-
-  renderFailed() {
-    return (
-      <Page>
-        <UnsubscribeFailed />
-      </Page>
-    );
-  }
+  handleChangeReason = (event, data) => {
+    this.props.dispatch(uiActions.setUiState({
+      reason: data.value,
+    }));
+  };
 
   render() {
     const { ui } = this.props;
 
     if (ui.completion) {
-      return this.renderCompletion();
+      return this.renderCompleted();
     }
 
     return (
-      <Page title="退会する" subTitle="モノオクをご利用頂き、どうもありがとうございました。サービス改善の為にアンケートにご協力ください。">
+      <Page title="退会する" subTitle="モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。">
         <Menu />
-        <Unsubscribe onClickUnsubscribe={this.onClickUnsubscribe} />
+        <Unsubscribe
+          onClickUnsubscribe={this.onClickUnsubscribe}
+          ui={ui}
+          handleChangeText={this.handleChangeText}
+          handleChangeReason={this.handleChangeReason}
+        />
       </Page>
     );
   }
@@ -49,6 +61,7 @@ class UnsubscribeContainer extends Component {
 
 const mapStateToProps = state => ({
   ui: state.ui,
+  auth: state.auth,
 });
 
-export default authConnect(mapStateToProps)(UnsubscribeContainer);
+export default connect(mapStateToProps)(UnsubscribeContainer);
