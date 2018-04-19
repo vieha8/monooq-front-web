@@ -58,7 +58,7 @@ class InboxContainer extends Component<PropTypes> {
         leftContent={<ServiceMenu />}
         rightContent={
           <InboxList
-            messages={rooms.map(message => ({
+            messages={rooms.filter(room => room.user).map(message => ({
               link: Path.message(message.id),
               image: (message.user || {}).ImageUrl,
               name: (message.user || {}).Name,
