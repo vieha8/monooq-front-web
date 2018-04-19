@@ -7,7 +7,7 @@ import InlineText from 'components/atomic/atoms/InlineText';
 import { Colors, Dimens } from 'variables';
 
 const Text = styled.div`
-  margin: ${Dimens.small}px 0;
+  margin: ${Dimens.medium}px 0;
 `;
 
 type PropTypes = {
