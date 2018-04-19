@@ -14,7 +14,7 @@ const InputFieldWrapper = styled.div`
   ${props =>
     props.unit &&
     `
-      width: 85vw;
+      width: 80%;
     `};
 `;
 

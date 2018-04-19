@@ -54,8 +54,8 @@ storiesOf('Molecules/Message', module)
     <div>
       <Estimate
         name="YUKI HASHIDA"
-        beginAt="2018年03月20日"
-        endAt="2018年03月24日"
+        beginAt={new Date()}
+        endAt={new Date()}
         price="24,000円"
         paymentLink="#"
         receivedAt="2018/03/02 10:52"
