@@ -24,7 +24,7 @@ import logoTechable from 'images/logo-techable@2x.png';
 import SearchInput from './SearchInput';
 
 const TopPage = styled.div`
-  min-width: ${Dimens.fixedWidthPc}px;
+  min-width: ${Dimens.fixedWidthPc + 32}px;
   margin-top: -20px;
   background: ${Colors.lightGray2Bg};
   ${media.phone`
@@ -204,7 +204,7 @@ const HostReasonBackground = styled.div`
 `;
 
 const HostReasonContainer = styled(StyledDefaultContainer)`
-  padding: 80px 10% 80px 600px;
+  padding: 80px 0 80px 600px;
   box-sizing: border-box;
   ${media.phone`
     padding: 40px 0;
@@ -323,7 +323,7 @@ const ForSafeSectionButton = styled.button`
 
   ${media.phone`
     display: table-cell;
-    padding: 9px 20px;
+    padding: 10px 20px;
     vertical-align: middle;
   `};
 `;
