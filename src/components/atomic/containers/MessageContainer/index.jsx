@@ -92,6 +92,9 @@ class InboxContainer extends Component<PropTypes, State> {
     this.setState({ text: '', image: null });
   };
 
+  transitionToEstimate: Function;
+  transitionToEstimate = () => {};
+
   createMessageList: Function;
   createMessageList = () => {
     const { messages, match, user, room } = this.props;
@@ -166,7 +169,8 @@ class InboxContainer extends Component<PropTypes, State> {
         leftContent={<ServiceMenu />}
         rightContent={
           <Messages
-            userMySelf={room.user.ID === user.ID}
+            onClickEstimate={this.transitionToEstimate}
+            hostUser={room.user.ID === user.ID}
             messages={messageList}
             onPickImage={this.handlePickImage}
             onChangeText={this.handleChangeText}

@@ -36,8 +36,8 @@ const DateWrapper = styled.div`
 
 type PropTypes = {
   name: string,
-  beginAt: string,
-  endAt: string,
+  beginAt: Date,
+  endAt: Date,
   price: string,
   paymentLink: string,
   receivedAt: string,

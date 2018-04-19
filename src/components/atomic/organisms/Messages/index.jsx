@@ -39,7 +39,8 @@ const ButtonWrapper = styled.div`
 `;
 
 type PropTypes = {
-  userMySelf: boolean,
+  hostUser: boolean,
+  onClickEstimate: Function,
   messages: Array<{
     self?: {
       sentAt: string,
@@ -77,12 +78,12 @@ type PropTypes = {
 const dateFormat = 'YYYY/MM/DD hh:mm:ss';
 
 export default (props: PropTypes) => {
-  const { messages, userMySelf } = props;
+  const { messages, hostUser } = props;
 
   // 自分がユーザーの場合は、初期メッセージを追加する
   const messageList = []
     .concat(
-      !userMySelf
+      hostUser
         ? []
         : [
             {
@@ -169,8 +170,8 @@ export default (props: PropTypes) => {
             <Row key={key} admin>
               <EstimateMessage
                 name={message.estimate.name}
-                beginAt={message.estimate.beginAt}
-                endAt={message.estimate.endAt}
+                beginAt={moment(message.estimate.beginAt).toDate()}
+                endAt={moment(message.estimate.endAt).toDate()}
                 price={message.estimate.price}
                 receivedAt={moment(message.estimate.receivedAt).format(dateFormat)}
                 paymentLink={message.estimate.link}
@@ -197,6 +198,13 @@ export default (props: PropTypes) => {
           送信
         </Button>
       </ButtonWrapper>
+      {props.hostUser && (
+        <ButtonWrapper>
+          <Button secondary fill={1} onClick={props.onClickEstimate}>
+            見積もりを送る
+          </Button>
+        </ButtonWrapper>
+      )}
     </div>
   );
 };

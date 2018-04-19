@@ -55,12 +55,12 @@ function getMessages() {
 
 storiesOf('Organisms/Messages', module)
   .addDecorator(StorybookRouter())
-  .add('userMySelf', () => (
+  .add('hostUser', () => (
     <div>
-      <Messages userMySelf messages={getMessages()} />
+      <Messages hostUser messages={getMessages()} />
     </div>
   ))
-  .add('userIsHost', () => (
+  .add('notHostUser', () => (
     <div>
       <Messages messages={getMessages()} />
     </div>
