@@ -51,7 +51,7 @@ import HelpService from 'containers/Static/Help/Service';
 
 import NavigationHeader from 'containers/NavigationHeader';
 
-import ErrorBoundary from 'components/ErrorBoundary';
+// import ErrorBoundary from 'components/ErrorBoundary';
 
 import Path from './path';
 
