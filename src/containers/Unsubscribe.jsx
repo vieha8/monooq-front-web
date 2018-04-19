@@ -9,14 +9,13 @@ import { authActions } from "../redux/modules/auth";
 
 class UnsubscribeContainer extends Component {
   onClickUnsubscribe = () => {
-    const { dispatch, auth } = this.props;
+    const { dispatch, auth, ui } = this.props;
 
-    dispatch(authActions.unsubscribe({userId: auth.user.ID}));
-    dispatch(authActions.logout());
+    dispatch(authActions.unsubscribe({userId: auth.user.ID, reason: ui.reason, description: ui.description}));
 
-    dispatch(uiActions.setUiState({
-      completion: true,
-    }));
+    // dispatch(uiActions.setUiState({
+    //   completion: true,
+    // }));
 
     window.scrollTo(0, 0);
   }
@@ -26,6 +25,18 @@ class UnsubscribeContainer extends Component {
       <UnsubscribeCompleted />
     </Page>
   );
+
+  handleChangeText = (event) => {
+    this.props.dispatch(uiActions.setUiState({
+      description: event.target.value,
+    }));
+  };
+
+  handleChangeReason = (event, data) => {
+    this.props.dispatch(uiActions.setUiState({
+      reason: data.value,
+    }));
+  };
 
   render() {
     const { ui } = this.props;
@@ -37,7 +48,12 @@ class UnsubscribeContainer extends Component {
     return (
       <Page title="退会する" subTitle="モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。">
         <Menu />
-        <Unsubscribe onClickUnsubscribe={this.onClickUnsubscribe} />
+        <Unsubscribe
+          onClickUnsubscribe={this.onClickUnsubscribe}
+          ui={ui}
+          handleChangeText={this.handleChangeText}
+          handleChangeReason={this.handleChangeReason}
+        />
       </Page>
     );
   }

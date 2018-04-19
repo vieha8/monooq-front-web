@@ -272,12 +272,22 @@ function* tokenGenerate() {
   localStorage.setItem('token', JSON.stringify(payload));
 }
 
-function* unsubscribe({ payload: { userId } }) {
+function* unsubscribe({ payload: { userId, reason, description } }) {
+  const messageBody = `退会理由:${JSON.stringify(reason)}\n詳細:${description}\n`;
+  const body = {
+    Subject: `【退会完了】ユーザーID:${userId}`,
+    Address: 'info@monooq.com',
+    Body: messageBody,
+  };
+
+  yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
+
   yield put(
     apiActions.apiDeleteRequest({
       path: apiEndpoint.users(userId),
     }),
   );
+  yield put(authActions.logout());
 }
 
 export const authSagas = [
