@@ -6,6 +6,8 @@ import Intercom from 'components/Shared/Intercom';
 import { ContentContainer } from 'components/Page';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import Path from 'config/path';
+import { Link } from 'react-router-dom';
 
 // const INQUIRY_TITLES = [
 //   { key: 0, value: 0, text: 'サービスの使い方' },
@@ -63,6 +65,10 @@ const SupportContainer = styled.div`
   margin-top: ${Dimens.medium3}px;
 `;
 
+const UnsubscribeText = styled.div`
+  font-size: 12px;
+`;
+
 export default props => (
   <ContentContainer>
     <Content>
@@ -72,6 +78,19 @@ export default props => (
         <ContentText>
           お問い合わせ内容を送信後、メールアドレスを入力いただくと翌営業日を目安にご連絡致します。
         </ContentText>
+        <ContentText>
+          お問い合わせ内容を送信後、メールアドレスを入力いただくと翌営業日を目安にご連絡致します。
+        </ContentText>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <UnsubscribeText>
+          <Link to={Path.unsubscribe()}>退会はこちら</Link>
+        </UnsubscribeText>
       </SupportContainer>
     </Content>
     <Intercom />

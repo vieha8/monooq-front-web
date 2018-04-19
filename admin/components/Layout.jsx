@@ -11,6 +11,7 @@ const Container = styled.div`
 const Layout = props => (
   <Container>
     <Head>
+      <meta name="robots" content="noindex" />
       <title>MonooQ Admin</title>
       <link
         rel="stylesheet"
