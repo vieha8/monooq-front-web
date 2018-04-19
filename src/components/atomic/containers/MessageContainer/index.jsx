@@ -93,7 +93,10 @@ class InboxContainer extends Component<PropTypes, State> {
   };
 
   transitionToEstimate: Function;
-  transitionToEstimate = () => {};
+  transitionToEstimate = () => {
+    const { history, room } = this.props;
+    history.push(Path.estimate(room.ID));
+  };
 
   createMessageList: Function;
   createMessageList = () => {
@@ -170,7 +173,7 @@ class InboxContainer extends Component<PropTypes, State> {
         rightContent={
           <Messages
             onClickEstimate={this.transitionToEstimate}
-            hostUser={room.user.ID === user.ID}
+            hostUser={room.space.Host.ID === user.ID}
             messages={messageList}
             onPickImage={this.handlePickImage}
             onChangeText={this.handleChangeText}
