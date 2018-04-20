@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import GoogleTagManager from 'components/GTM';
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -106,6 +107,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
             </Button>
           </ButtonWrapper>
         </Content>
+        <GoogleTagManager event="userRegistered" />
       </Container>
     );
   }
