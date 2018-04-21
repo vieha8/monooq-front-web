@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import Path from 'config/path';
-import { Dimens, Colors } from 'variables';
+import { Dimens, Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { H1, H2 } from 'components/atomic/atoms/Headline';
 import TextLink from 'components/atomic/atoms/TextLink';
@@ -32,6 +32,16 @@ const Row = styled.div`
       display: block;
     `}
   `}
+`;
+
+const SelectBox = styled.div`
+  display: inline-block;
+  width: 120px;
+`;
+
+const Padding = styled.span`
+  display: inline-block;
+  padding: 0 ${Dimens.xsmall}px;
 `;
 
 type PropTypes = {
@@ -82,24 +92,28 @@ export default (props: PropTypes) => (
       />
     </Row>
     <Row>
-      <SelectForm
-        label="有効期限"
-        options={Array(12)
-          .fill(0)
-          .map((_, i) => ({ key: i, value: i + 1, text: i + 1 }))}
-        onChange={props.onChangeMonth}
-        value={props.month}
-      />
-      <InlineText.Base>月</InlineText.Base>
-      <InlineText.Base>/</InlineText.Base>
-      <SelectForm
-        options={Array(10)
-          .fill(0)
-          .map((_, i) => ({ key: i, value: moment().year() + i, text: moment().year() + i }))}
-        onChange={props.onChangeYear}
-        value={props.year}
-      />
-      <InlineText.Base>年</InlineText.Base>
+      <SelectBox>
+        <SelectForm
+          label="有効期限"
+          options={Array(12)
+            .fill(0)
+            .map((_, i) => ({ key: i, value: i + 1, text: i + 1 }))}
+          onChange={props.onChangeMonth}
+          value={props.month}
+        />
+      </SelectBox>
+      <InlineText.Base><Padding>月</Padding></InlineText.Base>
+      <InlineText.Base><Padding>/</Padding></InlineText.Base>
+      <SelectBox>
+        <SelectForm
+          options={Array(10)
+            .fill(0)
+            .map((_, i) => ({ key: i, value: moment().year() + i, text: moment().year() + i }))}
+          onChange={props.onChangeYear}
+          value={props.year}
+        />
+      </SelectBox>
+      <InlineText.Base><Padding>年</Padding></InlineText.Base>
     </Row>
     <Row>
       <InputForm
@@ -125,11 +139,11 @@ export default (props: PropTypes) => (
       <div>
         <InlineText.Small color={Colors.red}>
           ・「決済する」ボタンを押すことで、お客様は当サイトの
-          <TextLink href={Path.privacy()} target="_blank">
+          <TextLink fontSize={FontSizes.small_12} href={Path.privacy()} target="_blank">
             プライバシーポリシー
           </TextLink>
           と
-          <TextLink href={Path.terms()} target="_blank">
+          <TextLink fontSize={FontSizes.small_12} href={Path.terms()} target="_blank">
             利用規約
           </TextLink>
           に同意の上、モノオクサービスの予約を確定したことになります。
@@ -142,6 +156,7 @@ export default (props: PropTypes) => (
     <Row>
       <Button
         primary
+        fill={1}
         disabled={props.buttonDisabled}
         loading={props.buttonLoading}
         onClick={props.onClickPay}
