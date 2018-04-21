@@ -18,7 +18,7 @@ storiesOf('Templates/EstimateTemplate', module).add('Normal', () => (
         header section
       </div>
     }
-    schedule={
+    form={
       <div
         style={{
           width: '100%',
@@ -26,18 +26,7 @@ storiesOf('Templates/EstimateTemplate', module).add('Normal', () => (
           background: 'blue',
         }}
       >
-        schedule section
-      </div>
-    }
-    price={
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          background: 'green',
-        }}
-      >
-        price section
+        form section
       </div>
     }
     hint={
@@ -49,17 +38,6 @@ storiesOf('Templates/EstimateTemplate', module).add('Normal', () => (
         }}
       >
         hint section
-      </div>
-    }
-    button={
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          background: 'pink',
-        }}
-      >
-        button section
       </div>
     }
   />

@@ -12,6 +12,7 @@ import EditProfile from './EditProfileContainer';
 import Inquiry from './InquiryContainer';
 import Inbox from './InboxContainer';
 import Message from './MessageContainer';
+import Estimate from './EstimateContainer';
 
 export default {
   Login,
@@ -26,4 +27,5 @@ export default {
   Inquiry,
   Inbox,
   Message,
+  Estimate,
 };

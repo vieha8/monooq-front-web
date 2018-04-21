@@ -94,8 +94,8 @@ class InboxContainer extends Component<PropTypes, State> {
 
   transitionToEstimate: Function;
   transitionToEstimate = () => {
-    const { history, room } = this.props;
-    history.push(Path.estimate(room.ID));
+    const { history, match } = this.props;
+    history.push(Path.estimate(match.params.message_room_id));
   };
 
   createMessageList: Function;

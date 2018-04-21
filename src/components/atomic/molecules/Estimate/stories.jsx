@@ -29,6 +29,10 @@ storiesOf('Molecules/Estimate', module)
   ))
   .add('InputPrice', () => (
     <div style={{ width: '100%', maxWidth: '800px' }}>
-      <InputPrice value="123" onChange={() => {}} error="入力してください" />
+      <InputPrice
+        value="123"
+        onChange={() => {}}
+        errors={['入力してください', '1,000円以上です']}
+      />
     </div>
   ));

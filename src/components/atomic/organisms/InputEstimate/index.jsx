@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import moment from 'moment';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -23,7 +24,26 @@ const Section = styled.div`
   `};
 `;
 
-type PropTypes = {};
+type PropTypes = {
+  schedule: {
+    beginDate: moment,
+    endDate: moment,
+    beginDateFocused: boolean,
+    onDateChangeBegin: Function,
+    onFocusChangeBegin: Function,
+    endDateFocused: boolean,
+    onDateChangeEnd: Function,
+    onFocusChangeEnd: Function,
+  },
+  price: {
+    error: string,
+    onChange: Function,
+    value: string,
+  },
+  buttonLoading: boolean,
+  buttonDisabled: boolean,
+  onClickSend: Function,
+};
 
 export default (props: PropTypes) => (
   <div>
@@ -32,14 +52,20 @@ export default (props: PropTypes) => (
     </HeadlineContainer>
     <Section>
       <H2>スケジュール</H2>
-      <InputSchedule />
+      <InputSchedule {...props.schedule} />
     </Section>
     <Section>
       <H2>料金を入力</H2>
-      <InputPrice />
+      <InputPrice {...props.price} />
     </Section>
     <Section>
-      <Button primary fill={1}>
+      <Button
+        primary
+        fill={1}
+        loading={props.buttonLoading}
+        disabled={props.buttonDisabled}
+        onClick={props.buttonLoading ? null : props.onClickSend}
+      >
         この見積もりを送る
       </Button>
     </Section>
