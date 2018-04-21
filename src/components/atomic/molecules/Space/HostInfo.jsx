@@ -16,7 +16,7 @@ const Center = styled.div`
 const Content = styled.div`
   ${media.phone`
     text-align: center;
-  `}
+  `};
 `;
 
 type PropTypes = {
@@ -24,7 +24,7 @@ type PropTypes = {
   name: string,
   imageUrl: string,
   profile: string,
-}
+};
 
 export default (props: PropTypes) => (
   <Attribute
@@ -38,7 +38,10 @@ export default (props: PropTypes) => (
     content={
       <Content>
         <div>
-          <InlineText.Bold>ホストは {isMobileWindow() && <br />}{props.name} さん</InlineText.Bold>
+          <InlineText.Bold>
+            ホストは {isMobileWindow() && <br />}
+            {props.name} さん
+          </InlineText.Bold>
         </div>
         <div>
           <InlineText.Base>{props.profile}</InlineText.Base>

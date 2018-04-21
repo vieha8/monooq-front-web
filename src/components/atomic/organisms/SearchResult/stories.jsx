@@ -23,11 +23,8 @@ function getData() {
   return data;
 }
 
-storiesOf('Organisms/SearchResult', module)
-  .add('Normal', () => (
-    <div style={{ width: '100%', maxWidth: '800px' }}>
-      <SearchResult
-        spaces={getData()}
-      />
-    </div>
-  ));
+storiesOf('Organisms/SearchResult', module).add('Normal', () => (
+  <div style={{ width: '100%', maxWidth: '800px' }}>
+    <SearchResult spaces={getData()} />
+  </div>
+));

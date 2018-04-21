@@ -33,4 +33,3 @@ export default (props: Object) => (
     {props.children}
   </Facebook>
 );
-

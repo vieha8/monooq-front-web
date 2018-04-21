@@ -20,8 +20,8 @@ const Card = styled.div`
     `
     background: ${props.background};
   `} ${props =>
-      props.noBorder &&
-      `
+    props.noBorder &&
+    `
     border: none;
   `};
 
@@ -30,8 +30,8 @@ const Card = styled.div`
     `
     cursor: pointer;
   `} ${props =>
-      props.customStyle &&
-      `
+    props.customStyle &&
+    `
     ${props.customStyle}
   `};
 

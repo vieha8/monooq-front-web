@@ -36,7 +36,7 @@ const Label2 = Label1.extend`
 
 type PropTypes = {
   onClick: Function,
-}
+};
 
 export default (props: PropTypes) => (
   <Container onClick={props.onClick}>

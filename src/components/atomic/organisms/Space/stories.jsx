@@ -57,17 +57,11 @@ storiesOf('Organisms/Space', module)
   ))
   .add('Price', () => (
     <div style={{ width: '300px' }}>
-      <Price
-        full="50,000"
-        half="50,000"
-        quarter="50,000"
-      />
+      <Price full="50,000" half="50,000" quarter="50,000" />
     </div>
   ))
   .add('SendMessage', () => (
     <div style={{ width: '300px' }}>
-      <SendMessage
-        onClick={() => console.log('onClick')}
-      />
+      <SendMessage onClick={() => console.log('onClick')} />
     </div>
   ));

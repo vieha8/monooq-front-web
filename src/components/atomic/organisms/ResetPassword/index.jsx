@@ -44,7 +44,7 @@ type PropTypes = {
   buttonLoading: boolean,
   errors: Array<string>,
   sended: boolean,
-}
+};
 
 export default (props: PropTypes) => (
   <Container>
@@ -73,13 +73,12 @@ export default (props: PropTypes) => (
             onChange={e => props.onChangeEmail(e.target.value)}
           />
         </InputWrapper>
-        {props.errors && (
+        {props.errors &&
           props.errors.map((error, i) => (
             <ErrorWrapper key={`email_error_${i}`}>
               <InlineText.Small color={Colors.error}>{error}</InlineText.Small>
             </ErrorWrapper>
-          ))
-        )}
+          ))}
         <MarginTopMediumWrapper>
           <InlineText.Small color={Colors.lightGray1}>
             登録済みのメールアドレスを入力してください。<br />

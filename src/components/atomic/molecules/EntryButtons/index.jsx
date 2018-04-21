@@ -32,16 +32,13 @@ type PropTypes = {
     onClick: Function,
   },
   enabled: boolean,
-}
+};
 
 export default (props: PropTypes) => (
   <Container>
     <Cell align="left">
       <Wrapper>
-        <Button
-          secondary
-          onClick={props.backButton.onClick}
-        >
+        <Button secondary onClick={props.backButton.onClick}>
           {props.backButton.text}
         </Button>
       </Wrapper>
@@ -49,17 +46,14 @@ export default (props: PropTypes) => (
     <Cell align="right">
       <Wrapper>
         {props.enabled ? (
-          <Button
-            primary
-            onClick={props.enabledButton.onClick}
-          >
+          <Button primary onClick={props.enabledButton.onClick}>
             {props.enabledButton.text}
           </Button>
         ) : (
-            <Button primary disabled>
-              {props.disabledButton.text}
-            </Button>
-          )}
+          <Button primary disabled>
+            {props.disabledButton.text}
+          </Button>
+        )}
       </Wrapper>
     </Cell>
   </Container>

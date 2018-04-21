@@ -37,42 +37,28 @@ type PropTypes = {
   private?: boolean,
   public?: boolean,
   removable?: boolean,
-}
+};
 
 export default (props: PropTypes) => (
   <Container>
     <Wrapper>
-      <Button
-        primary
-        small
-        onClick={props.onClickEdit}
-      >
+      <Button primary small onClick={props.onClickEdit}>
         編集する
       </Button>
     </Wrapper>
     <Wrapper>
       {props.private && (
-        <Button
-          secondary
-          small
-          onClick={props.onClickPublic}
-        >
+        <Button secondary small onClick={props.onClickPublic}>
           この場所を公開する
         </Button>
       )}
       {props.public && (
-        <PrivateButton
-          small
-          onClick={props.onClickPrivate}
-        >
+        <PrivateButton small onClick={props.onClickPrivate}>
           非公開にする
         </PrivateButton>
       )}
       {props.removable && (
-        <PrivateButton
-          small
-          onClick={props.onClickRemove}
-        >
+        <PrivateButton small onClick={props.onClickRemove}>
           削除する
         </PrivateButton>
       )}

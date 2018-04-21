@@ -21,7 +21,7 @@ const ContentContainer = styled.div`
   ${media.tablet`
     width: 100%;
     padding: ${Dimens.medium3}px 20px;
-  `}
+  `};
 `;
 
 const Group = styled.div`
@@ -38,8 +38,7 @@ type PropTypes = {
   onChangeLocation: Function,
   onClickSearchButton: Function,
   onKeyDownSearchField: Function,
-}
-
+};
 
 function refSearchField(ref, props: PropTypes) {
   if (ref) {
@@ -50,7 +49,9 @@ function refSearchField(ref, props: PropTypes) {
 export default (props: PropTypes) => (
   <PageContainer>
     <ContentContainer>
-      <H1>ごめんなさい！<br />入力したキーワードの検索結果はありませんでした。</H1>
+      <H1>
+        ごめんなさい！<br />入力したキーワードの検索結果はありませんでした。
+      </H1>
       <Group>
         <div>
           <InlineText.Base>住所や地名を入れて、もう1度検索してみてください。</InlineText.Base>
@@ -74,7 +75,9 @@ export default (props: PropTypes) => (
         </div>
       </Group>
       <ToHostLink>
-        <TextLink to={props.isLogin ? Path.createSpaceInfo() : Path.signup()}>ホストになる</TextLink>
+        <TextLink to={props.isLogin ? Path.createSpaceInfo() : Path.signup()}>
+          ホストになる
+        </TextLink>
       </ToHostLink>
     </ContentContainer>
   </PageContainer>

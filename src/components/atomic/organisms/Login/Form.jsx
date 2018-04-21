@@ -62,7 +62,7 @@ type PropTypes = {
   otherLogin: React.Element<*>,
   facebook: React.Element<*>,
   toSignup: React.Element<*>,
-}
+};
 
 export default (props: PropTypes) => (
   <Fragment>

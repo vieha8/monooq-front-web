@@ -7,7 +7,7 @@ import RegisterProfile from 'components/atomic/organisms/RegisterProfile';
 type PropTypes = {
   dispatch: Function,
   isLoading: boolean,
-}
+};
 
 type State = {
   image: ?File,
@@ -15,7 +15,7 @@ type State = {
   prefCode: string,
   profile: string,
   hasChanged: boolean,
-}
+};
 
 const Validate = {
   Profile: {
@@ -39,29 +39,32 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   onClickRegisterProfile = () => {
     const { dispatch, user } = this.props;
     const { image, name, prefCode, profile } = this.state;
-    dispatch(userActions.updateUser({
-      userId: user.ID,
-      body: { image, name, prefCode, profile },
-    }));
-  }
+    dispatch(
+      userActions.updateUser({
+        userId: user.ID,
+        body: { image, name, prefCode, profile },
+      }),
+    );
+  };
 
   handleChangeForm = (name: string, value: any) => {
     const state = this.state;
     state[name] = value;
     state.hasChanged = true;
     this.setState(state);
-  }
+  };
 
   validate = () => {
     const { name, prefCode, profile } = this.state;
     return (
-      name && name.length > 0
-      && prefCode
-      && profile
-      && profile.length > 0
-      && profile.length <= Validate.Profile.Max
+      name &&
+      name.length > 0 &&
+      prefCode &&
+      profile &&
+      profile.length > 0 &&
+      profile.length <= Validate.Profile.Max
     );
-  }
+  };
 
   render() {
     const { isLoading } = this.props;

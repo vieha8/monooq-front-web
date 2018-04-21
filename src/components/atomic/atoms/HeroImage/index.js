@@ -10,13 +10,13 @@ const HeroImage = styled.img`
     max-width: 608px;
     max-height: 376px;
   `} ${props =>
-      props.medium &&
-      `
+  props.medium &&
+  `
     max-width: 320px;
     max-height: 198px;
   `} ${props =>
-      props.small &&
-      `
+  props.small &&
+  `
     max-width: 104px;
     max-height: 79px;
   `} border-radius: 6px;

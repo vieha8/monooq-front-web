@@ -19,7 +19,7 @@ const Container = styled.div`
 const PriceContainer = styled.div`
   &::after {
     clear: both;
-    content: "";
+    content: '';
     display: block;
   }
 `;
@@ -52,32 +52,34 @@ type PropTypes = {
   full?: boolean,
   half?: boolean,
   quarter?: boolean,
-}
+};
 
 export default (props: PropTypes) => (
   <Container>
     <PriceContainer>
       <TextContainer>
         {props.full && (
-          <Text><InlineText.Base fontSize={FontSizes.medium}>スペースまるごと</InlineText.Base></Text>
+          <Text>
+            <InlineText.Base fontSize={FontSizes.medium}>スペースまるごと</InlineText.Base>
+          </Text>
         )}
         {props.half && (
-          <Text><InlineText.Base fontSize={FontSizes.medium}>スペース半分</InlineText.Base></Text>
+          <Text>
+            <InlineText.Base fontSize={FontSizes.medium}>スペース半分</InlineText.Base>
+          </Text>
         )}
         {props.quarter && (
-          <Text><InlineText.Base fontSize={FontSizes.medium}>スペース1/4</InlineText.Base></Text>
+          <Text>
+            <InlineText.Base fontSize={FontSizes.medium}>スペース1/4</InlineText.Base>
+          </Text>
         )}
-        <Price><InlineText.Base fontSize={FontSizes.medium}>{props.price}円</InlineText.Base></Price>
+        <Price>
+          <InlineText.Base fontSize={FontSizes.medium}>{props.price}円</InlineText.Base>
+        </Price>
       </TextContainer>
-      {props.full && (
-        <Image src={imageFurnitureFull} alt="" />
-      )}
-      {props.half && (
-        <Image src={imageFurnitureHalf} alt="" />
-      )}
-      {props.quarter && (
-        <Image src={imageFurnitureQuarter} alt="" />
-      )}
+      {props.full && <Image src={imageFurnitureFull} alt="" />}
+      {props.half && <Image src={imageFurnitureHalf} alt="" />}
+      {props.quarter && <Image src={imageFurnitureQuarter} alt="" />}
     </PriceContainer>
     {props.full && (
       <Caption>
@@ -95,9 +97,7 @@ export default (props: PropTypes) => (
     )}
     {props.quarter && (
       <Caption>
-        <InlineText.Emphasis>
-          スペースの4分の1程度を使用する荷物の場合の料金
-        </InlineText.Emphasis>
+        <InlineText.Emphasis>スペースの4分の1程度を使用する荷物の場合の料金</InlineText.Emphasis>
       </Caption>
     )}
   </Container>

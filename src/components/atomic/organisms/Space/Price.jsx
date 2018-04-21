@@ -15,23 +15,8 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <Card block>
     <PriceHead />
-    {props.full && (
-      <Price
-        full
-        price={props.full}
-      />
-    )}
-    {props.half && (
-      <Price
-        half
-        price={props.half}
-      />
-    )}
-    {props.quarter && (
-      <Price
-        quarter
-        price={props.quarter}
-      />
-    )}
+    {props.full && <Price full price={props.full} />}
+    {props.half && <Price half price={props.half} />}
+    {props.quarter && <Price quarter price={props.quarter} />}
   </Card>
 );

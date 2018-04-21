@@ -138,12 +138,7 @@ storiesOf('Molecules/Space', module)
   ))
   .add('SendMessage', () => (
     <div>
-      <SendMessage
-        onClick={() => console.log('onClick')}
-      />
-      <SendMessage
-        loading
-        onClick={() => console.log('onClick')}
-      />
+      <SendMessage onClick={() => console.log('onClick')} />
+      <SendMessage loading onClick={() => console.log('onClick')} />
     </div>
   ));

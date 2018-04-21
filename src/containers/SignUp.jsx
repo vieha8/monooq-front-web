@@ -26,43 +26,50 @@ class SignUpContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    FormValidator.initialize('signup', props.dispatch, uiActions.setUiState, errorActions.setErrorState);
+    FormValidator.initialize(
+      'signup',
+      props.dispatch,
+      uiActions.setUiState,
+      errorActions.setErrorState,
+    );
   }
 
   onClickSignUpEmail = () => {
     const { email, password } = this.props.ui.signup;
 
     this.props.dispatch(authActions.signupEmail({ email, password }));
-  }
+  };
 
   onClickSignUpFacebook = () => {
     this.props.dispatch(authActions.signupFacebook());
-  }
+  };
 
   onClickRegisterProfile = () => {
     const { name, prefCode, profile, image } = this.props.ui.signup;
 
-    this.props.dispatch(userActions.updateUser({
-      userId: this.props.user.ID,
-      body: { name, profile, image, prefCode },
-    }));
-  }
+    this.props.dispatch(
+      userActions.updateUser({
+        userId: this.props.user.ID,
+        body: { name, profile, image, prefCode },
+      }),
+    );
+  };
 
   onClickGuest = () => {
     const { history } = this.props;
     history.push(Path.top());
-  }
+  };
 
   onClickHost = () => {
     const { history } = this.props;
     history.push(Path.createSpaceInfo());
-  }
+  };
 
   // -------------------------------------------
   // メアド登録入力イベント
   // -------------------------------------------
 
-  handleChangeEmail = (value) => {
+  handleChangeEmail = value => {
     const prop = 'email';
     const errors = this.props.error[prop] || [];
     if (value.length === 0) {
@@ -73,9 +80,9 @@ class SignUpContainer extends React.Component {
 
     FormValidator.changeErrorState(prop, errors, this.props.error);
     FormValidator.changeUiState(prop, value, this.props.ui);
-  }
+  };
 
-  handleChangePassword = (value) => {
+  handleChangePassword = value => {
     const prop = 'password';
     const errors = this.props.error[prop] || [];
     if (value.length === 0) {
@@ -86,9 +93,9 @@ class SignUpContainer extends React.Component {
 
     FormValidator.changeErrorState(prop, errors, this.props.error);
     FormValidator.changeUiState(prop, value, this.props.ui);
-  }
+  };
 
-  handleChangePasswordConfirm = (value) => {
+  handleChangePasswordConfirm = value => {
     const prop = 'passwordConfirm';
     const errors = this.props.error[prop] || [];
     if (value.length === 0) {
@@ -99,29 +106,32 @@ class SignUpContainer extends React.Component {
 
     FormValidator.changeErrorState(prop, errors, this.props.error);
     FormValidator.changeUiState(prop, value, this.props.ui);
-  }
+  };
 
   validateRegisterEmail = () => {
     const { ui } = this.props;
     const signup = ui.signup || {};
 
     return (
-      signup.email && signup.email.match(Validate.Email)
-      && signup.password && signup.password.length >= Validate.Password.Min
-      && signup.passwordConfirm && signup.passwordConfirm === signup.password
+      signup.email &&
+      signup.email.match(Validate.Email) &&
+      signup.password &&
+      signup.password.length >= Validate.Password.Min &&
+      signup.passwordConfirm &&
+      signup.passwordConfirm === signup.password
     );
-  }
+  };
 
   // -------------------------------------------
   // プロフィール登録入力イベント
   // -------------------------------------------
 
-  handleChangeProfileImage = (image) => {
+  handleChangeProfileImage = image => {
     const prop = 'image';
     FormValidator.changeUiState(prop, image, this.props.ui);
-  }
+  };
 
-  handleChangeName = (value) => {
+  handleChangeName = value => {
     const prop = 'name';
     const errors = this.props.error[prop] || [];
     if (value.length === 0) {
@@ -130,14 +140,14 @@ class SignUpContainer extends React.Component {
 
     FormValidator.changeErrorState(prop, errors, this.props.error);
     FormValidator.changeUiState(prop, value, this.props.ui);
-  }
+  };
 
-  handleChangePrefCode = (value) => {
+  handleChangePrefCode = value => {
     const prop = 'prefCode';
     FormValidator.changeUiState(prop, value, this.props.ui);
-  }
+  };
 
-  handleChangeProfile = (value) => {
+  handleChangeProfile = value => {
     const prop = 'profile';
     const errors = this.props.error[prop] || [];
     if (value.length === 0) {
@@ -149,20 +159,21 @@ class SignUpContainer extends React.Component {
 
     FormValidator.changeErrorState(prop, errors, this.props.error);
     FormValidator.changeUiState(prop, value, this.props.ui);
-  }
+  };
 
   validateProfile = () => {
     const { ui } = this.props;
     const signup = ui.signup || {};
 
     return (
-      signup.name && signup.name.length > 0
-      && signup.prefCode
-      && signup.profile
-      && signup.profile.length > 0
-      && signup.profile.length <= Validate.Profile.Max
+      signup.name &&
+      signup.name.length > 0 &&
+      signup.prefCode &&
+      signup.profile &&
+      signup.profile.length > 0 &&
+      signup.profile.length <= Validate.Profile.Max
     );
-  }
+  };
 
   render() {
     const { error, user, ui } = this.props;

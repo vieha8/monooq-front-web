@@ -68,7 +68,7 @@ type PropTypes = {
   onClickSearchButton: Function,
   searchDisabled: boolean,
   borderColor?: string,
-}
+};
 
 export default (props: PropTypes) => (
   <SearchWrapper>
@@ -83,12 +83,8 @@ export default (props: PropTypes) => (
       onClick={props.searchDisabled ? null : props.onClickSearchButton}
       disabled={props.searchDisabled}
     >
-      <IconWrapper
-        color={props.searchDisabled ? Colors.lightGray1 : Colors.brandPrimary}
-      >
-        <Icon
-          className="fal fa-search"
-        />
+      <IconWrapper color={props.searchDisabled ? Colors.lightGray1 : Colors.brandPrimary}>
+        <Icon className="fal fa-search" />
       </IconWrapper>
     </SearchButton>
   </SearchWrapper>

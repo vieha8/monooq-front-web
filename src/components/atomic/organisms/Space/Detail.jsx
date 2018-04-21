@@ -20,7 +20,7 @@ const Container = styled.div`
   padding: 0 ${Dimens.medium}px;
   ${media.phone`
     padding: 0;
-  `}
+  `};
 `;
 
 const SectionHeader = styled.div`
@@ -59,48 +59,26 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <Card block>
     <Container>
-      <Header
-        pref={props.pref}
-        city={props.city}
-        town={props.town}
-        name={props.name}
-      />
+      <Header pref={props.pref} city={props.city} town={props.town} name={props.name} />
       <ImageWrapper>
-        <Image
-          images={props.images}
-          description={props.description}
-        />
+        <Image images={props.images} description={props.description} />
       </ImageWrapper>
       <SectionHeader>
         <H2>スペースについて</H2>
       </SectionHeader>
       <div>
-        <Address
-          content={props.address}
-        />
-        <Type
-          content={props.type}
-        />
+        <Address content={props.address} />
+        <Type content={props.type} />
       </div>
       <SectionHeader>
         <H2>荷物について</H2>
       </SectionHeader>
       <div>
-        <AboutBaggage
-          furniture={props.furniture}
-          content={props.aboutBaggage}
-        />
-        <Receive
-          delivery={props.delivery}
-          meeting={props.meeting}
-        />
-        <Supplement
-          content={props.supplement}
-        />
+        <AboutBaggage furniture={props.furniture} content={props.aboutBaggage} />
+        <Receive delivery={props.delivery} meeting={props.meeting} />
+        <Supplement content={props.supplement} />
       </div>
-      <HostInfo
-        {...props.user}
-      />
+      <HostInfo {...props.user} />
     </Container>
   </Card>
 );

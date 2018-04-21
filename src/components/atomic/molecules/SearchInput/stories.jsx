@@ -11,16 +11,13 @@ storiesOf('Molecules/SearchInput', module)
   .add('Normal', () => (
     <div style={{ width: '100%', maxWidth: '800px' }}>
       <SearchInput
-        onRef={() => { }}
+        onRef={() => {}}
         onClickSearchButton={() => console.log('onClickSearchButton')}
       />
     </div>
   ))
   .add('Disabled', () => (
     <div style={{ width: '100%', maxWidth: '800px' }}>
-      <SearchInput
-        onRef={() => { }}
-        searchDisabled
-      />
+      <SearchInput onRef={() => {}} searchDisabled />
     </div>
   ));

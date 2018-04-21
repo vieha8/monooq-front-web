@@ -6,13 +6,15 @@ import Attribute from './Attribute';
 
 type PropTypes = {
   content: string,
-}
+};
 
 export default (props: PropTypes) => (
   <Attribute
     title="受取りについて補足"
     content={
-      <div><InlineText.Base>{props.content}</InlineText.Base></div>
+      <div>
+        <InlineText.Base>{props.content}</InlineText.Base>
+      </div>
     }
   />
 );

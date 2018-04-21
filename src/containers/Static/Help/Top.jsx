@@ -11,18 +11,18 @@ type PropTypes = {
     openHowToUser: boolean,
     openHowToBeHost: boolean,
   },
-}
+};
 
 class HelpTopContainer extends React.Component<PropTypes> {
   onClickHowToUser = () => {
     const { ui, dispatch } = this.props;
     dispatch(uiActions.setUiState({ openHowToUser: !ui.openHowToUser }));
-  }
+  };
 
   onClickHowToBeHost = () => {
     const { ui, dispatch } = this.props;
     dispatch(uiActions.setUiState({ openHowToBeHost: !ui.openHowToBeHost }));
-  }
+  };
 
   render() {
     const { ui } = this.props;

@@ -25,7 +25,7 @@ const IconInputField = InputField.extend`
 
 type PropTypes = {
   iconClassName: string,
-}
+};
 
 export default (props: PropTypes) => (
   <Wrapper>

@@ -12,21 +12,21 @@ const H1Container = styled.div`
   margin: ${Dimens.medium3}px 0;
   ${media.tablet`
     margin: ${Dimens.medium}px 0;
-  `}
+  `};
 `;
 
 const CaptionContainer = styled.div`
   margin: ${Dimens.medium2}px 0;
   ${media.tablet`
     margin: ${Dimens.medium}px 0;
-  `}
+  `};
 `;
 
 const Content = styled.div`
   margin: ${Dimens.medium3}px 0;
   ${media.tablet`
     margin: ${Dimens.medium}px 0;
-  `}
+  `};
 `;
 
 type PropTypes = {
@@ -35,21 +35,19 @@ type PropTypes = {
   caption: string,
   searchResult: React.Element<*>,
   footer: React.Element<*>,
-}
+};
 
 export default (props: PropTypes) => (
   <div>
     {props.header}
     <Page>
-      <H1Container><H1>{props.headline1}</H1></H1Container>
+      <H1Container>
+        <H1>{props.headline1}</H1>
+      </H1Container>
       <CaptionContainer>
-        <InlineText.Base>
-          {props.caption}
-        </InlineText.Base>
+        <InlineText.Base>{props.caption}</InlineText.Base>
       </CaptionContainer>
-      <Content>
-        {props.searchResult}
-      </Content>
+      <Content>{props.searchResult}</Content>
     </Page>
     {props.footer}
   </div>

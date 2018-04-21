@@ -27,7 +27,7 @@ type PropTypes = {
   loginFailed: boolean,
   buttonDisabled: boolean,
   isLoginChecking: boolean,
-}
+};
 
 export default (props: PropTypes) => (
   <Form
@@ -51,8 +51,11 @@ export default (props: PropTypes) => (
       />
     }
     failed={
-      props.loginFailed &&
-        <InlineText.Small color={Colors.error}>ユーザー名またはパスワードに誤りがあります。</InlineText.Small>
+      props.loginFailed && (
+        <InlineText.Small color={Colors.error}>
+          ユーザー名またはパスワードに誤りがあります。
+        </InlineText.Small>
+      )
     }
     remind={<TextLink to={Path.resetPassword()}>パスワードを忘れた方はこちら</TextLink>}
     login={
@@ -68,12 +71,7 @@ export default (props: PropTypes) => (
     }
     otherLogin={<InlineText.Base>お持ちのアカウントでログイン</InlineText.Base>}
     facebook={
-      <Button
-        facebook
-        center
-        onClick={props.onClickFacebook}
-        loading={props.isLoginChecking}
-      >
+      <Button facebook center onClick={props.onClickFacebook} loading={props.isLoginChecking}>
         Facebookでログインする
       </Button>
     }

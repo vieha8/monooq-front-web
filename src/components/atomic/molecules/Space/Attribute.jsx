@@ -16,13 +16,13 @@ const Container = styled.div`
   }
   &::after {
     clear: both;
-    content: "";
+    content: '';
     display: block;
   }
 
   ${media.phone`
     display: block;
-  `}
+  `};
 `;
 
 const TitleCell = styled.span`
@@ -34,7 +34,7 @@ const TitleCell = styled.span`
   ${media.phone`
     display: block;
     width: 100%;
-  `}
+  `};
 `;
 
 const ContentContainer = styled.div`
@@ -45,28 +45,20 @@ const ContentContainer = styled.div`
     display: block;
     padding-left: 0;
     margin-top: ${Dimens.small}px;
-  `}
+  `};
 `;
 
 type PropTypes = {
   title: string,
   headContent?: React.Element<*>,
   content: React.Element<*>,
-}
+};
 
 export default (props: PropTypes) => (
   <Container>
     <TitleCell>
-      {props.headContent
-        ? props.headContent
-        : (
-          <InlineText.Base>
-            {props.title}
-          </InlineText.Base>
-        )}
+      {props.headContent ? props.headContent : <InlineText.Base>{props.title}</InlineText.Base>}
     </TitleCell>
-    <ContentContainer>
-      {props.content}
-    </ContentContainer>
+    <ContentContainer>{props.content}</ContentContainer>
   </Container>
 );

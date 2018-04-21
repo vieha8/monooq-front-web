@@ -12,13 +12,15 @@ const Container = styled.div`
   ${media.phone`
     max-width: 345px;
     margin-top: ${Dimens.medium}px;
-  `}
+  `};
 `;
 
 const Cell = styled.div`
   display: inline-block;
   vertical-align: top;
-  ${props => props.index % 3 === 1 && `
+  ${props =>
+    props.index % 3 === 1 &&
+    `
     padding: 0 ${Dimens.medium}px;
   `}
   padding-bottom: ${Dimens.medium}px;
@@ -40,15 +42,13 @@ type PropTypes = {
     priceQuarter: number,
     onClick: Function,
   }>,
-}
+};
 
 export default (props: PropTypes) => (
   <Container>
     {props.spaces.map((space, i) => (
       <Cell key={`result_list_result_item_${i}`} index={i}>
-        <SearchResultItem
-          {...space}
-        />
+        <SearchResultItem {...space} />
       </Cell>
     ))}
   </Container>

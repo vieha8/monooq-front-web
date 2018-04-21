@@ -13,10 +13,6 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Card block>
-    <SendMessage
-      onClick={props.onClick}
-      loading={props.loading}
-      disabled={props.disabled}
-    />
+    <SendMessage onClick={props.onClick} loading={props.loading} disabled={props.disabled} />
   </Card>
 );

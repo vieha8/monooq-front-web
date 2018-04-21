@@ -18,34 +18,21 @@ storiesOf('Molecules/InputForm', module)
   ))
   .add('Unit', () => (
     <div style={{ width: '100%', maxWidth: '800px' }}>
-      <InputFormMock
-        label="お見積もり料金"
-        placeholder="金額を入力してください。"
-        unit="円"
-      />
+      <InputFormMock label="お見積もり料金" placeholder="金額を入力してください。" unit="円" />
     </div>
   ))
   .add('Confirm', () => (
     <div>
-      <Confirm
-        label="銀行名"
-        value="モノオク銀行"
-      />
+      <Confirm label="銀行名" value="モノオク銀行" />
     </div>
   ))
   .add('Extension', () => (
     <div>
-      <InputFormMock
-        label="銀行名"
-        extension={<div>任意のコンポーネント</div>}
-      />
+      <InputFormMock label="銀行名" extension={<div>任意のコンポーネント</div>} />
     </div>
   ))
   .add('Multiline', () => (
     <div>
-      <InputFormMock
-        label="銀行名"
-        multiline
-      />
+      <InputFormMock label="銀行名" multiline />
     </div>
   ));

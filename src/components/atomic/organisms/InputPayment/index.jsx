@@ -102,8 +102,12 @@ export default (props: PropTypes) => (
           value={props.month}
         />
       </SelectBox>
-      <InlineText.Base><Padding>月</Padding></InlineText.Base>
-      <InlineText.Base><Padding>/</Padding></InlineText.Base>
+      <InlineText.Base>
+        <Padding>月</Padding>
+      </InlineText.Base>
+      <InlineText.Base>
+        <Padding>/</Padding>
+      </InlineText.Base>
       <SelectBox>
         <SelectForm
           options={Array(10)
@@ -113,7 +117,9 @@ export default (props: PropTypes) => (
           value={props.year}
         />
       </SelectBox>
-      <InlineText.Base><Padding>年</Padding></InlineText.Base>
+      <InlineText.Base>
+        <Padding>年</Padding>
+      </InlineText.Base>
     </Row>
     <Row>
       <InputForm

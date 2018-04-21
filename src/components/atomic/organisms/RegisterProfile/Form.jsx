@@ -35,7 +35,7 @@ type PropTypes = {
   area: React.Element<*>,
   profile: React.Element<*>,
   button: React.Element<*>,
-}
+};
 
 export default (props: PropTypes) => (
   <Fragment>

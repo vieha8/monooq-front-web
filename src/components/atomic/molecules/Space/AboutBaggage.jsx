@@ -7,20 +7,18 @@ import Attribute from './Attribute';
 
 type PropTypes = {
   content: string,
-}
+};
 
 export default (props: PropTypes) => (
   <Attribute
     title="このスペースに置ける荷物"
     content={
       <div>
-        {props.furniture &&
+        {props.furniture && (
           <div>
-            <InlineText.Bold color={Colors.brandPrimary}>
-              家具・家電OK
-            </InlineText.Bold>
+            <InlineText.Bold color={Colors.brandPrimary}>家具・家電OK</InlineText.Bold>
           </div>
-        }
+        )}
         <InlineText.Base>{props.content}</InlineText.Base>
       </div>
     }

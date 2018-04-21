@@ -8,6 +8,4 @@ import Login from './index';
 
 storiesOf('Organisms/Login', module)
   .addDecorator(StoryRouter())
-  .add('Normal', () => (
-    <Login />
-  ));
+  .add('Normal', () => <Login />);

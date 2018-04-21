@@ -33,23 +33,18 @@ type PropTypes = {
   name: string,
   onClickUser: Function,
   onClickHost: Function,
-}
+};
 
 export default (props: PropTypes) => (
   <Container>
     <div>
-      <InlineText.Base
-        fontSize={FontSizes.medium2}
-      >
+      <InlineText.Base fontSize={FontSizes.medium2}>
         プロフィールの登録が完了しました！
       </InlineText.Base>
     </div>
     <Content>
       <ImageWrapper>
-        <AvatarImage
-          src={props.image}
-          size={120}
-        />
+        <AvatarImage src={props.image} size={120} />
       </ImageWrapper>
       <div>
         <InlineText.Base>モノオクへようこそ！</InlineText.Base>
@@ -61,11 +56,7 @@ export default (props: PropTypes) => (
         <TextWrapper>
           <InlineText.Base>荷物を預ける場所をお探しですか？</InlineText.Base>
         </TextWrapper>
-        <Button
-          center
-          primary
-          onClick={props.onClickUser}
-        >
+        <Button center primary onClick={props.onClickUser}>
           スペースを探す
         </Button>
       </ButtonWrapper>
@@ -73,11 +64,7 @@ export default (props: PropTypes) => (
         <TextWrapper>
           <InlineText.Base>誰かのお役に立てるスペースを掲載しますか？</InlineText.Base>
         </TextWrapper>
-        <Button
-          center
-          secondary
-          onClick={props.onClickHost}
-        >
+        <Button center secondary onClick={props.onClickHost}>
           ホストになる
         </Button>
       </ButtonWrapper>

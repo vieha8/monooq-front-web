@@ -8,7 +8,7 @@ import MenuPageTemplate from './index';
 storiesOf('Templates/MenuPageTemplate', module)
   .add('Normal', () => (
     <MenuPageTemplate
-      header={(
+      header={
         <div
           style={{
             width: '100%',
@@ -18,9 +18,9 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           header section
         </div>
-      )}
+      }
       headline="headline here"
-      leftContent={(
+      leftContent={
         <div
           style={{
             width: '100%',
@@ -30,8 +30,8 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           left content section
         </div>
-      )}
-      rightContent={(
+      }
+      rightContent={
         <div
           style={{
             width: '100%',
@@ -41,8 +41,8 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           right content section
         </div>
-      )}
-      footer={(
+      }
+      footer={
         <div
           style={{
             width: '100%',
@@ -52,12 +52,12 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           footer section
         </div>
-      )}
+      }
     />
   ))
   .add('Has Caption', () => (
     <MenuPageTemplate
-      header={(
+      header={
         <div
           style={{
             width: '100%',
@@ -67,10 +67,10 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           header section
         </div>
-      )}
+      }
       headline="headline here"
       caption="caption here"
-      leftContent={(
+      leftContent={
         <div
           style={{
             width: '100%',
@@ -80,8 +80,8 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           left content section
         </div>
-      )}
-      rightContent={(
+      }
+      rightContent={
         <div
           style={{
             width: '100%',
@@ -91,8 +91,8 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           right content section
         </div>
-      )}
-      footer={(
+      }
+      footer={
         <div
           style={{
             width: '100%',
@@ -102,6 +102,6 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           footer section
         </div>
-      )}
+      }
     />
   ));

@@ -12,14 +12,14 @@ const Base = styled.span`
     css`
       vertical-align: top;
     `} ${props =>
-      props.verticalMiddle &&
-      css`
-        vertical-align: middle;
-      `} ${props =>
-      props.verticalBottom &&
-      css`
-        vertical-align: bottom;
-      `};
+  props.verticalMiddle &&
+  css`
+    vertical-align: middle;
+  `} ${props =>
+  props.verticalBottom &&
+  css`
+    vertical-align: bottom;
+  `};
   ${props =>
     props.singleLine &&
     `

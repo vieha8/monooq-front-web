@@ -9,7 +9,7 @@ type PropTypes = {
   dispatch: Function,
   isRegisting: boolean,
   isSignupFailed: boolean,
-}
+};
 
 type State = {
   email: string,
@@ -21,7 +21,7 @@ type State = {
     password?: Array<string>,
     passwordConfirm?: Array<string>,
   },
-}
+};
 
 const Validate = {
   Email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
@@ -71,28 +71,31 @@ export default class RegisterContainer extends Component<PropTypes, State> {
       errors.passwordConfirm = [].concat(errors.password, [ErrorMessage.NotMatchPassword]);
     }
     this.setState({ errors });
-  }
+  };
 
   onClickFacebook = () => {
     const { dispatch } = this.props;
     dispatch(authActions.signupFacebook());
-  }
+  };
 
   handleChangeForm = (name: string, value: any) => {
     const state = this.state;
     state[name] = value;
     state.hasChanged = true;
     this.setState(state);
-  }
+  };
 
   validate = () => {
     const { email, password, passwordConfirm } = this.state;
     return (
-      email && email.match(Validate.Email)
-      && password && password.length >= Validate.Password.Min
-      && passwordConfirm && password === passwordConfirm
+      email &&
+      email.match(Validate.Email) &&
+      password &&
+      password.length >= Validate.Password.Min &&
+      passwordConfirm &&
+      password === passwordConfirm
     );
-  }
+  };
 
   render() {
     const { isRegisting } = this.props;

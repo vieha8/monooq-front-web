@@ -31,7 +31,7 @@ type PropTypes = {
   passConfirmError: Array<string>,
   buttonDisabled: boolean,
   isRegisterChecking: boolean,
-}
+};
 
 export default (props: PropTypes) => (
   <Form
@@ -80,9 +80,13 @@ export default (props: PropTypes) => (
     ))}
     terms={
       <Fragment>
-        <TextLink to={Path.terms()} target="_blank">利用規約</TextLink>
+        <TextLink to={Path.terms()} target="_blank">
+          利用規約
+        </TextLink>
         <InlineText.Base>と</InlineText.Base>
-        <TextLink to={Path.privacy()} target="_blank">プライバシーポリシー</TextLink>
+        <TextLink to={Path.privacy()} target="_blank">
+          プライバシーポリシー
+        </TextLink>
         <InlineText.Base>に同意の上、</InlineText.Base>
         <br />
         <InlineText.Base>次へボタンを押してください。</InlineText.Base>
@@ -101,12 +105,7 @@ export default (props: PropTypes) => (
     }
     otherLogin={<InlineText.Base>お持ちのアカウントで登録</InlineText.Base>}
     facebook={
-      <Button
-        facebook
-        center
-        onClick={props.onClickFacebook}
-        loading={props.isRegisterChecking}
-      >
+      <Button facebook center onClick={props.onClickFacebook} loading={props.isRegisterChecking}>
         Facebookで登録
       </Button>
     }

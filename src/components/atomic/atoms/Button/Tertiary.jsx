@@ -23,6 +23,4 @@ const Tertiary = PrimaryButton.extend`
     `};
 `;
 
-export default (props: Object) => (
-  <Tertiary {...props} />
-);
+export default (props: Object) => <Tertiary {...props} />;

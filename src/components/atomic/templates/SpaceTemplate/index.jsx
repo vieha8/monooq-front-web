@@ -11,14 +11,14 @@ const Map = styled.div`
   height: 360px;
   ${media.tablet`
     height: 240px;  
-  `}
+  `};
 `;
 
 const Container = styled.div`
   margin: ${Dimens.medium3}px 0;
   ${media.tablet`
     margin: 0;
-  `}
+  `};
 `;
 
 const DetailContainer = styled.div`
@@ -32,7 +32,7 @@ const DetailContainer = styled.div`
     width: 100%;
     max-width: 100%;
     margin: 0;
-  `}
+  `};
 `;
 
 const PriceContainer = styled.div`
@@ -47,7 +47,7 @@ const PriceContainer = styled.div`
     width: 100%;
     max-width: 100%;
     padding-bottom: 40px;
-  `}
+  `};
 `;
 
 const MarginTop = styled.div`
@@ -57,7 +57,7 @@ const MarginTop = styled.div`
 const Footer = styled.div`
   ${media.tablet`
     display: none;
-  `}
+  `};
 `;
 
 type PropTypes = {
@@ -76,20 +76,14 @@ export default (props: PropTypes) => (
     <Page fillPhone>
       <Container>
         <ClearfixContainer>
-          <DetailContainer>
-            {props.detail}
-          </DetailContainer>
+          <DetailContainer>{props.detail}</DetailContainer>
           <PriceContainer>
             {props.price}
-            <MarginTop>
-              {props.message}
-            </MarginTop>
+            <MarginTop>{props.message}</MarginTop>
           </PriceContainer>
         </ClearfixContainer>
       </Container>
     </Page>
-    <Footer>
-      {props.footer}
-    </Footer>
+    <Footer>{props.footer}</Footer>
   </div>
 );

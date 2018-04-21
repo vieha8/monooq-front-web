@@ -21,7 +21,7 @@ type PropTypes = {
     pathname: string,
     hash: string,
   },
-}
+};
 
 function mapPathnameToContent(pathname: string) {
   switch (pathname) {
@@ -80,23 +80,23 @@ class HelpTopContainer extends React.Component<PropTypes> {
   onClickHowToUser = () => {
     const { ui, dispatch } = this.props;
     dispatch(uiActions.setUiState({ openHowToUser: !ui.openHowToUser }));
-  }
+  };
 
   onClickHowToBeHost = () => {
     const { ui, dispatch } = this.props;
     dispatch(uiActions.setUiState({ openHowToBeHost: !ui.openHowToBeHost }));
-  }
+  };
 
   onClickList = (i: number) => {
     const { dispatch, ui } = this.props;
     ui.openFlagList[i] = !ui.openFlagList[i];
     dispatch(uiActions.setUiState({ openFlagList: ui.openFlagList }));
-  }
+  };
 
   onClickBack = () => {
     const { history } = this.props;
     history.goBack();
-  }
+  };
 
   render() {
     const { ui, location } = this.props;

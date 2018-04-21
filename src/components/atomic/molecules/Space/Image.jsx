@@ -20,9 +20,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <div>
-    <SlideImage
-      images={props.images}
-    />
+    <SlideImage images={props.images} />
     <Desc>
       <InlineText.Base>{props.description}</InlineText.Base>
     </Desc>

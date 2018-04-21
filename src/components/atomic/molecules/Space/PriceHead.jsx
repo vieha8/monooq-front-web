@@ -21,7 +21,11 @@ const Text = styled.span`
 
 export default () => (
   <Container>
-    <Head><H2>料金の目安</H2></Head>
-    <Text><InlineText.Small>30日間あたり</InlineText.Small></Text>
+    <Head>
+      <H2>料金の目安</H2>
+    </Head>
+    <Text>
+      <InlineText.Small>30日間あたり</InlineText.Small>
+    </Text>
   </Container>
 );

@@ -12,18 +12,18 @@ type PropTypes = {
     ImageUrl: string,
     Name: string,
   },
-}
+};
 
 export default class RegisteredContainer extends Component<PropTypes> {
   onClickUser = () => {
     const { history } = this.props;
     history.push(Path.top());
-  }
+  };
 
   onClickHost = () => {
     const { history } = this.props;
     history.push(Path.createSpaceInfo());
-  }
+  };
 
   render() {
     const { user } = this.props;

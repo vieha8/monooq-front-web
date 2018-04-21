@@ -65,30 +65,20 @@ type PropTypes = {
   otherSignup: React.Element<*>,
   facebook: React.Element<*>,
   toLogin: React.Element<*>,
-}
+};
 
 export default (props: PropTypes) => (
   <Fragment>
     <Logo>{props.logo}</Logo>
     <Title>{props.title}</Title>
     <Email>{props.email}</Email>
-    {props.emailError.map((dom, i) =>
-      <Failed key={`email_error_text_${i}`}>
-        {dom}
-      </Failed>
-    )}
+    {props.emailError.map((dom, i) => <Failed key={`email_error_text_${i}`}>{dom}</Failed>)}
     <Pass>{props.pass}</Pass>
-    {props.passError.map((dom, i) =>
-      <Failed key={`password_error_text_${i}`}>
-        {dom}
-      </Failed>
-    )}
+    {props.passError.map((dom, i) => <Failed key={`password_error_text_${i}`}>{dom}</Failed>)}
     <Pass>{props.passConfirm}</Pass>
-    {props.passConfirmError.map((dom, i) =>
-      <Failed key={`password_confirm_error_text_${i}`}>
-        {dom}
-      </Failed>
-    )}
+    {props.passConfirmError.map((dom, i) => (
+      <Failed key={`password_confirm_error_text_${i}`}>{dom}</Failed>
+    ))}
     <Terms>{props.terms}</Terms>
     <Next>{props.next}</Next>
     <OtherSignup>{props.otherSignup}</OtherSignup>

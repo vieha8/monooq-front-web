@@ -14,7 +14,7 @@ const Container = styled.div`
   ${media.phone`
     width: 100%;
     margin: 0;
-  `}
+  `};
 `;
 
 const Content = styled.div`
@@ -45,43 +45,28 @@ type PropTypes = {
   priceHalf: number,
   priceQuarter: number,
   onClick: Function,
-}
+};
 
 export default (props: PropTypes) => (
-  <Container
-    onClick={props.onClick}
-  >
+  <Container onClick={props.onClick}>
     <Card noPadding customStyle={CardShadowStyle}>
-      <HeroImage
-        src={props.image}
-        alt={props.title}
-        height={160}
-      />
+      <HeroImage src={props.image} alt={props.title} height={160} />
       <Content>
         <Row>
-          <InlineText.Base
-            singleLine
-            color={Colors.brandPrimary}
-          >
+          <InlineText.Base singleLine color={Colors.brandPrimary}>
             {props.addressTown}
           </InlineText.Base>
         </Row>
         <Row marginTop={Dimens.small}>
-          <InlineText.Base singleLine>
-            {props.title}
-          </InlineText.Base>
+          <InlineText.Base singleLine>{props.title}</InlineText.Base>
         </Row>
-        {props.isFurniture &&
+        {props.isFurniture && (
           <Row marginTop={Dimens.small}>
-            <InlineText.Bold>
-              家具・家電OK
-            </InlineText.Bold>
+            <InlineText.Bold>家具・家電OK</InlineText.Bold>
           </Row>
-        }
+        )}
         <Row marginTop={Dimens.small}>
-          <InlineText.Base>
-            料金目安
-          </InlineText.Base>
+          <InlineText.Base>料金目安</InlineText.Base>
         </Row>
         <Row marginTop={Dimens.small}>
           <InlineText.Base>

@@ -25,6 +25,4 @@ const Secondary = PrimaryButton.extend`
   `};
 `;
 
-export default (props: Object) => (
-  <Secondary {...props} />
-);
+export default (props: Object) => <Secondary {...props} />;

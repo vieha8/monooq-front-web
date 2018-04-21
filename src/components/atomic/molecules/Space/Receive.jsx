@@ -10,7 +10,7 @@ import Attribute from './Attribute';
 const Container = styled.div`
   ${media.phone`
     margin-top: ${Dimens.medium}px;
-  `}
+  `};
 `;
 
 const IconWrapper = styled.div`
@@ -31,14 +31,14 @@ const Column = styled.span`
 type PropTypes = {
   delivery: boolean,
   meeting: boolean,
-}
+};
 
 export default (props: PropTypes) => (
   <Attribute
     title="受取り方法"
     content={
       <Container>
-        {props.delivery &&
+        {props.delivery && (
           <div>
             <IconWrapper>
               <Icon className="fal fa-truck" />
@@ -50,8 +50,8 @@ export default (props: PropTypes) => (
               <InlineText.Emphasis>Pickgo・ヤマト運輸など配送サービス</InlineText.Emphasis>
             </Column>
           </div>
-        }
-        {props.meeting &&
+        )}
+        {props.meeting && (
           <div>
             <IconWrapper>
               <Icon className="fal fa-users" />
@@ -63,7 +63,7 @@ export default (props: PropTypes) => (
               <InlineText.Emphasis>直接本人から荷物を受け取ります</InlineText.Emphasis>
             </Column>
           </div>
-        }
+        )}
       </Container>
     }
   />
