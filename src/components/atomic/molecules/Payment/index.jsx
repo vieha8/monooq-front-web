@@ -6,12 +6,16 @@ import InlineText from 'components/atomic/atoms/InlineText';
 import { Colors } from 'variables';
 
 const Row = styled.div`
-  ${props => props.borderTop && `
-    border-top: 1px solid ${Colors.borderGray};
-  `}
-  ${props => props.borderBottom && `
+  ${props =>
+    props.borderTop &&
+    `
+      border-top: 1px solid ${Colors.borderGray};
+    `};
+  ${props =>
+    props.borderBottom &&
+    `
     border-bottom: 1px solid ${Colors.borderGray};
-  `}
+  `};
   padding: 8px 0;
 `;
 
@@ -25,13 +29,15 @@ type PropTypes = {
   endAt: string,
   duration: string,
   price: string,
-}
+};
 
 export default (props: PropTypes) => (
   <div>
     <Row>
       <Text>利用スケジュール</Text>
-      <Text>{props.beginAt}〜{props.endAt}</Text>
+      <Text>
+        {props.beginAt}〜{props.endAt}
+      </Text>
     </Row>
     <Row borderTop borderBottom>
       <Text>期間</Text>
