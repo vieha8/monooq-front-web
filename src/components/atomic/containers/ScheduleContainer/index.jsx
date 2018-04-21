@@ -49,12 +49,12 @@ class ScheduleContainer extends Component {
   };
 
   render() {
-    const { isLoading, schedule } = this.props;
-
     const auth = checkAuthState(this.props);
     if (auth) {
       return auth;
     }
+
+    const { isLoading, schedule } = this.props;
 
     return (
       <div>

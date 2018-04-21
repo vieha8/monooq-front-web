@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import moment from 'moment';
+import numeral from 'numeral';
 import { Redirect } from 'react-router-dom';
 import Path from 'config/path';
 
@@ -10,11 +11,14 @@ import { requestActions } from 'redux/modules/request';
 
 import PaymentTemplate from 'components/atomic/templates/PaymentTemplate';
 import InputPayment from 'components/atomic/organisms/InputPayment';
+import PaidComplete from 'components/atomic/organisms/PaidComplete';
 import PaymentInfo from 'components/atomic/organisms/PaymentInfo';
 import Header from 'components/atomic/containers/Header';
 import LoadingPage from 'components/atomic/organisms/LoadingPage';
 
 import { ErrorMessage } from 'strings';
+
+import type { SpaceType } from 'types/Space';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -27,6 +31,10 @@ type PropTypes = {
       message_room_id: string,
     },
   },
+  room: {
+    space: SpaceType,
+  },
+  messages: Array<Object>,
   isLoading: boolean,
   isPaymentSuccess: boolean,
   isSending: boolean,
@@ -50,22 +58,37 @@ class PaymentContainer extends Component<PropTypes> {
     dispatch(messagesActions.fetchMessagesStart(roomId));
 
     this.state = {
+      name: '',
+      number: '',
       year: moment().year(),
       month: 1,
+      cvc: '',
       error: {},
     };
   }
 
-  onClickPaymentButton: Function;
-  onClickPaymentButton = () => {
+  payment: Function;
+  payment = () => {
     const { match, dispatch } = this.props;
     const { request_id: requestId, message_room_id: roomId } = match.params;
-    const { year, month } = this.state;
-    dispatch(requestActions.payment({ roomId, requestId, payment: { year, month } }));
+    const { name, number, year, month, cvc } = this.state;
+    dispatch(
+      requestActions.payment({
+        roomId,
+        requestId,
+        payment: {
+          name,
+          number,
+          year,
+          month,
+          cvc,
+        },
+      }),
+    );
   };
 
-  onClickPaidButton: Function;
-  onClickPaidButton = () => {
+  backToMessage: Function;
+  backToMessage = () => {
     const { match } = this.props;
     const { message_room_id: roomId } = match.params;
     window.location.href = Path.message(roomId);
@@ -91,7 +114,7 @@ class PaymentContainer extends Component<PropTypes> {
         if (value.length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         }
-        if (!value.match(ValidateRegExp.CardNumber)) {
+        if (!String(value).match(ValidateRegExp.CardNumber)) {
           errors.push(ErrorMessage.CreditCardNumber);
         }
         break;
@@ -100,17 +123,19 @@ class PaymentContainer extends Component<PropTypes> {
         if (value.length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         }
-        if (!value.match(ValidateRegExp.Cvc)) {
+        if (!String(value).match(ValidateRegExp.Cvc)) {
           errors.push(ErrorMessage.Cvc);
         }
         break;
 
       default:
-        return;
+        break;
     }
 
     state[propName] = value;
     error[propName] = errors;
+
+    this.setState({ ...state, error });
   };
 
   validate: Function;
@@ -136,7 +161,15 @@ class PaymentContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { match, isLoading, isSending, isPaymentFailed, isPaymentSuccess } = this.props;
+    const {
+      match,
+      room,
+      messages,
+      isLoading,
+      isSending,
+      isPaymentFailed,
+      isPaymentSuccess,
+    } = this.props;
 
     const requestId = match.params.request_id;
 
@@ -148,26 +181,69 @@ class PaymentContainer extends Component<PropTypes> {
       return <LoadingPage />;
     }
 
-    // if (isPaymentSuccess) {
-    //   return (
-    //     <Paid
-    //       onClickButton={this.onClickPaidButton}
-    //       estimate={ui.estimate}
-    //       space={ui.estimate.space}
-    //     />
-    //   );
-    // }
+    const request = messages.find(m => `${m.requestId}` === `${requestId}`);
+    const space = room.space || {};
 
-    return <PaymentTemplate header={<Header />} left={<InputPayment />} right={<PaymentInfo />} />;
+    const { name, number, month, year, cvc } = this.state;
+
+    return (
+      <PaymentTemplate
+        header={<Header />}
+        left={
+          isPaymentSuccess ? (
+            <PaidComplete spaceName={space.About} onClickToMessage={this.backToMessage} />
+          ) : (
+            <InputPayment
+              paidError={isPaymentFailed}
+              onChangeName={value => this.handleChangeUI('name', value)}
+              name={name}
+              onChangeNumber={value => this.handleChangeUI('number', value)}
+              number={number}
+              onChangeYear={value => this.handleChangeUI('year', value)}
+              year={year}
+              onChangeMonth={value => this.handleChangeUI('month', value)}
+              month={month}
+              onChangeCvc={value => this.handleChangeUI('cvc', value)}
+              cvc={cvc}
+              buttonDisabled={!this.validate()}
+              buttonLoading={isSending}
+              onClickPay={this.payment}
+            />
+          )
+        }
+        right={
+          <PaymentInfo
+            hostName={(space.Host || {}).Name}
+            space={{
+              image: {
+                src: (space.Images[0] || {}).ImageUrl,
+                alt: '',
+              },
+              address: space.Address,
+              content: space.About,
+              href: Path.space(space.ID),
+            }}
+            payment={{
+              beginAt: moment(request.startDate).format('YYYY/MM/DD'),
+              endAt: moment(request.endDate).format('YYYY/MM/DD'),
+              duration: moment(request.endDate).diff(moment(request.startDate), 'days') + 1,
+              price: numeral(request.price).format('0,0'),
+            }}
+          />
+        }
+      />
+    );
   }
 }
 
 const mapStateToProps = state =>
   mergeAuthProps(state, {
+    room: state.messages.room,
+    messages: state.messages.messages,
+    isLoading: state.messages.isLoading,
     isPaymentFailed: state.api.error,
     isSending: state.request.payment.isSending,
     isPaymentSuccess: state.request.payment.isSuccess,
-    isLoading: state.messages.isLoading,
   });
 
 export default connect(PaymentContainer, mapStateToProps);

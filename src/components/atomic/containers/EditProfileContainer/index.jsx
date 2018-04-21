@@ -107,12 +107,12 @@ class ProfileContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { updateSuccess, isLoading, user, ui } = this.props;
-
     const auth = checkAuthState(this.props);
     if (auth) {
       return auth;
     }
+
+    const { updateSuccess, isLoading, user, ui } = this.props;
 
     if (!ui.editProfile) {
       return <LoadingPage />;

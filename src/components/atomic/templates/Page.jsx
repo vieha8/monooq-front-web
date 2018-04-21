@@ -9,6 +9,12 @@ const Page = styled.div`
   max-width: 1024px;
   margin: 0 auto;
   padding: ${HeaderHeight}px 0 80px;
+
+  margin-top: 80px;
+  ${media.tablet`
+    margin-top: 20px;
+  `};
+
   ${media.phone`
     padding: ${HeaderHeight}px 20px 40px;
 

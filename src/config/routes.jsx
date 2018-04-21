@@ -58,9 +58,9 @@ export const routes = [
   { path: Path.messages(), component: Containers.Inbox },
   { path: Path.message(), component: Containers.Message },
   { path: Path.estimate(), component: Containers.Estimate },
+  { path: Path.payment(), component: Containers.Payment },
   // legacy
   { path: Path.top(), component: Top },
-  { path: Path.payment(), component: Payment },
   { path: Path.createSpaceInfo(), component: NewSpaceSpaceInfo },
   { path: Path.createSpaceBaggage(), component: AboutBaggage },
   { path: Path.createSpaceReceive(), component: ReceiveBaggage },

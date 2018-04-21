@@ -40,12 +40,12 @@ class InboxContainer extends Component<PropTypes> {
   }
 
   render() {
-    const { isLoading, rooms } = this.props;
-
     const auth = checkAuthState(this.props);
     if (auth) {
       return auth;
     }
+
+    const { isLoading, rooms } = this.props;
 
     if (isLoading) {
       return <LoadingPage />;

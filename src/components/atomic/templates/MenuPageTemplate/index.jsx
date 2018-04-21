@@ -9,13 +9,6 @@ import { H1 } from 'components/atomic/atoms/Headline';
 import InlineText from 'components/atomic/atoms/InlineText';
 import Page from '../Page';
 
-const HeadlineContainer = styled.div`
-  margin-top: 80px;
-  ${media.tablet`
-    margin-top: 20px;
-  `};
-`;
-
 const Caption = styled.div`
   margin: 0 0 40px;
   ${media.tablet`
@@ -63,9 +56,7 @@ export default (props: PropTypes) => (
   <div>
     {props.header}
     <Page>
-      <HeadlineContainer>
-        <H1>{props.headline}</H1>
-      </HeadlineContainer>
+      <H1>{props.headline}</H1>
       {props.caption && (
         <Caption>
           <InlineText.Base>{props.caption}</InlineText.Base>

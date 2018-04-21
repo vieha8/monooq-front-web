@@ -4,17 +4,12 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import StorybookRouter from 'storybook-router';
 
-import InputPayment from './index';
+import PaidComplete from './index';
 
-storiesOf('Organisms/InputPayment', module)
+storiesOf('Organisms/PaidComplete', module)
   .addDecorator(StorybookRouter())
   .add('Normal', () => (
     <div>
-      <InputPayment />
-    </div>
-  ))
-  .add('Error', () => (
-    <div>
-      <InputPayment paidError />
+      <PaidComplete spaceName="素敵なものおき！" />
     </div>
   ));

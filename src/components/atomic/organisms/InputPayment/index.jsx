@@ -78,7 +78,7 @@ export default (props: PropTypes) => (
       <InputForm
         label="カード名義（半角ローマ字）"
         placeholder="TARO YAMADA"
-        onChange={props.onChangeName}
+        onChange={e => props.onChangeName(e.target.value)}
         value={props.name}
       />
     </Row>
@@ -87,7 +87,7 @@ export default (props: PropTypes) => (
         label="クレジットカード番号"
         type="number"
         placeholder="1234 5678 9101 1121"
-        onChange={props.onChangeNumber}
+        onChange={e => props.onChangeNumber(e.target.value)}
         value={props.number}
       />
     </Row>
@@ -98,7 +98,7 @@ export default (props: PropTypes) => (
           options={Array(12)
             .fill(0)
             .map((_, i) => ({ key: i, value: i + 1, text: i + 1 }))}
-          onChange={props.onChangeMonth}
+          onChange={e => props.onChangeMonth(e.target.value)}
           value={props.month}
         />
       </SelectBox>
@@ -113,7 +113,7 @@ export default (props: PropTypes) => (
           options={Array(10)
             .fill(0)
             .map((_, i) => ({ key: i, value: moment().year() + i, text: moment().year() + i }))}
-          onChange={props.onChangeYear}
+          onChange={e => props.onChangeYear(e.target.value)}
           value={props.year}
         />
       </SelectBox>
@@ -126,7 +126,7 @@ export default (props: PropTypes) => (
         label="セキュリティコード"
         type="number"
         placeholder="3桁の数字"
-        onChange={props.onChangeCvc}
+        onChange={e => props.onChangeCvc(e.target.value)}
         value={props.cvc}
       />
     </Row>

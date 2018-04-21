@@ -13,6 +13,7 @@ import Inquiry from './InquiryContainer';
 import Inbox from './InboxContainer';
 import Message from './MessageContainer';
 import Estimate from './EstimateContainer';
+import Payment from './PaymentContainer';
 
 export default {
   Login,
@@ -28,4 +29,5 @@ export default {
   Inbox,
   Message,
   Estimate,
+  Payment,
 };
