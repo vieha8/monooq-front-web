@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Button from 'components/Shared/Button';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import GoogleTagManager from 'components/GTM';
 
 const Container = styled.div`
   background: ${Colors.white};
@@ -16,7 +17,7 @@ const Container = styled.div`
     width: 90%;
     margin-top: ${Dimens.medium}px;
     padding: ${Dimens.large}px ${Dimens.medium}px;
-  `}
+  `};
 `;
 
 const Title = styled.div`
@@ -56,7 +57,6 @@ const CaptionText = styled.div`
   line-height: 1.5;
 `;
 
-
 class RegisteredForm extends React.Component {
   componentDidMount() {
     const script = document.createElement('script');
@@ -85,11 +85,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
           <WelcomeText>{props.user.Name}さん</WelcomeText>
           <ButtonWrapper>
             <CaptionText>荷物を預ける場所をお探しですか？</CaptionText>
-            <Button
-              bgColor={Colors.brandPrimary}
-              fluid
-              onClick={props.onClickGuest}
-            >
+            <Button bgColor={Colors.brandPrimary} fluid onClick={props.onClickGuest}>
               スペースを探す
             </Button>
           </ButtonWrapper>
@@ -106,6 +102,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
             </Button>
           </ButtonWrapper>
         </Content>
+        <GoogleTagManager event="userRegistered" />
       </Container>
     );
   }
