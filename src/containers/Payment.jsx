@@ -21,25 +21,32 @@ class PaymentContainer extends Component {
   constructor(props) {
     super(props);
 
-    FormValidator.initialize('payment', props.dispatch, uiActions.setUiState, errorActions.setErrorState);
-    props.dispatch(uiActions.setUiState({
-      payment: { month: 1, year: moment().year() },
-    }));
+    FormValidator.initialize(
+      'payment',
+      props.dispatch,
+      uiActions.setUiState,
+      errorActions.setErrorState,
+    );
+    props.dispatch(
+      uiActions.setUiState({
+        payment: { month: 1, year: moment().year() },
+      }),
+    );
   }
 
   onClickPaymentButton = () => {
     const { request_id: requestId, message_room_id: roomId } = this.props.match.params;
     const { payment } = this.props.ui;
     this.props.dispatch(requestActions.payment({ roomId, requestId, payment }));
-  }
+  };
 
   onClickPaidButton = () => {
     const { match } = this.props;
     const { message_room_id: roomId } = match.params;
     window.location.href = Path.message(roomId);
-  }
+  };
 
-  handleChangeName = (value) => {
+  handleChangeName = value => {
     const prop = 'name';
     const errors = this.props.error[prop] || [];
     if (value.length === 0) {
@@ -51,9 +58,9 @@ class PaymentContainer extends Component {
 
     FormValidator.changeErrorState(prop, errors, this.props.error);
     FormValidator.changeUiState(prop, value, this.props.ui);
-  }
+  };
 
-  handleChangeNumber = (value) => {
+  handleChangeNumber = value => {
     const prop = 'number';
     const errors = this.props.error[prop] || [];
     if (value.length === 0) {
@@ -65,17 +72,17 @@ class PaymentContainer extends Component {
 
     FormValidator.changeErrorState(prop, errors, this.props.error);
     FormValidator.changeUiState(prop, value, this.props.ui);
-  }
+  };
 
-  handleChangeMonth = (value) => {
+  handleChangeMonth = value => {
     FormValidator.changeUiState('month', value, this.props.ui);
-  }
+  };
 
-  handleChangeYear = (value) => {
+  handleChangeYear = value => {
     FormValidator.changeUiState('year', value, this.props.ui);
-  }
+  };
 
-  handleChangeCvc = (value) => {
+  handleChangeCvc = value => {
     const prop = 'cvc';
     const errors = this.props.error[prop] || [];
     if (value.length === 0) {
@@ -87,26 +94,32 @@ class PaymentContainer extends Component {
 
     FormValidator.changeErrorState(prop, errors, this.props.error);
     FormValidator.changeUiState(prop, value, this.props.ui);
-  }
+  };
 
   validate = () => {
     const { ui } = this.props;
     const payment = ui.payment || {};
 
     return (
-      payment.name && payment.name.length > 0 && payment.name.match(ValidateRegExp.CardName)
-      && payment.number && payment.number.match(ValidateRegExp.CardNumber)
-      && payment.month
-      && payment.year
-      && payment.cvc && payment.cvc.match(ValidateRegExp.Cvc)
+      payment.name &&
+      payment.name.length > 0 &&
+      payment.name.match(ValidateRegExp.CardName) &&
+      payment.number &&
+      payment.number.match(ValidateRegExp.CardNumber) &&
+      payment.month &&
+      payment.year &&
+      payment.cvc &&
+      payment.cvc.match(ValidateRegExp.Cvc)
     );
-  }
+  };
 
   render() {
-    const { ui, error, paymentFailed, isSending, isPaymentSuccess } = this.props;
+    const { match, ui, error, paymentFailed, isSending, isPaymentSuccess } = this.props;
     const payment = ui.payment || {};
 
-    if (!ui.estimate || !ui.estimate.id) {
+    const requestId = match.params.request_id;
+
+    if (!requestId) {
       return <Redirect to={Path.messages()} />;
     }
 

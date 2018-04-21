@@ -1,0 +1,153 @@
+// @flow
+
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
+import moment from 'moment';
+import Path from 'config/path';
+import { Dimens, Colors } from 'variables';
+import { media } from 'helpers/style/media-query';
+import { H1, H2 } from 'components/atomic/atoms/Headline';
+import TextLink from 'components/atomic/atoms/TextLink';
+import InlineText from 'components/atomic/atoms/InlineText';
+import Button from 'components/atomic/atoms/Button';
+import InputForm from 'components/atomic/molecules/InputForm';
+import SelectForm from 'components/atomic/molecules/SelectForm';
+
+const Row = styled.div`
+  margin-top: ${Dimens.medium2}px;
+  ${props =>
+    props.alignRight &&
+    `
+    text-align: right;
+  `}
+  ${props =>
+    props.mobile &&
+    `
+    display: none;
+  `}
+  ${media.tablet`
+    ${props =>
+      props.mobile &&
+      `
+      display: block;
+    `}
+  `}
+`;
+
+type PropTypes = {
+  paidError: string,
+  onChangeName: Function,
+  name: string,
+  onChangeNumber: Function,
+  number: string,
+  onChangeMonth: Function,
+  month: number,
+  onChangeYear: Function,
+  year: number,
+  onChangeCvc: Function,
+  cvc: string,
+  buttonDisabled: boolean,
+  buttonLoading: boolean,
+  onClickPay: boolean,
+};
+
+export default (props: PropTypes) => (
+  <Fragment>
+    <H1>支払いを行う</H1>
+    {props.paidError && (
+      <Row>
+        <InlineText.Base color={Colors.error}>
+          決済エラーが発生しました。名義・カード番号・有効期限・セキュリティコードをお確かめください。
+        </InlineText.Base>
+      </Row>
+    )}
+    <Row>
+      <H2>クレジットカード情報の入力</H2>
+    </Row>
+    <Row>
+      <InputForm
+        label="カード名義（半角ローマ字）"
+        placeholder="TARO YAMADA"
+        onChange={props.onChangeName}
+        value={props.name}
+      />
+    </Row>
+    <Row>
+      <InputForm
+        label="クレジットカード番号"
+        type="number"
+        placeholder="1234 5678 9101 1121"
+        onChange={props.onChangeNumber}
+        value={props.number}
+      />
+    </Row>
+    <Row>
+      <SelectForm
+        label="有効期限"
+        options={Array(12)
+          .fill(0)
+          .map((_, i) => ({ key: i, value: i + 1, text: i + 1 }))}
+        onChange={props.onChangeMonth}
+        value={props.month}
+      />
+      <InlineText.Base>月</InlineText.Base>
+      <InlineText.Base>/</InlineText.Base>
+      <SelectForm
+        options={Array(10)
+          .fill(0)
+          .map((_, i) => ({ key: i, value: moment().year() + i, text: moment().year() + i }))}
+        onChange={props.onChangeYear}
+        value={props.year}
+      />
+      <InlineText.Base>年</InlineText.Base>
+    </Row>
+    <Row>
+      <InputForm
+        label="セキュリティコード"
+        type="number"
+        placeholder="3桁の数字"
+        onChange={props.onChangeCvc}
+        value={props.cvc}
+      />
+    </Row>
+    <Row mobile>{props.mobileEstimate}</Row>
+    <Row>
+      <div>
+        <InlineText.Small color={Colors.red}>
+          ・決済後にキャンセルされた場合、預ける日の15日前までは全額ご返金させていただきます。
+        </InlineText.Small>
+      </div>
+      <div>
+        <InlineText.Small color={Colors.red}>
+          ・決済後、預かり開始予定日の15日前からキャンセル手数料が発生します。
+        </InlineText.Small>
+      </div>
+      <div>
+        <InlineText.Small color={Colors.red}>
+          ・「決済する」ボタンを押すことで、お客様は当サイトの
+          <TextLink href={Path.privacy()} target="_blank">
+            プライバシーポリシー
+          </TextLink>
+          と
+          <TextLink href={Path.terms()} target="_blank">
+            利用規約
+          </TextLink>
+          に同意の上、モノオクサービスの予約を確定したことになります。
+        </InlineText.Small>
+      </div>
+    </Row>
+    <Row alignRight>
+      <TextLink to={Path.cancellationPolicies()}>キャンセルについて</TextLink>
+    </Row>
+    <Row>
+      <Button
+        primary
+        disabled={props.buttonDisabled}
+        loading={props.buttonLoading}
+        onClick={props.onClickPay}
+      >
+        決済する
+      </Button>
+    </Row>
+  </Fragment>
+);

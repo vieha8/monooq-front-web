@@ -169,6 +169,7 @@ export default (props: PropTypes) => {
           return (
             <Row key={key} admin>
               <EstimateMessage
+                host={hostUser}
                 name={message.estimate.name}
                 beginAt={moment(message.estimate.beginAt).toDate()}
                 endAt={moment(message.estimate.endAt).toDate()}

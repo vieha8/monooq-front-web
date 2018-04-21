@@ -35,6 +35,7 @@ const DateWrapper = styled.div`
 `;
 
 type PropTypes = {
+  host: boolean,
   name: string,
   beginAt: Date,
   endAt: Date,
@@ -55,9 +56,11 @@ export default (props: PropTypes) => (
           お支払い期限は見積もり発行後より24時間です。もし24時間が経過してしまった場合は、ホストへ再度お見積もり送付を依頼してください。
         </Text>
       </CaptionWrapper>
-      <LinkWrapper>
-        <TextLink href={props.paymentLink}>この見積もりでお支払いに進む</TextLink>
-      </LinkWrapper>
+      {!props.host && (
+        <LinkWrapper>
+          <TextLink href={props.paymentLink}>この見積もりでお支払いに進む</TextLink>
+        </LinkWrapper>
+      )}
     </Card>
     <DateWrapper>
       <InlineText.Emphasis>{props.receivedAt}</InlineText.Emphasis>
