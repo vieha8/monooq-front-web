@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
 
+import Header from 'components/atomic/containers/Header';
+import { Height as HeaderHeight } from 'components/atomic/organisms/Header';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -34,6 +36,7 @@ const TopPage = styled.div`
 
 const TopView = styled.div`
   height: 800px;
+  margin-top: ${HeaderHeight}px;
   background-image: url(${mainVisual});
   background-size: cover;
   color: ${Colors.white};
@@ -500,12 +503,7 @@ const MediaLineup = () => (
     <LineupTitle>メディア掲載</LineupTitle>
     <LineupList>
       <LineupItem>
-        <a
-          component={Link}
-          href="https://japan.cnet.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://japan.cnet.com/" target="_blank" rel="noopener noreferrer">
           <LineupImage src={logoCnet} alt="CNET Japan" />
         </a>
       </LineupItem>
@@ -545,6 +543,7 @@ const MediaLineup = () => (
 
 export default props => (
   <TopPage>
+    <Header />
     <TopView>
       <TopViewFilter>
         <TopViewContainer>
