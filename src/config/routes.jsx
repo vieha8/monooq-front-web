@@ -4,7 +4,6 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import Root from 'containers/Root';
 import Top from 'containers/Top';
-import Payment from 'containers/Payment';
 import NewSpaceSpaceInfo from 'containers/NewSpace/SpaceInfo';
 import AboutBaggage from 'containers/NewSpace/AboutBaggage';
 import ReceiveBaggage from 'containers/NewSpace/ReceiveBaggage';
