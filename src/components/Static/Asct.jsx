@@ -53,9 +53,6 @@ const AsctContent = (props) => {
     justify-content: flex-start;
     font-size: 16px;
     border-bottom: 1px solid #DBDBDB;
-    ${media.phone`
-      padding-bottom: 0;
-    `};
   `;
 
   const Header = styled(Text)`
@@ -68,7 +65,7 @@ const AsctContent = (props) => {
   `;
   const Data = styled(Text)`
     ${media.phone`
-      margin-top: 16px;
+      margin-top: 8px;
     `}
   `;
   return (
