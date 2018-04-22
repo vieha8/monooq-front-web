@@ -15,7 +15,7 @@ const MainTitle = styled.div`
   `};
 `;
 
-const Text = styled.div`
+const Text = styled.p`
   font-size: ${FontSizes.medium}px;
   line-height: ${FontSizes.medium * 2}px;
   ${media.phone`
@@ -24,8 +24,16 @@ const Text = styled.div`
   `};
 `;
 
-const TextWrapper = styled.div`
+const AnnotationWrapper = styled.div`
   margin-bottom: 40px;
+`;
+
+const AnnotationText = styled(Text)`
+  ${media.phone`
+    font-size: 4.5vw;
+    line-height: 6.75vw;
+    margin-bottom: 10px;
+  `}
 `;
 
 const MainTitleContainer = DefaultContainer.extend`
@@ -144,12 +152,14 @@ export default () => (
         })}
       </AsctContentWrapper>
 
-      <TextWrapper>
-        <Text>
-          ※取引やサービスについてのお問い合わせは電話では受け付けておりません。<br />
+      <AnnotationWrapper>
+        <AnnotationText>
+          ※取引やサービスについてのお問い合わせは電話では受け付けておりません。
+        </AnnotationText>
+        <AnnotationText>
           利用に関するお問い合わせは、ログイン後のメニュー「お問い合わせ」またはヘルプチャットよりご連絡ください。
-        </Text>
-      </TextWrapper>
+        </AnnotationText>
+      </AnnotationWrapper>
     </AsctContainer>
 
     <Footer />
