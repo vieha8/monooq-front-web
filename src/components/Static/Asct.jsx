@@ -2,21 +2,26 @@ import React, { Fragment } from 'react';
 import Path from 'config/path';
 
 import styled from 'styled-components';
+import { FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
 
 const MainTitle = styled.div`
-  font-size: 34px;
-  line-height: 51px;
+  font-size: ${FontSizes.xlarge}px;
+  line-height: ${FontSizes.xlarge * 1.5}px;
   ${media.phone`
-    font-size: 1.5em;
-    line-height: 1.5em;
+    font-size: 7.5vw;
+    line-height: ${7.5 * 1.5}vw;
   `};
 `;
 
 const Text = styled.div`
-  font-size: 16px;
-  line-height: 32px;
+  font-size: ${FontSizes.medium}px;
+  line-height: ${FontSizes.medium * 2}px;
+  ${media.phone`
+    font-size: 5vw;
+    line-height: 7.5vw;
+  `};
 `;
 
 const TextWrapper = styled.div`
@@ -40,43 +45,39 @@ const AsctContentWrapper = styled.div`
 `;
 
 const AsctContent = (props) => {
-  const Header = styled.div`
+  const ContentContainer = styled.div`
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    font-size: 16px;
+    border-bottom: 1px solid #DBDBDB;
+    ${media.phone`
+      padding-bottom: 0;
+    `};
+  `;
+
+  const Header = styled(Text)`
     width: 150px;
     font-weight: bold;
     margin-right: 20px;
-    line-height: 1.5em;
     ${media.phone`
       width: 100%;
-      line-height: 30px;
     `};
   `;
-  const Data = styled.div`
-    line-height: 1.5em;
+  const Data = styled(Text)`
     ${media.phone`
       margin-top: 16px;
-      line-height: 30px;
     `}
   `;
   return (
-    <div className={props.className}>
+    <ContentContainer>
       <Header>{props.header}</Header>
       <Data dangerouslySetInnerHTML={{ __html: props.data }} />
-    </div>
+    </ContentContainer>
   );
 }
-
-const StyledAsctContent = styled(AsctContent)`
-  width: 100%;
-  padding: 20px 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  font-size: 16px;
-  border-bottom: 1px solid #DBDBDB;
-  ${media.phone`
-    padding-bottom: 0;
-  `};
-`;
 
 export default () => (
   <Fragment>
@@ -137,7 +138,7 @@ export default () => (
           // },
         ].map((v,i)=>{
           return (
-            <StyledAsctContent
+            <AsctContent
               key={i}
               header={v.header}
               data={v.data}
