@@ -42,7 +42,7 @@ export default (props: PropTypes) => (
       <Image16x9 src={props.src} alt={props.alt || ''} />
     </ImageWrapper>
     <DateWrapper>
-      <InlineText.Emphasis>{props.receivedAt}</InlineText.Emphasis>
+      <InlineText.EmphasisTiny>{props.receivedAt}</InlineText.EmphasisTiny>
     </DateWrapper>
   </div>
 );

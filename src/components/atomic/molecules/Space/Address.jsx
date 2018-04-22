@@ -17,7 +17,9 @@ export default (props: PropTypes) => (
           <InlineText.Base>{props.content}</InlineText.Base>
         </div>
         <div>
-          <InlineText.Emphasis>詳しい住所はお支払い後にお知らせします。</InlineText.Emphasis>
+          <InlineText.EmphasisTiny>
+            詳しい住所はお支払い後にお知らせします。
+          </InlineText.EmphasisTiny>
         </div>
       </div>
     }

@@ -47,7 +47,7 @@ export default (props: PropTypes) => (
               <InlineText.Base>配送</InlineText.Base>
             </Column>
             <Column>
-              <InlineText.Emphasis>Pickgo・ヤマト運輸など配送サービス</InlineText.Emphasis>
+              <InlineText.EmphasisTiny>Pickgo・ヤマト運輸など配送サービス</InlineText.EmphasisTiny>
             </Column>
           </div>
         )}
@@ -60,7 +60,7 @@ export default (props: PropTypes) => (
               <InlineText.Base>対面</InlineText.Base>
             </Column>
             <Column>
-              <InlineText.Emphasis>直接本人から荷物を受け取ります</InlineText.Emphasis>
+              <InlineText.EmphasisTiny>直接本人から荷物を受け取ります</InlineText.EmphasisTiny>
             </Column>
           </div>
         )}

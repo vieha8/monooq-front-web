@@ -45,7 +45,7 @@ export default (props: PropTypes) => (
         )}
       </RetryCell>
       <DateCell>
-        <InlineText.Emphasis>{props.sentAt}</InlineText.Emphasis>
+        <InlineText.EmphasisTiny>{props.sentAt}</InlineText.EmphasisTiny>
       </DateCell>
     </ActionTable>
   </ClearfixContainer>

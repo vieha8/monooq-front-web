@@ -25,13 +25,16 @@ const Table = styled.div`
 
 const Cell = styled.div`
   display: table-cell;
-  ${props => props.width && `
+  ${props =>
+    props.width &&
+    `
     width: ${props.width};
-  `}
-  ${props => props.right && `
+  `} ${props =>
+    props.right &&
+    `
     text-align: right;
     margin-left: auto;
-  `}
+  `};
 `;
 
 const Supplement = styled.div`
@@ -48,27 +51,45 @@ type PropTypes = {
   supplement: {
     price: string,
   },
-}
+};
 
 export default (props: PropTypes) => (
   <div>
     {props.sales.map((s, i) => (
       <Row key={`sales_item_${i}`}>
-        {s.label && <Label><InlineText.Base fontSize={14}>{s.label}</InlineText.Base></Label>}
+        {s.label && (
+          <Label>
+            <InlineText.Base fontSize={14}>{s.label}</InlineText.Base>
+          </Label>
+        )}
         <Table>
-          <Cell width="140px"><InlineText.Base fontSize={14}>{s.date}</InlineText.Base></Cell>
-          <Cell><InlineText.Base fontSize={14}>{s.status}</InlineText.Base></Cell>
-          <Cell right><InlineText.Bold fontSize={14}>{s.price}円</InlineText.Bold></Cell>
+          <Cell width="140px">
+            <InlineText.Base fontSize={14}>{s.date}</InlineText.Base>
+          </Cell>
+          <Cell>
+            <InlineText.Base fontSize={14}>{s.status}</InlineText.Base>
+          </Cell>
+          <Cell right>
+            <InlineText.Bold fontSize={14}>{s.price}円</InlineText.Bold>
+          </Cell>
         </Table>
       </Row>
     ))}
     {props.supplement && (
       <Row>
         <Table>
-          <Cell><InlineText.Base fontSize={14}>売上</InlineText.Base></Cell>
-          <Cell right><InlineText.Bold fontSize={14}>{props.supplement.price}円</InlineText.Bold></Cell>
+          <Cell>
+            <InlineText.Base fontSize={14}>売上</InlineText.Base>
+          </Cell>
+          <Cell right>
+            <InlineText.Bold fontSize={14}>{props.supplement.price}円</InlineText.Bold>
+          </Cell>
         </Table>
-        <Supplement><InlineText.Emphasis>サービス利用手数料を引いた金額が表示されています。</InlineText.Emphasis></Supplement>
+        <Supplement>
+          <InlineText.EmphasisTiny>
+            サービス利用手数料を引いた金額が表示されています。
+          </InlineText.EmphasisTiny>
+        </Supplement>
       </Row>
     )}
   </div>

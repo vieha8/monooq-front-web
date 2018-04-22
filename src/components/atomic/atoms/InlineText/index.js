@@ -42,14 +42,19 @@ const Del = Base.withComponent('del');
 const Ins = Base.withComponent('ins');
 
 const Small = Base.extend`
-  font-size: 12px;
+  font-size: 14px;
 `;
 
 const Tiny = Base.extend`
   font-size: 11px;
 `;
 
-const Emphasis = Base.extend`
+const EmphasisSmall = Base.extend`
+  font-size: 14px;
+  color: ${Colors.darkGray2};
+`;
+
+const EmphasisTiny = Base.extend`
   font-size: 11px;
   color: ${Colors.darkGray2};
 `;
@@ -62,5 +67,6 @@ export default {
   Ins,
   Small,
   Tiny,
-  Emphasis,
+  EmphasisSmall,
+  EmphasisTiny,
 };

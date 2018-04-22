@@ -48,9 +48,9 @@ export default (props: PropTypes) => (
       <Text>{props.price}円（税込）</Text>
     </Row>
     <Row>
-      <InlineText.Emphasis>
+      <InlineText.EmphasisTiny>
         ※無断での利用延長は「ペナルティ料金30,000円＋最大で決済した料金全額」が発生する可能性があります。
-      </InlineText.Emphasis>
+      </InlineText.EmphasisTiny>
     </Row>
   </div>
 );

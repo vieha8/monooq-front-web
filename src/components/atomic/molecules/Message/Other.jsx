@@ -49,7 +49,7 @@ export default (props: PropTypes) => (
       </CardWrapper>
     </div>
     <DateWrapper>
-      <InlineText.Emphasis>{props.receivedAt}</InlineText.Emphasis>
+      <InlineText.EmphasisTiny>{props.receivedAt}</InlineText.EmphasisTiny>
     </DateWrapper>
   </ClearfixContainer>
 );

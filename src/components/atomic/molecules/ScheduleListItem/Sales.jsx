@@ -35,9 +35,9 @@ export default (props: PropTypes) => (
         <InlineText.Base>売上</InlineText.Base>
       </div>
       <div>
-        <InlineText.Emphasis>
+        <InlineText.EmphasisTiny>
           サービス利用手数料を引いた金額が表示されています。
-        </InlineText.Emphasis>
+        </InlineText.EmphasisTiny>
       </div>
     </LabelContainer>
     <Sales>

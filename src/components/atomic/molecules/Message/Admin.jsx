@@ -22,7 +22,7 @@ export default (props: PropTypes) => (
       <InlineText.Base fontSize={14}>{props.message}</InlineText.Base>
     </Card>
     <DateWrapper>
-      <InlineText.Emphasis>{props.receivedAt || ' '}</InlineText.Emphasis>
+      <InlineText.EmphasisTiny>{props.receivedAt || ' '}</InlineText.EmphasisTiny>
     </DateWrapper>
   </div>
 );

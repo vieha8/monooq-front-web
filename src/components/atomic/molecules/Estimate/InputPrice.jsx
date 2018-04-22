@@ -23,7 +23,7 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <div>
     <Text>
-      <InlineText.Emphasis>相手の相談に応じて料金を決めましょう。</InlineText.Emphasis>
+      <InlineText.EmphasisTiny>相手の相談に応じて料金を決めましょう。</InlineText.EmphasisTiny>
     </Text>
     <div>
       <InputForm
@@ -40,9 +40,9 @@ export default (props: PropTypes) => (
       ))}
     </div>
     <Text>
-      <InlineText.Emphasis>
+      <InlineText.EmphasisTiny>
         取引成立時の売上は、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。
-      </InlineText.Emphasis>
+      </InlineText.EmphasisTiny>
     </Text>
   </div>
 );

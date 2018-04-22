@@ -41,9 +41,14 @@ storiesOf('Atoms/Text/InlineText', module)
       <Inline.Tiny>最小の文字</Inline.Tiny>
     </div>
   ))
-  .add('Emphasis', () => (
+  .add('EmphasisSmall', () => (
     <div style={{ width: '100%', maxWidth: '300px' }}>
-      <Inline.Emphasis>重点として小さくする場合</Inline.Emphasis>
+      <Inline.EmphasisSmall>重点として小さくする場合</Inline.EmphasisSmall>
+    </div>
+  ))
+  .add('EmphasisTiny', () => (
+    <div style={{ width: '100%', maxWidth: '300px' }}>
+      <Inline.EmphasisTiny>重点として小さくする場合</Inline.EmphasisTiny>
     </div>
   ))
   .add('SingleLine', () => (

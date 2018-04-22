@@ -30,7 +30,7 @@ export default (props: PropTypes) => (
       相談する
     </Button>
     <Caption>
-      <InlineText.Emphasis>ご請求はまだ発生しません</InlineText.Emphasis>
+      <InlineText.EmphasisTiny>ご請求はまだ発生しません</InlineText.EmphasisTiny>
     </Caption>
   </div>
 );

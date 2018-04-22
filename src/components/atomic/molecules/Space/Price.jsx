@@ -83,21 +83,23 @@ export default (props: PropTypes) => (
     </PriceContainer>
     {props.full && (
       <Caption>
-        <InlineText.Emphasis fontSize={FontSizes.small}>
+        <InlineText.EmphasisTiny fontSize={FontSizes.small}>
           スペースのほとんどを使用する荷物の場合の料金
-        </InlineText.Emphasis>
+        </InlineText.EmphasisTiny>
       </Caption>
     )}
     {props.half && (
       <Caption>
-        <InlineText.Emphasis fontSize={FontSizes.small}>
+        <InlineText.EmphasisTiny fontSize={FontSizes.small}>
           スペースの半分程度を使用する荷物の場合の料金
-        </InlineText.Emphasis>
+        </InlineText.EmphasisTiny>
       </Caption>
     )}
     {props.quarter && (
       <Caption>
-        <InlineText.Emphasis>スペースの4分の1程度を使用する荷物の場合の料金</InlineText.Emphasis>
+        <InlineText.EmphasisTiny>
+          スペースの4分の1程度を使用する荷物の場合の料金
+        </InlineText.EmphasisTiny>
       </Caption>
     )}
   </Container>
