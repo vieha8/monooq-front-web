@@ -72,15 +72,16 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       ) {
         const { dispatch, history, space } = this.props;
         const { images, title, type, introduction, address } = this.state;
+
         dispatch(
           uiActions.setUiState({
-            space: {
+            space: Object.assign(space, {
               images,
               title,
               type,
               introduction,
               address,
-            },
+            }),
           }),
         );
 
