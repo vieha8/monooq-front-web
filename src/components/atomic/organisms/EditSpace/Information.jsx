@@ -10,6 +10,14 @@ import { Section } from './Shared';
 
 type PropTypes = {
   edit: boolean,
+  title: string,
+  onChangeTitle: Function,
+  type: number,
+  onChangeType: Function,
+  introduction: string,
+  onChangeIntroduction: Function,
+  address: string,
+  onChangeAddress: Function,
 };
 
 export default (props: PropTypes) => (
@@ -26,6 +34,8 @@ export default (props: PropTypes) => (
         label="特徴がわかるタイトルをつけましょう"
         hint="全角40文字まで。"
         placeholder="例）六本木駅チカで便利です。港区のど真ん中！長期預かりもOKです！"
+        value={props.title}
+        onChange={e => props.onChangeTitle(e.target.value)}
       />
     </Section>
     <Section>
@@ -53,6 +63,8 @@ export default (props: PropTypes) => (
             text: 'その他',
           },
         ]}
+        value={props.type}
+        onChange={e => props.onChangeType(e.target.value)}
       />
     </Section>
     <Section>
@@ -61,6 +73,8 @@ export default (props: PropTypes) => (
         hint="スペース情報やあなたができることをアピールしましょう！"
         placeholder="例）家具も入れられるワンルームが余っています。数ヶ月の長期間でも可能です！朝〜夕方までなら荷物の出し入れにも対応できる日もあると思います。"
         multiline
+        value={props.introduction}
+        onChange={e => props.onChangeIntroduction(e.target.value)}
       />
     </Section>
     <Section>
@@ -68,6 +82,8 @@ export default (props: PropTypes) => (
         label="所在地はどこ？"
         hint="取引が成立するまで番地以降の住所は表示されません。"
         placeholder="例）東京都杉並区高円寺南 2-48-12"
+        value={props.address}
+        onChange={e => props.onChangeAddress(e.target.value)}
       />
     </Section>
     <Section>

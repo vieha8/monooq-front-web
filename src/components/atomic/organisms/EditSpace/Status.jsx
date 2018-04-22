@@ -7,7 +7,7 @@ import Hint from 'components/atomic/molecules/Hint';
 import { Dimens } from 'variables';
 
 const HintWrapper = styled.div`
-  margin-top: ${Dimens.huge}px;
+  margin-top: ${Dimens.large}px;
 `;
 
 type PropTypes = {

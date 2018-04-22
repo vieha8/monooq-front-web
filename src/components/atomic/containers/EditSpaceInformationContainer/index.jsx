@@ -30,7 +30,13 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
-    this.state = {};
+    this.state = {
+      title: '',
+      type: '',
+      introduction: '',
+      address: '',
+      error: {},
+    };
   }
 
   imageDelete = (deleteTargetIndex: number) => {
@@ -51,7 +57,17 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     // }
   };
 
-  handleChangeUI = (propName: string, value) => {
+  handleChangeUI = (propName: string, value: any) => {
+    const state = this.state;
+    const error = state.error;
+    const errors = [];
+
+    // TODO validation
+    // or ボタン押下時にvalidationの方が良い??
+
+    state[propName] = value;
+    error[propName] = errors;
+    this.setState({ ...state, error });
     // const prop = 'title';
     // const errors = this.props.error[prop] || [];
     // if (value.length === 0) {
@@ -135,11 +151,23 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     }
 
     const { match } = this.props;
+    const { title, type, introduction, address } = this.state;
 
     return (
       <EditSpaceTemplate
         header={<Header />}
-        leftContent={<EditSpaceInformation />}
+        leftContent={
+          <EditSpaceInformation
+            title={title}
+            onChangeTitle={v => this.handleChangeUI('title', v)}
+            type={type}
+            onChangeType={v => this.handleChangeUI('type', v)}
+            introduction={introduction}
+            onChangeIntroduction={v => this.handleChangeUI('introduction', v)}
+            address={address}
+            onChangeAddress={v => this.handleChangeUI('address', v)}
+          />
+        }
         rightContent={
           <EditStatus
             edit={match.pathname === Path.editSpaceInfo()}
