@@ -17,6 +17,7 @@ import Payment from './PaymentContainer';
 import EditSpaceInformation from './EditSpaceInformationContainer';
 import EditSpaceBaggage from './EditSpaceBaggageContainer';
 import EditSpaceReceive from './EditSpaceReceiveContainer';
+import EditSpaceSize from './EditSpaceSizeContainer';
 
 export default {
   Login,
@@ -36,4 +37,5 @@ export default {
   EditSpaceInformation,
   EditSpaceBaggage,
   EditSpaceReceive,
+  EditSpaceSize,
 };

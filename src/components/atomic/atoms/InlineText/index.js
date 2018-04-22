@@ -2,6 +2,7 @@
 
 import styled, { css } from 'styled-components';
 import { Colors } from 'variables';
+import { media } from 'helpers/style/media-query';
 
 const Base = styled.span`
   color: ${props => props.color || Colors.black};
@@ -28,6 +29,9 @@ const Base = styled.span`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  `};
+  ${media.phone`
+    font-size: ${props => props.fontSizeSp || 16}px;
   `};
 `;
 
