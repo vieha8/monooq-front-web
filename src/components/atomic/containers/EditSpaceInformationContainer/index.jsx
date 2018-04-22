@@ -78,7 +78,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
             space: Object.assign(space, {
               images,
               title,
-              type,
+              type: parseInt(type, 10),
               introduction,
               address,
             }),

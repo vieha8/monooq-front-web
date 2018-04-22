@@ -4,8 +4,6 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import Root from 'containers/Root';
 import Top from 'containers/Top';
-import SpaceSize from 'containers/NewSpace/SpaceSize';
-import SpacePrice from 'containers/NewSpace/Price';
 import SpaceCreatedCompletion from 'containers/NewSpace/SpaceCreatedCompletion';
 import CancelSchedule from 'containers/CancelSchedule';
 import PostHostReview from 'containers/PostHostReview';
@@ -63,11 +61,11 @@ export const routes = [
   { path: Path.editSpaceReceive(), component: Containers.EditSpaceReceive },
   { path: Path.createSpaceAreaSize(), component: Containers.EditSpaceSize },
   { path: Path.editSpaceAreaSize(), component: Containers.EditSpaceSize },
+  { path: Path.createSpacePrice('all'), component: Containers.EditSpacePriceAll },
+  { path: Path.editSpacePrice('all'), component: Containers.EditSpacePriceAll },
   // legacy
   { path: Path.top(), component: Top },
-  { path: Path.createSpacePrice(), component: SpacePrice },
   { path: Path.createSpaceCompletion(), component: SpaceCreatedCompletion },
-  { path: Path.editSpacePrice(), component: SpacePrice },
   { path: Path.editSpaceCompletion(), component: SpaceCreatedCompletion },
   { path: Path.confirmCancel(), component: CancelSchedule },
   { path: Path.hostReview(), component: PostHostReview },

@@ -21,6 +21,7 @@ const Wrapper = styled.div`
 
 type PropTypes = {
   single?: boolean,
+  loading?: boolean,
   backButton: {
     text: string,
     onClick: Function,
@@ -39,7 +40,7 @@ export default (props: PropTypes) => (
   <Container>
     <Cell align="left">
       <Wrapper>
-        <Button secondary onClick={props.backButton.onClick}>
+        <Button secondary loading={props.loading} onClick={props.backButton.onClick}>
           {props.backButton.text}
         </Button>
       </Wrapper>
@@ -47,11 +48,11 @@ export default (props: PropTypes) => (
     <Cell align="right">
       <Wrapper>
         {props.enabled ? (
-          <Button primary onClick={props.enabledButton.onClick}>
+          <Button primary loading={props.loading} onClick={props.enabledButton.onClick}>
             {props.enabledButton.text}
           </Button>
         ) : (
-          <Button primary disabled>
+          <Button primary loading={props.loading} disabled>
             {props.disabledButton.text}
           </Button>
         )}

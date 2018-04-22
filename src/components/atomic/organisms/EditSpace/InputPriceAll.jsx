@@ -14,6 +14,7 @@ type PropTypes = {
   onChangePrice: Function,
   onClickBack: Function,
   onClickNext: Function,
+  buttonLoading: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -47,6 +48,7 @@ export default (props: PropTypes) => (
     <Section>
       <EntryButtons
         enabled
+        loading={props.buttonLoading}
         backButton={{
           text: '戻る',
           onClick: props.onClickBack,

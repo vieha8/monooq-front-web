@@ -5,16 +5,24 @@ import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 
 import { uiActions } from 'redux/modules/ui';
+import { spaceActions } from 'redux/modules/space';
 
 import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
 import Header from 'components/atomic/containers/Header';
-import EditSpaceReceive from 'components/atomic/organisms/EditSpace/Receive';
+import EditSpaceInputPriceAll from 'components/atomic/organisms/EditSpace/InputPriceAll';
 import EditStatus from 'components/atomic/organisms/EditSpace/Status';
 
 import { ErrorMessage } from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
+
+const Validate = {
+  Price: {
+    Max: 300000,
+    Min: 3000,
+  },
+};
 
 type PropTypes = {
   dispatch: Function,
@@ -26,7 +34,7 @@ type PropTypes = {
   },
 };
 
-class EditSpaceReceiveContainer extends Component<PropTypes> {
+class EditSpacePriceAllContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
 
@@ -35,8 +43,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     const { space } = this.props;
 
     this.state = {
-      receiptType: space.receiptType || 0,
-      receiptAbout: space.receiptAbout || '',
+      price: space.priceFull || '',
       error: {},
     };
   }
@@ -44,24 +51,26 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
   onClickNext: Function;
   onClickNext = () => {
     this.validate(() => {
-      if (
-        (this.state.error.receiptType || []).length === 0 &&
-        (this.state.error.receiptAbout || []).length === 0
-      ) {
-        const { dispatch, history, space } = this.props;
-        const { receiptType, receiptAbout } = this.state;
+      if ((this.state.error.price || []).length === 0) {
+        const { dispatch, space } = this.props;
+        const { price } = this.state;
 
+        const saveSpace = Object.assign(space, {
+          priceFull: price,
+          priceHalf: 0,
+          priceQuarter: 0,
+        });
         dispatch(
           uiActions.setUiState({
-            space: Object.assign(space, {
-              receiptType: parseInt(receiptType, 10),
-              receiptAbout,
-            }),
+            space: saveSpace,
           }),
         );
 
-        const nextPath = space.ID ? Path.editSpaceAreaSize(space.ID) : Path.createSpaceAreaSize();
-        history.push(nextPath);
+        if (space.ID) {
+          dispatch(spaceActions.updateSpace({ spaceId: space.ID, body: saveSpace }));
+        } else {
+          dispatch(spaceActions.createSpace({ body: saveSpace }));
+        }
       }
     });
   };
@@ -69,18 +78,17 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
   onClickBack: Function;
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { receiptType, receiptAbout } = this.state;
+    const { price } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          receiptType,
-          receiptAbout,
+          priceFull: price,
         }),
       }),
     );
 
-    const nextPath = space.ID ? Path.editSpaceBaggage(space.ID) : Path.createSpaceBaggage();
+    const nextPath = space.ID ? Path.editSpaceAreaSize(space.ID) : Path.createSpaceAreaSize();
     history.push(nextPath);
   };
 
@@ -97,19 +105,16 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
   validate: Function;
   validate = (valid: Function) => {
-    const { receiptType, receiptAbout, error } = this.state;
+    const { price, error } = this.state;
 
-    const receiptTypeErrors = [];
-    if (`${receiptType}` === '0') {
-      receiptTypeErrors.push(ErrorMessage.PleaseSelect);
+    const priceErrors = [];
+    if (price < Validate.Price.Min) {
+      priceErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
     }
-    error.receiptType = receiptTypeErrors;
-
-    const receiptAboutErrors = [];
-    if (receiptAbout.length === 0) {
-      receiptAboutErrors.push(ErrorMessage.PleaseInput);
+    if (price > Validate.Price.Max) {
+      priceErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
     }
-    error.receiptAbout = receiptAboutErrors;
+    error.price = priceErrors;
 
     this.setState({ error }, valid);
   };
@@ -120,8 +125,8 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space } = this.props;
-    const { receiptType, receiptAbout, error } = this.state;
+    const { space, isLoading } = this.props;
+    const { price, error } = this.state;
 
     if (!space.title) {
       return <Redirect to={Path.createSpaceInfo()} />;
@@ -131,24 +136,22 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
       <EditSpaceTemplate
         header={<Header />}
         leftContent={
-          <EditSpaceReceive
-            receive={receiptType}
-            receiveErrors={error.receiptType}
-            onChangeReceive={v => this.handleChangeUI('receiptType', v)}
-            receiveAbout={receiptAbout}
-            receiveAboutErrors={error.receiptAbout}
-            onChangeReceiveAbout={v => this.handleChangeUI('receiptAbout', v)}
+          <EditSpaceInputPriceAll
+            price={price}
+            priceErrors={error.price}
+            onChangePrice={v => this.handleChangeUI('price', v)}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
+            buttonLoading={isLoading}
           />
         }
         rightContent={
           <EditStatus
             edit={space.ID}
-            step={2}
-            hintTitle="ヒント"
+            step={3}
+            hintTitle="料金設定に関するヒント"
             hintContent={[
-              'もし、あなたが車でお手伝いができるならアピールをしましょう。ユーザーに喜んでもらえますよ！',
+              '荷物が思っていたよりも大きかったなど、荷物が届いた後でも柔軟に対応できる料金設定をしましょう。',
             ]}
           />
         }
@@ -160,6 +163,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 const mapStateToProps = state =>
   mergeAuthProps(state, {
     space: state.ui.space || {},
+    isLoading: state.space.isLoading,
   });
 
-export default connect(EditSpaceReceiveContainer, mapStateToProps);
+export default connect(EditSpacePriceAllContainer, mapStateToProps);

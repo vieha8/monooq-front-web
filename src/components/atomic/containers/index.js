@@ -18,6 +18,7 @@ import EditSpaceInformation from './EditSpaceInformationContainer';
 import EditSpaceBaggage from './EditSpaceBaggageContainer';
 import EditSpaceReceive from './EditSpaceReceiveContainer';
 import EditSpaceSize from './EditSpaceSizeContainer';
+import EditSpacePriceAll from './EditSpacePriceAllContainer';
 
 export default {
   Login,
@@ -38,4 +39,5 @@ export default {
   EditSpaceBaggage,
   EditSpaceReceive,
   EditSpaceSize,
+  EditSpacePriceAll,
 };
