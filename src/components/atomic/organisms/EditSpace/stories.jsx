@@ -7,6 +7,9 @@ import StorybookRouter from 'storybook-router';
 import Information from './Information';
 import Baggage from './Baggage';
 import Receive from './Receive';
+import Size from './Size';
+import InputPriceAll from './InputPriceAll';
+import InputPriceType from './InputPriceType';
 
 storiesOf('Organisms/EditSpace', module)
   .addDecorator(StorybookRouter())
@@ -28,5 +31,20 @@ storiesOf('Organisms/EditSpace', module)
   .add('Receive', () => (
     <div>
       <Receive />
+    </div>
+  ))
+  .add('Size', () => (
+    <div>
+      <Size />
+    </div>
+  ))
+  .add('InputPriceAll', () => (
+    <div>
+      <InputPriceAll />
+    </div>
+  ))
+  .add('InputPriceType', () => (
+    <div>
+      <InputPriceType />
     </div>
   ));

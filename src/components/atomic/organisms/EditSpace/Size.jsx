@@ -55,7 +55,7 @@ export default (props: PropTypes) => (
           image={imageFurnitureFull}
         />
       </ClearfixContainer>
-      {displayErrors('receive_errors', props.sizeErrors)}
+      {displayErrors('size_errors', props.sizeErrors)}
     </Section>
     <Section>
       <EntryButtons
