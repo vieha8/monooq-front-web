@@ -63,6 +63,8 @@ export const routes = [
   { path: Path.editSpaceAreaSize(), component: Containers.EditSpaceSize },
   { path: Path.createSpacePrice('all'), component: Containers.EditSpacePriceAll },
   { path: Path.editSpacePrice('all'), component: Containers.EditSpacePriceAll },
+  { path: Path.createSpacePrice('about'), component: Containers.EditSpacePriceType },
+  { path: Path.editSpacePrice('about'), component: Containers.EditSpacePriceType },
   // legacy
   { path: Path.top(), component: Top },
   { path: Path.createSpaceCompletion(), component: SpaceCreatedCompletion },

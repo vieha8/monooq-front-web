@@ -23,6 +23,7 @@ type PropTypes = {
   onChangePriceFull: Function,
   onClickBack: Function,
   onClickNext: Function,
+  buttonLoading: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -54,7 +55,7 @@ export default (props: PropTypes) => (
         caption="あなたのスペースのほとんどを使用する荷物の場合の料金"
         placeholder="20000"
         price={props.priceQuarter}
-        onChange={e => props.onChangePriceQuarter(e.target.value)}
+        onChange={props.onChangePriceQuarter}
         error={displayErrors('price_errors_1', props.priceQuarterErrors)}
       />
       <InputPriceOfType
@@ -63,7 +64,7 @@ export default (props: PropTypes) => (
         caption="あなたのスペースの「半分」を使用する荷物の場合の料金"
         placeholder="12000"
         price={props.priceHalf}
-        onChange={e => props.onChangePriceHalf(e.target.value)}
+        onChange={props.onChangePriceHalf}
         error={displayErrors('price_errors_2', props.priceHalfErrors)}
       />
       <InputPriceOfType
@@ -72,7 +73,7 @@ export default (props: PropTypes) => (
         caption="あなたのスペースの「4分の1」を使用する荷物の場合の料金"
         placeholder="7000"
         price={props.priceFull}
-        onChange={e => props.onChangePriceFull(e.target.value)}
+        onChange={props.onChangePriceFull}
         error={displayErrors('price_errors_3', props.priceFullErrors)}
       />
     </Section>
@@ -84,6 +85,7 @@ export default (props: PropTypes) => (
     <Section>
       <EntryButtons
         enabled
+        loading={props.buttonLoading}
         backButton={{
           text: '戻る',
           onClick: props.onClickBack,
