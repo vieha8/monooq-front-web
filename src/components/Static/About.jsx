@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
 import Intercom from 'components/Shared/Intercom';
@@ -14,27 +15,27 @@ import useImage5 from 'images/about_use5@2x.jpg';
 import useImage6 from 'images/about_use6@2x.jpg';
 
 const SubTitle = styled.div`
-  font-size: 30px;
-  line-height: 45px;
+  font-size: ${FontSizes.large}px;
+  line-height: ${FontSizes.large * 1.5}px;
   margin-bottom: 45px;
   ${media.phone`
-    font-size: 1.25em;
-    line-height: 1.5em;
+    font-size: 6vw;
+    line-height: 9vw;
     text-align: center;
     margin-bottom: 20px;
   `};
 `;
 
 const Text = styled.div`
-  font-size: 16px;
-  line-height: 32px;
+  font-size: ${FontSizes.medium}px;
+  line-height: ${FontSizes.medium * 2}px;
 `;
 
 const Hr = styled.hr`
   border: 0;
   height: 1px;
   width: 100%;
-  background-color: #dbdbdb;
+  background-color: ${Colors.borderGray};
   margin: 50px 0;
   ${media.phone`
     margin: 20px 0;
@@ -42,9 +43,9 @@ const Hr = styled.hr`
 `;
 
 const MainContainer = styled.div`
-  min-width: 1048px;
+  min-width: ${Dimens.fixedWidthPc + 32}px;
   ${media.phone`
-    min-width: 0;
+    min-width: auto;
   `};
 `;
 
@@ -52,7 +53,7 @@ const TopContainer = styled.div`
   height: 500px;
   background-image: url(${mainVisual});
   background-size: cover;
-  color: #ffffff;
+  color: ${Colors.white};
   text-align: center;
   ${media.phone`
     height: 100%;
@@ -70,29 +71,28 @@ const TopTransparency = styled.div`
   justify-content: center;
   align-items: center;
   ${media.phone`
-    padding: 80px 8vw;
+    padding: 40px 8vw 80px;
   `};
 `;
 
 const TopTitle = styled.div`
-  font-size: 34px;
-  line-height: 48px;
+  font-size: ${FontSizes.xlarge}px;
+  line-height: ${FontSizes.xlarge * 1.5}px;
   margin-bottom: 20px;
   ${media.phone`
-    font-size: 1.5em;
-    line-height: 3.0em;
-    margin-bottom: 0;
+    font-size: 8vw;
+    line-height: 16vw;
   `};
 `;
 
 const TopText = styled.div`
-  font-size: 28px;
-  line-height: 48px;
+  font-size: ${FontSizes.medium3}px;
+  line-height: ${FontSizes.medium3 * 1.75}px;
   margin-bottom: 30px;
   width: 480px;
   ${media.phone`
-    font-size: 1.0em;
-    line-height: 2.0em;
+    font-size: 5vw;
+    line-height: 10vw;
     width: 84vw;
   `};
 `;
@@ -112,22 +112,19 @@ const TopLabel = styled.div`
     content: '\f00c';
     font-family: 'Font Awesome 5 Pro';
     font-weight: 100;
-    font-size: 16px;
+    font-size: ${FontSizes.medium}px;
     margin-right: 10px;
   }
   height: 40px;
   width: 212px;
   border-radius: 2px;
-  background-color: #f1979b;
-  font-size: 18px;
-  font-weight: bold;
-  line-height: 18px;
-  text-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
-  padding: 9px 0 8px 0;
+  background-color: ${Colors.brandTerciary};
+  font-size: ${FontSizes.medium}px;
+  line-height: 40px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
   ${media.phone`
     width: 100%;
-    margin-bottom: 20px;
   `};
 `;
 
@@ -175,14 +172,27 @@ const IfIFindContentWrapper = styled.div`
 `;
 
 const IfIFindContent = props => {
+  const ContentContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 524px;
+    margin-bottom: 20px;
+    ${media.phone`
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    `};
+  `;
+
   const Oval = styled.div`
     height: 100px;
     width: 100px;
-    border: 2px solid #e85258;
-    border-radius: 50px;
+    border: 2px solid ${Colors.brandPrimary};
+    border-radius: 50%;
     box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
     text-align: center;
-    color: #e85258;
+    color: ${Colors.brandPrimary};
     padding: 30px 0;
     margin-right: 20px;
     box-sizing: border-box;
@@ -192,18 +202,14 @@ const IfIFindContent = props => {
   `;
 
   const LabelNumber = styled.div`
-    font-size: 12px;
+    font-size: ${FontSizes.xsmall}px;
     font-weight: bold;
-    line-height: 12px;
-    text-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   `;
 
   const LabelText = styled.div`
-    font-size: 16px;
+    font-size: ${FontSizes.medium}px;
     font-weight: bold;
-    line-height: 16px;
-    text-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
   `;
 
   const IfIFindContentText = Text.extend`
@@ -216,28 +222,15 @@ const IfIFindContent = props => {
   `;
 
   return (
-    <div className={props.className}>
+    <ContentContainer>
       <Oval>
         <LabelNumber>Step.{props.number}</LabelNumber>
         <LabelText>{props.label}</LabelText>
       </Oval>
       <IfIFindContentText>{props.text}</IfIFindContentText>
-    </div>
+    </ContentContainer>
   );
 };
-
-const StyledIfIFindContent = styled(IfIFindContent)`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  width: 524px;
-  margin-bottom: 20px;
-  ${media.phone`
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-  `};
-`;
 
 const NeedToHelpContainer = DefaultContainer.extend`
   margin-bottom: 164px;
@@ -344,7 +337,7 @@ export default props => (
             //   text: '親切に預かってくれたホストに感謝の気持ちをこめてレビューを送りましょう！',
             // },
           ].map((v, i) => {
-            return <StyledIfIFindContent key={i} number={i + 1} label={v.label} text={v.text} />;
+            return <IfIFindContent key={i} number={i + 1} label={v.label} text={v.text} />;
           })}
         </IfIFindContentWrapper>
 
