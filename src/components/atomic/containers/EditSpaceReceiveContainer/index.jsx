@@ -8,7 +8,7 @@ import { uiActions } from 'redux/modules/ui';
 
 import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
 import Header from 'components/atomic/containers/Header';
-import EditSpaceBaggage from 'components/atomic/organisms/EditSpace/Baggage';
+import EditSpaceReceive from 'components/atomic/organisms/EditSpace/Receive';
 import EditStatus from 'components/atomic/organisms/EditSpace/Status';
 
 import { ErrorMessage } from 'strings';
@@ -26,7 +26,7 @@ type PropTypes = {
   },
 };
 
-class EditSpaceBaggageContainer extends Component<PropTypes> {
+class EditSpaceReceiveContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
 
@@ -35,8 +35,8 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     const { space } = this.props;
 
     this.state = {
-      about: space.about || '',
-      isFurniture: space.isFurniture || false,
+      receiptType: space.receiptType || 0,
+      receiptAbout: space.receiptAbout || '',
       error: {},
     };
   }
@@ -44,20 +44,23 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
   onClickNext: Function;
   onClickNext = () => {
     this.validate(() => {
-      if ((this.state.error.about || []).length === 0) {
+      if (
+        (this.state.error.receiptType || []).length === 0 &&
+        (this.state.error.receiptAbout || []).length === 0
+      ) {
         const { dispatch, history, space } = this.props;
-        const { about, isFurniture } = this.state;
+        const { receiptType, receiptAbout } = this.state;
 
         dispatch(
           uiActions.setUiState({
             space: Object.assign(space, {
-              about,
-              isFurniture,
+              receiptType,
+              receiptAbout,
             }),
           }),
         );
 
-        const nextPath = space.ID ? Path.editSpaceReceive(space.ID) : Path.createSpaceReceive();
+        const nextPath = space.ID ? Path.editSpaceAreaSize(space.ID) : Path.createSpaceAreaSize();
         history.push(nextPath);
       }
     });
@@ -66,18 +69,18 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
   onClickBack: Function;
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { about, isFurniture } = this.state;
+    const { receiptType, receiptAbout } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          about,
-          isFurniture,
+          receiptType,
+          receiptAbout,
         }),
       }),
     );
 
-    const nextPath = space.ID ? Path.editSpaceInfo(space.ID) : Path.createSpaceInfo();
+    const nextPath = space.ID ? Path.editSpaceAreaSize(space.ID) : Path.createSpaceAreaSize();
     history.push(nextPath);
   };
 
@@ -94,13 +97,19 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
   validate: Function;
   validate = (valid: Function) => {
-    const { about, error } = this.state;
+    const { receiptType, receiptAbout, error } = this.state;
 
-    const aboutErrors = [];
-    if (about.length === 0) {
-      aboutErrors.push(ErrorMessage.PleaseInput);
+    const receiptTypeErrors = [];
+    if (`${receiptType}` === '0') {
+      receiptTypeErrors.push(ErrorMessage.PleaseSelect);
     }
-    error.about = aboutErrors;
+    error.receiptType = receiptTypeErrors;
+
+    const receiptAboutErrors = [];
+    if (receiptAbout.length === 0) {
+      receiptAboutErrors.push(ErrorMessage.PleaseInput);
+    }
+    error.receiptAbout = receiptAboutErrors;
 
     this.setState({ error }, valid);
   };
@@ -112,7 +121,7 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     }
 
     const { space } = this.props;
-    const { about, isFurniture, error } = this.state;
+    const { receiptType, receiptAbout, error } = this.state;
 
     if (!space.title) {
       return <Redirect to={Path.createSpaceInfo()} />;
@@ -122,12 +131,13 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
       <EditSpaceTemplate
         header={<Header />}
         leftContent={
-          <EditSpaceBaggage
-            baggage={about}
-            baggageErrors={error.about}
-            onChangeBaggage={v => this.handleChangeUI('about', v)}
-            checkedFurniture={isFurniture}
-            onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
+          <EditSpaceReceive
+            receive={receiptType}
+            receiveErrors={error.receiptType}
+            onChangeReceive={v => this.handleChangeUI('receiptType', v)}
+            receiveAbout={receiptAbout}
+            receiveAboutErrors={error.receiptAbout}
+            onChangeReceiveAbout={v => this.handleChangeUI('receiptAbout', v)}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
           />
@@ -135,10 +145,10 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
         rightContent={
           <EditStatus
             edit={space.ID}
-            step={1}
+            step={2}
             hintTitle="ヒント"
             hintContent={[
-              'ユーザーが自分の荷物が入るかイメージできるようにスペースの情報やアピールポイントを掲載しましょう！',
+              'もし、あなたが車でお手伝いができるならアピールをしましょう。ユーザーに喜んでもらえますよ！',
             ]}
           />
         }
@@ -152,4 +162,4 @@ const mapStateToProps = state =>
     space: state.ui.space || {},
   });
 
-export default connect(EditSpaceBaggageContainer, mapStateToProps);
+export default connect(EditSpaceReceiveContainer, mapStateToProps);

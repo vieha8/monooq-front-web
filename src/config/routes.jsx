@@ -4,8 +4,6 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import Root from 'containers/Root';
 import Top from 'containers/Top';
-import AboutBaggage from 'containers/NewSpace/AboutBaggage';
-import ReceiveBaggage from 'containers/NewSpace/ReceiveBaggage';
 import SpaceSize from 'containers/NewSpace/SpaceSize';
 import SpacePrice from 'containers/NewSpace/Price';
 import SpaceCreatedCompletion from 'containers/NewSpace/SpaceCreatedCompletion';
@@ -61,13 +59,13 @@ export const routes = [
   { path: Path.editSpaceInfo(), component: Containers.EditSpaceInformation },
   { path: Path.createSpaceBaggage(), component: Containers.EditSpaceBaggage },
   { path: Path.editSpaceBaggage(), component: Containers.EditSpaceBaggage },
+  { path: Path.createSpaceReceive(), component: Containers.EditSpaceReceive },
+  { path: Path.editSpaceReceive(), component: Containers.EditSpaceReceive },
   // legacy
   { path: Path.top(), component: Top },
-  { path: Path.createSpaceReceive(), component: ReceiveBaggage },
   { path: Path.createSpaceAreaSize(), component: SpaceSize },
   { path: Path.createSpacePrice(), component: SpacePrice },
   { path: Path.createSpaceCompletion(), component: SpaceCreatedCompletion },
-  { path: Path.editSpaceReceive(), component: ReceiveBaggage },
   { path: Path.editSpaceAreaSize(), component: SpaceSize },
   { path: Path.editSpacePrice(), component: SpacePrice },
   { path: Path.editSpaceCompletion(), component: SpaceCreatedCompletion },

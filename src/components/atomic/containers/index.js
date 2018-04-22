@@ -16,6 +16,7 @@ import Estimate from './EstimateContainer';
 import Payment from './PaymentContainer';
 import EditSpaceInformation from './EditSpaceInformationContainer';
 import EditSpaceBaggage from './EditSpaceBaggageContainer';
+import EditSpaceReceive from './EditSpaceReceiveContainer';
 
 export default {
   Login,
@@ -34,4 +35,5 @@ export default {
   Payment,
   EditSpaceInformation,
   EditSpaceBaggage,
+  EditSpaceReceive,
 };

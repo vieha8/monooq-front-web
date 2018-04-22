@@ -46,7 +46,7 @@ export default (props: PropTypes) => (
         value={props.baggage}
         onChange={e => props.onChangeBaggage(e.target.value)}
       />
-      {displayErrors('introduction_errors', props.baggageErrors)}
+      {displayErrors('baggage_errors', props.baggageErrors)}
       <Check checked={props.checkedFurniture} onClick={props.onClickFurniture}>
         家具や家電製品に対応する
       </Check>

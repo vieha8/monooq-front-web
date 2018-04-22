@@ -6,6 +6,7 @@ import StorybookRouter from 'storybook-router';
 
 import Information from './Information';
 import Baggage from './Baggage';
+import Receive from './Receive';
 
 storiesOf('Organisms/EditSpace', module)
   .addDecorator(StorybookRouter())
@@ -22,5 +23,10 @@ storiesOf('Organisms/EditSpace', module)
   .add('Baggage', () => (
     <div>
       <Baggage />
+    </div>
+  ))
+  .add('Receive', () => (
+    <div>
+      <Receive />
     </div>
   ));

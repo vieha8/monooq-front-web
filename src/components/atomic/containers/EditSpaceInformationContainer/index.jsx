@@ -113,7 +113,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     error.title = titleErrors;
 
     const typeErrors = [];
-    if (type === 0) {
+    if (`${type}` === '0') {
       typeErrors.push(ErrorMessage.PleaseSelect);
     }
     error.type = typeErrors;
