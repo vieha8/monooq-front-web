@@ -143,22 +143,21 @@ const WhenIUseContentWrapper = styled.div`
 `;
 
 const WhenIUseContent = props => {
+  const ContentContainer = styled.div`
+    width: 330px;
+    margin-bottom: 20px;
+  `;
   const ContentImage = styled.img`
     width: 100%;
     margin-bottom: 10px;
   `;
   return (
-    <div className={props.className}>
+    <ContentContainer>
       <ContentImage src={props.image} />
       <Text>{props.text}</Text>
-    </div>
+    </ContentContainer>
   );
 };
-
-const StyledWhenIUseContent = styled(WhenIUseContent)`
-  width: 330px;
-  margin-bottom: 20px;
-`;
 
 const HowIFindContainer = DefaultContainer.extend``;
 
@@ -283,7 +282,7 @@ export default props => (
               text: '生活空間を広げるため。',
             },
           ].map((v,i) => {
-            return <StyledWhenIUseContent key={i} image={v.image} text={v.text} />;
+            return <WhenIUseContent key={i} image={v.image} text={v.text} />;
           })}
         </WhenIUseContentWrapper>
 
