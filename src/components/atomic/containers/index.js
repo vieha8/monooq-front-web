@@ -14,6 +14,7 @@ import Inbox from './InboxContainer';
 import Message from './MessageContainer';
 import Estimate from './EstimateContainer';
 import Payment from './PaymentContainer';
+import EditSpaceInformation from './EditSpaceInformationContainer';
 
 export default {
   Login,
@@ -30,4 +31,5 @@ export default {
   Message,
   Estimate,
   Payment,
+  EditSpaceInformation,
 };

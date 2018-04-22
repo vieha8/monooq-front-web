@@ -30,15 +30,13 @@ const Text = InlineText.Base.extend`
 type PropTypes = {
   title: string,
   content: Array<string>,
-}
+};
 
 export default (props: PropTypes) => (
   <Container>
     <TextWrapper>
       <Text>{props.title}</Text>
-      {props.content.map((str, i) => (
-        <Text key={`hint_content_${i}`}>{str}</Text>
-      ))}
+      {props.content.map((str, i) => <Text key={`hint_content_${i}`}>{str}</Text>)}
     </TextWrapper>
   </Container>
 );

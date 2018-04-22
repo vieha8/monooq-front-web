@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { H1, H2 } from 'components/atomic/atoms/Headline';
-import EntryButton from 'components/atomic/molecules/EntryButtons';
+import SpaceImagePicker from 'components/atomic/molecules/SpaceImagePicker';
+import Button from 'components/atomic/atoms/Button';
 import InputForm from 'components/atomic/molecules/InputForm';
 import SelectForm from 'components/atomic/molecules/SelectForm';
 import { Section } from './Shared';
@@ -16,6 +17,61 @@ export default (props: PropTypes) => (
     <H1>{`スペースを${props.edit ? '編集' : '登録'}する`}</H1>
     <Section>
       <H2>どんなスペースを掲載しますか？</H2>
+    </Section>
+    <Section>
+      <SpaceImagePicker />
+    </Section>
+    <Section>
+      <InputForm
+        label="特徴がわかるタイトルをつけましょう"
+        hint="全角40文字まで。"
+        placeholder="例）六本木駅チカで便利です。港区のど真ん中！長期預かりもOKです！"
+      />
+    </Section>
+    <Section>
+      <SelectForm
+        label="スペースの種類は？"
+        options={[
+          {
+            value: 1,
+            text: 'クローゼット',
+          },
+          {
+            value: 2,
+            text: '押入れ',
+          },
+          {
+            value: 3,
+            text: '部屋',
+          },
+          {
+            value: 4,
+            text: '屋外倉庫',
+          },
+          {
+            value: 5,
+            text: 'その他',
+          },
+        ]}
+      />
+    </Section>
+    <Section>
+      <InputForm
+        label="スペースの紹介文"
+        hint="スペース情報やあなたができることをアピールしましょう！"
+        placeholder="例）家具も入れられるワンルームが余っています。数ヶ月の長期間でも可能です！朝〜夕方までなら荷物の出し入れにも対応できる日もあると思います。"
+        multiline
+      />
+    </Section>
+    <Section>
+      <InputForm
+        label="所在地はどこ？"
+        hint="取引が成立するまで番地以降の住所は表示されません。"
+        placeholder="例）東京都杉並区高円寺南 2-48-12"
+      />
+    </Section>
+    <Section>
+      <Button primary>次へ</Button>
     </Section>
   </div>
 );

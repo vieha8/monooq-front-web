@@ -20,6 +20,7 @@ const Wrapper = styled.div`
 `;
 
 type PropTypes = {
+  single?: boolean,
   backButton: {
     text: string,
     onClick: Function,

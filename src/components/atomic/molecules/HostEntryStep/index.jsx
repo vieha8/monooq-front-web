@@ -6,9 +6,11 @@ import { Colors } from 'variables';
 import InlineText from 'components/atomic/atoms/InlineText';
 
 const Wrapper = styled.div`
-  ${props => props.marginTop && `
-    margin-top: ${props.marginTop}px;
-  `}
+  ${props =>
+    props.marginTop &&
+    `
+      margin-top: ${props.marginTop}px;
+    `};
 `;
 
 const Title = InlineText.Base.extend`
@@ -17,19 +19,22 @@ const Title = InlineText.Base.extend`
 
 const Step = InlineText.Base.extend`
   font-size: 14px;
-  ${props => !props.pass && `
-    color: ${Colors.lightGray1};
-  `}
+  ${props =>
+    !props.pass &&
+    `
+      color: ${Colors.lightGray1};
+    `};
 `;
 
 type PropTypes = {
+  edit?: boolean,
   step: number,
-}
+};
 
 export default (props: PropTypes) => (
   <div>
     <Wrapper>
-      <Title>ホストになるステップ</Title>
+      <Title>{`${props.edit ? '編集' : '登録'}の流れ`}</Title>
     </Wrapper>
     <Wrapper marginTop={12}>
       <Step pass={props.step >= 0}>1.スペース情報を登録</Step>

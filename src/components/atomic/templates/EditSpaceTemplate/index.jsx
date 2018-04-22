@@ -10,19 +10,20 @@ const LeftContent = styled.div`
   float: left;
   width: 60%;
   ${media.tablet`
-    display: none;
     float: none;
+    margin-left: 0;
+    width: 100%;
   `};
 `;
 
 const RightContent = styled.div`
   float: left;
+  margin-top: 100px;
   margin-left: 32px;
   width: 30%;
   ${media.tablet`
+    display: none;
     float: none;
-    margin-left: 0;
-    width: 100%;
   `};
 `;
 
