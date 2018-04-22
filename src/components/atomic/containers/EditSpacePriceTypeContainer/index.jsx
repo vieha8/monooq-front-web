@@ -151,13 +151,20 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space, isLoading } = this.props;
+    const { space, isLoading, isCompleted } = this.props;
 
     if (!space.title) {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 
     const { priceQuarter, priceHalf, priceFull, error } = this.state;
+
+    if (isCompleted) {
+      if (space.ID) {
+        return <Redirect to={Path.editSpaceCompletion(space.ID)} />;
+      }
+      return <Redirect to={Path.createSpaceCompletion()} />;
+    }
 
     return (
       <EditSpaceTemplate
@@ -195,6 +202,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
 
 const mapStateToProps = state =>
   mergeAuthProps(state, {
+    isCompleted: state.space.isComplete,
     space: state.ui.space || {},
     isLoading: state.space.isLoading,
   });

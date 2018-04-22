@@ -125,11 +125,18 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space, isLoading } = this.props;
+    const { space, isLoading, isCompleted } = this.props;
     const { price, error } = this.state;
 
     if (!space.title) {
       return <Redirect to={Path.createSpaceInfo()} />;
+    }
+
+    if (isCompleted) {
+      if (space.ID) {
+        return <Redirect to={Path.editSpaceCompletion(space.ID)} />;
+      }
+      return <Redirect to={Path.createSpaceCompletion()} />;
     }
 
     return (

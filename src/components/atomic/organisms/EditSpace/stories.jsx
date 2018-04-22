@@ -10,6 +10,7 @@ import Receive from './Receive';
 import Size from './Size';
 import InputPriceAll from './InputPriceAll';
 import InputPriceType from './InputPriceType';
+import Completion from './Completion';
 
 storiesOf('Organisms/EditSpace', module)
   .addDecorator(StorybookRouter())
@@ -46,5 +47,15 @@ storiesOf('Organisms/EditSpace', module)
   .add('InputPriceType', () => (
     <div>
       <InputPriceType />
+    </div>
+  ))
+  .add('Completion create', () => (
+    <div>
+      <Completion space={{}} />
+    </div>
+  ))
+  .add('Completion edit', () => (
+    <div>
+      <Completion edit space={{}} />
     </div>
   ));
