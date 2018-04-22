@@ -4,21 +4,42 @@ import React from 'react';
 import { H1, H2 } from 'components/atomic/atoms/Headline';
 import SpaceImagePicker from 'components/atomic/molecules/SpaceImagePicker';
 import Button from 'components/atomic/atoms/Button';
+import InlineText from 'components/atomic/atoms/InlineText';
 import InputForm from 'components/atomic/molecules/InputForm';
 import SelectForm from 'components/atomic/molecules/SelectForm';
+import { Colors } from 'variables';
 import { Section } from './Shared';
 
 type PropTypes = {
   edit: boolean,
+  images: Array<{ url: string }>,
+  onChangeImage: Function,
+  onClickDeleteImage: Function,
   title: string,
+  titleErrors: Array<string>,
   onChangeTitle: Function,
   type: number,
+  typeErrors: Array<string>,
   onChangeType: Function,
   introduction: string,
+  introductionErrors: Array<string>,
   onChangeIntroduction: Function,
   address: string,
+  addressErrors: Array<string>,
   onChangeAddress: Function,
+  onClickNext: Function,
 };
+
+function displayErrors(key: string, errors: Array<string>) {
+  return (
+    Array.isArray(errors) &&
+    errors.map((e, i) => (
+      <div key={`${key}_${i}`}>
+        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
+      </div>
+    ))
+  );
+}
 
 export default (props: PropTypes) => (
   <div>
@@ -27,7 +48,11 @@ export default (props: PropTypes) => (
       <H2>どんなスペースを掲載しますか？</H2>
     </Section>
     <Section>
-      <SpaceImagePicker />
+      <SpaceImagePicker
+        images={props.images}
+        onChangeImage={props.onChangeImage}
+        onClickDeleteImage={props.onClickDeleteImage}
+      />
     </Section>
     <Section>
       <InputForm
@@ -37,11 +62,16 @@ export default (props: PropTypes) => (
         value={props.title}
         onChange={e => props.onChangeTitle(e.target.value)}
       />
+      {displayErrors('title_errors', props.titleErrors)}
     </Section>
     <Section>
       <SelectForm
         label="スペースの種類は？"
         options={[
+          {
+            value: 0,
+            text: '選択してください',
+          },
           {
             value: 1,
             text: 'クローゼット',
@@ -66,6 +96,7 @@ export default (props: PropTypes) => (
         value={props.type}
         onChange={e => props.onChangeType(e.target.value)}
       />
+      {displayErrors('type_errors', props.typeErrors)}
     </Section>
     <Section>
       <InputForm
@@ -76,6 +107,7 @@ export default (props: PropTypes) => (
         value={props.introduction}
         onChange={e => props.onChangeIntroduction(e.target.value)}
       />
+      {displayErrors('introduction_errors', props.introductionErrors)}
     </Section>
     <Section>
       <InputForm
@@ -85,9 +117,12 @@ export default (props: PropTypes) => (
         value={props.address}
         onChange={e => props.onChangeAddress(e.target.value)}
       />
+      {displayErrors('address_errors', props.addressErrors)}
     </Section>
     <Section>
-      <Button primary>次へ</Button>
+      <Button primary onClick={props.onClickNext}>
+        次へ
+      </Button>
     </Section>
   </div>
 );

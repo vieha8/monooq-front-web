@@ -82,7 +82,7 @@ type PropTypes = {
     url: string,
   }>,
   onChangeImage: Function,
-  onClickImageDelete: Function,
+  onClickDeleteImage: Function,
 };
 
 function handleChangeImage(data, props: PropTypes) {
@@ -111,7 +111,7 @@ function showImagePreview(props: PropTypes) {
 
           return (
             <ImagePreviewWrapper key={`image_preivew_${i}`} widthRate={25}>
-              <ImagePreview imageUri={imageUrl} onClickDelete={() => props.onClickImageDelete(i)} />
+              <ImagePreview imageUri={imageUrl} onClickDelete={() => props.onClickDeleteImage(i)} />
             </ImagePreviewWrapper>
           );
         })}
@@ -141,6 +141,7 @@ function showImagePreview(props: PropTypes) {
 
 export default (props: PropTypes) => {
   const images = props.images;
+
   return (
     <div>
       <div>

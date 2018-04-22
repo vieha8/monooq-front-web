@@ -54,7 +54,13 @@ export default (props: PropTypes) => (
     </ImageWrapper>
     <Content>
       <Delete>
-        <TextLink onClick={props.onClickDelete} fontSize={FontSizes.small}>
+        <TextLink
+          onClick={e => {
+            e.preventDefault();
+            props.onClickDelete();
+          }}
+          fontSize={FontSizes.small}
+        >
           削除
         </TextLink>
       </Delete>
