@@ -104,6 +104,7 @@ export default (props: PropTypes) => (
         hint="スペース情報やあなたができることをアピールしましょう！"
         placeholder="例）家具も入れられるワンルームが余っています。数ヶ月の長期間でも可能です！朝〜夕方までなら荷物の出し入れにも対応できる日もあると思います。"
         multiline
+        rows={4}
         value={props.introduction}
         onChange={e => props.onChangeIntroduction(e.target.value)}
       />
