@@ -1,14 +1,12 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
 
 const Page = styled.div`
-  background: ${Colors.yellow};
   padding: 80px 0;
-  min-height: calc(100vh - 60px);
 `;
 
 const HeaderContainer = styled.div`
@@ -37,9 +35,22 @@ type PropTypes = {
   form: React.Element<*>,
 };
 
-export default (props: PropTypes) => (
-  <Page>
-    <HeaderContainer>{props.header}</HeaderContainer>
-    <Container>{props.form}</Container>
-  </Page>
-);
+export default class AccountTemplate extends Component {
+  componentDidMount() {
+    this.prevBg = document.body.style.background;
+    document.body.style.background = Colors.yellow;
+  }
+
+  componentWillUnmount() {
+    document.body.style.background = this.prevBg;
+  }
+
+  render() {
+    return (
+      <Page>
+        <HeaderContainer>{this.props.header}</HeaderContainer>
+        <Container>{this.props.form}</Container>
+      </Page>
+    );
+  }
+}
