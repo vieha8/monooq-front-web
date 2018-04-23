@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Page from 'components/Page';
-import Menu from 'containers/Menu';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Unsubscribe from 'components/Unsubscribe';
 import UnsubscribeCompleted from 'components/Unsubscribe/Completed';
 import { uiActions } from 'redux/modules/ui';
@@ -60,7 +60,7 @@ class UnsubscribeContainer extends Component {
         title="退会する"
         subTitle="モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。"
       >
-        <Menu />
+        <ServiceMenu />
         <Unsubscribe
           onClickUnsubscribe={this.onClickUnsubscribe}
           ui={ui}

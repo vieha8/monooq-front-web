@@ -4,14 +4,7 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import Root from 'containers/Root';
 import Top from 'containers/Top';
-import CancelSchedule from 'containers/CancelSchedule';
-import PostHostReview from 'containers/PostHostReview';
-import Payments from 'containers/Payments';
-import SalesTransferList from 'containers/SalesTransfer/SalesTransferList';
-import TransferRequest from 'containers/SalesTransfer/TransferRequest';
-import EditBankAccount from 'containers/SalesTransfer/EditBankAccount';
 import Unsubscribe from 'containers/Unsubscribe';
-import Report from 'containers/Report';
 
 import About from 'containers/Static/About';
 import Insurance from 'containers/Static/Insurance';
@@ -37,7 +30,7 @@ import Path from './path';
 require('./fontawesome-all.min.js');
 
 export const routes = [
-  // new
+  // service pages
   { path: Path.login(), component: Containers.Login },
   { path: Path.signup(), component: Containers.Signup },
   { path: Path.resetPassword(), component: Containers.ResetPassword },
@@ -66,17 +59,9 @@ export const routes = [
   { path: Path.editSpacePrice('about'), component: Containers.EditSpacePriceType },
   { path: Path.createSpaceCompletion(), component: Containers.EditSpaceCompletion },
   { path: Path.editSpaceCompletion(), component: Containers.EditSpaceCompletion },
-  // legacy
+  // static pages
   { path: Path.top(), component: Top },
-  { path: Path.confirmCancel(), component: CancelSchedule },
-  { path: Path.hostReview(), component: PostHostReview },
-  { path: Path.paid(), component: Payments },
-  { path: Path.salesTransfers(), component: SalesTransferList },
-  { path: Path.requestTransfer(), component: TransferRequest },
-  { path: Path.editBankAccount(), component: EditBankAccount },
   { path: Path.unsubscribe(), component: Unsubscribe },
-  { path: Path.reportUser(), component: Report },
-  { path: Path.reportSpace(), component: Report },
   { path: Path.about(), component: About },
   { path: Path.insurance(), component: Insurance },
   { path: Path.rule(), component: Rule },
