@@ -20,6 +20,7 @@ const Container = styled.header`
   width: 100%;
   border-bottom: 2px solid ${Colors.borderGray};
   background: ${Colors.white};
+  z-index: ${ZIndexes.nav};
   ${props =>
     props.top &&
     `
@@ -35,17 +36,16 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   height: ${Height}px;
-  ${media.phone`
-  `} z-index: ${ZIndexes.nav};
 `;
 
 const LogoWrapper = styled.a`
   display: inline-flex;
   margin-left: 12px;
-  ${props => props.hide && `
+  ${props =>
+    props.hide &&
+    `
     display: none;
-  `}
-  ${media.phone`
+  `} ${media.phone`
     margin-top: 4px;
   `};
 `;
@@ -54,9 +54,11 @@ const ActionWrapper = styled.div`
   display: inline-flex;
   margin-left: auto;
   margin-right: 12px;
-  ${props => props.fill && `
+  ${props =>
+    props.fill &&
+    `
     margin-left: 0;
-  `}
+  `};
 `;
 
 const ActionContainer = styled.div`
@@ -73,9 +75,11 @@ const ActionCell = styled.div`
   &:not(:last-child) {
     padding-right: 12px;
   }
-  ${props => props.hide && `
+  ${props =>
+    props.hide &&
+    `
     display: none;
-  `}
+  `};
 `;
 
 const SearchFiledCell = styled.div`
@@ -85,18 +89,22 @@ const SearchFiledCell = styled.div`
   margin-right: 8px;
   ${media.phone`
     width: 50px;
-    ${props => props.fill && `
+    ${props =>
+      props.fill &&
+      `
       width: 260px;
     `}
-  `}
+  `};
 `;
 
 const AnonymouseWrapper = styled.div`
   display: inline-block;
   vertical-align: middle;
-  ${props => props.hide && `
+  ${props =>
+    props.hide &&
+    `
     display: none;
-  `}
+  `};
 `;
 
 const MenuWrapper = styled.div`
@@ -151,12 +159,12 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => {
-  const isFillSearchField = (props.showSearchField && isMobileWindow()) ? 'fill' : '';
+  const isFillSearchField = props.showSearchField && isMobileWindow() ? 'fill' : '';
   return (
     <Container top={props.top} help={props.help}>
       <Nav>
         <LogoWrapper href={props.homeUri} hide={isFillSearchField}>
-          {(props.top || props.help) ? <Logo.HeaderWhite /> : <Logo.Header />}
+          {props.top || props.help ? <Logo.HeaderWhite /> : <Logo.Header />}
         </LogoWrapper>
         <ActionWrapper fill={isFillSearchField}>
           {props.user ? (
@@ -188,10 +196,7 @@ export default (props: PropTypes) => {
                 />
               </ActionCell>
               <ActionCell hide={isFillSearchField}>
-                <AvatarIcon
-                  imageSrc={props.user.image}
-                  onClick={props.onClickAvatar}
-                />
+                <AvatarIcon imageSrc={props.user.image} onClick={props.onClickAvatar} />
               </ActionCell>
             </ActionContainer>
           ) : (
@@ -230,4 +235,4 @@ export default (props: PropTypes) => {
       )}
     </Container>
   );
-}
+};

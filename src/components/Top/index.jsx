@@ -43,7 +43,7 @@ const TopView = styled.div`
   background-repeat: no-repeat;
   ${media.phone`
     height: 480px;
-    margin-top: -64px;
+    margin-top: -4px;
     background-image: url(${mainVisualSp});
     background-size: contain;
     background-position: 0 56px;
