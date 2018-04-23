@@ -157,7 +157,7 @@ class InboxContainer extends Component<PropTypes, State> {
 
     const { isLoading, user, room } = this.props;
 
-    if (isLoading) {
+    if (isLoading || !room) {
       return <LoadingPage />;
     }
 
