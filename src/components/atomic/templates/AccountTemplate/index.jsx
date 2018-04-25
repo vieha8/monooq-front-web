@@ -35,7 +35,7 @@ type PropTypes = {
   form: React.Element<*>,
 };
 
-export default class AccountTemplate extends Component {
+export default class AccountTemplate extends Component<PropTypes> {
   componentDidMount() {
     this.prevBg = document.body.style.background;
     document.body.style.background = Colors.yellow;

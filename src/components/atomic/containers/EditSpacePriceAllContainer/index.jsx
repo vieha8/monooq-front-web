@@ -43,7 +43,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
     const { space } = this.props;
 
     this.state = {
-      price: space.priceFull || '',
+      PriceFull: space.PriceFull || '',
       error: {},
     };
   }
@@ -53,12 +53,12 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
     this.validate(() => {
       if ((this.state.error.price || []).length === 0) {
         const { dispatch, space } = this.props;
-        const { price } = this.state;
+        const { PriceFull } = this.state;
 
         const saveSpace = Object.assign(space, {
-          priceFull: price,
-          priceHalf: 0,
-          priceQuarter: 0,
+          PriceFull,
+          PriceHalf: 0,
+          PriceQuarter: 0,
         });
         dispatch(
           uiActions.setUiState({
@@ -78,12 +78,12 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
   onClickBack: Function;
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { price } = this.state;
+    const { PriceFull } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          priceFull: price,
+          PriceFull,
         }),
       }),
     );
@@ -105,13 +105,13 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
 
   validate: Function;
   validate = (valid: Function) => {
-    const { price, error } = this.state;
+    const { PriceFull, error } = this.state;
 
     const priceErrors = [];
-    if (price < Validate.Price.Min) {
+    if (PriceFull < Validate.Price.Min) {
       priceErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
     }
-    if (price > Validate.Price.Max) {
+    if (PriceFull > Validate.Price.Max) {
       priceErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
     }
     error.price = priceErrors;
@@ -126,9 +126,9 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
     }
 
     const { space, isLoading, isCompleted } = this.props;
-    const { price, error } = this.state;
+    const { PriceFull, error } = this.state;
 
-    if (!space.title) {
+    if (!space.Title) {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 
@@ -144,9 +144,9 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
         header={<Header />}
         leftContent={
           <EditSpaceInputPriceAll
-            price={price}
+            price={PriceFull}
             priceErrors={error.price}
-            onChangePrice={v => this.handleChangeUI('price', v)}
+            onChangePrice={v => this.handleChangeUI('PriceFull', v)}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
             buttonLoading={isLoading}

@@ -43,9 +43,9 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
     const { space } = this.props;
 
     this.state = {
-      priceQuarter: space.priceQuarter || '',
-      priceHalf: space.priceHalf || '',
-      priceFull: space.priceFull || '',
+      PriceQuarter: space.PriceQuarter || '',
+      PriceHalf: space.PriceHalf || '',
+      PriceFull: space.PriceFull || '',
       error: {},
     };
   }
@@ -59,12 +59,12 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
         (this.state.error.priceFull || []).length === 0
       ) {
         const { dispatch, space } = this.props;
-        const { priceQuarter, priceHalf, priceFull } = this.state;
+        const { PriceQuarter, PriceHalf, PriceFull } = this.state;
 
         const saveSpace = Object.assign(space, {
-          priceFull,
-          priceHalf,
-          priceQuarter,
+          PriceFull,
+          PriceHalf,
+          PriceQuarter,
         });
         dispatch(
           uiActions.setUiState({
@@ -84,14 +84,14 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
   onClickBack: Function;
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { priceQuarter, priceHalf, priceFull } = this.state;
+    const { PriceQuarter, PriceHalf, PriceFull } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          priceFull,
-          priceHalf,
-          priceQuarter,
+          PriceFull,
+          PriceHalf,
+          PriceQuarter,
         }),
       }),
     );
@@ -113,31 +113,31 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
 
   validate: Function;
   validate = (valid: Function) => {
-    const { priceQuarter, priceHalf, priceFull, error } = this.state;
+    const { PriceQuarter, PriceHalf, PriceFull, error } = this.state;
 
     const priceQuarterErrors = [];
-    if (priceQuarter < Validate.Price.Min) {
+    if (PriceQuarter < Validate.Price.Min) {
       priceQuarterErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
     }
-    if (priceQuarter > Validate.Price.Max) {
+    if (PriceQuarter > Validate.Price.Max) {
       priceQuarterErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
     }
     error.priceQuarter = priceQuarterErrors;
 
     const priceHalfErrors = [];
-    if (priceHalf < Validate.Price.Min) {
+    if (PriceHalf < Validate.Price.Min) {
       priceHalfErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
     }
-    if (priceHalf > Validate.Price.Max) {
+    if (PriceHalf > Validate.Price.Max) {
       priceHalfErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
     }
     error.priceHalf = priceHalfErrors;
 
     const priceFullErrors = [];
-    if (priceFull < Validate.Price.Min) {
+    if (PriceFull < Validate.Price.Min) {
       priceFullErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
     }
-    if (priceFull > Validate.Price.Max) {
+    if (PriceFull > Validate.Price.Max) {
       priceFullErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
     }
     error.priceFull = priceFullErrors;
@@ -153,11 +153,11 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
 
     const { space, isLoading, isCompleted } = this.props;
 
-    if (!space.title) {
+    if (!space.Title) {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 
-    const { priceQuarter, priceHalf, priceFull, error } = this.state;
+    const { PriceQuarter, PriceHalf, PriceFull, error } = this.state;
 
     if (isCompleted) {
       if (space.ID) {
@@ -171,15 +171,15 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
         header={<Header />}
         leftContent={
           <EditSpaceInputPriceType
-            priceQuarter={priceQuarter}
-            priceQuarterErrors={error.priceQuarter}
-            onChangePriceQuarter={v => this.handleChangeUI('priceQuarter', v)}
-            priceHalf={priceHalf}
-            priceHalfErrors={error.priceHalf}
-            onChangePriceHalf={v => this.handleChangeUI('priceHalf', v)}
-            priceFull={priceFull}
+            priceFull={PriceFull}
             priceFullErrors={error.priceFull}
-            onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
+            onChangePriceFull={v => this.handleChangeUI('PriceFull', v)}
+            priceHalf={PriceHalf}
+            priceHalfErrors={error.priceHalf}
+            onChangePriceHalf={v => this.handleChangeUI('PriceHalf', v)}
+            priceQuarter={PriceQuarter}
+            priceQuarterErrors={error.priceQuarter}
+            onChangePriceQuarter={v => this.handleChangeUI('PriceQuarter', v)}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
             buttonLoading={isLoading}

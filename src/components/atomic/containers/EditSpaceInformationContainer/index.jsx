@@ -37,28 +37,33 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
     const { space } = this.props;
 
+    // TODO if edit path and space.ID = null, fetch space
+    // if (match.pathname === Path.editSpaceInfo() && !space.ID)
+    // const spaceId = match.params.space_id;
+    // dispatch(spaceActions.fetchSpace({ spaceId }));
+
     this.state = {
-      images: space.images || [],
-      title: space.title || '',
-      type: space.type || 0,
-      introduction: space.introduction || '',
-      address: space.address || '',
+      Images: space.Images || [],
+      Title: space.Title || '',
+      Type: space.Type || 0,
+      Introduction: space.Introduction || '',
+      Address: space.Address || '',
       error: {},
     };
   }
 
   handleChangeImage: Function;
   handleChangeImage = (pickedImages: Array<File>) => {
-    const images = this.state.images || [];
+    const images = this.state.Images || [];
     const nextImages = [].concat(images, pickedImages);
-    this.setState({ images: nextImages });
+    this.setState({ Images: nextImages });
   };
 
   handleDeleteImage: Function;
   handleDeleteImage = (deleteTargetIndex: number) => {
-    const nextImages = Object.assign([], this.state.images);
+    const nextImages = Object.assign([], this.state.Images);
     nextImages.splice(deleteTargetIndex, 1);
-    this.setState({ images: nextImages });
+    this.setState({ Images: nextImages });
   };
 
   onClickNext: Function;
@@ -71,16 +76,16 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
         (this.state.error.address || []).length === 0
       ) {
         const { dispatch, history, space } = this.props;
-        const { images, title, type, introduction, address } = this.state;
+        const { Images, Title, Type, Introduction, Address } = this.state;
 
         dispatch(
           uiActions.setUiState({
             space: Object.assign(space, {
-              images,
-              title,
-              type: parseInt(type, 10),
-              introduction,
-              address,
+              Images,
+              Title,
+              Type: parseInt(Type, 10),
+              Introduction,
+              Address,
             }),
           }),
         );
@@ -104,31 +109,31 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
   validate: Function;
   validate = (valid: Function) => {
-    const { title, type, introduction, address, error } = this.state;
+    const { Title, Type, Introduction, Address, error } = this.state;
 
     const titleErrors = [];
-    if (title.length === 0) {
+    if (Title.length === 0) {
       titleErrors.push(ErrorMessage.PleaseInput);
     }
     error.title = titleErrors;
 
     const typeErrors = [];
-    if (`${type}` === '0') {
+    if (`${Type}` === '0') {
       typeErrors.push(ErrorMessage.PleaseSelect);
     }
     error.type = typeErrors;
 
     const introductionErrors = [];
-    if (introduction.length === 0) {
+    if (Introduction.length === 0) {
       introductionErrors.push(ErrorMessage.PleaseInput);
     }
     error.introduction = introductionErrors;
 
     const addressErrors = [];
-    if (address.length === 0) {
+    if (Address.length === 0) {
       addressErrors.push(ErrorMessage.PleaseInput);
     }
-    const match = address.match(Validate.Address);
+    const match = Address.match(Validate.Address);
     if (!match || (match && match[4] === '')) {
       addressErrors.push(ErrorMessage.InvalidAddress);
     }
@@ -144,30 +149,31 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     }
 
     const { space } = this.props;
-    const { images, title, type, introduction, address, error } = this.state;
+    const { Images, Title, Type, Introduction, Address, error } = this.state;
 
     return (
       <EditSpaceTemplate
         header={<Header />}
         leftContent={
           <EditSpaceInformation
-            images={images.map(image => ({
+            edit={space.ID}
+            images={Images.map(image => ({
               url: image.ImageUrl || image.preview,
             }))}
             onChangeImage={this.handleChangeImage}
             onClickDeleteImage={this.handleDeleteImage}
-            title={title}
+            title={Title}
             titleErrors={error.title}
-            onChangeTitle={v => this.handleChangeUI('title', v)}
-            type={type}
+            onChangeTitle={v => this.handleChangeUI('Title', v)}
+            type={Type}
             typeErrors={error.type}
-            onChangeType={v => this.handleChangeUI('type', v)}
-            introduction={introduction}
+            onChangeType={v => this.handleChangeUI('Type', v)}
+            introduction={Introduction}
             introductionErrors={error.introduction}
-            onChangeIntroduction={v => this.handleChangeUI('introduction', v)}
-            address={address}
+            onChangeIntroduction={v => this.handleChangeUI('Introduction', v)}
+            address={Address}
             addressErrors={error.address}
-            onChangeAddress={v => this.handleChangeUI('address', v)}
+            onChangeAddress={v => this.handleChangeUI('Address', v)}
             onClickNext={this.onClickNext}
           />
         }

@@ -35,8 +35,8 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     const { space } = this.props;
 
     this.state = {
-      receiptType: space.receiptType || 0,
-      receiptAbout: space.receiptAbout || '',
+      ReceiptType: space.ReceiptType || 0,
+      ReceiptAbout: space.ReceiptAbout || '',
       error: {},
     };
   }
@@ -49,13 +49,13 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
         (this.state.error.receiptAbout || []).length === 0
       ) {
         const { dispatch, history, space } = this.props;
-        const { receiptType, receiptAbout } = this.state;
+        const { ReceiptType, ReceiptAbout } = this.state;
 
         dispatch(
           uiActions.setUiState({
             space: Object.assign(space, {
-              receiptType: parseInt(receiptType, 10),
-              receiptAbout,
+              ReceiptType: parseInt(ReceiptType, 10),
+              ReceiptAbout,
             }),
           }),
         );
@@ -69,13 +69,13 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
   onClickBack: Function;
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { receiptType, receiptAbout } = this.state;
+    const { ReceiptType, ReceiptAbout } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          receiptType,
-          receiptAbout,
+          ReceiptType,
+          ReceiptAbout,
         }),
       }),
     );
@@ -97,16 +97,16 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
   validate: Function;
   validate = (valid: Function) => {
-    const { receiptType, receiptAbout, error } = this.state;
+    const { ReceiptType, ReceiptAbout, error } = this.state;
 
     const receiptTypeErrors = [];
-    if (`${receiptType}` === '0') {
+    if (`${ReceiptType}` === '0') {
       receiptTypeErrors.push(ErrorMessage.PleaseSelect);
     }
     error.receiptType = receiptTypeErrors;
 
     const receiptAboutErrors = [];
-    if (receiptAbout.length === 0) {
+    if (ReceiptAbout.length === 0) {
       receiptAboutErrors.push(ErrorMessage.PleaseInput);
     }
     error.receiptAbout = receiptAboutErrors;
@@ -121,9 +121,9 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     }
 
     const { space } = this.props;
-    const { receiptType, receiptAbout, error } = this.state;
+    const { ReceiptType, ReceiptAbout, error } = this.state;
 
-    if (!space.title) {
+    if (!space.Title) {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 
@@ -132,12 +132,12 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
         header={<Header />}
         leftContent={
           <EditSpaceReceive
-            receive={receiptType}
+            receive={ReceiptType}
             receiveErrors={error.receiptType}
-            onChangeReceive={v => this.handleChangeUI('receiptType', v)}
-            receiveAbout={receiptAbout}
+            onChangeReceive={v => this.handleChangeUI('ReceiptType', v)}
+            receiveAbout={ReceiptAbout}
             receiveAboutErrors={error.receiptAbout}
-            onChangeReceiveAbout={v => this.handleChangeUI('receiptAbout', v)}
+            onChangeReceiveAbout={v => this.handleChangeUI('ReceiptAbout', v)}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
           />

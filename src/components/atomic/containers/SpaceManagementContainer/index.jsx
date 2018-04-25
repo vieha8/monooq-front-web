@@ -41,7 +41,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
   onClickEdit = space => {
     const { dispatch, history } = this.props;
     dispatch(spaceActions.setSpace({ space }));
-    dispatch(uiActions.setUiState({ space: {} }));
+    dispatch(uiActions.setUiState({ space }));
     history.push(Path.editSpaceInfo(space.ID));
   };
 

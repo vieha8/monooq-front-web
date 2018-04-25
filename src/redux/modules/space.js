@@ -156,37 +156,49 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   yield put(spaceActions.fetchSuccessSpace(payload));
 }
 
+function createSpaceRequestPayload(space) {
+  const params = {};
+
+  Object.keys(space).forEach(key => {
+    const requestKey = `${key[0].toLowerCase()}${key.substr(1)}`;
+    params[requestKey] = space[key];
+  });
+
+  return params;
+}
+
 function* createSpace({ payload: { body } }) {
-  const { images } = body;
-  body.images = null;
+  const params = createSpaceRequestPayload(body);
+  params.images = null;
 
-  if (body.priceFull) {
-    body.priceFull = parseInt(body.priceFull, 10);
+  if (params.priceFull) {
+    params.priceFull = parseInt(params.priceFull, 10);
   }
 
-  if (body.priceHalf) {
-    body.priceHalf = parseInt(body.priceHalf, 10);
+  if (params.priceHalf) {
+    params.priceHalf = parseInt(params.priceHalf, 10);
   }
 
-  if (body.priceQuarter) {
-    body.priceQuarter = parseInt(body.priceQuarter, 10);
+  if (params.priceQuarter) {
+    params.priceQuarter = parseInt(params.priceQuarter, 10);
   }
 
-  if (body.isFurniture) {
-    body.isFurniture = body.isFurniture === '1';
+  if (params.isFurniture) {
+    params.isFurniture = params.isFurniture === '1';
   }
 
-  if (body.prefecture) {
-    body.address = `${body.prefecture}${body.address}`;
+  if (params.prefecture) {
+    params.address = `${params.prefecture}${params.address}`;
   }
 
-  yield put(apiActions.apiPostRequest({ path: apiEndpoint.spaces(), body }));
+  yield put(apiActions.apiPostRequest({ path: apiEndpoint.spaces(), body: params }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error || !payload || !payload.ID) {
     yield put(spaceActions.createFailedSpace(meta));
     return;
   }
 
+  const { images } = params;
   if (images && images.length > 0) {
     const spaceId = payload.ID;
     const imageUrls = yield Promise.all(
@@ -194,9 +206,8 @@ function* createSpace({ payload: { body } }) {
         if (image.ImageUrl) {
           if (image.ImageUrl.includes('data:image/png;base64,')) {
             return '';
-          } else {
-            return image.ImageUrl;
           }
+          return image.ImageUrl;
         }
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);

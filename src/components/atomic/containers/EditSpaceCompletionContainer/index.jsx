@@ -36,7 +36,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
 
     const { space, history } = this.props;
 
-    if (!space.title) {
+    if (!space.Title) {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 

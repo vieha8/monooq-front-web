@@ -50,13 +50,13 @@ export default (props: PropTypes) => (
     </Section>
     <Section>
       <InputPriceOfType
-        image={imageFurnitureQuarter}
+        image={imageFurnitureFull}
         title="スペースまるごと"
         caption="あなたのスペースのほとんどを使用する荷物の場合の料金"
         placeholder="20000"
-        price={props.priceQuarter}
-        onChange={props.onChangePriceQuarter}
-        error={displayErrors('price_errors_1', props.priceQuarterErrors)}
+        price={props.priceFull}
+        onChange={props.onChangePriceFull}
+        error={displayErrors('price_errors_1', props.priceFullErrors)}
       />
       <InputPriceOfType
         image={imageFurnitureHalf}
@@ -68,13 +68,13 @@ export default (props: PropTypes) => (
         error={displayErrors('price_errors_2', props.priceHalfErrors)}
       />
       <InputPriceOfType
-        image={imageFurnitureFull}
+        image={imageFurnitureQuarter}
         title="スペース1/4"
         caption="あなたのスペースの「4分の1」を使用する荷物の場合の料金"
         placeholder="7000"
-        price={props.priceFull}
-        onChange={props.onChangePriceFull}
-        error={displayErrors('price_errors_3', props.priceFullErrors)}
+        price={props.priceQuarter}
+        onChange={props.onChangePriceQuarter}
+        error={displayErrors('price_errors_3', props.priceQuarterErrors)}
       />
     </Section>
     <Section>

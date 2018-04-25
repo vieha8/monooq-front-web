@@ -35,7 +35,7 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     const { space } = this.props;
 
     this.state = {
-      sizeType: space.sizeType || 0,
+      SizeType: space.SizeType || 0,
       error: {},
     };
   }
@@ -45,12 +45,12 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     this.validate(() => {
       if ((this.state.error.sizeType || []).length === 0) {
         const { dispatch, history, space } = this.props;
-        const { sizeType } = this.state;
+        const { SizeType } = this.state;
 
         dispatch(
           uiActions.setUiState({
             space: Object.assign(space, {
-              sizeType,
+              SizeType,
             }),
           }),
         );
@@ -58,11 +58,11 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
         let nextPath = '';
         if (space.ID) {
           nextPath =
-            sizeType === 1
+            SizeType === 1
               ? Path.editSpacePrice(space.ID, 'all')
               : Path.editSpacePrice(space.ID, 'about');
         } else {
-          nextPath = sizeType === 1 ? Path.createSpacePrice('all') : Path.createSpacePrice('about');
+          nextPath = SizeType === 1 ? Path.createSpacePrice('all') : Path.createSpacePrice('about');
         }
 
         if (nextPath) {
@@ -75,12 +75,12 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
   onClickBack: Function;
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { sizeType } = this.state;
+    const { SizeType } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          sizeType,
+          SizeType,
         }),
       }),
     );
@@ -102,10 +102,10 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
   validate: Function;
   validate = (valid: Function) => {
-    const { sizeType, error } = this.state;
+    const { SizeType, error } = this.state;
 
     const sizeTypeErrors = [];
-    if (`${sizeType}` === '0') {
+    if (`${SizeType}` === '0') {
       sizeTypeErrors.push(ErrorMessage.PleaseSelect);
     }
     error.sizeType = sizeTypeErrors;
@@ -120,9 +120,9 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     }
 
     const { space } = this.props;
-    const { sizeType, error } = this.state;
+    const { SizeType, error } = this.state;
 
-    if (!space.title) {
+    if (!space.Title) {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 
@@ -131,9 +131,9 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
         header={<Header />}
         leftContent={
           <EditSpaceSize
-            size={sizeType}
+            size={SizeType}
             sizeErrors={error.sizeType}
-            onChangeSize={v => this.handleChangeUI('sizeType', v)}
+            onChangeSize={v => this.handleChangeUI('SizeType', v)}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
           />

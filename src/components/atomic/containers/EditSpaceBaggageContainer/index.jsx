@@ -35,8 +35,8 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     const { space } = this.props;
 
     this.state = {
-      about: space.about || '',
-      isFurniture: space.isFurniture || false,
+      About: space.About || '',
+      IsFurniture: space.IsFurniture || false,
       error: {},
     };
   }
@@ -46,13 +46,13 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     this.validate(() => {
       if ((this.state.error.about || []).length === 0) {
         const { dispatch, history, space } = this.props;
-        const { about, isFurniture } = this.state;
+        const { About, IsFurniture } = this.state;
 
         dispatch(
           uiActions.setUiState({
             space: Object.assign(space, {
-              about,
-              isFurniture,
+              About,
+              IsFurniture,
             }),
           }),
         );
@@ -66,13 +66,13 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
   onClickBack: Function;
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { about, isFurniture } = this.state;
+    const { About, IsFurniture } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          about,
-          isFurniture,
+          About,
+          IsFurniture,
         }),
       }),
     );
@@ -94,10 +94,10 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
   validate: Function;
   validate = (valid: Function) => {
-    const { about, error } = this.state;
+    const { About, error } = this.state;
 
     const aboutErrors = [];
-    if (about.length === 0) {
+    if (About.length === 0) {
       aboutErrors.push(ErrorMessage.PleaseInput);
     }
     error.about = aboutErrors;
@@ -112,9 +112,9 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     }
 
     const { space } = this.props;
-    const { about, isFurniture, error } = this.state;
+    const { About, IsFurniture, error } = this.state;
 
-    if (!space.title) {
+    if (!space.Title) {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 
@@ -123,11 +123,11 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
         header={<Header />}
         leftContent={
           <EditSpaceBaggage
-            baggage={about}
+            baggage={About}
             baggageErrors={error.about}
-            onChangeBaggage={v => this.handleChangeUI('about', v)}
-            checkedFurniture={isFurniture}
-            onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
+            onChangeBaggage={v => this.handleChangeUI('About', v)}
+            checkedFurniture={IsFurniture}
+            onClickFurniture={() => this.handleChangeUI('IsFurniture', !IsFurniture)}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
           />
