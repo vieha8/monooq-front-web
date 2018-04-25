@@ -8,6 +8,7 @@ import { messagesActions } from 'redux/modules/messages';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
+import InlineText from 'components/atomic/LV1/InlineText';
 import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import InboxList from 'components/atomic/LV3/InboxList';
@@ -57,14 +58,18 @@ class InboxContainer extends Component<PropTypes> {
         headline="メッセージ一覧"
         leftContent={<ServiceMenu />}
         rightContent={
-          <InboxList
-            messages={rooms.filter(room => room.user).map(message => ({
-              link: Path.message(message.id),
-              image: (message.user || {}).ImageUrl,
-              name: (message.user || {}).Name,
-              receivedAt: message.lastMessageDt,
-            }))}
-          />
+          Array.isArray(rooms) && rooms.length > 0 ? (
+            <InboxList
+              messages={rooms.filter(room => room.user).map(message => ({
+                link: Path.message(message.id),
+                image: (message.user || {}).ImageUrl,
+                name: (message.user || {}).Name,
+                receivedAt: message.lastMessageDt,
+              }))}
+            />
+          ) : (
+            <InlineText.Base>メッセージはありません。</InlineText.Base>
+          )
         }
         footer={<Footer />}
       />
