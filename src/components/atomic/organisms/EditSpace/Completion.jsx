@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Button from 'components/atomic/atoms/Button';
 import { H1, H2 } from 'components/atomic/atoms/Headline';
 import { Dimens } from 'variables';
+import GoogleTagManager from 'components/GTM';
 
 const Section = styled.div`
   margin-top: ${Dimens.medium3}px;
@@ -52,6 +53,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
             </Button>
           </Section>
         )}
+        <GoogleTagManager event="spaceRegistered" />
       </Fragment>
     );
   }
