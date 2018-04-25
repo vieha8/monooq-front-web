@@ -133,8 +133,8 @@ class SpaceContainer extends Component<PropTypes, State> {
         price={
           <Price
             full={numeral(space.PriceFull).format('0,0')}
-            half={numeral(space.PriceHalf).format('0,0')}
-            quarter={numeral(space.PriceQuarter).format('0,0')}
+            half={space.PriceHalf > 0 && numeral(space.PriceHalf).format('0,0')}
+            quarter={space.PriceQuarter > 0 && numeral(space.PriceQuarter).format('0,0')}
           />
         }
         message={
