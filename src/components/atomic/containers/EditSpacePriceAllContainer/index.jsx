@@ -52,7 +52,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
   onClickNext = () => {
     this.validate(() => {
       if ((this.state.error.price || []).length === 0) {
-        const { dispatch, space } = this.props;
+        const { dispatch, space, user } = this.props;
         const { PriceFull } = this.state;
 
         const saveSpace = Object.assign(space, {
@@ -67,9 +67,17 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
         );
 
         if (space.ID) {
-          dispatch(spaceActions.updateSpace({ spaceId: space.ID, body: saveSpace }));
+          dispatch(
+            spaceActions.updateSpace({
+              spaceId: space.ID,
+              body: {
+                userId: user.ID,
+                ...saveSpace,
+              },
+            }),
+          );
         } else {
-          dispatch(spaceActions.createSpace({ body: saveSpace }));
+          dispatch(spaceActions.createSpace({ body: { userId: user.ID, ...saveSpace } }));
         }
       }
     });
@@ -132,7 +140,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 
-    if (isCompleted) {
+    if (!isLoading && isCompleted) {
       if (space.ID) {
         return <Redirect to={Path.editSpaceCompletion(space.ID)} />;
       }
@@ -169,6 +177,8 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
 
 const mapStateToProps = state =>
   mergeAuthProps(state, {
+    isCompleted: state.space.isComplete,
+    user: state.auth.user || {},
     space: state.ui.space || {},
     isLoading: state.space.isLoading,
   });

@@ -58,7 +58,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
         (this.state.error.priceHalf || []).length === 0 &&
         (this.state.error.priceFull || []).length === 0
       ) {
-        const { dispatch, space } = this.props;
+        const { dispatch, space, user } = this.props;
         const { PriceQuarter, PriceHalf, PriceFull } = this.state;
 
         const saveSpace = Object.assign(space, {
@@ -73,9 +73,17 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
         );
 
         if (space.ID) {
-          dispatch(spaceActions.updateSpace({ spaceId: space.ID, body: saveSpace }));
+          dispatch(
+            spaceActions.updateSpace({
+              spaceId: space.ID,
+              body: {
+                userId: user.ID,
+                ...saveSpace,
+              },
+            }),
+          );
         } else {
-          dispatch(spaceActions.createSpace({ body: saveSpace }));
+          dispatch(spaceActions.createSpace({ body: { userId: user.ID, ...saveSpace } }));
         }
       }
     });
@@ -159,7 +167,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
 
     const { PriceQuarter, PriceHalf, PriceFull, error } = this.state;
 
-    if (isCompleted) {
+    if (!isLoading && isCompleted) {
       if (space.ID) {
         return <Redirect to={Path.editSpaceCompletion(space.ID)} />;
       }
@@ -203,6 +211,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
 const mapStateToProps = state =>
   mergeAuthProps(state, {
     isCompleted: state.space.isComplete,
+    user: state.auth.user || {},
     space: state.ui.space || {},
     isLoading: state.space.isLoading,
   });

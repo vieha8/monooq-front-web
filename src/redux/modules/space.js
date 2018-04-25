@@ -156,20 +156,13 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   yield put(spaceActions.fetchSuccessSpace(payload));
 }
 
-function createSpaceRequestPayload(space) {
+function generateSpaceRequestParams(space) {
   const params = {};
 
   Object.keys(space).forEach(key => {
     const requestKey = `${key[0].toLowerCase()}${key.substr(1)}`;
     params[requestKey] = space[key];
   });
-
-  return params;
-}
-
-function* createSpace({ payload: { body } }) {
-  const params = createSpaceRequestPayload(body);
-  params.images = null;
 
   if (params.priceFull) {
     params.priceFull = parseInt(params.priceFull, 10);
@@ -183,9 +176,13 @@ function* createSpace({ payload: { body } }) {
     params.priceQuarter = parseInt(params.priceQuarter, 10);
   }
 
-  if (params.isFurniture) {
-    params.isFurniture = params.isFurniture === '1';
-  }
+  return params;
+}
+
+function* createSpace({ payload: { body } }) {
+  const params = generateSpaceRequestParams(body);
+  const { images } = params;
+  params.images = null;
 
   if (params.prefecture) {
     params.address = `${params.prefecture}${params.address}`;
@@ -198,7 +195,6 @@ function* createSpace({ payload: { body } }) {
     return;
   }
 
-  const { images } = params;
   if (images && images.length > 0) {
     const spaceId = payload.ID;
     const imageUrls = yield Promise.all(
@@ -242,29 +238,20 @@ function* createSpace({ payload: { body } }) {
 }
 
 function* updateSpace({ payload: { spaceId, body } }) {
-  delete body.id;
+  const params = generateSpaceRequestParams(body);
+  const { images } = params;
+  params.images = null;
 
-  if (body.priceFull) {
-    body.priceFull = parseInt(body.priceFull, 10);
-  }
+  delete params.id;
 
-  if (body.priceHalf) {
-    body.priceHalf = parseInt(body.priceHalf, 10);
-  }
-
-  if (body.priceQuarter) {
-    body.priceQuarter = parseInt(body.priceQuarter, 10);
-  }
-
-  if (body.images && body.images.length > 0) {
+  if (images && images.length > 0) {
     const imageUrls = yield Promise.all(
-      body.images.filter(image => !image.ID).map(async image => {
+      images.filter(image => !image.ID).map(async image => {
         if (image.ImageUrl) {
           if (image.ImageUrl.includes('data:image/png;base64,')) {
             return '';
-          } else {
-            return image.ImageUrl;
           }
+          return image.ImageUrl;
         }
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);
@@ -279,12 +266,12 @@ function* updateSpace({ payload: { spaceId, body } }) {
         return uploadImage(imagePath, image);
       }),
     );
-    body.images = imageUrls
+    params.images = imageUrls
       .filter(url => url !== '')
       .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
   }
 
-  yield put(apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body }));
+  yield put(apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body: params }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error) {
     yield put(userActions.updateFailedSpace(meta));

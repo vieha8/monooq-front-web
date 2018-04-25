@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import numeral from 'numeral';
 import Path from 'config/path';
 
@@ -94,7 +94,10 @@ class SpaceManagementContainer extends Component<PropTypes> {
                 onClickHostEntry={this.hostEntry}
               />
             ) : (
-              <InlineText.Base>スペースはありません。スペースを登録しましょう。</InlineText.Base>
+              <Fragment>
+                <InlineText.Base>スペースはありません。スペースを登録しましょう。</InlineText.Base>
+                <ManageSpaceList spaces={[]} onClickHostEntry={this.hostEntry} />
+              </Fragment>
             )
           }
           footer={<Footer />}

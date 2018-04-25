@@ -35,12 +35,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
-    const { space } = this.props;
-
-    // TODO if edit path and space.ID = null, fetch space
-    // if (match.pathname === Path.editSpaceInfo() && !space.ID)
-    // const spaceId = match.params.space_id;
-    // dispatch(spaceActions.fetchSpace({ spaceId }));
+    const { dispatch, match, space } = this.props;
 
     this.state = {
       Images: space.Images || [],
@@ -50,6 +45,24 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       Address: space.Address || '',
       error: {},
     };
+
+    // TODO if edit path and space.ID = null, fetch space
+    // if (match.pathname === Path.editSpaceInfo() && !space.ID)
+    // const spaceId = match.params.space_id;
+    // dispatch(spaceActions.fetchSpace({ spaceId }));
+    if (match.path === Path.createSpaceInfo()) {
+      dispatch(uiActions.setUiState({ space: {} }));
+      this.state = {
+        Images: [],
+        Title: '',
+        Type: 0,
+        Introduction: '',
+        Address: '',
+        error: {},
+      };
+    } else if (match.path === Path.editSpaceInfo()) {
+      // dispatch(uiActions.setUiState({ space: {} }));
+    }
   }
 
   handleChangeImage: Function;

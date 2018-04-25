@@ -54,9 +54,9 @@ export const routes = [
   { path: Path.createSpaceAreaSize(), component: Containers.EditSpaceSize },
   { path: Path.editSpaceAreaSize(), component: Containers.EditSpaceSize },
   { path: Path.createSpacePrice('all'), component: Containers.EditSpacePriceAll },
-  { path: Path.editSpacePrice('all'), component: Containers.EditSpacePriceAll },
+  { path: Path.editSpacePrice(undefined, 'all'), component: Containers.EditSpacePriceAll },
   { path: Path.createSpacePrice('about'), component: Containers.EditSpacePriceType },
-  { path: Path.editSpacePrice('about'), component: Containers.EditSpacePriceType },
+  { path: Path.editSpacePrice(undefined, 'about'), component: Containers.EditSpacePriceType },
   { path: Path.createSpaceCompletion(), component: Containers.EditSpaceCompletion },
   { path: Path.editSpaceCompletion(), component: Containers.EditSpaceCompletion },
   // static pages

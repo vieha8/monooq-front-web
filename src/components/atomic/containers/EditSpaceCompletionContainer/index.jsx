@@ -12,11 +12,13 @@ import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
 
 type PropTypes = {
-  dispatch: Function,
   history: {
     push: Function,
   },
   space: {
+    Title: string,
+  },
+  editedSpace: {
     ID: number,
   },
 };
@@ -34,7 +36,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space, history } = this.props;
+    const { space, history, editedSpace } = this.props;
 
     if (!space.Title) {
       return <Redirect to={Path.createSpaceInfo()} />;
@@ -50,7 +52,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
               userId: (space || {}).UserID,
             }}
             onClickViewSpace={() => {
-              history.push(Path.space(space.ID));
+              history.push(Path.space(editedSpace.ID));
             }}
           />
         }
@@ -62,6 +64,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
 
 const mapStateToProps = state =>
   mergeAuthProps(state, {
+    editedSpace: state.space.created || state.space.space || {},
     space: state.ui.space || {},
   });
 

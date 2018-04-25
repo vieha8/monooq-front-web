@@ -4,6 +4,7 @@ const SPACE_ID = ':space_id';
 const MESSAGE_ROOM_ID = ':message_room_id';
 const SCHEDULE_ID = ':schedule_id';
 const REQUEST_ID = ':request_id';
+const TYPE_ID = ':type';
 
 export default {
   // トップ
@@ -23,7 +24,7 @@ export default {
   editSpaceBaggage: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/baggage`,
   editSpaceReceive: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/receive`,
   editSpaceAreaSize: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/areasize`,
-  editSpacePrice: (spaceId = SPACE_ID, type = ':type') => `/space/${spaceId}/edit/price/${type}`,
+  editSpacePrice: (spaceId = SPACE_ID, type = TYPE_ID) => `/space/${spaceId}/edit/price/${type}`,
   editSpaceCompletion: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/completion`,
   // スケジュール
   schedule: () => '/schedule',
