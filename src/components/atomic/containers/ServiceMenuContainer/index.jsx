@@ -24,11 +24,6 @@ class ServiceMenuContainer extends Component<PropTypes> {
     }
 
     const { dispatch } = this.props;
-    dispatch(
-      uiActions.setUiState({
-        showMenu: false,
-      }),
-    );
     dispatch(authActions.logout());
     window.location.href = Path.top();
   };

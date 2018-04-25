@@ -1,12 +1,13 @@
 // @flow
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
 import NotificationCount from 'components/atomic/LV1/NotificationCount';
 import MenuItem from 'components/atomic/LV1/Menu/Item';
 
-const MenuLink = styled.a`
+const MenuLink = styled(Link)`
   display: block;
   width: 100%;
   height: 100%;
@@ -35,7 +36,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <MenuItem show>
-    <MenuLink href={props.href || ''} onClick={props.onClick}>
+    <MenuLink to={props.href || ''} onClick={props.onClick}>
       <MenuText>
         <InlineText.Small>{props.title}</InlineText.Small>
       </MenuText>

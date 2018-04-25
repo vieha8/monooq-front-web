@@ -4,17 +4,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from 'components/atomic/LV3/Header';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import { uiActions } from 'redux/modules/ui';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
 
 type PropTypes = {
   dispatch: Function,
-  ui: {
-    showMenu: boolean,
-    showSearchField: boolean,
-    location: string,
-  },
   isChecking: boolean,
   isLogin: boolean,
   user: {
@@ -27,26 +21,30 @@ type PropTypes = {
 };
 
 class HeaderContainer extends Component<PropTypes> {
+  constructor(props: PropTypes) {
+    super(props);
+
+    this.state = {
+      showMenu: false,
+      showSearchField: false,
+      location: '',
+    };
+  }
+
   onClickSearch: Function;
   onClickSearch = () => {
-    const { dispatch, ui } = this.props;
+    const { location, showSearchField } = this.state;
 
-    if (ui.showSearchField && ui.location) {
+    if (showSearchField && location) {
       this.search();
     } else {
-      dispatch(uiActions.setUiState({ showSearchField: true }));
+      this.setState({ showSearchField: true });
     }
   };
 
   onClickCloseSearch: Function;
   onClickCloseSearch = () => {
-    const { dispatch } = this.props;
-    dispatch(
-      uiActions.setUiState({
-        showSearchField: false,
-        location: '',
-      }),
-    );
+    this.setState({ location: '', showSearchField: false });
   };
 
   handleKeyDownSearch: Function;
@@ -58,22 +56,21 @@ class HeaderContainer extends Component<PropTypes> {
 
   handleChangeSearchField: Function;
   handleChangeSearchField = (value: string) => {
-    const { dispatch } = this.props;
-    dispatch(uiActions.setUiState({ location: value }));
+    this.setState({ location: value });
   };
 
   search: Function;
   search = () => {
-    const { dispatch, ui, history } = this.props;
-    history.push(`${Path.search()}?location=${ui.location}`);
-    dispatch(uiActions.setUiState({ location: '', showSearchField: false }));
+    const { history } = this.props;
+    const { location } = this.state;
+    history.push(`${Path.search()}?location=${location}`);
   };
 
   toggleMenu: Function;
   toggleMenu = () => {
-    const { dispatch, ui } = this.props;
+    const { showMenu } = this.state;
 
-    if (ui.showMenu) {
+    if (showMenu) {
       if (document && document.body) {
         document.body.style.overflowY = 'auto';
       }
@@ -81,24 +78,24 @@ class HeaderContainer extends Component<PropTypes> {
       document.body.style.overflowY = 'hidden';
     }
 
-    dispatch(uiActions.setUiState({ showMenu: !ui.showMenu }));
+    this.setState({ showMenu: !showMenu });
   };
 
   closeMenu: Function;
   closeMenu = () => {
-    const { dispatch } = this.props;
-
     if (document && document.body) {
       document.body.style.overflowY = 'auto';
     }
 
-    dispatch(uiActions.setUiState({ showMenu: false }));
+    this.setState({ showMenu: false });
   };
 
   render() {
-    const { ui, isLogin, isChecking, user, top, help } = this.props;
+    const { isLogin, isChecking, user, top, help } = this.props;
 
     if (isChecking) return null;
+
+    const { showMenu, showSearchField } = this.state;
 
     return (
       <Header
@@ -121,11 +118,11 @@ class HeaderContainer extends Component<PropTypes> {
         onClickAvatar={this.toggleMenu}
         onClickSearchIcon={this.onClickSearch}
         onClickCloseSearch={this.onClickCloseSearch}
-        showSearchField={ui.showSearchField}
+        showSearchField={showSearchField}
         onKeyDownSearch={this.handleKeyDownSearch}
         onChangeSearchField={this.handleChangeSearchField}
         onClickCloseMenu={this.closeMenu}
-        showMenu={ui.showMenu}
+        showMenu={showMenu}
         menu={<ServiceMenu />}
       />
     );
@@ -135,7 +132,6 @@ class HeaderContainer extends Component<PropTypes> {
 const mapStateToProps = state => ({
   isChecking: state.auth.isChecking,
   isLogin: state.auth.isLogin,
-  ui: state.ui,
   user: state.auth.user,
 });
 
