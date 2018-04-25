@@ -9,9 +9,9 @@ import { requestActions } from 'redux/modules/request';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/molecules/Footer';
-import LoadingPage from 'components/atomic/organisms/LoadingPage';
-import ScheduleList from 'components/atomic/organisms/ScheduleList';
+import Footer from 'components/atomic/LV2/Footer';
+import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import ScheduleList from 'components/atomic/LV3/ScheduleList';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';

@@ -10,11 +10,11 @@ import { messagesActions } from 'redux/modules/messages';
 import { requestActions } from 'redux/modules/request';
 
 import PaymentTemplate from 'components/atomic/templates/PaymentTemplate';
-import InputPayment from 'components/atomic/organisms/InputPayment';
-import PaidComplete from 'components/atomic/organisms/PaidComplete';
-import PaymentInfo from 'components/atomic/organisms/PaymentInfo';
+import InputPayment from 'components/atomic/LV3/InputPayment';
+import PaidComplete from 'components/atomic/LV3/PaidComplete';
+import PaymentInfo from 'components/atomic/LV3/PaymentInfo';
 import Header from 'components/atomic/containers/Header';
-import LoadingPage from 'components/atomic/organisms/LoadingPage';
+import LoadingPage from 'components/atomic/LV3/LoadingPage';
 
 import { ErrorMessage } from 'strings';
 

@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import Inquiry from 'components/atomic/organisms/Inquiry';
+import Inquiry from 'components/atomic/LV3/Inquiry';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/molecules/Footer';
+import Footer from 'components/atomic/LV2/Footer';
 
 import connect from '../connect';
 

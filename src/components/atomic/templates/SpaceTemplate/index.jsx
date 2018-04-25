@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import ClearfixContainer from 'components/atomic/atoms/ClearfixContainer';
+import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import Page from '../Page';

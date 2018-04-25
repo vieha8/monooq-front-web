@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from 'components/atomic/organisms/Header';
+import Header from 'components/atomic/LV3/Header';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import { uiActions } from 'redux/modules/ui';
 import { withRouter } from 'react-router';

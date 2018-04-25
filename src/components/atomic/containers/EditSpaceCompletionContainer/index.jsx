@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 
 import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
 import Header from 'components/atomic/containers/Header';
-import EditSpaceCompletion from 'components/atomic/organisms/EditSpace/Completion';
+import EditSpaceCompletion from 'components/atomic/LV3/EditSpace/Completion';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';

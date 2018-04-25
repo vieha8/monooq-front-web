@@ -9,8 +9,8 @@ import { spaceActions } from 'redux/modules/space';
 
 import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
 import Header from 'components/atomic/containers/Header';
-import EditSpaceInputPriceType from 'components/atomic/organisms/EditSpace/InputPriceType';
-import EditStatus from 'components/atomic/organisms/EditSpace/Status';
+import EditSpaceInputPriceType from 'components/atomic/LV3/EditSpace/InputPriceType';
+import EditStatus from 'components/atomic/LV3/EditSpace/Status';
 
 import { ErrorMessage } from 'strings';
 

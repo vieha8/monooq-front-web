@@ -7,10 +7,10 @@ import { messagesActions } from 'redux/modules/messages';
 
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import Messages from 'components/atomic/organisms/Messages';
+import Messages from 'components/atomic/LV3/Messages';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/molecules/Footer';
-import LoadingPage from 'components/atomic/organisms/LoadingPage';
+import Footer from 'components/atomic/LV2/Footer';
+import LoadingPage from 'components/atomic/LV3/LoadingPage';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';

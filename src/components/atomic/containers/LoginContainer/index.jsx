@@ -7,7 +7,7 @@ import { authActions } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
 
 import AccountTemplate from 'components/atomic/templates/AccountTemplate';
-import Login from 'components/atomic/organisms/Login';
+import Login from 'components/atomic/LV3/Login';
 import Header from 'components/atomic/containers/Header';
 
 import Path from 'config/path';

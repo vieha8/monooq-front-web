@@ -8,8 +8,8 @@ import { uiActions } from 'redux/modules/ui';
 
 import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
 import Header from 'components/atomic/containers/Header';
-import EditSpaceReceive from 'components/atomic/organisms/EditSpace/Receive';
-import EditStatus from 'components/atomic/organisms/EditSpace/Status';
+import EditSpaceReceive from 'components/atomic/LV3/EditSpace/Receive';
+import EditStatus from 'components/atomic/LV3/EditSpace/Status';
 
 import { ErrorMessage } from 'strings';
 

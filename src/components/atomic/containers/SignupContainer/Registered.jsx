@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import Registered from 'components/atomic/organisms/Registered';
+import Registered from 'components/atomic/LV3/Registered';
 import Path from 'config/path';
 
 type PropTypes = {

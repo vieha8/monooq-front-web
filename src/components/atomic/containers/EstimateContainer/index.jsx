@@ -7,8 +7,8 @@ import { ErrorMessage } from 'strings';
 
 import EstimateTemplate from 'components/atomic/templates/EstimateTemplate';
 import Header from 'components/atomic/containers/Header';
-import Hint from 'components/atomic/molecules/Hint';
-import InputEstimate from 'components/atomic/organisms/InputEstimate';
+import Hint from 'components/atomic/LV2/Hint';
+import InputEstimate from 'components/atomic/LV3/InputEstimate';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';

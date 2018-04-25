@@ -4,7 +4,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
-import HelpService from 'components/atomic/organisms/Help/Service';
+import HelpService from 'components/atomic/LV3/Help/Service';
 import Path from 'config/path';
 
 type PropTypes = {

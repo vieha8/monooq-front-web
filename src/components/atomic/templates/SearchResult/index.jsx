@@ -2,8 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { H1 } from 'components/atomic/atoms/Headline';
-import InlineText from 'components/atomic/atoms/InlineText';
+import { H1 } from 'components/atomic/LV1/Headline';
+import InlineText from 'components/atomic/LV1/InlineText';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Page from '../Page';

@@ -4,9 +4,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
-import ClearfixContainer from 'components/atomic/atoms/ClearfixContainer';
-import { H1 } from 'components/atomic/atoms/Headline';
-import InlineText from 'components/atomic/atoms/InlineText';
+import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
+import { H1 } from 'components/atomic/LV1/Headline';
+import InlineText from 'components/atomic/LV1/InlineText';
 import Page from '../Page';
 
 const Caption = styled.div`

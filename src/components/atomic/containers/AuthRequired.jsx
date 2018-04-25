@@ -4,7 +4,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { authActions } from 'redux/modules/auth';
 import Path from 'config/path';
-import LoadingPage from 'components/atomic/organisms/LoadingPage';
+import LoadingPage from 'components/atomic/LV3/LoadingPage';
 
 type PropTypes = {
   dispatch: Function,

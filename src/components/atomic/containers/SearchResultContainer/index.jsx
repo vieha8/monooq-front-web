@@ -7,9 +7,9 @@ import Path from 'config/path';
 
 import SearchResultTemplate from 'components/atomic/templates/SearchResult';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/molecules/Footer';
-import SearchResult from 'components/atomic/organisms/SearchResult';
-import SearchNotFound from 'components/atomic/organisms/SearchNotFound';
+import Footer from 'components/atomic/LV2/Footer';
+import SearchResult from 'components/atomic/LV3/SearchResult';
+import SearchNotFound from 'components/atomic/LV3/SearchNotFound';
 
 import { searchActions } from 'redux/modules/search';
 

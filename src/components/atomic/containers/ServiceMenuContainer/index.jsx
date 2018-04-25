@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import ServiceMenu from 'components/atomic/organisms/ServiceMenu';
+import ServiceMenu from 'components/atomic/LV3/ServiceMenu';
 import Path from 'config/path';
 
 import { uiActions } from 'redux/modules/ui';

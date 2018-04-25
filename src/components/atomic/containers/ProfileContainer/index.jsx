@@ -4,10 +4,10 @@ import React, { Component } from 'react';
 import numeral from 'numeral';
 
 import ProfileTemplate from 'components/atomic/templates/ProfileTemplate';
-import Profile from 'components/atomic/organisms/Profile';
+import Profile from 'components/atomic/LV3/Profile';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/molecules/Footer';
-import LoadingPage from 'components/atomic/organisms/LoadingPage';
+import Footer from 'components/atomic/LV2/Footer';
+import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import { Colors } from 'variables';
 
 import { userActions } from 'redux/modules/user';

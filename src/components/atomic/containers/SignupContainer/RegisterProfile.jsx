@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { userActions } from 'redux/modules/user';
-import RegisterProfile from 'components/atomic/organisms/RegisterProfile';
+import RegisterProfile from 'components/atomic/LV3/RegisterProfile';
 
 type PropTypes = {
   dispatch: Function,

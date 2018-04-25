@@ -11,9 +11,9 @@ import { uiActions } from 'redux/modules/ui';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/molecules/Footer';
-import ManageSpaceList from 'components/atomic/organisms/ManageSpaceList';
-import LoadingPage from 'components/atomic/organisms/LoadingPage';
+import Footer from 'components/atomic/LV2/Footer';
+import ManageSpaceList from 'components/atomic/LV3/ManageSpaceList';
+import LoadingPage from 'components/atomic/LV3/LoadingPage';
 
 import type { SpaceType } from 'types/Space';
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Path from 'config/path';
 
 import Header from 'components/atomic/containers/Header';
-import { Height as HeaderHeight } from 'components/atomic/organisms/Header';
+import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';

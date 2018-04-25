@@ -11,12 +11,12 @@ import { uiActions } from 'redux/modules/ui';
 
 import SpaceTemplate from 'components/atomic/templates/SpaceTemplate';
 import Header from 'components/atomic/containers/Header';
-import SpaceMap from 'components/atomic/atoms/SpaceMap';
-import Detail from 'components/atomic/organisms/Space/Detail';
-import Price from 'components/atomic/organisms/Space/Price';
-import SendMessage from 'components/atomic/organisms/Space/SendMessage';
-import Footer from 'components/atomic/molecules/Footer';
-import LoadingPage from 'components/atomic/organisms/LoadingPage';
+import SpaceMap from 'components/atomic/LV1/SpaceMap';
+import Detail from 'components/atomic/LV3/Space/Detail';
+import Price from 'components/atomic/LV3/Space/Price';
+import SendMessage from 'components/atomic/LV3/Space/SendMessage';
+import Footer from 'components/atomic/LV2/Footer';
+import LoadingPage from 'components/atomic/LV3/LoadingPage';
 
 import type { SpaceType } from 'types/Space';
 

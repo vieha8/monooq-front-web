@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Height as HeaderHeight } from 'components/atomic/organisms/Header';
+import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
 
 const Content = styled.div`
   margin-top: ${HeaderHeight}px;

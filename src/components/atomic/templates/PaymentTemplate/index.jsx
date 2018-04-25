@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ClearfixContainer from 'components/atomic/atoms/ClearfixContainer';
+import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
 import Page from '../Page';
 
 const LeftContent = styled.div`
