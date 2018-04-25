@@ -179,7 +179,7 @@ class InboxContainer extends Component<PropTypes, State> {
             onChangeText={this.handleChangeText}
             text={text}
             pickedImage={(image || {}).preview}
-            buttonDisabled={text === ''}
+            buttonDisabled={text === '' && !image}
             onClickSend={this.sendMessage}
           />
         }

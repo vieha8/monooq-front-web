@@ -9,6 +9,7 @@ import { Colors } from 'variables';
 import { Section } from './Shared';
 
 type PropTypes = {
+  edit: boolean,
   price: number,
   priceErrors: Array<string>,
   onChangePrice: Function,
@@ -54,7 +55,7 @@ export default (props: PropTypes) => (
           onClick: props.onClickBack,
         }}
         enabledButton={{
-          text: '登録を完了する',
+          text: `${props.edit ? '編集' : '登録'}を完了する`,
           onClick: props.onClickNext,
         }}
       />

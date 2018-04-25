@@ -152,6 +152,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
         header={<Header />}
         leftContent={
           <EditSpaceInputPriceAll
+            edit={space.ID}
             price={PriceFull}
             priceErrors={error.price}
             onChangePrice={v => this.handleChangeUI('PriceFull', v)}
