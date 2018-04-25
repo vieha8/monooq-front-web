@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import ServiceMenu from 'components/atomic/LV3/ServiceMenu';
 import Path from 'config/path';
 
-import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
 
 import connect from '../connect';
