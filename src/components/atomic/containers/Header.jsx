@@ -31,6 +31,12 @@ class HeaderContainer extends Component<PropTypes> {
     };
   }
 
+  componentWillUnmount() {
+    if (document && document.body) {
+      document.body.style.overflowY = 'auto';
+    }
+  }
+
   onClickSearch: Function;
   onClickSearch = () => {
     const { location, showSearchField } = this.state;

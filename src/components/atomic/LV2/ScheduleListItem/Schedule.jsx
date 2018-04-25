@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -59,9 +58,7 @@ export default (props: PropTypes) => (
         {props.hostIsMySelf ? 'ユーザー' : 'ホスト'}は{props.opponentName}さん
       </UserName>
       <SpaceWrapper>
-        <Link to={props.space.href}>
-          <PlaceListHorizonItem {...props.space} />
-        </Link>
+        <PlaceListHorizonItem {...props.space} />
       </SpaceWrapper>
     </SpaceContainer>
     <ScheduleWrapper>
