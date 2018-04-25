@@ -1,13 +1,18 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 import { H1, H2 } from 'components/atomic/LV1/Headline';
 import Check from 'components/atomic/LV1/Check';
 import InlineText from 'components/atomic/LV1/InlineText';
 import InputForm from 'components/atomic/LV2/InputForm';
 import EntryButtons from 'components/atomic/LV2/EntryButtons';
-import { Colors } from 'variables';
+import { Colors, Dimens } from 'variables';
 import { Section } from './Shared';
+
+const CheckWrapper = styled.div`
+  margin-top: ${Dimens.medium}px;
+`;
 
 type PropTypes = {
   baggage: string,
@@ -47,9 +52,11 @@ export default (props: PropTypes) => (
         onChange={e => props.onChangeBaggage(e.target.value)}
       />
       {displayErrors('baggage_errors', props.baggageErrors)}
-      <Check checked={props.checkedFurniture} onClick={props.onClickFurniture}>
-        家具や家電製品に対応する
-      </Check>
+      <CheckWrapper>
+        <Check checked={props.checkedFurniture} onClick={props.onClickFurniture}>
+          家具や家電製品に対応する
+        </Check>
+      </CheckWrapper>
     </Section>
     <Section>
       <EntryButtons
