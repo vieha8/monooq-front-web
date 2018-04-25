@@ -43,6 +43,11 @@ type State = {
 };
 
 const SPACE_TYPES = ['', 'クローゼット', '押入れ', '部屋', '屋外倉庫', 'その他'];
+const ReceiptType = {
+  Both: 1,
+  Meeting: 2,
+  Delivery: 3,
+};
 
 class SpaceContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
@@ -119,8 +124,12 @@ class SpaceContainer extends Component<PropTypes, State> {
             type={SPACE_TYPES[space.Type]}
             furniture={space.IsFurniture}
             aboutBaggage={space.About}
-            delivery
-            meeting
+            delivery={
+              space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Meeting
+            }
+            meeting={
+              space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Delivery
+            }
             supplement={space.ReceiptAbout}
             user={{
               id: space.Host.ID,

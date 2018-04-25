@@ -31,7 +31,11 @@ const Base = styled.span`
     text-overflow: ellipsis;
   `};
   ${media.phone`
-    font-size: ${props => props.fontSizeSp || 16}px;
+    ${props =>
+      props.fontSizeSp &&
+      css`
+        font-size: ${props.fontSizeSp}px;
+      `}
   `};
 `;
 
