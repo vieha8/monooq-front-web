@@ -27,9 +27,9 @@ type PropTypes = {
   content: string,
   furniture?: boolean,
   prices: Array<number>,
-  onClickSpace: Function,
   onClickEdit: Function,
   onClickRemove: Function,
+  link: string,
 };
 
 export default (props: PropTypes) => (
@@ -41,7 +41,7 @@ export default (props: PropTypes) => (
         content={props.content}
         furniture={props.furniture}
         prices={props.prices}
-        onClick={props.onClickSpace}
+        href={props.link}
       />
     </Cell>
     <Cell>

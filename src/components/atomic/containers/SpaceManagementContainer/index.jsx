@@ -11,6 +11,7 @@ import { uiActions } from 'redux/modules/ui';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
+import InlineText from 'components/atomic/LV1/InlineText';
 import Footer from 'components/atomic/LV2/Footer';
 import ManageSpaceList from 'components/atomic/LV3/ManageSpaceList';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
@@ -56,14 +57,12 @@ class SpaceManagementContainer extends Component<PropTypes> {
     history.push(Path.createSpaceInfo());
   };
 
-  showSpace: Function;
-  showSpace = (id: number) => {
-    const { history } = this.props;
-    history.push(Path.space(id));
-  };
-
   render() {
     const { isLoading, spaces } = this.props;
+
+    if (isLoading) {
+      return <LoadingPage />;
+    }
 
     return (
       <div>
@@ -73,30 +72,33 @@ class SpaceManagementContainer extends Component<PropTypes> {
           caption="登録しているスペースの管理をします"
           leftContent={<ServiceMenu />}
           rightContent={
-            <ManageSpaceList
-              spaces={spaces.map(space => ({
-                image: {
-                  src: (space.Images[0] || {}).ImageUrl,
-                  alt: '',
-                },
-                address: `${space.Address}`,
-                content: space.Title,
-                furniture: space.IsFurniture,
-                prices: [
-                  numeral(space.PriceFull).format('0,0'),
-                  numeral(space.PriceHalf).format('0,0'),
-                  numeral(space.PriceQuarter).format('0,0'),
-                ],
-                onClickSpace: () => this.showSpace(space.ID),
-                onClickEdit: () => this.onClickEdit(space),
-                onClickRemove: () => this.onClickRemove(space),
-              }))}
-              onClickHostEntry={this.hostEntry}
-            />
+            Array.isArray(spaces) && spaces.length > 0 ? (
+              <ManageSpaceList
+                spaces={spaces.map(space => ({
+                  image: {
+                    src: (space.Images[0] || {}).ImageUrl,
+                    alt: '',
+                  },
+                  address: `${space.Address}`,
+                  content: space.Title,
+                  furniture: space.IsFurniture,
+                  prices: [
+                    numeral(space.PriceFull).format('0,0'),
+                    numeral(space.PriceHalf).format('0,0'),
+                    numeral(space.PriceQuarter).format('0,0'),
+                  ],
+                  link: Path.space(space.ID),
+                  onClickEdit: () => this.onClickEdit(space),
+                  onClickRemove: () => this.onClickRemove(space),
+                }))}
+                onClickHostEntry={this.hostEntry}
+              />
+            ) : (
+              <InlineText.Base>スペースはありません。スペースを登録しましょう。</InlineText.Base>
+            )
           }
           footer={<Footer />}
         />
-        {isLoading && <LoadingPage />}
       </div>
     );
   }

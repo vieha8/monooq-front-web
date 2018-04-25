@@ -41,9 +41,9 @@ type PropTypes = {
     content: string,
     furniture?: boolean,
     prices: Array<number>,
-    onClickSpace: Function,
     onClickEdit: Function,
     onClickRemove: Function,
+    link: string,
   }>,
   onClickHostEntry: Function,
 };
