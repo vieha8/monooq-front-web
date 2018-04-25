@@ -3,6 +3,7 @@ import { Container, PageContent } from './Shared';
 import Header from '../shared/Header';
 import Title from '../shared/Title';
 import Button, { ButtonsContainer } from '../shared/Button';
+import GoogleTagManager from 'components/GTM';
 
 const title = (isEdit) => isEdit ? '編集': '登録';
 
@@ -43,6 +44,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
             </ButtonsContainer>
             : null}
         </PageContent>
+        <GoogleTagManager event="spaceRegistered" />
       </Container>
     );
   }
