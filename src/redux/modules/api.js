@@ -83,7 +83,7 @@ function* getRequest({ payload: { path, params } }) {
   });
   if (status !== 200) {
     if (status === 404) {
-      store.dispatch(push(Path.notFound()));
+      // store.dispatch(push(Path.notFound()));
     } else {
       store.dispatch(push(Path.error(status)));
     }
