@@ -73,6 +73,7 @@ const AboutCancellContent = (props) => {
     border-right: 1px solid ${Colors.borderGray};
     border-left: 1px solid ${Colors.borderGray};
     border-bottom: 1px solid ${Colors.borderGray};
+    box-sizing: border-box;
     :nth-child(odd){
         background-color: ${Colors.lightGray1Bg};
     }
