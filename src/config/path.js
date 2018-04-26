@@ -72,6 +72,7 @@ export default {
   insurance: () => '/insurance',
   rule: () => '/rule',
   maintenance: () => '/maintenance',
+  notFound: () => '/notfound',
   error: (status = ':status') => `/error/${status}`,
   cancellationPolicies: () => '/cancellationPolicies',
   asct: () => '/asct',

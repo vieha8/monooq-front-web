@@ -66,6 +66,7 @@ export const routes = [
   { path: Path.insurance(), component: Insurance },
   { path: Path.rule(), component: Rule },
   { path: Path.maintenance(), component: Maintenance },
+  { path: Path.notFound(), component: NotFound },
   { path: Path.error(), component: Error },
   { path: Path.cancellationPolicies(), component: CancellationPolicies },
   { path: Path.asct(), component: Asct },
