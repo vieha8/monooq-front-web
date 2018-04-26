@@ -46,6 +46,7 @@ export const messagesReducer = handleActions(
     [FETCH_MESSAGES_END]: (state, action) => ({
       ...state,
       isLoading: false,
+      messages: action.payload.messages,
       room: action.payload.room,
     }),
     [UPDATE_MESSAGE]: (state, action) => ({

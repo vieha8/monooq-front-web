@@ -45,6 +45,7 @@ const initialState = {
   payment: {
     isSending: false,
     isSuccess: false,
+    isFailed: false,
   },
 };
 
@@ -64,15 +65,15 @@ export const requestReducer = handleActions(
     }),
     [PAYMENT]: state => ({
       ...state,
-      payment: { isSending: true, isSuccess: false },
+      payment: { isSending: true, isSuccess: false, isFailed: false },
     }),
     [PAYMENT_SUCCESS]: state => ({
       ...state,
-      payment: { isSending: false, isSuccess: true },
+      payment: { isSending: false, isSuccess: true, isFailed: false },
     }),
     [PAYMENT_FAILED]: state => ({
       ...state,
-      payment: { isSending: false, isSuccess: false },
+      payment: { isSending: false, isSuccess: false, isFailed: true },
     }),
     [FETCH_SCHEDULE]: state => ({
       ...state,
@@ -179,6 +180,11 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
       expiration_year: parseInt(card.year, 10),
     },
   });
+
+  if (!token) {
+    yield put(requestActions.paymentFailed());
+    return;
+  }
 
   yield put(
     apiActions.apiPostRequest({

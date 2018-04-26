@@ -241,9 +241,9 @@ const mapStateToProps = state =>
     room: state.messages.room,
     messages: state.messages.messages,
     isLoading: state.messages.isLoading,
-    isPaymentFailed: state.api.error,
     isSending: state.request.payment.isSending,
     isPaymentSuccess: state.request.payment.isSuccess,
+    isPaymentFailed: state.request.payment.isFailed,
   });
 
 export default connect(PaymentContainer, mapStateToProps);
