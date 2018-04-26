@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 
 import { userActions } from 'redux/modules/user';
-import { uiActions } from 'redux/modules/ui';
 
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
@@ -22,15 +21,6 @@ type PropTypes = {
   user: {
     ID: number,
   },
-  ui: {
-    editProfile: {
-      name: string,
-      email: string,
-      prefCode: string,
-      profile: string,
-      imageUri: string,
-    },
-  },
   isLoading: boolean,
   updateSuccess: boolean,
 };
@@ -46,18 +36,44 @@ class ProfileContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
+    const { dispatch, user } = this.props;
+
     checkLogin(this.props);
+
+    dispatch(userActions.prepareUpdateUser());
+
+    this.state = {
+      imageUri: user.ImageUrl,
+      name: user.Name,
+      email: user.Email,
+      prefCode: user.PrefCode,
+      profile: user.Profile,
+    };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.user.ID && nextProps.user.ID) {
+      const user = nextProps.user;
+      this.setState({
+        imageUri: user.ImageUrl,
+        name: user.Name,
+        email: user.Email,
+        prefCode: user.PrefCode,
+        profile: user.Profile,
+      });
+    }
+  }
+
+  onClickUpdate: Function;
   onClickUpdate = () => {
-    const { user, ui } = this.props;
-    const { name, email, prefCode, profile } = ui;
+    const { user } = this.props;
+    const { name, email, prefCode, profile } = this.state;
 
     this.setState({ hasChanged: false, errors: {} });
 
     if (this.validate()) {
       const { dispatch } = this.props;
-      dispatch(userActions.updateUser({ userId: user.ID, body: ui.editProfile }));
+      dispatch(userActions.updateUser({ userId: user.ID, body: this.state }));
       return;
     }
 
@@ -82,17 +98,16 @@ class ProfileContainer extends Component<PropTypes> {
     this.setState({ errors });
   };
 
+  handleChangeUI: Function;
   handleChangeUI = (propsName: string, value) => {
-    const { dispatch, ui } = this.props;
-    const nextUI = Object.assign({}, ui);
-    nextUI.editProfile[propsName] = value;
-    dispatch(uiActions.setUiState(nextUI));
+    const state = this.state;
+    state[propsName] = value;
+    this.setState(state);
   };
 
   validate: Function;
   validate = () => {
-    const { ui } = this.props;
-    const { name, email, prefCode, profile } = ui.editProfile;
+    const { name, email, prefCode, profile } = this.state;
 
     return (
       name &&
@@ -112,13 +127,13 @@ class ProfileContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { updateSuccess, isLoading, user, ui } = this.props;
+    const { updateSuccess, isChecking, isLoading, user } = this.props;
 
-    if (!ui.editProfile) {
+    if (isChecking) {
       return <LoadingPage />;
     }
 
-    const { imageUri, name, email, prefCode, profile } = ui.editProfile;
+    const { imageUri, name, email, prefCode, profile } = this.state;
 
     return (
       <MenuPageTemplate
@@ -152,28 +167,11 @@ class ProfileContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state => {
-  let editProfile = state.ui.editProfile;
-
-  if (!editProfile && state.auth.user.Name) {
-    const user = state.auth.user;
-    editProfile = {
-      imageUri: user.ImageUrl,
-      name: user.Name,
-      email: user.Email,
-      prefCode: user.PrefCode,
-      profile: user.Profile,
-    };
-  }
-
-  return mergeAuthProps(state, {
-    ui: {
-      editProfile,
-    },
-    user: state.auth.user,
+const mapStateToProps = state =>
+  mergeAuthProps(state, {
+    user: state.auth.user || {},
     updateSuccess: state.user.updateSuccess,
     isLoading: state.user.isLoading,
   });
-};
 
 export default connect(ProfileContainer, mapStateToProps);
