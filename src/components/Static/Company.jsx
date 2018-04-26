@@ -2,21 +2,26 @@ import React, { Fragment } from 'react';
 import Path from 'config/path';
 
 import styled from 'styled-components';
+import { FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
 
 const MainTitle = styled.div`
-  font-size: 34px;
-  line-height: 51px;
+  font-size: ${FontSizes.xlarge}px;
+  line-height: ${FontSizes.xlarge * 1.5}px;
   ${media.phone`
-    font-size: 1.5em;
-    line-height: 1.5em;
+    font-size: 7.5vw;
+    line-height: ${7.5 * 1.5}vw;
   `};
 `;
 
 const Text = styled.div`
-  font-size: 16px;
-  line-height: 32px;
+  font-size: ${FontSizes.medium}px;
+  line-height: ${FontSizes.medium * 2}px;
+  ${media.phone`
+    font-size: 5vw;
+    line-height: 7.5vw;
+  `};
 `;
 
 const MainTitleContainer = DefaultContainer.extend`
@@ -60,8 +65,8 @@ const StyledDetailContent = styled(DetailContent) `
   flex-wrap: wrap;
   justify-content: flex-start;
   line-height: 50px;
-  font-size: 16px;
-  border-bottom: 1px solid #DBDBDB;
+  font-size: ${FontSizes.medium}px;
+  border-bottom: 1px solid ${Colors.borderGray};
 `;
 
 const InterviewContainer = DefaultContainer.extend`
@@ -84,12 +89,13 @@ const NewsContent = (props) => {
     margin-right: 8px;
   `;
   const Label = styled.span`
-    color: #E85258;
+    color: ${Colors.brandPrimary};
     font-weight: bold;
   `;
   const LabelContainer = styled.div`
-    font-size: 14px;
-    line-height: 28px;
+    font-size: ${FontSizes.small}px;
+    line-height: ${FontSizes.small * 2}px;
+    margin-bottom: 4px;
   `;
 
   const text = props.link ? (
@@ -110,8 +116,8 @@ const NewsContent = (props) => {
 
 const StyledNewsContent = styled(NewsContent) `
   width: 100%;
-  border-bottom: 1px solid #DBDBDB;
-  padding-bottom: 20px;
+  border-bottom: 1px solid ${Colors.borderGray};
+  padding-bottom: 16px;
   margin-bottom: 20px;
 `;
 
