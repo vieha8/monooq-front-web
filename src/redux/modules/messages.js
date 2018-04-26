@@ -46,7 +46,6 @@ export const messagesReducer = handleActions(
     [FETCH_MESSAGES_END]: (state, action) => ({
       ...state,
       isLoading: false,
-      messages: action.payload.messages,
       room: action.payload.room,
     }),
     [UPDATE_MESSAGE]: (state, action) => ({
@@ -100,6 +99,7 @@ function* fetchMessagesStart({ payload }) {
   });
 
   const { userId1, userId2, spaceId } = room;
+
   const partnerUserId = user.ID === userId1 ? userId2 : userId1;
 
   yield put(userActions.fetchUser({ userId: partnerUserId }));
