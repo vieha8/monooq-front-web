@@ -9,6 +9,7 @@ import { requestActions } from 'redux/modules/request';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
+import InlineText from 'components/atomic/LV1/InlineText';
 import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import ScheduleList from 'components/atomic/LV3/ScheduleList';
@@ -56,6 +57,15 @@ class ScheduleContainer extends Component {
 
     const { isLoading, schedule } = this.props;
 
+    if (isLoading) {
+      return <LoadingPage />;
+    }
+
+    const schedules = [].concat(
+      ((schedule || {}).user || []).map(s => this.getScheduleProps(s, false)),
+      ((schedule || {}).host || []).map(s => this.getScheduleProps(s, true)),
+    );
+
     return (
       <div>
         <MenuPageTemplate
@@ -63,16 +73,14 @@ class ScheduleContainer extends Component {
           headline="スケジュール"
           leftContent={<ServiceMenu />}
           rightContent={
-            <ScheduleList
-              schedules={[].concat(
-                ((schedule || {}).user || []).map(s => this.getScheduleProps(s, false)),
-                ((schedule || {}).host || []).map(s => this.getScheduleProps(s, true)),
-              )}
-            />
+            Array.isArray(schedules) && schedules.length > 0 ? (
+              <ScheduleList schedules={schedules} />
+            ) : (
+              <InlineText.Base>スケジュールはありません。</InlineText.Base>
+            )
           }
           footer={<Footer />}
         />
-        {isLoading && <LoadingPage />}
       </div>
     );
   }
