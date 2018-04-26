@@ -15,6 +15,15 @@ const MainTitle = styled.div`
   `};
 `;
 
+const SubTitle = styled.div`
+  font-size: ${FontSizes.medium3}px;
+  line-height: ${FontSizes.medium3 * 1.5}px;
+  ${media.phone`
+    font-size: 6.5vw;
+    line-height: ${6.5 * 1.5}vw;
+  `};
+`;
+
 const Text = styled.div`
   font-size: ${FontSizes.medium}px;
   line-height: ${FontSizes.medium * 2}px;
@@ -24,7 +33,7 @@ const Text = styled.div`
   `};
 `;
 
-const MainTitleContainer = DefaultContainer.extend`
+const TitleContainer = DefaultContainer.extend`
   margin-top: 80px;
   margin-bottom: 44px;
   ${media.phone`
@@ -38,36 +47,33 @@ const DetailContainer = DefaultContainer.extend`
 `;
 
 const DetailContent = (props) => {
-  const Header = styled.div`
+  const ContentContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    border-bottom: 1px solid ${Colors.borderGray};
+    box-sizing: border-box;
+    padding: 20px 0;
+  `;
+  const Header = styled(Text)`
     width: 150px;
     font-weight: bold;
     margin-right: 20px;
+    margin-bottom: 8px;
     ${media.phone`
       width: 100%;
     `};
   `;
-  const Data = styled.div`
-    ${media.phone`
-      line-height: 30px;
-    `};
+  const Data = styled(Text)`
   `;
   return (
-    <div className={props.className}>
+    <ContentContainer>
       <Header>{props.header}</Header>
       <Data>{props.data}</Data>
-    </div>
+    </ContentContainer>
   );
 };
-
-const StyledDetailContent = styled(DetailContent) `
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  line-height: 50px;
-  font-size: ${FontSizes.medium}px;
-  border-bottom: 1px solid ${Colors.borderGray};
-`;
 
 const InterviewContainer = DefaultContainer.extend`
   margin-bottom: 50px;
@@ -85,6 +91,12 @@ const NewsContainer = DefaultContainer.extend`
 `;
 
 const NewsContent = (props) => {
+  const ContentContainer = styled.div`
+    width: 100%;
+    border-bottom: 1px solid ${Colors.borderGray};
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  `;
   const Date = styled.span`
     margin-right: 8px;
   `;
@@ -92,9 +104,7 @@ const NewsContent = (props) => {
     color: ${Colors.brandPrimary};
     font-weight: bold;
   `;
-  const LabelContainer = styled.div`
-    font-size: ${FontSizes.small}px;
-    line-height: ${FontSizes.small * 2}px;
+  const LabelContainer = styled(Text)`
     margin-bottom: 4px;
   `;
 
@@ -104,22 +114,15 @@ const NewsContent = (props) => {
     </a>
   ) : (<Text>{props.text}</Text>);
   return (
-    <div className={props.className}>
+    <ContentContainer>
       <LabelContainer>
         <Date>{props.date}</Date>
         <Label>{props.label}</Label>
       </LabelContainer>
       {text}
-    </div>
+    </ContentContainer>
   );
 };
-
-const StyledNewsContent = styled(NewsContent) `
-  width: 100%;
-  border-bottom: 1px solid ${Colors.borderGray};
-  padding-bottom: 16px;
-  margin-bottom: 20px;
-`;
 
 const news = [
   '2018/03/26,個人間の物置きシェアサービス「モノオク」をフルリニューアルしました。,プレスリリース,https://prtimes.jp/main/html/rd/p/000000014.000024093.html',
@@ -157,9 +160,9 @@ const news = [
 
 export default () => (
   <Fragment>
-    <MainTitleContainer>
+    <TitleContainer>
       <MainTitle>会社概要</MainTitle>
-    </MainTitleContainer>
+    </TitleContainer>
 
     <DetailContainer>
       {[
@@ -200,7 +203,7 @@ export default () => (
           data: <a href={Path.top()}>https://monooq.com/</a>,
         },
       ].map((v, i) => (
-        <StyledDetailContent
+        <DetailContent
           key={i}
           header={v.header}
           data={v.data}
@@ -208,24 +211,24 @@ export default () => (
       ))}
     </DetailContainer>
 
-    <MainTitleContainer>
-      <MainTitle>取材に関するお問い合わせ</MainTitle>
-    </MainTitleContainer>
+    <TitleContainer>
+      <SubTitle>取材に関するお問い合わせ</SubTitle>
+    </TitleContainer>
 
     <InterviewContainer>
       <Text>提携、取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。</Text>
       <Text><Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor></Text>
     </InterviewContainer>
 
-    <MainTitleContainer>
-      <MainTitle>お知らせ</MainTitle>
-    </MainTitleContainer>
+    <TitleContainer>
+      <SubTitle>お知らせ</SubTitle>
+    </TitleContainer>
 
     <NewsContainer>
       {news.map((v, i) => {
         const item = v.split(',');
         return (
-          <StyledNewsContent
+          <NewsContent
             key={i}
             date={item[0]}
             text={item[1]}
