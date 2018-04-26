@@ -95,7 +95,9 @@ function* fetchMessagesStart({ payload }) {
   messageObserver.onSnapshot(snapshot => {
     if (snapshot.docChanges.length === 1) {
       const message = snapshot.docChanges[0].doc.data();
-      store.dispatch(messagesActions.updateMessage(message));
+      if (snapshot.size > 1) {
+        store.dispatch(messagesActions.updateMessage(message));
+      }
     }
   });
 
