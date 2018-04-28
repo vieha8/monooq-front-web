@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import numeral from 'numeral';
 import Card from 'components/atomic/LV1/Card';
 import HeroImage from 'components/atomic/LV1/HeroImage';
 import InlineText from 'components/atomic/LV1/InlineText';
@@ -70,9 +71,9 @@ export default (props: PropTypes) => (
         </Row>
         <Row marginTop={Dimens.small}>
           <InlineText.Base noWrap>
-            {`${props.priceFull}${props.priceHalf > 0 ? `/ ${props.priceHalf}` : ''}${
-              props.priceQuarter > 0 ? `/ ${props.priceQuarter}` : ''
-            }`}円
+            {`${numeral(props.priceFull).format('0,0')}${
+              props.priceHalf > 0 ? `/ ${numeral(props.priceHalf).format('0,0')}` : ''
+            }${props.priceQuarter > 0 ? `/ ${numeral(props.priceQuarter).format('0,0')}` : ''}`}円
           </InlineText.Base>
         </Row>
       </Content>
