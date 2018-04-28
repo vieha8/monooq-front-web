@@ -157,7 +157,9 @@ export default (props: PropTypes) => (
       </div>
     </Row>
     <Row alignRight>
-      <TextLink to={Path.cancellationPolicies()}>キャンセルについて</TextLink>
+      <TextLink to={Path.cancellationPolicies()} target="_blank">
+        キャンセルについて
+      </TextLink>
     </Row>
     <Row>
       <Button
