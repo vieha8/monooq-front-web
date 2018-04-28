@@ -13,6 +13,7 @@ storiesOf('Molecules/InboxItem', module)
       <InboxItem
         image="http://placehold.jp/500x500.png"
         name="モノオク太郎さん"
+        spaceName="ほげほげスペース"
         receivedAt={new Date()}
       />
     </div>

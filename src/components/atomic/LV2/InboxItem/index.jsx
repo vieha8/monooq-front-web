@@ -33,6 +33,7 @@ export type PropTypes = {
   link: string,
   image: string,
   name: string,
+  spaceName?: string,
   receivedAt: string | Date | moment,
 };
 
@@ -46,6 +47,11 @@ export default (props: PropTypes) => (
         <div>
           <InlineText.Base singleLine>{props.name}</InlineText.Base>
         </div>
+        {/* <div>
+          <InlineText.Small color={Colors.lightGray1} singleLine>
+            <i className="far fa-map-marker-alt" /> {props.spaceName}
+          </InlineText.Small>
+        </div> */}
         <div>
           <InlineText.Small color={Colors.lightGray1}>
             <i className="far fa-clock" /> {moment(props.receivedAt).format('YYYY/MM/DD kk:mm:ss')}
