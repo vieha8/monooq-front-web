@@ -1,18 +1,19 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, call, select } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
+import axios from 'axios';
 import { apiActions, apiEndpoint } from './api';
 import { store } from '../store/configureStore';
-import { push } from 'react-router-redux';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import Path from '../../config/path';
 import { userActions } from './user';
-import axios from 'axios';
 import { authActions } from './auth';
 
 import dummySpaceImage from 'images/dummy_space.png';
 
 // Actions
+const CLEAR_SPACE = 'CLEAR_SPACE';
 const FETCH_SPACE = 'FETCH_SPACE';
 const FETCH_SUCCESS_SPACE = 'FETCH_SUCCESS_SPACE';
 const FETCH_FAILED_SPACE = 'FETCH_FAILED_SPACE';
@@ -27,6 +28,7 @@ const DELETE_SPACE = 'DELETE_SPACE';
 const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
 
 export const spaceActions = createActions(
+  CLEAR_SPACE,
   FETCH_SPACE,
   FETCH_SUCCESS_SPACE,
   FETCH_FAILED_SPACE,
@@ -50,6 +52,10 @@ const initialState = {
 
 export const spaceReducer = handleActions(
   {
+    [CLEAR_SPACE]: state => ({
+      ...state,
+      space: {},
+    }),
     [FETCH_SPACE]: state => ({
       ...state,
       isLoading: true,
