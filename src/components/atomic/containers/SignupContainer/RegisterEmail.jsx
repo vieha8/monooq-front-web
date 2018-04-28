@@ -102,9 +102,8 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const { isRegisting } = this.props;
+    const { isRegisting, isSignupFailed } = this.props;
     const { email, password, passwordConfirm, hasChanged, errors } = this.state;
-
     return (
       <RegisterEmail
         onClickNext={this.onClickNext}
@@ -119,6 +118,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
         passwordConfirm={passwordConfirm}
         passConfirmError={(!hasChanged && errors.passwordConfirm) || []}
         isRegisterChecking={isRegisting}
+        signUpError={isSignupFailed}
       />
     );
   }

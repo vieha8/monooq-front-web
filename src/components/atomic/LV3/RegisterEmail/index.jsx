@@ -31,6 +31,7 @@ type PropTypes = {
   passConfirmError: Array<string>,
   buttonDisabled: boolean,
   isRegisterChecking: boolean,
+  signUpError: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -108,6 +109,13 @@ export default (props: PropTypes) => (
       <Button facebook center onClick={props.onClickFacebook} loading={props.isRegisterChecking}>
         Facebookで登録
       </Button>
+    }
+    signUpError={
+      props.signUpError ? (
+        <InlineText.Small color={Colors.error}>
+          すでに登録済みのメールアドレスです。
+        </InlineText.Small>
+      ) : null
     }
     toLogin={<TextLink to={Path.login()}>ログインはこちら</TextLink>}
   />
