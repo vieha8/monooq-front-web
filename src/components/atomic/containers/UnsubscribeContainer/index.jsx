@@ -82,7 +82,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
     }
 
     const errors = {};
-    if (!reasonType) {
+    if (reasonType.length === 0) {
       errors.reasonType = [].concat(errors.reasonType, [ErrorMessage.PleaseSelect]);
     }
 
@@ -143,6 +143,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="退会の理由"
+        caption="モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。"
         leftContent={<ServiceMenu />}
         rightContent={
           <Unsubscribe
