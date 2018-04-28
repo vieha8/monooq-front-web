@@ -90,7 +90,6 @@ class LoginContainer extends Component {
               email={email}
               password={password}
               loginFailed={loginFailed && !hasChanged && !isChecking}
-              buttonDisabled={!this.validate()}
               isLoginChecking={isChecking}
             />
           }
