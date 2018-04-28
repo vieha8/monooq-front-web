@@ -69,12 +69,10 @@ export default (props: PropTypes) => (
           <InlineText.Base>料金目安</InlineText.Base>
         </Row>
         <Row marginTop={Dimens.small}>
-          <InlineText.Base>
-            {`
-              ${props.priceFull}
-              ${props.priceHalf > 0 ? `/ ${props.priceHalf}` : ''}
-              ${props.priceQuarter > 0 ? `/ ${props.priceQuarter}` : ''}
-            `}円
+          <InlineText.Base noWrap>
+            {`${props.priceFull}${props.priceHalf > 0 ? `/ ${props.priceHalf}` : ''}${
+              props.priceQuarter > 0 ? `/ ${props.priceQuarter}` : ''
+            }`}円
           </InlineText.Base>
         </Row>
       </Content>
