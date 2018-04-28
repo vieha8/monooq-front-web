@@ -111,7 +111,7 @@ class HeaderContainer extends Component<PropTypes> {
         messageUri={Path.messages()}
         messageCount={0}
         user={
-          isLogin && user.Name
+          isLogin
             ? {
                 image: user.ImageUrl,
               }
