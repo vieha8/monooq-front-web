@@ -143,6 +143,7 @@ type PropTypes = {
   user: {
     image: string,
   },
+  isCheckingLogin: boolean,
   loginUri: string,
   signupUri: string,
   onClickSearchIcon: Function,
@@ -166,66 +167,68 @@ export default (props: PropTypes) => {
         <LogoWrapper href={props.homeUri} hide={isFillSearchField}>
           {props.top || props.help ? <Logo.HeaderWhite /> : <Logo.Header />}
         </LogoWrapper>
-        <ActionWrapper fill={isFillSearchField}>
-          {props.user ? (
-            <ActionContainer>
-              <SearchFiledCell fill={isFillSearchField}>
-                <AnimateSearchInputField
-                  iconRight
-                  iconColor={(props.top || props.help) && Colors.white}
-                  placeholder="どこの物置きを探す？"
-                  show={props.showSearchField}
-                  onClickIcon={props.onClickSearchIcon}
-                  onKeyDownInputField={props.onKeyDownSearch}
-                  onChange={props.onChangeSearchField}
-                />
-              </SearchFiledCell>
-              <ActionCell hide={!isFillSearchField}>
-                <CloseIconWrapper>
-                  <CloseIcon
-                    color={(props.top || props.help) && Colors.white}
-                    onClick={props.onClickCloseSearch}
+        {!props.isCheckingLogin && (
+          <ActionWrapper fill={isFillSearchField}>
+            {props.user ? (
+              <ActionContainer>
+                <SearchFiledCell fill={isFillSearchField}>
+                  <AnimateSearchInputField
+                    iconRight
+                    iconColor={(props.top || props.help) && Colors.white}
+                    placeholder="どこの物置きを探す？"
+                    show={props.showSearchField}
+                    onClickIcon={props.onClickSearchIcon}
+                    onKeyDownInputField={props.onKeyDownSearch}
+                    onChange={props.onChangeSearchField}
                   />
-                </CloseIconWrapper>
-              </ActionCell>
-              <ActionCell hide={isFillSearchField}>
-                <MessageIcon
-                  color={(props.top || props.help) && Colors.white}
-                  href={props.messageUri}
-                  notificationCount={props.messageCount}
-                />
-              </ActionCell>
-              <ActionCell hide={isFillSearchField}>
-                <AvatarIcon imageSrc={props.user.image} onClick={props.onClickAvatar} />
-              </ActionCell>
-            </ActionContainer>
-          ) : (
-            <ActionContainer>
-              <SearchFiledCell fill={isFillSearchField}>
-                <AnimateSearchInputField
-                  iconRight
-                  iconColor={(props.top || props.help) && Colors.white}
-                  placeholder="どこの物置きを探す？"
-                  show={props.showSearchField}
-                  onClickIcon={props.onClickSearchIcon}
-                  onKeyDownInputField={props.onKeyDownSearch}
-                  onChange={props.onChangeSearchField}
-                />
-              </SearchFiledCell>
-              <ActionCell hide={!isFillSearchField}>
-                <CloseIconWrapper>
-                  <CloseIcon
+                </SearchFiledCell>
+                <ActionCell hide={!isFillSearchField}>
+                  <CloseIconWrapper>
+                    <CloseIcon
+                      color={(props.top || props.help) && Colors.white}
+                      onClick={props.onClickCloseSearch}
+                    />
+                  </CloseIconWrapper>
+                </ActionCell>
+                <ActionCell hide={isFillSearchField}>
+                  <MessageIcon
                     color={(props.top || props.help) && Colors.white}
-                    onClick={props.onClickCloseSearch}
+                    href={props.messageUri}
+                    notificationCount={props.messageCount}
                   />
-                </CloseIconWrapper>
-              </ActionCell>
-              <AnonymouseWrapper hide={isFillSearchField}>
-                <Anonymouse loginUri={props.loginUri} signupUri={props.signupUri} />
-              </AnonymouseWrapper>
-            </ActionContainer>
-          )}
-        </ActionWrapper>
+                </ActionCell>
+                <ActionCell hide={isFillSearchField}>
+                  <AvatarIcon imageSrc={props.user.image} onClick={props.onClickAvatar} />
+                </ActionCell>
+              </ActionContainer>
+            ) : (
+              <ActionContainer>
+                <SearchFiledCell fill={isFillSearchField}>
+                  <AnimateSearchInputField
+                    iconRight
+                    iconColor={(props.top || props.help) && Colors.white}
+                    placeholder="どこの物置きを探す？"
+                    show={props.showSearchField}
+                    onClickIcon={props.onClickSearchIcon}
+                    onKeyDownInputField={props.onKeyDownSearch}
+                    onChange={props.onChangeSearchField}
+                  />
+                </SearchFiledCell>
+                <ActionCell hide={!isFillSearchField}>
+                  <CloseIconWrapper>
+                    <CloseIcon
+                      color={(props.top || props.help) && Colors.white}
+                      onClick={props.onClickCloseSearch}
+                    />
+                  </CloseIconWrapper>
+                </ActionCell>
+                <AnonymouseWrapper hide={isFillSearchField}>
+                  <Anonymouse loginUri={props.loginUri} signupUri={props.signupUri} />
+                </AnonymouseWrapper>
+              </ActionContainer>
+            )}
+          </ActionWrapper>
+        )}
       </Nav>
       {props.showMenu && (
         <Fragment>

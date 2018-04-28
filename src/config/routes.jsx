@@ -4,7 +4,6 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import Root from 'containers/Root';
 import Top from 'containers/Top';
-import Unsubscribe from 'containers/Unsubscribe';
 
 import About from 'containers/Static/About';
 import Insurance from 'containers/Static/Insurance';
@@ -59,9 +58,9 @@ export const routes = [
   { path: Path.editSpacePrice(undefined, 'about'), component: Containers.EditSpacePriceType },
   { path: Path.createSpaceCompletion(), component: Containers.EditSpaceCompletion },
   { path: Path.editSpaceCompletion(), component: Containers.EditSpaceCompletion },
+  { path: Path.unsubscribe(), component: Containers.Unsubscribe },
   // static pages
   { path: Path.top(), component: Top },
-  { path: Path.unsubscribe(), component: Unsubscribe },
   { path: Path.about(), component: About },
   { path: Path.insurance(), component: Insurance },
   { path: Path.rule(), component: Rule },

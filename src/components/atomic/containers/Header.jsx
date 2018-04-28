@@ -99,8 +99,6 @@ class HeaderContainer extends Component<PropTypes> {
   render() {
     const { isLogin, isChecking, user, top, help } = this.props;
 
-    if (isChecking) return null;
-
     const { showMenu, showSearchField } = this.state;
 
     return (

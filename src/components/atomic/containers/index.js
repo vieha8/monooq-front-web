@@ -21,6 +21,7 @@ import EditSpaceSize from './EditSpaceSizeContainer';
 import EditSpacePriceAll from './EditSpacePriceAllContainer';
 import EditSpacePriceType from './EditSpacePriceTypeContainer';
 import EditSpaceCompletion from './EditSpaceCompletionContainer';
+import Unsubscribe from './UnsubscribeContainer';
 
 export default {
   Login,
@@ -44,4 +45,5 @@ export default {
   EditSpacePriceAll,
   EditSpacePriceType,
   EditSpaceCompletion,
+  Unsubscribe,
 };

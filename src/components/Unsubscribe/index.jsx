@@ -51,7 +51,7 @@ export default props => (
           fluid
           selection
           multiple
-          placeholder="お選びください"
+          placeholder="選択してください"
           options={reasons}
           onChange={props.handleChangeReason}
           value={props.ui.reason || []}

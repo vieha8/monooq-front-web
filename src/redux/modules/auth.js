@@ -23,6 +23,8 @@ const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
 const TOKEN_GENERATE = 'TOKEN_GENERATE';
 const UNSUBSCRIBE = 'UNSUBSCRIBE';
+const UNSUBSCRIBE_SUCCESS = 'UNSUBSCRIBE_SUCCESS';
+const UNSUBSCRIBE_FAILED = 'UNSUBSCRIBE_FAILED';
 
 const CHECK_LOGIN = 'CHECK_LOGIN';
 const CHECK_LOGIN_SUCCESS = 'CHECK_LOGIN_SUCCESS';
@@ -50,6 +52,8 @@ export const authActions = createActions(
   TOKEN_GENERATE,
   SET_USER,
   UNSUBSCRIBE,
+  UNSUBSCRIBE_SUCCESS,
+  UNSUBSCRIBE_FAILED,
 );
 
 // Reducer
@@ -59,6 +63,9 @@ const initialState = {
   isRegisting: false,
   isResetTrying: false,
   isResetSuccess: false,
+  isUnsubscribeTrying: false,
+  isUnsubscribeSuccess: false,
+  isUnsubscribeFailed: false,
   user: {},
   error: '',
 };
@@ -145,6 +152,24 @@ export const authReducer = handleActions(
       isResetTrying: false,
       isResetSuccess: false,
       error: 'reset password failed',
+    }),
+    [UNSUBSCRIBE]: state => ({
+      ...state,
+      isUnsubscribeTrying: true,
+      isUnsubscribeSuccess: false,
+      isUnsubscribeFailed: false,
+    }),
+    [UNSUBSCRIBE_SUCCESS]: state => ({
+      ...state,
+      isUnsubscribeTrying: false,
+      isUnsubscribeSuccess: true,
+      isUnsubscribeFailed: false,
+    }),
+    [UNSUBSCRIBE_FAILED]: state => ({
+      ...state,
+      isUnsubscribeTrying: false,
+      isUnsubscribeSuccess: false,
+      isUnsubscribeFailed: true,
     }),
   },
   initialState,
@@ -312,7 +337,14 @@ function* unsubscribe({ payload: { userId, reason, description } }) {
       path: apiEndpoint.users(userId),
     }),
   );
-  yield put(authActions.logout());
+
+  const { error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(authActions.unsubscribeFailed(meta));
+    return;
+  }
+
+  yield put(authActions.unsubscribeSuccess());
 }
 
 export const authSagas = [
