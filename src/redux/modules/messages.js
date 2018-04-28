@@ -12,9 +12,12 @@ import { store } from '../store/configureStore';
 
 require('firebase/firestore');
 
+let messageObserverUnsubscribe = null;
+
 //Actions
 const FETCH_ROOMS_START = 'FETCH_ROOMS_START';
 const FETCH_ROOMS_END = 'FETCH_ROOMS_END';
+const FETCH_MESSAGES = 'FETCH_MESSAGES';
 const FETCH_MESSAGES_START = 'FETCH_MESSAGES_START';
 const FETCH_MESSAGES_END = 'FETCH_MESSAGES_END';
 const SEND_MESSAGE = 'SEND_MESSAGE';
@@ -23,6 +26,7 @@ const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 export const messagesActions = createActions(
   FETCH_ROOMS_START,
   FETCH_ROOMS_END,
+  FETCH_MESSAGES,
   FETCH_MESSAGES_START,
   FETCH_MESSAGES_END,
   SEND_MESSAGE,
@@ -42,7 +46,8 @@ export const messagesReducer = handleActions(
   {
     [FETCH_ROOMS_START]: state => ({ ...state, isLoading: true }),
     [FETCH_ROOMS_END]: (state, action) => ({ ...state, isLoading: false, rooms: action.payload }),
-    [FETCH_MESSAGES_START]: state => ({ ...state, isLoading: true }),
+    [FETCH_MESSAGES]: state => ({ ...state, messages: [], isLoading: true }),
+    [FETCH_MESSAGES_START]: state => ({ ...state, messages: [], isLoading: true }),
     [FETCH_MESSAGES_END]: (state, action) => ({
       ...state,
       isLoading: false,
@@ -51,7 +56,7 @@ export const messagesReducer = handleActions(
     }),
     [UPDATE_MESSAGE]: (state, action) => ({
       ...state,
-      messages: [...state.messages, action.payload],
+      messages: [].concat(state.messages, action.payload),
     }),
   },
   initialState,
@@ -83,7 +88,20 @@ function* fetchRoomStart() {
   yield put(messagesActions.fetchRoomsEnd(res));
 }
 
-function* fetchMessagesStart({ payload }) {
+function messagesUnsubscribe() {
+  if (messageObserverUnsubscribe) {
+    messageObserverUnsubscribe();
+    messageObserverUnsubscribe = null;
+  }
+}
+
+function* fetchMessages({ payload }) {
+  yield fetchMessagesStart({ payload, notObserver: true });
+}
+
+function* fetchMessagesStart({ payload, notObserver }) {
+  yield messagesUnsubscribe();
+
   let user = yield select(state => state.auth.user);
   if (!user.ID) {
     yield take(authActions.checkLoginSuccess);
@@ -92,14 +110,14 @@ function* fetchMessagesStart({ payload }) {
 
   const { messages, room, messageObserver } = yield getMessages(payload);
 
-  messageObserver.onSnapshot(snapshot => {
-    if (snapshot.docChanges.length === 1) {
-      const message = snapshot.docChanges[0].doc.data();
-      if (snapshot.size > 1) {
+  if (!notObserver) {
+    messageObserverUnsubscribe = messageObserver.onSnapshot(snapshot => {
+      if (snapshot.docChanges.length === 1) {
+        const message = snapshot.docChanges[0].doc.data();
         store.dispatch(messagesActions.updateMessage(message));
       }
-    }
-  });
+    });
+  }
 
   const { userId1, userId2, spaceId } = room;
 
@@ -273,6 +291,7 @@ const sendEmail = function*(payload) {
 export const messagesSagas = [
   takeEvery(FETCH_ROOMS_START, fetchRoomStart),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),
+  takeEvery(FETCH_MESSAGES, fetchMessages),
   takeEvery(SEND_MESSAGE, function*({ payload }) {
     yield sendMessage(payload);
     yield sendEmail(payload);

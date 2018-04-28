@@ -55,7 +55,7 @@ class PaymentContainer extends Component<PropTypes> {
 
     const { dispatch, match } = this.props;
     const roomId = match.params.message_room_id;
-    dispatch(messagesActions.fetchMessagesStart(roomId));
+    dispatch(messagesActions.fetchMessages(roomId));
 
     this.state = {
       name: '',

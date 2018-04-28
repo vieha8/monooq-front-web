@@ -25,23 +25,26 @@ const Sales = LabelContainer.extend`
 `;
 
 type PropTypes = {
-  salesAmount: string,
+  paid: boolean,
+  amount: string,
 };
 
 export default (props: PropTypes) => (
   <Container>
     <LabelContainer>
       <div>
-        <InlineText.Base>売上</InlineText.Base>
+        <InlineText.Base>{props.paid ? '料金' : '売上'}</InlineText.Base>
       </div>
-      <div>
-        <InlineText.EmphasisTiny>
-          サービス利用手数料を引いた金額が表示されています。
-        </InlineText.EmphasisTiny>
-      </div>
+      {!props.paid && (
+        <div>
+          <InlineText.EmphasisTiny>
+            サービス利用手数料を引いた金額が表示されています。
+          </InlineText.EmphasisTiny>
+        </div>
+      )}
     </LabelContainer>
     <Sales>
-      <InlineText.Base>{props.salesAmount} 円</InlineText.Base>
+      <InlineText.Base>{props.amount} 円</InlineText.Base>
     </Sales>
   </Container>
 );

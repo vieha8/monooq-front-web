@@ -79,7 +79,6 @@ const dateFormat = 'YYYY/MM/DD hh:mm:ss';
 
 export default (props: PropTypes) => {
   const { messages, hostUser } = props;
-
   // 自分がユーザーの場合は、初期メッセージを追加する
   const messageList = []
     .concat(

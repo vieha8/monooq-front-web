@@ -29,13 +29,13 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Fragment>
-    {props.hostIsMySelf && (
+    {props.schedule.hostIsMySelf && (
       <div>
         <InlineText.Small color={Colors.brandPrimary}>あなたがホストです</InlineText.Small>
       </div>
     )}
     <Schedule {...props.schedule} />
-    <Sales salesAmount={props.sales} />
+    <Sales paid={!props.schedule.hostIsMySelf} amount={props.sales} />
     <Operation roomId={props.roomId} />
   </Fragment>
 );

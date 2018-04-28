@@ -31,27 +31,26 @@ class ScheduleContainer extends Component {
     window.scrollTo(0, 0);
   }
 
-  getScheduleProps = (schedule: Object, isHost: boolean) => {
-    return {
-      schedule: {
-        hostIsMySelf: isHost,
-        opponentName: schedule.User.Name,
-        space: {
-          image: {
-            src: (schedule.Space.Images[0] || {}).ImageUrl,
-            alt: '',
-          },
-          address: schedule.Space.Address,
-          content: schedule.Space.Title,
-          href: Path.space(schedule.Space.ID),
+  getScheduleProps: Function;
+  getScheduleProps = (schedule: Object, isHost: boolean) => ({
+    schedule: {
+      hostIsMySelf: isHost,
+      opponentName: isHost ? schedule.User.Name : schedule.Space.Host.Name,
+      space: {
+        image: {
+          src: (schedule.Space.Images[0] || {}).ImageUrl,
+          alt: '',
         },
-        startDate: schedule.StartDate,
-        endDate: schedule.EndDate,
+        address: schedule.Space.Address,
+        content: schedule.Space.Title,
+        href: Path.space(schedule.Space.ID),
       },
-      sales: numeral(schedule.Price).format('0,0'),
-      roomId: '',
-    };
-  };
+      startDate: schedule.StartDate,
+      endDate: schedule.EndDate,
+    },
+    sales: numeral(schedule.Price).format('0,0'),
+    roomId: '',
+  });
 
   render() {
     const auth = checkAuthState(this.props);
