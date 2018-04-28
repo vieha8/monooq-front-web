@@ -48,7 +48,7 @@ export default (props: PropTypes) => (
         </div>
         <div>
           <InlineText.Small color={Colors.lightGray1}>
-            <i className="far fa-clock" /> {moment(props.receivedAt).format('YYYY/MM/DD hh:mm:ss')}
+            <i className="far fa-clock" /> {moment(props.receivedAt).format('YYYY/MM/DD kk:mm:ss')}
           </InlineText.Small>
         </div>
       </Cell>

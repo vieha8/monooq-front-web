@@ -61,11 +61,9 @@ export default (props: PropTypes) => (
         <Row marginTop={Dimens.small}>
           <InlineText.Base singleLine>{props.title}</InlineText.Base>
         </Row>
-        {props.isFurniture && (
-          <Row marginTop={Dimens.small}>
-            <InlineText.Bold>家具・家電OK</InlineText.Bold>
-          </Row>
-        )}
+        <Row marginTop={Dimens.small}>
+          <InlineText.Bold>{props.isFurniture ? '家具・家電OK' : ' '}</InlineText.Bold>
+        </Row>
         <Row marginTop={Dimens.small}>
           <InlineText.Base>料金目安</InlineText.Base>
         </Row>
