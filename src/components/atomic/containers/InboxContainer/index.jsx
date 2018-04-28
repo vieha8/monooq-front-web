@@ -40,6 +40,10 @@ class InboxContainer extends Component<PropTypes> {
     dispatch(messagesActions.fetchRoomsStart());
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     const auth = checkAuthState(this.props);
     if (auth) {

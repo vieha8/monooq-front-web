@@ -27,6 +27,10 @@ class ScheduleContainer extends Component {
     dispatch(requestActions.fetchSchedule());
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   getScheduleProps = (schedule: Object, isHost: boolean) => {
     return {
       schedule: {

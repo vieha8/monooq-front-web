@@ -58,6 +58,10 @@ class SearchResultContainer extends Component<PropTypes, State> {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onClickSpace: Function;
   onClickSpace = (space: { ID: number }) => {
     const { history } = this.props;

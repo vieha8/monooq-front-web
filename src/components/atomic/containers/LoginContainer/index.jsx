@@ -42,6 +42,11 @@ class LoginContainer extends Component {
   }
 
   state: State;
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   props: PropTypes;
 
   loginEmail = () => {

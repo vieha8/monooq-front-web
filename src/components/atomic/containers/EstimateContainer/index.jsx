@@ -36,6 +36,10 @@ class EstimateContainer extends Component<PropTypes> {
     this.state = {};
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onDateChange: Function;
   onDateChange = (name, date) => {
     const state = this.state;

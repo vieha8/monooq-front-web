@@ -43,6 +43,10 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onClickNext = () => {
     const { email, password, passwordConfirm } = this.state;
 

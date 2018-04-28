@@ -60,6 +60,10 @@ class InboxContainer extends Component<PropTypes, State> {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   handlePickImage: Function;
   handlePickImage = (image: File) => {
     this.setState({ image });

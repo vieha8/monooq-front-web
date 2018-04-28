@@ -36,6 +36,10 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onClickRegisterProfile = () => {
     const { dispatch, user } = this.props;
     const { image, name, prefCode, profile } = this.state;

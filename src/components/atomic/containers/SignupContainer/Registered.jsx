@@ -15,6 +15,10 @@ type PropTypes = {
 };
 
 export default class RegisteredContainer extends Component<PropTypes> {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onClickUser = () => {
     const { history } = this.props;
     history.push(Path.top());

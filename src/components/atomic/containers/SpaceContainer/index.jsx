@@ -63,6 +63,10 @@ class SpaceContainer extends Component<PropTypes, State> {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onClickSendMessage: Function;
   onClickSendMessage = async () => {
     const { dispatch, location, user, space, history } = this.props;

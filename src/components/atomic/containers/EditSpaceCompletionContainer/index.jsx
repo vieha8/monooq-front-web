@@ -30,6 +30,10 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
     checkLogin(this.props);
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     const auth = checkAuthState(this.props);
     if (auth) {

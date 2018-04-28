@@ -68,6 +68,10 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     }
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   handleChangeImage: Function;
   handleChangeImage = (pickedImages: Array<File>) => {
     const images = this.state.Images || [];

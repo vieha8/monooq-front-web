@@ -16,6 +16,10 @@ type PropTypes = {
 };
 
 class ServiceMenuContainer extends Component<PropTypes> {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   logout: Function;
   logout = () => {
     if (document && document.body) {

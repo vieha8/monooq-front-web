@@ -50,6 +50,10 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   onClickNext: Function;
   onClickNext = () => {
     this.validate(() => {

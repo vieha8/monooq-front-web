@@ -43,6 +43,8 @@ class ProfileContainer extends Component<PropTypes> {
   }
 
   componentDidMount() {
+    window.scrollTo(0, 0);
+
     if (document && document.body) {
       this.prevBgColor = document.body.style.background;
       document.body.style.background = Colors.lightGray1Bg;

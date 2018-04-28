@@ -11,6 +11,10 @@ import Footer from 'components/atomic/LV2/Footer';
 import connect from '../connect';
 
 class ProfileContainer extends Component<*> {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     return (
       <MenuPageTemplate

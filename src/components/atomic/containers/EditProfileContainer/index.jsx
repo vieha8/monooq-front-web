@@ -51,6 +51,10 @@ class ProfileContainer extends Component<PropTypes> {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (!this.props.user.ID && nextProps.user.ID) {
       const user = nextProps.user;

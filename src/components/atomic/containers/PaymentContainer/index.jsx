@@ -67,6 +67,10 @@ class PaymentContainer extends Component<PropTypes> {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   payment: Function;
   payment = () => {
     const { match, dispatch } = this.props;

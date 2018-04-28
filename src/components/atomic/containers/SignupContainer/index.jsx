@@ -15,6 +15,10 @@ type PropTypes = {
 };
 
 class SignupContainer extends Component<PropTypes> {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   getCurrentForm = () => {
     const { signupStep } = this.props;
     const forms = [
