@@ -71,6 +71,15 @@ class PaymentContainer extends Component<PropTypes> {
     window.scrollTo(0, 0);
   }
 
+  componentWillReceiveProps(nextProps: PropTypes) {
+    if (
+      (!this.isPaymentFailed && nextProps.isPaymentFailed) ||
+      (!this.isPaymentSuccess && nextProps.isPaymentSuccess)
+    ) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   payment: Function;
   payment = () => {
     const { match, dispatch } = this.props;
