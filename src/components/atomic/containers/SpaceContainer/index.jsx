@@ -125,10 +125,10 @@ class SpaceContainer extends Component<PropTypes, State> {
             furniture={space.IsFurniture}
             aboutBaggage={space.About}
             delivery={
-              space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Meeting
+              space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Delivery
             }
             meeting={
-              space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Delivery
+              space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Meeting
             }
             supplement={space.ReceiptAbout}
             user={{

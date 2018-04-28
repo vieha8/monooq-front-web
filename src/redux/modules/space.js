@@ -24,6 +24,7 @@ const UPDATE_SUCCESS_SPACE = 'UPDATE_SUCCESS_SPACE';
 const UPDATE_FAILED_SPACE = 'UPDATE_FAILED_SPACE';
 const SET_SPACE = 'SET_SPACE';
 const DELETE_SPACE = 'DELETE_SPACE';
+const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
 
 export const spaceActions = createActions(
   FETCH_SPACE,
@@ -37,6 +38,7 @@ export const spaceActions = createActions(
   UPDATE_FAILED_SPACE,
   SET_SPACE,
   DELETE_SPACE,
+  PREPARE_UPDATE_SPACE,
 );
 
 // Reducer
@@ -97,6 +99,10 @@ export const spaceReducer = handleActions(
     [SET_SPACE]: (state, action) => ({
       ...state,
       space: action.payload.space,
+    }),
+    [PREPARE_UPDATE_SPACE]: state => ({
+      ...state,
+      isComplete: false,
     }),
   },
   initialState,

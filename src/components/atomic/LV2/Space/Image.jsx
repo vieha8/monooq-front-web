@@ -8,6 +8,7 @@ import { Dimens } from 'variables';
 
 const Desc = styled.div`
   margin-top: ${Dimens.medium}px;
+  white-space: pre-wrap;
 `;
 
 type PropTypes = {

@@ -8,6 +8,7 @@ const Base = styled.span`
   color: ${props => props.color || Colors.black};
   font-size: ${props => props.fontSize || 16}px;
   line-height: 1.6;
+  white-space: pre-wrap;
   ${props =>
     props.verticalTop &&
     css`
