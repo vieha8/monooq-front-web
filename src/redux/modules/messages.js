@@ -17,7 +17,6 @@ let messageObserverUnsubscribe = null;
 //Actions
 const FETCH_ROOMS_START = 'FETCH_ROOMS_START';
 const FETCH_ROOMS_END = 'FETCH_ROOMS_END';
-const FETCH_MESSAGES = 'FETCH_MESSAGES';
 const FETCH_MESSAGES_START = 'FETCH_MESSAGES_START';
 const FETCH_MESSAGES_END = 'FETCH_MESSAGES_END';
 const SEND_MESSAGE = 'SEND_MESSAGE';
@@ -26,7 +25,6 @@ const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 export const messagesActions = createActions(
   FETCH_ROOMS_START,
   FETCH_ROOMS_END,
-  FETCH_MESSAGES,
   FETCH_MESSAGES_START,
   FETCH_MESSAGES_END,
   SEND_MESSAGE,
@@ -46,7 +44,6 @@ export const messagesReducer = handleActions(
   {
     [FETCH_ROOMS_START]: state => ({ ...state, isLoading: true }),
     [FETCH_ROOMS_END]: (state, action) => ({ ...state, isLoading: false, rooms: action.payload }),
-    [FETCH_MESSAGES]: state => ({ ...state, messages: [], isLoading: true }),
     [FETCH_MESSAGES_START]: state => ({ ...state, messages: [], isLoading: true }),
     [FETCH_MESSAGES_END]: (state, action) => ({
       ...state,
@@ -94,11 +91,7 @@ function messagesUnsubscribe() {
   }
 }
 
-function* fetchMessages({ payload }) {
-  yield fetchMessagesStart({ payload, notObserver: true });
-}
-
-function* fetchMessagesStart({ payload, notObserver }) {
+function* fetchMessagesStart({ payload }) {
   yield messagesUnsubscribe();
 
   let user = yield select(state => state.auth.user);
@@ -109,7 +102,9 @@ function* fetchMessagesStart({ payload, notObserver }) {
 
   const { messages, room, messageObserver } = yield getMessages(payload);
 
-  if (!notObserver) {
+  store.dispatch(messagesActions.updateMessage(messages));
+
+  if (!messageObserverUnsubscribe) {
     messageObserverUnsubscribe = messageObserver.onSnapshot(snapshot => {
       if (snapshot.docChanges.length === 1) {
         const message = snapshot.docChanges[0].doc.data();
@@ -290,7 +285,6 @@ const sendEmail = function*(payload) {
 export const messagesSagas = [
   takeEvery(FETCH_ROOMS_START, fetchRoomStart),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),
-  takeEvery(FETCH_MESSAGES, fetchMessages),
   takeEvery(SEND_MESSAGE, function*({ payload }) {
     yield sendMessage(payload);
     yield sendEmail(payload);
