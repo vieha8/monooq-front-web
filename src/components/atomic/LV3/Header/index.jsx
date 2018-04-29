@@ -59,6 +59,10 @@ const ActionWrapper = styled.div`
     `
     margin-left: 0;
   `};
+  ${media.phone`
+    margin-left: auto;
+    margin-right: 8px;
+  `};
 `;
 
 const ActionContainer = styled.div`
