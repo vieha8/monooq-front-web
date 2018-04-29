@@ -61,7 +61,7 @@ export default (props: PropTypes) => (
     login={
       <Button
         primary
-        center
+        fill={1}
         onClick={props.onClickLogin}
         disabled={props.buttonDisabled}
         loading={props.isLoginChecking}
@@ -71,7 +71,7 @@ export default (props: PropTypes) => (
     }
     otherLogin={<InlineText.Base>お持ちのアカウントでログイン</InlineText.Base>}
     facebook={
-      <Button facebook center onClick={props.onClickFacebook} loading={props.isLoginChecking}>
+      <Button facebook fill={1} onClick={props.onClickFacebook} loading={props.isLoginChecking}>
         Facebookでログインする
       </Button>
     }

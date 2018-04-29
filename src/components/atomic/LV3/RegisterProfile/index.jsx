@@ -66,7 +66,7 @@ export default (props: PropTypes) => (
     }
     button={
       <Button
-        center
+        fill={1}
         primary
         disabled={props.buttonDisabled}
         loading={props.buttonLoading}

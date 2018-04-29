@@ -87,7 +87,7 @@ export default (props: PropTypes) => (
         </MarginTopMediumWrapper>
         <ButtonWrapper>
           <Button
-            center
+            fill={1}
             onClick={props.onClickSend}
             disabled={props.buttonDisabled}
             loading={props.buttonLoading}
