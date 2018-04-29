@@ -75,7 +75,7 @@ type PropTypes = {
   pickedImage: string,
 };
 
-const dateFormat = 'YYYY/MM/DD hh:mm:ss';
+const dateFormat = 'YYYY/MM/DD kk:mm:ss';
 
 export default (props: PropTypes) => {
   const { messages, hostUser } = props;
