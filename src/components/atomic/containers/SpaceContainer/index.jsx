@@ -105,10 +105,9 @@ class SpaceContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const { user, space } = this.props;
+    const { user, space, isLoading } = this.props;
 
-    if (!space || !space.Images) {
-      // TODO インジケーター
+    if (!space || !space.Images || isLoading) {
       return <LoadingPage />;
     }
 
@@ -172,6 +171,7 @@ function mapStateToProps(state) {
   return {
     user: state.auth.user,
     space: state.space.space,
+    isLoading: state.space.isLoading,
   };
 }
 
