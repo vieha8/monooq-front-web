@@ -46,7 +46,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     dispatch(
       userActions.updateUser({
         userId: user.ID,
-        body: { image, name, prefCode, profile },
+        body: { imageUri: image, name, prefCode, profile },
       }),
     );
   };
