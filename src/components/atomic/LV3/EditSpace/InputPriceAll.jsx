@@ -1,0 +1,64 @@
+// @flow
+
+import React from 'react';
+import { H1, H2 } from 'components/atomic/LV1/Headline';
+import InlineText from 'components/atomic/LV1/InlineText';
+import EntryButtons from 'components/atomic/LV2/EntryButtons';
+import InputForm from 'components/atomic/LV2/InputForm';
+import { Colors } from 'variables';
+import { Section } from './Shared';
+
+type PropTypes = {
+  edit: boolean,
+  price: number,
+  priceErrors: Array<string>,
+  onChangePrice: Function,
+  onClickBack: Function,
+  onClickNext: Function,
+  buttonLoading: boolean,
+};
+
+function displayErrors(key: string, errors: Array<string>) {
+  return (
+    Array.isArray(errors) &&
+    errors.map((e, i) => (
+      <div key={`${key}_${i}`}>
+        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
+      </div>
+    ))
+  );
+}
+
+export default (props: PropTypes) => (
+  <div>
+    <H1>料金目安を設定する</H1>
+    <Section>
+      <H2>あなたのスペース料金はいくら？</H2>
+    </Section>
+    <Section>
+      <InputForm
+        label="料金目安（スペースまるごと）"
+        hint="スペースの全体を使用する荷物の場合の料金"
+        placeholder="20000"
+        unit="円"
+        value={props.price}
+        onChange={e => props.onChangePrice(e.target.value)}
+      />
+      {displayErrors('price_errors', props.priceErrors)}
+    </Section>
+    <Section>
+      <EntryButtons
+        enabled
+        loading={props.buttonLoading}
+        backButton={{
+          text: '戻る',
+          onClick: props.onClickBack,
+        }}
+        enabledButton={{
+          text: `${props.edit ? '編集' : '登録'}を完了する`,
+          onClick: props.onClickNext,
+        }}
+      />
+    </Section>
+  </div>
+);

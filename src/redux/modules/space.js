@@ -1,18 +1,19 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, call, select } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
+import axios from 'axios';
 import { apiActions, apiEndpoint } from './api';
 import { store } from '../store/configureStore';
-import { push } from 'react-router-redux';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import Path from '../../config/path';
 import { userActions } from './user';
-import axios from 'axios';
 import { authActions } from './auth';
 
 import dummySpaceImage from 'images/dummy_space.png';
 
 // Actions
+const CLEAR_SPACE = 'CLEAR_SPACE';
 const FETCH_SPACE = 'FETCH_SPACE';
 const FETCH_SUCCESS_SPACE = 'FETCH_SUCCESS_SPACE';
 const FETCH_FAILED_SPACE = 'FETCH_FAILED_SPACE';
@@ -24,8 +25,10 @@ const UPDATE_SUCCESS_SPACE = 'UPDATE_SUCCESS_SPACE';
 const UPDATE_FAILED_SPACE = 'UPDATE_FAILED_SPACE';
 const SET_SPACE = 'SET_SPACE';
 const DELETE_SPACE = 'DELETE_SPACE';
+const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
 
 export const spaceActions = createActions(
+  CLEAR_SPACE,
   FETCH_SPACE,
   FETCH_SUCCESS_SPACE,
   FETCH_FAILED_SPACE,
@@ -37,6 +40,7 @@ export const spaceActions = createActions(
   UPDATE_FAILED_SPACE,
   SET_SPACE,
   DELETE_SPACE,
+  PREPARE_UPDATE_SPACE,
 );
 
 // Reducer
@@ -48,6 +52,10 @@ const initialState = {
 
 export const spaceReducer = handleActions(
   {
+    [CLEAR_SPACE]: state => ({
+      ...state,
+      space: {},
+    }),
     [FETCH_SPACE]: state => ({
       ...state,
       isLoading: true,
@@ -97,6 +105,10 @@ export const spaceReducer = handleActions(
     [SET_SPACE]: (state, action) => ({
       ...state,
       space: action.payload.space,
+    }),
+    [PREPARE_UPDATE_SPACE]: state => ({
+      ...state,
+      isComplete: false,
     }),
   },
   initialState,
@@ -156,31 +168,39 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   yield put(spaceActions.fetchSuccessSpace(payload));
 }
 
+function generateSpaceRequestParams(space) {
+  const params = {};
+
+  Object.keys(space).forEach(key => {
+    const requestKey = `${key[0].toLowerCase()}${key.substr(1)}`;
+    params[requestKey] = space[key];
+  });
+
+  if (params.priceFull) {
+    params.priceFull = parseInt(params.priceFull, 10);
+  }
+
+  if (params.priceHalf) {
+    params.priceHalf = parseInt(params.priceHalf, 10);
+  }
+
+  if (params.priceQuarter) {
+    params.priceQuarter = parseInt(params.priceQuarter, 10);
+  }
+
+  return params;
+}
+
 function* createSpace({ payload: { body } }) {
-  const { images } = body;
-  body.images = null;
+  const params = generateSpaceRequestParams(body);
+  const { images } = params;
+  params.images = null;
 
-  if (body.priceFull) {
-    body.priceFull = parseInt(body.priceFull, 10);
+  if (params.prefecture) {
+    params.address = `${params.prefecture}${params.address}`;
   }
 
-  if (body.priceHalf) {
-    body.priceHalf = parseInt(body.priceHalf, 10);
-  }
-
-  if (body.priceQuarter) {
-    body.priceQuarter = parseInt(body.priceQuarter, 10);
-  }
-
-  if (body.isFurniture) {
-    body.isFurniture = body.isFurniture === '1';
-  }
-
-  if (body.prefecture) {
-    body.address = `${body.prefecture}${body.address}`;
-  }
-
-  yield put(apiActions.apiPostRequest({ path: apiEndpoint.spaces(), body }));
+  yield put(apiActions.apiPostRequest({ path: apiEndpoint.spaces(), body: params }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error || !payload || !payload.ID) {
     yield put(spaceActions.createFailedSpace(meta));
@@ -194,9 +214,8 @@ function* createSpace({ payload: { body } }) {
         if (image.ImageUrl) {
           if (image.ImageUrl.includes('data:image/png;base64,')) {
             return '';
-          } else {
-            return image.ImageUrl;
           }
+          return image.ImageUrl;
         }
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);
@@ -231,29 +250,20 @@ function* createSpace({ payload: { body } }) {
 }
 
 function* updateSpace({ payload: { spaceId, body } }) {
-  delete body.id;
+  const params = generateSpaceRequestParams(body);
+  const { images } = params;
+  params.images = null;
 
-  if (body.priceFull) {
-    body.priceFull = parseInt(body.priceFull, 10);
-  }
+  delete params.id;
 
-  if (body.priceHalf) {
-    body.priceHalf = parseInt(body.priceHalf, 10);
-  }
-
-  if (body.priceQuarter) {
-    body.priceQuarter = parseInt(body.priceQuarter, 10);
-  }
-
-  if (body.images && body.images.length > 0) {
+  if (images && images.length > 0) {
     const imageUrls = yield Promise.all(
-      body.images.filter(image => !image.ID).map(async image => {
+      images.filter(image => !image.ID).map(async image => {
         if (image.ImageUrl) {
           if (image.ImageUrl.includes('data:image/png;base64,')) {
             return '';
-          } else {
-            return image.ImageUrl;
           }
+          return image.ImageUrl;
         }
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);
@@ -268,12 +278,12 @@ function* updateSpace({ payload: { spaceId, body } }) {
         return uploadImage(imagePath, image);
       }),
     );
-    body.images = imageUrls
+    params.images = imageUrls
       .filter(url => url !== '')
       .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
   }
 
-  yield put(apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body }));
+  yield put(apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body: params }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error) {
     yield put(userActions.updateFailedSpace(meta));

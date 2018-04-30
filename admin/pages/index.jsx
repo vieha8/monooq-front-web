@@ -17,58 +17,63 @@ try {
   });
 } catch (err) {
   if (!/already exists/.test(err.message)) {
-    console.error('Firebase initialization error', err.stack)
+    console.error('Firebase initialization error', err.stack);
   }
 }
 
-const getMessageCount = async (roomId) => {
+const getMessageCount = async roomId => {
   return messages.docs.length;
 };
 
 export default class extends React.Component {
-
   static async getInitialProps() {
     const firestore = firebase.firestore();
     const rooms = await firestore.collection('rooms').get();
 
-    const res = await Promise.all(rooms.docs.map(async room => {
-      const roomId = room.id;
-      const userId1 = room.data().userId1;
-      const userId2 = room.data().userId2;
-      const spaceId = room.data().spaceId;
-      let lastMessageDt = new Date();
-      if (room.data().lastMessageDt) {
-        lastMessageDt = room.data().lastMessageDt;
-      }
-      const messages = await firestore.collection('rooms').doc(roomId).collection('messages').get();
-      const messageCount = messages.docs.length;
+    const res = await Promise.all(
+      rooms.docs.map(async room => {
+        const roomId = room.id;
+        const userId1 = room.data().userId1;
+        const userId2 = room.data().userId2;
+        const spaceId = room.data().spaceId;
+        let lastMessageDt = new Date();
+        if (room.data().lastMessageDt) {
+          lastMessageDt = room.data().lastMessageDt;
+        }
+        const messages = await firestore
+          .collection('rooms')
+          .doc(roomId)
+          .collection('messages')
+          .get();
+        const messageCount = messages.docs.length;
 
-      const lastMessage = room.data().lastMessage;
+        const lastMessage = room.data().lastMessage;
 
-      let lastMessageTimeStamp = 0;
-      if (lastMessageDt) {
-        lastMessageTimeStamp = Math.round(lastMessageDt.getTime() / 1000);
-      }
+        let lastMessageTimeStamp = 0;
+        if (lastMessageDt) {
+          lastMessageTimeStamp = Math.round(lastMessageDt.getTime() / 1000);
+        }
 
-      if(messageCount > 0) {
-        return {
-          roomId,
-          userId1,
-          userId2,
-          spaceId,
-          messageCount,
-          lastMessage,
-          lastMessageDt: lastMessageDt.toLocaleString(),
-          lastMessageTimeStamp,
-        };
-      }
-    }));
+        if (messageCount > 0) {
+          return {
+            roomId,
+            userId1,
+            userId2,
+            spaceId,
+            messageCount,
+            lastMessage,
+            lastMessageDt: lastMessageDt.toLocaleString(),
+            lastMessageTimeStamp,
+          };
+        }
+      }),
+    );
 
     const res2 = res.filter(v => v !== undefined);
 
     res2.sort((a, b) => {
-      if(a.lastMessageTimeStamp < b.lastMessageTimeStamp) return -1;
-      if(a.lastMessageTimeStamp > b.lastMessageTimeStamp) return 1;
+      if (a.lastMessageTimeStamp < b.lastMessageTimeStamp) return -1;
+      if (a.lastMessageTimeStamp > b.lastMessageTimeStamp) return 1;
       return 0;
     });
 
@@ -125,5 +130,4 @@ export default class extends React.Component {
       </Layout>
     );
   }
-
 }

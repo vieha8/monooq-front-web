@@ -8,12 +8,15 @@ const Container = styled.div`
   padding: 20,
 `;
 
-const Layout = (props) => (
+const Layout = props => (
   <Container>
     <Head>
       <meta name="robots" content="noindex" />
       <title>MonooQ Admin</title>
-      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css" />
+      <link
+        rel="stylesheet"
+        href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"
+      />
     </Head>
     {props.children}
   </Container>

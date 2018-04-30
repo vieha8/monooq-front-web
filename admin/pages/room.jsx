@@ -17,7 +17,7 @@ try {
   });
 } catch (err) {
   if (!/already exists/.test(err.message)) {
-    console.error('Firebase initialization error', err.stack)
+    console.error('Firebase initialization error', err.stack);
   }
 }
 
@@ -27,12 +27,16 @@ const TextMessage = styled.div`
 `;
 
 export default class extends React.Component {
-
   static async getInitialProps({ query }) {
     const roomId = query.id;
 
     const firestore = firebase.firestore();
-    const messages = await firestore.collection('rooms').doc(roomId).collection('messages').orderBy('createDt').get();
+    const messages = await firestore
+      .collection('rooms')
+      .doc(roomId)
+      .collection('messages')
+      .orderBy('createDt')
+      .get();
 
     const res = messages.docs.map(v => {
       const id = v.id;
@@ -42,14 +46,21 @@ export default class extends React.Component {
       const createdAt = v.data().createDt.toLocaleString();
       let userId = v.data().userId;
 
-      if(messageType === 2) {
-        text = `見積り\n金額:${v.data().price}円\n開始日:${v.data().startDate}\n終了日:${v.data().endDate}`;
-      } else if(messageType === 3) {
+      if (messageType === 2) {
+        text = `見積り\n金額:${v.data().price}円\n開始日:${v.data().startDate}\n終了日:${
+          v.data().endDate
+        }`;
+      } else if (messageType === 3) {
         text = '決済完了';
       }
 
       return {
-        id, userId, messageType, text, image, createdAt,
+        id,
+        userId,
+        messageType,
+        text,
+        image,
+        createdAt,
       };
     });
 
@@ -76,9 +87,11 @@ export default class extends React.Component {
                 <Table.Cell>{i + 1}</Table.Cell>
                 <Table.Cell>{message.userId}</Table.Cell>
                 <Table.Cell>{message.messageType}</Table.Cell>
-                <Table.Cell><TextMessage>{message.text}</TextMessage></Table.Cell>
                 <Table.Cell>
-                  {message.image && <Image src={message.image} size='small' />}
+                  <TextMessage>{message.text}</TextMessage>
+                </Table.Cell>
+                <Table.Cell>
+                  {message.image && <Image src={message.image} size="small" />}
                 </Table.Cell>
                 <Table.Cell>{message.createdAt}</Table.Cell>
               </Table.Row>
@@ -88,5 +101,4 @@ export default class extends React.Component {
       </Layout>
     );
   }
-
 }

@@ -32,7 +32,7 @@ const DetailContainer = DefaultContainer.extend`
   margin-bottom: 50px;
 `;
 
-const DetailContent = (props) => {
+const DetailContent = props => {
   const Header = styled.div`
     width: 150px;
     font-weight: bold;
@@ -54,14 +54,14 @@ const DetailContent = (props) => {
   );
 };
 
-const StyledDetailContent = styled(DetailContent) `
+const StyledDetailContent = styled(DetailContent)`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   line-height: 50px;
   font-size: 16px;
-  border-bottom: 1px solid #DBDBDB;
+  border-bottom: 1px solid #dbdbdb;
 `;
 
 const InterviewContainer = DefaultContainer.extend`
@@ -79,12 +79,12 @@ const NewsContainer = DefaultContainer.extend`
   margin-bottom: 80px;
 `;
 
-const NewsContent = (props) => {
+const NewsContent = props => {
   const Date = styled.span`
     margin-right: 8px;
   `;
   const Label = styled.span`
-    color: #E85258;
+    color: #e85258;
     font-weight: bold;
   `;
   const LabelContainer = styled.div`
@@ -96,7 +96,9 @@ const NewsContent = (props) => {
     <a href={props.link} target="_blank">
       <Text>{props.text}</Text>
     </a>
-  ) : (<Text>{props.text}</Text>);
+  ) : (
+    <Text>{props.text}</Text>
+  );
   return (
     <div className={props.className}>
       <LabelContainer>
@@ -108,9 +110,9 @@ const NewsContent = (props) => {
   );
 };
 
-const StyledNewsContent = styled(NewsContent) `
+const StyledNewsContent = styled(NewsContent)`
   width: 100%;
-  border-bottom: 1px solid #DBDBDB;
+  border-bottom: 1px solid #dbdbdb;
   padding-bottom: 20px;
   margin-bottom: 20px;
 `;
@@ -193,13 +195,7 @@ export default () => (
           header: 'WEB',
           data: <a href={Path.top()}>https://monooq.com/</a>,
         },
-      ].map((v, i) => (
-        <StyledDetailContent
-          key={i}
-          header={v.header}
-          data={v.data}
-        />
-      ))}
+      ].map((v, i) => <StyledDetailContent key={i} header={v.header} data={v.data} />)}
     </DetailContainer>
 
     <MainTitleContainer>
@@ -207,8 +203,12 @@ export default () => (
     </MainTitleContainer>
 
     <InterviewContainer>
-      <Text>提携、取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。</Text>
-      <Text><Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor></Text>
+      <Text>
+        提携、取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。
+      </Text>
+      <Text>
+        <Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor>
+      </Text>
     </InterviewContainer>
 
     <MainTitleContainer>
@@ -219,13 +219,7 @@ export default () => (
       {news.map((v, i) => {
         const item = v.split(',');
         return (
-          <StyledNewsContent
-            key={i}
-            date={item[0]}
-            text={item[1]}
-            label={item[2]}
-            link={item[3]}
-          />
+          <StyledNewsContent key={i} date={item[0]} text={item[1]} label={item[2]} link={item[3]} />
         );
       })}
     </NewsContainer>

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
 
-import Logo from 'components/atomic/atoms/Logo';
+import Logo from 'components/atomic/LV1/Logo';
 
 const MaintenancePage = styled.div`
   background: ${Colors.brandPrimary};
@@ -99,7 +99,8 @@ export default () => (
       <MessageText>
         ただいまサービスのリニューアルを行っております。<br />
         ご不便をおかけいたしますが、もうしばらくお待ちくださいませ。<br />
-        リニューアルの完了予定は3月26日午後3時です。<br /><br />
+        リニューアルの完了予定は3月26日午後3時です。<br />
+        <br />
       </MessageText>
       <ContactText>
         お困りのご用件は <br />

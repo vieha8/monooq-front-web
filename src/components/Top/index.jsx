@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
 
+import Header from 'components/atomic/containers/Header';
+import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -34,13 +36,14 @@ const TopPage = styled.div`
 
 const TopView = styled.div`
   height: 800px;
+  margin-top: ${HeaderHeight}px;
   background-image: url(${mainVisual});
   background-size: cover;
   color: ${Colors.white};
   background-repeat: no-repeat;
   ${media.phone`
     height: 480px;
-    margin-top: -64px;
+    margin-top: -4px;
     background-image: url(${mainVisualSp});
     background-size: contain;
     background-position: 0 56px;
@@ -113,7 +116,7 @@ const ColoredContainer = styled.div`
 
 const ColoredContainerGray = styled.div`
   background-color: ${Colors.lightGray1Bg};
-`
+`;
 
 const MovieContainer = styled(DefaultContainer)`
   padding-top: 70px;
@@ -167,7 +170,6 @@ const MovieExplanText = styled.div`
   font-size: ${FontSizes.medium}px;
   line-height: ${FontSizes.medium * 2}px;
 `;
-
 
 const StyledDefaultContainer = styled(DefaultContainer)`
   padding-top: 80px;
@@ -384,7 +386,7 @@ const ForSafeSection = ({ iconClass, title, description, buttonText, onClick }) 
   );
 };
 
-const ForSafeSectionList = (props) => {
+const ForSafeSectionList = props => {
   const StyledContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -501,37 +503,37 @@ const MediaLineup = () => (
     <LineupTitle>メディア掲載</LineupTitle>
     <LineupList>
       <LineupItem>
-        <a component={Link} href="https://japan.cnet.com/" target="_blank" rel="noopener noreferrer" >
+        <a href="https://japan.cnet.com/" target="_blank" rel="noopener noreferrer">
           <LineupImage src={logoCnet} alt="CNET Japan" />
         </a>
       </LineupItem>
       <LineupItem>
-        <a href="http://ascii.jp/" target="_blank" rel="noopener noreferrer" >
+        <a href="http://ascii.jp/" target="_blank" rel="noopener noreferrer">
           <LineupImage src={logoAscii} alt="ASCII.jp" />
         </a>
       </LineupItem>
       <LineupItem>
-        <a href="http://thebridge.jp/" target="_blank" rel="noopener noreferrer" >
+        <a href="http://thebridge.jp/" target="_blank" rel="noopener noreferrer">
           <LineupImage src={logoBridge} alt="THE BRIDGE" />
         </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://mag.app-liv.jp/" target="_blank" rel="noopener noreferrer" >
+        <a href="https://mag.app-liv.jp/" target="_blank" rel="noopener noreferrer">
           <LineupImage src={logoAppliv} alt="Appliv" />
         </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://www.lifehacker.jp/" target="_blank" rel="noopener noreferrer" >
+        <a href="https://www.lifehacker.jp/" target="_blank" rel="noopener noreferrer">
           <LineupImage src={logoLifehacker} alt="lifehacker" />
         </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://jp.techcrunch.com/" target="_blank" rel="noopener noreferrer" >
+        <a href="https://jp.techcrunch.com/" target="_blank" rel="noopener noreferrer">
           <LineupImage src={logoTechcrunch} alt="TechCrunch" />
         </a>
       </LineupItem>
       <LineupItem>
-        <a href="https://techable.jp" target="_blank" rel="noopener noreferrer" >
+        <a href="https://techable.jp" target="_blank" rel="noopener noreferrer">
           <LineupImage src={logoTechable} alt="TECHABLE" />
         </a>
       </LineupItem>
@@ -541,6 +543,7 @@ const MediaLineup = () => (
 
 export default props => (
   <TopPage>
+    <Header />
     <TopView>
       <TopViewFilter>
         <TopViewContainer>
@@ -568,7 +571,12 @@ export default props => (
     <ColoredContainer>
       <MovieContainer>
         <MovieFrameWrapper>
-          <MovieFrame src="https://www.youtube.com/embed/t0t50WBDwzc?showinfo=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen />
+          <MovieFrame
+            src="https://www.youtube.com/embed/t0t50WBDwzc?showinfo=0&rel=0"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen
+          />
         </MovieFrameWrapper>
         <MovieExplanContainer>
           <MovieExplanTitle>
@@ -660,10 +668,13 @@ export default props => (
               サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
             </PickGoDescription>
           </PickGoSection>
-          <SubCatchPhrasePickGo>
-            PickGoを使えば、引っ越しが 5,000円 から。
-          </SubCatchPhrasePickGo>
-          <LinkToPickGo component={Link} href={'http://pickgo.town/'}  target="_blank" rel="noopener noreferrer">
+          <SubCatchPhrasePickGo>PickGoを使えば、引っ越しが 5,000円 から。</SubCatchPhrasePickGo>
+          <LinkToPickGo
+            component={Link}
+            href={'http://pickgo.town/'}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             PickGoのサイトを見る
           </LinkToPickGo>
         </PickGoWrapper>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ErrorContainer from 'containers/Static/Error';
-import firebase from "firebase";
+import firebase from 'firebase';
 import { connect } from 'react-redux';
 
 require('firebase/firestore');

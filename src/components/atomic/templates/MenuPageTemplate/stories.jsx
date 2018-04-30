@@ -8,7 +8,7 @@ import MenuPageTemplate from './index';
 storiesOf('Templates/MenuPageTemplate', module)
   .add('Normal', () => (
     <MenuPageTemplate
-      header={(
+      header={
         <div
           style={{
             width: '100%',
@@ -18,9 +18,9 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           header section
         </div>
-      )}
+      }
       headline="headline here"
-      leftContent={(
+      leftContent={
         <div
           style={{
             width: '100%',
@@ -30,8 +30,8 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           left content section
         </div>
-      )}
-      rightContent={(
+      }
+      rightContent={
         <div
           style={{
             width: '100%',
@@ -41,8 +41,8 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           right content section
         </div>
-      )}
-      footer={(
+      }
+      footer={
         <div
           style={{
             width: '100%',
@@ -52,6 +52,56 @@ storiesOf('Templates/MenuPageTemplate', module)
         >
           footer section
         </div>
-      )}
+      }
+    />
+  ))
+  .add('Has Caption', () => (
+    <MenuPageTemplate
+      header={
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            background: 'red',
+          }}
+        >
+          header section
+        </div>
+      }
+      headline="headline here"
+      caption="caption here"
+      leftContent={
+        <div
+          style={{
+            width: '100%',
+            height: '500px',
+            background: 'green',
+          }}
+        >
+          left content section
+        </div>
+      }
+      rightContent={
+        <div
+          style={{
+            width: '100%',
+            height: '500px',
+            background: 'yellow',
+          }}
+        >
+          right content section
+        </div>
+      }
+      footer={
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            background: 'blue',
+          }}
+        >
+          footer section
+        </div>
+      }
     />
   ));

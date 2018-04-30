@@ -62,7 +62,9 @@ export default () => (
 
     <MessageContainer>
       <Text>ご不便をおかけし大変申し訳ございません。原因究明・改善に努めております。</Text>
-      <Text>しばらく時間を置いても解決されない場合は、お手数ですが画面右下のボタンからお問い合わせください。</Text>
+      <Text>
+        しばらく時間を置いても解決されない場合は、お手数ですが画面右下のボタンからお問い合わせください。
+      </Text>
     </MessageContainer>
 
     <RecommendLinkContainer>
@@ -71,9 +73,11 @@ export default () => (
           text: 'トップページへ戻る',
           path: '/',
         },
-        ].map((v, i) => {
-          return (
-            <List key={i}><Anchor href={v.path}>{v.text}</Anchor></List>
+      ].map((v, i) => {
+        return (
+          <List key={i}>
+            <Anchor href={v.path}>{v.text}</Anchor>
+          </List>
         );
       })}
     </RecommendLinkContainer>
