@@ -1,0 +1,17 @@
+{
+  "name": "MonooQ Admin",
+  "description": "MonooQ Admin",
+  "scripts": {},
+  "env": {},
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

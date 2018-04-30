@@ -19,9 +19,10 @@
     "material-ui": "^1.0.0-beta.31",
     "material-ui-icons": "^1.0.0-beta.17",
     "numeral": "^2.0.6",
-    "prettier": "1.9.2",
     "query-string": "^5.1.0",
     "react": "^16.2.0",
+    "react-app-rewire-mobx": "^1.0.8",
+    "react-app-rewire-preact": "^1.0.1",
     "react-dates": "^16.3.6",
     "react-dom": "^16.2.0",
     "react-dropzone": "^4.2.8",
@@ -45,17 +46,15 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "dev-start": "react-app-rewired start",
     "build": "react-scripts build",
     "test": "eslint src && flow",
     "eject": "react-scripts eject",
     "storybook": "export NODE_PATH=src && start-storybook -p 9009 -s public",
     "build-storybook": "export NODE_PATH=src && build-storybook -s public",
-    "precommit": "lint-staged",
     "lint": "eslint src",
-    "flow": "flow"
-  },
-  "lint-staged": {
-    "*.{js,json,css,md}": ["prettier --write", "git add"]
+    "flow": "flow",
+    "precommit": "pretty-quick --staged"
   },
   "babel": {
     "presets": ["env", "react"]
@@ -63,17 +62,24 @@
   "devDependencies": {
     "@storybook/addon-viewport": "^3.3.14",
     "babel-eslint": "^8.1.0",
+    "babel-plugin-styled-components": "^1.5.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "eslint": "^3.9.1",
     "eslint-config-airbnb": "13.0.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-flowtype": "^2.44.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.6.1",
     "flow-bin": "^0.67.1",
     "flow-typed": "^2.3.0",
     "husky": "^0.14.3",
     "lint-staged": "^6.1.0",
+    "prettier": "1.11.1",
+    "pretty-quick": "^1.4.1",
+    "react-app-rewired": "^1.5.0",
     "storybook-router": "^0.3.3"
   }
 }

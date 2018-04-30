@@ -20,6 +20,7 @@ const FETCH_FAILED_USER_SPACES = 'FETCH_FAILED_USER_SPACES';
 const UPDATE_USER = 'UPDATE_USER';
 const UPDATE_SUCCESS_USER = 'UPDATE_SUCCESS_USER';
 const UPDATE_FAILED_USER = 'UPDATE_FAILED_USER';
+const PREPARE_UPDATE_USER = 'PREPARE_UPDATE_USER';
 
 export const userActions = createActions(
   FETCH_USER,
@@ -31,6 +32,7 @@ export const userActions = createActions(
   UPDATE_USER,
   UPDATE_SUCCESS_USER,
   UPDATE_FAILED_USER,
+  PREPARE_UPDATE_USER,
 );
 
 // Reducer
@@ -80,6 +82,13 @@ export const userReducer = handleActions(
       updateFailed: true,
       isLoading: false,
     }),
+    [PREPARE_UPDATE_USER]: state => ({
+      ...state,
+      user: {},
+      updateSuccess: false,
+      updateFailed: false,
+      isLoading: false,
+    }),
   },
   initialState,
 );
@@ -127,7 +136,7 @@ function* getSpaces(params) {
 }
 
 function* updateUser({ payload: { userId, body } }) {
-  if (body.imageUri) {
+  if (body.imageUri instanceof Blob) {
     const fileReader = new FileReader();
     fileReader.readAsArrayBuffer(body.imageUri);
     const ext = yield new Promise(resolve => {
@@ -159,7 +168,7 @@ function* updateUser({ payload: { userId, body } }) {
   }
   yield put(authActions.setUser(payload));
   yield put(userActions.updateSuccessUser(payload));
-  yield put(uiActions.setUiState({ signUpStep: 5 }));
+  yield put(uiActions.setUiState({ signupStep: 5 }));
 }
 
 export const userSagas = [

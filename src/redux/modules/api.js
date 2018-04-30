@@ -3,11 +3,10 @@ import { put, takeEvery } from 'redux-saga/effects';
 import { getApiRequest, postApiRequest, putApiRequest, deleteApiRequest } from '../helpers/api';
 import { store } from '../store/configureStore';
 import Path from '../../config/path';
-import { push } from 'react-router-redux';
+import { replace } from 'react-router-redux';
 
 export const apiEndpoint = {
   tokenGenerate: () => `/token/generate`,
-  authPast: () => `/auth/past`,
   authFirebase: id => (id ? `/auth/firebase/${id}` : `/auth/firebase`),
   users: id => (id ? `/users/${id}` : `/users`),
   userSpaces: id => `/users/${id}/spaces`,
@@ -84,9 +83,9 @@ function* getRequest({ payload: { path, params } }) {
   });
   if (status !== 200) {
     if (status === 404) {
-      store.dispatch(push(Path.notFound()));
+      store.dispatch(replace(Path.notFound()));
     } else {
-      store.dispatch(push(Path.error(status)));
+      store.dispatch(replace(Path.error(status)));
     }
   }
 }
@@ -99,7 +98,7 @@ function* postRequest({ payload: { path, body } }) {
     meta: { status: status, error: err, path },
   });
   if (status !== 200 && status !== 201) {
-    store.dispatch(push(Path.error(status)));
+    store.dispatch(replace(Path.error(status)));
   }
 }
 
@@ -111,7 +110,7 @@ function* putRequest({ payload: { path, body } }) {
     meta: { status: status, error: err, path },
   });
   if (status !== 200) {
-    store.dispatch(push(Path.error(status)));
+    store.dispatch(replace(Path.error(status)));
   }
 }
 
@@ -123,7 +122,7 @@ function* deleteRequest({ payload: { path } }) {
     meta: { status: status, error: err, path },
   });
   if (status !== 200) {
-    store.dispatch(push(Path.error(status)));
+    store.dispatch(replace(Path.error(status)));
   }
 }
 

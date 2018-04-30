@@ -32,7 +32,7 @@ const DetailContainer = DefaultContainer.extend`
   margin-bottom: 50px;
 `;
 
-const DetailContent = (props) => {
+const DetailContent = props => {
   const Header = styled.div`
     width: 150px;
     font-weight: bold;
@@ -54,14 +54,14 @@ const DetailContent = (props) => {
   );
 };
 
-const StyledDetailContent = styled(DetailContent) `
+const StyledDetailContent = styled(DetailContent)`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   line-height: 50px;
   font-size: 16px;
-  border-bottom: 1px solid #DBDBDB;
+  border-bottom: 1px solid #dbdbdb;
 `;
 
 const InterviewContainer = DefaultContainer.extend`
@@ -79,12 +79,12 @@ const NewsContainer = DefaultContainer.extend`
   margin-bottom: 80px;
 `;
 
-const NewsContent = (props) => {
+const NewsContent = props => {
   const Date = styled.span`
     margin-right: 8px;
   `;
   const Label = styled.span`
-    color: #E85258;
+    color: #e85258;
     font-weight: bold;
   `;
   const LabelContainer = styled.div`
@@ -96,7 +96,9 @@ const NewsContent = (props) => {
     <a href={props.link} target="_blank">
       <Text>{props.text}</Text>
     </a>
-  ) : (<Text>{props.text}</Text>);
+  ) : (
+    <Text>{props.text}</Text>
+  );
   return (
     <div className={props.className}>
       <LabelContainer>
@@ -108,9 +110,9 @@ const NewsContent = (props) => {
   );
 };
 
-const StyledNewsContent = styled(NewsContent) `
+const StyledNewsContent = styled(NewsContent)`
   width: 100%;
-  border-bottom: 1px solid #DBDBDB;
+  border-bottom: 1px solid #dbdbdb;
   padding-bottom: 20px;
   margin-bottom: 20px;
 `;
@@ -125,12 +127,12 @@ const news = [
   '2018/01/23,月刊「からだにいいこと2月号」に取り上げていただきました,メディア掲載,',
   '2018/01/18,月刊「家主と地主」に12月7日の登壇の様子を取り上げていただきました,メディア掲載,',
   '2017/12/27,(元)病院にオフィスをお借りしました。,プレスリリース,https://prtimes.jp/main/html/rd/p/000000013.000024093.html',
-  '2017/12/18,週間ビル経営にPickgoとの取り組みを取り上げていただきました,メディア掲載,',
+  '2017/12/18,週間ビル経営にPickGoとの取り組みを取り上げていただきました,メディア掲載,',
   '2017/12/07,シェアリングエコノミーについて登壇いたしました,登壇,',
   '2017/11/16,TechCrunch tokyo 2017 スタートアップバトルにて登壇いたしました,登壇,https://jp.techcrunch.com/2017/11/17/the-winner-of-tctokyo2017-startupbattle/',
   '2017/11/10,スマホ一台旅のスポンサーになりました,プレスリリース,http://www.dreamnews.jp/press/0000163418/',
-  '2017/11/09,Pickgoとの提携に関してLogisticsTodayに取り上げていただきました,メディア掲載,https://www.logi-today.com/303383',
-  '2017/11/06,Pickgoと提携しサービス上で配送が可能になりました。,プレスリリース,https://prtimes.jp/main/html/rd/p/000000009.000024093.html',
+  '2017/11/09,PickGoとの提携に関してLogisticsTodayに取り上げていただきました,メディア掲載,https://www.logi-today.com/303383',
+  '2017/11/06,PickGoと提携しサービス上で配送が可能になりました。,プレスリリース,https://prtimes.jp/main/html/rd/p/000000009.000024093.html',
   '2017/10/13,リサイクル通信に取り上げていただきました。,メディア掲載,http://www.recycle-tsushin.com/news/detail_2124.php',
   '2017/10/11,テレビ東京【モーニングサテライト】に取り上げていただきました。,メディア掲載,http://www.tv-tokyo.co.jp/nms/',
   '2017/10/05,第19回不動産ソリューションフェアに出展いたします。,告知,',
@@ -181,10 +183,10 @@ export default () => (
           header: '所在地',
           data: '〒166-0003 東京都杉並区高円寺南 2-48-12 1F',
         },
-        {
-          header: 'TEL',
-          data: '03-6869-2729',
-        },
+        // {
+        //   header: 'TEL',
+        //   data: '03-6869-2729',
+        // },
         {
           header: 'MAIL',
           data: 'info@monooq.com',
@@ -193,13 +195,7 @@ export default () => (
           header: 'WEB',
           data: <a href={Path.top()}>https://monooq.com/</a>,
         },
-      ].map((v, i) => (
-        <StyledDetailContent
-          key={i}
-          header={v.header}
-          data={v.data}
-        />
-      ))}
+      ].map((v, i) => <StyledDetailContent key={i} header={v.header} data={v.data} />)}
     </DetailContainer>
 
     <MainTitleContainer>
@@ -207,8 +203,12 @@ export default () => (
     </MainTitleContainer>
 
     <InterviewContainer>
-      <Text>新聞・雑誌・メディアなどの取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。</Text>
-      <Text><Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor></Text>
+      <Text>
+        提携、取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。
+      </Text>
+      <Text>
+        <Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor>
+      </Text>
     </InterviewContainer>
 
     <MainTitleContainer>
@@ -219,13 +219,7 @@ export default () => (
       {news.map((v, i) => {
         const item = v.split(',');
         return (
-          <StyledNewsContent
-            key={i}
-            date={item[0]}
-            text={item[1]}
-            label={item[2]}
-            link={item[3]}
-          />
+          <StyledNewsContent key={i} date={item[0]} text={item[1]} label={item[2]} link={item[3]} />
         );
       })}
     </NewsContainer>

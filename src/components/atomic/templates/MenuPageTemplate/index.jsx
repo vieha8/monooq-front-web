@@ -3,22 +3,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import ClearfixContainer from 'components/atomic/atoms/ClearfixContainer';
-import { H1 } from 'components/atomic/atoms/Headline';
-import { Height as HeaderHeight } from 'components/atomic/organisms/Header';
+import { Dimens } from 'variables';
+import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
+import { H1 } from 'components/atomic/LV1/Headline';
+import InlineText from 'components/atomic/LV1/InlineText';
+import Page from '../Page';
 
-const Page = styled.div`
-  padding: ${HeaderHeight}px 0 80px 10%;
-  ${media.phone`
-    padding: ${HeaderHeight}px 20px 40px;
-  `}
+const Caption = styled.div`
+  margin: 0 0 40px;
+  ${media.tablet`
+    margin-bottom: 20px;
+  `};
 `;
 
-const HeadlineContainer = styled.div`
-  margin: 40px 0 80px;
+const Content = styled.div`
+  margin-top: ${Dimens.huge}px;
   ${media.tablet`
-    margin: 40px 0;
-  `}
+    margin-top: ${Dimens.medium3}px;
+  `};
 `;
 
 const LeftContent = styled.div`
@@ -27,7 +29,7 @@ const LeftContent = styled.div`
   ${media.tablet`
     display: none;
     float: none;
-  `}
+  `};
 `;
 
 const RightContent = styled.div`
@@ -38,25 +40,33 @@ const RightContent = styled.div`
     float: none;
     margin-left: 0;
     width: 100%;
-  `}
+  `};
 `;
 
 type PropTypes = {
   header: React.Element<*>,
   headline: string,
-  leftContent: React.Element <*>,
-  rightContent: React.Element <*>,
-  footer: React.Element <*>,
-}
+  caption: string,
+  leftContent: React.Element<*>,
+  rightContent: React.Element<*>,
+  footer: React.Element<*>,
+};
 
 export default (props: PropTypes) => (
   <div>
     {props.header}
     <Page>
-      <HeadlineContainer><H1>{props.headline}</H1></HeadlineContainer>
+      <H1>{props.headline}</H1>
+      {props.caption && (
+        <Caption>
+          <InlineText.Base>{props.caption}</InlineText.Base>
+        </Caption>
+      )}
       <ClearfixContainer>
-        <LeftContent>{props.leftContent}</LeftContent>
-        <RightContent>{props.rightContent}</RightContent>
+        <Content>
+          <LeftContent>{props.leftContent}</LeftContent>
+          <RightContent>{props.rightContent}</RightContent>
+        </Content>
       </ClearfixContainer>
     </Page>
     {props.footer}

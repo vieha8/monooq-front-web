@@ -1,8 +1,8 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {FontSizes, Colors, Dimens} from 'variables';
-import {media} from 'helpers/style/media-query';
+import { FontSizes, Colors, Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 
 const Container = styled.div`
@@ -65,7 +65,7 @@ export default () => (
     <Menu to={Path.terms()}>利用規約</Menu>
     <Menu to={Path.privacy()}>プライバシーポリシー</Menu>
     <Menu to={Path.asct()}>特定商取引法に基づく表記</Menu>
-    <Menu to={Path.cancellationPolicies()}>キャンセルポリシー</Menu>
+    {/*<Menu to={Path.cancellationPolicies()}>キャンセルポリシー</Menu>*/}
     <Copyright>@ 2018 MonooQ</Copyright>
   </Container>
 );

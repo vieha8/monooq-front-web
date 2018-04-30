@@ -1,10 +1,10 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call } from 'redux-saga/effects';
+import firebase from 'firebase';
+import { push } from 'react-router-redux';
 import { apiActions, apiEndpoint } from './api';
 import { authActions } from './auth';
-import firebase from 'firebase';
 import { store } from '../store/configureStore';
-import { push } from 'react-router-redux';
 import { createOmiseToken } from '../helpers/omise';
 import path from '../../config/path';
 import { getApiRequest } from '../helpers/api';
@@ -45,6 +45,7 @@ const initialState = {
   payment: {
     isSending: false,
     isSuccess: false,
+    isFailed: false,
   },
 };
 
@@ -64,15 +65,15 @@ export const requestReducer = handleActions(
     }),
     [PAYMENT]: state => ({
       ...state,
-      payment: { isSending: true, isSuccess: false },
+      payment: { isSending: true, isSuccess: false, isFailed: false },
     }),
     [PAYMENT_SUCCESS]: state => ({
       ...state,
-      payment: { isSending: false, isSuccess: true },
+      payment: { isSending: false, isSuccess: true, isFailed: false },
     }),
     [PAYMENT_FAILED]: state => ({
       ...state,
-      payment: { isSending: false, isSuccess: false },
+      payment: { isSending: false, isSuccess: false, isFailed: true },
     }),
     [FETCH_SCHEDULE]: state => ({
       ...state,
@@ -180,6 +181,11 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     },
   });
 
+  if (!token) {
+    yield put(requestActions.paymentFailed());
+    return;
+  }
+
   yield put(
     apiActions.apiPostRequest({
       path: apiEndpoint.payments(),
@@ -222,7 +228,6 @@ function* fetchSchedule() {
   user = yield select(state => state.auth.user);
 
   yield put(apiActions.apiGetRequest({ path: apiEndpoint.requestsByUserId(user.ID) }));
-  yield take(apiActions.apiResponse);
   const { payload: userRequests, error, meta } = yield take(apiActions.apiResponse);
 
   if (error) {

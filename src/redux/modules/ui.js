@@ -9,7 +9,7 @@ export const uiActions = createActions(SET_UI_STATE);
 
 const initialState = {
   locationText: '',
-  signUpStep: 0,
+  signupStep: 0,
   space: {},
   user: {},
 };

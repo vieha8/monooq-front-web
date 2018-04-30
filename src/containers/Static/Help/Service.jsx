@@ -1,10 +1,10 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
-import HelpService from 'components/atomic/pages/Help/Service';
+import HelpService from 'components/atomic/LV3/Help/Service';
 import Path from 'config/path';
 
 type PropTypes = {
@@ -21,7 +21,7 @@ type PropTypes = {
     pathname: string,
     hash: string,
   },
-}
+};
 
 function mapPathnameToContent(pathname: string) {
   switch (pathname) {
@@ -80,40 +80,38 @@ class HelpTopContainer extends React.Component<PropTypes> {
   onClickHowToUser = () => {
     const { ui, dispatch } = this.props;
     dispatch(uiActions.setUiState({ openHowToUser: !ui.openHowToUser }));
-  }
+  };
 
   onClickHowToBeHost = () => {
     const { ui, dispatch } = this.props;
     dispatch(uiActions.setUiState({ openHowToBeHost: !ui.openHowToBeHost }));
-  }
+  };
 
   onClickList = (i: number) => {
     const { dispatch, ui } = this.props;
     ui.openFlagList[i] = !ui.openFlagList[i];
     dispatch(uiActions.setUiState({ openFlagList: ui.openFlagList }));
-  }
+  };
 
   onClickBack = () => {
     const { history } = this.props;
     history.goBack();
-  }
+  };
 
   render() {
     const { ui, location } = this.props;
 
     return (
-      <Fragment>
-        <HelpService
-          openHowToUser={ui.openHowToUser}
-          onClickHowToUser={this.onClickHowToUser}
-          openHowToBeHost={ui.openHowToBeHost}
-          onClickHowToBeHost={this.onClickHowToBeHost}
-          onClickList={this.onClickList}
-          openFlagList={ui.openFlagList || []}
-          onClickBack={this.onClickBack}
-          content={mapPathnameToContent(location.pathname)}
-        />
-      </Fragment>
+      <HelpService
+        openHowToUser={ui.openHowToUser}
+        onClickHowToUser={this.onClickHowToUser}
+        openHowToBeHost={ui.openHowToBeHost}
+        onClickHowToBeHost={this.onClickHowToBeHost}
+        onClickList={this.onClickList}
+        openFlagList={ui.openFlagList || []}
+        onClickBack={this.onClickBack}
+        content={mapPathnameToContent(location.pathname)}
+      />
     );
   }
 }

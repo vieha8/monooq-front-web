@@ -4,35 +4,6 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import Root from 'containers/Root';
 import Top from 'containers/Top';
-import SearchPage from 'containers/Search/SearchPage';
-import HostSpaceList from 'containers/HostSpaceList';
-import SpacePage from 'containers/Space/SpacePage';
-import Payment from 'containers/Payment';
-import NewSpaceSpaceInfo from 'containers/NewSpace/SpaceInfo';
-import AboutBaggage from 'containers/NewSpace/AboutBaggage';
-import ReceiveBaggage from 'containers/NewSpace/ReceiveBaggage';
-import SpaceSize from 'containers/NewSpace/SpaceSize';
-import SpacePrice from 'containers/NewSpace/Price';
-import SpaceCreatedCompletion from 'containers/NewSpace/SpaceCreatedCompletion';
-import Schedule from 'containers/Schedule';
-import CancelSchedule from 'containers/CancelSchedule';
-import MessageRooms from 'containers/MessageRooms/';
-import MessageRoom from 'containers/MessageRoom/';
-import Estimate from 'containers/Estimate';
-import Profile from 'containers/Profile';
-import EditProfile from 'containers/EditProfile';
-import PostHostReview from 'containers/PostHostReview';
-import Payments from 'containers/Payments';
-import SalesTransferList from 'containers/SalesTransfer/SalesTransferList';
-import TransferRequest from 'containers/SalesTransfer/TransferRequest';
-import EditBankAccount from 'containers/SalesTransfer/EditBankAccount';
-import Inquiry from 'containers/Inquiry';
-import SignUp from 'containers/SignUp';
-import Login from 'containers/Login';
-import Unsubscribe from 'containers/Unsubscribe';
-import Report from 'containers/Report';
-import PasswordReset from 'containers/PasswordReset';
-import PasswordResetEnd from 'containers/PasswordResetEnd';
 
 import About from 'containers/Static/About';
 import Insurance from 'containers/Static/Insurance';
@@ -49,48 +20,47 @@ import Terms from 'containers/Static/Terms';
 import HelpTop from 'containers/Static/Help/Top';
 import HelpService from 'containers/Static/Help/Service';
 
-import NavigationHeader from 'containers/NavigationHeader';
+import Containers from 'components/atomic/containers';
+
+// import ErrorBoundary from 'components/ErrorBoundary';
 
 import Path from './path';
 
 require('./fontawesome-all.min.js');
 
 export const routes = [
+  // service pages
+  { path: Path.login(), component: Containers.Login },
+  { path: Path.signup(), component: Containers.Signup },
+  { path: Path.resetPassword(), component: Containers.ResetPassword },
+  { path: Path.search(), component: Containers.SearchResult },
+  { path: Path.space(), component: Containers.Space },
+  { path: Path.spaces(), component: Containers.SpaceManagement },
+  { path: Path.schedule(), component: Containers.Schedule },
+  { path: Path.profile(), component: Containers.Profile },
+  { path: Path.editProfile(), component: Containers.EditProfile },
+  { path: Path.inquiry(), component: Containers.Inquiry },
+  { path: Path.messages(), component: Containers.Inbox },
+  { path: Path.message(), component: Containers.Message },
+  { path: Path.estimate(), component: Containers.Estimate },
+  { path: Path.payment(), component: Containers.Payment },
+  { path: Path.createSpaceInfo(), component: Containers.EditSpaceInformation },
+  { path: Path.editSpaceInfo(), component: Containers.EditSpaceInformation },
+  { path: Path.createSpaceBaggage(), component: Containers.EditSpaceBaggage },
+  { path: Path.editSpaceBaggage(), component: Containers.EditSpaceBaggage },
+  { path: Path.createSpaceReceive(), component: Containers.EditSpaceReceive },
+  { path: Path.editSpaceReceive(), component: Containers.EditSpaceReceive },
+  { path: Path.createSpaceAreaSize(), component: Containers.EditSpaceSize },
+  { path: Path.editSpaceAreaSize(), component: Containers.EditSpaceSize },
+  { path: Path.createSpacePrice('all'), component: Containers.EditSpacePriceAll },
+  { path: Path.editSpacePrice(undefined, 'all'), component: Containers.EditSpacePriceAll },
+  { path: Path.createSpacePrice('about'), component: Containers.EditSpacePriceType },
+  { path: Path.editSpacePrice(undefined, 'about'), component: Containers.EditSpacePriceType },
+  { path: Path.createSpaceCompletion(), component: Containers.EditSpaceCompletion },
+  { path: Path.editSpaceCompletion(), component: Containers.EditSpaceCompletion },
+  { path: Path.unsubscribe(), component: Containers.Unsubscribe },
+  // static pages
   { path: Path.top(), component: Top },
-  { path: Path.search(), component: SearchPage },
-  { path: Path.spaces(), component: HostSpaceList },
-  { path: Path.space(), component: SpacePage },
-  { path: Path.payment(), component: Payment },
-  { path: Path.createSpaceInfo(), component: NewSpaceSpaceInfo },
-  { path: Path.createSpaceBaggage(), component: AboutBaggage },
-  { path: Path.createSpaceReceive(), component: ReceiveBaggage },
-  { path: Path.createSpaceAreaSize(), component: SpaceSize },
-  { path: Path.createSpacePrice(), component: SpacePrice },
-  { path: Path.createSpaceCompletion(), component: SpaceCreatedCompletion },
-  { path: Path.editSpaceInfo(), component: NewSpaceSpaceInfo },
-  { path: Path.editSpaceBaggage(), component: AboutBaggage },
-  { path: Path.editSpaceReceive(), component: ReceiveBaggage },
-  { path: Path.editSpaceAreaSize(), component: SpaceSize },
-  { path: Path.editSpacePrice(), component: SpacePrice },
-  { path: Path.editSpaceCompletion(), component: SpaceCreatedCompletion },
-  { path: Path.schedule(), component: Schedule },
-  { path: Path.confirmCancel(), component: CancelSchedule },
-  { path: Path.messages(), component: MessageRooms },
-  { path: Path.message(), component: MessageRoom },
-  { path: Path.estimate(), component: Estimate },
-  { path: Path.profile(), component: Profile },
-  { path: Path.editProfile(), component: EditProfile },
-  { path: Path.hostReview(), component: PostHostReview },
-  { path: Path.paid(), component: Payments },
-  { path: Path.salesTransfers(), component: SalesTransferList },
-  { path: Path.requestTransfer(), component: TransferRequest },
-  { path: Path.editBankAccount(), component: EditBankAccount },
-  { path: Path.inquiry(), component: Inquiry },
-  { path: Path.signup(), component: SignUp },
-  { path: Path.login(), component: Login },
-  { path: Path.unsubscribe(), component: Unsubscribe },
-  { path: Path.reportUser(), component: Report },
-  { path: Path.reportSpace(), component: Report },
   { path: Path.about(), component: About },
   { path: Path.insurance(), component: Insurance },
   { path: Path.rule(), component: Rule },
@@ -111,22 +81,14 @@ export const routes = [
   { path: Path.helpSalesTransfer(), component: HelpService },
   { path: Path.helpSignin(), component: HelpService },
   { path: Path.helpOther(), component: HelpService },
-  { path: Path.passwordReset(), component: PasswordReset },
-  { path: Path.passwordResetEnd(), component: PasswordResetEnd },
 ];
 
 export default props => (
   <ConnectedRouter history={props.history}>
     <Root>
-      <NavigationHeader />
       <Switch>
         {routes.map((route, i) => (
-          <Route
-            key={`route_${i}`}
-            exact
-            path={route.path}
-            component={route.component}
-          />
+          <Route key={`route_${i}`} exact path={route.path} component={route.component} />
         ))}
         <Route component={NotFound} />
       </Switch>

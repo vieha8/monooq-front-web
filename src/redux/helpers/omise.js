@@ -13,16 +13,21 @@ export const createOmiseToken = async data => {
   headers.append('Content-Type', 'application/json');
   headers.append('Omise-Version', apiVersion);
 
-  const res = await fetch(tokenEndPoint, {
-    method: 'POST',
-    cache: 'no-cache',
-    headers,
-    body: JSON.stringify(data),
-  });
-  if (res.ok && res.status === 200) {
-    return await res.json();
-  } else {
+  try {
+    const res = await fetch(tokenEndPoint, {
+      method: 'POST',
+      cache: 'no-cache',
+      headers,
+      body: JSON.stringify(data),
+    });
+    if (res.ok && res.status === 200) {
+      return await res.json();
+    }
+
     console.error(res);
-    return null;
+    return {};
+  } catch (e) {
+    console.error(e);
+    return {};
   }
 };

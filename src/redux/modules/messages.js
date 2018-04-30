@@ -12,6 +12,8 @@ import { store } from '../store/configureStore';
 
 require('firebase/firestore');
 
+let messageObserverUnsubscribe = null;
+
 //Actions
 const FETCH_ROOMS_START = 'FETCH_ROOMS_START';
 const FETCH_ROOMS_END = 'FETCH_ROOMS_END';
@@ -42,16 +44,15 @@ export const messagesReducer = handleActions(
   {
     [FETCH_ROOMS_START]: state => ({ ...state, isLoading: true }),
     [FETCH_ROOMS_END]: (state, action) => ({ ...state, isLoading: false, rooms: action.payload }),
-    [FETCH_MESSAGES_START]: state => ({ ...state, isLoading: true }),
+    [FETCH_MESSAGES_START]: state => ({ ...state, messages: [], isLoading: true }),
     [FETCH_MESSAGES_END]: (state, action) => ({
       ...state,
       isLoading: false,
-      messages: action.payload.messages,
       room: action.payload.room,
     }),
     [UPDATE_MESSAGE]: (state, action) => ({
       ...state,
-      messages: [...state.messages, action.payload],
+      messages: [].concat(state.messages, action.payload),
     }),
   },
   initialState,
@@ -83,7 +84,16 @@ function* fetchRoomStart() {
   yield put(messagesActions.fetchRoomsEnd(res));
 }
 
+function messagesUnsubscribe() {
+  if (messageObserverUnsubscribe) {
+    messageObserverUnsubscribe();
+    messageObserverUnsubscribe = null;
+  }
+}
+
 function* fetchMessagesStart({ payload }) {
+  yield messagesUnsubscribe();
+
   let user = yield select(state => state.auth.user);
   if (!user.ID) {
     yield take(authActions.checkLoginSuccess);
@@ -92,14 +102,19 @@ function* fetchMessagesStart({ payload }) {
 
   const { messages, room, messageObserver } = yield getMessages(payload);
 
-  messageObserver.onSnapshot(snapshot => {
-    if (snapshot.docChanges.length === 1) {
-      const message = snapshot.docChanges[0].doc.data();
-      store.dispatch(messagesActions.updateMessage(message));
-    }
-  });
+  store.dispatch(messagesActions.updateMessage(messages));
+
+  if (!messageObserverUnsubscribe) {
+    messageObserverUnsubscribe = messageObserver.onSnapshot(snapshot => {
+      if (snapshot.docChanges.length === 1) {
+        const message = snapshot.docChanges[0].doc.data();
+        store.dispatch(messagesActions.updateMessage(message));
+      }
+    });
+  }
 
   const { userId1, userId2, spaceId } = room;
+
   const partnerUserId = user.ID === userId1 ? userId2 : userId1;
 
   yield put(userActions.fetchUser({ userId: partnerUserId }));

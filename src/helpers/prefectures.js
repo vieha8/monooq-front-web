@@ -1,3 +1,5 @@
+// @flow
+
 export const prefectures = [
   '北海道',
   '青森県',
@@ -48,17 +50,27 @@ export const prefectures = [
   '沖縄県',
 ];
 
-export function getPrefecture(prefCode) {
+export function getPrefecture(prefCode: string | number) {
   return prefectures[parseInt(prefCode, 10) - 1];
 }
 
-export function selectOptionPrefectures() {
-  return prefectures.map((pref, i) => {
-    const prefCode = i + 1;
-    return {
-      key: prefCode,
-      value: prefCode.toString(),
-      text: pref,
-    };
-  });
+export function selectOptionPrefectures(placeholder: string) {
+  const prefs = [];
+  if (placeholder) {
+    prefs.push({
+      key: -1,
+      value: '',
+      text: placeholder,
+    });
+  }
+  return prefs.concat(
+    prefectures.map((pref, i) => {
+      const prefCode = i + 1;
+      return {
+        key: prefCode,
+        value: prefCode.toString(),
+        text: pref,
+      };
+    }),
+  );
 }
