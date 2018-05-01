@@ -49,10 +49,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       error: {},
     };
 
-    // TODO if edit path and space.ID = null, fetch space
-    // if (match.pathname === Path.editSpaceInfo() && !space.ID)
-    // const spaceId = match.params.space_id;
-    // dispatch(spaceActions.fetchSpace({ spaceId }));
     if (match.path === Path.createSpaceInfo()) {
       dispatch(uiActions.setUiState({ space: {} }));
       this.state = {
@@ -63,8 +59,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
         Address: '',
         error: {},
       };
-    } else if (match.path === Path.editSpaceInfo()) {
-      // dispatch(uiActions.setUiState({ space: {} }));
     }
   }
 
