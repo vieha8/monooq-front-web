@@ -11,6 +11,6 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <a href={props.href} onClick={props.onClick}>
-    <SearchIcon color={props.color} fontSize={22} />
+    <SearchIcon color={props.color} fontSize={24} />
   </a>
 );

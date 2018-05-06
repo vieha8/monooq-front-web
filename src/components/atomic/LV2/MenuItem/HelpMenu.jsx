@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Colors } from 'variables';
+import { Colors, Dimens } from 'variables';
 import InlineText from 'components/atomic/LV1/InlineText';
 import { AngleRight, AngleDown } from 'components/atomic/LV1/ActionIcon';
 import MenuItem from 'components/atomic/LV1/Menu/Item';
@@ -13,7 +13,7 @@ const MenuLink = styled(Link)`
   width: 100%;
   height: 100%;
   text-decoration: none;
-  padding: 12px 16px;
+  padding: ${Dimens.medium}px ${Dimens.medium2}px;
   ${props =>
     props.fill &&
     `
