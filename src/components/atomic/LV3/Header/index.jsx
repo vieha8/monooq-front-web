@@ -10,7 +10,7 @@ import Anonymouse from 'components/atomic/LV2/HeaderAction/Anonymouse';
 import AnimateSearchInputField from 'components/atomic/LV2/AnimateSearchInputField';
 import ServiceMenu from 'components/atomic/LV3/ServiceMenu';
 import { media, isMobileWindow } from 'helpers/style/media-query';
-import { Colors, ZIndexes } from 'variables';
+import { Colors, Dimens, ZIndexes } from 'variables';
 
 export const Height = 60;
 
@@ -53,7 +53,7 @@ const LogoWrapper = styled.a`
 const ActionWrapper = styled.div`
   display: inline-flex;
   margin-left: auto;
-  margin-right: 12px;
+  margin-right: ${Dimens.medium}px;
   ${props =>
     props.fill &&
     `
@@ -61,7 +61,7 @@ const ActionWrapper = styled.div`
   `};
   ${media.phone`
     margin-left: auto;
-    margin-right: 8px;
+    margin-right: ${Dimens.small}px;
   `};
 `;
 
@@ -77,7 +77,7 @@ const ActionCell = styled.div`
   vertical-align: middle;
   cursor: pointer;
   &:not(:last-child) {
-    padding-right: 12px;
+    padding-right: ${Dimens.medium}px;
   }
   ${props =>
     props.hide &&
@@ -90,7 +90,7 @@ const SearchFiledCell = styled.div`
   display: inline-block;
   vertical-align: middle;
   width: 300px;
-  margin-right: 8px;
+  margin-right: ${Dimens.medium}px;
   ${media.phone`
     width: 50px;
     ${props =>

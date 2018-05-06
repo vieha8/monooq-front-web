@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
 import NotificationCount from 'components/atomic/LV1/NotificationCount';
 import MenuItem from 'components/atomic/LV1/Menu/Item';
+import { Dimens } from 'variables';
 
 const MenuLink = styled(Link)`
   display: block;
@@ -13,6 +14,7 @@ const MenuLink = styled(Link)`
   height: 100%;
   text-decoration: none;
   padding: 20px 16px;
+  padding: ${Dimens.medium}px ${Dimens.medium2}px;
 `;
 
 const MenuText = styled.span`

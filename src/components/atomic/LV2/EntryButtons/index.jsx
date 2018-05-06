@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/atomic/LV1/Button';
+import { Dimens } from 'variables';
 
 const Container = styled.div`
   display: table;
@@ -13,6 +14,10 @@ const Cell = styled.div`
   display: table-cell;
   width: 50%;
   text-align: ${props => props.align};
+  padding-right: ${Dimens.small}px;
+  &:not(:first-child) {
+    padding-left: ${Dimens.small}px;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -20,7 +25,6 @@ const Wrapper = styled.div`
 `;
 
 type PropTypes = {
-  single?: boolean,
   loading?: boolean,
   backButton: {
     text: string,
