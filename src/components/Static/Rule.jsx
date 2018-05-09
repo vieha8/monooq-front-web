@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
+
 import styled from 'styled-components';
+import { FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
 
@@ -8,38 +10,41 @@ import { Footer, DefaultContainer } from 'components/Shared';
 // import ruleImage3 from 'images/rule-img03.svg';
 
 const MainTitle = styled.div`
-  font-size: 34px;
-  line-height: 51px;
+  font-size: ${FontSizes.xlarge}px;
+  line-height: ${FontSizes.xlarge * 1.5}px;
   margin-bottom: 44px;
   ${media.phone`
-    font-size: 1.5em;
-    line-height: 1.5em;
+    font-size: 7.5vw;
+    line-height: ${7.5 * 1.5}vw;
     margin-bottom: 20px;
   `};
 `;
 
 const SubTitle = styled.div`
-  font-size: 30px;
-  line-height: 45px;
+  font-size: ${FontSizes.large}px;
+  line-height: ${FontSizes.large}px;
   margin-bottom: 45px;
   ${media.phone`
-    font-size: 1.25em;
-    line-height: 1.25em;
-    font-weight: bold;
+    font-size: 6.5vw;
+    line-height: ${6.5 * 1.5}vw;
   `};
 `;
 
 const Text = styled.div`
-  font-size: 16px;
-  line-height: 32px;
+  font-size: ${FontSizes.medium}px;
+  line-height: ${FontSizes.medium * 2}px;
+  ${media.phone`
+    font-size: 5vw;
+    line-height: ${5 * 1.5}vw;
+  `};
 `;
 
 const HilightText = styled.div`
-  font-size: 22px;
-  line-height: 32px;
+  font-size: ${FontSizes.medium1}px;
+  line-height: ${FontSizes.medium1 * 1.5}px;
   ${media.phone`
-    font-size: 1em;
-    line-height: 1.25em;
+    font-size: 5vw;
+    line-height: 7.5vw;
   `};
 `;
 
@@ -51,7 +56,7 @@ const Hr = styled.hr`
   border: 0;
   height: 1px;
   width: 100%;
-  background-color: #dbdbdb;
+  background-color: ${Colors.lightGray2};
   margin: 50px 0;
   ${media.phone`
     margin: 20px 0;
@@ -109,7 +114,7 @@ const NotAllowedContentWrapper = styled.div`
   margin: 30px 0;
 `;
 
-const NotAllowedContent = props => {
+const NotAllowedContent = (props) => {
   const Header = styled.div`
     width: 180px;
     font-weight: bold;
@@ -120,8 +125,8 @@ const NotAllowedContent = props => {
   `;
   const Data = styled.div`
     width: 758px;
-    font-size: 14px;
-    line-height: 28px;
+    font-size: ${FontSizes.small}px;
+    line-height: ${FontSizes.small * 2}px;
     padding: 16px 0;
     ${media.phone`
       line-height: 30px;
@@ -144,14 +149,14 @@ const StyledNotAllowedContent = styled(NotAllowedContent)`
   line-height: 60px;
   font-size: 14px;
   padding: 0 20px;
-  border-right: 1px solid #dbdbdb;
-  border-left: 1px solid #dbdbdb;
-  border-bottom: 1px solid #dbdbdb;
+  border-right: 1px solid ${Colors.borderGray};
+  border-left: 1px solid ${Colors.borderGray};
+  border-bottom: 1px solid ${Colors.borderGray};
   :nth-child(odd) {
-    background-color: #f9fafb;
+    background-color: ${Colors.lightGray2Bg};
   }
   :first-child {
-    border-top: 1px solid #dbdbdb;
+    border-top: 1px solid ${Colors.borderGray};
   }
 `;
 
@@ -159,15 +164,13 @@ const DoNotActionContainer = DefaultContainer.extend`
   margin-bottom: 135px;
 `;
 
-const DoNotActionContent = props => {
-  const Title = styled.div`
-    font-size: 22px;
-    line-height: 33px;
+const DoNotActionContent = (props) => {
+  const Title = styled(HilightText)`
     font-weight: bold;
     margin-bottom: 22px;
   `;
   return (
-    <div className={props.className}>
+    <div>
       <Title>{props.title}</Title>
       {props.children}
     </div>
@@ -235,35 +238,35 @@ export default props => (
       <Hr />
     </WhoWantBeHostContainer>
 
-    {/*<HowSafeContainer>*/}
-      {/*<SubTitle>安心して物置きシェアをしてもらうために。</SubTitle>*/}
-      {/*<HowSafeContentWrapper>*/}
-        {/*{[*/}
-          {/*{*/}
-            {/*label: 'あなたをサポート',*/}
-            {/*image: ruleImage1,*/}
-            {/*text:*/}
-              {/*'「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',*/}
-          {/*},*/}
-          {/*{*/}
-            {/*label: 'レビュー評価',*/}
-            {/*image: ruleImage2,*/}
-            {/*text:*/}
-              {/*'誠実で健全なサービスを運営していくために、取り引き完了後に相互レビュー評価を行います。',*/}
-          {/*},*/}
-          {/*{*/}
-            {/*label: '違反報告',*/}
-            {/*image: ruleImage3,*/}
-            {/*text:*/}
-              {/*'迷惑な行為をする人や、禁止されている情報を掲載しているスペースはモノオクまで通報することができます。不適切と判断した場合に随時対応を行っています。',*/}
-          {/*},*/}
-          {/*].map((v, i) => {*/}
-            {/*return <StyledHowSafeContent label={v.label} image={v.image} text={v.text} key={i} />;*/}
-          {/*})}*/}
-      {/*</HowSafeContentWrapper>*/}
+    {/* <HowSafeContainer>*/}
+    {/* <SubTitle>安心して物置きシェアをしてもらうために。</SubTitle>*/}
+    {/* <HowSafeContentWrapper>*/}
+    {/* {[*/}
+    {/* {*/}
+    {/* label: 'あなたをサポート',*/}
+    {/* image: ruleImage1,*/}
+    {/* text:*/}
+    {/* '「こんな場合はどうするの？」「もしかしてトラブル？」お困りの時はヘルプチャットや専用の問い合わせフォームよりご連絡ください。',*/}
+    {/* },*/}
+    {/* {*/}
+    {/* label: 'レビュー評価',*/}
+    {/* image: ruleImage2,*/}
+    {/* text:*/}
+    {/* '誠実で健全なサービスを運営していくために、取り引き完了後に相互レビュー評価を行います。',*/}
+    {/* },*/}
+    {/* {*/}
+    {/* label: '違反報告',*/}
+    {/* image: ruleImage3,*/}
+    {/* text:*/}
+    {/* '迷惑な行為をする人や、禁止されている情報を掲載しているスペースはモノオクまで通報することができます。不適切と判断した場合に随時対応を行っています。',*/}
+    {/* },*/}
+    {/* ].map((v, i) => {*/}
+    {/* return <StyledHowSafeContent label={v.label} image={v.image} text={v.text} key={i} />;*/}
+    {/* })}*/}
+    {/* </HowSafeContentWrapper>*/}
 
-      {/*<Hr />*/}
-    {/*</HowSafeContainer>*/}
+    {/* <Hr />*/}
+    {/* </HowSafeContainer>*/}
 
     <NotAllowedContainer id="not-allowed">
       <SubTitle>取引ができない荷物</SubTitle>
@@ -282,8 +285,7 @@ export default props => (
           },
           {
             header: '特殊品',
-            data:
-              '磁気テープ類などの磁気の影響を受ける物、精密機器など',
+            data: '磁気テープ類などの磁気の影響を受ける物、精密機器など',
           },
           {
             header: '生き物',
@@ -291,8 +293,7 @@ export default props => (
           },
           {
             header: '美術品・高価品',
-            data:
-              '書画、骨董品、宝石類、毛皮品など',
+            data: '書画、骨董品、宝石類、毛皮品など',
           },
           {
             header: '生鮮食品',
@@ -300,8 +301,7 @@ export default props => (
           },
           {
             header: '異臭のする物',
-            data:
-              '臭いの強い物など',
+            data: '臭いの強い物など',
           },
           {
             header: 'こわれやすい物',
@@ -309,22 +309,18 @@ export default props => (
           },
           {
             header: '特殊な衣料',
-            data:
-              '毛皮、着物など',
+            data: '毛皮、着物など',
           },
           {
             header: '慶事・祭事・仏事関連品',
-            data:
-              '仏壇、祭壇、神棚など',
+            data: '仏壇、祭壇、神棚など',
           },
           {
             header: 'その他',
             data:
               'その他の個人の貴重品、ピアノ、電子オルガン、現金・有価証券の類、ゴミ、産業廃棄物およびこれらに類する物、常温では管理できない物、法令に定められている取り扱いできない物',
           },
-          ].map((v, i) => {
-            return <StyledNotAllowedContent header={v.header} data={v.data} key={i} />;
-          })}
+        ].map((v, i) => <StyledNotAllowedContent header={v.header} data={v.data} key={i} />)}
       </NotAllowedContentWrapper>
 
       <Hr />
@@ -346,7 +342,8 @@ export default props => (
           },
           {
             hilightText: '申告と異なる荷物をホストへ強要すること。',
-            text: 'ホストが認識していない荷物を無理やりお願いすることは禁止です。事前にしっかりと内容を伝えましょう。',
+            text:
+              'ホストが認識していない荷物を無理やりお願いすることは禁止です。事前にしっかりと内容を伝えましょう。',
           },
           {
             hilightText: '無断でスペース利用の延長をすること。',
@@ -358,14 +355,12 @@ export default props => (
             text:
               '一方的に着払いをするなど、ホストが困る身勝手な行為は禁止です。荷物の配送方法に関してもお互いが同意の上で取り引きを進めてください。',
           },
-          ].map((v, i) => {
-            return (
-              <TextWrapper key={i}>
-                <HilightText>{v.hilightText}</HilightText>
-                <Text>{v.text}</Text>
-              </TextWrapper>
-            );
-          })}
+        ].map((v, i) => (
+          <TextWrapper key={i}>
+            <HilightText>{v.hilightText}</HilightText>
+            <Text>{v.text}</Text>
+          </TextWrapper>
+        ))}
       </DoNotActionContent>
 
       <DoNotActionContent title="スペース登録">
@@ -388,22 +383,19 @@ export default props => (
             text:
               '物置きシェアのために必要な情報を掲載してください。このような掲載を見つけ次第、情報の非公開・アカウント停止などの対応を行います。',
           },
-          ].map((v, i) => {
-            return (
-              <TextWrapper key={i}>
-                <HilightText>{v.hilightText}</HilightText>
-                <Text>{v.text}</Text>
-              </TextWrapper>
-            );
-          })}
+        ].map((v, i) => (
+          <TextWrapper key={i}>
+            <HilightText>{v.hilightText}</HilightText>
+            <Text>{v.text}</Text>
+          </TextWrapper>
+        ))}
       </DoNotActionContent>
 
       <DoNotActionContent title="その他">
         {[
           {
             hilightText: '物置きシェアに関係のない外部サービスへの誘導。',
-            text:
-              'スペース掲載や取り引きに関係のないサービスへ誘導するのは禁止です。',
+            text: 'スペース掲載や取り引きに関係のないサービスへ誘導するのは禁止です。',
           },
           {
             hilightText: 'みんなに迷惑な行為。',
@@ -411,21 +403,20 @@ export default props => (
           },
           {
             hilightText: '個人を特定できるような情報を発信すること。',
-            text: 'だれかの誹謗中傷、個人情報や写真など、悪質な内容を発見したらすぐさま対応します。',
+            text:
+              'だれかの誹謗中傷、個人情報や写真など、悪質な内容を発見したらすぐさま対応します。',
           },
           {
             hilightText: 'その他、モノオクカスタマーサポートにて不適切と判断する行為。',
             text:
               'カスタマーサポートでは随時掲載内容のチェックを行っています。おかしいな？と思ったらモノオクまでご報告ください。',
           },
-          ].map((v, i) => {
-            return (
-              <TextWrapper key={i}>
-                <HilightText>{v.hilightText}</HilightText>
-                <Text>{v.text}</Text>
-              </TextWrapper>
-            );
-          })}
+        ].map((v, i) => (
+          <TextWrapper key={i}>
+            <HilightText>{v.hilightText}</HilightText>
+            <Text>{v.text}</Text>
+          </TextWrapper>
+        ))}
       </DoNotActionContent>
     </DoNotActionContainer>
 
