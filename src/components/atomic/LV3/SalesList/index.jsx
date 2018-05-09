@@ -2,8 +2,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Colors } from 'variables';
+import { Colors, Dimens } from 'variables';
 import InlineText from 'components/atomic/LV1/InlineText';
+import Button from 'components/atomic/LV1/Button';
 
 const Row = styled.div`
   width: 100%;
@@ -12,10 +13,6 @@ const Row = styled.div`
   &:last-child {
     border-bottom: 1px solid ${Colors.borderGray};
   }
-`;
-
-const Label = styled.div`
-  margin-bottom: 8px;
 `;
 
 const Table = styled.div`
@@ -37,9 +34,18 @@ const Cell = styled.div`
   `};
 `;
 
+const ButtonWrapper = styled.div`
+  margin-top: ${Dimens.medium}px;
+  text-align: center;
+  span {
+    margin-top: ${Dimens.small}px;
+  }
+`;
+
 type PropTypes = {
   confirmedSales: string,
   provisionalSales: string,
+  onClickTransfer: Function,
 };
 
 export default (props: PropTypes) => (
@@ -64,5 +70,13 @@ export default (props: PropTypes) => (
         </Cell>
       </Table>
     </Row>
+    <ButtonWrapper>
+      <Button secondary center onClick={props.onClickTransfer}>
+        振込申請をする
+      </Button>
+      <InlineText.EmphasisSmall singleLine>
+        ※振込申請は3000円以上から可能です
+      </InlineText.EmphasisSmall>
+    </ButtonWrapper>
   </div>
 );
