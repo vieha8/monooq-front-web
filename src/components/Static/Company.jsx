@@ -46,7 +46,7 @@ const DetailContainer = DefaultContainer.extend`
   margin-bottom: 50px;
 `;
 
-const DetailContent = (props) => {
+const DetailContent = props => {
   const ContentContainer = styled.div`
     width: 100%;
     display: flex;
@@ -65,8 +65,7 @@ const DetailContent = (props) => {
       width: 100%;
     `};
   `;
-  const Data = styled(Text)`
-  `;
+  const Data = styled(Text)``;
   return (
     <ContentContainer>
       <Header>{props.header}</Header>
@@ -90,7 +89,7 @@ const NewsContainer = DefaultContainer.extend`
   margin-bottom: 80px;
 `;
 
-const NewsContent = (props) => {
+const NewsContent = props => {
   const ContentContainer = styled.div`
     width: 100%;
     border-bottom: 1px solid ${Colors.borderGray};
@@ -112,7 +111,9 @@ const NewsContent = (props) => {
     <a href={props.link} target="_blank">
       <Text>{props.text}</Text>
     </a>
-  ) : (<Text>{props.text}</Text>);
+  ) : (
+    <Text>{props.text}</Text>
+  );
   return (
     <ContentContainer>
       <LabelContainer>
@@ -202,13 +203,7 @@ export default () => (
           header: 'WEB',
           data: <a href={Path.top()}>https://monooq.com/</a>,
         },
-      ].map((v, i) => (
-        <DetailContent
-          key={i}
-          header={v.header}
-          data={v.data}
-        />
-      ))}
+      ].map((v, i) => <DetailContent key={i} header={v.header} data={v.data} />)}
     </DetailContainer>
 
     <TitleContainer>
@@ -216,8 +211,12 @@ export default () => (
     </TitleContainer>
 
     <InterviewContainer>
-      <Text>提携、取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。</Text>
-      <Text><Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor></Text>
+      <Text>
+        提携、取材、その他お問い合わせに関しましては下記メールアドレスまでご連絡ください。
+      </Text>
+      <Text>
+        <Anchor href="mailto:info@monooq.com">info@monooq.com</Anchor>
+      </Text>
     </InterviewContainer>
 
     <TitleContainer>
@@ -227,15 +226,7 @@ export default () => (
     <NewsContainer>
       {news.map((v, i) => {
         const item = v.split(',');
-        return (
-          <NewsContent
-            key={i}
-            date={item[0]}
-            text={item[1]}
-            label={item[2]}
-            link={item[3]}
-          />
-        );
+        return <NewsContent key={i} date={item[0]} text={item[1]} label={item[2]} link={item[3]} />;
       })}
     </NewsContainer>
 

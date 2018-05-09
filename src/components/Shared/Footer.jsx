@@ -1,8 +1,8 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import {FontSizes, Colors, Dimens} from 'variables';
-import {media} from 'helpers/style/media-query';
+import { FontSizes, Colors, Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 
 const Container = styled.div`

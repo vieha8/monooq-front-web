@@ -17,11 +17,14 @@ const SIGNUP_EMAIL = 'SIGNUP_EMAIL';
 const SIGNUP_FACEBOOK = 'SIGNUP_FACEBOOK';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNUP_FAILED = 'SIGNUP_FAILED';
+const INIT_PASSWORD_RESET = 'INIT_PASSWORD_RESET';
 const PASSWORD_RESET = 'PASSWORD_RESET';
 const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
 const TOKEN_GENERATE = 'TOKEN_GENERATE';
 const UNSUBSCRIBE = 'UNSUBSCRIBE';
+const UNSUBSCRIBE_SUCCESS = 'UNSUBSCRIBE_SUCCESS';
+const UNSUBSCRIBE_FAILED = 'UNSUBSCRIBE_FAILED';
 
 const CHECK_LOGIN = 'CHECK_LOGIN';
 const CHECK_LOGIN_SUCCESS = 'CHECK_LOGIN_SUCCESS';
@@ -42,12 +45,15 @@ export const authActions = createActions(
   SIGNUP_FACEBOOK,
   SIGNUP_SUCCESS,
   SIGNUP_FAILED,
+  INIT_PASSWORD_RESET,
   PASSWORD_RESET,
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILED,
   TOKEN_GENERATE,
   SET_USER,
   UNSUBSCRIBE,
+  UNSUBSCRIBE_SUCCESS,
+  UNSUBSCRIBE_FAILED,
 );
 
 // Reducer
@@ -55,6 +61,11 @@ const initialState = {
   isLogin: false,
   isChecking: false,
   isRegisting: false,
+  isResetTrying: false,
+  isResetSuccess: false,
+  isUnsubscribeTrying: false,
+  isUnsubscribeSuccess: false,
+  isUnsubscribeFailed: false,
   user: {},
   error: '',
 };
@@ -120,6 +131,46 @@ export const authReducer = handleActions(
       ...state,
       user: action.payload,
     }),
+    [INIT_PASSWORD_RESET]: state => ({
+      ...state,
+      isResetTrying: false,
+      isResetSuccess: false,
+      error: '',
+    }),
+    [PASSWORD_RESET]: state => ({
+      ...state,
+      isResetTrying: true,
+    }),
+    [PASSWORD_RESET_SUCCESS]: state => ({
+      ...state,
+      isResetTrying: false,
+      isResetSuccess: true,
+      error: '',
+    }),
+    [PASSWORD_RESET_FAILED]: state => ({
+      ...state,
+      isResetTrying: false,
+      isResetSuccess: false,
+      error: 'reset password failed',
+    }),
+    [UNSUBSCRIBE]: state => ({
+      ...state,
+      isUnsubscribeTrying: true,
+      isUnsubscribeSuccess: false,
+      isUnsubscribeFailed: false,
+    }),
+    [UNSUBSCRIBE_SUCCESS]: state => ({
+      ...state,
+      isUnsubscribeTrying: false,
+      isUnsubscribeSuccess: true,
+      isUnsubscribeFailed: false,
+    }),
+    [UNSUBSCRIBE_FAILED]: state => ({
+      ...state,
+      isUnsubscribeTrying: false,
+      isUnsubscribeSuccess: false,
+      isUnsubscribeFailed: true,
+    }),
   },
   initialState,
 );
@@ -151,7 +202,7 @@ function* checkLoginFirebaseAuth() {
     status.user = data;
 
     if (status.user.Profile === '') {
-      yield put(uiActions.setUiState({ signUpStep: 4 }));
+      yield put(uiActions.setUiState({ signupStep: 4 }));
       store.dispatch(push('/signup'));
     }
   }
@@ -207,7 +258,7 @@ function* signUpEmail({ payload: { email, password } }) {
     }
     yield put(authActions.signupSuccess(payload));
     yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signUpStep: 4 }));
+    yield put(uiActions.setUiState({ signupStep: 4 }));
   } catch (err) {
     console.error(err.message);
     yield put(authActions.signupFailed(err.message));
@@ -238,7 +289,7 @@ function* signUpFacebook() {
     }
     yield put(authActions.signupSuccess(payload));
     yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signUpStep: 4, signup: { name: displayName } }));
+    yield put(uiActions.setUiState({ signupStep: 4, signup: { name: displayName } }));
   } catch (err) {
     console.error(err.message);
     yield put(authActions.signupFailed(err.message));
@@ -250,7 +301,6 @@ function* passwordReset({ payload: { email } }) {
   try {
     yield auth.sendPasswordResetEmail(email);
     yield put(authActions.passwordResetSuccess());
-    store.dispatch(push('/password/reset/end'));
   } catch (err) {
     console.error(err);
     yield put(authActions.passwordResetFailed(err));
@@ -287,7 +337,14 @@ function* unsubscribe({ payload: { userId, reason, description } }) {
       path: apiEndpoint.users(userId),
     }),
   );
-  yield put(authActions.logout());
+
+  const { error, meta } = yield take(apiActions.apiResponse);
+  if (error) {
+    yield put(authActions.unsubscribeFailed(meta));
+    return;
+  }
+
+  yield put(authActions.unsubscribeSuccess());
 }
 
 export const authSagas = [

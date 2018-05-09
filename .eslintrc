@@ -1,18 +1,22 @@
 {
   "extends": [
     "airbnb",
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "plugin:prettier/recommended"
   ],
   "parser": "babel-eslint",
   "plugins": [
     "react",
     "jsx-a11y",
     "import",
-    "flowtype"
+    "flowtype",
+    "prettier"
   ],
   "globals": {
     "window": true,
-    "document": true
+    "document": true,
+    "localStorage": true,
+    "FileReader": true
   },
   "rules": {
     "react/prop-types": 0,
@@ -22,7 +26,8 @@
       {
         "beforeSelfClosing": "always"
       }
-    ]
+    ],
+    "prettier/prettier": "error"
   },
   "settings": {
     "import/resolver": {

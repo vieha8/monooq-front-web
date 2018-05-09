@@ -4,7 +4,7 @@ import apiConfig from '../../config/api';
 const createApiInstance = token => {
   return axios.create({
     baseURL: apiConfig().baseURI,
-    timeout: 3000,
+    timeout: 10000,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

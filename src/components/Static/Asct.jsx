@@ -33,7 +33,7 @@ const AnnotationText = styled(Text)`
     font-size: 4.5vw;
     line-height: 6.75vw;
     margin-bottom: 10px;
-  `}
+  `};
 `;
 
 const MainTitleContainer = DefaultContainer.extend`
@@ -52,7 +52,7 @@ const AsctContentWrapper = styled.div`
   margin-bottom: 40px;
 `;
 
-const AsctContent = (props) => {
+const AsctContent = props => {
   const ContentContainer = styled.div`
     width: 100%;
     padding: 20px 0;
@@ -60,7 +60,7 @@ const AsctContent = (props) => {
     flex-wrap: wrap;
     justify-content: flex-start;
     font-size: 16px;
-    border-bottom: 1px solid #DBDBDB;
+    border-bottom: 1px solid #dbdbdb;
   `;
 
   const Header = styled(Text)`
@@ -74,7 +74,8 @@ const AsctContent = (props) => {
   const Data = styled(Text)`
     ${media.phone`
       margin-top: 8px;
-    `}
+      line-height: 30px;
+    `};
   `;
   return (
     <ContentContainer>
@@ -82,7 +83,7 @@ const AsctContent = (props) => {
       <Data dangerouslySetInnerHTML={{ __html: props.data }} />
     </ContentContainer>
   );
-}
+};
 
 export default () => (
   <Fragment>
@@ -119,7 +120,8 @@ export default () => (
           },
           {
             header: '販売価格帯',
-            data: 'ホストの提示する見積もりにて表示する価格（サービス利用手数料を含む）となります。',
+            data:
+              'ホストの提示する見積もりにて表示する価格（サービス利用手数料を含む）となります。',
           },
           {
             header: '商品の引き渡し時期',
@@ -141,14 +143,8 @@ export default () => (
           //   header: '返品・交換について',
           //   data: `モノオクの定める<a href=${Path.cancellationPolicies()}>キャンセルポリシー</a>がございます。お支払い前に必ずお読みください。`,
           // },
-        ].map((v,i)=>{
-          return (
-            <AsctContent
-              key={i}
-              header={v.header}
-              data={v.data}
-            />
-          );
+        ].map((v, i) => {
+          return <AsctContent key={i} header={v.header} data={v.data} />;
         })}
       </AsctContentWrapper>
 

@@ -246,7 +246,7 @@ export default props => (
           <TopTitle>はじめての方へ</TopTitle>
           <TopText>モノオクは空きスペースを活用する、物置きシェアサービスです。</TopText>
           <TopLabelWrapper>
-            {['安心の料金', '面倒な手続きが不要', '拠点数が多い', '1ヶ月だけでもOK'].map((v,i) => {
+            {['安心の料金', '面倒な手続きが不要', '拠点数が多い', '1ヶ月だけでもOK'].map((v, i) => {
               return <TopLabel key={i}>{v}</TopLabel>;
             })}
           </TopLabelWrapper>
@@ -281,7 +281,7 @@ export default props => (
               image: useImage6,
               text: '生活空間を広げるため。',
             },
-          ].map((v,i) => {
+          ].map((v, i) => {
             return <WhenIUseContent key={i} image={v.image} text={v.text} />;
           })}
         </WhenIUseContentWrapper>
