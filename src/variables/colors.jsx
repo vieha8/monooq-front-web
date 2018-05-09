@@ -9,7 +9,7 @@ export default {
   red: '#FF0000',
   darkGray1: '#333333',
   darkGray2: '#888787',
-  disabled: '#aaabab',
+  disabled: '#AAABAB',
   lightGray1Bg: '#F7F7F7',
   lightGray2Bg: '#FCFCFC',
   lightGray1: '#BCBCBC',
