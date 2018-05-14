@@ -102,7 +102,10 @@ function* fetchMessagesStart({ payload }) {
 
   const { messages, room, messageObserver } = yield getMessages(payload);
 
-  store.dispatch(messagesActions.updateMessage(messages));
+  // メッセージが１件のみの場合はfirebaseから取得した方を使用するためViewとして追加しない
+  if (messages.length > 1) {
+    store.dispatch(messagesActions.updateMessage(messages));
+  }
 
   if (!messageObserverUnsubscribe) {
     messageObserverUnsubscribe = messageObserver.onSnapshot(snapshot => {
