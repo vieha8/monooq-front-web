@@ -53,7 +53,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
           <EditSpaceCompletion
             edit={space.ID}
             space={{
-              userId: (space || {}).UserID,
+              userId: (editedSpace || {}).UserID,
             }}
             onClickViewSpace={() => {
               history.push(Path.space(editedSpace.ID));
