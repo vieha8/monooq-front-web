@@ -61,7 +61,7 @@ export default (props: PropTypes) => (
       <SelectForm
         label="お住いの地域"
         options={selectOptionPrefectures('選択してください')}
-        onChange={e => props.onChangePrefCode(e.value)}
+        onChange={e => props.onChangePrefCode(e.target.value)}
         value={props.prefCode}
       />
     </Row>
