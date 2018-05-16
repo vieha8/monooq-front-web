@@ -67,9 +67,14 @@ class HeaderContainer extends Component<PropTypes> {
 
   search: Function;
   search = () => {
-    const { history } = this.props;
-    const { location } = this.state;
-    history.push(`${Path.search()}?location=${location}`);
+    const { history, location } = this.props;
+    const { location: searchLocation } = this.state;
+    const path = `${Path.search()}?location=${searchLocation}`;
+    if (location.pathname === Path.search()) {
+      window.location.href = path;
+    } else {
+      history.push(path);
+    }
   };
 
   toggleMenu: Function;
