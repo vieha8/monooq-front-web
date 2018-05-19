@@ -109,6 +109,23 @@ export default (props: PropTypes) => {
         if (message.self) {
           // 自分が送信
           if (message.self.image) {
+            if (message.self.message) {
+              return (
+                <Row key={key} self>
+                  <Row key={key} self>
+                    <SelfMessage
+                      message={message.self.message}
+                      sentAt={moment(message.self.sentAt).format(dateFormat)}
+                    />
+                  </Row>
+                  <PhotoMessage
+                    align="right"
+                    src={message.self.image}
+                    receivedAt={moment(message.self.sentAt).format(dateFormat)}
+                  />
+                </Row>
+              );
+            }
             return (
               <Row key={key} self>
                 <PhotoMessage
@@ -130,6 +147,24 @@ export default (props: PropTypes) => {
         } else if (message.other) {
           // 相手が送信
           if (message.other.image) {
+            if (message.other.message) {
+              return (
+                <Row key={key}>
+                  <OtherMessage
+                    id={message.other.id}
+                    image={message.other.userImage}
+                    message={message.other.message}
+                    receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                  />
+                  <OtherMessage
+                    id={message.other.id}
+                    image={message.other.userImage}
+                    receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                    extension={<PhotoMessage id={message.other.id} src={message.other.image} />}
+                  />
+                </Row>
+              );
+            }
             return (
               <Row key={key}>
                 <OtherMessage
