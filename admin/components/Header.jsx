@@ -1,12 +1,12 @@
 import React from 'react';
 import Router from 'next/router';
-import { Button } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
 
 const Header = () => (
-  <Button.Group>
-    <Button onClick={() => Router.push('/')}>Home</Button>
-    <Button onClick={() => Router.push('/about')}>About</Button>
-  </Button.Group>
+  <Menu>
+    <Menu.Item onClick={() => Router.push('/')}>全メッセージ一覧</Menu.Item>
+    <Menu.Item onClick={() => Router.push('/search')}>スペース検索ワードログ</Menu.Item>
+  </Menu>
 );
 
 export default Header;
