@@ -1,2 +1,2 @@
 web: npm start
-worker: node batch/worker.js
+worker: npm run worker
