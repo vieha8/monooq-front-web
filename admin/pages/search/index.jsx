@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import firebase from 'firebase';
-import Layout from '../components/Layout';
+import Layout from '../../components/Layout';
 require('firebase/firestore');
 
 import { Table } from 'semantic-ui-react';
