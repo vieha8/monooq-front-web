@@ -169,10 +169,12 @@ class InboxContainer extends Component<PropTypes, State> {
 
     const messageList = this.createMessageList();
 
+    const roomTitle = `${room.space.Host.Name}さんとのメッセージ`;
+
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline="メッセージ一覧"
+        headline={roomTitle}
         leftContent={<ServiceMenu />}
         rightContent={
           <Messages
