@@ -49,14 +49,14 @@ export default (props: PropTypes) => (
         value={props.name}
       />
     </Row>
-    {/*<Row>*/}
-    {/*<InputForm*/}
-    {/*label="メールアドレス"*/}
-    {/*placeholder="info@monooq.com"*/}
-    {/*onChange={e => props.onChangeEmail(e.target.value)}*/}
-    {/*value={props.email}*/}
-    {/*/>*/}
-    {/*</Row>*/}
+    <Row>
+      <InputForm
+        label="メールアドレス"
+        placeholder="info@monooq.com"
+        onChange={e => props.onChangeEmail(e.target.value)}
+        value={props.email}
+      />
+    </Row>
     <Row>
       <SelectForm
         label="お住いの地域"

@@ -149,17 +149,7 @@ function* updateUser({ payload: { userId, body } }) {
     const imagePath = `/img/users/${userId}/profile/${timeStamp}.${ext}`;
     body.imageUrl = yield uploadImage(imagePath, body.imageUri);
   }
-  if (body.email) {
-    const user = firebase.auth().currentUser;
-    try {
-      yield user.updateEmail(body.email);
-    } catch (err) {
-      console.log(err.message);
-      //TODO 再ログインを促す必要あり
-      yield put(userActions.updateFailedUser(err.message));
-      return;
-    }
-  }
+
   yield put(apiActions.apiPutRequest({ path: apiEndpoint.users(userId), body }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error) {
