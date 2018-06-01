@@ -1,6 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call } from 'redux-saga/effects';
-import firebase from 'firebase';
 import { apiActions, apiEndpoint } from './api';
 import { uiActions } from './ui';
 import { uploadImage } from '../helpers/firebase';
