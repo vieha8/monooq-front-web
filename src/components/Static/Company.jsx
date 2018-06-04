@@ -126,6 +126,16 @@ const NewsContent = props => {
 };
 
 const news = [
+  '2018/05/15,Livedoorニュースで取り上げていただきました,メディア掲載,http://news.livedoor.com/article/detail/14681362/',
+  '2018/05/10,BCNに取り上げていただきました,メディア掲載,https://headlines.yahoo.co.jp/hl?a=20180510-00000003-bcn-prod',
+  '2018/05/09,マネーの達人に取り上げていただきました,メディア掲載,https://headlines.yahoo.co.jp/hl?a=20180509-00010009-manetatsun-bus_all',
+  '2018/05/07,広島ホームテレビ、みみよりライブ ５up！にて取り上げていただきました,メディア掲載,https://www.home-tv.co.jp/5up/',
+  '2018/04/27,矢野経済研究所に取材いただきました,メディア掲載,https://www.yano.co.jp/market_reports/C59124400',
+  '2018/04/24,モノオクは「空き家問題」に積極的に取り組みます,プレスリリース,https://prtimes.jp/main/html/rd/p/000000017.000024093.html',
+  '2018/04/16,NIKKEI STYLEにてモノオクを取り上げていただきました,メディア掲載,https://style.nikkei.com/article/DGXMZO29053040V00C18A4000000?n_cid=LMNST020',
+  '2018/04/04,Techwaveにリニューアルに関して取り上げていただきました,メディア掲載,https://techwave.jp/archives/storage-sharing-monoq-growing-1point5times-a-week-after-renewal.html',
+  '2018/04/01,「がっちりマンデー!!」で取り上げていただきました,メディア掲載,http://www.tbs.co.jp/gacchiri/',
+  '2018/03/26,週刊ビル経営にリニューアルに関して取り上げていただきました,メディア掲載',
   '2018/03/26,個人間の物置きシェアサービス「モノオク」をフルリニューアルしました。,プレスリリース,https://prtimes.jp/main/html/rd/p/000000014.000024093.html',
   '2018/03/22,トーマツ ベンチャーサポート株式会社・野村證券株式会社が共同主催を行っている「Morning Pitch 03/22開催 第230回 物流特集」にて登壇いたしました。,登壇,http://morningpitch.com/theme/12491/',
   '2018/03/19,東洋経済に取り上げていただきました,メディア掲載,http://toyokeizai.net/articles/-/212985',
