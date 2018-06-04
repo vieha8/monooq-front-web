@@ -4,5 +4,11 @@
   "routes": {
     "/**": "index.html"
   },
-  "https_only": true
+  "https_only": true,
+  "headers": {
+    "/static/**": {
+      "Cache-Control": "public, max-age=604800",
+      "Expires": "7d"
+    }
+  }
 }
