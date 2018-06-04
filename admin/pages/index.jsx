@@ -4,7 +4,7 @@ import firebase from 'firebase';
 import Layout from '../components/Layout';
 require('firebase/firestore');
 
-import { Table } from 'semantic-ui-react';
+import { Table, Dropdown, TextArea } from 'semantic-ui-react';
 
 try {
   firebase.initializeApp({
@@ -21,10 +21,6 @@ try {
   }
 }
 
-const getMessageCount = async roomId => {
-  return messages.docs.length;
-};
-
 export default class extends React.Component {
   static async getInitialProps() {
     const firestore = firebase.firestore();
@@ -40,6 +36,12 @@ export default class extends React.Component {
         if (room.data().lastMessageDt) {
           lastMessageDt = room.data().lastMessageDt;
         }
+
+        const status = room.data().status;
+        const user1Status = room.data().user1Status;
+        const user2Status = room.data().user2Status;
+        const memo = room.data().memo;
+
         const messages = await firestore
           .collection('rooms')
           .doc(roomId)
@@ -57,13 +59,17 @@ export default class extends React.Component {
         if (messageCount > 0) {
           return {
             roomId,
+            status,
             userId1,
+            user1Status,
+            user2Status,
             userId2,
             spaceId,
             messageCount,
             lastMessage,
             lastMessageDt: lastMessageDt.toLocaleString(),
             lastMessageTimeStamp,
+            memo,
           };
         }
       }),
@@ -80,7 +86,128 @@ export default class extends React.Component {
     return { rooms: res2 };
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      rooms: props.rooms,
+    };
+  }
+
+  onChangeRoomStatus = async (index, roomId, value) => {
+    const firestore = firebase.firestore();
+    const roomRef = firestore.collection('rooms').doc(roomId);
+    roomRef.set({ status: value }, { merge: true });
+    const rooms = this.state.rooms;
+    rooms[index].status = value;
+    this.setState({ rooms });
+  };
+
+  onChangeUser1Status = async (index, roomId, userId, value) => {
+    const firestore = firebase.firestore();
+    const roomRef = firestore.collection('rooms').doc(roomId);
+    roomRef.set({ user1Status: value }, { merge: true });
+    const rooms = this.state.rooms;
+    rooms[index].user1Status = value;
+    this.setState({ rooms });
+  };
+
+  onChangeUser2Status = async (index, roomId, userId, value) => {
+    const firestore = firebase.firestore();
+    const roomRef = firestore.collection('rooms').doc(roomId);
+    roomRef.set({ user2Status: value }, { merge: true });
+    const rooms = this.state.rooms;
+    rooms[index].user2Status = value;
+    this.setState({ rooms });
+  };
+
   render() {
+    const roomStatusOptions = [
+      {
+        text: '',
+        value: 0,
+      },
+      {
+        text: '相談中',
+        value: 1,
+      },
+      {
+        text: '不成立',
+        value: 2,
+      },
+      {
+        text: '稼働中',
+        value: 3,
+      },
+      {
+        text: '取引完了',
+        value: 4,
+      },
+      {
+        text: 'テスト',
+        value: 5,
+      },
+    ];
+
+    const hostStatusOptions = [
+      {
+        text: '',
+        value: 0,
+      },
+      {
+        text: 'メール済み',
+        value: 1,
+      },
+      {
+        text: '電話済み',
+        value: 2,
+      },
+      {
+        text: 'SMS済み',
+        value: 3,
+      },
+      {
+        text: '注意済み',
+        value: 4,
+      },
+    ];
+
+    const userStatusOptions = [
+      {
+        text: '',
+        value: 0,
+      },
+      {
+        text: 'メール済み',
+        value: 1,
+      },
+      {
+        text: '電話済み',
+        value: 2,
+      },
+      {
+        text: 'SMS済み',
+        value: 3,
+      },
+      {
+        text: '注意済み',
+        value: 4,
+      },
+      {
+        text: '支払い催促済み',
+        value: 5,
+      },
+      {
+        text: 'レコメンド済み',
+        value: 6,
+      },
+      {
+        text: '決済完了',
+        value: 7,
+      },
+    ];
+
+    const rooms = this.state.rooms;
+
     return (
       <Layout>
         <Table celled>
@@ -88,8 +215,11 @@ export default class extends React.Component {
             <Table.Row>
               <Table.HeaderCell>No</Table.HeaderCell>
               <Table.HeaderCell>ID</Table.HeaderCell>
+              <Table.HeaderCell>Status</Table.HeaderCell>
               <Table.HeaderCell>UserId</Table.HeaderCell>
+              <Table.HeaderCell>Status</Table.HeaderCell>
               <Table.HeaderCell>HostUserId</Table.HeaderCell>
+              <Table.HeaderCell>Status</Table.HeaderCell>
               <Table.HeaderCell>SpaceId</Table.HeaderCell>
               <Table.HeaderCell>LastMessageDt</Table.HeaderCell>
               <Table.HeaderCell>MessageCount</Table.HeaderCell>
@@ -97,7 +227,7 @@ export default class extends React.Component {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {this.props.rooms.map((room, i) => (
+            {rooms.map((room, i) => (
               <Table.Row key={i}>
                 <Table.Cell>{i + 1}</Table.Cell>
                 <Table.Cell>
@@ -106,14 +236,45 @@ export default class extends React.Component {
                   </Link>
                 </Table.Cell>
                 <Table.Cell>
+                  <Dropdown
+                    placeholder={'選択'}
+                    selection
+                    options={roomStatusOptions}
+                    value={room.status}
+                    onChange={(event, data) => this.onChangeRoomStatus(i, room.roomId, data.value)}
+                  />
+                </Table.Cell>
+                <Table.Cell>
                   <Link href={`https://monooq.com/user/${room.userId1}`}>
                     <a target="_brank">{room.userId1}</a>
                   </Link>
                 </Table.Cell>
                 <Table.Cell>
+                  <Dropdown
+                    placeholder={'選択'}
+                    selection
+                    options={userStatusOptions}
+                    value={room.user1Status}
+                    onChange={(event, data) =>
+                      this.onChangeUser1Status(i, room.roomId, room.userId1, data.value)
+                    }
+                  />
+                </Table.Cell>
+                <Table.Cell>
                   <Link href={`https://monooq.com/user/${room.userId2}`}>
                     <a target="_brank">{room.userId2}</a>
                   </Link>
+                </Table.Cell>
+                <Table.Cell>
+                  <Dropdown
+                    placeholder={'選択'}
+                    selection
+                    options={hostStatusOptions}
+                    value={room.user2Status}
+                    onChange={(event, data) =>
+                      this.onChangeUser2Status(i, room.roomId, room.userId2, data.value)
+                    }
+                  />
                 </Table.Cell>
                 <Table.Cell>
                   <Link href={`https://monooq.com/space/${room.spaceId}`}>
