@@ -50,7 +50,9 @@ class SearchResultContainer extends Component<PropTypes, State> {
     const { location, dispatch } = props;
 
     const query = queryString.parse(location.search);
-    dispatch(searchActions.fetchStartSearch({ location: query.location || '' }));
+    dispatch(
+      searchActions.fetchStartSearch({ location: query.location || '', limit: 20, offset: 0 }),
+    );
 
     this.state = {
       location: query.location,

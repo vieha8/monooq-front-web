@@ -42,8 +42,10 @@ export const searchReducer = handleActions(
 );
 
 //Sagas
-function* search({ payload: { location } }) {
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.spaces(), params: { location } }));
+function* search({ payload: { location, limit, offset } }) {
+  yield put(
+    apiActions.apiGetRequest({ path: apiEndpoint.spaces(), params: { location, limit, offset } }),
+  );
   const { payload, error, meta } = yield take(apiActions.apiResponse);
   if (error) {
     yield put(searchActions.fetchFailedSearch(meta));
