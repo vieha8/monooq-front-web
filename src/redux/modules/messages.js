@@ -1,11 +1,11 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
+import firebase from 'firebase/app';
 import { authActions } from './auth';
 import { userActions } from './user';
 import { spaceActions } from './space';
 import { apiActions, apiEndpoint } from './api';
 import { getApiRequest } from '../helpers/api';
-import firebase from 'firebase';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/configureStore';
@@ -109,8 +109,8 @@ function* fetchMessagesStart({ payload }) {
 
   if (!messageObserverUnsubscribe) {
     messageObserverUnsubscribe = messageObserver.onSnapshot(snapshot => {
-      if (snapshot.docChanges.length === 1) {
-        const message = snapshot.docChanges[0].doc.data();
+      if (snapshot.docChanges().length === 1) {
+        const message = snapshot.docChanges()[0].doc.data();
         store.dispatch(messagesActions.updateMessage(message));
       }
     });
@@ -128,12 +128,15 @@ function* fetchMessagesStart({ payload }) {
   const { payload: space } = yield take(spaceActions.fetchSuccessSpace);
   room.space = space;
 
+  console.log(messages);
+
   yield put(messagesActions.fetchMessagesEnd({ messages, room }));
 }
 
 const roomCollection = () => {
-  const db = firebase.firestore();
-  return db.collection('rooms');
+  const firestore = firebase.firestore();
+  firestore.settings({ timestampsInSnapshots: true });
+  return firestore.collection('rooms');
 };
 
 //ルーム作成
@@ -202,7 +205,11 @@ const getMessages = roomId => {
       const room = await roomDoc.get();
       const res = {
         room: room.data(),
-        messages: messages.docs.map(v => ({ id: v.id, ...v.data() })),
+        messages: messages.docs.map(v => ({
+          id: v.id,
+          ...v.data(),
+          createDt: v.data().createDt.toDate(),
+        })),
         messageObserver: roomDoc.collection('messages'),
       };
 

@@ -1,6 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take } from 'redux-saga/effects';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { push } from 'react-router-redux';
 import { apiEndpoint, apiActions } from './api';
 import { uiActions } from './ui';

@@ -1,9 +1,7 @@
 import React from 'react';
 import ErrorContainer from 'containers/Static/Error';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { connect } from 'react-redux';
-
-require('firebase/firestore');
 
 class ErrorBoundary extends React.Component {
   constructor(props) {

@@ -1,10 +1,8 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select } from 'redux-saga/effects';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { apiActions, apiEndpoint } from './api';
 import dummySpaceImage from 'images/dummy_space.png';
-
-require('firebase/firestore');
 
 // Actions
 const FETCH_START_SEARCH = 'FETCH_START_SEARCH';
@@ -65,7 +63,9 @@ function* search({ payload: { location, limit, offset } }) {
   if (userId) {
     logParams.userId = userId;
   }
-  const db = firebase.firestore().collection('spaceSearchLogs');
+  const firestore = firebase.firestore();
+  firestore.settings({ timestampsInSnapshots: true });
+  const db = firestore.collection('spaceSearchLogs');
   db.add(logParams);
 
   yield put(searchActions.fetchSuccessSearch(res));
