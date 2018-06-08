@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import queryString from 'query-string';
+import queryString from 'helpers/query-string';
 
 import Path from 'config/path';
 
@@ -141,4 +141,7 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(SearchResultContainer, mapStateToProps);
+export default connect(
+  SearchResultContainer,
+  mapStateToProps,
+);

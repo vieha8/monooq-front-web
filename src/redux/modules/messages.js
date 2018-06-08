@@ -128,8 +128,6 @@ function* fetchMessagesStart({ payload }) {
   const { payload: space } = yield take(spaceActions.fetchSuccessSpace);
   room.space = space;
 
-  console.log(messages);
-
   yield put(messagesActions.fetchMessagesEnd({ messages, room }));
 }
 
