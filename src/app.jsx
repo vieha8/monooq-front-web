@@ -8,7 +8,7 @@ import 'firebase/database';
 import 'firebase/storage';
 import { Auth } from 'components/Auth';
 import firebaseConfig from './config/firebase';
-import { unregister } from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 import configureStore from './redux/store/configureStore';
 import Routes from './config/routes';
 import './index.css';
@@ -33,5 +33,4 @@ ReactDOM.render(
   document.getElementById('root'),
 );
 
-// registerServiceWorker();
-unregister();
+registerServiceWorker();
