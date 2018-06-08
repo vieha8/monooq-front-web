@@ -111,6 +111,7 @@ function* fetchMessagesStart({ payload }) {
     messageObserverUnsubscribe = messageObserver.onSnapshot(snapshot => {
       if (snapshot.docChanges().length === 1) {
         const message = snapshot.docChanges()[0].doc.data();
+        message.createDt = message.createDt.toDate();
         store.dispatch(messagesActions.updateMessage(message));
       }
     });
@@ -183,6 +184,7 @@ const getRooms = userId => {
         res.push({
           id: room.id,
           ...room.data(),
+          lastMessageDt: room.data().lastMessageDt.toDate(),
         });
       }
     });
