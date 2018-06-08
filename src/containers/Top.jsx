@@ -36,15 +36,15 @@ class TopContainer extends React.Component {
     }
   };
 
-  onKeyDownSearchField = (e) => {
+  onKeyDownSearchField = e => {
     if (e && e.keyCode === 13 && e.target.value) {
       this.search(e.target.value);
     }
-  }
+  };
 
-  search = (location) => {
+  search = location => {
     window.location.href = `${Path.search()}?location=${location}`;
-  }
+  };
 
   render() {
     const { ui, history } = this.props;
@@ -54,6 +54,7 @@ class TopContainer extends React.Component {
           locationText={ui.locationText}
           searchButtonDisabled={ui.searchButtonDisabled}
           handleChangeLocation={this.handleChangeLocation}
+          onClickSearch={() => this.search(ui.locationText)}
           onClickSignup={() => history.push(Path.createSpaceInfo())}
           onKeyDownSearchField={this.onKeyDownSearchField}
           history={history}
