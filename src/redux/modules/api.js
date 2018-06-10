@@ -8,6 +8,7 @@ import { replace } from 'react-router-redux';
 export const apiEndpoint = {
   tokenGenerate: () => `/token/generate`,
   authFirebase: id => (id ? `/auth/firebase/${id}` : `/auth/firebase`),
+  login: () => `/auth/login`,
   users: id => (id ? `/users/${id}` : `/users`),
   userSpaces: id => `/users/${id}/spaces`,
   spaces: id => (id ? `/spaces/${id}` : `/spaces`),

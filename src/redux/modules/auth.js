@@ -201,6 +201,15 @@ function* checkLoginFirebaseAuth() {
     }
     status.user = data;
 
+    yield put(
+      apiActions.apiPostRequest({
+        path: apiEndpoint.login(),
+        body: {
+          UserId: data.ID,
+        },
+      }),
+    );
+
     if (status.user.Profile === '') {
       yield put(uiActions.setUiState({ signupStep: 4 }));
       store.dispatch(push('/signup'));
