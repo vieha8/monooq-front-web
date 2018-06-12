@@ -249,7 +249,7 @@ function* logout() {
 function* signUpEmail({ payload: { email, password } }) {
   try {
     const result = yield firebase.auth().createUserWithEmailAndPassword(email, password);
-    const firebaseUid = result.uid;
+    const firebaseUid = result.user.uid;
 
     const defaultImage =
       'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363';
@@ -260,7 +260,9 @@ function* signUpEmail({ payload: { email, password } }) {
         body: { Email: email, FirebaseUid: firebaseUid, ImageUrl: defaultImage },
       }),
     );
+
     const { payload, error, meta } = yield take(apiActions.apiResponse);
+
     if (error) {
       yield put(authActions.signupFailed(meta));
       return;
