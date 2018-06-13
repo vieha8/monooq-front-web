@@ -130,8 +130,8 @@ class InboxContainer extends Component<PropTypes, State> {
           return {
             estimate: {
               name: room.user.Name,
-              beginAt: startDate,
-              endAt: endDate,
+              beginAt: startDate.toDate(),
+              endAt: endDate.toDate(),
               price,
               link: Path.payment(match.params.message_room_id, requestId),
               receivedAt: message.createDt,
@@ -201,4 +201,7 @@ const mapStateToProps = state =>
     isLoading: state.messages.isLoading,
   });
 
-export default connect(InboxContainer, mapStateToProps);
+export default connect(
+  InboxContainer,
+  mapStateToProps,
+);
