@@ -91,6 +91,12 @@ function messagesUnsubscribe() {
   }
 }
 
+const roomCollection = () => {
+  const firestore = firebase.firestore();
+  firestore.settings({ timestampsInSnapshots: true });
+  return firestore.collection('rooms');
+};
+
 function* fetchMessagesStart({ payload }) {
   yield messagesUnsubscribe();
 
@@ -101,6 +107,15 @@ function* fetchMessagesStart({ payload }) {
   user = yield select(state => state.auth.user);
 
   const { messages, room, messageObserver } = yield getMessages(payload);
+
+  const lastMessage = messages[messages.length - 1];
+
+  roomCollection()
+    .doc(payload)
+    .set(
+      { [`user${user.ID}LastRead`]: lastMessage.id, [`user${user.ID}LastReadDt`]: new Date() },
+      { merge: true },
+    );
 
   // メッセージが１件のみの場合はfirebaseから取得した方を使用するためViewとして追加しない
   if (messages.length > 1) {
@@ -113,6 +128,13 @@ function* fetchMessagesStart({ payload }) {
         const message = snapshot.docChanges()[0].doc.data();
         message.createDt = message.createDt.toDate();
         store.dispatch(messagesActions.updateMessage(message));
+        const messageId = snapshot.docChanges()[0].doc.id;
+        roomCollection()
+          .doc(payload)
+          .set(
+            { [`user${user.ID}LastRead`]: messageId, [`user${user.ID}LastReadDt`]: new Date() },
+            { merge: true },
+          );
       }
     });
   }
@@ -131,12 +153,6 @@ function* fetchMessagesStart({ payload }) {
 
   yield put(messagesActions.fetchMessagesEnd({ messages, room }));
 }
-
-const roomCollection = () => {
-  const firestore = firebase.firestore();
-  firestore.settings({ timestampsInSnapshots: true });
-  return firestore.collection('rooms');
-};
 
 // ルーム作成
 export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId) =>

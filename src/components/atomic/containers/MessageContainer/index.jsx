@@ -122,7 +122,7 @@ class InboxContainer extends Component<PropTypes, State> {
               userImage: room.user.ImageUrl,
               message: message.text,
               image: message.image,
-              recevedAt: message.createDt,
+              receivedAt: message.createDt,
             },
           };
         case MessageType.Estimate: {
@@ -168,7 +168,15 @@ class InboxContainer extends Component<PropTypes, State> {
 
     const messageList = this.createMessageList();
 
-    const roomTitle = `${room.space.Host.Name}さんとのメッセージ`;
+    const isHost = room.space.Host.ID === user.ID;
+    let roomTitle = `${room.space.Host.Name}さんとのメッセージ`;
+    if (isHost) {
+      roomTitle = `${room.user.Name}さんとのメッセージ`;
+    }
+
+    const otherUserId = room.userId1 === user.ID ? room.userId2 : room.userId1;
+
+    const lastReadDt = room[`user${otherUserId}LastReadDt`].toDate();
 
     return (
       <MenuPageTemplate
@@ -178,7 +186,7 @@ class InboxContainer extends Component<PropTypes, State> {
         rightContent={
           <Messages
             onClickEstimate={this.transitionToEstimate}
-            hostUser={room.space.Host.ID === user.ID}
+            hostUser={isHost}
             messages={messageList}
             onPickImage={this.handlePickImage}
             onChangeText={this.handleChangeText}
@@ -186,6 +194,7 @@ class InboxContainer extends Component<PropTypes, State> {
             pickedImage={(image || {}).preview}
             buttonDisabled={text === '' && !image}
             onClickSend={this.sendMessage}
+            lastReadDt={lastReadDt}
           />
         }
       />

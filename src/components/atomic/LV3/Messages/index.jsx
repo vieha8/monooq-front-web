@@ -93,12 +93,13 @@ type PropTypes = {
   buttonDisabled: boolean,
   onPickImage: Function,
   pickedImage: string,
+  lastReadDt: string,
 };
 
 const dateFormat = 'YYYY/MM/DD kk:mm:ss';
 
 export default (props: PropTypes) => {
-  const { messages, hostUser } = props;
+  const { messages, hostUser, lastReadDt } = props;
   // 自分がユーザーの場合は、初期メッセージを追加する
   const messageList = []
     .concat(
@@ -121,6 +122,8 @@ export default (props: PropTypes) => {
         const key = `message_item_${i}`;
 
         if (message.self) {
+          const isRead = lastReadDt.getTime() > message.self.sentAt.getTime();
+
           // 自分が送信
           if (message.self.image) {
             if (message.self.message) {
@@ -130,12 +133,14 @@ export default (props: PropTypes) => {
                     <SelfMessage
                       message={message.self.message}
                       sentAt={moment(message.self.sentAt).format(dateFormat)}
+                      isRead={isRead}
                     />
                   </Row>
                   <PhotoMessage
                     align="right"
                     src={message.self.image}
                     receivedAt={moment(message.self.sentAt).format(dateFormat)}
+                    isRead={isRead}
                   />
                 </Row>
               );
@@ -146,6 +151,7 @@ export default (props: PropTypes) => {
                   align="right"
                   src={message.self.image}
                   receivedAt={moment(message.self.sentAt).format(dateFormat)}
+                  isRead={isRead}
                 />
               </Row>
             );
@@ -155,6 +161,7 @@ export default (props: PropTypes) => {
               <SelfMessage
                 message={message.self.message}
                 sentAt={moment(message.self.sentAt).format(dateFormat)}
+                isRead={isRead}
               />
             </Row>
           );
