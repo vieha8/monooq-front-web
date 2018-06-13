@@ -49,12 +49,10 @@ const requestReducer = {
 };
 
 const responseReducer = {
-  next: (state, { payload }) => {
-    return {
-      ...state,
-      response: payload,
-    };
-  },
+  next: (state, { payload }) => ({
+    ...state,
+    response: payload,
+  }),
   throw: (state, action) => {
     console.error(action);
     return {
@@ -80,7 +78,7 @@ function* getRequest({ payload: { path, params } }) {
   yield put({
     ...apiActions.apiResponse(data),
     error: !!err,
-    meta: { status: status, error: err, path },
+    meta: { status, error: err, path },
   });
   if (status !== 200) {
     if (status === 404) {
@@ -96,7 +94,7 @@ function* postRequest({ payload: { path, body } }) {
   yield put({
     ...apiActions.apiResponse(data),
     error: !!err,
-    meta: { status: status, error: err, path },
+    meta: { status, error: err, path },
   });
   if (status !== 200 && status !== 201) {
     store.dispatch(replace(Path.error(status)));
@@ -108,7 +106,7 @@ function* putRequest({ payload: { path, body } }) {
   yield put({
     ...apiActions.apiResponse(data),
     error: !!err,
-    meta: { status: status, error: err, path },
+    meta: { status, error: err, path },
   });
   if (status !== 200) {
     store.dispatch(replace(Path.error(status)));
@@ -120,7 +118,7 @@ function* deleteRequest({ payload: { path } }) {
   yield put({
     ...apiActions.apiResponse(data),
     error: !!err,
-    meta: { status: status, error: err, path },
+    meta: { status, error: err, path },
   });
   if (status !== 200) {
     store.dispatch(replace(Path.error(status)));

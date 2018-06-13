@@ -92,7 +92,7 @@ export const requestReducer = handleActions(
   initialState,
 );
 
-//Sagas
+// Sagas
 function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   const db = firebase.firestore();
   const roomDoc = db.collection('rooms').doc(roomId);
@@ -148,7 +148,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
 }
 
 function* payment({ payload: { roomId, requestId, payment: card } }) {
-  //不正対策
+  // 不正対策
   yield put(
     apiActions.apiGetRequest({
       path: apiEndpoint.requests(requestId),
@@ -170,7 +170,7 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     return;
   }
 
-  //Omiseトークン生成
+  // Omiseトークン生成
   const { id: token } = yield createOmiseToken({
     card: {
       name: card.name,
@@ -253,7 +253,7 @@ function* sendEstimateEmail(payload) {
   let messageBody = 'お見積りが届きました。\n';
   messageBody += '確認するには以下のリンクをクリックしてください。\n';
 
-  //TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
   if (process.env.REACT_APP_ENV === 'production') {
     messageBody += `https://monooq.com/messages/${roomId}`;
   } else {
@@ -278,7 +278,7 @@ function* sendPaymentEmail(payload) {
   let messageBody = '見積りに対するお支払いがありました。\n';
   messageBody += '詳細を確認するには以下のリンクをクリックしてください。\n';
 
-  //TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
   if (process.env.REACT_APP_ENV === 'production') {
     messageBody += `https://monooq.com/messages/${roomId}`;
   } else {

@@ -14,7 +14,7 @@ require('firebase/firestore');
 
 let messageObserverUnsubscribe = null;
 
-//Actions
+// Actions
 const FETCH_ROOMS_START = 'FETCH_ROOMS_START';
 const FETCH_ROOMS_END = 'FETCH_ROOMS_END';
 const FETCH_MESSAGES_START = 'FETCH_MESSAGES_START';
@@ -31,7 +31,7 @@ export const messagesActions = createActions(
   UPDATE_MESSAGE,
 );
 
-//Reducer
+// Reducer
 
 const initialState = {
   rooms: [],
@@ -76,7 +76,7 @@ function* fetchRoomStart() {
   );
 
   const res = rooms.map((room, i) => {
-    //TODO エラーハンドリング
+    // TODO エラーハンドリング
     room.user = users[i].data;
     return room;
   });
@@ -138,9 +138,9 @@ const roomCollection = () => {
   return firestore.collection('rooms');
 };
 
-//ルーム作成
-export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId) => {
-  return new Promise(async resolve => {
+// ルーム作成
+export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId) =>
+  new Promise(async resolve => {
     const room = {
       [`user${userId1}`]: true,
       [`user${userId2}`]: true,
@@ -154,10 +154,9 @@ export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId
     const roomRef = await roomCollection().add(room);
     resolve(roomRef.id);
   });
-};
 
-export const getRoomId = (userId1, userId2, spaceId) => {
-  return new Promise(async resolve => {
+export const getRoomId = (userId1, userId2, spaceId) =>
+  new Promise(async resolve => {
     const rooms = await roomCollection()
       .where(`user${userId1}`, '==', true)
       .where(`user${userId2}`, '==', true)
@@ -170,11 +169,10 @@ export const getRoomId = (userId1, userId2, spaceId) => {
     }
     resolve(false);
   });
-};
 
-//ルーム取得
-const getRooms = userId => {
-  return new Promise(async resolve => {
+// ルーム取得
+const getRooms = userId =>
+  new Promise(async resolve => {
     const rooms = await roomCollection()
       .where(`user${userId}`, '==', true)
       .get();
@@ -190,11 +188,10 @@ const getRooms = userId => {
     });
     resolve(res);
   });
-};
 
-//メッセージ取得
-const getMessages = roomId => {
-  return new Promise(async (resolve, reject) => {
+// メッセージ取得
+const getMessages = roomId =>
+  new Promise(async (resolve, reject) => {
     try {
       const roomDoc = roomCollection().doc(roomId);
       const messages = await roomDoc
@@ -219,9 +216,8 @@ const getMessages = roomId => {
       reject(err);
     }
   });
-};
 
-//メッセージ送信
+// メッセージ送信
 const sendMessage = function*(payload) {
   const { roomId, userId, text, image } = payload;
 
@@ -244,8 +240,8 @@ const sendMessage = function*(payload) {
 
   return yield new Promise(async resolve => {
     const message = {
-      userId: userId,
-      text: text,
+      userId,
+      text,
       messageType: 1,
       createDt: new Date(),
     };
@@ -275,7 +271,7 @@ const sendEmail = function*(payload) {
   messageBody += text || '\n\n';
   messageBody += '\n\nメッセージに返信するには以下のリンクをクリックしてください。\n';
 
-  //TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
   if (process.env.REACT_APP_ENV === 'production') {
     messageBody += `https://monooq.com/messages/${roomId}`;
   } else {
@@ -291,7 +287,7 @@ const sendEmail = function*(payload) {
   yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
 };
 
-//Sagas
+// Sagas
 export const messagesSagas = [
   takeEvery(FETCH_ROOMS_START, fetchRoomStart),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),

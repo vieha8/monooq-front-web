@@ -175,15 +175,14 @@ export const authReducer = handleActions(
   initialState,
 );
 
-const getLoginUserFirebaseAuth = () => {
-  return new Promise(resolve => {
+const getLoginUserFirebaseAuth = () =>
+  new Promise(resolve => {
     firebase.auth().onAuthStateChanged(user => {
       resolve(user);
     });
   });
-};
 
-//Sagas
+// Sagas
 function* checkLoginFirebaseAuth() {
   const user = yield call(getLoginUserFirebaseAuth);
 

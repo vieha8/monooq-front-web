@@ -39,7 +39,7 @@ export const searchReducer = handleActions(
   initialState,
 );
 
-//Sagas
+// Sagas
 function* search({ payload: { location, limit, offset } }) {
   yield put(
     apiActions.apiGetRequest({ path: apiEndpoint.spaces(), params: { location, limit, offset } }),

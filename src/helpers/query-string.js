@@ -4,25 +4,22 @@ const decodeComponent = require('decode-uri-component');
 function encoderForArrayFormat(options) {
   switch (options.arrayFormat) {
     case 'index':
-      return (key, value, index) => {
-        return value === null
+      return (key, value, index) =>
+        value === null
           ? [encode(key, options), '[', index, ']'].join('')
           : [encode(key, options), '[', encode(index, options), ']=', encode(value, options)].join(
               '',
             );
-      };
     case 'bracket':
-      return (key, value) => {
-        return value === null
+      return (key, value) =>
+        value === null
           ? [encode(key, options), '[]'].join('')
           : [encode(key, options), '[]=', encode(value, options)].join('');
-      };
     default:
-      return (key, value) => {
-        return value === null
+      return (key, value) =>
+        value === null
           ? encode(key, options)
           : [encode(key, options), '=', encode(value, options)].join('');
-      };
   }
 }
 
@@ -203,16 +200,14 @@ exports.stringify = (obj, options) => {
             return result.join('&');
           }
 
-          return encode(key, options) + '=' + encode(value, options);
+          return `${encode(key, options)}=${encode(value, options)}`;
         })
         .filter(x => x.length > 0)
         .join('&')
     : '';
 };
 
-exports.parseUrl = (input, options) => {
-  return {
-    url: input.split('?')[0] || '',
-    query: parse(extract(input), options),
-  };
-};
+exports.parseUrl = (input, options) => ({
+  url: input.split('?')[0] || '',
+  query: parse(extract(input), options),
+});

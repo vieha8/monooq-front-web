@@ -8,4 +8,10 @@ export default (
   OriginalComponent: Component,
   mapStateToProps?: Object,
   mapDispatchToProps?: Object,
-) => withRouter(connect(mapStateToProps, mapDispatchToProps)(OriginalComponent));
+) =>
+  withRouter(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps,
+    )(OriginalComponent),
+  );

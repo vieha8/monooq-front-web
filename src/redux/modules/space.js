@@ -114,7 +114,7 @@ export const spaceReducer = handleActions(
   initialState,
 );
 
-//Sagas
+// Sagas
 function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   yield put(apiActions.apiGetRequest({ path: apiEndpoint.spaces(spaceId) }));
   const { payload, error, meta } = yield take(apiActions.apiResponse);
@@ -152,7 +152,7 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
             .catch(error => reject(error));
         }),
     );
-    //TODO APIレスポンスのエラーハンドリング
+    // TODO APIレスポンスのエラーハンドリング
     if (places.data.results.length > 0) {
       payload.location = places.data.results[0].geometry.location;
     }
