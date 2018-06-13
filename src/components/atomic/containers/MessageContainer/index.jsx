@@ -176,7 +176,10 @@ class InboxContainer extends Component<PropTypes, State> {
 
     const otherUserId = room.userId1 === user.ID ? room.userId2 : room.userId1;
 
-    const lastReadDt = room[`user${otherUserId}LastReadDt`].toDate();
+    let lastReadDt = new Date(1990, 0, 1, 0, 0);
+    if (room[`user${otherUserId}LastReadDt`]) {
+      lastReadDt = room[`user${otherUserId}LastReadDt`].toDate();
+    }
 
     return (
       <MenuPageTemplate
