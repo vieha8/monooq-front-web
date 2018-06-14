@@ -108,14 +108,14 @@ function* fetchMessagesStart({ payload }) {
 
   const { messages, room, messageObserver } = yield getMessages(payload);
 
-  const lastMessage = messages[messages.length - 1];
+  // const lastMessage = messages[messages.length - 1];
 
-  roomCollection()
-    .doc(payload)
-    .set(
-      { [`user${user.ID}LastRead`]: lastMessage.id, [`user${user.ID}LastReadDt`]: new Date() },
-      { merge: true },
-    );
+  // roomCollection()
+  //   .doc(payload)
+  //   .set(
+  //     { [`user${user.ID}LastRead`]: lastMessage.id, [`user${user.ID}LastReadDt`]: new Date() },
+  //     { merge: true },
+  //   );
 
   // メッセージが１件のみの場合はfirebaseから取得した方を使用するためViewとして追加しない
   if (messages.length > 1) {
@@ -128,13 +128,13 @@ function* fetchMessagesStart({ payload }) {
         const message = snapshot.docChanges()[0].doc.data();
         message.createDt = message.createDt.toDate();
         store.dispatch(messagesActions.updateMessage(message));
-        const messageId = snapshot.docChanges()[0].doc.id;
-        roomCollection()
-          .doc(payload)
-          .set(
-            { [`user${user.ID}LastRead`]: messageId, [`user${user.ID}LastReadDt`]: new Date() },
-            { merge: true },
-          );
+        // const messageId = snapshot.docChanges()[0].doc.id;
+        // roomCollection()
+        //   .doc(payload)
+        //   .set(
+        //     { [`user${user.ID}LastRead`]: messageId, [`user${user.ID}LastReadDt`]: new Date() },
+        //     { merge: true },
+        //   );
       }
     });
   }
