@@ -1,13 +1,18 @@
 import React, { Fragment } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import StaticPageContent from 'components/atomic/LV1/StaticPageContent';
 import Terms from 'components/Static/Terms';
+import Header from 'components/atomic/containers/Header';
 
 class TermsContainer extends React.Component {
   render() {
     return (
       <Fragment>
-        <Terms />
+        <Header />
+        <StaticPageContent>
+          <Terms />
+        </StaticPageContent>
       </Fragment>
     );
   }
