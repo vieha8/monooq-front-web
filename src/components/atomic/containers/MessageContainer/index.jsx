@@ -23,6 +23,12 @@ type PropTypes = {
   },
   room: Array<{
     id: string,
+    space: {
+      Host: {
+        ID: number,
+        Name: string,
+      },
+    },
     user: {
       ID: number,
       ImageUrl: string,
@@ -129,7 +135,7 @@ class InboxContainer extends Component<PropTypes, State> {
           const { startDate, endDate, price, requestId } = message;
           return {
             estimate: {
-              name: room.user.Name,
+              name: room.space.Host.Name,
               beginAt: startDate.toDate(),
               endAt: endDate.toDate(),
               price,
