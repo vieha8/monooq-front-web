@@ -25,6 +25,7 @@ type PropTypes = {
     id: string,
     space: {
       Host: {
+        ID: number,
         Name: string,
       },
     },
