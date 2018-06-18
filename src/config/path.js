@@ -50,9 +50,8 @@ export default {
     `/host/${hostId}/schedule/${scheduleId}/review/new`,
   // 支払い一覧
   paid: () => '/paid',
-  // 売上・振込一覧
-  salesTransfers: () => '/sales',
-  requestTransfer: () => '/sales/transfer/new',
+  // 売上一覧
+  sales: () => '/sales',
   // 口座編集
   editBankAccount: () => '/bank/edit',
   // お問い合わせ

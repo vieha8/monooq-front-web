@@ -16,13 +16,10 @@ import Asct from 'containers/Static/Asct';
 import Company from 'containers/Static/Company';
 import Privacy from 'containers/Static/Privacy';
 import Terms from 'containers/Static/Terms';
-
 import HelpTop from 'containers/Static/Help/Top';
 import HelpService from 'containers/Static/Help/Service';
 
 import Containers from 'components/atomic/containers';
-
-// import ErrorBoundary from 'components/ErrorBoundary';
 
 import Path from './path';
 
@@ -57,6 +54,7 @@ export const routes = [
   { path: Path.createSpaceCompletion(), component: Containers.EditSpaceCompletion },
   { path: Path.editSpaceCompletion(), component: Containers.EditSpaceCompletion },
   { path: Path.unsubscribe(), component: Containers.Unsubscribe },
+  { path: Path.sales(), component: Containers.Sales },
   // static pages
   { path: Path.top(), component: Top },
   { path: Path.about(), component: About },
