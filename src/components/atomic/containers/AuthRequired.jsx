@@ -14,7 +14,9 @@ type PropTypes = {
 
 export function checkLogin(props: PropTypes) {
   const { dispatch } = props;
-  dispatch(authActions.checkLogin());
+  if (!props.isChecking && !props.isLogin) {
+    dispatch(authActions.checkLogin());
+  }
 }
 
 export function checkAuthState(props: PropTypes) {
