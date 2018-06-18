@@ -9,6 +9,7 @@ type PropTypes = {
     push: Function,
   },
   user: {
+    ID: number,
     ImageUrl: string,
     Name: string,
   },
@@ -34,6 +35,7 @@ export default class RegisteredContainer extends Component<PropTypes> {
 
     return (
       <Registered
+        userId={user.ID}
         image={user.ImageUrl}
         name={user.Name}
         onClickUser={this.onClickUser}

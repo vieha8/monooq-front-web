@@ -1,11 +1,11 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
+import firebase from 'firebase/app';
 import { authActions } from './auth';
 import { userActions } from './user';
 import { spaceActions } from './space';
 import { apiActions, apiEndpoint } from './api';
 import { getApiRequest } from '../helpers/api';
-import firebase from 'firebase';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/configureStore';
@@ -14,7 +14,7 @@ require('firebase/firestore');
 
 let messageObserverUnsubscribe = null;
 
-//Actions
+// Actions
 const FETCH_ROOMS_START = 'FETCH_ROOMS_START';
 const FETCH_ROOMS_END = 'FETCH_ROOMS_END';
 const FETCH_MESSAGES_START = 'FETCH_MESSAGES_START';
@@ -31,7 +31,7 @@ export const messagesActions = createActions(
   UPDATE_MESSAGE,
 );
 
-//Reducer
+// Reducer
 
 const initialState = {
   rooms: [],
@@ -76,7 +76,7 @@ function* fetchRoomStart() {
   );
 
   const res = rooms.map((room, i) => {
-    //TODO エラーハンドリング
+    // TODO エラーハンドリング
     room.user = users[i].data;
     return room;
   });
@@ -91,6 +91,12 @@ function messagesUnsubscribe() {
   }
 }
 
+const roomCollection = () => {
+  const firestore = firebase.firestore();
+  firestore.settings({ timestampsInSnapshots: true });
+  return firestore.collection('rooms');
+};
+
 function* fetchMessagesStart({ payload }) {
   yield messagesUnsubscribe();
 
@@ -102,13 +108,34 @@ function* fetchMessagesStart({ payload }) {
 
   const { messages, room, messageObserver } = yield getMessages(payload);
 
-  store.dispatch(messagesActions.updateMessage(messages));
+  if (messages.length > 0) {
+    const lastMessage = messages[messages.length - 1];
+    roomCollection()
+      .doc(payload)
+      .set(
+        { [`user${user.ID}LastRead`]: lastMessage.id, [`user${user.ID}LastReadDt`]: new Date() },
+        { merge: true },
+      );
+  }
+
+  // メッセージが１件のみの場合はfirebaseから取得した方を使用するためViewとして追加しない
+  if (messages.length > 1) {
+    store.dispatch(messagesActions.updateMessage(messages));
+  }
 
   if (!messageObserverUnsubscribe) {
     messageObserverUnsubscribe = messageObserver.onSnapshot(snapshot => {
-      if (snapshot.docChanges.length === 1) {
-        const message = snapshot.docChanges[0].doc.data();
+      if (snapshot.docChanges().length === 1) {
+        const message = snapshot.docChanges()[0].doc.data();
+        message.createDt = message.createDt.toDate();
         store.dispatch(messagesActions.updateMessage(message));
+        const messageId = snapshot.docChanges()[0].doc.id;
+        roomCollection()
+          .doc(payload)
+          .set(
+            { [`user${user.ID}LastRead`]: messageId, [`user${user.ID}LastReadDt`]: new Date() },
+            { merge: true },
+          );
       }
     });
   }
@@ -128,14 +155,9 @@ function* fetchMessagesStart({ payload }) {
   yield put(messagesActions.fetchMessagesEnd({ messages, room }));
 }
 
-const roomCollection = () => {
-  const db = firebase.firestore();
-  return db.collection('rooms');
-};
-
-//ルーム作成
-export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId) => {
-  return new Promise(async resolve => {
+// ルーム作成
+export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId) =>
+  new Promise(async resolve => {
     const room = {
       [`user${userId1}`]: true,
       [`user${userId2}`]: true,
@@ -149,10 +171,9 @@ export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId
     const roomRef = await roomCollection().add(room);
     resolve(roomRef.id);
   });
-};
 
-export const getRoomId = (userId1, userId2, spaceId) => {
-  return new Promise(async resolve => {
+export const getRoomId = (userId1, userId2, spaceId) =>
+  new Promise(async resolve => {
     const rooms = await roomCollection()
       .where(`user${userId1}`, '==', true)
       .where(`user${userId2}`, '==', true)
@@ -165,11 +186,10 @@ export const getRoomId = (userId1, userId2, spaceId) => {
     }
     resolve(false);
   });
-};
 
-//ルーム取得
-const getRooms = userId => {
-  return new Promise(async resolve => {
+// ルーム取得
+const getRooms = userId =>
+  new Promise(async resolve => {
     const rooms = await roomCollection()
       .where(`user${userId}`, '==', true)
       .get();
@@ -179,16 +199,16 @@ const getRooms = userId => {
         res.push({
           id: room.id,
           ...room.data(),
+          lastMessageDt: room.data().lastMessageDt.toDate(),
         });
       }
     });
     resolve(res);
   });
-};
 
-//メッセージ取得
-const getMessages = roomId => {
-  return new Promise(async (resolve, reject) => {
+// メッセージ取得
+const getMessages = roomId =>
+  new Promise(async (resolve, reject) => {
     try {
       const roomDoc = roomCollection().doc(roomId);
       const messages = await roomDoc
@@ -199,7 +219,11 @@ const getMessages = roomId => {
       const room = await roomDoc.get();
       const res = {
         room: room.data(),
-        messages: messages.docs.map(v => ({ id: v.id, ...v.data() })),
+        messages: messages.docs.map(v => ({
+          id: v.id,
+          ...v.data(),
+          createDt: v.data().createDt.toDate(),
+        })),
         messageObserver: roomDoc.collection('messages'),
       };
 
@@ -209,9 +233,8 @@ const getMessages = roomId => {
       reject(err);
     }
   });
-};
 
-//メッセージ送信
+// メッセージ送信
 const sendMessage = function*(payload) {
   const { roomId, userId, text, image } = payload;
 
@@ -234,8 +257,8 @@ const sendMessage = function*(payload) {
 
   return yield new Promise(async resolve => {
     const message = {
-      userId: userId,
-      text: text,
+      userId,
+      text,
       messageType: 1,
       createDt: new Date(),
     };
@@ -265,7 +288,7 @@ const sendEmail = function*(payload) {
   messageBody += text || '\n\n';
   messageBody += '\n\nメッセージに返信するには以下のリンクをクリックしてください。\n';
 
-  //TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
   if (process.env.REACT_APP_ENV === 'production') {
     messageBody += `https://monooq.com/messages/${roomId}`;
   } else {
@@ -281,7 +304,7 @@ const sendEmail = function*(payload) {
   yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
 };
 
-//Sagas
+// Sagas
 export const messagesSagas = [
   takeEvery(FETCH_ROOMS_START, fetchRoomStart),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),

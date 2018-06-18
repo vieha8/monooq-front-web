@@ -1,32 +1,37 @@
 import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
+import { FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
 
 const MainTitle = styled.div`
-  font-size: 34px;
-  line-height: 51px;
-  margin-bottom: 44px;
+  font-size: ${FontSizes.xlarge}px;
+  line-height: ${FontSizes.xlarge * 1.5}px;
+  margin-bottom: 40px;
   ${media.phone`
-    font-size: 1.5em;
-    line-height: 1.5em;
+    font-size: 7.5vw;
+    line-height: ${7.5 * 1.5}vw;
     margin-bottom: 20px;
   `};
 `;
 
 const Text = styled.div`
-  font-size: 16px;
-  line-height: 32px;
+  font-size: ${FontSizes.medium}px;
+  line-height: ${FontSizes.medium * 2}px;
+  ${media.phone`
+    font-size: 5vw;
+    line-height: 7.5vw;
+  `};
 `;
 
 const HilightText = styled.div`
-  font-size: 22px;
-  line-height: 32px;
-  margin-bottom: 21px;
+  font-size: ${FontSizes.medium1}px;
+  line-height: ${FontSizes.medium1 * 1.5}px;
+  margin-bottom: 20px;
   ${media.phone`
-    font-size: 1.0em;
-    line-height: 2em;
+    font-size: 5vw;
+    line-height: 7.5vw;
   `};
 `;
 
@@ -34,7 +39,7 @@ const Hr = styled.hr`
   border: 0;
   height: 1px;
   width: 100%;
-  background-color: #DBDBDB;
+  background-color: ${Colors.lightGray2};
   margin: 50px 0;
   ${media.phone`
     margin: 20px 0;
@@ -60,6 +65,27 @@ const AboutCancellContentWrapper = styled.div`
 `;
 
 const AboutCancellContent = (props) => {
+  const ContentContainer = styled.div`
+    width: 100%;
+    display: table;
+    font-size: ${FontSizes.small}px;
+    padding: 20px;
+    border-right: 1px solid ${Colors.borderGray};
+    border-left: 1px solid ${Colors.borderGray};
+    border-bottom: 1px solid ${Colors.borderGray};
+    box-sizing: border-box;
+    :nth-child(odd){
+        background-color: ${Colors.lightGray1Bg};
+    }
+    :first-child{
+      border-top: 1px solid ${Colors.borderGray};
+    }
+    ${media.phone`
+      width: 84vw;
+      padding: 16px;
+      box-sizing: border-box;
+    `}
+  `;
   const Header = styled.div`
     width: 178.22px;
     font-weight: bold;
@@ -79,33 +105,12 @@ const AboutCancellContent = (props) => {
     `}
   `;
   return (
-    <div className={props.className}>
+    <ContentContainer>
       <Header>{props.header}</Header>
       <Data>{props.data}</Data>
-    </div>
+    </ContentContainer>
   );
 }
-
-const StyledAboutCancellContent = styled(AboutCancellContent)`
-  width: 100%;
-  display: table;
-  font-size: 14px;
-  padding: 20px;
-  border-right: 1px solid #DBDBDB;
-  border-left: 1px solid #DBDBDB;
-  border-bottom: 1px solid #DBDBDB;
-  :nth-child(odd){
-      background-color: #F9FAFB;
-  }
-  :first-child{
-    border-top: 1px solid #DBDBDB;
-  }
-  ${media.phone`
-    width: 84vw;
-    padding: 16px;
-    box-sizing: border-box;
-  `}
-`;
 
 const NoticeWrapper = styled.div`
   margin-bottom: 30px;
@@ -125,8 +130,8 @@ const ExampleTextContainer = styled.div`
 
 const ExampleText = styled.div`
   display: table-cell;
-  font-size: 14px;
-  line-height: 28px;
+  font-size: ${FontSizes.small}px;
+  line-height: ${FontSizes.small * 2}px;
   width: 50%;
   ${media.tablet`
     &:not(:first-child) {
@@ -175,7 +180,7 @@ export default () => (
           },
         ].map((v,i)=>{
           return (
-            <StyledAboutCancellContent
+            <AboutCancellContent
               header={v.header}
               data={v.data}
               key={i}
@@ -225,7 +230,7 @@ export default () => (
           },
         ].map((v,i)=>{
           return (
-            <StyledAboutCancellContent
+            <AboutCancellContent
               header={v.header}
               data={v.data}
               key={i}

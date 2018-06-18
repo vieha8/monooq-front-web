@@ -1,6 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take } from 'redux-saga/effects';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import { push } from 'react-router-redux';
 import { apiEndpoint, apiActions } from './api';
 import { uiActions } from './ui';
@@ -175,15 +175,14 @@ export const authReducer = handleActions(
   initialState,
 );
 
-const getLoginUserFirebaseAuth = () => {
-  return new Promise(resolve => {
+const getLoginUserFirebaseAuth = () =>
+  new Promise(resolve => {
     firebase.auth().onAuthStateChanged(user => {
       resolve(user);
     });
   });
-};
 
-//Sagas
+// Sagas
 function* checkLoginFirebaseAuth() {
   const user = yield call(getLoginUserFirebaseAuth);
 
@@ -200,6 +199,15 @@ function* checkLoginFirebaseAuth() {
       return;
     }
     status.user = data;
+
+    yield put(
+      apiActions.apiPostRequest({
+        path: apiEndpoint.login(),
+        body: {
+          UserId: data.ID,
+        },
+      }),
+    );
 
     if (status.user.Profile === '') {
       yield put(uiActions.setUiState({ signupStep: 4 }));
@@ -240,7 +248,7 @@ function* logout() {
 function* signUpEmail({ payload: { email, password } }) {
   try {
     const result = yield firebase.auth().createUserWithEmailAndPassword(email, password);
-    const firebaseUid = result.uid;
+    const firebaseUid = result.user.uid;
 
     const defaultImage =
       'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363';
@@ -251,7 +259,9 @@ function* signUpEmail({ payload: { email, password } }) {
         body: { Email: email, FirebaseUid: firebaseUid, ImageUrl: defaultImage },
       }),
     );
+
     const { payload, error, meta } = yield take(apiActions.apiResponse);
+
     if (error) {
       yield put(authActions.signupFailed(meta));
       return;

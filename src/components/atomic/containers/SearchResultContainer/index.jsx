@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import queryString from 'query-string';
+import queryString from 'helpers/query-string';
 
 import Path from 'config/path';
 
@@ -50,7 +50,9 @@ class SearchResultContainer extends Component<PropTypes, State> {
     const { location, dispatch } = props;
 
     const query = queryString.parse(location.search);
-    dispatch(searchActions.fetchStartSearch({ location: query.location || '' }));
+    dispatch(
+      searchActions.fetchStartSearch({ location: query.location || '', limit: 20, offset: 0 }),
+    );
 
     this.state = {
       location: query.location,
@@ -139,4 +141,7 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(SearchResultContainer, mapStateToProps);
+export default connect(
+  SearchResultContainer,
+  mapStateToProps,
+);

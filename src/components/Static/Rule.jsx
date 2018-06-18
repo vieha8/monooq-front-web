@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
+
 import styled from 'styled-components';
+import { FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
 
@@ -8,38 +10,41 @@ import { Footer, DefaultContainer } from 'components/Shared';
 // import ruleImage3 from 'images/rule-img03.svg';
 
 const MainTitle = styled.div`
-  font-size: 34px;
-  line-height: 51px;
+  font-size: ${FontSizes.xlarge}px;
+  line-height: ${FontSizes.xlarge * 1.5}px;
   margin-bottom: 44px;
   ${media.phone`
-    font-size: 1.5em;
-    line-height: 1.5em;
+    font-size: 7.5vw;
+    line-height: ${7.5 * 1.5}vw;
     margin-bottom: 20px;
   `};
 `;
 
 const SubTitle = styled.div`
-  font-size: 30px;
-  line-height: 45px;
+  font-size: ${FontSizes.large}px;
+  line-height: ${FontSizes.large}px;
   margin-bottom: 45px;
   ${media.phone`
-    font-size: 1.25em;
-    line-height: 1.25em;
-    font-weight: bold;
+    font-size: 6.5vw;
+    line-height: ${6.5 * 1.5}vw;
   `};
 `;
 
 const Text = styled.div`
-  font-size: 16px;
-  line-height: 32px;
+  font-size: ${FontSizes.medium}px;
+  line-height: ${FontSizes.medium * 2}px;
+  ${media.phone`
+    font-size: 5vw;
+    line-height: ${5 * 1.5}vw;
+  `};
 `;
 
 const HilightText = styled.div`
-  font-size: 22px;
-  line-height: 32px;
+  font-size: ${FontSizes.medium1}px;
+  line-height: ${FontSizes.medium1 * 1.5}px;
   ${media.phone`
-    font-size: 1em;
-    line-height: 1.25em;
+    font-size: 5vw;
+    line-height: 7.5vw;
   `};
 `;
 
@@ -51,7 +56,7 @@ const Hr = styled.hr`
   border: 0;
   height: 1px;
   width: 100%;
-  background-color: #dbdbdb;
+  background-color: ${Colors.lightGray2};
   margin: 50px 0;
   ${media.phone`
     margin: 20px 0;
@@ -120,8 +125,8 @@ const NotAllowedContent = props => {
   `;
   const Data = styled.div`
     width: 758px;
-    font-size: 14px;
-    line-height: 28px;
+    font-size: ${FontSizes.small}px;
+    line-height: ${FontSizes.small * 2}px;
     padding: 16px 0;
     ${media.phone`
       line-height: 30px;
@@ -144,14 +149,14 @@ const StyledNotAllowedContent = styled(NotAllowedContent)`
   line-height: 60px;
   font-size: 14px;
   padding: 0 20px;
-  border-right: 1px solid #dbdbdb;
-  border-left: 1px solid #dbdbdb;
-  border-bottom: 1px solid #dbdbdb;
+  border-right: 1px solid ${Colors.borderGray};
+  border-left: 1px solid ${Colors.borderGray};
+  border-bottom: 1px solid ${Colors.borderGray};
   :nth-child(odd) {
-    background-color: #f9fafb;
+    background-color: ${Colors.lightGray2Bg};
   }
   :first-child {
-    border-top: 1px solid #dbdbdb;
+    border-top: 1px solid ${Colors.borderGray};
   }
 `;
 
@@ -160,14 +165,12 @@ const DoNotActionContainer = DefaultContainer.extend`
 `;
 
 const DoNotActionContent = props => {
-  const Title = styled.div`
-    font-size: 22px;
-    line-height: 33px;
+  const Title = styled(HilightText)`
     font-weight: bold;
     margin-bottom: 22px;
   `;
   return (
-    <div className={props.className}>
+    <div>
       <Title>{props.title}</Title>
       {props.children}
     </div>

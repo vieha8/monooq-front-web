@@ -1,8 +1,8 @@
 import axios from 'axios';
 import apiConfig from '../../config/api';
 
-const createApiInstance = token => {
-  return axios.create({
+const createApiInstance = token =>
+  axios.create({
     baseURL: apiConfig().baseURI,
     timeout: 10000,
     headers: {
@@ -11,7 +11,6 @@ const createApiInstance = token => {
       'X-Application-Header': token,
     },
   });
-};
 
 export const getToken = () => {
   const obj = localStorage.getItem('token');
@@ -38,7 +37,7 @@ export const getApiRequest = (path, params) => {
   const api = createApiInstance(getToken());
   return new Promise(resolve => {
     api
-      .get(path, { params: params })
+      .get(path, { params })
       .then(res => {
         resolve({ status: res.status, data: res.data });
       })

@@ -9,7 +9,6 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Messages from 'components/atomic/LV3/Messages';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
@@ -123,7 +122,7 @@ class InboxContainer extends Component<PropTypes, State> {
               userImage: room.user.ImageUrl,
               message: message.text,
               image: message.image,
-              recevedAt: message.createDt,
+              receivedAt: message.createDt,
             },
           };
         case MessageType.Estimate: {
@@ -131,8 +130,8 @@ class InboxContainer extends Component<PropTypes, State> {
           return {
             estimate: {
               name: room.user.Name,
-              beginAt: startDate,
-              endAt: endDate,
+              beginAt: startDate.toDate(),
+              endAt: endDate.toDate(),
               price,
               link: Path.payment(match.params.message_room_id, requestId),
               receivedAt: message.createDt,
@@ -169,15 +168,28 @@ class InboxContainer extends Component<PropTypes, State> {
 
     const messageList = this.createMessageList();
 
+    const isHost = room.space.Host.ID === user.ID;
+    let roomTitle = `${room.space.Host.Name}さんとのメッセージ`;
+    if (isHost) {
+      roomTitle = `${room.user.Name}さんとのメッセージ`;
+    }
+
+    const otherUserId = room.userId1 === user.ID ? room.userId2 : room.userId1;
+
+    let lastReadDt = new Date(1990, 0, 1, 0, 0);
+    if (room[`user${otherUserId}LastReadDt`]) {
+      lastReadDt = room[`user${otherUserId}LastReadDt`].toDate();
+    }
+
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline="メッセージ一覧"
+        headline={roomTitle}
         leftContent={<ServiceMenu />}
         rightContent={
           <Messages
             onClickEstimate={this.transitionToEstimate}
-            hostUser={room.space.Host.ID === user.ID}
+            hostUser={isHost}
             messages={messageList}
             onPickImage={this.handlePickImage}
             onChangeText={this.handleChangeText}
@@ -185,9 +197,9 @@ class InboxContainer extends Component<PropTypes, State> {
             pickedImage={(image || {}).preview}
             buttonDisabled={text === '' && !image}
             onClickSend={this.sendMessage}
+            lastReadDt={lastReadDt}
           />
         }
-        footer={<Footer />}
       />
     );
   }
@@ -201,4 +213,7 @@ const mapStateToProps = state =>
     isLoading: state.messages.isLoading,
   });
 
-export default connect(InboxContainer, mapStateToProps);
+export default connect(
+  InboxContainer,
+  mapStateToProps,
+);

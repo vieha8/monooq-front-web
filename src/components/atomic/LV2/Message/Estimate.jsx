@@ -53,7 +53,9 @@ export default (props: PropTypes) => (
       <Text>料金：{props.price}</Text>
       <CaptionWrapper>
         <Text>
-          お支払い期限は見積もり発行後より24時間です。もし24時間が経過してしまった場合は、ホストへ再度お見積もり送付を依頼してください。
+          もしも期間や料金に変更があった場合は、ホストが新しいお見積りの発行をしてください。
+          モノオクでの決済履歴がない場合は保険が適応されません。※現在はクレジットカードのみのお支払いです。
+          それ以外の方法をご希望の場合は<a href="mailto:info@monooq.com">info@monooq.com</a>までご連絡ください。
         </Text>
       </CaptionWrapper>
       {!props.host && (

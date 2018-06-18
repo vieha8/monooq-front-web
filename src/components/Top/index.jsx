@@ -23,7 +23,7 @@ import logoLifehacker from 'images/logo-lifehacker@2x.png';
 import logoTechcrunch from 'images/logo-techcrunch@2x.png';
 import logoTechable from 'images/logo-techable@2x.png';
 
-import SearchInput from './SearchInput';
+import SearchInput from 'components/atomic/LV2/SearchInput';
 
 const TopPage = styled.div`
   min-width: ${Dimens.fixedWidthPc + 32}px;
@@ -541,6 +541,11 @@ const MediaLineup = () => (
   </MediaLineupContainer>
 );
 
+const SearchInputContainer = styled.div`
+  margin-top: 20px;
+  margin-bottom: 40px;
+`;
+
 export default props => (
   <TopPage>
     <Header />
@@ -553,13 +558,18 @@ export default props => (
           <SubCatchPhrase>
             モノオクは空きスペースを活用できる、物置きシェアサービスです。
           </SubCatchPhrase>
-          <SearchInput
-            placeholder="近くのスペースを検索してみよう！　例）東京都港区"
-            locationText={props.locationText}
-            onChange={props.handleChangeLocation}
-            onRef={ref => refSearchField(ref, props)}
-            searchButtonDisabled={props.searchButtonDisabled}
-          />
+
+          <SearchInputContainer>
+            <SearchInput
+              placeholder="近くのスペースを検索してみよう！　例）東京都港区"
+              locationText={props.locationText}
+              onChange={props.handleChangeLocation}
+              onRef={ref => refSearchField(ref, props)}
+              searchDisabled={props.searchButtonDisabled}
+              onClickSearchButton={props.onClickSearch}
+            />
+          </SearchInputContainer>
+
           <ToHostRegistContainer>
             <ToHostRegist component={Link} href={Path.createSpaceInfo()}>
               ホスト登録はこちら

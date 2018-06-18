@@ -26,8 +26,6 @@ import Containers from 'components/atomic/containers';
 
 import Path from './path';
 
-require('./fontawesome-all.min.js');
-
 export const routes = [
   // service pages
   { path: Path.login(), component: Containers.Login },

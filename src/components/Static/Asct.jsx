@@ -2,25 +2,38 @@ import React, { Fragment } from 'react';
 import Path from 'config/path';
 
 import styled from 'styled-components';
+import { FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
 
 const MainTitle = styled.div`
-  font-size: 34px;
-  line-height: 51px;
+  font-size: ${FontSizes.xlarge}px;
+  line-height: ${FontSizes.xlarge * 1.5}px;
   ${media.phone`
-    font-size: 1.5em;
-    line-height: 1.5em;
+    font-size: 7.5vw;
+    line-height: ${7.5 * 1.5}vw;
   `};
 `;
 
-const Text = styled.div`
-  font-size: 16px;
-  line-height: 32px;
+const Text = styled.p`
+  font-size: ${FontSizes.medium}px;
+  line-height: ${FontSizes.medium * 2}px;
+  ${media.phone`
+    font-size: 5vw;
+    line-height: 7.5vw;
+  `};
 `;
 
-const TextWrapper = styled.div`
+const AnnotationWrapper = styled.div`
   margin-bottom: 40px;
+`;
+
+const AnnotationText = styled(Text)`
+  ${media.phone`
+    font-size: 4.5vw;
+    line-height: 6.75vw;
+    margin-bottom: 10px;
+  `};
 `;
 
 const MainTitleContainer = DefaultContainer.extend`
@@ -40,43 +53,37 @@ const AsctContentWrapper = styled.div`
 `;
 
 const AsctContent = props => {
-  const Header = styled.div`
+  const ContentContainer = styled.div`
+    width: 100%;
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    font-size: 16px;
+    border-bottom: 1px solid #dbdbdb;
+  `;
+
+  const Header = styled(Text)`
     width: 150px;
     font-weight: bold;
     margin-right: 20px;
-    line-height: 1.5em;
     ${media.phone`
       width: 100%;
-      line-height: 30px;
     `};
   `;
-  const Data = styled.div`
-    line-height: 1.5em;
+  const Data = styled(Text)`
     ${media.phone`
-      margin-top: 16px;
+      margin-top: 8px;
       line-height: 30px;
     `};
   `;
   return (
-    <div className={props.className}>
+    <ContentContainer>
       <Header>{props.header}</Header>
       <Data dangerouslySetInnerHTML={{ __html: props.data }} />
-    </div>
+    </ContentContainer>
   );
 };
-
-const StyledAsctContent = styled(AsctContent)`
-  width: 100%;
-  padding: 20px 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  font-size: 16px;
-  border-bottom: 1px solid #dbdbdb;
-  ${media.phone`
-    padding-bottom: 0;
-  `};
-`;
 
 export default () => (
   <Fragment>
@@ -137,16 +144,18 @@ export default () => (
           //   data: `モノオクの定める<a href=${Path.cancellationPolicies()}>キャンセルポリシー</a>がございます。お支払い前に必ずお読みください。`,
           // },
         ].map((v, i) => {
-          return <StyledAsctContent key={i} header={v.header} data={v.data} />;
+          return <AsctContent key={i} header={v.header} data={v.data} />;
         })}
       </AsctContentWrapper>
 
-      <TextWrapper>
-        <Text>
-          ※取引やサービスについてのお問い合わせは電話では受け付けておりません。<br />
+      <AnnotationWrapper>
+        <AnnotationText>
+          ※取引やサービスについてのお問い合わせは電話では受け付けておりません。
+        </AnnotationText>
+        <AnnotationText>
           利用に関するお問い合わせは、ログイン後のメニュー「お問い合わせ」またはヘルプチャットよりご連絡ください。
-        </Text>
-      </TextWrapper>
+        </AnnotationText>
+      </AnnotationWrapper>
     </AsctContainer>
 
     <Footer />

@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 export const uploadImage = (path, file) => {
   const storageRef = firebase.storage().ref();
@@ -16,8 +16,7 @@ export const uploadImage = (path, file) => {
         reject(error);
       },
       () => {
-        const url = task.snapshot.downloadURL;
-        resolve(url);
+        task.snapshot.ref.getDownloadURL().then(url => resolve(url));
       },
     );
   });

@@ -29,6 +29,7 @@ type PropTypes = {
   sentAt: string,
   error?: boolean,
   onClickRetry: Function,
+  isRead: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -45,7 +46,11 @@ export default (props: PropTypes) => (
         )}
       </RetryCell>
       <DateCell>
-        <InlineText.EmphasisTiny>{props.sentAt}</InlineText.EmphasisTiny>
+        <InlineText.EmphasisTiny>
+          {props.sentAt}
+          <br />
+          {props.isRead ? '既読' : null}
+        </InlineText.EmphasisTiny>
       </DateCell>
     </ActionTable>
   </ClearfixContainer>

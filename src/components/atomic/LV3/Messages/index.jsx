@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import Path from 'config/path';
 import moment from 'moment';
 import AdminMessage from 'components/atomic/LV2/Message/Admin';
 import SelfMessage from 'components/atomic/LV2/Message/MySelf';
@@ -10,7 +11,9 @@ import EstimateMessage from 'components/atomic/LV2/Message/Estimate';
 import PhotoMessage from 'components/atomic/LV2/Message/Photo';
 import MessageInput from 'components/atomic/LV2/Message/Input';
 import Button from 'components/atomic/LV1/Button';
-import { Dimens } from 'variables';
+import InlineText from 'components/atomic/LV1/InlineText';
+import TextLink from 'components/atomic/LV1/TextLink';
+import { Dimens, Colors } from 'variables';
 
 const Row = styled.div`
   width: 80%;
@@ -36,6 +39,23 @@ const Row = styled.div`
 
 const ButtonWrapper = styled.div`
   margin-top: ${Dimens.medium}px;
+`;
+
+const CautionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: ${Dimens.medium1}px ${Dimens.small}px;
+`;
+
+const CautionText = InlineText.Tiny.extend`
+  margin-bottom: ${Dimens.xsmall}px;
+`;
+
+const SeparatedCautionWrapper = CautionWrapper.extend`
+  border-top: 1px solid ${Colors.borderGray};
+  text-align: center;
+  padding-bottom: 0;
 `;
 
 type PropTypes = {
@@ -73,12 +93,13 @@ type PropTypes = {
   buttonDisabled: boolean,
   onPickImage: Function,
   pickedImage: string,
+  lastReadDt: string,
 };
 
 const dateFormat = 'YYYY/MM/DD kk:mm:ss';
 
 export default (props: PropTypes) => {
-  const { messages, hostUser } = props;
+  const { messages, hostUser, lastReadDt } = props;
   // 自分がユーザーの場合は、初期メッセージを追加する
   const messageList = []
     .concat(
@@ -88,13 +109,7 @@ export default (props: PropTypes) => {
             {
               admin: {
                 message:
-                  'あなたの具体的な荷物の内容と予定日時をホストへ伝えましょう！量や大きさに適したお見積もりがホストから送られてきます。メッセージでは写真も送れます。詳細な住所はお支払い完了後にお知らせします。',
-              },
-            },
-            {
-              admin: {
-                message:
-                  '経年劣化によるショート・不具合の可能性がある製品に関して。自然発生的な故障のケースは一切の保証ができません。電化製品・家電などでスペース利用を検討している場合は予めご了承ください。',
+                  'まずは「荷物の内容」「期間」「必要なおおよその広さ」をホストへ伝えましょう！メッセージでは写真も送れます。',
               },
             },
           ],
@@ -107,14 +122,36 @@ export default (props: PropTypes) => {
         const key = `message_item_${i}`;
 
         if (message.self) {
+          const isRead = lastReadDt.getTime() > message.self.sentAt.getTime();
+
           // 自分が送信
           if (message.self.image) {
+            if (message.self.message) {
+              return (
+                <Row key={key} self>
+                  <Row key={key} self>
+                    <SelfMessage
+                      message={message.self.message}
+                      sentAt={moment(message.self.sentAt).format(dateFormat)}
+                      isRead={isRead}
+                    />
+                  </Row>
+                  <PhotoMessage
+                    align="right"
+                    src={message.self.image}
+                    receivedAt={moment(message.self.sentAt).format(dateFormat)}
+                    isRead={isRead}
+                  />
+                </Row>
+              );
+            }
             return (
               <Row key={key} self>
                 <PhotoMessage
                   align="right"
                   src={message.self.image}
                   receivedAt={moment(message.self.sentAt).format(dateFormat)}
+                  isRead={isRead}
                 />
               </Row>
             );
@@ -124,12 +161,31 @@ export default (props: PropTypes) => {
               <SelfMessage
                 message={message.self.message}
                 sentAt={moment(message.self.sentAt).format(dateFormat)}
+                isRead={isRead}
               />
             </Row>
           );
         } else if (message.other) {
           // 相手が送信
           if (message.other.image) {
+            if (message.other.message) {
+              return (
+                <Row key={key}>
+                  <OtherMessage
+                    id={message.other.id}
+                    image={message.other.userImage}
+                    message={message.other.message}
+                    receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                  />
+                  <OtherMessage
+                    id={message.other.id}
+                    image={message.other.userImage}
+                    receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                    extension={<PhotoMessage id={message.other.id} src={message.other.image} />}
+                  />
+                </Row>
+              );
+            }
             return (
               <Row key={key}>
                 <OtherMessage
@@ -205,6 +261,18 @@ export default (props: PropTypes) => {
           </Button>
         </ButtonWrapper>
       )}
+
+      <CautionWrapper>
+        <CautionText>モノオクではサービス外のお支払いや現金取引は禁止です。</CautionText>
+        <TextLink to={Path.rule()} fontSize={11} target="_blank">
+          ルールとマナーを読む
+        </TextLink>
+      </CautionWrapper>
+      <SeparatedCautionWrapper>
+        <CautionText>
+          経年劣化によるショート・不具合の可能性がある製品に関して。自然発生的な故障のケースは一切の保証ができません。電化製品・家電などでスペース利用を検討している場合は予めご了承ください。
+        </CautionText>
+      </SeparatedCautionWrapper>
     </div>
   );
 };

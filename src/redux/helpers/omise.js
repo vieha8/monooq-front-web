@@ -9,7 +9,7 @@ const tokenEndPoint = 'https://vault.omise.co/tokens';
 
 export const createOmiseToken = async data => {
   const headers = new Headers();
-  headers.append('Authorization', 'Basic ' + base64.encode(publicKey + ':'));
+  headers.append('Authorization', `Basic ${base64.encode(`${publicKey}:`)}`);
   headers.append('Content-Type', 'application/json');
   headers.append('Omise-Version', apiVersion);
 
