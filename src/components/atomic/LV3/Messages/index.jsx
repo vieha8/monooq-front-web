@@ -77,6 +77,10 @@ type PropTypes = {
     admin?: {
       receivedAt?: string,
       message?: string,
+      link?: {
+        text: string,
+        url: string,
+      },
     },
     estimate?: {
       name: string,
@@ -100,21 +104,17 @@ const dateFormat = 'YYYY/MM/DD kk:mm:ss';
 
 export default (props: PropTypes) => {
   const { messages, hostUser, lastReadDt } = props;
-  // 自分がユーザーの場合は、初期メッセージを追加する
-  const messageList = []
-    .concat(
-      hostUser
-        ? []
-        : [
-            {
-              admin: {
-                message:
-                  'まずは「荷物の内容」「期間」「必要なおおよその広さ」をホストへ伝えましょう！メッセージでは写真も送れます。',
-              },
-            },
-          ],
-    )
-    .concat(messages);
+  const messageList = messages;
+
+  // 自分がユーザーの場合かつ未送信の場合は、初期メッセージを追加する
+  if (!hostUser && messageList.length === 1) {
+    messageList.push({
+      admin: {
+        message:
+          'まずは「荷物の内容」「期間」「必要なおおよその広さ」をホストへ伝えましょう！メッセージでは写真も送ることができます。',
+      },
+    });
+  }
 
   return (
     <div>
@@ -216,6 +216,7 @@ export default (props: PropTypes) => {
                 receivedAt={
                   message.admin.receivedAt && moment(message.admin.receivedAt).format(dateFormat)
                 }
+                link={message.admin.link || {}}
               />
             </Row>
           );

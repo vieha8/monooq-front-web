@@ -167,11 +167,25 @@ class InboxContainer extends Component<PropTypes, State> {
       return <Loading size="large" />;
     }
 
-    const messageList = this.createMessageList();
-
     const isHost = room.space.Host.ID === user.ID;
-
     const otherUserId = room.userId1 === user.ID ? room.userId2 : room.userId1;
+    let roomTitle = `${room.space.Host.Name}さんと相談しましょう`;
+    if (isHost) {
+      roomTitle = `${room.user.Name}さんと相談しましょう`;
+    }
+
+    const firstMessage = {
+      admin: {
+        message: `スペース「${room.space.Title}」の利用について、${roomTitle}! \n`,
+        link: {
+          text: 'スペース詳細をみる',
+          url: `/space/${room.space.ID}`,
+        },
+      },
+    };
+
+    const messageList = this.createMessageList();
+    messageList.unshift(firstMessage);
 
     let lastReadDt = new Date(1990, 0, 1, 0, 0);
     if (room[`user${otherUserId}LastReadDt`]) {
@@ -203,6 +217,7 @@ class InboxContainer extends Component<PropTypes, State> {
     return (
       <MenuPageTemplate
         header={<Header />}
+        headline="メッセージ"
         leftContent={<ServiceMenu />}
         rightContent={this.rightContent()}
       />
