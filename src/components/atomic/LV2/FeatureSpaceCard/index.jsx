@@ -13,6 +13,7 @@ import { Colors, Dimens } from 'variables';
 const Container = styled.div`
   width: 260px;
   display: inline-block;
+  cursor: pointer;
   ${media.phone`
     width: 160px;
   `};
