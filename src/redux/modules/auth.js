@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import { apiEndpoint, apiActions } from './api';
 import { uiActions } from './ui';
 import { store } from '../store/configureStore';
-import { getApiRequest } from '../helpers/api';
+import { getApiRequest, postApiRequest } from '../helpers/api';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -184,13 +184,18 @@ const getLoginUserFirebaseAuth = () =>
 
 // Sagas
 function* checkLoginFirebaseAuth() {
+  let status = { isLogin: false };
+  const statusCache = localStorage.getItem('status');
+  if (statusCache) {
+    status = JSON.parse(statusCache);
+    yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID });
+    yield put(authActions.checkLoginSuccess(status));
+    return;
+  }
+
   const user = yield call(getLoginUserFirebaseAuth);
-
-  const status = { isLogin: false };
-
   if (user) {
     status.isLogin = true;
-
     const { data, err } = yield call(getApiRequest, apiEndpoint.authFirebase(user.uid));
     if (err) {
       yield put(authActions.checkLoginFailed({ error: err }));
@@ -199,15 +204,8 @@ function* checkLoginFirebaseAuth() {
       return;
     }
     status.user = data;
-
-    yield put(
-      apiActions.apiPostRequest({
-        path: apiEndpoint.login(),
-        body: {
-          UserId: data.ID,
-        },
-      }),
-    );
+    localStorage.setItem('status', JSON.stringify(status));
+    yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID });
 
     if (status.user.Profile === '') {
       yield put(uiActions.setUiState({ signupStep: 4 }));
@@ -242,6 +240,7 @@ function* loginFacebook() {
 }
 
 function* logout() {
+  localStorage.removeItem('status');
   yield firebase.auth().signOut();
 }
 
