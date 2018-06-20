@@ -6,10 +6,12 @@ import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 
 import { H2 } from 'components/atomic/LV1/Headline';
+import TextButton from 'components/atomic/LV1/TextButton';
 import FeatureSpaceCard from 'components/atomic/LV2/FeatureSpaceCard';
 
 const ListContainer = styled.div`
   margin-top: ${Dimens.medium}px;
+  text-align: center;
 `;
 
 const CardWrapper = styled.div`
@@ -22,6 +24,15 @@ const CardWrapper = styled.div`
       margin-left: ${Dimens.xsmall}px;
     }
     margin: ${Dimens.xsmall}px;
+  `};
+`;
+
+const MoreViewContainer = styled.div`
+  text-align: center;
+  padding: ${Dimens.medium}px 0;
+  display: none;
+  ${media.phone`
+    display: block;
   `};
 `;
 
@@ -60,5 +71,8 @@ export default (props: PropTypes) => (
         <FeatureSpaceCard {...testProps} />
       </CardWrapper>
     </ListContainer>
+    <MoreViewContainer>
+      <TextButton>もっと見る</TextButton>
+    </MoreViewContainer>
   </Fragment>
 );
