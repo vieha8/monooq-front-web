@@ -19,8 +19,9 @@ const CardWrapper = styled.div`
   }
   ${media.phone`
     &:not(:first-child) {
-      margin-left: 0;
+      margin-left: ${Dimens.xsmall}px;
     }
+    margin: ${Dimens.xsmall}px;
   `};
 `;
 
