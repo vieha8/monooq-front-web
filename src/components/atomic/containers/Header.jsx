@@ -8,7 +8,6 @@ import { withRouter } from 'react-router';
 import Path from 'config/path';
 
 type PropTypes = {
-  dispatch: Function,
   isChecking: boolean,
   isLogin: boolean,
   user: {
