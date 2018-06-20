@@ -26,6 +26,10 @@ const SubmitButton = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
+const AlertText = styled.div`
+  margin-top: ${Dimens.medium}px;
+`;
+
 class SalesContainer extends Component {
   constructor(props) {
     super(props);
@@ -40,6 +44,7 @@ class SalesContainer extends Component {
       accountType: '普通',
       accountNumber: '',
       accountName: '',
+      isSend: false,
     };
   }
 
@@ -54,7 +59,21 @@ class SalesContainer extends Component {
   };
 
   submitButton = () => {
+    const { user, dispatch } = this.props;
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
+    const userId = user.ID;
+    dispatch(
+      salesActions.sendPayouts({
+        userId,
+        bankName,
+        branchName,
+        accountType,
+        accountNumber,
+        accountName,
+      }),
+    );
+    window.scrollTo(0, 0);
+    this.setState({ isSend: true });
   };
 
   validate = () => {
@@ -83,11 +102,19 @@ class SalesContainer extends Component {
       return <InlineText.Base>振込可能な売上はありません。</InlineText.Base>;
     }
 
+    if (this.payouts < 3000) {
+      return (
+        <InlineText.Base>
+          現在の売上は{this.payouts}円です。振込申請は3,000円以上から可能です。
+        </InlineText.Base>
+      );
+    }
+
     return (
       <Fragment>
         <InlineText.Base>
           振込可能な売上は{this.payouts}円です。<br />
-          手数料の説明とか書くよ。<br />
+          振込先の本人口座をご入力ください。
         </InlineText.Base>
         <InputText>
           <InputForm
@@ -134,6 +161,11 @@ class SalesContainer extends Component {
             振込申請をする
           </Button>
         </SubmitButton>
+        <AlertText>
+          <InlineText.Small>
+            ※振込金額が10,000円以上の場合は、振込手数料は無料となります。10,000円以下の場合、260円の振込手数料を差し引いた金額を入金致します。
+          </InlineText.Small>
+        </AlertText>
       </Fragment>
     );
   };
@@ -148,11 +180,29 @@ class SalesContainer extends Component {
       return <LoadingPage />;
     }
 
+    if (this.state.isSend) {
+      return (
+        <div>
+          <MenuPageTemplate
+            header={<Header />}
+            headline="売上・振込申請"
+            leftContent={<ServiceMenu />}
+            rightContent={
+              <InlineText.Base>
+                申請ありがとうございました。3営業日以内にお振込み致します。
+              </InlineText.Base>
+            }
+            footer={<Footer />}
+          />
+        </div>
+      );
+    }
+
     return (
       <div>
         <MenuPageTemplate
           header={<Header />}
-          headline="売上確認・振込申請"
+          headline="売上・振込申請"
           leftContent={<ServiceMenu />}
           rightContent={this.rightContent()}
           footer={<Footer />}
