@@ -9,7 +9,7 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Messages from 'components/atomic/LV3/Messages';
 import Header from 'components/atomic/containers/Header';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import Loading from 'components/atomic/LV1/Loading';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -62,6 +62,7 @@ class InboxContainer extends Component<PropTypes, State> {
     this.state = {
       text: '',
       image: null,
+      roomTitle: '',
     };
   }
 
@@ -158,27 +159,17 @@ class InboxContainer extends Component<PropTypes, State> {
     });
   };
 
-  render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
+  rightContent = () => {
     const { isLoading, user, room } = this.props;
+    const { text, image } = this.state;
 
     if (isLoading || !room) {
-      return <LoadingPage />;
+      return <Loading size="large" />;
     }
-
-    const { text, image } = this.state;
 
     const messageList = this.createMessageList();
 
     const isHost = room.space.Host.ID === user.ID;
-    let roomTitle = `${room.space.Host.Name}さんとのメッセージ`;
-    if (isHost) {
-      roomTitle = `${room.user.Name}さんとのメッセージ`;
-    }
 
     const otherUserId = room.userId1 === user.ID ? room.userId2 : room.userId1;
 
@@ -188,24 +179,32 @@ class InboxContainer extends Component<PropTypes, State> {
     }
 
     return (
+      <Messages
+        onClickEstimate={this.transitionToEstimate}
+        hostUser={isHost}
+        messages={messageList}
+        onPickImage={this.handlePickImage}
+        onChangeText={this.handleChangeText}
+        text={text}
+        pickedImage={(image || {}).preview}
+        buttonDisabled={text === '' && !image}
+        onClickSend={this.sendMessage}
+        lastReadDt={lastReadDt}
+      />
+    );
+  };
+
+  render() {
+    const auth = checkAuthState(this.props);
+    if (auth) {
+      return auth;
+    }
+
+    return (
       <MenuPageTemplate
         header={<Header />}
-        headline={roomTitle}
         leftContent={<ServiceMenu />}
-        rightContent={
-          <Messages
-            onClickEstimate={this.transitionToEstimate}
-            hostUser={isHost}
-            messages={messageList}
-            onPickImage={this.handlePickImage}
-            onChangeText={this.handleChangeText}
-            text={text}
-            pickedImage={(image || {}).preview}
-            buttonDisabled={text === '' && !image}
-            onClickSend={this.sendMessage}
-            lastReadDt={lastReadDt}
-          />
-        }
+        rightContent={this.rightContent()}
       />
     );
   }
