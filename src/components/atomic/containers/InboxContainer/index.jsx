@@ -10,7 +10,7 @@ import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
 import InlineText from 'components/atomic/LV1/InlineText';
 import Footer from 'components/atomic/LV2/Footer';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import Loading from 'components/atomic/LV1/Loading';
 import InboxList from 'components/atomic/LV3/InboxList';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
@@ -44,16 +44,31 @@ class InboxContainer extends Component<PropTypes> {
     window.scrollTo(0, 0);
   }
 
+  rightContent = () => {
+    const { isLoading, rooms } = this.props;
+
+    if (isLoading) {
+      return <Loading size="large" />;
+    }
+
+    return Array.isArray(rooms) && rooms.length > 0 ? (
+      <InboxList
+        messages={rooms.filter(room => room.user).map(message => ({
+          link: Path.message(message.id),
+          image: (message.user || {}).ImageUrl,
+          name: (message.user || {}).Name,
+          receivedAt: message.lastMessageDt,
+        }))}
+      />
+    ) : (
+      <InlineText.Base>メッセージはありません。</InlineText.Base>
+    );
+  };
+
   render() {
     const auth = checkAuthState(this.props);
     if (auth) {
       return auth;
-    }
-
-    const { isLoading, rooms } = this.props;
-
-    if (isLoading) {
-      return <LoadingPage />;
     }
 
     return (
@@ -61,20 +76,7 @@ class InboxContainer extends Component<PropTypes> {
         header={<Header />}
         headline="メッセージ一覧"
         leftContent={<ServiceMenu />}
-        rightContent={
-          Array.isArray(rooms) && rooms.length > 0 ? (
-            <InboxList
-              messages={rooms.filter(room => room.user).map(message => ({
-                link: Path.message(message.id),
-                image: (message.user || {}).ImageUrl,
-                name: (message.user || {}).Name,
-                receivedAt: message.lastMessageDt,
-              }))}
-            />
-          ) : (
-            <InlineText.Base>メッセージはありません。</InlineText.Base>
-          )
-        }
+        rightContent={this.rightContent()}
         footer={<Footer />}
       />
     );
@@ -87,4 +89,7 @@ const mapStateToProps = state =>
     isLoading: state.messages.isLoading,
   });
 
-export default connect(InboxContainer, mapStateToProps);
+export default connect(
+  InboxContainer,
+  mapStateToProps,
+);

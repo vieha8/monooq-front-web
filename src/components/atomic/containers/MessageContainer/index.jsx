@@ -9,7 +9,7 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Messages from 'components/atomic/LV3/Messages';
 import Header from 'components/atomic/containers/Header';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import Loading from 'components/atomic/LV1/Loading';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -62,6 +62,7 @@ class InboxContainer extends Component<PropTypes, State> {
     this.state = {
       text: '',
       image: null,
+      roomTitle: '',
     };
   }
 
@@ -158,29 +159,33 @@ class InboxContainer extends Component<PropTypes, State> {
     });
   };
 
-  render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
+  rightContent = () => {
     const { isLoading, user, room } = this.props;
-
-    if (isLoading || !room) {
-      return <LoadingPage />;
-    }
-
     const { text, image } = this.state;
 
-    const messageList = this.createMessageList();
-
-    const isHost = room.space.Host.ID === user.ID;
-    let roomTitle = `${room.space.Host.Name}さんとのメッセージ`;
-    if (isHost) {
-      roomTitle = `${room.user.Name}さんとのメッセージ`;
+    if (isLoading || !room) {
+      return <Loading size="large" />;
     }
 
+    const isHost = room.space.Host.ID === user.ID;
     const otherUserId = room.userId1 === user.ID ? room.userId2 : room.userId1;
+    let roomTitle = `${room.space.Host.Name}さんと相談しましょう`;
+    if (isHost) {
+      roomTitle = `${room.user.Name}さんと相談しましょう`;
+    }
+
+    const firstMessage = {
+      admin: {
+        message: `スペース「${room.space.Title}」の利用について、${roomTitle}! \n`,
+        link: {
+          text: 'スペース詳細をみる',
+          url: `/space/${room.space.ID}`,
+        },
+      },
+    };
+
+    const messageList = this.createMessageList();
+    messageList.unshift(firstMessage);
 
     let lastReadDt = new Date(1990, 0, 1, 0, 0);
     if (room[`user${otherUserId}LastReadDt`]) {
@@ -188,24 +193,33 @@ class InboxContainer extends Component<PropTypes, State> {
     }
 
     return (
+      <Messages
+        onClickEstimate={this.transitionToEstimate}
+        hostUser={isHost}
+        messages={messageList}
+        onPickImage={this.handlePickImage}
+        onChangeText={this.handleChangeText}
+        text={text}
+        pickedImage={(image || {}).preview}
+        buttonDisabled={text === '' && !image}
+        onClickSend={this.sendMessage}
+        lastReadDt={lastReadDt}
+      />
+    );
+  };
+
+  render() {
+    const auth = checkAuthState(this.props);
+    if (auth) {
+      return auth;
+    }
+
+    return (
       <MenuPageTemplate
         header={<Header />}
-        headline={roomTitle}
+        headline="メッセージ"
         leftContent={<ServiceMenu />}
-        rightContent={
-          <Messages
-            onClickEstimate={this.transitionToEstimate}
-            hostUser={isHost}
-            messages={messageList}
-            onPickImage={this.handlePickImage}
-            onChangeText={this.handleChangeText}
-            text={text}
-            pickedImage={(image || {}).preview}
-            buttonDisabled={text === '' && !image}
-            onClickSend={this.sendMessage}
-            lastReadDt={lastReadDt}
-          />
-        }
+        rightContent={this.rightContent()}
       />
     );
   }
