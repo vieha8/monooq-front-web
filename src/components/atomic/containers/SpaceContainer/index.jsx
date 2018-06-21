@@ -95,6 +95,7 @@ class SpaceContainer extends Component<PropTypes, State> {
             space.Host.FirebaseUid,
             spaceId,
           );
+          window.dataLayer.push({ event: 'newRequest' }); // GTM
         }
         history.push(Path.message(roomId));
       } finally {
@@ -175,4 +176,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(SpaceContainer, mapStateToProps);
+export default connect(
+  SpaceContainer,
+  mapStateToProps,
+);
