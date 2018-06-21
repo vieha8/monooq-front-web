@@ -23,7 +23,7 @@ type PropTypes = {
     startDate: Date | string,
     endDate: Date | string,
   },
-  sales: string,
+  sales: number,
   roomId: string,
 };
 

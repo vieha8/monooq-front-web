@@ -1,9 +1,10 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { Colors } from 'variables';
+import { Colors, Dimens } from 'variables';
 import InlineText from 'components/atomic/LV1/InlineText';
+import Button from 'components/atomic/LV1/Button';
 
 const Row = styled.div`
   width: 100%;
@@ -41,8 +42,12 @@ const Supplement = styled.div`
   margin-top: 8px;
 `;
 
+const ButtonWrapper = styled.div`
+  margin-top: ${Dimens.medium}px;
+`;
+
 type PropTypes = {
-  sales: Array<{
+  transfers: Array<{
     label: string,
     date: string,
     status: string,
@@ -51,12 +56,13 @@ type PropTypes = {
   supplement: {
     price: string,
   },
+  onClickEditBankAccount: Function,
 };
 
 export default (props: PropTypes) => (
   <div>
-    {props.sales.map((s, i) => (
-      <Row key={`sales_item_${i}`}>
+    {props.transfers.map((s, i) => (
+      <Row key={`transfers_item_${i}`}>
         {s.label && (
           <Label>
             <InlineText.Base fontSize={14}>{s.label}</InlineText.Base>
@@ -92,5 +98,10 @@ export default (props: PropTypes) => (
         </Supplement>
       </Row>
     )}
+    <ButtonWrapper>
+      <Button secondary center onClick={props.onClickEditBankAccount}>
+        口座情報を変更する
+      </Button>
+    </ButtonWrapper>
   </div>
 );

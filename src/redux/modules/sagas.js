@@ -6,6 +6,7 @@ import { messagesSagas } from './messages';
 import { spaceSagas } from './space';
 import { userSagas } from './user';
 import { requestSagas } from './request';
+import { salesSagas } from './sales';
 
 export default function* rootSaga() {
   yield all([
@@ -16,5 +17,6 @@ export default function* rootSaga() {
     ...spaceSagas,
     ...userSagas,
     ...requestSagas,
+    ...salesSagas,
   ]);
 }
