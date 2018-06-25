@@ -12,16 +12,19 @@ import FeatureSpaceCard from 'components/atomic/LV2/FeatureSpaceCard';
 const Container = styled.div`
   padding: ${Dimens.medium2}px ${Dimens.huge}px;
   ${media.tablet`
-    padding: ${Dimens.medium}px 0;
+    padding: 0;
+  `};
+`;
+
+const TitleContainer = styled.div`
+  ${media.tablet`
+    padding: 0 ${Dimens.medium}px;
   `};
 `;
 
 const ListContainer = styled.div`
   margin-top: ${Dimens.medium}px;
   text-align: center;
-  ${media.tablet`
-    text-align: left;
-  `};
 `;
 
 const CardWrapper = styled.div`
@@ -66,7 +69,9 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Container>
-    <H2>{props.title}</H2>
+    <TitleContainer>
+      <H2>{props.title}</H2>
+    </TitleContainer>
     <ListContainer>
       <CardWrapper>
         <FeatureSpaceCard {...testProps} />
