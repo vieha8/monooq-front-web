@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
@@ -9,9 +9,19 @@ import { H2 } from 'components/atomic/LV1/Headline';
 import TextButton from 'components/atomic/LV1/TextButton';
 import FeatureSpaceCard from 'components/atomic/LV2/FeatureSpaceCard';
 
+const Container = styled.div`
+  padding: ${Dimens.medium2}px ${Dimens.huge}px;
+  ${media.tablet`
+    padding: ${Dimens.medium}px 0;
+  `};
+`;
+
 const ListContainer = styled.div`
   margin-top: ${Dimens.medium}px;
   text-align: center;
+  ${media.tablet`
+    text-align: left;
+  `};
 `;
 
 const CardWrapper = styled.div`
@@ -19,7 +29,7 @@ const CardWrapper = styled.div`
   &:not(:first-child) {
     margin-left: ${Dimens.medium}px;
   }
-  ${media.phone`
+  ${media.tablet`
     &:not(:first-child) {
       margin-left: ${Dimens.xsmall}px;
     }
@@ -31,7 +41,7 @@ const MoreViewContainer = styled.div`
   text-align: center;
   padding: ${Dimens.medium}px 0;
   display: none;
-  ${media.phone`
+  ${media.tablet`
     display: block;
   `};
 `;
@@ -55,7 +65,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Fragment>
+  <Container>
     <H2>{props.title}</H2>
     <ListContainer>
       <CardWrapper>
@@ -74,5 +84,5 @@ export default (props: PropTypes) => (
     <MoreViewContainer>
       <TextButton>もっと見る</TextButton>
     </MoreViewContainer>
-  </Fragment>
+  </Container>
 );

@@ -14,7 +14,7 @@ const Container = styled.div`
   width: 260px;
   display: inline-block;
   cursor: pointer;
-  ${media.phone`
+  ${media.tablet`
     width: 160px;
   `};
 `;
@@ -23,7 +23,7 @@ const ImageContainer = styled.div`
   position: relative;
   height: 160px;
   overflow: hidden;
-  ${media.phone`
+  ${media.tablet`
     height: 120px;
   `};
 `;
@@ -34,7 +34,7 @@ const UserContainer = styled.div`
   height: 120px;
   top: ${(160 - 120) / 2}px;
   text-align: center;
-  ${media.phone`
+  ${media.tablet`
     top: 0;
   `};
 `;
@@ -42,7 +42,7 @@ const UserContainer = styled.div`
 const DetailContainer = styled.div`
   text-align: center;
   padding: ${Dimens.medium2}px 0;
-  ${media.phone`
+  ${media.tablet`
     padding: ${Dimens.small}px 0;
   `};
 `;

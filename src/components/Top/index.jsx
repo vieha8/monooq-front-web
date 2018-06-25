@@ -24,6 +24,7 @@ import logoTechcrunch from 'images/logo-techcrunch@2x.png';
 import logoTechable from 'images/logo-techable@2x.png';
 
 import SearchInput from 'components/atomic/LV2/SearchInput';
+import PickupSpaceList from 'components/atomic/LV3/PickupSpaceList';
 
 const TopPage = styled.div`
   min-width: ${Dimens.fixedWidthPc + 32}px;
@@ -546,6 +547,28 @@ const SearchInputContainer = styled.div`
   margin-bottom: 40px;
 `;
 
+const PickupContainer = styled.div`
+  margin: ${Dimens.large}px 0;
+`;
+
+const PickupFeature = () => (
+  <PickupContainer>
+    <PickupSpaceList title="特徴でピックアップ" />
+  </PickupContainer>
+);
+
+const PickupStaff = () => (
+  <PickupContainer>
+    <PickupSpaceList title="スタッフのおすすめ" />
+  </PickupContainer>
+);
+
+const PickupArea = () => (
+  <PickupContainer>
+    <PickupSpaceList title="全国の物置きスペース" />
+  </PickupContainer>
+);
+
 export default props => (
   <TopPage>
     <Header />
@@ -578,6 +601,9 @@ export default props => (
         </TopViewContainer>
       </TopViewFilter>
     </TopView>
+    {PickupFeature()}
+    {PickupStaff()}
+    {PickupArea()}
     <ColoredContainer>
       <MovieContainer>
         <MovieFrameWrapper>
