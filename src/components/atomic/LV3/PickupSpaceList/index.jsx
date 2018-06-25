@@ -10,9 +10,10 @@ import TextButton from 'components/atomic/LV1/TextButton';
 import FeatureSpaceCard from 'components/atomic/LV2/FeatureSpaceCard';
 
 const Container = styled.div`
-  padding: ${Dimens.medium2}px ${Dimens.huge}px;
+  margin: 0 auto;
+  max-width: 1100px;
   ${media.tablet`
-    padding: 0;
+    max-width: 100%;
   `};
 `;
 
@@ -24,7 +25,9 @@ const TitleContainer = styled.div`
 
 const ListContainer = styled.div`
   margin-top: ${Dimens.medium}px;
-  text-align: center;
+  ${media.tablet`
+    text-align: center;
+  `};
 `;
 
 const CardWrapper = styled.div`
