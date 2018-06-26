@@ -52,22 +52,22 @@ const MoreViewContainer = styled.div`
   `};
 `;
 
-const testProps = {
-  user: {
-    image: 'http://placehold.jp/500x500.png',
-    name: 'hogehoge',
-  },
-  space: {
-    image: 'http://placehold.jp/500x500.png',
-    price: '3,000',
-    area: '東京都渋谷区',
-    description: '素敵なスペース',
-    color: '#FF0000',
-  },
-};
-
 type PropTypes = {
-  title: String,
+  title: string,
+  spaceList: Array<{
+    link: string,
+    user: {
+      image: string,
+      name: string,
+    },
+    space: {
+      image: string,
+      price: string,
+      area: string,
+      description: string,
+      color: string,
+    },
+  }>,
 };
 
 export default (props: PropTypes) => (
@@ -76,18 +76,11 @@ export default (props: PropTypes) => (
       <H2>{props.title}</H2>
     </TitleContainer>
     <ListContainer>
-      <CardWrapper>
-        <FeatureSpaceCard {...testProps} />
-      </CardWrapper>
-      <CardWrapper>
-        <FeatureSpaceCard {...testProps} />
-      </CardWrapper>
-      <CardWrapper>
-        <FeatureSpaceCard {...testProps} />
-      </CardWrapper>
-      <CardWrapper>
-        <FeatureSpaceCard {...testProps} />
-      </CardWrapper>
+      {props.spaceList.map((space, i) => (
+        <CardWrapper key={`space_list_${i}`}>
+          <FeatureSpaceCard {...space} />
+        </CardWrapper>
+      ))}
     </ListContainer>
     <MoreViewContainer>
       <TextButton>もっと見る</TextButton>

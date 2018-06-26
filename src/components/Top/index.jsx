@@ -551,21 +551,87 @@ const PickupContainer = styled.div`
   margin: ${Dimens.large}px 0;
 `;
 
+const PickupFeatureSpaceList = [
+  {
+    link: Path.space(1255),
+    user: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363',
+      name: 'Keisuke',
+    },
+    space: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fspaces%2F1255%2F1528249761350.jpg?alt=media&token=cc93b081-61ee-493d-ad09-9a7465058eb7',
+      price: '5,900',
+      area: '蔵上町',
+      description: 'セキュリティ対策ばっちり！',
+      color: Colors.pickup1,
+    },
+  },
+  {
+    link: Path.space(1239),
+    user: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2F2614%2Fprofile%2F1527860044162.jpg?alt=media&token=4e50ebbc-ee17-4cac-be49-0d38fed80334',
+      name: 'IWGP王者',
+    },
+    space: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fspaces%2F1239%2F1527823413880.jpg?alt=media&token=8c58f3be-7744-47ae-ae04-97717f3e1df1',
+      price: '7,000',
+      area: '旭二丁目',
+      description: '業務用品もおまかせ！',
+      color: Colors.pickup2,
+    },
+  },
+  {
+    link: Path.space(1152),
+    user: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363',
+      name: 'SHO',
+    },
+    space: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fspaces%2F1152%2F1525593802800.jpg?alt=media&token=4961b5f4-323a-4fd3-8f65-a0df3a7be0bb',
+      price: '8,000',
+      area: 'ニセコ町',
+      description: 'ニセコにレジャー用品を！',
+      color: Colors.pickup3,
+    },
+  },
+  {
+    link: Path.space(801),
+    user: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363',
+      name: 'れも吉',
+    },
+    space: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fspaces%2F801%2F1525561007790.jpg?alt=media&token=90f41359-70e8-4d3a-8bf7-dd06ef640c80',
+      price: '7,000',
+      area: '与兵エ新田 ',
+      description: '集荷も相談できる！',
+      color: Colors.pickup4,
+    },
+  },
+];
 const PickupFeature = () => (
   <PickupContainer>
-    <PickupSpaceList title="特徴でピックアップ" />
+    <PickupSpaceList title="特徴でピックアップ" spaceList={PickupFeatureSpaceList} />
   </PickupContainer>
 );
 
 const PickupStaff = () => (
   <PickupContainer>
-    <PickupSpaceList title="スタッフのおすすめ" />
+    <PickupSpaceList title="スタッフのおすすめ" spaceList={PickupFeatureSpaceList} />
   </PickupContainer>
 );
 
 const PickupArea = () => (
   <PickupContainer>
-    <PickupSpaceList title="全国の物置きスペース" />
+    <PickupSpaceList title="全国の物置きスペース" spaceList={PickupFeatureSpaceList} />
   </PickupContainer>
 );
 

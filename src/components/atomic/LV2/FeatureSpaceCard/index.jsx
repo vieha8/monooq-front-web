@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { media } from 'helpers/style/media-query';
 
 import Card from 'components/atomic/LV1/Card';
@@ -10,10 +11,17 @@ import AvatarImage from 'components/atomic/LV1/AvatarImage';
 import InlineText from 'components/atomic/LV1/InlineText';
 import { Colors, Dimens } from 'variables';
 
-const Container = styled.div`
+const Container = styled(Link)`
+  display: block;
   width: 260px;
   display: inline-block;
   cursor: pointer;
+  box-shadow: none;
+  transition: 0.3s;
+  &:hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: 0.3s;
+  }
   ${media.tablet`
     width: 160px;
   `};
@@ -48,21 +56,22 @@ const DetailContainer = styled.div`
 `;
 
 type PropTypes = {
+  link: string,
   user: {
-    image: String,
-    name: String,
+    image: string,
+    name: string,
   },
   space: {
-    image: String,
-    price: String,
-    area: String,
-    description: String,
-    color?: String,
+    image: string,
+    price: string,
+    area: string,
+    description: string,
+    color?: string,
   },
 };
 
 export default (props: PropTypes) => (
-  <Container>
+  <Container to={props.link}>
     <Card noPadding>
       <ImageContainer>
         <HeroImage src={props.space.image} />
