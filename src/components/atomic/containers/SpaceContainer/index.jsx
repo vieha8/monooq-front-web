@@ -112,6 +112,8 @@ class SpaceContainer extends Component<PropTypes, State> {
       return <LoadingPage />;
     }
 
+    console.log('kobashi ', space.Images);
+
     const isSelfSpace = user.ID === (space.Host || {}).ID;
 
     return (
