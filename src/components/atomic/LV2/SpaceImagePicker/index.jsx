@@ -129,7 +129,6 @@ function handleChangeImageWithOrientationFix(data, props: PropTypes) {
     );
     images.push(data[i]);
   }
-  // 別の方法がありそう
   setTimeout(() => {
     props.onChangeImage(images);
   }, 80);
