@@ -28,6 +28,7 @@ type PropTypes = {
   addressErrors: Array<string>,
   onChangeAddress: Function,
   onClickNext: Function,
+  changeOrientation: Function,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -52,6 +53,7 @@ export default (props: PropTypes) => (
         images={props.images}
         onChangeImage={props.onChangeImage}
         onClickDeleteImage={props.onClickDeleteImage}
+        changeOrientation={props.changeOrientation}
       />
     </Section>
     <Section>
