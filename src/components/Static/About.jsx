@@ -231,6 +231,14 @@ const IfIFindContent = props => {
   );
 };
 
+const HotToPayContainer = DefaultContainer.extend``;
+
+const List = styled.ul`
+  margin: ${Dimens.medium}px 0;
+  list-style-type: disc;
+  list-style-position: inside;
+`;
+
 const NeedToHelpContainer = DefaultContainer.extend`
   margin-bottom: 164px;
   ${media.phone`
@@ -342,6 +350,25 @@ export default props => (
 
         <Hr />
       </IfIFindContainer>
+
+      <HotToPayContainer>
+        <SubTitle>お支払い方法の追加</SubTitle>
+        <Text>
+          <p>現在はクレジットカード決済・銀行振り込み*に対応しております。</p>
+          <p>取引成立時のお支払いに使用可能なクレジットカードは下記となります。</p>
+          <List>
+            <li>VISA</li>
+            <li>MasterCard</li>
+            <li>JCB</li>
+            <li>Diners Club</li>
+            <li>American Express</li>
+          </List>
+          <p>
+            *銀行振り込みをご希望の場合は、ホストの発行する見積もりを確認した後にinfo@monooq.comまでご連絡ください。
+          </p>
+        </Text>
+        <Hr />
+      </HotToPayContainer>
 
       <NeedToHelpContainer>
         <SubTitle>お困りの際はモノオクカスタマーサポートまで。</SubTitle>

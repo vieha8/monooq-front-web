@@ -15,6 +15,7 @@ import SpaceMap from 'components/atomic/LV1/SpaceMap';
 import Detail from 'components/atomic/LV3/Space/Detail';
 import Price from 'components/atomic/LV3/Space/Price';
 import SendMessage from 'components/atomic/LV3/Space/SendMessage';
+import Note from 'components/atomic/LV2/Space/Note';
 import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 
@@ -162,6 +163,7 @@ class SpaceContainer extends Component<PropTypes, State> {
             loading={this.state.isLoading}
           />
         }
+        note={<Note />}
         footer={<Footer />}
       />
     );
