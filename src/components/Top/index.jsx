@@ -697,6 +697,7 @@ const displayPickupFeatureSpaceList = shuffleArray(PickupFeatureSpaceList);
 
 const PickupStaffSpaceList = [
   {
+    large: true,
     link: Path.space(1222),
     user: {
       image:
@@ -714,6 +715,7 @@ const PickupStaffSpaceList = [
     },
   },
   {
+    large: true,
     link: Path.space(663),
     user: {
       image:
@@ -731,6 +733,7 @@ const PickupStaffSpaceList = [
     },
   },
   {
+    large: true,
     link: Path.space(581),
     user: {
       image:

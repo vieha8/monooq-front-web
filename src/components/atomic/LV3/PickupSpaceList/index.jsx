@@ -40,6 +40,15 @@ const CardWrapper = styled.div`
       margin-left: ${Dimens.xsmall}px;
     }
     margin: ${Dimens.xsmall}px;
+    ${props =>
+      props.large &&
+      `
+      display: table-cell;
+      &:first-child {
+        padding-left: ${Dimens.medium}px;
+      }
+      padding-right: ${Dimens.medium}px;
+    `}
   `};
 `;
 
@@ -50,6 +59,13 @@ const MoreViewContainer = styled.div`
   ${media.tablet`
     display: block;
   `};
+`;
+
+const HorizontalScroll = styled.ul`
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 type PropTypes = {
@@ -78,11 +94,13 @@ export default (props: PropTypes) => (
       <H2>{props.title}</H2>
     </TitleContainer>
     <ListContainer>
-      {props.spaceList.map((space, i) => (
-        <CardWrapper key={`space_list_${i}`}>
-          <FeatureSpaceCard {...space} />
-        </CardWrapper>
-      ))}
+      <HorizontalScroll>
+        {props.spaceList.map((space, i) => (
+          <CardWrapper key={`space_list_${i}`} large={space.large}>
+            <FeatureSpaceCard {...space} />
+          </CardWrapper>
+        ))}
+      </HorizontalScroll>
     </ListContainer>
     {!props.noMore && (
       <MoreViewContainer>

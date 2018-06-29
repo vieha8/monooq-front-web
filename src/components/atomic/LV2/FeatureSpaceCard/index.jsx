@@ -24,6 +24,11 @@ const Container = styled(Link)`
   }
   ${media.tablet`
     width: 160px;
+    ${props =>
+      props.large &&
+      `
+      width: 320px;
+    `};
   `};
 `;
 
@@ -33,6 +38,11 @@ const ImageContainer = styled.div`
   overflow: hidden;
   ${media.tablet`
     height: 120px;
+    ${props =>
+      props.large &&
+      `
+      height: 160px;
+    `};
   `};
 `;
 
@@ -52,6 +62,11 @@ const DetailContainer = styled.div`
   padding: ${Dimens.medium2}px 0;
   ${media.tablet`
     padding: ${Dimens.small}px 0;
+    ${props =>
+      props.large &&
+      `
+      padding: ${Dimens.medium2}px 0;
+    `};
   `};
 `;
 
@@ -68,12 +83,13 @@ type PropTypes = {
     description: string,
     color?: string,
   },
+  large?: boolean,
 };
 
 export default (props: PropTypes) => (
-  <Container to={props.link}>
+  <Container to={props.link} large={props.large}>
     <Card noPadding>
-      <ImageContainer>
+      <ImageContainer large={props.large}>
         <HeroImage src={props.space.image} />
         <UserContainer>
           <div>
@@ -87,7 +103,7 @@ export default (props: PropTypes) => (
           </div>
         </UserContainer>
       </ImageContainer>
-      <DetailContainer>
+      <DetailContainer large={props.large}>
         <div>
           <InlineText.Small>{props.space.area}</InlineText.Small>
         </div>
