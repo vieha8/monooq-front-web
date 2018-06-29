@@ -163,6 +163,7 @@ class SalesContainer extends Component {
         </SubmitButton>
         <AlertText>
           <InlineText.Small>
+            上記の売上から振込手数料を差し引いた金額をお支払い致します。<br />
             ※振込金額が10,000円以上の場合は、振込手数料は無料となります。10,000円以下の場合、260円の振込手数料を差し引いた金額を入金致します。
           </InlineText.Small>
         </AlertText>
