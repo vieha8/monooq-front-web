@@ -46,6 +46,22 @@ class TopContainer extends React.Component {
     window.location.href = `${Path.search()}?location=${location}`;
   };
 
+  viewMoreFeature = () => {
+    this.props.dispatch(
+      uiActions.setUiState({
+        moreFeature: true,
+      }),
+    );
+  };
+
+  viewMoreArea = () => {
+    this.props.dispatch(
+      uiActions.setUiState({
+        moreArea: true,
+      }),
+    );
+  };
+
   render() {
     const { ui, history } = this.props;
     return (
@@ -57,6 +73,10 @@ class TopContainer extends React.Component {
           onClickSearch={() => this.search(ui.locationText)}
           onClickSignup={() => history.push(Path.createSpaceInfo())}
           onKeyDownSearchField={this.onKeyDownSearchField}
+          moreFeature={ui.moreFeature}
+          onClickMoreFeature={() => this.viewMoreFeature()}
+          onClickMoreArea={() => this.viewMoreArea()}
+          moreArea={ui.moreArea}
           history={history}
         />
         <Intercom />

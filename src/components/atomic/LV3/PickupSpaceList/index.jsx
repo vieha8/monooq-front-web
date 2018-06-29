@@ -68,6 +68,8 @@ type PropTypes = {
       color: string,
     },
   }>,
+  onClickMoreView: Function,
+  noMore: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -82,8 +84,10 @@ export default (props: PropTypes) => (
         </CardWrapper>
       ))}
     </ListContainer>
-    <MoreViewContainer>
-      <TextButton>もっと見る</TextButton>
-    </MoreViewContainer>
+    {!props.noMore && (
+      <MoreViewContainer>
+        <TextButton onClick={props.onClickMoreView}>もっと見る</TextButton>
+      </MoreViewContainer>
+    )}
   </Container>
 );
