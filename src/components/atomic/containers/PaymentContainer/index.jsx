@@ -237,9 +237,11 @@ class PaymentContainer extends Component<PropTypes> {
               href: Path.space(space.ID),
             }}
             payment={{
-              beginAt: moment(request.startDate).format('YYYY/MM/DD'),
-              endAt: moment(request.endDate).format('YYYY/MM/DD'),
-              duration: moment(request.endDate).diff(moment(request.startDate), 'days') + 1,
+              beginAt: moment(request.startDate.toDate()).format('YYYY/MM/DD'),
+              endAt: moment(request.endDate.toDate()).format('YYYY/MM/DD'),
+              duration:
+                moment(request.endDate.toDate()).diff(moment(request.startDate.toDate()), 'days') +
+                1,
               price: numeral(request.price).format('0,0'),
             }}
           />
@@ -259,4 +261,7 @@ const mapStateToProps = state =>
     isPaymentFailed: state.request.payment.isFailed,
   });
 
-export default connect(PaymentContainer, mapStateToProps);
+export default connect(
+  PaymentContainer,
+  mapStateToProps,
+);
