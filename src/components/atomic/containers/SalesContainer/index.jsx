@@ -190,7 +190,7 @@ class SalesContainer extends Component {
             leftContent={<ServiceMenu />}
             rightContent={
               <InlineText.Base>
-                申請ありがとうございました。3営業日以内にお振込み致します。
+                申請ありがとうございました。7営業日以内にお振込み致します。
               </InlineText.Base>
             }
             footer={<Footer />}
