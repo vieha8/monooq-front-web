@@ -70,6 +70,10 @@ const DetailContainer = styled.div`
   `};
 `;
 
+const ImageOpacity = styled.div`
+  opacity: 0.8;
+`;
+
 type PropTypes = {
   link: string,
   user: {
@@ -90,7 +94,9 @@ export default (props: PropTypes) => (
   <Container to={props.link} large={props.large}>
     <Card noPadding>
       <ImageContainer large={props.large}>
-        <HeroImage src={props.space.image} />
+        <ImageOpacity>
+          <HeroImage src={props.space.image} />
+        </ImageOpacity>
         <UserContainer>
           <div>
             <AvatarImage src={props.user.image} />
