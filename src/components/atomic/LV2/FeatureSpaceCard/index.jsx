@@ -70,8 +70,15 @@ const DetailContainer = styled.div`
   `};
 `;
 
-const ImageOpacity = styled.div`
-  opacity: 0.8;
+const SpaceImageContainer = styled.div`
+  position: relative;
+`;
+
+const SpaceImageFilter = styled.div`
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
 `;
 
 type PropTypes = {
@@ -94,9 +101,10 @@ export default (props: PropTypes) => (
   <Container to={props.link} large={props.large}>
     <Card noPadding>
       <ImageContainer large={props.large}>
-        <ImageOpacity>
+        <SpaceImageContainer>
+          <SpaceImageFilter />
           <HeroImage src={props.space.image} />
-        </ImageOpacity>
+        </SpaceImageContainer>
         <UserContainer>
           <div>
             <AvatarImage src={props.user.image} />
