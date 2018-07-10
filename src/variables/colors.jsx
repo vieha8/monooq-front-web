@@ -24,7 +24,7 @@ export default {
   facebook: '#3B5998',
   facebookHover: '#4C75C9',
   pickup1: '#E85258',
-  pickup2: '#A0D8EF',
+  pickup2: '#EFA0C0',
   pickup3: '#18B3F0',
   pickup4: '#F0A818',
 };
