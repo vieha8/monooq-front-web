@@ -53,7 +53,8 @@ const UserContainer = styled.div`
   top: ${(160 - 120) / 2}px;
   text-align: center;
   ${media.tablet`
-    top: 0;
+    top: 14px;
+    font-size: 12px;
   `};
 `;
 
@@ -107,7 +108,7 @@ export default (props: PropTypes) => (
         </SpaceImageContainer>
         <UserContainer>
           <div>
-            <AvatarImage src={props.user.image} />
+            <AvatarImage src={props.user.image} size={44} />
           </div>
           <div>
             <InlineText.Base color={Colors.white}>{props.user.name}さん</InlineText.Base>
