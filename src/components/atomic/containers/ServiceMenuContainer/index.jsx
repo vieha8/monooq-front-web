@@ -40,7 +40,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
         schedule={{ href: Path.schedule(user.ID), notificationCount: 0 }}
         spaces={{ href: Path.spaces(user.ID) }}
         addSpace={{ href: Path.createSpaceInfo() }}
-        salesTransfer={{ href: Path.salesTransfers(user.ID) }}
+        sales={{ href: Path.sales() }}
         paymentHistory={{ href: Path.paid(user.ID) }}
         becomeHost={{ href: Path.createSpaceInfo() }}
         editProfile={{ href: Path.editProfile(user.ID) }}
@@ -61,4 +61,7 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default connect(ServiceMenuContainer, mapStateToProps);
+export default connect(
+  ServiceMenuContainer,
+  mapStateToProps,
+);

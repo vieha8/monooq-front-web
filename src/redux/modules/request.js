@@ -227,20 +227,12 @@ function* fetchSchedule() {
   }
   user = yield select(state => state.auth.user);
 
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.requestsByUserId(user.ID) }));
-  const { payload: userRequests, error, meta } = yield take(apiActions.apiResponse);
-
-  if (error) {
-    yield put(requestActions.fetchScheduleFailed(meta));
-    return;
-  }
-
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.requestsByHostUserId(user.ID) }));
-  const { payload: hostRequests, error: error2, meta: meta2 } = yield take(apiActions.apiResponse);
-  if (error2) {
-    yield put(requestActions.fetchScheduleFailed(meta2));
-    return;
-  }
+  const { data: userRequests } = yield call(getApiRequest, apiEndpoint.requestsByUserId(user.ID));
+  const { data: hostRequests } = yield call(
+    getApiRequest,
+    apiEndpoint.requestsByHostUserId(user.ID),
+  );
+  // TODO エラーハンドリング
 
   yield put(requestActions.fetchScheduleSuccess({ user: userRequests, host: hostRequests }));
 }

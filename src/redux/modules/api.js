@@ -19,6 +19,7 @@ export const apiEndpoint = {
   requestsByHostUserId: id => `/requests/host/${id}`,
   payments: id => (id ? `/payments/${id}` : `/payments`),
   sendMail: () => `/mailer/send`,
+  sales: () => `/payments/payouts`,
 };
 
 const ACTIONS = {

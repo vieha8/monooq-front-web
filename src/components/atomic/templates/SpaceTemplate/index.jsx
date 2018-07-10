@@ -66,6 +66,7 @@ type PropTypes = {
   detail: React.Element<*>,
   price: React.Element<*>,
   message: React.Element<*>,
+  note: React.Element<*>,
   footer: React.Element<*>,
 };
 
@@ -80,6 +81,7 @@ export default (props: PropTypes) => (
           <PriceContainer>
             {props.price}
             <MarginTop>{props.message}</MarginTop>
+            <MarginTop>{props.note}</MarginTop>
           </PriceContainer>
         </ClearfixContainer>
       </Container>

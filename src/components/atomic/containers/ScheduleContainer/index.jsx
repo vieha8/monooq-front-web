@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import numeral from 'numeral';
 import Path from 'config/path';
 
 import { requestActions } from 'redux/modules/request';
@@ -48,7 +47,7 @@ class ScheduleContainer extends Component {
       startDate: schedule.StartDate,
       endDate: schedule.EndDate,
     },
-    sales: numeral(schedule.Price).format('0,0'),
+    sales: schedule.Price,
     roomId: '',
   });
 
@@ -96,4 +95,7 @@ const mapStateToProps = state =>
     schedule: state.request.schedule,
   });
 
-export default connect(ScheduleContainer, mapStateToProps);
+export default connect(
+  ScheduleContainer,
+  mapStateToProps,
+);

@@ -39,7 +39,6 @@ type PropTypes = {
 
 export default class UserRegistered extends Component<PropTypes> {
   componentDidMount() {
-    console.log(this.props);
     const script = document.createElement('script');
 
     script.innerHTML = `var __atw = __atw || [];

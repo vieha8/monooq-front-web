@@ -3,13 +3,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import SalesList from './index';
+import TransferList from './index';
 
-storiesOf('Molecules/SalesList', module)
+storiesOf('Molecules/TransferList', module)
   .add('Normal', () => (
     <div>
-      <SalesList
-        sales={[
+      <TransferList
+        transfers={[
           {
             label: 'ホストはYUKI HASHIDAさん',
             date: '2018年01月12日',
@@ -32,8 +32,8 @@ storiesOf('Molecules/SalesList', module)
   ))
   .add('Has supplement', () => (
     <div>
-      <SalesList
-        sales={[
+      <TransferList
+        transfers={[
           {
             label: 'ホストはYUKI HASHIDAさん',
             date: '2018年01月12日',

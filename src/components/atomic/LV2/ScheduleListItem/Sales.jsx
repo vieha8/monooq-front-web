@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import numeral from 'numeral';
 import InlineText from 'components/atomic/LV1/InlineText';
 import { Colors, Dimens } from 'variables';
 
@@ -26,7 +27,14 @@ const Sales = LabelContainer.extend`
 
 type PropTypes = {
   paid: boolean,
-  amount: string,
+  amount: number,
+};
+
+const salesFormat = price => {
+  const fee = 0.2;
+  const rate = 1 - fee;
+  const priceMinusFee = Math.round(price * rate);
+  return numeral(priceMinusFee).format('0,0');
 };
 
 export default (props: PropTypes) => (
@@ -38,13 +46,13 @@ export default (props: PropTypes) => (
       {!props.paid && (
         <div>
           <InlineText.EmphasisTiny>
-            サービス利用手数料を引いた金額が表示されています。
+            サービス利用手数料20%を引いた金額が表示されています。
           </InlineText.EmphasisTiny>
         </div>
       )}
     </LabelContainer>
     <Sales>
-      <InlineText.Base>{props.amount} 円</InlineText.Base>
+      <InlineText.Base>{salesFormat(props.amount)}円</InlineText.Base>
     </Sales>
   </Container>
 );

@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from 'components/atomic/LV1/Logo';
 import CloseIcon from 'components/atomic/LV2/HeaderAction/CloseIcon';
@@ -38,7 +39,7 @@ const Nav = styled.nav`
   height: ${Height}px;
 `;
 
-const LogoWrapper = styled.a`
+const LogoWrapper = styled(Link)`
   display: inline-flex;
   margin-left: 12px;
   ${props =>
@@ -168,7 +169,7 @@ export default (props: PropTypes) => {
   return (
     <Container top={props.top} help={props.help}>
       <Nav>
-        <LogoWrapper href={props.homeUri} hide={isFillSearchField}>
+        <LogoWrapper to={props.homeUri} hide={isFillSearchField}>
           {props.top || props.help ? <Logo.HeaderWhite /> : <Logo.Header />}
         </LogoWrapper>
         {!props.isCheckingLogin && (
@@ -197,7 +198,7 @@ export default (props: PropTypes) => {
                 <ActionCell hide={isFillSearchField}>
                   <MessageIcon
                     color={(props.top || props.help) && Colors.white}
-                    href={props.messageUri}
+                    to={props.messageUri}
                     notificationCount={props.messageCount}
                   />
                 </ActionCell>

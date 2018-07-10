@@ -12,6 +12,7 @@ import { apiReducer } from '../modules/api';
 import { spaceReducer } from '../modules/space';
 import { userReducer } from '../modules/user';
 import { requestReducer } from '../modules/request';
+import { salesReducer } from '../modules/sales';
 import { errorReducer } from '../modules/error';
 import rootSaga from '../modules/sagas';
 
@@ -39,6 +40,7 @@ export default history => {
       user: userReducer,
       ui: uiReducer,
       request: requestReducer,
+      sales: salesReducer,
       error: errorReducer,
     }),
     composeEnhancers(applyMiddleware(...middleware)),

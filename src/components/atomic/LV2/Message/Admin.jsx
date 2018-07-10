@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Card from 'components/atomic/LV1/Card';
 import InlineText from 'components/atomic/LV1/InlineText';
@@ -14,12 +15,19 @@ const DateWrapper = styled.div`
 type PropTypes = {
   message: string,
   receivedAt: string,
+  link: {
+    text: string,
+    url: string,
+  },
 };
 
 export default (props: PropTypes) => (
   <div>
     <Card block noBorder background={Colors.lightGreen}>
       <InlineText.Base fontSize={14}>{props.message}</InlineText.Base>
+      <InlineText.Base fontSize={14}>
+        <Link to={props.link.url || ''}>{props.link.text || ''}</Link>
+      </InlineText.Base>
     </Card>
     <DateWrapper>
       <InlineText.EmphasisTiny>{props.receivedAt || ' '}</InlineText.EmphasisTiny>
