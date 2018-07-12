@@ -190,6 +190,7 @@ export const PickupStaffSpaceList = [
     },
   },
   {
+    large: true,
     link: Path.space(1029),
     user: {
       image:
