@@ -9,6 +9,8 @@ import { H3 } from 'components/atomic/LV1/Headline';
 import InlineText from 'components/atomic/LV1/InlineText';
 import ImagePreview from './ImagePreview';
 
+import loadImage from 'blueimp-load-image';
+
 const DragText = styled.div`
   display: block;
   ${media.phone`
@@ -96,6 +98,42 @@ function handleChangeImage(data, props: PropTypes) {
   props.onChangeImage(images);
 }
 
+function handleChangeImageWithOrientationFix(data, props: PropTypes) {
+  const images = [];
+  const currentCount = props.images.length;
+
+  for (let i = 0; i < MAX_PREVIEW_COUNT - currentCount && i < data.length; i += 1) {
+    const file = data[i];
+
+    loadImage.parseMetaData(
+      data[i],
+      data => {
+        const options = {
+          canvas: true,
+        };
+        if (data.exif) {
+          options.orientation = data.exif.get('Orientation');
+        }
+
+        loadImage(
+          file,
+          canvas => {
+            const dataUrl = canvas.toDataURL('image/jpeg');
+
+            file.preview = dataUrl;
+          },
+          options,
+        );
+      },
+      {},
+    );
+    images.push(data[i]);
+  }
+  setTimeout(() => {
+    props.onChangeImage(images);
+  }, 80);
+}
+
 function showImagePreview(props: PropTypes) {
   const images = props.images;
   if (images) {
@@ -119,7 +157,7 @@ function showImagePreview(props: PropTypes) {
           images.length < MAX_PREVIEW_COUNT && (
             <StyledAddImageDropZone
               accept="image/jpeg, image/png"
-              onDrop={data => handleChangeImage(data, props)}
+              onDrop={data => handleChangeImageWithOrientationFix(data, props)}
               remain={MAX_PREVIEW_COUNT - images.length}
             >
               <DndContent>
@@ -151,7 +189,10 @@ export default (props: PropTypes) => {
         <InlineText.EmphasisSmall>最大4枚まで登録可能です。</InlineText.EmphasisSmall>
       </div>
       {(images || []).length === 0 ? (
-        <StyledDropZone accept="image/jpeg, image/png" onDrop={props.onChangeImage}>
+        <StyledDropZone
+          accept="image/jpeg, image/png"
+          onDrop={data => handleChangeImageWithOrientationFix(data, props)}
+        >
           <DndContent>
             <IconWrapper>
               <Icon className="fal fa-images" />
