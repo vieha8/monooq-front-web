@@ -109,7 +109,7 @@ class SpaceContainer extends Component<PropTypes, State> {
   render() {
     const { user, space, isLoading } = this.props;
 
-    if (!space || !space.Images || isLoading) {
+    if (!user || !space || !space.Images || isLoading) {
       return <LoadingPage />;
     }
 
