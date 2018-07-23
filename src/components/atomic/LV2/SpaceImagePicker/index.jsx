@@ -87,17 +87,6 @@ type PropTypes = {
   onClickDeleteImage: Function,
 };
 
-function handleChangeImage(data, props: PropTypes) {
-  const images = [];
-  const currentCount = props.images.length;
-
-  for (let i = 0; i < MAX_PREVIEW_COUNT - currentCount && i < data.length; i += 1) {
-    images.push(data[i]);
-  }
-
-  props.onChangeImage(images);
-}
-
 function handleChangeImageWithOrientationFix(data, props: PropTypes) {
   const images = [];
   const currentCount = props.images.length;
