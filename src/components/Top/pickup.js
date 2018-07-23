@@ -136,7 +136,7 @@ export const PickupFeatureSpaceList = [
 // スタッフのおすすめ
 export const PickupStaffSpaceList = [
   {
-    large: true,
+    large: 1,
     link: Path.space(1222),
     user: {
       image:
@@ -154,7 +154,7 @@ export const PickupStaffSpaceList = [
     },
   },
   {
-    large: true,
+    large: 1,
     link: Path.space(663),
     user: {
       image:
@@ -172,7 +172,7 @@ export const PickupStaffSpaceList = [
     },
   },
   {
-    large: true,
+    large: 1,
     link: Path.space(581),
     user: {
       image:
@@ -190,7 +190,7 @@ export const PickupStaffSpaceList = [
     },
   },
   {
-    large: true,
+    large: 1,
     link: Path.space(1029),
     user: {
       image:

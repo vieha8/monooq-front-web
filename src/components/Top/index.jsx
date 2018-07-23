@@ -623,7 +623,6 @@ export default props => (
     </TopView>
     {PickupFeature(props)}
     {PickupStaff(props)}
-    {/*{PickupArea(props)}*/}
     <ColoredContainer>
       <MovieContainer>
         <MovieFrameWrapper>
