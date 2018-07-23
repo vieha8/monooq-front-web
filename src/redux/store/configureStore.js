@@ -16,11 +16,13 @@ import { salesReducer } from '../modules/sales';
 import { errorReducer } from '../modules/error';
 import rootSaga from '../modules/sagas';
 
+import { googleAnalytics } from '../middlewares/reactGAMiddlewares';
+
 export let store = null;
 
 export default history => {
   const sagaMiddleware = createSagaMiddleware();
-  const middleware = [routerMiddleware(history), sagaMiddleware];
+  const middleware = [routerMiddleware(history), sagaMiddleware, googleAnalytics];
 
   let composeEnhancers = compose;
 

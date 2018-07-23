@@ -2,6 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import { push } from 'react-router-redux';
+import ReactGA from 'react-ga';
 import { apiEndpoint, apiActions } from './api';
 import { uiActions } from './ui';
 import { store } from '../store/configureStore';
@@ -189,6 +190,7 @@ function* checkLoginFirebaseAuth() {
   if (statusCache) {
     status = JSON.parse(statusCache);
     yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID });
+    ReactGA.set({ userId: status.user.ID });
     yield put(authActions.checkLoginSuccess(status));
     return;
   }
@@ -206,6 +208,7 @@ function* checkLoginFirebaseAuth() {
     status.user = data;
     localStorage.setItem('status', JSON.stringify(status));
     yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID });
+    ReactGA.set({ userId: data.ID });
 
     if (status.user.Profile === '') {
       yield put(uiActions.setUiState({ signupStep: 4 }));

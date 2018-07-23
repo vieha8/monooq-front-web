@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import ReactGA from 'react-ga';
 import createHistory from 'history/createBrowserHistory';
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -20,6 +21,8 @@ history.listen((location, action) => {
   }
   window.scrollTo(0, 0);
 });
+
+ReactGA.initialize('UA-84238514-1');
 
 firebase.initializeApp(firebaseConfig());
 
