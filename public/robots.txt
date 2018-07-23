@@ -1,0 +1,8 @@
+User-Agent: *
+Disallow: /messages/
+Disallow: /space/
+Disallow: /user/
+Disallow: /profile/
+Disallow: /search/
+Disallow: /schedule/
+Disallow: /sales/
