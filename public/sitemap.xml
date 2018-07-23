@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url><loc>https://monooq.com</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/company</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/about</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/insurance</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/rule</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/terms</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/privacy</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/asct</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/inquiry</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/rule#not-allowed</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help/service</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help/usertransaction</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help/host</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help/space</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help/hosttransaction</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help/signin</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help/other</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help/service#common1</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help/host#common2</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help/signin#common3</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/help/other#common4</loc><priority>0.5</priority></url>
+</urlset>
