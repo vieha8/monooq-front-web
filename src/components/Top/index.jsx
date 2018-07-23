@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
-import { PickupAreaSpaceList, PickupFeatureSpaceList, PickupStaffSpaceList } from './pickup';
+import { PickupFeatureSpaceList, PickupStaffSpaceList } from './pickup';
 
 import mainVisual from 'images/main_visual@2x.jpg';
 import mainVisualSp from 'images/main_visual_sp@2x.jpg';
@@ -566,7 +566,6 @@ function shuffleArray(array) {
 
 const displayPickupFeatureSpaceList = shuffleArray(PickupFeatureSpaceList);
 const displayPickupStaffSpaceList = shuffleArray(PickupStaffSpaceList);
-const displayPickupAreaSpaceList = shuffleArray(PickupAreaSpaceList);
 
 const PickupFeature = props => (
   <PickupContainer>
@@ -586,17 +585,6 @@ const PickupStaff = props => (
       spaceList={displayPickupStaffSpaceList.slice(0, 4)}
       noMore
       onClickMoreView={() => {}}
-    />
-  </PickupContainer>
-);
-
-const PickupArea = props => (
-  <PickupContainer>
-    <PickupSpaceList
-      title="全国の物置きスペース"
-      spaceList={displayPickupAreaSpaceList.slice(0, 4 + (props.moreArea ? 4 : 0))}
-      noMore={props.moreArea}
-      onClickMoreView={props.onClickMoreArea}
     />
   </PickupContainer>
 );
