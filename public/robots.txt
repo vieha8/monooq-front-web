@@ -1,8 +1,12 @@
 User-Agent: *
+Disallow: /messages
 Disallow: /messages/
 Disallow: /space/
 Disallow: /user/
 Disallow: /profile/
-Disallow: /search/
+Disallow: /schedule
 Disallow: /schedule/
+Disallow: /sales
 Disallow: /sales/
+
+Sitemap: https://monooq.com/sitemap.xml
