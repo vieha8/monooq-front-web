@@ -59,9 +59,11 @@ class SalesContainer extends Component {
   };
 
   submitButton = () => {
-    const { user, dispatch } = this.props;
+    const { user, dispatch, sales } = this.props;
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
     const userId = user.ID;
+    const payouts = sales.reduce((a, x) => (a += x.PriceMinusFee), 0);
+
     dispatch(
       salesActions.sendPayouts({
         userId,
@@ -70,6 +72,7 @@ class SalesContainer extends Component {
         accountType,
         accountNumber,
         accountName,
+        payouts,
       }),
     );
     window.scrollTo(0, 0);

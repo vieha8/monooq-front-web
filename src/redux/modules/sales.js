@@ -51,7 +51,7 @@ function* getSales() {
 }
 
 function* sendPayouts({
-  payload: { userId, bankName, branchName, accountType, accountNumber, accountName },
+  payload: { userId, bankName, branchName, accountType, accountNumber, accountName, payouts },
 }) {
   let message = `ユーザーID: ${userId}\n`;
   message += `金融機関名: ${bankName}\n`;
@@ -59,6 +59,7 @@ function* sendPayouts({
   message += `預金種類: ${accountType}\n`;
   message += `口座番号: ${accountNumber}\n`;
   message += `口座名義: ${accountName}\n`;
+  message += `振込金額: ${payouts}円\n`;
 
   const body = {
     Subject: `新規振込申請 ユーザーID:${userId}`,
