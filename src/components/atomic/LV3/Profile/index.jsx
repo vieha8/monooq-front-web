@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { getPrefecture } from 'helpers/prefectures';
@@ -73,12 +73,18 @@ export default (props: PropTypes) => (
           <InlineText.Base>{props.profile}</InlineText.Base>
         </Profile>
       </User>
-      <SpaceListContainer>
-        <HostName>
-          <InlineText.Base fontSize={FontSizes.large}>{props.name} さんのスペース</InlineText.Base>
-        </HostName>
-      </SpaceListContainer>
-      <SpaceList spaces={props.spaces} />
+      {props.spaces.length > 0 && (
+        <Fragment>
+          <SpaceListContainer>
+            <HostName>
+              <InlineText.Base fontSize={FontSizes.large}>
+                {props.name} さんのスペース
+              </InlineText.Base>
+            </HostName>
+          </SpaceListContainer>
+          <SpaceList spaces={props.spaces} />
+        </Fragment>
+      )}
     </Card>
   </Container>
 );
