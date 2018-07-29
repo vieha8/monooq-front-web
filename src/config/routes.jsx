@@ -55,6 +55,7 @@ export const routes = [
   { path: Path.editSpaceCompletion(), component: Containers.EditSpaceCompletion },
   { path: Path.unsubscribe(), component: Containers.Unsubscribe },
   { path: Path.sales(), component: Containers.Sales },
+  { path: Path.hubRequest(), component: Containers.HubRequest },
   // static pages
   { path: Path.top(), component: Top },
   { path: Path.about(), component: About },

@@ -23,6 +23,7 @@ import EditSpacePriceType from './EditSpacePriceTypeContainer';
 import EditSpaceCompletion from './EditSpaceCompletionContainer';
 import Unsubscribe from './UnsubscribeContainer';
 import Sales from './SalesContainer';
+import HubRequest from './HubRequestContainer';
 
 export default {
   Login,
@@ -48,4 +49,5 @@ export default {
   EditSpaceCompletion,
   Unsubscribe,
   Sales,
+  HubRequest,
 };
