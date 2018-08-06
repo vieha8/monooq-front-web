@@ -28,7 +28,7 @@ class HubRequestContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
-    checkLogin(this.props);
+    // checkLogin(this.props);
 
     this.state = {};
   }
@@ -126,10 +126,10 @@ class HubRequestContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
+    // const auth = checkAuthState(this.props);
+    // if (auth) {
+    //   return auth;
+    // }
 
     const { updateSuccess, isChecking, isLoading, user } = this.props;
 
