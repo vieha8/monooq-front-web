@@ -64,16 +64,16 @@ const CautionListContent = styled.li`
 `;
 
 const sizeList = [
-  { key: 1, value: 1, text: '約1畳(182cm x 91cm)' },
-  { key: 2, value: 2, text: '約2畳(364cm x 182cm)' },
-  { key: 3, value: 3, text: '約3畳(546cm x 273cm)' },
+  { key: 1, value: '約1畳', text: '約1畳(182cm x 91cm)' },
+  { key: 2, value: '約2畳', text: '約2畳(364cm x 182cm)' },
+  { key: 3, value: '約3畳', text: '約3畳(546cm x 273cm)' },
 ];
 
 const timeList = [
-  { key: 1, value: 1, text: '9時〜12時' },
-  { key: 2, value: 2, text: '12時〜15時' },
-  { key: 3, value: 3, text: '15時〜18時' },
-  { key: 4, value: 4, text: '18時〜21時' },
+  { key: 1, value: '9時〜12時', text: '9時〜12時' },
+  { key: 2, value: '12時〜15時', text: '12時〜15時' },
+  { key: 3, value: '15時〜18時', text: '15時〜18時' },
+  { key: 4, value: '18時〜21時', text: '18時〜21時' },
 ];
 
 export default props => (

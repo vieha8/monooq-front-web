@@ -2,15 +2,13 @@
 
 import React, { Component } from 'react';
 
-import { userActions } from 'redux/modules/user';
+import { requestActions } from 'redux/modules/request';
 
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/LV2/Footer';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import HubRequest from 'components/atomic/LV3/HubRequest';
 import HubRequestCompleted from 'components/atomic/LV3/HubRequest/Completed';
-import { ErrorMessage } from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -20,17 +18,19 @@ type PropTypes = {
   user: {
     ID: number,
   },
-  isLoading: boolean,
-  updateSuccess: boolean,
 };
 
 class HubRequestContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
-    // checkLogin(this.props);
+    checkLogin(this.props);
 
-    this.state = {};
+    this.state = {
+      baggageSize: '約1畳',
+      cargoTime: '9時〜12時',
+      hasChanged: false,
+    };
   }
 
   componentDidMount() {
@@ -70,35 +70,15 @@ class HubRequestContainer extends Component<PropTypes> {
   onClickButton: Function;
   onClickButton = () => {
     const { user } = this.props;
-    const { name, email, prefCode, profile } = this.state;
 
     this.setState({ hasChanged: false, errors: {} });
 
     if (this.validate()) {
-      const { dispatch } = this.props;
-      dispatch(userActions.updateUser({ userId: user.ID, body: this.state }));
-      return;
+      this.props.dispatch(requestActions.sendHubRequest({ userId: user.ID, body: this.state }));
     }
 
-    const errors = {};
-    // 名前チェック
-    if (!name) {
-      errors.name = [].concat(errors.name, [ErrorMessage.PleaseInput]);
-    }
-    // emailチェック
-    if (!email) {
-      errors.email = [].concat(errors.email, [ErrorMessage.PleaseInput]);
-    }
-    // お住いの地域選択
-    if (!prefCode) {
-      errors.email = [].concat(errors.prefCode, [ErrorMessage.PleaseSelect]);
-    }
-    // プロフィールチェック
-    if (!profile) {
-      errors.profile = [].concat(errors.profile, [ErrorMessage.PleaseInput]);
-    }
-
-    this.setState({ errors });
+    this.setState({ hasChanged: true });
+    window.scrollTo(0, 0);
   };
 
   handleChangeUI: Function;
@@ -126,16 +106,12 @@ class HubRequestContainer extends Component<PropTypes> {
   };
 
   render() {
-    // const auth = checkAuthState(this.props);
-    // if (auth) {
-    //   return auth;
-    // }
-
-    const { updateSuccess, isChecking, isLoading, user } = this.props;
-
-    if (isChecking) {
-      return <LoadingPage />;
+    const auth = checkAuthState(this.props);
+    if (auth) {
+      return auth;
     }
+
+    const { user } = this.props;
 
     const {
       startDate,
@@ -149,14 +125,15 @@ class HubRequestContainer extends Component<PropTypes> {
       cargoTime,
       address,
       tel,
+      hasChanged,
     } = this.state;
 
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={updateSuccess ? 'プロフィールの更新が完了しました' : 'モノオクハブお申込み'}
+        headline={hasChanged ? 'モノオクハブお申込み完了' : 'モノオクハブお申込み'}
         rightContent={
-          updateSuccess ? (
+          hasChanged ? (
             <HubRequestCompleted userId={user.ID} />
           ) : (
             <HubRequest
@@ -185,7 +162,6 @@ class HubRequestContainer extends Component<PropTypes> {
               tel={tel}
               onChangeTel={value => this.handleChangeUI('tel', value)}
               buttonDisabled={!this.validate()}
-              buttonLoading={isLoading}
               onClickButton={this.onClickButton}
             />
           )
@@ -199,8 +175,6 @@ class HubRequestContainer extends Component<PropTypes> {
 const mapStateToProps = state =>
   mergeAuthProps(state, {
     user: state.auth.user || {},
-    updateSuccess: state.user.updateSuccess,
-    isLoading: state.user.isLoading,
   });
 
 export default connect(

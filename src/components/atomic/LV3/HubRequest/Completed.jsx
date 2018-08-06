@@ -8,6 +8,7 @@ import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 
 const Content = styled.div`
+  line-height: 150%;
   ${media.phone`
     padding: 0 ${Dimens.medium}px;
   `};
@@ -23,12 +24,10 @@ const ToProfileLink = styled(Link)`
   }
 `;
 
-type PropTypes = {
-  userId: number,
-};
-
-export default (props: PropTypes) => (
+export default () => (
   <Content>
-    <ToProfileLink to={Path.profile(props.userId)}>自分のページを見る</ToProfileLink>
+    お申し込みありがとうございます。<br />
+    翌営業日以内にご登録いただいているメールアドレスに、お見積りのご連絡をさせていただきます。<br />
+    <ToProfileLink to={Path.top()}>トップへ戻る</ToProfileLink>
   </Content>
 );
