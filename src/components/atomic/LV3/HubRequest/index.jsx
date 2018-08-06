@@ -6,7 +6,7 @@ import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
 import InputSchedule from 'components/atomic/LV2/Estimate/InputSchedule';
 import Button from 'components/atomic/LV1/Button';
-import { Dimens, Colors, FontSizes } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { H2 } from 'components/atomic/LV1/Headline';
 
@@ -155,7 +155,7 @@ export default props => (
       <InputForm
         label="集荷先住所"
         onChange={e => props.onChangeAddress(e.target.value)}
-        placeholder="東京都世田谷区南烏山1-15-15 ロイヤルフラッツ芦花101"
+        placeholder="東京都杉並区高円寺南2-48-12 クリニカルコーポ1F"
         value={props.address}
       />
     </Row>

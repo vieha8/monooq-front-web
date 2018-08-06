@@ -53,13 +53,15 @@ type PropTypes = {
   endDateFocused: boolean,
   onDateChangeEnd: Function,
   onFocusChangeEnd: Function,
+  beginTitle: string,
+  endTitle: string,
 };
 
 export default (props: PropTypes) => (
   <Container>
     <DateCell>
       <DateLabel>
-        <InlineText.Base>利用開始日</InlineText.Base>
+        <InlineText.Base>{props.beginTitle || '利用開始日'}</InlineText.Base>
       </DateLabel>
       <InputCalendar
         date={props.beginDate}
@@ -72,7 +74,7 @@ export default (props: PropTypes) => (
     <Arrow className="fas fa-arrow-right" />
     <DateCell>
       <DateLabel>
-        <InlineText.Base>利用終了日</InlineText.Base>
+        <InlineText.Base>{props.endTitle || '利用終了日'}</InlineText.Base>
       </DateLabel>
       <InputCalendar
         date={props.endDate}

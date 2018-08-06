@@ -7,8 +7,8 @@ import { requestActions } from 'redux/modules/request';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/LV2/Footer';
-import HubRequest from 'components/atomic/LV3/HubRequest';
-import HubRequestCompleted from 'components/atomic/LV3/HubRequest/Completed';
+import ConciergeRequest from 'components/atomic/LV3/ConciergeRequest';
+import ConciergeRequestCompleted from 'components/atomic/LV3/ConciergeRequest/Completed';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -29,6 +29,7 @@ class HubRequestContainer extends Component<PropTypes> {
     this.state = {
       baggageSize: '約1畳',
       cargoTime: '9時〜12時',
+      notes: '',
       hasChanged: false,
     };
   }
@@ -61,7 +62,9 @@ class HubRequestContainer extends Component<PropTypes> {
     this.setState({ hasChanged: false, errors: {} });
 
     if (this.validate()) {
-      this.props.dispatch(requestActions.sendHubRequest({ userId: user.ID, body: this.state }));
+      this.props.dispatch(
+        requestActions.sendConciergeRequest({ userId: user.ID, body: this.state }),
+      );
     }
 
     this.setState({ hasChanged: true });
@@ -77,19 +80,9 @@ class HubRequestContainer extends Component<PropTypes> {
 
   validate: Function;
   validate = () => {
-    const {
-      startDate,
-      endDate,
-      baggageSize,
-      baggageInfo,
-      cargoDate,
-      cargoTime,
-      address,
-      tel,
-    } = this.state;
-    return (
-      startDate && endDate && baggageSize && baggageInfo && cargoDate && cargoTime && address && tel
-    );
+    console.log(this.state);
+    const { startDate, endDate, baggageSize, baggageInfo, address, budget } = this.state;
+    return startDate && endDate && baggageSize && baggageInfo && address && budget;
   };
 
   render() {
@@ -107,23 +100,23 @@ class HubRequestContainer extends Component<PropTypes> {
       endDateFocus,
       baggageSize,
       baggageInfo,
-      cargoDate,
-      cargoDateFocus,
-      cargoTime,
       address,
-      tel,
+      budget,
+      notes,
       hasChanged,
     } = this.state;
 
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={hasChanged ? 'モノオクハブお申込み完了' : 'モノオクハブお申込み'}
+        headline={
+          hasChanged ? 'モノオクコンシェルジュお申込み完了' : 'モノオクコンシェルジュお申込み'
+        }
         rightContent={
           hasChanged ? (
-            <HubRequestCompleted userId={user.ID} />
+            <ConciergeRequestCompleted userId={user.ID} />
           ) : (
-            <HubRequest
+            <ConciergeRequest
               schedule={{
                 beginDate: startDate,
                 beginDateFocused: startDateFocus,
@@ -138,16 +131,13 @@ class HubRequestContainer extends Component<PropTypes> {
               onChangeBaggageSize={value => this.handleChangeUI('baggageSize', value)}
               baggageInfo={baggageInfo}
               onChangeBaggageInfo={value => this.handleChangeUI('baggageInfo', value)}
-              cargoDate={cargoDate}
-              cargoDateFocused={cargoDateFocus}
-              onFocusChangeCargo={focus => this.onFocusChangeDatePicker('cargoDateFocus', focus)}
-              onDateChangeCargo={date => this.onDateChange('cargoDate', date)}
-              cargoTime={cargoTime}
               onChangeCargoTime={value => this.handleChangeUI('cargoTime', value)}
               address={address}
               onChangeAddress={value => this.handleChangeUI('address', value)}
-              tel={tel}
-              onChangeTel={value => this.handleChangeUI('tel', value)}
+              notes={notes}
+              onChangeNotes={value => this.handleChangeUI('notes', value)}
+              budget={budget}
+              onChangeBudget={value => this.handleChangeUI('budget', value)}
               buttonDisabled={!this.validate()}
               onClickButton={this.onClickButton}
             />

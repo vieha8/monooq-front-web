@@ -68,6 +68,8 @@ export default {
   reportSpace: () => '/report/space',
   // ハブ
   hubRequest: () => '/hub/request',
+  // コンシェルジュ
+  conciergeRequest: () => '/concierge/request',
   // 静的ページ
   about: () => '/about',
   insurance: () => '/insurance',
