@@ -167,6 +167,13 @@ export default props => (
       />
     </Row>
     <Row>
+      <InputForm
+        label="メールアドレス"
+        onChange={e => props.onChangeEmail(e.target.value)}
+        value={props.email}
+      />
+    </Row>
+    <Row>
       <Description>
         <H2>注意事項</H2>
         <CautionList>

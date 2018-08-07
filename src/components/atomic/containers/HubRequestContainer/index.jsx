@@ -10,13 +10,14 @@ import Footer from 'components/atomic/LV2/Footer';
 import HubRequest from 'components/atomic/LV3/HubRequest';
 import HubRequestCompleted from 'components/atomic/LV3/HubRequest/Completed';
 
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
+import { checkLogin, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
 
 type PropTypes = {
   dispatch: Function,
   user: {
     ID: number,
+    Email: string,
   },
 };
 
@@ -30,11 +31,25 @@ class HubRequestContainer extends Component<PropTypes> {
       baggageSize: '約1畳',
       cargoTime: '9時〜12時',
       hasChanged: false,
+      email: props.user.Email,
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!this.props.user.ID && nextProps.user.ID) {
+      const user = nextProps.user;
+      this.setState({
+        imageUri: user.ImageUrl,
+        name: user.Name,
+        email: user.Email,
+        prefCode: user.PrefCode,
+        profile: user.Profile,
+      });
+    }
   }
 
   onFocusChangeDatePicker: Function;
@@ -86,17 +101,26 @@ class HubRequestContainer extends Component<PropTypes> {
       cargoTime,
       address,
       tel,
+      email,
     } = this.state;
     return (
-      startDate && endDate && baggageSize && baggageInfo && cargoDate && cargoTime && address && tel
+      startDate &&
+      endDate &&
+      baggageSize &&
+      baggageInfo &&
+      cargoDate &&
+      cargoTime &&
+      address &&
+      tel &&
+      email
     );
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
+    // const auth = checkAuthState(this.props);
+    // if (auth) {
+    //   return auth;
+    // }
 
     const { user } = this.props;
 
@@ -112,6 +136,7 @@ class HubRequestContainer extends Component<PropTypes> {
       cargoTime,
       address,
       tel,
+      email,
       hasChanged,
     } = this.state;
 
@@ -148,6 +173,8 @@ class HubRequestContainer extends Component<PropTypes> {
               onChangeAddress={value => this.handleChangeUI('address', value)}
               tel={tel}
               onChangeTel={value => this.handleChangeUI('tel', value)}
+              email={email}
+              onChangeEmail={value => this.handleChangeUI('email', value)}
               buttonDisabled={!this.validate()}
               onClickButton={this.onClickButton}
             />

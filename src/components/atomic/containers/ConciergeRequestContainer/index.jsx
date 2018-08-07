@@ -10,13 +10,14 @@ import Footer from 'components/atomic/LV2/Footer';
 import ConciergeRequest from 'components/atomic/LV3/ConciergeRequest';
 import ConciergeRequestCompleted from 'components/atomic/LV3/ConciergeRequest/Completed';
 
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
+import { checkLogin, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
 
 type PropTypes = {
   dispatch: Function,
   user: {
     ID: number,
+    Email: string,
   },
 };
 
@@ -26,16 +27,33 @@ class HubRequestContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
+    console.log(props);
+
     this.state = {
       baggageSize: '約1畳',
       cargoTime: '9時〜12時',
       notes: '',
       hasChanged: false,
+      email: props.user.Email,
     };
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('B');
+    if (!this.props.user.ID && nextProps.user.ID) {
+      const user = nextProps.user;
+      this.setState({
+        imageUri: user.ImageUrl,
+        name: user.Name,
+        email: user.Email,
+        prefCode: user.PrefCode,
+        profile: user.Profile,
+      });
+    }
   }
 
   onFocusChangeDatePicker: Function;
@@ -80,17 +98,11 @@ class HubRequestContainer extends Component<PropTypes> {
 
   validate: Function;
   validate = () => {
-    console.log(this.state);
-    const { startDate, endDate, baggageSize, baggageInfo, address, budget } = this.state;
-    return startDate && endDate && baggageSize && baggageInfo && address && budget;
+    const { startDate, endDate, baggageSize, baggageInfo, address, budget, email } = this.state;
+    return startDate && endDate && baggageSize && baggageInfo && address && budget && email;
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const { user } = this.props;
 
     const {
@@ -104,6 +116,7 @@ class HubRequestContainer extends Component<PropTypes> {
       budget,
       notes,
       hasChanged,
+      email,
     } = this.state;
 
     return (
@@ -138,6 +151,8 @@ class HubRequestContainer extends Component<PropTypes> {
               onChangeNotes={value => this.handleChangeUI('notes', value)}
               budget={budget}
               onChangeBudget={value => this.handleChangeUI('budget', value)}
+              email={email}
+              onChangeEmail={value => this.handleChangeUI('email', value)}
               buttonDisabled={!this.validate()}
               onClickButton={this.onClickButton}
             />

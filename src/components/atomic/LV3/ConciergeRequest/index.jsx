@@ -82,6 +82,14 @@ export default props => (
         multiline={true}
       />
     </Row>
+    <Row>
+      <InputForm
+        label="メールアドレス"
+        onChange={e => props.onChangeEmail(e.target.value)}
+        value={props.email}
+        placeholder="example@monooq.com"
+      />
+    </Row>
     <Button
       primary
       fill={1}

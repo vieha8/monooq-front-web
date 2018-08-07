@@ -649,6 +649,9 @@ const HubAndConciergeSection = ({ isHub, onClick }) => {
     margin: auto;
     padding: 20px;
     width: 60%;
+    ${media.phone`
+      width: 70%;
+    `};
     ${isHub
       ? css`
           border: 1px solid ${Colors.hub};
@@ -693,7 +696,7 @@ const HubAndConciergeSection = ({ isHub, onClick }) => {
         </DescriptionMain>
       </Description>
       <PriceContainer>
-        <PriceSub>{isHub ? '1ヶ月あたりの保管料金' : '全国のスペース対象'}</PriceSub>
+        <PriceSub>{isHub ? '1ヶ月の保管料金' : '全国のスペース対象'}</PriceSub>
         <PriceMain>{isHub ? <Price>7,000円〜</Price> : <Price>相談無料</Price>}</PriceMain>
         <PriceSub>
           {isHub ? '※配送料別途、保管スペースは世田谷区のみ' : 'お気軽にご相談ください'}

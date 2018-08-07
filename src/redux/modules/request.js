@@ -292,6 +292,7 @@ function* sendPaymentEmail(payload) {
 
 function* hubRequest({ payload: { userId, body } }) {
   let message = `ユーザーID: ${userId}\n`;
+  message += `メールアドレス: ${body.email}\n`;
   message += `利用開始日: ${body.startDate.toDate()}\n`;
   message += `利用終了日: ${body.startDate.toDate()}\n`;
   message += `荷物の大きさ: ${body.baggageSize}\n`;
@@ -302,7 +303,7 @@ function* hubRequest({ payload: { userId, body } }) {
   message += `電話番号: ${body.tel}\n`;
 
   const mail = {
-    Subject: `【モノオクハブ】新規申し込み ユーザーID:${userId}`,
+    Subject: `【モノオクハブ】新規申し込み ${body.email}`,
     Address: 'm-kudo@monooq.com',
     Body: message,
   };
@@ -312,6 +313,7 @@ function* hubRequest({ payload: { userId, body } }) {
 
 function* conciergeRequest({ payload: { userId, body } }) {
   let message = `ユーザーID: ${userId}\n`;
+  message += `メールアドレス: ${body.email}\n`;
   message += `預けたい地域: ${body.address}\n`;
   message += `希望利用開始日: ${body.startDate.toDate()}\n`;
   message += `希望利用終了日: ${body.startDate.toDate()}\n`;
@@ -321,7 +323,7 @@ function* conciergeRequest({ payload: { userId, body } }) {
   message += `備考: ${body.notes}\n`;
 
   const mail = {
-    Subject: `【モノオクコンシェルジュ】新規ご相談 ユーザーID:${userId}`,
+    Subject: `【モノオクコンシェルジュ】新規ご相談 ${body.email}`,
     Address: 'm-kudo@monooq.com',
     Body: message,
   };
