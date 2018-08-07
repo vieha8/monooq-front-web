@@ -27,8 +27,6 @@ class HubRequestContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
-    console.log(props);
-
     this.state = {
       baggageSize: '約1畳',
       cargoTime: '9時〜12時',
@@ -43,7 +41,6 @@ class HubRequestContainer extends Component<PropTypes> {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('B');
     if (!this.props.user.ID && nextProps.user.ID) {
       const user = nextProps.user;
       this.setState({

@@ -304,7 +304,7 @@ function* hubRequest({ payload: { userId, body } }) {
 
   const mail = {
     Subject: `【モノオクハブ】新規申し込み ${body.email}`,
-    Address: 'm-kudo@monooq.com',
+    Address: 'info@monooq.com',
     Body: message,
   };
 
@@ -324,7 +324,7 @@ function* conciergeRequest({ payload: { userId, body } }) {
 
   const mail = {
     Subject: `【モノオクコンシェルジュ】新規ご相談 ${body.email}`,
-    Address: 'm-kudo@monooq.com',
+    Address: 'info@monooq.com',
     Body: message,
   };
 
