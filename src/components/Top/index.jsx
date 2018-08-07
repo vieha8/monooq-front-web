@@ -1,15 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
-
 import Header from 'components/atomic/containers/Header';
 import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { Footer, DefaultContainer } from 'components/Shared';
-import { PickupFeatureSpaceList, PickupStaffSpaceList } from './pickup';
-
+import Logo from 'components/atomic/LV1/Logo';
+import Button from 'components/atomic/LV1/Button';
+import SearchInput from 'components/atomic/LV2/SearchInput';
+import PickupSpaceList from 'components/atomic/LV3/PickupSpaceList';
 import mainVisual from 'images/main_visual@2x.jpg';
 import mainVisualSp from 'images/main_visual_sp@2x.jpg';
 import topImage1 from 'images/top1@2x.png';
@@ -23,9 +24,7 @@ import logoCnet from 'images/logo-cnet@2x.png';
 import logoLifehacker from 'images/logo-lifehacker@2x.png';
 import logoTechcrunch from 'images/logo-techcrunch@2x.png';
 import logoTechable from 'images/logo-techable@2x.png';
-
-import SearchInput from 'components/atomic/LV2/SearchInput';
-import PickupSpaceList from 'components/atomic/LV3/PickupSpaceList';
+import { PickupFeatureSpaceList, PickupStaffSpaceList } from './pickup';
 
 const TopPage = styled.div`
   min-width: ${Dimens.fixedWidthPc + 32}px;
@@ -258,7 +257,7 @@ const ExplainContainerRight = styled.div`
   width: 100%;
 `;
 
-const ExplainSection = ({ title, description, isLeft }) => {
+const ExplainSection = ({ title, description }) => {
   const Root = styled.div`
     margin-bottom: 40px;
   `;
@@ -578,7 +577,7 @@ const PickupFeature = props => (
   </PickupContainer>
 );
 
-const PickupStaff = props => (
+const PickupStaff = () => (
   <PickupContainer>
     <PickupSpaceList
       title="スタッフのおすすめ"
@@ -588,6 +587,129 @@ const PickupStaff = props => (
     />
   </PickupContainer>
 );
+
+const HubAndConciergeContents = props => {
+  const StyledContainer = styled.div`
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    ${media.phone`
+      justify-content: center;
+      margin: 50px;
+    `};
+  `;
+
+  return (
+    <StyledContainer className="for-safe-section-list">
+      <HubAndConciergeSection isHub onClick={() => props.history.push(Path.hubRequest())} />
+      <HubAndConciergeSection onClick={() => props.history.push(Path.conciergeRequest())} />
+    </StyledContainer>
+  );
+};
+
+const HubAndConciergeSection = ({ isHub, onClick }) => {
+  const StyledContainer = styled.div`
+    width: 40%;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Noto Sans CJK JP';
+    text-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+    ${isHub
+      ? css`
+          color: ${Colors.hub};
+        `
+      : css`
+          color: ${Colors.brandPrimary};
+        `} ${media.phone`
+      width: 100%;
+      margin-bottom: 30px;
+    `};
+  `;
+
+  const Title = styled.div`
+    font-size: ${FontSizes.xsmall}px;
+  `;
+
+  const Description = styled.div`
+    margin-top: 40px;
+    margin-bottom: 30px;
+  `;
+
+  const DescriptionMain = styled.div`
+    margin-top: 10px;
+    font-size: ${FontSizes.medium2}px;
+  `;
+
+  const DescriptionSub = styled.div`
+    font-size: ${FontSizes.small}px;
+  `;
+
+  const PriceContainer = styled.div`
+    margin: auto;
+    padding: 20px;
+    width: 60%;
+    ${media.phone`
+      width: 70%;
+    `};
+    ${isHub
+      ? css`
+          border: 1px solid ${Colors.hub};
+        `
+      : css`
+          border: 1px solid ${Colors.brandPrimary};
+        `} border-radius: 5px;
+  `;
+
+  const PriceSub = styled.div`
+    font-size: ${FontSizes.small}px;
+  `;
+
+  const Price = styled.span`
+    font-size: ${FontSizes.large}px;
+  `;
+
+  const PriceMain = styled.div`
+    margin-top: 30px;
+    margin-bottom: 30px;
+  `;
+
+  const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  `;
+
+  return (
+    <StyledContainer>
+      <Title>
+        {isHub ? <Logo.Hub /> : <Logo.Header />}
+        <br />
+        {isHub ? 'Hub' : 'Concierge'}
+      </Title>
+      <Description>
+        <DescriptionSub>
+          {isHub ? '都内でお急ぎの方にオススメ' : 'なかなかスペースが見つからない方へ'}
+        </DescriptionSub>
+        <DescriptionMain>
+          {isHub ? 'すぐにお荷物を預かります!' : 'あなたにぴったりなホストをご紹介!'}
+        </DescriptionMain>
+      </Description>
+      <PriceContainer>
+        <PriceSub>{isHub ? '1ヶ月の保管料金' : '全国のスペース対象'}</PriceSub>
+        <PriceMain>{isHub ? <Price>7,000円〜</Price> : <Price>相談無料</Price>}</PriceMain>
+        <PriceSub>
+          {isHub ? '※配送料別途、保管スペースは世田谷区のみ' : 'お気軽にご相談ください'}
+        </PriceSub>
+      </PriceContainer>
+      <ButtonContainer>
+        <Button hub={isHub} onClick={onClick}>
+          {isHub ? '申し込む' : '相談する'}
+        </Button>
+      </ButtonContainer>
+    </StyledContainer>
+  );
+};
 
 export default props => (
   <TopPage>
@@ -621,6 +743,7 @@ export default props => (
         </TopViewContainer>
       </TopViewFilter>
     </TopView>
+    <HubAndConciergeContents history={props.history} />
     {PickupFeature(props)}
     {PickupStaff(props)}
     <ColoredContainer>
@@ -726,7 +849,7 @@ export default props => (
           <SubCatchPhrasePickGo>PickGoを使えば、引っ越しが 5,000円 から。</SubCatchPhrasePickGo>
           <LinkToPickGo
             component={Link}
-            href={'http://pickgo.town/'}
+            href="http://pickgo.town/"
             target="_blank"
             rel="noopener noreferrer"
           >

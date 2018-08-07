@@ -41,11 +41,8 @@ exports.noticeSlack = {
       data.roomId = event.params.roomId;
       data.messageId = event.params.messageId;
       let body = '*New Message*\n';
-      body += `Room Id:${data.roomId}\n`;
-      body += `Message Id:${data.messageId}\n`;
-      body += `Message Type:${data.messageType}\n`;
       if (data.text) {
-        body += `Text:${data.text}\n`;
+        body += `\n${data.text}\n`;
       }
       if (data.image) {
         body += `Image:${data.image}\n`;
@@ -59,6 +56,10 @@ exports.noticeSlack = {
         body += `利用開始日:${data.startDate}\n`;
         body += `利用終了日:${data.endDate}\n`;
       }
+      if (data.userId) {
+        body += `\n送信ユーザー: https://monooq.com/user/${data.userId}\n`;
+      }
+      body += `ルーム: https://monooq-admin.herokuapp.com/room?id=${data.roomId}\n`;
       sendSlackMessage(body);
     }),
 };

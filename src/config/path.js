@@ -66,6 +66,10 @@ export default {
   // 違反報告
   reportUser: () => '/report/user',
   reportSpace: () => '/report/space',
+  // ハブ
+  hubRequest: () => '/hub/request',
+  // コンシェルジュ
+  conciergeRequest: () => '/concierge/request',
   // 静的ページ
   about: () => '/about',
   insurance: () => '/insurance',

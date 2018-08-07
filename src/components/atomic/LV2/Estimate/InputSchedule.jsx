@@ -26,17 +26,14 @@ const DateCell = styled.div`
   `};
 `;
 
-const Arrow = styled.span`
+const Arrow = styled.i`
+  margin: 10px;
   display: inline-block;
   vertical-align: middle;
   width: 30px;
   font-size: ${FontSizes.medium}px;
   color: ${Colors.lightGray1};
   text-align: center;
-  &:after {
-    content: '\f061';
-    font-family: 'Fontawesome';
-  }
   ${media.tablet`
     display: none;
   `};
@@ -56,13 +53,15 @@ type PropTypes = {
   endDateFocused: boolean,
   onDateChangeEnd: Function,
   onFocusChangeEnd: Function,
+  beginTitle: string,
+  endTitle: string,
 };
 
 export default (props: PropTypes) => (
   <Container>
     <DateCell>
       <DateLabel>
-        <InlineText.Base>利用開始日</InlineText.Base>
+        <InlineText.Base>{props.beginTitle || '利用開始日'}</InlineText.Base>
       </DateLabel>
       <InputCalendar
         date={props.beginDate}
@@ -72,10 +71,10 @@ export default (props: PropTypes) => (
         onFocusChange={e => props.onFocusChangeBegin(e.focused)}
       />
     </DateCell>
-    <Arrow />
+    <Arrow className="fas fa-arrow-right" />
     <DateCell>
       <DateLabel>
-        <InlineText.Base>利用終了日</InlineText.Base>
+        <InlineText.Base>{props.endTitle || '利用終了日'}</InlineText.Base>
       </DateLabel>
       <InputCalendar
         date={props.endDate}

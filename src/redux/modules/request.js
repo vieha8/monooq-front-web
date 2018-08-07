@@ -7,7 +7,7 @@ import { authActions } from './auth';
 import { store } from '../store/configureStore';
 import { createOmiseToken } from '../helpers/omise';
 import path from '../../config/path';
-import { getApiRequest } from '../helpers/api';
+import { getApiRequest, postApiRequest } from '../helpers/api';
 
 // Actions
 const ESTIMATE = 'ESTIMATE';
@@ -19,6 +19,8 @@ const PAYMENT_FAILED = 'PAYMENT_FAILED';
 const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
 const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
 const FETCH_SCHEDULE_FAILED = 'FETCH_SCHEDULE_FAILED';
+const SEND_HUB_REQUEST = 'SEND_HUB_REQUEST';
+const SEND_CONCIERGE_REQUEST = 'SEND_CONCIERGE_REQUEST';
 
 export const requestActions = createActions(
   ESTIMATE,
@@ -30,6 +32,8 @@ export const requestActions = createActions(
   FETCH_SCHEDULE,
   FETCH_SCHEDULE_SUCCESS,
   FETCH_SCHEDULE_FAILED,
+  SEND_HUB_REQUEST,
+  SEND_CONCIERGE_REQUEST,
 );
 
 // Reducer
@@ -286,8 +290,51 @@ function* sendPaymentEmail(payload) {
   yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
 }
 
+function* hubRequest({ payload: { userId, body } }) {
+  let message = `ユーザーID: ${userId}\n`;
+  message += `メールアドレス: ${body.email}\n`;
+  message += `利用開始日: ${body.startDate.toDate()}\n`;
+  message += `利用終了日: ${body.startDate.toDate()}\n`;
+  message += `荷物の大きさ: ${body.baggageSize}\n`;
+  message += `荷物の種類: ${body.baggageInfo}\n`;
+  message += `希望集荷日: ${body.cargoDate.toDate()}\n`;
+  message += `希望集荷時間帯: ${body.cargoTime}\n`;
+  message += `集荷先住所: ${body.address}\n`;
+  message += `電話番号: ${body.tel}\n`;
+
+  const mail = {
+    Subject: `【モノオクハブ】新規申し込み ${body.email}`,
+    Address: 'm-kudo@monooq.com',
+    Body: message,
+  };
+
+  yield call(postApiRequest, apiEndpoint.sendMail(), mail);
+}
+
+function* conciergeRequest({ payload: { userId, body } }) {
+  let message = `ユーザーID: ${userId}\n`;
+  message += `メールアドレス: ${body.email}\n`;
+  message += `預けたい地域: ${body.address}\n`;
+  message += `希望利用開始日: ${body.startDate.toDate()}\n`;
+  message += `希望利用終了日: ${body.startDate.toDate()}\n`;
+  message += `荷物の大きさ: ${body.baggageSize}\n`;
+  message += `荷物の種類: ${body.baggageInfo}\n`;
+  message += `予算: ${body.budget}\n`;
+  message += `備考: ${body.notes}\n`;
+
+  const mail = {
+    Subject: `【モノオクコンシェルジュ】新規ご相談 ${body.email}`,
+    Address: 'm-kudo@monooq.com',
+    Body: message,
+  };
+
+  yield call(postApiRequest, apiEndpoint.sendMail(), mail);
+}
+
 export const requestSagas = [
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
   takeEvery(FETCH_SCHEDULE, fetchSchedule),
+  takeEvery(SEND_HUB_REQUEST, hubRequest),
+  takeEvery(SEND_CONCIERGE_REQUEST, conciergeRequest),
 ];
