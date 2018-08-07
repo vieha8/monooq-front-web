@@ -9,6 +9,8 @@ import Button from 'components/atomic/LV1/Button';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { H2 } from 'components/atomic/LV1/Headline';
+import HeroImage from 'components/atomic/LV1/HeroImage';
+import hubImage from 'images/hub.png';
 
 const Row = styled.div`
   &:not(:first-child) {
@@ -83,6 +85,8 @@ export default props => (
       モノオクハブは、あなたの今すぐに預けたい！を解決します。<br />
       モノオクが一時的にお荷物を引き取り、あなたに最適なスペースを探して配送します！<br />
       1ヶ月あたり、¥7,000(1畳)からご利用いただけます。<br />
+      <br />
+      <HeroImage src={hubImage} alt="MonooQ HUB" />
     </Description>
     <Row>
       <H2>利用可能条件</H2>
