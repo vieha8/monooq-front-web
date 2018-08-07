@@ -26,8 +26,8 @@ const ToProfileLink = styled(Link)`
 
 export default () => (
   <Content>
-    お申し込みありがとうございます。<br />
-    翌営業日以内にご登録いただいているメールアドレスに、お見積りのご連絡をさせていただきます。<br />
+    ご相談ありがとうございます。<br />
+    翌営業日以内にご連絡をさせていただきます。<br />
     <ToProfileLink to={Path.top()}>トップへ戻る</ToProfileLink>
   </Content>
 );
