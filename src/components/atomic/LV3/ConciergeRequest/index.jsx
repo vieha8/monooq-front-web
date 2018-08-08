@@ -70,7 +70,7 @@ export default props => (
         onChange={e => props.onChangeBudget(e.target.value)}
         value={props.budget}
         placeholder="10000"
-        unit="円"
+        unit="円/月"
       />
     </Row>
     <Row>
