@@ -73,7 +73,7 @@ const WhySafeContentWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const WhySafeContent = (props) => {
+const WhySafeContent = props => {
   const ContentContainer = styled.div`
     width: 32%;
     ${media.phone`
@@ -142,7 +142,7 @@ const Label = styled.div`
   margin-bottom: 20px;
 `;
 
-const HowSafeContent = (props) => {
+const HowSafeContent = props => {
   const ContentContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -215,7 +215,7 @@ export default props => (
     </MainTitleContainer>
 
     <WhySafeContainer>
-      <SubTitle>もしもの時も大丈夫。</SubTitle>
+      <SubTitle>もしもの時も大丈夫。三井住友海上と協力し、安心サポート。</SubTitle>
       <WhySafeContentWrapper>
         {[
           {
