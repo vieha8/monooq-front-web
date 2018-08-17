@@ -284,9 +284,15 @@ const sendEmail = function*(payload) {
   yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(toUserId) }));
   const { payload: toUser } = yield take(apiActions.apiResponse);
 
-  let messageBody = 'メッセージが届きました。\n\n';
-  messageBody += text || '\n\n';
-  messageBody += '\n\nメッセージに返信するには以下のリンクをクリックしてください。\n';
+  let messageBody = 'メッセージが届いています。\n\n';
+
+  if (text.length !== 0) {
+    messageBody += text;
+  } else {
+    messageBody = '画像が届いています。';
+  }
+
+  messageBody += '\n\n返信するには以下のリンクをクリックしてください。\n';
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
   if (process.env.REACT_APP_ENV === 'production') {
