@@ -115,8 +115,8 @@ export default (props: PropTypes) => (
     <Section>
       <InputForm
         label="所在地はどこ？"
-        hint="取引が成立するまで番地以降の住所は表示されません。"
-        placeholder="例）東京都杉並区高円寺南 2-48-12"
+        hint="取引が成立するまで番地以降の住所は表示されません。番地は半角数字でご入力ください。"
+        placeholder="例）東京都杉並区高円寺南2-48-12"
         value={props.address}
         onChange={e => props.onChangeAddress(e.target.value)}
       />
