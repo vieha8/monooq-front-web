@@ -141,6 +141,9 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     if (Introduction.length === 0) {
       introductionErrors.push(ErrorMessage.PleaseInput);
     }
+    if (Introduction.length > 5000) {
+      introductionErrors.push(ErrorMessage.LengthMax('紹介文', 5000));
+    }
     error.introduction = introductionErrors;
 
     const addressErrors = [];
@@ -211,4 +214,7 @@ const mapStateToProps = state =>
     space: state.ui.space || {},
   });
 
-export default connect(EditSpaceInformationContainer, mapStateToProps);
+export default connect(
+  EditSpaceInformationContainer,
+  mapStateToProps,
+);

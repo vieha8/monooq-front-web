@@ -104,6 +104,9 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     if (About.length === 0) {
       aboutErrors.push(ErrorMessage.PleaseInput);
     }
+    if (aboutErrors.length > 5000) {
+      aboutErrors.push(ErrorMessage.LengthMax('説明', 5000));
+    }
     error.about = aboutErrors;
 
     this.setState({ error }, valid);
@@ -156,4 +159,7 @@ const mapStateToProps = state =>
     space: state.ui.space || {},
   });
 
-export default connect(EditSpaceBaggageContainer, mapStateToProps);
+export default connect(
+  EditSpaceBaggageContainer,
+  mapStateToProps,
+);

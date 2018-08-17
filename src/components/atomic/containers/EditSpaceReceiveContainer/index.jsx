@@ -113,6 +113,9 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     if (ReceiptAbout.length === 0) {
       receiptAboutErrors.push(ErrorMessage.PleaseInput);
     }
+    if (receiptAboutErrors.length > 5000) {
+      receiptAboutErrors.push(ErrorMessage.LengthMax('説明', 5000));
+    }
     error.receiptAbout = receiptAboutErrors;
 
     this.setState({ error }, valid);
@@ -166,4 +169,7 @@ const mapStateToProps = state =>
     space: state.ui.space || {},
   });
 
-export default connect(EditSpaceReceiveContainer, mapStateToProps);
+export default connect(
+  EditSpaceReceiveContainer,
+  mapStateToProps,
+);

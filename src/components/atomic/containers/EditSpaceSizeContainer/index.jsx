@@ -26,7 +26,7 @@ type PropTypes = {
   },
 };
 
-class EditSpaceBaggageContainer extends Component<PropTypes> {
+class EditSpaceSizeContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
 
@@ -162,4 +162,7 @@ const mapStateToProps = state =>
     space: state.ui.space || {},
   });
 
-export default connect(EditSpaceBaggageContainer, mapStateToProps);
+export default connect(
+  EditSpaceSizeContainer,
+  mapStateToProps,
+);
