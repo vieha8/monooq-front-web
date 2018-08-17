@@ -9,6 +9,7 @@ import fileType from '../../helpers/file-type';
 import Path from '../../config/path';
 import { userActions } from './user';
 import { authActions } from './auth';
+import { getApiRequest } from '../helpers/api';
 
 import dummySpaceImage from 'images/dummy_space.png';
 
@@ -116,10 +117,10 @@ export const spaceReducer = handleActions(
 
 // Sagas
 function* getSpace({ payload: { spaceId, isSelfOnly } }) {
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.spaces(spaceId) }));
-  const { payload, error, meta } = yield take(apiActions.apiResponse);
-  if (error) {
-    yield put(spaceActions.fetchFailedSpace(meta));
+  const { data: payload, err } = yield call(getApiRequest, apiEndpoint.spaces(spaceId));
+
+  if (err) {
+    yield put(spaceActions.fetchFailedSpace(err));
     return;
   }
 
