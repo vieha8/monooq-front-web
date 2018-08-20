@@ -1,13 +1,13 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call } from 'redux-saga/effects';
-import { apiActions, apiEndpoint } from './api';
+import dummySpaceImage from 'images/dummy_space.png';
+import { apiEndpoint } from './api';
 import { uiActions } from './ui';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions } from './auth';
-
-import dummySpaceImage from 'images/dummy_space.png';
-import { getApiRequest } from '../helpers/api';
+import { getApiRequest, putApiRequest } from '../helpers/api';
+import { errorActions } from './error';
 
 // Actions
 const FETCH_USER = 'FETCH_USER';
@@ -94,13 +94,13 @@ export const userReducer = handleActions(
 
 // Sagas
 export function* getUser({ payload: { userId } }) {
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(userId) }));
-  const { payload, error, meta } = yield take(apiActions.apiResponse);
-  if (error) {
-    yield put(userActions.fetchFailedUser(meta));
+  const { data, err } = yield call(getApiRequest, apiEndpoint.users(userId));
+  if (err) {
+    yield put(userActions.fetchFailedUser(err));
+    yield put(errorActions.setError(err));
     return;
   }
-  yield put(userActions.fetchSuccessUser(payload));
+  yield put(userActions.fetchSuccessUser(data));
 }
 
 function* getSpaces(params) {
@@ -118,6 +118,7 @@ function* getSpaces(params) {
   const { data, err } = yield call(getApiRequest, apiEndpoint.userSpaces(targetUserId || user.ID));
   if (err) {
     yield put(userActions.fetchFailedUserSpaces(err));
+    yield put(errorActions.setError(err));
     return;
   }
 
@@ -131,6 +132,7 @@ function* getSpaces(params) {
     yield put(userActions.fetchSuccessUserSpaces(res));
   } else {
     yield put(userActions.fetchFailedUserSpaces(data));
+    yield put(errorActions.setError(err));
   }
 }
 
@@ -148,15 +150,14 @@ function* updateUser({ payload: { userId, body } }) {
     const imagePath = `/img/users/${userId}/profile/${timeStamp}.${ext}`;
     body.imageUrl = yield uploadImage(imagePath, body.imageUri);
   }
-
-  yield put(apiActions.apiPutRequest({ path: apiEndpoint.users(userId), body }));
-  const { payload, error, meta } = yield take(apiActions.apiResponse);
-  if (error) {
-    yield put(userActions.updateFailedUser(meta));
+  const { data, err } = yield call(putApiRequest, apiEndpoint.users(userId), body);
+  if (err) {
+    yield put(userActions.updateFailedUser(err));
+    yield put(errorActions.setError(err));
     return;
   }
-  yield put(authActions.setUser(payload));
-  yield put(userActions.updateSuccessUser(payload));
+  yield put(authActions.setUser(data));
+  yield put(userActions.updateSuccessUser(data));
   yield put(uiActions.setUiState({ signupStep: 5 }));
 }
 

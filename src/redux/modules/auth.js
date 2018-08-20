@@ -1,12 +1,13 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery, take } from 'redux-saga/effects';
+import { put, call, takeEvery } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import { push, replace } from 'react-router-redux';
 import ReactGA from 'react-ga';
-import { apiEndpoint, apiActions } from './api';
+import { apiEndpoint } from './api';
 import { uiActions } from './ui';
+import { errorActions } from './error';
 import { store } from '../store/configureStore';
-import { getApiRequest, postApiRequest } from '../helpers/api';
+import { getApiRequest, postApiRequest, deleteApiRequest } from '../helpers/api';
 import Path from '../../config/path';
 
 // Actions
@@ -226,8 +227,8 @@ function* loginEmail({ payload: { email, password } }) {
     yield checkLoginFirebaseAuth();
     yield put(authActions.loginSuccess());
   } catch (err) {
-    console.error(err);
     yield put(authActions.loginFailed(err));
+    yield put(errorActions.setError(err));
   }
 }
 
@@ -238,8 +239,8 @@ function* loginFacebook() {
     yield checkLoginFirebaseAuth();
     yield put(authActions.loginSuccess());
   } catch (err) {
-    console.error(err);
     yield put(authActions.loginFailed(err));
+    yield put(errorActions.setError(err));
   }
 }
 
@@ -272,8 +273,8 @@ function* signUpEmail({ payload: { email, password } }) {
     yield put(authActions.checkLogin());
     yield put(uiActions.setUiState({ signupStep: 4 }));
   } catch (err) {
-    console.error(err.message);
     yield put(authActions.signupFailed(err.message));
+    yield put(errorActions.setError(err.message));
   }
 }
 
@@ -284,27 +285,29 @@ function* signUpFacebook() {
     const { isNewUser } = result.additionalUserInfo;
     if (!isNewUser) {
       yield put(authActions.signupFailed('Already registered.'));
+      yield put(errorActions.setError());
       return;
     }
     const { displayName, email, uid, photoURL } = result.user;
 
-    yield put(
-      apiActions.apiPostRequest({
-        path: apiEndpoint.users(),
-        body: { Email: email, FirebaseUid: uid, Name: displayName, ImageUrl: photoURL },
-      }),
-    );
-    const { payload, error, meta } = yield take(apiActions.apiResponse);
-    if (error) {
-      yield put(authActions.signupFailed(meta));
+    const { data, err } = yield call(postApiRequest, apiEndpoint.users(), {
+      Email: email,
+      FirebaseUid: uid,
+      Name: displayName,
+      ImageUrl: photoURL,
+    });
+
+    if (err) {
+      yield put(authActions.signupFailed(err));
+      yield put(errorActions.setError(err));
       return;
     }
-    yield put(authActions.signupSuccess(payload));
+    yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
     yield put(uiActions.setUiState({ signupStep: 4, signup: { name: displayName } }));
   } catch (err) {
-    console.error(err.message);
     yield put(authActions.signupFailed(err.message));
+    yield put(errorActions.setError(err.message));
   }
 }
 
@@ -314,27 +317,28 @@ function* passwordReset({ payload: { email } }) {
     yield auth.sendPasswordResetEmail(email);
     yield put(authActions.passwordResetSuccess());
   } catch (err) {
-    console.error(err);
     yield put(authActions.passwordResetFailed(err));
+    yield put(errorActions.setError(err));
   }
 }
 
 function* tokenGenerate() {
-  yield put(
-    apiActions.apiPostRequest({
-      path: apiEndpoint.tokenGenerate(),
-      body: {},
-    }),
-  );
-  const { payload, error, meta } = yield take(apiActions.apiResponse);
-  if (error) {
-    console.error(meta);
+  const { data, err } = yield call(postApiRequest, apiEndpoint.tokenGenerate(), {});
+  if (err) {
+    yield put(errorActions.setError(err));
     return;
   }
-  localStorage.setItem('token', JSON.stringify(payload));
+  localStorage.setItem('token', JSON.stringify(data));
 }
 
 function* unsubscribe({ payload: { userId, reason, description } }) {
+  const { err } = yield call(deleteApiRequest, apiEndpoint.users(userId));
+  if (err) {
+    yield put(authActions.unsubscribeFailed(err));
+    yield put(errorActions.setError(err));
+    return;
+  }
+
   const messageBody = `退会理由:${JSON.stringify(reason)}\n詳細:${description}\n`;
   const body = {
     Subject: `【退会完了】ユーザーID:${userId}`,
@@ -342,20 +346,7 @@ function* unsubscribe({ payload: { userId, reason, description } }) {
     Body: messageBody,
   };
 
-  yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
-
-  yield put(
-    apiActions.apiDeleteRequest({
-      path: apiEndpoint.users(userId),
-    }),
-  );
-
-  const { error, meta } = yield take(apiActions.apiResponse);
-  if (error) {
-    yield put(authActions.unsubscribeFailed(meta));
-    return;
-  }
-
+  yield call(postApiRequest, apiEndpoint.sendMail(), body);
   yield put(authActions.unsubscribeSuccess());
 }
 

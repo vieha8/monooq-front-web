@@ -4,8 +4,8 @@ import firebase from 'firebase/app';
 import { authActions } from './auth';
 import { userActions } from './user';
 import { spaceActions } from './space';
-import { apiActions, apiEndpoint } from './api';
-import { getApiRequest } from '../helpers/api';
+import { apiEndpoint } from './api';
+import { getApiRequest, postApiRequest } from '../helpers/api';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/configureStore';
@@ -58,6 +58,31 @@ export const messagesReducer = handleActions(
   initialState,
 );
 
+const roomCollection = () => {
+  const firestore = firebase.firestore();
+  firestore.settings({ timestampsInSnapshots: true });
+  return firestore.collection('rooms');
+};
+
+// ルーム取得
+const getRooms = userId =>
+  new Promise(async resolve => {
+    const rooms = await roomCollection()
+      .where(`user${userId}`, '==', true)
+      .get();
+    const res = [];
+    rooms.forEach(room => {
+      if (room.data().lastMessageDt) {
+        res.push({
+          id: room.id,
+          ...room.data(),
+          lastMessageDt: room.data().lastMessageDt.toDate(),
+        });
+      }
+    });
+    resolve(res);
+  });
+
 function* fetchRoomStart() {
   let user = yield select(state => state.auth.user);
   if (!user.ID) {
@@ -75,8 +100,13 @@ function* fetchRoomStart() {
     }),
   );
 
-  const res = rooms.map((room, i) => {
-    // TODO エラーハンドリング
+  const res = rooms.map((v, i) => {
+    const room = v;
+    // TODO データ取得できないユーザーがいた場合の処理検討
+    // if(users[i].err) {
+    //   // yield put(errorActions.setError(users[i].err));
+    //   return
+    // }
     room.user = users[i].data;
     return room;
   });
@@ -91,11 +121,31 @@ function messagesUnsubscribe() {
   }
 }
 
-const roomCollection = () => {
-  const firestore = firebase.firestore();
-  firestore.settings({ timestampsInSnapshots: true });
-  return firestore.collection('rooms');
-};
+// メッセージ取得
+const getMessages = roomId =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const roomDoc = roomCollection().doc(roomId);
+      const messages = await roomDoc
+        .collection('messages')
+        .orderBy('createDt')
+        .get();
+
+      const room = await roomDoc.get();
+      const res = {
+        room: room.data(),
+        messages: messages.docs.map(v => ({
+          id: v.id,
+          ...v.data(),
+          createDt: v.data().createDt.toDate(),
+        })),
+        messageObserver: roomDoc.collection('messages'),
+      };
+      resolve(res);
+    } catch (err) {
+      reject(err);
+    }
+  });
 
 function* fetchMessagesStart({ payload }) {
   yield messagesUnsubscribe();
@@ -187,55 +237,8 @@ export const getRoomId = (userId1, userId2, spaceId) =>
     resolve(false);
   });
 
-// ルーム取得
-const getRooms = userId =>
-  new Promise(async resolve => {
-    const rooms = await roomCollection()
-      .where(`user${userId}`, '==', true)
-      .get();
-    const res = [];
-    rooms.forEach(room => {
-      if (room.data().lastMessageDt) {
-        res.push({
-          id: room.id,
-          ...room.data(),
-          lastMessageDt: room.data().lastMessageDt.toDate(),
-        });
-      }
-    });
-    resolve(res);
-  });
-
-// メッセージ取得
-const getMessages = roomId =>
-  new Promise(async (resolve, reject) => {
-    try {
-      const roomDoc = roomCollection().doc(roomId);
-      const messages = await roomDoc
-        .collection('messages')
-        .orderBy('createDt')
-        .get();
-
-      const room = await roomDoc.get();
-      const res = {
-        room: room.data(),
-        messages: messages.docs.map(v => ({
-          id: v.id,
-          ...v.data(),
-          createDt: v.data().createDt.toDate(),
-        })),
-        messageObserver: roomDoc.collection('messages'),
-      };
-
-      resolve(res);
-    } catch (err) {
-      console.error(err);
-      reject(err);
-    }
-  });
-
 // メッセージ送信
-const sendMessage = function*(payload) {
+function* sendMessage(payload) {
   const { roomId, userId, text, image } = payload;
 
   let imageUrl;
@@ -276,13 +279,12 @@ const sendMessage = function*(payload) {
     );
     resolve();
   });
-};
+}
 
-const sendEmail = function*(payload) {
+function* sendEmail(payload) {
   const { roomId, toUserId, text } = payload;
 
-  yield put(apiActions.apiGetRequest({ path: apiEndpoint.users(toUserId) }));
-  const { payload: toUser } = yield take(apiActions.apiResponse);
+  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId));
 
   let messageBody = 'メッセージが届いています。\n\n';
 
@@ -307,15 +309,17 @@ const sendEmail = function*(payload) {
     Body: messageBody,
   };
 
-  yield put(apiActions.apiPostRequest({ path: apiEndpoint.sendMail(), body }));
-};
+  yield call(postApiRequest, apiEndpoint.sendMail(), body);
+}
+
+function* sendMessageAndEmail({ payload }) {
+  yield sendMessage(payload);
+  yield sendEmail(payload);
+}
 
 // Sagas
 export const messagesSagas = [
   takeEvery(FETCH_ROOMS_START, fetchRoomStart),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),
-  takeEvery(SEND_MESSAGE, function*({ payload }) {
-    yield sendMessage(payload);
-    yield sendEmail(payload);
-  }),
+  takeEvery(SEND_MESSAGE, sendMessageAndEmail),
 ];
