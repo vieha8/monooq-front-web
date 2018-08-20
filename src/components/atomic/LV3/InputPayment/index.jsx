@@ -130,7 +130,6 @@ export default (props: PropTypes) => (
         value={props.cvc}
       />
     </Row>
-    <Row mobile>{props.mobileEstimate}</Row>
     <Row>
       <div>
         <InlineText.Small color={Colors.red}>
