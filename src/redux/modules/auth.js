@@ -1,12 +1,13 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take } from 'redux-saga/effects';
 import firebase from 'firebase/app';
-import { push } from 'react-router-redux';
+import { push, replace } from 'react-router-redux';
 import ReactGA from 'react-ga';
 import { apiEndpoint, apiActions } from './api';
 import { uiActions } from './ui';
 import { store } from '../store/configureStore';
 import { getApiRequest, postApiRequest } from '../helpers/api';
+import Path from '../../config/path';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -255,20 +256,19 @@ function* signUpEmail({ payload: { email, password } }) {
     const defaultImage =
       'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363';
 
-    yield put(
-      apiActions.apiPostRequest({
-        path: apiEndpoint.users(),
-        body: { Email: email, FirebaseUid: firebaseUid, ImageUrl: defaultImage },
-      }),
-    );
+    const { data, status, err } = yield call(postApiRequest, apiEndpoint.users(), {
+      Email: email,
+      FirebaseUid: firebaseUid,
+      ImageUrl: defaultImage,
+    });
 
-    const { payload, error, meta } = yield take(apiActions.apiResponse);
-
-    if (error) {
-      yield put(authActions.signupFailed(meta));
+    if (err) {
+      yield put(authActions.signupFailed());
+      store.dispatch(replace(Path.error(status)));
       return;
     }
-    yield put(authActions.signupSuccess(payload));
+
+    yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
     yield put(uiActions.setUiState({ signupStep: 4 }));
   } catch (err) {

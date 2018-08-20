@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import { withRouter } from 'react-router-dom';
 import { authActions } from 'redux/modules/auth';
 
 class AuthComponent extends React.Component {
@@ -32,24 +30,4 @@ const mapStateToProps = state => ({
 
 export const Auth = connect(mapStateToProps)(AuthComponent);
 
-export const authConnect = mapStateToProps => WrappedComponent => {
-  class loginRequiredComponent extends WrappedComponent {
-    render() {
-      if (this.props.isChecking) {
-        return null;
-      }
-      if (!this.props.isLogin) {
-        return <Redirect to="/login" />;
-      }
-      return super.render();
-    }
-  }
-  const mergeMapStateToProps = state => ({
-    ...mapStateToProps(state),
-    ...{
-      isLogin: state.auth.isLogin,
-      isChecking: state.auth.isChecking,
-    },
-  });
-  return withRouter(connect(mergeMapStateToProps)(loginRequiredComponent));
-};
+export default Auth;
