@@ -77,7 +77,7 @@ export default {
   maintenance: () => '/maintenance',
   notFound: () => '/notfound',
   error: (status = ':status') => `/error/${status}`,
-  cancellationPolicies: () => '/cancellationPolicies',
+  cancellationPolicies: () => '/cancel/policy',
   asct: () => '/asct',
   company: () => '/company',
   privacy: () => '/privacy',
