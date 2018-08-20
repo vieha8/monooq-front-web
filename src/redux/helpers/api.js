@@ -22,7 +22,6 @@ export const getToken = () => {
 };
 
 const responseErrorHandler = (resolve, response) => {
-  console.error(response);
   if (!response) {
     resolve({ status: 503, err: 'Service Unavailable' });
     return;

@@ -23,11 +23,10 @@ export const createOmiseToken = async data => {
     if (res.ok && res.status === 200) {
       return await res.json();
     }
-
-    console.error(res);
     return {};
   } catch (e) {
-    console.error(e);
     return {};
   }
 };
+
+export default createOmiseToken;

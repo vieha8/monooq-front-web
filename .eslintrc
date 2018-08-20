@@ -15,8 +15,11 @@
   "globals": {
     "window": true,
     "document": true,
+    "navigator": true,
     "localStorage": true,
-    "FileReader": true
+    "FileReader": true,
+    "Headers": true,
+    "fetch": true,
   },
   "rules": {
     "react/prop-types": 0,

@@ -24,3 +24,5 @@ export const googleAnalytics = store => next => action => {
 
   return next(action);
 };
+
+export default googleAnalytics;

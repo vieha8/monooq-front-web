@@ -52,6 +52,7 @@
     "storybook": "export NODE_PATH=src && start-storybook -p 9009 -s public",
     "build-storybook": "export NODE_PATH=src && build-storybook -s public",
     "lint": "eslint src",
+    "fix": "eslint src --fix",
     "flow": "flow",
     "precommit": "pretty-quick --staged",
     "worker": "babel-node batch/worker.js"
@@ -73,7 +74,7 @@
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-flowtype": "^2.44.0",
     "eslint-plugin-import": "^2.9.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.10.0",
     "flow-bin": "^0.74.0",
