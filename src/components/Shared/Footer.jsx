@@ -38,6 +38,24 @@ const Menu = styled(Link)`
   `};
 `;
 
+const MenuA = styled.a`
+  display: inline-block;
+  font-size: ${FontSizes.xsmall}px;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  color: ${Colors.linkBlue};
+  padding: ${Dimens.small}px;
+  cursor: pointer;
+  ${media.tablet`
+    display: block;
+    font-size: ${FontSizes.xsmall}px;
+    padding: ${Dimens.small}px ${Dimens.small}px;
+    text-align: left;
+    margin-left: ${Dimens.medium}px;
+  `};
+`;
+
 const Copyright = styled.span`
   display: table-cell;
   font-size: ${FontSizes.xsmall}px;
@@ -57,7 +75,9 @@ const Copyright = styled.span`
 
 export default () => (
   <Container>
-    <Menu to={Path.company()}>運営会社</Menu>
+    <MenuA href="https://monooq.co.jp" target="_blank">
+      運営会社
+    </MenuA>
     <Menu to={Path.about()}>はじめての方へ</Menu>
     <Menu to={Path.insurance()}>荷物に対する保険</Menu>
     <Menu to={Path.rule()}>ルールとマナー</Menu>
