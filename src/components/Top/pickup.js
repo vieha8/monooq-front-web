@@ -155,24 +155,6 @@ export const PickupStaffSpaceList = [
   },
   {
     large: 1,
-    link: Path.space(663),
-    user: {
-      image:
-        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2F1499%2Fprofile%2F1522547753907.jpg?alt=media&token=7620f7ba-113e-4aa0-b9ed-cca7903fe432',
-      name: 'とっと',
-    },
-    space: {
-      image:
-        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fspaces%2F663%2F1529300059903.jpg?alt=media&token=1fffd259-f498-4fe3-b68c-6ab7f525d97c',
-      price: '3,000',
-      area: '東京都杉並区',
-      description:
-        '大きな荷物も大丈夫！軽トラックをお持ちのホストさんなので、搬入の相談をしてみては？',
-      color: Colors.pickup2,
-    },
-  },
-  {
-    large: 1,
     link: Path.space(581),
     user: {
       image:
@@ -225,22 +207,6 @@ export const PickupAreaSpaceList = [
       area: '池袋本町',
       description: '東京都',
       color: Colors.pickup1,
-    },
-  },
-  {
-    link: Path.space(663),
-    user: {
-      image:
-        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2F1499%2Fprofile%2F1522547753907.jpg?alt=media&token=7620f7ba-113e-4aa0-b9ed-cca7903fe432',
-      name: 'とっと',
-    },
-    space: {
-      image:
-        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fspaces%2F663%2F1529300059903.jpg?alt=media&token=1fffd259-f498-4fe3-b68c-6ab7f525d97c',
-      price: '3,000',
-      area: '高円寺南',
-      description: '高円寺',
-      color: Colors.pickup2,
     },
   },
   {
