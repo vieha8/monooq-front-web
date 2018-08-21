@@ -602,8 +602,8 @@ const HubAndConciergeContents = props => {
 
   return (
     <StyledContainer className="for-safe-section-list">
-      <HubAndConciergeSection isHub onClick={() => props.history.push(Path.hubRequest())} />
       <HubAndConciergeSection onClick={() => props.history.push(Path.conciergeRequest())} />
+      <HubAndConciergeSection isHub onClick={() => props.history.push(Path.hubRequest())} />
     </StyledContainer>
   );
 };
