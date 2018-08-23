@@ -1,17 +1,14 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, call, select } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
 import axios from 'axios';
-import { apiActions, apiEndpoint } from './api';
-import { store } from '../store/configureStore';
+import dummySpaceImage from 'images/dummy_space.png';
+import { apiEndpoint } from './api';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
-import Path from '../../config/path';
 import { userActions } from './user';
 import { authActions } from './auth';
-import { getApiRequest } from '../helpers/api';
-
-import dummySpaceImage from 'images/dummy_space.png';
+import { getApiRequest, postApiRequest, putApiRequest, deleteApiRequest } from '../helpers/api';
+import { errorActions } from './error';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
@@ -121,6 +118,7 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
 
   if (err) {
     yield put(spaceActions.fetchFailedSpace(err));
+    yield put(errorActions.setError(err));
     return;
   }
 
@@ -131,9 +129,8 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
       yield take(authActions.checkLoginSuccess);
     }
     user = yield select(state => state.auth.user);
-
     if (payload.UserID !== user.ID) {
-      store.dispatch(push(Path.error(400)));
+      yield put(errorActions.setError('Bad Request'));
     }
   }
 
@@ -201,15 +198,15 @@ function* createSpace({ payload: { body } }) {
     params.address = `${params.prefecture}${params.address}`;
   }
 
-  yield put(apiActions.apiPostRequest({ path: apiEndpoint.spaces(), body: params }));
-  const { payload, error, meta } = yield take(apiActions.apiResponse);
-  if (error || !payload || !payload.ID) {
-    yield put(spaceActions.createFailedSpace(meta));
+  const { data, err } = yield call(postApiRequest, apiEndpoint.spaces(), params);
+  if (err) {
+    yield put(spaceActions.createFailedSpace(err));
+    yield put(errorActions.setError(err));
     return;
   }
 
   if (images && images.length > 0) {
-    const spaceId = payload.ID;
+    const spaceId = data.ID;
     const imageUrls = yield Promise.all(
       images.filter(image => !image.ID).map(async image => {
         if (image.ImageUrl) {
@@ -236,18 +233,18 @@ function* createSpace({ payload: { body } }) {
       .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
 
     if (imgs.length > 0) {
-      yield put(
-        apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body: { Images: imgs } }),
-      );
-      const { error, meta } = yield take(apiActions.apiResponse);
-      if (error) {
-        yield put(spaceActions.createFailedSpace(meta));
+      const { err: err2 } = yield call(putApiRequest, apiEndpoint.spaces(spaceId), {
+        Images: imgs,
+      });
+      if (err2) {
+        yield put(spaceActions.createFailedSpace(err));
+        yield put(errorActions.setError(err));
         return;
       }
     }
   }
 
-  yield put(spaceActions.createSuccessSpace(payload));
+  yield put(spaceActions.createSuccessSpace(data));
 }
 
 function* updateSpace({ payload: { spaceId, body } }) {
@@ -284,22 +281,22 @@ function* updateSpace({ payload: { spaceId, body } }) {
       .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
   }
 
-  yield put(apiActions.apiPutRequest({ path: apiEndpoint.spaces(spaceId), body: params }));
-  const { payload, error, meta } = yield take(apiActions.apiResponse);
-  if (error) {
-    yield put(userActions.updateFailedSpace(meta));
+  const { data, err } = yield call(putApiRequest, apiEndpoint.spaces(spaceId), params);
+  if (err) {
+    yield put(userActions.updateFailedSpace(err));
+    yield put(errorActions.setError(err));
     return;
   }
-  yield put(spaceActions.updateSuccessSpace(payload));
+  yield put(spaceActions.updateSuccessSpace(data));
 }
 
 function* deleteSpace({ payload: { space } }) {
   const user = yield select(state => state.auth.user);
   if (space.UserID !== user.ID) {
-    store.dispatch(push(Path.error(400)));
+    yield put(errorActions.setError('Bad Request'));
+    return;
   }
-  yield put(apiActions.apiDeleteRequest({ path: apiEndpoint.spaces(space.ID) }));
-  yield take(apiActions.apiResponse);
+  yield call(deleteApiRequest, apiEndpoint.spaces(space.ID));
   window.location.reload();
 }
 

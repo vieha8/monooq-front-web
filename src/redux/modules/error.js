@@ -1,31 +1,27 @@
 import { createActions, handleActions } from 'redux-actions';
 
 // Actions
-const SET_ERROR_STATE = 'SET_ERROR_STATE';
+const SET_ERROR = 'SET_ERROR';
+const RESET_ERROR = 'RESET_ERROR';
 
-export const errorActions = createActions(SET_ERROR_STATE);
+export const errorActions = createActions(SET_ERROR, RESET_ERROR);
 
 // Reducer
-
 const initialState = {
-  errors: {},
-  hasError: false,
+  message: null,
+  hasError: true,
 };
 
-const { setErrorState } = errorActions;
 export const errorReducer = handleActions(
   {
-    [setErrorState]: (state, action) => {
-      const nextState = { ...state, ...action.payload };
-      let hasError = false;
-      Object.keys(nextState.errors).forEach(key => {
-        if (nextState.errors[key].length > 0) {
-          hasError = true;
-        }
-      });
-      nextState.hasError = hasError;
-      return nextState;
-    },
+    [SET_ERROR]: (state, action) => ({
+      message: action.payload,
+      hasError: true,
+    }),
+    [RESET_ERROR]: () => ({
+      message: null,
+      hasError: false,
+    }),
   },
   initialState,
 );

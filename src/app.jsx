@@ -8,6 +8,7 @@ import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
 import { Auth } from 'components/Auth';
+import Error from 'components/Error';
 import firebaseConfig from './config/firebase';
 import { unregister } from './registerServiceWorker';
 import configureStore from './redux/store/configureStore';
@@ -29,6 +30,7 @@ firebase.initializeApp(firebaseConfig());
 ReactDOM.render(
   <Provider store={configureStore(history)}>
     <Fragment>
+      <Error />
       <Auth />
       <Routes history={history} />
     </Fragment>

@@ -1,8 +1,9 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, select } from 'redux-saga/effects';
-import firebase from 'firebase/app';
-import { apiActions, apiEndpoint } from './api';
+import { put, call, takeEvery } from 'redux-saga/effects';
 import dummySpaceImage from 'images/dummy_space.png';
+import { apiEndpoint } from './api';
+import { getApiRequest } from '../helpers/api';
+import { errorActions } from './error';
 
 // Actions
 const FETCH_START_SEARCH = 'FETCH_START_SEARCH';
@@ -41,32 +42,24 @@ export const searchReducer = handleActions(
 
 // Sagas
 function* search({ payload: { location, limit, offset } }) {
-  yield put(
-    apiActions.apiGetRequest({ path: apiEndpoint.spaces(), params: { location, limit, offset } }),
-  );
-  const { payload, error, meta } = yield take(apiActions.apiResponse);
-  if (error) {
-    yield put(searchActions.fetchFailedSearch(meta));
+  const { data, err } = yield call(getApiRequest, apiEndpoint.spaces(), {
+    location,
+    limit,
+    offset,
+  });
+  if (err) {
+    yield put(searchActions.fetchFailedSearch());
+    yield put(errorActions.setError(err));
     return;
   }
 
-  const res = payload.map(v => {
-    if (v.Images.length === 0) {
-      v.Images[0] = { ImageUrl: dummySpaceImage };
+  const res = data.map(v => {
+    const space = v;
+    if (space.Images.length === 0) {
+      space.Images = [{ ImageUrl: dummySpaceImage }];
     }
-    return v;
+    return space;
   });
-
-  const logParams = { keyword: location, createDt: new Date() };
-  const user = yield select(state => state.auth.user);
-  const userId = user.ID;
-  if (userId) {
-    logParams.userId = userId;
-  }
-  const firestore = firebase.firestore();
-  firestore.settings({ timestampsInSnapshots: true });
-  const db = firestore.collection('spaceSearchLogs');
-  db.add(logParams);
 
   yield put(searchActions.fetchSuccessSearch(res));
 }

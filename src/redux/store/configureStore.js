@@ -8,7 +8,6 @@ import { authReducer } from '../modules/auth';
 import { searchReducer } from '../modules/search';
 import { messagesReducer } from '../modules/messages';
 import { uiReducer } from '../modules/ui';
-import { apiReducer } from '../modules/api';
 import { spaceReducer } from '../modules/space';
 import { userReducer } from '../modules/user';
 import { requestReducer } from '../modules/request';
@@ -33,7 +32,6 @@ export default history => {
 
   store = createStore(
     combineReducers({
-      api: apiReducer,
       auth: authReducer,
       router: routerReducer,
       search: searchReducer,
