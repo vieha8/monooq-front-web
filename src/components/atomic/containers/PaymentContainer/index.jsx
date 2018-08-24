@@ -109,8 +109,8 @@ class PaymentContainer extends Component<PropTypes> {
 
   handleChangeUI: Function;
   handleChangeUI = (propName: string, value: string) => {
-    const state = this.state;
-    const error = state.error;
+    const { state } = this;
+    const { error } = state;
     const errors = [];
 
     switch (propName) {

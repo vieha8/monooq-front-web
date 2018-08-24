@@ -1,4 +1,1 @@
-import { ErrorMessage } from './error-messages';
-
-export { ErrorMessage };
-export { ErrorMessage as default };
+export { default as ErrorMessage } from './error-messages';
