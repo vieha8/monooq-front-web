@@ -359,9 +359,9 @@ export default props => (
           <List>
             <li>VISA</li>
             <li>MasterCard</li>
-            <li>JCB</li>
-            <li>Diners Club</li>
-            <li>American Express</li>
+            {/*<li>JCB</li>*/}
+            {/*<li>Diners Club</li>*/}
+            {/*<li>American Express</li>*/}
           </List>
           <p>
             *銀行振り込みをご希望の場合は、ホストの発行する見積もりを確認した後にinfo@monooq.comまでご連絡ください。
