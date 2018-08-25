@@ -110,8 +110,8 @@ const TopLabelWrapper = styled.div`
 const TopLabel = styled.div`
   :before {
     content: '\f00c';
-    font-family: 'Font Awesome 5 Pro';
-    font-weight: 100;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
     font-size: ${FontSizes.medium}px;
     margin-right: 10px;
   }

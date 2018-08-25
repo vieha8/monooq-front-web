@@ -27,7 +27,8 @@ const Check = styled.div`
     border-color: ${Colors.brandPrimary};
     &:after {
       content: "\f00c";
-      font-family: "Fontawesome";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
       display: block;
       color: ${Colors.white};
       width: 100%;
