@@ -136,6 +136,7 @@ class InboxContainer extends Component<PropTypes, State> {
           const { startDate, endDate, price, requestId } = message;
           return {
             estimate: {
+              id: requestId,
               name: room.space.Host.Name,
               beginAt: startDate.toDate(),
               endAt: endDate.toDate(),
@@ -146,9 +147,10 @@ class InboxContainer extends Component<PropTypes, State> {
           };
         }
         case MessageType.Completed:
+          const { requestId } = message;
           return {
             admin: {
-              message: '決済が完了しました。スペース取引成立です！',
+              message: `お見積りID:${requestId}\n決済が完了しました。\nスペース取引成立です！`,
               receivedAt: message.createDt,
             },
           };

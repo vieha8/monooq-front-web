@@ -35,6 +35,7 @@ const DateWrapper = styled.div`
 `;
 
 type PropTypes = {
+  id: string,
   host: boolean,
   name: string,
   beginAt: Date,
@@ -48,6 +49,7 @@ export default (props: PropTypes) => (
   <div>
     <Card block noBorder background={Colors.lightGreen}>
       <Text>{props.name} さんからのお見積もり</Text>
+      <Text>ID：{props.id}</Text>
       <Text>利用開始日：{estimateDateFormat(props.beginAt)}</Text>
       <Text>利用終了日：{estimateDateFormat(props.endAt)}</Text>
       <Text>料金：{props.price} 円</Text>
