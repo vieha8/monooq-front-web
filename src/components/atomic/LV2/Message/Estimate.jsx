@@ -50,11 +50,11 @@ export default (props: PropTypes) => (
       <Text>{props.name} さんからのお見積もり</Text>
       <Text>利用開始日：{estimateDateFormat(props.beginAt)}</Text>
       <Text>利用終了日：{estimateDateFormat(props.endAt)}</Text>
-      <Text>料金：{props.price}</Text>
+      <Text>料金：{props.price} 円</Text>
       <CaptionWrapper>
         <Text>
           もしも期間や料金に変更があった場合は、ホストが新しいお見積りの発行をしてください。
-          モノオクでの決済履歴がない場合は保険が適応されません。※現在はクレジットカードのみのお支払いです。
+          モノオクでの決済履歴がない場合は保険が適応されません。※現在はクレジットカード(VISA、MasterCard)のみお支払い可能です。
           それ以外の方法をご希望の場合は<a href="mailto:info@monooq.com">info@monooq.com</a>までご連絡ください。
         </Text>
       </CaptionWrapper>
