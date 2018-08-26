@@ -12,7 +12,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Card block>
+  <Card block noBorderPhone>
     <SendMessage onClick={props.onClick} loading={props.loading} disabled={props.disabled} />
   </Card>
 );

@@ -57,7 +57,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Card block>
+  <Card block noBorderPhone>
     <Container>
       <Header pref={props.pref} city={props.city} town={props.town} name={props.name} />
       <ImageWrapper>

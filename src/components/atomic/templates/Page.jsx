@@ -25,6 +25,16 @@ const Page = styled.div`
         padding-right: 0;
       `}
   `};
+
+  ${props =>
+    props.smallMargin &&
+    `
+    padding: 20px 0 80px;
+    margin-top: 0;
+  `} ${media.tablet`
+    margin-top: 0;
+    padding: 10px 0 80px;
+  `};
 `;
 
 export default Page;
