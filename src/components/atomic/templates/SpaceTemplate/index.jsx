@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
 import { media } from 'helpers/style/media-query';
-import { Dimens } from 'variables';
+import { Colors, Dimens } from 'variables';
 import Page from '../Page';
 
 const Map = styled.div`
@@ -12,6 +12,10 @@ const Map = styled.div`
   ${media.tablet`
     height: 240px;  
   `};
+`;
+
+const SpaceTemplateContainer = styled.div`
+  background-color: ${Colors.lightGray1Bg};
 `;
 
 const Container = styled.div`
@@ -71,7 +75,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <div>
+  <SpaceTemplateContainer>
     {props.header}
     <Map>{props.map}</Map>
     <Page fillPhone smallMargin>
@@ -87,5 +91,5 @@ export default (props: PropTypes) => (
       </Container>
     </Page>
     <Footer>{props.footer}</Footer>
-  </div>
+  </SpaceTemplateContainer>
 );
