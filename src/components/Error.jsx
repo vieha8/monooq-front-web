@@ -28,7 +28,7 @@ class ErrorModal extends Component {
             </p>
           </Modal.Content>
           <Modal.Actions>
-            <Button small onClick={this.close}>
+            <Button small="true" onClick={this.close}>
               閉じる
             </Button>
           </Modal.Actions>
