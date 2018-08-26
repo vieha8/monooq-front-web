@@ -25,6 +25,14 @@ const Card = styled.div`
     border: none;
   `};
 
+  ${media.tablet`
+    ${props =>
+      props.noBorderPhone &&
+      `
+      border: none;
+    `}
+  `};
+
   ${props =>
     props.pointer &&
     `
