@@ -74,7 +74,7 @@ export default (props: PropTypes) => (
   <div>
     {props.header}
     <Map>{props.map}</Map>
-    <Page fillPhone>
+    <Page fillPhone smallMargin>
       <Container>
         <ClearfixContainer>
           <DetailContainer>{props.detail}</DetailContainer>
