@@ -77,7 +77,7 @@ const sendMailToAdmin = (
 
     const body = {
       Subject: `新規振込申請 ユーザーID:${userId}`,
-      Address: 'm-kudo@monooq.com',
+      Address: 'info@monooq.com',
       Body: message,
     };
 
