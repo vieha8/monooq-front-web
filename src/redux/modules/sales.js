@@ -116,6 +116,38 @@ const sendMailToUser = (
     resolve();
   });
 
+const addBacklogIssue = (
+  userId,
+  userName,
+  email,
+  bankName,
+  branchName,
+  accountType,
+  accountNumber,
+  accountName,
+  payouts,
+) =>
+  new Promise(resolve => {
+    // 運営への通知
+    let message = `ユーザーID: ${userId}\n`;
+    message += `ユーザー名: ${userName}\n`;
+    message += `メールアドレス: ${email}\n`;
+    message += `金融機関名: ${bankName}\n`;
+    message += `支店名: ${branchName}\n`;
+    message += `預金種類: ${accountType}\n`;
+    message += `口座番号: ${accountNumber}\n`;
+    message += `口座名義: ${accountName}\n`;
+    message += `振込金額: ${payouts}円\n`;
+
+    const body = {
+      Summary: `新規振込申請 ユーザーID:${userId}`,
+      Description: message,
+    };
+
+    postApiRequest(apiEndpoint.backlogAddIssue(), body);
+    resolve();
+  });
+
 function* sendPayouts({
   payload: { userId, bankName, branchName, accountType, accountNumber, accountName, payouts },
 }) {
@@ -126,6 +158,23 @@ function* sendPayouts({
   user = yield select(state => state.auth.user);
 
   yield call(
+    sendMailToUser,
+    userId,
+    user.Name,
+    user.Email,
+    bankName,
+    branchName,
+    accountType,
+    accountNumber,
+    accountName,
+    payouts,
+  );
+
+  // 開発環境はinfoに対するメールとBacklog通知しない
+  if (process.env.NODE_ENV !== 'production') {
+    return;
+  }
+  yield call(
     sendMailToAdmin,
     userId,
     bankName,
@@ -135,8 +184,9 @@ function* sendPayouts({
     accountName,
     payouts,
   );
+
   yield call(
-    sendMailToUser,
+    addBacklogIssue,
     userId,
     user.Name,
     user.Email,

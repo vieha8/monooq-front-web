@@ -13,6 +13,7 @@ export const apiEndpoint = {
   payments: id => (id ? `/payments/${id}` : `/payments`),
   sendMail: () => `/mailer/send`,
   sales: () => `/payments/payouts`,
+  backlogAddIssue: () => `/backlog/issue`,
 };
 
 export default apiEndpoint;
