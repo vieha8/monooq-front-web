@@ -123,7 +123,7 @@ export default (props: PropTypes) => (
       {displayErrors('address_errors', props.addressErrors)}
     </Section>
     <Section>
-      <Button primary fill onClick={props.onClickNext}>
+      <Button primary fill={1} onClick={props.onClickNext}>
         次へ
       </Button>
     </Section>
