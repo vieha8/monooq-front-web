@@ -16,6 +16,9 @@ const Map = styled.div`
 
 const SpaceTemplateContainer = styled.div`
   background-color: ${Colors.lightGray1Bg};
+  ${media.tablet`
+      background-color: ${Colors.white};
+  `};
 `;
 
 const Container = styled.div`
