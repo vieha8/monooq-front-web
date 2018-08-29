@@ -68,6 +68,7 @@ const Footer = styled.div`
 `;
 
 type PropTypes = {
+  helmet: React.Element<*>,
   header: React.Element<*>,
   map: React.Element<*>,
   detail: React.Element<*>,
@@ -80,6 +81,7 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <SpaceTemplateContainer>
     {props.header}
+    {props.helmet}
     <Map>{props.map}</Map>
     <Page fillPhone smallMargin>
       <Container>

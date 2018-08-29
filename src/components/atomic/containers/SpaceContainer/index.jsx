@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import Helmet from 'react-helmet';
 import numeral from 'numeral';
 
 import Path from 'config/path';
@@ -49,6 +50,7 @@ const ReceiptType = {
   Meeting: 2,
   Delivery: 3,
 };
+const URL_SPACE = 'https://monooq.com/space/';
 
 class SpaceContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
@@ -117,6 +119,24 @@ class SpaceContainer extends Component<PropTypes, State> {
 
     return (
       <SpaceTemplate
+        helmet={
+          <Helmet
+            title={`${space.Title} - ${space.AddressPref}${space.AddressCity}`}
+            meta={[
+              { name: 'description', content: `${space.Introduction}` },
+              {
+                property: 'og:title',
+                content: `${space.Title} - ${space.AddressPref}${space.AddressCity}`,
+              },
+              { property: 'og:description', content: `${space.Introduction}` },
+              { property: 'og:url', content: `${URL_SPACE}${space.ID}` },
+              {
+                property: 'og:image',
+                content: 'https://monooq.com/static/media/monooq_logo.bc9ef4d5.svg',
+              },
+            ]}
+          />
+        }
         header={<Header />}
         map={<SpaceMap lat={(space.location || {}).lat} lng={(space.location || {}).lng} />}
         detail={
