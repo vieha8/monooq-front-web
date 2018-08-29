@@ -10,6 +10,7 @@ import Path from 'config/path';
 
 const Container = styled.footer`
   width: 100%;
+  background-color: ${Colors.white};
   border-top: 1px solid ${Colors.borderGray};
   padding: 0px 30px;
   ${media.tablet`
