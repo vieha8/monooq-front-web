@@ -132,7 +132,7 @@ class SpaceContainer extends Component<PropTypes, State> {
               { property: 'og:url', content: `${URL_SPACE}${space.ID}` },
               {
                 property: 'og:image',
-                content: 'https://monooq.com/static/media/monooq_logo.bc9ef4d5.svg',
+                content: space.Images[0].ImageUrl,
               },
             ]}
           />
