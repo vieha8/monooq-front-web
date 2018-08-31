@@ -13,10 +13,14 @@ const Container = styled.li`
   &:not(:first-child) {
     border-top: none;
   }
-  padding: ${Dimens.medium1}px;
   &:hover {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.1);
+  }
+  a {
+    display: block;
+    width: 100%;
+    padding: ${Dimens.medium1}px;
   }
   list-style: none;
 `;
