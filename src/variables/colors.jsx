@@ -16,6 +16,7 @@ export default {
   lightGray2: '#DBDBDB',
   borderGray: '#DBDBDB',
   linkBlue: '#006494',
+  lightBlue: '#D4F1FE',
   error: '#BA4246',
   yellow: '#E7BD63',
   lightGreen: '#D9FFE5',
