@@ -613,7 +613,6 @@ const HubAndConciergeSection = ({ isHub, onClick }) => {
     width: 40%;
     text-align: center;
     font-weight: bold;
-    font-family: 'Noto Sans CJK JP';
     text-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
     ${isHub
       ? css`
@@ -718,7 +717,9 @@ export default props => (
       <TopViewFilter>
         <TopViewContainer>
           <CatchPhrase>
-            個人間だからできる、<br />荷物を置くための新しい方法。
+            個人間だからできる、
+            <br />
+            荷物を置くための新しい方法。
           </CatchPhrase>
           <SubCatchPhrase>
             モノオクは空きスペースを活用できる、物置きシェアサービスです。
@@ -758,13 +759,17 @@ export default props => (
         </MovieFrameWrapper>
         <MovieExplanContainer>
           <MovieExplanTitle>
-            モノオクは、<br />
-            荷物の置き場所に困っている人と、<br />
+            モノオクは、
+            <br />
+            荷物の置き場所に困っている人と、
+            <br />
             余ったスペースを活用したい人をつなぎます。
           </MovieExplanTitle>
           <MovieExplanText>
-            1分でわかるサービスの流れ。<br />
-            誰でもかんたんに物置きスペースを探せて、気軽にホストになる<br />
+            1分でわかるサービスの流れ。
+            <br />
+            誰でもかんたんに物置きスペースを探せて、気軽にホストになる
+            <br />
             ことができます。
           </MovieExplanText>
         </MovieExplanContainer>
@@ -838,12 +843,16 @@ export default props => (
       <PickGoContainer>
         <PickGoWrapper>
           <CatchPhrase>
-            荷物の配送だって<br />もっと便利に安くできる。
+            荷物の配送だって
+            <br />
+            もっと便利に安くできる。
           </CatchPhrase>
           <PickGoSection>
             <PickGoMedia src={logoPickGo} />
             <PickGoDescription>
-              サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
+              サービス対象エリア
+              <br />
+              東京／神奈川／千葉／埼玉／大阪／兵庫／京都
             </PickGoDescription>
           </PickGoSection>
           <SubCatchPhrasePickGo>PickGoを使えば、引っ越しが 5,000円 から。</SubCatchPhrasePickGo>
