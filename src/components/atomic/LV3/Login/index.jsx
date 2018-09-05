@@ -66,13 +66,13 @@ export default (props: PropTypes) => (
         disabled={props.buttonDisabled}
         loading={props.isLoginChecking}
       >
-        ログインする
+        ログイン
       </Button>
     }
     otherLogin={<InlineText.Base>お持ちのアカウントでログイン</InlineText.Base>}
     facebook={
       <Button facebook fill={1} onClick={props.onClickFacebook} loading={props.isLoginChecking}>
-        Facebookでログインする
+        Facebookでログイン
       </Button>
     }
     toSignup={<TextLink to={Path.signup()}>初めてのご利用ですか?新規登録はこちら</TextLink>}
