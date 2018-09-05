@@ -24,6 +24,10 @@ const Profile = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
+const IsHost = styled.div`
+  margin-top: ${Dimens.medium}px;
+`;
+
 const Button = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
@@ -34,6 +38,7 @@ type PropTypes = {
   name: React.Element<*>,
   area: React.Element<*>,
   profile: React.Element<*>,
+  isHost: React.Element<*>,
   button: React.Element<*>,
 };
 
@@ -43,6 +48,7 @@ export default (props: PropTypes) => (
     <Image>{props.image}</Image>
     <Name>{props.name}</Name>
     <Area>{props.area}</Area>
+    <IsHost>{props.isHost}</IsHost>
     <Profile>{props.profile}</Profile>
     <Button>{props.button}</Button>
   </Fragment>

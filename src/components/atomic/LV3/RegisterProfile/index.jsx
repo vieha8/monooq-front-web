@@ -6,6 +6,7 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import RegsiterProfileImage from 'components/atomic/LV1/DragAndDrop/RegisterProfileImage';
 import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
+import RadioList from 'components/atomic/LV2/RadioList';
 import { FontSizes } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 import Form from './Form';
@@ -53,10 +54,18 @@ export default (props: PropTypes) => (
         value={props.prefCode}
       />
     }
+    isHost={
+      <RadioList
+        label="利用目的"
+        labels={['保管スペースを借りたい(ユーザー)', '保管スペースを貸したい(ホスト)']}
+        onClick={props.onChangeIsHost}
+        checkedIndex={props.isHost}
+      />
+    }
     profile={
       <InputForm
         label="あなたの紹介文"
-        hint="ユーザー・ホストが安心するようにあなたの紹介文を掲載しましょう！(1000文字以内)"
+        hint="スペースを借りたいユーザーや、貸してくれるホストが安心するようにあなたの紹介文を掲載しましょう！(1000文字以内)"
         placeholder="例）はじめまして！ホストのYUKIです。大きめの荷物でも柔軟に対応しております。お気軽にご相談ください。"
         multiline
         rows={4}
