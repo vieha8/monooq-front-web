@@ -38,7 +38,7 @@ class ConciergeRequestContainer extends Component<PropTypes> {
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.user.ID && nextProps.user.ID) {
-      const user = nextProps.user;
+      const { user } = nextProps;
       this.setState({
         imageUri: user.ImageUrl,
         name: user.Name,

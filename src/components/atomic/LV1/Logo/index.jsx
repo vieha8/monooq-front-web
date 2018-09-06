@@ -13,6 +13,7 @@ const Logo = styled.img`
 
 export default {
   Base: ({ width }) => <Logo src={logoImage} alt="logo" width={width || 280} />,
+  BaseWhite: ({ width }) => <Logo src={logoWhiteImage} alt="logo" width={width || 280} />,
   Header: () => <Logo src={logoImage} alt="logo" width={80} />,
   Footer: () => <Logo src={logoImage} alt="logo" width={120} />,
   HeaderWhite: () => <Logo src={logoWhiteImage} alt="logo" width={80} />,
