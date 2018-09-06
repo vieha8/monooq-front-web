@@ -1,26 +1,73 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { DefaultContainer } from 'components/Shared';
 import InputCalendar from 'components/atomic/LV1/InputCalendar';
 import InlineText from 'components/atomic/LV1/InlineText';
 import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
 import InputSchedule from 'components/atomic/LV2/Estimate/InputSchedule';
 import Button from 'components/atomic/LV1/Button';
-import { Dimens, FontSizes } from 'variables';
+import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { H2 } from 'components/atomic/LV1/Headline';
 import HeroImage from 'components/atomic/LV1/HeroImage';
 import hubImage from 'images/hub.png';
+import logoPickGo from 'images/logo-pickgo@2x.png';
+import logoAppliv from 'images/logo-appliv@2x.png';
+import logoAscii from 'images/logo-ascii@2x.png';
+import logoBridge from 'images/logo-bridge@2x.png';
+import logoCnet from 'images/logo-cnet@2x.png';
+import logoLifehacker from 'images/logo-lifehacker@2x.png';
+import logoTechcrunch from 'images/logo-techcrunch@2x.png';
+import logoTechable from 'images/logo-techable@2x.png';
 
 const Row = styled.div`
+  max-width: ${Dimens.fixedWidthPc}px;
   &:not(:first-child) {
-    margin: ${Dimens.large}px 0;
+    margin: ${Dimens.large}px auto;
   }
+  ${media.phone`
+    padding: 0 ${Dimens.medium}px;
+  `};
 `;
 
 const Container = styled.div`
   width: 100%;
   display: table;
+`;
+
+const TitleForm = styled.div`
+  width: 100%;
+  padding: 25px 0;
+  text-align: center;
+  color: ${Colors.white};
+  background-color: ${Colors.linkBlue};
+  ${media.phone`
+    padding: 15px 0;
+    margin: 5px auto;
+  `};
+`;
+
+const MainTitle = styled.p`
+  width: 100%;
+  margin: 10px auto;
+  text-align: center;
+  color: ${Colors.white};
+  font-size: ${FontSizes.medium3}px;
+  font-weight: 900;
+  ${media.phone`
+    font-size: ${FontSizes.medium1}px;
+  `};
+`;
+
+const SubTitle = styled.p`
+  width: 100%;
+  text-align: center;
+  color: ${Colors.white};
+  font-size: ${FontSizes.medium2}px;
+  ${media.phone`
+    font-size: ${FontSizes.medium}px;
+  `};
 `;
 
 const DateCell = styled.div`
@@ -51,8 +98,12 @@ const DateSpacer = styled.i`
 `;
 
 const Description = styled.div`
+  height: 300px;
+  overflow-y: scroll;
+  border: 1px solid ${Colors.black};
   font-size: ${FontSizes.medium}px;
   line-height: 150%;
+  padding: 10px;
 `;
 
 const CautionList = styled.ul`
@@ -78,37 +129,106 @@ const timeList = [
   { key: 4, value: '18時〜21時', text: '18時〜21時' },
 ];
 
+const ButtonSubmit = styled.div`
+  width: 100%;
+  max-width: 375px;
+  margin: auto;
+  padding: 25px 10px;
+  text-align: center;
+  font-size: ${FontSizes.large}px;
+  font-weight: 900;
+  color: #ffffff;
+  background-color: ${Colors.linkBlue};
+  cursor: pointer;
+  box-shadow: 1px 2px 6px #282828;
+  ${media.phone`
+    font-size: ${FontSizes.medium1}px;
+  `};
+`;
+
+const StyledDefaultContainer = styled(DefaultContainer)`
+  padding-top: 80px;
+  padding-bottom: 80px;
+  color: ${Colors.darkGray1};
+  ${media.phone`
+    padding-top: 40px;
+    padding-bottom: 40px;
+  `};
+`;
+const MediaLineupContainer = styled(StyledDefaultContainer)`
+  padding-top: 40px;
+  padding-bottom: 40px;
+`;
+const LineupTitle = styled.div`
+  font-size: ${FontSizes.medium1}px;
+  margin-bottom: 40px;
+`;
+const LineupList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+`;
+const LineupItem = styled.li`
+  height: 26px;
+  margin-bottom: 20px;
+  margin-right: 40px;
+  ${media.phone`
+    height: 16px;
+    margin-right: 10px;
+  `};
+`;
+const LineupImage = styled.img`
+  height: 100%;
+`;
+const MediaLineup = () => (
+  <MediaLineupContainer>
+    <LineupTitle>メディア掲載</LineupTitle>
+    <LineupList>
+      <LineupItem>
+        <a href="https://japan.cnet.com/" target="_blank" rel="noopener noreferrer">
+          <LineupImage src={logoCnet} alt="CNET Japan" />
+        </a>
+      </LineupItem>
+      <LineupItem>
+        <a href="http://ascii.jp/" target="_blank" rel="noopener noreferrer">
+          <LineupImage src={logoAscii} alt="ASCII.jp" />
+        </a>
+      </LineupItem>
+      <LineupItem>
+        <a href="http://thebridge.jp/" target="_blank" rel="noopener noreferrer">
+          <LineupImage src={logoBridge} alt="THE BRIDGE" />
+        </a>
+      </LineupItem>
+      <LineupItem>
+        <a href="https://mag.app-liv.jp/" target="_blank" rel="noopener noreferrer">
+          <LineupImage src={logoAppliv} alt="Appliv" />
+        </a>
+      </LineupItem>
+      <LineupItem>
+        <a href="https://www.lifehacker.jp/" target="_blank" rel="noopener noreferrer">
+          <LineupImage src={logoLifehacker} alt="lifehacker" />
+        </a>
+      </LineupItem>
+      <LineupItem>
+        <a href="https://jp.techcrunch.com/" target="_blank" rel="noopener noreferrer">
+          <LineupImage src={logoTechcrunch} alt="TechCrunch" />
+        </a>
+      </LineupItem>
+      <LineupItem>
+        <a href="https://techable.jp" target="_blank" rel="noopener noreferrer">
+          <LineupImage src={logoTechable} alt="TECHABLE" />
+        </a>
+      </LineupItem>
+    </LineupList>
+  </MediaLineupContainer>
+);
+
 export default props => (
   <Fragment>
-    <Description>
-      <H2>モノオクハブとは?</H2>
-      モノオクハブは、あなたの今すぐに預けたい！を解決します。<br />
-      モノオクが一時的にお荷物を引き取り、あなたに最適なスペースを探して配送します！<br />
-      1ヶ月あたり、¥7,000(1畳)からご利用いただけます。<br />
-      <br />
-      <HeroImage src={hubImage} alt="MonooQ HUB" />
-    </Description>
-    <Row>
-      <H2>利用可能条件</H2>
-      <CautionList>
-        <CautionListContent>
-          現在預け入れ可能なスペースは、東京都世田谷区のみとなります。順次エリア拡大予定です。
-        </CautionListContent>
-        <CautionListContent>
-          1畳以上のサイズから利用可能です。1畳未満の荷物を預ける場合でも最低1畳分の料金がかかります。<br />
-        </CautionListContent>
-        <CautionListContent>
-          3ヶ月(90日)以上のご利用に限り、モノオクハブを利用することができます。<br />
-        </CautionListContent>
-        <CautionListContent>
-          一度の配送で対応可能な荷物容量:
-          幅1.2m、奥行1.8m、高さ1.2mの荷台に積載でき、合計で350kg未満の物量であれば対応が可能です。縦30cm、横45cm、高さ35cmの段ボールだと30箱程度積載できます。これを越える場合は配送を複数回に分ける形となり、回数分送料が必要となります。
-        </CautionListContent>
-      </CautionList>
-    </Row>
-    <Row>
-      <H2>お申込みフォーム</H2>
-    </Row>
+    <TitleForm>
+      <MainTitle>お申込みフォーム</MainTitle>
+      <SubTitle>まずはお気軽にご相談ください</SubTitle>
+    </TitleForm>
     <Row>
       <InputSchedule {...props.schedule} />
     </Row>
@@ -179,7 +299,6 @@ export default props => (
     </Row>
     <Row>
       <Description>
-        <H2>注意事項</H2>
         <CautionList>
           <CautionListContent>
             モノオクハブで一時預かり後、ユーザーにもっとも近い引き受け可能なホスト/スペースから選定を致します。
@@ -221,12 +340,14 @@ export default props => (
             その他利用に関する規約は
             <a href="https://monooq.com/terms" rel="noopener noreferrer" target="_blank">
               こちら
-            </a>をご覧ください。
+            </a>
+            をご覧ください。
           </CautionListContent>
         </CautionList>
       </Description>
     </Row>
-    <Button
+    <ButtonSubmit>送信する</ButtonSubmit>
+    {/* <Button
       primary
       fill={1}
       disabled={props.buttonDisabled}
@@ -234,6 +355,7 @@ export default props => (
       loading={props.buttonLoading}
     >
       送信
-    </Button>
+    </Button> */}
+    <MediaLineup />
   </Fragment>
 );
