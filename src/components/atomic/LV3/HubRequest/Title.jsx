@@ -82,7 +82,7 @@ export default () => (
           この荷物どうしよう...
           <br />
         </CatchPhrase>
-        <SubCatchPhrase>をイチ早く解決するサービスです</SubCatchPhrase>
+        <SubCatchPhrase>をイチ早く解決します</SubCatchPhrase>
       </TopViewContainer>
     </TopViewFilter>
   </TopContainer>
