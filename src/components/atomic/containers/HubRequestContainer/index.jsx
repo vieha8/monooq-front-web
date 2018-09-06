@@ -1,12 +1,11 @@
 // @flow
 
 import React, { Component, Fragment } from 'react';
+import { Modal, Button } from 'semantic-ui-react';
 import { requestActions } from 'redux/modules/request';
 import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/LV2/Footer';
 import HubRequest from 'components/atomic/LV3/HubRequest';
-
-import { Modal, Button } from 'semantic-ui-react';
 
 import { checkLogin, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
