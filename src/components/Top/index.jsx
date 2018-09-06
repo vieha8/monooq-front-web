@@ -36,29 +36,25 @@ const TopPage = styled.div`
 `;
 
 const TopView = styled.div`
-  height: 800px;
+  height: 540px;
   margin-top: ${HeaderHeight}px;
   background-image: url(${mainVisual});
   background-size: cover;
   color: ${Colors.white};
   background-repeat: no-repeat;
   ${media.phone`
-    height: 480px;
+    height: 400px;
     margin-top: -4px;
     background-image: url(${mainVisualSp});
-    background-size: contain;
-    background-position: 0 56px;
+    background-position: 0px 80px;
   `};
 `;
 
 const TopViewFilter = styled.div`
   height: 100%;
-  padding-top: 196px;
+  padding-top: 120px;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.4);
-  ${media.phone`
-    padding-top: 108px;
-  `};
 `;
 
 const TopViewContainer = styled(DefaultContainer)``;
@@ -88,26 +84,6 @@ const SubCatchPhrase = styled.span`
     font-size: ${FontSizes.medium}px;
     line-height: ${FontSizes.medium * 1.75}px;
     width: 100%;
-  `};
-`;
-
-const ToHostRegistContainer = styled.div`
-  width: 507px;
-  display: flex;
-  justify-content: center;
-  ${media.phone`
-    text-align: center;
-    width: 100%;
-  `};
-`;
-
-const ToHostRegist = styled.a`
-  font-size: ${FontSizes.medium}px;
-  line-height: ${FontSizes.medium * 2}px;
-  color: ${Colors.white};
-  text-decoration: underline;
-  ${media.phone`
-    margin: 0;
   `};
 `;
 
@@ -627,7 +603,7 @@ const HubAndConciergeSection = ({ isHub, onClick }) => {
   `;
 
   const Title = styled.div`
-    font-size: ${FontSizes.xsmall}px;
+    font-size: ${FontSizes.medium3}px;
   `;
 
   const Description = styled.div`
@@ -682,7 +658,7 @@ const HubAndConciergeSection = ({ isHub, onClick }) => {
   return (
     <StyledContainer>
       <Title>
-        {isHub ? <Logo.Hub /> : <Logo.Header />}
+        {isHub ? <Logo.Hub width={200} /> : <Logo.Base width={200} />}
         <br />
         {isHub ? 'Hub' : 'Concierge'}
       </Title>
@@ -735,12 +711,6 @@ export default props => (
               onClickSearchButton={props.onClickSearch}
             />
           </SearchInputContainer>
-
-          <ToHostRegistContainer>
-            <ToHostRegist component={Link} href={Path.createSpaceInfo()}>
-              ホスト登録はこちら
-            </ToHostRegist>
-          </ToHostRegistContainer>
         </TopViewContainer>
       </TopViewFilter>
     </TopView>
