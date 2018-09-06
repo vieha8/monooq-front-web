@@ -73,7 +73,11 @@ const sendMailToAdmin = (
     message += `預金種類: ${accountType}\n`;
     message += `口座番号: ${accountNumber}\n`;
     message += `口座名義: ${accountName}\n`;
-    message += `振込金額: ${payouts}円\n`;
+    if (payouts < 10000) {
+      message += `振込金額: ${payouts}円\n`;
+    } else {
+      message += `振込金額: ${payouts + 260}円\n`;
+    }
 
     const body = {
       Subject: `新規振込申請 ユーザーID:${userId}`,
@@ -100,7 +104,11 @@ const sendMailToUser = (
     // ユーザーへの通知
     let message = `${userName}様\n\n`;
     message += `この度はモノオクのご利用ありがとうございます。\n下記にて申請振込を受付致しました。\n\n`;
-    message += `振込金額: ${payouts}円\n\n`;
+    if (payouts < 10000) {
+      message += `振込金額: ${payouts - 260}円\n\n`;
+    } else {
+      message += `振込金額: ${payouts}円\n\n`;
+    }
     message += `取引(お預かり)の開始と口座情報が確認でき次第、5営業日以内にお振込させていただきます。\n\n`;
     message += `*営業日は土・日・祝、年末年始(12/30〜1/3)以外の平日となります。\n`;
     message += `*口座情報に誤りがあると思われる場合、メールにて確認のご連絡をさせていただきます。\n\n`;
@@ -137,7 +145,12 @@ const addBacklogIssue = (
     message += `預金種類: ${accountType}\n`;
     message += `口座番号: ${accountNumber}\n`;
     message += `口座名義: ${accountName}\n`;
-    message += `振込金額: ${payouts}円\n`;
+
+    if (payouts < 10000) {
+      message += `振込金額: ${payouts}円\n`;
+    } else {
+      message += `振込金額: ${payouts + 260}円\n`;
+    }
 
     const body = {
       Summary: `新規振込申請 ユーザーID:${userId}`,
