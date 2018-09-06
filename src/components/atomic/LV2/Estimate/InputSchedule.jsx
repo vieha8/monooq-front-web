@@ -61,7 +61,7 @@ export default (props: PropTypes) => (
   <Container>
     <DateCell>
       <DateLabel>
-        <InlineText.Base>{props.beginTitle || '利用開始日'}</InlineText.Base>
+        <InlineText.Bold>{props.beginTitle || '利用開始日'}</InlineText.Bold>
       </DateLabel>
       <InputCalendar
         date={props.beginDate}
@@ -74,7 +74,7 @@ export default (props: PropTypes) => (
     <Arrow className="fas fa-arrow-right" />
     <DateCell>
       <DateLabel>
-        <InlineText.Base>{props.endTitle || '利用終了日'}</InlineText.Base>
+        <InlineText.Bold>{props.endTitle || '利用終了日'}</InlineText.Bold>
       </DateLabel>
       <InputCalendar
         date={props.endDate}

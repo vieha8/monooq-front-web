@@ -4,7 +4,6 @@ import { DefaultContainer } from 'components/Shared';
 import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
 import InputSchedule from 'components/atomic/LV2/Estimate/InputSchedule';
-import Button from 'components/atomic/LV1/Button';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import logoAppliv from 'images/logo-appliv@2x.png';

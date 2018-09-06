@@ -24,7 +24,6 @@ import qaQ from 'images/qa_q.png';
 import qaA from 'images/qa_a.png';
 
 import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/LV2/Footer';
 import ConciergeRequest from 'components/atomic/LV3/ConciergeRequest';
