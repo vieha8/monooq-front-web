@@ -150,7 +150,9 @@ class InboxContainer extends Component<PropTypes, State> {
           const { requestId } = message;
           return {
             admin: {
-              message: `お見積りID:${requestId}\n決済が完了しました。\nスペース取引成立です！`,
+              message: `お見積りID:${requestId}\n決済が完了しました。スペース取引成立です！\nスペース所在地:${
+                room.space.Address
+              }`,
               receivedAt: message.createDt,
             },
           };
