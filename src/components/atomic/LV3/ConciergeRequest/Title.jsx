@@ -17,7 +17,7 @@ const TopContainer = styled.div`
   color: ${Colors.white};
   text-align: center;
   ${media.phone`
-    height: 320px;
+    height: 270px;
     background-position: bottom;
     background-size: 100% 100%;
   `};
@@ -29,7 +29,7 @@ const TopViewFilter = styled.div`
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.4);
   ${media.phone`
-    padding-top: 108px;
+    padding-top: 40px;
   `};
 `;
 
