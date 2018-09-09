@@ -36,29 +36,25 @@ const TopPage = styled.div`
 `;
 
 const TopView = styled.div`
-  height: 800px;
+  height: 540px;
   margin-top: ${HeaderHeight}px;
   background-image: url(${mainVisual});
   background-size: cover;
   color: ${Colors.white};
   background-repeat: no-repeat;
   ${media.phone`
-    height: 480px;
+    height: 400px;
     margin-top: -4px;
     background-image: url(${mainVisualSp});
-    background-size: contain;
-    background-position: 0 56px;
+    background-position: 0px 80px;
   `};
 `;
 
 const TopViewFilter = styled.div`
   height: 100%;
-  padding-top: 196px;
+  padding-top: 120px;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.4);
-  ${media.phone`
-    padding-top: 108px;
-  `};
 `;
 
 const TopViewContainer = styled(DefaultContainer)``;
@@ -88,26 +84,6 @@ const SubCatchPhrase = styled.span`
     font-size: ${FontSizes.medium}px;
     line-height: ${FontSizes.medium * 1.75}px;
     width: 100%;
-  `};
-`;
-
-const ToHostRegistContainer = styled.div`
-  width: 507px;
-  display: flex;
-  justify-content: center;
-  ${media.phone`
-    text-align: center;
-    width: 100%;
-  `};
-`;
-
-const ToHostRegist = styled.a`
-  font-size: ${FontSizes.medium}px;
-  line-height: ${FontSizes.medium * 2}px;
-  color: ${Colors.white};
-  text-decoration: underline;
-  ${media.phone`
-    margin: 0;
   `};
 `;
 
@@ -613,7 +589,6 @@ const HubAndConciergeSection = ({ isHub, onClick }) => {
     width: 40%;
     text-align: center;
     font-weight: bold;
-    font-family: 'Noto Sans CJK JP';
     text-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
     ${isHub
       ? css`
@@ -628,7 +603,7 @@ const HubAndConciergeSection = ({ isHub, onClick }) => {
   `;
 
   const Title = styled.div`
-    font-size: ${FontSizes.xsmall}px;
+    font-size: ${FontSizes.medium3}px;
   `;
 
   const Description = styled.div`
@@ -683,7 +658,7 @@ const HubAndConciergeSection = ({ isHub, onClick }) => {
   return (
     <StyledContainer>
       <Title>
-        {isHub ? <Logo.Hub /> : <Logo.Header />}
+        {isHub ? <Logo.Hub width={200} /> : <Logo.Base width={200} />}
         <br />
         {isHub ? 'Hub' : 'Concierge'}
       </Title>
@@ -718,7 +693,9 @@ export default props => (
       <TopViewFilter>
         <TopViewContainer>
           <CatchPhrase>
-            個人間だからできる、<br />荷物を置くための新しい方法。
+            個人間だからできる、
+            <br />
+            荷物を置くための新しい方法。
           </CatchPhrase>
           <SubCatchPhrase>
             モノオクは空きスペースを活用できる、物置きシェアサービスです。
@@ -734,12 +711,6 @@ export default props => (
               onClickSearchButton={props.onClickSearch}
             />
           </SearchInputContainer>
-
-          <ToHostRegistContainer>
-            <ToHostRegist component={Link} href={Path.createSpaceInfo()}>
-              ホスト登録はこちら
-            </ToHostRegist>
-          </ToHostRegistContainer>
         </TopViewContainer>
       </TopViewFilter>
     </TopView>
@@ -758,13 +729,17 @@ export default props => (
         </MovieFrameWrapper>
         <MovieExplanContainer>
           <MovieExplanTitle>
-            モノオクは、<br />
-            荷物の置き場所に困っている人と、<br />
+            モノオクは、
+            <br />
+            荷物の置き場所に困っている人と、
+            <br />
             余ったスペースを活用したい人をつなぎます。
           </MovieExplanTitle>
           <MovieExplanText>
-            1分でわかるサービスの流れ。<br />
-            誰でもかんたんに物置きスペースを探せて、気軽にホストになる<br />
+            1分でわかるサービスの流れ。
+            <br />
+            誰でもかんたんに物置きスペースを探せて、気軽にホストになる
+            <br />
             ことができます。
           </MovieExplanText>
         </MovieExplanContainer>
@@ -838,12 +813,16 @@ export default props => (
       <PickGoContainer>
         <PickGoWrapper>
           <CatchPhrase>
-            荷物の配送だって<br />もっと便利に安くできる。
+            荷物の配送だって
+            <br />
+            もっと便利に安くできる。
           </CatchPhrase>
           <PickGoSection>
             <PickGoMedia src={logoPickGo} />
             <PickGoDescription>
-              サービス対象エリア<br />東京／神奈川／千葉／埼玉／大阪／兵庫／京都
+              サービス対象エリア
+              <br />
+              東京／神奈川／千葉／埼玉／大阪／兵庫／京都
             </PickGoDescription>
           </PickGoSection>
           <SubCatchPhrasePickGo>PickGoを使えば、引っ越しが 5,000円 から。</SubCatchPhrasePickGo>

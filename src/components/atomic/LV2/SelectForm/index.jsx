@@ -23,7 +23,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Fragment>
-    <H3>{props.label}</H3>
+    <H3 bold>{props.label}</H3>
     {props.hint && <InlineText.EmphasisTiny>{props.hint}</InlineText.EmphasisTiny>}
     <SelectWrapper>
       <Select value={props.value} onChange={props.onChange}>

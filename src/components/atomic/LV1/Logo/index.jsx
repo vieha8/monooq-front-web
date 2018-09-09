@@ -12,10 +12,10 @@ const Logo = styled.img`
 `;
 
 export default {
-  Base: () => <Logo src={logoImage} alt="logo" width={280} />,
+  Base: ({ width }) => <Logo src={logoImage} alt="logo" width={width || 280} />,
+  BaseWhite: ({ width }) => <Logo src={logoWhiteImage} alt="logo" width={width || 280} />,
   Header: () => <Logo src={logoImage} alt="logo" width={80} />,
   Footer: () => <Logo src={logoImage} alt="logo" width={120} />,
-  BaseWhite: () => <Logo src={logoWhiteImage} alt="logo" width={280} />,
   HeaderWhite: () => <Logo src={logoWhiteImage} alt="logo" width={80} />,
-  Hub: () => <Logo src={logoHubImage} alt="logo" width={80} />,
+  Hub: ({ width }) => <Logo src={logoHubImage} alt="logo" width={width || 80} />,
 };

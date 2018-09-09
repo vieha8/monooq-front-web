@@ -90,7 +90,7 @@ export default (props: PropTypes) => (
         </TextLink>
         <InlineText.Base>に同意の上、</InlineText.Base>
         <br />
-        <InlineText.Base>次へボタンを押してください。</InlineText.Base>
+        <InlineText.Base>登録ボタンを押してください。</InlineText.Base>
       </Fragment>
     }
     next={
@@ -101,7 +101,7 @@ export default (props: PropTypes) => (
         disabled={props.buttonDisabled}
         loading={props.isRegisterChecking}
       >
-        次へ
+        登録
       </Button>
     }
     otherLogin={<InlineText.Base>お持ちのアカウントで登録</InlineText.Base>}

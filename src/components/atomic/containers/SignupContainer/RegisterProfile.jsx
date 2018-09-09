@@ -14,6 +14,7 @@ type State = {
   name: string,
   prefCode: string,
   profile: string,
+  isHost: boolean,
   hasChanged: boolean,
 };
 
@@ -32,6 +33,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
       name: '',
       prefCode: '',
       profile: '',
+      isHost: 0,
       hasChanged: false,
     };
   }
@@ -42,17 +44,17 @@ export default class RegisterContainer extends Component<PropTypes, State> {
 
   onClickRegisterProfile = () => {
     const { dispatch, user } = this.props;
-    const { image, name, prefCode, profile } = this.state;
+    const { image, name, prefCode, profile, isHost } = this.state;
     dispatch(
       userActions.updateUser({
         userId: user.ID,
-        body: { imageUri: image, name, prefCode, profile },
+        body: { imageUri: image, name, prefCode, profile, isHost: Boolean(isHost) },
       }),
     );
   };
 
   handleChangeForm = (name: string, value: any) => {
-    const state = this.state;
+    const { state } = this;
     state[name] = value;
     state.hasChanged = true;
     this.setState(state);
@@ -72,7 +74,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
 
   render() {
     const { isLoading } = this.props;
-    const { image, name, prefCode, profile } = this.state;
+    const { image, name, prefCode, profile, isHost } = this.state;
 
     return (
       <RegisterProfile
@@ -80,10 +82,12 @@ export default class RegisterContainer extends Component<PropTypes, State> {
         onChangeName={value => this.handleChangeForm('name', value)}
         onChangeArea={value => this.handleChangeForm('prefCode', value)}
         onChangeProfile={value => this.handleChangeForm('profile', value)}
+        onChangeIsHost={value => this.handleChangeForm('isHost', value)}
         image={image}
         name={name}
         prefCode={prefCode}
         profile={profile}
+        isHost={isHost}
         onClickRegisterProfile={this.onClickRegisterProfile}
         buttonDisabled={!this.validate()}
         buttonLoading={isLoading}

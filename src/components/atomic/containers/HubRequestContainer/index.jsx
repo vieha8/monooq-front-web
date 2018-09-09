@@ -1,14 +1,11 @@
 // @flow
 
-import React, { Component } from 'react';
-
+import React, { Component, Fragment } from 'react';
+import { Modal, Button } from 'semantic-ui-react';
 import { requestActions } from 'redux/modules/request';
-
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/LV2/Footer';
 import HubRequest from 'components/atomic/LV3/HubRequest';
-import HubRequestCompleted from 'components/atomic/LV3/HubRequest/Completed';
 
 import { checkLogin, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -31,7 +28,7 @@ class HubRequestContainer extends Component<PropTypes> {
       baggageSize: '約1畳',
       cargoTime: '9時〜12時',
       hasChanged: false,
-      email: props.user.Email,
+      email: props.user.Email || '',
     };
   }
 
@@ -52,14 +49,12 @@ class HubRequestContainer extends Component<PropTypes> {
     }
   }
 
-  onFocusChangeDatePicker: Function;
   onFocusChangeDatePicker = (name, focus) => {
     const { state } = this;
     state[name] = focus;
     this.setState(state);
   };
 
-  onDateChange: Function;
   onDateChange = (name, date) => {
     const { state } = this;
     state[name] = date;
@@ -69,7 +64,6 @@ class HubRequestContainer extends Component<PropTypes> {
     });
   };
 
-  onClickButton: Function;
   onClickButton = () => {
     const { user } = this.props;
 
@@ -83,14 +77,14 @@ class HubRequestContainer extends Component<PropTypes> {
     window.scrollTo(0, 0);
   };
 
-  handleChangeUI: Function;
+  close = () => this.setState({ hasChanged: false });
+
   handleChangeUI = (propsName: string, value) => {
     const { state } = this;
     state[propsName] = value;
     this.setState(state);
   };
 
-  validate: Function;
   validate = () => {
     const {
       startDate,
@@ -117,13 +111,6 @@ class HubRequestContainer extends Component<PropTypes> {
   };
 
   render() {
-    // const auth = checkAuthState(this.props);
-    // if (auth) {
-    //   return auth;
-    // }
-
-    const { user } = this.props;
-
     const {
       startDate,
       endDate,
@@ -141,47 +128,56 @@ class HubRequestContainer extends Component<PropTypes> {
     } = this.state;
 
     return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline={hasChanged ? 'モノオクハブお申込み完了' : 'モノオクハブお申込み'}
-        rightContent={
-          hasChanged ? (
-            <HubRequestCompleted userId={user.ID} />
-          ) : (
-            <HubRequest
-              schedule={{
-                beginDate: startDate,
-                beginDateFocused: startDateFocus,
-                onFocusChangeBegin: focus => this.onFocusChangeDatePicker('startDateFocus', focus),
-                onDateChangeBegin: date => this.onDateChange('startDate', date),
-                endDate,
-                endDateFocused: endDateFocus,
-                onFocusChangeEnd: focus => this.onFocusChangeDatePicker('endDateFocus', focus),
-                onDateChangeEnd: date => this.onDateChange('endDate', date),
-              }}
-              baggageSize={baggageSize}
-              onChangeBaggageSize={value => this.handleChangeUI('baggageSize', value)}
-              baggageInfo={baggageInfo}
-              onChangeBaggageInfo={value => this.handleChangeUI('baggageInfo', value)}
-              cargoDate={cargoDate}
-              cargoDateFocused={cargoDateFocus}
-              onFocusChangeCargo={focus => this.onFocusChangeDatePicker('cargoDateFocus', focus)}
-              onDateChangeCargo={date => this.onDateChange('cargoDate', date)}
-              cargoTime={cargoTime}
-              onChangeCargoTime={value => this.handleChangeUI('cargoTime', value)}
-              address={address}
-              onChangeAddress={value => this.handleChangeUI('address', value)}
-              tel={tel}
-              onChangeTel={value => this.handleChangeUI('tel', value)}
-              email={email}
-              onChangeEmail={value => this.handleChangeUI('email', value)}
-              buttonDisabled={!this.validate()}
-              onClickButton={this.onClickButton}
-            />
-          )
-        }
-        footer={<Footer />}
-      />
+      <Fragment>
+        <Header />
+        <HubRequest
+          schedule={{
+            beginDate: startDate,
+            beginDateFocused: startDateFocus,
+            onFocusChangeBegin: focus => this.onFocusChangeDatePicker('startDateFocus', focus),
+            onDateChangeBegin: date => this.onDateChange('startDate', date),
+            endDate,
+            endDateFocused: endDateFocus,
+            onFocusChangeEnd: focus => this.onFocusChangeDatePicker('endDateFocus', focus),
+            onDateChangeEnd: date => this.onDateChange('endDate', date),
+          }}
+          baggageSize={baggageSize}
+          onChangeBaggageSize={value => this.handleChangeUI('baggageSize', value)}
+          baggageInfo={baggageInfo}
+          onChangeBaggageInfo={value => this.handleChangeUI('baggageInfo', value)}
+          cargoDate={cargoDate}
+          cargoDateFocused={cargoDateFocus}
+          onFocusChangeCargo={focus => this.onFocusChangeDatePicker('cargoDateFocus', focus)}
+          onDateChangeCargo={date => this.onDateChange('cargoDate', date)}
+          cargoTime={cargoTime}
+          onChangeCargoTime={value => this.handleChangeUI('cargoTime', value)}
+          address={address}
+          onChangeAddress={value => this.handleChangeUI('address', value)}
+          tel={tel}
+          onChangeTel={value => this.handleChangeUI('tel', value)}
+          email={email}
+          onChangeEmail={value => this.handleChangeUI('email', value)}
+          buttonDisabled={!this.validate()}
+          onClickButton={this.onClickButton}
+        />
+        <Footer />
+        <Modal size="large" open={hasChanged} onClose={this.close}>
+          <Modal.Header>Thanks!</Modal.Header>
+          <Modal.Content>
+            <p>
+              モノオクハブのお申し込みありがとうございます。
+              <br />
+              <br />
+              翌営業日以内にメールにてご連絡させていただきますので、しばしお待ちください。
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button small={1} onClick={this.close}>
+              閉じる
+            </Button>
+          </Modal.Actions>
+        </Modal>
+      </Fragment>
     );
   }
 }

@@ -36,7 +36,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Fragment>
-    <H3>{props.label}</H3>
+    <H3 bold>{props.label}</H3>
     {props.hint && <InlineText.EmphasisSmall>{props.hint}</InlineText.EmphasisSmall>}
     <InputFieldWrapper unit={props.unit}>
       {props.extension ? (

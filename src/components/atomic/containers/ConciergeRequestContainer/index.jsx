@@ -1,17 +1,13 @@
 // @flow
 
-import React, { Component } from 'react';
-
+import React, { Component, Fragment } from 'react';
+import { Modal, Button } from 'semantic-ui-react';
 import { requestActions } from 'redux/modules/request';
-
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import { checkLogin, mergeAuthProps } from 'components/atomic/containers/AuthRequired';
+import connect from 'components/atomic/containers/connect';
 import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/LV2/Footer';
 import ConciergeRequest from 'components/atomic/LV3/ConciergeRequest';
-import ConciergeRequestCompleted from 'components/atomic/LV3/ConciergeRequest/Completed';
-
-import { checkLogin, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
 
 type PropTypes = {
   dispatch: Function,
@@ -21,7 +17,7 @@ type PropTypes = {
   },
 };
 
-class HubRequestContainer extends Component<PropTypes> {
+class ConciergeRequestContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
@@ -32,7 +28,7 @@ class HubRequestContainer extends Component<PropTypes> {
       cargoTime: '9時〜12時',
       notes: '',
       hasChanged: false,
-      email: props.user.Email,
+      email: props.user.Email || '',
     };
   }
 
@@ -42,7 +38,7 @@ class HubRequestContainer extends Component<PropTypes> {
 
   componentWillReceiveProps(nextProps) {
     if (!this.props.user.ID && nextProps.user.ID) {
-      const user = nextProps.user;
+      const { user } = nextProps;
       this.setState({
         imageUri: user.ImageUrl,
         name: user.Name,
@@ -53,14 +49,12 @@ class HubRequestContainer extends Component<PropTypes> {
     }
   }
 
-  onFocusChangeDatePicker: Function;
   onFocusChangeDatePicker = (name, focus) => {
     const { state } = this;
     state[name] = focus;
     this.setState(state);
   };
 
-  onDateChange: Function;
   onDateChange = (name, date) => {
     const { state } = this;
     state[name] = date;
@@ -70,7 +64,6 @@ class HubRequestContainer extends Component<PropTypes> {
     });
   };
 
-  onClickButton: Function;
   onClickButton = () => {
     const { user } = this.props;
 
@@ -86,22 +79,20 @@ class HubRequestContainer extends Component<PropTypes> {
     window.scrollTo(0, 0);
   };
 
-  handleChangeUI: Function;
+  close = () => this.setState({ hasChanged: false });
+
   handleChangeUI = (propsName: string, value) => {
     const { state } = this;
     state[propsName] = value;
     this.setState(state);
   };
 
-  validate: Function;
   validate = () => {
     const { startDate, endDate, baggageSize, baggageInfo, address, budget, email } = this.state;
     return startDate && endDate && baggageSize && baggageInfo && address && budget && email;
   };
 
   render() {
-    const { user } = this.props;
-
     const {
       startDate,
       endDate,
@@ -117,46 +108,53 @@ class HubRequestContainer extends Component<PropTypes> {
     } = this.state;
 
     return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline={
-          hasChanged ? 'モノオクコンシェルジュお申込み完了' : 'モノオクコンシェルジュお申込み'
-        }
-        rightContent={
-          hasChanged ? (
-            <ConciergeRequestCompleted userId={user.ID} />
-          ) : (
-            <ConciergeRequest
-              schedule={{
-                beginDate: startDate,
-                beginDateFocused: startDateFocus,
-                onFocusChangeBegin: focus => this.onFocusChangeDatePicker('startDateFocus', focus),
-                onDateChangeBegin: date => this.onDateChange('startDate', date),
-                endDate,
-                endDateFocused: endDateFocus,
-                onFocusChangeEnd: focus => this.onFocusChangeDatePicker('endDateFocus', focus),
-                onDateChangeEnd: date => this.onDateChange('endDate', date),
-              }}
-              baggageSize={baggageSize}
-              onChangeBaggageSize={value => this.handleChangeUI('baggageSize', value)}
-              baggageInfo={baggageInfo}
-              onChangeBaggageInfo={value => this.handleChangeUI('baggageInfo', value)}
-              onChangeCargoTime={value => this.handleChangeUI('cargoTime', value)}
-              address={address}
-              onChangeAddress={value => this.handleChangeUI('address', value)}
-              notes={notes}
-              onChangeNotes={value => this.handleChangeUI('notes', value)}
-              budget={budget}
-              onChangeBudget={value => this.handleChangeUI('budget', value)}
-              email={email}
-              onChangeEmail={value => this.handleChangeUI('email', value)}
-              buttonDisabled={!this.validate()}
-              onClickButton={this.onClickButton}
-            />
-          )
-        }
-        footer={<Footer />}
-      />
+      <Fragment>
+        <Header />
+        <ConciergeRequest
+          schedule={{
+            beginDate: startDate,
+            beginDateFocused: startDateFocus,
+            onFocusChangeBegin: focus => this.onFocusChangeDatePicker('startDateFocus', focus),
+            onDateChangeBegin: date => this.onDateChange('startDate', date),
+            endDate,
+            endDateFocused: endDateFocus,
+            onFocusChangeEnd: focus => this.onFocusChangeDatePicker('endDateFocus', focus),
+            onDateChangeEnd: date => this.onDateChange('endDate', date),
+          }}
+          baggageSize={baggageSize}
+          onChangeBaggageSize={value => this.handleChangeUI('baggageSize', value)}
+          baggageInfo={baggageInfo}
+          onChangeBaggageInfo={value => this.handleChangeUI('baggageInfo', value)}
+          onChangeCargoTime={value => this.handleChangeUI('cargoTime', value)}
+          address={address}
+          onChangeAddress={value => this.handleChangeUI('address', value)}
+          notes={notes}
+          onChangeNotes={value => this.handleChangeUI('notes', value)}
+          budget={budget}
+          onChangeBudget={value => this.handleChangeUI('budget', value)}
+          email={email}
+          onChangeEmail={value => this.handleChangeUI('email', value)}
+          buttonDisabled={!this.validate()}
+          onClickButton={this.onClickButton}
+        />
+        <Footer />
+        <Modal size="large" open={hasChanged} onClose={this.close}>
+          <Modal.Header>Thanks!</Modal.Header>
+          <Modal.Content>
+            <p>
+              モノオクコンシェルジュのお申し込みありがとうございます。
+              <br />
+              <br />
+              翌営業日以内にメールにてご連絡させていただきますので、しばしお待ちください。
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button small={1} onClick={this.close}>
+              閉じる
+            </Button>
+          </Modal.Actions>
+        </Modal>
+      </Fragment>
     );
   }
 }
@@ -167,6 +165,6 @@ const mapStateToProps = state =>
   });
 
 export default connect(
-  HubRequestContainer,
+  ConciergeRequestContainer,
   mapStateToProps,
 );
