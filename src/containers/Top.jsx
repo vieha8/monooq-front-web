@@ -5,6 +5,7 @@ import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
 import Top from 'components/Top';
 import Intercom from 'components/Shared/Intercom';
+import Meta from 'components/Meta';
 
 class TopContainer extends React.Component {
   constructor(props) {
@@ -66,6 +67,7 @@ class TopContainer extends React.Component {
     const { ui, history } = this.props;
     return (
       <Fragment>
+        <Meta />
         <Top
           locationText={ui.locationText}
           searchButtonDisabled={ui.searchButtonDisabled}
