@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component } from 'react';
-import Helmet from 'react-helmet';
 import numeral from 'numeral';
 
 import Path from 'config/path';
@@ -19,6 +18,7 @@ import SendMessage from 'components/atomic/LV3/Space/SendMessage';
 import Note from 'components/atomic/LV2/Space/Note';
 import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import Meta from 'components/Meta';
 
 import type { SpaceType } from 'types/Space';
 
@@ -50,7 +50,6 @@ const ReceiptType = {
   Meeting: 2,
   Delivery: 3,
 };
-const URL_SPACE = 'https://monooq.com/space/';
 
 class SpaceContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
@@ -117,24 +116,21 @@ class SpaceContainer extends Component<PropTypes, State> {
 
     const isSelfSpace = user.ID === (space.Host || {}).ID;
 
+    const { ImageUrl } = space.Images[0];
+    const ogImageUrl = ImageUrl.includes('data:image/png;base64,')
+      ? null
+      : space.Images[0].ImageUrl;
+
     return (
       <SpaceTemplate
-        helmet={
-          <Helmet
-            title={`${space.Title} - ${space.AddressPref}${space.AddressCity}`}
-            meta={[
-              { name: 'description', content: `${space.Introduction}` },
-              {
-                property: 'og:title',
-                content: `${space.Title} - ${space.AddressPref}${space.AddressCity}`,
-              },
-              { property: 'og:description', content: `${space.Introduction}` },
-              { property: 'og:url', content: `${URL_SPACE}${space.ID}` },
-              {
-                property: 'og:image',
-                content: space.Images[0].ImageUrl,
-              },
-            ]}
+        meta={
+          <Meta
+            title={`${space.Title} - ${space.AddressPref}${
+              space.AddressCity
+            }の空きスペース | モノオク`}
+            description={`${space.Introduction}`}
+            ogUrl={`space/${space.ID}`}
+            ogImageUrl={ogImageUrl}
           />
         }
         header={<Header />}
