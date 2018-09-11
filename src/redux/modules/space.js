@@ -256,7 +256,7 @@ function* updateSpace({ payload: { spaceId, body } }) {
 
   if (images && images.length > 0) {
     const imageUrls = yield Promise.all(
-      images.filter(image => !image.ID).map(async image => {
+      images.map(async image => {
         if (image.ImageUrl) {
           if (image.ImageUrl.includes('data:image/png;base64,')) {
             return '';
