@@ -8,6 +8,7 @@ import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 import mainVisual from 'images/concierge_bg_top.png';
+import mainVisualSp from 'images/concierge_bg_top_sp.png';
 
 const TopContainer = styled.div`
   height: 600px;
@@ -17,7 +18,8 @@ const TopContainer = styled.div`
   color: ${Colors.white};
   text-align: center;
   ${media.phone`
-    height: 270px;
+    background-image: url(${mainVisualSp});
+    height: 220px;
     background-position: bottom;
     background-size: 100% 100%;
   `};
@@ -29,7 +31,7 @@ const TopViewFilter = styled.div`
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.4);
   ${media.phone`
-    padding-top: 40px;
+    padding-top: 15px;
   `};
 `;
 
