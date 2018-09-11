@@ -27,6 +27,7 @@
     "react-dropzone": "^5.0.1",
     "react-ga": "^2.5.3",
     "react-google-maps": "^9.4.5",
+    "react-helmet": "^5.2.0",
     "react-image-gallery": "^0.8.11",
     "react-intercom": "^1.0.14",
     "react-redux": "^5.0.6",

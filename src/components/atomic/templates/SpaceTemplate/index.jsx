@@ -69,6 +69,7 @@ const Footer = styled.div`
 
 type PropTypes = {
   header: React.Element<*>,
+  meta: React.Element<*>,
   map: React.Element<*>,
   detail: React.Element<*>,
   price: React.Element<*>,
@@ -77,22 +78,23 @@ type PropTypes = {
   footer: React.Element<*>,
 };
 
-export default (props: PropTypes) => (
+export default ({ header, meta, map, detail, price, message, note, footer }: PropTypes) => (
   <SpaceTemplateContainer>
-    {props.header}
-    <Map>{props.map}</Map>
+    {header}
+    {meta}
+    <Map>{map}</Map>
     <Page fillPhone smallMargin>
       <Container>
         <ClearfixContainer>
-          <DetailContainer>{props.detail}</DetailContainer>
+          <DetailContainer>{detail}</DetailContainer>
           <PriceContainer>
-            {props.price}
-            <MarginTop>{props.message}</MarginTop>
-            <MarginTop>{props.note}</MarginTop>
+            {price}
+            <MarginTop>{message}</MarginTop>
+            <MarginTop>{note}</MarginTop>
           </PriceContainer>
         </ClearfixContainer>
       </Container>
     </Page>
-    <Footer>{props.footer}</Footer>
+    <Footer>{footer}</Footer>
   </SpaceTemplateContainer>
 );
