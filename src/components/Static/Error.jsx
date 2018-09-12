@@ -1,17 +1,8 @@
 import React, { Fragment } from 'react';
-// import Path from 'config/path';
-
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import Intercom from 'components/Shared/Intercom';
-import { Footer } from 'components/Shared';
-
-const DefaultContainer = styled.div`
-  padding: 0 116px;
-  ${media.phone`
-    padding: 0 8vw;
-  `};
-`;
+import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import Footer from 'components/atomic/LV2/Footer';
 
 const MainTitle = styled.div`
   font-size: 34px;
@@ -81,7 +72,6 @@ export default () => (
         );
       })}
     </RecommendLinkContainer>
-    <Intercom />
     <Footer />
   </Fragment>
 );

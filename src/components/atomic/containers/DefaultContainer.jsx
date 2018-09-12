@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
+// TODO Deprecated
+
 const DefaultContainer = styled.div`
   width: ${Dimens.fixedWidthPc}px;
   margin: 0 auto;

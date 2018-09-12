@@ -54,7 +54,7 @@ export default () => (
     <nav>
       <List>
         <Cell>
-          <FooterLink to={Path.company()}>運営会社</FooterLink>
+          <FooterLink href="https://monooq.co.jp/">運営会社</FooterLink>
         </Cell>
         <Cell>
           <FooterLink to={Path.about()}>はじめての方へ</FooterLink>
@@ -77,9 +77,9 @@ export default () => (
         <Cell>
           <FooterLink to={Path.asct()}>特定商取引法に基づく表記</FooterLink>
         </Cell>
-        {/*<Cell>*/}
-        {/*<FooterLink to={Path.cancellationPolicies()}>キャンセルポリシー</FooterLink>*/}
-        {/*</Cell>*/}
+        <Cell>
+          <FooterLink to={Path.cancellationPolicies()}>キャンセルポリシー</FooterLink>
+        </Cell>
         <Cell>
           <InlineText.Base fontSize={11}>@ 2018 MonooQ</InlineText.Base>
         </Cell>

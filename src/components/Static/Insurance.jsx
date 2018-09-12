@@ -4,7 +4,8 @@ import Path from 'config/path';
 import styled from 'styled-components';
 import { FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { Footer, DefaultContainer } from 'components/Shared';
+import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import Footer from 'components/atomic/LV2/Footer';
 
 import insuranceImage1 from 'images/insurance-img01.svg';
 import insuranceImage2 from 'images/insurance-img02.svg';
@@ -233,7 +234,9 @@ export default props => (
             text:
               'スペースに置いてある荷物に予期せぬ事故や災害があった場合、ホストが荷物の保険を申請することができます。',
           },
-        ].map((v, i) => <WhySafeContent label={v.label} text={v.text} key={i} />)}
+        ].map((v, i) => (
+          <WhySafeContent label={v.label} text={v.text} key={i} />
+        ))}
       </WhySafeContentWrapper>
 
       <Hr />
@@ -261,7 +264,9 @@ export default props => (
             text:
               'ユーザーもホストも荷物の内容やスペースに関して、事前にしっかりと確認しましょう。当日になって「思っていたのと内容が違う」なんてことはトラブルの原因です。お互いが気持ち良くサービスを使えるようなコミュニケーションを。',
           },
-        ].map((v, i) => <HowSafeContent image={v.image} label={v.label} text={v.text} key={i} />)}
+        ].map((v, i) => (
+          <HowSafeContent image={v.image} label={v.label} text={v.text} key={i} />
+        ))}
       </HowSafeContentWrapper>
     </HowSafeContainer>
 
@@ -293,7 +298,9 @@ export default props => (
         <ListWrapper>
           <List>サービス内で確認が不可能な荷物の場合。</List>
           <List>
-            モノオクで定める<a href={`${Path.rule()}#not-allowed`}>「取引ができない荷物」</a>に記載された違反の荷物の場合。
+            モノオクで定める
+            <a href={`${Path.rule()}#not-allowed`}>「取引ができない荷物」</a>
+            に記載された違反の荷物の場合。
           </List>
         </ListWrapper>
         <Text>これらに対しては保証対象外となります。</Text>

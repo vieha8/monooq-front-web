@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Logo from 'components/atomic/LV1/Logo';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { DefaultContainer } from 'components/Shared';
+import DefaultContainer from 'components/atomic/containers/DefaultContainer';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
