@@ -52,7 +52,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
     const query = queryString.parse(location.search);
     dispatch(
-      searchActions.fetchStartSearch({ location: query.location || '', limit: 5, offset: 0 }),
+      searchActions.fetchStartSearch({ location: query.location || '', limit: 1000, offset: 0 }),
     );
 
     this.state = {
@@ -112,20 +112,20 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
   // ローディング処理
   loadItems() {
-    const current_item_count = this.state.items.length;
-    const max_items = 300;
-    const page_item_size = 50;
+    const currentItemCount = this.state.items.length;
+    const maxItems = 300;
+    const pageItemSize = 20;
 
-    if (current_item_count < max_items) {
-      const new_ids = Array.from(Array(page_item_size).keys()).map(num => {
-        return num + current_item_count;
+    if (currentItemCount < maxItems) {
+      const newIds = Array.from(Array(pageItemSize).keys()).map(num => {
+        return num + currentItemCount;
       });
-      const new_items = new_ids.map(id => {
+      const newItems = newIds.map(id => {
         return { id: id };
       });
 
       setTimeout(() => {
-        this.setState({ items: this.state.items.concat(new_items) });
+        this.setState({ items: this.state.items.concat(newItems) });
       }, 500); // add some delay for demo purpose
     } else {
       this.setState({ hasMoreItems: false });
@@ -140,6 +140,12 @@ class SearchResultContainer extends Component<PropTypes, State> {
       return this.renderNotFound();
     }
 
+    // 追加ロード時に返ってくるデータが0件、もしくは21件より少ない場合は
+    // 「これ以上該当するスペースはありません」というテキストをスペース一覧最下部に表示して欲しいです
+    // if (!this.state.hasMoreItems) {
+    //   return this.renderNotFound();
+    // }
+
     // item読み込み
     const items = this.state.items.map(item => {
       return <div>{item.id}</div>;
@@ -151,38 +157,30 @@ class SearchResultContainer extends Component<PropTypes, State> {
           headline1={`${location}のスペース`}
           caption="荷物の量と期間によって最適な料金をホストが提示してくれます。長期間の物置きとして便利です。"
           searchResult={
-            <SearchResult
-              spaces={spaces.map(s => ({
-                image: (s.Images[0] || {}).ImageUrl,
-                title: s.Title,
-                addressTown: s.AddressTown,
-                isFurniture: s.IsFurniture,
-                priceFull: s.PriceFull,
-                priceHalf: s.PriceHalf,
-                priceQuarter: s.PriceQuarter,
-                onClick: () => this.onClickSpace(s),
-              }))}
-            />
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadItems}
+              hasMore={this.state.hasMoreItems}
+              loader={<div>Loading...</div>}
+              initialLoad={true}
+            >
+              <SearchResult
+                spaces={spaces.map(s => ({
+                  image: (s.Images[0] || {}).ImageUrl,
+                  title: s.Title,
+                  addressTown: s.AddressTown,
+                  isFurniture: s.IsFurniture,
+                  priceFull: s.PriceFull,
+                  priceHalf: s.PriceHalf,
+                  priceQuarter: s.PriceQuarter,
+                  onClick: () => this.onClickSpace(s),
+                }))}
+              />
+            </InfiniteScroll>
           }
           header={<Header />}
           footer={<Footer />}
         />
-
-        <div className="App">
-          <p className="App-intro">
-            To get started, edit <code>src/App.js</code> and save to reload.
-          </p>
-
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={this.loadItems}
-            hasMore={this.state.hasMoreItems}
-            loader={<div>Loading...</div>}
-            initialLoad={true}
-          >
-            {items}
-          </InfiniteScroll>
-        </div>
         {/* <InfiniteScroll
           pageStart={0}
           loadMore={this.reloadSearchResult()}
