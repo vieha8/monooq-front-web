@@ -34,6 +34,8 @@ const ToHostLink = styled.div`
 `;
 
 type PropTypes = {
+  header: React.Element<*>,
+  footer: React.Element<*>,
   locationText: string,
   onChangeLocation: Function,
   onClickSearchButton: Function,
@@ -48,9 +50,12 @@ function refSearchField(ref, props: PropTypes) {
 
 export default (props: PropTypes) => (
   <PageContainer>
+    {props.header}
     <ContentContainer>
       <H1>
-        ごめんなさい！<br />入力したキーワードの検索結果はありませんでした。
+        ごめんなさい！
+        <br />
+        入力したキーワードの検索結果はありませんでした。
       </H1>
       <Group>
         <div>
@@ -80,5 +85,6 @@ export default (props: PropTypes) => (
         </TextLink>
       </ToHostLink>
     </ContentContainer>
+    {props.footer}
   </PageContainer>
 );
