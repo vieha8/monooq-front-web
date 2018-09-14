@@ -23,7 +23,7 @@ export const routes = [
   // service pages
   { path: Path.top(), component: Containers.Top },
   { path: Path.login(), component: Containers.Login },
-  { path: Path.signup(), component: Containers.Signup },
+  { path: Path.signup(), component: Containers.SignUp },
   { path: Path.resetPassword(), component: Containers.ResetPassword },
   { path: Path.search(), component: Containers.SearchResult },
   { path: Path.space(), component: Containers.Space },
