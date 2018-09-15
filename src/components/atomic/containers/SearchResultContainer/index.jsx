@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
 import queryString from 'helpers/query-string';
 import InfiniteScroll from 'react-infinite-scroller';
 import Loading from 'components/atomic/LV1/Loading';
@@ -11,10 +12,21 @@ import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/LV2/Footer';
 import SearchResult from 'components/atomic/LV3/SearchResult';
 import SearchNotFound from 'components/atomic/LV3/SearchNotFound';
+import { Dimens } from 'variables';
 
 import { searchActions } from 'redux/modules/search';
 
 import connect from '../connect';
+
+const LoadWrap = styled.div`
+  margin: ${Dimens.medium2}px auto auto;
+  text-align: center;
+`;
+
+const HasNotItemsWrapStyle = {
+  margin: '30px auto auto',
+  'text-align': 'center',
+};
 
 type PropTypes = {
   dispatch: Function,
@@ -52,7 +64,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
     const query = queryString.parse(location.search);
     dispatch(
-      searchActions.fetchStartSearch({ location: query.location || '', limit: 1000, offset: 0 }),
+      searchActions.fetchStartSearch({ location: query.location || '', limit: 60, offset: 0 }),
     );
 
     this.state = {
@@ -105,11 +117,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
     );
   };
 
-  // reloadSearchResult = () => {
-  //   const { dispatch } = this.props;
-  //   dispatch(searchActions.fetchStartSearch({ location: '東京都' || '', limit: 5, offset: 0 }));
-  // };
-
   // ローディング処理
   loadItems() {
     const currentItemCount = this.state.items.length;
@@ -124,6 +131,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
         return { id: id };
       });
 
+      // 遅延読み込み
       setTimeout(() => {
         this.setState({ items: this.state.items.concat(newItems) });
       }, 500); // add some delay for demo purpose
@@ -140,11 +148,11 @@ class SearchResultContainer extends Component<PropTypes, State> {
       return this.renderNotFound();
     }
 
-    // 追加ロード時に返ってくるデータが0件、もしくは21件より少ない場合は
-    // 「これ以上該当するスペースはありません」というテキストをスペース一覧最下部に表示して欲しいです
-    // if (!this.state.hasMoreItems) {
-    //   return this.renderNotFound();
-    // }
+    const errorMessage = 'これ以上該当するスペースはありません';
+    let errorMessageTag = null;
+    if (!this.state.hasMoreItems) {
+      errorMessageTag = <div style={HasNotItemsWrapStyle}>{errorMessage}</div>;
+    }
 
     // item読み込み
     const items = this.state.items.map(item => {
@@ -161,10 +169,15 @@ class SearchResultContainer extends Component<PropTypes, State> {
               pageStart={0}
               loadMore={this.loadItems}
               hasMore={this.state.hasMoreItems}
-              loader={<div>Loading...</div>}
+              loader={
+                <LoadWrap>
+                  <Loading size="medium" />
+                </LoadWrap>
+              }
               initialLoad={true}
             >
-              <SearchResult
+              {items}
+              {/* <SearchResult
                 spaces={spaces.map(s => ({
                   image: (s.Images[0] || {}).ImageUrl,
                   title: s.Title,
@@ -175,40 +188,13 @@ class SearchResultContainer extends Component<PropTypes, State> {
                   priceQuarter: s.PriceQuarter,
                   onClick: () => this.onClickSpace(s),
                 }))}
-              />
+              /> */}
+              {errorMessageTag}
             </InfiniteScroll>
           }
           header={<Header />}
           footer={<Footer />}
         />
-        {/* <InfiniteScroll
-          pageStart={0}
-          loadMore={this.reloadSearchResult()}
-          hasMore={false}
-          initialLoad={true}
-          loader={<Loading size="large" />}
-        >
-          <SearchResultTemplate
-            headline1={`${location}のスペース`}
-            caption="荷物の量と期間によって最適な料金をホストが提示してくれます。長期間の物置きとして便利です。"
-            searchResult={
-              <SearchResult
-                spaces={spaces.map(s => ({
-                  image: (s.Images[0] || {}).ImageUrl,
-                  title: s.Title,
-                  addressTown: s.AddressTown,
-                  isFurniture: s.IsFurniture,
-                  priceFull: s.PriceFull,
-                  priceHalf: s.PriceHalf,
-                  priceQuarter: s.PriceQuarter,
-                  onClick: () => this.onClickSpace(s),
-                }))}
-              />
-            }
-            header={<Header />}
-            footer={<Footer />}
-          />
-        </InfiniteScroll> */}
       </Fragment>
     );
   }
