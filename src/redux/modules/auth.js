@@ -246,6 +246,7 @@ function* loginFacebook() {
 
 function* logout() {
   localStorage.removeItem('status');
+  localStorage.removeItem('token');
   yield firebase.auth().signOut();
   window.location.href = Path.top();
 }
