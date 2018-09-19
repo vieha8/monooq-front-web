@@ -9,7 +9,6 @@ import { media } from 'helpers/style/media-query';
 import Page from '../Page';
 
 const H1Container = styled.div`
-  margin: ${Dimens.medium3}px 0;
   ${media.tablet`
     margin: ${Dimens.medium}px 0;
   `};
@@ -37,18 +36,18 @@ type PropTypes = {
   footer: React.Element<*>,
 };
 
-export default (props: PropTypes) => (
+export default ({ header, headline1, caption, searchResult, footer }: PropTypes) => (
   <div>
-    {props.header}
+    {header}
     <Page>
       <H1Container>
-        <H1>{props.headline1}</H1>
+        <H1>{headline1}</H1>
       </H1Container>
       <CaptionContainer>
-        <InlineText.Base>{props.caption}</InlineText.Base>
+        <InlineText.Base>{caption}</InlineText.Base>
       </CaptionContainer>
-      <Content>{props.searchResult}</Content>
+      <Content>{searchResult}</Content>
     </Page>
-    {props.footer}
+    {footer}
   </div>
 );

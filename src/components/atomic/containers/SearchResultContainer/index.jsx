@@ -18,15 +18,10 @@ import { searchActions } from 'redux/modules/search';
 
 import connect from '../connect';
 
-const LoadWrap = styled.div`
+const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
   text-align: center;
 `;
-
-const HasNotItemsWrapStyle = {
-  margin: '30px auto auto',
-  'text-align': 'center',
-};
 
 type PropTypes = {
   dispatch: Function,
@@ -53,52 +48,41 @@ type PropTypes = {
 
 type State = {
   location: string,
-  search: string,
 };
 
 class SearchResultContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
 
-    const { location, dispatch } = props;
-
+    const { location } = props;
     const query = queryString.parse(location.search);
-    dispatch(
-      searchActions.fetchStartSearch({ location: query.location || '', limit: 60, offset: 0 }),
-    );
 
     this.state = {
       location: query.location,
-      search: '',
-      hasMoreItems: true,
-      items: [],
+      limit: 12,
+      offset: 0,
     };
-
-    this.loadItems = this.loadItems.bind(this);
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
   }
 
-  onClickSpace: Function;
   onClickSpace = (space: { ID: number }) => {
     const { history } = this.props;
     history.push(Path.space(space.ID));
   };
 
-  research: Function;
+  onKeyDownSearchField = e => {
+    if (e && e.keyCode === 13 && e.target.value) {
+      this.research();
+    }
+  };
+
   research = () => {
     const { search } = this.state;
     if (window && window.location) {
       window.location.href = `${Path.search()}?location=${search}`;
-    }
-  };
-
-  onKeyDownSearchField: Function;
-  onKeyDownSearchField = e => {
-    if (e && e.keyCode === 13 && e.target.value) {
-      this.research();
     }
   };
 
@@ -120,66 +104,42 @@ class SearchResultContainer extends Component<PropTypes, State> {
   };
 
   // ローディング処理
-  loadItems() {
-    const currentItemCount = this.state.items.length;
-    const maxItems = 300;
-    const pageItemSize = 20;
-
-    if (currentItemCount < maxItems) {
-      const newIds = Array.from(Array(pageItemSize).keys()).map(num => {
-        return num + currentItemCount;
-      });
-      const newItems = newIds.map(id => {
-        return { id: id };
-      });
-
-      // 遅延読み込み
-      setTimeout(() => {
-        this.setState({ items: this.state.items.concat(newItems) });
-      }, 500); // add some delay for demo purpose
-    } else {
-      this.setState({ hasMoreItems: false });
+  loadItems = () => {
+    const { dispatch, isSearching } = this.props;
+    if (isSearching) {
+      return;
     }
-  }
+    const { location, limit, offset } = this.state;
+    dispatch(searchActions.doSearch({ location, limit, offset }));
+    const newOffset = offset + limit;
+    this.setState({ offset: newOffset });
+  };
 
   render() {
-    const { spaces, isSearching } = this.props;
+    const { spaces, isMore } = this.props;
     const { location } = this.state;
 
-    if (!isSearching && spaces.length === 0) {
+    if (spaces.length === 0 && !isMore) {
       return this.renderNotFound();
     }
 
-    const errorMessage = 'これ以上該当するスペースはありません';
-    let errorMessageTag = null;
-    if (!this.state.hasMoreItems) {
-      errorMessageTag = <div style={HasNotItemsWrapStyle}>{errorMessage}</div>;
-    }
-
-    // item読み込み
-    const items = this.state.items.map(item => {
-      return <div>{item.id}</div>;
-    });
+    const caption =
+      '荷物の量と期間によって最適な料金をホストが提示してくれます。長期間の物置きとして便利です。';
 
     return (
       <Fragment>
         <SearchResultTemplate
           headline1={`${location}のスペース`}
-          caption="荷物の量と期間によって最適な料金をホストが提示してくれます。長期間の物置きとして便利です。"
+          caption={caption}
           searchResult={
             <InfiniteScroll
               pageStart={0}
               loadMore={this.loadItems}
-              hasMore={this.state.hasMoreItems}
-              loader={
-                <LoadWrap>
-                  <Loading size="medium" />
-                </LoadWrap>
-              }
-              initialLoad={true}
+              hasMore={isMore}
+              loader={<Loader size="medium" key={0} />}
+              initialLoad
             >
-              {items}
-              {/* <SearchResult
+              <SearchResult
                 spaces={spaces.map(s => ({
                   image: (s.Images[0] || {}).ImageUrl,
                   title: s.Title,
@@ -190,8 +150,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
                   priceQuarter: s.PriceQuarter,
                   onClick: () => this.onClickSpace(s),
                 }))}
-              /> */}
-              {errorMessageTag}
+              />
             </InfiniteScroll>
           }
           header={<Header />}
@@ -203,11 +162,9 @@ class SearchResultContainer extends Component<PropTypes, State> {
 }
 
 const mapStateToProps = state => ({
-  isLogin: state.auth.isLogin,
-  isSearching: state.search.isLoading,
-  search: state.search,
   spaces: state.search.spaces,
-  ui: state.ui,
+  isSearching: state.search.isLoading,
+  isMore: state.search.isMore,
 });
 
 export default connect(

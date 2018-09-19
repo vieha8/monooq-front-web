@@ -8,9 +8,9 @@ const Page = styled.div`
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
-  padding: ${HeaderHeight}px 0 80px;
+  padding: 0 80px;
 
-  margin-top: 80px;
+  margin-top: 100px;
   ${media.tablet`
     margin-top: 20px;
   `};
@@ -32,8 +32,7 @@ const Page = styled.div`
     padding: 20px 0 80px;
     margin-top: 0;
   `} ${media.tablet`
-    margin-top: 0;
-    padding: 10px 0 80px;
+    margin-top: 10px;
   `};
 `;
 

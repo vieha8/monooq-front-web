@@ -6,35 +6,32 @@ import { getApiRequest } from '../helpers/api';
 import { errorActions } from './error';
 
 // Actions
-const FETCH_START_SEARCH = 'FETCH_START_SEARCH';
-const FETCH_SUCCESS_SEARCH = 'FETCH_SUCCESS_SEARCH';
-const FETCH_FAILED_SEARCH = 'FETCH_FAILED_SEARCH';
-// TODO FETCHいらない、STARTいらない
+const DO_SEARCH = 'DO_SEARCH';
+const SUCCESS_SEARCH = 'SUCCESS_SEARCH';
+const FAILED_SEARCH = 'FAILED_SEARCH';
 
-export const searchActions = createActions(
-  FETCH_START_SEARCH,
-  FETCH_SUCCESS_SEARCH,
-  FETCH_FAILED_SEARCH,
-);
+export const searchActions = createActions(DO_SEARCH, SUCCESS_SEARCH, FAILED_SEARCH);
 
 // Reducer
 const initialState = {
   isLoading: false,
+  isMore: true,
   location: '',
   spaces: [],
 };
 
 export const searchReducer = handleActions(
   {
-    [FETCH_START_SEARCH]: (state, action) => ({
+    [DO_SEARCH]: (state, action) => ({
       ...state,
       isLoading: true,
       location: action.payload,
     }),
-    [FETCH_SUCCESS_SEARCH]: (state, action) => ({
+    [SUCCESS_SEARCH]: (state, { payload }) => ({
       ...state,
       isLoading: false,
-      spaces: action.payload,
+      spaces: [...state.spaces, ...payload.spaces],
+      isMore: payload.isMore,
     }),
   },
   initialState,
@@ -48,7 +45,7 @@ function* search({ payload: { location, limit, offset } }) {
     offset,
   });
   if (err) {
-    yield put(searchActions.fetchFailedSearch());
+    yield put(searchActions.failedSearch());
     yield put(errorActions.setError(err));
     return;
   }
@@ -61,7 +58,8 @@ function* search({ payload: { location, limit, offset } }) {
     return space;
   });
 
-  yield put(searchActions.fetchSuccessSearch(res));
+  const isMore = res.length === limit;
+  yield put(searchActions.successSearch({ spaces: res, isMore }));
 }
 
-export const searchSagas = [takeEvery(FETCH_START_SEARCH, search)];
+export const searchSagas = [takeEvery(DO_SEARCH, search)];
