@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { Footer, DefaultContainer } from 'components/Shared';
-import Intercom from 'components/Shared/Intercom';
+import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import Footer from 'components/atomic/LV2/Footer';
 
 import mainVisual from 'images/about_main_visual@2x.jpg';
 import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';
@@ -223,7 +223,10 @@ const IfIFindContent = props => {
   return (
     <ContentContainer>
       <Oval>
-        <LabelNumber>Step.{props.number}</LabelNumber>
+        <LabelNumber>
+          Step.
+          {props.number}
+        </LabelNumber>
         <LabelText>{props.label}</LabelText>
       </Oval>
       <IfIFindContentText>{props.text}</IfIFindContentText>
@@ -378,6 +381,5 @@ export default props => (
       </NeedToHelpContainer>
     </MainContainer>
     <Footer />
-    <Intercom />
   </Fragment>
 );

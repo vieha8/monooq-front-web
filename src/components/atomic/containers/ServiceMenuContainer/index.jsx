@@ -20,15 +20,12 @@ class ServiceMenuContainer extends Component<PropTypes> {
     window.scrollTo(0, 0);
   }
 
-  logout: Function;
   logout = () => {
     if (document && document.body) {
       document.body.style.overflowY = 'auto';
     }
-
     const { dispatch } = this.props;
     dispatch(authActions.logout());
-    window.location.href = Path.top();
   };
 
   render() {

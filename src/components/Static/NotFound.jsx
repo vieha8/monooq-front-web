@@ -3,15 +3,8 @@ import Path from 'config/path';
 
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import Intercom from 'components/Shared/Intercom';
-import { Footer } from 'components/Shared';
-
-const DefaultContainer = styled.div`
-  padding: 0 116px;
-  ${media.phone`
-    padding: 0 8vw;
-  `};
-`;
+import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import Footer from 'components/atomic/LV2/Footer';
 
 const MainTitle = styled.div`
   font-size: 34px;
@@ -57,11 +50,19 @@ const List = styled.div`
 export default () => (
   <Fragment>
     <MainTitleContainer>
-      <MainTitle>ごめんなさい！<br />お探しのページが見つかりません。</MainTitle>
+      <MainTitle>
+        ごめんなさい！
+        <br />
+        お探しのページが見つかりません。
+      </MainTitle>
     </MainTitleContainer>
 
     <MessageContainer>
-      <Text>404エラー<br />ご指定のページは削除されたか、移動した可能性があります。</Text>
+      <Text>
+        404エラー
+        <br />
+        ご指定のページは削除されたか、移動した可能性があります。
+      </Text>
     </MessageContainer>
 
     <RecommendLinkContainer>
@@ -85,11 +86,12 @@ export default () => (
         },
       ].map((v, i) => {
         return (
-          <List key={i}><Anchor href={v.path}>{v.text}</Anchor></List>
+          <List key={i}>
+            <Anchor href={v.path}>{v.text}</Anchor>
+          </List>
         );
       })}
     </RecommendLinkContainer>
-    <Intercom />
     <Footer />
   </Fragment>
 );

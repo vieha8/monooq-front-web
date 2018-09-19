@@ -4,7 +4,7 @@ import Path from 'config/path';
 import styled from 'styled-components';
 import { FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { Footer, DefaultContainer } from 'components/Shared';
+import DefaultContainer from 'components/atomic/containers/DefaultContainer';
 
 const MainTitle = styled.div`
   font-size: ${FontSizes.xlarge}px;
@@ -139,10 +139,10 @@ export default () => (
             header: '商品代金以外に必要な費用',
             data: '輸送費（必要な場合のみ）',
           },
-          // {
-          //   header: '返品・交換について',
-          //   data: `モノオクの定める<a href=${Path.cancellationPolicies()}>キャンセルポリシー</a>がございます。お支払い前に必ずお読みください。`,
-          // },
+          {
+            header: '返品・交換について',
+            data: `モノオクの定める<a href=${Path.cancellationPolicies()}>キャンセルポリシー</a>がございます。お支払い前に必ずお読みください。`,
+          },
         ].map((v, i) => {
           return <AsctContent key={i} header={v.header} data={v.data} />;
         })}
@@ -157,7 +157,5 @@ export default () => (
         </AnnotationText>
       </AnnotationWrapper>
     </AsctContainer>
-
-    <Footer />
   </Fragment>
 );

@@ -1,7 +1,8 @@
 // @flow
 
+import Top from './TopContainer';
 import Login from './LoginContainer';
-import Signup from './SignupContainer';
+import SignUp from './SignupContainer';
 import ResetPassword from './ResetPasswordContainer';
 import SearchResult from './SearchResultContainer';
 import Space from './SpaceContainer';
@@ -27,8 +28,9 @@ import HubRequest from './HubRequestContainer';
 import ConciergeRequest from './ConciergeRequestContainer';
 
 export default {
+  Top,
   Login,
-  Signup,
+  SignUp,
   ResetPassword,
   SearchResult,
   Space,

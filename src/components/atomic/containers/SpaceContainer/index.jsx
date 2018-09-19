@@ -18,6 +18,7 @@ import SendMessage from 'components/atomic/LV3/Space/SendMessage';
 import Note from 'components/atomic/LV2/Space/Note';
 import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import Meta from 'components/Meta';
 
 import type { SpaceType } from 'types/Space';
 
@@ -115,8 +116,23 @@ class SpaceContainer extends Component<PropTypes, State> {
 
     const isSelfSpace = user.ID === (space.Host || {}).ID;
 
+    const { ImageUrl } = space.Images[0];
+    const ogImageUrl = ImageUrl.includes('data:image/png;base64,')
+      ? null
+      : space.Images[0].ImageUrl;
+
     return (
       <SpaceTemplate
+        meta={
+          <Meta
+            title={`${space.Title} - ${space.AddressPref}${
+              space.AddressCity
+            }の空きスペース | モノオク`}
+            description={`${space.Introduction}`}
+            ogUrl={`space/${space.ID}`}
+            ogImageUrl={ogImageUrl}
+          />
+        }
         header={<Header />}
         map={<SpaceMap lat={(space.location || {}).lat} lng={(space.location || {}).lng} />}
         detail={

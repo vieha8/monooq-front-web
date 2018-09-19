@@ -1,23 +1,19 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'react-router-redux';
+import styled from 'styled-components';
 
-import Root from 'containers/Root';
-import Top from 'containers/Top';
-
-import About from 'containers/Static/About';
-import Insurance from 'containers/Static/Insurance';
-import Rule from 'containers/Static/Rule';
-import Maintenance from 'containers/Static/Maintenance';
-import NotFound from 'containers/Static/NotFound';
-import Error from 'containers/Static/Error';
-import CancellationPolicies from 'containers/Static/CancellationPolicies';
-import Asct from 'containers/Static/Asct';
-import Company from 'containers/Static/Company';
-import Privacy from 'containers/Static/Privacy';
-import Terms from 'containers/Static/Terms';
-import HelpTop from 'containers/Static/Help/Top';
-import HelpService from 'containers/Static/Help/Service';
+import About from 'components/atomic/containers/Static/About';
+import Insurance from 'components/atomic/containers/Static/Insurance';
+import Rule from 'components/atomic/containers/Static/Rule';
+import NotFound from 'components/atomic/containers/Static/NotFound';
+import Error from 'components/atomic/containers/Static/Error';
+import CancellationPolicies from 'components/atomic/containers/Static/CancellationPolicies';
+import Asct from 'components/atomic/containers/Static/Asct';
+import Privacy from 'components/atomic/containers/Static/Privacy';
+import Terms from 'components/atomic/containers/Static/Terms';
+import HelpTop from 'components/atomic/containers/Static/Help/Top';
+import HelpService from 'components/atomic/containers/Static/Help/Service';
 
 import Containers from 'components/atomic/containers';
 
@@ -25,8 +21,9 @@ import Path from './path';
 
 export const routes = [
   // service pages
+  { path: Path.top(), component: Containers.Top },
   { path: Path.login(), component: Containers.Login },
-  { path: Path.signup(), component: Containers.Signup },
+  { path: Path.signup(), component: Containers.SignUp },
   { path: Path.resetPassword(), component: Containers.ResetPassword },
   { path: Path.search(), component: Containers.SearchResult },
   { path: Path.space(), component: Containers.Space },
@@ -58,16 +55,13 @@ export const routes = [
   { path: Path.hubRequest(), component: Containers.HubRequest },
   { path: Path.conciergeRequest(), component: Containers.ConciergeRequest },
   // static pages
-  { path: Path.top(), component: Top },
   { path: Path.about(), component: About },
   { path: Path.insurance(), component: Insurance },
   { path: Path.rule(), component: Rule },
-  { path: Path.maintenance(), component: Maintenance },
   { path: Path.notFound(), component: NotFound },
   { path: Path.error(), component: Error },
   { path: Path.cancellationPolicies(), component: CancellationPolicies },
   { path: Path.asct(), component: Asct },
-  { path: Path.company(), component: Company },
   { path: Path.privacy(), component: Privacy },
   { path: Path.terms(), component: Terms },
   { path: Path.helpTop(), component: HelpTop },
@@ -81,8 +75,12 @@ export const routes = [
   { path: Path.helpOther(), component: HelpService },
 ];
 
-export default props => (
-  <ConnectedRouter history={props.history}>
+const Root = styled.div`
+  overflow: auto;
+`;
+
+export default ({ history }) => (
+  <ConnectedRouter history={history}>
     <Root>
       <Switch>
         {routes.map((route, i) => (

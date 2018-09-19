@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
 import Top from 'components/Top';
-import Intercom from 'components/Shared/Intercom';
 
 class TopContainer extends React.Component {
   constructor(props) {
@@ -79,7 +78,6 @@ class TopContainer extends React.Component {
           moreArea={ui.moreArea}
           history={history}
         />
-        <Intercom />
       </Fragment>
     );
   }

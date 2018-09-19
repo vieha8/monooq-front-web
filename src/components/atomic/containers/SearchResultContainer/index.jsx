@@ -107,6 +107,8 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
     return (
       <SearchNotFound
+        header={<Header />}
+        footer={<Footer />}
         locationText={search}
         onChangeLocation={value => {
           this.setState({ search: value });

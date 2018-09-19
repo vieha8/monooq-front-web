@@ -3,7 +3,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { Footer, DefaultContainer } from 'components/Shared';
+import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import Footer from 'components/atomic/LV2/Footer';
 
 const MainTitle = styled.div`
   font-size: ${FontSizes.xlarge}px;
@@ -187,8 +188,10 @@ export default () => (
       </AboutCancellContentWrapper>
       <NoticeWrapper>
         <Text>
-          ※連絡がつかないなど、無断でのキャンセルも利用開始日以降の返金はありません。*1<br />
-          ※取引成立日が利用開始日まで15日未満の場合も、同様のキャンセル手数料が発生します。<br />
+          ※連絡がつかないなど、無断でのキャンセルも利用開始日以降の返金はありません。*1
+          <br />
+          ※取引成立日が利用開始日まで15日未満の場合も、同様のキャンセル手数料が発生します。
+          <br />
           <br />
           *1
           無断でのスペース利用延長は荷物を引き取る意思がないとみなし、利用規約に基づき荷物の引き取り費用10万円（税別）と処分に要した費用全額を請求いたします。
@@ -199,10 +202,14 @@ export default () => (
         <Text>支払い金額が20,000円の場合のキャンセル例</Text>
         <ExampleTextContainer>
           <ExampleText>
-            開始日の15日前(00:00以降)のキャンセル<br />20000×0.75=15000円を返金
+            開始日の15日前(00:00以降)のキャンセル
+            <br />
+            20000×0.75=15000円を返金
           </ExampleText>
           <ExampleText>
-            開始日の7日前(00:00以降)のキャンセル<br />20000×0.5=10000円を返金
+            開始日の7日前(00:00以降)のキャンセル
+            <br />
+            20000×0.5=10000円を返金
           </ExampleText>
         </ExampleTextContainer>
       </AboutCancellExampleWrapper>

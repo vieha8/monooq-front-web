@@ -636,20 +636,8 @@ export default props => (
                 <AText>
                   ご相談いただく際に料金は発生いたしません。
                   <br />
-                  通常のご利用と同様に実際にお荷物を預ける際にスペースにお荷物を預ける料金のみ発生いたします。
+                  通常のご利用と同様に、実際にスペースに荷物を預ける際の料金のみ発生いたします。
                 </AText>
-              </AContent>
-            </QaListItem>
-          </QaContentWrap>
-          <QaContentWrap>
-            <QaListItem>
-              <QContent>
-                <QaImage src={qaQ} alt="" />
-                <QText>受付時間を教えてください</QText>
-              </QContent>
-              <AContent>
-                <QaImage src={qaA} alt="" />
-                <AText>受付時間は10:00～19:00です。</AText>
               </AContent>
             </QaListItem>
           </QaContentWrap>
