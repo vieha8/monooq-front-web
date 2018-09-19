@@ -59,6 +59,7 @@ const UserContainer = styled.div`
 `;
 
 const DetailContainer = styled.div`
+  height: 150px;
   text-align: center;
   padding: ${Dimens.medium2}px 0;
   ${media.tablet`
@@ -111,10 +112,16 @@ export default (props: PropTypes) => (
             <AvatarImage src={props.user.image} size={44} />
           </div>
           <div>
-            <InlineText.Base color={Colors.white}>{props.user.name}さん</InlineText.Base>
+            <InlineText.Base color={Colors.white}>
+              {props.user.name}
+              さん
+            </InlineText.Base>
           </div>
           <div>
-            <InlineText.Small color={Colors.white}>{props.space.price}円〜</InlineText.Small>
+            <InlineText.Small color={Colors.white}>
+              {props.space.price}
+              円〜
+            </InlineText.Small>
           </div>
         </UserContainer>
       </ImageContainer>

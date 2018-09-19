@@ -189,6 +189,40 @@ export const PickupStaffSpaceList = [
       color: Colors.pickup3,
     },
   },
+  {
+    large: 1,
+    link: Path.space(722),
+    user: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363',
+      name: 'イファ',
+    },
+    space: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fspaces%2F722%2F1533355177362.jpg?alt=media&token=5a6baf8f-4f79-4713-8225-b9316df49b88',
+      price: '3,000',
+      area: '東京都世田谷区',
+      description: '三軒茶屋エリアならおすすめ！広くてきれい！',
+      color: Colors.pickup3,
+    },
+  },
+  {
+    large: 1,
+    link: Path.space(1340),
+    user: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363',
+      name: 'erinpo',
+    },
+    space: {
+      image:
+        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fspaces%2F1340%2F1534164085396.jpg?alt=media&token=0efda33b-0948-4fb0-b338-49bee0ab424a',
+      price: '4,000',
+      area: '東京都荒川区',
+      description: '京成線町屋駅から2分の好立地！',
+      color: Colors.pickup3,
+    },
+  },
 ];
 
 // 全国の物置きスペース
