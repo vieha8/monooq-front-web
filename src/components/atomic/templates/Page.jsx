@@ -8,7 +8,7 @@ const Page = styled.div`
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
-  padding: 0 80px;
+  padding: 0 0 80px;
 
   margin-top: 100px;
   ${media.tablet`
