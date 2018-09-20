@@ -41,6 +41,7 @@ class Head extends React.Component {
         <meta property="og:type" content="website" />
         <meta property="og:url" content={ogUrl} />
         <meta property="og:image" content={ogImageUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
     );
   }
