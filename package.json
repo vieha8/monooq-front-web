@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "express": "^4.16.3",
+    "morgan": "^1.9.1",
     "rendertron-middleware": "^0.1.2"
   },
   "repository": {

@@ -3,6 +3,7 @@ const path = require('path');
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const rendertron = require('rendertron-middleware');
+const logger = require('morgan');
 
 const PORT = process.env.PORT || 3000;
 
@@ -22,8 +23,11 @@ if (cluster.isMaster) {
 } else {
   const app = express();
 
+  app.use(logger("combined"));
+
   app.use(rendertron.makeMiddleware({
     proxyUrl: 'http://ec2-13-230-42-134.ap-northeast-1.compute.amazonaws.com/render',
+    timeout: 20000,
   }));
 
   // Priority serve any static files.
