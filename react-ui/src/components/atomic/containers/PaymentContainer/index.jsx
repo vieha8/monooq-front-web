@@ -61,7 +61,7 @@ class PaymentContainer extends Component<PropTypes> {
       name: '',
       number: '',
       year: moment().year(),
-      month: 1,
+      month: moment().month() + 1,
       cvc: '',
       error: {},
     };
