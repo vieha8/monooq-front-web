@@ -156,6 +156,7 @@ function* updateUser({ payload: { userId, body } }) {
     yield put(errorActions.setError(err));
     return;
   }
+  localStorage.removeItem('status');
   yield put(authActions.setUser(data));
   yield put(userActions.updateSuccessUser(data));
   yield put(uiActions.setUiState({ signupStep: 5 }));
