@@ -133,6 +133,11 @@ export default (props: PropTypes) => (
     <Row>
       <div>
         <InlineText.Small color={Colors.red}>
+          ・対応カードブランドはVisa、MasterCardとなります。
+        </InlineText.Small>
+      </div>
+      <div>
+        <InlineText.Small color={Colors.red}>
           ・決済後にキャンセルされた場合、預ける日の15日前までは全額ご返金させていただきます。
         </InlineText.Small>
       </div>
