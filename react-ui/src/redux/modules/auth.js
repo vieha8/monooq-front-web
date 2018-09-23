@@ -228,7 +228,7 @@ function* loginEmail({ payload: { email, password } }) {
     yield put(authActions.loginSuccess());
   } catch (err) {
     yield put(authActions.loginFailed(err));
-    yield put(errorActions.setError(err));
+    // yield put(errorActions.setError(err));
   }
 }
 
@@ -240,7 +240,7 @@ function* loginFacebook() {
     yield put(authActions.loginSuccess());
   } catch (err) {
     yield put(authActions.loginFailed(err));
-    yield put(errorActions.setError(err));
+    // yield put(errorActions.setError(err));
   }
 }
 
