@@ -35,11 +35,6 @@ const Login = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
-const OtherLogin = styled.div`
-  text-align: center;
-  margin-top: ${Dimens.medium2}px;
-`;
-
 const Facebook = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
@@ -59,7 +54,6 @@ type PropTypes = {
   failed: React.Element<*>,
   remind: React.Element<*>,
   login: React.Element<*>,
-  otherLogin: React.Element<*>,
   facebook: React.Element<*>,
   toSignup: React.Element<*>,
 };
