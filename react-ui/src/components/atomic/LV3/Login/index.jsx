@@ -57,7 +57,7 @@ export default (props: PropTypes) => (
         </InlineText.Small>
       )
     }
-    remind={<TextLink to={Path.resetPassword()}>パスワードを忘れた方はこちら</TextLink>}
+    remind={<TextLink to={Path.resetPassword()}>パスワードをお忘れの方はこちら</TextLink>}
     login={
       <Button
         primary
@@ -75,6 +75,6 @@ export default (props: PropTypes) => (
         Facebookでログイン
       </Button>
     }
-    toSignup={<TextLink to={Path.signup()}>初めてのご利用ですか?新規登録はこちら</TextLink>}
+    toSignup={<TextLink to={Path.signup()}>新規登録はこちら</TextLink>}
   />
 );

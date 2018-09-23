@@ -32,7 +32,7 @@ const Remind = styled.div`
 `;
 
 const Login = styled.div`
-  margin-top: ${Dimens.medium2}px;
+  margin-top: ${Dimens.medium}px;
 `;
 
 const OtherLogin = styled.div`
@@ -41,7 +41,7 @@ const OtherLogin = styled.div`
 `;
 
 const Facebook = styled.div`
-  margin-top: ${Dimens.small}px;
+  margin-top: ${Dimens.medium2}px;
 `;
 
 const ToSignup = styled.div`
@@ -71,10 +71,9 @@ export default (props: PropTypes) => (
     <Email>{props.email}</Email>
     <Pass>{props.pass}</Pass>
     <Failed>{props.failed}</Failed>
-    <Remind>{props.remind}</Remind>
     <Login>{props.login}</Login>
-    <OtherLogin>{props.otherLogin}</OtherLogin>
     <Facebook>{props.facebook}</Facebook>
     <ToSignup>{props.toSignup}</ToSignup>
+    <Remind>{props.remind}</Remind>
   </Fragment>
 );
