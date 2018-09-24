@@ -101,14 +101,11 @@ class SalesContainer extends Component {
     this.payouts = sales.reduce((a, x) => (a += x.PriceMinusFee), 0);
     this.payouts = numeral(this.payouts).format('0,0');
 
-    if (this.payouts === 0) {
-      return <InlineText.Base>振込可能な売上はありません。</InlineText.Base>;
-    }
-
-    if (this.payouts < 3000) {
+    if (this.payouts < 2400) {
       return (
         <InlineText.Base>
-          現在の売上は{this.payouts}円です。振込申請は3,000円以上から可能です。
+          現在の売上は{this.payouts}円です。振込申請は2,400円以上から可能です。<br />
+          これは20%のサービス利用手数料を差し引いた金額となります。
         </InlineText.Base>
       );
     }
