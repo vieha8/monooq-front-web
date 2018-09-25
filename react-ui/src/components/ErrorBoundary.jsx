@@ -1,43 +1,23 @@
 import React from 'react';
-import ErrorContainer from 'containers/Static/Error';
-import firebase from 'firebase/app';
 import { connect } from 'react-redux';
+import * as Sentry from '@sentry/browser';
+import { errorActions } from 'redux/modules/error';
 
 class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  componentDidCatch(error, info) {
-    this.setState({ hasError: true });
-    const db = firebase.firestore();
-
-    const data = {
-      error: error.toString(),
-      info: JSON.stringify(info.componentStack),
-      timestamp: new Date(),
-    };
-    if (this.props.auth.user.ID) {
-      data.userId = this.props.auth.user.ID;
-    }
-    if (this.props.router.location.pathname) {
-      data.path = this.props.router.location.pathname;
-    }
-    db.collection('errors').add(data);
+  componentDidCatch(error, errorInfo) {
+    this.props.dispatch(errorActions.setError(error));
+    Sentry.configureScope(scope => {
+      Object.keys(errorInfo).forEach(key => {
+        scope.setExtra(key, errorInfo[key]);
+      });
+    });
+    Sentry.captureException(error);
   }
 
   render() {
-    if (this.state.hasError) {
-      return <ErrorContainer />;
-    }
-    return this.props.children;
+    const { children } = this.props;
+    return children;
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  router: state.router,
-});
-
-export default connect(mapStateToProps)(ErrorBoundary);
+export default connect()(ErrorBoundary);
