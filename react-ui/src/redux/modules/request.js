@@ -167,6 +167,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
 
   yield sendEstimateEmail({ toUserId: requestUserId, roomId });
   yield put(requestActions.estimateSuccess(requestInfo));
+  window.dataLayer.push({ event: 'estimate', eventValue: requestInfo.ID });
   store.dispatch(push(path.message(roomId)));
 }
 
@@ -229,7 +230,7 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
   if (!token) {
     //TODO トークン生成失敗理由をキャッチする
     yield put(requestActions.paymentFailed());
-    yield put(errorActions.setError('Bad Request'));
+    // yield put(errorActions.setError('Bad Request'));
     return;
   }
 
@@ -260,6 +261,7 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     { merge: true },
   );
 
+  window.dataLayer.push({ event: 'match', eventValue: requestId });
   yield sendPaymentEmail({ roomId, spaceId: requestData.SpaceID });
   yield put(requestActions.paymentSuccess(data));
 }
