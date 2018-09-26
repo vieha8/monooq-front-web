@@ -5,13 +5,19 @@ import { errorActions } from 'redux/modules/error';
 
 class ErrorBoundary extends React.Component {
   componentDidCatch(error, errorInfo) {
-    this.props.dispatch(errorActions.setError(error));
+    const { user, dispatch } = this.props;
     Sentry.configureScope(scope => {
       Object.keys(errorInfo).forEach(key => {
         scope.setExtra(key, errorInfo[key]);
       });
+      scope.setUser({
+        id: user.ID,
+        username: user.Name,
+        email: user.Email,
+      });
     });
     Sentry.captureException(error);
+    dispatch(errorActions.setError(error));
   }
 
   render() {
@@ -20,4 +26,8 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-export default connect()(ErrorBoundary);
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
+
+export default connect(mapStateToProps)(ErrorBoundary);
