@@ -29,6 +29,7 @@ history.listen((location, action) => {
 
 sentryInit({
   dsn: 'https://d3223c25da3e4dcda892c9ac1cf7b0be@sentry.io/1287932',
+  environment: process.env.NODE_ENV,
 });
 ReactGA.initialize('UA-84238514-1');
 firebase.initializeApp(firebaseConfig());
