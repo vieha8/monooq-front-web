@@ -1,6 +1,7 @@
 const rewireMobX = require('react-app-rewire-mobx');
 const rewirePreact = require('react-app-rewire-preact');
 const { injectBabelPlugin } = require('react-app-rewired');
+const rewireBundleAnalyzer = require('react-app-rewire-bundle-analyzer');
 
 /* config-overrides.js */
 module.exports = function override(config, env) {
@@ -15,6 +16,8 @@ module.exports = function override(config, env) {
 
   // use the MobX rewire
   config = rewireMobX(config, env);
+
+  config = rewireBundleAnalyzer(config, env);
 
   return config;
 };
