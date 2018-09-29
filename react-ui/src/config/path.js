@@ -57,7 +57,7 @@ export default {
   // お問い合わせ
   inquiry: () => `/inquiry`,
   // 登録
-  signup: () => '/signup',
+  signUp: () => '/signup',
   // ログイン
   login: () => '/login',
   // 退会
@@ -87,6 +87,6 @@ export default {
   helpSpace: () => '/help/space',
   helpHostTransaction: () => '/help/hosttransaction',
   helpSalesTransfer: () => '/help/salestransfer',
-  helpSignin: () => '/help/signin',
+  helpSignIn: () => '/help/signin',
   helpOther: () => '/help/other',
 };

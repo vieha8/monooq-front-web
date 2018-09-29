@@ -49,4 +49,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(SignupContainer, mapStateToProps);
+export default connect(
+  SignupContainer,
+  mapStateToProps,
+);
