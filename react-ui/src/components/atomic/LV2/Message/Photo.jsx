@@ -9,13 +9,6 @@ const ImageWrapper = styled.div`
   overflow: hidden;
   border-radius: 6px;
   max-width: 400px;
-  img {
-    position: absolute;
-    top: -100%;
-    bottom: -100%;
-    margin: auto;
-    object-fit: cover;
-  }
   ${props =>
     props.align === 'right' &&
     `
@@ -39,7 +32,9 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <div>
     <ImageWrapper align={props.align}>
-      <Image16x9 src={props.src} alt={props.alt || ''} />
+      <a href={props.src} target="_blank" rel="noreferrer noopener">
+        <Image16x9 src={props.src} alt={props.alt || ''} />
+      </a>
     </ImageWrapper>
     <DateWrapper>
       <InlineText.EmphasisTiny>

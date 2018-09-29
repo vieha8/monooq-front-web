@@ -9,12 +9,10 @@ const Wrapper = styled.div`
   &:before {
     content: '';
     display: block;
-    padding-top: 56.25%;
   }
 `;
 
 const Image16x9 = styled.img`
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
