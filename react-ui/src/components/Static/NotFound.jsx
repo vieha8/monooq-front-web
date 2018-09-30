@@ -74,7 +74,7 @@ export default () => (
         },
         {
           text: 'ホストになる',
-          path: Path.signup(),
+          path: Path.signUp(),
         },
         {
           text: 'はじめての方へ',

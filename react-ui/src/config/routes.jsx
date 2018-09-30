@@ -287,9 +287,9 @@ export default ({ history }) => (
       <Route exact path={Path.createSpaceAreaSize()} component={CreateSpaceAreaSize} />
       <Route exact path={Path.editSpaceAreaSize()} component={EditSpaceAreaSize} />
       <Route exact path={Path.createSpacePrice('all')} component={CreateSpacePriceAll} />
-      <Route exact path={Path.editSpacePrice(null, 'all')} component={EditSpacePriceAll} />
+      <Route exact path={Path.editSpacePrice(undefined, 'all')} component={EditSpacePriceAll} />
       <Route exact path={Path.createSpacePrice('about')} component={CreateSpacePriceType} />
-      <Route exact path={Path.editSpacePrice(null, 'about')} component={EditSpacePriceType} />
+      <Route exact path={Path.editSpacePrice(undefined, 'about')} component={EditSpacePriceType} />
       <Route exact path={Path.createSpaceCompletion()} component={CreateSpaceCompletion} />
       <Route exact path={Path.editSpaceCompletion()} component={EditSpaceCompletion} />
       <Route exact path={Path.unsubscribe()} component={Unsubscribe} />

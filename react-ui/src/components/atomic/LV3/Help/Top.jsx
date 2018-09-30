@@ -60,9 +60,9 @@ export default (props: PropTypes) => {
           />
           <CommonHelp
             headline="登録・ログインについて"
-            buttons={[{ title: '一覧を見る', href: Path.helpSignin() }]}
+            buttons={[{ title: '一覧を見る', href: Path.helpSignIn() }]}
             helpTitle="パスワードを忘れてしまいました。"
-            helpLink={`${Path.helpSignin()}#common3`}
+            helpLink={`${Path.helpSignIn()}#common3`}
           />
           <CommonHelp
             headline="その他"

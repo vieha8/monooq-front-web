@@ -80,7 +80,7 @@ export default (props: PropTypes) => (
         </div>
       </Group>
       <ToHostLink>
-        <TextLink to={props.isLogin ? Path.createSpaceInfo() : Path.signup()}>
+        <TextLink to={props.isLogin ? Path.createSpaceInfo() : Path.signUp()}>
           ホストになる
         </TextLink>
       </ToHostLink>
