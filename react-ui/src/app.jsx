@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
@@ -8,6 +8,7 @@ import { init as sentryInit } from '@sentry/browser';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
+import BrowserCheck from 'components/BrowserCheck';
 import Auth from 'components/Auth';
 import Meta from 'components/Meta';
 import Error from 'components/Error';
@@ -41,7 +42,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 ReactDOM.render(
   <Provider store={configureStore(history)}>
-    <Fragment>
+    <BrowserCheck>
       <Meta />
       <Error />
       <Auth />
@@ -49,7 +50,7 @@ ReactDOM.render(
       <ErrorBoundary>
         <Routes history={history} />
       </ErrorBoundary>
-    </Fragment>
+    </BrowserCheck>
   </Provider>,
   document.getElementById('root'),
 );
