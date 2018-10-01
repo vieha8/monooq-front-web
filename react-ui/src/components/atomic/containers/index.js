@@ -2,7 +2,7 @@
 
 import Top from './TopContainer';
 import Login from './LoginContainer';
-import SignUp from './SignupContainer';
+import SignUp from './SignUpContainer';
 import ResetPassword from './ResetPasswordContainer';
 import SearchResult from './SearchResultContainer';
 import Space from './SpaceContainer';

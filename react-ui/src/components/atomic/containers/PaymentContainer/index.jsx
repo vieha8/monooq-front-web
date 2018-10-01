@@ -190,7 +190,7 @@ class PaymentContainer extends Component<PropTypes> {
       return <Redirect to={Path.messages()} />;
     }
 
-    if (isLoading) {
+    if (isLoading || !room) {
       return <LoadingPage />;
     }
 

@@ -122,7 +122,7 @@ class HeaderContainer extends Component<PropTypes> {
             : null
         }
         loginUri={Path.login()}
-        signupUri={Path.signup()}
+        signupUri={Path.signUp()}
         onClickAvatar={this.toggleMenu}
         onClickSearchIcon={this.onClickSearch}
         onClickCloseSearch={this.onClickCloseSearch}

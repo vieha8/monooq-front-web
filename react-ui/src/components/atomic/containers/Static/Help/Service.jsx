@@ -37,7 +37,7 @@ function mapPathnameToContent(pathname: string) {
       return 'hosttransaction';
     case Path.helpSalesTransfer():
       return 'salestransfer';
-    case Path.helpSignin():
+    case Path.helpSignIn():
       return 'signin';
     case Path.helpOther():
       return 'other';

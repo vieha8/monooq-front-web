@@ -74,6 +74,6 @@ export default (props: PropTypes) => (
         Facebookでログイン
       </Button>
     }
-    toSignup={<TextLink to={Path.signup()}>新規登録はこちら</TextLink>}
+    toSignup={<TextLink to={Path.signUp()}>新規登録はこちら</TextLink>}
   />
 );
