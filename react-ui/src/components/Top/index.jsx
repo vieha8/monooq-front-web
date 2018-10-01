@@ -25,6 +25,7 @@ import logoCnet from 'images/logo-cnet@2x.png';
 import logoLifehacker from 'images/logo-lifehacker@2x.png';
 import logoTechcrunch from 'images/logo-techcrunch@2x.png';
 import logoTechable from 'images/logo-techable@2x.png';
+import logoGojo from 'images/logo-gojo@2x.png';
 import { PickupFeatureSpaceList, PickupStaffSpaceList } from './pickup';
 
 const TopPage = styled.div`
@@ -412,10 +413,13 @@ const SubCatchPhrasePickGo = SubCatchPhrase.extend`
 `;
 
 const LinkToPickGo = styled.a`
-  font-size: ${FontSizes.medium}px;
+  font-size: ${FontSizes.large}px;
   line-height: ${FontSizes.medium * 2}px;
   color: ${Colors.white};
   text-decoration: underline;
+  ${media.phone`
+    font-size: ${FontSizes.medium}px;
+  `};
 `;
 
 const PickGoSection = styled.div`
@@ -436,6 +440,12 @@ const PickGoSection = styled.div`
 
 const PickGoMedia = styled.img`
   height: 42px;
+  margin: 0 15.5px;
+  margin-bottom: 20px;
+`;
+
+const GojoMedia = styled.img`
+  height: 65px;
   margin: 0 15.5px;
   margin-bottom: 20px;
 `;
@@ -816,25 +826,64 @@ export default props => (
           <CatchPhrase>
             荷物の配送だって
             <br />
-            もっと便利に安くできる。
+            もっと便利に安くできる
           </CatchPhrase>
           <PickGoSection>
-            <PickGoMedia src={logoPickGo} />
+            <LinkToPickGo
+              component={Link}
+              href="https://pickgo.town/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <PickGoMedia src={logoPickGo} />
+            </LinkToPickGo>
             <PickGoDescription>
               サービス対象エリア
               <br />
               東京／神奈川／千葉／埼玉／大阪／兵庫／京都
             </PickGoDescription>
           </PickGoSection>
-          <SubCatchPhrasePickGo>PickGoを使えば、引っ越しが 5,000円 から。</SubCatchPhrasePickGo>
-          <LinkToPickGo
-            component={Link}
-            href="http://pickgo.town/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            PickGoのサイトを見る
-          </LinkToPickGo>
+          <SubCatchPhrasePickGo>
+            <LinkToPickGo
+              component={Link}
+              href="https://pickgo.town/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              PickGo
+            </LinkToPickGo>
+            を使えば、引っ越しが 5,000円 から
+          </SubCatchPhrasePickGo>
+        </PickGoWrapper>
+      </PickGoContainer>
+      <PickGoContainer>
+        <PickGoWrapper>
+          <CatchPhrase>
+            共同でスペースを利用するなら
+            <br />
+            Gojoで便利に
+          </CatchPhrase>
+          <PickGoSection>
+            <LinkToPickGo
+              component={Link}
+              href="https://gojo.life/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <GojoMedia src={logoGojo} />
+            </LinkToPickGo>
+          </PickGoSection>
+          <SubCatchPhrasePickGo>
+            <LinkToPickGo
+              component={Link}
+              href="https://gojo.life/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Gojo
+            </LinkToPickGo>
+            を使えば、チームやコミュニティのお金の管理が簡単に
+          </SubCatchPhrasePickGo>
         </PickGoWrapper>
       </PickGoContainer>
     </ColoredContainer>
