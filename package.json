@@ -14,6 +14,7 @@
     "react-ui/node_modules"
   ],
   "dependencies": {
+    "compression": "^1.7.3",
     "express": "^4.16.3",
     "morgan": "^1.9.1",
     "rendertron-middleware": "^0.1.2"
