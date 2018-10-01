@@ -25,7 +25,7 @@ const Message = styled.div`
   vertical-align: middle;
 `;
 
-const Other = Message.extend`
+const Other = styled(Message)`
   text-align: right;
 `;
 

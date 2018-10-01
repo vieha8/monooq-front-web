@@ -47,16 +47,16 @@ const Hr = styled.hr`
   `};
 `;
 
-const MainTitleContainer = DefaultContainer.extend`
+const MainTitleContainer = styled(DefaultContainer)`
   margin-top: 80px;
   ${media.phone`
     margin-top: 40px;
   `};
 `;
 
-const AboutCancellContainer = DefaultContainer.extend``;
+const AboutCancellContainer = styled(DefaultContainer)``;
 
-const AboutCancellHilightText = HilightText.extend`
+const AboutCancellHilightText = styled(HilightText)`
   margin-bottom: 50px;
 `;
 
@@ -142,7 +142,7 @@ const ExampleText = styled.div`
   `};
 `;
 
-const AboutCancellHostContainer = DefaultContainer.extend`
+const AboutCancellHostContainer = styled(DefaultContainer)`
   margin-bottom: 80px;
 `;
 

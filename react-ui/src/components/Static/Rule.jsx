@@ -64,16 +64,16 @@ const Hr = styled.hr`
   `};
 `;
 
-const MainTitleContainer = DefaultContainer.extend`
+const MainTitleContainer = styled(DefaultContainer)`
   margin-top: 80px;
   ${media.phone`
     margin-top: 40px;
   `};
 `;
 
-const WhoFindHostContainer = DefaultContainer.extend``;
+const WhoFindHostContainer = styled(DefaultContainer)``;
 
-const WhoWantBeHostContainer = DefaultContainer.extend``;
+const WhoWantBeHostContainer = styled(DefaultContainer)``;
 
 // const HowSafeContainer = DefaultContainer.extend``;
 //
@@ -109,7 +109,7 @@ const WhoWantBeHostContainer = DefaultContainer.extend``;
 //   width: 326px;
 // `;
 
-const NotAllowedContainer = DefaultContainer.extend``;
+const NotAllowedContainer = styled(DefaultContainer)``;
 
 const NotAllowedContentWrapper = styled.div`
   margin: 30px 0;
@@ -161,7 +161,7 @@ const StyledNotAllowedContent = styled(NotAllowedContent)`
   }
 `;
 
-const DoNotActionContainer = DefaultContainer.extend`
+const DoNotActionContainer = styled(DefaultContainer)`
   margin-bottom: 135px;
 `;
 

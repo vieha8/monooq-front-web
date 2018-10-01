@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 `;
 
 // atomsに無い特殊ボタンのため、ここで特別に定義
-const PrivateButton = PrimaryButton.extend`
+const PrivateButton = styled(PrimaryButton)`
   color: ${Colors.darkGray2};
   background: ${Colors.white};
   border: 1px solid ${Colors.lightGray1};

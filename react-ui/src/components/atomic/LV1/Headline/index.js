@@ -14,18 +14,18 @@ export const H1 = styled.h1`
   `};
 `;
 
-export const H2 = H1.withComponent('h2').extend`
+export const H2 = styled(H1.withComponent('h2'))`
   font-size: 30px;
   font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   ${media.phone`
     font-size: 20px;
-  `}
+  `};
 `;
 
-export const H3 = H1.withComponent('h3').extend`
+export const H3 = styled(H1.withComponent('h3'))`
   font-size: 16px;
   font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   ${media.phone`
     font-size: 14px;
-  `}
+  `};
 `;

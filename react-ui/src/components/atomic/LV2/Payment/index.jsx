@@ -19,7 +19,7 @@ const Row = styled.div`
   padding: 8px 0;
 `;
 
-const Text = InlineText.Base.extend`
+const Text = styled(InlineText.Base)`
   display: block;
   line-height: 2;
 `;
@@ -41,11 +41,17 @@ export default (props: PropTypes) => (
     </Row>
     <Row borderTop borderBottom>
       <Text>期間</Text>
-      <Text>{props.duration}日間</Text>
+      <Text>
+        {props.duration}
+        日間
+      </Text>
     </Row>
     <Row>
       <Text>お支払い金額</Text>
-      <Text>{props.price}円（税込）</Text>
+      <Text>
+        {props.price}
+        円（税込）
+      </Text>
     </Row>
     <Row>
       <InlineText.EmphasisTiny>

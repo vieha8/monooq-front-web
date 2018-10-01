@@ -18,7 +18,7 @@ const Icon = styled.i`
   color: ${Colors.lightGray1};
 `;
 
-const IconInputField = InputField.extend`
+const IconInputField = styled(InputField)`
   padding: 12px 25px;
   padding-left: 46px;
 `;

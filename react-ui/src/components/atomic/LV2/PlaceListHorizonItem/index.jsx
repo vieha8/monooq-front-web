@@ -24,12 +24,12 @@ const ContentWrapper = styled.div`
   padding-left: 16px;
 `;
 
-const AddressText = InlineText.Small.extend`
+const AddressText = styled(InlineText.Small)`
   display: block;
   color: ${Colors.brandPrimary};
 `;
 
-const ContentText = InlineText.Small.extend`
+const ContentText = styled(InlineText.Small)`
   display: block;
   margin-top: 8px;
   max-height: ${1.6 * 3}em;
