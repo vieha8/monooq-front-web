@@ -32,8 +32,7 @@ if (cluster.isMaster) {
 
   app.use(
     rendertron.makeMiddleware({
-      proxyUrl:
-        "http://ec2-13-230-42-134.ap-northeast-1.compute.amazonaws.com/render",
+      proxyUrl: "https://monooq-rendertron.appspot.com/render",
       timeout: 20000
     })
   );
