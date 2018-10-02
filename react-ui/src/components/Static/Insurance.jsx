@@ -58,14 +58,14 @@ const Hr = styled.hr`
   `};
 `;
 
-const MainTitleContainer = DefaultContainer.extend`
+const MainTitleContainer = styled(DefaultContainer)`
   margin-top: 80px;
   ${media.phone`
     margin-top: 40px;
   `};
 `;
 
-const WhySafeContainer = DefaultContainer.extend``;
+const WhySafeContainer = styled(DefaultContainer)``;
 
 const WhySafeContentWrapper = styled.div`
   width: 100%;
@@ -133,7 +133,7 @@ const WhySafeContent = props => {
   );
 };
 
-const HowSafeContainer = DefaultContainer.extend``;
+const HowSafeContainer = styled(DefaultContainer)``;
 
 const HowSafeContentWrapper = styled.div``;
 
@@ -184,7 +184,7 @@ const HowSafeContent = props => {
   );
 };
 
-const WhenAttentionContainer = DefaultContainer.extend``;
+const WhenAttentionContainer = styled(DefaultContainer)``;
 
 const WhenAttentionHilightText = styled(Label)`
   ${media.phone`
@@ -193,7 +193,7 @@ const WhenAttentionHilightText = styled(Label)`
   `};
 `;
 
-const QuestionContainer = DefaultContainer.extend`
+const QuestionContainer = styled(DefaultContainer)`
   margin-bottom: 110px;
 `;
 

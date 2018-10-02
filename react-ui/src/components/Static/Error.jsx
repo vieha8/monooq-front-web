@@ -12,7 +12,7 @@ const MainTitle = styled.div`
   `};
 `;
 
-const MainTitleContainer = DefaultContainer.extend`
+const MainTitleContainer = styled(DefaultContainer)`
   margin-top: 80px;
   margin-bottom: 37px;
   ${media.phone`
@@ -25,11 +25,11 @@ const Text = styled.div`
   line-height: 24px;
 `;
 
-const MessageContainer = DefaultContainer.extend`
+const MessageContainer = styled(DefaultContainer)`
   margin-bottom: 30px;
 `;
 
-const RecommendLinkContainer = DefaultContainer.extend`
+const RecommendLinkContainer = styled(DefaultContainer)`
   margin-bottom: 240px;
 `;
 

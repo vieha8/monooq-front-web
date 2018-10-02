@@ -1,10 +1,11 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 import { Colors } from 'variables';
 import { PrimaryButton } from './Primary';
 
-const Tertiary = PrimaryButton.extend`
+const Tertiary = styled(PrimaryButton)`
   background: ${Colors.darkGray2};
   border: 1px solid ${Colors.white};
   color: ${Colors.white};

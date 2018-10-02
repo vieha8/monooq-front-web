@@ -13,11 +13,11 @@ const Wrapper = styled.div`
     `};
 `;
 
-const Title = InlineText.Base.extend`
+const Title = styled(InlineText.Base)`
   font-size: 18px;
 `;
 
-const Step = InlineText.Base.extend`
+const Step = styled(InlineText.Base)`
   font-size: 14px;
   ${props =>
     !props.pass &&

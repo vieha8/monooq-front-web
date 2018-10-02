@@ -41,7 +41,7 @@ const Address = styled.address`
   margin-top: 30px;
 `;
 
-const MainTitleContainer = DefaultContainer.extend`
+const MainTitleContainer = styled(DefaultContainer)`
   margin-top: 80px;
   ${media.phone`
     margin-top: 40px;

@@ -1,10 +1,11 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 import { Colors } from 'variables';
 import { PrimaryButton } from './Primary';
 
-const Facebook = PrimaryButton.extend`
+const Facebook = styled(PrimaryButton)`
   background: ${Colors.facebook};
   color: ${Colors.white};
 

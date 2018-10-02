@@ -19,7 +19,7 @@ const TextWrapper = styled.div`
   vertical-align: middle;
 `;
 
-const Text = InlineText.Base.extend`
+const Text = styled(InlineText.Base)`
   display: block;
   &:not(:first-child) {
     margin-top: 24px;
@@ -36,7 +36,9 @@ export default (props: PropTypes) => (
   <Container>
     <TextWrapper>
       <Text>{props.title}</Text>
-      {props.content.map((str, i) => <Text key={`hint_content_${i}`}>{str}</Text>)}
+      {props.content.map((str, i) => (
+        <Text key={`hint_content_${i}`}>{str}</Text>
+      ))}
     </TextWrapper>
   </Container>
 );

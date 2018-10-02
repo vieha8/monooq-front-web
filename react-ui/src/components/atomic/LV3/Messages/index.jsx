@@ -48,11 +48,11 @@ const CautionWrapper = styled.div`
   padding: ${Dimens.medium1}px ${Dimens.small}px;
 `;
 
-const CautionText = InlineText.Tiny.extend`
+const CautionText = styled(InlineText.Tiny)`
   margin-bottom: ${Dimens.xsmall}px;
 `;
 
-const SeparatedCautionWrapper = CautionWrapper.extend`
+const SeparatedCautionWrapper = styled(CautionWrapper)`
   border-top: 1px solid ${Colors.borderGray};
   text-align: center;
   padding-bottom: 0;
