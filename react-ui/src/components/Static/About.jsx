@@ -128,7 +128,7 @@ const TopLabel = styled.div`
   `};
 `;
 
-const WhenIUseContainer = DefaultContainer.extend`
+const WhenIUseContainer = styled(DefaultContainer)`
   padding-top: 50px;
   ${media.phone`
     padding-top: 20px;
@@ -159,9 +159,9 @@ const WhenIUseContent = props => {
   );
 };
 
-const HowIFindContainer = DefaultContainer.extend``;
+const HowIFindContainer = styled(DefaultContainer)``;
 
-const IfIFindContainer = DefaultContainer.extend``;
+const IfIFindContainer = styled(DefaultContainer)``;
 
 const IfIFindContentWrapper = styled.div`
   width: 100%;
@@ -211,7 +211,7 @@ const IfIFindContent = props => {
     font-weight: bold;
   `;
 
-  const IfIFindContentText = Text.extend`
+  const IfIFindContentText = styled(Text)`
     width: 374px;
     margin-right: 30px;
     ${media.phone`
@@ -234,7 +234,7 @@ const IfIFindContent = props => {
   );
 };
 
-const HotToPayContainer = DefaultContainer.extend``;
+const HotToPayContainer = styled(DefaultContainer)``;
 
 const List = styled.ul`
   margin: ${Dimens.medium}px 0;
@@ -242,7 +242,7 @@ const List = styled.ul`
   list-style-position: inside;
 `;
 
-const NeedToHelpContainer = DefaultContainer.extend`
+const NeedToHelpContainer = styled(DefaultContainer)`
   margin-bottom: 164px;
   ${media.phone`
     margin-bottom: 80px;

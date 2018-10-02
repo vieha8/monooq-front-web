@@ -40,7 +40,7 @@ const Base = styled.span`
   `};
 `;
 
-const Strong = Base.withComponent('strong').extend`
+const Strong = styled(Base.withComponent('strong'))`
   font-weight: bold;
 `;
 
@@ -50,20 +50,20 @@ const Del = Base.withComponent('del');
 
 const Ins = Base.withComponent('ins');
 
-const Small = Base.extend`
+const Small = styled(Base)`
   font-size: 14px;
 `;
 
-const Tiny = Base.extend`
+const Tiny = styled(Base)`
   font-size: 11px;
 `;
 
-const EmphasisSmall = Base.extend`
+const EmphasisSmall = styled(Base)`
   font-size: 14px;
   color: ${Colors.darkGray2};
 `;
 
-const EmphasisTiny = Base.extend`
+const EmphasisTiny = styled(Base)`
   font-size: 11px;
   color: ${Colors.darkGray2};
 `;

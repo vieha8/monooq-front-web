@@ -9,7 +9,7 @@ import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
 import PlaceListHorizonItem from 'components/atomic/LV2/PlaceListHorizonItem';
 import Duration from './Duration';
 
-const UserName = H3.extend`
+const UserName = styled(H3)`
   font-size: ${FontSizes.medium}px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -55,7 +55,8 @@ export default (props: PropTypes) => (
   <ClearfixContainer>
     <SpaceContainer>
       <UserName>
-        {props.hostIsMySelf ? 'ユーザー' : 'ホスト'}は{props.opponentName}さん
+        {props.hostIsMySelf ? 'ユーザー' : 'ホスト'}は{props.opponentName}
+        さん
       </UserName>
       <SpaceWrapper>
         <PlaceListHorizonItem {...props.space} />

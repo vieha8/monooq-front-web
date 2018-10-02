@@ -36,7 +36,7 @@ const AnnotationText = styled(Text)`
   `};
 `;
 
-const MainTitleContainer = DefaultContainer.extend`
+const MainTitleContainer = styled(DefaultContainer)`
   margin-top: 80px;
   margin-bottom: 44px;
   ${media.phone`
@@ -44,7 +44,7 @@ const MainTitleContainer = DefaultContainer.extend`
   `};
 `;
 
-const AsctContainer = DefaultContainer.extend`
+const AsctContainer = styled(DefaultContainer)`
   margin-bottom: 80px;
 `;
 

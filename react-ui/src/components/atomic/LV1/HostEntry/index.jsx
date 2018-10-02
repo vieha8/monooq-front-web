@@ -28,7 +28,7 @@ const Label1 = styled.div`
   font-weight: bold;
 `;
 
-const Label2 = Label1.extend`
+const Label2 = styled(Label1)`
   font-size: 20px;
   top: auto;
   bottom: 49px;

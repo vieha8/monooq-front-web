@@ -19,7 +19,7 @@ const LabelContainer = styled.div`
   vertical-align: middle;
 `;
 
-const Sales = LabelContainer.extend`
+const Sales = styled(LabelContainer)`
   text-align: right;
   font-weight: bold;
   color: ${Colors.black};

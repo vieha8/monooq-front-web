@@ -407,7 +407,7 @@ const PickGoWrapper = styled.div`
   width: 100%;
 `;
 
-const SubCatchPhrasePickGo = SubCatchPhrase.extend`
+const SubCatchPhrasePickGo = styled(SubCatchPhrase)`
   width: 540px;
   margin-bottom: 20px;
 `;

@@ -20,7 +20,7 @@ const ContentWrapper = styled.div`
   padding: ${Dimens.small}px ${Dimens.medium}px;
 `;
 
-const AddressText = InlineText.Tiny.extend`
+const AddressText = styled(InlineText.Tiny)`
   display: block;
   color: ${Colors.brandPrimary};
   max-height: 1.5em;
@@ -28,23 +28,23 @@ const AddressText = InlineText.Tiny.extend`
   text-overflow: ellipsis;
 `;
 
-const ContentText = InlineText.Tiny.extend`
+const ContentText = styled(InlineText.Tiny)`
   display: block;
   max-height: 1.5em;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
 
-const HomeApplianceText = InlineText.Tiny.extend`
+const HomeApplianceText = styled(InlineText.Tiny)`
   display: block;
   font-weight: bold;
 `;
 
-const PriceLabel = InlineText.Tiny.extend`
+const PriceLabel = styled(InlineText.Tiny)`
   display: block;
 `;
 
-const PriceText = InlineText.Tiny.extend`
+const PriceText = styled(InlineText.Tiny)`
   display: block;
   max-height: 1.5em;
   overflow: hidden;

@@ -15,7 +15,7 @@ function estimateDateFormat(date) {
   });
 }
 
-const Text = InlineText.Base.extend`
+const Text = styled(InlineText.Base)`
   display: block;
   font-size: 14px;
 `;
@@ -49,15 +49,29 @@ export default (props: PropTypes) => (
   <div>
     <Card block noBorder background={Colors.lightGreen}>
       <Text>{props.name} さんからのお見積もり</Text>
-      <Text>ID：{props.id}</Text>
-      <Text>利用開始日：{estimateDateFormat(props.beginAt)}</Text>
-      <Text>利用終了日：{estimateDateFormat(props.endAt)}</Text>
-      <Text>料金：{props.price} 円</Text>
+      <Text>
+        ID：
+        {props.id}
+      </Text>
+      <Text>
+        利用開始日：
+        {estimateDateFormat(props.beginAt)}
+      </Text>
+      <Text>
+        利用終了日：
+        {estimateDateFormat(props.endAt)}
+      </Text>
+      <Text>
+        料金：
+        {props.price} 円
+      </Text>
       <CaptionWrapper>
         <Text>
           もしも期間や料金に変更があった場合は、ホストが新しいお見積りの発行をしてください。
           モノオクでの決済履歴がない場合は保険が適応されません。※現在はクレジットカード(VISA、MasterCard)のみお支払い可能です。
-          それ以外の方法をご希望の場合は<a href="mailto:info@monooq.com">info@monooq.com</a>までご連絡ください。
+          それ以外の方法をご希望の場合は
+          <a href="mailto:info@monooq.com">info@monooq.com</a>
+          までご連絡ください。
         </Text>
       </CaptionWrapper>
       {!props.host && (

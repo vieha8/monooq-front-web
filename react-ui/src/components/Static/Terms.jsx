@@ -43,7 +43,7 @@ const Hr = styled.hr`
   `};
 `;
 
-const MainTitleContainer = DefaultContainer.extend`
+const MainTitleContainer = styled(DefaultContainer)`
   margin-top: 80px;
   ${media.phone`
     margin-top: 40px;
@@ -101,11 +101,11 @@ const ArtContainer = props => {
   );
 };
 
-const DocumentationDateContainer = DefaultContainer.extend`
+const DocumentationDateContainer = styled(DefaultContainer)`
   margin-bottom: 40px;
 `;
 
-const DocumentationDate = Para.extend`
+const DocumentationDate = styled(Para)`
   text-align: right;
 `;
 
