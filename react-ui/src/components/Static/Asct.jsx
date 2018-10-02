@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import Footer from 'components/atomic/LV2/Footer';
 
 const MainTitle = styled.div`
   font-size: ${FontSizes.xlarge}px;
@@ -157,5 +158,6 @@ export default () => (
         </AnnotationText>
       </AnnotationWrapper>
     </AsctContainer>
+    <Footer />
   </Fragment>
 );
