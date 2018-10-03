@@ -9,6 +9,12 @@ class TopContainer extends React.Component {
   constructor(props) {
     super(props);
 
+    const { referrer } = document;
+    const referrerCache = localStorage.getItem('referrer');
+    if (!referrerCache) {
+      localStorage.setItem('referrer', referrer);
+    }
+
     this.props.dispatch(
       uiActions.setUiState({
         locationText: '',
