@@ -53,7 +53,7 @@ export default (props: PropTypes) => {
   return (
     <MenuPage
       header={<Header help />}
-      headline="物置きスペースを利用したい方へ"
+      headline="ヘルプ"
       leftContent={
         <HelpMenu
           howToUser={{ open: openHowToUser }}
