@@ -3,6 +3,7 @@ import { put, call, takeEvery } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import { push, replace } from 'react-router-redux';
 import ReactGA from 'react-ga';
+import * as Sentry from '@sentry/browser';
 import { apiEndpoint } from './api';
 import { uiActions } from './ui';
 import { errorActions } from './error';
@@ -194,6 +195,14 @@ function* checkLoginFirebaseAuth() {
     yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID });
     ReactGA.set({ userId: status.user.ID });
     yield put(authActions.checkLoginSuccess(status));
+    const { user } = status;
+    Sentry.configureScope(scope => {
+      scope.setUser({
+        id: user.ID,
+        username: user.Name,
+        email: user.Email,
+      });
+    });
     return;
   }
 
