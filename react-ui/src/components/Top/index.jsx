@@ -408,7 +408,6 @@ const PickGoWrapper = styled.div`
 `;
 
 const SubCatchPhrasePickGo = styled(SubCatchPhrase)`
-  width: 540px;
   margin-bottom: 20px;
 `;
 
@@ -851,7 +850,9 @@ export default props => (
             >
               PickGo
             </LinkToPickGo>
-            を使えば、引っ越しが 5,000円 から
+            を使えば、
+            <br />
+            引っ越しが 5,000円 から
           </SubCatchPhrasePickGo>
         </PickGoWrapper>
       </PickGoContainer>
@@ -881,7 +882,11 @@ export default props => (
             >
               Gojo
             </LinkToPickGo>
-            を使えば、チームやコミュニティのお金の管理が簡単に
+            を使えば、
+            <br />
+            チームやコミュニティの
+            <br />
+            お金の管理が簡単に
           </SubCatchPhrasePickGo>
         </PickGoWrapper>
       </PickGoContainer>
