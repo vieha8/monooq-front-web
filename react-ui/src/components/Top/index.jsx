@@ -556,7 +556,7 @@ const displayPickupStaffSpaceList = shuffleArray(PickupStaffSpaceList);
 const PickupFeature = props => (
   <PickupContainer>
     <PickupSpaceList
-      title="特徴でピックアップ"
+      title="ピックアップスペース"
       spaceList={displayPickupFeatureSpaceList.slice(0, 4 + (props.moreFeature ? 4 : 0))}
       noMore={props.moreFeature}
       onClickMoreView={props.onClickMoreFeature}
@@ -577,7 +577,7 @@ const PickupStaff = () => (
 
 const HubAndConciergeContents = props => {
   const StyledContainer = styled.div`
-    margin-top: 50px;
+    margin: 50px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -590,7 +590,6 @@ const HubAndConciergeContents = props => {
   return (
     <StyledContainer className="for-safe-section-list">
       <HubAndConciergeSection onClick={() => props.history.push(Path.conciergeRequest())} />
-      <HubAndConciergeSection isHub onClick={() => props.history.push(Path.hubRequest())} />
     </StyledContainer>
   );
 };
@@ -725,9 +724,9 @@ export default props => (
         </TopViewContainer>
       </TopViewFilter>
     </TopView>
-    <HubAndConciergeContents history={props.history} />
     {PickupFeature(props)}
     {PickupStaff(props)}
+    <HubAndConciergeContents history={props.history} />
     <ColoredContainer>
       <MovieContainer>
         <MovieFrameWrapper>
