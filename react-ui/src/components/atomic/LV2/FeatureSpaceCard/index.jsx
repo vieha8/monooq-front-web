@@ -59,17 +59,9 @@ const UserContainer = styled.div`
 `;
 
 const DetailContainer = styled.div`
-  height: 150px;
+  height: 130px;
   text-align: center;
   padding: ${Dimens.medium2}px 0;
-  ${media.tablet`
-    padding: ${Dimens.small}px 0;
-    ${props =>
-      props.large &&
-      `
-      padding: ${Dimens.medium2}px 0;
-    `};
-  `};
 `;
 
 const SpaceImageContainer = styled.div`
@@ -126,12 +118,9 @@ export default (props: PropTypes) => (
         </UserContainer>
       </ImageContainer>
       <DetailContainer large={props.large}>
-        <div>
-          <InlineText.Small>{props.space.area}</InlineText.Small>
-        </div>
-        <div>
-          <InlineText.Small color={props.space.color}>{props.space.description}</InlineText.Small>
-        </div>
+        <InlineText.Small>{props.space.area}</InlineText.Small>
+        <br />
+        <InlineText.Small color={props.space.color}>{props.space.description}</InlineText.Small>
       </DetailContainer>
     </Card>
   </Container>

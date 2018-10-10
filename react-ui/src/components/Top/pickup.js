@@ -3,22 +3,22 @@ import { Colors } from '../../variables';
 
 // 特徴でピックアップ
 export const PickupFeatureSpaceList = [
-  {
-    link: Path.space(1255),
-    user: {
-      image:
-        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363',
-      name: 'Keisuke',
-    },
-    space: {
-      image:
-        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fspaces%2F1255%2F1528249761350.jpg?alt=media&token=cc93b081-61ee-493d-ad09-9a7465058eb7',
-      price: '5,900',
-      area: '佐賀県鳥栖市',
-      description: 'セキュリティ対策OK!',
-      color: Colors.pickup1,
-    },
-  },
+  // {
+  //   link: Path.space(1255),
+  //   user: {
+  //     image:
+  //       'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363',
+  //     name: 'Keisuke',
+  //   },
+  //   space: {
+  //     image:
+  //       'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fspaces%2F1255%2F1528249761350.jpg?alt=media&token=cc93b081-61ee-493d-ad09-9a7465058eb7',
+  //     price: '5,900',
+  //     area: '佐賀県鳥栖市',
+  //     description: 'セキュリティ対策OK!',
+  //     color: Colors.pickup1,
+  //   },
+  // },
   {
     link: Path.space(1239),
     user: {
@@ -104,7 +104,7 @@ export const PickupFeatureSpaceList = [
     user: {
       image:
         'https://s3-ap-northeast-1.amazonaws.com/monooq/uploads/user/image/908/thumb_b3b072ae-a07e-4e71-8832-3d35b9e914b7.jpg',
-      name: 'shinzato kazuma',
+      name: 'kazuma',
     },
     space: {
       image:
