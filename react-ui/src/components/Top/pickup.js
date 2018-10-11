@@ -12,7 +12,7 @@ export const PickupFeatureSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F1239%2F1527823413880.jpg?alt=media&token=8c58f3be-7744-47ae-ae04-97717f3e1df1&fit=crop&w=260&h=160&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F1239%2F1527823413880.jpg?alt=media&token=8c58f3be-7744-47ae-ae04-97717f3e1df1&fit=crop&w=260&h=200&auto=format',
       price: '7,000',
       area: '宮崎県宮崎市',
       description: '業務用品もおまかせ！',
@@ -28,7 +28,7 @@ export const PickupFeatureSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F1152%2F1525593802800.jpg?alt=media&token=4961b5f4-323a-4fd3-8f65-a0df3a7be0bb&fit=crop&w=260&h=160&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F1152%2F1525593802800.jpg?alt=media&token=4961b5f4-323a-4fd3-8f65-a0df3a7be0bb&fit=crop&w=260&h=200&auto=format',
       price: '8,000',
       area: '北海道虻田郡ニセコ町',
       description: 'レジャー用品なら!',
@@ -44,7 +44,7 @@ export const PickupFeatureSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F801%2F1525561007790.jpg?alt=media&token=90f41359-70e8-4d3a-8bf7-dd06ef640c80&fit=crop&w=260&h=160&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F801%2F1525561007790.jpg?alt=media&token=90f41359-70e8-4d3a-8bf7-dd06ef640c80&fit=crop&w=260&h=200&auto=format',
       price: '7,000',
       area: '埼玉県羽生市',
       description: '集荷も相談できる!',
@@ -60,7 +60,7 @@ export const PickupFeatureSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F568%2F1528321575825.jpg?alt=media&token=3cf00a11-337a-4295-b6b6-ec8a0cece859&fit=crop&w=260&h=160&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F568%2F1528321575825.jpg?alt=media&token=3cf00a11-337a-4295-b6b6-ec8a0cece859&fit=crop&w=260&h=200&auto=format',
       price: '3,500',
       area: '神奈川県大磯町',
       description: '大磯ロングビーチ近く！',
@@ -76,7 +76,7 @@ export const PickupFeatureSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F570%2F1522563759482.jpg?alt=media&token=315cf44a-fa87-4f5e-9bdb-5965904e9317&fit=crop&w=260&h=160&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F570%2F1522563759482.jpg?alt=media&token=315cf44a-fa87-4f5e-9bdb-5965904e9317&fit=crop&w=260&h=200&auto=format',
       price: '5,000',
       area: '京都府京都市',
       description: '京都で少量を預けるなら',
@@ -92,7 +92,7 @@ export const PickupFeatureSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F408%2F1528614900673.jpg?alt=media&token=26b24a81-7d8c-41c3-8090-bed37530d573&fit=crop&w=260&h=160&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F408%2F1528614900673.jpg?alt=media&token=26b24a81-7d8c-41c3-8090-bed37530d573&fit=crop&w=260&h=200&auto=format',
       price: '5,000',
       area: '埼玉県越谷市',
       description: 'フローリングのお部屋で',
@@ -108,7 +108,7 @@ export const PickupFeatureSpaceList = [
     },
     space: {
       image:
-        'https://monooq-s3.imgix.net/uploads/place_image/id/325/4071ab3e-67e2-4269-8fb5-c378cf01e026.jpg?fit=crop&w=260&h=160&auto=format',
+        'https://monooq-s3.imgix.net/uploads/place_image/id/325/4071ab3e-67e2-4269-8fb5-c378cf01e026.jpg?fit=crop&w=260&h=200&auto=format',
       price: '5,000',
       area: '福岡県博多市',
       description: 'キーボックスで管理！',
@@ -129,7 +129,7 @@ export const PickupStaffSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F1222%2F1527989916929.jpg?alt=media&token=569b5eda-a504-408a-8db2-01cf0e4b5dc4&fit=crop&w=260&h=160&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F1222%2F1527989916929.jpg?alt=media&token=569b5eda-a504-408a-8db2-01cf0e4b5dc4&fit=crop&w=260&h=200&auto=format',
       price: '25,000',
       area: '東京都豊島区',
       description:
@@ -147,7 +147,7 @@ export const PickupStaffSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F581%2F1522855347035.jpg?alt=media&token=c656edc7-fa3d-43e2-a567-1e4b9620daca&fit=crop&w=260&h=160&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F581%2F1522855347035.jpg?alt=media&token=c656edc7-fa3d-43e2-a567-1e4b9620daca&fit=crop&w=260&h=200&auto=format',
       price: '5,000',
       area: '東京都板橋区',
       description:
@@ -165,7 +165,7 @@ export const PickupStaffSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F1029%2F1530682249725.jpg?alt=media&token=1187bd20-ebbc-49b6-9bc8-f0ed3645dfe5&fit=crop&w=260&h=160&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F1029%2F1530682249725.jpg?alt=media&token=1187bd20-ebbc-49b6-9bc8-f0ed3645dfe5&fit=crop&w=260&h=200&auto=format',
       price: '5,000',
       area: '東京都中野区',
       description:
@@ -183,7 +183,7 @@ export const PickupStaffSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F722%2F1533355177362.jpg?alt=media&token=5a6baf8f-4f79-4713-8225-b9316df49b88&fit=crop&w=260&h=160&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F722%2F1533355177362.jpg?alt=media&token=5a6baf8f-4f79-4713-8225-b9316df49b88&fit=crop&w=260&h=200&auto=format',
       price: '3,000',
       area: '東京都世田谷区',
       description: '三軒茶屋エリアならおすすめ！広くてきれい！',
@@ -200,7 +200,7 @@ export const PickupStaffSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F1340%2F1534164085396.jpg?alt=media&token=0efda33b-0948-4fb0-b338-49bee0ab424a&fit=crop&w=260&h=160&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F1340%2F1534164085396.jpg?alt=media&token=0efda33b-0948-4fb0-b338-49bee0ab424a&fit=crop&w=260&h=200&auto=format',
       price: '4,000',
       area: '東京都荒川区',
       description: '京成線町屋駅から2分の好立地！',
