@@ -20,12 +20,13 @@ const convertImageUrl = images => {
       imgixUrl = 'https://monooq-dev.imgix.net/';
     }
 
-    let replaceUrl = original.replace(storageUrl, imgixUrl) + '&fit=crop&w=540&max-h=540';
+    let replaceUrl =
+      original.replace(storageUrl, imgixUrl) + '&fit=crop&w=540&max-h=540&format=auto';
 
     if (original.indexOf('s3-ap-northeast-1') > -1) {
       storageUrl = 'https://s3-ap-northeast-1.amazonaws.com/monooq/';
       imgixUrl = 'https://monooq-s3.imgix.net/';
-      replaceUrl = original.replace(storageUrl, imgixUrl) + '?fit=crop&w=540&max-h=540';
+      replaceUrl = original.replace(storageUrl, imgixUrl) + '?fit=crop&w=540&max-h=540&format=auto';
     }
 
     return {
