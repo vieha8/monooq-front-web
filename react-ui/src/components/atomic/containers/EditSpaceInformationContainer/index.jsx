@@ -36,7 +36,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
-    const { dispatch, match, space } = this.props;
+    const { dispatch, space } = this.props;
 
     dispatch(spaceActions.prepareUpdateSpace());
 
@@ -48,18 +48,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       Address: space.Address || '',
       error: {},
     };
-
-    if (match.path === Path.createSpaceInfo()) {
-      dispatch(uiActions.setUiState({ space: {} }));
-      this.state = {
-        Images: [],
-        Title: '',
-        Type: 0,
-        Introduction: '',
-        Address: '',
-        error: {},
-      };
-    }
   }
 
   componentDidMount() {
