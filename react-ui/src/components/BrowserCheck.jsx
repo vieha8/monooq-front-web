@@ -4,7 +4,11 @@ export default class BrowserCheck extends React.Component {
   constructor(props) {
     super(props);
     const userAgent = window.navigator.userAgent.toLowerCase();
-    const isIncompatible = userAgent.indexOf('msie') !== -1 || userAgent.indexOf('trident') !== -1;
+    const isIncompatible =
+      userAgent.indexOf('msie') !== -1 ||
+      userAgent.indexOf('trident') !== -1 ||
+      !localStorage ||
+      !sessionStorage;
 
     this.state = {
       isIncompatible,
@@ -13,7 +17,7 @@ export default class BrowserCheck extends React.Component {
 
   incompatibleMessage = () => (
     <p>
-      モノオクはInternet Explorerではご利用いただけません。
+      大変恐縮ですが、現在お使いのブラウザでモノオクはご利用いただけません。
       <br />
       Google Chrome、Safari、Firefox、Microsoft Edge等のブラウザの最新版をご利用ください。
     </p>
