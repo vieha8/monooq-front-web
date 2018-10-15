@@ -51,7 +51,7 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <Container onClick={props.onClick}>
     <Card noPadding customStyle={CardShadowStyle}>
-      <HeroImage src={props.image} alt={props.title} height={160} />
+      <HeroImage src={props.image} alt={props.title} height={200} />
       <Content>
         <Row>
           <InlineText.Base singleLine color={Colors.brandPrimary}>
@@ -71,7 +71,8 @@ export default (props: PropTypes) => (
           <InlineText.Base noWrap>
             {`${numeral(props.priceFull).format('0,0')}${
               props.priceHalf > 0 ? `/ ${numeral(props.priceHalf).format('0,0')}` : ''
-            }${props.priceQuarter > 0 ? `/ ${numeral(props.priceQuarter).format('0,0')}` : ''}`}円
+            }${props.priceQuarter > 0 ? `/ ${numeral(props.priceQuarter).format('0,0')}` : ''}`}
+            円
           </InlineText.Base>
         </Row>
       </Content>

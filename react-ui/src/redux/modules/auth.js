@@ -3,6 +3,7 @@ import { put, call, takeEvery } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import { push, replace } from 'react-router-redux';
 import ReactGA from 'react-ga';
+import * as Sentry from '@sentry/browser';
 import { apiEndpoint } from './api';
 import { uiActions } from './ui';
 import { errorActions } from './error';
@@ -194,6 +195,14 @@ function* checkLoginFirebaseAuth() {
     yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID });
     ReactGA.set({ userId: status.user.ID });
     yield put(authActions.checkLoginSuccess(status));
+    const { user } = status;
+    Sentry.configureScope(scope => {
+      scope.setUser({
+        id: user.ID,
+        username: user.Name,
+        email: user.Email,
+      });
+    });
     return;
   }
 
@@ -259,10 +268,13 @@ function* signUpEmail({ payload: { email, password } }) {
     const defaultImage =
       'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363';
 
+    const referrer = localStorage.getItem('referrer') || '';
+
     const { data, status, err } = yield call(postApiRequest, apiEndpoint.users(), {
       Email: email,
       FirebaseUid: firebaseUid,
       ImageUrl: defaultImage,
+      RefererUrl: referrer,
     });
 
     if (err) {
@@ -291,12 +303,14 @@ function* signUpFacebook() {
       return;
     }
     const { displayName, email, uid, photoURL } = result.user;
+    const referrer = localStorage.getItem('referrer') || '';
 
     const { data, err } = yield call(postApiRequest, apiEndpoint.users(), {
       Email: email,
       FirebaseUid: uid,
       Name: displayName,
       ImageUrl: photoURL,
+      RefererUrl: referrer,
     });
 
     if (err) {

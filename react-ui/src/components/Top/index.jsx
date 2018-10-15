@@ -408,7 +408,6 @@ const PickGoWrapper = styled.div`
 `;
 
 const SubCatchPhrasePickGo = styled(SubCatchPhrase)`
-  width: 540px;
   margin-bottom: 20px;
 `;
 
@@ -556,7 +555,7 @@ const displayPickupStaffSpaceList = shuffleArray(PickupStaffSpaceList);
 const PickupFeature = props => (
   <PickupContainer>
     <PickupSpaceList
-      title="特徴でピックアップ"
+      title="ピックアップスペース"
       spaceList={displayPickupFeatureSpaceList.slice(0, 4 + (props.moreFeature ? 4 : 0))}
       noMore={props.moreFeature}
       onClickMoreView={props.onClickMoreFeature}
@@ -577,7 +576,7 @@ const PickupStaff = () => (
 
 const HubAndConciergeContents = props => {
   const StyledContainer = styled.div`
-    margin-top: 50px;
+    margin: 50px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -590,7 +589,6 @@ const HubAndConciergeContents = props => {
   return (
     <StyledContainer className="for-safe-section-list">
       <HubAndConciergeSection onClick={() => props.history.push(Path.conciergeRequest())} />
-      <HubAndConciergeSection isHub onClick={() => props.history.push(Path.hubRequest())} />
     </StyledContainer>
   );
 };
@@ -725,9 +723,9 @@ export default props => (
         </TopViewContainer>
       </TopViewFilter>
     </TopView>
-    <HubAndConciergeContents history={props.history} />
     {PickupFeature(props)}
     {PickupStaff(props)}
+    <HubAndConciergeContents history={props.history} />
     <ColoredContainer>
       <MovieContainer>
         <MovieFrameWrapper>
@@ -852,7 +850,9 @@ export default props => (
             >
               PickGo
             </LinkToPickGo>
-            を使えば、引っ越しが 5,000円 から
+            を使えば、
+            <br />
+            引っ越しが 5,000円 から
           </SubCatchPhrasePickGo>
         </PickGoWrapper>
       </PickGoContainer>
@@ -882,7 +882,11 @@ export default props => (
             >
               Gojo
             </LinkToPickGo>
-            を使えば、チームやコミュニティのお金の管理が簡単に
+            を使えば、
+            <br />
+            チームやコミュニティの
+            <br />
+            お金の管理が簡単に
           </SubCatchPhrasePickGo>
         </PickGoWrapper>
       </PickGoContainer>

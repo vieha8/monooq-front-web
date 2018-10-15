@@ -51,16 +51,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
     if (match.path === Path.createSpaceInfo()) {
       sessionStorage.removeItem('editSpace');
-
-      dispatch(uiActions.setUiState({ space: {} }));
-      this.state = {
-        Images: [],
-        Title: '',
-        Type: 0,
-        Introduction: '',
-        Address: '',
-        error: {},
-      };
     } else if (Object.keys(space).length === 0) {
       // リロードされた場合
       const saveSpace = JSON.parse(sessionStorage.getItem('editSpace'));

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'semantic-ui-react';
+import { captureMessage } from '@sentry/browser';
 
 class ErrorModal extends Component {
   state = { open: false };
@@ -10,6 +11,7 @@ class ErrorModal extends Component {
   componentWillReceiveProps = next => {
     if (next.error.hasError) {
       this.setState({ open: true });
+      captureMessage(next.error.message);
     }
   };
 
@@ -22,7 +24,8 @@ class ErrorModal extends Component {
           <Modal.Header>Sorry...</Modal.Header>
           <Modal.Content>
             <p>
-              通信エラーが発生しました。ご不便をおかけし大変申し訳ございません。<br />
+              通信エラーが発生しました。ご不便をおかけし大変申し訳ございません。
+              <br />
               <br />
               日々改善に努めております。しばらく時間を置いても解決されない場合は、お手数ですがお問い合わせください。
             </p>

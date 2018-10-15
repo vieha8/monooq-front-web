@@ -30,10 +30,29 @@ if (cluster.isMaster) {
   app.use(logger("combined"));
   app.use(compression());
 
+  const botUserAgents = [
+    "Googlebot",
+    "W3C_Validator",
+    "baiduspider",
+    "bingbot",
+    "embedly",
+    "facebookexternalhit",
+    "linkedinbot",
+    "outbrain",
+    "pinterest",
+    "quora link preview",
+    "rogerbot",
+    "showyoubot",
+    "slackbot",
+    "twitterbot",
+    "vkShare"
+  ];
+
   app.use(
     rendertron.makeMiddleware({
       proxyUrl: "https://monooq-rendertron.appspot.com/render",
-      timeout: 20000
+      timeout: 20000,
+      userAgentPattern: new RegExp(botUserAgents.join("|"), "i")
     })
   );
 
