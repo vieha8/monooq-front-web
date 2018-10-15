@@ -36,7 +36,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
-    const { dispatch, space } = this.props;
+    const { dispatch, match, space, history } = this.props;
 
     dispatch(spaceActions.prepareUpdateSpace());
 
@@ -48,6 +48,30 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       Address: space.Address || '',
       error: {},
     };
+
+    if (match.path === Path.createSpaceInfo()) {
+      sessionStorage.removeItem('editSpace');
+    } else if (Object.keys(space).length === 0) {
+      // リロードされた場合
+      const saveSpace = JSON.parse(sessionStorage.getItem('editSpace'));
+
+      dispatch(spaceActions.setSpace({ saveSpace }));
+      dispatch(uiActions.setUiState({ saveSpace }));
+      history.push(Path.editSpaceInfo(saveSpace.ID));
+
+      this.state = {
+        Images: saveSpace.Images || [],
+        Title: saveSpace.Title || '',
+        Type: saveSpace.Type || 0,
+        Introduction: saveSpace.Introduction || '',
+        Address: saveSpace.Address || '',
+        error: {},
+      };
+    } else {
+      // 通常更新の場合
+      sessionStorage.removeItem('editSpace');
+      sessionStorage.setItem('editSpace', JSON.stringify(space));
+    }
   }
 
   componentDidMount() {
@@ -80,9 +104,16 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
         const { dispatch, history, space } = this.props;
         const { Images, Title, Type, Introduction, Address } = this.state;
 
+        var tmpSpace = {};
+        if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
+          tmpSpace = JSON.parse(sessionStorage.getItem('editSpace'));
+        } else {
+          tmpSpace = space;
+        }
+
         dispatch(
           uiActions.setUiState({
-            space: Object.assign(space, {
+            space: Object.assign(tmpSpace, {
               Images,
               Title,
               Type: parseInt(Type, 10),
@@ -92,7 +123,9 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
           }),
         );
 
-        const nextPath = space.ID ? Path.editSpaceBaggage(space.ID) : Path.createSpaceBaggage();
+        const nextPath = tmpSpace.ID
+          ? Path.editSpaceBaggage(tmpSpace.ID)
+          : Path.createSpaceBaggage();
         history.push(nextPath);
       }
     });
@@ -155,6 +188,8 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
     const { space } = this.props;
     const { Images, Title, Type, Introduction, Address, error } = this.state;
+
+    console.log(space);
 
     return (
       <EditSpaceTemplate

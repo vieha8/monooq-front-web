@@ -41,6 +41,15 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
     }
 
     const { space, history, editedSpace } = this.props;
+    var editedTmpSpace = {};
+
+    if (Object.keys(editedSpace).length === 0 && sessionStorage['editSpace']) {
+      editedTmpSpace = JSON.parse(sessionStorage.getItem('editSpace'));
+    } else {
+      editedTmpSpace = editedSpace;
+    }
+
+    sessionStorage.removeItem('editSpace');
 
     if (!space.Title) {
       return <Redirect to={Path.createSpaceInfo()} />;
@@ -53,10 +62,10 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
           <EditSpaceCompletion
             edit={space.ID}
             space={{
-              userId: (editedSpace || {}).UserID,
+              userId: (editedTmpSpace || {}).UserID,
             }}
             onClickViewSpace={() => {
-              history.push(Path.space(editedSpace.ID));
+              history.push(Path.space(editedTmpSpace.ID));
             }}
           />
         }
@@ -72,4 +81,7 @@ const mapStateToProps = state =>
     space: state.ui.space || {},
   });
 
-export default connect(EditSpaceCompletionContainer, mapStateToProps);
+export default connect(
+  EditSpaceCompletionContainer,
+  mapStateToProps,
+);

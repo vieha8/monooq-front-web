@@ -2,9 +2,9 @@
 
 import React, { Component } from 'react';
 import Path from 'config/path';
-import { Redirect } from 'react-router-dom';
 
 import { uiActions } from 'redux/modules/ui';
+import { spaceActions } from 'redux/modules/space';
 
 import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
 import Header from 'components/atomic/containers/Header';
@@ -32,12 +32,29 @@ class EditSpaceSizeContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
-    const { space } = this.props;
+    const { dispatch, space, history } = this.props;
 
     this.state = {
       SizeType: space.SizeType || 0,
       error: {},
     };
+
+    if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
+      // リロードされた場合
+      const saveSpace = JSON.parse(sessionStorage.getItem('editSpace'));
+
+      dispatch(spaceActions.setSpace({ saveSpace }));
+      dispatch(uiActions.setUiState({ saveSpace }));
+      history.push(Path.editSpaceAreaSize(saveSpace.ID));
+
+      this.state = {
+        SizeType: saveSpace.SizeType || 0,
+        error: {},
+      };
+    } else {
+      // 通常更新の場合
+      sessionStorage.setItem('editSpace', JSON.stringify(space));
+    }
   }
 
   componentDidMount() {
@@ -51,20 +68,27 @@ class EditSpaceSizeContainer extends Component<PropTypes> {
         const { dispatch, history, space } = this.props;
         const { SizeType } = this.state;
 
+        var tmpSpace = {};
+        if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
+          tmpSpace = JSON.parse(sessionStorage.getItem('editSpace'));
+        } else {
+          tmpSpace = space;
+        }
+
         dispatch(
           uiActions.setUiState({
-            space: Object.assign(space, {
+            space: Object.assign(tmpSpace, {
               SizeType,
             }),
           }),
         );
 
         let nextPath = '';
-        if (space.ID) {
+        if (tmpSpace.ID) {
           nextPath =
             SizeType === 1
-              ? Path.editSpacePrice(space.ID, 'all')
-              : Path.editSpacePrice(space.ID, 'about');
+              ? Path.editSpacePrice(tmpSpace.ID, 'all')
+              : Path.editSpacePrice(tmpSpace.ID, 'about');
         } else {
           nextPath = SizeType === 1 ? Path.createSpacePrice('all') : Path.createSpacePrice('about');
         }
@@ -81,15 +105,22 @@ class EditSpaceSizeContainer extends Component<PropTypes> {
     const { dispatch, history, space } = this.props;
     const { SizeType } = this.state;
 
+    var tmpSpace = {};
+    if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
+      tmpSpace = JSON.parse(sessionStorage.getItem('editSpace'));
+    } else {
+      tmpSpace = space;
+    }
+
     dispatch(
       uiActions.setUiState({
-        space: Object.assign(space, {
+        space: Object.assign(tmpSpace, {
           SizeType,
         }),
       }),
     );
 
-    const nextPath = space.ID ? Path.editSpaceReceive(space.ID) : Path.createSpaceReceive();
+    const nextPath = tmpSpace.ID ? Path.editSpaceReceive(tmpSpace.ID) : Path.createSpaceReceive();
     history.push(nextPath);
   };
 
@@ -125,10 +156,6 @@ class EditSpaceSizeContainer extends Component<PropTypes> {
 
     const { space } = this.props;
     const { SizeType, error } = this.state;
-
-    if (!space.Title) {
-      return <Redirect to={Path.createSpaceInfo()} />;
-    }
 
     return (
       <EditSpaceTemplate
