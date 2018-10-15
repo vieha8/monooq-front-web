@@ -97,15 +97,6 @@ export default props => (
     </Row>
     <Row>
       <InputForm
-        label="ご予算の目安"
-        onChange={e => props.onChangeBudget(e.target.value)}
-        value={props.budget}
-        placeholder="10000"
-        unit="円/月"
-      />
-    </Row>
-    <Row>
-      <InputForm
         label="補足事項"
         onChange={e => props.onChangeNotes(e.target.value)}
         value={props.notes}

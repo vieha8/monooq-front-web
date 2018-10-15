@@ -641,6 +641,22 @@ export default props => (
               </AContent>
             </QaListItem>
           </QaContentWrap>
+          <QaContentWrap>
+            <QaListItem>
+              <QContent>
+                <QaImage src={qaQ} alt="" />
+                <QText>スペース利用料金の相場はどのくらいですか？</QText>
+              </QContent>
+              <AContent>
+                <QaImage src={qaA} alt="" />
+                <AText>
+                  1畳あたり5,000円〜7,000円が相場となっております。
+                  <br />
+                  ご予算がある場合は、補足事項にご記入いただけるとより条件に見合ったスペースをご提案できます。
+                </AText>
+              </AContent>
+            </QaListItem>
+          </QaContentWrap>
         </QaContent>
       </QaContainer>
       <Form {...props} />

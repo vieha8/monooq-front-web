@@ -88,8 +88,8 @@ class ConciergeRequestContainer extends Component<PropTypes> {
   };
 
   validate = () => {
-    const { startDate, endDate, baggageSize, baggageInfo, address, budget, email } = this.state;
-    return startDate && endDate && baggageSize && baggageInfo && address && budget && email;
+    const { startDate, endDate, baggageSize, baggageInfo, address, email } = this.state;
+    return startDate && endDate && baggageSize && baggageInfo && address && email;
   };
 
   render() {
@@ -101,7 +101,6 @@ class ConciergeRequestContainer extends Component<PropTypes> {
       baggageSize,
       baggageInfo,
       address,
-      budget,
       notes,
       hasChanged,
       email,
@@ -130,8 +129,6 @@ class ConciergeRequestContainer extends Component<PropTypes> {
           onChangeAddress={value => this.handleChangeUI('address', value)}
           notes={notes}
           onChangeNotes={value => this.handleChangeUI('notes', value)}
-          budget={budget}
-          onChangeBudget={value => this.handleChangeUI('budget', value)}
           email={email}
           onChangeEmail={value => this.handleChangeUI('email', value)}
           buttonDisabled={!this.validate()}

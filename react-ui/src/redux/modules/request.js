@@ -312,7 +312,6 @@ function* conciergeRequest({ payload: { userId, body } }) {
   message += `希望利用終了日: ${body.startDate.toDate()}\n`;
   message += `荷物の大きさ: ${body.baggageSize}\n`;
   message += `荷物の種類: ${body.baggageInfo}\n`;
-  message += `予算: ${body.budget}\n`;
   message += `備考: ${body.notes}\n`;
 
   const mail = {
