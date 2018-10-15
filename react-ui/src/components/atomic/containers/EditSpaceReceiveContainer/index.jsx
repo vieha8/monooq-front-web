@@ -2,9 +2,9 @@
 
 import React, { Component } from 'react';
 import Path from 'config/path';
-import { Redirect } from 'react-router-dom';
 
 import { uiActions } from 'redux/modules/ui';
+import { spaceActions } from 'redux/modules/space';
 
 import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
 import Header from 'components/atomic/containers/Header';
@@ -32,13 +32,31 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
-    const { space } = this.props;
+    const { dispatch, space, history } = this.props;
 
     this.state = {
       ReceiptType: space.ReceiptType || 0,
       ReceiptAbout: space.ReceiptAbout || '',
       error: {},
     };
+
+    if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
+      // リロードされた場合
+      const saveSpace = JSON.parse(sessionStorage.getItem('editSpace'));
+
+      dispatch(spaceActions.setSpace({ saveSpace }));
+      dispatch(uiActions.setUiState({ saveSpace }));
+      history.push(Path.createSpaceReceive(saveSpace.ID));
+
+      this.state = {
+        ReceiptType: saveSpace.ReceiptType || 0,
+        ReceiptAbout: saveSpace.ReceiptAbout || '',
+        error: {},
+      };
+    } else {
+      // 通常更新の場合
+      sessionStorage.setItem('editSpace', JSON.stringify(space));
+    }
   }
 
   componentDidMount() {
@@ -55,16 +73,25 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
         const { dispatch, history, space } = this.props;
         const { ReceiptType, ReceiptAbout } = this.state;
 
+        var tmpSpace = {};
+        if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
+          tmpSpace = JSON.parse(sessionStorage.getItem('editSpace'));
+        } else {
+          tmpSpace = space;
+        }
+
         dispatch(
           uiActions.setUiState({
-            space: Object.assign(space, {
+            space: Object.assign(tmpSpace, {
               ReceiptType: parseInt(ReceiptType, 10),
               ReceiptAbout,
             }),
           }),
         );
 
-        const nextPath = space.ID ? Path.editSpaceAreaSize(space.ID) : Path.createSpaceAreaSize();
+        const nextPath = tmpSpace.ID
+          ? Path.editSpaceAreaSize(tmpSpace.ID)
+          : Path.createSpaceAreaSize();
         history.push(nextPath);
       }
     });
@@ -75,16 +102,23 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     const { dispatch, history, space } = this.props;
     const { ReceiptType, ReceiptAbout } = this.state;
 
+    var tmpSpace = {};
+    if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
+      tmpSpace = JSON.parse(sessionStorage.getItem('editSpace'));
+    } else {
+      tmpSpace = space;
+    }
+
     dispatch(
       uiActions.setUiState({
-        space: Object.assign(space, {
+        space: Object.assign(tmpSpace, {
           ReceiptType,
           ReceiptAbout,
         }),
       }),
     );
 
-    const nextPath = space.ID ? Path.editSpaceBaggage(space.ID) : Path.createSpaceBaggage();
+    const nextPath = tmpSpace.ID ? Path.editSpaceBaggage(tmpSpace.ID) : Path.createSpaceBaggage();
     history.push(nextPath);
   };
 
@@ -129,10 +163,6 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
     const { space } = this.props;
     const { ReceiptType, ReceiptAbout, error } = this.state;
-
-    if (!space.Title) {
-      return <Redirect to={Path.createSpaceInfo()} />;
-    }
 
     return (
       <EditSpaceTemplate

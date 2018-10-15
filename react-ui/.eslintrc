@@ -17,9 +17,10 @@
     "document": true,
     "navigator": true,
     "localStorage": true,
+    "sessionStorage": true,
     "FileReader": true,
     "Headers": true,
-    "fetch": true,
+    "fetch": true
   },
   "rules": {
     "react/prop-types": 0,
