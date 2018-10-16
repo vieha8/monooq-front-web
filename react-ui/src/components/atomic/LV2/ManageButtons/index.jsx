@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Button from 'components/atomic/LV1/Button';
 import { PrimaryButton } from 'components/atomic/LV1/Button/Primary';
 import { Colors } from 'variables';
+import ConfirmBtnModal from 'components/atomic/LV2/ConfirmBtnModal';
 
 const Container = styled.div`
   width: 120px;
@@ -58,9 +59,12 @@ export default (props: PropTypes) => (
         </PrivateButton>
       )}
       {props.removable && (
-        <PrivateButton small onClick={props.onClickRemove}>
-          削除する
-        </PrivateButton>
+        <ConfirmBtnModal
+          btnText={'削除する'}
+          modalTitle={'スペース削除'}
+          modalText={'登録済みのスペースを削除します。よろしいですか？'}
+          onClickRemove={props.onClickRemove}
+        />
       )}
     </Wrapper>
   </Container>

@@ -11,3 +11,16 @@
 .image-gallery-bullets .image-gallery-bullet {
   border: none;
 }
+
+.ui.brandPrimary.button {
+  background-color: #e85258;
+  color: #ffffff;
+}
+
+.ui.brandPrimary.button:hover {
+  background-color: #f1979b;
+}
+
+.ui.white.button {
+  background-color: #ffffff;
+}
