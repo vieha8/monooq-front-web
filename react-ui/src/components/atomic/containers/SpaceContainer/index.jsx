@@ -101,7 +101,8 @@ class SpaceContainer extends Component<PropTypes, State> {
 
           const script = document.createElement('script');
 
-          script.innerHTML = `var __atw = __atw || [];
+          if (userId !== 2613) {
+            script.innerHTML = `var __atw = __atw || [];
     __atw.push({ "merchant" : "monooq", "param" : {
         "result_id" : "105",
         "verify" : "new_request_user${userId}_space${spaceId}",
@@ -109,7 +110,8 @@ class SpaceContainer extends Component<PropTypes, State> {
 (function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
 a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
 
-          document.body.appendChild(script);
+            document.body.appendChild(script);
+          }
         }
         history.push(Path.message(roomId));
       } finally {
