@@ -6,5 +6,11 @@ Disallow: /schedule
 Disallow: /schedule/
 Disallow: /sales
 Disallow: /sales/
+Disallow: /ja
+Disallow: /en
+Disallow: /en
+Disallow: /unsubscribe
+Disallow: /hub
+Disallow: /renewal*.pdf
 
 Sitemap: https://monooq.com/sitemap.xml
