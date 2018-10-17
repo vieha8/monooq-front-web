@@ -12,6 +12,7 @@ import Header from 'components/atomic/containers/Header';
 import Footer from 'components/atomic/LV2/Footer';
 import SearchResult from 'components/atomic/LV3/SearchResult';
 import SearchNotFound from 'components/atomic/LV3/SearchNotFound';
+import Meta from 'components/Meta';
 import { Dimens } from 'variables';
 
 import { searchActions } from 'redux/modules/search';
@@ -129,6 +130,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     return (
       <Fragment>
         <SearchResultTemplate
+          meta={<Meta title={`${location}のスペース検索結果 | モノオク`} />}
           headline1={`${location}のスペース`}
           caption={caption}
           searchResult={

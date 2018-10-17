@@ -29,6 +29,7 @@ const Content = styled.div`
 `;
 
 type PropTypes = {
+  meta: React.Element<*>,
   header: React.Element<*>,
   headline1: string,
   caption: string,
@@ -36,8 +37,9 @@ type PropTypes = {
   footer: React.Element<*>,
 };
 
-export default ({ header, headline1, caption, searchResult, footer }: PropTypes) => (
+export default ({ meta, header, headline1, caption, searchResult, footer }: PropTypes) => (
   <div>
+    {meta}
     {header}
     <Page>
       <H1Container>
