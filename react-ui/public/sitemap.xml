@@ -17,4 +17,23 @@
     <url><loc>https://monooq.com/help/hosttransaction</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/help/signin</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/help/other</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=東京都</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=世田谷区</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=大田区</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=港区</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=渋谷区</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=新宿区</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=品川区</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=足立区</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=杉並区</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=中央区</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=目黒区</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=大阪府</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=神奈川県</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=埼玉県</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=千葉県</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=愛知県</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=兵庫県</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=福岡県</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/search?location=北海道</loc><priority>0.5</priority></url>
 </urlset>
