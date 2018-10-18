@@ -63,6 +63,14 @@ if (cluster.isMaster) {
     next();
   });
 
+  app.get("/ja", (req, res) => {
+    res.redirect("/");
+  });
+
+  app.get("/en", (req, res) => {
+    res.redirect("/");
+  });
+
   app.get("/ja/*", (req, res) => {
     res.redirect("/");
   });
