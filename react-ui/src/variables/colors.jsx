@@ -30,5 +30,4 @@ export default {
   pickup2: '#EFA0C0',
   pickup3: '#18B3F0',
   pickup4: '#F0A818',
-  hub: '#3E4165',
 };
