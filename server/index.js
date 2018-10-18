@@ -56,14 +56,27 @@ if (cluster.isMaster) {
     })
   );
 
+  app.get("/:path", (req, res, next) => {
+    if (req.params.path === "index.html") {
+      return res.redirect("/");
+    }
+    next();
+  });
+
+  app.get("/ja/*", (req, res) => {
+    res.redirect("/");
+  });
+
+  app.get("/en/*", (req, res) => {
+    res.redirect("/");
+  });
+
   // Priority serve any static files.
   app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
 
   // All remaining requests return the React app, so it can handle routing.
-  app.get("*", function(request, response) {
-    response.sendFile(
-      path.resolve(__dirname, "../react-ui/build", "index.html")
-    );
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "../react-ui/build", "index.html"));
   });
 
   app.listen(PORT, function() {
