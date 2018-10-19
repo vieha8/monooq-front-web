@@ -12,21 +12,36 @@ import Logo from 'components/atomic/LV1/Logo';
 import Button from 'components/atomic/LV1/Button';
 import SearchInput from 'components/atomic/LV2/SearchInput';
 import PickupSpaceList from 'components/atomic/LV3/PickupSpaceList';
-import mainVisual from 'images/main_visual@2x.jpg';
-import mainVisualSp from 'images/main_visual_sp@2x.jpg';
-import topImage1 from 'images/top1@2x.png';
-import topImage1Sp from 'images/top1_sp@2x.png';
-import topImage2 from 'images/top2@2x.png';
-import logoPickGo from 'images/logo-pickgo@2x.png';
-import logoAppliv from 'images/logo-appliv@2x.png';
-import logoAscii from 'images/logo-ascii@2x.png';
-import logoBridge from 'images/logo-bridge@2x.png';
-import logoCnet from 'images/logo-cnet@2x.png';
-import logoLifehacker from 'images/logo-lifehacker@2x.png';
-import logoTechcrunch from 'images/logo-techcrunch@2x.png';
-import logoTechable from 'images/logo-techable@2x.png';
-import logoGojo from 'images/logo-gojo@2x.png';
 import { PickupFeatureSpaceList, PickupStaffSpaceList } from './pickup';
+
+const mainVisual =
+  'https://monooq.imgix.net/img%2Fservice%2Fmain_visual%402x.jpg?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=540';
+const mainVisualSp =
+  'https://monooq.imgix.net/img%2Fservice%2Fmain_visual_sp%402x.jpg?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=400';
+const topImage1 =
+  'https://monooq.imgix.net/img%2Fservice%2Ftop1%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=500';
+const topImage1Sp =
+  'https://monooq.imgix.net/img%2Fservice%2Ftop1_sp%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=400';
+const topImage2 =
+  'https://monooq.imgix.net/img%2Fservice%2Ftop2%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=500';
+const logoPickGo =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=42';
+const logoGojo =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-gojo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=65';
+const logoAppliv =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-appliv%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+const logoAscii =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-ascii%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+const logoBridge =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-bridge%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+const logoCnet =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-cnet%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+const logoLifehacker =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-lifehacker%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+const logoTechcrunch =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-techcrunch%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+const logoTechable =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-techable%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
 
 const TopPage = styled.div`
   min-width: ${Dimens.fixedWidthPc + 32}px;
