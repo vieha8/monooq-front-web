@@ -189,8 +189,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     const { space } = this.props;
     const { Images, Title, Type, Introduction, Address, error } = this.state;
 
-    console.log(space);
-
     return (
       <EditSpaceTemplate
         header={<Header />}
