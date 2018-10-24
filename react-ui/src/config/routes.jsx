@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import Loadable from 'react-loadable';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import Path from './path';
