@@ -2,6 +2,7 @@
 
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
+import { convertImgixUrl } from 'helpers/imgix';
 
 type PropTypes = {
   images: Array<{
@@ -12,26 +13,7 @@ type PropTypes = {
 
 const convertImageUrl = images => {
   return images.map(({ original }) => {
-    let storageUrl = 'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/';
-    let imgixUrl = 'https://monooq.imgix.net/';
-    let replaceUrl = original;
-
-    if (original.indexOf('monooq-prod.appspot.com') > -1) {
-      replaceUrl = original.replace(storageUrl, imgixUrl) + '&fit=crop&w=540&max-h=540&format=auto';
-    }
-
-    if (original.indexOf('monooq-dev.appspot.com') > -1) {
-      storageUrl = 'https://firebasestorage.googleapis.com/v0/b/monooq-dev.appspot.com/o/';
-      imgixUrl = 'https://monooq-dev.imgix.net/';
-      replaceUrl = original.replace(storageUrl, imgixUrl) + '&fit=crop&w=540&max-h=540&format=auto';
-    }
-
-    if (original.indexOf('s3-ap-northeast-1') > -1) {
-      storageUrl = 'https://s3-ap-northeast-1.amazonaws.com/monooq/';
-      imgixUrl = 'https://monooq-s3.imgix.net/';
-      replaceUrl = original.replace(storageUrl, imgixUrl) + '?fit=crop&w=540&max-h=540&format=auto';
-    }
-
+    const replaceUrl = convertImgixUrl(original, 'fit=crop&w=540&max-h=540&format=auto');
     return {
       original: replaceUrl || '',
       thumbnail: replaceUrl || '',

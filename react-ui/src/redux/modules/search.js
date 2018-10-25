@@ -4,6 +4,7 @@ import dummySpaceImage from 'images/dummy_space.png';
 import { apiEndpoint } from './api';
 import { getApiRequest } from '../helpers/api';
 import { errorActions } from './error';
+import { convertImgixUrl } from 'helpers/imgix';
 
 // Actions
 const DO_SEARCH = 'DO_SEARCH';
@@ -56,26 +57,7 @@ function* search({ payload: { location, limit, offset } }) {
       space.Images = [{ ImageUrl: dummySpaceImage }];
     } else {
       space.Images = space.Images.map(image => {
-        const imageUrl = image.ImageUrl;
-
-        let storageUrl = 'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/';
-        let imgixUrl = 'https://monooq.imgix.net/';
-
-        if (imageUrl.indexOf('monooq-dev.appspot.com') > -1) {
-          storageUrl = 'https://firebasestorage.googleapis.com/v0/b/monooq-dev.appspot.com/o/';
-          imgixUrl = 'https://monooq-dev.imgix.net/';
-        }
-
-        let replaceUrl =
-          imageUrl.replace(storageUrl, imgixUrl) + '&fit=crop&w=350&max-h=200&format=auto';
-
-        if (imageUrl.indexOf('s3-ap-northeast-1') > -1) {
-          storageUrl = 'https://s3-ap-northeast-1.amazonaws.com/monooq/';
-          imgixUrl = 'https://monooq-s3.imgix.net/';
-          replaceUrl =
-            imageUrl.replace(storageUrl, imgixUrl) + '?fit=crop&w=350&max-h=200&format=auto';
-        }
-        image.ImageUrl = replaceUrl;
+        image.ImageUrl = convertImgixUrl(image.ImageUrl, 'fit=crop&w=350&max-h=200&format=auto');
         return image;
       });
     }
