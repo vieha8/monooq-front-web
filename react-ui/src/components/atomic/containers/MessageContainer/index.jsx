@@ -13,6 +13,7 @@ import Loading from 'components/atomic/LV1/Loading';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
+import { convertImgixUrl } from 'helpers/imgix';
 
 type PropTypes = {
   dispatch: Function,
@@ -114,11 +115,16 @@ class InboxContainer extends Component<PropTypes, State> {
     return messages.map(message => {
       switch (message.messageType) {
         case MessageType.Text:
+          let imageUrl = message.image;
+          if (imageUrl) {
+            imageUrl = convertImgixUrl(message.image, 'fit=crop&format=auto');
+          }
+
           if (message.userId === user.ID) {
             return {
               self: {
                 message: message.text,
-                image: message.image,
+                image: imageUrl,
                 sentAt: message.createDt,
               },
             };
@@ -126,9 +132,9 @@ class InboxContainer extends Component<PropTypes, State> {
           return {
             other: {
               id: message.userId,
-              userImage: room.user.ImageUrl,
+              userImage: convertImgixUrl(room.user.ImageUrl, 'fit=crop&format=auto'),
               message: message.text,
-              image: message.image,
+              image: imageUrl,
               receivedAt: message.createDt,
             },
           };
