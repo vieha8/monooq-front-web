@@ -8,6 +8,7 @@ import fileType from '../../helpers/file-type';
 import { authActions } from './auth';
 import { getApiRequest, putApiRequest } from '../helpers/api';
 import { errorActions } from './error';
+import { convertImgixUrl } from 'helpers/imgix';
 
 // Actions
 const FETCH_USER = 'FETCH_USER';
@@ -126,6 +127,11 @@ function* getSpaces(params) {
     const res = data.map(v => {
       if (v.Images.length === 0) {
         v.Images[0] = { ImageUrl: dummySpaceImage };
+      } else {
+        v.Images = v.Images.map(image => {
+          image.ImageUrl = convertImgixUrl(image.ImageUrl, 'fit=crop&w=140&max-h=90&format=auto');
+          return image;
+        });
       }
       return v;
     });
