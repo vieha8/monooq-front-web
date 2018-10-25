@@ -31,7 +31,7 @@ const Map = withScriptjs(
   )),
 );
 
-const KEY = 'AIzaSyCrHQDZXZI21cMEW8FIYYWKyvI2kLUDsbA';
+const KEY = 'AIzaSyAF1kxs-DsZJHW3tX3eNi88tKixy-zbGtk';
 Map.defaultProps = {
   containerElement: <MapContainer />,
   mapElement: <div style={{ height: '100%' }} />,
