@@ -136,7 +136,7 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
 
   if (payload.Address) {
     // TODO 本来はサーバー側でlat,lngは持つけど暫定的に
-    const KEY = 'AIzaSyCrHQDZXZI21cMEW8FIYYWKyvI2kLUDsbA';
+    const KEY = 'AIzaSyAF1kxs-DsZJHW3tX3eNi88tKixy-zbGtk';
     const places = yield call(
       () =>
         new Promise((resolve, reject) => {

@@ -82,7 +82,8 @@ export default ({ header, meta, map, detail, price, message, note, footer }: Pro
   <SpaceTemplateContainer>
     {header}
     {meta}
-    <Map>{map}</Map>
+    {/*<Map>{map}</Map>*/}
+    <br />
     <Page fillPhone smallMargin>
       <Container>
         <ClearfixContainer>
