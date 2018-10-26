@@ -307,6 +307,7 @@ function* sendEmail(payload) {
     Subject: 'メッセージが届いています：モノオクからのお知らせ',
     Address: toUser.Email,
     Body: messageBody,
+    Category: 'message',
   };
 
   yield call(postApiRequest, apiEndpoint.sendMail(), body);

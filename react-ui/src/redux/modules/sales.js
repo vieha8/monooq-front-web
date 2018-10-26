@@ -83,6 +83,7 @@ const sendMailToAdmin = (
       Subject: `新規振込申請 ユーザーID:${userId}`,
       Address: 'info@monooq.com',
       Body: message,
+      Category: 'payout',
     };
 
     postApiRequest(apiEndpoint.sendMail(), body);
@@ -118,6 +119,7 @@ const sendMailToUser = (
       Subject: `振込申請が完了しました`,
       Address: email,
       Body: message,
+      Category: 'payout',
     };
 
     postApiRequest(apiEndpoint.sendMail(), body);

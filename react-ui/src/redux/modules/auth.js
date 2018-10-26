@@ -360,6 +360,7 @@ function* unsubscribe({ payload: { userId, reason, description } }) {
     Subject: `【退会完了】ユーザーID:${userId}`,
     Address: 'info@monooq.com',
     Body: messageBody,
+    Category: 'unsubscribe',
   };
 
   yield call(postApiRequest, apiEndpoint.sendMail(), body);

@@ -116,6 +116,7 @@ function* sendEstimateEmail(payload) {
     Subject: 'お見積りが届いています：モノオクからのお知らせ',
     Address: toUser.Email,
     Body: messageBody,
+    category: 'estimate',
   };
 
   yield call(postApiRequest, apiEndpoint.sendMail(), body);
@@ -191,6 +192,7 @@ function* sendPaymentEmail(payload) {
     Subject: 'ユーザーの支払いが完了されました：モノオクからのお知らせ',
     Address: toUser.Email,
     Body: messageBody,
+    Category: 'payment',
   };
 
   yield call(postApiRequest, apiEndpoint.sendMail(), body);
@@ -318,6 +320,7 @@ function* conciergeRequest({ payload: { userId, body } }) {
     Subject: `【モノオクコンシェルジュ】新規ご相談 ${body.email}`,
     Address: 'info@monooq.com',
     Body: message,
+    Category: 'concierge',
   };
 
   yield call(postApiRequest, apiEndpoint.sendMail(), mail);
