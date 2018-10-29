@@ -24,6 +24,10 @@ const Profile = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
+const PhoneNumber = styled.div`
+  margin-top: ${Dimens.medium}px;
+`;
+
 const IsHost = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
@@ -38,6 +42,7 @@ type PropTypes = {
   name: React.Element<*>,
   area: React.Element<*>,
   profile: React.Element<*>,
+  phoneNumber: React.Element<*>,
   isHost: React.Element<*>,
   button: React.Element<*>,
 };
@@ -50,6 +55,7 @@ export default (props: PropTypes) => (
     <Area>{props.area}</Area>
     <IsHost>{props.isHost}</IsHost>
     <Profile>{props.profile}</Profile>
+    <PhoneNumber>{props.phoneNumber}</PhoneNumber>
     <Button>{props.button}</Button>
   </Fragment>
 );

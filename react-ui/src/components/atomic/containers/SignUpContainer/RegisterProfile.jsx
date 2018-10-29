@@ -34,6 +34,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
       prefCode: '',
       profile: '',
       isHost: 0,
+      phoneNumber: '',
       hasChanged: false,
     };
   }
@@ -44,11 +45,11 @@ export default class RegisterContainer extends Component<PropTypes, State> {
 
   onClickRegisterProfile = () => {
     const { dispatch, user } = this.props;
-    const { image, name, prefCode, profile, isHost } = this.state;
+    const { image, name, prefCode, profile, isHost, phoneNumber } = this.state;
     dispatch(
       userActions.updateUser({
         userId: user.ID,
-        body: { imageUri: image, name, prefCode, profile, isHost: Boolean(isHost) },
+        body: { imageUri: image, name, prefCode, profile, isHost: Boolean(isHost), phoneNumber },
       }),
     );
   };
@@ -61,20 +62,23 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   };
 
   validate = () => {
-    const { name, prefCode, profile } = this.state;
+    const { name, prefCode, profile, phoneNumber } = this.state;
     return (
       name &&
       name.length > 0 &&
       prefCode &&
       profile &&
       profile.length > 0 &&
-      profile.length <= Validate.Profile.Max
+      profile.length <= Validate.Profile.Max &&
+      phoneNumber &&
+      phoneNumber.length >= 10 &&
+      phoneNumber.length <= 12
     );
   };
 
   render() {
     const { isLoading } = this.props;
-    const { image, name, prefCode, profile, isHost } = this.state;
+    const { image, name, prefCode, profile, isHost, phoneNumber } = this.state;
 
     return (
       <RegisterProfile
@@ -83,11 +87,13 @@ export default class RegisterContainer extends Component<PropTypes, State> {
         onChangeArea={value => this.handleChangeForm('prefCode', value)}
         onChangeProfile={value => this.handleChangeForm('profile', value)}
         onChangeIsHost={value => this.handleChangeForm('isHost', value)}
+        onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
         image={image}
         name={name}
         prefCode={prefCode}
         profile={profile}
         isHost={isHost}
+        phoneNumber={phoneNumber}
         onClickRegisterProfile={this.onClickRegisterProfile}
         buttonDisabled={!this.validate()}
         buttonLoading={isLoading}
