@@ -48,6 +48,7 @@ class ProfileContainer extends Component<PropTypes> {
       email: user.Email,
       prefCode: user.PrefCode,
       profile: user.Profile,
+      phoneNumber: user.PhoneNumber,
     };
   }
 
@@ -64,6 +65,7 @@ class ProfileContainer extends Component<PropTypes> {
         email: user.Email,
         prefCode: user.PrefCode,
         profile: user.Profile,
+        phoneNumber: user.PhoneNumber,
       });
     }
   }
@@ -137,7 +139,7 @@ class ProfileContainer extends Component<PropTypes> {
       return <LoadingPage />;
     }
 
-    const { imageUri, name, email, prefCode, profile } = this.state;
+    const { imageUri, name, email, prefCode, profile, phoneNumber } = this.state;
 
     return (
       <MenuPageTemplate
@@ -154,11 +156,13 @@ class ProfileContainer extends Component<PropTypes> {
               email={email}
               prefCode={prefCode}
               profile={profile}
+              phoneNumber={phoneNumber}
               onChangeImage={value => this.handleChangeUI('imageUri', value)}
               onChangeName={value => this.handleChangeUI('name', value)}
               onChangeEmail={value => this.handleChangeUI('email', value)}
               onChangePrefCode={value => this.handleChangeUI('prefCode', value)}
               onChangeProfile={value => this.handleChangeUI('profile', value)}
+              onChangePhoneNumber={value => this.handleChangeUI('phoneNumber', value)}
               buttonDisabled={!this.validate()}
               buttonLoading={isLoading}
               onClickUpdate={this.onClickUpdate}
@@ -178,4 +182,7 @@ const mapStateToProps = state =>
     isLoading: state.user.isLoading,
   });
 
-export default connect(ProfileContainer, mapStateToProps);
+export default connect(
+  ProfileContainer,
+  mapStateToProps,
+);
