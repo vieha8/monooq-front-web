@@ -9,6 +9,7 @@ import { userActions } from './user';
 import { authActions } from './auth';
 import { getApiRequest, postApiRequest, putApiRequest, deleteApiRequest } from '../helpers/api';
 import { errorActions } from './error';
+import { convertBaseUrl } from '../../helpers/imgix';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
@@ -261,7 +262,7 @@ function* updateSpace({ payload: { spaceId, body } }) {
           if (image.ImageUrl.includes('data:image/png;base64,')) {
             return '';
           }
-          return image.ImageUrl;
+          return convertBaseUrl(image.ImageUrl);
         }
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);
