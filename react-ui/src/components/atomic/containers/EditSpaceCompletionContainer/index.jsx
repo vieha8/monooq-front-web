@@ -7,6 +7,7 @@ import { Redirect } from 'react-router-dom';
 import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceCompletion from 'components/atomic/LV3/EditSpace/Completion';
+import { spaceActions } from 'redux/modules/space';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -40,7 +41,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space, history, editedSpace } = this.props;
+    const { space, history, editedSpace, dispatch } = this.props;
     var editedTmpSpace = {};
 
     if (Object.keys(editedSpace).length === 0 && sessionStorage['editSpace']) {
@@ -65,6 +66,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
               userId: (editedTmpSpace || {}).UserID,
             }}
             onClickViewSpace={() => {
+              dispatch(spaceActions.clearSpace());
               history.push(Path.space(editedTmpSpace.ID));
             }}
           />
