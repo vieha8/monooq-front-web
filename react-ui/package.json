@@ -48,7 +48,7 @@
     "test": "eslint src && flow",
     "eject": "react-scripts eject",
     "storybook": "export NODE_PATH=src && start-storybook -p 9009 -s public",
-    "build-storybook": "export NODE_PATH=src && build-storybook -s public",
+    "build-storybook": "export NODE_PATH=src && npx build-storybook -s public",
     "lint": "eslint src",
     "fix": "eslint src --fix",
     "flow": "flow",
