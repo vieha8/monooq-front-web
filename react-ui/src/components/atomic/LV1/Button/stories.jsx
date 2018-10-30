@@ -1,49 +1,99 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { withInfo } from '@storybook/addon-info';
 
 import Button from './index';
 
+Button.displayName = 'Button';
+
 storiesOf('Atoms/Buttons/Button', module)
-  .add('Primary', () => (
-    <Fragment>
-      <Button primary>Primary</Button>
-      <Button primary disabled>
-        Primary
-      </Button>
-    </Fragment>
-  ))
-  .add('Secondary', () => (
-    <Fragment>
-      <Button secondary>Secondary</Button>
-      <Button secondary disabled>
-        Secondary
-      </Button>
-    </Fragment>
-  ))
-  .add('Tertiary', () => (
-    <Fragment>
-      <Button tertiary>Tertiary</Button>
-      <Button tertiary disabled>
-        Tertiary
-      </Button>
-    </Fragment>
-  ))
-  .add('Facebook', () => (
-    <Fragment>
-      <Button facebook>Facebook</Button>
-      <Button facebook disabled>
-        Facebook
-      </Button>
-    </Fragment>
-  ))
-  .add('Custom Height', () => (
-    <Fragment>
-      <Button height={20}>Height 20</Button>
-      <br />
-      <Button height={40}>Height 40</Button>
-      <br />
-      <Button height={60}>Height 60</Button>
-    </Fragment>
-  ));
+  .add(
+    'Primary',
+    withInfo(`
+      ### コンポーネント概要
+      ボタン(Primary)
+    `)(() => (
+      <div>
+        <Button primary>Primary</Button>
+        <br />
+        <Button primary disabled>
+          Primary
+        </Button>
+      </div>
+    )),
+  )
+  .add(
+    'Secondary',
+    withInfo(`
+      ### コンポーネント概要
+      ボタン(Secondary)
+    `)(() => (
+      <div>
+        <Button secondary>Secondary</Button>
+        <br />
+        <Button secondary disabled>
+          Secondary
+        </Button>
+      </div>
+    )),
+  )
+  .add(
+    'Tertiary',
+    withInfo(`
+      ### コンポーネント概要
+      ボタン(Tertiary)
+    `)(() => (
+      <div>
+        <Button tertiary>Tertiary</Button>
+        <br />
+        <Button tertiary disabled>
+          Tertiary
+        </Button>
+      </div>
+    )),
+  )
+  .add(
+    'Facebook',
+    withInfo(`
+      ### コンポーネント概要
+      ボタン(Facebook)
+    `)(() => (
+      <div>
+        <Button facebook>Facebook</Button>
+        <br />
+        <Button facebook disabled>
+          Facebook
+        </Button>
+      </div>
+    )),
+  )
+  .add(
+    'Custom Height',
+    withInfo(`
+      ### コンポーネント概要
+      - ・ボタン(高さ調整可能ボタン)
+      - ・heightを指定することで、ボタンの高さを指定することが可能(指定単位:px)。
+    `)(() => (
+      <div>
+        <Button height={20}>Height 20</Button>
+        <br />
+        <Button height={20} disabled>
+          Height 20
+        </Button>
+        <br />
+        <Button height={40}>Height 40</Button>
+        <br />
+        <Button height={40} disabled>
+          Height 40
+        </Button>
+        <br />
+        <Button height={60}>Height 60</Button>
+        <br />
+        <Button height={60} disabled>
+          Height 60
+        </Button>
+      </div>
+    )),
+  );

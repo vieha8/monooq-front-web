@@ -1,17 +1,29 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { withInfo } from '@storybook/addon-info';
 
 import TextLink from './index';
 
-storiesOf('Atoms/Buttons/TextLink', module).add('Normal', () => (
-  <Fragment>
+var Url = 'https://monooq.com';
+TextLink.displayName = 'TextLink';
+
+storiesOf('Atoms/Buttons/TextLink', module).add(
+  'Normal',
+  withInfo(`
+      ### コンポーネント概要
+      テキストリンク
+    `)(() => (
     <div>
-      <TextLink>詳細を見る</TextLink>
+      <div>
+        <TextLink href={Url}>詳細を見る</TextLink>
+      </div>
+      <div>
+        <TextLink href={Url} disabled>
+          詳細を見る
+        </TextLink>
+      </div>
     </div>
-    <div>
-      <TextLink disabled>詳細を見る</TextLink>
-    </div>
-  </Fragment>
-));
+  )),
+);
