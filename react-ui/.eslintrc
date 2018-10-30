@@ -1,0 +1,46 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import",
+    "flowtype",
+    "prettier"
+  ],
+  "globals": {
+    "window": true,
+    "document": true,
+    "navigator": true,
+    "localStorage": true,
+    "sessionStorage": true,
+    "FileReader": true,
+    "Headers": true,
+    "fetch": true
+  },
+  "rules": {
+    "react/prop-types": 0,
+    "react/prefer-stateless-function": 0,
+    "react/jsx-tag-spacing": [
+      "error",
+      {
+        "beforeSelfClosing": "always"
+      }
+    ],
+    "prettier/prettier": "error"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "src"
+        ]
+      },
+      "babel-module": {}
+    }
+  }
+}

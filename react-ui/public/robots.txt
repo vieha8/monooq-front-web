@@ -1,0 +1,15 @@
+User-Agent: *
+Disallow: /messages
+Disallow: /messages/
+Disallow: /profile/
+Disallow: /schedule
+Disallow: /schedule/
+Disallow: /sales
+Disallow: /sales/
+Disallow: /ja
+Disallow: /en
+Disallow: /hub
+Disallow: /unsubscribe
+Disallow: /renewal*.pdf
+
+Sitemap: https://monooq.com/sitemap.xml

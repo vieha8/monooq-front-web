@@ -1,0 +1,5 @@
+@import '../node_modules/semantic-ui-css/semantic.min.css';
+@import './stylesheets/reset.css';
+@import './stylesheets/main.css';
+@import './stylesheets/font.css';
+@import './stylesheets/fontawesome-all.min.css';

@@ -1,0 +1,31 @@
+// @flow
+
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
+import Radio from 'components/atomic/LV1/Radio';
+import { H3 } from 'components/atomic/LV1/Headline';
+
+const Wrapper = styled.div`
+  &:not(:first-child) {
+    margin-top: 16px;
+  }
+`;
+
+type PropTypes = {
+  labels: Array<string>,
+  checkedIndex: number,
+  onClick: Function,
+};
+
+export default (props: PropTypes) => (
+  <Fragment>
+    <H3 bold>{props.label}</H3>
+    {props.labels.map((label, i) => (
+      <Wrapper key={`checklist_checkitem${i}`}>
+        <Radio onClick={() => props.onClick(i)} checked={props.checkedIndex === i}>
+          {label}
+        </Radio>
+      </Wrapper>
+    ))}
+  </Fragment>
+);
