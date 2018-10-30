@@ -1,1 +1,1 @@
-web: export NODE_PATH=src && start-storybook -p $PORT -s public
+web: cd react-ui && export NODE_PATH=src && start-storybook -p $PORT -s public
