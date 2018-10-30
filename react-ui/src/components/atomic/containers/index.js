@@ -24,7 +24,6 @@ import EditSpacePriceType from './EditSpacePriceTypeContainer';
 import EditSpaceCompletion from './EditSpaceCompletionContainer';
 import Unsubscribe from './UnsubscribeContainer';
 import Sales from './SalesContainer';
-import HubRequest from './HubRequestContainer';
 import ConciergeRequest from './ConciergeRequestContainer';
 
 export default {
@@ -52,6 +51,5 @@ export default {
   EditSpaceCompletion,
   Unsubscribe,
   Sales,
-  HubRequest,
   ConciergeRequest,
 };

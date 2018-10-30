@@ -7,14 +7,12 @@ import Primary from './Primary';
 import Secondary from './Secondary';
 import Tertiary from './Tertiary';
 import Facebook from './Facebook';
-import Hub from './Hub';
 
 type PropTypes = {
   primary?: boolean,
   secondary?: boolean,
   tertiary?: boolean,
   facebook?: boolean,
-  hub?: boolean,
   disabled?: boolean,
   loading?: boolean,
   onClick: Function,
@@ -43,14 +41,6 @@ export default (props: PropTypes) => {
       <Facebook {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
         {props.loading ? <Loader active inverted inline="centered" size="mini" /> : props.children}
       </Facebook>
-    );
-  }
-
-  if (props.hub) {
-    return (
-      <Hub {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
-        {props.loading ? <Loader active inverted inline="centered" size="mini" /> : props.children}
-      </Hub>
     );
   }
 

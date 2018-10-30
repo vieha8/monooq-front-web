@@ -589,7 +589,7 @@ const PickupStaff = () => (
   </PickupContainer>
 );
 
-const HubAndConciergeContents = props => {
+const ConciergeContents = props => {
   const StyledContainer = styled.div`
     margin: 50px;
     display: flex;
@@ -603,24 +603,19 @@ const HubAndConciergeContents = props => {
 
   return (
     <StyledContainer className="for-safe-section-list">
-      <HubAndConciergeSection onClick={() => props.history.push(Path.conciergeRequest())} />
+      <ConciergeSection onClick={() => props.history.push(Path.conciergeRequest())} />
     </StyledContainer>
   );
 };
 
-const HubAndConciergeSection = ({ isHub, onClick }) => {
+const ConciergeSection = ({ onClick }) => {
   const StyledContainer = styled.div`
     width: 40%;
     text-align: center;
     font-weight: bold;
     text-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-    ${isHub
-      ? css`
-          color: ${Colors.hub};
-        `
-      : css`
-          color: ${Colors.brandPrimary};
-        `} ${media.phone`
+    color: ${Colors.brandPrimary};
+    ${media.phone`
       width: 100%;
       margin-bottom: 30px;
     `};
@@ -651,13 +646,8 @@ const HubAndConciergeSection = ({ isHub, onClick }) => {
     ${media.phone`
       width: 70%;
     `};
-    ${isHub
-      ? css`
-          border: 1px solid ${Colors.hub};
-        `
-      : css`
-          border: 1px solid ${Colors.brandPrimary};
-        `} border-radius: 5px;
+    border: 1px solid ${Colors.brandPrimary};
+    border-radius: 5px;
   `;
 
   const PriceSub = styled.div`
@@ -682,29 +672,23 @@ const HubAndConciergeSection = ({ isHub, onClick }) => {
   return (
     <StyledContainer>
       <Title>
-        {isHub ? <Logo.Hub width={200} /> : <Logo.Base width={200} />}
+        <Logo.Base width={200} />
         <br />
-        {isHub ? 'Hub' : 'Concierge'}
+        Concierge
       </Title>
       <Description>
-        <DescriptionSub>
-          {isHub ? '都内でお急ぎの方にオススメ' : 'なかなかスペースが見つからない方へ'}
-        </DescriptionSub>
-        <DescriptionMain>
-          {isHub ? 'すぐにお荷物を預かります!' : 'あなたにぴったりなホストをご紹介!'}
-        </DescriptionMain>
+        <DescriptionSub>なかなかスペースが見つからない方へ</DescriptionSub>
+        <DescriptionMain>あなたにぴったりなホストをご紹介!</DescriptionMain>
       </Description>
       <PriceContainer>
-        <PriceSub>{isHub ? '1ヶ月の保管料金' : '全国のスペース対象'}</PriceSub>
-        <PriceMain>{isHub ? <Price>7,000円〜</Price> : <Price>相談無料</Price>}</PriceMain>
-        <PriceSub>
-          {isHub ? '※配送料別途、保管スペースは世田谷区のみ' : 'お気軽にご相談ください'}
-        </PriceSub>
+        <PriceSub>全国のスペース対象</PriceSub>
+        <PriceMain>
+          <Price>相談無料</Price>
+        </PriceMain>
+        <PriceSub>お気軽にご相談ください</PriceSub>
       </PriceContainer>
       <ButtonContainer>
-        <Button hub={isHub} onClick={onClick}>
-          {isHub ? '申し込む' : '相談する'}
-        </Button>
+        <Button onClick={onClick}>相談する</Button>
       </ButtonContainer>
     </StyledContainer>
   );
@@ -740,7 +724,7 @@ export default props => (
     </TopView>
     {PickupFeature(props)}
     {PickupStaff(props)}
-    <HubAndConciergeContents history={props.history} />
+    <ConciergeContents history={props.history} />
     <ColoredContainer>
       <MovieContainer>
         <MovieFrameWrapper>

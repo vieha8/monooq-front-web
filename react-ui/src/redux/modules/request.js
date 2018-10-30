@@ -20,7 +20,6 @@ const PAYMENT_FAILED = 'PAYMENT_FAILED';
 const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
 const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
 const FETCH_SCHEDULE_FAILED = 'FETCH_SCHEDULE_FAILED';
-const SEND_HUB_REQUEST = 'SEND_HUB_REQUEST';
 const SEND_CONCIERGE_REQUEST = 'SEND_CONCIERGE_REQUEST';
 
 export const requestActions = createActions(
@@ -33,7 +32,6 @@ export const requestActions = createActions(
   FETCH_SCHEDULE,
   FETCH_SCHEDULE_SUCCESS,
   FETCH_SCHEDULE_FAILED,
-  SEND_HUB_REQUEST,
   SEND_CONCIERGE_REQUEST,
 );
 
@@ -285,27 +283,6 @@ function* fetchSchedule() {
   yield put(requestActions.fetchScheduleSuccess({ user: userRequests, host: hostRequests }));
 }
 
-function* hubRequest({ payload: { userId, body } }) {
-  let message = `ユーザーID: ${userId}\n`;
-  message += `メールアドレス: ${body.email}\n`;
-  message += `利用開始日: ${body.startDate.toDate()}\n`;
-  message += `利用終了日: ${body.startDate.toDate()}\n`;
-  message += `荷物の大きさ: ${body.baggageSize}\n`;
-  message += `荷物の種類: ${body.baggageInfo}\n`;
-  message += `希望集荷日: ${body.cargoDate.toDate()}\n`;
-  message += `希望集荷時間帯: ${body.cargoTime}\n`;
-  message += `集荷先住所: ${body.address}\n`;
-  message += `電話番号: ${body.tel}\n`;
-
-  const mail = {
-    Subject: `【モノオクハブ】新規申し込み ${body.email}`,
-    Address: 'info@monooq.com',
-    Body: message,
-  };
-
-  yield call(postApiRequest, apiEndpoint.sendMail(), mail);
-}
-
 function* conciergeRequest({ payload: { userId, body } }) {
   let message = `ユーザーID: ${userId}\n`;
   message += `メールアドレス: ${body.email}\n`;
@@ -330,6 +307,5 @@ export const requestSagas = [
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
   takeEvery(FETCH_SCHEDULE, fetchSchedule),
-  takeEvery(SEND_HUB_REQUEST, hubRequest),
   takeEvery(SEND_CONCIERGE_REQUEST, conciergeRequest),
 ];

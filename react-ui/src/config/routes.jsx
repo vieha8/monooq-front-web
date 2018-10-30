@@ -160,11 +160,6 @@ const Sales = Loadable({
   loading: LoadingPage,
 });
 
-const HubRequest = Loadable({
-  loader: () => import('components/atomic/containers/HubRequestContainer'),
-  loading: LoadingPage,
-});
-
 const ConciergeRequest = Loadable({
   loader: () => import('components/atomic/containers/ConciergeRequestContainer'),
   loading: LoadingPage,
@@ -294,7 +289,6 @@ export default ({ history }) => (
       <Route exact path={Path.editSpaceCompletion()} component={EditSpaceCompletion} />
       <Route exact path={Path.unsubscribe()} component={Unsubscribe} />
       <Route exact path={Path.sales()} component={Sales} />
-      <Route exact path={Path.hubRequest()} component={HubRequest} />
       <Route exact path={Path.conciergeRequest()} component={ConciergeRequest} />
       <Route exact path={Path.about()} component={About} />
       <Route exact path={Path.insurance()} component={Insurance} />
