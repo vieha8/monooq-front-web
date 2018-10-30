@@ -1,4 +1,4 @@
-import { routerMiddleware, routerReducer } from 'react-router-redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 
 import createSagaMiddleware from 'redux-saga';
@@ -31,18 +31,19 @@ export default history => {
   }
 
   store = createStore(
-    combineReducers({
-      auth: authReducer,
-      router: routerReducer,
-      search: searchReducer,
-      messages: messagesReducer,
-      space: spaceReducer,
-      user: userReducer,
-      ui: uiReducer,
-      request: requestReducer,
-      sales: salesReducer,
-      error: errorReducer,
-    }),
+    connectRouter(history)(
+      combineReducers({
+        auth: authReducer,
+        search: searchReducer,
+        messages: messagesReducer,
+        space: spaceReducer,
+        user: userReducer,
+        ui: uiReducer,
+        request: requestReducer,
+        sales: salesReducer,
+        error: errorReducer,
+      }),
+    ),
     composeEnhancers(applyMiddleware(...middleware)),
   );
   sagaMiddleware.run(rootSaga);
