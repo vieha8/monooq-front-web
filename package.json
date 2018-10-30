@@ -6,8 +6,8 @@
     "node": "10.11.x"
   },
   "scripts": {
-    "start": "cd react-ui/ && export NODE_PATH=src && start-storybook -p $PORT -s public",
-    "heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap"
+    "start": "node server",
+    "heroku-postbuild": "cd react-ui/ && yarn install && yarn install --only=dev --no-shrinkwrap && yarn run build-storybook"
   },
   "cacheDirectories": [
     "node_modules",
