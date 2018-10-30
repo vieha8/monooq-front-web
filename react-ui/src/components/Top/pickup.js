@@ -52,22 +52,6 @@ export const PickupFeatureSpaceList = [
     },
   },
   {
-    link: Path.space(568),
-    user: {
-      image:
-        'https://monooq.imgix.net/img%2Fusers%2F1192%2Fprofile%2F1522225975550.jpg?alt=media&token=a4c5ea70-e85d-4ae8-b2fc-df621b3cee6a&fit=crop&w=44&h=44&auto=format',
-      name: 'himitsu',
-    },
-    space: {
-      image:
-        'https://monooq.imgix.net/img%2Fspaces%2F568%2F1528321575825.jpg?alt=media&token=3cf00a11-337a-4295-b6b6-ec8a0cece859&fit=crop&w=260&h=200&auto=format',
-      price: '3,500',
-      area: '神奈川県大磯町',
-      description: '大磯ロングビーチ近く！',
-      color: Colors.pickup1,
-    },
-  },
-  {
     link: Path.space(570),
     user: {
       image:
