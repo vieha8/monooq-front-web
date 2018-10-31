@@ -730,9 +730,9 @@ export default props => (
         <MovieFrameWrapper>
           <MovieFrame
             src="https://www.youtube.com/embed/t0t50WBDwzc?showinfo=0&rel=0"
-            frameborder="0"
+            frameBorder="0"
             allow="autoplay; encrypted-media"
-            allowfullscreen
+            allowFullScreen
           />
         </MovieFrameWrapper>
         <MovieExplanContainer>

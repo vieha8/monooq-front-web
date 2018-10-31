@@ -1,5 +1,7 @@
-const strictUriEncode = require('strict-uri-encode');
-const decodeComponent = require('decode-uri-component');
+// @flow
+
+import strictUriEncode from 'strict-uri-encode';
+import decodeComponent from 'decode-uri-component';
 
 function encoderForArrayFormat(options) {
   switch (options.arrayFormat) {
@@ -103,7 +105,7 @@ function keysSorter(input) {
   return input;
 }
 
-function extract(input) {
+export function extract(input) {
   const queryStart = input.indexOf('?');
   if (queryStart === -1) {
     return '';
@@ -111,7 +113,7 @@ function extract(input) {
   return input.slice(queryStart + 1);
 }
 
-function parse(input, options) {
+export function parse(input, options) {
   options = Object.assign({ decode: true, arrayFormat: 'none' }, options);
 
   const formatter = parserForArrayFormat(options);
@@ -154,10 +156,7 @@ function parse(input, options) {
     }, Object.create(null));
 }
 
-exports.extract = extract;
-exports.parse = parse;
-
-exports.stringify = (obj, options) => {
+export const stringify = (obj, options) => {
   const defaults = {
     encode: true,
     strict: true,
@@ -207,7 +206,7 @@ exports.stringify = (obj, options) => {
     : '';
 };
 
-exports.parseUrl = (input, options) => ({
+export const parseUrl = (input, options) => ({
   url: input.split('?')[0] || '',
   query: parse(extract(input), options),
 });
