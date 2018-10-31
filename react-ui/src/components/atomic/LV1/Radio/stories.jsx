@@ -2,16 +2,25 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { withInfo } from '@storybook/addon-info';
 
 import Radio from './index';
 
-storiesOf('Atoms/Forms/Radio', module).add('Normal', () => (
-  <div>
+Radio.displayName = 'Radio';
+
+storiesOf('Atoms/Forms/Radio', module).add(
+  'Available',
+  withInfo(`
+      ### コンポーネント概要
+      ラジオボタン
+    `)(() => (
     <div>
-      <Radio checked>家具・家電あり</Radio>
+      <div>
+        <Radio checked>家具・家電あり</Radio>
+      </div>
+      <div>
+        <Radio>なし</Radio>
+      </div>
     </div>
-    <div>
-      <Radio>なし</Radio>
-    </div>
-  </div>
-));
+  )),
+);

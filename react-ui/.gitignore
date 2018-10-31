@@ -24,3 +24,4 @@ package-lock.json
 /functions/node_modules/
 /admin/node_modules/
 /admin/.next/
+/.cache/

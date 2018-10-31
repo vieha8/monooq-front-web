@@ -80,11 +80,15 @@ if (cluster.isMaster) {
   });
 
   // Priority serve any static files.
-  app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
+  app.use(
+    express.static(path.resolve(__dirname, "../react-ui/storybook-static"))
+  );
 
   // All remaining requests return the React app, so it can handle routing.
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../react-ui/build", "index.html"));
+    res.sendFile(
+      path.resolve(__dirname, "../react-ui/storybook-static", "index.html")
+    );
   });
 
   app.listen(PORT, function() {
