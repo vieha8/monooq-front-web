@@ -2,7 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import queryString from 'helpers/query-string';
+import { parse } from 'helpers/query-string';
 import InfiniteScroll from 'react-infinite-scroller';
 import Loading from 'components/atomic/LV1/Loading';
 import Path from 'config/path';
@@ -56,7 +56,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     super(props);
 
     const { location } = props;
-    const query = queryString.parse(location.search);
+    const query = parse(location.search);
 
     this.state = {
       location: query.location,

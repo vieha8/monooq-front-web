@@ -1,2 +1,4 @@
 /node_modules
 package-lock.json
+/react-ui/storybook-static/
+/react-ui/build

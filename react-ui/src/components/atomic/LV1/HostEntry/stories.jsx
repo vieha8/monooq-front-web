@@ -2,11 +2,20 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { withInfo } from '@storybook/addon-info';
 
 import HostEntry from './index';
 
-storiesOf('Atoms/Util/HostEntry', module).add('Normal', () => (
-  <div>
-    <HostEntry onClick={() => console.log('onClick HostEntry')} />
-  </div>
-));
+HostEntry.displayName = 'HostEntry';
+
+storiesOf('Atoms/Util/HostEntry', module).add(
+  'Normal',
+  withInfo(`
+      ### コンポーネント概要
+      スペース登録ボタン(円形)
+    `)(() => (
+    <div>
+      <HostEntry onClick={() => console.log('onClick HostEntry')} />
+    </div>
+  )),
+);
