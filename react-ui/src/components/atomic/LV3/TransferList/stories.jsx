@@ -5,7 +5,7 @@ import { storiesOf } from '@storybook/react';
 
 import TransferList from './index';
 
-storiesOf('Molecules/TransferList', module)
+storiesOf('Organisms/TransferList', module)
   .add('Normal', () => (
     <div>
       <TransferList
