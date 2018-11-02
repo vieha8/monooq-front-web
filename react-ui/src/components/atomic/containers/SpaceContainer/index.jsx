@@ -148,7 +148,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
           />
         }
         header={<Header />}
-        map={<SpaceMap lat={(space.location || {}).lat} lng={(space.location || {}).lng} />}
+        map={<SpaceMap lat={space.Latitude} lng={space.Longitude} />}
         detail={
           <Detail
             pref={space.AddressPref}

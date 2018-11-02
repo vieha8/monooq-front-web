@@ -19,16 +19,21 @@ type PropTypes = {
 };
 
 const Map = withScriptjs(
-  withGoogleMap((props: PropTypes) => (
-    <GoogleMap defaultZoom={14} defaultCenter={{ lat: props.lat + 0.003, lng: props.lng }}>
-      <Marker
-        position={{ lat: props.lat - 0.003, lng: props.lng }}
-        icon={{
-          url: mapMarkerIcon,
-        }}
-      />
-    </GoogleMap>
-  )),
+  withGoogleMap(({ lat, lng }: PropTypes) => {
+    if (lat === null || lng === null) {
+      return null;
+    }
+    return (
+      <GoogleMap defaultZoom={14} defaultCenter={{ lat: lat + 0.003, lng }}>
+        <Marker
+          position={{ lat: lat - 0.003, lng }}
+          icon={{
+            url: mapMarkerIcon,
+          }}
+        />
+      </GoogleMap>
+    );
+  }),
 );
 
 const KEY = 'AIzaSyAF1kxs-DsZJHW3tX3eNi88tKixy-zbGtk';

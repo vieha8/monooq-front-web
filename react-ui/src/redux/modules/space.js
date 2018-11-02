@@ -1,6 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, call, select } from 'redux-saga/effects';
-import axios from 'axios';
 import dummySpaceImage from 'images/dummy_space.png';
 import { apiEndpoint } from './api';
 import { uploadImage } from '../helpers/firebase';
@@ -132,28 +131,6 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
     user = yield select(state => state.auth.user);
     if (payload.UserID !== user.ID) {
       yield put(errorActions.setError('Bad Request'));
-    }
-  }
-
-  if (payload.Address) {
-    // TODO 本来はサーバー側でlat,lngは持つけど暫定的に
-    const KEY = 'AIzaSyAF1kxs-DsZJHW3tX3eNi88tKixy-zbGtk';
-    const places = yield call(
-      () =>
-        new Promise((resolve, reject) => {
-          axios
-            .get(
-              `https://maps.googleapis.com/maps/api/geocode/json?key=${KEY}&address=${
-                payload.Address
-              }`,
-            )
-            .then(result => resolve(result))
-            .catch(error => reject(error));
-        }),
-    );
-    // TODO APIレスポンスのエラーハンドリング
-    if (places.data.results.length > 0) {
-      payload.location = places.data.results[0].geometry.location;
     }
   }
 

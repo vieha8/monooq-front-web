@@ -7,13 +7,6 @@ import { media } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
 import Page from '../Page';
 
-const Map = styled.div`
-  height: 360px;
-  ${media.tablet`
-    height: 240px;  
-  `};
-`;
-
 const SpaceTemplateContainer = styled.div`
   background-color: ${Colors.lightGray1Bg};
   ${media.tablet`
@@ -82,7 +75,7 @@ export default ({ header, meta, map, detail, price, message, note, footer }: Pro
   <SpaceTemplateContainer>
     {header}
     {meta}
-    <Map>{map}</Map>
+    {map}
     <Page fillPhone smallMargin>
       <Container>
         <ClearfixContainer>
