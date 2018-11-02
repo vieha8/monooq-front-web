@@ -45,7 +45,9 @@ export default (props: PropTypes) => (
     </Section>
     <Section>
       <InlineText.Base>
-        さまざまな相談に対応できるように料金目安を設定しましょう！人によって荷物の内容がちがうので、ユーザーにわかりやすく検討してもらうためです。
+        様々な相談に対応できるように料金目安を設定しましょう！
+        <br />
+        地域により多少の差はありますが、1畳あたり7,000円が相場となっています。
       </InlineText.Base>
     </Section>
     <Section>
@@ -78,9 +80,9 @@ export default (props: PropTypes) => (
       />
     </Section>
     <Section>
-      <InlineText.EmphasisSmall>
-        取引成立時の売上は、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。
-      </InlineText.EmphasisSmall>
+      <InlineText.Base color={Colors.red} fontSize={14}>
+        取引成立時、スペースを利用するユーザーが支払った金額の20%を、サービス利用手数料として徴収させていただきます。
+      </InlineText.Base>
     </Section>
     <Section>
       <EntryButtons
