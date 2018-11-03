@@ -9,11 +9,11 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import HeroImage from 'components/atomic/LV1/HeroImage';
 
 const Container = styled.div`
-  width: 142px;
+  width: 240px;
 `;
 
 const ImageWrapper = styled.div`
-  height: 90px;
+  height: 150px;
 `;
 
 const ContentWrapper = styled.div`
@@ -79,14 +79,14 @@ export default (props: PropTypes) => (
     <Link to={props.href || ''}>
       <Card noPadding pointer onClick={props.onClick} customStyle={CardShadowStyle}>
         <ImageWrapper>
-          <HeroImage height="90" medium {...props.image} />
+          <HeroImage height={150} medium {...props.image} />
         </ImageWrapper>
         <ContentWrapper>
-          <AddressText>{props.address ? props.address : '-'}</AddressText>
-          <ContentText>{props.content ? props.content : '-'}</ContentText>
-          <HomeApplianceText>{props.furniture ? '家具・家電OK' : '-'}</HomeApplianceText>
+          <AddressText>{props.address ? props.address : ''}</AddressText>
+          <ContentText>{props.content ? props.content : ''}</ContentText>
+          <HomeApplianceText>{props.furniture ? '家具・家電OK' : ''}</HomeApplianceText>
           <PriceLabel>料金目安（30日間）</PriceLabel>
-          <PriceText>{props.prices.join(' / ')} 円</PriceText>
+          <PriceText>{props.prices.join(' / ')}</PriceText>
         </ContentWrapper>
       </Card>
     </Link>

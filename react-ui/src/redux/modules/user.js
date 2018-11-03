@@ -129,7 +129,7 @@ function* getSpaces(params) {
         v.Images[0] = { ImageUrl: dummySpaceImage };
       } else {
         v.Images = v.Images.map(image => {
-          image.ImageUrl = convertImgixUrl(image.ImageUrl, 'fit=crop&w=140&max-h=90&format=auto');
+          image.ImageUrl = convertImgixUrl(image.ImageUrl, 'fit=crop&w=240&max-h=180&format=auto');
           return image;
         });
       }
