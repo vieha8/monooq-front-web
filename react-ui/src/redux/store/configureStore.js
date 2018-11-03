@@ -3,6 +3,8 @@ import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
+import Raven from 'raven-js';
+import createRavenMiddleware from 'raven-for-redux';
 
 import { authReducer } from '../modules/auth';
 import { searchReducer } from '../modules/search';
@@ -19,9 +21,22 @@ import { googleAnalytics } from '../middlewares/reactGAMiddlewares';
 
 export let store = null;
 
+Raven.config('https://d3223c25da3e4dcda892c9ac1cf7b0be@sentry.io/1287932').install();
+
 export default history => {
-  const sagaMiddleware = createSagaMiddleware();
-  const middleware = [routerMiddleware(history), sagaMiddleware, googleAnalytics];
+  const sagaMiddleware = createSagaMiddleware({
+    onError(error) {
+      setImmediate(() => {
+        throw error;
+      });
+    },
+  });
+  const middleware = [
+    routerMiddleware(history),
+    sagaMiddleware,
+    googleAnalytics,
+    createRavenMiddleware(Raven, {}),
+  ];
 
   let composeEnhancers = compose;
 
