@@ -114,7 +114,7 @@ export const PickupStaffSpaceList = [
     space: {
       image:
         'https://monooq.imgix.net/img%2Fspaces%2F1222%2F1527989916929.jpg?alt=media&token=569b5eda-a504-408a-8db2-01cf0e4b5dc4&fit=crop&w=260&h=200&auto=format',
-      price: '25,000',
+      price: '12,500',
       area: '東京都豊島区',
       description:
         '広ーいスペースはなんと元銭湯！なかなか保管できない大きくて大量の荷物にもおすすめ。',
@@ -188,6 +188,23 @@ export const PickupStaffSpaceList = [
       price: '4,000',
       area: '東京都荒川区',
       description: '京成線町屋駅から2分の好立地！',
+      color: Colors.pickup3,
+    },
+  },
+  {
+    large: 1,
+    link: Path.space(2180),
+    user: {
+      image:
+        'https://monooq.imgix.net/img%2Fusers%2F4703%2Fprofile%2F1541086445009.jpg?alt=media&token=c6b0e53d-feda-4896-b0f4-3d85388579ad&fit=crop&w=44&h=44&auto=format',
+      name: 'るってぃ',
+    },
+    space: {
+      image:
+        'https://monooq.imgix.net/img%2Fspaces%2F2180%2F1541093231673.jpg?alt=media&token=51f70489-aba5-4b5c-82d0-3e014f8a55ca&fit=crop&w=260&h=200&format=auto',
+      price: '6,000',
+      area: '東京都世田谷区',
+      description: '下北沢駅近く！4畳の1部屋まるごと利用可能！',
       color: Colors.pickup3,
     },
   },
