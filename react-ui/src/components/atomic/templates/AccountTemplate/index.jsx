@@ -11,7 +11,12 @@ const Page = styled.div`
 
 const HeaderContainer = styled.div`
   position: fixed;
-  top: 0;
+  ${props =>
+    props.storys &&
+    `
+    position: relative;
+    margin: auto auto 80px;
+  `} top: 0;
   left: 0;
   right: 0;
 `;
@@ -33,6 +38,7 @@ const Container = styled.div`
 type PropTypes = {
   header: React.Element<*>,
   form: React.Element<*>,
+  storys?: boolean,
 };
 
 export default class AccountTemplate extends Component<PropTypes> {
@@ -48,7 +54,7 @@ export default class AccountTemplate extends Component<PropTypes> {
   render() {
     return (
       <Page>
-        <HeaderContainer>{this.props.header}</HeaderContainer>
+        <HeaderContainer storys={this.props.storys}>{this.props.header}</HeaderContainer>
         <Container>{this.props.form}</Container>
       </Page>
     );
