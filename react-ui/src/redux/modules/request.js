@@ -288,7 +288,7 @@ function* conciergeRequest({ payload: { userId, body } }) {
   message += `メールアドレス: ${body.email}\n`;
   message += `預けたい地域: ${body.address}\n`;
   message += `希望利用開始日: ${body.startDate.toDate()}\n`;
-  message += `希望利用終了日: ${body.startDate.toDate()}\n`;
+  message += `希望利用終了日: ${body.endDate.toDate()}\n`;
   message += `荷物の大きさ: ${body.baggageSize}\n`;
   message += `荷物の種類: ${body.baggageInfo}\n`;
   message += `備考: ${body.notes}\n`;
