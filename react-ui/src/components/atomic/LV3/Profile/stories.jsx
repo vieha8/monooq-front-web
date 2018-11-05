@@ -2,9 +2,13 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import StorybookRouter from 'storybook-router';
+import StoryRouter from 'storybook-router';
+import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import Profile from './index';
+
+Profile.displayName = 'Profile';
 
 function getSpaces() {
   const spaces = [];
@@ -23,15 +27,21 @@ function getSpaces() {
 }
 
 storiesOf('Organisms/Profile', module)
-  .addDecorator(StorybookRouter())
-  .add('Normal', () => (
-    <div>
-      <Profile
-        image="http://placehold.jp/200x200.png"
-        name="モノオク太郎"
-        prefCode={12}
-        profile={`使いやすい物置提供中です！\nよろしくお願いします！`}
-        spaces={getSpaces()}
-      />
-    </div>
-  ));
+  .addDecorator(StoryRouter())
+  .add(
+    'Normal',
+    withInfo(`
+        ### コンポーネント概要
+        プロフィール
+      `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Profile
+          image="http://placehold.jp/200x200.png"
+          name="モノオク太郎"
+          prefCode={12}
+          profile={`使いやすい物置提供中です！\nよろしくお願いします！`}
+          spaces={getSpaces()}
+        />
+      </div>
+    )),
+  );

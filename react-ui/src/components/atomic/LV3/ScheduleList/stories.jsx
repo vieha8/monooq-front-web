@@ -3,12 +3,16 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import StoryRouter from 'storybook-router';
+import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import ScheduleList from './index';
 
+ScheduleList.displayName = 'ScheduleList';
+
 function getData() {
   const data = [];
-  for (let i = 0; i < 10; i += 1) {
+  for (let i = 0; i < 5; i += 1) {
     data.push({
       schedule: {
         opponentName: 'モノオク太郎',
@@ -33,8 +37,14 @@ function getData() {
 
 storiesOf('Organisms/ScheduleList', module)
   .addDecorator(StoryRouter())
-  .add('Normal', () => (
-    <div style={{ width: '100%', maxWidth: '600px' }}>
-      <ScheduleList schedules={getData()} />
-    </div>
-  ));
+  .add(
+    'Normal',
+    withInfo(`
+        ### コンポーネント概要
+        スケジュールリスト
+      `)(() => (
+      <div style={{ width: '100%', maxWidth: '680px', padding: `${Dimens.storyBookPadding}` }}>
+        <ScheduleList schedules={getData()} />
+      </div>
+    )),
+  );

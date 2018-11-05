@@ -2,9 +2,16 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import StorybookRouter from 'storybook-router';
+import StoryRouter from 'storybook-router';
+import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import Messages from './index';
+
+Messages.displayName = 'Messages';
+
+let lastReadDt = new Date(2017, 0, 15, 22, 30); // 2017年1月15日 22時30分
+let lastReadDt_kidoku = new Date(9999, 0, 15, 22, 30); // 9999年1月15日 22時30分
 
 function getMessages() {
   return [
@@ -54,14 +61,37 @@ function getMessages() {
 }
 
 storiesOf('Organisms/Messages', module)
-  .addDecorator(StorybookRouter())
-  .add('hostUser', () => (
-    <div>
-      <Messages hostUser messages={getMessages()} />
-    </div>
-  ))
-  .add('notHostUser', () => (
-    <div>
-      <Messages messages={getMessages()} />
-    </div>
-  ));
+  .addDecorator(StoryRouter())
+  .add(
+    'hostUser',
+    withInfo(`
+        ### コンポーネント概要
+        メッセージ(ホストユーザver)
+      `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Messages hostUser messages={getMessages()} lastReadDt={lastReadDt} />
+      </div>
+    )),
+  )
+  .add(
+    'hostUser kidoku',
+    withInfo(`
+        ### コンポーネント概要
+        メッセージ(ホストユーザver)(既読)
+      `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Messages hostUser messages={getMessages()} lastReadDt={lastReadDt_kidoku} />
+      </div>
+    )),
+  )
+  .add(
+    'notHostUser',
+    withInfo(`
+        ### コンポーネント概要
+        メッセージ(利用者ユーザver)
+      `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Messages messages={getMessages()} lastReadDt={lastReadDt} />
+      </div>
+    )),
+  );

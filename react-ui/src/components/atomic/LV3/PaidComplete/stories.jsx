@@ -2,14 +2,24 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import StorybookRouter from 'storybook-router';
+import StoryRouter from 'storybook-router';
+import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import PaidComplete from './index';
 
+PaidComplete.displayName = 'PaidComplete';
+
 storiesOf('Organisms/PaidComplete', module)
-  .addDecorator(StorybookRouter())
-  .add('Normal', () => (
-    <div>
-      <PaidComplete spaceName="素敵なものおき！" />
-    </div>
-  ));
+  .addDecorator(StoryRouter())
+  .add(
+    'Normal',
+    withInfo(`
+        ### コンポーネント概要
+        支払い完了
+      `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <PaidComplete spaceName="素敵なものおき！" />
+      </div>
+    )),
+  );
