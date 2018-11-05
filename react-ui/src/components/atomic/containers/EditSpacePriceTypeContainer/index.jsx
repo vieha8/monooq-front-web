@@ -40,7 +40,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
-    const { dispatch, space, history } = this.props;
+    const { space } = this.props;
 
     this.state = {
       PriceQuarter: space.PriceQuarter || '',
@@ -48,25 +48,6 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
       PriceFull: space.PriceFull || '',
       error: {},
     };
-
-    if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
-      // リロードされた場合
-      const saveSpace = JSON.parse(sessionStorage.getItem('editSpace'));
-
-      dispatch(spaceActions.setSpace({ saveSpace }));
-      dispatch(uiActions.setUiState({ saveSpace }));
-      history.push(Path.editSpacePrice(saveSpace.ID, 'about'));
-
-      this.state = {
-        PriceQuarter: saveSpace.PriceQuarter || '',
-        PriceHalf: saveSpace.PriceHalf || '',
-        PriceFull: saveSpace.PriceFull || '',
-        error: {},
-      };
-    } else {
-      // 通常更新の場合
-      sessionStorage.setItem('editSpace', JSON.stringify(space));
-    }
   }
 
   componentDidMount() {
@@ -84,14 +65,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
         const { dispatch, space, user } = this.props;
         const { PriceQuarter, PriceHalf, PriceFull } = this.state;
 
-        var tmpSpace = {};
-        if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
-          tmpSpace = JSON.parse(sessionStorage.getItem('editSpace'));
-        } else {
-          tmpSpace = space;
-        }
-
-        const saveSpace = Object.assign(tmpSpace, {
+        const saveSpace = Object.assign(space, {
           PriceFull,
           PriceHalf,
           PriceQuarter,
@@ -102,10 +76,10 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
           }),
         );
 
-        if (tmpSpace.ID) {
+        if (space.ID) {
           dispatch(
             spaceActions.updateSpace({
-              spaceId: tmpSpace.ID,
+              spaceId: space.ID,
               body: {
                 userId: user.ID,
                 ...saveSpace,
@@ -124,16 +98,9 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
     const { dispatch, history, space } = this.props;
     const { PriceQuarter, PriceHalf, PriceFull } = this.state;
 
-    var tmpSpace = {};
-    if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
-      tmpSpace = JSON.parse(sessionStorage.getItem('editSpace'));
-    } else {
-      tmpSpace = space;
-    }
-
     dispatch(
       uiActions.setUiState({
-        space: Object.assign(tmpSpace, {
+        space: Object.assign(space, {
           PriceFull,
           PriceHalf,
           PriceQuarter,
@@ -141,7 +108,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = tmpSpace.ID ? Path.editSpaceAreaSize(tmpSpace.ID) : Path.createSpaceAreaSize();
+    const nextPath = space.ID ? Path.editSpaceAreaSize(space.ID) : Path.createSpaceAreaSize();
     history.push(nextPath);
   };
 

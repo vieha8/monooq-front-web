@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import Path from 'config/path';
 
 import { uiActions } from 'redux/modules/ui';
-import { spaceActions } from 'redux/modules/space';
 
 import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
 import Header from 'components/atomic/containers/Header';
@@ -32,31 +31,13 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
-    const { dispatch, space, history } = this.props;
+    const { space } = this.props;
 
     this.state = {
       About: space.About || '',
       IsFurniture: space.IsFurniture || false,
       error: {},
     };
-
-    if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
-      // リロードされた場合
-      const saveSpace = JSON.parse(sessionStorage.getItem('editSpace'));
-
-      dispatch(spaceActions.setSpace({ saveSpace }));
-      dispatch(uiActions.setUiState({ saveSpace }));
-      history.push(Path.editSpaceBaggage(saveSpace.ID));
-
-      this.state = {
-        About: saveSpace.About || '',
-        IsFurniture: saveSpace.IsFurniture || false,
-        error: {},
-      };
-    } else {
-      // 通常更新の場合
-      sessionStorage.setItem('editSpace', JSON.stringify(space));
-    }
   }
 
   componentDidMount() {
@@ -70,25 +51,16 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
         const { dispatch, history, space } = this.props;
         const { About, IsFurniture } = this.state;
 
-        var tmpSpace = {};
-        if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
-          tmpSpace = JSON.parse(sessionStorage.getItem('editSpace'));
-        } else {
-          tmpSpace = space;
-        }
-
         dispatch(
           uiActions.setUiState({
-            space: Object.assign(tmpSpace, {
+            space: Object.assign(space, {
               About,
               IsFurniture,
             }),
           }),
         );
 
-        const nextPath = tmpSpace.ID
-          ? Path.editSpaceReceive(tmpSpace.ID)
-          : Path.createSpaceReceive();
+        const nextPath = space.ID ? Path.editSpaceReceive(space.ID) : Path.createSpaceReceive();
         history.push(nextPath);
       }
     });
@@ -99,23 +71,16 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     const { dispatch, history, space } = this.props;
     const { About, IsFurniture } = this.state;
 
-    var tmpSpace = {};
-    if (Object.keys(space).length === 0 && sessionStorage['editSpace']) {
-      tmpSpace = JSON.parse(sessionStorage.getItem('editSpace'));
-    } else {
-      tmpSpace = space;
-    }
-
     dispatch(
       uiActions.setUiState({
-        space: Object.assign(tmpSpace, {
+        space: Object.assign(space, {
           About,
           IsFurniture,
         }),
       }),
     );
 
-    const nextPath = tmpSpace.ID ? Path.editSpaceInfo(tmpSpace.ID) : Path.createSpaceInfo();
+    const nextPath = space.ID ? Path.editSpaceInfo(space.ID) : Path.createSpaceInfo();
     history.push(nextPath);
   };
 
