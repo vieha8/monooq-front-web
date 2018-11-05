@@ -208,4 +208,21 @@ export const PickupStaffSpaceList = [
       color: Colors.pickup3,
     },
   },
+  {
+    large: 1,
+    link: Path.space(2036),
+    user: {
+      image:
+        'https://monooq.imgix.net/img%2Fusers%2F4429%2Fprofile%2F1539499901359.jpg?alt=media&token=43268377-25cf-4b4e-89ae-730e2cd4ba46&fit=crop&w=44&h=44&auto=format',
+      name: 'TK',
+    },
+    space: {
+      image:
+        'https://monooq.imgix.net/img%2Fspaces%2F2036%2F1541294635567.jpg?alt=media&token=095dcdeb-7984-433d-abe0-1272c86d7a09&fit=crop&w=260&h=200&format=auto',
+      price: '3,000',
+      area: '東京都中野区',
+      description: '【約1畳】今すぐ預かれます！中野駅から徒歩圏内の好アクセス、綺麗なスペース',
+      color: Colors.pickup3,
+    },
+  },
 ];
