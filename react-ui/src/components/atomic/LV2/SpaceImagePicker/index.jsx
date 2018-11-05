@@ -118,29 +118,37 @@ function handleChangeImageWithOrientationFix(data, props: PropTypes) {
     );
     images.push(data[i]);
   }
+
   setTimeout(() => {
     props.onChangeImage(images);
   }, 80);
 }
 
 function showImagePreview(props: PropTypes) {
-  const images = props.images;
+  const { images } = props;
   if (images) {
     return (
       <ImagePreviewContainer>
         {images.map((image, i) => {
-          const imageUrl = image.url;
+          if (image.url) {
+            const imageUrl = image.url;
 
-          if (imageUrl.includes('data:image/png;base64,')) {
-            // デフォルト画像は表示しない
+            if (imageUrl.includes('data:image/png;base64,')) {
+              // デフォルト画像は表示しない
+              return null;
+            }
+
+            return (
+              <ImagePreviewWrapper key={`image_preivew_${i}`} widthRate={25}>
+                <ImagePreview
+                  imageUri={imageUrl}
+                  onClickDelete={() => props.onClickDeleteImage(i)}
+                />
+              </ImagePreviewWrapper>
+            );
+          } else {
             return null;
           }
-
-          return (
-            <ImagePreviewWrapper key={`image_preivew_${i}`} widthRate={25}>
-              <ImagePreview imageUri={imageUrl} onClickDelete={() => props.onClickDeleteImage(i)} />
-            </ImagePreviewWrapper>
-          );
         })}
         {images.length > 0 &&
           images.length < MAX_PREVIEW_COUNT && (
@@ -167,8 +175,7 @@ function showImagePreview(props: PropTypes) {
 }
 
 export default (props: PropTypes) => {
-  const images = props.images;
-
+  const { images } = props;
   return (
     <div>
       <div>
