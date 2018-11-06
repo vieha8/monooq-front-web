@@ -32,8 +32,10 @@ const Row = styled.div`
 export default (props: { userId: number }) => (
   <Fragment>
     <InlineText.Base>
-      現在進行中の取引があります。<br />
-      荷物の引取りや、引き渡しが完了していない場合は退会退会ができません。<br />
+      現在進行中の取引があります。
+      <br />
+      荷物の引取りや、引き渡しが完了していない場合は退会ができません。
+      <br />
       スケジュールを確認して取引を完了してください。
     </InlineText.Base>
     <Row>
