@@ -8,6 +8,20 @@ const compression = require("compression");
 
 const PORT = process.env.PORT || 3000;
 
+function forceHttps(req, res, next) {
+  if (!PORT) {
+    return next();
+  }
+  if (
+    req.headers["x-forwarded-proto"] &&
+    req.headers["x-forwarded-proto"] === "http"
+  ) {
+    res.redirect(`https://${req.headers.host}${req.url}`);
+  } else {
+    return next();
+  }
+}
+
 // Multi-process to utilize all CPU cores.
 if (cluster.isMaster) {
   console.error(`Node cluster master ${process.pid} is running`);
@@ -56,6 +70,8 @@ if (cluster.isMaster) {
     })
   );
 
+  app.all("*", forceHttps);
+
   app.get("/:path", (req, res, next) => {
     if (req.params.path === "index.html") {
       return res.redirect("/");
@@ -87,7 +103,7 @@ if (cluster.isMaster) {
     res.sendFile(path.resolve(__dirname, "../react-ui/build", "index.html"));
   });
 
-  app.listen(PORT, function() {
+  app.listen(PORT, () => {
     console.error(
       `Node cluster worker ${process.pid}: listening on port ${PORT}`
     );
