@@ -35,7 +35,7 @@ function getData() {
   return data;
 }
 
-storiesOf('Organisms/ScheduleList', module)
+storiesOf('Organisms(LV3)/ScheduleList', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

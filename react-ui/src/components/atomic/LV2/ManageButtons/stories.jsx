@@ -9,7 +9,7 @@ import ManageButtons from './index';
 
 ManageButtons.displayName = 'ManageButtons';
 
-storiesOf('Molecules/ManageButtons', module)
+storiesOf('Molecules(LV2)/ManageButtons', module)
   .add(
     'Public',
     withInfo(`

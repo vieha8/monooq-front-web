@@ -27,7 +27,7 @@ function getData() {
   return data;
 }
 
-storiesOf('Organisms/SearchResult', module).add(
+storiesOf('Organisms(LV3)/SearchResult', module).add(
   'Disabled',
   withInfo(`
         ### コンポーネント概要

@@ -9,7 +9,7 @@ import TableList from './index';
 
 TableList.displayName = 'TableList';
 
-storiesOf('Molecules/TableList', module).add(
+storiesOf('Molecules(LV2)/TableList', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要

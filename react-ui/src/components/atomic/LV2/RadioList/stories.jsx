@@ -9,7 +9,7 @@ import RadioListMock from './mock/RadioList';
 
 RadioListMock.displayName = 'RadioListMock';
 
-storiesOf('Molecules/RadioList', module).add(
+storiesOf('Molecules(LV2)/RadioList', module).add(
   'Normal',
   withInfo(`
     ### コンポーネント概要

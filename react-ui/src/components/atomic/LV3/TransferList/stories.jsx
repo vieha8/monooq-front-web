@@ -9,7 +9,7 @@ import TransferList from './index';
 
 TransferList.displayName = 'TransferList';
 
-storiesOf('Organisms/TransferList', module)
+storiesOf('Organisms(LV3)/TransferList', module)
   .add(
     'Normal',
     withInfo(`

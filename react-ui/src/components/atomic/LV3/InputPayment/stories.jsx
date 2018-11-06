@@ -10,7 +10,7 @@ import InputPayment from './index';
 
 InputPayment.displayName = 'InputPayment';
 
-storiesOf('Organisms/InputPayment', module)
+storiesOf('Organisms(LV3)/InputPayment', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

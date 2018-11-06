@@ -60,7 +60,7 @@ function getMessages() {
   ];
 }
 
-storiesOf('Organisms/Messages', module)
+storiesOf('Organisms(LV3)/Messages', module)
   .addDecorator(StoryRouter())
   .add(
     'hostUser',

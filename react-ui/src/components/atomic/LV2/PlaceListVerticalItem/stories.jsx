@@ -10,7 +10,7 @@ import PlaceListVerticalItem from './index';
 
 PlaceListVerticalItem.displayName = 'PlaceListVerticalItem';
 
-storiesOf('Molecules/PlaceListVerticalItem', module)
+storiesOf('Molecules(LV2)/PlaceListVerticalItem', module)
   .addDecorator(StoryRouter())
   .add(
     'IsFurniture',

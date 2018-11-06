@@ -10,7 +10,7 @@ import Footer from './index';
 
 Footer.displayName = 'Footer';
 
-storiesOf('Molecules/Footer', module)
+storiesOf('Molecules(LV2)/Footer', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

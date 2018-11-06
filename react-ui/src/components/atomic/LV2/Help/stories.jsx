@@ -14,7 +14,7 @@ ListItem.displayName = 'ListItem';
 HelpButton.displayName = 'HelpButton';
 CommonHelp.displayName = 'CommonHelp';
 
-storiesOf('Molecules/Help', module)
+storiesOf('Molecules(LV2)/Help', module)
   .addDecorator(StoryRouter())
   .add(
     'HelpList Close',

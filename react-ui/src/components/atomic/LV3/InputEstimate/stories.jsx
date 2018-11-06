@@ -10,7 +10,7 @@ import InputEstimate from './index';
 
 InputEstimate.displayName = 'InputEstimate';
 
-storiesOf('Organisms/InputEstimate', module)
+storiesOf('Organisms(LV3)/InputEstimate', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

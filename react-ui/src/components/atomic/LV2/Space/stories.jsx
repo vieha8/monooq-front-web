@@ -32,7 +32,7 @@ PriceHead.displayName = 'PriceHead';
 Price.displayName = 'Price';
 SendMessage.displayName = 'SendMessage';
 
-storiesOf('Molecules/Space', module)
+storiesOf('Molecules(LV2)/Space', module)
   .addDecorator(StoryRouter())
   .add(
     'Header',

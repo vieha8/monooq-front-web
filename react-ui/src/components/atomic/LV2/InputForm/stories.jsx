@@ -11,7 +11,7 @@ import Confirm from './confirm';
 InputFormMock.displayName = 'InputFormMock';
 Confirm.displayName = 'Confirm';
 
-storiesOf('Molecules/InputForm', module)
+storiesOf('Molecules(LV2)/InputForm', module)
   .add(
     'Hint',
     withInfo(`

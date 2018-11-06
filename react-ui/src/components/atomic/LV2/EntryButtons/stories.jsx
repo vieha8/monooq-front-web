@@ -9,7 +9,7 @@ import EntryButtons from './index';
 
 EntryButtons.displayName = 'EntryButtons';
 
-storiesOf('Molecules/EntryButtons', module)
+storiesOf('Molecules(LV2)/EntryButtons', module)
   .add(
     'Enabled',
     withInfo(`

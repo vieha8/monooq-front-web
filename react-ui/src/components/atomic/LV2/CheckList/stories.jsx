@@ -9,7 +9,7 @@ import CheckListMock from './mock/CheckList';
 
 CheckListMock.displayName = 'CheckListMock';
 
-storiesOf('Molecules/CheckList', module).add(
+storiesOf('Molecules(LV2)/CheckList', module).add(
   'Normal',
   withInfo(`
     ### コンポーネント概要

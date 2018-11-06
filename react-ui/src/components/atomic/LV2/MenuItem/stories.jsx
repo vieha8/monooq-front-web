@@ -12,7 +12,7 @@ import HelpMenu from './HelpMenu';
 ServiceMenu.displayName = 'ServiceMenu';
 HelpMenu.displayName = 'HelpMenu';
 
-storiesOf('Molecules/MenuItem', module)
+storiesOf('Molecules(LV2)/MenuItem', module)
   .addDecorator(StoryRouter())
   .add(
     'ServiceMenu',

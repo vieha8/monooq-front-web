@@ -10,7 +10,7 @@ import ResetPassword from './index';
 
 ResetPassword.displayName = 'ResetPassword';
 
-storiesOf('Organisms/ResetPassword', module)
+storiesOf('Organisms(LV3)/ResetPassword', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

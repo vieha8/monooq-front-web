@@ -9,7 +9,7 @@ import SelectFormMock from './mock/SelectForm';
 
 SelectFormMock.displayName = 'SelectFormMock';
 
-storiesOf('Molecules/SelectForm', module).add(
+storiesOf('Molecules(LV2)/SelectForm', module).add(
   'Normal',
   withInfo(`
     ### コンポーネント概要

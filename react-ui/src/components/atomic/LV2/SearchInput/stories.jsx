@@ -10,7 +10,7 @@ import SearchInput from './index';
 
 SearchInput.displayName = 'SearchInput';
 
-storiesOf('Molecules/SearchInput', module)
+storiesOf('Molecules(LV2)/SearchInput', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

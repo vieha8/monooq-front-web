@@ -9,7 +9,7 @@ import SalesList from './index';
 
 SalesList.displayName = 'SalesList';
 
-storiesOf('Organisms/SalesList', module).add(
+storiesOf('Organisms(LV3)/SalesList', module).add(
   'Normal',
   withInfo(`
         ### コンポーネント概要

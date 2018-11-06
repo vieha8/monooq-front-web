@@ -14,7 +14,7 @@ Estimate.displayName = 'Estimate';
 InputSchedule.displayName = 'InputSchedule';
 InputPrice.displayName = 'InputPrice';
 
-storiesOf('Molecules/Estimate', module)
+storiesOf('Molecules(LV2)/Estimate', module)
   .add(
     'Message',
     withInfo(`

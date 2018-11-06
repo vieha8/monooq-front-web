@@ -10,7 +10,7 @@ import InboxItem from './index';
 
 InboxItem.displayName = 'InboxItem';
 
-storiesOf('Molecules/InboxItem', module)
+storiesOf('Molecules(LV2)/InboxItem', module)
   .addDecorator(StorybookRouter())
   .add(
     'Normal',

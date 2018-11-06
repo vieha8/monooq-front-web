@@ -9,7 +9,7 @@ import LoadingPage from './index';
 
 LoadingPage.displayName = 'LoadingPage';
 
-storiesOf('Organisms/LoadingPage', module).add(
+storiesOf('Organisms(LV3)/LoadingPage', module).add(
   'Normal',
   withInfo(`
         ### コンポーネント概要

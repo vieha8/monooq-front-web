@@ -9,7 +9,7 @@ import HostEntryStep from './index';
 
 HostEntryStep.displayName = 'HostEntryStep';
 
-storiesOf('Molecules/HostEntryStep', module)
+storiesOf('Molecules(LV2)/HostEntryStep', module)
   .add(
     'Step 1',
     withInfo(`

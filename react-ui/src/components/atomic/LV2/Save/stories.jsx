@@ -9,7 +9,7 @@ import Save from './index';
 
 Save.displayName = 'Save';
 
-storiesOf('Molecules/Save', module)
+storiesOf('Molecules(LV2)/Save', module)
   .add(
     'Enabled',
     withInfo(`

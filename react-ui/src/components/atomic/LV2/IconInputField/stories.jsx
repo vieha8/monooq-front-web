@@ -9,7 +9,7 @@ import IconInputField from './index';
 
 IconInputField.displayName = 'IconInputField';
 
-storiesOf('Molecules/IconInputField', module)
+storiesOf('Molecules(LV2)/IconInputField', module)
   .add(
     'Email',
     withInfo(`

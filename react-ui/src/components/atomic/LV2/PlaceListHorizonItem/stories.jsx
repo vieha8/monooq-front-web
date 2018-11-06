@@ -10,7 +10,7 @@ import PlaceListHorizonItem from './index';
 
 PlaceListHorizonItem.displayName = 'PlaceListHorizonItem';
 
-storiesOf('Molecules/PlaceListHorizonItem', module)
+storiesOf('Molecules(LV2)/PlaceListHorizonItem', module)
   .addDecorator(StorybookRouter())
   .add(
     'Normal',

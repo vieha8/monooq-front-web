@@ -10,7 +10,7 @@ import SpaceImagePicker from './index';
 
 SpaceImagePicker.displayName = 'SpaceImagePicker';
 
-storiesOf('Molecules/SpaceImagePicker', module)
+storiesOf('Molecules(LV2)/SpaceImagePicker', module)
   .addDecorator(StoryRouter())
   .add(
     'Has not image',

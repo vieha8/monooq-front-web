@@ -8,7 +8,7 @@ import { Dimens } from 'variables';
 
 import PaymentInfo from './index';
 
-storiesOf('Organisms/PaymentInfo', module)
+storiesOf('Organisms(LV3)/PaymentInfo', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

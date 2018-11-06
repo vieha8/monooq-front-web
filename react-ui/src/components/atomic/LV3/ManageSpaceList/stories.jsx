@@ -30,7 +30,7 @@ function getData() {
   return spaces;
 }
 
-storiesOf('Organisms/ManageSpaceList', module)
+storiesOf('Organisms(LV3)/ManageSpaceList', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

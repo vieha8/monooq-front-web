@@ -9,7 +9,7 @@ import ConfirmBtnModal from './index';
 
 ConfirmBtnModal.displayName = 'ConfirmBtnModal';
 
-storiesOf('Molecules/ConfirmBtnModal', module).add(
+storiesOf('Molecules(LV2)/ConfirmBtnModal', module).add(
   'Enabled',
   withInfo(`
       ### コンポーネント概要

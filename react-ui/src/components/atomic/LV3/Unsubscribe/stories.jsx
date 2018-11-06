@@ -10,7 +10,7 @@ import Unsubscribe from './index';
 import Completed from './Completed';
 import Failed from './Failed';
 
-storiesOf('Organisms/Unsubscribe', module)
+storiesOf('Organisms(LV3)/Unsubscribe', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

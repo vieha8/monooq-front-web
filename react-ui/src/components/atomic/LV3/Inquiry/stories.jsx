@@ -10,7 +10,7 @@ import Inquiry from './index';
 
 Inquiry.displayName = 'Inquiry';
 
-storiesOf('Organisms/Inquiry', module)
+storiesOf('Organisms(LV3)/Inquiry', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

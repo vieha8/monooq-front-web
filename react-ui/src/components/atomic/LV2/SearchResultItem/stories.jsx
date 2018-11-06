@@ -9,7 +9,7 @@ import SearchResultItem from './index';
 
 SearchResultItem.displayName = 'SearchResultItem';
 
-storiesOf('Molecules/SearchResultItem', module).add(
+storiesOf('Molecules(LV2)/SearchResultItem', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要

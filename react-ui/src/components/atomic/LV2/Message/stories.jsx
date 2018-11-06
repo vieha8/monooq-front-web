@@ -20,7 +20,7 @@ Estimate.displayName = 'Estimate';
 Photo.displayName = 'Photo';
 Input.displayName = 'Input';
 
-storiesOf('Molecules/Message', module)
+storiesOf('Molecules(LV2)/Message', module)
   .addDecorator(StorybookRouter())
   .add(
     'Other',

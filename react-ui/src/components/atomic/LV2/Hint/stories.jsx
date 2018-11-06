@@ -9,7 +9,7 @@ import Hint from './index';
 
 Hint.displayName = 'Hint';
 
-storiesOf('Molecules/Hint', module).add(
+storiesOf('Molecules(LV2)/Hint', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要

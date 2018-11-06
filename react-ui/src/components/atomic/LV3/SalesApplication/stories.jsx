@@ -10,7 +10,7 @@ import SalesApplication from './index';
 
 SalesApplication.displayName = 'SalesApplication';
 
-storiesOf('Organisms/SalesApplication', module)
+storiesOf('Organisms(LV3)/SalesApplication', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

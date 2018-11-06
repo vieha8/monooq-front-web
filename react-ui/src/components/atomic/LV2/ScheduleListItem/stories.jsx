@@ -10,7 +10,7 @@ import ScheduleListItem from './index';
 
 ScheduleListItem.displayName = 'ScheduleListItem';
 
-storiesOf('Molecules/ScheduleListItem', module)
+storiesOf('Molecules(LV2)/ScheduleListItem', module)
   .addDecorator(StoryRouter())
   .add(
     'User',

@@ -10,7 +10,7 @@ import Login from './index';
 
 Login.displayName = 'Login';
 
-storiesOf('Organisms/Login', module)
+storiesOf('Organisms(LV3)/Login', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

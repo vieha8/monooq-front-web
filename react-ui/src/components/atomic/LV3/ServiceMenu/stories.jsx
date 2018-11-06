@@ -10,7 +10,7 @@ import Menu from './index';
 
 Menu.displayName = 'Menu';
 
-storiesOf('Organisms/ServiceMenu', module)
+storiesOf('Organisms(LV3)/ServiceMenu', module)
   .addDecorator(StoryRouter())
   .add(
     'Host',

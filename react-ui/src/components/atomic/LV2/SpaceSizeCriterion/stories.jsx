@@ -13,7 +13,7 @@ import SpaceSizeCriterion from './index';
 
 SpaceSizeCriterion.displayName = 'SpaceSizeCriterion';
 
-storiesOf('Molecules/SpaceSizeCriterion', module)
+storiesOf('Molecules(LV2)/SpaceSizeCriterion', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

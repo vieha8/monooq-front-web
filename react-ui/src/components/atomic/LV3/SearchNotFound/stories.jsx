@@ -10,7 +10,7 @@ import SearchNotFound from './index';
 
 SearchNotFound.displayName = 'SearchNotFound';
 
-storiesOf('Organisms/SearchNotFound', module)
+storiesOf('Organisms(LV3)/SearchNotFound', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

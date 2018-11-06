@@ -16,7 +16,7 @@ MessageIcon.displayName = 'MessageIcon';
 AvatarIcon.displayName = 'AvatarIcon';
 Anonymouse.displayName = 'Anonymouse';
 
-storiesOf('Molecules/HeaderAction', module)
+storiesOf('Molecules(LV2)/HeaderAction', module)
   .addDecorator(StoryRouter())
   .add(
     'SearchIcon',

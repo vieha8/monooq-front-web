@@ -30,7 +30,7 @@ const moreFeature_false = false;
 const isMore_true = true;
 const isMore_false = false;
 
-storiesOf('Organisms/PickupSpaceList', module)
+storiesOf('Organisms(LV3)/PickupSpaceList', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

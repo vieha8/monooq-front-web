@@ -9,7 +9,7 @@ import Payment from './index';
 
 Payment.displayName = 'Payment';
 
-storiesOf('Molecules/Payment', module).add(
+storiesOf('Molecules(LV2)/Payment', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要

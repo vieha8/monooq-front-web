@@ -17,7 +17,7 @@ const BodyMock = styled.div`
   background-image: url('http://placehold.jp/1000x500.png');
 `;
 
-storiesOf('Organisms/Header', module)
+storiesOf('Organisms(LV3)/Header', module)
   .addDecorator(StoryRouter())
   .add(
     'Logged In',

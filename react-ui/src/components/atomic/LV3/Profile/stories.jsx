@@ -26,7 +26,7 @@ function getSpaces() {
   return spaces;
 }
 
-storiesOf('Organisms/Profile', module)
+storiesOf('Organisms(LV3)/Profile', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

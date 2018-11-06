@@ -12,7 +12,7 @@ import Completed from './Completed';
 EditProfile.displayName = 'EditProfile';
 Completed.displayName = 'Completed';
 
-storiesOf('Organisms/EditProfile', module)
+storiesOf('Organisms(LV3)/EditProfile', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

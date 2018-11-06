@@ -10,7 +10,7 @@ import ManageSpaceListItem from './index';
 
 ManageSpaceListItem.displayName = 'Hint';
 
-storiesOf('Molecules/ManageSpaceListItem', module)
+storiesOf('Molecules(LV2)/ManageSpaceListItem', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

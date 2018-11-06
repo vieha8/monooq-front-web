@@ -10,7 +10,7 @@ import RegisterEmail from './index';
 
 RegisterEmail.displayName = 'RegisterEmail';
 
-storiesOf('Organisms/RegisterEmail', module)
+storiesOf('Organisms(LV3)/RegisterEmail', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

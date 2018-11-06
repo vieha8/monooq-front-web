@@ -24,7 +24,7 @@ function displayErrors(key: string, errors: Array<string>) {
   );
 }
 
-storiesOf('Molecules/InputPriceOfType', module).add(
+storiesOf('Molecules(LV2)/InputPriceOfType', module).add(
   'Enabled',
   withInfo(`
       ### コンポーネント概要

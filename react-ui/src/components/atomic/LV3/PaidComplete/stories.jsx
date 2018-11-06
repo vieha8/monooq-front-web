@@ -10,7 +10,7 @@ import PaidComplete from './index';
 
 PaidComplete.displayName = 'PaidComplete';
 
-storiesOf('Organisms/PaidComplete', module)
+storiesOf('Organisms(LV3)/PaidComplete', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

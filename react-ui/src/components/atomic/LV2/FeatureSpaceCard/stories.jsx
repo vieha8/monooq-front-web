@@ -10,7 +10,7 @@ import UserSpaceImage from './index';
 
 UserSpaceImage.displayName = 'UserSpaceImage';
 
-storiesOf('Molecules/UserSpaceImage', module)
+storiesOf('Molecules(LV2)/UserSpaceImage', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

@@ -10,7 +10,7 @@ import RegisterProfile from './index';
 
 RegisterProfile.displayName = 'RegisterProfile';
 
-storiesOf('Organisms/RegisterProfile', module)
+storiesOf('Organisms(LV3)/RegisterProfile', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

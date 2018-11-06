@@ -22,7 +22,7 @@ function getMessages() {
   return data;
 }
 
-storiesOf('Organisms/InboxList', module)
+storiesOf('Organisms(LV3)/InboxList', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

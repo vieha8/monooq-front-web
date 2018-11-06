@@ -22,7 +22,7 @@ InputPriceAll.displayName = 'InputPriceAll';
 InputPriceType.displayName = 'InputPriceType';
 Completion.displayName = 'Completion';
 
-storiesOf('Organisms/EditSpace', module)
+storiesOf('Organisms(LV3)/EditSpace', module)
   .addDecorator(StoryRouter())
   .add(
     'Information',

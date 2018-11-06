@@ -10,7 +10,7 @@ import ConciergeRequest from './index';
 
 ConciergeRequest.displayName = 'ConciergeRequest';
 
-storiesOf('Organisms/ConciergeRequest', module)
+storiesOf('Organisms(LV3)/ConciergeRequest', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',

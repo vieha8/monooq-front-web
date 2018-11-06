@@ -9,7 +9,7 @@ import AnimateSearchInputField from './index';
 
 AnimateSearchInputField.displayName = 'AnimateSearchInputField';
 
-storiesOf('Molecules/AnimateSearchInputField', module)
+storiesOf('Molecules(LV2)/AnimateSearchInputField', module)
   .add(
     'IconLeft',
     withInfo(`

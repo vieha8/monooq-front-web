@@ -14,7 +14,7 @@ Detail.displayName = 'Detail';
 Price.displayName = 'Price';
 SendMessage.displayName = 'SendMessage';
 
-storiesOf('Organisms/Space', module)
+storiesOf('Organisms(LV3)/Space', module)
   .addDecorator(StoryRouter())
   .add(
     'Detail',
