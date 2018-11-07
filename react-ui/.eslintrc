@@ -38,7 +38,8 @@
       "node": {
         "paths": [
           "src"
-        ]
+        ],
+        "moduleDirectory": ["node_modules", "/"]
       },
       "babel-module": {}
     }
