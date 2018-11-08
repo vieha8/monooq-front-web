@@ -3,6 +3,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import P from './index';
 
@@ -13,14 +14,14 @@ const text = `
   とかくに人の世は住みにくい。住みにくさが高じると、安いところへ引き越したくなる。
 `;
 
-storiesOf('Atoms/Text/Paragraph', module)
+storiesOf('Atoms(LV1)/Text/Paragraph', module)
   .add(
     'Normal',
     withInfo(`
       ### コンポーネント概要
       Paragraph(通常ver)
     `)(() => (
-      <div style={{ width: '100%', maxWidth: '300px' }}>
+      <div style={{ width: '100%', maxWidth: '380px', padding: `${Dimens.storyBookPadding}` }}>
         <P>{text}</P>
       </div>
     )),
@@ -31,7 +32,7 @@ storiesOf('Atoms/Text/Paragraph', module)
       ### コンポーネント概要
       Paragraph(Smallver)
     `)(() => (
-      <div style={{ width: '100%', maxWidth: '300px' }}>
+      <div style={{ width: '100%', maxWidth: '380px', padding: `${Dimens.storyBookPadding}` }}>
         <P small>{text}</P>
       </div>
     )),

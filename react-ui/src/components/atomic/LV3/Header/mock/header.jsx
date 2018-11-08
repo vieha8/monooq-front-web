@@ -48,6 +48,7 @@ export default class HeaderMock extends React.Component {
             hasSpace
           />
         }
+        storys
       />
     );
   }

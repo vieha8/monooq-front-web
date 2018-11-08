@@ -17,7 +17,11 @@ export const Height = 60;
 
 const Container = styled.header`
   position: fixed;
-  top: 0;
+  ${props =>
+    props.storys &&
+    `
+    position: relative;
+  `} top: 0;
   width: 100%;
   border-bottom: 1px solid ${Colors.borderGray};
   background: ${Colors.white};
@@ -162,12 +166,13 @@ type PropTypes = {
   menu: React.Element<ServiceMenu>,
   top?: boolean,
   help?: boolean,
+  storys?: boolean,
 };
 
 export default (props: PropTypes) => {
   const isFillSearchField = props.showSearchField && isMobileWindow() ? 'fill' : '';
   return (
-    <Container top={props.top} help={props.help}>
+    <Container top={props.top} help={props.help} storys={props.storys}>
       <Nav>
         <LogoWrapper to={props.homeUri} hide={isFillSearchField}>
           {props.top || props.help ? <Logo.HeaderWhite /> : <Logo.Header />}

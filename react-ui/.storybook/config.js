@@ -1,4 +1,5 @@
 import { configure } from '@storybook/react';
+import { setDefaults } from '@storybook/addon-info';
 
 import '../src/index.css';
 
@@ -11,3 +12,8 @@ function loadStories() {
 }
 
 configure(loadStories, module);
+
+// addon-info
+setDefaults({
+  inline: true,
+});

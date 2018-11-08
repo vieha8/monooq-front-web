@@ -6,7 +6,7 @@ import { storiesOf } from '@storybook/react';
 import Button from 'components/atomic/LV1/Button';
 import WrapButton from './index';
 
-storiesOf('Molecules/WrapButton', module)
+storiesOf('Molecules(LV2)/WrapButton', module)
   .add('Save', () => (
     <div style={{ width: '100%', maxWidth: '400px' }}>
       <WrapButton

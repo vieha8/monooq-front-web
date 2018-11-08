@@ -2,12 +2,17 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import StoryRouter from 'storybook-router';
+import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import ManageSpaceList from './index';
 
+ManageSpaceList.displayName = 'ManageSpaceList';
+
 function getData() {
   const spaces = [];
-  for (let i = 0; i <= 9; i += 1) {
+  for (let i = 0; i <= 5; i += 1) {
     spaces.push({
       image: {
         src: 'http://placehold.jp/500x500.png',
@@ -25,6 +30,16 @@ function getData() {
   return spaces;
 }
 
-storiesOf('Organisms/ManageSpaceList', module).add('Normal', () => (
-  <ManageSpaceList spaces={getData()} />
-));
+storiesOf('Organisms(LV3)/ManageSpaceList', module)
+  .addDecorator(StoryRouter())
+  .add(
+    'Normal',
+    withInfo(`
+        ### コンポーネント概要
+        管理スペースリスト
+      `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <ManageSpaceList spaces={getData()} />
+      </div>
+    )),
+  );

@@ -3,19 +3,20 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import Card from './index';
 
 Card.displayName = 'Card';
 
-storiesOf('Atoms/Util/Card', module)
+storiesOf('Atoms(LV1)/Util/Card', module)
   .add(
     'Block',
     withInfo(`
       ### コンポーネント概要
       カード(block)
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Card block>
           <span>ほげほげほげ</span>
         </Card>
@@ -31,7 +32,7 @@ storiesOf('Atoms/Util/Card', module)
       ### コンポーネント概要
       カード(inline)
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Card>
           <span>ほげほげほげ</span>
         </Card>

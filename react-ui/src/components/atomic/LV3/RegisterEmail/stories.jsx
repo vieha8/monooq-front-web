@@ -3,25 +3,37 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import StoryRouter from 'storybook-router';
+import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import RegisterEmail from './index';
 
-storiesOf('Organisms/RegisterEmail', module)
+RegisterEmail.displayName = 'RegisterEmail';
+
+storiesOf('Organisms(LV3)/RegisterEmail', module)
   .addDecorator(StoryRouter())
-  .add('Normal', () => (
-    <RegisterEmail
-      onClickNext={() => {}}
-      onClickFacebook={() => {}}
-      onChangeEmail={() => {}}
-      onChangePassword={() => {}}
-      onChangePasswordConfirm={() => {}}
-      email=""
-      emailError={[]}
-      password=""
-      passError={[]}
-      passwordConfirm=""
-      passConfirmError={[]}
-      buttonDisabled={false}
-      isRegisterChecking={false}
-    />
-  ));
+  .add(
+    'Normal',
+    withInfo(`
+        ### コンポーネント概要
+        アカウント登録フォーム
+      `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <RegisterEmail
+          onClickNext={() => {}}
+          onClickFacebook={() => {}}
+          onChangeEmail={() => {}}
+          onChangePassword={() => {}}
+          onChangePasswordConfirm={() => {}}
+          email=""
+          emailError={[]}
+          password=""
+          passError={[]}
+          passwordConfirm=""
+          passConfirmError={[]}
+          buttonDisabled={false}
+          isRegisterChecking={false}
+        />
+      </div>
+    )),
+  );

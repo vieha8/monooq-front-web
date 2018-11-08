@@ -3,19 +3,20 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import Button from './index';
 
 Button.displayName = 'Button';
 
-storiesOf('Atoms/Buttons/Button', module)
+storiesOf('Atoms(LV1)/Buttons/Button', module)
   .add(
     'Primary',
     withInfo(`
       ### コンポーネント概要
       ボタン(Primary)
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Button primary>Primary</Button>
         <br />
         <Button primary disabled>
@@ -30,7 +31,7 @@ storiesOf('Atoms/Buttons/Button', module)
       ### コンポーネント概要
       ボタン(Secondary)
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Button secondary>Secondary</Button>
         <br />
         <Button secondary disabled>
@@ -45,7 +46,7 @@ storiesOf('Atoms/Buttons/Button', module)
       ### コンポーネント概要
       ボタン(Tertiary)
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Button tertiary>Tertiary</Button>
         <br />
         <Button tertiary disabled>
@@ -60,7 +61,7 @@ storiesOf('Atoms/Buttons/Button', module)
       ### コンポーネント概要
       ボタン(Facebook)
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Button facebook>Facebook</Button>
         <br />
         <Button facebook disabled>
@@ -76,7 +77,7 @@ storiesOf('Atoms/Buttons/Button', module)
       - ・ボタン(高さ調整可能ボタン)
       - ・heightを指定することで、ボタンの高さを指定することが可能(指定単位:px)。
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Button height={20}>Height 20</Button>
         <br />
         <Button height={20} disabled>

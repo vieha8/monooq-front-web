@@ -2,14 +2,24 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import StorybookRouter from 'storybook-router';
+import StoryRouter from 'storybook-router';
+import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import InputEstimate from './index';
 
-storiesOf('Organisms/InputEstimate', module)
-  .addDecorator(StorybookRouter())
-  .add('Normal', () => (
-    <div>
-      <InputEstimate />
-    </div>
-  ));
+InputEstimate.displayName = 'InputEstimate';
+
+storiesOf('Organisms(LV3)/InputEstimate', module)
+  .addDecorator(StoryRouter())
+  .add(
+    'Normal',
+    withInfo(`
+        ### コンポーネント概要
+        見積もり送付フォーム
+      `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <InputEstimate />
+      </div>
+    )),
+  );

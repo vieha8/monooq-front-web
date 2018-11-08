@@ -3,15 +3,20 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import NotificationCount from './index';
 
 NotificationCount.displayName = 'NotificationCount';
 
-storiesOf('Atoms/Util/NotificationCount', module).add(
+storiesOf('Atoms(LV1)/Util/NotificationCount', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要
       通知カウントバッチ
-    `)(() => <NotificationCount count={10} />),
+    `)(() => (
+    <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+      <NotificationCount count={10} />
+    </div>
+  )),
 );
