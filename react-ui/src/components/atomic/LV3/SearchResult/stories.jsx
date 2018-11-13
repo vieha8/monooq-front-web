@@ -2,12 +2,16 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import SearchResult from './index';
 
+SearchResult.displayName = 'SearchNotFound';
+
 function getData() {
   const data = [];
-  for (let i = 0; i < 30; i += 1) {
+  for (let i = 0; i < 10; i += 1) {
     data.push({
       image: 'http://placehold.jp/200x200.png',
       addressTown: '六本木六本木六本木六本木六本木',
@@ -23,8 +27,14 @@ function getData() {
   return data;
 }
 
-storiesOf('Organisms/SearchResult', module).add('Normal', () => (
-  <div style={{ width: '100%', maxWidth: '800px' }}>
-    <SearchResult spaces={getData()} />
-  </div>
-));
+storiesOf('Organisms(LV3)/SearchResult', module).add(
+  'Disabled',
+  withInfo(`
+        ### コンポーネント概要
+        検索結果リスト
+      `)(() => (
+    <div style={{ width: '100%', maxWidth: '880px', padding: `${Dimens.storyBookPadding}` }}>
+      <SearchResult spaces={getData()} />
+    </div>
+  )),
+);

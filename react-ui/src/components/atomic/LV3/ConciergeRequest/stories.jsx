@@ -6,20 +6,20 @@ import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import PaidComplete from './index';
+import ConciergeRequest from './index';
 
-PaidComplete.displayName = 'PaidComplete';
+ConciergeRequest.displayName = 'ConciergeRequest';
 
-storiesOf('Organisms(LV3)/PaidComplete', module)
+storiesOf('Organisms(LV3)/ConciergeRequest', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',
     withInfo(`
         ### コンポーネント概要
-        支払い完了
+        モノオクコンシェルジュLP
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <PaidComplete spaceName="素敵なものおき！" />
+        <ConciergeRequest />
       </div>
     )),
   );

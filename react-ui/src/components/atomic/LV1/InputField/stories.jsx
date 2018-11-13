@@ -3,19 +3,20 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import InputField from './index';
 
 InputField.displayName = 'InputField';
 
-storiesOf('Atoms/Forms/InputField', module)
+storiesOf('Atoms(LV1)/Forms/InputField', module)
   .add(
     'Available',
     withInfo(`
       ### コンポーネント概要
       入力欄(通常ver)
     `)(() => (
-      <div style={{ width: '300px' }}>
+      <div style={{ Width: '380px', padding: `${Dimens.storyBookPadding}` }}>
         <InputField />
       </div>
     )),
@@ -27,7 +28,7 @@ storiesOf('Atoms/Forms/InputField', module)
       - ・入力欄(エラー有りver)
       - ・非活性になる。
     `)(() => (
-      <div style={{ width: '300px' }}>
+      <div style={{ Width: '380px', padding: `${Dimens.storyBookPadding}` }}>
         <InputField error value="入力してはいけない文字" />
       </div>
     )),
@@ -38,7 +39,7 @@ storiesOf('Atoms/Forms/InputField', module)
       ### コンポーネント概要
       入力欄(非活性ver)
     `)(() => (
-      <div style={{ width: '300px' }}>
+      <div style={{ Width: '380px', padding: `${Dimens.storyBookPadding}` }}>
         <InputField value="変更できません" disabled="disabled" />
       </div>
     )),

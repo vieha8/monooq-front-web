@@ -9,4 +9,5 @@ export default {
   large: 54,
   huge: 84,
   fixedWidthPc: 1048,
+  storyBookPadding: `20px 40px`,
 };

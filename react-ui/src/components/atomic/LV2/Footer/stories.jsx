@@ -3,13 +3,23 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import StoryRouter from 'storybook-router';
+import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import Footer from './index';
 
-storiesOf('Molecules/Footer', module)
+Footer.displayName = 'Footer';
+
+storiesOf('Molecules(LV2)/Footer', module)
   .addDecorator(StoryRouter())
-  .add('Normal', () => (
-    <div style={{ paddingTop: '120px' }}>
-      <Footer />
-    </div>
-  ));
+  .add(
+    'Normal',
+    withInfo(`
+      ### コンポーネント概要
+      共通フッタ
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Footer />
+      </div>
+    )),
+  );

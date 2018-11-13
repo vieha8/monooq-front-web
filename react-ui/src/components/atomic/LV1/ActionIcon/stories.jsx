@@ -3,6 +3,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
+import { Dimens } from 'variables';
 
 import {
   SearchIcon,
@@ -14,14 +15,14 @@ import {
   CircleDown,
 } from './index';
 
-storiesOf('Atoms/Util/ActionIcon', module)
+storiesOf('Atoms(LV1)/Util/ActionIcon', module)
   .add(
     'SearchIcon',
     withInfo(`
       ### コンポーネント概要
       検索アイコン
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <SearchIcon />
       </div>
     )),
@@ -32,7 +33,7 @@ storiesOf('Atoms/Util/ActionIcon', module)
       ### コンポーネント概要
       メッセージアイコン
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <MessageIcon />
       </div>
     )),
@@ -43,7 +44,7 @@ storiesOf('Atoms/Util/ActionIcon', module)
       ### コンポーネント概要
       画像アイコン
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <PictureIcon />
       </div>
     )),
@@ -54,7 +55,7 @@ storiesOf('Atoms/Util/ActionIcon', module)
       ### コンポーネント概要
       右矢印アイコン
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <AngleRight />
       </div>
     )),
@@ -65,7 +66,7 @@ storiesOf('Atoms/Util/ActionIcon', module)
       ### コンポーネント概要
       下矢印アイコン
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <AngleDown />
       </div>
     )),
@@ -76,7 +77,7 @@ storiesOf('Atoms/Util/ActionIcon', module)
       ### コンポーネント概要
       右矢印アイコン(円形)
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <CircleRight />
       </div>
     )),
@@ -87,7 +88,7 @@ storiesOf('Atoms/Util/ActionIcon', module)
       ### コンポーネント概要
       下矢印アイコン(円形)
     `)(() => (
-      <div>
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <CircleDown />
       </div>
     )),
