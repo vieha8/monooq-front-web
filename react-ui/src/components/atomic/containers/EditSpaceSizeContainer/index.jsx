@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import Path from 'config/path';
 
 import { uiActions } from 'redux/modules/ui';
-import { spaceActions } from 'redux/modules/space';
 
 import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
 import Header from 'components/atomic/containers/Header';
