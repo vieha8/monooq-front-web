@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { authActions } from 'redux/modules/auth';
 import RegisterEmail from 'components/atomic/LV3/RegisterEmail';
 import { ErrorMessage } from 'strings';
+import Path from 'config/path';
 
 type PropTypes = {
   dispatch: Function,
@@ -102,7 +103,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const { isRegisting, isSignupFailed } = this.props;
+    const { isRegisting, isSignupFailed, history } = this.props;
     const { email, password, passwordConfirm, hasChanged, errors } = this.state;
     return (
       <RegisterEmail
@@ -119,6 +120,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
         passConfirmError={(!hasChanged && errors.passwordConfirm) || []}
         isRegisterChecking={isRegisting}
         signUpError={isSignupFailed}
+        onClickLogin={() => history.push(Path.login())}
       />
     );
   }

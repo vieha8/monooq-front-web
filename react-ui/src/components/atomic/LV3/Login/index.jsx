@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
 import Path from 'config/path';
 import Button from 'components/atomic/LV1/Button';
 import InlineText from 'components/atomic/LV1/InlineText';
@@ -9,14 +8,8 @@ import { H2 } from 'components/atomic/LV1/Headline';
 import TextLink from 'components/atomic/LV1/TextLink';
 import InputField from 'components/atomic/LV1/InputField';
 import InputForm from 'components/atomic/LV2/InputForm';
-import logoUri from 'images/monooq_logo_mark.svg';
 import { Colors, FontSizes } from 'variables';
 import Form from './Form';
-
-const Logo = styled.img`
-  width: 60px;
-  height: 60px;
-`;
 
 type PropTypes = {
   onClickFacebook: Function,

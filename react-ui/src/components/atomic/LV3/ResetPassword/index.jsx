@@ -2,26 +2,30 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import Path from 'config/path';
-import TextLink from 'components/atomic/LV1/TextLink';
+import { media } from 'helpers/style/media-query';
 import Button from 'components/atomic/LV1/Button';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { H1 } from 'components/atomic/LV1/Headline';
-import IconInputField from 'components/atomic/LV2/IconInputField';
+import InputForm from 'components/atomic/LV2/InputForm';
+import { H2 } from 'components/atomic/LV1/Headline';
 import { Colors, Dimens } from 'variables';
-import logoUri from 'images/monooq_logo_mark.svg';
 
 const Container = styled.div`
   text-align: center;
 `;
 
-const Logo = styled.img`
-  width: 60px;
-  height: 60px;
+const Title = styled.div`
+  ${media.phone`
+    text-align: left;
+  `};
+  margin-top: ${Dimens.small2}px;
 `;
 
 const InputWrapper = styled.div`
-  margin-top: ${Dimens.large}px;
+  text-align: left;
+  margin-top: ${Dimens.medium3}px;
+  ${media.phone`
+    margin-top: ${Dimens.medium1}px;
+  `};
 `;
 
 const ButtonWrapper = styled.div`
@@ -33,7 +37,11 @@ const ErrorWrapper = styled.div`
 `;
 
 const MarginTopMediumWrapper = styled.div`
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.medium3}px;
+  text-align: left;
+  ${media.phone`
+    margin-top: ${Dimens.medium1}px;
+  `};
 `;
 
 type PropTypes = {
@@ -48,27 +56,33 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Container>
-    <Logo src={logoUri} />
     {props.sended ? (
       <Fragment>
-        <H1>再設定用メールを送信しました</H1>
+        <Title>
+          <H2 bold>再設定メールを送信しました</H2>
+        </Title>
         <MarginTopMediumWrapper>
-          <InlineText.Small color={Colors.lightGray1}>
-            パスワード再設定用のメールをお送りしました。<br />
+          <InlineText.Base>
+            パスワード再設定用のメールをお送りしました。
+            <br />
             メールの内容にしたがってお手続きください。
-          </InlineText.Small>
-        </MarginTopMediumWrapper>
-        <MarginTopMediumWrapper>
-          <TextLink to={Path.login()}>戻る</TextLink>
+          </InlineText.Base>
         </MarginTopMediumWrapper>
       </Fragment>
     ) : (
       <Fragment>
-        <H1>パスワードの再設定</H1>
+        <Title>
+          <H2 bold>パスワードの再設定</H2>
+        </Title>
+        <MarginTopMediumWrapper>
+          <InlineText.Base>
+            再設定のメールが受け取れる登録したメールアドレスを入力してください。届いたメールからパスワードの設定が行えます。
+          </InlineText.Base>
+        </MarginTopMediumWrapper>
         <InputWrapper>
-          <IconInputField
-            placeholder="example@monooq.com"
-            iconClassName="fal fa-envelope"
+          <InputForm
+            label="メールアドレス"
+            placeholder="info@monooq.com"
             value={props.email}
             onChange={e => props.onChangeEmail(e.target.value)}
           />
@@ -76,15 +90,9 @@ export default (props: PropTypes) => (
         {props.errors &&
           props.errors.map((error, i) => (
             <ErrorWrapper key={`email_error_${i}`}>
-              <InlineText.Small color={Colors.error}>{error}</InlineText.Small>
+              <InlineText.Base color={Colors.error}>{error}</InlineText.Base>
             </ErrorWrapper>
           ))}
-        <MarginTopMediumWrapper>
-          <InlineText.Small color={Colors.lightGray1}>
-            登録済みのメールアドレスを入力してください。<br />
-            再設定用メールをお送りします。
-          </InlineText.Small>
-        </MarginTopMediumWrapper>
         <ButtonWrapper>
           <Button
             fill={1}
@@ -92,12 +100,9 @@ export default (props: PropTypes) => (
             disabled={props.buttonDisabled}
             loading={props.buttonLoading}
           >
-            再設定用メールを送信
+            再設定メールを送信する
           </Button>
         </ButtonWrapper>
-        <MarginTopMediumWrapper>
-          <TextLink to={Path.login()}>戻る</TextLink>
-        </MarginTopMediumWrapper>
       </Fragment>
     )}
   </Container>

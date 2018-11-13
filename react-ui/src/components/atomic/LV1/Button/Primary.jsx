@@ -13,7 +13,7 @@ export const PrimaryButton = styled.div`
   font-weight: ${props => (props.fontbold ? 'bold' : 'normal')};
   color: ${Colors.white};
   background: ${Colors.brandPrimary};
-  border-radius: 6px;
+  border-radius: 3px;
   cursor: pointer;
 
   &:focus {

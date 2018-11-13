@@ -45,8 +45,8 @@ const Facebook = styled.div`
 
 const ToSignup = styled.div`
   text-align: center;
-  margin-top: ${Dimens.small2}px;
-  padding-top: ${Dimens.small2}px;
+  margin-top: ${Dimens.medium}px;
+  padding-top: ${Dimens.medium}px;
   border-top: 1px solid ${Colors.borderGray};
 `;
 
