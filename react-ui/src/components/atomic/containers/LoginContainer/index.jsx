@@ -74,7 +74,7 @@ class LoginContainer extends Component {
   };
 
   render() {
-    const { dispatch, ui, isLogin, isChecking, loginFailed } = this.props;
+    const { dispatch, ui, isLogin, isChecking, loginFailed, history } = this.props;
     const { email, password, hasChanged } = this.state;
 
     if (!isLogin) {
@@ -92,6 +92,7 @@ class LoginContainer extends Component {
               loginFailed={loginFailed && !hasChanged && !isChecking}
               isLoginChecking={isChecking}
               buttonDisabled={!this.validate()}
+              onClickSignup={() => history.push(Path.signUp())}
             />
           }
         />
@@ -116,4 +117,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(LoginContainer, mapStateToProps);
+export default connect(
+  LoginContainer,
+  mapStateToProps,
+);

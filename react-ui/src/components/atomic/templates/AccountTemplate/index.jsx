@@ -7,6 +7,9 @@ import { Colors, Dimens } from 'variables';
 
 const Page = styled.div`
   padding: 80px 0;
+  ${media.phone`
+    padding: 60px 0;
+  `};
 `;
 
 const HeaderContainer = styled.div`
@@ -22,16 +25,18 @@ const HeaderContainer = styled.div`
 `;
 
 const Container = styled.div`
-  width: 420px;
+  width: 480px;
   margin: 0 auto;
 
   background: ${Colors.white};
-  padding: ${Dimens.medium3}px;
-  border-radius: 6px;
+  padding: ${Dimens.medium2}px;
+  border-radius: 3px;
+  border: 1px solid ${Colors.lightGray1};
 
-  ${media.tablet`
-    width: 320px;
+  ${media.phone`
+    width: 100%;
     padding: ${Dimens.medium}px;
+    border: none;
   `};
 `;
 

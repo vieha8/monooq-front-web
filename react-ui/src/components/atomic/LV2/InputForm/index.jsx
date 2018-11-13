@@ -57,6 +57,7 @@ export default (props: PropTypes) => (
         />
       )}
     </InputFieldWrapper>
+    {props.hintbottom && <InlineText.EmphasisSmall>{props.hintbottom}</InlineText.EmphasisSmall>}
     {props.unit && (
       <UnitWrapper>
         <InlineText.Base>{props.unit}</InlineText.Base>

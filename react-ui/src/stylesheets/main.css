@@ -1,5 +1,11 @@
 @import '../../node_modules/react-image-gallery/styles/css/image-gallery.css';
 
+@media (max-width: 30em) {
+  body {
+    background: none !important;
+  }
+}
+
 .space_image_gallery_bullet {
   background: #ffffff !important;
 }

@@ -8,7 +8,7 @@ const InputField = styled.input`
   padding: 18px 25px;
   font-size: 14px;
   border: 1px solid ${Colors.lightGray1};
-  border-radius: 6px;
+  border-radius: 3px;
   color: ${Colors.black};
   outline: none;
   background: ${Colors.lightGray2Bg};

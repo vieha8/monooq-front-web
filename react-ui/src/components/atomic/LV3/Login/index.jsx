@@ -5,11 +5,12 @@ import styled from 'styled-components';
 import Path from 'config/path';
 import Button from 'components/atomic/LV1/Button';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { H1 } from 'components/atomic/LV1/Headline';
+import { H2 } from 'components/atomic/LV1/Headline';
 import TextLink from 'components/atomic/LV1/TextLink';
-import IconInputField from 'components/atomic/LV2/IconInputField';
+import InputField from 'components/atomic/LV1/InputField';
+import InputForm from 'components/atomic/LV2/InputForm';
 import logoUri from 'images/monooq_logo_mark.svg';
-import { Colors } from 'variables';
+import { Colors, FontSizes } from 'variables';
 import Form from './Form';
 
 const Logo = styled.img`
@@ -31,20 +32,18 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Form
-    logo={<Logo src={logoUri} />}
-    title={<H1>ログインする</H1>}
+    title={<H2 bold>ログイン</H2>}
     email={
-      <IconInputField
-        iconClassName="fal fa-envelope"
-        placeholder="example.com"
+      <InputField
+        placeholder="メールアドレス"
         value={props.email}
         onChange={e => props.onChangeEmail(e.target.value)}
       />
     }
     pass={
-      <IconInputField
+      <InputForm
         type="password"
-        iconClassName="fal fa-unlock-alt"
+        hintbottom="8文字以上の半角英数字で入力してください"
         placeholder="パスワード"
         value={props.password}
         onChange={e => props.onChangePassword(e.target.value)}
@@ -57,7 +56,16 @@ export default (props: PropTypes) => (
         </InlineText.Small>
       )
     }
-    remind={<TextLink to={Path.resetPassword()}>パスワードをお忘れの方はこちら</TextLink>}
+    remind={
+      <TextLink
+        to={Path.resetPassword()}
+        fontSize={FontSizes.small}
+        color={Colors.brandPrimary}
+        underline
+      >
+        パスワード忘れた方はこちら
+      </TextLink>
+    }
     login={
       <Button
         primary
@@ -74,6 +82,10 @@ export default (props: PropTypes) => (
         Facebookでログイン
       </Button>
     }
-    toSignup={<TextLink to={Path.signUp()}>新規登録はこちら</TextLink>}
+    toSignup={
+      <Button secondary borderbold fontbold fill={1} onClick={props.onClickSignup}>
+        新規登録はこちら
+      </Button>
+    }
   />
 );

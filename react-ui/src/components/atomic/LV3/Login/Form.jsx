@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import { Dimens, Colors } from 'variables';
 
 const Logo = styled.div`
@@ -10,6 +11,9 @@ const Logo = styled.div`
 
 const Title = styled.div`
   text-align: center;
+  ${media.phone`
+    text-align: left;
+  `}
   margin-top: ${Dimens.small2}px;
 `;
 
@@ -28,15 +32,15 @@ const Failed = styled.div`
 
 const Remind = styled.div`
   text-align: center;
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.medium3}px;
 `;
 
 const Login = styled.div`
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.medium3}px;
 `;
 
 const Facebook = styled.div`
-  margin-top: ${Dimens.medium2}px;
+  margin-top: ${Dimens.medium}px;
 `;
 
 const ToSignup = styled.div`
@@ -65,9 +69,9 @@ export default (props: PropTypes) => (
     <Email>{props.email}</Email>
     <Pass>{props.pass}</Pass>
     <Failed>{props.failed}</Failed>
+    <Remind>{props.remind}</Remind>
     <Login>{props.login}</Login>
     <Facebook>{props.facebook}</Facebook>
     <ToSignup>{props.toSignup}</ToSignup>
-    <Remind>{props.remind}</Remind>
   </Fragment>
 );

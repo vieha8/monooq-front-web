@@ -10,6 +10,7 @@ export const PrimaryButton = styled.div`
   padding: 17px 10px;
   text-align: center;
   font-size: ${FontSizes.medium}px;
+  font-weight: ${props => (props.fontbold ? 'bold' : 'normal')};
   color: ${Colors.white};
   background: ${Colors.brandPrimary};
   border-radius: 6px;

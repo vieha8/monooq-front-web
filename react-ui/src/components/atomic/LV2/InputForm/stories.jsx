@@ -28,6 +28,20 @@ storiesOf('Molecules(LV2)/InputForm', module)
     )),
   )
   .add(
+    'Hint Bottom',
+    withInfo(`
+      ### コンポーネント概要
+      フォーム入力項目(HintBotton有りver)
+    `)(() => (
+      <div style={{ width: '100%', maxWidth: '800px', padding: `${Dimens.storyBookPadding}` }}>
+        <InputFormMock
+          hintbottom="8文字以上の半角英数字で入力してください"
+          placeholder="パスワード"
+        />
+      </div>
+    )),
+  )
+  .add(
     'Unit',
     withInfo(`
       ### コンポーネント概要
