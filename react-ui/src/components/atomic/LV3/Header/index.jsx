@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from 'components/atomic/LV1/Logo';
 import CloseIcon from 'components/atomic/LV2/HeaderAction/CloseIcon';
-import MessageIcon from 'components/atomic/LV2/HeaderAction/MessageIcon';
 import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
 import Anonymouse from 'components/atomic/LV2/HeaderAction/Anonymouse';
 import AnimateSearchInputField from 'components/atomic/LV2/AnimateSearchInputField';
@@ -44,21 +43,24 @@ const Nav = styled.nav`
 `;
 
 const LogoWrapper = styled(Link)`
+  width: 138px;
   display: inline-flex;
-  margin-left: 12px;
+  margin-left: 50px;
   ${props =>
     props.hide &&
     `
     display: none;
   `} ${media.phone`
+    width: 100px;
     margin-top: 4px;
+    margin-left: 20px;
   `};
 `;
 
 const ActionWrapper = styled.div`
   display: inline-flex;
   margin-left: auto;
-  margin-right: ${Dimens.medium}px;
+  margin-right: 46px;
   ${props =>
     props.fill &&
     `
@@ -66,7 +68,7 @@ const ActionWrapper = styled.div`
   `};
   ${media.phone`
     margin-left: auto;
-    margin-right: ${Dimens.small}px;
+    margin-right: 10px;
   `};
 `;
 
@@ -94,7 +96,7 @@ const ActionCell = styled.div`
 const SearchFiledCell = styled.div`
   display: inline-block;
   vertical-align: middle;
-  width: 300px;
+  width: auto;
   margin-right: ${Dimens.medium}px;
   ${media.phone`
     width: 50px;
@@ -145,11 +147,14 @@ const CloseIconWrapper = styled.span`
   margin-left: 12px;
 `;
 
+const AvaterName = styled.span`
+  font-weight: bold;
+`;
+
 type PropTypes = {
   homeUri: string,
-  messageUri: string,
-  messageCount: number,
   user: {
+    name: string,
     image: string,
   },
   isCheckingLogin: boolean,
@@ -175,7 +180,7 @@ export default (props: PropTypes) => {
     <Container top={props.top} help={props.help} storys={props.storys}>
       <Nav>
         <LogoWrapper to={props.homeUri} hide={isFillSearchField}>
-          {props.top || props.help ? <Logo.HeaderWhite /> : <Logo.Header />}
+          {props.top || props.help ? <Logo.HeaderWhiteFill /> : <Logo.HeaderFill />}
         </LogoWrapper>
         {!props.isCheckingLogin && (
           <ActionWrapper fill={isFillSearchField}>
@@ -201,37 +206,14 @@ export default (props: PropTypes) => {
                   </CloseIconWrapper>
                 </ActionCell>
                 <ActionCell hide={isFillSearchField}>
-                  <MessageIcon
-                    color={(props.top || props.help) && Colors.white}
-                    to={props.messageUri}
-                    notificationCount={props.messageCount}
-                  />
+                  <AvatarIcon imageSrc={props.user.image} onClick={props.onClickAvatar} />
                 </ActionCell>
                 <ActionCell hide={isFillSearchField}>
-                  <AvatarIcon imageSrc={props.user.image} onClick={props.onClickAvatar} />
+                  <AvaterName>{props.user.name}</AvaterName>
                 </ActionCell>
               </ActionContainer>
             ) : (
               <ActionContainer>
-                <SearchFiledCell fill={isFillSearchField}>
-                  <AnimateSearchInputField
-                    iconRight
-                    iconColor={(props.top || props.help) && Colors.white}
-                    placeholder="どこの物置きを探す？"
-                    show={props.showSearchField}
-                    onClickIcon={props.onClickSearchIcon}
-                    onKeyDownInputField={props.onKeyDownSearch}
-                    onChange={props.onChangeSearchField}
-                  />
-                </SearchFiledCell>
-                <ActionCell hide={!isFillSearchField}>
-                  <CloseIconWrapper>
-                    <CloseIcon
-                      color={(props.top || props.help) && Colors.white}
-                      onClick={props.onClickCloseSearch}
-                    />
-                  </CloseIconWrapper>
-                </ActionCell>
                 <AnonymouseWrapper hide={isFillSearchField}>
                   <Anonymouse loginUri={props.loginUri} signupUri={props.signupUri} />
                 </AnonymouseWrapper>

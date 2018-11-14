@@ -2,7 +2,10 @@
 
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Colors, FontSizes } from 'variables';
+
+const btnlink = styled(Link)``;
 
 export const PrimaryButton = styled.div`
   width: 100%;
@@ -54,4 +57,13 @@ export const PrimaryButton = styled.div`
   `};
 `;
 
-export default (props: Object) => <PrimaryButton {...props} />;
+const HyperLink = btnlink.withComponent('a');
+
+export default (props: Object) =>
+  props.link ? (
+    <HyperLink {...props} href={props.href}>
+      <PrimaryButton {...props} />
+    </HyperLink>
+  ) : (
+    <PrimaryButton {...props} />
+  );

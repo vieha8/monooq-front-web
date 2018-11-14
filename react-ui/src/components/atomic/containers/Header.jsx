@@ -117,6 +117,7 @@ class HeaderContainer extends Component<PropTypes> {
         user={
           isLogin
             ? {
+                name: user.Name,
                 image: user.ImageUrl,
               }
             : null

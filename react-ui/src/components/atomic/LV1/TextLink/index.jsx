@@ -9,6 +9,7 @@ const TextLink = styled(Link)`
   color: ${Colors.linkBlue};
   line-height: 1.6;
   font-size: ${props => props.fontSize || 16}px;
+  font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   ${props =>
     props.underline &&
     `
