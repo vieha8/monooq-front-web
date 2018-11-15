@@ -208,7 +208,7 @@ class PaymentContainer extends Component<PropTypes> {
         header={<Header />}
         left={
           isPaymentSuccess ? (
-            <PaidComplete spaceName={space.About} onClickToMessage={this.backToMessage} />
+            <PaidComplete spaceName={space.Title} onClickToMessage={this.backToMessage} />
           ) : (
             <InputPayment
               paidError={isPaymentFailed}
@@ -237,7 +237,7 @@ class PaymentContainer extends Component<PropTypes> {
                 alt: '',
               },
               address: space.Address,
-              content: space.About,
+              content: space.Title,
               href: Path.space(space.ID),
             }}
             payment={{
