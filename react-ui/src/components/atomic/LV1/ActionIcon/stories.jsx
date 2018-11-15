@@ -8,6 +8,7 @@ import { Dimens } from 'variables';
 import {
   SearchIcon,
   MessageIcon,
+  OtherIcon,
   PictureIcon,
   AngleRight,
   AngleDown,
@@ -36,6 +37,17 @@ storiesOf('Atoms(LV1)/Util/ActionIcon', module)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <MessageIcon />
+      </div>
+    )),
+  )
+  .add(
+    'OtherIcon',
+    withInfo(`
+      ### コンポーネント概要
+      その他アイコン
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <OtherIcon />
       </div>
     )),
   )

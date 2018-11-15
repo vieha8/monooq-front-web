@@ -72,9 +72,15 @@ const HyperLink = TextLink.withComponent('a');
 
 export default (props: Object) =>
   props.href ? (
-    <HyperLink {...props} href={props.href}>
-      {props.children}
-    </HyperLink>
+    props.key ? (
+      <HyperLink {...props} href={props.href} key={props.key}>
+        {props.children}
+      </HyperLink>
+    ) : (
+      <HyperLink {...props} href={props.href}>
+        {props.children}
+      </HyperLink>
+    )
   ) : (
     <TextLink {...props} to={props.to || ''}>
       {props.children}

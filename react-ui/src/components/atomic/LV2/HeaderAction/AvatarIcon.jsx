@@ -11,6 +11,6 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <a href={props.href} onClick={props.onClick}>
-    <AvatarImage src={props.imageSrc} size={32} />
+    <AvatarImage src={props.imageSrc} size={props.size || 32} />
   </a>
 );

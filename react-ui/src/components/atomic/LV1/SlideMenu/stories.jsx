@@ -10,6 +10,8 @@ import SlideMenu from './index';
 
 SlideMenu.displayName = 'SlideMenu';
 
+const user = [{ name: 'AAA', image: 'http://placehold.jp/500x500.png' }];
+
 storiesOf('Atoms(LV1)/SlideMenu', module)
   .addDecorator(StorybookRouter())
   .add(
@@ -19,7 +21,7 @@ storiesOf('Atoms(LV1)/SlideMenu', module)
         スライドメニュー
       `)(() => (
       <div style={{ width: '100%', padding: `${Dimens.storyBookPadding}` }}>
-        <SlideMenu />
+        <SlideMenu user={user} />
       </div>
     )),
   );

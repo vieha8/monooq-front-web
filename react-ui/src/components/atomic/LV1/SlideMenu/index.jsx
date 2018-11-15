@@ -1,12 +1,42 @@
 // @flow
 
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import BurgerMenu from 'react-burger-menu';
 import TextButton from 'components/atomic/LV1/TextButton';
 import TextLink from 'components/atomic/LV1/TextLink';
 import Button from 'components/atomic/LV1/Button';
+import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
+import { OtherIcon } from 'components/atomic/LV1/ActionIcon';
 
 import MenuWrap from './menuwrap';
+
+const AvaterName = styled.span`
+  display: inline-block !important;
+  font-weight: bold;
+  vertical-align: middle;
+  max-width: 140px;
+`;
+
+const OtherIconWrap = styled.span`
+  display: inline-block !important;
+  vertical-align: middle;
+  float: right;
+`;
+
+const LinkWrap = styled.span`
+  padding: 20px 0;
+  ${props =>
+    props.Separate &&
+    `
+    border-top: 1px solid #888787;
+  `};
+  ${props =>
+    props.bottom &&
+    `
+    padding: 0;
+  `};
+`;
 
 class SlideMenu extends Component {
   constructor(props) {
@@ -19,46 +49,61 @@ class SlideMenu extends Component {
 
   getItems = () => {
     const items = [
-      <TextLink href={this.props.homeUri}>
-        <span>ホーム</span>
-      </TextLink>,
-      <TextLink href={this.props.messageUri}>
-        <span>メッセージ</span>
-      </TextLink>,
-      <TextLink href={this.props.scheduleUri}>
-        <span>利用状況</span>
-      </TextLink>,
-      <TextLink href={this.props.createSpaceInfoUri}>
-        <span>スペースの登録</span>
-      </TextLink>,
-      <TextLink href={this.props.spacesUri}>
-        <span>スペースの管理</span>
-      </TextLink>,
-      <TextLink href={this.props.salesUri}>
-        <span>売り上げ・振込申請</span>
-      </TextLink>,
-      <TextLink href={this.props.helpUri} target="_blank">
-        <span>ヘルプ</span>
-      </TextLink>,
-      <TextLink href={this.props.inquiryUri}>
-        <span>お問い合わせ</span>
-      </TextLink>,
-      <TextLink href={this.props.homeUri}>
-        <span>モノオクの使い方</span>
-      </TextLink>,
-      <TextLink href={this.props.homeUri}>
-        <span>その他</span>
-      </TextLink>,
-      <TextButton
-        href="#"
-        // TODO:ログアウト処理実装
-        // onClick={this.props.logout.onClick}
-      >
-        <span>ログアウト(未実装)</span>
-      </TextButton>,
-      <Button primary link href={this.props.tidyUri} height={60}>
-        Tidy
-      </Button>,
+      <LinkWrap key="0">
+        <AvatarIcon imageSrc={this.props.user.image} size={40} />
+        <AvaterName>{this.props.user.name}</AvaterName>
+        <OtherIconWrap>
+          <TextLink href={this.props.editProfileUri}>
+            <OtherIcon />
+          </TextLink>
+        </OtherIconWrap>
+      </LinkWrap>,
+      <LinkWrap key="1" Separate>
+        <TextLink href={this.props.homeUri}>ホーム</TextLink>
+      </LinkWrap>,
+      <LinkWrap key="2">
+        <TextLink href={this.props.messageUri}>メッセージ</TextLink>
+      </LinkWrap>,
+      <LinkWrap key="3">
+        <TextLink href={this.props.scheduleUri}>利用状況</TextLink>
+      </LinkWrap>,
+      <LinkWrap key="4" Separate>
+        <TextLink href={this.props.createSpaceInfoUri}>スペースの登録</TextLink>
+      </LinkWrap>,
+      <LinkWrap key="5">
+        <TextLink href={this.props.spacesUri}>スペースの管理</TextLink>
+      </LinkWrap>,
+      <LinkWrap key="6">
+        <TextLink href={this.props.salesUri}>売り上げ・振込申請</TextLink>
+      </LinkWrap>,
+      <LinkWrap key="7" Separate>
+        <TextLink href={this.props.helpUri} target="_blank">
+          ヘルプ
+        </TextLink>
+      </LinkWrap>,
+      <LinkWrap key="8">
+        <TextLink href={this.props.inquiryUri}>お問い合わせ</TextLink>
+      </LinkWrap>,
+      <LinkWrap key="9">
+        <TextLink href={this.props.homeUri}>モノオクの使い方</TextLink>
+      </LinkWrap>,
+      <LinkWrap key="10">
+        <TextLink href={this.props.homeUri}>その他</TextLink>
+      </LinkWrap>,
+      <LinkWrap key="11">
+        <TextButton
+          href="#"
+          // TODO:ログアウト処理実装
+          // onClick={this.props.logout.onClick}
+        >
+          ログアウト(未実装)
+        </TextButton>
+      </LinkWrap>,
+      <LinkWrap key="12" Separate bottom>
+        <Button primary link href={this.props.tidyUri} height={60}>
+          Tidy
+        </Button>
+      </LinkWrap>,
     ];
     return items;
   };
@@ -68,12 +113,7 @@ class SlideMenu extends Component {
     const items = this.getItems();
     const jsx = (
       <MenuWrap wait={20} side={this.state.side}>
-        <Menu
-          id={this.state.currentMenu}
-          pageWrapId="outer-container"
-          outerContainerId="root"
-          right
-        >
+        <Menu id={this.state.currentMenu} right>
           {items}
         </Menu>
       </MenuWrap>
@@ -82,7 +122,7 @@ class SlideMenu extends Component {
   };
 
   render() {
-    return <div id="outer-container">{this.getMenu()}</div>;
+    return <div>{this.getMenu()}</div>;
   }
 }
 
