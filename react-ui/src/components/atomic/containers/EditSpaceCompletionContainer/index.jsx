@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import Path from 'config/path';
-import { Redirect } from 'react-router-dom';
 
 import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
 import Header from 'components/atomic/containers/Header';
@@ -41,24 +40,20 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { editedSpace, history, dispatch } = this.props;
-
-    if (!editedSpace.Title) {
-      return <Redirect to={Path.createSpaceInfo()} />;
-    }
+    const { space, history, dispatch, isEdit } = this.props;
 
     return (
       <EditSpaceTemplate
         header={<Header />}
         leftContent={
           <EditSpaceCompletion
-            edit={editedSpace.ID}
+            edit={isEdit}
             space={{
-              userId: (editedSpace || {}).UserID,
+              userId: space.UserID,
             }}
             onClickViewSpace={() => {
               dispatch(spaceActions.clearSpace());
-              history.push(Path.space(editedSpace.ID));
+              history.push(Path.space(space.ID));
             }}
           />
         }
@@ -70,7 +65,8 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
 
 const mapStateToProps = state =>
   mergeAuthProps(state, {
-    editedSpace: state.space.created || state.space.space || {},
+    space: state.space.created || state.space.space || {},
+    isEdit: !state.space.created,
   });
 
 export default connect(
