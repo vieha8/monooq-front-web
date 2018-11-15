@@ -13,6 +13,7 @@ import {
   AngleDown,
   CircleRight,
   CircleDown,
+  CloseIcon,
 } from './index';
 
 storiesOf('Atoms(LV1)/Util/ActionIcon', module)
@@ -90,6 +91,17 @@ storiesOf('Atoms(LV1)/Util/ActionIcon', module)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <CircleDown />
+      </div>
+    )),
+  )
+  .add(
+    'CloseIcon',
+    withInfo(`
+      ### コンポーネント概要
+      閉じるアイコン
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <CloseIcon />
       </div>
     )),
   );

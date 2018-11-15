@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from 'components/atomic/LV1/Logo';
+import SlideMenu from 'components/atomic/LV1/SlideMenu';
 import CloseIcon from 'components/atomic/LV2/HeaderAction/CloseIcon';
 import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
 import Anonymouse from 'components/atomic/LV2/HeaderAction/Anonymouse';
@@ -151,6 +152,20 @@ const AvaterName = styled.span`
   font-weight: bold;
 `;
 
+const OnlyPC = styled.span`
+  display: contents;
+  ${media.phone`
+    display: none;
+  `};
+`;
+
+const OnlyPhone = styled.span`
+  display: none;
+  ${media.phone`
+    display: contents;
+  `};
+`;
+
 type PropTypes = {
   homeUri: string,
   user: {
@@ -205,12 +220,19 @@ export default (props: PropTypes) => {
                     />
                   </CloseIconWrapper>
                 </ActionCell>
-                <ActionCell hide={isFillSearchField}>
-                  <AvatarIcon imageSrc={props.user.image} onClick={props.onClickAvatar} />
-                </ActionCell>
-                <ActionCell hide={isFillSearchField}>
-                  <AvaterName>{props.user.name}</AvaterName>
-                </ActionCell>
+                <OnlyPhone>
+                  <ActionCell hide={isFillSearchField}>
+                    <SlideMenu {...props} />
+                  </ActionCell>
+                </OnlyPhone>
+                <OnlyPC>
+                  <ActionCell hide={isFillSearchField}>
+                    <AvatarIcon imageSrc={props.user.image} onClick={props.onClickAvatar} />
+                  </ActionCell>
+                  <ActionCell hide={isFillSearchField}>
+                    <AvaterName>{props.user.name}</AvaterName>
+                  </ActionCell>
+                </OnlyPC>
               </ActionContainer>
             ) : (
               <ActionContainer>

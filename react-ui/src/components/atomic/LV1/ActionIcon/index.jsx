@@ -33,7 +33,9 @@ type PropTypes = {
   fontSize: number,
 };
 
-export const SearchIcon = (props: PropTypes) => <Icon {...props} className="fal fa-search" />;
+export const SearchIcon = (props: PropTypes) => (
+  <Icon {...props} className="fas fa-search color-darkGray1" />
+);
 export const MessageIcon = (props: PropTypes) => (
   <Icon {...props} className="fas fa-comment" rotateY180 />
 );

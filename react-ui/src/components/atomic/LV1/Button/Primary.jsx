@@ -61,9 +61,15 @@ const HyperLink = btnlink.withComponent('a');
 
 export default (props: Object) =>
   props.link ? (
-    <HyperLink {...props} href={props.href}>
-      <PrimaryButton {...props} />
-    </HyperLink>
+    props.blank ? (
+      <HyperLink {...props} href={props.href} target="_blank">
+        <PrimaryButton {...props} />
+      </HyperLink>
+    ) : (
+      <HyperLink {...props} href={props.href}>
+        <PrimaryButton {...props} />
+      </HyperLink>
+    )
   ) : (
     <PrimaryButton {...props} />
   );

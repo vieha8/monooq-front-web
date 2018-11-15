@@ -112,6 +112,13 @@ class HeaderContainer extends Component<PropTypes> {
         isCheckingLogin={isChecking}
         homeUri={Path.top()}
         searchUri={Path.search()}
+        scheduleUri={Path.schedule()}
+        createSpaceInfoUri={Path.createSpaceInfo()}
+        spacesUri={Path.spaces()}
+        salesUri={Path.sales()}
+        helpUri="https://help.monooq.com/"
+        inquiryUri={Path.inquiry()}
+        tidyUri="https://tidy.monooq.com/"
         messageUri={Path.messages()}
         messageCount={0}
         user={
