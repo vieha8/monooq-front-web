@@ -144,7 +144,7 @@ class ProfileContainer extends Component<PropTypes> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={updateSuccess ? 'プロフィールの更新が完了しました' : 'プロフィールを編集する'}
+        headline={updateSuccess ? 'プロフィールの変更が完了しました' : 'プロフィールの変更・編集'}
         leftContent={
           updateSuccess ? (
             <EditProfileCompleted userId={user.ID} />
@@ -160,6 +160,7 @@ class ProfileContainer extends Component<PropTypes> {
               onChangeName={value => this.handleChangeUI('name', value)}
               onChangeEmail={value => this.handleChangeUI('email', value)}
               onChangePrefCode={value => this.handleChangeUI('prefCode', value)}
+              onChangePurpose={value => this.handleChangeUI('purpose', value)}
               onChangeProfile={value => this.handleChangeUI('profile', value)}
               onChangePhoneNumber={value => this.handleChangeUI('phoneNumber', value)}
               buttonDisabled={!this.validate()}

@@ -62,7 +62,7 @@ export default (props: PropTypes) => (
           target="_blank"
           fontSize={FontSizes.small}
           color={Colors.brandPrimary}
-          underline
+          underline="true"
         >
           利用規約
         </TextLink>
@@ -72,7 +72,7 @@ export default (props: PropTypes) => (
           target="_blank"
           fontSize={FontSizes.small}
           color={Colors.brandPrimary}
-          underline
+          underline="true"
         >
           プライバシーポリシー
         </TextLink>

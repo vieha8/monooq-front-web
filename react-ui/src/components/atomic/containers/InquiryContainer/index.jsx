@@ -19,8 +19,7 @@ class ProfileContainer extends Component<*> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline="モノオクに連絡する"
-        caption="サービスの不明点・お困りのことがあればモノオクカスタマーサポートまでお寄せください。"
+        headline="お問い合わせ"
         leftContent={<Inquiry />}
         rightContent={<ServiceMenu />}
         footer={<Footer />}

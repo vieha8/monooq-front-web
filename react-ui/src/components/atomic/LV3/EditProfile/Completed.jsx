@@ -8,6 +8,7 @@ import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 
 const Content = styled.div`
+  margin-top: ${Dimens.medium1}px;
   ${media.phone`
     padding: 0 ${Dimens.medium}px;
   `};

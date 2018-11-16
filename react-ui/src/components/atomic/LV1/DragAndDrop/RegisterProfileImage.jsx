@@ -38,6 +38,7 @@ const Preview = styled.img`
   border-radius: 70px;
   margin: 0 auto;
   object-fit: cover;
+  float: left;
 `;
 
 type PropTypes = {

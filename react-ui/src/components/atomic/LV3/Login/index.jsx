@@ -53,7 +53,7 @@ export default (props: PropTypes) => (
         to={Path.resetPassword()}
         fontSize={FontSizes.small}
         color={Colors.brandPrimary}
-        underline
+        underline="true"
       >
         パスワード忘れた方はこちら
       </TextLink>

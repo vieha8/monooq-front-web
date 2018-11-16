@@ -1,5 +1,7 @@
 // @flow
 
+export const purposes = ['荷物を預けたい', '荷物を預かりたい'];
+
 export const prefectures = [
   '北海道',
   '青森県',
@@ -69,6 +71,27 @@ export function selectOptionPrefectures(placeholder: string) {
       return {
         key: prefCode,
         value: prefCode.toString(),
+        text: pref,
+      };
+    }),
+  );
+}
+
+export function selectOptionPurpose(placeholder: string) {
+  const purposesList = [];
+  if (placeholder) {
+    purposesList.push({
+      key: -1,
+      value: '',
+      text: placeholder,
+    });
+  }
+  return purposesList.concat(
+    purposes.map((pref, i) => {
+      const purpose = i + 1;
+      return {
+        key: purpose,
+        value: purpose.toString(),
         text: pref,
       };
     }),

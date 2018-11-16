@@ -6,12 +6,11 @@ import RegsiterProfileImage from 'components/atomic/LV1/DragAndDrop/RegisterProf
 import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
 import Button from 'components/atomic/LV1/Button';
-import { selectOptionPrefectures } from 'helpers/prefectures';
-import { Dimens } from 'variables';
+import { selectOptionPrefectures, selectOptionPurpose } from 'helpers/prefectures';
 
 const Row = styled.div`
   &:not(:first-child) {
-    margin: ${Dimens.large}px 0;
+    margin: 34px 0;
   }
 `;
 
@@ -24,6 +23,8 @@ type PropTypes = {
   email: string,
   onChangePrefCode: Function,
   prefCode: string,
+  onChangePurpose: Function,
+  purpose: string,
   onChangeProfile: Function,
   profile: string,
   onClickUpdate: Function,
@@ -58,16 +59,6 @@ export default (props: PropTypes) => (
       />
     </Row>
     <Row>
-      <InputForm
-        label="電話番号"
-        placeholder="09012345678"
-        onChange={e => props.onChangePhoneNumber(e.target.value)}
-        value={props.phoneNumber}
-        type="tel"
-        hint="緊急時の連絡先として利用させていただきます"
-      />
-    </Row>
-    <Row>
       <SelectForm
         label="お住いの地域"
         options={selectOptionPrefectures('選択してください')}
@@ -77,13 +68,20 @@ export default (props: PropTypes) => (
     </Row>
     <Row>
       <InputForm
-        label="あなたの紹介文"
-        hint="ユーザー・ホストが安心するようにあなたの紹介文を掲載しましょう！"
+        label="自己紹介"
         placeholder="はじめまして！モノオクホストのYUKIです。大きめの荷物でも柔軟に対応しております、いつでもチャットでご連絡ください！"
         rows={4}
         multiline
         onChange={e => props.onChangeProfile(e.target.value)}
         value={props.profile}
+      />
+    </Row>
+    <Row>
+      <SelectForm
+        label="モノオクの利用方法"
+        options={selectOptionPurpose('選択してください')}
+        onChange={e => props.onChangePurpose(e.target.value)}
+        value={props.purpose}
       />
     </Row>
     <Button

@@ -20,7 +20,7 @@ const Content = styled.div``;
 
 const LeftContent = styled.div`
   float: left;
-  width: 70%;
+  width: 65%;
   ${media.tablet`
     float: none;
     margin-left: 0;
@@ -30,8 +30,8 @@ const LeftContent = styled.div`
 
 const RightContent = styled.div`
   float: left;
-  width: 20%;
-  margin-left: 32px;
+  width: 22%;
+  margin-left: 90px;
   ${media.tablet`
     display: none;
     float: none;
