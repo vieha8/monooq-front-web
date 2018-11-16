@@ -15,12 +15,10 @@ type PropTypes = {
 type State = {
   email: string,
   password: string,
-  passwordConfirm: string,
   hasChanged: boolean,
   errors: {
     email?: Array<string>,
     password?: Array<string>,
-    passwordConfirm?: Array<string>,
   },
 };
 
@@ -38,7 +36,6 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     this.state = {
       email: '',
       password: '',
-      passwordConfirm: '',
       hasChanged: false,
       errors: {},
     };
@@ -49,7 +46,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   }
 
   onClickNext = () => {
-    const { email, password, passwordConfirm } = this.state;
+    const { email, password } = this.state;
 
     this.setState({ hasChanged: false, errors: {} });
 
@@ -71,10 +68,6 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     if (password.length < Validate.Password.Min) {
       errors.password = [].concat(errors.password, [ErrorMessage.InvalidPassword]);
     }
-    // パスワード確認チェック
-    if (password !== passwordConfirm) {
-      errors.passwordConfirm = [].concat(errors.password, [ErrorMessage.NotMatchPassword]);
-    }
     this.setState({ errors });
   };
 
@@ -91,33 +84,25 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   };
 
   validate = () => {
-    const { email, password, passwordConfirm } = this.state;
+    const { email, password } = this.state;
     return (
-      email &&
-      email.match(Validate.Email) &&
-      password &&
-      password.length >= Validate.Password.Min &&
-      passwordConfirm &&
-      password === passwordConfirm
+      email && email.match(Validate.Email) && password && password.length >= Validate.Password.Min
     );
   };
 
   render() {
     const { isRegisting, isSignupFailed, history } = this.props;
-    const { email, password, passwordConfirm, hasChanged, errors } = this.state;
+    const { email, password, hasChanged, errors } = this.state;
     return (
       <RegisterEmail
         onClickNext={this.onClickNext}
         onClickFacebook={this.onClickFacebook}
         onChangeEmail={value => this.handleChangeForm('email', value)}
         onChangePassword={value => this.handleChangeForm('password', value)}
-        onChangePasswordConfirm={value => this.handleChangeForm('passwordConfirm', value)}
         email={email}
         emailError={(!hasChanged && errors.email) || []}
         password={password}
         passError={(!hasChanged && errors.password) || []}
-        passwordConfirm={passwordConfirm}
-        passConfirmError={(!hasChanged && errors.passwordConfirm) || []}
         isRegisterChecking={isRegisting}
         signUpError={isSignupFailed}
         onClickLogin={() => history.push(Path.login())}

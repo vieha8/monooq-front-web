@@ -74,8 +74,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
           header={<Header />}
           headline="スペースの管理"
           caption="登録しているスペースの管理をします"
-          leftContent={<ServiceMenu />}
-          rightContent={
+          leftContent={
             Array.isArray(spaces) && spaces.length > 0 ? (
               <ManageSpaceList
                 spaces={spaces.map(space => ({
@@ -104,6 +103,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
               </Fragment>
             )
           }
+          rightContent={<ServiceMenu />}
           footer={<Footer />}
         />
       </div>
@@ -119,4 +119,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(SpaceManagementContainer, mapStateToProps);
+export default connect(
+  SpaceManagementContainer,
+  mapStateToProps,
+);

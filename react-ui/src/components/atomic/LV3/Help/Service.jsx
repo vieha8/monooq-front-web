@@ -54,7 +54,8 @@ export default (props: PropTypes) => {
     <MenuPage
       header={<Header help />}
       headline="ヘルプ"
-      leftContent={
+      leftContent={getContent(props)}
+      rightContent={
         <HelpMenu
           howToUser={{ open: openHowToUser }}
           onClickHowToUser={props.onClickHowToUser}
@@ -68,7 +69,6 @@ export default (props: PropTypes) => {
           aboutSalesTransfer={{ show: openHowToBeHost }}
         />
       }
-      rightContent={getContent(props)}
       footer={<Footer />}
     />
   );

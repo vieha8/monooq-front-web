@@ -41,9 +41,10 @@ export default class HeaderMock extends React.Component {
             addSpace={{ href: '#', notificationCount: 0 }}
             salesTransfer={{ href: '#', notificationCount: 0 }}
             paymentHistory={{ href: '#', notificationCount: 0 }}
-            becomeHost={{ href: '#', notificationCount: 0 }}
-            editProfile={{ href: '#', notificationCount: 0 }}
+            help={{ href: '#', notificationCount: 0 }}
             inquiry={{ href: '#', notificationCount: 0 }}
+            howToUse={{ href: '#', notificationCount: 0 }}
+            other={{ href: '#', notificationCount: 0 }}
             logout={{ href: '#', notificationCount: 0 }}
             hasSpace
           />

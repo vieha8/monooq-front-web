@@ -16,30 +16,25 @@ const Caption = styled.div`
   `};
 `;
 
-const Content = styled.div`
-  margin-top: ${Dimens.huge}px;
-  ${media.tablet`
-    margin-top: ${Dimens.medium3}px;
-  `};
-`;
+const Content = styled.div``;
 
 const LeftContent = styled.div`
   float: left;
-  width: 30%;
+  width: 70%;
   ${media.tablet`
-    display: none;
     float: none;
+    margin-left: 0;
+    width: 100%;
   `};
 `;
 
 const RightContent = styled.div`
   float: left;
+  width: 20%;
   margin-left: 32px;
-  width: 60%;
   ${media.tablet`
+    display: none;
     float: none;
-    margin-left: 0;
-    width: 100%;
   `};
 `;
 
@@ -56,15 +51,17 @@ export default (props: PropTypes) => (
   <div>
     {props.header}
     <Page>
-      <H1>{props.headline}</H1>
-      {props.caption && (
-        <Caption>
-          <InlineText.Base>{props.caption}</InlineText.Base>
-        </Caption>
-      )}
       <ClearfixContainer>
         <Content>
-          <LeftContent>{props.leftContent}</LeftContent>
+          <LeftContent>
+            <H1 bold>{props.headline}</H1>
+            {props.caption && (
+              <Caption>
+                <InlineText.Base>{props.caption}</InlineText.Base>
+              </Caption>
+            )}
+            {props.leftContent}
+          </LeftContent>
           <RightContent>{props.rightContent}</RightContent>
         </Content>
       </ClearfixContainer>

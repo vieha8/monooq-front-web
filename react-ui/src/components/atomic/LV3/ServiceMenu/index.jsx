@@ -20,22 +20,28 @@ type PropTypes = {
   addSpace: MenuItemProps,
   salesTransfer: MenuItemProps,
   paymentHistory: MenuItemProps,
-  becomeHost: MenuItemProps,
   editProfile: MenuItemProps,
+  help: MenuItemProps,
   inquiry: MenuItemProps,
+  howToUse: MenuItemProps,
+  other: MenuItemProps,
   logout: MenuItemProps,
   hasSpace: boolean,
 };
 
 export default (props: PropTypes) => (
   <Container>
+    <MenuItem title="ホーム" {...props.message} />
     <MenuItem title="メッセージ" {...props.message} />
-    <MenuItem title="スケジュール" {...props.schedule} />
+    <MenuItem title="利用状況" {...props.schedule} />
+    {props.hasSpace && <MenuItem title="スペースの登録" {...props.addSpace} line />}
     {props.hasSpace && <MenuItem title="スペースの管理" {...props.spaces} />}
-    {props.hasSpace && <MenuItem title="スペースを追加する" {...props.addSpace} />}
-    {props.hasSpace && <MenuItem title="売上確認・振込申請" {...props.sales} />}
+    {props.hasSpace && <MenuItem title="売り上げ・振込申請" {...props.sales} />}
     <MenuItem title="プロフィール編集" {...props.editProfile} />
+    <MenuItem title="ヘルプ" {...props.help} blank line />
     <MenuItem title="お問い合わせ" {...props.inquiry} />
+    <MenuItem title="モノオクの使い方" {...props.howToUse} />
+    <MenuItem title="その他" {...props.other} />
     <MenuItem title="ログアウト" {...props.logout} />
   </Container>
 );

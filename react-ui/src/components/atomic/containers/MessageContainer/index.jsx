@@ -169,7 +169,7 @@ class InboxContainer extends Component<PropTypes, State> {
     });
   };
 
-  rightContent = () => {
+  leftContent = () => {
     const { isLoading, user, room } = this.props;
     const { text, image } = this.state;
 
@@ -228,8 +228,8 @@ class InboxContainer extends Component<PropTypes, State> {
       <MenuPageTemplate
         header={<Header />}
         headline="メッセージ"
-        leftContent={<ServiceMenu />}
-        rightContent={this.rightContent()}
+        leftContent={this.leftContent()}
+        rightContent={<ServiceMenu />}
       />
     );
   }

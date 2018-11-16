@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import Path from 'config/path';
 import Button from 'components/atomic/LV1/Button';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { H2 } from 'components/atomic/LV1/Headline';
+import { H1 } from 'components/atomic/LV1/Headline';
 import TextLink from 'components/atomic/LV1/TextLink';
 import InputField from 'components/atomic/LV1/InputField';
 import InputForm from 'components/atomic/LV2/InputForm';
@@ -15,14 +15,10 @@ type PropTypes = {
   onClickNext: Function,
   onClickFacebook: Function,
   onChangeEmail: Function,
-  onChangePassword: Function,
-  onChangePasswordConfirm: Function,
   email: string,
   emailError: Array<string>,
   password: string,
   passError: Array<string>,
-  passwordConfirm: string,
-  passConfirmError: Array<string>,
   buttonDisabled: boolean,
   isRegisterChecking: boolean,
   signUpError: boolean,
@@ -30,7 +26,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Form
-    title={<H2 bold>新規登録</H2>}
+    title={<H1 bold>新規登録</H1>}
     email={
       <InputField
         placeholder="メールアドレス"
@@ -54,20 +50,6 @@ export default (props: PropTypes) => (
     }
     passError={props.passError.map((text, i) => (
       <InlineText.Small key={`pass_error_${i}`} color={Colors.error}>
-        {text}
-      </InlineText.Small>
-    ))}
-    passConfirm={
-      <InputForm
-        type="password"
-        hintbottom="8文字以上の半角英数字で入力してください"
-        placeholder="パスワードを再入力"
-        value={props.passwordConfirm}
-        onChange={e => props.onChangePasswordConfirm(e.target.value)}
-      />
-    }
-    passConfirmError={props.passConfirmError.map((text, i) => (
-      <InlineText.Small key={`pass_confirm_error_${i}`} color={Colors.error}>
         {text}
       </InlineText.Small>
     ))}

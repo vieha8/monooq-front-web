@@ -145,8 +145,7 @@ class ProfileContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline={updateSuccess ? 'プロフィールの更新が完了しました' : 'プロフィールを編集する'}
-        leftContent={<ServiceMenu />}
-        rightContent={
+        leftContent={
           updateSuccess ? (
             <EditProfileCompleted userId={user.ID} />
           ) : (
@@ -169,6 +168,7 @@ class ProfileContainer extends Component<PropTypes> {
             />
           )
         }
+        rightContent={<ServiceMenu />}
         footer={<Footer />}
       />
     );

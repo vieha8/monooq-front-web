@@ -44,7 +44,7 @@ class InboxContainer extends Component<PropTypes> {
     window.scrollTo(0, 0);
   }
 
-  rightContent = () => {
+  leftContent = () => {
     const { isLoading, rooms } = this.props;
 
     if (isLoading) {
@@ -75,8 +75,8 @@ class InboxContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="メッセージ一覧"
-        leftContent={<ServiceMenu />}
-        rightContent={this.rightContent()}
+        leftContent={this.leftContent()}
+        rightContent={<ServiceMenu />}
         footer={<Footer />}
       />
     );

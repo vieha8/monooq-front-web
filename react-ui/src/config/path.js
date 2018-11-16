@@ -72,6 +72,8 @@ export default {
   about: () => '/about',
   insurance: () => '/insurance',
   rule: () => '/rule',
+  howToUse: () => '/howtouse',
+  other: () => '/other',
   notFound: () => '/notfound',
   error: (status = ':status') => `/error/${status}`,
   cancellationPolicies: () => '/cancel/policy',

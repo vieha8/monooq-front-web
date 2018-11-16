@@ -6,7 +6,6 @@ import { Colors } from 'variables';
 const MenuItem = styled.li`
   display: table;
   width: 100%;
-  border: 1px solid ${Colors.borderGray};
   background: ${Colors.white};
   &:hover {
     cursor: pointer;
@@ -19,6 +18,11 @@ const MenuItem = styled.li`
     !props.show &&
     `
     display: none;
+  `};
+  ${props =>
+    props.line &&
+    `
+    border-top: 1px solid ${Colors.borderGray};
   `};
 `;
 

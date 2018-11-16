@@ -51,7 +51,7 @@ const LogoWrapper = styled(Link)`
     props.hide &&
     `
     display: none;
-  `} ${media.phone`
+  `} ${media.tablet`
     width: 100px;
     margin-top: 4px;
     margin-left: 20px;
@@ -67,7 +67,7 @@ const ActionWrapper = styled.div`
     `
     margin-left: 0;
   `};
-  ${media.phone`
+  ${media.tablet`
     margin-left: auto;
     margin-right: 10px;
   `};
@@ -75,7 +75,7 @@ const ActionWrapper = styled.div`
 
 const ActionContainer = styled.div`
   display: table;
-  ${media.phone`
+  ${media.tablet`
     margin-top: 4px;
   `};
 `;
@@ -100,7 +100,7 @@ const SearchFiledCell = styled.div`
   vertical-align: middle;
   width: auto;
   margin-right: ${Dimens.medium}px;
-  ${media.phone`
+  ${media.tablet`
     width: 50px;
     ${props =>
       props.fill &&
@@ -124,7 +124,7 @@ const MenuWrapper = styled.div`
   position: fixed;
   top: ${Height}px;
   width: 328px;
-  ${media.phone`
+  ${media.tablet`
     position: fixed;
     overflow: auto;
     bottom: 0;
@@ -155,14 +155,14 @@ const AvaterName = styled.span`
 
 const OnlyPC = styled.span`
   display: contents;
-  ${media.phone`
+  ${media.tablet`
     display: none;
   `};
 `;
 
 const OnlyPhone = styled.span`
   display: none;
-  ${media.phone`
+  ${media.tablet`
     display: contents;
   `};
 `;

@@ -22,7 +22,7 @@ export default (props: PropTypes) => {
     <MenuPage
       header={<Header help />}
       headline="何かお困りですか？"
-      leftContent={
+      rightContent={
         <HelpMenu
           howToUser={{ open: openHowToUser }}
           onClickHowToUser={props.onClickHowToUser}
@@ -36,7 +36,7 @@ export default (props: PropTypes) => {
           aboutSalesTransfer={{ show: openHowToBeHost }}
         />
       }
-      rightContent={
+      leftContent={
         <Fragment>
           <CommonHelp
             headline="物置きスペースを利用したい方へ"

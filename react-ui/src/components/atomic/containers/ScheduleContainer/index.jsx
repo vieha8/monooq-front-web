@@ -73,14 +73,14 @@ class ScheduleContainer extends Component {
         <MenuPageTemplate
           header={<Header />}
           headline="スケジュール"
-          leftContent={<ServiceMenu />}
-          rightContent={
+          leftContent={
             Array.isArray(schedules) && schedules.length > 0 ? (
               <ScheduleList schedules={schedules} />
             ) : (
               <InlineText.Base>スケジュールはありません。</InlineText.Base>
             )
           }
+          rightContent={<ServiceMenu />}
           footer={<Footer />}
         />
       </div>

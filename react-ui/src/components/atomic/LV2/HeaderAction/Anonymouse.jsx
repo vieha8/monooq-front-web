@@ -18,7 +18,7 @@ const Container = styled.span`
 
 const TextWrapper = styled.span`
   width: 120px;
-  ${media.phone`
+  ${media.tablet`
     width: auto;
   `};
   text-align: center;
@@ -31,14 +31,14 @@ const TextWrapper = styled.span`
 
 const OnlyPC = styled.span`
   display: block;
-  ${media.phone`
+  ${media.tablet`
     display: none;
   `};
 `;
 
 const OnlyPhone = styled.span`
   display: none;
-  ${media.phone`
+  ${media.tablet`
     display: block;
   `};
 `;

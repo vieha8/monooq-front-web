@@ -8,6 +8,7 @@ import TextLink from 'components/atomic/LV1/TextLink';
 import Button from 'components/atomic/LV1/Button';
 import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
 import { OtherIcon } from 'components/atomic/LV1/ActionIcon';
+import { Colors } from 'variables';
 
 import MenuWrap from './menuwrap';
 
@@ -29,12 +30,7 @@ const LinkWrap = styled.span`
   ${props =>
     props.Separate &&
     `
-    border-top: 1px solid #888787;
-  `};
-  ${props =>
-    props.bottom &&
-    `
-    padding: 0;
+    border-top: 1px solid ${Colors.borderGray};
   `};
 `;
 
@@ -85,10 +81,10 @@ class SlideMenu extends Component {
         <TextLink href={this.props.inquiryUri}>お問い合わせ</TextLink>
       </LinkWrap>,
       <LinkWrap key="9">
-        <TextLink href={this.props.homeUri}>モノオクの使い方</TextLink>
+        <TextLink href={this.props.howToUseUri}>モノオクの使い方</TextLink>
       </LinkWrap>,
       <LinkWrap key="10">
-        <TextLink href={this.props.homeUri}>その他</TextLink>
+        <TextLink href={this.props.otherUri}>その他</TextLink>
       </LinkWrap>,
       <LinkWrap key="11">
         <TextButton
@@ -100,7 +96,7 @@ class SlideMenu extends Component {
         </TextButton>
       </LinkWrap>,
       <LinkWrap key="12" Separate bottom>
-        <Button primary link href={this.props.tidyUri} height={60}>
+        <Button primary link href={this.props.tidyUri} height={80}>
           Tidy
         </Button>
       </LinkWrap>,

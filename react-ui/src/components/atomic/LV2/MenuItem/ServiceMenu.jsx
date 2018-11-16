@@ -13,8 +13,7 @@ const MenuLink = styled(Link)`
   width: 100%;
   height: 100%;
   text-decoration: none;
-  padding: 20px 16px;
-  padding: ${Dimens.medium}px ${Dimens.medium2}px;
+  padding: ${Dimens.medium}px 10px;
 `;
 
 const MenuText = styled.span`
@@ -36,15 +35,29 @@ type PropTypes = {
   onClick?: Function,
 };
 
-export default (props: PropTypes) => (
-  <MenuItem show>
-    <MenuLink to={props.href || ''} onClick={props.onClick}>
-      <MenuText>
-        <InlineText.Small>{props.title}</InlineText.Small>
-      </MenuText>
-      <NotificationWrapper>
-        <NotificationCount count={props.notificationCount} />
-      </NotificationWrapper>
-    </MenuLink>
-  </MenuItem>
-);
+const HyperLink = MenuLink.withComponent('a');
+
+export default (props: PropTypes) =>
+  props.blank ? (
+    <MenuItem show {...props}>
+      <HyperLink href={props.href || ''} onClick={props.onClick} target="_blank">
+        <MenuText>
+          <InlineText.Small>{props.title}</InlineText.Small>
+        </MenuText>
+        <NotificationWrapper>
+          <NotificationCount count={props.notificationCount} />
+        </NotificationWrapper>
+      </HyperLink>
+    </MenuItem>
+  ) : (
+    <MenuItem show {...props}>
+      <HyperLink href={props.href || ''} onClick={props.onClick}>
+        <MenuText>
+          <InlineText.Small>{props.title}</InlineText.Small>
+        </MenuText>
+        <NotificationWrapper>
+          <NotificationCount count={props.notificationCount} />
+        </NotificationWrapper>
+      </HyperLink>
+    </MenuItem>
+  );

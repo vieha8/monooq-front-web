@@ -6,7 +6,7 @@ import { media } from 'helpers/style/media-query';
 
 export const H1 = styled.h1`
   color: ${Colors.black};
-  font-size: 34px;
+  font-size: 30px;
   line-height: 1.6;
   font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   ${media.phone`
@@ -15,7 +15,7 @@ export const H1 = styled.h1`
 `;
 
 export const H2 = styled(H1.withComponent('h2'))`
-  font-size: 30px;
+  font-size: 26px;
   font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   ${media.phone`
     font-size: 20px;

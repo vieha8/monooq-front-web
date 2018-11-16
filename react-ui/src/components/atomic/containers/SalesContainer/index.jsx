@@ -95,7 +95,7 @@ class SalesContainer extends Component {
     );
   };
 
-  rightContent = () => {
+  leftContent = () => {
     const { sales } = this.props;
 
     this.payouts = sales.reduce((a, x) => (a += x.PriceMinusFee), 0);
@@ -104,7 +104,10 @@ class SalesContainer extends Component {
     if (this.payouts < 2400) {
       return (
         <InlineText.Base>
-          現在の売上は{this.payouts}円です。振込申請は2,400円以上から可能です。<br />
+          現在の売上は
+          {this.payouts}
+          円です。振込申請は2,400円以上から可能です。
+          <br />
           これは20%のサービス利用手数料を差し引いた金額となります。
         </InlineText.Base>
       );
@@ -113,7 +116,10 @@ class SalesContainer extends Component {
     return (
       <Fragment>
         <InlineText.Base>
-          振込可能な売上は{this.payouts}円です。<br />
+          振込可能な売上は
+          {this.payouts}
+          円です。
+          <br />
           振込先の本人口座をご入力ください。
         </InlineText.Base>
         <InputText>
@@ -163,7 +169,8 @@ class SalesContainer extends Component {
         </SubmitButton>
         <AlertText>
           <InlineText.Small>
-            上記の売上から振込手数料を差し引いた金額をお支払い致します。<br />
+            上記の売上から振込手数料を差し引いた金額をお支払い致します。
+            <br />
             ※振込金額が10,000円以上の場合は、振込手数料は無料となります。10,000円以下の場合、260円の振込手数料を差し引いた金額を入金致します。
           </InlineText.Small>
         </AlertText>
@@ -187,12 +194,12 @@ class SalesContainer extends Component {
           <MenuPageTemplate
             header={<Header />}
             headline="売上・振込申請"
-            leftContent={<ServiceMenu />}
-            rightContent={
+            leftContent={
               <InlineText.Base>
                 申請ありがとうございました。5営業日以内にお振込み致します。
               </InlineText.Base>
             }
+            rightContent={<ServiceMenu />}
             footer={<Footer />}
           />
         </div>
@@ -204,8 +211,8 @@ class SalesContainer extends Component {
         <MenuPageTemplate
           header={<Header />}
           headline="売上・振込申請"
-          leftContent={<ServiceMenu />}
-          rightContent={this.rightContent()}
+          leftContent={this.leftContent()}
+          rightContent={<ServiceMenu />}
           footer={<Footer />}
         />
       </div>

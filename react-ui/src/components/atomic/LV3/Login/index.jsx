@@ -34,9 +34,8 @@ export default (props: PropTypes) => (
       />
     }
     pass={
-      <InputForm
+      <InputField
         type="password"
-        hintbottom="8文字以上の半角英数字で入力してください"
         placeholder="パスワード"
         value={props.password}
         onChange={e => props.onChangePassword(e.target.value)}

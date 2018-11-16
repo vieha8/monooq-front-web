@@ -8,11 +8,11 @@ const Page = styled.div`
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
-  padding: 0 0 80px;
+  padding: 0 20px 80px;
 
-  margin-top: 100px;
+  margin-top: 130px;
   ${media.tablet`
-    margin-top: 20px;
+    margin-top: 80px;
   `};
 
   ${media.phone`
@@ -31,7 +31,7 @@ const Page = styled.div`
     `
     padding: 20px 0 80px;
     margin-top: 0;
-  `} ${media.tablet`
+  `}${media.phone`
     margin-top: 10px;
   `};
 `;

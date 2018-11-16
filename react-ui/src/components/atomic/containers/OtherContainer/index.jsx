@@ -3,14 +3,13 @@
 import React, { Component } from 'react';
 
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import Inquiry from 'components/atomic/LV3/Inquiry';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/LV2/Footer';
+import Other from 'components/atomic/LV3/Other';
 
 import connect from '../connect';
 
-class ProfileContainer extends Component<*> {
+class HowToUseContainer extends Component<*> {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
@@ -19,14 +18,12 @@ class ProfileContainer extends Component<*> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline="モノオクに連絡する"
-        caption="サービスの不明点・お困りのことがあればモノオクカスタマーサポートまでお寄せください。"
-        leftContent={<Inquiry />}
+        headline="その他"
+        leftContent={<Other />}
         rightContent={<ServiceMenu />}
-        footer={<Footer />}
       />
     );
   }
 }
 
-export default connect(ProfileContainer);
+export default connect(HowToUseContainer);

@@ -180,6 +180,16 @@ const Rule = Loadable({
   loading: LoadingPage,
 });
 
+const HowToUse = Loadable({
+  loader: () => import('components/atomic/containers/HowToUseContainer'),
+  loading: LoadingPage,
+});
+
+const Other = Loadable({
+  loader: () => import('components/atomic/containers/OtherContainer'),
+  loading: LoadingPage,
+});
+
 const NotFound = Loadable({
   loader: () => import('components/atomic/containers/Static/NotFound'),
   loading: LoadingPage,
@@ -293,6 +303,8 @@ export default ({ history }) => (
       <Route exact path={Path.about()} component={About} />
       <Route exact path={Path.insurance()} component={Insurance} />
       <Route exact path={Path.rule()} component={Rule} />
+      <Route exact path={Path.howToUse()} component={HowToUse} />
+      <Route exact path={Path.other()} component={Other} />
       <Route exact path={Path.error()} component={Error} />
       <Route exact path={Path.cancellationPolicies()} component={CancelPolicy} />
       <Route exact path={Path.asct()} component={Asct} />

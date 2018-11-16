@@ -39,9 +39,11 @@ class ServiceMenuContainer extends Component<PropTypes> {
         addSpace={{ href: Path.createSpaceInfo() }}
         sales={{ href: Path.sales() }}
         paymentHistory={{ href: Path.paid(user.ID) }}
-        becomeHost={{ href: Path.createSpaceInfo() }}
         editProfile={{ href: Path.editProfile(user.ID) }}
+        help={{ href: 'https://help.monooq.com/' }}
         inquiry={{ href: Path.inquiry(user.ID) }}
+        howToUse={{ href: Path.howToUse() }}
+        other={{ href: Path.other() }}
         logout={{
           onClick: e => {
             e.preventDefault();

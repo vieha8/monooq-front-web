@@ -119,6 +119,8 @@ class HeaderContainer extends Component<PropTypes> {
         salesUri={Path.sales()}
         helpUri="https://help.monooq.com/"
         inquiryUri={Path.inquiry()}
+        howToUseUri={Path.howToUse()}
+        otherUri={Path.other()}
         tidyUri="https://tidy.monooq.com/"
         messageUri={Path.messages()}
         messageCount={0}

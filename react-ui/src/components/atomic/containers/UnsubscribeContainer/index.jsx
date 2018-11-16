@@ -35,8 +35,8 @@ class UnsubscribeContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="退会処理が完了しました"
-        leftContent={<div style={{ height: '400px' }} />}
-        rightContent={<UnsubscribeCompleted />}
+        leftContent={<UnsubscribeCompleted />}
+        rightContent={<div style={{ height: '400px' }} />}
         footer={<Footer />}
       />
     );
@@ -114,8 +114,8 @@ class UnsubscribeContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="退会処理が完了できませんでした"
-        leftContent={<ServiceMenu />}
-        rightContent={<UnsubscribeFailed userId={user.ID} />}
+        leftContent={<UnsubscribeFailed userId={user.ID} />}
+        rightContent={<ServiceMenu />}
         footer={<Footer />}
       />
     );
@@ -148,8 +148,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
         header={<Header />}
         headline="退会の理由"
         caption="モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。"
-        leftContent={<ServiceMenu />}
-        rightContent={
+        leftContent={
           <Unsubscribe
             reasonType={reasonType}
             onChangeReasonType={v => this.handleChangeUI('reasonType', v)}
@@ -160,6 +159,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
             buttonLoading={isUnsubscribeTrying}
           />
         }
+        rightContent={<ServiceMenu />}
         footer={<Footer />}
       />
     );
@@ -175,4 +175,7 @@ const mapStateToProps = state =>
     isUnsubscribeFailed: state.auth.isUnsubscribeFailed,
   });
 
-export default connect(UnsubscribeContainer, mapStateToProps);
+export default connect(
+  UnsubscribeContainer,
+  mapStateToProps,
+);

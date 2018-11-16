@@ -62,8 +62,6 @@ type PropTypes = {
   emailError: Array<React.Element<*>>,
   pass: React.Element<*>,
   passError: Array<React.Element<*>>,
-  passConfirm: React.Element<*>,
-  passConfirmError: Array<React.Element<*>>,
   terms: React.Element<*>,
   next: React.Element<*>,
   otherSignup: React.Element<*>,
@@ -83,10 +81,6 @@ export default (props: PropTypes) => (
     <Pass>{props.pass}</Pass>
     {props.passError.map((dom, i) => (
       <Failed key={`password_error_text_${i}`}>{dom}</Failed>
-    ))}
-    <Pass>{props.passConfirm}</Pass>
-    {props.passConfirmError.map((dom, i) => (
-      <Failed key={`password_confirm_error_text_${i}`}>{dom}</Failed>
     ))}
     <Terms>{props.terms}</Terms>
     {props.signUpError && <Failed>{props.signUpError}</Failed>}
