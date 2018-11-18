@@ -9,30 +9,46 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import HeroImage from 'components/atomic/LV1/HeroImage';
 
 const Container = styled.div`
-  width: 240px;
+  ${props =>
+    !props.manage &&
+    `
+      width: 240px;
+  `};
 `;
 
-const ImageWrapper = styled.div`
-  height: 150px;
-`;
+const ImageWrapper = styled.div``;
 
 const ContentWrapper = styled.div`
   padding: ${Dimens.small}px ${Dimens.medium}px;
+  ${props =>
+    !props.manage &&
+    `
+      padding: 20px ${Dimens.xsmall}px ${Dimens.xsmall}px;
+  `};
 `;
 
-const AddressText = styled(InlineText.Tiny)`
+const AddressText = styled(InlineText.Base)`
   display: block;
   color: ${Colors.brandPrimary};
-  max-height: 1.5em;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  ${props =>
+    !props.manage &&
+    `
+      max-height: 1.5em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  `};
 `;
 
-const ContentText = styled(InlineText.Tiny)`
+const ContentText = styled(InlineText.Base)`
   display: block;
-  max-height: 1.5em;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 5px auto;
+  ${props =>
+    !props.manage &&
+    `
+      max-height: 1.5em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  `};
 `;
 
 const HomeApplianceText = styled(InlineText.Tiny)`
@@ -44,11 +60,16 @@ const PriceLabel = styled(InlineText.Tiny)`
   display: block;
 `;
 
-const PriceText = styled(InlineText.Tiny)`
+const PriceText = styled(InlineText.Base)`
   display: block;
-  max-height: 1.5em;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-weight: bold;
+  ${props =>
+    !props.manage &&
+    `
+      max-height: 1.5em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  `};
 `;
 
 const CardShadowStyle = `
@@ -57,6 +78,7 @@ const CardShadowStyle = `
   &:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.4);
     transition: 0.3s; 
+    border-radius:6px;
   }
   width: 100%;
 `;
@@ -74,21 +96,40 @@ type PropTypes = {
   onClick?: Function,
 };
 
-export default (props: PropTypes) => (
-  <Container>
-    <Link to={props.href || ''}>
-      <Card noPadding pointer onClick={props.onClick} customStyle={CardShadowStyle}>
-        <ImageWrapper>
-          <HeroImage height={150} medium {...props.image} />
-        </ImageWrapper>
-        <ContentWrapper>
-          <AddressText>{props.address ? props.address : ''}</AddressText>
-          <ContentText>{props.content ? props.content : ''}</ContentText>
-          <HomeApplianceText>{props.furniture ? '家具・家電OK' : ''}</HomeApplianceText>
-          <PriceLabel>料金目安（30日間）</PriceLabel>
-          <PriceText>{props.prices.join(' / ')}</PriceText>
-        </ContentWrapper>
-      </Card>
-    </Link>
-  </Container>
-);
+export default (props: PropTypes) =>
+  props.manage ? (
+    <Container manage>
+      <Link to={props.href || ''}>
+        <Card noBorder noPadding pointer onClick={props.onClick} customStyle={CardShadowStyle}>
+          <ImageWrapper>
+            <HeroImage height={290} large {...props.image} />
+          </ImageWrapper>
+          <ContentWrapper>
+            <AddressText manage={props.manage}>{props.address ? props.address : ''}</AddressText>
+            <ContentText manage={props.manage}>{props.content ? props.content : ''}</ContentText>
+            <PriceText manage={props.manage}>
+              {props.prices.join('/')}
+              円〜
+            </PriceText>
+          </ContentWrapper>
+        </Card>
+      </Link>
+    </Container>
+  ) : (
+    <Container>
+      <Link to={props.href || ''}>
+        <Card noPadding pointer onClick={props.onClick} customStyle={CardShadowStyle}>
+          <ImageWrapper>
+            <HeroImage height={150} medium {...props.image} />
+          </ImageWrapper>
+          <ContentWrapper>
+            <AddressText>{props.address ? props.address : ''}</AddressText>
+            <ContentText>{props.content ? props.content : ''}</ContentText>
+            <HomeApplianceText>{props.furniture ? '家具・家電OK' : ''}</HomeApplianceText>
+            <PriceLabel>料金目安（30日間）</PriceLabel>
+            <PriceText>{props.prices.join(' / ')}</PriceText>
+          </ContentWrapper>
+        </Card>
+      </Link>
+    </Container>
+  );

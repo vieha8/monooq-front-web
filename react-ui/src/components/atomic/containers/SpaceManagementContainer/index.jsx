@@ -73,7 +73,6 @@ class SpaceManagementContainer extends Component<PropTypes> {
         <MenuPageTemplate
           header={<Header />}
           headline="スペースの管理"
-          caption="登録しているスペースの管理をします"
           leftContent={
             Array.isArray(spaces) && spaces.length > 0 ? (
               <ManageSpaceList

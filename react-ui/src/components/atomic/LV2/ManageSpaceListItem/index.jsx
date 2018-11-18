@@ -8,6 +8,7 @@ import { Dimens } from 'variables';
 
 const Container = styled.div`
   display: table;
+  width: 100%;
 `;
 
 const Cell = styled.div`
@@ -42,9 +43,8 @@ export default (props: PropTypes) => (
         furniture={props.furniture}
         prices={props.prices}
         href={props.link}
+        manage
       />
-    </Cell>
-    <Cell>
       <ManageButtons
         removable
         onClickEdit={props.onClickEdit}
