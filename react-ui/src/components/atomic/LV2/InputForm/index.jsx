@@ -9,7 +9,7 @@ import TextArea from 'components/atomic/LV1/TextArea';
 
 const InputFieldWrapper = styled.div`
   display: inline-block;
-  margin-top: 4px;
+  margin-top: ${props => props.margintop || 4}px;
   width: 100%;
   ${props =>
     props.unit &&
@@ -21,6 +21,10 @@ const InputFieldWrapper = styled.div`
 const UnitWrapper = styled.div`
   display: inline-block;
   padding: 0 12px;
+`;
+
+const HintBottomWrap = styled.div`
+  margin-top: 5px;
 `;
 
 type PropTypes = {
@@ -38,7 +42,7 @@ export default (props: PropTypes) => (
   <Fragment>
     <H3 bold>{props.label}</H3>
     {props.hint && <InlineText.EmphasisSmall>{props.hint}</InlineText.EmphasisSmall>}
-    <InputFieldWrapper unit={props.unit}>
+    <InputFieldWrapper unit={props.unit} margintop={props.margintop}>
       {props.extension ? (
         props.extension
       ) : props.multiline ? (
@@ -57,7 +61,11 @@ export default (props: PropTypes) => (
         />
       )}
     </InputFieldWrapper>
-    {props.hintbottom && <InlineText.EmphasisSmall>{props.hintbottom}</InlineText.EmphasisSmall>}
+    {props.hintbottom && (
+      <HintBottomWrap>
+        <InlineText.Tiny>{props.hintbottom}</InlineText.Tiny>
+      </HintBottomWrap>
+    )}
     {props.unit && (
       <UnitWrapper>
         <InlineText.Base>{props.unit}</InlineText.Base>

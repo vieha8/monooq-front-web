@@ -42,7 +42,7 @@ export const MessageIcon = (props: PropTypes) => (
 export const OtherIcon = (props: PropTypes) => (
   <Icon {...props} className="fal fa-ellipsis-h fa-2x color-darkGray1" />
 );
-export const PictureIcon = (props: PropTypes) => <Icon {...props} className="fal fa-image" />;
+export const PictureIcon = (props: PropTypes) => <Icon {...props} className="fal fa-image fa-2x" />;
 export const AngleRight = (props: PropTypes) => <Icon {...props} className="fal fa-angle-right" />;
 export const AngleDown = (props: PropTypes) => <Icon {...props} className="fal fa-angle-down" />;
 export const CircleRight = (props: PropTypes) => (

@@ -6,10 +6,10 @@ import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
 
-import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
+import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceInformation from 'components/atomic/LV3/EditSpace/Information';
-import EditStatus from 'components/atomic/LV3/EditSpace/Status';
 
 import { ErrorMessage } from 'strings';
 
@@ -138,11 +138,13 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     if (Address.length === 0) {
       addressErrors.push(ErrorMessage.PleaseInput);
     }
-    const match = Address.match(Validate.Address);
-    if (!match || (match && match[4] === '')) {
-      addressErrors.push(ErrorMessage.InvalidAddress);
-    }
-    error.address = addressErrors;
+
+    // TODO:仕様確認後、実装する。
+    // const match = Address.match(Validate.Address);
+    // if (!match || (match && match[4] === '')) {
+    //   addressErrors.push(ErrorMessage.InvalidAddress);
+    // }
+    // error.address = addressErrors;
 
     this.setState({ error }, valid);
   };
@@ -154,14 +156,23 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     }
 
     const { space } = this.props;
-    const { Images, Title, Type, Introduction, Address, error } = this.state;
+    const {
+      Images,
+      Title,
+      Type,
+      Introduction,
+      AddressState,
+      AddressCity,
+      AddressStreet,
+      error,
+    } = this.state;
 
     return (
-      <EditSpaceTemplate
+      <MenuPageTemplate
         header={<Header />}
+        headline={`スペースの${space.ID ? '編集' : '登録'}`}
         leftContent={
           <EditSpaceInformation
-            edit={space.ID}
             images={Images.map(image => ({
               url: image.ImageUrl || image.preview,
             }))}
@@ -176,22 +187,17 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
             introduction={Introduction}
             introductionErrors={error.introduction}
             onChangeIntroduction={v => this.handleChangeUI('Introduction', v)}
-            address={Address}
+            addressState={AddressState}
+            addressCity={AddressCity}
+            addressStreet={AddressStreet}
             addressErrors={error.address}
-            onChangeAddress={v => this.handleChangeUI('Address', v)}
+            onChangeAddressState={v => this.handleChangeUI('AddressState', v)}
+            onChangeAddressCity={v => this.handleChangeUI('AddressCity', v)}
+            onChangeAddressStreet={v => this.handleChangeUI('AddressStreet', v)}
             onClickNext={this.onClickNext}
           />
         }
-        rightContent={
-          <EditStatus
-            edit={space.ID}
-            step={0}
-            hintTitle="ヒント"
-            hintContent={[
-              'ユーザーが自分の荷物が入るかイメージできるようにスペースの情報やアピールポイントを掲載しましょう！',
-            ]}
-          />
-        }
+        rightContent={<ServiceMenu />}
       />
     );
   }

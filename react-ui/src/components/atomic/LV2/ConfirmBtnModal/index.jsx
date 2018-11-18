@@ -27,7 +27,7 @@ class ConfirmBtnModal extends Component {
   render() {
     return (
       <Fragment>
-        <PrivateButton fill={1} height={40} onClick={this.open}>
+        <PrivateButton fontbold fill={1} height={40} onClick={this.open}>
           {this.props.btnText}
         </PrivateButton>
         <Modal size="large" open={this.state.open} onClose={this.close}>
