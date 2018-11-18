@@ -97,11 +97,13 @@ class SpaceContainer extends Component<PropTypes, State> {
             space.Host.FirebaseUid,
             spaceId,
           );
-          window.dataLayer.push({ event: 'newRequest' }); // GTM
 
-          const script = document.createElement('script');
+          const isRequested = localStorage.getItem('isRequested');
+          if (!isRequested && userId !== 2613) {
+            window.dataLayer.push({ event: 'newRequest' }); // GTM
 
-          if (userId !== 2613) {
+            const script = document.createElement('script');
+
             script.innerHTML = `var __atw = __atw || [];
     __atw.push({ "merchant" : "monooq", "param" : {
         "result_id" : "105",
@@ -111,6 +113,7 @@ class SpaceContainer extends Component<PropTypes, State> {
 a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
 
             document.body.appendChild(script);
+            localStorage.setItem('isRequested', 'true');
           }
         }
         history.push(Path.message(roomId));
