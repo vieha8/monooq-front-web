@@ -113,7 +113,7 @@ export const PickupStaffSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F1222%2F1527989916929.jpg?alt=media&token=569b5eda-a504-408a-8db2-01cf0e4b5dc4&fit=crop&w=260&h=200&auto=format',
+        'https://monooq.imgix.net/img%2Fspaces%2F1222%2F1534560507154.jpg?alt=media&token=96b97e98-a107-4a65-ab43-4ab31d9b67de&fit=crop&w=260&h=200&auto=format',
       price: '12,500',
       area: '東京都豊島区',
       description:
