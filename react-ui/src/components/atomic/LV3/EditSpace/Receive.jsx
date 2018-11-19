@@ -1,13 +1,27 @@
 // @flow
 
 import React from 'react';
-import { H1, H2 } from 'components/atomic/LV1/Headline';
+import styled from 'styled-components';
 import SelectForm from 'components/atomic/LV2/SelectForm';
 import InlineText from 'components/atomic/LV1/InlineText';
 import InputForm from 'components/atomic/LV2/InputForm';
 import EntryButtons from 'components/atomic/LV2/EntryButtons';
 import { Colors } from 'variables';
 import { Section } from './Shared';
+import { media } from 'helpers/style/media-query';
+
+const EntryButtonsWrap = styled.div`
+  ${media.phone`
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    text-align: center;
+    padding: 0 15px 15px;
+  `};
+`;
 
 type PropTypes = {
   receive: number,
@@ -33,10 +47,6 @@ function displayErrors(key: string, errors: Array<string>) {
 
 export default (props: PropTypes) => (
   <div>
-    <H1>荷物の受け取りについて</H1>
-    <Section>
-      <H2>どのように荷物を受け取りますか？</H2>
-    </Section>
     <Section>
       <SelectForm
         label="受け取り方法"
@@ -65,9 +75,8 @@ export default (props: PropTypes) => (
     </Section>
     <Section>
       <InputForm
-        label="対応できる曜日や時間帯はいつですか？"
-        hint="ユーザーが予定を立てる目安となります。"
-        placeholder="例）普段は会社勤めですので、基本的には平日の夜の対応となります。土日でも対応できる時がありますので、事前にチャットでおしらせください！"
+        label="対応できる曜日や時間帯"
+        placeholder="土日"
         multiline
         rows={4}
         value={props.receiveAbout}
@@ -76,17 +85,19 @@ export default (props: PropTypes) => (
       {displayErrors('receive_about_errors', props.receiveAboutErrors)}
     </Section>
     <Section>
-      <EntryButtons
-        enabled
-        backButton={{
-          text: '戻る',
-          onClick: props.onClickBack,
-        }}
-        enabledButton={{
-          text: '次へ',
-          onClick: props.onClickNext,
-        }}
-      />
+      <EntryButtonsWrap>
+        <EntryButtons
+          enabled
+          backButton={{
+            text: '戻る',
+            onClick: props.onClickBack,
+          }}
+          enabledButton={{
+            text: '次へ',
+            onClick: props.onClickNext,
+          }}
+        />
+      </EntryButtonsWrap>
     </Section>
   </div>
 );
