@@ -10,7 +10,7 @@ const EntryButtonsWrap = styled.div`
   ${media.phone`
     display: block;
     width: 100%;
-    position: absolute;
+    position: ${props => props.rerative || 'absolute'};
     left: 0px;
     bottom: 0px;
     z-index: 1000;
@@ -72,7 +72,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <EntryButtonsWrap>
+  <EntryButtonsWrap rerative={props.rerative}>
     <Container>
       <Cell align="left">
         <Wrapper>

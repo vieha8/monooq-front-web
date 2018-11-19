@@ -5,9 +5,9 @@ import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 
 export const Section = styled.div`
-  margin-top: 35px;
+  margin-top: ${Dimens.medium}px;
   ${media.phone`
-    margin-top: ${Dimens.medium2}px;
+    margin-top: ${Dimens.small2}px;
   `};
 `;
 

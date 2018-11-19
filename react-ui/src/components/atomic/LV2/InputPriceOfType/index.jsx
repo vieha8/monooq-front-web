@@ -4,18 +4,19 @@ import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
 import InputForm from 'components/atomic/LV2/InputForm';
-import { Colors, Dimens } from 'variables';
+import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
-  border: 1px solid ${Colors.borderGray};
   width: 100%;
-  padding: ${Dimens.medium2}px;
+  padding: ${Dimens.medium}px;
 
   border-bottom-style: none;
+  ${media.phone`
+    padding: ${Dimens.medium}px 0px;
+  `};
 
   &:first-child {
-    margin-top: ${Dimens.medium3}px;
     border-radius: 3px 3px 0 0;
   }
 
@@ -33,7 +34,7 @@ const Container = styled.div`
 
 const PriceContainer = styled.div`
   display: block;
-  width: 50%;
+  width: 60%;
   float: left;
   ${media.phone`
     width: 100%;
@@ -48,18 +49,21 @@ const Image = styled.img`
 
 const ImageContainer = styled.div`
   display: block;
-  width: 50%;
+  width: 40%;
+  max-width: 240px;
   text-align: center;
   float: right;
+  margin-top: ${Dimens.medium}px;
   ${media.phone`
     width: 100%;
     float: none;
+    margin: ${Dimens.medium}px auto;
   `};
 `;
 
 const Caption = styled.div`
-  width: 160px;
-  margin-top: ${Dimens.medium2}px;
+  width: 100%;
+  margin: 5px auto;
   ${media.phone`
     width: 100%;
   `};
@@ -67,11 +71,25 @@ const Caption = styled.div`
 
 const InputWrapper = styled.div`
   display: inline-block;
-  width: 120px;
+  ${media.phone`
+    width: 100%;
+  `};
 `;
 
-const PriceWrapper = styled.div`
-  margin-top: ${Dimens.medium2}px;
+const PriceWrapper = styled.div``;
+
+const OnlyPC = styled.span`
+  display: block;
+  ${media.phone`
+    display: none;
+  `};
+`;
+
+const OnlyPhone = styled.span`
+  display: none;
+  ${media.phone`
+    display: block;
+  `};
 `;
 
 type PropTypes = {
@@ -86,27 +104,35 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Container>
-    <ImageContainer>
-      <Image src={props.image} alt="" />
-    </ImageContainer>
+    <OnlyPC>
+      <ImageContainer>
+        <Image src={props.image} alt="" />
+      </ImageContainer>
+    </OnlyPC>
     <PriceContainer>
       <div>
-        <InlineText.Base>{props.title}</InlineText.Base>
+        <InlineText.Strong>{props.title}</InlineText.Strong>
       </div>
       <Caption>
-        <InlineText.Base>{props.caption}</InlineText.Base>
+        <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
+          {props.caption}
+        </InlineText.Base>
       </Caption>
+      <OnlyPhone>
+        <ImageContainer>
+          <Image src={props.image} alt="" />
+        </ImageContainer>
+      </OnlyPhone>
       <PriceWrapper>
         <InputWrapper>
           <InputForm
             type="number"
+            unit="円"
             value={props.price}
             onChange={e => props.onChange(e.target.value)}
             placeholder={props.placeholder}
           />
         </InputWrapper>
-        <span>&nbsp;</span>
-        <InlineText.Base>円／30日間</InlineText.Base>
       </PriceWrapper>
       {props.error}
     </PriceContainer>

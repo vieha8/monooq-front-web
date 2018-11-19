@@ -7,10 +7,10 @@ import { Redirect } from 'react-router-dom';
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
 
-import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
+import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceInputPriceType from 'components/atomic/LV3/EditSpace/InputPriceType';
-import EditStatus from 'components/atomic/LV3/EditSpace/Status';
 
 import { ErrorMessage } from 'strings';
 
@@ -174,8 +174,9 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
     }
 
     return (
-      <EditSpaceTemplate
+      <MenuPageTemplate
         header={<Header />}
+        headline="スペースに対する料金の設定"
         leftContent={
           <EditSpaceInputPriceType
             edit={space.ID}
@@ -193,16 +194,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
             buttonLoading={isLoading}
           />
         }
-        rightContent={
-          <EditStatus
-            edit={space.ID}
-            step={3}
-            hintTitle="料金設定に関するヒント"
-            hintContent={[
-              '荷物が思っていたよりも大きかったなど、荷物が届いた後でも柔軟に対応できる料金設定をしましょう。',
-            ]}
-          />
-        }
+        rightContent={<ServiceMenu />}
       />
     );
   }

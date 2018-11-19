@@ -1,15 +1,19 @@
 // @flow
 
 import React from 'react';
-import { H1, H2 } from 'components/atomic/LV1/Headline';
+import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
 import EntryButtons from 'components/atomic/LV2/EntryButtons';
 import InputPriceOfType from 'components/atomic/LV2/InputPriceOfType';
 import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
-import { Colors } from 'variables';
+import { Colors, Dimens } from 'variables';
 import { Section } from './Shared';
+
+const CommissionWrap = styled.div`
+  margin-bottom: ${Dimens.medium1}px;
+`;
 
 type PropTypes = {
   priceQuarter: number,
@@ -39,22 +43,20 @@ function displayErrors(key: string, errors: Array<string>) {
 
 export default (props: PropTypes) => (
   <div>
-    <H1>料金目安を設定する</H1>
-    <Section>
-      <H2>あなたのスペース料金はいくら？</H2>
-    </Section>
     <Section>
       <InlineText.Base>
-        様々な相談に対応できるように料金目安を設定しましょう！
+        様々なご相談に対応できるように料金目安を設定しましょう。
         <br />
-        地域により多少の差はありますが、1畳あたり7,000円が相場となっています。
+        <InlineText.Tiny>
+          お客様によって荷物の内容が異なるので、スペースの広さに対する料金を設定してください。
+        </InlineText.Tiny>
       </InlineText.Base>
     </Section>
     <Section>
       <InputPriceOfType
         image={imageFurnitureFull}
-        title="スペースまるごと"
-        caption="あなたのスペースのほとんどを使用する荷物の場合の料金"
+        title="全てのスペースの月額料金"
+        caption="あなたのすべてのスペースを使用するほどの荷物の場合"
         placeholder="20000"
         price={props.priceFull}
         onChange={props.onChangePriceFull}
@@ -62,8 +64,8 @@ export default (props: PropTypes) => (
       />
       <InputPriceOfType
         image={imageFurnitureHalf}
-        title="スペース半分"
-        caption="あなたのスペースの「半分」を使用する荷物の場合の料金"
+        title="半分のスペースの月額料金"
+        caption="あなたの半分のスペースを使用するほどの荷物の場合"
         placeholder="12000"
         price={props.priceHalf}
         onChange={props.onChangePriceHalf}
@@ -71,8 +73,8 @@ export default (props: PropTypes) => (
       />
       <InputPriceOfType
         image={imageFurnitureQuarter}
-        title="スペース1/4"
-        caption="あなたのスペースの「4分の1」を使用する荷物の場合の料金"
+        title="1/4程度のスペースの月額料金"
+        caption="あなたの1/4程度のスペースを使用するほどの荷物の場合"
         placeholder="7000"
         price={props.priceQuarter}
         onChange={props.onChangePriceQuarter}
@@ -80,12 +82,15 @@ export default (props: PropTypes) => (
       />
     </Section>
     <Section>
-      <InlineText.Base color={Colors.red} fontSize={14}>
-        取引成立時、スペースを利用するユーザーが支払った金額の20%を、サービス利用手数料として徴収させていただきます。
-      </InlineText.Base>
+      <CommissionWrap>
+        <InlineText.Base>
+          取引成立時の売り上げは、お客様があなたへお支払いするスペース利用額から20%をご利用料金として引かせていただきます。
+        </InlineText.Base>
+      </CommissionWrap>
     </Section>
     <Section>
       <EntryButtons
+        rerative
         enabled
         loading={props.buttonLoading}
         backButton={{
@@ -93,7 +98,7 @@ export default (props: PropTypes) => (
           onClick: props.onClickBack,
         }}
         enabledButton={{
-          text: `${props.edit ? '編集' : '登録'}を完了する`,
+          text: `確認画面へ`,
           onClick: props.onClickNext,
         }}
       />
