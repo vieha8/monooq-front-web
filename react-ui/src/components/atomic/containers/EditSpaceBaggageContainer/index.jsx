@@ -5,7 +5,8 @@ import Path from 'config/path';
 
 import { uiActions } from 'redux/modules/ui';
 
-import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
+import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceBaggage from 'components/atomic/LV3/EditSpace/Baggage';
 import EditStatus from 'components/atomic/LV3/EditSpace/Status';
@@ -117,12 +118,12 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space } = this.props;
     const { About, IsFurniture, error } = this.state;
 
     return (
-      <EditSpaceTemplate
+      <MenuPageTemplate
         header={<Header />}
+        headline="預かれる荷物について"
         leftContent={
           <EditSpaceBaggage
             baggage={About}
@@ -134,16 +135,7 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
             onClickNext={this.onClickNext}
           />
         }
-        rightContent={
-          <EditStatus
-            edit={space.ID}
-            step={1}
-            hintTitle="ヒント"
-            hintContent={[
-              'ユーザーが自分の荷物が入るかイメージできるようにスペースの情報やアピールポイントを掲載しましょう！',
-            ]}
-          />
-        }
+        rightContent={<ServiceMenu />}
       />
     );
   }

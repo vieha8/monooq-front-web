@@ -2,16 +2,29 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { H1, H2 } from 'components/atomic/LV1/Headline';
 import Check from 'components/atomic/LV1/Check';
 import InlineText from 'components/atomic/LV1/InlineText';
 import InputForm from 'components/atomic/LV2/InputForm';
 import EntryButtons from 'components/atomic/LV2/EntryButtons';
 import { Colors, Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 import { Section } from './Shared';
 
 const CheckWrapper = styled.div`
   margin-top: ${Dimens.medium}px;
+`;
+
+const EntryButtonsWrap = styled.div`
+  ${media.phone`
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    text-align: center;
+    padding: 0 15px 15px;
+  `};
 `;
 
 type PropTypes = {
@@ -37,15 +50,10 @@ function displayErrors(key: string, errors: Array<string>) {
 
 export default (props: PropTypes) => (
   <div>
-    <H1>荷物の内容について</H1>
-    <Section>
-      <H2>どのような荷物に対応しますか？</H2>
-    </Section>
     <Section>
       <InputForm
-        label="このスペースに置ける荷物について"
-        hint="あなたが対応できる荷物について説明しましょう。"
-        placeholder="例）ダンボールなどのサイズが決まったものや、大きな荷物でも対応可能です。1人暮らしの荷物一式程度ならお受けすることができます。まずはご相談ください！"
+        label="このスペースで預かれる荷物"
+        placeholder="ダンボール"
         multiline
         rows={4}
         value={props.baggage}
@@ -59,17 +67,19 @@ export default (props: PropTypes) => (
       </CheckWrapper>
     </Section>
     <Section>
-      <EntryButtons
-        enabled
-        backButton={{
-          text: '戻る',
-          onClick: props.onClickBack,
-        }}
-        enabledButton={{
-          text: '次へ',
-          onClick: props.onClickNext,
-        }}
-      />
+      <EntryButtonsWrap>
+        <EntryButtons
+          enabled
+          backButton={{
+            text: '戻る',
+            onClick: props.onClickBack,
+          }}
+          enabledButton={{
+            text: '次へ',
+            onClick: props.onClickNext,
+          }}
+        />
+      </EntryButtonsWrap>
     </Section>
   </div>
 );

@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/atomic/LV1/Button';
 import { Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
   display: table;
@@ -13,15 +14,32 @@ const Container = styled.div`
 const Cell = styled.div`
   display: table-cell;
   width: 50%;
+  ${media.tablet`
+    width: 100%;
+    display: block;
+  `};
   text-align: ${props => props.align};
-  padding-right: ${Dimens.small}px;
+  padding-right: ${Dimens.small2}px;
   &:not(:first-child) {
-    padding-left: ${Dimens.small}px;
+    padding-left: ${Dimens.small2}px;
+    padding-right: 0px;
+    ${media.tablet`
+      padding-left: 0px;
+      padding-right: 0px;
+      margin-top: 20px;
+    `};
   }
+  ${media.tablet`
+    padding-left: 0px;
+    padding-right: 0px;
+  `};
 `;
 
 const Wrapper = styled.div`
-  max-width: 224px;
+  ${media.tablet`
+    width: 100%;
+    margin: auto;
+  `};
 `;
 
 type PropTypes = {
@@ -44,7 +62,14 @@ export default (props: PropTypes) => (
   <Container>
     <Cell align="left">
       <Wrapper>
-        <Button secondary loading={props.loading} onClick={props.backButton.onClick}>
+        <Button
+          secondary
+          borderbold
+          fontbold
+          fill={1}
+          loading={props.loading}
+          onClick={props.backButton.onClick}
+        >
           {props.backButton.text}
         </Button>
       </Wrapper>
@@ -52,11 +77,18 @@ export default (props: PropTypes) => (
     <Cell align="right">
       <Wrapper>
         {props.enabled ? (
-          <Button primary loading={props.loading} onClick={props.enabledButton.onClick}>
+          <Button
+            primary
+            borderbold
+            fontbold
+            fill={1}
+            loading={props.loading}
+            onClick={props.enabledButton.onClick}
+          >
             {props.enabledButton.text}
           </Button>
         ) : (
-          <Button primary loading={props.loading} disabled>
+          <Button primary borderbold fontbold fill={1} loading={props.loading} disabled>
             {props.disabledButton.text}
           </Button>
         )}
