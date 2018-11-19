@@ -6,6 +6,19 @@ import Button from 'components/atomic/LV1/Button';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
+const EntryButtonsWrap = styled.div`
+  ${media.phone`
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    text-align: center;
+    padding: 0 15px 15px;
+  `};
+`;
+
 const Container = styled.div`
   display: table;
   width: 100%;
@@ -59,40 +72,42 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Container>
-    <Cell align="left">
-      <Wrapper>
-        <Button
-          secondary
-          borderbold
-          fontbold
-          fill={1}
-          loading={props.loading}
-          onClick={props.backButton.onClick}
-        >
-          {props.backButton.text}
-        </Button>
-      </Wrapper>
-    </Cell>
-    <Cell align="right">
-      <Wrapper>
-        {props.enabled ? (
+  <EntryButtonsWrap>
+    <Container>
+      <Cell align="left">
+        <Wrapper>
           <Button
-            primary
+            secondary
             borderbold
             fontbold
             fill={1}
             loading={props.loading}
-            onClick={props.enabledButton.onClick}
+            onClick={props.backButton.onClick}
           >
-            {props.enabledButton.text}
+            {props.backButton.text}
           </Button>
-        ) : (
-          <Button primary borderbold fontbold fill={1} loading={props.loading} disabled>
-            {props.disabledButton.text}
-          </Button>
-        )}
-      </Wrapper>
-    </Cell>
-  </Container>
+        </Wrapper>
+      </Cell>
+      <Cell align="right">
+        <Wrapper>
+          {props.enabled ? (
+            <Button
+              primary
+              borderbold
+              fontbold
+              fill={1}
+              loading={props.loading}
+              onClick={props.enabledButton.onClick}
+            >
+              {props.enabledButton.text}
+            </Button>
+          ) : (
+            <Button primary borderbold fontbold fill={1} loading={props.loading} disabled>
+              {props.disabledButton.text}
+            </Button>
+          )}
+        </Wrapper>
+      </Cell>
+    </Container>
+  </EntryButtonsWrap>
 );

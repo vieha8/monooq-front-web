@@ -1,17 +1,25 @@
 // @flow
 
 import React from 'react';
-import { H1, H2 } from 'components/atomic/LV1/Headline';
+import styled from 'styled-components';
+import { H3 } from 'components/atomic/LV1/Headline';
 import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
 import SpaceSizeCriterion from 'components/atomic/LV2/SpaceSizeCriterion';
 import InlineText from 'components/atomic/LV1/InlineText';
 import EntryButtons from 'components/atomic/LV2/EntryButtons';
 import { Colors } from 'variables';
-
+import { media } from 'helpers/style/media-query';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
 import imageFurnitureFull from 'images/furniture-full.svg';
 
 import { Section } from './Shared';
+
+const HeadTextWrap = styled.div`
+  margin: 0px auto 30px;
+  ${media.phone`
+    margin: 0px auto 5px;
+  `};
+`;
 
 type PropTypes = {
   size: number,
@@ -34,23 +42,24 @@ function displayErrors(key: string, errors: Array<string>) {
 
 export default (props: PropTypes) => (
   <div>
-    <H1>料金目安を設定する</H1>
     <Section>
-      <H2>あなたのスペースはどちらの大きさですか？</H2>
-    </Section>
-    <Section>
+      <HeadTextWrap>
+        <H3 bold>スペースの広さ</H3>
+      </HeadTextWrap>
       <ClearfixContainer>
         <SpaceSizeCriterion
           selected={props.size === 1}
           position="left"
-          text="単一料金の設定／1人用ソファが入るくらい、またはそれ以下"
+          textHead="単一料金の設定"
+          textBody="1人用ソファが入るくらい、またはそれ以下"
           onClick={() => props.onChangeSize(1)}
           image={imageFurnitureQuarter}
         />
         <SpaceSizeCriterion
           selected={props.size === 2}
           position="right"
-          text="複数料金の設定／1人分の生活用品が入るくらい、またはそれ以上"
+          textHead="複数料金の設定"
+          textBody="1人分の生活用品が入るくらい、またはそれ以上"
           onClick={() => props.onChangeSize(2)}
           image={imageFurnitureFull}
         />

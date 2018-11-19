@@ -7,24 +7,10 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import InputForm from 'components/atomic/LV2/InputForm';
 import EntryButtons from 'components/atomic/LV2/EntryButtons';
 import { Colors, Dimens } from 'variables';
-import { media } from 'helpers/style/media-query';
 import { Section } from './Shared';
 
 const CheckWrapper = styled.div`
   margin-top: ${Dimens.medium}px;
-`;
-
-const EntryButtonsWrap = styled.div`
-  ${media.phone`
-    display: block;
-    width: 100%;
-    position: absolute;
-    left: 0px;
-    bottom: 0px;
-    z-index: 1000;
-    text-align: center;
-    padding: 0 15px 15px;
-  `};
 `;
 
 type PropTypes = {
@@ -67,19 +53,17 @@ export default (props: PropTypes) => (
       </CheckWrapper>
     </Section>
     <Section>
-      <EntryButtonsWrap>
-        <EntryButtons
-          enabled
-          backButton={{
-            text: '戻る',
-            onClick: props.onClickBack,
-          }}
-          enabledButton={{
-            text: '次へ',
-            onClick: props.onClickNext,
-          }}
-        />
-      </EntryButtonsWrap>
+      <EntryButtons
+        enabled
+        backButton={{
+          text: '戻る',
+          onClick: props.onClickBack,
+        }}
+        enabledButton={{
+          text: '次へ',
+          onClick: props.onClickNext,
+        }}
+      />
     </Section>
   </div>
 );

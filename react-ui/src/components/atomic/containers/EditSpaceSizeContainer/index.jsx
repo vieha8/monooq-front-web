@@ -6,10 +6,10 @@ import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
 
-import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
+import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceSize from 'components/atomic/LV3/EditSpace/Size';
-import EditStatus from 'components/atomic/LV3/EditSpace/Status';
 
 import { ErrorMessage } from 'strings';
 
@@ -158,8 +158,9 @@ class EditSpaceSizeContainer extends Component<PropTypes> {
     const { SizeType, error } = this.state;
 
     return (
-      <EditSpaceTemplate
+      <MenuPageTemplate
         header={<Header />}
+        headline="広さから料金を設定する"
         leftContent={
           <EditSpaceSize
             size={SizeType}
@@ -169,16 +170,7 @@ class EditSpaceSizeContainer extends Component<PropTypes> {
             onClickNext={this.onClickNext}
           />
         }
-        rightContent={
-          <EditStatus
-            edit={space.ID}
-            step={3}
-            hintTitle="荷物受け取りのヒント"
-            hintContent={[
-              'お部屋がまるごと余っている場合は「複数料金」でスペースを区分けして料金設定が可能です。',
-            ]}
-          />
-        }
+        rightContent={<ServiceMenu />}
       />
     );
   }
