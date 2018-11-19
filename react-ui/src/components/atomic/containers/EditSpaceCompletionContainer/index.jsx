@@ -4,7 +4,8 @@ import React, { Component } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 
-import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
+import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceCompletion from 'components/atomic/LV3/EditSpace/Completion';
 import { spaceActions } from 'redux/modules/space';
@@ -48,11 +49,13 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
     }
 
     return (
-      <EditSpaceTemplate
+      <MenuPageTemplate
         header={<Header />}
+        headline={`${editedSpace.Host.ID === 0 ? '登録' : '編集'}が完了しました`}
+        caption="お客様とはメッセージ機能にてやりとりしていただき、ご成約までお進みください。"
         leftContent={
           <EditSpaceCompletion
-            edit={editedSpace.ID}
+            edit={editedSpace.Host.ID}
             space={{
               userId: (editedSpace || {}).UserID,
             }}
@@ -60,9 +63,17 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
               dispatch(spaceActions.clearSpace());
               history.push(Path.space(editedSpace.ID));
             }}
+            onClickBackTop={() => {
+              dispatch(spaceActions.clearSpace());
+              history.push(Path.top());
+            }}
+            onClickCreateSpace={() => {
+              dispatch(spaceActions.clearSpace());
+              history.push(Path.createSpaceInfo());
+            }}
           />
         }
-        rightContent={<div />}
+        rightContent={<ServiceMenu />}
       />
     );
   }

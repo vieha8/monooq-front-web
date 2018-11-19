@@ -10,7 +10,7 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import Page from '../Page';
 
 const Caption = styled.div`
-  margin: 0 0 40px;
+  margin: 10px 0 30px;
   ${media.tablet`
     margin-bottom: 20px;
   `};
