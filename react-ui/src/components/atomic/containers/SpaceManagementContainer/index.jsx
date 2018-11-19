@@ -12,7 +12,6 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
 import InlineText from 'components/atomic/LV1/InlineText';
-import Footer from 'components/atomic/LV2/Footer';
 import ManageSpaceList from 'components/atomic/LV3/ManageSpaceList';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 
@@ -103,7 +102,6 @@ class SpaceManagementContainer extends Component<PropTypes> {
             )
           }
           rightContent={<ServiceMenu />}
-          footer={<Footer />}
         />
       </div>
     );

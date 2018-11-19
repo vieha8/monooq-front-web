@@ -7,7 +7,6 @@ import { authActions } from 'redux/modules/auth';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/LV2/Footer';
 import Unsubscribe from 'components/atomic/LV3/Unsubscribe';
 import UnsubscribeCompleted from 'components/atomic/LV3/Unsubscribe/Completed';
 import UnsubscribeFailed from 'components/atomic/LV3/Unsubscribe/Failed';
@@ -37,7 +36,6 @@ class UnsubscribeContainer extends Component<PropTypes> {
         headline="退会処理が完了しました"
         leftContent={<UnsubscribeCompleted />}
         rightContent={<div style={{ height: '400px' }} />}
-        footer={<Footer />}
       />
     );
   }
@@ -116,7 +114,6 @@ class UnsubscribeContainer extends Component<PropTypes> {
         headline="退会処理が完了できませんでした"
         leftContent={<UnsubscribeFailed userId={user.ID} />}
         rightContent={<ServiceMenu />}
-        footer={<Footer />}
       />
     );
   };
@@ -160,7 +157,6 @@ class UnsubscribeContainer extends Component<PropTypes> {
           />
         }
         rightContent={<ServiceMenu />}
-        footer={<Footer />}
       />
     );
   }

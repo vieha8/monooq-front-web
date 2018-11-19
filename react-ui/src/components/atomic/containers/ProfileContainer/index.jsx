@@ -6,7 +6,6 @@ import numeral from 'numeral';
 import ProfileTemplate from 'components/atomic/templates/ProfileTemplate';
 import Profile from 'components/atomic/LV3/Profile';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import { Colors } from 'variables';
 
@@ -93,7 +92,6 @@ class ProfileContainer extends Component<PropTypes> {
             }))}
           />
         }
-        footer={<Footer />}
       />
     );
   }

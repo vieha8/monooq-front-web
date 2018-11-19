@@ -16,7 +16,6 @@ import Detail from 'components/atomic/LV3/Space/Detail';
 import Price from 'components/atomic/LV3/Space/Price';
 import SendMessage from 'components/atomic/LV3/Space/SendMessage';
 import Note from 'components/atomic/LV2/Space/Note';
-import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import Meta from 'components/Meta';
 
@@ -194,7 +193,6 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
           />
         }
         note={<Note />}
-        footer={<Footer />}
       />
     );
   }

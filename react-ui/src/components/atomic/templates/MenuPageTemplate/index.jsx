@@ -44,7 +44,6 @@ type PropTypes = {
   caption: string,
   leftContent: React.Element<*>,
   rightContent: React.Element<*>,
-  footer: React.Element<*>,
 };
 
 export default (props: PropTypes) => (
@@ -66,6 +65,5 @@ export default (props: PropTypes) => (
         </Content>
       </ClearfixContainer>
     </Page>
-    {props.footer}
   </div>
 );

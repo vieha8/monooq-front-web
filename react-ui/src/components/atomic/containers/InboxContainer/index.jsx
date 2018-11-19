@@ -9,7 +9,6 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
 import InlineText from 'components/atomic/LV1/InlineText';
-import Footer from 'components/atomic/LV2/Footer';
 import Loading from 'components/atomic/LV1/Loading';
 import InboxList from 'components/atomic/LV3/InboxList';
 
@@ -77,7 +76,6 @@ class InboxContainer extends Component<PropTypes> {
         headline="メッセージ一覧"
         leftContent={this.leftContent()}
         rightContent={<ServiceMenu />}
-        footer={<Footer />}
       />
     );
   }

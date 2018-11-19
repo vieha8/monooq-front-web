@@ -52,17 +52,6 @@ storiesOf('Templates/MenuPageTemplate', module)
               right content section
             </div>
           }
-          footer={
-            <div
-              style={{
-                width: '100%',
-                height: '100%',
-                background: 'blue',
-              }}
-            >
-              footer section
-            </div>
-          }
         />
       </div>
     )),
@@ -108,17 +97,6 @@ storiesOf('Templates/MenuPageTemplate', module)
               }}
             >
               right content section
-            </div>
-          }
-          footer={
-            <div
-              style={{
-                width: '100%',
-                height: '100%',
-                background: 'blue',
-              }}
-            >
-              footer section
             </div>
           }
         />

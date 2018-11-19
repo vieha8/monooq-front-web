@@ -11,13 +11,11 @@ const Content = styled.div`
 type PropTypes = {
   header: React.Element<*>,
   profile: React.Element<*>,
-  footer: React.Element<*>,
 };
 
 export default (props: PropTypes) => (
   <div>
     {props.header}
     <Content>{props.profile}</Content>
-    {props.footer}
   </div>
 );

@@ -54,7 +54,9 @@ export default () => (
     <nav>
       <List>
         <Cell>
-          <FooterLink href="https://monooq.co.jp/">運営会社</FooterLink>
+          <FooterLink href="https://monooq.co.jp/" target="_blank">
+            運営会社
+          </FooterLink>
         </Cell>
         <Cell>
           <FooterLink to={Path.about()}>はじめての方へ</FooterLink>
@@ -66,7 +68,9 @@ export default () => (
           <FooterLink to={Path.rule()}>ルールとマナー</FooterLink>
         </Cell>
         <Cell>
-          <FooterLink to={Path.helpTop()}>ヘルプ</FooterLink>
+          <FooterLink href="https://help.monooq.com/" target="_blank">
+            ヘルプ
+          </FooterLink>
         </Cell>
         <Cell>
           <FooterLink to={Path.terms()}>利用規約</FooterLink>

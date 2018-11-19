@@ -7,7 +7,6 @@ import { userActions } from 'redux/modules/user';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import EditProfile from 'components/atomic/LV3/EditProfile';
 import EditProfileCompleted from 'components/atomic/LV3/EditProfile/Completed';
@@ -170,7 +169,6 @@ class ProfileContainer extends Component<PropTypes> {
           )
         }
         rightContent={<ServiceMenu />}
-        footer={<Footer />}
       />
     );
   }

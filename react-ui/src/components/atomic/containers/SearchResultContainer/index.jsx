@@ -9,7 +9,6 @@ import Path from 'config/path';
 
 import SearchResultTemplate from 'components/atomic/templates/SearchResult';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/LV2/Footer';
 import SearchResult from 'components/atomic/LV3/SearchResult';
 import SearchNotFound from 'components/atomic/LV3/SearchNotFound';
 import Meta from 'components/Meta';
@@ -93,7 +92,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
     return (
       <SearchNotFound
         header={<Header />}
-        footer={<Footer />}
         locationText={search}
         onChangeLocation={value => {
           this.setState({ search: value });
@@ -156,7 +154,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
             </InfiniteScroll>
           }
           header={<Header />}
-          footer={<Footer />}
         />
       </Fragment>
     );

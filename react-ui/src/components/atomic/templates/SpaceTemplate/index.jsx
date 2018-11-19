@@ -54,12 +54,6 @@ const MarginTop = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
-const Footer = styled.div`
-  ${media.tablet`
-    display: none;
-  `};
-`;
-
 type PropTypes = {
   header: React.Element<*>,
   meta: React.Element<*>,
@@ -68,10 +62,9 @@ type PropTypes = {
   price: React.Element<*>,
   message: React.Element<*>,
   note: React.Element<*>,
-  footer: React.Element<*>,
 };
 
-export default ({ header, meta, map, detail, price, message, note, footer }: PropTypes) => (
+export default ({ header, meta, map, detail, price, message, note }: PropTypes) => (
   <SpaceTemplateContainer>
     {header}
     {meta}
@@ -88,6 +81,5 @@ export default ({ header, meta, map, detail, price, message, note, footer }: Pro
         </ClearfixContainer>
       </Container>
     </Page>
-    <Footer>{footer}</Footer>
   </SpaceTemplateContainer>
 );

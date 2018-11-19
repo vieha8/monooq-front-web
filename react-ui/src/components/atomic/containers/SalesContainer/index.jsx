@@ -10,7 +10,6 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
 import InlineText from 'components/atomic/LV1/InlineText';
-import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import InputForm from 'components/atomic/LV2/InputForm';
 import Button from 'components/atomic/LV1/Button';
@@ -200,7 +199,6 @@ class SalesContainer extends Component {
               </InlineText.Base>
             }
             rightContent={<ServiceMenu />}
-            footer={<Footer />}
           />
         </div>
       );
@@ -213,7 +211,6 @@ class SalesContainer extends Component {
           headline="売上・振込申請"
           leftContent={this.leftContent()}
           rightContent={<ServiceMenu />}
-          footer={<Footer />}
         />
       </div>
     );

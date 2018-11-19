@@ -34,7 +34,6 @@ type PropTypes = {
   headline1: string,
   caption: string,
   searchResult: React.Element<*>,
-  footer: React.Element<*>,
 };
 
 export default ({ meta, header, headline1, caption, searchResult, footer }: PropTypes) => (
@@ -50,6 +49,5 @@ export default ({ meta, header, headline1, caption, searchResult, footer }: Prop
       </CaptionContainer>
       <Content>{searchResult}</Content>
     </Page>
-    {footer}
   </div>
 );

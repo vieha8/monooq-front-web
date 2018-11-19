@@ -3,7 +3,6 @@
 import React, { Fragment } from 'react';
 import MenuPage from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/LV2/Footer';
 import HelpMenu from 'components/atomic/LV3/HelpMenu';
 import CommonHelp from 'components/atomic/LV2/Help/CommonHelp';
 import Path from 'config/path';
@@ -72,7 +71,6 @@ export default (props: PropTypes) => {
           />
         </Fragment>
       }
-      footer={<Footer />}
     />
   );
 };
