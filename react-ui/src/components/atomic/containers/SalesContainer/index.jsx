@@ -212,6 +212,25 @@ class SalesContainer extends Component {
     );
   };
 
+  leftContentComplete = () => {
+    const { history } = this.props;
+
+    return (
+      <Fragment>
+        <MsgWrap>
+          振込申請が完了しました。
+          <br />
+          振込完了はメールにてお知らせいたします。しばらくお待ちください。
+        </MsgWrap>
+        <ButtonWrap>
+          <Button primary fontbold center onClick={() => history.push(Path.top())}>
+            トップへ
+          </Button>
+        </ButtonWrap>
+      </Fragment>
+    );
+  };
+
   render() {
     const auth = checkAuthState(this.props);
     if (auth) {
@@ -227,12 +246,8 @@ class SalesContainer extends Component {
         <div>
           <MenuPageTemplate
             header={<Header />}
-            headline="売上・振込申請"
-            leftContent={
-              <InlineText.Base>
-                申請ありがとうございました。5営業日以内にお振込み致します。
-              </InlineText.Base>
-            }
+            headline="振込申請の完了"
+            leftContent={this.leftContentComplete()}
             rightContent={<ServiceMenu />}
           />
         </div>
