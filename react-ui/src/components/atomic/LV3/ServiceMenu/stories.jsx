@@ -29,7 +29,6 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           becomeHost={{ href: '#', notificationCount: 0 }}
           editProfile={{ href: '#', notificationCount: 0 }}
           inquiry={{ href: '#', notificationCount: 0 }}
-          logout={{ href: '#', notificationCount: 0 }}
           hasSpace
         />
       </div>
@@ -52,7 +51,6 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           becomeHost={{ href: '#', notificationCount: 0 }}
           editProfile={{ href: '#', notificationCount: 0 }}
           inquiry={{ href: '#', notificationCount: 0 }}
-          logout={{ href: '#', notificationCount: 0 }}
           hasSpace={false}
         />
       </div>

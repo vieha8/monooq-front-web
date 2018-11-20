@@ -25,7 +25,6 @@ type PropTypes = {
   inquiry: MenuItemProps,
   howToUse: MenuItemProps,
   other: MenuItemProps,
-  logout: MenuItemProps,
   hasSpace: boolean,
 };
 
@@ -42,6 +41,5 @@ export default (props: PropTypes) => (
     <MenuItem title="お問い合わせ" {...props.inquiry} />
     <MenuItem title="モノオクの使い方" {...props.howToUse} />
     <MenuItem title="その他" {...props.other} />
-    <MenuItem title="ログアウト" {...props.logout} />
   </Container>
 );

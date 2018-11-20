@@ -45,7 +45,6 @@ export default class HeaderMock extends React.Component {
             inquiry={{ href: '#', notificationCount: 0 }}
             howToUse={{ href: '#', notificationCount: 0 }}
             other={{ href: '#', notificationCount: 0 }}
-            logout={{ href: '#', notificationCount: 0 }}
             hasSpace
           />
         }

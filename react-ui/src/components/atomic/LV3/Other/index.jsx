@@ -26,9 +26,13 @@ const ItemContainer = styled.div`
   font-size: 16px;
 `;
 
+type PropTypes = {
+  logout: Function,
+};
+
 const HyperLink = MenuLink.withComponent('a');
 
-export default () => (
+export default (props: PropTypes) => (
   <Fragment>
     <AsctContentWrapper>
       <HyperLink href={Path.terms()}>
@@ -42,6 +46,9 @@ export default () => (
       </HyperLink>
       <HyperLink href={Path.cancellationPolicies()}>
         <ItemContainer>キャンセルポリシー</ItemContainer>
+      </HyperLink>
+      <HyperLink href="" onClick={props.logout.onClick}>
+        <ItemContainer>ログアウト</ItemContainer>
       </HyperLink>
     </AsctContentWrapper>
   </Fragment>

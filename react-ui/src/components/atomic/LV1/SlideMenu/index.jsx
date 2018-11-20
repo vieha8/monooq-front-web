@@ -86,16 +86,7 @@ class SlideMenu extends Component {
       <LinkWrap key="10">
         <TextLink href={this.props.otherUri}>その他</TextLink>
       </LinkWrap>,
-      <LinkWrap key="11">
-        <TextButton
-          href="#"
-          // TODO:ログアウト処理実装
-          // onClick={this.props.logout.onClick}
-        >
-          ログアウト(未実装)
-        </TextButton>
-      </LinkWrap>,
-      <LinkWrap key="12" Separate bottom>
+      <LinkWrap key="11" Separate bottom>
         <Button primary link href={this.props.tidyUri} height={80}>
           Tidy
         </Button>
