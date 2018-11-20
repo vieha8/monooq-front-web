@@ -95,6 +95,10 @@ if (cluster.isMaster) {
     res.redirect("/");
   });
 
+  app.get("/hub/request", (req, res) => {
+    res.redirect("/concierge/request");
+  });
+
   // Priority serve any static files.
   app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
 
