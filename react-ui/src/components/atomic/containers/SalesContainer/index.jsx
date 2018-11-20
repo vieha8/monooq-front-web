@@ -3,7 +3,7 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
-import { Dimens } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 import { salesActions } from 'redux/modules/sales';
 
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
@@ -12,21 +12,58 @@ import Header from 'components/atomic/containers/Header';
 import InlineText from 'components/atomic/LV1/InlineText';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import InputForm from 'components/atomic/LV2/InputForm';
+import SalesAmountItem from 'components/atomic/LV2/SalesAmountItem';
 import Button from 'components/atomic/LV1/Button';
+import { media } from 'helpers/style/media-query';
+import Path from 'config/path';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
 
 const InputText = styled.div`
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.medium2}px;
 `;
 
 const SubmitButton = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
-const AlertText = styled.div`
-  margin-top: ${Dimens.medium}px;
+const SalesAmountItemWrap = styled.div`
+  ${media.phone`
+    margin-top: 20px;
+  `};
+`;
+
+const MsgWrap = styled.div`
+  margin: 20px auto;
+  font-size: ${FontSizes.medium}px;
+  line-height: 26px;
+  ${media.phone`
+    font-size: ${FontSizes.small}px;
+  `};
+`;
+
+const SalesAmountMsgWrap = styled.div`
+  margin: 30px auto;
+  font-size: ${FontSizes.medium1}px;
+  font-weight: 700;
+  line-height: 16px;
+  ${media.phone`
+    font-size: ${FontSizes.medium}px;
+  `};
+`;
+
+const ButtonWrap = styled.div`
+  ${media.phone`
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    text-align: center;
+    padding: 0 15px 15px;
+  `};
 `;
 
 class SalesContainer extends Component {
@@ -95,35 +132,40 @@ class SalesContainer extends Component {
   };
 
   leftContent = () => {
-    const { sales } = this.props;
+    const { sales, history } = this.props;
 
     this.payouts = sales.reduce((a, x) => (a += x.PriceMinusFee), 0);
     this.payouts = numeral(this.payouts).format('0,0');
 
     if (this.payouts < 2400) {
       return (
-        <InlineText.Base>
-          現在の売上は
-          {this.payouts}
-          円です。振込申請は2,400円以上から可能です。
-          <br />
-          これは20%のサービス利用手数料を差し引いた金額となります。
-        </InlineText.Base>
+        <Fragment>
+          <SalesAmountItemWrap>
+            <SalesAmountItem amount={this.payouts} />
+          </SalesAmountItemWrap>
+          <MsgWrap>
+            振込申請は2,400円以上から可能です。
+            <br />
+            モノオクでスペースを登録してスペースを活用しましょう！
+          </MsgWrap>
+          <ButtonWrap>
+            <Button primary fontbold center onClick={() => history.push(Path.createSpaceInfo())}>
+              スペースを登録する。
+            </Button>
+          </ButtonWrap>
+        </Fragment>
       );
     }
 
     return (
       <Fragment>
-        <InlineText.Base>
-          振込可能な売上は
-          {this.payouts}
-          円です。
-          <br />
-          振込先の本人口座をご入力ください。
-        </InlineText.Base>
+        <SalesAmountItemWrap>
+          <SalesAmountItem amount={this.payouts} />
+        </SalesAmountItemWrap>
+        <SalesAmountMsgWrap>振込先口座を指定してください。</SalesAmountMsgWrap>
         <InputText>
           <InputForm
-            label="金融機関名"
+            label="金融機関"
             placeholder="○○銀行"
             onChange={e => this.handleChangeInput('bankName', e.target.value)}
             value={this.state.bankName}
@@ -163,16 +205,9 @@ class SalesContainer extends Component {
         </InputText>
         <SubmitButton>
           <Button fill={1} primary onClick={this.submitButton} disabled={!this.validate()}>
-            振込申請をする
+            確認画面へ
           </Button>
         </SubmitButton>
-        <AlertText>
-          <InlineText.Small>
-            上記の売上から振込手数料を差し引いた金額をお支払い致します。
-            <br />
-            ※振込金額が10,000円以上の場合は、振込手数料は無料となります。10,000円以下の場合、260円の振込手数料を差し引いた金額を入金致します。
-          </InlineText.Small>
-        </AlertText>
       </Fragment>
     );
   };

@@ -26,6 +26,10 @@ storiesOf('Atoms(LV1)/Buttons/Button', module)
           Primary
         </Button>
         <br />
+        <Button primary center>
+          Primary(中央揃え)
+        </Button>
+        <br />
         <Button primary fontbold fill={1}>
           Primary(文字太字/横幅100%)
         </Button>
