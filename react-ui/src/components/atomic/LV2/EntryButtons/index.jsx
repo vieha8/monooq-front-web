@@ -15,6 +15,11 @@ const EntryButtonsWrap = styled.div`
     bottom: 0px;
     text-align: center;
     padding: 0 15px 15px;
+    ${props =>
+      props.rerative &&
+      `
+      padding: 0 0 15px;
+    `};
   `};
 `;
 

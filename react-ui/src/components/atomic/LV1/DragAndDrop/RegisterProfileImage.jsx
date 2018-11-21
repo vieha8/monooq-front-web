@@ -14,7 +14,7 @@ const StyledDropzone = styled(Dropzone)`
 const Container = styled.div`
   display: table-cell;
   vertical-align: middle;
-  text-align: center;
+  text-align: left;
 `;
 
 const Image = styled.i`

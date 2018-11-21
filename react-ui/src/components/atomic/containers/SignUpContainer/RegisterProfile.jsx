@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import Path from 'config/path';
 import { userActions } from 'redux/modules/user';
 import RegisterProfile from 'components/atomic/LV3/RegisterProfile';
 
@@ -77,7 +78,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const { isLoading } = this.props;
+    const { isLoading, history } = this.props;
     const { image, name, prefCode, profile, isHost, phoneNumber } = this.state;
 
     return (
@@ -94,6 +95,9 @@ export default class RegisterContainer extends Component<PropTypes, State> {
         profile={profile}
         isHost={isHost}
         phoneNumber={phoneNumber}
+        onClickSkip={() => {
+          history.push(Path.top());
+        }}
         onClickRegisterProfile={this.onClickRegisterProfile}
         buttonDisabled={!this.validate()}
         buttonLoading={isLoading}
