@@ -1,15 +1,14 @@
 // @flow
 
 import React from 'react';
-import Button from 'components/atomic/LV1/Button';
 import InlineText from 'components/atomic/LV1/InlineText';
 import RegsiterProfileImage from 'components/atomic/LV1/DragAndDrop/RegisterProfileImage';
 import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
 import { FontSizes } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
-import Form from './Form';
 import EntryButtons from 'components/atomic/LV2/EntryButtons';
+import Form from './Form';
 
 type PropTypes = {
   onChangeImage: Function,

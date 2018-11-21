@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Colors, Dimens } from 'variables';
+import { Colors, Dimens, ZIndexes } from 'variables';
 
 const Page = styled.div`
   padding: 80px 0;
@@ -22,6 +22,7 @@ const HeaderContainer = styled.div`
   `} top: 0;
   left: 0;
   right: 0;
+  z-index: ${ZIndexes.nav};
 `;
 
 const Container = styled.div`
