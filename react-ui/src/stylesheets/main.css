@@ -97,3 +97,15 @@
     padding-right: 0px;
   }
 }
+
+/* space imge slider */
+.image-gallery-slide img {
+  height: 300px;
+  border-radius: 10px;
+}
+
+@media (max-width: 30em) {
+  .image-gallery-slide img {
+    height: 150px;
+  }
+}

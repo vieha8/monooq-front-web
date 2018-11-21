@@ -7,6 +7,11 @@ import { media } from 'helpers/style/media-query';
 const Base = styled.span`
   color: ${props => props.color || Colors.black};
   font-size: ${props => props.fontSize || 16}px;
+  ${props =>
+    props.bold &&
+    `
+    font-weight: bold;
+  `};
   line-height: 1.6;
   white-space: pre-wrap;
   ${props =>

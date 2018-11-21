@@ -10,7 +10,7 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import Page from '../Page';
 
 const Caption = styled.div`
-  margin: 10px 0 30px;
+  margin: 10px 0 ${Dimens.medium2}px;
   ${media.tablet`
     margin-bottom: 20px;
   `};
@@ -39,6 +39,7 @@ const RightContent = styled.div`
 `;
 
 type PropTypes = {
+  meta?: React.Element<*>,
   header: React.Element<*>,
   headline: string,
   caption: string,
@@ -49,6 +50,7 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <div>
     {props.header}
+    {props.meta}
     <Page>
       <ClearfixContainer>
         <Content>

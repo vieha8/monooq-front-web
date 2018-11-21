@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import numeral from 'numeral';
 
 import Path from 'config/path';
@@ -9,13 +9,12 @@ import { getRoomId, createRoom } from 'redux/modules/messages';
 import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
 
-import SpaceTemplate from 'components/atomic/templates/SpaceTemplate';
+import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import SpaceMap from 'components/atomic/LV1/SpaceMap';
 import Detail from 'components/atomic/LV3/Space/Detail';
-import Price from 'components/atomic/LV3/Space/Price';
 import SendMessage from 'components/atomic/LV3/Space/SendMessage';
-import Note from 'components/atomic/LV2/Space/Note';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import Meta from 'components/Meta';
 
@@ -135,7 +134,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
       : space.Images[0].ImageUrl;
 
     return (
-      <SpaceTemplate
+      <MenuPageTemplate
         meta={
           <Meta
             title={`${space.Title} - ${space.AddressPref}${
@@ -147,52 +146,49 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
           />
         }
         header={<Header />}
-        map={<SpaceMap lat={space.Latitude} lng={space.Longitude} />}
-        detail={
-          <Detail
-            pref={space.AddressPref}
-            city={space.AddressCity}
-            town={space.AddressTown}
-            name={space.Title}
-            images={space.Images.map(image => ({
-              original: image.ImageUrl,
-              thumbnail: image.ImageUrl,
-            }))}
-            description={space.Introduction}
-            address={`${space.AddressPref}${space.AddressCity}${space.AddressTown}`}
-            type={SPACE_TYPES[space.Type]}
-            furniture={space.IsFurniture}
-            aboutBaggage={space.About}
-            delivery={
-              space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Delivery
-            }
-            meeting={
-              space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Meeting
-            }
-            supplement={space.ReceiptAbout}
-            user={{
-              id: space.Host.ID,
-              name: space.Host.Name,
-              imageUrl: space.Host.ImageUrl,
-              profile: space.Host.Profile,
-            }}
-          />
+        leftContent={
+          <Fragment>
+            <Detail
+              // TODO: MAPは別途実装。
+              // map={<SpaceMap lat={space.Latitude} lng={space.Longitude} />}
+              pref={space.AddressPref}
+              city={space.AddressCity}
+              town={space.AddressTown}
+              name={space.Title}
+              images={space.Images.map(image => ({
+                original: image.ImageUrl,
+                thumbnail: image.ImageUrl,
+              }))}
+              description={space.Introduction}
+              address={`${space.AddressPref}${space.AddressCity}${space.AddressTown}`}
+              type={SPACE_TYPES[space.Type]}
+              furniture={space.IsFurniture}
+              aboutBaggage={space.About}
+              delivery={
+                space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Delivery
+              }
+              meeting={
+                space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Meeting
+              }
+              supplement={space.ReceiptAbout}
+              user={{
+                id: space.Host.ID,
+                name: space.Host.Name,
+                imageUrl: space.Host.ImageUrl,
+                profile: space.Host.Profile,
+              }}
+              pricefull={numeral(space.PriceFull).format('0,0')}
+              pricehalf={space.PriceHalf > 0 && numeral(space.PriceHalf).format('0,0')}
+              pricequarter={space.PriceQuarter > 0 && numeral(space.PriceQuarter).format('0,0')}
+            />
+            <SendMessage
+              disabled={isSelfSpace}
+              onClick={isSelfSpace ? null : this.onClickSendMessage}
+              loading={this.state.isLoading}
+            />
+          </Fragment>
         }
-        price={
-          <Price
-            full={numeral(space.PriceFull).format('0,0')}
-            half={space.PriceHalf > 0 && numeral(space.PriceHalf).format('0,0')}
-            quarter={space.PriceQuarter > 0 && numeral(space.PriceQuarter).format('0,0')}
-          />
-        }
-        message={
-          <SendMessage
-            disabled={isSelfSpace}
-            onClick={isSelfSpace ? null : this.onClickSendMessage}
-            loading={this.state.isLoading}
-          />
-        }
-        note={<Note />}
+        rightContent={<ServiceMenu />}
       />
     );
   }

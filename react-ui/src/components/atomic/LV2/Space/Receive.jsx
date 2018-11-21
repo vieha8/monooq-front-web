@@ -3,29 +3,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { Dimens, FontSizes } from 'variables';
-import { media } from 'helpers/style/media-query';
-import Attribute from './Attribute';
+import { Colors, FontSizes } from 'variables';
 
-const Container = styled.div`
-  ${media.phone`
-    margin-top: ${Dimens.medium}px;
-  `};
+const Wrap = styled.div`
+  margin: 20px auto;
 `;
 
-const IconWrapper = styled.div`
-  display: inline-block;
-  vertical-align: middle;
+const ItemWrap = styled.div`
+  margin: 4px auto;
 `;
 
-const Icon = styled.i`
-  font-size: ${FontSizes.medium2}px;
-`;
-
-const Column = styled.span`
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: ${Dimens.small}px;
+const ItemMeetingWrap = styled.div`
+  margin-top: 10px;
 `;
 
 type PropTypes = {
@@ -34,37 +23,33 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Attribute
-    title="受取り方法"
-    content={
-      <Container>
-        {props.delivery && (
-          <div>
-            <IconWrapper>
-              <Icon className="fal fa-truck" />
-            </IconWrapper>
-            <Column>
-              <InlineText.Base>配送</InlineText.Base>
-            </Column>
-            <Column>
-              <InlineText.EmphasisTiny>Pickgo・ヤマト運輸など配送サービス</InlineText.EmphasisTiny>
-            </Column>
-          </div>
-        )}
-        {props.meeting && (
-          <div>
-            <IconWrapper>
-              <Icon className="fal fa-users" />
-            </IconWrapper>
-            <Column>
-              <InlineText.Base>対面</InlineText.Base>
-            </Column>
-            <Column>
-              <InlineText.EmphasisTiny>直接本人から荷物を受け取ります</InlineText.EmphasisTiny>
-            </Column>
-          </div>
-        )}
-      </Container>
-    }
-  />
+  <Wrap>
+    <ItemWrap>
+      <InlineText.Base fontSize={`${FontSizes.small_12}`}>受取り方法</InlineText.Base>
+    </ItemWrap>
+    {props.delivery && (
+      <div>
+        <ItemWrap>
+          <InlineText.Bold>配送</InlineText.Bold>
+        </ItemWrap>
+        <ItemWrap>
+          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
+            Pickgo・ヤマト運輸など配送サービス
+          </InlineText.Base>
+        </ItemWrap>
+      </div>
+    )}
+    {props.meeting && (
+      <ItemMeetingWrap>
+        <ItemWrap>
+          <InlineText.Bold>対面</InlineText.Bold>
+        </ItemWrap>
+        <ItemWrap>
+          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
+            直接本人から荷物を受け取ります
+          </InlineText.Base>
+        </ItemWrap>
+      </ItemMeetingWrap>
+    )}
+  </Wrap>
 );

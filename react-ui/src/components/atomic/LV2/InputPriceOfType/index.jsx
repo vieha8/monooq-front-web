@@ -9,11 +9,11 @@ import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
   width: 100%;
-  padding: ${Dimens.medium}px;
+  padding: ${Dimens.medium}px 0;
 
   border-bottom-style: none;
   ${media.phone`
-    padding: ${Dimens.medium}px 0px;
+    padding: ${Dimens.xsmall}px 0px;
   `};
 
   &:first-child {
@@ -76,7 +76,36 @@ const InputWrapper = styled.div`
   `};
 `;
 
-const PriceWrapper = styled.div``;
+const PriceWrapper = styled.div`
+  color: ${Colors.brandPrimary};
+  font-size: ${FontSizes.medium1}px;
+  font-weight: bold;
+  margin-top: ${Dimens.small2}px;
+`;
+
+const PriceTitleWrapper = styled.span`
+  font-size: ${FontSizes.medium1}px;
+  font-weight: bold;
+  line-height: 1.6;
+  ${media.phone`
+    font-size: ${Dimens.medium}px;
+    line-height: 1.5;
+  `};
+`;
+
+const PriceWrapperPhone = styled.span`
+  display: none;
+  color: ${Colors.brandPrimary};
+  font-size: ${FontSizes.medium1}px;
+  font-weight: bold;
+  line-height: 1.6;
+  float: right;
+  ${media.phone`
+    display: inline-block;
+    font-size: ${FontSizes.medium}px;
+    line-height: 1.4;
+  `};
+`;
 
 const OnlyPC = styled.span`
   display: block;
@@ -102,28 +131,59 @@ type PropTypes = {
   error: React.Element<*>,
 };
 
-export default (props: PropTypes) => (
-  <Container>
-    <OnlyPC>
-      <ImageContainer>
-        <Image src={props.image} alt="" />
-      </ImageContainer>
-    </OnlyPC>
-    <PriceContainer>
-      <div>
-        <InlineText.Strong>{props.title}</InlineText.Strong>
-      </div>
-      <Caption>
-        <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
-          {props.caption}
-        </InlineText.Base>
-      </Caption>
-      <OnlyPhone>
+export default (props: PropTypes) =>
+  props.detail ? (
+    <Container detail>
+      <OnlyPC>
         <ImageContainer>
           <Image src={props.image} alt="" />
         </ImageContainer>
-      </OnlyPhone>
-      <PriceWrapper>
+      </OnlyPC>
+      <PriceContainer>
+        <div>
+          <PriceTitleWrapper>{props.title}</PriceTitleWrapper>
+          <PriceWrapperPhone>
+            {props.price}
+            {'円'}
+          </PriceWrapperPhone>
+        </div>
+        <Caption>
+          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
+            {props.caption}
+          </InlineText.Base>
+        </Caption>
+        <OnlyPhone>
+          <ImageContainer>
+            <Image src={props.image} alt="" />
+          </ImageContainer>
+        </OnlyPhone>
+        <OnlyPC>
+          <PriceWrapper>{props.price}円</PriceWrapper>
+        </OnlyPC>
+        {props.error}
+      </PriceContainer>
+    </Container>
+  ) : (
+    <Container>
+      <OnlyPC>
+        <ImageContainer>
+          <Image src={props.image} alt="" />
+        </ImageContainer>
+      </OnlyPC>
+      <PriceContainer>
+        <div>
+          <InlineText.Strong>{props.title}</InlineText.Strong>
+        </div>
+        <Caption>
+          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
+            {props.caption}
+          </InlineText.Base>
+        </Caption>
+        <OnlyPhone>
+          <ImageContainer>
+            <Image src={props.image} alt="" />
+          </ImageContainer>
+        </OnlyPhone>
         <InputWrapper>
           <InputForm
             type="number"
@@ -133,8 +193,7 @@ export default (props: PropTypes) => (
             placeholder={props.placeholder}
           />
         </InputWrapper>
-      </PriceWrapper>
-      {props.error}
-    </PriceContainer>
-  </Container>
-);
+        {props.error}
+      </PriceContainer>
+    </Container>
+  );

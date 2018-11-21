@@ -13,7 +13,6 @@ const EntryButtonsWrap = styled.div`
     position: ${props => props.rerative || 'absolute'};
     left: 0px;
     bottom: 0px;
-    z-index: 1000;
     text-align: center;
     padding: 0 15px 15px;
   `};

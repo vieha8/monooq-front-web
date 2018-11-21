@@ -3,16 +3,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { Colors, Dimens } from 'variables';
+import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
-  display: table;
   width: 100%;
   min-height: 20px;
-  padding: ${Dimens.medium}px 0;
+  padding: ${Dimens.medium1}px;
+  border-top: 1px solid ${Colors.borderGray};
+  margin: 35px auto;
   &:not(:first-child) {
-    border-top: 1px solid ${Colors.borderGray};
+    ${props =>
+      props.hostinfo &&
+      `
+      margin: auto;
+      border: 1px solid #DBDBDB;
+      border-radius: 5px;
+    `};
   }
   &::after {
     clear: both;
@@ -22,43 +29,48 @@ const Container = styled.div`
 
   ${media.phone`
     display: block;
+    padding: ${Dimens.medium}px;
   `};
 `;
 
-const TitleCell = styled.span`
-  display: table-cell;
-  width: 100px;
-  vertical-align: middle;
-  text-align: left;
+const HostImageContainer = styled.span`
+  float: left;
+`;
 
+const HostNameContainer = styled.div`
+  float: left;
+  margin-top: 2px;
+  margin-left: 15px;
   ${media.phone`
-    display: block;
-    width: 100%;
+    max-width: 175px;
+    margin-top: 2px;
+    font-size: ${FontSizes.small_12}px;
   `};
 `;
 
-const ContentContainer = styled.div`
-  display: table-cell;
+const ProfileContainer = styled.div`
+  clear: both;
   vertical-align: middle;
-  padding-left: ${Dimens.medium2}px;
+  padding-top: ${Dimens.small2}px;
   ${media.phone`
-    display: block;
-    padding-left: 0;
-    margin-top: ${Dimens.small}px;
+    margin-top: 2px;
+    font-size: ${FontSizes.small_12}px;
   `};
 `;
 
 type PropTypes = {
   title: string,
   headContent?: React.Element<*>,
-  content: React.Element<*>,
+  contentHostName: React.Element<*>,
+  contentProfile?: React.Element<*>,
 };
 
 export default (props: PropTypes) => (
-  <Container>
-    <TitleCell>
+  <Container hostinfo={props.hostinfo}>
+    <HostImageContainer>
       {props.headContent ? props.headContent : <InlineText.Base>{props.title}</InlineText.Base>}
-    </TitleCell>
-    <ContentContainer>{props.content}</ContentContainer>
+    </HostImageContainer>
+    <HostNameContainer>{props.contentHostName}</HostNameContainer>
+    <ProfileContainer>{props.contentProfile}</ProfileContainer>
   </Container>
 );
