@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import numeral from 'numeral';
 import Path from 'config/path';
 
@@ -11,9 +11,9 @@ import { uiActions } from 'redux/modules/ui';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import InlineText from 'components/atomic/LV1/InlineText';
 import ManageSpaceList from 'components/atomic/LV3/ManageSpaceList';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import NoDataView from 'components/atomic/LV3/NoDataView';
 
 import type { SpaceType } from 'types/Space';
 
@@ -61,7 +61,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { isLoading, spaces } = this.props;
+    const { isLoading, spaces, history } = this.props;
 
     if (isLoading) {
       return <LoadingPage />;
@@ -95,10 +95,12 @@ class SpaceManagementContainer extends Component<PropTypes> {
                 onClickHostEntry={this.hostEntry}
               />
             ) : (
-              <Fragment>
-                <InlineText.Base>スペースはありません。スペースを登録しましょう。</InlineText.Base>
-                <ManageSpaceList spaces={[]} onClickHostEntry={this.hostEntry} />
-              </Fragment>
+              <NoDataView
+                captionHead="登録したスペースがありません"
+                caption="スペースの登録がありません。以下のボタンからスペースを登録して荷物を預る準備をしましょう。"
+                buttonText="スペースを登録する"
+                onClick={() => history.push(Path.createSpaceInfo())}
+              />
             )
           }
           rightContent={<ServiceMenu />}
