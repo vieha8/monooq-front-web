@@ -12,7 +12,7 @@ const Base = styled.span`
     `
     font-weight: bold;
   `};
-  line-height: 1.6;
+  line-height: ${props => props.lineheight || 1.6};
   white-space: pre-wrap;
   ${props =>
     props.verticalTop &&

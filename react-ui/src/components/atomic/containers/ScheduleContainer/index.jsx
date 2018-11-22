@@ -1,6 +1,7 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
 import Path from 'config/path';
 
 import { requestActions } from 'redux/modules/request';
@@ -11,9 +12,32 @@ import Header from 'components/atomic/containers/Header';
 import InlineText from 'components/atomic/LV1/InlineText';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import ScheduleList from 'components/atomic/LV3/ScheduleList';
+import Button from 'components/atomic/LV1/Button';
+import { media } from 'helpers/style/media-query';
+import { Dimens } from 'variables';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
+
+const ButtonWrap = styled.div`
+  margin-top: ${Dimens.medium2}px;
+  ${media.phone`
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    text-align: center;
+    margin-top: auto;
+    padding: 0 15px 15px;
+  `};
+`;
+
+const CaptionWrap = styled.div`
+  margin: ${Dimens.medium}px auto;
+  ${media.phone`
+  `};
+`;
 
 class ScheduleContainer extends Component {
   constructor(props) {
@@ -56,7 +80,7 @@ class ScheduleContainer extends Component {
       return auth;
     }
 
-    const { isLoading, schedule } = this.props;
+    const { isLoading, schedule, history } = this.props;
 
     if (isLoading) {
       return <LoadingPage />;
@@ -71,12 +95,29 @@ class ScheduleContainer extends Component {
       <div>
         <MenuPageTemplate
           header={<Header />}
-          headline="スケジュール"
+          headline="利用状況"
           leftContent={
             Array.isArray(schedules) && schedules.length > 0 ? (
               <ScheduleList schedules={schedules} />
             ) : (
-              <InlineText.Base>スケジュールはありません。</InlineText.Base>
+              // TODO:ホスト側の表示を実装
+              <Fragment>
+                <CaptionWrap>
+                  <InlineText.Base fontSize={18} bold>
+                    利用したスペースがありません
+                  </InlineText.Base>
+                </CaptionWrap>
+                <CaptionWrap>
+                  <InlineText.Base>
+                    利用したスペースがありません。ご希望のスペースを見つけて連絡を取ってみましょう。
+                  </InlineText.Base>
+                </CaptionWrap>
+                <ButtonWrap>
+                  <Button primary fontbold center onClick={() => history.push(Path.top())}>
+                    ホームへ戻る
+                  </Button>
+                </ButtonWrap>
+              </Fragment>
             )
           }
           rightContent={<ServiceMenu />}
