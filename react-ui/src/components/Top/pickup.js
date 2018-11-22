@@ -141,24 +141,6 @@ export const PickupStaffSpaceList = [
   },
   {
     large: 1,
-    link: Path.space(1029),
-    user: {
-      image:
-        'https://monooq.imgix.net/img%2Fusers%2F2279%2Fprofile%2F1530682528880.png?alt=media&token=cba34eb2-d03f-4c0a-9886-3f72a2b67dc6&fit=crop&w=44&h=44&auto=format',
-      name: 'Mickey',
-    },
-    space: {
-      image:
-        'https://monooq.imgix.net/img%2Fspaces%2F1029%2F1530682249725.jpg?alt=media&token=1187bd20-ebbc-49b6-9bc8-f0ed3645dfe5&fit=crop&w=260&h=200&auto=format',
-      price: '5,000',
-      area: '東京都中野区',
-      description:
-        '中野で1部屋まるごと6畳スペース。管理人さん常駐・オートロックのマンションで安心！',
-      color: Colors.pickup3,
-    },
-  },
-  {
-    large: 1,
     link: Path.space(722),
     user: {
       image:
@@ -222,6 +204,23 @@ export const PickupStaffSpaceList = [
       price: '3,000',
       area: '東京都中野区',
       description: '【約1畳】今すぐ預かれます！中野駅から徒歩圏内の好アクセス、綺麗なスペース',
+      color: Colors.pickup3,
+    },
+  },
+  {
+    large: 1,
+    link: Path.space(1597),
+    user: {
+      image:
+        'https://monooq.imgix.net/img%2Fusers%2F3436%2Fprofile%2F1535430824029.jpg?alt=media&token=83ba3c0a-820c-4642-a5f0-0857b2f7aa67&fit=crop&w=44&h=44&auto=format',
+      name: 'ハピオク',
+    },
+    space: {
+      image:
+        'https://monooq.imgix.net/img%2Fspaces%2F1597%2F1542804123530.jpg?alt=media&token=ff7ecbe0-b2f8-4e0e-8cb4-7eb1badc2736&fit=crop&w=260&h=200&format=auto',
+      price: '3,500',
+      area: '東京都新宿区',
+      description: '西新宿エリアならおすすめ！大きさ、期間にあわせて１畳から相談可能！',
       color: Colors.pickup3,
     },
   },
