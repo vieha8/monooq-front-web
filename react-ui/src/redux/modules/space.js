@@ -9,6 +9,7 @@ import { authActions } from './auth';
 import { getApiRequest, postApiRequest, putApiRequest, deleteApiRequest } from '../helpers/api';
 import { errorActions } from './error';
 import { convertBaseUrl } from '../../helpers/imgix';
+import Path from '../../config/path';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
@@ -275,7 +276,7 @@ function* deleteSpace({ payload: { space } }) {
     return;
   }
   yield call(deleteApiRequest, apiEndpoint.spaces(space.ID));
-  window.location.reload();
+  window.location.href = Path.spaces();
 }
 
 export const spaceSagas = [

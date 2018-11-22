@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Button from 'components/atomic/LV1/Button';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import ConfirmBtnModal from 'components/atomic/LV2/ConfirmBtnModal';
 
 const EntryButtonsWrap = styled.div`
   ${media.phone`
@@ -73,6 +74,7 @@ type PropTypes = {
     onClick: Function,
   },
   enabled: boolean,
+  onClickRemove?: Function,
 };
 
 export default (props: PropTypes) => (
@@ -80,16 +82,25 @@ export default (props: PropTypes) => (
     <Container>
       <Cell align="left">
         <Wrapper>
-          <Button
-            secondary
-            borderbold
-            fontbold
-            fill={1}
-            loading={props.loading}
-            onClick={props.backButton.onClick}
-          >
-            {props.backButton.text}
-          </Button>
+          {props.remove ? (
+            <ConfirmBtnModal
+              btnText={props.backButton.text}
+              modalTitle={props.backButton.modalTitle}
+              modalText={props.backButton.modalText}
+              onClickRemove={props.backButton.onClick}
+            />
+          ) : (
+            <Button
+              secondary
+              borderbold
+              fontbold
+              fill={1}
+              loading={props.loading}
+              onClick={props.backButton.onClick}
+            >
+              {props.backButton.text}
+            </Button>
+          )}
         </Wrapper>
       </Cell>
       <Cell align="right">

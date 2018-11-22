@@ -39,10 +39,8 @@ type PropTypes = {
   onClickPublic: Function,
   onClickPrivate?: Function,
   onClickPublic?: Function,
-  onClickRemove?: Function,
   private?: boolean,
   public?: boolean,
-  removable?: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -62,14 +60,6 @@ export default (props: PropTypes) => (
         <PrivateButton fill={1} height={40} onClick={props.onClickPrivate}>
           非公開にする
         </PrivateButton>
-      )}
-      {props.removable && (
-        <ConfirmBtnModal
-          btnText="削除する"
-          modalTitle="スペース削除"
-          modalText="登録済みのスペースを削除します。よろしいですか？"
-          onClickRemove={props.onClickRemove}
-        />
       )}
     </Wrapper>
   </Container>

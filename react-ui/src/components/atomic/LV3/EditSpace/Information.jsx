@@ -1,23 +1,13 @@
 // @flow
 
 import React from 'react';
-import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
 import SpaceImagePicker from 'components/atomic/LV2/SpaceImagePicker';
-import Button from 'components/atomic/LV1/Button';
 import InlineText from 'components/atomic/LV1/InlineText';
 import InputForm from 'components/atomic/LV2/InputForm';
+import EntryButtons from 'components/atomic/LV2/EntryButtons';
 import SelectForm from 'components/atomic/LV2/SelectForm';
 import { Colors } from 'variables';
 import { Section } from './Shared';
-
-const ButtonWrap = styled.div`
-  max-width: 240px;
-  margin: auto;
-  ${media.phone`
-    max-width: 100%;
-  `};
-`;
 
 type PropTypes = {
   images: Array<{ url: string }>,
@@ -40,6 +30,7 @@ type PropTypes = {
   onChangeAddressCity: Function,
   onChangeAddressStreet: Function,
   onClickNext: Function,
+  OnClickRemove: Function,
   changeOrientation: Function,
 };
 
@@ -142,11 +133,21 @@ export default (props: PropTypes) => (
       {displayErrors('introduction_errors', props.introductionErrors)}
     </Section>
     <Section>
-      <ButtonWrap>
-        <Button primary fontbold fill={1} height={40} onClick={props.onClickNext}>
-          次へ
-        </Button>
-      </ButtonWrap>
+      <EntryButtons
+        enabled
+        rerative
+        remove
+        backButton={{
+          text: 'このスペースを削除する',
+          modalTitle: 'スペース削除',
+          modalText: '登録済みのスペースを削除します。よろしいですか？',
+          onClick: props.OnClickRemove,
+        }}
+        enabledButton={{
+          text: '次へ',
+          onClick: props.onClickNext,
+        }}
+      />
     </Section>
   </div>
 );

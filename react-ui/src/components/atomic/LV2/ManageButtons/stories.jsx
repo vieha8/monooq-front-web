@@ -41,21 +41,4 @@ storiesOf('Molecules(LV2)/ManageButtons', module)
         />
       </div>
     )),
-  )
-  .add(
-    'Removable',
-    withInfo(`
-      ### コンポーネント概要
-      管理ボタン(RemovableVer)
-      - ・削除ボタン押下時はConfirmをPOPUPで表示。
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <ManageButtons
-          onClickEdit={() => console.log('onClickEdit')}
-          onClickPublic={() => console.log('onClickPublic')}
-          onClickPrivate={() => console.log('onClickPrivate')}
-          removable
-        />
-      </div>
-    )),
   );

@@ -29,7 +29,6 @@ type PropTypes = {
   furniture?: boolean,
   prices: Array<number>,
   onClickEdit: Function,
-  onClickRemove: Function,
   link: string,
 };
 
@@ -45,11 +44,7 @@ export default (props: PropTypes) => (
         href={props.link}
         manage
       />
-      <ManageButtons
-        removable
-        onClickEdit={props.onClickEdit}
-        onClickRemove={props.onClickRemove}
-      />
+      <ManageButtons onClickEdit={props.onClickEdit} />
     </Cell>
   </Container>
 );

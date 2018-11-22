@@ -54,6 +54,12 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     window.scrollTo(0, 0);
   }
 
+  onClickRemove: Function;
+  onClickRemove = space => {
+    const { dispatch } = this.props;
+    dispatch(spaceActions.deleteSpace({ space }));
+  };
+
   handleChangeImage: Function;
   handleChangeImage = (pickedImages: Array<File>) => {
     const images = this.state.Images || [];
@@ -195,6 +201,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
             onChangeAddressCity={v => this.handleChangeUI('AddressCity', v)}
             onChangeAddressStreet={v => this.handleChangeUI('AddressStreet', v)}
             onClickNext={this.onClickNext}
+            OnClickRemove={() => this.onClickRemove(space)}
           />
         }
         rightContent={<ServiceMenu />}
