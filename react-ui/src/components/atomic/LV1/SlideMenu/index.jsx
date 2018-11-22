@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import BurgerMenu from 'react-burger-menu';
-import TextButton from 'components/atomic/LV1/TextButton';
 import TextLink from 'components/atomic/LV1/TextLink';
 import Button from 'components/atomic/LV1/Button';
 import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
@@ -46,8 +45,10 @@ class SlideMenu extends Component {
   getItems = () => {
     const items = [
       <LinkWrap key="0">
-        <AvatarIcon imageSrc={this.props.user.image} size={40} />
-        <AvaterName>{this.props.user.name}</AvaterName>
+        <AvatarIcon imageSrc={this.props.user.image} size={40} href={this.props.editProfileUri} />
+        <a href={this.props.editProfileUri}>
+          <AvaterName>{this.props.user.name}</AvaterName>
+        </a>
         <OtherIconWrap>
           <TextLink href={this.props.editProfileUri}>
             <OtherIcon />

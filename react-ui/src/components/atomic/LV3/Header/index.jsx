@@ -120,30 +120,6 @@ const AnonymouseWrapper = styled.div`
   `};
 `;
 
-const MenuWrapper = styled.div`
-  position: fixed;
-  top: ${Height}px;
-  width: 328px;
-  ${media.tablet`
-    position: fixed;
-    overflow: auto;
-    bottom: 0;
-    width: 100%;
-  `} right: 0;
-  z-index: ${ZIndexes.nav};
-`;
-
-const MenuBackground = styled.div`
-  position: fixed;
-  top: ${Height}px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.6);
-  z-index: ${ZIndexes.modal};
-`;
-
 const CloseIconWrapper = styled.span`
   display: inline-block;
   margin-left: 12px;
@@ -151,6 +127,7 @@ const CloseIconWrapper = styled.span`
 
 const AvaterName = styled.span`
   font-weight: bold;
+  color: ${Colors.black};
 `;
 
 const OnlyPC = styled.span`
@@ -182,8 +159,6 @@ type PropTypes = {
   onKeyDownSearch: Function,
   onChangeSearchField: Function,
   onClickAvatar: Function,
-  onClickCloseMenu: Function,
-  showMenu: boolean,
   menu: React.Element<ServiceMenu>,
   top?: boolean,
   help?: boolean,
@@ -228,10 +203,12 @@ export default (props: PropTypes) => {
                 </OnlyPhone>
                 <OnlyPC>
                   <ActionCell hide={isFillSearchField}>
-                    <AvatarIcon imageSrc={props.user.image} onClick={props.onClickAvatar} />
+                    <AvatarIcon imageSrc={props.user.image} href={props.editProfileUri} />
                   </ActionCell>
                   <ActionCell hide={isFillSearchField}>
-                    <AvaterName>{props.user.name}</AvaterName>
+                    <a href={props.editProfileUri}>
+                      <AvaterName>{props.user.name}</AvaterName>
+                    </a>
                   </ActionCell>
                 </OnlyPC>
               </ActionContainer>
@@ -245,12 +222,6 @@ export default (props: PropTypes) => {
           </ActionWrapper>
         )}
       </Nav>
-      {props.showMenu && (
-        <Fragment>
-          <MenuBackground onClick={props.onClickCloseMenu} />
-          <MenuWrapper>{props.menu}</MenuWrapper>
-        </Fragment>
-      )}
     </Container>
   );
 };

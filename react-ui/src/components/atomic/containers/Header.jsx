@@ -24,7 +24,6 @@ class HeaderContainer extends Component<PropTypes> {
     super(props);
 
     this.state = {
-      showMenu: false,
       showSearchField: false,
       location: '',
     };
@@ -76,34 +75,10 @@ class HeaderContainer extends Component<PropTypes> {
     }
   };
 
-  toggleMenu: Function;
-  toggleMenu = () => {
-    const { showMenu } = this.state;
-
-    if (showMenu) {
-      if (document && document.body) {
-        document.body.style.overflowY = 'auto';
-      }
-    } else if (document && document.body) {
-      document.body.style.overflowY = 'hidden';
-    }
-
-    this.setState({ showMenu: !showMenu });
-  };
-
-  closeMenu: Function;
-  closeMenu = () => {
-    if (document && document.body) {
-      document.body.style.overflowY = 'auto';
-    }
-
-    this.setState({ showMenu: false });
-  };
-
   render() {
     const { isLogin, isChecking, user, top, help } = this.props;
 
-    const { showMenu, showSearchField } = this.state;
+    const { showSearchField } = this.state;
 
     return (
       <Header
@@ -134,14 +109,12 @@ class HeaderContainer extends Component<PropTypes> {
         }
         loginUri={Path.login()}
         signupUri={Path.signUp()}
-        onClickAvatar={this.toggleMenu}
         onClickSearchIcon={this.onClickSearch}
         onClickCloseSearch={this.onClickCloseSearch}
         showSearchField={showSearchField}
         onKeyDownSearch={this.handleKeyDownSearch}
         onChangeSearchField={this.handleChangeSearchField}
         onClickCloseMenu={this.closeMenu}
-        showMenu={showMenu}
         menu={<ServiceMenu />}
       />
     );
