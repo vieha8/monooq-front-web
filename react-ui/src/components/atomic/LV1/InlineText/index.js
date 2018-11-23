@@ -13,6 +13,11 @@ const Base = styled.span`
     font-weight: bold;
   `};
   line-height: ${props => props.lineheight || 1.6};
+  ${props =>
+    props.float &&
+    css`
+      float: ${props.float};
+    `};
   white-space: pre-wrap;
   ${props =>
     props.verticalTop &&
@@ -36,11 +41,21 @@ const Base = styled.span`
     overflow: hidden;
     text-overflow: ellipsis;
   `};
+  ${props =>
+    props.inLineBlock &&
+    `
+    display: inline-block;
+  `};
   ${media.phone`
     ${props =>
       props.fontSizeSp &&
       css`
         font-size: ${props.fontSizeSp}px;
+      `}
+    ${props =>
+      props.maxWidthSp &&
+      css`
+        max-width: ${props.maxWidthSp}px;
       `}
   `};
 `;

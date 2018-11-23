@@ -8,5 +8,9 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <ul>{props.messages.map((message, i) => <InboxItem key={`inbox_item_${i}`} {...message} />)}</ul>
+  <ul>
+    {props.messages.map((message, i) => (
+      <InboxItem key={`inbox_item_${i}`} {...message} />
+    ))}
+  </ul>
 );
