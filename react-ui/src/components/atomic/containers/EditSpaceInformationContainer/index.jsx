@@ -145,12 +145,11 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       addressErrors.push(ErrorMessage.PleaseInput);
     }
 
-    // TODO:仕様確認後、実装する。
-    // const match = Address.match(Validate.Address);
-    // if (!match || (match && match[4] === '')) {
-    //   addressErrors.push(ErrorMessage.InvalidAddress);
-    // }
-    // error.address = addressErrors;
+    const match = Address.match(Validate.Address);
+    if (!match || (match && match[4] === '')) {
+      addressErrors.push(ErrorMessage.InvalidAddress);
+    }
+    error.address = addressErrors;
 
     this.setState({ error }, valid);
   };
@@ -162,16 +161,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     }
 
     const { space } = this.props;
-    const {
-      Images,
-      Title,
-      Type,
-      Introduction,
-      AddressState,
-      AddressCity,
-      AddressStreet,
-      error,
-    } = this.state;
+    const { Images, Title, Type, Introduction, Address, error } = this.state;
 
     return (
       <MenuPageTemplate
@@ -179,6 +169,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
         headline={`スペースの${space.ID ? '編集' : '登録'}`}
         leftContent={
           <EditSpaceInformation
+            edit={space.ID}
             images={Images.map(image => ({
               url: image.ImageUrl || image.preview,
             }))}
@@ -193,13 +184,9 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
             introduction={Introduction}
             introductionErrors={error.introduction}
             onChangeIntroduction={v => this.handleChangeUI('Introduction', v)}
-            addressState={AddressState}
-            addressCity={AddressCity}
-            addressStreet={AddressStreet}
+            address={Address}
             addressErrors={error.address}
-            onChangeAddressState={v => this.handleChangeUI('AddressState', v)}
-            onChangeAddressCity={v => this.handleChangeUI('AddressCity', v)}
-            onChangeAddressStreet={v => this.handleChangeUI('AddressStreet', v)}
+            onChangeAddress={v => this.handleChangeUI('Address', v)}
             onClickNext={this.onClickNext}
             OnClickRemove={() => this.onClickRemove(space)}
           />

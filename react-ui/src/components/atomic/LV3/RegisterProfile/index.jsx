@@ -15,10 +15,12 @@ type PropTypes = {
   onChangeName: Function,
   onChangeArea: Function,
   onChangeProfile: Function,
+  onChangePhoneNumber: Function,
   image: File | string,
   name: string,
   prefCode: string,
   profile: string,
+  phoneNumber: string,
   buttonDisabled: boolean,
   buttonLoading: boolean,
   onClickSkip: Function,
@@ -64,6 +66,16 @@ export default (props: PropTypes) => (
         rows={10}
         onChange={e => props.onChangeProfile(e.target.value)}
         value={props.profile}
+      />
+    }
+    phoneNumber={
+      <InputForm
+        label="電話番号"
+        hint="緊急時の連絡先として利用させていただく場合がございます"
+        placeholder="09012345678"
+        onChange={e => props.onChangePhoneNumber(e.target.value)}
+        value={props.phoneNumber}
+        type="tel"
       />
     }
     button={

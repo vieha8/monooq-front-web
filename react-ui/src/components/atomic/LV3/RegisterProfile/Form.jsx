@@ -24,6 +24,10 @@ const Profile = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
+const PhoneNumber = styled.div`
+  margin-top: ${Dimens.medium}px;
+`;
+
 const Button = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
@@ -34,6 +38,7 @@ type PropTypes = {
   name: React.Element<*>,
   area: React.Element<*>,
   profile: React.Element<*>,
+  phoneNumber: React.Element<*>,
   button: React.Element<*>,
 };
 
@@ -44,6 +49,7 @@ export default (props: PropTypes) => (
     <Name>{props.name}</Name>
     <Area>{props.area}</Area>
     <Profile>{props.profile}</Profile>
+    <PhoneNumber>{props.phoneNumber}</PhoneNumber>
     <Button>{props.button}</Button>
   </Fragment>
 );

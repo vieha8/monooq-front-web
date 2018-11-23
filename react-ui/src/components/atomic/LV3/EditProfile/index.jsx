@@ -59,6 +59,16 @@ export default (props: PropTypes) => (
       />
     </Row>
     <Row>
+      <InputForm
+        label="電話番号"
+        placeholder="09012345678"
+        onChange={e => props.onChangePhoneNumber(e.target.value)}
+        value={props.phoneNumber}
+        type="tel"
+        hint="緊急時の連絡先として利用させていただきます"
+      />
+    </Row>
+    <Row>
       <SelectForm
         label="お住いの地域"
         options={selectOptionPrefectures('選択してください')}
