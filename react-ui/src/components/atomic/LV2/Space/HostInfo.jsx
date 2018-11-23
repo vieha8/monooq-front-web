@@ -21,6 +21,7 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <Attribute
     hostinfo={props.hostinfo}
+    message={props.message}
     headContent={
       <Link to={Path.profile(props.id)}>
         <AvatarImage size={45} src={props.imageUrl} alt={props.name} />

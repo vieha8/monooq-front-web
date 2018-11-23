@@ -1,7 +1,12 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import Path from 'config/path';
+import { Colors, FontSizes } from 'variables';
+import { media } from 'helpers/style/media-query';
+import InlineText from 'components/atomic/LV1/InlineText';
 
 import { messagesActions } from 'redux/modules/messages';
 
@@ -10,10 +15,47 @@ import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Messages from 'components/atomic/LV3/Messages';
 import Header from 'components/atomic/containers/Header';
 import Loading from 'components/atomic/LV1/Loading';
+import HeroImage from 'components/atomic/LV1/HeroImage';
+import HostInfo from 'components/atomic/LV2/Space/HostInfo';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
 import { convertImgixUrl } from 'helpers/imgix';
+
+const TopWrap = styled.div`
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid ${Colors.borderGray};
+`;
+
+const Row = styled(Link)`
+  display: table;
+  cursor: pointer;
+`;
+
+const ImageWrapper = styled.div`
+  display: table-cell;
+  vertical-align: top;
+  width: 100px;
+`;
+
+const ContentWrapper = styled.div`
+  display: table-cell;
+  vertical-align: middle;
+  padding-left: 16px;
+`;
+
+const AddressText = styled(InlineText.Base)`
+  display: block;
+  color: ${Colors.brandPrimary};
+`;
+
+const TitleText = styled(InlineText.Small)`
+  display: block;
+  ${media.phone`
+    font-size: ${FontSizes.small_12}px;
+  `};
+`;
 
 type PropTypes = {
   dispatch: Function,
@@ -184,18 +226,18 @@ class InboxContainer extends Component<PropTypes, State> {
       roomTitle = `${room.user.Name}さんと相談しましょう`;
     }
 
-    const firstMessage = {
-      admin: {
-        message: `スペース「${room.space.Title}」の利用について、${roomTitle}! \n`,
-        link: {
-          text: 'スペース詳細をみる',
-          url: `/space/${room.space.ID}`,
-        },
-      },
-    };
+    // const firstMessage = {
+    //   admin: {
+    //     message: `スペース「${room.space.Title}」の利用について、${roomTitle}! \n`,
+    //     link: {
+    //       text: 'スペース詳細をみる',
+    //       url: `/space/${room.space.ID}`,
+    //     },
+    //   },
+    // };
 
     const messageList = this.createMessageList();
-    messageList.unshift(firstMessage);
+    // messageList.unshift(firstMessage);
 
     let lastReadDt = new Date(1990, 0, 1, 0, 0);
     if (room[`user${otherUserId}LastReadDt`]) {
@@ -203,18 +245,42 @@ class InboxContainer extends Component<PropTypes, State> {
     }
 
     return (
-      <Messages
-        onClickEstimate={this.transitionToEstimate}
-        hostUser={isHost}
-        messages={messageList}
-        onPickImage={this.handlePickImage}
-        onChangeText={this.handleChangeText}
-        text={text}
-        pickedImage={(image || {}).preview}
-        buttonDisabled={text === '' && !image}
-        onClickSend={this.sendMessage}
-        lastReadDt={lastReadDt}
-      />
+      <Fragment>
+        <TopWrap>
+          <HostInfo
+            id={room.space.Host.ID}
+            name={room.space.Host.Name}
+            imageUrl={room.space.Host.ImageUrl}
+            hostinfo
+            message
+          />
+          <Row to={Path.space(room.space.ID)}>
+            {/* <div>{JSON.stringify(room.space)}</div> */}
+            {/* <div>{JSON.stringify(room.space.Address)}</div> */}
+            {/* <div>{JSON.stringify(room.space.Title)}</div> */}
+            {/* <div>{JSON.stringify(room.space.Images[0].ImageUrl)}</div> */}
+            <ImageWrapper>
+              <HeroImage small src={room.space.Images[0].ImageUrl} />
+            </ImageWrapper>
+            <ContentWrapper>
+              <AddressText>{room.space.Address}</AddressText>
+              <TitleText>{room.space.Title}</TitleText>
+            </ContentWrapper>
+          </Row>
+        </TopWrap>
+        <Messages
+          onClickEstimate={this.transitionToEstimate}
+          hostUser={isHost}
+          messages={messageList}
+          onPickImage={this.handlePickImage}
+          onChangeText={this.handleChangeText}
+          text={text}
+          pickedImage={(image || {}).preview}
+          buttonDisabled={text === '' && !image}
+          onClickSend={this.sendMessage}
+          lastReadDt={lastReadDt}
+        />
+      </Fragment>
     );
   };
 

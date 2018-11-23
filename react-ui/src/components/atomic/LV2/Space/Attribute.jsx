@@ -26,10 +26,22 @@ const Container = styled.div`
     content: '';
     display: block;
   }
+  ${props =>
+    props.message &&
+    `
+    padding: 0px;
+    margin: 30px auto 5px;
+    border: none;
+  `};
 
   ${media.phone`
     display: block;
     padding: ${Dimens.medium}px;
+    ${props =>
+      props.message &&
+      `
+      padding: 0px;
+    `};
   `};
 `;
 
@@ -66,7 +78,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Container hostinfo={props.hostinfo}>
+  <Container hostinfo={props.hostinfo} message={props.message}>
     <HostImageContainer>
       {props.headContent ? props.headContent : <InlineText.Base>{props.title}</InlineText.Base>}
     </HostImageContainer>
