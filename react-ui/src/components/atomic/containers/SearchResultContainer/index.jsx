@@ -116,40 +116,41 @@ class SearchResultContainer extends Component<PropTypes, State> {
       return this.renderNotFound();
     }
 
-    const caption =
-      '荷物の量と期間によって最適な料金をホストが提示してくれます。長期間の物置きとして便利です。';
-
     return (
-      <Fragment>
-        <SearchResultTemplate
-          meta={<Meta title={`${location}のスペース検索結果 | モノオク`} />}
-          headline1={`${location}のスペース`}
-          caption={caption}
-          searchResult={
-            <InfiniteScroll
-              pageStart={0}
-              loadMore={this.loadItems}
-              hasMore={isMore}
-              loader={<Loader size="medium" key={0} />}
-              initialLoad
-            >
-              <SearchResult
-                spaces={spaces.map(s => ({
-                  image: (s.Images[0] || {}).ImageUrl,
-                  title: s.Title,
-                  addressTown: s.AddressTown,
-                  isFurniture: s.IsFurniture,
-                  priceFull: s.PriceFull,
-                  priceHalf: s.PriceHalf,
-                  priceQuarter: s.PriceQuarter,
-                  onClick: () => this.onClickSpace(s),
-                }))}
-              />
-            </InfiniteScroll>
-          }
-          header={<Header />}
-        />
-      </Fragment>
+      <MenuPageTemplate
+        header={<Header />}
+        headline={`「${location}」の検索結果${spaces.length}件`}
+        leftContent={
+          <Fragment>
+            <SearchResultTemplate
+              meta={<Meta title={`${location}のスペース検索結果 | モノオク`} />}
+              searchResult={
+                <InfiniteScroll
+                  pageStart={0}
+                  loadMore={this.loadItems}
+                  hasMore={isMore}
+                  loader={<Loader size="medium" key={0} />}
+                  initialLoad
+                >
+                  <SearchResult
+                    spaces={spaces.map(s => ({
+                      image: (s.Images[0] || {}).ImageUrl,
+                      title: s.Title,
+                      addressTown: s.AddressTown,
+                      isFurniture: s.IsFurniture,
+                      priceFull: s.PriceFull,
+                      priceHalf: s.PriceHalf,
+                      priceQuarter: s.PriceQuarter,
+                      onClick: () => this.onClickSpace(s),
+                    }))}
+                  />
+                </InfiniteScroll>
+              }
+            />
+          </Fragment>
+        }
+        rightContent={<ServiceMenu />}
+      />
     );
   }
 }

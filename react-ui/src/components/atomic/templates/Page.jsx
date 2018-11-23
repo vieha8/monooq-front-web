@@ -16,7 +16,7 @@ const Page = styled.div`
   `};
 
   ${media.phone`
-    padding: ${HeaderHeight}px 20px 40px;
+    padding: ${HeaderHeight}px 15px 40px;
 
     ${props =>
       props.fillPhone &&

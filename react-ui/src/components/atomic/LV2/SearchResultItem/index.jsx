@@ -6,20 +6,16 @@ import numeral from 'numeral';
 import Card from 'components/atomic/LV1/Card';
 import HeroImage from 'components/atomic/LV1/HeroImage';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { media } from 'helpers/style/media-query';
-import { Colors, Dimens } from 'variables';
+import { Colors } from 'variables';
 
 const Container = styled.div`
-  width: 230px;
+  max-width: 165px;
   cursor: pointer;
-  ${media.phone`
-    width: 100%;
-    margin: 0;
-  `};
+  margin: auto;
 `;
 
 const Content = styled.div`
-  padding: ${Dimens.medium}px;
+  padding: 5px 0 5px 0;
   text-align: left;
 `;
 
@@ -41,7 +37,6 @@ type PropTypes = {
   image: string,
   title: string,
   addressTown: string,
-  isFurniture: boolean,
   priceFull: number,
   priceHalf: number,
   priceQuarter: number,
@@ -50,29 +45,20 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Container onClick={props.onClick}>
-    <Card noPadding customStyle={CardShadowStyle}>
-      <HeroImage src={props.image} alt={props.title} height={200} />
+    <Card noPadding noBorder customStyle={CardShadowStyle}>
+      <HeroImage src={props.image} alt={props.title} height={120} />
       <Content>
         <Row>
-          <InlineText.Base singleLine color={Colors.brandPrimary}>
+          <InlineText.Base singleLine fontSize={14} color={Colors.brandPrimary} bold>
             {props.addressTown}
           </InlineText.Base>
         </Row>
-        <Row marginTop={Dimens.small}>
-          <InlineText.Base singleLine>{props.title}</InlineText.Base>
-        </Row>
-        <Row marginTop={Dimens.small}>
-          <InlineText.Bold>{props.isFurniture ? '家具・家電OK' : ' '}</InlineText.Bold>
-        </Row>
-        <Row marginTop={Dimens.small}>
-          <InlineText.Base>料金目安</InlineText.Base>
-        </Row>
-        <Row marginTop={Dimens.small}>
-          <InlineText.Base noWrap>
+        <Row>
+          <InlineText.Base noWrap lineheight={1} bold>
             {`${numeral(props.priceFull).format('0,0')}${
               props.priceHalf > 0 ? `/ ${numeral(props.priceHalf).format('0,0')}` : ''
             }${props.priceQuarter > 0 ? `/ ${numeral(props.priceQuarter).format('0,0')}` : ''}`}
-            円
+            円から
           </InlineText.Base>
         </Row>
       </Content>

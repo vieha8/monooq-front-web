@@ -7,11 +7,11 @@ import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 
 const Container = styled.div`
-  max-width: 790px;
+  width: 540px;
   margin: 0 auto;
-  ${media.phone`
-    max-width: 345px;
-    margin-top: ${Dimens.medium}px;
+  ${media.tablet`
+    width: 100%;
+    text-align: center;
   `};
 `;
 
@@ -21,14 +21,21 @@ const Cell = styled.div`
   ${props =>
     props.index % 3 === 1 &&
     `
-    padding: 0 ${Dimens.medium}px;
-  `}
-  padding-bottom: ${Dimens.medium}px;
+    padding: 0 22.5px ${Dimens.medium1}px;
+  `};
+  ${media.tablet`
+    padding: 0 7px ${Dimens.medium1}px;
+  `};
 
   ${media.phone`
-    padding: ${Dimens.medium}px 0;
-    width: 100%;
-  `}
+    width: 50%;
+    padding: 0 7.5px ${Dimens.medium1}px 0;
+    ${props =>
+      props.index % 2 === 1 &&
+      `
+      padding: 0 0 ${Dimens.medium1}px 7.5px;
+    `};
+  `};
 `;
 
 type PropTypes = {
