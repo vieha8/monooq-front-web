@@ -8,9 +8,9 @@ import { messagesActions } from 'redux/modules/messages';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import InlineText from 'components/atomic/LV1/InlineText';
 import Loading from 'components/atomic/LV1/Loading';
 import InboxList from 'components/atomic/LV3/InboxList';
+import NoDataView from 'components/atomic/LV3/NoDataView';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -44,7 +44,7 @@ class InboxContainer extends Component<PropTypes> {
   }
 
   leftContent = () => {
-    const { isLoading, rooms } = this.props;
+    const { isLoading, rooms, history } = this.props;
 
     if (isLoading) {
       return <Loading size="large" />;
@@ -60,7 +60,12 @@ class InboxContainer extends Component<PropTypes> {
         }))}
       />
     ) : (
-      <InlineText.Base>メッセージはありません。</InlineText.Base>
+      <NoDataView
+        captionHead="メッセージのやり取りがありません"
+        caption="メッセージがありません。ご希望のスペースを見つけて連絡を取ってみましょう。"
+        buttonText="ホームへ戻る"
+        onClick={() => history.push(Path.top())}
+      />
     );
   };
 

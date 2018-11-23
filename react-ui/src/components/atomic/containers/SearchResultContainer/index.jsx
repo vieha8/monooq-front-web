@@ -8,9 +8,11 @@ import Loading from 'components/atomic/LV1/Loading';
 import Path from 'config/path';
 
 import SearchResultTemplate from 'components/atomic/templates/SearchResult';
+import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import SearchResult from 'components/atomic/LV3/SearchResult';
-import SearchNotFound from 'components/atomic/LV3/SearchNotFound';
+import NoDataView from 'components/atomic/LV3/NoDataView';
 import Meta from 'components/Meta';
 import { Dimens } from 'variables';
 
@@ -73,31 +75,23 @@ class SearchResultContainer extends Component<PropTypes, State> {
     history.push(Path.space(space.ID));
   };
 
-  onKeyDownSearchField = e => {
-    if (e && e.keyCode === 13 && e.target.value) {
-      this.research();
-    }
-  };
-
-  research = () => {
-    const { search } = this.state;
-    if (window && window.location) {
-      window.location.href = `${Path.search()}?location=${search}`;
-    }
-  };
-
   renderNotFound = () => {
-    const { search } = this.state;
+    const { history, location } = this.state;
 
     return (
-      <SearchNotFound
+      <MenuPageTemplate
         header={<Header />}
-        locationText={search}
-        onChangeLocation={value => {
-          this.setState({ search: value });
-        }}
-        onClickSearchButton={this.research}
-        onKeyDownSearchField={this.onKeyDownSearchField}
+        headline={`「${location}」の検索結果0件`}
+        leftContent={
+          <NoDataView
+            captionHead="検索結果がありませんでした"
+            caption="キーワードが該当しませんでした。別のキーワードで再度検索をお願いします。"
+            buttonText="再度検索する"
+            // TODO: 検索画面作成後にURL設定
+            onClick={() => history.push(Path.top())}
+          />
+        }
+        rightContent={<ServiceMenu />}
       />
     );
   };

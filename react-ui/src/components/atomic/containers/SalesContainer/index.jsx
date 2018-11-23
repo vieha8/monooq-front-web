@@ -9,13 +9,14 @@ import { salesActions } from 'redux/modules/sales';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import InlineText from 'components/atomic/LV1/InlineText';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import InputForm from 'components/atomic/LV2/InputForm';
+import SelectForm from 'components/atomic/LV2/SelectForm';
 import SalesAmountItem from 'components/atomic/LV2/SalesAmountItem';
 import Button from 'components/atomic/LV1/Button';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
+import { selectDepositType } from 'helpers/prefectures';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -77,7 +78,7 @@ class SalesContainer extends Component {
     this.state = {
       bankName: '',
       branchName: '',
-      accountType: '普通',
+      accountType: '',
       accountNumber: '',
       accountName: '',
       isSend: false,
@@ -180,9 +181,9 @@ class SalesContainer extends Component {
           />
         </InputText>
         <InputText>
-          <InputForm
+          <SelectForm
             label="預金種目"
-            placeholder="普通"
+            options={selectDepositType('選択してください')}
             onChange={e => this.handleChangeInput('accountType', e.target.value)}
             value={this.state.accountType}
           />
