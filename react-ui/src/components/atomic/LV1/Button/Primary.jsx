@@ -8,7 +8,7 @@ import { Colors, FontSizes } from 'variables';
 const btnlink = styled(Link)``;
 
 export const PrimaryButton = styled.div`
-  width: 100%;
+  width: ${props => (props.width ? props.width : '100%')};
   ${props => !props.fill && `max-width: 300px;`}
   padding: 17px 10px;
   text-align: center;
@@ -28,7 +28,13 @@ export const PrimaryButton = styled.div`
     `
       height: ${props.height}px;
       padding: ${props.height / 2 - FontSizes.medium / 2}px 10px;
-    `}
+    `};
+    
+  ${props =>
+    props.inlineblock &&
+    `
+      display: inline-block;
+    `};
 
   ${props =>
     props.center &&

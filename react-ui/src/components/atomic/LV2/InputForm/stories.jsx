@@ -84,4 +84,21 @@ storiesOf('Molecules(LV2)/InputForm', module)
         <InputFormMock label="銀行名" multiline />
       </div>
     )),
+  )
+  .add(
+    'checkbox',
+    withInfo(`
+      ### コンポーネント概要
+      フォーム入力項目(チェックボックス)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <InputFormMock
+          checkbox
+          label="預けられる荷物で絞り込み"
+          checktext="家具や家電製品に対応する"
+          checked={false}
+          onClick={console.log('Clicked')}
+        />
+      </div>
+    )),
   );

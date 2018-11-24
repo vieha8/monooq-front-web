@@ -9,6 +9,8 @@ const TYPE_ID = ':type';
 export default {
   // トップ
   top: () => '/',
+  // 検索条件
+  searchCondition: () => '/searchcondition',
   // 検索
   search: () => '/search',
   // ホーム

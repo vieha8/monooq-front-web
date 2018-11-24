@@ -35,6 +35,11 @@ const Search = Loadable({
   loading: LoadingPage,
 });
 
+const SearchCondition = Loadable({
+  loader: () => import('components/atomic/containers/SearchConditionContainer'),
+  loading: LoadingPage,
+});
+
 const Space = Loadable({
   loader: () => import('components/atomic/containers/SpaceContainer'),
   loading: LoadingPage,
@@ -279,6 +284,7 @@ export default ({ history }) => (
       <Route exact path={Path.resetPassword()} component={ResetPassword} />
       <Route exact path={Path.home()} component={Home} />
       <Route exact path={Path.search()} component={Search} />
+      <Route exact path={Path.searchCondition()} component={SearchCondition} />
       <Route exact path={Path.space()} component={Space} />
       <Route exact path={Path.spaces()} component={Spaces} />
       <Route exact path={Path.schedule()} component={Schedule} />
