@@ -20,15 +20,6 @@ type PropTypes = {
 };
 
 class HeaderContainer extends Component<PropTypes> {
-  constructor(props: PropTypes) {
-    super(props);
-
-    this.state = {
-      showSearchField: false,
-      location: '',
-    };
-  }
-
   componentWillUnmount() {
     if (document && document.body) {
       document.body.style.overflowY = 'auto';
@@ -36,49 +27,14 @@ class HeaderContainer extends Component<PropTypes> {
   }
 
   onClickSearch: Function;
+
   onClickSearch = () => {
-    const { location, showSearchField } = this.state;
-
-    if (showSearchField && location) {
-      this.search();
-    } else {
-      this.setState({ showSearchField: true });
-    }
-  };
-
-  onClickCloseSearch: Function;
-  onClickCloseSearch = () => {
-    this.setState({ location: '', showSearchField: false });
-  };
-
-  handleKeyDownSearch: Function;
-  handleKeyDownSearch = e => {
-    if (e && e.keyCode === 13 && e.target.value) {
-      this.search();
-    }
-  };
-
-  handleChangeSearchField: Function;
-  handleChangeSearchField = (value: string) => {
-    this.setState({ location: value });
-  };
-
-  search: Function;
-  search = () => {
-    const { history, location } = this.props;
-    const { location: searchLocation } = this.state;
-    const path = `${Path.search()}?location=${searchLocation}`;
-    if (location.pathname === Path.search()) {
-      window.location.href = path;
-    } else {
-      history.push(path);
-    }
+    const { history } = this.props;
+    history.push(Path.searchCondition());
   };
 
   render() {
     const { isLogin, isChecking, user, top, help } = this.props;
-
-    const { showSearchField } = this.state;
 
     return (
       <Header
@@ -88,6 +44,7 @@ class HeaderContainer extends Component<PropTypes> {
         homeUri={Path.top()}
         editProfileUri={Path.editProfile()}
         searchUri={Path.search()}
+        searchConditionUri={Path.searchCondition()}
         scheduleUri={Path.schedule()}
         createSpaceInfoUri={Path.createSpaceInfo()}
         spacesUri={Path.spaces()}
@@ -109,12 +66,6 @@ class HeaderContainer extends Component<PropTypes> {
         }
         loginUri={Path.login()}
         signupUri={Path.signUp()}
-        onClickSearchIcon={this.onClickSearch}
-        onClickCloseSearch={this.onClickCloseSearch}
-        showSearchField={showSearchField}
-        onKeyDownSearch={this.handleKeyDownSearch}
-        onChangeSearchField={this.handleChangeSearchField}
-        onClickCloseMenu={this.closeMenu}
         menu={<ServiceMenu />}
       />
     );

@@ -1,16 +1,15 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from 'components/atomic/LV1/Logo';
 import SlideMenu from 'components/atomic/LV1/SlideMenu';
-import CloseIcon from 'components/atomic/LV2/HeaderAction/CloseIcon';
 import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
 import Anonymouse from 'components/atomic/LV2/HeaderAction/Anonymouse';
 import AnimateSearchInputField from 'components/atomic/LV2/AnimateSearchInputField';
 import ServiceMenu from 'components/atomic/LV3/ServiceMenu';
-import { media, isMobileWindow } from 'helpers/style/media-query';
+import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, ZIndexes } from 'variables';
 
 export const Height = 60;
@@ -120,18 +119,14 @@ const AnonymouseWrapper = styled.div`
   `};
 `;
 
-const CloseIconWrapper = styled.span`
-  display: inline-block;
-  margin-left: 12px;
-`;
-
 const AvaterName = styled.span`
   font-weight: bold;
   color: ${Colors.black};
 `;
 
 const OnlyPC = styled.span`
-  display: contents;
+  display: inline-block;
+  vertical-align: middle;
   ${media.tablet`
     display: none;
   `};
@@ -153,59 +148,42 @@ type PropTypes = {
   isCheckingLogin: boolean,
   loginUri: string,
   signupUri: string,
-  onClickSearchIcon: Function,
-  onClickCloseSearch: Function,
-  showSearchField: boolean,
-  onKeyDownSearch: Function,
-  onChangeSearchField: Function,
   onClickAvatar: Function,
   menu: React.Element<ServiceMenu>,
   top?: boolean,
   help?: boolean,
   storys?: boolean,
+  searchConditionUri: string,
 };
 
 export default (props: PropTypes) => {
-  const isFillSearchField = props.showSearchField && isMobileWindow() ? 'fill' : '';
   return (
     <Container top={props.top} help={props.help} storys={props.storys}>
       <Nav>
-        <LogoWrapper to={props.homeUri} hide={isFillSearchField}>
+        <LogoWrapper to={props.homeUri}>
           {props.top || props.help ? <Logo.HeaderWhiteFill /> : <Logo.HeaderFill />}
         </LogoWrapper>
         {!props.isCheckingLogin && (
-          <ActionWrapper fill={isFillSearchField}>
+          <ActionWrapper>
             {props.user ? (
               <ActionContainer>
-                <SearchFiledCell fill={isFillSearchField}>
+                <SearchFiledCell>
                   <AnimateSearchInputField
                     iconRight
                     iconColor={(props.top || props.help) && Colors.white}
-                    placeholder="どこの物置きを探す？"
-                    show={props.showSearchField}
-                    onClickIcon={props.onClickSearchIcon}
-                    onKeyDownInputField={props.onKeyDownSearch}
-                    onChange={props.onChangeSearchField}
+                    searchConditionUri={props.searchConditionUri}
                   />
                 </SearchFiledCell>
-                <ActionCell hide={!isFillSearchField}>
-                  <CloseIconWrapper>
-                    <CloseIcon
-                      color={(props.top || props.help) && Colors.white}
-                      onClick={props.onClickCloseSearch}
-                    />
-                  </CloseIconWrapper>
-                </ActionCell>
                 <OnlyPhone>
-                  <ActionCell hide={isFillSearchField}>
+                  <ActionCell>
                     <SlideMenu {...props} />
                   </ActionCell>
                 </OnlyPhone>
                 <OnlyPC>
-                  <ActionCell hide={isFillSearchField}>
+                  <ActionCell>
                     <AvatarIcon imageSrc={props.user.image} href={props.editProfileUri} />
                   </ActionCell>
-                  <ActionCell hide={isFillSearchField}>
+                  <ActionCell>
                     <a href={props.editProfileUri}>
                       <AvaterName>{props.user.name}</AvaterName>
                     </a>
@@ -214,7 +192,7 @@ export default (props: PropTypes) => {
               </ActionContainer>
             ) : (
               <ActionContainer>
-                <AnonymouseWrapper hide={isFillSearchField}>
+                <AnonymouseWrapper>
                   <Anonymouse loginUri={props.loginUri} signupUri={props.signupUri} />
                 </AnonymouseWrapper>
               </ActionContainer>

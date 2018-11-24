@@ -10,7 +10,7 @@ import SlideMenu from './index';
 
 SlideMenu.displayName = 'SlideMenu';
 
-const user = [{ name: 'AAA', image: 'http://placehold.jp/500x500.png' }];
+const user = { name: 'AAA', image: 'http://placehold.jp/500x500.png' };
 
 storiesOf('Atoms(LV1)/SlideMenu', module)
   .addDecorator(StorybookRouter())

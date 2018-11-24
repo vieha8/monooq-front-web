@@ -8,11 +8,10 @@ import Menu from '../../ServiceMenu';
 export default class HeaderMock extends React.Component {
   constructor(props: Object) {
     super(props);
-    this.state = { showMenu: false, showSearchField: false };
+    this.state = {};
   }
 
   render() {
-    const { showMenu, showSearchField } = this.state;
     return (
       <Header
         homeUri="#"
@@ -25,12 +24,7 @@ export default class HeaderMock extends React.Component {
         }}
         loginUri="#"
         signupUri="#"
-        onClickAvatar={() => this.setState({ showMenu: !showMenu })}
-        showSearchField={showSearchField}
-        onClickSearchIcon={() => this.setState({ showSearchField: !showSearchField })}
-        onKeyDownSearch={e => console.log(e)}
-        onClickCloseMenu={() => this.setState({ showMenu: false })}
-        showMenu={showMenu}
+        onClickAvatar={() => this.setState()}
         top={this.props.top}
         help={this.props.help}
         menu={

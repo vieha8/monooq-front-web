@@ -7,7 +7,7 @@ import TextLink from 'components/atomic/LV1/TextLink';
 import Button from 'components/atomic/LV1/Button';
 import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
 import { OtherIcon } from 'components/atomic/LV1/ActionIcon';
-import { Colors } from 'variables';
+import { Dimens, Colors } from 'variables';
 
 import MenuWrap from './menuwrap';
 
@@ -16,6 +16,7 @@ const AvaterName = styled.span`
   font-weight: bold;
   vertical-align: middle;
   max-width: 140px;
+  margin-left: ${Dimens.medium}px;
 `;
 
 const OtherIconWrap = styled.span`

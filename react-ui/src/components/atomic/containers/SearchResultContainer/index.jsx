@@ -76,7 +76,8 @@ class SearchResultContainer extends Component<PropTypes, State> {
   };
 
   renderNotFound = () => {
-    const { history, location } = this.state;
+    const { history } = this.props;
+    const { location } = this.state;
 
     return (
       <MenuPageTemplate
@@ -87,8 +88,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
             captionHead="検索結果がありませんでした"
             caption="キーワードが該当しませんでした。別のキーワードで再度検索をお願いします。"
             buttonText="再度検索する"
-            // TODO: 検索画面作成後にURL設定
-            onClick={() => history.push(Path.top())}
+            onClick={() => history.push(Path.searchCondition())}
           />
         }
         rightContent={<ServiceMenu />}

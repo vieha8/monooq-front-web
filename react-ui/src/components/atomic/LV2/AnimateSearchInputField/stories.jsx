@@ -14,15 +14,10 @@ storiesOf('Molecules(LV2)/AnimateSearchInputField', module)
     'IconLeft',
     withInfo(`
       ### コンポーネント概要
-      検索条件入力欄(検索ボタン左配置)
+      検索条件入力欄(検索ボタン左配置) ※検索欄廃止済み
     `)(() => (
       <div style={{ width: '100%', maxWidth: '320px', padding: `${Dimens.storyBookPadding}` }}>
-        <AnimateSearchInputField
-          iconLeft
-          show
-          placeholder="プレースホルダー"
-          onClickIcon={() => console.log('onClickIcon')}
-        />
+        <AnimateSearchInputField iconLeft onClickIcon={() => console.log('onClickIcon')} />
       </div>
     )),
   )
@@ -30,16 +25,10 @@ storiesOf('Molecules(LV2)/AnimateSearchInputField', module)
     'IconRight',
     withInfo(`
       ### コンポーネント概要
-      検索条件入力欄(検索ボタン右配置)
+      検索条件入力欄(検索ボタン右配置) ※検索欄廃止済み
     `)(() => (
       <div style={{ width: '100%', maxWidth: '320px', padding: `${Dimens.storyBookPadding}` }}>
-        <AnimateSearchInputField
-          iconRight
-          show
-          placeholder="プレースホルダー"
-          onClickIcon={() => console.log('onClickIcon')}
-          onKeyDownInputField={e => console.log(e)}
-        />
+        <AnimateSearchInputField iconRight onClickIcon={() => console.log('onClickIcon')} />
       </div>
     )),
   );
