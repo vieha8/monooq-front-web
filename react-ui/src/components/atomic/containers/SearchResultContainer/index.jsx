@@ -136,7 +136,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
                     spaces={spaces.map(s => ({
                       image: (s.Images[0] || {}).ImageUrl,
                       title: s.Title,
-                      addressTown: s.AddressTown,
+                      address: `${s.AddressPref}${s.AddressCity}`,
                       isFurniture: s.IsFurniture,
                       priceFull: s.PriceFull,
                       priceHalf: s.PriceHalf,

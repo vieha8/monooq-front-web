@@ -36,7 +36,7 @@ const CardShadowStyle = `
 type PropTypes = {
   image: string,
   title: string,
-  addressTown: string,
+  address: string,
   priceFull: number,
   priceHalf: number,
   priceQuarter: number,
@@ -50,7 +50,7 @@ export default (props: PropTypes) => (
       <Content>
         <Row>
           <InlineText.Base singleLine fontSize={14} color={Colors.brandPrimary} bold>
-            {props.addressTown}
+            {props.address}
           </InlineText.Base>
         </Row>
         <Row>
