@@ -11,6 +11,8 @@ export default {
   top: () => '/',
   // 検索
   search: () => '/search',
+  // ホーム
+  home: () => '/home',
   // スペース詳細
   space: (spaceId = SPACE_ID) => `/space/${spaceId}`,
   // スペース作成

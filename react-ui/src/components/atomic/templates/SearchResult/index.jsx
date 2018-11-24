@@ -10,16 +10,22 @@ const Content = styled.div`
   ${media.tablet`
     margin: ${Dimens.medium}px 0;
   `};
+  ${props =>
+    props.noTopMargin &&
+    `
+    margin: 0;
+  `};
 `;
 
 type PropTypes = {
   meta: React.Element<*>,
   searchResult: React.Element<*>,
+  noTopMargin?: boolean,
 };
 
-export default ({ meta, searchResult }: PropTypes) => (
+export default ({ meta, searchResult, noTopMargin }: PropTypes) => (
   <div>
     {meta}
-    <Content>{searchResult}</Content>
+    <Content noTopMargin={noTopMargin}>{searchResult}</Content>
   </div>
 );

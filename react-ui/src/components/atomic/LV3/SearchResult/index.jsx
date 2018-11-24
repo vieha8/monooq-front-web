@@ -3,8 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import SearchResultItem from 'components/atomic/LV2/SearchResultItem';
+import Button from 'components/atomic/LV1/Button';
 import { media } from 'helpers/style/media-query';
-import { Dimens } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 
 const Container = styled.div`
   width: 540px;
@@ -38,6 +39,26 @@ const Cell = styled.div`
   `};
 `;
 
+const CaptionWrap = styled.div`
+  width: 100%;
+  font-size: ${FontSizes.medium2}px;
+  font-weight: bold;
+  margin: 0 auto ${Dimens.medium2}px;
+  ${media.tablet`
+    margin: 5px auto ${Dimens.medium1}px;
+  `};
+`;
+
+const ButtonWrap = styled.div`
+  width: 100%;
+  max-width: 180px;
+  margin: 5px 0 ${Dimens.large}px auto;
+  ${media.tablet`
+    max-width: 120px;
+    margin: 5px auto ${Dimens.large}px;
+  `};
+`;
+
 type PropTypes = {
   spaces: Array<{
     image: string,
@@ -53,10 +74,24 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Container>
+    {props.caption && <CaptionWrap>{props.caption}</CaptionWrap>}
     {props.spaces.map((space, i) => (
       <Cell key={`result_list_result_item_${i}`} index={i}>
         <SearchResultItem {...space} />
       </Cell>
     ))}
+    {props.isMoreButton && (
+      <ButtonWrap>
+        <Button
+          primary
+          height={40}
+          fontSize={15}
+          // TODO: ホーム画面とあわせて実装する。
+          // onClick={}
+        >
+          もっとみる
+        </Button>
+      </ButtonWrap>
+    )}
   </Container>
 );

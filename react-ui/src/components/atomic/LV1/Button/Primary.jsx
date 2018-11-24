@@ -54,6 +54,10 @@ export const PrimaryButton = styled.div`
   css`
     padding: 12px 8px;
     font-size: 16px;
+  `} ${props =>
+  props.fontSize &&
+  css`
+    font-size: ${props.fontSize}px;
   `};
 `;
 
