@@ -19,24 +19,12 @@ type State = {
   hasChanged: boolean,
 };
 
-const Validate = {
-  Profile: {
-    Max: 1000,
-  },
-};
-
 export default class RegisterContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
 
     this.state = {
-      image: null,
-      name: '',
-      prefCode: '',
-      profile: '',
       isHost: 0,
-      phoneNumber: '',
-      hasChanged: false,
     };
   }
 
@@ -45,14 +33,15 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   }
 
   onClickRegisterProfile = () => {
-    const { dispatch, user } = this.props;
-    const { image, name, prefCode, profile, isHost, phoneNumber } = this.state;
+    const { dispatch, user, history } = this.props;
+    const { isHost } = this.state;
     dispatch(
       userActions.updateUser({
         userId: user.ID,
-        body: { imageUri: image, name, prefCode, profile, isHost: Boolean(isHost), phoneNumber },
+        body: { isHost: Boolean(isHost) },
       }),
     );
+    history.push(Path.home());
   };
 
   handleChangeForm = (name: string, value: any) => {
@@ -62,44 +51,18 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     this.setState(state);
   };
 
-  validate = () => {
-    const { name, prefCode, profile, phoneNumber } = this.state;
-    return (
-      name &&
-      name.length > 0 &&
-      prefCode &&
-      profile &&
-      profile.length > 0 &&
-      profile.length <= Validate.Profile.Max &&
-      phoneNumber &&
-      phoneNumber.length >= 10 &&
-      phoneNumber.length <= 12
-    );
-  };
-
   render() {
-    const { isLoading, history } = this.props;
-    const { image, name, prefCode, profile, isHost, phoneNumber } = this.state;
-
+    const { isLoading, history, user } = this.props;
+    const { isHost } = this.state;
     return (
       <RegisterHowToUse
-        onChangeImage={picked => this.handleChangeForm('image', picked)}
-        onChangeName={value => this.handleChangeForm('name', value)}
-        onChangeArea={value => this.handleChangeForm('prefCode', value)}
-        onChangeProfile={value => this.handleChangeForm('profile', value)}
+        userName={user.Name}
         onChangeIsHost={value => this.handleChangeForm('isHost', value)}
-        onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
-        image={image}
-        name={name}
-        prefCode={prefCode}
-        profile={profile}
         isHost={isHost}
-        phoneNumber={phoneNumber}
         onClickSkip={() => {
-          history.push(Path.top());
+          history.push(Path.home());
         }}
         onClickRegisterProfile={this.onClickRegisterProfile}
-        buttonDisabled={!this.validate()}
         buttonLoading={isLoading}
       />
     );

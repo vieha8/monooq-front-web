@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import { userActions } from 'redux/modules/user';
+import { uiActions } from 'redux/modules/ui';
 import RegisterProfile from 'components/atomic/LV3/RegisterProfile';
 
 type PropTypes = {
@@ -46,11 +47,11 @@ export default class RegisterContainer extends Component<PropTypes, State> {
 
   onClickRegisterProfile = () => {
     const { dispatch, user } = this.props;
-    const { image, name, prefCode, profile, isHost, phoneNumber } = this.state;
+    const { image, name, prefCode, profile, phoneNumber } = this.state;
     dispatch(
       userActions.updateUser({
         userId: user.ID,
-        body: { imageUri: image, name, prefCode, profile, isHost: Boolean(isHost), phoneNumber },
+        body: { imageUri: image, name, prefCode, profile, phoneNumber },
       }),
     );
   };
@@ -79,7 +80,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
 
   render() {
     const { isLoading, history } = this.props;
-    const { image, name, prefCode, profile, isHost, phoneNumber } = this.state;
+    const { image, name, prefCode, profile, phoneNumber } = this.state;
 
     return (
       <RegisterProfile
@@ -87,13 +88,11 @@ export default class RegisterContainer extends Component<PropTypes, State> {
         onChangeName={value => this.handleChangeForm('name', value)}
         onChangeArea={value => this.handleChangeForm('prefCode', value)}
         onChangeProfile={value => this.handleChangeForm('profile', value)}
-        onChangeIsHost={value => this.handleChangeForm('isHost', value)}
         onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
         image={image}
         name={name}
         prefCode={prefCode}
         profile={profile}
-        isHost={isHost}
         phoneNumber={phoneNumber}
         onClickSkip={() => {
           history.push(Path.home());

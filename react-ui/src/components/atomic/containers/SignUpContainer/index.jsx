@@ -7,7 +7,9 @@ import Header from 'components/atomic/containers/Header';
 
 import RegisterEmail from './RegisterEmail';
 import RegisterProfile from './RegisterProfile';
+import RegisterHowToUse from './RegisterHowToUse';
 import Registered from './Registered';
+
 import connect from '../connect';
 
 type PropTypes = {
@@ -21,15 +23,8 @@ class SignUpContainer extends Component<PropTypes> {
 
   getCurrentForm = () => {
     const { signupStep } = this.props;
-    const forms = [
-      RegisterEmail,
-      () => <div />, // TODO,
-      () => <div />, // TODO,
-      () => <div />, // TODO,
-      RegisterProfile,
-      Registered,
-    ];
-    return forms[signupStep];
+    const forms = [RegisterEmail, RegisterProfile, RegisterHowToUse];
+    return forms[2];
   };
 
   render() {

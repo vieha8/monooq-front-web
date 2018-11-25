@@ -220,11 +220,6 @@ function* checkLoginFirebaseAuth() {
     localStorage.setItem('status', JSON.stringify(status));
     yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID });
     ReactGA.set({ userId: data.ID });
-
-    if (status.user.Profile === '') {
-      yield put(uiActions.setUiState({ signupStep: 4 }));
-      store.dispatch(push('/signup'));
-    }
   }
 
   yield put(authActions.checkLoginSuccess(status));
@@ -285,7 +280,7 @@ function* signUpEmail({ payload: { email, password } }) {
 
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signupStep: 4 }));
+    yield put(uiActions.setUiState({ signupStep: 1 }));
   } catch (err) {
     yield put(authActions.signupFailed(err.message));
     yield put(errorActions.setError(err.message));
@@ -319,7 +314,7 @@ function* signUpFacebook() {
     }
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signupStep: 4, signup: { name: displayName } }));
+    yield put(uiActions.setUiState({ signupStep: 1, signup: { name: displayName } }));
   } catch (err) {
     yield put(authActions.signupFailed(err.message));
     yield put(errorActions.setError());
