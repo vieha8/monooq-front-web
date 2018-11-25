@@ -299,7 +299,6 @@ function* signUpFacebook() {
     const { isNewUser } = result.additionalUserInfo;
     if (!isNewUser) {
       yield put(authActions.signupFailed('Already registered.'));
-      yield put(errorActions.setError());
       return;
     }
     const { displayName, email, uid, photoURL } = result.user;
@@ -315,7 +314,7 @@ function* signUpFacebook() {
 
     if (err) {
       yield put(authActions.signupFailed(err));
-      yield put(errorActions.setError(err));
+      yield put(errorActions.setError());
       return;
     }
     yield put(authActions.signupSuccess(data));
@@ -323,7 +322,7 @@ function* signUpFacebook() {
     yield put(uiActions.setUiState({ signupStep: 4, signup: { name: displayName } }));
   } catch (err) {
     yield put(authActions.signupFailed(err.message));
-    yield put(errorActions.setError(err.message));
+    yield put(errorActions.setError());
   }
 }
 
