@@ -17,6 +17,7 @@ import { Dimens } from 'variables';
 import { searchActions } from 'redux/modules/search';
 
 import connect from '../connect';
+import { checkAuthState } from '../AuthRequired';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
@@ -86,6 +87,11 @@ class HomeContainer extends Component<PropTypes, State> {
   };
 
   render() {
+    const auth = checkAuthState(this.props);
+    if (auth) {
+      return auth;
+    }
+
     const { spaces, isMore } = this.props;
 
     // TODO: サンプルデータ。実装後削除するようお願いいたします。
