@@ -22,17 +22,18 @@ class ServiceMenuContainer extends Component<PropTypes> {
 
     return (
       <ServiceMenu
-        message={{ href: Path.messages(), notificationCount: 0 }}
-        schedule={{ href: Path.schedule(user.ID), notificationCount: 0 }}
-        spaces={{ href: Path.spaces(user.ID) }}
-        addSpace={{ href: Path.createSpaceInfo() }}
-        sales={{ href: Path.sales() }}
-        paymentHistory={{ href: Path.paid(user.ID) }}
-        editProfile={{ href: Path.editProfile(user.ID) }}
+        home={{ to: Path.home() }}
+        message={{ to: Path.messages(), notificationCount: 0 }}
+        schedule={{ to: Path.schedule(user.ID), notificationCount: 0 }}
+        spaces={{ to: Path.spaces(user.ID) }}
+        addSpace={{ to: Path.createSpaceInfo() }}
+        sales={{ to: Path.sales() }}
+        paymentHistory={{ to: Path.paid(user.ID) }}
+        editProfile={{ to: Path.editProfile(user.ID) }}
         help={{ href: 'https://help.monooq.com/' }}
-        inquiry={{ href: Path.inquiry(user.ID) }}
-        howToUse={{ href: Path.howToUse() }}
-        other={{ href: Path.other() }}
+        inquiry={{ to: Path.inquiry(user.ID) }}
+        howToUse={{ to: Path.howToUse() }}
+        other={{ to: Path.other() }}
         hasSpace
       />
     );

@@ -14,12 +14,12 @@ type MenuItemProps = {
 };
 
 type PropTypes = {
+  home: MenuItemProps,
   message: MenuItemProps,
   schedule: MenuItemProps,
   spaces: MenuItemProps,
   addSpace: MenuItemProps,
-  salesTransfer: MenuItemProps,
-  paymentHistory: MenuItemProps,
+  sales: MenuItemProps,
   editProfile: MenuItemProps,
   help: MenuItemProps,
   inquiry: MenuItemProps,
@@ -30,7 +30,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Container>
-    <MenuItem title="ホーム" {...props.message} />
+    <MenuItem title="ホーム" {...props.home} />
     <MenuItem title="メッセージ" {...props.message} />
     <MenuItem title="利用状況" {...props.schedule} />
     {props.hasSpace && <MenuItem title="スペースの登録" {...props.addSpace} line />}

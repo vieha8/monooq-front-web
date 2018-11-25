@@ -51,13 +51,13 @@ export default (props: PropTypes) =>
     </MenuItem>
   ) : (
     <MenuItem show {...props}>
-      <HyperLink href={props.href || ''} onClick={props.onClick}>
+      <MenuLink to={props.to}>
         <MenuText>
           <InlineText.Small>{props.title}</InlineText.Small>
         </MenuText>
         <NotificationWrapper>
           <NotificationCount count={props.notificationCount} />
         </NotificationWrapper>
-      </HyperLink>
+      </MenuLink>
     </MenuItem>
   );
