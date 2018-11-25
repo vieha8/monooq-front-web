@@ -2,6 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import { push } from 'connected-react-router';
+import ReactGA from 'react-ga';
 import { apiEndpoint } from './api';
 import { authActions } from './auth';
 import { store } from '../store/configureStore';
@@ -301,6 +302,11 @@ function* conciergeRequest({ payload: { userId, body } }) {
   };
 
   yield call(postApiRequest, apiEndpoint.sendMail(), mail);
+
+  ReactGA.event({
+    category: 'Requests',
+    action: 'Concierge Request',
+  });
 }
 
 export const requestSagas = [

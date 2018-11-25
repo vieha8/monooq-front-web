@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import Path from 'config/path';
-import { Redirect } from 'react-router-dom';
 
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
@@ -42,26 +41,22 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { editedSpace, history, dispatch } = this.props;
-
-    if (!editedSpace.Title) {
-      return <Redirect to={Path.createSpaceInfo()} />;
-    }
+    const { space, history, dispatch, isEdit } = this.props;
 
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={`${editedSpace.Host.ID === 0 ? '登録' : '編集'}が完了しました`}
+        headline={`${!isEdit ? '登録' : '編集'}が完了しました`}
         caption="お客様とはメッセージ機能にてやりとりしていただき、ご成約までお進みください。"
         leftContent={
           <EditSpaceCompletion
-            edit={editedSpace.Host.ID}
+            edit={isEdit}
             space={{
-              userId: (editedSpace || {}).UserID,
+              userId: space.UserID,
             }}
             onClickViewSpace={() => {
               dispatch(spaceActions.clearSpace());
-              history.push(Path.space(editedSpace.ID));
+              history.push(Path.space(space.ID));
             }}
             onClickBackTop={() => {
               dispatch(spaceActions.clearSpace());
@@ -81,7 +76,8 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
 
 const mapStateToProps = state =>
   mergeAuthProps(state, {
-    editedSpace: state.space.created || state.space.space || {},
+    space: state.space.created || state.space.space || {},
+    isEdit: !state.space.created,
   });
 
 export default connect(

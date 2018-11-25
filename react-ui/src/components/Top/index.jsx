@@ -118,6 +118,8 @@ const MovieContainer = styled(DefaultContainer)`
   display: flex;
   ${media.phone`
     flex-direction: column;
+    padding-top: 30px;
+    padding-bottom: 30px;
   `};
 `;
 
