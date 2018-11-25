@@ -36,6 +36,10 @@ const SectionHeader = styled.div`
 
 const ImageWrapper = styled.div``;
 
+const MapWrapper = styled.div`
+  margin-top: ${Dimens.medium}px;
+`;
+
 const SpaceTitleWrapper = styled.div`
   padding: 0 ${Dimens.xsmall}px ${Dimens.medium}px;
 `;
@@ -84,7 +88,6 @@ type PropTypes = {
   pricequarter: Number,
 };
 
-// export default ({ props, map }: PropTypes) => (
 export default (props: PropTypes) => (
   <Container>
     <ImageWrapper>
@@ -103,7 +106,10 @@ export default (props: PropTypes) => (
     <HostInfo {...props.user} hostinfo />
     <Description content={props.description} />
     <SectionHeader>スペースについて</SectionHeader>
-    {/* {map} */}
+    <MapWrapper>
+      <InlineText.Tiny>所在地</InlineText.Tiny>
+      {props.map}
+    </MapWrapper>
     <div>
       <Address content={props.address} />
       <Type content={props.type} />
