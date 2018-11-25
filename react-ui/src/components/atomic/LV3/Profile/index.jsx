@@ -29,6 +29,11 @@ const ResidenceText = styled.div`
   color: ${Colors.black};
 `;
 
+const LastLoginText = styled.div`
+  margin-top: ${Dimens.small}px;
+  color: ${Colors.black};
+`;
+
 const Profile = styled.div`
   margin-top: ${Dimens.medium2}px;
   color: ${Colors.black};
@@ -55,6 +60,7 @@ type PropTypes = {
   name: string,
   prefCode: string,
   profile: string,
+  lastLogin: Date,
   spaces: SpaceListProps,
 };
 
@@ -64,11 +70,20 @@ export default (props: PropTypes) => (
       <User>
         <AvatarImage src={props.image} alt={props.name} size={IMAGE_SIZE} />
         <HostName>
-          <InlineText.Base fontSize={FontSizes.medium2}>{props.name} さん</InlineText.Base>
+          <InlineText.Base fontSize={FontSizes.medium2}>{`${props.name}さん`}</InlineText.Base>
         </HostName>
         <ResidenceText>
-          <InlineText.Small>{getPrefecture(props.prefCode)} 在住</InlineText.Small>
+          <InlineText.Small>
+            {getPrefecture(props.prefCode)}
+            在住
+          </InlineText.Small>
         </ResidenceText>
+        <LastLoginText>
+          <InlineText.Small>
+            最終ログイン日:
+            {props.lastLogin}
+          </InlineText.Small>
+        </LastLoginText>
         <Profile>
           <InlineText.Base>{props.profile}</InlineText.Base>
         </Profile>

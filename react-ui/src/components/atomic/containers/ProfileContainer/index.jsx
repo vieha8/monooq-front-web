@@ -2,17 +2,14 @@
 
 import React, { Component } from 'react';
 import numeral from 'numeral';
-
 import ProfileTemplate from 'components/atomic/templates/ProfileTemplate';
 import Profile from 'components/atomic/LV3/Profile';
 import Header from 'components/atomic/containers/Header';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import { Colors } from 'variables';
-
 import { userActions } from 'redux/modules/user';
-
 import type { SpaceType } from 'types/Space';
-
+import { formatDate } from 'helpers/date';
 import connect from '../connect';
 
 type PropTypes = {
@@ -82,6 +79,7 @@ class ProfileContainer extends Component<PropTypes> {
             name={user.Name}
             prefCode={user.PrefCode}
             profile={user.Profile}
+            lastLogin={formatDate(new Date(user.LastLogin), 'yyyy/MM/dd')}
             spaces={(spaces || []).map((space: SpaceType) => ({
               id: space.ID,
               image: (space.Images[0] || {}).ImageUrl,
