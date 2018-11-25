@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import BurgerMenu from 'react-burger-menu';
 import TextLink from 'components/atomic/LV1/TextLink';
-import Button from 'components/atomic/LV1/Button';
 import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
 import { OtherIcon } from 'components/atomic/LV1/ActionIcon';
 import { Dimens, Colors } from 'variables';
