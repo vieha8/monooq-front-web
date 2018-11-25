@@ -17,7 +17,7 @@ import { Dimens } from 'variables';
 import { searchActions } from 'redux/modules/search';
 
 import connect from '../connect';
-import { checkAuthState } from '../AuthRequired';
+import { checkAuthState, mergeAuthProps } from '../AuthRequired';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
@@ -178,11 +178,12 @@ class HomeContainer extends Component<PropTypes, State> {
   }
 }
 
-const mapStateToProps = state => ({
-  spaces: state.search.spaces,
-  isSearching: state.search.isLoading,
-  isMore: state.search.isMore,
-});
+const mapStateToProps = state =>
+  mergeAuthProps(state, {
+    spaces: state.search.spaces,
+    isSearching: state.search.isLoading,
+    isMore: state.search.isMore,
+  });
 
 export default connect(
   HomeContainer,
