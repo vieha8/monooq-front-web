@@ -41,7 +41,8 @@ class HeaderContainer extends Component<PropTypes> {
         top={top}
         help={help}
         isCheckingLogin={isChecking}
-        homeUri={Path.top()}
+        topUri={Path.top()}
+        homeUri={Path.home()}
         editProfileUri={Path.editProfile()}
         searchUri={Path.search()}
         searchConditionUri={Path.searchCondition()}

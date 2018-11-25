@@ -160,7 +160,7 @@ export default (props: PropTypes) => {
   return (
     <Container top={props.top} help={props.help} storys={props.storys}>
       <Nav>
-        <LogoWrapper to={props.homeUri}>
+        <LogoWrapper to={props.topUri}>
           {props.top || props.help ? <Logo.HeaderWhiteFill /> : <Logo.HeaderFill />}
         </LogoWrapper>
         {!props.isCheckingLogin && (
@@ -184,9 +184,9 @@ export default (props: PropTypes) => {
                     <AvatarIcon imageSrc={props.user.image} href={props.editProfileUri} />
                   </ActionCell>
                   <ActionCell>
-                    <a href={props.editProfileUri}>
+                    <Link to={props.homeUri}>
                       <AvaterName>{props.user.name}</AvaterName>
-                    </a>
+                    </Link>
                   </ActionCell>
                 </OnlyPC>
               </ActionContainer>
