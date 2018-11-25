@@ -80,8 +80,9 @@ class ProfileContainer extends Component<PropTypes> {
 
     if (this.validate()) {
       const { dispatch } = this.props;
-      this.state.isHost = this.state.purpose === '2';
-      dispatch(userActions.updateUser({ userId: user.ID, body: this.state }));
+      const body = this.state;
+      body.isHost = this.state.purpose === '2';
+      dispatch(userActions.updateUser({ userId: user.ID, body }));
       return;
     }
 
