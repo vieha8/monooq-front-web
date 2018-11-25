@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
 
@@ -9,13 +9,15 @@ const Content = styled.div`
 `;
 
 type PropTypes = {
+  meta: React.Element<*>,
   header: React.Element<*>,
   profile: React.Element<*>,
 };
 
-export default (props: PropTypes) => (
-  <div>
-    {props.header}
-    <Content>{props.profile}</Content>
-  </div>
+export default ({ meta, header, profile }: PropTypes) => (
+  <Fragment>
+    {meta}
+    {header}
+    <Content>{profile}</Content>
+  </Fragment>
 );

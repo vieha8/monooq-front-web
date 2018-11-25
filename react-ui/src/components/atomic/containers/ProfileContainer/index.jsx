@@ -11,6 +11,7 @@ import { userActions } from 'redux/modules/user';
 import type { SpaceType } from 'types/Space';
 import { formatDate } from 'helpers/date';
 import connect from '../connect';
+import Meta from 'components/Meta';
 
 type PropTypes = {
   match: {
@@ -73,6 +74,13 @@ class ProfileContainer extends Component<PropTypes> {
     return (
       <ProfileTemplate
         header={<Header />}
+        meta={
+          <Meta
+            title={`${user.Name}さんのプロフィール | モノオク`}
+            ogUrl={`user/${user.ID}`}
+            ogImageUrl={user.ImageUrl}
+          />
+        }
         profile={
           <Profile
             image={user.ImageUrl}
