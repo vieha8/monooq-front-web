@@ -48,6 +48,7 @@ class ProfileContainer extends Component<PropTypes> {
       prefCode: user.PrefCode,
       profile: user.Profile,
       phoneNumber: user.PhoneNumber,
+      purpose: user.IsHost ? 2 : 1,
     };
   }
 
@@ -65,6 +66,7 @@ class ProfileContainer extends Component<PropTypes> {
         prefCode: user.PrefCode,
         profile: user.Profile,
         phoneNumber: user.PhoneNumber,
+        purpose: user.IsHost ? 2 : 1,
       });
     }
   }
@@ -78,6 +80,7 @@ class ProfileContainer extends Component<PropTypes> {
 
     if (this.validate()) {
       const { dispatch } = this.props;
+      this.state.isHost = this.state.purpose === '2';
       dispatch(userActions.updateUser({ userId: user.ID, body: this.state }));
       return;
     }
@@ -138,12 +141,12 @@ class ProfileContainer extends Component<PropTypes> {
       return <LoadingPage />;
     }
 
-    const { imageUri, name, email, prefCode, profile, phoneNumber } = this.state;
+    const { imageUri, name, email, prefCode, profile, phoneNumber, purpose } = this.state;
 
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={updateSuccess ? 'プロフィールの変更が完了しました' : 'プロフィールの変更・編集'}
+        headline={updateSuccess ? 'プロフィール編集が完了しました' : 'プロフィール編集'}
         leftContent={
           updateSuccess ? (
             <EditProfileCompleted userId={user.ID} />
@@ -155,6 +158,7 @@ class ProfileContainer extends Component<PropTypes> {
               prefCode={prefCode}
               profile={profile}
               phoneNumber={phoneNumber}
+              purpose={purpose}
               onChangeImage={value => this.handleChangeUI('imageUri', value)}
               onChangeName={value => this.handleChangeUI('name', value)}
               onChangeEmail={value => this.handleChangeUI('email', value)}

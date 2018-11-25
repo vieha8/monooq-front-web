@@ -30,6 +30,6 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Content>
-    <ToProfileLink to={Path.profile(props.userId)}>自分のページを見る</ToProfileLink>
+    <ToProfileLink to={Path.profile(props.userId)}>プロフィールページを確認する</ToProfileLink>
   </Content>
 );
