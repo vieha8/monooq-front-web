@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery } from 'redux-saga/effects';
 import firebase from 'firebase/app';
-import { push, replace } from 'connected-react-router';
+import { replace } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import { apiEndpoint } from './api';

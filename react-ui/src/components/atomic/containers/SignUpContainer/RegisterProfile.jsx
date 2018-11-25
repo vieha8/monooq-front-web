@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import { userActions } from 'redux/modules/user';
-import { uiActions } from 'redux/modules/ui';
 import RegisterProfile from 'components/atomic/LV3/RegisterProfile';
 
 type PropTypes = {
