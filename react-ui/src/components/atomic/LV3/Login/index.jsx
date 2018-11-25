@@ -54,7 +54,7 @@ export default (props: PropTypes) => (
         color={Colors.brandPrimary}
         underline="true"
       >
-        パスワード忘れた方はこちら
+        パスワードを忘れた方はこちら
       </TextLink>
     }
     login={
