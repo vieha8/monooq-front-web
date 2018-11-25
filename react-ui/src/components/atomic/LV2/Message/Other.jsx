@@ -18,16 +18,10 @@ const CardWrapper = styled.div`
   margin-left: 47px;
 `;
 
-const DateWrapper = styled.div`
-  text-align: right;
-  margin-top: 8px;
-`;
-
 type PropTypes = {
   id: number,
   image: string,
   message: string,
-  receivedAt: string,
   extension: React.Element<*>,
 };
 

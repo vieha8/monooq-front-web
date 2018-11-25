@@ -1,8 +1,6 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import InlineText from 'components/atomic/LV1/InlineText';
-import { Colors } from 'variables';
 import Schedule from './Schedule';
 
 type PropTypes = {
@@ -25,8 +23,8 @@ type PropTypes = {
   roomId: string,
 };
 
-export default (props: PropTypes) => (
+export default ({ schedule }: PropTypes) => (
   <Fragment>
-    <Schedule {...props.schedule} />
+    <Schedule {...schedule} />
   </Fragment>
 );

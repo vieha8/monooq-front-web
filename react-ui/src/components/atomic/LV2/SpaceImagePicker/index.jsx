@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
-import { Colors, FontSizes, Dimens } from 'variables';
+import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { H3 } from 'components/atomic/LV1/Headline';
 import InlineText from 'components/atomic/LV1/InlineText';
@@ -19,12 +19,6 @@ const DragText = styled.div`
   ${media.phone`
     display: none;
   `};
-`;
-
-const Icon = styled.i`
-  display: inline-block;
-  font-size: ${FontSizes.large}px;
-  color: ${Colors.lightGray1};
 `;
 
 const DndContent = styled.div`

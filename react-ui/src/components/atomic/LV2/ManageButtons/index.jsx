@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import Button from 'components/atomic/LV1/Button';
 import { PrimaryButton } from 'components/atomic/LV1/Button/Primary';
 import { Colors } from 'variables';
-import ConfirmBtnModal from 'components/atomic/LV2/ConfirmBtnModal';
 import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`

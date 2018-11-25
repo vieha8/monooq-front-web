@@ -3,9 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PriceHead from 'components/atomic/LV2/Space/PriceHead';
-import Price from 'components/atomic/LV2/Space/Price';
 import { Colors, Dimens } from 'variables';
-import { media } from 'helpers/style/media-query';
 
 import InputPriceOfType from 'components/atomic/LV2/InputPriceOfType';
 import imageFurnitureFull from 'images/furniture-full.svg';

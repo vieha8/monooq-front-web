@@ -7,7 +7,6 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import { H2 } from 'components/atomic/LV1/Headline';
 import TextLink from 'components/atomic/LV1/TextLink';
 import InputField from 'components/atomic/LV1/InputField';
-import InputForm from 'components/atomic/LV2/InputForm';
 import { Colors, FontSizes } from 'variables';
 import Form from './Form';
 

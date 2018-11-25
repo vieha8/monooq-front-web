@@ -221,23 +221,8 @@ class InboxContainer extends Component<PropTypes, State> {
 
     const isHost = room.space.Host.ID === user.ID;
     const otherUserId = room.userId1 === user.ID ? room.userId2 : room.userId1;
-    let roomTitle = `${room.space.Host.Name}さんと相談しましょう`;
-    if (isHost) {
-      roomTitle = `${room.user.Name}さんと相談しましょう`;
-    }
-
-    // const firstMessage = {
-    //   admin: {
-    //     message: `スペース「${room.space.Title}」の利用について、${roomTitle}! \n`,
-    //     link: {
-    //       text: 'スペース詳細をみる',
-    //       url: `/space/${room.space.ID}`,
-    //     },
-    //   },
-    // };
 
     const messageList = this.createMessageList();
-    // messageList.unshift(firstMessage);
 
     let lastReadDt = new Date(1990, 0, 1, 0, 0);
     if (room[`user${otherUserId}LastReadDt`]) {
@@ -255,10 +240,6 @@ class InboxContainer extends Component<PropTypes, State> {
             message
           />
           <Row to={Path.space(room.space.ID)}>
-            {/* <div>{JSON.stringify(room.space)}</div> */}
-            {/* <div>{JSON.stringify(room.space.Address)}</div> */}
-            {/* <div>{JSON.stringify(room.space.Title)}</div> */}
-            {/* <div>{JSON.stringify(room.space.Images[0].ImageUrl)}</div> */}
             <ImageWrapper>
               <HeroImage small src={room.space.Images[0].ImageUrl} />
             </ImageWrapper>

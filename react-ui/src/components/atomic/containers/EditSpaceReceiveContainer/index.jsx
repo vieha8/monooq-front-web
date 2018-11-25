@@ -126,7 +126,6 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space } = this.props;
     const { ReceiptType, ReceiptAbout, error } = this.state;
 
     return (

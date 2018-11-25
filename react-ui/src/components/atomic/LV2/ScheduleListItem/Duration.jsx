@@ -5,7 +5,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { Colors, FontSizes, Dimens } from 'variables';
+import { FontSizes, Dimens } from 'variables';
 
 const Container = styled.div`
   display: table;
@@ -33,14 +33,6 @@ const ScheduleContainer = styled.div`
 
 const Label = styled.div`
   display: block;
-`;
-
-const Arrow = styled.span`
-  display: table-cell;
-  vertical-align: middle;
-  color: ${Colors.lightGray1};
-  font-size: ${FontSizes.medium2}px;
-  padding: 0 ${Dimens.small}px;
 `;
 
 const DateText = styled.span`

@@ -122,7 +122,6 @@ class EditSpaceSizeContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space } = this.props;
     const { SizeType, error } = this.state;
 
     return (
