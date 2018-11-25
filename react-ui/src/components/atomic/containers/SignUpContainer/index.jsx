@@ -14,7 +14,7 @@ type PropTypes = {
   signupStep: number,
 };
 
-class SignupContainer extends Component<PropTypes> {
+class SignUpContainer extends Component<PropTypes> {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
@@ -34,22 +34,19 @@ class SignupContainer extends Component<PropTypes> {
 
   render() {
     const Form = this.getCurrentForm();
-
     return <AccountTemplate header={<Header />} form={<Form {...this.props} />} />;
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    signupStep: state.ui.signupStep || 0,
-    user: state.auth.user,
-    isRegisting: state.auth.isRegisting,
-    isLoading: state.user.isLoading,
-    isSignupFailed: state.auth.isSignupFailed,
-  };
-}
+const mapStateToProps = state => ({
+  signupStep: state.ui.signupStep || 0,
+  user: state.auth.user,
+  isRegisting: state.auth.isRegisting,
+  isLoading: state.user.isLoading,
+  isSignupFailed: state.auth.isSignupFailed,
+});
 
 export default connect(
-  SignupContainer,
+  SignUpContainer,
   mapStateToProps,
 );

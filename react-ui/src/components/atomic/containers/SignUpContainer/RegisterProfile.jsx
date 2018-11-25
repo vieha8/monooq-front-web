@@ -96,7 +96,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
         isHost={isHost}
         phoneNumber={phoneNumber}
         onClickSkip={() => {
-          history.push(Path.top());
+          history.push(Path.home());
         }}
         onClickRegisterProfile={this.onClickRegisterProfile}
         buttonDisabled={!this.validate()}
