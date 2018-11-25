@@ -74,10 +74,7 @@ export default (props: PropTypes) => (
         </InlineText.Base>
       </Cell>
       <Cell>
-        {/* TODO: 最新メッセージ取得&組み込み */}
-        <InlineText.Base>
-          ありがとうございます！それでは１４日（日曜日）午前中着、元払いで送らせていただきます。
-        </InlineText.Base>
+        <InlineText.Base>{props.lastMessage}</InlineText.Base>
       </Cell>
     </Link>
   </Container>

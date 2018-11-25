@@ -57,6 +57,7 @@ class InboxContainer extends Component<PropTypes> {
           image: (message.user || {}).ImageUrl,
           name: (message.user || {}).Name,
           receivedAt: message.lastMessageDt,
+          lastMessage: message.lastMessage,
         }))}
       />
     ) : (
