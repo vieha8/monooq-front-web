@@ -57,22 +57,22 @@ class SlideMenu extends Component {
         </OtherIconWrap>
       </LinkWrap>,
       <LinkWrap key="1" Separate>
-        <TextLink href={this.props.homeUri}>ホーム</TextLink>
+        <TextLink to={this.props.homeUri}>ホーム</TextLink>
       </LinkWrap>,
       <LinkWrap key="2">
-        <TextLink href={this.props.messageUri}>メッセージ</TextLink>
+        <TextLink to={this.props.messageUri}>メッセージ</TextLink>
       </LinkWrap>,
       <LinkWrap key="3">
-        <TextLink href={this.props.scheduleUri}>利用状況</TextLink>
+        <TextLink to={this.props.scheduleUri}>利用状況</TextLink>
       </LinkWrap>,
       <LinkWrap key="4" Separate>
-        <TextLink href={this.props.createSpaceInfoUri}>スペースの登録</TextLink>
+        <TextLink to={this.props.createSpaceInfoUri}>スペースの登録</TextLink>
       </LinkWrap>,
       <LinkWrap key="5">
-        <TextLink href={this.props.spacesUri}>スペースの管理</TextLink>
+        <TextLink to={this.props.spacesUri}>スペースの管理</TextLink>
       </LinkWrap>,
       <LinkWrap key="6">
-        <TextLink href={this.props.salesUri}>売り上げ・振込申請</TextLink>
+        <TextLink to={this.props.salesUri}>売り上げ・振込申請</TextLink>
       </LinkWrap>,
       <LinkWrap key="7" Separate>
         <TextLink href={this.props.helpUri} target="_blank">
@@ -80,13 +80,13 @@ class SlideMenu extends Component {
         </TextLink>
       </LinkWrap>,
       <LinkWrap key="8">
-        <TextLink href={this.props.inquiryUri}>お問い合わせ</TextLink>
+        <TextLink to={this.props.inquiryUri}>お問い合わせ</TextLink>
       </LinkWrap>,
       <LinkWrap key="9">
-        <TextLink href={this.props.howToUseUri}>モノオクの使い方</TextLink>
+        <TextLink to={this.props.howToUseUri}>モノオクの使い方</TextLink>
       </LinkWrap>,
       <LinkWrap key="10">
-        <TextLink href={this.props.otherUri}>その他</TextLink>
+        <TextLink to={this.props.otherUri}>その他</TextLink>
       </LinkWrap>,
       <LinkWrap key="11" Separate bottom>
         <Button primary link href={this.props.tidyUri} height={80}>

@@ -34,7 +34,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
         inquiry={{ to: Path.inquiry(user.ID) }}
         howToUse={{ to: Path.howToUse() }}
         other={{ to: Path.other() }}
-        hasSpace
+        hasSpace={user.IsHost}
       />
     );
   }
