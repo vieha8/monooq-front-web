@@ -46,10 +46,10 @@ class SlideMenu extends Component {
   getItems = () => {
     const items = [
       <LinkWrap key="0">
-        <AvatarIcon imageSrc={this.props.user.image} size={40} href={this.props.editProfileUri} />
-        <a href={this.props.editProfileUri}>
+        <AvatarIcon imageSrc={this.props.user.image} size={40} to={this.props.editProfileUri} />
+        <TextLink href={this.props.editProfileUri}>
           <AvaterName>{this.props.user.name}</AvaterName>
-        </a>
+        </TextLink>
         <OtherIconWrap>
           <TextLink href={this.props.editProfileUri}>
             <OtherIcon />

@@ -181,7 +181,7 @@ export default (props: PropTypes) => {
                 </OnlyPhone>
                 <OnlyPC>
                   <ActionCell>
-                    <AvatarIcon imageSrc={props.user.image} href={props.editProfileUri} />
+                    <AvatarIcon imageSrc={props.user.image} to={props.homeUri} />
                   </ActionCell>
                   <ActionCell>
                     <Link to={props.homeUri}>
