@@ -88,11 +88,6 @@ class SlideMenu extends Component {
       <LinkWrap key="10">
         <TextLink to={this.props.otherUri}>その他</TextLink>
       </LinkWrap>,
-      <LinkWrap key="11" Separate bottom>
-        <Button primary link href={this.props.tidyUri} height={80}>
-          Tidy
-        </Button>
-      </LinkWrap>,
     ];
     return items;
   };
