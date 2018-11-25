@@ -99,8 +99,8 @@ export default (props: PropTypes) => (
       </AddressText>
       <ContentText>{props.name ? props.name : ''}</ContentText>
       <PriceText>
-        {/* {props.prices.join('/')} */}
-        5,000円〜
+        {props.pricequarter ? props.pricequarter : props.pricefull}
+        円〜
       </PriceText>
     </SpaceTitleWrapper>
     <HostInfo {...props.user} hostinfo />
