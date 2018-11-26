@@ -31,4 +31,15 @@ storiesOf('Molecules(LV2)/IconInputField', module)
         <IconInputField iconClassName="fal fa-unlock-alt" type="password" />
       </div>
     )),
+  )
+  .add(
+    'Password icon right',
+    withInfo(`
+      ### コンポーネント概要
+      入力欄(パスワード)(アイコン右)
+    `)(() => (
+      <div style={{ width: '100%', maxWidth: '800px', padding: `${Dimens.storyBookPadding}` }}>
+        <IconInputField iconClassName="fal fa-eye-slash" type="password" right />
+      </div>
+    )),
   );

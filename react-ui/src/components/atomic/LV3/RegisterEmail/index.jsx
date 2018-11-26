@@ -6,15 +6,17 @@ import Button from 'components/atomic/LV1/Button';
 import InlineText from 'components/atomic/LV1/InlineText';
 import { H1 } from 'components/atomic/LV1/Headline';
 import TextLink from 'components/atomic/LV1/TextLink';
+import IconInputField from 'components/atomic/LV2/IconInputField';
 import InputField from 'components/atomic/LV1/InputField';
-import InputForm from 'components/atomic/LV2/InputForm';
 import { Colors, FontSizes } from 'variables';
 import Form from './Form';
 
 type PropTypes = {
+  onClickIconPassword: Function,
   onClickNext: Function,
   onClickFacebook: Function,
   onChangeEmail: Function,
+  onChangePassword: Function,
   email: string,
   emailError: Array<string>,
   password: string,
@@ -22,6 +24,7 @@ type PropTypes = {
   buttonDisabled: boolean,
   isRegisterChecking: boolean,
   signUpError: boolean,
+  ispasswordVisible: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -40,12 +43,14 @@ export default (props: PropTypes) => (
       </InlineText.Small>
     ))}
     pass={
-      <InputForm
-        type="password"
-        hintbottom="8文字以上の半角英数字で入力してください"
+      <IconInputField
+        right
+        iconClassName={props.ispasswordVisible ? 'fal fa-eye-slash' : 'fal fa-eye'}
+        type={props.ispasswordVisible ? 'password' : 'text'}
         placeholder="パスワード"
         value={props.password}
         onChange={e => props.onChangePassword(e.target.value)}
+        clickIcon={props.onClickIconPassword}
       />
     }
     passError={props.passError.map((text, i) => (

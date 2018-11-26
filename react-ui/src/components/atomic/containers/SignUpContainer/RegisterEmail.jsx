@@ -15,6 +15,7 @@ type PropTypes = {
 type State = {
   email: string,
   password: string,
+  isUnVisiblePW: boolean,
   hasChanged: boolean,
   errors: {
     email?: Array<string>,
@@ -36,6 +37,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     this.state = {
       email: '',
       password: '',
+      isUnVisiblePW: true,
       hasChanged: false,
       errors: {},
     };
@@ -83,6 +85,16 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     this.setState(state);
   };
 
+  onClickIconPassword = () => {
+    const { isUnVisiblePW } = this.state;
+    if (isUnVisiblePW) {
+      this.setState({ isUnVisiblePW: !isUnVisiblePW });
+    }
+    if (!isUnVisiblePW) {
+      this.setState({ isUnVisiblePW: !isUnVisiblePW });
+    }
+  };
+
   validate = () => {
     const { email, password } = this.state;
     return (
@@ -92,7 +104,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
 
   render() {
     const { isRegisting, isSignupFailed, history } = this.props;
-    const { email, password, hasChanged, errors } = this.state;
+    const { email, password, isUnVisiblePW, hasChanged, errors } = this.state;
     return (
       <RegisterEmail
         onClickNext={this.onClickNext}
@@ -103,6 +115,8 @@ export default class RegisterContainer extends Component<PropTypes, State> {
         emailError={(!hasChanged && errors.email) || []}
         password={password}
         passError={(!hasChanged && errors.password) || []}
+        ispasswordVisible={isUnVisiblePW}
+        onClickIconPassword={this.onClickIconPassword}
         isRegisterChecking={isRegisting}
         signUpError={isSignupFailed}
         onClickLogin={() => history.push(Path.login())}
