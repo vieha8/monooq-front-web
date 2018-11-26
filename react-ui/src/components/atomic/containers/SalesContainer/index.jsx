@@ -11,9 +11,12 @@ import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import InputForm from 'components/atomic/LV2/InputForm';
+import Confirm from 'components/atomic/LV2/InputForm/confirm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
 import SalesAmountItem from 'components/atomic/LV2/SalesAmountItem';
 import Button from 'components/atomic/LV1/Button';
+import EntryButtons from 'components/atomic/LV2/EntryButtons';
+import InlineText from 'components/atomic/LV1/InlineText';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 import { selectDepositType } from 'helpers/prefectures';
@@ -26,7 +29,11 @@ const InputText = styled.div`
 `;
 
 const SubmitButton = styled.div`
-  margin-top: ${Dimens.medium2}px;
+  max-width: 240px;
+  margin: ${Dimens.medium2}px auto 0;
+  ${media.phone`
+    max-width: 100%;
+  `};
 `;
 
 const SalesAmountItemWrap = styled.div`
@@ -67,6 +74,46 @@ const ButtonWrap = styled.div`
   `};
 `;
 
+const ConfirmSalesWrap = styled.div`
+  padding: ${Dimens.medium2}px 15px 0;
+  ${props =>
+    props.singleline &&
+    `
+    float: left;
+    width: 50%;
+  `};
+  ${props =>
+    props.clearfix &&
+    `
+    clear: both;
+  `};
+  ${props =>
+    props.bottom &&
+    `
+    padding-bottom: ${Dimens.medium3}px;
+  `};
+  ${media.phone`
+    padding: ${Dimens.medium2}px 0px 0;
+  `};
+`;
+
+const CautionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: ${Dimens.medium1}px ${Dimens.small}px;
+  text-align: left;
+  ${media.phone`
+    padding: ${Dimens.medium1}px 0;
+  `};
+`;
+
+const CautionText = styled(InlineText.Base)`
+  width: 100%;
+  font-size: ${FontSizes.small_12}px;
+  margin-bottom: ${Dimens.xsmall}px;
+`;
+
 class SalesContainer extends Component {
   constructor(props) {
     super(props);
@@ -95,6 +142,14 @@ class SalesContainer extends Component {
     this.setState(state);
   };
 
+  confirmButton = () => {
+    this.setState({ isConfirm: true });
+  };
+
+  backButton = () => {
+    this.setState({ isConfirm: false });
+  };
+
   submitButton = () => {
     const { user, dispatch, sales } = this.props;
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
@@ -113,7 +168,7 @@ class SalesContainer extends Component {
       }),
     );
     window.scrollTo(0, 0);
-    this.setState({ isSend: true });
+    this.setState({ isSend: true, isConfirm: false });
   };
 
   validate = () => {
@@ -138,11 +193,14 @@ class SalesContainer extends Component {
     this.payouts = sales.reduce((a, x) => (a += x.PriceMinusFee), 0);
     this.payouts = numeral(this.payouts).format('0,0');
 
+    this.price = sales.reduce((a, x) => (a += x.Price), 0);
+    this.price = numeral(this.price).format('0,0');
+
     if (this.payouts < 2400) {
       return (
         <Fragment>
           <SalesAmountItemWrap>
-            <SalesAmountItem amount={this.payouts} />
+            <SalesAmountItem title="現在の売上金" amount={this.payouts} />
           </SalesAmountItemWrap>
           <MsgWrap>
             振込申請は2,400円以上から可能です。
@@ -161,7 +219,7 @@ class SalesContainer extends Component {
     return (
       <Fragment>
         <SalesAmountItemWrap>
-          <SalesAmountItem amount={this.payouts} />
+          <SalesAmountItem title="現在の売上金" amount={this.payouts} bold />
         </SalesAmountItemWrap>
         <SalesAmountMsgWrap>振込先口座を指定してください。</SalesAmountMsgWrap>
         <InputText>
@@ -205,13 +263,63 @@ class SalesContainer extends Component {
           />
         </InputText>
         <SubmitButton>
-          <Button fill={1} primary onClick={this.submitButton} disabled={!this.validate()}>
+          <Button fill={1} primary onClick={this.confirmButton} disabled={!this.validate()}>
             確認画面へ
           </Button>
         </SubmitButton>
       </Fragment>
     );
   };
+
+  leftContentConfirm = () => (
+    <Fragment>
+      <ConfirmSalesWrap>
+        <Confirm label="金融機関" value={`${this.state.bankName} ${this.state.branchName}`} />
+      </ConfirmSalesWrap>
+      <ConfirmSalesWrap singleline>
+        <Confirm label="預金項目" value={this.state.accountType} />
+      </ConfirmSalesWrap>
+      <ConfirmSalesWrap singleline>
+        <Confirm label="口座番号" value={this.state.accountNumber} />
+      </ConfirmSalesWrap>
+      <ConfirmSalesWrap clearfix bottom>
+        <Confirm label="口座名義" value={this.state.accountName} />
+      </ConfirmSalesWrap>
+      <SalesAmountItemWrap>
+        <SalesAmountItem title="現在の売上金" amount={this.price} />
+      </SalesAmountItemWrap>
+      <SalesAmountItemWrap>
+        <SalesAmountItem title="サービス利用料" amount={this.payouts} />
+      </SalesAmountItemWrap>
+      <SalesAmountItemWrap>
+        <SalesAmountItem title="振込手数料" amount={this.payouts} />
+      </SalesAmountItemWrap>
+      <SalesAmountItemWrap>
+        <SalesAmountItem title="振込金額" amount={this.payouts} bold colorPrimary />
+      </SalesAmountItemWrap>
+      <CautionWrapper>
+        <CautionText>
+          ※振込金額が10,000円以上の場合、振込手数料が無料になります。10,000円以下の場合、260円振込手数料が売り上げから引かれます。ご了承ください。
+        </CautionText>
+        <CautionText>※振込完了まで5日から14日ほどかかります。ご了承ください。</CautionText>
+        <CautionText>
+          ※銀行口座の情報が間違っている場合、振込ができません。振込手数料を売り上げから引かせていただきます。入力内容をしっかりご確認ください。
+        </CautionText>
+      </CautionWrapper>
+      <EntryButtons
+        rerative
+        enabled
+        backButton={{
+          text: '戻る',
+          onClick: this.backButton,
+        }}
+        enabledButton={{
+          text: '申請する',
+          onClick: this.submitButton,
+        }}
+      />
+    </Fragment>
+  );
 
   leftContentComplete = () => {
     const { history } = this.props;
@@ -240,6 +348,19 @@ class SalesContainer extends Component {
 
     if (this.props.isLoading) {
       return <LoadingPage />;
+    }
+
+    if (this.state.isConfirm) {
+      return (
+        <div>
+          <MenuPageTemplate
+            header={<Header />}
+            headline="振込申請の確認"
+            leftContent={this.leftContentConfirm()}
+            rightContent={<ServiceMenu />}
+          />
+        </div>
+      );
     }
 
     if (this.state.isSend) {
