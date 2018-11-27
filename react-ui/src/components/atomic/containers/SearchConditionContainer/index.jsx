@@ -7,7 +7,6 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import SearchCondition from 'components/atomic/LV3/SearchCondition';
 import connect from '../connect';
-import { getPrefecture } from 'helpers/prefectures';
 
 type PropTypes = {
   history: {

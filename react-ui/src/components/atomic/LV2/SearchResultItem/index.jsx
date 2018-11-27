@@ -38,26 +38,23 @@ type PropTypes = {
   title: string,
   address: string,
   priceFull: number,
-  priceHalf: number,
   priceQuarter: number,
   onClick: Function,
 };
 
-export default (props: PropTypes) => (
-  <Container onClick={props.onClick}>
+export default ({ onClick, title, image, address, priceQuarter, priceFull }: PropTypes) => (
+  <Container onClick={onClick}>
     <Card noPadding noBorder customStyle={CardShadowStyle}>
-      <HeroImage src={props.image} alt={props.title} height={120} />
+      <HeroImage src={image} alt={title} height={120} />
       <Content>
         <Row>
           <InlineText.Base singleLine fontSize={14} color={Colors.brandPrimary} bold>
-            {props.address}
+            {address}
           </InlineText.Base>
         </Row>
         <Row>
           <InlineText.Base noWrap lineheight={1} bold>
-            {`${numeral(props.priceFull).format('0,0')}${
-              props.priceHalf > 0 ? `/ ${numeral(props.priceHalf).format('0,0')}` : ''
-            }${props.priceQuarter > 0 ? `/ ${numeral(props.priceQuarter).format('0,0')}` : ''}`}
+            {priceQuarter ? numeral(priceQuarter).format('0,0') : numeral(priceFull).format('0,0')}
             円から
           </InlineText.Base>
         </Row>

@@ -17,6 +17,7 @@ import Meta from 'components/Meta';
 import { Dimens } from 'variables';
 
 import { searchActions } from 'redux/modules/search';
+import { getPrefecture } from 'helpers/prefectures';
 
 import connect from '../connect';
 
@@ -58,9 +59,16 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
     const { location } = props;
     const query = parse(location.search);
+    const { keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture } = query;
 
     this.state = {
-      location: query.location,
+      keyword,
+      prefCode,
+      priceMin,
+      priceMax,
+      receiptType,
+      type,
+      isFurniture,
       limit: 12,
       offset: 0,
     };
@@ -75,14 +83,57 @@ class SearchResultContainer extends Component<PropTypes, State> {
     history.push(Path.space(space.ID));
   };
 
+  getCondition = () => {
+    const { keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture } = this.state;
+
+    let condition = '';
+
+    if (keyword !== '') {
+      condition += `${keyword}、`;
+    }
+
+    if (prefCode !== '0') {
+      condition += `${getPrefecture(parseInt(prefCode, 10))}、`;
+    }
+
+    if (type !== '0') {
+      // TODO
+    }
+
+    if (receiptType !== '0') {
+      // TODO
+    }
+
+    if (priceMin !== '') {
+      condition += `${priceMin}円以上、`;
+    }
+
+    if (priceMax !== '') {
+      condition += `${priceMax}円以下、`;
+    }
+
+    if (isFurniture === 'true') {
+      condition += `家具家電可、`;
+    }
+
+    condition = condition.slice(0, -1);
+
+    if (condition === '') {
+      condition = 'すべて';
+    }
+
+    return condition;
+  };
+
   renderNotFound = () => {
     const { history } = this.props;
-    const { location } = this.state;
+
+    const condition = this.getCondition();
 
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={`「${location}」の検索結果0件`}
+        headline={`「${condition}」のスペース検索結果 0件`}
         leftContent={
           <NoDataView
             captionHead="検索結果がありませんでした"
@@ -102,28 +153,51 @@ class SearchResultContainer extends Component<PropTypes, State> {
     if (isSearching) {
       return;
     }
-    const { location, limit, offset } = this.state;
-    dispatch(searchActions.doSearch({ location, limit, offset }));
+    const {
+      limit,
+      offset,
+      keyword,
+      prefCode,
+      priceMin,
+      priceMax,
+      receiptType,
+      type,
+      isFurniture,
+    } = this.state;
+
+    dispatch(
+      searchActions.doSearch({
+        limit,
+        offset,
+        keyword,
+        prefCode,
+        priceMin,
+        priceMax,
+        receiptType,
+        type,
+        isFurniture,
+      }),
+    );
     const newOffset = offset + limit;
     this.setState({ offset: newOffset });
   };
 
   render() {
     const { spaces, isMore } = this.props;
-    const { location } = this.state;
-
     if (spaces.length === 0 && !isMore) {
       return this.renderNotFound();
     }
 
+    const condition = this.getCondition();
+
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={`「${location}」の検索結果${spaces.length}件`}
+        headline={`「${condition}」のスペース検索結果${spaces.length}件`}
         leftContent={
           <Fragment>
             <SearchResultTemplate
-              meta={<Meta title={`${location}のスペース検索結果 | モノオク`} />}
+              meta={<Meta title={`${condition}のスペース検索結果 | モノオク`} />}
               searchResult={
                 <InfiniteScroll
                   pageStart={0}

@@ -5,6 +5,7 @@ import { apiEndpoint } from './api';
 import { getApiRequest } from '../helpers/api';
 import { errorActions } from './error';
 import { convertImgixUrl } from 'helpers/imgix';
+import { getPrefecture } from 'helpers/prefectures';
 
 // Actions
 const DO_SEARCH = 'DO_SEARCH';
@@ -39,11 +40,19 @@ export const searchReducer = handleActions(
 );
 
 // Sagas
-function* search({ payload: { location, limit, offset } }) {
+function* search({
+  payload: { limit, offset, keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture },
+}) {
   const { data, err } = yield call(getApiRequest, apiEndpoint.spaces(), {
-    location,
     limit,
     offset,
+    keyword,
+    pref: getPrefecture(prefCode),
+    priceMin: priceMin || 0,
+    priceMax: priceMax || 0,
+    receiptType,
+    type,
+    isFurniture,
   });
   if (err) {
     yield put(searchActions.failedSearch());
