@@ -96,7 +96,7 @@ class HomeContainer extends Component<PropTypes, State> {
 
     // TODO: サンプルデータ。実装後削除するようお願いいたします。
     const sampleData = {
-      ID: 269,
+      ID: 1,
       Title: 'aaa',
       Address: '東京都世田谷区南烏山1-15-15 ロイヤルフラッツ芦花101',
       AddressPref: '東京都',
@@ -109,7 +109,7 @@ class HomeContainer extends Component<PropTypes, State> {
       Images: [
         {
           ImageUrl:
-            'https://monooq-dev.imgix.net/img%2Fspaces%2F261%2F1542854642235.jpg?alt=media&token=72c645e0-2c74-4e37-88f9-e59d2a55330a&fit=crop&w=240&max-h=180&format=auto&fit=crop&w=240&max-h=180&format=auto&fit=crop&w=350&max-h=200&format=auto',
+            'https://monooq-dev.imgix.net/img%2Fspaces%2F1%2F1543319846556.jpg?alt=media&token=e075c2df-0795-4796-ae72-9cc123b4ef1d&fit=crop&w=540&max-h=300&format=auto',
         },
       ],
     };
