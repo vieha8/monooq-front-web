@@ -209,7 +209,7 @@ class SalesContainer extends Component {
           </MsgWrap>
           <ButtonWrap>
             <Button primary fontbold center onClick={() => history.push(Path.createSpaceInfo())}>
-              スペースを登録する。
+              スペースを登録する
             </Button>
           </ButtonWrap>
         </Fragment>
