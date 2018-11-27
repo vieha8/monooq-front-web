@@ -4,11 +4,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Logo from 'components/atomic/LV1/Logo';
-import SlideMenu from 'components/atomic/LV1/SlideMenu';
 import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
 import Anonymouse from 'components/atomic/LV2/HeaderAction/Anonymouse';
 import AnimateSearchInputField from 'components/atomic/LV2/AnimateSearchInputField';
 import ServiceMenu from 'components/atomic/LV3/ServiceMenu';
+import SlideMenu from 'components/atomic/LV3/SlideMenu';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, ZIndexes } from 'variables';
 
