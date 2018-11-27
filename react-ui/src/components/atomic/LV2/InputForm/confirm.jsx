@@ -18,9 +18,11 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Fragment>
-    <H3>{props.label}</H3>
+    <H3 bold>
+      <InlineText.Base fontSize={12}>{props.label}</InlineText.Base>
+    </H3>
     <Field>
-      <InlineText.Base fontSize={14}>{props.value}</InlineText.Base>
+      <InlineText.Base bold>{props.value}</InlineText.Base>
     </Field>
   </Fragment>
 );

@@ -6,7 +6,8 @@ import RegsiterProfileImage from 'components/atomic/LV1/DragAndDrop/RegisterProf
 import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
 import Button from 'components/atomic/LV1/Button';
-import { selectOptionPrefectures, selectOptionPurpose } from 'helpers/prefectures';
+import { selectOptionPrefectures } from 'helpers/prefectures';
+import { selectOptionPurpose } from 'helpers/purposes';
 
 const Row = styled.div`
   &:not(:first-child) {
