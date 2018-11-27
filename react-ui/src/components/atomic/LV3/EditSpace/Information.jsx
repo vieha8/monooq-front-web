@@ -65,11 +65,7 @@ export default (props: PropTypes) => (
           },
           {
             value: 1,
-            text: 'クローゼット',
-          },
-          {
-            value: 2,
-            text: '押入れ',
+            text: 'クローゼット・押入れ',
           },
           {
             value: 3,
