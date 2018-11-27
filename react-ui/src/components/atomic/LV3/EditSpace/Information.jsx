@@ -64,12 +64,12 @@ export default (props: PropTypes) => (
             text: '選択してください',
           },
           {
-            value: 1,
-            text: 'クローゼット・押入れ',
-          },
-          {
             value: 3,
             text: '部屋',
+          },
+          {
+            value: 1,
+            text: 'クローゼット・押入れ',
           },
           {
             value: 4,
