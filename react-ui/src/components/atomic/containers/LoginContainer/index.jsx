@@ -118,7 +118,7 @@ class LoginContainer extends Component {
       dispatch(uiActions.setUiState({ redirectPath: null }));
     }
 
-    return <Redirect to={ui.redirectPath || Path.top()} />;
+    return <Redirect to={ui.redirectPath || Path.home()} />;
   }
 }
 
