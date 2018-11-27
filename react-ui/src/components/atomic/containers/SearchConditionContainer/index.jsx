@@ -7,6 +7,7 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import SearchCondition from 'components/atomic/LV3/SearchCondition';
 import connect from '../connect';
+import { getPrefecture } from 'helpers/prefectures';
 
 type PropTypes = {
   history: {
@@ -41,9 +42,15 @@ class SearchConditionContainer extends Component<PropTypes> {
   onClickSearch = () => {
     const { history } = this.props;
     const { keyword, prefCode, priceMin, priceMax, type, isFurniture, receiptType } = this.state;
-    console.log(keyword, prefCode, priceMin, priceMax, type, isFurniture, receiptType);
-
-    history.push(Path.search());
+    const searchPath = Path.search();
+    let query = `?keyword=${keyword}`;
+    query += `&prefCode=${prefCode}`;
+    query += `&priceMin=${priceMin}`;
+    query += `&priceMax=${priceMax}`;
+    query += `&type=${type}`;
+    query += `&isFurniture=${isFurniture}`;
+    query += `&receiptType=${receiptType}`;
+    history.push(`${searchPath}${query}`);
   };
 
   handleChangeUI: Function;

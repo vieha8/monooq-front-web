@@ -47,34 +47,6 @@ const PriceWrapper = styled.div`
   `};
 `;
 
-const CategoryWrapper = styled.div`
-  margin-top: 5px;
-`;
-
-const CategoryButtonWrap = styled.div`
-  width: 30.7%;
-  display: inline-block;
-  margin: auto 0;
-  ${props =>
-    props.marginLR &&
-    `
-      margin: auto 3.9%;
-  `};
-  ${media.phone`
-      width: calc(50% - 7.5px);
-      ${props =>
-        props.left &&
-        `
-          margin: 0 7.5px 15px 0;
-      `};
-      ${props =>
-        props.marginLR &&
-        `
-          margin: 0 0 15px 7.5px;
-      `};
-  `};
-`;
-
 const ButtonWrap = styled.div`
   max-width: 240px;
   margin: auto;
