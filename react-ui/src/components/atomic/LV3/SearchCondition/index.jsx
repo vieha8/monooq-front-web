@@ -121,7 +121,7 @@ export default (props: PropTypes) => (
   <ContentsWrap>
     <Section>
       <InputForm
-        placeholder="キーワードで検索"
+        placeholder="地名やキーワードで絞り込み"
         value={props.keyword}
         onChange={e => props.onChangeKeyword(e.target.value)}
       />
@@ -140,60 +140,25 @@ export default (props: PropTypes) => (
       <H3 bold>料金で絞り込み</H3>
       <PriceWrapper>
         <InputField
-          placeholder="Min"
+          placeholder="最安"
           value={props.priceMin}
           onChange={e => props.onChangePriceMin(e.target.value)}
         />
       </PriceWrapper>
       <PriceWrapper caption>
-        <InlineText.Base>から</InlineText.Base>
+        <InlineText.Base>円から</InlineText.Base>
       </PriceWrapper>
       <PriceWrapper>
         <InputField
-          placeholder="Max"
+          placeholder="最高"
           value={props.priceMax}
           onChange={e => props.onChangePriceMax(e.target.value)}
         />
       </PriceWrapper>
+      <PriceWrapper caption>
+        <InlineText.Base>円まで</InlineText.Base>
+      </PriceWrapper>
       {displayErrors('price_errors', props.priceErrors)}
-    </Section>
-    <Section>
-      <H3 bold>カテゴリで絞り込み</H3>
-      <CategoryWrapper>
-        <CategoryButtonWrap left>
-          <Button
-            secondary
-            fontbold
-            borderbold
-            height={50}
-            // onClick={props.onClickSearch}
-          >
-            カテゴリ1
-          </Button>
-        </CategoryButtonWrap>
-        <CategoryButtonWrap marginLR>
-          <Button
-            secondary
-            fontbold
-            borderbold
-            height={50}
-            // onClick={props.onClickSearch}
-          >
-            カテゴリ2
-          </Button>
-        </CategoryButtonWrap>
-        <CategoryButtonWrap left>
-          <Button
-            secondary
-            fontbold
-            borderbold
-            height={50}
-            // onClick={props.onClickSearch}
-          >
-            カテゴリ3
-          </Button>
-        </CategoryButtonWrap>
-      </CategoryWrapper>
     </Section>
     <Section>
       <SelectForm
@@ -201,15 +166,11 @@ export default (props: PropTypes) => (
         options={[
           {
             value: 0,
-            text: '選択してください',
+            text: '指定なし',
           },
           {
             value: 1,
-            text: 'クローゼット',
-          },
-          {
-            value: 2,
-            text: '押入れ',
+            text: 'クローゼット・押入れ',
           },
           {
             value: 3,
@@ -241,11 +202,11 @@ export default (props: PropTypes) => (
     </Section>
     <Section>
       <SelectForm
-        label="受け取り方法"
+        label="受け取り方法で絞り込み"
         options={[
           {
             value: 0,
-            text: '選択してください',
+            text: '指定なし',
           },
           {
             value: 1,
@@ -253,11 +214,11 @@ export default (props: PropTypes) => (
           },
           {
             value: 2,
-            text: '対面',
+            text: '対面のみ',
           },
           {
             value: 3,
-            text: '配送',
+            text: '配送のみ',
           },
         ]}
         value={props.receive}

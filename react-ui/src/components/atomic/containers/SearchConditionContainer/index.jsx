@@ -37,13 +37,13 @@ class SearchConditionContainer extends Component<PropTypes> {
     dispatch(spaceActions.prepareUpdateSpace());
 
     this.state = {
-      Keyword: space.Keyword || '',
-      PrefCode: space.PrefCode || 0,
-      PriceMin: space.PriceMin || '',
-      PriceMax: space.PriceMax || '',
-      Type: space.Type || 0,
-      IsFurniture: space.IsFurniture || false,
-      ReceiptType: space.ReceiptType || 0,
+      keyword: space.Keyword || '',
+      prefCode: space.PrefCode || 0,
+      priceMin: space.PriceMin || '',
+      priceMax: space.PriceMax || '',
+      type: space.Type || 0,
+      isFurniture: space.IsFurniture || false,
+      receiptType: space.ReceiptType || 0,
       error: {},
     };
   }
@@ -53,79 +53,20 @@ class SearchConditionContainer extends Component<PropTypes> {
   }
 
   onClickSearch: Function;
+
   onClickSearch = () => {
-    this.validate(() => {
-      if (
-        (this.state.error.keyword || []).length === 0 &&
-        (this.state.error.prefCode || []).length === 0 &&
-        (this.state.error.price || []).length === 0 &&
-        (this.state.error.type || []).length === 0
-      ) {
-        const { dispatch, history, space } = this.props;
-        const { Keyword, PrefCode, Type } = this.state;
-
-        // dispatch(
-        //   uiActions.setUiState({
-        //     space: Object.assign(space, {
-        //       Title,
-        //       Type: parseInt(Type, 10),
-        //       Introduction,
-        //       Address,
-        //     }),
-        //   }),
-        // );
-
-        // const nextPath = space.ID ? Path.editSpaceBaggage(space.ID) : Path.createSpaceBaggage();
-        // history.push(nextPath);
-      }
-    });
+    console.log('A');
   };
 
   handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
-    const state = this.state;
-    const error = state.error;
+    const { state } = this;
+    const { error } = state;
     const errors = [];
-
     state[propName] = value;
     error[propName] = errors;
     this.setState({ ...state, error });
-  };
-
-  validate: Function;
-
-  validate = (valid: Function) => {
-    const { Keyword, PrefCode, PriceMin, PriceMax, Type, error } = this.state;
-
-    const keywordErrors = [];
-    if (Keyword.length === 0) {
-      keywordErrors.push(ErrorMessage.PleaseInput);
-    }
-    error.keyword = keywordErrors;
-
-    const prefCodeErrors = [];
-    if (`${PrefCode}` === '0') {
-      prefCodeErrors.push(ErrorMessage.PleaseSelect);
-    }
-    error.prefCode = prefCodeErrors;
-
-    const priceErrors = [];
-    if (PriceMin.length === 0) {
-      priceErrors.push(ErrorMessage.PleaseInput);
-    }
-    if (PriceMax.length === 0) {
-      priceErrors.push(ErrorMessage.PleaseInput);
-    }
-    error.price = priceErrors;
-
-    const typeErrors = [];
-    if (`${Type}` === '0') {
-      typeErrors.push(ErrorMessage.PleaseSelect);
-    }
-    error.type = typeErrors;
-
-    this.setState({ error }, valid);
   };
 
   render() {
