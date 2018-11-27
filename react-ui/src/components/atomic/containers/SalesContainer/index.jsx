@@ -19,7 +19,7 @@ import EntryButtons from 'components/atomic/LV2/EntryButtons';
 import InlineText from 'components/atomic/LV1/InlineText';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
-import { selectDepositType } from 'helpers/prefectures';
+import { selectDepositType } from 'helpers/deposittypes';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -200,10 +200,10 @@ class SalesContainer extends Component {
       return (
         <Fragment>
           <SalesAmountItemWrap>
-            <SalesAmountItem title="現在の売上金" amount={this.payouts} />
+            <SalesAmountItem title="現在の売上金" amount={this.price} />
           </SalesAmountItemWrap>
           <MsgWrap>
-            振込申請は2,400円以上から可能です。
+            振込申請は売上金3,000円以上から可能です。
             <br />
             モノオクでスペースを登録してスペースを活用しましょう！
           </MsgWrap>
