@@ -332,8 +332,8 @@ class SalesContainer extends Component {
           振込完了はメールにてお知らせいたします。しばらくお待ちください。
         </MsgWrap>
         <ButtonWrap>
-          <Button primary fontbold center onClick={() => history.push(Path.top())}>
-            トップへ
+          <Button primary fontbold center onClick={() => history.push(Path.home())}>
+            ホームへ
           </Button>
         </ButtonWrap>
       </Fragment>

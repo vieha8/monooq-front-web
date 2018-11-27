@@ -36,7 +36,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
   }
 
   render() {
-    const { edit, space, onClickViewSpace, onClickBackTop, onClickCreateSpace } = this.props;
+    const { edit, space, onClickViewSpace, onClickBackHome, onClickCreateSpace } = this.props;
     return (
       <Fragment>
         {space &&
@@ -49,8 +49,8 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
                   onClick: onClickCreateSpace,
                 }}
                 enabledButton={{
-                  text: `トップにもどる`,
-                  onClick: onClickBackTop,
+                  text: `ホームにもどる`,
+                  onClick: onClickBackHome,
                 }}
               />
             </Section>
@@ -63,8 +63,8 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
                   onClick: onClickViewSpace,
                 }}
                 enabledButton={{
-                  text: `トップにもどる`,
-                  onClick: onClickBackTop,
+                  text: `ホームにもどる`,
+                  onClick: onClickBackHome,
                 }}
               />
             </Section>

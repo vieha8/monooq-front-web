@@ -58,9 +58,9 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
               dispatch(spaceActions.clearSpace());
               history.push(Path.space(space.ID));
             }}
-            onClickBackTop={() => {
+            onClickBackHome={() => {
               dispatch(spaceActions.clearSpace());
-              history.push(Path.top());
+              history.push(Path.home());
             }}
             onClickCreateSpace={() => {
               dispatch(spaceActions.clearSpace());
