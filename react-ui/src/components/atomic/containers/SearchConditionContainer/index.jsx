@@ -55,7 +55,9 @@ class SearchConditionContainer extends Component<PropTypes> {
   onClickSearch: Function;
 
   onClickSearch = () => {
-    console.log('A');
+    const { keyword, prefCode, priceMin, priceMax, type, isFurniture, receiptType } = this.state;
+
+    console.log(keyword, prefCode, priceMin, priceMax, type, isFurniture, receiptType);
   };
 
   handleChangeUI: Function;
@@ -70,20 +72,15 @@ class SearchConditionContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const { space } = this.props;
     const {
-      Keyword,
-      PrefCode,
-      PriceMin,
-      PriceMax,
-      Type,
-      IsFurniture,
-      ReceiptType,
+      keyword,
+      prefCode,
+      priceMin,
+      priceMax,
+      type,
+      isFurniture,
+      receiptType,
       error,
     } = this.state;
 
@@ -94,25 +91,25 @@ class SearchConditionContainer extends Component<PropTypes> {
         leftContent={
           <SearchCondition
             edit={space.ID}
-            keyword={Keyword}
+            keyword={keyword}
             keywordErrors={error.keyword}
-            onChangeKeyword={v => this.handleChangeUI('Keyword', v)}
-            prefCode={PrefCode}
+            onChangeKeyword={v => this.handleChangeUI('keyword', v)}
+            prefCode={prefCode}
             prefCodeErrors={error.prefCode}
-            onChangePrefCode={v => this.handleChangeUI('PrefCode', v)}
-            priceMin={PriceMin}
-            priceMax={PriceMax}
+            onChangePrefCode={v => this.handleChangeUI('prefCode', v)}
+            priceMin={priceMin}
+            priceMax={priceMax}
             priceErrors={error.price}
-            onChangePriceMin={v => this.handleChangeUI('PriceMin', v)}
-            onChangePriceMax={v => this.handleChangeUI('PriceMax', v)}
-            type={Type}
+            onChangePriceMin={v => this.handleChangeUI('priceMin', v)}
+            onChangePriceMax={v => this.handleChangeUI('priceMax', v)}
+            type={type}
             typeErrors={error.type}
-            onChangeType={v => this.handleChangeUI('Type', v)}
-            checkedFurniture={IsFurniture}
-            onClickFurniture={() => this.handleChangeUI('IsFurniture', !IsFurniture)}
-            receive={ReceiptType}
+            onChangeType={v => this.handleChangeUI('type', v)}
+            checkedFurniture={isFurniture}
+            onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
+            receive={receiptType}
             receiveErrors={error.receiptType}
-            onChangeReceive={v => this.handleChangeUI('ReceiptType', v)}
+            onChangeReceive={v => this.handleChangeUI('receiptType', v)}
             onClickSearch={this.onClickSearch}
           />
         }
