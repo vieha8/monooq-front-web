@@ -71,7 +71,7 @@ class SlideMenu extends Component {
         <TextLink to={this.props.spacesUri}>スペースの管理</TextLink>
       </LinkWrap>,
       <LinkWrap key="6">
-        <TextLink to={this.props.salesUri}>売り上げ・振込申請</TextLink>
+        <TextLink to={this.props.salesUri}>売上・振込申請</TextLink>
       </LinkWrap>,
       <LinkWrap key="7" Separate>
         <TextLink href={this.props.helpUri} target="_blank">
