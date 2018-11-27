@@ -78,7 +78,7 @@ class SearchConditionContainer extends Component<PropTypes> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline="検索"
+        headline="スペース検索"
         leftContent={
           <SearchCondition
             keyword={keyword}
