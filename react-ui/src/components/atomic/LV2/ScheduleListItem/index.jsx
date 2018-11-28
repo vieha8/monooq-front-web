@@ -5,7 +5,7 @@ import Schedule from './Schedule';
 
 type PropTypes = {
   schedule: {
-    hostIsMySelf: boolean,
+    isHost: boolean,
     opponentName: string,
     space: {
       image: {

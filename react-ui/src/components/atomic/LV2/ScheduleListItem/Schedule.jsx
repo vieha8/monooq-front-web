@@ -26,7 +26,11 @@ const ScheduleWrapper = styled.div`
 `;
 
 type PropTypes = {
-  opponentName: string,
+  user: {
+    ID: string,
+    Name: string,
+    ImageUrl: string,
+  },
   space: {
     image: {
       src: string,

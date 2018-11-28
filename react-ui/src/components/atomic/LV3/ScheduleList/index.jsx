@@ -39,7 +39,7 @@ export default (props: PropTypes) => (
           借りているスペース
         </InlineText.Base>
         {/* TODO:貸している側も実装 */}
-        {/* {props.schedule.hostIsMySelf ? (
+        {/* {props.schedule.isHost ? (
           <div>
             <InlineText.Base fontSize={`${FontSizes.medium1}`} bold>
               貸しているスペース
@@ -63,7 +63,7 @@ export default (props: PropTypes) => (
           過去に借りていたスペース
         </InlineText.Base>
         {/* TODO:貸している側も実装 */}
-        {/* {props.schedule.hostIsMySelf ? (
+        {/* {props.schedule.isHost ? (
           <div>
             <InlineText.Base fontSize={`${FontSizes.medium1}`} bold>
               貸しているスペース

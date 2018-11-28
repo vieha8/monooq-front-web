@@ -55,23 +55,17 @@ export default (props: PropTypes) => (
   <Fragment>
     <ClearfixContainer>
       <HostContent>
-        {/* TODO:リンクとアバター画像実装 */}
-        {/* <Link to={Path.profile(props.id)}> */}
-        <Link to={Path.top()}>
-          <AvatarImage
-            size={45}
-            src="https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363"
-            alt={props.opponentName}
-          />
+        <Link to={Path.profile(props.user.ID)}>
+          <AvatarImage size={45} src={props.user.ImageUrl} alt={props.user.Name} />
         </Link>
       </HostContent>
       <HostContent>
         <HostNameWrap>
           <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
-            ホスト
+            {props.isHost ? 'ホスト' : 'ゲスト'}
           </InlineText.Base>
           <br />
-          {props.opponentName} さん
+          {props.user.Name} さん
         </HostNameWrap>
       </HostContent>
     </ClearfixContainer>

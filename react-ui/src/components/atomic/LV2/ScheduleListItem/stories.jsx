@@ -48,7 +48,7 @@ storiesOf('Molecules(LV2)/ScheduleListItem', module)
     `)(() => (
       <div style={{ width: '100%', maxWidth: '680px', padding: `${Dimens.storyBookPadding}` }}>
         <ScheduleListItem
-          hostIsMySelf
+          isHost
           schedule={{
             opponentName: 'モノオク太郎',
             space: {

@@ -230,7 +230,8 @@ class PaymentContainer extends Component<PropTypes> {
         }
         right={
           <PaymentInfo
-            hostName={(space.Host || {}).Name}
+            isHost
+            user={space.Host}
             space={{
               image: {
                 src: (space.Images[0] || {}).ImageUrl,

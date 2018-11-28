@@ -32,8 +32,12 @@ class ScheduleContainer extends Component {
   getScheduleProps: Function;
   getScheduleProps = (schedule: Object, isHost: boolean) => ({
     schedule: {
-      hostIsMySelf: isHost,
-      opponentName: isHost ? schedule.User.Name : schedule.Space.Host.Name,
+      isHost: isHost,
+      user: {
+        ID: isHost ? schedule.Space.Host.ID : schedule.User.ID,
+        Name: isHost ? schedule.Space.Host.Name : schedule.User.Name,
+        ImageUrl: isHost ? schedule.Space.Host.ImageUrl : schedule.User.ImageUrl,
+      },
       space: {
         image: {
           src: (schedule.Space.Images[0] || {}).ImageUrl,
