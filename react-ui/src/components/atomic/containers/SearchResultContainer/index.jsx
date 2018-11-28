@@ -97,11 +97,27 @@ class SearchResultContainer extends Component<PropTypes, State> {
     }
 
     if (type !== '0') {
-      // TODO
+      // TODO タイプ管理の汎用関数作る
+      if (type === '1') {
+        condition += `クローゼット・押入れ、`;
+      } else if (type === '3') {
+        condition += `部屋、`;
+      } else if (type === '4') {
+        condition += `野外倉庫、`;
+      } else if (type === '5') {
+        condition += `その他`;
+      }
     }
 
     if (receiptType !== '0') {
-      // TODO
+      // TODO タイプ管理の汎用関数作る
+      if (receiptType === '1') {
+        condition += `対面・配送受取対応、`;
+      } else if (receiptType === '2') {
+        condition += `対面受取のみ、`;
+      } else if (receiptType === '3') {
+        condition += `配送受取のみ、`;
+      }
     }
 
     if (priceMin !== '') {
