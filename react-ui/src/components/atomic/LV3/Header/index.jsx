@@ -133,7 +133,8 @@ const OnlyPC = styled.span`
 const OnlyPhone = styled.span`
   display: none;
   ${media.tablet`
-    display: contents;
+    display: inline-block;
+    vertical-align: middle;
   `};
 `;
 
