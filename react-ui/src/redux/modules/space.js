@@ -25,6 +25,9 @@ const UPDATE_FAILED_SPACE = 'UPDATE_FAILED_SPACE';
 const SET_SPACE = 'SET_SPACE';
 const DELETE_SPACE = 'DELETE_SPACE';
 const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
+const FETCH_FEATURE_SPACES = 'FETCH_FEATURE_SPACES';
+const FETCH_SUCCESS_FEATURE_SPACES = 'FETCH_SUCCESS_FEATURE_SPACES';
+const FETCH_FAILED_FEATURE_SPACES = 'FETCH_FAILED_FEATURE_SPACES';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -40,6 +43,9 @@ export const spaceActions = createActions(
   SET_SPACE,
   DELETE_SPACE,
   PREPARE_UPDATE_SPACE,
+  FETCH_FEATURE_SPACES,
+  FETCH_SUCCESS_FEATURE_SPACES,
+  FETCH_FAILED_FEATURE_SPACES,
 );
 
 // Reducer
@@ -47,6 +53,7 @@ const initialState = {
   isComplete: false,
   isLoading: false,
   space: null,
+  features: {},
 };
 
 export const spaceReducer = handleActions(
@@ -279,9 +286,14 @@ function* deleteSpace({ payload: { space } }) {
   window.location.href = Path.spaces();
 }
 
+function* getFeatureSpaces({ payload: { featureId } }) {
+  console.log(featureId);
+}
+
 export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
   takeEvery(UPDATE_SPACE, updateSpace),
   takeEvery(DELETE_SPACE, deleteSpace),
+  takeEvery(FETCH_FEATURE_SPACES, getFeatureSpaces),
 ];

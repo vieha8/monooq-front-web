@@ -54,14 +54,25 @@ type State = {
 class HomeContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
-
-    const { location } = props;
-    const query = parse(location.search);
-
     this.state = {
-      location: query.location,
-      limit: 6,
-      offset: 0,
+      features: [
+        {
+          id: 1,
+          title: '東京都内のおすすめスペース',
+        },
+        {
+          id: 2,
+          title: '引越しに便利!大容量スペース',
+        },
+        {
+          id: 3,
+          title: 'こんなところも?ちょっとユニークなスペース',
+        },
+        {
+          id: 4,
+          title: 'モノオクスペースは全国各地に!',
+        },
+      ],
     };
   }
 
@@ -72,18 +83,6 @@ class HomeContainer extends Component<PropTypes, State> {
   onClickSpace = (space: { ID: number }) => {
     const { history } = this.props;
     history.push(Path.space(space.ID));
-  };
-
-  // ローディング処理
-  loadItems = () => {
-    const { dispatch, isSearching } = this.props;
-    if (isSearching) {
-      return;
-    }
-    const { location, limit, offset } = this.state;
-    dispatch(searchActions.doSearch({ location, limit, offset }));
-    const newOffset = offset + limit;
-    this.setState({ offset: newOffset });
   };
 
   render() {
@@ -125,49 +124,23 @@ class HomeContainer extends Component<PropTypes, State> {
         leftContent={
           <Fragment>
             <SearchResultTemplate
-              searchResult={
-                <InfiniteScroll
-                  // TODO: hasMoreを固定falseにしてあります。
-                  pageStart={0}
-                  loadMore={this.loadItems}
-                  hasMore={false}
-                  loader={<Loader size="medium" key={0} />}
-                  initialLoad
-                >
-                  <SearchResult
-                    // TODO: 取得するスペーズに併せて加工する。
-                    // TODO: もっとみるボタンの遷移先を渡すようにしたほうがいいかも。
-                    caption="広さが6畳以上あるスペース"
-                    spaces={sampleDataList.map(s => ({
-                      image: (s.Images[0] || {}).ImageUrl,
-                      title: s.Title,
-                      address: `${s.AddressPref}${s.AddressCity}`,
-                      isFurniture: s.IsFurniture,
-                      priceFull: s.PriceFull,
-                      priceHalf: s.PriceHalf,
-                      priceQuarter: s.PriceQuarter,
-                      onClick: () => this.onClickSpace(s),
-                    }))}
-                    isMoreButton
-                  />
-                  <SearchResult
-                    // TODO: 取得するスペーズに併せて加工する。
-                    // TODO: もっとみるボタンの遷移先を渡すようにしたほうがいいかも。
-                    caption="広さが6畳以上あるスペース"
-                    spaces={sampleDataList.map(s => ({
-                      image: (s.Images[0] || {}).ImageUrl,
-                      title: s.Title,
-                      address: `${s.AddressPref}${s.AddressCity}`,
-                      isFurniture: s.IsFurniture,
-                      priceFull: s.PriceFull,
-                      priceHalf: s.PriceHalf,
-                      priceQuarter: s.PriceQuarter,
-                      onClick: () => this.onClickSpace(s),
-                    }))}
-                    isMoreButton
-                  />
-                </InfiniteScroll>
-              }
+              searchResult={this.state.features.map(v => (
+                <SearchResult
+                  // TODO: 取得するスペーズに併せて加工する。
+                  // TODO: もっとみるボタンの遷移先を渡すようにしたほうがいいかも。
+                  caption={v.title}
+                  spaces={sampleDataList.map(s => ({
+                    image: (s.Images[0] || {}).ImageUrl,
+                    title: s.Title,
+                    address: `${s.AddressPref}${s.AddressCity}`,
+                    isFurniture: s.IsFurniture,
+                    priceFull: s.PriceFull,
+                    priceHalf: s.PriceHalf,
+                    priceQuarter: s.PriceQuarter,
+                    onClick: () => this.onClickSpace(s),
+                  }))}
+                />
+              ))}
               noTopMargin
             />
           </Fragment>
