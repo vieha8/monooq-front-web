@@ -7,7 +7,7 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import { Colors, Dimens } from 'variables';
 
 const Text = styled.div`
-  margin: ${Dimens.medium}px 0;
+  margin: 10px auto 0;
 `;
 
 const Error = styled.div`
@@ -22,9 +22,6 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <div>
-    <Text>
-      <InlineText.EmphasisTiny>相手の相談に応じて料金を決めましょう。</InlineText.EmphasisTiny>
-    </Text>
     <div>
       <InputForm
         label="お見積もり料金"
@@ -40,8 +37,11 @@ export default (props: PropTypes) => (
       ))}
     </div>
     <Text>
+      <InlineText.EmphasisTiny>※相手の相談に応じて料金を決めましょう。</InlineText.EmphasisTiny>
+    </Text>
+    <Text>
       <InlineText.EmphasisTiny>
-        取引成立時の売上は、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。
+        ※取引成立時の売上は、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。
       </InlineText.EmphasisTiny>
     </Text>
   </div>

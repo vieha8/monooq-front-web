@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 import { requestActions } from 'redux/modules/request';
 import { ErrorMessage } from 'strings';
 
-import EstimateTemplate from 'components/atomic/templates/EstimateTemplate';
+import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
-import Hint from 'components/atomic/LV2/Hint';
 import InputEstimate from 'components/atomic/LV3/InputEstimate';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
@@ -116,9 +116,10 @@ class EstimateContainer extends Component<PropTypes> {
     const { begin, end, errors, price, beginFocus, endFocus } = this.state;
 
     return (
-      <EstimateTemplate
+      <MenuPageTemplate
         header={<Header />}
-        form={
+        headline="見積もりを送る"
+        leftContent={
           <InputEstimate
             schedule={{
               beginDate: begin,
@@ -140,12 +141,7 @@ class EstimateContainer extends Component<PropTypes> {
             onClickSend={this.sendRequest}
           />
         }
-        hint={
-          <Hint
-            title="お見積もりのヒント"
-            content={['メッセージの相談内容を元に最終的な見積もりを相手に提示しましょう。']}
-          />
-        }
+        rightContent={<ServiceMenu />}
       />
     );
   }
@@ -157,4 +153,7 @@ const mapStateToProps = state =>
     isSending: state.request.estimate.isSending,
   });
 
-export default connect(EstimateContainer, mapStateToProps);
+export default connect(
+  EstimateContainer,
+  mapStateToProps,
+);
