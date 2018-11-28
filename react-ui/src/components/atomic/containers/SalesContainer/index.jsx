@@ -129,6 +129,7 @@ class SalesContainer extends Component {
       accountNumber: '',
       accountName: '',
       isSend: false,
+      isConfirm: false,
     };
   }
 
@@ -143,10 +144,12 @@ class SalesContainer extends Component {
   };
 
   confirmButton = () => {
+    window.scrollTo(0, 0);
     this.setState({ isConfirm: true });
   };
 
   backButton = () => {
+    window.scrollTo(0, 0);
     this.setState({ isConfirm: false });
   };
 
@@ -191,10 +194,7 @@ class SalesContainer extends Component {
     const { sales, history } = this.props;
 
     this.payouts = sales.reduce((a, x) => (a += x.PriceMinusFee), 0);
-    this.payouts = numeral(this.payouts).format('0,0');
-
     this.price = sales.reduce((a, x) => (a += x.Price), 0);
-    this.price = numeral(this.price).format('0,0');
 
     if (this.payouts < 2400) {
       return (
@@ -219,7 +219,7 @@ class SalesContainer extends Component {
     return (
       <Fragment>
         <SalesAmountItemWrap>
-          <SalesAmountItem title="現在の売上金" amount={this.payouts} bold />
+          <SalesAmountItem title="現在の売上金" amount={this.price} bold />
         </SalesAmountItemWrap>
         <SalesAmountMsgWrap>振込先口座を指定してください。</SalesAmountMsgWrap>
         <InputText>
@@ -277,7 +277,7 @@ class SalesContainer extends Component {
         <Confirm label="金融機関" value={`${this.state.bankName} ${this.state.branchName}`} />
       </ConfirmSalesWrap>
       <ConfirmSalesWrap singleline>
-        <Confirm label="預金項目" value={this.state.accountType} />
+        <Confirm label="預金種目" value={this.state.accountType === '1' ? '普通' : '当座'} />
       </ConfirmSalesWrap>
       <ConfirmSalesWrap singleline>
         <Confirm label="口座番号" value={this.state.accountNumber} />
@@ -289,21 +289,26 @@ class SalesContainer extends Component {
         <SalesAmountItem title="現在の売上金" amount={this.price} />
       </SalesAmountItemWrap>
       <SalesAmountItemWrap>
-        <SalesAmountItem title="サービス利用料" amount={this.payouts} />
+        <SalesAmountItem title="サービス利用料" amount={this.price - this.payouts} />
       </SalesAmountItemWrap>
       <SalesAmountItemWrap>
-        <SalesAmountItem title="振込手数料" amount={this.payouts} />
+        <SalesAmountItem title="振込手数料" amount={this.payouts < 10000 ? 260 : 0} />
       </SalesAmountItemWrap>
       <SalesAmountItemWrap>
-        <SalesAmountItem title="振込金額" amount={this.payouts} bold colorPrimary />
+        <SalesAmountItem
+          title="振込金額"
+          amount={this.payouts < 10000 ? this.payouts - 260 : this.payouts}
+          bold
+          colorPrimary
+        />
       </SalesAmountItemWrap>
       <CautionWrapper>
         <CautionText>
-          ※振込金額が10,000円以上の場合、振込手数料が無料になります。10,000円以下の場合、260円振込手数料が売り上げから引かれます。ご了承ください。
+          ※振込金額が10,000円以上の場合、振込手数料が無料になります。10,000円未満の場合、260円振込手数料が売上から引かれます。ご了承ください。
         </CautionText>
         <CautionText>※振込完了まで5日から14日ほどかかります。ご了承ください。</CautionText>
         <CautionText>
-          ※銀行口座の情報が間違っている場合、振込ができません。振込手数料を売り上げから引かせていただきます。入力内容をしっかりご確認ください。
+          ※銀行口座の情報が間違っている場合、振込ができません。振込手数料を売上から引かせていただきます。入力内容をしっかりご確認ください。
         </CautionText>
       </CautionWrapper>
       <EntryButtons
