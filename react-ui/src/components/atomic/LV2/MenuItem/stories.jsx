@@ -21,7 +21,18 @@ storiesOf('Molecules(LV2)/MenuItem', module)
       サービスメニュー(通知カウンター付き)
     `)(() => (
       <div style={{ width: '320px', padding: `${Dimens.storyBookPadding}` }}>
-        <ServiceMenu href="#" title="メッセージ" notificationCount={10} />
+        <ServiceMenu to="#" title="メッセージ" notificationCount={10} />
+      </div>
+    )),
+  )
+  .add(
+    'ServiceMenu blank',
+    withInfo(`
+      ### コンポーネント概要
+      サービスメニュー(通知カウンター付き)(新ウィンドウで開く)
+    `)(() => (
+      <div style={{ width: '320px', padding: `${Dimens.storyBookPadding}` }}>
+        <ServiceMenu href="https://monooq.com" title="メッセージ" notificationCount={10} blank />
       </div>
     )),
   )

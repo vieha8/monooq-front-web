@@ -1,9 +1,9 @@
 // @flow
 
 import React from 'react';
-
+import Path from 'config/path';
 import Header from '../index';
-import Menu from '../../ServiceMenu';
+import ServiceMenu from '../../ServiceMenu';
 
 export default class HeaderMock extends React.Component {
   constructor(props: Object) {
@@ -14,9 +14,21 @@ export default class HeaderMock extends React.Component {
   render() {
     return (
       <Header
-        homeUri="#"
-        searchUri="#"
-        messageUri="#"
+        topUri={Path.top()}
+        homeUri={Path.home()}
+        editProfileUri={Path.editProfile()}
+        searchUri={Path.search()}
+        searchConditionUri={Path.searchCondition()}
+        scheduleUri={Path.schedule()}
+        createSpaceInfoUri={Path.createSpaceInfo()}
+        spacesUri={Path.spaces()}
+        salesUri={Path.sales()}
+        helpUri="https://help.monooq.com/"
+        inquiryUri={Path.inquiry()}
+        howToUseUri={Path.howToUse()}
+        otherUri={Path.other()}
+        tidyUri="https://tidy.monooq.com/"
+        messageUri={Path.messages()}
         messageCount={4}
         user={{
           image: 'http://placehold.jp/500x500.png',
@@ -27,19 +39,23 @@ export default class HeaderMock extends React.Component {
         onClickAvatar={() => this.setState()}
         top={this.props.top}
         help={this.props.help}
-        menu={
-          <Menu
-            message={{ href: '#', notificationCount: 10 }}
-            schedule={{ href: '#', notificationCount: 2 }}
-            spaces={{ href: '#', notificationCount: 0 }}
-            addSpace={{ href: '#', notificationCount: 0 }}
-            salesTransfer={{ href: '#', notificationCount: 0 }}
-            paymentHistory={{ href: '#', notificationCount: 0 }}
-            help={{ href: '#', notificationCount: 0 }}
-            inquiry={{ href: '#', notificationCount: 0 }}
-            howToUse={{ href: '#', notificationCount: 0 }}
-            other={{ href: '#', notificationCount: 0 }}
-            hasSpace
+        spMenu={
+          <ServiceMenu
+            home={{ to: Path.home() }}
+            message={{ to: Path.messages(), notificationCount: 0 }}
+            schedule={{ to: Path.schedule(), notificationCount: 0 }}
+            spaces={{ to: Path.spaces() }}
+            addSpace={{ to: Path.createSpaceInfo() }}
+            sales={{ to: Path.sales() }}
+            paymentHistory={{ to: Path.paid() }}
+            editProfile={{ to: Path.editProfile() }}
+            help={{ href: 'https://help.monooq.com/' }}
+            inquiry={{ to: Path.inquiry() }}
+            howToUse={{ to: Path.howToUse() }}
+            other={{ to: Path.other() }}
+            userName="name"
+            userImage="http://placehold.jp/500x500.png"
+            isPhone
           />
         }
         storys

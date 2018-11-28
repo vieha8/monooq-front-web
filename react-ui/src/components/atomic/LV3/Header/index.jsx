@@ -7,8 +7,6 @@ import Logo from 'components/atomic/LV1/Logo';
 import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
 import Anonymouse from 'components/atomic/LV2/HeaderAction/Anonymouse';
 import AnimateSearchInputField from 'components/atomic/LV2/AnimateSearchInputField';
-import ServiceMenu from 'components/atomic/LV3/ServiceMenu';
-import SlideMenu from 'components/atomic/LV3/SlideMenu';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, ZIndexes } from 'variables';
 
@@ -148,8 +146,6 @@ type PropTypes = {
   isCheckingLogin: boolean,
   loginUri: string,
   signupUri: string,
-  onClickAvatar: Function,
-  menu: React.Element<ServiceMenu>,
   top?: boolean,
   help?: boolean,
   storys?: boolean,
@@ -175,9 +171,7 @@ export default (props: PropTypes) => {
                   />
                 </SearchFiledCell>
                 <OnlyPhone>
-                  <ActionCell>
-                    <SlideMenu {...props} />
-                  </ActionCell>
+                  <ActionCell>{props.spMenu}</ActionCell>
                 </OnlyPhone>
                 <OnlyPC>
                   <ActionCell>

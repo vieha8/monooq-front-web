@@ -67,7 +67,7 @@ class HeaderContainer extends Component<PropTypes> {
         }
         loginUri={Path.login()}
         signupUri={Path.signUp()}
-        menu={<ServiceMenu />}
+        spMenu={<ServiceMenu userName={user.Name} userImage={user.ImageUrl} isPhone />}
       />
     );
   }

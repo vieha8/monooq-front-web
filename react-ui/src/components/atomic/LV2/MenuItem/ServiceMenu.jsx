@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
 import NotificationCount from 'components/atomic/LV1/NotificationCount';
 import MenuItem from 'components/atomic/LV1/Menu/Item';
-import { Dimens } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 
 const MenuLink = styled(Link)`
   display: block;
@@ -42,7 +42,7 @@ export default (props: PropTypes) =>
     <MenuItem show {...props}>
       <HyperLink href={props.href || ''} onClick={props.onClick} target="_blank">
         <MenuText>
-          <InlineText.Small>{props.title}</InlineText.Small>
+          <InlineText.Base fontSize={FontSizes.small_15}>{props.title}</InlineText.Base>
         </MenuText>
         <NotificationWrapper>
           <NotificationCount count={props.notificationCount} />
@@ -53,7 +53,7 @@ export default (props: PropTypes) =>
     <MenuItem show {...props}>
       <MenuLink to={props.to}>
         <MenuText>
-          <InlineText.Small>{props.title}</InlineText.Small>
+          <InlineText.Base fontSize={FontSizes.small_15}>{props.title}</InlineText.Base>
         </MenuText>
         <NotificationWrapper>
           <NotificationCount count={props.notificationCount} />
