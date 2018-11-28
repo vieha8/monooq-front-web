@@ -13,15 +13,20 @@ ScheduleListItem.displayName = 'ScheduleListItem';
 storiesOf('Molecules(LV2)/ScheduleListItem', module)
   .addDecorator(StoryRouter())
   .add(
-    'User',
+    'Guest',
     withInfo(`
       ### コンポーネント概要
-      スケジュールリストアイテム(ユーザver)
+      スケジュールリストアイテム(ゲストver)
     `)(() => (
       <div style={{ width: '100%', maxWidth: '680px', padding: `${Dimens.storyBookPadding}` }}>
         <ScheduleListItem
           schedule={{
-            opponentName: 'モノオク太郎',
+            isHost: false,
+            user: {
+              ID: 'モノオク太郎(ゲスト)',
+              Name: 'モノオク太郎(ゲスト)',
+              ImageUrl: 'http://placehold.jp/500x500.png',
+            },
             space: {
               image: {
                 src: 'http://placehold.jp/500x500.png',
@@ -50,7 +55,12 @@ storiesOf('Molecules(LV2)/ScheduleListItem', module)
         <ScheduleListItem
           isHost
           schedule={{
-            opponentName: 'モノオク太郎',
+            isHost: true,
+            user: {
+              ID: 'モノオク太郎(ホスト)',
+              Name: 'モノオク太郎(ホスト)',
+              ImageUrl: 'http://placehold.jp/500x500.png',
+            },
             space: {
               image: {
                 src: 'http://placehold.jp/500x500.png',

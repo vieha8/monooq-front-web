@@ -10,12 +10,17 @@ import ScheduleList from './index';
 
 ScheduleList.displayName = 'ScheduleList';
 
-function getData() {
+function getData(isHost) {
   const data = [];
-  for (let i = 0; i < 5; i += 1) {
+  for (let i = 0; i < 3; i += 1) {
     data.push({
       schedule: {
-        opponentName: 'モノオク太郎',
+        isHost: isHost,
+        user: {
+          ID: isHost ? 'モノオク太郎(ホスト)' : 'モノオク太郎(ゲスト)',
+          Name: isHost ? 'モノオク太郎(ホスト)' : 'モノオク太郎(ゲスト)',
+          ImageUrl: 'http://placehold.jp/500x500.png',
+        },
         space: {
           image: {
             src: 'http://placehold.jp/500x500.png',
@@ -38,13 +43,24 @@ function getData() {
 storiesOf('Organisms(LV3)/ScheduleList', module)
   .addDecorator(StoryRouter())
   .add(
-    'Normal',
+    'Host',
     withInfo(`
         ### コンポーネント概要
-        スケジュールリスト
+        スケジュールリスト(ホスト)
       `)(() => (
       <div style={{ width: '100%', maxWidth: '680px', padding: `${Dimens.storyBookPadding}` }}>
-        <ScheduleList schedules={getData()} />
+        <ScheduleList schedules={getData(true)} />
+      </div>
+    )),
+  )
+  .add(
+    'Guest',
+    withInfo(`
+        ### コンポーネント概要
+        スケジュールリスト(ゲスト)
+      `)(() => (
+      <div style={{ width: '100%', maxWidth: '680px', padding: `${Dimens.storyBookPadding}` }}>
+        <ScheduleList schedules={getData(false)} />
       </div>
     )),
   );
