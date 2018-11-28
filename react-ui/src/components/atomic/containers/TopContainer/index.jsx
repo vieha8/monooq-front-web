@@ -47,8 +47,9 @@ class TopContainer extends React.Component {
     }
   };
 
-  search = location => {
-    window.location.href = `${Path.search()}?location=${location}`;
+  search = keyword => {
+    // TODO hrefじゃなくてhistoryのプッシュにする
+    window.location.href = `${Path.search()}?keyword=${keyword}&prefCode=0&type=0&receiptType=0&priceMin=&priceMax=&isFurniture=false`;
   };
 
   viewMoreFeature = () => {
