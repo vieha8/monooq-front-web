@@ -107,7 +107,7 @@ export default (props: PropTypes) => {
   const messageList = messages;
 
   // 自分がユーザーの場合かつ未送信の場合は、初期メッセージを追加する
-  if (!hostUser && messageList.length === 1) {
+  if (!hostUser && messageList.length === 0) {
     messageList.push({
       admin: {
         message:
