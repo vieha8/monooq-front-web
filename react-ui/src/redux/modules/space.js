@@ -137,6 +137,10 @@ export const spaceReducer = handleActions(
       ...state,
       isComplete: false,
     }),
+    [FETCH_SUCCESS_FEATURE_SPACES]: (state, action) => ({
+      ...state,
+      features: action.payload,
+    }),
   },
   initialState,
 );
@@ -309,7 +313,18 @@ function* deleteSpace({ payload: { space } }) {
 
 function* getFeatureSpaces() {
   const features = yield select(state => state.space.features);
-  console.log(features);
+
+  const res = yield Promise.all(
+    features.map(async v => {
+      const feature = v;
+      const featureId = v.id;
+      const { data: spaces } = await getApiRequest(apiEndpoint.features(featureId));
+      feature.spaces = spaces;
+      return feature;
+    }),
+  );
+
+  yield put(spaceActions.fetchSuccessFeatureSpaces(res));
 }
 
 export const spaceSagas = [

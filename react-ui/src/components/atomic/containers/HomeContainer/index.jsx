@@ -10,6 +10,7 @@ import SearchResult from 'components/atomic/LV3/SearchResult';
 import { spaceActions } from 'redux/modules/space';
 import connect from '../connect';
 import { checkAuthState, mergeAuthProps } from '../AuthRequired';
+import dummySpaceImage from 'images/dummy_space.png';
 
 type PropTypes = {
   dispatch: Function,
@@ -72,7 +73,7 @@ class HomeContainer extends Component<PropTypes, State> {
                   key={i}
                   caption={v.title}
                   spaces={v.spaces.map(s => ({
-                    image: (s.Images[0] || {}).ImageUrl,
+                    image: s.Images.length !== 0 ? s.Images[0].ImageUrl : dummySpaceImage,
                     title: s.Title,
                     address: `${s.AddressPref}${s.AddressCity}`,
                     isFurniture: s.IsFurniture,
