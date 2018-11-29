@@ -71,6 +71,7 @@ export default (props: PropTypes) => (
     </Section>
     <Section>
       <EntryButtons
+        rerative
         enabled
         backButton={{
           text: '戻る',

@@ -41,6 +41,7 @@ export default (props: PropTypes) => (
     </Section>
     <Section>
       <EntryButtons
+        rerative
         enabled
         loading={props.buttonLoading}
         backButton={{
