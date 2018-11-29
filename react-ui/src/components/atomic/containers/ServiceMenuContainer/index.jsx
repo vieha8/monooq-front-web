@@ -28,7 +28,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
   }
 
   render() {
-    const { user, isPhone, userName, userImage } = this.props;
+    const { isPhone, userName, userImage } = this.props;
 
     if (isPhone) {
       const Menu = BurgerMenu[this.state.currentMenu];

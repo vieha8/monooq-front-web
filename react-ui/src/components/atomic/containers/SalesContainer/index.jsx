@@ -2,7 +2,6 @@
 
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import numeral from 'numeral';
 import { Dimens, FontSizes } from 'variables';
 import { salesActions } from 'redux/modules/sales';
 

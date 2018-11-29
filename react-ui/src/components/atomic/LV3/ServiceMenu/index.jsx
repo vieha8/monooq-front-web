@@ -3,7 +3,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import TextLink from 'components/atomic/LV1/TextLink';
 import MenuItem from 'components/atomic/LV2/MenuItem/ServiceMenu';
 import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
 import { OtherIcon } from 'components/atomic/LV1/ActionIcon';
@@ -49,8 +48,6 @@ type PropTypes = {
   other: MenuItemProps,
   isPhone: boolean,
 };
-
-const HyperLink = MenuLink.withComponent('a');
 
 export default (props: PropTypes) => (
   <Fragment>
