@@ -61,6 +61,7 @@ class ProfileContainer extends Component<PropTypes> {
       const user = nextProps.user;
       this.setState({
         imageUri: user.ImageUrl,
+        imageUriPreview: '',
         name: user.Name,
         email: user.Email,
         prefCode: user.PrefCode,
@@ -110,6 +111,9 @@ class ProfileContainer extends Component<PropTypes> {
   handleChangeUI: Function;
   handleChangeUI = (propsName: string, value) => {
     const state = this.state;
+    if (propsName === 'imageUri') {
+      state.imageUriPreview = URL.createObjectURL(value);
+    }
     state[propsName] = value;
     this.setState(state);
   };
@@ -142,7 +146,16 @@ class ProfileContainer extends Component<PropTypes> {
       return <LoadingPage />;
     }
 
-    const { imageUri, name, email, prefCode, profile, phoneNumber, purpose } = this.state;
+    const {
+      imageUri,
+      imageUriPreview,
+      name,
+      email,
+      prefCode,
+      profile,
+      phoneNumber,
+      purpose,
+    } = this.state;
 
     return (
       <MenuPageTemplate
@@ -154,6 +167,7 @@ class ProfileContainer extends Component<PropTypes> {
           ) : (
             <EditProfile
               image={imageUri}
+              imagePreview={imageUriPreview}
               name={name}
               email={email}
               prefCode={prefCode}

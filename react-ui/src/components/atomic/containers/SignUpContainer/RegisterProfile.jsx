@@ -31,6 +31,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
 
     this.state = {
       image: null,
+      imageUriPreview: '',
       name: '',
       prefCode: '',
       profile: '',
@@ -57,6 +58,9 @@ export default class RegisterContainer extends Component<PropTypes, State> {
 
   handleChangeForm = (name: string, value: any) => {
     const { state } = this;
+    if (name === 'image') {
+      state.imageUriPreview = URL.createObjectURL(value);
+    }
     state[name] = value;
     state.hasChanged = true;
     this.setState(state);
@@ -79,7 +83,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
 
   render() {
     const { isLoading, history } = this.props;
-    const { image, name, prefCode, profile, phoneNumber } = this.state;
+    const { image, imageUriPreview, name, prefCode, profile, phoneNumber } = this.state;
 
     return (
       <RegisterProfile
@@ -89,6 +93,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
         onChangeProfile={value => this.handleChangeForm('profile', value)}
         onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
         image={image}
+        imagePreview={imageUriPreview}
         name={name}
         prefCode={prefCode}
         profile={profile}

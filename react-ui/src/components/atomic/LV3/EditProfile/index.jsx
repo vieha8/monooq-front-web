@@ -17,7 +17,8 @@ const Row = styled.div`
 
 type PropTypes = {
   onChangeImage: Function,
-  image: string,
+  image: File | string,
+  imagePreview: File | string,
   onChangeName: Function,
   name: string,
   onChangeEmail: Function,
@@ -39,7 +40,10 @@ export default (props: PropTypes) => (
       <InputForm
         label="プロフィール写真"
         extension={
-          <RegsiterProfileImage onDrop={data => props.onChangeImage(data[0])} image={props.image} />
+          <RegsiterProfileImage
+            onDrop={data => props.onChangeImage(data[0])}
+            image={props.imagePreview || props.image}
+          />
         }
       />
     </Row>

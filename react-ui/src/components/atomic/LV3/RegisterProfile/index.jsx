@@ -17,6 +17,7 @@ type PropTypes = {
   onChangeProfile: Function,
   onChangePhoneNumber: Function,
   image: File | string,
+  imagePreview: File | string,
   name: string,
   prefCode: string,
   profile: string,
@@ -38,7 +39,10 @@ export default (props: PropTypes) => (
       <InputForm
         label="プロフィール写真"
         extension={
-          <RegsiterProfileImage onDrop={data => props.onChangeImage(data[0])} image={props.image} />
+          <RegsiterProfileImage
+            onDrop={data => props.onChangeImage(data[0])}
+            image={props.imagePreview || props.image}
+          />
         }
       />
     }
