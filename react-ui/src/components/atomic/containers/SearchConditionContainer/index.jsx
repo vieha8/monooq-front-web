@@ -6,6 +6,7 @@ import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import SearchCondition from 'components/atomic/LV3/SearchCondition';
+import { searchActions } from 'redux/modules/search';
 import connect from '../connect';
 
 type PropTypes = {
@@ -39,7 +40,9 @@ class SearchConditionContainer extends Component<PropTypes> {
   onClickSearch: Function;
 
   onClickSearch = () => {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
+    dispatch(searchActions.resetSearch());
+
     const { keyword, prefCode, priceMin, priceMax, type, isFurniture, receiptType } = this.state;
     const searchPath = Path.search();
     let query = `?keyword=${keyword}`;

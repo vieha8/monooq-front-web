@@ -11,8 +11,9 @@ import { getPrefecture } from 'helpers/prefectures';
 const DO_SEARCH = 'DO_SEARCH';
 const SUCCESS_SEARCH = 'SUCCESS_SEARCH';
 const FAILED_SEARCH = 'FAILED_SEARCH';
+const RESET_SEARCH = 'RESET_SEARCH';
 
-export const searchActions = createActions(DO_SEARCH, SUCCESS_SEARCH, FAILED_SEARCH);
+export const searchActions = createActions(DO_SEARCH, SUCCESS_SEARCH, FAILED_SEARCH, RESET_SEARCH);
 
 // Reducer
 const initialState = {
@@ -34,6 +35,10 @@ export const searchReducer = handleActions(
       isLoading: false,
       spaces: [...state.spaces, ...payload.spaces],
       isMore: payload.isMore,
+    }),
+    [RESET_SEARCH]: state => ({
+      ...state,
+      isMore: true,
     }),
   },
   initialState,
