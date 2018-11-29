@@ -10,10 +10,11 @@ import { Dimens, FontSizes } from 'variables';
 
 const Container = styled.div`
   width: 540px;
-  margin: 0 auto;
+  margin: 0 0 ${Dimens.medium2}px auto;
   ${media.tablet`
     width: 100%;
     text-align: center;
+    margin: 0 auto;
   `};
 `;
 
@@ -42,6 +43,7 @@ const Cell = styled.div`
 
 const CaptionWrap = styled.div`
   width: 100%;
+  word-break: keep-all;
   font-size: ${FontSizes.medium2}px;
   font-weight: bold;
   margin: 0 auto ${Dimens.medium2}px;
