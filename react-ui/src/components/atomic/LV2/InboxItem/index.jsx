@@ -9,7 +9,7 @@ import AvatarImage from 'components/atomic/LV1/AvatarImage';
 import { Dimens, Colors, FontSizes } from 'variables';
 
 const Container = styled.li`
-  padding-top: ${Dimens.medium2}px;
+  padding: 20px 5px;
   border-bottom: 1px solid ${Colors.borderGray};
   &:hover {
     cursor: pointer;
@@ -27,7 +27,7 @@ const Cell = styled.div`
   vertical-align: middle;
   &:last-child {
     display: inline-block;
-    margin: ${Dimens.medium}px auto;
+    margin: ${Dimens.medium}px auto 0px;
   }
   ${props =>
     props.nametime &&

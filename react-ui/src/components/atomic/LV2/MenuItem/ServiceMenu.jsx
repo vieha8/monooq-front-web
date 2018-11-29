@@ -13,7 +13,7 @@ const MenuLink = styled(Link)`
   width: 100%;
   height: 100%;
   text-decoration: none;
-  padding: ${Dimens.medium}px 10px;
+  padding: ${Dimens.medium}px 0;
 `;
 
 const MenuText = styled.span`

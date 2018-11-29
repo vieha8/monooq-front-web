@@ -15,7 +15,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  padding: 5px 0 5px 0;
+  padding: 5px;
   text-align: left;
 `;
 
