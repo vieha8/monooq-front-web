@@ -19,7 +19,7 @@ type State = {
   hasChanged: boolean,
 };
 
-export default class RegisterContainer extends Component<PropTypes, State> {
+export default class RegisterHowToUseContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
 

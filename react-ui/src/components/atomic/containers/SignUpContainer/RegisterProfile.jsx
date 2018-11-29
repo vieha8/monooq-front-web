@@ -25,7 +25,7 @@ const Validate = {
   },
 };
 
-export default class RegisterContainer extends Component<PropTypes, State> {
+export default class RegisterProfileContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
 
