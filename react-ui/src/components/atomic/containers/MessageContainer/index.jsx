@@ -115,6 +115,7 @@ class InboxContainer extends Component<PropTypes, State> {
 
   handlePickImage: Function;
   handlePickImage = (image: File) => {
+    image.preview = URL.createObjectURL(image);
     this.setState({ image });
   };
 
@@ -214,6 +215,8 @@ class InboxContainer extends Component<PropTypes, State> {
   leftContent = () => {
     const { isLoading, user, room } = this.props;
     const { text, image } = this.state;
+
+    console.log(image);
 
     if (isLoading || !room) {
       return <Loading size="large" />;
