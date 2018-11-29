@@ -53,7 +53,28 @@ const initialState = {
   isComplete: false,
   isLoading: false,
   space: null,
-  features: {},
+  features: [
+    {
+      id: 1,
+      title: '東京都内のおすすめスペース',
+      spaces: [],
+    },
+    {
+      id: 2,
+      title: '引越しに便利!大容量スペース',
+      spaces: [],
+    },
+    {
+      id: 3,
+      title: 'こんなところも?ちょっとユニークなスペース',
+      spaces: [],
+    },
+    {
+      id: 4,
+      title: 'モノオクスペースは全国各地に!',
+      spaces: [],
+    },
+  ],
 };
 
 export const spaceReducer = handleActions(
@@ -286,8 +307,9 @@ function* deleteSpace({ payload: { space } }) {
   window.location.href = Path.spaces();
 }
 
-function* getFeatureSpaces({ payload: { featureId } }) {
-  console.log(featureId);
+function* getFeatureSpaces() {
+  const features = yield select(state => state.space.features);
+  console.log(features);
 }
 
 export const spaceSagas = [
