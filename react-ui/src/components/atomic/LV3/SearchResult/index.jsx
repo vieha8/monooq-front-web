@@ -50,6 +50,10 @@ const CaptionWrap = styled.div`
   ${media.tablet`
     margin: 5px auto ${Dimens.medium1}px;
   `};
+  ${media.phone`
+    font-size: ${FontSizes.medium1}px;
+    word-break: unset;
+  `};
 `;
 
 const ButtonWrap = styled.div`
