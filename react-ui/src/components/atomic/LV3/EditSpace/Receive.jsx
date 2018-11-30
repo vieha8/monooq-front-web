@@ -61,7 +61,7 @@ export default (props: PropTypes) => (
     <Section>
       <InputForm
         label="対応できる曜日や時間帯"
-        placeholder="土日"
+        placeholder="例)平日は仕事の都合で夜間のみ、土日は終日対応可など"
         multiline
         rows={4}
         value={props.receiveAbout}
