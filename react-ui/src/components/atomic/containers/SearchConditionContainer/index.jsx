@@ -9,6 +9,7 @@ import Header from 'components/atomic/containers/Header';
 import SearchCondition from 'components/atomic/LV3/SearchCondition';
 import { searchActions } from 'redux/modules/search';
 import connect from '../connect';
+import { isAvailableLocalStorage } from 'helpers/storage';
 
 type PropTypes = {
   history: {
@@ -22,16 +23,40 @@ type PropTypes = {
 class SearchConditionContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
-    this.state = {
-      keyword: '',
-      prefCode: 0,
-      priceMin: '',
-      priceMax: '',
-      type: 0,
-      isFurniture: false,
-      receiptType: 0,
-      error: {},
-    };
+
+    if (isAvailableLocalStorage() && localStorage.getItem('searchCondition')) {
+      const savedConditions = JSON.parse(localStorage.getItem('searchCondition'));
+      const {
+        keyword,
+        prefCode,
+        priceMin,
+        priceMax,
+        type,
+        isFurniture,
+        receiptType,
+      } = savedConditions;
+      this.state = {
+        keyword: keyword || '',
+        prefCode: prefCode || 0,
+        priceMin: priceMin || '',
+        priceMax: priceMax || '',
+        type: type || 0,
+        isFurniture,
+        receiptType: receiptType || 0,
+        error: {},
+      };
+    } else {
+      this.state = {
+        keyword: '',
+        prefCode: 0,
+        priceMin: '',
+        priceMax: '',
+        type: 0,
+        isFurniture: false,
+        receiptType: 0,
+        error: {},
+      };
+    }
   }
 
   componentDidMount() {
@@ -59,6 +84,11 @@ class SearchConditionContainer extends Component<PropTypes> {
       action: 'Submit Condition Search Form',
       label: query,
     });
+
+    if (isAvailableLocalStorage()) {
+      const params = { keyword, prefCode, priceMin, priceMax, type, isFurniture, receiptType };
+      localStorage.setItem('searchCondition', JSON.stringify(params));
+    }
 
     history.push(`${searchPath}${query}`);
   };
