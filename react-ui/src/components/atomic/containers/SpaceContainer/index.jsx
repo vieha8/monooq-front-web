@@ -42,7 +42,7 @@ type State = {
   isLoading: boolean,
 };
 
-const SPACE_TYPES = ['', 'クローゼット', '押入れ', '部屋', '屋外倉庫', 'その他'];
+const SPACE_TYPES = ['', 'クローゼット・押入れ', '', '部屋', '屋外倉庫', 'その他'];
 const ReceiptType = {
   Both: 1,
   Meeting: 2,
