@@ -38,6 +38,7 @@ export const searchReducer = handleActions(
     }),
     [RESET_SEARCH]: state => ({
       ...state,
+      spaces: [],
       isMore: true,
     }),
   },
