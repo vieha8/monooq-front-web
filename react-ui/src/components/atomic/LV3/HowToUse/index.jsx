@@ -31,18 +31,15 @@ const HyperLink = MenuLink.withComponent('a');
 export default () => (
   <Fragment>
     <AsctContentWrapper>
-      <HyperLink href={Path.about()}>
+      <MenuLink to={Path.about()}>
         <ItemContainer>初めてのモノオク</ItemContainer>
-      </HyperLink>
-      <HyperLink href={Path.insurance()}>
+      </MenuLink>
+      <MenuLink to={Path.insurance()}>
         <ItemContainer>荷物に対する保険</ItemContainer>
-      </HyperLink>
-      <HyperLink href={Path.rule()}>
+      </MenuLink>
+      <MenuLink to={Path.rule()}>
         <ItemContainer>ルールとマナー</ItemContainer>
-      </HyperLink>
-      <HyperLink href={Path.insurance()}>
-        <ItemContainer>荷物に対する保険</ItemContainer>
-      </HyperLink>
+      </MenuLink>
       <HyperLink href="https://help.monooq.com/" target="_blank">
         <ItemContainer>ヘルプ</ItemContainer>
       </HyperLink>

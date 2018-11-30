@@ -30,26 +30,24 @@ type PropTypes = {
   logout: Function,
 };
 
-const HyperLink = MenuLink.withComponent('a');
-
 export default (props: PropTypes) => (
   <Fragment>
     <AsctContentWrapper>
-      <HyperLink href={Path.terms()}>
+      <MenuLink to={Path.terms()}>
         <ItemContainer>利用規約</ItemContainer>
-      </HyperLink>
-      <HyperLink href={Path.privacy()}>
+      </MenuLink>
+      <MenuLink to={Path.privacy()}>
         <ItemContainer>プライバシーポリシー</ItemContainer>
-      </HyperLink>
-      <HyperLink href={Path.asct()}>
+      </MenuLink>
+      <MenuLink to={Path.asct()}>
         <ItemContainer>特定商取引に関する表記</ItemContainer>
-      </HyperLink>
-      <HyperLink href={Path.cancellationPolicies()}>
+      </MenuLink>
+      <MenuLink to={Path.cancellationPolicies()}>
         <ItemContainer>キャンセルポリシー</ItemContainer>
-      </HyperLink>
-      <HyperLink href="" onClick={props.logout.onClick}>
+      </MenuLink>
+      <MenuLink to="" onClick={props.logout.onClick}>
         <ItemContainer>ログアウト</ItemContainer>
-      </HyperLink>
+      </MenuLink>
     </AsctContentWrapper>
   </Fragment>
 );
