@@ -2,17 +2,21 @@
 
 import React from 'react';
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Colors, FontSizes } from 'variables';
 
+const btnlink = styled(Link)``;
+
 export const PrimaryButton = styled.div`
-  width: 100%;
+  width: ${props => (props.width ? props.width : '100%')};
   ${props => !props.fill && `max-width: 300px;`}
   padding: 17px 10px;
   text-align: center;
   font-size: ${FontSizes.medium}px;
+  font-weight: ${props => (props.fontbold ? 'bold' : 'normal')};
   color: ${Colors.white};
   background: ${Colors.brandPrimary};
-  border-radius: 6px;
+  border-radius: 3px;
   cursor: pointer;
 
   &:focus {
@@ -24,7 +28,13 @@ export const PrimaryButton = styled.div`
     `
       height: ${props.height}px;
       padding: ${props.height / 2 - FontSizes.medium / 2}px 10px;
-    `}
+    `};
+    
+  ${props =>
+    props.inlineblock &&
+    `
+      display: inline-block;
+    `};
 
   ${props =>
     props.center &&
@@ -50,7 +60,26 @@ export const PrimaryButton = styled.div`
   css`
     padding: 12px 8px;
     font-size: 16px;
+  `} ${props =>
+  props.fontSize &&
+  css`
+    font-size: ${props.fontSize}px;
   `};
 `;
 
-export default (props: Object) => <PrimaryButton {...props} />;
+const HyperLink = btnlink.withComponent('a');
+
+export default (props: Object) =>
+  props.link ? (
+    props.blank ? (
+      <HyperLink {...props} href={props.href} target="_blank">
+        <PrimaryButton {...props} />
+      </HyperLink>
+    ) : (
+      <HyperLink {...props} href={props.href}>
+        <PrimaryButton {...props} />
+      </HyperLink>
+    )
+  ) : (
+    <PrimaryButton {...props} />
+  );

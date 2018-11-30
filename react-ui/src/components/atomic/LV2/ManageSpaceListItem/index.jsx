@@ -8,6 +8,7 @@ import { Dimens } from 'variables';
 
 const Container = styled.div`
   display: table;
+  width: 100%;
 `;
 
 const Cell = styled.div`
@@ -28,7 +29,6 @@ type PropTypes = {
   furniture?: boolean,
   prices: Array<number>,
   onClickEdit: Function,
-  onClickRemove: Function,
   link: string,
 };
 
@@ -42,14 +42,9 @@ export default (props: PropTypes) => (
         furniture={props.furniture}
         prices={props.prices}
         href={props.link}
+        manage
       />
-    </Cell>
-    <Cell>
-      <ManageButtons
-        removable
-        onClickEdit={props.onClickEdit}
-        onClickRemove={props.onClickRemove}
-      />
+      <ManageButtons onClickEdit={props.onClickEdit} />
     </Cell>
   </Container>
 );

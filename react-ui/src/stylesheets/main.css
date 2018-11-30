@@ -1,5 +1,11 @@
 @import '../../node_modules/react-image-gallery/styles/css/image-gallery.css';
 
+@media (max-width: 30em) {
+  body {
+    background: none !important;
+  }
+}
+
 .space_image_gallery_bullet {
   background: #ffffff !important;
 }
@@ -23,4 +29,83 @@
 
 .ui.white.button {
   background-color: #ffffff;
+}
+
+.color-darkGray1 {
+  color: #333333;
+}
+
+/* 
+  slide menu
+ */
+.bm-burger-button {
+  position: relative;
+  width: 27px;
+  height: 20px;
+}
+
+.bm-burger-bars {
+  background: #333333;
+  border-radius: 20px !important;
+}
+
+.bm-menu {
+  background: #fff;
+}
+
+.bm-menu a {
+  color: #333333;
+}
+
+.bm-menu a:hover,
+.bm-menu a:focus {
+  color: #888787;
+}
+
+.bm-item-list a {
+  padding: 16px 0px;
+}
+
+.bm-cross-button {
+  display: none;
+}
+
+#slide {
+  top: 0px;
+}
+
+#slide .bm-cross {
+  background: #bdc3c7;
+}
+#slide .bm-menu {
+  padding: 15px 25px;
+  font-size: 1.15em;
+}
+
+.bm-overlay {
+  top: 0px;
+  left: 0px;
+}
+
+.ePahOV:not(:last-child) {
+  padding-right: 16px;
+}
+
+@media (max-width: 30em) {
+  .ePahOV:not(:last-child) {
+    padding-left: 10px;
+    padding-right: 0px;
+  }
+}
+
+/* space imge slider */
+.image-gallery-slide img {
+  height: 300px;
+  border-radius: 10px;
+}
+
+@media (max-width: 30em) {
+  .image-gallery-slide img {
+    height: 200px;
+  }
 }

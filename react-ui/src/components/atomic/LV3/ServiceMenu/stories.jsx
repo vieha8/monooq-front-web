@@ -5,55 +5,63 @@ import { storiesOf } from '@storybook/react';
 import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
+import Path from 'config/path';
 
-import Menu from './index';
+import ServiceMenu from './index';
 
-Menu.displayName = 'Menu';
+ServiceMenu.displayName = 'ServiceMenu';
+
+const user = { name: 'AAA', image: '' };
 
 storiesOf('Organisms(LV3)/ServiceMenu', module)
   .addDecorator(StoryRouter())
   .add(
-    'Host',
+    'PC',
     withInfo(`
         ### コンポーネント概要
-        サービスメニュー(ホストver)
+        サービスメニュー(PC)
       `)(() => (
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
-        <Menu
-          message={{ href: '#', notificationCount: 10 }}
-          schedule={{ href: '#', notificationCount: 2 }}
-          spaces={{ href: '#', notificationCount: 0 }}
-          addSpace={{ href: '#', notificationCount: 0 }}
-          salesTransfer={{ href: '#', notificationCount: 0 }}
-          paymentHistory={{ href: '#', notificationCount: 0 }}
-          becomeHost={{ href: '#', notificationCount: 0 }}
-          editProfile={{ href: '#', notificationCount: 0 }}
-          inquiry={{ href: '#', notificationCount: 0 }}
-          logout={{ href: '#', notificationCount: 0 }}
-          hasSpace
+        <ServiceMenu
+          home={{ to: Path.home() }}
+          message={{ to: Path.messages(), notificationCount: 0 }}
+          schedule={{ to: Path.schedule(), notificationCount: 0 }}
+          spaces={{ to: Path.spaces() }}
+          addSpace={{ to: Path.createSpaceInfo() }}
+          sales={{ to: Path.sales() }}
+          paymentHistory={{ to: Path.paid() }}
+          editProfile={{ to: Path.editProfile() }}
+          help={{ href: 'https://help.monooq.com/' }}
+          inquiry={{ to: Path.inquiry() }}
+          howToUse={{ to: Path.howToUse() }}
+          other={{ to: Path.other() }}
         />
       </div>
     )),
   )
   .add(
-    'User',
+    'Phone',
     withInfo(`
         ### コンポーネント概要
-        サービスメニュー(ユーザver)
+        サービスメニュー(Phone)
       `)(() => (
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
-        <Menu
-          message={{ href: '#', notificationCount: 20 }}
-          schedule={{ href: '#', notificationCount: 10 }}
-          spaces={{ href: '#', notificationCount: 0 }}
-          addSpace={{ href: '#', notificationCount: 0 }}
-          salesTransfer={{ href: '#', notificationCount: 0 }}
-          paymentHistory={{ href: '#', notificationCount: 0 }}
-          becomeHost={{ href: '#', notificationCount: 0 }}
-          editProfile={{ href: '#', notificationCount: 0 }}
-          inquiry={{ href: '#', notificationCount: 0 }}
-          logout={{ href: '#', notificationCount: 0 }}
-          hasSpace={false}
+        <ServiceMenu
+          home={{ to: Path.home() }}
+          message={{ to: Path.messages(), notificationCount: 0 }}
+          schedule={{ to: Path.schedule(), notificationCount: 0 }}
+          spaces={{ to: Path.spaces() }}
+          addSpace={{ to: Path.createSpaceInfo() }}
+          sales={{ to: Path.sales() }}
+          paymentHistory={{ to: Path.paid() }}
+          editProfile={{ to: Path.editProfile() }}
+          help={{ href: 'https://help.monooq.com/' }}
+          inquiry={{ to: Path.inquiry() }}
+          howToUse={{ to: Path.howToUse() }}
+          other={{ to: Path.other() }}
+          userName="モノオク タロウ"
+          userImage="http://placehold.jp/500x500.png"
+          isPhone
         />
       </div>
     )),

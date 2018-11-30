@@ -7,16 +7,16 @@ import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
-  width: 48%;
+  width: 100%;
+  float: left;
   ${props =>
     props.position === 'left' &&
     `
-      float: left;
     `};
   ${props =>
     props.position === 'right' &&
     `
-      float: right;
+      margin-top: 25px;
     `};
   cursor: pointer;
   ${media.phone`
@@ -34,21 +34,26 @@ const Card = styled.div`
   width: 100%;
   border: 1px solid ${Colors.borderGray};
   border-radius: 6px;
+  overflow: hidden;
   ${props =>
     props.selected &&
     `
       background: ${Colors.pink};
     `};
   ${media.phone`
+    padding: ${Dimens.small2}px;
     height: 100px;
   `};
 `;
 
 const Text = styled.div`
+  width: 60%;
+  float: left;
+  font-weight: bold;
   ${media.phone`
     display: inline-block;
     vertical-align: middle;
-    width: 50%;
+    width: 60%;
   `};
 `;
 
@@ -56,12 +61,13 @@ const Image = styled.img`
   display: block;
   margin-top: ${Dimens.medium}px;
   width: 100%;
+  max-width: 200px;
+  float: right;
   ${media.phone`
     display: inline-block;
     vertical-align: middle;
     width: 40%;
-    margin-top: 0;
-    margin-left: ${Dimens.medium}px;
+    padding-bottom: ${Dimens.small2}px;
     height: 100%;
   `};
 `;
@@ -70,7 +76,8 @@ type PropTypes = {
   position: number,
   selected: boolean,
   onClick: Function,
-  text: string,
+  textHead: string,
+  textBody: string,
   image: string,
 };
 
@@ -78,7 +85,11 @@ export default (props: PropTypes) => (
   <Container position={props.position} selected={props.selected} onClick={props.onClick}>
     <Card selected={props.selected}>
       <Text>
-        <InlineText.Base fontSizeSp={FontSizes.small}>{props.text}</InlineText.Base>
+        <InlineText.Base>{props.textHead}</InlineText.Base>
+        <br />
+        <InlineText.Base fontSize={FontSizes.small} fontSizeSp={FontSizes.small_12}>
+          {props.textBody}
+        </InlineText.Base>
       </Text>
       <Image src={props.image} alt="" />
     </Card>

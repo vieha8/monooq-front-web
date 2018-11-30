@@ -9,12 +9,13 @@ const Select = styled.select`
   appearance: none;
   width: ${props => props.width || '100%'};
   height: 50px;
-  padding: 9px 22px;
+  padding: 9px 15px;
   font-size: 14px;
   border: 1px solid ${Colors.lightGray1};
   color: ${Colors.black};
   outline: none;
   background: ${Colors.lightGray2Bg} url(${arrowImageUri}) 95% 50% no-repeat;
+  background-size: 15px 20px;
 `;
 
 export default Select;

@@ -16,7 +16,7 @@ const Container = styled.div`
 const DateCell = styled.div`
   display: inline-block;
   width: 100%;
-  max-width: 280px;
+  max-width: 215px;
   ${media.tablet`
     display: block;
     width: 100%;
@@ -42,6 +42,7 @@ const Arrow = styled.i`
 const DateLabel = styled.span`
   display: block;
   margin-bottom: ${Dimens.small2}px;
+  margin: 5px auto 7px;
 `;
 
 type PropTypes = {

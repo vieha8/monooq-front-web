@@ -6,15 +6,14 @@ import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
 import NotificationCount from 'components/atomic/LV1/NotificationCount';
 import MenuItem from 'components/atomic/LV1/Menu/Item';
-import { Dimens } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 
 const MenuLink = styled(Link)`
   display: block;
   width: 100%;
   height: 100%;
   text-decoration: none;
-  padding: 20px 16px;
-  padding: ${Dimens.medium}px ${Dimens.medium2}px;
+  padding: ${Dimens.medium}px 0;
 `;
 
 const MenuText = styled.span`
@@ -36,15 +35,29 @@ type PropTypes = {
   onClick?: Function,
 };
 
-export default (props: PropTypes) => (
-  <MenuItem show>
-    <MenuLink to={props.href || ''} onClick={props.onClick}>
-      <MenuText>
-        <InlineText.Small>{props.title}</InlineText.Small>
-      </MenuText>
-      <NotificationWrapper>
-        <NotificationCount count={props.notificationCount} />
-      </NotificationWrapper>
-    </MenuLink>
-  </MenuItem>
-);
+const HyperLink = MenuLink.withComponent('a');
+
+export default (props: PropTypes) =>
+  props.blank ? (
+    <MenuItem show {...props}>
+      <HyperLink href={props.href || ''} onClick={props.onClick} target="_blank">
+        <MenuText>
+          <InlineText.Base fontSize={FontSizes.small_15}>{props.title}</InlineText.Base>
+        </MenuText>
+        <NotificationWrapper>
+          <NotificationCount count={props.notificationCount} />
+        </NotificationWrapper>
+      </HyperLink>
+    </MenuItem>
+  ) : (
+    <MenuItem show {...props}>
+      <MenuLink to={props.to}>
+        <MenuText>
+          <InlineText.Base fontSize={FontSizes.small_15}>{props.title}</InlineText.Base>
+        </MenuText>
+        <NotificationWrapper>
+          <NotificationCount count={props.notificationCount} />
+        </NotificationWrapper>
+      </MenuLink>
+    </MenuItem>
+  );

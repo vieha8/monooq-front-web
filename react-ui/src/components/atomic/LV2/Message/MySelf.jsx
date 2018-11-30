@@ -34,8 +34,10 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <ClearfixContainer>
-    <Card block noBorder background={Colors.pink}>
-      <InlineText.Base fontSize={14}>{props.message}</InlineText.Base>
+    <Card block noBorder background={Colors.brandPrimary} isPadding={15}>
+      <InlineText.Base fontSize={15} color={Colors.white}>
+        {props.message}
+      </InlineText.Base>
     </Card>
     <ActionTable>
       <RetryCell>

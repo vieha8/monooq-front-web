@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { FontSizes, Colors, Dimens } from 'variables';
+import { FontSizes, Dimens } from 'variables';
 
 import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
@@ -11,9 +11,6 @@ import imageFurnitureQuarter from 'images/furniture-quarter.svg';
 
 const Container = styled.div`
   padding: ${Dimens.medium2}px 0;
-  &:not(:first-child) {
-    border-top: 1px solid ${Colors.borderGray};
-  }
 `;
 
 const PriceContainer = styled.div`

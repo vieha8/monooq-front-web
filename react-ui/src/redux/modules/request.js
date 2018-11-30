@@ -290,9 +290,8 @@ function* conciergeRequest({ payload: { userId, body } }) {
   message += `預けたい地域: ${body.address}\n`;
   message += `希望利用開始日: ${body.startDate.toDate()}\n`;
   message += `希望利用終了日: ${body.endDate.toDate()}\n`;
-  message += `荷物の大きさ: ${body.baggageSize}\n`;
-  message += `荷物の種類: ${body.baggageInfo}\n`;
-  message += `備考: ${body.notes}\n`;
+  message += `荷物の詳細: ${body.baggageInfo}\n`;
+  message += `利用目的: ${body.notes}\n`;
 
   const mail = {
     Subject: `【モノオクコンシェルジュ】新規ご相談 ${body.email}`,

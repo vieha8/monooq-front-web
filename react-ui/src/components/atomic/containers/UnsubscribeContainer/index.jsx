@@ -7,7 +7,6 @@ import { authActions } from 'redux/modules/auth';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/LV2/Footer';
 import Unsubscribe from 'components/atomic/LV3/Unsubscribe';
 import UnsubscribeCompleted from 'components/atomic/LV3/Unsubscribe/Completed';
 import UnsubscribeFailed from 'components/atomic/LV3/Unsubscribe/Failed';
@@ -35,9 +34,8 @@ class UnsubscribeContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="退会処理が完了しました"
-        leftContent={<div style={{ height: '400px' }} />}
-        rightContent={<UnsubscribeCompleted />}
-        footer={<Footer />}
+        leftContent={<UnsubscribeCompleted />}
+        rightContent={<div style={{ height: '400px' }} />}
       />
     );
   }
@@ -114,9 +112,8 @@ class UnsubscribeContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="退会処理が完了できませんでした"
-        leftContent={<ServiceMenu />}
-        rightContent={<UnsubscribeFailed userId={user.ID} />}
-        footer={<Footer />}
+        leftContent={<UnsubscribeFailed userId={user.ID} />}
+        rightContent={<ServiceMenu />}
       />
     );
   };
@@ -148,8 +145,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
         header={<Header />}
         headline="退会の理由"
         caption="モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。"
-        leftContent={<ServiceMenu />}
-        rightContent={
+        leftContent={
           <Unsubscribe
             reasonType={reasonType}
             onChangeReasonType={v => this.handleChangeUI('reasonType', v)}
@@ -160,7 +156,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
             buttonLoading={isUnsubscribeTrying}
           />
         }
-        footer={<Footer />}
+        rightContent={<ServiceMenu />}
       />
     );
   }
@@ -175,4 +171,7 @@ const mapStateToProps = state =>
     isUnsubscribeFailed: state.auth.isUnsubscribeFailed,
   });
 
-export default connect(UnsubscribeContainer, mapStateToProps);
+export default connect(
+  UnsubscribeContainer,
+  mapStateToProps,
+);

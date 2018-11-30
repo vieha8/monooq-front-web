@@ -40,7 +40,7 @@ const Check = styled.div`
 
 const Label = styled.div`
   display: inline-block;
-  font-size: 14px;
+  font-size: 15px;
   color: ${Colors.black};
   margin-left: 20px;
   vertical-align: top;

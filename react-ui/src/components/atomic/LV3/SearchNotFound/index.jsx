@@ -35,7 +35,6 @@ const ToHostLink = styled.div`
 
 type PropTypes = {
   header: React.Element<*>,
-  footer: React.Element<*>,
   locationText: string,
   onChangeLocation: Function,
   onClickSearchButton: Function,
@@ -85,6 +84,5 @@ export default (props: PropTypes) => (
         </TextLink>
       </ToHostLink>
     </ContentContainer>
-    {props.footer}
   </PageContainer>
 );

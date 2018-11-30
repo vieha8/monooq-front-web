@@ -75,7 +75,7 @@ export default (props: PropTypes) => (
     <SearchInput
       placeholder={props.placeholder}
       onChange={props.onChange}
-      innerRef={ref => props.onRef(ref)}
+      ref={ref => props.onRef(ref)}
       margin="normal"
       borderColor={props.borderColor}
     />

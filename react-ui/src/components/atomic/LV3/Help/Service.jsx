@@ -3,7 +3,6 @@
 import React from 'react';
 import MenuPage from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/LV2/Footer';
 import HelpMenu from 'components/atomic/LV3/HelpMenu';
 import AboutService from 'components/atomic/LV3/HelpContent/AboutService';
 import UserTransaction from 'components/atomic/LV3/HelpContent/UserTransaction';
@@ -54,7 +53,8 @@ export default (props: PropTypes) => {
     <MenuPage
       header={<Header help />}
       headline="ヘルプ"
-      leftContent={
+      leftContent={getContent(props)}
+      rightContent={
         <HelpMenu
           howToUser={{ open: openHowToUser }}
           onClickHowToUser={props.onClickHowToUser}
@@ -68,8 +68,6 @@ export default (props: PropTypes) => {
           aboutSalesTransfer={{ show: openHowToBeHost }}
         />
       }
-      rightContent={getContent(props)}
-      footer={<Footer />}
     />
   );
 };

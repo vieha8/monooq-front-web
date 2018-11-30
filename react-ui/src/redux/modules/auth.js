@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery } from 'redux-saga/effects';
 import firebase from 'firebase/app';
-import { push, replace } from 'connected-react-router';
+import { replace } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import { apiEndpoint } from './api';
@@ -220,11 +220,6 @@ function* checkLoginFirebaseAuth() {
     localStorage.setItem('status', JSON.stringify(status));
     yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID });
     ReactGA.set({ userId: data.ID });
-
-    if (status.user.Profile === '') {
-      yield put(uiActions.setUiState({ signupStep: 4 }));
-      store.dispatch(push('/signup'));
-    }
   }
 
   yield put(authActions.checkLoginSuccess(status));
@@ -285,7 +280,7 @@ function* signUpEmail({ payload: { email, password } }) {
 
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signupStep: 4 }));
+    yield put(uiActions.setUiState({ signupStep: 1 }));
   } catch (err) {
     yield put(authActions.signupFailed(err.message));
     yield put(errorActions.setError(err.message));
@@ -299,7 +294,6 @@ function* signUpFacebook() {
     const { isNewUser } = result.additionalUserInfo;
     if (!isNewUser) {
       yield put(authActions.signupFailed('Already registered.'));
-      yield put(errorActions.setError());
       return;
     }
     const { displayName, email, uid, photoURL } = result.user;
@@ -315,15 +309,15 @@ function* signUpFacebook() {
 
     if (err) {
       yield put(authActions.signupFailed(err));
-      yield put(errorActions.setError(err));
+      yield put(errorActions.setError());
       return;
     }
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signupStep: 4, signup: { name: displayName } }));
+    yield put(uiActions.setUiState({ signupStep: 1, signup: { name: displayName } }));
   } catch (err) {
     yield put(authActions.signupFailed(err.message));
-    yield put(errorActions.setError(err.message));
+    yield put(errorActions.setError());
   }
 }
 

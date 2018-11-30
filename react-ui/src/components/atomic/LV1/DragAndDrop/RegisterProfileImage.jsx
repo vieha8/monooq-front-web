@@ -14,7 +14,7 @@ const StyledDropzone = styled(Dropzone)`
 const Container = styled.div`
   display: table-cell;
   vertical-align: middle;
-  text-align: center;
+  text-align: left;
 `;
 
 const Image = styled.i`
@@ -38,18 +38,20 @@ const Preview = styled.img`
   border-radius: 70px;
   margin: 0 auto;
   object-fit: cover;
+  float: left;
 `;
 
 type PropTypes = {
   onDrop: Function,
   image: File | string,
+  imagePreview: File | string,
 };
 
 export default (props: PropTypes) => (
   <StyledDropzone accept="image/jpeg, image/png" onDrop={props.onDrop}>
     <Container>
       {props.image ? (
-        <Preview src={props.image.preview || props.image} />
+        <Preview src={props.imagePreview || props.image} />
       ) : (
         <div>
           <Image className="fal fa-image" />

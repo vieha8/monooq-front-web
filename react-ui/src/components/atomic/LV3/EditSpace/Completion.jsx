@@ -2,13 +2,12 @@
 
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import Button from 'components/atomic/LV1/Button';
-import { H1, H2 } from 'components/atomic/LV1/Headline';
+import EntryButtons from 'components/atomic/LV2/EntryButtons';
 import { Dimens } from 'variables';
 import GoogleTagManager from 'components/GTM';
 
 const Section = styled.div`
-  margin-top: ${Dimens.medium3}px;
+  margin-top: ${Dimens.medium}px;
 `;
 
 type PropTypes = {
@@ -37,22 +36,39 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
   }
 
   render() {
-    const { edit, space, onClickViewSpace } = this.props;
+    const { edit, space, onClickViewSpace, onClickBackHome, onClickCreateSpace } = this.props;
     return (
       <Fragment>
-        <H1>{`スペースの${edit ? '編集' : '登録'}が完了しました！`}</H1>
-        <Section>
-          <H2>
-            ユーザーからの相談を待ちましょう。<br />安心してもらえるようにメッセージは素早い対応を心がけましょう！
-          </H2>
-        </Section>
-        {space && (
-          <Section>
-            <Button primary fill={1} onClick={onClickViewSpace}>
-              {edit ? '編集' : '登録'}したスペースを見る
-            </Button>
-          </Section>
-        )}
+        {space &&
+          (edit === 0 ? (
+            <Section>
+              <EntryButtons
+                enabled
+                backButton={{
+                  text: 'スペースをさらに登録する',
+                  onClick: onClickCreateSpace,
+                }}
+                enabledButton={{
+                  text: `ホームにもどる`,
+                  onClick: onClickBackHome,
+                }}
+              />
+            </Section>
+          ) : (
+            <Section>
+              <EntryButtons
+                enabled
+                backButton={{
+                  text: '編集したページを確認する',
+                  onClick: onClickViewSpace,
+                }}
+                enabledButton={{
+                  text: `ホームにもどる`,
+                  onClick: onClickBackHome,
+                }}
+              />
+            </Section>
+          ))}
         <GoogleTagManager event="spaceRegistered" />
       </Fragment>
     );

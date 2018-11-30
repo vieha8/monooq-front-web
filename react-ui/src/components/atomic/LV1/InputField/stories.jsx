@@ -22,6 +22,17 @@ storiesOf('Atoms(LV1)/Forms/InputField', module)
     )),
   )
   .add(
+    'Available PlaceHolder',
+    withInfo(`
+      ### コンポーネント概要
+      入力欄(PlaceHolder有りver)
+    `)(() => (
+      <div style={{ Width: '380px', padding: `${Dimens.storyBookPadding}` }}>
+        <InputField placeholder="メールアドレス" />
+      </div>
+    )),
+  )
+  .add(
     'Has Error',
     withInfo(`
       ### コンポーネント概要

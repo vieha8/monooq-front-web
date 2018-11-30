@@ -24,13 +24,10 @@ storiesOf('Organisms(LV3)/RegisterProfile', module)
           onClickFacebook={() => {}}
           onChangeEmail={() => {}}
           onChangePassword={() => {}}
-          onChangePasswordConfirm={() => {}}
           email=""
           emailError={[]}
           password=""
           passError={[]}
-          passwordConfirm=""
-          passConfirmError={[]}
           buttonDisabled={false}
           isRegisterChecking={false}
         />

@@ -9,6 +9,7 @@ import { authActions } from './auth';
 import { getApiRequest, postApiRequest, putApiRequest, deleteApiRequest } from '../helpers/api';
 import { errorActions } from './error';
 import { convertBaseUrl } from '../../helpers/imgix';
+import Path from '../../config/path';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
@@ -24,6 +25,9 @@ const UPDATE_FAILED_SPACE = 'UPDATE_FAILED_SPACE';
 const SET_SPACE = 'SET_SPACE';
 const DELETE_SPACE = 'DELETE_SPACE';
 const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
+const FETCH_FEATURE_SPACES = 'FETCH_FEATURE_SPACES';
+const FETCH_SUCCESS_FEATURE_SPACES = 'FETCH_SUCCESS_FEATURE_SPACES';
+const FETCH_FAILED_FEATURE_SPACES = 'FETCH_FAILED_FEATURE_SPACES';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -39,6 +43,9 @@ export const spaceActions = createActions(
   SET_SPACE,
   DELETE_SPACE,
   PREPARE_UPDATE_SPACE,
+  FETCH_FEATURE_SPACES,
+  FETCH_SUCCESS_FEATURE_SPACES,
+  FETCH_FAILED_FEATURE_SPACES,
 );
 
 // Reducer
@@ -46,6 +53,28 @@ const initialState = {
   isComplete: false,
   isLoading: false,
   space: null,
+  features: [
+    {
+      id: 1,
+      title: '東京都内のおすすめスペース',
+      spaces: [],
+    },
+    {
+      id: 2,
+      title: '引越しに便利!大容量スペース',
+      spaces: [],
+    },
+    {
+      id: 3,
+      title: 'こんなところも?ちょっとユニークなスペース',
+      spaces: [],
+    },
+    {
+      id: 4,
+      title: 'モノオクスペースは全国各地に!',
+      spaces: [],
+    },
+  ],
 };
 
 export const spaceReducer = handleActions(
@@ -107,6 +136,10 @@ export const spaceReducer = handleActions(
     [PREPARE_UPDATE_SPACE]: state => ({
       ...state,
       isComplete: false,
+    }),
+    [FETCH_SUCCESS_FEATURE_SPACES]: (state, action) => ({
+      ...state,
+      features: action.payload,
     }),
   },
   initialState,
@@ -275,7 +308,23 @@ function* deleteSpace({ payload: { space } }) {
     return;
   }
   yield call(deleteApiRequest, apiEndpoint.spaces(space.ID));
-  window.location.reload();
+  window.location.href = Path.spaces();
+}
+
+function* getFeatureSpaces() {
+  const features = yield select(state => state.space.features);
+
+  const res = yield Promise.all(
+    features.map(async v => {
+      const feature = v;
+      const featureId = v.id;
+      const { data } = await getApiRequest(apiEndpoint.features(featureId));
+      feature.spaces = data;
+      return feature;
+    }),
+  );
+
+  yield put(spaceActions.fetchSuccessFeatureSpaces(res));
 }
 
 export const spaceSagas = [
@@ -283,4 +332,5 @@ export const spaceSagas = [
   takeEvery(CREATE_SPACE, createSpace),
   takeEvery(UPDATE_SPACE, updateSpace),
   takeEvery(DELETE_SPACE, deleteSpace),
+  takeEvery(FETCH_FEATURE_SPACES, getFeatureSpaces),
 ];

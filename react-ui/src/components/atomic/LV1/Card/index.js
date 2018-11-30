@@ -14,7 +14,13 @@ const Card = styled.div`
     !props.noPadding &&
     `
     padding: 20px;  
-  `} vertical-align: top;
+  `};
+  ${props =>
+    props.isPadding &&
+    `
+    padding: ${props.isPadding}px;
+  `};
+  vertical-align: top;
 
   ${props =>
     props.background &&

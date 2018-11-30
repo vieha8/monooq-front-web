@@ -3,32 +3,29 @@
 import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
-import { Colors, FontSizes, Dimens } from 'variables';
+import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { H3 } from 'components/atomic/LV1/Headline';
 import InlineText from 'components/atomic/LV1/InlineText';
 import ImagePreview from './ImagePreview';
+import { PictureIcon } from 'components/atomic/LV1/ActionIcon';
 
 import loadImage from 'blueimp-load-image';
 
 const DragText = styled.div`
   display: block;
+  font-weight: bold;
+  margin-top: ${Dimens.medium1}px;
   ${media.phone`
     display: none;
   `};
-`;
-
-const Icon = styled.i`
-  display: inline-block;
-  font-size: ${FontSizes.large}px;
-  color: ${Colors.lightGray1};
 `;
 
 const DndContent = styled.div`
   text-align: center;
   padding: ${Dimens.medium}px;
   width: 100%;
-  height: 200px;
+  height: 164px;
   border: 1px solid ${Colors.borderGray};
   border-radius: 6px;
   background: ${Colors.lightGray1Bg};
@@ -38,7 +35,7 @@ const DndContent = styled.div`
 `;
 
 const IconWrapper = styled.div`
-  margin-top: ${Dimens.large}px;
+  margin-top: ${Dimens.medium2}px;
   text-align: center;
   ${media.phone`
     margin-top: ${Dimens.medium}px;
@@ -47,7 +44,7 @@ const IconWrapper = styled.div`
 
 const StyledDropZone = styled(Dropzone)`
   width: 100%;
-  margin-top: ${Dimens.medium}px;
+  margin-top: 4px;
   cursor: pointer;
   &:hover {
     opacity: 0.6;
@@ -58,7 +55,7 @@ const StyledAddImageDropZone = styled(Dropzone)`
   display: table-cell;
   vertical-align: top;
   width: ${props => props.remain * 25}%;
-  margin-top: ${Dimens.medium}px;
+  margin-top: 4px;
   cursor: pointer;
   &:hover {
     opacity: 0.6;
@@ -75,6 +72,10 @@ const ImagePreviewWrapper = styled.li`
   display: table-cell;
   width: ${props => props.widthRate}%;
   padding: 0 8px;
+`;
+
+const HintBottomWrap = styled.div`
+  margin-top: 5px;
 `;
 
 const MAX_PREVIEW_COUNT = 4;
@@ -159,7 +160,7 @@ function showImagePreview(props: PropTypes) {
             >
               <DndContent>
                 <IconWrapper>
-                  <Icon className="far fa-plus" />
+                  <PictureIcon />
                 </IconWrapper>
                 <DragText>
                   <InlineText.Base color={Colors.lightGray1}>写真を追加する</InlineText.Base>
@@ -179,10 +180,7 @@ export default (props: PropTypes) => {
   return (
     <div>
       <div>
-        <H3>スペースの様子を写真で登録しよう</H3>
-      </div>
-      <div>
-        <InlineText.EmphasisSmall>最大4枚まで登録可能です。</InlineText.EmphasisSmall>
+        <H3 bold>スペースの様子がわかる写真</H3>
       </div>
       {(images || []).length === 0 ? (
         <StyledDropZone
@@ -191,14 +189,11 @@ export default (props: PropTypes) => {
         >
           <DndContent>
             <IconWrapper>
-              <Icon className="fal fa-images" />
+              <PictureIcon />
             </IconWrapper>
             <DragText>
               <div>
-                <InlineText.Base color={Colors.lightGray1}>クリックして写真を追加</InlineText.Base>
-              </div>
-              <div>
-                <InlineText.Base color={Colors.lightGray1}>またはドラッグする</InlineText.Base>
+                <InlineText.Base>タップして画像をアップロード</InlineText.Base>
               </div>
             </DragText>
           </DndContent>
@@ -206,6 +201,9 @@ export default (props: PropTypes) => {
       ) : (
         showImagePreview(props)
       )}
+      <HintBottomWrap>
+        <InlineText.Tiny>最大4枚まで登録可能です。</InlineText.Tiny>
+      </HintBottomWrap>
     </div>
   );
 };

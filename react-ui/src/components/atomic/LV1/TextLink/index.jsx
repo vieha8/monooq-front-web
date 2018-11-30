@@ -9,21 +9,42 @@ const TextLink = styled(Link)`
   color: ${Colors.linkBlue};
   line-height: 1.6;
   font-size: ${props => props.fontSize || 16}px;
+  font-weight: ${props => (props.bold ? 'bold' : 'normal')};
+  ${props =>
+    props.underline &&
+    `
+    text-decoration: underline;
+  `};
   cursor: pointer;
 
-  &:link {
-    color: ${Colors.linkBlue};
-  }
-  &:visited {
-    color: ${Colors.linkBlue};
-  }
-  &:hover {
-    color: ${Colors.linkBlue};
-    opacity: 0.8;
-  }
-  &:active {
-    color: ${Colors.linkBlue};
-  }
+  ${props =>
+    props.color
+      ? `&:link {
+        color: ${props.color};
+      }
+      &:visited {
+        color: ${props.color};
+      }
+      &:hover {
+        color: ${props.color};
+        opacity: 0.8;
+      }
+      &:active {
+        color: ${props.color};
+      }`
+      : `&:link {
+        color: ${props.linkBlue};
+      }
+      &:visited {
+        color: ${props.linkBlue};
+      }
+      &:hover {
+        color: ${props.linkBlue};
+        opacity: 0.8;
+      }
+      &:active {
+        color: ${props.linkBlue};
+      }`};
 
   ${props => props.custom} ${props =>
     props.disabled &&
@@ -51,9 +72,15 @@ const HyperLink = TextLink.withComponent('a');
 
 export default (props: Object) =>
   props.href ? (
-    <HyperLink {...props} href={props.href}>
-      {props.children}
-    </HyperLink>
+    props.key ? (
+      <HyperLink {...props} href={props.href} key={props.key}>
+        {props.children}
+      </HyperLink>
+    ) : (
+      <HyperLink {...props} href={props.href}>
+        {props.children}
+      </HyperLink>
+    )
   ) : (
     <TextLink {...props} to={props.to || ''}>
       {props.children}

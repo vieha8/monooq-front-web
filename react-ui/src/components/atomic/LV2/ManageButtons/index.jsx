@@ -5,10 +5,15 @@ import styled from 'styled-components';
 import Button from 'components/atomic/LV1/Button';
 import { PrimaryButton } from 'components/atomic/LV1/Button/Primary';
 import { Colors } from 'variables';
-import ConfirmBtnModal from 'components/atomic/LV2/ConfirmBtnModal';
+import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
-  width: 120px;
+  max-width: 240px;
+  margin: 20px auto auto;
+  ${media.tablet`
+      max-width: 100%;
+      margin: 10px auto auto;
+  `};
 `;
 
 const Wrapper = styled.div`
@@ -17,7 +22,6 @@ const Wrapper = styled.div`
   }
 `;
 
-// atomsに無い特殊ボタンのため、ここで特別に定義
 const PrivateButton = styled(PrimaryButton)`
   color: ${Colors.darkGray2};
   background: ${Colors.white};
@@ -34,37 +38,27 @@ type PropTypes = {
   onClickPublic: Function,
   onClickPrivate?: Function,
   onClickPublic?: Function,
-  onClickRemove?: Function,
   private?: boolean,
   public?: boolean,
-  removable?: boolean,
 };
 
 export default (props: PropTypes) => (
   <Container>
     <Wrapper>
-      <Button primary small onClick={props.onClickEdit}>
+      <Button primary fontbold fill={1} height={40} onClick={props.onClickEdit}>
         編集する
       </Button>
     </Wrapper>
     <Wrapper>
       {props.private && (
-        <Button secondary small onClick={props.onClickPublic}>
+        <Button secondary fontbold fill={1} height={40} onClick={props.onClickPublic}>
           この場所を公開する
         </Button>
       )}
       {props.public && (
-        <PrivateButton small onClick={props.onClickPrivate}>
+        <PrivateButton fill={1} height={40} onClick={props.onClickPrivate}>
           非公開にする
         </PrivateButton>
-      )}
-      {props.removable && (
-        <ConfirmBtnModal
-          btnText={'削除する'}
-          modalTitle={'スペース削除'}
-          modalText={'登録済みのスペースを削除します。よろしいですか？'}
-          onClickRemove={props.onClickRemove}
-        />
       )}
     </Wrapper>
   </Container>

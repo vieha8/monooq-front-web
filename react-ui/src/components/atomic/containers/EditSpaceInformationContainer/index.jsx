@@ -6,10 +6,10 @@ import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
 
-import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
+import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceInformation from 'components/atomic/LV3/EditSpace/Information';
-import EditStatus from 'components/atomic/LV3/EditSpace/Status';
 
 import { ErrorMessage } from 'strings';
 
@@ -53,6 +53,12 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
+
+  onClickRemove: Function;
+  onClickRemove = space => {
+    const { dispatch } = this.props;
+    dispatch(spaceActions.deleteSpace({ space }));
+  };
 
   handleChangeImage: Function;
   handleChangeImage = (pickedImages: Array<File>) => {
@@ -138,6 +144,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     if (Address.length === 0) {
       addressErrors.push(ErrorMessage.PleaseInput);
     }
+
     const match = Address.match(Validate.Address);
     if (!match || (match && match[4] === '')) {
       addressErrors.push(ErrorMessage.InvalidAddress);
@@ -157,8 +164,9 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     const { Images, Title, Type, Introduction, Address, error } = this.state;
 
     return (
-      <EditSpaceTemplate
+      <MenuPageTemplate
         header={<Header />}
+        headline={`スペースの${space.ID ? '編集' : '登録'}`}
         leftContent={
           <EditSpaceInformation
             edit={space.ID}
@@ -180,18 +188,10 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
             addressErrors={error.address}
             onChangeAddress={v => this.handleChangeUI('Address', v)}
             onClickNext={this.onClickNext}
+            OnClickRemove={() => this.onClickRemove(space)}
           />
         }
-        rightContent={
-          <EditStatus
-            edit={space.ID}
-            step={0}
-            hintTitle="ヒント"
-            hintContent={[
-              'ユーザーが自分の荷物が入るかイメージできるようにスペースの情報やアピールポイントを掲載しましょう！',
-            ]}
-          />
-        }
+        rightContent={<ServiceMenu />}
       />
     );
   }

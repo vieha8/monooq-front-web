@@ -6,6 +6,7 @@ import SignUp from './SignUpContainer';
 import ResetPassword from './ResetPasswordContainer';
 import SearchResult from './SearchResultContainer';
 import Space from './SpaceContainer';
+import SearchCondition from './SearchConditionContainer';
 import SpaceManagement from './SpaceManagementContainer';
 import Schedule from './ScheduleContainer';
 import Profile from './ProfileContainer';
@@ -25,6 +26,8 @@ import EditSpaceCompletion from './EditSpaceCompletionContainer';
 import Unsubscribe from './UnsubscribeContainer';
 import Sales from './SalesContainer';
 import ConciergeRequest from './ConciergeRequestContainer';
+import HowToUse from './HowToUseContainer';
+import Home from './HomeContainer';
 
 export default {
   Top,
@@ -33,6 +36,7 @@ export default {
   ResetPassword,
   SearchResult,
   Space,
+  SearchCondition,
   SpaceManagement,
   Schedule,
   Profile,
@@ -52,4 +56,6 @@ export default {
   Unsubscribe,
   Sales,
   ConciergeRequest,
+  HowToUse,
+  Home,
 };

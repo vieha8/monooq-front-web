@@ -39,17 +39,6 @@ storiesOf('Templates/ProfileTemplate', module).add(
             profile section
           </div>
         }
-        footer={
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              background: 'blue',
-            }}
-          >
-            footer section
-          </div>
-        }
       />
     </div>
   )),

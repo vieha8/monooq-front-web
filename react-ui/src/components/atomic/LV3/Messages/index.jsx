@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Path from 'config/path';
 import moment from 'moment';
@@ -16,7 +16,7 @@ import TextLink from 'components/atomic/LV1/TextLink';
 import { Dimens, Colors } from 'variables';
 
 const Row = styled.div`
-  width: 80%;
+  width: 66%;
   ${props =>
     props.self
       ? `
@@ -107,7 +107,7 @@ export default (props: PropTypes) => {
   const messageList = messages;
 
   // 自分がユーザーの場合かつ未送信の場合は、初期メッセージを追加する
-  if (!hostUser && messageList.length === 1) {
+  if (!hostUser && messageList.length === 0) {
     messageList.push({
       admin: {
         message:
@@ -128,21 +128,23 @@ export default (props: PropTypes) => {
           if (message.self.image) {
             if (message.self.message) {
               return (
-                <Row key={key} self>
-                  <Row key={key} self>
+                <Fragment key={key}>
+                  <Row self>
                     <SelfMessage
                       message={message.self.message}
                       sentAt={moment(message.self.sentAt).format(dateFormat)}
                       isRead={isRead}
                     />
                   </Row>
-                  <PhotoMessage
-                    align="right"
-                    src={message.self.image}
-                    receivedAt={moment(message.self.sentAt).format(dateFormat)}
-                    isRead={isRead}
-                  />
-                </Row>
+                  <Row self>
+                    <PhotoMessage
+                      align="right"
+                      src={message.self.image}
+                      receivedAt={moment(message.self.sentAt).format(dateFormat)}
+                      isRead={isRead}
+                    />
+                  </Row>
+                </Fragment>
               );
             }
             return (
@@ -170,20 +172,30 @@ export default (props: PropTypes) => {
           if (message.other.image) {
             if (message.other.message) {
               return (
-                <Row key={key}>
-                  <OtherMessage
-                    id={message.other.id}
-                    image={message.other.userImage}
-                    message={message.other.message}
-                    receivedAt={moment(message.other.receivedAt).format(dateFormat)}
-                  />
-                  <OtherMessage
-                    id={message.other.id}
-                    image={message.other.userImage}
-                    receivedAt={moment(message.other.receivedAt).format(dateFormat)}
-                    extension={<PhotoMessage id={message.other.id} src={message.other.image} />}
-                  />
-                </Row>
+                <Fragment key={key}>
+                  <Row>
+                    <OtherMessage
+                      id={message.other.id}
+                      image={message.other.userImage}
+                      message={message.other.message}
+                      receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                    />
+                  </Row>
+                  <Row>
+                    <OtherMessage
+                      id={message.other.id}
+                      image={message.other.userImage}
+                      receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                      extension={
+                        <PhotoMessage
+                          id={message.other.id}
+                          src={message.other.image}
+                          receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                        />
+                      }
+                    />
+                  </Row>
+                </Fragment>
               );
             }
             return (
@@ -192,7 +204,13 @@ export default (props: PropTypes) => {
                   id={message.other.id}
                   image={message.other.userImage}
                   receivedAt={moment(message.other.receivedAt).format(dateFormat)}
-                  extension={<PhotoMessage id={message.other.id} src={message.other.image} />}
+                  extension={
+                    <PhotoMessage
+                      id={message.other.id}
+                      src={message.other.image}
+                      receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                    />
+                  }
                 />
               </Row>
             );

@@ -7,7 +7,14 @@ import { PrimaryButton } from './Primary';
 
 const Secondary = styled(PrimaryButton)`
   background: ${Colors.white};
-  border: 1px solid ${Colors.brandPrimary};
+  ${props =>
+    props.borderbold
+      ? `
+      border: 2px solid ${Colors.brandPrimary};
+  `
+      : `
+      border: 1px solid ${Colors.brandPrimary};
+  `};
   color: ${Colors.brandPrimary};
 
   ${props =>

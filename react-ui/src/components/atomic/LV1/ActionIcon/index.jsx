@@ -33,11 +33,16 @@ type PropTypes = {
   fontSize: number,
 };
 
-export const SearchIcon = (props: PropTypes) => <Icon {...props} className="fal fa-search" />;
+export const SearchIcon = (props: PropTypes) => (
+  <Icon {...props} className="fas fa-search color-darkGray1" />
+);
 export const MessageIcon = (props: PropTypes) => (
   <Icon {...props} className="fas fa-comment" rotateY180 />
 );
-export const PictureIcon = (props: PropTypes) => <Icon {...props} className="fal fa-image" />;
+export const OtherIcon = (props: PropTypes) => (
+  <Icon {...props} className="fal fa-ellipsis-h fa-2x color-darkGray1" />
+);
+export const PictureIcon = (props: PropTypes) => <Icon {...props} className="fal fa-image fa-2x" />;
 export const AngleRight = (props: PropTypes) => <Icon {...props} className="fal fa-angle-right" />;
 export const AngleDown = (props: PropTypes) => <Icon {...props} className="fal fa-angle-down" />;
 export const CircleRight = (props: PropTypes) => (

@@ -15,11 +15,20 @@
 }
 
 .DateInput__block {
-  width: 80%;
+  width: 78%;
 }
 
 .SingleDatePickerInput__block {
   border: none;
+}
+
+.SingleDatePickerInput_calendarIcon {
+  margin: 0 5px 0 5px;
+}
+
+.DateInput_input {
+  font-size: 14px;
+  padding: 14px 0px 9px;
 }
 
 .DateInput_input__focused {

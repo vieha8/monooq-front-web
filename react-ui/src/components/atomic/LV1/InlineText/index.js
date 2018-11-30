@@ -7,7 +7,17 @@ import { media } from 'helpers/style/media-query';
 const Base = styled.span`
   color: ${props => props.color || Colors.black};
   font-size: ${props => props.fontSize || 16}px;
-  line-height: 1.6;
+  ${props =>
+    props.bold &&
+    `
+    font-weight: bold;
+  `};
+  line-height: ${props => props.lineheight || 1.6};
+  ${props =>
+    props.float &&
+    css`
+      float: ${props.float};
+    `};
   white-space: pre-wrap;
   ${props =>
     props.verticalTop &&
@@ -31,11 +41,21 @@ const Base = styled.span`
     overflow: hidden;
     text-overflow: ellipsis;
   `};
+  ${props =>
+    props.inLineBlock &&
+    `
+    display: inline-block;
+  `};
   ${media.phone`
     ${props =>
       props.fontSizeSp &&
       css`
         font-size: ${props.fontSizeSp}px;
+      `}
+    ${props =>
+      props.maxWidthSp &&
+      css`
+        max-width: ${props.maxWidthSp}px;
       `}
   `};
 `;

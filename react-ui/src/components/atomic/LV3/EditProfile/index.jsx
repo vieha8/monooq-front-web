@@ -7,23 +7,26 @@ import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
 import Button from 'components/atomic/LV1/Button';
 import { selectOptionPrefectures } from 'helpers/prefectures';
-import { Dimens } from 'variables';
+import { selectOptionPurpose } from 'helpers/purposes';
 
 const Row = styled.div`
   &:not(:first-child) {
-    margin: ${Dimens.large}px 0;
+    margin: 34px 0;
   }
 `;
 
 type PropTypes = {
   onChangeImage: Function,
-  image: string,
+  image: File | string,
+  imagePreview: File | string,
   onChangeName: Function,
   name: string,
   onChangeEmail: Function,
   email: string,
   onChangePrefCode: Function,
   prefCode: string,
+  onChangePurpose: Function,
+  purpose: string,
   onChangeProfile: Function,
   profile: string,
   onClickUpdate: Function,
@@ -37,7 +40,10 @@ export default (props: PropTypes) => (
       <InputForm
         label="プロフィール写真"
         extension={
-          <RegsiterProfileImage onDrop={data => props.onChangeImage(data[0])} image={props.image} />
+          <RegsiterProfileImage
+            onDrop={data => props.onChangeImage(data[0])}
+            image={props.imagePreview || props.image}
+          />
         }
       />
     </Row>
@@ -77,13 +83,20 @@ export default (props: PropTypes) => (
     </Row>
     <Row>
       <InputForm
-        label="あなたの紹介文"
-        hint="ユーザー・ホストが安心するようにあなたの紹介文を掲載しましょう！"
+        label="自己紹介"
         placeholder="はじめまして！モノオクホストのYUKIです。大きめの荷物でも柔軟に対応しております、いつでもチャットでご連絡ください！"
         rows={4}
         multiline
         onChange={e => props.onChangeProfile(e.target.value)}
         value={props.profile}
+      />
+    </Row>
+    <Row>
+      <SelectForm
+        label="モノオクの利用方法"
+        options={selectOptionPurpose('選択してください')}
+        onChange={e => props.onChangePurpose(e.target.value)}
+        value={props.purpose}
       />
     </Row>
     <Button

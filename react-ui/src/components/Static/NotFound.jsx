@@ -82,12 +82,15 @@ export default () => (
         },
         {
           text: 'ヘルプ',
-          path: Path.helpTop(),
+          path: 'https://help.monooq.com/',
+          blank: '_blank',
         },
       ].map((v, i) => {
         return (
           <List key={i}>
-            <Anchor href={v.path}>{v.text}</Anchor>
+            <Anchor href={v.path} target={v.blank || '_self'}>
+              {v.text}
+            </Anchor>
           </List>
         );
       })}

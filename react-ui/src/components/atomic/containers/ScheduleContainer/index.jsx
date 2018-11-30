@@ -8,10 +8,9 @@ import { requestActions } from 'redux/modules/request';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import InlineText from 'components/atomic/LV1/InlineText';
-import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import ScheduleList from 'components/atomic/LV3/ScheduleList';
+import NoDataView from 'components/atomic/LV3/NoDataView';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -33,8 +32,12 @@ class ScheduleContainer extends Component {
   getScheduleProps: Function;
   getScheduleProps = (schedule: Object, isHost: boolean) => ({
     schedule: {
-      hostIsMySelf: isHost,
-      opponentName: isHost ? schedule.User.Name : schedule.Space.Host.Name,
+      isHost: isHost,
+      user: {
+        ID: !isHost ? schedule.Space.Host.ID : schedule.User.ID,
+        Name: !isHost ? schedule.Space.Host.Name : schedule.User.Name,
+        ImageUrl: !isHost ? schedule.Space.Host.ImageUrl : schedule.User.ImageUrl,
+      },
       space: {
         image: {
           src: (schedule.Space.Images[0] || {}).ImageUrl,
@@ -57,7 +60,7 @@ class ScheduleContainer extends Component {
       return auth;
     }
 
-    const { isLoading, schedule } = this.props;
+    const { isLoading, schedule, history, user } = this.props;
 
     if (isLoading) {
       return <LoadingPage />;
@@ -68,20 +71,32 @@ class ScheduleContainer extends Component {
       ((schedule || {}).host || []).map(s => this.getScheduleProps(s, true)),
     );
 
+    const isHost = user.IsHost;
+
     return (
       <div>
         <MenuPageTemplate
           header={<Header />}
-          headline="スケジュール"
-          leftContent={<ServiceMenu />}
-          rightContent={
+          headline="利用状況"
+          leftContent={
             Array.isArray(schedules) && schedules.length > 0 ? (
-              <ScheduleList schedules={schedules} />
+              <ScheduleList schedules={schedules} isHost={isHost} />
             ) : (
-              <InlineText.Base>スケジュールはありません。</InlineText.Base>
+              <NoDataView
+                captionHead={
+                  isHost ? '利用されたスペースがありません' : '利用したスペースがありません'
+                }
+                caption={
+                  isHost
+                    ? 'まだスペースは利用されていません。他のホストの方を参考に、スペース情報を充実させてみましょう。'
+                    : '利用したスペースがありません。ご希望のスペースを見つけて連絡を取ってみましょう。'
+                }
+                buttonText="ホームへ戻る"
+                onClick={() => history.push(Path.home())}
+              />
             )
           }
-          footer={<Footer />}
+          rightContent={<ServiceMenu />}
         />
       </div>
     );

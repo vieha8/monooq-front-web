@@ -23,7 +23,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <div>
-    <Card block noBorder background={Colors.lightGreen}>
+    <Card block noBorder background={Colors.lightGreen} isPadding={15}>
       <InlineText.Base fontSize={14}>{props.message}</InlineText.Base>
       <InlineText.Base fontSize={14}>
         <Link to={props.link.url || ''}>{props.link.text || ''}</Link>

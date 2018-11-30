@@ -7,7 +7,6 @@ import { userActions } from 'redux/modules/user';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/LV2/Footer';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import EditProfile from 'components/atomic/LV3/EditProfile';
 import EditProfileCompleted from 'components/atomic/LV3/EditProfile/Completed';
@@ -49,6 +48,7 @@ class ProfileContainer extends Component<PropTypes> {
       prefCode: user.PrefCode,
       profile: user.Profile,
       phoneNumber: user.PhoneNumber,
+      purpose: user.IsHost ? 2 : 1,
     };
   }
 
@@ -61,11 +61,13 @@ class ProfileContainer extends Component<PropTypes> {
       const user = nextProps.user;
       this.setState({
         imageUri: user.ImageUrl,
+        imageUriPreview: '',
         name: user.Name,
         email: user.Email,
         prefCode: user.PrefCode,
         profile: user.Profile,
         phoneNumber: user.PhoneNumber,
+        purpose: user.IsHost ? 2 : 1,
       });
     }
   }
@@ -79,7 +81,9 @@ class ProfileContainer extends Component<PropTypes> {
 
     if (this.validate()) {
       const { dispatch } = this.props;
-      dispatch(userActions.updateUser({ userId: user.ID, body: this.state }));
+      const body = this.state;
+      body.isHost = this.state.purpose === '2';
+      dispatch(userActions.updateUser({ userId: user.ID, body }));
       return;
     }
 
@@ -107,6 +111,9 @@ class ProfileContainer extends Component<PropTypes> {
   handleChangeUI: Function;
   handleChangeUI = (propsName: string, value) => {
     const state = this.state;
+    if (propsName === 'imageUri') {
+      state.imageUriPreview = URL.createObjectURL(value);
+    }
     state[propsName] = value;
     this.setState(state);
   };
@@ -139,28 +146,39 @@ class ProfileContainer extends Component<PropTypes> {
       return <LoadingPage />;
     }
 
-    const { imageUri, name, email, prefCode, profile, phoneNumber } = this.state;
+    const {
+      imageUri,
+      imageUriPreview,
+      name,
+      email,
+      prefCode,
+      profile,
+      phoneNumber,
+      purpose,
+    } = this.state;
 
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={updateSuccess ? 'プロフィールの更新が完了しました' : 'プロフィールを編集する'}
-        leftContent={<ServiceMenu />}
-        rightContent={
+        headline={updateSuccess ? 'プロフィール編集が完了しました' : 'プロフィール編集'}
+        leftContent={
           updateSuccess ? (
             <EditProfileCompleted userId={user.ID} />
           ) : (
             <EditProfile
               image={imageUri}
+              imagePreview={imageUriPreview}
               name={name}
               email={email}
               prefCode={prefCode}
               profile={profile}
               phoneNumber={phoneNumber}
+              purpose={purpose}
               onChangeImage={value => this.handleChangeUI('imageUri', value)}
               onChangeName={value => this.handleChangeUI('name', value)}
               onChangeEmail={value => this.handleChangeUI('email', value)}
               onChangePrefCode={value => this.handleChangeUI('prefCode', value)}
+              onChangePurpose={value => this.handleChangeUI('purpose', value)}
               onChangeProfile={value => this.handleChangeUI('profile', value)}
               onChangePhoneNumber={value => this.handleChangeUI('phoneNumber', value)}
               buttonDisabled={!this.validate()}
@@ -169,7 +187,7 @@ class ProfileContainer extends Component<PropTypes> {
             />
           )
         }
-        footer={<Footer />}
+        rightContent={<ServiceMenu />}
       />
     );
   }

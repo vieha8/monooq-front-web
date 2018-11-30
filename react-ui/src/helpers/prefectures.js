@@ -1,5 +1,9 @@
 // @flow
 
+export const purposes = ['荷物を預けたい', '荷物を預かりたい'];
+
+export const deposittypes = ['普通', '当座'];
+
 export const prefectures = [
   '北海道',
   '青森県',
@@ -70,6 +74,48 @@ export function selectOptionPrefectures(placeholder: string) {
         key: prefCode,
         value: prefCode.toString(),
         text: pref,
+      };
+    }),
+  );
+}
+
+export function selectOptionPurpose(placeholder: string) {
+  const purposesList = [];
+  if (placeholder) {
+    purposesList.push({
+      key: -1,
+      value: '',
+      text: placeholder,
+    });
+  }
+  return purposesList.concat(
+    purposes.map((pur, i) => {
+      const purpose = i + 1;
+      return {
+        key: purpose,
+        value: purpose.toString(),
+        text: pur,
+      };
+    }),
+  );
+}
+
+export function selectDepositType(placeholder: string) {
+  const depositTypeList = [];
+  if (placeholder) {
+    depositTypeList.push({
+      key: -1,
+      value: '',
+      text: placeholder,
+    });
+  }
+  return depositTypeList.concat(
+    deposittypes.map((depo, i) => {
+      const deposittype = i + 1;
+      return {
+        key: deposittype,
+        value: deposittype.toString(),
+        text: depo,
       };
     }),
   );

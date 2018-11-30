@@ -8,14 +8,16 @@ import Loading from 'components/atomic/LV1/Loading';
 import Path from 'config/path';
 
 import SearchResultTemplate from 'components/atomic/templates/SearchResult';
+import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
-import Footer from 'components/atomic/LV2/Footer';
 import SearchResult from 'components/atomic/LV3/SearchResult';
-import SearchNotFound from 'components/atomic/LV3/SearchNotFound';
+import NoDataView from 'components/atomic/LV3/NoDataView';
 import Meta from 'components/Meta';
 import { Dimens } from 'variables';
 
 import { searchActions } from 'redux/modules/search';
+import { getPrefecture } from 'helpers/prefectures';
 
 import connect from '../connect';
 
@@ -57,9 +59,16 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
     const { location } = props;
     const query = parse(location.search);
+    const { keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture } = query;
 
     this.state = {
-      location: query.location,
+      keyword,
+      prefCode,
+      priceMin,
+      priceMax,
+      receiptType,
+      type,
+      isFurniture,
       limit: 12,
       offset: 0,
     };
@@ -74,32 +83,82 @@ class SearchResultContainer extends Component<PropTypes, State> {
     history.push(Path.space(space.ID));
   };
 
-  onKeyDownSearchField = e => {
-    if (e && e.keyCode === 13 && e.target.value) {
-      this.research();
-    }
-  };
+  getCondition = () => {
+    const { keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture } = this.state;
 
-  research = () => {
-    const { search } = this.state;
-    if (window && window.location) {
-      window.location.href = `${Path.search()}?location=${search}`;
+    let condition = '';
+
+    if (keyword !== '') {
+      condition += `${keyword}、`;
     }
+
+    if (prefCode !== '0') {
+      condition += `${getPrefecture(parseInt(prefCode, 10))}、`;
+    }
+
+    if (type !== '0') {
+      // TODO タイプ管理の汎用関数作る
+      if (type === '1') {
+        condition += `クローゼット・押入れ、`;
+      } else if (type === '3') {
+        condition += `部屋、`;
+      } else if (type === '4') {
+        condition += `野外倉庫、`;
+      } else if (type === '5') {
+        condition += `その他`;
+      }
+    }
+
+    if (receiptType !== '0') {
+      // TODO タイプ管理の汎用関数作る
+      if (receiptType === '1') {
+        condition += `対面・配送受取対応、`;
+      } else if (receiptType === '2') {
+        condition += `対面受取のみ、`;
+      } else if (receiptType === '3') {
+        condition += `配送受取のみ、`;
+      }
+    }
+
+    if (priceMin !== '') {
+      condition += `${priceMin}円以上、`;
+    }
+
+    if (priceMax !== '') {
+      condition += `${priceMax}円以下、`;
+    }
+
+    if (isFurniture === 'true') {
+      condition += `家具家電可、`;
+    }
+
+    condition = condition.slice(0, -1);
+
+    if (condition === '') {
+      condition = 'すべて';
+    }
+
+    return condition;
   };
 
   renderNotFound = () => {
-    const { search } = this.state;
+    const { history } = this.props;
+
+    const condition = this.getCondition();
 
     return (
-      <SearchNotFound
+      <MenuPageTemplate
         header={<Header />}
-        footer={<Footer />}
-        locationText={search}
-        onChangeLocation={value => {
-          this.setState({ search: value });
-        }}
-        onClickSearchButton={this.research}
-        onKeyDownSearchField={this.onKeyDownSearchField}
+        headline={`「${condition}」のスペース検索結果 0件`}
+        leftContent={
+          <NoDataView
+            captionHead="検索結果がありませんでした"
+            caption="キーワードが該当しませんでした。別のキーワードで再度検索をお願いします。"
+            buttonText="再度検索する"
+            onClick={() => history.push(Path.searchCondition())}
+          />
+        }
+        rightContent={<ServiceMenu />}
       />
     );
   };
@@ -110,55 +169,79 @@ class SearchResultContainer extends Component<PropTypes, State> {
     if (isSearching) {
       return;
     }
-    const { location, limit, offset } = this.state;
-    dispatch(searchActions.doSearch({ location, limit, offset }));
+    const {
+      limit,
+      offset,
+      keyword,
+      prefCode,
+      priceMin,
+      priceMax,
+      receiptType,
+      type,
+      isFurniture,
+    } = this.state;
+
+    dispatch(
+      searchActions.doSearch({
+        limit,
+        offset,
+        keyword,
+        prefCode,
+        priceMin,
+        priceMax,
+        receiptType,
+        type,
+        isFurniture,
+      }),
+    );
     const newOffset = offset + limit;
     this.setState({ offset: newOffset });
   };
 
   render() {
-    const { spaces, isMore } = this.props;
-    const { location } = this.state;
-
+    const { spaces, isMore, history } = this.props;
     if (spaces.length === 0 && !isMore) {
       return this.renderNotFound();
     }
 
-    const caption =
-      '荷物の量と期間によって最適な料金をホストが提示してくれます。長期間の物置きとして便利です。';
+    const condition = this.getCondition();
 
     return (
-      <Fragment>
-        <SearchResultTemplate
-          meta={<Meta title={`${location}のスペース検索結果 | モノオク`} />}
-          headline1={`${location}のスペース`}
-          caption={caption}
-          searchResult={
-            <InfiniteScroll
-              pageStart={0}
-              loadMore={this.loadItems}
-              hasMore={isMore}
-              loader={<Loader size="medium" key={0} />}
-              initialLoad
-            >
-              <SearchResult
-                spaces={spaces.map(s => ({
-                  image: (s.Images[0] || {}).ImageUrl,
-                  title: s.Title,
-                  addressTown: s.AddressTown,
-                  isFurniture: s.IsFurniture,
-                  priceFull: s.PriceFull,
-                  priceHalf: s.PriceHalf,
-                  priceQuarter: s.PriceQuarter,
-                  onClick: () => this.onClickSpace(s),
-                }))}
-              />
-            </InfiniteScroll>
-          }
-          header={<Header />}
-          footer={<Footer />}
-        />
-      </Fragment>
+      <MenuPageTemplate
+        header={<Header />}
+        headline={`「${condition}」のスペース検索結果`}
+        leftContent={
+          <Fragment>
+            <SearchResultTemplate
+              meta={<Meta title={`${condition}のスペース検索結果 | モノオク`} />}
+              history={history}
+              searchResult={
+                <InfiniteScroll
+                  pageStart={0}
+                  loadMore={this.loadItems}
+                  hasMore={isMore}
+                  loader={<Loader size="medium" key={0} />}
+                  initialLoad
+                >
+                  <SearchResult
+                    spaces={spaces.map(s => ({
+                      image: (s.Images[0] || {}).ImageUrl,
+                      title: s.Title,
+                      address: `${s.AddressPref}${s.AddressCity}`,
+                      isFurniture: s.IsFurniture,
+                      priceFull: s.PriceFull,
+                      priceHalf: s.PriceHalf,
+                      priceQuarter: s.PriceQuarter,
+                      onClick: () => this.onClickSpace(s),
+                    }))}
+                  />
+                </InfiniteScroll>
+              }
+            />
+          </Fragment>
+        }
+        rightContent={<ServiceMenu />}
+      />
     );
   }
 }

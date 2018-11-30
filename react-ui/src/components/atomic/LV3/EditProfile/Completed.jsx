@@ -8,6 +8,7 @@ import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 
 const Content = styled.div`
+  margin-top: ${Dimens.medium1}px;
   ${media.phone`
     padding: 0 ${Dimens.medium}px;
   `};
@@ -29,6 +30,6 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Content>
-    <ToProfileLink to={Path.profile(props.userId)}>自分のページを見る</ToProfileLink>
+    <ToProfileLink to={Path.profile(props.userId)}>プロフィールページを確認する</ToProfileLink>
   </Content>
 );

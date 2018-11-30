@@ -3,39 +3,40 @@
 import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { Colors, FontSizes, Dimens } from 'variables';
+import { FontSizes, Dimens } from 'variables';
 
 const Container = styled.div`
   display: table;
-  margin-left: ${Dimens.medium};
+  float: left;
 `;
 
 const ScheduleContainer = styled.div`
   display: table-cell;
   border-radius: 6px;
-  border: 1px solid ${Colors.borderGray};
-  padding: ${Dimens.medium}px;
-  width: 140px;
-  height: 120px;
+  padding: ${Dimens.medium}px 0;
+  width: 110px;
+  ${props =>
+    props.endDate &&
+    `
+    padding: ${Dimens.medium}px 0 0 ${Dimens.huge}px;
+  `};
+  ${media.tablet`
+    ${props =>
+      props.endDate &&
+      `
+      padding: ${Dimens.medium}px 0 0 ${Dimens.medium3}px;
+    `};
+  `};
 `;
 
 const Label = styled.div`
   display: block;
-  margin-top: ${Dimens.xsmall}px;
-`;
-
-const Arrow = styled.span`
-  display: table-cell;
-  vertical-align: middle;
-  color: ${Colors.lightGray1};
-  font-size: ${FontSizes.medium2}px;
-  padding: 0 ${Dimens.small}px;
 `;
 
 const DateText = styled.span`
   display: block;
-  margin-top: ${Dimens.xsmall}px;
 `;
 
 type PropTypes = {
@@ -47,19 +48,22 @@ export default (props: PropTypes) => (
   <Container>
     <ScheduleContainer>
       <Label>
-        <InlineText.Bold>利用開始日</InlineText.Bold>
+        <InlineText.Base fontSize={`${FontSizes.small}`}>利用開始日</InlineText.Base>
       </Label>
       <DateText>
-        <InlineText.Tiny>{moment(props.startDate).format('YYYY.MM.DD')}</InlineText.Tiny>
+        <InlineText.Base fontSize={`${FontSizes.medium1}`} lineheight={1.4} bold>
+          {moment(props.startDate).format('YYYY.MM.DD')}
+        </InlineText.Base>
       </DateText>
     </ScheduleContainer>
-    <Arrow>→</Arrow>
-    <ScheduleContainer>
+    <ScheduleContainer endDate>
       <Label>
-        <InlineText.Bold>利用終了日</InlineText.Bold>
+        <InlineText.Base fontSize={`${FontSizes.small}`}>利用終了日</InlineText.Base>
       </Label>
       <DateText>
-        <InlineText.Tiny>{moment(props.endDate).format('YYYY.MM.DD')}</InlineText.Tiny>
+        <InlineText.Base fontSize={`${FontSizes.medium1}`} lineheight={1.4} bold>
+          {moment(props.endDate).format('YYYY.MM.DD')}
+        </InlineText.Base>
       </DateText>
     </ScheduleContainer>
   </Container>

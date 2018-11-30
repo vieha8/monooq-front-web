@@ -1,21 +1,8 @@
 // @flow
 
 import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
 import { Modal, Button } from 'semantic-ui-react';
-import { PrimaryButton } from 'components/atomic/LV1/Button/Primary';
-import { Colors } from 'variables';
-
-const PrivateButton = styled(PrimaryButton)`
-  color: ${Colors.darkGray2};
-  background: ${Colors.white};
-  border: 1px solid ${Colors.lightGray1};
-  &:hover {
-    background: ${Colors.white};
-    color: ${Colors.lightGray1};
-    border: 1px solid ${Colors.lightGray2};
-  }
-`;
+import ButtonLV1 from 'components/atomic/LV1/Button';
 
 class ConfirmBtnModal extends Component {
   state = { open: false };
@@ -27,9 +14,9 @@ class ConfirmBtnModal extends Component {
   render() {
     return (
       <Fragment>
-        <PrivateButton small onClick={this.open}>
+        <ButtonLV1 secondary borderbold fontbold fill={1} onClick={this.open}>
           {this.props.btnText}
-        </PrivateButton>
+        </ButtonLV1>
         <Modal size="large" open={this.state.open} onClose={this.close}>
           <Modal.Header>{this.props.modalTitle}</Modal.Header>
           <Modal.Content>

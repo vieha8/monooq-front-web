@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import { Dimens, Colors } from 'variables';
 
 const Logo = styled.div`
@@ -10,6 +11,9 @@ const Logo = styled.div`
 
 const Title = styled.div`
   text-align: center;
+  ${media.phone`
+    text-align: left;
+  `}
   margin-top: ${Dimens.small2}px;
 `;
 
@@ -28,16 +32,16 @@ const Failed = styled.div`
 
 const Terms = styled.div`
   text-align: center;
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.medium3}px;
 `;
 
 const Next = styled.div`
-  margin-top: ${Dimens.medium2}px;
+  margin-top: ${Dimens.medium3}px;
 `;
 
 const OtherSignup = styled.div`
   text-align: center;
-  margin-top: ${Dimens.medium2}px;
+  margin-top: ${Dimens.medium}px;
 `;
 
 const Facebook = styled.div`
@@ -46,8 +50,8 @@ const Facebook = styled.div`
 
 const ToLogin = styled.div`
   text-align: center;
-  margin-top: ${Dimens.small2}px;
-  padding-top: ${Dimens.small2}px;
+  margin-top: ${Dimens.medium}px;
+  padding-top: ${Dimens.medium}px;
   border-top: 1px solid ${Colors.borderGray};
 `;
 
@@ -58,8 +62,6 @@ type PropTypes = {
   emailError: Array<React.Element<*>>,
   pass: React.Element<*>,
   passError: Array<React.Element<*>>,
-  passConfirm: React.Element<*>,
-  passConfirmError: Array<React.Element<*>>,
   terms: React.Element<*>,
   next: React.Element<*>,
   otherSignup: React.Element<*>,
@@ -73,12 +75,12 @@ export default (props: PropTypes) => (
     <Logo>{props.logo}</Logo>
     <Title>{props.title}</Title>
     <Email>{props.email}</Email>
-    {props.emailError.map((dom, i) => <Failed key={`email_error_text_${i}`}>{dom}</Failed>)}
+    {props.emailError.map((dom, i) => (
+      <Failed key={`email_error_text_${i}`}>{dom}</Failed>
+    ))}
     <Pass>{props.pass}</Pass>
-    {props.passError.map((dom, i) => <Failed key={`password_error_text_${i}`}>{dom}</Failed>)}
-    <Pass>{props.passConfirm}</Pass>
-    {props.passConfirmError.map((dom, i) => (
-      <Failed key={`password_confirm_error_text_${i}`}>{dom}</Failed>
+    {props.passError.map((dom, i) => (
+      <Failed key={`password_error_text_${i}`}>{dom}</Failed>
     ))}
     <Terms>{props.terms}</Terms>
     {props.signUpError && <Failed>{props.signUpError}</Failed>}

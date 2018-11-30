@@ -6,13 +6,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
 import AvatarImage from 'components/atomic/LV1/AvatarImage';
-import { Dimens, Colors } from 'variables';
+import { Dimens, Colors, FontSizes } from 'variables';
 
 const Container = styled.li`
-  border: 1px solid ${Colors.borderGray};
-  &:not(:first-child) {
-    border-top: none;
-  }
+  padding: 20px 5px;
+  border-bottom: 1px solid ${Colors.borderGray};
   &:hover {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.1);
@@ -20,24 +18,30 @@ const Container = styled.li`
   a {
     display: block;
     width: 100%;
-    padding: ${Dimens.medium1}px;
   }
   list-style: none;
 `;
 
 const Cell = styled.div`
-  display: table-cell;
+  display: inline-block;
   vertical-align: middle;
-  &:not(:first-child) {
-    padding-left: ${Dimens.medium}px;
+  &:last-child {
+    display: inline-block;
+    margin: ${Dimens.medium}px auto 0px;
   }
+  ${props =>
+    props.nametime &&
+    `
+    margin-left:15px;
+    width: calc(100% - 48px);
+    }
+  `};
 `;
 
 export type PropTypes = {
   link: string,
   image: string,
   name: string,
-  spaceName?: string,
   receivedAt: string | Date | moment,
 };
 
@@ -45,22 +49,32 @@ export default (props: PropTypes) => (
   <Container>
     <Link to={props.link || ''}>
       <Cell>
-        <AvatarImage src={props.image} />
+        <AvatarImage size={32} src={props.image} />
+      </Cell>
+      <Cell nametime>
+        <InlineText.Base
+          maxWidthSp={150}
+          lineheight={3}
+          inLineBlock
+          verticalMiddle
+          bold
+          fontSizeSp={`${FontSizes.small}`}
+        >
+          {props.name}
+        </InlineText.Base>
+        <InlineText.Base
+          lineheight={3.5}
+          inLineBlock
+          verticalMiddle
+          fontSize={`${FontSizes.small_12}`}
+          color={Colors.lightGray1}
+          float="right"
+        >
+          {moment(props.receivedAt).format('YYYY年MM月DD日')}
+        </InlineText.Base>
       </Cell>
       <Cell>
-        <div>
-          <InlineText.Base singleLine>{props.name}</InlineText.Base>
-        </div>
-        {/* <div>
-          <InlineText.Small color={Colors.lightGray1} singleLine>
-            <i className="far fa-map-marker-alt" /> {props.spaceName}
-          </InlineText.Small>
-        </div> */}
-        <div>
-          <InlineText.Small color={Colors.lightGray1}>
-            <i className="far fa-clock" /> {moment(props.receivedAt).format('YYYY/MM/DD kk:mm:ss')}
-          </InlineText.Small>
-        </div>
+        <InlineText.Base>{props.lastMessage}</InlineText.Base>
       </Cell>
     </Link>
   </Container>

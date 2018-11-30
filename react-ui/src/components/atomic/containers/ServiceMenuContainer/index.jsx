@@ -1,54 +1,76 @@
 // @flow
 
 import React, { Component } from 'react';
+import BurgerMenu from 'react-burger-menu';
 import ServiceMenu from 'components/atomic/LV3/ServiceMenu';
+import MenuWrapPhone from 'components/atomic/LV3/ServiceMenu/MenuWrapPhone';
 import Path from 'config/path';
-
-import { authActions } from 'redux/modules/auth';
 
 import connect from '../connect';
 
 type PropTypes = {
-  dispatch: Function,
-  user: {
-    ID: number,
-  },
+  userName?: String,
+  userImage?: String,
+  isPhone?: boolean,
 };
 
 class ServiceMenuContainer extends Component<PropTypes> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentMenu: 'slide',
+      side: 'right',
+    };
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0);
   }
 
-  logout = () => {
-    if (document && document.body) {
-      document.body.style.overflowY = 'auto';
-    }
-    const { dispatch } = this.props;
-    dispatch(authActions.logout());
-  };
-
   render() {
-    const { user } = this.props;
+    const { isPhone, userName, userImage } = this.props;
+
+    if (isPhone) {
+      const Menu = BurgerMenu[this.state.currentMenu];
+      return (
+        <MenuWrapPhone wait={20} side={this.state.side}>
+          <Menu id={this.state.currentMenu} right>
+            <ServiceMenu
+              home={{ to: Path.home() }}
+              message={{ to: Path.messages(), notificationCount: 0 }}
+              schedule={{ to: Path.schedule(), notificationCount: 0 }}
+              spaces={{ to: Path.spaces() }}
+              addSpace={{ to: Path.createSpaceInfo() }}
+              sales={{ to: Path.sales() }}
+              paymentHistory={{ to: Path.paid() }}
+              editProfile={{ to: Path.editProfile() }}
+              help={{ href: 'https://help.monooq.com/' }}
+              inquiry={{ to: Path.inquiry() }}
+              howToUse={{ to: Path.howToUse() }}
+              other={{ to: Path.other() }}
+              userName={userName}
+              userImage={userImage}
+              isPhone
+            />
+          </Menu>
+        </MenuWrapPhone>
+      );
+    }
 
     return (
       <ServiceMenu
-        message={{ href: Path.messages(), notificationCount: 0 }}
-        schedule={{ href: Path.schedule(user.ID), notificationCount: 0 }}
-        spaces={{ href: Path.spaces(user.ID) }}
-        addSpace={{ href: Path.createSpaceInfo() }}
-        sales={{ href: Path.sales() }}
-        paymentHistory={{ href: Path.paid(user.ID) }}
-        becomeHost={{ href: Path.createSpaceInfo() }}
-        editProfile={{ href: Path.editProfile(user.ID) }}
-        inquiry={{ href: Path.inquiry(user.ID) }}
-        logout={{
-          onClick: e => {
-            e.preventDefault();
-            this.logout();
-          },
-        }}
-        hasSpace
+        home={{ to: Path.home() }}
+        message={{ to: Path.messages(), notificationCount: 0 }}
+        schedule={{ to: Path.schedule(), notificationCount: 0 }}
+        spaces={{ to: Path.spaces() }}
+        addSpace={{ to: Path.createSpaceInfo() }}
+        sales={{ to: Path.sales() }}
+        paymentHistory={{ to: Path.paid() }}
+        editProfile={{ to: Path.editProfile() }}
+        help={{ href: 'https://help.monooq.com/' }}
+        inquiry={{ to: Path.inquiry() }}
+        howToUse={{ to: Path.howToUse() }}
+        other={{ to: Path.other() }}
       />
     );
   }

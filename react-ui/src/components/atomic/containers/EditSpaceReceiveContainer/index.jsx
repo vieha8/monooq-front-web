@@ -5,10 +5,10 @@ import Path from 'config/path';
 
 import { uiActions } from 'redux/modules/ui';
 
-import EditSpaceTemplate from 'components/atomic/templates/EditSpaceTemplate';
+import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
+import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceReceive from 'components/atomic/LV3/EditSpace/Receive';
-import EditStatus from 'components/atomic/LV3/EditSpace/Status';
 
 import { ErrorMessage } from 'strings';
 
@@ -126,12 +126,12 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space } = this.props;
     const { ReceiptType, ReceiptAbout, error } = this.state;
 
     return (
-      <EditSpaceTemplate
+      <MenuPageTemplate
         header={<Header />}
+        headline="荷物の受け取りについて"
         leftContent={
           <EditSpaceReceive
             receive={ReceiptType}
@@ -144,16 +144,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
             onClickNext={this.onClickNext}
           />
         }
-        rightContent={
-          <EditStatus
-            edit={space.ID}
-            step={2}
-            hintTitle="ヒント"
-            hintContent={[
-              'もし、あなたが車でお手伝いができるならアピールをしましょう。ユーザーに喜んでもらえますよ！',
-            ]}
-          />
-        }
+        rightContent={<ServiceMenu />}
       />
     );
   }

@@ -2,13 +2,13 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import dummySpaceImage from 'images/dummy_space.png';
 import { apiEndpoint } from './api';
-import { uiActions } from './ui';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions } from './auth';
 import { getApiRequest, putApiRequest } from '../helpers/api';
 import { errorActions } from './error';
 import { convertImgixUrl } from 'helpers/imgix';
+import { uiActions } from './ui';
 
 // Actions
 const FETCH_USER = 'FETCH_USER';
@@ -129,7 +129,10 @@ function* getSpaces(params) {
         v.Images[0] = { ImageUrl: dummySpaceImage };
       } else {
         v.Images = v.Images.map(image => {
-          image.ImageUrl = convertImgixUrl(image.ImageUrl, 'fit=crop&w=240&max-h=180&format=auto');
+          image.ImageUrl = convertImgixUrl(
+            image.ImageUrl,
+            'fit=crop&max-w=540&max-h=290&format=auto',
+          );
           return image;
         });
       }
@@ -165,7 +168,11 @@ function* updateUser({ payload: { userId, body } }) {
   localStorage.removeItem('status');
   yield put(authActions.setUser(data));
   yield put(userActions.updateSuccessUser(data));
-  yield put(uiActions.setUiState({ signupStep: 5 }));
+  yield put(
+    uiActions.setUiState({
+      signupStep: 2,
+    }),
+  );
 }
 
 export const userSagas = [

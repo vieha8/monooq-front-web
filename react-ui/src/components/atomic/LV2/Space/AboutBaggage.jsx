@@ -1,26 +1,36 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { Colors } from 'variables';
-import Attribute from './Attribute';
+import { Colors, FontSizes } from 'variables';
 
 type PropTypes = {
   content: string,
 };
 
+const Wrap = styled.div`
+  margin: 20px auto;
+`;
+
+const ItemWrap = styled.div`
+  margin: 4px auto;
+`;
+
 export default (props: PropTypes) => (
-  <Attribute
-    title="このスペースに置ける荷物"
-    content={
-      <div>
-        {props.furniture && (
-          <div>
-            <InlineText.Bold color={Colors.brandPrimary}>家具・家電OK</InlineText.Bold>
-          </div>
-        )}
-        <InlineText.Base>{props.content}</InlineText.Base>
-      </div>
-    }
-  />
+  <Wrap>
+    <ItemWrap>
+      <InlineText.Base fontSize={`${FontSizes.small_12}`}>このスペースに置ける荷物</InlineText.Base>
+    </ItemWrap>
+    {props.furniture && (
+      <ItemWrap>
+        <InlineText.Bold color={Colors.brandPrimary}>家具・家電OK</InlineText.Bold>
+      </ItemWrap>
+    )}
+    <ItemWrap>
+      <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
+        {props.content}
+      </InlineText.Base>
+    </ItemWrap>
+  </Wrap>
 );

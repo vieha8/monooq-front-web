@@ -1,20 +1,29 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
-import Attribute from './Attribute';
+import { FontSizes } from 'variables';
 
 type PropTypes = {
   content: string,
 };
 
+const Wrap = styled.div`
+  margin: 20px auto;
+`;
+
+const ItemWrap = styled.div`
+  margin: 4px auto;
+`;
+
 export default (props: PropTypes) => (
-  <Attribute
-    title="受取りについて補足"
-    content={
-      <div>
-        <InlineText.Base>{props.content}</InlineText.Base>
-      </div>
-    }
-  />
+  <Wrap>
+    <ItemWrap>
+      <InlineText.Base fontSize={`${FontSizes.small_12}`}>受取りについて補足</InlineText.Base>
+    </ItemWrap>
+    <ItemWrap>
+      <InlineText.Bold>{props.content}</InlineText.Bold>
+    </ItemWrap>
+  </Wrap>
 );

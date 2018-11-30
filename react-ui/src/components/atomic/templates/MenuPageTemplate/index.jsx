@@ -10,32 +10,17 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import Page from '../Page';
 
 const Caption = styled.div`
-  margin: 0 0 40px;
+  margin: 10px 0 ${Dimens.medium2}px;
   ${media.tablet`
     margin-bottom: 20px;
   `};
 `;
 
-const Content = styled.div`
-  margin-top: ${Dimens.huge}px;
-  ${media.tablet`
-    margin-top: ${Dimens.medium3}px;
-  `};
-`;
+const Content = styled.div``;
 
 const LeftContent = styled.div`
   float: left;
-  width: 30%;
-  ${media.tablet`
-    display: none;
-    float: none;
-  `};
-`;
-
-const RightContent = styled.div`
-  float: left;
-  margin-left: 32px;
-  width: 60%;
+  width: 65%;
   ${media.tablet`
     float: none;
     margin-left: 0;
@@ -43,32 +28,44 @@ const RightContent = styled.div`
   `};
 `;
 
+const RightContent = styled.div`
+  float: left;
+  width: 22%;
+  margin-left: 90px;
+  ${media.tablet`
+    display: none;
+    float: none;
+  `};
+`;
+
 type PropTypes = {
+  meta?: React.Element<*>,
   header: React.Element<*>,
   headline: string,
   caption: string,
   leftContent: React.Element<*>,
   rightContent: React.Element<*>,
-  footer: React.Element<*>,
 };
 
 export default (props: PropTypes) => (
   <div>
     {props.header}
+    {props.meta}
     <Page>
-      <H1>{props.headline}</H1>
-      {props.caption && (
-        <Caption>
-          <InlineText.Base>{props.caption}</InlineText.Base>
-        </Caption>
-      )}
       <ClearfixContainer>
         <Content>
-          <LeftContent>{props.leftContent}</LeftContent>
+          <LeftContent>
+            <H1 bold>{props.headline}</H1>
+            {props.caption && (
+              <Caption>
+                <InlineText.Base>{props.caption}</InlineText.Base>
+              </Caption>
+            )}
+            {props.leftContent}
+          </LeftContent>
           <RightContent>{props.rightContent}</RightContent>
         </Content>
       </ClearfixContainer>
     </Page>
-    {props.footer}
   </div>
 );

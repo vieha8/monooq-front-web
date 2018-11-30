@@ -9,16 +9,12 @@ import { media } from 'helpers/style/media-query';
 
 const ListItem = styled.div`
   display: inline-block;
-  margin-bottom: ${Dimens.medium}px;
-  ${props =>
-    props.index % 2 === 1 &&
-    `
-      margin-left: ${Dimens.medium}px;
-    `};
+  width: 100%;
+  max-width: 540px;
+  margin: 20px auto ${Dimens.medium2}px;
   ${media.tablet`
-    width: 240px;
     display: block;
-    margin 0 auto ${Dimens.medium}px;
+    margin 10px auto ${Dimens.medium3}px;
   `};
 `;
 

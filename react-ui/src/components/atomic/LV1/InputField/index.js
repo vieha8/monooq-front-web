@@ -5,10 +5,11 @@ import { Colors } from 'variables';
 
 const InputField = styled.input`
   width: ${props => props.width || '100%'};
-  padding: 18px 25px;
+  padding: 18px 15px;
   font-size: 14px;
+  line-height: normal;
   border: 1px solid ${Colors.lightGray1};
-  border-radius: 6px;
+  border-radius: 3px;
   color: ${Colors.black};
   outline: none;
   background: ${Colors.lightGray2Bg};

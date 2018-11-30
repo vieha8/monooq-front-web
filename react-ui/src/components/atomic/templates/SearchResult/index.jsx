@@ -2,54 +2,35 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { H1 } from 'components/atomic/LV1/Headline';
-import InlineText from 'components/atomic/LV1/InlineText';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Page from '../Page';
+import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
 
-const H1Container = styled.div`
-  ${media.tablet`
-    margin: ${Dimens.medium}px 0;
-  `};
-`;
-
-const CaptionContainer = styled.div`
+const Content = styled.div`
   margin: ${Dimens.medium2}px 0;
   ${media.tablet`
     margin: ${Dimens.medium}px 0;
   `};
-`;
-
-const Content = styled.div`
-  margin: ${Dimens.medium3}px 0;
-  ${media.tablet`
-    margin: ${Dimens.medium}px 0;
+  ${props =>
+    props.noTopMargin &&
+    `
+    margin: 0;
   `};
 `;
 
 type PropTypes = {
   meta: React.Element<*>,
-  header: React.Element<*>,
-  headline1: string,
-  caption: string,
   searchResult: React.Element<*>,
-  footer: React.Element<*>,
+  noTopMargin?: boolean,
+  history: {
+    push: Function,
+  },
 };
 
-export default ({ meta, header, headline1, caption, searchResult, footer }: PropTypes) => (
+export default ({ meta, searchResult, noTopMargin, history }: PropTypes) => (
   <div>
     {meta}
-    {header}
-    <Page>
-      <H1Container>
-        <H1>{headline1}</H1>
-      </H1Container>
-      <CaptionContainer>
-        <InlineText.Base>{caption}</InlineText.Base>
-      </CaptionContainer>
-      <Content>{searchResult}</Content>
-    </Page>
-    {footer}
+    <Content noTopMargin={noTopMargin}>{searchResult}</Content>
+    <ConciergeContents history={history} />
   </div>
 );

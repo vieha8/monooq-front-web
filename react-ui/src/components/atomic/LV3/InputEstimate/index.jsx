@@ -5,20 +5,13 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { H1, H2 } from 'components/atomic/LV1/Headline';
+import { H2 } from 'components/atomic/LV1/Headline';
 import Button from 'components/atomic/LV1/Button';
 import InputSchedule from 'components/atomic/LV2/Estimate/InputSchedule';
 import InputPrice from 'components/atomic/LV2/Estimate/InputPrice';
 
-const HeadlineContainer = styled.div`
-  margin-top: 80px;
-  ${media.tablet`
-    margin-top: 20px;
-  `};
-`;
-
 const Section = styled.div`
-  margin-top: ${Dimens.medium3}px;
+  margin-top: ${Dimens.medium2}px;
   ${media.tablet`
     margin-top: ${Dimens.medium}px;
   `};
@@ -47,9 +40,6 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <div>
-    <HeadlineContainer>
-      <H1>見積もりを送る</H1>
-    </HeadlineContainer>
     <Section>
       <H2>スケジュール</H2>
       <InputSchedule {...props.schedule} />

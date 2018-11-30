@@ -8,10 +8,9 @@ import { messagesActions } from 'redux/modules/messages';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Header from 'components/atomic/containers/Header';
-import InlineText from 'components/atomic/LV1/InlineText';
-import Footer from 'components/atomic/LV2/Footer';
 import Loading from 'components/atomic/LV1/Loading';
 import InboxList from 'components/atomic/LV3/InboxList';
+import NoDataView from 'components/atomic/LV3/NoDataView';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -44,8 +43,8 @@ class InboxContainer extends Component<PropTypes> {
     window.scrollTo(0, 0);
   }
 
-  rightContent = () => {
-    const { isLoading, rooms } = this.props;
+  leftContent = () => {
+    const { isLoading, rooms, history } = this.props;
 
     if (isLoading) {
       return <Loading size="large" />;
@@ -58,10 +57,16 @@ class InboxContainer extends Component<PropTypes> {
           image: (message.user || {}).ImageUrl,
           name: (message.user || {}).Name,
           receivedAt: message.lastMessageDt,
+          lastMessage: message.lastMessage,
         }))}
       />
     ) : (
-      <InlineText.Base>メッセージはありません。</InlineText.Base>
+      <NoDataView
+        captionHead="メッセージのやり取りがありません"
+        caption="メッセージがありません。ご希望のスペースを見つけて連絡を取ってみましょう。"
+        buttonText="ホームへ戻る"
+        onClick={() => history.push(Path.home())}
+      />
     );
   };
 
@@ -75,9 +80,8 @@ class InboxContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="メッセージ一覧"
-        leftContent={<ServiceMenu />}
-        rightContent={this.rightContent()}
-        footer={<Footer />}
+        leftContent={this.leftContent()}
+        rightContent={<ServiceMenu />}
       />
     );
   }

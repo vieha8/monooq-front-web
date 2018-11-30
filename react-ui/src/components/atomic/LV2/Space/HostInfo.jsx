@@ -6,18 +6,10 @@ import { Link } from 'react-router-dom';
 import AvatarImage from 'components/atomic/LV1/AvatarImage';
 import InlineText from 'components/atomic/LV1/InlineText';
 import Path from 'config/path';
-import { media, isMobileWindow } from 'helpers/style/media-query';
+import { FontSizes } from 'variables';
 import Attribute from './Attribute';
 
-const Center = styled.div`
-  text-align: center;
-`;
-
-const Content = styled.div`
-  ${media.phone`
-    text-align: center;
-  `};
-`;
+const Content = styled.div``;
 
 type PropTypes = {
   id: string,
@@ -28,25 +20,24 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Attribute
+    hostinfo={props.hostinfo}
+    message={props.message}
     headContent={
-      <Center>
-        <Link to={Path.profile(props.id)}>
-          <AvatarImage size={64} src={props.imageUrl} alt={props.name} />
-        </Link>
-      </Center>
+      <Link to={Path.profile(props.id)}>
+        <AvatarImage size={45} src={props.imageUrl} alt={props.name} />
+      </Link>
     }
-    content={
+    contentHostName={
       <Content>
         <div>
-          <InlineText.Bold>
-            ホストは {isMobileWindow() && <br />}
-            {props.name} さん
-          </InlineText.Bold>
-        </div>
-        <div>
-          <InlineText.Base>{props.profile}</InlineText.Base>
+          <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
+            ホスト
+          </InlineText.Base>
+          <br />
+          {props.name} さん
         </div>
       </Content>
     }
+    contentProfile={<div>{props.profile}</div>}
   />
 );

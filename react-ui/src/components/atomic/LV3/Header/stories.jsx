@@ -6,6 +6,7 @@ import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 import styled from 'styled-components';
+import Path from 'config/path';
 
 import Header from './index';
 import HeaderMock from './mock/header';
@@ -40,7 +41,28 @@ storiesOf('Organisms(LV3)/Header', module)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <BodyMock>
-          <Header homeUri="#" user={null} loginUri="#" signupUri="#" storys />
+          <Header
+            topUri={Path.top()}
+            homeUri={Path.home()}
+            editProfileUri={Path.editProfile()}
+            searchUri={Path.search()}
+            searchConditionUri={Path.searchCondition()}
+            scheduleUri={Path.schedule()}
+            createSpaceInfoUri={Path.createSpaceInfo()}
+            spacesUri={Path.spaces()}
+            salesUri={Path.sales()}
+            helpUri="https://help.monooq.com/"
+            inquiryUri={Path.inquiry()}
+            howToUseUri={Path.howToUse()}
+            otherUri={Path.other()}
+            tidyUri="https://tidy.monooq.com/"
+            messageUri={Path.messages()}
+            messageCount={0}
+            user={null}
+            loginUri="#"
+            signupUri="#"
+            storys
+          />
         </BodyMock>
       </div>
     )),
@@ -66,7 +88,29 @@ storiesOf('Organisms(LV3)/Header', module)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <BodyMock>
-          <Header homeUri="#" user={null} loginUri="#" signupUri="#" top storys />
+          <Header
+            topUri={Path.top()}
+            homeUri={Path.home()}
+            editProfileUri={Path.editProfile()}
+            searchUri={Path.search()}
+            searchConditionUri={Path.searchCondition()}
+            scheduleUri={Path.schedule()}
+            createSpaceInfoUri={Path.createSpaceInfo()}
+            spacesUri={Path.spaces()}
+            salesUri={Path.sales()}
+            helpUri="https://help.monooq.com/"
+            inquiryUri={Path.inquiry()}
+            howToUseUri={Path.howToUse()}
+            otherUri={Path.other()}
+            tidyUri="https://tidy.monooq.com/"
+            messageUri={Path.messages()}
+            messageCount={0}
+            user={null}
+            loginUri="#"
+            signupUri="#"
+            top
+            storys
+          />
         </BodyMock>
       </div>
     )),
@@ -92,7 +136,29 @@ storiesOf('Organisms(LV3)/Header', module)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <BodyMock>
-          <Header homeUri="#" user={null} loginUri="#" signupUri="#" help storys />
+          <Header
+            topUri={Path.top()}
+            homeUri={Path.home()}
+            editProfileUri={Path.editProfile()}
+            searchUri={Path.search()}
+            searchConditionUri={Path.searchCondition()}
+            scheduleUri={Path.schedule()}
+            createSpaceInfoUri={Path.createSpaceInfo()}
+            spacesUri={Path.spaces()}
+            salesUri={Path.sales()}
+            helpUri="https://help.monooq.com/"
+            inquiryUri={Path.inquiry()}
+            howToUseUri={Path.howToUse()}
+            otherUri={Path.other()}
+            tidyUri="https://tidy.monooq.com/"
+            messageUri={Path.messages()}
+            messageCount={0}
+            user={null}
+            loginUri="#"
+            signupUri="#"
+            help
+            storys
+          />
         </BodyMock>
       </div>
     )),

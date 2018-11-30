@@ -41,4 +41,24 @@ storiesOf('Atoms(LV1)/Util/Card', module)
         </Card>
       </div>
     )),
+  )
+  .add(
+    'option',
+    withInfo(`
+      ### コンポーネント概要
+      カード(option)
+      * ・「noBorder」を指定することで、枠線を非表示にすることが可能。
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Card block>
+          <span>border有り</span>
+        </Card>
+        <Card block noBorder>
+          <span>border無し</span>
+        </Card>
+        <Card block noBorderPhone>
+          <span>tablet以下border無し</span>
+        </Card>
+      </div>
+    )),
   );

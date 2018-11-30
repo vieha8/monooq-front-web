@@ -1,14 +1,13 @@
 // @flow
 
 import React from 'react';
-import Button from 'components/atomic/LV1/Button';
 import InlineText from 'components/atomic/LV1/InlineText';
 import RegsiterProfileImage from 'components/atomic/LV1/DragAndDrop/RegisterProfileImage';
 import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
-import RadioList from 'components/atomic/LV2/RadioList';
 import { FontSizes } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
+import EntryButtons from 'components/atomic/LV2/EntryButtons';
 import Form from './Form';
 
 type PropTypes = {
@@ -18,32 +17,39 @@ type PropTypes = {
   onChangeProfile: Function,
   onChangePhoneNumber: Function,
   image: File | string,
+  imagePreview: File | string,
   name: string,
   prefCode: string,
   profile: string,
   phoneNumber: string,
   buttonDisabled: boolean,
   buttonLoading: boolean,
+  onClickSkip: Function,
   onClickRegisterProfile: Function,
 };
 
 export default (props: PropTypes) => (
   <Form
     title={
-      <InlineText.Base fontSize={FontSizes.medium1}>あなたのプロフィールを登録</InlineText.Base>
+      <InlineText.Base fontSize={FontSizes.medium2} bold>
+        プロフィールの入力
+      </InlineText.Base>
     }
     image={
       <InputForm
         label="プロフィール写真"
         extension={
-          <RegsiterProfileImage onDrop={data => props.onChangeImage(data[0])} image={props.image} />
+          <RegsiterProfileImage
+            onDrop={data => props.onChangeImage(data[0])}
+            image={props.imagePreview || props.image}
+          />
         }
       />
     }
     name={
       <InputForm
         label="お名前"
-        placeholder="ニックネームでも可"
+        placeholder="ユーザ名を入力してください"
         onChange={e => props.onChangeName(e.target.value)}
         value={props.name}
       />
@@ -56,21 +62,12 @@ export default (props: PropTypes) => (
         value={props.prefCode}
       />
     }
-    isHost={
-      <RadioList
-        label="利用目的"
-        labels={['保管スペースを借りたい(ユーザー)', '保管スペースを貸したい(ホスト)']}
-        onClick={props.onChangeIsHost}
-        checkedIndex={props.isHost}
-      />
-    }
     profile={
       <InputForm
-        label="あなたの紹介文"
-        hint="スペースを借りたいユーザーや、貸してくれるホストが安心するようにあなたの紹介文を掲載しましょう！(1000文字以内)"
-        placeholder="例）はじめまして！ホストのYUKIです。大きめの荷物でも柔軟に対応しております。お気軽にご相談ください。"
+        label="自己紹介"
+        placeholder="モノオクのご登録ありがとうございます！モノオク公式サポートです。初回スペース登録されたホストさんへメッセージのやり取り・お見積もりの作成など、実際に利用希望者から問い合わせがあった時のためにテストを行うことができます。"
         multiline
-        rows={4}
+        rows={10}
         onChange={e => props.onChangeProfile(e.target.value)}
         value={props.profile}
       />
@@ -86,15 +83,22 @@ export default (props: PropTypes) => (
       />
     }
     button={
-      <Button
-        fill={1}
-        primary
-        disabled={props.buttonDisabled}
-        loading={props.buttonLoading}
-        onClick={props.onClickRegisterProfile}
-      >
-        プロフィールを登録する
-      </Button>
+      <EntryButtons
+        enabled
+        rerative
+        backButton={{
+          text: 'スキップ',
+          disabled: props.buttonDisabled,
+          loading: props.buttonLoading,
+          onClick: props.onClickSkip,
+        }}
+        enabledButton={{
+          text: '決定',
+          disabled: props.buttonDisabled,
+          loading: props.buttonLoading,
+          onClick: props.onClickRegisterProfile,
+        }}
+      />
     }
   />
 );

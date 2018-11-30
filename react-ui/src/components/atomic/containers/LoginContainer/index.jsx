@@ -27,6 +27,7 @@ type PropTypes = {
 type State = {
   email: string,
   password: string,
+  isUnVisiblePW: boolean,
   hasChanged: boolean,
 };
 
@@ -37,6 +38,7 @@ class LoginContainer extends Component {
     this.state = {
       email: '',
       password: '',
+      isUnVisiblePW: true,
       hasChanged: false,
     };
   }
@@ -68,14 +70,24 @@ class LoginContainer extends Component {
     this.setState(state);
   };
 
+  onClickIconPassword = () => {
+    const { isUnVisiblePW } = this.state;
+    if (isUnVisiblePW) {
+      this.setState({ isUnVisiblePW: !isUnVisiblePW });
+    }
+    if (!isUnVisiblePW) {
+      this.setState({ isUnVisiblePW: !isUnVisiblePW });
+    }
+  };
+
   validate = () => {
     const { email, password } = this.state;
     return email && email.length > 0 && password && password.length > 0;
   };
 
   render() {
-    const { dispatch, ui, isLogin, isChecking, loginFailed } = this.props;
-    const { email, password, hasChanged } = this.state;
+    const { dispatch, ui, isLogin, isChecking, loginFailed, history } = this.props;
+    const { email, password, isUnVisiblePW, hasChanged } = this.state;
 
     if (!isLogin) {
       return (
@@ -89,9 +101,12 @@ class LoginContainer extends Component {
               onChangePassword={value => this.handleChangeForm('password', value)}
               email={email}
               password={password}
+              ispasswordVisible={isUnVisiblePW}
+              onClickIconPassword={this.onClickIconPassword}
               loginFailed={loginFailed && !hasChanged && !isChecking}
               isLoginChecking={isChecking}
               buttonDisabled={!this.validate()}
+              onClickSignup={() => history.push(Path.signUp())}
             />
           }
         />
@@ -103,7 +118,7 @@ class LoginContainer extends Component {
       dispatch(uiActions.setUiState({ redirectPath: null }));
     }
 
-    return <Redirect to={ui.redirectPath || Path.top()} />;
+    return <Redirect to={ui.redirectPath || Path.home()} />;
   }
 }
 
@@ -116,4 +131,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(LoginContainer, mapStateToProps);
+export default connect(
+  LoginContainer,
+  mapStateToProps,
+);

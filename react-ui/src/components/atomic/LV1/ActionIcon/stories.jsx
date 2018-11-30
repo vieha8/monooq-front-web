@@ -8,11 +8,13 @@ import { Dimens } from 'variables';
 import {
   SearchIcon,
   MessageIcon,
+  OtherIcon,
   PictureIcon,
   AngleRight,
   AngleDown,
   CircleRight,
   CircleDown,
+  CloseIcon,
 } from './index';
 
 storiesOf('Atoms(LV1)/Util/ActionIcon', module)
@@ -35,6 +37,17 @@ storiesOf('Atoms(LV1)/Util/ActionIcon', module)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <MessageIcon />
+      </div>
+    )),
+  )
+  .add(
+    'OtherIcon',
+    withInfo(`
+      ### コンポーネント概要
+      その他アイコン
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <OtherIcon />
       </div>
     )),
   )
@@ -90,6 +103,17 @@ storiesOf('Atoms(LV1)/Util/ActionIcon', module)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <CircleDown />
+      </div>
+    )),
+  )
+  .add(
+    'CloseIcon',
+    withInfo(`
+      ### コンポーネント概要
+      閉じるアイコン
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <CloseIcon />
       </div>
     )),
   );

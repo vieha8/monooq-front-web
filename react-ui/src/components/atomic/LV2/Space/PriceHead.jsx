@@ -2,13 +2,10 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { H2 } from 'components/atomic/LV1/Headline';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { Dimens } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 
-const Container = styled.div`
-  margin-bottom: ${Dimens.medium}px;
-`;
+const Container = styled.div``;
 
 const Head = styled.span`
   display: inline-block;
@@ -22,10 +19,14 @@ const Text = styled.span`
 export default () => (
   <Container>
     <Head>
-      <H2>料金の目安</H2>
+      <InlineText.Base fontSize={`${FontSizes.medium2}`} bold>
+        料金の目安
+      </InlineText.Base>
     </Head>
     <Text>
-      <InlineText.Small>30日間あたり</InlineText.Small>
+      <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
+        30日間あたり
+      </InlineText.Base>
     </Text>
   </Container>
 );

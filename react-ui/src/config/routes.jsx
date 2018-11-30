@@ -25,8 +25,18 @@ const ResetPassword = Loadable({
   loading: LoadingPage,
 });
 
+const Home = Loadable({
+  loader: () => import('components/atomic/containers/HomeContainer'),
+  loading: LoadingPage,
+});
+
 const Search = Loadable({
   loader: () => import('components/atomic/containers/SearchResultContainer'),
+  loading: LoadingPage,
+});
+
+const SearchCondition = Loadable({
+  loader: () => import('components/atomic/containers/SearchConditionContainer'),
   loading: LoadingPage,
 });
 
@@ -180,6 +190,16 @@ const Rule = Loadable({
   loading: LoadingPage,
 });
 
+const HowToUse = Loadable({
+  loader: () => import('components/atomic/containers/HowToUseContainer'),
+  loading: LoadingPage,
+});
+
+const Other = Loadable({
+  loader: () => import('components/atomic/containers/OtherContainer'),
+  loading: LoadingPage,
+});
+
 const NotFound = Loadable({
   loader: () => import('components/atomic/containers/Static/NotFound'),
   loading: LoadingPage,
@@ -262,7 +282,9 @@ export default ({ history }) => (
       <Route exact path={Path.login()} component={Login} />
       <Route exact path={Path.signUp()} component={SignUp} />
       <Route exact path={Path.resetPassword()} component={ResetPassword} />
+      <Route exact path={Path.home()} component={Home} />
       <Route exact path={Path.search()} component={Search} />
+      <Route exact path={Path.searchCondition()} component={SearchCondition} />
       <Route exact path={Path.space()} component={Space} />
       <Route exact path={Path.spaces()} component={Spaces} />
       <Route exact path={Path.schedule()} component={Schedule} />
@@ -293,6 +315,8 @@ export default ({ history }) => (
       <Route exact path={Path.about()} component={About} />
       <Route exact path={Path.insurance()} component={Insurance} />
       <Route exact path={Path.rule()} component={Rule} />
+      <Route exact path={Path.howToUse()} component={HowToUse} />
+      <Route exact path={Path.other()} component={Other} />
       <Route exact path={Path.error()} component={Error} />
       <Route exact path={Path.cancellationPolicies()} component={CancelPolicy} />
       <Route exact path={Path.asct()} component={Asct} />

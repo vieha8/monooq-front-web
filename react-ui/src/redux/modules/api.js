@@ -14,6 +14,7 @@ export const apiEndpoint = {
   sendMail: () => `/mailer/send`,
   sales: () => `/payments/payouts`,
   backlogAddIssue: () => `/backlog/issue`,
+  features: id => `spaces/features/${id}`,
 };
 
 export default apiEndpoint;

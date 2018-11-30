@@ -11,6 +11,10 @@ export default {
   top: () => '/',
   // 検索
   search: () => '/search',
+  // 検索条件
+  searchCondition: () => '/search/condition',
+  // ホーム
+  home: () => '/home',
   // スペース詳細
   space: (spaceId = SPACE_ID) => `/space/${spaceId}`,
   // スペース作成
@@ -72,6 +76,8 @@ export default {
   about: () => '/about',
   insurance: () => '/insurance',
   rule: () => '/rule',
+  howToUse: () => '/howtouse',
+  other: () => '/other',
   notFound: () => '/notfound',
   error: (status = ':status') => `/error/${status}`,
   cancellationPolicies: () => '/cancel/policy',
