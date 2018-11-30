@@ -65,7 +65,7 @@ class InboxContainer extends Component<PropTypes> {
         captionHead="メッセージのやり取りがありません"
         caption="メッセージがありません。ご希望のスペースを見つけて連絡を取ってみましょう。"
         buttonText="ホームへ戻る"
-        onClick={() => history.push(Path.top())}
+        onClick={() => history.push(Path.home())}
       />
     );
   };
