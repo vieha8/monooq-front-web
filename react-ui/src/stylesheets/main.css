@@ -106,6 +106,6 @@
 
 @media (max-width: 30em) {
   .image-gallery-slide img {
-    height: 150px;
+    height: 200px;
   }
 }
