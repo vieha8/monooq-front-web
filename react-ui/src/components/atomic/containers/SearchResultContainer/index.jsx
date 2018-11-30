@@ -209,7 +209,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={`「${condition}」のスペース検索結果${spaces.length}件`}
+        headline={`「${condition}」のスペース検索結果`}
         leftContent={
           <Fragment>
             <SearchResultTemplate
