@@ -45,7 +45,7 @@ export default (props: PropTypes) => (
         loading={props.loading}
         onClick={props.onClick}
       >
-        メッセージを送る
+        このホストに相談する
       </Button>
     </ButtonWrap>
     <Caption>
