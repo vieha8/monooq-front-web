@@ -6,7 +6,6 @@ import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/atomic/LV1/Button';
 import InputForm from 'components/atomic/LV2/InputForm';
-import SelectForm from 'components/atomic/LV2/SelectForm';
 import InputSchedule from 'components/atomic/LV2/Estimate/InputSchedule';
 
 const Row = styled.div`
@@ -57,12 +56,6 @@ const SubmitButton = styled(Button)`
   margin: auto;
 `;
 
-const sizeList = [
-  { key: 1, value: '約1畳', text: '約1畳(182cm x 91cm)' },
-  { key: 2, value: '約2畳', text: '約2畳(364cm x 182cm)' },
-  { key: 3, value: '約3畳', text: '約3畳(546cm x 273cm)' },
-];
-
 export default props => (
   <Fragment>
     <TitleForm>
@@ -81,28 +74,20 @@ export default props => (
       <InputSchedule {...props.schedule} beginTitle="希望利用開始日" endTitle="希望利用終了日" />
     </Row>
     <Row>
-      <SelectForm
-        label="荷物の大きさ"
-        options={sizeList}
-        onChange={e => props.onChangeBaggageSize(e.target.value)}
-        value={props.baggageSize}
-      />
-    </Row>
-    <Row>
       <InputForm
-        label="荷物の内容"
+        label="預けたいお荷物の内容"
         onChange={e => props.onChangeBaggageInfo(e.target.value)}
         value={props.baggageInfo}
-        placeholder="衣類、家電製品など、預けたいお荷物の詳細"
+        placeholder="衣類、家電製品など、預けたいお荷物の詳細をご記入ください"
         multiline={true}
       />
     </Row>
     <Row>
       <InputForm
-        label="補足事項"
+        label="利用目的"
         onChange={e => props.onChangeNotes(e.target.value)}
         value={props.notes}
-        placeholder="その他お伝えしたい要望や、不安な点があればご記載ください"
+        placeholder="なぜ上記のお荷物を預けたいか、利用の動機、目的をご記入ください(例:引越しでの一時的な家具保管など)"
         multiline={true}
       />
     </Row>

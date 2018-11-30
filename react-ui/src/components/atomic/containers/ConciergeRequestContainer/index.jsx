@@ -24,7 +24,6 @@ class ConciergeRequestContainer extends Component<PropTypes> {
     checkLogin(this.props);
 
     this.state = {
-      baggageSize: '約1畳',
       cargoTime: '9時〜12時',
       notes: '',
       hasChanged: false,
@@ -88,8 +87,8 @@ class ConciergeRequestContainer extends Component<PropTypes> {
   };
 
   validate = () => {
-    const { startDate, endDate, baggageSize, baggageInfo, address, email } = this.state;
-    return startDate && endDate && baggageSize && baggageInfo && address && email;
+    const { startDate, endDate, baggageInfo, address, email, notes } = this.state;
+    return startDate && endDate && baggageInfo && address && email && notes;
   };
 
   render() {
@@ -98,7 +97,6 @@ class ConciergeRequestContainer extends Component<PropTypes> {
       endDate,
       startDateFocus,
       endDateFocus,
-      baggageSize,
       baggageInfo,
       address,
       notes,
@@ -120,8 +118,6 @@ class ConciergeRequestContainer extends Component<PropTypes> {
             onFocusChangeEnd: focus => this.onFocusChangeDatePicker('endDateFocus', focus),
             onDateChangeEnd: date => this.onDateChange('endDate', date),
           }}
-          baggageSize={baggageSize}
-          onChangeBaggageSize={value => this.handleChangeUI('baggageSize', value)}
           baggageInfo={baggageInfo}
           onChangeBaggageInfo={value => this.handleChangeUI('baggageInfo', value)}
           onChangeCargoTime={value => this.handleChangeUI('cargoTime', value)}
