@@ -1,6 +1,7 @@
 // @flow
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { SearchIcon } from 'components/atomic/LV1/ActionIcon';
 
 type PropTypes = {
@@ -10,7 +11,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <a href={props.href} onClick={props.onClick}>
+  <Link to={props.href} onClick={props.onClick}>
     <SearchIcon color={props.color} fontSize={24} />
-  </a>
+  </Link>
 );
