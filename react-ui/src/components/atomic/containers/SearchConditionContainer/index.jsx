@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import Path from 'config/path';
+import ReactGA from 'react-ga';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
@@ -52,6 +53,13 @@ class SearchConditionContainer extends Component<PropTypes> {
     query += `&type=${type}`;
     query += `&isFurniture=${isFurniture}`;
     query += `&receiptType=${receiptType}`;
+
+    ReactGA.event({
+      category: 'Search',
+      action: 'Submit Condition Search Form',
+      label: query,
+    });
+
     history.push(`${searchPath}${query}`);
   };
 

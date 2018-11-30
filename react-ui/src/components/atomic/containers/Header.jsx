@@ -6,6 +6,7 @@ import Header from 'components/atomic/LV3/Header';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
+import ReactGA from 'react-ga';
 
 type PropTypes = {
   isChecking: boolean,
@@ -30,6 +31,12 @@ class HeaderContainer extends Component<PropTypes> {
 
   onClickSearch = () => {
     const { history } = this.props;
+
+    ReactGA.event({
+      category: 'Search',
+      action: 'Push Header Search Button',
+    });
+
     history.push(Path.searchCondition());
   };
 
