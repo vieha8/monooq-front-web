@@ -28,7 +28,6 @@ const ConciergeContents = props => {
 
 const ConciergeSection = ({ onClick }) => {
   const StyledContainer = styled.div`
-    width: 40%;
     text-align: center;
     font-weight: bold;
     text-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
@@ -60,10 +59,6 @@ const ConciergeSection = ({ onClick }) => {
   const PriceContainer = styled.div`
     margin: auto;
     padding: 20px;
-    width: 60%;
-    ${media.phone`
-      width: 70%;
-    `};
     border: 1px solid ${Colors.brandPrimary};
     border-radius: 5px;
   `;
@@ -96,14 +91,18 @@ const ConciergeSection = ({ onClick }) => {
       </Title>
       <Description>
         <DescriptionSub>なかなかスペースが見つからない方へ</DescriptionSub>
-        <DescriptionMain>あなたにぴったりなホストをご紹介!</DescriptionMain>
+        <DescriptionMain>
+          あなたにぴったりな
+          <br />
+          ホストをご紹介!
+        </DescriptionMain>
       </Description>
       <PriceContainer>
         <PriceSub>全国のスペース対象</PriceSub>
         <PriceMain>
           <Price>相談無料</Price>
         </PriceMain>
-        <PriceSub>お気軽にご相談ください</PriceSub>
+        <PriceSub>スタッフが親身に対応します</PriceSub>
       </PriceContainer>
       <ButtonContainer>
         <Button onClick={onClick}>相談する</Button>

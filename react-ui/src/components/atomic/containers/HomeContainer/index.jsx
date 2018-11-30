@@ -60,7 +60,7 @@ class HomeContainer extends Component<PropTypes, State> {
       return auth;
     }
 
-    const { features } = this.props;
+    const { features, history } = this.props;
 
     return (
       <MenuPageTemplate
@@ -85,6 +85,7 @@ class HomeContainer extends Component<PropTypes, State> {
                 />
               ))}
               noTopMargin
+              history={history}
             />
           </Fragment>
         }

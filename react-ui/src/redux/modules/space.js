@@ -318,8 +318,8 @@ function* getFeatureSpaces() {
     features.map(async v => {
       const feature = v;
       const featureId = v.id;
-      const { data: spaces } = await getApiRequest(apiEndpoint.features(featureId));
-      feature.spaces = spaces;
+      const { data } = await getApiRequest(apiEndpoint.features(featureId));
+      feature.spaces = data;
       return feature;
     }),
   );
