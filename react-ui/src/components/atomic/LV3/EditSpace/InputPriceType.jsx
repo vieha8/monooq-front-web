@@ -98,7 +98,7 @@ export default (props: PropTypes) => (
           onClick: props.onClickBack,
         }}
         enabledButton={{
-          text: `確認画面へ`,
+          text: `登録する`,
           onClick: props.onClickNext,
         }}
       />

@@ -31,6 +31,7 @@ export default (props: PropTypes) => (
   <div>
     <Section>
       <InputForm
+        type="number"
         label="月額料金"
         placeholder="20,000"
         unit="円"
@@ -49,7 +50,7 @@ export default (props: PropTypes) => (
           onClick: props.onClickBack,
         }}
         enabledButton={{
-          text: `確認画面へ`,
+          text: `登録する`,
           onClick: props.onClickNext,
         }}
       />
