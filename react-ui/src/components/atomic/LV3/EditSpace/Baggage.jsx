@@ -39,7 +39,7 @@ export default (props: PropTypes) => (
     <Section>
       <InputForm
         label="このスペースで預かれる荷物"
-        placeholder="ダンボール"
+        placeholder="例)ダンボール、衣類、家具、家電など"
         multiline
         rows={4}
         value={props.baggage}
