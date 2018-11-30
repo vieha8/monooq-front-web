@@ -167,7 +167,6 @@ export default (props: PropTypes) => {
                 <SearchFiledCell>
                   <AnimateSearchInputField
                     iconRight
-                    iconColor={(props.top || props.help) && Colors.white}
                     searchConditionUri={props.searchConditionUri}
                   />
                 </SearchFiledCell>
