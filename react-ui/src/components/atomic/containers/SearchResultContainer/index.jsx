@@ -199,7 +199,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const { spaces, isMore } = this.props;
+    const { spaces, isMore, history } = this.props;
     if (spaces.length === 0 && !isMore) {
       return this.renderNotFound();
     }
@@ -214,6 +214,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
           <Fragment>
             <SearchResultTemplate
               meta={<Meta title={`${condition}のスペース検索結果 | モノオク`} />}
+              history={history}
               searchResult={
                 <InfiniteScroll
                   pageStart={0}
