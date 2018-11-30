@@ -60,16 +60,20 @@ class ScheduleContainer extends Component {
       return auth;
     }
 
-    const { isLoading, schedule, history } = this.props;
+    const { isLoading, schedule, history, user } = this.props;
 
     if (isLoading) {
       return <LoadingPage />;
     }
 
-    const schedules = [].concat(
-      ((schedule || {}).user || []).map(s => this.getScheduleProps(s, false)),
-      ((schedule || {}).host || []).map(s => this.getScheduleProps(s, true)),
-    );
+    // const schedules = [].concat(
+    //   ((schedule || {}).user || []).map(s => this.getScheduleProps(s, false)),
+    //   ((schedule || {}).host || []).map(s => this.getScheduleProps(s, true)),
+    // );
+
+    const schedules = [];
+
+    const isHost = user.IsHost;
 
     return (
       <div>
@@ -82,10 +86,16 @@ class ScheduleContainer extends Component {
             ) : (
               // TODO:ホスト側の表示を実装
               <NoDataView
-                captionHead="利用したスペースがありません"
-                caption="利用したスペースがありません。ご希望のスペースを見つけて連絡を取ってみましょう。"
+                captionHead={
+                  isHost ? '利用されたスペースがありません' : '利用したスペースがありません'
+                }
+                caption={
+                  isHost
+                    ? 'まだスペースは利用されていません。他のホストの方を参考に、スペース情報を充実させてみましょう。'
+                    : '利用したスペースがありません。ご希望のスペースを見つけて連絡を取ってみましょう。'
+                }
                 buttonText="ホームへ戻る"
-                onClick={() => history.push(Path.top())}
+                onClick={() => history.push(Path.home())}
               />
             )
           }
