@@ -29,6 +29,7 @@ const CaptionWrap = styled.div`
 
 type PropTypes = {
   schedules: Array<ScheduleListItemType>,
+  isHost: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -36,44 +37,8 @@ export default (props: PropTypes) => (
     <ScheduleListWrap>
       <CaptionWrap>
         <InlineText.Base fontSize={`${FontSizes.medium1}`} bold>
-          借りているスペース
+          {props.isHost ? '貸したスペース' : '借りたスペース'}
         </InlineText.Base>
-        {/* TODO:貸している側も実装 */}
-        {/* {props.schedule.isHost ? (
-          <div>
-            <InlineText.Base fontSize={`${FontSizes.medium1}`} bold>
-              貸しているスペース
-            </InlineText.Base>
-          </div>
-        ) : (
-          <InlineText.Base fontSize={`${FontSizes.medium1}`} bold>
-            借りているスペース
-          </InlineText.Base>
-        )} */}
-      </CaptionWrap>
-      {props.schedules.map((schedule, i) => (
-        <Row key={`schedule_item_${i}`}>
-          <ScheduleListItem {...schedule} />
-        </Row>
-      ))}
-    </ScheduleListWrap>
-    <ScheduleListWrap rented>
-      <CaptionWrap>
-        <InlineText.Base fontSize={`${FontSizes.medium1}`} bold>
-          過去に借りていたスペース
-        </InlineText.Base>
-        {/* TODO:貸している側も実装 */}
-        {/* {props.schedule.isHost ? (
-          <div>
-            <InlineText.Base fontSize={`${FontSizes.medium1}`} bold>
-              貸しているスペース
-            </InlineText.Base>
-          </div>
-        ) : (
-          <InlineText.Base fontSize={`${FontSizes.medium1}`} bold>
-            借りているスペース
-          </InlineText.Base>
-        )} */}
       </CaptionWrap>
       {props.schedules.map((schedule, i) => (
         <Row key={`schedule_item_${i}`}>

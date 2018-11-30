@@ -34,9 +34,9 @@ class ScheduleContainer extends Component {
     schedule: {
       isHost: isHost,
       user: {
-        ID: isHost ? schedule.Space.Host.ID : schedule.User.ID,
-        Name: isHost ? schedule.Space.Host.Name : schedule.User.Name,
-        ImageUrl: isHost ? schedule.Space.Host.ImageUrl : schedule.User.ImageUrl,
+        ID: !isHost ? schedule.Space.Host.ID : schedule.User.ID,
+        Name: !isHost ? schedule.Space.Host.Name : schedule.User.Name,
+        ImageUrl: !isHost ? schedule.Space.Host.ImageUrl : schedule.User.ImageUrl,
       },
       space: {
         image: {
@@ -66,12 +66,10 @@ class ScheduleContainer extends Component {
       return <LoadingPage />;
     }
 
-    // const schedules = [].concat(
-    //   ((schedule || {}).user || []).map(s => this.getScheduleProps(s, false)),
-    //   ((schedule || {}).host || []).map(s => this.getScheduleProps(s, true)),
-    // );
-
-    const schedules = [];
+    const schedules = [].concat(
+      ((schedule || {}).user || []).map(s => this.getScheduleProps(s, false)),
+      ((schedule || {}).host || []).map(s => this.getScheduleProps(s, true)),
+    );
 
     const isHost = user.IsHost;
 
@@ -82,9 +80,8 @@ class ScheduleContainer extends Component {
           headline="利用状況"
           leftContent={
             Array.isArray(schedules) && schedules.length > 0 ? (
-              <ScheduleList schedules={schedules} />
+              <ScheduleList schedules={schedules} isHost={isHost} />
             ) : (
-              // TODO:ホスト側の表示を実装
               <NoDataView
                 captionHead={
                   isHost ? '利用されたスペースがありません' : '利用したスペースがありません'

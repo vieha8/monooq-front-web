@@ -62,7 +62,7 @@ export default (props: PropTypes) => (
       <HostContent>
         <HostNameWrap>
           <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
-            {props.isHost ? 'ホスト' : 'ゲスト'}
+            {!props.isHost ? 'ホスト' : 'ゲスト'}
           </InlineText.Base>
           <br />
           {props.user.Name} さん
