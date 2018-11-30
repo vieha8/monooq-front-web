@@ -6,10 +6,13 @@ import Intercom from 'react-intercom';
 
 class IntercomContainer extends React.Component {
   render() {
-    if (process.env.NODE_ENV !== 'production') {
+    const { user, location } = this.props;
+
+    if (location.pathname.indexOf('/space/') > -1) {
+      // スペース詳細では非表示
       return null;
     }
-    const { user } = this.props;
+
     const userData = {
       user_id: user.ID,
       email: user.Email,
@@ -21,6 +24,7 @@ class IntercomContainer extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
+  location: state.router.location,
 });
 
 export default connect(mapStateToProps)(IntercomContainer);
