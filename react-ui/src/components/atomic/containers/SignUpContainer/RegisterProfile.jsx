@@ -43,6 +43,17 @@ export default class RegisterProfileContainer extends Component<PropTypes, State
 
   componentDidMount() {
     window.scrollTo(0, 0);
+    const script = document.createElement('script');
+
+    script.innerHTML = `var __atw = __atw || [];
+    __atw.push({ "merchant" : "monooq", "param" : {
+        "result_id" : "100",
+        "verify" : "user_register_${this.props.user.ID}",
+    }});
+(function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
+a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
+
+    document.body.appendChild(script);
   }
 
   onClickRegisterProfile = () => {
