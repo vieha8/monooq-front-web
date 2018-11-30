@@ -7,7 +7,7 @@ import { media } from 'helpers/style/media-query';
 import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
 import PlaceListHorizonItem from 'components/atomic/LV2/PlaceListHorizonItem';
 import Duration from './Duration';
-import Operation from './Operation';
+// import Operation from './Operation';
 
 const SpaceContainer = styled.div`
   ${media.tablet`
@@ -53,7 +53,7 @@ export default (props: PropTypes) => (
     </SpaceContainer>
     <ScheduleWrapper>
       <Duration startDate={props.startDate} endDate={props.endDate} />
-      <Operation roomId={props.roomId} float="right" />
+      {/*<Operation roomId={props.roomId} float="right" />*/}
     </ScheduleWrapper>
   </ClearfixContainer>
 );
