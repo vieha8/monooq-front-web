@@ -95,7 +95,7 @@ export default (props: PropTypes) => (
               borderbold
               fontbold
               fill={1}
-              loading={props.backButton.loading}
+              loading={props.loading}
               onClick={props.backButton.onClick}
             >
               {props.backButton.text}
@@ -111,7 +111,7 @@ export default (props: PropTypes) => (
               borderbold
               fontbold
               fill={1}
-              loading={props.enabledButton.loading}
+              loading={props.loading}
               onClick={props.enabledButton.onClick}
             >
               {props.enabledButton.text}
