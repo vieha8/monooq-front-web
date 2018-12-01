@@ -11,6 +11,7 @@ import { spaceActions } from 'redux/modules/space';
 import connect from '../connect';
 import { checkAuthState, mergeAuthProps } from '../AuthRequired';
 import dummySpaceImage from 'images/dummy_space.png';
+import { convertImgixUrl } from 'helpers/imgix';
 
 type PropTypes = {
   dispatch: Function,
@@ -73,7 +74,13 @@ class HomeContainer extends Component<PropTypes, State> {
                   key={i}
                   caption={v.title}
                   spaces={v.spaces.map(s => ({
-                    image: s.Images.length !== 0 ? s.Images[0].ImageUrl : dummySpaceImage,
+                    image:
+                      s.Images.length !== 0
+                        ? convertImgixUrl(
+                            s.Images[0].ImageUrl,
+                            'fit=crop&w=170&max-h=120&format=auto',
+                          )
+                        : dummySpaceImage,
                     title: s.Title,
                     address: `${s.AddressPref}${s.AddressCity}`,
                     isFurniture: s.IsFurniture,
