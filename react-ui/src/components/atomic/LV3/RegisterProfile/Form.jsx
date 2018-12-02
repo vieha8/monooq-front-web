@@ -3,6 +3,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
+import GoogleTagManager from 'components/GTM';
 
 const Title = styled.div`
   text-align: center;
@@ -51,5 +52,6 @@ export default (props: PropTypes) => (
     <Profile>{props.profile}</Profile>
     <PhoneNumber>{props.phoneNumber}</PhoneNumber>
     <Button>{props.button}</Button>
+    <GoogleTagManager event="userRegistered" />
   </Fragment>
 );
