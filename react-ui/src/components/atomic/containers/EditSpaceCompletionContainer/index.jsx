@@ -8,6 +8,7 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceCompletion from 'components/atomic/LV3/EditSpace/Completion';
 import { spaceActions } from 'redux/modules/space';
+import { uiActions } from 'redux/modules/ui';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -29,6 +30,12 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
     super(props);
 
     checkLogin(this.props);
+
+    props.dispatch(
+      uiActions.setUiState({
+        space: {},
+      }),
+    );
   }
 
   componentDidMount() {
