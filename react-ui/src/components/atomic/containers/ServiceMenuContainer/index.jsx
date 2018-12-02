@@ -5,6 +5,7 @@ import BurgerMenu from 'react-burger-menu';
 import ServiceMenu from 'components/atomic/LV3/ServiceMenu';
 import MenuWrapPhone from 'components/atomic/LV3/ServiceMenu/MenuWrapPhone';
 import Path from 'config/path';
+import { uiActions } from 'redux/modules/ui';
 
 import connect from '../connect';
 
@@ -28,7 +29,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
   }
 
   render() {
-    const { isPhone, userName, userImage } = this.props;
+    const { isPhone, userName, userImage, dispatch } = this.props;
 
     if (isPhone) {
       const Menu = BurgerMenu[this.state.currentMenu];
@@ -63,7 +64,10 @@ class ServiceMenuContainer extends Component<PropTypes> {
         message={{ to: Path.messages(), notificationCount: 0 }}
         schedule={{ to: Path.schedule(), notificationCount: 0 }}
         spaces={{ to: Path.spaces() }}
-        addSpace={{ to: Path.createSpaceInfo() }}
+        addSpace={{
+          to: Path.createSpaceInfo(),
+          onClick: () => dispatch(uiActions.setUiState({ space: {} })),
+        }}
         sales={{ to: Path.sales() }}
         paymentHistory={{ to: Path.paid() }}
         editProfile={{ to: Path.editProfile() }}
