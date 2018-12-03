@@ -54,8 +54,5 @@ export default (props: PropTypes) => (
         {i % 2 === 1 && <br />}
       </Fragment>
     ))}
-    <HostEntryWrapper>
-      <HostEntry onClick={props.onClickHostEntry} />
-    </HostEntryWrapper>
   </div>
 );
