@@ -38,6 +38,7 @@ export default (props: PropTypes) => (
     image={
       <InputForm
         label="プロフィール写真"
+        margintop={1}
         extension={
           <RegsiterProfileImage
             onDrop={data => props.onChangeImage(data[0])}

@@ -100,9 +100,8 @@ export default (props: PropTypes) => (
       <ButtonWrap>
         <Button
           primary
-          height={40}
           fontSize={15}
-          // TODO: ホーム画面とあわせて実装する。
+          // TODO: もっとみるボタン(未実装)
           // onClick={}
         >
           もっとみる

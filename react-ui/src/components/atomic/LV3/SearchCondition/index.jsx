@@ -200,7 +200,7 @@ export default (props: PropTypes) => (
     </Section>
     <Section>
       <ButtonWrap>
-        <Button primary fontbold fill={1} height={50} onClick={props.onClickSearch}>
+        <Button primary fontbold fill={1} onClick={props.onClickSearch}>
           検索する
         </Button>
       </ButtonWrap>

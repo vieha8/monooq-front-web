@@ -7,6 +7,11 @@ import { Dimens } from 'variables';
 
 const Title = styled.div`
   text-align: center;
+  margin-top: ${Dimens.small}px;
+  ${media.phone`
+    text-align: left;
+    margin-top: ${Dimens.xxsmall}px;
+  `};
 `;
 
 const Caption = styled.div`
@@ -14,6 +19,7 @@ const Caption = styled.div`
 `;
 
 const CaptionSub = styled.div`
+  text-align: center;
   margin: ${Dimens.medium2}px auto;
   ${media.phone`
     margin: 20px auto;

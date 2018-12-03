@@ -143,7 +143,7 @@ export default (props: PropTypes) => (
         />
       ) : (
         <ButtonWrap>
-          <Button primary fontbold fill={1} height={60} onClick={props.onClickNext}>
+          <Button primary fontbold fill={1} onClick={props.onClickNext}>
             次へ
           </Button>
         </ButtonWrap>

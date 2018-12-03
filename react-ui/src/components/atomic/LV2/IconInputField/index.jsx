@@ -30,7 +30,7 @@ const IconInputField = styled(InputField)`
   ${props =>
     props.right &&
     `
-    padding: 18px 60px 18px 15px;
+    padding: 11px 60px 11px 15px;
     `};
 `;
 

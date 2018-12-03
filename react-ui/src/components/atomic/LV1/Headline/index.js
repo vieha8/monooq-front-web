@@ -1,16 +1,16 @@
 // @flow
 
 import styled from 'styled-components';
-import { Colors } from 'variables';
+import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 export const H1 = styled.h1`
   color: ${Colors.black};
-  font-size: 30px;
-  line-height: 1.6;
+  font-size: ${FontSizes.medium2}px;
+  line-height: normal;
   font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   ${media.phone`
-    font-size: 22px;
+    font-size: ${FontSizes.medium2}px;
   `};
 `;
 
@@ -23,9 +23,9 @@ export const H2 = styled(H1.withComponent('h2'))`
 `;
 
 export const H3 = styled(H1.withComponent('h3'))`
-  font-size: 16px;
+  font-size: ${FontSizes.small_15}px;
   font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   ${media.phone`
-    font-size: 14px;
+    font-size: ${FontSizes.small_15}px;
   `};
 `;

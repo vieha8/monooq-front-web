@@ -3,12 +3,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Colors } from 'variables';
+import { Colors, FontSizes } from 'variables';
+import { media } from 'helpers/style/media-query';
 
 const TextLink = styled(Link)`
   color: ${Colors.linkBlue};
-  line-height: 1.6;
-  font-size: ${props => props.fontSize || 16}px;
+  line-height: normal;
+  font-size: ${props => props.fontSize || FontSizes.small_15}px;
+  ${media.phone`
+      font-size: ${props => props.fontSizeSp || props.small_12}px;
+  `};
+
   font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   ${props =>
     props.underline &&

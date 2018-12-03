@@ -10,7 +10,7 @@ import TextArea from 'components/atomic/LV1/TextArea';
 
 const InputFieldWrapper = styled.div`
   display: inline-block;
-  margin-top: ${props => props.margintop || 4}px;
+  margin-top: ${props => props.margintop || 6}px;
   width: 100%;
   ${props =>
     props.unit &&

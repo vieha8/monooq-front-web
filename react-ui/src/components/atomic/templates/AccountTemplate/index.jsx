@@ -6,7 +6,7 @@ import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, ZIndexes } from 'variables';
 
 const Page = styled.div`
-  padding: 80px 0;
+  padding: 128px 0;
   ${media.phone`
     padding: 60px 0;
   `};

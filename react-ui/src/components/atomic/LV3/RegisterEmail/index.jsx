@@ -59,35 +59,36 @@ export default (props: PropTypes) => (
       </InlineText.Small>
     ))}
     terms={
-      <Fragment>
+      <InlineText.Base fontSize={12}>
         新規登録を行うと、
         <br />
         <TextLink
           to={Path.terms()}
           target="_blank"
-          fontSize={FontSizes.small}
+          fontSize={FontSizes.small_12}
           color={Colors.brandPrimary}
           underline="true"
         >
           利用規約
         </TextLink>
-        <InlineText.Base>と</InlineText.Base>
+        と
         <TextLink
           to={Path.privacy()}
           target="_blank"
-          fontSize={FontSizes.small}
+          fontSize={FontSizes.small_12}
           color={Colors.brandPrimary}
           underline="true"
         >
           プライバシーポリシー
         </TextLink>
-        <InlineText.Base>に同意したとみなします</InlineText.Base>
-      </Fragment>
+        に同意したとみなします
+      </InlineText.Base>
     }
     next={
       <Button
         primary
         fill={1}
+        fontbold
         onClick={props.onClickNext}
         disabled={props.buttonDisabled}
         loading={props.isRegisterChecking}
@@ -97,7 +98,13 @@ export default (props: PropTypes) => (
     }
     otherLogin={<InlineText.Base>お持ちのアカウントで登録</InlineText.Base>}
     facebook={
-      <Button facebook fill={1} onClick={props.onClickFacebook} loading={props.isRegisterChecking}>
+      <Button
+        facebook
+        fill={1}
+        fontbold
+        onClick={props.onClickFacebook}
+        loading={props.isRegisterChecking}
+      >
         Facebookで新規登録
       </Button>
     }

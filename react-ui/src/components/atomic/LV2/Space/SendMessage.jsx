@@ -40,7 +40,6 @@ export default (props: PropTypes) => (
         primary
         fontbold
         fill={1}
-        height={50}
         disabled={props.disabled}
         loading={props.loading}
         onClick={props.onClick}
