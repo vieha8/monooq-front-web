@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Path from 'config/path';
 import { userActions } from 'redux/modules/user';
 import RegisterProfile from 'components/atomic/LV3/RegisterProfile';
+import ReactGA from 'react-ga';
 
 type PropTypes = {
   dispatch: Function,
@@ -110,6 +111,10 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
         profile={profile}
         phoneNumber={phoneNumber}
         onClickSkip={() => {
+          ReactGA.event({
+            category: 'User Register',
+            action: 'Skip Profile',
+          });
           history.push(Path.home());
         }}
         onClickRegisterProfile={this.onClickRegisterProfile}

@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import Path from 'config/path';
 import { userActions } from 'redux/modules/user';
 import RegisterHowToUse from 'components/atomic/LV3/RegisterHowToUse';
+import ReactGA from 'react-ga';
 
 type PropTypes = {
   dispatch: Function,
@@ -60,6 +61,10 @@ export default class RegisterHowToUseContainer extends Component<PropTypes, Stat
         onChangeIsHost={value => this.handleChangeForm('isHost', value)}
         isHost={isHost}
         onClickSkip={() => {
+          ReactGA.event({
+            category: 'User Register',
+            action: 'Skip HowToUse',
+          });
           history.push(Path.home());
         }}
         onClickRegisterProfile={this.onClickRegisterProfile}
