@@ -2,7 +2,6 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import HostEntry from 'components/atomic/LV1/HostEntry';
 import ManageSpaceListItem from 'components/atomic/LV2/ManageSpaceListItem';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -15,15 +14,6 @@ const ListItem = styled.div`
   ${media.tablet`
     display: block;
     margin 10px auto ${Dimens.medium3}px;
-  `};
-`;
-
-const HostEntryWrapper = styled.div`
-  position: fixed;
-  right: ${Dimens.medium3}px;
-  bottom: ${Dimens.medium3}px;
-  ${media.phone`
-    display: none;
   `};
 `;
 
