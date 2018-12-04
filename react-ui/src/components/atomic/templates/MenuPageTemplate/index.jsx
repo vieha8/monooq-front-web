@@ -55,7 +55,7 @@ export default (props: PropTypes) => (
       <ClearfixContainer>
         <Content>
           <LeftContent>
-            <H1 bold>{props.headline}</H1>
+            {props.headline && <H1 bold>{props.headline}</H1>}
             {props.caption && (
               <Caption>
                 <InlineText.Base>{props.caption}</InlineText.Base>

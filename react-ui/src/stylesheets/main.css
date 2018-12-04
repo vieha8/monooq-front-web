@@ -40,13 +40,14 @@
  */
 .bm-burger-button {
   position: relative;
-  width: 27px;
+  width: 24px;
   height: 20px;
 }
 
 .bm-burger-bars {
   background: #333333;
   border-radius: 20px !important;
+  height: 15% !important;
 }
 
 .bm-menu {
@@ -64,6 +65,7 @@
 
 .bm-item-list a {
   padding: 16px 0px;
+  font-size: 15px;
 }
 
 .bm-cross-button {

@@ -70,7 +70,7 @@ const ActionWrapper = styled.div`
   `};
   ${media.tablet`
     margin-left: auto;
-    margin-right: 10px;
+    margin-right: 16px;
   `};
 `;
 
@@ -84,7 +84,6 @@ const ActionContainer = styled.div`
 const ActionCell = styled.div`
   display: table-cell;
   vertical-align: middle;
-  cursor: pointer;
   max-width: 140px;
   &:not(:last-child) {
     padding-right: ${Dimens.medium}px;
@@ -94,6 +93,11 @@ const ActionCell = styled.div`
     `
     display: none;
   `};
+  ${props =>
+    !props.noCursol &&
+    `
+    cursor: pointer;
+  `};
 `;
 
 const SearchFiledCell = styled.div`
@@ -102,7 +106,6 @@ const SearchFiledCell = styled.div`
   width: auto;
   margin-right: ${Dimens.medium}px;
   ${media.tablet`
-    width: 50px;
     ${props =>
       props.fill &&
       `
@@ -171,13 +174,22 @@ export default (props: PropTypes) => {
               {props.user ? (
                 <ActionContainer>
                   <SearchFiledCell>
-                    <AnimateSearchInputField
-                      iconRight
-                      searchConditionUri={props.searchConditionUri}
-                    />
+                    <OnlyPhone>
+                      <AnimateSearchInputField
+                        iconRight
+                        searchConditionUri={props.searchConditionUri}
+                        isPhone
+                      />
+                    </OnlyPhone>
+                    <OnlyPC>
+                      <AnimateSearchInputField
+                        iconRight
+                        searchConditionUri={props.searchConditionUri}
+                      />
+                    </OnlyPC>
                   </SearchFiledCell>
                   <OnlyPhone>
-                    <ActionCell>{props.spMenu}</ActionCell>
+                    <ActionCell noCursol>{props.spMenu}</ActionCell>
                   </OnlyPhone>
                   <OnlyPC>
                     <ActionCell>

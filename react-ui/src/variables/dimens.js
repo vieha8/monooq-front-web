@@ -9,6 +9,7 @@ export default {
   medium2_35: 35,
   medium3_40: 40,
   medium3: 42,
+  medium4: 48,
   large: 54,
   huge: 84,
   fixedWidthPc: 1048,

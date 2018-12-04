@@ -6,7 +6,7 @@ import { media } from 'helpers/style/media-query';
 
 const Base = styled.span`
   color: ${props => props.color || Colors.black};
-  font-size: ${props => props.fontSize || 16}px;
+  font-size: ${props => props.fontSize || 15}px;
   ${props =>
     props.bold &&
     `

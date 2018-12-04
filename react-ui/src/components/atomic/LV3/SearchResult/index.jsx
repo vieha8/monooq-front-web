@@ -10,11 +10,11 @@ import { Dimens, FontSizes } from 'variables';
 
 const Container = styled.div`
   width: 540px;
-  margin: 0 0 ${Dimens.medium2}px auto;
+  margin: 0 0 ${Dimens.medium4}px 0;
   ${media.tablet`
     width: 100%;
     text-align: center;
-    margin: 0 auto;
+    margin: 0 0 ${Dimens.medium1}px auto;
   `};
 `;
 
@@ -51,7 +51,6 @@ const CaptionWrap = styled.div`
     margin: 5px auto ${Dimens.medium1}px;
   `};
   ${media.phone`
-    font-size: ${FontSizes.medium1}px;
     word-break: unset;
   `};
 `;

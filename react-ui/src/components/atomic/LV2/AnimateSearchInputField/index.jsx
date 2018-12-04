@@ -25,14 +25,13 @@ type PropTypes = {
 function Icon(props: PropTypes) {
   return (
     <IconWrapper>
-      <SearchIcon color={props.iconColor} href={props.searchConditionUri} />
+      <SearchIcon color={props.iconColor} href={props.searchConditionUri} isPhone={props.isPhone} />
     </IconWrapper>
   );
 }
 
 export default (props: PropTypes) => (
   <Container align={(props.iconLeft && 'left') || (props.iconRight && 'right')}>
-    {props.iconLeft && Icon(props)}
-    {props.iconRight && Icon(props)}
+    {Icon(props)}
   </Container>
 );

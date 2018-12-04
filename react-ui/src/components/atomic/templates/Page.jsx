@@ -10,13 +10,13 @@ const Page = styled.div`
   margin: 0 auto;
   padding: 0 20px 80px;
 
-  margin-top: 130px;
+  margin-top: 124px;
   ${media.tablet`
     margin-top: 80px;
   `};
 
   ${media.phone`
-    padding: ${HeaderHeight}px 15px 40px;
+    padding: ${HeaderHeight - 10}px 15px 40px;
 
     ${props =>
       props.fillPhone &&
@@ -31,8 +31,10 @@ const Page = styled.div`
     `
     padding: 20px 0 80px;
     margin-top: 0;
-  `}${media.phone`
-    margin-top: 10px;
+  `};
+
+  ${media.phone`
+    margin-top: 20px;
   `};
 `;
 
