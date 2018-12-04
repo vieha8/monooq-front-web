@@ -29,7 +29,7 @@ const HintBottomWrap = styled.div`
 `;
 
 const CheckWrap = styled.div`
-  margin-top: 15px;
+  margin-top: 8px;
 `;
 
 type PropTypes = {
