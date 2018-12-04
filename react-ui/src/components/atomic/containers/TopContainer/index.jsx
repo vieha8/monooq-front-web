@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
@@ -78,7 +79,12 @@ class TopContainer extends React.Component {
   };
 
   render() {
-    const { ui, history } = this.props;
+    const { ui, history, isLogin } = this.props;
+
+    if (isLogin) {
+      return <Redirect to={Path.home()} />;
+    }
+
     return (
       <Fragment>
         <Top
@@ -101,6 +107,7 @@ class TopContainer extends React.Component {
 
 const mapStateToProps = state => ({
   ui: state.ui,
+  isLogin: state.auth.isLogin,
 });
 
 export default withRouter(connect(mapStateToProps)(TopContainer));
