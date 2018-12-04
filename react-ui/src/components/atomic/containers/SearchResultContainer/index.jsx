@@ -13,7 +13,6 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import SearchResult from 'components/atomic/LV3/SearchResult';
 import NoDataView from 'components/atomic/LV3/NoDataView';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import Meta from 'components/Meta';
 import { Dimens } from 'variables';
 
