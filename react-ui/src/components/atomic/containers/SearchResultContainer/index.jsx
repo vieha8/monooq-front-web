@@ -200,14 +200,10 @@ class SearchResultContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const { spaces, isMore, history, maxCount, isSearching } = this.props;
+    const { spaces, isMore, history, maxCount } = this.props;
     if (spaces.length === 0 && !isMore) {
       return this.renderNotFound();
     }
-
-    // if (isSearching) {
-    //   return <LoadingPage />;
-    // }
 
     const condition = this.getCondition();
 
