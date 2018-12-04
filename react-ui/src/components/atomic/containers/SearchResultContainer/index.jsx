@@ -205,9 +205,9 @@ class SearchResultContainer extends Component<PropTypes, State> {
       return this.renderNotFound();
     }
 
-    if (isSearching) {
-      return <LoadingPage />;
-    }
+    // if (isSearching) {
+    //   return <LoadingPage />;
+    // }
 
     const condition = this.getCondition();
 
