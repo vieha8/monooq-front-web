@@ -13,6 +13,7 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import SearchResult from 'components/atomic/LV3/SearchResult';
 import NoDataView from 'components/atomic/LV3/NoDataView';
+import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import Meta from 'components/Meta';
 import { Dimens } from 'variables';
 
@@ -199,9 +200,13 @@ class SearchResultContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const { spaces, isMore, history } = this.props;
+    const { spaces, isMore, history, maxCount, isSearching } = this.props;
     if (spaces.length === 0 && !isMore) {
       return this.renderNotFound();
+    }
+
+    if (isSearching) {
+      return <LoadingPage />;
     }
 
     const condition = this.getCondition();
@@ -209,7 +214,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={`「${condition}」のスペース検索結果`}
+        headline={`「${condition}」のスペース検索結果${maxCount}件`}
         leftContent={
           <Fragment>
             <SearchResultTemplate
@@ -248,6 +253,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
 const mapStateToProps = state => ({
   spaces: state.search.spaces,
+  maxCount: state.search.maxCount,
   isSearching: state.search.isLoading,
   isMore: state.search.isMore,
 });
