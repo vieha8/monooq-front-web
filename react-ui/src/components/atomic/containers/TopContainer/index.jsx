@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
@@ -17,29 +17,23 @@ class TopContainer extends React.Component {
       localStorage.setItem('referrer', referrer);
     }
 
-    this.props.dispatch(
-      uiActions.setUiState({
-        locationText: '',
-        searchButtonDisabled: true,
-      }),
-    );
+    this.state = {
+      locationText: '',
+      searchButtonDisabled: true,
+    };
   }
 
   handleChangeLocation = event => {
     if (event.target.value === '') {
-      this.props.dispatch(
-        uiActions.setUiState({
-          searchButtonDisabled: true,
-          locationText: '',
-        }),
-      );
+      this.setState({
+        searchButtonDisabled: true,
+        locationText: '',
+      });
     } else {
-      this.props.dispatch(
-        uiActions.setUiState({
-          searchButtonDisabled: false,
-          locationText: event.target.value,
-        }),
-      );
+      this.setState({
+        searchButtonDisabled: false,
+        locationText: event.target.value,
+      });
     }
   };
 
@@ -80,27 +74,26 @@ class TopContainer extends React.Component {
 
   render() {
     const { ui, history, isLogin } = this.props;
+    const { locationText, searchButtonDisabled } = this.state;
 
     if (isLogin) {
       return <Redirect to={Path.home()} />;
     }
 
     return (
-      <Fragment>
-        <Top
-          locationText={ui.locationText}
-          searchButtonDisabled={ui.searchButtonDisabled}
-          handleChangeLocation={this.handleChangeLocation}
-          onClickSearch={() => this.search(ui.locationText)}
-          onClickSignup={() => history.push(Path.createSpaceInfo())}
-          onKeyDownSearchField={this.onKeyDownSearchField}
-          moreFeature={ui.moreFeature}
-          onClickMoreFeature={() => this.viewMoreFeature()}
-          onClickMoreArea={() => this.viewMoreArea()}
-          moreArea={ui.moreArea}
-          history={history}
-        />
-      </Fragment>
+      <Top
+        locationText={locationText}
+        searchButtonDisabled={searchButtonDisabled}
+        handleChangeLocation={this.handleChangeLocation}
+        onClickSearch={() => this.search(locationText)}
+        onClickSignup={() => history.push(Path.createSpaceInfo())}
+        onKeyDownSearchField={this.onKeyDownSearchField}
+        moreFeature={ui.moreFeature}
+        onClickMoreFeature={() => this.viewMoreFeature()}
+        onClickMoreArea={() => this.viewMoreArea()}
+        moreArea={ui.moreArea}
+        history={history}
+      />
     );
   }
 }
