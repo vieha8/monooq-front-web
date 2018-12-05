@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
 import InputForm from 'components/atomic/LV2/InputForm';
@@ -9,7 +9,7 @@ import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
   width: 100%;
-  padding: ${Dimens.medium}px 0;
+  padding: ${Dimens.small2_14}px 0 ${Dimens.medium}px;
 
   border-bottom-style: none;
   ${media.phone`
@@ -23,6 +23,7 @@ const Container = styled.div`
   &:last-child {
     border-bottom-style: solid;
     border-radius: 0 0 3px 3px;
+    padding: ${Dimens.small2_14}px 0 ${Dimens.small_10}px;
   }
 
   &::after {
@@ -38,7 +39,6 @@ const PriceContainer = styled.div`
   float: left;
   ${media.phone`
     width: 100%;
-    margin-top: ${Dimens.medium}px;
     float: none;
   `};
 `;
@@ -50,12 +50,12 @@ const Image = styled.img`
 const ImageContainer = styled.div`
   display: block;
   width: 40%;
-  max-width: 240px;
+  max-width: 190px;
   text-align: center;
   float: right;
-  margin-top: ${Dimens.medium}px;
   ${media.phone`
     width: 100%;
+    max-width: 240px;
     float: none;
     margin: ${Dimens.medium}px auto;
   `};
@@ -78,32 +78,27 @@ const InputWrapper = styled.div`
 
 const PriceWrapper = styled.div`
   color: ${Colors.brandPrimary};
-  font-size: ${FontSizes.medium1}px;
+  font-size: ${FontSizes.medium_18}px;
   font-weight: bold;
   margin-top: ${Dimens.small2}px;
 `;
 
 const PriceTitleWrapper = styled.span`
-  font-size: ${FontSizes.medium1}px;
+  font-size: ${FontSizes.small_15}px;
   font-weight: bold;
-  line-height: 1.6;
-  ${media.phone`
-    font-size: ${Dimens.medium}px;
-    line-height: 1.5;
-  `};
+  line-height: normal;
 `;
 
 const PriceWrapperPhone = styled.span`
   display: none;
   color: ${Colors.brandPrimary};
-  font-size: ${FontSizes.medium1}px;
+  font-size: ${FontSizes.medium_18}px;
   font-weight: bold;
-  line-height: 1.6;
+  line-height: normal;
   float: right;
   ${media.phone`
     display: inline-block;
-    font-size: ${FontSizes.medium}px;
-    line-height: 1.4;
+    line-height: 1;
   `};
 `;
 
@@ -140,13 +135,13 @@ export default (props: PropTypes) =>
         </ImageContainer>
       </OnlyPC>
       <PriceContainer>
-        <div>
+        <Fragment>
           <PriceTitleWrapper>{props.title}</PriceTitleWrapper>
           <PriceWrapperPhone>
             {props.price}
             {'円'}
           </PriceWrapperPhone>
-        </div>
+        </Fragment>
         <Caption>
           <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
             {props.caption}
@@ -171,9 +166,9 @@ export default (props: PropTypes) =>
         </ImageContainer>
       </OnlyPC>
       <PriceContainer>
-        <div>
+        <Fragment>
           <InlineText.Strong>{props.title}</InlineText.Strong>
-        </div>
+        </Fragment>
         <Caption>
           <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
             {props.caption}

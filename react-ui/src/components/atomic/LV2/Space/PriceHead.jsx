@@ -5,7 +5,9 @@ import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
 import { Dimens, FontSizes } from 'variables';
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin-bottom: ${Dimens.small_10}px;
+`;
 
 const Head = styled.span`
   display: inline-block;
@@ -19,7 +21,7 @@ const Text = styled.span`
 export default () => (
   <Container>
     <Head>
-      <InlineText.Base fontSize={`${FontSizes.medium2}`} bold>
+      <InlineText.Base fontSize={`${FontSizes.medium_18}`} bold>
         料金の目安
       </InlineText.Base>
     </Head>

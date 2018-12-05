@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import PriceHead from 'components/atomic/LV2/Space/PriceHead';
 import { Colors, Dimens } from 'variables';
 
@@ -20,6 +21,10 @@ const Wrap = styled.div`
   margin: ${Dimens.medium2}px auto 0;
   padding: ${Dimens.medium2}px 0 20px;
   border-top: 1px solid ${Colors.borderGray};
+  ${media.phone`
+    margin: ${Dimens.medium_20}px auto 0;
+    padding: ${Dimens.medium_20}px 0 0px;
+  `};
 `;
 
 export default (props: PropTypes) => (

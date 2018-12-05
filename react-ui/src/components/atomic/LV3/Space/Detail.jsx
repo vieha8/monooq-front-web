@@ -1,8 +1,8 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Colors, Dimens } from 'variables';
+import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 import Description from 'components/atomic/LV2/Space/Description';
@@ -20,9 +20,9 @@ import Price from 'components/atomic/LV3/Space/Price';
 const Container = styled.div`
   max-width: 540px;
   margin: auto;
-  padding: 0 0 ${Dimens.medium3}px;
+  padding: 0 0 ${Dimens.medium_20}px;
   ${media.phone`
-    padding: 0 0 ${Dimens.huge}px;
+    padding: 0 0 ${Dimens.large2_70}px;
   `};
 `;
 
@@ -32,6 +32,9 @@ const SectionHeader = styled.div`
   border-top: 1px solid ${Colors.borderGray};
   font-size: 18px;
   font-weight: 700;
+  ${media.phone`
+    padding: ${Dimens.medium_20}px 0 0;
+  `};
 `;
 
 const ImageWrapper = styled.div``;
@@ -58,6 +61,9 @@ const PriceText = styled(InlineText.Base)`
   display: block;
   font-size: 18px;
   font-weight: bold;
+  ${media.phone`
+    text-align: right;
+  `};
 `;
 
 type PropTypes = {
@@ -107,19 +113,19 @@ export default (props: PropTypes) => (
     <Description content={props.description} />
     <SectionHeader>スペースについて</SectionHeader>
     <MapWrapper>
-      <InlineText.Tiny>所在地</InlineText.Tiny>
+      <InlineText.Base fontSize={`${FontSizes.small_12}`} margin="2px auto 12px">
+        所在地
+      </InlineText.Base>
       {props.map}
-    </MapWrapper>
-    <div>
       <Address content={props.address} />
       <Type content={props.type} />
-    </div>
+    </MapWrapper>
     <Price full={props.pricefull} half={props.pricehalf} quarter={props.pricequarter} />
     <SectionHeader>荷物について</SectionHeader>
-    <div>
+    <Fragment>
       <AboutBaggage furniture={props.furniture} content={props.aboutBaggage} />
       <Receive delivery={props.delivery} meeting={props.meeting} />
       <Supplement content={props.supplement} />
-    </div>
+    </Fragment>
   </Container>
 );

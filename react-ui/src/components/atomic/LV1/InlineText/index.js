@@ -1,7 +1,7 @@
 // @flow
 
 import styled, { css } from 'styled-components';
-import { Colors } from 'variables';
+import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const Base = styled.span`
@@ -46,6 +46,12 @@ const Base = styled.span`
     `
     display: inline-block;
   `};
+  ${props =>
+    props.margin &&
+    css`
+      display: inline-block;
+      margin: ${props.margin};
+    `};
   ${media.phone`
     ${props =>
       props.fontSizeSp &&
@@ -71,20 +77,20 @@ const Del = Base.withComponent('del');
 const Ins = Base.withComponent('ins');
 
 const Small = styled(Base)`
-  font-size: 14px;
+  font-size: ${FontSizes.small}px;
 `;
 
 const Tiny = styled(Base)`
-  font-size: 11px;
+  font-size: ${FontSizes.small_12}px;
 `;
 
 const EmphasisSmall = styled(Base)`
-  font-size: 14px;
+  font-size: ${FontSizes.small}px;
   color: ${Colors.darkGray2};
 `;
 
 const EmphasisTiny = styled(Base)`
-  font-size: 11px;
+  font-size: ${FontSizes.small_12}px;
   color: ${Colors.darkGray2};
 `;
 
