@@ -4,7 +4,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-
 import Description from 'components/atomic/LV2/Space/Description';
 import Image from 'components/atomic/LV2/Space/Image';
 import Address from 'components/atomic/LV2/Space/Address';
@@ -13,14 +12,14 @@ import AboutBaggage from 'components/atomic/LV2/Space/AboutBaggage';
 import Receive from 'components/atomic/LV2/Space/Receive';
 import Supplement from 'components/atomic/LV2/Space/Supplement';
 import HostInfo from 'components/atomic/LV2/Space/HostInfo';
-
 import InlineText from 'components/atomic/LV1/InlineText';
 import Price from 'components/atomic/LV3/Space/Price';
+import { TwitterShareButton, TwitterIcon, FacebookShareButton, FacebookIcon } from 'react-share';
+import ReactGA from 'react-ga';
 
 const Container = styled.div`
   max-width: 540px;
   margin: auto;
-  padding: 0 0 ${Dimens.medium3}px;
   ${media.phone`
     padding: 0 0 ${Dimens.huge}px;
   `};
@@ -60,7 +59,27 @@ const PriceText = styled(InlineText.Base)`
   font-weight: bold;
 `;
 
+const ShareButtonsWrapper = styled.div`
+  margin-top: ${Dimens.medium3}px;
+  margin-bottom: ${Dimens.medium3}px;
+`;
+
+const TwitterButton = styled(TwitterShareButton)`
+  vertical-align: top;
+  display: inline-block;
+  margin-right: 15px;
+  text-align: center;
+`;
+
+const FacebookButton = styled(FacebookShareButton)`
+  vertical-align: top;
+  display: inline-block;
+  margin-right: 15px;
+  text-align: center;
+`;
+
 type PropTypes = {
+  id: Number,
   pref: string,
   city: string,
   town: string,
@@ -121,5 +140,33 @@ export default (props: PropTypes) => (
       <Receive delivery={props.delivery} meeting={props.meeting} />
       <Supplement content={props.supplement} />
     </div>
+    <ShareButtonsWrapper>
+      <TwitterButton
+        beforeOnClick={() =>
+          ReactGA.event({
+            category: 'Share',
+            action: 'Push Twitter Share Button At Space',
+            value: props.id,
+          })
+        }
+        url={`https://monooq.com/space/${props.id}`}
+        title={`${props.name} | モノオク`}
+      >
+        <TwitterIcon size={32} round />
+      </TwitterButton>
+      <FacebookButton
+        beforeOnClick={() =>
+          ReactGA.event({
+            category: 'Share',
+            action: 'Push Facebook Share Button At Space',
+            value: props.id,
+          })
+        }
+        url={`https://monooq.com/space/${props.id}`}
+        quote={`${props.name} | モノオク`}
+      >
+        <FacebookIcon size={32} round />
+      </FacebookButton>
+    </ShareButtonsWrapper>
   </Container>
 );
