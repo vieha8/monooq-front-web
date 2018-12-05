@@ -19,12 +19,20 @@ const ButtonWrap = styled.div`
     bottom: 0px;
     text-align: center;
     margin-top: auto;
-    padding: 0 15px 15px;;
+    padding: 0 15px 15px;
   `};
 `;
 
 const CaptionWrap = styled.div`
   margin: ${Dimens.medium}px auto;
+  ${media.phone`
+    margin: ${Dimens.medium1}px auto 0;
+    ${props =>
+      props.sub &&
+      `
+      margin: ${Dimens.small_10}px auto 0;
+    `};
+  `};
 `;
 
 export default (props: PropTypes) => (
@@ -34,7 +42,7 @@ export default (props: PropTypes) => (
         {props.captionHead}
       </InlineText.Base>
     </CaptionWrap>
-    <CaptionWrap>
+    <CaptionWrap sub>
       <InlineText.Base>{props.caption}</InlineText.Base>
     </CaptionWrap>
     <ButtonWrap>

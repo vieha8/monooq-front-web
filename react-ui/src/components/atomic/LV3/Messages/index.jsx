@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 import moment from 'moment';
 import AdminMessage from 'components/atomic/LV2/Message/Admin';
@@ -32,9 +33,21 @@ const Row = styled.div`
     `
     width: 100%;
   `};
+  ${media.phone`
+    width: 100%;
+    ${props =>
+      props.self &&
+      `
+      width: calc(100% - 47px);
+    `};
+  `};
   &:not(:first-child) {
     margin-top: ${Dimens.medium1}px;
   }
+`;
+
+const MessageInputWrap = styled.div`
+  margin-top: ${Dimens.medium3_40}px;
 `;
 
 const ButtonWrapper = styled.div`
@@ -258,12 +271,14 @@ export default (props: PropTypes) => {
 
         return null;
       })}
-      <MessageInput
-        onChange={props.onChangeText}
-        value={props.text}
-        onPickImage={props.onPickImage}
-        preview={props.pickedImage}
-      />
+      <MessageInputWrap>
+        <MessageInput
+          onChange={props.onChangeText}
+          value={props.text}
+          onPickImage={props.onPickImage}
+          preview={props.pickedImage}
+        />
+      </MessageInputWrap>
       <ButtonWrapper>
         <Button
           primary
