@@ -4,10 +4,9 @@ import styled from 'styled-components';
 import ReactGA from 'react-ga';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Path from 'config/path';
 import Logo from 'components/atomic/LV1/Logo';
 
-const ConciergeContents = props => {
+const ConciergeContents = () => {
   const StyledContainer = styled.div`
     margin: 50px;
     display: flex;
