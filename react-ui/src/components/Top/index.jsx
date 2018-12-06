@@ -493,12 +493,6 @@ const LineupImage = styled.img`
   height: 100%;
 `;
 
-function refSearchField(ref, props) {
-  if (ref) {
-    ref.addEventListener('keydown', props.onKeyDownSearchField);
-  }
-}
-
 const MediaLineup = () => (
   <MediaLineupContainer>
     <LineupTitle>メディア掲載</LineupTitle>
@@ -598,7 +592,7 @@ export default props => (
               placeholder="近くのスペースを検索してみよう！　例）東京都港区"
               locationText={props.locationText}
               onChange={props.handleChangeLocation}
-              onRef={ref => refSearchField(ref, props)}
+              onKeyDown={props.onKeyDownSearchField}
               searchDisabled={props.searchButtonDisabled}
               onClickSearchButton={props.onClickSearch}
             />
