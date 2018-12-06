@@ -11,7 +11,7 @@ import Footer from 'components/atomic/LV2/Footer';
 import SearchInput from 'components/atomic/LV2/SearchInput';
 import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
 import PickupSpaceList from 'components/atomic/LV3/PickupSpaceList';
-import { PickupFeatureSpaceList, PickupStaffSpaceList } from './pickup';
+import { PickupStaffSpaceList } from './pickup';
 
 const mainVisual =
   'https://monooq.imgix.net/img%2Fservice%2Fmain_visual%402x.jpg?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=540';
@@ -565,19 +565,7 @@ function shuffleArray(array) {
   return result;
 }
 
-const displayPickupFeatureSpaceList = shuffleArray(PickupFeatureSpaceList);
 const displayPickupStaffSpaceList = shuffleArray(PickupStaffSpaceList);
-
-const PickupFeature = props => (
-  <PickupContainer>
-    <PickupSpaceList
-      title="ピックアップスペース"
-      spaceList={displayPickupFeatureSpaceList.slice(0, 4 + (props.moreFeature ? 4 : 0))}
-      noMore={props.moreFeature}
-      onClickMoreView={props.onClickMoreFeature}
-    />
-  </PickupContainer>
-);
 
 const PickupStaff = () => (
   <PickupContainer>
@@ -618,7 +606,6 @@ export default props => (
         </TopViewContainer>
       </TopViewFilter>
     </TopView>
-    {PickupFeature(props)}
     {PickupStaff(props)}
     <ConciergeContents history={props.history} />
     <ColoredContainer>
