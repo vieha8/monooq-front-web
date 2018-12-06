@@ -9,7 +9,6 @@ import { media } from 'helpers/style/media-query';
 import DefaultContainer from 'components/atomic/containers/DefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
 import SearchInput from 'components/atomic/LV2/SearchInput';
-import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
 import PickupSpaceList from 'components/atomic/LV3/PickupSpaceList';
 import { PickupStaffSpaceList } from './pickup';
 
@@ -95,7 +94,6 @@ const SubCatchPhrase = styled.span`
   display: block;
   font-size: ${FontSizes.medium3}px;
   line-height: ${FontSizes.medium3 * 1.5}px;
-  width: 480px;
   ${media.phone`
     font-size: ${FontSizes.medium}px;
     line-height: ${FontSizes.medium * 1.75}px;
@@ -550,7 +548,7 @@ const SearchInputContainer = styled.div`
 `;
 
 const PickupContainer = styled.div`
-  margin: ${Dimens.large}px 0;
+  margin: ${Dimens.medium}px 0;
 `;
 
 function shuffleArray(array) {
@@ -590,7 +588,9 @@ export default props => (
             荷物を置くための新しい方法。
           </CatchPhrase>
           <SubCatchPhrase>
-            モノオクは空きスペースを活用できる、物置きシェアサービスです。
+            モノオクは空きスペースを活用できる、
+            <br />
+            物置きシェアサービスです。
           </SubCatchPhrase>
 
           <SearchInputContainer>
@@ -607,7 +607,6 @@ export default props => (
       </TopViewFilter>
     </TopView>
     {PickupStaff(props)}
-    <ConciergeContents history={props.history} />
     <ColoredContainer>
       <MovieContainer>
         <MovieFrameWrapper>
