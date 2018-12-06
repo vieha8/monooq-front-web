@@ -19,7 +19,6 @@ const LeftContent = styled.div`
 
 const RightContent = styled.div`
   float: left;
-  margin-top: 100px;
   width: 30%;
   margin-left: ${Dimens.large}px;
   ${media.tablet`
