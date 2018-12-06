@@ -6,6 +6,7 @@ import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
 import Top from 'components/Top';
 import ReactGA from 'react-ga';
+import { searchActions } from '../../../../redux/modules/search';
 
 class TopContainer extends React.Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class TopContainer extends React.Component {
   };
 
   search = keyword => {
+    this.props.dispatch(searchActions.resetSearch());
     const query = `?keyword=${keyword}&prefCode=0&type=0&receiptType=0&priceMin=&priceMax=&isFurniture=false`;
     const path = `${Path.search()}${query}`;
 
