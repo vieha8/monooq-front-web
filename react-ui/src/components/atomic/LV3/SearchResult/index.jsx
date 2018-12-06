@@ -4,7 +4,6 @@ import React from 'react';
 import styled from 'styled-components';
 import SearchResultItem from 'components/atomic/LV2/SearchResultItem';
 import Button from 'components/atomic/LV1/Button';
-import Loading from 'components/atomic/LV1/Loading';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
 
@@ -66,10 +65,6 @@ const ButtonWrap = styled.div`
   `};
 `;
 
-const LoadingWrapper = styled.div`
-  margin-bottom: ${Dimens.medium}px;
-`;
-
 type PropTypes = {
   spaces: Array<{
     image: string,
@@ -86,11 +81,6 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <Container>
     {props.caption && <CaptionWrap>{props.caption}</CaptionWrap>}
-    {props.spaces.length === 0 && (
-      <LoadingWrapper>
-        <Loading />
-      </LoadingWrapper>
-    )}
     {props.spaces.map((space, i) => (
       <Cell key={`result_list_result_item_${i}`} index={i}>
         <SearchResultItem {...space} />
