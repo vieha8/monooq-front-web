@@ -139,8 +139,13 @@ export const spaceReducer = handleActions(
       ...state,
       isComplete: false,
     }),
+    [FETCH_FEATURE_SPACES]: state => ({
+      ...state,
+      isLoading: true,
+    }),
     [FETCH_SUCCESS_FEATURE_SPACES]: (state, action) => ({
       ...state,
+      isLoading: false,
       features: action.payload,
     }),
   },

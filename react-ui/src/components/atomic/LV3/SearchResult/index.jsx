@@ -1,17 +1,14 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import SearchResultItem from 'components/atomic/LV2/SearchResultItem';
-import Button from 'components/atomic/LV1/Button';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
-import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
-import Path from 'config/path';
 
 const Container = styled.div`
   width: 540px;
-  margin: 0 0 ${Dimens.medium2}px auto;
+  margin: 0 0 ${Dimens.medium1}px auto;
   ${media.tablet`
     width: 100%;
     text-align: center;
@@ -57,20 +54,6 @@ const CaptionWrap = styled.div`
   `};
 `;
 
-const ButtonWrap = styled.div`
-  width: 100%;
-  max-width: 180px;
-  margin: 5px 0 ${Dimens.large}px auto;
-  ${media.tablet`
-    max-width: 120px;
-    margin: 5px auto ${Dimens.large}px;
-  `};
-`;
-
-const SearchButtonWrap = styled.div`
-  margin-top: 20px;
-`;
-
 type PropTypes = {
   caption: string,
   spaces: Array<{
@@ -96,33 +79,5 @@ export default (props: PropTypes) => (
         <SearchResultItem {...space} />
       </Cell>
     ))}
-    {props.spaces.length !== 0 && (
-      <Fragment>
-        <SearchButtonWrap>
-          <Button
-            primary
-            fontbold
-            center
-            onClick={() => props.history.push(Path.searchCondition())}
-          >
-            条件を変えて再検索する
-          </Button>
-        </SearchButtonWrap>
-        <ConciergeContents history={props.history} />
-      </Fragment>
-    )}
-    {props.isMoreButton && (
-      <ButtonWrap>
-        <Button
-          primary
-          height={40}
-          fontSize={15}
-          // TODO: ホーム画面とあわせて実装する。
-          // onClick={}
-        >
-          もっとみる
-        </Button>
-      </ButtonWrap>
-    )}
   </Container>
 );
