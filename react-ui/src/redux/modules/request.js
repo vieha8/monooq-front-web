@@ -2,7 +2,6 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import { push } from 'connected-react-router';
-import ReactGA from 'react-ga';
 import { apiEndpoint } from './api';
 import { authActions } from './auth';
 import { store } from '../store/configureStore';
@@ -21,7 +20,6 @@ const PAYMENT_FAILED = 'PAYMENT_FAILED';
 const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
 const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
 const FETCH_SCHEDULE_FAILED = 'FETCH_SCHEDULE_FAILED';
-const SEND_CONCIERGE_REQUEST = 'SEND_CONCIERGE_REQUEST';
 
 export const requestActions = createActions(
   ESTIMATE,
@@ -33,7 +31,6 @@ export const requestActions = createActions(
   FETCH_SCHEDULE,
   FETCH_SCHEDULE_SUCCESS,
   FETCH_SCHEDULE_FAILED,
-  SEND_CONCIERGE_REQUEST,
 );
 
 // Reducer
@@ -284,33 +281,8 @@ function* fetchSchedule() {
   yield put(requestActions.fetchScheduleSuccess({ user: userRequests, host: hostRequests }));
 }
 
-function* conciergeRequest({ payload: { userId, body } }) {
-  let message = `ユーザーID: ${userId}\n`;
-  message += `メールアドレス: ${body.email}\n`;
-  message += `預けたい地域: ${body.address}\n`;
-  message += `希望利用開始日: ${body.startDate.toDate()}\n`;
-  message += `希望利用終了日: ${body.endDate.toDate()}\n`;
-  message += `荷物の詳細: ${body.baggageInfo}\n`;
-  message += `利用目的: ${body.notes}\n`;
-
-  const mail = {
-    Subject: `【モノオクコンシェルジュ】新規ご相談 ${body.email}`,
-    Address: 'info@monooq.com',
-    Body: message,
-    Category: 'concierge',
-  };
-
-  yield call(postApiRequest, apiEndpoint.sendMail(), mail);
-
-  ReactGA.event({
-    category: 'Requests',
-    action: 'Concierge Request',
-  });
-}
-
 export const requestSagas = [
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
   takeEvery(FETCH_SCHEDULE, fetchSchedule),
-  takeEvery(SEND_CONCIERGE_REQUEST, conciergeRequest),
 ];

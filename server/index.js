@@ -96,7 +96,11 @@ if (cluster.isMaster) {
   });
 
   app.get("/hub/request", (req, res) => {
-    res.redirect("/concierge/request");
+    res.redirect("/");
+  });
+
+  app.get("/concierge/request", (req, res) => {
+    res.redirect("/");
   });
 
   // Priority serve any static files.

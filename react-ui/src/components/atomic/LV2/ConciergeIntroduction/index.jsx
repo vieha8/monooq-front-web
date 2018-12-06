@@ -1,11 +1,11 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
+import ReactGA from 'react-ga';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 import Logo from 'components/atomic/LV1/Logo';
-import Button from 'components/atomic/LV1/Button';
 
 const ConciergeContents = props => {
   const StyledContainer = styled.div`
@@ -21,12 +21,12 @@ const ConciergeContents = props => {
 
   return (
     <StyledContainer className="for-safe-section-list">
-      <ConciergeSection onClick={() => props.history.push(Path.conciergeRequest())} />
+      <ConciergeSection />
     </StyledContainer>
   );
 };
 
-const ConciergeSection = ({ onClick }) => {
+const ConciergeSection = () => {
   const StyledContainer = styled.div`
     text-align: center;
     font-weight: bold;
@@ -80,6 +80,7 @@ const ConciergeSection = ({ onClick }) => {
     display: flex;
     justify-content: center;
     margin-top: 30px;
+    margin-bottom: 30px;
   `;
 
   return (
@@ -90,13 +91,26 @@ const ConciergeSection = ({ onClick }) => {
         Concierge
       </Title>
       <Description>
-        <DescriptionSub>なかなかスペースが見つからない方へ</DescriptionSub>
+        <DescriptionSub>お困り・お急ぎの方へ</DescriptionSub>
         <DescriptionMain>
-          あなたにぴったりな
+          LINEでおすすめの
           <br />
-          ホストをご紹介!
+          スペースをご紹介!
         </DescriptionMain>
       </Description>
+      <ButtonContainer>
+        <a href="https://line.me/R/ti/p/%40wna0649g" target="_blank" rel="noopener noreferrer">
+          <img
+            height="48"
+            border="0"
+            alt="友だち追加"
+            src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"
+            onClick={() =>
+              ReactGA.event({ category: 'Requests', action: 'Push LINE Register Button' })
+            }
+          />
+        </a>
+      </ButtonContainer>
       <PriceContainer>
         <PriceSub>全国のスペース対象</PriceSub>
         <PriceMain>
@@ -104,9 +118,6 @@ const ConciergeSection = ({ onClick }) => {
         </PriceMain>
         <PriceSub>スタッフが親身に対応します</PriceSub>
       </PriceContainer>
-      <ButtonContainer>
-        <Button onClick={onClick}>相談する</Button>
-      </ButtonContainer>
     </StyledContainer>
   );
 };
