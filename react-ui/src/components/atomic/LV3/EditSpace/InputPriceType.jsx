@@ -15,6 +15,14 @@ const CommissionWrap = styled.div`
   margin-bottom: ${Dimens.medium1}px;
 `;
 
+const CaptionWrap = styled.div`
+  ${props =>
+    props.sub &&
+    `
+      margin-top: ${Dimens.xsmall}px;
+    `};
+`;
+
 type PropTypes = {
   priceQuarter: number,
   priceQuarterErrors: Array<string>,
@@ -43,16 +51,17 @@ function displayErrors(key: string, errors: Array<string>) {
 
 export default (props: PropTypes) => (
   <div>
-    <Section>
-      <InlineText.Base>
-        様々なご相談に対応できるように料金目安を設定しましょう。
-        <br />
+    <Section marginTopSp={20}>
+      <CaptionWrap>
+        <InlineText.Base>様々なご相談に対応できるように料金目安を設定しましょう。</InlineText.Base>
+      </CaptionWrap>
+      <CaptionWrap sub>
         <InlineText.Tiny>
           お客様によって荷物の内容が異なるので、スペースの広さに対する料金を設定してください。
         </InlineText.Tiny>
-      </InlineText.Base>
+      </CaptionWrap>
     </Section>
-    <Section>
+    <Section marginTop={20}>
       <InputPriceOfType
         image={imageFurnitureFull}
         title="全てのスペースの月額料金"
@@ -81,7 +90,7 @@ export default (props: PropTypes) => (
         error={displayErrors('price_errors_3', props.priceQuarterErrors)}
       />
     </Section>
-    <Section>
+    <Section marginTop={20}>
       <CommissionWrap>
         <InlineText.Base>
           取引成立時の売り上げは、お客様があなたへお支払いするスペース利用額から20%をご利用料金として引かせていただきます。

@@ -49,7 +49,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
                   onClick: onClickCreateSpace,
                 }}
                 enabledButton={{
-                  text: `ホームにもどる`,
+                  text: `ホームへ戻る`,
                   onClick: onClickBackHome,
                 }}
               />
@@ -63,7 +63,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
                   onClick: onClickViewSpace,
                 }}
                 enabledButton={{
-                  text: `ホームにもどる`,
+                  text: `ホームへ戻る`,
                   onClick: onClickBackHome,
                 }}
               />

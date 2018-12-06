@@ -14,6 +14,11 @@ const Container = styled.div`
   border-bottom-style: none;
   ${media.phone`
     padding: ${Dimens.xsmall}px 0px;
+    ${props =>
+      !props.detail &&
+      `
+        padding: ${Dimens.xsmall}px 0px ${Dimens.medium1}px;
+      `};
   `};
 
   &:first-child {

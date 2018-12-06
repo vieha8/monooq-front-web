@@ -7,7 +7,7 @@ import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
 import SpaceSizeCriterion from 'components/atomic/LV2/SpaceSizeCriterion';
 import InlineText from 'components/atomic/LV1/InlineText';
 import EntryButtons from 'components/atomic/LV2/EntryButtons';
-import { Colors } from 'variables';
+import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
 import imageFurnitureFull from 'images/furniture-full.svg';
@@ -15,9 +15,9 @@ import imageFurnitureFull from 'images/furniture-full.svg';
 import { Section } from './Shared';
 
 const HeadTextWrap = styled.div`
-  margin: 0px auto 30px;
+  margin: 0px auto ${Dimens.medium1}px;
   ${media.phone`
-    margin: 0px auto 5px;
+    margin: 0px auto ${Dimens.small_10}px;
   `};
 `;
 
@@ -50,7 +50,7 @@ export default (props: PropTypes) => (
         <SpaceSizeCriterion
           selected={props.size === 1}
           position="left"
-          textHead="単一料金の設定"
+          textHead="単一料金"
           textBody="1人用ソファが入るくらい、またはそれ以下"
           onClick={() => props.onChangeSize(1)}
           image={imageFurnitureQuarter}
@@ -58,7 +58,7 @@ export default (props: PropTypes) => (
         <SpaceSizeCriterion
           selected={props.size === 2}
           position="right"
-          textHead="複数料金の設定"
+          textHead="複数料金"
           textBody="1人分の生活用品が入るくらい、またはそれ以上"
           onClick={() => props.onChangeSize(2)}
           image={imageFurnitureFull}

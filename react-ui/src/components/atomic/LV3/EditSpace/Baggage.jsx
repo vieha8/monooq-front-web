@@ -10,7 +10,7 @@ import { Colors, Dimens } from 'variables';
 import { Section } from './Shared';
 
 const CheckWrapper = styled.div`
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.small}px;
 `;
 
 type PropTypes = {

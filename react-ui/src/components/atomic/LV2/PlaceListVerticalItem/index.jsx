@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import { Colors, Dimens } from 'variables';
 import Card from 'components/atomic/LV1/Card';
@@ -19,11 +20,18 @@ const Container = styled.div`
 const ImageWrapper = styled.div``;
 
 const ContentWrapper = styled.div`
-  padding: ${Dimens.small}px ${Dimens.medium}px;
+  padding: ${Dimens.small_10}px ${Dimens.medium}px;
   ${props =>
-    !props.manage &&
+    props.manage &&
     `
-      padding: 20px ${Dimens.xsmall}px ${Dimens.xsmall}px;
+    padding: ${Dimens.medium_20}px ${Dimens.xsmall}px ${Dimens.xsmall}px;
+  `};
+  ${media.phone`
+    ${props =>
+      props.manage &&
+      `
+        padding: ${Dimens.small_10}px ${Dimens.xsmall}px ${Dimens.xsmall}px;
+    `};
   `};
 `;
 
@@ -102,7 +110,7 @@ export default (props: PropTypes) =>
       <Link to={props.href || ''}>
         <Card noBorder noPadding pointer onClick={props.onClick} customStyle={CardShadowStyle}>
           <ImageWrapper>
-            <HeroImage height={290} large {...props.image} />
+            <HeroImage height={290} heightSp={180} large {...props.image} />
           </ImageWrapper>
           <ContentWrapper>
             <AddressText manage={props.manage}>{props.address ? props.address : ''}</AddressText>

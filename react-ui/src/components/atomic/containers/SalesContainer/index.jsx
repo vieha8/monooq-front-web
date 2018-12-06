@@ -337,7 +337,7 @@ class SalesContainer extends Component {
         </MsgWrap>
         <ButtonWrap>
           <Button primary fontbold center onClick={() => history.push(Path.home())}>
-            ホームへ
+            ホームへ戻る
           </Button>
         </ButtonWrap>
       </Fragment>
