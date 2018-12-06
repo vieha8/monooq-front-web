@@ -1,11 +1,13 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import SearchResultItem from 'components/atomic/LV2/SearchResultItem';
 import Button from 'components/atomic/LV1/Button';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
+import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
+import Path from 'config/path';
 
 const Container = styled.div`
   width: 540px;
@@ -65,7 +67,12 @@ const ButtonWrap = styled.div`
   `};
 `;
 
+const SearchButtonWrap = styled.div`
+  margin-top: 20px;
+`;
+
 type PropTypes = {
+  caption: string,
   spaces: Array<{
     image: string,
     title: string,
@@ -76,6 +83,9 @@ type PropTypes = {
     priceQuarter: number,
     onClick: Function,
   }>,
+  history: {
+    push: Function,
+  },
 };
 
 export default (props: PropTypes) => (
@@ -86,6 +96,21 @@ export default (props: PropTypes) => (
         <SearchResultItem {...space} />
       </Cell>
     ))}
+    {props.spaces.length !== 0 && (
+      <Fragment>
+        <SearchButtonWrap>
+          <Button
+            primary
+            fontbold
+            center
+            onClick={() => props.history.push(Path.searchCondition())}
+          >
+            条件を変えて再検索する
+          </Button>
+        </SearchButtonWrap>
+        <ConciergeContents history={props.history} />
+      </Fragment>
+    )}
     {props.isMoreButton && (
       <ButtonWrap>
         <Button

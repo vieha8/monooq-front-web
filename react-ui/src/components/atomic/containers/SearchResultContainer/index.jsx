@@ -214,7 +214,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
           <Fragment>
             <SearchResultTemplate
               meta={<Meta title={`${condition}のスペース検索結果 | モノオク`} />}
-              history={history}
               searchResult={
                 <InfiniteScroll
                   pageStart={0}
@@ -224,6 +223,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
                   initialLoad
                 >
                   <SearchResult
+                    history={history}
                     spaces={spaces.map(s => ({
                       image: (s.Images[0] || {}).ImageUrl,
                       title: s.Title,
