@@ -284,7 +284,13 @@ class SalesContainer extends Component {
           />
         </InputText>
         <SubmitButton>
-          <Button fill={1} primary onClick={this.confirmButton} disabled={!this.validate()}>
+          <Button
+            fill={1}
+            primary
+            fontbold
+            onClick={this.confirmButton}
+            disabled={!this.validate()}
+          >
             確認画面へ
           </Button>
         </SubmitButton>

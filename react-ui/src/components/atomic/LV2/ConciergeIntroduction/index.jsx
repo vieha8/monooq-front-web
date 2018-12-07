@@ -105,7 +105,9 @@ const ConciergeSection = ({ onClick }) => {
         <PriceSub>スタッフが親身に対応します</PriceSub>
       </PriceContainer>
       <ButtonContainer>
-        <Button onClick={onClick}>相談する</Button>
+        <Button onClick={onClick} fontbold>
+          相談する
+        </Button>
       </ButtonContainer>
     </StyledContainer>
   );

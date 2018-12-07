@@ -101,6 +101,7 @@ export default props => (
     </Row>
     <SubmitButton
       primary
+      fontbold
       disabled={props.buttonDisabled}
       onClick={props.buttonLoading ? null : props.onClickButton}
       loading={props.buttonLoading}

@@ -283,6 +283,7 @@ export default (props: PropTypes) => {
         <Button
           primary
           fill={1}
+          fontbold
           disabled={props.buttonDisabled}
           onClick={props.buttonDisabled ? null : props.onClickSend}
         >
@@ -291,7 +292,7 @@ export default (props: PropTypes) => {
       </ButtonWrapper>
       {props.hostUser && (
         <ButtonWrapper>
-          <Button secondary fill={1} onClick={props.onClickEstimate}>
+          <Button secondary fill={1} fontbold onClick={props.onClickEstimate}>
             見積もりを送る
           </Button>
         </ButtonWrapper>
