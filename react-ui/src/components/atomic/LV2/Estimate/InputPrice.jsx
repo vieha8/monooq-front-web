@@ -1,13 +1,17 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import InputForm from 'components/atomic/LV2/InputForm';
 import InlineText from 'components/atomic/LV1/InlineText';
 import { Colors, Dimens } from 'variables';
 
+const TextWrap = styled.div`
+  margin: ${Dimens.medium2}px auto;
+`;
+
 const Text = styled.div`
-  margin: 10px auto 0;
+  margin: ${Dimens.small}px auto 0;
 `;
 
 const Error = styled.div`
@@ -21,7 +25,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <div>
+  <Fragment>
     <div>
       <InputForm
         label="お見積もり料金"
@@ -36,13 +40,15 @@ export default (props: PropTypes) => (
         </Error>
       ))}
     </div>
-    <Text>
-      <InlineText.EmphasisTiny>※相手の相談に応じて料金を決めましょう。</InlineText.EmphasisTiny>
-    </Text>
-    <Text>
-      <InlineText.EmphasisTiny>
-        ※取引成立時の売上は、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。
-      </InlineText.EmphasisTiny>
-    </Text>
-  </div>
+    <TextWrap>
+      <Text>
+        <InlineText.EmphasisTiny>※相手の相談に応じて料金を決めましょう。</InlineText.EmphasisTiny>
+      </Text>
+      <Text>
+        <InlineText.EmphasisTiny>
+          ※取引成立時の売上は、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。
+        </InlineText.EmphasisTiny>
+      </Text>
+    </TextWrap>
+  </Fragment>
 );
