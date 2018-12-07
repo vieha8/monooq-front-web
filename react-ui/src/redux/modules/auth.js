@@ -220,6 +220,13 @@ function* checkLoginFirebaseAuth() {
     localStorage.setItem('status', JSON.stringify(status));
     yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID });
     ReactGA.set({ userId: data.ID });
+    Sentry.configureScope(scope => {
+      scope.setUser({
+        id: user.ID,
+        username: user.Name,
+        email: user.Email,
+      });
+    });
   }
 
   yield put(authActions.checkLoginSuccess(status));
