@@ -2,16 +2,16 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Colors } from 'variables';
+import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const InputFieldWrapper = styled.div`
   display: inline-block;
   width: 100%;
   border-bottom: 1px solid ${Colors.lightGray2};
-  padding: 20px 15px;
+  padding: ${Dimens.medium_20}px 15px;
   ${media.phone`
-    padding: 20px 0px;
+    padding: ${Dimens.medium_20}px 0px;
   `};
 `;
 
@@ -23,7 +23,7 @@ const SalesTitleWrapper = styled.div`
 const SalesAmountItemWrapper = styled.div`
   display: inline-block;
   float: right;
-  font-size: 18px;
+  font-size: ${FontSizes.medium_18}px;
   ${props =>
     props.bold &&
     `

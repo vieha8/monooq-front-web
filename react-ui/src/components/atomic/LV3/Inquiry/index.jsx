@@ -25,7 +25,8 @@ export default () => (
           サービスの不明点・お困りのことがあれば、モノオクカスタマーサポートまでお寄せください。
           <br />
           現在、お問い合わせは右下の赤いアイコンから承っております。こちらよりご連絡ください。
-          <br />
+        </InlineText.Base>
+        <InlineText.Base margin="6px auto auto">
           お問い合わせ内容を送信後、メールアドレスを入力いただくと翌営業日を目安にご連絡致します。
         </InlineText.Base>
       </Text>

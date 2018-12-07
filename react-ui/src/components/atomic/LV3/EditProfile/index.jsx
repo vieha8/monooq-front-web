@@ -2,6 +2,8 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
+import { Dimens } from 'variables';
 import RegsiterProfileImage from 'components/atomic/LV1/DragAndDrop/RegisterProfileImage';
 import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
@@ -11,8 +13,16 @@ import { selectOptionPurpose } from 'helpers/purposes';
 
 const Row = styled.div`
   &:not(:first-child) {
-    margin: 34px 0;
+    margin: ${Dimens.medium2}px 0;
   }
+`;
+
+const ButtonWrap = styled.div`
+  max-width: 240px;
+  margin: auto;
+  ${media.phone`
+    max-width: 100%;
+  `};
 `;
 
 type PropTypes = {
@@ -85,7 +95,7 @@ export default (props: PropTypes) => (
       <InputForm
         label="自己紹介"
         placeholder="はじめまして！モノオクホストのYUKIです。大きめの荷物でも柔軟に対応しております、いつでもチャットでご連絡ください！"
-        rows={4}
+        rows={6}
         multiline
         onChange={e => props.onChangeProfile(e.target.value)}
         value={props.profile}
@@ -99,14 +109,17 @@ export default (props: PropTypes) => (
         value={props.purpose}
       />
     </Row>
-    <Button
-      primary
-      fill={1}
-      disabled={props.buttonDisabled}
-      onClick={props.buttonLoading ? null : props.onClickUpdate}
-      loading={props.buttonLoading}
-    >
-      プロフィールを更新する
-    </Button>
+    <ButtonWrap>
+      <Button
+        primary
+        fill={1}
+        fontbold
+        disabled={props.buttonDisabled}
+        onClick={props.buttonLoading ? null : props.onClickUpdate}
+        loading={props.buttonLoading}
+      >
+        プロフィールを更新する
+      </Button>
+    </ButtonWrap>
   </Fragment>
 );

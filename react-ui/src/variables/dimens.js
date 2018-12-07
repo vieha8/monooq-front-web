@@ -6,6 +6,7 @@ export default {
   small2: 12,
   small2_14: 14,
   medium: 16,
+  medium_18: 18,
   medium_20: 20,
   medium1: 24,
   medium2: 30,
