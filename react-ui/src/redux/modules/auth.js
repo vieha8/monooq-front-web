@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery } from 'redux-saga/effects';
+import { put, call, takeEvery, take, select } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import { replace } from 'connected-react-router';
 import ReactGA from 'react-ga';
@@ -26,6 +26,7 @@ const PASSWORD_RESET = 'PASSWORD_RESET';
 const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
 const TOKEN_GENERATE = 'TOKEN_GENERATE';
+const TOKEN_GENERATE_SUCCESS = 'TOKEN_GENERATE_SUCCESS';
 const UNSUBSCRIBE = 'UNSUBSCRIBE';
 const UNSUBSCRIBE_SUCCESS = 'UNSUBSCRIBE_SUCCESS';
 const UNSUBSCRIBE_FAILED = 'UNSUBSCRIBE_FAILED';
@@ -54,6 +55,7 @@ export const authActions = createActions(
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILED,
   TOKEN_GENERATE,
+  TOKEN_GENERATE_SUCCESS,
   SET_USER,
   UNSUBSCRIBE,
   UNSUBSCRIBE_SUCCESS,
@@ -72,6 +74,7 @@ const initialState = {
   isUnsubscribeFailed: false,
   user: {},
   error: '',
+  token: null,
 };
 export const authReducer = handleActions(
   {
@@ -175,6 +178,10 @@ export const authReducer = handleActions(
       isUnsubscribeSuccess: false,
       isUnsubscribeFailed: true,
     }),
+    [TOKEN_GENERATE_SUCCESS]: (state, action) => ({
+      ...state,
+      token: action.payload,
+    }),
   },
   initialState,
 );
@@ -187,12 +194,24 @@ const getLoginUserFirebaseAuth = () =>
   });
 
 // Sagas
+export function* getToken() {
+  const token = yield select(state => state.auth.token);
+  if (token) {
+    return token;
+  }
+  yield put(authActions.tokenGenerate());
+  const { payload } = yield take(authActions.tokenGenerateSuccess);
+  return payload;
+}
+
 function* checkLoginFirebaseAuth() {
   let status = { isLogin: false };
   const statusCache = localStorage.getItem('status');
+
   if (statusCache) {
     status = JSON.parse(statusCache);
-    yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID });
+    const token = yield* getToken();
+    yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID }, token);
     ReactGA.set({ userId: status.user.ID });
     yield put(authActions.checkLoginSuccess(status));
     const { user } = status;
@@ -209,7 +228,8 @@ function* checkLoginFirebaseAuth() {
   const user = yield call(getLoginUserFirebaseAuth);
   if (user) {
     status.isLogin = true;
-    const { data, err } = yield call(getApiRequest, apiEndpoint.authFirebase(user.uid));
+    const token = yield* getToken();
+    const { data, err } = yield call(getApiRequest, apiEndpoint.authFirebase(user.uid), {}, token);
     if (err) {
       yield put(authActions.checkLoginFailed({ error: err }));
       yield put(authActions.logout());
@@ -218,7 +238,7 @@ function* checkLoginFirebaseAuth() {
     }
     status.user = data;
     localStorage.setItem('status', JSON.stringify(status));
-    yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID });
+    yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID }, token);
     ReactGA.set({ userId: data.ID });
     Sentry.configureScope(scope => {
       scope.setUser({
@@ -239,7 +259,6 @@ function* loginEmail({ payload: { email, password } }) {
     yield put(authActions.loginSuccess());
   } catch (err) {
     yield put(authActions.loginFailed(err));
-    // yield put(errorActions.setError(err));
   }
 }
 
@@ -251,7 +270,6 @@ function* loginFacebook() {
     yield put(authActions.loginSuccess());
   } catch (err) {
     yield put(authActions.loginFailed(err));
-    // yield put(errorActions.setError(err));
   }
 }
 
@@ -272,12 +290,18 @@ function* signUpEmail({ payload: { email, password } }) {
 
     const referrer = localStorage.getItem('referrer') || '';
 
-    const { data, status, err } = yield call(postApiRequest, apiEndpoint.users(), {
-      Email: email,
-      FirebaseUid: firebaseUid,
-      ImageUrl: defaultImage,
-      RefererUrl: referrer,
-    });
+    const token = yield* getToken();
+    const { data, status, err } = yield call(
+      postApiRequest,
+      apiEndpoint.users(),
+      {
+        Email: email,
+        FirebaseUid: firebaseUid,
+        ImageUrl: defaultImage,
+        RefererUrl: referrer,
+      },
+      token,
+    );
 
     if (err) {
       yield put(authActions.signupFailed());
@@ -306,13 +330,19 @@ function* signUpFacebook() {
     const { displayName, email, uid, photoURL } = result.user;
     const referrer = localStorage.getItem('referrer') || '';
 
-    const { data, err } = yield call(postApiRequest, apiEndpoint.users(), {
-      Email: email,
-      FirebaseUid: uid,
-      Name: displayName,
-      ImageUrl: photoURL,
-      RefererUrl: referrer,
-    });
+    const token = yield* getToken();
+    const { data, err } = yield call(
+      postApiRequest,
+      apiEndpoint.users(),
+      {
+        Email: email,
+        FirebaseUid: uid,
+        Name: displayName,
+        ImageUrl: photoURL,
+        RefererUrl: referrer,
+      },
+      token,
+    );
 
     if (err) {
       yield put(authActions.signupFailed(err));
@@ -345,11 +375,12 @@ function* tokenGenerate() {
     yield put(errorActions.setError(err));
     return;
   }
-  localStorage.setItem('token', JSON.stringify(data));
+  yield put(authActions.tokenGenerateSuccess(data.Token));
 }
 
 function* unsubscribe({ payload: { userId, reason, description } }) {
-  const { err } = yield call(deleteApiRequest, apiEndpoint.users(userId));
+  const token = yield* getToken();
+  const { err } = yield call(deleteApiRequest, apiEndpoint.users(userId), token);
   if (err) {
     yield put(authActions.unsubscribeFailed(err));
     yield put(errorActions.setError(err));
@@ -364,7 +395,7 @@ function* unsubscribe({ payload: { userId, reason, description } }) {
     Category: 'unsubscribe',
   };
 
-  yield call(postApiRequest, apiEndpoint.sendMail(), body);
+  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
   yield put(authActions.unsubscribeSuccess());
 }
 

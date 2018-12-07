@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
 import firebase from 'firebase/app';
-import { authActions } from './auth';
+import { authActions, getToken } from './auth';
 import { userActions } from './user';
 import { spaceActions } from './space';
 import { apiEndpoint } from './api';
@@ -91,12 +91,13 @@ function* fetchRoomStart() {
   user = yield select(state => state.auth.user);
 
   const rooms = yield getRooms(user.ID);
+  const token = yield* getToken();
 
   const users = yield all(
     rooms.map(room => {
       const { userId1, userId2 } = room;
       const id = user.ID === userId1 ? userId2 : userId1;
-      return call(getApiRequest, apiEndpoint.users(id));
+      return call(getApiRequest, apiEndpoint.users(id), {}, token);
     }),
   );
 
@@ -284,7 +285,8 @@ function* sendMessage(payload) {
 function* sendEmail(payload) {
   const { roomId, toUserId, text } = payload;
 
-  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId));
+  const token = yield* getToken();
+  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId), {}, token);
 
   let messageBody = 'メッセージが届いています。\n\n';
 
@@ -310,7 +312,7 @@ function* sendEmail(payload) {
     Category: 'message',
   };
 
-  yield call(postApiRequest, apiEndpoint.sendMail(), body);
+  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
 }
 
 function* sendMessageAndEmail({ payload }) {

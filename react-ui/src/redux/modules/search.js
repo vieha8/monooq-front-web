@@ -4,6 +4,7 @@ import dummySpaceImage from 'images/dummy_space.png';
 import { apiEndpoint } from './api';
 import { getApiRequest } from '../helpers/api';
 import { errorActions } from './error';
+import { getToken } from './auth';
 import { convertImgixUrl } from 'helpers/imgix';
 import { getPrefecture } from 'helpers/prefectures';
 
@@ -52,17 +53,24 @@ export const searchReducer = handleActions(
 function* search({
   payload: { limit, offset, keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture },
 }) {
-  const { data, err, headers } = yield call(getApiRequest, apiEndpoint.spaces(), {
-    limit,
-    offset,
-    keyword,
-    pref: getPrefecture(prefCode),
-    priceMin: priceMin || 0,
-    priceMax: priceMax || 0,
-    receiptType,
-    type,
-    isFurniture,
-  });
+  const token = yield* getToken();
+
+  const { data, err, headers } = yield call(
+    getApiRequest,
+    apiEndpoint.spaces(),
+    {
+      limit,
+      offset,
+      keyword,
+      pref: getPrefecture(prefCode),
+      priceMin: priceMin || 0,
+      priceMax: priceMax || 0,
+      receiptType,
+      type,
+      isFurniture,
+    },
+    token,
+  );
   if (err) {
     yield put(searchActions.failedSearch());
     yield put(errorActions.setError(err));

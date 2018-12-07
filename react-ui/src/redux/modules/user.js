@@ -4,7 +4,7 @@ import dummySpaceImage from 'images/dummy_space.png';
 import { apiEndpoint } from './api';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
-import { authActions } from './auth';
+import { authActions, getToken } from './auth';
 import { getApiRequest, putApiRequest } from '../helpers/api';
 import { errorActions } from './error';
 import { convertImgixUrl } from 'helpers/imgix';
@@ -95,7 +95,8 @@ export const userReducer = handleActions(
 
 // Sagas
 export function* getUser({ payload: { userId } }) {
-  const { data, err } = yield call(getApiRequest, apiEndpoint.users(userId));
+  const token = yield* getToken();
+  const { data, err } = yield call(getApiRequest, apiEndpoint.users(userId), {}, token);
   if (err) {
     yield put(userActions.fetchFailedUser(err));
     yield put(errorActions.setError(err));
@@ -116,7 +117,13 @@ function* getSpaces(params) {
   }
   user = yield select(state => state.auth.user);
 
-  const { data, err } = yield call(getApiRequest, apiEndpoint.userSpaces(targetUserId || user.ID));
+  const token = yield* getToken();
+  const { data, err } = yield call(
+    getApiRequest,
+    apiEndpoint.userSpaces(targetUserId || user.ID),
+    {},
+    token,
+  );
   if (err) {
     yield put(userActions.fetchFailedUserSpaces(err));
     yield put(errorActions.setError(err));
@@ -159,7 +166,8 @@ function* updateUser({ payload: { userId, body } }) {
     const imagePath = `/img/users/${userId}/profile/${timeStamp}.${ext}`;
     body.imageUrl = yield uploadImage(imagePath, body.imageUri);
   }
-  const { data, err } = yield call(putApiRequest, apiEndpoint.users(userId), body);
+  const token = yield* getToken();
+  const { data, err } = yield call(putApiRequest, apiEndpoint.users(userId), body, token);
   if (err) {
     yield put(userActions.updateFailedUser(err));
     yield put(errorActions.setError(err));

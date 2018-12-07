@@ -7,10 +7,6 @@ class AuthContainer extends React.PureComponent {
     super(props);
     const { dispatch } = props;
     dispatch(authActions.checkLogin());
-    const token = localStorage.getItem('token');
-    if (!token) {
-      dispatch(authActions.tokenGenerate());
-    }
   }
 
   render() {

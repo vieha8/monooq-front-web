@@ -4,7 +4,7 @@ import { put, takeEvery, call, select, take } from 'redux-saga/effects';
 import { apiEndpoint } from './api';
 import { getApiRequest, postApiRequest } from '../helpers/api';
 import { errorActions } from './error';
-import { authActions } from './auth';
+import { authActions, getToken } from './auth';
 
 // Actions
 const FETCH_SALES = 'FETCH_SALES';
@@ -46,8 +46,8 @@ export const salesReducer = handleActions(
 
 // Sagas
 function* getSales() {
-  // TODO ユーザーとトークンが紐付けられてるか確認した方が良い
-  const { data, err } = yield call(getApiRequest, apiEndpoint.sales());
+  const token = yield* getToken();
+  const { data, err } = yield call(getApiRequest, apiEndpoint.sales(), {}, token);
   if (err) {
     yield put(salesActions.fetchSalesFailed(err));
     yield put(errorActions.setError(err));
@@ -65,7 +65,7 @@ const sendMailToAdmin = (
   accountName,
   payouts,
 ) =>
-  new Promise(resolve => {
+  new Promise(async resolve => {
     // 運営への通知
     let message = `ユーザーID: ${userId}\n`;
     message += `金融機関名: ${bankName}\n`;
@@ -86,7 +86,8 @@ const sendMailToAdmin = (
       Category: 'payout',
     };
 
-    postApiRequest(apiEndpoint.sendMail(), body);
+    const token = await getToken();
+    postApiRequest(apiEndpoint.sendMail(), body, token);
     resolve();
   });
 
@@ -121,7 +122,6 @@ const sendMailToUser = (
       Body: message,
       Category: 'payout',
     };
-
     postApiRequest(apiEndpoint.sendMail(), body);
     resolve();
   });
@@ -189,6 +189,7 @@ function* sendPayouts({
   if (process.env.NODE_ENV !== 'production') {
     return;
   }
+
   yield call(
     sendMailToAdmin,
     userId,
