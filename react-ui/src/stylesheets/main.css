@@ -32,7 +32,10 @@
 }
 
 .color-darkGray1 {
-  color: #333333;
+  color: #333333 !important;
+}
+.fa-search:hover {
+  color: #888787 !important;
 }
 
 /* 
