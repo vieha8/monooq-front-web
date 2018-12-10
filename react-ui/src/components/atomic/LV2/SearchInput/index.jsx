@@ -64,7 +64,7 @@ const Icon = styled.i`
 type PropTypes = {
   placeholder: string,
   onChange: Function,
-  onRef: Function,
+  onKeyDown: Function,
   onClickSearchButton: Function,
   searchDisabled: boolean,
   borderColor?: string,
@@ -75,7 +75,7 @@ export default (props: PropTypes) => (
     <SearchInput
       placeholder={props.placeholder}
       onChange={props.onChange}
-      ref={ref => props.onRef(ref)}
+      onKeyDown={props.onKeyDown}
       margin="normal"
       borderColor={props.borderColor}
     />

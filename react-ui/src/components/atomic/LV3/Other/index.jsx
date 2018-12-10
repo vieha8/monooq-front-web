@@ -28,6 +28,7 @@ const ItemContainer = styled.div`
 
 type PropTypes = {
   logout: Function,
+  isLogin: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -45,9 +46,11 @@ export default (props: PropTypes) => (
       <MenuLink to={Path.cancellationPolicies()}>
         <ItemContainer>キャンセルポリシー</ItemContainer>
       </MenuLink>
-      <MenuLink to="" onClick={props.logout.onClick}>
-        <ItemContainer>ログアウト</ItemContainer>
-      </MenuLink>
+      {props.isLogin && (
+        <MenuLink to="" onClick={props.logout.onClick}>
+          <ItemContainer>ログアウト</ItemContainer>
+        </MenuLink>
+      )}
     </AsctContentWrapper>
   </Fragment>
 );

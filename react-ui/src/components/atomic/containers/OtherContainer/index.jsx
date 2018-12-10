@@ -15,7 +15,7 @@ type PropTypes = {
   dispatch: Function,
 };
 
-class HowToUseContainer extends Component<PropTypes> {
+class OtherContainer extends Component<PropTypes> {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
@@ -29,6 +29,7 @@ class HowToUseContainer extends Component<PropTypes> {
   };
 
   render() {
+    const { isLogin } = this.props;
     return (
       <MenuPageTemplate
         header={<Header />}
@@ -41,6 +42,7 @@ class HowToUseContainer extends Component<PropTypes> {
                 this.logout();
               },
             }}
+            isLogin={isLogin}
           />
         }
         rightContent={<ServiceMenu />}
@@ -49,4 +51,11 @@ class HowToUseContainer extends Component<PropTypes> {
   }
 }
 
-export default connect(HowToUseContainer);
+const mapStateToProps = state => ({
+  isLogin: state.auth.isLogin,
+});
+
+export default connect(
+  OtherContainer,
+  mapStateToProps,
+);

@@ -1,10 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
 import Top from 'components/Top';
 import ReactGA from 'react-ga';
+import { searchActions } from '../../../../redux/modules/search';
 
 class TopContainer extends React.Component {
   constructor(props) {
@@ -16,29 +18,23 @@ class TopContainer extends React.Component {
       localStorage.setItem('referrer', referrer);
     }
 
-    this.props.dispatch(
-      uiActions.setUiState({
-        locationText: '',
-        searchButtonDisabled: true,
-      }),
-    );
+    this.state = {
+      locationText: '',
+      searchButtonDisabled: true,
+    };
   }
 
   handleChangeLocation = event => {
     if (event.target.value === '') {
-      this.props.dispatch(
-        uiActions.setUiState({
-          searchButtonDisabled: true,
-          locationText: '',
-        }),
-      );
+      this.setState({
+        searchButtonDisabled: true,
+        locationText: '',
+      });
     } else {
-      this.props.dispatch(
-        uiActions.setUiState({
-          searchButtonDisabled: false,
-          locationText: event.target.value,
-        }),
-      );
+      this.setState({
+        searchButtonDisabled: false,
+        locationText: event.target.value,
+      });
     }
   };
 
@@ -49,6 +45,7 @@ class TopContainer extends React.Component {
   };
 
   search = keyword => {
+    this.props.dispatch(searchActions.resetSearch());
     const query = `?keyword=${keyword}&prefCode=0&type=0&receiptType=0&priceMin=&priceMax=&isFurniture=false`;
     const path = `${Path.search()}${query}`;
 
@@ -78,29 +75,34 @@ class TopContainer extends React.Component {
   };
 
   render() {
-    const { ui, history } = this.props;
+    const { ui, history, isLogin } = this.props;
+    const { locationText, searchButtonDisabled } = this.state;
+
+    if (isLogin) {
+      return <Redirect to={Path.home()} />;
+    }
+
     return (
-      <Fragment>
-        <Top
-          locationText={ui.locationText}
-          searchButtonDisabled={ui.searchButtonDisabled}
-          handleChangeLocation={this.handleChangeLocation}
-          onClickSearch={() => this.search(ui.locationText)}
-          onClickSignup={() => history.push(Path.createSpaceInfo())}
-          onKeyDownSearchField={this.onKeyDownSearchField}
-          moreFeature={ui.moreFeature}
-          onClickMoreFeature={() => this.viewMoreFeature()}
-          onClickMoreArea={() => this.viewMoreArea()}
-          moreArea={ui.moreArea}
-          history={history}
-        />
-      </Fragment>
+      <Top
+        locationText={locationText}
+        searchButtonDisabled={searchButtonDisabled}
+        handleChangeLocation={this.handleChangeLocation}
+        onClickSearch={() => this.search(locationText)}
+        onClickSignup={() => history.push(Path.createSpaceInfo())}
+        onKeyDownSearchField={this.onKeyDownSearchField}
+        moreFeature={ui.moreFeature}
+        onClickMoreFeature={() => this.viewMoreFeature()}
+        onClickMoreArea={() => this.viewMoreArea()}
+        moreArea={ui.moreArea}
+        history={history}
+      />
     );
   }
 }
 
 const mapStateToProps = state => ({
   ui: state.ui,
+  isLogin: state.auth.isLogin,
 });
 
 export default withRouter(connect(mapStateToProps)(TopContainer));

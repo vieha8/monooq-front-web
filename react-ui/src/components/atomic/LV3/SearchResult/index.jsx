@@ -3,8 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import SearchResultItem from 'components/atomic/LV2/SearchResultItem';
-import Button from 'components/atomic/LV1/Button';
-import Loading from 'components/atomic/LV1/Loading';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
 
@@ -55,21 +53,8 @@ const CaptionWrap = styled.div`
   `};
 `;
 
-const ButtonWrap = styled.div`
-  width: 100%;
-  max-width: 180px;
-  margin: 5px 0 ${Dimens.large}px auto;
-  ${media.tablet`
-    max-width: 120px;
-    margin: 5px auto ${Dimens.large}px;
-  `};
-`;
-
-const LoadingWrapper = styled.div`
-  margin-bottom: ${Dimens.medium}px;
-`;
-
 type PropTypes = {
+  caption: string,
   spaces: Array<{
     image: string,
     title: string,
@@ -80,32 +65,18 @@ type PropTypes = {
     priceQuarter: number,
     onClick: Function,
   }>,
+  history: {
+    push: Function,
+  },
 };
 
 export default (props: PropTypes) => (
   <Container>
     {props.caption && <CaptionWrap>{props.caption}</CaptionWrap>}
-    {props.spaces.length === 0 && (
-      <LoadingWrapper>
-        <Loading />
-      </LoadingWrapper>
-    )}
     {props.spaces.map((space, i) => (
       <Cell key={`result_list_result_item_${i}`} index={i}>
         <SearchResultItem {...space} />
       </Cell>
     ))}
-    {props.isMoreButton && (
-      <ButtonWrap>
-        <Button
-          primary
-          fontSize={15}
-          // TODO: もっとみるボタン(未実装)
-          // onClick={}
-        >
-          もっとみる
-        </Button>
-      </ButtonWrap>
-    )}
   </Container>
 );

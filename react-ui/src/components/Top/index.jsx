@@ -9,9 +9,8 @@ import { media } from 'helpers/style/media-query';
 import DefaultContainer from 'components/atomic/containers/DefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
 import SearchInput from 'components/atomic/LV2/SearchInput';
-import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
 import PickupSpaceList from 'components/atomic/LV3/PickupSpaceList';
-import { PickupFeatureSpaceList, PickupStaffSpaceList } from './pickup';
+import { PickupStaffSpaceList } from './pickup';
 
 const mainVisual =
   'https://monooq.imgix.net/img%2Fservice%2Fmain_visual%402x.jpg?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=540';
@@ -95,7 +94,6 @@ const SubCatchPhrase = styled.span`
   display: block;
   font-size: ${FontSizes.medium3}px;
   line-height: ${FontSizes.medium3 * 1.5}px;
-  width: 480px;
   ${media.phone`
     font-size: ${FontSizes.medium}px;
     line-height: ${FontSizes.medium * 1.75}px;
@@ -495,12 +493,6 @@ const LineupImage = styled.img`
   height: 100%;
 `;
 
-function refSearchField(ref, props) {
-  if (ref) {
-    ref.addEventListener('keydown', props.onKeyDownSearchField);
-  }
-}
-
 const MediaLineup = () => (
   <MediaLineupContainer>
     <LineupTitle>メディア掲載</LineupTitle>
@@ -550,7 +542,7 @@ const SearchInputContainer = styled.div`
 `;
 
 const PickupContainer = styled.div`
-  margin: ${Dimens.large}px 0;
+  margin: ${Dimens.medium}px 0;
 `;
 
 function shuffleArray(array) {
@@ -565,19 +557,7 @@ function shuffleArray(array) {
   return result;
 }
 
-const displayPickupFeatureSpaceList = shuffleArray(PickupFeatureSpaceList);
 const displayPickupStaffSpaceList = shuffleArray(PickupStaffSpaceList);
-
-const PickupFeature = props => (
-  <PickupContainer>
-    <PickupSpaceList
-      title="ピックアップスペース"
-      spaceList={displayPickupFeatureSpaceList.slice(0, 4 + (props.moreFeature ? 4 : 0))}
-      noMore={props.moreFeature}
-      onClickMoreView={props.onClickMoreFeature}
-    />
-  </PickupContainer>
-);
 
 const PickupStaff = () => (
   <PickupContainer>
@@ -602,7 +582,9 @@ export default props => (
             荷物を置くための新しい方法。
           </CatchPhrase>
           <SubCatchPhrase>
-            モノオクは空きスペースを活用できる、物置きシェアサービスです。
+            モノオクは空きスペースを活用できる、
+            <br />
+            物置きシェアサービスです。
           </SubCatchPhrase>
 
           <SearchInputContainer>
@@ -610,7 +592,7 @@ export default props => (
               placeholder="近くのスペースを検索してみよう！　例）東京都港区"
               locationText={props.locationText}
               onChange={props.handleChangeLocation}
-              onRef={ref => refSearchField(ref, props)}
+              onKeyDown={props.onKeyDownSearchField}
               searchDisabled={props.searchButtonDisabled}
               onClickSearchButton={props.onClickSearch}
             />
@@ -618,9 +600,7 @@ export default props => (
         </TopViewContainer>
       </TopViewFilter>
     </TopView>
-    {PickupFeature(props)}
     {PickupStaff(props)}
-    <ConciergeContents history={props.history} />
     <ColoredContainer>
       <MovieContainer>
         <MovieFrameWrapper>

@@ -7,12 +7,14 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Loading from 'components/atomic/LV1/Loading';
 import Path from 'config/path';
 
-import SearchResultTemplate from 'components/atomic/templates/SearchResult';
+import SearchResultTemplate from 'components/atomic/templates/SearchResultTemplate';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
+import Button from 'components/atomic/LV1/Button';
 import SearchResult from 'components/atomic/LV3/SearchResult';
 import NoDataView from 'components/atomic/LV3/NoDataView';
+import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
 import Meta from 'components/Meta';
 import { Dimens } from 'variables';
 
@@ -24,6 +26,10 @@ import connect from '../connect';
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
   text-align: center;
+`;
+
+const SearchButtonWrap = styled.div`
+  margin-top: 40px;
 `;
 
 type PropTypes = {
@@ -199,7 +205,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const { spaces, isMore, history } = this.props;
+    const { spaces, isMore, history, maxCount, isSearching } = this.props;
     if (spaces.length === 0 && !isMore) {
       return this.renderNotFound();
     }
@@ -209,12 +215,12 @@ class SearchResultContainer extends Component<PropTypes, State> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={`「${condition}」のスペース検索結果`}
+        headline={`「${condition}」のスペース検索結果${maxCount}件`}
         leftContent={
           <Fragment>
             <SearchResultTemplate
+              isSearching={isSearching}
               meta={<Meta title={`${condition}のスペース検索結果 | モノオク`} />}
-              history={history}
               searchResult={
                 <InfiniteScroll
                   pageStart={0}
@@ -224,6 +230,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
                   initialLoad
                 >
                   <SearchResult
+                    history={history}
                     spaces={spaces.map(s => ({
                       image: (s.Images[0] || {}).ImageUrl,
                       title: s.Title,
@@ -237,6 +244,21 @@ class SearchResultContainer extends Component<PropTypes, State> {
                   />
                 </InfiniteScroll>
               }
+              options={
+                <Fragment>
+                  <SearchButtonWrap>
+                    <Button
+                      primary
+                      fontbold
+                      center
+                      onClick={() => history.push(Path.searchCondition())}
+                    >
+                      条件を変えて再検索する
+                    </Button>
+                  </SearchButtonWrap>
+                  <ConciergeContents />
+                </Fragment>
+              }
             />
           </Fragment>
         }
@@ -248,6 +270,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
 const mapStateToProps = state => ({
   spaces: state.search.spaces,
+  maxCount: state.search.maxCount,
   isSearching: state.search.isLoading,
   isMore: state.search.isMore,
 });

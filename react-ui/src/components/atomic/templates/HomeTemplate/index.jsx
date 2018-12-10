@@ -27,10 +27,10 @@ type PropTypes = {
   },
 };
 
-export default ({ meta, searchResult, noTopMargin, history }: PropTypes) => (
+export default ({ meta, searchResult, noTopMargin }: PropTypes) => (
   <div>
     {meta}
     <Content noTopMargin={noTopMargin}>{searchResult}</Content>
-    <ConciergeContents history={history} />
+    <ConciergeContents />
   </div>
 );

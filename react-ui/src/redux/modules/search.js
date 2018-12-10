@@ -21,6 +21,7 @@ const initialState = {
   isMore: true,
   location: '',
   spaces: [],
+  maxCount: 0,
 };
 
 export const searchReducer = handleActions(
@@ -35,11 +36,13 @@ export const searchReducer = handleActions(
       isLoading: false,
       spaces: [...state.spaces, ...payload.spaces],
       isMore: payload.isMore,
+      maxCount: payload.maxCount,
     }),
     [RESET_SEARCH]: state => ({
       ...state,
       spaces: [],
       isMore: true,
+      maxCount: 0,
     }),
   },
   initialState,
@@ -49,7 +52,7 @@ export const searchReducer = handleActions(
 function* search({
   payload: { limit, offset, keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture },
 }) {
-  const { data, err } = yield call(getApiRequest, apiEndpoint.spaces(), {
+  const { data, err, headers } = yield call(getApiRequest, apiEndpoint.spaces(), {
     limit,
     offset,
     keyword,
@@ -80,7 +83,13 @@ function* search({
   });
 
   const isMore = res.length === limit;
-  yield put(searchActions.successSearch({ spaces: res, isMore }));
+  yield put(
+    searchActions.successSearch({
+      spaces: res,
+      isMore,
+      maxCount: parseInt(headers['content-range'], 10),
+    }),
+  );
 }
 
 export const searchSagas = [takeEvery(DO_SEARCH, search)];

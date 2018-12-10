@@ -1,6 +1,8 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, call, select } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
 import dummySpaceImage from 'images/dummy_space.png';
+import { store } from '../store/configureStore';
 import { apiEndpoint } from './api';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
@@ -137,8 +139,13 @@ export const spaceReducer = handleActions(
       ...state,
       isComplete: false,
     }),
+    [FETCH_FEATURE_SPACES]: state => ({
+      ...state,
+      isLoading: true,
+    }),
     [FETCH_SUCCESS_FEATURE_SPACES]: (state, action) => ({
       ...state,
+      isLoading: false,
       features: action.payload,
     }),
   },
@@ -151,7 +158,7 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
 
   if (err) {
     yield put(spaceActions.fetchFailedSpace(err));
-    yield put(errorActions.setError(err));
+    store.dispatch(push(Path.notFound()));
     return;
   }
 

@@ -38,7 +38,7 @@ export const getApiRequest = (path, params) => {
     api
       .get(path, { params })
       .then(res => {
-        resolve({ status: res.status, data: res.data });
+        resolve({ ...res });
       })
       .catch(({ response }) => responseErrorHandler(resolve, response));
   });

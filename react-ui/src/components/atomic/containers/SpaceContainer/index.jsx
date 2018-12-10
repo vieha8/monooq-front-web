@@ -152,6 +152,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
         leftContent={
           <Fragment>
             <Detail
+              id={space.ID}
               map={<SpaceMap lat={space.Latitude} lng={space.Longitude} />}
               pref={space.AddressPref}
               city={space.AddressCity}

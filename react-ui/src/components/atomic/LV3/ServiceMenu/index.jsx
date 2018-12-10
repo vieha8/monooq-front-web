@@ -51,6 +51,7 @@ type PropTypes = {
   howToUse: MenuItemProps,
   other: MenuItemProps,
   isPhone: boolean,
+  isLogin: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -71,13 +72,18 @@ export default (props: PropTypes) => (
     ) : (
       <MenuItem title="ホーム" {...props.home} />
     )}
-    <MenuItem title="メッセージ" {...props.message} />
-    <MenuItem title="利用状況" {...props.schedule} />
-    <MenuItem title="スペースの登録" {...props.addSpace} line />
-    <MenuItem title="スペースの管理" {...props.spaces} />
-    <MenuItem title="売上・振込申請" {...props.sales} />
-    <MenuItem title="プロフィール編集" {...props.editProfile} />
-    <MenuItem title="ヘルプ" {...props.help} blank line />
+    {props.isLogin && (
+      <Fragment>
+        <MenuItem title="ホーム" {...props.home} />
+        <MenuItem title="メッセージ" {...props.message} />
+        <MenuItem title="利用状況" {...props.schedule} />
+        <MenuItem title="スペースの登録" {...props.addSpace} line />
+        <MenuItem title="スペースの管理" {...props.spaces} />
+        <MenuItem title="売上・振込申請" {...props.sales} />
+        <MenuItem title="プロフィール編集" {...props.editProfile} />
+      </Fragment>
+    )}
+    <MenuItem title="ヘルプ" {...props.help} blank line={props.isLogin} />
     <MenuItem title="お問い合わせ" {...props.inquiry} />
     <MenuItem title="モノオクの使い方" {...props.howToUse} />
     <MenuItem title="その他" {...props.other} />

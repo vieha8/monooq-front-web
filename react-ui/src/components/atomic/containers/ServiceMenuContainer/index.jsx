@@ -29,7 +29,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
   }
 
   render() {
-    const { isPhone, userName, userImage, dispatch } = this.props;
+    const { isPhone, userName, userImage, dispatch, isLogin } = this.props;
 
     if (isPhone) {
       const Menu = BurgerMenu[this.state.currentMenu];
@@ -52,6 +52,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
               userName={userName}
               userImage={userImage}
               isPhone
+              isLogin={isLogin}
             />
           </Menu>
         </MenuWrapPhone>
@@ -75,6 +76,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
         inquiry={{ to: Path.inquiry() }}
         howToUse={{ to: Path.howToUse() }}
         other={{ to: Path.other() }}
+        isLogin={isLogin}
       />
     );
   }
@@ -82,6 +84,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
+  isLogin: state.auth.isLogin,
 });
 
 export default connect(
