@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import Path from 'config/path';
 import Button from 'components/atomic/LV1/Button';
 import InlineText from 'components/atomic/LV1/InlineText';
