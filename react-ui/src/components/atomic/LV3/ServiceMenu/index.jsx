@@ -56,7 +56,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Fragment>
-    {props.isPhone ? (
+    {props.isPhone && (
       <Fragment>
         <LinkWrap>
           <AvatarIcon imageSrc={props.userImage} size={40} />
@@ -67,14 +67,11 @@ export default (props: PropTypes) => (
             </MenuLink>
           </OtherIconWrap>
         </LinkWrap>
-        <MenuItem title="ホーム" {...props.home} line />
       </Fragment>
-    ) : (
-      <MenuItem title="ホーム" {...props.home} />
     )}
     {props.isLogin && (
       <Fragment>
-        <MenuItem title="ホーム" {...props.home} />
+        <MenuItem title="ホーム" {...props.home} line={props.isPhone} />
         <MenuItem title="メッセージ" {...props.message} />
         <MenuItem title="利用状況" {...props.schedule} />
         <MenuItem title="スペースの登録" {...props.addSpace} line />
