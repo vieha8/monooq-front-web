@@ -16,6 +16,7 @@ type PropTypes = {
     userId: number,
   },
   onClickViewSpace: Function,
+  story?: boolean,
 };
 
 export default class SpaceCreatedCompletion extends Component<PropTypes> {
@@ -36,11 +37,18 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
   }
 
   render() {
-    const { edit, space, onClickViewSpace, onClickBackHome, onClickCreateSpace } = this.props;
+    const {
+      edit,
+      space,
+      onClickViewSpace,
+      onClickBackHome,
+      onClickCreateSpace,
+      story,
+    } = this.props;
     return (
       <Fragment>
         {space &&
-          (edit === 0 ? (
+          (!edit ? (
             <Section>
               <EntryButtons
                 enabled
@@ -69,7 +77,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
               />
             </Section>
           ))}
-        <GoogleTagManager event="spaceRegistered" />
+        {!story && <GoogleTagManager event="spaceRegistered" />}
       </Fragment>
     );
   }

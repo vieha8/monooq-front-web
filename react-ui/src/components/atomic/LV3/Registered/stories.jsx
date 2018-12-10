@@ -10,9 +10,11 @@ storiesOf('Organisms(LV3)/Registered', module)
   .addDecorator(StoryRouter())
   .add('Normal', () => (
     <Registered
+      userId={1}
       image="http://placehold.jp/500x500.png"
       name="ものおく太郎"
       onClickUser={() => console.log('onClickUser')}
       onClickHost={() => console.log('onClickHost')}
+      story
     />
   ));

@@ -26,10 +26,12 @@ type PropTypes = {
   buttonLoading: boolean,
   onClickSkip: Function,
   onClickRegisterProfile: Function,
+  story?: boolean,
 };
 
 export default (props: PropTypes) => (
   <Form
+    story={props.story}
     title={
       <InlineText.Base fontSize={FontSizes.medium2} bold>
         プロフィールの入力

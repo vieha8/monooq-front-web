@@ -20,11 +20,16 @@ storiesOf('Molecules(LV2)/PlaceListHorizonItem', module)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <PlaceListHorizonItem
+          user={{
+            ID: 1,
+            Name: 'モノオク太郎',
+            ImageUrl: 'http://placehold.jp/500x500.png',
+          }}
           image={{
             src: 'http://placehold.jp/500x500.png',
             alt: 'name',
           }}
-          address="六本木"
+          address="東京都港区六本木"
           content="東京タワーに近くて便利！大きい荷物も何人分でもOK！東京タワーに近くて便利！大きい荷物も何人分でもOK！東京タワーに近くて便利！大きい荷物も何人分でもOK！東京タワーに近くて便利！大きい荷物も何人分でもOK！"
           onClick={() => console.log('onClick')}
         />

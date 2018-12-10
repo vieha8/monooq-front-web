@@ -17,6 +17,8 @@ function getMessages() {
       image: 'http://placehold.jp/500x500.png',
       name: 'モノオク太郎さん',
       receivedAt: new Date(),
+      lastMessage:
+        'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト',
     });
   }
   return data;
