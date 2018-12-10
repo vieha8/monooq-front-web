@@ -10,7 +10,8 @@ import AnimateSearchInputField from 'components/atomic/LV2/AnimateSearchInputFie
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, ZIndexes } from 'variables';
 
-export const Height = 60;
+export const Height = 64;
+export const HeightPhone = 54;
 
 const Container = styled.header`
   position: fixed;
@@ -38,20 +39,23 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   height: ${Height}px;
+  ${media.tablet`
+    height: ${HeightPhone}px;
+  `};
 `;
 
 const LogoWrapper = styled(Link)`
   width: 138px;
   display: inline-flex;
-  margin-left: 50px;
+  margin-left: 52px;
   ${props =>
     props.hide &&
     `
     display: none;
   `} ${media.tablet`
     width: 100px;
-    margin-top: 4px;
-    margin-left: 20px;
+    margin-top: 0px;
+    margin-left: 17px;
   `};
 `;
 
@@ -66,21 +70,20 @@ const ActionWrapper = styled.div`
   `};
   ${media.tablet`
     margin-left: auto;
-    margin-right: 10px;
+    margin-right: 16px;
   `};
 `;
 
 const ActionContainer = styled.div`
   display: table;
   ${media.tablet`
-    margin-top: 4px;
+    margin-top: 0px;
   `};
 `;
 
 const ActionCell = styled.div`
   display: table-cell;
   vertical-align: middle;
-  cursor: pointer;
   max-width: 140px;
   &:not(:last-child) {
     padding-right: ${Dimens.medium}px;
@@ -90,6 +93,11 @@ const ActionCell = styled.div`
     `
     display: none;
   `};
+  ${props =>
+    !props.noCursol &&
+    `
+    cursor: pointer;
+  `};
 `;
 
 const SearchFiledCell = styled.div`
@@ -98,7 +106,6 @@ const SearchFiledCell = styled.div`
   width: auto;
   margin-right: ${Dimens.medium}px;
   ${media.tablet`
-    width: 50px;
     ${props =>
       props.fill &&
       `
@@ -145,6 +152,7 @@ type PropTypes = {
     image: string,
   },
   isCheckingLogin: boolean,
+  noHeaderButton: boolean,
   loginUri: string,
   signupUri: string,
   top?: boolean,
@@ -160,39 +168,49 @@ export default (props: PropTypes) => {
         <LogoWrapper to={props.topUri}>
           {props.top || props.help ? <Logo.HeaderWhiteFill /> : <Logo.HeaderFill />}
         </LogoWrapper>
-        {!props.isCheckingLogin && (
-          <ActionWrapper>
-            {props.user ? (
-              <ActionContainer>
-                <SearchFiledCell>
-                  <AnimateSearchInputField
-                    iconRight
-                    searchConditionUri={props.searchConditionUri}
-                  />
-                </SearchFiledCell>
-                <OnlyPhone>
-                  <ActionCell>{props.spMenu}</ActionCell>
-                </OnlyPhone>
-                <OnlyPC>
-                  <ActionCell>
-                    <AvatarIcon imageSrc={props.user.image} to={props.homeUri} />
-                  </ActionCell>
-                  <ActionCell>
-                    <Link to={props.homeUri}>
-                      <AvaterName>{props.user.name}</AvaterName>
-                    </Link>
-                  </ActionCell>
-                </OnlyPC>
-              </ActionContainer>
-            ) : (
-              <ActionContainer>
-                <AnonymouseWrapper>
-                  <Anonymouse loginUri={props.loginUri} signupUri={props.signupUri} />
-                </AnonymouseWrapper>
-              </ActionContainer>
-            )}
-          </ActionWrapper>
-        )}
+        {!props.isCheckingLogin &&
+          !props.noHeaderButton && (
+            <ActionWrapper>
+              {props.user ? (
+                <ActionContainer>
+                  <SearchFiledCell>
+                    <OnlyPhone>
+                      <AnimateSearchInputField
+                        iconRight
+                        searchConditionUri={props.searchConditionUri}
+                        isPhone
+                      />
+                    </OnlyPhone>
+                    <OnlyPC>
+                      <AnimateSearchInputField
+                        iconRight
+                        searchConditionUri={props.searchConditionUri}
+                      />
+                    </OnlyPC>
+                  </SearchFiledCell>
+                  <OnlyPhone>
+                    <ActionCell noCursol>{props.spMenu}</ActionCell>
+                  </OnlyPhone>
+                  <OnlyPC>
+                    <ActionCell>
+                      <AvatarIcon imageSrc={props.user.image} to={props.homeUri} />
+                    </ActionCell>
+                    <ActionCell>
+                      <Link to={props.homeUri}>
+                        <AvaterName>{props.user.name}</AvaterName>
+                      </Link>
+                    </ActionCell>
+                  </OnlyPC>
+                </ActionContainer>
+              ) : (
+                <ActionContainer>
+                  <AnonymouseWrapper>
+                    <Anonymouse loginUri={props.loginUri} signupUri={props.signupUri} />
+                  </AnonymouseWrapper>
+                </ActionContainer>
+              )}
+            </ActionWrapper>
+          )}
       </Nav>
     </Container>
   );

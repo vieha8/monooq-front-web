@@ -1,16 +1,15 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { H3 } from 'components/atomic/LV1/Headline';
 import InlineText from 'components/atomic/LV1/InlineText';
-import ImagePreview from './ImagePreview';
 import { PictureIcon } from 'components/atomic/LV1/ActionIcon';
-
 import loadImage from 'blueimp-load-image';
+import ImagePreview from './ImagePreview';
 
 const DragText = styled.div`
   display: block;
@@ -44,7 +43,7 @@ const IconWrapper = styled.div`
 
 const StyledDropZone = styled(Dropzone)`
   width: 100%;
-  margin-top: 4px;
+  margin-top: ${Dimens.xsmall}px;
   cursor: pointer;
   &:hover {
     opacity: 0.6;
@@ -65,7 +64,7 @@ const StyledAddImageDropZone = styled(Dropzone)`
 const ImagePreviewContainer = styled.ul`
   display: table;
   width: 100%;
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.xsmall}px;
 `;
 
 const ImagePreviewWrapper = styled.li`
@@ -75,7 +74,7 @@ const ImagePreviewWrapper = styled.li`
 `;
 
 const HintBottomWrap = styled.div`
-  margin-top: 5px;
+  margin-top: 6px;
 `;
 
 const MAX_PREVIEW_COUNT = 4;
@@ -178,7 +177,7 @@ function showImagePreview(props: PropTypes) {
 export default (props: PropTypes) => {
   const { images } = props;
   return (
-    <div>
+    <Fragment>
       <div>
         <H3 bold>スペースの様子がわかる写真</H3>
       </div>
@@ -204,6 +203,6 @@ export default (props: PropTypes) => {
       <HintBottomWrap>
         <InlineText.Tiny>最大4枚まで登録可能です。</InlineText.Tiny>
       </HintBottomWrap>
-    </div>
+    </Fragment>
   );
 };

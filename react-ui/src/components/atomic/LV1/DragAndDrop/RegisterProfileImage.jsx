@@ -33,8 +33,8 @@ const Text = styled.div`
 
 const Preview = styled.img`
   display: block;
-  width: 140px;
-  height: 140px;
+  width: 96px;
+  height: 96px;
   border-radius: 70px;
   margin: 0 auto;
   object-fit: cover;

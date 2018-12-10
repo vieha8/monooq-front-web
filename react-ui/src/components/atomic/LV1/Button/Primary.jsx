@@ -4,6 +4,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Colors, FontSizes } from 'variables';
+import { media } from 'helpers/style/media-query';
 
 const btnlink = styled(Link)``;
 
@@ -12,7 +13,10 @@ export const PrimaryButton = styled.div`
   ${props => !props.fill && `max-width: 300px;`}
   padding: 17px 10px;
   text-align: center;
-  font-size: ${FontSizes.medium}px;
+  font-size: ${props => props.fontSize || FontSizes.small_15}px;
+  ${media.phone`
+    font-size: ${props => props.fontSizeSp || FontSizes.small_15}px;
+  `};
   font-weight: ${props => (props.fontbold ? 'bold' : 'normal')};
   color: ${Colors.white};
   background: ${Colors.brandPrimary};
@@ -22,12 +26,16 @@ export const PrimaryButton = styled.div`
   &:focus {
     background: ${Colors.brandSecondary};
   }
+  
+  ${props => (props.lineheight ? `line-height: ${props.lineheight};` : `line-height: normal`)};
 
+  height: 48px;
+  padding: 13px 10px;
   ${props =>
     props.height &&
     `
       height: ${props.height}px;
-      padding: ${props.height / 2 - FontSizes.medium / 2}px 10px;
+      padding: ${props.padding}px;
     `};
     
   ${props =>

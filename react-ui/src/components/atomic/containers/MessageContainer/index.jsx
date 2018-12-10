@@ -277,7 +277,6 @@ class InboxContainer extends Component<PropTypes, State> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline="メッセージ"
         leftContent={this.leftContent()}
         rightContent={<ServiceMenu />}
       />

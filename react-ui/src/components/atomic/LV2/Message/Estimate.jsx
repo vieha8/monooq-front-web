@@ -47,7 +47,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <div>
-    <Card block noBorder background={Colors.lightGreen} isPadding={15}>
+    <Card block noBorder background={Colors.lightGreen} isPadding={14}>
       <Text>{props.name} さんからのお見積もり</Text>
       <Text>
         ID：

@@ -16,6 +16,7 @@ type PropTypes = {
     userId: number,
   },
   onClickViewSpace: Function,
+  story?: boolean,
 };
 
 export default class SpaceCreatedCompletion extends Component<PropTypes> {
@@ -36,11 +37,18 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
   }
 
   render() {
-    const { edit, space, onClickViewSpace, onClickBackHome, onClickCreateSpace } = this.props;
+    const {
+      edit,
+      space,
+      onClickViewSpace,
+      onClickBackHome,
+      onClickCreateSpace,
+      story,
+    } = this.props;
     return (
       <Fragment>
         {space &&
-          (edit === 0 ? (
+          (!edit ? (
             <Section>
               <EntryButtons
                 enabled
@@ -49,7 +57,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
                   onClick: onClickCreateSpace,
                 }}
                 enabledButton={{
-                  text: `ホームにもどる`,
+                  text: `ホームへ戻る`,
                   onClick: onClickBackHome,
                 }}
               />
@@ -63,13 +71,13 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
                   onClick: onClickViewSpace,
                 }}
                 enabledButton={{
-                  text: `ホームにもどる`,
+                  text: `ホームへ戻る`,
                   onClick: onClickBackHome,
                 }}
               />
             </Section>
           ))}
-        <GoogleTagManager event="spaceRegistered" />
+        {!story && <GoogleTagManager event="spaceRegistered" />}
       </Fragment>
     );
   }

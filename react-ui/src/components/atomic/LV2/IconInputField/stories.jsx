@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -10,6 +11,7 @@ import IconInputField from './index';
 IconInputField.displayName = 'IconInputField';
 
 storiesOf('Molecules(LV2)/IconInputField', module)
+  .addDecorator(StoryRouter())
   .add(
     'Email',
     withInfo(`

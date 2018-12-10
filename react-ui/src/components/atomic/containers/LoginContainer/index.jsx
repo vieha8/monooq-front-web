@@ -92,7 +92,7 @@ class LoginContainer extends Component {
     if (!isLogin) {
       return (
         <AccountTemplate
-          header={<Header />}
+          header={<Header noHeaderButton />}
           form={
             <Login
               onClickFacebook={this.loginFacebook}

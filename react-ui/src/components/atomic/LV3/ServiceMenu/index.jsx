@@ -11,7 +11,7 @@ import { Dimens } from 'variables';
 const MenuLink = styled(Link)``;
 
 const LinkWrap = styled.div`
-  padding: 20px 0;
+  padding: 1px 0 16px;
 `;
 
 const AvaterName = styled.span`
@@ -26,6 +26,10 @@ const OtherIconWrap = styled.span`
   display: inline-block !important;
   vertical-align: middle;
   float: right;
+  width: 32px;
+  height: 32px;
+  margin: 6px auto 0px;
+  text-align: center;
 `;
 
 type MenuItemProps = {
@@ -52,18 +56,21 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Fragment>
-    {props.isPhone && (
-      <LinkWrap>
-        <AvatarIcon imageSrc={props.userImage} size={40} to={props.editProfile.to} />
-        <MenuLink to={props.editProfile.to}>
+    {props.isPhone ? (
+      <Fragment>
+        <LinkWrap>
+          <AvatarIcon imageSrc={props.userImage} size={40} />
           <AvaterName>{props.userName}</AvaterName>
-        </MenuLink>
-        <OtherIconWrap>
-          <MenuLink to={props.editProfile.to}>
-            <OtherIcon />
-          </MenuLink>
-        </OtherIconWrap>
-      </LinkWrap>
+          <OtherIconWrap>
+            <MenuLink to={props.editProfile.to}>
+              <OtherIcon />
+            </MenuLink>
+          </OtherIconWrap>
+        </LinkWrap>
+        <MenuItem title="ホーム" {...props.home} line />
+      </Fragment>
+    ) : (
+      <MenuItem title="ホーム" {...props.home} />
     )}
     {props.isLogin && (
       <Fragment>

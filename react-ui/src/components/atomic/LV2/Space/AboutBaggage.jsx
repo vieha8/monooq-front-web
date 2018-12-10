@@ -24,7 +24,9 @@ export default (props: PropTypes) => (
     </ItemWrap>
     {props.furniture && (
       <ItemWrap>
-        <InlineText.Bold color={Colors.brandPrimary}>家具・家電OK</InlineText.Bold>
+        <InlineText.Base fontSize={`${FontSizes.small_15}`} bold>
+          家具・家電OK
+        </InlineText.Base>
       </ItemWrap>
     )}
     <ItemWrap>

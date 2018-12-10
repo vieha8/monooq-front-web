@@ -34,7 +34,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <ClearfixContainer>
-    <Card block noBorder background={Colors.brandPrimary} isPadding={15}>
+    <Card block noBorder background={Colors.brandPrimary} isPadding={14}>
       <InlineText.Base fontSize={15} color={Colors.white}>
         {props.message}
       </InlineText.Base>
@@ -42,7 +42,7 @@ export default (props: PropTypes) => (
     <ActionTable>
       <RetryCell>
         {props.error && (
-          <TextLink error={1} onClick={props.onClickRetry} fontSize={12}>
+          <TextLink error={1} onClick={props.onClickRetry} fontSize={15}>
             エラー：送信されていません。クリックして再試行します。
           </TextLink>
         )}

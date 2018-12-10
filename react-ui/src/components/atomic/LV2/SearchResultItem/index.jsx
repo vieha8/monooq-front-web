@@ -48,12 +48,12 @@ export default ({ onClick, title, image, address, priceQuarter, priceFull }: Pro
       <HeroImage src={image} alt={title} height={120} />
       <Content>
         <Row>
-          <InlineText.Base singleLine fontSize={14} color={Colors.brandPrimary} bold>
+          <InlineText.Base singleLine fontSize={12} color={Colors.brandPrimary}>
             {address}
           </InlineText.Base>
         </Row>
         <Row>
-          <InlineText.Base noWrap lineheight={1} bold>
+          <InlineText.Base noWrap lineheight="1rem" bold>
             {priceQuarter ? numeral(priceQuarter).format('0,0') : numeral(priceFull).format('0,0')}
             円から
           </InlineText.Base>

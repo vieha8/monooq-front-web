@@ -38,7 +38,7 @@ const Radio = styled.div`
 
 const Label = styled.div`
   display: inline-block;
-  font-size: 14px;
+  font-size: ${FontSizes.small_15}px;
   color: ${Colors.black};
   margin-left: 20px;
   vertical-align: top;
@@ -47,7 +47,6 @@ const Label = styled.div`
     ${props =>
       props.border &&
       `
-      font-size: ${FontSizes.small_12}px;
       margin-left: 10px;
     `};
   `};

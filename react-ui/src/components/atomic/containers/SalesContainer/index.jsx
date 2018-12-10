@@ -36,23 +36,31 @@ const SubmitButton = styled.div`
 `;
 
 const SalesAmountItemWrap = styled.div`
+  margin-top: ${Dimens.medium2}px;
+  ${props =>
+    props.confirm &&
+    `
+    margin-top: 0;
+  `};
   ${media.phone`
-    margin-top: 20px;
+    margin-top: ${Dimens.medium_20}px;
+    ${props =>
+      props.confirm &&
+      `
+      margin-top: 0;
+    `};
   `};
 `;
 
 const MsgWrap = styled.div`
-  margin: 20px auto;
-  font-size: ${FontSizes.medium}px;
-  line-height: 26px;
-  ${media.phone`
-    font-size: ${FontSizes.small}px;
-  `};
+  margin: ${Dimens.medium_20}px auto ${Dimens.medium2}px;
+  font-size: ${FontSizes.small_15}px;
+  line-height: normal;
 `;
 
 const SalesAmountMsgWrap = styled.div`
-  margin: 30px auto;
-  font-size: ${FontSizes.medium1}px;
+  margin: ${Dimens.medium2}px auto;
+  font-size: ${FontSizes.medium_18}px;
   font-weight: 700;
   line-height: 16px;
   ${media.phone`
@@ -61,9 +69,12 @@ const SalesAmountMsgWrap = styled.div`
 `;
 
 const ButtonWrap = styled.div`
+  max-width: 240px;
+  margin: auto;
   ${media.phone`
     display: block;
     width: 100%;
+    max-width: 100%;
     position: absolute;
     left: 0px;
     bottom: 0px;
@@ -74,7 +85,7 @@ const ButtonWrap = styled.div`
 `;
 
 const ConfirmSalesWrap = styled.div`
-  padding: ${Dimens.medium2}px 15px 0;
+  padding: ${Dimens.medium1}px ${Dimens.small2_14}px 0;
   ${props =>
     props.singleline &&
     `
@@ -92,7 +103,12 @@ const ConfirmSalesWrap = styled.div`
     padding-bottom: ${Dimens.medium3}px;
   `};
   ${media.phone`
-    padding: ${Dimens.medium2}px 0px 0;
+    padding: ${Dimens.medium_20}px 0px 0;
+    ${props =>
+      props.bottom &&
+      `
+      padding-bottom: ${Dimens.small_10}px;
+    `};
   `};
 `;
 
@@ -103,7 +119,7 @@ const CautionWrapper = styled.div`
   padding: ${Dimens.medium1}px ${Dimens.small}px;
   text-align: left;
   ${media.phone`
-    padding: ${Dimens.medium1}px 0;
+    padding: ${Dimens.small2_14}px 0;
   `};
 `;
 
@@ -199,7 +215,7 @@ class SalesContainer extends Component {
       return (
         <Fragment>
           <SalesAmountItemWrap>
-            <SalesAmountItem title="現在の売上金" amount={this.price} />
+            <SalesAmountItem title="現在の売上金" amount={this.price} bold />
           </SalesAmountItemWrap>
           <MsgWrap>
             振込申請は売上金3,000円以上から可能です。
@@ -207,7 +223,13 @@ class SalesContainer extends Component {
             モノオクでスペースを登録してスペースを活用しましょう！
           </MsgWrap>
           <ButtonWrap>
-            <Button primary fontbold center onClick={() => history.push(Path.createSpaceInfo())}>
+            <Button
+              fill={1}
+              primary
+              fontbold
+              center
+              onClick={() => history.push(Path.createSpaceInfo())}
+            >
               スペースを登録する
             </Button>
           </ButtonWrap>
@@ -262,7 +284,13 @@ class SalesContainer extends Component {
           />
         </InputText>
         <SubmitButton>
-          <Button fill={1} primary onClick={this.confirmButton} disabled={!this.validate()}>
+          <Button
+            fill={1}
+            primary
+            fontbold
+            onClick={this.confirmButton}
+            disabled={!this.validate()}
+          >
             確認画面へ
           </Button>
         </SubmitButton>
@@ -284,16 +312,16 @@ class SalesContainer extends Component {
       <ConfirmSalesWrap clearfix bottom>
         <Confirm label="口座名義" value={this.state.accountName} />
       </ConfirmSalesWrap>
-      <SalesAmountItemWrap>
+      <SalesAmountItemWrap confirm>
         <SalesAmountItem title="現在の売上金" amount={this.price} />
       </SalesAmountItemWrap>
-      <SalesAmountItemWrap>
+      <SalesAmountItemWrap confirm>
         <SalesAmountItem title="サービス利用料" amount={this.price - this.payouts} />
       </SalesAmountItemWrap>
-      <SalesAmountItemWrap>
+      <SalesAmountItemWrap confirm>
         <SalesAmountItem title="振込手数料" amount={this.payouts < 10000 ? 260 : 0} />
       </SalesAmountItemWrap>
-      <SalesAmountItemWrap>
+      <SalesAmountItemWrap confirm>
         <SalesAmountItem
           title="振込金額"
           amount={this.payouts < 10000 ? this.payouts - 260 : this.payouts}
@@ -337,7 +365,7 @@ class SalesContainer extends Component {
         </MsgWrap>
         <ButtonWrap>
           <Button primary fontbold center onClick={() => history.push(Path.home())}>
-            ホームへ
+            ホームへ戻る
           </Button>
         </ButtonWrap>
       </Fragment>
@@ -356,39 +384,39 @@ class SalesContainer extends Component {
 
     if (this.state.isConfirm) {
       return (
-        <div>
+        <Fragment>
           <MenuPageTemplate
             header={<Header />}
             headline="振込申請の確認"
             leftContent={this.leftContentConfirm()}
             rightContent={<ServiceMenu />}
           />
-        </div>
+        </Fragment>
       );
     }
 
     if (this.state.isSend) {
       return (
-        <div>
+        <Fragment>
           <MenuPageTemplate
             header={<Header />}
             headline="振込申請の完了"
             leftContent={this.leftContentComplete()}
             rightContent={<ServiceMenu />}
           />
-        </div>
+        </Fragment>
       );
     }
 
     return (
-      <div>
+      <Fragment>
         <MenuPageTemplate
           header={<Header />}
           headline="売上・振込申請"
           leftContent={this.leftContent()}
           rightContent={<ServiceMenu />}
         />
-      </div>
+      </Fragment>
     );
   }
 }

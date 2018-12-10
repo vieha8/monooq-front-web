@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import AvatarImage from 'components/atomic/LV1/AvatarImage';
@@ -10,6 +10,10 @@ import { FontSizes } from 'variables';
 import Attribute from './Attribute';
 
 const Content = styled.div``;
+
+const ProfileWrap = styled.div`
+  font-size: ${FontSizes.small}px;
+`;
 
 type PropTypes = {
   id: string,
@@ -29,15 +33,15 @@ export default (props: PropTypes) => (
     }
     contentHostName={
       <Content>
-        <div>
+        <Fragment>
           <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
             ホスト
           </InlineText.Base>
           <br />
-          {props.name} さん
-        </div>
+          <InlineText.Base>{props.name} さん</InlineText.Base>
+        </Fragment>
       </Content>
     }
-    contentProfile={<div>{props.profile}</div>}
+    contentProfile={<ProfileWrap>{props.profile}</ProfileWrap>}
   />
 );

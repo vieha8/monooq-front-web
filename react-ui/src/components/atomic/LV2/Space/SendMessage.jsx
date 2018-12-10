@@ -14,6 +14,7 @@ const Caption = styled.div`
   margin-left: ${Dimens.medium1}px;
   ${media.phone`
     display: block;
+    margin-left: 0;
   `};
 `;
 
@@ -40,7 +41,6 @@ export default (props: PropTypes) => (
         primary
         fontbold
         fill={1}
-        height={50}
         disabled={props.disabled}
         loading={props.loading}
         onClick={props.onClick}

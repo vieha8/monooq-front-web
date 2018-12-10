@@ -7,7 +7,7 @@ import InlineText from 'components/atomic/LV1/InlineText';
 
 const Field = styled.div`
   display: inline-block;
-  margin-top: 4px;
+  margin-top: 6px;
   width: 100%;
 `;
 
