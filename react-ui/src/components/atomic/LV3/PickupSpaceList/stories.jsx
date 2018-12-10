@@ -8,8 +8,8 @@ import { Dimens } from 'variables';
 
 import PickupSpaceList from './index';
 
-import { PickupFeatureSpaceList } from 'components/Top/pickup';
-const displayPickupFeatureSpaceList = shuffleArray(PickupFeatureSpaceList);
+import { PickupStaffSpaceList } from 'components/Top/pickup';
+const displayPickupFeatureSpaceList = shuffleArray(PickupStaffSpaceList);
 
 function shuffleArray(array) {
   const result = array;
