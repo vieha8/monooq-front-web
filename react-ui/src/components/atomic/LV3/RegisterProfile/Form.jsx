@@ -62,6 +62,7 @@ type PropTypes = {
   profile: React.Element<*>,
   phoneNumber: React.Element<*>,
   button: React.Element<*>,
+  story?: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -73,6 +74,6 @@ export default (props: PropTypes) => (
     <Profile>{props.profile}</Profile>
     <PhoneNumber>{props.phoneNumber}</PhoneNumber>
     <Button>{props.button}</Button>
-    <GoogleTagManager event="userRegistered" />
+    {!props.story && <GoogleTagManager event="userRegistered" />}
   </Fragment>
 );
