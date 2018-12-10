@@ -19,7 +19,13 @@ storiesOf('Organisms(LV3)/Other', module)
         その他
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Other />
+        <Other
+          logout={{
+            onClick: () => {
+              console.log('onClick');
+            },
+          }}
+        />
       </div>
     )),
   );

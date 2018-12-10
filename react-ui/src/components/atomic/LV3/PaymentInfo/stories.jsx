@@ -18,6 +18,11 @@ storiesOf('Organisms(LV3)/PaymentInfo', module)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <PaymentInfo
+          user={{
+            ID: 1,
+            Name: 'モノオク太郎',
+            ImageUrl: 'http://placehold.jp/500x500.png',
+          }}
           hostName="モノオク太郎"
           space={{
             image: {
