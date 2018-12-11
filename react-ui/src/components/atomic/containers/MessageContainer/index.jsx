@@ -245,7 +245,11 @@ class InboxContainer extends Component<PropTypes, State> {
               <HeroImage small src={room.space.Images[0].ImageUrl} />
             </ImageWrapper>
             <ContentWrapper>
-              <AddressText>{room.space.Address}</AddressText>
+              <AddressText>
+                {room.space.AddressPref}
+                {room.space.AddressCity}
+                {room.space.AddressTown}
+              </AddressText>
               <TitleText>{room.space.Title}</TitleText>
             </ContentWrapper>
           </Row>
