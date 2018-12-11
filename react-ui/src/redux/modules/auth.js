@@ -10,6 +10,7 @@ import { errorActions } from './error';
 import { store } from '../store/configureStore';
 import { getApiRequest, postApiRequest, deleteApiRequest } from '../helpers/api';
 import Path from '../../config/path';
+import { isAvailableLocalStorage } from '../../helpers/storage';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -237,7 +238,11 @@ function* checkLoginFirebaseAuth() {
       return;
     }
     status.user = data;
-    localStorage.setItem('status', JSON.stringify(status));
+
+    if (isAvailableLocalStorage()) {
+      localStorage.setItem('status', JSON.stringify(status));
+    }
+
     yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID }, token);
     ReactGA.set({ userId: data.ID });
     Sentry.configureScope(scope => {
