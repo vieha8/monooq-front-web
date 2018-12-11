@@ -216,8 +216,6 @@ class InboxContainer extends Component<PropTypes, State> {
     const { isLoading, user, room } = this.props;
     const { text, image } = this.state;
 
-    console.log(image);
-
     if (isLoading || !room) {
       return <Loading size="large" />;
     }
