@@ -22,7 +22,7 @@ const Container = styled.div`
   ${media.phone`
     width: 100%;
     float: none;
-    height: 100px;
+    height: 100%;
     &:not(:first-child) {
       margin-top: ${Dimens.medium}px;
     }
@@ -42,7 +42,7 @@ const Card = styled.div`
     `};
   ${media.phone`
     padding: ${Dimens.small2}px;
-    height: 100px;
+    height: 100%;
   `};
 `;
 
@@ -50,6 +50,11 @@ const Text = styled.div`
   width: 60%;
   float: left;
   font-weight: bold;
+  ${props =>
+    props.body &&
+    `
+      margin-top: ${Dimens.xxsmall}px;
+    `};
   ${media.phone`
     display: inline-block;
     vertical-align: middle;
@@ -67,7 +72,6 @@ const Image = styled.img`
     display: inline-block;
     vertical-align: middle;
     width: 40%;
-    padding-bottom: ${Dimens.small2}px;
     height: 100%;
   `};
 `;
@@ -85,11 +89,10 @@ export default (props: PropTypes) => (
   <Container position={props.position} selected={props.selected} onClick={props.onClick}>
     <Card selected={props.selected}>
       <Text>
-        <InlineText.Base>{props.textHead}</InlineText.Base>
-        <br />
-        <InlineText.Base fontSize={FontSizes.small} fontSizeSp={FontSizes.small_12}>
-          {props.textBody}
-        </InlineText.Base>
+        <InlineText.Base fontSizeSp={FontSizes.medium_18}>{props.textHead}</InlineText.Base>
+      </Text>
+      <Text body>
+        <InlineText.Base fontSize={FontSizes.small_12}>{props.textBody}</InlineText.Base>
       </Text>
       <Image src={props.image} alt="" />
     </Card>

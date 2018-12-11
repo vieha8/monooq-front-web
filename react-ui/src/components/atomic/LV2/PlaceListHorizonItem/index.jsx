@@ -65,7 +65,9 @@ export default (props: PropTypes) => (
             {!props.isHost ? 'ホスト' : 'ゲスト'}
           </InlineText.Base>
           <br />
-          {props.user.Name} さん
+          <InlineText.Base fontSize={`${FontSizes.small_15}`}>
+            {props.user.Name} さん
+          </InlineText.Base>
         </HostNameWrap>
       </HostContent>
     </ClearfixContainer>

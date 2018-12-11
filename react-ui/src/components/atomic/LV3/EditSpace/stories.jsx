@@ -108,7 +108,7 @@ storiesOf('Organisms(LV3)/EditSpace', module)
         スペース編集フォーム(基本情報)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Completion space={{}} />
+        <Completion story space={{}} />
       </div>
     )),
   )
@@ -119,7 +119,7 @@ storiesOf('Organisms(LV3)/EditSpace', module)
         スペース編集フォーム(基本情報)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Completion edit space={{}} />
+        <Completion edit story space={{}} />
       </div>
     )),
   );

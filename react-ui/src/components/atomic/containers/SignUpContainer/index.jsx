@@ -28,7 +28,7 @@ class SignUpContainer extends Component<PropTypes> {
 
   render() {
     const Form = this.getCurrentForm();
-    return <AccountTemplate header={<Header />} form={<Form {...this.props} />} />;
+    return <AccountTemplate header={<Header noHeaderButton />} form={<Form {...this.props} />} />;
   }
 }
 

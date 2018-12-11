@@ -4,12 +4,13 @@ import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import InlineText from 'components/atomic/LV1/InlineText';
 import AvatarImage from 'components/atomic/LV1/AvatarImage';
 import { Dimens, Colors, FontSizes } from 'variables';
 
 const Container = styled.li`
-  padding: 20px 5px;
+  padding: ${Dimens.medium1}px 5px ${Dimens.medium}px;
   border-bottom: 1px solid ${Colors.borderGray};
   &:hover {
     cursor: pointer;
@@ -20,6 +21,14 @@ const Container = styled.li`
     width: 100%;
   }
   list-style: none;
+  ${media.phone`
+    padding: ${Dimens.small_10}px 5px;
+  `};
+  &:first-child {
+    ${media.phone`
+      padding: ${Dimens.medium2}px 5px ${Dimens.small_10}px;
+    `};
+  }
 `;
 
 const Cell = styled.div`
@@ -27,14 +36,13 @@ const Cell = styled.div`
   vertical-align: middle;
   &:last-child {
     display: inline-block;
-    margin: ${Dimens.medium}px auto 0px;
+    margin: ${Dimens.xsmall}px auto 0px;
   }
   ${props =>
     props.nametime &&
     `
     margin-left:15px;
     width: calc(100% - 48px);
-    }
   `};
 `;
 
@@ -73,8 +81,10 @@ export default (props: PropTypes) => (
           {moment(props.receivedAt).format('YYYY年MM月DD日')}
         </InlineText.Base>
       </Cell>
-      <Cell>
-        <InlineText.Base>{props.lastMessage}</InlineText.Base>
+      <Cell lastMessage>
+        <InlineText.Base fontSize={15} fontSizeSp={12}>
+          {props.lastMessage}
+        </InlineText.Base>
       </Cell>
     </Link>
   </Container>

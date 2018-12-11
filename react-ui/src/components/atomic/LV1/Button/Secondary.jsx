@@ -6,6 +6,14 @@ import { Colors } from 'variables';
 import { PrimaryButton } from './Primary';
 
 const Secondary = styled(PrimaryButton)`
+  height: 48px;
+  padding: 11px 10px;
+  ${props =>
+    props.height &&
+    `
+      height: ${props.height}px;
+      padding: ${props.padding}px;
+    `};
   background: ${Colors.white};
   ${props =>
     props.borderbold

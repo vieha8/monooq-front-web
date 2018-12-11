@@ -11,21 +11,22 @@ const Container = styled.span`
   display: table;
   height: 100%;
   margin-right: 35px;
-  ${media.phone`
-    margin-right: 10px;
+  ${media.tablet`
+    margin-right: 3px;
   `};
 `;
 
 const TextWrapper = styled.span`
-  width: 120px;
+  width: 128px;
   ${media.tablet`
     width: auto;
+    max-width: 128px;
   `};
   text-align: center;
   display: table-cell;
   vertical-align: middle;
   &:not(:first-child) {
-    padding-left: 8px;
+    margin-left: 8px;
   }
 `;
 
@@ -52,24 +53,28 @@ export default (props: PropTypes) => (
   <Container>
     <OnlyPC>
       <TextWrapper>
-        <TextLink
-          href={props.signupUri}
-          fontSize={FontSizes.small}
-          color={Colors.brandPrimary}
-          bold
-        >
+        <TextLink href={props.signupUri} color={Colors.brandPrimary} bold>
           新規登録
         </TextLink>
       </TextWrapper>
       <TextWrapper>
-        <Button primary link href={props.loginUri} height={40}>
+        <Button primary link href={props.loginUri} fontbold height={40} lineheight="9px 10px">
           ログイン
         </Button>
       </TextWrapper>
     </OnlyPC>
     <OnlyPhone>
       <TextWrapper>
-        <Button primary link href={props.loginUri} height={40}>
+        <Button
+          primary
+          link
+          href={props.loginUri}
+          fontSize={FontSizes.small_12}
+          fontSizeSp={FontSizes.small_12}
+          fontbold
+          height={36}
+          lineheight="9px 10px"
+        >
           新規登録・ログイン
         </Button>
       </TextWrapper>

@@ -16,20 +16,23 @@ const Container = styled.div`
 const Title = styled.div`
   ${media.phone`
     text-align: left;
+    margin-top: 0px;
   `};
   margin-top: ${Dimens.small2}px;
 `;
 
 const InputWrapper = styled.div`
   text-align: left;
-  margin-top: ${Dimens.medium3}px;
-  ${media.phone`
-    margin-top: ${Dimens.medium1}px;
-  `};
+  margin-top: ${Dimens.medium1}px;
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: ${Dimens.medium2}px;
+  max-width: 196px;
+  margin: ${Dimens.medium2}px auto auto;
+  ${media.phone`
+    max-width: 100%;
+    margin: ${Dimens.medium}px auto auto;
+  `};
 `;
 
 const ErrorWrapper = styled.div`
@@ -37,10 +40,10 @@ const ErrorWrapper = styled.div`
 `;
 
 const MarginTopMediumWrapper = styled.div`
-  margin-top: ${Dimens.medium3}px;
+  margin-top: ${Dimens.medium1}px;
   text-align: left;
   ${media.phone`
-    margin-top: ${Dimens.medium1}px;
+    margin-top: ${Dimens.medium}px;
   `};
 `;
 
@@ -76,7 +79,9 @@ export default (props: PropTypes) => (
         </Title>
         <MarginTopMediumWrapper>
           <InlineText.Base>
-            再設定のメールが受け取れる登録したメールアドレスを入力してください。届いたメールからパスワードの設定が行えます。
+            再設定のメールが受け取れる登録したメールアドレスを入力してください。
+            <br />
+            届いたメールからパスワードの設定が行えます。
           </InlineText.Base>
         </MarginTopMediumWrapper>
         <InputWrapper>

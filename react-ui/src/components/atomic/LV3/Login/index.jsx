@@ -4,7 +4,7 @@ import React from 'react';
 import Path from 'config/path';
 import Button from 'components/atomic/LV1/Button';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { H2 } from 'components/atomic/LV1/Headline';
+import { H1 } from 'components/atomic/LV1/Headline';
 import TextLink from 'components/atomic/LV1/TextLink';
 import IconInputField from 'components/atomic/LV2/IconInputField';
 import InputField from 'components/atomic/LV1/InputField';
@@ -27,7 +27,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Form
-    title={<H2 bold>ログイン</H2>}
+    title={<H1 bold>ログイン</H1>}
     email={
       <InputField
         placeholder="メールアドレス"
@@ -67,6 +67,7 @@ export default (props: PropTypes) => (
       <Button
         primary
         fill={1}
+        fontbold
         onClick={props.onClickLogin}
         disabled={props.buttonDisabled}
         loading={props.isLoginChecking}
@@ -75,7 +76,13 @@ export default (props: PropTypes) => (
       </Button>
     }
     facebook={
-      <Button facebook fill={1} onClick={props.onClickFacebook} loading={props.isLoginChecking}>
+      <Button
+        facebook
+        fill={1}
+        fontbold
+        onClick={props.onClickFacebook}
+        loading={props.isLoginChecking}
+      >
         Facebookでログイン
       </Button>
     }

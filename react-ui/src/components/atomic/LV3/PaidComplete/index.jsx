@@ -30,7 +30,8 @@ const Row = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: ${Dimens.large}px;
+  margin: ${Dimens.medium2}px auto;
+  max-width: 240px;
 `;
 
 type PropTypes = {
@@ -42,10 +43,13 @@ export default (props: PropTypes) => (
   <Fragment>
     <H1>お支払いが完了しました</H1>
     <Row>
-      <InlineText.Base>「{props.spaceName}」の予約とお支払いが完了しました。</InlineText.Base>
+      <InlineText.Base>
+        「{props.spaceName}
+        」の予約とお支払いが完了しました。
+      </InlineText.Base>
     </Row>
     <ButtonWrapper>
-      <Button primary fill={1} onClick={props.onClickToMessage}>
+      <Button primary fill={1} fontbold onClick={props.onClickToMessage}>
         ホストに連絡する
       </Button>
     </ButtonWrapper>

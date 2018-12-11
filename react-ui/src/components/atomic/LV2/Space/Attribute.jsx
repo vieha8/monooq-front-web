@@ -30,7 +30,7 @@ const Container = styled.div`
     props.message &&
     `
     padding: 0px;
-    margin: 30px auto 5px;
+    margin: 5px auto;
     border: none;
   `};
 
@@ -41,6 +41,7 @@ const Container = styled.div`
       props.message &&
       `
       padding: 0px;
+      margin: 0px auto;
     `};
   `};
 `;

@@ -17,23 +17,27 @@ const Row = styled.div`
     props.alignRight &&
     `
     text-align: right;
-  `}
+  `};
   ${props =>
     props.mobile &&
     `
     display: none;
-  `}
+  `};
   ${media.tablet`
     ${props =>
       props.mobile &&
       `
       display: block;
-    `}
-  `}
+    `};
+  `};
 `;
 
 const ButtonWrapper = styled.div`
-  margin-top: ${Dimens.large}px;
+  max-width: 240px;
+  margin: ${Dimens.medium2}px auto 0;
+  ${media.phone`
+      max-width: 100%;
+  `};
 `;
 
 const styles = {
@@ -89,7 +93,13 @@ export default (props: PropTypes) => (
       />
     </Row>
     <ButtonWrapper>
-      <Button primary fill={1} onClick={props.onClickUnsubscribe} loading={props.buttonLoading}>
+      <Button
+        primary
+        fill={1}
+        fontbold
+        onClick={props.onClickUnsubscribe}
+        loading={props.buttonLoading}
+      >
         退会する
       </Button>
     </ButtonWrapper>

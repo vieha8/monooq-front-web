@@ -9,7 +9,7 @@ import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
 const Content = styled.div`
   margin: ${Dimens.medium2}px 0;
   ${media.tablet`
-    margin: ${Dimens.medium}px 0;
+    margin: ${Dimens.small2}px 0;
   `};
   ${props =>
     props.noTopMargin &&

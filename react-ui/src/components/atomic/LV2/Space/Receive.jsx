@@ -30,7 +30,9 @@ export default (props: PropTypes) => (
     {props.delivery && (
       <div>
         <ItemWrap>
-          <InlineText.Bold>配送</InlineText.Bold>
+          <InlineText.Base fontSize={`${FontSizes.small_15}`} bold>
+            配送
+          </InlineText.Base>
         </ItemWrap>
         <ItemWrap>
           <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
@@ -42,7 +44,9 @@ export default (props: PropTypes) => (
     {props.meeting && (
       <ItemMeetingWrap>
         <ItemWrap>
-          <InlineText.Bold>対面</InlineText.Bold>
+          <InlineText.Base fontSize={`${FontSizes.small_15}`} bold>
+            対面
+          </InlineText.Base>
         </ItemWrap>
         <ItemWrap>
           <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>

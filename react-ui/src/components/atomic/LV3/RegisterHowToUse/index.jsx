@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import InlineText from 'components/atomic/LV1/InlineText';
 import RadioList from 'components/atomic/LV2/RadioList';
 import { Colors, FontSizes } from 'variables';
@@ -33,18 +33,18 @@ export default (props: PropTypes) => (
     isHost={
       <RadioList
         labels={[
-          <div>
+          <Fragment>
             保管スペースを借りて荷物を
-            <InlineText.Base fontSize={FontSizes.small_12} color={Colors.brandPrimary} bold>
+            <InlineText.Base fontSize={FontSizes.small_15} color={Colors.brandPrimary} bold>
               預けたい
             </InlineText.Base>
-          </div>,
-          <div>
+          </Fragment>,
+          <Fragment>
             保管スペースを貸して荷物を
-            <InlineText.Base fontSize={FontSizes.small_12} color={Colors.brandPrimary} bold>
+            <InlineText.Base fontSize={FontSizes.small_15} color={Colors.brandPrimary} bold>
               預かりたい
             </InlineText.Base>
-          </div>,
+          </Fragment>,
         ]}
         onClick={props.onChangeIsHost}
         checkedIndex={props.isHost}
@@ -52,9 +52,9 @@ export default (props: PropTypes) => (
       />
     }
     captionSub={
-      <InlineText.EmphasisSmall>
+      <InlineText.Base fontSize={FontSizes.small_12} color={Colors.darkGray2}>
         ※ご利用方法が変わった場合はプロフィールから変更できます
-      </InlineText.EmphasisSmall>
+      </InlineText.Base>
     }
     button={
       <EntryButtons

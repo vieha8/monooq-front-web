@@ -10,9 +10,9 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import Page from '../Page';
 
 const Caption = styled.div`
-  margin: 10px 0 ${Dimens.medium2}px;
+  margin: ${Dimens.medium_20}px 0 ${Dimens.medium2}px;
   ${media.tablet`
-    margin-bottom: 20px;
+    margin-bottom: ${Dimens.medium_20}px;
   `};
 `;
 
@@ -55,7 +55,7 @@ export default (props: PropTypes) => (
       <ClearfixContainer>
         <Content>
           <LeftContent>
-            <H1 bold>{props.headline}</H1>
+            {props.headline && <H1 bold>{props.headline}</H1>}
             {props.caption && (
               <Caption>
                 <InlineText.Base>{props.caption}</InlineText.Base>

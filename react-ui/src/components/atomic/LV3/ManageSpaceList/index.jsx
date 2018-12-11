@@ -10,10 +10,10 @@ const ListItem = styled.div`
   display: inline-block;
   width: 100%;
   max-width: 540px;
-  margin: 20px auto ${Dimens.medium2}px;
+  margin: 27px auto ${Dimens.small}px;
   ${media.tablet`
     display: block;
-    margin 10px auto ${Dimens.medium3}px;
+    margin 27px auto ${Dimens.small}px;
   `};
 `;
 
