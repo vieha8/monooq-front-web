@@ -22,8 +22,18 @@ export const ContentsWrap = styled.div`
 export const Section = styled.div`
   margin-top: ${Dimens.medium2}px;
   white-space: nowrap;
+  ${props =>
+    props.top &&
+    `
+    margin-top: ${Dimens.medium_20}px;
+  `};
   ${media.phone`
     white-space: unset;
+    ${props =>
+      props.top &&
+      `
+      margin-top: ${Dimens.small_10}px;
+    `};
   `};
 `;
 
@@ -31,7 +41,7 @@ const PriceWrapper = styled.div`
   display: inline-block;
   padding: 0;
   max-width: 142px;
-  margin-top: 5px;
+  margin-top: 7px;
   ${props =>
     props.caption &&
     `
@@ -91,7 +101,7 @@ function displayErrors(key: string, errors: Array<string>) {
 
 export default (props: PropTypes) => (
   <ContentsWrap>
-    <Section>
+    <Section top>
       <InputForm
         placeholder="地名やキーワードで絞り込み"
         value={props.keyword}
@@ -200,7 +210,7 @@ export default (props: PropTypes) => (
     </Section>
     <Section>
       <ButtonWrap>
-        <Button primary fontbold fill={1} height={50} onClick={props.onClickSearch}>
+        <Button primary fontbold fill={1} onClick={props.onClickSearch}>
           検索する
         </Button>
       </ButtonWrap>

@@ -1,12 +1,12 @@
 // @flow
 
 import styled, { css } from 'styled-components';
-import { Colors } from 'variables';
+import { Colors, FontSizes } from 'variables';
 
 const InputField = styled.input`
   width: ${props => props.width || '100%'};
-  padding: 18px 15px;
-  font-size: 14px;
+  padding: 11px 15px;
+  font-size: ${FontSizes.small_15}px;
   line-height: normal;
   border: 1px solid ${Colors.lightGray1};
   border-radius: 3px;

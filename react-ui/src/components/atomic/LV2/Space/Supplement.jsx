@@ -23,7 +23,9 @@ export default (props: PropTypes) => (
       <InlineText.Base fontSize={`${FontSizes.small_12}`}>受取りについて補足</InlineText.Base>
     </ItemWrap>
     <ItemWrap>
-      <InlineText.Bold>{props.content}</InlineText.Bold>
+      <InlineText.Base fontSize={`${FontSizes.small_15}`} bold>
+        {props.content}
+      </InlineText.Base>
     </ItemWrap>
   </Wrap>
 );

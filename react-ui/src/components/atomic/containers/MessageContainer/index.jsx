@@ -216,8 +216,6 @@ class InboxContainer extends Component<PropTypes, State> {
     const { isLoading, user, room } = this.props;
     const { text, image } = this.state;
 
-    console.log(image);
-
     if (isLoading || !room) {
       return <Loading size="large" />;
     }
@@ -247,7 +245,11 @@ class InboxContainer extends Component<PropTypes, State> {
               <HeroImage small src={room.space.Images[0].ImageUrl} />
             </ImageWrapper>
             <ContentWrapper>
-              <AddressText>{room.space.Address}</AddressText>
+              <AddressText>
+                {room.space.AddressPref}
+                {room.space.AddressCity}
+                {room.space.AddressTown}
+              </AddressText>
               <TitleText>{room.space.Title}</TitleText>
             </ContentWrapper>
           </Row>
@@ -277,7 +279,6 @@ class InboxContainer extends Component<PropTypes, State> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline="メッセージ"
         leftContent={this.leftContent()}
         rightContent={<ServiceMenu />}
       />

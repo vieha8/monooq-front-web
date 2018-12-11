@@ -6,6 +6,8 @@ import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
+import SpaceMap from 'components/atomic/LV1/SpaceMap';
+
 import Detail from './Detail';
 import Price from './Price';
 import SendMessage from './SendMessage';
@@ -22,7 +24,7 @@ storiesOf('Organisms(LV3)/Space', module)
         ### コンポーネント概要
         スペース情報(詳細)
       `)(() => (
-      <div style={{ width: '780px', padding: `${Dimens.storyBookPadding}` }}>
+      <div style={{ width: '580px', padding: `${Dimens.storyBookPadding}` }}>
         <Detail
           pref="東京都"
           city="杉並区"
@@ -50,6 +52,7 @@ storiesOf('Organisms(LV3)/Space', module)
               thumbnail: 'http://placehold.jp/200x100.png',
             },
           ]}
+          map={<SpaceMap lat={35.691638} lng={139.704616} />}
           description="スペースの説明。これは説明です。"
           address="東京都杉並区高円寺"
           type="物置き"
@@ -73,7 +76,7 @@ storiesOf('Organisms(LV3)/Space', module)
         ### コンポーネント概要
         スペース情報(料金)
       `)(() => (
-      <div style={{ width: '380px', padding: `${Dimens.storyBookPadding}` }}>
+      <div style={{ width: '580px', padding: `${Dimens.storyBookPadding}` }}>
         <Price full="50,000" half="50,000" quarter="50,000" />
       </div>
     )),
@@ -84,7 +87,7 @@ storiesOf('Organisms(LV3)/Space', module)
         ### コンポーネント概要
         スペース情報(相談するボタン)
       `)(() => (
-      <div style={{ width: '380px', padding: `${Dimens.storyBookPadding}` }}>
+      <div style={{ width: '580px', padding: `${Dimens.storyBookPadding}` }}>
         <SendMessage onClick={() => console.log('onClick')} />
       </div>
     )),

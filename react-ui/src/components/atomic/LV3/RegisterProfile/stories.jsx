@@ -30,6 +30,7 @@ storiesOf('Organisms(LV3)/RegisterProfile', module)
           passError={[]}
           buttonDisabled={false}
           isRegisterChecking={false}
+          story
         />
       </div>
     )),

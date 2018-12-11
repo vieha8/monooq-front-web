@@ -10,7 +10,7 @@ const Container = styled.div`
   vertical-align: top;
 `;
 
-const CHECK_SIZE = 20;
+const CHECK_SIZE = 16;
 const Check = styled.div`
   display: inline-block;
   vertical-align: top;
@@ -28,6 +28,7 @@ const Check = styled.div`
     &:after {
       content: "\f00c";
       font-family: "Font Awesome 5 Free";
+      font-size: 0.9em;
       font-weight: 900;
       display: block;
       color: ${Colors.white};
@@ -42,7 +43,7 @@ const Label = styled.div`
   display: inline-block;
   font-size: 15px;
   color: ${Colors.black};
-  margin-left: 20px;
+  margin-left: 10px;
   vertical-align: top;
   line-height: ${CHECK_SIZE}px;
 `;

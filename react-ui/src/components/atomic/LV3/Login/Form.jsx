@@ -11,14 +11,18 @@ const Logo = styled.div`
 
 const Title = styled.div`
   text-align: center;
+  margin-top: ${Dimens.small}px;
   ${media.phone`
     text-align: left;
-  `}
-  margin-top: ${Dimens.small2}px;
+    margin-top: ${Dimens.xxsmall}px;
+  `};
 `;
 
 const Email = styled.div`
-  margin-top: ${Dimens.medium2}px;
+  margin-top: ${Dimens.medium2_35}px;
+  ${media.phone`
+    margin-top: ${Dimens.medium1}px;
+  `};
 `;
 
 const Pass = styled.div`
@@ -32,11 +36,17 @@ const Failed = styled.div`
 
 const Remind = styled.div`
   text-align: center;
-  margin-top: ${Dimens.medium3}px;
+  margin-top: ${Dimens.medium2_35}px;
+  ${media.phone`
+    margin-top: ${Dimens.medium2}px;
+  `};
 `;
 
 const Login = styled.div`
-  margin-top: ${Dimens.medium3}px;
+  margin-top: ${Dimens.medium2_35}px;
+  ${media.phone`
+    margin-top: ${Dimens.medium2}px;
+  `};
 `;
 
 const Facebook = styled.div`

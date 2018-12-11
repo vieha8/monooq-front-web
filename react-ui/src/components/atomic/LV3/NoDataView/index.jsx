@@ -8,10 +8,12 @@ import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 
 const ButtonWrap = styled.div`
-  margin-top: ${Dimens.medium2}px;
+  margin: ${Dimens.medium2}px auto;
+  max-width: 240px;
   ${media.phone`
     display: block;
     width: 100%;
+    max-width: 100%
     position: absolute;
     left: 0px;
     bottom: 0px;
@@ -23,6 +25,14 @@ const ButtonWrap = styled.div`
 
 const CaptionWrap = styled.div`
   margin: ${Dimens.medium}px auto;
+  ${media.phone`
+    margin: ${Dimens.medium1}px auto 0;
+    ${props =>
+      props.sub &&
+      `
+      margin: ${Dimens.small_10}px auto 0;
+    `};
+  `};
 `;
 
 export default (props: PropTypes) => (
@@ -32,11 +42,11 @@ export default (props: PropTypes) => (
         {props.captionHead}
       </InlineText.Base>
     </CaptionWrap>
-    <CaptionWrap>
+    <CaptionWrap sub>
       <InlineText.Base>{props.caption}</InlineText.Base>
     </CaptionWrap>
     <ButtonWrap>
-      <Button primary fontbold center onClick={props.onClick}>
+      <Button primary fontbold center fill={1} onClick={props.onClick}>
         {props.buttonText}
       </Button>
     </ButtonWrap>

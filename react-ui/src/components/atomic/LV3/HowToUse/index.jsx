@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import Path from 'config/path';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Colors } from 'variables';
+import { Dimens, Colors, FontSizes } from 'variables';
 
 const MenuLink = styled(Link)`
   display: block;
@@ -16,14 +16,14 @@ const MenuLink = styled(Link)`
 `;
 
 const AsctContentWrapper = styled.div`
-  margin-bottom: 40px;
+  margin-top: ${Dimens.medium_20}px;
 `;
 
 const ItemContainer = styled.div`
   width: 100%;
-  margin: 20px auto;
+  margin: ${Dimens.medium_18}px auto;
   display: block;
-  font-size: 16px;
+  font-size: ${FontSizes.small_15}px;
 `;
 
 const HyperLink = MenuLink.withComponent('a');

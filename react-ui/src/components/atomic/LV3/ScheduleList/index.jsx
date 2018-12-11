@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import InlineText from 'components/atomic/LV1/InlineText';
 import ScheduleListItem, {
   type PropTypes as ScheduleListItemType,
@@ -10,7 +11,7 @@ import { Colors, Dimens, FontSizes } from 'variables';
 
 const Row = styled.div`
   &:not(:first-child) {
-    margin-top: ${Dimens.medium2}px;
+    margin-top: ${Dimens.medium}px;
   }
 `;
 
@@ -24,7 +25,10 @@ const ScheduleListWrap = styled.div`
 `;
 
 const CaptionWrap = styled.div`
-  margin: ${Dimens.medium2}px auto;
+  margin: ${Dimens.medium1}px auto 0;
+  ${media.phone`
+    margin: ${Dimens.medium1}px auto;
+  `};
 `;
 
 type PropTypes = {
@@ -36,7 +40,7 @@ export default (props: PropTypes) => (
   <Fragment>
     <ScheduleListWrap>
       <CaptionWrap>
-        <InlineText.Base fontSize={`${FontSizes.medium1}`} bold>
+        <InlineText.Base fontSize={`${FontSizes.medium_18}`} bold>
           {props.isHost ? '貸したスペース' : '借りたスペース'}
         </InlineText.Base>
       </CaptionWrap>

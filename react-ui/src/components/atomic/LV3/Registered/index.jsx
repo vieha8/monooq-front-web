@@ -35,6 +35,7 @@ type PropTypes = {
   name: string,
   onClickUser: Function,
   onClickHost: Function,
+  story?: boolean,
 };
 
 export default class UserRegistered extends Component<PropTypes> {
@@ -70,7 +71,10 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
             <InlineText.Base>モノオクへようこそ！</InlineText.Base>
           </div>
           <div>
-            <InlineText.Base>{props.name}さん</InlineText.Base>
+            <InlineText.Base>
+              {props.name}
+              さん
+            </InlineText.Base>
           </div>
           <ButtonWrapper>
             <TextWrapper>
@@ -89,7 +93,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
             </Button>
           </ButtonWrapper>
         </Content>
-        <GoogleTagManager event="userRegistered" />
+        {!props.story && <GoogleTagManager event="userRegistered" />}
       </Container>
     );
   }

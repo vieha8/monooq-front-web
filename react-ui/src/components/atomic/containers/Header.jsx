@@ -41,13 +41,14 @@ class HeaderContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { isLogin, isChecking, user, top, help } = this.props;
+    const { isLogin, isChecking, noHeaderButton, user, top, help } = this.props;
 
     return (
       <Header
         top={top}
         help={help}
         isCheckingLogin={isChecking}
+        noHeaderButton={noHeaderButton}
         topUri={Path.top()}
         homeUri={Path.home()}
         editProfileUri={Path.editProfile()}

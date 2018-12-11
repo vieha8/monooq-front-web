@@ -7,7 +7,7 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import Select from 'components/atomic/LV1/Select';
 
 const SelectWrapper = styled.div`
-  margin-top: 4px;
+  margin-top: 6px;
 `;
 
 type PropTypes = {

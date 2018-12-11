@@ -25,11 +25,24 @@ const Row = styled.div`
     `
     display: none;
   `}
+  ${props =>
+    props.button &&
+    `
+    max-width: 240px;
+    margin: ${Dimens.medium2}px auto;
+  `}
   ${media.tablet`
     ${props =>
       props.mobile &&
       `
       display: block;
+    `}
+  `}
+  ${media.phone`
+    ${props =>
+      props.button &&
+      `
+      max-width: 100%;
     `}
   `}
 `;
@@ -170,7 +183,7 @@ export default (props: PropTypes) => (
         キャンセルについて
       </TextLink>
     </Row>
-    <Row>
+    <Row button>
       <Button
         primary
         fill={1}

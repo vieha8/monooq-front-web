@@ -44,7 +44,7 @@ export default (props: PropTypes) => (
         href={props.link}
         manage
       />
-      <ManageButtons onClickEdit={props.onClickEdit} />
+      <ManageButtons onClickEdit={props.onClickEdit} fontBold />
     </Cell>
   </Container>
 );

@@ -1,6 +1,7 @@
 // @flow
 
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 
 const HeroImage = styled.img`
   width: 100%;
@@ -26,6 +27,15 @@ const HeroImage = styled.img`
     `
     height: ${props.height}px;
   `};
+
+  ${media.phone`
+    ${props =>
+      props.heightSp &&
+      `
+      height: ${props.heightSp}px;
+    `};
+  `};
+  
   object-fit: cover;
 `;
 

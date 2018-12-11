@@ -37,8 +37,8 @@ export default (props: PropTypes) => (
         {props.extension ? (
           props.extension
         ) : (
-          <Card block noBorder background={Colors.lightGray1Bg} isPadding={15}>
-            <InlineText.Base fontSize={14}>{props.message}</InlineText.Base>
+          <Card block noBorder background={Colors.lightGray1Bg} isPadding={14}>
+            <InlineText.Base fontSize={15}>{props.message}</InlineText.Base>
           </Card>
         )}
       </CardWrapper>

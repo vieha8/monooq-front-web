@@ -2,8 +2,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import InlineText from 'components/atomic/LV1/InlineText';
-import { Colors, Dimens, FontSizes } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 
 type PropTypes = {
   content: string,
@@ -11,21 +12,28 @@ type PropTypes = {
 
 const Wrap = styled.div`
   margin: ${Dimens.medium2}px auto 0;
-  padding: ${Dimens.medium2}px 0 20px;
-  border-top: 1px solid ${Colors.borderGray};
+  ${media.phone`
+    margin: ${Dimens.small_10}px auto 0;
+  `};
+`;
+
+const AddressContent = styled.div`
+  ${props =>
+    props.detail &&
+    `
+    margin-top: ${Dimens.xxsmall}px;
+  `};
 `;
 
 export default (props: PropTypes) => (
   <Wrap>
-    <div>
-      <div>
-        <InlineText.Base fontSize={`${FontSizes.small}`} bold>
-          {props.content}
-        </InlineText.Base>
-      </div>
-      <div>
-        <InlineText.EmphasisTiny>詳しい住所はお支払い後にお知らせします。</InlineText.EmphasisTiny>
-      </div>
-    </div>
+    <AddressContent>
+      <InlineText.Base fontSize={`${FontSizes.small_15}`} bold>
+        {props.content}
+      </InlineText.Base>
+    </AddressContent>
+    <AddressContent detail>
+      <InlineText.EmphasisTiny>詳しい住所はお支払い後にお知らせします。</InlineText.EmphasisTiny>
+    </AddressContent>
   </Wrap>
 );

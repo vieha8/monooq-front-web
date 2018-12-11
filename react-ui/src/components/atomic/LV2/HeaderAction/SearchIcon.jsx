@@ -12,6 +12,10 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Link to={props.href} onClick={props.onClick}>
-    <SearchIcon color={props.color} fontSize={24} />
+    {props.isPhone ? (
+      <SearchIcon color={props.color} fontSize={20} />
+    ) : (
+      <SearchIcon color={props.color} fontSize={22} />
+    )}
   </Link>
 );

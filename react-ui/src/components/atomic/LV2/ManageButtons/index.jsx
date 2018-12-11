@@ -45,18 +45,18 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <Container>
     <Wrapper>
-      <Button primary fontbold fill={1} height={40} onClick={props.onClickEdit}>
+      <Button primary fontbold fill={1} onClick={props.onClickEdit}>
         編集する
       </Button>
     </Wrapper>
     <Wrapper>
       {props.private && (
-        <Button secondary fontbold fill={1} height={40} onClick={props.onClickPublic}>
+        <Button secondary fontbold fill={1} onClick={props.onClickPublic}>
           この場所を公開する
         </Button>
       )}
       {props.public && (
-        <PrivateButton fill={1} height={40} onClick={props.onClickPrivate}>
+        <PrivateButton fill={1} onClick={props.onClickPrivate}>
           非公開にする
         </PrivateButton>
       )}

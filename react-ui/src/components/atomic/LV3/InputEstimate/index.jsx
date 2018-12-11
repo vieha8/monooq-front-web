@@ -12,8 +12,13 @@ import InputPrice from 'components/atomic/LV2/Estimate/InputPrice';
 
 const Section = styled.div`
   margin-top: ${Dimens.medium2}px;
-  ${media.tablet`
-    margin-top: ${Dimens.medium}px;
+`;
+
+const ButtonWrap = styled.div`
+  max-width: 240px;
+  margin: auto;
+  ${media.phone`
+    max-width: 100%;
   `};
 `;
 
@@ -49,15 +54,18 @@ export default (props: PropTypes) => (
       <InputPrice {...props.price} />
     </Section>
     <Section>
-      <Button
-        primary
-        fill={1}
-        loading={props.buttonLoading}
-        disabled={props.buttonDisabled}
-        onClick={props.buttonLoading ? null : props.onClickSend}
-      >
-        この見積もりを送る
-      </Button>
+      <ButtonWrap>
+        <Button
+          primary
+          fill={1}
+          fontbold
+          loading={props.buttonLoading}
+          disabled={props.buttonDisabled}
+          onClick={props.buttonLoading ? null : props.onClickSend}
+        >
+          この見積もりを送る
+        </Button>
+      </ButtonWrap>
     </Section>
   </div>
 );

@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AvatarImage from 'components/atomic/LV1/AvatarImage';
 
@@ -10,8 +10,13 @@ type PropTypes = {
   imageSrc: string,
 };
 
-export default (props: PropTypes) => (
-  <Link to={props.to}>
-    <AvatarImage src={props.imageSrc} size={props.size || 32} />
-  </Link>
-);
+export default (props: PropTypes) =>
+  props.to ? (
+    <Link to={props.to}>
+      <AvatarImage src={props.imageSrc} size={props.size || 32} />
+    </Link>
+  ) : (
+    <Fragment>
+      <AvatarImage src={props.imageSrc} size={props.size || 32} />
+    </Fragment>
+  );
