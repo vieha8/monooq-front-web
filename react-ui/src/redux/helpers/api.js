@@ -12,15 +12,6 @@ const createApiInstance = token =>
     },
   });
 
-export const getToken = () => {
-  const obj = localStorage.getItem('token');
-  if (!obj) {
-    return null;
-  }
-  const { Token } = JSON.parse(obj);
-  return Token;
-};
-
 const responseErrorHandler = (resolve, response) => {
   if (!response) {
     resolve({ status: 503, err: 'Service Unavailable' });
@@ -32,8 +23,8 @@ const responseErrorHandler = (resolve, response) => {
   });
 };
 
-export const getApiRequest = (path, params) => {
-  const api = createApiInstance(getToken());
+export const getApiRequest = (path, params, token) => {
+  const api = createApiInstance(token);
   return new Promise(resolve => {
     api
       .get(path, { params })
@@ -44,8 +35,8 @@ export const getApiRequest = (path, params) => {
   });
 };
 
-export const postApiRequest = (path, body) => {
-  const api = createApiInstance(getToken());
+export const postApiRequest = (path, body, token) => {
+  const api = createApiInstance(token);
   return new Promise(resolve => {
     api
       .post(path, body)
@@ -56,8 +47,8 @@ export const postApiRequest = (path, body) => {
   });
 };
 
-export const putApiRequest = (path, body) => {
-  const api = createApiInstance(getToken());
+export const putApiRequest = (path, body, token) => {
+  const api = createApiInstance(token);
   return new Promise(resolve => {
     api
       .put(path, body)
@@ -68,8 +59,8 @@ export const putApiRequest = (path, body) => {
   });
 };
 
-export const deleteApiRequest = path => {
-  const api = createApiInstance(getToken());
+export const deleteApiRequest = (path, token) => {
+  const api = createApiInstance(token);
   return new Promise(resolve => {
     api
       .delete(path)

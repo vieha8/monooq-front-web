@@ -2,13 +2,10 @@
 
 import React, { Component, Fragment } from 'react';
 import numeral from 'numeral';
-
 import Path from 'config/path';
-
 import { getRoomId, createRoom } from 'redux/modules/messages';
 import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
-
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
@@ -17,7 +14,7 @@ import Detail from 'components/atomic/LV3/Space/Detail';
 import SendMessage from 'components/atomic/LV3/Space/SendMessage';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import Meta from 'components/Meta';
-
+import { isAvailableLocalStorage } from 'helpers/storage';
 import type { SpaceType } from 'types/Space';
 
 import connect from '../connect';
@@ -111,7 +108,10 @@ class SpaceContainer extends Component<PropTypes, State> {
 a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
 
             document.body.appendChild(script);
-            localStorage.setItem('isRequested', 'true');
+
+            if (isAvailableLocalStorage()) {
+              localStorage.setItem('isRequested', 'true');
+            }
           }
         }
         history.push(Path.message(roomId));

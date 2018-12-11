@@ -7,7 +7,7 @@ import { apiEndpoint } from './api';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { userActions } from './user';
-import { authActions } from './auth';
+import { authActions, getToken } from './auth';
 import { getApiRequest, postApiRequest, putApiRequest, deleteApiRequest } from '../helpers/api';
 import { errorActions } from './error';
 import { convertBaseUrl } from '../../helpers/imgix';
@@ -154,7 +154,8 @@ export const spaceReducer = handleActions(
 
 // Sagas
 function* getSpace({ payload: { spaceId, isSelfOnly } }) {
-  const { data: payload, err } = yield call(getApiRequest, apiEndpoint.spaces(spaceId));
+  const token = yield* getToken();
+  const { data: payload, err } = yield call(getApiRequest, apiEndpoint.spaces(spaceId), {}, token);
 
   if (err) {
     yield put(spaceActions.fetchFailedSpace(err));
@@ -216,7 +217,8 @@ function* createSpace({ payload: { body } }) {
     params.address = `${params.prefecture}${params.address}`;
   }
 
-  const { data, err } = yield call(postApiRequest, apiEndpoint.spaces(), params);
+  const token = yield* getToken();
+  const { data, err } = yield call(postApiRequest, apiEndpoint.spaces(), params, token);
   if (err) {
     yield put(spaceActions.createFailedSpace(err));
     yield put(errorActions.setError(err));
@@ -251,9 +253,14 @@ function* createSpace({ payload: { body } }) {
       .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
 
     if (imgs.length > 0) {
-      const { err: err2 } = yield call(putApiRequest, apiEndpoint.spaces(spaceId), {
-        Images: imgs,
-      });
+      const { err: err2 } = yield call(
+        putApiRequest,
+        apiEndpoint.spaces(spaceId),
+        {
+          Images: imgs,
+        },
+        token,
+      );
       if (err2) {
         yield put(spaceActions.createFailedSpace(err));
         yield put(errorActions.setError(err));
@@ -299,7 +306,8 @@ function* updateSpace({ payload: { spaceId, body } }) {
       .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
   }
 
-  const { data, err } = yield call(putApiRequest, apiEndpoint.spaces(spaceId), params);
+  const token = yield* getToken();
+  const { data, err } = yield call(putApiRequest, apiEndpoint.spaces(spaceId), params, token);
   if (err) {
     yield put(userActions.updateFailedSpace(err));
     yield put(errorActions.setError(err));
@@ -314,18 +322,21 @@ function* deleteSpace({ payload: { space } }) {
     yield put(errorActions.setError('Bad Request'));
     return;
   }
-  yield call(deleteApiRequest, apiEndpoint.spaces(space.ID));
+  const token = yield* getToken();
+  yield call(deleteApiRequest, apiEndpoint.spaces(space.ID), token);
   window.location.href = Path.spaces();
 }
 
 function* getFeatureSpaces() {
   const features = yield select(state => state.space.features);
 
+  const token = yield* getToken();
+
   const res = yield Promise.all(
     features.map(async v => {
       const feature = v;
       const featureId = v.id;
-      const { data } = await getApiRequest(apiEndpoint.features(featureId));
+      const { data } = await getApiRequest(apiEndpoint.features(featureId), {}, token);
       feature.spaces = data;
       return feature;
     }),

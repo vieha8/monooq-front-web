@@ -3,7 +3,7 @@ import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import { push } from 'connected-react-router';
 import { apiEndpoint } from './api';
-import { authActions } from './auth';
+import { authActions, getToken } from './auth';
 import { store } from '../store/configureStore';
 import { createOmiseToken } from '../helpers/omise';
 import path from '../../config/path';
@@ -96,7 +96,8 @@ export const requestReducer = handleActions(
 function* sendEstimateEmail(payload) {
   const { roomId, toUserId } = payload;
 
-  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId));
+  const token = yield* getToken();
+  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId), {}, token);
 
   let messageBody = 'お見積りが届きました。\n';
   messageBody += '確認するには以下のリンクをクリックしてください。\n';
@@ -115,7 +116,7 @@ function* sendEstimateEmail(payload) {
     category: 'estimate',
   };
 
-  yield call(postApiRequest, apiEndpoint.sendMail(), body);
+  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
 }
 
 // Sagas
@@ -130,14 +131,20 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
     requestUserId = userId2;
   }
 
-  const { data: requestInfo, err } = yield call(postApiRequest, apiEndpoint.requests(), {
-    userId: requestUserId,
-    spaceId,
-    startDate,
-    endDate,
-    price: parseInt(price, 10),
-    status: 'estimate',
-  });
+  const token = yield* getToken();
+  const { data: requestInfo, err } = yield call(
+    postApiRequest,
+    apiEndpoint.requests(),
+    {
+      userId: requestUserId,
+      spaceId,
+      startDate,
+      endDate,
+      price: parseInt(price, 10),
+      status: 'estimate',
+    },
+    token,
+  );
 
   if (err) {
     yield put(requestActions.estimateFailed(err));
@@ -171,8 +178,9 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
 function* sendPaymentEmail(payload) {
   const { roomId, spaceId } = payload;
 
-  const { data: space } = yield call(getApiRequest, apiEndpoint.spaces(spaceId));
-  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(space.UserID));
+  const token = yield* getToken();
+  const { data: space } = yield call(getApiRequest, apiEndpoint.spaces(spaceId), {}, token);
+  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(space.UserID), {}, token);
 
   let messageBody = '見積りに対するお支払いがありました。\n';
   messageBody += '詳細を確認するには以下のリンクをクリックしてください。\n';
@@ -196,7 +204,13 @@ function* sendPaymentEmail(payload) {
 
 function* payment({ payload: { roomId, requestId, payment: card } }) {
   // 不正対策
-  const { data: requestData, err } = yield call(getApiRequest, apiEndpoint.requests(requestId));
+  const token = yield* getToken();
+  const { data: requestData, err } = yield call(
+    getApiRequest,
+    apiEndpoint.requests(requestId),
+    {},
+    token,
+  );
   if (err) {
     yield put(requestActions.paymentFailed(err));
     yield put(errorActions.setError(err));
@@ -215,7 +229,7 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
   }
 
   // Omiseトークン生成
-  const { id: token } = yield createOmiseToken({
+  const { id: cardToken } = yield createOmiseToken({
     card: {
       name: card.name,
       number: card.number,
@@ -225,17 +239,22 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     },
   });
 
-  if (!token) {
+  if (!cardToken) {
     //TODO トークン生成失敗理由をキャッチする
     yield put(requestActions.paymentFailed());
     // yield put(errorActions.setError('Bad Request'));
     return;
   }
 
-  const { data, err: err2 } = yield call(postApiRequest, apiEndpoint.payments(), {
-    RequestId: parseInt(requestId, 10),
-    CardToken: token,
-  });
+  const { data, err: err2 } = yield call(
+    postApiRequest,
+    apiEndpoint.payments(),
+    {
+      RequestId: parseInt(requestId, 10),
+      CardToken: cardToken,
+    },
+    token,
+  );
   if (err2) {
     yield put(requestActions.paymentFailed(err2));
     yield put(errorActions.setError(err2));
@@ -271,10 +290,18 @@ function* fetchSchedule() {
   }
   user = yield select(state => state.auth.user);
 
-  const { data: userRequests } = yield call(getApiRequest, apiEndpoint.requestsByUserId(user.ID));
+  const token = yield* getToken();
+  const { data: userRequests } = yield call(
+    getApiRequest,
+    apiEndpoint.requestsByUserId(user.ID),
+    {},
+    token,
+  );
   const { data: hostRequests } = yield call(
     getApiRequest,
     apiEndpoint.requestsByHostUserId(user.ID),
+    {},
+    token,
   );
   // TODO エラーハンドリング
 

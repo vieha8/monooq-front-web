@@ -7,6 +7,7 @@ import Path from 'config/path';
 import Top from 'components/Top';
 import ReactGA from 'react-ga';
 import { searchActions } from '../../../../redux/modules/search';
+import { isAvailableLocalStorage } from 'helpers/storage';
 
 class TopContainer extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class TopContainer extends React.Component {
 
     const { referrer } = document;
     const referrerCache = localStorage.getItem('referrer');
-    if (!referrerCache) {
+    if (!referrerCache && isAvailableLocalStorage()) {
       localStorage.setItem('referrer', referrer);
     }
 
