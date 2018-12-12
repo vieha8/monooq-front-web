@@ -182,9 +182,9 @@ export default () => (
             header: '利用開始日以降',
             data: '決済金額の100％（返金はありません）',
           },
-        ].map((v, i) => {
-          return <AboutCancellContent header={v.header} data={v.data} key={i} />;
-        })}
+        ].map((v, i) => (
+          <AboutCancellContent header={v.header} data={v.data} key={i.toString()} />
+        ))}
       </AboutCancellContentWrapper>
       <NoticeWrapper>
         <Text>
@@ -230,9 +230,9 @@ export default () => (
             data:
               '1年間の間に3回以上キャンセルすると、スペース掲載が無効・アカウント停止などの対応をします。',
           },
-        ].map((v, i) => {
-          return <AboutCancellContent header={v.header} data={v.data} key={i} />;
-        })}
+        ].map((v, i) => (
+          <AboutCancellContent header={v.header} data={v.data} key={i.toString()} />
+        ))}
       </AboutCancellContentWrapper>
       <NoticeWrapper>
         <Text>

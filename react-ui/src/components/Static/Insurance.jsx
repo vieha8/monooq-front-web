@@ -209,7 +209,7 @@ const QuestionTitle = styled(Label)`
   `};
 `;
 
-export default props => (
+export default () => (
   <Fragment>
     <MainTitleContainer>
       <MainTitle>荷物に対する保険</MainTitle>
@@ -235,7 +235,7 @@ export default props => (
               'スペースに置いてある荷物に予期せぬ事故や災害があった場合、ホストが荷物の保険を申請することができます。',
           },
         ].map((v, i) => (
-          <WhySafeContent label={v.label} text={v.text} key={i} />
+          <WhySafeContent label={v.label} text={v.text} key={i.toString()} />
         ))}
       </WhySafeContentWrapper>
 
@@ -265,7 +265,7 @@ export default props => (
               'ユーザーもホストも荷物の内容やスペースに関して、事前にしっかりと確認しましょう。当日になって「思っていたのと内容が違う」なんてことはトラブルの原因です。お互いが気持ち良くサービスを使えるようなコミュニケーションを。',
           },
         ].map((v, i) => (
-          <HowSafeContent image={v.image} label={v.label} text={v.text} key={i} />
+          <HowSafeContent image={v.image} label={v.label} text={v.text} key={i.toString()} />
         ))}
       </HowSafeContentWrapper>
     </HowSafeContainer>

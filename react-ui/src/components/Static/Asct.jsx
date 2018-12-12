@@ -144,9 +144,9 @@ export default () => (
             header: '返品・交換について',
             data: `モノオクの定める<a href=${Path.cancellationPolicies()}>キャンセルポリシー</a>がございます。お支払い前に必ずお読みください。`,
           },
-        ].map((v, i) => {
-          return <AsctContent key={i} header={v.header} data={v.data} />;
-        })}
+        ].map((v, i) => (
+          <AsctContent key={i.toString()} header={v.header} data={v.data} />
+        ))}
       </AsctContentWrapper>
 
       <AnnotationWrapper>

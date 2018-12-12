@@ -64,13 +64,11 @@ export default () => (
           text: 'トップページへ戻る',
           path: '/',
         },
-      ].map((v, i) => {
-        return (
-          <List key={i}>
-            <Anchor href={v.path}>{v.text}</Anchor>
-          </List>
-        );
-      })}
+      ].map((v, i) => (
+        <List key={i.toString()}>
+          <Anchor href={v.path}>{v.text}</Anchor>
+        </List>
+      ))}
     </RecommendLinkContainer>
     <Footer />
   </Fragment>
