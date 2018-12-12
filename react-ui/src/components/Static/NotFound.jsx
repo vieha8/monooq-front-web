@@ -3,48 +3,39 @@ import Path from 'config/path';
 
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
+import { Dimens, FontSizes } from 'variables';
 import DefaultContainer from 'components/atomic/containers/DefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
+import LinkList from 'components/atomic/LV2/LinkList';
+import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
 
 const MainTitle = styled.div`
-  font-size: 34px;
-  line-height: 51px;
+  font-size: ${FontSizes.xxlarge}px;
+  line-height: ${Dimens.large}px;
   ${media.phone`
-    font-size: 32px;
+    font-size: ${FontSizes.medium2}px;
+    line-height: normal;
   `};
 `;
 
 const MainTitleContainer = styled(DefaultContainer)`
-  margin-top: 80px;
-  margin-bottom: 37px;
+  margin-top: calc(${HeaderHeight}px + ${Dimens.large2}px);
+  margin-bottom: ${Dimens.medium3_40}px;
   ${media.phone`
-    margin-top: 40px;
+    margin-top: ${Dimens.medium3_40}px;
   `};
 `;
 
 const Text = styled.div`
-  font-size: 16px;
-  line-height: 24px;
+  line-height: ${Dimens.medium1}px;
 `;
 
 const MessageContainer = styled(DefaultContainer)`
-  margin-bottom: 30px;
+  margin-bottom: ${Dimens.medium2}px;
 `;
 
 const RecommendLinkContainer = styled(DefaultContainer)`
   margin-bottom: 240px;
-`;
-
-const Anchor = styled.a`
-  text-decoration: none;
-  :hover {
-    text-decoration: underline;
-  }
-`;
-
-const List = styled.div`
-  font-size: 16px;
-  line-height: 24px;
 `;
 
 export default () => (
@@ -67,33 +58,27 @@ export default () => (
 
     <RecommendLinkContainer>
       <Text>参考のリンク</Text>
-      {[
-        {
-          text: 'トップページへ戻る',
-          path: '/',
-        },
-        {
-          text: 'ホストになる',
-          path: Path.signUp(),
-        },
-        {
-          text: 'はじめての方へ',
-          path: Path.about(),
-        },
-        {
-          text: 'ヘルプ',
-          path: 'https://help.monooq.com/',
-          blank: '_blank',
-        },
-      ].map((v, i) => {
-        return (
-          <List key={i}>
-            <Anchor href={v.path} target={v.blank || '_self'}>
-              {v.text}
-            </Anchor>
-          </List>
-        );
-      })}
+      <LinkList
+        list={[
+          {
+            text: 'トップページへ戻る',
+            path: '/',
+          },
+          {
+            text: 'ホストになる',
+            path: Path.signUp(),
+          },
+          {
+            text: 'はじめての方へ',
+            path: Path.about(),
+          },
+          {
+            text: 'ヘルプ',
+            path: 'https://help.monooq.com/',
+            blank: '_blank',
+          },
+        ]}
+      />
     </RecommendLinkContainer>
     <Footer />
   </Fragment>
