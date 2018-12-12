@@ -11,5 +11,6 @@ Disallow: /en
 Disallow: /hub
 Disallow: /unsubscribe
 Disallow: /renewal*.pdf
+Disallow: /home
 
 Sitemap: https://monooq.com/sitemap.xml
