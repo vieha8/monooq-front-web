@@ -30,6 +30,7 @@ class Head extends React.Component {
 
   render() {
     const { siteName, title, description, keyword, ogUrl, ogImageUrl } = this.state;
+    const path = window.location.pathname;
     return (
       <Helmet>
         <title>{title}</title>
@@ -42,6 +43,7 @@ class Head extends React.Component {
         <meta property="og:url" content={ogUrl} />
         <meta property="og:image" content={ogImageUrl} />
         <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href={`https://monooq.com${path}`} />
       </Helmet>
     );
   }
