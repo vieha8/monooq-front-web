@@ -44,7 +44,7 @@ if (cluster.isMaster) {
   app.use(compression());
 
   const botUserAgents = [
-    "Googlebot",
+    // "Googlebot",
     "W3C_Validator",
     "baiduspider",
     "bingbot",
