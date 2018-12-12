@@ -16,10 +16,9 @@ function forceHttps(req, res, next) {
     req.headers["x-forwarded-proto"] &&
     req.headers["x-forwarded-proto"] === "http"
   ) {
-    res.redirect(`https://${req.headers.host}${req.url}`);
-  } else {
-    return next();
+    return res.redirect(301, `https://${req.headers.host}${req.url}`);
   }
+  return next();
 }
 
 // Multi-process to utilize all CPU cores.
@@ -80,27 +79,27 @@ if (cluster.isMaster) {
   });
 
   app.get("/ja", (req, res) => {
-    res.redirect("/");
+    res.redirect(301, "/");
   });
 
   app.get("/en", (req, res) => {
-    res.redirect("/");
+    res.redirect(301, "/");
   });
 
   app.get("/ja/*", (req, res) => {
-    res.redirect("/");
+    res.redirect(301, "/");
   });
 
   app.get("/en/*", (req, res) => {
-    res.redirect("/");
+    res.redirect(301, "/");
   });
 
   app.get("/hub/request", (req, res) => {
-    res.redirect("/");
+    res.redirect(301, "/");
   });
 
   app.get("/concierge/request", (req, res) => {
-    res.redirect("/");
+    res.redirect(301, "/");
   });
 
   // Priority serve any static files.
