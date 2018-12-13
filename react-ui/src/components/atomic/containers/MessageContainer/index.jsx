@@ -17,6 +17,7 @@ import Header from 'components/atomic/containers/Header';
 import Loading from 'components/atomic/LV1/Loading';
 import HeroImage from 'components/atomic/LV1/HeroImage';
 import HostInfo from 'components/atomic/LV2/Space/HostInfo';
+import UserInfo from 'components/atomic/LV2/Space/UserInfo';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -233,13 +234,23 @@ class InboxContainer extends Component<PropTypes, State> {
     return (
       <Fragment>
         <TopWrap>
-          <HostInfo
-            id={room.space.Host.ID}
-            name={room.space.Host.Name}
-            imageUrl={room.space.Host.ImageUrl}
-            hostinfo
-            message
-          />
+          {isHost ? (
+            <UserInfo
+              id={room.user.ID}
+              name={room.user.Name}
+              imageUrl={room.user.ImageUrl}
+              hostinfo
+              message
+            />
+          ) : (
+            <HostInfo
+              id={room.space.Host.ID}
+              name={room.space.Host.Name}
+              imageUrl={room.space.Host.ImageUrl}
+              hostinfo
+              message
+            />
+          )}
           <Row to={Path.space(room.space.ID)}>
             <ImageWrapper>
               <HeroImage small src={room.space.Images[0].ImageUrl} />
