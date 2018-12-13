@@ -9,6 +9,8 @@ import { getApiRequest, postApiRequest } from '../helpers/api';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/configureStore';
+import { push } from 'connected-react-router';
+import Path from '../../config/path';
 
 require('firebase/firestore');
 
@@ -159,6 +161,11 @@ function* fetchMessagesStart({ payload }) {
   user = yield select(state => state.auth.user);
 
   const { messages, room, messageObserver } = yield getMessages(payload);
+
+  if (!room) {
+    store.dispatch(push(Path.notFound()));
+    return;
+  }
 
   if (messages.length > 0) {
     const lastMessage = messages[messages.length - 1];
