@@ -127,6 +127,13 @@ export default (props: PropTypes) => {
           'まずは「荷物の内容」「期間」「必要なおおよその広さ」をホストへ伝えましょう！メッセージでは写真も送ることができます。',
       },
     });
+  } else if (hostUser && messageList.length === 0) {
+    // 自分がホストの場合かつ未送信の場合は、初期メッセージを追加する
+    messageList.push({
+      admin: {
+        message: 'あなたのスペースが興味をもたれています。ユーザーに希望条件を聞いてみましょう！',
+      },
+    });
   }
 
   return (
