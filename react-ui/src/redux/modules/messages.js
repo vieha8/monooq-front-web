@@ -80,6 +80,7 @@ const getRooms = userId =>
         });
       }
     });
+    res.sort((a, b) => (a.lastMessageDt < b.lastMessageDt ? 1 : -1));
     resolve(res);
   });
 
