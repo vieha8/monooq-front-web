@@ -3,9 +3,9 @@
 import React, { Component, Fragment } from 'react';
 import numeral from 'numeral';
 import Path from 'config/path';
-import { getRoomId, createRoom } from 'redux/modules/messages';
 import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
+import { requestActions } from 'redux/modules/request';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
@@ -14,7 +14,6 @@ import Detail from 'components/atomic/LV3/Space/Detail';
 import SendMessage from 'components/atomic/LV3/Space/SendMessage';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import Meta from 'components/Meta';
-import { isAvailableLocalStorage } from 'helpers/storage';
 import type { SpaceType } from 'types/Space';
 
 import connect from '../connect';
@@ -35,10 +34,6 @@ type PropTypes = {
   space: SpaceType,
 };
 
-type State = {
-  isLoading: boolean,
-};
-
 const SPACE_TYPES = ['', 'クローゼット・押入れ', '', '部屋', '屋外倉庫', 'その他'];
 const ReceiptType = {
   Both: 1,
@@ -46,7 +41,7 @@ const ReceiptType = {
   Delivery: 3,
 };
 
-class SpaceContainer extends Component<PropTypes, State> {
+class SpaceContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
@@ -54,10 +49,6 @@ class SpaceContainer extends Component<PropTypes, State> {
 
     const spaceId = match.params.space_id;
     dispatch(spaceActions.fetchSpace({ spaceId }));
-
-    this.state = {
-      isLoading: false,
-    };
   }
 
   componentDidMount() {
@@ -72,60 +63,17 @@ class SpaceContainer extends Component<PropTypes, State> {
   onClickSendMessage: Function;
   onClickSendMessage = async () => {
     const { dispatch, location, user, space, history } = this.props;
-
     // 未ログインの場合はログイン画面へ
     if (!user.ID) {
       dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
       history.push(Path.login());
-    } else {
-      try {
-        this.setState({ isLoading: true });
-        const userId = user.ID;
-        const userName = user.Name;
-        const spaceUserId = space.UserID;
-        const spaceId = space.ID;
-        let roomId = await getRoomId(userId, spaceUserId, spaceId);
-        if (!roomId) {
-          roomId = await createRoom(
-            userId,
-            userName,
-            user.FirebaseUid,
-            spaceUserId,
-            space.Host.FirebaseUid,
-            spaceId,
-          );
-
-          const isRequested = localStorage.getItem('isRequested');
-          if (!isRequested && userId !== 2613) {
-            window.dataLayer.push({ event: 'newRequest' }); // GTM
-
-            const script = document.createElement('script');
-
-            script.innerHTML = `var __atw = __atw || [];
-    __atw.push({ "merchant" : "monooq", "param" : {
-        "result_id" : "105",
-        "verify" : "new_request_user${userId}_space${spaceId}",
-    }});
-(function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
-a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
-
-            document.body.appendChild(script);
-
-            if (isAvailableLocalStorage()) {
-              localStorage.setItem('isRequested', 'true');
-            }
-          }
-        }
-        history.push(Path.message(roomId));
-      } finally {
-        // TODO sagaに乗せる
-        this.setState({ isLoading: false });
-      }
+      return;
     }
+    dispatch(requestActions.request({ user, space }));
   };
 
   render() {
-    const { user, space, isLoading } = this.props;
+    const { user, space, isLoading, isRequesting } = this.props;
 
     if (!user || !space || !space.Images || isLoading) {
       return <LoadingPage />;
@@ -189,7 +137,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
             <SendMessage
               disabled={isSelfSpace}
               onClick={isSelfSpace ? null : this.onClickSendMessage}
-              loading={this.state.isLoading}
+              loading={isRequesting}
             />
           </Fragment>
         }
@@ -204,6 +152,7 @@ function mapStateToProps(state) {
     user: state.auth.user,
     space: state.space.space,
     isLoading: state.space.isLoading,
+    isRequesting: state.request.isLoading,
   };
 }
 
