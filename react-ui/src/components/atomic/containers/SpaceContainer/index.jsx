@@ -81,12 +81,14 @@ class SpaceContainer extends Component<PropTypes, State> {
       try {
         this.setState({ isLoading: true });
         const userId = user.ID;
+        const userName = user.Name;
         const spaceUserId = space.UserID;
         const spaceId = space.ID;
         let roomId = await getRoomId(userId, spaceUserId, spaceId);
         if (!roomId) {
           roomId = await createRoom(
             userId,
+            userName,
             user.FirebaseUid,
             spaceUserId,
             space.Host.FirebaseUid,
