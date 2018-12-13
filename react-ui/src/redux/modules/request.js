@@ -222,6 +222,31 @@ function* sendPaymentEmail(payload) {
   yield call(postApiRequest, apiEndpoint.sendMail(), body);
 }
 
+function* sendRequestEmail(payload) {
+  const { user, space, roomId } = payload;
+
+  const token = yield* getToken();
+
+  let messageBody = `${user.Name}さんがあなたのスペースに興味を持っています!\n`;
+  messageBody += 'こちらのメッセージ機能から希望条件などを聞いてみましょう。\n\n';
+
+  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  if (process.env.REACT_APP_ENV === 'production') {
+    messageBody += `https://monooq.com/messages/${roomId}`;
+  } else {
+    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
+  }
+
+  const body = {
+    Subject: 'あなたのスペースが興味を持たれています：モノオクからのお知らせ',
+    Address: space.Host.Email,
+    Body: messageBody,
+    Category: 'request',
+  };
+
+  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
+}
+
 function* payment({ payload: { roomId, requestId, payment: card } }) {
   // 不正対策
   const token = yield* getToken();
@@ -367,6 +392,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
       localStorage.setItem('isRequested', 'true');
     }
   }
+  yield sendRequestEmail({ user, space, roomId });
   yield put(requestActions.requestSuccess());
 }
 
