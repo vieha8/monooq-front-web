@@ -9,6 +9,8 @@ import { getApiRequest, postApiRequest } from '../helpers/api';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/configureStore';
+import { push } from 'connected-react-router';
+import Path from '../../config/path';
 
 require('firebase/firestore');
 
@@ -80,6 +82,7 @@ const getRooms = userId =>
         });
       }
     });
+    res.sort((a, b) => (a.lastMessageDt < b.lastMessageDt ? 1 : -1));
     resolve(res);
   });
 
@@ -159,6 +162,11 @@ function* fetchMessagesStart({ payload }) {
 
   const { messages, room, messageObserver } = yield getMessages(payload);
 
+  if (!room) {
+    store.dispatch(push(Path.notFound()));
+    return;
+  }
+
   if (messages.length > 0) {
     const lastMessage = messages[messages.length - 1];
     roomCollection()
@@ -207,7 +215,7 @@ function* fetchMessagesStart({ payload }) {
 }
 
 // ルーム作成
-export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId) =>
+export const createRoom = (userId1, userName, firebaseUid1, userId2, firebaseUid2, spaceId) =>
   new Promise(async resolve => {
     const room = {
       [`user${userId1}`]: true,
@@ -218,6 +226,8 @@ export const createRoom = (userId1, firebaseUid1, userId2, firebaseUid2, spaceId
       firebaseUid1,
       firebaseUid2,
       spaceId,
+      lastMessageDt: new Date(),
+      lastMessage: `${userName}さんが興味を持っています`,
     };
     const roomRef = await roomCollection().add(room);
     resolve(roomRef.id);

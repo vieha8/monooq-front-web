@@ -6,9 +6,11 @@ import { apiEndpoint } from './api';
 import { authActions, getToken } from './auth';
 import { store } from '../store/configureStore';
 import { createOmiseToken } from '../helpers/omise';
-import path from '../../config/path';
+import Path from '../../config/path';
 import { getApiRequest, postApiRequest } from '../helpers/api';
 import { errorActions } from './error';
+import { getRoomId, createRoom } from './messages';
+import { isAvailableLocalStorage } from 'helpers/storage';
 
 // Actions
 const ESTIMATE = 'ESTIMATE';
@@ -20,6 +22,9 @@ const PAYMENT_FAILED = 'PAYMENT_FAILED';
 const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
 const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
 const FETCH_SCHEDULE_FAILED = 'FETCH_SCHEDULE_FAILED';
+const REQUEST = 'REQUEST';
+const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
+const REQUEST_FAILED = 'REQUEST_FAILED';
 
 export const requestActions = createActions(
   ESTIMATE,
@@ -31,14 +36,17 @@ export const requestActions = createActions(
   FETCH_SCHEDULE,
   FETCH_SCHEDULE_SUCCESS,
   FETCH_SCHEDULE_FAILED,
+  REQUEST,
+  REQUEST_SUCCESS,
+  REQUEST_FAILED,
 );
 
 // Reducer
 const initialState = {
+  isLoading: false,
   schedule: {
     user: [],
     host: [],
-    isLoading: false,
   },
   estimate: {
     isSending: false,
@@ -86,6 +94,18 @@ export const requestReducer = handleActions(
       isLoading: false,
     }),
     [FETCH_SCHEDULE_FAILED]: state => ({
+      ...state,
+      isLoading: false,
+    }),
+    [REQUEST]: state => ({
+      ...state,
+      isLoading: true,
+    }),
+    [REQUEST_SUCCESS]: state => ({
+      ...state,
+      isLoading: false,
+    }),
+    [REQUEST_FAILED]: state => ({
       ...state,
       isLoading: false,
     }),
@@ -172,7 +192,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   yield sendEstimateEmail({ toUserId: requestUserId, roomId });
   yield put(requestActions.estimateSuccess(requestInfo));
   window.dataLayer.push({ event: 'estimate', eventValue: requestInfo.ID });
-  store.dispatch(push(path.message(roomId)));
+  store.dispatch(push(Path.message(roomId)));
 }
 
 function* sendPaymentEmail(payload) {
@@ -200,6 +220,31 @@ function* sendPaymentEmail(payload) {
   };
 
   yield call(postApiRequest, apiEndpoint.sendMail(), body);
+}
+
+function* sendRequestEmail(payload) {
+  const { user, space, roomId } = payload;
+
+  const token = yield* getToken();
+
+  let messageBody = `${user.Name}さんがあなたのスペースに興味を持っています!\n`;
+  messageBody += 'こちらのメッセージ機能から希望条件などを聞いてみましょう。\n\n';
+
+  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  if (process.env.REACT_APP_ENV === 'production') {
+    messageBody += `https://monooq.com/messages/${roomId}`;
+  } else {
+    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
+  }
+
+  const body = {
+    Subject: 'あなたのスペースが興味を持たれています：モノオクからのお知らせ',
+    Address: space.Host.Email,
+    Body: messageBody,
+    Category: 'request',
+  };
+
+  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
 }
 
 function* payment({ payload: { roomId, requestId, payment: card } }) {
@@ -308,8 +353,52 @@ function* fetchSchedule() {
   yield put(requestActions.fetchScheduleSuccess({ user: userRequests, host: hostRequests }));
 }
 
+function* request({ payload: { user, space } }) {
+  let roomId = yield call(getRoomId, user.ID, space.Host.ID, space.ID);
+  if (roomId) {
+    yield put(requestActions.requestSuccess());
+    store.dispatch(push(Path.message(roomId)));
+    return;
+  }
+
+  roomId = yield call(
+    createRoom,
+    user.ID,
+    user.Name,
+    user.FirebaseUid,
+    space.Host.ID,
+    space.Host.FirebaseUid,
+    space.ID,
+  );
+  store.dispatch(push(Path.message(roomId)));
+
+  const isRequested = localStorage.getItem('isRequested');
+  if (!isRequested && user.ID !== 2613) {
+    window.dataLayer.push({ event: 'newRequest' }); // GTM
+
+    const script = document.createElement('script');
+
+    script.innerHTML = `var __atw = __atw || [];
+    __atw.push({ "merchant" : "monooq", "param" : {
+        "result_id" : "105",
+        "verify" : "new_request_user${user.ID}_space${space.ID}",
+    }});
+(function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
+a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
+
+    document.body.appendChild(script);
+
+    if (isAvailableLocalStorage()) {
+      localStorage.setItem('isRequested', 'true');
+    }
+  }
+  yield sendRequestEmail({ user, space, roomId });
+  yield put(requestActions.requestSuccess());
+}
+
 export const requestSagas = [
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
   takeEvery(FETCH_SCHEDULE, fetchSchedule),
+  takeEvery(REQUEST, request),
 ];
