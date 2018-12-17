@@ -14,15 +14,14 @@ const LinkText = styled(Link)`
   color: ${Colors.linkBlue};
 `;
 
-// 章
 const Chapter = styled.div`
   font-size: ${FontSizes.large}px;
   line-height: ${FontSizes.large}px;
-  margin-bottom: 45px;
+  margin-bottom: ${Dimens.medium3_45}px;
   ${media.phone`
     font-size: 6.5vw;
     line-height: ${6.5 * 1.5}vw;
-    margin-bottom: 30px;
+    margin-bottom: ${Dimens.medium2}px;
   `};
 `;
 

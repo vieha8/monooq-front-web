@@ -4,6 +4,10 @@ import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import DefaultContainer from 'components/atomic/containers/DefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
+import Hr from 'components/atomic/LV1/HorizontalRule';
+import Text from 'components/atomic/LV1/StaticText';
+import WhenIUseList from 'components/atomic/LV2/WhenIUseList';
+import IfIFindList from 'components/atomic/LV2/IfIFindList';
 
 import mainVisual from 'images/about_main_visual@2x.jpg';
 import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';
@@ -23,22 +27,6 @@ const SubTitle = styled.div`
     line-height: 9vw;
     text-align: center;
     margin-bottom: 20px;
-  `};
-`;
-
-const Text = styled.div`
-  font-size: ${FontSizes.medium}px;
-  line-height: ${FontSizes.medium * 2}px;
-`;
-
-const Hr = styled.hr`
-  border: 0;
-  height: 1px;
-  width: 100%;
-  background-color: ${Colors.borderGray};
-  margin: 50px 0;
-  ${media.phone`
-    margin: 20px 0;
   `};
 `;
 
@@ -135,118 +123,25 @@ const WhenIUseContainer = styled(DefaultContainer)`
   `};
 `;
 
-const WhenIUseContentWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+const ContentContainer = styled(DefaultContainer)`
+  ${props =>
+    props.bottom &&
+    `
+    margin-bottom: 164px;
+    `};
+  ${media.phone`
+    ${props =>
+      props.bottom &&
+      `
+      margin-bottom: ${Dimens.large4_80}px;
+      `};
+  `};
 `;
-
-const WhenIUseContent = props => {
-  const ContentContainer = styled.div`
-    width: 330px;
-    margin-bottom: 20px;
-  `;
-  const ContentImage = styled.img`
-    width: 100%;
-    margin-bottom: 10px;
-  `;
-  return (
-    <ContentContainer>
-      <ContentImage src={props.image} />
-      <Text>{props.text}</Text>
-    </ContentContainer>
-  );
-};
-
-const HowIFindContainer = styled(DefaultContainer)``;
-
-const IfIFindContainer = styled(DefaultContainer)``;
-
-const IfIFindContentWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-
-const IfIFindContent = props => {
-  const ContentContainer = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    width: 524px;
-    margin-bottom: 20px;
-    ${media.phone`
-      width: 100%;
-      flex-direction: column;
-      align-items: center;
-    `};
-  `;
-
-  const Oval = styled.div`
-    height: 100px;
-    width: 100px;
-    border: 2px solid ${Colors.brandPrimary};
-    border-radius: 50%;
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
-    text-align: center;
-    color: ${Colors.brandPrimary};
-    padding: 30px 0;
-    margin-right: 20px;
-    box-sizing: border-box;
-    ${media.phone`
-      margin: 0 0 10px;
-    `};
-  `;
-
-  const LabelNumber = styled.div`
-    font-size: ${FontSizes.xsmall}px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  `;
-
-  const LabelText = styled.div`
-    font-size: ${FontSizes.medium}px;
-    font-weight: bold;
-  `;
-
-  const IfIFindContentText = styled(Text)`
-    width: 374px;
-    margin-right: 30px;
-    ${media.phone`
-      width: 100%;
-      margin-right: 0;
-    `};
-  `;
-
-  return (
-    <ContentContainer>
-      <Oval>
-        <LabelNumber>
-          Step.
-          {props.number}
-        </LabelNumber>
-        <LabelText>{props.label}</LabelText>
-      </Oval>
-      <IfIFindContentText>{props.text}</IfIFindContentText>
-    </ContentContainer>
-  );
-};
-
-const HotToPayContainer = styled(DefaultContainer)``;
 
 const List = styled.ul`
   margin: ${Dimens.medium}px 0;
   list-style-type: disc;
   list-style-position: inside;
-`;
-
-const NeedToHelpContainer = styled(DefaultContainer)`
-  margin-bottom: 164px;
-  ${media.phone`
-    margin-bottom: 80px;
-  `};
 `;
 
 export default () => (
@@ -266,8 +161,8 @@ export default () => (
 
       <WhenIUseContainer>
         <SubTitle>こんな時にモノオクを使おう！</SubTitle>
-        <WhenIUseContentWrapper>
-          {[
+        <WhenIUseList
+          list={[
             {
               image: useImage1,
               text: '引越しで一時的に荷物を置きたい。',
@@ -292,27 +187,23 @@ export default () => (
               image: useImage6,
               text: '生活空間を広げるため。',
             },
-          ].map((v, i) => (
-            <WhenIUseContent key={i.toString()} image={v.image} text={v.text} />
-          ))}
-        </WhenIUseContentWrapper>
-
+          ]}
+        />
         <Hr />
       </WhenIUseContainer>
 
-      <HowIFindContainer>
+      <ContentContainer>
         <SubTitle>物置きスペースの探し方。</SubTitle>
         <Text>
           お住まいの地域・引っ越し予定エリアなどを入力するだけです。あなたにとって便利な物置きスペースを探しましょう！
         </Text>
-
         <Hr />
-      </HowIFindContainer>
+      </ContentContainer>
 
-      <IfIFindContainer>
+      <ContentContainer>
         <SubTitle>物置きスペースが見つかったら。</SubTitle>
-        <IfIFindContentWrapper>
-          {[
+        <IfIFindList
+          list={[
             {
               label: '相談',
               text:
@@ -346,15 +237,12 @@ export default () => (
             //   label: 'レビュー',
             //   text: '親切に預かってくれたホストに感謝の気持ちをこめてレビューを送りましょう！',
             // },
-          ].map((v, i) => (
-            <IfIFindContent key={i.toString()} number={i + 1} label={v.label} text={v.text} />
-          ))}
-        </IfIFindContentWrapper>
-
+          ]}
+        />
         <Hr />
-      </IfIFindContainer>
+      </ContentContainer>
 
-      <HotToPayContainer>
+      <ContentContainer>
         <SubTitle>お支払い方法の追加</SubTitle>
         <Text>
           <p>現在はクレジットカード決済・銀行振り込み*に対応しております。</p>
@@ -371,15 +259,16 @@ export default () => (
           </p>
         </Text>
         <Hr />
-      </HotToPayContainer>
+      </ContentContainer>
 
-      <NeedToHelpContainer>
+      <ContentContainer bottom>
         <SubTitle>お困りの際はモノオクカスタマーサポートまで。</SubTitle>
         <Text>
           「こんな場合はどうするの？」「ホスト登録について教えて！」お困りの時は画面右下のボタンよりご連絡ください。
         </Text>
-      </NeedToHelpContainer>
+      </ContentContainer>
     </MainContainer>
+
     <Footer />
   </Fragment>
 );
