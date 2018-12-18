@@ -9,8 +9,10 @@ const DefaultContainer = styled.div`
   max-width: ${Dimens.fixedWidthPc}px;
   margin: 0 auto;
   padding: 0 ${Dimens.medium}px;
+  box-sizing: initial;
   ${media.phone`
-    padding: 0 ${Dimens.small_15}px;
+    width: 92vw;
+    padding: 0px 4vw;
   `};
 `;
 
