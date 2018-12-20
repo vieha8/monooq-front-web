@@ -245,7 +245,7 @@ export default () => (
       <ContentContainer>
         <SubTitle>お支払い方法の追加</SubTitle>
         <Text>
-          <p>現在はクレジットカード決済・銀行振り込み*に対応しております。</p>
+          <p>現在はクレジットカード決済・銀行振込*に対応しております。</p>
           <p>取引成立時のお支払いに使用可能なクレジットカードは下記となります。</p>
           <List>
             <li>VISA</li>
@@ -255,7 +255,7 @@ export default () => (
             {/*<li>American Express</li>*/}
           </List>
           <p>
-            *銀行振り込みをご希望の場合は、ホストの発行する見積もりを確認した後にinfo@monooq.comまでご連絡ください。
+            *銀行振込をご希望の場合は、ホストの発行する見積もりを確認した後にinfo@monooq.comまでご連絡ください。
           </p>
         </Text>
         <Hr />

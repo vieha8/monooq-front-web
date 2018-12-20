@@ -9,7 +9,7 @@ import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
 import Hr from 'components/atomic/LV1/HorizontalRule';
 import Text from 'components/atomic/LV1/StaticText';
 import AboutCancellContent from 'components/atomic/LV2/AboutCancellContent';
-import DoNotActionContent from 'components/atomic/LV2/DoNotActionContent';
+import DescriptionContent from 'components/atomic/LV2/DescriptionContent';
 
 // import ruleImage1 from 'images/rule-img01.svg';
 // import ruleImage2 from 'images/rule-img02.svg';
@@ -25,18 +25,16 @@ const SubTitle = styled.div`
   `};
 `;
 
-const ContentWrap = styled(DefaultContainer)``;
-
-const TextWrapper = styled.div`
-  margin-bottom: ${Dimens.medium3_40}px;
+const ContentWrap = styled(DefaultContainer)`
+  ${props =>
+    props.DoNotAction &&
+    `
+      margin-bottom: 135px;
+    `};
 `;
 
 const NotAllowedContentWrapper = styled.div`
   margin: ${Dimens.medium2}px 0;
-`;
-
-const DoNotActionContainer = styled(DefaultContainer)`
-  margin-bottom: 135px;
 `;
 
 // const HowSafeContainer = DefaultContainer.extend``;
@@ -83,47 +81,49 @@ export default () => (
 
     <ContentWrap>
       <SubTitle>荷物を置くスペースを探している方</SubTitle>
-      <TextWrapper>
-        <Text>スペース情報をしっかり確認。</Text>
-        <Text>
-          ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。
-        </Text>
-      </TextWrapper>
-      <TextWrapper>
-        <Text>連絡と支払いはモノオクで。</Text>
-        <Text>
-          お支払い・荷物・あなた自身を守るために、相談から利用終了日までの決済・やり取りは必ずモノオクのプラットフォームで行ってください。もしも不必要なサービス以外の連絡手段を強要されたり、現金での支払いなどを求められたら、モノオクまでご報告ください。
-        </Text>
-      </TextWrapper>
-      <TextWrapper>
-        <Text>すべての荷物内容を連絡。</Text>
-        <Text>
-          当日になって「聞いていた荷物と違う！」そんな状況はホストがとっても困ります。あなたの荷物が多くても少なくても、必ずホストへ荷物の内容の申告を行ってください。
-        </Text>
-      </TextWrapper>
+      <DescriptionContent
+        dontActionList={[
+          {
+            header: 'スペース情報をしっかり確認。',
+            text:
+              'ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。',
+          },
+          {
+            header: '連絡と支払いはモノオクで。',
+            text:
+              'お支払い・荷物・あなた自身を守るために、相談から利用終了日までの決済・やり取りは必ずモノオクのプラットフォームで行ってください。もしも不必要なサービス以外の連絡手段を強要されたり、現金での支払いなどを求められたら、モノオクまでご報告ください。',
+          },
+          {
+            header: 'すべての荷物内容を連絡。',
+            text:
+              '当日になって「聞いていた荷物と違う！」そんな状況はホストがとっても困ります。あなたの荷物が多くても少なくても、必ずホストへ荷物の内容の申告を行ってください。',
+          },
+        ]}
+      />
       <Hr />
     </ContentWrap>
 
     <ContentWrap>
       <SubTitle>モノオクでホストをしたい方</SubTitle>
-      <TextWrapper>
-        <Text>誠実なスペース情報を掲載しましょう。</Text>
-        <Text>
-          より正確なスペース情報を掲載することで、ユーザーはあなたに安心して相談できます。
-        </Text>
-      </TextWrapper>
-      <TextWrapper>
-        <Text>荷物の情報を必ず聞きましょう。</Text>
-        <Text>
-          「思っていたより多い。聞いていたサイズと全然違う。」あなたのスペースを有効に使うためにも、メッセージで必ず確認してください。ホストをお守りするためにもとっても大事なことです。
-        </Text>
-      </TextWrapper>
-      <TextWrapper>
-        <Text>なぜ荷物を置きたいのかユーザーに聞いてみましょう。</Text>
-        <Text>
-          なぜあなたのスペースが良いのか、事前に聞いてみましょう。引っ越しやトランクルームの代わりにしたいなど状況は様々です。
-        </Text>
-      </TextWrapper>
+      <DescriptionContent
+        dontActionList={[
+          {
+            header: '誠実なスペース情報を掲載しましょう。',
+            text:
+              'より正確なスペース情報を掲載することで、ユーザーはあなたに安心して相談できます。',
+          },
+          {
+            header: '荷物の情報を必ず聞きましょう。',
+            text:
+              '「思っていたより多い。聞いていたサイズと全然違う。」あなたのスペースを有効に使うためにも、メッセージで必ず確認してください。ホストをお守りするためにもとっても大事なことです。',
+          },
+          {
+            header: 'なぜ荷物を置きたいのかユーザーに聞いてみましょう。',
+            text:
+              'なぜあなたのスペースが良いのか、事前に聞いてみましょう。引っ越しやトランクルームの代わりにしたいなど状況は様々です。',
+          },
+        ]}
+      />
       <Hr />
     </ContentWrap>
 
@@ -215,10 +215,10 @@ export default () => (
       <Hr />
     </ContentWrap>
 
-    <DoNotActionContainer>
+    <ContentWrap DoNotAction>
       <SubTitle>禁止されている行為</SubTitle>
 
-      <DoNotActionContent
+      <DescriptionContent
         title="取り引き"
         dontActionList={[
           {
@@ -248,7 +248,7 @@ export default () => (
         ]}
       />
 
-      <DoNotActionContent
+      <DescriptionContent
         title="スペース登録"
         dontActionList={[
           {
@@ -272,7 +272,7 @@ export default () => (
         ]}
       />
 
-      <DoNotActionContent
+      <DescriptionContent
         title="その他"
         dontActionList={[
           {
@@ -295,7 +295,7 @@ export default () => (
           },
         ]}
       />
-    </DoNotActionContainer>
+    </ContentWrap>
 
     <Footer />
   </Fragment>

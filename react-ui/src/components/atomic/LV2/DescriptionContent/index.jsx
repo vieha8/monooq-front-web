@@ -2,14 +2,20 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Dimens } from 'variables';
+import { media } from 'helpers/style/media-query';
+import { Dimens, FontSizes } from 'variables';
 import Text from 'components/atomic/LV1/StaticText';
 
 const ContentWrap = styled.div``;
 
 const Title = styled(Text)`
+  font-size: ${FontSizes.medium1}px;
   font-weight: bold;
   margin-bottom: ${Dimens.medium1}px;
+  ${media.phone`
+    font-size: 5vw;
+    line-height: 7.5vw;
+  `};
 `;
 
 const TextWrapper = styled.div`
@@ -29,7 +35,9 @@ export default ({ title, dontActionList }: PropTypes) => (
     <Title>{title}</Title>
     {dontActionList.map((item, i) => (
       <TextWrapper key={i.toString()}>
-        <Text>{item.header}</Text>
+        <Text fontSize={20} fontSizeSp={5.5}>
+          {item.header}
+        </Text>
         <Text>{item.text}</Text>
       </TextWrapper>
     ))}

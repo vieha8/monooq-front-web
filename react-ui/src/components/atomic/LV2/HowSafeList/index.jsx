@@ -22,13 +22,19 @@ const HowSafeWrap = styled.div`
 const Image = styled.img`
   width: 246px;
   border-radius: 50%;
+  margin: auto;
   ${media.phone`
-    margin-bottom: ${Dimens.medium1}px;
+    margin: auto auto margin-bottom: ${Dimens.medium1}px;
   `};
 `;
 
 const Wrapper = styled.div`
-  width: 688px;
+  width: 100%;
+  max-width: 688px;
+  ${media.tablet`
+    max-width: 100%;
+    text-align: center;
+  `};
 `;
 
 const Label = styled.div`

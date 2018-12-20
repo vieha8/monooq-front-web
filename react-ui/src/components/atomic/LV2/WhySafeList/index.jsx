@@ -15,7 +15,7 @@ const WhySafeContentWrapper = styled.div`
 
 const WhySafeWrap = styled.div`
   width: 32%;
-  ${media.phone`
+  ${media.tablet`
     width: 100%;
     margin-bottom: ${Dimens.medium3_40}px;
   `};

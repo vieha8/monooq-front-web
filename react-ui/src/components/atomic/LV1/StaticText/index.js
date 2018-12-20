@@ -5,11 +5,12 @@ import { FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const Text = styled.p`
-  font-size: ${FontSizes.small_15}px;
-  line-height: ${FontSizes.small_15 * 2}px;
+  font-size: ${props => (props.fontSize ? `${props.fontSize}px` : `${FontSizes.small_15}px`)};
+  line-height: ${props =>
+    props.fontSize ? `${props.fontSize * 2}px` : `${FontSizes.small_15 * 2}px`};
   ${media.phone`
-    font-size: 4.5vw;
-    line-height: ${4.5 * 1.5}vw;
+    font-size: ${props => (props.fontSizeSp ? `${props.fontSizeSp}vw` : `4.5vw`)};
+    line-height: ${props => (props.fontSizeSp ? `${props.fontSizeSp * 1.5}vw` : `${4.5 * 1.5}vw`)};
   `};
 `;
 
