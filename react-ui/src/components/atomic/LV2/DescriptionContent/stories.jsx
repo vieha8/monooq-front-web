@@ -6,11 +6,11 @@ import StorybookRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import DoNotActionContent from './index';
+import DescriptionContent from './index';
 
-DoNotActionContent.displayName = 'DoNotActionContent';
+DescriptionContent.displayName = 'DescriptionContent';
 
-storiesOf('Molecules(LV2)/DoNotActionContent', module)
+storiesOf('Molecules(LV2)/DescriptionContent', module)
   .addDecorator(StorybookRouter())
   .add(
     'Normal',
@@ -19,7 +19,7 @@ storiesOf('Molecules(LV2)/DoNotActionContent', module)
       禁止行為一覧(静的画面向け)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <DoNotActionContent
+        <DescriptionContent
           title="取り引き"
           dontActionList={[
             {
