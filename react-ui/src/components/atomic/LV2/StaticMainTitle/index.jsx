@@ -15,10 +15,17 @@ const MainTitleContainer = styled(DefaultContainer)`
   ${props =>
     props.sub &&
     `
+      width: 100%;
       padding: 0;
       margin-top: ${Dimens.large2}px;
     `};
   ${media.phone`
+    ${props =>
+      props.sub &&
+      `
+        width: 100%;
+        padding: 0;
+      `};
     margin-top: ${Dimens.medium3_40}px;
   `};
 `;

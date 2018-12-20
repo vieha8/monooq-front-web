@@ -10,7 +10,7 @@ import Text from 'components/atomic/LV1/StaticText';
 const StyledContainer = styled(DefaultContainer)`
   margin-bottom: ${Dimens.large_60}px;
   ${media.phone`
-    margin-bottom: ${Dimens.medium2}px;
+    margin-bottom: ${Dimens.medium3_40}px;
   `};
 `;
 

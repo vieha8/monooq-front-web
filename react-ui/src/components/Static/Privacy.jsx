@@ -6,7 +6,8 @@ import Footer from 'components/atomic/LV2/Footer';
 import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
 import ArtContainer from 'components/atomic/LV2/StaticArt';
 
-const Address = styled.address`
+const Address = styled.span`
+  display: inline-block;
   margin-top: ${Dimens.medium2}px;
 `;
 

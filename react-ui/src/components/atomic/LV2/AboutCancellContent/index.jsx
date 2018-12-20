@@ -21,7 +21,6 @@ const ContentContainer = styled.div`
     border-top: 1px solid ${Colors.borderGray};
   }
   ${media.phone`
-    width: 84vw;
     padding: ${Dimens.medium}px;
     box-sizing: border-box;
   `};

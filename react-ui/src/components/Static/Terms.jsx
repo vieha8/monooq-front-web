@@ -19,6 +19,8 @@ const Chapter = styled.div`
   line-height: ${FontSizes.large}px;
   margin-bottom: ${Dimens.medium3_45}px;
   ${media.phone`
+    width: 92vw;
+    padding: 0px 4vw;
     font-size: 6.5vw;
     line-height: ${6.5 * 1.5}vw;
     margin-bottom: ${Dimens.medium2}px;
@@ -33,7 +35,11 @@ const ChapterContainer = props => (
 );
 
 const StyledChapterContainer = styled(ChapterContainer)`
-  margin-bottom: 64px;
+  margin-bottom: ${Dimens.large2}px;
+  ${media.phone`
+    width: 100%;
+    padding: 0px;
+  `};
 `;
 
 export default () => (

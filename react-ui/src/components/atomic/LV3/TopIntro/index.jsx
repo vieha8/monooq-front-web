@@ -97,7 +97,7 @@ type PropTypes = {
     title: string,
     description: string,
     buttonText?: string,
-    onClick?: Function,
+    onClickItem?: Function,
   }>,
   buttonText: string,
   onClick: Function,
@@ -128,7 +128,7 @@ export default ({
                   title={item.title}
                   description={item.description}
                   buttonText={item.buttonText}
-                  onClick={onClick}
+                  onClick={item.onClickItem}
                 />
               ))}
             </ForSafeContainer>

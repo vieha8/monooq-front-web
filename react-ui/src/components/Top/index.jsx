@@ -221,7 +221,7 @@ export default props => (
             description:
               'まずは自分に合う物置きスペースを探し、メッセージで荷物を置かせてもらえるかホストに相談をします。サービスの使い方がよくわからない、お困りの方はこちら。',
             buttonText: '使い方について',
-            onClick: () => props.history.push(Path.about()),
+            onClickItem: () => props.history.push(Path.about()),
           },
           {
             iconClass: 'far fa-bookmark',
@@ -229,7 +229,7 @@ export default props => (
             description:
               'サービス内の記録であなたの荷物だと証明できる荷物には最大10万円までの補償があります。あなたがホストの時に、もし誰かの荷物を破損・紛失してしまっても同じ補償が受けられるので安心です。',
             buttonText: '保険について',
-            onClick: () => props.history.push(Path.insurance()),
+            onClickItem: () => props.history.push(Path.insurance()),
           },
           {
             iconClass: 'far fa-handshake',
@@ -237,7 +237,7 @@ export default props => (
             description:
               'モノオクは個人間の物置きシェアサービスです。トラブルや揉め事がないようにルールを設けています。みんなが安心して使えるようにマナーを大切にしましょう。',
             buttonText: 'ルールとマナーについて',
-            onClick: () => props.history.push(Path.rule()),
+            onClickItem: () => props.history.push(Path.rule()),
           },
         ]}
         isUser

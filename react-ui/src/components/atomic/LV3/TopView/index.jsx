@@ -26,7 +26,7 @@ const TopView = styled.div`
     height: 400px;
     margin-top: -4px;
     background-image: url(${mainVisualSp});
-    background-position: 0px ${Dimens.large4_80}px;
+    background-position: 0px ${Dimens.large3}px;
   `};
 `;
 
