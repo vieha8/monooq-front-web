@@ -106,8 +106,8 @@ function* fetchRoomStart() {
 
   const res = rooms.map((v, i) => {
     const room = v;
-    room.isRead = true;
-    if (room[`user${user.ID}LastReadDt`] && room.lastMessageDt) {
+    room.isRead = false;
+    if (room[`user${user.ID}LastReadDt`]) {
       const lastMessageDt = parseInt(room.lastMessageDt.getTime() / 1000, 10);
       const lastReadDt = room[`user${user.ID}LastReadDt`].seconds;
       room.isRead = lastMessageDt < lastReadDt;
@@ -176,6 +176,10 @@ function* fetchMessagesStart({ payload }) {
         { [`user${user.ID}LastRead`]: lastMessage.id, [`user${user.ID}LastReadDt`]: new Date() },
         { merge: true },
       );
+  } else {
+    roomCollection()
+      .doc(payload)
+      .set({ [`user${user.ID}LastReadDt`]: new Date() }, { merge: true });
   }
 
   // メッセージが１件のみの場合はfirebaseから取得した方を使用するためViewとして追加しない
