@@ -9,6 +9,7 @@ import { media } from 'helpers/style/media-query';
 const btnlink = styled(Link)``;
 
 export const PrimaryButton = styled.div`
+  box-sizing: border-box;
   width: ${props => (props.width ? props.width : '100%')};
   ${props => !props.fill && `max-width: 300px;`}
   padding: 17px 10px;

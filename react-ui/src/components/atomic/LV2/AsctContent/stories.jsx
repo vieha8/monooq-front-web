@@ -1,28 +1,25 @@
-import React, { Fragment } from 'react';
+// @flow
+
+import React from 'react';
 import Path from 'config/path';
-
-import styled from 'styled-components';
+import { storiesOf } from '@storybook/react';
+import StorybookRouter from 'storybook-router';
+import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
-import DefaultContainer from 'components/atomic/containers/DefaultContainer';
-import Footer from 'components/atomic/LV2/Footer';
-import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
-import AsctContent from 'components/atomic/LV2/AsctContent';
-import Text from 'components/atomic/LV1/StaticText';
 
-const AsctContainer = styled(DefaultContainer)`
-  margin-bottom: ${Dimens.large4_80}px;
-`;
+import AsctContent from './index';
 
-const AsctContentWrapper = styled.div`
-  margin-bottom: ${Dimens.medium3_40}px;
-`;
+AsctContent.displayName = 'AsctContent';
 
-export default () => (
-  <Fragment>
-    <MainTitleContainer mainTitle="特定商取引に関する表記" />
-
-    <AsctContainer>
-      <AsctContentWrapper>
+storiesOf('Molecules(LV2)/AsctContent', module)
+  .addDecorator(StorybookRouter())
+  .add(
+    'Normal',
+    withInfo(`
+      ### コンポーネント概要
+      特商取引に関する表記一覧(静的画面向け)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <AsctContent
           asctList={[
             {
@@ -76,15 +73,6 @@ export default () => (
             },
           ]}
         />
-      </AsctContentWrapper>
-
-      <AsctContentWrapper>
-        <Text>※取引やサービスについてのお問い合わせは電話では受け付けておりません。</Text>
-        <Text>
-          利用に関するお問い合わせは、ログイン後のメニュー「お問い合わせ」またはヘルプチャットよりご連絡ください。
-        </Text>
-      </AsctContentWrapper>
-    </AsctContainer>
-    <Footer />
-  </Fragment>
-);
+      </div>
+    )),
+  );

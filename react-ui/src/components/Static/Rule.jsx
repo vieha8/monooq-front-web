@@ -1,79 +1,41 @@
 import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
-import { FontSizes, Colors } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import DefaultContainer from 'components/atomic/containers/DefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
+import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
+import Hr from 'components/atomic/LV1/HorizontalRule';
+import Text from 'components/atomic/LV1/StaticText';
+import AboutCancellContent from 'components/atomic/LV2/AboutCancellContent';
+import DescriptionContent from 'components/atomic/LV2/DescriptionContent';
 
 // import ruleImage1 from 'images/rule-img01.svg';
 // import ruleImage2 from 'images/rule-img02.svg';
 // import ruleImage3 from 'images/rule-img03.svg';
 
-const MainTitle = styled.div`
-  font-size: ${FontSizes.xlarge}px;
-  line-height: ${FontSizes.xlarge * 1.5}px;
-  margin-bottom: 44px;
-  ${media.phone`
-    font-size: 7.5vw;
-    line-height: ${7.5 * 1.5}vw;
-    margin-bottom: 20px;
-  `};
-`;
-
 const SubTitle = styled.div`
   font-size: ${FontSizes.large}px;
   line-height: ${FontSizes.large}px;
-  margin-bottom: 45px;
+  margin-bottom: ${Dimens.medium3_40}px;
   ${media.phone`
     font-size: 6.5vw;
     line-height: ${6.5 * 1.5}vw;
   `};
 `;
 
-const Text = styled.div`
-  font-size: ${FontSizes.medium}px;
-  line-height: ${FontSizes.medium * 2}px;
-  ${media.phone`
-    font-size: 5vw;
-    line-height: ${5 * 1.5}vw;
-  `};
+const ContentWrap = styled(DefaultContainer)`
+  ${props =>
+    props.DoNotAction &&
+    `
+      margin-bottom: 135px;
+    `};
 `;
 
-const HilightText = styled.div`
-  font-size: ${FontSizes.medium1}px;
-  line-height: ${FontSizes.medium1 * 1.5}px;
-  ${media.phone`
-    font-size: 5vw;
-    line-height: 7.5vw;
-  `};
+const NotAllowedContentWrapper = styled.div`
+  margin: ${Dimens.medium2}px 0;
 `;
-
-const TextWrapper = styled.div`
-  margin-bottom: 40px;
-`;
-
-const Hr = styled.hr`
-  border: 0;
-  height: 1px;
-  width: 100%;
-  background-color: ${Colors.lightGray2};
-  margin: 50px 0;
-  ${media.phone`
-    margin: 20px 0;
-  `};
-`;
-
-const MainTitleContainer = styled(DefaultContainer)`
-  margin-top: 80px;
-  ${media.phone`
-    margin-top: 40px;
-  `};
-`;
-
-const WhoFindHostContainer = styled(DefaultContainer)``;
-
-const WhoWantBeHostContainer = styled(DefaultContainer)``;
 
 // const HowSafeContainer = DefaultContainer.extend``;
 //
@@ -98,7 +60,7 @@ const WhoWantBeHostContainer = styled(DefaultContainer)``;
 //   `;
 //   return (
 //     <div className={props.className}>
-//       <HilightText>{props.label}</HilightText>
+//       <>{props.label}</>
 //       <ImageArea />
 //       <TextArea>{props.text}</TextArea>
 //     </div>
@@ -109,135 +71,61 @@ const WhoWantBeHostContainer = styled(DefaultContainer)``;
 //   width: 326px;
 // `;
 
-const NotAllowedContainer = styled(DefaultContainer)``;
-
-const NotAllowedContentWrapper = styled.div`
-  margin: 30px 0;
-`;
-
-const NotAllowedContent = props => {
-  const Header = styled.div`
-    width: 180px;
-    font-weight: bold;
-    margin-right: 20px;
-    ${media.phone`
-      width: 100%;
-    `};
-  `;
-  const Data = styled.div`
-    width: 758px;
-    font-size: ${FontSizes.small}px;
-    line-height: ${FontSizes.small * 2}px;
-    padding: 16px 0;
-    ${media.phone`
-      line-height: 30px;
-      margin-bottom: 20px;
-      padding: 0;
-    `};
-  `;
-  return (
-    <div className={props.className}>
-      <Header>{props.header}</Header>
-      <Data>{props.data}</Data>
-    </div>
-  );
-};
-
-const StyledNotAllowedContent = styled(NotAllowedContent)`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  line-height: 60px;
-  font-size: 14px;
-  padding: 0 20px;
-  border-right: 1px solid ${Colors.borderGray};
-  border-left: 1px solid ${Colors.borderGray};
-  border-bottom: 1px solid ${Colors.borderGray};
-  :nth-child(odd) {
-    background-color: ${Colors.lightGray2Bg};
-  }
-  :first-child {
-    border-top: 1px solid ${Colors.borderGray};
-  }
-`;
-
-const DoNotActionContainer = styled(DefaultContainer)`
-  margin-bottom: 135px;
-`;
-
-const DoNotActionContent = props => {
-  const Title = styled(HilightText)`
-    font-weight: bold;
-    margin-bottom: 22px;
-  `;
-  return (
-    <div>
-      <Title>{props.title}</Title>
-      {props.children}
-    </div>
-  );
-};
-
-export default props => (
+export default () => (
   <Fragment>
-    <MainTitleContainer>
-      <MainTitle>ルールとマナー</MainTitle>
-      <HilightText>
-        モノオクは、みなさんのあたたかく誠実なご対応と共に運営を行っています。だれもが気持ちよく物置きシェアを行うためにルールとマナーは必ず守ってください。
-      </HilightText>
+    <MainTitleContainer
+      mainTitle="ルールとマナー"
+      text="モノオクは、みなさんのあたたかく誠実なご対応と共に運営を行っています。だれもが気持ちよく物置きシェアを行うためにルールとマナーは必ず守ってください。"
+      isHr
+    />
 
-      <Hr />
-    </MainTitleContainer>
-
-    <WhoFindHostContainer>
+    <ContentWrap>
       <SubTitle>荷物を置くスペースを探している方</SubTitle>
-
-      <TextWrapper>
-        <HilightText>スペース情報をしっかり確認。</HilightText>
-        <Text>
-          ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。
-        </Text>
-      </TextWrapper>
-      <TextWrapper>
-        <HilightText>連絡と支払いはモノオクで。</HilightText>
-        <Text>
-          お支払い・荷物・あなた自身を守るために、相談から利用終了日までの決済・やり取りは必ずモノオクのプラットフォームで行ってください。もしも不必要なサービス以外の連絡手段を強要されたり、現金での支払いなどを求められたら、モノオクまでご報告ください。
-        </Text>
-      </TextWrapper>
-      <TextWrapper>
-        <HilightText>すべての荷物内容を連絡。</HilightText>
-        <Text>
-          当日になって「聞いていた荷物と違う！」そんな状況はホストがとっても困ります。あなたの荷物が多くても少なくても、必ずホストへ荷物の内容の申告を行ってください。
-        </Text>
-      </TextWrapper>
-
+      <DescriptionContent
+        dontActionList={[
+          {
+            header: 'スペース情報をしっかり確認。',
+            text:
+              'ホストの掲載内容やメッセージのやり取りを確認しましょう。なにかおかしいな？と思ったらカスタマーサポートまでご連絡ください。',
+          },
+          {
+            header: '連絡と支払いはモノオクで。',
+            text:
+              'お支払い・荷物・あなた自身を守るために、相談から利用終了日までの決済・やり取りは必ずモノオクのプラットフォームで行ってください。もしも不必要なサービス以外の連絡手段を強要されたり、現金での支払いなどを求められたら、モノオクまでご報告ください。',
+          },
+          {
+            header: 'すべての荷物内容を連絡。',
+            text:
+              '当日になって「聞いていた荷物と違う！」そんな状況はホストがとっても困ります。あなたの荷物が多くても少なくても、必ずホストへ荷物の内容の申告を行ってください。',
+          },
+        ]}
+      />
       <Hr />
-    </WhoFindHostContainer>
+    </ContentWrap>
 
-    <WhoWantBeHostContainer>
+    <ContentWrap>
       <SubTitle>モノオクでホストをしたい方</SubTitle>
-
-      <TextWrapper>
-        <HilightText>誠実なスペース情報を掲載しましょう。</HilightText>
-        <Text>
-          より正確なスペース情報を掲載することで、ユーザーはあなたに安心して相談できます。
-        </Text>
-      </TextWrapper>
-      <TextWrapper>
-        <HilightText>荷物の情報を必ず聞きましょう。</HilightText>
-        <Text>
-          「思っていたより多い。聞いていたサイズと全然違う。」あなたのスペースを有効に使うためにも、メッセージで必ず確認してください。ホストをお守りするためにもとっても大事なことです。
-        </Text>
-      </TextWrapper>
-      <TextWrapper>
-        <HilightText>なぜ荷物を置きたいのかユーザーに聞いてみましょう。</HilightText>
-        <Text>
-          なぜあなたのスペースが良いのか、事前に聞いてみましょう。引っ越しやトランクルームの代わりにしたいなど状況は様々です。
-        </Text>
-      </TextWrapper>
-
+      <DescriptionContent
+        dontActionList={[
+          {
+            header: '誠実なスペース情報を掲載しましょう。',
+            text:
+              'より正確なスペース情報を掲載することで、ユーザーはあなたに安心して相談できます。',
+          },
+          {
+            header: '荷物の情報を必ず聞きましょう。',
+            text:
+              '「思っていたより多い。聞いていたサイズと全然違う。」あなたのスペースを有効に使うためにも、メッセージで必ず確認してください。ホストをお守りするためにもとっても大事なことです。',
+          },
+          {
+            header: 'なぜ荷物を置きたいのかユーザーに聞いてみましょう。',
+            text:
+              'なぜあなたのスペースが良いのか、事前に聞いてみましょう。引っ越しやトランクルームの代わりにしたいなど状況は様々です。',
+          },
+        ]}
+      />
       <Hr />
-    </WhoWantBeHostContainer>
+    </ContentWrap>
 
     {/*<HowSafeContainer>*/}
     {/*<SubTitle>安心して物置きシェアをしてもらうために。</SubTitle>*/}
@@ -269,165 +157,145 @@ export default props => (
     {/*<Hr />*/}
     {/*</HowSafeContainer>*/}
 
-    <NotAllowedContainer id="not-allowed">
+    <ContentWrap id="not-allowed">
       <SubTitle>取引ができない荷物</SubTitle>
-      <HilightText>モノオクでは、以下に相当する荷物のスペース利用を禁止しています。</HilightText>
-
+      <Text>モノオクでは、以下に相当する荷物のスペース利用を禁止しています。</Text>
       <NotAllowedContentWrapper>
-        {[
-          {
-            header: '危険物・劇毒物',
-            data:
-              '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
-          },
-          {
-            header: '可燃物・特殊可燃物',
-            data: '塗料、マッチ、ライター、ゴム、タイヤ、燃料類など',
-          },
-          {
-            header: '特殊品',
-            data: '磁気テープ類などの磁気の影響を受ける物、精密機器など',
-          },
-          {
-            header: '生き物',
-            data: '植木類、苗および生花、種子、ペット類など',
-          },
-          {
-            header: '美術品・高価品',
-            data: '書画、骨董品、宝石類、毛皮品など',
-          },
-          {
-            header: '生鮮食品',
-            data: '魚介類、野菜、果実など',
-          },
-          {
-            header: '異臭のする物',
-            data: '臭いの強い物など',
-          },
-          {
-            header: 'こわれやすい物',
-            data: 'ガラス、陶磁器類など',
-          },
-          {
-            header: '特殊な衣料',
-            data: '毛皮、着物など',
-          },
-          {
-            header: '慶事・祭事・仏事関連品',
-            data: '仏壇、祭壇、神棚など',
-          },
-          {
-            header: 'その他',
-            data:
-              'その他の個人の貴重品、ピアノ、電子オルガン、現金・有価証券の類、ゴミ、産業廃棄物およびこれらに類する物、常温では管理できない物、法令に定められている取り扱いできない物',
-          },
-        ].map((v, i) => {
-          return <StyledNotAllowedContent header={v.header} data={v.data} key={i} />;
-        })}
+        <AboutCancellContent
+          cancelContentList={[
+            {
+              header: '危険物・劇毒物',
+              data:
+                '劇薬、毒物、農薬、化学薬品、花火、放射性物質、ハサミ、工具、ナイフなど凶器と判断されるもの',
+            },
+            {
+              header: '可燃物・特殊可燃物',
+              data: '塗料、マッチ、ライター、ゴム、タイヤ、燃料類など',
+            },
+            {
+              header: '特殊品',
+              data: '磁気テープ類などの磁気の影響を受ける物、精密機器など',
+            },
+            {
+              header: '生き物',
+              data: '植木類、苗および生花、種子、ペット類など',
+            },
+            {
+              header: '美術品・高価品',
+              data: '書画、骨董品、宝石類、毛皮品など',
+            },
+            {
+              header: '生鮮食品',
+              data: '魚介類、野菜、果実など',
+            },
+            {
+              header: '異臭のする物',
+              data: '臭いの強い物など',
+            },
+            {
+              header: 'こわれやすい物',
+              data: 'ガラス、陶磁器類など',
+            },
+            {
+              header: '特殊な衣料',
+              data: '毛皮、着物など',
+            },
+            {
+              header: '慶事・祭事・仏事関連品',
+              data: '仏壇、祭壇、神棚など',
+            },
+            {
+              header: 'その他',
+              data:
+                'その他の個人の貴重品、ピアノ、電子オルガン、現金・有価証券の類、ゴミ、産業廃棄物およびこれらに類する物、常温では管理できない物、法令に定められている取り扱いできない物',
+            },
+          ]}
+        />
       </NotAllowedContentWrapper>
-
       <Hr />
-    </NotAllowedContainer>
+    </ContentWrap>
 
-    <DoNotActionContainer>
+    <ContentWrap DoNotAction>
       <SubTitle>禁止されている行為</SubTitle>
 
-      <DoNotActionContent title="取り引き">
-        {[
+      <DescriptionContent
+        title="取り引き"
+        dontActionList={[
           {
-            hilightText: 'モノオク以外で支払いを行うこと。',
+            header: 'モノオク以外で支払いを行うこと。',
             text:
               'モノオクではユーザーからお預かりした料金を、取引完了後にホストへ安全にお支払いします。直接の口座振込や現金のお支払いは一切行わないでください。もしも、このような行為を持ちかけられた場合は、モノオクカスタマーサポートまでご連絡ください。',
           },
           {
-            hilightText: '登録した本人以外が連絡や取引をすること。',
+            header: '登録した本人以外が連絡や取引をすること。',
             text: '必ずアカウント登録を行ったご本人が取引を行ってください。',
           },
           {
-            hilightText: '申告と異なる荷物をホストへ強要すること。',
+            header: '申告と異なる荷物をホストへ強要すること。',
             text:
               'ホストが認識していない荷物を無理やりお願いすることは禁止です。事前にしっかりと内容を伝えましょう。',
           },
           {
-            hilightText: '無断でスペース利用の延長をすること。',
+            header: '無断でスペース利用の延長をすること。',
             text:
               '利用終了日に荷物を取りに来ない、連絡がとれない、などお互いが困る行為は禁止です。',
           },
           {
-            hilightText: '同意が取れていない方法で荷物を届けること。',
+            header: '同意が取れていない方法で荷物を届けること。',
             text:
               '一方的に着払いをするなど、ホストが困る身勝手な行為は禁止です。荷物の配送方法に関してもお互いが同意の上で取り引きを進めてください。',
           },
-        ].map((v, i) => {
-          return (
-            <TextWrapper key={i}>
-              <HilightText>{v.hilightText}</HilightText>
-              <Text>{v.text}</Text>
-            </TextWrapper>
-          );
-        })}
-      </DoNotActionContent>
+        ]}
+      />
 
-      <DoNotActionContent title="スペース登録">
-        {[
+      <DescriptionContent
+        title="スペース登録"
+        dontActionList={[
           {
-            hilightText: '架空のスペースを登録すること。',
+            header: '架空のスペースを登録すること。',
             text:
               '実体のないスペースの登録は禁止です。このような掲載を見つけ次第、情報の非公開・アカウント停止などの対応を行います。',
           },
           {
-            hilightText: '虚偽または誤りのある情報を掲載すること。',
+            header: '虚偽または誤りのある情報を掲載すること。',
             text: '良く見せようとして、嘘の内容や過度な強調がされた内容を掲載するのは禁止です。',
           },
           {
-            hilightText: '他のホストの文章・写真などを使用すること。',
+            header: '他のホストの文章・写真などを使用すること。',
             text: 'あなたが管理するスペースの内容を掲載してください。',
           },
           {
-            hilightText: '宣伝・勧誘などサービス利用に関係のない情報を掲載すること。',
+            header: '宣伝・勧誘などサービス利用に関係のない情報を掲載すること。',
             text:
               '物置きシェアのために必要な情報を掲載してください。このような掲載を見つけ次第、情報の非公開・アカウント停止などの対応を行います。',
           },
-        ].map((v, i) => {
-          return (
-            <TextWrapper key={i}>
-              <HilightText>{v.hilightText}</HilightText>
-              <Text>{v.text}</Text>
-            </TextWrapper>
-          );
-        })}
-      </DoNotActionContent>
+        ]}
+      />
 
-      <DoNotActionContent title="その他">
-        {[
+      <DescriptionContent
+        title="その他"
+        dontActionList={[
           {
-            hilightText: '物置きシェアに関係のない外部サービスへの誘導。',
+            header: '物置きシェアに関係のない外部サービスへの誘導。',
             text: 'スペース掲載や取り引きに関係のないサービスへ誘導するのは禁止です。',
           },
           {
-            hilightText: 'みんなに迷惑な行為。',
+            header: 'みんなに迷惑な行為。',
             text: 'みんなが安心してサービス利用ができなくなる迷惑行為は禁止です。',
           },
           {
-            hilightText: '個人を特定できるような情報を発信すること。',
+            header: '個人を特定できるような情報を発信すること。',
             text:
               'だれかの誹謗中傷、個人情報や写真など、悪質な内容を発見したらすぐさま対応します。',
           },
           {
-            hilightText: 'その他、モノオクカスタマーサポートにて不適切と判断する行為。',
+            header: 'その他、モノオクカスタマーサポートにて不適切と判断する行為。',
             text:
               'カスタマーサポートでは随時掲載内容のチェックを行っています。おかしいな？と思ったらモノオクまでご報告ください。',
           },
-        ].map((v, i) => {
-          return (
-            <TextWrapper key={i}>
-              <HilightText>{v.hilightText}</HilightText>
-              <Text>{v.text}</Text>
-            </TextWrapper>
-          );
-        })}
-      </DoNotActionContent>
-    </DoNotActionContainer>
+        ]}
+      />
+    </ContentWrap>
 
     <Footer />
   </Fragment>

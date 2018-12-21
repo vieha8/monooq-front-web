@@ -1,55 +1,18 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
 import DefaultContainer from 'components/atomic/containers/DefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
-
-const MainTitle = styled.div`
-  font-size: 34px;
-  line-height: 51px;
-  ${media.phone`
-    font-size: 32px;
-  `};
-`;
-
-const MainTitleContainer = styled(DefaultContainer)`
-  margin-top: 80px;
-  margin-bottom: 37px;
-  ${media.phone`
-    margin-top: 40px;
-  `};
-`;
-
-const Text = styled.div`
-  font-size: 16px;
-  line-height: 24px;
-`;
+import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
+import RecommendLinkList from 'components/atomic/LV2/RecommendLinkList';
+import Text from 'components/atomic/LV1/StaticText';
 
 const MessageContainer = styled(DefaultContainer)`
   margin-bottom: 30px;
 `;
 
-const RecommendLinkContainer = styled(DefaultContainer)`
-  margin-bottom: 240px;
-`;
-
-const Anchor = styled.a`
-  text-decoration: none;
-  :hover {
-    text-decoration: underline;
-  }
-`;
-
-const List = styled.div`
-  font-size: 16px;
-  line-height: 24px;
-`;
-
 export default () => (
   <Fragment>
-    <MainTitleContainer>
-      <MainTitle>ページが表示できません</MainTitle>
-    </MainTitleContainer>
+    <MainTitleContainer mainTitle="ページが表示できません" />
 
     <MessageContainer>
       <Text>ご不便をおかけし大変申し訳ございません。原因究明・改善に努めております。</Text>
@@ -58,20 +21,16 @@ export default () => (
       </Text>
     </MessageContainer>
 
-    <RecommendLinkContainer>
-      {[
+    <RecommendLinkList
+      Text="参考のリンク"
+      list={[
         {
           text: 'トップページへ戻る',
           path: '/',
         },
-      ].map((v, i) => {
-        return (
-          <List key={i}>
-            <Anchor href={v.path}>{v.text}</Anchor>
-          </List>
-        );
-      })}
-    </RecommendLinkContainer>
+      ]}
+    />
+
     <Footer />
   </Fragment>
 );
