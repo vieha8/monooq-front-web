@@ -106,11 +106,12 @@ function* fetchRoomStart() {
 
   const res = rooms.map((v, i) => {
     const room = v;
-    // TODO データ取得できないユーザーがいた場合の処理検討
-    // if(users[i].err) {
-    //   // yield put(errorActions.setError(users[i].err));
-    //   return
-    // }
+    room.isRead = true;
+    if (room[`user${user.ID}LastReadDt`] && room.lastMessageDt) {
+      const lastMessageDt = parseInt(room.lastMessageDt.getTime() / 1000, 10);
+      const lastReadDt = room[`user${user.ID}LastReadDt`].seconds;
+      room.isRead = lastMessageDt < lastReadDt;
+    }
     room.user = users[i].data;
     return room;
   });
