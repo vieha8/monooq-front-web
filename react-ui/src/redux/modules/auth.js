@@ -73,6 +73,7 @@ const initialState = {
   isUnsubscribeTrying: false,
   isUnsubscribeSuccess: false,
   isUnsubscribeFailed: false,
+  isTokenGenerating: false,
   user: {},
   error: '',
   token: null,
@@ -179,9 +180,14 @@ export const authReducer = handleActions(
       isUnsubscribeSuccess: false,
       isUnsubscribeFailed: true,
     }),
+    [TOKEN_GENERATE]: state => ({
+      ...state,
+      isTokenGenerating: true,
+    }),
     [TOKEN_GENERATE_SUCCESS]: (state, action) => ({
       ...state,
       token: action.payload,
+      isTokenGenerating: false,
     }),
   },
   initialState,
@@ -199,6 +205,11 @@ export function* getToken() {
   const token = yield select(state => state.auth.token);
   if (token) {
     return token;
+  }
+  const isGenerating = yield select(state => state.auth.isTokenGenerating);
+  if (isGenerating) {
+    const { payload } = yield take(authActions.tokenGenerateSuccess);
+    return payload;
   }
   yield put(authActions.tokenGenerate());
   const { payload } = yield take(authActions.tokenGenerateSuccess);
