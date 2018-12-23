@@ -1,8 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, call, select, take } from 'redux-saga/effects';
 
-import { apiEndpoint } from './api';
-import { getApiRequest, postApiRequest } from '../helpers/api';
+import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import { errorActions } from './error';
 import { authActions, getToken } from './auth';
 

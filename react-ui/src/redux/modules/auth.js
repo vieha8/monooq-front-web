@@ -4,11 +4,10 @@ import firebase from 'firebase/app';
 import { replace } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
-import { apiEndpoint } from './api';
 import { uiActions } from './ui';
 import { errorActions } from './error';
 import { store } from '../store/configureStore';
-import { getApiRequest, postApiRequest, deleteApiRequest } from '../helpers/api';
+import { getApiRequest, postApiRequest, deleteApiRequest, apiEndpoint } from '../helpers/api';
 import Path from '../../config/path';
 import { isAvailableLocalStorage } from '../../helpers/storage';
 

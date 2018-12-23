@@ -4,8 +4,7 @@ import firebase from 'firebase/app';
 import { authActions, getToken } from './auth';
 import { userActions } from './user';
 import { spaceActions } from './space';
-import { apiEndpoint } from './api';
-import { getApiRequest, postApiRequest } from '../helpers/api';
+import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/configureStore';
@@ -91,7 +90,6 @@ function* fetchRoomStart() {
   if (!user.ID) {
     yield take(authActions.checkLoginSuccess);
   }
-  user = yield select(state => state.auth.user);
 
   const rooms = yield getRooms(user.ID);
   const token = yield* getToken();

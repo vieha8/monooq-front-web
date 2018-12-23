@@ -3,12 +3,17 @@ import { put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import dummySpaceImage from 'images/dummy_space.png';
 import { store } from '../store/configureStore';
-import { apiEndpoint } from './api';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { userActions } from './user';
 import { authActions, getToken } from './auth';
-import { getApiRequest, postApiRequest, putApiRequest, deleteApiRequest } from '../helpers/api';
+import {
+  getApiRequest,
+  postApiRequest,
+  putApiRequest,
+  deleteApiRequest,
+  apiEndpoint,
+} from '../helpers/api';
 import { errorActions } from './error';
 import { convertBaseUrl } from '../../helpers/imgix';
 import Path from '../../config/path';
