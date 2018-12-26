@@ -76,6 +76,11 @@ const initialState = {
       title: 'モノオクスペースは全国各地に!',
       spaces: [],
     },
+    {
+      id: 5,
+      title: '最近閲覧したスペース',
+      spaces: [],
+    },
   ],
 };
 
@@ -328,6 +333,11 @@ function* deleteSpace({ payload: { space } }) {
 }
 
 function* getFeatureSpaces() {
+  let user = yield select(state => state.auth.user);
+  if (!user.ID) {
+    yield take(authActions.checkLoginSuccess);
+  }
+  user = yield select(state => state.auth.user);
   const features = yield select(state => state.space.features);
 
   const token = yield* getToken();
@@ -336,6 +346,13 @@ function* getFeatureSpaces() {
     features.map(async v => {
       const feature = v;
       const featureId = v.id;
+
+      if (featureId === 5) {
+        const { data } = await getApiRequest(apiEndpoint.userSpaceAccessLog(user.ID), {}, token);
+        feature.spaces = data;
+        return feature;
+      }
+
       const { data } = await getApiRequest(apiEndpoint.features(featureId), {}, token);
       feature.spaces = data;
       return feature;
