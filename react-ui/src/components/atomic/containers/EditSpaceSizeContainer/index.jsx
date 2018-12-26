@@ -10,7 +10,7 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceSize from 'components/atomic/LV3/EditSpace/Size';
 
-import { ErrorMessage } from 'strings';
+import ErrorMessage from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';

@@ -25,7 +25,6 @@ import EditSpacePriceType from './EditSpacePriceTypeContainer';
 import EditSpaceCompletion from './EditSpaceCompletionContainer';
 import Unsubscribe from './UnsubscribeContainer';
 import Sales from './SalesContainer';
-import ConciergeRequest from './ConciergeRequestContainer';
 import HowToUse from './HowToUseContainer';
 import Home from './HomeContainer';
 
@@ -55,7 +54,6 @@ export default {
   EditSpaceCompletion,
   Unsubscribe,
   Sales,
-  ConciergeRequest,
   HowToUse,
   Home,
 };

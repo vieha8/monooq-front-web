@@ -12,7 +12,7 @@ import MediaLineup from 'components/atomic/LV3/MediaLineup';
 import OtherService from 'components/atomic/LV3/OtherService';
 import TopIntro from 'components/atomic/LV3/TopIntro';
 import TopIntroMovie from 'components/atomic/LV3/TopIntroMovie';
-import { PickupStaffSpaceList } from './pickup';
+import PickupStaffSpaceList from './pickup';
 
 const logoPickGo =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=42';

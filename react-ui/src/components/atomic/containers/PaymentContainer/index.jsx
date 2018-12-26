@@ -16,7 +16,7 @@ import PaymentInfo from 'components/atomic/LV3/PaymentInfo';
 import Header from 'components/atomic/containers/Header';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 
-import { ErrorMessage } from 'strings';
+import ErrorMessage from 'strings';
 
 import type { SpaceType } from 'types/Space';
 

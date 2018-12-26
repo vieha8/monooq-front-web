@@ -10,7 +10,7 @@ import Header from 'components/atomic/containers/Header';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import EditProfile from 'components/atomic/LV3/EditProfile';
 import EditProfileCompleted from 'components/atomic/LV3/EditProfile/Completed';
-import { ErrorMessage } from 'strings';
+import ErrorMessage from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';

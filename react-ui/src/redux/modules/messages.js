@@ -1,6 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
 import firebase from 'firebase/app';
+import { push } from 'connected-react-router';
 import { authActions, getToken } from './auth';
 import { userActions } from './user';
 import { spaceActions } from './space';
@@ -9,7 +10,6 @@ import { getApiRequest, postApiRequest } from '../helpers/api';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/configureStore';
-import { push } from 'connected-react-router';
 import Path from '../../config/path';
 
 require('firebase/firestore');
