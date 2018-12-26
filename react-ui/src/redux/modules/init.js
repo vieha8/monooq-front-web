@@ -1,6 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, take, takeEvery } from 'redux-saga/effects';
+import { put, select, take, takeEvery } from 'redux-saga/effects';
 import { authActions } from 'redux/modules/auth';
+import { messagesActions } from 'redux/modules/messages';
 
 // Actions
 const INIT = 'INIT';
@@ -28,6 +29,13 @@ export const initReducer = handleActions(
 function* init() {
   yield put(authActions.checkLogin());
   yield take(authActions.checkLoginSuccess);
+
+  const user = yield select(state => state.auth.user);
+  if (user.ID) {
+    yield put(messagesActions.fetchRoomsStart());
+    yield take(messagesActions.fetchRoomsEnd);
+  }
+
   yield put(initActions.initSuccess());
 }
 

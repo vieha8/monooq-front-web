@@ -39,12 +39,18 @@ const initialState = {
   messages: [],
   room: null,
   isLoading: false,
+  unreadRooms: 0,
 };
 
 export const messagesReducer = handleActions(
   {
     [FETCH_ROOMS_START]: state => ({ ...state, isLoading: true }),
-    [FETCH_ROOMS_END]: (state, action) => ({ ...state, isLoading: false, rooms: action.payload }),
+    [FETCH_ROOMS_END]: (state, { payload }) => ({
+      ...state,
+      isLoading: false,
+      rooms: payload.rooms,
+      unreadRooms: payload.unreadRooms,
+    }),
     [FETCH_MESSAGES_START]: state => ({ ...state, messages: [], isLoading: true }),
     [FETCH_MESSAGES_END]: (state, action) => ({
       ...state,
@@ -108,13 +114,15 @@ function* fetchRoomStart() {
     if (room[`user${user.ID}LastReadDt`]) {
       const lastMessageDt = parseInt(room.lastMessageDt.getTime() / 1000, 10);
       const lastReadDt = room[`user${user.ID}LastReadDt`].seconds;
-      room.isRead = lastMessageDt < lastReadDt;
+      room.isRead = lastMessageDt <= lastReadDt;
     }
     room.user = users[i].data;
     return room;
   });
 
-  yield put(messagesActions.fetchRoomsEnd(res));
+  const unreadRooms = rooms.filter(v => v.isRead === false).length;
+
+  yield put(messagesActions.fetchRoomsEnd({ rooms: res, unreadRooms }));
 }
 
 function messagesUnsubscribe() {
@@ -288,6 +296,7 @@ function* sendMessage(payload) {
       {
         lastMessage: message.text,
         lastMessageDt: new Date(),
+        [`user${userId}LastReadDt`]: new Date(),
       },
       { merge: true },
     );
