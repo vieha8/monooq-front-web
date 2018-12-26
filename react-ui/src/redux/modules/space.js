@@ -30,6 +30,7 @@ const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
 const FETCH_FEATURE_SPACES = 'FETCH_FEATURE_SPACES';
 const FETCH_SUCCESS_FEATURE_SPACES = 'FETCH_SUCCESS_FEATURE_SPACES';
 const FETCH_FAILED_FEATURE_SPACES = 'FETCH_FAILED_FEATURE_SPACES';
+const ADD_SPACE_ACCESS_LOG = 'ADD_SPACE_ACCESS_LOG';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -48,6 +49,7 @@ export const spaceActions = createActions(
   FETCH_FEATURE_SPACES,
   FETCH_SUCCESS_FEATURE_SPACES,
   FETCH_FAILED_FEATURE_SPACES,
+  ADD_SPACE_ACCESS_LOG,
 );
 
 // Reducer
@@ -362,10 +364,21 @@ function* getFeatureSpaces() {
   yield put(spaceActions.fetchSuccessFeatureSpaces(res));
 }
 
+function* addSpaceAccessLog({ payload: { spaceId } }) {
+  let user = yield select(state => state.auth.user);
+  if (!user.ID) {
+    yield take(authActions.checkLoginSuccess);
+  }
+  user = yield select(state => state.auth.user);
+  const token = yield* getToken();
+  yield call(postApiRequest, apiEndpoint.addUserSpaceAccessLog(user.ID, spaceId), {}, token);
+}
+
 export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
   takeEvery(UPDATE_SPACE, updateSpace),
   takeEvery(DELETE_SPACE, deleteSpace),
   takeEvery(FETCH_FEATURE_SPACES, getFeatureSpaces),
+  takeEvery(ADD_SPACE_ACCESS_LOG, addSpaceAccessLog),
 ];
