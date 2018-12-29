@@ -11,7 +11,6 @@ import 'firebase/storage';
 import Root from 'components/Root';
 import Meta from 'components/Meta';
 import Error from 'components/Error';
-import Intercom from 'components/Intercom';
 import firebaseConfig from './config/firebase';
 import { unregister } from './registerServiceWorker';
 import configureStore from './redux/store/configureStore';
@@ -43,7 +42,6 @@ ReactDOM.render(
     <Root>
       <Meta />
       <Error />
-      <Intercom />
       <Routes history={history} />
     </Root>
   </Provider>,
