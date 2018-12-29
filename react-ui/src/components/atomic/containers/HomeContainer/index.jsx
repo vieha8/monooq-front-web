@@ -74,29 +74,32 @@ class HomeContainer extends Component<PropTypes, State> {
         leftContent={
           <HomeTemplate
             //TODO 無理やりSearchResult使わずにホーム用のコンポーネントつくる
-            searchResult={features.map((v, i) => (
-              <SearchResult
-                isHome
-                key={i}
-                caption={v.title}
-                spaces={v.spaces.map(s => ({
-                  image:
-                    s.Images.length !== 0
-                      ? convertImgixUrl(
-                          s.Images[0].ImageUrl,
-                          'fit=crop&w=170&max-h=120&format=auto',
-                        )
-                      : dummySpaceImage,
-                  title: s.Title,
-                  address: `${s.AddressPref}${s.AddressCity}`,
-                  isFurniture: s.IsFurniture,
-                  priceFull: s.PriceFull,
-                  priceHalf: s.PriceHalf,
-                  priceQuarter: s.PriceQuarter,
-                  onClick: () => this.onClickSpace(s),
-                }))}
-              />
-            ))}
+            searchResult={features.map(
+              (v, i) =>
+                v.spaces.length > 0 && (
+                  <SearchResult
+                    isHome
+                    key={i}
+                    caption={v.title}
+                    spaces={v.spaces.map(s => ({
+                      image:
+                        s.Images.length !== 0
+                          ? convertImgixUrl(
+                              s.Images[0].ImageUrl,
+                              'fit=crop&w=170&max-h=120&format=auto',
+                            )
+                          : dummySpaceImage,
+                      title: s.Title,
+                      address: `${s.AddressPref}${s.AddressCity}`,
+                      isFurniture: s.IsFurniture,
+                      priceFull: s.PriceFull,
+                      priceHalf: s.PriceHalf,
+                      priceQuarter: s.PriceQuarter,
+                      onClick: () => this.onClickSpace(s),
+                    }))}
+                  />
+                ),
+            )}
             noTopMargin
           />
         }
