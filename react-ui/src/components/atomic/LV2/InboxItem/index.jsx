@@ -51,6 +51,7 @@ export type PropTypes = {
   image: string,
   name: string,
   receivedAt: string | Date | moment,
+  isRead: boolean,
 };
 
 export default (props: PropTypes) => (
@@ -81,9 +82,18 @@ export default (props: PropTypes) => (
           {moment(props.receivedAt).format('YYYY年MM月DD日')}
         </InlineText.Base>
       </Cell>
-      <Cell lastMessage>
+      <Cell lastMessage nametime>
         <InlineText.Base fontSize={15} fontSizeSp={12}>
           {props.lastMessage}
+        </InlineText.Base>
+        <InlineText.Base
+          inLineBlock
+          verticalMiddle
+          fontSize={`${FontSizes.small_12}`}
+          color={Colors.brandPrimary}
+          float="right"
+        >
+          {!props.isRead && '●'}
         </InlineText.Base>
       </Cell>
     </Link>

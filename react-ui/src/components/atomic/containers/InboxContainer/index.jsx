@@ -58,6 +58,7 @@ class InboxContainer extends Component<PropTypes> {
           name: (message.user || {}).Name,
           receivedAt: message.lastMessageDt,
           lastMessage: message.lastMessage,
+          isRead: message.isRead,
         }))}
       />
     ) : (

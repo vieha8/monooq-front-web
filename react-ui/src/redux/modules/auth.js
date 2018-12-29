@@ -4,11 +4,10 @@ import firebase from 'firebase/app';
 import { replace } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
-import { apiEndpoint } from './api';
 import { uiActions } from './ui';
 import { errorActions } from './error';
 import { store } from '../store/configureStore';
-import { getApiRequest, postApiRequest, deleteApiRequest } from '../helpers/api';
+import { getApiRequest, postApiRequest, deleteApiRequest, apiEndpoint } from '../helpers/api';
 import Path from '../../config/path';
 import { isAvailableLocalStorage } from '../../helpers/storage';
 
@@ -73,6 +72,7 @@ const initialState = {
   isUnsubscribeTrying: false,
   isUnsubscribeSuccess: false,
   isUnsubscribeFailed: false,
+  isTokenGenerating: false,
   user: {},
   error: '',
   token: null,
@@ -179,9 +179,14 @@ export const authReducer = handleActions(
       isUnsubscribeSuccess: false,
       isUnsubscribeFailed: true,
     }),
+    [TOKEN_GENERATE]: state => ({
+      ...state,
+      isTokenGenerating: true,
+    }),
     [TOKEN_GENERATE_SUCCESS]: (state, action) => ({
       ...state,
       token: action.payload,
+      isTokenGenerating: false,
     }),
   },
   initialState,
@@ -199,6 +204,11 @@ export function* getToken() {
   const token = yield select(state => state.auth.token);
   if (token) {
     return token;
+  }
+  const isGenerating = yield select(state => state.auth.isTokenGenerating);
+  if (isGenerating) {
+    const { payload } = yield take(authActions.tokenGenerateSuccess);
+    return payload;
   }
   yield put(authActions.tokenGenerate());
   const { payload } = yield take(authActions.tokenGenerateSuccess);
