@@ -7,6 +7,8 @@ export const apiEndpoint = {
   login: () => `/auth/login`,
   users: id => (id ? `/users/${id}` : `/users`),
   userSpaces: id => `/users/${id}/spaces`,
+  userSpaceAccessLog: id => `users/${id}/spaces/log`,
+  addUserSpaceAccessLog: (userId, spaceId) => `users/${userId}/spaces/${spaceId}`,
   spaces: id => (id ? `/spaces/${id}` : `/spaces`),
   spaceImage: (spaceId, imageId) =>
     imageId ? `/spaces/${spaceId}/image/${imageId}` : `/spaces/${spaceId}/image`,
