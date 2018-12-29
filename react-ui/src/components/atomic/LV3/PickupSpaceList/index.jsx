@@ -89,7 +89,7 @@ type PropTypes = {
   noMore: boolean,
 };
 
-export default (props: PropTypes) => (
+const PickupSpaceList = (props: PropTypes) => (
   <Container>
     <TitleContainer>
       <H2>{props.title}</H2>
@@ -110,3 +110,6 @@ export default (props: PropTypes) => (
     )}
   </Container>
 );
+
+// export default React.memo(PickupSpaceList, (prevProps, nextProps) => prevProps.spaceList === nextProps.spaceList);
+export default React.memo(PickupSpaceList, () => true);
