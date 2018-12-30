@@ -64,23 +64,23 @@ const initialState = {
   space: null,
   features: [
     {
-      id: 1,
-      title: '東京都内のおすすめスペース',
+      id: 6,
+      title: '東京都内で預けるならここ!',
       spaces: [],
     },
     {
-      id: 2,
-      title: '引越しに便利!大容量スペース',
+      id: 7,
+      title: '大阪府内で預けるならここ!',
       spaces: [],
     },
     {
-      id: 3,
-      title: 'こんなところも?ちょっとユニークなスペース',
+      id: 8,
+      title: '福岡県内で預けるならここ!',
       spaces: [],
     },
     {
-      id: 4,
-      title: 'モノオクスペースは全国各地に!',
+      id: 9,
+      title: '大容量、倉庫スペース!',
       spaces: [],
     },
     {
