@@ -1,8 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery } from 'redux-saga/effects';
 import dummySpaceImage from 'images/dummy_space.png';
-import { apiEndpoint } from './api';
-import { getApiRequest } from '../helpers/api';
+import { getApiRequest, apiEndpoint } from '../helpers/api';
 import { errorActions } from './error';
 import { getToken } from './auth';
 import { convertImgixUrl } from 'helpers/imgix';

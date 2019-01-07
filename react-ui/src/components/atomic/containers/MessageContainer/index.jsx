@@ -93,7 +93,7 @@ const MessageType = {
   Completed: 3,
 };
 
-class InboxContainer extends Component<PropTypes, State> {
+class MessageContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
 
@@ -306,6 +306,6 @@ const mapStateToProps = state =>
   });
 
 export default connect(
-  InboxContainer,
+  MessageContainer,
   mapStateToProps,
 );

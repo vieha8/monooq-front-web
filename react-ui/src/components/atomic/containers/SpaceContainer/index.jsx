@@ -49,6 +49,7 @@ class SpaceContainer extends Component<PropTypes> {
 
     const spaceId = match.params.space_id;
     dispatch(spaceActions.fetchSpace({ spaceId }));
+    dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
   }
 
   componentDidMount() {

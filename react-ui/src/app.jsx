@@ -8,12 +8,9 @@ import { init as sentryInit } from '@sentry/browser';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/storage';
-import BrowserCheck from 'components/BrowserCheck';
-import Auth from 'components/Auth';
+import Root from 'components/Root';
 import Meta from 'components/Meta';
 import Error from 'components/Error';
-import Intercom from 'components/Intercom';
-import ErrorBoundary from 'components/ErrorBoundary';
 import firebaseConfig from './config/firebase';
 import { unregister } from './registerServiceWorker';
 import configureStore from './redux/store/configureStore';
@@ -42,15 +39,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 ReactDOM.render(
   <Provider store={configureStore(history)}>
-    <BrowserCheck>
+    <Root>
       <Meta />
       <Error />
-      <Auth />
-      <Intercom />
-      <ErrorBoundary>
-        <Routes history={history} />
-      </ErrorBoundary>
-    </BrowserCheck>
+      <Routes history={history} />
+    </Root>
   </Provider>,
   document.getElementById('root'),
 );

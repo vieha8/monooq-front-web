@@ -29,7 +29,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
   }
 
   render() {
-    const { isPhone, userName, userImage, dispatch, isLogin } = this.props;
+    const { isPhone, userName, userImage, dispatch, isLogin, unreadRooms } = this.props;
 
     if (isPhone) {
       const Menu = BurgerMenu[this.state.currentMenu];
@@ -38,8 +38,8 @@ class ServiceMenuContainer extends Component<PropTypes> {
           <Menu id={this.state.currentMenu} right>
             <ServiceMenu
               home={{ to: Path.home() }}
-              message={{ to: Path.messages(), notificationCount: 0 }}
-              schedule={{ to: Path.schedule(), notificationCount: 0 }}
+              message={{ to: Path.messages(), notificationCount: unreadRooms }}
+              schedule={{ to: Path.schedule() }}
               spaces={{ to: Path.spaces() }}
               addSpace={{ to: Path.createSpaceInfo() }}
               sales={{ to: Path.sales() }}
@@ -62,8 +62,8 @@ class ServiceMenuContainer extends Component<PropTypes> {
     return (
       <ServiceMenu
         home={{ to: Path.home() }}
-        message={{ to: Path.messages(), notificationCount: 0 }}
-        schedule={{ to: Path.schedule(), notificationCount: 0 }}
+        message={{ to: Path.messages(), notificationCount: unreadRooms }}
+        schedule={{ to: Path.schedule() }}
         spaces={{ to: Path.spaces() }}
         addSpace={{
           to: Path.createSpaceInfo(),
@@ -85,6 +85,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
 const mapStateToProps = state => ({
   user: state.auth.user,
   isLogin: state.auth.isLogin,
+  unreadRooms: state.messages.unreadRooms,
 });
 
 export default connect(

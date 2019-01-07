@@ -6,8 +6,9 @@ import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
 import Top from 'components/Top';
 import ReactGA from 'react-ga';
-import { searchActions } from '../../../../redux/modules/search';
 import { isAvailableLocalStorage } from 'helpers/storage';
+import PickupStaffSpaceList from 'components/Top/pickup';
+import { searchActions } from '../../../../redux/modules/search';
 
 class TopContainer extends React.Component {
   constructor(props) {
@@ -22,8 +23,26 @@ class TopContainer extends React.Component {
     this.state = {
       locationText: '',
       searchButtonDisabled: true,
+      pickUpSpaces: this.shuffleArray(PickupStaffSpaceList).slice(0, 4),
     };
   }
+
+  shouldComponentUpdate = (nextProps, nextState) => {
+    console.log(this.props, this.state);
+    console.log(nextProps, nextState);
+    return true;
+  };
+
+  shuffleArray = array => {
+    const result = array;
+    for (let i = array.length - 1; i > 0; i -= 1) {
+      const rand = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      result[i] = array[rand];
+      result[rand] = temp;
+    }
+    return result;
+  };
 
   handleChangeLocation = event => {
     if (event.target.value === '') {
@@ -77,7 +96,7 @@ class TopContainer extends React.Component {
 
   render() {
     const { ui, history, isLogin } = this.props;
-    const { locationText, searchButtonDisabled } = this.state;
+    const { locationText, searchButtonDisabled, pickUpSpaces } = this.state;
 
     if (isLogin) {
       return <Redirect to={Path.home()} />;
@@ -96,6 +115,7 @@ class TopContainer extends React.Component {
         onClickMoreArea={() => this.viewMoreArea()}
         moreArea={ui.moreArea}
         history={history}
+        pickUpSpaces={pickUpSpaces}
       />
     );
   }

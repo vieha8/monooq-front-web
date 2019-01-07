@@ -3,12 +3,17 @@ import { put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import dummySpaceImage from 'images/dummy_space.png';
 import { store } from '../store/configureStore';
-import { apiEndpoint } from './api';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { userActions } from './user';
 import { authActions, getToken } from './auth';
-import { getApiRequest, postApiRequest, putApiRequest, deleteApiRequest } from '../helpers/api';
+import {
+  getApiRequest,
+  postApiRequest,
+  putApiRequest,
+  deleteApiRequest,
+  apiEndpoint,
+} from '../helpers/api';
 import { errorActions } from './error';
 import { convertBaseUrl } from '../../helpers/imgix';
 import Path from '../../config/path';
@@ -30,6 +35,7 @@ const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
 const FETCH_FEATURE_SPACES = 'FETCH_FEATURE_SPACES';
 const FETCH_SUCCESS_FEATURE_SPACES = 'FETCH_SUCCESS_FEATURE_SPACES';
 const FETCH_FAILED_FEATURE_SPACES = 'FETCH_FAILED_FEATURE_SPACES';
+const ADD_SPACE_ACCESS_LOG = 'ADD_SPACE_ACCESS_LOG';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -48,6 +54,7 @@ export const spaceActions = createActions(
   FETCH_FEATURE_SPACES,
   FETCH_SUCCESS_FEATURE_SPACES,
   FETCH_FAILED_FEATURE_SPACES,
+  ADD_SPACE_ACCESS_LOG,
 );
 
 // Reducer
@@ -57,23 +64,28 @@ const initialState = {
   space: null,
   features: [
     {
-      id: 1,
-      title: '東京都内のおすすめスペース',
+      id: 6,
+      title: '東京都内で預けるならここ!',
       spaces: [],
     },
     {
-      id: 2,
-      title: '引越しに便利!大容量スペース',
+      id: 7,
+      title: '大阪府内で預けるならここ!',
       spaces: [],
     },
     {
-      id: 3,
-      title: 'こんなところも?ちょっとユニークなスペース',
+      id: 8,
+      title: '福岡県内で預けるならここ!',
       spaces: [],
     },
     {
-      id: 4,
-      title: 'モノオクスペースは全国各地に!',
+      id: 9,
+      title: '大容量、倉庫スペース!',
+      spaces: [],
+    },
+    {
+      id: 5,
+      title: '最近閲覧したスペース',
       spaces: [],
     },
   ],
@@ -328,6 +340,11 @@ function* deleteSpace({ payload: { space } }) {
 }
 
 function* getFeatureSpaces() {
+  let user = yield select(state => state.auth.user);
+  if (!user.ID) {
+    yield take(authActions.checkLoginSuccess);
+  }
+  user = yield select(state => state.auth.user);
   const features = yield select(state => state.space.features);
 
   const token = yield* getToken();
@@ -336,6 +353,13 @@ function* getFeatureSpaces() {
     features.map(async v => {
       const feature = v;
       const featureId = v.id;
+
+      if (featureId === 5) {
+        const { data } = await getApiRequest(apiEndpoint.userSpaceAccessLog(user.ID), {}, token);
+        feature.spaces = data;
+        return feature;
+      }
+
       const { data } = await getApiRequest(apiEndpoint.features(featureId), {}, token);
       feature.spaces = data;
       return feature;
@@ -345,10 +369,21 @@ function* getFeatureSpaces() {
   yield put(spaceActions.fetchSuccessFeatureSpaces(res));
 }
 
+function* addSpaceAccessLog({ payload: { spaceId } }) {
+  let user = yield select(state => state.auth.user);
+  if (!user.ID) {
+    yield take(authActions.checkLoginSuccess);
+  }
+  user = yield select(state => state.auth.user);
+  const token = yield* getToken();
+  yield call(postApiRequest, apiEndpoint.addUserSpaceAccessLog(user.ID, spaceId), {}, token);
+}
+
 export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
   takeEvery(UPDATE_SPACE, updateSpace),
   takeEvery(DELETE_SPACE, deleteSpace),
   takeEvery(FETCH_FEATURE_SPACES, getFeatureSpaces),
+  takeEvery(ADD_SPACE_ACCESS_LOG, addSpaceAccessLog),
 ];

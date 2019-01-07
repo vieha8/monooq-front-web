@@ -5,8 +5,7 @@ import { push } from 'connected-react-router';
 import { authActions, getToken } from './auth';
 import { userActions } from './user';
 import { spaceActions } from './space';
-import { apiEndpoint } from './api';
-import { getApiRequest, postApiRequest } from '../helpers/api';
+import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/configureStore';
@@ -40,12 +39,18 @@ const initialState = {
   messages: [],
   room: null,
   isLoading: false,
+  unreadRooms: 0,
 };
 
 export const messagesReducer = handleActions(
   {
     [FETCH_ROOMS_START]: state => ({ ...state, isLoading: true }),
-    [FETCH_ROOMS_END]: (state, action) => ({ ...state, isLoading: false, rooms: action.payload }),
+    [FETCH_ROOMS_END]: (state, { payload }) => ({
+      ...state,
+      isLoading: false,
+      rooms: payload.rooms,
+      unreadRooms: payload.unreadRooms,
+    }),
     [FETCH_MESSAGES_START]: state => ({ ...state, messages: [], isLoading: true }),
     [FETCH_MESSAGES_END]: (state, action) => ({
       ...state,
@@ -91,7 +96,6 @@ function* fetchRoomStart() {
   if (!user.ID) {
     yield take(authActions.checkLoginSuccess);
   }
-  user = yield select(state => state.auth.user);
 
   const rooms = yield getRooms(user.ID);
   const token = yield* getToken();
@@ -106,16 +110,19 @@ function* fetchRoomStart() {
 
   const res = rooms.map((v, i) => {
     const room = v;
-    // TODO データ取得できないユーザーがいた場合の処理検討
-    // if(users[i].err) {
-    //   // yield put(errorActions.setError(users[i].err));
-    //   return
-    // }
+    room.isRead = false;
+    if (room[`user${user.ID}LastReadDt`]) {
+      const lastMessageDt = parseInt(room.lastMessageDt.getTime() / 1000, 10);
+      const lastReadDt = room[`user${user.ID}LastReadDt`].seconds;
+      room.isRead = lastMessageDt <= lastReadDt;
+    }
     room.user = users[i].data;
     return room;
   });
 
-  yield put(messagesActions.fetchRoomsEnd(res));
+  const unreadRooms = rooms.filter(v => v.isRead === false).length;
+
+  yield put(messagesActions.fetchRoomsEnd({ rooms: res, unreadRooms }));
 }
 
 function messagesUnsubscribe() {
@@ -175,6 +182,10 @@ function* fetchMessagesStart({ payload }) {
         { [`user${user.ID}LastRead`]: lastMessage.id, [`user${user.ID}LastReadDt`]: new Date() },
         { merge: true },
       );
+  } else {
+    roomCollection()
+      .doc(payload)
+      .set({ [`user${user.ID}LastReadDt`]: new Date() }, { merge: true });
   }
 
   // メッセージが１件のみの場合はfirebaseから取得した方を使用するためViewとして追加しない
@@ -285,6 +296,7 @@ function* sendMessage(payload) {
       {
         lastMessage: message.text,
         lastMessageDt: new Date(),
+        [`user${userId}LastReadDt`]: new Date(),
       },
       { merge: true },
     );
