@@ -1,11 +1,11 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery } from 'redux-saga/effects';
 import dummySpaceImage from 'images/dummy_space.png';
+import { getPrefecture } from 'helpers/prefectures';
+import { convertImgixUrl } from 'helpers/imgix';
 import { getApiRequest, apiEndpoint } from '../helpers/api';
 import { errorActions } from './error';
 import { getToken } from './auth';
-import { convertImgixUrl } from 'helpers/imgix';
-import { getPrefecture } from 'helpers/prefectures';
 
 // Actions
 const DO_SEARCH = 'DO_SEARCH';

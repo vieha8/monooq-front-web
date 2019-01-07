@@ -92,7 +92,7 @@ const getRooms = userId =>
   });
 
 function* fetchRoomStart() {
-  let user = yield select(state => state.auth.user);
+  const user = yield select(state => state.auth.user);
   if (!user.ID) {
     yield take(authActions.checkLoginSuccess);
   }
