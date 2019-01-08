@@ -140,7 +140,7 @@ class SalesContainer extends Component {
     this.state = {
       bankName: '',
       branchName: '',
-      accountType: '',
+      accountType: '1',
       accountNumber: '',
       accountName: '',
       isSend: false,
