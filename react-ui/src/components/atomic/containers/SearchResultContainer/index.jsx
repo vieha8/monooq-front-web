@@ -68,13 +68,13 @@ class SearchResultContainer extends Component<PropTypes, State> {
     const { keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture } = query;
 
     this.state = {
-      keyword,
-      prefCode,
-      priceMin,
-      priceMax,
-      receiptType,
-      type,
-      isFurniture,
+      keyword: keyword || '',
+      prefCode: prefCode || '0',
+      priceMin: priceMin || '',
+      priceMax: priceMax || '',
+      receiptType: receiptType || '0',
+      type: type || '0',
+      isFurniture: isFurniture || false,
       limit: 12,
       offset: 0,
     };
