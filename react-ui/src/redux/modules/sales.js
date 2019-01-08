@@ -69,7 +69,7 @@ const sendMailToAdmin = (
     let message = `ユーザーID: ${userId}\n`;
     message += `金融機関名: ${bankName}\n`;
     message += `支店名: ${branchName}\n`;
-    message += `預金種類: ${accountType}\n`;
+    message += `預金種類: ${accountType ? '普通' : '当座'}\n`;
     message += `口座番号: ${accountNumber}\n`;
     message += `口座名義: ${accountName}\n`;
     if (payouts < 10000) {
@@ -143,7 +143,7 @@ const addBacklogIssue = (
     message += `メールアドレス: ${email}\n`;
     message += `金融機関名: ${bankName}\n`;
     message += `支店名: ${branchName}\n`;
-    message += `預金種類: ${accountType}\n`;
+    message += `預金種類: ${accountType ? '普通' : '当座'}\n`;
     message += `口座番号: ${accountNumber}\n`;
     message += `口座名義: ${accountName}\n`;
 
