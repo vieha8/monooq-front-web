@@ -94,7 +94,7 @@ export default (props: PropTypes) => (
         </InputWrapper>
         {props.errors &&
           props.errors.map((error, i) => (
-            <ErrorWrapper key={`email_error_${i}`}>
+            <ErrorWrapper key={`email_error_${i}`.toString()}>
               <InlineText.Base color={Colors.error}>{error}</InlineText.Base>
             </ErrorWrapper>
           ))}

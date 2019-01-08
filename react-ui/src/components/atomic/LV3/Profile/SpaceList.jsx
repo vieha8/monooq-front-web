@@ -35,7 +35,7 @@ export type PropTypes = {
 export default (props: PropTypes) => (
   <SpaceListContainer>
     {props.spaces.map((space, i) => (
-      <Cell key={`space_list_item_${i}`}>
+      <Cell key={`space_list_item_${i}`.toString()}>
         <PlaceListVerticalItem
           image={{
             src: space.image,

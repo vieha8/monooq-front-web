@@ -48,7 +48,7 @@ export default (props: PropTypes) => {
       <H2>{props.headline}</H2>
       <ButtonsContainer>
         {props.buttons.map((button, i) => (
-          <ButtonWrapper key={`help_button_${i}`}>
+          <ButtonWrapper key={`help_button_${i}`.toString()}>
             <HelpButton {...button} />
           </ButtonWrapper>
         ))}

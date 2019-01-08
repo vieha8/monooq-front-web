@@ -139,7 +139,7 @@ function showImagePreview(props: PropTypes) {
             }
 
             return (
-              <ImagePreviewWrapper key={`image_preivew_${i}`} widthRate={25}>
+              <ImagePreviewWrapper key={`image_preivew_${i}`.toString()} widthRate={25}>
                 <ImagePreview
                   imageUri={imageUrl}
                   onClickDelete={() => props.onClickDeleteImage(i)}

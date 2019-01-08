@@ -38,7 +38,7 @@ export default (props: PropTypes) => (
       />
     }
     emailError={props.emailError.map((text, i) => (
-      <InlineText.Small key={`email_error_${i}`} color={Colors.error}>
+      <InlineText.Small key={`email_error_${i}`.toString()} color={Colors.error}>
         {text}
       </InlineText.Small>
     ))}
@@ -54,7 +54,7 @@ export default (props: PropTypes) => (
       />
     }
     passError={props.passError.map((text, i) => (
-      <InlineText.Small key={`pass_error_${i}`} color={Colors.error}>
+      <InlineText.Small key={`pass_error_${i}`.toString()} color={Colors.error}>
         {text}
       </InlineText.Small>
     ))}

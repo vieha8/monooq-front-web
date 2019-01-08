@@ -62,7 +62,7 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <div>
     {props.transfers.map((s, i) => (
-      <Row key={`transfers_item_${i}`}>
+      <Row key={`transfers_item_${i}`.toString()}>
         {s.label && (
           <Label>
             <InlineText.Base fontSize={14}>{s.label}</InlineText.Base>
