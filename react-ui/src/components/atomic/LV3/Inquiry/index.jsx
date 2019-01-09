@@ -4,9 +4,10 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/atomic/LV1/InlineText';
 import TextLink from 'components/atomic/LV1/TextLink';
+import ButtonLineA from 'components/atomic/LV1/ButtonLineA';
+
 import { Dimens } from 'variables';
 import Path from 'config/path';
-import ReactGA from 'react-ga';
 
 const Text = styled.div`
   margin-top: ${Dimens.medium}px;
@@ -37,17 +38,7 @@ export default ({ isLogin }: PropTypes) => (
         <br />
       </InlineText.Base>
       <ButtonContainer>
-        <a href="https://line.me/R/ti/p/%40wna0649g" target="_blank" rel="noopener noreferrer">
-          <img
-            height="48"
-            border="0"
-            alt="友だち追加"
-            src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"
-            onClick={() =>
-              ReactGA.event({ category: 'Inquiry', action: 'Push LINE Register Button' })
-            }
-          />
-        </a>
+        <ButtonLineA reactGACategory="Inquiry" reactGAAction="Push LINE Register Button" />
       </ButtonContainer>
     </Text>
     {isLogin && (
