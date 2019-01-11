@@ -77,7 +77,13 @@ export default () => (
             },
             {
               header: '返品・交換について',
-              data: `モノオクの定める<a href=${Path.cancellationPolicies()}>キャンセルポリシー</a>がございます。お支払い前に必ずお読みください。`,
+              data: (
+                <Fragment>
+                  モノオクの定める
+                  <LinkText to={Path.cancellationPolicies()}>キャンセルポリシー</LinkText>
+                  がございます。お支払い前に必ずお読みください。
+                </Fragment>
+              ),
             },
           ]}
         />
