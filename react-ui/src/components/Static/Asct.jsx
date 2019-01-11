@@ -2,12 +2,17 @@ import React, { Fragment } from 'react';
 import Path from 'config/path';
 
 import styled from 'styled-components';
-import { Dimens } from 'variables';
+import { Dimens, Colors } from 'variables';
+import { Link } from 'react-router-dom';
 import DefaultContainer from 'components/atomic/containers/DefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
 import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
 import AsctContent from 'components/atomic/LV2/AsctContent';
 import Text from 'components/atomic/LV1/StaticText';
+
+const LinkText = styled(Link)`
+  color: ${Colors.linkBlue};
+`;
 
 const AsctContainer = styled(DefaultContainer)`
   margin-bottom: ${Dimens.large4_80}px;
@@ -35,7 +40,7 @@ export default () => (
             },
             {
               header: 'ホームページ',
-              data: `<a href=${Path.top()}>https://monooq.com/</a>`,
+              data: <LinkText to={Path.top()}>https://monooq.com/</LinkText>,
             },
             {
               header: 'メールアドレス',
