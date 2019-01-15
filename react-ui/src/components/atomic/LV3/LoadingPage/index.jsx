@@ -3,7 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import Loading from 'components/atomic/LV1/Loading';
-import Header from 'components/atomic/containers/Header';
 
 const Container = styled.div`
   position: absolute;
@@ -25,7 +24,6 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Container>
-    <Header />
     <Content>{!props.hideProgress && <Loading size="large" />}</Content>
   </Container>
 );
