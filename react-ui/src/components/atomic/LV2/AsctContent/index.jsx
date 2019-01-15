@@ -44,7 +44,7 @@ export default ({ asctList }: PropTypes) => (
     {asctList.map((item, i) => (
       <ContentContainer key={i.toString()}>
         <Header>{item.header}</Header>
-        <Data dangerouslySetInnerHTML={{ __html: item.data }} />
+        <Data>{item.data}</Data>
       </ContentContainer>
     ))}
   </Fragment>

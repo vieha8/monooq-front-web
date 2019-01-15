@@ -1,10 +1,10 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
-import ReactGA from 'react-ga';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Logo from 'components/atomic/LV1/Logo';
+import ButtonLineA from 'components/atomic/LV1/ButtonLineA';
 
 const ConciergeContents = () => {
   const StyledContainer = styled.div`
@@ -98,17 +98,7 @@ const ConciergeSection = () => {
         </DescriptionMain>
       </Description>
       <ButtonContainer>
-        <a href="https://line.me/R/ti/p/%40wna0649g" target="_blank" rel="noopener noreferrer">
-          <img
-            height="48"
-            border="0"
-            alt="友だち追加"
-            src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png"
-            onClick={() =>
-              ReactGA.event({ category: 'Requests', action: 'Push LINE Register Button' })
-            }
-          />
-        </a>
+        <ButtonLineA reactGACategory="Requests" reactGAAction="Push LINE Register Button" />
       </ButtonContainer>
       <PriceContainer>
         <PriceSub>全国のスペース対象</PriceSub>
