@@ -41,7 +41,7 @@ export default (props: PropTypes) => (
         src={imageUrl}
         alt={imageAlt}
         onClick={() =>
-          ReactGA.event({ category: '`props.reactGACategory`', action: '`props.reactGAAction`' })
+          ReactGA.event({ category: props.reactGACategory, action: props.reactGAAction })
         }
       />
     )}
