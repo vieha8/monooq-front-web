@@ -74,6 +74,17 @@ type PropTypes = {
   onClickPay: boolean,
 };
 
+function displayErrors(key: string, errors: Array<string>) {
+  return (
+    Array.isArray(errors) &&
+    errors.map((e, i) => (
+      <div key={`${key}_${i}`.toString()}>
+        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
+      </div>
+    ))
+  );
+}
+
 export default (props: PropTypes) => (
   <Fragment>
     <H1>支払いを行う</H1>
@@ -95,16 +106,18 @@ export default (props: PropTypes) => (
         onChange={e => props.onChangeName(e.target.value)}
         value={props.name}
       />
+      {displayErrors('address_errors', props.errors.name)}
     </Row>
     <Row>
       <InputForm
-        label="クレジットカード番号(ハイフン無し)"
+        label="クレジットカード番号(ハイフン無し16桁の半角数字)"
         type="number"
         autocomplete="cc-number"
         placeholder="1234567812345678"
         onChange={e => props.onChangeNumber(e.target.value)}
         value={props.number}
       />
+      {displayErrors('address_errors', props.errors.number)}
     </Row>
     <Row>
       <SelectBox>
@@ -140,13 +153,14 @@ export default (props: PropTypes) => (
     </Row>
     <Row>
       <InputForm
-        label="セキュリティコード"
+        label="セキュリティコード(3桁の半角数字)"
         type="number"
         placeholder="3桁の数字"
         onChange={e => props.onChangeCvc(e.target.value)}
         value={props.cvc}
         autocomplete="cc-csc"
       />
+      {displayErrors('address_errors', props.errors.cvc)}
     </Row>
     <Row>
       <div>

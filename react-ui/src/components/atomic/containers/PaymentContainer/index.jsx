@@ -201,7 +201,7 @@ class PaymentContainer extends Component<PropTypes> {
     const request = messages.find(m => `${m.requestId}` === `${requestId}`);
     const space = room.space || {};
 
-    const { name, number, month, year, cvc } = this.state;
+    const { name, number, month, year, cvc, error } = this.state;
 
     return (
       <PaymentTemplate
@@ -225,6 +225,7 @@ class PaymentContainer extends Component<PropTypes> {
               buttonDisabled={!this.validate()}
               buttonLoading={isSending}
               onClickPay={this.payment}
+              errors={error}
             />
           )
         }
