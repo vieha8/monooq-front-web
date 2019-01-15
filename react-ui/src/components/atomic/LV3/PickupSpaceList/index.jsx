@@ -97,7 +97,7 @@ const PickupSpaceList = (props: PropTypes) => (
     <ListContainer>
       <HorizontalScroll>
         {props.spaceList.map((space, i) => (
-          <CardWrapper key={`space_list_${i}`} large={space.large ? 1 : 0}>
+          <CardWrapper key={`space_list_${i}`.toString()} large={space.large ? 1 : 0}>
             <FeatureSpaceCard {...space} />
           </CardWrapper>
         ))}

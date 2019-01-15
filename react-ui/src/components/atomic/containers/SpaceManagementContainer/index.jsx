@@ -54,12 +54,6 @@ class SpaceManagementContainer extends Component<PropTypes> {
     dispatch(spaceActions.deleteSpace({ space }));
   };
 
-  hostEntry: Function;
-  hostEntry = () => {
-    const { history } = this.props;
-    history.push(Path.createSpaceInfo());
-  };
-
   render() {
     const { isLoading, spaces, history } = this.props;
 
@@ -92,7 +86,6 @@ class SpaceManagementContainer extends Component<PropTypes> {
                   onClickEdit: () => this.onClickEdit(space),
                   onClickRemove: () => this.onClickRemove(space),
                 }))}
-                onClickHostEntry={this.hostEntry}
               />
             ) : (
               <NoDataView

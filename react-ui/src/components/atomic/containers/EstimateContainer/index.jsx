@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import { requestActions } from 'redux/modules/request';
-import { ErrorMessage } from 'strings';
+import ErrorMessage from 'strings';
 
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';

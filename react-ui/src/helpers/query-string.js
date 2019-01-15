@@ -3,6 +3,36 @@
 import strictUriEncode from 'strict-uri-encode';
 import decodeComponent from 'decode-uri-component';
 
+function encode(value, options) {
+  if (options.encode) {
+    return options.strict ? strictUriEncode(value) : encodeURIComponent(value);
+  }
+
+  return value;
+}
+
+function decode(value, options) {
+  if (options.decode) {
+    return decodeComponent(value);
+  }
+
+  return value;
+}
+
+function keysSorter(input) {
+  if (Array.isArray(input)) {
+    return input.sort();
+  }
+
+  if (typeof input === 'object') {
+    return keysSorter(Object.keys(input))
+      .sort((a, b) => Number(a) - Number(b))
+      .map(key => input[key]);
+  }
+
+  return input;
+}
+
 function encoderForArrayFormat(options) {
   switch (options.arrayFormat) {
     case 'index':
@@ -73,36 +103,6 @@ function parserForArrayFormat(options) {
         accumulator[key] = [].concat(accumulator[key], value);
       };
   }
-}
-
-function encode(value, options) {
-  if (options.encode) {
-    return options.strict ? strictUriEncode(value) : encodeURIComponent(value);
-  }
-
-  return value;
-}
-
-function decode(value, options) {
-  if (options.decode) {
-    return decodeComponent(value);
-  }
-
-  return value;
-}
-
-function keysSorter(input) {
-  if (Array.isArray(input)) {
-    return input.sort();
-  }
-
-  if (typeof input === 'object') {
-    return keysSorter(Object.keys(input))
-      .sort((a, b) => Number(a) - Number(b))
-      .map(key => input[key]);
-  }
-
-  return input;
 }
 
 export function extract(input) {

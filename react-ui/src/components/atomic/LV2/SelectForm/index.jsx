@@ -28,7 +28,7 @@ export default (props: PropTypes) => (
     <SelectWrapper>
       <Select value={props.value} onChange={props.onChange}>
         {props.options.map((option, i) => (
-          <option key={`select_form_option_${i}`} value={option.value}>
+          <option key={`select_form_option_${i}`.toString()} value={option.value}>
             {option.text}
           </option>
         ))}

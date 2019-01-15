@@ -11,7 +11,7 @@ import Unsubscribe from 'components/atomic/LV3/Unsubscribe';
 import UnsubscribeCompleted from 'components/atomic/LV3/Unsubscribe/Completed';
 import UnsubscribeFailed from 'components/atomic/LV3/Unsubscribe/Failed';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
-import { ErrorMessage } from 'strings';
+import ErrorMessage from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 

@@ -86,11 +86,11 @@ export default (props: PropTypes) => (
     <Title>{props.title}</Title>
     <Email>{props.email}</Email>
     {props.emailError.map((dom, i) => (
-      <Failed key={`email_error_text_${i}`}>{dom}</Failed>
+      <Failed key={`email_error_text_${i}`.toString()}>{dom}</Failed>
     ))}
     <Pass>{props.pass}</Pass>
     {props.passError.map((dom, i) => (
-      <Failed key={`password_error_text_${i}`}>{dom}</Failed>
+      <Failed key={`password_error_text_${i}`.toString()}>{dom}</Failed>
     ))}
     <Terms>{props.terms}</Terms>
     {props.signUpError && <Failed>{props.signUpError}</Failed>}

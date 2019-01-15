@@ -31,18 +31,17 @@ type PropTypes = {
     onClickRemove: Function,
     link: string,
   }>,
-  onClickHostEntry: Function,
 };
 
 export default (props: PropTypes) => (
-  <div>
+  <Fragment>
     {props.spaces.map((space, i) => (
-      <Fragment key={`manage_space_list_item_${i}`}>
+      <Fragment key={`manage_space_list_item_${i}`.toString()}>
         <ListItem index={i}>
           <ManageSpaceListItem {...space} />
         </ListItem>
         {i % 2 === 1 && <br />}
       </Fragment>
     ))}
-  </div>
+  </Fragment>
 );

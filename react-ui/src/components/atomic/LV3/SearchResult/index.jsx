@@ -74,7 +74,7 @@ export default (props: PropTypes) => (
   <Container>
     {props.caption && <CaptionWrap>{props.caption}</CaptionWrap>}
     {props.spaces.map((space, i) => (
-      <Cell key={`result_list_result_item_${i}`} index={i}>
+      <Cell key={`result_list_result_item_${i}`.toString()} index={i}>
         <SearchResultItem {...space} />
       </Cell>
     ))}

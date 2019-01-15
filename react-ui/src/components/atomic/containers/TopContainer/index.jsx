@@ -6,9 +6,9 @@ import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
 import Top from 'components/Top';
 import ReactGA from 'react-ga';
-import { searchActions } from '../../../../redux/modules/search';
 import { isAvailableLocalStorage } from 'helpers/storage';
-import { PickupStaffSpaceList } from 'components/Top/pickup';
+import PickupStaffSpaceList from 'components/Top/pickup';
+import { searchActions } from '../../../../redux/modules/search';
 
 class TopContainer extends React.Component {
   constructor(props) {
