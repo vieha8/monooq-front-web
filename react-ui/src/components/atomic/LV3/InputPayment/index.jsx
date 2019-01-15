@@ -80,7 +80,7 @@ export default (props: PropTypes) => (
     {props.paidError && (
       <Row>
         <InlineText.Base color={Colors.error}>
-          決済エラーが発生しました。名義・カード番号・有効期限・セキュリティコードをお確かめください。
+          カード情報の認証に失敗しました。カード名義・カード番号・有効期限・セキュリティコードをお確かめください。
         </InlineText.Base>
       </Row>
     )}
@@ -98,10 +98,10 @@ export default (props: PropTypes) => (
     </Row>
     <Row>
       <InputForm
-        label="クレジットカード番号"
+        label="クレジットカード番号(ハイフン無し)"
         type="number"
         autocomplete="cc-number"
-        placeholder="1234 5678 1234 5678"
+        placeholder="1234567812345678"
         onChange={e => props.onChangeNumber(e.target.value)}
         value={props.number}
       />
