@@ -4,7 +4,6 @@ const SPACE_ID = ':space_id';
 const MESSAGE_ROOM_ID = ':message_room_id';
 const SCHEDULE_ID = ':schedule_id';
 const REQUEST_ID = ':request_id';
-const TYPE_ID = ':type';
 
 export default {
   // トップ
@@ -21,14 +20,12 @@ export default {
   createSpaceInfo: () => '/space/new/info',
   createSpaceBaggage: () => '/space/new/baggage',
   createSpaceReceive: () => '/space/new/receive',
-  createSpaceAreaSize: () => '/space/new/areasize',
-  createSpacePrice: (type = ':type') => `/space/new/price/${type}`,
+  createSpacePrice: () => `/space/new/price/about`,
   createSpaceCompletion: () => '/space/new/completion',
   editSpaceInfo: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/info`,
   editSpaceBaggage: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/baggage`,
   editSpaceReceive: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/receive`,
-  editSpaceAreaSize: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/areasize`,
-  editSpacePrice: (spaceId = SPACE_ID, type = TYPE_ID) => `/space/${spaceId}/edit/price/${type}`,
+  editSpacePrice: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/price/about`,
   editSpaceCompletion: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/completion`,
   // スケジュール
   schedule: () => '/schedule',

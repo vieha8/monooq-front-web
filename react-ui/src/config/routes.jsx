@@ -120,26 +120,6 @@ const EditSpaceReceive = Loadable({
   loading: LoadingPage,
 });
 
-const CreateSpaceAreaSize = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceSizeContainer'),
-  loading: LoadingPage,
-});
-
-const EditSpaceAreaSize = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceSizeContainer'),
-  loading: LoadingPage,
-});
-
-const CreateSpacePriceAll = Loadable({
-  loader: () => import('components/atomic/containers/EditSpacePriceAllContainer'),
-  loading: LoadingPage,
-});
-
-const EditSpacePriceAll = Loadable({
-  loader: () => import('components/atomic/containers/EditSpacePriceAllContainer'),
-  loading: LoadingPage,
-});
-
 const CreateSpacePriceType = Loadable({
   loader: () => import('components/atomic/containers/EditSpacePriceTypeContainer'),
   loading: LoadingPage,
@@ -296,12 +276,8 @@ export default ({ history }) => (
       <Route exact path={Path.editSpaceBaggage()} component={EditSpaceBaggage} />
       <Route exact path={Path.createSpaceReceive()} component={CreateSpaceReceive} />
       <Route exact path={Path.editSpaceReceive()} component={EditSpaceReceive} />
-      <Route exact path={Path.createSpaceAreaSize()} component={CreateSpaceAreaSize} />
-      <Route exact path={Path.editSpaceAreaSize()} component={EditSpaceAreaSize} />
-      <Route exact path={Path.createSpacePrice('all')} component={CreateSpacePriceAll} />
-      <Route exact path={Path.editSpacePrice(undefined, 'all')} component={EditSpacePriceAll} />
-      <Route exact path={Path.createSpacePrice('about')} component={CreateSpacePriceType} />
-      <Route exact path={Path.editSpacePrice(undefined, 'about')} component={EditSpacePriceType} />
+      <Route exact path={Path.createSpacePrice()} component={CreateSpacePriceType} />
+      <Route exact path={Path.editSpacePrice()} component={EditSpacePriceType} />
       <Route exact path={Path.createSpaceCompletion()} component={CreateSpaceCompletion} />
       <Route exact path={Path.editSpaceCompletion()} component={EditSpaceCompletion} />
       <Route exact path={Path.unsubscribe()} component={Unsubscribe} />
