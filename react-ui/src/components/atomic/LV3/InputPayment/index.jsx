@@ -111,7 +111,7 @@ export default (props: PropTypes) => (
     <Row>
       <InputForm
         label="クレジットカード番号(ハイフン無し16桁の半角数字)"
-        type="number"
+        type="text"
         autoComplete="cc-number"
         placeholder="1234567812345678"
         onChange={e => props.onChangeNumber(e.target.value)}
@@ -154,7 +154,7 @@ export default (props: PropTypes) => (
     <Row>
       <InputForm
         label="セキュリティコード(3桁の半角数字)"
-        type="number"
+        type="text"
         placeholder="3桁の数字"
         onChange={e => props.onChangeCvc(e.target.value)}
         value={props.cvc}

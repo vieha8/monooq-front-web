@@ -127,7 +127,7 @@ class PaymentContainer extends Component<PropTypes> {
         if (value.length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         }
-        if (!String(value).match(ValidateRegExp.CardNumber)) {
+        if (!Number(value) || !String(value).match(ValidateRegExp.CardNumber)) {
           errors.push(ErrorMessage.CreditCardNumber);
         }
         break;
@@ -136,7 +136,7 @@ class PaymentContainer extends Component<PropTypes> {
         if (value.length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         }
-        if (!String(value).match(ValidateRegExp.Cvc)) {
+        if (!Number(value) || !String(value).match(ValidateRegExp.Cvc)) {
           errors.push(ErrorMessage.Cvc);
         }
         break;
