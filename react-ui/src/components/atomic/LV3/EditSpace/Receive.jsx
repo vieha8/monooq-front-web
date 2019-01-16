@@ -37,10 +37,6 @@ export default (props: PropTypes) => (
         label="受け取り方法"
         options={[
           {
-            value: 0,
-            text: '選択してください',
-          },
-          {
             value: 1,
             text: '対面・配送の両方に対応する',
           },

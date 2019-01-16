@@ -9,16 +9,12 @@ import { Dimens } from 'variables';
 import Information from './Information';
 import Baggage from './Baggage';
 import Receive from './Receive';
-import Size from './Size';
-import InputPriceAll from './InputPriceAll';
 import InputPriceType from './InputPriceType';
 import Completion from './Completion';
 
 Information.displayName = 'Information';
 Baggage.displayName = 'Baggage';
 Receive.displayName = 'Receive';
-Size.displayName = 'Size';
-InputPriceAll.displayName = 'InputPriceAll';
 InputPriceType.displayName = 'InputPriceType';
 Completion.displayName = 'Completion';
 
@@ -65,28 +61,6 @@ storiesOf('Organisms(LV3)/EditSpace', module)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Receive />
-      </div>
-    )),
-  )
-  .add(
-    'Size',
-    withInfo(`
-        ### コンポーネント概要
-        スペース編集フォーム(スペースの大きさ)
-      `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Size />
-      </div>
-    )),
-  )
-  .add(
-    'InputPriceAll',
-    withInfo(`
-        ### コンポーネント概要
-        スペース編集フォーム(スペースの料金[スペースまるごと])
-      `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <InputPriceAll />
       </div>
     )),
   )

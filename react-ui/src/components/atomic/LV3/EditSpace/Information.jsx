@@ -60,10 +60,6 @@ export default (props: PropTypes) => (
         label="スペースの種類は？"
         options={[
           {
-            value: 0,
-            text: '選択してください',
-          },
-          {
             value: 3,
             text: '部屋',
           },

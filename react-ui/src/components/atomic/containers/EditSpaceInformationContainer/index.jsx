@@ -43,7 +43,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     this.state = {
       Images: space.Images || [],
       Title: space.Title || '',
-      Type: space.Type || 0,
+      Type: space.Type || 3,
       Introduction: space.Introduction || '',
       Address: space.Address || '',
       error: {},

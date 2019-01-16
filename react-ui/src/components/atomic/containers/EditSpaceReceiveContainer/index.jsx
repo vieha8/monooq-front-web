@@ -34,7 +34,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     const { space } = this.props;
 
     this.state = {
-      ReceiptType: space.ReceiptType || 0,
+      ReceiptType: space.ReceiptType || 1,
       ReceiptAbout: space.ReceiptAbout || '',
       error: {},
     };
@@ -63,7 +63,9 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
           }),
         );
 
-        const nextPath = space.ID ? Path.editSpaceAreaSize(space.ID) : Path.createSpaceAreaSize();
+        const nextPath = space.ID
+          ? Path.editSpacePrice(space.ID, 'about')
+          : Path.createSpacePrice('about');
         history.push(nextPath);
       }
     });
