@@ -158,6 +158,9 @@ class PaymentContainer extends Component<PropTypes> {
     const nowMonth = `${moment().year()}-${moment().month() + 1}-01`;
     const dtFormat = 'YYYY-MM-DD';
 
+    const chkMonthF = moment(chkMonth, dtFormat).format(dtFormat);
+    const nowMonthF = moment(nowMonth, dtFormat).format(dtFormat);
+
     return (
       state.name &&
       state.name.length > 0 &&
@@ -166,7 +169,7 @@ class PaymentContainer extends Component<PropTypes> {
       state.number.match(ValidateRegExp.CardNumber) &&
       state.month &&
       state.year &&
-      moment(chkMonth, dtFormat).isSameOrAfter(nowMonth, dtFormat) &&
+      moment(chkMonthF).isSameOrAfter(nowMonthF) &&
       state.cvc &&
       state.cvc.match(ValidateRegExp.Cvc)
     );
