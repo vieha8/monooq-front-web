@@ -127,7 +127,7 @@ class PaymentContainer extends Component<PropTypes> {
         if (value.length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         }
-        if (!String(value).match(ValidateRegExp.CardNumber)) {
+        if (!Number(value) || !String(value).match(ValidateRegExp.CardNumber)) {
           errors.push(ErrorMessage.CreditCardNumber);
         }
         break;
@@ -136,7 +136,7 @@ class PaymentContainer extends Component<PropTypes> {
         if (value.length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         }
-        if (!String(value).match(ValidateRegExp.Cvc)) {
+        if (!Number(value) || !String(value).match(ValidateRegExp.Cvc)) {
           errors.push(ErrorMessage.Cvc);
         }
         break;
@@ -154,9 +154,12 @@ class PaymentContainer extends Component<PropTypes> {
   validate: Function;
   validate = () => {
     const state = this.state;
-    // const chkMonth = `${state.year}-${state.month}-01`;
-    // const nowMonth = `${moment().year()}-${moment().month() + 1}-01`;
-    // const dtFormat = 'YYYY-MM-DD';
+    const chkMonth = `${state.year}-${state.month}-01`;
+    const nowMonth = `${moment().year()}-${moment().month() + 1}-01`;
+    const dtFormat = 'YYYY-MM-DD';
+
+    const chkMonthF = moment(chkMonth, dtFormat).format(dtFormat);
+    const nowMonthF = moment(nowMonth, dtFormat).format(dtFormat);
 
     return (
       state.name &&
@@ -166,7 +169,7 @@ class PaymentContainer extends Component<PropTypes> {
       state.number.match(ValidateRegExp.CardNumber) &&
       state.month &&
       state.year &&
-      // moment(chkMonth, dtFormat).isSameOrAfter(nowMonth, dtFormat) &&
+      moment(chkMonthF).isSameOrAfter(nowMonthF) &&
       state.cvc &&
       state.cvc.match(ValidateRegExp.Cvc)
     );
@@ -201,7 +204,7 @@ class PaymentContainer extends Component<PropTypes> {
     const request = messages.find(m => `${m.requestId}` === `${requestId}`);
     const space = room.space || {};
 
-    const { name, number, month, year, cvc } = this.state;
+    const { name, number, month, year, cvc, error } = this.state;
 
     return (
       <PaymentTemplate
@@ -225,6 +228,7 @@ class PaymentContainer extends Component<PropTypes> {
               buttonDisabled={!this.validate()}
               buttonLoading={isSending}
               onClickPay={this.payment}
+              errors={error}
             />
           )
         }

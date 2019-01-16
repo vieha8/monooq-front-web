@@ -8,12 +8,12 @@ export default {
   LengthMax: (name, len) => `${name}は全角${len}字が上限です。文字数を減らしてください。`,
   EstimateMin: val => `作成できる見積もり料金は${numeral(val).format('0,0')}円以上です。`,
   AlphaOnly: name => `${name}は半角ローマ字で入力してください。`,
-  CreditCardNumber: 'クレジットカード番号は16ケタの半角数字で入力してください。',
-  Cvc: 'セキュリティコードは3ケタの半角数字で入力してください。',
+  CreditCardNumber: 'クレジットカード番号は16桁の半角数字で入力してください。',
+  Cvc: 'セキュリティコードは3桁の半角数字で入力してください。',
   InvalidEmail: 'これは正しいメールアドレスではないようです。',
-  InvalidPassword: 'パスワードは8ケタ以上の半角英数字で登録してください。',
+  InvalidPassword: 'パスワードは8桁以上の半角英数字で登録してください。',
   NotMatchPassword:
-    '異なるパスワードが入力されています。同じ8ケタ以上の半角英数字を入力してください。',
+    '異なるパスワードが入力されています。同じ8桁以上の半角英数字を入力してください。',
   FailedSignUp: 'このメールアドレスはすでに登録済みです。',
   FailedResetPassword: 'このメールアドレスは未登録です。',
   InvalidAddress:
