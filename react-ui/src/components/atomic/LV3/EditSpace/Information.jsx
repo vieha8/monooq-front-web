@@ -46,7 +46,7 @@ function displayErrors(key: string, errors: Array<string>) {
   return (
     Array.isArray(errors) &&
     errors.map((e, i) => (
-      <div key={`${key}_${i}`}>
+      <div key={`${key}_${i}`.toString()}>
         <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
       </div>
     ))
@@ -59,10 +59,6 @@ export default (props: PropTypes) => (
       <SelectForm
         label="スペースの種類は？"
         options={[
-          {
-            value: 0,
-            text: '選択してください',
-          },
           {
             value: 3,
             text: '部屋',

@@ -17,7 +17,7 @@ function displayErrors(key: string, errors: Array<string>) {
   return (
     Array.isArray(errors) &&
     errors.map((e, i) => (
-      <div key={`${key}_${i}`}>
+      <div key={`${key}_${i}`.toString()}>
         <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
       </div>
     ))

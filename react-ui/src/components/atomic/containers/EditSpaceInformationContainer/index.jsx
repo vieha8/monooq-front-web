@@ -11,7 +11,7 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceInformation from 'components/atomic/LV3/EditSpace/Information';
 
-import { ErrorMessage } from 'strings';
+import ErrorMessage from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -43,7 +43,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     this.state = {
       Images: space.Images || [],
       Title: space.Title || '',
-      Type: space.Type || 0,
+      Type: space.Type || 3,
       Introduction: space.Introduction || '',
       Address: space.Address || '',
       error: {},

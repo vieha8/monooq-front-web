@@ -19,13 +19,10 @@ import Payment from './PaymentContainer';
 import EditSpaceInformation from './EditSpaceInformationContainer';
 import EditSpaceBaggage from './EditSpaceBaggageContainer';
 import EditSpaceReceive from './EditSpaceReceiveContainer';
-import EditSpaceSize from './EditSpaceSizeContainer';
-import EditSpacePriceAll from './EditSpacePriceAllContainer';
 import EditSpacePriceType from './EditSpacePriceTypeContainer';
 import EditSpaceCompletion from './EditSpaceCompletionContainer';
 import Unsubscribe from './UnsubscribeContainer';
 import Sales from './SalesContainer';
-import ConciergeRequest from './ConciergeRequestContainer';
 import HowToUse from './HowToUseContainer';
 import Home from './HomeContainer';
 
@@ -49,13 +46,10 @@ export default {
   EditSpaceInformation,
   EditSpaceBaggage,
   EditSpaceReceive,
-  EditSpaceSize,
-  EditSpacePriceAll,
   EditSpacePriceType,
   EditSpaceCompletion,
   Unsubscribe,
   Sales,
-  ConciergeRequest,
   HowToUse,
   Home,
 };

@@ -7,10 +7,10 @@ type PropTypes = {
   messages: Array<InboxItemPropTypes>,
 };
 
-export default (props: PropTypes) => (
+export default ({ messages }: PropTypes) => (
   <ul>
-    {props.messages.map((message, i) => (
-      <InboxItem key={`inbox_item_${i}`} {...message} />
+    {messages.map((message, i) => (
+      <InboxItem key={`inbox_item_${i}`.toString()} {...message} />
     ))}
   </ul>
 );

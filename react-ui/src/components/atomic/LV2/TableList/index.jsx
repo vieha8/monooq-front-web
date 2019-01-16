@@ -38,7 +38,7 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <div>
     {props.list.map((item, i) => (
-      <Row key={`table_list_item_${i}`}>
+      <Row key={`table_list_item_${i}`.toString()}>
         <Table>
           <Cell width="200px">
             <InlineText.Bold fontSize={14}>{item.label}</InlineText.Bold>

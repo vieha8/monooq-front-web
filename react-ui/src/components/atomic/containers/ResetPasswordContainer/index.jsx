@@ -11,7 +11,7 @@ import ResetPassword from 'components/atomic/LV3/ResetPassword';
 
 import { authActions } from 'redux/modules/auth';
 
-import { ErrorMessage } from 'strings';
+import ErrorMessage from 'strings';
 
 import connect from '../connect';
 
@@ -116,4 +116,7 @@ const mapStateToProps = state => ({
   resetError: state.auth.error,
 });
 
-export default connect(ResetPasswordContainer, mapStateToProps);
+export default connect(
+  ResetPasswordContainer,
+  mapStateToProps,
+);

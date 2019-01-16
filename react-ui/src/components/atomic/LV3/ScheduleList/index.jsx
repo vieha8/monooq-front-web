@@ -45,7 +45,7 @@ export default (props: PropTypes) => (
         </InlineText.Base>
       </CaptionWrap>
       {props.schedules.map((schedule, i) => (
-        <Row key={`schedule_item_${i}`}>
+        <Row key={`schedule_item_${i}`.toString()}>
           <ScheduleListItem {...schedule} />
         </Row>
       ))}

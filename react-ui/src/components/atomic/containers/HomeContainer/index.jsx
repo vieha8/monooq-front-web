@@ -8,11 +8,11 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import SearchResult from 'components/atomic/LV3/SearchResult';
 import { spaceActions } from 'redux/modules/space';
-import connect from '../connect';
-import { checkAuthState, mergeAuthProps } from '../AuthRequired';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import { checkAuthState, mergeAuthProps } from '../AuthRequired';
+import connect from '../connect';
 
 type PropTypes = {
   dispatch: Function,

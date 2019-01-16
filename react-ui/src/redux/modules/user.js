@@ -1,12 +1,12 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import dummySpaceImage from 'images/dummy_space.png';
+import { convertImgixUrl } from 'helpers/imgix';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
 import { getApiRequest, putApiRequest, apiEndpoint } from '../helpers/api';
 import { errorActions } from './error';
-import { convertImgixUrl } from 'helpers/imgix';
 import { uiActions } from './ui';
 
 // Actions

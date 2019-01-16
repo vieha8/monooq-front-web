@@ -2,6 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import { push } from 'connected-react-router';
+import { isAvailableLocalStorage } from 'helpers/storage';
 import { authActions, getToken } from './auth';
 import { store } from '../store/configureStore';
 import { createOmiseToken } from '../helpers/omise';
@@ -9,7 +10,6 @@ import Path from '../../config/path';
 import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import { errorActions } from './error';
 import { getRoomId, createRoom } from './messages';
-import { isAvailableLocalStorage } from 'helpers/storage';
 
 // Actions
 const ESTIMATE = 'ESTIMATE';
@@ -284,7 +284,7 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
   });
 
   if (!cardToken) {
-    //TODO トークン生成失敗理由をキャッチする
+    // TODO トークン生成失敗理由をキャッチする
     yield put(requestActions.paymentFailed());
     // yield put(errorActions.setError('Bad Request'));
     return;

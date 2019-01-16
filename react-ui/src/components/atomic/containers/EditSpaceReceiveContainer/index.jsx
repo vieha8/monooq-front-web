@@ -10,7 +10,7 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceReceive from 'components/atomic/LV3/EditSpace/Receive';
 
-import { ErrorMessage } from 'strings';
+import ErrorMessage from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -34,7 +34,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     const { space } = this.props;
 
     this.state = {
-      ReceiptType: space.ReceiptType || 0,
+      ReceiptType: space.ReceiptType || 1,
       ReceiptAbout: space.ReceiptAbout || '',
       error: {},
     };
@@ -63,7 +63,9 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
           }),
         );
 
-        const nextPath = space.ID ? Path.editSpaceAreaSize(space.ID) : Path.createSpaceAreaSize();
+        const nextPath = space.ID
+          ? Path.editSpacePrice(space.ID, 'about')
+          : Path.createSpacePrice('about');
         history.push(nextPath);
       }
     });

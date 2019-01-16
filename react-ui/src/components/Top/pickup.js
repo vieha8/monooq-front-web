@@ -2,7 +2,7 @@ import Path from '../../config/path';
 import { Colors } from '../../variables';
 
 // スタッフのおすすめ
-export const PickupStaffSpaceList = [
+const PickupStaffSpaceList = [
   {
     large: 1,
     link: Path.space(1222),
@@ -125,3 +125,5 @@ export const PickupStaffSpaceList = [
     },
   },
 ];
+
+export default PickupStaffSpaceList;

@@ -29,7 +29,7 @@ export default (props: PropTypes) => (
   <Fragment>
     <H2>{props.headline}</H2>
     {props.qa.map((qa: QA, i) => (
-      <Fragment key={`help_list_item_${i}`}>
+      <Fragment key={`help_list_item_${i}`.toString()}>
         {qa.anchor && <div id={qa.anchor} />}
         <HelpList
           title={qa.title}

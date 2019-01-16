@@ -37,7 +37,7 @@ export default (props: PropTypes) => (
     <TextWrapper>
       <Text>{props.title}</Text>
       {props.content.map((str, i) => (
-        <Text key={`hint_content_${i}`}>{str}</Text>
+        <Text key={`hint_content_${i}`.toString()}>{str}</Text>
       ))}
     </TextWrapper>
   </Container>

@@ -35,7 +35,7 @@ export default (props: PropTypes) => (
         value={props.value}
       />
       {(props.errors || []).map((error, i) => (
-        <Error key={`estimate_input_price_error_${i}`}>
+        <Error key={`estimate_input_price_error_${i}`.toString()}>
           <InlineText.Small color={Colors.error}>{error}</InlineText.Small>
         </Error>
       ))}
