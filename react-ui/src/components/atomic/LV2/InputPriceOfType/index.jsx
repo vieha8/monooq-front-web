@@ -186,7 +186,7 @@ export default (props: PropTypes) =>
         </OnlyPhone>
         <InputWrapper>
           <InputForm
-            type="number"
+            type="text"
             unit="円"
             value={props.price}
             onChange={e => props.onChange(e.target.value)}

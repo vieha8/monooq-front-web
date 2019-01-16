@@ -36,6 +36,7 @@ type PropTypes = {
   onClickBack: Function,
   onClickNext: Function,
   buttonLoading: boolean,
+  buttonDisabled: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -108,6 +109,7 @@ export default (props: PropTypes) => (
         }}
         enabledButton={{
           text: `登録する`,
+          disabled: props.buttonDisabled,
           onClick: props.onClickNext,
         }}
       />
