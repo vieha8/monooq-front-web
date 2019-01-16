@@ -102,7 +102,7 @@ export default (props: PropTypes) => (
       <InputForm
         label="カード名義（半角ローマ字）"
         placeholder="TARO YAMADA"
-        autocomplete="cc-name"
+        autoComplete="cc-name"
         onChange={e => props.onChangeName(e.target.value)}
         value={props.name}
       />
@@ -112,7 +112,7 @@ export default (props: PropTypes) => (
       <InputForm
         label="クレジットカード番号(ハイフン無し16桁の半角数字)"
         type="number"
-        autocomplete="cc-number"
+        autoComplete="cc-number"
         placeholder="1234567812345678"
         onChange={e => props.onChangeNumber(e.target.value)}
         value={props.number}
@@ -128,7 +128,7 @@ export default (props: PropTypes) => (
             .map((_, i) => ({ key: i, value: i + 1, text: i + 1 }))}
           onChange={e => props.onChangeMonth(e.target.value)}
           value={props.month}
-          autocomplete="cc-exp-year"
+          autoComplete="cc-exp-year"
         />
       </SelectBox>
       <InlineText.Base>
@@ -144,7 +144,7 @@ export default (props: PropTypes) => (
             .map((_, i) => ({ key: i, value: moment().year() + i, text: moment().year() + i }))}
           onChange={e => props.onChangeYear(e.target.value)}
           value={props.year}
-          autocomplete="cc-exp-month"
+          autoComplete="cc-exp-month"
         />
       </SelectBox>
       <InlineText.Base>
@@ -158,7 +158,7 @@ export default (props: PropTypes) => (
         placeholder="3桁の数字"
         onChange={e => props.onChangeCvc(e.target.value)}
         value={props.cvc}
-        autocomplete="cc-csc"
+        autoComplete="cc-csc"
       />
       {displayErrors('address_errors', props.errors.cvc)}
     </Row>
