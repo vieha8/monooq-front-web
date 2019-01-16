@@ -321,7 +321,7 @@ function* updateSpace({ payload: { spaceId, body } }) {
   const token = yield* getToken();
   const { data, err } = yield call(putApiRequest, apiEndpoint.spaces(spaceId), params, token);
   if (err) {
-    yield put(userActions.updateFailedSpace(err));
+    yield put(spaceActions.updateFailedSpace(err));
     yield put(errorActions.setError(err));
     return;
   }
