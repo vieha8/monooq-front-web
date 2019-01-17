@@ -19,6 +19,7 @@ import connect from '../connect';
 
 const Validate = {
   Price: {
+    Num: /^[0-9]+$/,
     Max: 300000,
     Min: 3000,
   },
@@ -55,45 +56,39 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
   }
 
   onClickNext: Function;
+
   onClickNext = () => {
-    this.validate(() => {
-      if (
-        (this.state.error.priceQuarter || []).length === 0 &&
-        (this.state.error.priceHalf || []).length === 0 &&
-        (this.state.error.priceFull || []).length === 0
-      ) {
-        const { dispatch, space, user } = this.props;
-        const { PriceQuarter, PriceHalf, PriceFull } = this.state;
+    const { dispatch, space, user } = this.props;
+    const { PriceQuarter, PriceHalf, PriceFull } = this.state;
 
-        const saveSpace = Object.assign(space, {
-          PriceFull,
-          PriceHalf,
-          PriceQuarter,
-        });
-        dispatch(
-          uiActions.setUiState({
-            space: saveSpace,
-          }),
-        );
-
-        if (space.ID) {
-          dispatch(
-            spaceActions.updateSpace({
-              spaceId: space.ID,
-              body: {
-                userId: user.ID,
-                ...saveSpace,
-              },
-            }),
-          );
-        } else {
-          dispatch(spaceActions.createSpace({ body: { userId: user.ID, ...saveSpace } }));
-        }
-      }
+    const saveSpace = Object.assign(space, {
+      PriceFull,
+      PriceHalf,
+      PriceQuarter,
     });
+    dispatch(
+      uiActions.setUiState({
+        space: saveSpace,
+      }),
+    );
+
+    if (space.ID) {
+      dispatch(
+        spaceActions.updateSpace({
+          spaceId: space.ID,
+          body: {
+            userId: user.ID,
+            ...saveSpace,
+          },
+        }),
+      );
+    } else {
+      dispatch(spaceActions.createSpace({ body: { userId: user.ID, ...saveSpace } }));
+    }
   };
 
   onClickBack: Function;
+
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
     const { PriceQuarter, PriceHalf, PriceFull } = this.state;
@@ -113,10 +108,41 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
   };
 
   handleChangeUI: Function;
+
   handleChangeUI = (propName: string, value: any) => {
     const state = this.state;
     const error = state.error;
     const errors = [];
+
+    const priceErrors = [];
+    if (value.length === 0) {
+      priceErrors.push(ErrorMessage.PleaseInput);
+    } else {
+      if (!Number(value) || !String(value).match(Validate.Price.Num)) {
+        priceErrors.push(ErrorMessage.PriceNumber);
+      }
+      if (value < Validate.Price.Min) {
+        priceErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
+      }
+      if (value > Validate.Price.Max) {
+        priceErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
+      }
+    }
+
+    switch (propName) {
+      case 'PriceFull':
+        error.priceFull = priceErrors;
+        break;
+      case 'PriceHalf':
+        error.priceHalf = priceErrors;
+        break;
+      case 'PriceQuarter':
+        error.priceQuarter = priceErrors;
+        break;
+
+      default:
+        break;
+    }
 
     state[propName] = value;
     error[propName] = errors;
@@ -124,37 +150,21 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
   };
 
   validate: Function;
-  validate = (valid: Function) => {
-    const { PriceQuarter, PriceHalf, PriceFull, error } = this.state;
 
-    const priceQuarterErrors = [];
-    if (PriceQuarter < Validate.Price.Min) {
-      priceQuarterErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
-    }
-    if (PriceQuarter > Validate.Price.Max) {
-      priceQuarterErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
-    }
-    error.priceQuarter = priceQuarterErrors;
+  validate = () => {
+    const state = this.state;
 
-    const priceHalfErrors = [];
-    if (PriceHalf < Validate.Price.Min) {
-      priceHalfErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
-    }
-    if (PriceHalf > Validate.Price.Max) {
-      priceHalfErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
-    }
-    error.priceHalf = priceHalfErrors;
-
-    const priceFullErrors = [];
-    if (PriceFull < Validate.Price.Min) {
-      priceFullErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
-    }
-    if (PriceFull > Validate.Price.Max) {
-      priceFullErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
-    }
-    error.priceFull = priceFullErrors;
-
-    this.setState({ error }, valid);
+    return (
+      state.PriceFull &&
+      state.PriceFull >= Validate.Price.Min &&
+      state.PriceFull <= Validate.Price.Max &&
+      state.PriceHalf &&
+      state.PriceHalf >= Validate.Price.Min &&
+      state.PriceHalf <= Validate.Price.Max &&
+      state.PriceQuarter &&
+      state.PriceQuarter >= Validate.Price.Min &&
+      state.PriceQuarter <= Validate.Price.Max
+    );
   };
 
   render() {
@@ -192,6 +202,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
             buttonLoading={isLoading}
+            buttonDisabled={!this.validate()}
           />
         }
         rightContent={<ServiceMenu />}

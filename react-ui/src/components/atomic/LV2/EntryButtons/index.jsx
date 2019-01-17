@@ -71,6 +71,7 @@ type PropTypes = {
   },
   enabledButton: {
     text: string,
+    disabled?: boolean,
     onClick: Function,
   },
   enabled: boolean,
@@ -113,6 +114,7 @@ export default (props: PropTypes) => (
               fill={1}
               loading={props.loading}
               onClick={props.enabledButton.onClick}
+              disabled={props.enabledButton.disabled}
             >
               {props.enabledButton.text}
             </Button>
