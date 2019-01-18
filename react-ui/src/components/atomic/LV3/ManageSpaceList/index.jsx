@@ -33,9 +33,9 @@ type PropTypes = {
   }>,
 };
 
-export default (props: PropTypes) => (
+export default ({ spaces }: PropTypes) => (
   <Fragment>
-    {props.spaces.map((space, i) => (
+    {spaces.map((space, i) => (
       <Fragment key={`manage_space_list_item_${i}`.toString()}>
         <ListItem index={i}>
           <ManageSpaceListItem {...space} />

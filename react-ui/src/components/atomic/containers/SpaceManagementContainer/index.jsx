@@ -83,6 +83,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
                     numeral(space.PriceQuarter).format('0,0'),
                   ],
                   link: Path.space(space.ID),
+                  status: space.Status,
                   onClickEdit: () => this.onClickEdit(space),
                   onClickRemove: () => this.onClickRemove(space),
                 }))}
