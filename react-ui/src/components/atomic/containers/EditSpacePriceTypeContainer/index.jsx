@@ -103,7 +103,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = space.ID ? Path.editSpaceAreaSize(space.ID) : Path.createSpaceAreaSize();
+    const nextPath = space.ID ? Path.editSpaceReceive(space.ID) : Path.createSpaceReceive();
     history.push(nextPath);
   };
 
