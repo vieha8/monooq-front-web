@@ -117,7 +117,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
   validate: Function;
   validate = (valid: Function) => {
-    const { Title, Type, Introduction, Address, error } = this.state;
+    const { Title, Type, Introduction, Address, Images, error } = this.state;
 
     const titleErrors = [];
     if (Title.length === 0) {
@@ -151,6 +151,12 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     }
     error.address = addressErrors;
 
+    const imageErrors = [];
+    if (Images.length === 0) {
+      imageErrors.push(ErrorMessage.MustSpaceImage);
+    }
+    error.image = imageErrors;
+
     this.setState({ error }, valid);
   };
 
@@ -174,6 +180,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
               url: image.ImageUrl || image.preview,
             }))}
             onChangeImage={this.handleChangeImage}
+            imageErrors={error.image}
             onClickDeleteImage={this.handleDeleteImage}
             title={Title}
             titleErrors={error.title}

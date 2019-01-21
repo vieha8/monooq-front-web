@@ -35,7 +35,6 @@ const PrivateButton = styled(PrimaryButton)`
 
 type PropTypes = {
   onClickEdit: Function,
-  onClickPublic: Function,
   onClickPrivate?: Function,
   onClickPublic?: Function,
   private?: boolean,

@@ -28,4 +28,5 @@ export type SpaceType = {
     lat: number,
     lng: number,
   },
+  Status: string,
 };

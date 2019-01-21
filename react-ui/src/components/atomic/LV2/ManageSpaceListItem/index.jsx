@@ -30,6 +30,7 @@ type PropTypes = {
   prices: Array<number>,
   onClickEdit: Function,
   link: string,
+  status: string,
 };
 
 export default (props: PropTypes) => (
@@ -42,6 +43,7 @@ export default (props: PropTypes) => (
         furniture={props.furniture}
         prices={props.prices}
         href={props.link}
+        status={props.status}
         manage
       />
       <ManageButtons onClickEdit={props.onClickEdit} fontBold />

@@ -59,6 +59,24 @@ const ContentText = styled(InlineText.Base)`
   `};
 `;
 
+const StatusText = styled(InlineText.Tiny)`
+  display: block;
+  margin: 5px auto;
+  color: ${Colors.brandPrimary};
+  ${props =>
+    !props.manage &&
+    `
+      max-height: 1.5em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  `};
+  ${props =>
+    props.draft &&
+    `
+      color: ${Colors.lightGray1};
+  `};
+`;
+
 const HomeApplianceText = styled(InlineText.Tiny)`
   display: block;
   font-weight: bold;
@@ -116,9 +134,16 @@ export default (props: PropTypes) =>
             <AddressText manage={props.manage}>{props.address ? props.address : ''}</AddressText>
             <ContentText manage={props.manage}>{props.content ? props.content : ''}</ContentText>
             <PriceText manage={props.manage}>
-              {props.prices.join('/')}
+              {props.prices.join('円/')}
               円〜
             </PriceText>
+            {props.status === 'public' ? (
+              <StatusText manage={props.manage}>●公開中</StatusText>
+            ) : (
+              <StatusText manage={props.manage} draft>
+                ○下書き
+              </StatusText>
+            )}
           </ContentWrapper>
         </Card>
       </Link>

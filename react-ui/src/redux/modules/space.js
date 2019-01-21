@@ -5,7 +5,6 @@ import dummySpaceImage from 'images/dummy_space.png';
 import { store } from '../store/configureStore';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
-import { userActions } from './user';
 import { authActions, getToken } from './auth';
 import {
   getApiRequest,

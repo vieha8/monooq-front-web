@@ -98,6 +98,7 @@ export default (props: PropTypes) => (
         onClickDeleteImage={props.onClickDeleteImage}
         changeOrientation={props.changeOrientation}
       />
+      {displayErrors('image_errors', props.imageErrors)}
     </Section>
     <Section>
       <InputForm
