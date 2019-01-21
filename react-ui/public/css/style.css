@@ -5,16 +5,15 @@
 .maintenance-page {
   background: #e85258;
   height: 100vh;
-  width: 1000px;
-  padding: 150px 0;
+  width: 100%;
+  padding: 150px 15px;
   color: #ffffff;
   box-sizing: border-box;
 }
 @media (max-width: 30em) {
   .maintenance-page {
     min-height: 100vh;
-    width: 100vw;
-    padding: 40px 0;
+    padding: 40px 15px;
   }
 }
 

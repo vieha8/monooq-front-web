@@ -106,7 +106,7 @@ export default (props: PropTypes) => (
         onChange={e => props.onChangeName(e.target.value)}
         value={props.name}
       />
-      {displayErrors('address_errors', props.errors.name)}
+      {displayErrors('name_errors', props.errors.name)}
     </Row>
     <Row>
       <InputForm
@@ -117,7 +117,7 @@ export default (props: PropTypes) => (
         onChange={e => props.onChangeNumber(e.target.value)}
         value={props.number}
       />
-      {displayErrors('address_errors', props.errors.number)}
+      {displayErrors('number_errors', props.errors.number)}
     </Row>
     <Row>
       <SelectBox>
@@ -160,7 +160,7 @@ export default (props: PropTypes) => (
         value={props.cvc}
         autoComplete="cc-csc"
       />
-      {displayErrors('address_errors', props.errors.cvc)}
+      {displayErrors('cvc_errors', props.errors.cvc)}
     </Row>
     <Row>
       <div>
