@@ -59,6 +59,8 @@ export default (props: PropTypes) => (
       <CaptionWrap sub>
         <InlineText.Tiny>
           お客様によって荷物の内容が異なるので、スペースの広さに対する料金を設定してください。
+          <br />
+          エリアや条件にもよりますが、目安は1畳あたり約5,000〜7,000円/月です。
         </InlineText.Tiny>
       </CaptionWrap>
     </Section>
@@ -66,7 +68,7 @@ export default (props: PropTypes) => (
       <InputPriceOfType
         image={imageFurnitureFull}
         title="全てのスペースの月額料金"
-        caption="あなたのすべてのスペースを使用するほどの荷物の場合"
+        caption="このスペースすべてを使用する場合"
         placeholder="20000"
         price={props.priceFull}
         onChange={props.onChangePriceFull}
@@ -75,7 +77,7 @@ export default (props: PropTypes) => (
       <InputPriceOfType
         image={imageFurnitureHalf}
         title="半分のスペースの月額料金"
-        caption="あなたの半分のスペースを使用するほどの荷物の場合"
+        caption="このスペースの半分を使用する場合"
         placeholder="12000"
         price={props.priceHalf}
         onChange={props.onChangePriceHalf}
@@ -84,7 +86,7 @@ export default (props: PropTypes) => (
       <InputPriceOfType
         image={imageFurnitureQuarter}
         title="1/4程度のスペースの月額料金"
-        caption="あなたの1/4程度のスペースを使用するほどの荷物の場合"
+        caption="このスペースの1/4程度を使用する場合"
         placeholder="7000"
         price={props.priceQuarter}
         onChange={props.onChangePriceQuarter}

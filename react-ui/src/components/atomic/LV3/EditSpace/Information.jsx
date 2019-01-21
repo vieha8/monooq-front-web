@@ -85,7 +85,7 @@ export default (props: PropTypes) => (
       <InputForm
         label="特徴がわかるタイトル"
         hintbottom="全角40文字まで"
-        placeholder="家具も入れられるワンルームが余っています。数ヶ月の長期間でも可能です！"
+        placeholder="【約6畳】新宿エリアのワンルーム！駐車場もあり搬入に便利！"
         value={props.title}
         onChange={e => props.onChangeTitle(e.target.value)}
       />
@@ -102,7 +102,9 @@ export default (props: PropTypes) => (
     <Section>
       <InputForm
         label="スペースの紹介文"
-        placeholder="家具も入れられるワンルームが余っています。数ヶ月の長期間でも可能です！"
+        placeholder="広さ6畳ほどのワンルームが余っています。長期利用も可能なので気軽にご相談ください！
+便利な新宿エリアで、駅から徒歩圏内の好アクセスです。
+駐車場もありますので、車搬入される場合も便利！"
         multiline
         rows={4}
         value={props.introduction}
