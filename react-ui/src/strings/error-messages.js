@@ -4,6 +4,7 @@ export default {
   PleaseInput: '入力してください。',
   PleaseSelect: '選択してください。',
   PriceNumber: '金額は半角数字(整数)で入力してください。',
+  MustSpaceImage: '写真は1枚以上登録してください',
   PriceMin: val => `登録できる料金目安は${numeral(val).format('0,0')}円以上です。`,
   PriceMax: val => `登録できる料金目安は${numeral(val).format('0,0')}円以下です。`,
   LengthMax: (name, len) => `${name}は全角${len}字が上限です。文字数を減らしてください。`,
