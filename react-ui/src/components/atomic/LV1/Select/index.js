@@ -15,7 +15,7 @@ const Select = styled.select`
   color: ${Colors.black};
   outline: none;
   background: ${Colors.lightGray2Bg} url(${arrowImageUri}) 95% 50% no-repeat;
-  background-size: 15px 20px;
+  background-size: 10px 8px;
 `;
 
 export default Select;
