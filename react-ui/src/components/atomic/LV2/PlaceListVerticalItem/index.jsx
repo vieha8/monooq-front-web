@@ -133,7 +133,7 @@ export default (props: PropTypes) =>
           <ContentWrapper>
             <AddressText>{props.address ? props.address : ''}</AddressText>
             <ContentText>{props.content ? props.content : ''}</ContentText>
-            <HomeApplianceText>{props.furniture ? '家具・家電OK' : ''}</HomeApplianceText>
+            <HomeApplianceText>{props.furniture ? '家具・家電OK' : ' '}</HomeApplianceText>
             <PriceLabel>料金目安（30日間）</PriceLabel>
             <PriceText>{props.prices.join(' / ')}</PriceText>
           </ContentWrapper>
