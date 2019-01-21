@@ -10,14 +10,6 @@
     <url><loc>https://monooq.com/privacy</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/asct</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/inquiry</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/help</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/help/service</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/help/usertransaction</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/help/host</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/help/space</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/help/hosttransaction</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/help/signin</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/help/other</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/search?keyword=東京都&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/search?keyword=世田谷区&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/search?keyword=大田区&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
