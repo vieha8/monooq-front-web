@@ -19,9 +19,9 @@ import HeroImage from 'components/atomic/LV1/HeroImage';
 import HostInfo from 'components/atomic/LV2/Space/HostInfo';
 import UserInfo from 'components/atomic/LV2/Space/UserInfo';
 
+import { convertImgixUrl } from 'helpers/imgix';
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
-import { convertImgixUrl } from 'helpers/imgix';
 
 const TopWrap = styled.div`
   margin-bottom: 25px;
@@ -106,7 +106,6 @@ class MessageContainer extends Component<PropTypes, State> {
     this.state = {
       text: '',
       image: null,
-      roomTitle: '',
     };
   }
 
@@ -183,7 +182,7 @@ class MessageContainer extends Component<PropTypes, State> {
             },
           };
         case MessageType.Estimate: {
-          const { startDate, endDate, price, requestId } = message;
+          const { startDate, endDate, price, requestId, request } = message;
           return {
             estimate: {
               id: requestId,
@@ -193,6 +192,7 @@ class MessageContainer extends Component<PropTypes, State> {
               price,
               link: Path.payment(match.params.message_room_id, requestId),
               receivedAt: message.createDt,
+              status: request.Status,
             },
           };
         }

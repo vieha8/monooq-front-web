@@ -271,6 +271,7 @@ export default (props: PropTypes) => {
                 price={message.estimate.price}
                 receivedAt={moment(message.estimate.receivedAt).format(dateFormat)}
                 paymentLink={message.estimate.link}
+                status={message.estimate.status}
               />
             </Row>
           );

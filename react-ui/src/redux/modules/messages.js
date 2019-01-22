@@ -167,12 +167,30 @@ function* fetchMessagesStart({ payload }) {
   }
   user = yield select(state => state.auth.user);
 
-  const { messages, room, messageObserver } = yield getMessages(payload);
+  const messageData = yield getMessages(payload);
+  const { room, messageObserver } = messageData;
+  let { messages } = messageData;
+
+  const token = yield* getToken();
 
   if (!room) {
     store.dispatch(push(Path.notFound()));
     return;
   }
+
+  // 見積もりステータスの取得
+  messages = yield Promise.all(
+    messages.map(async message => {
+      const { messageType } = message;
+      if (messageType !== 2) {
+        return message;
+      }
+      const { requestId } = message;
+      const { data } = await getApiRequest(apiEndpoint.requests(requestId), {}, token);
+      message.request = data;
+      return message;
+    }),
+  );
 
   if (messages.length > 0) {
     const lastMessage = messages[messages.length - 1];

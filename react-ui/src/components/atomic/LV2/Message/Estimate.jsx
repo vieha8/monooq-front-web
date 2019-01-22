@@ -43,6 +43,7 @@ type PropTypes = {
   price: string,
   paymentLink: string,
   receivedAt: string,
+  status: string,
 };
 
 export default (props: PropTypes) => (
@@ -76,7 +77,11 @@ export default (props: PropTypes) => (
       </CaptionWrapper>
       {!props.host && (
         <LinkWrapper>
-          <TextLink href={props.paymentLink}>この見積もりでお支払いに進む</TextLink>
+          {props.status !== 'paid' ? (
+            <TextLink href={props.paymentLink}>この見積もりでお支払いに進む</TextLink>
+          ) : (
+            <Text>お支払い済み</Text>
+          )}
         </LinkWrapper>
       )}
     </Card>
