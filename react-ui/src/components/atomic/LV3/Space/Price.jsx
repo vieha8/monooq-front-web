@@ -34,7 +34,7 @@ export default (props: PropTypes) => (
       <InputPriceOfType
         image={imageFurnitureFull}
         title="全てのスペースの月額料金"
-        caption="あなたのすべてのスペースを使用するほどの荷物の場合"
+        caption="このスペースすべてを使用する場合"
         price={props.full}
         detail
       />
@@ -43,7 +43,7 @@ export default (props: PropTypes) => (
       <InputPriceOfType
         image={imageFurnitureHalf}
         title="半分のスペースの月額料金"
-        caption="あなたの半分のスペースを使用するほどの荷物の場合"
+        caption="このスペースの半分を使用する場合"
         price={props.half}
         detail
       />
@@ -52,7 +52,7 @@ export default (props: PropTypes) => (
       <InputPriceOfType
         image={imageFurnitureQuarter}
         title="1/4程度のスペースの月額料金"
-        caption="あなたの1/4程度のスペースを使用するほどの荷物の場合"
+        caption="このスペースの1/4程度を使用する場合"
         price={props.quarter}
         detail
       />
