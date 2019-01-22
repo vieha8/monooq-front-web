@@ -18,7 +18,13 @@ export default (props: PropTypes) => (
   <Form
     title={
       <InlineText.Base fontSize={FontSizes.medium2} bold>
-        {props.userName && `${props.userName}さん<br />`}
+        {props.userName && (
+          <Fragment>
+            {props.userName}
+            さん
+            <br />
+          </Fragment>
+        )}
         モノオクへようこそ！
       </InlineText.Base>
     }
