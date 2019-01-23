@@ -82,7 +82,10 @@ function* search({
       space.Images = [{ ImageUrl: dummySpaceImage }];
     } else {
       space.Images = space.Images.map(image => {
-        image.ImageUrl = convertImgixUrl(image.ImageUrl, 'fit=crop&w=350&max-h=200&format=auto');
+        image.ImageUrl = convertImgixUrl(
+          image.ImageUrl,
+          'fit=fillmax&fill=blur&w=165&h=120&format=auto',
+        );
         return image;
       });
     }

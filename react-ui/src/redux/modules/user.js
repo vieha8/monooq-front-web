@@ -137,7 +137,7 @@ function* getSpaces(params) {
         v.Images = v.Images.map(image => {
           image.ImageUrl = convertImgixUrl(
             image.ImageUrl,
-            'fit=crop&max-w=540&max-h=290&format=auto',
+            'fit=fill&fill=blur&w=540&h=290&format=auto',
           );
           return image;
         });
