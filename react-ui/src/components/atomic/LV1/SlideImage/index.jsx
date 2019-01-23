@@ -13,7 +13,10 @@ type PropTypes = {
 
 const convertImageUrl = images => {
   return images.map(({ original }) => {
-    const replaceUrl = convertImgixUrl(original, 'fit=fill&fill=blur&w=540&h=300&format=auto');
+    const replaceUrl = convertImgixUrl(
+      original,
+      'fit=fill&fill-color=DBDBDB&w=540&h=300&format=auto',
+    );
     return {
       original: replaceUrl || '',
       thumbnail: replaceUrl || '',

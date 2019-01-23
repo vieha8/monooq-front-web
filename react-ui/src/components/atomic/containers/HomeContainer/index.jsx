@@ -86,7 +86,7 @@ class HomeContainer extends Component<PropTypes, State> {
                         s.Images.length !== 0
                           ? convertImgixUrl(
                               s.Images[0].ImageUrl,
-                              'fit=fillmax&fill=blur&w=170&h=120&format=auto',
+                              'fit=fillmax&fill-color=DBDBDB&w=170&h=120&format=auto',
                             )
                           : dummySpaceImage,
                       title: s.Title,
