@@ -75,7 +75,7 @@ const PickupContainer = styled.div`
 
 export default props => (
   <TopPage>
-    <Header />
+    {!props.story && <Header />}
     <TopView
       catchPhrase={
         <Fragment>
