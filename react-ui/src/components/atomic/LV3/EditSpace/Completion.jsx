@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import EntryButtons from 'components/atomic/LV2/EntryButtons';
 import { Dimens } from 'variables';
-import GoogleTagManager from 'components/GTM';
+import GoogleTagManager from 'components/atomic/LV1/GTM';
 
 const Section = styled.div`
   margin-top: ${Dimens.medium}px;

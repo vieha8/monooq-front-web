@@ -13,7 +13,7 @@ import SpaceMap from 'components/atomic/LV1/SpaceMap';
 import Detail from 'components/atomic/LV3/Space/Detail';
 import SendMessage from 'components/atomic/LV3/Space/SendMessage';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
-import Meta from 'components/Meta';
+import Meta from 'components/atomic/LV1/Meta';
 import type { SpaceType } from 'types/Space';
 
 import connect from '../connect';
