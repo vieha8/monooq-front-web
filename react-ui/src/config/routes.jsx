@@ -180,11 +180,6 @@ const NotFound = Loadable({
   loading: LoadingPage,
 });
 
-const Error = Loadable({
-  loader: () => import('components/atomic/containers/Static/Error'),
-  loading: LoadingPage,
-});
-
 const CancelPolicy = Loadable({
   loader: () => import('components/atomic/containers/CancellationPoliciesContainer'),
   loading: LoadingPage,
@@ -287,7 +282,6 @@ export default ({ history }) => (
       <Route exact path={Path.rule()} component={Rule} />
       <Route exact path={Path.howToUse()} component={HowToUse} />
       <Route exact path={Path.other()} component={Other} />
-      <Route exact path={Path.error()} component={Error} />
       <Route exact path={Path.cancellationPolicies()} component={CancelPolicy} />
       <Route exact path={Path.asct()} component={Asct} />
       <Route exact path={Path.privacy()} component={Privacy} />
