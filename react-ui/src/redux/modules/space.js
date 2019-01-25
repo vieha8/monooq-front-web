@@ -298,6 +298,12 @@ function* prepareUpdateSpace({ payload: spaceId }) {
   const token = yield* getToken();
   const { data: space, err } = yield call(getApiRequest, apiEndpoint.spaces(spaceId), {}, token);
 
+  const user = yield select(state => state.auth.user);
+  if (space.UserID !== user.ID) {
+    yield put(errorActions.setError('Bad Request'));
+    return;
+  }
+
   if (err) {
     yield put(spaceActions.fetchFailedSpace(err));
     store.dispatch(push(Path.notFound()));
