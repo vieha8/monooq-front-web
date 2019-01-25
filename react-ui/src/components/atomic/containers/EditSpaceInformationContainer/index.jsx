@@ -38,7 +38,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
     const { dispatch, space } = this.props;
 
-    dispatch(spaceActions.prepareUpdateSpace());
+    dispatch(spaceActions.prepareUpdateSpace(space.ID));
 
     this.state = {
       Images: space.Images || [],
@@ -76,15 +76,18 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
   onClickNext: Function;
   onClickNext = () => {
-    this.validate(() => {
+    const { validate, state } = this;
+    const { error } = state;
+    validate(() => {
       if (
-        (this.state.error.title || []).length === 0 &&
-        (this.state.error.type || []).length === 0 &&
-        (this.state.error.introduction || []).length === 0 &&
-        (this.state.error.address || []).length === 0
+        (error.title || []).length === 0 &&
+        (error.type || []).length === 0 &&
+        (error.introduction || []).length === 0 &&
+        (error.address || []).length === 0 &&
+        (error.image || []).length === 0
       ) {
         const { dispatch, history, space } = this.props;
-        const { Images, Title, Type, Introduction, Address } = this.state;
+        const { Images, Title, Type, Introduction, Address } = state;
 
         dispatch(
           uiActions.setUiState({
@@ -154,7 +157,12 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     const imageErrors = [];
     if (Images.length === 0) {
       imageErrors.push(ErrorMessage.MustSpaceImage);
+    } else if (Images.length === 1) {
+      if (Images[0].ImageUrl && Images[0].ImageUrl.includes('data:image/png;base64,')) {
+        imageErrors.push(ErrorMessage.MustSpaceImage);
+      }
     }
+
     error.image = imageErrors;
 
     this.setState({ error }, valid);
