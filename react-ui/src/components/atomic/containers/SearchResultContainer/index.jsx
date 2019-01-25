@@ -15,7 +15,7 @@ import Button from 'components/atomic/LV1/Button';
 import SearchResult from 'components/atomic/LV3/SearchResult';
 import NoDataView from 'components/atomic/LV3/NoDataView';
 import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
-import Meta from 'components/Meta';
+import Meta from 'components/atomic/LV1/Meta';
 import { Dimens } from 'variables';
 
 import { searchActions } from 'redux/modules/search';

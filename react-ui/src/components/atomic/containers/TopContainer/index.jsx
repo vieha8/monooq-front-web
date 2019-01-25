@@ -1,13 +1,15 @@
+// @flow
+
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
-import Top from 'components/Top';
+import Top from 'components/atomic/LV3/Top';
 import ReactGA from 'react-ga';
 import { isAvailableLocalStorage } from 'helpers/storage';
-import PickupStaffSpaceList from 'components/Top/pickup';
+import PickupStaffSpaceList from 'components/atomic/LV3/Top/pickup';
 import { searchActions } from '../../../../redux/modules/search';
 
 class TopContainer extends React.Component {

@@ -151,17 +151,17 @@ const Sales = Loadable({
 });
 
 const About = Loadable({
-  loader: () => import('components/atomic/containers/Static/About'),
+  loader: () => import('components/atomic/containers/AboutContainer'),
   loading: LoadingPage,
 });
 
 const Insurance = Loadable({
-  loader: () => import('components/atomic/containers/Static/Insurance'),
+  loader: () => import('components/atomic/containers/InsuranceContainer'),
   loading: LoadingPage,
 });
 
 const Rule = Loadable({
-  loader: () => import('components/atomic/containers/Static/Rule'),
+  loader: () => import('components/atomic/containers/RuleContainer'),
   loading: LoadingPage,
 });
 
@@ -176,32 +176,27 @@ const Other = Loadable({
 });
 
 const NotFound = Loadable({
-  loader: () => import('components/atomic/containers/Static/NotFound'),
-  loading: LoadingPage,
-});
-
-const Error = Loadable({
-  loader: () => import('components/atomic/containers/Static/Error'),
+  loader: () => import('components/atomic/containers/NotFoundContainer'),
   loading: LoadingPage,
 });
 
 const CancelPolicy = Loadable({
-  loader: () => import('components/atomic/containers/Static/CancellationPolicies'),
+  loader: () => import('components/atomic/containers/CancellationPoliciesContainer'),
   loading: LoadingPage,
 });
 
 const Asct = Loadable({
-  loader: () => import('components/atomic/containers/Static/Asct'),
+  loader: () => import('components/atomic/containers/AsctContainer'),
   loading: LoadingPage,
 });
 
 const Privacy = Loadable({
-  loader: () => import('components/atomic/containers/Static/Privacy'),
+  loader: () => import('components/atomic/containers/PrivacyContainer'),
   loading: LoadingPage,
 });
 
 const Terms = Loadable({
-  loader: () => import('components/atomic/containers/Static/Terms'),
+  loader: () => import('components/atomic/containers/TermsContainer'),
   loading: LoadingPage,
 });
 
@@ -287,7 +282,6 @@ export default ({ history }) => (
       <Route exact path={Path.rule()} component={Rule} />
       <Route exact path={Path.howToUse()} component={HowToUse} />
       <Route exact path={Path.other()} component={Other} />
-      <Route exact path={Path.error()} component={Error} />
       <Route exact path={Path.cancellationPolicies()} component={CancelPolicy} />
       <Route exact path={Path.asct()} component={Asct} />
       <Route exact path={Path.privacy()} component={Privacy} />

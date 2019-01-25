@@ -6,7 +6,7 @@ import Button from 'components/atomic/LV1/Button';
 import AvatarImage from 'components/atomic/LV1/AvatarImage';
 import InlineText from 'components/atomic/LV1/InlineText';
 import { FontSizes, Dimens } from 'variables';
-import GoogleTagManager from 'components/GTM';
+import GoogleTagManager from 'components/atomic/LV1/GTM';
 
 const Container = styled.div`
   text-align: center;

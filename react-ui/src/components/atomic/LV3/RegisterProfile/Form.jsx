@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import GoogleTagManager from 'components/GTM';
+import GoogleTagManager from 'components/atomic/LV1/GTM';
 
 const Title = styled.div`
   text-align: center;

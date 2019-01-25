@@ -10,8 +10,8 @@ import { Colors } from 'variables';
 import { userActions } from 'redux/modules/user';
 import type { SpaceType } from 'types/Space';
 import { formatDate } from 'helpers/date';
+import Meta from 'components/atomic/LV1/Meta';
 import connect from '../connect';
-import Meta from 'components/Meta';
 
 type PropTypes = {
   match: {

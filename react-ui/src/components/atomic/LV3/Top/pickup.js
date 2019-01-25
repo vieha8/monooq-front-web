@@ -1,5 +1,5 @@
-import Path from '../../config/path';
-import { Colors } from '../../variables';
+import Path from 'config/path';
+import { Colors } from 'variables';
 
 // スタッフのおすすめ
 const PickupStaffSpaceList = [

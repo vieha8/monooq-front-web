@@ -8,7 +8,7 @@ import { Dimens } from 'variables';
 
 import PickupSpaceList from './index';
 
-import PickupStaffSpaceList from 'components/Top/pickup';
+import PickupStaffSpaceList from 'components/atomic/LV3/Top/pickup';
 const displayPickupFeatureSpaceList = shuffleArray(PickupStaffSpaceList);
 
 function shuffleArray(array) {
