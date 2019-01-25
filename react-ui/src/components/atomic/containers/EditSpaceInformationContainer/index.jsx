@@ -38,7 +38,10 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
     const { dispatch, space } = this.props;
 
-    dispatch(spaceActions.prepareUpdateSpace(space.ID));
+    const spaceId = props.match.params.space_id;
+    if (spaceId) {
+      dispatch(spaceActions.prepareUpdateSpace(spaceId));
+    }
 
     this.state = {
       Images: space.Images || [],
@@ -52,6 +55,15 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
   componentDidMount() {
     window.scrollTo(0, 0);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { space } = nextProps;
+    if (space.ID && prevState.Title === '') {
+      const { Title, Type, Introduction, Address, Images } = space;
+      return { Title, Type, Introduction, Address, Images };
+    }
+    return null;
   }
 
   onClickRemove: Function;

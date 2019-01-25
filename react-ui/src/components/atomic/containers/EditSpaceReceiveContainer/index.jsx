@@ -14,6 +14,7 @@ import ErrorMessage from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
+import { spaceActions } from '../../../../redux/modules/space';
 
 type PropTypes = {
   dispatch: Function,
@@ -31,7 +32,12 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
-    const { space } = this.props;
+    const { space, dispatch } = this.props;
+
+    const spaceId = props.match.params.space_id;
+    if (spaceId) {
+      dispatch(spaceActions.prepareUpdateSpace(spaceId));
+    }
 
     this.state = {
       ReceiptType: space.ReceiptType || 1,
@@ -42,6 +48,15 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
   componentDidMount() {
     window.scrollTo(0, 0);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { space } = nextProps;
+    if (space.ID && prevState.ReceiptAbout === '') {
+      const { ReceiptType, ReceiptAbout } = space;
+      return { ReceiptType, ReceiptAbout };
+    }
+    return null;
   }
 
   onClickNext: Function;

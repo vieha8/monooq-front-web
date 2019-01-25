@@ -35,13 +35,17 @@ type PropTypes = {
   },
 };
 
-class EditSpacePriceAllContainer extends Component<PropTypes> {
+class EditSpacePriceTypeContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
 
     checkLogin(this.props);
 
-    const { space } = this.props;
+    const { space, dispatch } = this.props;
+    const spaceId = props.match.params.space_id;
+    if (spaceId) {
+      dispatch(spaceActions.prepareUpdateSpace(spaceId));
+    }
 
     this.state = {
       PriceQuarter: space.PriceQuarter || '',
@@ -53,6 +57,15 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
 
   componentDidMount() {
     window.scrollTo(0, 0);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { space } = nextProps;
+    if (space.ID && prevState.PriceFull === '') {
+      const { PriceFull, PriceHalf, PriceQuarter } = space;
+      return { PriceFull, PriceHalf, PriceQuarter };
+    }
+    return null;
   }
 
   onClickNext: Function;
@@ -186,7 +199,7 @@ class EditSpacePriceAllContainer extends Component<PropTypes> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline="スペースに対する料金の設定"
+        headline="スペース料金の設定"
         leftContent={
           <EditSpaceInputPriceType
             edit={space.ID}
@@ -220,6 +233,6 @@ const mapStateToProps = state =>
   });
 
 export default connect(
-  EditSpacePriceAllContainer,
+  EditSpacePriceTypeContainer,
   mapStateToProps,
 );
