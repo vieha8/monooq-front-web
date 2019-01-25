@@ -30,6 +30,7 @@ export const convertBaseUrl = imgixUrl => {
     replaceUrl = imgixUrl.replace('https://monooq-dev.imgix.net/', storageUrl);
     replaceUrl = replaceUrl.replace('&fit=crop&max-w=540&max-h=290&format=auto', '');
     replaceUrl = replaceUrl.replace('&fit=crop&w=240&max-h=180&format=auto', '');
+    replaceUrl = replaceUrl.replace('&fit=fill&fill-color=DBDBDB&w=540&h=290&format=auto', '');
   }
 
   if (imgixUrl.indexOf('monooq.imgix.net') > -1) {
@@ -37,6 +38,7 @@ export const convertBaseUrl = imgixUrl => {
     replaceUrl = imgixUrl.replace('https://monooq.imgix.net/', storageUrl);
     replaceUrl = replaceUrl.replace('&fit=crop&max-w=540&max-h=290&format=auto', '');
     replaceUrl = replaceUrl.replace('&fit=crop&w=240&max-h=180&format=auto', '');
+    replaceUrl = replaceUrl.replace('&fit=fill&fill-color=DBDBDB&w=540&h=290&format=auto', '');
   }
 
   if (imgixUrl.indexOf('monooq-s3.imgix.net') > -1) {
@@ -44,6 +46,7 @@ export const convertBaseUrl = imgixUrl => {
     replaceUrl = imgixUrl.replace('https://monooq-s3.imgix.net/', storageUrl);
     replaceUrl = replaceUrl.replace('?fit=crop&max-w=540&max-h=290&format=auto', '');
     replaceUrl = replaceUrl.replace('&fit=crop&w=240&max-h=180&format=auto', '');
+    replaceUrl = replaceUrl.replace('&fit=fill&fill-color=DBDBDB&w=540&h=290&format=auto', '');
   }
 
   return replaceUrl;
