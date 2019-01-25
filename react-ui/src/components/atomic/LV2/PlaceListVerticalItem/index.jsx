@@ -133,10 +133,7 @@ export default (props: PropTypes) =>
           <ContentWrapper>
             <AddressText manage={props.manage}>{props.address ? props.address : ''}</AddressText>
             <ContentText manage={props.manage}>{props.content ? props.content : ''}</ContentText>
-            <PriceText manage={props.manage}>
-              {props.prices.join('円/')}
-              円〜
-            </PriceText>
+            <PriceText manage={props.manage}>{props.prices.join('円/')}円</PriceText>
             {props.status === 'public' ? (
               <StatusText manage={props.manage}>●公開中</StatusText>
             ) : (
