@@ -6,6 +6,7 @@ import { store } from '../store/configureStore';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
+import { uiActions } from './ui';
 import {
   getApiRequest,
   postApiRequest,
@@ -293,6 +294,25 @@ function* createSpace({ payload: { body } }) {
   yield put(spaceActions.createSuccessSpace(data));
 }
 
+function* prepareUpdateSpace({ payload: spaceId }) {
+  const token = yield* getToken();
+  const { data: space, err } = yield call(getApiRequest, apiEndpoint.spaces(spaceId), {}, token);
+
+  const user = yield select(state => state.auth.user);
+  if (space.UserID !== user.ID) {
+    yield put(errorActions.setError('Bad Request'));
+    return;
+  }
+
+  if (err) {
+    yield put(spaceActions.fetchFailedSpace(err));
+    store.dispatch(push(Path.notFound()));
+    return;
+  }
+
+  yield put(uiActions.setUiState({ space }));
+}
+
 function* updateSpace({ payload: { spaceId, body } }) {
   const params = generateSpaceRequestParams(body);
   const { images } = params;
@@ -378,6 +398,7 @@ export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
   takeEvery(UPDATE_SPACE, updateSpace),
+  takeEvery(PREPARE_UPDATE_SPACE, prepareUpdateSpace),
   takeEvery(DELETE_SPACE, deleteSpace),
   takeEvery(FETCH_FEATURE_SPACES, getFeatureSpaces),
   takeEvery(ADD_SPACE_ACCESS_LOG, addSpaceAccessLog),
