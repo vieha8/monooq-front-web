@@ -59,6 +59,8 @@ export default {
   inquiry: () => `/inquiry`,
   // 登録
   signUp: () => '/signup',
+  signUpProfile: () => '/signup/profile',
+  signUpPurpose: () => '/signup/purpose',
   // ログイン
   login: () => '/login',
   // 退会

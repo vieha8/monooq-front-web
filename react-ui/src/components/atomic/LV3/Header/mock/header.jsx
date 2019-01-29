@@ -58,7 +58,7 @@ export default class HeaderMock extends React.Component {
             isPhone
           />
         }
-        storys
+        stories
       />
     );
   }

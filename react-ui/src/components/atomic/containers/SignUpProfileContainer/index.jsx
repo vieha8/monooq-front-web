@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 import AccountTemplate from 'components/atomic/templates/AccountTemplate';
 import Header from 'components/atomic/containers/Header';
-import RegisterEmail from './RegisterEmail';
+import RegisterProfile from './RegisterProfile';
 import connect from '../connect';
 
-class SignUpContainer extends Component {
+class SignUpProfileContainer extends Component {
   componentDidMount() {
     window.scrollTo(0, 0);
   }
@@ -15,7 +15,7 @@ class SignUpContainer extends Component {
     return (
       <AccountTemplate
         header={<Header noHeaderButton />}
-        form={<RegisterEmail {...this.props} />}
+        form={<RegisterProfile {...this.props} />}
       />
     );
   }
@@ -29,6 +29,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  SignUpContainer,
+  SignUpProfileContainer,
   mapStateToProps,
 );

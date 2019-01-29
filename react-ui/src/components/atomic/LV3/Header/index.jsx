@@ -16,7 +16,7 @@ export const HeightPhone = 54;
 const Container = styled.header`
   position: fixed;
   ${props =>
-    props.storys &&
+    props.stories &&
     `
     position: relative;
   `} top: 0;
@@ -157,13 +157,13 @@ type PropTypes = {
   signupUri: string,
   top?: boolean,
   help?: boolean,
-  storys?: boolean,
+  stories?: boolean,
   searchConditionUri: string,
 };
 
 export default (props: PropTypes) => {
   return (
-    <Container top={props.top} help={props.help} storys={props.storys}>
+    <Container top={props.top} help={props.help} stories={props.stories}>
       <Nav>
         <LogoWrapper to={props.topUri}>
           {props.top || props.help ? <Logo.HeaderWhiteFill /> : <Logo.HeaderFill />}

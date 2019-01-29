@@ -7,7 +7,6 @@ import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
 import { getApiRequest, putApiRequest, apiEndpoint } from '../helpers/api';
 import { errorActions } from './error';
-import { uiActions } from './ui';
 
 // Actions
 const FETCH_USER = 'FETCH_USER';
@@ -175,11 +174,6 @@ function* updateUser({ payload: { userId, body } }) {
   localStorage.removeItem('status');
   yield put(authActions.setUser(data));
   yield put(userActions.updateSuccessUser(data));
-  yield put(
-    uiActions.setUiState({
-      signupStep: 2,
-    }),
-  );
 }
 
 export const userSagas = [
