@@ -77,7 +77,7 @@ export default (props: PropTypes) => (
         <MenuItem title="スペースの登録" {...props.addSpace} line />
         <MenuItem title="スペースの管理" {...props.spaces} />
         <MenuItem title="売上・振込申請" {...props.sales} />
-        <MenuItem title="プロフィール編集" {...props.editProfile} />
+        {!props.isPhone && <MenuItem title="プロフィール編集" {...props.editProfile} />}
       </Fragment>
     )}
     <MenuItem title="ヘルプ" {...props.help} blank line={props.isLogin} />
