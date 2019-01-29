@@ -5,7 +5,7 @@ import Path from 'config/path';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
 import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
 import Hr from 'components/atomic/LV1/HorizontalRule';

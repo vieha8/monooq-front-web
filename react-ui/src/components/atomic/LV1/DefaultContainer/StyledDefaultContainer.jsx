@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
-import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import DefaultContainer from './index';
 
 const StyledDefaultContainer = styled(DefaultContainer)`
   padding-top: ${Dimens.large4_80}px;

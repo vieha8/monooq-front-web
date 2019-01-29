@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
-import StyledDefaultContainer from 'components/atomic/containers/Static/StyledDefaultContainer';
+import StyledDefaultContainer from 'components/atomic/LV1/DefaultContainer/StyledDefaultContainer';
 import CatchPhrase from 'components/atomic/LV1/CatchPhrase';
 import SubCatchPhrase from 'components/atomic/LV1/SubCatchPhrase';
 

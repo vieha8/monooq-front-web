@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
 import Hr from 'components/atomic/LV1/HorizontalRule';
 import Text from 'components/atomic/LV1/StaticText';
