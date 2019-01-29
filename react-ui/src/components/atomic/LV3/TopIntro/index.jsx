@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
-import StyledDefaultContainer from 'components/atomic/containers/Static/StyledDefaultContainer';
+import StyledDefaultContainer from 'components/atomic/LV1/DefaultContainer/StyledDefaultContainer';
 import Button from 'components/atomic/LV1/Button';
 import ExplainSection from 'components/atomic/LV2/ExplainSection';
 import ForSafeSection from 'components/atomic/LV2/ForSafeSection';

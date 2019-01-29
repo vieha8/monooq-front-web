@@ -4,7 +4,7 @@ import Header from 'components/atomic/containers/Header';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import StyledDefaultContainer from 'components/atomic/containers/Static/StyledDefaultContainer';
+import StyledDefaultContainer from 'components/atomic/LV1/DefaultContainer/StyledDefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
 import PickupSpaceList from 'components/atomic/LV3/PickupSpaceList';
 import TopView from 'components/atomic/LV3/TopView';

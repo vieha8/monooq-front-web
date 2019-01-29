@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
 import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
 import AboutCancellContent from 'components/atomic/LV2/AboutCancellContent';

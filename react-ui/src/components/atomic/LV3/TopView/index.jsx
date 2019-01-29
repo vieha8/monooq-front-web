@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors } from 'variables';
-import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
 import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
 import CatchPhrase from 'components/atomic/LV1/CatchPhrase';
 import SubCatchPhrase from 'components/atomic/LV1/SubCatchPhrase';

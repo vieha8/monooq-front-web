@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
-import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
 import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
 import Hr from 'components/atomic/LV1/HorizontalRule';
 import MainTitle from 'components/atomic/LV1/StaticMainTitle';

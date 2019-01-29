@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
-import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
 
 const MovieContainer = styled(DefaultContainer)`
   padding-top: ${Dimens.large2_70}px;
