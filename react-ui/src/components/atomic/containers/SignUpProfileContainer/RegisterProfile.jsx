@@ -2,9 +2,9 @@
 
 import React, { Component } from 'react';
 import { userActions } from 'redux/modules/user';
-import { uiActions } from 'redux/modules/ui';
 import RegisterProfile from 'components/atomic/LV3/RegisterProfile';
 import ReactGA from 'react-ga';
+import Path from 'config/path';
 
 type PropTypes = {
   dispatch: Function,
@@ -58,7 +58,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
   }
 
   onClickRegisterProfile = () => {
-    const { dispatch, user } = this.props;
+    const { dispatch, user, history } = this.props;
     const { image, name, prefCode, profile, phoneNumber } = this.state;
     dispatch(
       userActions.updateUser({
@@ -66,6 +66,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
         body: { imageUri: image, name, prefCode, profile, phoneNumber },
       }),
     );
+    history.push(Path.signUpPurpose());
   };
 
   handleChangeForm = (name: string, value: any) => {
@@ -94,7 +95,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
   };
 
   render() {
-    const { isLoading, dispatch } = this.props;
+    const { isLoading, history } = this.props;
     const { image, imageUriPreview, name, prefCode, profile, phoneNumber } = this.state;
 
     return (
@@ -111,15 +112,11 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
         profile={profile}
         phoneNumber={phoneNumber}
         onClickSkip={() => {
-          dispatch(
-            uiActions.setUiState({
-              signupStep: 2,
-            }),
-          );
           ReactGA.event({
             category: 'User Register',
             action: 'Skip Profile',
           });
+          history.push(Path.signUpPurpose());
         }}
         onClickRegisterProfile={this.onClickRegisterProfile}
         buttonDisabled={!this.validate()}

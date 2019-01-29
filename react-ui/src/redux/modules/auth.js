@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take, select } from 'redux-saga/effects';
 import firebase from 'firebase/app';
-import { replace } from 'connected-react-router';
+import { push, replace } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import { uiActions } from './ui';
@@ -326,7 +326,7 @@ function* signUpEmail({ payload: { email, password } }) {
 
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signupStep: 1 }));
+    store.dispatch(push(Path.signUpProfile()));
   } catch (err) {
     yield put(authActions.signupFailed(err.message));
     yield put(errorActions.setError(err.message));
@@ -366,7 +366,8 @@ function* signUpFacebook() {
     }
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signupStep: 1, signup: { name: displayName } }));
+    yield put(uiActions.setUiState({ signup: { name: displayName } }));
+    store.dispatch(push(Path.signUpProfile()));
   } catch (err) {
     yield put(authActions.signupFailed(err.message));
     yield put(errorActions.setError());

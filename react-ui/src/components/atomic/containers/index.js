@@ -3,6 +3,8 @@
 import Top from './TopContainer';
 import Login from './LoginContainer';
 import SignUp from './SignUpContainer';
+import SignUpProfile from './SignUpProfileContainer';
+import SignUpPurpose from './SignUpPurposeContainer';
 import ResetPassword from './ResetPasswordContainer';
 import SearchResult from './SearchResultContainer';
 import Space from './SpaceContainer';
@@ -30,6 +32,8 @@ export default {
   Top,
   Login,
   SignUp,
+  SignUpProfile,
+  SignUpPurpose,
   ResetPassword,
   SearchResult,
   Space,

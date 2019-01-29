@@ -15,7 +15,7 @@ const Page = styled.div`
 const HeaderContainer = styled.div`
   position: fixed;
   ${props =>
-    props.storys &&
+    props.stories &&
     `
     position: relative;
     margin: auto auto 80px;
@@ -44,7 +44,7 @@ const Container = styled.div`
 type PropTypes = {
   header: React.Element<*>,
   form: React.Element<*>,
-  storys?: boolean,
+  stories?: boolean,
 };
 
 export default class AccountTemplate extends Component<PropTypes> {
@@ -60,7 +60,7 @@ export default class AccountTemplate extends Component<PropTypes> {
   render() {
     return (
       <Page>
-        <HeaderContainer storys={this.props.storys}>{this.props.header}</HeaderContainer>
+        <HeaderContainer stories={this.props.stories}>{this.props.header}</HeaderContainer>
         <Container>{this.props.form}</Container>
       </Page>
     );

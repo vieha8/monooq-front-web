@@ -61,7 +61,7 @@ storiesOf('Organisms(LV3)/Header', module)
             user={null}
             loginUri="#"
             signupUri="#"
-            storys
+            stories
           />
         </BodyMock>
       </div>
@@ -109,7 +109,7 @@ storiesOf('Organisms(LV3)/Header', module)
             loginUri="#"
             signupUri="#"
             top
-            storys
+            stories
           />
         </BodyMock>
       </div>
@@ -157,7 +157,7 @@ storiesOf('Organisms(LV3)/Header', module)
             loginUri="#"
             signupUri="#"
             help
-            storys
+            stories
           />
         </BodyMock>
       </div>

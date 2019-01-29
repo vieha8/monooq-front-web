@@ -20,6 +20,16 @@ const SignUp = Loadable({
   loading: LoadingPage,
 });
 
+const SignUpProfile = Loadable({
+  loader: () => import('components/atomic/containers/SignUpProfileContainer'),
+  loading: LoadingPage,
+});
+
+const SignUpPurpose = Loadable({
+  loader: () => import('components/atomic/containers/SignUpPurposeContainer'),
+  loading: LoadingPage,
+});
+
 const ResetPassword = Loadable({
   loader: () => import('components/atomic/containers/ResetPasswordContainer'),
   loading: LoadingPage,
@@ -251,6 +261,8 @@ export default ({ history }) => (
       <Route exact path={Path.top()} component={Top} />
       <Route exact path={Path.login()} component={Login} />
       <Route exact path={Path.signUp()} component={SignUp} />
+      <Route exact path={Path.signUpProfile()} component={SignUpProfile} />
+      <Route exact path={Path.signUpPurpose()} component={SignUpPurpose} />
       <Route exact path={Path.resetPassword()} component={ResetPassword} />
       <Route exact path={Path.home()} component={Home} />
       <Route exact path={Path.search()} component={Search} />

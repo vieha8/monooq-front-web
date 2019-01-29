@@ -39,7 +39,7 @@ storiesOf('Templates/AccountPageTemplate', module).add(
             form section
           </div>
         }
-        storys
+        stories
       />
     </div>
   )),
