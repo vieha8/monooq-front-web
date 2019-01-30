@@ -22,6 +22,7 @@ export const ContentsWrap = styled.div`
 export const Section = styled.div`
   margin-top: ${Dimens.medium2}px;
   white-space: nowrap;
+  overflow: hidden;
   ${props =>
     props.top &&
     `
@@ -37,7 +38,11 @@ export const Section = styled.div`
   `};
 `;
 
-const PriceWrapper = styled.div`
+const PriceWrap = styled.div`
+  float: left;
+`;
+
+const PriceItem = styled.div`
   display: inline-block;
   padding: 0;
   max-width: 142px;
@@ -48,11 +53,16 @@ const PriceWrapper = styled.div`
     padding: 0 12px;
   `};
   ${media.phone`
-    max-width: 122px;
+    max-width: 92px;
     ${props =>
       props.caption &&
       `
-      padding: 0 7px;
+      padding: 0 5px;
+    `};
+    ${props =>
+      props.captionUpper &&
+      `
+      padding: 0 0 0 5px;
     `};
   `};
 `;
@@ -120,26 +130,30 @@ export default (props: PropTypes) => (
     </Section>
     <Section>
       <H3 bold>料金で絞り込み</H3>
-      <PriceWrapper>
-        <InputField
-          placeholder="最安"
-          value={props.priceMin}
-          onChange={e => props.onChangePriceMin(e.target.value)}
-        />
-      </PriceWrapper>
-      <PriceWrapper caption>
-        <InlineText.Base>円から</InlineText.Base>
-      </PriceWrapper>
-      <PriceWrapper>
-        <InputField
-          placeholder="最高"
-          value={props.priceMax}
-          onChange={e => props.onChangePriceMax(e.target.value)}
-        />
-      </PriceWrapper>
-      <PriceWrapper caption>
-        <InlineText.Base>円まで</InlineText.Base>
-      </PriceWrapper>
+      <PriceWrap>
+        <PriceItem>
+          <InputField
+            placeholder="最安"
+            value={props.priceMin}
+            onChange={e => props.onChangePriceMin(e.target.value)}
+          />
+        </PriceItem>
+        <PriceItem caption>
+          <InlineText.Base>円から</InlineText.Base>
+        </PriceItem>
+      </PriceWrap>
+      <PriceWrap>
+        <PriceItem>
+          <InputField
+            placeholder="最高"
+            value={props.priceMax}
+            onChange={e => props.onChangePriceMax(e.target.value)}
+          />
+        </PriceItem>
+        <PriceItem caption captionUpper>
+          <InlineText.Base>円まで</InlineText.Base>
+        </PriceItem>
+      </PriceWrap>
       {displayErrors('price_errors', props.priceErrors)}
     </Section>
     <Section>
