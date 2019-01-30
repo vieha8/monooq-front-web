@@ -2,11 +2,24 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Colors } from 'variables';
+import { Colors, FontSizes } from 'variables';
 
-const NoticeCountCircle = styled.span`
-  display: table-cell;
-  font-size: ${props => props.fontSize}px;
+const NoticeCountWrap = styled.div`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+  vertical-align: top;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  color: ${Colors.white};
+  background: ${Colors.brandPrimary};
+`;
+
+const NoticeCount = styled.div`
+  font-size: ${FontSizes.small_12}px;
+  line-height: normal;
 `;
 
 type PropTypes = {
@@ -16,10 +29,7 @@ type PropTypes = {
 
 export default (props: PropTypes) =>
   props.count > 0 && (
-    <NoticeCountCircle className="fa-layers fa-fw" fontSize={props.fontSize}>
-      <i className="fas fa-circle" style={{ color: Colors.brandPrimary }} />
-      <span className="fa-layers-text fa-inverse" data-fa-transform="shrink-9">
-        {props.count}
-      </span>
-    </NoticeCountCircle>
+    <NoticeCountWrap>
+      <NoticeCount>{props.count}</NoticeCount>
+    </NoticeCountWrap>
   );
