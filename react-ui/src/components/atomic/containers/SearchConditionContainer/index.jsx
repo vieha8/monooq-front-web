@@ -8,8 +8,9 @@ import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import SearchCondition from 'components/atomic/LV3/SearchCondition';
 import { searchActions } from 'redux/modules/search';
-import connect from '../connect';
 import { isAvailableLocalStorage } from 'helpers/storage';
+import ErrorMessage from 'strings';
+import connect from '../connect';
 
 type PropTypes = {
   history: {
@@ -18,6 +19,10 @@ type PropTypes = {
   space: {
     ID: number,
   },
+};
+
+const ValidateRegExp = {
+  PriceNumber: /^[0-9]*$/,
 };
 
 class SearchConditionContainer extends Component<PropTypes> {
@@ -99,9 +104,50 @@ class SearchConditionContainer extends Component<PropTypes> {
     const { state } = this;
     const { error } = state;
     const errors = [];
+
+    switch (propName) {
+      case 'priceMin':
+        if (value.length > 0) {
+          if (!value.match(ValidateRegExp.PriceNumber)) {
+            errors.push(ErrorMessage.PriceNumberName('最安料金'));
+          }
+        }
+        break;
+
+      case 'priceMax':
+        if (value.length > 0) {
+          if (!value.match(ValidateRegExp.PriceNumber)) {
+            errors.push(ErrorMessage.PriceNumberName('最高料金'));
+          }
+        }
+        break;
+
+      default:
+        break;
+    }
+
     state[propName] = value;
     error[propName] = errors;
     this.setState({ ...state, error });
+  };
+
+  validate: Function;
+
+  validate = () => {
+    const { priceMin, priceMax } = this.state;
+    let isNoErr = true;
+    if (priceMin.length > 0) {
+      if (!priceMin.match(ValidateRegExp.PriceNumber)) {
+        isNoErr = false;
+      }
+    }
+    if (priceMax.length > 0) {
+      if (!priceMax.match(ValidateRegExp.PriceNumber)) {
+        isNoErr = false;
+      }
+    }
+
+    return isNoErr;
   };
 
   render() {
@@ -130,7 +176,8 @@ class SearchConditionContainer extends Component<PropTypes> {
             onChangePrefCode={v => this.handleChangeUI('prefCode', v)}
             priceMin={priceMin}
             priceMax={priceMax}
-            priceErrors={error.price}
+            priceMinErrors={error.priceMin}
+            priceMaxErrors={error.priceMax}
             onChangePriceMin={v => this.handleChangeUI('priceMin', v)}
             onChangePriceMax={v => this.handleChangeUI('priceMax', v)}
             type={type}
@@ -142,6 +189,7 @@ class SearchConditionContainer extends Component<PropTypes> {
             receiveErrors={error.receiptType}
             onChangeReceive={v => this.handleChangeUI('receiptType', v)}
             onClickSearch={this.onClickSearch}
+            buttonDisabled={!this.validate()}
           />
         }
         rightContent={<ServiceMenu />}
