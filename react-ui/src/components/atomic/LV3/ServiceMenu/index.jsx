@@ -11,7 +11,7 @@ import { Dimens } from 'variables';
 const MenuLink = styled(Link)``;
 
 const LinkWrap = styled.div`
-  padding: 1px 0 16px;
+  padding: 1px 25px ${Dimens.medium}px;
 `;
 
 const AvaterName = styled.span`

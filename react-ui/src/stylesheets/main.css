@@ -55,6 +55,7 @@
 
 .bm-menu {
   background: #fff;
+  overflow: hidden !important;
 }
 
 .bm-menu a {
@@ -66,9 +67,14 @@
   color: #888787;
 }
 
+.bm-item-list {
+  position: relative;
+}
+
 .bm-item-list a {
-  padding: 16px 0px;
   font-size: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .bm-cross-button {
@@ -83,7 +89,7 @@
   background: #bdc3c7;
 }
 #slide .bm-menu {
-  padding: 15px 25px;
+  padding: 15px 0px;
   font-size: 1.15em;
 }
 
