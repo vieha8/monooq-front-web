@@ -82,6 +82,7 @@ class HomeContainer extends Component<PropTypes, State> {
                     key={i}
                     caption={v.title}
                     spaces={v.spaces.map(s => ({
+                      id: s.ID,
                       image:
                         s.Images.length !== 0
                           ? convertImgixUrl(
@@ -95,7 +96,6 @@ class HomeContainer extends Component<PropTypes, State> {
                       priceFull: s.PriceFull,
                       priceHalf: s.PriceHalf,
                       priceQuarter: s.PriceQuarter,
-                      onClick: () => this.onClickSpace(s),
                     }))}
                   />
                 ),

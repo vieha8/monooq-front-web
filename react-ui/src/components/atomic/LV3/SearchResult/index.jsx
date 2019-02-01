@@ -56,6 +56,7 @@ const CaptionWrap = styled.div`
 type PropTypes = {
   caption: string,
   spaces: Array<{
+    id: number,
     image: string,
     title: string,
     addressTown: string,
@@ -63,7 +64,6 @@ type PropTypes = {
     priceFull: number,
     priceHalf: number,
     priceQuarter: number,
-    onClick: Function,
   }>,
   history: {
     push: Function,

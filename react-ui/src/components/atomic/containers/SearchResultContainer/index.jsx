@@ -232,6 +232,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
                   <SearchResult
                     history={history}
                     spaces={spaces.map(s => ({
+                      id: s.ID,
                       image: (s.Images[0] || {}).ImageUrl,
                       title: s.Title,
                       address: `${s.AddressPref}${s.AddressCity}`,
