@@ -295,6 +295,11 @@ function* createSpace({ payload: { body } }) {
 }
 
 function* prepareUpdateSpace({ payload: spaceId }) {
+  const spaceCache = yield select(state => state.ui.space);
+  if (spaceCache.ID) {
+    return;
+  }
+
   const token = yield* getToken();
   const { data: space, err } = yield call(getApiRequest, apiEndpoint.spaces(spaceId), {}, token);
 
