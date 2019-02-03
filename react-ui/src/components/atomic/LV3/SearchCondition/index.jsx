@@ -74,7 +74,8 @@ type PropTypes = {
   onChangePrefCode: Function,
   priceMin: string,
   priceMax: string,
-  priceErrors: Array<string>,
+  priceMinErrors: Array<string>,
+  priceMaxErrors: Array<string>,
   onChangePriceMin: Function,
   onChangePriceMax: Function,
   type: number,
@@ -86,6 +87,7 @@ type PropTypes = {
   receiveErrors: Array<string>,
   onChangeReceive: Function,
   onClickSearch: Function,
+  buttonDisabled: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -140,7 +142,8 @@ export default (props: PropTypes) => (
       <PriceWrapper caption>
         <InlineText.Base>円まで</InlineText.Base>
       </PriceWrapper>
-      {displayErrors('price_errors', props.priceErrors)}
+      {displayErrors('price_errors', props.priceMinErrors)}
+      {displayErrors('price_errors', props.priceMaxErrors)}
     </Section>
     <Section>
       <SelectForm
@@ -210,7 +213,13 @@ export default (props: PropTypes) => (
     </Section>
     <Section>
       <ButtonWrap>
-        <Button primary fontbold fill={1} onClick={props.onClickSearch}>
+        <Button
+          primary
+          fontbold
+          fill={1}
+          disabled={props.buttonDisabled}
+          onClick={props.onClickSearch}
+        >
           検索する
         </Button>
       </ButtonWrap>
