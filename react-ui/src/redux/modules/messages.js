@@ -355,14 +355,37 @@ function* sendEmail(payload) {
   yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
 }
 
-function* sendMessageAndEmail({ payload }) {
+function* sendSMS(payload) {
+  const { roomId, toUserId } = payload;
+
+  const token = yield* getToken();
+
+  let messageBody = '【モノオク】メッセージが届いています。下記リンクからご確認ください。\n\n';
+
+  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  if (process.env.REACT_APP_ENV === 'production') {
+    messageBody += `https://monooq.com/messages/${roomId}`;
+  } else {
+    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
+  }
+
+  const body = {
+    UserId: toUserId,
+    Body: messageBody,
+  };
+
+  yield call(postApiRequest, apiEndpoint.sendSMS(), body, token);
+}
+
+function* sendMessageAndNotice({ payload }) {
   yield sendMessage(payload);
   yield sendEmail(payload);
+  yield sendSMS(payload);
 }
 
 // Sagas
 export const messagesSagas = [
   takeEvery(FETCH_ROOMS_START, fetchRoomStart),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),
-  takeEvery(SEND_MESSAGE, sendMessageAndEmail),
+  takeEvery(SEND_MESSAGE, sendMessageAndNotice),
 ];

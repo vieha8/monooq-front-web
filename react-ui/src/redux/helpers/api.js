@@ -17,6 +17,7 @@ export const apiEndpoint = {
   requestsByHostUserId: id => `/requests/host/${id}`,
   payments: id => (id ? `/payments/${id}` : `/payments`),
   sendMail: () => `/mailer/send`,
+  sendSMS: () => `/sms/send`,
   sales: () => `/payments/payouts`,
   backlogAddIssue: () => `/backlog/issue`,
   features: id => `spaces/features/${id}`,
