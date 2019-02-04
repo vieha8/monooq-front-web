@@ -7,8 +7,6 @@ import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import EditSpaceCompletion from 'components/atomic/LV3/EditSpace/Completion';
-import { spaceActions } from 'redux/modules/space';
-import { uiActions } from 'redux/modules/ui';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
@@ -31,11 +29,9 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
 
     checkLogin(this.props);
 
-    props.dispatch(
-      uiActions.setUiState({
-        space: {},
-      }),
-    );
+    const spaceId = props.match.params.space_id;
+    const isEdit = !!spaceId;
+    this.state = { spaceId, isEdit };
   }
 
   componentDidMount() {
@@ -48,7 +44,8 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space, history, dispatch, isEdit } = this.props;
+    const { space, history } = this.props;
+    const { spaceId, isEdit } = this.state;
 
     return (
       <MenuPageTemplate
@@ -62,15 +59,12 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
               userId: space.UserID,
             }}
             onClickViewSpace={() => {
-              dispatch(spaceActions.clearSpace());
-              history.push(Path.space(space.ID));
+              history.push(Path.space(spaceId));
             }}
             onClickBackHome={() => {
-              dispatch(spaceActions.clearSpace());
               history.push(Path.home());
             }}
             onClickCreateSpace={() => {
-              dispatch(spaceActions.clearSpace());
               history.push(Path.createSpaceInfo());
             }}
           />
@@ -83,8 +77,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
 
 const mapStateToProps = state =>
   mergeAuthProps(state, {
-    space: state.space.created || state.space.space || {},
-    isEdit: !state.space.created,
+    space: state.ui.space || {},
   });
 
 export default connect(

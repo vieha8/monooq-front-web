@@ -3,7 +3,7 @@ import Path from 'config/path';
 
 import styled from 'styled-components';
 import { Dimens } from 'variables';
-import DefaultContainer from 'components/atomic/containers/DefaultContainer';
+import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
 import Footer from 'components/atomic/LV2/Footer';
 import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
 import RecommendLinkList from 'components/atomic/LV2/RecommendLinkList';

@@ -34,6 +34,10 @@ const DateWrapper = styled.div`
   margin-top: 8px;
 `;
 
+const Caution = styled.span`
+  color: ${Colors.error};
+`;
+
 type PropTypes = {
   id: string,
   host: boolean,
@@ -68,11 +72,22 @@ export default (props: PropTypes) => (
       </Text>
       <CaptionWrapper>
         <Text>
-          もしも期間や料金に変更があった場合は、ホストが新しいお見積りの発行をしてください。
-          モノオクでの決済履歴がない場合は保険が適応されません。※現在はクレジットカード(VISA、MasterCard)のみお支払い可能です。
-          それ以外の方法をご希望の場合は
-          <a href="mailto:info@monooq.com">info@monooq.com</a>
+          期間や料金に変更があった場合は、ホストが新しく見積りを発行してください。
+          <br />
+          <br />
+          現在はクレジットカード(VISA、MasterCard)のみ決済可能です。
+          <br />
+          下記をご希望の場合は
+          <a href="mailto:support@monooq.com">support@monooq.com</a>
           までご連絡ください。
+          <br />
+          ・銀行振込
+          <br />
+          ・クレジットカードで1ヶ月ごとの月額自動引き落とし(長期利用の方、または1ヶ月あたりの料金が高額な方向け)
+          <br />
+          <br />
+          <Caution>モノオク上で決済を行わない場合、保険が適応されません。</Caution>
+          <br />
         </Text>
       </CaptionWrapper>
       {!props.host && (
