@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 
 import { authActions } from 'redux/modules/auth';
-import { uiActions } from 'redux/modules/ui';
 
 import AccountTemplate from 'components/atomic/templates/AccountTemplate';
 import Login from 'components/atomic/LV3/Login';
@@ -86,7 +85,7 @@ class LoginContainer extends Component {
   };
 
   render() {
-    const { dispatch, ui, isLogin, isChecking, loginFailed, history } = this.props;
+    const { ui, isLogin, isChecking, loginFailed, history } = this.props;
     const { email, password, isUnVisiblePW, hasChanged } = this.state;
 
     if (!isLogin) {
@@ -111,11 +110,6 @@ class LoginContainer extends Component {
           }
         />
       );
-    }
-
-    // 多重render防止
-    if (ui.redirectPath) {
-      dispatch(uiActions.setUiState({ redirectPath: null }));
     }
 
     return <Redirect to={ui.redirectPath || Path.home()} />;

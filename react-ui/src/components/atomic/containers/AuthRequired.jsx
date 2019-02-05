@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { authActions } from 'redux/modules/auth';
 import Path from 'config/path';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import { uiActions } from '../../../redux/modules/ui';
 
 type PropTypes = {
   dispatch: Function,
@@ -13,15 +14,14 @@ type PropTypes = {
 };
 
 export function checkLogin(props: PropTypes) {
-  const { dispatch } = props;
+  const { dispatch, location } = props;
   if (!props.isChecking && !props.isLogin) {
+    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
     dispatch(authActions.checkLogin());
   }
 }
 
-export function checkAuthState(props: PropTypes) {
-  const { isChecking, isLogin } = props;
-
+export function checkAuthState({ isChecking, isLogin }: PropTypes) {
   if (isChecking) {
     return <LoadingPage hideProgress />;
   }
