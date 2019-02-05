@@ -12,7 +12,7 @@ const InputField = styled.input`
   border-radius: 3px;
   color: ${Colors.black};
   outline: none;
-  background: ${Colors.lightGray2Bg};
+  background: ${Colors.white};
 
   &:placeholder-shown {
     color: ${Colors.black};
