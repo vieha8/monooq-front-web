@@ -13,6 +13,7 @@ const InputField = styled.input`
   color: ${Colors.black};
   outline: none;
   background: ${Colors.white};
+  -webkit-appearance: none;
 
   &:placeholder-shown {
     color: ${Colors.black};
