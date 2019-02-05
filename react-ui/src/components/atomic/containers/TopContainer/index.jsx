@@ -29,12 +29,6 @@ class TopContainer extends React.Component {
     };
   }
 
-  shouldComponentUpdate = (nextProps, nextState) => {
-    console.log(this.props, this.state);
-    console.log(nextProps, nextState);
-    return true;
-  };
-
   shuffleArray = array => {
     const result = array;
     for (let i = array.length - 1; i > 0; i -= 1) {
