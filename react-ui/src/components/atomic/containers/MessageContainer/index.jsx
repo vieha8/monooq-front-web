@@ -192,7 +192,7 @@ class MessageContainer extends Component<PropTypes, State> {
               price,
               link: Path.payment(match.params.message_room_id, requestId),
               receivedAt: message.createDt,
-              status: request.Status,
+              status: request ? request.Status : 'estimate',
             },
           };
         }

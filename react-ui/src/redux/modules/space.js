@@ -380,6 +380,7 @@ function* getFeatureSpaces() {
         return feature;
       }
 
+      // TODO エラーハンドリング
       const { data } = await getApiRequest(apiEndpoint.features(featureId), {}, token);
       feature.spaces = data;
       return feature;
