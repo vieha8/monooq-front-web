@@ -154,6 +154,7 @@ type PropTypes = {
   isCheckingLogin: boolean,
   noHeaderButton: boolean,
   loginUri: string,
+  onClickLogin: Function,
   signupUri: string,
   top?: boolean,
   help?: boolean,
@@ -205,7 +206,11 @@ export default (props: PropTypes) => {
               ) : (
                 <ActionContainer>
                   <AnonymouseWrapper>
-                    <Anonymouse loginUri={props.loginUri} signupUri={props.signupUri} />
+                    <Anonymouse
+                      loginUri={props.loginUri}
+                      onClickLogin={props.onClickLogin}
+                      signupUri={props.signupUri}
+                    />
                   </AnonymouseWrapper>
                 </ActionContainer>
               )}

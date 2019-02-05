@@ -6,7 +6,7 @@ import Header from 'components/atomic/LV3/Header';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
-import ReactGA from 'react-ga';
+import { uiActions } from '../../../redux/modules/ui';
 
 type PropTypes = {
   isChecking: boolean,
@@ -27,17 +27,9 @@ class HeaderContainer extends Component<PropTypes> {
     }
   }
 
-  onClickSearch: Function;
-
-  onClickSearch = () => {
-    const { history } = this.props;
-
-    ReactGA.event({
-      category: 'Search',
-      action: 'Push Header Search Button',
-    });
-
-    history.push(Path.searchCondition());
+  onClickLogin = () => {
+    const { dispatch, location } = this.props;
+    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
   };
 
   render() {
@@ -74,6 +66,7 @@ class HeaderContainer extends Component<PropTypes> {
             : null
         }
         loginUri={Path.login()}
+        onClickLogin={this.onClickLogin}
         signupUri={Path.signUp()}
         spMenu={<ServiceMenu userName={user.Name} userImage={user.ImageUrl} isPhone />}
       />

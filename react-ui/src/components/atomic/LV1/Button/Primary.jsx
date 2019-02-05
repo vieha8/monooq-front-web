@@ -85,9 +85,9 @@ export default (props: Object) =>
         <PrimaryButton {...props} />
       </HyperLink>
     ) : (
-      <HyperLink {...props} href={props.href}>
+      <Link to={props.href}>
         <PrimaryButton {...props} />
-      </HyperLink>
+      </Link>
     )
   ) : (
     <PrimaryButton {...props} />
