@@ -98,6 +98,18 @@ const PriceText = styled(InlineText.Base)`
   `};
 `;
 
+const NoCardShadowStyle = `
+  box-shadow: none;
+  transition: 0.3s;
+  border: 1px solid rgba(0,0,0,0);
+  &:hover {
+    border: 1px solid rgba(0,0,0,0.4);
+    transition: 0.3s; 
+    border-radius:6px;
+  }
+  width: 100%;
+`;
+
 const CardShadowStyle = `
   box-shadow: none;
   transition: 0.3s;
@@ -126,7 +138,7 @@ export default (props: PropTypes) =>
   props.manage ? (
     <Container manage>
       <Link to={props.href || ''}>
-        <Card noBorder noPadding pointer onClick={props.onClick} customStyle={CardShadowStyle}>
+        <Card noBorder noPadding pointer onClick={props.onClick} customStyle={NoCardShadowStyle}>
           <ImageWrapper>
             <HeroImage height={290} heightSp={180} large {...props.image} />
           </ImageWrapper>
