@@ -84,6 +84,12 @@ class LoginContainer extends Component {
     return email && email.length > 0 && password && password.length > 0;
   };
 
+  onKeyDownPassword = e => {
+    if (e && e.keyCode === 13 && this.validate()) {
+      this.loginEmail();
+    }
+  };
+
   render() {
     const { ui, isLogin, isChecking, loginFailed, history } = this.props;
     const { email, password, isUnVisiblePW, hasChanged } = this.state;
@@ -98,6 +104,7 @@ class LoginContainer extends Component {
               onClickLogin={this.loginEmail}
               onChangeEmail={value => this.handleChangeForm('email', value)}
               onChangePassword={value => this.handleChangeForm('password', value)}
+              onKeyDownPassword={this.onKeyDownPassword}
               email={email}
               password={password}
               ispasswordVisible={isUnVisiblePW}

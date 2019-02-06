@@ -102,6 +102,12 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     );
   };
 
+  onKeyDownPassword = e => {
+    if (e && e.keyCode === 13 && this.validate()) {
+      this.onClickNext();
+    }
+  };
+
   render() {
     const { isRegisting, isSignupFailed, history } = this.props;
     const { email, password, isUnVisiblePW, hasChanged, errors } = this.state;
@@ -111,6 +117,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
         onClickFacebook={this.onClickFacebook}
         onChangeEmail={value => this.handleChangeForm('email', value)}
         onChangePassword={value => this.handleChangeForm('password', value)}
+        onKeyDownPassword={this.onKeyDownPassword}
         email={email}
         emailError={(!hasChanged && errors.email) || []}
         password={password}

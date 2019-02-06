@@ -17,6 +17,7 @@ type PropTypes = {
   onClickLogin: Function,
   onChangeEmail: Function,
   onChangePassword: Function,
+  onKeyDownPassword: Function,
   email: string,
   password: string,
   loginFailed: boolean,
@@ -43,6 +44,7 @@ export default (props: PropTypes) => (
         placeholder="パスワード"
         value={props.password}
         onChange={e => props.onChangePassword(e.target.value)}
+        onKeyDown={props.onKeyDownPassword}
         clickIcon={props.onClickIconPassword}
       />
     }
