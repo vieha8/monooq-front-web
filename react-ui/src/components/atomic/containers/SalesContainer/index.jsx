@@ -75,7 +75,7 @@ const ButtonWrap = styled.div`
     display: block;
     width: 100%;
     max-width: 100%;
-    position: absolute;
+    position: relative;
     left: 0px;
     bottom: 0px;
     z-index: 1000;
