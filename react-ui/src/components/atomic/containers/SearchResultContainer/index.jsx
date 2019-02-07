@@ -63,9 +63,11 @@ class SearchResultContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
 
-    const { location } = props;
+    const { location, dispatch } = props;
     const query = parse(location.search);
     const { keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture } = query;
+
+    dispatch(searchActions.resetSearch());
 
     this.state = {
       keyword: keyword || '',
