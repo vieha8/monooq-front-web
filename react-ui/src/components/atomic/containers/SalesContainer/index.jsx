@@ -78,9 +78,8 @@ const ButtonWrap = styled.div`
     position: relative;
     left: 0px;
     bottom: 0px;
-    z-index: 1000;
     text-align: center;
-    padding: 0 15px 15px;
+    padding: 0 0px 15px;
   `};
 `;
 
