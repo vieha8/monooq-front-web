@@ -1,14 +1,10 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import MenuItem from 'components/atomic/LV2/MenuItem/ServiceMenu';
 import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
-import { OtherIcon } from 'components/atomic/LV1/ActionIcon';
 import { Dimens } from 'variables';
-
-const MenuLink = styled(Link)``;
 
 const LinkWrap = styled.div`
   padding: 1px 25px ${Dimens.medium}px;
@@ -20,16 +16,6 @@ const AvaterName = styled.span`
   vertical-align: middle;
   max-width: 140px;
   margin-left: ${Dimens.medium}px;
-`;
-
-const OtherIconWrap = styled.span`
-  display: inline-block !important;
-  vertical-align: middle;
-  float: right;
-  width: 32px;
-  height: 32px;
-  margin: 6px auto 0px;
-  text-align: center;
 `;
 
 type MenuItemProps = {
@@ -61,11 +47,6 @@ export default (props: PropTypes) => (
         <LinkWrap>
           <AvatarIcon imageSrc={props.userImage} size={40} />
           <AvaterName>{props.userName}</AvaterName>
-          <OtherIconWrap>
-            <MenuLink to={props.editProfile.to}>
-              <OtherIcon />
-            </MenuLink>
-          </OtherIconWrap>
         </LinkWrap>
       </Fragment>
     )}
@@ -77,7 +58,7 @@ export default (props: PropTypes) => (
         <MenuItem title="スペースの登録" {...props.addSpace} line />
         <MenuItem title="スペースの管理" {...props.spaces} />
         <MenuItem title="売上・振込申請" {...props.sales} />
-        {!props.isPhone && <MenuItem title="プロフィール編集" {...props.editProfile} />}
+        <MenuItem title="プロフィール編集" {...props.editProfile} />
       </Fragment>
     )}
     <MenuItem title="ヘルプ" {...props.help} blank line={props.isLogin} />
