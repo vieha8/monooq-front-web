@@ -63,9 +63,6 @@ const SalesAmountMsgWrap = styled.div`
   font-size: ${FontSizes.medium_18}px;
   font-weight: 700;
   line-height: 16px;
-  ${media.phone`
-    font-size: ${FontSizes.medium}px;
-  `};
 `;
 
 const ButtonWrap = styled.div`
