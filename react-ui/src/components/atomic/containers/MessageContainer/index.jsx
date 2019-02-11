@@ -231,6 +231,8 @@ class MessageContainer extends Component<PropTypes, State> {
       lastReadDt = room[`user${otherUserId}LastReadDt`].toDate();
     }
 
+    const isRegisterPhoneNumber = !!user.phoneNumber;
+
     return (
       <Fragment>
         <TopWrap>
@@ -273,7 +275,7 @@ class MessageContainer extends Component<PropTypes, State> {
           onChangeText={this.handleChangeText}
           text={text}
           pickedImage={(image || {}).preview}
-          buttonDisabled={text === '' && !image}
+          buttonDisabled={(text === '' && !image) || !isRegisterPhoneNumber}
           onClickSend={this.sendMessage}
           lastReadDt={lastReadDt}
         />
