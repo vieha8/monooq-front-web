@@ -80,7 +80,7 @@ export default (props: PropTypes) => (
         onChange={e => props.onChangePhoneNumber(e.target.value)}
         value={props.phoneNumber}
         type="tel"
-        hint="緊急時の連絡先として利用させていただきます"
+        hint="取引時の保険適用に必須となります。緊急時の連絡先として利用させていただく場合もございます。"
       />
     </Row>
     <Row>
