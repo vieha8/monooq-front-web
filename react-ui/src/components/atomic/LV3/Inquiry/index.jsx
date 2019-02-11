@@ -10,7 +10,7 @@ import { Dimens } from 'variables';
 import Path from 'config/path';
 
 const Text = styled.div`
-  margin-top: ${Dimens.medium}px;
+  margin-top: ${Dimens.medium1_26}px;
 `;
 
 const UnsubscribeText = styled.div`
@@ -33,7 +33,6 @@ export default ({ isLogin }: PropTypes) => (
     <Text>
       <InlineText.Base>
         サービスの不明点・お困りのことがあれば、モノオクカスタマーサポートまでお寄せください。
-        <br />
         お問い合わせはLINEにて対応しております。下記より友だち追加の上、ご連絡ください。
         <br />
       </InlineText.Base>
