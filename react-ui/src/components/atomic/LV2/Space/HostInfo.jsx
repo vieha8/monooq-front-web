@@ -13,7 +13,7 @@ const Content = styled.div``;
 
 const ProfileWrap = styled.div`
   font-size: ${FontSizes.small}px;
-  line-height: normal;
+  line-height: 1.5;
 `;
 
 type PropTypes = {
