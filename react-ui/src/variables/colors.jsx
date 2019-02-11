@@ -26,6 +26,8 @@ export default {
   orange: '#FF8000',
   facebook: '#3B5998',
   facebookHover: '#4C75C9',
+  line: '#00b900',
+  lineHover: '#67c667',
   pickup1: '#E85258',
   pickup2: '#EFA0C0',
   pickup3: '#18B3F0',

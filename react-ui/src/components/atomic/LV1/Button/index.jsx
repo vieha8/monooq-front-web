@@ -7,12 +7,14 @@ import Primary from './Primary';
 import Secondary from './Secondary';
 import Tertiary from './Tertiary';
 import Facebook from './Facebook';
+import Line from './Line';
 
 type PropTypes = {
   primary?: boolean,
   secondary?: boolean,
   tertiary?: boolean,
   facebook?: boolean,
+  line?: boolean,
   disabled?: boolean,
   loading?: boolean,
   onClick: Function,
@@ -64,6 +66,20 @@ export default (props: PropTypes) => {
           props.children
         )}
       </Facebook>
+    );
+  }
+
+  if (props.line) {
+    return (
+      <Line {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
+        {props.loading ? (
+          <LoaderWrap>
+            <Loader active inverted inline="centered" size="mini" />
+          </LoaderWrap>
+        ) : (
+          props.children
+        )}
+      </Line>
     );
   }
 

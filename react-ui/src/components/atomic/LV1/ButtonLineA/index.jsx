@@ -1,20 +1,12 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import ReactGA from 'react-ga';
+import Button from 'components/atomic/LV1/Button';
 
 const imageUrl = 'https://scdn.line-apps.com/n/line_add_friends/btn/ja.png';
-const imageAlt = '友だち追加';
-
-const ButtonLineWrap = styled.a`
-  :hover {
-    img {
-      opacity: 0.7;
-    }
-  }
-`;
 
 const ButtonLineImage = styled.img`
   display: block;
@@ -29,21 +21,23 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <ButtonLineWrap
-    href="https://line.me/R/ti/p/%40wna0649g"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
+  <Fragment>
     {props.story ? (
       <ButtonLineImage src={imageUrl} alt="imageAlt" />
     ) : (
-      <ButtonLineImage
-        src={imageUrl}
-        alt={imageAlt}
+      <Button
+        line
+        center
+        fill={1}
+        link
+        blank
+        href="https://line.me/R/ti/p/%40wna0649g"
         onClick={() =>
           ReactGA.event({ category: props.reactGACategory, action: props.reactGAAction })
         }
-      />
+      >
+        友だち追加
+      </Button>
     )}
-  </ButtonLineWrap>
+  </Fragment>
 );

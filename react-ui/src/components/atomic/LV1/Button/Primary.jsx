@@ -28,7 +28,7 @@ export const PrimaryButton = styled.div`
     background: ${Colors.brandSecondary};
   }
   
-  ${props => (props.lineheight ? `line-height: ${props.lineheight};` : `line-height: normal`)};
+  ${props => (props.lineheight ? `line-height: ${props.lineheight}px;` : `line-height: normal`)};
 
   height: 48px;
   padding: 13px 10px;
