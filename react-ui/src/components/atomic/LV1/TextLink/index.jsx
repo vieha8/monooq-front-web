@@ -11,7 +11,7 @@ const TextLink = styled(Link)`
   line-height: normal;
   font-size: ${props => props.fontSize || FontSizes.small_15}px;
   ${media.phone`
-      font-size: ${props => props.fontSizeSp || props.small_12}px;
+      font-size: ${props => props.fontSizeSp || FontSizes.small_12}px;
   `};
 
   font-weight: ${props => (props.bold ? 'bold' : 'normal')};
