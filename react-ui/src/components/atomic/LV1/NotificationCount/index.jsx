@@ -10,9 +10,9 @@ const NoticeCountWrap = styled.div`
   align-items: center;
   flex-flow: column wrap;
   vertical-align: top;
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
+  border-radius: 4px;
+  width: 31px;
+  height: 24px;
   color: ${Colors.white};
   background: ${Colors.brandPrimary};
 `;
