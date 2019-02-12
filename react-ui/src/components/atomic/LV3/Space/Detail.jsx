@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
+import Button from 'components/atomic/LV1/Button';
 import Description from 'components/atomic/LV2/Space/Description';
 import Image from 'components/atomic/LV2/Space/Image';
 import Address from 'components/atomic/LV2/Space/Address';
@@ -67,22 +68,27 @@ const PriceText = styled(InlineText.Base)`
 `;
 
 const ShareButtonsWrapper = styled.div`
-  margin-top: ${Dimens.medium3}px;
-  margin-bottom: ${Dimens.medium3}px;
+  position: relative;
 `;
 
-const TwitterButton = styled(TwitterShareButton)`
-  vertical-align: top;
+const ButtonWrap = styled.div`
+  width: 100%;
+  max-width: 170px;
   display: inline-block;
-  margin-right: 15px;
-  text-align: center;
-`;
-
-const FacebookButton = styled(FacebookShareButton)`
-  vertical-align: top;
-  display: inline-block;
-  margin-right: 15px;
-  text-align: center;
+  margin: 30px auto;
+  &:last-child {
+    margin-left: ${Dimens.small_10}px;
+  }
+  ${media.phone`
+    display: inline-block;
+    width: 100%;
+    max-width: calc(50% - 5px);
+    left: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    text-align: center;
+    padding: 0 0 15px;
+  `};
 `;
 
 type PropTypes = {
@@ -148,32 +154,47 @@ export default (props: PropTypes) => (
       <Supplement content={props.supplement} />
     </Fragment>
     <ShareButtonsWrapper>
-      <TwitterButton
-        beforeOnClick={() =>
-          ReactGA.event({
-            category: 'Share',
-            action: 'Push Twitter Share Button At Space',
-            value: props.id,
-          })
-        }
-        url={`https://monooq.com/space/${props.id}`}
-        title={`${props.name} | モノオク`}
-      >
-        <TwitterIcon size={32} round />
-      </TwitterButton>
-      <FacebookButton
-        beforeOnClick={() =>
-          ReactGA.event({
-            category: 'Share',
-            action: 'Push Facebook Share Button At Space',
-            value: props.id,
-          })
-        }
-        url={`https://monooq.com/space/${props.id}`}
-        quote={`${props.name} | モノオク`}
-      >
-        <FacebookIcon size={32} round />
-      </FacebookButton>
+      <ButtonWrap>
+        <Button
+          twitter
+          fill={1}
+          url={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${props.id}&text=${
+            props.name
+          }｜モノオク&hashtags=モノオク`}
+          fontbold
+          fontSizeSp={12}
+          OnClick={() =>
+            ReactGA.event({
+              category: 'Share',
+              action: 'Push Twitter Share Button At Space',
+              value: props.id,
+            })
+          }
+        >
+          ツイートする
+        </Button>
+      </ButtonWrap>
+      <ButtonWrap>
+        <Button
+          facebook
+          type2
+          fill={1}
+          url={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${
+            props.id
+          }&quote=${props.name}｜モノオク`}
+          fontbold
+          fontSizeSp={12}
+          OnClick={() =>
+            ReactGA.event({
+              category: 'Share',
+              action: 'Push Facebook Share Button At Space',
+              value: props.id,
+            })
+          }
+        >
+          シェアする
+        </Button>
+      </ButtonWrap>
     </ShareButtonsWrapper>
   </Container>
 );

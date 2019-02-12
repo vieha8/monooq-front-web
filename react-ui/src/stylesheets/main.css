@@ -6,6 +6,21 @@
   }
 }
 
+.btn-icon-facebook,
+.btn-icon-twitter {
+  position: absolute;
+  margin-left: -30px;
+  margin-top: -4px;
+}
+
+@media (max-width: 30em) {
+  .btn-icon-facebook,
+  .btn-icon-twitter {
+    margin-left: -24px;
+    margin-top: -2.5px;
+  }
+}
+
 .space_image_gallery_bullet {
   background: #ffffff !important;
 }
