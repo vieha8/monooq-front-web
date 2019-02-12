@@ -78,7 +78,7 @@ export default (props: PropTypes) => (
     phoneNumber={
       <InputForm
         label="電話番号"
-        hint="緊急時の連絡先として利用させていただく場合がございます"
+        hint="取引時の保険適用に必須となります。緊急時の連絡先として利用させていただく場合もございます。"
         placeholder="09012345678"
         onChange={e => props.onChangePhoneNumber(e.target.value)}
         value={props.phoneNumber}
