@@ -20,6 +20,7 @@ import { convertImgixUrl } from 'helpers/imgix';
 import { messagesActions } from 'redux/modules/messages';
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
+import { uiActions } from '../../../../redux/modules/ui';
 
 const TopWrap = styled.div`
   margin-bottom: 25px;
@@ -220,8 +221,14 @@ class MessageContainer extends Component<PropTypes, State> {
 
   close = () => this.setState({ errorModal: false });
 
+  onClickEditProfile = () => {
+    const { history, dispatch, location } = this.props;
+    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
+    history.push(Path.editProfile());
+  };
+
   leftContent = () => {
-    const { isLoading, user, room, history } = this.props;
+    const { isLoading, user, room } = this.props;
     const { text, image, errorModal } = this.state;
 
     if (isLoading || !room) {
@@ -300,7 +307,7 @@ class MessageContainer extends Component<PropTypes, State> {
             </p>
           </Modal.Content>
           <Modal.Actions>
-            <Button color="red" small={1} onClick={() => history.push(Path.editProfile())}>
+            <Button color="red" small={1} onClick={this.onClickEditProfile}>
               登録画面へ進む
             </Button>
           </Modal.Actions>

@@ -74,16 +74,15 @@ class ProfileContainer extends Component<PropTypes> {
 
   onClickUpdate: Function;
   onClickUpdate = () => {
-    window.scrollTo(0, 0);
     const { user } = this.props;
-    const { name, email, prefCode, profile } = this.state;
+    const { name, email, prefCode, profile, purpose } = this.state;
 
     this.setState({ hasChanged: false, errors: {} });
 
     if (this.validate()) {
       const { dispatch } = this.props;
       const body = this.state;
-      body.isHost = this.state.purpose === '2';
+      body.isHost = purpose === '2';
       dispatch(userActions.updateUser({ userId: user.ID, body }));
       return;
     }
@@ -199,6 +198,7 @@ const mapStateToProps = state =>
     user: state.auth.user || {},
     updateSuccess: state.user.updateSuccess,
     isLoading: state.user.isLoading,
+    redirectPath: state.ui.redirectPath,
   });
 
 export default connect(
