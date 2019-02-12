@@ -74,6 +74,7 @@ class ProfileContainer extends Component<PropTypes> {
 
   onClickUpdate: Function;
   onClickUpdate = () => {
+    window.scrollTo(0, 0);
     const { user } = this.props;
     const { name, email, prefCode, profile } = this.state;
 
