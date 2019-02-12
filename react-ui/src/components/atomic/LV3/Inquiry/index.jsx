@@ -54,7 +54,7 @@ export default ({ isLogin }: PropTypes) => (
     </Text>
     {isLogin && (
       <UnsubscribeText>
-        <TextLink to={Path.unsubscribe()} fontSizeSp={15} color={Colors.brandPrimary}>
+        <TextLink to={Path.unsubscribe()} fontsizesp={15} color={Colors.brandPrimary}>
           退会希望の方はこちら
         </TextLink>
       </UnsubscribeText>
