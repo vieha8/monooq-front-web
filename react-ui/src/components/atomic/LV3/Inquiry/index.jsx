@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/atomic/LV1/InlineText';
 import TextLink from 'components/atomic/LV1/TextLink';
-import ButtonLineA from 'components/atomic/LV1/ButtonLineA';
+import Button from 'components/atomic/LV1/Button';
 
 import { Colors, Dimens } from 'variables';
 import Path from 'config/path';
@@ -49,7 +49,9 @@ export default ({ isLogin }: PropTypes) => (
         <br />
       </InlineText.Base>
       <ButtonWrap>
-        <ButtonLineA reactGACategory="Inquiry" reactGAAction="Push LINE Register Button" />
+        <Button line reactGACategory="Inquiry" reactGAAction="Push LINE Register Button">
+          友だち追加
+        </Button>
       </ButtonWrap>
     </Text>
     {isLogin && (
