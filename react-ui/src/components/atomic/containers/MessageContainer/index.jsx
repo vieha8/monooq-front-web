@@ -245,7 +245,7 @@ class MessageContainer extends Component<PropTypes, State> {
       lastReadDt = room[`user${otherUserId}LastReadDt`].toDate();
     }
 
-    const isRegisterPhoneNumber = !!user.phoneNumber;
+    const isRegisterPhoneNumber = !!user.PhoneNumber;
 
     return (
       <Fragment>
