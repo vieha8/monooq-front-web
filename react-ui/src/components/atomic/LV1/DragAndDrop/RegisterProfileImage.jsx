@@ -5,9 +5,8 @@ import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import { Colors, FontSizes } from 'variables';
 
-const StyledDropzone = styled(Dropzone)`
+const DropzoneWrap = styled.div`
   display: table;
-  width: 100%;
   cursor: pointer;
 `;
 
@@ -48,19 +47,21 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <StyledDropzone accept="image/jpeg, image/png" onDrop={props.onDrop}>
-    {({ getRootProps, getInputProps }) => (
-      <Container {...getRootProps()}>
-        {props.image ? (
-          <Preview src={props.imagePreview || props.image} />
-        ) : (
-          <div>
-            <Image className="fal fa-image" />
-            <Text>写真を登録する</Text>
-          </div>
-        )}
-        <input {...getInputProps()} />
-      </Container>
-    )}
-  </StyledDropzone>
+  <DropzoneWrap>
+    <Dropzone accept="image/jpeg, image/png" onDrop={props.onDrop}>
+      {({ getRootProps, getInputProps }) => (
+        <Container {...getRootProps()}>
+          {props.image ? (
+            <Preview src={props.imagePreview || props.image} />
+          ) : (
+            <div>
+              <Image className="fal fa-image" />
+              <Text>写真を登録する</Text>
+            </div>
+          )}
+          <input {...getInputProps()} />
+        </Container>
+      )}
+    </Dropzone>
+  </DropzoneWrap>
 );
