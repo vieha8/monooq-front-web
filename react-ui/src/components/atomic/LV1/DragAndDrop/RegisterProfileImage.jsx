@@ -49,15 +49,18 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <StyledDropzone accept="image/jpeg, image/png" onDrop={props.onDrop}>
-    <Container>
-      {props.image ? (
-        <Preview src={props.imagePreview || props.image} />
-      ) : (
-        <div>
-          <Image className="fal fa-image" />
-          <Text>写真を登録する</Text>
-        </div>
-      )}
-    </Container>
+    {({ getRootProps, getInputProps }) => (
+      <Container {...getRootProps()}>
+        {props.image ? (
+          <Preview src={props.imagePreview || props.image} />
+        ) : (
+          <div>
+            <Image className="fal fa-image" />
+            <Text>写真を登録する</Text>
+          </div>
+        )}
+        <input {...getInputProps()} />
+      </Container>
+    )}
   </StyledDropzone>
 );

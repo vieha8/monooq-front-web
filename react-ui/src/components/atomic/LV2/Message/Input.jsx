@@ -36,11 +36,16 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <div>
     <PickImage accept="image/jpeg, image/png" onDrop={data => props.onPickImage(data[0])}>
-      <PictureIcon verticalMiddle fontSize={24} />
-      <LabelWrapper>
-        <InlineText.Small>写真を送信する</InlineText.Small>
-      </LabelWrapper>
-      {props.preview && <Thumbnail src={props.preview} />}
+      {({ getRootProps, getInputProps }) => (
+        <div {...getRootProps()}>
+          <PictureIcon verticalMiddle fontSize={24} />
+          <LabelWrapper>
+            <InlineText.Small>写真を送信する</InlineText.Small>
+          </LabelWrapper>
+          <input {...getInputProps()} />
+          {props.preview && <Thumbnail src={props.preview} />}
+        </div>
+      )}
     </PickImage>
     <TextArea
       rows={5}

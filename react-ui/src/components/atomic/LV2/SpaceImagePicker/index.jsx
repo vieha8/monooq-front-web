@@ -150,23 +150,24 @@ function showImagePreview(props: PropTypes) {
             return null;
           }
         })}
-        {images.length > 0 &&
-          images.length < MAX_PREVIEW_COUNT && (
-            <StyledAddImageDropZone
-              accept="image/jpeg, image/png"
-              onDrop={data => handleChangeImageWithOrientationFix(data, props)}
-              remain={MAX_PREVIEW_COUNT - images.length}
-            >
-              <DndContent>
+        {images.length > 0 && images.length < MAX_PREVIEW_COUNT && (
+          <StyledAddImageDropZone
+            accept="image/jpeg, image/png"
+            onDrop={data => handleChangeImageWithOrientationFix(data, props)}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <DndContent {...getRootProps()}>
                 <IconWrapper>
                   <PictureIcon />
                 </IconWrapper>
                 <DragText>
                   <InlineText.Base color={Colors.lightGray1}>写真を追加する</InlineText.Base>
                 </DragText>
+                <input {...getInputProps()} />
               </DndContent>
-            </StyledAddImageDropZone>
-          )}
+            )}
+          </StyledAddImageDropZone>
+        )}
       </ImagePreviewContainer>
     );
   }
@@ -186,16 +187,19 @@ export default (props: PropTypes) => {
           accept="image/jpeg, image/png"
           onDrop={data => handleChangeImageWithOrientationFix(data, props)}
         >
-          <DndContent>
-            <IconWrapper>
-              <PictureIcon />
-            </IconWrapper>
-            <DragText>
-              <div>
-                <InlineText.Base>タップして画像をアップロード</InlineText.Base>
-              </div>
-            </DragText>
-          </DndContent>
+          {({ getRootProps, getInputProps }) => (
+            <DndContent {...getRootProps()}>
+              <IconWrapper>
+                <PictureIcon />
+              </IconWrapper>
+              <DragText>
+                <div>
+                  <InlineText.Base>タップして画像をアップロード</InlineText.Base>
+                </div>
+              </DragText>
+              <input {...getInputProps()} />
+            </DndContent>
+          )}
         </StyledDropZone>
       ) : (
         showImagePreview(props)
