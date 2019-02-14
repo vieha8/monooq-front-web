@@ -53,6 +53,7 @@ class ProfileContainer extends Component<PropTypes> {
       profile: user.Profile,
       phoneNumber: user.PhoneNumber,
       purpose: user.IsHost ? 2 : 1,
+      error: {},
     };
   }
 
@@ -84,56 +85,87 @@ class ProfileContainer extends Component<PropTypes> {
     this.setState({ hasChanged: false, errors: {} });
 
     if (this.validate()) {
+      this.state.name = name.trim();
+      this.state.profile = profile.trim();
+
       const { dispatch } = this.props;
       const body = this.state;
       body.isHost = purpose === '2';
       dispatch(userActions.updateUser({ userId: user.ID, body }));
       return;
     }
-
-    const errors = {};
-    // 名前チェック
-    if (!name) {
-      errors.name = [].concat(errors.name, [ErrorMessage.PleaseInput]);
-    }
-    // emailチェック
-    if (!email) {
-      errors.email = [].concat(errors.email, [ErrorMessage.PleaseInput]);
-    }
-    // 電話番号チェック
-    if (!phoneNumber) {
-      errors.phoneNumber = [].concat(errors.phoneNumber, [ErrorMessage.PleaseInput]);
-    }
-
-    // お住いの地域選択
-    if (!prefCode) {
-      errors.prefCode = [].concat(errors.prefCode, [ErrorMessage.PleaseSelect]);
-    }
-    // プロフィールチェック
-    if (!profile) {
-      errors.profile = [].concat(errors.profile, [ErrorMessage.PleaseInput]);
-    }
-
-    this.setState({ errors });
   };
 
   handleChangeUI: Function;
-  handleChangeUI = (propsName: string, value) => {
-    const state = this.state;
-    if (propsName === 'imageUri') {
-      state.imageUriPreview = URL.createObjectURL(value);
+
+  handleChangeUI = (propName: string, value: any) => {
+    const { state } = this;
+    const { error } = state;
+    const errors = [];
+
+    switch (propName) {
+      case 'imageUri':
+        state.imageUriPreview = URL.createObjectURL(value);
+        break;
+
+      case 'name':
+        if (value.trim().length === 0) {
+          errors.push(ErrorMessage.PleaseInput);
+        }
+        break;
+
+      case 'email':
+        if (value.replace(/\s/g, '').length === 0) {
+          errors.push(ErrorMessage.PleaseInput);
+        } else if (!value.match(Validate.Email)) {
+          errors.push(ErrorMessage.InvalidEmail);
+        }
+        break;
+
+      case 'phoneNumber':
+        if (value.replace(/\s/g, '').length === 0) {
+          errors.push(ErrorMessage.PleaseInput);
+        } else if (
+          !(
+            value.match(Validate.phoneNumber.NoHyphenVer) ||
+            value.match(Validate.phoneNumber.HyphenVer)
+          )
+        ) {
+          errors.push(ErrorMessage.InvalidPhoneNumber);
+        }
+        break;
+
+      case 'profile':
+        if (value.trim().length === 0) {
+          errors.push(ErrorMessage.PleaseInput);
+        } else if (value.length > Validate.Profile.Max) {
+          errors.push(ErrorMessage.LengthMax('自己紹介', Validate.Profile.Max));
+        }
+        break;
+
+      case 'prefCode':
+      case 'purpose':
+        if (value.length === 0) {
+          errors.push(ErrorMessage.PleaseSelect);
+        }
+        break;
+
+      default:
+        break;
     }
-    state[propsName] = value;
-    this.setState(state);
+
+    state[propName] = value;
+    error[propName] = errors;
+    this.setState({ ...state, error });
   };
 
   validate: Function;
   validate = () => {
-    const { name, email, phoneNumber, prefCode, profile } = this.state;
+    const { name, email, phoneNumber, prefCode, profile, purpose } = this.state;
 
     return (
       name &&
-      name.length > 0 &&
+      name.trim().length > 0 &&
       email &&
       email.match(Validate.Email) &&
       phoneNumber &&
@@ -141,8 +173,9 @@ class ProfileContainer extends Component<PropTypes> {
         phoneNumber.match(Validate.phoneNumber.HyphenVer)) &&
       prefCode &&
       profile &&
-      profile.length > 0 &&
-      profile.length <= Validate.Profile.Max
+      profile.trim().length > 0 &&
+      profile.length <= Validate.Profile.Max &&
+      purpose
     );
   };
 
@@ -167,6 +200,7 @@ class ProfileContainer extends Component<PropTypes> {
       prefCode,
       profile,
       purpose,
+      error,
     } = this.state;
 
     return (
@@ -181,11 +215,17 @@ class ProfileContainer extends Component<PropTypes> {
               image={imageUri}
               imagePreview={imageUriPreview}
               name={name}
+              nameErrors={error.name}
               email={email}
+              emailErrors={error.email}
               phoneNumber={phoneNumber}
+              phoneNumberErrors={error.phoneNumber}
               prefCode={prefCode}
+              prefCodeErrors={error.prefCode}
               profile={profile}
+              profileErrors={error.profile}
               purpose={purpose}
+              purposeErrors={error.purpose}
               onChangeImage={value => this.handleChangeUI('imageUri', value)}
               onChangeName={value => this.handleChangeUI('name', value)}
               onChangeEmail={value => this.handleChangeUI('email', value)}

@@ -14,6 +14,7 @@ export default {
   CreditCardNumber: 'クレジットカード番号は16桁の半角数字で入力してください。',
   Cvc: 'セキュリティコードは3桁の半角数字で入力してください。',
   InvalidEmail: 'これは正しいメールアドレスではないようです。',
+  InvalidPhoneNumber: 'これは正しい電話番号ではないようです。',
   InvalidPassword: 'パスワードは8桁以上の半角英数字で登録してください。',
   NotMatchPassword:
     '異なるパスワードが入力されています。同じ8桁以上の半角英数字を入力してください。',
