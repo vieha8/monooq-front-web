@@ -3,10 +3,11 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Dimens } from 'variables';
+import { Colors, Dimens } from 'variables';
 import RegsiterProfileImage from 'components/atomic/LV1/DragAndDrop/RegisterProfileImage';
 import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
+import InlineText from 'components/atomic/LV1/InlineText';
 import Button from 'components/atomic/LV1/Button';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 import { selectOptionPurpose } from 'helpers/purposes';
@@ -25,20 +26,36 @@ const ButtonWrap = styled.div`
   `};
 `;
 
+function displayErrors(key: string, errors: Array<string>) {
+  return (
+    Array.isArray(errors) &&
+    errors.map((e, i) => (
+      <div key={`${key}_${i}`.toString()}>
+        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
+      </div>
+    ))
+  );
+}
+
 type PropTypes = {
   onChangeImage: Function,
   image: File | string,
   imagePreview: File | string,
   onChangeName: Function,
   name: string,
+  nameErrors: Array<string>,
   onChangeEmail: Function,
   email: string,
+  emailErrors: Array<string>,
   onChangePrefCode: Function,
   prefCode: string,
+  prefCodeErrors: Array<string>,
   onChangePurpose: Function,
-  purpose: string,
-  onChangeProfile: Function,
   profile: string,
+  profileErrors: Array<string>,
+  onChangeProfile: Function,
+  purpose: string,
+  purposeErrors: Array<string>,
   onClickUpdate: Function,
   buttonDisabled: boolean,
   buttonLoading: boolean,
@@ -64,6 +81,7 @@ export default (props: PropTypes) => (
         onChange={e => props.onChangeName(e.target.value)}
         value={props.name}
       />
+      {displayErrors('name_errors', props.nameErrors)}
     </Row>
     <Row>
       <InputForm
@@ -72,6 +90,7 @@ export default (props: PropTypes) => (
         onChange={e => props.onChangeEmail(e.target.value)}
         value={props.email}
       />
+      {displayErrors('email_errors', props.emailErrors)}
     </Row>
     <Row>
       <InputForm
@@ -82,6 +101,7 @@ export default (props: PropTypes) => (
         type="tel"
         hint="取引時の保険適用に必須となります。緊急時の連絡先として利用させていただく場合もございます。"
       />
+      {displayErrors('phoneNumber_errors', props.phoneNumberErrors)}
     </Row>
     <Row>
       <SelectForm
@@ -90,6 +110,7 @@ export default (props: PropTypes) => (
         onChange={e => props.onChangePrefCode(e.target.value)}
         value={props.prefCode}
       />
+      {displayErrors('prefCode_errors', props.prefCodeErrors)}
     </Row>
     <Row>
       <InputForm
@@ -100,6 +121,7 @@ export default (props: PropTypes) => (
         onChange={e => props.onChangeProfile(e.target.value)}
         value={props.profile}
       />
+      {displayErrors('profile_errors', props.profileErrors)}
     </Row>
     <Row>
       <SelectForm
@@ -108,6 +130,7 @@ export default (props: PropTypes) => (
         onChange={e => props.onChangePurpose(e.target.value)}
         value={props.purpose}
       />
+      {displayErrors('purpose_errors', props.purposeErrors)}
     </Row>
     <ButtonWrap>
       <Button

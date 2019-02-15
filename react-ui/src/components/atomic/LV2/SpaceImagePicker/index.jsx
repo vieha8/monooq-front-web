@@ -150,26 +150,27 @@ function showImagePreview(props: PropTypes) {
 
           return null;
         })}
-        {images.length > 0 && images.length < MAX_PREVIEW_COUNT && (
-          <AddImageDropZoneWrap>
-            <Dropzone
-              accept="image/jpeg, image/png"
-              onDrop={data => handleChangeImageWithOrientationFix(data, props)}
-            >
-              {({ getRootProps, getInputProps }) => (
-                <DndContent {...getRootProps()}>
-                  <IconWrapper>
-                    <PictureIcon />
-                  </IconWrapper>
-                  <DragText>
-                    <InlineText.Base color={Colors.lightGray1}>写真を追加する</InlineText.Base>
-                  </DragText>
-                  <input {...getInputProps()} />
-                </DndContent>
-              )}
-            </Dropzone>
-          </AddImageDropZoneWrap>
-        )}
+        {images.length > 0 &&
+          images.length < MAX_PREVIEW_COUNT && (
+            <AddImageDropZoneWrap>
+              <Dropzone
+                accept="image/jpeg, image/png"
+                onDrop={data => handleChangeImageWithOrientationFix(data, props)}
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <DndContent {...getRootProps()}>
+                    <IconWrapper>
+                      <PictureIcon />
+                    </IconWrapper>
+                    <DragText>
+                      <InlineText.Base color={Colors.lightGray1}>写真を追加する</InlineText.Base>
+                    </DragText>
+                    <input {...getInputProps()} />
+                  </DndContent>
+                )}
+              </Dropzone>
+            </AddImageDropZoneWrap>
+          )}
       </ImagePreviewContainer>
     );
   }
