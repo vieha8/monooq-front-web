@@ -66,7 +66,7 @@ export const authActions = createActions(
 const initialState = {
   isLogin: false,
   isChecking: false,
-  isRegisting: false,
+  isRegistering: false,
   isResetTrying: false,
   isResetSuccess: false,
   isUnsubscribeTrying: false,
@@ -118,22 +118,22 @@ export const authReducer = handleActions(
     [SIGNUP_EMAIL]: state => ({
       ...state,
       isSignupFailed: false,
-      isRegisting: true,
+      isRegistering: true,
     }),
     [SIGNUP_FACEBOOK]: state => ({
       ...state,
       isSignupFailed: false,
-      isRegisting: true,
+      isRegistering: true,
     }),
     [SIGNUP_SUCCESS]: state => ({
       ...state,
       isSignupFailed: false,
-      isRegisting: false,
+      isRegistering: false,
     }),
     [SIGNUP_FAILED]: state => ({
       ...state,
       isSignupFailed: true,
-      isRegisting: false,
+      isRegistering: false,
     }),
     [SET_USER]: (state, action) => ({
       ...state,

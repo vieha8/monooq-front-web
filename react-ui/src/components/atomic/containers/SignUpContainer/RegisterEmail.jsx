@@ -8,7 +8,7 @@ import Path from 'config/path';
 
 type PropTypes = {
   dispatch: Function,
-  isRegisting: boolean,
+  isRegistering: boolean,
   isSignupFailed: boolean,
 };
 
@@ -109,7 +109,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const { isRegisting, isSignupFailed, history } = this.props;
+    const { isRegistering, isSignupFailed, history } = this.props;
     const { email, password, isUnVisiblePW, hasChanged, errors } = this.state;
     return (
       <RegisterEmail
@@ -124,7 +124,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
         passError={(!hasChanged && errors.password) || []}
         ispasswordVisible={isUnVisiblePW}
         onClickIconPassword={this.onClickIconPassword}
-        isRegisterChecking={isRegisting}
+        isRegisterChecking={isRegistering}
         signUpError={isSignupFailed}
         onClickLogin={() => history.push(Path.login())}
       />
