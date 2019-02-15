@@ -2,7 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import dummySpaceImage from 'images/dummy_space.png';
-import { store } from '../store/configureStore';
+import { store } from '../store/index';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';

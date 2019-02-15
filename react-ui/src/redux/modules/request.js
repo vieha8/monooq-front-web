@@ -4,7 +4,7 @@ import firebase from 'firebase/app';
 import { push } from 'connected-react-router';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { authActions, getToken } from './auth';
-import { store } from '../store/configureStore';
+import { store } from '../store/index';
 import { createOmiseToken } from '../helpers/omise';
 import Path from '../../config/path';
 import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';

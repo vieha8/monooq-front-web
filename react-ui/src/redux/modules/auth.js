@@ -6,7 +6,7 @@ import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import { uiActions } from './ui';
 import { errorActions } from './error';
-import { store } from '../store/configureStore';
+import { store } from '../store/index';
 import { getApiRequest, postApiRequest, deleteApiRequest, apiEndpoint } from '../helpers/api';
 import Path from '../../config/path';
 import { isAvailableLocalStorage } from '../../helpers/storage';

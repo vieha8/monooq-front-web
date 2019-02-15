@@ -7,7 +7,7 @@ import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
 import { getApiRequest, putApiRequest, apiEndpoint } from '../helpers/api';
 import { errorActions } from './error';
-import { store } from '../store/configureStore';
+import { store } from '../store/index';
 import { push } from 'connected-react-router';
 
 // Actions
