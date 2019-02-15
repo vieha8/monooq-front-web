@@ -10,7 +10,7 @@ import Top from 'components/atomic/LV3/Top';
 import ReactGA from 'react-ga';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import PickupStaffSpaceList from 'components/atomic/LV3/Top/pickup';
-import { searchActions } from '../../../../redux/modules/search';
+import { spaceActions } from 'redux/modules/space';
 
 class TopContainer extends React.Component {
   constructor(props) {
@@ -61,7 +61,9 @@ class TopContainer extends React.Component {
   };
 
   search = keyword => {
-    this.props.dispatch(searchActions.resetSearch());
+    const { dispatch, history } = this.props;
+
+    dispatch(spaceActions.resetSearch());
     const query = `?keyword=${keyword}&prefCode=0&type=0&receiptType=0&priceMin=&priceMax=&isFurniture=false`;
     const path = `${Path.search()}${query}`;
 
@@ -71,7 +73,7 @@ class TopContainer extends React.Component {
       label: query,
     });
 
-    this.props.history.push(path);
+    history.push(path);
   };
 
   viewMoreFeature = () => {

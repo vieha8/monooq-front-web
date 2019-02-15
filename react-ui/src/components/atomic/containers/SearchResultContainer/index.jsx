@@ -18,7 +18,7 @@ import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
 import Meta from 'components/atomic/LV1/Meta';
 import { Dimens } from 'variables';
 
-import { searchActions } from 'redux/modules/search';
+import { spaceActions } from 'redux/modules/space';
 import { getPrefecture } from 'helpers/prefectures';
 
 import connect from '../connect';
@@ -67,7 +67,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     const query = parse(location.search);
     const { keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture } = query;
 
-    dispatch(searchActions.resetSearch());
+    dispatch(spaceActions.resetSearch());
 
     this.state = {
       keyword: keyword || '',
@@ -190,7 +190,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     } = this.state;
 
     dispatch(
-      searchActions.doSearch({
+      spaceActions.doSearch({
         limit,
         offset,
         keyword,
@@ -272,10 +272,10 @@ class SearchResultContainer extends Component<PropTypes, State> {
 }
 
 const mapStateToProps = state => ({
-  spaces: state.search.spaces,
-  maxCount: state.search.maxCount,
-  isSearching: state.search.isLoading,
-  isMore: state.search.isMore,
+  spaces: state.space.spaces,
+  maxCount: state.space.maxCount,
+  isSearching: state.space.isLoading,
+  isMore: state.space.isMore,
 });
 
 export default connect(
