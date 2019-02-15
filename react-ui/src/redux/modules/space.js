@@ -2,7 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import dummySpaceImage from 'images/dummy_space.png';
-import { store } from '../store/configureStore';
+import { store } from '../store/index';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
@@ -15,8 +15,9 @@ import {
   apiEndpoint,
 } from '../helpers/api';
 import { errorActions } from './error';
-import { convertBaseUrl } from '../../helpers/imgix';
+import { convertBaseUrl, convertImgixUrl } from '../../helpers/imgix';
 import Path from '../../config/path';
+import { getPrefecture } from '../../helpers/prefectures';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
@@ -36,6 +37,10 @@ const FETCH_FEATURE_SPACES = 'FETCH_FEATURE_SPACES';
 const FETCH_SUCCESS_FEATURE_SPACES = 'FETCH_SUCCESS_FEATURE_SPACES';
 const FETCH_FAILED_FEATURE_SPACES = 'FETCH_FAILED_FEATURE_SPACES';
 const ADD_SPACE_ACCESS_LOG = 'ADD_SPACE_ACCESS_LOG';
+const DO_SEARCH = 'DO_SEARCH';
+const SUCCESS_SEARCH = 'SUCCESS_SEARCH';
+const FAILED_SEARCH = 'FAILED_SEARCH';
+const RESET_SEARCH = 'RESET_SEARCH';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -55,6 +60,10 @@ export const spaceActions = createActions(
   FETCH_SUCCESS_FEATURE_SPACES,
   FETCH_FAILED_FEATURE_SPACES,
   ADD_SPACE_ACCESS_LOG,
+  DO_SEARCH,
+  SUCCESS_SEARCH,
+  FAILED_SEARCH,
+  RESET_SEARCH,
 );
 
 // Reducer
@@ -62,6 +71,10 @@ const initialState = {
   isComplete: false,
   isLoading: false,
   space: null,
+  isMore: true,
+  location: '',
+  spaces: [],
+  maxCount: 0,
   features: [
     {
       id: 6,
@@ -159,6 +172,24 @@ export const spaceReducer = handleActions(
       ...state,
       isLoading: false,
       features: action.payload,
+    }),
+    [DO_SEARCH]: (state, action) => ({
+      ...state,
+      isLoading: true,
+      location: action.payload,
+    }),
+    [SUCCESS_SEARCH]: (state, { payload }) => ({
+      ...state,
+      isLoading: false,
+      spaces: [...state.spaces, ...payload.spaces],
+      isMore: payload.isMore,
+      maxCount: payload.maxCount,
+    }),
+    [RESET_SEARCH]: state => ({
+      ...state,
+      spaces: [],
+      isMore: true,
+      maxCount: 0,
     }),
   },
   initialState,
@@ -400,6 +431,59 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
   yield call(postApiRequest, apiEndpoint.addUserSpaceAccessLog(user.ID, spaceId), {}, token);
 }
 
+function* search({
+  payload: { limit, offset, keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture },
+}) {
+  const token = yield* getToken();
+
+  const { data, err, headers } = yield call(
+    getApiRequest,
+    apiEndpoint.spaces(),
+    {
+      limit,
+      offset,
+      keyword,
+      pref: getPrefecture(prefCode),
+      priceMin: priceMin || 0,
+      priceMax: priceMax || 0,
+      receiptType,
+      type,
+      isFurniture,
+    },
+    token,
+  );
+  if (err) {
+    yield put(spaceActions.failedSearch());
+    yield put(errorActions.setError(err));
+    return;
+  }
+
+  const res = data.map(v => {
+    const space = v;
+    if (space.Images.length === 0) {
+      space.Images = [{ ImageUrl: dummySpaceImage }];
+    } else {
+      space.Images = space.Images.map(image => {
+        image.ImageUrl = convertImgixUrl(
+          image.ImageUrl,
+          'fit=fillmax&fill-color=DBDBDB&w=165&h=120&format=auto',
+        );
+        return image;
+      });
+    }
+    return space;
+  });
+
+  const isMore = res.length === limit;
+  yield put(
+    spaceActions.successSearch({
+      spaces: res,
+      isMore,
+      maxCount: parseInt(headers['content-range'], 10),
+    }),
+  );
+}
+
 export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
@@ -408,4 +492,5 @@ export const spaceSagas = [
   takeEvery(DELETE_SPACE, deleteSpace),
   takeEvery(FETCH_FEATURE_SPACES, getFeatureSpaces),
   takeEvery(ADD_SPACE_ACCESS_LOG, addSpaceAccessLog),
+  takeEvery(DO_SEARCH, search),
 ];

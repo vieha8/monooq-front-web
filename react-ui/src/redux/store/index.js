@@ -7,7 +7,6 @@ import Raven from 'raven-js';
 import createRavenMiddleware from 'raven-for-redux';
 
 import { authReducer } from '../modules/auth';
-import { searchReducer } from '../modules/search';
 import { messagesReducer } from '../modules/messages';
 import { uiReducer } from '../modules/ui';
 import { spaceReducer } from '../modules/space';
@@ -49,7 +48,6 @@ export default history => {
   const reducers = combineReducers({
     router: connectRouter(history),
     auth: authReducer,
-    search: searchReducer,
     messages: messagesReducer,
     space: spaceReducer,
     user: userReducer,

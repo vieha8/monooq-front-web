@@ -13,7 +13,7 @@ import Error from 'components/atomic/containers/Error';
 import Meta from 'components/atomic/LV1/Meta';
 import firebaseConfig from './config/firebase';
 import { unregister } from './registerServiceWorker';
-import configureStore from './redux/store/configureStore';
+import configureStore from './redux/store/index';
 import Routes from './config/routes';
 import './index.css';
 

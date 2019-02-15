@@ -8,7 +8,7 @@ import { spaceActions } from './space';
 import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
-import { store } from '../store/configureStore';
+import { store } from '../store/index';
 import Path from '../../config/path';
 
 require('firebase/firestore');
