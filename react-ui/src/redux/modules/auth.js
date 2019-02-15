@@ -87,10 +87,6 @@ export const authReducer = handleActions(
       ...state,
       isChecking: true,
     }),
-    [LOGOUT]: state => ({
-      ...state,
-      isLogin: false,
-    }),
     [LOGIN_SUCCESS]: state => ({
       ...state,
       isLogin: true,
@@ -100,6 +96,10 @@ export const authReducer = handleActions(
       ...state,
       error: action.payload,
       isChecking: false,
+    }),
+    [LOGOUT]: state => ({
+      ...state,
+      isLogin: false,
     }),
     [CHECK_LOGIN]: state => ({
       ...state,
@@ -289,10 +289,10 @@ function* loginFacebook() {
 }
 
 function* logout() {
+  store.dispatch(replace(Path.top()));
   localStorage.removeItem('status');
   localStorage.removeItem('token');
   yield firebase.auth().signOut();
-  window.location.href = Path.top();
 }
 
 function* signUpEmail({ payload: { email, password } }) {
