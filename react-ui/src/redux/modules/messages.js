@@ -67,7 +67,6 @@ export const messagesReducer = handleActions(
 
 const roomCollection = () => {
   const firestore = firebase.firestore();
-  firestore.settings({ timestampsInSnapshots: true });
   return firestore.collection('rooms');
 };
 

@@ -41,7 +41,7 @@ const IconWrapper = styled.div`
   `};
 `;
 
-const StyledDropZone = styled(Dropzone)`
+const DropZoneWrap = styled.div`
   width: 100%;
   margin-top: ${Dimens.xsmall}px;
   cursor: pointer;
@@ -50,7 +50,7 @@ const StyledDropZone = styled(Dropzone)`
   }
 `;
 
-const StyledAddImageDropZone = styled(Dropzone)`
+const AddImageDropZoneWrap = styled.div`
   display: table-cell;
   vertical-align: top;
   width: ${props => props.remain * 25}%;
@@ -146,26 +146,30 @@ function showImagePreview(props: PropTypes) {
                 />
               </ImagePreviewWrapper>
             );
-          } else {
-            return null;
           }
+
+          return null;
         })}
         {images.length > 0 &&
           images.length < MAX_PREVIEW_COUNT && (
-            <StyledAddImageDropZone
-              accept="image/jpeg, image/png"
-              onDrop={data => handleChangeImageWithOrientationFix(data, props)}
-              remain={MAX_PREVIEW_COUNT - images.length}
-            >
-              <DndContent>
-                <IconWrapper>
-                  <PictureIcon />
-                </IconWrapper>
-                <DragText>
-                  <InlineText.Base color={Colors.lightGray1}>写真を追加する</InlineText.Base>
-                </DragText>
-              </DndContent>
-            </StyledAddImageDropZone>
+            <AddImageDropZoneWrap>
+              <Dropzone
+                accept="image/jpeg, image/png"
+                onDrop={data => handleChangeImageWithOrientationFix(data, props)}
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <DndContent {...getRootProps()}>
+                    <IconWrapper>
+                      <PictureIcon />
+                    </IconWrapper>
+                    <DragText>
+                      <InlineText.Base color={Colors.lightGray1}>写真を追加する</InlineText.Base>
+                    </DragText>
+                    <input {...getInputProps()} />
+                  </DndContent>
+                )}
+              </Dropzone>
+            </AddImageDropZoneWrap>
           )}
       </ImagePreviewContainer>
     );
@@ -182,21 +186,26 @@ export default (props: PropTypes) => {
         <H3 bold>スペースの様子がわかる写真</H3>
       </div>
       {(images || []).length === 0 ? (
-        <StyledDropZone
-          accept="image/jpeg, image/png"
-          onDrop={data => handleChangeImageWithOrientationFix(data, props)}
-        >
-          <DndContent>
-            <IconWrapper>
-              <PictureIcon />
-            </IconWrapper>
-            <DragText>
-              <div>
-                <InlineText.Base>タップして画像をアップロード</InlineText.Base>
-              </div>
-            </DragText>
-          </DndContent>
-        </StyledDropZone>
+        <DropZoneWrap>
+          <Dropzone
+            accept="image/jpeg, image/png"
+            onDrop={data => handleChangeImageWithOrientationFix(data, props)}
+          >
+            {({ getRootProps, getInputProps }) => (
+              <DndContent {...getRootProps()}>
+                <IconWrapper>
+                  <PictureIcon />
+                </IconWrapper>
+                <DragText>
+                  <div>
+                    <InlineText.Base>タップして画像をアップロード</InlineText.Base>
+                  </div>
+                </DragText>
+                <input {...getInputProps()} />
+              </DndContent>
+            )}
+          </Dropzone>
+        </DropZoneWrap>
       ) : (
         showImagePreview(props)
       )}

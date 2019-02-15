@@ -46,23 +46,22 @@ export default history => {
     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   }
 
-  store = createStore(
-    connectRouter(history)(
-      combineReducers({
-        auth: authReducer,
-        search: searchReducer,
-        messages: messagesReducer,
-        space: spaceReducer,
-        user: userReducer,
-        ui: uiReducer,
-        request: requestReducer,
-        sales: salesReducer,
-        error: errorReducer,
-        init: initReducer,
-      }),
-    ),
-    composeEnhancers(applyMiddleware(...middleware)),
-  );
+  const reducers = combineReducers({
+    router: connectRouter(history),
+    auth: authReducer,
+    search: searchReducer,
+    messages: messagesReducer,
+    space: spaceReducer,
+    user: userReducer,
+    ui: uiReducer,
+    request: requestReducer,
+    sales: salesReducer,
+    error: errorReducer,
+    init: initReducer,
+  });
+
+  store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
+
   sagaMiddleware.run(rootSaga);
 
   return store;

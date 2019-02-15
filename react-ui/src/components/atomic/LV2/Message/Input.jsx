@@ -8,7 +8,7 @@ import InlineText from 'components/atomic/LV1/InlineText';
 import TextArea from 'components/atomic/LV1/TextArea';
 import { Dimens } from 'variables';
 
-const PickImage = styled(Dropzone)`
+const PickImageWrap = styled.div`
   cursor: pointer;
   margin-bottom: 8px;
 `;
@@ -34,19 +34,24 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <div>
-    <PickImage accept="image/jpeg, image/png" onDrop={data => props.onPickImage(data[0])}>
-      <PictureIcon verticalMiddle fontSize={24} />
-      <LabelWrapper>
-        <InlineText.Small>写真を送信する</InlineText.Small>
-      </LabelWrapper>
-      {props.preview && <Thumbnail src={props.preview} />}
-    </PickImage>
+  <PickImageWrap>
+    <Dropzone accept="image/jpeg, image/png" onDrop={data => props.onPickImage(data[0])}>
+      {({ getRootProps, getInputProps }) => (
+        <div {...getRootProps()}>
+          <PictureIcon verticalMiddle fontSize={24} />
+          <LabelWrapper>
+            <InlineText.Small>写真を送信する</InlineText.Small>
+          </LabelWrapper>
+          <input {...getInputProps()} />
+          {props.preview && <Thumbnail src={props.preview} />}
+        </div>
+      )}
+    </Dropzone>
     <TextArea
       rows={5}
       placeholder="メッセージを入力する…"
       value={props.value}
       onChange={e => props.onChange(e.target.value)}
     />
-  </div>
+  </PickImageWrap>
 );
