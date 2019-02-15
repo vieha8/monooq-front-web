@@ -80,19 +80,17 @@ class ProfileContainer extends Component<PropTypes> {
   onClickUpdate: Function;
   onClickUpdate = () => {
     const { user } = this.props;
-    const { name, email, phoneNumber, prefCode, profile, purpose } = this.state;
+    const { name, profile, purpose } = this.state;
 
     this.setState({ hasChanged: false, errors: {} });
 
     if (this.validate()) {
-      this.state.name = name.trim();
-      this.state.profile = profile.trim();
-
       const { dispatch } = this.props;
       const body = this.state;
+      body.name = name.trim();
+      body.profile = profile.trim();
       body.isHost = purpose === '2';
       dispatch(userActions.updateUser({ userId: user.ID, body }));
-      return;
     }
   };
 
