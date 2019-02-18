@@ -7,6 +7,8 @@ import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
 import { getApiRequest, putApiRequest, apiEndpoint } from '../helpers/api';
 import { errorActions } from './error';
+import { store } from '../store/index';
+import { push } from 'connected-react-router';
 
 // Actions
 const FETCH_USER = 'FETCH_USER';
@@ -174,6 +176,11 @@ function* updateUser({ payload: { userId, body } }) {
   localStorage.removeItem('status');
   yield put(authActions.setUser(data));
   yield put(userActions.updateSuccessUser(data));
+
+  const redirectPath = yield select(state => state.ui.redirectPath);
+  if (redirectPath) {
+    store.dispatch(push(redirectPath));
+  }
 }
 
 export const userSagas = [

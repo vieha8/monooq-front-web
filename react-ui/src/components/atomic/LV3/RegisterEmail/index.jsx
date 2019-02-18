@@ -17,6 +17,7 @@ type PropTypes = {
   onClickFacebook: Function,
   onChangeEmail: Function,
   onChangePassword: Function,
+  onKeyDownPassword: Function,
   email: string,
   emailError: Array<string>,
   password: string,
@@ -51,6 +52,7 @@ export default (props: PropTypes) => (
         value={props.password}
         onChange={e => props.onChangePassword(e.target.value)}
         clickIcon={props.onClickIconPassword}
+        onKeyDown={props.onKeyDownPassword}
       />
     }
     passError={props.passError.map((text, i) => (

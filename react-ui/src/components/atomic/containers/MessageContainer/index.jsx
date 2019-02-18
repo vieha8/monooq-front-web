@@ -3,13 +3,11 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Modal, Button } from 'semantic-ui-react';
 import Path from 'config/path';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/atomic/LV1/InlineText';
-
-import { messagesActions } from 'redux/modules/messages';
-
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import Messages from 'components/atomic/LV3/Messages';
@@ -18,10 +16,11 @@ import Loading from 'components/atomic/LV1/Loading';
 import HeroImage from 'components/atomic/LV1/HeroImage';
 import HostInfo from 'components/atomic/LV2/Space/HostInfo';
 import UserInfo from 'components/atomic/LV2/Space/UserInfo';
-
 import { convertImgixUrl } from 'helpers/imgix';
+import { messagesActions } from 'redux/modules/messages';
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
+import { uiActions } from '../../../../redux/modules/ui';
 
 const TopWrap = styled.div`
   margin-bottom: 25px;
@@ -106,12 +105,31 @@ class MessageContainer extends Component<PropTypes, State> {
     this.state = {
       text: '',
       image: null,
+      errorModal: false,
     };
   }
 
+  handleBeforeUnload = e => {
+    if (this.state.text !== '') {
+      e.preventDefault();
+      e.returnValue = 'データが保存されませんが、よろしいですか?';
+    }
+  };
+
   componentDidMount() {
     window.scrollTo(0, 0);
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
+  }
+
+  componentWillReceiveProps = next => {
+    if (!next.user.PhoneNumber) {
+      this.setState({ errorModal: true });
+    }
+  };
 
   handlePickImage: Function;
   handlePickImage = (image: File) => {
@@ -213,9 +231,17 @@ class MessageContainer extends Component<PropTypes, State> {
     });
   };
 
+  close = () => this.setState({ errorModal: false });
+
+  onClickEditProfile = () => {
+    const { history, dispatch, location } = this.props;
+    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
+    history.push(Path.editProfile());
+  };
+
   leftContent = () => {
     const { isLoading, user, room } = this.props;
-    const { text, image } = this.state;
+    const { text, image, errorModal } = this.state;
 
     if (isLoading || !room) {
       return <Loading size="large" />;
@@ -230,6 +256,8 @@ class MessageContainer extends Component<PropTypes, State> {
     if (room[`user${otherUserId}LastReadDt`]) {
       lastReadDt = room[`user${otherUserId}LastReadDt`].toDate();
     }
+
+    const isRegisterPhoneNumber = !!user.PhoneNumber;
 
     return (
       <Fragment>
@@ -273,10 +301,29 @@ class MessageContainer extends Component<PropTypes, State> {
           onChangeText={this.handleChangeText}
           text={text}
           pickedImage={(image || {}).preview}
-          buttonDisabled={text === '' && !image}
+          buttonDisabled={(text === '' && !image) || !isRegisterPhoneNumber}
           onClickSend={this.sendMessage}
           lastReadDt={lastReadDt}
         />
+        <Modal size="large" open={errorModal} onClose={this.close}>
+          <Modal.Header>電話番号をご登録ください</Modal.Header>
+          <Modal.Content>
+            <p>
+              メッセージのやり取りには電話番号登録が必要です。
+              <br />
+              <br />
+              取引時の保険適用の条件となります。
+              <br />
+              また、緊急時のご連絡先として利用させて頂く場合がございます。
+              <br />
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button color="red" small={1} onClick={this.onClickEditProfile}>
+              登録画面へ進む
+            </Button>
+          </Modal.Actions>
+        </Modal>
       </Fragment>
     );
   };

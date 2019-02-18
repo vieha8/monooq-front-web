@@ -6,7 +6,7 @@ import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import { uiActions } from './ui';
 import { errorActions } from './error';
-import { store } from '../store/configureStore';
+import { store } from '../store/index';
 import { getApiRequest, postApiRequest, deleteApiRequest, apiEndpoint } from '../helpers/api';
 import Path from '../../config/path';
 import { isAvailableLocalStorage } from '../../helpers/storage';
@@ -66,7 +66,7 @@ export const authActions = createActions(
 const initialState = {
   isLogin: false,
   isChecking: false,
-  isRegisting: false,
+  isRegistering: false,
   isResetTrying: false,
   isResetSuccess: false,
   isUnsubscribeTrying: false,
@@ -87,10 +87,6 @@ export const authReducer = handleActions(
       ...state,
       isChecking: true,
     }),
-    [LOGOUT]: state => ({
-      ...state,
-      isLogin: false,
-    }),
     [LOGIN_SUCCESS]: state => ({
       ...state,
       isLogin: true,
@@ -100,6 +96,10 @@ export const authReducer = handleActions(
       ...state,
       error: action.payload,
       isChecking: false,
+    }),
+    [LOGOUT]: state => ({
+      ...state,
+      isLogin: false,
     }),
     [CHECK_LOGIN]: state => ({
       ...state,
@@ -118,22 +118,22 @@ export const authReducer = handleActions(
     [SIGNUP_EMAIL]: state => ({
       ...state,
       isSignupFailed: false,
-      isRegisting: true,
+      isRegistering: true,
     }),
     [SIGNUP_FACEBOOK]: state => ({
       ...state,
       isSignupFailed: false,
-      isRegisting: true,
+      isRegistering: true,
     }),
     [SIGNUP_SUCCESS]: state => ({
       ...state,
       isSignupFailed: false,
-      isRegisting: false,
+      isRegistering: false,
     }),
     [SIGNUP_FAILED]: state => ({
       ...state,
       isSignupFailed: true,
-      isRegisting: false,
+      isRegistering: false,
     }),
     [SET_USER]: (state, action) => ({
       ...state,
@@ -289,10 +289,10 @@ function* loginFacebook() {
 }
 
 function* logout() {
+  store.dispatch(replace(Path.top()));
   localStorage.removeItem('status');
   localStorage.removeItem('token');
   yield firebase.auth().signOut();
-  window.location.href = Path.top();
 }
 
 function* signUpEmail({ payload: { email, password } }) {

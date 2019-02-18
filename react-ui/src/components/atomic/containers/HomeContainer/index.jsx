@@ -112,7 +112,6 @@ class HomeContainer extends Component<PropTypes, State> {
 const mapStateToProps = state =>
   mergeAuthProps(state, {
     features: state.space.features,
-    isMore: state.search.isMore,
     isLoading: state.space.isLoading,
   });
 

@@ -23,7 +23,7 @@ class SignUpContainer extends Component {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  isRegisting: state.auth.isRegisting,
+  isRegistering: state.auth.isRegistering,
   isLoading: state.user.isLoading,
   isSignupFailed: state.auth.isSignupFailed,
 });

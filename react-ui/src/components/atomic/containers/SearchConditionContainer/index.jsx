@@ -7,7 +7,7 @@ import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
 import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
 import Header from 'components/atomic/containers/Header';
 import SearchCondition from 'components/atomic/LV3/SearchCondition';
-import { searchActions } from 'redux/modules/search';
+import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import ErrorMessage from 'strings';
 import connect from '../connect';
@@ -72,7 +72,7 @@ class SearchConditionContainer extends Component<PropTypes> {
 
   onClickSearch = () => {
     const { history, dispatch } = this.props;
-    dispatch(searchActions.resetSearch());
+    dispatch(spaceActions.resetSearch());
 
     const { keyword, prefCode, priceMin, priceMax, type, isFurniture, receiptType } = this.state;
     const searchPath = Path.search();

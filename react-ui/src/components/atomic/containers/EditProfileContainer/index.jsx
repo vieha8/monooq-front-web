@@ -26,6 +26,10 @@ type PropTypes = {
 
 const Validate = {
   Email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
+  phoneNumber: {
+    NoHyphenVer: /^0\d{9,10}$/, // 先頭「0」+「半角数字9〜10桁」
+    HyphenVer: /^0\d{2,3}-\d{2,4}-\d{4}$/, // 先頭「0」＋「半角数字2〜3桁」＋「-」＋「半角数字1〜4桁」＋「-」＋「半角数字4桁」
+  },
   Profile: {
     Max: 1000,
   },
@@ -49,11 +53,22 @@ class ProfileContainer extends Component<PropTypes> {
       profile: user.Profile,
       phoneNumber: user.PhoneNumber,
       purpose: user.IsHost ? 2 : 1,
+      error: {},
     };
+  }
+
+  handleBeforeUnload(e) {
+    e.preventDefault();
+    e.returnValue = 'データが保存されませんが、よろしいですか?';
   }
 
   componentDidMount() {
     window.scrollTo(0, 0);
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -75,62 +90,100 @@ class ProfileContainer extends Component<PropTypes> {
   onClickUpdate: Function;
   onClickUpdate = () => {
     const { user } = this.props;
-    const { name, email, prefCode, profile } = this.state;
+    const { name, profile, purpose } = this.state;
 
     this.setState({ hasChanged: false, errors: {} });
 
     if (this.validate()) {
       const { dispatch } = this.props;
       const body = this.state;
-      body.isHost = this.state.purpose === '2';
+      body.name = name.trim();
+      body.profile = profile.trim();
+      body.isHost = purpose === '2';
       dispatch(userActions.updateUser({ userId: user.ID, body }));
-      return;
     }
-
-    const errors = {};
-    // 名前チェック
-    if (!name) {
-      errors.name = [].concat(errors.name, [ErrorMessage.PleaseInput]);
-    }
-    // emailチェック
-    if (!email) {
-      errors.email = [].concat(errors.email, [ErrorMessage.PleaseInput]);
-    }
-    // お住いの地域選択
-    if (!prefCode) {
-      errors.email = [].concat(errors.prefCode, [ErrorMessage.PleaseSelect]);
-    }
-    // プロフィールチェック
-    if (!profile) {
-      errors.profile = [].concat(errors.profile, [ErrorMessage.PleaseInput]);
-    }
-
-    this.setState({ errors });
   };
 
   handleChangeUI: Function;
-  handleChangeUI = (propsName: string, value) => {
-    const state = this.state;
-    if (propsName === 'imageUri') {
-      state.imageUriPreview = URL.createObjectURL(value);
+
+  handleChangeUI = (propName: string, value: any) => {
+    const { state } = this;
+    const { error } = state;
+    const errors = [];
+
+    switch (propName) {
+      case 'imageUri':
+        state.imageUriPreview = URL.createObjectURL(value);
+        break;
+
+      case 'name':
+        if (value.trim().length === 0) {
+          errors.push(ErrorMessage.PleaseInput);
+        }
+        break;
+
+      case 'email':
+        if (value.replace(/\s/g, '').length === 0) {
+          errors.push(ErrorMessage.PleaseInput);
+        } else if (!value.match(Validate.Email)) {
+          errors.push(ErrorMessage.InvalidEmail);
+        }
+        break;
+
+      case 'phoneNumber':
+        if (value.replace(/\s/g, '').length === 0) {
+          errors.push(ErrorMessage.PleaseInput);
+        } else if (
+          !(
+            value.match(Validate.phoneNumber.NoHyphenVer) ||
+            value.match(Validate.phoneNumber.HyphenVer)
+          )
+        ) {
+          errors.push(ErrorMessage.InvalidPhoneNumber);
+        }
+        break;
+
+      case 'profile':
+        if (value.trim().length === 0) {
+          errors.push(ErrorMessage.PleaseInput);
+        } else if (value.length > Validate.Profile.Max) {
+          errors.push(ErrorMessage.LengthMax('自己紹介', Validate.Profile.Max));
+        }
+        break;
+
+      case 'prefCode':
+      case 'purpose':
+        if (value.length === 0) {
+          errors.push(ErrorMessage.PleaseSelect);
+        }
+        break;
+
+      default:
+        break;
     }
-    state[propsName] = value;
-    this.setState(state);
+
+    state[propName] = value;
+    error[propName] = errors;
+    this.setState({ ...state, error });
   };
 
   validate: Function;
   validate = () => {
-    const { name, email, prefCode, profile } = this.state;
+    const { name, email, phoneNumber, prefCode, profile, purpose } = this.state;
 
     return (
       name &&
-      name.length > 0 &&
+      name.trim().length > 0 &&
       email &&
       email.match(Validate.Email) &&
+      phoneNumber &&
+      (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
+        phoneNumber.match(Validate.phoneNumber.HyphenVer)) &&
       prefCode &&
       profile &&
-      profile.length > 0 &&
-      profile.length <= Validate.Profile.Max
+      profile.trim().length > 0 &&
+      profile.length <= Validate.Profile.Max &&
+      purpose
     );
   };
 
@@ -151,10 +204,11 @@ class ProfileContainer extends Component<PropTypes> {
       imageUriPreview,
       name,
       email,
+      phoneNumber,
       prefCode,
       profile,
-      phoneNumber,
       purpose,
+      error,
     } = this.state;
 
     return (
@@ -169,18 +223,24 @@ class ProfileContainer extends Component<PropTypes> {
               image={imageUri}
               imagePreview={imageUriPreview}
               name={name}
+              nameErrors={error.name}
               email={email}
-              prefCode={prefCode}
-              profile={profile}
+              emailErrors={error.email}
               phoneNumber={phoneNumber}
+              phoneNumberErrors={error.phoneNumber}
+              prefCode={prefCode}
+              prefCodeErrors={error.prefCode}
+              profile={profile}
+              profileErrors={error.profile}
               purpose={purpose}
+              purposeErrors={error.purpose}
               onChangeImage={value => this.handleChangeUI('imageUri', value)}
               onChangeName={value => this.handleChangeUI('name', value)}
               onChangeEmail={value => this.handleChangeUI('email', value)}
+              onChangePhoneNumber={value => this.handleChangeUI('phoneNumber', value)}
               onChangePrefCode={value => this.handleChangeUI('prefCode', value)}
               onChangePurpose={value => this.handleChangeUI('purpose', value)}
               onChangeProfile={value => this.handleChangeUI('profile', value)}
-              onChangePhoneNumber={value => this.handleChangeUI('phoneNumber', value)}
               buttonDisabled={!this.validate()}
               buttonLoading={isLoading}
               onClickUpdate={this.onClickUpdate}
@@ -198,6 +258,7 @@ const mapStateToProps = state =>
     user: state.auth.user || {},
     updateSuccess: state.user.updateSuccess,
     isLoading: state.user.isLoading,
+    redirectPath: state.ui.redirectPath,
   });
 
 export default connect(
