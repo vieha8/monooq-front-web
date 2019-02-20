@@ -15,7 +15,6 @@ import Supplement from 'components/atomic/LV2/Space/Supplement';
 import HostInfo from 'components/atomic/LV2/Space/HostInfo';
 import InlineText from 'components/atomic/LV1/InlineText';
 import Price from 'components/atomic/LV3/Space/Price';
-import { TwitterShareButton, TwitterIcon, FacebookShareButton, FacebookIcon } from 'react-share';
 import ReactGA from 'react-ga';
 
 const Container = styled.div`
@@ -73,21 +72,24 @@ const ShareButtonsWrapper = styled.div`
 
 const ButtonWrap = styled.div`
   width: 100%;
-  max-width: 170px;
+  max-width: 184px;
   display: inline-block;
   margin: 30px auto;
   &:last-child {
-    margin-left: ${Dimens.small_10}px;
+    margin-left: ${Dimens.medium1}px;
   }
   ${media.phone`
     display: inline-block;
     width: 100%;
-    max-width: calc(50% - 5px);
+    max-width: calc(50% - 8px);
     left: 0px;
     bottom: 0px;
     z-index: 1000;
     text-align: center;
     padding: 0 0 15px;
+    &:last-child {
+      margin-left: ${Dimens.medium}px;
+    }
   `};
 `;
 
@@ -162,7 +164,6 @@ export default (props: PropTypes) => (
             props.name
           }｜モノオク&hashtags=モノオク`}
           fontbold
-          fontSizeSp={12}
           OnClick={() =>
             ReactGA.event({
               category: 'Share',
@@ -183,7 +184,6 @@ export default (props: PropTypes) => (
             props.id
           }&quote=${props.name}｜モノオク`}
           fontbold
-          fontSizeSp={12}
           OnClick={() =>
             ReactGA.event({
               category: 'Share',

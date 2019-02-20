@@ -5,9 +5,11 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import { Colors, Dimens } from 'variables';
+import imageTwitter from 'images/icon-twitter.svg';
 import { PrimaryButton } from './Primary';
 
 const Twitter = styled(PrimaryButton)`
+  padding: ${Dimens.small2}px ${Dimens.small_10}px;
   ${props =>
     props.disabled &&
     `
@@ -19,28 +21,45 @@ const Twitter = styled(PrimaryButton)`
   background: ${Colors.white};
   color: ${Colors.twitter};
   border: 2px solid ${Colors.twitter};
-  padding-left: ${Dimens.medium3}px;
+  padding-left: 9px;
   &:hover {
     background: ${Colors.white};
     border-color: ${Colors.twitterHover};
     color: ${Colors.twitterHover};
   }
+  &:hover span img {
+    opacity: 0.5;
+  }
   ${media.phone`
-    padding-left: 38px;
+    padding-left: ${Dimens.xsmall}px;
+    padding-right: ${Dimens.xsmall}px;
   `};
 `;
 
 const btnlink = styled(Link)``;
 const HyperLink = btnlink.withComponent('a');
 
+const ImageWrap = styled.span`
+  display: inline-block;
+  position: relative;
+  padding-left: ${Dimens.medium1_26}px;
+`;
+
+const Image = styled.img`
+  width: ${Dimens.medium1}px;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+`;
+
 export default (props: Object) => (
   <HyperLink href={props.url.toString('base64')} target="_blank">
     <Twitter {...props}>
       {!props.loading && (
-        <span>
-          <i className="fab fa-twitter-square fa-2x btn-icon-twitter" />
+        <ImageWrap>
+          <Image src={imageTwitter} alt="icon-twitter" />
           &nbsp;
-        </span>
+        </ImageWrap>
       )}
       {props.children}
     </Twitter>
