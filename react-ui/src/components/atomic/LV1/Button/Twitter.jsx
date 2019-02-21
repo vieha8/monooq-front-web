@@ -9,7 +9,7 @@ import imageTwitter from 'images/icon-twitter.svg';
 import { PrimaryButton } from './Primary';
 
 const Twitter = styled(PrimaryButton)`
-  padding: ${Dimens.small2}px ${Dimens.small_10}px;
+  padding: ${Dimens.small_11}px ${Dimens.small_10}px;
   ${props =>
     props.disabled &&
     `
@@ -31,6 +31,7 @@ const Twitter = styled(PrimaryButton)`
     opacity: 0.5;
   }
   ${media.phone`
+    padding: ${Dimens.small_10}px;
     padding-left: ${Dimens.xsmall}px;
     padding-right: ${Dimens.xsmall}px;
   `};
@@ -48,7 +49,7 @@ const ImageWrap = styled.span`
 const Image = styled.img`
   width: ${Dimens.medium1}px;
   position: absolute;
-  top: -2px;
+  top: -1px;
   left: -2px;
 `;
 

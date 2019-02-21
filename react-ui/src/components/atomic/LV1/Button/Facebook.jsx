@@ -27,7 +27,7 @@ const Facebook = styled(PrimaryButton)`
   ${props =>
     props.type2 &&
     `
-      padding: ${Dimens.small2}px ${Dimens.small_10}px;
+      padding: ${Dimens.small_11}px ${Dimens.small_10}px;
       background: ${Colors.white};
       color: ${Colors.facebook_type2};
       border: 2px solid ${Colors.facebook_type2};
@@ -45,6 +45,7 @@ const Facebook = styled(PrimaryButton)`
     ${props =>
       props.type2 &&
       css`
+        padding: ${Dimens.small_10}px;
         padding-left: ${Dimens.xsmall}px;
         padding-right: ${Dimens.xsmall}px;
       `}
@@ -63,7 +64,7 @@ const ImageWrap = styled.span`
 const Image = styled.img`
   width: ${Dimens.medium1}px;
   position: absolute;
-  top: -2px;
+  top: -1px;
   left: -6px;
 `;
 
