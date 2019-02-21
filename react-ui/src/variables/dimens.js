@@ -9,6 +9,7 @@ export default {
   medium: 16,
   medium_18: 18,
   medium_20: 20,
+  medium_22: 22,
   medium1: 24,
   medium1_26: 26,
   medium2: 30,

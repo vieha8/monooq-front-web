@@ -31,7 +31,7 @@ const Facebook = styled(PrimaryButton)`
       background: ${Colors.white};
       color: ${Colors.facebook_type2};
       border: 2px solid ${Colors.facebook_type2};
-      padding-left: ${Dimens.medium_24}px;
+      padding-left: ${Dimens.medium}px;
       &:hover {
         background: ${Colors.white};
         color: ${Colors.facebookHover_type2};
@@ -46,8 +46,8 @@ const Facebook = styled(PrimaryButton)`
       props.type2 &&
       css`
         padding: ${Dimens.small_10}px;
-        padding-left: ${Dimens.xsmall}px;
-        padding-right: ${Dimens.xsmall}px;
+        padding-left: ${Dimens.small_10}px;
+        padding-right: ${Dimens.xxsmall}px;
       `}
   `};
 `;
@@ -58,7 +58,7 @@ const HyperLink = btnlink.withComponent('a');
 const ImageWrap = styled.span`
   display: inline-block;
   position: relative;
-  padding-left: ${Dimens.medium1_26}px;
+  padding-left: ${Dimens.medium_22}px;
 `;
 
 const Image = styled.img`

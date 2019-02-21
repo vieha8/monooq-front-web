@@ -21,7 +21,7 @@ const Twitter = styled(PrimaryButton)`
   background: ${Colors.white};
   color: ${Colors.twitter};
   border: 2px solid ${Colors.twitter};
-  padding-left: 9px;
+  padding-left: 11px;
   &:hover {
     background: ${Colors.white};
     border-color: ${Colors.twitterHover};
@@ -50,7 +50,7 @@ const Image = styled.img`
   width: ${Dimens.medium1}px;
   position: absolute;
   top: -1px;
-  left: -2px;
+  left: 0px;
 `;
 
 export default (props: Object) => (
