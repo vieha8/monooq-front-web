@@ -52,14 +52,19 @@ class InboxContainer extends Component<PropTypes> {
 
     return Array.isArray(rooms) && rooms.length > 0 ? (
       <InboxList
-        messages={rooms.filter(room => room.user).map(message => ({
-          link: Path.message(message.id),
-          image: (message.user || {}).ImageUrl,
-          name: (message.user || {}).Name,
-          receivedAt: message.lastMessageDt,
-          lastMessage: message.lastMessage,
-          isRead: message.isRead,
-        }))}
+        messages={rooms
+          .filter(room => room.user)
+          .map(message => ({
+            link: Path.message(message.id),
+            image: (message.user || {}).ImageUrl,
+            name: (message.user || {}).Name,
+            receivedAt: message.lastMessageDt,
+            lastMessage:
+              message.lastMessage.length > 60
+                ? `${message.lastMessage.substr(0, 60)}...`
+                : message.lastMessage,
+            isRead: message.isRead,
+          }))}
       />
     ) : (
       <NoDataView
