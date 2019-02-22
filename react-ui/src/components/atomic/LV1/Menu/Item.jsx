@@ -27,7 +27,7 @@ const MenuItem = styled.li`
     border-top: 1px solid ${Colors.borderGray};
   `};
   ${media.phone`
-    padding: 0px 5px;
+    padding: 0px;
   `};
 `;
 

@@ -25,6 +25,7 @@ const LeftContent = styled.div`
     float: none;
     margin-left: 0;
     width: 100%;
+    padding-top: ${Dimens.small_10}px;
   `};
 `;
 

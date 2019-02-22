@@ -21,14 +21,14 @@ export const PrimaryButton = styled.div`
   font-weight: ${props => (props.fontbold ? 'bold' : 'normal')};
   color: ${Colors.white};
   background: ${Colors.brandPrimary};
-  border-radius: 3px;
+  border-radius: 4px;
   cursor: pointer;
 
   &:focus {
     background: ${Colors.brandSecondary};
   }
   
-  ${props => (props.lineheight ? `line-height: ${props.lineheight};` : `line-height: normal`)};
+  ${props => (props.lineheight ? `line-height: ${props.lineheight}px;` : `line-height: normal`)};
 
   height: 48px;
   padding: 13px 10px;

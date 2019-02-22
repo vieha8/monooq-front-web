@@ -32,6 +32,11 @@ const Row = styled.div`
 const ButtonWrapper = styled.div`
   margin: ${Dimens.medium2}px auto;
   max-width: 240px;
+  ${props =>
+    props.mobile &&
+    `
+    max-width: 100%;
+  `};
 `;
 
 type PropTypes = {

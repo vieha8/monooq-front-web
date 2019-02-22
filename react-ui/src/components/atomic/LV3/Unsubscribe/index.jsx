@@ -42,7 +42,7 @@ const ButtonWrapper = styled.div`
 
 const styles = {
   dropdown: {
-    background: Colors.lightGray2Bg,
+    background: Colors.white,
     borderColor: Colors.lightGray1,
   },
 };

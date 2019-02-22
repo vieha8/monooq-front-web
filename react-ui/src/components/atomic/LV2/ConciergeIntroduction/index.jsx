@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Logo from 'components/atomic/LV1/Logo';
-import ButtonLineA from 'components/atomic/LV1/ButtonLineA';
+import Button from 'components/atomic/LV1/Button';
 
 const ConciergeContents = () => {
   const StyledContainer = styled.div`
@@ -14,7 +14,7 @@ const ConciergeContents = () => {
     justify-content: space-around;
     ${media.phone`
       justify-content: center;
-      margin: 50px;
+      margin: 50px 15px;
     `};
   `;
 
@@ -76,10 +76,11 @@ const ConciergeSection = () => {
   `;
 
   const ButtonContainer = styled.div`
-    display: flex;
+    display: block;
     justify-content: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    width: 100%;
+    max-width: 240px;
+    margin: 30px auto;
   `;
 
   return (
@@ -98,7 +99,9 @@ const ConciergeSection = () => {
         </DescriptionMain>
       </Description>
       <ButtonContainer>
-        <ButtonLineA reactGACategory="Requests" reactGAAction="Push LINE Register Button" />
+        <Button line reactGACategory="Requests" reactGAAction="Push LINE Register Button">
+          友だち追加
+        </Button>
       </ButtonContainer>
       <PriceContainer>
         <PriceSub>全国のスペース対象</PriceSub>

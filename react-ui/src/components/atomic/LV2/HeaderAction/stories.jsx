@@ -7,12 +7,10 @@ import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
 import SearchIcon from './SearchIcon';
-import MessageIcon from './MessageIcon';
 import AvatarIcon from './AvatarIcon';
 import Anonymouse from './Anonymouse';
 
 SearchIcon.displayName = 'SearchIcon';
-MessageIcon.displayName = 'MessageIcon';
 AvatarIcon.displayName = 'AvatarIcon';
 Anonymouse.displayName = 'Anonymouse';
 
@@ -26,20 +24,6 @@ storiesOf('Molecules(LV2)/HeaderAction', module)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <SearchIcon href="#" />
-      </div>
-    )),
-  )
-  .add(
-    'MessageIcon',
-    withInfo(`
-      ### コンポーネント概要
-      ヘッダアクション(メッセージアイコン)
-      - ・to：遷移先URL
-      - ・notificationCount：通知カウント
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <MessageIcon to="#" notificationCount={0} />
-        <MessageIcon to="#" notificationCount={10} />
       </div>
     )),
   )

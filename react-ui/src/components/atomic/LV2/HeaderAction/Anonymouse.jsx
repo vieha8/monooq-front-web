@@ -66,7 +66,7 @@ export default ({ signupUri, loginUri, onClickLogin }: PropTypes) => (
           onClick={onClickLogin}
           fontbold
           height={40}
-          lineheight="9px 10px"
+          lineheight={15}
         >
           ログイン
         </Button>
@@ -83,7 +83,7 @@ export default ({ signupUri, loginUri, onClickLogin }: PropTypes) => (
           fontSizeSp={FontSizes.small_12}
           fontbold
           height={36}
-          lineheight="9px 10px"
+          lineheight={12}
         >
           新規登録・ログイン
         </Button>
