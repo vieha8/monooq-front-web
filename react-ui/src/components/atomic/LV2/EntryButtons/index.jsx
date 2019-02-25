@@ -19,7 +19,7 @@ const EntryButtonsWrap = styled.div`
     ${props =>
       props.rerative &&
       `
-      padding: 0 0 15px;
+      padding: 0;
     `};
   `};
 `;

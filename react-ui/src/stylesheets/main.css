@@ -46,6 +46,9 @@
   background-color: #ffffff;
 }
 
+.color-white {
+  color: #ffffff !important;
+}
 .color-darkGray1 {
   color: #333333 !important;
 }

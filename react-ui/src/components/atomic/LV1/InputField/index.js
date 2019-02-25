@@ -16,7 +16,7 @@ const InputField = styled.input`
   -webkit-appearance: none;
 
   &:placeholder-shown {
-    color: ${Colors.black};
+    color: ${Colors.lightGray3};
   }
 
   &:focus {

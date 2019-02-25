@@ -51,7 +51,7 @@ const DropZoneWrap = styled.div`
 `;
 
 const AddImageDropZoneWrap = styled.div`
-  display: table-cell;
+  display: block;
   vertical-align: top;
   width: ${props => props.remain * 25}%;
   margin-top: 4px;
@@ -62,15 +62,16 @@ const AddImageDropZoneWrap = styled.div`
 `;
 
 const ImagePreviewContainer = styled.ul`
-  display: table;
   width: 100%;
   margin-top: ${Dimens.xsmall}px;
 `;
 
 const ImagePreviewWrapper = styled.li`
-  display: table-cell;
-  width: ${props => props.widthRate}%;
-  padding: 0 8px;
+  width: 100%;
+  margin-bottom: ${Dimens.medium_15}px;
+  &:last-child {
+    margin-bottom: 0px;
+  }
 `;
 
 const HintBottomWrap = styled.div`
@@ -150,27 +151,26 @@ function showImagePreview(props: PropTypes) {
 
           return null;
         })}
-        {images.length > 0 &&
-          images.length < MAX_PREVIEW_COUNT && (
-            <AddImageDropZoneWrap>
-              <Dropzone
-                accept="image/jpeg, image/png"
-                onDrop={data => handleChangeImageWithOrientationFix(data, props)}
-              >
-                {({ getRootProps, getInputProps }) => (
-                  <DndContent {...getRootProps()}>
-                    <IconWrapper>
-                      <PictureIcon />
-                    </IconWrapper>
-                    <DragText>
-                      <InlineText.Base color={Colors.lightGray1}>写真を追加する</InlineText.Base>
-                    </DragText>
-                    <input {...getInputProps()} />
-                  </DndContent>
-                )}
-              </Dropzone>
-            </AddImageDropZoneWrap>
-          )}
+        {images.length > 0 && images.length < MAX_PREVIEW_COUNT && (
+          <AddImageDropZoneWrap>
+            <Dropzone
+              accept="image/jpeg, image/png"
+              onDrop={data => handleChangeImageWithOrientationFix(data, props)}
+            >
+              {({ getRootProps, getInputProps }) => (
+                <DndContent {...getRootProps()}>
+                  <IconWrapper>
+                    <PictureIcon />
+                  </IconWrapper>
+                  <DragText>
+                    <InlineText.Base>写真を追加する</InlineText.Base>
+                  </DragText>
+                  <input {...getInputProps()} />
+                </DndContent>
+              )}
+            </Dropzone>
+          </AddImageDropZoneWrap>
+        )}
       </ImagePreviewContainer>
     );
   }
