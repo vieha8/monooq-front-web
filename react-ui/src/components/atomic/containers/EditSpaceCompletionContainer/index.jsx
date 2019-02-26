@@ -44,7 +44,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space, history } = this.props;
+    const { history, user } = this.props;
     const { spaceId, isEdit } = this.state;
 
     return (
@@ -55,9 +55,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
         leftContent={
           <EditSpaceCompletion
             edit={isEdit}
-            space={{
-              userId: space.UserID,
-            }}
+            userId={user.ID}
             onClickViewSpace={() => {
               history.push(Path.space(spaceId));
             }}
@@ -77,7 +75,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
 
 const mapStateToProps = state =>
   mergeAuthProps(state, {
-    space: state.ui.space || {},
+    user: state.auth.user,
   });
 
 export default connect(

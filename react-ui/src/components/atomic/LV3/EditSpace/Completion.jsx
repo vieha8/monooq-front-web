@@ -12,22 +12,20 @@ const Section = styled.div`
 
 type PropTypes = {
   edit?: boolean,
-  space: {
-    userId: number,
-  },
+  userId: number,
   onClickViewSpace: Function,
   story?: boolean,
 };
 
 export default class SpaceCreatedCompletion extends Component<PropTypes> {
   componentDidMount() {
-    if (!this.props.edit && this.props.space) {
+    if (!this.props.edit && this.props.userId) {
       const script = document.createElement('script');
 
       script.innerHTML = `var __atw = __atw || [];
     __atw.push({ "merchant" : "monooq", "param" : {
         "result_id" : "101",
-        "verify" : "host_register_${this.props.space.userId}",
+        "verify" : "host_register_${this.props.userId}",
     }});
 (function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
 a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
