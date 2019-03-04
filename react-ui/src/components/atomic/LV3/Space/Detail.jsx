@@ -21,8 +21,13 @@ const Container = styled.div`
   max-width: 540px;
   margin: auto;
   padding: 0 0 ${Dimens.medium_20}px;
-  ${media.phone`
+  ${media.tablet`
     padding: 0 0 ${Dimens.large2_70}px;
+    ${props =>
+      props.confirm &&
+      `
+      padding: 0 0 130px;
+    `};
   `};
 `;
 
@@ -123,7 +128,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Container>
+  <Container confirm={props.confirm}>
     <ImageWrapper>
       <Image images={props.images} />
     </ImageWrapper>
@@ -155,46 +160,48 @@ export default (props: PropTypes) => (
       <Receive delivery={props.delivery} meeting={props.meeting} />
       <Supplement content={props.supplement} />
     </Fragment>
-    <ShareButtonsWrapper>
-      <ButtonWrap>
-        <Button
-          twitter
-          fill={1}
-          url={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${props.id}&text=${
-            props.name
-          }｜モノオク&hashtags=モノオク`}
-          fontbold
-          OnClick={() =>
-            ReactGA.event({
-              category: 'Share',
-              action: 'Push Twitter Share Button At Space',
-              value: props.id,
-            })
-          }
-        >
-          ツイートする
-        </Button>
-      </ButtonWrap>
-      <ButtonWrap>
-        <Button
-          facebook
-          type2
-          fill={1}
-          url={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${
-            props.id
-          }&quote=${props.name}｜モノオク`}
-          fontbold
-          OnClick={() =>
-            ReactGA.event({
-              category: 'Share',
-              action: 'Push Facebook Share Button At Space',
-              value: props.id,
-            })
-          }
-        >
-          シェアする
-        </Button>
-      </ButtonWrap>
-    </ShareButtonsWrapper>
+    {!props.confirm && (
+      <ShareButtonsWrapper>
+        <ButtonWrap>
+          <Button
+            twitter
+            fill={1}
+            url={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${props.id}&text=${
+              props.name
+            }｜モノオク&hashtags=モノオク`}
+            fontbold
+            OnClick={() =>
+              ReactGA.event({
+                category: 'Share',
+                action: 'Push Twitter Share Button At Space',
+                value: props.id,
+              })
+            }
+          >
+            ツイートする
+          </Button>
+        </ButtonWrap>
+        <ButtonWrap>
+          <Button
+            facebook
+            type2
+            fill={1}
+            url={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${
+              props.id
+            }&quote=${props.name}｜モノオク`}
+            fontbold
+            OnClick={() =>
+              ReactGA.event({
+                category: 'Share',
+                action: 'Push Facebook Share Button At Space',
+                value: props.id,
+              })
+            }
+          >
+            シェアする
+          </Button>
+        </ButtonWrap>
+      </ShareButtonsWrapper>
+    )}
   </Container>
 );

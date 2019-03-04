@@ -44,7 +44,7 @@ const Cell = styled.div`
     ${media.tablet`
       padding-left: 0px;
       padding-right: 0px;
-      margin-top: 20px;
+      margin-top: ${Dimens.medium}px;
     `};
   }
   ${media.tablet`
@@ -54,8 +54,15 @@ const Cell = styled.div`
 `;
 
 const Wrapper = styled.div`
+  max-width: 320px;
+  ${props =>
+    props.backButton &&
+    `
+    margin: 0 0 0 auto;
+  `};
   ${media.tablet`
     width: 100%;
+    max-width: 100%;
     margin: auto;
   `};
 `;
@@ -82,7 +89,7 @@ export default (props: PropTypes) => (
   <EntryButtonsWrap rerative={props.rerative}>
     <Container>
       <Cell align="left">
-        <Wrapper>
+        <Wrapper backButton>
           {props.remove ? (
             <ConfirmBtnModal
               btnText={props.backButton.text}

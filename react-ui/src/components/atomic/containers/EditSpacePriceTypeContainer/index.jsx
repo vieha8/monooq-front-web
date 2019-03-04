@@ -81,7 +81,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   onClickNext: Function;
 
   onClickNext = () => {
-    const { dispatch, space, user } = this.props;
+    const { dispatch, space, history } = this.props;
     const { PriceQuarter, PriceHalf, PriceFull } = this.state;
 
     const saveSpace = Object.assign(space, {
@@ -95,19 +95,8 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       }),
     );
 
-    if (space.ID) {
-      dispatch(
-        spaceActions.updateSpace({
-          spaceId: space.ID,
-          body: {
-            userId: user.ID,
-            ...saveSpace,
-          },
-        }),
-      );
-    } else {
-      dispatch(spaceActions.createSpace({ body: { userId: user.ID, ...saveSpace } }));
-    }
+    const nextPath = space.ID ? Path.editSpaceConfirm(space.ID) : Path.createSpaceConfirm();
+    history.push(nextPath);
   };
 
   onClickBack: Function;
