@@ -49,12 +49,19 @@ class ProfileContainer extends Component<PropTypes> {
       imageUri: user.ImageUrl,
       name: user.Name,
       email: user.Email,
+      phoneNumber: user.PhoneNumber,
       prefCode: user.PrefCode,
       profile: user.Profile,
-      phoneNumber: user.PhoneNumber,
       purpose: user.IsHost ? 2 : 1,
       error: {},
     };
+
+    this.handleChangeUI('name', this.state.name);
+    this.handleChangeUI('email', this.state.email);
+    this.handleChangeUI('phoneNumber', this.state.phoneNumber);
+    this.handleChangeUI('prefCode', this.state.prefCode);
+    this.handleChangeUI('profile', this.state.profile);
+    this.handleChangeUI('purpose', this.state.purpose);
   }
 
   handleBeforeUnload(e) {
@@ -239,8 +246,8 @@ class ProfileContainer extends Component<PropTypes> {
               onChangeEmail={value => this.handleChangeUI('email', value)}
               onChangePhoneNumber={value => this.handleChangeUI('phoneNumber', value)}
               onChangePrefCode={value => this.handleChangeUI('prefCode', value)}
-              onChangePurpose={value => this.handleChangeUI('purpose', value)}
               onChangeProfile={value => this.handleChangeUI('profile', value)}
+              onChangePurpose={value => this.handleChangeUI('purpose', value)}
               buttonDisabled={!this.validate()}
               buttonLoading={isLoading}
               onClickUpdate={this.onClickUpdate}
