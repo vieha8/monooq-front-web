@@ -149,6 +149,10 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
 
     const { user, space, isLoading, isCompleted } = this.props;
 
+    if (!space.ID) {
+      return null;
+    }
+
     if (!isLoading && isCompleted) {
       if (space.ID) {
         return <Redirect to={Path.editSpaceCompletion(space.ID)} />;
