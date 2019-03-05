@@ -92,8 +92,14 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     const { dispatch } = this.props;
 
     const spaceId = props.match.params.space_id;
+
+    this.state = {
+      isUpdate: false,
+    };
+
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
+      this.state.isUpdate = true;
     }
   }
 
@@ -148,9 +154,14 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     }
 
     const { user, space, isLoading, isCompleted } = this.props;
+    const { isUpdate } = this.state;
 
-    if (!space.ID) {
-      return null;
+    if (isUpdate) {
+      if (!space.ID) {
+        return null;
+      }
+    } else if (space.Images === undefined) {
+      return <Redirect to={Path.createSpaceInfo()} />;
     }
 
     if (!isLoading && isCompleted) {
