@@ -36,6 +36,10 @@ type PropTypes = {
   space: SpaceType,
 };
 
+const Validate = {
+  Address: `(...??[都道府県])((?:旭川|伊達|石狩|盛岡|奥州|田村|南相馬|那須塩原|東村山|武蔵村山|羽村|十日町|上越|富山|野々市|大町|蒲郡|四日市|姫路|大和郡山|廿日市|下松|岩国|田川|大村)市|.+?郡(?:玉村|大町|.+?)[町村]|.+?市.+?区|.+?[市区町村郡])(\\D+)(.*)`,
+};
+
 const SPACE_TYPES = ['', 'クローゼット・押入れ', '', '部屋', '屋外倉庫', 'その他'];
 const ReceiptType = {
   Both: 1,
@@ -99,8 +103,13 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       this.state.isUpdate = true;
-    } else {
+    } else if (space.Address) {
       dispatch(spaceActions.getGeocode({ address: space.Address }));
+
+      const arrayAddress = space.Address.match(Validate.Address);
+      space.AddressPref = arrayAddress[1];
+      space.AddressCity = arrayAddress[2];
+      space.AddressTown = arrayAddress[3];
     }
   }
 
