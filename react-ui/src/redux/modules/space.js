@@ -1,6 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
+import axios from 'axios';
 import dummySpaceImage from 'images/dummy_space.png';
 import { store } from '../store/index';
 import { uploadImage } from '../helpers/firebase';
@@ -40,6 +41,9 @@ const ADD_SPACE_ACCESS_LOG = 'ADD_SPACE_ACCESS_LOG';
 const DO_SEARCH = 'DO_SEARCH';
 const SUCCESS_SEARCH = 'SUCCESS_SEARCH';
 const FAILED_SEARCH = 'FAILED_SEARCH';
+const GET_GEOCODE = 'GET_GEOCODE';
+const GET_FAILED_GEOCODE = 'GET_FAILED_GEOCODE';
+const GET_SUCCESS_GEOCODE = 'GET_SUCCESS_GEOCODE';
 const RESET_SEARCH = 'RESET_SEARCH';
 
 export const spaceActions = createActions(
@@ -64,6 +68,9 @@ export const spaceActions = createActions(
   SUCCESS_SEARCH,
   FAILED_SEARCH,
   RESET_SEARCH,
+  GET_GEOCODE,
+  GET_FAILED_GEOCODE,
+  GET_SUCCESS_GEOCODE,
 );
 
 // Reducer
@@ -191,6 +198,19 @@ export const spaceReducer = handleActions(
       isMore: true,
       maxCount: 0,
     }),
+    [GET_GEOCODE]: state => ({
+      ...state,
+      isLoading: true,
+    }),
+    [GET_SUCCESS_GEOCODE]: (state, { payload }) => ({
+      ...state,
+      isLoading: false,
+      geocode: payload.geocode,
+    }),
+    [GET_FAILED_GEOCODE]: state => ({
+      ...state,
+      isLoading: false,
+    }),
   },
   initialState,
 );
@@ -226,6 +246,34 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   }
 
   yield put(spaceActions.fetchSuccessSpace(payload));
+}
+
+function* getGeocode({ payload: { address } }) {
+  const KEY = 'AIzaSyAF1kxs-DsZJHW3tX3eNi88tKixy-zbGtk';
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${KEY}&address=${address}`;
+  const { data: places, err } = yield call(
+    () =>
+      new Promise((resolve, reject) => {
+        axios
+          .get(url)
+          .then(result => resolve(result))
+          .catch(error => reject(error));
+      }),
+  );
+
+  if (err) {
+    yield put(spaceActions.getFailedGeocode(err));
+    yield put(errorActions.setError(err));
+    return;
+  }
+
+  if (places.results.length > 0) {
+    yield put(
+      spaceActions.getSuccessGeocode({
+        geocode: places.results[0].geometry.location,
+      }),
+    );
+  }
 }
 
 function generateSpaceRequestParams(space) {
@@ -493,4 +541,5 @@ export const spaceSagas = [
   takeEvery(FETCH_FEATURE_SPACES, getFeatureSpaces),
   takeEvery(ADD_SPACE_ACCESS_LOG, addSpaceAccessLog),
   takeEvery(DO_SEARCH, search),
+  takeEvery(GET_GEOCODE, getGeocode),
 ];
