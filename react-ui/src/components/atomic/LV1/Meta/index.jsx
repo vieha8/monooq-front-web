@@ -9,6 +9,7 @@ type PropTypes = {
   keyword: string,
   ogUrl: string,
   ogImageUrl: string,
+  noindex: boolean,
 };
 
 class Head extends React.Component {
@@ -21,6 +22,7 @@ class Head extends React.Component {
         props.description ||
         'モノオクは荷物の置き場所に困っている人と余ったスペースを活用したい人をつなぐ、物置きシェアサービスです。利用シーンは引っ越し・リフォーム・出張・転勤・留学など。トランクルームを使う様に、気軽に荷物を預けるためのあたらしい仕組みです。',
       keyword: props.keyword || '荷物預かり,引越し,荷物預かり 引っ越し,物置き,シェア',
+      noindex: props.noindex,
       ogUrl: `https://monooq.com/${props.ogUrl || ''}`,
       ogImageUrl:
         props.ogImageUrl ||
@@ -29,13 +31,14 @@ class Head extends React.Component {
   }
 
   render() {
-    const { siteName, title, description, keyword, ogUrl, ogImageUrl } = this.state;
+    const { siteName, title, description, keyword, ogUrl, ogImageUrl, noindex } = this.state;
     const path = window.location.pathname;
     return (
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta name="keywords" content={keyword} />
+        {noindex && <meta name="robots" content="noindex" />}
         <meta property="og:site_name" content={siteName} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />

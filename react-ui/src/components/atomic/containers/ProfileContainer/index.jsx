@@ -79,6 +79,7 @@ class ProfileContainer extends Component<PropTypes> {
             title={`${user.Name}さんのプロフィール | モノオク`}
             ogUrl={`user/${user.ID}`}
             ogImageUrl={user.ImageUrl}
+            noindex
           />
         }
         profile={
