@@ -52,7 +52,7 @@ const AddressText = styled(InlineText.Base)`
   color: ${Colors.brandPrimary};
 `;
 
-const ContentText = styled(InlineText.Base)`
+const ContentText = styled(InlineText.H1)`
   display: block;
   margin: 5px auto;
 `;

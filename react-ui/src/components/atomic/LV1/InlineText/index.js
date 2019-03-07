@@ -94,6 +94,8 @@ const EmphasisTiny = styled(Base)`
   color: ${Colors.darkGray2};
 `;
 
+const H1 = Base.withComponent('h1');
+
 export default {
   Base,
   Strong,
@@ -104,4 +106,5 @@ export default {
   Tiny,
   EmphasisSmall,
   EmphasisTiny,
+  H1,
 };
