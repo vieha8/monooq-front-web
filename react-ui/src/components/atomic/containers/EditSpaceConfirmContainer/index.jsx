@@ -97,19 +97,12 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
       isUpdate: false,
     };
 
-    const { dispatch, space } = this.props;
+    const { dispatch } = this.props;
     const spaceId = props.match.params.space_id;
 
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       this.state.isUpdate = true;
-    } else if (space.Address) {
-      dispatch(spaceActions.getGeocode({ address: space.Address }));
-
-      const arrayAddress = space.Address.match(Validate.Address);
-      space.AddressPref = arrayAddress[1];
-      space.AddressCity = arrayAddress[2];
-      space.AddressTown = arrayAddress[3];
     }
   }
 
@@ -163,7 +156,7 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { user, space, isLoading, isComplete, geocode } = this.props;
+    const { user, space, isLoading, isComplete } = this.props;
     const { isUpdate } = this.state;
 
     if (isUpdate) {
@@ -191,12 +184,7 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
             <Detail
               confirm
               id={space.ID}
-              map={
-                <SpaceMap
-                  lat={space.Latitude || (geocode || {}).lat}
-                  lng={space.Longitude || (geocode || {}).lng}
-                />
-              }
+              map={<SpaceMap lat={space.Latitude} lng={space.Longitude} />}
               pref={space.AddressPref}
               city={space.AddressCity}
               town={space.AddressTown}

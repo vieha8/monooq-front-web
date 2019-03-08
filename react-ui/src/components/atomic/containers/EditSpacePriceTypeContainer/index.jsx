@@ -17,6 +17,7 @@ import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
 
 const Validate = {
+  Address: `(...??[都道府県])((?:旭川|伊達|石狩|盛岡|奥州|田村|南相馬|那須塩原|東村山|武蔵村山|羽村|十日町|上越|富山|野々市|大町|蒲郡|四日市|姫路|大和郡山|廿日市|下松|岩国|田川|大村)市|.+?郡(?:玉村|大町|.+?)[町村]|.+?市.+?区|.+?[市区町村郡])(\\D+)(.*)`,
   Price: {
     Num: /^[0-9]+$/,
     Max: 300000,
@@ -44,6 +45,8 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     const spaceId = props.match.params.space_id;
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
+    } else {
+      dispatch(spaceActions.getGeocode({ address: space.Address }));
     }
 
     this.state = {
@@ -80,8 +83,27 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   onClickNext: Function;
 
   onClickNext = () => {
-    const { dispatch, space, history } = this.props;
+    const { dispatch, space, history, match } = this.props;
     const { PriceQuarter, PriceHalf, PriceFull } = this.state;
+
+    const spaceId = match.params.space_id;
+    if (!spaceId && space.Address) {
+      const { geocode } = this.props;
+      const arrayAddress = space.Address.match(Validate.Address);
+
+      const saveSpaceNew = Object.assign(space, {
+        Latitude: (geocode || {}).lat,
+        Longitude: (geocode || {}).lng,
+        AddressPref: arrayAddress[1],
+        AddressCity: arrayAddress[2],
+        AddressTown: arrayAddress[3],
+      });
+      dispatch(
+        uiActions.setUiState({
+          space: saveSpaceNew,
+        }),
+      );
+    }
 
     const saveSpace = Object.assign(space, {
       PriceFull,
@@ -220,6 +242,7 @@ const mapStateToProps = state =>
     user: state.auth.user || {},
     space: state.ui.space || {},
     isLoading: state.space.isLoading,
+    geocode: state.space.geocode,
   });
 
 export default connect(
