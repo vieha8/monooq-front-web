@@ -256,6 +256,7 @@ export const createRoom = (userId1, userName, firebaseUid1, userId2, firebaseUid
       spaceId,
       lastMessageDt: new Date(),
       lastMessage: `${userName}さんが興味を持っています`,
+      status: 0,
     };
     const roomRef = await roomCollection().add(room);
     resolve(roomRef.id);
