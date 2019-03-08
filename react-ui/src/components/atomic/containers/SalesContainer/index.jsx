@@ -237,6 +237,11 @@ class SalesContainer extends Component {
       <Fragment>
         <SalesAmountItemWrap>
           <SalesAmountItem title="現在の売上金" amount={this.price} bold />
+          <CautionWrapper>
+            <CautionText>
+              ※売上は保管開始日に計上されます。保管開始前の取引は反映されませんのでご注意ください。
+            </CautionText>
+          </CautionWrapper>
         </SalesAmountItemWrap>
         <SalesAmountMsgWrap>振込先口座を指定してください。</SalesAmountMsgWrap>
         <InputText>
