@@ -41,7 +41,7 @@ const Delete = styled.span`
   text-align: center;
   background-color: ${Colors.brandPrimary};
   border-radius: 18px;
-  margin: ${Dimens.small}px ${Dimens.small2}px 0 0;
+  margin: ${Dimens.small2}px ${Dimens.small2}px 0 0;
   padding: 0 0 2px 0;
   ${media.phone`
     width: 32px;

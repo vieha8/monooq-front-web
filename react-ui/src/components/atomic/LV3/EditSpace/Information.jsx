@@ -67,7 +67,7 @@ export default (props: PropTypes) => (
     </Section>
     <Section>
       <SelectForm
-        label="スペースの種類は？"
+        label="スペースの種類"
         options={[
           {
             value: 3,
@@ -95,7 +95,7 @@ export default (props: PropTypes) => (
       <InputForm
         label="特徴がわかるタイトル"
         hintbottom="全角40文字まで"
-        placeholder="【約6畳】新宿エリアのワンルーム！駐車場もあり搬入に便利！"
+        placeholder="高円寺駅から徒歩５分！"
         value={props.title}
         onChange={e => props.onChangeTitle(e.target.value)}
       />
@@ -113,11 +113,10 @@ export default (props: PropTypes) => (
     <Section>
       <InputForm
         label="スペースの紹介文"
-        placeholder="広さ6畳ほどのワンルームが余っています。長期利用も可能なので気軽にご相談ください！
-便利な新宿エリアで、駅から徒歩圏内の好アクセスです。
-駐車場もありますので、車搬入される場合も便利！"
+        placeholder="家具も入れられるワンルームが余っています。数ヶ月の長期間でも可能です！
+朝〜夕方までなら荷物の出し入れにも対応できることもあります。"
         multiline
-        rows={7}
+        rows={5}
         value={props.introduction}
         onChange={e => props.onChangeIntroduction(e.target.value)}
       />
