@@ -116,6 +116,7 @@ export const spaceReducer = handleActions(
     [CLEAR_SPACE]: state => ({
       ...state,
       space: {},
+      isComplete: false,
     }),
     [FETCH_SPACE]: state => ({
       ...state,

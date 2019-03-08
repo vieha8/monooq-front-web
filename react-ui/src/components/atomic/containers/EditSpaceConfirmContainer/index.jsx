@@ -163,7 +163,7 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { user, space, isLoading, isCompleted, geocode } = this.props;
+    const { user, space, isLoading, isComplete, geocode } = this.props;
     const { isUpdate } = this.state;
 
     if (isUpdate) {
@@ -174,7 +174,7 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 
-    if (!isLoading && isCompleted) {
+    if (!isLoading && isComplete) {
       if (space.ID) {
         return <Redirect to={Path.editSpaceCompletion(space.ID)} />;
       }
@@ -257,7 +257,7 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
 
 const mapStateToProps = state =>
   mergeAuthProps(state, {
-    isCompleted: state.space.isComplete,
+    isComplete: state.space.isComplete,
     user: state.auth.user,
     space: state.ui.space || {},
     isLoading: state.space.isLoading,

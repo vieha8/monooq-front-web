@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import Path from 'config/path';
-import { Redirect } from 'react-router-dom';
 
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
@@ -185,15 +184,8 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       return auth;
     }
 
-    const { space, isLoading, isCompleted } = this.props;
+    const { space, isLoading } = this.props;
     const { PriceQuarter, PriceHalf, PriceFull, error } = this.state;
-
-    if (!isLoading && isCompleted) {
-      if (space.ID) {
-        return <Redirect to={Path.editSpaceCompletion(space.ID)} />;
-      }
-      return <Redirect to={Path.createSpaceCompletion()} />;
-    }
 
     return (
       <MenuPageTemplate
@@ -225,7 +217,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
 const mapStateToProps = state =>
   mergeAuthProps(state, {
-    isCompleted: state.space.isComplete,
     user: state.auth.user || {},
     space: state.ui.space || {},
     isLoading: state.space.isLoading,

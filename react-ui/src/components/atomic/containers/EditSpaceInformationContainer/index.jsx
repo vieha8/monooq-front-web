@@ -41,6 +41,8 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     const spaceId = props.match.params.space_id;
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
+    } else {
+      dispatch(spaceActions.clearSpace());
     }
 
     this.state = {
