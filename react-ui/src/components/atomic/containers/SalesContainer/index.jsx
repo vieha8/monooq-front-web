@@ -213,6 +213,11 @@ class SalesContainer extends Component {
           <SalesAmountItemWrap>
             <SalesAmountItem title="現在の売上金" amount={this.price} bold />
           </SalesAmountItemWrap>
+          <CautionWrapper>
+            <CautionText>
+              ※売上は保管開始日に計上されます。保管開始前の取引は反映されませんのでご注意ください。
+            </CautionText>
+          </CautionWrapper>
           <MsgWrap>
             振込申請は売上金3,000円以上から可能です。
             <br />
