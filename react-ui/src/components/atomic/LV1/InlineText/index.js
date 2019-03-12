@@ -18,7 +18,7 @@ const Base = styled.span`
     css`
       float: ${props.float};
     `};
-  white-space: pre-wrap;
+  ${props => (props.whiteSpaceNormal ? `white-space: normal;` : `white-space: pre-wrap;`)};
   ${props =>
     props.verticalTop &&
     css`

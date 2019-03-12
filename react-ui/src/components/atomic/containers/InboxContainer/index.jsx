@@ -59,10 +59,7 @@ class InboxContainer extends Component<PropTypes> {
             image: (message.user || {}).ImageUrl,
             name: (message.user || {}).Name,
             receivedAt: message.lastMessageDt,
-            lastMessage:
-              message.lastMessage.length > 60
-                ? `${message.lastMessage.substr(0, 60)}...`
-                : message.lastMessage,
+            lastMessage: message.lastMessage,
             isRead: message.isRead,
           }))}
       />
