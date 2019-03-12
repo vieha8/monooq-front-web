@@ -16,7 +16,7 @@ const DragText = styled.div`
   font-weight: bold;
   margin-top: ${Dimens.medium1}px;
   ${media.phone`
-    display: none;
+    margin: ${Dimens.medium_20}px auto;
   `};
 `;
 
@@ -26,35 +26,33 @@ const DndContent = styled.div`
   width: 100%;
   height: 164px;
   border: 1px solid ${Colors.borderGray};
-  border-radius: 6px;
+  border-radius: 4px;
   background: ${Colors.lightGray1Bg};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   ${media.phone`
-    height: 100px;
+    height: auto;
+  `};
+`;
+
+const DndContentEmpty = styled(DndContent)`
+  height: 144px;
+  ${media.phone`
+    height: 77px;
   `};
 `;
 
 const IconWrapper = styled.div`
-  margin-top: ${Dimens.medium2}px;
   text-align: center;
   ${media.phone`
-    margin-top: ${Dimens.medium}px;
+    margin-top: ${Dimens.medium1}px;
   `};
 `;
 
 const DropZoneWrap = styled.div`
   width: 100%;
-  margin-top: ${Dimens.xsmall}px;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.6;
-  }
-`;
-
-const AddImageDropZoneWrap = styled.div`
-  display: block;
-  vertical-align: top;
-  width: ${props => props.remain * 25}%;
-  margin-top: 4px;
+  margin-top: ${Dimens.small2}px;
   cursor: pointer;
   &:hover {
     opacity: 0.6;
@@ -63,14 +61,20 @@ const AddImageDropZoneWrap = styled.div`
 
 const ImagePreviewContainer = styled.ul`
   width: 100%;
-  margin-top: ${Dimens.xsmall}px;
+  margin-top: ${Dimens.small2}px;
+  display: flex;
 `;
 
 const ImagePreviewWrapper = styled.li`
-  width: 100%;
-  margin-bottom: ${Dimens.medium_15}px;
+  width: calc(25% + ${Dimens.xxsmall}px);
+  padding: 0 ${Dimens.xsmall}px;
+  &:first-child {
+    width: calc(25% - ${Dimens.xxsmall}px);
+    padding: 0 ${Dimens.xsmall}px 0 0;
+  }
   &:last-child {
-    margin-bottom: 0px;
+    width: calc(25% - ${Dimens.xxsmall}px);
+    padding: 0 0 0 ${Dimens.xsmall}px;
   }
 `;
 
@@ -125,6 +129,15 @@ function handleChangeImageWithOrientationFix(data, props: PropTypes) {
   }, 80);
 }
 
+// TODO: 最適化したい。
+function getEmptyCount(length) {
+  const emptyList = [];
+  for (let i = 0; i < MAX_PREVIEW_COUNT - length; i += 1) {
+    emptyList.push(i);
+  }
+  return emptyList;
+}
+
 function showImagePreview(props: PropTypes) {
   const { images } = props;
   if (images) {
@@ -151,26 +164,13 @@ function showImagePreview(props: PropTypes) {
 
           return null;
         })}
-        {images.length > 0 && images.length < MAX_PREVIEW_COUNT && (
-          <AddImageDropZoneWrap>
-            <Dropzone
-              accept="image/jpeg, image/png"
-              onDrop={data => handleChangeImageWithOrientationFix(data, props)}
-            >
-              {({ getRootProps, getInputProps }) => (
-                <DndContent {...getRootProps()}>
-                  <IconWrapper>
-                    <PictureIcon />
-                  </IconWrapper>
-                  <DragText>
-                    <InlineText.Base>写真を追加する</InlineText.Base>
-                  </DragText>
-                  <input {...getInputProps()} />
-                </DndContent>
-              )}
-            </Dropzone>
-          </AddImageDropZoneWrap>
-        )}
+        {getEmptyCount(images.length).map(() => {
+          return (
+            <ImagePreviewWrapper>
+              <DndContentEmpty />
+            </ImagePreviewWrapper>
+          );
+        })}
       </ImagePreviewContainer>
     );
   }
@@ -185,7 +185,7 @@ export default (props: PropTypes) => {
       <div>
         <H3 bold>スペースの様子がわかる写真</H3>
       </div>
-      {(images || []).length === 0 ? (
+      {(images || []).length < MAX_PREVIEW_COUNT && (
         <DropZoneWrap>
           <Dropzone
             accept="image/jpeg, image/png"
@@ -206,9 +206,8 @@ export default (props: PropTypes) => {
             )}
           </Dropzone>
         </DropZoneWrap>
-      ) : (
-        showImagePreview(props)
       )}
+      {(images || []).length > 0 && showImagePreview(props)}
       <HintBottomWrap>
         <InlineText.Tiny>最大4枚まで登録が可能です。</InlineText.Tiny>
       </HintBottomWrap>

@@ -3,18 +3,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { CloseIcon } from 'components/atomic/LV1/ActionIcon';
 import TextLink from 'components/atomic/LV1/TextLink';
 import { Dimens, Colors, FontSizes } from 'variables';
 
 const Container = styled.div`
   vertical-align: top;
   width: 100%;
-  height: 258px;
+  height: 144px;
   ${media.phone`
-    height: 164px;
+    height: 77px;
   `};
-  border-radius: ${Dimens.xsmall}px;
+  border-radius: 4px;
 `;
 
 const ImageWrapper = styled.div`
@@ -35,19 +34,20 @@ const Image = styled.img`
 const Delete = styled.span`
   position: absolute;
   display: block;
-  right: 0;
-  top: 0;
-  width: 36px;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  font-size: ${FontSizes.small_12}px;
+  font-weight: bold;
+  line-height: ${Dimens.small_10}px;
+  color: ${Colors.white};
   text-align: center;
-  background-color: ${Colors.brandPrimary};
-  border-radius: 18px;
-  margin: ${Dimens.small2}px ${Dimens.small2}px 0 0;
-  padding: 0 0 2px 0;
+  background-color: rgba(0, 0, 0, 0.48);
+  padding: ${Dimens.small}px 0;
+  border-radius: 0 0 6px 6px;
   ${media.phone`
-    width: 32px;
-    margin: ${Dimens.small}px ${Dimens.small}px 0 0;
-    padding: 5px 0;
-    border-radius: ${Dimens.medium}px;
+    font-size: ${FontSizes.xsmall_8}px;
+    padding: ${Dimens.xxsmall}px 0;
   `};
 `;
 
@@ -67,9 +67,7 @@ export default (props: PropTypes) => (
         }}
         fontSize={FontSizes.medium2}
       >
-        <Delete>
-          <CloseIcon fontSize={20} />
-        </Delete>
+        <Delete>削除</Delete>
       </TextLink>
     </ImageWrapper>
   </Container>
