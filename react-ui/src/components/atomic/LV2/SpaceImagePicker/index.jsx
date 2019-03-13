@@ -196,9 +196,9 @@ function showImagePreview(props: PropTypes) {
 
           return null;
         })}
-        {getEmptyCount(images.length).map(() => {
+        {getEmptyCount(images.length).map((v, i) => {
           return (
-            <ImagePreviewWrapper>
+            <ImagePreviewWrapper key={`image_preivew_${i}`.toString()}>
               <DndContentEmpty />
             </ImagePreviewWrapper>
           );
