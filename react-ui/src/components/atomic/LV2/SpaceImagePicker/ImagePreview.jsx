@@ -13,7 +13,7 @@ const Container = styled.div`
   ${media.phone`
     height: 77px;
   `};
-  border-radius: 4px;
+  border-radius: 7px;
 `;
 
 const ImageWrapper = styled.div`
@@ -27,6 +27,7 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   border-radius: ${Dimens.xsmall}px;
+  border: 1px solid ${Colors.lightGray2};
   overflow: hidden;
   object-fit: cover;
 `;

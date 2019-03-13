@@ -26,7 +26,7 @@ const DndContent = styled.div`
   width: 100%;
   height: 164px;
   border: 1px solid ${Colors.borderGray};
-  border-radius: 4px;
+  border-radius: 6px;
   background: ${Colors.lightGray1Bg};
   display: flex;
   flex-direction: column;
@@ -61,25 +61,57 @@ const DropZoneWrap = styled.div`
 
 const ImagePreviewContainer = styled.ul`
   width: 100%;
-  margin-top: ${Dimens.small2}px;
   display: flex;
+  margin-top: ${Dimens.medium1}px;
+  ${media.tablet`
+    margin-top: ${Dimens.small2}px;
+  `};
 `;
 
 const ImagePreviewWrapper = styled.li`
-  width: calc(25% + ${Dimens.xxsmall}px);
-  padding: 0 ${Dimens.xsmall}px;
+  width: calc(25% + ${Dimens.xsmall}px);
+  padding: 0 ${Dimens.small2}px;
+  ${media.tablet`
+    width: calc(25% + ${Dimens.xxsmall}px);
+    padding: 0 ${Dimens.xsmall}px;
+  `};
   &:first-child {
-    width: calc(25% - ${Dimens.xxsmall}px);
-    padding: 0 ${Dimens.xsmall}px 0 0;
+    width: calc(25% - ${Dimens.xsmall}px);
+    padding: 0 ${Dimens.small2}px 0 0;
+    ${media.tablet`
+      width: calc(25% - ${Dimens.xxsmall}px);
+      padding: 0 ${Dimens.xsmall}px 0 0;
+    `};
   }
   &:last-child {
-    width: calc(25% - ${Dimens.xxsmall}px);
-    padding: 0 0 0 ${Dimens.xsmall}px;
+    width: calc(25% - ${Dimens.xsmall}px);
+    padding: 0 0 0 ${Dimens.small2}px;
+    ${media.tablet`
+      width: calc(25% - ${Dimens.xxsmall}px);
+      padding: 0 0 0 ${Dimens.xsmall}px;
+    `};
   }
 `;
 
 const HintBottomWrap = styled.div`
-  margin-top: 6px;
+  margin-top: ${Dimens.medium}px;
+  ${media.tablet`
+    margin-top: ${Dimens.xsmall}px;
+  `};
+`;
+
+const OnlyPC = styled.span`
+  display: block;
+  ${media.tablet`
+    display: none;
+  `};
+`;
+
+const OnlyPhone = styled.span`
+  display: none;
+  ${media.tablet`
+    display: block;
+  `};
 `;
 
 const MAX_PREVIEW_COUNT = 4;
@@ -197,9 +229,12 @@ export default (props: PropTypes) => {
                   <PictureIcon />
                 </IconWrapper>
                 <DragText>
-                  <div>
+                  <OnlyPC>
+                    <InlineText.Base>クリックして画像をアップロード</InlineText.Base>
+                  </OnlyPC>
+                  <OnlyPhone>
                     <InlineText.Base>タップして画像をアップロード</InlineText.Base>
-                  </div>
+                  </OnlyPhone>
                 </DragText>
                 <input {...getInputProps()} />
               </DndContent>
