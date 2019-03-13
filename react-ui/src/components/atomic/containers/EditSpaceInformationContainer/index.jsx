@@ -81,6 +81,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   onClickRemove: Function;
   onClickRemove = space => {
     const { dispatch } = this.props;
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
     dispatch(spaceActions.deleteSpace({ space }));
   };
 
