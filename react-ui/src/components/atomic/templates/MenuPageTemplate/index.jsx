@@ -46,13 +46,14 @@ type PropTypes = {
   caption: string,
   leftContent: React.Element<*>,
   rightContent: React.Element<*>,
+  bottomButtonMargin?: string,
 };
 
 export default (props: PropTypes) => (
   <div>
     {props.header}
     {props.meta}
-    <Page>
+    <Page bottomButtonMargin={props.bottomButtonMargin}>
       <ClearfixContainer>
         <Content>
           <LeftContent>
