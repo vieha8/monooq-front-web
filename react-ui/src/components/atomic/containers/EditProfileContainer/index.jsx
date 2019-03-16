@@ -53,15 +53,9 @@ class ProfileContainer extends Component<PropTypes> {
       prefCode: user.PrefCode,
       profile: user.Profile,
       purpose: user.IsHost ? 2 : 1,
+      isNoticeEmail: user.IsNoticeEmail,
       error: {},
     };
-
-    this.handleChangeUI('name', this.state.name);
-    this.handleChangeUI('email', this.state.email);
-    this.handleChangeUI('phoneNumber', this.state.phoneNumber);
-    this.handleChangeUI('prefCode', this.state.prefCode);
-    this.handleChangeUI('profile', this.state.profile);
-    this.handleChangeUI('purpose', this.state.purpose);
   }
 
   handleBeforeUnload(e) {
@@ -72,26 +66,18 @@ class ProfileContainer extends Component<PropTypes> {
   componentDidMount() {
     window.scrollTo(0, 0);
     window.addEventListener('beforeunload', this.handleBeforeUnload);
+
+    const { name, email, phoneNumber, prefCode, profile, purpose } = this.state;
+    this.handleChangeUI('name', name);
+    this.handleChangeUI('email', email);
+    this.handleChangeUI('phoneNumber', phoneNumber);
+    this.handleChangeUI('prefCode', prefCode);
+    this.handleChangeUI('profile', profile);
+    this.handleChangeUI('purpose', purpose);
   }
 
   componentWillUnmount() {
     window.removeEventListener('beforeunload', this.handleBeforeUnload);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!this.props.user.ID && nextProps.user.ID) {
-      const user = nextProps.user;
-      this.setState({
-        imageUri: user.ImageUrl,
-        imageUriPreview: '',
-        name: user.Name,
-        email: user.Email,
-        prefCode: user.PrefCode,
-        profile: user.Profile,
-        phoneNumber: user.PhoneNumber,
-        purpose: user.IsHost ? 2 : 1,
-      });
-    }
   }
 
   onClickUpdate: Function;
@@ -215,6 +201,7 @@ class ProfileContainer extends Component<PropTypes> {
       prefCode,
       profile,
       purpose,
+      isNoticeEmail,
       error,
     } = this.state;
 
@@ -241,6 +228,7 @@ class ProfileContainer extends Component<PropTypes> {
               profileErrors={error.profile}
               purpose={purpose}
               purposeErrors={error.purpose}
+              isNoticeEmail={isNoticeEmail}
               onChangeImage={value => this.handleChangeUI('imageUri', value)}
               onChangeName={value => this.handleChangeUI('name', value)}
               onChangeEmail={value => this.handleChangeUI('email', value)}
@@ -248,6 +236,7 @@ class ProfileContainer extends Component<PropTypes> {
               onChangePrefCode={value => this.handleChangeUI('prefCode', value)}
               onChangeProfile={value => this.handleChangeUI('profile', value)}
               onChangePurpose={value => this.handleChangeUI('purpose', value)}
+              onChangeNoticeEmail={() => this.handleChangeUI('isNoticeEmail', !isNoticeEmail)}
               buttonDisabled={!this.validate()}
               buttonLoading={isLoading}
               onClickUpdate={this.onClickUpdate}

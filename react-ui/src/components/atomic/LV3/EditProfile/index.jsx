@@ -8,6 +8,7 @@ import RegsiterProfileImage from 'components/atomic/LV1/DragAndDrop/RegisterProf
 import InputForm from 'components/atomic/LV2/InputForm';
 import SelectForm from 'components/atomic/LV2/SelectForm';
 import InlineText from 'components/atomic/LV1/InlineText';
+import Check from 'components/atomic/LV1/Check';
 import Button from 'components/atomic/LV1/Button';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 import { selectOptionPurpose } from 'helpers/purposes';
@@ -56,6 +57,8 @@ type PropTypes = {
   onChangeProfile: Function,
   purpose: string,
   purposeErrors: Array<string>,
+  isNoticeEmail: boolean,
+  onChangeNoticeEmail: Function,
   onClickUpdate: Function,
   buttonDisabled: boolean,
   buttonLoading: boolean,
@@ -77,7 +80,7 @@ export default (props: PropTypes) => (
     <Row>
       <InputForm
         label="お名前"
-        placeholder="ニックネーム"
+        placeholder="ニックネーム可"
         onChange={e => props.onChangeName(e.target.value)}
         value={props.name}
       />
@@ -91,6 +94,11 @@ export default (props: PropTypes) => (
         value={props.email}
       />
       {displayErrors('email_errors', props.emailErrors)}
+    </Row>
+    <Row>
+      <Check checked={props.isNoticeEmail} onClick={props.onChangeNoticeEmail}>
+        サービスに関するお知らせメールを受け取る
+      </Check>
     </Row>
     <Row>
       <InputForm

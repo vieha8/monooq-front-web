@@ -52,7 +52,7 @@ export default (props: PropTypes) => (
     name={
       <InputForm
         label="お名前"
-        placeholder="ユーザ名を入力してください"
+        placeholder="ユーザ名を入力してください(ニックネーム可)"
         onChange={e => props.onChangeName(e.target.value)}
         value={props.name}
       />
