@@ -138,6 +138,7 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="預かれる荷物について"
+        bottomButtonMargin={130}
         leftContent={
           <EditSpaceBaggage
             baggage={About}

@@ -159,6 +159,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="荷物の受け取りについて"
+        bottomButtonMargin={130}
         leftContent={
           <EditSpaceReceive
             receive={ReceiptType}
