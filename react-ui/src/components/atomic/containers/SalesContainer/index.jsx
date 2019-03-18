@@ -165,10 +165,9 @@ class SalesContainer extends Component {
   };
 
   submitButton = () => {
-    const { user, dispatch, sales } = this.props;
+    const { user, dispatch, payout } = this.props;
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
     const userId = user.ID;
-    const payouts = sales.reduce((a, x) => (a += x.PriceMinusFee), 0);
 
     dispatch(
       salesActions.sendPayouts({
@@ -178,7 +177,7 @@ class SalesContainer extends Component {
         accountType,
         accountNumber,
         accountName,
-        payouts,
+        payouts: payout,
       }),
     );
     window.scrollTo(0, 0);
@@ -202,22 +201,18 @@ class SalesContainer extends Component {
   };
 
   leftContent = () => {
-    const { sales, history } = this.props;
+    const { sales, deposit, history } = this.props;
 
-    this.payouts = sales.reduce((a, x) => (a += x.PriceMinusFee), 0);
-    this.price = sales.reduce((a, x) => (a += x.Price), 0);
-
-    if (this.payouts < 2400) {
+    if (sales < 3000) {
       return (
         <Fragment>
           <SalesAmountItemWrap>
-            <SalesAmountItem title="現在の売上金" amount={this.price} bold />
+            <SalesAmountItem title="振込可能な売上" amount={sales} bold />
+            <SalesAmountItem title="保管開始前の売上" amount={deposit} />
+            <CautionWrapper>
+              <CautionText>※保管開始済みの取引の売上のみ振込申請ができます。</CautionText>
+            </CautionWrapper>
           </SalesAmountItemWrap>
-          <CautionWrapper>
-            <CautionText>
-              ※売上は保管開始日に計上されます。保管開始前の取引は反映されませんのでご注意ください。
-            </CautionText>
-          </CautionWrapper>
           <MsgWrap>
             振込申請は売上金3,000円以上から可能です。
             <br />
@@ -241,11 +236,10 @@ class SalesContainer extends Component {
     return (
       <Fragment>
         <SalesAmountItemWrap>
-          <SalesAmountItem title="現在の売上金" amount={this.price} bold />
+          <SalesAmountItem title="振込可能な売上" amount={sales} bold />
+          <SalesAmountItem title="保管開始前の売上" amount={deposit} />
           <CautionWrapper>
-            <CautionText>
-              ※売上は保管開始日に計上されます。保管開始前の取引は反映されませんのでご注意ください。
-            </CautionText>
+            <CautionText>※保管開始済みの取引の売上のみ振込申請ができます。</CautionText>
           </CautionWrapper>
         </SalesAmountItemWrap>
         <SalesAmountMsgWrap>振込先口座を指定してください。</SalesAmountMsgWrap>
@@ -319,18 +313,18 @@ class SalesContainer extends Component {
         <Confirm label="口座名義" value={this.state.accountName} />
       </ConfirmSalesWrap>
       <SalesAmountItemWrap confirm>
-        <SalesAmountItem title="現在の売上金" amount={this.price} />
+        <SalesAmountItem title="現在の売上金" amount={this.props.sales} />
       </SalesAmountItemWrap>
       <SalesAmountItemWrap confirm>
-        <SalesAmountItem title="サービス利用料" amount={this.price - this.payouts} />
+        <SalesAmountItem title="サービス利用料" amount={this.props.sales - this.props.payout} />
       </SalesAmountItemWrap>
       <SalesAmountItemWrap confirm>
-        <SalesAmountItem title="振込手数料" amount={this.payouts < 10000 ? 260 : 0} />
+        <SalesAmountItem title="振込手数料" amount={this.props.payout < 10000 ? 260 : 0} />
       </SalesAmountItemWrap>
       <SalesAmountItemWrap confirm>
         <SalesAmountItem
           title="振込金額"
-          amount={this.payouts < 10000 ? this.payouts - 260 : this.payouts}
+          amount={this.props.payout < 10000 ? this.props.payout - 260 : this.props.payout}
           bold
           colorPrimary
         />
@@ -430,6 +424,8 @@ class SalesContainer extends Component {
 const mapStateToProps = state =>
   mergeAuthProps(state, {
     sales: state.sales.sales,
+    payout: state.sales.payout,
+    deposit: state.sales.deposit,
     isLoading: state.sales.isLoading,
     user: state.auth.user,
   });

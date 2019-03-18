@@ -20,7 +20,9 @@ export const salesActions = createActions(
 
 // Reducer
 const initialState = {
-  sales: [],
+  sales: 0,
+  payout: 0,
+  deposit: 0,
   isLoading: false,
 };
 
@@ -32,7 +34,9 @@ export const salesReducer = handleActions(
     }),
     [FETCH_SALES_SUCCESS]: (state, action) => ({
       ...state,
-      sales: action.payload,
+      sales: action.payload.sales,
+      payout: action.payload.payout,
+      deposit: action.payload.deposit,
       isLoading: false,
     }),
     [FETCH_SALES_FAILED]: state => ({
@@ -52,7 +56,24 @@ function* getSales() {
     yield put(errorActions.setError(err));
     return;
   }
-  yield put(salesActions.fetchSalesSuccess(data));
+
+  let sales = 0;
+  let payout = 0;
+  let deposit = 0;
+
+  data.map(v => {
+    const startDate = v.Request.StartDate;
+    const startTime = Date.parse(startDate);
+    if (Date.now() > startTime) {
+      sales += v.Price;
+      payout += v.PriceMinusFee;
+    } else {
+      deposit += v.Price;
+    }
+    return 1;
+  });
+
+  yield put(salesActions.fetchSalesSuccess({ sales, payout, deposit }));
 }
 
 const sendMailToAdmin = (
@@ -183,6 +204,8 @@ function* sendPayouts({
     accountName,
     payouts,
   );
+
+  console.log(payouts);
 
   // 開発環境はinfoに対するメールとBacklog通知しない
   if (process.env.NODE_ENV !== 'production') {
