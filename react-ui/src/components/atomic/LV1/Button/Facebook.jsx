@@ -82,7 +82,7 @@ export default (props: Object) =>
       </Facebook>
     </HyperLink>
   ) : (
-    <Facebook {...props}>
+    <Facebook {...props} tabIndex={0}>
       {!props.loading && (
         <span>
           <i className="fab fa-facebook-square" />

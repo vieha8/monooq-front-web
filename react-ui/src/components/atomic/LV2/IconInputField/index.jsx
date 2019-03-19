@@ -25,6 +25,21 @@ const Icon = styled.i`
     `};
 `;
 
+const StyledTextButton = styled(TextButton)`
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  margin-top: -10px;
+  font-size: 22px;
+  color: ${Colors.lightGray1};
+  ${props =>
+    props.right &&
+    `
+      left: auto;
+      right: 25px;
+    `};
+`;
+
 const IconInputField = styled(InputField)`
   padding: 18px 25px 18px 46px;
   ${props =>
@@ -36,7 +51,6 @@ const IconInputField = styled(InputField)`
 
 type PropTypes = {
   iconClassName: string,
-  clickIcon?: Function,
 };
 
 export default (props: PropTypes) => (
@@ -44,9 +58,11 @@ export default (props: PropTypes) => (
     {props.right ? (
       <Fragment>
         <IconInputField {...props} right={props.right} />
-        <TextButton onClick={props.clickIcon}>
-          <Icon className={props.iconClassName} right={props.right} />
-        </TextButton>
+        <StyledTextButton
+          onClick={props.clickIcon}
+          className={props.iconClassName}
+          right={props.right}
+        />
       </Fragment>
     ) : (
       <Fragment>

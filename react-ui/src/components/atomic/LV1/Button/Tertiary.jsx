@@ -24,4 +24,4 @@ const Tertiary = styled(PrimaryButton)`
     `};
 `;
 
-export default (props: Object) => <Tertiary {...props} />;
+export default (props: Object) => <Tertiary {...props} tabIndex={0} />;

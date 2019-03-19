@@ -23,10 +23,6 @@ export const PrimaryButton = styled.div`
   background: ${Colors.brandPrimary};
   border-radius: 4px;
   cursor: pointer;
-
-  &:focus {
-    background: ${Colors.brandSecondary};
-  }
   
   ${props => (props.lineheight ? `line-height: ${props.lineheight}px;` : `line-height: normal`)};
 
