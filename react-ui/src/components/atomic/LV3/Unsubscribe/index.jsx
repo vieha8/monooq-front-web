@@ -47,6 +47,12 @@ const styles = {
   },
 };
 
+const StyledDropdown = styled(Dropdown)`
+  &:focus {
+    border-color: ${Colors.brandPrimary} !important;
+  }
+`;
+
 type PropTypes = {
   reasonType: number,
   onChangeReasonType: Function,
@@ -63,7 +69,7 @@ export default (props: PropTypes) => (
       当てはまる理由をご選択ください。今後のサービス改善の参考とさせていただきます。
     </InlineText.EmphasisSmall>
     <Row>
-      <Dropdown
+      <StyledDropdown
         style={styles.dropdown}
         options={[
           { value: 'サービスの使い方がわからない', text: 'サービスの使い方がわからない' },
