@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { FontSizes, Colors } from 'variables';
+import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const WIDTH = 500;
@@ -27,7 +27,7 @@ const SearchInput = styled.input`
   background: #fff;
   height: ${HEIGHT}px;
   width: ${WIDTH}px;
-  line-height: 20px;
+  line-height: ${Dimens.medium_20}px;
   box-sizing: border-box;
   font-size: ${FontSizes.small}px;
   &:focus {
@@ -40,25 +40,19 @@ const SearchInput = styled.input`
 
 const SearchButton = styled.div`
   position: absolute;
-  top: 0;
-  right: 0px;
-  height: 100%;
+  top: calc(50% - ${Dimens.small_11}px);
+  font-size: ${FontSizes.medium1_22}px;
+  right: ${Dimens.medium_20}px;
+  width: auto;
+  height: auto;
   line-height: ${HEIGHT}px;
-  width: 60px;
   text-align: center;
   padding: 0;
+  color: ${props => props.color};
   cursor: pointer;
   &:hover {
     opacity: ${props => (props.disabled ? 1 : 0.6)};
   }
-`;
-
-const IconWrapper = styled.span`
-  color: ${props => props.color};
-`;
-
-const Icon = styled.i`
-  font-size: 20px;
 `;
 
 type PropTypes = {
@@ -82,10 +76,9 @@ export default (props: PropTypes) => (
     <SearchButton
       onClick={props.searchDisabled ? null : props.onClickSearchButton}
       disabled={props.searchDisabled}
-    >
-      <IconWrapper color={props.searchDisabled ? Colors.lightGray1 : Colors.brandPrimary}>
-        <Icon className="fal fa-search" />
-      </IconWrapper>
-    </SearchButton>
+      tabIndex={0}
+      className="fal fa-search"
+      color={props.searchDisabled ? Colors.lightGray1 : Colors.brandPrimary}
+    />
   </SearchWrapper>
 );
