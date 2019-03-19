@@ -90,5 +90,5 @@ export default (props: Object) =>
       </Link>
     )
   ) : (
-    <PrimaryButton {...props} />
+    <PrimaryButton {...props} tabIndex={0} />
   );

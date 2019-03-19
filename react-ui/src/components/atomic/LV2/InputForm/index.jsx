@@ -2,6 +2,7 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { Dimens } from 'variables';
 import Check from 'components/atomic/LV1/Check';
 import { H3 } from 'components/atomic/LV1/Headline';
 import InlineText from 'components/atomic/LV1/InlineText';
@@ -21,15 +22,15 @@ const InputFieldWrapper = styled.div`
 
 const UnitWrapper = styled.div`
   display: inline-block;
-  padding: 0 12px;
+  padding: 0 ${Dimens.small2}px;
 `;
 
 const HintBottomWrap = styled.div`
-  margin-top: 8px;
+  margin-top: ${Dimens.small}px;
 `;
 
 const CheckWrap = styled.div`
-  margin-top: 8px;
+  margin-top: ${Dimens.small}px;
 `;
 
 type PropTypes = {
@@ -41,6 +42,7 @@ type PropTypes = {
   onChange: Function,
   extension?: React.Element<*>,
   multiline?: boolean,
+  onKeyDown?: Function,
 };
 
 export default (props: PropTypes) => (
@@ -49,7 +51,7 @@ export default (props: PropTypes) => (
     {props.hint && <InlineText.EmphasisSmall>{props.hint}</InlineText.EmphasisSmall>}
     {props.checkbox ? (
       <CheckWrap>
-        <Check checked={props.checked} onClick={props.onClick}>
+        <Check checked={props.checked} onClick={props.onClick} onKeyDown={props.onKeyDown}>
           {props.checktext}
         </Check>
       </CheckWrap>

@@ -23,7 +23,7 @@ export const ContentsWrap = styled.div`
 export const Section = styled.div`
   margin-top: ${Dimens.medium2}px;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: ${props => (props.visible ? 'visible' : 'hidden')};
   ${props =>
     props.top &&
     `
@@ -113,6 +113,7 @@ type PropTypes = {
   onChangeType: Function,
   checkedFurniture: boolean,
   onClickFurniture: Function,
+  onKeyDownFurniture: Function,
   receive: number,
   receiveErrors: Array<string>,
   onChangeReceive: Function,
@@ -210,13 +211,14 @@ export default (props: PropTypes) => (
         />
         {displayErrors('type_errors', props.typeErrors)}
       </Section>
-      <Section>
+      <Section visible>
         <InputForm
           checkbox
           label="預けられる荷物で絞り込み"
           checktext="家具や家電製品に対応する"
           checked={props.checkedFurniture}
           onClick={props.onClickFurniture}
+          onKeyDown={props.onKeyDownFurniture}
         />
         {displayErrors('furniture_errors', props.furnitureErrors)}
       </Section>

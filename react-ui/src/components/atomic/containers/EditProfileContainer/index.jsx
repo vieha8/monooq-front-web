@@ -58,6 +58,13 @@ class ProfileContainer extends Component<PropTypes> {
     };
   }
 
+  onKeyDownNoticeEmail = e => {
+    if (e && e.keyCode === 32) {
+      const { isNoticeEmail } = this.state;
+      this.handleChangeUI('isNoticeEmail', !isNoticeEmail);
+    }
+  };
+
   handleBeforeUnload(e) {
     e.preventDefault();
     e.returnValue = 'データが保存されませんが、よろしいですか?';
@@ -229,6 +236,7 @@ class ProfileContainer extends Component<PropTypes> {
               purpose={purpose}
               purposeErrors={error.purpose}
               isNoticeEmail={isNoticeEmail}
+              onKeyDownNoticeEmail={this.onKeyDownNoticeEmail}
               onChangeImage={value => this.handleChangeUI('imageUri', value)}
               onChangeName={value => this.handleChangeUI('name', value)}
               onChangeEmail={value => this.handleChangeUI('email', value)}
