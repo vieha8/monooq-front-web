@@ -7,10 +7,7 @@ import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
 import ServiceMenu from './ServiceMenu';
-import HelpMenu from './HelpMenu';
-
 ServiceMenu.displayName = 'ServiceMenu';
-HelpMenu.displayName = 'HelpMenu';
 
 storiesOf('Molecules(LV2)/MenuItem', module)
   .addDecorator(StoryRouter())
@@ -33,25 +30,6 @@ storiesOf('Molecules(LV2)/MenuItem', module)
     `)(() => (
       <div style={{ width: '320px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu href="https://monooq.com" title="メッセージ" notificationCount={10} blank />
-      </div>
-    )),
-  )
-  .add(
-    'HelpMenu',
-    withInfo(`
-      ### コンポーネント概要
-      ヘルプメニュー
-    `)(() => (
-      <div style={{ width: '320px', padding: `${Dimens.storyBookPadding}` }}>
-        <HelpMenu onClick={() => console.log('onClick')} title="ナビゲーション" angleRight show />
-        <HelpMenu
-          onClick={() => console.log('onClick')}
-          title="ナビゲーション"
-          angleDown
-          open
-          show
-        />
-        <HelpMenu onClick={() => console.log('onClick')} title="サービスについて" fillColor show />
       </div>
     )),
   );

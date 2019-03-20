@@ -210,51 +210,6 @@ const Terms = Loadable({
   loading: LoadingPage,
 });
 
-const HelpTop = Loadable({
-  loader: () => import('components/atomic/containers/Static/Help/Top'),
-  loading: LoadingPage,
-});
-
-const HelpService = Loadable({
-  loader: () => import('components/atomic/containers/Static/Help/Service'),
-  loading: LoadingPage,
-});
-
-const HelpUserTransaction = Loadable({
-  loader: () => import('components/atomic/containers/Static/Help/Service'),
-  loading: LoadingPage,
-});
-
-const HelpHost = Loadable({
-  loader: () => import('components/atomic/containers/Static/Help/Service'),
-  loading: LoadingPage,
-});
-
-const HelpSpace = Loadable({
-  loader: () => import('components/atomic/containers/Static/Help/Service'),
-  loading: LoadingPage,
-});
-
-const HelpHostTransaction = Loadable({
-  loader: () => import('components/atomic/containers/Static/Help/Service'),
-  loading: LoadingPage,
-});
-
-const HelpSalesTransfer = Loadable({
-  loader: () => import('components/atomic/containers/Static/Help/Service'),
-  loading: LoadingPage,
-});
-
-const HelpSignIn = Loadable({
-  loader: () => import('components/atomic/containers/Static/Help/Service'),
-  loading: LoadingPage,
-});
-
-const HelpOther = Loadable({
-  loader: () => import('components/atomic/containers/Static/Help/Service'),
-  loading: LoadingPage,
-});
-
 export default ({ history }) => (
   <ConnectedRouter history={history}>
     <Switch>
@@ -298,15 +253,6 @@ export default ({ history }) => (
       <Route exact path={Path.asct()} component={Asct} />
       <Route exact path={Path.privacy()} component={Privacy} />
       <Route exact path={Path.terms()} component={Terms} />
-      <Route exact path={Path.helpTop()} component={HelpTop} />
-      <Route exact path={Path.helpService()} component={HelpService} />
-      <Route exact path={Path.helpUserTransaction()} component={HelpUserTransaction} />
-      <Route exact path={Path.helpHost()} component={HelpHost} />
-      <Route exact path={Path.helpSpace()} component={HelpSpace} />
-      <Route exact path={Path.helpHostTransaction()} component={HelpHostTransaction} />
-      <Route exact path={Path.helpSalesTransfer()} component={HelpSalesTransfer} />
-      <Route exact path={Path.helpSignIn()} component={HelpSignIn} />
-      <Route exact path={Path.helpOther()} component={HelpOther} />
       <Route component={NotFound} />
     </Switch>
   </ConnectedRouter>

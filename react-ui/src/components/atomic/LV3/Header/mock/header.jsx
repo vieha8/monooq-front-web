@@ -38,7 +38,6 @@ export default class HeaderMock extends React.Component {
         signupUri="#"
         onClickAvatar={() => this.setState()}
         top={this.props.top}
-        help={this.props.help}
         spMenu={
           <ServiceMenu
             home={{ to: Path.home() }}
