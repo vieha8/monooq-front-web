@@ -45,7 +45,6 @@ const SearchButton = styled.div`
   right: ${Dimens.medium_20}px;
   width: auto;
   height: auto;
-  line-height: ${HEIGHT}px;
   text-align: center;
   padding: 0;
   color: ${props => props.color};
