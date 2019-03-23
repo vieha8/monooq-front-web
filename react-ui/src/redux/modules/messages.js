@@ -328,6 +328,10 @@ function* sendEmail(payload) {
   const token = yield* getToken();
   const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId), {}, token);
 
+  if (!toUser.IsNoticeEmail) {
+    return;
+  }
+
   let messageBody = 'メッセージが届いています。\n\n';
 
   if (text.length !== 0) {
