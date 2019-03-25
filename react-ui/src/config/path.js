@@ -81,13 +81,4 @@ export default {
   asct: () => '/asct',
   privacy: () => '/privacy',
   terms: () => '/terms',
-  helpTop: () => '/help',
-  helpService: () => '/help/service',
-  helpUserTransaction: () => '/help/usertransaction',
-  helpHost: () => '/help/host',
-  helpSpace: () => '/help/space',
-  helpHostTransaction: () => '/help/hosttransaction',
-  helpSalesTransfer: () => '/help/salestransfer',
-  helpSignIn: () => '/help/signin',
-  helpOther: () => '/help/other',
 };

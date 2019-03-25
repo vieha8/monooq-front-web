@@ -28,10 +28,6 @@ const Container = styled.header`
     props.top &&
     `
     background: rgba(255, 255, 255, 0.6);
-  `} ${props =>
-    props.help &&
-    `
-    background: ${Colors.brandAccent};
   `};
 `;
 
@@ -157,65 +153,63 @@ type PropTypes = {
   onClickLogin: Function,
   signupUri: string,
   top?: boolean,
-  help?: boolean,
   stories?: boolean,
   searchConditionUri: string,
 };
 
 export default (props: PropTypes) => {
   return (
-    <Container top={props.top} help={props.help} stories={props.stories}>
+    <Container top={props.top} stories={props.stories}>
       <Nav>
         <LogoWrapper to={props.topUri}>
-          {props.top || props.help ? <Logo.HeaderWhiteFill /> : <Logo.HeaderFill />}
+          {props.top ? <Logo.HeaderWhiteFill /> : <Logo.HeaderFill />}
         </LogoWrapper>
-        {!props.isCheckingLogin &&
-          !props.noHeaderButton && (
-            <ActionWrapper>
-              {props.user ? (
-                <ActionContainer>
-                  <SearchFiledCell>
-                    <OnlyPhone>
-                      <AnimateSearchInputField
-                        iconRight
-                        searchConditionUri={props.searchConditionUri}
-                        isPhone
-                      />
-                    </OnlyPhone>
-                    <OnlyPC>
-                      <AnimateSearchInputField
-                        iconRight
-                        searchConditionUri={props.searchConditionUri}
-                      />
-                    </OnlyPC>
-                  </SearchFiledCell>
+        {!props.isCheckingLogin && !props.noHeaderButton && (
+          <ActionWrapper>
+            {props.user ? (
+              <ActionContainer>
+                <SearchFiledCell>
                   <OnlyPhone>
-                    <ActionCell noCursol>{props.spMenu}</ActionCell>
+                    <AnimateSearchInputField
+                      iconRight
+                      searchConditionUri={props.searchConditionUri}
+                      isPhone
+                    />
                   </OnlyPhone>
                   <OnlyPC>
-                    <ActionCell>
-                      <AvatarIcon imageSrc={props.user.image} to={props.homeUri} />
-                    </ActionCell>
-                    <ActionCell>
-                      <Link to={props.homeUri}>
-                        <AvaterName>{props.user.name}</AvaterName>
-                      </Link>
-                    </ActionCell>
-                  </OnlyPC>
-                </ActionContainer>
-              ) : (
-                <ActionContainer>
-                  <AnonymouseWrapper>
-                    <Anonymouse
-                      loginUri={props.loginUri}
-                      onClickLogin={props.onClickLogin}
-                      signupUri={props.signupUri}
+                    <AnimateSearchInputField
+                      iconRight
+                      searchConditionUri={props.searchConditionUri}
                     />
-                  </AnonymouseWrapper>
-                </ActionContainer>
-              )}
-            </ActionWrapper>
-          )}
+                  </OnlyPC>
+                </SearchFiledCell>
+                <OnlyPhone>
+                  <ActionCell noCursol>{props.spMenu}</ActionCell>
+                </OnlyPhone>
+                <OnlyPC>
+                  <ActionCell>
+                    <AvatarIcon imageSrc={props.user.image} to={props.homeUri} />
+                  </ActionCell>
+                  <ActionCell>
+                    <Link to={props.homeUri}>
+                      <AvaterName>{props.user.name}</AvaterName>
+                    </Link>
+                  </ActionCell>
+                </OnlyPC>
+              </ActionContainer>
+            ) : (
+              <ActionContainer>
+                <AnonymouseWrapper>
+                  <Anonymouse
+                    loginUri={props.loginUri}
+                    onClickLogin={props.onClickLogin}
+                    signupUri={props.signupUri}
+                  />
+                </AnonymouseWrapper>
+              </ActionContainer>
+            )}
+          </ActionWrapper>
+        )}
       </Nav>
     </Container>
   );
