@@ -19,9 +19,13 @@ type PropTypes = {
   image: File | string,
   imagePreview: File | string,
   name: string,
+  nameErrors: Array<string>,
   prefCode: string,
+  prefCodeErrors: Array<string>,
   profile: string,
+  profileErrors: Array<string>,
   phoneNumber: string,
+  phoneNumberErrors: Array<string>,
   buttonDisabled: boolean,
   buttonLoading: boolean,
   onClickSkip: Function,
@@ -57,7 +61,8 @@ export default (props: PropTypes) => (
         value={props.name}
       />
     }
-    area={
+    nameErrors={props.nameErrors}
+    prefCode={
       <SelectForm
         label="お住いの地域"
         options={selectOptionPrefectures('選択してください')}
@@ -65,6 +70,7 @@ export default (props: PropTypes) => (
         value={props.prefCode}
       />
     }
+    prefCodeErrors={props.prefCodeErrors}
     profile={
       <InputForm
         label="自己紹介"
@@ -75,6 +81,7 @@ export default (props: PropTypes) => (
         value={props.profile}
       />
     }
+    profileErrors={props.profileErrors}
     phoneNumber={
       <InputForm
         label="電話番号"
@@ -85,6 +92,7 @@ export default (props: PropTypes) => (
         type="tel"
       />
     }
+    phoneNumberErrors={props.phoneNumberErrors}
     button={
       <EntryButtons
         enabled

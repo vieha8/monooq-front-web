@@ -5,6 +5,7 @@ import { userActions } from 'redux/modules/user';
 import RegisterProfile from 'components/atomic/LV3/RegisterProfile';
 import ReactGA from 'react-ga';
 import Path from 'config/path';
+import ErrorMessage from 'strings';
 
 type PropTypes = {
   dispatch: Function,
@@ -21,6 +22,10 @@ type State = {
 };
 
 const Validate = {
+  phoneNumber: {
+    NoHyphenVer: /^0\d{9,10}$/, // 先頭「0」+「半角数字9〜10桁」
+    HyphenVer: /^0\d{2,3}-\d{2,4}-\d{4}$/, // 先頭「0」＋「半角数字2〜3桁」＋「-」＋「半角数字1〜4桁」＋「-」＋「半角数字4桁」
+  },
   Profile: {
     Max: 1000,
   },
@@ -39,6 +44,7 @@ export default class RegisterProfileContainer extends Component<PropTypes, State
       isHost: 0,
       phoneNumber: '',
       hasChanged: false,
+      error: {},
     };
   }
 
@@ -55,6 +61,12 @@ export default class RegisterProfileContainer extends Component<PropTypes, State
 a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
 
     document.body.appendChild(script);
+
+    const { name, prefCode, profile, phoneNumber } = this.state;
+    this.handleChangeForm('name', name);
+    this.handleChangeForm('prefCode', prefCode);
+    this.handleChangeForm('profile', profile);
+    this.handleChangeForm('phoneNumber', phoneNumber);
   }
 
   onClickRegisterProfile = () => {
@@ -71,12 +83,55 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
 
   handleChangeForm = (name: string, value: any) => {
     const { state } = this;
-    if (name === 'image') {
-      state.imageUriPreview = URL.createObjectURL(value);
+    const { error } = state;
+    const errors = [];
+
+    switch (name) {
+      case 'image':
+        state.imageUriPreview = URL.createObjectURL(value);
+        break;
+
+      case 'name':
+        if (value.trim().length === 0) {
+          errors.push(ErrorMessage.PleaseInput);
+        }
+        break;
+
+      case 'prefCode':
+        if (value.length === 0) {
+          errors.push(ErrorMessage.PleaseSelect);
+        }
+        break;
+
+      case 'profile':
+        if (value.trim().length === 0) {
+          errors.push(ErrorMessage.PleaseInput);
+        } else if (value.length > Validate.Profile.Max) {
+          errors.push(ErrorMessage.LengthMax('自己紹介', Validate.Profile.Max));
+        }
+        break;
+
+      case 'phoneNumber':
+        if (value.replace(/\s/g, '').length === 0) {
+          errors.push(ErrorMessage.PleaseInput);
+        } else if (
+          !(
+            value.match(Validate.phoneNumber.NoHyphenVer) ||
+            value.match(Validate.phoneNumber.HyphenVer)
+          )
+        ) {
+          errors.push(ErrorMessage.InvalidPhoneNumber);
+        }
+        break;
+
+      default:
+        break;
     }
+
     state[name] = value;
+    error[name] = errors;
     state.hasChanged = true;
-    this.setState(state);
+    this.setState({ ...state, error });
   };
 
   validate = () => {
@@ -89,14 +144,14 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
       profile.length > 0 &&
       profile.length <= Validate.Profile.Max &&
       phoneNumber &&
-      phoneNumber.length >= 10 &&
-      phoneNumber.length <= 12
+      (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
+        phoneNumber.match(Validate.phoneNumber.HyphenVer))
     );
   };
 
   render() {
     const { isLoading, history } = this.props;
-    const { image, imageUriPreview, name, prefCode, profile, phoneNumber } = this.state;
+    const { image, imageUriPreview, name, prefCode, profile, phoneNumber, error } = this.state;
 
     return (
       <RegisterProfile
@@ -108,9 +163,13 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
         image={image}
         imagePreview={imageUriPreview}
         name={name}
+        nameErrors={error.name}
         prefCode={prefCode}
+        prefCodeErrors={error.prefCode}
         profile={profile}
+        profileErrors={error.profile}
         phoneNumber={phoneNumber}
+        phoneNumberErrors={error.phoneNumber}
         onClickSkip={() => {
           ReactGA.event({
             category: 'User Register',
