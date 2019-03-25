@@ -56,7 +56,7 @@ type PropTypes = {
 
 export default (props: PropTypes) => (
   <Container onClick={props.onClick}>
-    <Check checked={props.checked} />
+    <Check checked={props.checked} onKeyDown={props.onKeyDown} tabIndex={0} />
     <Label>{props.children}</Label>
   </Container>
 );

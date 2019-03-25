@@ -16,6 +16,7 @@ const SpaceListContainer = styled.ul`
 
 const Cell = styled.li`
   display: table-cell;
+  padding-left: ${Dimens.xxsmall_4}px;
   &:not(:first-child) {
     padding-left: ${Dimens.medium}px;
   }

@@ -5,6 +5,7 @@ import { media } from 'helpers/style/media-query';
 import { Colors } from 'variables';
 
 const Card = styled.div`
+  width: 100%;
   display: ${props => (props.block ? 'block' : 'inline-block')};
   background-color: ${Colors.white};
   border: 1px solid ${Colors.borderGray};
@@ -20,7 +21,7 @@ const Card = styled.div`
     `
     padding: ${props.isPadding}px;
   `};
-  vertical-align: top;
+  vertical-align: middle;
 
   ${props =>
     props.background &&

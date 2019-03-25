@@ -19,6 +19,7 @@ type PropTypes = {
   onChangeBaggage: Function,
   checkedFurniture: boolean,
   onClickFurniture: Function,
+  onKeyDownFurniture: Function,
   onClickBack: Function,
   onClickNext: Function,
 };
@@ -47,7 +48,11 @@ export default (props: PropTypes) => (
       />
       {displayErrors('baggage_errors', props.baggageErrors)}
       <CheckWrapper>
-        <Check checked={props.checkedFurniture} onClick={props.onClickFurniture}>
+        <Check
+          checked={props.checkedFurniture}
+          onClick={props.onClickFurniture}
+          onKeyDown={props.onKeyDownFurniture}
+        >
           家具や家電製品に対応する
         </Check>
       </CheckWrapper>

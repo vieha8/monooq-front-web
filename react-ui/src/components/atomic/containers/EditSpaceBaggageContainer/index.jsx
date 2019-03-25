@@ -50,6 +50,13 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     window.scrollTo(0, 0);
   }
 
+  onKeyDownFurniture = e => {
+    if (e && e.keyCode === 32) {
+      const { IsFurniture } = this.state;
+      this.handleChangeUI('IsFurniture', !IsFurniture);
+    }
+  };
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.ID && prevState.About === '') {
@@ -146,6 +153,7 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
             onChangeBaggage={v => this.handleChangeUI('About', v)}
             checkedFurniture={IsFurniture}
             onClickFurniture={() => this.handleChangeUI('IsFurniture', !IsFurniture)}
+            onKeyDownFurniture={this.onKeyDownFurniture}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
           />

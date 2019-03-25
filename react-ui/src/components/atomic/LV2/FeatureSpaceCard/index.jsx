@@ -13,7 +13,8 @@ import { Colors, Dimens } from 'variables';
 
 const Container = styled(Link)`
   display: block;
-  width: 260px;
+  width: 100%;
+  min-width: 260px;
   display: inline-block;
   cursor: pointer;
   box-shadow: none;
@@ -22,14 +23,6 @@ const Container = styled(Link)`
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     transition: 0.3s;
   }
-  ${media.tablet`
-    width: 160px;
-    ${props =>
-      props.large &&
-      `
-      width: 320px;
-    `};
-  `};
 `;
 
 const ImageContainer = styled.div`

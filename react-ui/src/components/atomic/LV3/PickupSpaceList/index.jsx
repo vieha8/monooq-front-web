@@ -32,8 +32,9 @@ const ListContainer = styled.div`
 
 const CardWrapper = styled.div`
   display: inline-block;
+  width: calc(25% - ${Dimens.small2_14}px);
   &:not(:first-child) {
-    margin-left: ${Dimens.medium}px;
+    margin-left: ${Dimens.small_10}px;
   }
   ${media.tablet`
     &:not(:first-child) {
@@ -50,6 +51,7 @@ const CardWrapper = styled.div`
       padding-right: ${Dimens.medium}px;
     `}
   `};
+  margin: ${Dimens.xxsmall_4}px;
 `;
 
 const MoreViewContainer = styled.div`

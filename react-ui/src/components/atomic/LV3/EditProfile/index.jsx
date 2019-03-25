@@ -58,6 +58,7 @@ type PropTypes = {
   purpose: string,
   purposeErrors: Array<string>,
   isNoticeEmail: boolean,
+  onKeyDownNoticeEmail: Function,
   onChangeNoticeEmail: Function,
   onClickUpdate: Function,
   buttonDisabled: boolean,
@@ -96,7 +97,11 @@ export default (props: PropTypes) => (
       {displayErrors('email_errors', props.emailErrors)}
     </Row>
     <Row>
-      <Check checked={props.isNoticeEmail} onClick={props.onChangeNoticeEmail}>
+      <Check
+        checked={props.isNoticeEmail}
+        onClick={props.onChangeNoticeEmail}
+        onKeyDown={props.onKeyDownNoticeEmail}
+      >
         サービスに関するお知らせメールを受け取る
       </Check>
     </Row>

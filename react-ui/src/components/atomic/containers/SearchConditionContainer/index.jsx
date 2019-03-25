@@ -64,6 +64,13 @@ class SearchConditionContainer extends Component<PropTypes> {
     }
   }
 
+  onKeyDownFurniture = e => {
+    if (e && e.keyCode === 32) {
+      const { isFurniture } = this.state;
+      this.handleChangeUI('isFurniture', !isFurniture);
+    }
+  };
+
   componentDidMount() {
     window.scrollTo(0, 0);
   }
@@ -185,6 +192,7 @@ class SearchConditionContainer extends Component<PropTypes> {
             onChangeType={v => this.handleChangeUI('type', v)}
             checkedFurniture={isFurniture}
             onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
+            onKeyDownFurniture={this.onKeyDownFurniture}
             receive={receiptType}
             receiveErrors={error.receiptType}
             onChangeReceive={v => this.handleChangeUI('receiptType', v)}
