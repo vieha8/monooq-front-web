@@ -7,8 +7,8 @@ type PropTypes = {
   size: 'mini' | 'medium' | 'large',
 };
 
-export default (props: PropTypes) => (
+export default ({ size }: PropTypes) => (
   <span>
-    <Loader active inline="centered" size={props.size} />
+    <Loader active inline="centered" size={size} />
   </span>
 );

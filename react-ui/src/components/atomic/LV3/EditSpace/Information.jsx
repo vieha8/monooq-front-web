@@ -40,6 +40,7 @@ type PropTypes = {
   onClickNext: Function,
   OnClickRemove: Function,
   changeOrientation: Function,
+  isImageUploading: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -107,6 +108,7 @@ export default (props: PropTypes) => (
         onChangeImage={props.onChangeImage}
         onClickDeleteImage={props.onClickDeleteImage}
         changeOrientation={props.changeOrientation}
+        isImageUploading={props.isImageUploading}
       />
       {displayErrors('image_errors', props.imageErrors)}
     </Section>

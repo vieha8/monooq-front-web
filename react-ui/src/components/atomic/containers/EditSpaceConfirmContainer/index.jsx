@@ -186,8 +186,8 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
               town={space.AddressTown}
               name={space.Title}
               images={space.Images.map(image => ({
-                original: image.ImageUrl || image.preview,
-                thumbnail: image.ImageUrl || image.preview,
+                original: image.ImageUrl || image.tmpUrl || image.preview,
+                thumbnail: image.ImageUrl || image.tmpUrl || image.preview,
               }))}
               description={space.Introduction}
               address={`${space.AddressPref}${space.AddressCity}${space.AddressTown}`}

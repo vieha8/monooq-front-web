@@ -7,6 +7,7 @@ import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { H3 } from 'components/atomic/LV1/Headline';
 import InlineText from 'components/atomic/LV1/InlineText';
+import Loading from 'components/atomic/LV1/Loading';
 import { PictureIcon } from 'components/atomic/LV1/ActionIcon';
 import loadImage from 'blueimp-load-image';
 import ImagePreview from './ImagePreview';
@@ -122,6 +123,7 @@ type PropTypes = {
   }>,
   onChangeImage: Function,
   onClickDeleteImage: Function,
+  isImageUploading: boolean,
 };
 
 function handleChangeImageWithOrientationFix(data, props: PropTypes) {
@@ -211,13 +213,20 @@ function showImagePreview(props: PropTypes) {
 }
 
 export default (props: PropTypes) => {
-  const { images } = props;
+  const { images, isImageUploading } = props;
   return (
     <Fragment>
       <div>
         <H3 bold>スペースの様子がわかる写真</H3>
       </div>
-      {(images || []).length < MAX_PREVIEW_COUNT && (
+      {isImageUploading && (
+        <DropZoneWrap>
+          <DndContent>
+            <Loading size="medium" />
+          </DndContent>
+        </DropZoneWrap>
+      )}
+      {!isImageUploading && (images || []).length < MAX_PREVIEW_COUNT && (
         <DropZoneWrap>
           <Dropzone
             accept="image/jpeg, image/png"
