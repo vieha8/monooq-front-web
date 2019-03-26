@@ -6,7 +6,7 @@ import Header from 'components/LV3/Header';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
-import { uiActions } from '../../../redux/modules/ui';
+import { uiActions } from '../../redux/modules/ui';
 
 type PropTypes = {
   isChecking: boolean,

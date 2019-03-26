@@ -20,7 +20,7 @@ import { convertImgixUrl } from 'helpers/imgix';
 import { messagesActions } from 'redux/modules/messages';
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
-import { uiActions } from '../../../../redux/modules/ui';
+import { uiActions } from '../../../redux/modules/ui';
 
 const TopWrap = styled.div`
   margin-bottom: 25px;
