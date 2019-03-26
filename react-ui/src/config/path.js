@@ -21,11 +21,13 @@ export default {
   createSpaceBaggage: () => '/space/new/baggage',
   createSpaceReceive: () => '/space/new/receive',
   createSpacePrice: () => `/space/new/price/about`,
+  createSpaceConfirm: () => `/space/new/confirm`,
   createSpaceCompletion: () => '/space/new/completion',
   editSpaceInfo: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/info`,
   editSpaceBaggage: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/baggage`,
   editSpaceReceive: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/receive`,
   editSpacePrice: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/price/about`,
+  editSpaceConfirm: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/confirm`,
   editSpaceCompletion: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/completion`,
   // スケジュール
   schedule: () => '/schedule',

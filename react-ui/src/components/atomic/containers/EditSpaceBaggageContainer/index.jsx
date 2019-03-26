@@ -46,8 +46,18 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     };
   }
 
+  handleBeforeUnload(e) {
+    e.preventDefault();
+    e.returnValue = 'データが保存されませんが、よろしいですか?';
+  }
+
   componentDidMount() {
     window.scrollTo(0, 0);
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
   }
 
   onKeyDownFurniture = e => {

@@ -51,4 +51,6 @@ export const CircleRight = (props: PropTypes) => (
 export const CircleDown = (props: PropTypes) => (
   <Icon {...props} className="fal fa-chevron-circle-down" />
 );
-export const CloseIcon = (props: PropTypes) => <Icon {...props} className="fal fa-times" />;
+export const CloseIcon = (props: PropTypes) => (
+  <Icon {...props} className="fas fa-times color-white" />
+);

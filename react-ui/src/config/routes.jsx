@@ -140,6 +140,16 @@ const EditSpacePriceType = Loadable({
   loading: LoadingPage,
 });
 
+const CreateSpaceConfirm = Loadable({
+  loader: () => import('components/atomic/containers/EditSpaceConfirmContainer'),
+  loading: LoadingPage,
+});
+
+const EditSpaceConfirm = Loadable({
+  loader: () => import('components/atomic/containers/EditSpaceConfirmContainer'),
+  loading: LoadingPage,
+});
+
 const CreateSpaceCompletion = Loadable({
   loader: () => import('components/atomic/containers/EditSpaceCompletionContainer'),
   loading: LoadingPage,
@@ -240,6 +250,8 @@ export default ({ history }) => (
       <Route exact path={Path.editSpaceReceive()} component={EditSpaceReceive} />
       <Route exact path={Path.createSpacePrice()} component={CreateSpacePriceType} />
       <Route exact path={Path.editSpacePrice()} component={EditSpacePriceType} />
+      <Route exact path={Path.createSpaceConfirm()} component={CreateSpaceConfirm} />
+      <Route exact path={Path.editSpaceConfirm()} component={EditSpaceConfirm} />
       <Route exact path={Path.createSpaceCompletion()} component={CreateSpaceCompletion} />
       <Route exact path={Path.editSpaceCompletion()} component={EditSpaceCompletion} />
       <Route exact path={Path.unsubscribe()} component={Unsubscribe} />

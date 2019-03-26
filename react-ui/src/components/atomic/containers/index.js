@@ -22,6 +22,7 @@ import EditSpaceInformation from './EditSpaceInformationContainer';
 import EditSpaceBaggage from './EditSpaceBaggageContainer';
 import EditSpaceReceive from './EditSpaceReceiveContainer';
 import EditSpacePriceType from './EditSpacePriceTypeContainer';
+import EditSpaceConfirm from './EditSpaceConfirmContainer';
 import EditSpaceCompletion from './EditSpaceCompletionContainer';
 import Unsubscribe from './UnsubscribeContainer';
 import Sales from './SalesContainer';
@@ -51,6 +52,7 @@ export default {
   EditSpaceBaggage,
   EditSpaceReceive,
   EditSpacePriceType,
+  EditSpaceConfirm,
   EditSpaceCompletion,
   Unsubscribe,
   Sales,

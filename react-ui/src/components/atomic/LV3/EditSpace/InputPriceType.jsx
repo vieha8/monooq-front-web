@@ -110,7 +110,7 @@ export default (props: PropTypes) => (
           onClick: props.onClickBack,
         }}
         enabledButton={{
-          text: `登録する`,
+          text: `確認画面へ`,
           disabled: props.buttonDisabled,
           onClick: props.onClickNext,
         }}

@@ -19,11 +19,11 @@ type PropTypes = {
   description: string,
 };
 
-export default (props: PropTypes) => (
+export default ({ images, description }: PropTypes) => (
   <div>
-    <SlideImage images={props.images} />
+    <SlideImage images={images} />
     <Desc>
-      <InlineText.Base>{props.description}</InlineText.Base>
+      <InlineText.Base>{description}</InlineText.Base>
     </Desc>
   </div>
 );

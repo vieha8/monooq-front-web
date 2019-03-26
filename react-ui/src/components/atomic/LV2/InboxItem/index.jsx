@@ -37,6 +37,10 @@ const Cell = styled.div`
   &:last-child {
     display: inline-block;
     margin: ${Dimens.xsmall}px auto 0px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
   }
   ${props =>
     props.nametime &&
@@ -83,7 +87,7 @@ export default (props: PropTypes) => (
         </InlineText.Base>
       </Cell>
       <Cell lastMessage nametime>
-        <InlineText.Base fontSize={15} fontSizeSp={12}>
+        <InlineText.Base fontSize={15} fontSizeSp={12} whiteSpaceNormal>
           {props.lastMessage}
         </InlineText.Base>
         <InlineText.Base

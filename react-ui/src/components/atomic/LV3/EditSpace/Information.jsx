@@ -40,6 +40,7 @@ type PropTypes = {
   onClickNext: Function,
   OnClickRemove: Function,
   changeOrientation: Function,
+  isImageUploading: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -56,8 +57,18 @@ function displayErrors(key: string, errors: Array<string>) {
 export default (props: PropTypes) => (
   <div>
     <Section>
+      <InputForm
+        label="所在地"
+        hintbottom="取引が成立するまで番地以降の住所は表示されません。番地は半角数字で入力してください。"
+        placeholder="例）東京都杉並区高円寺南2-48-12"
+        value={props.address}
+        onChange={e => props.onChangeAddress(e.target.value)}
+      />
+      {displayErrors('address_errors', props.addressErrors)}
+    </Section>
+    <Section>
       <SelectForm
-        label="スペースの種類は？"
+        label="スペースの種類"
         options={[
           {
             value: 3,
@@ -85,7 +96,7 @@ export default (props: PropTypes) => (
       <InputForm
         label="特徴がわかるタイトル"
         hintbottom="全角40文字まで"
-        placeholder="【約6畳】新宿エリアのワンルーム！駐車場もあり搬入に便利！"
+        placeholder="高円寺駅から徒歩５分！"
         value={props.title}
         onChange={e => props.onChangeTitle(e.target.value)}
       />
@@ -97,31 +108,21 @@ export default (props: PropTypes) => (
         onChangeImage={props.onChangeImage}
         onClickDeleteImage={props.onClickDeleteImage}
         changeOrientation={props.changeOrientation}
+        isImageUploading={props.isImageUploading}
       />
       {displayErrors('image_errors', props.imageErrors)}
     </Section>
     <Section>
       <InputForm
         label="スペースの紹介文"
-        placeholder="広さ6畳ほどのワンルームが余っています。長期利用も可能なので気軽にご相談ください！
-便利な新宿エリアで、駅から徒歩圏内の好アクセスです。
-駐車場もありますので、車搬入される場合も便利！"
+        placeholder="家具も入れられるワンルームが余っています。数ヶ月の長期間でも可能です！
+朝〜夕方までなら荷物の出し入れにも対応できることもあります。"
         multiline
-        rows={4}
+        rows={5}
         value={props.introduction}
         onChange={e => props.onChangeIntroduction(e.target.value)}
       />
       {displayErrors('introduction_errors', props.introductionErrors)}
-    </Section>
-    <Section>
-      <InputForm
-        label="所在地"
-        hintbottom="取引が成立するまで番地以降の住所は表示されません。番地は半角数字でご入力ください。"
-        placeholder="例）東京都杉並区高円寺南2-48-12"
-        value={props.address}
-        onChange={e => props.onChangeAddress(e.target.value)}
-      />
-      {displayErrors('address_errors', props.addressErrors)}
     </Section>
     <Section>
       {props.edit ? (

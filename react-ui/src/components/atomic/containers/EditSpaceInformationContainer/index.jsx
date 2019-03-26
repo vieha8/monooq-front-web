@@ -15,6 +15,9 @@ import ErrorMessage from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
+import fileType from '../../../../helpers/file-type';
+
+import { uploadImage } from 'redux/helpers/firebase';
 
 type PropTypes = {
   dispatch: Function,
@@ -41,6 +44,8 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     const spaceId = props.match.params.space_id;
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
+    } else {
+      dispatch(spaceActions.clearSpace());
     }
 
     this.state = {
@@ -50,6 +55,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       Introduction: space.Introduction || '',
       Address: space.Address || '',
       error: {},
+      isImageUploading: false,
     };
   }
 
@@ -79,14 +85,39 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   onClickRemove: Function;
   onClickRemove = space => {
     const { dispatch } = this.props;
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
     dispatch(spaceActions.deleteSpace({ space }));
   };
 
   handleChangeImage: Function;
-  handleChangeImage = (pickedImages: Array<File>) => {
+  handleChangeImage = async (pickedImages: Array<File>) => {
+    this.setState({ isImageUploading: true });
+
     const images = this.state.Images || [];
-    const nextImages = [].concat(images, pickedImages);
-    this.setState({ Images: nextImages });
+
+    const nextImages = await Promise.all(
+      pickedImages.map(async image => {
+        const fileReader = new FileReader();
+        fileReader.readAsArrayBuffer(image);
+        const ext = await new Promise(resolve => {
+          fileReader.onload = () => {
+            const imageType = fileType(fileReader.result);
+            resolve(imageType.ext);
+          };
+        });
+        const timeStamp = Date.now();
+        const rand = Math.random()
+          .toString(32)
+          .substring(2);
+        const imagePath = `/img/spaces/tmp/${rand}${timeStamp}.${ext}`;
+        image.tmpUrl = await uploadImage(imagePath, image);
+        return image;
+      }),
+    ).catch(error => ({ error }));
+
+    console.log(nextImages);
+
+    this.setState({ Images: [].concat(images, nextImages), isImageUploading: false });
   };
 
   handleDeleteImage: Function;
@@ -197,7 +228,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     }
 
     const { space } = this.props;
-    const { Images, Title, Type, Introduction, Address, error } = this.state;
+    const { Images, Title, Type, Introduction, Address, error, isImageUploading } = this.state;
 
     return (
       <MenuPageTemplate
@@ -211,6 +242,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
             }))}
             onChangeImage={this.handleChangeImage}
             imageErrors={error.image}
+            isImageUploading={isImageUploading}
             onClickDeleteImage={this.handleDeleteImage}
             title={Title}
             titleErrors={error.title}

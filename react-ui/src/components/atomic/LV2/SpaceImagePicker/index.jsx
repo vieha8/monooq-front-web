@@ -7,6 +7,7 @@ import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { H3 } from 'components/atomic/LV1/Headline';
 import InlineText from 'components/atomic/LV1/InlineText';
+import Loading from 'components/atomic/LV1/Loading';
 import { PictureIcon } from 'components/atomic/LV1/ActionIcon';
 import loadImage from 'blueimp-load-image';
 import ImagePreview from './ImagePreview';
@@ -16,7 +17,7 @@ const DragText = styled.div`
   font-weight: bold;
   margin-top: ${Dimens.medium1}px;
   ${media.phone`
-    display: none;
+    margin: ${Dimens.medium_20}px auto;
   `};
 `;
 
@@ -28,33 +29,31 @@ const DndContent = styled.div`
   border: 1px solid ${Colors.borderGray};
   border-radius: 6px;
   background: ${Colors.lightGray1Bg};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   ${media.phone`
-    height: 100px;
+    height: auto;
+  `};
+`;
+
+const DndContentEmpty = styled(DndContent)`
+  height: 144px;
+  ${media.phone`
+    height: 77px;
   `};
 `;
 
 const IconWrapper = styled.div`
-  margin-top: ${Dimens.medium2}px;
   text-align: center;
   ${media.phone`
-    margin-top: ${Dimens.medium}px;
+    margin-top: ${Dimens.medium1}px;
   `};
 `;
 
 const DropZoneWrap = styled.div`
   width: 100%;
-  margin-top: ${Dimens.xsmall}px;
-  cursor: pointer;
-  &:hover {
-    opacity: 0.6;
-  }
-`;
-
-const AddImageDropZoneWrap = styled.div`
-  display: table-cell;
-  vertical-align: top;
-  width: ${props => props.remain * 25}%;
-  margin-top: 4px;
+  margin-top: ${Dimens.small2}px;
   cursor: pointer;
   &:hover {
     opacity: 0.6;
@@ -62,19 +61,58 @@ const AddImageDropZoneWrap = styled.div`
 `;
 
 const ImagePreviewContainer = styled.ul`
-  display: table;
   width: 100%;
-  margin-top: ${Dimens.xsmall}px;
+  display: flex;
+  margin-top: ${Dimens.medium1}px;
+  ${media.tablet`
+    margin-top: ${Dimens.small2}px;
+  `};
 `;
 
 const ImagePreviewWrapper = styled.li`
-  display: table-cell;
-  width: ${props => props.widthRate}%;
-  padding: 0 8px;
+  width: calc(25% + ${Dimens.xsmall}px);
+  padding: 0 ${Dimens.small2}px;
+  ${media.tablet`
+    width: calc(25% + ${Dimens.xxsmall}px);
+    padding: 0 ${Dimens.xsmall}px;
+  `};
+  &:first-child {
+    width: calc(25% - ${Dimens.xsmall}px);
+    padding: 0 ${Dimens.small2}px 0 0;
+    ${media.tablet`
+      width: calc(25% - ${Dimens.xxsmall}px);
+      padding: 0 ${Dimens.xsmall}px 0 0;
+    `};
+  }
+  &:last-child {
+    width: calc(25% - ${Dimens.xsmall}px);
+    padding: 0 0 0 ${Dimens.small2}px;
+    ${media.tablet`
+      width: calc(25% - ${Dimens.xxsmall}px);
+      padding: 0 0 0 ${Dimens.xsmall}px;
+    `};
+  }
 `;
 
 const HintBottomWrap = styled.div`
-  margin-top: 6px;
+  margin-top: ${Dimens.medium}px;
+  ${media.tablet`
+    margin-top: ${Dimens.xsmall}px;
+  `};
+`;
+
+const OnlyPC = styled.span`
+  display: block;
+  ${media.tablet`
+    display: none;
+  `};
+`;
+
+const OnlyPhone = styled.span`
+  display: none;
+  ${media.tablet`
+    display: block;
+  `};
 `;
 
 const MAX_PREVIEW_COUNT = 4;
@@ -85,6 +123,7 @@ type PropTypes = {
   }>,
   onChangeImage: Function,
   onClickDeleteImage: Function,
+  isImageUploading: boolean,
 };
 
 function handleChangeImageWithOrientationFix(data, props: PropTypes) {
@@ -124,6 +163,15 @@ function handleChangeImageWithOrientationFix(data, props: PropTypes) {
   }, 80);
 }
 
+// TODO: 最適化したい。
+function getEmptyCount(length) {
+  const emptyList = [];
+  for (let i = 0; i < MAX_PREVIEW_COUNT - length; i += 1) {
+    emptyList.push(i);
+  }
+  return emptyList;
+}
+
 function showImagePreview(props: PropTypes) {
   const { images } = props;
   if (images) {
@@ -150,27 +198,13 @@ function showImagePreview(props: PropTypes) {
 
           return null;
         })}
-        {images.length > 0 &&
-          images.length < MAX_PREVIEW_COUNT && (
-            <AddImageDropZoneWrap>
-              <Dropzone
-                accept="image/jpeg, image/png"
-                onDrop={data => handleChangeImageWithOrientationFix(data, props)}
-              >
-                {({ getRootProps, getInputProps }) => (
-                  <DndContent {...getRootProps()}>
-                    <IconWrapper>
-                      <PictureIcon />
-                    </IconWrapper>
-                    <DragText>
-                      <InlineText.Base color={Colors.lightGray1}>写真を追加する</InlineText.Base>
-                    </DragText>
-                    <input {...getInputProps()} />
-                  </DndContent>
-                )}
-              </Dropzone>
-            </AddImageDropZoneWrap>
-          )}
+        {getEmptyCount(images.length).map((v, i) => {
+          return (
+            <ImagePreviewWrapper key={`image_preivew_${i}`.toString()}>
+              <DndContentEmpty />
+            </ImagePreviewWrapper>
+          );
+        })}
       </ImagePreviewContainer>
     );
   }
@@ -179,13 +213,20 @@ function showImagePreview(props: PropTypes) {
 }
 
 export default (props: PropTypes) => {
-  const { images } = props;
+  const { images, isImageUploading } = props;
   return (
     <Fragment>
       <div>
         <H3 bold>スペースの様子がわかる写真</H3>
       </div>
-      {(images || []).length === 0 ? (
+      {isImageUploading && (
+        <DropZoneWrap>
+          <DndContent>
+            <Loading size="medium" />
+          </DndContent>
+        </DropZoneWrap>
+      )}
+      {!isImageUploading && (images || []).length < MAX_PREVIEW_COUNT && (
         <DropZoneWrap>
           <Dropzone
             accept="image/jpeg, image/png"
@@ -197,20 +238,22 @@ export default (props: PropTypes) => {
                   <PictureIcon />
                 </IconWrapper>
                 <DragText>
-                  <div>
+                  <OnlyPC>
+                    <InlineText.Base>クリックして画像をアップロード</InlineText.Base>
+                  </OnlyPC>
+                  <OnlyPhone>
                     <InlineText.Base>タップして画像をアップロード</InlineText.Base>
-                  </div>
+                  </OnlyPhone>
                 </DragText>
                 <input {...getInputProps()} />
               </DndContent>
             )}
           </Dropzone>
         </DropZoneWrap>
-      ) : (
-        showImagePreview(props)
       )}
+      {(images || []).length > 0 && showImagePreview(props)}
       <HintBottomWrap>
-        <InlineText.Tiny>最大4枚まで登録可能です。</InlineText.Tiny>
+        <InlineText.Tiny>最大4枚まで登録が可能です。</InlineText.Tiny>
       </HintBottomWrap>
     </Fragment>
   );

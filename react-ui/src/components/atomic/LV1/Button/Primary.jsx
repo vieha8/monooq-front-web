@@ -11,7 +11,7 @@ const btnlink = styled(Link)``;
 export const PrimaryButton = styled.div`
   box-sizing: border-box;
   width: ${props => (props.width ? props.width : '100%')};
-  ${props => !props.fill && `max-width: 300px;`}
+  ${props => !props.fill && `max-width: 320px;`}
   padding: 17px 10px;
   text-align: center;
   font-size: ${props => props.fontSize || FontSizes.small_15}px;

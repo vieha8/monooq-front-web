@@ -2,44 +2,54 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import TextLink from 'components/atomic/LV1/TextLink';
-import { Colors, FontSizes } from 'variables';
+import { Dimens, Colors, FontSizes } from 'variables';
 
 const Container = styled.div`
   vertical-align: top;
   width: 100%;
-  height: 200px;
-  border: 1px solid ${Colors.borderGray};
-  border-radius: 6px;
+  height: 144px;
+  ${media.phone`
+    height: 77px;
+  `};
+  border-radius: 7px;
 `;
 
 const ImageWrapper = styled.div`
   width: 100%;
-  height: 50%;
+  height: 100%;
   overflow: hidden;
+  position: relative;
 `;
 
 const Image = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 6px;
+  border-radius: ${Dimens.xsmall}px;
+  border: 1px solid ${Colors.lightGray2};
   overflow: hidden;
   object-fit: cover;
 `;
 
-const Content = styled.div`
-  position: relative;
-  height: 50%;
-`;
-
 const Delete = styled.span`
   position: absolute;
-  dipslay: block;
-  left: 0;
-  right: 0;
+  display: block;
   bottom: 0;
+  width: 100%;
+  height: auto;
+  font-size: ${FontSizes.small_12}px;
+  font-weight: bold;
+  line-height: ${Dimens.small_10}px;
+  color: ${Colors.white};
   text-align: center;
-  padding: 18px;
+  background-color: rgba(0, 0, 0, 0.48);
+  padding: ${Dimens.small}px 0;
+  border-radius: 0 0 6px 6px;
+  ${media.phone`
+    font-size: ${FontSizes.xsmall_8}px;
+    padding: ${Dimens.xxsmall}px 0;
+  `};
 `;
 
 type PropTypes = {
@@ -51,19 +61,15 @@ export default (props: PropTypes) => (
   <Container>
     <ImageWrapper>
       <Image src={props.imageUri} alt="" />
+      <TextLink
+        onClick={e => {
+          e.preventDefault();
+          props.onClickDelete();
+        }}
+        fontSize={FontSizes.medium2}
+      >
+        <Delete>削除</Delete>
+      </TextLink>
     </ImageWrapper>
-    <Content>
-      <Delete>
-        <TextLink
-          onClick={e => {
-            e.preventDefault();
-            props.onClickDelete();
-          }}
-          fontSize={FontSizes.small}
-        >
-          削除
-        </TextLink>
-      </Delete>
-    </Content>
   </Container>
 );
