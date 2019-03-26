@@ -49,18 +49,17 @@ export default ({ title, paraList, isRight }: PropTypes) => (
   <StyledContainer>
     <Art>{title}</Art>
     <Para isRight={isRight}>
-      {paraList.map(
-        (item, i) =>
-          i !== 0 ? (
-            <Fragment key={i.toString()}>
-              <br />
-              <ParaText {...item} />
-            </Fragment>
-          ) : (
-            <Fragment key={i.toString()}>
-              <ParaText {...item} />
-            </Fragment>
-          ),
+      {paraList.map((item, i) =>
+        i !== 0 ? (
+          <Fragment key={i.toString()}>
+            <br />
+            <ParaText {...item} />
+          </Fragment>
+        ) : (
+          <Fragment key={i.toString()}>
+            <ParaText {...item} />
+          </Fragment>
+        ),
       )}
     </Para>
   </StyledContainer>
