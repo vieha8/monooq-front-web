@@ -14,7 +14,7 @@ import ErrorMessage from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
-import { spaceActions } from '../../../../redux/modules/space';
+import { spaceActions } from '../../../redux/modules/space';
 
 type PropTypes = {
   dispatch: Function,
