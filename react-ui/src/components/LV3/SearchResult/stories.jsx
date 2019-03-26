@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import StorybookRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -27,14 +28,16 @@ function getData() {
   return data;
 }
 
-storiesOf('Organisms(LV3)/SearchResult', module).add(
-  'Disabled',
-  withInfo(`
+storiesOf('Organisms(LV3)/SearchResult', module)
+  .addDecorator(StorybookRouter())
+  .add(
+    'Normal',
+    withInfo(`
         ### コンポーネント概要
         検索結果リスト
       `)(() => (
-    <div style={{ width: '100%', maxWidth: '880px', padding: `${Dimens.storyBookPadding}` }}>
-      <SearchResult spaces={getData()} />
-    </div>
-  )),
-);
+      <div style={{ width: '100%', maxWidth: '880px', padding: `${Dimens.storyBookPadding}` }}>
+        <SearchResult spaces={getData()} />
+      </div>
+    )),
+  );
