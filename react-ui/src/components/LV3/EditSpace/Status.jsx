@@ -2,8 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import HostEntryStep from 'components/atomic/LV2/HostEntryStep';
-import Hint from 'components/atomic/LV2/Hint';
+import HostEntryStep from 'components/LV2/HostEntryStep';
+import Hint from 'components/LV2/Hint';
 import { Dimens } from 'variables';
 
 const HintWrapper = styled.div`

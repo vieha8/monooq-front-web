@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SearchIcon } from 'components/atomic/LV1/ActionIcon';
+import { SearchIcon } from 'components/LV1/ActionIcon';
 
 type PropTypes = {
   href?: string,

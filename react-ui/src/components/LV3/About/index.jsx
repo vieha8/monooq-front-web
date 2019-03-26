@@ -2,12 +2,12 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
-import Footer from 'components/atomic/LV2/Footer';
-import Hr from 'components/atomic/LV1/HorizontalRule';
-import Text from 'components/atomic/LV1/StaticText';
-import WhenIUseList from 'components/atomic/LV2/WhenIUseList';
-import IfIFindList from 'components/atomic/LV2/IfIFindList';
+import DefaultContainer from 'components/LV1/DefaultContainer';
+import Footer from 'components/LV2/Footer';
+import Hr from 'components/LV1/HorizontalRule';
+import Text from 'components/LV1/StaticText';
+import WhenIUseList from 'components/LV2/WhenIUseList';
+import IfIFindList from 'components/LV2/IfIFindList';
 
 import mainVisual from 'images/about_main_visual@2x.jpg';
 import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';

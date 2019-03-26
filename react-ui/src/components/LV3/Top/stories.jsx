@@ -4,7 +4,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
-import PickupStaffSpaceList from 'components/atomic/LV3/Top/pickup';
+import PickupStaffSpaceList from 'components/LV3/Top/pickup';
 import { Dimens } from 'variables';
 
 import Top from './index';

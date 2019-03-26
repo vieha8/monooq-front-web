@@ -5,8 +5,8 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import InlineText from 'components/atomic/LV1/InlineText';
-import AvatarImage from 'components/atomic/LV1/AvatarImage';
+import InlineText from 'components/LV1/InlineText';
+import AvatarImage from 'components/LV1/AvatarImage';
 import { Dimens, Colors, FontSizes } from 'variables';
 
 const Container = styled.li`

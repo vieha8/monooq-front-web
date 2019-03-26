@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 
 import { authActions } from 'redux/modules/auth';
 
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import Header from 'components/atomic/containers/Header';
-import Unsubscribe from 'components/atomic/LV3/Unsubscribe';
-import UnsubscribeCompleted from 'components/atomic/LV3/Unsubscribe/Completed';
-import UnsubscribeFailed from 'components/atomic/LV3/Unsubscribe/Failed';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import Header from 'components/containers/Header';
+import Unsubscribe from 'components/LV3/Unsubscribe';
+import UnsubscribeCompleted from 'components/LV3/Unsubscribe/Completed';
+import UnsubscribeFailed from 'components/LV3/Unsubscribe/Failed';
+import LoadingPage from 'components/LV3/LoadingPage';
 import ErrorMessage from 'strings';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';

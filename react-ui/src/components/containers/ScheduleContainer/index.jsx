@@ -5,12 +5,12 @@ import Path from 'config/path';
 
 import { requestActions } from 'redux/modules/request';
 
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import Header from 'components/atomic/containers/Header';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
-import ScheduleList from 'components/atomic/LV3/ScheduleList';
-import NoDataView from 'components/atomic/LV3/NoDataView';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import Header from 'components/containers/Header';
+import LoadingPage from 'components/LV3/LoadingPage';
+import ScheduleList from 'components/LV3/ScheduleList';
+import NoDataView from 'components/LV3/NoDataView';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';

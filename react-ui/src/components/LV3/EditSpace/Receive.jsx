@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react';
-import SelectForm from 'components/atomic/LV2/SelectForm';
-import InlineText from 'components/atomic/LV1/InlineText';
-import InputForm from 'components/atomic/LV2/InputForm';
-import EntryButtons from 'components/atomic/LV2/EntryButtons';
+import SelectForm from 'components/LV2/SelectForm';
+import InlineText from 'components/LV1/InlineText';
+import InputForm from 'components/LV2/InputForm';
+import EntryButtons from 'components/LV2/EntryButtons';
 import { Colors } from 'variables';
 import { Section } from './Shared';
 

@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react';
 
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import Inquiry from 'components/atomic/LV3/Inquiry';
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import Header from 'components/atomic/containers/Header';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import Inquiry from 'components/LV3/Inquiry';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import Header from 'components/containers/Header';
 
 import connect from '../connect';
 

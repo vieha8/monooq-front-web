@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import Check from 'components/atomic/LV1/Check';
+import Check from 'components/LV1/Check';
 
 const CheckWrapper = styled.div`
   &:not(:first-child) {

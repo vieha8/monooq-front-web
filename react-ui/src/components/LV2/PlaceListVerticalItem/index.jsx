@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import { Colors, Dimens } from 'variables';
-import Card from 'components/atomic/LV1/Card';
-import InlineText from 'components/atomic/LV1/InlineText';
-import HeroImage from 'components/atomic/LV1/HeroImage';
+import Card from 'components/LV1/Card';
+import InlineText from 'components/LV1/InlineText';
+import HeroImage from 'components/LV1/HeroImage';
 
 const Container = styled.div`
   ${props =>

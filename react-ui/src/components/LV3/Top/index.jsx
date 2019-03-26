@@ -1,17 +1,17 @@
 import React, { Fragment } from 'react';
 import Path from 'config/path';
-import Header from 'components/atomic/containers/Header';
+import Header from 'components/containers/Header';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import StyledDefaultContainer from 'components/atomic/LV1/DefaultContainer/StyledDefaultContainer';
-import Footer from 'components/atomic/LV2/Footer';
-import PickupSpaceList from 'components/atomic/LV3/PickupSpaceList';
-import TopView from 'components/atomic/LV3/TopView';
-import MediaLineup from 'components/atomic/LV3/MediaLineup';
-import OtherService from 'components/atomic/LV3/OtherService';
-import TopIntro from 'components/atomic/LV3/TopIntro';
-import TopIntroMovie from 'components/atomic/LV3/TopIntroMovie';
+import StyledDefaultContainer from 'components/LV1/DefaultContainer/StyledDefaultContainer';
+import Footer from 'components/LV2/Footer';
+import PickupSpaceList from 'components/LV3/PickupSpaceList';
+import TopView from 'components/LV3/TopView';
+import MediaLineup from 'components/LV3/MediaLineup';
+import OtherService from 'components/LV3/OtherService';
+import TopIntro from 'components/LV3/TopIntro';
+import TopIntroMovie from 'components/LV3/TopIntroMovie';
 
 const logoPickGo =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=42';

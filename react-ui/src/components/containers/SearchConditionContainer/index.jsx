@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import ReactGA from 'react-ga';
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import Header from 'components/atomic/containers/Header';
-import SearchCondition from 'components/atomic/LV3/SearchCondition';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import Header from 'components/containers/Header';
+import SearchCondition from 'components/LV3/SearchCondition';
 import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import ErrorMessage from 'strings';

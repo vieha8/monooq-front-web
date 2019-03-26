@@ -3,10 +3,10 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import InlineText from 'components/atomic/LV1/InlineText';
+import InlineText from 'components/LV1/InlineText';
 import ScheduleListItem, {
   type PropTypes as ScheduleListItemType,
-} from 'components/atomic/LV2/ScheduleListItem';
+} from 'components/LV2/ScheduleListItem';
 import { Colors, Dimens, FontSizes } from 'variables';
 
 const Row = styled.div`

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import SearchIcon from 'components/atomic/LV2/HeaderAction/SearchIcon';
+import SearchIcon from 'components/LV2/HeaderAction/SearchIcon';
 
 const Container = styled.div`
   display: inline-block;

@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
+import ConciergeContents from 'components/LV2/ConciergeIntroduction';
 
 const Content = styled.div`
   margin: ${Dimens.medium2}px 0;

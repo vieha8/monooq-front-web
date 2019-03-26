@@ -3,12 +3,12 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { H3 } from 'components/atomic/LV1/Headline';
-import Button from 'components/atomic/LV1/Button';
-import InlineText from 'components/atomic/LV1/InlineText';
-import InputField from 'components/atomic/LV1/InputField';
-import InputForm from 'components/atomic/LV2/InputForm';
-import SelectForm from 'components/atomic/LV2/SelectForm';
+import { H3 } from 'components/LV1/Headline';
+import Button from 'components/LV1/Button';
+import InlineText from 'components/LV1/InlineText';
+import InputField from 'components/LV1/InputField';
+import InputForm from 'components/LV2/InputForm';
+import SelectForm from 'components/LV2/SelectForm';
 import { Dimens, Colors } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 

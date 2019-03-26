@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import Path from 'config/path';
-import PlaceListVerticalItem from 'components/atomic/LV2/PlaceListVerticalItem';
+import PlaceListVerticalItem from 'components/LV2/PlaceListVerticalItem';
 
 const SpaceListContainer = styled.ul`
   overflow-x: auto;

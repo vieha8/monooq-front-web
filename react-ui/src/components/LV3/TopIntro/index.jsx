@@ -4,10 +4,10 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
-import StyledDefaultContainer from 'components/atomic/LV1/DefaultContainer/StyledDefaultContainer';
-import Button from 'components/atomic/LV1/Button';
-import ExplainSection from 'components/atomic/LV2/ExplainSection';
-import ForSafeSection from 'components/atomic/LV2/ForSafeSection';
+import StyledDefaultContainer from 'components/LV1/DefaultContainer/StyledDefaultContainer';
+import Button from 'components/LV1/Button';
+import ExplainSection from 'components/LV2/ExplainSection';
+import ForSafeSection from 'components/LV2/ForSafeSection';
 
 const topImage1 =
   'https://monooq.imgix.net/img%2Fservice%2Ftop1%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=500';

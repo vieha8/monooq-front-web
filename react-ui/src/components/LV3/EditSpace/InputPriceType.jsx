@@ -2,9 +2,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/atomic/LV1/InlineText';
-import EntryButtons from 'components/atomic/LV2/EntryButtons';
-import InputPriceOfType from 'components/atomic/LV2/InputPriceOfType';
+import InlineText from 'components/LV1/InlineText';
+import EntryButtons from 'components/LV2/EntryButtons';
+import InputPriceOfType from 'components/LV2/InputPriceOfType';
 import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';

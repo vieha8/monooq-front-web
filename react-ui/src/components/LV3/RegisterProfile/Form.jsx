@@ -4,8 +4,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import GoogleTagManager from 'components/atomic/LV1/GTM';
-import InlineText from 'components/atomic/LV1/InlineText';
+import GoogleTagManager from 'components/LV1/GTM';
+import InlineText from 'components/LV1/InlineText';
 
 const Title = styled.div`
   text-align: center;

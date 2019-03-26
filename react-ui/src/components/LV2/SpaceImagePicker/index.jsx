@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { H3 } from 'components/atomic/LV1/Headline';
-import InlineText from 'components/atomic/LV1/InlineText';
-import Loading from 'components/atomic/LV1/Loading';
-import { PictureIcon } from 'components/atomic/LV1/ActionIcon';
+import { H3 } from 'components/LV1/Headline';
+import InlineText from 'components/LV1/InlineText';
+import Loading from 'components/LV1/Loading';
+import { PictureIcon } from 'components/LV1/ActionIcon';
 import loadImage from 'blueimp-load-image';
 import ImagePreview from './ImagePreview';
 

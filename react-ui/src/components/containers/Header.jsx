@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from 'components/atomic/LV3/Header';
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
+import Header from 'components/LV3/Header';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
 import { uiActions } from '../../../redux/modules/ui';

@@ -3,9 +3,9 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import InlineText from 'components/atomic/LV1/InlineText';
-import TextLink from 'components/atomic/LV1/TextLink';
-import Button from 'components/atomic/LV1/Button';
+import InlineText from 'components/LV1/InlineText';
+import TextLink from 'components/LV1/TextLink';
+import Button from 'components/LV1/Button';
 
 import { Colors, Dimens } from 'variables';
 import Path from 'config/path';

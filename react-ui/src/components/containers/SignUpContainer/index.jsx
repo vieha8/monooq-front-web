@@ -1,8 +1,8 @@
 // @flow
 
 import React, { Component } from 'react';
-import AccountTemplate from 'components/atomic/templates/AccountTemplate';
-import Header from 'components/atomic/containers/Header';
+import AccountTemplate from 'components/templates/AccountTemplate';
+import Header from 'components/containers/Header';
 import RegisterEmail from './RegisterEmail';
 import connect from '../connect';
 

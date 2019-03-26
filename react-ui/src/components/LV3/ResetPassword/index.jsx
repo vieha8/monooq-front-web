@@ -3,10 +3,10 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import Button from 'components/atomic/LV1/Button';
-import InlineText from 'components/atomic/LV1/InlineText';
-import InputForm from 'components/atomic/LV2/InputForm';
-import { H1 } from 'components/atomic/LV1/Headline';
+import Button from 'components/LV1/Button';
+import InlineText from 'components/LV1/InlineText';
+import InputForm from 'components/LV2/InputForm';
+import { H1 } from 'components/LV1/Headline';
 import { Colors, Dimens } from 'variables';
 
 const Container = styled.div`

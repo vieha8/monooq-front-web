@@ -5,12 +5,12 @@ import numeral from 'numeral';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import Header from 'components/atomic/containers/Header';
-import SpaceMap from 'components/atomic/LV1/SpaceMap';
-import EntryButtons from 'components/atomic/LV2/EntryButtons';
-import Detail from 'components/atomic/LV3/Space/Detail';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import Header from 'components/containers/Header';
+import SpaceMap from 'components/LV1/SpaceMap';
+import EntryButtons from 'components/LV2/EntryButtons';
+import Detail from 'components/LV3/Space/Detail';
 import type { SpaceType } from 'types/Space';
 
 import styled from 'styled-components';

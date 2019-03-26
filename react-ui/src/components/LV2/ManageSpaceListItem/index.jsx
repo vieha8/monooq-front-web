@@ -2,8 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import ManageButtons from 'components/atomic/LV2/ManageButtons';
-import PlaceListVerticalItem from 'components/atomic/LV2/PlaceListVerticalItem';
+import ManageButtons from 'components/LV2/ManageButtons';
+import PlaceListVerticalItem from 'components/LV2/PlaceListVerticalItem';
 import { Dimens } from 'variables';
 
 const Container = styled.div`

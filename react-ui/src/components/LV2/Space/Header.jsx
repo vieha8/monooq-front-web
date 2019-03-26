@@ -1,8 +1,8 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import { H1 } from 'components/atomic/LV1/Headline';
-import InlineText from 'components/atomic/LV1/InlineText';
+import { H1 } from 'components/LV1/Headline';
+import InlineText from 'components/LV1/InlineText';
 import { Colors } from 'variables';
 
 type PropTypes = {

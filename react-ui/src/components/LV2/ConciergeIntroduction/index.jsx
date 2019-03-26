@@ -3,8 +3,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Logo from 'components/atomic/LV1/Logo';
-import Button from 'components/atomic/LV1/Button';
+import Logo from 'components/LV1/Logo';
+import Button from 'components/LV1/Button';
 
 const ConciergeContents = () => {
   const StyledContainer = styled.div`

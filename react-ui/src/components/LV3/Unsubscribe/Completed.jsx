@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import InlineText from 'components/atomic/LV1/InlineText';
+import InlineText from 'components/LV1/InlineText';
 
 const Row = styled.div`
   margin-top: ${Dimens.medium2}px;

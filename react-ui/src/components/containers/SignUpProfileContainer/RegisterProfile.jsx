@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { userActions } from 'redux/modules/user';
-import RegisterProfile from 'components/atomic/LV3/RegisterProfile';
+import RegisterProfile from 'components/LV3/RegisterProfile';
 import ReactGA from 'react-ga';
 import Path from 'config/path';
 import ErrorMessage from 'strings';

@@ -2,10 +2,10 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Check from 'components/atomic/LV1/Check';
-import InlineText from 'components/atomic/LV1/InlineText';
-import InputForm from 'components/atomic/LV2/InputForm';
-import EntryButtons from 'components/atomic/LV2/EntryButtons';
+import Check from 'components/LV1/Check';
+import InlineText from 'components/LV1/InlineText';
+import InputForm from 'components/LV2/InputForm';
+import EntryButtons from 'components/LV2/EntryButtons';
 import { Colors, Dimens } from 'variables';
 import { Section } from './Shared';
 

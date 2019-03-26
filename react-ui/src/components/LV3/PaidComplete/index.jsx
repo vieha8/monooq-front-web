@@ -4,9 +4,9 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { H1 } from 'components/atomic/LV1/Headline';
-import InlineText from 'components/atomic/LV1/InlineText';
-import Button from 'components/atomic/LV1/Button';
+import { H1 } from 'components/LV1/Headline';
+import InlineText from 'components/LV1/InlineText';
+import Button from 'components/LV1/Button';
 
 const Row = styled.div`
   margin-top: ${Dimens.medium2}px;

@@ -3,9 +3,9 @@
 import React, { Fragment } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import StaticPageContent from 'components/atomic/LV1/StaticPageContent';
-import About from 'components/atomic/LV3/About';
-import Header from 'components/atomic/containers/Header';
+import StaticPageContent from 'components/LV1/StaticPageContent';
+import About from 'components/LV3/About';
+import Header from 'components/containers/Header';
 
 class AboutContainer extends React.Component {
   render() {

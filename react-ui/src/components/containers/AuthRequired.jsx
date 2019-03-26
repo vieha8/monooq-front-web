@@ -4,7 +4,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { authActions } from 'redux/modules/auth';
 import Path from 'config/path';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import LoadingPage from 'components/LV3/LoadingPage';
 import { uiActions } from '../../../redux/modules/ui';
 
 type PropTypes = {

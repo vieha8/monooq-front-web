@@ -5,9 +5,9 @@ import { Redirect } from 'react-router-dom';
 
 import Path from 'config/path';
 
-import AccountTemplate from 'components/atomic/templates/AccountTemplate';
-import Header from 'components/atomic/containers/Header';
-import ResetPassword from 'components/atomic/LV3/ResetPassword';
+import AccountTemplate from 'components/templates/AccountTemplate';
+import Header from 'components/containers/Header';
+import ResetPassword from 'components/LV3/ResetPassword';
 
 import { authActions } from 'redux/modules/auth';
 

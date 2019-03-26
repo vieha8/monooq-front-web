@@ -2,8 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import TextLink from 'components/atomic/LV1/TextLink';
-import InlineText from 'components/atomic/LV1/InlineText';
+import TextLink from 'components/LV1/TextLink';
+import InlineText from 'components/LV1/InlineText';
 import { Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';

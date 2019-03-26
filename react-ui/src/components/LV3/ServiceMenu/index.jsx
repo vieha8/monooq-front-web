@@ -2,8 +2,8 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import MenuItem from 'components/atomic/LV2/MenuItem/ServiceMenu';
-import AvatarIcon from 'components/atomic/LV2/HeaderAction/AvatarIcon';
+import MenuItem from 'components/LV2/MenuItem/ServiceMenu';
+import AvatarIcon from 'components/LV2/HeaderAction/AvatarIcon';
 import { Dimens } from 'variables';
 
 const LinkWrap = styled.div`

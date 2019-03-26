@@ -2,8 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/atomic/LV1/InlineText';
-import Button from 'components/atomic/LV1/Button';
+import InlineText from 'components/LV1/InlineText';
+import Button from 'components/LV1/Button';
 
 const Wrapper = styled.div`
   margin-top: 8px;

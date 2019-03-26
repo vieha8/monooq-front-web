@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
-import StyledDefaultContainer from 'components/atomic/LV1/DefaultContainer/StyledDefaultContainer';
-import CatchPhrase from 'components/atomic/LV1/CatchPhrase';
-import SubCatchPhrase from 'components/atomic/LV1/SubCatchPhrase';
+import StyledDefaultContainer from 'components/LV1/DefaultContainer/StyledDefaultContainer';
+import CatchPhrase from 'components/LV1/CatchPhrase';
+import SubCatchPhrase from 'components/LV1/SubCatchPhrase';
 
 const PickGoContainer = styled(StyledDefaultContainer)`
   display: flex;

@@ -8,7 +8,7 @@ import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
 
-import InlineText from 'components/atomic/LV1/InlineText';
+import InlineText from 'components/LV1/InlineText';
 import InputPriceOfType from './index';
 
 InputPriceOfType.displayName = 'InputPriceOfType';

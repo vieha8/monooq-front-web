@@ -3,12 +3,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import SpaceImagePicker from 'components/atomic/LV2/SpaceImagePicker';
-import Button from 'components/atomic/LV1/Button';
-import InlineText from 'components/atomic/LV1/InlineText';
-import InputForm from 'components/atomic/LV2/InputForm';
-import EntryButtons from 'components/atomic/LV2/EntryButtons';
-import SelectForm from 'components/atomic/LV2/SelectForm';
+import SpaceImagePicker from 'components/LV2/SpaceImagePicker';
+import Button from 'components/LV1/Button';
+import InlineText from 'components/LV1/InlineText';
+import InputForm from 'components/LV2/InputForm';
+import EntryButtons from 'components/LV2/EntryButtons';
+import SelectForm from 'components/LV2/SelectForm';
 import { Colors } from 'variables';
 import { Section } from './Shared';
 

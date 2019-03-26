@@ -2,15 +2,15 @@
 
 import React, { Component } from 'react';
 import Path from 'config/path';
-import HomeTemplate from 'components/atomic/templates/HomeTemplate';
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import Header from 'components/atomic/containers/Header';
-import SearchResult from 'components/atomic/LV3/SearchResult';
+import HomeTemplate from 'components/templates/HomeTemplate';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import Header from 'components/containers/Header';
+import SearchResult from 'components/LV3/SearchResult';
 import { spaceActions } from 'redux/modules/space';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import LoadingPage from 'components/LV3/LoadingPage';
 import { checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
 

@@ -5,12 +5,12 @@ import Path from 'config/path';
 
 import { messagesActions } from 'redux/modules/messages';
 
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import Header from 'components/atomic/containers/Header';
-import Loading from 'components/atomic/LV1/Loading';
-import InboxList from 'components/atomic/LV3/InboxList';
-import NoDataView from 'components/atomic/LV3/NoDataView';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import Header from 'components/containers/Header';
+import Loading from 'components/LV1/Loading';
+import InboxList from 'components/LV3/InboxList';
+import NoDataView from 'components/LV3/NoDataView';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';

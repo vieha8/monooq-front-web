@@ -3,12 +3,12 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import AvatarImage from 'components/atomic/LV1/AvatarImage';
+import AvatarImage from 'components/LV1/AvatarImage';
 import { Colors, Dimens, FontSizes } from 'variables';
-import InlineText from 'components/atomic/LV1/InlineText';
-import HeroImage from 'components/atomic/LV1/HeroImage';
+import InlineText from 'components/LV1/InlineText';
+import HeroImage from 'components/LV1/HeroImage';
 import Path from 'config/path';
-import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
+import ClearfixContainer from 'components/LV1/ClearfixContainer';
 
 const Row = styled(Link)`
   display: table;

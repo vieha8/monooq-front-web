@@ -2,9 +2,9 @@
 
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import EntryButtons from 'components/atomic/LV2/EntryButtons';
+import EntryButtons from 'components/LV2/EntryButtons';
 import { Dimens } from 'variables';
-import GoogleTagManager from 'components/atomic/LV1/GTM';
+import GoogleTagManager from 'components/LV1/GTM';
 
 const Section = styled.div`
   margin-top: ${Dimens.medium}px;

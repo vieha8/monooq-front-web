@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { media } from 'helpers/style/media-query';
 
-import Card from 'components/atomic/LV1/Card';
-import HeroImage from 'components/atomic/LV1/HeroImage';
-import AvatarImage from 'components/atomic/LV1/AvatarImage';
-import InlineText from 'components/atomic/LV1/InlineText';
+import Card from 'components/LV1/Card';
+import HeroImage from 'components/LV1/HeroImage';
+import AvatarImage from 'components/LV1/AvatarImage';
+import InlineText from 'components/LV1/InlineText';
 import { Colors, Dimens } from 'variables';
 
 const Container = styled(Link)`

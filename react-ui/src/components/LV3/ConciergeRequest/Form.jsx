@@ -4,9 +4,9 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Button from 'components/atomic/LV1/Button';
-import InputForm from 'components/atomic/LV2/InputForm';
-import InputSchedule from 'components/atomic/LV2/Estimate/InputSchedule';
+import Button from 'components/LV1/Button';
+import InputForm from 'components/LV2/InputForm';
+import InputSchedule from 'components/LV2/Estimate/InputSchedule';
 
 const Row = styled.div`
   max-width: ${Dimens.fixedWidthPc}px;

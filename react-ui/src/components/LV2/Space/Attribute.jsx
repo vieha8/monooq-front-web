@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/atomic/LV1/InlineText';
+import InlineText from 'components/LV1/InlineText';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 

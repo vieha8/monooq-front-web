@@ -5,10 +5,10 @@ import React, { Component } from 'react';
 import { requestActions } from 'redux/modules/request';
 import ErrorMessage from 'strings';
 
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import Header from 'components/atomic/containers/Header';
-import InputEstimate from 'components/atomic/LV3/InputEstimate';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import Header from 'components/containers/Header';
+import InputEstimate from 'components/LV3/InputEstimate';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';

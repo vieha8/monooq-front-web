@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import SearchResultItem from 'components/atomic/LV2/SearchResultItem';
+import SearchResultItem from 'components/LV2/SearchResultItem';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
 

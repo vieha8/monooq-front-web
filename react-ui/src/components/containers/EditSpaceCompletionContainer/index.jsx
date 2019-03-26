@@ -3,10 +3,10 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import Header from 'components/atomic/containers/Header';
-import EditSpaceCompletion from 'components/atomic/LV3/EditSpace/Completion';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import Header from 'components/containers/Header';
+import EditSpaceCompletion from 'components/LV3/EditSpace/Completion';
 
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';

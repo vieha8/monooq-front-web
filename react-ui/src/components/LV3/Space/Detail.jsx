@@ -4,17 +4,17 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Button from 'components/atomic/LV1/Button';
-import Description from 'components/atomic/LV2/Space/Description';
-import Image from 'components/atomic/LV2/Space/Image';
-import Address from 'components/atomic/LV2/Space/Address';
-import Type from 'components/atomic/LV2/Space/Type';
-import AboutBaggage from 'components/atomic/LV2/Space/AboutBaggage';
-import Receive from 'components/atomic/LV2/Space/Receive';
-import Supplement from 'components/atomic/LV2/Space/Supplement';
-import HostInfo from 'components/atomic/LV2/Space/HostInfo';
-import InlineText from 'components/atomic/LV1/InlineText';
-import Price from 'components/atomic/LV3/Space/Price';
+import Button from 'components/LV1/Button';
+import Description from 'components/LV2/Space/Description';
+import Image from 'components/LV2/Space/Image';
+import Address from 'components/LV2/Space/Address';
+import Type from 'components/LV2/Space/Type';
+import AboutBaggage from 'components/LV2/Space/AboutBaggage';
+import Receive from 'components/LV2/Space/Receive';
+import Supplement from 'components/LV2/Space/Supplement';
+import HostInfo from 'components/LV2/Space/HostInfo';
+import InlineText from 'components/LV1/InlineText';
+import Price from 'components/LV3/Space/Price';
 import ReactGA from 'react-ga';
 
 const Container = styled.div`

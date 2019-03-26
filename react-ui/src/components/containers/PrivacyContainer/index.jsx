@@ -3,9 +3,9 @@
 import React, { Fragment } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import StaticPageContent from 'components/atomic/LV1/StaticPageContent';
-import Privacy from 'components/atomic/LV3/Privacy';
-import Header from 'components/atomic/containers/Header';
+import StaticPageContent from 'components/LV1/StaticPageContent';
+import Privacy from 'components/LV3/Privacy';
+import Header from 'components/containers/Header';
 
 class PrivacyContainer extends React.Component {
   render() {

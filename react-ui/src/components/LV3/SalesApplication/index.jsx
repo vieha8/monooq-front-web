@@ -3,8 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { H2 } from 'components/atomic/LV1/Headline';
-import InlineText from 'components/atomic/LV1/InlineText';
+import { H2 } from 'components/LV1/Headline';
+import InlineText from 'components/LV1/InlineText';
 
 import { Dimens } from 'variables';
 

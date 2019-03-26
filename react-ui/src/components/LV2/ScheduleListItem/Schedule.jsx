@@ -4,8 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
-import PlaceListHorizonItem from 'components/atomic/LV2/PlaceListHorizonItem';
+import ClearfixContainer from 'components/LV1/ClearfixContainer';
+import PlaceListHorizonItem from 'components/LV2/PlaceListHorizonItem';
 import Duration from './Duration';
 // import Operation from './Operation';
 

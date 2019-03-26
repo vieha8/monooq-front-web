@@ -4,11 +4,11 @@ import Path from 'config/path';
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { Link } from 'react-router-dom';
-import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
-import Footer from 'components/atomic/LV2/Footer';
-import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
-import AsctContent from 'components/atomic/LV2/AsctContent';
-import Text from 'components/atomic/LV1/StaticText';
+import DefaultContainer from 'components/LV1/DefaultContainer';
+import Footer from 'components/LV2/Footer';
+import MainTitleContainer from 'components/LV2/StaticMainTitle';
+import AsctContent from 'components/LV2/AsctContent';
+import Text from 'components/LV1/StaticText';
 
 const LinkText = styled(Link)`
   color: ${Colors.linkBlue};

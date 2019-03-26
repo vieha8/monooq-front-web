@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Loading from 'components/atomic/LV1/Loading';
+import Loading from 'components/LV1/Loading';
 
 const Container = styled.div`
   position: absolute;

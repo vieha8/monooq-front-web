@@ -6,7 +6,7 @@ import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import SpaceMap from 'components/atomic/LV1/SpaceMap';
+import SpaceMap from 'components/LV1/SpaceMap';
 
 import Detail from './Detail';
 import Price from './Price';

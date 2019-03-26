@@ -3,12 +3,12 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
-import Footer from 'components/atomic/LV2/Footer';
-import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
-import AboutCancellContent from 'components/atomic/LV2/AboutCancellContent';
-import Hr from 'components/atomic/LV1/HorizontalRule';
-import Text from 'components/atomic/LV1/StaticText';
+import DefaultContainer from 'components/LV1/DefaultContainer';
+import Footer from 'components/LV2/Footer';
+import MainTitleContainer from 'components/LV2/StaticMainTitle';
+import AboutCancellContent from 'components/LV2/AboutCancellContent';
+import Hr from 'components/LV1/HorizontalRule';
+import Text from 'components/LV1/StaticText';
 
 const HilightText = styled(Text)`
   font-size: ${FontSizes.medium1}px;

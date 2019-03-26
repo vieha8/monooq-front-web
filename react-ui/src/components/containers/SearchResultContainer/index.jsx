@@ -4,18 +4,18 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { parse } from 'helpers/query-string';
 import InfiniteScroll from 'react-infinite-scroller';
-import Loading from 'components/atomic/LV1/Loading';
+import Loading from 'components/LV1/Loading';
 import Path from 'config/path';
 
-import SearchResultTemplate from 'components/atomic/templates/SearchResultTemplate';
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import Header from 'components/atomic/containers/Header';
-import Button from 'components/atomic/LV1/Button';
-import SearchResult from 'components/atomic/LV3/SearchResult';
-import NoDataView from 'components/atomic/LV3/NoDataView';
-import ConciergeContents from 'components/atomic/LV2/ConciergeIntroduction';
-import Meta from 'components/atomic/LV1/Meta';
+import SearchResultTemplate from 'components/templates/SearchResultTemplate';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import Header from 'components/containers/Header';
+import Button from 'components/LV1/Button';
+import SearchResult from 'components/LV3/SearchResult';
+import NoDataView from 'components/LV3/NoDataView';
+import ConciergeContents from 'components/LV2/ConciergeIntroduction';
+import Meta from 'components/LV1/Meta';
 import { Dimens } from 'variables';
 
 import { spaceActions } from 'redux/modules/space';

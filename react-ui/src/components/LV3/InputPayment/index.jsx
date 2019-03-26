@@ -6,12 +6,12 @@ import moment from 'moment';
 import Path from 'config/path';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { H1, H2 } from 'components/atomic/LV1/Headline';
-import TextLink from 'components/atomic/LV1/TextLink';
-import InlineText from 'components/atomic/LV1/InlineText';
-import Button from 'components/atomic/LV1/Button';
-import InputForm from 'components/atomic/LV2/InputForm';
-import SelectForm from 'components/atomic/LV2/SelectForm';
+import { H1, H2 } from 'components/LV1/Headline';
+import TextLink from 'components/LV1/TextLink';
+import InlineText from 'components/LV1/InlineText';
+import Button from 'components/LV1/Button';
+import InputForm from 'components/LV2/InputForm';
+import SelectForm from 'components/LV2/SelectForm';
 
 const Row = styled.div`
   margin-top: ${Dimens.medium2}px;

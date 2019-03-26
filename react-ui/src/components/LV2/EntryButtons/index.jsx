@@ -2,10 +2,10 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Button from 'components/atomic/LV1/Button';
+import Button from 'components/LV1/Button';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ConfirmBtnModal from 'components/atomic/LV2/ConfirmBtnModal';
+import ConfirmBtnModal from 'components/LV2/ConfirmBtnModal';
 
 const EntryButtonsWrap = styled.div`
   ${media.phone`

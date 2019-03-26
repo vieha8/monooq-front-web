@@ -5,10 +5,10 @@ import { media } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
 import { Dimens, FontSizes, Colors } from 'variables';
-import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
-import Footer from 'components/atomic/LV2/Footer';
-import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
-import ArtContainer from 'components/atomic/LV2/StaticArt';
+import DefaultContainer from 'components/LV1/DefaultContainer';
+import Footer from 'components/LV2/Footer';
+import MainTitleContainer from 'components/LV2/StaticMainTitle';
+import ArtContainer from 'components/LV2/StaticArt';
 
 const LinkText = styled(Link)`
   color: ${Colors.linkBlue};

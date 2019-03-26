@@ -2,9 +2,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Card from 'components/atomic/LV1/Card';
-import InlineText from 'components/atomic/LV1/InlineText';
-import TextLink from 'components/atomic/LV1/TextLink';
+import Card from 'components/LV1/Card';
+import InlineText from 'components/LV1/InlineText';
+import TextLink from 'components/LV1/TextLink';
 import { Colors } from 'variables';
 
 function estimateDateFormat(date) {

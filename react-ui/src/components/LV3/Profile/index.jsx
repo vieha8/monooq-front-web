@@ -4,9 +4,9 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { getPrefecture } from 'helpers/prefectures';
-import Card from 'components/atomic/LV1/Card';
-import InlineText from 'components/atomic/LV1/InlineText';
-import AvatarImage from 'components/atomic/LV1/AvatarImage';
+import Card from 'components/LV1/Card';
+import InlineText from 'components/LV1/InlineText';
+import AvatarImage from 'components/LV1/AvatarImage';
 import SpaceList, { type PropTypes as SpaceListProps } from './SpaceList';
 
 const Container = styled.div`

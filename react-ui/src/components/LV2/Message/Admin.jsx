@@ -3,8 +3,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Card from 'components/atomic/LV1/Card';
-import InlineText from 'components/atomic/LV1/InlineText';
+import Card from 'components/LV1/Card';
+import InlineText from 'components/LV1/InlineText';
 import { Colors } from 'variables';
 
 const DateWrapper = styled.div`

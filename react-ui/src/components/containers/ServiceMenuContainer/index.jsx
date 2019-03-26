@@ -2,8 +2,8 @@
 
 import React, { Component } from 'react';
 import BurgerMenu from 'react-burger-menu';
-import ServiceMenu from 'components/atomic/LV3/ServiceMenu';
-import MenuWrapPhone from 'components/atomic/LV3/ServiceMenu/MenuWrapPhone';
+import ServiceMenu from 'components/LV3/ServiceMenu';
+import MenuWrapPhone from 'components/LV3/ServiceMenu/MenuWrapPhone';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 

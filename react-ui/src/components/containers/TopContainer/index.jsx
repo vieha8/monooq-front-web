@@ -6,10 +6,10 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
-import Top from 'components/atomic/LV3/Top';
+import Top from 'components/LV3/Top';
 import ReactGA from 'react-ga';
 import { isAvailableLocalStorage } from 'helpers/storage';
-import PickupStaffSpaceList from 'components/atomic/LV3/Top/pickup';
+import PickupStaffSpaceList from 'components/LV3/Top/pickup';
 import { spaceActions } from 'redux/modules/space';
 
 class TopContainer extends React.Component {

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import { userActions } from 'redux/modules/user';
-import RegisterHowToUse from 'components/atomic/LV3/RegisterHowToUse';
+import RegisterHowToUse from 'components/LV3/RegisterHowToUse';
 import ReactGA from 'react-ga';
 
 type PropTypes = {

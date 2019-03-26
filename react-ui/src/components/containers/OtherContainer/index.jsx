@@ -2,10 +2,10 @@
 
 import React, { Component } from 'react';
 
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import Header from 'components/atomic/containers/Header';
-import Other from 'components/atomic/LV3/Other';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import Header from 'components/containers/Header';
+import Other from 'components/LV3/Other';
 
 import { authActions } from 'redux/modules/auth';
 

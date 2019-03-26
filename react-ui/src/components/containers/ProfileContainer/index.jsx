@@ -2,15 +2,15 @@
 
 import React, { Component } from 'react';
 import numeral from 'numeral';
-import ProfileTemplate from 'components/atomic/templates/ProfileTemplate';
-import Profile from 'components/atomic/LV3/Profile';
-import Header from 'components/atomic/containers/Header';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import ProfileTemplate from 'components/templates/ProfileTemplate';
+import Profile from 'components/LV3/Profile';
+import Header from 'components/containers/Header';
+import LoadingPage from 'components/LV3/LoadingPage';
 import { Colors } from 'variables';
 import { userActions } from 'redux/modules/user';
 import type { SpaceType } from 'types/Space';
 import { formatDate } from 'helpers/date';
-import Meta from 'components/atomic/LV1/Meta';
+import Meta from 'components/LV1/Meta';
 import connect from '../connect';
 
 type PropTypes = {

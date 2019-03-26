@@ -3,8 +3,8 @@
 import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
-import InputCalendar from 'components/atomic/LV1/InputCalendar';
-import InlineText from 'components/atomic/LV1/InlineText';
+import InputCalendar from 'components/LV1/InputCalendar';
+import InlineText from 'components/LV1/InlineText';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 

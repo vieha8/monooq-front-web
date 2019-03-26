@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
+import { Height as HeaderHeight } from 'components/LV3/Header';
 
 const Content = styled.div`
   margin-top: ${HeaderHeight}px;

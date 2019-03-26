@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import AvatarImage from 'components/atomic/LV1/AvatarImage';
+import AvatarImage from 'components/LV1/AvatarImage';
 
 type PropTypes = {
   to?: string,

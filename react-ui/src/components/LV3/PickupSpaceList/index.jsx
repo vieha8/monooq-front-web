@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 
-import { H2 } from 'components/atomic/LV1/Headline';
-import TextButton from 'components/atomic/LV1/TextButton';
-import FeatureSpaceCard from 'components/atomic/LV2/FeatureSpaceCard';
+import { H2 } from 'components/LV1/Headline';
+import TextButton from 'components/LV1/TextButton';
+import FeatureSpaceCard from 'components/LV2/FeatureSpaceCard';
 
 const Container = styled.div`
   margin: 0 auto;

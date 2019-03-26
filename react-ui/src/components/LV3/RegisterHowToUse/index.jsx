@@ -1,10 +1,10 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import InlineText from 'components/atomic/LV1/InlineText';
-import RadioList from 'components/atomic/LV2/RadioList';
+import InlineText from 'components/LV1/InlineText';
+import RadioList from 'components/LV2/RadioList';
 import { Colors, FontSizes } from 'variables';
-import EntryButtons from 'components/atomic/LV2/EntryButtons';
+import EntryButtons from 'components/LV2/EntryButtons';
 import Form from './Form';
 
 type PropTypes = {

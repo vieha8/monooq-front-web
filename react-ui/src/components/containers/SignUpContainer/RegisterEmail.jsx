@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { authActions } from 'redux/modules/auth';
-import RegisterEmail from 'components/atomic/LV3/RegisterEmail';
+import RegisterEmail from 'components/LV3/RegisterEmail';
 import ErrorMessage from 'strings';
 import Path from 'config/path';
 

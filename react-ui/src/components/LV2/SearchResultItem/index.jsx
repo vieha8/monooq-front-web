@@ -3,9 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
-import Card from 'components/atomic/LV1/Card';
-import HeroImage from 'components/atomic/LV1/HeroImage';
-import InlineText from 'components/atomic/LV1/InlineText';
+import Card from 'components/LV1/Card';
+import HeroImage from 'components/LV1/HeroImage';
+import InlineText from 'components/LV1/InlineText';
 import { Colors } from 'variables';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';

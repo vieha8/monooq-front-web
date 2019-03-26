@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Text from 'components/atomic/LV1/StaticText';
+import Text from 'components/LV1/StaticText';
 
 const QuestionListWrapper = styled.div`
   margin-bottom: ${Dimens.medium4_50}px;

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Button from 'components/atomic/LV1/Button';
-import InlineText from 'components/atomic/LV1/InlineText';
+import Button from 'components/LV1/Button';
+import InlineText from 'components/LV1/InlineText';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 

@@ -1,13 +1,13 @@
 // @flow
 
 import React from 'react';
-import InlineText from 'components/atomic/LV1/InlineText';
-import RegsiterProfileImage from 'components/atomic/LV1/DragAndDrop/RegisterProfileImage';
-import InputForm from 'components/atomic/LV2/InputForm';
-import SelectForm from 'components/atomic/LV2/SelectForm';
+import InlineText from 'components/LV1/InlineText';
+import RegsiterProfileImage from 'components/LV1/DragAndDrop/RegisterProfileImage';
+import InputForm from 'components/LV2/InputForm';
+import SelectForm from 'components/LV2/SelectForm';
 import { FontSizes } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
-import EntryButtons from 'components/atomic/LV2/EntryButtons';
+import EntryButtons from 'components/LV2/EntryButtons';
 import Form from './Form';
 
 type PropTypes = {

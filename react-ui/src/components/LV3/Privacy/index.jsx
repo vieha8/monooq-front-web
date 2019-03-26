@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
 import { Dimens } from 'variables';
-import Footer from 'components/atomic/LV2/Footer';
-import MainTitleContainer from 'components/atomic/LV2/StaticMainTitle';
-import ArtContainer from 'components/atomic/LV2/StaticArt';
+import Footer from 'components/LV2/Footer';
+import MainTitleContainer from 'components/LV2/StaticMainTitle';
+import ArtContainer from 'components/LV2/StaticArt';
 
 const Address = styled.span`
   display: inline-block;

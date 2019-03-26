@@ -6,10 +6,10 @@ import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
 
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import Header from 'components/atomic/containers/Header';
-import EditSpaceInformation from 'components/atomic/LV3/EditSpace/Information';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import Header from 'components/containers/Header';
+import EditSpaceInformation from 'components/LV3/EditSpace/Information';
 
 import ErrorMessage from 'strings';
 

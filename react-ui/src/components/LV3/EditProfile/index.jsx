@@ -4,12 +4,12 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
-import RegsiterProfileImage from 'components/atomic/LV1/DragAndDrop/RegisterProfileImage';
-import InputForm from 'components/atomic/LV2/InputForm';
-import SelectForm from 'components/atomic/LV2/SelectForm';
-import InlineText from 'components/atomic/LV1/InlineText';
-import Check from 'components/atomic/LV1/Check';
-import Button from 'components/atomic/LV1/Button';
+import RegsiterProfileImage from 'components/LV1/DragAndDrop/RegisterProfileImage';
+import InputForm from 'components/LV2/InputForm';
+import SelectForm from 'components/LV2/SelectForm';
+import InlineText from 'components/LV1/InlineText';
+import Check from 'components/LV1/Check';
+import Button from 'components/LV1/Button';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 import { selectOptionPurpose } from 'helpers/purposes';
 

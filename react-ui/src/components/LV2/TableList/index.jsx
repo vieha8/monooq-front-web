@@ -3,7 +3,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors } from 'variables';
-import InlineText from 'components/atomic/LV1/InlineText';
+import InlineText from 'components/LV1/InlineText';
 
 const Row = styled.div`
   width: 100%;

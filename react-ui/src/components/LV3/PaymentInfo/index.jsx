@@ -1,8 +1,8 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import Payment from 'components/atomic/LV2/Payment';
-import PlaceListHorizonItem from 'components/atomic/LV2/PlaceListHorizonItem';
+import Payment from 'components/LV2/Payment';
+import PlaceListHorizonItem from 'components/LV2/PlaceListHorizonItem';
 
 type PropTypes = {
   hostName: string,

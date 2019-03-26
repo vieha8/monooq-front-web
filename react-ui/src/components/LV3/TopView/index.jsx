@@ -4,11 +4,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors } from 'variables';
-import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
-import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
-import CatchPhrase from 'components/atomic/LV1/CatchPhrase';
-import SubCatchPhrase from 'components/atomic/LV1/SubCatchPhrase';
-import SearchInput from 'components/atomic/LV2/SearchInput';
+import DefaultContainer from 'components/LV1/DefaultContainer';
+import { Height as HeaderHeight } from 'components/LV3/Header';
+import CatchPhrase from 'components/LV1/CatchPhrase';
+import SubCatchPhrase from 'components/LV1/SubCatchPhrase';
+import SearchInput from 'components/LV2/SearchInput';
 
 const mainVisual =
   'https://monooq.imgix.net/img%2Fservice%2Fmain_visual%402x.jpg?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=540';

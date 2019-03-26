@@ -2,9 +2,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/atomic/LV1/InlineText';
+import InlineText from 'components/LV1/InlineText';
 import Path from 'config/path';
-import TextLink from 'components/atomic/LV1/TextLink';
+import TextLink from 'components/LV1/TextLink';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 

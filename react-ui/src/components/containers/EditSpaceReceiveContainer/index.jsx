@@ -5,10 +5,10 @@ import Path from 'config/path';
 
 import { uiActions } from 'redux/modules/ui';
 
-import MenuPageTemplate from 'components/atomic/templates/MenuPageTemplate';
-import ServiceMenu from 'components/atomic/containers/ServiceMenuContainer';
-import Header from 'components/atomic/containers/Header';
-import EditSpaceReceive from 'components/atomic/LV3/EditSpace/Receive';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import Header from 'components/containers/Header';
+import EditSpaceReceive from 'components/LV3/EditSpace/Receive';
 
 import ErrorMessage from 'strings';
 

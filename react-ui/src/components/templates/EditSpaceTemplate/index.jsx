@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import ClearfixContainer from 'components/atomic/LV1/ClearfixContainer';
+import ClearfixContainer from 'components/LV1/ClearfixContainer';
 import Page from '../Page';
 
 const LeftContent = styled.div`

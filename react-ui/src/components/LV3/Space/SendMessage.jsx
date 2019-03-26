@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import SendMessage from 'components/atomic/LV2/Space/SendMessage';
+import SendMessage from 'components/LV2/Space/SendMessage';
 import { Colors, Dimens } from 'variables';
 
 const SendMessageWrap = styled.div`

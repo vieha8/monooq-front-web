@@ -4,11 +4,11 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
-import DefaultContainer from 'components/atomic/LV1/DefaultContainer';
-import { Height as HeaderHeight } from 'components/atomic/LV3/Header';
-import Hr from 'components/atomic/LV1/HorizontalRule';
-import MainTitle from 'components/atomic/LV1/StaticMainTitle';
-import Text from 'components/atomic/LV1/StaticText';
+import DefaultContainer from 'components/LV1/DefaultContainer';
+import { Height as HeaderHeight } from 'components/LV3/Header';
+import Hr from 'components/LV1/HorizontalRule';
+import MainTitle from 'components/LV1/StaticMainTitle';
+import Text from 'components/LV1/StaticText';
 
 const MainTitleContainer = styled(DefaultContainer)`
   margin-top: calc(${HeaderHeight}px + ${Dimens.large2}px);

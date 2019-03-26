@@ -2,8 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/atomic/LV1/InlineText';
-import Image16x9 from 'components/atomic/LV1/Image16x9';
+import InlineText from 'components/LV1/InlineText';
+import Image16x9 from 'components/LV1/Image16x9';
 
 const ImageWrapper = styled.div`
   overflow: hidden;

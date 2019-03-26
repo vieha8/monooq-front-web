@@ -5,10 +5,10 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { H2 } from 'components/atomic/LV1/Headline';
-import Button from 'components/atomic/LV1/Button';
-import InputSchedule from 'components/atomic/LV2/Estimate/InputSchedule';
-import InputPrice from 'components/atomic/LV2/Estimate/InputPrice';
+import { H2 } from 'components/LV1/Headline';
+import Button from 'components/LV1/Button';
+import InputSchedule from 'components/LV2/Estimate/InputSchedule';
+import InputPrice from 'components/LV2/Estimate/InputPrice';
 
 const Section = styled.div`
   margin-top: ${Dimens.medium2}px;

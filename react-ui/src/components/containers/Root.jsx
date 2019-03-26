@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Sentry from '@sentry/browser';
 import { initActions } from 'redux/modules/init';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import LoadingPage from 'components/LV3/LoadingPage';
 
 class Root extends React.Component {
   constructor(props) {
