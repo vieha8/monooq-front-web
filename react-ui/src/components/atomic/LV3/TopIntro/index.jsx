@@ -10,11 +10,11 @@ import ExplainSection from 'components/atomic/LV2/ExplainSection';
 import ForSafeSection from 'components/atomic/LV2/ForSafeSection';
 
 const topImage1 =
-  'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fservice%2Ftop1%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=500';
+  'https://monooq.imgix.net/img%2Fservice%2Ftop1%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=500';
 const topImage1Sp =
-  'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fservice%2Ftop1_sp%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=400';
+  'https://monooq.imgix.net/img%2Fservice%2Ftop1_sp%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=400';
 const topImage2 =
-  'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fservice%2Ftop2%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=500';
+  'https://monooq.imgix.net/img%2Fservice%2Ftop2%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=500';
 
 const UserReasonContainer = styled(StyledDefaultContainer)`
   background-image: url(${topImage1});
