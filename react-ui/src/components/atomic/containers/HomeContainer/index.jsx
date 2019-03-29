@@ -83,13 +83,14 @@ class HomeContainer extends Component<PropTypes, State> {
                     caption={v.title}
                     spaces={v.spaces.map(s => ({
                       id: s.ID,
-                      image:
-                        s.Images.length !== 0
-                          ? convertImgixUrl(
-                              s.Images[0].ImageUrl,
-                              'fit=fillmax&fill-color=DBDBDB&w=170&h=120&format=auto',
-                            )
-                          : dummySpaceImage,
+                      // image:
+                      //   s.Images.length !== 0
+                      //     ? convertImgixUrl(
+                      //         s.Images[0].ImageUrl,
+                      //         'fit=fillmax&fill-color=DBDBDB&w=170&h=120&format=auto',
+                      //       )
+                      //     : dummySpaceImage,
+                      image: s.Images.length !== 0 ? s.Images[0].ImageUrl : dummySpaceImage,
                       title: s.Title,
                       address: `${s.AddressPref}${s.AddressCity}`,
                       isFurniture: s.IsFurniture,

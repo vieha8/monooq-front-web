@@ -512,13 +512,13 @@ function* search({
     if (space.Images.length === 0) {
       space.Images = [{ ImageUrl: dummySpaceImage }];
     } else {
-      space.Images = space.Images.map(image => {
-        image.ImageUrl = convertImgixUrl(
-          image.ImageUrl,
-          'fit=fillmax&fill-color=DBDBDB&w=165&h=120&format=auto',
-        );
-        return image;
-      });
+      // space.Images = space.Images.map(image => {
+      //   image.ImageUrl = convertImgixUrl(
+      //     image.ImageUrl,
+      //     'fit=fillmax&fill-color=DBDBDB&w=165&h=120&format=auto',
+      //   );
+      //   return image;
+      // });
     }
     return space;
   });
