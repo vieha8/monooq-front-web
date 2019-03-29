@@ -18,8 +18,8 @@ const convertImageUrl = images => {
       'fit=fill&fill-color=DBDBDB&w=540&h=300&format=auto',
     );
     return {
-      original: original || '',
-      thumbnail: original || '',
+      original: replaceUrl || '',
+      thumbnail: replaceUrl || '',
       bulletClass: 'space_image_gallery_bullet',
     };
   });
