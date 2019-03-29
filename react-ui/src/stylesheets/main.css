@@ -21,13 +21,6 @@
   }
 }
 
-.image-gallery-image img {
-  width: 540px;
-  height: 300px;
-  object-fit: contain;
-  background: #dbdbdb !important;
-}
-
 .space_image_gallery_bullet {
   background: #ffffff !important;
 }
