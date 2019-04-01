@@ -1,14 +1,16 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, select, call } from 'redux-saga/effects';
+import { put, takeEvery, take, select, call, race, delay } from 'redux-saga/effects';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
+import { push } from 'connected-react-router';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
 import { getApiRequest, putApiRequest, apiEndpoint } from '../helpers/api';
 import { errorActions } from './error';
 import { store } from '../store/index';
-import { push } from 'connected-react-router';
+
+const TIMEOUT = 30000;
 
 // Actions
 const FETCH_USER = 'FETCH_USER';
@@ -96,13 +98,24 @@ export const userReducer = handleActions(
 // Sagas
 export function* getUser({ payload: { userId } }) {
   const token = yield* getToken();
-  const { data, err } = yield call(getApiRequest, apiEndpoint.users(userId), {}, token);
-  if (err) {
-    yield put(userActions.fetchFailedUser(err));
-    yield put(errorActions.setError(err));
+  const { posts, timeout } = yield race({
+    posts: call(getApiRequest, apiEndpoint.users(userId), {}, token),
+    timeout: delay(TIMEOUT),
+  });
+
+  const functionName = 'getUser';
+  if (timeout) {
+    yield put(userActions.fetchFailedUser(`timeout(${functionName}):${apiEndpoint.users(userId)}`));
+    yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.users(userId)}`));
     return;
   }
-  yield put(userActions.fetchSuccessUser(data));
+  if (posts.err) {
+    yield put(userActions.fetchFailedUser(`error(${functionName}):${posts.err}`));
+    yield put(errorActions.setError(`error(${functionName}):${posts.err}`));
+    return;
+  }
+
+  yield put(userActions.fetchSuccessUser(posts.data));
 }
 
 function* getSpaces(params) {
@@ -118,20 +131,34 @@ function* getSpaces(params) {
   user = yield select(state => state.auth.user);
 
   const token = yield* getToken();
-  const { data, err } = yield call(
-    getApiRequest,
-    apiEndpoint.userSpaces(targetUserId || user.ID),
-    {},
-    token,
-  );
-  if (err) {
-    yield put(userActions.fetchFailedUserSpaces(err));
-    yield put(errorActions.setError(err));
+
+  const { posts, timeout } = yield race({
+    posts: call(getApiRequest, apiEndpoint.userSpaces(targetUserId || user.ID), {}, token),
+    timeout: delay(TIMEOUT),
+  });
+
+  const functionName = 'getSpaces';
+  if (timeout) {
+    yield put(
+      userActions.fetchFailedUserSpaces(
+        `timeout(${functionName}):${apiEndpoint.userSpaces(targetUserId || user.ID)}`,
+      ),
+    );
+    yield put(
+      errorActions.setError(
+        `timeout(${functionName}):${apiEndpoint.userSpaces(targetUserId || user.ID)}`,
+      ),
+    );
+    return;
+  }
+  if (posts.err) {
+    yield put(userActions.fetchFailedUserSpaces(`error(${functionName}):${posts.err}`));
+    yield put(errorActions.setError(`error(${functionName}):${posts.err}`));
     return;
   }
 
-  if (Array.isArray(data)) {
-    const res = data.map(v => {
+  if (Array.isArray(posts.data)) {
+    const res = posts.data.map(v => {
       if (v.Images.length === 0) {
         v.Images[0] = { ImageUrl: dummySpaceImage };
       } else {
@@ -147,8 +174,8 @@ function* getSpaces(params) {
     });
     yield put(userActions.fetchSuccessUserSpaces(res));
   } else {
-    yield put(userActions.fetchFailedUserSpaces(data));
-    yield put(errorActions.setError(err));
+    yield put(userActions.fetchFailedUserSpaces(posts.data));
+    yield put(errorActions.setError(posts.err));
   }
 }
 
@@ -167,15 +194,29 @@ function* updateUser({ payload: { userId, body } }) {
     body.imageUrl = yield uploadImage(imagePath, body.imageUri);
   }
   const token = yield* getToken();
-  const { data, err } = yield call(putApiRequest, apiEndpoint.users(userId), body, token);
-  if (err) {
-    yield put(userActions.updateFailedUser(err));
-    yield put(errorActions.setError(err));
+
+  const { posts, timeout } = yield race({
+    posts: call(putApiRequest, apiEndpoint.users(userId), body, token),
+    timeout: delay(TIMEOUT),
+  });
+
+  const functionName = 'updateUser';
+  if (timeout) {
+    yield put(
+      userActions.updateFailedUser(`timeout(${functionName}):${apiEndpoint.users(userId)}`),
+    );
+    yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.users(userId)}`));
     return;
   }
+  if (posts.err) {
+    yield put(userActions.updateFailedUser(`error(${functionName}):${posts.err}`));
+    yield put(errorActions.setError(`error(${functionName}):${posts.err}`));
+    return;
+  }
+
   localStorage.removeItem('status');
-  yield put(authActions.setUser(data));
-  yield put(userActions.updateSuccessUser(data));
+  yield put(authActions.setUser(posts.data));
+  yield put(userActions.updateSuccessUser(posts.data));
 
   const redirectPath = yield select(state => state.ui.redirectPath);
   if (redirectPath) {
