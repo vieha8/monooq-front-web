@@ -15,6 +15,7 @@ import SendMessage from 'components/atomic/LV3/Space/SendMessage';
 import LoadingPage from 'components/atomic/LV3/LoadingPage';
 import Meta from 'components/atomic/LV1/Meta';
 import type { SpaceType } from 'types/Space';
+import dummySpaceImage from 'images/dummy_space.png';
 
 import connect from '../connect';
 
@@ -110,8 +111,8 @@ class SpaceContainer extends Component<PropTypes> {
               town={space.AddressTown}
               name={space.Title}
               images={space.Images.map(image => ({
-                original: image.ImageUrl,
-                thumbnail: image.ImageUrl,
+                original: image.ImageUrl || dummySpaceImage,
+                thumbnail: image.ImageUrl || dummySpaceImage,
               }))}
               description={space.Introduction}
               address={`${space.AddressPref}${space.AddressCity}${space.AddressTown}`}

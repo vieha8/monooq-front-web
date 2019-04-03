@@ -13,11 +13,10 @@ import EditSpaceInformation from 'components/atomic/LV3/EditSpace/Information';
 
 import ErrorMessage from 'strings';
 
+import { uploadImage } from 'redux/helpers/firebase';
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
 import fileType from '../../../../helpers/file-type';
-
-import { uploadImage } from 'redux/helpers/firebase';
 
 type PropTypes = {
   dispatch: Function,
@@ -114,8 +113,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
         return image;
       }),
     ).catch(error => ({ error }));
-
-    console.log(nextImages);
 
     this.setState({ Images: [].concat(images, nextImages), isImageUploading: false });
   };
