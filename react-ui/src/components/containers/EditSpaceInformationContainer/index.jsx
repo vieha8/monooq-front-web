@@ -14,9 +14,9 @@ import EditSpaceInformation from 'components/LV3/EditSpace/Information';
 import ErrorMessage from 'strings';
 
 import { uploadImage } from 'redux/helpers/firebase';
+import fileType from 'helpers/file-type';
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
-import fileType from '../../../helpers/file-type';
 
 type PropTypes = {
   dispatch: Function,
@@ -113,8 +113,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
         return image;
       }),
     ).catch(error => ({ error }));
-
-    console.log(nextImages);
 
     this.setState({ Images: [].concat(images, nextImages), isImageUploading: false });
   };

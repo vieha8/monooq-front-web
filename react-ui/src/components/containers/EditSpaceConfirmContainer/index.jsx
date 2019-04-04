@@ -16,6 +16,7 @@ import type { SpaceType } from 'types/Space';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
+import dummySpaceImage from 'images/dummy_space.png';
 import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
 import { spaceActions } from '../../../redux/modules/space';
@@ -186,8 +187,8 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
               town={space.AddressTown}
               name={space.Title}
               images={space.Images.map(image => ({
-                original: image.ImageUrl || image.tmpUrl || image.preview,
-                thumbnail: image.ImageUrl || image.tmpUrl || image.preview,
+                original: image.ImageUrl || image.tmpUrl || image.preview || dummySpaceImage,
+                thumbnail: image.ImageUrl || image.tmpUrl || image.preview || dummySpaceImage,
               }))}
               description={space.Introduction}
               address={`${space.AddressPref}${space.AddressCity}${space.AddressTown}`}
