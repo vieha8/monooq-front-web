@@ -11,7 +11,7 @@ class ErrorModal extends Component {
   componentWillReceiveProps = next => {
     if (next.error.hasError) {
       this.setState({ open: true });
-      captureMessage(next.error.message); // 開発環境のみなぜかここで固まる不具合あり
+      captureMessage(next.error.message || 'Error');
     }
   };
 
