@@ -1,5 +1,6 @@
 import axios from 'axios';
 import apiConfig from '../../config/api';
+import { captureException } from '@sentry/browser';
 
 export const apiEndpoint = {
   tokenGenerate: () => `/token/generate`,
@@ -39,9 +40,14 @@ const responseErrorHandler = (resolve, response) => {
     resolve({ status: 503, err: 'Service Unavailable' });
     return;
   }
+
+  if (response.status !== 404) {
+    captureException(new Error(`${response.status}:${response.statusText}`));
+  }
+
   resolve({
     status: response.status,
-    err: response.data ? response.data.error : response.statusText,
+    err: response.data.error ? response.data.error : response.statusText,
   });
 };
 
