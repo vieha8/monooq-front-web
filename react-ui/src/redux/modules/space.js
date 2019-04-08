@@ -567,7 +567,11 @@ function* getFeatureSpaces() {
 
       if (featureId === 5) {
         const { data } = await getApiRequest(apiEndpoint.userSpaceAccessLog(user.ID), {}, token);
-        feature.spaces = data;
+        if (data === undefined) {
+          feature.spaces = {};
+        } else {
+          feature.spaces = data;
+        }
         return feature;
       }
 
