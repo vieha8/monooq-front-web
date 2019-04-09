@@ -47,11 +47,11 @@ class ProfileContainer extends Component<PropTypes> {
 
     this.state = {
       imageUri: user.ImageUrl,
-      name: user.Name,
-      email: user.Email,
-      phoneNumber: user.PhoneNumber,
-      prefCode: user.PrefCode,
-      profile: user.Profile,
+      name: user.Name || '',
+      email: user.Email || '',
+      phoneNumber: user.PhoneNumber || '',
+      prefCode: user.PrefCode || '',
+      profile: user.Profile || '',
       purpose: user.IsHost ? 2 : 1,
       isNoticeEmail: user.IsNoticeEmail,
       error: {},
