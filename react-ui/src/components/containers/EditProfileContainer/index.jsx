@@ -117,24 +117,23 @@ class ProfileContainer extends Component<PropTypes> {
         break;
 
       case 'name':
-        if (value && value.trim().length === 0) {
+        if (value.trim().length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         }
         break;
 
       case 'email':
-        if (value && value.replace(/\s/g, '').length === 0) {
+        if (value.replace(/\s/g, '').length === 0) {
           errors.push(ErrorMessage.PleaseInput);
-        } else if (value && !value.match(Validate.Email)) {
+        } else if (!value.match(Validate.Email)) {
           errors.push(ErrorMessage.InvalidEmail);
         }
         break;
 
       case 'phoneNumber':
-        if (value && value.replace(/\s/g, '').length === 0) {
+        if (value.replace(/\s/g, '').length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         } else if (
-          value &&
           !(
             value.match(Validate.phoneNumber.NoHyphenVer) ||
             value.match(Validate.phoneNumber.HyphenVer)
@@ -145,16 +144,16 @@ class ProfileContainer extends Component<PropTypes> {
         break;
 
       case 'profile':
-        if (value && value.trim().length === 0) {
+        if (value.trim().length === 0) {
           errors.push(ErrorMessage.PleaseInput);
-        } else if (value && value.length > Validate.Profile.Max) {
+        } else if (value.length > Validate.Profile.Max) {
           errors.push(ErrorMessage.LengthMax('自己紹介', Validate.Profile.Max));
         }
         break;
 
       case 'prefCode':
       case 'purpose':
-        if (value && value.length === 0) {
+        if (value.length === 0) {
           errors.push(ErrorMessage.PleaseSelect);
         }
         break;
