@@ -2,221 +2,221 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 import Loadable from 'react-loadable';
-import LoadingPage from 'components/atomic/LV3/LoadingPage';
+import LoadingPage from 'components/LV3/LoadingPage';
 import Path from './path';
 
 const Top = Loadable({
-  loader: () => import('components/atomic/containers/TopContainer'),
+  loader: () => import('components/containers/TopContainer'),
   loading: LoadingPage,
 });
 
 const Login = Loadable({
-  loader: () => import('components/atomic/containers/LoginContainer'),
+  loader: () => import('components/containers/LoginContainer'),
   loading: LoadingPage,
 });
 
 const SignUp = Loadable({
-  loader: () => import('components/atomic/containers/SignUpContainer'),
+  loader: () => import('components/containers/SignUpContainer'),
   loading: LoadingPage,
 });
 
 const SignUpProfile = Loadable({
-  loader: () => import('components/atomic/containers/SignUpProfileContainer'),
+  loader: () => import('components/containers/SignUpProfileContainer'),
   loading: LoadingPage,
 });
 
 const SignUpPurpose = Loadable({
-  loader: () => import('components/atomic/containers/SignUpPurposeContainer'),
+  loader: () => import('components/containers/SignUpPurposeContainer'),
   loading: LoadingPage,
 });
 
 const ResetPassword = Loadable({
-  loader: () => import('components/atomic/containers/ResetPasswordContainer'),
+  loader: () => import('components/containers/ResetPasswordContainer'),
   loading: LoadingPage,
 });
 
 const Home = Loadable({
-  loader: () => import('components/atomic/containers/HomeContainer'),
+  loader: () => import('components/containers/HomeContainer'),
   loading: LoadingPage,
 });
 
 const Search = Loadable({
-  loader: () => import('components/atomic/containers/SearchResultContainer'),
+  loader: () => import('components/containers/SearchResultContainer'),
   loading: LoadingPage,
 });
 
 const SearchCondition = Loadable({
-  loader: () => import('components/atomic/containers/SearchConditionContainer'),
+  loader: () => import('components/containers/SearchConditionContainer'),
   loading: LoadingPage,
 });
 
 const Space = Loadable({
-  loader: () => import('components/atomic/containers/SpaceContainer'),
+  loader: () => import('components/containers/SpaceContainer'),
   loading: LoadingPage,
 });
 
 const Spaces = Loadable({
-  loader: () => import('components/atomic/containers/SpaceManagementContainer'),
+  loader: () => import('components/containers/SpaceManagementContainer'),
   loading: LoadingPage,
 });
 
 const Schedule = Loadable({
-  loader: () => import('components/atomic/containers/ScheduleContainer'),
+  loader: () => import('components/containers/ScheduleContainer'),
   loading: LoadingPage,
 });
 
 const Profile = Loadable({
-  loader: () => import('components/atomic/containers/ProfileContainer'),
+  loader: () => import('components/containers/ProfileContainer'),
   loading: LoadingPage,
 });
 
 const EditProfile = Loadable({
-  loader: () => import('components/atomic/containers/EditProfileContainer'),
+  loader: () => import('components/containers/EditProfileContainer'),
   loading: LoadingPage,
 });
 
 const Inquiry = Loadable({
-  loader: () => import('components/atomic/containers/InquiryContainer'),
+  loader: () => import('components/containers/InquiryContainer'),
   loading: LoadingPage,
 });
 
 const Messages = Loadable({
-  loader: () => import('components/atomic/containers/InboxContainer'),
+  loader: () => import('components/containers/InboxContainer'),
   loading: LoadingPage,
 });
 
 const Message = Loadable({
-  loader: () => import('components/atomic/containers/MessageContainer'),
+  loader: () => import('components/containers/MessageContainer'),
   loading: LoadingPage,
 });
 
 const Estimate = Loadable({
-  loader: () => import('components/atomic/containers/EstimateContainer'),
+  loader: () => import('components/containers/EstimateContainer'),
   loading: LoadingPage,
 });
 
 const Payment = Loadable({
-  loader: () => import('components/atomic/containers/PaymentContainer'),
+  loader: () => import('components/containers/PaymentContainer'),
   loading: LoadingPage,
 });
 
 const CreateSpaceInfo = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceInformationContainer'),
+  loader: () => import('components/containers/EditSpaceInformationContainer'),
   loading: LoadingPage,
 });
 
 const EditSpaceInfo = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceInformationContainer'),
+  loader: () => import('components/containers/EditSpaceInformationContainer'),
   loading: LoadingPage,
 });
 
 const CreateSpaceBaggage = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceBaggageContainer'),
+  loader: () => import('components/containers/EditSpaceBaggageContainer'),
   loading: LoadingPage,
 });
 
 const EditSpaceBaggage = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceBaggageContainer'),
+  loader: () => import('components/containers/EditSpaceBaggageContainer'),
   loading: LoadingPage,
 });
 
 const CreateSpaceReceive = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceReceiveContainer'),
+  loader: () => import('components/containers/EditSpaceReceiveContainer'),
   loading: LoadingPage,
 });
 
 const EditSpaceReceive = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceReceiveContainer'),
+  loader: () => import('components/containers/EditSpaceReceiveContainer'),
   loading: LoadingPage,
 });
 
 const CreateSpacePriceType = Loadable({
-  loader: () => import('components/atomic/containers/EditSpacePriceTypeContainer'),
+  loader: () => import('components/containers/EditSpacePriceTypeContainer'),
   loading: LoadingPage,
 });
 
 const EditSpacePriceType = Loadable({
-  loader: () => import('components/atomic/containers/EditSpacePriceTypeContainer'),
+  loader: () => import('components/containers/EditSpacePriceTypeContainer'),
   loading: LoadingPage,
 });
 
 const CreateSpaceConfirm = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceConfirmContainer'),
+  loader: () => import('components/containers/EditSpaceConfirmContainer'),
   loading: LoadingPage,
 });
 
 const EditSpaceConfirm = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceConfirmContainer'),
+  loader: () => import('components/containers/EditSpaceConfirmContainer'),
   loading: LoadingPage,
 });
 
 const CreateSpaceCompletion = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceCompletionContainer'),
+  loader: () => import('components/containers/EditSpaceCompletionContainer'),
   loading: LoadingPage,
 });
 
 const EditSpaceCompletion = Loadable({
-  loader: () => import('components/atomic/containers/EditSpaceCompletionContainer'),
+  loader: () => import('components/containers/EditSpaceCompletionContainer'),
   loading: LoadingPage,
 });
 
 const Unsubscribe = Loadable({
-  loader: () => import('components/atomic/containers/UnsubscribeContainer'),
+  loader: () => import('components/containers/UnsubscribeContainer'),
   loading: LoadingPage,
 });
 
 const Sales = Loadable({
-  loader: () => import('components/atomic/containers/SalesContainer'),
+  loader: () => import('components/containers/SalesContainer'),
   loading: LoadingPage,
 });
 
 const About = Loadable({
-  loader: () => import('components/atomic/containers/AboutContainer'),
+  loader: () => import('components/containers/AboutContainer'),
   loading: LoadingPage,
 });
 
 const Insurance = Loadable({
-  loader: () => import('components/atomic/containers/InsuranceContainer'),
+  loader: () => import('components/containers/InsuranceContainer'),
   loading: LoadingPage,
 });
 
 const Rule = Loadable({
-  loader: () => import('components/atomic/containers/RuleContainer'),
+  loader: () => import('components/containers/RuleContainer'),
   loading: LoadingPage,
 });
 
 const HowToUse = Loadable({
-  loader: () => import('components/atomic/containers/HowToUseContainer'),
+  loader: () => import('components/containers/HowToUseContainer'),
   loading: LoadingPage,
 });
 
 const Other = Loadable({
-  loader: () => import('components/atomic/containers/OtherContainer'),
+  loader: () => import('components/containers/OtherContainer'),
   loading: LoadingPage,
 });
 
 const NotFound = Loadable({
-  loader: () => import('components/atomic/containers/NotFoundContainer'),
+  loader: () => import('components/containers/NotFoundContainer'),
   loading: LoadingPage,
 });
 
 const CancelPolicy = Loadable({
-  loader: () => import('components/atomic/containers/CancellationPoliciesContainer'),
+  loader: () => import('components/containers/CancellationPoliciesContainer'),
   loading: LoadingPage,
 });
 
 const Asct = Loadable({
-  loader: () => import('components/atomic/containers/AsctContainer'),
+  loader: () => import('components/containers/AsctContainer'),
   loading: LoadingPage,
 });
 
 const Privacy = Loadable({
-  loader: () => import('components/atomic/containers/PrivacyContainer'),
+  loader: () => import('components/containers/PrivacyContainer'),
   loading: LoadingPage,
 });
 
 const Terms = Loadable({
-  loader: () => import('components/atomic/containers/TermsContainer'),
+  loader: () => import('components/containers/TermsContainer'),
   loading: LoadingPage,
 });
 

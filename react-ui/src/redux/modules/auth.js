@@ -361,7 +361,7 @@ function* signUpFacebook() {
 
     if (err) {
       yield put(authActions.signupFailed(err));
-      yield put(errorActions.setError());
+      yield put(errorActions.setError(err));
       return;
     }
     yield put(authActions.signupSuccess(data));
@@ -370,7 +370,7 @@ function* signUpFacebook() {
     store.dispatch(push(Path.signUpProfile()));
   } catch (err) {
     yield put(authActions.signupFailed(err.message));
-    yield put(errorActions.setError());
+    yield put(errorActions.setError(err));
   }
 }
 

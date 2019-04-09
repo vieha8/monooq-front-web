@@ -109,11 +109,11 @@ function* fetchRoomStart() {
 
   const res = rooms.map((v, i) => {
     const room = v;
-    room.isRead = false;
+    room.isRead = room.isUnsubscribe;
     if (room[`user${user.ID}LastReadDt`]) {
       const lastMessageDt = parseInt(room.lastMessageDt.getTime() / 1000, 10);
       const lastReadDt = room[`user${user.ID}LastReadDt`].seconds;
-      room.isRead = lastMessageDt <= lastReadDt;
+      room.isRead = room.isRead || lastMessageDt <= lastReadDt;
     }
     room.user = users[i].data;
     return room;

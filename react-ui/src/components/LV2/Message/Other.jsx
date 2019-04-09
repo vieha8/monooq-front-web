@@ -1,0 +1,47 @@
+// @flow
+
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import ClearfixContainer from 'components/LV1/ClearfixContainer';
+import AvatarImage from 'components/LV1/AvatarImage';
+import Card from 'components/LV1/Card';
+import InlineText from 'components/LV1/InlineText';
+import Path from 'config/path';
+import { Colors } from 'variables';
+
+const AvatarWrapper = styled.div`
+  float: left;
+`;
+
+const CardWrapper = styled.div`
+  margin-left: 47px;
+`;
+
+type PropTypes = {
+  id: number,
+  image: string,
+  message: string,
+  extension: React.Element<*>,
+};
+
+export default (props: PropTypes) => (
+  <ClearfixContainer>
+    <div>
+      <AvatarWrapper>
+        <Link to={Path.profile(props.id)}>
+          <AvatarImage size={32} src={props.image} alt="" />
+        </Link>
+      </AvatarWrapper>
+      <CardWrapper>
+        {props.extension ? (
+          props.extension
+        ) : (
+          <Card block noBorder background={Colors.lightGray1Bg} isPadding={14}>
+            <InlineText.Base fontSize={15}>{props.message}</InlineText.Base>
+          </Card>
+        )}
+      </CardWrapper>
+    </div>
+  </ClearfixContainer>
+);
