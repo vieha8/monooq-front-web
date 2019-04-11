@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import InlineText from 'components/LV1/InlineText';
+import Button from 'components/LV1/Button';
 import DefaultContainer from 'components/LV1/DefaultContainer';
 import Footer from 'components/LV2/Footer';
 import Hr from 'components/LV1/HorizontalRule';
@@ -144,6 +146,21 @@ const List = styled.ul`
   list-style-position: inside;
 `;
 
+const ButtonWrap = styled.div`
+  max-width: 240px;
+  margin: 30px auto 30px 0px;
+  ${media.phone`
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    left: 0px;
+    bottom: 0px;
+    z-index: 1000;
+    text-align: center;
+    padding: 0 0 15px;
+  `};
+`;
+
 export default () => (
   <Fragment>
     <MainContainer>
@@ -264,7 +281,17 @@ export default () => (
       <ContentContainer bottom>
         <SubTitle>お困りの際はモノオクカスタマーサポートまで。</SubTitle>
         <Text>
-          「こんな場合はどうするの？」「ホスト登録について教えて！」お困りの時は画面右下のボタンよりご連絡ください。
+          <InlineText.Base>
+            サービスの不明点・お困りのことがあれば、モノオクカスタマーサポートまでお寄せください。
+            <br />
+            お問い合わせはLINEにて対応しております。下記より友だち追加の上、ご連絡ください。
+            <br />
+          </InlineText.Base>
+          <ButtonWrap>
+            <Button line reactGACategory="About" reactGAAction="Push LINE Register Button">
+              友だち追加
+            </Button>
+          </ButtonWrap>
         </Text>
       </ContentContainer>
     </MainContainer>
