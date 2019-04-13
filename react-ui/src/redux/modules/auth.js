@@ -381,7 +381,9 @@ function* passwordReset({ payload: { email } }) {
     yield put(authActions.passwordResetSuccess());
   } catch (err) {
     yield put(authActions.passwordResetFailed(err));
-    yield put(errorActions.setError(err));
+    if (err.code !== 'auth/user-not-found') {
+      yield put(errorActions.setError(err));
+    }
   }
 }
 
