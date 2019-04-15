@@ -97,8 +97,8 @@ class ProfileContainer extends Component<PropTypes> {
     if (this.validate()) {
       const { dispatch } = this.props;
       const body = this.state;
-      body.name = name.trim();
-      body.profile = profile.trim();
+      body.name = name === undefined ? '' : name.trim();
+      body.profile = profile === undefined ? '' : profile.trim();
       body.isHost = purpose === '2';
       dispatch(userActions.updateUser({ userId: user.ID, body }));
     }
@@ -117,7 +117,7 @@ class ProfileContainer extends Component<PropTypes> {
         break;
 
       case 'name':
-        if (value.trim().length === 0) {
+        if (value === undefined ? true : value.trim().length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         }
         break;
@@ -144,7 +144,7 @@ class ProfileContainer extends Component<PropTypes> {
         break;
 
       case 'profile':
-        if (value.trim().length === 0) {
+        if (value === undefined ? true : value.trim().length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         } else if (value.length > Validate.Profile.Max) {
           errors.push(ErrorMessage.LengthMax('自己紹介', Validate.Profile.Max));
@@ -173,7 +173,7 @@ class ProfileContainer extends Component<PropTypes> {
 
     return (
       name &&
-      name.trim().length > 0 &&
+      (name === undefined ? false : name.trim().length > 0) &&
       email &&
       email.match(Validate.Email) &&
       phoneNumber &&
@@ -181,7 +181,7 @@ class ProfileContainer extends Component<PropTypes> {
         phoneNumber.match(Validate.phoneNumber.HyphenVer)) &&
       prefCode &&
       profile &&
-      profile.trim().length > 0 &&
+      (profile === undefined ? false : profile.trim().length > 0) &&
       profile.length <= Validate.Profile.Max &&
       purpose
     );
