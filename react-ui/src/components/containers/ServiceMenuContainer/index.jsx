@@ -41,7 +41,10 @@ class ServiceMenuContainer extends Component<PropTypes> {
               message={{ to: Path.messages(), notificationCount: unreadRooms }}
               schedule={{ to: Path.schedule() }}
               spaces={{ to: Path.spaces() }}
-              addSpace={{ to: Path.createSpaceInfo() }}
+              addSpace={{
+                to: Path.createSpaceInfo(),
+                onClick: () => dispatch(uiActions.setUiState({ space: {} })),
+              }}
               sales={{ to: Path.sales() }}
               paymentHistory={{ to: Path.paid() }}
               editProfile={{ to: Path.editProfile() }}
