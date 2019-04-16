@@ -459,6 +459,18 @@ function* prepareUpdateSpace({ payload: spaceId }) {
     return;
   }
 
+  if (space.data === undefined) {
+    yield put(
+      spaceActions.fetchFailedSpace(
+        `error(${functionName}):undefined(space.data):spaceId(${spaceId})`,
+      ),
+    );
+    yield put(
+      errorActions.setError(`error(${functionName}):undefined(space.data):spaceId(${spaceId})`),
+    );
+    return;
+  }
+
   const user = yield select(state => state.auth.user);
   if (space.data.UserID !== user.ID) {
     yield put(
