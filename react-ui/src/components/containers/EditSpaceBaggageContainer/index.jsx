@@ -69,9 +69,9 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
-    if (space.ID && prevState.About === '') {
-      const { About, IsFurniture } = space;
-      return { About, IsFurniture };
+    if (space.ID && !prevState.ID) {
+      const { About, IsFurniture, ID } = space;
+      return { About, IsFurniture, ID };
     }
     return null;
   }

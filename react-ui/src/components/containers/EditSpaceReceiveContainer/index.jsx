@@ -62,9 +62,9 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
-    if (space.ID && prevState.ReceiptAbout === '') {
-      const { ReceiptType, ReceiptAbout } = space;
-      return { ReceiptType, ReceiptAbout };
+    if (space.ID && !prevState.ID) {
+      const { ReceiptType, ReceiptAbout, ID } = space;
+      return { ReceiptType, ReceiptAbout, ID };
     }
     return null;
   }

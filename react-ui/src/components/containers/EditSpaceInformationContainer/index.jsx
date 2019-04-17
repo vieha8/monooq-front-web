@@ -74,9 +74,9 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
-    if (space.ID && prevState.Title === '') {
-      const { Title, Type, Introduction, Address, Images } = space;
-      return { Title, Type, Introduction, Address, Images };
+    if (space.ID && !prevState.ID) {
+      const { Title, Type, Introduction, Address, Images, ID } = space;
+      return { Title, Type, Introduction, Address, Images, ID };
     }
     return null;
   }

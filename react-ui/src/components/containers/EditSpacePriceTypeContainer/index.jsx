@@ -73,9 +73,9 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
-    if (space.ID && prevState.PriceFull === '') {
-      const { PriceFull, PriceHalf, PriceQuarter } = space;
-      return { PriceFull, PriceHalf, PriceQuarter };
+    if (space.ID && !prevState.ID) {
+      const { PriceFull, PriceHalf, PriceQuarter, ID } = space;
+      return { PriceFull, PriceHalf, PriceQuarter, ID };
     }
     return null;
   }
