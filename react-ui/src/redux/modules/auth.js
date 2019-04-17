@@ -217,23 +217,25 @@ export function* getToken() {
 
 function* checkLoginFirebaseAuth() {
   let status = { isLogin: false };
-  const statusCache = localStorage.getItem('status');
 
-  if (statusCache) {
-    status = JSON.parse(statusCache);
-    const token = yield* getToken();
-    yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID }, token);
-    ReactGA.set({ userId: status.user.ID });
-    yield put(authActions.checkLoginSuccess(status));
-    const { user } = status;
-    Sentry.configureScope(scope => {
-      scope.setUser({
-        id: user.ID,
-        username: user.Name,
-        email: user.Email,
+  if (isAvailableLocalStorage()) {
+    const statusCache = localStorage.getItem('status');
+    if (statusCache) {
+      status = JSON.parse(statusCache);
+      const token = yield* getToken();
+      yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID }, token);
+      ReactGA.set({ userId: status.user.ID });
+      yield put(authActions.checkLoginSuccess(status));
+      const { user } = status;
+      Sentry.configureScope(scope => {
+        scope.setUser({
+          id: user.ID,
+          username: user.Name,
+          email: user.Email,
+        });
       });
-    });
-    return;
+      return;
+    }
   }
 
   const user = yield call(getLoginUserFirebaseAuth);
@@ -290,8 +292,10 @@ function* loginFacebook() {
 
 function* logout() {
   store.dispatch(replace(Path.top()));
-  localStorage.removeItem('status');
-  localStorage.removeItem('token');
+  if (isAvailableLocalStorage()) {
+    localStorage.removeItem('status');
+    localStorage.removeItem('token');
+  }
   yield firebase.auth().signOut();
 }
 
@@ -303,7 +307,10 @@ function* signUpEmail({ payload: { email, password } }) {
     const defaultImage =
       'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363';
 
-    const referrer = localStorage.getItem('referrer') || '';
+    let referrer = '';
+    if (isAvailableLocalStorage()) {
+      referrer = localStorage.getItem('referrer');
+    }
 
     const token = yield* getToken();
     const { data, status, err } = yield call(
@@ -343,7 +350,11 @@ function* signUpFacebook() {
       return;
     }
     const { displayName, email, uid, photoURL } = result.user;
-    const referrer = localStorage.getItem('referrer') || '';
+
+    let referrer = '';
+    if (isAvailableLocalStorage()) {
+      referrer = localStorage.getItem('referrer');
+    }
 
     const token = yield* getToken();
     const { data, err } = yield call(
