@@ -60,7 +60,7 @@ export default (props: PropTypes) => (
       <InputForm
         label="所在地"
         hintbottom="取引が成立するまで番地以降の住所は表示されません。番地は半角数字で入力してください。"
-        placeholder="例）東京都杉並区高円寺南2-48-12"
+        placeholder="例）東京都渋谷区渋谷2-6-6-201"
         value={props.address}
         onChange={e => props.onChangeAddress(e.target.value)}
       />
@@ -96,7 +96,7 @@ export default (props: PropTypes) => (
       <InputForm
         label="特徴がわかるタイトル"
         hintbottom="全角40文字まで"
-        placeholder="高円寺駅から徒歩５分！"
+        placeholder="【約6畳】新宿エリアのワンルーム！駐車場もあり搬入に便利！"
         value={props.title}
         onChange={e => props.onChangeTitle(e.target.value)}
       />
@@ -115,10 +115,9 @@ export default (props: PropTypes) => (
     <Section>
       <InputForm
         label="スペースの紹介文"
-        placeholder="家具も入れられるワンルームが余っています。数ヶ月の長期間でも可能です！
-朝〜夕方までなら荷物の出し入れにも対応できることもあります。"
+        placeholder="広さ6畳ほどのワンルームが余っています。長期利用も可能なので気軽にご相談ください！便利な新宿エリアで、駅から徒歩圏内の好アクセスです。駐車場もありますので、車搬入される場合も便利！"
         multiline
-        rows={5}
+        rows={6}
         value={props.introduction}
         onChange={e => props.onChangeIntroduction(e.target.value)}
       />
