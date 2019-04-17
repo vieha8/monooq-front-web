@@ -204,7 +204,7 @@ class MessageContainer extends Component<PropTypes, State> {
           return {
             estimate: {
               id: requestId,
-              name: room.space.Host.Name,
+              name: (room.space.Host || {}).Name,
               beginAt: startDate.toDate(),
               endAt: endDate.toDate(),
               price,
@@ -265,7 +265,7 @@ class MessageContainer extends Component<PropTypes, State> {
           {isHost ? (
             <UserInfo
               id={room.user.ID}
-              name={room.user.Name}
+              name={(room.user || {}).Name}
               imageUrl={room.user.ImageUrl}
               hostinfo
               message
@@ -273,7 +273,7 @@ class MessageContainer extends Component<PropTypes, State> {
           ) : (
             <HostInfo
               id={room.space.Host.ID}
-              name={room.space.Host.Name}
+              name={(room.space.Host || {}).Name}
               imageUrl={room.space.Host.ImageUrl}
               hostinfo
               message

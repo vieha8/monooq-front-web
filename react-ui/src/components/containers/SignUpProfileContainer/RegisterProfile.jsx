@@ -92,7 +92,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
         break;
 
       case 'name':
-        if (value.trim().length === 0) {
+        if (value === undefined ? true : value.trim().length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         }
         break;
@@ -104,7 +104,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
         break;
 
       case 'profile':
-        if (value.trim().length === 0) {
+        if (value === undefined ? true : value.trim().length === 0) {
           errors.push(ErrorMessage.PleaseInput);
         } else if (value.length > Validate.Profile.Max) {
           errors.push(ErrorMessage.LengthMax('自己紹介', Validate.Profile.Max));
