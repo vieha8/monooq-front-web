@@ -22,6 +22,7 @@ export const apiEndpoint = {
   sales: () => `/payments/payouts`,
   backlogAddIssue: () => `/backlog/issue`,
   features: id => `spaces/features/${id}`,
+  sections: () => `sections`,
 };
 
 const createApiInstance = token =>
