@@ -18,6 +18,8 @@ let messageObserverUnsubscribe = null;
 // Actions
 const FETCH_ROOMS_START = 'FETCH_ROOMS_START';
 const FETCH_ROOMS_END = 'FETCH_ROOMS_END';
+const FETCH_UNREAD_ROOMS_START = 'FETCH_UNREAD_ROOMS_START';
+const FETCH_UNREAD_ROOMS_END = 'FETCH_UNREAD_ROOMS_END';
 const FETCH_MESSAGES_START = 'FETCH_MESSAGES_START';
 const FETCH_MESSAGES_END = 'FETCH_MESSAGES_END';
 const SEND_MESSAGE = 'SEND_MESSAGE';
@@ -26,6 +28,8 @@ const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 export const messagesActions = createActions(
   FETCH_ROOMS_START,
   FETCH_ROOMS_END,
+  FETCH_UNREAD_ROOMS_START,
+  FETCH_UNREAD_ROOMS_END,
   FETCH_MESSAGES_START,
   FETCH_MESSAGES_END,
   SEND_MESSAGE,
@@ -49,6 +53,12 @@ export const messagesReducer = handleActions(
       ...state,
       isLoading: false,
       rooms: payload.rooms,
+      unreadRooms: payload.unreadRooms,
+    }),
+    [FETCH_UNREAD_ROOMS_START]: state => ({ ...state, isLoading: true }),
+    [FETCH_UNREAD_ROOMS_END]: (state, { payload }) => ({
+      ...state,
+      isLoading: false,
       unreadRooms: payload.unreadRooms,
     }),
     [FETCH_MESSAGES_START]: state => ({ ...state, messages: [], isLoading: true }),
@@ -92,10 +102,6 @@ const getRooms = userId =>
 
 function* fetchRoomStart() {
   const user = yield select(state => state.auth.user);
-  if (!user.ID) {
-    yield take(authActions.checkLoginSuccess);
-  }
-
   const rooms = yield getRooms(user.ID);
   const token = yield* getToken();
 
@@ -119,9 +125,29 @@ function* fetchRoomStart() {
     return room;
   });
 
-  const unreadRooms = rooms.filter(v => v.isRead === false).length;
+  const unreadRooms = res.filter(v => v.isRead === false).length;
 
   yield put(messagesActions.fetchRoomsEnd({ rooms: res, unreadRooms }));
+}
+
+function* fetchUnreladRooms() {
+  const user = yield select(state => state.auth.user);
+  const rooms = yield getRooms(user.ID);
+
+  const res = rooms.map((v, i) => {
+    const room = v;
+    room.isRead = room.isUnsubscribe;
+    if (room[`user${user.ID}LastReadDt`]) {
+      const lastMessageDt = parseInt(room.lastMessageDt.getTime() / 1000, 10);
+      const lastReadDt = room[`user${user.ID}LastReadDt`].seconds;
+      room.isRead = room.isRead || lastMessageDt <= lastReadDt;
+    }
+    return room;
+  });
+
+  const unreadRooms = res.filter(v => v.isRead === false).length;
+
+  yield put(messagesActions.fetchUnreadRoomsEnd({ unreadRooms }));
 }
 
 function messagesUnsubscribe() {
@@ -390,6 +416,7 @@ function* sendMessageAndNotice({ payload }) {
 // Sagas
 export const messagesSagas = [
   takeEvery(FETCH_ROOMS_START, fetchRoomStart),
+  takeEvery(FETCH_UNREAD_ROOMS_START, fetchUnreladRooms),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),
   takeEvery(SEND_MESSAGE, sendMessageAndNotice),
 ];
