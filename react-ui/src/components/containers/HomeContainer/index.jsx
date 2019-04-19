@@ -7,7 +7,8 @@ import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import SearchResult from 'components/LV3/SearchResult';
-import { spaceActions } from 'redux/modules/space';
+import ConciergeContents from 'components/LV2/ConciergeIntroduction';
+import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import LoadingPage from 'components/LV3/LoadingPage';
@@ -19,32 +20,12 @@ type PropTypes = {
   history: {
     push: Function,
   },
-  location: {
-    search: string,
-  },
-  isSearching: boolean,
-  spaces: Array<{
-    ID: number,
-    Images: Array<{
-      ImageUrl: string,
-    }>,
-    AddressTown: string,
-    Title: string,
-    IsFurniture: boolean,
-    PriceFull: number,
-    PriceHalf: number,
-    PriceQuarter: number,
-  }>,
 };
 
-type State = {
-  location: string,
-};
-
-class HomeContainer extends Component<PropTypes, State> {
+class HomeContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
-    props.dispatch(spaceActions.fetchFeatureSpaces());
+    props.dispatch(homeActions.fetchSections());
   }
 
   componentDidMount() {
@@ -56,14 +37,50 @@ class HomeContainer extends Component<PropTypes, State> {
     history.push(Path.space(space.ID));
   };
 
+  showSections = () => {
+    const { sections } = this.props;
+
+    return sections.map(({ ID, Title, Feature, DisplayType }) => {
+      const key = `section${ID}`;
+
+      if (DisplayType === 'concierge') {
+        return <ConciergeContents key={key} />;
+      }
+
+      const spaces = Feature.Spaces;
+      return (
+        <SearchResult
+          isHome
+          key={key}
+          caption={Title}
+          spaces={spaces.map(({ Space }) => ({
+            id: Space.ID,
+            image:
+              Space.Images.length !== 0
+                ? convertImgixUrl(
+                    Space.Images[0].ImageUrl,
+                    'fit=fillmax&fill-color=DBDBDB&w=170&h=120&format=auto',
+                  )
+                : dummySpaceImage,
+            title: Space.Title,
+            address: `${Space.AddressPref}${Space.AddressCity}`,
+            isFurniture: Space.IsFurniture,
+            priceFull: Space.PriceFull,
+            priceHalf: Space.PriceHalf,
+            priceQuarter: Space.PriceQuarter,
+          }))}
+        />
+      );
+    });
+  };
+
   render() {
     const auth = checkAuthState(this.props);
     if (auth) {
       return auth;
     }
 
-    const { features, isLoading } = this.props;
-
+    const { isLoading } = this.props;
     if (isLoading) {
       return <LoadingPage />;
     }
@@ -71,38 +88,7 @@ class HomeContainer extends Component<PropTypes, State> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        leftContent={
-          <HomeTemplate
-            //TODO 無理やりSearchResult使わずにホーム用のコンポーネントつくる
-            searchResult={features.map(
-              (v, i) =>
-                v.spaces.length > 0 && (
-                  <SearchResult
-                    isHome
-                    key={i}
-                    caption={v.title}
-                    spaces={v.spaces.map(s => ({
-                      id: s.ID,
-                      image:
-                        s.Images.length !== 0
-                          ? convertImgixUrl(
-                              s.Images[0].ImageUrl,
-                              'fit=fillmax&fill-color=DBDBDB&w=170&h=120&format=auto',
-                            )
-                          : dummySpaceImage,
-                      title: s.Title,
-                      address: `${s.AddressPref}${s.AddressCity}`,
-                      isFurniture: s.IsFurniture,
-                      priceFull: s.PriceFull,
-                      priceHalf: s.PriceHalf,
-                      priceQuarter: s.PriceQuarter,
-                    }))}
-                  />
-                ),
-            )}
-            noTopMargin
-          />
-        }
+        leftContent={<HomeTemplate sections={this.showSections()} />}
         rightContent={<ServiceMenu />}
       />
     );
@@ -111,8 +97,8 @@ class HomeContainer extends Component<PropTypes, State> {
 
 const mapStateToProps = state =>
   mergeAuthProps(state, {
-    features: state.space.features,
-    isLoading: state.space.isLoading,
+    sections: state.home.sections,
+    isLoading: state.home.isLoading,
   });
 
 export default connect(
