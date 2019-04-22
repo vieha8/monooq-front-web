@@ -9,6 +9,7 @@ import { authActions, getToken } from './auth';
 import { getApiRequest, putApiRequest, apiEndpoint } from '../helpers/api';
 import { errorActions } from './error';
 import { store } from '../store/index';
+import { isAvailableLocalStorage } from '../../helpers/storage';
 
 const TIMEOUT = 30000;
 
@@ -214,7 +215,9 @@ function* updateUser({ payload: { userId, body } }) {
     return;
   }
 
-  localStorage.removeItem('status');
+  if (isAvailableLocalStorage()) {
+    localStorage.removeItem('status');
+  }
   yield put(authActions.setUser(posts.data));
   yield put(userActions.updateSuccessUser(posts.data));
 

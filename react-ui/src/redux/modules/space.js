@@ -387,6 +387,10 @@ function* createSpace({ payload: { body } }) {
 }
 
 function* prepareUpdateSpace({ payload: spaceId }) {
+  if (Object.keys(yield select(state => state.auth.user)).length === 0) {
+    return;
+  }
+
   const spaceCache = yield select(state => state.ui.space);
   if (spaceCache.ID) {
     return;

@@ -1,9 +1,21 @@
 export function storageAvailable(type) {
+  let storage;
+  const x = '__storage_test__';
+
   try {
-    var storage = window[type],
-      x = '__storage_test__';
-    storage.setItem(x, x);
-    storage.removeItem(x);
+    storage = window[type];
+
+    if (storage === undefined) {
+      return false;
+    }
+
+    if (storage) {
+      storage.setItem(x, x);
+      storage.removeItem(x);
+    } else {
+      return false;
+    }
+
     return true;
   } catch (e) {
     return (

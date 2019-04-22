@@ -20,13 +20,17 @@ type PropTypes = {
 
 const Map = withScriptjs(
   withGoogleMap(({ lat, lng }: PropTypes) => {
-    if (lat === null || lng === null) {
+    if (lat === null || lng === null || lat === undefined || lng === undefined) {
       return null;
     }
+
+    const latFloat = parseFloat(lat);
+    const lngFloat = parseFloat(lng);
+
     return (
-      <GoogleMap defaultZoom={14} defaultCenter={{ lat: lat + 0.003, lng }}>
+      <GoogleMap defaultZoom={14} defaultCenter={{ lat: latFloat + 0.003, lng: lngFloat }}>
         <Marker
-          position={{ lat: lat - 0.003, lng }}
+          position={{ lat: latFloat - 0.003, lng: lngFloat }}
           icon={{
             url: mapMarkerIcon,
           }}

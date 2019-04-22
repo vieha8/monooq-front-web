@@ -371,7 +371,11 @@ function* request({ payload: { user, space } }) {
   );
   store.dispatch(push(Path.message(roomId)));
 
-  const isRequested = localStorage.getItem('isRequested');
+  let isRequested = 'false';
+  if (isAvailableLocalStorage()) {
+    isRequested = localStorage.getItem('isRequested');
+  }
+
   if (!isRequested && user.ID !== 2613) {
     window.dataLayer.push({ event: 'newRequest' }); // GTM
 
