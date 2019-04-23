@@ -36,9 +36,6 @@ const UPDATE_FAILED_SPACE = 'UPDATE_FAILED_SPACE';
 const SET_SPACE = 'SET_SPACE';
 const DELETE_SPACE = 'DELETE_SPACE';
 const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
-const FETCH_FEATURE_SPACES = 'FETCH_FEATURE_SPACES';
-const FETCH_SUCCESS_FEATURE_SPACES = 'FETCH_SUCCESS_FEATURE_SPACES';
-const FETCH_FAILED_FEATURE_SPACES = 'FETCH_FAILED_FEATURE_SPACES';
 const ADD_SPACE_ACCESS_LOG = 'ADD_SPACE_ACCESS_LOG';
 const DO_SEARCH = 'DO_SEARCH';
 const SUCCESS_SEARCH = 'SUCCESS_SEARCH';
@@ -62,9 +59,6 @@ export const spaceActions = createActions(
   SET_SPACE,
   DELETE_SPACE,
   PREPARE_UPDATE_SPACE,
-  FETCH_FEATURE_SPACES,
-  FETCH_SUCCESS_FEATURE_SPACES,
-  FETCH_FAILED_FEATURE_SPACES,
   ADD_SPACE_ACCESS_LOG,
   DO_SEARCH,
   SUCCESS_SEARCH,
@@ -84,33 +78,6 @@ const initialState = {
   location: '',
   spaces: [],
   maxCount: 0,
-  features: [
-    {
-      id: 6,
-      title: '東京都内で預けるならここ!',
-      spaces: [],
-    },
-    {
-      id: 7,
-      title: '大阪府内で預けるならここ!',
-      spaces: [],
-    },
-    {
-      id: 8,
-      title: '福岡県内で預けるならここ!',
-      spaces: [],
-    },
-    {
-      id: 9,
-      title: '大容量、倉庫スペース!',
-      spaces: [],
-    },
-    {
-      id: 5,
-      title: '最近閲覧したスペース',
-      spaces: [],
-    },
-  ],
 };
 
 export const spaceReducer = handleActions(
@@ -173,15 +140,6 @@ export const spaceReducer = handleActions(
     [PREPARE_UPDATE_SPACE]: state => ({
       ...state,
       isComplete: false,
-    }),
-    [FETCH_FEATURE_SPACES]: state => ({
-      ...state,
-      isLoading: true,
-    }),
-    [FETCH_SUCCESS_FEATURE_SPACES]: (state, action) => ({
-      ...state,
-      isLoading: false,
-      features: action.payload,
     }),
     [DO_SEARCH]: (state, action) => ({
       ...state,
@@ -429,6 +387,10 @@ function* createSpace({ payload: { body } }) {
 }
 
 function* prepareUpdateSpace({ payload: spaceId }) {
+  if (Object.keys(yield select(state => state.auth.user)).length === 0) {
+    return;
+  }
+
   const spaceCache = yield select(state => state.ui.space);
   if (spaceCache.ID) {
     return;
@@ -561,42 +523,6 @@ function* deleteSpace({ payload: { space } }) {
   window.location.href = Path.spaces();
 }
 
-// TODO エラーハンドリング(timeout系)
-function* getFeatureSpaces() {
-  let user = yield select(state => state.auth.user);
-  if (!user.ID) {
-    yield take(authActions.checkLoginSuccess);
-  }
-  user = yield select(state => state.auth.user);
-  const features = yield select(state => state.space.features);
-
-  const token = yield* getToken();
-
-  const res = yield Promise.all(
-    features.map(async v => {
-      const feature = v;
-      const featureId = v.id;
-
-      if (featureId === 5) {
-        const { data } = await getApiRequest(apiEndpoint.userSpaceAccessLog(user.ID), {}, token);
-        if (data === undefined) {
-          feature.spaces = {};
-        } else {
-          feature.spaces = data;
-        }
-        return feature;
-      }
-
-      // TODO エラーハンドリング
-      const { data } = await getApiRequest(apiEndpoint.features(featureId), {}, token);
-      feature.spaces = data;
-      return feature;
-    }),
-  );
-
-  yield put(spaceActions.fetchSuccessFeatureSpaces(res));
-}
-
 function* addSpaceAccessLog({ payload: { spaceId } }) {
   let user = yield select(state => state.auth.user);
   if (!user.ID) {
@@ -693,7 +619,6 @@ export const spaceSagas = [
   takeEvery(UPDATE_SPACE, updateSpace),
   takeEvery(PREPARE_UPDATE_SPACE, prepareUpdateSpace),
   takeEvery(DELETE_SPACE, deleteSpace),
-  takeEvery(FETCH_FEATURE_SPACES, getFeatureSpaces),
   takeEvery(ADD_SPACE_ACCESS_LOG, addSpaceAccessLog),
   takeEvery(DO_SEARCH, search),
   takeEvery(GET_GEOCODE, getGeocode),

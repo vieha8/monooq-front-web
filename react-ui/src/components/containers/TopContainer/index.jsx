@@ -17,9 +17,10 @@ class TopContainer extends React.Component {
     super(props);
 
     const { referrer } = document;
-    const referrerCache = localStorage.getItem('referrer');
-    if (!referrerCache && isAvailableLocalStorage()) {
-      localStorage.setItem('referrer', referrer);
+    if (isAvailableLocalStorage()) {
+      if (!localStorage.getItem('referrer')) {
+        localStorage.setItem('referrer', referrer);
+      }
     }
 
     this.state = {

@@ -15,6 +15,7 @@ import { requestReducer } from '../modules/request';
 import { salesReducer } from '../modules/sales';
 import { errorReducer } from '../modules/error';
 import { initReducer } from '../modules/init';
+import { homeReducer } from '../modules/home';
 import rootSaga from '../sagas';
 
 import { googleAnalytics } from '../middlewares/reactGAMiddlewares';
@@ -56,6 +57,7 @@ export default history => {
     sales: salesReducer,
     error: errorReducer,
     init: initReducer,
+    home: homeReducer,
   });
 
   store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
