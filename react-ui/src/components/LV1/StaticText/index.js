@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
-const Text = styled.p`
+const Text = styled.div`
   font-size: ${props => (props.fontSize ? `${props.fontSize}px` : `${FontSizes.small_15}px`)};
   line-height: ${props =>
     props.fontSize ? `${props.fontSize * 2}px` : `${FontSizes.small_15 * 2}px`};
