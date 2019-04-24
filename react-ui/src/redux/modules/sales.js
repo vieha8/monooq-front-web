@@ -205,8 +205,6 @@ function* sendPayouts({
     payouts,
   );
 
-  console.log(payouts);
-
   // 開発環境はinfoに対するメールとBacklog通知しない
   if (process.env.NODE_ENV !== 'production') {
     return;
