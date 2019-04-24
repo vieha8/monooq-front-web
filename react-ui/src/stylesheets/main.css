@@ -141,13 +141,41 @@
 /* 
   collapsible
  */
-/* The main container element */
 .Collapsible {
-  background-color: rgb(255, 255, 255);
   font-size: 15px;
   font-weight: bold;
   text-decoration: none;
   line-height: normal;
+  background-color: rgb(255, 255, 255);
+}
+
+.Collapsible__contentInner {
+  border-top: 0;
+}
+
+.Collapsible__contentInner p {
+  position: relative;
+  padding: 10px 16px;
+  border: 1px solid #dbdbdb;
+  border-bottom: none;
+}
+
+.Collapsible:last-child .Collapsible__contentInner p:first-child {
+  border-top: none;
+}
+
+.Collapsible:last-child .Collapsible__contentInner p:last-child {
+  border-bottom: 1px solid #dbdbdb;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.Collapsible__trigger {
+  display: block;
+  position: relative;
+  padding: 10px 16px;
+  border: 1px solid #dbdbdb;
+  border-bottom: none;
+  background-color: #f7f7f7;
 }
 
 .Collapsible:first-child .Collapsible__trigger {
@@ -163,76 +191,17 @@
   border-radius: 0px;
 }
 
-/* The content within the collaspable area */
-.Collapsible__contentInner {
-  /* padding: 10px;
-   border: 1px solid #DBDBDB; */
-  border-top: 0;
-}
-
-.Collapsible__contentInner p {
-  /* margin-bottom: 10px; */
-  font-size: 14px;
-  line-height: 20px;
-  padding: 10px;
-  border: 1px solid #dbdbdb;
-  border-bottom: none;
-}
-
-.Collapsible:last-child .Collapsible__contentInner p:first-child {
-  border-top: none;
-}
-
-.Collapsible:last-child .Collapsible__contentInner p:last-child {
-  border-bottom: 1px solid #dbdbdb;
-  border-radius: 0px 0px 4px 4px;
-}
-
-/* The link which when clicked opens the collapsable area */
-.Collapsible__trigger {
-  display: block;
-  position: relative;
-  border: 1px solid #dbdbdb;
-  border-bottom: none;
-  padding: 10px;
-  background: #f7f7f7;
-}
-
 .Collapsible__trigger:after {
-  font-family: 'FontAwesome';
   content: url(../images/toggle.svg);
-  border-radius: 4px;
-  background-color: #e85258;
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 16px;
+  top: 14px;
   width: 16px;
   height: 16px;
-  display: block;
+  border-radius: 4px;
   transition: transform 300ms;
 }
 
 .Collapsible__trigger.is-open::after {
   transform: rotateZ(180deg);
-}
-
-.Collapsible__trigger.is-disabled {
-  opacity: 0.5;
-  background-color: grey;
-}
-
-.CustomTriggerCSS {
-  background-color: lightcoral;
-  transition: background-color 200ms ease;
-}
-
-.CustomTriggerCSS--open {
-  background-color: darkslateblue;
-}
-
-.Collapsible__custom-sibling {
-  padding: 5px;
-  font-size: 12px;
-  background-color: #cbb700;
-  color: black;
 }
