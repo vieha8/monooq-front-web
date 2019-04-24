@@ -47,13 +47,14 @@ type PropTypes = {
   leftContent: React.Element<*>,
   rightContent: React.Element<*>,
   bottomButtonMargin?: string,
+  noMargin?: boolean,
 };
 
 export default (props: PropTypes) => (
   <div>
     {props.header}
     {props.meta}
-    <Page bottomButtonMargin={props.bottomButtonMargin}>
+    <Page bottomButtonMargin={props.bottomButtonMargin} noMargin={props.noMargin}>
       <ClearfixContainer>
         <Content>
           <LeftContent>

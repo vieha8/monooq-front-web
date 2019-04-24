@@ -1,19 +1,39 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
+import { Dimens } from 'variables';
 import Path from 'config/path';
 import HomeTemplate from 'components/templates/HomeTemplate';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
+import Collapsible from 'components/LV1/Collapsible';
 import SearchResult from 'components/LV3/SearchResult';
 import ConciergeContents from 'components/LV2/ConciergeIntroduction';
 import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
+import bannerPickupImage from 'images/banner-pickup.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import LoadingPage from 'components/LV3/LoadingPage';
 import { checkAuthState, mergeAuthProps } from '../AuthRequired';
 import connect from '../connect';
+
+const HomeWrap = styled.div`
+  ${media.tablet`
+    margin: auto ${Dimens.medium_15}px;
+  `};
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: auto;
+  margin-bottom: ${Dimens.medium2}px;
+  ${media.phone`
+    margin-bottom: ${Dimens.medium_15}px;
+  `};
+`;
 
 type PropTypes = {
   dispatch: Function,
@@ -88,8 +108,17 @@ class HomeContainer extends Component<PropTypes> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        leftContent={<HomeTemplate sections={this.showSections()} />}
+        leftContent={
+          <Fragment>
+            <Image src={bannerPickupImage} alt="banner-pickup" />
+            <HomeWrap>
+              <Collapsible />
+              <HomeTemplate sections={this.showSections()} />
+            </HomeWrap>
+          </Fragment>
+        }
         rightContent={<ServiceMenu />}
+        noMargin
       />
     );
   }

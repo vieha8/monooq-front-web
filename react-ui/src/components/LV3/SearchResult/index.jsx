@@ -7,7 +7,7 @@ import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
 
 const Container = styled.div`
-  width: 540px;
+  width: ${props => (props.isHome ? '100%' : '540px')};
   margin: 0 0 ${Dimens.medium4}px 0;
   ${media.tablet`
     width: 100%;
@@ -44,16 +44,14 @@ const CaptionWrap = styled.div`
   word-break: keep-all;
   font-size: ${FontSizes.medium2}px;
   font-weight: bold;
-  margin: 0 auto ${Dimens.medium2}px;
-  ${media.tablet`
-    margin: 5px auto ${Dimens.medium1}px;
-  `};
+  margin: 0 auto ${Dimens.medium}px;
   ${media.phone`
     word-break: unset;
   `};
 `;
 
 type PropTypes = {
+  isHome?: boolean,
   caption: string,
   spaces: Array<{
     id: number,
@@ -71,7 +69,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Container>
+  <Container isHome={props.isHome}>
     {props.caption && <CaptionWrap>{props.caption}</CaptionWrap>}
     {props.spaces.map((space, i) => (
       <Cell key={`result_list_result_item_${i}`.toString()} index={i}>
