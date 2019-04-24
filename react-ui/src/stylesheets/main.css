@@ -199,9 +199,8 @@
   width: 16px;
   height: 16px;
   border-radius: 4px;
-  transition: transform 300ms;
 }
 
 .Collapsible__trigger.is-open::after {
-  transform: rotateZ(180deg);
+  content: url(../images/toggle-rvs.svg);
 }
