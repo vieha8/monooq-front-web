@@ -36,6 +36,7 @@ const CHECK_LOGIN_SUCCESS = 'CHECK_LOGIN_SUCCESS';
 const CHECK_LOGIN_FAILED = 'CHECK_LOGIN_FAILED';
 
 const SET_USER = 'SET_USER';
+const SET_TOKEN = 'SET_TOKEN';
 
 export const authActions = createActions(
   LOGIN_EMAIL,
@@ -57,6 +58,7 @@ export const authActions = createActions(
   TOKEN_GENERATE,
   TOKEN_GENERATE_SUCCESS,
   SET_USER,
+  SET_TOKEN,
   UNSUBSCRIBE,
   UNSUBSCRIBE_SUCCESS,
   UNSUBSCRIBE_FAILED,
@@ -99,6 +101,8 @@ export const authReducer = handleActions(
     }),
     [LOGOUT]: state => ({
       ...state,
+      user: {},
+      token: null,
       isLogin: false,
     }),
     [CHECK_LOGIN]: state => ({
@@ -188,6 +192,11 @@ export const authReducer = handleActions(
       token: action.payload,
       isTokenGenerating: false,
     }),
+    [SET_TOKEN]: (state, action) => ({
+      ...state,
+      token: action.payload,
+      isTokenGenerating: false,
+    }),
   },
   initialState,
 );
@@ -215,6 +224,15 @@ export function* getToken() {
   return payload;
 }
 
+function* tokenGenerate() {
+  const { data, err } = yield call(postApiRequest, apiEndpoint.tokenGenerate(), {});
+  if (err) {
+    yield put(errorActions.setError(err));
+    return;
+  }
+  yield put(authActions.tokenGenerateSuccess(data.Token));
+}
+
 function* checkLoginFirebaseAuth() {
   let status = { isLogin: false };
 
@@ -222,7 +240,8 @@ function* checkLoginFirebaseAuth() {
     const statusCache = localStorage.getItem('status');
     if (statusCache) {
       status = JSON.parse(statusCache);
-      const token = yield* getToken();
+      const token = status.user.Token;
+      yield put(authActions.setToken(token));
       yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID }, token);
       ReactGA.set({ userId: status.user.ID });
       yield put(authActions.checkLoginSuccess(status));
@@ -396,15 +415,6 @@ function* passwordReset({ payload: { email } }) {
       yield put(errorActions.setError(err));
     }
   }
-}
-
-function* tokenGenerate() {
-  const { data, err } = yield call(postApiRequest, apiEndpoint.tokenGenerate(), {});
-  if (err) {
-    yield put(errorActions.setError(err));
-    return;
-  }
-  yield put(authActions.tokenGenerateSuccess(data.Token));
 }
 
 function* unsubscribe({ payload: { userId, reason, description } }) {
