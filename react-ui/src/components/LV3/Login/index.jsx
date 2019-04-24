@@ -38,7 +38,7 @@ export default (props: PropTypes) => (
     }
     pass={
       <IconInputField
-        right
+        right="true"
         iconClassName={props.ispasswordVisible ? 'fal fa-eye-slash' : 'fal fa-eye'}
         type={props.ispasswordVisible ? 'password' : 'text'}
         placeholder="パスワード"
