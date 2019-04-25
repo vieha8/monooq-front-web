@@ -54,17 +54,8 @@ class ScheduleContainer extends Component {
     roomId: '',
   });
 
-  render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
-    const { isLoading, schedule, history, user } = this.props;
-
-    if (isLoading) {
-      return <LoadingPage />;
-    }
+  showLeftContent = () => {
+    const { schedule, history, user } = this.props;
 
     const schedules = [].concat(
       ((schedule || {}).user || []).map(s => this.getScheduleProps(s, false)),
@@ -73,29 +64,36 @@ class ScheduleContainer extends Component {
 
     const isHost = user.IsHost;
 
+    return Array.isArray(schedules) && schedules.length > 0 ? (
+      <ScheduleList schedules={schedules} isHost={isHost} />
+    ) : (
+      <NoDataView
+        captionHead={isHost ? '利用されたスペースがありません' : '利用したスペースがありません'}
+        caption={
+          isHost
+            ? 'まだスペースは利用されていません。他のホストの方を参考に、スペース情報を充実させてみましょう。'
+            : '利用したスペースがありません。ご希望のスペースを見つけて連絡を取ってみましょう。'
+        }
+        buttonText="ホームへ戻る"
+        onClick={() => history.push(Path.home())}
+      />
+    );
+  };
+
+  render() {
+    const auth = checkAuthState(this.props);
+    if (auth) {
+      return auth;
+    }
+
+    const { isLoading } = this.props;
+
     return (
       <div>
         <MenuPageTemplate
           header={<Header />}
           headline="利用状況"
-          leftContent={
-            Array.isArray(schedules) && schedules.length > 0 ? (
-              <ScheduleList schedules={schedules} isHost={isHost} />
-            ) : (
-              <NoDataView
-                captionHead={
-                  isHost ? '利用されたスペースがありません' : '利用したスペースがありません'
-                }
-                caption={
-                  isHost
-                    ? 'まだスペースは利用されていません。他のホストの方を参考に、スペース情報を充実させてみましょう。'
-                    : '利用したスペースがありません。ご希望のスペースを見つけて連絡を取ってみましょう。'
-                }
-                buttonText="ホームへ戻る"
-                onClick={() => history.push(Path.home())}
-              />
-            )
-          }
+          leftContent={isLoading ? <LoadingPage /> : this.showLeftContent()}
           rightContent={<ServiceMenu />}
         />
       </div>
