@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as Sentry from '@sentry/browser';
 import { initActions } from 'redux/modules/init';
 import LoadingPage from 'components/LV3/LoadingPage';
+import SystemError from 'components/LV3/SystemError';
 
 class Root extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class Root extends React.Component {
 
     this.state = {
       isIncompatible,
+      hasError: false,
     };
     props.dispatch(initActions.init());
   }
@@ -28,6 +30,14 @@ class Root extends React.Component {
     </p>
   );
 
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    if (process.env.NODE_ENV !== 'production') {
+      console.error(error);
+    }
+    return { hasError: true };
+  }
+
   componentDidCatch(error, errorInfo) {
     Sentry.configureScope(scope => {
       Object.keys(errorInfo).forEach(key => {
@@ -39,7 +49,11 @@ class Root extends React.Component {
 
   render() {
     const { isInitialized, children } = this.props;
-    const { isIncompatible } = this.state;
+    const { isIncompatible, hasError } = this.state;
+
+    if (hasError) {
+      return <SystemError />;
+    }
 
     if (isIncompatible) {
       return this.incompatibleMessage();
