@@ -1,224 +1,68 @@
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
-import Loadable from 'react-loadable';
-import LoadingPage from 'components/LV3/LoadingPage';
+import loadable from '@loadable/component';
 import Path from './path';
 
-const Top = Loadable({
-  loader: () => import('components/containers/TopContainer'),
-  loading: LoadingPage,
-});
-
-const Login = Loadable({
-  loader: () => import('components/containers/LoginContainer'),
-  loading: LoadingPage,
-});
-
-const SignUp = Loadable({
-  loader: () => import('components/containers/SignUpContainer'),
-  loading: LoadingPage,
-});
-
-const SignUpProfile = Loadable({
-  loader: () => import('components/containers/SignUpProfileContainer'),
-  loading: LoadingPage,
-});
-
-const SignUpPurpose = Loadable({
-  loader: () => import('components/containers/SignUpPurposeContainer'),
-  loading: LoadingPage,
-});
-
-const ResetPassword = Loadable({
-  loader: () => import('components/containers/ResetPasswordContainer'),
-  loading: LoadingPage,
-});
-
-const Home = Loadable({
-  loader: () => import('components/containers/HomeContainer'),
-  loading: LoadingPage,
-});
-
-const Search = Loadable({
-  loader: () => import('components/containers/SearchResultContainer'),
-  loading: LoadingPage,
-});
-
-const SearchCondition = Loadable({
-  loader: () => import('components/containers/SearchConditionContainer'),
-  loading: LoadingPage,
-});
-
-const Space = Loadable({
-  loader: () => import('components/containers/SpaceContainer'),
-  loading: LoadingPage,
-});
-
-const Spaces = Loadable({
-  loader: () => import('components/containers/SpaceManagementContainer'),
-  loading: LoadingPage,
-});
-
-const Schedule = Loadable({
-  loader: () => import('components/containers/ScheduleContainer'),
-  loading: LoadingPage,
-});
-
-const Profile = Loadable({
-  loader: () => import('components/containers/ProfileContainer'),
-  loading: LoadingPage,
-});
-
-const EditProfile = Loadable({
-  loader: () => import('components/containers/EditProfileContainer'),
-  loading: LoadingPage,
-});
-
-const Inquiry = Loadable({
-  loader: () => import('components/containers/InquiryContainer'),
-  loading: LoadingPage,
-});
-
-const Messages = Loadable({
-  loader: () => import('components/containers/InboxContainer'),
-  loading: LoadingPage,
-});
-
-const Message = Loadable({
-  loader: () => import('components/containers/MessageContainer'),
-  loading: LoadingPage,
-});
-
-const Estimate = Loadable({
-  loader: () => import('components/containers/EstimateContainer'),
-  loading: LoadingPage,
-});
-
-const Payment = Loadable({
-  loader: () => import('components/containers/PaymentContainer'),
-  loading: LoadingPage,
-});
-
-const CreateSpaceInfo = Loadable({
-  loader: () => import('components/containers/EditSpaceInformationContainer'),
-  loading: LoadingPage,
-});
-
-const EditSpaceInfo = Loadable({
-  loader: () => import('components/containers/EditSpaceInformationContainer'),
-  loading: LoadingPage,
-});
-
-const CreateSpaceBaggage = Loadable({
-  loader: () => import('components/containers/EditSpaceBaggageContainer'),
-  loading: LoadingPage,
-});
-
-const EditSpaceBaggage = Loadable({
-  loader: () => import('components/containers/EditSpaceBaggageContainer'),
-  loading: LoadingPage,
-});
-
-const CreateSpaceReceive = Loadable({
-  loader: () => import('components/containers/EditSpaceReceiveContainer'),
-  loading: LoadingPage,
-});
-
-const EditSpaceReceive = Loadable({
-  loader: () => import('components/containers/EditSpaceReceiveContainer'),
-  loading: LoadingPage,
-});
-
-const CreateSpacePriceType = Loadable({
-  loader: () => import('components/containers/EditSpacePriceTypeContainer'),
-  loading: LoadingPage,
-});
-
-const EditSpacePriceType = Loadable({
-  loader: () => import('components/containers/EditSpacePriceTypeContainer'),
-  loading: LoadingPage,
-});
-
-const CreateSpaceConfirm = Loadable({
-  loader: () => import('components/containers/EditSpaceConfirmContainer'),
-  loading: LoadingPage,
-});
-
-const EditSpaceConfirm = Loadable({
-  loader: () => import('components/containers/EditSpaceConfirmContainer'),
-  loading: LoadingPage,
-});
-
-const CreateSpaceCompletion = Loadable({
-  loader: () => import('components/containers/EditSpaceCompletionContainer'),
-  loading: LoadingPage,
-});
-
-const EditSpaceCompletion = Loadable({
-  loader: () => import('components/containers/EditSpaceCompletionContainer'),
-  loading: LoadingPage,
-});
-
-const Unsubscribe = Loadable({
-  loader: () => import('components/containers/UnsubscribeContainer'),
-  loading: LoadingPage,
-});
-
-const Sales = Loadable({
-  loader: () => import('components/containers/SalesContainer'),
-  loading: LoadingPage,
-});
-
-const About = Loadable({
-  loader: () => import('components/containers/AboutContainer'),
-  loading: LoadingPage,
-});
-
-const Insurance = Loadable({
-  loader: () => import('components/containers/InsuranceContainer'),
-  loading: LoadingPage,
-});
-
-const Rule = Loadable({
-  loader: () => import('components/containers/RuleContainer'),
-  loading: LoadingPage,
-});
-
-const HowToUse = Loadable({
-  loader: () => import('components/containers/HowToUseContainer'),
-  loading: LoadingPage,
-});
-
-const Other = Loadable({
-  loader: () => import('components/containers/OtherContainer'),
-  loading: LoadingPage,
-});
-
-const NotFound = Loadable({
-  loader: () => import('components/containers/NotFoundContainer'),
-  loading: LoadingPage,
-});
-
-const CancelPolicy = Loadable({
-  loader: () => import('components/containers/CancellationPoliciesContainer'),
-  loading: LoadingPage,
-});
-
-const Asct = Loadable({
-  loader: () => import('components/containers/AsctContainer'),
-  loading: LoadingPage,
-});
-
-const Privacy = Loadable({
-  loader: () => import('components/containers/PrivacyContainer'),
-  loading: LoadingPage,
-});
-
-const Terms = Loadable({
-  loader: () => import('components/containers/TermsContainer'),
-  loading: LoadingPage,
-});
+const Top = loadable(() => import('components/containers/TopContainer'));
+const Login = loadable(() => import('components/containers/LoginContainer'));
+const SignUp = loadable(() => import('components/containers/SignUpContainer'));
+const SignUpProfile = loadable(() => import('components/containers/SignUpProfileContainer'));
+const SignUpPurpose = loadable(() => import('components/containers/SignUpPurposeContainer'));
+const ResetPassword = loadable(() => import('components/containers/ResetPasswordContainer'));
+const Home = loadable(() => import('components/containers/HomeContainer'));
+const Search = loadable(() => import('components/containers/SearchResultContainer'));
+const SearchCondition = loadable(() => import('components/containers/SearchConditionContainer'));
+const Space = loadable(() => import('components/containers/SpaceContainer'));
+const Spaces = loadable(() => import('components/containers/SpaceManagementContainer'));
+const Schedule = loadable(() => import('components/containers/ScheduleContainer'));
+const Profile = loadable(() => import('components/containers/ProfileContainer'));
+const EditProfile = loadable(() => import('components/containers/EditProfileContainer'));
+const Inquiry = loadable(() => import('components/containers/InquiryContainer'));
+const Messages = loadable(() => import('components/containers/InboxContainer'));
+const Message = loadable(() => import('components/containers/MessageContainer'));
+const Estimate = loadable(() => import('components/containers/EstimateContainer'));
+const Payment = loadable(() => import('components/containers/PaymentContainer'));
+const CreateSpaceInfo = loadable(() =>
+  import('components/containers/EditSpaceInformationContainer'),
+);
+const EditSpaceInfo = loadable(() => import('components/containers/EditSpaceInformationContainer'));
+const CreateSpaceBaggage = loadable(() =>
+  import('components/containers/EditSpaceBaggageContainer'),
+);
+const EditSpaceBaggage = loadable(() => import('components/containers/EditSpaceBaggageContainer'));
+const CreateSpaceReceive = loadable(() =>
+  import('components/containers/EditSpaceReceiveContainer'),
+);
+const EditSpaceReceive = loadable(() => import('components/containers/EditSpaceReceiveContainer'));
+const CreateSpacePriceType = loadable(() =>
+  import('components/containers/EditSpacePriceTypeContainer'),
+);
+const EditSpacePriceType = loadable(() =>
+  import('components/containers/EditSpacePriceTypeContainer'),
+);
+const CreateSpaceConfirm = loadable(() =>
+  import('components/containers/EditSpaceConfirmContainer'),
+);
+const EditSpaceConfirm = loadable(() => import('components/containers/EditSpaceConfirmContainer'));
+const CreateSpaceCompletion = loadable(() =>
+  import('components/containers/EditSpaceCompletionContainer'),
+);
+const EditSpaceCompletion = loadable(() =>
+  import('components/containers/EditSpaceCompletionContainer'),
+);
+const Unsubscribe = loadable(() => import('components/containers/UnsubscribeContainer'));
+const Sales = loadable(() => import('components/containers/SalesContainer'));
+const About = loadable(() => import('components/containers/AboutContainer'));
+const Insurance = loadable(() => import('components/containers/InsuranceContainer'));
+const Rule = loadable(() => import('components/containers/RuleContainer'));
+const HowToUse = loadable(() => import('components/containers/HowToUseContainer'));
+const Other = loadable(() => import('components/containers/OtherContainer'));
+const NotFound = loadable(() => import('components/containers/NotFoundContainer'));
+const CancelPolicy = loadable(() => import('components/containers/CancellationPoliciesContainer'));
+const Asct = loadable(() => import('components/containers/AsctContainer'));
+const Privacy = loadable(() => import('components/containers/PrivacyContainer'));
+const Terms = loadable(() => import('components/containers/TermsContainer'));
 
 export default ({ history }) => (
   <ConnectedRouter history={history}>
