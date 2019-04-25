@@ -178,7 +178,7 @@
   background-color: #f7f7f7;
 }
 
-.Collapsible:first-child .Collapsible__trigger {
+.Collapsible:nth-child(2) .Collapsible__trigger {
   border-radius: 4px 4px 0px 0px;
 }
 

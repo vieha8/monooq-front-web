@@ -29,9 +29,13 @@ const HomeWrap = styled.div`
 const Image = styled.img`
   width: 100%;
   height: auto;
-  margin-bottom: ${Dimens.medium2}px;
+  margin-bottom: ${Dimens.medium3_40}px;
+  border-radius: ${Dimens.small}px;
+  ${media.tablet`
+    border-radius: unset;
+  `};
   ${media.phone`
-    margin-bottom: ${Dimens.medium_15}px;
+    margin-bottom: ${Dimens.medium_20}px;
   `};
 `;
 

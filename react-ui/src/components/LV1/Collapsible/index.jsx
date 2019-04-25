@@ -7,7 +7,10 @@ import Collapsible from 'react-collapsible';
 import { Dimens, FontSizes } from 'variables';
 
 const CollapsibleeWrap = styled.div`
-  margin-bottom: ${Dimens.medium2}px;
+  margin-bottom: ${Dimens.medium4_50}px;
+  ${media.phone`
+    margin-bottom: ${Dimens.medium2_35}px;
+  `};
 `;
 
 const CaptionWrap = styled.div`
