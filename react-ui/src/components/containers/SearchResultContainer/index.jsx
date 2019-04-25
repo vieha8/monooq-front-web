@@ -219,51 +219,49 @@ class SearchResultContainer extends Component<PropTypes, State> {
         header={<Header />}
         headline={`「${condition}」のスペース検索結果${maxCount}件`}
         leftContent={
-          <Fragment>
-            <SearchResultTemplate
-              isSearching={isSearching}
-              meta={<Meta title={`${condition}のスペース検索結果 | モノオク`} />}
-              searchResult={
-                <InfiniteScroll
-                  pageStart={0}
-                  loadMore={this.loadItems}
-                  hasMore={isMore}
-                  loader={<Loader size="medium" key={0} />}
-                  initialLoad
-                >
-                  <SearchResult
-                    history={history}
-                    spaces={spaces.map(s => ({
-                      id: s.ID,
-                      image: (s.Images[0] || {}).ImageUrl,
-                      title: s.Title,
-                      address: `${s.AddressPref}${s.AddressCity}`,
-                      isFurniture: s.IsFurniture,
-                      priceFull: s.PriceFull,
-                      priceHalf: s.PriceHalf,
-                      priceQuarter: s.PriceQuarter,
-                      onClick: () => this.onClickSpace(s),
-                    }))}
-                  />
-                </InfiniteScroll>
-              }
-              options={
-                <Fragment>
-                  <SearchButtonWrap>
-                    <Button
-                      primary
-                      fontbold
-                      center
-                      onClick={() => history.push(Path.searchCondition())}
-                    >
-                      条件を変えて再検索する
-                    </Button>
-                  </SearchButtonWrap>
-                  <ConciergeContents />
-                </Fragment>
-              }
-            />
-          </Fragment>
+          <SearchResultTemplate
+            isSearching={isSearching}
+            meta={<Meta title={`${condition}のスペース検索結果 | モノオク`} />}
+            searchResult={
+              <InfiniteScroll
+                pageStart={0}
+                loadMore={this.loadItems}
+                hasMore={isMore}
+                loader={<Loader size="medium" key={0} />}
+                initialLoad
+              >
+                <SearchResult
+                  history={history}
+                  spaces={spaces.map(s => ({
+                    id: s.ID,
+                    image: (s.Images[0] || {}).ImageUrl,
+                    title: s.Title,
+                    address: `${s.AddressPref}${s.AddressCity}`,
+                    isFurniture: s.IsFurniture,
+                    priceFull: s.PriceFull,
+                    priceHalf: s.PriceHalf,
+                    priceQuarter: s.PriceQuarter,
+                    onClick: () => this.onClickSpace(s),
+                  }))}
+                />
+              </InfiniteScroll>
+            }
+            options={
+              <Fragment>
+                <SearchButtonWrap>
+                  <Button
+                    primary
+                    fontbold
+                    center
+                    onClick={() => history.push(Path.searchCondition())}
+                  >
+                    条件を変えて再検索する
+                  </Button>
+                </SearchButtonWrap>
+                <ConciergeContents />
+              </Fragment>
+            }
+          />
         }
         rightContent={<ServiceMenu />}
       />
