@@ -243,6 +243,8 @@ function* checkLoginFirebaseAuth() {
       let token = status.user.Token;
       if (token === '') {
         token = yield* getToken();
+        status.user.Token = token;
+        localStorage.setItem('status', JSON.stringify(status));
       }
       yield put(authActions.setToken(token));
       yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID }, token);
