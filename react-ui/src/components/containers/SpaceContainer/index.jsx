@@ -51,6 +51,15 @@ class SpaceContainer extends Component<PropTypes> {
     const spaceId = match.params.space_id;
     dispatch(spaceActions.fetchSpace({ spaceId }));
     dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
+
+    this.state = {
+      meta: {
+        title: '',
+        description: '',
+        url: '',
+        imageUrl: '',
+      },
+    };
   }
 
   componentDidMount() {
@@ -60,6 +69,28 @@ class SpaceContainer extends Component<PropTypes> {
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch(spaceActions.clearSpace());
+  }
+
+  static getDerivedStateFromProps(nextProps) {
+    const { space } = nextProps;
+    if (space && space.ID) {
+      const { Title, AddressPref, AddressCity, Introduction, ID } = space;
+
+      const { ImageUrl } = space.Images[0];
+      const ogImageUrl = ImageUrl.includes('data:image/png;base64,')
+        ? null
+        : space.Images[0].ImageUrl;
+
+      const meta = {
+        title: `${Title} - ${AddressPref}${AddressCity}の空きスペース | モノオク`,
+        description: Introduction,
+        url: `space/${ID}`,
+        imageUrl: ogImageUrl,
+      };
+
+      return { meta };
+    }
+    return null;
   }
 
   onClickSendMessage: Function;
@@ -74,75 +105,64 @@ class SpaceContainer extends Component<PropTypes> {
     dispatch(requestActions.request({ user, space }));
   };
 
-  render() {
-    const { user, space, isLoading, isRequesting } = this.props;
-
-    if (!user || !space || !space.Images || isLoading) {
-      return <LoadingPage />;
-    }
-
+  showLeftContent = () => {
+    const { space, user, isRequesting } = this.props;
     const isSelfSpace = user.ID === (space.Host || {}).ID;
+    return (
+      <Fragment>
+        <Detail
+          id={space.ID}
+          map={<SpaceMap lat={space.Latitude} lng={space.Longitude} />}
+          pref={space.AddressPref}
+          city={space.AddressCity}
+          town={space.AddressTown}
+          name={space.Title}
+          images={space.Images.map(image => ({
+            original: image.ImageUrl || dummySpaceImage,
+            thumbnail: image.ImageUrl || dummySpaceImage,
+          }))}
+          description={space.Introduction}
+          address={`${space.AddressPref}${space.AddressCity}${space.AddressTown}`}
+          type={SPACE_TYPES[space.Type]}
+          furniture={space.IsFurniture}
+          aboutBaggage={space.About}
+          delivery={
+            space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Delivery
+          }
+          meeting={
+            space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Meeting
+          }
+          supplement={space.ReceiptAbout}
+          user={{
+            id: space.Host.ID,
+            name: space.Host.Name,
+            imageUrl: space.Host.ImageUrl,
+            profile: space.Host.Profile,
+          }}
+          pricefull={numeral(space.PriceFull).format('0,0')}
+          pricehalf={space.PriceHalf > 0 && numeral(space.PriceHalf).format('0,0')}
+          pricequarter={space.PriceQuarter > 0 && numeral(space.PriceQuarter).format('0,0')}
+        />
+        <SendMessage
+          disabled={isSelfSpace}
+          onClick={isSelfSpace ? null : this.onClickSendMessage}
+          loading={isRequesting}
+        />
+      </Fragment>
+    );
+  };
 
-    const { ImageUrl } = space.Images[0];
-    const ogImageUrl = ImageUrl.includes('data:image/png;base64,')
-      ? null
-      : space.Images[0].ImageUrl;
+  render() {
+    const { space } = this.props;
+    const {
+      meta: { title, description, url, imageUrl },
+    } = this.state;
 
     return (
       <MenuPageTemplate
-        meta={
-          <Meta
-            title={`${space.Title} - ${space.AddressPref}${
-              space.AddressCity
-            }の空きスペース | モノオク`}
-            description={`${space.Introduction}`}
-            ogUrl={`space/${space.ID}`}
-            ogImageUrl={ogImageUrl}
-          />
-        }
+        meta={<Meta title={title} description={description} ogUrl={url} ogImageUrl={imageUrl} />}
         header={<Header />}
-        leftContent={
-          <Fragment>
-            <Detail
-              id={space.ID}
-              map={<SpaceMap lat={space.Latitude} lng={space.Longitude} />}
-              pref={space.AddressPref}
-              city={space.AddressCity}
-              town={space.AddressTown}
-              name={space.Title}
-              images={space.Images.map(image => ({
-                original: image.ImageUrl || dummySpaceImage,
-                thumbnail: image.ImageUrl || dummySpaceImage,
-              }))}
-              description={space.Introduction}
-              address={`${space.AddressPref}${space.AddressCity}${space.AddressTown}`}
-              type={SPACE_TYPES[space.Type]}
-              furniture={space.IsFurniture}
-              aboutBaggage={space.About}
-              delivery={
-                space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Delivery
-              }
-              meeting={
-                space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Meeting
-              }
-              supplement={space.ReceiptAbout}
-              user={{
-                id: space.Host.ID,
-                name: space.Host.Name,
-                imageUrl: space.Host.ImageUrl,
-                profile: space.Host.Profile,
-              }}
-              pricefull={numeral(space.PriceFull).format('0,0')}
-              pricehalf={space.PriceHalf > 0 && numeral(space.PriceHalf).format('0,0')}
-              pricequarter={space.PriceQuarter > 0 && numeral(space.PriceQuarter).format('0,0')}
-            />
-            <SendMessage
-              disabled={isSelfSpace}
-              onClick={isSelfSpace ? null : this.onClickSendMessage}
-              loading={isRequesting}
-            />
-          </Fragment>
-        }
+        leftContent={!space ? <LoadingPage /> : this.showLeftContent()}
         rightContent={<ServiceMenu />}
       />
     );
@@ -153,7 +173,6 @@ function mapStateToProps(state) {
   return {
     user: state.auth.user,
     space: state.space.space,
-    isLoading: state.space.isLoading,
     isRequesting: state.request.isLoading,
   };
 }

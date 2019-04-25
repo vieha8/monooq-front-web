@@ -85,7 +85,7 @@ export const spaceReducer = handleActions(
   {
     [CLEAR_SPACE]: state => ({
       ...state,
-      space: {},
+      space: null,
       isComplete: false,
     }),
     [FETCH_SPACE]: state => ({
