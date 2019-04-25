@@ -81,14 +81,11 @@ class HomeContainer extends Component<PropTypes> {
     }
 
     const { isLoading } = this.props;
-    if (isLoading) {
-      return <LoadingPage />;
-    }
 
     return (
       <MenuPageTemplate
         header={<Header />}
-        leftContent={<HomeTemplate sections={this.showSections()} />}
+        leftContent={isLoading ? <LoadingPage /> : <HomeTemplate sections={this.showSections()} />}
         rightContent={<ServiceMenu />}
       />
     );
