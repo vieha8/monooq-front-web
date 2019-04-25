@@ -56,49 +56,45 @@ class SpaceManagementContainer extends Component<PropTypes> {
   render() {
     const { isLoading, spaces, history } = this.props;
 
-    if (isLoading) {
-      return <LoadingPage />;
-    }
-
     return (
-      <div>
-        <MenuPageTemplate
-          header={<Header />}
-          headline="スペースの管理"
-          leftContent={
-            Array.isArray(spaces) && spaces.length > 0 ? (
-              <ManageSpaceList
-                spaces={spaces.map(space => ({
-                  image: {
-                    src: (space.Images[0] || {}).ImageUrl,
-                    alt: '',
-                  },
-                  address: `${space.Address}`,
-                  content: space.Title,
-                  furniture: space.IsFurniture,
-                  prices: [
-                    numeral(space.PriceFull).format('0,0'),
-                    numeral(space.PriceHalf).format('0,0'),
-                    numeral(space.PriceQuarter).format('0,0'),
-                  ],
-                  link: Path.space(space.ID),
-                  status: space.Status,
-                  onClickEdit: () => this.onClickEdit(space),
-                  onClickRemove: () => this.onClickRemove(space),
-                }))}
-              />
-            ) : (
-              <NoDataView
-                captionHead="登録したスペースがありません"
-                caption="スペースの登録がありません。以下のボタンからスペースを登録して荷物を預る準備をしましょう。"
-                buttonText="スペースを登録する"
-                onClick={() => history.push(Path.createSpaceInfo())}
-              />
-            )
-          }
-          rightContent={<ServiceMenu />}
-        />
-      </div>
+      <MenuPageTemplate
+        header={<Header />}
+        headline="スペースの管理"
+        leftContent={
+          isLoading ? (
+            <LoadingPage />
+          ) : Array.isArray(spaces) && spaces.length > 0 ? (
+            <ManageSpaceList
+              spaces={spaces.map(space => ({
+                image: {
+                  src: (space.Images[0] || {}).ImageUrl,
+                  alt: '',
+                },
+                address: `${space.Address}`,
+                content: space.Title,
+                furniture: space.IsFurniture,
+                prices: [
+                  numeral(space.PriceFull).format('0,0'),
+                  numeral(space.PriceHalf).format('0,0'),
+                  numeral(space.PriceQuarter).format('0,0'),
+                ],
+                link: Path.space(space.ID),
+                status: space.Status,
+                onClickEdit: () => this.onClickEdit(space),
+                onClickRemove: () => this.onClickRemove(space),
+              }))}
+            />
+          ) : (
+            <NoDataView
+              captionHead="登録したスペースがありません"
+              caption="スペースの登録がありません。以下のボタンからスペースを登録して荷物を預る準備をしましょう。"
+              buttonText="スペースを登録する"
+              onClick={() => history.push(Path.createSpaceInfo())}
+            />
+          )
+        }
+        rightContent={<ServiceMenu />}
+      />
     );
   }
 }
