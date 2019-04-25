@@ -12,7 +12,7 @@ const trackPage = page => {
 
 let currentPage = '';
 
-export const googleAnalytics = store => next => action => {
+const googleAnalytics = store => next => action => {
   if (action.type === '@@router/LOCATION_CHANGE') {
     const nextPage = `${action.payload.location.pathname}${action.payload.location.search}`;
     if (currentPage !== nextPage) {
