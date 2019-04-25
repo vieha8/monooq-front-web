@@ -30,7 +30,7 @@ const Item = styled.p``;
 const Count = styled.span`
   position: absolute;
   right: ${Dimens.medium}px;
-  top: ${Dimens.small2}px;
+  top: ${Dimens.small2_13}px;
   font-size: ${FontSizes.small_12}px;
   font-weight: normal;
 `;
