@@ -57,7 +57,8 @@
     "fix": "eslint src --fix",
     "flow": "flow",
     "precommit": "pretty-quick --staged",
-    "worker": "babel-node batch/worker.js"
+    "worker": "babel-node batch/worker.js",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "babel": {
     "presets": [
