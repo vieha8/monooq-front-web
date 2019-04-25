@@ -240,7 +240,10 @@ function* checkLoginFirebaseAuth() {
     const statusCache = localStorage.getItem('status');
     if (statusCache) {
       status = JSON.parse(statusCache);
-      const token = status.user.Token;
+      let token = status.user.Token;
+      if (token === '') {
+        token = yield* getToken();
+      }
       yield put(authActions.setToken(token));
       yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID }, token);
       ReactGA.set({ userId: status.user.ID });
