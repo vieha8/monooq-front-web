@@ -39,6 +39,7 @@ type PropTypes = {
   isPaymentSuccess: boolean,
   isSending: boolean,
   isPaymentFailed: boolean,
+  errMsgPayment: string,
 };
 
 const ValidateRegExp = {
@@ -189,6 +190,7 @@ class PaymentContainer extends Component<PropTypes> {
       isSending,
       isPaymentFailed,
       isPaymentSuccess,
+      errMsgPayment,
     } = this.props;
 
     const requestId = match.params.request_id;
@@ -215,6 +217,7 @@ class PaymentContainer extends Component<PropTypes> {
           ) : (
             <InputPayment
               paidError={isPaymentFailed}
+              errMsgPayment={errMsgPayment}
               onChangeName={value => this.handleChangeUI('name', value)}
               name={name}
               onChangeNumber={value => this.handleChangeUI('number', value)}
@@ -268,6 +271,7 @@ const mapStateToProps = state =>
     isSending: state.request.payment.isSending,
     isPaymentSuccess: state.request.payment.isSuccess,
     isPaymentFailed: state.request.payment.isFailed,
+    errMsgPayment: state.request.payment.errMsg,
   });
 
 export default connect(
