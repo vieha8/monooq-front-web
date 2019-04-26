@@ -64,37 +64,48 @@ class HomeContainer extends Component<PropTypes> {
   showSections = () => {
     const { sections } = this.props;
 
-    return sections.map(({ ID, Title, Feature, DisplayType }) => {
-      const key = `section${ID}`;
+    return sections.map(({ id, displayType, title, contents }) => {
+      const key = `section${id}`;
 
-      if (DisplayType === 'concierge') {
+      if (displayType === 'pickup_banner') {
+        return <Image key={key} src={bannerPickupImage} alt="banner-pickup" />;
+      }
+
+      if (displayType === 'regions') {
+        return <Collapsible />;
+      }
+
+      if (displayType === 'concierge') {
         return <ConciergeContents key={key} />;
       }
 
-      const spaces = Feature.Spaces;
-      return (
-        <SearchResult
-          isHome
-          key={key}
-          caption={Title}
-          spaces={spaces.map(({ Space }) => ({
-            id: Space.ID,
-            image:
-              Space.Images.length !== 0
-                ? convertImgixUrl(
-                    Space.Images[0].ImageUrl,
-                    'fit=fillmax&fill-color=DBDBDB&w=170&h=120&format=auto',
-                  )
-                : dummySpaceImage,
-            title: Space.Title,
-            address: `${Space.AddressPref}${Space.AddressCity}`,
-            isFurniture: Space.IsFurniture,
-            priceFull: Space.PriceFull,
-            priceHalf: Space.PriceHalf,
-            priceQuarter: Space.PriceQuarter,
-          }))}
-        />
-      );
+      if (displayType === 'features') {
+        return (
+          <SearchResult
+            isHome
+            key={key}
+            caption={title}
+            spaces={contents.map(({ Space }) => ({
+              id: Space.ID,
+              image:
+                Space.Images.length !== 0
+                  ? convertImgixUrl(
+                      Space.Images[0].ImageUrl,
+                      'fit=fillmax&fill-color=DBDBDB&w=170&h=120&format=auto',
+                    )
+                  : dummySpaceImage,
+              title: Space.Title,
+              address: `${Space.AddressPref}${Space.AddressCity}`,
+              isFurniture: Space.IsFurniture,
+              priceFull: Space.PriceFull,
+              priceHalf: Space.PriceHalf,
+              priceQuarter: Space.PriceQuarter,
+            }))}
+          />
+        );
+      }
+
+      return null;
     });
   };
 
@@ -105,21 +116,20 @@ class HomeContainer extends Component<PropTypes> {
     }
 
     const { isLoading } = this.props;
-    if (isLoading) {
-      return <LoadingPage />;
-    }
 
     return (
       <MenuPageTemplate
         header={<Header />}
         leftContent={
-          <Fragment>
-            <Image src={bannerPickupImage} alt="banner-pickup" />
-            <HomeWrap>
-              <Collapsible />
-              <HomeTemplate sections={this.showSections()} />
-            </HomeWrap>
-          </Fragment>
+          isLoading ? (
+            <LoadingPage />
+          ) : (
+            <Fragment>
+              <HomeWrap>
+                <HomeTemplate sections={this.showSections()} />
+              </HomeWrap>
+            </Fragment>
+          )
         }
         rightContent={<ServiceMenu />}
         noMargin
