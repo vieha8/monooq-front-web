@@ -72,7 +72,7 @@ class HomeContainer extends Component<PropTypes> {
       }
 
       if (displayType === 'regions') {
-        return <Collapsible />;
+        return <Collapsible key={key} contents={contents} />;
       }
 
       if (displayType === 'concierge') {
