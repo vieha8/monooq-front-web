@@ -39,9 +39,9 @@ type PropTypes = {
   contents: Object,
 };
 
-export default ({ contents }: PropTypes) => (
+export default ({ title, contents }: PropTypes) => (
   <CollapsibleWrap>
-    <CaptionWrap>地域からスペースを探す</CaptionWrap>
+    <CaptionWrap>{title}</CaptionWrap>
     {contents.map(({ ID: id, Name: name, Prefectures: prefectures }) => {
       return (
         <Collapsible key={`section_area_${id}`} trigger={name} open={name === '関東'}>
