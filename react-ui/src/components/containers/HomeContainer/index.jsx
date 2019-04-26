@@ -80,12 +80,23 @@ class HomeContainer extends Component<PropTypes> {
       }
 
       if (displayType === 'features' || displayType === 'region') {
+        const contentsLength = contents.length;
+        const isMore = contentsLength > 6;
+        const showContents = contents.slice(0, 6);
+
+        let onClickMore = () => {};
+        if (isMore) {
+          onClickMore = () => {
+            console.log('TEST');
+          };
+        }
+
         return (
           <SearchResult
             isHome
             key={key}
             caption={title}
-            spaces={contents.map(({ Space }) => ({
+            spaces={showContents.map(({ Space }) => ({
               id: Space.ID,
               image:
                 Space.Images.length !== 0
@@ -101,6 +112,8 @@ class HomeContainer extends Component<PropTypes> {
               priceHalf: Space.PriceHalf,
               priceQuarter: Space.PriceQuarter,
             }))}
+            isMore={isMore}
+            onClickMore={onClickMore}
           />
         );
       }
