@@ -79,7 +79,7 @@ class HomeContainer extends Component<PropTypes> {
         return <ConciergeContents key={key} />;
       }
 
-      if (displayType === 'features') {
+      if (displayType === 'features' || displayType === 'region') {
         return (
           <SearchResult
             isHome
