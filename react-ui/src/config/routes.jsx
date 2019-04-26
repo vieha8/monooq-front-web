@@ -40,6 +40,11 @@ const Home = Loadable({
   loading: LoadingPage,
 });
 
+const HomeRegion = Loadable({
+  loader: () => import('components/containers/HomeRegionContainer'),
+  loading: LoadingPage,
+});
+
 const Search = Loadable({
   loader: () => import('components/containers/SearchResultContainer'),
   loading: LoadingPage,
@@ -230,6 +235,7 @@ export default ({ history }) => (
       <Route exact path={Path.signUpPurpose()} component={SignUpPurpose} />
       <Route exact path={Path.resetPassword()} component={ResetPassword} />
       <Route exact path={Path.home()} component={Home} />
+      <Route exact path={Path.homeRegion()} component={HomeRegion} />
       <Route exact path={Path.search()} component={Search} />
       <Route exact path={Path.searchCondition()} component={SearchCondition} />
       <Route exact path={Path.space()} component={Space} />

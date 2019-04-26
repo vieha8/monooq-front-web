@@ -23,6 +23,7 @@ export const apiEndpoint = {
   backlogAddIssue: () => `/backlog/issue`,
   features: id => `spaces/features/${id}`,
   sections: () => `sections`,
+  sectionsByRegionId: id => `sections/regions/${id}`,
 };
 
 const createApiInstance = token =>

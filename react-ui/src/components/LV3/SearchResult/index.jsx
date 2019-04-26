@@ -51,9 +51,7 @@ const CaptionWrap = styled.div`
   `};
 `;
 
-const SpacesWrap = styled.div`
-  text-align: center;
-`;
+const SpacesWrap = styled.div``;
 
 type PropTypes = {
   isHome?: boolean,

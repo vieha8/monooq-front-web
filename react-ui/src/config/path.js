@@ -4,6 +4,7 @@ const SPACE_ID = ':space_id';
 const MESSAGE_ROOM_ID = ':message_room_id';
 const SCHEDULE_ID = ':schedule_id';
 const REQUEST_ID = ':request_id';
+const REGION_ID = ':region_id';
 
 export default {
   // トップ
@@ -14,6 +15,7 @@ export default {
   searchCondition: () => '/search/condition',
   // ホーム
   home: () => '/home',
+  homeRegion: (regionId = REGION_ID) => `/home/region/${regionId}`,
   // スペース詳細
   space: (spaceId = SPACE_ID) => `/space/${spaceId}`,
   // スペース作成
