@@ -69,6 +69,7 @@ class HomeRegionContainer extends Component<PropTypes> {
   };
 
   showSections = () => {
+    // TODO component化してHomeContainerと一緒にする
     const { sections } = this.props;
 
     return sections.map(({ id, displayType, title, contents }) => {
@@ -91,12 +92,7 @@ class HomeRegionContainer extends Component<PropTypes> {
         const isMore = contentsLength > 6;
         const showContents = contents.slice(0, 6);
 
-        let onClickMore = () => {};
-        if (isMore) {
-          onClickMore = () => {
-            console.log('TEST');
-          };
-        }
+        const onClickMore = () => {}; // TODO
 
         return (
           <SearchResult

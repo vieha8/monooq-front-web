@@ -62,9 +62,9 @@ class HomeContainer extends Component<PropTypes> {
   };
 
   showSections = () => {
-    const { sections } = this.props;
+    const { sections, history } = this.props;
 
-    return sections.map(({ id, displayType, title, contents }) => {
+    return sections.map(({ id, displayType, title, contents, regionId }) => {
       const key = `section${id}`;
 
       if (displayType === 'pickup_banner') {
@@ -86,9 +86,11 @@ class HomeContainer extends Component<PropTypes> {
 
         let onClickMore = () => {};
         if (isMore) {
-          onClickMore = () => {
-            console.log('TEST');
-          };
+          if (displayType === 'region' && regionId !== 0) {
+            onClickMore = () => {
+              history.push(Path.homeRegion(regionId));
+            };
+          }
         }
 
         return (
