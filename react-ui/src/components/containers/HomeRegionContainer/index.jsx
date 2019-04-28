@@ -11,10 +11,8 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import Collapsible from 'components/LV1/Collapsible';
 import SearchResult from 'components/LV3/SearchResult';
-import ConciergeContents from 'components/LV2/ConciergeIntroduction';
 import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
-import bannerPickupImage from 'images/banner-pickup.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import LoadingPage from 'components/LV3/LoadingPage';
 import { checkAuthState, mergeAuthProps } from '../AuthRequired';
@@ -23,19 +21,6 @@ import connect from '../connect';
 const HomeWrap = styled.div`
   ${media.tablet`
     margin: auto ${Dimens.medium_15}px;
-  `};
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: auto;
-  margin-bottom: ${Dimens.medium3_40}px;
-  border-radius: ${Dimens.small}px;
-  ${media.tablet`
-    border-radius: unset;
-  `};
-  ${media.phone`
-    margin-bottom: ${Dimens.medium_20}px;
   `};
 `;
 
@@ -70,29 +55,29 @@ class HomeRegionContainer extends Component<PropTypes> {
 
   showSections = () => {
     // TODO component化してHomeContainerと一緒にする
-    const { sections } = this.props;
+    const { sections, history } = this.props;
 
     return sections.map(({ id, displayType, title, contents }) => {
       const key = `section${id}`;
-
-      if (displayType === 'pickup_banner') {
-        return <Image key={key} src={bannerPickupImage} alt="banner-pickup" />;
-      }
 
       if (displayType === 'regions') {
         return <Collapsible key={key} title={title} contents={contents} isOpen />;
       }
 
-      if (displayType === 'concierge') {
-        return <ConciergeContents key={key} />;
-      }
-
-      if (displayType === 'features' || displayType === 'region' || displayType === 'prefecture') {
+      if (displayType === 'prefecture') {
         const contentsLength = contents.length;
+        contents.sort(() => Math.random() - 0.5); // 並び順をランダム化
         const isMore = contentsLength > 6;
         const showContents = contents.slice(0, 6);
 
-        const onClickMore = () => {}; // TODO
+        let onClickMore = () => {};
+        if (isMore) {
+          if (displayType === 'prefecture' && contents[0].PrefectureId !== 0) {
+            onClickMore = () => {
+              history.push(Path.homePrefecture(contents[0].PrefectureId));
+            };
+          }
+        }
 
         return (
           <SearchResult
