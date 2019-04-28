@@ -33,6 +33,15 @@ const Page = styled.div`
     margin-top: 0;
   `};
 
+  ${media.tablet`
+    ${props =>
+      props.noMargin &&
+      `
+      margin-top: 0px;
+      padding: ${HeaderHeight - 20}px 0px;
+    `};
+  `};
+
   ${media.phone`
     margin-top: 20px;
     ${props =>
@@ -42,6 +51,12 @@ const Page = styled.div`
       position: relative;
       padding-bottom: ${props.bottomButtonMargin}px;
       box-sizing: border-box;
+    `};
+    ${props =>
+      props.noMargin &&
+      `
+      margin-top: 0px;
+      padding: ${HeaderHeight - 20}px 0px;
     `};
   `};
 `;

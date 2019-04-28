@@ -43,11 +43,21 @@ export const homeReducer = handleActions(
 );
 
 // Sagas
-function* getSections() {
+function* getSections({ payload }) {
   const token = yield* getToken();
+  let api = apiEndpoint.sections();
 
-  const { posts: payload, timeout } = yield race({
-    posts: call(getApiRequest, apiEndpoint.sections(), {}, token),
+  if (payload) {
+    if (payload.regionId) {
+      api = apiEndpoint.sectionsByRegionId(payload.regionId);
+    }
+    if (payload.prefectureId) {
+      api = apiEndpoint.sectionsByPrefectureId(payload.prefectureId);
+    }
+  }
+
+  const { posts: response, timeout } = yield race({
+    posts: call(getApiRequest, api, {}, token),
     timeout: delay(TIMEOUT),
   });
 
@@ -57,13 +67,13 @@ function* getSections() {
     yield put(errorActions.setError(`timeout(${functionName})`));
     return;
   }
-  if (payload.err) {
-    yield put(homeActions.fetchFailedSections(`error(${functionName}):${payload.err}`));
-    yield put(errorActions.setError(`error(${functionName}):${payload.err}`));
+  if (response.err) {
+    yield put(homeActions.fetchFailedSections(`error(${functionName}):${response.err}`));
+    yield put(errorActions.setError(`error(${functionName}):${response.err}`));
     return;
   }
 
-  yield put(homeActions.fetchSuccessSections(payload.data));
+  yield put(homeActions.fetchSuccessSections(response.data));
 }
 
 export const homeSagas = [takeEvery(FETCH_SECTIONS, getSections)];

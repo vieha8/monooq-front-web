@@ -137,3 +137,71 @@
     height: 200px;
   }
 }
+
+/* 
+  collapsible
+ */
+.Collapsible {
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  line-height: normal;
+  background-color: rgb(255, 255, 255);
+}
+
+.Collapsible__contentInner {
+  border-top: 0;
+}
+
+.Collapsible__contentInner p {
+  position: relative;
+  padding: 10px 16px;
+  border: 1px solid #dbdbdb;
+  border-bottom: none;
+}
+
+.Collapsible:last-child .Collapsible__contentInner p:first-child {
+  border-top: none;
+}
+
+.Collapsible:last-child .Collapsible__contentInner p:last-child {
+  border-bottom: 1px solid #dbdbdb;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.Collapsible__trigger {
+  display: block;
+  position: relative;
+  padding: 10px 16px;
+  border: 1px solid #dbdbdb;
+  border-bottom: none;
+  background-color: #f7f7f7;
+}
+
+.Collapsible:nth-child(2) .Collapsible__trigger {
+  border-radius: 4px 4px 0px 0px;
+}
+
+.Collapsible:last-child .Collapsible__trigger {
+  border-bottom: 1px solid #dbdbdb;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.Collapsible:last-child .Collapsible__trigger.is-open {
+  border-radius: 0px;
+}
+
+.Collapsible__trigger:after {
+  content: '';
+  background-image: url(../images/toggle.svg);
+  position: absolute;
+  right: 16px;
+  top: 14px;
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+}
+
+.Collapsible__trigger.is-open::after {
+  transform: rotateZ(180deg);
+}
