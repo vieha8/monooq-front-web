@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
 
-const CatchPhrase = styled.div`
+const CatchPhrase = styled.h1`
   font-size: ${FontSizes.xxlarge}px;
   line-height: ${FontSizes.xxlarge * 1.5}px;
   font-weight: bold;

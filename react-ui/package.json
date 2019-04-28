@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
+    "@loadable/component": "^5.9.0",
     "@sentry/browser": "^4.0.4",
     "axios": "^0.18.0",
     "base-64": "^0.1.0",
@@ -12,6 +13,7 @@
     "decode-uri-component": "^0.2.0",
     "firebase": "^5.4.2",
     "history": "^4.7.2",
+    "keen-tracking": "^4.4.0",
     "moment": "^2.22.2",
     "numeral": "^2.0.6",
     "raven-for-redux": "^1.3.1",
@@ -29,7 +31,6 @@
     "react-helmet": "^5.2.0",
     "react-image-gallery": "^0.8.11",
     "react-infinite-scroller": "^1.2.0",
-    "react-loadable": "^5.5.0",
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
@@ -57,7 +58,8 @@
     "fix": "eslint src --fix",
     "flow": "flow",
     "precommit": "pretty-quick --staged",
-    "worker": "babel-node batch/worker.js"
+    "worker": "babel-node batch/worker.js",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "babel": {
     "presets": [

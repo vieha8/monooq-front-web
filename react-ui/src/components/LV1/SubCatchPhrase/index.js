@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { FontSizes } from 'variables';
 
-const SubCatchPhrase = styled.span`
+const SubCatchPhrase = styled.h2`
   display: block;
   font-size: ${FontSizes.medium3}px;
   line-height: ${FontSizes.medium3 * 1.5}px;

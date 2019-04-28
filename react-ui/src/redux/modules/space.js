@@ -3,22 +3,23 @@ import { put, takeEvery, take, call, select, race, delay } from 'redux-saga/effe
 import { push } from 'connected-react-router';
 import axios from 'axios';
 import dummySpaceImage from 'images/dummy_space.png';
-import { store } from '../store/index';
-import { uploadImage } from '../helpers/firebase';
-import fileType from '../../helpers/file-type';
-import { authActions, getToken } from './auth';
-import { uiActions } from './ui';
+import { store } from 'redux/store/index';
+import { authActions, getToken } from 'redux/modules/auth';
+import { uiActions } from 'redux/modules/ui';
+import { errorActions } from 'redux/modules/error';
 import {
   getApiRequest,
   postApiRequest,
   putApiRequest,
   deleteApiRequest,
   apiEndpoint,
-} from '../helpers/api';
-import { errorActions } from './error';
-import { convertBaseUrl, convertImgixUrl } from '../../helpers/imgix';
-import Path from '../../config/path';
-import { getPrefecture } from '../../helpers/prefectures';
+} from 'redux/helpers/api';
+import { uploadImage } from 'redux/helpers/firebase';
+import fileType from 'helpers/file-type';
+import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
+import { getPrefecture } from 'helpers/prefectures';
+import { keenClient } from 'helpers/keen';
+import Path from 'config/path';
 
 const TIMEOUT = 30000;
 
@@ -84,7 +85,7 @@ export const spaceReducer = handleActions(
   {
     [CLEAR_SPACE]: state => ({
       ...state,
-      space: {},
+      space: null,
       isComplete: false,
     }),
     [FETCH_SPACE]: state => ({
@@ -601,6 +602,20 @@ function* search({
       });
     }
     return space;
+  });
+
+  const user = yield select(state => state.auth.user);
+
+  keenClient.recordEvent('search', {
+    keyword,
+    priceMin,
+    priceMax,
+    receiptType,
+    type,
+    isFurniture,
+    prefecture: getPrefecture(prefCode),
+    user,
+    env: process.env.NODE_ENV,
   });
 
   const isMore = res.length === limit;

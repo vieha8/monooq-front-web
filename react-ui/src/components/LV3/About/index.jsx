@@ -10,7 +10,6 @@ import Hr from 'components/LV1/HorizontalRule';
 import Text from 'components/LV1/StaticText';
 import WhenIUseList from 'components/LV2/WhenIUseList';
 import IfIFindList from 'components/LV2/IfIFindList';
-
 import mainVisual from 'images/about_main_visual@2x.jpg';
 import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';
 import useImage1 from 'images/about_use1@2x.jpg';
@@ -98,13 +97,6 @@ const TopLabelWrapper = styled.div`
 `;
 
 const TopLabel = styled.div`
-  :before {
-    content: '\f00c';
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    font-size: ${FontSizes.medium}px;
-    margin-right: 10px;
-  }
   height: 40px;
   width: 212px;
   border-radius: 2px;
@@ -262,18 +254,14 @@ export default () => (
       <ContentContainer>
         <SubTitle>お支払い方法の追加</SubTitle>
         <Text>
-          <p>現在はクレジットカード決済・銀行振込*に対応しております。</p>
-          <p>取引成立時のお支払いに使用可能なクレジットカードは下記となります。</p>
+          現在はクレジットカード決済・銀行振込に対応しております。
+          <br />
+          取引成立時のお支払いに使用可能なクレジットカードは下記となります。
           <List>
             <li>VISA</li>
             <li>MasterCard</li>
-            {/*<li>JCB</li>*/}
-            {/*<li>Diners Club</li>*/}
-            {/*<li>American Express</li>*/}
           </List>
-          <p>
-            *銀行振込をご希望の場合は、ホストの発行する見積もりを確認した後にinfo@monooq.comまでご連絡ください。
-          </p>
+          *銀行振込をご希望の場合は、ホストが発行する見積もりを確認した後にinfo@monooq.comまでご連絡ください。
         </Text>
         <Hr />
       </ContentContainer>

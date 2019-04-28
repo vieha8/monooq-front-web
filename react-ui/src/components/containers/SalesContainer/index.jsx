@@ -378,42 +378,28 @@ class SalesContainer extends Component {
       return auth;
     }
 
-    if (this.props.isLoading) {
-      return <LoadingPage />;
+    const { isLoading } = this.props;
+    const { isConfirm, isSend } = this.state;
+
+    let headline = '売上・振込申請';
+    let leftContent = this.leftContent();
+
+    if (isConfirm) {
+      headline = '振込申請確認';
+      leftContent = this.leftContentConfirm();
     }
 
-    if (this.state.isConfirm) {
-      return (
-        <Fragment>
-          <MenuPageTemplate
-            header={<Header />}
-            headline="振込申請の確認"
-            leftContent={this.leftContentConfirm()}
-            rightContent={<ServiceMenu />}
-          />
-        </Fragment>
-      );
-    }
-
-    if (this.state.isSend) {
-      return (
-        <Fragment>
-          <MenuPageTemplate
-            header={<Header />}
-            headline="振込申請の完了"
-            leftContent={this.leftContentComplete()}
-            rightContent={<ServiceMenu />}
-          />
-        </Fragment>
-      );
+    if (isSend) {
+      headline = '振込申請完了';
+      leftContent = this.leftContentComplete();
     }
 
     return (
       <Fragment>
         <MenuPageTemplate
           header={<Header />}
-          headline="売上・振込申請"
-          leftContent={this.leftContent()}
+          headline={headline}
+          leftContent={isLoading ? <LoadingPage /> : leftContent}
           rightContent={<ServiceMenu />}
         />
       </Fragment>

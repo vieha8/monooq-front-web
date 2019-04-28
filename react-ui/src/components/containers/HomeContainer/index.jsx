@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
@@ -140,11 +140,9 @@ class HomeContainer extends Component<PropTypes> {
           isLoading ? (
             <LoadingPage />
           ) : (
-            <Fragment>
-              <HomeWrap>
-                <HomeTemplate sections={this.showSections()} />
-              </HomeWrap>
-            </Fragment>
+            <HomeWrap>
+              <HomeTemplate sections={this.showSections()} />
+            </HomeWrap>
           )
         }
         rightContent={<ServiceMenu />}

@@ -51,6 +51,7 @@ const IconInputField = styled(InputField)`
 
 type PropTypes = {
   iconClassName: string,
+  right: boolean,
 };
 
 export default (props: PropTypes) => (
