@@ -5,6 +5,7 @@ const MESSAGE_ROOM_ID = ':message_room_id';
 const SCHEDULE_ID = ':schedule_id';
 const REQUEST_ID = ':request_id';
 const REGION_ID = ':region_id';
+const PREFECTURE_ID = ':prefecture_id';
 
 export default {
   // トップ
@@ -16,6 +17,7 @@ export default {
   // ホーム
   home: () => '/home',
   homeRegion: (regionId = REGION_ID) => `/home/region/${regionId}`,
+  homePrefecture: (prefectureId = PREFECTURE_ID) => `/home/prefecture/${prefectureId}`,
   // スペース詳細
   space: (spaceId = SPACE_ID) => `/space/${spaceId}`,
   // スペース作成

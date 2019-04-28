@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
 import { Dimens, FontSizes } from 'variables';
+import { Link } from 'react-router-dom';
+import Path from 'config/path';
 
 const CollapsibleWrap = styled.div`
   margin-bottom: ${Dimens.medium4_50}px;
@@ -25,7 +27,9 @@ const CaptionWrap = styled.div`
   `};
 `;
 
-const Item = styled.p``;
+const Item = styled.p`
+  color: black;
+`;
 
 const Count = styled.span`
   position: absolute;
@@ -38,6 +42,7 @@ const Count = styled.span`
 type PropTypes = {
   title: string,
   contents: Object,
+  isOpen: boolean,
 };
 
 export default ({ title, contents, isOpen }: PropTypes) => (
@@ -52,10 +57,15 @@ export default ({ title, contents, isOpen }: PropTypes) => (
                 return null;
               }
               return (
-                <Item key={`section_area_prefecture_${prefectureId}`}>
-                  {prefectureName}
-                  <Count>{`${prefectureSpaces.length}件`}</Count>
-                </Item>
+                <Link
+                  to={Path.homePrefecture(prefectureId)}
+                  key={`section_area_prefecture_${prefectureId}`}
+                >
+                  <Item>
+                    {prefectureName}
+                    <Count>{`${prefectureSpaces.length}件`}</Count>
+                  </Item>
+                </Link>
               );
             },
           )}

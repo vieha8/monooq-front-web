@@ -45,6 +45,11 @@ const HomeRegion = Loadable({
   loading: LoadingPage,
 });
 
+const HomePrefecture = Loadable({
+  loader: () => import('components/containers/HomePrefectureContainer'),
+  loading: LoadingPage,
+});
+
 const Search = Loadable({
   loader: () => import('components/containers/SearchResultContainer'),
   loading: LoadingPage,
@@ -236,6 +241,7 @@ export default ({ history }) => (
       <Route exact path={Path.resetPassword()} component={ResetPassword} />
       <Route exact path={Path.home()} component={Home} />
       <Route exact path={Path.homeRegion()} component={HomeRegion} />
+      <Route exact path={Path.homePrefecture()} component={HomePrefecture} />
       <Route exact path={Path.search()} component={Search} />
       <Route exact path={Path.searchCondition()} component={SearchCondition} />
       <Route exact path={Path.space()} component={Space} />
