@@ -60,18 +60,14 @@ class HomePrefectureContainer extends Component<PropTypes> {
       const key = `section${id}`;
 
       if (displayType === 'prefecture') {
-        const contentsLength = contents.length;
-        const isMore = contentsLength > 6;
-        const showContents = contents.slice(0, 6);
-
-        const onClickMore = () => {}; // TODO
+        const onClickMore = () => {};
 
         return (
           <SearchResult
             isHome
             key={key}
             caption={title}
-            spaces={showContents.map(({ Space }) => ({
+            spaces={contents.map(({ Space }) => ({
               id: Space.ID,
               image:
                 Space.Images.length !== 0
@@ -87,7 +83,7 @@ class HomePrefectureContainer extends Component<PropTypes> {
               priceHalf: Space.PriceHalf,
               priceQuarter: Space.PriceQuarter,
             }))}
-            isMore={isMore}
+            isMore={false}
             onClickMore={onClickMore}
           />
         );
