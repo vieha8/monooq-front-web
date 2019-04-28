@@ -36,15 +36,16 @@ const Count = styled.span`
 `;
 
 type PropTypes = {
+  title: string,
   contents: Object,
 };
 
-export default ({ title, contents }: PropTypes) => (
+export default ({ title, contents, isOpen }: PropTypes) => (
   <CollapsibleWrap>
     <CaptionWrap>{title}</CaptionWrap>
     {contents.map(({ ID: id, Name: name, Prefectures: prefectures }) => {
       return (
-        <Collapsible key={`section_area_${id}`} trigger={name} open={name === '関東'}>
+        <Collapsible key={`section_area_${id}`} trigger={name} open={isOpen}>
           {prefectures.map(
             ({ ID: prefectureId, Name: prefectureName, PrefectureSpaces: prefectureSpaces }) => {
               if (prefectureSpaces.length === 0) {

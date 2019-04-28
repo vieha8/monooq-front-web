@@ -48,7 +48,9 @@ function* getSections({ payload }) {
   let api = apiEndpoint.sections();
 
   if (payload) {
-    api = apiEndpoint.sectionsByRegionId(payload.regionId);
+    if (payload.regionId) {
+      api = apiEndpoint.sectionsByRegionId(payload.regionId);
+    }
   }
 
   const { posts: response, timeout } = yield race({
