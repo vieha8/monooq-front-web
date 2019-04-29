@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import InlineText from 'components/LV1/InlineText';
 import NotificationCount from 'components/LV1/NotificationCount';
 import MenuItem from 'components/LV1/Menu/Item';
-import { Dimens, FontSizes } from 'variables';
+import { Dimens, FontSizes, Colors } from 'variables';
 
 const MenuLink = styled(Link)`
   display: block;
@@ -32,32 +32,52 @@ type PropTypes = {
   href: string,
   title: string,
   notificationCount: number,
+  line?: boolean,
   onClick?: Function,
 };
 
-const HyperLink = MenuLink.withComponent('a');
+const MenuLinkStyled = styled(MenuLink)`
+  ${props =>
+    props.line &&
+    `
+      border-top: 1px solid ${Colors.borderGray};
+    `};
+`;
+
+const HyperLinkStyled = styled(MenuLink.withComponent('a'))`
+  ${props =>
+    props.line &&
+    `
+      border-top: 1px solid ${Colors.borderGray};
+    `};
+`;
 
 export default (props: PropTypes) =>
   props.blank ? (
     <MenuItem show {...props}>
-      <HyperLink href={props.href || ''} onClick={props.onClick} target="_blank">
+      <HyperLinkStyled
+        href={props.href || ''}
+        onClick={props.onClick}
+        target="_blank"
+        line={props.line}
+      >
         <MenuText>
           <InlineText.Base fontSize={FontSizes.small_15}>{props.title}</InlineText.Base>
         </MenuText>
         <NotificationWrapper>
           <NotificationCount count={props.notificationCount} />
         </NotificationWrapper>
-      </HyperLink>
+      </HyperLinkStyled>
     </MenuItem>
   ) : (
     <MenuItem show {...props}>
-      <MenuLink to={props.to}>
+      <MenuLinkStyled to={props.to} line={props.line}>
         <MenuText>
           <InlineText.Base fontSize={FontSizes.small_15}>{props.title}</InlineText.Base>
         </MenuText>
         <NotificationWrapper>
           <NotificationCount count={props.notificationCount} />
         </NotificationWrapper>
-      </MenuLink>
+      </MenuLinkStyled>
     </MenuItem>
   );
