@@ -9,11 +9,17 @@ const Content = styled.div`
   margin: 0;
   ${media.tablet`
     margin: ${Dimens.small2}px 0;
+    ${props =>
+      props.margin &&
+      `
+        margin: ${props.margin};
+      `};
   `};
 `;
 
 type PropTypes = {
   sections: React.Element<*>,
+  margin?: string,
 };
 
-export default ({ sections }: PropTypes) => <Content>{sections}</Content>;
+export default ({ margin, sections }: PropTypes) => <Content margin={margin}>{sections}</Content>;

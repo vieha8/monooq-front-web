@@ -28,6 +28,14 @@ const HeroImage = styled.img`
     height: ${props.height}px;
   `};
 
+  ${media.tablet`
+    ${props =>
+      props.heightTab &&
+      `
+      height: ${props.heightTab}px;
+    `};
+  `};
+
   ${media.phone`
     ${props =>
       props.heightSp &&

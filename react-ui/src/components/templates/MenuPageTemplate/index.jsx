@@ -16,15 +16,24 @@ const Caption = styled.div`
   `};
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  overflow: hidden;
+  margin: auto;
+  width: 844px;
+  ${media.tablet`
+    width: 100%;
+  `};
+`;
 
 const LeftContent = styled.div`
   float: left;
   width: 65%;
+  max-width: 540px;
   ${media.tablet`
     float: none;
     margin-left: 0;
     width: 100%;
+    max-width: 100%;
     padding-top: ${Dimens.small_10}px;
   `};
 `;
@@ -32,7 +41,8 @@ const LeftContent = styled.div`
 const RightContent = styled.div`
   float: left;
   width: 22%;
-  margin-left: 90px;
+  min-width: 192px;
+  margin-left: 88px;
   ${media.tablet`
     display: none;
     float: none;

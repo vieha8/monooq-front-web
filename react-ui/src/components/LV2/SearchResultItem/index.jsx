@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import numeral from 'numeral';
 import Card from 'components/LV1/Card';
 import HeroImage from 'components/LV1/HeroImage';
@@ -11,7 +12,10 @@ import { Link } from 'react-router-dom';
 import Path from 'config/path';
 
 const Container = styled.div`
-  max-width: 165px;
+  max-width: 164px;
+  ${media.tablet`
+    max-width: 100%;
+  `};
   cursor: pointer;
   margin: auto;
 `;
@@ -48,7 +52,7 @@ export default ({ id, title, image, address, priceQuarter, priceFull }: PropType
   <Container>
     <Link to={Path.space(id)}>
       <Card noPadding noBorder customStyle={CardShadowStyle}>
-        <HeroImage src={image} alt={title} height={120} />
+        <HeroImage src={image} alt={title} height={123} heightTab={145} heightSp={123} />
         <Content>
           <Row>
             <InlineText.Base singleLine fontSize={12} color={Colors.brandPrimary}>

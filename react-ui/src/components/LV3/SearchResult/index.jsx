@@ -23,12 +23,16 @@ const Cell = styled.div`
   ${props =>
     props.index % 3 === 1 &&
     `
-    padding: 0 22.5px ${Dimens.medium1}px;
+    padding: 0 24px ${Dimens.medium1}px;
   `};
   ${media.tablet`
-    padding: 0 7px ${Dimens.medium1}px;
+    width: calc(33.333333% - 16px);
+    ${props =>
+      props.index % 3 === 1 &&
+      `
+      width: calc(33.333333% + 32px);
+    `};
   `};
-
   ${media.phone`
     width: 50%;
     padding: 0 7.5px ${Dimens.medium1}px 0;
@@ -49,6 +53,14 @@ const CaptionWrap = styled.div`
   ${media.phone`
     word-break: unset;
   `};
+`;
+
+const MoreButtonWrap = styled.div`
+  width: 100%;
+  max-width: 164px;
+  margin: auto 0px auto auto;
+  font-size: ${FontSizes.small_15}px;
+  font-weight: bold;
 `;
 
 const SpacesWrap = styled.div``;
@@ -84,9 +96,11 @@ export default ({ isHome, caption, spaces, isMore, onClickMore }: PropTypes) => 
       ))}
     </SpacesWrap>
     {isMore && (
-      <Button onClick={onClickMore} center width="120px" height="40px">
-        もっとみる
-      </Button>
+      <MoreButtonWrap>
+        <Button onClick={onClickMore} height={35} padding="6px 10px">
+          もっとみる
+        </Button>
+      </MoreButtonWrap>
     )}
   </Container>
 );

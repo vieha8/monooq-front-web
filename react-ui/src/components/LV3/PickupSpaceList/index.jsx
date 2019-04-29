@@ -107,7 +107,7 @@ const PickupSpaceList = (props: PropTypes) => (
     </ListContainer>
     {!props.noMore && (
       <MoreViewContainer>
-        <TextButton onClick={props.onClickMoreView}>もっと見る</TextButton>
+        <TextButton onClick={props.onClickMoreView}>もっとみる</TextButton>
       </MoreViewContainer>
     )}
   </Container>

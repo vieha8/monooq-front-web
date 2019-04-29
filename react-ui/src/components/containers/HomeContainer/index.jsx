@@ -22,6 +22,12 @@ import connect from '../connect';
 
 const HomeWrap = styled.div`
   ${media.tablet`
+    margin: auto;
+  `};
+`;
+
+const HomeContentWrap = styled.div`
+  ${media.tablet`
     margin: auto ${Dimens.medium_15}px;
   `};
 `;
@@ -72,11 +78,19 @@ class HomeContainer extends Component<PropTypes> {
       }
 
       if (displayType === 'regions') {
-        return <Collapsible key={key} title={title} contents={contents} />;
+        return (
+          <HomeContentWrap>
+            <Collapsible key={key} title={title} contents={contents} />
+          </HomeContentWrap>
+        );
       }
 
       if (displayType === 'concierge') {
-        return <ConciergeContents key={key} />;
+        return (
+          <HomeContentWrap>
+            <ConciergeContents key={key} />
+          </HomeContentWrap>
+        );
       }
 
       if (displayType === 'features' || displayType === 'region') {
@@ -95,29 +109,31 @@ class HomeContainer extends Component<PropTypes> {
         }
 
         return (
-          <SearchResult
-            isHome
-            key={key}
-            caption={title}
-            spaces={showContents.map(({ Space }) => ({
-              id: Space.ID,
-              image:
-                Space.Images.length !== 0
-                  ? convertImgixUrl(
-                      Space.Images[0].ImageUrl,
-                      'fit=fillmax&fill-color=DBDBDB&w=170&h=120&format=auto',
-                    )
-                  : dummySpaceImage,
-              title: Space.Title,
-              address: `${Space.AddressPref}${Space.AddressCity}`,
-              isFurniture: Space.IsFurniture,
-              priceFull: Space.PriceFull,
-              priceHalf: Space.PriceHalf,
-              priceQuarter: Space.PriceQuarter,
-            }))}
-            isMore={isMore}
-            onClickMore={onClickMore}
-          />
+          <HomeContentWrap>
+            <SearchResult
+              isHome
+              key={key}
+              caption={title}
+              spaces={showContents.map(({ Space }) => ({
+                id: Space.ID,
+                image:
+                  Space.Images.length !== 0
+                    ? convertImgixUrl(
+                        Space.Images[0].ImageUrl,
+                        'fit=fillmax&fill-color=DBDBDB&w=170&h=120&format=auto',
+                      )
+                    : dummySpaceImage,
+                title: Space.Title,
+                address: `${Space.AddressPref}${Space.AddressCity}`,
+                isFurniture: Space.IsFurniture,
+                priceFull: Space.PriceFull,
+                priceHalf: Space.PriceHalf,
+                priceQuarter: Space.PriceQuarter,
+              }))}
+              isMore={isMore}
+              onClickMore={onClickMore}
+            />
+          </HomeContentWrap>
         );
       }
 
@@ -141,7 +157,7 @@ class HomeContainer extends Component<PropTypes> {
             <LoadingPage />
           ) : (
             <HomeWrap>
-              <HomeTemplate sections={this.showSections()} />
+              <HomeTemplate sections={this.showSections()} margin="0px" />
             </HomeWrap>
           )
         }

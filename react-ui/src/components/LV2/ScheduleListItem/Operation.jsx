@@ -16,7 +16,7 @@ const Container = styled.div`
 const OperationContainer = styled.div`
   display: table;
   width: 100%;
-  max-width: 165px;
+  max-width: 164px;
   border: 2px solid ${Colors.brandPrimary};
   border-radius: 6px;
   padding: ${Dimens.small}px ${Dimens.medium}px;
