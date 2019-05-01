@@ -31,13 +31,13 @@ const Item = styled.p`
   color: black;
 `;
 
-const Count = styled.span`
-  position: absolute;
-  right: ${Dimens.medium}px;
-  top: ${Dimens.small2_13}px;
-  font-size: ${FontSizes.small_12}px;
-  font-weight: normal;
-`;
+// const Count = styled.span`
+//   position: absolute;
+//   right: ${Dimens.medium}px;
+//   top: ${Dimens.small2_13}px;
+//   font-size: ${FontSizes.small_12}px;
+//   font-weight: normal;
+// `;
 
 type PropTypes = {
   title: string,
@@ -63,7 +63,7 @@ export default ({ title, contents, isOpen }: PropTypes) => (
                 >
                   <Item>
                     {prefectureName}
-                    <Count>{`${prefectureSpaces.length}件`}</Count>
+                    {/*<Count>{`${prefectureSpaces.length}件`}</Count>*/}
                   </Item>
                 </Link>
               );
