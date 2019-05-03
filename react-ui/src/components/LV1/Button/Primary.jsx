@@ -74,6 +74,32 @@ export const PrimaryButton = styled.div`
   css`
     font-size: ${props.fontSize}px;
   `};
+
+  ${media.tablet`
+    ${props =>
+      props.heightTab &&
+      `
+        height: ${props.heightTab}px;
+      `};
+    ${props =>
+      props.paddingTab &&
+      `
+        padding: ${props.paddingTab};
+      `};
+  `};
+
+  ${media.phone`
+    ${props =>
+      props.heightSp &&
+      `
+        height: ${props.heightSp}px;
+      `};
+    ${props =>
+      props.paddingSp &&
+      `
+        padding: ${props.paddingSp};
+      `};
+  `};
 `;
 
 const HyperLink = btnlink.withComponent('a');
