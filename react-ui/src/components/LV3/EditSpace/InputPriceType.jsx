@@ -23,6 +23,10 @@ const CaptionWrap = styled.div`
     `};
 `;
 
+const UnderLine = styled.span`
+  text-decoration: underline;
+`;
+
 type PropTypes = {
   priceQuarter: number,
   priceQuarterErrors: Array<string>,
@@ -60,7 +64,10 @@ export default (props: PropTypes) => (
         <InlineText.Tiny>
           お客様によって荷物の内容が異なるので、スペースの広さに対する料金を設定してください。
           <br />
-          エリアや条件にもよりますが、目安は1畳あたり約5,000〜7,000円/月です。
+          <InlineText.Bold>
+            エリアや条件にもよりますが、目安は<UnderLine>1畳あたり約5,000〜7,000円/月</UnderLine>
+            です。
+          </InlineText.Bold>
         </InlineText.Tiny>
       </CaptionWrap>
     </Section>
@@ -69,7 +76,7 @@ export default (props: PropTypes) => (
         image={imageFurnitureFull}
         title="全てのスペースの月額料金"
         caption="このスペースすべてを使用する場合"
-        placeholder="20000"
+        placeholder="30000"
         price={props.priceFull}
         onChange={props.onChangePriceFull}
         error={displayErrors('price_errors_1', props.priceFullErrors)}
@@ -78,7 +85,7 @@ export default (props: PropTypes) => (
         image={imageFurnitureHalf}
         title="半分のスペースの月額料金"
         caption="このスペースの半分を使用する場合"
-        placeholder="12000"
+        placeholder="16000"
         price={props.priceHalf}
         onChange={props.onChangePriceHalf}
         error={displayErrors('price_errors_2', props.priceHalfErrors)}
@@ -87,7 +94,7 @@ export default (props: PropTypes) => (
         image={imageFurnitureQuarter}
         title="1/4程度のスペースの月額料金"
         caption="このスペースの1/4程度を使用する場合"
-        placeholder="7000"
+        placeholder="9000"
         price={props.priceQuarter}
         onChange={props.onChangePriceQuarter}
         error={displayErrors('price_errors_3', props.priceQuarterErrors)}
@@ -97,6 +104,7 @@ export default (props: PropTypes) => (
       <CommissionWrap>
         <InlineText.Base>
           取引成立時の売り上げは、お客様があなたへお支払いするスペース利用額から20%をご利用料金として引かせていただきます。
+          20%にはサービス利用手数料と、保管荷物の保険料が含まれています。
         </InlineText.Base>
       </CommissionWrap>
     </Section>

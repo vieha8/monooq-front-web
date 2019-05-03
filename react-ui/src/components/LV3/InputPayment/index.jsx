@@ -59,6 +59,7 @@ const Padding = styled.span`
 
 type PropTypes = {
   paidError: string,
+  errMsgPayment?: string,
   onChangeName: Function,
   name: string,
   onChangeNumber: Function,
@@ -90,9 +91,7 @@ export default (props: PropTypes) => (
     <H1>支払いを行う</H1>
     {props.paidError && (
       <Row>
-        <InlineText.Base color={Colors.error}>
-          カード情報の認証に失敗しました。カード名義・カード番号・有効期限・セキュリティコードをお確かめください。
-        </InlineText.Base>
+        <InlineText.Base color={Colors.error}>{props.errMsgPayment}</InlineText.Base>
       </Row>
     )}
     <Row>

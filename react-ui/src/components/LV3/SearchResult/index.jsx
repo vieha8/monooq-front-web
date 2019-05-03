@@ -5,9 +5,10 @@ import styled from 'styled-components';
 import SearchResultItem from 'components/LV2/SearchResultItem';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
+import Button from 'components/LV1/Button';
 
 const Container = styled.div`
-  width: 540px;
+  width: ${props => (props.isHome ? '100%' : '540px')};
   margin: 0 0 ${Dimens.medium4}px 0;
   ${media.tablet`
     width: 100%;
@@ -44,16 +45,16 @@ const CaptionWrap = styled.div`
   word-break: keep-all;
   font-size: ${FontSizes.medium2}px;
   font-weight: bold;
-  margin: 0 auto ${Dimens.medium2}px;
-  ${media.tablet`
-    margin: 5px auto ${Dimens.medium1}px;
-  `};
+  margin: 0 auto ${Dimens.medium}px;
   ${media.phone`
     word-break: unset;
   `};
 `;
 
+const SpacesWrap = styled.div``;
+
 type PropTypes = {
+  isHome?: boolean,
   caption: string,
   spaces: Array<{
     id: number,
@@ -68,15 +69,24 @@ type PropTypes = {
   history: {
     push: Function,
   },
+  isMore?: boolean,
+  onClickMore?: Function,
 };
 
-export default (props: PropTypes) => (
-  <Container>
-    {props.caption && <CaptionWrap>{props.caption}</CaptionWrap>}
-    {props.spaces.map((space, i) => (
-      <Cell key={`result_list_result_item_${i}`.toString()} index={i}>
-        <SearchResultItem {...space} />
-      </Cell>
-    ))}
+export default ({ isHome, caption, spaces, isMore, onClickMore }: PropTypes) => (
+  <Container isHome={isHome}>
+    {caption && <CaptionWrap>{caption}</CaptionWrap>}
+    <SpacesWrap>
+      {spaces.map((space, i) => (
+        <Cell key={`result_list_result_item_${i}`.toString()} index={i}>
+          <SearchResultItem {...space} />
+        </Cell>
+      ))}
+    </SpacesWrap>
+    {isMore && (
+      <Button onClick={onClickMore} center width="120px" height="40px">
+        もっとみる
+      </Button>
+    )}
   </Container>
 );

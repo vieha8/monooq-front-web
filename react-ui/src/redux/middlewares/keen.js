@@ -34,10 +34,11 @@ client.initAutoTracking({
 
 const reduxMiddleware = ({ getState }) => {
   return next => action => {
+    const { auth } = getState();
     const returnValue = next(action);
     const eventBody = {
       action,
-      state: getState(),
+      user: auth.user,
       env: process.env.NODE_ENV,
       /*
           Include additional properties here, or
