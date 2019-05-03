@@ -20,7 +20,7 @@ import connect from '../connect';
 
 const HomeWrap = styled.div`
   ${media.tablet`
-    margin: auto ${Dimens.medium_15}px;
+    margin: auto ${Dimens.small2_15}px;
   `};
 `;
 

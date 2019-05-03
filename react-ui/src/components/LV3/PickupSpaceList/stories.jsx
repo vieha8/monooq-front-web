@@ -54,7 +54,7 @@ storiesOf('Organisms(LV3)/PickupSpaceList', module)
         ### コンポーネント概要
         ピックアップスペースリスト(MoreVer)
         - ・MoreVerは現状、利用していない。
-        - ・「もっと見る」ボタンはCSSでdisplay:none指定されており、見えないため注意。
+        - ・「もっとみる」ボタンはCSSでdisplay:none指定されており、見えないため注意。
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <PickupSpaceList
