@@ -39,9 +39,7 @@ const Image = styled.img`
   border-radius: ${Dimens.small}px;
   ${media.tablet`
     border-radius: unset;
-  `};
-  ${media.phone`
-    margin-bottom: ${Dimens.medium_20}px;
+    margin-bottom: 0px;
   `};
 `;
 
@@ -79,7 +77,7 @@ class HomeContainer extends Component<PropTypes> {
 
       if (displayType === 'regions') {
         return (
-          <HomeContentWrap>
+          <HomeContentWrap key={key}>
             <Collapsible key={key} title={title} contents={contents} />
           </HomeContentWrap>
         );
@@ -87,7 +85,7 @@ class HomeContainer extends Component<PropTypes> {
 
       if (displayType === 'concierge') {
         return (
-          <HomeContentWrap>
+          <HomeContentWrap key={key}>
             <ConciergeContents key={key} />
           </HomeContentWrap>
         );
@@ -109,7 +107,7 @@ class HomeContainer extends Component<PropTypes> {
         }
 
         return (
-          <HomeContentWrap>
+          <HomeContentWrap key={key}>
             <SearchResult
               isHome
               key={key}

@@ -13,7 +13,7 @@ const Container = styled.div`
   ${media.tablet`
     width: 100%;
     text-align: left;
-    margin: 0 0 ${Dimens.medium1}px auto;
+    margin: ${Dimens.medium1_25}px 0 ${Dimens.medium3_40}px auto;
   `};
 `;
 
