@@ -9,7 +9,7 @@ import { Dimens, Colors, FontSizes } from 'variables';
 const Container = styled.div`
   vertical-align: top;
   width: 100%;
-  height: 144px;
+  height: 117px;
   ${media.phone`
     height: 77px;
   `};
@@ -46,6 +46,8 @@ const Delete = styled.span`
   background-color: rgba(0, 0, 0, 0.48);
   padding: ${Dimens.small}px 0;
   border-radius: 0 0 6px 6px;
+  border: 1px solid ${Colors.lightGray2};
+  border-top: none;
   ${media.phone`
     font-size: ${FontSizes.xsmall_8}px;
     padding: ${Dimens.xxsmall}px 0;

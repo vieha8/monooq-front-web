@@ -12,7 +12,6 @@ export const PrimaryButton = styled.div`
   box-sizing: border-box;
   width: ${props => (props.width ? props.width : '100%')};
   ${props => !props.fill && `max-width: 320px;`}
-  padding: 17px 10px;
   text-align: center;
   font-size: ${props => props.fontSize || FontSizes.small_15}px;
   ${media.phone`
@@ -26,15 +25,20 @@ export const PrimaryButton = styled.div`
   
   ${props => (props.lineheight ? `line-height: ${props.lineheight}px;` : `line-height: normal`)};
 
-  height: 48px;
-  padding: 13px 10px;
+  height: 48px;  
   ${props =>
     props.height &&
     `
       height: ${props.height}px;
-      padding: ${props.padding}px;
     `};
-    
+
+  padding: 13px 10px;
+  ${props =>
+    props.padding &&
+    `
+      padding: ${props.padding};
+    `};
+
   ${props =>
     props.inlineblock &&
     `
@@ -69,6 +73,32 @@ export const PrimaryButton = styled.div`
   props.fontSize &&
   css`
     font-size: ${props.fontSize}px;
+  `};
+
+  ${media.tablet`
+    ${props =>
+      props.heightTab &&
+      `
+        height: ${props.heightTab}px;
+      `};
+    ${props =>
+      props.paddingTab &&
+      `
+        padding: ${props.paddingTab};
+      `};
+  `};
+
+  ${media.phone`
+    ${props =>
+      props.heightSp &&
+      `
+        height: ${props.heightSp}px;
+      `};
+    ${props =>
+      props.paddingSp &&
+      `
+        padding: ${props.paddingSp};
+      `};
   `};
 `;
 

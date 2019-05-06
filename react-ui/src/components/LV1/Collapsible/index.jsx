@@ -10,8 +10,8 @@ import Path from 'config/path';
 
 const CollapsibleWrap = styled.div`
   margin-bottom: ${Dimens.medium4_50}px;
-  ${media.phone`
-    margin-bottom: ${Dimens.medium2_35}px;
+  ${media.tablet`
+    margin: ${Dimens.medium_20}px auto ${Dimens.medium2_35}px;
   `};
 `;
 

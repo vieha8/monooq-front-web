@@ -38,7 +38,7 @@ const DndContent = styled.div`
 `;
 
 const DndContentEmpty = styled(DndContent)`
-  height: 144px;
+  height: 117px;
   ${media.phone`
     height: 77px;
   `};
