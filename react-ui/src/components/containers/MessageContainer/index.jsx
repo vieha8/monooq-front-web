@@ -126,7 +126,7 @@ class MessageContainer extends Component<PropTypes, State> {
   }
 
   componentWillReceiveProps = next => {
-    if (!next.user.PhoneNumber) {
+    if (!next.user.Email || !next.user.PhoneNumber) {
       this.setState({ errorModal: true });
     }
   };
@@ -257,7 +257,7 @@ class MessageContainer extends Component<PropTypes, State> {
       lastReadDt = room[`user${otherUserId}LastReadDt`].toDate();
     }
 
-    const isRegisterPhoneNumber = !!user.PhoneNumber;
+    const isRegisterEmailPhoneNumber = !!user.Email && !!user.PhoneNumber;
 
     return (
       <Fragment>
@@ -301,15 +301,15 @@ class MessageContainer extends Component<PropTypes, State> {
           onChangeText={this.handleChangeText}
           text={text}
           pickedImage={(image || {}).preview}
-          buttonDisabled={(text === '' && !image) || !isRegisterPhoneNumber}
+          buttonDisabled={(text === '' && !image) || !isRegisterEmailPhoneNumber}
           onClickSend={this.sendMessage}
           lastReadDt={lastReadDt}
         />
         <Modal size="large" open={errorModal} onClose={this.close}>
-          <Modal.Header>電話番号をご登録ください</Modal.Header>
+          <Modal.Header>メールアドレス及び電話番号をご登録ください</Modal.Header>
           <Modal.Content>
             <p>
-              メッセージのやり取りには電話番号登録が必要です。
+              メッセージのやり取りにはメールアドレス及び電話番号の登録が必要です。
               <br />
               <br />
               取引時の保険適用の条件となります。
