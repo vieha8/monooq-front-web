@@ -221,7 +221,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
         leftContent={
           <SearchResultTemplate
             isSearching={isSearching}
-            meta={<Meta title={`${condition}のスペース検索結果 | モノオク`} />}
+            meta={<Meta title={`${condition}のスペース検索結果 - モノオク`} />}
             searchResult={
               <InfiniteScroll
                 pageStart={0}
