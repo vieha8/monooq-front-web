@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
     "@loadable/component": "^5.9.0",
     "@sentry/browser": "^5.1.2",
     "axios": "^0.18.0",
@@ -11,6 +10,7 @@
     "base-64": "^0.1.0",
     "blueimp-load-image": "^2.19.0",
     "connected-react-router": "^6.3.1",
+    "core-js": "^3.0.1",
     "decode-uri-component": "^0.2.0",
     "firebase": "^5.4.2",
     "history": "^4.7.2",
@@ -41,6 +41,7 @@
     "redux": "^4.0.0",
     "redux-actions": "^2.6.1",
     "redux-saga": "^1.0.1",
+    "regenerator-runtime": "^0.13.2",
     "semantic-ui-css": "^2.3.3",
     "semantic-ui-react": "^0.87.1",
     "strict-uri-encode": "^2.0.0",
