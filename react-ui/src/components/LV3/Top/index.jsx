@@ -15,8 +15,6 @@ import TopIntroMovie from 'components/LV3/TopIntroMovie';
 
 const logoPickGo =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=42';
-const logoGojo =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-gojo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=65';
 const logoAppliv =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-appliv%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
 const logoAscii =
@@ -54,12 +52,6 @@ const ForSafeContainer = styled(StyledDefaultContainer)``;
 
 const PickGoMedia = styled.img`
   height: ${Dimens.medium3}px;
-  margin: 0 15.5px;
-  margin-bottom: ${Dimens.medium_20}px;
-`;
-
-const GojoMedia = styled.img`
-  height: ${Dimens.large2_65}px;
   margin: 0 15.5px;
   margin-bottom: ${Dimens.medium_20}px;
 `;
@@ -257,27 +249,6 @@ export default props => (
             を使えば、
             <br />
             引っ越しが 5,000円 から
-          </Fragment>
-        }
-      />
-      <OtherService
-        catchPhrase={
-          <Fragment>
-            共同でスペースを利用するなら
-            <br />
-            Gojoで便利に
-          </Fragment>
-        }
-        serviceName="Gojo"
-        serviceUrl="https://gojo.life/"
-        serviceImage={<GojoMedia src={logoGojo} />}
-        subDescription={
-          <Fragment>
-            を使えば、
-            <br />
-            チームやコミュニティの
-            <br />
-            お金の管理が簡単に
           </Fragment>
         }
       />
