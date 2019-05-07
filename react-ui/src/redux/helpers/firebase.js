@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import 'firebase/storage';
 
 export const uploadImage = (path, file) => {
   const storageRef = firebase.storage().ref();
