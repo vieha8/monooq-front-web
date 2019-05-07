@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import ReactGA from 'react-ga';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import firebase from 'firebase/app';
 import { init as sentryInit } from '@sentry/browser';
 import Root from 'components/containers/Root';
@@ -14,7 +14,7 @@ import configureStore from './redux/store/index';
 import Routes from './config/routes';
 import './index.css';
 
-const history = createHistory();
+const history = createBrowserHistory();
 history.listen((location, action) => {
   if (action === 'POP') {
     return;
