@@ -77,7 +77,6 @@ type PropTypes = {
   otherSignup: React.Element<*>,
   facebook: React.Element<*>,
   toLogin: React.Element<*>,
-  signUpError: React.Element<*>,
 };
 
 export default (props: PropTypes) => (
@@ -93,7 +92,6 @@ export default (props: PropTypes) => (
       <Failed key={`password_error_text_${i}`.toString()}>{dom}</Failed>
     ))}
     <Terms>{props.terms}</Terms>
-    {props.signUpError && <Failed>{props.signUpError}</Failed>}
     <Next>{props.next}</Next>
     <OtherSignup>{props.otherSignup}</OtherSignup>
     <Facebook>{props.facebook}</Facebook>

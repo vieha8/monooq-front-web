@@ -12,10 +12,12 @@ class SignUpContainer extends Component {
   }
 
   render() {
+    const { isSignupFailed } = this.props;
     return (
       <AccountTemplate
         header={<Header noHeaderButton />}
         form={<RegisterEmail {...this.props} />}
+        err={isSignupFailed}
       />
     );
   }
