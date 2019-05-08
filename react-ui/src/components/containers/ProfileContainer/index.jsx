@@ -76,7 +76,7 @@ class ProfileContainer extends Component<PropTypes> {
         header={<Header />}
         meta={
           <Meta
-            title={`${user.Name}さんのプロフィール | モノオク`}
+            title={`${user.Name}さんのプロフィール - モノオク`}
             ogUrl={`user/${user.ID}`}
             ogImageUrl={user.ImageUrl}
             noindex

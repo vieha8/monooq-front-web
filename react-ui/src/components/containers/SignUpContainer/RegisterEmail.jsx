@@ -1,10 +1,33 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { authActions } from 'redux/modules/auth';
 import RegisterEmail from 'components/LV3/RegisterEmail';
 import ErrorMessage from 'strings';
 import Path from 'config/path';
+import styled from 'styled-components';
+import { Colors, Dimens, FontSizes } from 'variables';
+import { media } from 'helpers/style/media-query';
+
+const ErrMessage = styled.div`
+  width: 100%;
+  height: 54px;
+  display: block;
+  position: fixed;
+  left: 0px;
+  top: 64px;
+  z-index: 100;
+  text-align: center;
+  padding: ${Dimens.medium_17}px;
+  line-height: 22px;
+  font-size: ${FontSizes.small_15}px;
+  font-weight: bold;
+  color: ${Colors.white};
+  background-color: ${Colors.brandPrimary};
+  ${media.tablet`
+    top: 54px;
+  `};
+`;
 
 type PropTypes = {
   dispatch: Function,
@@ -112,22 +135,24 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     const { isRegistering, isSignupFailed, history } = this.props;
     const { email, password, isUnVisiblePW, hasChanged, errors } = this.state;
     return (
-      <RegisterEmail
-        onClickNext={this.onClickNext}
-        onClickFacebook={this.onClickFacebook}
-        onChangeEmail={value => this.handleChangeForm('email', value)}
-        onChangePassword={value => this.handleChangeForm('password', value)}
-        onKeyDownPassword={this.onKeyDownPassword}
-        email={email}
-        emailError={(!hasChanged && errors.email) || []}
-        password={password}
-        passError={(!hasChanged && errors.password) || []}
-        ispasswordVisible={isUnVisiblePW}
-        onClickIconPassword={this.onClickIconPassword}
-        isRegisterChecking={isRegistering}
-        signUpError={isSignupFailed}
-        onClickLogin={() => history.push(Path.login())}
-      />
+      <Fragment>
+        {isSignupFailed && <ErrMessage>すでに登録済みのメールアドレスです。</ErrMessage>}
+        <RegisterEmail
+          onClickNext={this.onClickNext}
+          onClickFacebook={this.onClickFacebook}
+          onChangeEmail={value => this.handleChangeForm('email', value)}
+          onChangePassword={value => this.handleChangeForm('password', value)}
+          onKeyDownPassword={this.onKeyDownPassword}
+          email={email}
+          emailError={(!hasChanged && errors.email) || []}
+          password={password}
+          passError={(!hasChanged && errors.password) || []}
+          ispasswordVisible={isUnVisiblePW}
+          onClickIconPassword={this.onClickIconPassword}
+          isRegisterChecking={isRegistering}
+          onClickLogin={() => history.push(Path.login())}
+        />
+      </Fragment>
     );
   }
 }
