@@ -1,7 +1,8 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import MessageIcon from 'components/LV2/HeaderAction/MessageIcon';
 import SearchIcon from 'components/LV2/HeaderAction/SearchIcon';
 
 const Container = styled.div`
@@ -10,23 +11,21 @@ const Container = styled.div`
   text-align: ${props => props.align};
 `;
 
-const IconWrapper = styled.span`
-  vertical-align: middle;
-  cursor: pointer;
-`;
-
 type PropTypes = {
   iconLeft?: boolean,
   iconRight?: boolean,
   iconColor: string,
+  messageUri: string,
+  messageCount?: number,
   searchConditionUri: string,
 };
 
 function Icon(props: PropTypes) {
   return (
-    <IconWrapper>
+    <Fragment>
+      {props.isPhone && <MessageIcon href={props.messageUri} messageCount={props.messageCount} />}
       <SearchIcon color={props.iconColor} href={props.searchConditionUri} isPhone={props.isPhone} />
-    </IconWrapper>
+    </Fragment>
   );
 }
 
