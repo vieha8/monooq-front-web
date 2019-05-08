@@ -2,20 +2,32 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SearchIcon } from 'components/LV1/ActionIcon';
+import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
+import { Dimens } from 'variables';
+import SerchIcon from 'images/icon-search.svg';
+
+const StyledLink = styled(Link)`
+  display: inline-block;
+  margin-top: ${Dimens.xsmall}px;
+  ${media.tablet`
+    margin-top: 0px;
+  `};
+`;
+
+const Image = styled.img`
+  display: inline-block;
+  width: ${Dimens.medium2_34}px;
+  height: auto;
+`;
 
 type PropTypes = {
   href?: string,
   onClick?: Function,
-  color?: string,
 };
 
-export default (props: PropTypes) => (
-  <Link to={props.href} onClick={props.onClick}>
-    {props.isPhone ? (
-      <SearchIcon color={props.color} fontSize={20} />
-    ) : (
-      <SearchIcon color={props.color} fontSize={22} />
-    )}
-  </Link>
+export default ({ href, onClick }: PropTypes) => (
+  <StyledLink to={href} onClick={onClick}>
+    <Image src={SerchIcon} alt="icon-serch" />
+  </StyledLink>
 );
