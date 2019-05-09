@@ -33,7 +33,6 @@ class HeaderContainer extends Component<PropTypes> {
 
   render() {
     const { isLogin, isChecking, noHeaderButton, user, top, unreadRooms } = this.props;
-    console.log(`aaaa${unreadRooms}`);
     return (
       <Header
         top={top}
