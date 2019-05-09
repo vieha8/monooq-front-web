@@ -32,8 +32,8 @@ class HeaderContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { isLogin, isChecking, noHeaderButton, user, top } = this.props;
-
+    const { isLogin, isChecking, noHeaderButton, user, top, unreadRooms } = this.props;
+    console.log(`aaaa${unreadRooms}`);
     return (
       <Header
         top={top}
@@ -54,7 +54,7 @@ class HeaderContainer extends Component<PropTypes> {
         otherUri={Path.other()}
         tidyUri="https://tidy.monooq.com/"
         messageUri={Path.messages()}
-        messageCount={0}
+        messageCount={unreadRooms}
         user={
           isLogin
             ? {
@@ -76,6 +76,7 @@ const mapStateToProps = state => ({
   isChecking: state.auth.isChecking,
   isLogin: state.auth.isLogin,
   user: state.auth.user,
+  unreadRooms: state.messages.unreadRooms,
 });
 
 export default withRouter(connect(mapStateToProps)(HeaderContainer));

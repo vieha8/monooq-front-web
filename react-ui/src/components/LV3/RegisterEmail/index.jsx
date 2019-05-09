@@ -24,7 +24,6 @@ type PropTypes = {
   passError: Array<string>,
   buttonDisabled: boolean,
   isRegisterChecking: boolean,
-  signUpError: boolean,
   ispasswordVisible: boolean,
 };
 
@@ -109,13 +108,6 @@ export default (props: PropTypes) => (
       >
         Facebookで新規登録
       </Button>
-    }
-    signUpError={
-      props.signUpError ? (
-        <InlineText.Small color={Colors.error}>
-          すでに登録済みのメールアドレスです。
-        </InlineText.Small>
-      ) : null
     }
     toLogin={
       <Button secondary borderbold fontbold fill={1} onClick={props.onClickLogin}>

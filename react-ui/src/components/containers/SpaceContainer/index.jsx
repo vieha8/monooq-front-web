@@ -82,7 +82,7 @@ class SpaceContainer extends Component<PropTypes> {
         : space.Images[0].ImageUrl;
 
       const meta = {
-        title: `${Title} - ${AddressPref}${AddressCity}の空きスペース | モノオク`,
+        title: `${Title} ${AddressPref}${AddressCity}の空きスペース - モノオク`,
         description: Introduction,
         url: `space/${ID}`,
         imageUrl: ogImageUrl,

@@ -21,6 +21,7 @@ const Container = styled.header`
     position: relative;
   `} top: 0;
   width: 100%;
+  min-width: 260px;
   border-bottom: 1px solid ${Colors.borderGray};
   background: ${Colors.white};
   z-index: ${ZIndexes.nav};
@@ -154,6 +155,8 @@ type PropTypes = {
   signupUri: string,
   top?: boolean,
   stories?: boolean,
+  messageUri: string,
+  messageCount?: number,
   searchConditionUri: string,
 };
 
@@ -172,6 +175,8 @@ export default (props: PropTypes) => {
                   <OnlyPhone>
                     <AnimateSearchInputField
                       iconRight
+                      messageUri={props.messageUri}
+                      messageCount={props.messageCount}
                       searchConditionUri={props.searchConditionUri}
                       isPhone
                     />

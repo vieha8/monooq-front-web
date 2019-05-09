@@ -33,7 +33,11 @@ const Container = styled.div`
   padding: ${Dimens.medium2}px;
   border-radius: 3px;
   border: 1px solid ${Colors.lightGray1};
-
+  ${props =>
+    props.err &&
+    `
+    margin-top: ${Dimens.medium3_40}px;
+  `};
   ${media.phone`
     width: 100%;
     padding: ${Dimens.medium}px;
@@ -61,7 +65,7 @@ export default class AccountTemplate extends Component<PropTypes> {
     return (
       <Page>
         <HeaderContainer stories={this.props.stories}>{this.props.header}</HeaderContainer>
-        <Container>{this.props.form}</Container>
+        <Container err={this.props.err}>{this.props.form}</Container>
       </Page>
     );
   }
