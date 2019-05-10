@@ -596,7 +596,7 @@ function* search({
       space.Images = space.Images.map(image => {
         image.ImageUrl = convertImgixUrl(
           image.ImageUrl,
-          'fit=fillmax&fill-color=DBDBDB&w=165&h=120&format=auto',
+          'fit=fillmax&fill-color=DBDBDB&w=165&h=120&auto=format',
         );
         return image;
       });

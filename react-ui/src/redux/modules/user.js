@@ -166,7 +166,7 @@ function* getSpaces(params) {
         v.Images = v.Images.map(image => {
           image.ImageUrl = convertImgixUrl(
             image.ImageUrl,
-            'fit=fill&fill-color=DBDBDB&w=540&h=290&format=auto',
+            'fit=fill&fill-color=DBDBDB&w=540&h=290&auto=format',
           );
           return image;
         });

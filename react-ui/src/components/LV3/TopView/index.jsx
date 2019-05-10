@@ -11,9 +11,9 @@ import SubCatchPhrase from 'components/LV1/SubCatchPhrase';
 import SearchInput from 'components/LV2/SearchInput';
 
 const mainVisual =
-  'https://monooq.imgix.net/img%2Fservice%2Fmain_visual%402x.jpg?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=540';
+  'https://monooq.imgix.net/img%2Fservice%2Fmain_visual%402x.jpg?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=540';
 const mainVisualSp =
-  'https://monooq.imgix.net/img%2Fservice%2Fmain_visual_sp%402x.jpg?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&w=400';
+  'https://monooq.imgix.net/img%2Fservice%2Fmain_visual_sp%402x.jpg?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&w=400';
 
 const TopView = styled.div`
   height: 540px;
