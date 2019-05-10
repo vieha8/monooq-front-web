@@ -18,7 +18,7 @@ export default {
   InvalidPassword: 'パスワードは8桁以上の半角英数字で登録してください。',
   NotMatchPassword:
     '異なるパスワードが入力されています。同じ8桁以上の半角英数字を入力してください。',
-  FailedSignUp: 'このメールアドレスはすでに登録済みです。',
+  FailedSignUpMailExist: 'すでに登録済みのメールアドレスです。',
   FailedResetPassword: 'このメールアドレスは未登録です。',
   InvalidAddress:
     '所在地には都道府県、市区町村、番地、建物名等を含めた正式な住所を入力してください。番地は半角数字でご登録ください。',

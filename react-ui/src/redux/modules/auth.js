@@ -5,6 +5,7 @@ import 'firebase/auth';
 import { push, replace } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
+import ErrorMessage from 'strings';
 import { uiActions } from './ui';
 import { errorActions } from './error';
 import { store } from '../store/index';
@@ -135,10 +136,11 @@ export const authReducer = handleActions(
       isSignupFailed: false,
       isRegistering: false,
     }),
-    [SIGNUP_FAILED]: state => ({
+    [SIGNUP_FAILED]: (state, action) => ({
       ...state,
       isSignupFailed: true,
       isRegistering: false,
+      errorMessage: action.payload,
     }),
     [SET_USER]: (state, action) => ({
       ...state,
@@ -338,7 +340,7 @@ function* signUpEmail({ payload: { email, password } }) {
     }
 
     const token = yield* getToken();
-    const { data, status, err } = yield call(
+    const { data, err } = yield call(
       postApiRequest,
       apiEndpoint.users(),
       {
@@ -352,7 +354,7 @@ function* signUpEmail({ payload: { email, password } }) {
 
     if (err) {
       yield put(authActions.signupFailed());
-      store.dispatch(replace(Path.error(status)));
+      yield put(errorActions.setError(err));
       return;
     }
 
@@ -360,7 +362,12 @@ function* signUpEmail({ payload: { email, password } }) {
     yield put(authActions.checkLogin());
     store.dispatch(push(Path.signUpProfile()));
   } catch (err) {
-    yield put(authActions.signupFailed(err.message));
+    if (err.code === 'auth/email-already-in-use') {
+      yield put(authActions.signupFailed(ErrorMessage.FailedSignUpMailExist));
+      return;
+    }
+
+    yield put(authActions.signupFailed());
     yield put(errorActions.setError(err.message));
   }
 }
@@ -371,7 +378,7 @@ function* signUpFacebook() {
     const result = yield firebase.auth().signInWithPopup(provider);
     const { isNewUser } = result.additionalUserInfo;
     if (!isNewUser) {
-      yield put(authActions.signupFailed('Already registered.'));
+      yield put(authActions.signupFailed(ErrorMessage.FailedSignUpMailExist));
       return;
     }
     const { displayName, email, uid, photoURL } = result.user;
@@ -396,7 +403,7 @@ function* signUpFacebook() {
     );
 
     if (err) {
-      yield put(authActions.signupFailed(err));
+      yield put(authActions.signupFailed());
       yield put(errorActions.setError(err));
       return;
     }
@@ -405,7 +412,12 @@ function* signUpFacebook() {
     yield put(uiActions.setUiState({ signup: { name: displayName } }));
     store.dispatch(push(Path.signUpProfile()));
   } catch (err) {
-    yield put(authActions.signupFailed(err.message));
+    if (err.code === 'auth/account-exists-with-different-credential') {
+      yield put(authActions.signupFailed(ErrorMessage.FailedSignUpMailExist));
+      return;
+    }
+
+    yield put(authActions.signupFailed());
     yield put(errorActions.setError(err));
   }
 }
