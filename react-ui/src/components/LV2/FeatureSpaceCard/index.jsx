@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { media } from 'helpers/style/media-query';
-
+import LazyLoad from 'react-lazyload';
 import Card from 'components/LV1/Card';
 import HeroImage from 'components/LV1/HeroImage';
 import AvatarImage from 'components/LV1/AvatarImage';
@@ -90,12 +90,14 @@ export default (props: PropTypes) => (
       <ImageContainer large={props.large}>
         <SpaceImageContainer>
           <SpaceImageFilter />
-          <HeroImage src={props.space.image} />
+          <LazyLoad>
+            <HeroImage src={props.space.image} />
+          </LazyLoad>
         </SpaceImageContainer>
         <UserContainer>
-          <div>
+          <LazyLoad>
             <AvatarImage src={props.user.image} size={44} />
-          </div>
+          </LazyLoad>
           <div>
             <InlineText.Base color={Colors.white}>
               {props.user.name}

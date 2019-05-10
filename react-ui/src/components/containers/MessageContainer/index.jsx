@@ -178,7 +178,7 @@ class MessageContainer extends Component<PropTypes, State> {
         case MessageType.Text:
           let imageUrl = message.image;
           if (imageUrl) {
-            imageUrl = convertImgixUrl(message.image, 'fit=crop&format=auto');
+            imageUrl = convertImgixUrl(message.image, 'fit=crop&auto=format');
           }
 
           if (message.userId === user.ID) {
@@ -193,7 +193,7 @@ class MessageContainer extends Component<PropTypes, State> {
           return {
             other: {
               id: message.userId,
-              userImage: convertImgixUrl(room.user.ImageUrl, 'fit=crop&format=auto'),
+              userImage: convertImgixUrl(room.user.ImageUrl, 'fit=crop&auto=format'),
               message: message.text,
               image: imageUrl,
               receivedAt: message.createDt,

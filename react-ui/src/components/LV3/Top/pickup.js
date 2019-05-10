@@ -83,7 +83,7 @@ const PickupStaffSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F2180%2F1541093231673.jpg?alt=media&token=51f70489-aba5-4b5c-82d0-3e014f8a55ca&fit=crop&w=260&h=200&format=auto',
+        'https://monooq.imgix.net/img%2Fspaces%2F2180%2F1541093231673.jpg?alt=media&token=51f70489-aba5-4b5c-82d0-3e014f8a55ca&fit=crop&w=260&h=200&auto=format',
       price: '6,000',
       area: '東京都世田谷区',
       description: '下北沢駅近く！4畳の1部屋まるごと利用可能！',
@@ -100,7 +100,7 @@ const PickupStaffSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F2036%2F1541294635567.jpg?alt=media&token=095dcdeb-7984-433d-abe0-1272c86d7a09&fit=crop&w=260&h=200&format=auto',
+        'https://monooq.imgix.net/img%2Fspaces%2F2036%2F1541294635567.jpg?alt=media&token=095dcdeb-7984-433d-abe0-1272c86d7a09&fit=crop&w=260&h=200&auto=format',
       price: '3,000',
       area: '東京都中野区',
       description: '【約1畳】今すぐ預かれます！中野駅から徒歩圏内の好アクセス、綺麗なスペース',
@@ -117,7 +117,7 @@ const PickupStaffSpaceList = [
     },
     space: {
       image:
-        'https://monooq.imgix.net/img%2Fspaces%2F1597%2F1542804123530.jpg?alt=media&token=ff7ecbe0-b2f8-4e0e-8cb4-7eb1badc2736&fit=crop&w=260&h=200&format=auto',
+        'https://monooq.imgix.net/img%2Fspaces%2F1597%2F1542804123530.jpg?alt=media&token=ff7ecbe0-b2f8-4e0e-8cb4-7eb1badc2736&fit=crop&w=260&h=200&auto=format',
       price: '3,500',
       area: '東京都新宿区',
       description: '西新宿エリアならおすすめ！大きさ、期間にあわせて１畳から相談可能！',

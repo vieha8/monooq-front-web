@@ -28,25 +28,25 @@ export const convertBaseUrl = imgixUrl => {
   if (imgixUrl.indexOf('monooq-dev.imgix.net') > -1) {
     const storageUrl = 'https://firebasestorage.googleapis.com/v0/b/monooq-dev.appspot.com/o/';
     replaceUrl = imgixUrl.replace('https://monooq-dev.imgix.net/', storageUrl);
-    replaceUrl = replaceUrl.replace('&fit=crop&max-w=540&max-h=290&format=auto', '');
-    replaceUrl = replaceUrl.replace('&fit=crop&w=240&max-h=180&format=auto', '');
-    replaceUrl = replaceUrl.replace('&fit=fill&fill-color=DBDBDB&w=540&h=290&format=auto', '');
+    replaceUrl = replaceUrl.replace('&fit=crop&max-w=540&max-h=290&auto=format', '');
+    replaceUrl = replaceUrl.replace('&fit=crop&w=240&max-h=180&auto=format', '');
+    replaceUrl = replaceUrl.replace('&fit=fill&fill-color=DBDBDB&w=540&h=290&auto=format', '');
   }
 
   if (imgixUrl.indexOf('monooq.imgix.net') > -1) {
     const storageUrl = 'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/';
     replaceUrl = imgixUrl.replace('https://monooq.imgix.net/', storageUrl);
-    replaceUrl = replaceUrl.replace('&fit=crop&max-w=540&max-h=290&format=auto', '');
-    replaceUrl = replaceUrl.replace('&fit=crop&w=240&max-h=180&format=auto', '');
-    replaceUrl = replaceUrl.replace('&fit=fill&fill-color=DBDBDB&w=540&h=290&format=auto', '');
+    replaceUrl = replaceUrl.replace('&fit=crop&max-w=540&max-h=290&auto=format', '');
+    replaceUrl = replaceUrl.replace('&fit=crop&w=240&max-h=180&auto=format', '');
+    replaceUrl = replaceUrl.replace('&fit=fill&fill-color=DBDBDB&w=540&h=290&auto=format', '');
   }
 
   if (imgixUrl.indexOf('monooq-s3.imgix.net') > -1) {
     const storageUrl = 'https://s3-ap-northeast-1.amazonaws.com/monooq/';
     replaceUrl = imgixUrl.replace('https://monooq-s3.imgix.net/', storageUrl);
-    replaceUrl = replaceUrl.replace('?fit=crop&max-w=540&max-h=290&format=auto', '');
-    replaceUrl = replaceUrl.replace('&fit=crop&w=240&max-h=180&format=auto', '');
-    replaceUrl = replaceUrl.replace('&fit=fill&fill-color=DBDBDB&w=540&h=290&format=auto', '');
+    replaceUrl = replaceUrl.replace('?fit=crop&max-w=540&max-h=290&auto=format', '');
+    replaceUrl = replaceUrl.replace('&fit=crop&w=240&max-h=180&auto=format', '');
+    replaceUrl = replaceUrl.replace('&fit=fill&fill-color=DBDBDB&w=540&h=290&auto=format', '');
   }
 
   return replaceUrl;

@@ -12,10 +12,10 @@ import OtherService from './index';
 OtherService.displayName = 'OtherService';
 
 const logoPickGo =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=42';
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=42';
 
 const logoGojo =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-gojo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=65';
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-gojo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=65';
 
 const PickGoMedia = styled.img`
   height: ${Dimens.medium3}px;

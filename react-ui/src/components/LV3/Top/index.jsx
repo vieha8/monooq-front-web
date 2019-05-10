@@ -14,21 +14,21 @@ import TopIntro from 'components/LV3/TopIntro';
 import TopIntroMovie from 'components/LV3/TopIntroMovie';
 
 const logoPickGo =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=42';
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=42';
 const logoAppliv =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-appliv%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-appliv%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
 const logoAscii =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-ascii%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-ascii%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
 const logoBridge =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-bridge%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-bridge%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
 const logoCnet =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-cnet%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-cnet%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
 const logoLifehacker =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-lifehacker%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-lifehacker%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
 const logoTechcrunch =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-techcrunch%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-techcrunch%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
 const logoTechable =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-techable%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&format=auto&h=26';
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-techable%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
 
 const TopPage = styled.div`
   min-width: ${Dimens.fixedWidthPc + 32}px;
