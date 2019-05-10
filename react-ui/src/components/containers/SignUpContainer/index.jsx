@@ -28,6 +28,7 @@ const mapStateToProps = state => ({
   isRegistering: state.auth.isRegistering,
   isLoading: state.user.isLoading,
   isSignupFailed: state.auth.isSignupFailed,
+  errorMessage: state.auth.errorMessage,
 });
 
 export default connect(

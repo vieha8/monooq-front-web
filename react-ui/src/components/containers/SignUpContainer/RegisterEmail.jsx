@@ -32,7 +32,6 @@ const ErrMessage = styled.div`
 type PropTypes = {
   dispatch: Function,
   isRegistering: boolean,
-  isSignupFailed: boolean,
 };
 
 type State = {
@@ -132,11 +131,11 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const { isRegistering, isSignupFailed, history } = this.props;
+    const { isRegistering, errorMessage, history } = this.props;
     const { email, password, isUnVisiblePW, hasChanged, errors } = this.state;
     return (
       <Fragment>
-        {isSignupFailed && <ErrMessage>すでに登録済みのメールアドレスです。</ErrMessage>}
+        {errorMessage && <ErrMessage>{errorMessage}</ErrMessage>}
         <RegisterEmail
           onClickNext={this.onClickNext}
           onClickFacebook={this.onClickFacebook}
