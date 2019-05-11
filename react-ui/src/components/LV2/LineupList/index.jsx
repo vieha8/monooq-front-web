@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
+import LazyLoad from 'react-lazyload';
 
 const LineupList = styled.ul`
   display: flex;
@@ -38,7 +39,9 @@ export default ({ list }: PropTypes) => (
     {list.map((item, i) => (
       <LineupItem key={i.toString()}>
         <a href={item.link} target="_blank" rel="noopener noreferrer">
-          <LineupImage src={item.image} alt={item.alt} />
+          <LazyLoad>
+            <LineupImage src={item.image} alt={item.alt} />
+          </LazyLoad>
         </a>
       </LineupItem>
     ))}
