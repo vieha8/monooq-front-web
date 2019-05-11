@@ -568,7 +568,7 @@ function* search({
         priceMin: priceMin || 0,
         priceMax: priceMax || 0,
         receiptType,
-        type,
+        spaceType: type,
         isFurniture,
       },
       token,
