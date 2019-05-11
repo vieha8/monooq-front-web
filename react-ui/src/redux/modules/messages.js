@@ -128,7 +128,7 @@ function* fetchRoomStart() {
   yield put(messagesActions.fetchRoomsEnd({ rooms: res, unreadRooms }));
 }
 
-function* fetchUnreladRooms() {
+function* fetchUnreadRooms() {
   const user = yield select(state => state.auth.user);
   const rooms = yield getRooms(user.ID);
 
@@ -414,7 +414,7 @@ function* sendMessageAndNotice({ payload }) {
 // Sagas
 export const messagesSagas = [
   takeEvery(FETCH_ROOMS_START, fetchRoomStart),
-  takeEvery(FETCH_UNREAD_ROOMS_START, fetchUnreladRooms),
+  takeEvery(FETCH_UNREAD_ROOMS_START, fetchUnreadRooms),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),
   takeEvery(SEND_MESSAGE, sendMessageAndNotice),
 ];
