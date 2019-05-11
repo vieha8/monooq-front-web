@@ -65,7 +65,7 @@ type PropTypes = {
   srcMovie: string,
   frameBorder: string,
   allow: string,
-  allowFullScreen: booelan,
+  allowFullScreen: boolean,
   ExplanTitle: React.Element<*>,
   ExplanText: React.Element<*>,
 };
@@ -85,6 +85,7 @@ export default ({
         frameBorder={frameBorder}
         allow={allow}
         allowFullScreen={allowFullScreen}
+        controls={2}
       />
     </MovieFrameWrapper>
     <MovieExplanContainer>

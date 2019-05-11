@@ -104,7 +104,7 @@ export default props => (
       <TopIntroMovie
         srcMovie="https://www.youtube.com/embed/t0t50WBDwzc?showinfo=0&rel=0"
         frameBorder="0"
-        allow="autoplay; encrypted-media"
+        allow="autoplay; encrypted-media;"
         allowFullScreen
         ExplanTitle={
           <Fragment>
