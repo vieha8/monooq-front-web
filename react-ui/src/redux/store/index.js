@@ -2,7 +2,6 @@ import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
 
 import createSagaMiddleware from 'redux-saga';
-import logger from 'redux-logger';
 
 import { authReducer } from '../modules/auth';
 import { messagesReducer } from '../modules/messages';
@@ -41,6 +40,7 @@ export default history => {
   let composeEnhancers = compose;
 
   if (process.env.NODE_ENV !== 'production') {
+    const { logger } = require('redux-logger');
     middleware.push(logger);
     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   }

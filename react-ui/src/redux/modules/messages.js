@@ -11,6 +11,7 @@ import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/index';
 import Path from '../../config/path';
+
 let messageObserverUnsubscribe = null;
 
 // Actions
@@ -132,7 +133,7 @@ function* fetchUnreadRooms() {
   const user = yield select(state => state.auth.user);
   const rooms = yield getRooms(user.ID);
 
-  const res = rooms.map((v, i) => {
+  const res = rooms.map(v => {
     const room = v;
     room.isRead = room.isUnsubscribe;
     if (room[`user${user.ID}LastReadDt`]) {
