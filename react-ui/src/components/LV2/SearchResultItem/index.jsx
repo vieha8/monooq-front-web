@@ -10,6 +10,7 @@ import InlineText from 'components/LV1/InlineText';
 import { Colors } from 'variables';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
+import LazyLoad from 'react-lazyload';
 
 const Container = styled.div`
   max-width: 164px;
@@ -52,7 +53,9 @@ export default ({ id, title, image, address, priceQuarter, priceFull }: PropType
   <Container>
     <Link to={Path.space(id)}>
       <Card noPadding noBorder customStyle={CardShadowStyle}>
-        <HeroImage src={image} alt={title} height={123} heightTab={145} heightSp={123} />
+        <LazyLoad height={123}>
+          <HeroImage src={image} alt={title} height={123} heightTab={145} heightSp={123} />
+        </LazyLoad>
         <Content>
           <Row>
             <InlineText.Base singleLine fontSize={12} color={Colors.brandPrimary}>
