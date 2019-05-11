@@ -111,9 +111,9 @@ class SearchResultContainer extends Component<PropTypes, State> {
       } else if (type === '3') {
         condition += `部屋、`;
       } else if (type === '4') {
-        condition += `野外倉庫、`;
+        condition += `屋外倉庫、`;
       } else if (type === '5') {
-        condition += `その他`;
+        condition += `その他、`;
       }
     }
 
