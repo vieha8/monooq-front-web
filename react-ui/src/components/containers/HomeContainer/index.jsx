@@ -59,11 +59,6 @@ class HomeContainer extends Component<PropTypes> {
     window.scrollTo(0, 0);
   }
 
-  onClickSpace = (space: { ID: number }) => {
-    const { history } = this.props;
-    history.push(Path.space(space.ID));
-  };
-
   showSections = () => {
     const { sections, history } = this.props;
 

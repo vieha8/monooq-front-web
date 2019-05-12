@@ -34,7 +34,7 @@ export default history => {
     sagaMiddleware,
     gaMiddleware,
     keenMiddleware,
-    sentryMiddleware,
+    sentryMiddleware({}),
   ];
 
   let composeEnhancers = compose;
