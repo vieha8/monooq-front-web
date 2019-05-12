@@ -14,7 +14,6 @@ import SearchResult from 'components/LV3/SearchResult';
 import ConciergeContents from 'components/LV2/ConciergeIntroduction';
 import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
-import bannerPickupImage from 'images/banner-pickup.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import LoadingPage from 'components/LV3/LoadingPage';
 import { checkAuthState, mergeAuthProps } from '../AuthRequired';
@@ -72,7 +71,9 @@ class HomeContainer extends Component<PropTypes> {
       const key = `section${id}`;
 
       if (displayType === 'pickup_banner') {
-        return <Image key={key} src={bannerPickupImage} alt="banner-pickup" />;
+        const url =
+          'https://monooq.imgix.net/img%2Fservice%2Fbanner-pickup.png?alt=media&token=0ca4dd4e-3fcb-4975-84cf-e4a54bf614cf&auto=format&w=540';
+        return <Image key={key} src={url} alt="banner-pickup" />;
       }
 
       if (displayType === 'regions') {
