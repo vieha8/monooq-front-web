@@ -9,7 +9,6 @@ import { userActions } from 'redux/modules/user';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import Header from 'components/containers/Header';
-import LoadingPage from 'components/LV3/LoadingPage';
 import EditProfile from 'components/LV3/EditProfile';
 import EditProfileCompleted from 'components/LV3/EditProfile/Completed';
 import ErrorMessage from 'strings';

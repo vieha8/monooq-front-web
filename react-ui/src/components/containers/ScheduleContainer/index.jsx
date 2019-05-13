@@ -12,15 +12,12 @@ import LoadingPage from 'components/LV3/LoadingPage';
 import ScheduleList from 'components/LV3/ScheduleList';
 import NoDataView from 'components/LV3/NoDataView';
 
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 
 class ScheduleContainer extends Component {
   constructor(props) {
     super(props);
-
-    checkLogin(this.props);
-
     const { dispatch } = this.props;
     dispatch(requestActions.fetchSchedule());
   }
@@ -81,34 +78,23 @@ class ScheduleContainer extends Component {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const { isLoading } = this.props;
 
     return (
-      <div>
-        <MenuPageTemplate
-          header={<Header />}
-          headline="利用状況"
-          leftContent={isLoading ? <LoadingPage /> : this.showLeftContent()}
-          rightContent={<ServiceMenu />}
-        />
-      </div>
+      <MenuPageTemplate
+        header={<Header />}
+        headline="利用状況"
+        leftContent={isLoading ? <LoadingPage /> : this.showLeftContent()}
+        rightContent={<ServiceMenu />}
+      />
     );
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    isLoading: state.request.isLoading,
-    user: state.auth.user,
-    schedule: state.request.schedule,
-  });
+const mapStateToProps = state => ({
+  isLoading: state.request.isLoading,
+  user: state.auth.user,
+  schedule: state.request.schedule,
+});
 
-export default connect(
-  ScheduleContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(ScheduleContainer));

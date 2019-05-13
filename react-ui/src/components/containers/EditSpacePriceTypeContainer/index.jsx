@@ -13,8 +13,8 @@ import EditSpaceInputPriceType from 'components/LV3/EditSpace/InputPriceType';
 
 import ErrorMessage from 'strings';
 
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 
 const Validate = {
   Address: `(...??[都道府県])((?:旭川|伊達|石狩|盛岡|奥州|田村|南相馬|那須塩原|東村山|武蔵村山|羽村|十日町|上越|富山|野々市|大町|蒲郡|四日市|姫路|大和郡山|廿日市|下松|岩国|田川|大村)市|.+?郡(?:玉村|大町|.+?)[町村]|.+?市.+?区|.+?[市区町村郡])(\\D+)(.*)`,
@@ -38,8 +38,6 @@ type PropTypes = {
 class EditSpacePriceTypeContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
-
-    checkLogin(this.props);
 
     const { space, dispatch } = this.props;
     const spaceId = props.match.params.space_id;
@@ -201,11 +199,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const { space, isLoading } = this.props;
     const { PriceQuarter, PriceHalf, PriceFull, error } = this.state;
 
@@ -237,15 +230,11 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    user: state.auth.user || {},
-    space: state.ui.space || {},
-    isLoading: state.space.isLoading,
-    geocode: state.space.geocode,
-  });
+const mapStateToProps = state => ({
+  user: state.auth.user || {},
+  space: state.ui.space || {},
+  isLoading: state.space.isLoading,
+  geocode: state.space.geocode,
+});
 
-export default connect(
-  EditSpacePriceTypeContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(EditSpacePriceTypeContainer));

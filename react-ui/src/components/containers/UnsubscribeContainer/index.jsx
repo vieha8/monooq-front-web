@@ -13,9 +13,8 @@ import UnsubscribeFailed from 'components/LV3/Unsubscribe/Failed';
 import LoadingPage from 'components/LV3/LoadingPage';
 import ErrorMessage from 'strings';
 
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 
 type PropTypes = {
   dispatch: Function,
@@ -42,9 +41,6 @@ class UnsubscribeContainer extends Component<PropTypes> {
 
   constructor(props: PropTypes) {
     super(props);
-
-    checkLogin(this.props);
-
     this.state = {
       reasonType: [],
       reasonText: '',
@@ -119,11 +115,6 @@ class UnsubscribeContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const {
       isLoading,
       isUnsubscribeTrying,
@@ -162,16 +153,12 @@ class UnsubscribeContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    user: state.auth.user || {},
-    isLoading: state.user.isLoading,
-    isUnsubscribeTrying: state.auth.isUnsubscribeTrying,
-    isUnsubscribeSuccess: state.auth.isUnsubscribeSuccess,
-    isUnsubscribeFailed: state.auth.isUnsubscribeFailed,
-  });
+const mapStateToProps = state => ({
+  user: state.auth.user || {},
+  isLoading: state.user.isLoading,
+  isUnsubscribeTrying: state.auth.isUnsubscribeTrying,
+  isUnsubscribeSuccess: state.auth.isUnsubscribeSuccess,
+  isUnsubscribeFailed: state.auth.isUnsubscribeFailed,
+});
 
-export default connect(
-  UnsubscribeContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(UnsubscribeContainer));

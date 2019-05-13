@@ -15,8 +15,8 @@ import ErrorMessage from 'strings';
 
 import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 
 type PropTypes = {
   dispatch: Function,
@@ -35,8 +35,6 @@ const Validate = {
 class EditSpaceInformationContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
-
-    checkLogin(this.props);
 
     const { dispatch, space } = this.props;
 
@@ -219,11 +217,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const { space } = this.props;
     const { Images, Title, Type, Introduction, Address, error, isImageUploading } = this.state;
 
@@ -263,12 +256,8 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    space: state.ui.space || {},
-  });
+const mapStateToProps = state => ({
+  space: state.ui.space || {},
+});
 
-export default connect(
-  EditSpaceInformationContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(EditSpaceInformationContainer));

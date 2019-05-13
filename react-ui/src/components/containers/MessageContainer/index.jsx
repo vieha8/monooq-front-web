@@ -18,8 +18,8 @@ import HostInfo from 'components/LV2/Space/HostInfo';
 import UserInfo from 'components/LV2/Space/UserInfo';
 import { convertImgixUrl } from 'helpers/imgix';
 import { messagesActions } from 'redux/modules/messages';
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 import { uiActions } from '../../../redux/modules/ui';
 
 const TopWrap = styled.div`
@@ -95,9 +95,6 @@ const MessageType = {
 class MessageContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
-
-    checkLogin(this.props);
-
     const { dispatch, match } = this.props;
     const roomId = match.params.message_room_id;
     dispatch(messagesActions.fetchMessagesStart(roomId));
@@ -330,11 +327,6 @@ class MessageContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     return (
       <MenuPageTemplate
         header={<Header />}
@@ -345,15 +337,11 @@ class MessageContainer extends Component<PropTypes, State> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    room: state.messages.room,
-    messages: state.messages.messages,
-    user: state.auth.user,
-    isLoading: state.messages.isLoading,
-  });
+const mapStateToProps = state => ({
+  room: state.messages.room,
+  messages: state.messages.messages,
+  user: state.auth.user,
+  isLoading: state.messages.isLoading,
+});
 
-export default connect(
-  MessageContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(MessageContainer));

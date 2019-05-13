@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
@@ -15,8 +15,8 @@ import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import LoadingPage from 'components/LV3/LoadingPage';
-import { checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 
 const HomeWrap = styled.div`
   ${media.tablet`
@@ -111,11 +111,6 @@ class HomeRegionContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const { isLoading } = this.props;
 
     return (
@@ -125,11 +120,9 @@ class HomeRegionContainer extends Component<PropTypes> {
           isLoading ? (
             <LoadingPage />
           ) : (
-            <Fragment>
-              <HomeWrap>
-                <HomeTemplate sections={this.showSections()} />
-              </HomeWrap>
-            </Fragment>
+            <HomeWrap>
+              <HomeTemplate sections={this.showSections()} />
+            </HomeWrap>
           )
         }
         rightContent={<ServiceMenu />}
@@ -139,13 +132,9 @@ class HomeRegionContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    sections: state.home.sections,
-    isLoading: state.home.isLoading,
-  });
+const mapStateToProps = state => ({
+  sections: state.home.sections,
+  isLoading: state.home.isLoading,
+});
 
-export default connect(
-  HomeRegionContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(HomeRegionContainer));

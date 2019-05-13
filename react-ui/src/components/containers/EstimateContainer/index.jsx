@@ -10,8 +10,8 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import InputEstimate from 'components/LV3/InputEstimate';
 
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 
 const Validate = {
   Price: {
@@ -30,9 +30,6 @@ type PropTypes = {
 class EstimateContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
-
-    checkLogin(this.props);
-
     this.state = {};
   }
 
@@ -107,11 +104,6 @@ class EstimateContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const { isSending } = this.props;
     const { begin, end, errors, price, beginFocus, endFocus } = this.state;
 
@@ -147,13 +139,9 @@ class EstimateContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    user: state.auth.user,
-    isSending: state.request.estimate.isSending,
-  });
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  isSending: state.request.estimate.isSending,
+});
 
-export default connect(
-  EstimateContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(EstimateContainer));
