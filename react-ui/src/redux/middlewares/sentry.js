@@ -8,7 +8,7 @@ const createSentryMiddleware = (Sentry, options = {}) => {
   const {
     breadcrumbDataFromAction = getUndefined,
     actionTransformer = identity,
-    stateTransformer = identity,
+    // stateTransformer = identity,
     breadcrumbCategory = 'redux-action',
     filterBreadcrumbActions = filter,
     getUserContext,
@@ -25,7 +25,7 @@ const createSentryMiddleware = (Sentry, options = {}) => {
         event.extra = {
           ...event.extra,
           lastAction: actionTransformer(lastAction),
-          state: stateTransformer(state),
+          // state: stateTransformer(state),
         };
 
         if (getUserContext) {
