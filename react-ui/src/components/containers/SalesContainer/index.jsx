@@ -20,8 +20,8 @@ import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 import { selectDepositType } from 'helpers/deposittypes';
 
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from '../AuthRequired';
 
 const InputText = styled.div`
   margin-top: ${Dimens.medium2}px;
@@ -128,7 +128,6 @@ const CautionText = styled(InlineText.Base)`
 class SalesContainer extends Component {
   constructor(props) {
     super(props);
-    checkLogin(this.props);
 
     const { dispatch } = this.props;
     dispatch(salesActions.fetchSales());
@@ -373,11 +372,6 @@ class SalesContainer extends Component {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const { isLoading } = this.props;
     const { isConfirm, isSend } = this.state;
 
@@ -395,28 +389,22 @@ class SalesContainer extends Component {
     }
 
     return (
-      <Fragment>
-        <MenuPageTemplate
-          header={<Header />}
-          headline={headline}
-          leftContent={isLoading ? <LoadingPage /> : leftContent}
-          rightContent={<ServiceMenu />}
-        />
-      </Fragment>
+      <MenuPageTemplate
+        header={<Header />}
+        headline={headline}
+        leftContent={isLoading ? <LoadingPage /> : leftContent}
+        rightContent={<ServiceMenu />}
+      />
     );
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    sales: state.sales.sales,
-    payout: state.sales.payout,
-    deposit: state.sales.deposit,
-    isLoading: state.sales.isLoading,
-    user: state.auth.user,
-  });
+const mapStateToProps = state => ({
+  sales: state.sales.sales,
+  payout: state.sales.payout,
+  deposit: state.sales.deposit,
+  isLoading: state.sales.isLoading,
+  user: state.auth.user,
+});
 
-export default connect(
-  SalesContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(SalesContainer));
