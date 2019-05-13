@@ -119,27 +119,29 @@ export default (props: PropTypes) => {
   const { messages, hostUser, lastReadDt } = props;
   const messageList = messages;
 
-  // 自分がユーザーの場合かつ未送信の場合は、初期メッセージを追加する
-  if (!hostUser && messageList.length === 0) {
-    messageList.push({
+  if (messageList.length >= 1) {
+    // ルームの初回メッセージをトリガーとして、ユーザー・ホストの「双方」に表示 ※永続表示
+    messageList.unshift({
       admin: {
         message:
-          'まずは「荷物の内容」「期間」「必要なおおよその広さ」をホストへ伝えましょう！メッセージでは写真も送ることができます。',
+          '【リクエストが送信されました】\n保管条件を調整した後、ホストからの見積もりに決済しましょう。\n\n※モノオク上での決済は保険適用のため必須となり、決済完了後に保管先住所をお知らせします。\n※「見積もりを送る」ボタンはホストのメッセージ送信ボタン下部にあります。',
       },
     });
-  } else if (hostUser && messageList.length === 0) {
-    // 自分がホストの場合かつ未送信の場合は、初期メッセージを追加する
-    messageList.push({
+  }
+
+  if (hostUser && messageList.length >= 0) {
+    // 自分がホストの場合かつ未送信の場合は、初期メッセージを追加する ※永続表示
+    messageList.unshift({
       admin: {
         message: 'あなたのスペースが興味をもたれています。ユーザーに希望条件を聞いてみましょう！',
       },
     });
-  } else if (messageList.length === 1) {
-    // ルームの初回メッセージをトリガーとして、ユーザー・ホストの「双方」に表示
-    messageList.push({
+  } else if (!hostUser && messageList.length >= 0) {
+    // 自分がユーザーの場合かつ未送信の場合は、初期メッセージを追加する ※永続表示
+    messageList.unshift({
       admin: {
         message:
-          '【リクエストが送信されました】\n保管条件を調整した後、ホストからの見積もりに決済しましょう。\n\n※モノオク上での決済は保険適用のため必須となり、決済完了後に保管先住所をお知らせします。\n※「見積もりを送る」ボタンはホストのメッセージ送信ボタン下部にあります。',
+          'まずは「荷物の内容」「期間」「必要なおおよその広さ」をホストへ伝えましょう！メッセージでは写真も送ることができます。',
       },
     });
   }
