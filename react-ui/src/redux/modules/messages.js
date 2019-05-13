@@ -357,7 +357,8 @@ function* sendEmail(payload) {
     return;
   }
 
-  let messageBody = 'メッセージが届いています。\n\n';
+  const name = toUser.Name !== '' ? `${toUser.Name}さんから` : '';
+  let messageBody = `${name}メッセージが届いています。\n\n`;
 
   if (text.length !== 0) {
     messageBody += text;
@@ -385,11 +386,12 @@ function* sendEmail(payload) {
 }
 
 function* sendSMS(payload) {
-  const { roomId, toUserId } = payload;
+  const { roomId, toUserId, toUserName } = payload;
 
   const token = yield* getToken();
 
-  let messageBody = '【モノオク】メッセージが届いています。下記リンクからご確認ください。\n\n';
+  const name = toUserName !== '' ? `${toUserName}さんから` : '';
+  let messageBody = `【モノオク】${name}メッセージが届いています。下記リンクからご確認ください。\n\n`;
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
   if (process.env.REACT_APP_ENV === 'production') {
