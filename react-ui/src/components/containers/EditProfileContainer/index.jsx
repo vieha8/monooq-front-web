@@ -1,6 +1,8 @@
 // @flow
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 
 import { userActions } from 'redux/modules/user';
 
@@ -11,9 +13,6 @@ import LoadingPage from 'components/LV3/LoadingPage';
 import EditProfile from 'components/LV3/EditProfile';
 import EditProfileCompleted from 'components/LV3/EditProfile/Completed';
 import ErrorMessage from 'strings';
-
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
 
 type PropTypes = {
   dispatch: Function,
@@ -35,13 +34,11 @@ const Validate = {
   },
 };
 
-class ProfileContainer extends Component<PropTypes> {
+class EditProfileContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
     const { dispatch, user } = this.props;
-
-    checkLogin(this.props);
 
     dispatch(userActions.prepareUpdateUser());
 
@@ -88,6 +85,7 @@ class ProfileContainer extends Component<PropTypes> {
   }
 
   onClickUpdate: Function;
+
   onClickUpdate = () => {
     const { user } = this.props;
     const { name, profile, purpose } = this.state;
@@ -168,6 +166,7 @@ class ProfileContainer extends Component<PropTypes> {
   };
 
   validate: Function;
+
   validate = () => {
     const { name, email, phoneNumber, prefCode, profile, purpose } = this.state;
 
@@ -188,16 +187,7 @@ class ProfileContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
-    const { updateSuccess, isChecking, isLoading, user } = this.props;
-
-    if (isChecking) {
-      return <LoadingPage />;
-    }
+    const { updateSuccess, isLoading, user } = this.props;
 
     const {
       imageUri,
@@ -257,15 +247,11 @@ class ProfileContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    user: state.auth.user || {},
-    updateSuccess: state.user.updateSuccess,
-    isLoading: state.user.isLoading,
-    redirectPath: state.ui.redirectPath,
-  });
+const mapStateToProps = state => ({
+  user: state.auth.user || {},
+  updateSuccess: state.user.updateSuccess,
+  isLoading: state.user.isLoading,
+  redirectPath: state.ui.redirectPath,
+});
 
-export default connect(
-  ProfileContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(EditProfileContainer));

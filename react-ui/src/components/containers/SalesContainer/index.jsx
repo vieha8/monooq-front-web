@@ -1,6 +1,9 @@
 // @flow
 
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
+
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { salesActions } from 'redux/modules/sales';
@@ -19,9 +22,6 @@ import InlineText from 'components/LV1/InlineText';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 import { selectDepositType } from 'helpers/deposittypes';
-
-import { connect } from 'react-redux';
-import authRequired from '../AuthRequired';
 
 const InputText = styled.div`
   margin-top: ${Dimens.medium2}px;
