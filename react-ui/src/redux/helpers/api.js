@@ -45,7 +45,10 @@ const responseErrorHandler = (resolve, response) => {
   }
 
   if (response.status !== 404) {
-    captureException(new Error(`${response.status}:${response.statusText}`));
+    const { status, statusText, data, config } = response;
+    const { method, url } = config;
+    const error = `${method} ${url} ${status} ${statusText} : ${data.error}`;
+    captureException(new Error(error));
   }
 
   resolve({
