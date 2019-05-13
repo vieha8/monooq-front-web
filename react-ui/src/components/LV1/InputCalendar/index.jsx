@@ -9,7 +9,7 @@ import { Colors } from 'variables';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import 'stylesheets/datepicker_overrieds.css';
-import { SingleDatePicker } from 'react-dates';
+import SingleDatePicker from 'react-dates/lib/components/SingleDatePicker';
 
 moment.locale('ja');
 
