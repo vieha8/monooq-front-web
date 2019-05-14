@@ -17,8 +17,8 @@ import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import dummySpaceImage from 'images/dummy_space.png';
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 import { spaceActions } from '../../../redux/modules/space';
 
 type PropTypes = {
@@ -88,8 +88,6 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
 
-    checkLogin(this.props);
-
     this.state = {
       isUpdate: false,
     };
@@ -148,11 +146,6 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const { user, space, isLoading, isComplete } = this.props;
     const { isUpdate } = this.state;
 
@@ -240,16 +233,12 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    isComplete: state.space.isComplete,
-    user: state.auth.user,
-    space: state.ui.space || {},
-    isLoading: state.space.isLoading,
-    geocode: state.space.geocode,
-  });
+const mapStateToProps = state => ({
+  isComplete: state.space.isComplete,
+  user: state.auth.user,
+  space: state.ui.space || {},
+  isLoading: state.space.isLoading,
+  geocode: state.space.geocode,
+});
 
-export default connect(
-  EditSpaceConfirmContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(EditSpaceConfirmContainer));

@@ -12,8 +12,8 @@ import Loading from 'components/LV1/Loading';
 import InboxList from 'components/LV3/InboxList';
 import NoDataView from 'components/LV3/NoDataView';
 
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 
 type PropTypes = {
   dispatch: Function,
@@ -32,8 +32,6 @@ type PropTypes = {
 class InboxContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
-
-    checkLogin(this.props);
 
     const { dispatch } = this.props;
     dispatch(messagesActions.fetchRoomsStart());
@@ -74,11 +72,6 @@ class InboxContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     return (
       <MenuPageTemplate
         header={<Header />}
@@ -90,13 +83,9 @@ class InboxContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    rooms: state.messages.rooms,
-    isLoading: state.messages.isLoading,
-  });
+const mapStateToProps = state => ({
+  rooms: state.messages.rooms,
+  isLoading: state.messages.isLoading,
+});
 
-export default connect(
-  InboxContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(InboxContainer));

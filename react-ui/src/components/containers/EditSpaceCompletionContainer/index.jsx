@@ -8,8 +8,8 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import EditSpaceCompletion from 'components/LV3/EditSpace/Completion';
 
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 
 type PropTypes = {
   history: {
@@ -27,8 +27,6 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
 
-    checkLogin(this.props);
-
     const spaceId = props.match.params.space_id;
     const isEdit = !!spaceId;
     this.state = { spaceId, isEdit };
@@ -39,11 +37,6 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
   }
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const { history, user } = this.props;
     const { spaceId, isEdit } = this.state;
 
@@ -73,12 +66,8 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    user: state.auth.user,
-  });
+const mapStateToProps = state => ({
+  user: state.auth.user,
+});
 
-export default connect(
-  EditSpaceCompletionContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(EditSpaceCompletionContainer));

@@ -12,8 +12,8 @@ import EditSpaceReceive from 'components/LV3/EditSpace/Receive';
 
 import ErrorMessage from 'strings';
 
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 import { spaceActions } from '../../../redux/modules/space';
 
 type PropTypes = {
@@ -29,8 +29,6 @@ type PropTypes = {
 class EditSpaceReceiveContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
-
-    checkLogin(this.props);
 
     const { space, dispatch } = this.props;
 
@@ -148,11 +146,6 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const { ReceiptType, ReceiptAbout, error } = this.state;
 
     return (
@@ -178,12 +171,8 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    space: state.ui.space || {},
-  });
+const mapStateToProps = state => ({
+  space: state.ui.space || {},
+});
 
-export default connect(
-  EditSpaceReceiveContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(EditSpaceReceiveContainer));

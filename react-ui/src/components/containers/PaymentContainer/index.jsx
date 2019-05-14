@@ -20,8 +20,8 @@ import ErrorMessage from 'strings';
 
 import type { SpaceType } from 'types/Space';
 
-import { checkLogin, checkAuthState, mergeAuthProps } from '../AuthRequired';
-import connect from '../connect';
+import { connect } from 'react-redux';
+import authRequired from 'components/containers/AuthRequired';
 
 type PropTypes = {
   dispatch: Function,
@@ -51,8 +51,6 @@ const ValidateRegExp = {
 class PaymentContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
-
-    checkLogin(this.props);
 
     const { dispatch, match } = this.props;
     const roomId = match.params.message_room_id;
@@ -177,11 +175,6 @@ class PaymentContainer extends Component<PropTypes> {
   };
 
   render() {
-    const auth = checkAuthState(this.props);
-    if (auth) {
-      return auth;
-    }
-
     const {
       match,
       room,
@@ -263,18 +256,14 @@ class PaymentContainer extends Component<PropTypes> {
   }
 }
 
-const mapStateToProps = state =>
-  mergeAuthProps(state, {
-    room: state.messages.room,
-    messages: state.messages.messages,
-    isLoading: state.messages.isLoading,
-    isSending: state.request.payment.isSending,
-    isPaymentSuccess: state.request.payment.isSuccess,
-    isPaymentFailed: state.request.payment.isFailed,
-    errMsgPayment: state.request.payment.errMsg,
-  });
+const mapStateToProps = state => ({
+  room: state.messages.room,
+  messages: state.messages.messages,
+  isLoading: state.messages.isLoading,
+  isSending: state.request.payment.isSending,
+  isPaymentSuccess: state.request.payment.isSuccess,
+  isPaymentFailed: state.request.payment.isFailed,
+  errMsgPayment: state.request.payment.errMsg,
+});
 
-export default connect(
-  PaymentContainer,
-  mapStateToProps,
-);
+export default authRequired(connect(mapStateToProps)(PaymentContainer));
