@@ -121,7 +121,7 @@ export default (props: PropTypes) => {
 
   if (messageList.length >= 1) {
     // ルームの初回メッセージをトリガーとして、ユーザー・ホストの「双方」に表示 ※永続表示
-    messageList.unshift({
+    messageList.splice(1, 0, {
       admin: {
         message:
           '【リクエストが送信されました】\n保管条件を調整した後、ホストからの見積もりに決済しましょう。\n\n※モノオク上での決済は保険適用のため必須となり、決済完了後に保管先住所をお知らせします。\n※「見積もりを送る」ボタンはホストのメッセージ送信ボタン下部にあります。',
