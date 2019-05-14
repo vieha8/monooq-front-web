@@ -38,17 +38,18 @@ const createApiInstance = token =>
     },
   });
 
-const responseErrorHandler = (resolve, response) => {
+const responseErrorHandler = (resolve, error) => {
+  const { response, message } = error;
   if (!response) {
-    resolve({ status: 503, err: 'Service Unavailable' });
+    resolve({ status: 503, err: message });
     return;
   }
 
   if (response.status !== 404) {
     const { status, statusText, data, config } = response;
     const { method, url } = config;
-    const error = `${method} ${url} ${status} ${statusText} : ${data.error}`;
-    captureException(new Error(error));
+    const err = `${method} ${url} ${status} ${statusText} : ${data.error}`;
+    captureException(new Error(err));
   }
 
   resolve({
@@ -65,7 +66,7 @@ export const getApiRequest = (path, params, token) => {
       .then(res => {
         resolve({ ...res });
       })
-      .catch(({ response }) => responseErrorHandler(resolve, response));
+      .catch(error => responseErrorHandler(resolve, error));
   });
 };
 
@@ -77,7 +78,7 @@ export const postApiRequest = (path, body, token) => {
       .then(res => {
         resolve({ status: res.status, data: res.data });
       })
-      .catch(({ response }) => responseErrorHandler(resolve, response));
+      .catch(error => responseErrorHandler(resolve, error));
   });
 };
 
@@ -89,7 +90,7 @@ export const putApiRequest = (path, body, token) => {
       .then(res => {
         resolve({ status: res.status, data: res.data });
       })
-      .catch(({ response }) => responseErrorHandler(resolve, response));
+      .catch(error => responseErrorHandler(resolve, error));
   });
 };
 
@@ -101,6 +102,6 @@ export const deleteApiRequest = (path, token) => {
       .then(res => {
         resolve({ status: res.status, data: res.data });
       })
-      .catch(({ response }) => responseErrorHandler(resolve, response));
+      .catch(error => responseErrorHandler(resolve, error));
   });
 };
