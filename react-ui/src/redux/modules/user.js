@@ -3,6 +3,7 @@ import { put, takeEvery, take, select, call, race, delay } from 'redux-saga/effe
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import { push } from 'connected-react-router';
+import ErrorMessage from 'strings';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
@@ -79,11 +80,12 @@ export const userReducer = handleActions(
       updateFailed: false,
       isLoading: false,
     }),
-    [UPDATE_FAILED_USER]: state => ({
+    [UPDATE_FAILED_USER]: (state, action) => ({
       ...state,
       updateSuccess: false,
       updateFailed: true,
       isLoading: false,
+      errMessage: action.payload,
     }),
     [PREPARE_UPDATE_USER]: state => ({
       ...state,
@@ -91,6 +93,7 @@ export const userReducer = handleActions(
       updateSuccess: false,
       updateFailed: false,
       isLoading: false,
+      errMessage: '',
     }),
   },
   initialState,
@@ -210,8 +213,14 @@ function* updateUser({ payload: { userId, body } }) {
     return;
   }
   if (posts.err) {
-    yield put(userActions.updateFailedUser(`error(${functionName}):${posts.err}`));
-    yield put(errorActions.setError(`error(${functionName}):${posts.err}`));
+    let errMessage = '';
+    if (posts.err === 'googleapi: Error 400: EMAIL_EXISTS, invalid') {
+      errMessage = ErrorMessage.FailedSignUpMailExist;
+    } else {
+      yield put(errorActions.setError(`error(${functionName}):${posts.err}`));
+    }
+
+    yield put(userActions.updateFailedUser(errMessage));
     return;
   }
 
