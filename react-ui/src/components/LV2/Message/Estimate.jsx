@@ -1,10 +1,10 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Card from 'components/LV1/Card';
 import InlineText from 'components/LV1/InlineText';
-import TextLink from 'components/LV1/TextLink';
+import Button from 'components/LV1/Button';
 import { Colors } from 'variables';
 
 function estimateDateFormat(date) {
@@ -24,9 +24,8 @@ const CaptionWrapper = styled.div`
   margin-top: 24px;
 `;
 
-const LinkWrapper = styled.div`
-  text-align: right;
-  margin-top: 24px;
+const BbuttonPaymentWrap = styled.div`
+  margin-top: 5px;
 `;
 
 const DateWrapper = styled.div`
@@ -36,6 +35,17 @@ const DateWrapper = styled.div`
 
 const Caution = styled.span`
   color: ${Colors.error};
+`;
+
+const ButtonWrap = styled.div`
+  max-width: 170px;
+`;
+
+const ButtonLinkStyled = styled.a`
+  color: ${Colors.white};
+  &:hover {
+    color: ${Colors.white};
+  }
 `;
 
 type PropTypes = {
@@ -75,30 +85,65 @@ export default (props: PropTypes) => (
           期間や料金に変更があった場合は、ホストが新しく見積りを発行してください。
           <br />
           <br />
-          現在はクレジットカード(VISA、MasterCard)のみ決済可能です。
+          クレジットカード(VISA、MasterCard)と銀行振込での決済が可能です。
           <br />
-          下記をご希望の場合は
+          <br />
+          ■クレジットカード決済をご希望の場合
+          <br />
+          お支払い画面から決済を行ってください。
+          <br />
+          <BbuttonPaymentWrap>
+            {!props.host ? (
+              props.status !== 'paid' ? (
+                <ButtonWrap>
+                  <Button primary fontbold center fill={1}>
+                    <ButtonLinkStyled href={props.paymentLink}>お支払い画面に進む</ButtonLinkStyled>
+                  </Button>
+                </ButtonWrap>
+              ) : (
+                <Fragment>
+                  <ButtonWrap>
+                    <Button primary fontbold center fill={1} disabled>
+                      お支払い画面に進む
+                    </Button>
+                  </ButtonWrap>
+                  <Text>※お支払い済み</Text>
+                </Fragment>
+              )
+            ) : (
+              <ButtonWrap>
+                <Button primary fontbold center fill={1} disabled>
+                  お支払い画面に進む
+                </Button>
+              </ButtonWrap>
+            )}
+          </BbuttonPaymentWrap>
+          <br />
+          <br />
+          ■銀行振込をご希望の場合
+          <br />
+          下記口座にお振込後、
+          <a href="mailto:support@monooq.com">support@monooq.com</a>
+          まで振込明細の写真とモノオクでご利用のメールアドレスをお送りください。
+          <br />
+          <br />
+          <InlineText.Bold>
+            みずほ銀行 渋谷中央支店
+            <br />
+            普通 1806441 モノオク(カ
+          </InlineText.Bold>
+          <br />
+          <br />
+          <br />
+          ※長期利用や1ヶ月あたりの料金が高額な方向けに、クレジットカード月額自動引き落としの対応も可能です。ご希望の方は
           <a href="mailto:support@monooq.com">support@monooq.com</a>
           までご連絡ください。
-          <br />
-          ・銀行振込
-          <br />
-          ・クレジットカードで1ヶ月ごとの月額自動引き落とし(長期利用の方、または1ヶ月あたりの料金が高額な方向け)
           <br />
           <br />
           <Caution>モノオク上で決済を行わない場合、保険が適応されません。</Caution>
           <br />
         </Text>
       </CaptionWrapper>
-      {!props.host && (
-        <LinkWrapper>
-          {props.status !== 'paid' ? (
-            <TextLink href={props.paymentLink}>この見積もりでお支払いに進む</TextLink>
-          ) : (
-            <Text>お支払い済み</Text>
-          )}
-        </LinkWrapper>
-      )}
     </Card>
     <DateWrapper>
       <InlineText.EmphasisTiny>{props.receivedAt}</InlineText.EmphasisTiny>
