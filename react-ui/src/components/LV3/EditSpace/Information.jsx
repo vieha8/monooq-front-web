@@ -38,6 +38,7 @@ type PropTypes = {
   addressErrors: Array<string>,
   onChangeAddress: Function,
   onClickNext: Function,
+  onClickNextDsabled: boolean,
   OnClickRemove: Function,
   changeOrientation: Function,
   isImageUploading: boolean,
@@ -142,7 +143,13 @@ export default (props: PropTypes) => (
         />
       ) : (
         <ButtonWrap>
-          <Button primary fontbold fill={1} onClick={props.onClickNext}>
+          <Button
+            primary
+            fontbold
+            fill={1}
+            onClick={props.onClickNext}
+            disabled={props.onClickNextDsabled}
+          >
             次へ
           </Button>
         </ButtonWrap>

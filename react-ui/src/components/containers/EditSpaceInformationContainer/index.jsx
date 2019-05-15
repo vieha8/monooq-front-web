@@ -1,6 +1,7 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { Modal, Button } from 'semantic-ui-react';
 import Path from 'config/path';
 
 import { uiActions } from 'redux/modules/ui';
@@ -53,6 +54,8 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       Address: space.Address || '',
       error: {},
       isImageUploading: false,
+      errorModal: false,
+      isNoProfile: false,
     };
   }
 
@@ -64,6 +67,10 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   componentDidMount() {
     window.scrollTo(0, 0);
     window.addEventListener('beforeunload', this.handleBeforeUnload);
+    const { user } = this.props;
+    if (user.Name === '') {
+      this.setState({ errorModal: true, isNoProfile: true });
+    }
   }
 
   componentWillUnmount() {
@@ -78,6 +85,14 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     }
     return null;
   }
+
+  close = () => this.setState({ errorModal: false });
+
+  onClickEditProfile = () => {
+    const { history, dispatch, location } = this.props;
+    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
+    history.push(Path.editProfile());
+  };
 
   onClickRemove: Function;
   onClickRemove = space => {
@@ -218,37 +233,69 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
   render() {
     const { space } = this.props;
-    const { Images, Title, Type, Introduction, Address, error, isImageUploading } = this.state;
+    const {
+      Images,
+      Title,
+      Type,
+      Introduction,
+      Address,
+      error,
+      isImageUploading,
+      errorModal,
+      isNoProfile,
+    } = this.state;
 
     return (
       <MenuPageTemplate
         header={<Header />}
         headline={`スペースの${space.ID ? '編集' : '登録'}`}
         leftContent={
-          <EditSpaceInformation
-            edit={space.ID}
-            images={Images.map(image => ({
-              url: image.ImageUrl || image.preview,
-            }))}
-            onChangeImage={this.handleChangeImage}
-            imageErrors={error.image}
-            isImageUploading={isImageUploading}
-            onClickDeleteImage={this.handleDeleteImage}
-            title={Title}
-            titleErrors={error.title}
-            onChangeTitle={v => this.handleChangeUI('Title', v)}
-            type={Type}
-            typeErrors={error.type}
-            onChangeType={v => this.handleChangeUI('Type', v)}
-            introduction={Introduction}
-            introductionErrors={error.introduction}
-            onChangeIntroduction={v => this.handleChangeUI('Introduction', v)}
-            address={Address}
-            addressErrors={error.address}
-            onChangeAddress={v => this.handleChangeUI('Address', v)}
-            onClickNext={this.onClickNext}
-            OnClickRemove={() => this.onClickRemove(space)}
-          />
+          <Fragment>
+            <EditSpaceInformation
+              edit={space.ID}
+              images={Images.map(image => ({
+                url: image.ImageUrl || image.preview,
+              }))}
+              onChangeImage={this.handleChangeImage}
+              imageErrors={error.image}
+              isImageUploading={isImageUploading}
+              onClickDeleteImage={this.handleDeleteImage}
+              title={Title}
+              titleErrors={error.title}
+              onChangeTitle={v => this.handleChangeUI('Title', v)}
+              type={Type}
+              typeErrors={error.type}
+              onChangeType={v => this.handleChangeUI('Type', v)}
+              introduction={Introduction}
+              introductionErrors={error.introduction}
+              onChangeIntroduction={v => this.handleChangeUI('Introduction', v)}
+              address={Address}
+              addressErrors={error.address}
+              onChangeAddress={v => this.handleChangeUI('Address', v)}
+              onClickNext={this.onClickNext}
+              onClickNextDsabled={isNoProfile}
+              OnClickRemove={() => this.onClickRemove(space)}
+            />
+            <Modal size="large" open={errorModal} onClose={this.close}>
+              <Modal.Header>プロフィールをご登録ください</Modal.Header>
+              <Modal.Content>
+                <p>
+                  スペースを登録するにはプロフィールの登録が必要です。
+                  <br />
+                  <br />
+                  プロフィールをご登録いただくことで、取引時に荷物保管に関する保険が適用されます。
+                  <br />
+                  また、プロフィールの内容を充実させることで借り手に安心感を与えることができるため、成約率UPにも繋がります。
+                  <br />
+                </p>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button color="red" small={1} onClick={this.onClickEditProfile}>
+                  登録画面へ進む
+                </Button>
+              </Modal.Actions>
+            </Modal>
+          </Fragment>
         }
         rightContent={<ServiceMenu />}
       />
@@ -258,6 +305,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
 const mapStateToProps = state => ({
   space: state.ui.space || {},
+  user: state.auth.user,
 });
 
 export default authRequired(connect(mapStateToProps)(EditSpaceInformationContainer));
