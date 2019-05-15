@@ -273,7 +273,7 @@ function* checkLoginFirebaseAuth() {
     if (err) {
       yield put(authActions.checkLoginFailed({ error: err }));
       yield put(authActions.logout());
-      window.location.reload(true);
+      window.location.reload();
       return;
     }
     status.user = data;
