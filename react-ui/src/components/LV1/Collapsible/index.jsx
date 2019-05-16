@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
-import { Dimens, FontSizes } from 'variables';
+import { Dimens, FontSizes, Colors } from 'variables';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
 
@@ -28,7 +28,7 @@ const CaptionWrap = styled.div`
 `;
 
 const Item = styled.p`
-  color: black;
+  color: ${Colors.black};
 `;
 
 // const Count = styled.span`

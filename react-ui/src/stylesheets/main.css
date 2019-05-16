@@ -153,9 +153,15 @@
 
 .Collapsible__contentInner p {
   position: relative;
-  padding: 10px 16px;
+  padding: 10px 24px;
   border: 1px solid #dbdbdb;
   border-bottom: none;
+}
+
+@media (max-width: 30em) {
+  .Collapsible__contentInner p {
+    padding: 10px 16px;
+  }
 }
 
 .Collapsible:last-child .Collapsible__contentInner a:first-child p {
@@ -170,10 +176,16 @@
 .Collapsible__trigger {
   display: block;
   position: relative;
-  padding: 10px 16px;
+  padding: 10px 24px;
   border: 1px solid #dbdbdb;
   border-bottom: none;
   background-color: #f7f7f7;
+}
+
+@media (max-width: 30em) {
+  .Collapsible__trigger {
+    padding: 10px 16px;
+  }
 }
 
 .Collapsible:nth-child(2) .Collapsible__trigger {
@@ -193,11 +205,17 @@
   content: '';
   background-image: url(../images/toggle.svg);
   position: absolute;
-  right: 16px;
+  right: 24px;
   top: 14px;
   width: 16px;
   height: 16px;
   border-radius: 2px;
+}
+
+@media (max-width: 30em) {
+  .Collapsible__trigger:after {
+    right: 16px;
+  }
 }
 
 .Collapsible__trigger.is-open::after {
