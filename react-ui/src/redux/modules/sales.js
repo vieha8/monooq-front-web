@@ -52,7 +52,7 @@ export const salesReducer = handleActions(
 // Sagas
 function* getSales() {
   const token = yield* getToken();
-  const { posts, timeout } = yield race({
+  const { posts: response, timeout } = yield race({
     posts: call(getApiRequest, apiEndpoint.sales(), {}, token),
     timeout: delay(TIMEOUT),
   });
@@ -63,9 +63,9 @@ function* getSales() {
     yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.sales()}`));
     return;
   }
-  if (posts.err) {
-    yield put(salesActions.fetchSalesFailed(`error(${functionName}):${posts.err}`));
-    yield put(errorActions.setError(`error(${functionName}):${posts.err}`));
+  if (response.err) {
+    yield put(salesActions.fetchSalesFailed(`error(${functionName}):${response.err}`));
+    yield put(errorActions.setError(`error(${functionName}):${response.err}`));
     return;
   }
 
@@ -73,7 +73,7 @@ function* getSales() {
   let payout = 0;
   let deposit = 0;
 
-  posts.data.map(v => {
+  response.data.map(v => {
     const startDate = v.Request.StartDate;
     const startTime = Date.parse(startDate);
     if (Date.now() > startTime) {
