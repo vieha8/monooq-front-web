@@ -21,7 +21,7 @@ import EntryButtons from 'components/LV2/EntryButtons';
 import InlineText from 'components/LV1/InlineText';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
-import { selectDepositType } from 'helpers/deposittypes';
+import { selectDepositType } from 'helpers/depositTypes';
 
 const InputText = styled.div`
   margin-top: ${Dimens.medium2}px;
@@ -164,19 +164,16 @@ class SalesContainer extends Component {
   };
 
   submitButton = () => {
-    const { user, dispatch, payout } = this.props;
+    const { dispatch } = this.props;
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
-    const userId = user.ID;
 
     dispatch(
       salesActions.sendPayouts({
-        userId,
         bankName,
         branchName,
         accountType,
         accountNumber,
         accountName,
-        payouts: payout,
       }),
     );
     window.scrollTo(0, 0);
@@ -213,9 +210,9 @@ class SalesContainer extends Component {
             </CautionWrapper>
           </SalesAmountItemWrap>
           <MsgWrap>
-            振込申請は売上金3,000円以上から可能です。
+            振込申請は売上3,000円以上から出来ます。
             <br />
-            モノオクでスペースを登録してスペースを活用しましょう！
+            スペースを活用しましょう！
           </MsgWrap>
           <ButtonWrap>
             <Button
