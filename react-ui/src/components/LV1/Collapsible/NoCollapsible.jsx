@@ -30,6 +30,15 @@ const ListWrap = styled.div``;
 
 const LinkStyled = styled(Link)`
   color: ${Colors.black};
+  &:first-child p {
+    border-radius: ${Dimens.xxsmall_4}px ${Dimens.xxsmall_4}px 0px 0px;
+  }
+  &:last-child p {
+    border-radius: 0px 0px ${Dimens.xxsmall_4}px ${Dimens.xxsmall_4}px;
+  }
+  &:not(:last-child) p {
+    border-bottom: none;
+  }
 `;
 
 const Item = styled.p`
@@ -39,15 +48,6 @@ const Item = styled.p`
   font-size: ${FontSizes.small_15}px;
   font-weight: bold;
   line-height: normal;
-  &:first-child {
-    border-radius: ${Dimens.xxsmall_4}px ${Dimens.xxsmall_4}px 0px 0px;
-  }
-  &:last-child {
-    border-radius: 0px 0px ${Dimens.xxsmall_4}px ${Dimens.xxsmall_4}px;
-  }
-  &:not(:last-child) {
-    border-bottom: none;
-  }
   ${media.phone`
     padding: ${Dimens.small_10}px ${Dimens.medium}px;
   `};
@@ -82,15 +82,15 @@ export default ({ title, contents }: PropTypes) => (
                   return null;
                 }
                 return (
-                  <Item>
-                    <LinkStyled
-                      to={Path.homePrefecture(prefectureId)}
-                      key={`section_area_prefecture_${prefectureId}`}
-                    >
+                  <LinkStyled
+                    to={Path.homePrefecture(prefectureId)}
+                    key={`section_area_prefecture_${prefectureId}`}
+                  >
+                    <Item>
                       {prefectureName}
                       <Count>{`${prefectureSpaces.length}件`}</Count>
-                    </LinkStyled>
-                  </Item>
+                    </Item>
+                  </LinkStyled>
                 );
               },
             )}
