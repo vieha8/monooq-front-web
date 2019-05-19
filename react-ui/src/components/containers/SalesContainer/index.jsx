@@ -213,6 +213,7 @@ class SalesContainer extends Component {
 
   leftContent = () => {
     const { deposit, history } = this.props;
+    const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
 
     if (deposit < 3000) {
       return (
@@ -247,7 +248,7 @@ class SalesContainer extends Component {
             label="金融機関"
             placeholder="○○銀行"
             onChange={e => this.handleChangeInput('bankName', e.target.value)}
-            value={this.state.bankName}
+            value={bankName}
           />
         </InputText>
         <InputText>
@@ -255,7 +256,7 @@ class SalesContainer extends Component {
             label="支店名"
             placeholder="○○支店"
             onChange={e => this.handleChangeInput('branchName', e.target.value)}
-            value={this.state.branchName}
+            value={branchName}
           />
         </InputText>
         <InputText>
@@ -263,7 +264,7 @@ class SalesContainer extends Component {
             label="預金種目"
             options={selectDepositType('選択してください')}
             onChange={e => this.handleChangeInput('accountType', e.target.value)}
-            value={this.state.accountType}
+            value={accountType}
           />
         </InputText>
         <InputText>
@@ -271,7 +272,7 @@ class SalesContainer extends Component {
             label="口座番号"
             placeholder="1234567"
             onChange={e => this.handleChangeInput('accountNumber', e.target.value)}
-            value={this.state.accountNumber}
+            value={accountNumber}
           />
         </InputText>
         <InputText>
@@ -279,7 +280,7 @@ class SalesContainer extends Component {
             label="口座名義"
             placeholder="ヤマダ タロウ"
             onChange={e => this.handleChangeInput('accountName', e.target.value)}
-            value={this.state.accountName}
+            value={accountName}
           />
         </InputText>
         <SubmitButton>
