@@ -1,6 +1,6 @@
 // @flow
 
-export const deposittypes = ['普通', '当座'];
+export const depositTypes: Array<string> = ['普通', '当座'];
 
 export function selectDepositType(placeholder: string) {
   const depositTypeList = [];
@@ -11,14 +11,12 @@ export function selectDepositType(placeholder: string) {
       text: placeholder,
     });
   }
+
   return depositTypeList.concat(
-    deposittypes.map((depo, i) => {
-      const deposittype = i + 1;
-      return {
-        key: deposittype,
-        value: deposittype.toString(),
-        text: depo,
-      };
-    }),
+    depositTypes.map((type, i) => ({
+      key: i + 1,
+      value: (i + 1).toString(),
+      text: type,
+    })),
   );
 }
