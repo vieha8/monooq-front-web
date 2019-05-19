@@ -26,9 +26,10 @@ export const salesActions = createActions(
 
 // Reducer
 const initialState = {
-  sales: 0,
-  payout: 0,
+  before: 0,
   deposit: 0,
+  pending: 0,
+  paid: 0,
   isLoading: false,
 };
 
@@ -40,9 +41,10 @@ export const salesReducer = handleActions(
     }),
     [FETCH_SALES_SUCCESS]: (state, action) => ({
       ...state,
-      sales: action.payload.sales,
-      payout: action.payload.payout,
+      before: action.payload.before,
       deposit: action.payload.deposit,
+      pending: action.payload.pending,
+      paid: action.payload.paid,
       isLoading: false,
     }),
     [FETCH_SALES_FAILED]: state => ({
@@ -73,23 +75,7 @@ function* getSales() {
     return;
   }
 
-  let sales = 0;
-  let payout = 0;
-  let deposit = 0;
-
-  response.data.map(v => {
-    const startDate = v.Request.StartDate;
-    const startTime = Date.parse(startDate);
-    if (Date.now() > startTime) {
-      sales += v.Price;
-      payout += v.PriceMinusFee;
-    } else {
-      deposit += v.Price;
-    }
-    return 1;
-  });
-
-  yield put(salesActions.fetchSalesSuccess({ sales, payout, deposit }));
+  yield put(salesActions.fetchSalesSuccess({ ...response.data }));
 }
 
 function* sendPayouts({
@@ -104,7 +90,7 @@ function* sendPayouts({
   }
 
   const token = yield* getToken();
-  const type = accountType === 1 ? '普通' : '当座';
+  const type = accountType === '1' ? '普通' : '当座';
   const params = { bankName, branchName, accountType: type, accountNumber, accountName };
   const { posts: payload, timeout } = yield race({
     posts: call(postApiRequest, apiEndpoint.sales(), params, token),

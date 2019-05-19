@@ -196,19 +196,28 @@ class SalesContainer extends Component {
     );
   };
 
-  leftContent = () => {
-    const { sales, deposit, history } = this.props;
+  showSales = () => {
+    const { before, deposit, pending, paid } = this.props;
+    return (
+      <SalesAmountItemWrap>
+        <SalesAmountItem title="お振込可能な売上" amount={deposit} bold colorPrimary />
+        {before > 0 && <SalesAmountItem title="保管開始前の売上" amount={before} />}
+        {pending > 0 && <SalesAmountItem title="お振込対応中の売上" amount={pending} />}
+        {paid > 0 && <SalesAmountItem title="お振込済みの売上" amount={paid} />}
+        <CautionWrapper>
+          <CautionText>※保管開始済みの取引の売上のみ振込申請ができます。</CautionText>
+        </CautionWrapper>
+      </SalesAmountItemWrap>
+    );
+  };
 
-    if (sales < 3000) {
+  leftContent = () => {
+    const { deposit, history } = this.props;
+
+    if (deposit < 3000) {
       return (
         <Fragment>
-          <SalesAmountItemWrap>
-            <SalesAmountItem title="振込可能な売上" amount={sales} bold />
-            <SalesAmountItem title="保管開始前の売上" amount={deposit} />
-            <CautionWrapper>
-              <CautionText>※保管開始済みの取引の売上のみ振込申請ができます。</CautionText>
-            </CautionWrapper>
-          </SalesAmountItemWrap>
+          {this.showSales()}
           <MsgWrap>
             振込申請は売上3,000円以上から出来ます。
             <br />
@@ -231,13 +240,7 @@ class SalesContainer extends Component {
 
     return (
       <Fragment>
-        <SalesAmountItemWrap>
-          <SalesAmountItem title="振込可能な売上" amount={sales} bold />
-          <SalesAmountItem title="保管開始前の売上" amount={deposit} />
-          <CautionWrapper>
-            <CautionText>※保管開始済みの取引の売上のみ振込申請ができます。</CautionText>
-          </CautionWrapper>
-        </SalesAmountItemWrap>
+        {this.showSales()}
         <SalesAmountMsgWrap>振込先口座を指定してください。</SalesAmountMsgWrap>
         <InputText>
           <InputForm
@@ -294,60 +297,64 @@ class SalesContainer extends Component {
     );
   };
 
-  leftContentConfirm = () => (
-    <Fragment>
-      <ConfirmSalesWrap>
-        <Confirm label="金融機関" value={`${this.state.bankName} ${this.state.branchName}`} />
-      </ConfirmSalesWrap>
-      <ConfirmSalesWrap singleline>
-        <Confirm label="預金種目" value={this.state.accountType === '1' ? '普通' : '当座'} />
-      </ConfirmSalesWrap>
-      <ConfirmSalesWrap singleline>
-        <Confirm label="口座番号" value={this.state.accountNumber} />
-      </ConfirmSalesWrap>
-      <ConfirmSalesWrap clearfix bottom>
-        <Confirm label="口座名義" value={this.state.accountName} />
-      </ConfirmSalesWrap>
-      <SalesAmountItemWrap confirm>
-        <SalesAmountItem title="現在の売上金" amount={this.props.sales} />
-      </SalesAmountItemWrap>
-      <SalesAmountItemWrap confirm>
-        <SalesAmountItem title="サービス利用料" amount={this.props.sales - this.props.payout} />
-      </SalesAmountItemWrap>
-      <SalesAmountItemWrap confirm>
-        <SalesAmountItem title="振込手数料" amount={this.props.payout < 10000 ? 260 : 0} />
-      </SalesAmountItemWrap>
-      <SalesAmountItemWrap confirm>
-        <SalesAmountItem
-          title="振込金額"
-          amount={this.props.payout < 10000 ? this.props.payout - 260 : this.props.payout}
-          bold
-          colorPrimary
+  leftContentConfirm = () => {
+    const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
+    const { deposit } = this.props;
+
+    const serviceFee = Math.round(deposit * 0.2);
+    const payout = deposit - serviceFee;
+    const payoutFee = payout < 10000 ? 260 : 0;
+
+    return (
+      <Fragment>
+        <ConfirmSalesWrap>
+          <Confirm label="金融機関" value={`${bankName} ${branchName}`} />
+        </ConfirmSalesWrap>
+        <ConfirmSalesWrap singleline>
+          <Confirm label="預金種目" value={accountType === '1' ? '普通' : '当座'} />
+        </ConfirmSalesWrap>
+        <ConfirmSalesWrap singleline>
+          <Confirm label="口座番号" value={accountNumber} />
+        </ConfirmSalesWrap>
+        <ConfirmSalesWrap clearfix bottom>
+          <Confirm label="口座名義" value={accountName} />
+        </ConfirmSalesWrap>
+        <SalesAmountItemWrap confirm>
+          <SalesAmountItem title="お振込可能な売上" amount={deposit} />
+        </SalesAmountItemWrap>
+        <SalesAmountItemWrap confirm>
+          <SalesAmountItem title="サービス利用料" amount={serviceFee} />
+        </SalesAmountItemWrap>
+        <SalesAmountItemWrap confirm>
+          <SalesAmountItem title="振込手数料" amount={payoutFee} />
+        </SalesAmountItemWrap>
+        <SalesAmountItemWrap confirm>
+          <SalesAmountItem title="お振込金額" amount={payout - payoutFee} bold colorPrimary />
+        </SalesAmountItemWrap>
+        <CautionWrapper>
+          <CautionText>
+            ※振込金額が10,000円以上の場合、振込手数料が無料になります。10,000円未満の場合、260円振込手数料が売上から引かれます。ご了承ください。
+          </CautionText>
+          <CautionText>※お振込完了まで5日ほどかかります。予めご了承ください。</CautionText>
+          <CautionText>
+            ※銀行口座の情報が間違っている場合、振込ができません。振込手数料を売上から引かせていただきます。入力内容をしっかりご確認ください。
+          </CautionText>
+        </CautionWrapper>
+        <EntryButtons
+          rerative
+          enabled
+          backButton={{
+            text: '戻る',
+            onClick: this.backButton,
+          }}
+          enabledButton={{
+            text: '申請する',
+            onClick: this.submitButton,
+          }}
         />
-      </SalesAmountItemWrap>
-      <CautionWrapper>
-        <CautionText>
-          ※振込金額が10,000円以上の場合、振込手数料が無料になります。10,000円未満の場合、260円振込手数料が売上から引かれます。ご了承ください。
-        </CautionText>
-        <CautionText>※振込完了まで5日から14日ほどかかります。ご了承ください。</CautionText>
-        <CautionText>
-          ※銀行口座の情報が間違っている場合、振込ができません。振込手数料を売上から引かせていただきます。入力内容をしっかりご確認ください。
-        </CautionText>
-      </CautionWrapper>
-      <EntryButtons
-        rerative
-        enabled
-        backButton={{
-          text: '戻る',
-          onClick: this.backButton,
-        }}
-        enabledButton={{
-          text: '申請する',
-          onClick: this.submitButton,
-        }}
-      />
-    </Fragment>
-  );
+      </Fragment>
+    );
+  };
 
   leftContentComplete = () => {
     const { history } = this.props;
@@ -397,9 +404,10 @@ class SalesContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  sales: state.sales.sales,
-  payout: state.sales.payout,
+  before: state.sales.before,
   deposit: state.sales.deposit,
+  pending: state.sales.pending,
+  paid: state.sales.paid,
   isLoading: state.sales.isLoading,
   user: state.auth.user,
 });
