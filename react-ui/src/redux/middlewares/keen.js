@@ -1,4 +1,5 @@
 import Keen from 'keen-tracking';
+import { captureException } from '@sentry/browser';
 
 // Record all actions to a single event stream
 const EVENT_STREAM_NAME = 'redux_actions';
@@ -49,7 +50,11 @@ const reduxMiddleware = ({ getState }) => {
     // Filter omitted actions by action.type
     // ...or whatever you name this property
     if (OMITTED_ACTIONS.indexOf(action.type) < 0) {
-      client.recordEvent(EVENT_STREAM_NAME, eventBody);
+      try {
+        client.recordEvent(EVENT_STREAM_NAME, eventBody);
+      } catch (e) {
+        captureException(e);
+      }
     }
     return returnValue;
   };
