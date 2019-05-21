@@ -1,6 +1,7 @@
 export default {
   xxsmall: 3,
   xxsmall_4: 4,
+  xxsmall_5: 5,
   xsmall: 6,
   small: 8,
   small_10: 10,
@@ -12,6 +13,7 @@ export default {
   medium: 16,
   medium_17: 17,
   medium_18: 18,
+  medium_19: 19,
   medium_20: 20,
   medium_22: 22,
   medium1: 24,

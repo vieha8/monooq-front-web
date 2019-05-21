@@ -29,10 +29,15 @@ const Line = styled(PrimaryButton)`
     `};
 `;
 
+const SpanStyled = styled.span`
+  position: relative;
+`;
+
 const ImageLine = styled.img`
-  width: 25px;
+  width: 23px;
   position: absolute;
   margin-left: -20px;
+  bottom: 1px;
 `;
 
 const btnlink = styled(Link)``;
@@ -45,16 +50,17 @@ export default (props: Object) => (
       fill={1}
       fontSize={18}
       fontSizeSp={18}
-      lineheight={22}
+      height={44}
+      lineheight={18}
       onClick={() =>
         ReactGA.event({ category: props.reactGACategory, action: props.reactGAAction })
       }
     >
       {!props.loading && (
-        <span>
+        <SpanStyled>
           <ImageLine src={LogoLineSrc} alt="logo-line" />
           &nbsp;&nbsp;&nbsp;
-        </span>
+        </SpanStyled>
       )}
       {props.children}
     </Line>

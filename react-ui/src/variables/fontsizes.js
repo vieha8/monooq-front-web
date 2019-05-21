@@ -2,6 +2,7 @@ export default {
   xsmall_8: 8,
   xsmall: 11,
   small_12: 12,
+  small_13: 13,
   small: 14,
   small_15: 15,
   medium: 16,

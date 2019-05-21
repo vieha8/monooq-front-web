@@ -9,6 +9,7 @@ import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import SearchResult from 'components/LV3/SearchResult';
+import ConciergeContents from 'components/LV2/ConciergeIntroduction';
 import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
@@ -81,6 +82,10 @@ class HomePrefectureContainer extends Component<PropTypes> {
             onClickMore={onClickMore}
           />
         );
+      }
+
+      if (displayType === 'concierge') {
+        return <ConciergeContents key={key} />;
       }
 
       return null;
