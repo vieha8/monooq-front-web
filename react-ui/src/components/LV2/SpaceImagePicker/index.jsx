@@ -253,7 +253,11 @@ export default (props: PropTypes) => {
       )}
       {(images || []).length > 0 && showImagePreview(props)}
       <HintBottomWrap>
-        <InlineText.Tiny>最大4枚まで登録が可能です。</InlineText.Tiny>
+        <InlineText.Tiny>
+          最大4枚まで登録が可能です。
+          <br />
+          ※写真は必ず横向きにアップロードしてください
+        </InlineText.Tiny>
       </HintBottomWrap>
     </Fragment>
   );
