@@ -73,9 +73,9 @@ export default ({ title, contents }: PropTypes) => (
   <NoCollapsibleeWrap>
     <CaptionWrap>{title}</CaptionWrap>
     <ListWrap>
-      {contents.map(({ Prefectures: prefectures }) => {
+      {contents.map(({ Prefectures: prefectures }, i) => {
         return (
-          <Fragment>
+          <Fragment key={`section_area_contents_${contents[i].ID}`}>
             {prefectures.map(
               ({ ID: prefectureId, Name: prefectureName, PrefectureSpaces: prefectureSpaces }) => {
                 if (prefectureSpaces.length === 0) {
