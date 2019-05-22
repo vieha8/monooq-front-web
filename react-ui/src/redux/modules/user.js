@@ -8,7 +8,7 @@ import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
 import { getApiRequest, putApiRequest, apiEndpoint } from '../helpers/api';
-import { errorActions } from './error';
+import { errorActions, handleError } from './error';
 import { store } from '../store/index';
 import { isAvailableLocalStorage } from '../../helpers/storage';
 
@@ -97,21 +97,13 @@ export const userReducer = handleActions(
   initialState,
 );
 
-function* setError(action, errMessage, functionName, err, isOnlyAction) {
-  yield put(action(errMessage || ''));
-  if (isOnlyAction) {
-    return;
-  }
-  yield put(errorActions.setError(`error(${functionName}):${err}`));
-}
-
 // Sagas
 export function* getUser({ payload: { userId } }) {
   const token = yield* getToken();
   const { data, err } = yield call(getApiRequest, apiEndpoint.users(userId), {}, token);
 
   if (err) {
-    yield* setError(userActions.fetchFailedUser, 'getUser', err);
+    yield* handleError(userActions.fetchFailedUser, 'getUser', err);
     return;
   }
 
@@ -139,7 +131,7 @@ function* getSpaces(params) {
   );
 
   if (err) {
-    yield* setError(userActions.fetchFailedUserSpaces, 'getSpaces', err);
+    yield* handleError(userActions.fetchFailedUserSpaces, 'getSpaces', err);
     return;
   }
 
@@ -189,7 +181,7 @@ function* updateUser({ payload: { userId, body } }) {
       errMessage = ErrorMessage.FailedSignUpMailExist;
       isOnlyAction = true;
     }
-    yield* setError(userActions.updateFailedUser, errMessage, 'updateUser', err, isOnlyAction);
+    yield* handleError(userActions.updateFailedUser, errMessage, 'updateUser', err, isOnlyAction);
     return;
   }
 
