@@ -8,7 +8,7 @@ import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
 import { getApiRequest, putApiRequest, apiEndpoint } from '../helpers/api';
-import { errorActions, handleError } from './error';
+import { handleError } from './error';
 import { store } from '../store/index';
 import { isAvailableLocalStorage } from '../../helpers/storage';
 
@@ -103,7 +103,7 @@ export function* getUser({ payload: { userId } }) {
   const { data, err } = yield call(getApiRequest, apiEndpoint.users(userId), {}, token);
 
   if (err) {
-    yield* handleError(userActions.fetchFailedUser, 'getUser', err);
+    yield handleError(userActions.fetchFailedUser, '', 'getUser', err, false);
     return;
   }
 
@@ -112,6 +112,7 @@ export function* getUser({ payload: { userId } }) {
 
 function* getSpaces(params) {
   let targetUserId = '';
+  const functionName = 'getSpaces';
   if (params && params.payload && params.payload.userId) {
     targetUserId = params.payload.userId;
   }
@@ -131,7 +132,7 @@ function* getSpaces(params) {
   );
 
   if (err) {
-    yield* handleError(userActions.fetchFailedUserSpaces, 'getSpaces', err);
+    yield handleError(userActions.fetchFailedUserSpaces, '', functionName, err, false);
     return;
   }
 
@@ -152,8 +153,13 @@ function* getSpaces(params) {
     });
     yield put(userActions.fetchSuccessUserSpaces(res));
   } else {
-    yield put(userActions.fetchFailedUserSpaces(data));
-    yield put(errorActions.setError(err));
+    yield handleError(
+      userActions.fetchFailedUserSpaces,
+      '',
+      functionName,
+      'data is not Array.',
+      false,
+    );
   }
 }
 
@@ -181,7 +187,7 @@ function* updateUser({ payload: { userId, body } }) {
       errMessage = ErrorMessage.FailedSignUpMailExist;
       isOnlyAction = true;
     }
-    yield* handleError(userActions.updateFailedUser, errMessage, 'updateUser', err, isOnlyAction);
+    yield handleError(userActions.updateFailedUser, errMessage, 'updateUser', err, isOnlyAction);
     return;
   }
 
