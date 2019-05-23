@@ -11,6 +11,7 @@ import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/index';
 import Path from '../../config/path';
+import { convertImgixUrl } from '../../helpers/imgix';
 
 let messageObserverUnsubscribe = null;
 
@@ -128,7 +129,10 @@ function* fetchRoomStart() {
 
     const { userId1, userId2 } = room;
     const partnerId = user.ID === userId1 ? userId2 : userId1;
-    room.user = data.find(v => v.ID === partnerId);
+    room.user = data.find(u => u.ID === partnerId);
+    if (room.user) {
+      room.user.ImageUrl = convertImgixUrl(room.user.ImageUrl, 'w=32&auto=format');
+    }
 
     return room;
   });
