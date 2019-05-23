@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
+import { put, call, takeEvery, take, select } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { push } from 'connected-react-router';
@@ -81,22 +81,26 @@ const roomCollection = () => {
 
 // ルーム取得
 const getRooms = userId =>
-  new Promise(async resolve => {
-    const rooms = await roomCollection()
-      .where(`user${userId}`, '==', true)
-      .get();
-    const res = [];
-    rooms.forEach(room => {
-      if (room.data().lastMessageDt) {
-        res.push({
-          id: room.id,
-          ...room.data(),
-          lastMessageDt: room.data().lastMessageDt.toDate(),
-        });
-      }
-    });
-    res.sort((a, b) => (a.lastMessageDt < b.lastMessageDt ? 1 : -1));
-    resolve(res);
+  new Promise(async (resolve, reject) => {
+    try {
+      const rooms = await roomCollection()
+        .where(`user${userId}`, '==', true)
+        .get();
+      const res = [];
+      rooms.forEach(room => {
+        if (room.data().lastMessageDt) {
+          res.push({
+            id: room.id,
+            ...room.data(),
+            lastMessageDt: room.data().lastMessageDt.toDate(),
+          });
+        }
+      });
+      res.sort((a, b) => (a.lastMessageDt < b.lastMessageDt ? 1 : -1));
+      resolve(res);
+    } catch (e) {
+      reject(e);
+    }
   });
 
 function* fetchRoomStart() {
@@ -104,15 +108,16 @@ function* fetchRoomStart() {
   const rooms = yield getRooms(user.ID);
   const token = yield* getToken();
 
-  const users = yield all(
-    rooms.map(room => {
-      const { userId1, userId2 } = room;
-      const id = user.ID === userId1 ? userId2 : userId1;
-      return call(getApiRequest, apiEndpoint.users(id), {}, token);
-    }),
+  const userIds = rooms.map(r => (user.ID === r.userId1 ? r.userId2 : r.userId1));
+
+  const { data } = yield call(
+    getApiRequest,
+    apiEndpoint.users(),
+    { ids: userIds.join(',') },
+    token,
   );
 
-  const res = rooms.map((v, i) => {
+  const res = rooms.map(v => {
     const room = v;
     room.isRead = room.isUnsubscribe;
     if (room[`user${user.ID}LastReadDt`]) {
@@ -120,7 +125,11 @@ function* fetchRoomStart() {
       const lastReadDt = room[`user${user.ID}LastReadDt`].seconds;
       room.isRead = room.isRead || lastMessageDt <= lastReadDt;
     }
-    room.user = users[i].data;
+
+    const { userId1, userId2 } = room;
+    const partnerId = user.ID === userId1 ? userId2 : userId1;
+    room.user = data.find(v => v.ID === partnerId);
+
     return room;
   });
 
