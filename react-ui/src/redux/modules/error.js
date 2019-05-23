@@ -28,7 +28,9 @@ export const errorReducer = handleActions(
 );
 
 export function* handleError(action, errMessage, functionName, err, isOnlyAction) {
-  yield put(action(errMessage || ''));
+  if (action !== '') {
+    yield put(action(errMessage || ''));
+  }
   if (isOnlyAction) {
     return;
   }
