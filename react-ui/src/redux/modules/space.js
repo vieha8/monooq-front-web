@@ -1,12 +1,11 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, call, select, race, delay } from 'redux-saga/effects';
+import { put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import axios from 'axios';
 import dummySpaceImage from 'images/dummy_space.png';
 import { store } from 'redux/store/index';
 import { authActions, getToken } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
-import { errorActions } from 'redux/modules/error';
 import {
   getApiRequest,
   postApiRequest,
@@ -20,8 +19,7 @@ import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
 import { getPrefecture } from 'helpers/prefectures';
 import { keenClient } from 'helpers/keen';
 import Path from 'config/path';
-
-const TIMEOUT = 30000;
+import { handleError } from './error';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
@@ -36,6 +34,7 @@ const UPDATE_SUCCESS_SPACE = 'UPDATE_SUCCESS_SPACE';
 const UPDATE_FAILED_SPACE = 'UPDATE_FAILED_SPACE';
 const SET_SPACE = 'SET_SPACE';
 const DELETE_SPACE = 'DELETE_SPACE';
+const DELETE_FAILED_SPACE = 'DELETE_FAILED_SPACE';
 const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
 const ADD_SPACE_ACCESS_LOG = 'ADD_SPACE_ACCESS_LOG';
 const DO_SEARCH = 'DO_SEARCH';
@@ -59,6 +58,7 @@ export const spaceActions = createActions(
   UPDATE_FAILED_SPACE,
   SET_SPACE,
   DELETE_SPACE,
+  DELETE_FAILED_SPACE,
   PREPARE_UPDATE_SPACE,
   ADD_SPACE_ACCESS_LOG,
   DO_SEARCH,
@@ -134,6 +134,11 @@ export const spaceReducer = handleActions(
       isLoading: false,
       isComplete: false,
     }),
+    [DELETE_FAILED_SPACE]: state => ({
+      ...state,
+      isLoading: false,
+      isComplete: false,
+    }),
     [SET_SPACE]: (state, action) => ({
       ...state,
       space: action.payload.space,
@@ -180,26 +185,18 @@ export const spaceReducer = handleActions(
 // Sagas
 function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   const token = yield* getToken();
+  const { data: payload, status, err } = yield call(
+    getApiRequest,
+    apiEndpoint.spaces(spaceId),
+    {},
+    token,
+  );
 
-  const { posts: payload, timeout } = yield race({
-    posts: call(getApiRequest, apiEndpoint.spaces(spaceId), {}, token),
-    timeout: delay(TIMEOUT),
-  });
-
-  const functionName = 'getSpace';
-  if (timeout) {
-    yield put(
-      spaceActions.fetchFailedSpace(`timeout(${functionName}):${apiEndpoint.spaces(spaceId)}`),
-    );
-    yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.spaces(spaceId)}`));
-    return;
-  }
-  if (payload.err) {
-    if (payload.status === 404) {
+  if (err) {
+    if (status === 404) {
       store.dispatch(push(Path.notFound()));
     } else {
-      yield put(spaceActions.fetchFailedSpace(`error(${functionName}):${payload.err}`));
-      yield put(errorActions.setError(`error(${functionName}):${payload.err}`));
+      yield handleError(spaceActions.fetchFailedSpace, '', 'getSpace', err, false);
     }
     return;
   }
@@ -211,27 +208,33 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
       yield take(authActions.checkLoginSuccess);
     }
     user = yield select(state => state.auth.user);
-    if (payload.data.UserID !== user.ID) {
-      yield put(errorActions.setError('Bad Request'));
+    if (payload.UserID !== user.ID) {
+      yield handleError(
+        '',
+        '',
+        'getSpace(Bad Request)',
+        `spaceUserID(${payload.UserID})/loginUserID(${user.ID})`,
+        false,
+      );
     }
   }
 
-  if (!payload.data.Images || payload.data.Images.length === 0) {
-    if (!payload.data.Images) {
-      payload.data.Images = [];
+  if (!payload.Images || payload.Images.length === 0) {
+    if (!payload.Images) {
+      payload.Images = [];
     }
-    payload.data.Images[0] = { ImageUrl: dummySpaceImage };
+    payload.Images[0] = { ImageUrl: dummySpaceImage };
   }
 
-  yield put(spaceActions.fetchSuccessSpace(payload.data));
+  yield put(spaceActions.fetchSuccessSpace(payload));
 }
 
 function* getGeocode({ payload: { address } }) {
   const KEY = 'AIzaSyAF1kxs-DsZJHW3tX3eNi88tKixy-zbGtk';
   const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${KEY}&address=${address}`;
 
-  const { posts: places, timeout } = yield race({
-    posts: call(
+  try {
+    const { data: places, err } = yield call(
       () =>
         new Promise((resolve, reject) => {
           axios
@@ -239,34 +242,30 @@ function* getGeocode({ payload: { address } }) {
             .then(result => resolve(result))
             .catch(error => reject(error));
         }),
-    ),
-    timeout: delay(TIMEOUT),
-  });
+    );
 
-  const functionName = 'getGeocode';
-  if (timeout) {
-    yield put(spaceActions.getFailedGeocode(`timeout(${functionName}):address(${url})`));
-    yield put(errorActions.setError(`timeout(${functionName}):address(${url})`));
-    return;
-  }
-  if (places.data.error_message) {
-    yield put(
-      spaceActions.getFailedGeocode(
-        `error(${functionName}):${places.data.error_message}:url(${url})`,
-      ),
-    );
-    yield put(
-      errorActions.setError(`error(${functionName}):${places.data.error_message}:url(${url})`),
-    );
-    return;
-  }
+    if (err) {
+      yield handleError(spaceActions.getFailedGeocode, '', 'getGeocode', err, false);
+      return;
+    }
 
-  if (places.data.results.length > 0) {
-    yield put(
-      spaceActions.getSuccessGeocode({
-        geocode: places.data.results[0].geometry.location,
-      }),
-    );
+    if (places.results.length > 0) {
+      yield put(
+        spaceActions.getSuccessGeocode({
+          geocode: places.results[0].geometry.location,
+        }),
+      );
+    } else {
+      yield handleError(
+        spaceActions.getFailedGeocode,
+        '',
+        'getGeocode',
+        'places.results is 0',
+        false,
+      );
+    }
+  } catch (err) {
+    yield handleError(spaceActions.getFailedGeocode, '', 'getGeocode(exception)', err, false);
   }
 }
 
@@ -326,31 +325,25 @@ function* createSpace({ payload: { body } }) {
   }
 
   const token = yield* getToken();
+  const { data, err } = yield call(postApiRequest, apiEndpoint.spaces(), params, token);
 
-  const { posts: payload, timeout } = yield race({
-    posts: call(postApiRequest, apiEndpoint.spaces(), params, token),
-    timeout: delay(TIMEOUT),
-  });
-
-  const functionName = 'createSpace';
-  if (timeout) {
-    yield put(spaceActions.createFailedSpace(`timeout(${functionName}):${JSON.stringify(params)}`));
-    yield put(errorActions.setError(`timeout(${functionName}):${JSON.stringify(params)}`));
-    return;
-  }
-  if (payload.err) {
-    yield put(spaceActions.createFailedSpace(`error(${functionName}):${payload.err}`));
-    yield put(errorActions.setError(`error(${functionName}):${payload.err}`));
+  if (err) {
+    yield handleError(spaceActions.createFailedSpace, '', 'createSpace', err, false);
     return;
   }
 
   if (images && images.length > 0) {
-    const spaceId = payload.data.ID;
+    const spaceId = data.ID;
     const imageUrls = yield createImageUrls(spaceId, images);
 
     if (imageUrls.error) {
-      yield put(spaceActions.createFailedSpace(imageUrls.error));
-      yield put(errorActions.setError(imageUrls.error));
+      yield handleError(
+        spaceActions.createFailedSpace,
+        '',
+        'createSpace(imageUrls)',
+        imageUrls.error,
+        false,
+      );
       return;
     }
 
@@ -359,32 +352,23 @@ function* createSpace({ payload: { body } }) {
       .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
 
     if (imgs.length > 0) {
-      const { posts: payloadImage, timeout: timeoutImage } = yield race({
-        posts: call(putApiRequest, apiEndpoint.spaces(spaceId), { Images: imgs }, token),
-        timeout: delay(TIMEOUT),
-      });
+      const { err: err2 } = yield call(
+        putApiRequest,
+        apiEndpoint.spaces(spaceId),
+        {
+          Images: imgs,
+        },
+        token,
+      );
 
-      if (timeoutImage) {
-        yield put(
-          spaceActions.fetchFailedSpace(
-            `timeoutImage(${functionName}):${apiEndpoint.spaces(spaceId)}`,
-          ),
-        );
-        yield put(
-          errorActions.setError(`timeoutImage(${functionName}):${apiEndpoint.spaces(spaceId)}`),
-        );
-        return;
-      }
-
-      if (payloadImage.err) {
-        yield put(spaceActions.fetchFailedSpace(`errorImage(${functionName}):${payloadImage.err}`));
-        yield put(errorActions.setError(`errorImage(${functionName}):${payloadImage.err}`));
+      if (err2) {
+        yield handleError(spaceActions.fetchFailedSpace, '', 'createSpace(err2)', err2, false);
         return;
       }
     }
   }
 
-  yield put(spaceActions.createSuccessSpace(payload.data));
+  yield put(spaceActions.createSuccessSpace(data));
 }
 
 function* prepareUpdateSpace({ payload: spaceId }) {
@@ -398,53 +382,46 @@ function* prepareUpdateSpace({ payload: spaceId }) {
   }
 
   const token = yield* getToken();
+  const { data: space, status, err } = yield call(
+    getApiRequest,
+    apiEndpoint.spaces(spaceId),
+    {},
+    token,
+  );
 
-  const { posts: space, timeout } = yield race({
-    posts: call(getApiRequest, apiEndpoint.spaces(spaceId), {}, token),
-    timeout: delay(TIMEOUT),
-  });
-
-  const functionName = 'prepareUpdateSpace';
-  if (timeout) {
-    yield put(
-      spaceActions.fetchFailedSpace(`timeout(${functionName}):${apiEndpoint.spaces(spaceId)}`),
-    );
-    yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.spaces(spaceId)}`));
-    return;
-  }
-  if (space.err) {
-    if (space.status === 404) {
+  if (err) {
+    if (status === 404) {
       store.dispatch(push(Path.notFound()));
     } else {
-      yield put(spaceActions.fetchFailedSpace(`error(${functionName}):${space.err}`));
-      yield put(errorActions.setError(`error(${functionName}):${space.err}`));
+      yield handleError(spaceActions.fetchFailedSpace, '', 'prepareUpdateSpace', err, false);
     }
     return;
   }
 
-  if (space.data === undefined) {
-    yield put(
-      spaceActions.fetchFailedSpace(
-        `error(${functionName}):undefined(space.data):spaceId(${spaceId})`,
-      ),
-    );
-    yield put(
-      errorActions.setError(`error(${functionName}):undefined(space.data):spaceId(${spaceId})`),
+  if (space === undefined) {
+    yield handleError(
+      spaceActions.fetchFailedSpace,
+      '',
+      'prepareUpdateSpace(space data undefined)',
+      `spaceId:${spaceId}`,
+      false,
     );
     return;
   }
 
   const user = yield select(state => state.auth.user);
-  if (space.data.UserID !== user.ID) {
-    yield put(
-      errorActions.setError(
-        `Bad Request(${functionName}):spaceUserID(${space.data.UserID})/loginUserID(${user.ID})`,
-      ),
+  if (space.UserID !== user.ID) {
+    yield handleError(
+      '',
+      '',
+      'prepareUpdateSpace(Bad Request)',
+      `spaceUserID(${space.UserID})/loginUserID(${user.ID})`,
+      false,
     );
     return;
   }
 
-  yield put(uiActions.setUiState({ space: space.data }));
+  yield put(uiActions.setUiState({ space }));
 }
 
 function* updateSpace({ payload: { spaceId, body } }) {
@@ -457,8 +434,13 @@ function* updateSpace({ payload: { spaceId, body } }) {
   if (images && images.length > 0) {
     const imageUrls = yield createImageUrls(spaceId, images);
     if (imageUrls.error) {
-      yield put(spaceActions.createFailedSpace(imageUrls.error));
-      yield put(errorActions.setError(imageUrls.error));
+      yield handleError(
+        spaceActions.updateFailedSpace,
+        '',
+        'updateSpace(imageUrls)',
+        imageUrls.error,
+        false,
+      );
       return;
     }
     params.images = imageUrls
@@ -468,56 +450,48 @@ function* updateSpace({ payload: { spaceId, body } }) {
   }
 
   const token = yield* getToken();
+  const { data, status, err } = yield call(
+    putApiRequest,
+    apiEndpoint.spaces(spaceId),
+    params,
+    token,
+  );
 
-  const { posts: payload, timeout } = yield race({
-    posts: call(putApiRequest, apiEndpoint.spaces(spaceId), params, token),
-    timeout: delay(TIMEOUT),
-  });
-
-  const functionName = 'updateSpace';
-  if (timeout) {
-    yield put(spaceActions.updateFailedSpace(`timeout(${functionName}):${JSON.stringify(params)}`));
-    yield put(errorActions.setError(`timeout(${functionName}):${JSON.stringify(params)}`));
+  if (err) {
+    if (status === 404) {
+      yield handleError(
+        spaceActions.updateFailedSpace,
+        '',
+        'updateSpace(404)',
+        `spaceId:${spaceId}`,
+        false,
+      );
+    } else {
+      yield handleError(spaceActions.updateFailedSpace, '', 'updateSpace', err, false);
+    }
     return;
   }
-  if (payload.status === 404) {
-    yield put(spaceActions.updateFailedSpace(`error(${functionName}):status(${payload.status})`));
-    yield put(errorActions.setError(`error(${functionName}):status(${payload.status})`));
-    return;
-  }
-  if (payload.err) {
-    yield put(spaceActions.updateFailedSpace(`error(${functionName}):${payload.err}`));
-    yield put(errorActions.setError(`error(${functionName}):${payload.err}`));
-    return;
-  }
 
-  yield put(spaceActions.updateSuccessSpace(payload.data));
+  yield put(spaceActions.updateSuccessSpace(data));
 }
 
 function* deleteSpace({ payload: { space } }) {
   const user = yield select(state => state.auth.user);
   if (space.UserID !== user.ID) {
-    yield put(errorActions.setError('Bad Request'));
+    yield handleError(
+      '',
+      '',
+      'deleteSpace(Bad Request)',
+      `spaceUserID(${space.UserID})/loginUserID(${user.ID})`,
+      false,
+    );
     return;
   }
   const token = yield* getToken();
+  const { err } = yield call(deleteApiRequest, apiEndpoint.spaces(space.ID), token);
 
-  const { posts: payload, timeout } = yield race({
-    posts: call(deleteApiRequest, apiEndpoint.spaces(space.ID), token),
-    timeout: delay(TIMEOUT),
-  });
-
-  const functionName = 'deleteSpace';
-  if (timeout) {
-    yield put(
-      spaceActions.createFailedSpace(`timeout(${functionName}):${apiEndpoint.spaces(space.ID)}`),
-    );
-    yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.spaces(space.ID)}`));
-    return;
-  }
-  if (payload.err) {
-    yield put(spaceActions.createFailedSpace(`error(${functionName}):${payload.err}`));
-    yield put(errorActions.setError(`error(${functionName}):${payload.err}`));
+  if (err) {
+    yield handleError(spaceActions.deleteFailedSpace, '', 'deleteSpace', err, false);
     return;
   }
 
@@ -531,23 +505,15 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
   }
   user = yield select(state => state.auth.user);
   const token = yield* getToken();
+  const { err } = yield call(
+    postApiRequest,
+    apiEndpoint.addUserSpaceAccessLog(user.ID, spaceId),
+    {},
+    token,
+  );
 
-  const { posts: payload, timeout } = yield race({
-    posts: call(postApiRequest, apiEndpoint.addUserSpaceAccessLog(user.ID, spaceId), {}, token),
-    timeout: delay(TIMEOUT),
-  });
-
-  const functionName = 'addSpaceAccessLog';
-  if (timeout) {
-    yield put(
-      errorActions.setError(
-        `timeout(${functionName}):${apiEndpoint.addUserSpaceAccessLog(user.ID, spaceId)}`,
-      ),
-    );
-    return;
-  }
-  if (payload.err) {
-    yield put(errorActions.setError(`error(${functionName}):${payload.err}`));
+  if (err) {
+    yield handleError('', '', 'addSpaceAccessLog', err, false);
   }
 }
 
@@ -555,40 +521,29 @@ function* search({
   payload: { limit, offset, keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture },
 }) {
   const token = yield* getToken();
+  const { data, err, headers } = yield call(
+    getApiRequest,
+    apiEndpoint.spaces(),
+    {
+      limit,
+      offset,
+      keyword,
+      pref: getPrefecture(prefCode),
+      priceMin: priceMin || 0,
+      priceMax: priceMax || 0,
+      receiptType,
+      spaceType: type,
+      isFurniture,
+    },
+    token,
+  );
 
-  const { posts: payload, timeout } = yield race({
-    posts: call(
-      getApiRequest,
-      apiEndpoint.spaces(),
-      {
-        limit,
-        offset,
-        keyword,
-        pref: getPrefecture(prefCode),
-        priceMin: priceMin || 0,
-        priceMax: priceMax || 0,
-        receiptType,
-        spaceType: type,
-        isFurniture,
-      },
-      token,
-    ),
-    timeout: delay(TIMEOUT),
-  });
-
-  const functionName = 'search';
-  if (timeout) {
-    yield put(spaceActions.failedSearch(`timeout(${functionName})`));
-    yield put(errorActions.setError(`timeout(${functionName})`));
-    return;
-  }
-  if (payload.err) {
-    yield put(spaceActions.failedSearch(`error(${functionName}):${payload.err}`));
-    yield put(errorActions.setError(`error(${functionName}):${payload.err}`));
+  if (err) {
+    yield handleError(spaceActions.failedSearch, '', 'search', err, false);
     return;
   }
 
-  const res = payload.data.map(v => {
+  const res = data.map(v => {
     const space = v;
     if (space.Images.length === 0) {
       space.Images = [{ ImageUrl: dummySpaceImage }];
@@ -623,7 +578,7 @@ function* search({
     spaceActions.successSearch({
       spaces: res,
       isMore,
-      maxCount: parseInt(payload.headers['content-range'], 10),
+      maxCount: parseInt(headers['content-range'], 10),
     }),
   );
 }
