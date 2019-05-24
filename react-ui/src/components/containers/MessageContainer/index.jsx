@@ -155,7 +155,6 @@ class MessageContainer extends Component<PropTypes, State> {
         text,
         image,
         toUserId: room.user.ID,
-        toUserName: room.user.Name,
       }),
     );
 

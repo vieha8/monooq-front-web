@@ -370,7 +370,9 @@ function* sendEmail(payload) {
     return;
   }
 
-  const name = toUser.Name !== '' ? `${toUser.Name}さんから` : '';
+  const user = yield select(state => state.auth.user);
+
+  const name = user.Name !== '' ? `${user.Name}さんから` : '';
   let messageBody = `${name}メッセージが届いています。\n\n`;
 
   if (text.length !== 0) {
@@ -399,11 +401,12 @@ function* sendEmail(payload) {
 }
 
 function* sendSMS(payload) {
-  const { roomId, toUserId, toUserName } = payload;
+  const { roomId, toUserId } = payload;
 
   const token = yield* getToken();
+  const user = yield select(state => state.auth.user);
 
-  const name = toUserName !== '' ? `${toUserName}さんから` : '';
+  const name = user.Name !== '' ? `${user.Name}さんから` : '';
   let messageBody = `【モノオク】${name}メッセージが届いています。下記リンクからご確認ください。\n\n`;
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
