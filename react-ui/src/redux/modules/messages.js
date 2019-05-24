@@ -81,10 +81,14 @@ const roomCollection = () => {
 
 // ルーム取得
 const getRooms = userId =>
-  new Promise(async resolve => {
+  new Promise(async (resolve, reject) => {
     const rooms = await roomCollection()
       .where(`user${userId}`, '==', true)
-      .get();
+      .get()
+      .catch(err => {
+        reject(err);
+      });
+
     const res = [];
     rooms.forEach(room => {
       if (room.data().lastMessageDt) {
