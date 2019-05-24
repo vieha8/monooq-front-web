@@ -8,6 +8,7 @@ import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/InlineText';
 import AvatarImage from 'components/LV1/AvatarImage';
 import { Dimens, Colors, FontSizes } from 'variables';
+import LazyLoad from 'react-lazyload';
 
 const Container = styled.li`
   padding: ${Dimens.medium1}px 5px ${Dimens.medium}px;
@@ -62,7 +63,9 @@ export default (props: PropTypes) => (
   <Container>
     <Link to={props.link || ''}>
       <Cell>
-        <AvatarImage size={32} src={props.image} />
+        <LazyLoad width={32}>
+          <AvatarImage size={32} src={props.image} />
+        </LazyLoad>
       </Cell>
       <Cell nametime>
         <InlineText.Base

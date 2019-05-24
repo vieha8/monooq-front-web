@@ -1,8 +1,9 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
+import { put, call, takeEvery, take, select } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { push } from 'connected-react-router';
+import { captureException } from '@sentry/browser';
 import { authActions, getToken } from './auth';
 import { userActions } from './user';
 import { spaceActions } from './space';
@@ -11,6 +12,7 @@ import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/index';
 import Path from '../../config/path';
+import { convertImgixUrl } from '../../helpers/imgix';
 
 let messageObserverUnsubscribe = null;
 
@@ -81,22 +83,27 @@ const roomCollection = () => {
 
 // ルーム取得
 const getRooms = userId =>
-  new Promise(async resolve => {
-    const rooms = await roomCollection()
-      .where(`user${userId}`, '==', true)
-      .get();
-    const res = [];
-    rooms.forEach(room => {
-      if (room.data().lastMessageDt) {
-        res.push({
-          id: room.id,
-          ...room.data(),
-          lastMessageDt: room.data().lastMessageDt.toDate(),
-        });
-      }
-    });
-    res.sort((a, b) => (a.lastMessageDt < b.lastMessageDt ? 1 : -1));
-    resolve(res);
+  new Promise(async (resolve, reject) => {
+    try {
+      const rooms = await roomCollection()
+        .where(`user${userId}`, '==', true)
+        .get();
+      const res = [];
+      rooms.forEach(room => {
+        if (room.data().lastMessageDt) {
+          res.push({
+            id: room.id,
+            ...room.data(),
+            lastMessageDt: room.data().lastMessageDt.toDate(),
+          });
+        }
+      });
+      res.sort((a, b) => (a.lastMessageDt < b.lastMessageDt ? 1 : -1));
+      resolve(res);
+    } catch (err) {
+      captureException(err);
+      reject(err);
+    }
   });
 
 function* fetchRoomStart() {
@@ -104,15 +111,16 @@ function* fetchRoomStart() {
   const rooms = yield getRooms(user.ID);
   const token = yield* getToken();
 
-  const users = yield all(
-    rooms.map(room => {
-      const { userId1, userId2 } = room;
-      const id = user.ID === userId1 ? userId2 : userId1;
-      return call(getApiRequest, apiEndpoint.users(id), {}, token);
-    }),
+  const userIds = rooms.map(r => (user.ID === r.userId1 ? r.userId2 : r.userId1));
+
+  const { data } = yield call(
+    getApiRequest,
+    apiEndpoint.users(),
+    { ids: userIds.join(',') },
+    token,
   );
 
-  const res = rooms.map((v, i) => {
+  const res = rooms.map(v => {
     const room = v;
     room.isRead = room.isUnsubscribe;
     if (room[`user${user.ID}LastReadDt`]) {
@@ -120,7 +128,14 @@ function* fetchRoomStart() {
       const lastReadDt = room[`user${user.ID}LastReadDt`].seconds;
       room.isRead = room.isRead || lastMessageDt <= lastReadDt;
     }
-    room.user = users[i].data;
+
+    const { userId1, userId2 } = room;
+    const partnerId = user.ID === userId1 ? userId2 : userId1;
+    room.user = data.find(u => u.ID === partnerId);
+    if (room.user) {
+      room.user.ImageUrl = convertImgixUrl(room.user.ImageUrl, 'w=32&auto=format');
+    }
+
     return room;
   });
 
@@ -178,6 +193,7 @@ const getMessages = roomId =>
       };
       resolve(res);
     } catch (err) {
+      captureException(err);
       reject(err);
     }
   });
@@ -304,47 +320,51 @@ export const getRoomId = (userId1, userId2, spaceId) =>
 
 // メッセージ送信
 function* sendMessage(payload) {
-  const { roomId, userId, text, image } = payload;
+  try {
+    const { roomId, userId, text, image } = payload;
 
-  let imageUrl;
-  if (image) {
-    const fileReader = new FileReader();
-    fileReader.readAsArrayBuffer(image);
-    const ext = yield call(
-      () =>
-        new Promise(resolve => {
-          fileReader.onload = () => {
-            const imageType = fileType(fileReader.result);
-            resolve(imageType.ext);
-          };
-        }),
-    );
-    const timeStamp = Date.now();
-    imageUrl = yield call(() => uploadImage(`/${roomId}/${userId}/${timeStamp}.${ext}`, image));
-  }
-
-  return yield new Promise(async resolve => {
-    const message = {
-      userId,
-      text,
-      messageType: 1,
-      createDt: new Date(),
-    };
-    if (imageUrl) {
-      message.image = imageUrl;
+    let imageUrl;
+    if (image) {
+      const fileReader = new FileReader();
+      fileReader.readAsArrayBuffer(image);
+      const ext = yield call(
+        () =>
+          new Promise(resolve => {
+            fileReader.onload = () => {
+              const imageType = fileType(fileReader.result);
+              resolve(imageType.ext);
+            };
+          }),
+      );
+      const timeStamp = Date.now();
+      imageUrl = yield call(() => uploadImage(`/${roomId}/${userId}/${timeStamp}.${ext}`, image));
     }
-    const roomDoc = roomCollection().doc(roomId);
-    await roomDoc.collection('messages').add(message);
-    await roomDoc.set(
-      {
-        lastMessage: message.text,
-        lastMessageDt: new Date(),
-        [`user${userId}LastReadDt`]: new Date(),
-      },
-      { merge: true },
-    );
-    resolve();
-  });
+
+    return yield new Promise(async resolve => {
+      const message = {
+        userId,
+        text,
+        messageType: 1,
+        createDt: new Date(),
+      };
+      if (imageUrl) {
+        message.image = imageUrl;
+      }
+      const roomDoc = roomCollection().doc(roomId);
+      await roomDoc.collection('messages').add(message);
+      await roomDoc.set(
+        {
+          lastMessage: message.text,
+          lastMessageDt: new Date(),
+          [`user${userId}LastReadDt`]: new Date(),
+        },
+        { merge: true },
+      );
+      resolve();
+    });
+  } catch (err) {
+    captureException(err);
+  }
 }
 
 function* sendEmail(payload) {
@@ -357,7 +377,9 @@ function* sendEmail(payload) {
     return;
   }
 
-  const name = toUser.Name !== '' ? `${toUser.Name}さんから` : '';
+  const user = yield select(state => state.auth.user);
+
+  const name = user.Name !== '' ? `${user.Name}さんから` : '';
   let messageBody = `${name}メッセージが届いています。\n\n`;
 
   if (text.length !== 0) {
@@ -386,11 +408,12 @@ function* sendEmail(payload) {
 }
 
 function* sendSMS(payload) {
-  const { roomId, toUserId, toUserName } = payload;
+  const { roomId, toUserId } = payload;
 
   const token = yield* getToken();
+  const user = yield select(state => state.auth.user);
 
-  const name = toUserName !== '' ? `${toUserName}さんから` : '';
+  const name = user.Name !== '' ? `${user.Name}さんから` : '';
   let messageBody = `【モノオク】${name}メッセージが届いています。下記リンクからご確認ください。\n\n`;
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる

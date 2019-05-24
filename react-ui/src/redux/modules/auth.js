@@ -207,10 +207,11 @@ export const authReducer = handleActions(
 );
 
 const getLoginUserFirebaseAuth = () =>
-  new Promise(resolve => {
-    firebase.auth().onAuthStateChanged(user => {
+  new Promise((resolve, reject) => {
+    const unsub = firebase.auth().onAuthStateChanged(user => {
+      unsub();
       resolve(user);
-    });
+    }, reject);
   });
 
 // Sagas
@@ -277,35 +278,45 @@ function* checkLoginFirebaseAuth() {
     }
   }
 
-  const user = yield call(getLoginUserFirebaseAuth);
-  if (user) {
-    status.isLogin = true;
-    const token = yield* getToken();
-    const { data, err } = yield call(getApiRequest, apiEndpoint.authFirebase(user.uid), {}, token);
-    if (err) {
-      yield put(authActions.checkLoginFailed({ error: err }));
-      yield put(authActions.logout());
-      window.location.reload();
-      return;
-    }
-    status.user = data;
+  try {
+    const user = yield call(getLoginUserFirebaseAuth);
+    if (user) {
+      status.isLogin = true;
+      const token = yield* getToken();
+      const { data, err } = yield call(
+        getApiRequest,
+        apiEndpoint.authFirebase(user.uid),
+        {},
+        token,
+      );
+      if (err) {
+        yield put(authActions.checkLoginFailed({ error: err }));
+        yield put(authActions.logout());
+        window.location.reload();
+        return;
+      }
+      status.user = data;
 
-    if (isAvailableLocalStorage()) {
-      localStorage.setItem('status', JSON.stringify(status));
-    }
+      if (isAvailableLocalStorage()) {
+        localStorage.setItem('status', JSON.stringify(status));
+      }
 
-    yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID }, token);
-    ReactGA.set({ userId: data.ID });
-    Sentry.configureScope(scope => {
-      scope.setUser({
-        id: user.ID,
-        username: user.Name,
-        email: user.Email,
+      yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID }, token);
+      ReactGA.set({ userId: data.ID });
+
+      Sentry.configureScope(scope => {
+        scope.setUser({
+          id: data.ID,
+          username: data.Name,
+          email: data.Email,
+        });
       });
-    });
-  }
+    }
 
-  yield put(authActions.checkLoginSuccess(status));
+    yield put(authActions.checkLoginSuccess(status));
+  } catch (err) {
+    yield put(authActions.checkLoginFailed(err));
+  }
 }
 
 function* loginEmail({ payload: { email, password } }) {
