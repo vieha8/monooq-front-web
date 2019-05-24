@@ -1,11 +1,9 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, call, select, race, delay } from 'redux-saga/effects';
+import { put, takeEvery, call, select } from 'redux-saga/effects';
 
 import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
-import { errorActions } from './error';
+import { handleError } from './error';
 import { getToken } from './auth';
-
-const TIMEOUT = 30000;
 
 // Actions
 const FETCH_SALES = 'FETCH_SALES';
@@ -38,6 +36,7 @@ export const salesReducer = handleActions(
     [FETCH_SALES]: state => ({
       ...state,
       isLoading: true,
+      isSend: false,
     }),
     [FETCH_SALES_SUCCESS]: (state, action) => ({
       ...state,
@@ -46,10 +45,27 @@ export const salesReducer = handleActions(
       pending: action.payload.pending,
       paid: action.payload.paid,
       isLoading: false,
+      isSend: false,
     }),
     [FETCH_SALES_FAILED]: state => ({
       ...state,
       isLoading: false,
+      isSend: false,
+    }),
+    [SEND_PAYOUTS]: state => ({
+      ...state,
+      isLoading: true,
+      isSend: false,
+    }),
+    [SEND_PAYOUTS_SUCCESS]: state => ({
+      ...state,
+      isLoading: false,
+      isSend: true,
+    }),
+    [SEND_PAYOUTS_FAILED]: state => ({
+      ...state,
+      isLoading: false,
+      isSend: false,
     }),
   },
   initialState,
@@ -58,24 +74,14 @@ export const salesReducer = handleActions(
 // Sagas
 function* getSales() {
   const token = yield* getToken();
-  const { posts: response, timeout } = yield race({
-    posts: call(getApiRequest, apiEndpoint.sales(), {}, token),
-    timeout: delay(TIMEOUT),
-  });
+  const { data, err } = yield call(getApiRequest, apiEndpoint.sales(), {}, token);
 
-  const functionName = 'getSales';
-  if (timeout) {
-    yield put(salesActions.fetchSalesFailed(`timeout(${functionName}):${apiEndpoint.sales()}`));
-    yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.sales()}`));
-    return;
-  }
-  if (response.err) {
-    yield put(salesActions.fetchSalesFailed(`error(${functionName}):${response.err}`));
-    yield put(errorActions.setError(`error(${functionName}):${response.err}`));
+  if (err) {
+    yield handleError(salesActions.fetchSalesFailed, '', 'getSales', err, false);
     return;
   }
 
-  yield put(salesActions.fetchSalesSuccess({ ...response.data }));
+  yield put(salesActions.fetchSalesSuccess({ ...data }));
 }
 
 function* sendPayouts({
@@ -83,29 +89,23 @@ function* sendPayouts({
 }) {
   const user = yield select(state => state.auth.user);
   if (!user.ID) {
-    const err = 'Not Authentication';
-    yield put(salesActions.sendPayoutsFailed(err));
-    yield put(errorActions.setError(err));
+    yield handleError(
+      salesActions.sendPayoutsFailed,
+      '',
+      'sendPayouts',
+      'Not Authentication',
+      false,
+    );
     return;
   }
 
   const token = yield* getToken();
   const type = accountType === '1' ? '普通' : '当座';
   const params = { bankName, branchName, accountType: type, accountNumber, accountName };
-  const { posts: payload, timeout } = yield race({
-    posts: call(postApiRequest, apiEndpoint.sales(), params, token),
-    timeout: delay(TIMEOUT),
-  });
+  const { err } = yield call(postApiRequest, apiEndpoint.sales(), params, token);
 
-  const functionName = 'sendPayouts';
-  if (timeout) {
-    yield put(salesActions.sendPayoutsFailed(`timeout(${functionName}):${apiEndpoint.sales()}`));
-    yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.sales()}`));
-    return;
-  }
-  if (payload.err) {
-    yield put(salesActions.sendPayoutsFailed(`error(${functionName}):${payload.err}`));
-    yield put(errorActions.setError(`error(${functionName}):${payload.err}`));
+  if (err) {
+    yield handleError(salesActions.sendPayoutsFailed, '', 'sendPayouts', err, false);
     return;
   }
 
