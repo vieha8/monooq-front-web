@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/storage';
+import { captureException } from '@sentry/browser';
 
 export const uploadImage = (path, file) => {
   const storageRef = firebase.storage().ref();
@@ -13,6 +14,7 @@ export const uploadImage = (path, file) => {
         // console.log('Upload is ' + progress + '% done');
       },
       error => {
+        captureException(error);
         reject(error);
       },
       () => {
