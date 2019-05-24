@@ -3,6 +3,7 @@ import { put, call, takeEvery, take, select } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { push } from 'connected-react-router';
+import { captureException } from '@sentry/browser';
 import { authActions, getToken } from './auth';
 import { userActions } from './user';
 import { spaceActions } from './space';
@@ -99,8 +100,9 @@ const getRooms = userId =>
       });
       res.sort((a, b) => (a.lastMessageDt < b.lastMessageDt ? 1 : -1));
       resolve(res);
-    } catch (e) {
-      reject(e);
+    } catch (err) {
+      captureException(err);
+      reject(err);
     }
   });
 
@@ -191,6 +193,7 @@ const getMessages = roomId =>
       };
       resolve(res);
     } catch (err) {
+      captureException(err);
       reject(err);
     }
   });
@@ -317,47 +320,51 @@ export const getRoomId = (userId1, userId2, spaceId) =>
 
 // メッセージ送信
 function* sendMessage(payload) {
-  const { roomId, userId, text, image } = payload;
+  try {
+    const { roomId, userId, text, image } = payload;
 
-  let imageUrl;
-  if (image) {
-    const fileReader = new FileReader();
-    fileReader.readAsArrayBuffer(image);
-    const ext = yield call(
-      () =>
-        new Promise(resolve => {
-          fileReader.onload = () => {
-            const imageType = fileType(fileReader.result);
-            resolve(imageType.ext);
-          };
-        }),
-    );
-    const timeStamp = Date.now();
-    imageUrl = yield call(() => uploadImage(`/${roomId}/${userId}/${timeStamp}.${ext}`, image));
-  }
-
-  return yield new Promise(async resolve => {
-    const message = {
-      userId,
-      text,
-      messageType: 1,
-      createDt: new Date(),
-    };
-    if (imageUrl) {
-      message.image = imageUrl;
+    let imageUrl;
+    if (image) {
+      const fileReader = new FileReader();
+      fileReader.readAsArrayBuffer(image);
+      const ext = yield call(
+        () =>
+          new Promise(resolve => {
+            fileReader.onload = () => {
+              const imageType = fileType(fileReader.result);
+              resolve(imageType.ext);
+            };
+          }),
+      );
+      const timeStamp = Date.now();
+      imageUrl = yield call(() => uploadImage(`/${roomId}/${userId}/${timeStamp}.${ext}`, image));
     }
-    const roomDoc = roomCollection().doc(roomId);
-    await roomDoc.collection('messages').add(message);
-    await roomDoc.set(
-      {
-        lastMessage: message.text,
-        lastMessageDt: new Date(),
-        [`user${userId}LastReadDt`]: new Date(),
-      },
-      { merge: true },
-    );
-    resolve();
-  });
+
+    return yield new Promise(async resolve => {
+      const message = {
+        userId,
+        text,
+        messageType: 1,
+        createDt: new Date(),
+      };
+      if (imageUrl) {
+        message.image = imageUrl;
+      }
+      const roomDoc = roomCollection().doc(roomId);
+      await roomDoc.collection('messages').add(message);
+      await roomDoc.set(
+        {
+          lastMessage: message.text,
+          lastMessageDt: new Date(),
+          [`user${userId}LastReadDt`]: new Date(),
+        },
+        { merge: true },
+      );
+      resolve();
+    });
+  } catch (err) {
+    captureException(err);
+  }
 }
 
 function* sendEmail(payload) {
