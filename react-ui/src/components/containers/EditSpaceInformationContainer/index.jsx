@@ -290,7 +290,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
                 </p>
               </Modal.Content>
               <Modal.Actions>
-                <Button color="brandPrimary" small={1} onClick={this.onClickEditProfile}>
+                <Button className="brandPrimary" onClick={this.onClickEditProfile}>
                   登録画面へ進む
                 </Button>
               </Modal.Actions>
