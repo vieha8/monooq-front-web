@@ -49,7 +49,11 @@ const responseErrorHandler = (resolve, error) => {
     const { status, statusText, data, config } = response;
     const { method, url } = config;
     const err = `${method} ${url} ${status} ${statusText} : ${data.error}`;
-    captureException(new Error(err));
+
+    if (data.error !== 'Not mobile phone number') {
+      // SMS送信エラーは通知させない
+      captureException(new Error(err));
+    }
   }
 
   resolve({

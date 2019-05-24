@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery, take, select, all } from 'redux-saga/effects';
+import { put, call, takeEvery, take, select } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { push } from 'connected-react-router';
@@ -11,6 +11,7 @@ import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
 import { store } from '../store/index';
 import Path from '../../config/path';
+import { convertImgixUrl } from '../../helpers/imgix';
 
 let messageObserverUnsubscribe = null;
 
@@ -82,25 +83,25 @@ const roomCollection = () => {
 // ルーム取得
 const getRooms = userId =>
   new Promise(async (resolve, reject) => {
-    const rooms = await roomCollection()
-      .where(`user${userId}`, '==', true)
-      .get()
-      .catch(err => {
-        reject(err);
+    try {
+      const rooms = await roomCollection()
+        .where(`user${userId}`, '==', true)
+        .get();
+      const res = [];
+      rooms.forEach(room => {
+        if (room.data().lastMessageDt) {
+          res.push({
+            id: room.id,
+            ...room.data(),
+            lastMessageDt: room.data().lastMessageDt.toDate(),
+          });
+        }
       });
-
-    const res = [];
-    rooms.forEach(room => {
-      if (room.data().lastMessageDt) {
-        res.push({
-          id: room.id,
-          ...room.data(),
-          lastMessageDt: room.data().lastMessageDt.toDate(),
-        });
-      }
-    });
-    res.sort((a, b) => (a.lastMessageDt < b.lastMessageDt ? 1 : -1));
-    resolve(res);
+      res.sort((a, b) => (a.lastMessageDt < b.lastMessageDt ? 1 : -1));
+      resolve(res);
+    } catch (e) {
+      reject(e);
+    }
   });
 
 function* fetchRoomStart() {
@@ -108,15 +109,16 @@ function* fetchRoomStart() {
   const rooms = yield getRooms(user.ID);
   const token = yield* getToken();
 
-  const users = yield all(
-    rooms.map(room => {
-      const { userId1, userId2 } = room;
-      const id = user.ID === userId1 ? userId2 : userId1;
-      return call(getApiRequest, apiEndpoint.users(id), {}, token);
-    }),
+  const userIds = rooms.map(r => (user.ID === r.userId1 ? r.userId2 : r.userId1));
+
+  const { data } = yield call(
+    getApiRequest,
+    apiEndpoint.users(),
+    { ids: userIds.join(',') },
+    token,
   );
 
-  const res = rooms.map((v, i) => {
+  const res = rooms.map(v => {
     const room = v;
     room.isRead = room.isUnsubscribe;
     if (room[`user${user.ID}LastReadDt`]) {
@@ -124,7 +126,14 @@ function* fetchRoomStart() {
       const lastReadDt = room[`user${user.ID}LastReadDt`].seconds;
       room.isRead = room.isRead || lastMessageDt <= lastReadDt;
     }
-    room.user = users[i].data;
+
+    const { userId1, userId2 } = room;
+    const partnerId = user.ID === userId1 ? userId2 : userId1;
+    room.user = data.find(u => u.ID === partnerId);
+    if (room.user) {
+      room.user.ImageUrl = convertImgixUrl(room.user.ImageUrl, 'w=32&auto=format');
+    }
+
     return room;
   });
 
