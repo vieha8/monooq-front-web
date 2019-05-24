@@ -23,10 +23,10 @@ class ConfirmBtnModal extends Component {
             <p>{this.props.modalText}</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button className="ui white button" onClick={this.close}>
+            <Button className="white" onClick={this.close}>
               いいえ
             </Button>
-            <Button className="ui brandPrimary button" onClick={this.props.onClickRemove}>
+            <Button className="brandPrimary" onClick={this.props.onClickRemove}>
               はい
             </Button>
           </Modal.Actions>
