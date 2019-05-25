@@ -155,7 +155,6 @@ class MessageContainer extends Component<PropTypes, State> {
         text,
         image,
         toUserId: room.user.ID,
-        toUserName: room.user.Name,
       }),
     );
 
@@ -317,7 +316,7 @@ class MessageContainer extends Component<PropTypes, State> {
             </p>
           </Modal.Content>
           <Modal.Actions>
-            <Button color="red" small={1} onClick={this.onClickEditProfile}>
+            <Button className="brandPrimary" onClick={this.onClickEditProfile}>
               登録画面へ進む
             </Button>
           </Modal.Actions>

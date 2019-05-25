@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery, take, select } from 'redux-saga/effects';
+import { put, call, takeEvery, take, select, race, delay } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { push, replace } from 'connected-react-router';
@@ -12,6 +12,8 @@ import { store } from '../store/index';
 import { getApiRequest, postApiRequest, deleteApiRequest, apiEndpoint } from '../helpers/api';
 import Path from '../../config/path';
 import { isAvailableLocalStorage } from '../../helpers/storage';
+
+const TIMEOUT = 30000;
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -205,10 +207,11 @@ export const authReducer = handleActions(
 );
 
 const getLoginUserFirebaseAuth = () =>
-  new Promise(resolve => {
-    firebase.auth().onAuthStateChanged(user => {
+  new Promise((resolve, reject) => {
+    const unsub = firebase.auth().onAuthStateChanged(user => {
+      unsub();
       resolve(user);
-    });
+    }, reject);
   });
 
 // Sagas
@@ -228,12 +231,22 @@ export function* getToken() {
 }
 
 function* tokenGenerate() {
-  const { data, err } = yield call(postApiRequest, apiEndpoint.tokenGenerate(), {});
-  if (err) {
-    yield put(errorActions.setError(err));
+  const { posts: response, timeout } = yield race({
+    posts: call(postApiRequest, apiEndpoint.tokenGenerate(), {}),
+    timeout: delay(TIMEOUT),
+  });
+
+  const functionName = 'tokenGenerate';
+  if (timeout) {
+    yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.tokenGenerate()}`));
     return;
   }
-  yield put(authActions.tokenGenerateSuccess(data.Token));
+  if (response.err) {
+    yield put(errorActions.setError(`error(${functionName}):${response.err}`));
+    return;
+  }
+
+  yield put(authActions.tokenGenerateSuccess(response.data.Token));
 }
 
 function* checkLoginFirebaseAuth() {
@@ -265,35 +278,45 @@ function* checkLoginFirebaseAuth() {
     }
   }
 
-  const user = yield call(getLoginUserFirebaseAuth);
-  if (user) {
-    status.isLogin = true;
-    const token = yield* getToken();
-    const { data, err } = yield call(getApiRequest, apiEndpoint.authFirebase(user.uid), {}, token);
-    if (err) {
-      yield put(authActions.checkLoginFailed({ error: err }));
-      yield put(authActions.logout());
-      window.location.reload(true);
-      return;
-    }
-    status.user = data;
+  try {
+    const user = yield call(getLoginUserFirebaseAuth);
+    if (user) {
+      status.isLogin = true;
+      const token = yield* getToken();
+      const { data, err } = yield call(
+        getApiRequest,
+        apiEndpoint.authFirebase(user.uid),
+        {},
+        token,
+      );
+      if (err) {
+        yield put(authActions.checkLoginFailed({ error: err }));
+        yield put(authActions.logout());
+        window.location.reload();
+        return;
+      }
+      status.user = data;
 
-    if (isAvailableLocalStorage()) {
-      localStorage.setItem('status', JSON.stringify(status));
-    }
+      if (isAvailableLocalStorage()) {
+        localStorage.setItem('status', JSON.stringify(status));
+      }
 
-    yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID }, token);
-    ReactGA.set({ userId: data.ID });
-    Sentry.configureScope(scope => {
-      scope.setUser({
-        id: user.ID,
-        username: user.Name,
-        email: user.Email,
+      yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID }, token);
+      ReactGA.set({ userId: data.ID });
+
+      Sentry.configureScope(scope => {
+        scope.setUser({
+          id: data.ID,
+          username: data.Name,
+          email: data.Email,
+        });
       });
-    });
-  }
+    }
 
-  yield put(authActions.checkLoginSuccess(status));
+    yield put(authActions.checkLoginSuccess(status));
+  } catch (err) {
+    yield put(authActions.checkLoginFailed(err));
+  }
 }
 
 function* loginEmail({ payload: { email, password } }) {
@@ -340,25 +363,34 @@ function* signUpEmail({ payload: { email, password } }) {
     }
 
     const token = yield* getToken();
-    const { data, err } = yield call(
-      postApiRequest,
-      apiEndpoint.users(),
-      {
-        Email: email,
-        FirebaseUid: firebaseUid,
-        ImageUrl: defaultImage,
-        RefererUrl: referrer,
-      },
-      token,
-    );
+    const { posts: response, timeout } = yield race({
+      posts: call(
+        postApiRequest,
+        apiEndpoint.users(),
+        {
+          Email: email,
+          FirebaseUid: firebaseUid,
+          ImageUrl: defaultImage,
+          RefererUrl: referrer,
+        },
+        token,
+      ),
+      timeout: delay(TIMEOUT),
+    });
 
-    if (err) {
+    const functionName = 'signUpEmail';
+    if (timeout) {
       yield put(authActions.signupFailed());
-      yield put(errorActions.setError(err));
+      yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.users()}`));
+      return;
+    }
+    if (response.err) {
+      yield put(authActions.signupFailed());
+      yield put(errorActions.setError(`error(${functionName}):${response.err}`));
       return;
     }
 
-    yield put(authActions.signupSuccess(data));
+    yield put(authActions.signupSuccess(response));
     yield put(authActions.checkLogin());
     store.dispatch(push(Path.signUpProfile()));
   } catch (err) {
@@ -389,25 +421,35 @@ function* signUpFacebook() {
     }
 
     const token = yield* getToken();
-    const { data, err } = yield call(
-      postApiRequest,
-      apiEndpoint.users(),
-      {
-        Email: email,
-        FirebaseUid: uid,
-        Name: displayName,
-        ImageUrl: photoURL,
-        RefererUrl: referrer,
-      },
-      token,
-    );
+    const { posts: response, timeout } = yield race({
+      posts: call(
+        postApiRequest,
+        apiEndpoint.users(),
+        {
+          Email: email,
+          FirebaseUid: uid,
+          Name: displayName,
+          ImageUrl: photoURL,
+          RefererUrl: referrer,
+        },
+        token,
+      ),
+      timeout: delay(TIMEOUT),
+    });
 
-    if (err) {
+    const functionName = 'signUpFacebook';
+    if (timeout) {
       yield put(authActions.signupFailed());
-      yield put(errorActions.setError(err));
+      yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.users()}`));
       return;
     }
-    yield put(authActions.signupSuccess(data));
+    if (response.err) {
+      yield put(authActions.signupFailed());
+      yield put(errorActions.setError(`error(${functionName}):${response.err}`));
+      return;
+    }
+
+    yield put(authActions.signupSuccess(response));
     yield put(authActions.checkLogin());
     yield put(uiActions.setUiState({ signup: { name: displayName } }));
     store.dispatch(push(Path.signUpProfile()));
@@ -437,6 +479,7 @@ function* passwordReset({ payload: { email } }) {
 
 function* unsubscribe({ payload: { userId, reason, description } }) {
   const token = yield* getToken();
+  // TODO: エラーハンドリングを追加(タイムアウト系)
   const { err } = yield call(deleteApiRequest, apiEndpoint.users(userId), token);
   if (err) {
     yield put(authActions.unsubscribeFailed(err));

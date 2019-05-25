@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -37,21 +37,17 @@ const SalesAmountItemWrapper = styled.div`
 `;
 
 type PropTypes = {
-  title: String,
-  amount: Number,
+  title: string,
+  amount: number,
+  bold: boolean,
+  colorPrimary: boolean,
 };
 
-export default (props: PropTypes) => (
-  <Fragment>
-    <InputFieldWrapper>
-      <SalesTitleWrapper>{props.title}</SalesTitleWrapper>
-      <SalesAmountItemWrapper
-        fontSize={props.fontSize}
-        bold={props.bold}
-        colorPrimary={props.colorPrimary}
-      >
-        {String(props.amount).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}円
-      </SalesAmountItemWrapper>
-    </InputFieldWrapper>
-  </Fragment>
+export default ({ title, bold, amount, colorPrimary }: PropTypes) => (
+  <InputFieldWrapper>
+    <SalesTitleWrapper>{title}</SalesTitleWrapper>
+    <SalesAmountItemWrapper bold={bold} colorPrimary={colorPrimary}>
+      {String(amount).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}円
+    </SalesAmountItemWrapper>
+  </InputFieldWrapper>
 );

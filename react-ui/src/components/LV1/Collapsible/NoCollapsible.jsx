@@ -1,9 +1,11 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Dimens, FontSizes } from 'variables';
+import { Dimens, FontSizes, Colors } from 'variables';
+import { Link } from 'react-router-dom';
+import Path from 'config/path';
 
 const NoCollapsibleeWrap = styled.div`
   margin-bottom: ${Dimens.medium4_50}px;
@@ -26,64 +28,75 @@ const CaptionWrap = styled.div`
 
 const ListWrap = styled.div``;
 
-const Item = styled.p`
-  position: relative;
-  padding: ${Dimens.small_10}px ${Dimens.medium}px;
-  border: 1px solid #dbdbdb;
-  font-size: ${FontSizes.small_15}px;
-  font-weight: bold;
-  line-height: normal;
-  &:first-child {
+const LinkStyled = styled(Link)`
+  color: ${Colors.black};
+  &:first-child p {
     border-radius: ${Dimens.xxsmall_4}px ${Dimens.xxsmall_4}px 0px 0px;
   }
-  &:last-child {
+  &:last-child p {
     border-radius: 0px 0px ${Dimens.xxsmall_4}px ${Dimens.xxsmall_4}px;
   }
-  &:not(:last-child) {
+  &:not(:last-child) p {
     border-bottom: none;
   }
 `;
 
+const Item = styled.p`
+  position: relative;
+  padding: ${Dimens.small_10}px ${Dimens.medium2}px;
+  border: 1px solid #dbdbdb;
+  font-size: ${FontSizes.small_15}px;
+  font-weight: bold;
+  line-height: normal;
+  ${media.phone`
+    padding: ${Dimens.small_10}px ${Dimens.medium}px;
+  `};
+`;
+
 const Count = styled.span`
   position: absolute;
-  right: ${Dimens.medium}px;
+  right: ${Dimens.medium2}px;
   top: ${Dimens.small2_13}px;
   font-size: ${FontSizes.small_12}px;
   font-weight: normal;
+  ${media.phone`
+    right: ${Dimens.medium}px;
+  `};
 `;
 
 type PropTypes = {
-  kari?: string,
+  title: string,
+  contents: Object,
 };
 
-export default (props: PropTypes) => (
+export default ({ title, contents }: PropTypes) => (
   <NoCollapsibleeWrap>
-    <CaptionWrap>関東圏内から探す</CaptionWrap>
+    <CaptionWrap>{title}</CaptionWrap>
     <ListWrap>
-      <Item>
-        東京
-        <Count>61件</Count>
-      </Item>
-      <Item>
-        神奈川
-        <Count>39件</Count>
-      </Item>
-      <Item>
-        千葉
-        <Count>28件</Count>
-      </Item>
-      <Item>
-        埼玉
-        <Count>16件</Count>
-      </Item>
-      <Item>
-        栃木
-        <Count>14件</Count>
-      </Item>
-      <Item>
-        群馬
-        <Count>12件</Count>
-      </Item>
+      {contents.map(({ Prefectures: prefectures }, i) => {
+        return (
+          <Fragment key={`section_area_contents_${contents[i].ID}`}>
+            {prefectures.map(
+              ({ ID: prefectureId, Name: prefectureName, PrefectureSpaces: prefectureSpaces }) => {
+                if (prefectureSpaces.length === 0) {
+                  return null;
+                }
+                return (
+                  <LinkStyled
+                    to={Path.homePrefecture(prefectureId)}
+                    key={`section_area_prefecture_${prefectureId}`}
+                  >
+                    <Item>
+                      {prefectureName}
+                      <Count>{`${prefectureSpaces.length}件`}</Count>
+                    </Item>
+                  </LinkStyled>
+                );
+              },
+            )}
+          </Fragment>
+        );
+      })}
     </ListWrap>
   </NoCollapsibleeWrap>
 );

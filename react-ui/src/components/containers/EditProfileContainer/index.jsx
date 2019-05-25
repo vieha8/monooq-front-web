@@ -186,7 +186,7 @@ class EditProfileContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { updateSuccess, isLoading, user } = this.props;
+    const { updateSuccess, isLoading, user, errMessage } = this.props;
 
     const {
       imageUri,
@@ -200,6 +200,10 @@ class EditProfileContainer extends Component<PropTypes> {
       isNoticeEmail,
       error,
     } = this.state;
+
+    if (errMessage) {
+      error.email = [errMessage];
+    }
 
     return (
       <MenuPageTemplate
@@ -250,6 +254,7 @@ const mapStateToProps = state => ({
   user: state.auth.user || {},
   updateSuccess: state.user.updateSuccess,
   isLoading: state.user.isLoading,
+  errMessage: state.user.errMessage,
   redirectPath: state.ui.redirectPath,
 });
 

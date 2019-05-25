@@ -160,9 +160,9 @@ class SearchResultContainer extends Component<PropTypes, State> {
         headline={`「${condition}」のスペース検索結果 0件`}
         leftContent={
           <NoDataView
-            captionHead="検索結果がありませんでした"
-            caption="キーワードが該当しませんでした。別のキーワードで再度検索をお願いします。"
-            buttonText="再度検索する"
+            captionHead="該当するスペースが見つかりませんでした"
+            caption="別のキーワード及び条件で検索をお試しください"
+            buttonText="条件を変えて再検索する"
             onClick={() => history.push(Path.searchCondition())}
           />
         }

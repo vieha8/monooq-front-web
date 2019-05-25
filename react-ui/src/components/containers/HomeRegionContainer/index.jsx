@@ -9,8 +9,9 @@ import HomeTemplate from 'components/templates/HomeTemplate';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
-import Collapsible from 'components/LV1/Collapsible';
+import NoCollapsible from 'components/LV1/Collapsible/NoCollapsible';
 import SearchResult from 'components/LV3/SearchResult';
+import ConciergeContents from 'components/LV2/ConciergeIntroduction';
 import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
@@ -61,7 +62,7 @@ class HomeRegionContainer extends Component<PropTypes> {
       const key = `section${id}`;
 
       if (displayType === 'regions') {
-        return <Collapsible key={key} title={title} contents={contents} isOpen />;
+        return <NoCollapsible key={key} title={title} contents={contents} />;
       }
 
       if (displayType === 'prefecture') {
@@ -104,6 +105,10 @@ class HomeRegionContainer extends Component<PropTypes> {
             onClickMore={onClickMore}
           />
         );
+      }
+
+      if (displayType === 'concierge') {
+        return <ConciergeContents key={key} />;
       }
 
       return null;

@@ -4,67 +4,151 @@ import { ConnectedRouter } from 'connected-react-router';
 import loadable from '@loadable/component';
 import Path from './path';
 
-const Top = loadable(() => import('components/containers/TopContainer'));
-const Login = loadable(() => import('components/containers/LoginContainer'));
-const SignUp = loadable(() => import('components/containers/SignUpContainer'));
-const SignUpProfile = loadable(() => import('components/containers/SignUpProfileContainer'));
-const SignUpPurpose = loadable(() => import('components/containers/SignUpPurposeContainer'));
-const ResetPassword = loadable(() => import('components/containers/ResetPasswordContainer'));
-const Home = loadable(() => import('components/containers/HomeContainer'));
-const HomeRegion = loadable(() => import('components/containers/HomeRegionContainer'));
-const HomePrefecture = loadable(() => import('components/containers/HomePrefectureContainer'));
-const Search = loadable(() => import('components/containers/SearchResultContainer'));
-const SearchCondition = loadable(() => import('components/containers/SearchConditionContainer'));
-const Space = loadable(() => import('components/containers/SpaceContainer'));
-const Spaces = loadable(() => import('components/containers/SpaceManagementContainer'));
-const Schedule = loadable(() => import('components/containers/ScheduleContainer'));
-const Profile = loadable(() => import('components/containers/ProfileContainer'));
-const EditProfile = loadable(() => import('components/containers/EditProfileContainer'));
-const Inquiry = loadable(() => import('components/containers/InquiryContainer'));
-const Messages = loadable(() => import('components/containers/InboxContainer'));
-const Message = loadable(() => import('components/containers/MessageContainer'));
-const Estimate = loadable(() => import('components/containers/EstimateContainer'));
-const Payment = loadable(() => import('components/containers/PaymentContainer'));
+const Top = loadable(() =>
+  import('components/containers/TopContainer').catch(() => window.location.reload()),
+);
+const Login = loadable(() =>
+  import('components/containers/LoginContainer').catch(() => window.location.reload()),
+);
+const SignUp = loadable(() =>
+  import('components/containers/SignUpContainer').catch(() => window.location.reload()),
+);
+const SignUpProfile = loadable(() =>
+  import('components/containers/SignUpProfileContainer').catch(() => window.location.reload()),
+);
+const SignUpPurpose = loadable(() =>
+  import('components/containers/SignUpPurposeContainer').catch(() => window.location.reload()),
+);
+const ResetPassword = loadable(() =>
+  import('components/containers/ResetPasswordContainer').catch(() => window.location.reload()),
+);
+const Home = loadable(() =>
+  import('components/containers/HomeContainer').catch(() => window.location.reload()),
+);
+const HomeRegion = loadable(() =>
+  import('components/containers/HomeRegionContainer').catch(() => window.location.reload()),
+);
+const HomePrefecture = loadable(() =>
+  import('components/containers/HomePrefectureContainer').catch(() => window.location.reload()),
+);
+const Search = loadable(() =>
+  import('components/containers/SearchResultContainer').catch(() => window.location.reload()),
+);
+const SearchCondition = loadable(() =>
+  import('components/containers/SearchConditionContainer').catch(() => window.location.reload()),
+);
+const Space = loadable(() =>
+  import('components/containers/SpaceContainer').catch(() => window.location.reload()),
+);
+const Spaces = loadable(() =>
+  import('components/containers/SpaceManagementContainer').catch(() => window.location.reload()),
+);
+const Schedule = loadable(() =>
+  import('components/containers/ScheduleContainer').catch(() => window.location.reload()),
+);
+const Profile = loadable(() =>
+  import('components/containers/ProfileContainer').catch(() => window.location.reload()),
+);
+const EditProfile = loadable(() =>
+  import('components/containers/EditProfileContainer').catch(() => window.location.reload()),
+);
+const Inquiry = loadable(() =>
+  import('components/containers/InquiryContainer').catch(() => window.location.reload()),
+);
+const Messages = loadable(() =>
+  import('components/containers/InboxContainer').catch(() => window.location.reload()),
+);
+const Message = loadable(() =>
+  import('components/containers/MessageContainer').catch(() => window.location.reload()),
+);
+const Estimate = loadable(() =>
+  import('components/containers/EstimateContainer').catch(() => window.location.reload()),
+);
+const Payment = loadable(() =>
+  import('components/containers/PaymentContainer').catch(() => window.location.reload()),
+);
 const CreateSpaceInfo = loadable(() =>
-  import('components/containers/EditSpaceInformationContainer'),
+  import('components/containers/EditSpaceInformationContainer').catch(() =>
+    window.location.reload(),
+  ),
 );
-const EditSpaceInfo = loadable(() => import('components/containers/EditSpaceInformationContainer'));
+const EditSpaceInfo = loadable(() =>
+  import('components/containers/EditSpaceInformationContainer').catch(() =>
+    window.location.reload(),
+  ),
+);
 const CreateSpaceBaggage = loadable(() =>
-  import('components/containers/EditSpaceBaggageContainer'),
+  import('components/containers/EditSpaceBaggageContainer').catch(() => window.location.reload()),
 );
-const EditSpaceBaggage = loadable(() => import('components/containers/EditSpaceBaggageContainer'));
+const EditSpaceBaggage = loadable(() =>
+  import('components/containers/EditSpaceBaggageContainer').catch(() => window.location.reload()),
+);
 const CreateSpaceReceive = loadable(() =>
-  import('components/containers/EditSpaceReceiveContainer'),
+  import('components/containers/EditSpaceReceiveContainer').catch(() => window.location.reload()),
 );
-const EditSpaceReceive = loadable(() => import('components/containers/EditSpaceReceiveContainer'));
+const EditSpaceReceive = loadable(() =>
+  import('components/containers/EditSpaceReceiveContainer').catch(() => window.location.reload()),
+);
 const CreateSpacePriceType = loadable(() =>
-  import('components/containers/EditSpacePriceTypeContainer'),
+  import('components/containers/EditSpacePriceTypeContainer').catch(() => window.location.reload()),
 );
 const EditSpacePriceType = loadable(() =>
-  import('components/containers/EditSpacePriceTypeContainer'),
+  import('components/containers/EditSpacePriceTypeContainer').catch(() => window.location.reload()),
 );
 const CreateSpaceConfirm = loadable(() =>
-  import('components/containers/EditSpaceConfirmContainer'),
+  import('components/containers/EditSpaceConfirmContainer').catch(() => window.location.reload()),
 );
-const EditSpaceConfirm = loadable(() => import('components/containers/EditSpaceConfirmContainer'));
+const EditSpaceConfirm = loadable(() =>
+  import('components/containers/EditSpaceConfirmContainer').catch(() => window.location.reload()),
+);
 const CreateSpaceCompletion = loadable(() =>
-  import('components/containers/EditSpaceCompletionContainer'),
+  import('components/containers/EditSpaceCompletionContainer').catch(() =>
+    window.location.reload(),
+  ),
 );
 const EditSpaceCompletion = loadable(() =>
-  import('components/containers/EditSpaceCompletionContainer'),
+  import('components/containers/EditSpaceCompletionContainer').catch(() =>
+    window.location.reload(),
+  ),
 );
-const Unsubscribe = loadable(() => import('components/containers/UnsubscribeContainer'));
-const Sales = loadable(() => import('components/containers/SalesContainer'));
-const About = loadable(() => import('components/containers/AboutContainer'));
-const Insurance = loadable(() => import('components/containers/InsuranceContainer'));
-const Rule = loadable(() => import('components/containers/RuleContainer'));
-const HowToUse = loadable(() => import('components/containers/HowToUseContainer'));
-const Other = loadable(() => import('components/containers/OtherContainer'));
-const NotFound = loadable(() => import('components/containers/NotFoundContainer'));
-const CancelPolicy = loadable(() => import('components/containers/CancellationPoliciesContainer'));
-const Asct = loadable(() => import('components/containers/AsctContainer'));
-const Privacy = loadable(() => import('components/containers/PrivacyContainer'));
-const Terms = loadable(() => import('components/containers/TermsContainer'));
+const Unsubscribe = loadable(() =>
+  import('components/containers/UnsubscribeContainer').catch(() => window.location.reload()),
+);
+const Sales = loadable(() =>
+  import('components/containers/SalesContainer').catch(() => window.location.reload()),
+);
+const About = loadable(() =>
+  import('components/containers/AboutContainer').catch(() => window.location.reload()),
+);
+const Insurance = loadable(() =>
+  import('components/containers/InsuranceContainer').catch(() => window.location.reload()),
+);
+const Rule = loadable(() =>
+  import('components/containers/RuleContainer').catch(() => window.location.reload()),
+);
+const HowToUse = loadable(() =>
+  import('components/containers/HowToUseContainer').catch(() => window.location.reload()),
+);
+const Other = loadable(() =>
+  import('components/containers/OtherContainer').catch(() => window.location.reload()),
+);
+const NotFound = loadable(() =>
+  import('components/containers/NotFoundContainer').catch(() => window.location.reload()),
+);
+const CancelPolicy = loadable(() =>
+  import('components/containers/CancellationPoliciesContainer').catch(() =>
+    window.location.reload(),
+  ),
+);
+const Asct = loadable(() =>
+  import('components/containers/AsctContainer').catch(() => window.location.reload()),
+);
+const Privacy = loadable(() =>
+  import('components/containers/PrivacyContainer').catch(() => window.location.reload()),
+);
+const Terms = loadable(() =>
+  import('components/containers/TermsContainer').catch(() => window.location.reload()),
+);
 
 export default ({ history }) => (
   <ConnectedRouter history={history}>
