@@ -1,4 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
+import { put } from 'redux-saga/effects';
 
 // Actions
 const SET_ERROR = 'SET_ERROR';
@@ -25,3 +26,13 @@ export const errorReducer = handleActions(
   },
   initialState,
 );
+
+export function* handleError(action, errMessage, functionName, err, isOnlyAction) {
+  if (action !== '') {
+    yield put(action(errMessage || ''));
+  }
+  if (isOnlyAction) {
+    return;
+  }
+  yield put(errorActions.setError(`error(${functionName}):${err}`));
+}

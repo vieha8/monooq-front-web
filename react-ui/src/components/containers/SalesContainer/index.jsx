@@ -138,7 +138,6 @@ class SalesContainer extends Component {
       accountType: '1',
       accountNumber: '',
       accountName: '',
-      isSend: false,
       isConfirm: false,
     };
   }
@@ -177,7 +176,6 @@ class SalesContainer extends Component {
       }),
     );
     window.scrollTo(0, 0);
-    this.setState({ isSend: true, isConfirm: false });
   };
 
   validate = () => {
@@ -377,8 +375,8 @@ class SalesContainer extends Component {
   };
 
   render() {
-    const { isLoading } = this.props;
-    const { isConfirm, isSend } = this.state;
+    const { isLoading, isSend } = this.props;
+    const { isConfirm } = this.state;
 
     let headline = '売上・振込申請';
     let leftContent = this.leftContent();
@@ -411,6 +409,7 @@ const mapStateToProps = state => ({
   paid: state.sales.paid,
   isLoading: state.sales.isLoading,
   user: state.auth.user,
+  isSend: state.sales.isSend,
 });
 
 export default authRequired(connect(mapStateToProps)(SalesContainer));
