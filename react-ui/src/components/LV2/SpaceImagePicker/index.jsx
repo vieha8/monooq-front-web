@@ -256,7 +256,7 @@ export default (props: PropTypes) => {
         <InlineText.Tiny>
           最大4枚まで登録が可能です。
           <br />
-          ※写真は必ず横向きにアップロードしてください
+          ※写真は横向きに登録しましょう！
         </InlineText.Tiny>
       </HintBottomWrap>
     </Fragment>
