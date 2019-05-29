@@ -35,7 +35,7 @@ export default ({ title, dontActionList }: PropTypes) => (
     <Title>{title}</Title>
     {dontActionList.map((item, i) => (
       <TextWrapper key={i.toString()}>
-        <Text fontSize={20} fontSizeSp={5.5}>
+        <Text fontSize={FontSizes.medium2} fontSizeSp={FontSizes.medium1_22}>
           {item.header}
         </Text>
         <Text>{item.text}</Text>

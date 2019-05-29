@@ -22,6 +22,9 @@ const TextWrapper = styled.span`
     width: auto;
     max-width: 128px;
   `};
+  ${media.phone`
+    min-width: 128px;
+  `};
   text-align: center;
   display: table-cell;
   vertical-align: middle;
