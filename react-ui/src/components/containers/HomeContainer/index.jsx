@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 
 const HomeWrap = styled.div`
+  display: inline-block;
   ${media.tablet`
     margin: auto;
   `};
