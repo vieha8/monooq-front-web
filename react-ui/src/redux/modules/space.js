@@ -20,6 +20,7 @@ import { getPrefecture } from 'helpers/prefectures';
 import { keenClient } from 'helpers/keen';
 import Path from 'config/path';
 import { handleError } from './error';
+import { formatAddComma } from '../../helpers/string';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
@@ -420,6 +421,10 @@ function* prepareUpdateSpace({ payload: spaceId }) {
     );
     return;
   }
+
+  space.PriceFull = formatAddComma(space.PriceFull);
+  space.PriceHalf = formatAddComma(space.PriceHalf);
+  space.PriceQuarter = formatAddComma(space.PriceQuarter);
 
   yield put(uiActions.setUiState({ space }));
 }

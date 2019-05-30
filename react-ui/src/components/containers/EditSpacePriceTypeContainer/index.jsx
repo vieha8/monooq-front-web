@@ -15,6 +15,7 @@ import ErrorMessage from 'strings';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import { formatAddComma, formatRemoveComma } from '../../../helpers/string';
 
 const Validate = {
   Address: `(...??[都道府県])((?:旭川|伊達|石狩|盛岡|奥州|田村|南相馬|那須塩原|東村山|武蔵村山|羽村|十日町|上越|富山|野々市|大町|蒲郡|四日市|姫路|大和郡山|廿日市|下松|岩国|田川|大村)市|.+?郡(?:玉村|大町|.+?)[町村]|.+?市.+?区|.+?[市区町村郡])(\\D+)(.*)`,
@@ -48,9 +49,9 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     }
 
     this.state = {
-      PriceQuarter: space.PriceQuarter || '',
-      PriceHalf: space.PriceHalf || '',
       PriceFull: space.PriceFull || '',
+      PriceHalf: space.PriceHalf || '',
+      PriceQuarter: space.PriceQuarter || '',
       error: {},
     };
   }
@@ -63,6 +64,11 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   componentDidMount() {
     window.scrollTo(0, 0);
     window.addEventListener('beforeunload', this.handleBeforeUnload);
+
+    const { PriceFull, PriceHalf, PriceQuarter } = this.state;
+    this.handleChangeUI('PriceFull', PriceFull);
+    this.handleChangeUI('PriceHalf', PriceHalf);
+    this.handleChangeUI('PriceQuarter', PriceQuarter);
   }
 
   componentWillUnmount() {
@@ -82,7 +88,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
   onClickNext = () => {
     const { dispatch, space, history, match } = this.props;
-    const { PriceQuarter, PriceHalf, PriceFull } = this.state;
+    const { PriceFull, PriceHalf, PriceQuarter } = this.state;
 
     const spaceId = match.params.space_id;
     if (!spaceId && space.Address) {
@@ -104,9 +110,9 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     }
 
     const saveSpace = Object.assign(space, {
-      PriceFull,
-      PriceHalf,
-      PriceQuarter,
+      PriceFull: formatRemoveComma(PriceFull),
+      PriceHalf: formatRemoveComma(PriceHalf),
+      PriceQuarter: formatRemoveComma(PriceQuarter),
     });
     dispatch(
       uiActions.setUiState({
@@ -122,14 +128,14 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { PriceQuarter, PriceHalf, PriceFull } = this.state;
+    const { PriceFull, PriceHalf, PriceQuarter } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          PriceFull,
-          PriceHalf,
-          PriceQuarter,
+          PriceFull: formatRemoveComma(PriceFull),
+          PriceHalf: formatRemoveComma(PriceHalf),
+          PriceQuarter: formatRemoveComma(PriceQuarter),
         }),
       }),
     );
@@ -141,22 +147,26 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
-    const state = this.state;
-    const error = state.error;
+    const { state } = this;
+    const { error } = state;
     const errors = [];
+    let returnValue = formatRemoveComma(value);
 
     const priceErrors = [];
-    if (value.length === 0) {
+
+    if (returnValue.length === 0) {
       priceErrors.push(ErrorMessage.PleaseInput);
     } else {
-      if (!Number(value) || !String(value).match(Validate.Price.Num)) {
+      if (!Number(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
         priceErrors.push(ErrorMessage.PriceNumber);
-      }
-      if (value < Validate.Price.Min) {
-        priceErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
-      }
-      if (value > Validate.Price.Max) {
-        priceErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
+      } else {
+        if (returnValue < Validate.Price.Min) {
+          priceErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
+        }
+        if (returnValue > Validate.Price.Max) {
+          priceErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
+        }
+        returnValue = formatAddComma(returnValue);
       }
     }
 
@@ -175,7 +185,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
         break;
     }
 
-    state[propName] = value;
+    state[propName] = returnValue;
     error[propName] = errors;
     this.setState({ ...state, error });
   };
@@ -183,24 +193,28 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   validate: Function;
 
   validate = () => {
-    const state = this.state;
+    const { PriceFull, PriceHalf, PriceQuarter } = this.state;
+
+    const checkPriceFull = formatRemoveComma(PriceFull);
+    const checkPriceHalf = formatRemoveComma(PriceHalf);
+    const checkPriceQuarter = formatRemoveComma(PriceQuarter);
 
     return (
-      state.PriceFull &&
-      state.PriceFull >= Validate.Price.Min &&
-      state.PriceFull <= Validate.Price.Max &&
-      state.PriceHalf &&
-      state.PriceHalf >= Validate.Price.Min &&
-      state.PriceHalf <= Validate.Price.Max &&
-      state.PriceQuarter &&
-      state.PriceQuarter >= Validate.Price.Min &&
-      state.PriceQuarter <= Validate.Price.Max
+      checkPriceFull &&
+      checkPriceFull >= Validate.Price.Min &&
+      checkPriceFull <= Validate.Price.Max &&
+      checkPriceHalf &&
+      checkPriceHalf >= Validate.Price.Min &&
+      checkPriceHalf <= Validate.Price.Max &&
+      checkPriceQuarter &&
+      checkPriceQuarter >= Validate.Price.Min &&
+      checkPriceQuarter <= Validate.Price.Max
     );
   };
 
   render() {
     const { space, isLoading } = this.props;
-    const { PriceQuarter, PriceHalf, PriceFull, error } = this.state;
+    const { PriceFull, PriceHalf, PriceQuarter, error } = this.state;
 
     return (
       <MenuPageTemplate
