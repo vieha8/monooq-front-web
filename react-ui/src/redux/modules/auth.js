@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery, take, select, race, delay } from 'redux-saga/effects';
+import { put, call, takeEvery, take, select } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { push, replace } from 'connected-react-router';
@@ -7,13 +7,11 @@ import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import ErrorMessage from 'strings';
 import { uiActions } from './ui';
-import { errorActions } from './error';
+import { handleError } from './error';
 import { store } from '../store/index';
 import { getApiRequest, postApiRequest, deleteApiRequest, apiEndpoint } from '../helpers/api';
 import Path from '../../config/path';
 import { isAvailableLocalStorage } from '../../helpers/storage';
-
-const TIMEOUT = 30000;
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -231,22 +229,14 @@ export function* getToken() {
 }
 
 function* tokenGenerate() {
-  const { posts: response, timeout } = yield race({
-    posts: call(postApiRequest, apiEndpoint.tokenGenerate(), {}),
-    timeout: delay(TIMEOUT),
-  });
+  const { data, err } = yield call(postApiRequest, apiEndpoint.tokenGenerate(), {});
 
-  const functionName = 'tokenGenerate';
-  if (timeout) {
-    yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.tokenGenerate()}`));
-    return;
-  }
-  if (response.err) {
-    yield put(errorActions.setError(`error(${functionName}):${response.err}`));
+  if (err) {
+    yield handleError('', '', 'tokenGenerate', err, false);
     return;
   }
 
-  yield put(authActions.tokenGenerateSuccess(response.data.Token));
+  yield put(authActions.tokenGenerateSuccess(data.Token));
 }
 
 function* checkLoginFirebaseAuth() {
@@ -255,6 +245,14 @@ function* checkLoginFirebaseAuth() {
   if (isAvailableLocalStorage()) {
     const statusCache = localStorage.getItem('status');
     if (statusCache) {
+      const isLogin = yield call(getLoginUserFirebaseAuth);
+      if (!isLogin) {
+        yield put(authActions.checkLoginFailed({ error: 'Session expired.' }));
+        yield put(authActions.logout());
+        window.location.reload();
+        return;
+      }
+
       status = JSON.parse(statusCache);
       let token = status.user.Token;
       if (token === '') {
@@ -363,44 +361,40 @@ function* signUpEmail({ payload: { email, password } }) {
     }
 
     const token = yield* getToken();
-    const { posts: response, timeout } = yield race({
-      posts: call(
-        postApiRequest,
-        apiEndpoint.users(),
-        {
-          Email: email,
-          FirebaseUid: firebaseUid,
-          ImageUrl: defaultImage,
-          RefererUrl: referrer,
-        },
-        token,
-      ),
-      timeout: delay(TIMEOUT),
-    });
+    const { data, err } = yield call(
+      postApiRequest,
+      apiEndpoint.users(),
+      {
+        Email: email,
+        FirebaseUid: firebaseUid,
+        ImageUrl: defaultImage,
+        RefererUrl: referrer,
+      },
+      token,
+    );
 
-    const functionName = 'signUpEmail';
-    if (timeout) {
-      yield put(authActions.signupFailed());
-      yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.users()}`));
-      return;
-    }
-    if (response.err) {
-      yield put(authActions.signupFailed());
-      yield put(errorActions.setError(`error(${functionName}):${response.err}`));
+    if (err) {
+      yield handleError(authActions.signupFailed, '', 'signUpEmail', err, false);
       return;
     }
 
-    yield put(authActions.signupSuccess(response));
+    yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
     store.dispatch(push(Path.signUpProfile()));
   } catch (err) {
+    let errMessage = '';
+    let isOnlyAction = false;
     if (err.code === 'auth/email-already-in-use') {
-      yield put(authActions.signupFailed(ErrorMessage.FailedSignUpMailExist));
-      return;
+      errMessage = ErrorMessage.FailedSignUpMailExist;
+      isOnlyAction = true;
     }
-
-    yield put(authActions.signupFailed());
-    yield put(errorActions.setError(err.message));
+    yield handleError(
+      authActions.signupFailed,
+      errMessage,
+      'signUpEmail',
+      err.message,
+      isOnlyAction,
+    );
   }
 }
 
@@ -421,46 +415,42 @@ function* signUpFacebook() {
     }
 
     const token = yield* getToken();
-    const { posts: response, timeout } = yield race({
-      posts: call(
-        postApiRequest,
-        apiEndpoint.users(),
-        {
-          Email: email,
-          FirebaseUid: uid,
-          Name: displayName,
-          ImageUrl: photoURL,
-          RefererUrl: referrer,
-        },
-        token,
-      ),
-      timeout: delay(TIMEOUT),
-    });
+    const { data, err } = yield call(
+      postApiRequest,
+      apiEndpoint.users(),
+      {
+        Email: email,
+        FirebaseUid: uid,
+        Name: displayName,
+        ImageUrl: photoURL,
+        RefererUrl: referrer,
+      },
+      token,
+    );
 
-    const functionName = 'signUpFacebook';
-    if (timeout) {
-      yield put(authActions.signupFailed());
-      yield put(errorActions.setError(`timeout(${functionName}):${apiEndpoint.users()}`));
-      return;
-    }
-    if (response.err) {
-      yield put(authActions.signupFailed());
-      yield put(errorActions.setError(`error(${functionName}):${response.err}`));
+    if (err) {
+      yield handleError(authActions.signupFailed, '', 'signUpFacebook', err, false);
       return;
     }
 
-    yield put(authActions.signupSuccess(response));
+    yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
     yield put(uiActions.setUiState({ signup: { name: displayName } }));
     store.dispatch(push(Path.signUpProfile()));
   } catch (err) {
+    let errMessage = '';
+    let isOnlyAction = false;
     if (err.code === 'auth/account-exists-with-different-credential') {
-      yield put(authActions.signupFailed(ErrorMessage.FailedSignUpMailExist));
-      return;
+      errMessage = ErrorMessage.FailedSignUpMailExist;
+      isOnlyAction = true;
     }
-
-    yield put(authActions.signupFailed());
-    yield put(errorActions.setError(err));
+    yield handleError(
+      authActions.signupFailed,
+      errMessage,
+      'signUpFacebook',
+      err.message,
+      isOnlyAction,
+    );
   }
 }
 
@@ -472,18 +462,17 @@ function* passwordReset({ payload: { email } }) {
   } catch (err) {
     yield put(authActions.passwordResetFailed(err));
     if (err.code !== 'auth/user-not-found') {
-      yield put(errorActions.setError(err));
+      yield handleError('', '', 'passwordReset', err, false);
     }
   }
 }
 
 function* unsubscribe({ payload: { userId, reason, description } }) {
   const token = yield* getToken();
-  // TODO: エラーハンドリングを追加(タイムアウト系)
   const { err } = yield call(deleteApiRequest, apiEndpoint.users(userId), token);
+
   if (err) {
-    yield put(authActions.unsubscribeFailed(err));
-    yield put(errorActions.setError(err));
+    yield handleError(authActions.unsubscribeFailed, '', 'unsubscribe', err, false);
     return;
   }
 
