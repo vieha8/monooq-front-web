@@ -48,29 +48,25 @@ type PropTypes = {
 export default ({ title, contents, isOpen }: PropTypes) => (
   <CollapsibleWrap>
     <CaptionWrap>{title}</CaptionWrap>
-    {contents.map(({ ID: id, Name: name, Prefectures: prefectures }) => {
-      return (
-        <Collapsible key={`section_area_${id}`} trigger={name} open={isOpen}>
-          {prefectures.map(
-            ({ ID: prefectureId, Name: prefectureName, PrefectureSpaces: prefectureSpaces }) => {
-              if (prefectureSpaces.length === 0) {
-                return null;
-              }
-              return (
-                <Link
-                  to={Path.homePrefecture(prefectureId)}
-                  key={`section_area_prefecture_${prefectureId}`}
-                >
-                  <Item>
-                    {prefectureName}
-                    {/*<Count>{`${prefectureSpaces.length}件`}</Count>*/}
-                  </Item>
-                </Link>
-              );
-            },
-          )}
-        </Collapsible>
-      );
-    })}
+    {contents.map(({ ID: id, Name: name, Prefectures: prefectures }) => (
+      <Collapsible key={`section_area_${id}`} trigger={name} open={isOpen}>
+        {prefectures.map(({ ID: prefectureId, Name: prefectureName, Spaces: spaces }) => {
+          if (spaces.length === 0) {
+            return null;
+          }
+          return (
+            <Link
+              to={Path.homePrefecture(prefectureId)}
+              key={`section_area_prefecture_${prefectureId}`}
+            >
+              <Item>
+                {prefectureName}
+                {/* <Count>{`${prefectureSpaces.length}件`}</Count> */}
+              </Item>
+            </Link>
+          );
+        })}
+      </Collapsible>
+    ))}
   </CollapsibleWrap>
 );

@@ -73,30 +73,23 @@ export default ({ title, contents }: PropTypes) => (
   <NoCollapsibleeWrap>
     <CaptionWrap>{title}</CaptionWrap>
     <ListWrap>
-      {contents.map(({ Prefectures: prefectures }, i) => {
-        return (
-          <Fragment key={`section_area_contents_${contents[i].ID}`}>
-            {prefectures.map(
-              ({ ID: prefectureId, Name: prefectureName, PrefectureSpaces: prefectureSpaces }) => {
-                if (prefectureSpaces.length === 0) {
-                  return null;
-                }
-                return (
-                  <LinkStyled
-                    to={Path.homePrefecture(prefectureId)}
-                    key={`section_area_prefecture_${prefectureId}`}
-                  >
-                    <Item>
-                      {prefectureName}
-                      <Count>{`${prefectureSpaces.length}件`}</Count>
-                    </Item>
-                  </LinkStyled>
-                );
-              },
-            )}
-          </Fragment>
-        );
-      })}
+      {contents.map(({ Prefectures: prefectures }, i) => (
+        <Fragment key={`section_area_contents_${contents[i].ID}`}>
+          {prefectures.map(({ ID: id, Name: name, Spaces: spaces }) => {
+            if (spaces.length === 0) {
+              return null;
+            }
+            return (
+              <LinkStyled to={Path.homePrefecture(id)} key={`section_area_prefecture_${id}`}>
+                <Item>
+                  {name}
+                  <Count>{`${spaces.length}件`}</Count>
+                </Item>
+              </LinkStyled>
+            );
+          })}
+        </Fragment>
+      ))}
     </ListWrap>
   </NoCollapsibleeWrap>
 );
