@@ -10,7 +10,7 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import EditSpaceBaggage from 'components/LV3/EditSpace/Baggage';
 
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -131,10 +131,10 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
     const aboutErrors = [];
     if (About.length === 0) {
-      aboutErrors.push(ErrorMessage.PleaseInput);
+      aboutErrors.push(ErrorMessages.PleaseInput);
     }
     if (aboutErrors.length > 5000) {
-      aboutErrors.push(ErrorMessage.LengthMax('説明', 5000));
+      aboutErrors.push(ErrorMessages.LengthMax('説明', 5000));
     }
     error.about = aboutErrors;
 

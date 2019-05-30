@@ -10,7 +10,7 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import EditSpaceReceive from 'components/LV3/EditSpace/Receive';
 
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -129,16 +129,16 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
     const receiptTypeErrors = [];
     if (`${ReceiptType}` === '0') {
-      receiptTypeErrors.push(ErrorMessage.PleaseSelect);
+      receiptTypeErrors.push(ErrorMessages.PleaseSelect);
     }
     error.receiptType = receiptTypeErrors;
 
     const receiptAboutErrors = [];
     if (ReceiptAbout.length === 0) {
-      receiptAboutErrors.push(ErrorMessage.PleaseInput);
+      receiptAboutErrors.push(ErrorMessages.PleaseInput);
     }
     if (receiptAboutErrors.length > 5000) {
-      receiptAboutErrors.push(ErrorMessage.LengthMax('説明', 5000));
+      receiptAboutErrors.push(ErrorMessages.LengthMax('説明', 5000));
     }
     error.receiptAbout = receiptAboutErrors;
 

@@ -5,7 +5,7 @@ import { userActions } from 'redux/modules/user';
 import RegisterProfile from 'components/LV3/RegisterProfile';
 import ReactGA from 'react-ga';
 import Path from 'config/path';
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 
 type PropTypes = {
   dispatch: Function,
@@ -93,34 +93,34 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
 
       case 'name':
         if (value === undefined ? true : value.trim().length === 0) {
-          errors.push(ErrorMessage.PleaseInput);
+          errors.push(ErrorMessages.PleaseInput);
         }
         break;
 
       case 'prefCode':
         if (value.length === 0) {
-          errors.push(ErrorMessage.PleaseSelect);
+          errors.push(ErrorMessages.PleaseSelect);
         }
         break;
 
       case 'profile':
         if (value === undefined ? true : value.trim().length === 0) {
-          errors.push(ErrorMessage.PleaseInput);
+          errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.Profile.Max) {
-          errors.push(ErrorMessage.LengthMax('自己紹介', Validate.Profile.Max));
+          errors.push(ErrorMessages.LengthMax('自己紹介', Validate.Profile.Max));
         }
         break;
 
       case 'phoneNumber':
         if (value.replace(/\s/g, '').length === 0) {
-          errors.push(ErrorMessage.PleaseInput);
+          errors.push(ErrorMessages.PleaseInput);
         } else if (
           !(
             value.match(Validate.phoneNumber.NoHyphenVer) ||
             value.match(Validate.phoneNumber.HyphenVer)
           )
         ) {
-          errors.push(ErrorMessage.InvalidPhoneNumber);
+          errors.push(ErrorMessages.InvalidPhoneNumber);
         }
         break;
 

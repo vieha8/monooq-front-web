@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 
 import { requestActions } from 'redux/modules/request';
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
@@ -58,10 +58,10 @@ class EstimateContainer extends Component<PropTypes> {
   handleChangePrice = (value: string) => {
     const errors = [];
     if (value.length === 0) {
-      errors.push(ErrorMessage.PleaseInput);
+      errors.push(ErrorMessages.PleaseInput);
     }
     if (isNaN(value) || parseInt(value, 10) < Validate.Price.Min) {
-      errors.push(ErrorMessage.EstimateMin(Validate.Price.Min));
+      errors.push(ErrorMessages.EstimateMin(Validate.Price.Min));
     }
 
     const state = this.state;

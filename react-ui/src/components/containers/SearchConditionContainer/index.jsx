@@ -9,7 +9,7 @@ import Header from 'components/containers/Header';
 import SearchCondition from 'components/LV3/SearchCondition';
 import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 import connect from '../connect';
 
 type PropTypes = {
@@ -116,7 +116,7 @@ class SearchConditionContainer extends Component<PropTypes> {
       case 'priceMin':
         if (value.length > 0) {
           if (!value.match(ValidateRegExp.PriceNumber)) {
-            errors.push(ErrorMessage.PriceNumberName('最安料金'));
+            errors.push(ErrorMessages.PriceNumberName('最安料金'));
           }
         }
         break;
@@ -124,7 +124,7 @@ class SearchConditionContainer extends Component<PropTypes> {
       case 'priceMax':
         if (value.length > 0) {
           if (!value.match(ValidateRegExp.PriceNumber)) {
-            errors.push(ErrorMessage.PriceNumberName('最高料金'));
+            errors.push(ErrorMessages.PriceNumberName('最高料金'));
           }
         }
         break;
