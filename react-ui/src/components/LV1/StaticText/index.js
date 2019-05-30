@@ -9,8 +9,8 @@ const Text = styled.div`
   line-height: ${props =>
     props.fontSize ? `${props.fontSize * 2}px` : `${FontSizes.small_15 * 2}px`};
   ${media.phone`
-    font-size: ${props => (props.fontSizeSp ? `${props.fontSizeSp}vw` : `4.5vw`)};
-    line-height: ${props => (props.fontSizeSp ? `${props.fontSizeSp * 1.5}vw` : `${4.5 * 1.5}vw`)};
+    font-size: ${props => (props.fontSizeSp ? `${props.fontSizeSp}px` : `4.5vw`)};
+    line-height: ${props => (props.fontSizeSp ? `${props.fontSizeSp * 1.5}px` : `${4.5 * 1.5}vw`)};
   `};
 `;
 

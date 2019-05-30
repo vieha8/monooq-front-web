@@ -2,12 +2,16 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import DefaultContainer from 'components/LV1/DefaultContainer';
 import LinkList from 'components/LV2/LinkList';
 
 const RecommendLinkContainer = styled(DefaultContainer)`
-  margin-bottom: 240px;
+  margin-bottom: 120px;
+  ${media.tablet`
+    margin-bottom: 60px;
+  `};
 `;
 
 const Text = styled.div`

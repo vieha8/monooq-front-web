@@ -8,7 +8,7 @@ import { store } from '../store/index';
 import { createOmiseToken } from '../helpers/omise';
 import Path from '../../config/path';
 import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
-import { errorActions } from './error';
+import { handleError } from './error';
 import { getRoomId, createRoom } from './messages';
 
 // Actions
@@ -171,8 +171,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   );
 
   if (err) {
-    yield put(requestActions.estimateFailed(err));
-    yield put(errorActions.setError(err));
+    yield handleError(requestActions.estimateFailed, '', 'estimate', err, false);
     return;
   }
 
@@ -260,13 +259,12 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     {},
     token,
   );
+
   let errMsg = 'カード情報の認証に失敗しました。\n';
-  const errMsgCs =
-    '繰り返し認証に失敗する場合、モノオクカスタマーサポートまでお問い合わせください。';
+  const errMsgCs = `${errMsg}繰り返し認証に失敗する場合、モノオクカスタマーサポートまでお問い合わせください。`;
 
   if (err) {
-    yield put(requestActions.paymentFailed({ errMsg: errMsg + errMsgCs }));
-    yield put(errorActions.setError(err));
+    yield handleError(requestActions.paymentFailed, { errMsg: errMsgCs }, 'payment', err, false);
     return;
   }
 
@@ -276,8 +274,13 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
   }
   user = yield select(state => state.auth.user);
   if (requestData.UserID !== user.ID) {
-    yield put(requestActions.paymentFailed({ errMsg: errMsg + errMsgCs }));
-    yield put(errorActions.setError('Bad Request'));
+    yield handleError(
+      requestActions.paymentFailed,
+      { errMsg: errMsgCs },
+      'payment(estimate)',
+      `requestDataUserID(${requestData.UserID})/loginUserID(${user.ID})`,
+      false,
+    );
     return;
   }
 
@@ -294,8 +297,7 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
 
   if (!cardToken) {
     // TODO トークン生成失敗理由をキャッチする
-    yield put(requestActions.paymentFailed({ errMsg: errMsg + errMsgCs }));
-    // yield put(errorActions.setError('Bad Request'));
+    yield handleError(requestActions.paymentFailed, { errMsg: errMsgCs }, 'payment', '', true);
     return;
   }
 
@@ -322,13 +324,13 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
       case 'stolen_or_lost_card': // このカードは盗難カードまたは紛失カードです
       case 'failed_fraud_check': // このカードは不正だと判定されました。
         errMsg +=
-          'こちらのカードはご利用いただくことができません。詳細はカード会社にお問い合わせください。';
+          'こちらのカードはご利用いただくことができません。\n詳細はカード会社にお問い合わせください。';
         break;
 
       case 'failed_processing': // トランザクション処理のプロセスが失敗しました。
       case 'payment_rejected': // 何らかの理由により、課金が拒否されました。
       case 'invalid_account_number': // 利用できないカード番号です。
-        errMsg += errMsgCs;
+        errMsg = errMsgCs;
         break;
 
       default:

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import MonoboyImage from 'images/monoboy-b.png';
 import logoImage from './logo.svg';
 import logoWhiteImage from './logo-white.svg';
 
@@ -23,4 +24,5 @@ export default {
   Footer: ({ width }) => <Logo src={logoImage} alt="logo" width={width || 120} />,
   HeaderWhite: ({ width }) => <Logo src={logoWhiteImage} alt="logo" width={width || 80} />,
   HeaderWhiteFill: () => <LogoFill src={logoWhiteImage} alt="logo" />,
+  MonoboyBlack: () => <LogoFill src={MonoboyImage} alt="monoboy" />,
 };

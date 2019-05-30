@@ -11,14 +11,18 @@ import MainTitle from 'components/LV1/StaticMainTitle';
 import Text from 'components/LV1/StaticText';
 
 const MainTitleContainer = styled(DefaultContainer)`
-  margin-top: calc(${HeaderHeight}px + ${Dimens.large2}px);
+  ${props =>
+    !props.noMarginTop &&
+    `
+    margin-top: calc(${HeaderHeight}px + ${Dimens.large2}px);
+  `};
   ${props =>
     props.sub &&
     `
       width: 100%;
       padding: 0;
       margin-top: ${Dimens.large2}px;
-    `};
+  `};
   ${media.phone`
     ${props =>
       props.sub &&
@@ -26,7 +30,21 @@ const MainTitleContainer = styled(DefaultContainer)`
         width: 100%;
         padding: 0;
       `};
-    margin-top: ${Dimens.medium3_40}px;
+    ${props =>
+      !props.noMarginTop &&
+      `
+        margin-top: ${Dimens.medium3_40}px;
+    `};    
+  `};
+`;
+
+const MainTitleStyled = styled(MainTitle)`
+  ${media.phone`
+    ${props =>
+      props.fontSizeSp &&
+      `
+        font-size: ${props.fontSizeSp}px;
+      `};
   `};
 `;
 
@@ -35,11 +53,21 @@ export type PropTypes = {
   mainTitleSub?: string,
   text?: string,
   isHr?: boolean,
+  noMarginTop?: boolean,
+  fontSizeSp?: number,
 };
 
-export default ({ mainTitle, mainTitleSub, text, isHr, sub }: PropTypes) => (
-  <MainTitleContainer sub={sub}>
-    <MainTitle>
+export default ({
+  mainTitle,
+  mainTitleSub,
+  text,
+  isHr,
+  sub,
+  noMarginTop,
+  fontSizeSp,
+}: PropTypes) => (
+  <MainTitleContainer sub={sub} noMarginTop={noMarginTop}>
+    <MainTitleStyled fontSizeSp={fontSizeSp}>
       {mainTitle}
       {mainTitleSub && (
         <Fragment>
@@ -47,7 +75,7 @@ export default ({ mainTitle, mainTitleSub, text, isHr, sub }: PropTypes) => (
           {mainTitleSub}
         </Fragment>
       )}
-    </MainTitle>
+    </MainTitleStyled>
     {text && <Text>{text}</Text>}
     {isHr && <Hr />}
   </MainTitleContainer>

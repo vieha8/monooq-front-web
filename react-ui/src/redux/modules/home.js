@@ -1,10 +1,8 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, call, race, delay } from 'redux-saga/effects';
+import { put, takeEvery, call } from 'redux-saga/effects';
 import { getToken } from './auth';
 import { getApiRequest, apiEndpoint } from '../helpers/api';
-import { errorActions } from './error';
-
-const TIMEOUT = 30000;
+import { handleError } from './error';
 
 // Actions
 const FETCH_SECTIONS = 'FETCH_SECTIONS';
@@ -56,24 +54,13 @@ function* getSections({ payload }) {
     }
   }
 
-  const { posts: response, timeout } = yield race({
-    posts: call(getApiRequest, api, {}, token),
-    timeout: delay(TIMEOUT),
-  });
-
-  const functionName = 'sections';
-  if (timeout) {
-    yield put(homeActions.fetchFailedSections(`timeout(${functionName})`));
-    yield put(errorActions.setError(`timeout(${functionName})`));
-    return;
-  }
-  if (response.err) {
-    yield put(homeActions.fetchFailedSections(`error(${functionName}):${response.err}`));
-    yield put(errorActions.setError(`error(${functionName}):${response.err}`));
+  const { data, err } = yield call(getApiRequest, api, {}, token);
+  if (err) {
+    yield handleError(homeActions.fetchFailedSections, '', 'getSections', err, false);
     return;
   }
 
-  yield put(homeActions.fetchSuccessSections(response.data));
+  yield put(homeActions.fetchSuccessSections(data));
 }
 
 export const homeSagas = [takeEvery(FETCH_SECTIONS, getSections)];
