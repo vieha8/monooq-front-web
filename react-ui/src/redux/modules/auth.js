@@ -255,6 +255,14 @@ function* checkLoginFirebaseAuth() {
   if (isAvailableLocalStorage()) {
     const statusCache = localStorage.getItem('status');
     if (statusCache) {
+      const isLogin = yield call(getLoginUserFirebaseAuth);
+      if (!isLogin) {
+        yield put(authActions.checkLoginFailed({ error: 'Session expired.' }));
+        yield put(authActions.logout());
+        window.location.reload();
+        return;
+      }
+
       status = JSON.parse(statusCache);
       let token = status.user.Token;
       if (token === '') {
