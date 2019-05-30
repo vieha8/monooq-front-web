@@ -11,7 +11,7 @@ import Meta from 'components/LV1/Meta';
 import firebaseConfig from './config/firebase';
 import { unregister } from './registerServiceWorker';
 import configureStore from './redux/store/index';
-import Routes from './config/routes';
+import Routes from './Routes';
 import './index.css';
 
 const history = createBrowserHistory();
