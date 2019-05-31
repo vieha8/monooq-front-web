@@ -19,6 +19,7 @@ import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
 import { getPrefecture } from 'helpers/prefectures';
 import { keenClient } from 'helpers/keen';
 import Path from 'config/path';
+import { captureException } from '@sentry/browser';
 import { handleError } from './error';
 
 // Actions
@@ -561,17 +562,21 @@ function* search({
 
   const user = yield select(state => state.auth.user);
 
-  keenClient.recordEvent('search', {
-    keyword,
-    priceMin,
-    priceMax,
-    receiptType,
-    type,
-    isFurniture,
-    prefecture: getPrefecture(prefCode),
-    user,
-    env: process.env.NODE_ENV,
-  });
+  try {
+    keenClient.recordEvent('search', {
+      keyword,
+      priceMin,
+      priceMax,
+      receiptType,
+      type,
+      isFurniture,
+      prefecture: getPrefecture(prefCode),
+      user,
+      env: process.env.NODE_ENV,
+    });
+  } catch (e) {
+    captureException(e);
+  }
 
   const isMore = res.length === limit;
   yield put(
