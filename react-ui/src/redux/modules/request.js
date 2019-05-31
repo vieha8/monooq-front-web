@@ -4,7 +4,6 @@ import firebase from 'firebase/app';
 import { push } from 'connected-react-router';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { authActions, getToken } from './auth';
-import { store } from '../store/index';
 import { createOmiseToken } from '../helpers/omise';
 import Path from '../../config/path';
 import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
@@ -195,7 +194,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   yield sendEstimateEmail({ toUserId: requestUserId, roomId });
   yield put(requestActions.estimateSuccess(requestInfo));
   window.dataLayer.push({ event: 'estimate', eventValue: requestInfo.ID });
-  store.dispatch(push(Path.message(roomId)));
+  yield put(push(Path.message(roomId)));
 }
 
 function* sendPaymentEmail(payload) {
@@ -393,7 +392,7 @@ function* request({ payload: { user, space } }) {
   let roomId = yield call(getRoomId, user.ID, space.Host.ID, space.ID);
   if (roomId) {
     yield put(requestActions.requestSuccess());
-    store.dispatch(push(Path.message(roomId)));
+    yield put(push(Path.message(roomId)));
     return;
   }
 
@@ -406,7 +405,7 @@ function* request({ payload: { user, space } }) {
     space.Host.FirebaseUid,
     space.ID,
   );
-  store.dispatch(push(Path.message(roomId)));
+  yield put(push(Path.message(roomId)));
 
   let isRequested = 'false';
   if (isAvailableLocalStorage()) {

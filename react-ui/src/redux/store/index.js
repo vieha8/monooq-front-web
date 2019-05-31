@@ -1,7 +1,7 @@
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
-
 import createSagaMiddleware from 'redux-saga';
+import { createBrowserHistory } from 'history';
 
 import { authReducer } from '../modules/auth';
 import { messagesReducer } from '../modules/messages';
@@ -19,9 +19,15 @@ import gaMiddleware from '../middlewares/googleAnalytics';
 import keenMiddleware from '../middlewares/keen';
 import sentryMiddleware from '../middlewares/sentry';
 
-export let store = null;
+export const history = createBrowserHistory();
+history.listen((location, action) => {
+  if (action === 'POP') {
+    return;
+  }
+  window.scrollTo(0, 0);
+});
 
-export default history => {
+const configureStore = () => {
   const sagaMiddleware = createSagaMiddleware({
     onError(error) {
       setImmediate(() => {
@@ -29,6 +35,7 @@ export default history => {
       });
     },
   });
+
   const middleware = [
     routerMiddleware(history),
     sagaMiddleware,
@@ -38,7 +45,6 @@ export default history => {
   ];
 
   let composeEnhancers = compose;
-
   if (process.env.NODE_ENV !== 'production') {
     const { logger } = require('redux-logger');
     middleware.push(logger);
@@ -59,9 +65,10 @@ export default history => {
     home: homeReducer,
   });
 
-  store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
+  const store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
 
   sagaMiddleware.run(rootSaga);
-
   return store;
 };
+
+export default configureStore;

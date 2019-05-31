@@ -3,7 +3,6 @@ import { put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import axios from 'axios';
 import dummySpaceImage from 'images/dummy_space.png';
-import { store } from 'redux/store/index';
 import { authActions, getToken } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
 import {
@@ -194,7 +193,7 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
 
   if (err) {
     if (status === 404) {
-      store.dispatch(push(Path.notFound()));
+      yield put(push(Path.notFound()));
     } else {
       yield handleError(spaceActions.fetchFailedSpace, '', 'getSpace', err, false);
     }
@@ -391,7 +390,7 @@ function* prepareUpdateSpace({ payload: spaceId }) {
 
   if (err) {
     if (status === 404) {
-      store.dispatch(push(Path.notFound()));
+      yield put(push(Path.notFound()));
     } else {
       yield handleError(spaceActions.fetchFailedSpace, '', 'prepareUpdateSpace', err, false);
     }

@@ -10,7 +10,6 @@ import { spaceActions } from './space';
 import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import fileType from '../../helpers/file-type';
 import { uploadImage } from '../helpers/firebase';
-import { store } from '../store/index';
 import Path from '../../config/path';
 import { convertImgixUrl } from '../../helpers/imgix';
 
@@ -214,7 +213,7 @@ function* fetchMessagesStart({ payload }) {
   const token = yield* getToken();
 
   if (!room) {
-    store.dispatch(push(Path.notFound()));
+    yield put(push(Path.notFound()));
     return;
   }
 
@@ -248,7 +247,7 @@ function* fetchMessagesStart({ payload }) {
 
   // メッセージが１件のみの場合はfirebaseから取得した方を使用するためViewとして追加しない
   if (messages.length > 1) {
-    store.dispatch(messagesActions.updateMessage(messages));
+    yield put(messagesActions.updateMessage(messages));
   }
 
   if (!messageObserverUnsubscribe) {
@@ -256,7 +255,7 @@ function* fetchMessagesStart({ payload }) {
       if (snapshot.docChanges().length === 1) {
         const message = snapshot.docChanges()[0].doc.data();
         message.createDt = message.createDt.toDate();
-        store.dispatch(messagesActions.updateMessage(message));
+        // TODO put(messagesActions.updateMessage(message));
         const messageId = snapshot.docChanges()[0].doc.id;
         roomCollection()
           .doc(payload)

@@ -9,7 +9,6 @@ import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
 import { getApiRequest, putApiRequest, apiEndpoint } from '../helpers/api';
 import { handleError } from './error';
-import { store } from '../store/index';
 import { isAvailableLocalStorage } from '../../helpers/storage';
 
 // Actions
@@ -199,7 +198,7 @@ function* updateUser({ payload: { userId, body } }) {
 
   const redirectPath = yield select(state => state.ui.redirectPath);
   if (redirectPath) {
-    store.dispatch(push(redirectPath));
+    yield put(push(redirectPath));
   }
 }
 
