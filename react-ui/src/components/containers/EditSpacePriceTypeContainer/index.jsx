@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import Path from 'config/path';
+import { Redirect } from 'react-router-dom';
 
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
@@ -42,18 +43,22 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
     const { space, dispatch } = this.props;
     const spaceId = props.match.params.space_id;
-    if (spaceId) {
-      dispatch(spaceActions.prepareUpdateSpace(spaceId));
-    } else {
-      dispatch(spaceActions.getGeocode({ address: space.Address }));
-    }
 
     this.state = {
       PriceFull: space.PriceFull || '',
       PriceHalf: space.PriceHalf || '',
       PriceQuarter: space.PriceQuarter || '',
       error: {},
+      isUpdate: false,
+      isFirst: true,
     };
+
+    if (spaceId) {
+      dispatch(spaceActions.prepareUpdateSpace(spaceId));
+      this.state.isUpdate = true;
+    } else if (space.Address) {
+      dispatch(spaceActions.getGeocode({ address: space.Address }));
+    }
   }
 
   handleBeforeUnload(e) {
@@ -144,6 +149,12 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     history.push(nextPath);
   };
 
+  setIsFirst: Function;
+
+  setIsFirst = value => {
+    this.setState({ isFirst: value });
+  };
+
   handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
@@ -214,7 +225,20 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
   render() {
     const { space, isLoading } = this.props;
-    const { PriceFull, PriceHalf, PriceQuarter, error } = this.state;
+    const { PriceFull, PriceHalf, PriceQuarter, error, isUpdate, isFirst } = this.state;
+
+    if (!isUpdate) {
+      if (Object.keys(space).length === 0) {
+        // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
+        return <Redirect to={Path.createSpaceInfo()} />;
+      }
+    } else if (PriceFull && PriceHalf && PriceQuarter && isFirst) {
+      // リロード時にvalidate実行する。
+      this.handleChangeUI('PriceFull', PriceFull);
+      this.handleChangeUI('PriceHalf', PriceHalf);
+      this.handleChangeUI('PriceQuarter', PriceQuarter);
+      this.setIsFirst(false);
+    }
 
     return (
       <MenuPageTemplate
