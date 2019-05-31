@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import Path from 'config/path';
+import { Redirect } from 'react-router-dom';
 
 import { uiActions } from 'redux/modules/ui';
 
@@ -32,16 +33,18 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
     const { space, dispatch } = this.props;
 
-    const spaceId = props.match.params.space_id;
-    if (spaceId) {
-      dispatch(spaceActions.prepareUpdateSpace(spaceId));
-    }
-
     this.state = {
       About: space.About || '',
       IsFurniture: space.IsFurniture || false,
       error: {},
+      isUpdate: false,
     };
+
+    const spaceId = props.match.params.space_id;
+    if (spaceId) {
+      dispatch(spaceActions.prepareUpdateSpace(spaceId));
+      this.state.isUpdate = true;
+    }
   }
 
   handleBeforeUnload(e) {
@@ -142,7 +145,15 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { About, IsFurniture, error } = this.state;
+    const { space } = this.props;
+    const { About, IsFurniture, error, isUpdate } = this.state;
+
+    if (!isUpdate) {
+      if (Object.keys(space).length === 0) {
+        // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
+        return <Redirect to={Path.createSpaceInfo()} />;
+      }
+    }
 
     return (
       <MenuPageTemplate

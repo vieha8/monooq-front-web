@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import Path from 'config/path';
+import { Redirect } from 'react-router-dom';
 
 import { uiActions } from 'redux/modules/ui';
 
@@ -32,16 +33,18 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
     const { space, dispatch } = this.props;
 
-    const spaceId = props.match.params.space_id;
-    if (spaceId) {
-      dispatch(spaceActions.prepareUpdateSpace(spaceId));
-    }
-
     this.state = {
       ReceiptType: space.ReceiptType || 1,
       ReceiptAbout: space.ReceiptAbout || '',
       error: {},
+      isUpdate: false,
     };
+
+    const spaceId = props.match.params.space_id;
+    if (spaceId) {
+      dispatch(spaceActions.prepareUpdateSpace(spaceId));
+      this.state.isUpdate = true;
+    }
   }
 
   handleBeforeUnload(e) {
@@ -146,7 +149,15 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { ReceiptType, ReceiptAbout, error } = this.state;
+    const { space } = this.props;
+    const { ReceiptType, ReceiptAbout, error, isUpdate } = this.state;
+
+    if (!isUpdate) {
+      if (Object.keys(space).length === 0) {
+        // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
+        return <Redirect to={Path.createSpaceInfo()} />;
+      }
+    }
 
     return (
       <MenuPageTemplate
