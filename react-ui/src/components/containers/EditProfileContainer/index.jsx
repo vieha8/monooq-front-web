@@ -11,7 +11,7 @@ import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import Header from 'components/containers/Header';
 import EditProfile from 'components/LV3/EditProfile';
 import EditProfileCompleted from 'components/LV3/EditProfile/Completed';
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 
 type PropTypes = {
   dispatch: Function,
@@ -115,43 +115,43 @@ class EditProfileContainer extends Component<PropTypes> {
 
       case 'name':
         if (value === undefined ? true : value.trim().length === 0) {
-          errors.push(ErrorMessage.PleaseInput);
+          errors.push(ErrorMessages.PleaseInput);
         }
         break;
 
       case 'email':
         if (value.replace(/\s/g, '').length === 0) {
-          errors.push(ErrorMessage.PleaseInput);
+          errors.push(ErrorMessages.PleaseInput);
         } else if (!value.match(Validate.Email)) {
-          errors.push(ErrorMessage.InvalidEmail);
+          errors.push(ErrorMessages.InvalidEmail);
         }
         break;
 
       case 'phoneNumber':
         if (value.replace(/\s/g, '').length === 0) {
-          errors.push(ErrorMessage.PleaseInput);
+          errors.push(ErrorMessages.PleaseInput);
         } else if (
           !(
             value.match(Validate.phoneNumber.NoHyphenVer) ||
             value.match(Validate.phoneNumber.HyphenVer)
           )
         ) {
-          errors.push(ErrorMessage.InvalidPhoneNumber);
+          errors.push(ErrorMessages.InvalidPhoneNumber);
         }
         break;
 
       case 'profile':
         if (value === undefined ? true : value.trim().length === 0) {
-          errors.push(ErrorMessage.PleaseInput);
+          errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.Profile.Max) {
-          errors.push(ErrorMessage.LengthMax('自己紹介', Validate.Profile.Max));
+          errors.push(ErrorMessages.LengthMax('自己紹介', Validate.Profile.Max));
         }
         break;
 
       case 'prefCode':
       case 'purpose':
         if (value.length === 0) {
-          errors.push(ErrorMessage.PleaseSelect);
+          errors.push(ErrorMessages.PleaseSelect);
         }
         break;
 

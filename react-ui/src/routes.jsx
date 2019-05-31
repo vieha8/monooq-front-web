@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 import loadable from '@loadable/component';
-import Path from './path';
+import Path from './config/path';
 
 const Top = loadable(() =>
   import('components/containers/TopContainer').catch(() => window.location.reload()),

@@ -3,7 +3,7 @@ import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import { push } from 'connected-react-router';
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
 import { authActions, getToken } from './auth';
@@ -184,7 +184,7 @@ function* updateUser({ payload: { userId, body } }) {
     let errMessage = '';
     let isOnlyAction = false;
     if (err === 'googleapi: Error 400: EMAIL_EXISTS, invalid') {
-      errMessage = ErrorMessage.FailedSignUpMailExist;
+      errMessage = ErrorMessages.FailedSignUpMailExist;
       isOnlyAction = true;
     }
     yield handleError(userActions.updateFailedUser, errMessage, 'updateUser', err, isOnlyAction);

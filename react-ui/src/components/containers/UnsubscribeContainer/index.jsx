@@ -11,7 +11,7 @@ import Unsubscribe from 'components/LV3/Unsubscribe';
 import UnsubscribeCompleted from 'components/LV3/Unsubscribe/Completed';
 import UnsubscribeFailed from 'components/LV3/Unsubscribe/Failed';
 import LoadingPage from 'components/LV3/LoadingPage';
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -81,7 +81,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
 
     const errors = {};
     if (reasonType.length === 0) {
-      errors.reasonType = [].concat(errors.reasonType, [ErrorMessage.PleaseSelect]);
+      errors.reasonType = [].concat(errors.reasonType, [ErrorMessages.PleaseSelect]);
     }
 
     this.setState({ errors });

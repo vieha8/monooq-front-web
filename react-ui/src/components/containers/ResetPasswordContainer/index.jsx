@@ -11,7 +11,7 @@ import ResetPassword from 'components/LV3/ResetPassword';
 
 import { authActions } from 'redux/modules/auth';
 
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 
 import connect from '../connect';
 
@@ -54,7 +54,7 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
     if (!this.validate()) {
       this.setState({
         hasChanged: false,
-        errors: [ErrorMessage.InvalidEmail],
+        errors: [ErrorMessages.InvalidEmail],
       });
       return;
     }
@@ -87,7 +87,7 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
     if (!hasChanged) {
       dispErrors.push(...errors);
       if (!isChecking && resetError) {
-        dispErrors.push(ErrorMessage.FailedResetPassword);
+        dispErrors.push(ErrorMessages.FailedResetPassword);
       }
     }
 
@@ -113,7 +113,7 @@ const mapStateToProps = state => ({
   isLogin: state.auth.isLogin,
   isChecking: state.auth.isResetTrying,
   emailSended: state.auth.isResetSuccess,
-  resetError: state.auth.error,
+  resetError: state.auth.errorMessages,
 });
 
 export default connect(

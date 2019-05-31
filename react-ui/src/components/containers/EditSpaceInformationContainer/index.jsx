@@ -12,7 +12,7 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import EditSpaceInformation from 'components/LV3/EditSpace/Information';
 
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 
 import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
@@ -187,42 +187,42 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
     const titleErrors = [];
     if (Title.length === 0) {
-      titleErrors.push(ErrorMessage.PleaseInput);
+      titleErrors.push(ErrorMessages.PleaseInput);
     }
     error.title = titleErrors;
 
     const typeErrors = [];
     if (`${Type}` === '0') {
-      typeErrors.push(ErrorMessage.PleaseSelect);
+      typeErrors.push(ErrorMessages.PleaseSelect);
     }
     error.type = typeErrors;
 
     const introductionErrors = [];
     if (Introduction.length === 0) {
-      introductionErrors.push(ErrorMessage.PleaseInput);
+      introductionErrors.push(ErrorMessages.PleaseInput);
     }
     if (Introduction.length > 5000) {
-      introductionErrors.push(ErrorMessage.LengthMax('紹介文', 5000));
+      introductionErrors.push(ErrorMessages.LengthMax('紹介文', 5000));
     }
     error.introduction = introductionErrors;
 
     const addressErrors = [];
     if (Address.length === 0) {
-      addressErrors.push(ErrorMessage.PleaseInput);
+      addressErrors.push(ErrorMessages.PleaseInput);
     }
 
     const match = Address.match(Validate.Address);
     if (!match || (match && match[4] === '')) {
-      addressErrors.push(ErrorMessage.InvalidAddress);
+      addressErrors.push(ErrorMessages.InvalidAddress);
     }
     error.address = addressErrors;
 
     const imageErrors = [];
     if (Images.length === 0) {
-      imageErrors.push(ErrorMessage.MustSpaceImage);
+      imageErrors.push(ErrorMessages.MustSpaceImage);
     } else if (Images.length === 1) {
       if (Images[0].ImageUrl && Images[0].ImageUrl.includes('data:image/png;base64,')) {
-        imageErrors.push(ErrorMessage.MustSpaceImage);
+        imageErrors.push(ErrorMessages.MustSpaceImage);
       }
     }
 

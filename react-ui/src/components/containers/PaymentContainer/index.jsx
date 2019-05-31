@@ -16,7 +16,7 @@ import PaymentInfo from 'components/LV3/PaymentInfo';
 import Header from 'components/containers/Header';
 import LoadingPage from 'components/LV3/LoadingPage';
 
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 
 import type { SpaceType } from 'types/Space';
 
@@ -115,28 +115,28 @@ class PaymentContainer extends Component<PropTypes> {
     switch (propName) {
       case 'name':
         if (value.length === 0) {
-          errors.push(ErrorMessage.PleaseInput);
+          errors.push(ErrorMessages.PleaseInput);
         }
         if (value.length > 0 && !value.match(ValidateRegExp.CardName)) {
-          errors.push(ErrorMessage.AlphaOnly('カード名義'));
+          errors.push(ErrorMessages.AlphaOnly('カード名義'));
         }
         break;
 
       case 'number':
         if (value.length === 0) {
-          errors.push(ErrorMessage.PleaseInput);
+          errors.push(ErrorMessages.PleaseInput);
         }
         if (!Number(value) || !String(value).match(ValidateRegExp.CardNumber)) {
-          errors.push(ErrorMessage.CreditCardNumber);
+          errors.push(ErrorMessages.CreditCardNumber);
         }
         break;
 
       case 'cvc':
         if (value.length === 0) {
-          errors.push(ErrorMessage.PleaseInput);
+          errors.push(ErrorMessages.PleaseInput);
         }
         if (!Number(value) || !String(value).match(ValidateRegExp.Cvc)) {
-          errors.push(ErrorMessage.Cvc);
+          errors.push(ErrorMessages.Cvc);
         }
         break;
 

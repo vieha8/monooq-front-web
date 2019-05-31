@@ -12,7 +12,7 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import EditSpaceInputPriceType from 'components/LV3/EditSpace/InputPriceType';
 
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -166,16 +166,16 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     const priceErrors = [];
 
     if (returnValue.length === 0) {
-      priceErrors.push(ErrorMessage.PleaseInput);
+      priceErrors.push(ErrorMessages.PleaseInput);
     } else {
       if (!Number(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
-        priceErrors.push(ErrorMessage.PriceNumber);
+        priceErrors.push(ErrorMessages.PriceNumber);
       } else {
         if (returnValue < Validate.Price.Min) {
-          priceErrors.push(ErrorMessage.PriceMin(Validate.Price.Min));
+          priceErrors.push(ErrorMessages.PriceMin(Validate.Price.Min));
         }
         if (returnValue > Validate.Price.Max) {
-          priceErrors.push(ErrorMessage.PriceMax(Validate.Price.Max));
+          priceErrors.push(ErrorMessages.PriceMax(Validate.Price.Max));
         }
         returnValue = formatAddComma(returnValue);
       }

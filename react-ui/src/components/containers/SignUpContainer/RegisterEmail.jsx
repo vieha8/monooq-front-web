@@ -3,7 +3,7 @@
 import React, { Component, Fragment } from 'react';
 import { authActions } from 'redux/modules/auth';
 import RegisterEmail from 'components/LV3/RegisterEmail';
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 import Path from 'config/path';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
@@ -83,14 +83,14 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     const errors = {};
     // emailチェック
     if (!email) {
-      errors.email = [].concat(errors.email, [ErrorMessage.PleaseInput]);
+      errors.email = [].concat(errors.email, [ErrorMessages.PleaseInput]);
     }
     if (!email.match(Validate.Email)) {
-      errors.email = [].concat(errors.email, [ErrorMessage.InvalidEmail]);
+      errors.email = [].concat(errors.email, [ErrorMessages.InvalidEmail]);
     }
     // パスワードチェック
     if (password.length < Validate.Password.Min) {
-      errors.password = [].concat(errors.password, [ErrorMessage.InvalidPassword]);
+      errors.password = [].concat(errors.password, [ErrorMessages.InvalidPassword]);
     }
     this.setState({ errors });
   };

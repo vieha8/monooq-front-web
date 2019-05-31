@@ -5,7 +5,7 @@ import 'firebase/auth';
 import { push, replace } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
-import ErrorMessage from 'strings';
+import { ErrorMessages } from 'variables';
 import { uiActions } from './ui';
 import { handleError } from './error';
 import { store } from '../store/index';
@@ -385,7 +385,7 @@ function* signUpEmail({ payload: { email, password } }) {
     let errMessage = '';
     let isOnlyAction = false;
     if (err.code === 'auth/email-already-in-use') {
-      errMessage = ErrorMessage.FailedSignUpMailExist;
+      errMessage = ErrorMessages.FailedSignUpMailExist;
       isOnlyAction = true;
     }
     yield handleError(
@@ -404,7 +404,7 @@ function* signUpFacebook() {
     const result = yield firebase.auth().signInWithPopup(provider);
     const { isNewUser } = result.additionalUserInfo;
     if (!isNewUser) {
-      yield put(authActions.signupFailed(ErrorMessage.FailedSignUpMailExist));
+      yield put(authActions.signupFailed(ErrorMessages.FailedSignUpMailExist));
       return;
     }
     const { displayName, email, uid, photoURL } = result.user;
@@ -441,7 +441,7 @@ function* signUpFacebook() {
     let errMessage = '';
     let isOnlyAction = false;
     if (err.code === 'auth/account-exists-with-different-credential') {
-      errMessage = ErrorMessage.FailedSignUpMailExist;
+      errMessage = ErrorMessages.FailedSignUpMailExist;
       isOnlyAction = true;
     }
     yield handleError(
