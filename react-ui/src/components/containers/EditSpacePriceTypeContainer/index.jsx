@@ -69,11 +69,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   componentDidMount() {
     window.scrollTo(0, 0);
     window.addEventListener('beforeunload', this.handleBeforeUnload);
-
-    const { PriceFull, PriceHalf, PriceQuarter } = this.state;
-    this.handleChangeUI('PriceFull', PriceFull);
-    this.handleChangeUI('PriceHalf', PriceHalf);
-    this.handleChangeUI('PriceQuarter', PriceQuarter);
   }
 
   componentWillUnmount() {
@@ -83,8 +78,18 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.ID && !prevState.ID) {
-      const { PriceFull, PriceHalf, PriceQuarter, ID } = space;
-      return { PriceFull, PriceHalf, PriceQuarter, ID };
+      const {
+        PriceFull: PriceFullTmp,
+        PriceHalf: PriceHalfTmp,
+        PriceQuarter: PriceQuarterTmp,
+        ID,
+      } = space;
+
+      const PriceFull = formatAddComma(PriceFullTmp);
+      const PriceHalf = formatAddComma(PriceHalfTmp);
+      const PriceQuarter = formatAddComma(PriceQuarterTmp);
+
+      return { PriceFull, PriceHalf, PriceQuarter, ID, isFirst: false };
     }
     return null;
   }
@@ -237,7 +242,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       this.handleChangeUI('PriceFull', PriceFull);
       this.handleChangeUI('PriceHalf', PriceHalf);
       this.handleChangeUI('PriceQuarter', PriceQuarter);
-      this.setIsFirst(false);
     }
 
     return (
