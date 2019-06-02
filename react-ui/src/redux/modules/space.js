@@ -18,6 +18,7 @@ import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
 import { getPrefecture } from 'helpers/prefectures';
 import { keenClient } from 'helpers/keen';
+import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
 import { captureException } from '@sentry/browser';
 import { handleError } from './error';
@@ -421,6 +422,10 @@ function* prepareUpdateSpace({ payload: spaceId }) {
     );
     return;
   }
+
+  space.PriceFull = formatAddComma(space.PriceFull);
+  space.PriceHalf = formatAddComma(space.PriceHalf);
+  space.PriceQuarter = formatAddComma(space.PriceQuarter);
 
   yield put(uiActions.setUiState({ space }));
 }
