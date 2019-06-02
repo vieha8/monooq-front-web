@@ -74,7 +74,7 @@ export default (props: PropTypes) => (
     profile={
       <InputForm
         label="自己紹介"
-        placeholder="はじめまして！ホストの「YUKI」です！部屋が一つ空いたので必要な方に使っていただければと思い登録してみました。ダンボール1箱～大きめの家具まで相談に乗ります。また、1階でのお預かりですので荷物の搬入出が簡単です。まずは気軽にご相談ください！"
+        placeholder="はじめまして！ホストのYUKIです！部屋が一つ空いたので必要な方に使っていただければと思い登録してみました。ダンボール1箱～大きめの家具まで相談に乗ります。また、1階でのお預かりですので荷物の搬入出が簡単です。まずは気軽にご相談ください！"
         multiline
         rows={10}
         onChange={e => props.onChangeProfile(e.target.value)}
