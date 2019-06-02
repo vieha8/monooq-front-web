@@ -18,9 +18,9 @@ import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
 import { getPrefecture } from 'helpers/prefectures';
 import { keenClient } from 'helpers/keen';
+import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
 import { handleError } from './error';
-import { formatAddComma } from '../../helpers/string';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
