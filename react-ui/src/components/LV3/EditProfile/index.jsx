@@ -128,7 +128,7 @@ export default (props: PropTypes) => (
     <Row>
       <InputForm
         label="自己紹介"
-        placeholder="はじめまして！モノオクホストのYUKIです。大きめの荷物でも柔軟に対応しております、いつでもチャットでご連絡ください！"
+        placeholder="はじめまして！ホストの「YUKI」です！部屋が一つ空いたので必要な方に使っていただければと思い登録してみました。ダンボール1箱～大きめの家具まで相談に乗ります。また、1階でのお預かりですので荷物の搬入出が簡単です。まずは気軽にご相談ください！"
         rows={6}
         multiline
         onChange={e => props.onChangeProfile(e.target.value)}

@@ -74,7 +74,7 @@ export default (props: PropTypes) => (
     profile={
       <InputForm
         label="自己紹介"
-        placeholder="モノオクのご登録ありがとうございます！モノオク公式サポートです。初回スペース登録されたホストさんへメッセージのやり取り・お見積もりの作成など、実際に利用希望者から問い合わせがあった時のためにテストを行うことができます。"
+        placeholder="はじめまして！ホストの「YUKI」です！部屋が一つ空いたので必要な方に使っていただければと思い登録してみました。ダンボール1箱～大きめの家具まで相談に乗ります。また、1階でのお預かりですので荷物の搬入出が簡単です。まずは気軽にご相談ください！"
         multiline
         rows={10}
         onChange={e => props.onChangeProfile(e.target.value)}
