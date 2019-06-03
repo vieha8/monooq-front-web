@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import handleBeforeUnload from 'helpers/handleBeforeUnload';
 
 import { userActions } from 'redux/modules/user';
 
@@ -54,22 +55,8 @@ class EditProfileContainer extends Component<PropTypes> {
     };
   }
 
-  onKeyDownNoticeEmail = e => {
-    if (e && e.keyCode === 32) {
-      const { isNoticeEmail } = this.state;
-      this.handleChangeUI('isNoticeEmail', !isNoticeEmail);
-    }
-  };
-
-  handleBeforeUnload(e) {
-    e.preventDefault();
-    e.returnValue = 'データが保存されませんが、よろしいですか?';
-  }
-
   componentDidMount() {
     window.scrollTo(0, 0);
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-
     const { name, email, phoneNumber, prefCode, profile, purpose } = this.state;
     this.handleChangeUI('name', name);
     this.handleChangeUI('email', email);
@@ -79,9 +66,12 @@ class EditProfileContainer extends Component<PropTypes> {
     this.handleChangeUI('purpose', purpose);
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
-  }
+  onKeyDownNoticeEmail = e => {
+    if (e && e.keyCode === 32) {
+      const { isNoticeEmail } = this.state;
+      this.handleChangeUI('isNoticeEmail', !isNoticeEmail);
+    }
+  };
 
   onClickUpdate: Function;
 
@@ -258,4 +248,4 @@ const mapStateToProps = state => ({
   redirectPath: state.ui.redirectPath,
 });
 
-export default authRequired(connect(mapStateToProps)(EditProfileContainer));
+export default authRequired(handleBeforeUnload(connect(mapStateToProps)(EditProfileContainer)));
