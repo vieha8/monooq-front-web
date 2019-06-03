@@ -18,9 +18,10 @@ import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
 import { getPrefecture } from 'helpers/prefectures';
 import { keenClient } from 'helpers/keen';
+import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
+import { captureException } from '@sentry/browser';
 import { handleError } from './error';
-import { formatAddComma } from '../../helpers/string';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
@@ -566,17 +567,21 @@ function* search({
 
   const user = yield select(state => state.auth.user);
 
-  keenClient.recordEvent('search', {
-    keyword,
-    priceMin,
-    priceMax,
-    receiptType,
-    type,
-    isFurniture,
-    prefecture: getPrefecture(prefCode),
-    user,
-    env: process.env.NODE_ENV,
-  });
+  try {
+    keenClient.recordEvent('search', {
+      keyword,
+      priceMin,
+      priceMax,
+      receiptType,
+      type,
+      isFurniture,
+      prefecture: getPrefecture(prefCode),
+      user,
+      env: process.env.NODE_ENV,
+    });
+  } catch (e) {
+    captureException(e);
+  }
 
   const isMore = res.length === limit;
   yield put(
