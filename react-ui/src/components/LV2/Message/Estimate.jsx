@@ -6,6 +6,7 @@ import Card from 'components/LV1/Card';
 import InlineText from 'components/LV1/InlineText';
 import Button from 'components/LV1/Button';
 import { Colors } from 'variables';
+import { formatAddComma } from 'helpers/string';
 
 function estimateDateFormat(date) {
   return date.toLocaleDateString('ja-JP-u-ca-japanese', {
@@ -78,7 +79,7 @@ export default (props: PropTypes) => (
       </Text>
       <Text>
         料金：
-        {props.price} 円
+        {formatAddComma(props.price)} 円
       </Text>
       <CaptionWrapper>
         <Text>

@@ -20,6 +20,7 @@ import dummySpaceImage from 'images/dummy_space.png';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 import { spaceActions } from '../../../redux/modules/space';
+import { formatRemoveComma } from '../../../helpers/string';
 
 type PropTypes = {
   dispatch: Function,
@@ -202,8 +203,13 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
                 profile: user.Profile,
               }}
               pricefull={numeral(space.PriceFull).format('0,0')}
-              pricehalf={space.PriceHalf > 0 && numeral(space.PriceHalf).format('0,0')}
-              pricequarter={space.PriceQuarter > 0 && numeral(space.PriceQuarter).format('0,0')}
+              pricehalf={
+                formatRemoveComma(space.PriceHalf) > 0 && numeral(space.PriceHalf).format('0,0')
+              }
+              pricequarter={
+                formatRemoveComma(space.PriceQuarter) > 0 &&
+                numeral(space.PriceQuarter).format('0,0')
+              }
             />
             <EntryButtonWrap>
               <EntryButtons
