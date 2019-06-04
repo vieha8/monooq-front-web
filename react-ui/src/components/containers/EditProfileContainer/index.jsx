@@ -12,7 +12,7 @@ import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import Header from 'components/containers/Header';
 import EditProfile from 'components/LV3/EditProfile';
 import EditProfileCompleted from 'components/LV3/EditProfile/Completed';
-import { ErrorMessages } from 'variables';
+import { ErrorMessages, KeyCode } from 'variables';
 
 type PropTypes = {
   dispatch: Function,
@@ -67,9 +67,15 @@ class EditProfileContainer extends Component<PropTypes> {
   }
 
   onKeyDownNoticeEmail = e => {
-    if (e && e.keyCode === 32) {
+    if (e && e.keyCode === KeyCode.Space) {
       const { isNoticeEmail } = this.state;
       this.handleChangeUI('isNoticeEmail', !isNoticeEmail);
+    }
+  };
+
+  onKeyDownButtonUpdate = e => {
+    if (e && e.keyCode === KeyCode.Enter && this.validate()) {
+      this.onClickUpdate();
     }
   };
 
@@ -231,6 +237,7 @@ class EditProfileContainer extends Component<PropTypes> {
               buttonDisabled={!this.validate()}
               buttonLoading={isLoading}
               onClickUpdate={this.onClickUpdate}
+              onKeyDownButtonUpdate={this.onKeyDownButtonUpdate}
             />
           )
         }
