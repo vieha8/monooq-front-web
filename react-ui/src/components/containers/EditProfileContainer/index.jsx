@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
-import handleBeforeUnload from 'helpers/handleBeforeUnload';
+import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
 
 import { userActions } from 'redux/modules/user';
 
@@ -12,7 +12,7 @@ import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import Header from 'components/containers/Header';
 import EditProfile from 'components/LV3/EditProfile';
 import EditProfileCompleted from 'components/LV3/EditProfile/Completed';
-import { ErrorMessages, KeyCode } from 'variables';
+import { ErrorMessages } from 'variables';
 
 type PropTypes = {
   dispatch: Function,
@@ -67,14 +67,14 @@ class EditProfileContainer extends Component<PropTypes> {
   }
 
   onKeyDownNoticeEmail = e => {
-    if (e && e.keyCode === KeyCode.Space) {
+    if (e && e.keyCode === 32) {
       const { isNoticeEmail } = this.state;
       this.handleChangeUI('isNoticeEmail', !isNoticeEmail);
     }
   };
 
   onKeyDownButtonUpdate = e => {
-    if (e && e.keyCode === KeyCode.Enter && this.validate()) {
+    if (e && e.keyCode === 32 && this.validate()) {
       this.onClickUpdate();
     }
   };
