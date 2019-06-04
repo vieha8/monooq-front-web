@@ -5,6 +5,9 @@ export const formatRemoveComma = value => {
 
 export const formatAddComma = value => {
   if (value === null) return '';
+
   const tmpValue = formatRemoveComma(value);
-  return tmpValue.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+  if (!Number(tmpValue)) return '0';
+
+  return String(Number(tmpValue)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 };
