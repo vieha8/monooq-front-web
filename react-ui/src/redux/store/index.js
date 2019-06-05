@@ -1,9 +1,8 @@
 import { routerMiddleware } from 'connected-react-router';
 import { applyMiddleware, createStore, compose } from 'redux';
-import createSagaMiddleware from 'redux-saga';
 import { createBrowserHistory } from 'history';
-import createReducers from './reducers';
-import rootSaga from '../sagas';
+import createReducers from 'redux/store/reducers';
+import sagaMiddleware, { rootSaga } from 'redux/middlewares/saga';
 
 import gaMiddleware from '../middlewares/googleAnalytics';
 import keenMiddleware from '../middlewares/keen';
@@ -20,14 +19,6 @@ history.listen((location, action) => {
 let store = null;
 
 export default function configureStore() {
-  const sagaMiddleware = createSagaMiddleware({
-    onError(error) {
-      setImmediate(() => {
-        throw error;
-      });
-    },
-  });
-
   const middleware = [
     routerMiddleware(history),
     sagaMiddleware,
@@ -48,5 +39,6 @@ export default function configureStore() {
   store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
 
   sagaMiddleware.run(rootSaga);
+
   return store;
 }
