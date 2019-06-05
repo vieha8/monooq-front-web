@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
+import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
 
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
@@ -16,6 +17,7 @@ import { ErrorMessages } from 'variables';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
 
 const Validate = {
@@ -61,20 +63,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     }
   }
 
-  handleBeforeUnload(e) {
-    e.preventDefault();
-    e.returnValue = 'データが保存されませんが、よろしいですか?';
-  }
-
-  componentDidMount() {
-    window.scrollTo(0, 0);
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.ID && !prevState.ID) {
@@ -93,6 +81,22 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     }
     return null;
   }
+
+  onKeyDownButtonNext: Function;
+
+  onKeyDownButtonNext = e => {
+    if (iskeyDownEnter(e) && this.validate()) {
+      this.onClickNext();
+    }
+  };
+
+  onKeyDownButtonBack: Function;
+
+  onKeyDownButtonBack = e => {
+    if (iskeyDownEnter(e)) {
+      this.onClickBack();
+    }
+  };
 
   onClickNext: Function;
 
@@ -152,12 +156,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
     const nextPath = space.ID ? Path.editSpaceReceive(space.ID) : Path.createSpaceReceive();
     history.push(nextPath);
-  };
-
-  setIsFirst: Function;
-
-  setIsFirst = value => {
-    this.setState({ isFirst: value });
   };
 
   handleChangeUI: Function;
@@ -262,8 +260,10 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
             onChangePriceQuarter={v => this.handleChangeUI('PriceQuarter', v)}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
+            onKeyDownButtonBack={this.onKeyDownButtonBack}
+            onKeyDownButtonNext={this.onKeyDownButtonNext}
             buttonLoading={isLoading}
-            buttonDisabled={!this.validate()}
+            buttonNextDisabled={!this.validate()}
           />
         }
         rightContent={<ServiceMenu />}
@@ -279,4 +279,6 @@ const mapStateToProps = state => ({
   geocode: state.space.geocode,
 });
 
-export default authRequired(connect(mapStateToProps)(EditSpacePriceTypeContainer));
+export default authRequired(
+  handleBeforeUnload(connect(mapStateToProps)(EditSpacePriceTypeContainer)),
+);
