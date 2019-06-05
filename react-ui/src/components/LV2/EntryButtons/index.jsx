@@ -72,6 +72,7 @@ type PropTypes = {
   backButton: {
     text: string,
     onClick: Function,
+    onKeyDown?: Function,
   },
   disabledButton: {
     text: string,
@@ -80,6 +81,7 @@ type PropTypes = {
     text: string,
     disabled?: boolean,
     onClick: Function,
+    onKeyDown?: Function,
   },
   enabled: boolean,
   onClickRemove?: Function,
@@ -105,6 +107,7 @@ export default (props: PropTypes) => (
               fill={1}
               loading={props.loading}
               onClick={props.backButton.onClick}
+              onKeyDown={props.backButton.onKeyDown}
             >
               {props.backButton.text}
             </Button>
@@ -122,6 +125,7 @@ export default (props: PropTypes) => (
               loading={props.loading}
               onClick={props.enabledButton.onClick}
               disabled={props.enabledButton.disabled}
+              onKeyDown={props.enabledButton.onKeyDown}
             >
               {props.enabledButton.text}
             </Button>
