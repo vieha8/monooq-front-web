@@ -55,15 +55,6 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     }
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
-  }
-
   onKeyDownFurniture = e => {
     if (iskeyDownSpace(e)) {
       const { IsFurniture } = this.state;
