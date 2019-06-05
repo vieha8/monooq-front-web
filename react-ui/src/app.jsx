@@ -9,7 +9,7 @@ import Error from 'components/containers/Error';
 import Meta from 'components/LV1/Meta';
 import firebaseConfig from './config/firebase';
 import { unregister } from './registerServiceWorker';
-import configureStore, { history } from './redux/store';
+import createStore, { history } from './redux/store';
 import Routes from './routes';
 import './index.css';
 
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== 'production') {
   // whyDidYouUpdate(React);
 }
 
-const store = configureStore();
+const store = createStore();
 
 ReactDOM.render(
   <Provider store={store}>

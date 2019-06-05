@@ -1,18 +1,8 @@
-import { connectRouter, routerMiddleware } from 'connected-react-router';
-import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
+import { routerMiddleware } from 'connected-react-router';
+import { applyMiddleware, createStore, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { createBrowserHistory } from 'history';
-
-import { authReducer } from '../modules/auth';
-import { messagesReducer } from '../modules/messages';
-import { uiReducer } from '../modules/ui';
-import { spaceReducer } from '../modules/space';
-import { userReducer } from '../modules/user';
-import { requestReducer } from '../modules/request';
-import { salesReducer } from '../modules/sales';
-import { errorReducer } from '../modules/error';
-import { initReducer } from '../modules/init';
-import { homeReducer } from '../modules/home';
+import createReducers from './reducers';
 import rootSaga from '../sagas';
 
 import gaMiddleware from '../middlewares/googleAnalytics';
@@ -27,7 +17,9 @@ history.listen((location, action) => {
   window.scrollTo(0, 0);
 });
 
-const configureStore = () => {
+let store = null;
+
+export default function configureStore() {
   const sagaMiddleware = createSagaMiddleware({
     onError(error) {
       setImmediate(() => {
@@ -51,24 +43,10 @@ const configureStore = () => {
     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   }
 
-  const reducers = combineReducers({
-    router: connectRouter(history),
-    auth: authReducer,
-    messages: messagesReducer,
-    space: spaceReducer,
-    user: userReducer,
-    ui: uiReducer,
-    request: requestReducer,
-    sales: salesReducer,
-    error: errorReducer,
-    init: initReducer,
-    home: homeReducer,
-  });
+  const reducers = createReducers(history);
 
-  const store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
+  store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
 
   sagaMiddleware.run(rootSaga);
   return store;
-};
-
-export default configureStore;
+}
