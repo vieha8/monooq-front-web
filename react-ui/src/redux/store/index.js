@@ -1,27 +1,25 @@
-import { connectRouter, routerMiddleware } from 'connected-react-router';
-import { applyMiddleware, combineReducers, createStore, compose } from 'redux';
-
+import { routerMiddleware } from 'connected-react-router';
+import { applyMiddleware, createStore, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-
-import { authReducer } from '../modules/auth';
-import { messagesReducer } from '../modules/messages';
-import { uiReducer } from '../modules/ui';
-import { spaceReducer } from '../modules/space';
-import { userReducer } from '../modules/user';
-import { requestReducer } from '../modules/request';
-import { salesReducer } from '../modules/sales';
-import { errorReducer } from '../modules/error';
-import { initReducer } from '../modules/init';
-import { homeReducer } from '../modules/home';
+import { createBrowserHistory } from 'history';
+import createReducers from './reducers';
 import rootSaga from '../sagas';
 
 import gaMiddleware from '../middlewares/googleAnalytics';
 import keenMiddleware from '../middlewares/keen';
 import sentryMiddleware from '../middlewares/sentry';
 
-export let store = null;
+export const history = createBrowserHistory();
+history.listen((location, action) => {
+  if (action === 'POP') {
+    return;
+  }
+  window.scrollTo(0, 0);
+});
 
-export default history => {
+let store = null;
+
+export default function configureStore() {
   const sagaMiddleware = createSagaMiddleware({
     onError(error) {
       setImmediate(() => {
@@ -29,6 +27,7 @@ export default history => {
       });
     },
   });
+
   const middleware = [
     routerMiddleware(history),
     sagaMiddleware,
@@ -38,30 +37,16 @@ export default history => {
   ];
 
   let composeEnhancers = compose;
-
   if (process.env.NODE_ENV !== 'production') {
     const { logger } = require('redux-logger');
     middleware.push(logger);
     composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   }
 
-  const reducers = combineReducers({
-    router: connectRouter(history),
-    auth: authReducer,
-    messages: messagesReducer,
-    space: spaceReducer,
-    user: userReducer,
-    ui: uiReducer,
-    request: requestReducer,
-    sales: salesReducer,
-    error: errorReducer,
-    init: initReducer,
-    home: homeReducer,
-  });
+  const reducers = createReducers(history);
 
   store = createStore(reducers, composeEnhancers(applyMiddleware(...middleware)));
 
   sagaMiddleware.run(rootSaga);
-
   return store;
-};
+}

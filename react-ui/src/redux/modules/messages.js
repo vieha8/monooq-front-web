@@ -1,20 +1,18 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery, take, select } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga';
+import { put, call, takeEvery, take, select, fork, cancel, cancelled } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import { push } from 'connected-react-router';
 import { captureException } from '@sentry/browser';
-import { authActions, getToken } from './auth';
-import { userActions } from './user';
-import { spaceActions } from './space';
-import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
-import fileType from '../../helpers/file-type';
-import { uploadImage } from '../helpers/firebase';
-import { store } from '../store/index';
-import Path from '../../config/path';
-import { convertImgixUrl } from '../../helpers/imgix';
-
-let messageObserverUnsubscribe = null;
+import { getToken } from 'redux/modules/auth';
+import { userActions } from 'redux/modules/user';
+import { spaceActions } from 'redux/modules/space';
+import { getApiRequest, postApiRequest, apiEndpoint } from 'redux/helpers/api';
+import { uploadImage } from 'redux/helpers/firebase';
+import fileType from 'helpers/file-type';
+import { convertImgixUrl } from 'helpers/imgix';
+import Path from 'config/path';
 
 // Actions
 const FETCH_ROOMS_START = 'FETCH_ROOMS_START';
@@ -164,13 +162,6 @@ function* fetchUnreadRooms() {
   yield put(messagesActions.fetchUnreadRoomsEnd({ unreadRooms }));
 }
 
-function messagesUnsubscribe() {
-  if (messageObserverUnsubscribe) {
-    messageObserverUnsubscribe();
-    messageObserverUnsubscribe = null;
-  }
-}
-
 // メッセージ取得
 const getMessages = roomId =>
   new Promise(async (resolve, reject) => {
@@ -198,25 +189,51 @@ const getMessages = roomId =>
     }
   });
 
-function* fetchMessagesStart({ payload }) {
-  yield messagesUnsubscribe();
+const subscribeRooms = [];
 
-  let user = yield select(state => state.auth.user);
-  if (!user.ID) {
-    yield take(authActions.checkLoginSuccess);
+function messageChannel(observer) {
+  return eventChannel(emit => {
+    return observer.onSnapshot(snapshot => {
+      if (snapshot.docChanges().length === 1) {
+        emit(snapshot);
+      }
+    });
+  });
+}
+
+function* watchMessages(observer) {
+  const messages = yield call(messageChannel, observer);
+  try {
+    while (true) {
+      const snapshot = yield take(messages);
+      const message = snapshot.docChanges()[0].doc.data();
+      message.createDt = message.createDt.toDate();
+      yield put(messagesActions.updateMessage(message));
+    }
+  } finally {
+    if (yield cancelled()) {
+      messages.close();
+    }
   }
-  user = yield select(state => state.auth.user);
+}
 
-  const messageData = yield getMessages(payload);
+function* fetchMessagesStart({ payload: roomId }) {
+  if (subscribeRooms.length === 1) {
+    yield cancel(subscribeRooms[0]);
+    subscribeRooms.shift();
+  }
+
+  const user = yield select(state => state.auth.user);
+
+  const messageData = yield getMessages(roomId);
   const { room, messageObserver } = messageData;
-  let { messages } = messageData;
-
-  const token = yield* getToken();
-
   if (!room) {
-    store.dispatch(push(Path.notFound()));
+    yield put(push(Path.notFound()));
     return;
   }
+
+  let { messages } = messageData;
+  const token = yield* getToken();
 
   // 見積もりステータスの取得
   messages = yield Promise.all(
@@ -232,41 +249,27 @@ function* fetchMessagesStart({ payload }) {
     }),
   );
 
+  // 既読フラグ付加
   if (messages.length > 0) {
     const lastMessage = messages[messages.length - 1];
     roomCollection()
-      .doc(payload)
+      .doc(roomId)
       .set(
         { [`user${user.ID}LastRead`]: lastMessage.id, [`user${user.ID}LastReadDt`]: new Date() },
         { merge: true },
       );
   } else {
     roomCollection()
-      .doc(payload)
+      .doc(roomId)
       .set({ [`user${user.ID}LastReadDt`]: new Date() }, { merge: true });
   }
 
-  // メッセージが１件のみの場合はfirebaseから取得した方を使用するためViewとして追加しない
+  // メッセージが１件のみの場合はobserverから取得した方を使用するためViewとして追加しない
   if (messages.length > 1) {
-    store.dispatch(messagesActions.updateMessage(messages));
+    yield put(messagesActions.updateMessage(messages));
   }
-
-  if (!messageObserverUnsubscribe) {
-    messageObserverUnsubscribe = messageObserver.onSnapshot(snapshot => {
-      if (snapshot.docChanges().length === 1) {
-        const message = snapshot.docChanges()[0].doc.data();
-        message.createDt = message.createDt.toDate();
-        store.dispatch(messagesActions.updateMessage(message));
-        const messageId = snapshot.docChanges()[0].doc.id;
-        roomCollection()
-          .doc(payload)
-          .set(
-            { [`user${user.ID}LastRead`]: messageId, [`user${user.ID}LastReadDt`]: new Date() },
-            { merge: true },
-          );
-      }
-    });
-  }
+  const task = yield fork(watchMessages, messageObserver);
+  subscribeRooms.push(task);
 
   const { userId1, userId2, spaceId } = room;
 
@@ -363,7 +366,7 @@ function* sendMessage(payload) {
       resolve();
     });
   } catch (err) {
-    captureException(err);
+    return captureException(err);
   }
 }
 
