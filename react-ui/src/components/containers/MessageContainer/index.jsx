@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'semantic-ui-react';
 import Path from 'config/path';
+import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/InlineText';
@@ -104,21 +105,6 @@ class MessageContainer extends Component<PropTypes, State> {
       image: null,
       errorModal: false,
     };
-  }
-
-  handleBeforeUnload = e => {
-    if (this.state.text !== '') {
-      e.preventDefault();
-      e.returnValue = 'データが保存されませんが、よろしいですか?';
-    }
-  };
-
-  componentDidMount() {
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
   }
 
   componentWillReceiveProps = next => {
@@ -342,4 +328,4 @@ const mapStateToProps = state => ({
   isLoading: state.messages.isLoading,
 });
 
-export default authRequired(connect(mapStateToProps)(MessageContainer));
+export default authRequired(handleBeforeUnload(connect(mapStateToProps)(MessageContainer)));

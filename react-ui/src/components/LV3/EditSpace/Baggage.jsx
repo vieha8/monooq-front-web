@@ -22,6 +22,9 @@ type PropTypes = {
   onKeyDownFurniture: Function,
   onClickBack: Function,
   onClickNext: Function,
+  onKeyDownButtonBack: Function,
+  onKeyDownButtonNext: Function,
+  buttonNextDisabled?: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -63,10 +66,13 @@ export default (props: PropTypes) => (
         backButton={{
           text: '戻る',
           onClick: props.onClickBack,
+          onKeyDown: props.onKeyDownButtonBack,
         }}
         enabledButton={{
           text: '次へ',
           onClick: props.onClickNext,
+          onKeyDown: props.onKeyDownButtonNext,
+          disabled: props.buttonNextDisabled,
         }}
       />
     </Section>

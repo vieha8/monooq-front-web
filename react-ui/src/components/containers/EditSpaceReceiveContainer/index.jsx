@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
+import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
 
 import { uiActions } from 'redux/modules/ui';
 
@@ -15,6 +16,7 @@ import { ErrorMessages } from 'variables';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import { iskeyDownEnter } from 'helpers/keydown';
 import { spaceActions } from '../../../redux/modules/space';
 
 type PropTypes = {
@@ -24,6 +26,12 @@ type PropTypes = {
   },
   space: {
     ID: number,
+  },
+};
+
+const Validate = {
+  ReceiptAbout: {
+    Max: 5000,
   },
 };
 
@@ -47,19 +55,6 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     }
   }
 
-  handleBeforeUnload(e) {
-    e.preventDefault();
-    e.returnValue = 'データが保存されませんが、よろしいですか?';
-  }
-
-  componentDidMount() {
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.ID && !prevState.ID) {
@@ -69,34 +64,45 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     return null;
   }
 
+  onKeyDownButtonNext: Function;
+
+  onKeyDownButtonNext = e => {
+    if (iskeyDownEnter(e) && this.validate()) {
+      this.onClickNext();
+    }
+  };
+
+  onKeyDownButtonBack: Function;
+
+  onKeyDownButtonBack = e => {
+    if (iskeyDownEnter(e)) {
+      this.onClickBack();
+    }
+  };
+
   onClickNext: Function;
+
   onClickNext = () => {
-    this.validate(() => {
-      if (
-        (this.state.error.receiptType || []).length === 0 &&
-        (this.state.error.receiptAbout || []).length === 0
-      ) {
-        const { dispatch, history, space } = this.props;
-        const { ReceiptType, ReceiptAbout } = this.state;
+    const { dispatch, history, space } = this.props;
+    const { ReceiptType, ReceiptAbout } = this.state;
 
-        dispatch(
-          uiActions.setUiState({
-            space: Object.assign(space, {
-              ReceiptType: parseInt(ReceiptType, 10),
-              ReceiptAbout,
-            }),
-          }),
-        );
+    dispatch(
+      uiActions.setUiState({
+        space: Object.assign(space, {
+          ReceiptType: parseInt(ReceiptType, 10),
+          ReceiptAbout,
+        }),
+      }),
+    );
 
-        const nextPath = space.ID
-          ? Path.editSpacePrice(space.ID, 'about')
-          : Path.createSpacePrice('about');
-        history.push(nextPath);
-      }
-    });
+    const nextPath = space.ID
+      ? Path.editSpacePrice(space.ID, 'about')
+      : Path.createSpacePrice('about');
+    history.push(nextPath);
   };
 
   onClickBack: Function;
+
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
     const { ReceiptType, ReceiptAbout } = this.state;
@@ -115,10 +121,23 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
   };
 
   handleChangeUI: Function;
+
   handleChangeUI = (propName: string, value: any) => {
-    const state = this.state;
-    const error = state.error;
+    const { state } = this;
+    const { error } = state;
     const errors = [];
+
+    switch (propName) {
+      case 'ReceiptAbout':
+        if (value === undefined ? true : value.trim().length === 0) {
+          errors.push(ErrorMessages.PleaseInput);
+        } else if (value.length > Validate.ReceiptAbout.Max) {
+          errors.push(ErrorMessages.LengthMax('説明', Validate.ReceiptAbout.Max));
+        }
+        break;
+      default:
+        break;
+    }
 
     state[propName] = value;
     error[propName] = errors;
@@ -126,25 +145,14 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
   };
 
   validate: Function;
-  validate = (valid: Function) => {
-    const { ReceiptType, ReceiptAbout, error } = this.state;
 
-    const receiptTypeErrors = [];
-    if (`${ReceiptType}` === '0') {
-      receiptTypeErrors.push(ErrorMessages.PleaseSelect);
-    }
-    error.receiptType = receiptTypeErrors;
-
-    const receiptAboutErrors = [];
-    if (ReceiptAbout.length === 0) {
-      receiptAboutErrors.push(ErrorMessages.PleaseInput);
-    }
-    if (receiptAboutErrors.length > 5000) {
-      receiptAboutErrors.push(ErrorMessages.LengthMax('説明', 5000));
-    }
-    error.receiptAbout = receiptAboutErrors;
-
-    this.setState({ error }, valid);
+  validate = () => {
+    const { ReceiptAbout } = this.state;
+    return (
+      ReceiptAbout &&
+      (ReceiptAbout === undefined ? false : ReceiptAbout.trim().length > 0) &&
+      ReceiptAbout.trim().length <= Validate.ReceiptAbout.Max
+    );
   };
 
   render() {
@@ -166,13 +174,16 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
         leftContent={
           <EditSpaceReceive
             receive={ReceiptType}
-            receiveErrors={error.receiptType}
+            receiveErrors={error.ReceiptType}
             onChangeReceive={v => this.handleChangeUI('ReceiptType', v)}
             receiveAbout={ReceiptAbout}
-            receiveAboutErrors={error.receiptAbout}
+            receiveAboutErrors={error.ReceiptAbout}
             onChangeReceiveAbout={v => this.handleChangeUI('ReceiptAbout', v)}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
+            onKeyDownButtonBack={this.onKeyDownButtonBack}
+            onKeyDownButtonNext={this.onKeyDownButtonNext}
+            buttonNextDisabled={!this.validate()}
           />
         }
         rightContent={<ServiceMenu />}
@@ -185,4 +196,6 @@ const mapStateToProps = state => ({
   space: state.ui.space || {},
 });
 
-export default authRequired(connect(mapStateToProps)(EditSpaceReceiveContainer));
+export default authRequired(
+  handleBeforeUnload(connect(mapStateToProps)(EditSpaceReceiveContainer)),
+);

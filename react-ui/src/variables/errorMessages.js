@@ -10,6 +10,7 @@ export default {
   PriceMax: val => `登録できる料金目安は${numeral(val).format('0,0')}円以下です。`,
   LengthMax: (name, len) => `${name}は全角${len}字が上限です。文字数を減らしてください。`,
   EstimateMin: val => `作成できる見積もり料金は${numeral(val).format('0,0')}円以上です。`,
+  EstimateMax: val => `作成できる見積もり料金は${numeral(val).format('0,0')}円以下です。`,
   AlphaOnly: name => `${name}は半角ローマ字で入力してください。`,
   CreditCardNumber: 'クレジットカード番号は16桁の半角数字で入力してください。',
   Cvc: 'セキュリティコードは3桁の半角数字で入力してください。',

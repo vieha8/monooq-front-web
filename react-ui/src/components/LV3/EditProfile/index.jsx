@@ -63,6 +63,7 @@ type PropTypes = {
   onClickUpdate: Function,
   buttonDisabled: boolean,
   buttonLoading: boolean,
+  onKeyDownButtonUpdate: Function,
 };
 
 export default (props: PropTypes) => (
@@ -153,6 +154,7 @@ export default (props: PropTypes) => (
         disabled={props.buttonDisabled}
         onClick={props.buttonLoading ? null : props.onClickUpdate}
         loading={props.buttonLoading}
+        onKeyDown={props.onKeyDownButtonUpdate}
       >
         プロフィールを更新する
       </Button>

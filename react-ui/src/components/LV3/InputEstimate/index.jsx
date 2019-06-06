@@ -34,7 +34,7 @@ type PropTypes = {
     onFocusChangeEnd: Function,
   },
   price: {
-    error: string,
+    errors: Array<string>,
     onChange: Function,
     value: string,
   },
