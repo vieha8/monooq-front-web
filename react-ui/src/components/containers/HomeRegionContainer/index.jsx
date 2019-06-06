@@ -45,10 +45,6 @@ class HomeRegionContainer extends Component<PropTypes> {
     dispatch(homeActions.fetchSections({ regionId }));
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   onClickSpace = (space: { ID: number }) => {
     const { history } = this.props;
     history.push(Path.space(space.ID));

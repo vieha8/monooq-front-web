@@ -142,10 +142,6 @@ class SalesContainer extends Component {
     };
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   handleChangeInput = (name, value) => {
     const { state } = this;
     state[name] = value;

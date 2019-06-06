@@ -32,10 +32,6 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
     this.state = { spaceId, isEdit };
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   render() {
     const { history, user } = this.props;
     const { spaceId, isEdit } = this.state;

@@ -37,10 +37,6 @@ class InboxContainer extends Component<PropTypes> {
     dispatch(messagesActions.fetchRoomsStart());
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   leftContent = () => {
     const { isLoading, rooms, history } = this.props;
 

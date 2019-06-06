@@ -7,10 +7,6 @@ import RegisterHowToUse from './RegisterHowToUse';
 import connect from '../connect';
 
 class SignUpPurposeContainer extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   render() {
     return (
       <AccountTemplate

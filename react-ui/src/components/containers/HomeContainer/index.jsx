@@ -56,10 +56,6 @@ class HomeContainer extends Component<PropTypes> {
     props.dispatch(homeActions.fetchSections());
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   showSections = () => {
     const { sections, history } = this.props;
 

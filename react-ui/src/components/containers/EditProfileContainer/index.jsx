@@ -56,7 +56,6 @@ class EditProfileContainer extends Component<PropTypes> {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
     const { name, email, phoneNumber, prefCode, profile, purpose } = this.state;
     this.handleChangeUI('name', name);
     this.handleChangeUI('email', email);

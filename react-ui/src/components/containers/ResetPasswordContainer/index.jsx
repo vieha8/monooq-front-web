@@ -44,8 +44,6 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
-
     const { dispatch } = this.props;
     dispatch(authActions.initPasswordReset());
   }

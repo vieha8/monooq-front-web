@@ -62,10 +62,6 @@ class SpaceContainer extends Component<PropTypes> {
     };
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch(spaceActions.clearSpace());

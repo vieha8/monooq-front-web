@@ -48,10 +48,6 @@ class UnsubscribeContainer extends Component<PropTypes> {
     };
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   componentWillReceiveProps(nextProps: PropTypes) {
     if (!this.isUnsubscribeSuccess && nextProps.isUnsubscribeSuccess) {
       setTimeout(() => {

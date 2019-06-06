@@ -24,10 +24,6 @@ class ServiceMenuContainer extends Component<PropTypes> {
     };
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   render() {
     const { isPhone, userName, userImage, dispatch, isLogin, unreadRooms } = this.props;
 
