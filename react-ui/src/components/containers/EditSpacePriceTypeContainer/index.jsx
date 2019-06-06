@@ -63,6 +63,15 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     }
   }
 
+  componentDidMount() {
+    const { PriceFull, PriceHalf, PriceQuarter, isUpdate } = this.state;
+    if (!isUpdate) {
+      this.handleChangeUI('PriceFull', PriceFull);
+      this.handleChangeUI('PriceHalf', PriceHalf);
+      this.handleChangeUI('PriceQuarter', PriceQuarter);
+    }
+  }
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.ID && !prevState.ID) {
