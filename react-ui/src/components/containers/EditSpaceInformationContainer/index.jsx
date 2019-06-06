@@ -308,7 +308,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
               addressErrors={error.Address}
               onChangeAddress={v => this.handleChangeUI('Address', v)}
               onClickNext={this.onClickNext}
-              onClickNextDsabled={isNoProfile || !this.validate()}
+              buttonNextDisabled={isNoProfile || !this.validate()}
               OnClickRemove={() => this.onClickRemove(space)}
               onKeyDownButtonNext={this.onKeyDownButtonNext}
             />

@@ -153,7 +153,7 @@ export default (props: PropTypes) => (
             fill={1}
             onClick={props.onClickNext}
             onKeyDown={props.onKeyDownButtonNext}
-            disabled={props.onClickNextDsabled}
+            disabled={props.buttonNextDisabled}
           >
             次へ
           </Button>
