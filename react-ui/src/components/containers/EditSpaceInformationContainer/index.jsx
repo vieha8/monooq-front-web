@@ -3,7 +3,6 @@
 import React, { Component, Fragment } from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import Path from 'config/path';
-import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
 
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
@@ -70,7 +69,14 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     }
   }
 
+  handleBeforeUnload = e => {
+    e.preventDefault();
+    e.returnValue = 'データが保存されませんが、よろしいですか?';
+  };
+
   componentDidMount() {
+    window.addEventListener('beforeunload', this.handleBeforeUnload);
+
     const { user } = this.props;
     const { isUpdate } = this.state;
 
@@ -83,6 +89,10 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       this.handleChangeUI('Address', Address);
       this.handleChangeUI('Images', Images);
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -334,6 +344,4 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default authRequired(
-  handleBeforeUnload(connect(mapStateToProps)(EditSpaceInformationContainer)),
-);
+export default authRequired(connect(mapStateToProps)(EditSpaceInformationContainer));
