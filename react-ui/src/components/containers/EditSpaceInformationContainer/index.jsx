@@ -65,7 +65,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
     window.addEventListener('beforeunload', this.handleBeforeUnload);
     const { user } = this.props;
     if (user.Name === '') {

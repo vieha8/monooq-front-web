@@ -16,10 +16,6 @@ type PropTypes = {
 };
 
 class OtherContainer extends Component<PropTypes> {
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   logout = () => {
     if (document && document.body) {
       document.body.style.overflowY = 'auto';

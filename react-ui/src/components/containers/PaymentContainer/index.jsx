@@ -66,10 +66,6 @@ class PaymentContainer extends Component<PropTypes> {
     };
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   componentWillReceiveProps(nextProps: PropTypes) {
     if (
       (!this.isPaymentFailed && nextProps.isPaymentFailed) ||

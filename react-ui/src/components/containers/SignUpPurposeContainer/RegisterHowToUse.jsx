@@ -29,10 +29,6 @@ export default class RegisterHowToUseContainer extends Component<PropTypes, Stat
     };
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   onClickRegisterProfile = () => {
     const { dispatch, user, history } = this.props;
     const { isHost } = this.state;

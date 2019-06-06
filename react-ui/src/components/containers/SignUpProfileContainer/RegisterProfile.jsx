@@ -49,7 +49,6 @@ export default class RegisterProfileContainer extends Component<PropTypes, State
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
     const script = document.createElement('script');
 
     script.innerHTML = `var __atw = __atw || [];

@@ -10,10 +10,6 @@ import HowToUse from 'components/LV3/HowToUse';
 import connect from '../connect';
 
 class HowToUseContainer extends Component<*> {
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   render() {
     return (
       <MenuPageTemplate

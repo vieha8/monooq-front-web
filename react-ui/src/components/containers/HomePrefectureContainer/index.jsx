@@ -43,10 +43,6 @@ class HomePrefectureContainer extends Component<PropTypes> {
     dispatch(homeActions.fetchSections({ prefectureId }));
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   showSections = () => {
     // TODO component化してHomeContainerと一緒にする
     const { sections } = this.props;
