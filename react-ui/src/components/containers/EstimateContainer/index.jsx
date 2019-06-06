@@ -104,7 +104,7 @@ class EstimateContainer extends Component<PropTypes> {
         roomId,
         startDate: begin.toDate(),
         endDate: end.toDate(),
-        price,
+        price: formatRemoveComma(price),
       }),
     );
   };
