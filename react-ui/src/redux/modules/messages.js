@@ -8,6 +8,7 @@ import { captureException } from '@sentry/browser';
 import { getToken } from 'redux/modules/auth';
 import { userActions } from 'redux/modules/user';
 import { spaceActions } from 'redux/modules/space';
+import { handleError } from 'redux/modules/error';
 import { getApiRequest, postApiRequest, apiEndpoint } from 'redux/helpers/api';
 import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
@@ -111,12 +112,17 @@ function* fetchRoomStart() {
 
   const userIds = rooms.map(r => (user.ID === r.userId1 ? r.userId2 : r.userId1));
 
-  const { data } = yield call(
+  const { data, err } = yield call(
     getApiRequest,
     apiEndpoint.users(),
     { ids: userIds.join(',') },
     token,
   );
+
+  if (err) {
+    yield handleError('', '', 'fetchRoomStart', err, false);
+    return;
+  }
 
   const res = rooms.map(v => {
     const room = v;
@@ -374,7 +380,11 @@ function* sendEmail(payload) {
   const { roomId, toUserId, text } = payload;
 
   const token = yield* getToken();
-  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId), {}, token);
+  const { data: toUser, err } = yield call(getApiRequest, apiEndpoint.users(toUserId), {}, token);
+  if (err) {
+    yield handleError('', '', 'sendEmail', err, false);
+    return;
+  }
 
   if (!toUser.IsNoticeEmail) {
     return;
