@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { isImageDefault } from 'helpers/images';
 import { H3 } from 'components/LV1/Headline';
 import InlineText from 'components/LV1/InlineText';
 import Loading from 'components/LV1/Loading';
@@ -128,7 +129,11 @@ type PropTypes = {
 
 function handleChangeImageWithOrientationFix(data, props: PropTypes) {
   const images = [];
-  const currentCount = props.images.length;
+  const imagesTmp = props.images;
+  const currentCount =
+    imagesTmp && imagesTmp.length > 0 && isImageDefault(imagesTmp[0].url)
+      ? imagesTmp.length - 1
+      : imagesTmp.length;
 
   for (let i = 0; i < MAX_PREVIEW_COUNT - currentCount && i < data.length; i += 1) {
     const file = data[i];
@@ -181,7 +186,7 @@ function showImagePreview(props: PropTypes) {
           if (image.url) {
             const imageUrl = image.url;
 
-            if (imageUrl.includes('data:image/png;base64,')) {
+            if (isImageDefault(imageUrl)) {
               // デフォルト画像は表示しない
               return null;
             }
@@ -198,13 +203,15 @@ function showImagePreview(props: PropTypes) {
 
           return null;
         })}
-        {getEmptyCount(images.length).map((v, i) => {
-          return (
-            <ImagePreviewWrapper key={`image_preivew_${i}`.toString()}>
-              <DndContentEmpty />
-            </ImagePreviewWrapper>
-          );
-        })}
+        {getEmptyCount(isImageDefault(images[0].url) ? images.length - 1 : images.length).map(
+          (v, i) => {
+            return (
+              <ImagePreviewWrapper key={`image_preivew_${i}`.toString()}>
+                <DndContentEmpty />
+              </ImagePreviewWrapper>
+            );
+          },
+        )}
       </ImagePreviewContainer>
     );
   }
@@ -226,31 +233,34 @@ export default (props: PropTypes) => {
           </DndContent>
         </DropZoneWrap>
       )}
-      {!isImageUploading && (images || []).length < MAX_PREVIEW_COUNT && (
-        <DropZoneWrap>
-          <Dropzone
-            accept="image/jpeg, image/png"
-            onDrop={data => handleChangeImageWithOrientationFix(data, props)}
-          >
-            {({ getRootProps, getInputProps }) => (
-              <DndContent {...getRootProps()}>
-                <IconWrapper>
-                  <PictureIcon />
-                </IconWrapper>
-                <DragText>
-                  <OnlyPC>
-                    <InlineText.Base>クリックして画像をアップロード</InlineText.Base>
-                  </OnlyPC>
-                  <OnlyPhone>
-                    <InlineText.Base>タップして画像をアップロード</InlineText.Base>
-                  </OnlyPhone>
-                </DragText>
-                <input {...getInputProps()} />
-              </DndContent>
-            )}
-          </Dropzone>
-        </DropZoneWrap>
-      )}
+      {!isImageUploading &&
+        (images && images.length > 0 && isImageDefault(images[0].url)
+          ? (images || []).length - 1 < MAX_PREVIEW_COUNT
+          : (images || []).length) < MAX_PREVIEW_COUNT && (
+          <DropZoneWrap>
+            <Dropzone
+              accept="image/jpeg, image/png"
+              onDrop={data => handleChangeImageWithOrientationFix(data, props)}
+            >
+              {({ getRootProps, getInputProps }) => (
+                <DndContent {...getRootProps()}>
+                  <IconWrapper>
+                    <PictureIcon />
+                  </IconWrapper>
+                  <DragText>
+                    <OnlyPC>
+                      <InlineText.Base>クリックして画像をアップロード</InlineText.Base>
+                    </OnlyPC>
+                    <OnlyPhone>
+                      <InlineText.Base>タップして画像をアップロード</InlineText.Base>
+                    </OnlyPhone>
+                  </DragText>
+                  <input {...getInputProps()} />
+                </DndContent>
+              )}
+            </Dropzone>
+          </DropZoneWrap>
+        )}
       {(images || []).length > 0 && showImagePreview(props)}
       <HintBottomWrap>
         <InlineText.Tiny>
