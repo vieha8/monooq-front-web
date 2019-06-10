@@ -179,7 +179,14 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   onClickNext = () => {
     const { state } = this;
     const { dispatch, history, space } = this.props;
-    const { Images, Title, Type, Introduction, Address } = state;
+    const { Images, Title, Type, Introduction, Address, isUpdate } = state;
+
+    if (isUpdate) {
+      if (Images && Images.length > 0 && isImageDefault(Images[0].ImageUrl)) {
+        // デフォルト画像が先頭に含まれる場合は削除する
+        Images.shift();
+      }
+    }
 
     dispatch(
       uiActions.setUiState({
