@@ -19,6 +19,7 @@ import Meta from 'components/LV1/Meta';
 import { Dimens } from 'variables';
 
 import { spaceActions } from 'redux/modules/space';
+import { iskeyDownEnter } from 'helpers/keydown';
 import { getPrefecture } from 'helpers/prefectures';
 
 import connect from '../connect';
@@ -81,6 +82,21 @@ class SearchResultContainer extends Component<PropTypes, State> {
       offset: 0,
     };
   }
+
+  onClickBackSearchCondition: Function;
+
+  onClickBackSearchCondition = () => {
+    const { history } = this.props;
+    history.push(Path.searchCondition());
+  };
+
+  onKeyDownButtonReserch: Function;
+
+  onKeyDownButtonReserch = e => {
+    if (iskeyDownEnter(e)) {
+      this.onClickBackSearchCondition();
+    }
+  };
 
   onClickSpace = (space: { ID: number }) => {
     const { history } = this.props;
@@ -146,8 +162,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
   };
 
   renderNotFound = () => {
-    const { history } = this.props;
-
     const condition = this.getCondition();
 
     return (
@@ -159,7 +173,8 @@ class SearchResultContainer extends Component<PropTypes, State> {
             captionHead="該当するスペースが見つかりませんでした"
             caption="別のキーワード及び条件で検索をお試しください"
             buttonText="条件を変えて再検索する"
-            onClick={() => history.push(Path.searchCondition())}
+            onClick={this.onClickBackSearchCondition}
+            onKeyDown={this.onKeyDownButtonReserch}
           />
         }
         rightContent={<ServiceMenu />}
@@ -249,7 +264,8 @@ class SearchResultContainer extends Component<PropTypes, State> {
                     primary
                     fontbold
                     center
-                    onClick={() => history.push(Path.searchCondition())}
+                    onClick={this.onClickBackSearchCondition}
+                    onKeyDown={this.onKeyDownButtonReserch}
                   >
                     条件を変えて再検索する
                   </Button>

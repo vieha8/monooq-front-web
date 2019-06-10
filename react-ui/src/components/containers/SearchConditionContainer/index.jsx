@@ -10,7 +10,7 @@ import SearchCondition from 'components/LV3/SearchCondition';
 import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { ErrorMessages } from 'variables';
-import { iskeyDownSpace } from 'helpers/keydown';
+import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 import connect from '../connect';
 
 type PropTypes = {
@@ -69,6 +69,14 @@ class SearchConditionContainer extends Component<PropTypes> {
     if (iskeyDownSpace(e)) {
       const { isFurniture } = this.state;
       this.handleChangeUI('isFurniture', !isFurniture);
+    }
+  };
+
+  onKeyDownButtonSerch: Function;
+
+  onKeyDownButtonSerch = e => {
+    if (iskeyDownEnter(e) && this.validate()) {
+      this.onClickSearch();
     }
   };
 
@@ -194,6 +202,7 @@ class SearchConditionContainer extends Component<PropTypes> {
             receiveErrors={error.receiptType}
             onChangeReceive={v => this.handleChangeUI('receiptType', v)}
             onClickSearch={this.onClickSearch}
+            onKeyDownButtonSerch={this.onKeyDownButtonSerch}
             buttonDisabled={!this.validate()}
           />
         }

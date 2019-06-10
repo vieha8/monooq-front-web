@@ -73,6 +73,7 @@ type PropTypes = {
   buttonDisabled: boolean,
   buttonLoading: boolean,
   onClickPay: boolean,
+  onKeyDownPay: Function,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -203,6 +204,7 @@ export default (props: PropTypes) => (
         disabled={props.buttonDisabled}
         loading={props.buttonLoading}
         onClick={props.onClickPay}
+        onKeyDown={props.onKeyDownPay}
       >
         決済する
       </Button>

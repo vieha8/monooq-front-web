@@ -7,6 +7,7 @@ import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import EditSpaceCompletion from 'components/LV3/EditSpace/Completion';
+import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -32,9 +33,57 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
     this.state = { spaceId, isEdit };
   }
 
+  // TODO: イベント処理を共通化したい
+
+  onClickViewSpace: Function;
+
+  onClickViewSpace = () => {
+    const { history } = this.props;
+    const { spaceId } = this.state;
+    history.push(Path.space(spaceId));
+  };
+
+  onKeyDownViewSpace: Function;
+
+  onKeyDownViewSpace = e => {
+    if (iskeyDownEnter(e)) {
+      this.onClickViewSpace();
+    }
+  };
+
+  onClickBackHome: Function;
+
+  onClickBackHome = () => {
+    const { history } = this.props;
+    history.push(Path.home());
+  };
+
+  onKeyDownHome: Function;
+
+  onKeyDownHome = e => {
+    if (iskeyDownEnter(e)) {
+      this.onClickBackHome();
+    }
+  };
+
+  onClickCreateSpace: Function;
+
+  onClickCreateSpace = () => {
+    const { history } = this.props;
+    history.push(Path.createSpaceInfo());
+  };
+
+  onKeyDownCreateSpace: Function;
+
+  onKeyDownCreateSpace = e => {
+    if (iskeyDownEnter(e)) {
+      this.onClickCreateSpace();
+    }
+  };
+
   render() {
-    const { history, user } = this.props;
-    const { spaceId, isEdit } = this.state;
+    const { user } = this.props;
+    const { isEdit } = this.state;
 
     return (
       <MenuPageTemplate
@@ -45,15 +94,12 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
           <EditSpaceCompletion
             edit={isEdit}
             userId={user.ID}
-            onClickViewSpace={() => {
-              history.push(Path.space(spaceId));
-            }}
-            onClickBackHome={() => {
-              history.push(Path.home());
-            }}
-            onClickCreateSpace={() => {
-              history.push(Path.createSpaceInfo());
-            }}
+            onClickBackHome={this.onClickBackHome}
+            onKeyDownHome={this.onKeyDownHome}
+            onClickCreateSpace={this.onClickCreateSpace}
+            onKeyDownCreateSpace={this.onKeyDownCreateSpace}
+            onClickViewSpace={this.onClickViewSpace}
+            onKeyDownViewSpace={this.onKeyDownViewSpace}
           />
         }
         rightContent={<ServiceMenu />}

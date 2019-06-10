@@ -88,9 +88,17 @@ type PropTypes = {
   },
   isMore?: boolean,
   onClickMore?: Function,
+  onKeyDownButtonMore?: Function,
 };
 
-export default ({ isHome, caption, spaces, isMore, onClickMore }: PropTypes) => (
+export default ({
+  isHome,
+  caption,
+  spaces,
+  isMore,
+  onClickMore,
+  onKeyDownButtonMore,
+}: PropTypes) => (
   <Container isHome={isHome}>
     {caption && <CaptionWrap>{caption}</CaptionWrap>}
     <SpacesWrap>
@@ -103,11 +111,12 @@ export default ({ isHome, caption, spaces, isMore, onClickMore }: PropTypes) => 
     {isMore && (
       <MoreButtonWrap>
         <Button
-          onClick={onClickMore}
           height={35}
           heightTab={40}
           padding="6px 10px"
           paddingTab="8.5px 10px"
+          onClick={onClickMore}
+          onKeyDown={onKeyDownButtonMore}
         >
           もっとみる
         </Button>

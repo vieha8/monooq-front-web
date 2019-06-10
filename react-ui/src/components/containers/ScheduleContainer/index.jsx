@@ -11,6 +11,7 @@ import Header from 'components/containers/Header';
 import LoadingPage from 'components/LV3/LoadingPage';
 import ScheduleList from 'components/LV3/ScheduleList';
 import NoDataView from 'components/LV3/NoDataView';
+import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -22,10 +23,26 @@ class ScheduleContainer extends Component {
     dispatch(requestActions.fetchSchedule());
   }
 
+  historyToHome: Function;
+
+  historyToHome = () => {
+    const { history } = this.props;
+    history.push(Path.home());
+  };
+
+  onKeyDownButtonHome: Function;
+
+  onKeyDownButtonHome = e => {
+    if (iskeyDownEnter(e)) {
+      this.historyToHome();
+    }
+  };
+
   getScheduleProps: Function;
+
   getScheduleProps = (schedule: Object, isHost: boolean) => ({
     schedule: {
-      isHost: isHost,
+      isHost,
       user: {
         ID: !isHost ? schedule.Space.Host.ID : schedule.User.ID,
         Name: !isHost ? schedule.Space.Host.Name : schedule.User.Name,
@@ -48,7 +65,7 @@ class ScheduleContainer extends Component {
   });
 
   showLeftContent = () => {
-    const { schedule, history, user } = this.props;
+    const { schedule, user } = this.props;
 
     const schedules = [].concat(
       ((schedule || {}).user || []).map(s => this.getScheduleProps(s, false)),
@@ -68,7 +85,8 @@ class ScheduleContainer extends Component {
             : '利用したスペースがありません。ご希望のスペースを見つけて連絡を取ってみましょう。'
         }
         buttonText="ホームへ戻る"
-        onClick={() => history.push(Path.home())}
+        onClick={this.historyToHome}
+        onKeyDown={this.onKeyDownButtonHome}
       />
     );
   };

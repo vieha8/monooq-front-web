@@ -22,6 +22,7 @@ import type { SpaceType } from 'types/Space';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import { iskeyDownEnter } from 'helpers/keydown';
 
 type PropTypes = {
   dispatch: Function,
@@ -146,9 +147,26 @@ class PaymentContainer extends Component<PropTypes> {
     this.setState({ ...state, error });
   };
 
+  onKeyDownPay: Function;
+
+  onKeyDownPay = e => {
+    if (iskeyDownEnter(e) && this.validate()) {
+      this.payment();
+    }
+  };
+
+  onKeyDownMessage: Function;
+
+  onKeyDownMessage = e => {
+    if (iskeyDownEnter(e)) {
+      this.backToMessage();
+    }
+  };
+
   validate: Function;
+
   validate = () => {
-    const state = this.state;
+    const { state } = this;
     const chkMonth = `${state.year}-${state.month}-01`;
     const nowMonth = `${moment().year()}-${moment().month() + 1}-01`;
     const dtFormat = 'YYYY-MM-DD';
@@ -202,7 +220,11 @@ class PaymentContainer extends Component<PropTypes> {
         header={<Header />}
         left={
           isPaymentSuccess ? (
-            <PaidComplete spaceName={space.Title} onClickToMessage={this.backToMessage} />
+            <PaidComplete
+              spaceName={space.Title}
+              onClickToMessage={this.backToMessage}
+              onKeyDownMessage={this.onKeyDownMessage}
+            />
           ) : (
             <InputPayment
               paidError={isPaymentFailed}
@@ -220,6 +242,7 @@ class PaymentContainer extends Component<PropTypes> {
               buttonDisabled={!this.validate()}
               buttonLoading={isSending}
               onClickPay={this.payment}
+              onKeyDownPay={this.onKeyDownPay}
               errors={error}
             />
           )
