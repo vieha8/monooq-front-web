@@ -10,6 +10,7 @@ import SearchCondition from 'components/LV3/SearchCondition';
 import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { ErrorMessages } from 'variables';
+import { iskeyDownSpace } from 'helpers/keydown';
 import connect from '../connect';
 
 type PropTypes = {
@@ -65,7 +66,7 @@ class SearchConditionContainer extends Component<PropTypes> {
   }
 
   onKeyDownFurniture = e => {
-    if (e && e.keyCode === 32) {
+    if (iskeyDownSpace(e)) {
       const { isFurniture } = this.state;
       this.handleChangeUI('isFurniture', !isFurniture);
     }

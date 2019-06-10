@@ -3,11 +3,11 @@
 import React, { Component, Fragment } from 'react';
 import { authActions } from 'redux/modules/auth';
 import RegisterEmail from 'components/LV3/RegisterEmail';
-import { ErrorMessages } from 'variables';
 import Path from 'config/path';
 import styled from 'styled-components';
-import { Colors, Dimens, FontSizes } from 'variables';
+import { Colors, Dimens, FontSizes, ErrorMessages } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { iskeyDownEnter } from 'helpers/keydown';
 
 const ErrMessage = styled.div`
   width: 100%;
@@ -121,7 +121,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   };
 
   onKeyDownPassword = e => {
-    if (e && e.keyCode === 13 && this.validate()) {
+    if (iskeyDownEnter(e) && this.validate()) {
       this.onClickNext();
     }
   };
