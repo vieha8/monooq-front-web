@@ -259,6 +259,13 @@ function* checkLoginFirebaseAuth() {
         status.user.Token = token;
         localStorage.setItem('status', JSON.stringify(status));
       }
+      if (status.user.ID === 0) {
+        yield put(authActions.checkLoginFailed({ error: 'Undefined userId.' }));
+        yield put(authActions.logout());
+        window.location.reload();
+        return;
+      }
+
       yield put(authActions.setToken(token));
       yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID }, token);
       ReactGA.set({ userId: status.user.ID });
@@ -286,7 +293,7 @@ function* checkLoginFirebaseAuth() {
         {},
         token,
       );
-      if (err) {
+      if (err || data.ID === 0) {
         yield put(authActions.checkLoginFailed({ error: err }));
         yield put(authActions.logout());
         window.location.reload();
