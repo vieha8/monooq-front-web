@@ -2,13 +2,12 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, take, select } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import { push, replace } from 'connected-react-router';
+import { push } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import { ErrorMessages } from 'variables';
 import { uiActions } from './ui';
 import { handleError } from './error';
-import { store } from '../store/index';
 import { getApiRequest, postApiRequest, deleteApiRequest, apiEndpoint } from '../helpers/api';
 import Path from '../../config/path';
 import { isAvailableLocalStorage } from '../../helpers/storage';
@@ -260,6 +259,13 @@ function* checkLoginFirebaseAuth() {
         status.user.Token = token;
         localStorage.setItem('status', JSON.stringify(status));
       }
+      if (status.user.ID === 0) {
+        yield put(authActions.checkLoginFailed({ error: 'Undefined userId.' }));
+        yield put(authActions.logout());
+        window.location.reload();
+        return;
+      }
+
       yield put(authActions.setToken(token));
       yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID }, token);
       ReactGA.set({ userId: status.user.ID });
@@ -287,7 +293,7 @@ function* checkLoginFirebaseAuth() {
         {},
         token,
       );
-      if (err) {
+      if (err || data.ID === 0) {
         yield put(authActions.checkLoginFailed({ error: err }));
         yield put(authActions.logout());
         window.location.reload();
@@ -339,7 +345,7 @@ function* loginFacebook() {
 }
 
 function* logout() {
-  store.dispatch(replace(Path.top()));
+  yield put(push(Path.top()));
   if (isAvailableLocalStorage()) {
     localStorage.removeItem('status');
     localStorage.removeItem('token');
@@ -380,7 +386,7 @@ function* signUpEmail({ payload: { email, password } }) {
 
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
-    store.dispatch(push(Path.signUpProfile()));
+    yield put(push(Path.signUpProfile()));
   } catch (err) {
     let errMessage = '';
     let isOnlyAction = false;
@@ -436,7 +442,7 @@ function* signUpFacebook() {
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
     yield put(uiActions.setUiState({ signup: { name: displayName } }));
-    store.dispatch(push(Path.signUpProfile()));
+    yield put(push(Path.signUpProfile()));
   } catch (err) {
     let errMessage = '';
     let isOnlyAction = false;

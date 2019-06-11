@@ -11,6 +11,7 @@ import Header from 'components/containers/Header';
 import Loading from 'components/LV1/Loading';
 import InboxList from 'components/LV3/InboxList';
 import NoDataView from 'components/LV3/NoDataView';
+import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -37,12 +38,23 @@ class InboxContainer extends Component<PropTypes> {
     dispatch(messagesActions.fetchRoomsStart());
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
+  historyToHome: Function;
+
+  historyToHome = () => {
+    const { history } = this.props;
+    history.push(Path.home());
+  };
+
+  onKeyDownButtonHome: Function;
+
+  onKeyDownButtonHome = e => {
+    if (iskeyDownEnter(e)) {
+      this.historyToHome();
+    }
+  };
 
   leftContent = () => {
-    const { isLoading, rooms, history } = this.props;
+    const { isLoading, rooms } = this.props;
 
     if (isLoading) {
       return <Loading size="large" />;
@@ -66,7 +78,8 @@ class InboxContainer extends Component<PropTypes> {
         captionHead="メッセージのやり取りがありません"
         caption="メッセージがありません。ご希望のスペースを見つけて連絡を取ってみましょう。"
         buttonText="ホームへ戻る"
-        onClick={() => history.push(Path.home())}
+        onClick={this.historyToHome}
+        onKeyDown={this.onKeyDownButtonHome}
       />
     );
   };

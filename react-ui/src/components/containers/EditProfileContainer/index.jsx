@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
 
 import { userActions } from 'redux/modules/user';
 
@@ -12,6 +13,7 @@ import Header from 'components/containers/Header';
 import EditProfile from 'components/LV3/EditProfile';
 import EditProfileCompleted from 'components/LV3/EditProfile/Completed';
 import { ErrorMessages } from 'variables';
+import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 
 type PropTypes = {
   dispatch: Function,
@@ -54,22 +56,7 @@ class EditProfileContainer extends Component<PropTypes> {
     };
   }
 
-  onKeyDownNoticeEmail = e => {
-    if (e && e.keyCode === 32) {
-      const { isNoticeEmail } = this.state;
-      this.handleChangeUI('isNoticeEmail', !isNoticeEmail);
-    }
-  };
-
-  handleBeforeUnload(e) {
-    e.preventDefault();
-    e.returnValue = 'データが保存されませんが、よろしいですか?';
-  }
-
   componentDidMount() {
-    window.scrollTo(0, 0);
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-
     const { name, email, phoneNumber, prefCode, profile, purpose } = this.state;
     this.handleChangeUI('name', name);
     this.handleChangeUI('email', email);
@@ -79,9 +66,18 @@ class EditProfileContainer extends Component<PropTypes> {
     this.handleChangeUI('purpose', purpose);
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
-  }
+  onKeyDownNoticeEmail = e => {
+    if (iskeyDownSpace(e)) {
+      const { isNoticeEmail } = this.state;
+      this.handleChangeUI('isNoticeEmail', !isNoticeEmail);
+    }
+  };
+
+  onKeyDownButtonUpdate = e => {
+    if (iskeyDownEnter(e) && this.validate()) {
+      this.onClickUpdate();
+    }
+  };
 
   onClickUpdate: Function;
 
@@ -241,6 +237,7 @@ class EditProfileContainer extends Component<PropTypes> {
               buttonDisabled={!this.validate()}
               buttonLoading={isLoading}
               onClickUpdate={this.onClickUpdate}
+              onKeyDownButtonUpdate={this.onKeyDownButtonUpdate}
             />
           )
         }
@@ -258,4 +255,4 @@ const mapStateToProps = state => ({
   redirectPath: state.ui.redirectPath,
 });
 
-export default authRequired(connect(mapStateToProps)(EditProfileContainer));
+export default authRequired(handleBeforeUnload(connect(mapStateToProps)(EditProfileContainer)));

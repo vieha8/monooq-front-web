@@ -3,7 +3,6 @@ import { put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import axios from 'axios';
 import dummySpaceImage from 'images/dummy_space.png';
-import { store } from 'redux/store/index';
 import { authActions, getToken } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
 import {
@@ -18,6 +17,7 @@ import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
 import { getPrefecture } from 'helpers/prefectures';
 import { keenClient } from 'helpers/keen';
+import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
 import { captureException } from '@sentry/browser';
 import { handleError } from './error';
@@ -195,7 +195,7 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
 
   if (err) {
     if (status === 404) {
-      store.dispatch(push(Path.notFound()));
+      yield put(push(Path.notFound()));
     } else {
       yield handleError(spaceActions.fetchFailedSpace, '', 'getSpace', err, false);
     }
@@ -392,7 +392,7 @@ function* prepareUpdateSpace({ payload: spaceId }) {
 
   if (err) {
     if (status === 404) {
-      store.dispatch(push(Path.notFound()));
+      yield put(push(Path.notFound()));
     } else {
       yield handleError(spaceActions.fetchFailedSpace, '', 'prepareUpdateSpace', err, false);
     }
@@ -421,6 +421,10 @@ function* prepareUpdateSpace({ payload: spaceId }) {
     );
     return;
   }
+
+  space.PriceFull = formatAddComma(space.PriceFull);
+  space.PriceHalf = formatAddComma(space.PriceHalf);
+  space.PriceQuarter = formatAddComma(space.PriceQuarter);
 
   yield put(uiActions.setUiState({ space }));
 }

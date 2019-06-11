@@ -43,10 +43,6 @@ class HomePrefectureContainer extends Component<PropTypes> {
     dispatch(homeActions.fetchSections({ prefectureId }));
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   showSections = () => {
     // TODO component化してHomeContainerと一緒にする
     const { sections } = this.props;
@@ -56,6 +52,7 @@ class HomePrefectureContainer extends Component<PropTypes> {
 
       if (displayType === 'prefecture') {
         const onClickMore = () => {};
+        const onKeyDownButtonMore = () => {};
 
         return (
           <SearchResult
@@ -80,6 +77,7 @@ class HomePrefectureContainer extends Component<PropTypes> {
             }))}
             isMore={false}
             onClickMore={onClickMore}
+            onKeyDownButtonMore={onKeyDownButtonMore}
           />
         );
       }

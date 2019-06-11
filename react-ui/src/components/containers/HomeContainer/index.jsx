@@ -15,6 +15,7 @@ import ConciergeContents from 'components/LV2/ConciergeIntroduction';
 import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
+import { iskeyDownEnter } from 'helpers/keydown';
 import LoadingPage from 'components/LV3/LoadingPage';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -56,10 +57,6 @@ class HomeContainer extends Component<PropTypes> {
     props.dispatch(homeActions.fetchSections());
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   showSections = () => {
     const { sections, history } = this.props;
 
@@ -95,10 +92,16 @@ class HomeContainer extends Component<PropTypes> {
         const showContents = contents.slice(0, 6);
 
         let onClickMore = () => {};
+        let onKeyDownButtonMore = () => {};
         if (isMore) {
           if (displayType === 'region' && regionId !== 0) {
             onClickMore = () => {
               history.push(Path.homeRegion(regionId));
+            };
+            onKeyDownButtonMore = e => {
+              if (iskeyDownEnter(e)) {
+                onClickMore();
+              }
             };
           }
         }
@@ -127,6 +130,7 @@ class HomeContainer extends Component<PropTypes> {
               }))}
               isMore={isMore}
               onClickMore={onClickMore}
+              onKeyDownButtonMore={onKeyDownButtonMore}
             />
           </HomeContentWrap>
         );

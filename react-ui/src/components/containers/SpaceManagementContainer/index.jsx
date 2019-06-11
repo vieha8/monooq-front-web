@@ -36,10 +36,6 @@ class SpaceManagementContainer extends Component<PropTypes> {
     dispatch(userActions.fetchUserSpaces());
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   onClickEdit: Function;
   onClickEdit = space => {
     const { dispatch, history } = this.props;

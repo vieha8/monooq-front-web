@@ -35,19 +35,27 @@ const CaptionWrap = styled.div`
   `};
 `;
 
-export default (props: PropTypes) => (
+type PropTypes = {
+  captionHead: string,
+  caption: string,
+  buttonText: string,
+  onClick: Function,
+  onKeyDown: Function,
+};
+
+export default ({ captionHead, caption, buttonText, onClick, onKeyDown }: PropTypes) => (
   <Fragment>
     <CaptionWrap>
       <InlineText.Base fontSize={18} bold>
-        {props.captionHead}
+        {captionHead}
       </InlineText.Base>
     </CaptionWrap>
     <CaptionWrap sub>
-      <InlineText.Base>{props.caption}</InlineText.Base>
+      <InlineText.Base>{caption}</InlineText.Base>
     </CaptionWrap>
     <ButtonWrap>
-      <Button primary fontbold center fill={1} onClick={props.onClick}>
-        {props.buttonText}
+      <Button primary fontbold center fill={1} onClick={onClick} onKeyDown={onKeyDown}>
+        {buttonText}
       </Button>
     </ButtonWrap>
     <ConciergeContents />

@@ -42,6 +42,8 @@ type PropTypes = {
   OnClickRemove: Function,
   changeOrientation: Function,
   isImageUploading: boolean,
+  onKeyDownButtonNext: Function,
+  buttonNextDisabled?: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -139,6 +141,8 @@ export default (props: PropTypes) => (
           enabledButton={{
             text: '次へ',
             onClick: props.onClickNext,
+            onKeyDown: props.onKeyDownButtonNext,
+            disabled: props.buttonNextDisabled,
           }}
         />
       ) : (
@@ -148,7 +152,8 @@ export default (props: PropTypes) => (
             fontbold
             fill={1}
             onClick={props.onClickNext}
-            disabled={props.onClickNextDsabled}
+            onKeyDown={props.onKeyDownButtonNext}
+            disabled={props.buttonNextDisabled}
           >
             次へ
           </Button>

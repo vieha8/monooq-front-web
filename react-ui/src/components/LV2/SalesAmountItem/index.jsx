@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { formatAddComma } from 'helpers/string';
 
 const InputFieldWrapper = styled.div`
   display: inline-block;
@@ -47,7 +48,7 @@ export default ({ title, bold, amount, colorPrimary }: PropTypes) => (
   <InputFieldWrapper>
     <SalesTitleWrapper>{title}</SalesTitleWrapper>
     <SalesAmountItemWrapper bold={bold} colorPrimary={colorPrimary}>
-      {String(amount).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,')}円
+      {formatAddComma(amount)}円
     </SalesAmountItemWrapper>
   </InputFieldWrapper>
 );

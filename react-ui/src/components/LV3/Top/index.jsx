@@ -249,7 +249,7 @@ export default props => (
           </PickGoFragment>
         }
         serviceName="PickGo"
-        serviceUrl="https://pickgo.town/"
+        serviceUrl="https://pickgo.town/personal/"
         serviceImage={<PickGoMedia src={logoPickGo} />}
         description={
           <PickGoDescription>

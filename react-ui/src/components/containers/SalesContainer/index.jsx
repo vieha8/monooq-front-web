@@ -22,6 +22,7 @@ import InlineText from 'components/LV1/InlineText';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 import { selectDepositType } from 'helpers/depositTypes';
+import { iskeyDownEnter } from 'helpers/keydown';
 
 const InputText = styled.div`
   margin-top: ${Dimens.medium2}px;
@@ -142,9 +143,27 @@ class SalesContainer extends Component {
     };
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
+  historyToSpaceInfo = () => {
+    const { history } = this.props;
+    history.push(Path.createSpaceInfo());
+  };
+
+  onKeyDownButtonSpaceInfo = e => {
+    if (iskeyDownEnter(e)) {
+      this.historyToSpaceInfo();
+    }
+  };
+
+  historyToHome = () => {
+    const { history } = this.props;
+    history.push(Path.home());
+  };
+
+  onKeyDownButtonHome = e => {
+    if (iskeyDownEnter(e)) {
+      this.historyToHome();
+    }
+  };
 
   handleChangeInput = (name, value) => {
     const { state } = this;
@@ -157,9 +176,21 @@ class SalesContainer extends Component {
     this.setState({ isConfirm: true });
   };
 
+  onKeyDownButtonConfirm = e => {
+    if (iskeyDownEnter(e)) {
+      this.confirmButton();
+    }
+  };
+
   backButton = () => {
     window.scrollTo(0, 0);
     this.setState({ isConfirm: false });
+  };
+
+  onKeyDownButtonBack = e => {
+    if (iskeyDownEnter(e)) {
+      this.backButton();
+    }
   };
 
   submitButton = () => {
@@ -176,6 +207,12 @@ class SalesContainer extends Component {
       }),
     );
     window.scrollTo(0, 0);
+  };
+
+  onKeyDownButtonSubmit = e => {
+    if (iskeyDownEnter(e)) {
+      this.submitButton();
+    }
   };
 
   validate = () => {
@@ -228,7 +265,8 @@ class SalesContainer extends Component {
               primary
               fontbold
               center
-              onClick={() => history.push(Path.createSpaceInfo())}
+              onClick={this.historyToSpaceInfo}
+              onKeyDown={this.onKeyDownButtonSpaceInfo}
             >
               スペースを登録する
             </Button>
@@ -287,6 +325,7 @@ class SalesContainer extends Component {
             primary
             fontbold
             onClick={this.confirmButton}
+            onKeyDown={this.onKeyDownButtonConfirm}
             disabled={!this.validate()}
           >
             確認画面へ
@@ -345,10 +384,12 @@ class SalesContainer extends Component {
           backButton={{
             text: '戻る',
             onClick: this.backButton,
+            onKeyDown: this.onKeyDownButtonBack,
           }}
           enabledButton={{
             text: '申請する',
             onClick: this.submitButton,
+            onKeyDown: this.onKeyDownButtonSubmit,
           }}
         />
       </Fragment>
@@ -356,8 +397,6 @@ class SalesContainer extends Component {
   };
 
   leftContentComplete = () => {
-    const { history } = this.props;
-
     return (
       <Fragment>
         <MsgWrap>
@@ -366,7 +405,13 @@ class SalesContainer extends Component {
           振込完了はメールにてお知らせいたします。しばらくお待ちください。
         </MsgWrap>
         <ButtonWrap>
-          <Button primary fontbold center onClick={() => history.push(Path.home())}>
+          <Button
+            primary
+            fontbold
+            center
+            onClick={this.historyToHome}
+            onKeyDown={this.onKeyDownButtonHome}
+          >
             ホームへ戻る
           </Button>
         </ButtonWrap>

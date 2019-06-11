@@ -10,10 +10,6 @@ import Header from 'components/containers/Header';
 import connect from '../connect';
 
 class InquiryContainer extends Component<*> {
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   render() {
     const { isLogin } = this.props;
     return (

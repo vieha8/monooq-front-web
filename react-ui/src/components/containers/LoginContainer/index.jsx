@@ -8,6 +8,7 @@ import { authActions } from 'redux/modules/auth';
 import AccountTemplate from 'components/templates/AccountTemplate';
 import Login from 'components/LV3/Login';
 import Header from 'components/containers/Header';
+import { iskeyDownEnter } from 'helpers/keydown';
 
 import Path from 'config/path';
 
@@ -43,10 +44,6 @@ class LoginContainer extends Component {
   }
 
   state: State;
-
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
 
   props: PropTypes;
 
@@ -85,7 +82,7 @@ class LoginContainer extends Component {
   };
 
   onKeyDownPassword = e => {
-    if (e && e.keyCode === 13 && this.validate()) {
+    if (iskeyDownEnter(e) && this.validate()) {
       this.loginEmail();
     }
   };

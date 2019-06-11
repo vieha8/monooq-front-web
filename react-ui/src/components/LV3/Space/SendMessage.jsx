@@ -19,13 +19,19 @@ const SendMessageWrap = styled.div`
 `;
 
 type PropTypes = {
-  onClick: Function,
-  loading: boolean,
   disabled: boolean,
+  loading: boolean,
+  onClick: Function,
+  onKeyDownButtonMessage: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({ disabled, loading, onClick, onKeyDownButtonMessage }: PropTypes) => (
   <SendMessageWrap>
-    <SendMessage onClick={props.onClick} loading={props.loading} disabled={props.disabled} />
+    <SendMessage
+      disabled={disabled}
+      loading={loading}
+      onClick={onClick}
+      onKeyDownButtonMessage={onKeyDownButtonMessage}
+    />
   </SendMessageWrap>
 );

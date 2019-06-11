@@ -39,8 +39,10 @@ type PropTypes = {
   onChangePriceFull: Function,
   onClickBack: Function,
   onClickNext: Function,
+  onKeyDownButtonBack: Function,
+  onKeyDownButtonNext: Function,
   buttonLoading: boolean,
-  buttonDisabled: boolean,
+  buttonNextDisabled?: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -76,7 +78,7 @@ export default (props: PropTypes) => (
         image={imageFurnitureFull}
         title="全てのスペースの月額料金"
         caption="このスペースすべてを使用する場合"
-        placeholder="30000"
+        placeholder="30,000"
         price={props.priceFull}
         onChange={props.onChangePriceFull}
         error={displayErrors('price_errors_1', props.priceFullErrors)}
@@ -85,7 +87,7 @@ export default (props: PropTypes) => (
         image={imageFurnitureHalf}
         title="半分のスペースの月額料金"
         caption="このスペースの半分を使用する場合"
-        placeholder="16000"
+        placeholder="16,000"
         price={props.priceHalf}
         onChange={props.onChangePriceHalf}
         error={displayErrors('price_errors_2', props.priceHalfErrors)}
@@ -94,7 +96,7 @@ export default (props: PropTypes) => (
         image={imageFurnitureQuarter}
         title="1/4程度のスペースの月額料金"
         caption="このスペースの1/4程度を使用する場合"
-        placeholder="9000"
+        placeholder="9,000"
         price={props.priceQuarter}
         onChange={props.onChangePriceQuarter}
         error={displayErrors('price_errors_3', props.priceQuarterErrors)}
@@ -116,11 +118,13 @@ export default (props: PropTypes) => (
         backButton={{
           text: '戻る',
           onClick: props.onClickBack,
+          onKeyDown: props.onKeyDownButtonBack,
         }}
         enabledButton={{
           text: `確認画面へ`,
-          disabled: props.buttonDisabled,
           onClick: props.onClickNext,
+          onKeyDown: props.onKeyDownButtonNext,
+          disabled: props.buttonNextDisabled,
         }}
       />
     </Section>

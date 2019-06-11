@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import Path from 'config/path';
+import { Redirect } from 'react-router-dom';
+import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
 
 import { uiActions } from 'redux/modules/ui';
 
@@ -14,6 +16,7 @@ import { ErrorMessages } from 'variables';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 import { spaceActions } from '../../../redux/modules/space';
 
 type PropTypes = {
@@ -26,42 +29,52 @@ type PropTypes = {
   },
 };
 
+const Validate = {
+  About: {
+    Max: 5000,
+  },
+};
+
 class EditSpaceBaggageContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
 
     const { space, dispatch } = this.props;
 
-    const spaceId = props.match.params.space_id;
-    if (spaceId) {
-      dispatch(spaceActions.prepareUpdateSpace(spaceId));
-    }
-
     this.state = {
       About: space.About || '',
       IsFurniture: space.IsFurniture || false,
       error: {},
+      isUpdate: false,
     };
-  }
 
-  handleBeforeUnload(e) {
-    e.preventDefault();
-    e.returnValue = 'データが保存されませんが、よろしいですか?';
-  }
-
-  componentDidMount() {
-    window.scrollTo(0, 0);
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    const spaceId = props.match.params.space_id;
+    if (spaceId) {
+      dispatch(spaceActions.prepareUpdateSpace(spaceId));
+      this.state.isUpdate = true;
+    }
   }
 
   onKeyDownFurniture = e => {
-    if (e && e.keyCode === 32) {
+    if (iskeyDownSpace(e)) {
       const { IsFurniture } = this.state;
       this.handleChangeUI('IsFurniture', !IsFurniture);
+    }
+  };
+
+  onKeyDownButtonNext: Function;
+
+  onKeyDownButtonNext = e => {
+    if (iskeyDownEnter(e) && this.validate()) {
+      this.onClickNext();
+    }
+  };
+
+  onKeyDownButtonBack: Function;
+
+  onKeyDownButtonBack = e => {
+    if (iskeyDownEnter(e)) {
+      this.onClickBack();
     }
   };
 
@@ -75,28 +88,26 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
   }
 
   onClickNext: Function;
+
   onClickNext = () => {
-    this.validate(() => {
-      if ((this.state.error.about || []).length === 0) {
-        const { dispatch, history, space } = this.props;
-        const { About, IsFurniture } = this.state;
+    const { dispatch, history, space } = this.props;
+    const { About, IsFurniture } = this.state;
 
-        dispatch(
-          uiActions.setUiState({
-            space: Object.assign(space, {
-              About,
-              IsFurniture,
-            }),
-          }),
-        );
+    dispatch(
+      uiActions.setUiState({
+        space: Object.assign(space, {
+          About,
+          IsFurniture,
+        }),
+      }),
+    );
 
-        const nextPath = space.ID ? Path.editSpaceReceive(space.ID) : Path.createSpaceReceive();
-        history.push(nextPath);
-      }
-    });
+    const nextPath = space.ID ? Path.editSpaceReceive(space.ID) : Path.createSpaceReceive();
+    history.push(nextPath);
   };
 
   onClickBack: Function;
+
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
     const { About, IsFurniture } = this.state;
@@ -115,10 +126,23 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
   };
 
   handleChangeUI: Function;
+
   handleChangeUI = (propName: string, value: any) => {
-    const state = this.state;
-    const error = state.error;
+    const { state } = this;
+    const { error } = state;
     const errors = [];
+
+    switch (propName) {
+      case 'About':
+        if (value === undefined ? true : value.trim().length === 0) {
+          errors.push(ErrorMessages.PleaseInput);
+        } else if (value.length > Validate.About.Max) {
+          errors.push(ErrorMessages.LengthMax('説明', Validate.About.Max));
+        }
+        break;
+      default:
+        break;
+    }
 
     state[propName] = value;
     error[propName] = errors;
@@ -126,23 +150,26 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
   };
 
   validate: Function;
-  validate = (valid: Function) => {
-    const { About, error } = this.state;
 
-    const aboutErrors = [];
-    if (About.length === 0) {
-      aboutErrors.push(ErrorMessages.PleaseInput);
-    }
-    if (aboutErrors.length > 5000) {
-      aboutErrors.push(ErrorMessages.LengthMax('説明', 5000));
-    }
-    error.about = aboutErrors;
-
-    this.setState({ error }, valid);
+  validate = () => {
+    const { About } = this.state;
+    return (
+      About &&
+      (About === undefined ? false : About.trim().length > 0) &&
+      About.trim().length <= Validate.About.Max
+    );
   };
 
   render() {
-    const { About, IsFurniture, error } = this.state;
+    const { space } = this.props;
+    const { About, IsFurniture, error, isUpdate } = this.state;
+
+    if (!isUpdate) {
+      if (Object.keys(space).length === 0) {
+        // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
+        return <Redirect to={Path.createSpaceInfo()} />;
+      }
+    }
 
     return (
       <MenuPageTemplate
@@ -152,13 +179,16 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
         leftContent={
           <EditSpaceBaggage
             baggage={About}
-            baggageErrors={error.about}
+            baggageErrors={error.About}
             onChangeBaggage={v => this.handleChangeUI('About', v)}
             checkedFurniture={IsFurniture}
             onClickFurniture={() => this.handleChangeUI('IsFurniture', !IsFurniture)}
             onKeyDownFurniture={this.onKeyDownFurniture}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
+            onKeyDownButtonBack={this.onKeyDownButtonBack}
+            onKeyDownButtonNext={this.onKeyDownButtonNext}
+            buttonNextDisabled={!this.validate()}
           />
         }
         rightContent={<ServiceMenu />}
@@ -171,4 +201,6 @@ const mapStateToProps = state => ({
   space: state.ui.space || {},
 });
 
-export default authRequired(connect(mapStateToProps)(EditSpaceBaggageContainer));
+export default authRequired(
+  handleBeforeUnload(connect(mapStateToProps)(EditSpaceBaggageContainer)),
+);

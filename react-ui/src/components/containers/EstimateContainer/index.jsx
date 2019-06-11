@@ -12,9 +12,13 @@ import InputEstimate from 'components/LV3/InputEstimate';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import { iskeyDownEnter } from 'helpers/keydown';
+import { formatAddComma, formatRemoveComma } from 'helpers/string';
 
 const Validate = {
   Price: {
+    Num: /^[0-9]+$/,
+    Max: 300000,
     Min: 3000,
   },
 };
@@ -30,16 +34,16 @@ type PropTypes = {
 class EstimateContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {
-    window.scrollTo(0, 0);
+    this.state = {
+      price: '',
+      error: {},
+    };
   }
 
   onDateChange: Function;
+
   onDateChange = (name, date) => {
-    const state = this.state;
+    const { state } = this;
     state[name] = date;
     this.setState({
       ...state,
@@ -48,31 +52,44 @@ class EstimateContainer extends Component<PropTypes> {
   };
 
   onFocusChangeDatePicker: Function;
+
   onFocusChangeDatePicker = (name, focus) => {
-    const state = this.state;
+    const { state } = this;
     state[name] = focus;
     this.setState(state);
   };
 
   handleChangePrice: Function;
-  handleChangePrice = (value: string) => {
+
+  handleChangePrice = (propName: string, value: any) => {
+    const { state } = this;
+    const { error } = state;
     const errors = [];
-    if (value.length === 0) {
+    let returnValue = formatRemoveComma(value);
+
+    if (returnValue.length === 0) {
       errors.push(ErrorMessages.PleaseInput);
-    }
-    if (isNaN(value) || parseInt(value, 10) < Validate.Price.Min) {
-      errors.push(ErrorMessages.EstimateMin(Validate.Price.Min));
+    } else {
+      if (!Number(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
+        errors.push(ErrorMessages.PriceNumber);
+      } else {
+        if (returnValue < Validate.Price.Min) {
+          errors.push(ErrorMessages.EstimateMin(Validate.Price.Min));
+        }
+        if (returnValue > Validate.Price.Max) {
+          errors.push(ErrorMessages.EstimateMax(Validate.Price.Max));
+        }
+        returnValue = formatAddComma(returnValue);
+      }
     }
 
-    const state = this.state;
-    state.price = value;
-    this.setState({
-      ...state,
-      errors,
-    });
+    state[propName] = returnValue;
+    error[propName] = errors;
+    this.setState({ ...state, error });
   };
 
   sendRequest: Function;
+
   sendRequest = () => {
     const { user, match } = this.props;
     const userId = user.ID;
@@ -84,28 +101,39 @@ class EstimateContainer extends Component<PropTypes> {
         roomId,
         startDate: begin.toDate(),
         endDate: end.toDate(),
-        price,
+        price: formatRemoveComma(price),
       }),
     );
   };
 
+  onKeyDownSend: Function;
+
+  onKeyDownSend = e => {
+    if (iskeyDownEnter(e) && this.validate()) {
+      this.sendRequest();
+    }
+  };
+
   validate: Function;
+
   validate = () => {
     const { begin, end, price } = this.state;
+
+    const checkPrice = formatRemoveComma(price);
 
     return (
       begin &&
       end &&
       begin.diff(end, 'hours') < 24 &&
-      price !== '' &&
-      !isNaN(price) &&
-      price >= Validate.Price.Min
+      checkPrice &&
+      checkPrice >= Validate.Price.Min &&
+      checkPrice <= Validate.Price.Max
     );
   };
 
   render() {
     const { isSending } = this.props;
-    const { begin, end, errors, price, beginFocus, endFocus } = this.state;
+    const { begin, end, error, price, beginFocus, endFocus } = this.state;
 
     return (
       <MenuPageTemplate
@@ -124,13 +152,14 @@ class EstimateContainer extends Component<PropTypes> {
               onDateChangeEnd: date => this.onDateChange('end', date),
             }}
             price={{
-              errors,
-              onChange: value => this.handleChangePrice(value),
+              errors: error.price,
+              onChange: value => this.handleChangePrice('price', value),
               value: price,
             }}
             buttonDisabled={!this.validate()}
             buttonLoading={isSending}
             onClickSend={this.sendRequest}
+            onKeyDownSend={this.onKeyDownSend}
           />
         }
         rightContent={<ServiceMenu />}

@@ -16,6 +16,7 @@ import LoadingPage from 'components/LV3/LoadingPage';
 import Meta from 'components/LV1/Meta';
 import type { SpaceType } from 'types/Space';
 import dummySpaceImage from 'images/dummy_space.png';
+import { iskeyDownEnter } from 'helpers/keydown';
 
 import connect from '../connect';
 
@@ -62,10 +63,6 @@ class SpaceContainer extends Component<PropTypes> {
     };
   }
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch(spaceActions.clearSpace());
@@ -94,6 +91,7 @@ class SpaceContainer extends Component<PropTypes> {
   }
 
   onClickSendMessage: Function;
+
   onClickSendMessage = async () => {
     const { dispatch, location, user, space, history } = this.props;
     // 未ログインの場合はログイン画面へ
@@ -103,6 +101,14 @@ class SpaceContainer extends Component<PropTypes> {
       return;
     }
     dispatch(requestActions.request({ user, space }));
+  };
+
+  onKeyDownButtonMessage: Function;
+
+  onKeyDownButtonMessage = e => {
+    if (iskeyDownEnter(e)) {
+      this.onClickSendMessage();
+    }
   };
 
   showLeftContent = () => {
@@ -145,8 +151,9 @@ class SpaceContainer extends Component<PropTypes> {
         />
         <SendMessage
           disabled={isSelfSpace}
-          onClick={isSelfSpace ? null : this.onClickSendMessage}
           loading={isRequesting}
+          onClick={isSelfSpace ? null : this.onClickSendMessage}
+          onKeyDownButtonMessage={isSelfSpace ? null : this.onKeyDownButtonMessage}
         />
       </Fragment>
     );

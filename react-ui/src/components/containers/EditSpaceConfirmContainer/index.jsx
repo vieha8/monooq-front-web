@@ -4,6 +4,7 @@ import React, { Component, Fragment } from 'react';
 import numeral from 'numeral';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
+import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
 
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
@@ -19,7 +20,9 @@ import { media } from 'helpers/style/media-query';
 import dummySpaceImage from 'images/dummy_space.png';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import { iskeyDownEnter } from 'helpers/keydown';
 import { spaceActions } from '../../../redux/modules/space';
+import { formatRemoveComma } from '../../../helpers/string';
 
 type PropTypes = {
   dispatch: Function,
@@ -101,19 +104,21 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     }
   }
 
-  handleBeforeUnload(e) {
-    e.preventDefault();
-    e.returnValue = 'データが保存されませんが、よろしいですか?';
-  }
+  onKeyDownButtonNext: Function;
 
-  componentDidMount() {
-    window.scrollTo(0, 0);
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-  }
+  onKeyDownButtonNext = e => {
+    if (iskeyDownEnter(e)) {
+      this.onClickNext();
+    }
+  };
 
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
-  }
+  onKeyDownButtonBack: Function;
+
+  onKeyDownButtonBack = e => {
+    if (iskeyDownEnter(e)) {
+      this.onClickBack();
+    }
+  };
 
   onClickNext: Function;
 
@@ -202,8 +207,13 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
                 profile: user.Profile,
               }}
               pricefull={numeral(space.PriceFull).format('0,0')}
-              pricehalf={space.PriceHalf > 0 && numeral(space.PriceHalf).format('0,0')}
-              pricequarter={space.PriceQuarter > 0 && numeral(space.PriceQuarter).format('0,0')}
+              pricehalf={
+                formatRemoveComma(space.PriceHalf) > 0 && numeral(space.PriceHalf).format('0,0')
+              }
+              pricequarter={
+                formatRemoveComma(space.PriceQuarter) > 0 &&
+                numeral(space.PriceQuarter).format('0,0')
+              }
             />
             <EntryButtonWrap>
               <EntryButtons
@@ -213,10 +223,12 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
                 backButton={{
                   text: '戻って修正する',
                   onClick: this.onClickBack,
+                  onKeyDown: this.onKeyDownButtonBack,
                 }}
                 enabledButton={{
                   text: `登録する`,
                   onClick: this.onClickNext,
+                  onKeyDown: this.onKeyDownButtonNext,
                 }}
               />
             </EntryButtonWrap>
@@ -241,4 +253,6 @@ const mapStateToProps = state => ({
   geocode: state.space.geocode,
 });
 
-export default authRequired(connect(mapStateToProps)(EditSpaceConfirmContainer));
+export default authRequired(
+  handleBeforeUnload(connect(mapStateToProps)(EditSpaceConfirmContainer)),
+);

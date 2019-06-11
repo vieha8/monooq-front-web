@@ -34,13 +34,14 @@ type PropTypes = {
     onFocusChangeEnd: Function,
   },
   price: {
-    error: string,
+    errors: Array<string>,
     onChange: Function,
     value: string,
   },
   buttonLoading: boolean,
   buttonDisabled: boolean,
   onClickSend: Function,
+  onKeyDownSend: Function,
 };
 
 export default (props: PropTypes) => (
@@ -62,6 +63,7 @@ export default (props: PropTypes) => (
           loading={props.buttonLoading}
           disabled={props.buttonDisabled}
           onClick={props.buttonLoading ? null : props.onClickSend}
+          onKeyDown={props.onKeyDownSend}
         >
           この見積もりを送る
         </Button>

@@ -7,10 +7,6 @@ import RegisterEmail from './RegisterEmail';
 import connect from '../connect';
 
 class SignUpContainer extends Component {
-  componentDidMount() {
-    window.scrollTo(0, 0);
-  }
-
   render() {
     const { isSignupFailed } = this.props;
     return (

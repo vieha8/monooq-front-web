@@ -11,10 +11,15 @@ const Section = styled.div`
 `;
 
 type PropTypes = {
+  story?: boolean,
   edit?: boolean,
   userId: number,
+  onClickCreateSpace: Function,
+  onKeyDownCreateSpace: Function,
+  onClickBackHome: Function,
+  onKeyDownHome: Function,
   onClickViewSpace: Function,
-  story?: boolean,
+  onKeyDownViewSpace: Function,
 };
 
 export default class SpaceCreatedCompletion extends Component<PropTypes> {
@@ -36,45 +41,50 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
 
   render() {
     const {
-      edit,
-      space,
-      onClickViewSpace,
-      onClickBackHome,
-      onClickCreateSpace,
       story,
+      edit,
+      onClickCreateSpace,
+      onKeyDownCreateSpace,
+      onClickBackHome,
+      onKeyDownHome,
+      onClickViewSpace,
+      onKeyDownViewSpace,
     } = this.props;
     return (
       <Fragment>
-        {space &&
-          (!edit ? (
-            <Section>
-              <EntryButtons
-                enabled
-                backButton={{
-                  text: 'スペースをさらに登録する',
-                  onClick: onClickCreateSpace,
-                }}
-                enabledButton={{
-                  text: `ホームへ戻る`,
-                  onClick: onClickBackHome,
-                }}
-              />
-            </Section>
-          ) : (
-            <Section>
-              <EntryButtons
-                enabled
-                backButton={{
-                  text: '編集したページを確認する',
-                  onClick: onClickViewSpace,
-                }}
-                enabledButton={{
-                  text: `ホームへ戻る`,
-                  onClick: onClickBackHome,
-                }}
-              />
-            </Section>
-          ))}
+        {!edit ? (
+          <Section>
+            <EntryButtons
+              enabled
+              backButton={{
+                text: 'スペースをさらに登録する',
+                onClick: onClickCreateSpace,
+                onKeyDown: onKeyDownCreateSpace,
+              }}
+              enabledButton={{
+                text: `ホームへ戻る`,
+                onClick: onClickBackHome,
+                onKeyDown: onKeyDownHome,
+              }}
+            />
+          </Section>
+        ) : (
+          <Section>
+            <EntryButtons
+              enabled
+              backButton={{
+                text: '編集したページを確認する',
+                onClick: onClickViewSpace,
+                onKeyDown: onKeyDownViewSpace,
+              }}
+              enabledButton={{
+                text: `ホームへ戻る`,
+                onClick: onClickBackHome,
+                onKeyDown: onKeyDownHome,
+              }}
+            />
+          </Section>
+        )}
         {!story && <GoogleTagManager event="spaceRegistered" />}
       </Fragment>
     );
