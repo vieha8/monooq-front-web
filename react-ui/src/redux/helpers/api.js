@@ -1,5 +1,5 @@
 import axios from 'axios';
-import apiConfig from '../../config/api';
+import apiConfig from 'config/api';
 import { captureException } from '@sentry/browser';
 
 export const apiEndpoint = {

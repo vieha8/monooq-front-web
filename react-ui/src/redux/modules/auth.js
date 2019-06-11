@@ -211,6 +211,16 @@ const getLoginUserFirebaseAuth = () =>
     }, reject);
   });
 
+const setSentryConfig = user => {
+  Sentry.configureScope(scope => {
+    scope.setUser({
+      id: user.ID,
+      username: user.Name,
+      email: user.Email,
+    });
+  });
+};
+
 // Sagas
 export function* getToken() {
   const token = yield select(state => state.auth.token);
@@ -238,50 +248,8 @@ function* tokenGenerate() {
   yield put(authActions.tokenGenerateSuccess(data.Token));
 }
 
-function* checkLoginFirebaseAuth() {
-  let status = { isLogin: false };
-
-  if (isAvailableLocalStorage()) {
-    const statusCache = localStorage.getItem('status');
-    if (statusCache) {
-      const isLogin = yield call(getLoginUserFirebaseAuth);
-      if (!isLogin) {
-        yield put(authActions.checkLoginFailed({ error: 'Session expired.' }));
-        yield put(authActions.logout());
-        window.location.reload();
-        return;
-      }
-
-      status = JSON.parse(statusCache);
-      let token = status.user.Token;
-      if (token === '') {
-        token = yield* getToken();
-        status.user.Token = token;
-        localStorage.setItem('status', JSON.stringify(status));
-      }
-      if (status.user.ID === 0) {
-        yield put(authActions.checkLoginFailed({ error: 'Undefined userId.' }));
-        yield put(authActions.logout());
-        window.location.reload();
-        return;
-      }
-
-      yield put(authActions.setToken(token));
-      yield call(postApiRequest, apiEndpoint.login(), { UserId: status.user.ID }, token);
-      ReactGA.set({ userId: status.user.ID });
-      yield put(authActions.checkLoginSuccess(status));
-      const { user } = status;
-      Sentry.configureScope(scope => {
-        scope.setUser({
-          id: user.ID,
-          username: user.Name,
-          email: user.Email,
-        });
-      });
-      return;
-    }
-  }
-
+function* checkLogin() {
+  const status = { isLogin: false };
   try {
     const user = yield call(getLoginUserFirebaseAuth);
     if (user) {
@@ -300,23 +268,19 @@ function* checkLoginFirebaseAuth() {
         return;
       }
       status.user = data;
-
-      if (isAvailableLocalStorage()) {
-        localStorage.setItem('status', JSON.stringify(status));
-      }
-
+      yield put(authActions.setToken(token));
       yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID }, token);
       ReactGA.set({ userId: data.ID });
+      setSentryConfig(data);
 
-      Sentry.configureScope(scope => {
-        scope.setUser({
-          id: data.ID,
-          username: data.Name,
-          email: data.Email,
-        });
-      });
+      if (isAvailableLocalStorage()) {
+        const redirectPath = localStorage.getItem('redirectPath');
+        if (redirectPath) {
+          yield put(uiActions.setUiState({ redirectPath }));
+          localStorage.removeItem('redirectPath');
+        }
+      }
     }
-
     yield put(authActions.checkLoginSuccess(status));
   } catch (err) {
     yield put(authActions.checkLoginFailed(err));
@@ -326,7 +290,7 @@ function* checkLoginFirebaseAuth() {
 function* loginEmail({ payload: { email, password } }) {
   try {
     yield firebase.auth().signInWithEmailAndPassword(email, password);
-    yield checkLoginFirebaseAuth();
+    yield checkLogin();
     yield put(authActions.loginSuccess());
   } catch (err) {
     yield put(authActions.loginFailed(err));
@@ -335,9 +299,13 @@ function* loginEmail({ payload: { email, password } }) {
 
 function* loginFacebook() {
   try {
+    const redirectPath = yield select(state => state.ui.redirectPath);
+    if (redirectPath && isAvailableLocalStorage()) {
+      localStorage.setItem('redirectPath', redirectPath);
+    }
     const provider = new firebase.auth.FacebookAuthProvider();
-    yield firebase.auth().signInWithPopup(provider);
-    yield checkLoginFirebaseAuth();
+    yield firebase.auth().signInWithRedirect(provider);
+    yield checkLogin();
     yield put(authActions.loginSuccess());
   } catch (err) {
     yield put(authActions.loginFailed(err));
@@ -346,10 +314,6 @@ function* loginFacebook() {
 
 function* logout() {
   yield put(push(Path.top()));
-  if (isAvailableLocalStorage()) {
-    localStorage.removeItem('status');
-    localStorage.removeItem('token');
-  }
   yield firebase.auth().signOut();
 }
 
@@ -495,7 +459,7 @@ function* unsubscribe({ payload: { userId, reason, description } }) {
 }
 
 export const authSagas = [
-  takeEvery(CHECK_LOGIN, checkLoginFirebaseAuth),
+  takeEvery(CHECK_LOGIN, checkLogin),
   takeEvery(LOGIN_EMAIL, loginEmail),
   takeEvery(LOGIN_FACEBOOK, loginFacebook),
   takeEvery(LOGOUT, logout),
