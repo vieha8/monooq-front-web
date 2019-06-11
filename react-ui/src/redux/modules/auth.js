@@ -227,13 +227,27 @@ export function* getToken() {
   if (token) {
     return token;
   }
+  if (isAvailableLocalStorage()) {
+    const tokenCache = localStorage.getItem('token');
+    if (tokenCache) {
+      return tokenCache;
+    }
+  }
   const isGenerating = yield select(state => state.auth.isTokenGenerating);
   if (isGenerating) {
     const { payload } = yield take(authActions.tokenGenerateSuccess);
+    if (isAvailableLocalStorage()) {
+      localStorage.setItem('token', payload);
+    }
     return payload;
   }
   yield put(authActions.tokenGenerate());
   const { payload } = yield take(authActions.tokenGenerateSuccess);
+
+  if (isAvailableLocalStorage()) {
+    localStorage.setItem('token', payload);
+  }
+
   return payload;
 }
 
@@ -314,6 +328,9 @@ function* loginFacebook() {
 
 function* logout() {
   yield put(push(Path.top()));
+  if (isAvailableLocalStorage()) {
+    localStorage.removeItem('token');
+  }
   yield firebase.auth().signOut();
 }
 
