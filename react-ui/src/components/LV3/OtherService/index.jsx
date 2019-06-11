@@ -22,12 +22,10 @@ const PickGoWrapper = styled.div`
 const PickGoSection = styled.div`
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   width: 294px;
   color: ${Colors.darkGray1};
   text-align: center;
-  margin-left: 181px;
-  margin-top: 87px;
   ${media.phone`
     margin: ${Dimens.medium2}px auto;
     position: relative;
@@ -38,7 +36,7 @@ const PickGoSection = styled.div`
 const LinkToPickGo = styled.a`
   font-size: ${FontSizes.large}px;
   line-height: ${FontSizes.medium * 2}px;
-  color: ${Colors.white};
+  color: ${Colors.black};
   text-decoration: underline;
   ${media.phone`
     font-size: ${FontSizes.medium}px;
@@ -68,13 +66,13 @@ export default ({
 }: PropTypes) => (
   <PickGoContainer>
     <PickGoWrapper>
-      <CatchPhrase>{catchPhrase}</CatchPhrase>
       <PickGoSection>
         <LinkToPickGo component={Link} href={serviceUrl} target="_blank" rel="noopener noreferrer">
           {serviceImage}
         </LinkToPickGo>
         {description}
       </PickGoSection>
+      <CatchPhrase>{catchPhrase}</CatchPhrase>
       <SubCatchPhrasePickGo>
         <LinkToPickGo component={Link} href={serviceUrl} target="_blank" rel="noopener noreferrer">
           {serviceName}

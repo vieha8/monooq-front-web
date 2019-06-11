@@ -15,6 +15,9 @@ import TopIntroMovie from 'components/LV3/TopIntroMovie';
 
 const logoPickGo =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=42';
+
+const logoEnepi = 'https://enepi.jp/s/lp/003?pr=monooq';
+
 const logoAppliv =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-appliv%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
 const logoAscii =
@@ -63,6 +66,17 @@ const PickGoDescription = styled.div`
 
 const PickupContainer = styled.div`
   margin: ${Dimens.medium}px 0;
+`;
+
+const PickGoFragment = styled.div`
+  color: #000000;
+  line-height: 1.4em;
+`;
+
+const EnepiFragment = styled.div`
+  font-size: 70%;
+  line-height: 1.3em;
+  color: #000000;
 `;
 
 export default props => (
@@ -225,14 +239,14 @@ export default props => (
       />
     </ForSafeContainer>
 
-    <CommonContainer>
+    <CommonContainer gray>
       <OtherService
         catchPhrase={
-          <Fragment>
+          <PickGoFragment>
             荷物の配送だって
             <br />
             もっと便利に安くできる
-          </Fragment>
+          </PickGoFragment>
         }
         serviceName="PickGo"
         serviceUrl="https://pickgo.town/"
@@ -244,12 +258,24 @@ export default props => (
             東京／神奈川／千葉／埼玉／大阪／兵庫／京都
           </PickGoDescription>
         }
-        subDescription={
-          <Fragment>
-            を使えば、
+        subDescription={<PickGoFragment>を使えば、引っ越しが 5,000円 から</PickGoFragment>}
+      />
+      <OtherService
+        serviceUrl="https://enepi.jp/s/lp/003?pr=monooq"
+        serviceImage={<PickGoMedia src={logoEnepi} />}
+        catchPhrase={
+          <EnepiFragment>
+            あなたのガス代本当に適性？
             <br />
-            引っ越しが 5,000円 から
-          </Fragment>
+            引っ越しを機に「enepi」を使って
+            <br />
+            ガス代を安くしよう！
+          </EnepiFragment>
+        }
+        subDescription={
+          <EnepiFragment>
+            国内唯一のプロパンガス料金比較サービス「enepi」を使い、ガス料金が15％も削減できる！？
+          </EnepiFragment>
         }
       />
     </CommonContainer>
