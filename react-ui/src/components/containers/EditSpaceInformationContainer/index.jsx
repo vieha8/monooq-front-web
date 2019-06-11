@@ -15,10 +15,11 @@ import EditSpaceInformation from 'components/LV3/EditSpace/Information';
 import { ErrorMessages } from 'variables';
 
 import { uploadImage } from 'redux/helpers/firebase';
+import { iskeyDownEnter } from 'helpers/keydown';
+import { isImageDefault } from 'helpers/images';
 import fileType from 'helpers/file-type';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
-import { iskeyDownEnter } from 'helpers/keydown';
 
 type PropTypes = {
   dispatch: Function,
@@ -64,6 +65,10 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       this.state.isUpdate = true;
+
+      if (space.Images && space.Images.length === 1 && isImageDefault(space.Images[0].ImageUrl)) {
+        this.state.Images = [];
+      }
     } else {
       dispatch(spaceActions.clearSpace());
     }
@@ -174,7 +179,14 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   onClickNext = () => {
     const { state } = this;
     const { dispatch, history, space } = this.props;
-    const { Images, Title, Type, Introduction, Address } = state;
+    const { Images, Title, Type, Introduction, Address, isUpdate } = state;
+
+    if (isUpdate) {
+      if (Images && Images.length > 0 && isImageDefault(Images[0].ImageUrl)) {
+        // デフォルト画像が先頭に含まれる場合は削除する
+        Images.shift();
+      }
+    }
 
     dispatch(
       uiActions.setUiState({
@@ -230,7 +242,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
         if (value === undefined ? true : value.length === 0) {
           errors.push(ErrorMessages.MustSpaceImage);
         } else if (value.length === 1) {
-          if (value[0].ImageUrl && value[0].ImageUrl.includes('data:image/png;base64,')) {
+          if (value[0].ImageUrl && isImageDefault(value[0].ImageUrl)) {
             errors.push(ErrorMessages.MustSpaceImage);
           }
         }
@@ -262,7 +274,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       (AddressMatch ? AddressMatch[4] !== '' : false) &&
       Images &&
       Images.length > 0 &&
-      !(Images[0].ImageUrl && Images[0].ImageUrl.includes('data:image/png;base64,'))
+      (isImageDefault(Images[0].ImageUrl) ? Images.length > 1 : true)
     );
   };
 
@@ -278,7 +290,15 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       isImageUploading,
       errorModal,
       isNoProfile,
+      isUpdate,
     } = this.state;
+
+    let ImagesRender = Images;
+    if (isUpdate) {
+      if (Images && Images.length === 1 && isImageDefault(Images[0].ImageUrl)) {
+        ImagesRender = [];
+      }
+    }
 
     return (
       <MenuPageTemplate
@@ -288,7 +308,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
           <Fragment>
             <EditSpaceInformation
               edit={space.ID}
-              images={Images.map(image => ({
+              images={ImagesRender.map(image => ({
                 url: image.ImageUrl || image.preview,
               }))}
               onChangeImage={this.handleChangeImage}
