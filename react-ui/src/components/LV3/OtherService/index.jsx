@@ -17,19 +17,39 @@ const PickGoContainer = styled(StyledDefaultContainer)`
 const PickGoWrapper = styled.div`
   position: relative;
   width: 100%;
+  ${media.phone`
+    text-align: center;
+  `};
 `;
 
 const PickGoSection = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  width: 294px;
+  width: 25%;
   color: ${Colors.darkGray1};
   text-align: center;
+  display: inline-block;
+  margin: auto;
   ${media.phone`
     margin: ${Dimens.medium2}px auto;
     position: relative;
     width: 84vw;
+  `};
+`;
+
+const CampanyRelation = styled.p`
+  font-size: 4px;
+`;
+
+const OtherServiceExplain = styled.div`
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  margin-left: 30%;
+  ${media.phone`
+    width: 84vw;
+    margin-left: 0;
   `};
 `;
 
@@ -43,21 +63,29 @@ const LinkToPickGo = styled.a`
   `};
 `;
 
+const CatchPhraseOtherService = styled(CatchPhrase)`
+  text-align: center;
+  height: 50px;
+`;
+
 const SubCatchPhrasePickGo = styled(SubCatchPhrase)`
   margin-bottom: ${Dimens.medium_20}px;
 `;
 
 type PropTypes = {
-  catchPhrase: React.Element<*>,
+  catchPhraseOtherService: React.Element<*>,
   serviceUrl: string,
   serviceImage: React.Element<*>,
   description?: React.Element<*>,
   serviceName: string,
   subDescription: React.Element<*>,
+  campanyRelation: React.Element<*>,
+  otherServiceExplain: React.Element<*>,
+  campanyRelation: React.Element<*>,
 };
 
 export default ({
-  catchPhrase,
+  catchPhraseOtherService,
   serviceUrl,
   serviceImage,
   description,
@@ -66,19 +94,27 @@ export default ({
 }: PropTypes) => (
   <PickGoContainer>
     <PickGoWrapper>
+      <CampanyRelation />
       <PickGoSection>
         <LinkToPickGo component={Link} href={serviceUrl} target="_blank" rel="noopener noreferrer">
           {serviceImage}
         </LinkToPickGo>
         {description}
       </PickGoSection>
-      <CatchPhrase>{catchPhrase}</CatchPhrase>
-      <SubCatchPhrasePickGo>
-        <LinkToPickGo component={Link} href={serviceUrl} target="_blank" rel="noopener noreferrer">
-          {serviceName}
-        </LinkToPickGo>
-        {subDescription}
-      </SubCatchPhrasePickGo>
+      <OtherServiceExplain>
+        <CatchPhraseOtherService>{catchPhraseOtherService}</CatchPhraseOtherService>
+        <SubCatchPhrasePickGo>
+          <LinkToPickGo
+            component={Link}
+            href={serviceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {serviceName}
+            {subDescription}
+          </LinkToPickGo>
+        </SubCatchPhrasePickGo>
+      </OtherServiceExplain>
     </PickGoWrapper>
   </PickGoContainer>
 );

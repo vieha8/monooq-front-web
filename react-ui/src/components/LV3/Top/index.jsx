@@ -12,11 +12,10 @@ import MediaLineup from 'components/LV3/MediaLineup';
 import OtherService from 'components/LV3/OtherService';
 import TopIntro from 'components/LV3/TopIntro';
 import TopIntroMovie from 'components/LV3/TopIntroMovie';
+import LogoEnepi from 'images/enepi-blue.png';
 
 const logoPickGo =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=42';
-
-const logoEnepi = 'https://enepi.jp/s/lp/003?pr=monooq';
 
 const logoAppliv =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-appliv%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
@@ -54,9 +53,12 @@ const CommonContainer = styled.div`
 const ForSafeContainer = styled(StyledDefaultContainer)``;
 
 const PickGoMedia = styled.img`
-  height: ${Dimens.medium3}px;
-  margin: 0 15.5px;
-  margin-bottom: ${Dimens.medium_20}px;
+  height: ${Dimens.large}px;
+`;
+
+const EnepiMedia = styled.img`
+  height: ${Dimens.large3}px;
+  margin-bottom: ${Dimens.small}px;
 `;
 
 const PickGoDescription = styled.div`
@@ -71,12 +73,14 @@ const PickupContainer = styled.div`
 const PickGoFragment = styled.div`
   color: #000000;
   line-height: 1.4em;
+  font-size: 75%;
 `;
 
 const EnepiFragment = styled.div`
-  font-size: 70%;
-  line-height: 1.3em;
   color: #000000;
+  font-size: 70%;
+  line-height: 1.4em;
+  font-weight: none;
 `;
 
 export default props => (
@@ -241,12 +245,9 @@ export default props => (
 
     <CommonContainer gray>
       <OtherService
-        catchPhrase={
-          <PickGoFragment>
-            荷物の配送だって
-            <br />
-            もっと便利に安くできる
-          </PickGoFragment>
+        CampanyRelation={<p>提携先</p>}
+        catchPhraseOtherService={
+          <PickGoFragment>荷物の配送だって もっと便利に安くできる</PickGoFragment>
         }
         serviceName="PickGo"
         serviceUrl="https://pickgo.town/personal/"
@@ -262,10 +263,11 @@ export default props => (
       />
       <OtherService
         serviceUrl="https://enepi.jp/s/lp/003?pr=monooq"
-        serviceImage={<PickGoMedia src={logoEnepi} />}
-        catchPhrase={
+        campanyRelation={<p>スポンサー</p>}
+        serviceImage={<EnepiMedia src={LogoEnepi} />}
+        catchPhraseOtherService={
           <EnepiFragment>
-            あなたのガス代本当に適性？
+            あなたのガス代本当に適正？
             <br />
             引っ越しを機に「enepi」を使って
             <br />
@@ -274,7 +276,9 @@ export default props => (
         }
         subDescription={
           <EnepiFragment>
-            国内唯一のプロパンガス料金比較サービス「enepi」を使い、ガス料金が15％も削減できる！？
+            国内唯一のプロパンガス料金比較サービス
+            <br />
+            「enepi」を使い、ガス料金が15％も削減できる！？
           </EnepiFragment>
         }
       />
