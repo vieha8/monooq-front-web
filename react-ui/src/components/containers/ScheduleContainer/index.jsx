@@ -44,9 +44,9 @@ class ScheduleContainer extends Component {
     schedule: {
       isHost,
       user: {
-        ID: !isHost ? schedule.Space.Host.ID : schedule.User.ID,
-        Name: !isHost ? schedule.Space.Host.Name : schedule.User.Name,
-        ImageUrl: !isHost ? schedule.Space.Host.ImageUrl : schedule.User.ImageUrl,
+        id: !isHost ? schedule.Space.Host.ID : schedule.User.ID,
+        name: !isHost ? schedule.Space.Host.Name : schedule.User.Name,
+        imageUrl: !isHost ? schedule.Space.Host.ImageUrl : schedule.User.ImageUrl,
       },
       space: {
         image: {
@@ -72,7 +72,7 @@ class ScheduleContainer extends Component {
       ((schedule || {}).host || []).map(s => this.getScheduleProps(s, true)),
     );
 
-    const isHost = user.isHost;
+    const { isHost } = user;
 
     return Array.isArray(schedules) && schedules.length > 0 ? (
       <ScheduleList schedules={schedules} isHost={isHost} />
