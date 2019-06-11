@@ -13,6 +13,7 @@ import { getApiRequest, postApiRequest, apiEndpoint } from 'redux/helpers/api';
 import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
 import { convertImgixUrl } from 'helpers/imgix';
+import { formatName } from 'helpers/string';
 import Path from 'config/path';
 
 // Actions
@@ -305,7 +306,7 @@ export const createRoom = (userId1, userName, firebaseUid1, userId2, firebaseUid
       firebaseUid2,
       spaceId,
       lastMessageDt: new Date(),
-      lastMessage: `${userName}さんが興味を持っています`,
+      lastMessage: `${formatName(userName)}さんが興味を持っています`,
       status: 0,
     };
     const roomRef = await roomCollection().add(room);
@@ -392,7 +393,7 @@ function* sendEmail(payload) {
 
   const user = yield select(state => state.auth.user);
 
-  const name = user.Name !== '' ? `${user.Name}さんから` : '';
+  const name = user.Name !== '' ? `${formatName(user.Name)}さんから` : '';
   let messageBody = `${name}メッセージが届いています。\n\n`;
 
   if (text.length !== 0) {

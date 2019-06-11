@@ -11,3 +11,8 @@ export const formatAddComma = value => {
 
   return String(Number(tmpValue)).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 };
+
+export const formatName = value => {
+  if (value === null || !value) return '名無し';
+  return value;
+};

@@ -9,6 +9,7 @@ import InlineText from 'components/LV1/InlineText';
 import HeroImage from 'components/LV1/HeroImage';
 import Path from 'config/path';
 import ClearfixContainer from 'components/LV1/ClearfixContainer';
+import { formatName } from 'helpers/string';
 
 const Row = styled(Link)`
   display: table;
@@ -42,42 +43,48 @@ const HostNameWrap = styled.div`
 `;
 
 type PropTypes = {
+  user: {
+    ID: string,
+    ImageUrl: string,
+    Name: string,
+  },
+  isHost: boolean,
+  href?: string,
+  onClick?: Function,
   image: {
     src: string,
     alt: string,
   },
   address: string,
-  href?: string,
-  onClick?: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({ user, isHost, href, onClick, image, address }: PropTypes) => (
   <Fragment>
     <ClearfixContainer>
       <HostContent>
-        <Link to={Path.profile(props.user.ID)}>
-          <AvatarImage size={45} src={props.user.ImageUrl} alt={props.user.Name} />
+        <Link to={Path.profile(user.ID)}>
+          <AvatarImage size={45} src={user.ImageUrl} alt={user.Name} />
         </Link>
       </HostContent>
       <HostContent>
         <HostNameWrap>
           <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
-            {!props.isHost ? 'ホスト' : 'ゲスト'}
+            {!isHost ? 'ホスト' : 'ゲスト'}
           </InlineText.Base>
           <br />
           <InlineText.Base fontSize={`${FontSizes.small_15}`}>
-            {props.user.Name} さん
+            {`${formatName(user.Name)}さん`}
           </InlineText.Base>
         </HostNameWrap>
       </HostContent>
     </ClearfixContainer>
     <ClearfixContainer>
-      <Row to={props.href || ''} onClick={props.onClick}>
+      <Row to={href || ''} onClick={onClick}>
         <ImageWrapper>
-          <HeroImage small {...props.image} />
+          <HeroImage small src={image.src} alt={image.alt} />
         </ImageWrapper>
         <ContentWrapper>
-          <AddressText>{props.address}</AddressText>
+          <AddressText>{address}</AddressText>
         </ContentWrapper>
       </Row>
     </ClearfixContainer>

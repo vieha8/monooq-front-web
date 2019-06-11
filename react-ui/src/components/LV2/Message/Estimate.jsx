@@ -6,7 +6,7 @@ import Card from 'components/LV1/Card';
 import InlineText from 'components/LV1/InlineText';
 import Button from 'components/LV1/Button';
 import { Colors } from 'variables';
-import { formatAddComma } from 'helpers/string';
+import { formatAddComma, formatName } from 'helpers/string';
 
 function estimateDateFormat(date) {
   return date.toLocaleDateString('ja-JP-u-ca-japanese', {
@@ -25,7 +25,7 @@ const CaptionWrapper = styled.div`
   margin-top: 24px;
 `;
 
-const BbuttonPaymentWrap = styled.div`
+const ButtonPaymentWrap = styled.div`
   margin-top: 5px;
 `;
 
@@ -49,37 +49,80 @@ const ButtonLinkStyled = styled.a`
   }
 `;
 
+function buttonPayment(host, status, paymentLink) {
+  if (host) {
+    return (
+      <ButtonWrap>
+        <Button primary fontbold center fill={1} disabled>
+          お支払い画面に進む
+        </Button>
+      </ButtonWrap>
+    );
+  }
+
+  if (status === 'paid') {
+    return (
+      <Fragment>
+        <ButtonWrap>
+          <Button primary fontbold center fill={1} disabled>
+            お支払い画面に進む
+          </Button>
+        </ButtonWrap>
+        <Text>※お支払い済み</Text>
+      </Fragment>
+    );
+  }
+
+  return (
+    <ButtonWrap>
+      <Button primary fontbold center fill={1}>
+        <ButtonLinkStyled href={paymentLink}>お支払い画面に進む</ButtonLinkStyled>
+      </Button>
+    </ButtonWrap>
+  );
+}
+
 type PropTypes = {
-  id: string,
-  host: boolean,
   name: string,
+  id: string,
   beginAt: Date,
   endAt: Date,
   price: string,
+  host: boolean,
+  status: string,
   paymentLink: string,
   receivedAt: string,
-  status: string,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  name,
+  id,
+  beginAt,
+  endAt,
+  price,
+  host,
+  status,
+  paymentLink,
+  receivedAt,
+}: PropTypes) => (
   <div>
     <Card block noBorder background={Colors.lightGreen} isPadding={14}>
-      <Text>{props.name} さんからのお見積もり</Text>
+      <Text>{`${formatName(name)}さんからのお見積もり`}</Text>
       <Text>
         ID：
-        {props.id}
+        {id}
       </Text>
       <Text>
         利用開始日：
-        {estimateDateFormat(props.beginAt)}
+        {estimateDateFormat(beginAt)}
       </Text>
       <Text>
         利用終了日：
-        {estimateDateFormat(props.endAt)}
+        {estimateDateFormat(endAt)}
       </Text>
       <Text>
         料金：
-        {formatAddComma(props.price)} 円
+        {`${formatAddComma(price)}円`}
       </Text>
       <CaptionWrapper>
         <Text>
@@ -93,32 +136,7 @@ export default (props: PropTypes) => (
           <br />
           お支払い画面から決済を行ってください。
           <br />
-          <BbuttonPaymentWrap>
-            {!props.host ? (
-              props.status !== 'paid' ? (
-                <ButtonWrap>
-                  <Button primary fontbold center fill={1}>
-                    <ButtonLinkStyled href={props.paymentLink}>お支払い画面に進む</ButtonLinkStyled>
-                  </Button>
-                </ButtonWrap>
-              ) : (
-                <Fragment>
-                  <ButtonWrap>
-                    <Button primary fontbold center fill={1} disabled>
-                      お支払い画面に進む
-                    </Button>
-                  </ButtonWrap>
-                  <Text>※お支払い済み</Text>
-                </Fragment>
-              )
-            ) : (
-              <ButtonWrap>
-                <Button primary fontbold center fill={1} disabled>
-                  お支払い画面に進む
-                </Button>
-              </ButtonWrap>
-            )}
-          </BbuttonPaymentWrap>
+          <ButtonPaymentWrap>{buttonPayment(host, status, paymentLink)}</ButtonPaymentWrap>
           <br />
           <br />
           ■銀行振込をご希望の場合
@@ -147,7 +165,7 @@ export default (props: PropTypes) => (
       </CaptionWrapper>
     </Card>
     <DateWrapper>
-      <InlineText.EmphasisTiny>{props.receivedAt}</InlineText.EmphasisTiny>
+      <InlineText.EmphasisTiny>{receivedAt}</InlineText.EmphasisTiny>
     </DateWrapper>
   </div>
 );
