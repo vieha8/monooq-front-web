@@ -52,6 +52,7 @@ class HomePrefectureContainer extends Component<PropTypes> {
 
       if (displayType === 'prefecture') {
         const onClickMore = () => {};
+        const onKeyDownButtonMore = () => {};
 
         return (
           <SearchResult
@@ -76,6 +77,7 @@ class HomePrefectureContainer extends Component<PropTypes> {
             }))}
             isMore={false}
             onClickMore={onClickMore}
+            onKeyDownButtonMore={onKeyDownButtonMore}
           />
         );
       }

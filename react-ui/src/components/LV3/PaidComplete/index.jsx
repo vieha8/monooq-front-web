@@ -42,19 +42,17 @@ const ButtonWrapper = styled.div`
 type PropTypes = {
   spaceName: string,
   onClickToMessage: boolean,
+  onKeyDownMessage: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({ spaceName, onClickToMessage, onKeyDownMessage }: PropTypes) => (
   <Fragment>
     <H1>お支払いが完了しました</H1>
     <Row>
-      <InlineText.Base>
-        「{props.spaceName}
-        」の予約とお支払いが完了しました。
-      </InlineText.Base>
+      <InlineText.Base>{`「${spaceName}」の予約とお支払いが完了しました。`}</InlineText.Base>
     </Row>
     <ButtonWrapper>
-      <Button primary fill={1} fontbold onClick={props.onClickToMessage}>
+      <Button primary fill={1} fontbold onClick={onClickToMessage} onKeyDown={onKeyDownMessage}>
         ホストに連絡する
       </Button>
     </ButtonWrapper>

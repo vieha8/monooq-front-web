@@ -28,12 +28,13 @@ const ButtonWrap = styled.div`
 `;
 
 type PropTypes = {
-  onClick: Function,
-  loading: boolean,
   disabled: boolean,
+  loading: boolean,
+  onClick: Function,
+  onKeyDownButtonMessage: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({ disabled, loading, onClick, onKeyDownButtonMessage }: PropTypes) => (
   <div>
     <ButtonWrap>
       <Button
@@ -41,9 +42,10 @@ export default (props: PropTypes) => (
         primary
         fontbold
         fill={1}
-        disabled={props.disabled}
-        loading={props.loading}
-        onClick={props.onClick}
+        disabled={disabled}
+        loading={loading}
+        onClick={onClick}
+        onKeyDown={onKeyDownButtonMessage}
       >
         このホストに相談する
       </Button>

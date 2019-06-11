@@ -59,7 +59,9 @@ type PropTypes = {
   reasonTypeError: string,
   reasonText: string,
   onChangeReasonText: Function,
+  buttonDisabled: boolean,
   onClickUnsubscribe: Function,
+  onKeyDownUnsubscribe: Function,
   buttonLoading: boolean,
 };
 
@@ -103,8 +105,10 @@ export default (props: PropTypes) => (
         primary
         fill={1}
         fontbold
+        disabled={props.buttonDisabled}
         onClick={props.onClickUnsubscribe}
         loading={props.buttonLoading}
+        onKeyDown={props.onKeyDownUnsubscribe}
       >
         退会する
       </Button>

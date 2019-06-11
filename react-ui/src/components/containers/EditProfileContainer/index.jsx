@@ -13,6 +13,7 @@ import Header from 'components/containers/Header';
 import EditProfile from 'components/LV3/EditProfile';
 import EditProfileCompleted from 'components/LV3/EditProfile/Completed';
 import { ErrorMessages } from 'variables';
+import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 
 type PropTypes = {
   dispatch: Function,
@@ -66,14 +67,14 @@ class EditProfileContainer extends Component<PropTypes> {
   }
 
   onKeyDownNoticeEmail = e => {
-    if (e && e.keyCode === 32) {
+    if (iskeyDownSpace(e)) {
       const { isNoticeEmail } = this.state;
       this.handleChangeUI('isNoticeEmail', !isNoticeEmail);
     }
   };
 
   onKeyDownButtonUpdate = e => {
-    if (e && e.keyCode === 32 && this.validate()) {
+    if (iskeyDownEnter(e) && this.validate()) {
       this.onClickUpdate();
     }
   };

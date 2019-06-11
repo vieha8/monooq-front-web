@@ -11,6 +11,7 @@ import ReactGA from 'react-ga';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import PickupStaffSpaceList from 'components/LV3/Top/pickup';
 import { spaceActions } from 'redux/modules/space';
+import { iskeyDownEnter } from 'helpers/keydown';
 
 class TopContainer extends React.Component {
   constructor(props) {
@@ -56,7 +57,7 @@ class TopContainer extends React.Component {
   };
 
   onKeyDownSearchField = e => {
-    if (e && e.keyCode === 13 && e.target.value) {
+    if (iskeyDownEnter(e) && e.target.value) {
       this.search(e.target.value);
     }
   };

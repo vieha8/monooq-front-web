@@ -12,6 +12,7 @@ import UnsubscribeCompleted from 'components/LV3/Unsubscribe/Completed';
 import UnsubscribeFailed from 'components/LV3/Unsubscribe/Failed';
 import LoadingPage from 'components/LV3/LoadingPage';
 import { ErrorMessages } from 'variables';
+import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -44,8 +45,12 @@ class UnsubscribeContainer extends Component<PropTypes> {
     this.state = {
       reasonType: [],
       reasonText: '',
-      errors: {},
+      error: {},
     };
+  }
+
+  componentDidMount() {
+    this.handleChangeUI('reasonType', '');
   }
 
   componentWillReceiveProps(nextProps: PropTypes) {
@@ -57,40 +62,55 @@ class UnsubscribeContainer extends Component<PropTypes> {
     }
   }
 
+  onKeyDownUnsubscribe: Function;
+
+  onKeyDownUnsubscribe = e => {
+    if (iskeyDownEnter(e) && this.validate()) {
+      this.unsubscribe();
+    }
+  };
+
   onClickUnsubscribe: Function;
+
   unsubscribe = () => {
     const { dispatch, user } = this.props;
     const { reasonType, reasonText } = this.state;
 
     window.scrollTo(0, 0);
 
-    if (this.validate()) {
-      dispatch(
-        authActions.unsubscribe({
-          userId: user.ID,
-          reason: (reasonType || []).join(','),
-          description: reasonText,
-        }),
-      );
-      return;
-    }
-
-    const errors = {};
-    if (reasonType.length === 0) {
-      errors.reasonType = [].concat(errors.reasonType, [ErrorMessages.PleaseSelect]);
-    }
-
-    this.setState({ errors });
+    dispatch(
+      authActions.unsubscribe({
+        userId: user.ID,
+        reason: (reasonType || []).join(','),
+        description: reasonText,
+      }),
+    );
   };
 
   handleChangeUI: Function;
-  handleChangeUI = (propsName: string, value) => {
-    const state = this.state;
-    state[propsName] = value;
-    this.setState(state);
+
+  handleChangeUI = (propName: string, value) => {
+    const { state } = this;
+    const { error } = state;
+    const errors = [];
+
+    switch (propName) {
+      case 'reasonType':
+        if (value === undefined ? true : value.length === 0) {
+          errors.push(ErrorMessages.PleaseSelect);
+        }
+        break;
+      default:
+        break;
+    }
+
+    state[propName] = value;
+    error[propName] = errors;
+    this.setState({ ...state, error });
   };
 
   validate: Function;
+
   validate = () => {
     const { reasonType } = this.state;
 
@@ -98,6 +118,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
   };
 
   renderFailed: Function;
+
   renderFailed = () => {
     const { user } = this.props;
     return (
@@ -125,7 +146,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
     if (isUnsubscribeSuccess) return UnsubscribeContainer.renderCompleted();
     if (isUnsubscribeFailed) return UnsubscribeContainer.renderFailed();
 
-    const { reasonType, reasonText, errors } = this.state;
+    const { reasonType, reasonText, error } = this.state;
 
     return (
       <MenuPageTemplate
@@ -136,11 +157,13 @@ class UnsubscribeContainer extends Component<PropTypes> {
           <Unsubscribe
             reasonType={reasonType}
             onChangeReasonType={v => this.handleChangeUI('reasonType', v)}
-            reasonTypeError={errors.reasonType}
+            reasonTypeError={error.reasonType}
             reasonText={reasonText}
             onChangeReasonText={v => this.handleChangeUI('reasonText', v)}
             onClickUnsubscribe={this.unsubscribe}
+            onKeyDownUnsubscribe={this.onKeyDownUnsubscribe}
             buttonLoading={isUnsubscribeTrying}
+            buttonDisabled={!this.validate()}
           />
         }
         rightContent={<ServiceMenu />}

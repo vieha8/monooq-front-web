@@ -12,6 +12,7 @@ import InputEstimate from 'components/LV3/InputEstimate';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
 
 const Validate = {
@@ -105,6 +106,14 @@ class EstimateContainer extends Component<PropTypes> {
     );
   };
 
+  onKeyDownSend: Function;
+
+  onKeyDownSend = e => {
+    if (iskeyDownEnter(e) && this.validate()) {
+      this.sendRequest();
+    }
+  };
+
   validate: Function;
 
   validate = () => {
@@ -150,6 +159,7 @@ class EstimateContainer extends Component<PropTypes> {
             buttonDisabled={!this.validate()}
             buttonLoading={isSending}
             onClickSend={this.sendRequest}
+            onKeyDownSend={this.onKeyDownSend}
           />
         }
         rightContent={<ServiceMenu />}

@@ -118,6 +118,7 @@ type PropTypes = {
   receiveErrors: Array<string>,
   onChangeReceive: Function,
   onClickSearch: Function,
+  onKeyDownButtonSerch: Function,
   buttonDisabled: boolean,
 };
 
@@ -257,6 +258,7 @@ export default (props: PropTypes) => (
           fill={1}
           disabled={props.buttonDisabled}
           onClick={props.onClickSearch}
+          onKeyDown={props.onKeyDownButtonSerch}
         >
           検索する
         </Button>
