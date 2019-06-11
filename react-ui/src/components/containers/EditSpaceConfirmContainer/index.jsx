@@ -131,13 +131,13 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
         spaceActions.updateSpace({
           spaceId: space.ID,
           body: {
-            userId: user.ID,
+            userId: user.id,
             ...saveSpace,
           },
         }),
       );
     } else {
-      dispatch(spaceActions.createSpace({ body: { userId: user.ID, ...saveSpace } }));
+      dispatch(spaceActions.createSpace({ body: { userId: user.id, ...saveSpace } }));
     }
   };
 
@@ -201,10 +201,10 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
               }
               supplement={space.ReceiptAbout}
               user={{
-                id: user.ID,
-                name: user.Name,
-                imageUrl: user.ImageUrl,
-                profile: user.Profile,
+                id: user.id,
+                name: user.name,
+                imageUrl: user.imageUrl,
+                profile: user.profile,
               }}
               pricefull={numeral(space.PriceFull).format('0,0')}
               pricehalf={

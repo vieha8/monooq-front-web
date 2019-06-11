@@ -80,7 +80,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
 
     dispatch(
       authActions.unsubscribe({
-        userId: user.ID,
+        userId: user.id,
         reason: (reasonType || []).join(','),
         description: reasonText,
       }),
@@ -125,7 +125,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="退会処理が完了できませんでした"
-        leftContent={<UnsubscribeFailed userId={user.ID} />}
+        leftContent={<UnsubscribeFailed userId={user.id} />}
         rightContent={<ServiceMenu />}
       />
     );

@@ -34,7 +34,7 @@ export default class RegisterHowToUseContainer extends Component<PropTypes, Stat
     const { isHost } = this.state;
     dispatch(
       userActions.updateUser({
-        userId: user.ID,
+        userId: user.id,
         body: { isHost: Boolean(isHost) },
       }),
     );
@@ -53,7 +53,7 @@ export default class RegisterHowToUseContainer extends Component<PropTypes, Stat
     const { isHost } = this.state;
     return (
       <RegisterHowToUse
-        userName={user.Name}
+        userName={user.name}
         onChangeIsHost={value => this.handleChangeForm('isHost', value)}
         isHost={isHost}
         onClickSkip={() => {

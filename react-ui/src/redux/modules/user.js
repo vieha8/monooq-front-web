@@ -117,7 +117,7 @@ function* getSpaces(params) {
   }
 
   let user = yield select(state => state.auth.user);
-  if (!user.ID) {
+  if (!user.id) {
     yield take(authActions.checkLoginSuccess);
   }
   user = yield select(state => state.auth.user);
@@ -125,7 +125,7 @@ function* getSpaces(params) {
   const token = yield* getToken();
   const { data, err } = yield call(
     getApiRequest,
-    apiEndpoint.userSpaces(targetUserId || user.ID),
+    apiEndpoint.userSpaces(targetUserId || user.id),
     {},
     token,
   );

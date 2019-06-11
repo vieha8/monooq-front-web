@@ -75,18 +75,18 @@ class ProfileContainer extends Component<PropTypes> {
         header={<Header />}
         meta={
           <Meta
-            title={`${formatName(user.Name)}さんのプロフィール - モノオク`}
-            ogUrl={`user/${user.ID}`}
-            ogImageUrl={user.ImageUrl}
+            title={`${formatName(user.name)}さんのプロフィール - モノオク`}
+            ogUrl={`user/${user.id}`}
+            ogImageUrl={user.imageUrl}
             noindex
           />
         }
         profile={
           <Profile
-            image={user.ImageUrl}
-            name={user.Name}
+            image={user.imageUrl}
+            name={user.name}
             prefCode={user.PrefCode}
-            profile={user.Profile}
+            profile={user.profile}
             lastLogin={formatDate(new Date(user.LastLogin), 'yyyy/MM/dd')}
             spaces={(spaces || [])
               .filter(v => v.Status === 'public')

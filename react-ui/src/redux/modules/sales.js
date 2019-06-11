@@ -88,7 +88,7 @@ function* sendPayouts({
   payload: { bankName, branchName, accountType, accountNumber, accountName },
 }) {
   const user = yield select(state => state.auth.user);
-  if (!user.ID) {
+  if (!user.id) {
     yield handleError(
       salesActions.sendPayoutsFailed,
       '',

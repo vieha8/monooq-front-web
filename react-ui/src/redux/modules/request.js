@@ -230,7 +230,7 @@ function* sendRequestEmail(payload) {
 
   const token = yield* getToken();
 
-  let messageBody = `${formatName(user.Name)}さんがあなたのスペースに興味を持っています!\n`;
+  let messageBody = `${formatName(user.name)}さんがあなたのスペースに興味を持っています!\n`;
   messageBody += 'こちらのメッセージ機能から希望条件などを聞いてみましょう。\n\n';
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
@@ -269,16 +269,16 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
   }
 
   let user = yield select(state => state.auth.user);
-  if (!user.ID) {
+  if (!user.id) {
     yield take(authActions.checkLoginSuccess);
   }
   user = yield select(state => state.auth.user);
-  if (requestData.UserID !== user.ID) {
+  if (requestData.UserID !== user.id) {
     yield handleError(
       requestActions.paymentFailed,
       { errMsg: errMsgCs },
       'payment(estimate)',
-      `requestDataUserID(${requestData.UserID})/loginUserID(${user.ID})`,
+      `requestDataUserID(${requestData.UserID})/loginUserID(${user.id})`,
       false,
     );
     return;
@@ -366,7 +366,7 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
 
 function* fetchSchedule() {
   let user = yield select(state => state.auth.user);
-  if (!user.ID) {
+  if (!user.id) {
     yield take(authActions.checkLoginSuccess);
   }
   user = yield select(state => state.auth.user);
@@ -374,13 +374,13 @@ function* fetchSchedule() {
   const token = yield* getToken();
   const { data: userRequests } = yield call(
     getApiRequest,
-    apiEndpoint.requestsByUserId(user.ID),
+    apiEndpoint.requestsByUserId(user.id),
     {},
     token,
   );
   const { data: hostRequests } = yield call(
     getApiRequest,
-    apiEndpoint.requestsByHostUserId(user.ID),
+    apiEndpoint.requestsByHostUserId(user.id),
     {},
     token,
   );
@@ -390,7 +390,7 @@ function* fetchSchedule() {
 }
 
 function* request({ payload: { user, space } }) {
-  let roomId = yield call(getRoomId, user.ID, space.Host.ID, space.ID);
+  let roomId = yield call(getRoomId, user.id, space.Host.ID, space.ID);
   if (roomId) {
     yield put(requestActions.requestSuccess());
     yield put(push(Path.message(roomId)));
@@ -399,9 +399,9 @@ function* request({ payload: { user, space } }) {
 
   roomId = yield call(
     createRoom,
-    user.ID,
-    user.Name,
-    user.FirebaseUid,
+    user.id,
+    user.name,
+    user.firebaseUid,
     space.Host.ID,
     space.Host.FirebaseUid,
     space.ID,
@@ -413,7 +413,7 @@ function* request({ payload: { user, space } }) {
     isRequested = localStorage.getItem('isRequested');
   }
 
-  if (!isRequested && user.ID !== 2613) {
+  if (!isRequested && user.id !== 2613) {
     window.dataLayer.push({ event: 'newRequest' }); // GTM
 
     const script = document.createElement('script');
@@ -421,7 +421,7 @@ function* request({ payload: { user, space } }) {
     script.innerHTML = `var __atw = __atw || [];
     __atw.push({ "merchant" : "monooq", "param" : {
         "result_id" : "105",
-        "verify" : "new_request_user${user.ID}_space${space.ID}",
+        "verify" : "new_request_user${user.id}_space${space.ID}",
     }});
 (function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
 a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;

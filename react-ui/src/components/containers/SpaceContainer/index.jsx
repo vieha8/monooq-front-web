@@ -95,7 +95,7 @@ class SpaceContainer extends Component<PropTypes> {
   onClickSendMessage = async () => {
     const { dispatch, location, user, space, history } = this.props;
     // 未ログインの場合はログイン画面へ
-    if (!user.ID) {
+    if (!user.id) {
       dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
       history.push(Path.login());
       return;
@@ -113,7 +113,7 @@ class SpaceContainer extends Component<PropTypes> {
 
   showLeftContent = () => {
     const { space, user, isRequesting } = this.props;
-    const isSelfSpace = user.ID === (space.Host || {}).ID;
+    const isSelfSpace = user.id === (space.Host || {}).ID;
     return (
       <Fragment>
         <Detail

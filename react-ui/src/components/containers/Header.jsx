@@ -57,15 +57,15 @@ class HeaderContainer extends Component<PropTypes> {
         user={
           isLogin
             ? {
-                name: user.Name,
-                image: user.ImageUrl,
+                name: user.name,
+                image: user.imageUrl,
               }
             : null
         }
         loginUri={Path.login()}
         onClickLogin={this.onClickLogin}
         signupUri={Path.signUp()}
-        spMenu={<ServiceMenu userName={user.Name} userImage={user.ImageUrl} isPhone />}
+        spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} isPhone />}
       />
     );
   }

@@ -108,10 +108,10 @@ const getRooms = userId =>
 
 function* fetchRoomStart() {
   const user = yield select(state => state.auth.user);
-  const rooms = yield getRooms(user.ID);
+  const rooms = yield getRooms(user.id);
   const token = yield* getToken();
 
-  const userIds = rooms.map(r => (user.ID === r.userId1 ? r.userId2 : r.userId1));
+  const userIds = rooms.map(r => (user.id === r.userId1 ? r.userId2 : r.userId1));
 
   const { data, err } = yield call(
     getApiRequest,
@@ -128,17 +128,17 @@ function* fetchRoomStart() {
   const res = rooms.map(v => {
     const room = v;
     room.isRead = room.isUnsubscribe;
-    if (room[`user${user.ID}LastReadDt`]) {
+    if (room[`user${user.id}LastReadDt`]) {
       const lastMessageDt = parseInt(room.lastMessageDt.getTime() / 1000, 10);
-      const lastReadDt = room[`user${user.ID}LastReadDt`].seconds;
+      const lastReadDt = room[`user${user.id}LastReadDt`].seconds;
       room.isRead = room.isRead || lastMessageDt <= lastReadDt;
     }
 
     const { userId1, userId2 } = room;
-    const partnerId = user.ID === userId1 ? userId2 : userId1;
+    const partnerId = user.id === userId1 ? userId2 : userId1;
     room.user = data.find(u => u.ID === partnerId);
     if (room.user) {
-      room.user.ImageUrl = convertImgixUrl(room.user.ImageUrl, 'w=32&auto=format');
+      room.user.imageUrl = convertImgixUrl(room.user.imageUrl, 'w=32&auto=format');
     }
 
     return room;
@@ -151,14 +151,14 @@ function* fetchRoomStart() {
 
 function* fetchUnreadRooms() {
   const user = yield select(state => state.auth.user);
-  const rooms = yield getRooms(user.ID);
+  const rooms = yield getRooms(user.id);
 
   const res = rooms.map(v => {
     const room = v;
     room.isRead = room.isUnsubscribe;
-    if (room[`user${user.ID}LastReadDt`]) {
+    if (room[`user${user.id}LastReadDt`]) {
       const lastMessageDt = parseInt(room.lastMessageDt.getTime() / 1000, 10);
-      const lastReadDt = room[`user${user.ID}LastReadDt`].seconds;
+      const lastReadDt = room[`user${user.id}LastReadDt`].seconds;
       room.isRead = room.isRead || lastMessageDt <= lastReadDt;
     }
     return room;
@@ -262,13 +262,13 @@ function* fetchMessagesStart({ payload: roomId }) {
     roomCollection()
       .doc(roomId)
       .set(
-        { [`user${user.ID}LastRead`]: lastMessage.id, [`user${user.ID}LastReadDt`]: new Date() },
+        { [`user${user.id}LastRead`]: lastMessage.id, [`user${user.id}LastReadDt`]: new Date() },
         { merge: true },
       );
   } else {
     roomCollection()
       .doc(roomId)
-      .set({ [`user${user.ID}LastReadDt`]: new Date() }, { merge: true });
+      .set({ [`user${user.id}LastReadDt`]: new Date() }, { merge: true });
   }
 
   // メッセージが１件のみの場合はobserverから取得した方を使用するためViewとして追加しない
@@ -280,7 +280,7 @@ function* fetchMessagesStart({ payload: roomId }) {
 
   const { userId1, userId2, spaceId } = room;
 
-  const partnerUserId = user.ID === userId1 ? userId2 : userId1;
+  const partnerUserId = user.id === userId1 ? userId2 : userId1;
 
   yield put(userActions.fetchUser({ userId: partnerUserId }));
   const { payload: partnerUser } = yield take(userActions.fetchSuccessUser);
@@ -393,7 +393,7 @@ function* sendEmail(payload) {
 
   const user = yield select(state => state.auth.user);
 
-  const name = user.Name !== '' ? `${formatName(user.Name)}さんから` : '';
+  const name = user.name !== '' ? `${formatName(user.name)}さんから` : '';
   let messageBody = `${name}メッセージが届いています。\n\n`;
 
   if (text.length !== 0) {
@@ -427,7 +427,7 @@ function* sendSMS(payload) {
   const token = yield* getToken();
   const user = yield select(state => state.auth.user);
 
-  const name = user.Name !== '' ? `${user.Name}さんから` : '';
+  const name = user.name !== '' ? `${user.name}さんから` : '';
   let messageBody = `【モノオク】${name}メッセージが届いています。下記リンクからご確認ください。\n\n`;
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる

@@ -72,7 +72,7 @@ class ScheduleContainer extends Component {
       ((schedule || {}).host || []).map(s => this.getScheduleProps(s, true)),
     );
 
-    const isHost = user.IsHost;
+    const isHost = user.isHost;
 
     return Array.isArray(schedules) && schedules.length > 0 ? (
       <ScheduleList schedules={schedules} isHost={isHost} />

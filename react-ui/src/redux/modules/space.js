@@ -205,16 +205,16 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   if (isSelfOnly) {
     // 不正対策
     let user = yield select(state => state.auth.user);
-    if (!user.ID) {
+    if (!user.id) {
       yield take(authActions.checkLoginSuccess);
     }
     user = yield select(state => state.auth.user);
-    if (payload.UserID !== user.ID) {
+    if (payload.UserID !== user.id) {
       yield handleError(
         '',
         '',
         'getSpace(Bad Request)',
-        `spaceUserID(${payload.UserID})/loginUserID(${user.ID})`,
+        `spaceUserID(${payload.UserID})/loginUserID(${user.id})`,
         false,
       );
     }
@@ -411,12 +411,12 @@ function* prepareUpdateSpace({ payload: spaceId }) {
   }
 
   const user = yield select(state => state.auth.user);
-  if (space.UserID !== user.ID) {
+  if (space.UserID !== user.id) {
     yield handleError(
       '',
       '',
       'prepareUpdateSpace(Bad Request)',
-      `spaceUserID(${space.UserID})/loginUserID(${user.ID})`,
+      `spaceUserID(${space.UserID})/loginUserID(${user.id})`,
       false,
     );
     return;
@@ -482,12 +482,12 @@ function* updateSpace({ payload: { spaceId, body } }) {
 
 function* deleteSpace({ payload: { space } }) {
   const user = yield select(state => state.auth.user);
-  if (space.UserID !== user.ID) {
+  if (space.UserID !== user.id) {
     yield handleError(
       '',
       '',
       'deleteSpace(Bad Request)',
-      `spaceUserID(${space.UserID})/loginUserID(${user.ID})`,
+      `spaceUserID(${space.UserID})/loginUserID(${user.id})`,
       false,
     );
     return;
@@ -505,14 +505,14 @@ function* deleteSpace({ payload: { space } }) {
 
 function* addSpaceAccessLog({ payload: { spaceId } }) {
   let user = yield select(state => state.auth.user);
-  if (!user.ID) {
+  if (!user.id) {
     yield take(authActions.checkLoginSuccess);
   }
   user = yield select(state => state.auth.user);
   const token = yield* getToken();
   const { err } = yield call(
     postApiRequest,
-    apiEndpoint.addUserSpaceAccessLog(user.ID, spaceId),
+    apiEndpoint.addUserSpaceAccessLog(user.id, spaceId),
     {},
     token,
   );

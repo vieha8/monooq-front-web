@@ -85,7 +85,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     const { user } = this.props;
     const { isUpdate } = this.state;
 
-    if (user.Name === '') {
+    if (user.name === '') {
       this.setState({ errorModal: true, isNoProfile: true });
     } else if (!isUpdate) {
       const { Title, Introduction, Address, Images } = this.state;

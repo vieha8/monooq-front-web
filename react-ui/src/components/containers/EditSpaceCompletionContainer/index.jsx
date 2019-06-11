@@ -93,7 +93,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
         leftContent={
           <EditSpaceCompletion
             edit={isEdit}
-            userId={user.ID}
+            userId={user.id}
             onClickBackHome={this.onClickBackHome}
             onKeyDownHome={this.onKeyDownHome}
             onClickCreateSpace={this.onClickCreateSpace}

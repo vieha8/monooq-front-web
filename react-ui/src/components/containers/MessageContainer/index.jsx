@@ -136,10 +136,10 @@ class MessageContainer extends Component<PropTypes, State> {
     dispatch(
       messagesActions.sendMessage({
         roomId: match.params.message_room_id,
-        userId: user.ID,
+        userId: user.id,
         text,
         image,
-        toUserId: room.user.ID,
+        toUserId: room.user.id,
       }),
     );
 
@@ -163,7 +163,7 @@ class MessageContainer extends Component<PropTypes, State> {
             imageUrl = convertImgixUrl(message.image, 'fit=crop&auto=format');
           }
 
-          if (message.userId === user.ID) {
+          if (message.userId === user.id) {
             return {
               self: {
                 message: message.text,
@@ -175,7 +175,7 @@ class MessageContainer extends Component<PropTypes, State> {
           return {
             other: {
               id: message.userId,
-              userImage: convertImgixUrl(room.user.ImageUrl, 'fit=crop&auto=format'),
+              userImage: convertImgixUrl(room.user.imageUrl, 'fit=crop&auto=format'),
               message: message.text,
               image: imageUrl,
               receivedAt: message.createDt,
@@ -229,8 +229,8 @@ class MessageContainer extends Component<PropTypes, State> {
       return <Loading size="large" />;
     }
 
-    const isHost = room.space.Host.ID === user.ID;
-    const otherUserId = room.userId1 === user.ID ? room.userId2 : room.userId1;
+    const isHost = room.space.Host.ID === user.id;
+    const otherUserId = room.userId1 === user.id ? room.userId2 : room.userId1;
 
     const messageList = this.createMessageList();
 
@@ -246,9 +246,9 @@ class MessageContainer extends Component<PropTypes, State> {
         <TopWrap>
           {isHost ? (
             <UserInfo
-              id={room.user.ID}
+              id={room.user.id}
               name={(room.user || {}).Name}
-              imageUrl={room.user.ImageUrl}
+              imageUrl={room.user.imageUrl}
               hostinfo
               message
             />

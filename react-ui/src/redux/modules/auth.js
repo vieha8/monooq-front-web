@@ -214,9 +214,9 @@ const getLoginUserFirebaseAuth = () =>
 const setSentryConfig = user => {
   Sentry.configureScope(scope => {
     scope.setUser({
-      id: user.ID,
-      username: user.Name,
-      email: user.Email,
+      id: user.id,
+      username: user.name,
+      email: user.email,
     });
   });
 };
@@ -275,7 +275,7 @@ function* checkLogin() {
         {},
         token,
       );
-      if (err || data.ID === 0) {
+      if (err || data.id === 0) {
         yield put(authActions.checkLoginFailed({ error: err }));
         yield put(authActions.logout());
         window.location.reload();
@@ -283,8 +283,8 @@ function* checkLogin() {
       }
       status.user = data;
       yield put(authActions.setToken(token));
-      yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID }, token);
-      ReactGA.set({ userId: data.ID });
+      yield call(postApiRequest, apiEndpoint.login(), { UserId: data.id }, token);
+      ReactGA.set({ userId: data.id });
       setSentryConfig(data);
 
       if (isAvailableLocalStorage()) {
