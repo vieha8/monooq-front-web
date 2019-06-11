@@ -85,7 +85,7 @@ class ProfileContainer extends Component<PropTypes> {
           <Profile
             image={user.imageUrl}
             name={user.name}
-            prefCode={user.PrefCode}
+            prefCode={user.prefCode}
             profile={user.profile}
             lastLogin={formatDate(new Date(user.LastLogin), 'yyyy/MM/dd')}
             spaces={(spaces || [])

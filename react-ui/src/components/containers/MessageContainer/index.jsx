@@ -108,7 +108,7 @@ class MessageContainer extends Component<PropTypes, State> {
   }
 
   componentWillReceiveProps = next => {
-    if (!next.user.Email || !next.user.PhoneNumber) {
+    if (!next.user.email || !next.user.phoneNumber) {
       this.setState({ errorModal: true });
     }
   };
@@ -239,7 +239,7 @@ class MessageContainer extends Component<PropTypes, State> {
       lastReadDt = room[`user${otherUserId}LastReadDt`].toDate();
     }
 
-    const isRegisterEmailPhoneNumber = !!user.Email && !!user.PhoneNumber;
+    const isRegisterEmailPhoneNumber = !!user.email && !!user.phoneNumber;
 
     return (
       <Fragment>
@@ -247,16 +247,16 @@ class MessageContainer extends Component<PropTypes, State> {
           {isHost ? (
             <UserInfo
               id={room.user.id}
-              name={(room.user || {}).Name}
+              name={(room.user || {}).name}
               imageUrl={room.user.imageUrl}
               hostinfo
               message
             />
           ) : (
             <HostInfo
-              id={room.space.Host.ID}
-              name={(room.space.Host || {}).Name}
-              imageUrl={room.space.Host.ImageUrl}
+              id={room.space.Host.id}
+              name={(room.space.Host || {}).name}
+              imageUrl={room.space.Host.imageUrl}
               hostinfo
               message
             />
