@@ -10,6 +10,7 @@ import HeroImage from 'components/LV1/HeroImage';
 import AvatarImage from 'components/LV1/AvatarImage';
 import InlineText from 'components/LV1/InlineText';
 import { Colors, Dimens } from 'variables';
+import { formatName } from 'helpers/string';
 
 const Container = styled(Link)`
   display: block;
@@ -84,38 +85,32 @@ type PropTypes = {
   large?: boolean,
 };
 
-export default (props: PropTypes) => (
-  <Container to={props.link} large={props.large}>
+export default ({ link, large, space, user }: PropTypes) => (
+  <Container to={link} large={large}>
     <Card noPadding>
-      <ImageContainer large={props.large}>
+      <ImageContainer large={large}>
         <SpaceImageContainer>
           <SpaceImageFilter />
           <LazyLoad>
-            <HeroImage src={props.space.image} />
+            <HeroImage src={space.image} />
           </LazyLoad>
         </SpaceImageContainer>
         <UserContainer>
           <LazyLoad>
-            <AvatarImage src={props.user.image} size={44} />
+            <AvatarImage src={user.image} size={44} />
           </LazyLoad>
           <div>
-            <InlineText.Base color={Colors.white}>
-              {props.user.name}
-              さん
-            </InlineText.Base>
+            <InlineText.Base color={Colors.white}>{`${formatName(user.name)}さん`}</InlineText.Base>
           </div>
           <div>
-            <InlineText.Small color={Colors.white}>
-              {props.space.price}
-              円〜
-            </InlineText.Small>
+            <InlineText.Small color={Colors.white}>{`${space.price}円から`}</InlineText.Small>
           </div>
         </UserContainer>
       </ImageContainer>
-      <DetailContainer large={props.large}>
-        <InlineText.Small>{props.space.area}</InlineText.Small>
+      <DetailContainer large={large}>
+        <InlineText.Small>{space.area}</InlineText.Small>
         <br />
-        <InlineText.Small color={props.space.color}>{props.space.description}</InlineText.Small>
+        <InlineText.Small color={space.color}>{space.description}</InlineText.Small>
       </DetailContainer>
     </Card>
   </Container>

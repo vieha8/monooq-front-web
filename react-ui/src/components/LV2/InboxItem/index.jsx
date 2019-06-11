@@ -9,6 +9,7 @@ import InlineText from 'components/LV1/InlineText';
 import AvatarImage from 'components/LV1/AvatarImage';
 import { Dimens, Colors, FontSizes } from 'variables';
 import LazyLoad from 'react-lazyload';
+import { formatName } from 'helpers/string';
 
 const Container = styled.li`
   padding: ${Dimens.medium1}px 5px ${Dimens.medium}px;
@@ -56,15 +57,16 @@ export type PropTypes = {
   image: string,
   name: string,
   receivedAt: string | Date | moment,
+  lastMessage: string,
   isRead: boolean,
 };
 
-export default (props: PropTypes) => (
+export default ({ link, image, name, receivedAt, lastMessage, isRead }: PropTypes) => (
   <Container>
-    <Link to={props.link || ''}>
+    <Link to={link || ''}>
       <Cell>
         <LazyLoad width={32}>
-          <AvatarImage size={32} src={props.image} />
+          <AvatarImage size={32} src={image} />
         </LazyLoad>
       </Cell>
       <Cell nametime>
@@ -76,7 +78,7 @@ export default (props: PropTypes) => (
           bold
           fontSizeSp={`${FontSizes.small}`}
         >
-          {props.name}
+          {formatName(name)}
         </InlineText.Base>
         <InlineText.Base
           lineheight={3.5}
@@ -86,12 +88,12 @@ export default (props: PropTypes) => (
           color={Colors.lightGray1}
           float="right"
         >
-          {moment(props.receivedAt).format('YYYY年MM月DD日')}
+          {moment(receivedAt).format('YYYY年MM月DD日')}
         </InlineText.Base>
       </Cell>
       <Cell lastMessage nametime>
         <InlineText.Base fontSize={15} fontSizeSp={12} whiteSpaceNormal>
-          {props.lastMessage}
+          {lastMessage}
         </InlineText.Base>
         <InlineText.Base
           inLineBlock
@@ -100,7 +102,7 @@ export default (props: PropTypes) => (
           color={Colors.brandPrimary}
           float="right"
         >
-          {!props.isRead && '●'}
+          {!isRead && '●'}
         </InlineText.Base>
       </Cell>
     </Link>

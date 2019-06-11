@@ -9,6 +9,7 @@ import Anonymouse from 'components/LV2/HeaderAction/Anonymouse';
 import AnimateSearchInputField from 'components/LV2/AnimateSearchInputField';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, ZIndexes } from 'variables';
+import { formatName } from 'helpers/string';
 
 export const Height = 64;
 export const HeightPhone = 54;
@@ -197,7 +198,7 @@ export default (props: PropTypes) => {
                   </ActionCell>
                   <ActionCell>
                     <Link to={props.homeUri}>
-                      <AvaterName>{props.user.name}</AvaterName>
+                      <AvaterName>{formatName(props.user.name)}</AvaterName>
                     </Link>
                   </ActionCell>
                 </OnlyPC>

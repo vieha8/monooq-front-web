@@ -10,6 +10,7 @@ import { Colors } from 'variables';
 import { userActions } from 'redux/modules/user';
 import type { SpaceType } from 'types/Space';
 import { formatDate } from 'helpers/date';
+import { formatName } from 'helpers/string';
 import Meta from 'components/LV1/Meta';
 import connect from '../connect';
 
@@ -74,7 +75,7 @@ class ProfileContainer extends Component<PropTypes> {
         header={<Header />}
         meta={
           <Meta
-            title={`${user.Name}さんのプロフィール - モノオク`}
+            title={`${formatName(user.Name)}さんのプロフィール - モノオク`}
             ogUrl={`user/${user.ID}`}
             ogImageUrl={user.ImageUrl}
             noindex

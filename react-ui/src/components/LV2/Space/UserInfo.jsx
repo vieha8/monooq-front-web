@@ -7,6 +7,7 @@ import AvatarImage from 'components/LV1/AvatarImage';
 import InlineText from 'components/LV1/InlineText';
 import Path from 'config/path';
 import { FontSizes } from 'variables';
+import { formatName } from 'helpers/string';
 import Attribute from './Attribute';
 
 const Content = styled.div``;
@@ -16,19 +17,21 @@ const ProfileWrap = styled.div`
 `;
 
 type PropTypes = {
+  hostinfo: string,
+  message: string,
   id: string,
-  name: string,
   imageUrl: string,
+  name: string,
   profile: string,
 };
 
-export default (props: PropTypes) => (
+export default ({ hostinfo, message, id, imageUrl, name, profile }: PropTypes) => (
   <Attribute
-    hostinfo={props.hostinfo}
-    message={props.message}
+    hostinfo={hostinfo}
+    message={message}
     headContent={
-      <Link to={Path.profile(props.id)}>
-        <AvatarImage size={45} src={props.imageUrl} alt={props.name} />
+      <Link to={Path.profile(id)}>
+        <AvatarImage size={45} src={imageUrl} alt={name} />
       </Link>
     }
     contentHostName={
@@ -38,10 +41,10 @@ export default (props: PropTypes) => (
             ユーザー
           </InlineText.Base>
           <br />
-          <InlineText.Base>{props.name} さん</InlineText.Base>
+          <InlineText.Base>{`${formatName(name)}さん`}</InlineText.Base>
         </Fragment>
       </Content>
     }
-    contentProfile={<ProfileWrap>{props.profile}</ProfileWrap>}
+    contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
   />
 );

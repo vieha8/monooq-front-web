@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { getPrefecture } from 'helpers/prefectures';
+import { formatName } from 'helpers/string';
 import Card from 'components/LV1/Card';
 import InlineText from 'components/LV1/InlineText';
 import AvatarImage from 'components/LV1/AvatarImage';
@@ -59,45 +60,41 @@ type PropTypes = {
   image: string,
   name: string,
   prefCode: string,
-  profile: string,
   lastLogin: Date,
+  profile: string,
   spaces: SpaceListProps,
 };
 
-export default (props: PropTypes) => (
+export default ({ image, name, prefCode, lastLogin, profile, spaces }: PropTypes) => (
   <Container>
     <Card customStyle={CardStyle} customStylePhone={CardStylePhone}>
       <User>
-        <AvatarImage src={props.image} alt={props.name} size={IMAGE_SIZE} />
+        <AvatarImage src={image} alt={name} size={IMAGE_SIZE} />
         <HostName>
-          <InlineText.Base fontSize={FontSizes.medium2}>{`${props.name}さん`}</InlineText.Base>
+          <InlineText.Base fontSize={FontSizes.medium2}>
+            {`${formatName(name)}さん`}
+          </InlineText.Base>
         </HostName>
         <ResidenceText>
-          <InlineText.Small>
-            {getPrefecture(props.prefCode)}
-            在住
-          </InlineText.Small>
+          <InlineText.Small>{`${getPrefecture(prefCode)}在住`}</InlineText.Small>
         </ResidenceText>
         <LastLoginText>
-          <InlineText.Small>
-            最終ログイン日:
-            {props.lastLogin}
-          </InlineText.Small>
+          <InlineText.Small>{`最終ログイン日:${lastLogin}`}</InlineText.Small>
         </LastLoginText>
         <Profile>
-          <InlineText.Base>{props.profile}</InlineText.Base>
+          <InlineText.Base>{profile}</InlineText.Base>
         </Profile>
       </User>
-      {props.spaces.length > 0 && (
+      {spaces.length > 0 && (
         <Fragment>
           <SpaceListContainer>
             <HostName>
               <InlineText.Base fontSize={FontSizes.large}>
-                {props.name} さんのスペース
+                {`${formatName(name)}さんのスペース`}
               </InlineText.Base>
             </HostName>
           </SpaceListContainer>
-          <SpaceList spaces={props.spaces} />
+          <SpaceList spaces={spaces} />
         </Fragment>
       )}
     </Card>

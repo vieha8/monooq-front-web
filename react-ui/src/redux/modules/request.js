@@ -3,6 +3,7 @@ import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import { push } from 'connected-react-router';
 import { isAvailableLocalStorage } from 'helpers/storage';
+import { formatName } from 'helpers/string';
 import { authActions, getToken } from './auth';
 import { createOmiseToken } from '../helpers/omise';
 import Path from '../../config/path';
@@ -229,7 +230,7 @@ function* sendRequestEmail(payload) {
 
   const token = yield* getToken();
 
-  let messageBody = `${user.Name}さんがあなたのスペースに興味を持っています!\n`;
+  let messageBody = `${formatName(user.Name)}さんがあなたのスペースに興味を持っています!\n`;
   messageBody += 'こちらのメッセージ機能から希望条件などを聞いてみましょう。\n\n';
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる

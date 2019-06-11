@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import MenuItem from 'components/LV2/MenuItem/ServiceMenu';
 import AvatarIcon from 'components/LV2/HeaderAction/AvatarIcon';
 import { Dimens } from 'variables';
+import { formatName } from 'helpers/string';
 
 const LinkWrap = styled.div`
   padding: 1px 25px ${Dimens.medium}px;
@@ -46,7 +47,7 @@ export default (props: PropTypes) => (
       <Fragment>
         <LinkWrap>
           <AvatarIcon imageSrc={props.userImage} size={40} />
-          <AvaterName>{props.userName}</AvaterName>
+          <AvaterName>{formatName(props.userName)}</AvaterName>
         </LinkWrap>
       </Fragment>
     )}

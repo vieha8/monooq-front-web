@@ -5,23 +5,34 @@ import InlineText from 'components/LV1/InlineText';
 import RadioList from 'components/LV2/RadioList';
 import { Colors, FontSizes } from 'variables';
 import EntryButtons from 'components/LV2/EntryButtons';
+import { formatName } from 'helpers/string';
 import Form from './Form';
 
 type PropTypes = {
+  userName: string,
+  onChangeIsHost: Function,
+  isHost: boolean,
   buttonDisabled: boolean,
   buttonLoading: boolean,
   onClickSkip: Function,
   onClickRegisterProfile: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  userName,
+  onChangeIsHost,
+  isHost,
+  buttonDisabled,
+  buttonLoading,
+  onClickSkip,
+  onClickRegisterProfile,
+}: PropTypes) => (
   <Form
     title={
       <InlineText.Base fontSize={FontSizes.medium2} bold>
-        {props.userName && (
+        {userName && (
           <Fragment>
-            {props.userName}
-            さん
+            {`${formatName(userName)}さん`}
             <br />
           </Fragment>
         )}
@@ -51,8 +62,8 @@ export default (props: PropTypes) => (
             </InlineText.Base>
           </Fragment>,
         ]}
-        onClick={props.onChangeIsHost}
-        checkedIndex={props.isHost}
+        onClick={onChangeIsHost}
+        checkedIndex={isHost}
         border
       />
     }
@@ -67,15 +78,15 @@ export default (props: PropTypes) => (
         rerative
         backButton={{
           text: 'スキップ',
-          disabled: props.buttonDisabled,
-          loading: props.buttonLoading,
-          onClick: props.onClickSkip,
+          disabled: buttonDisabled,
+          loading: buttonLoading,
+          onClick: onClickSkip,
         }}
         enabledButton={{
           text: '決定',
-          disabled: props.buttonDisabled,
-          loading: props.buttonLoading,
-          onClick: props.onClickRegisterProfile,
+          disabled: buttonDisabled,
+          loading: buttonLoading,
+          onClick: onClickRegisterProfile,
         }}
       />
     }
