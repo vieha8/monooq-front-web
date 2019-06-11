@@ -247,7 +247,7 @@ class SalesContainer extends Component {
   };
 
   leftContent = () => {
-    const { deposit, history } = this.props;
+    const { deposit } = this.props;
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
 
     if (deposit < 3000) {
