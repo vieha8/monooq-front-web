@@ -319,8 +319,6 @@ function* loginFacebook() {
     }
     const provider = new firebase.auth.FacebookAuthProvider();
     yield firebase.auth().signInWithRedirect(provider);
-    yield checkLogin();
-    yield put(authActions.loginSuccess());
   } catch (err) {
     yield put(authActions.loginFailed(err));
   }
