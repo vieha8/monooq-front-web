@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import Path from 'config/path';
 import Header from 'components/containers/Header';
 import styled from 'styled-components';
@@ -12,7 +13,7 @@ import MediaLineup from 'components/LV3/MediaLineup';
 import OtherService from 'components/LV3/OtherService';
 import TopIntro from 'components/LV3/TopIntro';
 import TopIntroMovie from 'components/LV3/TopIntroMovie';
-import LogoEnepi from 'images/enepi-blue.png';
+import LogoEnepi from 'images/logo-enepi-blue.png';
 
 const logoPickGo =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=42';
@@ -31,6 +32,32 @@ const logoTechcrunch =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-techcrunch%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
 const logoTechable =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-techable%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
+
+const BrStyled = styled.br`
+  display: none;
+  ${media.phone`
+    display: block;
+  `};
+`;
+
+const LinkBlank = styled.a`
+  color: ${Colors.linkBlue};
+  font-size: ${FontSizes.large}px;
+  line-height: ${FontSizes.medium * 2}px;
+  text-decoration: underline;
+  ${media.phone`
+    font-size: ${FontSizes.medium}px;
+  `};
+`;
+
+const SubDescriptionSmall = styled.span`
+  display: inline-block;
+  margin-top: ${Dimens.small_10}px;
+  font-size: ${FontSizes.small_15}px;
+  ${media.phone`
+    font-size: ${FontSizes.small_13}px;
+  `};
+`;
 
 const TopPage = styled.div`
   min-width: ${Dimens.fixedWidthPc + 32}px;
@@ -52,35 +79,8 @@ const CommonContainer = styled.div`
 
 const ForSafeContainer = styled(StyledDefaultContainer)``;
 
-const PickGoMedia = styled.img`
-  height: ${Dimens.large}px;
-`;
-
-const EnepiMedia = styled.img`
-  height: ${Dimens.large3}px;
-  margin-bottom: ${Dimens.small}px;
-`;
-
-const PickGoDescription = styled.div`
-  font-size: ${FontSizes.small}px;
-  line-height: ${FontSizes.small * 2}px;
-`;
-
 const PickupContainer = styled.div`
   margin: ${Dimens.medium}px 0;
-`;
-
-const PickGoFragment = styled.div`
-  color: #000000;
-  line-height: 1.4em;
-  font-size: 75%;
-`;
-
-const EnepiFragment = styled.div`
-  color: #000000;
-  font-size: 70%;
-  line-height: 1.4em;
-  font-weight: none;
 `;
 
 export default props => (
@@ -245,42 +245,66 @@ export default props => (
 
     <CommonContainer gray>
       <OtherService
-        CampanyRelation={<p>提携先</p>}
-        catchPhraseOtherService={
-          <PickGoFragment>荷物の配送だって もっと便利に安くできる</PickGoFragment>
-        }
-        serviceName="PickGo"
-        serviceUrl="https://pickgo.town/personal/"
-        serviceImage={<PickGoMedia src={logoPickGo} />}
-        description={
-          <PickGoDescription>
-            サービス対象エリア
-            <br />
-            東京／神奈川／千葉／埼玉／大阪／兵庫／京都
-          </PickGoDescription>
-        }
-        subDescription={<PickGoFragment>を使えば、引っ越しが 5,000円 から</PickGoFragment>}
-      />
-      <OtherService
-        serviceUrl="https://enepi.jp/s/lp/003?pr=monooq"
-        campanyRelation={<p>スポンサー</p>}
-        serviceImage={<EnepiMedia src={LogoEnepi} />}
-        catchPhraseOtherService={
-          <EnepiFragment>
-            あなたのガス代本当に適正？
-            <br />
-            引っ越しを機に「enepi」を使って
-            <br />
-            ガス代を安くしよう！
-          </EnepiFragment>
-        }
-        subDescription={
-          <EnepiFragment>
-            国内唯一のプロパンガス料金比較サービス
-            <br />
-            「enepi」を使い、ガス料金が15％も削減できる！？
-          </EnepiFragment>
-        }
+        serviceList={[
+          {
+            title: '提携サービス',
+            serviceUrl: 'https://pickgo.town/personal/',
+            serviceLogo: { src: logoPickGo, alt: 'pickgo' },
+            descriptionLogo: (
+              <Fragment>
+                サービス対象エリア
+                <br />
+                東京／神奈川／千葉／埼玉／大阪／兵庫／京都
+              </Fragment>
+            ),
+            catchPhrase: (
+              <Fragment>
+                荷物の配送だって
+                <BrStyled />
+                もっと便利に安くできる
+              </Fragment>
+            ),
+            description: (
+              <Fragment>
+                <LinkBlank
+                  component={Link}
+                  href="https://pickgo.town/personal/"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  PickGo
+                </LinkBlank>
+                を使えば、引っ越しが 5,000円 から
+              </Fragment>
+            ),
+          },
+          {
+            title: 'スポンサー',
+            serviceUrl: 'https://enepi.jp/s/lp/003?pr=monooq',
+            serviceLogo: { type_70: true, src: LogoEnepi, alt: 'enepi' },
+            description: (
+              <Fragment>
+                あなたのガス代本当に適正？
+                <br />
+                引っ越しを機に「
+                <LinkBlank
+                  component={Link}
+                  href="https://enepi.jp/s/lp/003?pr=monooq"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  enepi
+                </LinkBlank>
+                」を使ってガス代を安くしよう！
+                <br />
+                <SubDescriptionSmall>
+                  国内唯一のプロパンガス料金比較サービス「enepi」を使い、ガス料金が15％も削減できる！？
+                </SubDescriptionSmall>
+              </Fragment>
+            ),
+            noMarginBottom: true,
+          },
+        ]}
       />
     </CommonContainer>
 
