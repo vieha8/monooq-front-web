@@ -54,7 +54,7 @@ storiesOf('Organisms(LV3)/Header', module)
             helpUri="https://help.monooq.com/"
             inquiryUri={Path.inquiry()}
             howToUseUri={Path.howToUse()}
-            otherUri={Path.other()}
+            aboutMonooqUri={Path.aboutMonooq()}
             tidyUri="https://tidy.monooq.com/"
             messageUri={Path.messages()}
             messageCount={0}
@@ -101,7 +101,7 @@ storiesOf('Organisms(LV3)/Header', module)
             helpUri="https://help.monooq.com/"
             inquiryUri={Path.inquiry()}
             howToUseUri={Path.howToUse()}
-            otherUri={Path.other()}
+            aboutMonooqUri={Path.aboutMonooq()}
             tidyUri="https://tidy.monooq.com/"
             messageUri={Path.messages()}
             messageCount={0}

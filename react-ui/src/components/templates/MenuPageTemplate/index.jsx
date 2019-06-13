@@ -40,9 +40,9 @@ const LeftContent = styled.div`
 
 const RightContent = styled.div`
   float: left;
-  width: 22%;
+  width: 28%;
   min-width: 192px;
-  margin-left: 88px;
+  margin-left: 67px;
   ${media.tablet`
     display: none;
     float: none;

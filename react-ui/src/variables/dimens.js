@@ -4,6 +4,7 @@ export default {
   xxsmall_5: 5,
   xsmall: 6,
   small: 8,
+  small_9: 9,
   small_10: 10,
   small_11: 11,
   small2: 12,

@@ -318,7 +318,7 @@ export default (props: PropTypes) => {
 
       <CautionWrapper>
         <CautionText>モノオクではサービス外のお支払いや現金取引は禁止です。</CautionText>
-        <TextLink to={Path.rule()} fontSize={11} target="_blank">
+        <TextLink to={Path.rule()} fontSize={11} target="_blank" rel="noopener noreferrer">
           ルールとマナーを読む
         </TextLink>
       </CautionWrapper>

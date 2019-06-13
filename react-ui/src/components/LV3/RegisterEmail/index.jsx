@@ -66,6 +66,7 @@ export default (props: PropTypes) => (
         <TextLink
           to={Path.terms()}
           target="_blank"
+          rel="noopener noreferrer"
           fontSize={FontSizes.small_12}
           color={Colors.brandPrimary}
           underline="true"
@@ -76,6 +77,7 @@ export default (props: PropTypes) => (
         <TextLink
           to={Path.privacy()}
           target="_blank"
+          rel="noopener noreferrer"
           fontSize={FontSizes.small_12}
           color={Colors.brandPrimary}
           underline="true"

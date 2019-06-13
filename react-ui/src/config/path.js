@@ -80,7 +80,7 @@ export default {
   insurance: () => '/insurance',
   rule: () => '/rule',
   howToUse: () => '/howtouse',
-  other: () => '/other',
+  aboutMonooq: () => '/aboutmonooq',
   notFound: () => '/notfound',
   error: (status = ':status') => `/error/${status}`,
   cancellationPolicies: () => '/cancel/policy',

@@ -40,7 +40,7 @@ export default () => (
       <MenuLink to={Path.rule()}>
         <ItemContainer>ルールとマナー</ItemContainer>
       </MenuLink>
-      <HyperLink href="https://help.monooq.com/" target="_blank">
+      <HyperLink href="https://help.monooq.com/" target="_blank" rel="noopener noreferrer">
         <ItemContainer>ヘルプ</ItemContainer>
       </HyperLink>
     </AsctContentWrapper>

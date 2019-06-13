@@ -7,6 +7,8 @@ import MenuWrapPhone from 'components/LV3/ServiceMenu/MenuWrapPhone';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 
+import { authActions } from 'redux/modules/auth';
+
 import connect from '../connect';
 
 type PropTypes = {
@@ -23,6 +25,15 @@ class ServiceMenuContainer extends Component<PropTypes> {
       side: 'right',
     };
   }
+
+  logout = () => {
+    if (document && document.body) {
+      document.body.style.overflowY = 'auto';
+    }
+
+    const { dispatch } = this.props;
+    dispatch(authActions.logout());
+  };
 
   render() {
     const { isPhone, userName, userImage, dispatch, isLogin, unreadRooms } = this.props;
@@ -44,14 +55,19 @@ class ServiceMenuContainer extends Component<PropTypes> {
               sales={{ to: Path.sales() }}
               paymentHistory={{ to: Path.paid() }}
               editProfile={{ to: Path.editProfile() }}
-              help={{ href: 'https://help.monooq.com/' }}
               inquiry={{ to: Path.inquiry() }}
               howToUse={{ to: Path.howToUse() }}
-              other={{ to: Path.other() }}
+              aboutMonooq={{ to: Path.aboutMonooq() }}
               userName={userName}
               userImage={userImage}
               isPhone
               isLogin={isLogin}
+              logoutEvent={{
+                onClick: e => {
+                  e.preventDefault();
+                  this.logout();
+                },
+              }}
             />
           </Menu>
         </MenuWrapPhone>
@@ -74,8 +90,14 @@ class ServiceMenuContainer extends Component<PropTypes> {
         help={{ href: 'https://help.monooq.com/' }}
         inquiry={{ to: Path.inquiry() }}
         howToUse={{ to: Path.howToUse() }}
-        other={{ to: Path.other() }}
+        aboutMonooq={{ to: Path.aboutMonooq() }}
         isLogin={isLogin}
+        logoutEvent={{
+          onClick: e => {
+            e.preventDefault();
+            this.logout();
+          },
+        }}
       />
     );
   }

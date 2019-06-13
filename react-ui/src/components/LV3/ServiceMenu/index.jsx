@@ -33,12 +33,12 @@ type PropTypes = {
   addSpace: MenuItemProps,
   sales: MenuItemProps,
   editProfile: MenuItemProps,
-  help: MenuItemProps,
   inquiry: MenuItemProps,
   howToUse: MenuItemProps,
-  other: MenuItemProps,
+  aboutMonooq: MenuItemProps,
   isPhone: boolean,
   isLogin: boolean,
+  logout: Function,
 };
 
 export default (props: PropTypes) => (
@@ -55,16 +55,28 @@ export default (props: PropTypes) => (
       <Fragment>
         <MenuItem title="ホーム" {...props.home} line={props.isPhone} />
         <MenuItem title="メッセージ" {...props.message} />
+
+        {/* TODO: 1件以上ある場合に表示 */}
         <MenuItem title="利用状況" {...props.schedule} />
+        <MenuItem title="プロフィールの編集" {...props.editProfile} />
+        {/* 目的がhostの場合のみ法事 */}
         <MenuItem title="スペースの登録" {...props.addSpace} line />
         <MenuItem title="スペースの管理" {...props.spaces} />
-        <MenuItem title="売上・振込申請" {...props.sales} />
-        <MenuItem title="プロフィール編集" {...props.editProfile} />
+        <MenuItem title="売り上げ・振込申請" {...props.sales} />
       </Fragment>
     )}
-    <MenuItem title="ヘルプ" {...props.help} blank line={props.isLogin} />
+    <MenuItem title="モノオクの使い方・ヘルプ" {...props.howToUse} line={props.isLogin} />
     <MenuItem title="お問い合わせ" {...props.inquiry} />
-    <MenuItem title="モノオクの使い方" {...props.howToUse} />
-    <MenuItem title="その他" {...props.other} />
+    <MenuItem title="モノオクについて" {...props.aboutMonooq} />
+    {props.isLogin && (
+      <Fragment>
+        <MenuItem
+          title={'スペース登録機能の使用をやめる' || 'スペース登録機能を使用する'}
+          {...props.other}
+          line
+        />
+        <MenuItem title="ログアウト" {...props.logoutEvent} blank line logout />
+      </Fragment>
+    )}
   </Fragment>
 );

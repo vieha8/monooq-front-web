@@ -22,7 +22,7 @@ const MenuItem = styled.li`
     display: none;
   `};
   ${media.tablet`
-    width: calc(100% - 50px);
+    width: calc(100% - 40px);
   `};
   ${media.phone`
     padding: 0px;

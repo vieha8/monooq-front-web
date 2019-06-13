@@ -19,7 +19,7 @@ const MenuLink = styled(Link)`
 const MenuText = styled.span`
   display: table-cell;
   vertical-align: middle;
-  width: 90vw;
+  width: 100%;
 `;
 
 const NotificationWrapper = styled.span`
@@ -34,6 +34,12 @@ const LinkWrap = styled.div`
     `
       border-top: 1px solid ${Colors.borderGray};
     `};
+  ${props =>
+    props.logout &&
+    `
+      text-align: center;
+      padding: ${Dimens.small_9}px 0px;
+    `};
 `;
 
 type PropTypes = {
@@ -42,6 +48,7 @@ type PropTypes = {
   notificationCount: number,
   line?: boolean,
   onClick?: Function,
+  logoutEvent?: Function,
 };
 
 const HyperLinkStyled = MenuLink.withComponent('a');
@@ -49,10 +56,20 @@ const HyperLinkStyled = MenuLink.withComponent('a');
 export default (props: PropTypes) =>
   props.blank ? (
     <MenuItem show {...props}>
-      <LinkWrap line={props.line}>
-        <HyperLinkStyled href={props.href || ''} onClick={props.onClick} target="_blank">
+      <LinkWrap line={props.line} logout={props.logout}>
+        <HyperLinkStyled
+          href={props.href || ''}
+          onClick={props.logoutEvent || props.onClick}
+          target={props.logoutEvent ? '' : '_blank'}
+          logout={props.logout}
+        >
           <MenuText>
-            <InlineText.Base fontSize={FontSizes.small_15}>{props.title}</InlineText.Base>
+            <InlineText.Base
+              fontSize={FontSizes.small_15}
+              color={props.logout && Colors.lightGray3}
+            >
+              {props.title}
+            </InlineText.Base>
           </MenuText>
           <NotificationWrapper>
             <NotificationCount count={props.notificationCount} />
