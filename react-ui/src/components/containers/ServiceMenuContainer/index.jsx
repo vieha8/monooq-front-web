@@ -7,6 +7,7 @@ import MenuWrapPhone from 'components/LV3/ServiceMenu/MenuWrapPhone';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { requestActions } from 'redux/modules/request';
+import { userActions } from 'redux/modules/user';
 
 import { authActions } from 'redux/modules/auth';
 
@@ -41,6 +42,13 @@ class ServiceMenuContainer extends Component<PropTypes> {
 
     const { dispatch } = this.props;
     dispatch(authActions.logout());
+  };
+
+  updatePurpose = () => {
+    const { dispatch, user } = this.props;
+    const body = this.state;
+    body.isHost = !user.IsHost;
+    dispatch(userActions.updateUser({ userId: user.ID, body }));
   };
 
   render() {
@@ -90,7 +98,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
               changePurposeEvent={{
                 onClick: e => {
                   e.preventDefault();
-                  console.log('Do changePurposeEvent');
+                  this.updatePurpose();
                 },
               }}
               logoutEvent={{
@@ -128,7 +136,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
         changePurposeEvent={{
           onClick: e => {
             e.preventDefault();
-            console.log('Do changePurposeEvent');
+            this.updatePurpose();
           },
         }}
         logoutEvent={{
