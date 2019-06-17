@@ -41,7 +41,7 @@ export default () => (
         <ItemContainer>ルールとマナー</ItemContainer>
       </MenuLink>
       <HyperLink href="https://help.monooq.com/" target="_blank" rel="noopener noreferrer">
-        <ItemContainer>ヘルプ</ItemContainer>
+        <ItemContainer>よくある質問</ItemContainer>
       </HyperLink>
     </AsctContentWrapper>
   </Fragment>

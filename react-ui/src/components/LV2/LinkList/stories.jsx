@@ -33,7 +33,7 @@ storiesOf('Molecules(LV2)/LinkList', module).add(
             path: Path.about(),
           },
           {
-            text: 'ヘルプ',
+            text: 'よくある質問',
             path: 'https://help.monooq.com/',
             blank: '_blank',
           },

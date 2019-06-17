@@ -16,7 +16,7 @@ storiesOf('Organisms(LV3)/HowToUse', module)
     'Normal',
     withInfo(`
         ### コンポーネント概要
-        モノオクの使い方
+        ご利用ガイド・よくある質問
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <HowToUse />

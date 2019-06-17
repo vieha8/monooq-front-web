@@ -90,7 +90,7 @@ export default ({
         )}
       </Fragment>
     )}
-    <MenuItem title="モノオクの使い方・ヘルプ" {...howToUse} line={isLogin} />
+    <MenuItem title="ご利用ガイド・よくある質問" {...howToUse} line={isLogin} />
     <MenuItem title="お問い合わせ" {...inquiry} />
     <MenuItem title="モノオクについて" {...aboutMonooq} />
     {isLogin && (

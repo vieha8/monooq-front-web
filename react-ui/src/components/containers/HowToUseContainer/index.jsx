@@ -14,7 +14,7 @@ class HowToUseContainer extends Component<*> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline="モノオクの使い方・ヘルプ"
+        headline="ご利用ガイド・よくある質問"
         leftContent={<HowToUse />}
         rightContent={<ServiceMenu />}
       />
