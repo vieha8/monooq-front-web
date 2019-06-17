@@ -22,6 +22,9 @@ storiesOf('Molecules(LV2)/QuestionList', module)
         <QuestionList
           list={[
             {
+              text: 'モノオクサービス内で決済を行われていない場合。',
+            },
+            {
               text: 'メッセージ上で記録に残っていない、ホストが把握していない荷物の場合。',
             },
             {

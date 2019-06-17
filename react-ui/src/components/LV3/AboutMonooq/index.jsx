@@ -41,7 +41,7 @@ export default () => (
         <ItemContainer>プライバシーポリシー</ItemContainer>
       </MenuLink>
       <MenuLink to={Path.asct()}>
-        <ItemContainer>特定商取引に関する表記</ItemContainer>
+        <ItemContainer>特定商取引法に基づく表記</ItemContainer>
       </MenuLink>
       <MenuLink to={Path.cancellationPolicies()}>
         <ItemContainer>キャンセルポリシー</ItemContainer>

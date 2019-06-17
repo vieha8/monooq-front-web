@@ -242,9 +242,9 @@ export default () => (
           customText: (
             <Fragment>
               <Address>
-                〒166-0003
+                〒150-0002
                 <br />
-                東京都杉並区高円寺南 2-48-12 1F
+                東京都渋谷区渋谷 2-6-6-301
                 <br />
                 モノオク株式会社 個人情報担当者宛
               </Address>
