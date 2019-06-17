@@ -12,8 +12,8 @@ import { authActions } from 'redux/modules/auth';
 import connect from '../connect';
 
 type PropTypes = {
-  userName?: String,
-  userImage?: String,
+  userName?: string,
+  userImage?: string,
   isPhone?: boolean,
 };
 
@@ -36,13 +36,14 @@ class ServiceMenuContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { isPhone, userName, userImage, dispatch, isLogin, unreadRooms } = this.props;
+    const { isPhone, userName, userImage, dispatch, isLogin, unreadRooms, user } = this.props;
+    const { currentMenu, side } = this.state;
 
     if (isPhone) {
-      const Menu = BurgerMenu[this.state.currentMenu];
+      const Menu = BurgerMenu[currentMenu];
       return (
-        <MenuWrapPhone wait={20} side={this.state.side}>
-          <Menu id={this.state.currentMenu} right>
+        <MenuWrapPhone wait={20} side={side}>
+          <Menu id={currentMenu} right>
             <ServiceMenu
               home={{ to: Path.home() }}
               message={{ to: Path.messages(), notificationCount: unreadRooms }}
@@ -62,6 +63,13 @@ class ServiceMenuContainer extends Component<PropTypes> {
               userImage={userImage}
               isPhone
               isLogin={isLogin}
+              isHost={user.IsHost || false}
+              changePurposeEvent={{
+                onClick: e => {
+                  e.preventDefault();
+                  console.log('Do changePurposeEvent');
+                },
+              }}
               logoutEvent={{
                 onClick: e => {
                   e.preventDefault();
@@ -92,6 +100,13 @@ class ServiceMenuContainer extends Component<PropTypes> {
         howToUse={{ to: Path.howToUse() }}
         aboutMonooq={{ to: Path.aboutMonooq() }}
         isLogin={isLogin}
+        isHost={user.IsHost || false}
+        changePurposeEvent={{
+          onClick: e => {
+            e.preventDefault();
+            console.log('Do changePurposeEvent');
+          },
+        }}
         logoutEvent={{
           onClick: e => {
             e.preventDefault();
