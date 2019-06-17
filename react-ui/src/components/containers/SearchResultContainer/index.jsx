@@ -43,16 +43,16 @@ type PropTypes = {
   },
   isSearching: boolean,
   spaces: Array<{
-    ID: number,
-    Images: Array<{
+    iD: number,
+    images: Array<{
       ImageUrl: string,
     }>,
-    AddressTown: string,
-    Title: string,
-    IsFurniture: boolean,
-    PriceFull: number,
-    PriceHalf: number,
-    PriceQuarter: number,
+    addressTown: string,
+    title: string,
+    isFurniture: boolean,
+    priceFull: number,
+    priceHalf: number,
+    priceQuarter: number,
   }>,
 };
 
@@ -100,7 +100,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
   onClickSpace = (space: { ID: number }) => {
     const { history } = this.props;
-    history.push(Path.space(space.ID));
+    history.push(Path.space(space.id));
   };
 
   getCondition = () => {
@@ -244,14 +244,14 @@ class SearchResultContainer extends Component<PropTypes, State> {
                 <SearchResult
                   history={history}
                   spaces={spaces.map(s => ({
-                    id: s.ID,
-                    image: (s.Images[0] || {}).ImageUrl,
-                    title: s.Title,
-                    address: `${s.AddressPref}${s.AddressCity}`,
-                    isFurniture: s.IsFurniture,
-                    priceFull: s.PriceFull,
-                    priceHalf: s.PriceHalf,
-                    priceQuarter: s.PriceQuarter,
+                    id: s.id,
+                    image: (s.images[0] || {}).imageUrl,
+                    title: s.title,
+                    address: `${s.addressPref}${s.addressCity}`,
+                    isFurniture: s.isFurniture,
+                    priceFull: s.priceFull,
+                    priceHalf: s.priceHalf,
+                    priceQuarter: s.priceQuarter,
                     onClick: () => this.onClickSpace(s),
                   }))}
                 />

@@ -91,8 +91,8 @@ class ProfileContainer extends Component<PropTypes> {
             spaces={(spaces || [])
               .filter(v => v.Status === 'public')
               .map((space: SpaceType) => ({
-                id: space.ID,
-                image: (space.Images[0] || {}).ImageUrl,
+                id: space.id,
+                image: (space.images[0] || {}).ImageUrl,
                 address: `${space.AddressPref}${space.AddressCity}${space.AddressTown}`,
                 content: space.Title,
                 furniture: space.IsFurniture,

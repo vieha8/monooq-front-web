@@ -242,7 +242,7 @@ function* sendRequestEmail(payload) {
 
   const body = {
     Subject: 'あなたのスペースが興味を持たれています：モノオクからのお知らせ',
-    Address: space.Host.Email,
+    Address: space.user.email,
     Body: messageBody,
     Category: 'request',
   };
@@ -390,7 +390,7 @@ function* fetchSchedule() {
 }
 
 function* request({ payload: { user, space } }) {
-  let roomId = yield call(getRoomId, user.id, space.Host.ID, space.ID);
+  let roomId = yield call(getRoomId, user.id, space.user.id, space.id);
   if (roomId) {
     yield put(requestActions.requestSuccess());
     yield put(push(Path.message(roomId)));
@@ -402,9 +402,9 @@ function* request({ payload: { user, space } }) {
     user.id,
     user.name,
     user.firebaseUid,
-    space.Host.ID,
-    space.Host.FirebaseUid,
-    space.ID,
+    space.user.id,
+    space.user.FirebaseUid,
+    space.id,
   );
   yield put(push(Path.message(roomId)));
 
@@ -421,7 +421,7 @@ function* request({ payload: { user, space } }) {
     script.innerHTML = `var __atw = __atw || [];
     __atw.push({ "merchant" : "monooq", "param" : {
         "result_id" : "105",
-        "verify" : "new_request_user${user.id}_space${space.ID}",
+        "verify" : "new_request_user${user.id}_space${space.id}",
     }});
 (function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
 a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;

@@ -50,11 +50,11 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     const spaceId = props.match.params.space_id;
 
     this.state = {
-      Images: space.Images || [],
-      Title: space.Title || '',
-      Type: space.Type || 3,
-      Introduction: space.Introduction || '',
-      Address: space.Address || '',
+      images: space.images || [],
+      title: space.title || '',
+      type: space.type || 3,
+      introduction: space.introduction || '',
+      address: space.address || '',
       error: {},
       isImageUploading: false,
       errorModal: false,
@@ -66,8 +66,8 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       this.state.isUpdate = true;
 
-      if (space.Images && space.Images.length === 1 && isImageDefault(space.Images[0].ImageUrl)) {
-        this.state.Images = [];
+      if (space.images && space.images.length === 1 && isImageDefault(space.images[0].imageUrl)) {
+        this.state.images = [];
       }
     } else {
       dispatch(spaceActions.clearSpace());
@@ -88,11 +88,11 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     if (user.name === '') {
       this.setState({ errorModal: true, isNoProfile: true });
     } else if (!isUpdate) {
-      const { Title, Introduction, Address, Images } = this.state;
-      this.handleChangeUI('Title', Title);
-      this.handleChangeUI('Introduction', Introduction);
-      this.handleChangeUI('Address', Address);
-      this.handleChangeUI('Images', Images);
+      const { title, introduction, address, images } = this.state;
+      this.handleChangeUI('title', title);
+      this.handleChangeUI('introduction', introduction);
+      this.handleChangeUI('address', address);
+      this.handleChangeUI('images', images);
     }
   }
 
@@ -102,9 +102,9 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
-    if (space.ID && !prevState.ID) {
-      const { Title, Type, Introduction, Address, Images, ID } = space;
-      return { Title, Type, Introduction, Address, Images, ID };
+    if (space.id && !prevState.id) {
+      const { title, type, introduction, address, images, id } = space;
+      return { title, type, introduction, address, images, id };
     }
     return null;
   }
@@ -136,7 +136,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   handleChangeImage = async (pickedImages: Array<File>) => {
     this.setState({ isImageUploading: true });
 
-    const { Images: ImagesTmp } = this.state;
+    const { images: ImagesTmp } = this.state;
     const images = ImagesTmp || [];
 
     const nextImages = await Promise.all(
@@ -160,18 +160,18 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     ).catch(error => ({ error }));
 
     const setImage = [].concat(images, nextImages);
-    this.setState({ Images: setImage, isImageUploading: false });
-    this.handleChangeUI('Images', setImage);
+    this.setState({ images: setImage, isImageUploading: false });
+    this.handleChangeUI('images', setImage);
   };
 
   handleDeleteImage: Function;
 
   handleDeleteImage = (deleteTargetIndex: number) => {
-    const { Images } = this.state;
-    const nextImages = Object.assign([], Images);
+    const { images } = this.state;
+    const nextImages = Object.assign([], images);
     nextImages.splice(deleteTargetIndex, 1);
-    this.setState({ Images: nextImages });
-    this.handleChangeUI('Images', nextImages);
+    this.setState({ images: nextImages });
+    this.handleChangeUI('images', nextImages);
   };
 
   onClickNext: Function;
@@ -179,28 +179,28 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   onClickNext = () => {
     const { state } = this;
     const { dispatch, history, space } = this.props;
-    const { Images, Title, Type, Introduction, Address, isUpdate } = state;
+    const { images, title, type, introduction, address, isUpdate } = state;
 
     if (isUpdate) {
-      if (Images && Images.length > 0 && isImageDefault(Images[0].ImageUrl)) {
+      if (images && images.length > 0 && isImageDefault(images[0].ImageUrl)) {
         // デフォルト画像が先頭に含まれる場合は削除する
-        Images.shift();
+        images.shift();
       }
     }
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          Images,
-          Title,
-          Type: parseInt(Type, 10),
-          Introduction,
-          Address,
+          images,
+          title,
+          type: parseInt(type, 10),
+          introduction,
+          address,
         }),
       }),
     );
 
-    const nextPath = space.ID ? Path.editSpaceBaggage(space.ID) : Path.createSpaceBaggage();
+    const nextPath = space.id ? Path.editSpaceBaggage(space.id) : Path.createSpaceBaggage();
     history.push(nextPath);
   };
 
@@ -214,21 +214,21 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     const errors = [];
 
     switch (propName) {
-      case 'Title':
+      case 'title':
         if (value === undefined ? true : value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.Title.Max) {
           errors.push(ErrorMessages.LengthMax('タイトル', Validate.Title.Max));
         }
         break;
-      case 'Introduction':
+      case 'introduction':
         if (value === undefined ? true : value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.Introduction.Max) {
           errors.push(ErrorMessages.LengthMax('紹介文', Validate.Introduction.Max));
         }
         break;
-      case 'Address':
+      case 'address':
         if (value === undefined ? true : value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else {
@@ -238,7 +238,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
           }
         }
         break;
-      case 'Images':
+      case 'images':
         if (value === undefined ? true : value.length === 0) {
           errors.push(ErrorMessages.MustSpaceImage);
         } else if (value.length === 1) {
@@ -259,33 +259,33 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   validate: Function;
 
   validate = () => {
-    const { Title, Introduction, Address, Images } = this.state;
-    const AddressMatch = Address.match(Validate.Address);
+    const { title, introduction, address, images } = this.state;
+    const AddressMatch = address.match(Validate.Address);
 
     return (
-      Title &&
-      (Title === undefined ? false : Title.trim().length > 0) &&
-      Title.trim().length <= Validate.Title.Max &&
-      Introduction &&
-      (Introduction === undefined ? false : Introduction.trim().length > 0) &&
-      Introduction.trim().length <= Validate.Introduction.Max &&
-      Address &&
-      (Address === undefined ? false : Address.trim().length > 0) &&
+      title &&
+      (title === undefined ? false : title.trim().length > 0) &&
+      title.trim().length <= Validate.Title.Max &&
+      introduction &&
+      (introduction === undefined ? false : introduction.trim().length > 0) &&
+      introduction.trim().length <= Validate.Introduction.Max &&
+      address &&
+      (address === undefined ? false : address.trim().length > 0) &&
       (AddressMatch ? AddressMatch[4] !== '' : false) &&
-      Images &&
-      Images.length > 0 &&
-      (isImageDefault(Images[0].ImageUrl) ? Images.length > 1 : true)
+      images &&
+      images.length > 0 &&
+      (isImageDefault(images[0].ImageUrl) ? images.length > 1 : true)
     );
   };
 
   render() {
     const { space } = this.props;
     const {
-      Images,
-      Title,
-      Type,
-      Introduction,
-      Address,
+      images,
+      title,
+      type,
+      introduction,
+      address,
       error,
       isImageUploading,
       errorModal,
@@ -293,9 +293,9 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       isUpdate,
     } = this.state;
 
-    let ImagesRender = Images;
+    let ImagesRender = images;
     if (isUpdate) {
-      if (Images && Images.length === 1 && isImageDefault(Images[0].ImageUrl)) {
+      if (images && images.length === 1 && isImageDefault(images[0].ImageUrl)) {
         ImagesRender = [];
       }
     }
@@ -303,30 +303,30 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={`スペースの${space.ID ? '編集' : '登録'}`}
+        headline={`スペースの${space.id ? '編集' : '登録'}`}
         leftContent={
           <Fragment>
             <EditSpaceInformation
-              edit={space.ID}
+              edit={space.id}
               images={ImagesRender.map(image => ({
-                url: image.ImageUrl || image.preview,
+                url: image.imageUrl || image.preview,
               }))}
               onChangeImage={this.handleChangeImage}
-              imageErrors={error.Images}
+              imageErrors={error.images}
               isImageUploading={isImageUploading}
               onClickDeleteImage={this.handleDeleteImage}
-              title={Title}
-              titleErrors={error.Title}
-              onChangeTitle={v => this.handleChangeUI('Title', v)}
-              type={Type}
+              title={title}
+              titleErrors={error.title}
+              onChangeTitle={v => this.handleChangeUI('title', v)}
+              type={type}
               typeErrors={error.type}
-              onChangeType={v => this.handleChangeUI('Type', v)}
-              introduction={Introduction}
-              introductionErrors={error.Introduction}
-              onChangeIntroduction={v => this.handleChangeUI('Introduction', v)}
-              address={Address}
-              addressErrors={error.Address}
-              onChangeAddress={v => this.handleChangeUI('Address', v)}
+              onChangeType={v => this.handleChangeUI('type', v)}
+              introduction={introduction}
+              introductionErrors={error.introduction}
+              onChangeIntroduction={v => this.handleChangeUI('introduction', v)}
+              address={address}
+              addressErrors={error.address}
+              onChangeAddress={v => this.handleChangeUI('address', v)}
               onClickNext={this.onClickNext}
               buttonNextDisabled={isNoProfile || !this.validate()}
               OnClickRemove={() => this.onClickRemove(space)}

@@ -250,15 +250,15 @@ class PaymentContainer extends Component<PropTypes> {
         right={
           <PaymentInfo
             isHost
-            user={space.Host}
+            user={space.user}
             space={{
               image: {
-                src: (space.Images[0] || {}).ImageUrl,
+                src: (space.images[0] || {}).ImageUrl,
                 alt: '',
               },
               address: space.Address,
               content: space.Title,
-              href: Path.space(space.ID),
+              href: Path.space(space.id),
             }}
             payment={{
               beginAt: moment(request.startDate.toDate()).format('YYYY/MM/DD'),

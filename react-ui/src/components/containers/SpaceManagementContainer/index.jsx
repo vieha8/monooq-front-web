@@ -40,7 +40,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
   onClickEdit = space => {
     const { dispatch, history } = this.props;
     dispatch(uiActions.setUiState({ space }));
-    history.push(Path.editSpaceInfo(space.ID));
+    history.push(Path.editSpaceInfo(space.id));
   };
 
   onClickRemove: Function;
@@ -63,19 +63,19 @@ class SpaceManagementContainer extends Component<PropTypes> {
             <ManageSpaceList
               spaces={spaces.map(space => ({
                 image: {
-                  src: (space.Images[0] || {}).ImageUrl,
+                  src: (space.images[0] || {}).imageUrl,
                   alt: '',
                 },
-                address: `${space.Address}`,
-                content: space.Title,
-                furniture: space.IsFurniture,
+                address: `${space.address}`,
+                content: space.title,
+                furniture: space.isFurniture,
                 prices: [
-                  numeral(space.PriceFull).format('0,0'),
-                  numeral(space.PriceHalf).format('0,0'),
-                  numeral(space.PriceQuarter).format('0,0'),
+                  numeral(space.priceFull).format('0,0'),
+                  numeral(space.priceHalf).format('0,0'),
+                  numeral(space.priceQuarter).format('0,0'),
                 ],
-                link: Path.space(space.ID),
-                status: space.Status,
+                link: Path.space(space.id),
+                status: space.status,
                 onClickEdit: () => this.onClickEdit(space),
                 onClickRemove: () => this.onClickRemove(space),
               }))}

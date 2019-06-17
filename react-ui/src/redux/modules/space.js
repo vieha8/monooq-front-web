@@ -204,27 +204,23 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
 
   if (isSelfOnly) {
     // 不正対策
-    let user = yield select(state => state.auth.user);
-    if (!user.id) {
-      yield take(authActions.checkLoginSuccess);
-    }
-    user = yield select(state => state.auth.user);
-    if (payload.UserID !== user.id) {
+    const user = yield select(state => state.auth.user);
+    if (payload.userId !== user.id) {
       yield handleError(
         '',
         '',
         'getSpace(Bad Request)',
-        `spaceUserID(${payload.UserID})/loginUserID(${user.id})`,
+        `spaceUserID(${payload.userId})/loginUserID(${user.id})`,
         false,
       );
     }
   }
 
-  if (!payload.Images || payload.Images.length === 0) {
-    if (!payload.Images) {
-      payload.Images = [];
+  if (!payload.images || payload.images.length === 0) {
+    if (!payload.images) {
+      payload.images = [];
     }
-    payload.Images[0] = { ImageUrl: dummySpaceImage };
+    payload.images[0] = { imageUrl: dummySpaceImage };
   }
 
   yield put(spaceActions.fetchSuccessSpace(payload));
@@ -296,11 +292,11 @@ function generateSpaceRequestParams(space) {
 const createImageUrls = (spaceId, images) =>
   Promise.all(
     images.map(async image => {
-      if (image.ImageUrl) {
-        if (image.ImageUrl.includes('data:image/png;base64,')) {
+      if (image.imageUrl) {
+        if (image.imageUrl.includes('data:image/png;base64,')) {
           return '';
         }
-        return convertBaseUrl(image.ImageUrl);
+        return convertBaseUrl(image.imageUrl);
       }
       const fileReader = new FileReader();
       fileReader.readAsArrayBuffer(image);
@@ -411,20 +407,20 @@ function* prepareUpdateSpace({ payload: spaceId }) {
   }
 
   const user = yield select(state => state.auth.user);
-  if (space.UserID !== user.id) {
+  if (space.userId !== user.id) {
     yield handleError(
       '',
       '',
       'prepareUpdateSpace(Bad Request)',
-      `spaceUserID(${space.UserID})/loginUserID(${user.id})`,
+      `spaceUserID(${space.userId})/loginUserID(${user.id})`,
       false,
     );
     return;
   }
 
-  space.PriceFull = formatAddComma(space.PriceFull);
-  space.PriceHalf = formatAddComma(space.PriceHalf);
-  space.PriceQuarter = formatAddComma(space.PriceQuarter);
+  space.priceFull = formatAddComma(space.priceFull);
+  space.priceHalf = formatAddComma(space.priceHalf);
+  space.priceQuarter = formatAddComma(space.priceQuarter);
 
   yield put(uiActions.setUiState({ space }));
 }
@@ -493,7 +489,7 @@ function* deleteSpace({ payload: { space } }) {
     return;
   }
   const token = yield* getToken();
-  const { err } = yield call(deleteApiRequest, apiEndpoint.spaces(space.ID), token);
+  const { err } = yield call(deleteApiRequest, apiEndpoint.spaces(space.id), token);
 
   if (err) {
     yield handleError(spaceActions.deleteFailedSpace, '', 'deleteSpace', err, false);
@@ -550,12 +546,12 @@ function* search({
 
   const res = data.map(v => {
     const space = v;
-    if (space.Images.length === 0) {
-      space.Images = [{ ImageUrl: dummySpaceImage }];
+    if (space.images.length === 0) {
+      space.images = [{ ImageUrl: dummySpaceImage }];
     } else {
-      space.Images = space.Images.map(image => {
-        image.ImageUrl = convertImgixUrl(
-          image.ImageUrl,
+      space.images = space.images.map(image => {
+        image.imageUrl = convertImgixUrl(
+          image.imageUrl,
           'fit=fillmax&fill-color=DBDBDB&w=165&h=120&auto=format',
         );
         return image;

@@ -42,8 +42,8 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     const { space, dispatch } = this.props;
 
     this.state = {
-      ReceiptType: space.ReceiptType || 1,
-      ReceiptAbout: space.ReceiptAbout || '',
+      receiptType: space.receiptType || 1,
+      receiptAbout: space.receiptAbout || '',
       error: {},
       isUpdate: false,
     };
@@ -57,9 +57,9 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
-    if (space.ID && !prevState.ID) {
-      const { ReceiptType, ReceiptAbout, ID } = space;
-      return { ReceiptType, ReceiptAbout, ID };
+    if (space.id && !prevState.id) {
+      const { receiptType, receiptAbout, id } = space;
+      return { receiptType, receiptAbout, id };
     }
     return null;
   }
@@ -84,19 +84,19 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
   onClickNext = () => {
     const { dispatch, history, space } = this.props;
-    const { ReceiptType, ReceiptAbout } = this.state;
+    const { receiptType, receiptAbout } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          ReceiptType: parseInt(ReceiptType, 10),
-          ReceiptAbout,
+          receiptType: parseInt(receiptType, 10),
+          receiptAbout,
         }),
       }),
     );
 
-    const nextPath = space.ID
-      ? Path.editSpacePrice(space.ID, 'about')
+    const nextPath = space.id
+      ? Path.editSpacePrice(space.id, 'about')
       : Path.createSpacePrice('about');
     history.push(nextPath);
   };
@@ -105,18 +105,18 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { ReceiptType, ReceiptAbout } = this.state;
+    const { receiptType, receiptAbout } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          ReceiptType,
-          ReceiptAbout,
+          receiptType,
+          receiptAbout,
         }),
       }),
     );
 
-    const nextPath = space.ID ? Path.editSpaceBaggage(space.ID) : Path.createSpaceBaggage();
+    const nextPath = space.id ? Path.editSpaceBaggage(space.id) : Path.createSpaceBaggage();
     history.push(nextPath);
   };
 
@@ -128,7 +128,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     const errors = [];
 
     switch (propName) {
-      case 'ReceiptAbout':
+      case 'receiptAbout':
         if (value === undefined ? true : value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.ReceiptAbout.Max) {
@@ -147,17 +147,17 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
   validate: Function;
 
   validate = () => {
-    const { ReceiptAbout } = this.state;
+    const { receiptAbout } = this.state;
     return (
-      ReceiptAbout &&
-      (ReceiptAbout === undefined ? false : ReceiptAbout.trim().length > 0) &&
-      ReceiptAbout.trim().length <= Validate.ReceiptAbout.Max
+      receiptAbout &&
+      (receiptAbout === undefined ? false : receiptAbout.trim().length > 0) &&
+      receiptAbout.trim().length <= Validate.ReceiptAbout.Max
     );
   };
 
   render() {
     const { space } = this.props;
-    const { ReceiptType, ReceiptAbout, error, isUpdate } = this.state;
+    const { receiptType, receiptAbout, error, isUpdate } = this.state;
 
     if (!isUpdate) {
       if (Object.keys(space).length === 0) {
@@ -173,12 +173,12 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
         bottomButtonMargin={130}
         leftContent={
           <EditSpaceReceive
-            receive={ReceiptType}
+            receive={receiptType}
             receiveErrors={error.ReceiptType}
-            onChangeReceive={v => this.handleChangeUI('ReceiptType', v)}
-            receiveAbout={ReceiptAbout}
-            receiveAboutErrors={error.ReceiptAbout}
-            onChangeReceiveAbout={v => this.handleChangeUI('ReceiptAbout', v)}
+            onChangeReceive={v => this.handleChangeUI('receiptType', v)}
+            receiveAbout={receiptAbout}
+            receiveAboutErrors={error.receiptAbout}
+            onChangeReceiveAbout={v => this.handleChangeUI('receiptAbout', v)}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
             onKeyDownButtonBack={this.onKeyDownButtonBack}

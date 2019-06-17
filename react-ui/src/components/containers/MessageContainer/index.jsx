@@ -186,7 +186,7 @@ class MessageContainer extends Component<PropTypes, State> {
           return {
             estimate: {
               id: requestId,
-              name: (room.space.Host || {}).Name,
+              name: (room.space.user || {}).Name,
               beginAt: startDate.toDate(),
               endAt: endDate.toDate(),
               price,
@@ -229,7 +229,7 @@ class MessageContainer extends Component<PropTypes, State> {
       return <Loading size="large" />;
     }
 
-    const isHost = room.space.Host.ID === user.id;
+    const isHost = room.space.user.id === user.id;
     const otherUserId = room.userId1 === user.id ? room.userId2 : room.userId1;
 
     const messageList = this.createMessageList();
@@ -254,16 +254,16 @@ class MessageContainer extends Component<PropTypes, State> {
             />
           ) : (
             <HostInfo
-              id={room.space.Host.id}
-              name={(room.space.Host || {}).name}
-              imageUrl={room.space.Host.imageUrl}
+              id={room.space.user.id}
+              name={(room.space.user || {}).name}
+              imageUrl={room.space.user.imageUrl}
               hostinfo
               message
             />
           )}
-          <Row to={Path.space(room.space.ID)}>
+          <Row to={Path.space(room.space.id)}>
             <ImageWrapper>
-              <HeroImage small src={room.space.Images[0].ImageUrl} />
+              <HeroImage small src={room.space.images[0].ImageUrl} />
             </ImageWrapper>
             <ContentWrapper>
               <AddressText>
