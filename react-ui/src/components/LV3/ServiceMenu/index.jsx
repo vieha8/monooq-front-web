@@ -32,6 +32,7 @@ type PropTypes = {
   home: MenuItemProps,
   isLogin: boolean,
   message: MenuItemProps,
+  isSchedule?: boolean,
   schedule: MenuItemProps,
   editProfile: MenuItemProps,
   isHost: boolean,
@@ -52,6 +53,7 @@ export default ({
   home,
   isLogin,
   message,
+  isSchedule,
   schedule,
   editProfile,
   isHost,
@@ -77,9 +79,7 @@ export default ({
       <Fragment>
         <MenuItem title="ホーム" {...home} line={isPhone} />
         <MenuItem title="メッセージ" {...message} />
-
-        {/* TODO: 1件以上ある場合に表示 */}
-        <MenuItem title="利用状況" {...schedule} />
+        {isSchedule && <MenuItem title="利用状況" {...schedule} />}
         <MenuItem title="プロフィールの編集" {...editProfile} />
         {isHost && (
           <Fragment>

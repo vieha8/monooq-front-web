@@ -6,6 +6,7 @@ import ServiceMenu from 'components/LV3/ServiceMenu';
 import MenuWrapPhone from 'components/LV3/ServiceMenu/MenuWrapPhone';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
+import { requestActions } from 'redux/modules/request';
 
 import { authActions } from 'redux/modules/auth';
 
@@ -20,6 +21,13 @@ type PropTypes = {
 class ServiceMenuContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
+
+    const { isLogin, dispatch } = this.props;
+    if (isLogin) {
+      // TODO: 利用状況画面の場合は2重実行になるため対策したい。
+      dispatch(requestActions.fetchSchedule());
+    }
+
     this.state = {
       currentMenu: 'slide',
       side: 'right',
@@ -36,8 +44,22 @@ class ServiceMenuContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { isPhone, userName, userImage, dispatch, isLogin, unreadRooms, user } = this.props;
+    const {
+      isPhone,
+      userName,
+      userImage,
+      dispatch,
+      isLogin,
+      unreadRooms,
+      user,
+      schedule,
+    } = this.props;
     const { currentMenu, side } = this.state;
+
+    let isSchedule = false;
+    if (schedule && (schedule.user.length > 0 || schedule.host.length > 0)) {
+      isSchedule = true;
+    }
 
     if (isPhone) {
       const Menu = BurgerMenu[currentMenu];
@@ -63,6 +85,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
               userImage={userImage}
               isPhone
               isLogin={isLogin}
+              isSchedule={isSchedule}
               isHost={user.IsHost || false}
               changePurposeEvent={{
                 onClick: e => {
@@ -100,6 +123,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
         howToUse={{ to: Path.howToUse() }}
         aboutMonooq={{ to: Path.aboutMonooq() }}
         isLogin={isLogin}
+        isSchedule={isSchedule}
         isHost={user.IsHost || false}
         changePurposeEvent={{
           onClick: e => {
@@ -122,6 +146,7 @@ const mapStateToProps = state => ({
   user: state.auth.user,
   isLogin: state.auth.isLogin,
   unreadRooms: state.messages.unreadRooms,
+  schedule: state.request.schedule,
 });
 
 export default connect(
