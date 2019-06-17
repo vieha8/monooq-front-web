@@ -44,23 +44,23 @@ class ScheduleContainer extends Component {
     schedule: {
       isHost,
       user: {
-        id: !isHost ? schedule.Space.Host.ID : schedule.User.ID,
-        name: !isHost ? schedule.Space.Host.Name : schedule.User.Name,
-        imageUrl: !isHost ? schedule.Space.Host.ImageUrl : schedule.User.ImageUrl,
+        id: !isHost ? schedule.space.user.id : schedule.user.id,
+        name: !isHost ? schedule.space.user.name : schedule.user.name,
+        imageUrl: !isHost ? schedule.space.user.imageUrl : schedule.user.imageUrl,
       },
       space: {
         image: {
-          src: (schedule.Space.Images[0] || {}).ImageUrl,
+          src: (schedule.space.images[0] || {}).imageUrl,
           alt: '',
         },
-        address: schedule.Space.Address,
-        content: schedule.Space.Title,
-        href: Path.space(schedule.Space.ID),
+        address: schedule.space.address,
+        content: schedule.space.title,
+        href: Path.space(schedule.space.id),
       },
-      startDate: schedule.StartDate,
-      endDate: schedule.EndDate,
+      startDate: schedule.startDate,
+      endDate: schedule.endDate,
     },
-    sales: schedule.Price,
+    sales: schedule.price,
     roomId: '',
   });
 

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import Schedule from './Schedule';
 
 type PropTypes = {
@@ -23,8 +23,4 @@ type PropTypes = {
   roomId: string,
 };
 
-export default ({ schedule }: PropTypes) => (
-  <Fragment>
-    <Schedule {...schedule} />
-  </Fragment>
-);
+export default ({ schedule }: PropTypes) => <Schedule {...schedule} />;

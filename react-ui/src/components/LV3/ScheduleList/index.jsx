@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/InlineText';
@@ -37,18 +37,16 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <Fragment>
-    <ScheduleListWrap>
-      <CaptionWrap>
-        <InlineText.Base fontSize={`${FontSizes.medium_18}`} bold>
-          {props.isHost ? '貸したスペース' : '借りたスペース'}
-        </InlineText.Base>
-      </CaptionWrap>
-      {props.schedules.map((schedule, i) => (
-        <Row key={`schedule_item_${i}`.toString()}>
-          <ScheduleListItem {...schedule} />
-        </Row>
-      ))}
-    </ScheduleListWrap>
-  </Fragment>
+  <ScheduleListWrap>
+    <CaptionWrap>
+      <InlineText.Base fontSize={`${FontSizes.medium_18}`} bold>
+        {props.isHost ? '貸したスペース' : '借りたスペース'}
+      </InlineText.Base>
+    </CaptionWrap>
+    {props.schedules.map((schedule, i) => (
+      <Row key={`schedule_item_${i}`.toString()}>
+        <ScheduleListItem {...schedule} />
+      </Row>
+    ))}
+  </ScheduleListWrap>
 );
