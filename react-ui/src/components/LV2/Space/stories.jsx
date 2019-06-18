@@ -43,8 +43,8 @@ storiesOf('Molecules(LV2)/Space', module)
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Header
           pref="東京都"
-          city="杉並区"
-          town="高円寺"
+          city="渋谷区区"
+          town="渋谷"
           name="テストテストテストテストテストテスト"
         />
       </div>
@@ -94,7 +94,7 @@ storiesOf('Molecules(LV2)/Space', module)
       スペース情報(所在地)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Address content="東京都杉並区高円寺" />
+        <Address content="東京都渋谷区渋谷" />
       </div>
     )),
   )
@@ -140,7 +140,7 @@ storiesOf('Molecules(LV2)/Space', module)
       スペース情報(種類)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Type content="東京都杉並区高円寺" />
+        <Type content="東京都渋谷区渋谷" />
       </div>
     )),
   )
@@ -151,7 +151,7 @@ storiesOf('Molecules(LV2)/Space', module)
       スペース情報(スペースに置ける荷物)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <AboutBaggage furniture content="東京都杉並区高円寺" />
+        <AboutBaggage furniture content="東京都渋谷区渋谷" />
       </div>
     )),
   )

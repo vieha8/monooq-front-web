@@ -27,8 +27,8 @@ storiesOf('Organisms(LV3)/Space', module)
       <div style={{ width: '580px', padding: `${Dimens.storyBookPadding}` }}>
         <Detail
           pref="東京都"
-          city="杉並区"
-          town="高円寺"
+          city="渋谷区"
+          town="渋谷"
           name="テストテストテストテストテストテスト"
           images={[
             {
@@ -54,7 +54,7 @@ storiesOf('Organisms(LV3)/Space', module)
           ]}
           map={<SpaceMap lat={35.691638} lng={139.704616} />}
           description="スペースの説明。これは説明です。"
-          address="東京都杉並区高円寺"
+          address="東京都渋谷区渋谷"
           type="物置き"
           aboutBaggage="荷物についてほげほげ"
           delivery

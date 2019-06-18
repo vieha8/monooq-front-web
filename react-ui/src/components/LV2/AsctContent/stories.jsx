@@ -40,11 +40,11 @@ storiesOf('Molecules(LV2)/AsctContent', module)
             },
             {
               header: '所在地',
-              data: '〒166-0003 東京都杉並区高円寺南 2-48-12 1F',
+              data: '〒150-0002 東京都渋谷区渋谷 2-6-6-301',
             },
             {
               header: '電話番号',
-              data: '03‑1819‑2729',
+              data: '03-6869-2729',
             },
             {
               header: '販売価格帯',
@@ -57,7 +57,7 @@ storiesOf('Molecules(LV2)/AsctContent', module)
             },
             {
               header: '代金の支払方法',
-              data: 'クレジットカード',
+              data: 'クレジットカード、銀行振込',
             },
             {
               header: '代金の支払時期',

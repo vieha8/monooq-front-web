@@ -70,7 +70,7 @@ const Image = styled.img`
 
 export default (props: Object) =>
   props.type2 ? (
-    <HyperLink href={props.url.toString('base64')} target="_blank">
+    <HyperLink href={props.url.toString('base64')} target="_blank" rel="noopener noreferrer">
       <Facebook {...props}>
         {!props.loading && (
           <ImageWrap>

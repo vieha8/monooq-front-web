@@ -181,11 +181,21 @@ export default (props: PropTypes) => (
       <div>
         <InlineText.Small color={Colors.red}>
           ・「決済する」ボタンを押すことで、お客様は当サイトの
-          <TextLink fontSize={FontSizes.small_12} href={Path.privacy()} target="_blank">
+          <TextLink
+            fontSize={FontSizes.small_12}
+            href={Path.privacy()}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             プライバシーポリシー
           </TextLink>
           と
-          <TextLink fontSize={FontSizes.small_12} href={Path.terms()} target="_blank">
+          <TextLink
+            fontSize={FontSizes.small_12}
+            href={Path.terms()}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             利用規約
           </TextLink>
           に同意の上、モノオクサービスの予約を確定したことになります。
@@ -193,7 +203,7 @@ export default (props: PropTypes) => (
       </div>
     </Row>
     <Row alignRight>
-      <TextLink to={Path.cancellationPolicies()} target="_blank">
+      <TextLink to={Path.cancellationPolicies()} target="_blank" rel="noopener noreferrer">
         キャンセルについて
       </TextLink>
     </Row>

@@ -34,7 +34,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           help={{ href: 'https://help.monooq.com/' }}
           inquiry={{ to: Path.inquiry() }}
           howToUse={{ to: Path.howToUse() }}
-          other={{ to: Path.other() }}
+          service={{ to: Path.service() }}
         />
       </div>
     )),
@@ -58,7 +58,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           help={{ href: 'https://help.monooq.com/' }}
           inquiry={{ to: Path.inquiry() }}
           howToUse={{ to: Path.howToUse() }}
-          other={{ to: Path.other() }}
+          service={{ to: Path.service() }}
           userName="モノオク タロウ"
           userImage="http://placehold.jp/500x500.png"
           isPhone

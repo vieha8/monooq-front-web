@@ -69,7 +69,7 @@ export default () => (
         </Cell>
         <Cell>
           <FooterLink href="https://help.monooq.com/" target="_blank">
-            ヘルプ
+            よくある質問
           </FooterLink>
         </Cell>
         <Cell>

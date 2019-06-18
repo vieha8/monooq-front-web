@@ -6,11 +6,11 @@ import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import Other from './index';
+import Service from './index';
 
-Other.displayName = 'Other';
+Service.displayName = 'Service';
 
-storiesOf('Organisms(LV3)/Other', module)
+storiesOf('Organisms(LV3)/Service', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',
@@ -19,7 +19,7 @@ storiesOf('Organisms(LV3)/Other', module)
         その他
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Other
+        <Service
           logout={{
             onClick: () => {
               console.log('onClick');

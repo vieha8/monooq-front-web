@@ -26,14 +26,14 @@ const ItemContainer = styled.div`
   font-size: ${FontSizes.small_15}px;
 `;
 
-type PropTypes = {
-  logout: Function,
-  isLogin: boolean,
-};
+const HyperLink = MenuLink.withComponent('a');
 
-export default (props: PropTypes) => (
+export default () => (
   <Fragment>
     <AsctContentWrapper>
+      <HyperLink href="https://monooq.co.jp/" target="_blank" rel="noopener noreferrer">
+        <ItemContainer>運営会社</ItemContainer>
+      </HyperLink>
       <MenuLink to={Path.terms()}>
         <ItemContainer>利用規約</ItemContainer>
       </MenuLink>
@@ -41,16 +41,11 @@ export default (props: PropTypes) => (
         <ItemContainer>プライバシーポリシー</ItemContainer>
       </MenuLink>
       <MenuLink to={Path.asct()}>
-        <ItemContainer>特定商取引に関する表記</ItemContainer>
+        <ItemContainer>特定商取引法に基づく表記</ItemContainer>
       </MenuLink>
       <MenuLink to={Path.cancellationPolicies()}>
         <ItemContainer>キャンセルポリシー</ItemContainer>
       </MenuLink>
-      {props.isLogin && (
-        <MenuLink to="" onClick={props.logout.onClick}>
-          <ItemContainer>ログアウト</ItemContainer>
-        </MenuLink>
-      )}
     </AsctContentWrapper>
   </Fragment>
 );
