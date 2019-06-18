@@ -173,6 +173,9 @@ function* fetchUnreadRooms() {
 const getMessages = roomId =>
   new Promise(async (resolve, reject) => {
     try {
+      if (roomId === 'TzcRXl3C27n02lK2CaEj' || roomId === '2ALocP9qppkAjMjjynlF') {
+        reject();
+      }
       const roomDoc = roomCollection().doc(roomId);
       const messages = await roomDoc
         .collection('messages')
