@@ -22,6 +22,7 @@ import type { SpaceType } from 'types/Space';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import { formatDate, formatStringSlash } from 'helpers/date';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 type PropTypes = {
@@ -261,8 +262,8 @@ class PaymentContainer extends Component<PropTypes> {
               href: Path.space(space.ID),
             }}
             payment={{
-              beginAt: moment(request.startDate.toDate()).format('YYYY/MM/DD'),
-              endAt: moment(request.endDate.toDate()).format('YYYY/MM/DD'),
+              beginAt: formatDate(new Date(request.startDate.toDate()), formatStringSlash),
+              endAt: formatDate(new Date(request.endDate.toDate()), formatStringSlash),
               duration:
                 moment(request.endDate.toDate()).diff(moment(request.startDate.toDate()), 'days') +
                 1,

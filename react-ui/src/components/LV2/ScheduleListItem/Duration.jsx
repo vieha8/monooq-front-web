@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/InlineText';
 import { FontSizes, Dimens } from 'variables';
+import { formatDate, formatStringSlash } from 'helpers/date';
 
 const Container = styled.div`
   display: table;
@@ -44,7 +45,7 @@ type PropTypes = {
   endDate: Date | string,
 };
 
-export default (props: PropTypes) => (
+export default ({ startDate, endDate }: PropTypes) => (
   <Container>
     <ScheduleContainer>
       <Label>
@@ -52,7 +53,7 @@ export default (props: PropTypes) => (
       </Label>
       <DateText>
         <InlineText.Base fontSize={`${FontSizes.medium1}`} lineheight={1.4} bold>
-          {moment(props.startDate).format('YYYY.MM.DD')}
+          {formatDate(new Date(startDate), formatStringSlash)}
         </InlineText.Base>
       </DateText>
     </ScheduleContainer>
@@ -62,7 +63,7 @@ export default (props: PropTypes) => (
       </Label>
       <DateText>
         <InlineText.Base fontSize={`${FontSizes.medium1}`} lineheight={1.4} bold>
-          {moment(props.endDate).format('YYYY.MM.DD')}
+          {formatDate(new Date(endDate), formatStringSlash)}
         </InlineText.Base>
       </DateText>
     </ScheduleContainer>
