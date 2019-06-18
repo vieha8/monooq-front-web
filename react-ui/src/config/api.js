@@ -1,6 +1,6 @@
 export default () => {
   const configDevelopment = {
-    baseURI: 'https://dev-api.monooq.com/v1',
+    baseURI: 'http://monooq-api-dev3.ap-northeast-1.elasticbeanstalk.com/v1',
     // baseURI: 'http://localhost:5000/v1',
   };
 
