@@ -6,11 +6,11 @@ import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import AboutMonooq from './index';
+import Service from './index';
 
-AboutMonooq.displayName = 'AboutMonooq';
+Service.displayName = 'Service';
 
-storiesOf('Organisms(LV3)/AboutMonooq', module)
+storiesOf('Organisms(LV3)/Service', module)
   .addDecorator(StoryRouter())
   .add(
     'Normal',
@@ -19,7 +19,7 @@ storiesOf('Organisms(LV3)/AboutMonooq', module)
         その他
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <AboutMonooq
+        <Service
           logout={{
             onClick: () => {
               console.log('onClick');

@@ -50,7 +50,7 @@ class HeaderContainer extends Component<PropTypes> {
         helpUri="https://help.monooq.com/"
         inquiryUri={Path.inquiry()}
         howToUseUri={Path.howToUse()}
-        aboutMonooqUri={Path.aboutMonooq()}
+        serviceUri={Path.service()}
         tidyUri="https://tidy.monooq.com/"
         messageUri={Path.messages()}
         messageCount={unreadRooms}

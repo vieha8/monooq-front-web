@@ -26,7 +26,7 @@ export default class HeaderMock extends React.Component {
         helpUri="https://help.monooq.com/"
         inquiryUri={Path.inquiry()}
         howToUseUri={Path.howToUse()}
-        aboutMonooqUri={Path.aboutMonooq()}
+        serviceUri={Path.service()}
         tidyUri="https://tidy.monooq.com/"
         messageUri={Path.messages()}
         messageCount={4}
@@ -51,7 +51,7 @@ export default class HeaderMock extends React.Component {
             help={{ href: 'https://help.monooq.com/' }}
             inquiry={{ to: Path.inquiry() }}
             howToUse={{ to: Path.howToUse() }}
-            aboutMonooq={{ to: Path.aboutMonooq() }}
+            service={{ to: Path.service() }}
             userName="name"
             userImage="http://placehold.jp/500x500.png"
             isPhone

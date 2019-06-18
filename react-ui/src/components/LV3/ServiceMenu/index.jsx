@@ -41,7 +41,7 @@ type PropTypes = {
   sales: MenuItemProps,
   howToUse: MenuItemProps,
   inquiry: MenuItemProps,
-  aboutMonooq: MenuItemProps,
+  service: MenuItemProps,
   changePurposeEvent: Function,
   logoutEvent: Function,
 };
@@ -62,7 +62,7 @@ export default ({
   sales,
   howToUse,
   inquiry,
-  aboutMonooq,
+  service,
   changePurposeEvent,
   logoutEvent,
 }: PropTypes) => (
@@ -92,7 +92,7 @@ export default ({
     )}
     <MenuItem title="ご利用ガイド・よくある質問" {...howToUse} line={isLogin} />
     <MenuItem title="お問い合わせ" {...inquiry} />
-    <MenuItem title="モノオクについて" {...aboutMonooq} />
+    <MenuItem title="モノオクについて" {...service} />
     {isLogin && (
       <Fragment>
         <MenuItem

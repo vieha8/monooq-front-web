@@ -88,7 +88,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
               editProfile={{ to: Path.editProfile() }}
               inquiry={{ to: Path.inquiry() }}
               howToUse={{ to: Path.howToUse() }}
-              aboutMonooq={{ to: Path.aboutMonooq() }}
+              service={{ to: Path.service() }}
               userName={userName}
               userImage={userImage}
               isPhone
@@ -129,7 +129,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
         help={{ href: 'https://help.monooq.com/' }}
         inquiry={{ to: Path.inquiry() }}
         howToUse={{ to: Path.howToUse() }}
-        aboutMonooq={{ to: Path.aboutMonooq() }}
+        service={{ to: Path.service() }}
         isLogin={isLogin}
         isSchedule={isSchedule}
         isHost={user.IsHost || false}
