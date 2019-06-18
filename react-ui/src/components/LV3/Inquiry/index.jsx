@@ -41,6 +41,8 @@ const UnsubscribeText = styled.div`
   `};
 `;
 
+const HyperLink = LinkText.withComponent('a');
+
 type PropTypes = {
   isLogin: boolean,
 };
@@ -50,7 +52,9 @@ export default ({ isLogin }: PropTypes) => (
     <Text>
       <InlineText.Base>
         サービス利用でのご不明点は「
-        <LinkText to={Path.howToUse()}>よくある質問</LinkText>
+        <HyperLink href="https://help.monooq.com/" target="_blank" rel="noopener noreferrer">
+          よくある質問
+        </HyperLink>
         」をご確認ください。
         <br />
         上記で解決しなかった場合やその他のお問い合わせは、LINEにて対応しております。
