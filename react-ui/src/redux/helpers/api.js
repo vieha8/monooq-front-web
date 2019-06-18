@@ -3,7 +3,7 @@ import apiConfig from 'config/api';
 import { captureException } from '@sentry/browser';
 
 export const apiEndpoint = {
-  tokenGenerate: () => `/token/generate`,
+  tokenGenerate: () => `/token`,
   authFirebase: id => (id ? `/auth/firebase/${id}` : `/auth/firebase`),
   login: () => `/auth/login`,
   users: id => (id ? `/users/${id}` : `/users`),

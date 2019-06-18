@@ -202,6 +202,7 @@ function messageChannel(observer) {
   return eventChannel(emit => {
     return observer.onSnapshot(snapshot => {
       if (snapshot.docChanges().length === 1) {
+        // TODO 見積もり＆決済完了時の情報取得処理
         emit(snapshot);
       }
     });
@@ -246,7 +247,7 @@ function* fetchMessagesStart({ payload: roomId }) {
   messages = yield Promise.all(
     messages.map(async message => {
       const { messageType } = message;
-      if (messageType !== 2) {
+      if (messageType === 1) {
         return message;
       }
       const { requestId } = message;
@@ -387,10 +388,6 @@ function* sendEmail(payload) {
     return;
   }
 
-  if (!toUser.IsNoticeEmail) {
-    return;
-  }
-
   const user = yield select(state => state.auth.user);
 
   const name = user.name !== '' ? `${formatName(user.name)}さんから` : '';
@@ -413,7 +410,7 @@ function* sendEmail(payload) {
 
   const body = {
     Subject: 'メッセージが届いています：モノオクからのお知らせ',
-    Address: toUser.Email,
+    Uid: toUser.firebaseUid,
     Body: messageBody,
     Category: 'message',
   };

@@ -73,14 +73,13 @@ class UnsubscribeContainer extends Component<PropTypes> {
   onClickUnsubscribe: Function;
 
   unsubscribe = () => {
-    const { dispatch, user } = this.props;
+    const { dispatch } = this.props;
     const { reasonType, reasonText } = this.state;
 
     window.scrollTo(0, 0);
 
     dispatch(
       authActions.unsubscribe({
-        userId: user.id,
         reason: (reasonType || []).join(','),
         description: reasonText,
       }),

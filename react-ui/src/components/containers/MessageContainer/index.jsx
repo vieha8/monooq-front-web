@@ -186,22 +186,24 @@ class MessageContainer extends Component<PropTypes, State> {
           return {
             estimate: {
               id: requestId,
-              name: (room.space.user || {}).Name,
+              name: (room.space.user || {}).name,
               beginAt: startDate.toDate(),
               endAt: endDate.toDate(),
               price,
               link: Path.payment(match.params.message_room_id, requestId),
               receivedAt: message.createDt,
-              status: request ? request.Status : 'estimate',
+              status: request ? request.status : 'estimate',
             },
           };
         }
         case MessageType.Completed:
-          const { requestId } = message;
+          const { request } = message;
           return {
             admin: {
-              message: `お見積りID:${requestId}\n決済が完了しました。スペース取引成立です！\nスペース所在地:${
-                room.space.Address
+              message: `お見積りID:${
+                request.id
+              }\n決済が完了しました。スペース取引成立です！\nスペース所在地:${
+                request.space.address
               }`,
               receivedAt: message.createDt,
             },
@@ -263,15 +265,15 @@ class MessageContainer extends Component<PropTypes, State> {
           )}
           <Row to={Path.space(room.space.id)}>
             <ImageWrapper>
-              <HeroImage small src={room.space.images[0].ImageUrl} />
+              <HeroImage small src={room.space.images[0].imageUrl} />
             </ImageWrapper>
             <ContentWrapper>
               <AddressText>
-                {room.space.AddressPref}
-                {room.space.AddressCity}
-                {room.space.AddressTown}
+                {room.space.addressPref}
+                {room.space.addressCity}
+                {room.space.addressTown}
               </AddressText>
-              <TitleText>{room.space.Title}</TitleText>
+              <TitleText>{room.space.title}</TitleText>
             </ContentWrapper>
           </Row>
         </TopWrap>
