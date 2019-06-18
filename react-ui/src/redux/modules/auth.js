@@ -259,7 +259,7 @@ function* tokenGenerate() {
     return;
   }
 
-  yield put(authActions.tokenGenerateSuccess(data.Token));
+  yield put(authActions.tokenGenerateSuccess(data.token));
 }
 
 function* checkLogin() {

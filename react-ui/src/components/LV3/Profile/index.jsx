@@ -60,12 +60,12 @@ type PropTypes = {
   image: string,
   name: string,
   prefCode: string,
-  lastLogin: Date,
+  lastLoginAt: Date,
   profile: string,
   spaces: SpaceListProps,
 };
 
-export default ({ image, name, prefCode, lastLogin, profile, spaces }: PropTypes) => (
+export default ({ image, name, prefCode, lastLoginAt, profile, spaces }: PropTypes) => (
   <Container>
     <Card customStyle={CardStyle} customStylePhone={CardStylePhone}>
       <User>
@@ -79,7 +79,7 @@ export default ({ image, name, prefCode, lastLogin, profile, spaces }: PropTypes
           <InlineText.Small>{`${getPrefecture(prefCode)}在住`}</InlineText.Small>
         </ResidenceText>
         <LastLoginText>
-          <InlineText.Small>{`最終ログイン日:${lastLogin}`}</InlineText.Small>
+          <InlineText.Small>{`最終ログイン日:${lastLoginAt}`}</InlineText.Small>
         </LastLoginText>
         <Profile>
           <InlineText.Base>{profile}</InlineText.Base>

@@ -87,16 +87,16 @@ class ProfileContainer extends Component<PropTypes> {
             name={user.name}
             prefCode={user.prefCode}
             profile={user.profile}
-            lastLogin={formatDate(new Date(user.LastLogin), 'yyyy/MM/dd')}
+            lastLoginAt={formatDate(new Date(user.lastLoginAt), 'yyyy/MM/dd')}
             spaces={(spaces || [])
-              .filter(v => v.Status === 'public')
+              .filter(v => v.status === 'public')
               .map((space: SpaceType) => ({
                 id: space.id,
-                image: (space.images[0] || {}).ImageUrl,
-                address: `${space.AddressPref}${space.AddressCity}${space.AddressTown}`,
-                content: space.Title,
-                furniture: space.IsFurniture,
-                prices: this.parsePrices(space.PriceFull, space.PriceHalf, space.PriceQuarter),
+                image: (space.images[0] || {}).imageUrl,
+                address: `${space.addressPref}${space.addressCity}${space.addressTown}`,
+                content: space.title,
+                furniture: space.isFurniture,
+                prices: this.parsePrices(space.priceFull, space.priceHalf, space.priceQuarter),
               }))}
           />
         }
