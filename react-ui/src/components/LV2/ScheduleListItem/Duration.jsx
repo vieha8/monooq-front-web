@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import moment from 'moment';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/InlineText';

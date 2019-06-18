@@ -8,14 +8,6 @@ import Button from 'components/LV1/Button';
 import { Colors } from 'variables';
 import { formatAddComma, formatName } from 'helpers/string';
 
-function estimateDateFormat(date) {
-  return date.toLocaleDateString('ja-JP-u-ca-japanese', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-}
-
 const Text = styled(InlineText.Base)`
   display: block;
   font-size: 14px;
@@ -114,11 +106,11 @@ export default ({
       </Text>
       <Text>
         利用開始日：
-        {estimateDateFormat(beginAt)}
+        {beginAt}
       </Text>
       <Text>
         利用終了日：
-        {estimateDateFormat(endAt)}
+        {endAt}
       </Text>
       <Text>
         料金：

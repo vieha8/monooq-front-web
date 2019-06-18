@@ -3,9 +3,8 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { formatDate, formatStringSlashTime } from 'helpers/date';
+import { formatDate, formatStringSlash, formatStringSlashTime } from 'helpers/date';
 import Path from 'config/path';
-import moment from 'moment';
 import AdminMessage from 'components/LV2/Message/Admin';
 import SelfMessage from 'components/LV2/Message/MySelf';
 import OtherMessage from 'components/LV2/Message/Other';
@@ -290,8 +289,8 @@ export default (props: PropTypes) => {
                 id={message.estimate.id}
                 host={hostUser}
                 name={message.estimate.name}
-                beginAt={moment(message.estimate.beginAt).toDate()}
-                endAt={moment(message.estimate.endAt).toDate()}
+                beginAt={formatDate(new Date(message.estimate.beginAt), formatStringSlash)}
+                endAt={formatDate(new Date(message.estimate.endAt), formatStringSlash)}
                 price={message.estimate.price}
                 receivedAt={formatDate(
                   new Date(message.estimate.receivedAt),
