@@ -1,3 +1,6 @@
+export const formatStringSlash = 'yyyy/MM/dd';
+export const formatStringSlashTime = 'yyyy/MM/dd HH:mm:ss';
+
 export const formatDate = (date, format) => {
   const replaced = format
     .replace(/yyyy/g, date.getFullYear())

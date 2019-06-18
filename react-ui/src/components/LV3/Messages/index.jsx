@@ -3,8 +3,8 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
+import { formatDate, formatStringSlash, formatStringSlashTime } from 'helpers/date';
 import Path from 'config/path';
-import moment from 'moment';
 import AdminMessage from 'components/LV2/Message/Admin';
 import SelfMessage from 'components/LV2/Message/MySelf';
 import OtherMessage from 'components/LV2/Message/Other';
@@ -113,8 +113,6 @@ type PropTypes = {
   lastReadDt: string,
 };
 
-const dateFormat = 'YYYY/MM/DD kk:mm:ss';
-
 export default (props: PropTypes) => {
   const { messages, hostUser, lastReadDt } = props;
   const messageList = messages;
@@ -162,7 +160,7 @@ export default (props: PropTypes) => {
                   <Row self>
                     <SelfMessage
                       message={message.self.message}
-                      sentAt={moment(message.self.sentAt).format(dateFormat)}
+                      sentAt={formatDate(new Date(message.self.sentAt), formatStringSlashTime)}
                       isRead={isRead}
                     />
                   </Row>
@@ -170,8 +168,9 @@ export default (props: PropTypes) => {
                     <PhotoMessage
                       align="right"
                       src={message.self.image}
-                      receivedAt={moment(message.self.sentAt).format(dateFormat)}
+                      receivedAt={formatDate(new Date(message.self.sentAt), formatStringSlashTime)}
                       isRead={isRead}
+                      self
                     />
                   </Row>
                 </Fragment>
@@ -182,8 +181,9 @@ export default (props: PropTypes) => {
                 <PhotoMessage
                   align="right"
                   src={message.self.image}
-                  receivedAt={moment(message.self.sentAt).format(dateFormat)}
+                  receivedAt={formatDate(new Date(message.self.sentAt), formatStringSlashTime)}
                   isRead={isRead}
+                  self
                 />
               </Row>
             );
@@ -192,7 +192,7 @@ export default (props: PropTypes) => {
             <Row key={key} self>
               <SelfMessage
                 message={message.self.message}
-                sentAt={moment(message.self.sentAt).format(dateFormat)}
+                sentAt={formatDate(new Date(message.self.sentAt), formatStringSlashTime)}
                 isRead={isRead}
               />
             </Row>
@@ -208,19 +208,28 @@ export default (props: PropTypes) => {
                       id={message.other.id}
                       image={message.other.userImage}
                       message={message.other.message}
-                      receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                      receivedAt={formatDate(
+                        new Date(message.other.receivedAt),
+                        formatStringSlashTime,
+                      )}
                     />
                   </Row>
                   <Row>
                     <OtherMessage
                       id={message.other.id}
                       image={message.other.userImage}
-                      receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                      receivedAt={formatDate(
+                        new Date(message.other.receivedAt),
+                        formatStringSlashTime,
+                      )}
                       extension={
                         <PhotoMessage
                           id={message.other.id}
                           src={message.other.image}
-                          receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                          receivedAt={formatDate(
+                            new Date(message.other.receivedAt),
+                            formatStringSlashTime,
+                          )}
                         />
                       }
                     />
@@ -233,12 +242,15 @@ export default (props: PropTypes) => {
                 <OtherMessage
                   id={message.other.id}
                   image={message.other.userImage}
-                  receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                  receivedAt={formatDate(new Date(message.other.receivedAt), formatStringSlashTime)}
                   extension={
                     <PhotoMessage
                       id={message.other.id}
                       src={message.other.image}
-                      receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                      receivedAt={formatDate(
+                        new Date(message.other.receivedAt),
+                        formatStringSlashTime,
+                      )}
                     />
                   }
                 />
@@ -251,7 +263,7 @@ export default (props: PropTypes) => {
                 id={message.other.id}
                 image={message.other.userImage}
                 message={message.other.message}
-                receivedAt={moment(message.other.receivedAt).format(dateFormat)}
+                receivedAt={formatDate(new Date(message.other.receivedAt), formatStringSlashTime)}
               />
             </Row>
           );
@@ -262,7 +274,8 @@ export default (props: PropTypes) => {
               <AdminMessage
                 message={message.admin.message || ''}
                 receivedAt={
-                  message.admin.receivedAt && moment(message.admin.receivedAt).format(dateFormat)
+                  message.admin.receivedAt &&
+                  formatDate(new Date(message.admin.receivedAt), formatStringSlashTime)
                 }
                 link={message.admin.link || {}}
               />
@@ -276,10 +289,13 @@ export default (props: PropTypes) => {
                 id={message.estimate.id}
                 host={hostUser}
                 name={message.estimate.name}
-                beginAt={moment(message.estimate.beginAt).toDate()}
-                endAt={moment(message.estimate.endAt).toDate()}
+                beginAt={formatDate(new Date(message.estimate.beginAt), formatStringSlash)}
+                endAt={formatDate(new Date(message.estimate.endAt), formatStringSlash)}
                 price={message.estimate.price}
-                receivedAt={moment(message.estimate.receivedAt).format(dateFormat)}
+                receivedAt={formatDate(
+                  new Date(message.estimate.receivedAt),
+                  formatStringSlashTime,
+                )}
                 paymentLink={message.estimate.link}
                 status={message.estimate.status}
               />

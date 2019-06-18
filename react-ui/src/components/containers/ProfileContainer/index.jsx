@@ -9,7 +9,7 @@ import LoadingPage from 'components/LV3/LoadingPage';
 import { Colors } from 'variables';
 import { userActions } from 'redux/modules/user';
 import type { SpaceType } from 'types/Space';
-import { formatDate } from 'helpers/date';
+import { formatDate, formatStringSlash } from 'helpers/date';
 import { formatName } from 'helpers/string';
 import Meta from 'components/LV1/Meta';
 import connect from '../connect';
@@ -87,7 +87,7 @@ class ProfileContainer extends Component<PropTypes> {
             name={user.Name}
             prefCode={user.PrefCode}
             profile={user.Profile}
-            lastLogin={formatDate(new Date(user.LastLogin), 'yyyy/MM/dd')}
+            lastLogin={formatDate(new Date(user.LastLogin), formatStringSlash)}
             spaces={(spaces || [])
               .filter(v => v.Status === 'public')
               .map((space: SpaceType) => ({
