@@ -124,7 +124,7 @@ class PaymentContainer extends Component<PropTypes> {
         if (value.length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         }
-        if (!Number(value) || !String(value).match(ValidateRegExp.CardNumber)) {
+        if (isNaN(value) || !String(value).match(ValidateRegExp.CardNumber)) {
           errors.push(ErrorMessages.CreditCardNumber);
         }
         break;
@@ -133,7 +133,7 @@ class PaymentContainer extends Component<PropTypes> {
         if (value.length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         }
-        if (!Number(value) || !String(value).match(ValidateRegExp.Cvc)) {
+        if (isNaN(value) || !String(value).match(ValidateRegExp.Cvc)) {
           errors.push(ErrorMessages.Cvc);
         }
         break;
