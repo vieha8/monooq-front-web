@@ -242,6 +242,11 @@ function* fetchMessagesStart({ payload: roomId }) {
     return;
   }
 
+  if (!(room.userId1 === user.ID || room.userId2 === user.ID)) {
+    yield put(push(Path.notFound()));
+    return;
+  }
+
   let { messages } = messageData;
   const token = yield* getToken();
 
