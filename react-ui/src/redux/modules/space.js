@@ -330,7 +330,7 @@ function* createSpace({ payload: { body } }) {
   }
 
   if (images && images.length > 0) {
-    const spaceId = data.ID;
+    const spaceId = data.id;
     const imageUrls = yield createImageUrls(spaceId, images);
 
     if (imageUrls.error) {
@@ -374,7 +374,7 @@ function* prepareUpdateSpace({ payload: spaceId }) {
   }
 
   const spaceCache = yield select(state => state.ui.space);
-  if (spaceCache.ID) {
+  if (spaceCache.id) {
     return;
   }
 
@@ -547,7 +547,7 @@ function* search({
   const res = data.map(v => {
     const space = v;
     if (space.images.length === 0) {
-      space.images = [{ ImageUrl: dummySpaceImage }];
+      space.images = [{ imageUrl: dummySpaceImage }];
     } else {
       space.images = space.images.map(image => {
         image.imageUrl = convertImgixUrl(

@@ -113,7 +113,7 @@ class SpaceContainer extends Component<PropTypes> {
 
   showLeftContent = () => {
     const { space, user, isRequesting } = this.props;
-    const isSelfSpace = user.id === (space.user || {}).ID;
+    const isSelfSpace = user.id === (space.user || {}).id;
     return (
       <Fragment>
         <Detail

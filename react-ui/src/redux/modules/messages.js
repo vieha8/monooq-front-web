@@ -243,7 +243,7 @@ function* fetchMessagesStart({ payload: roomId }) {
     return;
   }
 
-  if (!(room.userId1 === user.ID || room.userId2 === user.ID)) {
+  if (!(room.userId1 === user.id || room.userId2 === user.id)) {
     yield put(push(Path.notFound()));
     return;
   }

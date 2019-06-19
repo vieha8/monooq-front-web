@@ -399,7 +399,7 @@ function* request({ payload: { user, space } }) {
     user.name,
     user.firebaseUid,
     space.user.id,
-    space.user.FirebaseUid,
+    space.user.firebaseUid,
     space.id,
   );
   yield put(push(Path.message(roomId)));
