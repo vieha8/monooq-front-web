@@ -9,6 +9,7 @@ import InlineText from 'components/LV1/InlineText';
 import AvatarImage from 'components/LV1/AvatarImage';
 import { Dimens, Colors, FontSizes } from 'variables';
 import LazyLoad from 'react-lazyload';
+import { formatDate, formatStringSlash } from 'helpers/date';
 import { formatName } from 'helpers/string';
 
 const Container = styled.li`
@@ -88,7 +89,7 @@ export default ({ link, image, name, receivedAt, lastMessage, isRead }: PropType
           color={Colors.lightGray1}
           float="right"
         >
-          {moment(receivedAt).format('YYYY年MM月DD日')}
+          {formatDate(new Date(receivedAt), formatStringSlash)}
         </InlineText.Base>
       </Cell>
       <Cell lastMessage nametime>

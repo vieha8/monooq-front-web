@@ -3,12 +3,17 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
+import { Link } from 'react-router-dom';
 import InlineText from 'components/LV1/InlineText';
 import TextLink from 'components/LV1/TextLink';
 import Button from 'components/LV1/Button';
 
 import { Colors, Dimens } from 'variables';
 import Path from 'config/path';
+
+const LinkText = styled(Link)`
+  color: ${Colors.brandPrimary};
+`;
 
 const Text = styled.div`
   margin-top: ${Dimens.medium1_26}px;
@@ -36,6 +41,8 @@ const UnsubscribeText = styled.div`
   `};
 `;
 
+const HyperLink = LinkText.withComponent('a');
+
 type PropTypes = {
   isLogin: boolean,
 };
@@ -44,9 +51,17 @@ export default ({ isLogin }: PropTypes) => (
   <Fragment>
     <Text>
       <InlineText.Base>
-        サービスの不明点・お困りのことがあれば、モノオクカスタマーサポートまでお寄せください。
-        お問い合わせはLINEにて対応しております。下記より友だち追加の上、ご連絡ください。
+        サービス利用でのご不明点は「
+        <HyperLink href="https://help.monooq.com/" target="_blank" rel="noopener noreferrer">
+          よくある質問
+        </HyperLink>
+        」をご確認ください。
         <br />
+        上記で解決しなかった場合やその他のお問い合わせは、LINEにて対応しております。
+        <br />
+        モノオク公式LINEアカウントを友だち追加してご連絡ください。
+        <br />
+        モノオクカスタマーサポートが順次返信いたします。
       </InlineText.Base>
       <ButtonWrap>
         <Button line reactGACategory="Inquiry" reactGAAction="Push LINE Register Button">

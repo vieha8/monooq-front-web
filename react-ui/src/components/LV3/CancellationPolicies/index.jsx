@@ -121,12 +121,12 @@ export default () => (
           <ExampleText>
             開始日の15日前(00:00以降)のキャンセル
             <br />
-            20000×0.75=15000円を返金
+            20,000×0.75=15,000円を返金
           </ExampleText>
           <ExampleText>
             開始日の7日前(00:00以降)のキャンセル
             <br />
-            20000×0.5=10000円を返金
+            20,000×0.5=10,000円を返金
           </ExampleText>
         </ExampleTextContainer>
       </AboutCancellExampleWrapper>

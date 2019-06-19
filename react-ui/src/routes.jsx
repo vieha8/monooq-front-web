@@ -129,8 +129,8 @@ const Rule = loadable(() =>
 const HowToUse = loadable(() =>
   import('components/containers/HowToUseContainer').catch(() => window.location.reload()),
 );
-const Other = loadable(() =>
-  import('components/containers/OtherContainer').catch(() => window.location.reload()),
+const Service = loadable(() =>
+  import('components/containers/ServiceContainer').catch(() => window.location.reload()),
 );
 const NotFound = loadable(() =>
   import('components/containers/NotFoundContainer').catch(() => window.location.reload()),
@@ -192,7 +192,7 @@ export default ({ history }) => (
       <Route exact path={Path.insurance()} component={Insurance} />
       <Route exact path={Path.rule()} component={Rule} />
       <Route exact path={Path.howToUse()} component={HowToUse} />
-      <Route exact path={Path.other()} component={Other} />
+      <Route exact path={Path.service()} component={Service} />
       <Route exact path={Path.cancellationPolicies()} component={CancelPolicy} />
       <Route exact path={Path.asct()} component={Asct} />
       <Route exact path={Path.privacy()} component={Privacy} />

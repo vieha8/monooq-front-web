@@ -179,7 +179,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     if (returnValue.length === 0) {
       priceErrors.push(ErrorMessages.PleaseInput);
     } else {
-      if (!Number(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
+      if (isNaN(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
         priceErrors.push(ErrorMessages.PriceNumber);
       } else {
         if (returnValue < Validate.Price.Min) {

@@ -1,15 +1,14 @@
 // @flow
 
 import React, { Component } from 'react';
-import numeral from 'numeral';
-import ProfileTemplate from 'components/templates/ProfileTemplate';
 import Profile from 'components/LV3/Profile';
 import Header from 'components/containers/Header';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import LoadingPage from 'components/LV3/LoadingPage';
-import { Colors } from 'variables';
 import { userActions } from 'redux/modules/user';
 import type { SpaceType } from 'types/Space';
-import { formatDate } from 'helpers/date';
+import { formatDate, formatStringSlash } from 'helpers/date';
 import { formatName } from 'helpers/string';
 import Meta from 'components/LV1/Meta';
 import connect from '../connect';
@@ -22,10 +21,10 @@ type PropTypes = {
   },
   dispatch: Function,
   user: {
-    ImageUrl: string,
-    Name: string,
-    PrefCode: string,
-    Profile: string,
+    imageUrl: string,
+    name: string,
+    prefCode: string,
+    profile: string,
   },
   spaces: Array<SpaceType>,
 };
@@ -40,30 +39,7 @@ class ProfileContainer extends Component<PropTypes> {
     dispatch(userActions.fetchUserSpaces({ userId }));
   }
 
-  componentDidMount() {
-    if (document && document.body) {
-      this.prevBgColor = document.body.style.background;
-      document.body.style.background = Colors.lightGray1Bg;
-    }
-  }
-
-  componentWillUnmount() {
-    document.body.style.background = this.prevBgColor;
-  }
-
-  parsePrices = (priceFull, priceHalf, priceQuarter) => {
-    const res = [];
-    res.push(`¥${numeral(priceFull).format('0,0')}`);
-    if (priceHalf > 0) {
-      res.push(`¥${numeral(priceHalf).format('0,0')}`);
-    }
-    if (priceQuarter > 0) {
-      res.push(`¥${numeral(priceQuarter).format('0,0')}`);
-    }
-    return res;
-  };
-
-  render() {
+  leftContent = () => {
     const { user, spaces } = this.props;
 
     if (!user) {
@@ -71,8 +47,7 @@ class ProfileContainer extends Component<PropTypes> {
     }
 
     return (
-      <ProfileTemplate
-        header={<Header />}
+      <Profile
         meta={
           <Meta
             title={`${formatName(user.name)}さんのプロフィール - モノオク`}
@@ -81,25 +56,33 @@ class ProfileContainer extends Component<PropTypes> {
             noindex
           />
         }
-        profile={
-          <Profile
-            image={user.imageUrl}
-            name={user.name}
-            prefCode={user.prefCode}
-            profile={user.profile}
-            lastLoginAt={formatDate(new Date(user.lastLoginAt), 'yyyy/MM/dd')}
-            spaces={(spaces || [])
-              .filter(v => v.status === 'public')
-              .map((space: SpaceType) => ({
-                id: space.id,
-                image: (space.images[0] || {}).imageUrl,
-                address: `${space.addressPref}${space.addressCity}${space.addressTown}`,
-                content: space.title,
-                furniture: space.isFurniture,
-                prices: this.parsePrices(space.priceFull, space.priceHalf, space.priceQuarter),
-              }))}
-          />
-        }
+        image={user.imageUrl}
+        name={user.name}
+        prefCode={user.prefCode}
+        profile={user.profile}
+        lastLoginAt={formatDate(new Date(user.lastLoginAt), formatStringSlash)}
+        spaces={(spaces || [])
+          .filter(v => v.status === 'public')
+          .map((space: SpaceType) => ({
+            id: space.id,
+            image: (space.images[0] || {}).imageUrl,
+            address: `${space.addressPref}${space.addressCity}${space.addressTown}`,
+            content: space.title,
+            furniture: space.isFurniture,
+            priceFull: space.priceFull,
+            priceQuarter: space.priceQuarter,
+          }))}
+      />
+    );
+  };
+
+  render() {
+    return (
+      <MenuPageTemplate
+        header={<Header />}
+        headline="プロフィール"
+        leftContent={this.leftContent()}
+        rightContent={<ServiceMenu />}
       />
     );
   }

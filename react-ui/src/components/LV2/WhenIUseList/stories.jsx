@@ -44,7 +44,7 @@ storiesOf('Molecules(LV2)/WhenIUseList', module).add(
           },
           {
             image: useImage5,
-            text: 'トランクルームの代わりに。',
+            text: '費用の高いトランクルームの代わりに。',
           },
           {
             image: useImage6,

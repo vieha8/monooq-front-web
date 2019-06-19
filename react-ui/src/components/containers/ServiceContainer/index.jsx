@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
-import Other from 'components/LV3/Other';
+import Service from 'components/LV3/Service';
 
 import { authActions } from 'redux/modules/auth';
 
@@ -15,7 +15,7 @@ type PropTypes = {
   dispatch: Function,
 };
 
-class OtherContainer extends Component<PropTypes> {
+class ServiceContainer extends Component<PropTypes> {
   logout = () => {
     if (document && document.body) {
       document.body.style.overflowY = 'auto';
@@ -29,9 +29,9 @@ class OtherContainer extends Component<PropTypes> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline="その他"
+        headline="モノオクについて"
         leftContent={
-          <Other
+          <Service
             logout={{
               onClick: e => {
                 e.preventDefault();
@@ -52,6 +52,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  OtherContainer,
+  ServiceContainer,
   mapStateToProps,
 );

@@ -8,14 +8,6 @@ import Button from 'components/LV1/Button';
 import { Colors } from 'variables';
 import { formatAddComma, formatName } from 'helpers/string';
 
-function estimateDateFormat(date) {
-  return date.toLocaleDateString('ja-JP-u-ca-japanese', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
-}
-
 const Text = styled(InlineText.Base)`
   display: block;
   font-size: 14px;
@@ -114,11 +106,11 @@ export default ({
       </Text>
       <Text>
         利用開始日：
-        {estimateDateFormat(beginAt)}
+        {beginAt}
       </Text>
       <Text>
         利用終了日：
-        {estimateDateFormat(endAt)}
+        {endAt}
       </Text>
       <Text>
         料金：
@@ -126,10 +118,11 @@ export default ({
       </Text>
       <CaptionWrapper>
         <Text>
-          期間や料金に変更があった場合は、ホストが新しく見積りを発行してください。
+          ＜ユーザーの方＞
           <br />
+          見積もり内容に問題がなければ、決済に進みましょう。
           <br />
-          クレジットカード(VISA、MasterCard)と銀行振込での決済が可能です。
+          クレジットカード(VISA、MasterCard)または、銀行振込での決済が可能です。
           <br />
           <br />
           ■クレジットカード決済をご希望の場合
@@ -143,7 +136,7 @@ export default ({
           <br />
           下記口座にお振込後、
           <a href="mailto:support@monooq.com">support@monooq.com</a>
-          まで振込明細の写真とモノオクでご利用のメールアドレスをお送りください。
+          まで振込明細の写真とモノオクで登録しているメールアドレスをお送りください。
           <br />
           <br />
           <InlineText.Bold>
@@ -154,9 +147,15 @@ export default ({
           <br />
           <br />
           <br />
-          ※長期利用や1ヶ月あたりの料金が高額な方向けに、クレジットカード月額自動引き落としの対応も可能です。ご希望の方は
+          ※長期利用（2ヶ月以上）の場合は、クレジットカードでの月額自動支払いにも対応しております。ご希望の場合は、初月利用料をクレジット決済の上、
           <a href="mailto:support@monooq.com">support@monooq.com</a>
-          までご連絡ください。
+          までご連絡ください。現状の見積もりが初月分の内容でない場合は、ホストに見積もりを再発行してもらい、決済を行ってください。
+          <br />
+          <br />
+          <br />
+          ＜ホストの方＞
+          <br />
+          期間や料金に変更があった場合は、新しく見積りを発行してください。
           <br />
           <br />
           <Caution>モノオク上で決済を行わない場合、保険が適応されません。</Caution>

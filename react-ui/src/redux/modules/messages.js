@@ -173,6 +173,9 @@ function* fetchUnreadRooms() {
 const getMessages = roomId =>
   new Promise(async (resolve, reject) => {
     try {
+      if (roomId === 'TzcRXl3C27n02lK2CaEj' || roomId === '2ALocP9qppkAjMjjynlF') {
+        reject();
+      }
       const roomDoc = roomCollection().doc(roomId);
       const messages = await roomDoc
         .collection('messages')
@@ -236,6 +239,11 @@ function* fetchMessagesStart({ payload: roomId }) {
   const messageData = yield getMessages(roomId);
   const { room, messageObserver } = messageData;
   if (!room) {
+    yield put(push(Path.notFound()));
+    return;
+  }
+
+  if (!(room.userId1 === user.ID || room.userId2 === user.ID)) {
     yield put(push(Path.notFound()));
     return;
   }

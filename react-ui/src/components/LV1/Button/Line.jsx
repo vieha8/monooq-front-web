@@ -44,7 +44,7 @@ const btnlink = styled(Link)``;
 const HyperLink = btnlink.withComponent('a');
 
 export default (props: Object) => (
-  <HyperLink href="https://line.me/R/ti/p/%40wna0649g" target="_blank">
+  <HyperLink href="https://line.me/R/ti/p/%40wna0649g" target="_blank" rel="noopener noreferrer">
     <Line
       center
       fill={1}

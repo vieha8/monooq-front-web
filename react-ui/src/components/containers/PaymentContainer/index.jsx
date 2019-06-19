@@ -22,6 +22,7 @@ import type { SpaceType } from 'types/Space';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import { formatDate, formatStringSlash } from 'helpers/date';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 type PropTypes = {
@@ -123,7 +124,7 @@ class PaymentContainer extends Component<PropTypes> {
         if (value.length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         }
-        if (!Number(value) || !String(value).match(ValidateRegExp.CardNumber)) {
+        if (isNaN(value) || !String(value).match(ValidateRegExp.CardNumber)) {
           errors.push(ErrorMessages.CreditCardNumber);
         }
         break;
@@ -132,7 +133,7 @@ class PaymentContainer extends Component<PropTypes> {
         if (value.length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         }
-        if (!Number(value) || !String(value).match(ValidateRegExp.Cvc)) {
+        if (isNaN(value) || !String(value).match(ValidateRegExp.Cvc)) {
           errors.push(ErrorMessages.Cvc);
         }
         break;
@@ -261,8 +262,8 @@ class PaymentContainer extends Component<PropTypes> {
               href: Path.space(space.id),
             }}
             payment={{
-              beginAt: moment(request.startDate.toDate()).format('YYYY/MM/DD'),
-              endAt: moment(request.endDate.toDate()).format('YYYY/MM/DD'),
+              beginAt: formatDate(new Date(request.startDate.toDate()), formatStringSlash),
+              endAt: formatDate(new Date(request.endDate.toDate()), formatStringSlash),
               duration:
                 moment(request.endDate.toDate()).diff(moment(request.startDate.toDate()), 'days') +
                 1,
