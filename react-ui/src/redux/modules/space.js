@@ -478,12 +478,12 @@ function* updateSpace({ payload: { spaceId, body } }) {
 
 function* deleteSpace({ payload: { space } }) {
   const user = yield select(state => state.auth.user);
-  if (space.UserID !== user.id) {
+  if (space.userId !== user.id) {
     yield handleError(
       '',
       '',
       'deleteSpace(Bad Request)',
-      `spaceUserID(${space.UserID})/loginUserID(${user.id})`,
+      `spaceUserID(${space.userId})/loginUserID(${user.id})`,
       false,
     );
     return;
