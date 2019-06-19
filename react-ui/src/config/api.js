@@ -1,7 +1,7 @@
 export default () => {
   const configDevelopment = {
-    // baseURI: 'https://dev-api.monooq.com/v1',
-    baseURI: 'http://localhost:5000/v1',
+    baseURI: 'https://dev-api.monooq.com/v1',
+    // baseURI: 'http://localhost:5000/v1',
   };
 
   const configProduction = {
