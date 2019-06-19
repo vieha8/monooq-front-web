@@ -117,7 +117,7 @@ function* getSpaces(params) {
   }
 
   let user = yield select(state => state.auth.user);
-  if (!user.ID) {
+  if (!user.id) {
     yield take(authActions.checkLoginSuccess);
   }
   user = yield select(state => state.auth.user);
@@ -125,7 +125,7 @@ function* getSpaces(params) {
   const token = yield* getToken();
   const { data, err } = yield call(
     getApiRequest,
-    apiEndpoint.userSpaces(targetUserId || user.ID),
+    apiEndpoint.userSpaces(targetUserId || user.id),
     {},
     token,
   );
@@ -137,12 +137,12 @@ function* getSpaces(params) {
 
   if (Array.isArray(data)) {
     const res = data.map(v => {
-      if (v.Images.length === 0) {
-        v.Images[0] = { ImageUrl: dummySpaceImage };
+      if (v.images.length === 0) {
+        v.images[0] = { imageUrl: dummySpaceImage };
       } else {
-        v.Images = v.Images.map(image => {
-          image.ImageUrl = convertImgixUrl(
-            image.ImageUrl,
+        v.images = v.images.map(image => {
+          image.imageUrl = convertImgixUrl(
+            image.imageUrl,
             'fit=fill&fill-color=DBDBDB&w=540&h=290&auto=format',
           );
           return image;

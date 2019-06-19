@@ -35,7 +35,7 @@ type PropTypes = {
     push: Function,
   },
   space: {
-    ID: number,
+    id: number,
   },
 };
 
@@ -47,9 +47,9 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     const spaceId = props.match.params.space_id;
 
     this.state = {
-      PriceFull: space.PriceFull || '',
-      PriceHalf: space.PriceHalf || '',
-      PriceQuarter: space.PriceQuarter || '',
+      priceFull: space.priceFull || '',
+      priceHalf: space.priceHalf || '',
+      priceQuarter: space.priceQuarter || '',
       error: {},
       isUpdate: false,
       isFirst: true,
@@ -58,35 +58,35 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       this.state.isUpdate = true;
-    } else if (space.Address) {
-      dispatch(spaceActions.getGeocode({ address: space.Address }));
+    } else if (space.address) {
+      dispatch(spaceActions.getGeocode({ address: space.address }));
     }
   }
 
   componentDidMount() {
-    const { PriceFull, PriceHalf, PriceQuarter, isUpdate } = this.state;
+    const { priceFull, priceHalf, priceQuarter, isUpdate } = this.state;
     if (!isUpdate) {
-      this.handleChangeUI('PriceFull', PriceFull);
-      this.handleChangeUI('PriceHalf', PriceHalf);
-      this.handleChangeUI('PriceQuarter', PriceQuarter);
+      this.handleChangeUI('priceFull', priceFull);
+      this.handleChangeUI('priceHalf', priceHalf);
+      this.handleChangeUI('priceQuarter', priceQuarter);
     }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
-    if (space.ID && !prevState.ID) {
+    if (space.id && !prevState.id) {
       const {
-        PriceFull: PriceFullTmp,
-        PriceHalf: PriceHalfTmp,
-        PriceQuarter: PriceQuarterTmp,
-        ID,
+        priceFull: PriceFullTmp,
+        priceHalf: PriceHalfTmp,
+        priceQuarter: PriceQuarterTmp,
+        id,
       } = space;
 
-      const PriceFull = formatAddComma(PriceFullTmp);
-      const PriceHalf = formatAddComma(PriceHalfTmp);
-      const PriceQuarter = formatAddComma(PriceQuarterTmp);
+      const priceFull = formatAddComma(PriceFullTmp);
+      const priceHalf = formatAddComma(PriceHalfTmp);
+      const priceQuarter = formatAddComma(PriceQuarterTmp);
 
-      return { PriceFull, PriceHalf, PriceQuarter, ID, isFirst: false };
+      return { priceFull, priceHalf, priceQuarter, id, isFirst: false };
     }
     return null;
   }
@@ -111,19 +111,19 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
   onClickNext = () => {
     const { dispatch, space, history, match } = this.props;
-    const { PriceFull, PriceHalf, PriceQuarter } = this.state;
+    const { priceFull, priceHalf, priceQuarter } = this.state;
 
     const spaceId = match.params.space_id;
-    if (!spaceId && space.Address) {
+    if (!spaceId && space.address) {
       const { geocode } = this.props;
-      const arrayAddress = space.Address.match(Validate.Address);
+      const arrayAddress = space.address.match(Validate.Address);
 
       const saveSpaceNew = Object.assign(space, {
-        Latitude: (geocode || {}).lat,
-        Longitude: (geocode || {}).lng,
-        AddressPref: arrayAddress[1],
-        AddressCity: arrayAddress[2],
-        AddressTown: arrayAddress[3],
+        lat: (geocode || {}).lat,
+        lng: (geocode || {}).lng,
+        addressPref: arrayAddress[1],
+        addressCity: arrayAddress[2],
+        addressTown: arrayAddress[3],
       });
       dispatch(
         uiActions.setUiState({
@@ -133,9 +133,9 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     }
 
     const saveSpace = Object.assign(space, {
-      PriceFull: formatRemoveComma(PriceFull),
-      PriceHalf: formatRemoveComma(PriceHalf),
-      PriceQuarter: formatRemoveComma(PriceQuarter),
+      priceFull: formatRemoveComma(priceFull),
+      priceHalf: formatRemoveComma(priceHalf),
+      priceQuarter: formatRemoveComma(priceQuarter),
     });
     dispatch(
       uiActions.setUiState({
@@ -143,7 +143,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = space.ID ? Path.editSpaceConfirm(space.ID) : Path.createSpaceConfirm();
+    const nextPath = space.id ? Path.editSpaceConfirm(space.id) : Path.createSpaceConfirm();
     history.push(nextPath);
   };
 
@@ -151,19 +151,19 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { PriceFull, PriceHalf, PriceQuarter } = this.state;
+    const { priceFull, priceHalf, priceQuarter } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          PriceFull: formatRemoveComma(PriceFull),
-          PriceHalf: formatRemoveComma(PriceHalf),
-          PriceQuarter: formatRemoveComma(PriceQuarter),
+          priceFull: formatRemoveComma(priceFull),
+          priceHalf: formatRemoveComma(priceHalf),
+          priceQuarter: formatRemoveComma(priceQuarter),
         }),
       }),
     );
 
-    const nextPath = space.ID ? Path.editSpaceReceive(space.ID) : Path.createSpaceReceive();
+    const nextPath = space.id ? Path.editSpaceReceive(space.id) : Path.createSpaceReceive();
     history.push(nextPath);
   };
 
@@ -172,7 +172,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   handleChangeUI = (propName: string, value: any) => {
     const { state } = this;
     const { error } = state;
-    const errors = [];
     let returnValue = formatRemoveComma(value);
 
     const priceErrors = [];
@@ -193,34 +192,19 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       }
     }
 
-    switch (propName) {
-      case 'PriceFull':
-        error.priceFull = priceErrors;
-        break;
-      case 'PriceHalf':
-        error.priceHalf = priceErrors;
-        break;
-      case 'PriceQuarter':
-        error.priceQuarter = priceErrors;
-        break;
-
-      default:
-        break;
-    }
-
     state[propName] = returnValue;
-    error[propName] = errors;
+    error[propName] = priceErrors;
     this.setState({ ...state, error });
   };
 
   validate: Function;
 
   validate = () => {
-    const { PriceFull, PriceHalf, PriceQuarter } = this.state;
+    const { priceFull, priceHalf, priceQuarter } = this.state;
 
-    const checkPriceFull = formatRemoveComma(PriceFull);
-    const checkPriceHalf = formatRemoveComma(PriceHalf);
-    const checkPriceQuarter = formatRemoveComma(PriceQuarter);
+    const checkPriceFull = formatRemoveComma(priceFull);
+    const checkPriceHalf = formatRemoveComma(priceHalf);
+    const checkPriceQuarter = formatRemoveComma(priceQuarter);
 
     return (
       checkPriceFull &&
@@ -237,18 +221,18 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
   render() {
     const { space, isLoading } = this.props;
-    const { PriceFull, PriceHalf, PriceQuarter, error, isUpdate, isFirst } = this.state;
+    const { priceFull, priceHalf, priceQuarter, error, isUpdate, isFirst } = this.state;
 
     if (!isUpdate) {
       if (Object.keys(space).length === 0) {
         // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
         return <Redirect to={Path.createSpaceInfo()} />;
       }
-    } else if (PriceFull && PriceHalf && PriceQuarter && isFirst) {
+    } else if (priceFull && priceHalf && priceQuarter && isFirst) {
       // リロード時にvalidate実行する。
-      this.handleChangeUI('PriceFull', PriceFull);
-      this.handleChangeUI('PriceHalf', PriceHalf);
-      this.handleChangeUI('PriceQuarter', PriceQuarter);
+      this.handleChangeUI('priceFull', priceFull);
+      this.handleChangeUI('priceHalf', priceHalf);
+      this.handleChangeUI('priceQuarter', priceQuarter);
     }
 
     return (
@@ -257,16 +241,16 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
         headline="スペース料金の設定"
         leftContent={
           <EditSpaceInputPriceType
-            edit={space.ID}
-            priceFull={PriceFull}
+            edit={space.id}
+            priceFull={priceFull}
             priceFullErrors={error.priceFull}
-            onChangePriceFull={v => this.handleChangeUI('PriceFull', v)}
-            priceHalf={PriceHalf}
+            onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
+            priceHalf={priceHalf}
             priceHalfErrors={error.priceHalf}
-            onChangePriceHalf={v => this.handleChangeUI('PriceHalf', v)}
-            priceQuarter={PriceQuarter}
+            onChangePriceHalf={v => this.handleChangeUI('priceHalf', v)}
+            priceQuarter={priceQuarter}
             priceQuarterErrors={error.priceQuarter}
-            onChangePriceQuarter={v => this.handleChangeUI('PriceQuarter', v)}
+            onChangePriceQuarter={v => this.handleChangeUI('priceQuarter', v)}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}
             onKeyDownButtonBack={this.onKeyDownButtonBack}

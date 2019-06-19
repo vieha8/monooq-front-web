@@ -108,7 +108,7 @@ class MessageContainer extends Component<PropTypes, State> {
   }
 
   componentWillReceiveProps = next => {
-    if (!next.user.Email || !next.user.PhoneNumber) {
+    if (!next.user.email || !next.user.phoneNumber) {
       this.setState({ errorModal: true });
     }
   };
@@ -136,10 +136,10 @@ class MessageContainer extends Component<PropTypes, State> {
     dispatch(
       messagesActions.sendMessage({
         roomId: match.params.message_room_id,
-        userId: user.ID,
+        userId: user.id,
         text,
         image,
-        toUserId: room.user.ID,
+        toUserId: room.user.id,
       }),
     );
 
@@ -163,7 +163,7 @@ class MessageContainer extends Component<PropTypes, State> {
             imageUrl = convertImgixUrl(message.image, 'fit=crop&auto=format');
           }
 
-          if (message.userId === user.ID) {
+          if (message.userId === user.id) {
             return {
               self: {
                 message: message.text,
@@ -175,7 +175,7 @@ class MessageContainer extends Component<PropTypes, State> {
           return {
             other: {
               id: message.userId,
-              userImage: convertImgixUrl(room.user.ImageUrl, 'fit=crop&auto=format'),
+              userImage: convertImgixUrl(room.user.imageUrl, 'fit=crop&auto=format'),
               message: message.text,
               image: imageUrl,
               receivedAt: message.createDt,
@@ -186,22 +186,24 @@ class MessageContainer extends Component<PropTypes, State> {
           return {
             estimate: {
               id: requestId,
-              name: (room.space.Host || {}).Name,
+              name: (room.space.user || {}).name,
               beginAt: startDate.toDate(),
               endAt: endDate.toDate(),
               price,
               link: Path.payment(match.params.message_room_id, requestId),
               receivedAt: message.createDt,
-              status: request ? request.Status : 'estimate',
+              status: request ? request.status : 'estimate',
             },
           };
         }
         case MessageType.Completed:
-          const { requestId } = message;
+          const { request } = message;
           return {
             admin: {
-              message: `お見積りID:${requestId}\n決済が完了しました。スペース取引成立です！\nスペース所在地:${
-                room.space.Address
+              message: `お見積りID:${
+                request.id
+              }\n決済が完了しました。スペース取引成立です！\nスペース所在地:${
+                request.space.address
               }`,
               receivedAt: message.createDt,
             },
@@ -229,8 +231,8 @@ class MessageContainer extends Component<PropTypes, State> {
       return <Loading size="large" />;
     }
 
-    const isHost = room.space.Host.ID === user.ID;
-    const otherUserId = room.userId1 === user.ID ? room.userId2 : room.userId1;
+    const isHost = room.space.user.id === user.id;
+    const otherUserId = room.userId1 === user.id ? room.userId2 : room.userId1;
 
     const messageList = this.createMessageList();
 
@@ -239,39 +241,39 @@ class MessageContainer extends Component<PropTypes, State> {
       lastReadDt = room[`user${otherUserId}LastReadDt`].toDate();
     }
 
-    const isRegisterEmailPhoneNumber = !!user.Email && !!user.PhoneNumber;
+    const isRegisterEmailPhoneNumber = !!user.email && !!user.phoneNumber;
 
     return (
       <Fragment>
         <TopWrap>
           {isHost ? (
             <UserInfo
-              id={room.user.ID}
-              name={(room.user || {}).Name}
-              imageUrl={room.user.ImageUrl}
+              id={room.user.id}
+              name={(room.user || {}).name}
+              imageUrl={room.user.imageUrl}
               hostinfo
               message
             />
           ) : (
             <HostInfo
-              id={room.space.Host.ID}
-              name={(room.space.Host || {}).Name}
-              imageUrl={room.space.Host.ImageUrl}
+              id={room.space.user.id}
+              name={(room.space.user || {}).name}
+              imageUrl={room.space.user.imageUrl}
               hostinfo
               message
             />
           )}
-          <Row to={Path.space(room.space.ID)}>
+          <Row to={Path.space(room.space.id)}>
             <ImageWrapper>
-              <HeroImage small src={room.space.Images[0].ImageUrl} />
+              <HeroImage small src={room.space.images[0].imageUrl} />
             </ImageWrapper>
             <ContentWrapper>
               <AddressText>
-                {room.space.AddressPref}
-                {room.space.AddressCity}
-                {room.space.AddressTown}
+                {room.space.addressPref}
+                {room.space.addressCity}
+                {room.space.addressTown}
               </AddressText>
-              <TitleText>{room.space.Title}</TitleText>
+              <TitleText>{room.space.title}</TitleText>
             </ContentWrapper>
           </Row>
         </TopWrap>

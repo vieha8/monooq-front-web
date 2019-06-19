@@ -97,12 +97,12 @@ type PropTypes = {
   image: string,
   name: string,
   prefCode: string,
-  lastLogin: string,
+  lastLoginAt: Date,
   profile: string,
   spaces: Array<SpaceType>,
 };
 
-export default ({ meta, image, name, prefCode, lastLogin, profile, spaces }: PropTypes) => (
+export default ({ meta, image, name, prefCode, lastLoginAt, profile, spaces }: PropTypes) => (
   <Fragment>
     {meta}
     <Container>
@@ -116,7 +116,7 @@ export default ({ meta, image, name, prefCode, lastLogin, profile, spaces }: Pro
             <InlineText.Small>{`${getPrefecture(prefCode)}在住`}</InlineText.Small>
           </ResidenceText>
           <LastLoginText>
-            <InlineText.Small>{`最終ログイン日:${lastLogin}`}</InlineText.Small>
+            <InlineText.Small>{`最終ログイン日:${lastLoginAt}`}</InlineText.Small>
           </LastLoginText>
         </InfoTopWrap>
         <Profile>

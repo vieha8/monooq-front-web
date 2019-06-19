@@ -66,8 +66,8 @@ class InboxContainer extends Component<PropTypes> {
           .filter(room => room.user)
           .map(message => ({
             link: Path.message(message.id),
-            image: (message.user || {}).ImageUrl,
-            name: (message.user || {}).Name,
+            image: (message.user || {}).imageUrl,
+            name: (message.user || {}).name,
             receivedAt: message.lastMessageDt,
             lastMessage: message.lastMessage,
             isRead: message.isRead,

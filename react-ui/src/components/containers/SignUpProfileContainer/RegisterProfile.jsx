@@ -54,7 +54,7 @@ export default class RegisterProfileContainer extends Component<PropTypes, State
     script.innerHTML = `var __atw = __atw || [];
     __atw.push({ "merchant" : "monooq", "param" : {
         "result_id" : "100",
-        "verify" : "user_register_${this.props.user.ID}",
+        "verify" : "user_register_${this.props.user.id}",
     }});
 (function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
 a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
@@ -73,7 +73,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
     const { image, name, prefCode, profile, phoneNumber } = this.state;
     dispatch(
       userActions.updateUser({
-        userId: user.ID,
+        userId: user.id,
         body: { imageUri: image, name, prefCode, profile, phoneNumber },
       }),
     );

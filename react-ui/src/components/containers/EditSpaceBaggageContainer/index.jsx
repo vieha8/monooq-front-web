@@ -42,8 +42,8 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     const { space, dispatch } = this.props;
 
     this.state = {
-      About: space.About || '',
-      IsFurniture: space.IsFurniture || false,
+      about: space.about || '',
+      isFurniture: space.isFurniture || false,
       error: {},
       isUpdate: false,
     };
@@ -57,8 +57,8 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
   onKeyDownFurniture = e => {
     if (iskeyDownSpace(e)) {
-      const { IsFurniture } = this.state;
-      this.handleChangeUI('IsFurniture', !IsFurniture);
+      const { isFurniture } = this.state;
+      this.handleChangeUI('isFurniture', !isFurniture);
     }
   };
 
@@ -80,9 +80,9 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
-    if (space.ID && !prevState.ID) {
-      const { About, IsFurniture, ID } = space;
-      return { About, IsFurniture, ID };
+    if (space.id && !prevState.id) {
+      const { about, isFurniture, id } = space;
+      return { about, isFurniture, id };
     }
     return null;
   }
@@ -91,18 +91,18 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
   onClickNext = () => {
     const { dispatch, history, space } = this.props;
-    const { About, IsFurniture } = this.state;
+    const { about, isFurniture } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          About,
-          IsFurniture,
+          about,
+          isFurniture,
         }),
       }),
     );
 
-    const nextPath = space.ID ? Path.editSpaceReceive(space.ID) : Path.createSpaceReceive();
+    const nextPath = space.id ? Path.editSpaceReceive(space.id) : Path.createSpaceReceive();
     history.push(nextPath);
   };
 
@@ -110,18 +110,18 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { About, IsFurniture } = this.state;
+    const { about, isFurniture } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          About,
-          IsFurniture,
+          about,
+          isFurniture,
         }),
       }),
     );
 
-    const nextPath = space.ID ? Path.editSpaceInfo(space.ID) : Path.createSpaceInfo();
+    const nextPath = space.id ? Path.editSpaceInfo(space.id) : Path.createSpaceInfo();
     history.push(nextPath);
   };
 
@@ -133,7 +133,7 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     const errors = [];
 
     switch (propName) {
-      case 'About':
+      case 'about':
         if (value === undefined ? true : value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.About.Max) {
@@ -152,17 +152,17 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
   validate: Function;
 
   validate = () => {
-    const { About } = this.state;
+    const { about } = this.state;
     return (
-      About &&
-      (About === undefined ? false : About.trim().length > 0) &&
-      About.trim().length <= Validate.About.Max
+      about &&
+      (about === undefined ? false : about.trim().length > 0) &&
+      about.trim().length <= Validate.About.Max
     );
   };
 
   render() {
     const { space } = this.props;
-    const { About, IsFurniture, error, isUpdate } = this.state;
+    const { about, isFurniture, error, isUpdate } = this.state;
 
     if (!isUpdate) {
       if (Object.keys(space).length === 0) {
@@ -178,11 +178,11 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
         bottomButtonMargin={130}
         leftContent={
           <EditSpaceBaggage
-            baggage={About}
-            baggageErrors={error.About}
-            onChangeBaggage={v => this.handleChangeUI('About', v)}
-            checkedFurniture={IsFurniture}
-            onClickFurniture={() => this.handleChangeUI('IsFurniture', !IsFurniture)}
+            baggage={about}
+            baggageErrors={error.about}
+            onChangeBaggage={v => this.handleChangeUI('about', v)}
+            checkedFurniture={isFurniture}
+            onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
             onKeyDownFurniture={this.onKeyDownFurniture}
             onClickBack={this.onClickBack}
             onClickNext={this.onClickNext}

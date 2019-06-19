@@ -44,14 +44,14 @@ class EditProfileContainer extends Component<PropTypes> {
     dispatch(userActions.prepareUpdateUser());
 
     this.state = {
-      imageUri: user.ImageUrl,
-      name: user.Name || '',
-      email: user.Email || '',
-      phoneNumber: user.PhoneNumber || '',
-      prefCode: user.PrefCode || '',
-      profile: user.Profile || '',
-      purpose: user.IsHost ? 2 : 1,
-      isNoticeEmail: user.IsNoticeEmail,
+      imageUri: user.imageUrl,
+      name: user.name || '',
+      email: user.email || '',
+      phoneNumber: user.phoneNumber || '',
+      prefCode: user.prefCode || '',
+      profile: user.profile || '',
+      purpose: user.isHost ? 2 : 1,
+      isNoticeEmail: user.isNoticeEmail,
       error: {},
     };
   }
@@ -93,7 +93,7 @@ class EditProfileContainer extends Component<PropTypes> {
       body.name = name === undefined ? '' : name.trim();
       body.profile = profile === undefined ? '' : profile.trim();
       body.isHost = purpose === '2';
-      dispatch(userActions.updateUser({ userId: user.ID, body }));
+      dispatch(userActions.updateUser({ userId: user.id, body }));
     }
   };
 
@@ -207,7 +207,7 @@ class EditProfileContainer extends Component<PropTypes> {
         headline={updateSuccess ? 'プロフィール編集が完了しました' : 'プロフィール編集'}
         leftContent={
           updateSuccess ? (
-            <EditProfileCompleted userId={user.ID} />
+            <EditProfileCompleted userId={user.id} />
           ) : (
             <EditProfile
               image={imageUri}

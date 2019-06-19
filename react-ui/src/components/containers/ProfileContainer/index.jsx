@@ -21,10 +21,10 @@ type PropTypes = {
   },
   dispatch: Function,
   user: {
-    ImageUrl: string,
-    Name: string,
-    PrefCode: string,
-    Profile: string,
+    imageUrl: string,
+    name: string,
+    prefCode: string,
+    profile: string,
   },
   spaces: Array<SpaceType>,
 };
@@ -50,27 +50,27 @@ class ProfileContainer extends Component<PropTypes> {
       <Profile
         meta={
           <Meta
-            title={`${formatName(user.Name)}さんのプロフィール - モノオク`}
-            ogUrl={`user/${user.ID}`}
-            ogImageUrl={user.ImageUrl}
+            title={`${formatName(user.name)}さんのプロフィール - モノオク`}
+            ogUrl={`user/${user.id}`}
+            ogImageUrl={user.imageUrl}
             noindex
           />
         }
-        image={user.ImageUrl}
-        name={user.Name}
-        prefCode={user.PrefCode}
-        profile={user.Profile}
-        lastLogin={formatDate(new Date(user.LastLogin), formatStringSlash)}
+        image={user.imageUrl}
+        name={user.name}
+        prefCode={user.prefCode}
+        profile={user.profile}
+        lastLoginAt={formatDate(new Date(user.lastLoginAt), formatStringSlash)}
         spaces={(spaces || [])
-          .filter(v => v.Status === 'public')
+          .filter(v => v.status === 'public')
           .map((space: SpaceType) => ({
-            id: space.ID,
-            image: (space.Images[0] || {}).ImageUrl,
-            address: `${space.AddressPref}${space.AddressCity}${space.AddressTown}`,
-            content: space.Title,
-            furniture: space.IsFurniture,
-            priceFull: space.PriceFull,
-            priceQuarter: space.PriceQuarter,
+            id: space.id,
+            image: (space.images[0] || {}).imageUrl,
+            address: `${space.addressPref}${space.addressCity}${space.addressTown}`,
+            content: space.title,
+            furniture: space.isFurniture,
+            priceFull: space.priceFull,
+            priceQuarter: space.priceQuarter,
           }))}
       />
     );

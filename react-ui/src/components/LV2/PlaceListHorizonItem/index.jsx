@@ -62,8 +62,8 @@ export default ({ user, isHost, href, onClick, image, address }: PropTypes) => (
   <Fragment>
     <ClearfixContainer>
       <HostContent>
-        <Link to={Path.profile(user.ID)}>
-          <AvatarImage size={45} src={user.ImageUrl} alt={user.Name} />
+        <Link to={Path.profile(user.id)}>
+          <AvatarImage size={45} src={user.imageUrl} alt={user.name} />
         </Link>
       </HostContent>
       <HostContent>
@@ -73,7 +73,7 @@ export default ({ user, isHost, href, onClick, image, address }: PropTypes) => (
           </InlineText.Base>
           <br />
           <InlineText.Base fontSize={`${FontSizes.small_15}`}>
-            {`${formatName(user.Name)}さん`}
+            {`${formatName(user.name)}さん`}
           </InlineText.Base>
         </HostNameWrap>
       </HostContent>

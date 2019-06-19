@@ -214,9 +214,9 @@ const getLoginUserFirebaseAuth = () =>
 const setSentryConfig = user => {
   Sentry.configureScope(scope => {
     scope.setUser({
-      id: user.ID,
-      username: user.Name,
-      email: user.Email,
+      id: user.id,
+      username: user.name,
+      email: user.email,
     });
   });
 };
@@ -259,7 +259,7 @@ function* tokenGenerate() {
     return;
   }
 
-  yield put(authActions.tokenGenerateSuccess(data.Token));
+  yield put(authActions.tokenGenerateSuccess(data.token));
 }
 
 function* checkLogin() {
@@ -275,7 +275,7 @@ function* checkLogin() {
         {},
         token,
       );
-      if (err || data.ID === 0) {
+      if (err || data.id === 0) {
         yield put(authActions.checkLoginFailed({ error: err }));
         yield put(authActions.logout());
         window.location.reload();
@@ -283,8 +283,8 @@ function* checkLogin() {
       }
       status.user = data;
       yield put(authActions.setToken(token));
-      yield call(postApiRequest, apiEndpoint.login(), { UserId: data.ID }, token);
-      ReactGA.set({ userId: data.ID });
+      yield call(postApiRequest, apiEndpoint.login(), { UserId: data.id }, token);
+      ReactGA.set({ userId: data.id });
       setSentryConfig(data);
 
       if (isAvailableLocalStorage()) {
@@ -452,9 +452,11 @@ function* passwordReset({ payload: { email } }) {
   }
 }
 
-function* unsubscribe({ payload: { userId, reason, description } }) {
+function* unsubscribe({ payload: { reason, description } }) {
+  const user = yield select(state => state.auth.user);
+
   const token = yield* getToken();
-  const { err } = yield call(deleteApiRequest, apiEndpoint.users(userId), token);
+  const { err } = yield call(deleteApiRequest, apiEndpoint.users(user.id), token);
 
   if (err) {
     yield handleError(authActions.unsubscribeFailed, '', 'unsubscribe', err, false);
@@ -463,8 +465,8 @@ function* unsubscribe({ payload: { userId, reason, description } }) {
 
   const messageBody = `退会理由:${JSON.stringify(reason)}\n詳細:${description}\n`;
   const body = {
-    Subject: `【退会完了】ユーザーID:${userId}`,
-    Address: 'info@monooq.com',
+    Subject: `【退会完了】ユーザーID:${user.id}`,
+    Uid: 'DDtN7dr9r5VQKyuXRx8AcRgtPIW2', // 本番モノオク公式アカウント(info@monooq.com)
     Body: messageBody,
     Category: 'unsubscribe',
   };

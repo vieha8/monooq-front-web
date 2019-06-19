@@ -48,7 +48,7 @@ class HomeRegionContainer extends Component<PropTypes> {
 
   onClickSpace = (space: { ID: number }) => {
     const { history } = this.props;
-    history.push(Path.space(space.ID));
+    history.push(Path.space(space.id));
   };
 
   showSections = () => {

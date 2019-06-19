@@ -70,18 +70,18 @@ class SpaceContainer extends Component<PropTypes> {
 
   static getDerivedStateFromProps(nextProps) {
     const { space } = nextProps;
-    if (space && space.ID) {
-      const { Title, AddressPref, AddressCity, Introduction, ID } = space;
+    if (space && space.id) {
+      const { title, addressPref, addressCity, introduction, id } = space;
 
-      const { ImageUrl } = space.Images[0];
-      const ogImageUrl = ImageUrl.includes('data:image/png;base64,')
+      const { imageUrl } = space.images[0];
+      const ogImageUrl = imageUrl.includes('data:image/png;base64,')
         ? null
-        : space.Images[0].ImageUrl;
+        : space.images[0].imageUrl;
 
       const meta = {
-        title: `${Title} ${AddressPref}${AddressCity}の空きスペース - モノオク`,
-        description: Introduction,
-        url: `space/${ID}`,
+        title: `${title} ${addressPref}${addressCity}の空きスペース - モノオク`,
+        description: introduction,
+        url: `space/${id}`,
         imageUrl: ogImageUrl,
       };
 
@@ -95,7 +95,7 @@ class SpaceContainer extends Component<PropTypes> {
   onClickSendMessage = async () => {
     const { dispatch, location, user, space, history } = this.props;
     // 未ログインの場合はログイン画面へ
-    if (!user.ID) {
+    if (!user.id) {
       dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
       history.push(Path.login());
       return;
@@ -113,41 +113,41 @@ class SpaceContainer extends Component<PropTypes> {
 
   showLeftContent = () => {
     const { space, user, isRequesting } = this.props;
-    const isSelfSpace = user.ID === (space.Host || {}).ID;
+    const isSelfSpace = user.id === (space.user || {}).id;
     return (
       <Fragment>
         <Detail
-          id={space.ID}
-          map={<SpaceMap lat={space.Latitude} lng={space.Longitude} />}
-          pref={space.AddressPref}
-          city={space.AddressCity}
-          town={space.AddressTown}
-          name={space.Title}
-          images={space.Images.map(image => ({
-            original: image.ImageUrl || dummySpaceImage,
-            thumbnail: image.ImageUrl || dummySpaceImage,
+          id={space.iD}
+          map={<SpaceMap lat={space.lat} lng={space.lng} />}
+          pref={space.addressPref}
+          city={space.addressCity}
+          town={space.addressTown}
+          name={space.title}
+          images={space.images.map(image => ({
+            original: image.imageUrl || dummySpaceImage,
+            thumbnail: image.imageUrl || dummySpaceImage,
           }))}
-          description={space.Introduction}
-          address={`${space.AddressPref}${space.AddressCity}${space.AddressTown}`}
-          type={SPACE_TYPES[space.Type]}
-          furniture={space.IsFurniture}
-          aboutBaggage={space.About}
+          description={space.introduction}
+          address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
+          type={SPACE_TYPES[space.type]}
+          furniture={space.isFurniture}
+          aboutBaggage={space.about}
           delivery={
-            space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Delivery
+            space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
           }
           meeting={
-            space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Meeting
+            space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Meeting
           }
-          supplement={space.ReceiptAbout}
+          supplement={space.receiptAbout}
           user={{
-            id: space.Host.ID,
-            name: space.Host.Name,
-            imageUrl: space.Host.ImageUrl,
-            profile: space.Host.Profile,
+            id: space.user.id,
+            name: space.user.name,
+            imageUrl: space.user.imageUrl,
+            profile: space.user.profile,
           }}
-          pricefull={numeral(space.PriceFull).format('0,0')}
-          pricehalf={space.PriceHalf > 0 && numeral(space.PriceHalf).format('0,0')}
-          pricequarter={space.PriceQuarter > 0 && numeral(space.PriceQuarter).format('0,0')}
+          pricefull={numeral(space.priceFull).format('0,0')}
+          pricehalf={space.priceHalf > 0 && numeral(space.priceHalf).format('0,0')}
+          pricequarter={space.priceQuarter > 0 && numeral(space.priceQuarter).format('0,0')}
         />
         <SendMessage
           disabled={isSelfSpace}

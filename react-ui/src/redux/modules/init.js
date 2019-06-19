@@ -31,7 +31,7 @@ function* init() {
   yield take(authActions.checkLoginSuccess);
 
   const user = yield select(state => state.auth.user);
-  if (user.ID) {
+  if (user.id) {
     yield put(messagesActions.fetchUnreadRoomsStart());
     yield take(messagesActions.fetchUnreadRoomsEnd);
   }

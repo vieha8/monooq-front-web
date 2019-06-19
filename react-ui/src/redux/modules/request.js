@@ -135,7 +135,7 @@ function* sendEstimateEmail(payload) {
 
   const body = {
     Subject: 'お見積りが届いています：モノオクからのお知らせ',
-    Address: toUser.Email,
+    Uid: toUser.firebaseUid,
     Body: messageBody,
     category: 'estimate',
   };
@@ -178,7 +178,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   const message = {
     messageType: 2,
     createDt: new Date(),
-    requestId: requestInfo.ID,
+    requestId: requestInfo.id,
     price: parseInt(price, 10),
     startDate,
     endDate,
@@ -194,7 +194,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
 
   yield sendEstimateEmail({ toUserId: requestUserId, roomId });
   yield put(requestActions.estimateSuccess(requestInfo));
-  window.dataLayer.push({ event: 'estimate', eventValue: requestInfo.ID });
+  window.dataLayer.push({ event: 'estimate', eventValue: requestInfo.id });
   yield put(push(Path.message(roomId)));
 }
 
@@ -203,7 +203,7 @@ function* sendPaymentEmail(payload) {
 
   const token = yield* getToken();
   const { data: space } = yield call(getApiRequest, apiEndpoint.spaces(spaceId), {}, token);
-  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(space.UserID), {}, token);
+  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(space.userId), {}, token);
 
   let messageBody = '見積りに対するお支払いがありました。\n';
   messageBody += '詳細を確認するには以下のリンクをクリックしてください。\n';
@@ -217,12 +217,12 @@ function* sendPaymentEmail(payload) {
 
   const body = {
     Subject: 'ユーザーの支払いが完了されました：モノオクからのお知らせ',
-    Address: toUser.Email,
+    Uid: toUser.firebaseUid,
     Body: messageBody,
     Category: 'payment',
   };
 
-  yield call(postApiRequest, apiEndpoint.sendMail(), body);
+  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
 }
 
 function* sendRequestEmail(payload) {
@@ -230,7 +230,7 @@ function* sendRequestEmail(payload) {
 
   const token = yield* getToken();
 
-  let messageBody = `${formatName(user.Name)}さんがあなたのスペースに興味を持っています!\n`;
+  let messageBody = `${formatName(user.name)}さんがあなたのスペースに興味を持っています!\n`;
   messageBody += 'こちらのメッセージ機能から希望条件などを聞いてみましょう。\n\n';
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
@@ -242,7 +242,7 @@ function* sendRequestEmail(payload) {
 
   const body = {
     Subject: 'あなたのスペースが興味を持たれています：モノオクからのお知らせ',
-    Address: space.Host.Email,
+    Uid: space.user.firebaseUid,
     Body: messageBody,
     Category: 'request',
   };
@@ -268,17 +268,13 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     return;
   }
 
-  let user = yield select(state => state.auth.user);
-  if (!user.ID) {
-    yield take(authActions.checkLoginSuccess);
-  }
-  user = yield select(state => state.auth.user);
-  if (requestData.UserID !== user.ID) {
+  const user = yield select(state => state.auth.user);
+  if (requestData.userId !== user.id) {
     yield handleError(
       requestActions.paymentFailed,
       { errMsg: errMsgCs },
       'payment(estimate)',
-      `requestDataUserID(${requestData.UserID})/loginUserID(${user.ID})`,
+      `requestDataUserID(${requestData.userId})/loginUserID(${user.id})`,
       false,
     );
     return;
@@ -360,13 +356,13 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
   );
 
   window.dataLayer.push({ event: 'match', eventValue: requestId });
-  yield sendPaymentEmail({ roomId, spaceId: requestData.SpaceID });
+  yield sendPaymentEmail({ roomId, spaceId: requestData.spaceId });
   yield put(requestActions.paymentSuccess(data));
 }
 
 function* fetchSchedule() {
   let user = yield select(state => state.auth.user);
-  if (!user.ID) {
+  if (!user.id) {
     yield take(authActions.checkLoginSuccess);
   }
   user = yield select(state => state.auth.user);
@@ -374,13 +370,13 @@ function* fetchSchedule() {
   const token = yield* getToken();
   const { data: userRequests } = yield call(
     getApiRequest,
-    apiEndpoint.requestsByUserId(user.ID),
+    apiEndpoint.requestsByUserId(user.id),
     {},
     token,
   );
   const { data: hostRequests } = yield call(
     getApiRequest,
-    apiEndpoint.requestsByHostUserId(user.ID),
+    apiEndpoint.requestsByHostUserId(user.id),
     {},
     token,
   );
@@ -390,7 +386,7 @@ function* fetchSchedule() {
 }
 
 function* request({ payload: { user, space } }) {
-  let roomId = yield call(getRoomId, user.ID, space.Host.ID, space.ID);
+  let roomId = yield call(getRoomId, user.id, space.user.id, space.id);
   if (roomId) {
     yield put(requestActions.requestSuccess());
     yield put(push(Path.message(roomId)));
@@ -399,12 +395,12 @@ function* request({ payload: { user, space } }) {
 
   roomId = yield call(
     createRoom,
-    user.ID,
-    user.Name,
-    user.FirebaseUid,
-    space.Host.ID,
-    space.Host.FirebaseUid,
-    space.ID,
+    user.id,
+    user.name,
+    user.firebaseUid,
+    space.user.id,
+    space.user.firebaseUid,
+    space.id,
   );
   yield put(push(Path.message(roomId)));
 
@@ -413,7 +409,7 @@ function* request({ payload: { user, space } }) {
     isRequested = localStorage.getItem('isRequested');
   }
 
-  if (!isRequested && user.ID !== 2613) {
+  if (!isRequested && user.id !== 2613) {
     window.dataLayer.push({ event: 'newRequest' }); // GTM
 
     const script = document.createElement('script');
@@ -421,7 +417,7 @@ function* request({ payload: { user, space } }) {
     script.innerHTML = `var __atw = __atw || [];
     __atw.push({ "merchant" : "monooq", "param" : {
         "result_id" : "105",
-        "verify" : "new_request_user${user.ID}_space${space.ID}",
+        "verify" : "new_request_user${user.id}_space${space.id}",
     }});
 (function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
 a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;

@@ -47,8 +47,8 @@ class ServiceMenuContainer extends Component<PropTypes> {
   updatePurpose = () => {
     const { dispatch, user } = this.props;
     const body = this.state;
-    body.isHost = !user.IsHost;
-    dispatch(userActions.updateUser({ userId: user.ID, body }));
+    body.isHost = !user.isHost;
+    dispatch(userActions.updateUser({ userId: user.id, body }));
   };
 
   render() {
@@ -94,7 +94,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
               isPhone
               isLogin={isLogin}
               isSchedule={isSchedule}
-              isHost={user.IsHost || false}
+              isHost={user.isHost || false}
               changePurposeEvent={{
                 onClick: e => {
                   e.preventDefault();
@@ -132,7 +132,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
         service={{ to: Path.service() }}
         isLogin={isLogin}
         isSchedule={isSchedule}
-        isHost={user.IsHost || false}
+        isHost={user.isHost || false}
         changePurposeEvent={{
           onClick: e => {
             e.preventDefault();

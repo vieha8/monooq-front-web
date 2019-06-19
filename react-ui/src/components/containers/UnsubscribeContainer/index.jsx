@@ -73,14 +73,13 @@ class UnsubscribeContainer extends Component<PropTypes> {
   onClickUnsubscribe: Function;
 
   unsubscribe = () => {
-    const { dispatch, user } = this.props;
+    const { dispatch } = this.props;
     const { reasonType, reasonText } = this.state;
 
     window.scrollTo(0, 0);
 
     dispatch(
       authActions.unsubscribe({
-        userId: user.ID,
         reason: (reasonType || []).join(','),
         description: reasonText,
       }),
@@ -125,7 +124,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="退会処理が完了できませんでした"
-        leftContent={<UnsubscribeFailed userId={user.ID} />}
+        leftContent={<UnsubscribeFailed userId={user.id} />}
         rightContent={<ServiceMenu />}
       />
     );

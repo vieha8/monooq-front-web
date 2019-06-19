@@ -222,7 +222,7 @@ class PaymentContainer extends Component<PropTypes> {
         left={
           isPaymentSuccess ? (
             <PaidComplete
-              spaceName={space.Title}
+              spaceName={space.title}
               onClickToMessage={this.backToMessage}
               onKeyDownMessage={this.onKeyDownMessage}
             />
@@ -251,15 +251,15 @@ class PaymentContainer extends Component<PropTypes> {
         right={
           <PaymentInfo
             isHost
-            user={space.Host}
+            user={space.user}
             space={{
               image: {
-                src: (space.Images[0] || {}).ImageUrl,
+                src: (space.images[0] || {}).imageUrl,
                 alt: '',
               },
-              address: space.Address,
-              content: space.Title,
-              href: Path.space(space.ID),
+              address: space.address,
+              content: space.title,
+              href: Path.space(space.id),
             }}
             payment={{
               beginAt: formatDate(new Date(request.startDate.toDate()), formatStringSlash),

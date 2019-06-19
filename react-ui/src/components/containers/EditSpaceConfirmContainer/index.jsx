@@ -95,11 +95,9 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
       isUpdate: false,
     };
 
-    const { dispatch } = this.props;
     const spaceId = props.match.params.space_id;
 
     if (spaceId) {
-      dispatch(spaceActions.prepareUpdateSpace(spaceId));
       this.state.isUpdate = true;
     }
   }
@@ -126,18 +124,18 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     const { dispatch, space, user } = this.props;
     const saveSpace = Object.assign(space);
 
-    if (space.ID) {
+    if (space.id) {
       dispatch(
         spaceActions.updateSpace({
-          spaceId: space.ID,
+          spaceId: space.id,
           body: {
-            userId: user.ID,
+            userId: user.id,
             ...saveSpace,
           },
         }),
       );
     } else {
-      dispatch(spaceActions.createSpace({ body: { userId: user.ID, ...saveSpace } }));
+      dispatch(spaceActions.createSpace({ body: { userId: user.id, ...saveSpace } }));
     }
   };
 
@@ -146,7 +144,7 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
   onClickBack = () => {
     const { history, space } = this.props;
 
-    const nextPath = space.ID ? Path.editSpacePrice(space.ID) : Path.createSpacePrice();
+    const nextPath = space.id ? Path.editSpacePrice(space.id) : Path.createSpacePrice();
     history.push(nextPath);
   };
 
@@ -155,16 +153,16 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     const { isUpdate } = this.state;
 
     if (isUpdate) {
-      if (!space.ID) {
-        return null;
+      if (!space.id) {
+        return <Redirect to={Path.createSpaceInfo()} />;
       }
-    } else if (space.Images === undefined) {
+    } else if (space.images === undefined) {
       return <Redirect to={Path.createSpaceInfo()} />;
     }
 
     if (!isLoading && isComplete) {
-      if (space.ID) {
-        return <Redirect to={Path.editSpaceCompletion(space.ID)} />;
+      if (space.id) {
+        return <Redirect to={Path.editSpaceCompletion(space.id)} />;
       }
       return <Redirect to={Path.createSpaceCompletion()} />;
     }
@@ -178,41 +176,41 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
             <Spacer />
             <Detail
               confirm
-              id={space.ID}
-              map={<SpaceMap lat={space.Latitude} lng={space.Longitude} />}
-              pref={space.AddressPref}
-              city={space.AddressCity}
-              town={space.AddressTown}
-              name={space.Title}
-              images={space.Images.map(image => ({
-                original: image.ImageUrl || image.tmpUrl || image.preview || dummySpaceImage,
-                thumbnail: image.ImageUrl || image.tmpUrl || image.preview || dummySpaceImage,
+              id={space.id}
+              map={<SpaceMap lat={space.lat} lng={space.lng} />}
+              pref={space.addressPref}
+              city={space.addressCity}
+              town={space.addressTown}
+              name={space.title}
+              images={space.images.map(image => ({
+                original: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
+                thumbnail: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
               }))}
-              description={space.Introduction}
-              address={`${space.AddressPref}${space.AddressCity}${space.AddressTown}`}
-              type={SPACE_TYPES[space.Type]}
-              furniture={space.IsFurniture}
-              aboutBaggage={space.About}
+              description={space.introduction}
+              address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
+              type={SPACE_TYPES[space.type]}
+              furniture={space.isFurniture}
+              aboutBaggage={space.about}
               delivery={
-                space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Delivery
+                space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
               }
               meeting={
-                space.ReceiptType === ReceiptType.Both || space.ReceiptType === ReceiptType.Meeting
+                space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Meeting
               }
-              supplement={space.ReceiptAbout}
+              supplement={space.receiptAbout}
               user={{
-                id: user.ID,
-                name: user.Name,
-                imageUrl: user.ImageUrl,
-                profile: user.Profile,
+                id: user.id,
+                name: user.name,
+                imageUrl: user.imageUrl,
+                profile: user.profile,
               }}
-              pricefull={numeral(space.PriceFull).format('0,0')}
+              pricefull={numeral(space.priceFull).format('0,0')}
               pricehalf={
-                formatRemoveComma(space.PriceHalf) > 0 && numeral(space.PriceHalf).format('0,0')
+                formatRemoveComma(space.priceHalf) > 0 && numeral(space.priceHalf).format('0,0')
               }
               pricequarter={
-                formatRemoveComma(space.PriceQuarter) > 0 &&
-                numeral(space.PriceQuarter).format('0,0')
+                formatRemoveComma(space.priceQuarter) > 0 &&
+                numeral(space.priceQuarter).format('0,0')
               }
             />
             <EntryButtonWrap>
