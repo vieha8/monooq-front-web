@@ -1,8 +1,7 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/InlineText';
 import ScheduleListItem, {
   type PropTypes as ScheduleListItemType,
@@ -25,28 +24,57 @@ const ScheduleListWrap = styled.div`
 `;
 
 const CaptionWrap = styled.div`
-  margin: ${Dimens.medium1}px auto 0;
-  ${media.phone`
-    margin: ${Dimens.medium1}px auto;
-  `};
+  margin: ${Dimens.medium2}px auto 0;
 `;
+
+function checkSchedule(value, list, prop) {
+  for (let i = 0; i < list.length; i += 1) {
+    if (list[i].schedule[prop] === value) {
+      return true;
+    }
+  }
+  return false;
+}
 
 type PropTypes = {
   schedules: Array<ScheduleListItemType>,
-  isHost: boolean,
 };
 
-export default (props: PropTypes) => (
+export default ({ schedules }: PropTypes) => (
   <ScheduleListWrap>
-    <CaptionWrap>
-      <InlineText.Base fontSize={`${FontSizes.medium_18}`} bold>
-        {props.isHost ? '貸したスペース' : '借りたスペース'}
-      </InlineText.Base>
-    </CaptionWrap>
-    {props.schedules.map((schedule, i) => (
-      <Row key={`schedule_item_${i}`.toString()}>
-        <ScheduleListItem {...schedule} />
-      </Row>
-    ))}
+    {checkSchedule(true, schedules, 'isHost') && (
+      <Fragment>
+        <CaptionWrap>
+          <InlineText.Base fontSize={`${FontSizes.medium1_22}`} bold>
+            貸したスペース
+          </InlineText.Base>
+        </CaptionWrap>
+        {schedules.map(
+          (v, i) =>
+            v.schedule.isHost && (
+              <Row key={`schedule_item_host_${i}`.toString()}>
+                <ScheduleListItem {...v} />
+              </Row>
+            ),
+        )}
+      </Fragment>
+    )}
+    {checkSchedule(false, schedules, 'isHost') && (
+      <Fragment>
+        <CaptionWrap>
+          <InlineText.Base fontSize={`${FontSizes.medium1_22}`} bold>
+            借りたスペース
+          </InlineText.Base>
+        </CaptionWrap>
+        {schedules.map(
+          (v, i) =>
+            !v.schedule.isHost && (
+              <Row key={`schedule_item_guest_${i}`.toString()}>
+                <ScheduleListItem {...v} />
+              </Row>
+            ),
+        )}
+      </Fragment>
+    )}
   </ScheduleListWrap>
 );
