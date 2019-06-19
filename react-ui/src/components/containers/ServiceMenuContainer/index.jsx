@@ -94,7 +94,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
               isPhone
               isLogin={isLogin}
               isSchedule={isSchedule}
-              isHost={user.IsHost || false}
+              isHost={user.isHost || false}
               changePurposeEvent={{
                 onClick: e => {
                   e.preventDefault();
@@ -132,7 +132,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
         service={{ to: Path.service() }}
         isLogin={isLogin}
         isSchedule={isSchedule}
-        isHost={user.IsHost || false}
+        isHost={user.isHost || false}
         changePurposeEvent={{
           onClick: e => {
             e.preventDefault();
