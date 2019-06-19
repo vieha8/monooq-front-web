@@ -250,7 +250,7 @@ class PaymentContainer extends Component<PropTypes> {
         }
         right={
           <PaymentInfo
-            isHost
+            isHost={false}
             user={space.user}
             space={{
               image: {

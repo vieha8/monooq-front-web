@@ -55,7 +55,7 @@ export default (props: PropTypes) => (
     </Row>
     <Row>
       <InlineText.EmphasisTiny>
-        ※無断での利用延長は「ペナルティ料金30,000円＋最大で決済した料金全額」が発生する可能性があります。
+        ※無断でのスペース利用延長は荷物を引き取る意思がないとみなし、利用規約に基づき荷物の引き取り費用5万円と処分に要した費用全額を請求いたします。
       </InlineText.EmphasisTiny>
     </Row>
   </div>
