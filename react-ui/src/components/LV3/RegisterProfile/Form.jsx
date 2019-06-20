@@ -67,41 +67,48 @@ function displayErrors(key: string, errors: Array<string>) {
 }
 
 type PropTypes = {
+  errors: Array<Array<string>>,
   title: React.Element<*>,
   image: React.Element<*>,
   name: React.Element<*>,
-  nameErrors: Array<string>,
   prefCode: React.Element<*>,
-  prefCodeErrors: Array<string>,
   profile: React.Element<*>,
-  profileErrors: Array<string>,
   phoneNumber: React.Element<*>,
-  phoneNumberErrors: Array<string>,
   button: React.Element<*>,
   story?: boolean,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  errors,
+  title,
+  image,
+  name,
+  prefCode,
+  profile,
+  phoneNumber,
+  button,
+  story,
+}: PropTypes) => (
   <Fragment>
-    <Title>{props.title}</Title>
-    <Image>{props.image}</Image>
+    <Title>{title}</Title>
+    <Image>{image}</Image>
     <Name>
-      {props.name}
-      {displayErrors('name_errors', props.nameErrors)}
+      {name}
+      {displayErrors('name_errors', errors.name)}
     </Name>
     <PrefCode>
-      {props.prefCode}
-      {displayErrors('prefCode_errors', props.prefCodeErrors)}
+      {prefCode}
+      {displayErrors('prefCode_errors', errors.prefCode)}
     </PrefCode>
     <Profile>
-      {props.profile}
-      {displayErrors('profile_errors', props.profileErrors)}
+      {profile}
+      {displayErrors('profile_errors', errors.profile)}
     </Profile>
     <PhoneNumber>
-      {props.phoneNumber}
-      {displayErrors('phoneNumber_errors', props.phoneNumberErrors)}
+      {phoneNumber}
+      {displayErrors('phoneNumber_errors', errors.phoneNumber)}
     </PhoneNumber>
-    <Button>{props.button}</Button>
-    {!props.story && <GoogleTagManager event="userRegistered" />}
+    <Button>{button}</Button>
+    {!story && <GoogleTagManager event="userRegistered" />}
   </Fragment>
 );

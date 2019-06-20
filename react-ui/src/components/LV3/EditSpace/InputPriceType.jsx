@@ -28,21 +28,19 @@ const UnderLine = styled.span`
 `;
 
 type PropTypes = {
-  priceQuarter: number,
-  priceQuarterErrors: Array<string>,
-  onChangePriceQuarter: Function,
-  priceHalf: number,
-  priceHalfErrors: Array<string>,
-  onChangePriceHalf: Function,
+  errors: Array<Array<string>>,
   priceFull: number,
-  priceFullErrors: Array<string>,
   onChangePriceFull: Function,
-  onClickBack: Function,
-  onClickNext: Function,
-  onKeyDownButtonBack: Function,
-  onKeyDownButtonNext: Function,
+  priceHalf: number,
+  onChangePriceHalf: Function,
+  priceQuarter: number,
+  onChangePriceQuarter: Function,
   buttonLoading: boolean,
-  buttonNextDisabled?: boolean,
+  onClickBack: Function,
+  onKeyDownButtonBack: Function,
+  onClickNext: Function,
+  onKeyDownButtonNext: Function,
+  buttonNextDisabled: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -56,7 +54,21 @@ function displayErrors(key: string, errors: Array<string>) {
   );
 }
 
-export default (props: PropTypes) => (
+export default ({
+  errors,
+  priceFull,
+  onChangePriceFull,
+  priceHalf,
+  onChangePriceHalf,
+  priceQuarter,
+  onChangePriceQuarter,
+  buttonLoading,
+  onClickBack,
+  onKeyDownButtonBack,
+  onClickNext,
+  onKeyDownButtonNext,
+  buttonNextDisabled,
+}: PropTypes) => (
   <div>
     <Section marginTopSp={20}>
       <CaptionWrap>
@@ -67,7 +79,8 @@ export default (props: PropTypes) => (
           お客様によって荷物の内容が異なるので、スペースの広さに対する料金を設定してください。
           <br />
           <InlineText.Bold>
-            エリアや条件にもよりますが、目安は<UnderLine>1畳あたり約5,000〜7,000円/月</UnderLine>
+            エリアや条件にもよりますが、目安は
+            <UnderLine>1畳あたり約5,000〜7,000円/月</UnderLine>
             です。
           </InlineText.Bold>
         </InlineText.Tiny>
@@ -79,27 +92,27 @@ export default (props: PropTypes) => (
         title="全てのスペースの月額料金"
         caption="このスペースすべてを使用する場合"
         placeholder="30,000"
-        price={props.priceFull}
-        onChange={props.onChangePriceFull}
-        error={displayErrors('price_errors_1', props.priceFullErrors)}
+        price={priceFull}
+        onChange={onChangePriceFull}
+        error={displayErrors('price_errors_1', errors.priceFull)}
       />
       <InputPriceOfType
         image={imageFurnitureHalf}
         title="半分のスペースの月額料金"
         caption="このスペースの半分を使用する場合"
         placeholder="16,000"
-        price={props.priceHalf}
-        onChange={props.onChangePriceHalf}
-        error={displayErrors('price_errors_2', props.priceHalfErrors)}
+        price={priceHalf}
+        onChange={onChangePriceHalf}
+        error={displayErrors('price_errors_2', errors.priceHalf)}
       />
       <InputPriceOfType
         image={imageFurnitureQuarter}
         title="1/4程度のスペースの月額料金"
         caption="このスペースの1/4程度を使用する場合"
         placeholder="9,000"
-        price={props.priceQuarter}
-        onChange={props.onChangePriceQuarter}
-        error={displayErrors('price_errors_3', props.priceQuarterErrors)}
+        price={priceQuarter}
+        onChange={onChangePriceQuarter}
+        error={displayErrors('price_errors_3', errors.priceQuarter)}
       />
     </Section>
     <Section marginTop={20}>
@@ -114,17 +127,17 @@ export default (props: PropTypes) => (
       <EntryButtons
         rerative
         enabled
-        loading={props.buttonLoading}
+        loading={buttonLoading}
         backButton={{
           text: '戻る',
-          onClick: props.onClickBack,
-          onKeyDown: props.onKeyDownButtonBack,
+          onClick: onClickBack,
+          onKeyDown: onKeyDownButtonBack,
         }}
         enabledButton={{
           text: `確認画面へ`,
-          onClick: props.onClickNext,
-          onKeyDown: props.onKeyDownButtonNext,
-          disabled: props.buttonNextDisabled,
+          onClick: onClickNext,
+          onKeyDown: onKeyDownButtonNext,
+          disabled: buttonNextDisabled,
         }}
       />
     </Section>

@@ -228,6 +228,7 @@ class PaymentContainer extends Component<PropTypes> {
             />
           ) : (
             <InputPayment
+              errors={error}
               paidError={isPaymentFailed}
               errMsgPayment={errMsgPayment}
               onChangeName={value => this.handleChangeUI('name', value)}
@@ -244,7 +245,6 @@ class PaymentContainer extends Component<PropTypes> {
               buttonLoading={isSending}
               onClickPay={this.payment}
               onKeyDownPay={this.onKeyDownPay}
-              errors={error}
             />
           )
         }

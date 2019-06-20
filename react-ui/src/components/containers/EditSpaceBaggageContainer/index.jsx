@@ -178,15 +178,15 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
         bottomButtonMargin={130}
         leftContent={
           <EditSpaceBaggage
+            errors={error}
             baggage={about}
-            baggageErrors={error.about}
             onChangeBaggage={v => this.handleChangeUI('about', v)}
             checkedFurniture={isFurniture}
             onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
             onKeyDownFurniture={this.onKeyDownFurniture}
             onClickBack={this.onClickBack}
-            onClickNext={this.onClickNext}
             onKeyDownButtonBack={this.onKeyDownButtonBack}
+            onClickNext={this.onClickNext}
             onKeyDownButtonNext={this.onKeyDownButtonNext}
             buttonNextDisabled={!this.validate()}
           />

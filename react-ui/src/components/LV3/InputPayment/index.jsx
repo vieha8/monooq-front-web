@@ -58,8 +58,9 @@ const Padding = styled.span`
 `;
 
 type PropTypes = {
+  errors: Array<Array<string>>,
   paidError: string,
-  errMsgPayment?: string,
+  errMsgPayment: string,
   onChangeName: Function,
   name: string,
   onChangeNumber: Function,
@@ -87,12 +88,30 @@ function displayErrors(key: string, errors: Array<string>) {
   );
 }
 
-export default (props: PropTypes) => (
+export default ({
+  errors,
+  paidError,
+  errMsgPayment,
+  onChangeName,
+  name,
+  onChangeNumber,
+  number,
+  onChangeMonth,
+  month,
+  onChangeYear,
+  year,
+  onChangeCvc,
+  cvc,
+  buttonDisabled,
+  buttonLoading,
+  onClickPay,
+  onKeyDownPay,
+}: PropTypes) => (
   <Fragment>
     <H1>支払いを行う</H1>
-    {props.paidError && (
+    {paidError && (
       <Row>
-        <InlineText.Base color={Colors.error}>{props.errMsgPayment}</InlineText.Base>
+        <InlineText.Base color={Colors.error}>{errMsgPayment}</InlineText.Base>
       </Row>
     )}
     <Row>
@@ -103,10 +122,10 @@ export default (props: PropTypes) => (
         label="カード名義（半角ローマ字）"
         placeholder="TARO YAMADA"
         autoComplete="cc-name"
-        onChange={e => props.onChangeName(e.target.value)}
-        value={props.name}
+        onChange={e => onChangeName(e.target.value)}
+        value={name}
       />
-      {displayErrors('name_errors', props.errors.name)}
+      {displayErrors('name_errors', errors.name)}
     </Row>
     <Row>
       <InputForm
@@ -114,10 +133,10 @@ export default (props: PropTypes) => (
         type="text"
         autoComplete="cc-number"
         placeholder="1234567812345678"
-        onChange={e => props.onChangeNumber(e.target.value)}
-        value={props.number}
+        onChange={e => onChangeNumber(e.target.value)}
+        value={number}
       />
-      {displayErrors('number_errors', props.errors.number)}
+      {displayErrors('number_errors', errors.number)}
     </Row>
     <Row>
       <SelectBox>
@@ -126,8 +145,8 @@ export default (props: PropTypes) => (
           options={Array(12)
             .fill(0)
             .map((_, i) => ({ key: i, value: i + 1, text: i + 1 }))}
-          onChange={e => props.onChangeMonth(e.target.value)}
-          value={props.month}
+          onChange={e => onChangeMonth(e.target.value)}
+          value={month}
           autoComplete="cc-exp-year"
         />
       </SelectBox>
@@ -142,8 +161,8 @@ export default (props: PropTypes) => (
           options={Array(10)
             .fill(0)
             .map((_, i) => ({ key: i, value: moment().year() + i, text: moment().year() + i }))}
-          onChange={e => props.onChangeYear(e.target.value)}
-          value={props.year}
+          onChange={e => onChangeYear(e.target.value)}
+          value={year}
           autoComplete="cc-exp-month"
         />
       </SelectBox>
@@ -156,11 +175,11 @@ export default (props: PropTypes) => (
         label="セキュリティコード(3桁の半角数字)"
         type="text"
         placeholder="3桁の数字"
-        onChange={e => props.onChangeCvc(e.target.value)}
-        value={props.cvc}
+        onChange={e => onChangeCvc(e.target.value)}
+        value={cvc}
         autoComplete="cc-csc"
       />
-      {displayErrors('cvc_errors', props.errors.cvc)}
+      {displayErrors('cvc_errors', errors.cvc)}
     </Row>
     <Row>
       <div>
@@ -211,10 +230,10 @@ export default (props: PropTypes) => (
       <Button
         primary
         fill={1}
-        disabled={props.buttonDisabled}
-        loading={props.buttonLoading}
-        onClick={props.onClickPay}
-        onKeyDown={props.onKeyDownPay}
+        disabled={buttonDisabled}
+        loading={buttonLoading}
+        onClick={onClickPay}
+        onKeyDown={onKeyDownPay}
       >
         決済する
       </Button>

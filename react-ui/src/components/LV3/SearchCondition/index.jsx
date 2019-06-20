@@ -96,30 +96,25 @@ const ButtonWrap = styled.div`
 `;
 
 type PropTypes = {
+  errors: Array<Array<string>>,
   keyword: string,
-  keywordErrors: Array<string>,
   onChangeKeyword: Function,
   prefCode: number,
-  prefCodeErrors: Array<string>,
   onChangePrefCode: Function,
   priceMin: string,
-  priceMax: string,
-  priceMinErrors: Array<string>,
-  priceMaxErrors: Array<string>,
   onChangePriceMin: Function,
+  priceMax: string,
   onChangePriceMax: Function,
   type: number,
-  typeErrors: Array<string>,
   onChangeType: Function,
   checkedFurniture: boolean,
   onClickFurniture: Function,
   onKeyDownFurniture: Function,
   receive: number,
-  receiveErrors: Array<string>,
   onChangeReceive: Function,
+  buttonDisabled: boolean,
   onClickSearch: Function,
   onKeyDownButtonSerch: Function,
-  buttonDisabled: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -133,25 +128,45 @@ function displayErrors(key: string, errors: Array<string>) {
   );
 }
 
-export default (props: PropTypes) => (
+export default ({
+  errors,
+  keyword,
+  onChangeKeyword,
+  prefCode,
+  onChangePrefCode,
+  priceMin,
+  onChangePriceMin,
+  priceMax,
+  onChangePriceMax,
+  type,
+  onChangeType,
+  checkedFurniture,
+  onClickFurniture,
+  onKeyDownFurniture,
+  receive,
+  onChangeReceive,
+  buttonDisabled,
+  onClickSearch,
+  onKeyDownButtonSerch,
+}: PropTypes) => (
   <Fragment>
     <ContentsWrap>
       <Section top>
         <InputForm
           placeholder="地名やキーワードで絞り込み"
-          value={props.keyword}
-          onChange={e => props.onChangeKeyword(e.target.value)}
+          value={keyword}
+          onChange={e => onChangeKeyword(e.target.value)}
         />
-        {displayErrors('keyword_errors', props.keywordErrors)}
+        {displayErrors('keyword_errors', errors.keyword)}
       </Section>
       <Section>
         <SelectForm
           label="地域で絞り込み"
           options={selectOptionPrefectures('指定なし')}
-          value={props.prefCode}
-          onChange={e => props.onChangePrefCode(e.target.value)}
+          value={prefCode}
+          onChange={e => onChangePrefCode(e.target.value)}
         />
-        {displayErrors('prefcode_errors', props.prefCodeErrors)}
+        {displayErrors('prefcode_errors', errors.prefCode)}
       </Section>
       <Section>
         <H3 bold>料金で絞り込み</H3>
@@ -159,8 +174,8 @@ export default (props: PropTypes) => (
           <PriceItem>
             <InputField
               placeholder="最安"
-              value={props.priceMin}
-              onChange={e => props.onChangePriceMin(e.target.value)}
+              value={priceMin}
+              onChange={e => onChangePriceMin(e.target.value)}
             />
           </PriceItem>
           <PriceItem caption>
@@ -171,16 +186,16 @@ export default (props: PropTypes) => (
           <PriceItem>
             <InputField
               placeholder="最高"
-              value={props.priceMax}
-              onChange={e => props.onChangePriceMax(e.target.value)}
+              value={priceMax}
+              onChange={e => onChangePriceMax(e.target.value)}
             />
           </PriceItem>
           <PriceItem caption captionUpper>
             <InlineText.Base>円まで</InlineText.Base>
           </PriceItem>
         </PriceWrap>
-        {displayErrors('price_errors', props.priceMinErrors)}
-        {displayErrors('price_errors', props.priceMaxErrors)}
+        {displayErrors('price_errors', errors.priceMin)}
+        {displayErrors('price_errors', errors.priceMax)}
       </Section>
       <Section>
         <SelectForm
@@ -207,21 +222,21 @@ export default (props: PropTypes) => (
               text: 'その他',
             },
           ]}
-          value={props.type}
-          onChange={e => props.onChangeType(e.target.value)}
+          value={type}
+          onChange={e => onChangeType(e.target.value)}
         />
-        {displayErrors('type_errors', props.typeErrors)}
+        {displayErrors('type_errors', errors.type)}
       </Section>
       <Section visible>
         <InputForm
           checkbox
           label="預けられる荷物で絞り込み"
           checktext="家具や家電製品に対応する"
-          checked={props.checkedFurniture}
-          onClick={props.onClickFurniture}
-          onKeyDown={props.onKeyDownFurniture}
+          checked={checkedFurniture}
+          onClick={onClickFurniture}
+          onKeyDown={onKeyDownFurniture}
         />
-        {displayErrors('furniture_errors', props.furnitureErrors)}
+        {displayErrors('furniture_errors', errors.furniture)}
       </Section>
       <Section>
         <SelectForm
@@ -244,10 +259,10 @@ export default (props: PropTypes) => (
               text: '配送のみ',
             },
           ]}
-          value={props.receive}
-          onChange={e => props.onChangeReceive(e.target.value)}
+          value={receive}
+          onChange={e => onChangeReceive(e.target.value)}
         />
-        {displayErrors('receive_errors', props.receiveErrors)}
+        {displayErrors('receive_errors', errors.receiptType)}
       </Section>
     </ContentsWrap>
     <SearchButtonWrap>
@@ -256,9 +271,9 @@ export default (props: PropTypes) => (
           primary
           fontbold
           fill={1}
-          disabled={props.buttonDisabled}
-          onClick={props.onClickSearch}
-          onKeyDown={props.onKeyDownButtonSerch}
+          disabled={buttonDisabled}
+          onClick={onClickSearch}
+          onKeyDown={onKeyDownButtonSerch}
         >
           検索する
         </Button>
