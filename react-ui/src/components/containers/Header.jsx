@@ -12,9 +12,9 @@ type PropTypes = {
   isChecking: boolean,
   isLogin: boolean,
   user: {
-    ID: string,
-    Name: string,
-    ImageUrl: string,
+    id: string,
+    name: string,
+    imageUrl: string,
   },
   top: boolean,
 };

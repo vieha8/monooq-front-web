@@ -21,9 +21,9 @@ type PropTypes = {
   rooms: Array<{
     id: string,
     user: {
-      ID: number,
-      ImageUrl: string,
-      Name: string,
+      id: number,
+      imageUrl: string,
+      name: string,
     },
     lastMessageDt: string,
   }>,

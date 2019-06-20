@@ -27,9 +27,9 @@ const ScheduleWrapper = styled.div`
 
 type PropTypes = {
   user: {
-    ID: string,
-    Name: string,
-    ImageUrl: string,
+    id: string,
+    name: string,
+    imageUrl: string,
   },
   space: {
     image: {

@@ -68,15 +68,15 @@ type PropTypes = {
   room: Array<{
     id: string,
     space: {
-      Host: {
-        ID: number,
-        Name: string,
+      user: {
+        id: number,
+        name: string,
       },
     },
     user: {
-      ID: number,
-      ImageUrl: string,
-      Name: string,
+      id: number,
+      imageUrl: string,
+      name: string,
     },
     lastMessageDt: string,
   }>,

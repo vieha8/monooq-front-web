@@ -18,7 +18,7 @@ import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 type PropTypes = {
   dispatch: Function,
   user: {
-    ID: number,
+    id: number,
   },
   isLoading: boolean,
   updateSuccess: boolean,

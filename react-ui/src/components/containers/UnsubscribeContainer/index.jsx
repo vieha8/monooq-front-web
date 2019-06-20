@@ -20,7 +20,7 @@ import authRequired from 'components/containers/AuthRequired';
 type PropTypes = {
   dispatch: Function,
   user: {
-    ID: number,
+    id: number,
   },
   isLoading: boolean,
   isUnsubscribeTrying: boolean,

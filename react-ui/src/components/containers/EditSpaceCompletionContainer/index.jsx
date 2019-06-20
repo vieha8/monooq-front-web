@@ -20,7 +20,7 @@ type PropTypes = {
     Title: string,
   },
   editedSpace: {
-    ID: number,
+    id: number,
   },
 };
 

@@ -44,9 +44,9 @@ const HostNameWrap = styled.div`
 
 type PropTypes = {
   user: {
-    ID: string,
-    ImageUrl: string,
-    Name: string,
+    id: string,
+    imageUrl: string,
+    name: string,
   },
   isHost: boolean,
   href?: string,
