@@ -11,21 +11,18 @@ import EntryButtons from 'components/LV2/EntryButtons';
 import Form from './Form';
 
 type PropTypes = {
+  errors: Array<Array<string>>,
   onChangeImage: Function,
-  onChangeName: Function,
-  onChangeArea: Function,
-  onChangeProfile: Function,
-  onChangePhoneNumber: Function,
-  image: File | string,
   imagePreview: File | string,
+  image: File | string,
+  onChangeName: Function,
   name: string,
-  nameErrors: Array<string>,
+  onChangeArea: Function,
   prefCode: string,
-  prefCodeErrors: Array<string>,
+  onChangeProfile: Function,
   profile: string,
-  profileErrors: Array<string>,
+  onChangePhoneNumber: Function,
   phoneNumber: string,
-  phoneNumberErrors: Array<string>,
   buttonDisabled: boolean,
   buttonLoading: boolean,
   onClickSkip: Function,
@@ -33,9 +30,28 @@ type PropTypes = {
   story?: boolean,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  errors,
+  onChangeImage,
+  imagePreview,
+  image,
+  onChangeName,
+  name,
+  onChangeArea,
+  prefCode,
+  onChangeProfile,
+  profile,
+  onChangePhoneNumber,
+  phoneNumber,
+  buttonDisabled,
+  buttonLoading,
+  onClickSkip,
+  onClickRegisterProfile,
+  story,
+}: PropTypes) => (
   <Form
-    story={props.story}
+    story={story}
+    errors={errors}
     title={
       <InlineText.Base fontSize={FontSizes.medium2} bold>
         プロフィールの入力
@@ -47,8 +63,8 @@ export default (props: PropTypes) => (
         margintop={1}
         extension={
           <RegsiterProfileImage
-            onDrop={data => props.onChangeImage(data[0])}
-            image={props.imagePreview || props.image}
+            onDrop={data => onChangeImage(data[0])}
+            image={imagePreview || image}
           />
         }
       />
@@ -57,57 +73,53 @@ export default (props: PropTypes) => (
       <InputForm
         label="お名前"
         placeholder="ユーザ名を入力してください(ニックネーム可)"
-        onChange={e => props.onChangeName(e.target.value)}
-        value={props.name}
+        onChange={e => onChangeName(e.target.value)}
+        value={name}
       />
     }
-    nameErrors={props.nameErrors}
     prefCode={
       <SelectForm
         label="お住いの地域"
         options={selectOptionPrefectures('選択してください')}
-        onChange={e => props.onChangeArea(e.target.value)}
-        value={props.prefCode}
+        onChange={e => onChangeArea(e.target.value)}
+        value={prefCode}
       />
     }
-    prefCodeErrors={props.prefCodeErrors}
     profile={
       <InputForm
         label="自己紹介"
         placeholder="はじめまして！ホストのYUKIです！部屋が一つ空いたので必要な方に使っていただければと思い登録してみました。ダンボール1箱～大きめの家具まで相談に乗ります。また、1階でのお預かりですので荷物の搬入出が簡単です。まずは気軽にご相談ください！"
         multiline
         rows={10}
-        onChange={e => props.onChangeProfile(e.target.value)}
-        value={props.profile}
+        onChange={e => onChangeProfile(e.target.value)}
+        value={profile}
       />
     }
-    profileErrors={props.profileErrors}
     phoneNumber={
       <InputForm
         label="電話番号"
         hint="取引時の保険適用に必須となります。緊急時の連絡先として利用させていただく場合もございます。"
         placeholder="09012345678"
-        onChange={e => props.onChangePhoneNumber(e.target.value)}
-        value={props.phoneNumber}
+        onChange={e => onChangePhoneNumber(e.target.value)}
+        value={phoneNumber}
         type="tel"
       />
     }
-    phoneNumberErrors={props.phoneNumberErrors}
     button={
       <EntryButtons
         enabled
         rerative
         backButton={{
           text: 'スキップ',
-          disabled: props.buttonDisabled,
-          loading: props.buttonLoading,
-          onClick: props.onClickSkip,
+          disabled: buttonDisabled,
+          loading: buttonLoading,
+          onClick: onClickSkip,
         }}
         enabledButton={{
           text: '決定',
-          disabled: props.buttonDisabled,
-          loading: props.buttonLoading,
-          onClick: props.onClickRegisterProfile,
+          disabled: buttonDisabled,
+          loading: buttonLoading,
+          onClick: onClickRegisterProfile,
         }}
       />
     }

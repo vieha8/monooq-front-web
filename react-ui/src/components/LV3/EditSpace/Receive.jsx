@@ -9,17 +9,16 @@ import { Colors } from 'variables';
 import { Section } from './Shared';
 
 type PropTypes = {
+  errors: Array<Array<string>>,
   receive: number,
-  receiveErrors: Array<string>,
   onChangeReceive: Function,
   receiveAbout: string,
   onChangeReceiveAbout: Function,
-  receiveAboutErrors: Array<string>,
   onClickBack: Function,
-  onClickNext: Function,
   onKeyDownButtonBack: Function,
+  onClickNext: Function,
   onKeyDownButtonNext: Function,
-  buttonNextDisabled?: boolean,
+  buttonNextDisabled: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -33,7 +32,18 @@ function displayErrors(key: string, errors: Array<string>) {
   );
 }
 
-export default (props: PropTypes) => (
+export default ({
+  errors,
+  receive,
+  onChangeReceive,
+  receiveAbout,
+  onChangeReceiveAbout,
+  onClickBack,
+  onKeyDownButtonBack,
+  onClickNext,
+  onKeyDownButtonNext,
+  buttonNextDisabled,
+}: PropTypes) => (
   <div>
     <Section>
       <SelectForm
@@ -52,10 +62,10 @@ export default (props: PropTypes) => (
             text: '配送',
           },
         ]}
-        value={props.receive}
-        onChange={e => props.onChangeReceive(e.target.value)}
+        value={receive}
+        onChange={e => onChangeReceive(e.target.value)}
       />
-      {displayErrors('receive_errors', props.receiveErrors)}
+      {displayErrors('receive_errors', errors.ReceiptType)}
     </Section>
     <Section>
       <InputForm
@@ -63,24 +73,24 @@ export default (props: PropTypes) => (
         placeholder="例)平日は仕事の都合で夜間のみ、土日は終日対応可など"
         multiline
         rows={4}
-        value={props.receiveAbout}
-        onChange={e => props.onChangeReceiveAbout(e.target.value)}
+        value={receiveAbout}
+        onChange={e => onChangeReceiveAbout(e.target.value)}
       />
-      {displayErrors('receive_about_errors', props.receiveAboutErrors)}
+      {displayErrors('receive_about_errors', errors.receiptAbout)}
     </Section>
     <Section>
       <EntryButtons
         enabled
         backButton={{
           text: '戻る',
-          onClick: props.onClickBack,
-          onKeyDown: props.onKeyDownButtonBack,
+          onClick: onClickBack,
+          onKeyDown: onKeyDownButtonBack,
         }}
         enabledButton={{
           text: '次へ',
-          onClick: props.onClickNext,
-          onKeyDown: props.onKeyDownButtonNext,
-          disabled: props.buttonNextDisabled,
+          onClick: onClickNext,
+          onKeyDown: onKeyDownButtonNext,
+          disabled: buttonNextDisabled,
         }}
       />
     </Section>

@@ -308,29 +308,25 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
           <Fragment>
             <EditSpaceInformation
               edit={space.id}
+              errors={error}
+              address={address}
+              onChangeAddress={v => this.handleChangeUI('address', v)}
+              type={type}
+              onChangeType={v => this.handleChangeUI('type', v)}
+              title={title}
+              onChangeTitle={v => this.handleChangeUI('title', v)}
               images={ImagesRender.map(image => ({
                 url: image.imageUrl || image.preview,
               }))}
               onChangeImage={this.handleChangeImage}
-              imageErrors={error.images}
-              isImageUploading={isImageUploading}
               onClickDeleteImage={this.handleDeleteImage}
-              title={title}
-              titleErrors={error.title}
-              onChangeTitle={v => this.handleChangeUI('title', v)}
-              type={type}
-              typeErrors={error.type}
-              onChangeType={v => this.handleChangeUI('type', v)}
+              isImageUploading={isImageUploading}
               introduction={introduction}
-              introductionErrors={error.introduction}
               onChangeIntroduction={v => this.handleChangeUI('introduction', v)}
-              address={address}
-              addressErrors={error.address}
-              onChangeAddress={v => this.handleChangeUI('address', v)}
-              onClickNext={this.onClickNext}
-              buttonNextDisabled={isNoProfile || !this.validate()}
               OnClickRemove={() => this.onClickRemove(space)}
+              onClickNext={this.onClickNext}
               onKeyDownButtonNext={this.onKeyDownButtonNext}
+              buttonNextDisabled={isNoProfile || !this.validate()}
             />
             <Modal size="large" open={errorModal} onClose={this.close}>
               <Modal.Header>プロフィールをご登録ください</Modal.Header>

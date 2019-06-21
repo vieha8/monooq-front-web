@@ -14,17 +14,17 @@ const CheckWrapper = styled.div`
 `;
 
 type PropTypes = {
+  errors: Array<Array<string>>,
   baggage: string,
-  baggageErrors: Array<string>,
   onChangeBaggage: Function,
   checkedFurniture: boolean,
   onClickFurniture: Function,
   onKeyDownFurniture: Function,
   onClickBack: Function,
-  onClickNext: Function,
   onKeyDownButtonBack: Function,
+  onClickNext: Function,
   onKeyDownButtonNext: Function,
-  buttonNextDisabled?: boolean,
+  buttonNextDisabled: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -38,7 +38,19 @@ function displayErrors(key: string, errors: Array<string>) {
   );
 }
 
-export default (props: PropTypes) => (
+export default ({
+  errors,
+  baggage,
+  onChangeBaggage,
+  checkedFurniture,
+  onClickFurniture,
+  onKeyDownFurniture,
+  onClickBack,
+  onKeyDownButtonBack,
+  onClickNext,
+  onKeyDownButtonNext,
+  buttonNextDisabled,
+}: PropTypes) => (
   <div>
     <Section>
       <InputForm
@@ -46,16 +58,12 @@ export default (props: PropTypes) => (
         placeholder="例)ダンボール、衣類、家具、家電など"
         multiline
         rows={4}
-        value={props.baggage}
-        onChange={e => props.onChangeBaggage(e.target.value)}
+        value={baggage}
+        onChange={e => onChangeBaggage(e.target.value)}
       />
-      {displayErrors('baggage_errors', props.baggageErrors)}
+      {displayErrors('baggage_errors', errors.about)}
       <CheckWrapper>
-        <Check
-          checked={props.checkedFurniture}
-          onClick={props.onClickFurniture}
-          onKeyDown={props.onKeyDownFurniture}
-        >
+        <Check checked={checkedFurniture} onClick={onClickFurniture} onKeyDown={onKeyDownFurniture}>
           家具や家電製品に対応する
         </Check>
       </CheckWrapper>
@@ -65,14 +73,14 @@ export default (props: PropTypes) => (
         enabled
         backButton={{
           text: '戻る',
-          onClick: props.onClickBack,
-          onKeyDown: props.onKeyDownButtonBack,
+          onClick: onClickBack,
+          onKeyDown: onKeyDownButtonBack,
         }}
         enabledButton={{
           text: '次へ',
-          onClick: props.onClickNext,
-          onKeyDown: props.onKeyDownButtonNext,
-          disabled: props.buttonNextDisabled,
+          onClick: onClickNext,
+          onKeyDown: onKeyDownButtonNext,
+          disabled: buttonNextDisabled,
         }}
       />
     </Section>

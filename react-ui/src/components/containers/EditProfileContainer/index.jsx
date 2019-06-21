@@ -210,30 +210,25 @@ class EditProfileContainer extends Component<PropTypes> {
             <EditProfileCompleted userId={user.id} />
           ) : (
             <EditProfile
-              image={imageUri}
-              imagePreview={imageUriPreview}
-              name={name}
-              nameErrors={error.name}
-              email={email}
-              emailErrors={error.email}
-              phoneNumber={phoneNumber}
-              phoneNumberErrors={error.phoneNumber}
-              prefCode={prefCode}
-              prefCodeErrors={error.prefCode}
-              profile={profile}
-              profileErrors={error.profile}
-              purpose={purpose}
-              purposeErrors={error.purpose}
-              isNoticeEmail={isNoticeEmail}
-              onKeyDownNoticeEmail={this.onKeyDownNoticeEmail}
+              errors={error}
               onChangeImage={value => this.handleChangeUI('imageUri', value)}
+              imagePreview={imageUriPreview}
+              image={imageUri}
               onChangeName={value => this.handleChangeUI('name', value)}
+              name={name}
               onChangeEmail={value => this.handleChangeUI('email', value)}
-              onChangePhoneNumber={value => this.handleChangeUI('phoneNumber', value)}
-              onChangePrefCode={value => this.handleChangeUI('prefCode', value)}
-              onChangeProfile={value => this.handleChangeUI('profile', value)}
-              onChangePurpose={value => this.handleChangeUI('purpose', value)}
+              email={email}
+              isNoticeEmail={isNoticeEmail}
               onChangeNoticeEmail={() => this.handleChangeUI('isNoticeEmail', !isNoticeEmail)}
+              onKeyDownNoticeEmail={this.onKeyDownNoticeEmail}
+              onChangePhoneNumber={value => this.handleChangeUI('phoneNumber', value)}
+              phoneNumber={phoneNumber}
+              onChangePrefCode={value => this.handleChangeUI('prefCode', value)}
+              prefCode={prefCode}
+              onChangeProfile={value => this.handleChangeUI('profile', value)}
+              profile={profile}
+              onChangePurpose={value => this.handleChangeUI('purpose', value)}
+              purpose={purpose}
               buttonDisabled={!this.validate()}
               buttonLoading={isLoading}
               onClickUpdate={this.onClickUpdate}

@@ -22,28 +22,23 @@ const ButtonWrap = styled.div`
 
 type PropTypes = {
   edit: boolean,
+  errors: Array<Array<string>>,
+  address: string,
+  onChangeAddress: Function,
+  type: number,
+  onChangeType: Function,
+  title: string,
+  onChangeTitle: Function,
   images: Array<{ url: string }>,
   onChangeImage: Function,
   onClickDeleteImage: Function,
-  title: string,
-  titleErrors: Array<string>,
-  onChangeTitle: Function,
-  type: number,
-  typeErrors: Array<string>,
-  onChangeType: Function,
-  introduction: string,
-  introductionErrors: Array<string>,
-  onChangeIntroduction: Function,
-  address: string,
-  addressErrors: Array<string>,
-  onChangeAddress: Function,
-  onClickNext: Function,
-  onClickNextDsabled: boolean,
-  OnClickRemove: Function,
-  changeOrientation: Function,
   isImageUploading: boolean,
+  introduction: string,
+  onChangeIntroduction: Function,
+  OnClickRemove: Function,
+  onClickNext: Function,
   onKeyDownButtonNext: Function,
-  buttonNextDisabled?: boolean,
+  buttonNextDisabled: boolean,
 };
 
 function displayErrors(key: string, errors: Array<string>) {
@@ -57,17 +52,36 @@ function displayErrors(key: string, errors: Array<string>) {
   );
 }
 
-export default (props: PropTypes) => (
+export default ({
+  edit,
+  errors,
+  address,
+  onChangeAddress,
+  type,
+  onChangeType,
+  title,
+  onChangeTitle,
+  images,
+  onChangeImage,
+  onClickDeleteImage,
+  isImageUploading,
+  introduction,
+  onChangeIntroduction,
+  OnClickRemove,
+  onClickNext,
+  onKeyDownButtonNext,
+  buttonNextDisabled,
+}: PropTypes) => (
   <div>
     <Section>
       <InputForm
         label="所在地"
         hintbottom="取引が成立するまで番地以降の住所は表示されません。番地は半角数字で入力してください。"
         placeholder="例）東京都渋谷区渋谷2-6-6-201"
-        value={props.address}
-        onChange={e => props.onChangeAddress(e.target.value)}
+        value={address}
+        onChange={e => onChangeAddress(e.target.value)}
       />
-      {displayErrors('address_errors', props.addressErrors)}
+      {displayErrors('address_errors', errors.address)}
     </Section>
     <Section>
       <SelectForm
@@ -90,30 +104,29 @@ export default (props: PropTypes) => (
             text: 'その他',
           },
         ]}
-        value={props.type}
-        onChange={e => props.onChangeType(e.target.value)}
+        value={type}
+        onChange={e => onChangeType(e.target.value)}
       />
-      {displayErrors('type_errors', props.typeErrors)}
+      {displayErrors('type_errors', errors.type)}
     </Section>
     <Section>
       <InputForm
         label="特徴がわかるタイトル"
         hintbottom="全角40文字まで"
         placeholder="【約6畳】新宿エリアのワンルーム！駐車場もあり搬入に便利！"
-        value={props.title}
-        onChange={e => props.onChangeTitle(e.target.value)}
+        value={title}
+        onChange={e => onChangeTitle(e.target.value)}
       />
-      {displayErrors('title_errors', props.titleErrors)}
+      {displayErrors('title_errors', errors.title)}
     </Section>
     <Section>
       <SpaceImagePicker
-        images={props.images}
-        onChangeImage={props.onChangeImage}
-        onClickDeleteImage={props.onClickDeleteImage}
-        changeOrientation={props.changeOrientation}
-        isImageUploading={props.isImageUploading}
+        images={images}
+        onChangeImage={onChangeImage}
+        onClickDeleteImage={onClickDeleteImage}
+        isImageUploading={isImageUploading}
       />
-      {displayErrors('image_errors', props.imageErrors)}
+      {displayErrors('image_errors', errors.images)}
     </Section>
     <Section>
       <InputForm
@@ -121,13 +134,13 @@ export default (props: PropTypes) => (
         placeholder="広さ6畳ほどのワンルームが余っています。長期利用も可能なので気軽にご相談ください！便利な新宿エリアで、駅から徒歩圏内の好アクセスです。駐車場もありますので、車搬入される場合も便利！"
         multiline
         rows={6}
-        value={props.introduction}
-        onChange={e => props.onChangeIntroduction(e.target.value)}
+        value={introduction}
+        onChange={e => onChangeIntroduction(e.target.value)}
       />
-      {displayErrors('introduction_errors', props.introductionErrors)}
+      {displayErrors('introduction_errors', errors.introduction)}
     </Section>
     <Section>
-      {props.edit ? (
+      {edit ? (
         <EntryButtons
           enabled
           rerative
@@ -136,13 +149,13 @@ export default (props: PropTypes) => (
             text: 'このスペースを削除する',
             modalTitle: 'スペース削除',
             modalText: '登録済みのスペースを削除します。よろしいですか？',
-            onClick: props.OnClickRemove,
+            onClick: OnClickRemove,
           }}
           enabledButton={{
             text: '次へ',
-            onClick: props.onClickNext,
-            onKeyDown: props.onKeyDownButtonNext,
-            disabled: props.buttonNextDisabled,
+            onClick: onClickNext,
+            onKeyDown: onKeyDownButtonNext,
+            disabled: buttonNextDisabled,
           }}
         />
       ) : (
@@ -151,9 +164,9 @@ export default (props: PropTypes) => (
             primary
             fontbold
             fill={1}
-            onClick={props.onClickNext}
-            onKeyDown={props.onKeyDownButtonNext}
-            disabled={props.buttonNextDisabled}
+            onClick={onClickNext}
+            onKeyDown={onKeyDownButtonNext}
+            disabled={buttonNextDisabled}
           >
             次へ
           </Button>

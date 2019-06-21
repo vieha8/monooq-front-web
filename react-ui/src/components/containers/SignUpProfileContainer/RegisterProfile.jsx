@@ -154,21 +154,20 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
 
     return (
       <RegisterProfile
+        errors={error}
         onChangeImage={picked => this.handleChangeForm('image', picked)}
-        onChangeName={value => this.handleChangeForm('name', value)}
-        onChangeArea={value => this.handleChangeForm('prefCode', value)}
-        onChangeProfile={value => this.handleChangeForm('profile', value)}
-        onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
-        image={image}
         imagePreview={imageUriPreview}
+        image={image}
+        onChangeName={value => this.handleChangeForm('name', value)}
         name={name}
-        nameErrors={error.name}
+        onChangeArea={value => this.handleChangeForm('prefCode', value)}
         prefCode={prefCode}
-        prefCodeErrors={error.prefCode}
+        onChangeProfile={value => this.handleChangeForm('profile', value)}
         profile={profile}
-        profileErrors={error.profile}
+        onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
         phoneNumber={phoneNumber}
-        phoneNumberErrors={error.phoneNumber}
+        buttonDisabled={!this.validate()}
+        buttonLoading={isLoading}
         onClickSkip={() => {
           ReactGA.event({
             category: 'User Register',
@@ -177,8 +176,6 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
           history.push(Path.signUpPurpose());
         }}
         onClickRegisterProfile={this.onClickRegisterProfile}
-        buttonDisabled={!this.validate()}
-        buttonLoading={isLoading}
       />
     );
   }

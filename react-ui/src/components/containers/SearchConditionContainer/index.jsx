@@ -180,30 +180,25 @@ class SearchConditionContainer extends Component<PropTypes> {
         headline="スペース検索"
         leftContent={
           <SearchCondition
+            errors={error}
             keyword={keyword}
-            keywordErrors={error.keyword}
             onChangeKeyword={v => this.handleChangeUI('keyword', v)}
             prefCode={prefCode}
-            prefCodeErrors={error.prefCode}
             onChangePrefCode={v => this.handleChangeUI('prefCode', v)}
             priceMin={priceMin}
-            priceMax={priceMax}
-            priceMinErrors={error.priceMin}
-            priceMaxErrors={error.priceMax}
             onChangePriceMin={v => this.handleChangeUI('priceMin', v)}
+            priceMax={priceMax}
             onChangePriceMax={v => this.handleChangeUI('priceMax', v)}
             type={type}
-            typeErrors={error.type}
             onChangeType={v => this.handleChangeUI('type', v)}
             checkedFurniture={isFurniture}
             onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
             onKeyDownFurniture={this.onKeyDownFurniture}
             receive={receiptType}
-            receiveErrors={error.receiptType}
             onChangeReceive={v => this.handleChangeUI('receiptType', v)}
+            buttonDisabled={!this.validate()}
             onClickSearch={this.onClickSearch}
             onKeyDownButtonSerch={this.onKeyDownButtonSerch}
-            buttonDisabled={!this.validate()}
           />
         }
         rightContent={<ServiceMenu />}

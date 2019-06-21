@@ -173,15 +173,14 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
         bottomButtonMargin={130}
         leftContent={
           <EditSpaceReceive
+            errors={error}
             receive={receiptType}
-            receiveErrors={error.ReceiptType}
             onChangeReceive={v => this.handleChangeUI('receiptType', v)}
             receiveAbout={receiptAbout}
-            receiveAboutErrors={error.receiptAbout}
             onChangeReceiveAbout={v => this.handleChangeUI('receiptAbout', v)}
             onClickBack={this.onClickBack}
-            onClickNext={this.onClickNext}
             onKeyDownButtonBack={this.onKeyDownButtonBack}
+            onClickNext={this.onClickNext}
             onKeyDownButtonNext={this.onKeyDownButtonNext}
             buttonNextDisabled={!this.validate()}
           />

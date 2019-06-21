@@ -241,21 +241,18 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
         headline="スペース料金の設定"
         leftContent={
           <EditSpaceInputPriceType
-            edit={space.id}
+            errors={error}
             priceFull={priceFull}
-            priceFullErrors={error.priceFull}
             onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
             priceHalf={priceHalf}
-            priceHalfErrors={error.priceHalf}
             onChangePriceHalf={v => this.handleChangeUI('priceHalf', v)}
             priceQuarter={priceQuarter}
-            priceQuarterErrors={error.priceQuarter}
             onChangePriceQuarter={v => this.handleChangeUI('priceQuarter', v)}
-            onClickBack={this.onClickBack}
-            onClickNext={this.onClickNext}
-            onKeyDownButtonBack={this.onKeyDownButtonBack}
-            onKeyDownButtonNext={this.onKeyDownButtonNext}
             buttonLoading={isLoading}
+            onClickBack={this.onClickBack}
+            onKeyDownButtonBack={this.onKeyDownButtonBack}
+            onClickNext={this.onClickNext}
+            onKeyDownButtonNext={this.onKeyDownButtonNext}
             buttonNextDisabled={!this.validate()}
           />
         }
