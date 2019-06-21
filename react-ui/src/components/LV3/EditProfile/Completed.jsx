@@ -28,8 +28,8 @@ type PropTypes = {
   userId: number,
 };
 
-export default (props: PropTypes) => (
+export default ({ userId }: PropTypes) => (
   <Content>
-    <ToProfileLink to={Path.profile(props.userId)}>プロフィールページを確認する</ToProfileLink>
+    <ToProfileLink to={Path.profile(userId)}>プロフィールページを確認する</ToProfileLink>
   </Content>
 );

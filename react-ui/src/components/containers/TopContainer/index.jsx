@@ -105,17 +105,17 @@ class TopContainer extends React.Component {
     return (
       <Top
         locationText={locationText}
-        searchButtonDisabled={searchButtonDisabled}
         handleChangeLocation={this.handleChangeLocation}
-        onClickSearch={() => this.search(locationText)}
-        onClickSignup={() => history.push(Path.createSpaceInfo())}
         onKeyDownSearchField={this.onKeyDownSearchField}
+        searchButtonDisabled={searchButtonDisabled}
+        onClickSearch={() => this.search(locationText)}
+        pickUpSpaces={pickUpSpaces}
+        onClickSignup={() => history.push(Path.createSpaceInfo())}
         moreFeature={ui.moreFeature}
         onClickMoreFeature={() => this.viewMoreFeature()}
         onClickMoreArea={() => this.viewMoreArea()}
         moreArea={ui.moreArea}
         history={history}
-        pickUpSpaces={pickUpSpaces}
       />
     );
   }

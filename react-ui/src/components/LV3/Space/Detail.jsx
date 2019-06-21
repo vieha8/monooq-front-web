@@ -99,82 +99,101 @@ const ButtonWrap = styled.div`
 `;
 
 type PropTypes = {
-  id: Number,
-  pref: string,
-  city: string,
-  town: string,
-  name: string,
+  confirm: boolean,
   images: Array<{
     original: string,
     thumbnail: string,
   }>,
-  description: string,
-  address: string,
-  type: string,
-  furniture: boolean,
-  aboutBaggage: string,
-  delivery: boolean,
-  meeting: boolean,
-  supplement: string,
+  pref: string,
+  city: string,
+  town: string,
+  pricequarter: Number,
+  pricefull: Number,
   user: {
     id: string,
     name: string,
     imageUrl: string,
     profile: string,
   },
-  pricefull: Number,
+  description: string,
+  map: React.Element<*>,
+  address: string,
+  type: string,
   pricehalf: Number,
-  pricequarter: Number,
+  furniture: boolean,
+  aboutBaggage: string,
+  delivery: boolean,
+  meeting: boolean,
+  supplement: string,
+  id: Number,
+  name: string,
 };
 
-export default (props: PropTypes) => (
-  <Container confirm={props.confirm}>
+export default ({
+  confirm,
+  images,
+  pref,
+  city,
+  town,
+  pricequarter,
+  pricefull,
+  user,
+  description,
+  map,
+  address,
+  type,
+  pricehalf,
+  furniture,
+  aboutBaggage,
+  delivery,
+  meeting,
+  supplement,
+  id,
+  name,
+}: PropTypes) => (
+  <Container confirm={confirm}>
     <ImageWrapper>
-      <Image images={props.images} />
+      <Image images={images} />
     </ImageWrapper>
     <SpaceTitleWrapper>
-      <AddressText>
-        {props.pref} {props.city} {props.town}
-      </AddressText>
-      <ContentText>{props.name ? props.name : ''}</ContentText>
+      <AddressText>{`${pref} ${city} ${town}`}</AddressText>
+      <ContentText>{name || ''}</ContentText>
       <PriceText>
-        {props.pricequarter ? props.pricequarter : props.pricefull}
+        {pricequarter || pricefull}
         円〜
       </PriceText>
     </SpaceTitleWrapper>
-    <HostInfo {...props.user} hostinfo />
-    <Description content={props.description} />
+    <HostInfo {...user} hostinfo />
+    <Description content={description} />
     <SectionHeader>スペースについて</SectionHeader>
     <MapWrapper>
       <InlineText.Base fontSize={`${FontSizes.small_12}`} margin="2px auto 12px">
         所在地
       </InlineText.Base>
-      {props.map}
-      <Address content={props.address} />
-      <Type content={props.type} />
+      {map}
+      <Address content={address} />
+      <Type content={type} />
     </MapWrapper>
-    <Price full={props.pricefull} half={props.pricehalf} quarter={props.pricequarter} />
+    <Price full={pricefull} half={pricehalf} quarter={pricequarter} />
     <SectionHeader>荷物について</SectionHeader>
     <Fragment>
-      <AboutBaggage furniture={props.furniture} content={props.aboutBaggage} />
-      <Receive delivery={props.delivery} meeting={props.meeting} />
-      <Supplement content={props.supplement} />
+      <AboutBaggage furniture={furniture} content={aboutBaggage} />
+      <Receive delivery={delivery} meeting={meeting} />
+      <Supplement content={supplement} />
     </Fragment>
-    {!props.confirm && (
+    {!confirm && (
       <ShareButtonsWrapper>
         <ButtonWrap>
           <Button
             twitter
             fill={1}
-            url={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${props.id}&text=${
-              props.name
-            }｜モノオク&hashtags=モノオク`}
+            url={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${id}&text=${name}｜モノオク&hashtags=モノオク`}
             fontbold
             OnClick={() =>
               ReactGA.event({
                 category: 'Share',
                 action: 'Push Twitter Share Button At Space',
-                value: props.id,
+                value: id,
               })
             }
           >
@@ -186,15 +205,13 @@ export default (props: PropTypes) => (
             facebook
             type2
             fill={1}
-            url={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${
-              props.id
-            }&quote=${props.name}｜モノオク`}
+            url={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${id}&quote=${name}｜モノオク`}
             fontbold
             OnClick={() =>
               ReactGA.event({
                 category: 'Share',
                 action: 'Push Facebook Share Button At Space',
-                value: props.id,
+                value: id,
               })
             }
           >

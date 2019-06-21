@@ -87,27 +87,27 @@ type PropTypes = {
     },
     large: boolean,
   }>,
-  onClickMoreView: Function,
   noMore: boolean,
+  onClickMoreView: Function,
 };
 
-const PickupSpaceList = (props: PropTypes) => (
+const PickupSpaceList = ({ title, spaceList, noMore, onClickMoreView }: PropTypes) => (
   <Container>
     <TitleContainer>
-      <H2>{props.title}</H2>
+      <H2>{title}</H2>
     </TitleContainer>
     <ListContainer>
       <HorizontalScroll>
-        {props.spaceList.map((space, i) => (
+        {spaceList.map((space, i) => (
           <CardWrapper key={`space_list_${i}`.toString()} large={space.large ? 1 : 0}>
             <FeatureSpaceCard {...space} />
           </CardWrapper>
         ))}
       </HorizontalScroll>
     </ListContainer>
-    {!props.noMore && (
+    {!noMore && (
       <MoreViewContainer>
-        <TextButton onClick={props.onClickMoreView}>もっとみる</TextButton>
+        <TextButton onClick={onClickMoreView}>もっとみる</TextButton>
       </MoreViewContainer>
     )}
   </Container>

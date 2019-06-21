@@ -72,16 +72,26 @@ type PropTypes = {
   toSignup: React.Element<*>,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  logo,
+  title,
+  email,
+  pass,
+  failed,
+  remind,
+  login,
+  facebook,
+  toSignup,
+}: PropTypes) => (
   <Fragment>
-    <Logo>{props.logo}</Logo>
-    <Title>{props.title}</Title>
-    <Email>{props.email}</Email>
-    <Pass>{props.pass}</Pass>
-    <Failed>{props.failed}</Failed>
-    <Remind>{props.remind}</Remind>
-    <Login>{props.login}</Login>
-    <Facebook>{props.facebook}</Facebook>
-    <ToSignup>{props.toSignup}</ToSignup>
+    <Logo>{logo}</Logo>
+    <Title>{title}</Title>
+    <Email>{email}</Email>
+    <Pass>{pass}</Pass>
+    <Failed>{failed}</Failed>
+    <Remind>{remind}</Remind>
+    <Login>{login}</Login>
+    <Facebook>{facebook}</Facebook>
+    <ToSignup>{toSignup}</ToSignup>
   </Fragment>
 );

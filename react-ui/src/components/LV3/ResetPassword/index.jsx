@@ -48,18 +48,26 @@ const MarginTopMediumWrapper = styled.div`
 `;
 
 type PropTypes = {
+  sended: boolean,
   email: string,
   onChangeEmail: Function,
+  errors: Array<string>,
   onClickSend: Function,
   buttonDisabled: boolean,
   buttonLoading: boolean,
-  errors: Array<string>,
-  sended: boolean,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  sended,
+  email,
+  onChangeEmail,
+  errors,
+  onClickSend,
+  buttonDisabled,
+  buttonLoading,
+}: PropTypes) => (
   <Container>
-    {props.sended ? (
+    {sended ? (
       <Fragment>
         <Title>
           <H1 bold>再設定メールを送信しました</H1>
@@ -88,23 +96,18 @@ export default (props: PropTypes) => (
           <InputForm
             label="メールアドレス"
             placeholder="info@monooq.com"
-            value={props.email}
-            onChange={e => props.onChangeEmail(e.target.value)}
+            value={email}
+            onChange={e => onChangeEmail(e.target.value)}
           />
         </InputWrapper>
-        {props.errors &&
-          props.errors.map((error, i) => (
+        {errors &&
+          errors.map((error, i) => (
             <ErrorWrapper key={`email_error_${i}`.toString()}>
               <InlineText.Base color={Colors.error}>{error}</InlineText.Base>
             </ErrorWrapper>
           ))}
         <ButtonWrapper>
-          <Button
-            fill={1}
-            onClick={props.onClickSend}
-            disabled={props.buttonDisabled}
-            loading={props.buttonLoading}
-          >
+          <Button fill={1} onClick={onClickSend} disabled={buttonDisabled} loading={buttonLoading}>
             再設定メールを送信する
           </Button>
         </ButtonWrapper>

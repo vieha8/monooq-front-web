@@ -12,32 +12,48 @@ import { Colors, FontSizes } from 'variables';
 import Form from './Form';
 
 type PropTypes = {
-  onClickIconPassword: Function,
-  onClickNext: Function,
-  onClickFacebook: Function,
-  onChangeEmail: Function,
-  onChangePassword: Function,
-  onKeyDownPassword: Function,
   email: string,
+  onChangeEmail: Function,
   emailError: Array<string>,
+  ispasswordVisible: boolean,
   password: string,
+  onChangePassword: Function,
+  onClickIconPassword: Function,
+  onKeyDownPassword: Function,
   passError: Array<string>,
+  onClickNext: Function,
   buttonDisabled: boolean,
   isRegisterChecking: boolean,
-  ispasswordVisible: boolean,
+  onClickFacebook: Function,
+  onClickLogin: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  email,
+  onChangeEmail,
+  emailError,
+  ispasswordVisible,
+  password,
+  onChangePassword,
+  onClickIconPassword,
+  onKeyDownPassword,
+  passError,
+  onClickNext,
+  buttonDisabled,
+  isRegisterChecking,
+  onClickFacebook,
+  onClickLogin,
+}: PropTypes) => (
   <Form
     title={<H1 bold>新規登録</H1>}
     email={
       <InputField
         placeholder="メールアドレス"
-        value={props.email}
-        onChange={e => props.onChangeEmail(e.target.value)}
+        value={email}
+        onChange={e => onChangeEmail(e.target.value)}
       />
     }
-    emailError={props.emailError.map((text, i) => (
+    emailError={emailError.map((text, i) => (
       <InlineText.Small key={`email_error_${i}`.toString()} color={Colors.error}>
         {text}
       </InlineText.Small>
@@ -45,16 +61,16 @@ export default (props: PropTypes) => (
     pass={
       <IconInputField
         right="true"
-        iconClassName={props.ispasswordVisible ? 'fal fa-eye-slash' : 'fal fa-eye'}
-        type={props.ispasswordVisible ? 'password' : 'text'}
+        iconClassName={ispasswordVisible ? 'fal fa-eye-slash' : 'fal fa-eye'}
+        type={ispasswordVisible ? 'password' : 'text'}
         placeholder="パスワード"
-        value={props.password}
-        onChange={e => props.onChangePassword(e.target.value)}
-        clickIcon={props.onClickIconPassword}
-        onKeyDown={props.onKeyDownPassword}
+        value={password}
+        onChange={e => onChangePassword(e.target.value)}
+        clickIcon={onClickIconPassword}
+        onKeyDown={onKeyDownPassword}
       />
     }
-    passError={props.passError.map((text, i) => (
+    passError={passError.map((text, i) => (
       <InlineText.Small key={`pass_error_${i}`.toString()} color={Colors.error}>
         {text}
       </InlineText.Small>
@@ -92,27 +108,21 @@ export default (props: PropTypes) => (
         primary
         fill={1}
         fontbold
-        onClick={props.onClickNext}
-        disabled={props.buttonDisabled}
-        loading={props.isRegisterChecking}
+        onClick={onClickNext}
+        disabled={buttonDisabled}
+        loading={isRegisterChecking}
       >
         新規登録
       </Button>
     }
     otherLogin={<InlineText.Base>お持ちのアカウントで登録</InlineText.Base>}
     facebook={
-      <Button
-        facebook
-        fill={1}
-        fontbold
-        onClick={props.onClickFacebook}
-        loading={props.isRegisterChecking}
-      >
+      <Button facebook fill={1} fontbold onClick={onClickFacebook} loading={isRegisterChecking}>
         Facebookで新規登録
       </Button>
     }
     toLogin={
-      <Button secondary borderbold fontbold fill={1} onClick={props.onClickLogin}>
+      <Button secondary borderbold fontbold fill={1} onClick={onClickLogin}>
         ログインはこちら
       </Button>
     }

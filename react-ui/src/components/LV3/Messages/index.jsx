@@ -72,8 +72,6 @@ const SeparatedCautionWrapper = styled(CautionWrapper)`
 `;
 
 type PropTypes = {
-  hostUser: boolean,
-  onClickEstimate: Function,
   messages: Array<{
     self?: {
       sentAt: string,
@@ -104,17 +102,29 @@ type PropTypes = {
       receivedAt: string,
     },
   }>,
+  hostUser: boolean,
+  lastReadDt: string,
   onChangeText: Function,
   text: string,
-  onClickSend: Function,
-  buttonDisabled: boolean,
   onPickImage: Function,
   pickedImage: string,
-  lastReadDt: string,
+  buttonDisabled: boolean,
+  onClickSend: Function,
+  onClickEstimate: Function,
 };
 
-export default (props: PropTypes) => {
-  const { messages, hostUser, lastReadDt } = props;
+export default ({
+  messages,
+  hostUser,
+  lastReadDt,
+  onChangeText,
+  text,
+  onPickImage,
+  pickedImage,
+  buttonDisabled,
+  onClickSend,
+  onClickEstimate,
+}: PropTypes) => {
   const messageList = messages;
 
   if (messageList.length >= 1) {
@@ -307,10 +317,10 @@ export default (props: PropTypes) => {
       })}
       <MessageInputWrap>
         <MessageInput
-          onChange={props.onChangeText}
-          value={props.text}
-          onPickImage={props.onPickImage}
-          preview={props.pickedImage}
+          onChange={onChangeText}
+          value={text}
+          onPickImage={onPickImage}
+          preview={pickedImage}
         />
       </MessageInputWrap>
       <ButtonWrapper>
@@ -318,15 +328,15 @@ export default (props: PropTypes) => {
           primary
           fill={1}
           fontbold
-          disabled={props.buttonDisabled}
-          onClick={props.buttonDisabled ? null : props.onClickSend}
+          disabled={buttonDisabled}
+          onClick={buttonDisabled ? null : onClickSend}
         >
           送信
         </Button>
       </ButtonWrapper>
-      {props.hostUser && (
+      {hostUser && (
         <ButtonWrapper>
-          <Button secondary fill={1} fontbold onClick={props.onClickEstimate}>
+          <Button secondary fill={1} fontbold onClick={onClickEstimate}>
             見積もりを送る
           </Button>
         </ButtonWrapper>

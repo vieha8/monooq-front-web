@@ -59,9 +59,9 @@ type PropTypes = {
   onClickEditBankAccount: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({ transfers, supplement, onClickEditBankAccount }: PropTypes) => (
   <div>
-    {props.transfers.map((s, i) => (
+    {transfers.map((s, i) => (
       <Row key={`transfers_item_${i}`.toString()}>
         {s.label && (
           <Label>
@@ -76,19 +76,19 @@ export default (props: PropTypes) => (
             <InlineText.Base fontSize={14}>{s.status}</InlineText.Base>
           </Cell>
           <Cell right>
-            <InlineText.Bold fontSize={14}>{s.price}円</InlineText.Bold>
+            <InlineText.Bold fontSize={14}>{`${s.price}円`}</InlineText.Bold>
           </Cell>
         </Table>
       </Row>
     ))}
-    {props.supplement && (
+    {supplement && (
       <Row>
         <Table>
           <Cell>
             <InlineText.Base fontSize={14}>売上</InlineText.Base>
           </Cell>
           <Cell right>
-            <InlineText.Bold fontSize={14}>{props.supplement.price}円</InlineText.Bold>
+            <InlineText.Bold fontSize={14}>{`${supplement.price}円`}</InlineText.Bold>
           </Cell>
         </Table>
         <Supplement>
@@ -99,7 +99,7 @@ export default (props: PropTypes) => (
       </Row>
     )}
     <ButtonWrapper>
-      <Button secondary center onClick={props.onClickEditBankAccount}>
+      <Button secondary center onClick={onClickEditBankAccount}>
         口座情報を変更する
       </Button>
     </ButtonWrapper>
