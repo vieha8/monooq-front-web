@@ -31,16 +31,16 @@ type PropTypes = {
   onFocusChange: Function,
 };
 
-export default (props: PropTypes) => (
-  <Container focused={props.focused}>
+export default ({ focused, date, placeholder, onDateChange, onFocusChange }: PropTypes) => (
+  <Container focused={focused}>
     <SingleDatePicker
-      date={props.date}
-      placeholder={props.placeholder || '日付を選択してください'}
+      date={date}
+      placeholder={placeholder || '日付を選択してください'}
       block
       showDefaultInputIcon
-      onDateChange={props.onDateChange}
-      focused={props.focused}
-      onFocusChange={props.onFocusChange}
+      onDateChange={onDateChange}
+      focused={focused}
+      onFocusChange={onFocusChange}
       numberOfMonths={1}
     />
   </Container>

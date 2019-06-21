@@ -44,15 +44,22 @@ type PropTypes = {
   onKeyDownSend: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  schedule,
+  price,
+  buttonLoading,
+  buttonDisabled,
+  onClickSend,
+  onKeyDownSend,
+}: PropTypes) => (
   <div>
     <Section>
       <H2>スケジュール</H2>
-      <InputSchedule {...props.schedule} />
+      <InputSchedule {...schedule} />
     </Section>
     <Section>
       <H2>料金を入力</H2>
-      <InputPrice {...props.price} />
+      <InputPrice {...price} />
     </Section>
     <Section>
       <ButtonWrap>
@@ -60,10 +67,10 @@ export default (props: PropTypes) => (
           primary
           fill={1}
           fontbold
-          loading={props.buttonLoading}
-          disabled={props.buttonDisabled}
-          onClick={props.buttonLoading ? null : props.onClickSend}
-          onKeyDown={props.onKeyDownSend}
+          loading={buttonLoading}
+          disabled={buttonDisabled}
+          onClick={buttonLoading ? null : onClickSend}
+          onKeyDown={onKeyDownSend}
         >
           この見積もりを送る
         </Button>
