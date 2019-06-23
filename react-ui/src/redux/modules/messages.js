@@ -244,7 +244,7 @@ function* fetchMessagesStart({ payload: roomId }) {
   }
 
   // アクセス制限
-  if (user.id !== 7111 || user.id !== 2613) {
+  if (user.id !== 7111 && user.id !== 2613) {
     if (!(room.userId1 === user.id || room.userId2 === user.id)) {
       yield put(push(Path.notFound()));
       return;
