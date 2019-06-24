@@ -4,7 +4,6 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import GoogleTagManager from 'components/LV1/GTM';
 import InlineText from 'components/LV1/InlineText';
 
 const Title = styled.div`
@@ -87,7 +86,6 @@ export default ({
   profile,
   phoneNumber,
   button,
-  story,
 }: PropTypes) => (
   <Fragment>
     <Title>{title}</Title>
@@ -109,6 +107,5 @@ export default ({
       {displayErrors('phoneNumber_errors', errors.phoneNumber)}
     </PhoneNumber>
     <Button>{button}</Button>
-    {!story && <GoogleTagManager event="userRegistered" />}
   </Fragment>
 );

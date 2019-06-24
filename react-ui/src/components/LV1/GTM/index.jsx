@@ -1,8 +1,10 @@
 import React from 'react';
+import { handleGTM } from 'helpers/gtm';
 
 class GoogleTagManager extends React.Component {
   componentDidMount() {
-    window.dataLayer.push({ event: this.props.event });
+    const { event } = this.props;
+    handleGTM(event);
   }
 
   render() {

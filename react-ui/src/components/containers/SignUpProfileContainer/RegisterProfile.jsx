@@ -1,11 +1,12 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { userActions } from 'redux/modules/user';
 import RegisterProfile from 'components/LV3/RegisterProfile';
 import ReactGA from 'react-ga';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
+import { handleGTM } from 'helpers/gtm';
 
 type PropTypes = {
   dispatch: Function,
@@ -49,23 +50,30 @@ export default class RegisterProfileContainer extends Component<PropTypes, State
   }
 
   componentDidMount() {
-    const script = document.createElement('script');
-
-    script.innerHTML = `var __atw = __atw || [];
-    __atw.push({ "merchant" : "monooq", "param" : {
-        "result_id" : "100",
-        "verify" : "user_register_${this.props.user.id}",
-    }});
-(function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
-a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
-
-    document.body.appendChild(script);
-
     const { name, prefCode, profile, phoneNumber } = this.state;
     this.handleChangeForm('name', name);
     this.handleChangeForm('prefCode', prefCode);
     this.handleChangeForm('profile', profile);
     this.handleChangeForm('phoneNumber', phoneNumber);
+  }
+
+  componentDidUpdate(props) {
+    if (!props.user.id && this.props.user.id) {
+      const { user } = this.props;
+      const script = document.createElement('script');
+
+      script.innerHTML = `var __atw = __atw || [];
+    __atw.push({ "merchant" : "monooq", "param" : {
+        "result_id" : "100",
+        "verify" : "user_register_${user.id}",
+    }});
+(function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
+a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
+
+      document.body.appendChild(script);
+
+      handleGTM('leadUserRegistered', user.id);
+    }
   }
 
   onClickRegisterProfile = () => {
@@ -153,30 +161,32 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
     const { image, imageUriPreview, name, prefCode, profile, phoneNumber, error } = this.state;
 
     return (
-      <RegisterProfile
-        errors={error}
-        onChangeImage={picked => this.handleChangeForm('image', picked)}
-        imagePreview={imageUriPreview}
-        image={image}
-        onChangeName={value => this.handleChangeForm('name', value)}
-        name={name}
-        onChangeArea={value => this.handleChangeForm('prefCode', value)}
-        prefCode={prefCode}
-        onChangeProfile={value => this.handleChangeForm('profile', value)}
-        profile={profile}
-        onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
-        phoneNumber={phoneNumber}
-        buttonDisabled={!this.validate()}
-        buttonLoading={isLoading}
-        onClickSkip={() => {
-          ReactGA.event({
-            category: 'User Register',
-            action: 'Skip Profile',
-          });
-          history.push(Path.signUpPurpose());
-        }}
-        onClickRegisterProfile={this.onClickRegisterProfile}
-      />
+      <Fragment>
+        <RegisterProfile
+          errors={error}
+          onChangeImage={picked => this.handleChangeForm('image', picked)}
+          imagePreview={imageUriPreview}
+          image={image}
+          onChangeName={value => this.handleChangeForm('name', value)}
+          name={name}
+          onChangeArea={value => this.handleChangeForm('prefCode', value)}
+          prefCode={prefCode}
+          onChangeProfile={value => this.handleChangeForm('profile', value)}
+          profile={profile}
+          onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
+          phoneNumber={phoneNumber}
+          buttonDisabled={!this.validate()}
+          buttonLoading={isLoading}
+          onClickSkip={() => {
+            ReactGA.event({
+              category: 'User Register',
+              action: 'Skip Profile',
+            });
+            history.push(Path.signUpPurpose());
+          }}
+          onClickRegisterProfile={this.onClickRegisterProfile}
+        />
+      </Fragment>
     );
   }
 }
