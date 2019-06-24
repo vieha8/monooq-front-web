@@ -68,36 +68,47 @@ const Wrapper = styled.div`
 `;
 
 type PropTypes = {
-  loading?: boolean,
+  rerative?: boolean,
+  remove?: boolean,
   backButton: {
     text: string,
+    modalTitle?: string,
+    modalText?: string,
     onClick: Function,
     onKeyDown?: Function,
   },
-  disabledButton: {
-    text: string,
-  },
+  loading?: boolean,
+  enabled: boolean,
   enabledButton: {
     text: string,
     disabled?: boolean,
     onClick: Function,
     onKeyDown?: Function,
   },
-  enabled: boolean,
-  onClickRemove?: Function,
+  disabledButton: {
+    text: string,
+  },
 };
 
-export default (props: PropTypes) => (
-  <EntryButtonsWrap rerative={props.rerative}>
+export default ({
+  rerative,
+  remove,
+  backButton,
+  loading,
+  enabled,
+  enabledButton,
+  disabledButton,
+}: PropTypes) => (
+  <EntryButtonsWrap rerative={rerative}>
     <Container>
       <Cell align="left">
         <Wrapper backButton>
-          {props.remove ? (
+          {remove ? (
             <ConfirmBtnModal
-              btnText={props.backButton.text}
-              modalTitle={props.backButton.modalTitle}
-              modalText={props.backButton.modalText}
-              onClickRemove={props.backButton.onClick}
+              btnText={backButton.text}
+              modalTitle={backButton.modalTitle}
+              modalText={backButton.modalText}
+              onClickRemove={backButton.onClick}
             />
           ) : (
             <Button
@@ -105,33 +116,33 @@ export default (props: PropTypes) => (
               borderbold
               fontbold
               fill={1}
-              loading={props.loading}
-              onClick={props.backButton.onClick}
-              onKeyDown={props.backButton.onKeyDown}
+              loading={loading}
+              onClick={backButton.onClick}
+              onKeyDown={backButton.onKeyDown}
             >
-              {props.backButton.text}
+              {backButton.text}
             </Button>
           )}
         </Wrapper>
       </Cell>
       <Cell align="right">
         <Wrapper>
-          {props.enabled ? (
+          {enabled ? (
             <Button
               primary
               borderbold
               fontbold
               fill={1}
-              loading={props.loading}
-              onClick={props.enabledButton.onClick}
-              disabled={props.enabledButton.disabled}
-              onKeyDown={props.enabledButton.onKeyDown}
+              loading={loading}
+              onClick={enabledButton.onClick}
+              disabled={enabledButton.disabled}
+              onKeyDown={enabledButton.onKeyDown}
             >
-              {props.enabledButton.text}
+              {enabledButton.text}
             </Button>
           ) : (
-            <Button primary borderbold fontbold fill={1} loading={props.loading} disabled>
-              {props.disabledButton.text}
+            <Button primary borderbold fontbold fill={1} loading={loading} disabled>
+              {disabledButton.text}
             </Button>
           )}
         </Wrapper>

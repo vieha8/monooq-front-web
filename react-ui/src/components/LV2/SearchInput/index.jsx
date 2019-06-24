@@ -58,26 +58,33 @@ type PropTypes = {
   placeholder: string,
   onChange: Function,
   onKeyDown: Function,
-  onClickSearchButton: Function,
-  searchDisabled: boolean,
   borderColor?: string,
+  searchDisabled: boolean,
+  onClickSearchButton: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  placeholder,
+  onChange,
+  onKeyDown,
+  borderColor,
+  searchDisabled,
+  onClickSearchButton,
+}: PropTypes) => (
   <SearchWrapper>
     <SearchInput
-      placeholder={props.placeholder}
-      onChange={props.onChange}
-      onKeyDown={props.onKeyDown}
+      placeholder={placeholder}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
       margin="normal"
-      borderColor={props.borderColor}
+      borderColor={borderColor}
     />
     <SearchButton
-      onClick={props.searchDisabled ? null : props.onClickSearchButton}
-      disabled={props.searchDisabled}
+      onClick={searchDisabled ? null : onClickSearchButton}
+      disabled={searchDisabled}
       tabIndex={0}
       className="fal fa-search"
-      color={props.searchDisabled ? Colors.lightGray1 : Colors.brandPrimary}
+      color={searchDisabled ? Colors.lightGray1 : Colors.brandPrimary}
     />
   </SearchWrapper>
 );

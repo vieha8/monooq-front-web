@@ -26,32 +26,32 @@ const DateCell = styled.div`
 
 type PropTypes = {
   message: string,
-  sentAt: string,
   error?: boolean,
   onClickRetry: Function,
-  isRead: boolean,
+  sentAt: string,
+  isRead?: boolean,
 };
 
-export default (props: PropTypes) => (
+export default ({ message, error, onClickRetry, sentAt, isRead }: PropTypes) => (
   <ClearfixContainer>
     <Card block noBorder background={Colors.brandPrimary} isPadding={14}>
       <InlineText.Base fontSize={15} color={Colors.white}>
-        {props.message}
+        {message}
       </InlineText.Base>
     </Card>
     <ActionTable>
       <RetryCell>
-        {props.error && (
-          <TextLink error={1} onClick={props.onClickRetry} fontSize={15}>
+        {error && (
+          <TextLink error={1} onClick={onClickRetry} fontSize={15}>
             エラー：送信されていません。クリックして再試行します。
           </TextLink>
         )}
       </RetryCell>
       <DateCell>
         <InlineText.EmphasisTiny>
-          {props.sentAt}
+          {sentAt}
           <br />
-          {props.isRead ? '既読' : null}
+          {isRead ? '既読' : null}
         </InlineText.EmphasisTiny>
       </DateCell>
     </ActionTable>

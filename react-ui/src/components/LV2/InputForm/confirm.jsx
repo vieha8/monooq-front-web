@@ -16,13 +16,13 @@ type PropTypes = {
   value: string,
 };
 
-export default (props: PropTypes) => (
+export default ({ label, value }: PropTypes) => (
   <Fragment>
     <H3 bold>
-      <InlineText.Base fontSize={12}>{props.label}</InlineText.Base>
+      <InlineText.Base fontSize={12}>{label}</InlineText.Base>
     </H3>
     <Field>
-      <InlineText.Base bold>{props.value}</InlineText.Base>
+      <InlineText.Base bold>{value}</InlineText.Base>
     </Field>
   </Fragment>
 );

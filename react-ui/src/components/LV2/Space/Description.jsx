@@ -6,10 +6,6 @@ import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/InlineText';
 import { Colors, Dimens } from 'variables';
 
-type PropTypes = {
-  content: string,
-};
-
 const Wrap = styled.div`
   margin: ${Dimens.medium2}px auto 0;
   padding: ${Dimens.medium2}px 0;
@@ -20,8 +16,12 @@ const Wrap = styled.div`
   `};
 `;
 
-export default (props: PropTypes) => (
+type PropTypes = {
+  content: string,
+};
+
+export default ({ content }: PropTypes) => (
   <Wrap>
-    <InlineText.Base>{props.content}</InlineText.Base>
+    <InlineText.Base>{content}</InlineText.Base>
   </Wrap>
 );

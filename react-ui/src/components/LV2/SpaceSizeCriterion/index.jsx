@@ -85,16 +85,16 @@ type PropTypes = {
   image: string,
 };
 
-export default (props: PropTypes) => (
-  <Container position={props.position} selected={props.selected} onClick={props.onClick}>
-    <Card selected={props.selected}>
+export default ({ position, selected, onClick, textHead, textBody, image }: PropTypes) => (
+  <Container position={position} selected={selected} onClick={onClick}>
+    <Card selected={selected}>
       <Text>
-        <InlineText.Base fontSizeSp={FontSizes.medium_18}>{props.textHead}</InlineText.Base>
+        <InlineText.Base fontSizeSp={FontSizes.medium_18}>{textHead}</InlineText.Base>
       </Text>
       <Text body>
-        <InlineText.Base fontSize={FontSizes.small_12}>{props.textBody}</InlineText.Base>
+        <InlineText.Base fontSize={FontSizes.small_12}>{textBody}</InlineText.Base>
       </Text>
-      <Image src={props.image} alt="" />
+      <Image src={image} alt="" />
     </Card>
   </Container>
 );

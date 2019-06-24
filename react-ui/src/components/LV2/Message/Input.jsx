@@ -28,14 +28,14 @@ const Thumbnail = styled.img`
 
 type PropTypes = {
   onPickImage: Function,
+  preview: File,
   value: string,
   onChange: Function,
-  preview: File,
 };
 
-export default (props: PropTypes) => (
+export default ({ onPickImage, preview, value, onChange }: PropTypes) => (
   <PickImageWrap>
-    <Dropzone accept="image/jpeg, image/png" onDrop={data => props.onPickImage(data[0])}>
+    <Dropzone accept="image/jpeg, image/png" onDrop={data => onPickImage(data[0])}>
       {({ getRootProps, getInputProps }) => (
         <div {...getRootProps()}>
           <PictureIcon verticalMiddle fontSize={24} />
@@ -43,15 +43,15 @@ export default (props: PropTypes) => (
             <InlineText.Small>写真を送信する</InlineText.Small>
           </LabelWrapper>
           <input {...getInputProps()} />
-          {props.preview && <Thumbnail src={props.preview} />}
+          {preview && <Thumbnail src={preview} />}
         </div>
       )}
     </Dropzone>
     <TextArea
       rows={5}
       placeholder="メッセージを入力する…"
-      value={props.value}
-      onChange={e => props.onChange(e.target.value)}
+      value={value}
+      onChange={e => onChange(e.target.value)}
     />
   </PickImageWrap>
 );

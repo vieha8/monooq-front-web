@@ -45,54 +45,54 @@ const Caption = styled.div`
 `;
 
 type PropTypes = {
-  price: string,
   full?: boolean,
   half?: boolean,
   quarter?: boolean,
+  price: string,
 };
 
-export default (props: PropTypes) => (
+export default ({ full, half, quarter, price }: PropTypes) => (
   <Container>
     <PriceContainer>
       <TextContainer>
-        {props.full && (
+        {full && (
           <Text>
             <InlineText.Base fontSize={FontSizes.medium}>スペースまるごと</InlineText.Base>
           </Text>
         )}
-        {props.half && (
+        {half && (
           <Text>
             <InlineText.Base fontSize={FontSizes.medium}>スペース半分</InlineText.Base>
           </Text>
         )}
-        {props.quarter && (
+        {quarter && (
           <Text>
             <InlineText.Base fontSize={FontSizes.medium}>スペース1/4</InlineText.Base>
           </Text>
         )}
         <Price>
-          <InlineText.Base fontSize={FontSizes.medium}>{props.price}円</InlineText.Base>
+          <InlineText.Base fontSize={FontSizes.medium}>{`${price}円`}</InlineText.Base>
         </Price>
       </TextContainer>
-      {props.full && <Image src={imageFurnitureFull} alt="" />}
-      {props.half && <Image src={imageFurnitureHalf} alt="" />}
-      {props.quarter && <Image src={imageFurnitureQuarter} alt="" />}
+      {full && <Image src={imageFurnitureFull} alt="" />}
+      {half && <Image src={imageFurnitureHalf} alt="" />}
+      {quarter && <Image src={imageFurnitureQuarter} alt="" />}
     </PriceContainer>
-    {props.full && (
+    {full && (
       <Caption>
         <InlineText.EmphasisTiny fontSize={FontSizes.small}>
           スペースのほとんどを使用する荷物の場合の料金
         </InlineText.EmphasisTiny>
       </Caption>
     )}
-    {props.half && (
+    {half && (
       <Caption>
         <InlineText.EmphasisTiny fontSize={FontSizes.small}>
           スペースの半分程度を使用する荷物の場合の料金
         </InlineText.EmphasisTiny>
       </Caption>
     )}
-    {props.quarter && (
+    {quarter && (
       <Caption>
         <InlineText.EmphasisTiny>
           スペースの4分の1程度を使用する荷物の場合の料金

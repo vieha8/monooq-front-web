@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import TextLink from 'components/LV1/TextLink';
 import InlineText from 'components/LV1/InlineText';
-import { Colors } from 'variables';
+import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 
@@ -12,7 +12,7 @@ const Container = styled.footer`
   width: 100%;
   background-color: ${Colors.white};
   border-top: 1px solid ${Colors.borderGray};
-  padding: 0px 30px;
+  padding: 0px ${Dimens.medium2}px;
   ${media.tablet`
     padding: 0;
   `};
@@ -21,7 +21,7 @@ const Container = styled.footer`
 const List = styled.ul`
   display: flex;
   align-items: center;
-  height: 60px;
+  height: ${Dimens.large_60}px;
   ${media.phone`
     height: auto;
     display: block;
@@ -30,7 +30,7 @@ const List = styled.ul`
 
 const Cell = styled.li`
   display: inline-flex;
-  padding: 0 8px;
+  padding: 0 ${Dimens.small}px;
   &:last-child {
     margin-left: auto;
   }
@@ -43,46 +43,44 @@ const Cell = styled.li`
   `};
 `;
 
-const FooterLink = (props: Object) => (
-  <TextLink {...props} fontSize={11}>
-    {props.children}
-  </TextLink>
-);
+const CellLink = styled(TextLink)`
+  font-size: ${FontSizes.xsmall}px;
+`;
 
 export default () => (
   <Container>
     <nav>
       <List>
         <Cell>
-          <FooterLink href="https://monooq.co.jp/" target="_blank">
+          <CellLink href="https://monooq.co.jp/" target="_blank">
             運営会社
-          </FooterLink>
+          </CellLink>
         </Cell>
         <Cell>
-          <FooterLink to={Path.about()}>はじめての方へ</FooterLink>
+          <CellLink to={Path.about()}>はじめての方へ</CellLink>
         </Cell>
         <Cell>
-          <FooterLink to={Path.insurance()}>荷物に対する保険</FooterLink>
+          <CellLink to={Path.insurance()}>荷物に対する保険</CellLink>
         </Cell>
         <Cell>
-          <FooterLink to={Path.rule()}>ルールとマナー</FooterLink>
+          <CellLink to={Path.rule()}>ルールとマナー</CellLink>
         </Cell>
         <Cell>
-          <FooterLink href="https://help.monooq.com/" target="_blank">
+          <CellLink href="https://help.monooq.com/" target="_blank">
             よくある質問
-          </FooterLink>
+          </CellLink>
         </Cell>
         <Cell>
-          <FooterLink to={Path.terms()}>利用規約</FooterLink>
+          <CellLink to={Path.terms()}>利用規約</CellLink>
         </Cell>
         <Cell>
-          <FooterLink to={Path.privacy()}>プライバシーポリシー</FooterLink>
+          <CellLink to={Path.privacy()}>プライバシーポリシー</CellLink>
         </Cell>
         <Cell>
-          <FooterLink to={Path.asct()}>特定商取引法に基づく表記</FooterLink>
+          <CellLink to={Path.asct()}>特定商取引法に基づく表記</CellLink>
         </Cell>
         <Cell>
-          <FooterLink to={Path.cancellationPolicies()}>キャンセルポリシー</FooterLink>
+          <CellLink to={Path.cancellationPolicies()}>キャンセルポリシー</CellLink>
         </Cell>
         <Cell>
           <InlineText.Base fontSize={11}>@ 2019 MonooQ</InlineText.Base>

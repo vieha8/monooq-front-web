@@ -59,14 +59,14 @@ type PropTypes = {
   onClickDelete: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({ imageUri, onClickDelete }: PropTypes) => (
   <Container>
     <ImageWrapper>
-      <Image src={props.imageUri} alt="" />
+      <Image src={imageUri} alt="" />
       <TextLink
         onClick={e => {
           e.preventDefault();
-          props.onClickDelete();
+          onClickDelete();
         }}
         fontSize={FontSizes.medium2}
       >

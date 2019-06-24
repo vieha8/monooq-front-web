@@ -60,14 +60,14 @@ export default ({
     ))}
     pass={
       <IconInputField
-        right="true"
+        right
         iconClassName={ispasswordVisible ? 'fal fa-eye-slash' : 'fal fa-eye'}
         type={ispasswordVisible ? 'password' : 'text'}
         placeholder="パスワード"
         value={password}
         onChange={e => onChangePassword(e.target.value)}
-        clickIcon={onClickIconPassword}
         onKeyDown={onKeyDownPassword}
+        clickIcon={onClickIconPassword}
       />
     }
     passError={passError.map((text, i) => (

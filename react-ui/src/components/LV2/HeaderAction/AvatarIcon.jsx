@@ -6,17 +6,17 @@ import AvatarImage from 'components/LV1/AvatarImage';
 
 type PropTypes = {
   to?: string,
-  size?: string,
   imageSrc: string,
+  size?: string,
 };
 
-export default (props: PropTypes) =>
-  props.to ? (
-    <Link to={props.to}>
-      <AvatarImage src={props.imageSrc} size={props.size || 32} />
+export default ({ to, imageSrc, size }: PropTypes) =>
+  to ? (
+    <Link to={to}>
+      <AvatarImage src={imageSrc} size={size || 32} />
     </Link>
   ) : (
     <Fragment>
-      <AvatarImage src={props.imageSrc} size={props.size || 32} />
+      <AvatarImage src={imageSrc} size={size || 32} />
     </Fragment>
   );

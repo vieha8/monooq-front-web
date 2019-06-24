@@ -5,10 +5,6 @@ import styled from 'styled-components';
 import InlineText from 'components/LV1/InlineText';
 import { FontSizes } from 'variables';
 
-type PropTypes = {
-  content: string,
-};
-
 const Wrap = styled.div`
   margin: 20px auto;
 `;
@@ -17,14 +13,18 @@ const ItemWrap = styled.div`
   margin: 4px auto;
 `;
 
-export default (props: PropTypes) => (
+type PropTypes = {
+  content: string,
+};
+
+export default ({ content }: PropTypes) => (
   <Wrap>
     <ItemWrap>
       <InlineText.Base fontSize={`${FontSizes.small_12}`}>受取りについて補足</InlineText.Base>
     </ItemWrap>
     <ItemWrap>
       <InlineText.Base fontSize={`${FontSizes.small_15}`} bold>
-        {props.content}
+        {content}
       </InlineText.Base>
     </ItemWrap>
   </Wrap>

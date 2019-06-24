@@ -50,25 +50,50 @@ const IconInputField = styled(InputField)`
 `;
 
 type PropTypes = {
+  right?: boolean,
   iconClassName: string,
-  right: boolean,
+  type: string,
+  placeholder: string,
+  value: string | number,
+  onChange: Function,
+  onKeyDown: Function,
+  clickIcon: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  right,
+  type,
+  placeholder,
+  value,
+  onChange,
+  onKeyDown,
+  clickIcon,
+  iconClassName,
+}: PropTypes) => (
   <Wrapper>
-    {props.right ? (
+    {right ? (
       <Fragment>
-        <IconInputField {...props} right={props.right} />
-        <StyledTextButton
-          onClick={props.clickIcon}
-          className={props.iconClassName}
-          right={props.right}
+        <IconInputField
+          right={right}
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
         />
+        <StyledTextButton onClick={clickIcon} className={iconClassName} right={right} />
       </Fragment>
     ) : (
       <Fragment>
-        <Icon className={props.iconClassName} />
-        <IconInputField {...props} />
+        <Icon className={iconClassName} />
+        <IconInputField
+          right={right}
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+        />
       </Fragment>
     )}
   </Wrapper>

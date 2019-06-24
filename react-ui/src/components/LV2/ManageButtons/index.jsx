@@ -35,27 +35,33 @@ const PrivateButton = styled(PrimaryButton)`
 
 type PropTypes = {
   onClickEdit: Function,
-  onClickPrivate?: Function,
+  statusPrivate?: boolean,
   onClickPublic?: Function,
-  private?: boolean,
-  public?: boolean,
+  statusPublic?: boolean,
+  onClickPrivate?: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  onClickEdit,
+  statusPrivate,
+  onClickPublic,
+  statusPublic,
+  onClickPrivate,
+}: PropTypes) => (
   <Container>
     <Wrapper>
-      <Button primary fontbold fill={1} onClick={props.onClickEdit}>
+      <Button primary fontbold fill={1} onClick={onClickEdit}>
         編集する
       </Button>
     </Wrapper>
     <Wrapper>
-      {props.private && (
-        <Button secondary fontbold fill={1} onClick={props.onClickPublic}>
+      {statusPrivate && (
+        <Button secondary fontbold fill={1} onClick={onClickPublic}>
           この場所を公開する
         </Button>
       )}
-      {props.public && (
-        <PrivateButton fill={1} onClick={props.onClickPrivate}>
+      {statusPublic && (
+        <PrivateButton fill={1} onClick={onClickPrivate}>
           非公開にする
         </PrivateButton>
       )}

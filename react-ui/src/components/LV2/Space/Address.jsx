@@ -6,10 +6,6 @@ import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/InlineText';
 import { Dimens, FontSizes } from 'variables';
 
-type PropTypes = {
-  content: string,
-};
-
 const Wrap = styled.div`
   margin: ${Dimens.medium2}px auto 0;
   ${media.phone`
@@ -25,11 +21,15 @@ const AddressContent = styled.div`
   `};
 `;
 
-export default (props: PropTypes) => (
+type PropTypes = {
+  content: string,
+};
+
+export default ({ content }: PropTypes) => (
   <Wrap>
     <AddressContent>
       <InlineText.Base fontSize={`${FontSizes.small_15}`} bold>
-        {props.content}
+        {content}
       </InlineText.Base>
     </AddressContent>
     <AddressContent detail>

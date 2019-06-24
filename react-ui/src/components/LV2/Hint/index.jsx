@@ -32,11 +32,11 @@ type PropTypes = {
   content: Array<string>,
 };
 
-export default (props: PropTypes) => (
+export default ({ title, content }: PropTypes) => (
   <Container>
     <TextWrapper>
-      <Text>{props.title}</Text>
-      {props.content.map((str, i) => (
+      <Text>{title}</Text>
+      {content.map((str, i) => (
         <Text key={`hint_content_${i}`.toString()}>{str}</Text>
       ))}
     </TextWrapper>

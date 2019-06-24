@@ -26,7 +26,7 @@ const Sales = styled(LabelContainer)`
 `;
 
 type PropTypes = {
-  paid: boolean,
+  paid?: boolean,
   amount: number,
 };
 
@@ -37,13 +37,13 @@ const salesFormat = price => {
   return numeral(priceMinusFee).format('0,0');
 };
 
-export default (props: PropTypes) => (
+export default ({ paid, amount }: PropTypes) => (
   <Container>
     <LabelContainer>
       <div>
-        <InlineText.Base>{props.paid ? '料金' : '売上'}</InlineText.Base>
+        <InlineText.Base>{paid ? '料金' : '売上'}</InlineText.Base>
       </div>
-      {!props.paid && (
+      {!paid && (
         <div>
           <InlineText.EmphasisTiny>
             サービス利用手数料20%を引いた金額が表示されています。
@@ -52,7 +52,7 @@ export default (props: PropTypes) => (
       )}
     </LabelContainer>
     <Sales>
-      <InlineText.Base>{salesFormat(props.amount)}円</InlineText.Base>
+      <InlineText.Base>{`${salesFormat(amount)}円`}</InlineText.Base>
     </Sales>
   </Container>
 );

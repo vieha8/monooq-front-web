@@ -28,25 +28,34 @@ type PropTypes = {
   content: string,
   furniture?: boolean,
   prices: Array<number>,
-  onClickEdit: Function,
   link: string,
   status: string,
+  onClickEdit: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  image,
+  address,
+  content,
+  furniture,
+  prices,
+  link,
+  status,
+  onClickEdit,
+}: PropTypes) => (
   <Container>
     <Cell>
       <PlaceListVerticalItem
-        image={props.image}
-        address={props.address}
-        content={props.content}
-        furniture={props.furniture}
-        prices={props.prices}
-        href={props.link}
-        status={props.status}
+        image={image}
+        address={address}
+        content={content}
+        furniture={furniture}
+        prices={prices}
+        href={link}
+        status={status}
         manage
       />
-      <ManageButtons onClickEdit={props.onClickEdit} fontBold />
+      <ManageButtons onClickEdit={onClickEdit} fontBold />
     </Cell>
   </Container>
 );

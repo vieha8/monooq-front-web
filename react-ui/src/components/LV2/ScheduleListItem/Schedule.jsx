@@ -26,11 +26,6 @@ const ScheduleWrapper = styled.div`
 `;
 
 type PropTypes = {
-  user: {
-    ID: string,
-    Name: string,
-    ImageUrl: string,
-  },
   space: {
     image: {
       src: string,
@@ -40,20 +35,26 @@ type PropTypes = {
     content: string,
     href: string,
   },
+  user: {
+    ID: string,
+    Name: string,
+    ImageUrl: string,
+  },
+  isHost?: boolean,
+  onClick?: Function,
   startDate: Date | string,
   endDate: Date | string,
 };
 
-export default (props: PropTypes) => (
+export default ({ space, user, isHost, onClick, startDate, endDate }: PropTypes) => (
   <ClearfixContainer>
     <SpaceContainer>
       <SpaceWrapper>
-        <PlaceListHorizonItem {...props.space} {...props} />
+        <PlaceListHorizonItem {...space} {...user} isHost={isHost} onClick={onClick} />
       </SpaceWrapper>
     </SpaceContainer>
     <ScheduleWrapper>
-      <Duration startDate={props.startDate} endDate={props.endDate} />
-      {/*<Operation roomId={props.roomId} float="right" />*/}
+      <Duration startDate={startDate} endDate={endDate} />
     </ScheduleWrapper>
   </ClearfixContainer>
 );

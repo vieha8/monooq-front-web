@@ -5,7 +5,6 @@ import Payment from 'components/LV2/Payment';
 import PlaceListHorizonItem from 'components/LV2/PlaceListHorizonItem';
 
 type PropTypes = {
-  hostName: string,
   space: {
     image: {
       src: string,
@@ -15,6 +14,13 @@ type PropTypes = {
     content: string,
     href?: string,
   },
+  user: {
+    ID: string,
+    Name: string,
+    ImageUrl: string,
+  },
+  isHost?: boolean,
+  onClick?: Function,
   payment: {
     beginAt: string,
     endAt: string,
@@ -23,9 +29,9 @@ type PropTypes = {
   },
 };
 
-export default (props: PropTypes) => (
+export default ({ space, user, isHost, onClick, payment }: PropTypes) => (
   <Fragment>
-    <PlaceListHorizonItem {...props.space} {...props} />
-    <Payment {...props.payment} />
+    <PlaceListHorizonItem {...space} {...user} isHost={isHost} onClick={onClick} />
+    <Payment {...payment} />
   </Fragment>
 );

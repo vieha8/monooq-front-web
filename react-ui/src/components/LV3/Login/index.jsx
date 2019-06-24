@@ -53,7 +53,7 @@ export default ({
     }
     pass={
       <IconInputField
-        right="true"
+        right
         iconClassName={ispasswordVisible ? 'fal fa-eye-slash' : 'fal fa-eye'}
         type={ispasswordVisible ? 'password' : 'text'}
         placeholder="パスワード"

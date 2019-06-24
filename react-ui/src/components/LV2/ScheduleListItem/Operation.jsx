@@ -38,6 +38,7 @@ const Other = styled(Message)`
 `;
 
 type PropTypes = {
+  float?: boolean,
   roomId: string,
   otherAction?: {
     text: string,
@@ -45,20 +46,20 @@ type PropTypes = {
   },
 };
 
-export default (props: PropTypes) => (
+export default ({ float, roomId, otherAction }: PropTypes) => (
   <Container>
-    <OperationContainer float={props.float}>
+    <OperationContainer float={float}>
       <Message>
-        <TextLink to={Path.message(props.roomId)}>
+        <TextLink to={Path.message(roomId)}>
           <InlineText.Base fontSize={`${FontSizes.medium}`} color={`${Colors.brandPrimary}`} bold>
             メッセージを見る
           </InlineText.Base>
         </TextLink>
       </Message>
-      {props.otherAction && (
+      {otherAction && (
         <Other>
-          <TextLink to={props.otherAction.href} fontSize={FontSizes.xsmall}>
-            {props.otherAction.text}
+          <TextLink to={otherAction.href} fontSize={FontSizes.xsmall}>
+            {otherAction.text}
           </TextLink>
         </Other>
       )}

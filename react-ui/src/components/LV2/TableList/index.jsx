@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Colors } from 'variables';
 import InlineText from 'components/LV1/InlineText';
@@ -35,9 +35,9 @@ type PropTypes = {
   }>,
 };
 
-export default (props: PropTypes) => (
+export default ({ list }: PropTypes) => (
   <div>
-    {props.list.map((item, i) => (
+    {list.map((item, i) => (
       <Row key={`table_list_item_${i}`.toString()}>
         <Table>
           <Cell width="200px">

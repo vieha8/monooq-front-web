@@ -118,18 +118,8 @@ const OnlyPhone = styled.span`
 
 const MAX_PREVIEW_COUNT = 4;
 
-type PropTypes = {
-  images: Array<{
-    url: string,
-  }>,
-  onChangeImage: Function,
-  onClickDeleteImage: Function,
-  isImageUploading: boolean,
-};
-
-function handleChangeImageWithOrientationFix(data, props: PropTypes) {
+function handleChangeImageWithOrientationFix(data, imagesTmp, onChangeImage) {
   const images = [];
-  const imagesTmp = props.images;
   const currentCount =
     imagesTmp && imagesTmp.length > 0 && isImageDefault(imagesTmp[0].url)
       ? imagesTmp.length - 1
@@ -164,7 +154,7 @@ function handleChangeImageWithOrientationFix(data, props: PropTypes) {
   }
 
   setTimeout(() => {
-    props.onChangeImage(images);
+    onChangeImage(images);
   }, 80);
 }
 
@@ -177,8 +167,7 @@ function getEmptyCount(length) {
   return emptyList;
 }
 
-function showImagePreview(props: PropTypes) {
-  const { images } = props;
+function showImagePreview(images, onClickDeleteImage) {
   if (images) {
     return (
       <ImagePreviewContainer>
@@ -193,10 +182,7 @@ function showImagePreview(props: PropTypes) {
 
             return (
               <ImagePreviewWrapper key={`image_preivew_${i}`.toString()} widthRate={25}>
-                <ImagePreview
-                  imageUri={imageUrl}
-                  onClickDelete={() => props.onClickDeleteImage(i)}
-                />
+                <ImagePreview imageUri={imageUrl} onClickDelete={() => onClickDeleteImage(i)} />
               </ImagePreviewWrapper>
             );
           }
@@ -219,8 +205,16 @@ function showImagePreview(props: PropTypes) {
   return null;
 }
 
-export default (props: PropTypes) => {
-  const { images, isImageUploading } = props;
+type PropTypes = {
+  images: Array<{
+    url: string,
+  }>,
+  isImageUploading: boolean,
+  onChangeImage: Function,
+  onClickDeleteImage: Function,
+};
+
+export default ({ images, isImageUploading, onClickDeleteImage, onChangeImage }: PropTypes) => {
   return (
     <Fragment>
       <div>
@@ -240,7 +234,7 @@ export default (props: PropTypes) => {
           <DropZoneWrap>
             <Dropzone
               accept="image/jpeg, image/png"
-              onDrop={data => handleChangeImageWithOrientationFix(data, props)}
+              onDrop={data => handleChangeImageWithOrientationFix(data, images, onChangeImage)}
             >
               {({ getRootProps, getInputProps }) => (
                 <DndContent {...getRootProps()}>
@@ -261,7 +255,7 @@ export default (props: PropTypes) => {
             </Dropzone>
           </DropZoneWrap>
         )}
-      {(images || []).length > 0 && showImagePreview(props)}
+      {(images || []).length > 0 && showImagePreview(images, onClickDeleteImage)}
       <HintBottomWrap>
         <InlineText.Tiny>
           最大4枚まで登録が可能です。

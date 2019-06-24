@@ -14,8 +14,8 @@ type PropTypes = {
   color?: string,
 };
 
-export default (props: PropTypes) => (
-  <LinkWrapper onClick={props.onClick}>
-    <CloseIcon color={props.color} fontSize={24} />
+export default ({ onClick, color }: PropTypes) => (
+  <LinkWrapper onClick={onClick}>
+    <CloseIcon color={color} fontSize={24} />
   </LinkWrapper>
 );

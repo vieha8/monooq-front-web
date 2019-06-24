@@ -8,13 +8,7 @@ const Caption = styled.div`
   text-align: center;
 `;
 
-type PropTypes = {
-  onClick: Function,
-  loading: boolean,
-  disabled: boolean,
-};
-
-export default (props: PropTypes) => (
+export default () => (
   <div>
     <Caption>
       <InlineText.EmphasisTiny>

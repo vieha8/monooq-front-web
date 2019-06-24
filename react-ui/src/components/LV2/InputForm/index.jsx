@@ -34,56 +34,79 @@ const CheckWrap = styled.div`
 `;
 
 type PropTypes = {
-  label: string,
+  label?: string,
   hint?: string,
-  placeholder?: string,
-  unit?: string,
-  value: string,
-  onChange: Function,
+  checkbox?: boolean,
+  checked?: boolean,
+  onClick?: Function,
+  onKeyDown?: Function,
+  checktext?: string,
+  margintop?: number,
   extension?: React.Element<*>,
   multiline?: boolean,
-  onKeyDown?: Function,
+  rows?: number,
+  placeholder?: string,
+  value: string,
+  type?: string,
+  autoComplete?: string,
+  onChange?: Function,
+  hintbottom?: string,
+  unit?: string,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  label,
+  hint,
+  checkbox,
+  checked,
+  onClick,
+  onKeyDown,
+  checktext,
+  margintop,
+  extension,
+  multiline,
+  rows,
+  placeholder,
+  value,
+  type,
+  autoComplete,
+  onChange,
+  hintbottom,
+  unit,
+}: PropTypes) => (
   <Fragment>
-    <H3 bold>{props.label}</H3>
-    {props.hint && <InlineText.EmphasisSmall>{props.hint}</InlineText.EmphasisSmall>}
-    {props.checkbox ? (
+    <H3 bold>{label}</H3>
+    {hint && <InlineText.EmphasisSmall>{hint}</InlineText.EmphasisSmall>}
+    {checkbox ? (
       <CheckWrap>
-        <Check checked={props.checked} onClick={props.onClick} onKeyDown={props.onKeyDown}>
-          {props.checktext}
+        <Check checked={checked} onClick={onClick} onKeyDown={onKeyDown}>
+          {checktext}
         </Check>
       </CheckWrap>
     ) : (
-      <InputFieldWrapper unit={props.unit} margintop={props.margintop}>
-        {props.extension ? (
-          props.extension
-        ) : props.multiline ? (
-          <TextArea
-            {...props}
-            placeholder={props.placeholder}
-            value={props.value}
-            onChange={props.onChange}
-          />
-        ) : (
-          <InputField
-            {...props}
-            placeholder={props.placeholder}
-            value={props.value}
-            onChange={props.onChange}
-          />
-        )}
+      <InputFieldWrapper unit={unit} margintop={margintop}>
+        {extension ||
+          (multiline ? (
+            <TextArea rows={rows} placeholder={placeholder} value={value} onChange={onChange} />
+          ) : (
+            <InputField
+              type={type}
+              autoComplete={autoComplete}
+              placeholder={placeholder}
+              value={value}
+              onChange={onChange}
+            />
+          ))}
       </InputFieldWrapper>
     )}
-    {props.hintbottom && (
+    {hintbottom && (
       <HintBottomWrap>
-        <InlineText.Tiny>{props.hintbottom}</InlineText.Tiny>
+        <InlineText.Tiny>{hintbottom}</InlineText.Tiny>
       </HintBottomWrap>
     )}
-    {props.unit && (
+    {unit && (
       <UnitWrapper>
-        <InlineText.Base>{props.unit}</InlineText.Base>
+        <InlineText.Base>{unit}</InlineText.Base>
       </UnitWrapper>
     )}
   </Fragment>
