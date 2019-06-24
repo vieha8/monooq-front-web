@@ -43,7 +43,7 @@ export default ({ userId }: PropTypes) => (
       スケジュールを確認して取引を完了してください。
     </InlineText.Base>
     <Row>
-      <TextLink path={Path.schedule(userId)}>スケジュールを確認する</TextLink>
+      <TextLink to={Path.schedule(userId)}>スケジュールを確認する</TextLink>
     </Row>
   </Fragment>
 );

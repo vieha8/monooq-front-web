@@ -46,13 +46,13 @@ type PropTypes = {
   imagePreview: File | string,
 };
 
-export default (props: PropTypes) => (
+export default ({ onDrop, image, imagePreview }: PropTypes) => (
   <DropzoneWrap>
-    <Dropzone accept="image/jpeg, image/png" onDrop={props.onDrop}>
+    <Dropzone accept="image/jpeg, image/png" onDrop={onDrop}>
       {({ getRootProps, getInputProps }) => (
         <Container {...getRootProps()}>
-          {props.image ? (
-            <Preview src={props.imagePreview || props.image} />
+          {image ? (
+            <Preview src={imagePreview || image} />
           ) : (
             <div>
               <Image className="fal fa-image" />

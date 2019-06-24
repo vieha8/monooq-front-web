@@ -10,17 +10,17 @@ const customStyle = `
   `};
 `;
 
-export default (props: Object) => (
+export default ({ props, onClick, children }: Object) => (
   <TextLink
     {...props}
     custom={customStyle || ''}
     onClick={e => {
       e.preventDefault();
-      if (props.onClick) {
-        props.onClick();
+      if (onClick) {
+        onClick();
       }
     }}
   >
-    {props.children}
+    {children}
   </TextLink>
 );

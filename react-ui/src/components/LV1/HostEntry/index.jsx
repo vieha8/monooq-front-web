@@ -38,8 +38,8 @@ type PropTypes = {
   onClick: Function,
 };
 
-export default (props: PropTypes) => (
-  <Container onClick={props.onClick}>
+export default ({ onClick }: PropTypes) => (
+  <Container onClick={onClick}>
     <Label1>スペースを</Label1>
     <Label2>登録する</Label2>
   </Container>

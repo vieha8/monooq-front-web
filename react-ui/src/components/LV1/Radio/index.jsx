@@ -53,15 +53,15 @@ const Label = styled.div`
 `;
 
 type PropTypes = {
+  onClick: Function,
   checked?: boolean,
   border?: boolean,
   children: string,
-  onClick: Function,
 };
 
-export default (props: PropTypes) => (
-  <Container onClick={props.onClick}>
-    <Radio checked={props.checked} />
-    <Label border={props.border}>{props.children}</Label>
+export default ({ onClick, checked, border, children }: PropTypes) => (
+  <Container onClick={onClick}>
+    <Radio checked={checked} />
+    <Label border={border}>{children}</Label>
   </Container>
 );
