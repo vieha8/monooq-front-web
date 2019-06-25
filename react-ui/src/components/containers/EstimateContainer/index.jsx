@@ -27,7 +27,7 @@ type PropTypes = {
   dispatch: Function,
   isSending: boolean,
   user: {
-    ID: number,
+    id: number,
   },
 };
 

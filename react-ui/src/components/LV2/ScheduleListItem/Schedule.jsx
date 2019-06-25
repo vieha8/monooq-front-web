@@ -26,6 +26,11 @@ const ScheduleWrapper = styled.div`
 `;
 
 type PropTypes = {
+  user: {
+    id: string,
+    name: string,
+    imageUrl: string,
+  },
   space: {
     image: {
       src: string,
@@ -34,11 +39,6 @@ type PropTypes = {
     address: string,
     content: string,
     href: string,
-  },
-  user: {
-    ID: string,
-    Name: string,
-    ImageUrl: string,
   },
   isHost?: boolean,
   onClick?: Function,

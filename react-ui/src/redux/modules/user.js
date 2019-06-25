@@ -2,6 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
+import { handleGTM } from 'helpers/gtm';
 import { push } from 'connected-react-router';
 import { ErrorMessages } from 'variables';
 import { uploadImage } from '../helpers/firebase';
@@ -163,6 +164,11 @@ function* getSpaces(params) {
 }
 
 function* updateUser({ payload: { userId, body } }) {
+  const user = yield select(state => state.auth.user);
+  if (user.name === '' && body.name !== '') {
+    handleGTM('userRegistered', user.id);
+  }
+
   if (body.imageUri instanceof Blob) {
     const fileReader = new FileReader();
     fileReader.readAsArrayBuffer(body.imageUri);

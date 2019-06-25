@@ -98,7 +98,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     }
   };
 
-  onClickSpace = (space: { ID: number }) => {
+  onClickSpace = (space: { id: number }) => {
     const { history } = this.props;
     history.push(Path.space(space.id));
   };

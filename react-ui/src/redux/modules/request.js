@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import { push } from 'connected-react-router';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { formatName } from 'helpers/string';
+import { handleGTM } from 'helpers/gtm';
 import { authActions, getToken } from './auth';
 import { createOmiseToken } from '../helpers/omise';
 import Path from '../../config/path';
@@ -194,7 +195,9 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
 
   yield sendEstimateEmail({ toUserId: requestUserId, roomId });
   yield put(requestActions.estimateSuccess(requestInfo));
-  window.dataLayer.push({ event: 'estimate', eventValue: requestInfo.id });
+
+  handleGTM('estimate', requestInfo.id);
+
   yield put(push(Path.message(roomId)));
 }
 
@@ -355,7 +358,8 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     { merge: true },
   );
 
-  window.dataLayer.push({ event: 'match', eventValue: requestId });
+  handleGTM('match', requestId);
+
   yield sendPaymentEmail({ roomId, spaceId: requestData.spaceId });
   yield put(requestActions.paymentSuccess(data));
 }
@@ -410,7 +414,7 @@ function* request({ payload: { user, space } }) {
   }
 
   if (!isRequested && user.id !== 2613) {
-    window.dataLayer.push({ event: 'newRequest' }); // GTM
+    handleGTM('newRequest', user.id);
 
     const script = document.createElement('script');
 

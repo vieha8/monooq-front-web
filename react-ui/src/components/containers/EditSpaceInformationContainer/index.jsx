@@ -27,7 +27,7 @@ type PropTypes = {
     push: Function,
   },
   space: {
-    ID: number,
+    id: number,
   },
 };
 

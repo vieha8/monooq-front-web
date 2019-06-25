@@ -35,7 +35,7 @@ type PropTypes = {
     },
   },
   user: {
-    ID: number,
+    id: number,
   },
   space: SpaceType,
 };
