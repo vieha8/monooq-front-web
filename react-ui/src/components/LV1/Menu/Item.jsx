@@ -16,11 +16,6 @@ const MenuItem = styled.li`
   &:not(:last-child) {
     border-bottom: none;
   }
-  ${props =>
-    !props.show &&
-    `
-    display: none;
-  `};
   ${media.tablet`
     width: calc(100% - 40px);
   `};

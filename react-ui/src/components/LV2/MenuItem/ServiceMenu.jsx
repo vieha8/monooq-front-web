@@ -43,7 +43,6 @@ const LinkWrap = styled.div`
 `;
 
 type PropTypes = {
-  props: Props,
   blank?: boolean,
   line?: boolean,
   logout?: boolean,
@@ -59,7 +58,6 @@ type PropTypes = {
 const HyperLinkStyled = MenuLink.withComponent('a');
 
 export default ({
-  props,
   blank,
   line,
   logout,
@@ -72,7 +70,7 @@ export default ({
   to,
 }: PropTypes) =>
   blank ? (
-    <MenuItem show {...props}>
+    <MenuItem>
       <LinkWrap line={line} logout={logout}>
         <HyperLinkStyled
           href={href || ''}
@@ -92,7 +90,7 @@ export default ({
       </LinkWrap>
     </MenuItem>
   ) : (
-    <MenuItem show {...props}>
+    <MenuItem>
       <LinkWrap line={line}>
         <MenuLink to={to}>
           <MenuText>
