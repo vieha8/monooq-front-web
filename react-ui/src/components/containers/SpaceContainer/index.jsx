@@ -117,7 +117,7 @@ class SpaceContainer extends Component<PropTypes> {
     return (
       <Fragment>
         <Detail
-          id={space.iD}
+          id={space.id}
           map={<SpaceMap lat={space.lat} lng={space.lng} />}
           pref={space.addressPref}
           city={space.addressCity}
