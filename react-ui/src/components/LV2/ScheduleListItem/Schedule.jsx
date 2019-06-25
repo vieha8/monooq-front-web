@@ -40,21 +40,20 @@ type PropTypes = {
     content: string,
     href: string,
   },
-  isHost?: boolean,
-  onClick?: Function,
   startDate: Date | string,
   endDate: Date | string,
 };
 
-export default ({ space, user, isHost, onClick, startDate, endDate }: PropTypes) => (
+export default (props: PropTypes) => (
   <ClearfixContainer>
     <SpaceContainer>
       <SpaceWrapper>
-        <PlaceListHorizonItem {...space} {...user} isHost={isHost} onClick={onClick} />
+        <PlaceListHorizonItem {...props.space} {...props} />
       </SpaceWrapper>
     </SpaceContainer>
     <ScheduleWrapper>
-      <Duration startDate={startDate} endDate={endDate} />
+      <Duration startDate={props.startDate} endDate={props.endDate} />
+      {/*<Operation roomId={props.roomId} float="right" />*/}
     </ScheduleWrapper>
   </ClearfixContainer>
 );
