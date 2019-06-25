@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import TextLink from 'components/LV1/TextLink';
 import InlineText from 'components/LV1/InlineText';
-import { FontSizes, Colors, Dimens } from 'variables';
+import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 
@@ -43,47 +43,49 @@ const Cell = styled.li`
   `};
 `;
 
-const CellLink = styled(TextLink)`
-  font-size: ${FontSizes.xsmall}px;
-`;
+const FooterLink = (props: Object) => (
+  <TextLink {...props} fontSize={11}>
+    {props.children}
+  </TextLink>
+);
 
 export default () => (
   <Container>
     <nav>
       <List>
         <Cell>
-          <CellLink href="https://monooq.co.jp/" target="_blank">
+          <FooterLink href="https://monooq.co.jp/" target="_blank">
             運営会社
-          </CellLink>
+          </FooterLink>
         </Cell>
         <Cell>
-          <CellLink to={Path.about()}>はじめての方へ</CellLink>
+          <FooterLink to={Path.about()}>はじめての方へ</FooterLink>
         </Cell>
         <Cell>
-          <CellLink to={Path.insurance()}>荷物に対する保険</CellLink>
+          <FooterLink to={Path.insurance()}>荷物に対する保険</FooterLink>
         </Cell>
         <Cell>
-          <CellLink to={Path.rule()}>ルールとマナー</CellLink>
+          <FooterLink to={Path.rule()}>ルールとマナー</FooterLink>
         </Cell>
         <Cell>
-          <CellLink href="https://help.monooq.com/" target="_blank">
+          <FooterLink href="https://help.monooq.com/" target="_blank">
             よくある質問
-          </CellLink>
+          </FooterLink>
         </Cell>
         <Cell>
-          <CellLink to={Path.terms()}>利用規約</CellLink>
+          <FooterLink to={Path.terms()}>利用規約</FooterLink>
         </Cell>
         <Cell>
-          <CellLink to={Path.privacy()}>プライバシーポリシー</CellLink>
+          <FooterLink to={Path.privacy()}>プライバシーポリシー</FooterLink>
         </Cell>
         <Cell>
-          <CellLink to={Path.asct()}>特定商取引法に基づく表記</CellLink>
+          <FooterLink to={Path.asct()}>特定商取引法に基づく表記</FooterLink>
         </Cell>
         <Cell>
-          <CellLink to={Path.cancellationPolicies()}>キャンセルポリシー</CellLink>
+          <FooterLink to={Path.cancellationPolicies()}>キャンセルポリシー</FooterLink>
         </Cell>
         <Cell>
-          <InlineText.Base fontSize={11}>@ 2019 MonooQ</InlineText.Base>
+          <InlineText.Base>@ 2019 MonooQ</InlineText.Base>
         </Cell>
       </List>
     </nav>

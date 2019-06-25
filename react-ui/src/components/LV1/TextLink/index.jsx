@@ -75,61 +75,19 @@ const TextLink = styled(Link)`
 
 const HyperLink = TextLink.withComponent('a');
 
-type PropTypes = {
-  href?: string,
-  key?: string,
-  color?: string,
-  bold?: boolean,
-  target?: string,
-  rel?: string,
-  props: object,
-  children: object,
-  to?: string,
-  error?: boolean,
-  onClick?: Function,
-  fontSize?: number,
-  underline?: string,
-};
-
-export default ({
-  href,
-  key,
-  color,
-  bold,
-  target,
-  rel,
-  props,
-  children,
-  to,
-  error,
-  onClick,
-  fontSize,
-  underline,
-}: PropTypes) =>
-  href ? (
-    <HyperLink
-      href={href}
-      key={key}
-      color={color}
-      bold={bold}
-      target={target}
-      rel={rel}
-      underline={underline}
-    >
-      {children}
-    </HyperLink>
+export default (props: Object) =>
+  props.href ? (
+    props.key ? (
+      <HyperLink {...props} href={props.href} key={props.key}>
+        {props.children}
+      </HyperLink>
+    ) : (
+      <HyperLink {...props} href={props.href}>
+        {props.children}
+      </HyperLink>
+    )
   ) : (
-    <TextLink
-      {...props}
-      to={to || ''}
-      color={color}
-      bold={bold}
-      error={error}
-      onClick={onClick}
-      fontSize={fontSize}
-      target={target}
-      rel={rel}
-    >
-      {children}
+    <TextLink {...props} to={props.to || ''}>
+      {props.children}
     </TextLink>
   );
