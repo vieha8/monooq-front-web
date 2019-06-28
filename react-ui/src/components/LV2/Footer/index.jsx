@@ -85,7 +85,7 @@ export default () => (
           <FooterLink to={Path.cancellationPolicies()}>キャンセルポリシー</FooterLink>
         </Cell>
         <Cell>
-          <InlineText.Base>@ 2019 MonooQ</InlineText.Base>
+          <InlineText.Base fontSize={11}>@ 2019 MonooQ</InlineText.Base>
         </Cell>
       </List>
     </nav>

@@ -15,7 +15,7 @@ const AvaterName = styled.span`
   display: inline-block !important;
   font-weight: bold;
   vertical-align: middle;
-  max-width: 140px;
+  max-width: calc(100% - 56px);
   margin-left: ${Dimens.medium}px;
 `;
 

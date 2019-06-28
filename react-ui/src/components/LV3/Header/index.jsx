@@ -82,7 +82,7 @@ const ActionContainer = styled.div`
 const ActionCell = styled.div`
   display: table-cell;
   vertical-align: middle;
-  max-width: 140px;
+  max-width: 300px;
   &:not(:last-child) {
     padding-right: ${Dimens.medium}px;
   }
