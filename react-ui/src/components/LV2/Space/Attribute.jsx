@@ -72,18 +72,27 @@ const ProfileContainer = styled.div`
 `;
 
 type PropTypes = {
-  title: string,
+  hostinfo?: boolean,
+  message?: boolean,
   headContent?: React.Element<*>,
+  title: string,
   contentHostName: React.Element<*>,
   contentProfile?: React.Element<*>,
 };
 
-export default (props: PropTypes) => (
-  <Container hostinfo={props.hostinfo} message={props.message}>
+export default ({
+  hostinfo,
+  message,
+  headContent,
+  title,
+  contentHostName,
+  contentProfile,
+}: PropTypes) => (
+  <Container hostinfo={hostinfo} message={message}>
     <HostImageContainer>
-      {props.headContent ? props.headContent : <InlineText.Base>{props.title}</InlineText.Base>}
+      {headContent || <InlineText.Base>{title}</InlineText.Base>}
     </HostImageContainer>
-    <HostNameContainer>{props.contentHostName}</HostNameContainer>
-    <ProfileContainer>{props.contentProfile}</ProfileContainer>
+    <HostNameContainer>{contentHostName}</HostNameContainer>
+    <ProfileContainer>{contentProfile}</ProfileContainer>
   </Container>
 );

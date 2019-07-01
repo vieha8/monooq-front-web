@@ -22,8 +22,8 @@ type PropTypes = {
   hideProgress?: boolean,
 };
 
-export default (props: PropTypes) => (
+export default ({ hideProgress }: PropTypes) => (
   <Container>
-    <Content>{!props.hideProgress && <Loading size="large" />}</Content>
+    <Content>{!hideProgress && <Loading size="large" />}</Content>
   </Container>
 );

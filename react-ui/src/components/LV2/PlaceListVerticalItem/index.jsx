@@ -122,34 +122,46 @@ const CardShadowStyle = `
 `;
 
 type PropTypes = {
+  href?: string,
+  onClick?: Function,
   image: {
     src: string,
     alt: string,
   },
+  manage?: boolean,
   address: string,
   content: string,
-  furniture?: boolean,
   prices: Array<number>,
-  href?: string,
-  onClick?: Function,
+  status?: string,
+  furniture?: boolean,
 };
 
-export default (props: PropTypes) =>
-  props.manage ? (
+export default ({
+  href,
+  onClick,
+  image,
+  manage,
+  address,
+  content,
+  prices,
+  status,
+  furniture,
+}: PropTypes) =>
+  manage ? (
     <Container manage>
-      <Link to={props.href || ''}>
-        <Card noBorder noPadding pointer onClick={props.onClick} customStyle={NoCardShadowStyle}>
+      <Link to={href || ''}>
+        <Card noBorder noPadding pointer onClick={onClick} customStyle={NoCardShadowStyle}>
           <ImageWrapper>
-            <HeroImage height={290} heightSp={180} large {...props.image} />
+            <HeroImage height={290} heightSp={180} large src={image.src} alt={image.alt} />
           </ImageWrapper>
           <ContentWrapper>
-            <AddressText manage={props.manage}>{props.address ? props.address : ''}</AddressText>
-            <ContentText manage={props.manage}>{props.content ? props.content : ''}</ContentText>
-            <PriceText manage={props.manage}>{props.prices.join('円/')}円</PriceText>
-            {props.status === 'public' ? (
-              <StatusText manage={props.manage}>●公開中</StatusText>
+            <AddressText manage={manage}>{address || ''}</AddressText>
+            <ContentText manage={manage}>{content || ''}</ContentText>
+            <PriceText manage={manage}>{`${prices.join('円/')}円`}</PriceText>
+            {status === 'public' ? (
+              <StatusText manage={manage}>●公開中</StatusText>
             ) : (
-              <StatusText manage={props.manage} draft>
+              <StatusText manage={manage} draft>
                 ○下書き
               </StatusText>
             )}
@@ -159,17 +171,17 @@ export default (props: PropTypes) =>
     </Container>
   ) : (
     <Container>
-      <Link to={props.href || ''}>
-        <Card noPadding pointer onClick={props.onClick} customStyle={CardShadowStyle}>
+      <Link to={href || ''}>
+        <Card noPadding pointer onClick={onClick} customStyle={CardShadowStyle}>
           <ImageWrapper>
-            <HeroImage height={150} medium {...props.image} />
+            <HeroImage height={150} medium src={image.src} alt={image.alt} />
           </ImageWrapper>
           <ContentWrapper>
-            <AddressText>{props.address ? props.address : ''}</AddressText>
-            <ContentText>{props.content ? props.content : ''}</ContentText>
-            <HomeApplianceText>{props.furniture ? '家具・家電OK' : ' '}</HomeApplianceText>
+            <AddressText>{address || ''}</AddressText>
+            <ContentText>{content || ''}</ContentText>
+            <HomeApplianceText>{furniture ? '家具・家電OK' : ' '}</HomeApplianceText>
             <PriceLabel>料金目安（30日間）</PriceLabel>
-            <PriceText>{props.prices.join(' / ')}</PriceText>
+            <PriceText>{prices.join(' / ')}</PriceText>
           </ContentWrapper>
         </Card>
       </Link>

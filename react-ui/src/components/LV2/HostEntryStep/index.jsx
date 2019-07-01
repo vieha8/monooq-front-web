@@ -31,22 +31,22 @@ type PropTypes = {
   step: number,
 };
 
-export default (props: PropTypes) => (
+export default ({ edit, step }: PropTypes) => (
   <div>
     <Wrapper>
-      <Title>{`${props.edit ? '編集' : '登録'}の流れ`}</Title>
+      <Title>{`${edit ? '編集' : '登録'}の流れ`}</Title>
     </Wrapper>
     <Wrapper marginTop={12}>
-      <Step pass={props.step >= 0}>1.スペース情報を登録</Step>
+      <Step pass={step >= 0}>1.スペース情報を登録</Step>
     </Wrapper>
     <Wrapper marginTop={8}>
-      <Step pass={props.step >= 1}>2.預かる荷物について</Step>
+      <Step pass={step >= 1}>2.預かる荷物について</Step>
     </Wrapper>
     <Wrapper marginTop={8}>
-      <Step pass={props.step >= 2}>3.荷物の受け取りについて</Step>
+      <Step pass={step >= 2}>3.荷物の受け取りについて</Step>
     </Wrapper>
     <Wrapper marginTop={8}>
-      <Step pass={props.step >= 3}>4.料金目安を設定する</Step>
+      <Step pass={step >= 3}>4.料金目安を設定する</Step>
     </Wrapper>
   </div>
 );

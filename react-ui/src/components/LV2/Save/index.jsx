@@ -14,13 +14,13 @@ type PropTypes = {
   disabled?: boolean,
 };
 
-export default (props: PropTypes) => (
+export default ({ onClickSave, disabled }: PropTypes) => (
   <div>
     <div>
       <InlineText.Base>下書き保存が可能です</InlineText.Base>
     </div>
     <Wrapper>
-      <Button secondary onClick={props.onClickSave} disabled={props.disabled}>
+      <Button secondary onClick={onClickSave} disabled={disabled}>
         保存する
       </Button>
     </Wrapper>

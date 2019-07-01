@@ -12,22 +12,22 @@ const SelectWrapper = styled.div`
 
 type PropTypes = {
   label: string,
+  hint?: string,
+  value: string,
+  onChange: Function,
   options: Array<{
     text: string,
     value: any,
   }>,
-  hint?: string,
-  value: string,
-  onChange: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({ label, hint, value, onChange, options }: PropTypes) => (
   <Fragment>
-    <H3 bold>{props.label}</H3>
-    {props.hint && <InlineText.EmphasisTiny>{props.hint}</InlineText.EmphasisTiny>}
+    <H3 bold>{label}</H3>
+    {hint && <InlineText.EmphasisTiny>{hint}</InlineText.EmphasisTiny>}
     <SelectWrapper>
-      <Select value={props.value} onChange={props.onChange}>
-        {props.options.map((option, i) => (
+      <Select value={value} onChange={onChange}>
+        {options.map((option, i) => (
           <option key={`select_form_option_${i}`.toString()} value={option.value}>
             {option.text}
           </option>

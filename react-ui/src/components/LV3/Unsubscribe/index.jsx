@@ -54,18 +54,28 @@ const StyledDropdown = styled(Dropdown)`
 `;
 
 type PropTypes = {
-  reasonType: number,
   onChangeReasonType: Function,
+  reasonType: number,
   reasonTypeError: string,
   reasonText: string,
   onChangeReasonText: Function,
   buttonDisabled: boolean,
   onClickUnsubscribe: Function,
-  onKeyDownUnsubscribe: Function,
   buttonLoading: boolean,
+  onKeyDownUnsubscribe: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  onChangeReasonType,
+  reasonType,
+  reasonTypeError,
+  reasonText,
+  onChangeReasonText,
+  buttonDisabled,
+  onClickUnsubscribe,
+  buttonLoading,
+  onKeyDownUnsubscribe,
+}: PropTypes) => (
   <Fragment>
     <InlineText.EmphasisSmall>
       当てはまる理由をご選択ください。今後のサービス改善の参考とさせていただきます。
@@ -84,11 +94,11 @@ export default (props: PropTypes) => (
         selection
         multiple
         placeholder="選択してください"
-        onChange={(_, data) => props.onChangeReasonType(data.value)}
-        value={props.reasonType}
+        onChange={(_, data) => onChangeReasonType(data.value)}
+        value={reasonType}
       />
-      {props.reasonTypeError && (
-        <InlineText.Small color={Colors.error}>{props.reasonTypeError}</InlineText.Small>
+      {reasonTypeError && (
+        <InlineText.Small color={Colors.error}>{reasonTypeError}</InlineText.Small>
       )}
     </Row>
     <Row>
@@ -96,8 +106,8 @@ export default (props: PropTypes) => (
         multiline
         rows={4}
         placeholder="ご意見・ご要望などがあれば入力してください"
-        value={props.reasonText}
-        onChange={e => props.onChangeReasonText(e.target.value)}
+        value={reasonText}
+        onChange={e => onChangeReasonText(e.target.value)}
       />
     </Row>
     <ButtonWrapper>
@@ -105,10 +115,10 @@ export default (props: PropTypes) => (
         primary
         fill={1}
         fontbold
-        disabled={props.buttonDisabled}
-        onClick={props.onClickUnsubscribe}
-        loading={props.buttonLoading}
-        onKeyDown={props.onKeyDownUnsubscribe}
+        disabled={buttonDisabled}
+        onClick={onClickUnsubscribe}
+        loading={buttonLoading}
+        onKeyDown={onKeyDownUnsubscribe}
       >
         退会する
       </Button>

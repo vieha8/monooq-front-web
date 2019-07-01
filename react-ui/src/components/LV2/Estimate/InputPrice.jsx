@@ -19,22 +19,22 @@ const Error = styled.div`
 `;
 
 type PropTypes = {
-  errors: Array<string>,
   onChange: Function,
   value: string,
+  errors: Array<string>,
 };
 
-export default (props: PropTypes) => (
+export default ({ onChange, value, errors }: PropTypes) => (
   <Fragment>
     <div>
       <InputForm
         label="お見積もり料金"
         placeholder="金額を入力してください。"
         unit="円"
-        onChange={e => props.onChange(e.target.value)}
-        value={props.value}
+        onChange={e => onChange(e.target.value)}
+        value={value}
       />
-      {(props.errors || []).map((error, i) => (
+      {(errors || []).map((error, i) => (
         <Error key={`estimate_input_price_error_${i}`.toString()}>
           <InlineText.Small color={Colors.error}>{error}</InlineText.Small>
         </Error>

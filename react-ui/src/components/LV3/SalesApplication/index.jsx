@@ -23,7 +23,7 @@ type PropTypes = {
   transfer: Array<{}>,
 };
 
-export default (props: PropTypes) => (
+export default ({ sales, transfer }: PropTypes) => (
   <div>
     <Content>
       <H2>売上の詳細</H2>
@@ -31,17 +31,13 @@ export default (props: PropTypes) => (
         売上は手数料を引いた金額が表示されています。
       </InlineText.EmphasisSmall>
       <List>
-        {props.sales.length > 0 ? null : (
-          <InlineText.Base>売上履歴はまだありません</InlineText.Base>
-        )}
+        {sales.length > 0 ? null : <InlineText.Base>売上履歴はまだありません</InlineText.Base>}
       </List>
     </Content>
     <Content>
       <H2>振込履歴</H2>
       <List>
-        {props.transfer.length > 0 ? null : (
-          <InlineText.Base>振込履歴はまだありません</InlineText.Base>
-        )}
+        {transfer.length > 0 ? null : <InlineText.Base>振込履歴はまだありません</InlineText.Base>}
       </List>
     </Content>
   </div>

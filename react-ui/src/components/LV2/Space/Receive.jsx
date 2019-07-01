@@ -22,12 +22,12 @@ type PropTypes = {
   meeting: boolean,
 };
 
-export default (props: PropTypes) => (
+export default ({ delivery, meeting }: PropTypes) => (
   <Wrap>
     <ItemWrap>
       <InlineText.Base fontSize={`${FontSizes.small_12}`}>受取り方法</InlineText.Base>
     </ItemWrap>
-    {props.delivery && (
+    {delivery && (
       <div>
         <ItemWrap>
           <InlineText.Base fontSize={`${FontSizes.small_15}`} bold>
@@ -41,7 +41,7 @@ export default (props: PropTypes) => (
         </ItemWrap>
       </div>
     )}
-    {props.meeting && (
+    {meeting && (
       <ItemMeetingWrap>
         <ItemWrap>
           <InlineText.Base fontSize={`${FontSizes.small_15}`} bold>

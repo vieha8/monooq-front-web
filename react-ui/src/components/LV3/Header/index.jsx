@@ -82,7 +82,7 @@ const ActionContainer = styled.div`
 const ActionCell = styled.div`
   display: table-cell;
   vertical-align: middle;
-  max-width: 140px;
+  max-width: 300px;
   &:not(:last-child) {
     padding-right: ${Dimens.medium}px;
   }
@@ -144,61 +144,75 @@ const OnlyPhone = styled.span`
 `;
 
 type PropTypes = {
-  homeUri: string,
+  top?: boolean,
+  stories?: boolean,
+  topUri: string,
+  isCheckingLogin: boolean,
+  noHeaderButton: boolean,
   user: {
     name: string,
     image: string,
   },
-  isCheckingLogin: boolean,
-  noHeaderButton: boolean,
-  loginUri: string,
-  onClickLogin: Function,
-  signupUri: string,
-  top?: boolean,
-  stories?: boolean,
   messageUri: string,
   messageCount?: number,
   searchConditionUri: string,
+  spMenu: React.Element<*>,
+  homeUri: string,
+  loginUri: string,
+  onClickLogin: Function,
+  signupUri: string,
 };
 
-export default (props: PropTypes) => {
+export default ({
+  top,
+  stories,
+  topUri,
+  isCheckingLogin,
+  noHeaderButton,
+  user,
+  messageUri,
+  messageCount,
+  searchConditionUri,
+  spMenu,
+  homeUri,
+  loginUri,
+  onClickLogin,
+  signupUri,
+}: PropTypes) => {
   return (
-    <Container top={props.top} stories={props.stories}>
+    <Container top={top} stories={stories}>
       <Nav>
-        <LogoWrapper to={props.topUri}>
-          {props.top ? <Logo.HeaderWhiteFill /> : <Logo.HeaderFill />}
+        <LogoWrapper to={topUri}>
+          {top ? <Logo.HeaderWhiteFill /> : <Logo.HeaderFill />}
         </LogoWrapper>
-        {!props.isCheckingLogin && !props.noHeaderButton && (
+        {!isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>
-            {props.user ? (
+            {user ? (
               <ActionContainer>
                 <SearchFiledCell>
                   <OnlyPhone>
                     <AnimateSearchInputField
                       iconRight
-                      messageUri={props.messageUri}
-                      messageCount={props.messageCount}
-                      searchConditionUri={props.searchConditionUri}
+                      messageUri={messageUri}
+                      messageCount={messageCount}
+                      searchConditionUri={searchConditionUri}
                       isPhone
                     />
                   </OnlyPhone>
                   <OnlyPC>
-                    <AnimateSearchInputField
-                      iconRight
-                      searchConditionUri={props.searchConditionUri}
-                    />
+                    <AnimateSearchInputField iconRight searchConditionUri={searchConditionUri} />
                   </OnlyPC>
                 </SearchFiledCell>
                 <OnlyPhone>
-                  <ActionCell noCursol>{props.spMenu}</ActionCell>
+                  <ActionCell noCursol>{spMenu}</ActionCell>
                 </OnlyPhone>
                 <OnlyPC>
                   <ActionCell>
-                    <AvatarIcon imageSrc={props.user.image} to={props.homeUri} />
+                    <AvatarIcon imageSrc={user.image} to={homeUri} />
                   </ActionCell>
                   <ActionCell>
-                    <Link to={props.homeUri}>
-                      <AvaterName>{formatName(props.user.name)}</AvaterName>
+                    <Link to={homeUri}>
+                      <AvaterName>{formatName(user.name)}</AvaterName>
                     </Link>
                   </ActionCell>
                 </OnlyPC>
@@ -207,9 +221,9 @@ export default (props: PropTypes) => {
               <ActionContainer>
                 <AnonymouseWrapper>
                   <Anonymouse
-                    loginUri={props.loginUri}
-                    onClickLogin={props.onClickLogin}
-                    signupUri={props.signupUri}
+                    loginUri={loginUri}
+                    onClickLogin={onClickLogin}
+                    signupUri={signupUri}
                   />
                 </AnonymouseWrapper>
               </ActionContainer>

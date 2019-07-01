@@ -48,7 +48,7 @@ type PropTypes = {
   onClickTransfer: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({ confirmedSales, provisionalSales, onClickTransfer }: PropTypes) => (
   <div>
     <Row>
       <Table>
@@ -56,7 +56,7 @@ export default (props: PropTypes) => (
           <InlineText.Base fontSize={14}>現在の売上</InlineText.Base>
         </Cell>
         <Cell right>
-          <InlineText.Bold fontSize={14}>{props.confirmedSales}円</InlineText.Bold>
+          <InlineText.Bold fontSize={14}>{`${confirmedSales}円`}</InlineText.Bold>
         </Cell>
       </Table>
     </Row>
@@ -66,12 +66,12 @@ export default (props: PropTypes) => (
           <InlineText.Base fontSize={14}>取引が終了していない売上</InlineText.Base>
         </Cell>
         <Cell right>
-          <InlineText.Bold fontSize={14}>{props.provisionalSales}円</InlineText.Bold>
+          <InlineText.Bold fontSize={14}>{`${provisionalSales}円`}</InlineText.Bold>
         </Cell>
       </Table>
     </Row>
     <ButtonWrapper>
-      <Button secondary center onClick={props.onClickTransfer}>
+      <Button secondary center onClick={onClickTransfer}>
         振込申請をする
       </Button>
       <InlineText.EmphasisSmall singleLine>

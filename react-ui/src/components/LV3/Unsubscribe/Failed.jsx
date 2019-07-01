@@ -29,7 +29,11 @@ const Row = styled.div`
   `}
 `;
 
-export default (props: { userId: number }) => (
+type PropTypes = {
+  userId: number,
+};
+
+export default ({ userId }: PropTypes) => (
   <Fragment>
     <InlineText.Base>
       現在進行中の取引があります。
@@ -39,7 +43,7 @@ export default (props: { userId: number }) => (
       スケジュールを確認して取引を完了してください。
     </InlineText.Base>
     <Row>
-      <TextLink path={Path.schedule(props.userId)}>スケジュールを確認する</TextLink>
+      <TextLink to={Path.schedule(userId)}>スケジュールを確認する</TextLink>
     </Row>
   </Fragment>
 );

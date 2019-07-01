@@ -79,22 +79,34 @@ type PropTypes = {
   toLogin: React.Element<*>,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  logo,
+  title,
+  email,
+  emailError,
+  pass,
+  passError,
+  terms,
+  next,
+  otherSignup,
+  facebook,
+  toLogin,
+}: PropTypes) => (
   <Fragment>
-    <Logo>{props.logo}</Logo>
-    <Title>{props.title}</Title>
-    <Email>{props.email}</Email>
-    {props.emailError.map((dom, i) => (
+    <Logo>{logo}</Logo>
+    <Title>{title}</Title>
+    <Email>{email}</Email>
+    {emailError.map((dom, i) => (
       <Failed key={`email_error_text_${i}`.toString()}>{dom}</Failed>
     ))}
-    <Pass>{props.pass}</Pass>
-    {props.passError.map((dom, i) => (
+    <Pass>{pass}</Pass>
+    {passError.map((dom, i) => (
       <Failed key={`password_error_text_${i}`.toString()}>{dom}</Failed>
     ))}
-    <Terms>{props.terms}</Terms>
-    <Next>{props.next}</Next>
-    <OtherSignup>{props.otherSignup}</OtherSignup>
-    <Facebook>{props.facebook}</Facebook>
-    <ToLogin>{props.toLogin}</ToLogin>
+    <Terms>{terms}</Terms>
+    <Next>{next}</Next>
+    <OtherSignup>{otherSignup}</OtherSignup>
+    <Facebook>{facebook}</Facebook>
+    <ToLogin>{toLogin}</ToLogin>
   </Fragment>
 );

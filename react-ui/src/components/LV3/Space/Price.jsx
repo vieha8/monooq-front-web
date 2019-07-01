@@ -11,12 +11,6 @@ import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
 
-type PropTypes = {
-  full?: string,
-  half?: string,
-  quarter?: string,
-};
-
 const Wrap = styled.div`
   margin: ${Dimens.medium2}px auto 0;
   padding: ${Dimens.medium2}px 0 20px;
@@ -27,33 +21,39 @@ const Wrap = styled.div`
   `};
 `;
 
-export default (props: PropTypes) => (
+type PropTypes = {
+  full?: string,
+  half?: string,
+  quarter?: string,
+};
+
+export default ({ full, half, quarter }: PropTypes) => (
   <Wrap>
     <PriceHead />
-    {props.full && (
+    {full && (
       <InputPriceOfType
         image={imageFurnitureFull}
         title="全てのスペースの月額料金"
         caption="このスペースすべてを使用する場合"
-        price={props.full}
+        price={full}
         detail
       />
     )}
-    {props.half && (
+    {half && (
       <InputPriceOfType
         image={imageFurnitureHalf}
         title="半分のスペースの月額料金"
         caption="このスペースの半分を使用する場合"
-        price={props.half}
+        price={half}
         detail
       />
     )}
-    {props.quarter && (
+    {quarter && (
       <InputPriceOfType
         image={imageFurnitureQuarter}
         title="1/4程度のスペースの月額料金"
         caption="このスペースの1/4程度を使用する場合"
-        price={props.quarter}
+        price={quarter}
         detail
       />
     )}

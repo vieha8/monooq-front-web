@@ -122,78 +122,85 @@ const OnlyPhone = styled.span`
 `;
 
 type PropTypes = {
+  detail?: boolean,
   image: any,
   title: string,
-  caption: string,
-  placeholder: string,
   price: string,
-  onChange: Function,
+  caption: string,
   error: React.Element<*>,
+  onChange: Function,
+  placeholder: string,
 };
 
-export default (props: PropTypes) =>
-  props.detail ? (
+export default ({
+  detail,
+  image,
+  title,
+  price,
+  caption,
+  error,
+  onChange,
+  placeholder,
+}: PropTypes) =>
+  detail ? (
     <Container detail>
       <OnlyPC>
         <ImageContainer>
-          <Image src={props.image} alt="" />
+          <Image src={image} alt="" />
         </ImageContainer>
       </OnlyPC>
       <PriceContainer>
         <Fragment>
-          <PriceTitleWrapper>{props.title}</PriceTitleWrapper>
-          <PriceWrapperPhone>
-            {props.price}
-            {'円'}
-          </PriceWrapperPhone>
+          <PriceTitleWrapper>{title}</PriceTitleWrapper>
+          <PriceWrapperPhone>{`${price}円`}</PriceWrapperPhone>
         </Fragment>
         <Caption>
           <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
-            {props.caption}
+            {caption}
           </InlineText.Base>
         </Caption>
         <OnlyPhone>
           <ImageContainer>
-            <Image src={props.image} alt="" />
+            <Image src={image} alt="" />
           </ImageContainer>
         </OnlyPhone>
         <OnlyPC>
-          <PriceWrapper>{props.price}円</PriceWrapper>
+          <PriceWrapper>{`${price}円`}</PriceWrapper>
         </OnlyPC>
-        {props.error}
+        {error}
       </PriceContainer>
     </Container>
   ) : (
     <Container>
       <OnlyPC>
         <ImageContainer>
-          <Image src={props.image} alt="" />
+          <Image src={image} alt="" />
         </ImageContainer>
       </OnlyPC>
       <PriceContainer>
         <Fragment>
-          <InlineText.Strong>{props.title}</InlineText.Strong>
+          <InlineText.Strong>{title}</InlineText.Strong>
         </Fragment>
         <Caption>
           <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
-            {props.caption}
+            {caption}
           </InlineText.Base>
         </Caption>
         <OnlyPhone>
           <ImageContainer>
-            <Image src={props.image} alt="" />
+            <Image src={image} alt="" />
           </ImageContainer>
         </OnlyPhone>
         <InputWrapper>
           <InputForm
             type="text"
             unit="円"
-            value={props.price}
-            onChange={e => props.onChange(e.target.value)}
-            placeholder={props.placeholder}
+            value={price}
+            onChange={e => onChange(e.target.value)}
+            placeholder={placeholder}
           />
         </InputWrapper>
-        {props.error}
+        {error}
       </PriceContainer>
     </Container>
   );

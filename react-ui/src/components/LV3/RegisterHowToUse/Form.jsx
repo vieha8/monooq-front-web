@@ -42,12 +42,12 @@ type PropTypes = {
   button: React.Element<*>,
 };
 
-export default (props: PropTypes) => (
+export default ({ title, caption, isHost, captionSub, button }: PropTypes) => (
   <Fragment>
-    <Title>{props.title}</Title>
-    <Caption>{props.caption}</Caption>
-    <IsHost>{props.isHost}</IsHost>
-    <CaptionSub>{props.captionSub}</CaptionSub>
-    <Button>{props.button}</Button>
+    <Title>{title}</Title>
+    <Caption>{caption}</Caption>
+    <IsHost>{isHost}</IsHost>
+    <CaptionSub>{captionSub}</CaptionSub>
+    <Button>{button}</Button>
   </Fragment>
 );

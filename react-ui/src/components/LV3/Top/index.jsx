@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
@@ -83,9 +85,31 @@ const PickupContainer = styled.div`
   margin: ${Dimens.medium}px 0;
 `;
 
-export default props => (
+type PropTypes = {
+  story: boolean,
+  locationText: Function,
+  handleChangeLocation: Function,
+  onKeyDownSearchField: Function,
+  searchButtonDisabled: boolean,
+  onClickSearch: Function,
+  pickUpSpaces: Array<*>,
+  onClickSignup: Function,
+  history: History,
+};
+
+export default ({
+  story,
+  locationText,
+  handleChangeLocation,
+  onKeyDownSearchField,
+  searchButtonDisabled,
+  onClickSearch,
+  pickUpSpaces,
+  onClickSignup,
+  history,
+}: PropTypes) => (
   <TopPage>
-    {!props.story && <Header />}
+    {!story && <Header />}
     <TopView
       catchPhrase={
         <Fragment>
@@ -102,17 +126,17 @@ export default props => (
         </Fragment>
       }
       SIplaceholder="近くのスペースを検索してみよう！　例）東京都港区"
-      SIlocationText={props.locationText}
-      SIonChange={props.handleChangeLocation}
-      SIonKeyDown={props.onKeyDownSearchField}
-      SIsearchDisabled={props.searchButtonDisabled}
-      SIonClickSearchButton={props.onClickSearch}
+      SIlocationText={locationText}
+      SIonChange={handleChangeLocation}
+      SIonKeyDown={onKeyDownSearchField}
+      SIsearchDisabled={searchButtonDisabled}
+      SIonClickSearchButton={onClickSearch}
     />
 
     <PickupContainer>
       <PickupSpaceList
         title="スタッフのおすすめ"
-        spaceList={props.pickUpSpaces}
+        spaceList={pickUpSpaces}
         noMore
         onClickMoreView={() => {}}
       />
@@ -204,7 +228,7 @@ export default props => (
           },
         ]}
         buttonText="ホスト登録はこちら"
-        onClick={props.onClickSignup}
+        onClick={onClickSignup}
       />
     </CommonContainer>
 
@@ -219,7 +243,7 @@ export default props => (
             description:
               'まずは自分に合う物置きスペースを探し、メッセージで荷物を置かせてもらえるかホストに相談をします。サービスの使い方がよくわからない、お困りの方はこちら。',
             buttonText: '使い方について',
-            onClickItem: () => props.history.push(Path.about()),
+            onClickItem: () => history.push(Path.about()),
           },
           {
             iconClass: 'far fa-bookmark',
@@ -227,7 +251,7 @@ export default props => (
             description:
               'サービス内の記録であなたの荷物だと証明できる荷物には最大10万円までの補償があります。あなたがホストの時に、もし誰かの荷物を破損・紛失してしまっても同じ補償が受けられるので安心です。',
             buttonText: '保険について',
-            onClickItem: () => props.history.push(Path.insurance()),
+            onClickItem: () => history.push(Path.insurance()),
           },
           {
             iconClass: 'far fa-handshake',
@@ -235,7 +259,7 @@ export default props => (
             description:
               'モノオクは個人間の物置きシェアサービスです。トラブルや揉め事がないようにルールを設けています。みんなが安心して使えるようにマナーを大切にしましょう。',
             buttonText: 'ルールとマナーについて',
-            onClickItem: () => props.history.push(Path.rule()),
+            onClickItem: () => history.push(Path.rule()),
           },
         ]}
         isUser

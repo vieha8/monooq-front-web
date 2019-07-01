@@ -60,23 +60,32 @@ type PropTypes = {
   noMargin?: boolean,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  header,
+  meta,
+  bottomButtonMargin,
+  noMargin,
+  headline,
+  caption,
+  leftContent,
+  rightContent,
+}: PropTypes) => (
   <div>
-    {props.header}
-    {props.meta}
-    <Page bottomButtonMargin={props.bottomButtonMargin} noMargin={props.noMargin}>
+    {header}
+    {meta}
+    <Page bottomButtonMargin={bottomButtonMargin} noMargin={noMargin}>
       <ClearfixContainer>
         <Content>
           <LeftContent>
-            {props.headline && <H1 bold>{props.headline}</H1>}
-            {props.caption && (
+            {headline && <H1 bold>{headline}</H1>}
+            {caption && (
               <Caption>
-                <InlineText.Base>{props.caption}</InlineText.Base>
+                <InlineText.Base>{caption}</InlineText.Base>
               </Caption>
             )}
-            {props.leftContent}
+            {leftContent}
           </LeftContent>
-          <RightContent>{props.rightContent}</RightContent>
+          <RightContent>{rightContent}</RightContent>
         </Content>
       </ClearfixContainer>
     </Page>

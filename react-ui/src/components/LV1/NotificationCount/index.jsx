@@ -24,12 +24,11 @@ const NoticeCount = styled.div`
 
 type PropTypes = {
   count: number,
-  fontSize?: number,
 };
 
-export default (props: PropTypes) =>
-  props.count > 0 && (
+export default ({ count }: PropTypes) =>
+  count > 0 && (
     <NoticeCountWrap>
-      <NoticeCount>{props.count}</NoticeCount>
+      <NoticeCount>{count}</NoticeCount>
     </NoticeCountWrap>
   );

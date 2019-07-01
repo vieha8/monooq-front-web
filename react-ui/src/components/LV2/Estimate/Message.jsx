@@ -30,25 +30,23 @@ type PropTypes = {
   price: string,
 };
 
-export default (props: PropTypes) => (
+export default ({ beginAt, endAt, duration, price }: PropTypes) => (
   <div>
     <Row>
       <Text>利用スケジュール</Text>
-      <Text>
-        {props.beginAt}〜{props.endAt}
-      </Text>
+      <Text>{`${beginAt}〜${endAt}`}</Text>
     </Row>
     <Row borderTop borderBottom>
       <Text>期間</Text>
       <Text>
-        {props.duration}
+        {duration}
         日間
       </Text>
     </Row>
     <Row>
       <Text>見積もり金額</Text>
       <Text>
-        {props.price}
+        {price}
         円（税込）
       </Text>
     </Row>

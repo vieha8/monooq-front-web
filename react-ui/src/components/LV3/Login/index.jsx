@@ -12,44 +12,59 @@ import { Colors, FontSizes } from 'variables';
 import Form from './Form';
 
 type PropTypes = {
-  onClickIconPassword: Function,
-  onClickFacebook: Function,
-  onClickLogin: Function,
+  email: string,
   onChangeEmail: Function,
+  ispasswordVisible: boolean,
+  password: string,
   onChangePassword: Function,
   onKeyDownPassword: Function,
-  email: string,
-  password: string,
+  onClickIconPassword: Function,
   loginFailed: boolean,
+  onClickLogin: Function,
   buttonDisabled: boolean,
   isLoginChecking: boolean,
-  ispasswordVisible: boolean,
+  onClickFacebook: Function,
+  onClickSignup: Function,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  email,
+  onChangeEmail,
+  ispasswordVisible,
+  password,
+  onChangePassword,
+  onKeyDownPassword,
+  onClickIconPassword,
+  loginFailed,
+  onClickLogin,
+  buttonDisabled,
+  isLoginChecking,
+  onClickFacebook,
+  onClickSignup,
+}: PropTypes) => (
   <Form
     title={<H1 bold>ログイン</H1>}
     email={
       <InputField
         placeholder="メールアドレス"
-        value={props.email}
-        onChange={e => props.onChangeEmail(e.target.value)}
+        value={email}
+        onChange={e => onChangeEmail(e.target.value)}
       />
     }
     pass={
       <IconInputField
-        right="true"
-        iconClassName={props.ispasswordVisible ? 'fal fa-eye-slash' : 'fal fa-eye'}
-        type={props.ispasswordVisible ? 'password' : 'text'}
+        right
+        iconClassName={ispasswordVisible ? 'fal fa-eye-slash' : 'fal fa-eye'}
+        type={ispasswordVisible ? 'password' : 'text'}
         placeholder="パスワード"
-        value={props.password}
-        onChange={e => props.onChangePassword(e.target.value)}
-        onKeyDown={props.onKeyDownPassword}
-        clickIcon={props.onClickIconPassword}
+        value={password}
+        onChange={e => onChangePassword(e.target.value)}
+        onKeyDown={onKeyDownPassword}
+        clickIcon={onClickIconPassword}
       />
     }
     failed={
-      props.loginFailed && (
+      loginFailed && (
         <InlineText.Small color={Colors.error}>
           ユーザー名またはパスワードに誤りがあります。
         </InlineText.Small>
@@ -70,26 +85,20 @@ export default (props: PropTypes) => (
         primary
         fill={1}
         fontbold
-        onClick={props.onClickLogin}
-        disabled={props.buttonDisabled}
-        loading={props.isLoginChecking}
+        onClick={onClickLogin}
+        disabled={buttonDisabled}
+        loading={isLoginChecking}
       >
         ログイン
       </Button>
     }
     facebook={
-      <Button
-        facebook
-        fill={1}
-        fontbold
-        onClick={props.onClickFacebook}
-        loading={props.isLoginChecking}
-      >
+      <Button facebook fill={1} fontbold onClick={onClickFacebook} loading={isLoginChecking}>
         Facebookでログイン
       </Button>
     }
     toSignup={
-      <Button secondary borderbold fontbold fill={1} onClick={props.onClickSignup}>
+      <Button secondary borderbold fontbold fill={1} onClick={onClickSignup}>
         新規登録はこちら
       </Button>
     }

@@ -28,17 +28,19 @@ const Wrapper = styled.div`
 `;
 
 type PropTypes = {
+  labelTitle?: string,
+  border?: boolean,
   labels: Array<string>,
-  checkedIndex: number,
   onClick: Function,
+  checkedIndex: number,
 };
 
-export default (props: PropTypes) => (
+export default ({ labelTitle, labels, border, onClick, checkedIndex }: PropTypes) => (
   <Fragment>
-    <H3 bold>{props.label}</H3>
-    {props.labels.map((label, i) => (
-      <Wrapper key={`checklist_checkitem${i}`} border={props.border}>
-        <Radio onClick={() => props.onClick(i)} checked={props.checkedIndex === i} border>
+    <H3 bold>{labelTitle}</H3>
+    {labels.map((label, i) => (
+      <Wrapper key={`radiolist_checkitem${i.toString()}`} border={border}>
+        <Radio onClick={() => onClick(i)} checked={checkedIndex === i} border>
           {label}
         </Radio>
       </Wrapper>

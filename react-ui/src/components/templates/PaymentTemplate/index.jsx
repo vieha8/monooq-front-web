@@ -33,13 +33,13 @@ type PropTypes = {
   right: React.Element<*>,
 };
 
-export default (props: PropTypes) => (
+export default ({ header, left, right }: PropTypes) => (
   <div>
-    {props.header}
+    {header}
     <Page>
       <ClearfixContainer>
-        <LeftContent>{props.left}</LeftContent>
-        <RightContent>{props.right}</RightContent>
+        <LeftContent>{left}</LeftContent>
+        <RightContent>{right}</RightContent>
       </ClearfixContainer>
     </Page>
   </div>

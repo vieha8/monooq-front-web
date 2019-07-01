@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import TextLink from 'components/LV1/TextLink';
 import InlineText from 'components/LV1/InlineText';
-import { Colors } from 'variables';
+import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 
@@ -12,7 +12,7 @@ const Container = styled.footer`
   width: 100%;
   background-color: ${Colors.white};
   border-top: 1px solid ${Colors.borderGray};
-  padding: 0px 30px;
+  padding: 0px ${Dimens.medium2}px;
   ${media.tablet`
     padding: 0;
   `};
@@ -21,7 +21,7 @@ const Container = styled.footer`
 const List = styled.ul`
   display: flex;
   align-items: center;
-  height: 60px;
+  height: ${Dimens.large_60}px;
   ${media.phone`
     height: auto;
     display: block;
@@ -30,7 +30,7 @@ const List = styled.ul`
 
 const Cell = styled.li`
   display: inline-flex;
-  padding: 0 8px;
+  padding: 0 ${Dimens.small}px;
   &:last-child {
     margin-left: auto;
   }

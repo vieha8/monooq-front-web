@@ -14,23 +14,23 @@ const DateWrapper = styled.div`
 
 type PropTypes = {
   message: string,
-  receivedAt: string,
   link: {
-    text: string,
-    url: string,
+    text?: string,
+    url?: string,
   },
+  receivedAt?: string,
 };
 
-export default (props: PropTypes) => (
+export default ({ message, link, receivedAt }: PropTypes) => (
   <div>
     <Card block noBorder background={Colors.lightGreen} isPadding={14}>
-      <InlineText.Base fontSize={15}>{props.message}</InlineText.Base>
+      <InlineText.Base fontSize={15}>{message}</InlineText.Base>
       <InlineText.Base fontSize={15}>
-        <Link to={props.link.url || ''}>{props.link.text || ''}</Link>
+        <Link to={link.url || ''}>{link.text || ''}</Link>
       </InlineText.Base>
     </Card>
     <DateWrapper>
-      <InlineText.EmphasisTiny>{props.receivedAt || ' '}</InlineText.EmphasisTiny>
+      <InlineText.EmphasisTiny>{receivedAt || ' '}</InlineText.EmphasisTiny>
     </DateWrapper>
   </div>
 );

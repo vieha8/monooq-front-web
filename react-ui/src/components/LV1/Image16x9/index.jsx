@@ -24,8 +24,8 @@ type PropTypes = {
   alt: string,
 };
 
-export default (props: PropTypes) => (
+export default ({ src, alt }: PropTypes) => (
   <Wrapper>
-    <Image16x9 {...props} />
+    <Image16x9 src={src} alt={alt} />
   </Wrapper>
 );

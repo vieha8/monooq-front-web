@@ -46,43 +46,54 @@ const DateLabel = styled.span`
 `;
 
 type PropTypes = {
+  beginTitle: string,
   beginDate: moment,
-  endDate: moment,
   beginDateFocused: boolean,
   onDateChangeBegin: Function,
   onFocusChangeBegin: Function,
+  endTitle: string,
+  endDate: moment,
   endDateFocused: boolean,
   onDateChangeEnd: Function,
   onFocusChangeEnd: Function,
-  beginTitle: string,
-  endTitle: string,
 };
 
-export default (props: PropTypes) => (
+export default ({
+  beginTitle,
+  beginDate,
+  beginDateFocused,
+  onDateChangeBegin,
+  onFocusChangeBegin,
+  endTitle,
+  endDate,
+  endDateFocused,
+  onDateChangeEnd,
+  onFocusChangeEnd,
+}: PropTypes) => (
   <Container>
     <DateCell>
       <DateLabel>
-        <InlineText.Bold>{props.beginTitle || '利用開始日'}</InlineText.Bold>
+        <InlineText.Bold>{beginTitle || '利用開始日'}</InlineText.Bold>
       </DateLabel>
       <InputCalendar
-        date={props.beginDate}
+        date={beginDate}
         block
-        focused={Boolean(props.beginDateFocused)}
-        onDateChange={date => props.onDateChangeBegin(date)}
-        onFocusChange={e => props.onFocusChangeBegin(e.focused)}
+        focused={Boolean(beginDateFocused)}
+        onDateChange={date => onDateChangeBegin(date)}
+        onFocusChange={e => onFocusChangeBegin(e.focused)}
       />
     </DateCell>
     <Arrow className="fas fa-arrow-right" />
     <DateCell>
       <DateLabel>
-        <InlineText.Bold>{props.endTitle || '利用終了日'}</InlineText.Bold>
+        <InlineText.Bold>{endTitle || '利用終了日'}</InlineText.Bold>
       </DateLabel>
       <InputCalendar
-        date={props.endDate}
+        date={endDate}
         block
-        focused={Boolean(props.endDateFocused)}
-        onDateChange={date => props.onDateChangeEnd(date)}
-        onFocusChange={e => props.onFocusChangeEnd(e.focused)}
+        focused={Boolean(endDateFocused)}
+        onDateChange={date => onDateChangeEnd(date)}
+        onFocusChange={e => onFocusChangeEnd(e.focused)}
       />
     </DateCell>
   </Container>
