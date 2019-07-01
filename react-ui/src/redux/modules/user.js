@@ -4,6 +4,7 @@ import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import { handleGTM } from 'helpers/gtm';
 import { push } from 'connected-react-router';
+import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { uploadImage } from '../helpers/firebase';
 import fileType from '../../helpers/file-type';
@@ -112,19 +113,20 @@ export function* getUser({ payload: { userId } }) {
 
 function* getSpaces(params) {
   let targetUserId = '';
+  let user = '';
   const functionName = 'getSpaces';
   if (params && params.payload && params.payload.userId) {
     targetUserId = params.payload.userId;
+  } else {
+    user = yield select(state => state.auth.user);
+    if (!user.id) {
+      yield handleError(userActions.fetchFailedUserSpaces, '', functionName, err, false);
+      return;
+    }
   }
-
-  let user = yield select(state => state.auth.user);
-  if (!user.id) {
-    yield take(authActions.checkLoginSuccess);
-  }
-  user = yield select(state => state.auth.user);
 
   const token = yield* getToken();
-  const { data, err } = yield call(
+  const { data, status, err } = yield call(
     getApiRequest,
     apiEndpoint.userSpaces(targetUserId || user.id),
     {},
@@ -132,7 +134,11 @@ function* getSpaces(params) {
   );
 
   if (err) {
-    yield handleError(userActions.fetchFailedUserSpaces, '', functionName, err, false);
+    if (status === 404) {
+      yield put(push(Path.notFound()));
+    } else {
+      yield handleError(userActions.fetchFailedUserSpaces, '', functionName, err, false);
+    }
     return;
   }
 
