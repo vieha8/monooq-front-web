@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Redirect } from 'react-router-dom';
@@ -9,14 +9,17 @@ import Path from 'config/path';
 import { messagesActions } from 'redux/modules/messages';
 import { requestActions } from 'redux/modules/request';
 
-import PaymentTemplate from 'components/templates/PaymentTemplate';
+import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
+
+import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import InputPayment from 'components/LV3/InputPayment';
-import PaidComplete from 'components/LV3/PaidComplete';
-import PaymentInfo from 'components/LV3/PaymentInfo';
 import Header from 'components/containers/Header';
 import LoadingPage from 'components/LV3/LoadingPage';
+import Button from 'components/LV1/Button';
 
-import { ErrorMessages } from 'variables';
+import { Dimens, FontSizes, ErrorMessages } from 'variables';
 
 import type { SpaceType } from 'types/Space';
 
@@ -50,6 +53,33 @@ const ValidateRegExp = {
   Cvc: /^[0-9]{3}$/,
 };
 
+const Spacer = styled.div`
+  margin: 40px auto 0;
+  ${media.tablet`
+  `};
+`;
+
+const HeadlineWrap = styled.div`
+  margin: ${Dimens.medium_20}px auto ${Dimens.medium2}px;
+  font-size: ${FontSizes.small_15}px;
+  line-height: normal;
+`;
+
+const ButtonWrap = styled.div`
+  max-width: 240px;
+  margin: auto;
+  ${media.phone`
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    left: 0px;
+    bottom: 0px;
+    text-align: center;
+    padding: 0 0px 15px;
+  `};
+`;
+
 class PaymentContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
@@ -64,7 +94,10 @@ class PaymentContainer extends Component<PropTypes> {
       year: moment().year(),
       month: moment().month() + 1,
       cvc: '',
+      paymentMethod: -1,
       error: {},
+      modeView: 0,
+      roomId: roomId || '',
     };
   }
 
@@ -165,6 +198,10 @@ class PaymentContainer extends Component<PropTypes> {
   };
 
   validate: Function;
+  // TODO: 50,000円以上のコンビニ決済はできないようにする。
+  // TODO: ラジオが１つでも選択されていない場合はエラーとする。
+
+  // TODO: 決済エラー時に確認画面にエラー表示させる
 
   validate = () => {
     const { state } = this;
@@ -189,17 +226,140 @@ class PaymentContainer extends Component<PropTypes> {
     );
   };
 
+  leftContent = requestId => {
+    const { room, messages, isSending, isPaymentFailed, errMsgPayment } = this.props;
+    const request = messages.find(m => `${m.requestId}` === `${requestId}`);
+    const space = room.space || {};
+    const { name, number, month, year, cvc, error, paymentMethod } = this.state;
+    return (
+      <Fragment>
+        <InputPayment
+          space={space}
+          onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
+          paymentMethod={paymentMethod}
+          payment={{
+            beginAt: formatDate(new Date(request.startDate.toDate()), formatStringSlash),
+            endAt: formatDate(new Date(request.endDate.toDate()), formatStringSlash),
+            duration:
+              moment(request.endDate.toDate()).diff(moment(request.startDate.toDate()), 'days') + 1,
+            price: numeral(request.price).format('0,0'),
+          }}
+          errors={error}
+          paidError={isPaymentFailed}
+          errMsgPayment={errMsgPayment}
+          onChangeName={value => this.handleChangeUI('name', value)}
+          name={name}
+          onChangeNumber={value => this.handleChangeUI('number', value)}
+          number={number}
+          onChangeYear={value => this.handleChangeUI('year', value)}
+          year={year}
+          onChangeMonth={value => this.handleChangeUI('month', value)}
+          month={month}
+          onChangeCvc={value => this.handleChangeUI('cvc', value)}
+          cvc={cvc}
+          buttonDisabled={!this.validate()}
+          buttonLoading={isSending}
+          onClickPay={this.payment}
+          onKeyDownPay={this.onKeyDownPay}
+          backButton={this.backButtonMessage}
+          submitButton={this.confirmButton}
+          submitButtonText={paymentMethod === 2 ? '確定する' : '確認する'}
+        />
+      </Fragment>
+    );
+  };
+
+  leftContentConfirm = requestId => {
+    const { room, messages, isSending, isPaymentFailed, errMsgPayment } = this.props;
+    const request = messages.find(m => `${m.requestId}` === `${requestId}`);
+    const space = room.space || {};
+    const { name, number, paymentMethod } = this.state;
+    return (
+      <InputPayment
+        space={space}
+        onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
+        paymentMethod={paymentMethod}
+        payment={{
+          beginAt: formatDate(new Date(request.startDate.toDate()), formatStringSlash),
+          endAt: formatDate(new Date(request.endDate.toDate()), formatStringSlash),
+          duration:
+            moment(request.endDate.toDate()).diff(moment(request.startDate.toDate()), 'days') + 1,
+          price: numeral(request.price).format('0,0'),
+        }}
+        paidError={isPaymentFailed}
+        errMsgPayment={errMsgPayment}
+        name={name}
+        number={number}
+        buttonDisabled={!this.validate()}
+        buttonLoading={isSending}
+        onClickPay={this.payment}
+        onKeyDownPay={this.onKeyDownPay}
+        backButton={this.backButton}
+        submitButton={this.submitButton}
+        submitButtonText="確定する"
+        confirm
+      />
+    );
+  };
+
+  leftContentComplete = (headline, description) => {
+    return (
+      <Fragment>
+        <HeadlineWrap>{headline}</HeadlineWrap>
+        <div>{description}</div>
+        <ButtonWrap>
+          <Button
+            primary
+            fontbold
+            center
+            onClick={this.backButtonMessage}
+            // onKeyDown={this.onKeyDownButtonHome}
+          >
+            メッセージ画面に戻る
+          </Button>
+        </ButtonWrap>
+      </Fragment>
+    );
+  };
+
+  backButtonMessage = () => {
+    window.scrollTo(0, 0);
+    const { history } = this.props;
+    const { roomId } = this.state;
+    history.push(Path.message(roomId));
+  };
+
+  backButton = () => {
+    window.scrollTo(0, 0);
+    this.setState({ modeView: 0 });
+  };
+
+  confirmButton = () => {
+    window.scrollTo(0, 0);
+    const { paymentMethod } = this.state;
+    if (paymentMethod === 2) {
+      this.setState({ modeView: 2 });
+    } else {
+      this.setState({ modeView: 1 });
+    }
+  };
+
+  submitButton = () => {
+    window.scrollTo(0, 0);
+    this.setState({ modeView: 2 });
+  };
+
+  rightContent = () => {
+    return (
+      <Fragment>
+        <Spacer />
+        <ServiceMenu />
+      </Fragment>
+    );
+  };
+
   render() {
-    const {
-      match,
-      room,
-      messages,
-      isLoading,
-      isSending,
-      isPaymentFailed,
-      isPaymentSuccess,
-      errMsgPayment,
-    } = this.props;
+    const { match, room, isLoading } = this.props;
 
     const requestId = match.params.request_id;
 
@@ -211,66 +371,45 @@ class PaymentContainer extends Component<PropTypes> {
       return <LoadingPage />;
     }
 
-    const request = messages.find(m => `${m.requestId}` === `${requestId}`);
-    const space = room.space || {};
+    const { paymentMethod, modeView } = this.state;
 
-    const { name, number, month, year, cvc, error } = this.state;
+    let headline = '';
+    let description = '';
+
+    let leftContent = this.leftContent(requestId);
+
+    if (modeView === 1) {
+      leftContent = this.leftContentConfirm(requestId);
+    }
+
+    if (modeView === 2) {
+      switch (paymentMethod) {
+        case 0:
+          headline = '決済が完了しました';
+          description = '決済が完了しました。ホストに連絡して、具体的な●●●●●〜';
+          break;
+        case 1:
+          headline = 'お支払い方法が確定しました';
+          description =
+            'お支払い画面に移動していただき、お支払いをお願いいたします。\nここにも決済用URLを出す(クリック動線の補足文章入れる)\nメールでもお送りしています的な文言';
+          break;
+        case 2:
+          headline = 'お支払い方法が確定しました';
+          description =
+            '下記口座にお振込後、support@monooq.comまで振込明細の写真とモノオクで登録しているメールアドレスをお送りください。';
+          break;
+        default:
+          headline = 'お支払い方法が確定しました';
+          description = '決済が完了しました。ホストに連絡して、具体的な●●●●●〜';
+      }
+      leftContent = this.leftContentComplete(headline, description);
+    }
 
     return (
-      <PaymentTemplate
+      <MenuPageTemplate
         header={<Header />}
-        left={
-          isPaymentSuccess ? (
-            <PaidComplete
-              spaceName={space.title}
-              onClickToMessage={this.backToMessage}
-              onKeyDownMessage={this.onKeyDownMessage}
-            />
-          ) : (
-            <InputPayment
-              errors={error}
-              paidError={isPaymentFailed}
-              errMsgPayment={errMsgPayment}
-              onChangeName={value => this.handleChangeUI('name', value)}
-              name={name}
-              onChangeNumber={value => this.handleChangeUI('number', value)}
-              number={number}
-              onChangeYear={value => this.handleChangeUI('year', value)}
-              year={year}
-              onChangeMonth={value => this.handleChangeUI('month', value)}
-              month={month}
-              onChangeCvc={value => this.handleChangeUI('cvc', value)}
-              cvc={cvc}
-              buttonDisabled={!this.validate()}
-              buttonLoading={isSending}
-              onClickPay={this.payment}
-              onKeyDownPay={this.onKeyDownPay}
-            />
-          )
-        }
-        right={
-          <PaymentInfo
-            isHost={false}
-            user={space.user}
-            space={{
-              image: {
-                src: (space.images[0] || {}).imageUrl,
-                alt: '',
-              },
-              address: space.address,
-              content: space.title,
-              href: Path.space(space.id),
-            }}
-            payment={{
-              beginAt: formatDate(new Date(request.startDate.toDate()), formatStringSlash),
-              endAt: formatDate(new Date(request.endDate.toDate()), formatStringSlash),
-              duration:
-                moment(request.endDate.toDate()).diff(moment(request.startDate.toDate()), 'days') +
-                1,
-              price: numeral(request.price).format('0,0'),
-            }}
-          />
-        }
+        leftContent={isLoading ? <LoadingPage /> : leftContent}
+        rightContent={this.rightContent()}
       />
     );
   }

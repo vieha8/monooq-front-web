@@ -32,10 +32,11 @@ type PropTypes = {
   border?: boolean,
   labels: Array<string>,
   onClick: Function,
-  checkedIndex: number,
+  contents?: Object,
+  checkedIndex?: number,
 };
 
-export default ({ labelTitle, labels, border, onClick, checkedIndex }: PropTypes) => (
+export default ({ labelTitle, labels, border, onClick, contents, checkedIndex }: PropTypes) => (
   <Fragment>
     <H3 bold>{labelTitle}</H3>
     {labels.map((label, i) => (
@@ -43,6 +44,7 @@ export default ({ labelTitle, labels, border, onClick, checkedIndex }: PropTypes
         <Radio onClick={() => onClick(i)} checked={checkedIndex === i} border>
           {label}
         </Radio>
+        {contents && i === checkedIndex && contents[i]}
       </Wrapper>
     ))}
   </Fragment>
