@@ -97,8 +97,8 @@ export default ({
   paymentLink,
   receivedAt,
   payType, // 1:クレジットカード 2:銀行振込 4:イーコンテクスト
-}: // TODO イーコンテクスト用paymentUrlの追加
-PropTypes) => (
+  econtextUrl,
+}: PropTypes) => (
   <Fragment>
     <Card block noBorder background={Colors.lightGreen} isPadding={14}>
       <Text>{`${formatName(name)}さんからのお見積もり`}</Text>

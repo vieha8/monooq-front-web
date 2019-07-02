@@ -194,6 +194,7 @@ class MessageContainer extends Component<PropTypes, State> {
               receivedAt: message.createDt,
               status: request.status,
               payType: request.payType,
+              econtextUrl: request.paymentUrl,
             },
           };
         }
