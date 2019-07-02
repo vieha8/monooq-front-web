@@ -163,7 +163,10 @@ class PaymentContainer extends Component<PropTypes> {
   };
 
   paymentConvenience = () => {
-    // TODO: ここでコンビニ決済のAPI実行
+    const { match, dispatch } = this.props;
+    const { request_id: requestId } = match.params;
+    dispatch(requestActions.paymentEcontext({ requestId }));
+    // TODO 通信待ち処理
     window.scrollTo(0, 0);
     this.setState({ modeView: 2 });
   };
@@ -402,7 +405,7 @@ class PaymentContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { match, room, isLoading } = this.props;
+    const { match, room, isLoading, paymentUrl } = this.props;
 
     const requestId = match.params.request_id;
 
@@ -438,8 +441,8 @@ class PaymentContainer extends Component<PropTypes> {
               以下のURLからお支払い画面に移動していただき、お支払いをお願いいたします。
               <br />
               <br />
-              <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
-                https://www.google.com
+              <a href={paymentUrl} target="_blank" rel="noopener noreferrer">
+                {paymentUrl}
               </a>
               <br />
               <br />
@@ -490,6 +493,7 @@ const mapStateToProps = state => ({
   isPaymentSuccess: state.request.payment.isSuccess,
   isPaymentFailed: state.request.payment.isFailed,
   errMsgPayment: state.request.payment.errMsg,
+  paymentUrl: state.request.payment.url,
 });
 
 export default authRequired(connect(mapStateToProps)(PaymentContainer));

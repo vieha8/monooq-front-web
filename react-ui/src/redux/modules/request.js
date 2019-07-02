@@ -19,6 +19,8 @@ const ESTIMATE_FAILED = 'ESTIMATE_FAILED';
 const PAYMENT = 'PAYMENT';
 const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 const PAYMENT_FAILED = 'PAYMENT_FAILED';
+const PAYMENT_ECONTEXT = 'PAYMENT_ECONTEXT';
+const PAYMENT_BANK = 'PAYMENT_BANK';
 const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
 const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
 const FETCH_SCHEDULE_FAILED = 'FETCH_SCHEDULE_FAILED';
@@ -31,6 +33,8 @@ export const requestActions = createActions(
   ESTIMATE_SUCCESS,
   ESTIMATE_FAILED,
   PAYMENT,
+  PAYMENT_ECONTEXT,
+  PAYMENT_BANK,
   PAYMENT_SUCCESS,
   PAYMENT_FAILED,
   FETCH_SCHEDULE,
@@ -76,9 +80,14 @@ export const requestReducer = handleActions(
       ...state,
       payment: { isSending: true, isSuccess: false, isFailed: false },
     }),
-    [PAYMENT_SUCCESS]: state => ({
+    [PAYMENT_SUCCESS]: (state, action) => ({
       ...state,
-      payment: { isSending: false, isSuccess: true, isFailed: false },
+      payment: {
+        isSending: false,
+        isSuccess: true,
+        isFailed: false,
+        url: action.payload.paymentUrl,
+      },
     }),
     [PAYMENT_FAILED]: (state, action) => ({
       ...state,
@@ -364,6 +373,25 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
   yield put(requestActions.paymentSuccess(data));
 }
 
+function* paymentEcontext({ payload: { requestId } }) {
+  const token = yield* getToken();
+  const { data, err } = yield call(
+    postApiRequest,
+    apiEndpoint.payments('econtext'),
+    {
+      RequestId: parseInt(requestId, 10),
+    },
+    token,
+  );
+  if (err) {
+    yield put(requestActions.paymentFailed({ err }));
+    return;
+  }
+
+  handleGTM('match', requestId);
+  yield put(requestActions.paymentSuccess(data));
+}
+
 function* fetchSchedule() {
   let user = yield select(state => state.auth.user);
   if (!user.id) {
@@ -439,6 +467,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
 export const requestSagas = [
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
+  takeEvery(PAYMENT_ECONTEXT, paymentEcontext),
   takeEvery(FETCH_SCHEDULE, fetchSchedule),
   takeEvery(REQUEST, request),
 ];
