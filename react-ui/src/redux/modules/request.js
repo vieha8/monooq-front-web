@@ -387,7 +387,25 @@ function* paymentEcontext({ payload: { requestId } }) {
     yield put(requestActions.paymentFailed({ err }));
     return;
   }
+  handleGTM('match', requestId);
+  yield put(requestActions.paymentSuccess(data));
+}
 
+function* paymentBank({ payload: { requestId } }) {
+  // TODO paymentEcontextとほぼ一緒なので共通化する
+  const token = yield* getToken();
+  const { data, err } = yield call(
+    postApiRequest,
+    apiEndpoint.payments('bank'),
+    {
+      RequestId: parseInt(requestId, 10),
+    },
+    token,
+  );
+  if (err) {
+    yield put(requestActions.paymentFailed({ err }));
+    return;
+  }
   handleGTM('match', requestId);
   yield put(requestActions.paymentSuccess(data));
 }
@@ -468,6 +486,7 @@ export const requestSagas = [
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
   takeEvery(PAYMENT_ECONTEXT, paymentEcontext),
+  takeEvery(PAYMENT_BANK, paymentBank),
   takeEvery(FETCH_SCHEDULE, fetchSchedule),
   takeEvery(REQUEST, request),
 ];

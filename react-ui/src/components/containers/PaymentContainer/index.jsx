@@ -171,6 +171,13 @@ class PaymentContainer extends Component<PropTypes> {
     this.setState({ modeView: 2 });
   };
 
+  paymentBank = () => {
+    const { match, dispatch } = this.props;
+    const { request_id: requestId } = match.params;
+    dispatch(requestActions.paymentBank({ requestId }));
+    window.scrollTo(0, 0);
+  };
+
   backToMessage: Function;
   backToMessage = () => {
     const { match } = this.props;
@@ -318,6 +325,7 @@ class PaymentContainer extends Component<PropTypes> {
     const request = messages.find(m => `${m.requestId}` === `${requestId}`);
     const space = room.space || {};
     const { name, number, paymentMethod } = this.state;
+
     return (
       <InputPayment
         space={space}
@@ -384,6 +392,7 @@ class PaymentContainer extends Component<PropTypes> {
     window.scrollTo(0, 0);
     const { paymentMethod } = this.state;
     if (paymentMethod === 2) {
+      this.paymentBank();
       this.setState({ modeView: 2 });
     } else {
       this.setState({ modeView: 1 });
