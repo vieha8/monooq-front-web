@@ -7,7 +7,6 @@ import Path from 'config/path';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { H2 } from 'components/LV1/Headline';
-import TextLink from 'components/LV1/TextLink';
 import InlineText from 'components/LV1/InlineText';
 import Button from 'components/LV1/Button';
 import HeroImage from 'components/LV1/HeroImage';
