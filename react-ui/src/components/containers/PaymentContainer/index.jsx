@@ -18,8 +18,9 @@ import InputPayment from 'components/LV3/InputPayment';
 import Header from 'components/containers/Header';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Button from 'components/LV1/Button';
+import { H1 } from 'components/LV1/Headline';
 
-import { Dimens, FontSizes, ErrorMessages } from 'variables';
+import { Dimens, Colors, FontSizes, ErrorMessages } from 'variables';
 
 import type { SpaceType } from 'types/Space';
 
@@ -60,7 +61,13 @@ const Spacer = styled.div`
 `;
 
 const HeadlineWrap = styled.div`
-  margin: ${Dimens.medium_20}px auto ${Dimens.medium2}px;
+  margin: 0px auto ${Dimens.medium2}px;
+  font-size: ${FontSizes.small_15}px;
+  line-height: normal;
+`;
+
+const DescriptionWrap = styled.div`
+  margin: 0px auto ${Dimens.medium2}px;
   font-size: ${FontSizes.small_15}px;
   line-height: normal;
 `;
@@ -78,6 +85,30 @@ const ButtonWrap = styled.div`
     text-align: center;
     padding: 0 0px 15px;
   `};
+`;
+
+const CmnWrap = styled.div`
+  margin: ${Dimens.medium_20}px;
+  ${props =>
+    props.noMarginSide &&
+    `
+    margin: ${Dimens.medium_20}px auto;
+  `}
+  ${media.phone`
+    margin: ${Dimens.medium_20}px auto;
+  `};
+`;
+
+const AccountNumber = styled.div`
+  max-width: 250px;
+  background-color: ${Colors.lightYellow};
+  border-radius: ${Dimens.xsmall}px;
+  margin: 0px auto ${Dimens.medium_20}px;
+  padding: ${Dimens.medium_20}px;
+  text-align: center;
+  line-height: 1.5rem;
+  letter-spacing: 0.05em;
+  font-weight: bold;
 `;
 
 class PaymentContainer extends Component<PropTypes> {
@@ -110,7 +141,6 @@ class PaymentContainer extends Component<PropTypes> {
     }
   }
 
-  payment: Function;
   payment = () => {
     const { match, dispatch } = this.props;
     const { request_id: requestId, message_room_id: roomId } = match.params;
@@ -128,6 +158,14 @@ class PaymentContainer extends Component<PropTypes> {
         },
       }),
     );
+    window.scrollTo(0, 0);
+    this.setState({ modeView: 2 });
+  };
+
+  paymentConvenience = () => {
+    // TODO: ここでコンビニ決済のAPI実行
+    window.scrollTo(0, 0);
+    this.setState({ modeView: 2 });
   };
 
   backToMessage: Function;
@@ -181,13 +219,14 @@ class PaymentContainer extends Component<PropTypes> {
     this.setState({ ...state, error });
   };
 
-  onKeyDownPay: Function;
-
-  onKeyDownPay = e => {
-    if (iskeyDownEnter(e) && this.validate()) {
-      this.payment();
-    }
-  };
+  // TODO: あとで実装する。
+  // onKeyDownPay: Function;
+  //
+  // onKeyDownPay = e => {
+  //   if (iskeyDownEnter(e) && this.validate()) {
+  //     this.payment();
+  //   }
+  // };
 
   onKeyDownMessage: Function;
 
@@ -198,9 +237,7 @@ class PaymentContainer extends Component<PropTypes> {
   };
 
   validate: Function;
-  // TODO: 50,000円以上のコンビニ決済はできないようにする。
-  // TODO: ラジオが１つでも選択されていない場合はエラーとする。
-
+  // TODO: 50,000円以上のコンビニ決済はできないようにする
   // TODO: 決済エラー時に確認画面にエラー表示させる
 
   validate = () => {
@@ -211,6 +248,10 @@ class PaymentContainer extends Component<PropTypes> {
 
     const chkMonthF = moment(chkMonth, dtFormat).format(dtFormat);
     const nowMonthF = moment(nowMonth, dtFormat).format(dtFormat);
+
+    if (state.paymentMethod === 1 || state.paymentMethod === 2) {
+      return true;
+    }
 
     return (
       state.name &&
@@ -259,10 +300,10 @@ class PaymentContainer extends Component<PropTypes> {
           cvc={cvc}
           buttonDisabled={!this.validate()}
           buttonLoading={isSending}
-          onClickPay={this.payment}
-          onKeyDownPay={this.onKeyDownPay}
+          // onKeyDownPay={this.onKeyDownPay}
           backButton={this.backButtonMessage}
           submitButton={this.confirmButton}
+          backButtonText="戻る"
           submitButtonText={paymentMethod === 2 ? '確定する' : '確認する'}
         />
       </Fragment>
@@ -292,10 +333,10 @@ class PaymentContainer extends Component<PropTypes> {
         number={number}
         buttonDisabled={!this.validate()}
         buttonLoading={isSending}
-        onClickPay={this.payment}
-        onKeyDownPay={this.onKeyDownPay}
+        // onKeyDownPay={this.onKeyDownPay}
         backButton={this.backButton}
-        submitButton={this.submitButton}
+        submitButton={paymentMethod === 0 ? this.payment : this.paymentConvenience}
+        backButtonText="修正する"
         submitButtonText="確定する"
         confirm
       />
@@ -305,8 +346,10 @@ class PaymentContainer extends Component<PropTypes> {
   leftContentComplete = (headline, description) => {
     return (
       <Fragment>
-        <HeadlineWrap>{headline}</HeadlineWrap>
-        <div>{description}</div>
+        <HeadlineWrap>
+          <H1>{headline}</H1>
+        </HeadlineWrap>
+        <DescriptionWrap>{description}</DescriptionWrap>
         <ButtonWrap>
           <Button
             primary
@@ -386,21 +429,45 @@ class PaymentContainer extends Component<PropTypes> {
       switch (paymentMethod) {
         case 0:
           headline = '決済が完了しました';
-          description = '決済が完了しました。ホストに連絡して、具体的な●●●●●〜';
+          description = <Fragment>決済が完了しました。ホストに連絡して、具体的な●●●●●〜</Fragment>;
           break;
         case 1:
           headline = 'お支払い方法が確定しました';
-          description =
-            'お支払い画面に移動していただき、お支払いをお願いいたします。\nここにも決済用URLを出す(クリック動線の補足文章入れる)\nメールでもお送りしています的な文言';
+          description = (
+            <Fragment>
+              以下のURLからお支払い画面に移動していただき、お支払いをお願いいたします。
+              <br />
+              <br />
+              <a href="https://www.google.com" target="_blank" rel="noopener noreferrer">
+                https://www.google.com
+              </a>
+              <br />
+              <br />
+              決済要のURLはメールでもお送りしています的な文言
+            </Fragment>
+          );
           break;
         case 2:
           headline = 'お支払い方法が確定しました';
-          description =
-            '下記口座にお振込後、support@monooq.comまで振込明細の写真とモノオクで登録しているメールアドレスをお送りください。';
+          description = (
+            <Fragment>
+              下記口座にお振込後、
+              <a href="mailto:support@monooq.com">support@monooq.com</a>
+              まで振込明細の写真とモノオクで登録しているメールアドレスをお送りください。
+              <CmnWrap>
+                <AccountNumber>
+                  みずほ銀行 渋谷中央支店
+                  <br />
+                  普通 1806441 モノオク(カ
+                </AccountNumber>
+              </CmnWrap>
+              振込口座などの情報はメールでもお送りしています的な文言
+            </Fragment>
+          );
           break;
         default:
           headline = 'お支払い方法が確定しました';
-          description = '決済が完了しました。ホストに連絡して、具体的な●●●●●〜';
+          description = <Fragment>決済が完了しました。ホストに連絡して、具体的な●●●●●〜</Fragment>;
       }
       leftContent = this.leftContentComplete(headline, description);
     }
