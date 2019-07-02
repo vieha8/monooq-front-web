@@ -308,6 +308,7 @@ export default ({
                 )}
                 paymentLink={message.estimate.link}
                 status={message.estimate.status}
+                payType={message.estimate.payType}
               />
             </Row>
           );

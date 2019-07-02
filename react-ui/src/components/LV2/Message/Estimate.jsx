@@ -96,8 +96,10 @@ export default ({
   status,
   paymentLink,
   receivedAt,
-}: PropTypes) => (
-  <div>
+  payType, // 1:クレジットカード 2:銀行振込 4:イーコンテクスト
+}: // TODO イーコンテクスト用paymentUrlの追加
+PropTypes) => (
+  <Fragment>
     <Card block noBorder background={Colors.lightGreen} isPadding={14}>
       <Text>{`${formatName(name)}さんからのお見積もり`}</Text>
       <Text>
@@ -166,5 +168,5 @@ export default ({
     <DateWrapper>
       <InlineText.EmphasisTiny>{receivedAt}</InlineText.EmphasisTiny>
     </DateWrapper>
-  </div>
+  </Fragment>
 );
