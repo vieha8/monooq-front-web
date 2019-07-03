@@ -27,6 +27,9 @@ const FETCH_SCHEDULE_FAILED = 'FETCH_SCHEDULE_FAILED';
 const REQUEST = 'REQUEST';
 const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 const REQUEST_FAILED = 'REQUEST_FAILED';
+const FETCH_REQUEST = 'FETCH_REQUEST';
+const FETCH_REQUEST_SUCCESS = 'FETCH_REQUEST_SUCCESS';
+const FETCH_REQUEST_FAILED = 'FETCH_REQUEST_FAILED';
 
 export const requestActions = createActions(
   ESTIMATE,
@@ -43,6 +46,9 @@ export const requestActions = createActions(
   REQUEST,
   REQUEST_SUCCESS,
   REQUEST_FAILED,
+  FETCH_REQUEST,
+  FETCH_REQUEST_SUCCESS,
+  FETCH_REQUEST_FAILED,
 );
 
 // Reducer
@@ -130,6 +136,13 @@ export const requestReducer = handleActions(
     [REQUEST_FAILED]: state => ({
       ...state,
       isLoading: false,
+    }),
+    [FETCH_REQUEST]: state => ({
+      ...state,
+    }),
+    [FETCH_REQUEST_SUCCESS]: (state, action) => ({
+      ...state,
+      request: action.payload,
     }),
   },
   initialState,
@@ -464,6 +477,13 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
   yield put(requestActions.requestSuccess());
 }
 
+function* fetchRequest({ payload: requestId }) {
+  const token = yield* getToken();
+  const { data } = yield call(getApiRequest, apiEndpoint.requests(requestId), {}, token);
+  // TODO エラーハンドリング
+  yield put(requestActions.fetchRequestSuccess(data));
+}
+
 export const requestSagas = [
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
@@ -471,4 +491,5 @@ export const requestSagas = [
   takeEvery(PAYMENT_BANK, paymentBank),
   takeEvery(FETCH_SCHEDULE, fetchSchedule),
   takeEvery(REQUEST, request),
+  takeEvery(FETCH_REQUEST, fetchRequest),
 ];

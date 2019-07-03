@@ -6,7 +6,6 @@ import numeral from 'numeral';
 import { Redirect } from 'react-router-dom';
 import Path from 'config/path';
 
-import { messagesActions } from 'redux/modules/messages';
 import { requestActions } from 'redux/modules/request';
 
 import styled from 'styled-components';
@@ -122,8 +121,9 @@ class PaymentContainer extends Component<PropTypes> {
     super(props);
 
     const { dispatch, match } = this.props;
-    const roomId = match.params.message_room_id;
-    dispatch(messagesActions.fetchMessagesStart(roomId));
+    const roomId = match.params.room_id;
+    const requestId = match.params.request_id;
+    dispatch(requestActions.fetchRequest(requestId));
 
     this.state = {
       name: '',
@@ -282,53 +282,48 @@ class PaymentContainer extends Component<PropTypes> {
     );
   };
 
-  leftContent = requestId => {
-    const { room, messages, isSending, isPaymentFailed, errMsgPayment } = this.props;
-    const request = messages.find(m => `${m.requestId}` === `${requestId}`);
-    const space = room.space || {};
+  leftContent = () => {
+    const { request, isSending, isPaymentFailed, errMsgPayment } = this.props;
+    const space = request.space || {};
     const { name, number, month, year, cvc, error, paymentMethod } = this.state;
     return (
-      <Fragment>
-        <InputPayment
-          space={space}
-          onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
-          paymentMethod={paymentMethod}
-          payment={{
-            beginAt: formatDate(new Date(request.startDate.toDate()), formatStringSlash),
-            endAt: formatDate(new Date(request.endDate.toDate()), formatStringSlash),
-            duration:
-              moment(request.endDate.toDate()).diff(moment(request.startDate.toDate()), 'days') + 1,
-            price: numeral(request.price).format('0,0'),
-          }}
-          errors={error}
-          paidError={isPaymentFailed}
-          errMsgPayment={errMsgPayment}
-          onChangeName={value => this.handleChangeUI('name', value)}
-          name={name}
-          onChangeNumber={value => this.handleChangeUI('number', value)}
-          number={number}
-          onChangeYear={value => this.handleChangeUI('year', value)}
-          year={year}
-          onChangeMonth={value => this.handleChangeUI('month', value)}
-          month={month}
-          onChangeCvc={value => this.handleChangeUI('cvc', value)}
-          cvc={cvc}
-          buttonDisabled={!this.validate(Number(request.price))}
-          buttonLoading={isSending}
-          // onKeyDownPay={this.onKeyDownPay}
-          backButton={this.backButtonMessage}
-          submitButton={this.confirmButton}
-          backButtonText="戻る"
-          submitButtonText={paymentMethod === 2 ? '確定する' : '確認する'}
-        />
-      </Fragment>
+      <InputPayment
+        space={space}
+        onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
+        paymentMethod={paymentMethod}
+        payment={{
+          beginAt: formatDate(new Date(request.startDate), formatStringSlash),
+          endAt: formatDate(new Date(request.endDate), formatStringSlash),
+          duration: moment(request.endDate).diff(moment(request.startDate), 'days') + 1,
+          price: numeral(request.price).format('0,0'),
+        }}
+        errors={error}
+        paidError={isPaymentFailed}
+        errMsgPayment={errMsgPayment}
+        onChangeName={value => this.handleChangeUI('name', value)}
+        name={name}
+        onChangeNumber={value => this.handleChangeUI('number', value)}
+        number={number}
+        onChangeYear={value => this.handleChangeUI('year', value)}
+        year={year}
+        onChangeMonth={value => this.handleChangeUI('month', value)}
+        month={month}
+        onChangeCvc={value => this.handleChangeUI('cvc', value)}
+        cvc={cvc}
+        buttonDisabled={!this.validate(Number(request.price))}
+        buttonLoading={isSending}
+        // onKeyDownPay={this.onKeyDownPay}
+        backButton={this.backButtonMessage}
+        submitButton={this.confirmButton}
+        backButtonText="戻る"
+        submitButtonText={paymentMethod === 2 ? '確定する' : '確認する'}
+      />
     );
   };
 
-  leftContentConfirm = requestId => {
-    const { room, messages, isSending, isPaymentFailed, errMsgPayment } = this.props;
-    const request = messages.find(m => `${m.requestId}` === `${requestId}`);
-    const space = room.space || {};
+  leftContentConfirm = () => {
+    const { request, isSending, isPaymentFailed, errMsgPayment } = this.props;
+    const space = request.space || {};
     const { name, number, paymentMethod } = this.state;
 
     return (
@@ -337,10 +332,9 @@ class PaymentContainer extends Component<PropTypes> {
         onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
         paymentMethod={paymentMethod}
         payment={{
-          beginAt: formatDate(new Date(request.startDate.toDate()), formatStringSlash),
-          endAt: formatDate(new Date(request.endDate.toDate()), formatStringSlash),
-          duration:
-            moment(request.endDate.toDate()).diff(moment(request.startDate.toDate()), 'days') + 1,
+          beginAt: formatDate(new Date(request.startDate), formatStringSlash),
+          endAt: formatDate(new Date(request.endDate), formatStringSlash),
+          duration: moment(request.endDate).diff(moment(request.startDate), 'days') + 1,
           price: numeral(request.price).format('0,0'),
         }}
         paidError={isPaymentFailed}
@@ -413,15 +407,14 @@ class PaymentContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { match, room, isLoading, paymentUrl, isPaymentSuccess } = this.props;
+    const { match, request, paymentUrl, isPaymentSuccess } = this.props;
 
     const requestId = match.params.request_id;
-
     if (!requestId) {
       return <Redirect to={Path.messages()} />;
     }
 
-    if (isLoading || !room) {
+    if (!request) {
       return <LoadingPage />;
     }
 
@@ -430,10 +423,10 @@ class PaymentContainer extends Component<PropTypes> {
     let headline = '';
     let description = '';
 
-    let leftContent = this.leftContent(requestId);
+    let leftContent = this.leftContent();
 
     if (modeView === 1) {
-      leftContent = this.leftContentConfirm(requestId);
+      leftContent = this.leftContentConfirm();
     }
 
     if (isPaymentSuccess) {
@@ -497,7 +490,7 @@ class PaymentContainer extends Component<PropTypes> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        leftContent={isLoading ? <LoadingPage /> : leftContent}
+        leftContent={leftContent}
         rightContent={this.rightContent()}
       />
     );
@@ -505,9 +498,7 @@ class PaymentContainer extends Component<PropTypes> {
 }
 
 const mapStateToProps = state => ({
-  room: state.messages.room,
-  messages: state.messages.messages,
-  isLoading: state.messages.isLoading,
+  request: state.request.request,
   isSending: state.request.payment.isSending,
   isPaymentSuccess: state.request.payment.isSuccess,
   isPaymentFailed: state.request.payment.isFailed,
