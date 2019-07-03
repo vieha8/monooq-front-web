@@ -6,6 +6,7 @@ import moment from 'moment';
 import Path from 'config/path';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { formatRemoveComma } from 'helpers/string';
 import { H2 } from 'components/LV1/Headline';
 import InlineText from 'components/LV1/InlineText';
 import Button from 'components/LV1/Button';
@@ -17,6 +18,8 @@ import RadioList from 'components/LV2/RadioList';
 import SelectForm from 'components/LV2/SelectForm';
 import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
+
+const MAX_PAY_PRICE_CONVENIENT = 49999;
 
 const Spacer = styled.div`
   margin: 40px auto 0;
@@ -30,6 +33,10 @@ const ImageBrandCredit = styled.img`
 
 const ImageCp = styled.img`
   max-width: 100%;
+`;
+
+const CaptionImageCp = styled.div`
+  font-size: ${FontSizes.small_12}px;
 `;
 
 const HeadMessage = styled.div`
@@ -343,7 +350,14 @@ export default ({
           labels={['クレジットカード', 'コンビニ払い・Pay-easy', '銀行振込']}
           captions={[
             <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />,
-            <ImageCp src={iconCp} alt="icon-cp" />,
+            <Fragment>
+              <ImageCp src={iconCp} alt="icon-cp" />
+              {Number(formatRemoveComma(payment.price)) > MAX_PAY_PRICE_CONVENIENT && (
+                <CaptionImageCp>
+                  ※お支払い金額が50,000円以上の場合、コンビニ払い・Pay-easyはご利用いただけません。
+                </CaptionImageCp>
+              )}
+            </Fragment>,
             '',
           ]}
           contents={[

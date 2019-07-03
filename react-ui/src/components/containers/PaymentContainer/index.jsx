@@ -29,6 +29,8 @@ import authRequired from 'components/containers/AuthRequired';
 import { formatDate, formatStringSlash } from 'helpers/date';
 import { iskeyDownEnter } from 'helpers/keydown';
 
+const MAX_PAY_PRICE_CONVENIENT = 49999;
+
 type PropTypes = {
   dispatch: Function,
   match: {
@@ -109,6 +111,10 @@ const AccountNumber = styled.div`
   line-height: 1.5rem;
   letter-spacing: 0.05em;
   font-weight: bold;
+`;
+
+const PaymentUrl = styled.a`
+  word-break: break-all;
 `;
 
 class PaymentContainer extends Component<PropTypes> {
@@ -247,10 +253,9 @@ class PaymentContainer extends Component<PropTypes> {
   };
 
   validate: Function;
-  // TODO: 50,000円以上のコンビニ決済はできないようにする
   // TODO: 決済エラー時に確認画面にエラー表示させる
 
-  validate = () => {
+  validate = price => {
     const { state } = this;
     const chkMonth = `${state.year}-${state.month}-01`;
     const nowMonth = `${moment().year()}-${moment().month() + 1}-01`;
@@ -259,7 +264,14 @@ class PaymentContainer extends Component<PropTypes> {
     const chkMonthF = moment(chkMonth, dtFormat).format(dtFormat);
     const nowMonthF = moment(nowMonth, dtFormat).format(dtFormat);
 
-    if (state.paymentMethod === 1 || state.paymentMethod === 2) {
+    if (state.paymentMethod === 1) {
+      if (price > MAX_PAY_PRICE_CONVENIENT) {
+        return false;
+      }
+      return true;
+    }
+
+    if (state.paymentMethod === 2) {
       return true;
     }
 
@@ -308,7 +320,7 @@ class PaymentContainer extends Component<PropTypes> {
           month={month}
           onChangeCvc={value => this.handleChangeUI('cvc', value)}
           cvc={cvc}
-          buttonDisabled={!this.validate()}
+          buttonDisabled={!this.validate(Number(request.price))}
           buttonLoading={isSending}
           // onKeyDownPay={this.onKeyDownPay}
           backButton={this.backButtonMessage}
@@ -342,7 +354,7 @@ class PaymentContainer extends Component<PropTypes> {
         errMsgPayment={errMsgPayment}
         name={name}
         number={number}
-        buttonDisabled={!this.validate()}
+        buttonDisabled={!this.validate(Number(request.price))}
         buttonLoading={isSending}
         // onKeyDownPay={this.onKeyDownPay}
         backButton={this.backButton}
@@ -450,9 +462,9 @@ class PaymentContainer extends Component<PropTypes> {
               以下のURLからお支払い画面に移動していただき、お支払いをお願いいたします。
               <br />
               <br />
-              <a href={paymentUrl} target="_blank" rel="noopener noreferrer">
+              <PaymentUrl href={paymentUrl} target="_blank" rel="noopener noreferrer">
                 {paymentUrl}
-              </a>
+              </PaymentUrl>
               <br />
               <br />
               決済要のURLはメールでもお送りしています的な文言
