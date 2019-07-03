@@ -80,6 +80,14 @@ export const requestReducer = handleActions(
       ...state,
       payment: { isSending: true, isSuccess: false, isFailed: false },
     }),
+    [PAYMENT_ECONTEXT]: state => ({
+      ...state,
+      payment: { isSending: true, isSuccess: false, isFailed: false },
+    }),
+    [PAYMENT_BANK]: state => ({
+      ...state,
+      payment: { isSending: true, isSuccess: false, isFailed: false },
+    }),
     [PAYMENT_SUCCESS]: (state, action) => ({
       ...state,
       payment: {
@@ -384,7 +392,8 @@ function* paymentEcontext({ payload: { requestId } }) {
     token,
   );
   if (err) {
-    yield put(requestActions.paymentFailed({ err }));
+    const errMsg = `決済処理に失敗しました。\n繰り返し認証に失敗する場合、モノオクカスタマーサポートまでお問い合わせください。`;
+    yield put(requestActions.paymentFailed({ errMsg }));
     return;
   }
   handleGTM('match', requestId);
@@ -403,7 +412,8 @@ function* paymentBank({ payload: { requestId } }) {
     token,
   );
   if (err) {
-    yield put(requestActions.paymentFailed({ err }));
+    const errMsg = `決済処理に失敗しました。\n繰り返し認証に失敗する場合、モノオクカスタマーサポートまでお問い合わせください。`;
+    yield put(requestActions.paymentFailed({ errMsg }));
     return;
   }
   handleGTM('match', requestId);

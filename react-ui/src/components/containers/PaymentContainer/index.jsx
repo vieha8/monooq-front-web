@@ -164,24 +164,18 @@ class PaymentContainer extends Component<PropTypes> {
         },
       }),
     );
-    window.scrollTo(0, 0);
-    this.setState({ modeView: 2 });
   };
 
   paymentConvenience = () => {
     const { match, dispatch } = this.props;
     const { request_id: requestId } = match.params;
     dispatch(requestActions.paymentEcontext({ requestId }));
-    // TODO 通信待ち処理
-    window.scrollTo(0, 0);
-    this.setState({ modeView: 2 });
   };
 
   paymentBank = () => {
     const { match, dispatch } = this.props;
     const { request_id: requestId } = match.params;
     dispatch(requestActions.paymentBank({ requestId }));
-    window.scrollTo(0, 0);
   };
 
   backToMessage: Function;
@@ -253,7 +247,6 @@ class PaymentContainer extends Component<PropTypes> {
   };
 
   validate: Function;
-  // TODO: 決済エラー時に確認画面にエラー表示させる
 
   validate = price => {
     const { state } = this;
@@ -405,15 +398,9 @@ class PaymentContainer extends Component<PropTypes> {
     const { paymentMethod } = this.state;
     if (paymentMethod === 2) {
       this.paymentBank();
-      this.setState({ modeView: 2 });
     } else {
       this.setState({ modeView: 1 });
     }
-  };
-
-  submitButton = () => {
-    window.scrollTo(0, 0);
-    this.setState({ modeView: 2 });
   };
 
   rightContent = () => {
@@ -426,7 +413,7 @@ class PaymentContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { match, room, isLoading, paymentUrl } = this.props;
+    const { match, room, isLoading, paymentUrl, isPaymentSuccess } = this.props;
 
     const requestId = match.params.request_id;
 
@@ -449,7 +436,7 @@ class PaymentContainer extends Component<PropTypes> {
       leftContent = this.leftContentConfirm(requestId);
     }
 
-    if (modeView === 2) {
+    if (isPaymentSuccess) {
       switch (paymentMethod) {
         case 0:
           headline = '決済が完了しました';

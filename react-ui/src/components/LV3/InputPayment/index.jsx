@@ -240,54 +240,58 @@ function maskify(cc) {
   return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
 }
 
-function contentConfirm(paymentMethod, number, name) {
+function contentConfirm(paymentMethod, number, name, paidError, errMsgPayment) {
   if (paymentMethod === 0) {
     return (
+      <Fragment>
+        <CmnWrap noMarginSide>
+          クレジットカードで決済する
+          <br />
+          <br />
+          <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />
+          <br />
+          <br />
+          <ConfirmCreditInfo>
+            <Item>
+              <InlineText.Bold>カード番号</InlineText.Bold>
+              <br />
+              {maskify(number)}
+            </Item>
+            <Item>
+              <InlineText.Bold>カード名義人</InlineText.Bold>
+              <br />
+              {name}
+            </Item>
+          </ConfirmCreditInfo>
+          ・決済後にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
+          <br />
+          ・「決済する」ボタンを押すことで、お客様は当サイトのプライバシーポリシーと利用規約に同意の上、モノオクサービスの予約を確定したことになります。
+          <br />
+          ・無断でのスペース利用延長は荷物を引き取る意思がないとみなし、利用規約に基づき荷物の引き取り費用5万円と処分に要した費用全額を請求いたします。
+        </CmnWrap>
+      </Fragment>
+    );
+  }
+  return (
+    <Fragment>
       <CmnWrap noMarginSide>
-        クレジットカードで決済する
+        コンビニ払い・Pay-easyで決済する
         <br />
         <br />
-        <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />
+        <ImageCp src={iconCp} alt="icon-cp" />
         <br />
         <br />
-        <ConfirmCreditInfo>
-          <Item>
-            <InlineText.Bold>カード番号</InlineText.Bold>
-            <br />
-            {maskify(number)}
-          </Item>
-          <Item>
-            <InlineText.Bold>カード名義人</InlineText.Bold>
-            <br />
-            {name}
-          </Item>
-        </ConfirmCreditInfo>
+        ・お支払い方法確定後、お支払いページのURLを発行します。
+        <br />
+        ・48時間以内にお支払い手続きが行われない場合自動的にキャンセルとなります。
+        <br />
         ・決済後にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
         <br />
         ・「決済する」ボタンを押すことで、お客様は当サイトのプライバシーポリシーと利用規約に同意の上、モノオクサービスの予約を確定したことになります。
         <br />
         ・無断でのスペース利用延長は荷物を引き取る意思がないとみなし、利用規約に基づき荷物の引き取り費用5万円と処分に要した費用全額を請求いたします。
       </CmnWrap>
-    );
-  }
-  return (
-    <CmnWrap noMarginSide>
-      コンビニ払い・Pay-easyで決済する
-      <br />
-      <br />
-      <ImageCp src={iconCp} alt="icon-cp" />
-      <br />
-      <br />
-      ・お支払い方法確定後、お支払いページのURLを発行します。
-      <br />
-      ・48時間以内にお支払い手続きが行われない場合自動的にキャンセルとなります。
-      <br />
-      ・決済後にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
-      <br />
-      ・「決済する」ボタンを押すことで、お客様は当サイトのプライバシーポリシーと利用規約に同意の上、モノオクサービスの予約を確定したことになります。
-      <br />
-      ・無断でのスペース利用延長は荷物を引き取る意思がないとみなし、利用規約に基づき荷物の引き取り費用5万円と処分に要した費用全額を請求いたします。
-    </CmnWrap>
+    </Fragment>
   );
 }
 
@@ -342,8 +346,13 @@ export default ({
     </Row>
     <Row noMarginTop borderTop borderBottom>
       <H2>お支払い方法</H2>
+      {paidError && (
+        <Row>
+          <InlineText.Base color={Colors.error}>{errMsgPayment}</InlineText.Base>
+        </Row>
+      )}
       {confirm ? (
-        contentConfirm(paymentMethod, number, name)
+        contentConfirm(paymentMethod, number, name, paidError, errMsgPayment)
       ) : (
         <RadioList
           borderTop
@@ -362,11 +371,6 @@ export default ({
           ]}
           contents={[
             <Fragment>
-              {paidError && (
-                <Row>
-                  <InlineText.Base color={Colors.error}>{errMsgPayment}</InlineText.Base>
-                </Row>
-              )}
               <Row>
                 <InputForm
                   label="カード名義（半角ローマ字）"
