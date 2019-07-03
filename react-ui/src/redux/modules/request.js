@@ -218,33 +218,6 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   yield put(push(Path.message(roomId)));
 }
 
-function* sendPaymentEmail(payload) {
-  const { roomId, spaceId } = payload;
-
-  const token = yield* getToken();
-  const { data: space } = yield call(getApiRequest, apiEndpoint.spaces(spaceId), {}, token);
-  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(space.userId), {}, token);
-
-  let messageBody = '見積りに対するお支払いがありました。\n';
-  messageBody += '詳細を確認するには以下のリンクをクリックしてください。\n';
-
-  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
-  if (process.env.REACT_APP_ENV === 'production') {
-    messageBody += `https://monooq.com/messages/${roomId}`;
-  } else {
-    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
-  }
-
-  const body = {
-    Subject: 'ユーザーの支払いが完了されました：モノオクからのお知らせ',
-    Uid: toUser.firebaseUid,
-    Body: messageBody,
-    Category: 'payment',
-  };
-
-  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
-}
-
 function* sendRequestEmail(payload) {
   const { user, space, roomId } = payload;
 
@@ -377,7 +350,6 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
 
   handleGTM('match', requestId);
 
-  yield sendPaymentEmail({ roomId, spaceId: requestData.spaceId });
   yield put(requestActions.paymentSuccess(data));
 }
 
