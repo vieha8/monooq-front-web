@@ -28,11 +28,14 @@ const Spacer = styled.div`
 `;
 
 const ImageBrandCredit = styled.img`
-  max-width: 147px;
+  max-width: 160px;
 `;
 
 const ImageCp = styled.img`
-  max-width: 100%;
+  max-width: 300px;
+  ${media.phoneSmall`
+    max-width: 100%;
+  `};
 `;
 
 const CaptionImageCp = styled.div`
@@ -153,10 +156,22 @@ const Padding = styled.span`
 
 const CmnWrap = styled.div`
   margin: ${Dimens.medium_20}px;
+  padding-top: ${Dimens.medium_20}px;
+  border-top: 1px solid ${Colors.borderGray};
   ${props =>
     props.noMarginSide &&
     `
     margin: ${Dimens.medium_20}px auto;
+  `}
+  ${props =>
+    props.noPaddingTop &&
+    `
+    padding-top: 0px;
+  `}
+  ${props =>
+    props.noBorderTop &&
+    `
+    border-top: none;
   `}
   ${media.phone`
     margin: ${Dimens.medium_20}px auto;
@@ -173,6 +188,7 @@ const Item = styled.div`
   border-radius: 6px;
   &:first-child {
     border-radius: 6px 6px 0px 0px;
+    border-bottom: none;
   }
   &:last-child {
     border-radius: 0px 0px 6px 6px;
@@ -246,7 +262,7 @@ function contentConfirm(paymentMethod, number, name, paidError, errMsgPayment) {
     return (
       <Fragment>
         <CmnWrap noMarginSide>
-          クレジットカードで決済する
+          <InlineText.Bold>クレジットカードで決済する</InlineText.Bold>
           <br />
           <br />
           <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />
@@ -276,7 +292,7 @@ function contentConfirm(paymentMethod, number, name, paidError, errMsgPayment) {
   return (
     <Fragment>
       <CmnWrap noMarginSide>
-        コンビニ払い・Pay-easyで決済する
+        <InlineText.Bold>コンビニ払い・Pay-easyで決済する</InlineText.Bold>
         <br />
         <br />
         <ImageCp src={iconCp} alt="icon-cp" />
@@ -442,7 +458,7 @@ export default ({
               </Row>
             </Fragment>,
             '',
-            <CmnWrap>
+            <CmnWrap noPaddingTop noBorderTop>
               <AccountNumber>
                 みずほ銀行 渋谷中央支店
                 <br />

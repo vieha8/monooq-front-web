@@ -22,11 +22,11 @@ import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
 
 const ImageBrandCredit = styled.img`
-  max-width: 147px;
+  max-width: 160px;
 `;
 
 const ImageCp = styled.img`
-  max-width: 100%;
+  max-width: 300px;
 `;
 
 const SubTitle = styled.div`
@@ -277,7 +277,7 @@ export default () => (
           <br />
           ＜対応コンビニ＞
           <br />
-          ファミリーマート、ローソン、ミニストップのコンビニ決済及びPay-easy決済がご利用いただけます。
+          ローソン、ファミリーマート、ミニストップのコンビニ決済及びPay-easy決済がご利用いただけます。
           <br />
           <ImageCp src={iconCp} alt="icon-cp" />
           <br />

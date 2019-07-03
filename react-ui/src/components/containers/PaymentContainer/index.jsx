@@ -352,7 +352,7 @@ class PaymentContainer extends Component<PropTypes> {
         // onKeyDownPay={this.onKeyDownPay}
         backButton={this.backButton}
         submitButton={paymentMethod === 0 ? this.payment : this.paymentConvenience}
-        backButtonText="修正する"
+        backButtonText={paymentMethod === 0 ? '修正する' : '戻る'}
         submitButtonText="確定する"
         confirm
       />
