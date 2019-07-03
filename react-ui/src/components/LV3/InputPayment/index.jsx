@@ -190,6 +190,7 @@ const AccountNumber = styled.div`
   line-height: 1.5rem;
   letter-spacing: 0.05em;
   font-weight: bold;
+  border: 1px solid ${Colors.yellow};
 `;
 
 type PropTypes = {
@@ -356,14 +357,14 @@ export default ({
       ) : (
         <RadioList
           borderTop
-          labels={['クレジットカード', 'コンビニ払い・Pay-easy', '銀行振込']}
+          labels={['クレジットカード', 'コンビニ払い・Pay-easy決済', '銀行振込']}
           captions={[
             <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />,
             <Fragment>
               <ImageCp src={iconCp} alt="icon-cp" />
               {Number(formatRemoveComma(payment.price)) > MAX_PAY_PRICE_CONVENIENT && (
                 <CaptionImageCp>
-                  ※お支払い金額が50,000円以上の場合、コンビニ払い・Pay-easyはご利用いただけません。
+                  ※お支払い金額が50,000円以上の場合、コンビニ払い・Pay-easy決済はご利用いただけません。
                 </CaptionImageCp>
               )}
             </Fragment>,

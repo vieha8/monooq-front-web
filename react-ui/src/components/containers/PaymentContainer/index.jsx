@@ -440,13 +440,22 @@ class PaymentContainer extends Component<PropTypes> {
       switch (paymentMethod) {
         case 0:
           headline = '決済が完了しました';
-          description = <Fragment>決済が完了しました。ホストに連絡して、具体的な●●●●●〜</Fragment>;
+          description = (
+            <Fragment>
+              メッセージ画面からスペースの住所を確認し、荷物を届けましょう。
+              <br />
+              <br />
+              具体的な搬入日時はお決まりですか？
+              <br />
+              まだの場合はホストと調整を行いましょう。
+            </Fragment>
+          );
           break;
         case 1:
           headline = 'お支払い方法が確定しました';
           description = (
             <Fragment>
-              以下のURLからお支払い画面に移動していただき、お支払いをお願いいたします。
+              下記から決済画面に移動し、お支払いをお願いします。
               <br />
               <br />
               <PaymentUrl href={paymentUrl} target="_blank" rel="noopener noreferrer">
@@ -454,7 +463,7 @@ class PaymentContainer extends Component<PropTypes> {
               </PaymentUrl>
               <br />
               <br />
-              決済要のURLはメールでもお送りしています的な文言
+              決済画面URLなどのお支払い情報はご登録メールアドレスにもお送りしております。
             </Fragment>
           );
           break;
@@ -463,8 +472,10 @@ class PaymentContainer extends Component<PropTypes> {
           description = (
             <Fragment>
               下記口座にお振込後、
-              <a href="mailto:support@monooq.com">support@monooq.com</a>
-              まで振込明細の写真とモノオクで登録しているメールアドレスをお送りください。
+              <a href="mailto:support@monooq.com?subject=銀行振込が完了しました&amp;body=こちらのメールに振込明細のお写真と、モノオクに登録しているメールアドレスをお送りください。">
+                support@monooq.com
+              </a>
+              まで振込明細の写真とモノオクに登録しているメールアドレスをお送りください。
               <CmnWrap>
                 <AccountNumber>
                   みずほ銀行 渋谷中央支店
@@ -472,7 +483,7 @@ class PaymentContainer extends Component<PropTypes> {
                   普通 1806441 モノオク(カ
                 </AccountNumber>
               </CmnWrap>
-              振込口座などの情報はメールでもお送りしています的な文言
+              振込先口座などのお支払い情報はご登録メールアドレスにもお送りしております。
             </Fragment>
           );
           break;

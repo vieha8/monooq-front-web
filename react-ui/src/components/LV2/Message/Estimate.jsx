@@ -64,6 +64,7 @@ const AccountNumber = styled.div`
   line-height: 1.5rem;
   letter-spacing: 0.05em;
   font-weight: bold;
+  border: 1px solid ${Colors.yellow};
 `;
 
 const PaymentUrl = styled.a`
@@ -124,7 +125,9 @@ function getDescriptionPay(payType, econtextUrl) {
       result = (
         <Fragment>
           下記口座にお振込後、
-          <a href="mailto:support@monooq.com">support@monooq.com</a>
+          <a href="mailto:support@monooq.com?subject=銀行振込が完了しました&amp;body=こちらのメールに振込明細のお写真と、モノオクに登録しているメールアドレスをお送りください。">
+            support@monooq.com
+          </a>
           まで振込明細の写真とモノオクで登録しているメールアドレスをお送りください。
           <CmnWrap>
             <AccountNumber>
@@ -139,7 +142,7 @@ function getDescriptionPay(payType, econtextUrl) {
     case 4:
       result = (
         <Fragment>
-          以下のURLからコンビニ払い・Pay-easyのお支払い画面に移動していただき、お支払いをお願いいたします。
+          下記から決済画面に移動し、お支払いをお願いします。
           <br />
           <br />
           <PaymentUrl href={econtextUrl} target="_blank" rel="noopener noreferrer">
