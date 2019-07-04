@@ -169,13 +169,15 @@ class PaymentContainer extends Component<PropTypes> {
   paymentConvenience = () => {
     const { match, dispatch } = this.props;
     const { request_id: requestId } = match.params;
-    dispatch(requestActions.paymentEcontext({ requestId }));
+    const apiEndpointName = 'econtext';
+    dispatch(requestActions.paymentOther({ apiEndpointName, requestId }));
   };
 
   paymentBank = () => {
     const { match, dispatch } = this.props;
     const { request_id: requestId } = match.params;
-    dispatch(requestActions.paymentBank({ requestId }));
+    const apiEndpointName = 'bank';
+    dispatch(requestActions.paymentOther({ apiEndpointName, requestId }));
   };
 
   backToMessage: Function;

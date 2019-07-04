@@ -19,8 +19,7 @@ const ESTIMATE_FAILED = 'ESTIMATE_FAILED';
 const PAYMENT = 'PAYMENT';
 const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 const PAYMENT_FAILED = 'PAYMENT_FAILED';
-const PAYMENT_ECONTEXT = 'PAYMENT_ECONTEXT';
-const PAYMENT_BANK = 'PAYMENT_BANK';
+const PAYMENT_OTHER = 'PAYMENT_OTHER';
 const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
 const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
 const FETCH_SCHEDULE_FAILED = 'FETCH_SCHEDULE_FAILED';
@@ -36,8 +35,7 @@ export const requestActions = createActions(
   ESTIMATE_SUCCESS,
   ESTIMATE_FAILED,
   PAYMENT,
-  PAYMENT_ECONTEXT,
-  PAYMENT_BANK,
+  PAYMENT_OTHER,
   PAYMENT_SUCCESS,
   PAYMENT_FAILED,
   FETCH_SCHEDULE,
@@ -86,11 +84,7 @@ export const requestReducer = handleActions(
       ...state,
       payment: { isSending: true, isSuccess: false, isFailed: false },
     }),
-    [PAYMENT_ECONTEXT]: state => ({
-      ...state,
-      payment: { isSending: true, isSuccess: false, isFailed: false },
-    }),
-    [PAYMENT_BANK]: state => ({
+    [PAYMENT_OTHER]: state => ({
       ...state,
       payment: { isSending: true, isSuccess: false, isFailed: false },
     }),
@@ -366,31 +360,11 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
   yield put(requestActions.paymentSuccess(data));
 }
 
-function* paymentEcontext({ payload: { requestId } }) {
+function* paymentOther({ payload: { apiEndpointName, requestId } }) {
   const token = yield* getToken();
   const { data, err } = yield call(
     postApiRequest,
-    apiEndpoint.payments('econtext'),
-    {
-      RequestId: parseInt(requestId, 10),
-    },
-    token,
-  );
-  if (err) {
-    const errMsg = `決済処理に失敗しました。\n繰り返し認証に失敗する場合、モノオクカスタマーサポートまでお問い合わせください。`;
-    yield put(requestActions.paymentFailed({ errMsg }));
-    return;
-  }
-  handleGTM('match', requestId);
-  yield put(requestActions.paymentSuccess(data));
-}
-
-function* paymentBank({ payload: { requestId } }) {
-  // TODO paymentEcontextとほぼ一緒なので共通化する
-  const token = yield* getToken();
-  const { data, err } = yield call(
-    postApiRequest,
-    apiEndpoint.payments('bank'),
+    apiEndpoint.payments(apiEndpointName),
     {
       RequestId: parseInt(requestId, 10),
     },
@@ -487,8 +461,7 @@ function* fetchRequest({ payload: requestId }) {
 export const requestSagas = [
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
-  takeEvery(PAYMENT_ECONTEXT, paymentEcontext),
-  takeEvery(PAYMENT_BANK, paymentBank),
+  takeEvery(PAYMENT_OTHER, paymentOther),
   takeEvery(FETCH_SCHEDULE, fetchSchedule),
   takeEvery(REQUEST, request),
   takeEvery(FETCH_REQUEST, fetchRequest),
