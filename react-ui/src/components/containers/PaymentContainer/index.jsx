@@ -119,7 +119,7 @@ class PaymentContainer extends Component<PropTypes> {
     super(props);
 
     const { dispatch, match } = this.props;
-    const roomId = match.params.room_id;
+    const roomId = match.params.message_room_id;
     const requestId = match.params.request_id;
     dispatch(requestActions.fetchRequest(requestId));
 
@@ -181,7 +181,7 @@ class PaymentContainer extends Component<PropTypes> {
   backToMessage: Function;
   backToMessage = () => {
     const { match } = this.props;
-    const { message_room_id: roomId } = match.params;
+    const { roomId } = this.status;
     window.location.href = Path.message(roomId);
   };
 
