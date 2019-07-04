@@ -148,7 +148,7 @@ function* sendEstimateEmail(payload) {
   const token = yield* getToken();
   const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId), {}, token);
 
-  let messageBody = 'お見積りが届きました。\n';
+  let messageBody = 'お見積もりが届きました。\n';
   messageBody += '確認するには以下のリンクをクリックしてください。\n';
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
@@ -159,7 +159,7 @@ function* sendEstimateEmail(payload) {
   }
 
   const body = {
-    Subject: 'お見積りが届いています：モノオクからのお知らせ',
+    Subject: 'お見積もりが届いています：モノオクからのお知らせ',
     Uid: toUser.firebaseUid,
     Body: messageBody,
     category: 'estimate',
@@ -211,7 +211,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   yield roomDoc.collection('messages').add(message);
   yield roomDoc.set(
     {
-      lastMessage: '見積りが届いています',
+      lastMessage: 'お見積もりが届いています',
       lastMessageDt: new Date(),
     },
     { merge: true },
