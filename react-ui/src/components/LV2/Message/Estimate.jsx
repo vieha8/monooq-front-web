@@ -76,8 +76,8 @@ const PaymentUrl = styled.a`
   word-break: break-all;
 `;
 
-function buttonPayment(host, status, paymentLink) {
-  if (host || status === STATUS_PAY_WAITING || status === STATUS_PAY_PAID) {
+function buttonPayment(host, status, payType, paymentLink) {
+  if (host || (payType !== 1 && status === STATUS_PAY_WAITING) || status === STATUS_PAY_PAID) {
     return (
       <ButtonWrap>
         <Button primary fontbold center fill={1} disabled>
@@ -254,7 +254,7 @@ export default ({
           <br />
           お見積もり内容に問題がなければ料金を支払いましょう。
           <br />
-          <ButtonPaymentWrap>{buttonPayment(host, status, paymentLink)}</ButtonPaymentWrap>
+          <ButtonPaymentWrap>{buttonPayment(host, status, payType, paymentLink)}</ButtonPaymentWrap>
           <br />
           {getDescriptionPay(payType, econtextUrl)}
           <br />
