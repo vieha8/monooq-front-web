@@ -142,12 +142,6 @@ const ContentContainer = styled(DefaultContainer)`
   `};
 `;
 
-const List = styled.ul`
-  margin: ${Dimens.medium}px 0;
-  list-style-type: disc;
-  list-style-position: inside;
-`;
-
 const ButtonWrap = styled.div`
   max-width: 240px;
   margin: 30px auto 30px 0px;

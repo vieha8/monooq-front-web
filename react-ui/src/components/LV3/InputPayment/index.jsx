@@ -219,7 +219,11 @@ type PropTypes = {
   },
   onChangeIsHost: Function,
   paymentMethod: number,
-  errors: Array<Array<string>>,
+  errors: {
+    name: Array<string>,
+    number: Array<string>,
+    cvc: Array<string>,
+  },
   paidError: string,
   errMsgPayment: string,
   onChangeName: Function,
@@ -234,7 +238,8 @@ type PropTypes = {
   cvc: string,
   buttonDisabled: boolean,
   buttonLoading: boolean,
-  // onKeyDownPay: Function,
+  onKeyDownBack: Function,
+  onKeyDownPay: Function,
   backButton: Function,
   submitButton: Function,
   backButtonText: string,
@@ -257,7 +262,7 @@ function maskify(cc) {
   return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
 }
 
-function contentConfirm(paymentMethod, number, name, paidError, errMsgPayment) {
+function contentConfirm(paymentMethod, number, name) {
   if (paymentMethod === 0) {
     return (
       <Fragment>
@@ -332,7 +337,8 @@ export default ({
   cvc,
   buttonDisabled,
   buttonLoading,
-  // onKeyDownPay,
+  onKeyDownBack,
+  onKeyDownPay,
   backButton,
   submitButton,
   backButtonText,
@@ -369,7 +375,7 @@ export default ({
         </Row>
       )}
       {confirm ? (
-        contentConfirm(paymentMethod, number, name, paidError, errMsgPayment)
+        contentConfirm(paymentMethod, number, name)
       ) : (
         <RadioList
           borderTop
@@ -480,7 +486,7 @@ export default ({
         fill={1}
         loading={buttonLoading}
         onClick={backButton}
-        // onKeyDown={onKeyDownPay}
+        onKeyDown={onKeyDownBack}
       >
         {backButtonText}
       </Button>
@@ -492,7 +498,7 @@ export default ({
         disabled={buttonDisabled}
         loading={buttonLoading}
         onClick={submitButton}
-        // onKeyDown={onKeyDownPay}
+        onKeyDown={onKeyDownPay}
       >
         {submitButtonText}
       </Button>

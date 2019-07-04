@@ -41,8 +41,6 @@ type PropTypes = {
   room: {
     space: SpaceType,
   },
-  messages: Array<Object>,
-  isLoading: boolean,
   isPaymentSuccess: boolean,
   isSending: boolean,
   isPaymentFailed: boolean,
@@ -231,14 +229,39 @@ class PaymentContainer extends Component<PropTypes> {
     this.setState({ ...state, error });
   };
 
-  // TODO: あとで実装する。
-  // onKeyDownPay: Function;
-  //
-  // onKeyDownPay = e => {
-  //   if (iskeyDownEnter(e) && this.validate()) {
-  //     this.payment();
-  //   }
-  // };
+  onKeyDownBack: Function;
+
+  onKeyDownBack = e => {
+    if (iskeyDownEnter(e)) {
+      const { modeView } = this.state;
+      if (modeView === 0) {
+        this.backToMessage();
+      } else if (modeView === 1) {
+        this.backButton();
+      }
+    }
+  };
+
+  onKeyDownPay: Function;
+
+  onKeyDownPay = e => {
+    if (iskeyDownEnter(e) && this.validate()) {
+      const { paymentMethod, modeView } = this.state;
+      if (modeView === 0) {
+        this.confirmButton();
+      } else if (modeView === 1) {
+        switch (paymentMethod) {
+          case 0:
+            this.payment();
+            break;
+          case 1:
+            this.paymentConvenience();
+            break;
+          default:
+        }
+      }
+    }
+  };
 
   onKeyDownMessage: Function;
 
@@ -260,7 +283,7 @@ class PaymentContainer extends Component<PropTypes> {
     const nowMonthF = moment(nowMonth, dtFormat).format(dtFormat);
 
     if (state.paymentMethod === 1) {
-      if (price > MAX_PAY_PRICE_CONVENIENT) {
+      if (Number(price) > MAX_PAY_PRICE_CONVENIENT) {
         return false;
       }
       return true;
@@ -312,9 +335,10 @@ class PaymentContainer extends Component<PropTypes> {
         month={month}
         onChangeCvc={value => this.handleChangeUI('cvc', value)}
         cvc={cvc}
-        buttonDisabled={!this.validate(Number(request.price))}
+        buttonDisabled={!this.validate(request.price)}
         buttonLoading={isSending}
-        // onKeyDownPay={this.onKeyDownPay}
+        onKeyDownBack={this.onKeyDownBack}
+        onKeyDownPay={this.onKeyDownPay}
         backButton={this.backButtonMessage}
         submitButton={this.confirmButton}
         backButtonText="戻る"
@@ -343,9 +367,10 @@ class PaymentContainer extends Component<PropTypes> {
         errMsgPayment={errMsgPayment}
         name={name}
         number={number}
-        buttonDisabled={!this.validate(Number(request.price))}
+        buttonDisabled={!this.validate(request.price)}
         buttonLoading={isSending}
-        // onKeyDownPay={this.onKeyDownPay}
+        onKeyDownBack={this.onKeyDownBack}
+        onKeyDownPay={this.onKeyDownPay}
         backButton={this.backButton}
         submitButton={paymentMethod === 0 ? this.payment : this.paymentConvenience}
         backButtonText={paymentMethod === 0 ? '修正する' : '戻る'}
@@ -368,7 +393,7 @@ class PaymentContainer extends Component<PropTypes> {
             fontbold
             center
             onClick={this.backButtonMessage}
-            // onKeyDown={this.onKeyDownButtonHome}
+            onKeyDown={this.onKeyDownMessage}
           >
             メッセージ画面に戻る
           </Button>
