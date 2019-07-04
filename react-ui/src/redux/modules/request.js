@@ -133,6 +133,7 @@ export const requestReducer = handleActions(
     }),
     [FETCH_REQUEST]: state => ({
       ...state,
+      payment: { isSuccess: false, isFailed: false },
     }),
     [FETCH_REQUEST_SUCCESS]: (state, action) => ({
       ...state,
