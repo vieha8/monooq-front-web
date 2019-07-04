@@ -19,18 +19,23 @@ const ESTIMATE_FAILED = 'ESTIMATE_FAILED';
 const PAYMENT = 'PAYMENT';
 const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 const PAYMENT_FAILED = 'PAYMENT_FAILED';
+const PAYMENT_OTHER = 'PAYMENT_OTHER';
 const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
 const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
 const FETCH_SCHEDULE_FAILED = 'FETCH_SCHEDULE_FAILED';
 const REQUEST = 'REQUEST';
 const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 const REQUEST_FAILED = 'REQUEST_FAILED';
+const FETCH_REQUEST = 'FETCH_REQUEST';
+const FETCH_REQUEST_SUCCESS = 'FETCH_REQUEST_SUCCESS';
+const FETCH_REQUEST_FAILED = 'FETCH_REQUEST_FAILED';
 
 export const requestActions = createActions(
   ESTIMATE,
   ESTIMATE_SUCCESS,
   ESTIMATE_FAILED,
   PAYMENT,
+  PAYMENT_OTHER,
   PAYMENT_SUCCESS,
   PAYMENT_FAILED,
   FETCH_SCHEDULE,
@@ -39,6 +44,9 @@ export const requestActions = createActions(
   REQUEST,
   REQUEST_SUCCESS,
   REQUEST_FAILED,
+  FETCH_REQUEST,
+  FETCH_REQUEST_SUCCESS,
+  FETCH_REQUEST_FAILED,
 );
 
 // Reducer
@@ -76,9 +84,18 @@ export const requestReducer = handleActions(
       ...state,
       payment: { isSending: true, isSuccess: false, isFailed: false },
     }),
-    [PAYMENT_SUCCESS]: state => ({
+    [PAYMENT_OTHER]: state => ({
       ...state,
-      payment: { isSending: false, isSuccess: true, isFailed: false },
+      payment: { isSending: true, isSuccess: false, isFailed: false },
+    }),
+    [PAYMENT_SUCCESS]: (state, action) => ({
+      ...state,
+      payment: {
+        isSending: false,
+        isSuccess: true,
+        isFailed: false,
+        url: action.payload.paymentUrl,
+      },
     }),
     [PAYMENT_FAILED]: (state, action) => ({
       ...state,
@@ -114,6 +131,13 @@ export const requestReducer = handleActions(
       ...state,
       isLoading: false,
     }),
+    [FETCH_REQUEST]: state => ({
+      ...state,
+    }),
+    [FETCH_REQUEST_SUCCESS]: (state, action) => ({
+      ...state,
+      request: action.payload,
+    }),
   },
   initialState,
 );
@@ -124,7 +148,7 @@ function* sendEstimateEmail(payload) {
   const token = yield* getToken();
   const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId), {}, token);
 
-  let messageBody = 'お見積りが届きました。\n';
+  let messageBody = 'お見積もりが届きました。\n';
   messageBody += '確認するには以下のリンクをクリックしてください。\n';
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
@@ -135,7 +159,7 @@ function* sendEstimateEmail(payload) {
   }
 
   const body = {
-    Subject: 'お見積りが届いています：モノオクからのお知らせ',
+    Subject: 'お見積もりが届いています：モノオクからのお知らせ',
     Uid: toUser.firebaseUid,
     Body: messageBody,
     category: 'estimate',
@@ -187,7 +211,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   yield roomDoc.collection('messages').add(message);
   yield roomDoc.set(
     {
-      lastMessage: '見積りが届いています',
+      lastMessage: 'お見積もりが届いています',
       lastMessageDt: new Date(),
     },
     { merge: true },
@@ -199,33 +223,6 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   handleGTM('estimate', requestInfo.id);
 
   yield put(push(Path.message(roomId)));
-}
-
-function* sendPaymentEmail(payload) {
-  const { roomId, spaceId } = payload;
-
-  const token = yield* getToken();
-  const { data: space } = yield call(getApiRequest, apiEndpoint.spaces(spaceId), {}, token);
-  const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(space.userId), {}, token);
-
-  let messageBody = '見積りに対するお支払いがありました。\n';
-  messageBody += '詳細を確認するには以下のリンクをクリックしてください。\n';
-
-  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
-  if (process.env.REACT_APP_ENV === 'production') {
-    messageBody += `https://monooq.com/messages/${roomId}`;
-  } else {
-    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
-  }
-
-  const body = {
-    Subject: 'ユーザーの支払いが完了されました：モノオクからのお知らせ',
-    Uid: toUser.firebaseUid,
-    Body: messageBody,
-    Category: 'payment',
-  };
-
-  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
 }
 
 function* sendRequestEmail(payload) {
@@ -360,7 +357,25 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
 
   handleGTM('match', requestId);
 
-  yield sendPaymentEmail({ roomId, spaceId: requestData.spaceId });
+  yield put(requestActions.paymentSuccess(data));
+}
+
+function* paymentOther({ payload: { apiEndpointName, requestId } }) {
+  const token = yield* getToken();
+  const { data, err } = yield call(
+    postApiRequest,
+    apiEndpoint.payments(apiEndpointName),
+    {
+      RequestId: parseInt(requestId, 10),
+    },
+    token,
+  );
+  if (err) {
+    const errMsg = `決済処理に失敗しました。\n繰り返し認証に失敗する場合、モノオクカスタマーサポートまでお問い合わせください。`;
+    yield put(requestActions.paymentFailed({ errMsg }));
+    return;
+  }
+  handleGTM('match', requestId);
   yield put(requestActions.paymentSuccess(data));
 }
 
@@ -436,9 +451,18 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
   yield put(requestActions.requestSuccess());
 }
 
+function* fetchRequest({ payload: requestId }) {
+  const token = yield* getToken();
+  const { data } = yield call(getApiRequest, apiEndpoint.requests(requestId), {}, token);
+  // TODO エラーハンドリング
+  yield put(requestActions.fetchRequestSuccess(data));
+}
+
 export const requestSagas = [
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
+  takeEvery(PAYMENT_OTHER, paymentOther),
   takeEvery(FETCH_SCHEDULE, fetchSchedule),
   takeEvery(REQUEST, request),
+  takeEvery(FETCH_REQUEST, fetchRequest),
 ];

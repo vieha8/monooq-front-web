@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 export default function handleBeforeUnload(WrappedComponent: Component) {
   class handleBeforeUnloadComponent extends Component {
     componentDidMount() {
-      window.addEventListener('beforeunload', this.handleBeforeUnload);
+      // window.addEventListener('beforeunload', this.handleBeforeUnload);
     }
 
     componentWillUnmount() {

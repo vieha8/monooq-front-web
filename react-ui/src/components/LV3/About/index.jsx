@@ -18,6 +18,16 @@ import useImage3 from 'images/about_use3@2x.jpg';
 import useImage4 from 'images/about_use4@2x.jpg';
 import useImage5 from 'images/about_use5@2x.jpg';
 import useImage6 from 'images/about_use6@2x.jpg';
+import iconBrandCredit from 'images/icon-brand-credit.png';
+import iconCp from 'images/logo-cp.png';
+
+const ImageBrandCredit = styled.img`
+  max-width: 160px;
+`;
+
+const ImageCp = styled.img`
+  max-width: 300px;
+`;
 
 const SubTitle = styled.div`
   font-size: ${FontSizes.large}px;
@@ -130,12 +140,6 @@ const ContentContainer = styled(DefaultContainer)`
       margin-bottom: ${Dimens.large4_80}px;
       `};
   `};
-`;
-
-const List = styled.ul`
-  margin: ${Dimens.medium}px 0;
-  list-style-type: disc;
-  list-style-position: inside;
 `;
 
 const ButtonWrap = styled.div`
@@ -252,18 +256,33 @@ export default () => (
       </ContentContainer>
 
       <ContentContainer>
-        <SubTitle>お支払い方法の追加</SubTitle>
+        <SubTitle>お支払い方法について</SubTitle>
         <Text>
-          現在はクレジットカード決済・銀行振込に対応しております。
+          ■クレジットカード決済
           <br />
-          取引成立時のお支払いに使用可能なクレジットカードは下記となります。
-          <List>
-            <li>VISA</li>
-            <li>MasterCard</li>
-          </List>
-          *銀行振込をご希望の場合
+          ＜ご利用可能カード＞
           <br />
-          下記口座にお振込後、振込明細の写真をsupport@monooq.comまでご連絡ください。
+          VISA、Mastercardがご利用いただけます。
+          <br />
+          <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />
+          <br />
+          <br />
+          ■コンビニ払い・Pay-easy決済
+          <br />
+          ＜対応コンビニ＞
+          <br />
+          ローソン、ファミリーマート、ミニストップのコンビニ決済及びPay-easy決済がご利用いただけます。
+          <br />
+          <ImageCp src={iconCp} alt="icon-cp" />
+          <br />
+          <br />
+          ■銀行振込
+          <br />
+          下記口座にお振込後、
+          <a href="mailto:support@monooq.com?subject=銀行振込が完了しました&amp;body=こちらのメールに振込明細のお写真と、モノオクに登録しているメールアドレスをお送りください。">
+            support@monooq.com
+          </a>
+          まで振込明細の写真とモノオクに登録しているメールアドレスをお送りください。
           <br />
           <br />
           みずほ銀行 渋谷中央支店

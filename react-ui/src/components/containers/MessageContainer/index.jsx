@@ -192,7 +192,9 @@ class MessageContainer extends Component<PropTypes, State> {
               price,
               link: Path.payment(match.params.message_room_id, requestId),
               receivedAt: message.createDt,
-              status: request ? request.status : 'estimate',
+              status: request.status,
+              payType: request.payType,
+              econtextUrl: request.paymentUrl,
             },
           };
         }
@@ -200,7 +202,7 @@ class MessageContainer extends Component<PropTypes, State> {
           const { request } = message;
           return {
             admin: {
-              message: `お見積りID:${
+              message: `お見積もりID:${
                 request.id
               }\n決済が完了しました。スペース取引成立です！\nスペース所在地:${
                 request.space.address

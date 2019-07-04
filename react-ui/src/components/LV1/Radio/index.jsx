@@ -8,9 +8,10 @@ import { media } from 'helpers/style/media-query';
 const Container = styled.div`
   display: inline-block;
   cursor: pointer;
+  width: 100%;
 `;
 
-const RADIO_SIZE = 25;
+const RADIO_SIZE = 27;
 const RADIO_CHECK_SIZE = 15;
 const Radio = styled.div`
   display: inline-block;
@@ -37,16 +38,18 @@ const Radio = styled.div`
 `;
 
 const Label = styled.div`
+  width: calc(100% - 42px);
   display: inline-block;
   font-size: ${FontSizes.small_15}px;
   color: ${Colors.black};
-  margin-left: 20px;
+  margin-left: 15px;
   vertical-align: top;
   line-height: ${RADIO_SIZE}px;
   ${media.phone`
     ${props =>
       props.border &&
       `
+      width: calc(100% - 37px);
       margin-left: 10px;
     `};
   `};

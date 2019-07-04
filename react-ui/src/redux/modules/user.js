@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, select, call } from 'redux-saga/effects';
+import { put, takeEvery, select, call } from 'redux-saga/effects';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import { handleGTM } from 'helpers/gtm';
@@ -120,7 +120,13 @@ function* getSpaces(params) {
   } else {
     user = yield select(state => state.auth.user);
     if (!user.id) {
-      yield handleError(userActions.fetchFailedUserSpaces, '', functionName, err, false);
+      yield handleError(
+        userActions.fetchFailedUserSpaces,
+        '',
+        functionName,
+        'Undefined userId.',
+        false,
+      );
       return;
     }
   }

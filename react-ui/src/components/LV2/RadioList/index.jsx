@@ -15,6 +15,12 @@ const Wrapper = styled.div`
     padding: 15px;
     border-radius: 5px;
   `};
+  ${props =>
+    props.borderTop &&
+    `
+    border-top: 1px solid ${Colors.borderGray};
+    padding-top: 16px;
+  `};
   ${media.phone`
     ${props =>
       props.border &&
@@ -27,22 +33,38 @@ const Wrapper = styled.div`
   }
 `;
 
+const ImageWrapper = styled.div``;
+
 type PropTypes = {
   labelTitle?: string,
   border?: boolean,
+  borderTop?: boolean,
   labels: Array<string>,
   onClick: Function,
-  checkedIndex: number,
+  contents?: Object,
+  captions?: object,
+  checkedIndex?: number,
 };
 
-export default ({ labelTitle, labels, border, onClick, checkedIndex }: PropTypes) => (
+export default ({
+  labelTitle,
+  labels,
+  border,
+  borderTop,
+  onClick,
+  contents,
+  captions,
+  checkedIndex,
+}: PropTypes) => (
   <Fragment>
     <H3 bold>{labelTitle}</H3>
     {labels.map((label, i) => (
-      <Wrapper key={`radiolist_checkitem${i.toString()}`} border={border}>
+      <Wrapper key={`radiolist_checkitem${i.toString()}`} border={border} borderTop={borderTop}>
         <Radio onClick={() => onClick(i)} checked={checkedIndex === i} border>
           {label}
+          {captions && <ImageWrapper>{captions[i]}</ImageWrapper>}
         </Radio>
+        {contents && i === checkedIndex && contents[i]}
       </Wrapper>
     ))}
   </Fragment>

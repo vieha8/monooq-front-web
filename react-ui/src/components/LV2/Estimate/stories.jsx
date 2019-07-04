@@ -19,11 +19,11 @@ storiesOf('Molecules(LV2)/Estimate', module)
     'Message',
     withInfo(`
       ### コンポーネント概要
-      概算見積もり
+      お見積もり
       - ・beginAt：利用開始日
       - ・endAt：利用終了日
       - ・duaration：期間
-      - ・price：見積もり金額
+      - ・price：お見積もり金額
     `)(() => (
       <div style={{ width: '100%', maxWidth: '300px', padding: `${Dimens.storyBookPadding}` }}>
         <Estimate beginAt="2018年03月20日" endAt="2018年05月20日" duration={60} price="32,000" />
@@ -62,7 +62,7 @@ storiesOf('Molecules(LV2)/Estimate', module)
     'InputPrice',
     withInfo(`
       ### コンポーネント概要
-      お見積り料金入力
+      お見積もり料金入力
     `)(() => (
       <div style={{ width: '100%', maxWidth: '800px', padding: `${Dimens.storyBookPadding}` }}>
         <InputPrice
