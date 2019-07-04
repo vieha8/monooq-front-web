@@ -508,8 +508,6 @@ class PaymentContainer extends Component<PropTypes> {
           );
           break;
         default:
-          headline = 'お支払い方法が確定しました';
-          description = <Fragment>決済が完了しました。ホストに連絡して、具体的な●●●●●〜</Fragment>;
       }
       leftContent = this.leftContentComplete(headline, description);
     }
