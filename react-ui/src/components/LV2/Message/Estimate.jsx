@@ -109,10 +109,10 @@ function getPayInfo(payType, status) {
       }
       break;
     case 2:
-      resultPayType = 'コンビニ払い・Pay-easy決済';
+      resultPayType = '銀行振込';
       break;
     case 4:
-      resultPayType = '銀行振込';
+      resultPayType = 'コンビニ払い・Pay-easy決済';
       break;
     default:
       resultPayType = '未選択';
