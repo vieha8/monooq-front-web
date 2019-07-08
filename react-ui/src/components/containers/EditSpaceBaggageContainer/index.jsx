@@ -62,15 +62,11 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     }
   };
 
-  onKeyDownButtonNext: Function;
-
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.onClickNext();
     }
   };
-
-  onKeyDownButtonBack: Function;
 
   onKeyDownButtonBack = e => {
     if (iskeyDownEnter(e)) {
@@ -86,8 +82,6 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     }
     return null;
   }
-
-  onClickNext: Function;
 
   onClickNext = () => {
     const { dispatch, history, space } = this.props;
@@ -106,8 +100,6 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     history.push(nextPath);
   };
 
-  onClickBack: Function;
-
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
     const { about, isFurniture } = this.state;
@@ -124,8 +116,6 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     const nextPath = space.id ? Path.editSpaceInfo(space.id) : Path.createSpaceInfo();
     history.push(nextPath);
   };
-
-  handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
     const { state } = this;
@@ -148,8 +138,6 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     error[propName] = errors;
     this.setState({ ...state, error });
   };
-
-  validate: Function;
 
   validate = () => {
     const { about } = this.state;

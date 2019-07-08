@@ -83,14 +83,10 @@ class SearchResultContainer extends Component<PropTypes, State> {
     };
   }
 
-  onClickBackSearchCondition: Function;
-
   onClickBackSearchCondition = () => {
     const { history } = this.props;
     history.push(Path.searchCondition());
   };
-
-  onKeyDownButtonReserch: Function;
 
   onKeyDownButtonReserch = e => {
     if (iskeyDownEnter(e)) {

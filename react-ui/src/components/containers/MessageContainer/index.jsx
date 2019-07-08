@@ -113,18 +113,15 @@ class MessageContainer extends Component<PropTypes, State> {
     }
   };
 
-  handlePickImage: Function;
   handlePickImage = (image: File) => {
     image.preview = URL.createObjectURL(image);
     this.setState({ image });
   };
 
-  handleChangeText: Function;
   handleChangeText = (text: string) => {
     this.setState({ text });
   };
 
-  sendMessage: Function;
   sendMessage = () => {
     const { match, room, user, dispatch } = this.props;
     const { text, image } = this.state;
@@ -146,13 +143,11 @@ class MessageContainer extends Component<PropTypes, State> {
     this.setState({ text: '', image: null });
   };
 
-  transitionToEstimate: Function;
   transitionToEstimate = () => {
     const { history, match } = this.props;
     history.push(Path.estimate(match.params.message_room_id));
   };
 
-  createMessageList: Function;
   createMessageList = () => {
     const { messages, match, user, room } = this.props;
     return messages.map(message => {

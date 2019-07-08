@@ -62,15 +62,11 @@ class UnsubscribeContainer extends Component<PropTypes> {
     }
   }
 
-  onKeyDownUnsubscribe: Function;
-
   onKeyDownUnsubscribe = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.unsubscribe();
     }
   };
-
-  onClickUnsubscribe: Function;
 
   unsubscribe = () => {
     const { dispatch } = this.props;
@@ -85,8 +81,6 @@ class UnsubscribeContainer extends Component<PropTypes> {
       }),
     );
   };
-
-  handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value) => {
     const { state } = this;
@@ -108,15 +102,11 @@ class UnsubscribeContainer extends Component<PropTypes> {
     this.setState({ ...state, error });
   };
 
-  validate: Function;
-
   validate = () => {
     const { reasonType } = this.state;
 
     return reasonType && reasonType.length > 0;
   };
-
-  renderFailed: Function;
 
   renderFailed = () => {
     const { user } = this.props;

@@ -36,14 +36,12 @@ class SpaceManagementContainer extends Component<PropTypes> {
     dispatch(userActions.fetchUserSpaces());
   }
 
-  onClickEdit: Function;
   onClickEdit = space => {
     const { dispatch, history } = this.props;
     dispatch(uiActions.setUiState({ space }));
     history.push(Path.editSpaceInfo(space.id));
   };
 
-  onClickRemove: Function;
   onClickRemove = space => {
     const { dispatch } = this.props;
     dispatch(spaceActions.deleteSpace({ space }));

@@ -102,23 +102,17 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     }
   }
 
-  onKeyDownButtonNext: Function;
-
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e)) {
       this.onClickNext();
     }
   };
 
-  onKeyDownButtonBack: Function;
-
   onKeyDownButtonBack = e => {
     if (iskeyDownEnter(e)) {
       this.onClickBack();
     }
   };
-
-  onClickNext: Function;
 
   onClickNext = () => {
     const { dispatch, space, user } = this.props;
@@ -138,8 +132,6 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
       dispatch(spaceActions.createSpace({ body: { userId: user.id, ...saveSpace } }));
     }
   };
-
-  onClickBack: Function;
 
   onClickBack = () => {
     const { history, space } = this.props;

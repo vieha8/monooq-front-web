@@ -72,15 +72,11 @@ class SearchConditionContainer extends Component<PropTypes> {
     }
   };
 
-  onKeyDownButtonSerch: Function;
-
   onKeyDownButtonSerch = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.onClickSearch();
     }
   };
-
-  onClickSearch: Function;
 
   onClickSearch = () => {
     const { history, dispatch } = this.props;
@@ -109,8 +105,6 @@ class SearchConditionContainer extends Component<PropTypes> {
 
     history.push(`${searchPath}${query}`);
   };
-
-  handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
     const { state } = this;
@@ -142,8 +136,6 @@ class SearchConditionContainer extends Component<PropTypes> {
     error[propName] = errors;
     this.setState({ ...state, error });
   };
-
-  validate: Function;
 
   validate = () => {
     const { priceMin, priceMax } = this.state;

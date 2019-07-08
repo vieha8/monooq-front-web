@@ -35,15 +35,11 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
 
   // TODO: イベント処理を共通化したい
 
-  onClickViewSpace: Function;
-
   onClickViewSpace = () => {
     const { history } = this.props;
     const { spaceId } = this.state;
     history.push(Path.space(spaceId));
   };
-
-  onKeyDownViewSpace: Function;
 
   onKeyDownViewSpace = e => {
     if (iskeyDownEnter(e)) {
@@ -51,14 +47,10 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
     }
   };
 
-  onClickBackHome: Function;
-
   onClickBackHome = () => {
     const { history } = this.props;
     history.push(Path.home());
   };
-
-  onKeyDownHome: Function;
 
   onKeyDownHome = e => {
     if (iskeyDownEnter(e)) {
@@ -66,14 +58,10 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
     }
   };
 
-  onClickCreateSpace: Function;
-
   onClickCreateSpace = () => {
     const { history } = this.props;
     history.push(Path.createSpaceInfo());
   };
-
-  onKeyDownCreateSpace: Function;
 
   onKeyDownCreateSpace = e => {
     if (iskeyDownEnter(e)) {

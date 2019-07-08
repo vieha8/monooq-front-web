@@ -91,23 +91,17 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     return null;
   }
 
-  onKeyDownButtonNext: Function;
-
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.onClickNext();
     }
   };
 
-  onKeyDownButtonBack: Function;
-
   onKeyDownButtonBack = e => {
     if (iskeyDownEnter(e)) {
       this.onClickBack();
     }
   };
-
-  onClickNext: Function;
 
   onClickNext = () => {
     const { dispatch, space, history, match } = this.props;
@@ -147,8 +141,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     history.push(nextPath);
   };
 
-  onClickBack: Function;
-
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
     const { priceFull, priceHalf, priceQuarter } = this.state;
@@ -166,8 +158,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     const nextPath = space.id ? Path.editSpaceReceive(space.id) : Path.createSpaceReceive();
     history.push(nextPath);
   };
-
-  handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
     const { state } = this;
@@ -196,8 +186,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     error[propName] = priceErrors;
     this.setState({ ...state, error });
   };
-
-  validate: Function;
 
   validate = () => {
     const { priceFull, priceHalf, priceQuarter } = this.state;

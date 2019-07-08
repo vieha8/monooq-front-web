@@ -64,23 +64,17 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     return null;
   }
 
-  onKeyDownButtonNext: Function;
-
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.onClickNext();
     }
   };
 
-  onKeyDownButtonBack: Function;
-
   onKeyDownButtonBack = e => {
     if (iskeyDownEnter(e)) {
       this.onClickBack();
     }
   };
-
-  onClickNext: Function;
 
   onClickNext = () => {
     const { dispatch, history, space } = this.props;
@@ -101,8 +95,6 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     history.push(nextPath);
   };
 
-  onClickBack: Function;
-
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
     const { receiptType, receiptAbout } = this.state;
@@ -119,8 +111,6 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     const nextPath = space.id ? Path.editSpaceBaggage(space.id) : Path.createSpaceBaggage();
     history.push(nextPath);
   };
-
-  handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
     const { state } = this;
@@ -143,8 +133,6 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     error[propName] = errors;
     this.setState({ ...state, error });
   };
-
-  validate: Function;
 
   validate = () => {
     const { receiptAbout } = this.state;

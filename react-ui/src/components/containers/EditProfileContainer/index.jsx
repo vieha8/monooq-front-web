@@ -79,8 +79,6 @@ class EditProfileContainer extends Component<PropTypes> {
     }
   };
 
-  onClickUpdate: Function;
-
   onClickUpdate = () => {
     const { user } = this.props;
     const { name, profile, purpose } = this.state;
@@ -96,8 +94,6 @@ class EditProfileContainer extends Component<PropTypes> {
       dispatch(userActions.updateUser({ userId: user.id, body }));
     }
   };
-
-  handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
     const { state } = this;
@@ -159,8 +155,6 @@ class EditProfileContainer extends Component<PropTypes> {
     error[propName] = errors;
     this.setState({ ...state, error });
   };
-
-  validate: Function;
 
   validate = () => {
     const { name, email, phoneNumber, prefCode, profile, purpose } = this.state;

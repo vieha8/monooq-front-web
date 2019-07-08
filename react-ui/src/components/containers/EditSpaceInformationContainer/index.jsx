@@ -115,23 +115,17 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     history.push(Path.editProfile());
   };
 
-  onKeyDownButtonNext: Function;
-
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.onClickNext();
     }
   };
 
-  onClickRemove: Function;
-
   onClickRemove = space => {
     const { dispatch } = this.props;
     window.removeEventListener('beforeunload', this.handleBeforeUnload);
     dispatch(spaceActions.deleteSpace({ space }));
   };
-
-  handleChangeImage: Function;
 
   handleChangeImage = async (pickedImages: Array<File>) => {
     this.setState({ isImageUploading: true });
@@ -164,8 +158,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     this.handleChangeUI('images', setImage);
   };
 
-  handleDeleteImage: Function;
-
   handleDeleteImage = (deleteTargetIndex: number) => {
     const { images } = this.state;
     const nextImages = Object.assign([], images);
@@ -173,8 +165,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     this.setState({ images: nextImages });
     this.handleChangeUI('images', nextImages);
   };
-
-  onClickNext: Function;
 
   onClickNext = () => {
     const { state } = this;
@@ -205,8 +195,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   };
 
   close = () => this.setState({ errorModal: false });
-
-  handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
     const { state } = this;
@@ -255,8 +243,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     error[propName] = errors;
     this.setState({ ...state, error });
   };
-
-  validate: Function;
 
   validate = () => {
     const { title, introduction, address, images } = this.state;
