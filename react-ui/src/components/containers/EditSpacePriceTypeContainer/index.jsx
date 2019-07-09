@@ -58,9 +58,9 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       this.state.isUpdate = true;
-    } else if (space.address) {
-      dispatch(spaceActions.getGeocode({ address: space.address }));
     }
+
+    dispatch(spaceActions.getGeocode({ address: space.address }));
   }
 
   componentDidMount() {
@@ -110,14 +110,12 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   onClickNext: Function;
 
   onClickNext = () => {
-    const { dispatch, space, history, match } = this.props;
+    const { dispatch, space, history } = this.props;
     const { priceFull, priceHalf, priceQuarter } = this.state;
 
-    const spaceId = match.params.space_id;
-    if (!spaceId && space.address) {
+    if (space.address) {
       const { geocode } = this.props;
       const arrayAddress = space.address.match(Validate.Address);
-
       const saveSpaceNew = Object.assign(space, {
         lat: (geocode || {}).lat,
         lng: (geocode || {}).lng,
