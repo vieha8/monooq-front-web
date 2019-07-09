@@ -39,6 +39,17 @@ class ProfileContainer extends Component<PropTypes> {
     dispatch(userActions.fetchUserSpaces({ userId }));
   }
 
+  meta = user => {
+    return (
+      <Meta
+        title={`${formatName(user.name)}さんのプロフィール - モノオク`}
+        ogUrl={`user/${user.id}`}
+        ogImageUrl={user.imageUrl}
+        noindex
+      />
+    );
+  };
+
   leftContent = () => {
     const { user, spaces } = this.props;
 
@@ -48,14 +59,7 @@ class ProfileContainer extends Component<PropTypes> {
 
     return (
       <Profile
-        meta={
-          <Meta
-            title={`${formatName(user.name)}さんのプロフィール - モノオク`}
-            ogUrl={`user/${user.id}`}
-            ogImageUrl={user.imageUrl}
-            noindex
-          />
-        }
+        meta={this.meta(user)}
         image={user.imageUrl}
         name={user.name}
         prefCode={user.prefCode}

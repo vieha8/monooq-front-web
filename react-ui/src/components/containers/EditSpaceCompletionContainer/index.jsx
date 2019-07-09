@@ -69,27 +69,30 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
     }
   };
 
-  render() {
+  leftContent = isEdit => {
     const { user } = this.props;
-    const { isEdit } = this.state;
+    return (
+      <EditSpaceCompletion
+        edit={isEdit}
+        userId={user.id}
+        onClickBackHome={this.onClickBackHome}
+        onKeyDownHome={this.onKeyDownHome}
+        onClickCreateSpace={this.onClickCreateSpace}
+        onKeyDownCreateSpace={this.onKeyDownCreateSpace}
+        onClickViewSpace={this.onClickViewSpace}
+        onKeyDownViewSpace={this.onKeyDownViewSpace}
+      />
+    );
+  };
 
+  render() {
+    const { isEdit } = this.state;
     return (
       <MenuPageTemplate
         header={<Header />}
         headline={`${!isEdit ? '登録' : '編集'}が完了しました`}
         caption="お客様とはメッセージ機能にてやりとりしていただき、ご成約までお進みください。"
-        leftContent={
-          <EditSpaceCompletion
-            edit={isEdit}
-            userId={user.id}
-            onClickBackHome={this.onClickBackHome}
-            onKeyDownHome={this.onKeyDownHome}
-            onClickCreateSpace={this.onClickCreateSpace}
-            onKeyDownCreateSpace={this.onKeyDownCreateSpace}
-            onClickViewSpace={this.onClickViewSpace}
-            onKeyDownViewSpace={this.onKeyDownViewSpace}
-          />
-        }
+        leftContent={this.leftContent(isEdit)}
         rightContent={<ServiceMenu />}
       />
     );

@@ -120,41 +120,45 @@ class UnsubscribeContainer extends Component<PropTypes> {
     );
   };
 
+  leftContent = () => {
+    const { isUnsubscribeTrying } = this.props;
+    const { reasonType, reasonText, error } = this.state;
+    return (
+      <Unsubscribe
+        reasonType={reasonType}
+        onChangeReasonType={v => this.handleChangeUI('reasonType', v)}
+        reasonTypeError={error.reasonType}
+        reasonText={reasonText}
+        onChangeReasonText={v => this.handleChangeUI('reasonText', v)}
+        onClickUnsubscribe={this.unsubscribe}
+        onKeyDownUnsubscribe={this.onKeyDownUnsubscribe}
+        buttonLoading={isUnsubscribeTrying}
+        buttonDisabled={!this.validate()}
+      />
+    );
+  };
+
   render() {
-    const {
-      isLoading,
-      isUnsubscribeTrying,
-      isUnsubscribeSuccess,
-      isUnsubscribeFailed,
-    } = this.props;
+    const { isLoading, isUnsubscribeSuccess, isUnsubscribeFailed } = this.props;
 
     if (isLoading) {
       return <LoadingPage />;
     }
 
-    if (isUnsubscribeSuccess) return UnsubscribeContainer.renderCompleted();
-    if (isUnsubscribeFailed) return UnsubscribeContainer.renderFailed();
+    if (isUnsubscribeSuccess) {
+      return UnsubscribeContainer.renderCompleted();
+    }
 
-    const { reasonType, reasonText, error } = this.state;
+    if (isUnsubscribeFailed) {
+      return UnsubscribeContainer.renderFailed();
+    }
 
     return (
       <MenuPageTemplate
         header={<Header />}
         headline="退会の理由"
         caption="モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。"
-        leftContent={
-          <Unsubscribe
-            reasonType={reasonType}
-            onChangeReasonType={v => this.handleChangeUI('reasonType', v)}
-            reasonTypeError={error.reasonType}
-            reasonText={reasonText}
-            onChangeReasonText={v => this.handleChangeUI('reasonText', v)}
-            onClickUnsubscribe={this.unsubscribe}
-            onKeyDownUnsubscribe={this.onKeyDownUnsubscribe}
-            buttonLoading={isUnsubscribeTrying}
-            buttonDisabled={!this.validate()}
-          />
-        }
+        leftContent={this.leftContent()}
         rightContent={<ServiceMenu />}
       />
     );

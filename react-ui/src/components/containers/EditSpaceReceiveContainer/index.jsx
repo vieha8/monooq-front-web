@@ -143,9 +143,27 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
     );
   };
 
+  leftContent = () => {
+    const { receiptType, receiptAbout, error } = this.state;
+    return (
+      <EditSpaceReceive
+        errors={error}
+        receive={receiptType}
+        onChangeReceive={v => this.handleChangeUI('receiptType', v)}
+        receiveAbout={receiptAbout}
+        onChangeReceiveAbout={v => this.handleChangeUI('receiptAbout', v)}
+        onClickBack={this.onClickBack}
+        onKeyDownButtonBack={this.onKeyDownButtonBack}
+        onClickNext={this.onClickNext}
+        onKeyDownButtonNext={this.onKeyDownButtonNext}
+        buttonNextDisabled={!this.validate()}
+      />
+    );
+  };
+
   render() {
     const { space } = this.props;
-    const { receiptType, receiptAbout, error, isUpdate } = this.state;
+    const { isUpdate } = this.state;
 
     if (!isUpdate) {
       if (Object.keys(space).length === 0) {
@@ -159,20 +177,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
         header={<Header />}
         headline="荷物の受け取りについて"
         bottomButtonMargin={130}
-        leftContent={
-          <EditSpaceReceive
-            errors={error}
-            receive={receiptType}
-            onChangeReceive={v => this.handleChangeUI('receiptType', v)}
-            receiveAbout={receiptAbout}
-            onChangeReceiveAbout={v => this.handleChangeUI('receiptAbout', v)}
-            onClickBack={this.onClickBack}
-            onKeyDownButtonBack={this.onKeyDownButtonBack}
-            onClickNext={this.onClickNext}
-            onKeyDownButtonNext={this.onKeyDownButtonNext}
-            buttonNextDisabled={!this.validate()}
-          />
-        }
+        leftContent={this.leftContent()}
         rightContent={<ServiceMenu />}
       />
     );

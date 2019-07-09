@@ -73,15 +73,11 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
     return email && email.match(Validate.Email);
   };
 
-  render() {
-    const { isLogin, isChecking, emailSended, resetError } = this.props;
+  form = () => {
+    const { isChecking, emailSended, resetError } = this.props;
     const { email, hasChanged, errors } = this.state;
-
-    if (isLogin) {
-      return <Redirect to={Path.top()} />;
-    }
-
     const dispErrors = [];
+
     if (!hasChanged) {
       dispErrors.push(...errors);
       if (!isChecking && resetError) {
@@ -90,20 +86,25 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
     }
 
     return (
-      <AccountTemplate
-        header={<Header />}
-        form={
-          <ResetPassword
-            email={email}
-            onChangeEmail={this.handleChangeEmail}
-            onClickSend={this.onClickSend}
-            errors={dispErrors}
-            sended={emailSended}
-            buttonLoading={isChecking}
-          />
-        }
+      <ResetPassword
+        email={email}
+        onChangeEmail={this.handleChangeEmail}
+        onClickSend={this.onClickSend}
+        errors={dispErrors}
+        sended={emailSended}
+        buttonLoading={isChecking}
       />
     );
+  };
+
+  render() {
+    const { isLogin } = this.props;
+
+    if (isLogin) {
+      return <Redirect to={Path.top()} />;
+    }
+
+    return <AccountTemplate header={<Header />} form={this.form()} />;
   }
 }
 

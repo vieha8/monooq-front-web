@@ -38,6 +38,12 @@ function displayErrors(key: string, errors: Array<string>) {
   );
 }
 
+function extention(onChangeImage, imagePreview, image) {
+  return (
+    <RegsiterProfileImage onDrop={data => onChangeImage(data[0])} image={imagePreview || image} />
+  );
+}
+
 type PropTypes = {
   errors: Array<Array<string>>,
   onChangeImage: Function,
@@ -93,12 +99,7 @@ export default ({
     <Row>
       <InputForm
         label="プロフィール写真"
-        extension={
-          <RegsiterProfileImage
-            onDrop={data => onChangeImage(data[0])}
-            image={imagePreview || image}
-          />
-        }
+        extension={extention(onChangeImage, imagePreview, image)}
       />
     </Row>
     <Row>

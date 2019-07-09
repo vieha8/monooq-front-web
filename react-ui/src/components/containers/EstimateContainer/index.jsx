@@ -119,37 +119,40 @@ class EstimateContainer extends Component<PropTypes> {
     );
   };
 
-  render() {
+  leftContent = () => {
     const { isSending } = this.props;
     const { begin, end, error, price, beginFocus, endFocus } = this.state;
+    return (
+      <InputEstimate
+        schedule={{
+          beginDate: begin,
+          beginDateFocused: beginFocus,
+          onFocusChangeBegin: focus => this.onFocusChangeDatePicker('beginFocus', focus),
+          onDateChangeBegin: date => this.onDateChange('begin', date),
+          endDate: end,
+          endDateFocused: endFocus,
+          onFocusChangeEnd: focus => this.onFocusChangeDatePicker('endFocus', focus),
+          onDateChangeEnd: date => this.onDateChange('end', date),
+        }}
+        price={{
+          errors: error.price,
+          onChange: value => this.handleChangePrice('price', value),
+          value: price,
+        }}
+        buttonDisabled={!this.validate()}
+        buttonLoading={isSending}
+        onClickSend={this.sendRequest}
+        onKeyDownSend={this.onKeyDownSend}
+      />
+    );
+  };
 
+  render() {
     return (
       <MenuPageTemplate
         header={<Header />}
         headline="見積もりを送る"
-        leftContent={
-          <InputEstimate
-            schedule={{
-              beginDate: begin,
-              beginDateFocused: beginFocus,
-              onFocusChangeBegin: focus => this.onFocusChangeDatePicker('beginFocus', focus),
-              onDateChangeBegin: date => this.onDateChange('begin', date),
-              endDate: end,
-              endDateFocused: endFocus,
-              onFocusChangeEnd: focus => this.onFocusChangeDatePicker('endFocus', focus),
-              onDateChangeEnd: date => this.onDateChange('end', date),
-            }}
-            price={{
-              errors: error.price,
-              onChange: value => this.handleChangePrice('price', value),
-              value: price,
-            }}
-            buttonDisabled={!this.validate()}
-            buttonLoading={isSending}
-            onClickSend={this.sendRequest}
-            onKeyDownSend={this.onKeyDownSend}
-          />
-        }
+        leftContent={this.leftContent()}
         rightContent={<ServiceMenu />}
       />
     );

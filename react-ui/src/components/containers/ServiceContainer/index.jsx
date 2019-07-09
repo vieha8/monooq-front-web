@@ -7,40 +7,20 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import Service from 'components/LV3/Service';
 
-import { authActions } from 'redux/modules/auth';
-
 import connect from '../connect';
 
-type PropTypes = {
-  dispatch: Function,
-};
-
 class ServiceContainer extends Component<PropTypes> {
-  logout = () => {
-    if (document && document.body) {
-      document.body.style.overflowY = 'auto';
-    }
-    const { dispatch } = this.props;
-    dispatch(authActions.logout());
+  leftContent = () => {
+    const { isLogin } = this.props;
+    return <Service isLogin={isLogin} />;
   };
 
   render() {
-    const { isLogin } = this.props;
     return (
       <MenuPageTemplate
         header={<Header />}
         headline="モノオクについて"
-        leftContent={
-          <Service
-            logout={{
-              onClick: e => {
-                e.preventDefault();
-                this.logout();
-              },
-            }}
-            isLogin={isLogin}
-          />
-        }
+        leftContent={this.leftContent()}
         rightContent={<ServiceMenu />}
       />
     );

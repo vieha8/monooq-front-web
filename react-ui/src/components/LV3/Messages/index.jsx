@@ -71,6 +71,16 @@ const SeparatedCautionWrapper = styled(CautionWrapper)`
   padding-bottom: 0;
 `;
 
+function extensionPhotoMessage(message) {
+  return (
+    <PhotoMessage
+      id={message.other.id}
+      src={message.other.image}
+      receivedAt={formatDate(new Date(message.other.receivedAt), formatStringSlashTime)}
+    />
+  );
+}
+
 type PropTypes = {
   messages: Array<{
     self?: {
@@ -162,8 +172,8 @@ export default ({
         if (message.self) {
           const isRead = lastReadDt.getTime() > message.self.sentAt.getTime();
 
-          // 自分が送信
           if (message.self.image) {
+            // 自分が送信
             if (message.self.message) {
               return (
                 <Fragment key={key}>
@@ -207,7 +217,9 @@ export default ({
               />
             </Row>
           );
-        } else if (message.other) {
+        }
+
+        if (message.other) {
           // 相手が送信
           if (message.other.image) {
             if (message.other.message) {
@@ -232,16 +244,7 @@ export default ({
                         new Date(message.other.receivedAt),
                         formatStringSlashTime,
                       )}
-                      extension={
-                        <PhotoMessage
-                          id={message.other.id}
-                          src={message.other.image}
-                          receivedAt={formatDate(
-                            new Date(message.other.receivedAt),
-                            formatStringSlashTime,
-                          )}
-                        />
-                      }
+                      extension={extensionPhotoMessage(message)}
                     />
                   </Row>
                 </Fragment>
@@ -253,16 +256,7 @@ export default ({
                   id={message.other.id}
                   image={message.other.userImage}
                   receivedAt={formatDate(new Date(message.other.receivedAt), formatStringSlashTime)}
-                  extension={
-                    <PhotoMessage
-                      id={message.other.id}
-                      src={message.other.image}
-                      receivedAt={formatDate(
-                        new Date(message.other.receivedAt),
-                        formatStringSlashTime,
-                      )}
-                    />
-                  }
+                  extension={extensionPhotoMessage(message)}
                 />
               </Row>
             );
@@ -277,7 +271,9 @@ export default ({
               />
             </Row>
           );
-        } else if (message.admin) {
+        }
+
+        if (message.admin) {
           // システムメッセージ
           return (
             <Row key={key} admin>
@@ -291,7 +287,9 @@ export default ({
               />
             </Row>
           );
-        } else if (message.estimate) {
+        }
+
+        if (message.estimate) {
           // 見積もりメッセージ
           return (
             <Row key={key} admin>
@@ -343,7 +341,6 @@ export default ({
           </Button>
         </ButtonWrapper>
       )}
-
       <CautionWrapper>
         <CautionText>モノオクではサービス外のお支払いや現金取引は禁止です。</CautionText>
         <TextLink to={Path.rule()} fontSize={11} target="_blank" rel="noopener noreferrer">

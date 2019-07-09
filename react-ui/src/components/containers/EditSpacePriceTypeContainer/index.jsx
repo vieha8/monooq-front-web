@@ -207,8 +207,29 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     );
   };
 
+  leftContent = (priceFull, priceHalf, priceQuarter, error) => {
+    const { isLoading } = this.props;
+    return (
+      <EditSpaceInputPriceType
+        errors={error}
+        priceFull={priceFull}
+        onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
+        priceHalf={priceHalf}
+        onChangePriceHalf={v => this.handleChangeUI('priceHalf', v)}
+        priceQuarter={priceQuarter}
+        onChangePriceQuarter={v => this.handleChangeUI('priceQuarter', v)}
+        buttonLoading={isLoading}
+        onClickBack={this.onClickBack}
+        onKeyDownButtonBack={this.onKeyDownButtonBack}
+        onClickNext={this.onClickNext}
+        onKeyDownButtonNext={this.onKeyDownButtonNext}
+        buttonNextDisabled={!this.validate()}
+      />
+    );
+  };
+
   render() {
-    const { space, isLoading } = this.props;
+    const { space } = this.props;
     const { priceFull, priceHalf, priceQuarter, error, isUpdate, isFirst } = this.state;
 
     if (!isUpdate) {
@@ -227,23 +248,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="スペース料金の設定"
-        leftContent={
-          <EditSpaceInputPriceType
-            errors={error}
-            priceFull={priceFull}
-            onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
-            priceHalf={priceHalf}
-            onChangePriceHalf={v => this.handleChangeUI('priceHalf', v)}
-            priceQuarter={priceQuarter}
-            onChangePriceQuarter={v => this.handleChangeUI('priceQuarter', v)}
-            buttonLoading={isLoading}
-            onClickBack={this.onClickBack}
-            onKeyDownButtonBack={this.onKeyDownButtonBack}
-            onClickNext={this.onClickNext}
-            onKeyDownButtonNext={this.onKeyDownButtonNext}
-            buttonNextDisabled={!this.validate()}
-          />
-        }
+        leftContent={this.leftContent(priceFull, priceHalf, priceQuarter, error)}
         rightContent={<ServiceMenu />}
       />
     );

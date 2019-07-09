@@ -148,9 +148,28 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
     );
   };
 
+  leftContent = () => {
+    const { about, isFurniture, error } = this.state;
+    return (
+      <EditSpaceBaggage
+        errors={error}
+        baggage={about}
+        onChangeBaggage={v => this.handleChangeUI('about', v)}
+        checkedFurniture={isFurniture}
+        onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
+        onKeyDownFurniture={this.onKeyDownFurniture}
+        onClickBack={this.onClickBack}
+        onKeyDownButtonBack={this.onKeyDownButtonBack}
+        onClickNext={this.onClickNext}
+        onKeyDownButtonNext={this.onKeyDownButtonNext}
+        buttonNextDisabled={!this.validate()}
+      />
+    );
+  };
+
   render() {
     const { space } = this.props;
-    const { about, isFurniture, error, isUpdate } = this.state;
+    const { isUpdate } = this.state;
 
     if (!isUpdate) {
       if (Object.keys(space).length === 0) {
@@ -164,21 +183,7 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
         header={<Header />}
         headline="預かれる荷物について"
         bottomButtonMargin={130}
-        leftContent={
-          <EditSpaceBaggage
-            errors={error}
-            baggage={about}
-            onChangeBaggage={v => this.handleChangeUI('about', v)}
-            checkedFurniture={isFurniture}
-            onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
-            onKeyDownFurniture={this.onKeyDownFurniture}
-            onClickBack={this.onClickBack}
-            onKeyDownButtonBack={this.onKeyDownButtonBack}
-            onClickNext={this.onClickNext}
-            onKeyDownButtonNext={this.onKeyDownButtonNext}
-            buttonNextDisabled={!this.validate()}
-          />
-        }
+        leftContent={this.leftContent()}
         rightContent={<ServiceMenu />}
       />
     );
