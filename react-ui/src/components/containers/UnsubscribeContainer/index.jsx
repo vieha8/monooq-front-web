@@ -122,10 +122,9 @@ class UnsubscribeContainer extends Component<PropTypes> {
 
   leftContent = () => {
     const { isUnsubscribeTrying } = this.props;
-    const { reasonType, reasonText, error } = this.state;
+    const { reasonText, error } = this.state;
     return (
       <Unsubscribe
-        reasonType={reasonType}
         onChangeReasonType={v => this.handleChangeUI('reasonType', v)}
         reasonTypeError={error.reasonType}
         reasonText={reasonText}
