@@ -20,6 +20,7 @@ import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
 
 const MAX_PAY_PRICE_CONVENIENT = 49999;
+const METHOD_PAYMENT_CREDIT = 0;
 
 const Spacer = styled.div`
   margin: 40px auto 0;
@@ -263,7 +264,7 @@ function maskify(cc) {
 }
 
 function contentConfirm(paymentMethod, number, name) {
-  if (paymentMethod === 0) {
+  if (paymentMethod === METHOD_PAYMENT_CREDIT) {
     return (
       <Fragment>
         <CmnWrap noMarginSide>

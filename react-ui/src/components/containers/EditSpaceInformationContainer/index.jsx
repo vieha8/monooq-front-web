@@ -12,7 +12,7 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import EditSpaceInformation from 'components/LV3/EditSpace/Information';
 
-import { ErrorMessages } from 'variables';
+import { ErrorMessages, FormValues } from 'variables';
 
 import { uploadImage } from 'redux/helpers/firebase';
 import { iskeyDownEnter } from 'helpers/keydown';
@@ -52,7 +52,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     this.state = {
       images: space.images || [],
       title: space.title || '',
-      type: space.type || 3,
+      type: space.type || `${FormValues.typeSpaceRoom}`,
       introduction: space.introduction || '',
       address: space.address || '',
       error: {},

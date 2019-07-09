@@ -24,6 +24,8 @@ import Path from 'config/path';
 import { selectDepositType } from 'helpers/depositTypes';
 import { iskeyDownEnter } from 'helpers/keydown';
 
+const PRICE_MIN_DEPOSIT = 3000;
+
 const InputText = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
@@ -250,7 +252,7 @@ class SalesContainer extends Component {
     const { deposit } = this.props;
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
 
-    if (deposit < 3000) {
+    if (deposit < PRICE_MIN_DEPOSIT) {
       return (
         <Fragment>
           {this.showSales()}

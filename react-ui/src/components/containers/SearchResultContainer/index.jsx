@@ -16,7 +16,7 @@ import SearchResult from 'components/LV3/SearchResult';
 import NoDataView from 'components/LV3/NoDataView';
 import ConciergeContents from 'components/LV2/ConciergeIntroduction';
 import Meta from 'components/LV1/Meta';
-import { Dimens } from 'variables';
+import { Dimens, FormValues } from 'variables';
 
 import { spaceActions } from 'redux/modules/space';
 import { iskeyDownEnter } from 'helpers/keydown';
@@ -75,8 +75,8 @@ class SearchResultContainer extends Component<PropTypes, State> {
       prefCode: prefCode || '0',
       priceMin: priceMin || '',
       priceMax: priceMax || '',
-      receiptType: receiptType || '0',
-      type: type || '0',
+      receiptType: receiptType || `${FormValues.typeReceiptNoSelect}`,
+      type: type || `${FormValues.typeSpaceNoSelect}`,
       isFurniture: isFurniture || false,
       limit: 12,
       offset: 0,
@@ -116,26 +116,26 @@ class SearchResultContainer extends Component<PropTypes, State> {
       condition += `${getPrefecture(parseInt(prefCode, 10))}、`;
     }
 
-    if (type !== '0') {
+    if (type !== `${FormValues.typeSpaceNoSelect}`) {
       // TODO タイプ管理の汎用関数作る
-      if (type === '1') {
+      if (type === `${FormValues.typeSpaceCloset}`) {
         condition += `クローゼット・押入れ、`;
-      } else if (type === '3') {
+      } else if (type === `${FormValues.typeSpaceRoom}`) {
         condition += `部屋、`;
-      } else if (type === '4') {
+      } else if (type === `${FormValues.typeSpaceWarehouse}`) {
         condition += `屋外倉庫、`;
-      } else if (type === '5') {
+      } else if (type === `${FormValues.typeSpaceOther}`) {
         condition += `その他、`;
       }
     }
 
-    if (receiptType !== '0') {
+    if (receiptType !== `${FormValues.typeReceiptNoSelect}`) {
       // TODO タイプ管理の汎用関数作る
-      if (receiptType === '1') {
+      if (receiptType === `${FormValues.typeReceiptAll}`) {
         condition += `対面・配送受取対応、`;
-      } else if (receiptType === '2') {
+      } else if (receiptType === `${FormValues.typeReceiptOnlyFTF}`) {
         condition += `対面受取のみ、`;
-      } else if (receiptType === '3') {
+      } else if (receiptType === `${FormValues.typeReceiptOnlyDelivery}`) {
         condition += `配送受取のみ、`;
       }
     }
