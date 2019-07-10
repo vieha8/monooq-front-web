@@ -26,20 +26,13 @@ type PropTypes = {
   emailSended: boolean,
 };
 
-type State = {
-  email: string,
-  hasChanged: boolean,
-  errors: Array<string>,
-};
-
-class ResetPasswordContainer extends Component<PropTypes, State> {
+class ResetPasswordContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
     this.state = {
       email: '',
-      hasChanged: false,
-      errors: [],
+      error: {},
     };
   }
 
@@ -49,23 +42,35 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
   }
 
   onClickSend = () => {
-    if (!this.validate()) {
-      this.setState({
-        hasChanged: false,
-        errors: [ErrorMessages.InvalidEmail],
-      });
-      return;
+    if (this.validate()) {
+      const { dispatch } = this.props;
+      const { email } = this.state;
+      dispatch(authActions.passwordReset({ email }));
     }
-
-    this.setState({ hasChanged: false });
-
-    const { dispatch } = this.props;
-    const { email } = this.state;
-    dispatch(authActions.passwordReset({ email }));
   };
 
-  handleChangeEmail = value => {
-    this.setState({ email: value, hasChanged: true, errors: [] });
+  handleChangeUI = (propName: string, value: any) => {
+    const { state } = this;
+    const { error } = state;
+    const errors = [];
+
+    error[propName] = [];
+
+    switch (propName) {
+      case 'email':
+        if (value === undefined ? true : value.trim().length === 0) {
+          errors.push(ErrorMessages.PleaseInput);
+        } else if (!value.match(Validate.Email)) {
+          errors.push(ErrorMessages.InvalidEmail);
+        }
+        break;
+      default:
+        break;
+    }
+
+    state[propName] = value;
+    error[propName] = errors;
+    this.setState({ ...state, error });
   };
 
   validate = () => {
@@ -73,37 +78,31 @@ class ResetPasswordContainer extends Component<PropTypes, State> {
     return email && email.match(Validate.Email);
   };
 
+  form = () => {
+    const { isChecking, emailSended, resetError } = this.props;
+    const { email, error } = this.state;
+    return (
+      <ResetPassword
+        email={email}
+        onChangeEmail={v => this.handleChangeUI('email', v)}
+        onClickSend={this.onClickSend}
+        errors={error}
+        resetError={resetError}
+        sended={emailSended}
+        buttonLoading={isChecking}
+        buttonDisabled={!this.validate()}
+      />
+    );
+  };
+
   render() {
-    const { isLogin, isChecking, emailSended, resetError } = this.props;
-    const { email, hasChanged, errors } = this.state;
+    const { isLogin } = this.props;
 
     if (isLogin) {
       return <Redirect to={Path.top()} />;
     }
 
-    const dispErrors = [];
-    if (!hasChanged) {
-      dispErrors.push(...errors);
-      if (!isChecking && resetError) {
-        dispErrors.push(ErrorMessages.FailedResetPassword);
-      }
-    }
-
-    return (
-      <AccountTemplate
-        header={<Header />}
-        form={
-          <ResetPassword
-            email={email}
-            onChangeEmail={this.handleChangeEmail}
-            onClickSend={this.onClickSend}
-            errors={dispErrors}
-            sended={emailSended}
-            buttonLoading={isChecking}
-          />
-        }
-      />
-    );
+    return <AccountTemplate header={<Header />} form={this.form()} />;
   }
 }
 
@@ -111,7 +110,7 @@ const mapStateToProps = state => ({
   isLogin: state.auth.isLogin,
   isChecking: state.auth.isResetTrying,
   emailSended: state.auth.isResetSuccess,
-  resetError: state.auth.errorMessages,
+  resetError: state.auth.error,
 });
 
 export default connect(

@@ -18,6 +18,7 @@ const LOGIN_FACEBOOK = 'LOGIN_FACEBOOK';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILED = 'LOGIN_FAILED';
 const LOGOUT = 'LOGOUT';
+const INIT_SIGNUP = 'INIT_SIGNUP';
 const SIGNUP_EMAIL = 'SIGNUP_EMAIL';
 const SIGNUP_FACEBOOK = 'SIGNUP_FACEBOOK';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
@@ -48,6 +49,7 @@ export const authActions = createActions(
   CHECK_LOGIN,
   CHECK_LOGIN_SUCCESS,
   CHECK_LOGIN_FAILED,
+  INIT_SIGNUP,
   SIGNUP_EMAIL,
   SIGNUP_FACEBOOK,
   SIGNUP_SUCCESS,
@@ -120,6 +122,12 @@ export const authReducer = handleActions(
       ...payload,
       isChecking: false,
     }),
+    [INIT_SIGNUP]: state => ({
+      ...state,
+      isSignupFailed: false,
+      isRegistering: false,
+      errorMessage: '',
+    }),
     [SIGNUP_EMAIL]: state => ({
       ...state,
       isSignupFailed: false,
@@ -161,11 +169,11 @@ export const authReducer = handleActions(
       isResetSuccess: true,
       error: '',
     }),
-    [PASSWORD_RESET_FAILED]: state => ({
+    [PASSWORD_RESET_FAILED]: (state, action) => ({
       ...state,
       isResetTrying: false,
       isResetSuccess: false,
-      error: 'reset password failed',
+      error: action.payload,
     }),
     [UNSUBSCRIBE]: state => ({
       ...state,
@@ -445,10 +453,19 @@ function* passwordReset({ payload: { email } }) {
     yield auth.sendPasswordResetEmail(email);
     yield put(authActions.passwordResetSuccess());
   } catch (err) {
-    yield put(authActions.passwordResetFailed(err));
-    if (err.code !== 'auth/user-not-found') {
-      yield handleError('', '', 'passwordReset', err, false);
+    let errMessage = '';
+    let isOnlyAction = false;
+    if (err.code === 'auth/user-not-found') {
+      errMessage = ErrorMessages.FailedResetPassword;
+      isOnlyAction = true;
     }
+    yield handleError(
+      authActions.passwordResetFailed,
+      errMessage,
+      'passwordReset',
+      err.message,
+      isOnlyAction,
+    );
   }
 }
 
