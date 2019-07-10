@@ -54,8 +54,6 @@ class ResetPasswordContainer extends Component<PropTypes> {
     const { error } = state;
     const errors = [];
 
-    error[propName] = [];
-
     switch (propName) {
       case 'email':
         if (value === undefined ? true : value.trim().length === 0) {
