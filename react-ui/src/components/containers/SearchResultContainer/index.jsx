@@ -83,14 +83,10 @@ class SearchResultContainer extends Component<PropTypes, State> {
     };
   }
 
-  onClickBackSearchCondition: Function;
-
   onClickBackSearchCondition = () => {
     const { history } = this.props;
     history.push(Path.searchCondition());
   };
-
-  onKeyDownButtonReserch: Function;
 
   onKeyDownButtonReserch = e => {
     if (iskeyDownEnter(e)) {
@@ -161,27 +157,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
     return condition;
   };
 
-  renderNotFound = () => {
-    const condition = this.getCondition();
-
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline={`「${condition}」のスペース検索結果 0件`}
-        leftContent={
-          <NoDataView
-            captionHead="該当するスペースが見つかりませんでした"
-            caption="別のキーワード及び条件で検索をお試しください"
-            buttonText="条件を変えて再検索する"
-            onClick={this.onClickBackSearchCondition}
-            onKeyDown={this.onKeyDownButtonReserch}
-          />
-        }
-        rightContent={<ServiceMenu />}
-      />
-    );
-  };
-
   // ローディング処理
   loadItems = () => {
     const { dispatch, isSearching } = this.props;
@@ -217,64 +192,102 @@ class SearchResultContainer extends Component<PropTypes, State> {
     this.setState({ offset: newOffset });
   };
 
+  leftContentNotFound = () => {
+    return (
+      <NoDataView
+        captionHead="該当するスペースが見つかりませんでした"
+        caption="別のキーワード及び条件で検索をお試しください"
+        buttonText="条件を変えて再検索する"
+        onClick={this.onClickBackSearchCondition}
+        onKeyDown={this.onKeyDownButtonReserch}
+      />
+    );
+  };
+
+  renderNotFound = () => {
+    const condition = this.getCondition();
+    return (
+      <MenuPageTemplate
+        header={<Header />}
+        headline={`「${condition}」のスペース検索結果 0件`}
+        leftContent={this.leftContentNotFound()}
+        rightContent={<ServiceMenu />}
+      />
+    );
+  };
+
+  infiniteScroll = () => {
+    const { spaces, isMore, history } = this.props;
+    return (
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={this.loadItems}
+        hasMore={isMore}
+        loader={<Loader size="medium" key={0} />}
+        initialLoad
+      >
+        <SearchResult
+          history={history}
+          spaces={spaces.map(s => ({
+            id: s.id,
+            image: (s.images[0] || {}).imageUrl,
+            title: s.title,
+            address: `${s.addressPref}${s.addressCity}`,
+            isFurniture: s.isFurniture,
+            priceFull: s.priceFull,
+            priceHalf: s.priceHalf,
+            priceQuarter: s.priceQuarter,
+            onClick: () => this.onClickSpace(s),
+          }))}
+        />
+      </InfiniteScroll>
+    );
+  };
+
+  options = () => {
+    return (
+      <Fragment>
+        <SearchButtonWrap>
+          <Button
+            primary
+            fontbold
+            center
+            onClick={this.onClickBackSearchCondition}
+            onKeyDown={this.onKeyDownButtonReserch}
+          >
+            条件を変えて再検索する
+          </Button>
+        </SearchButtonWrap>
+        <ConciergeContents />
+      </Fragment>
+    );
+  };
+
+  leftContent = condition => {
+    const { isSearching } = this.props;
+    return (
+      <SearchResultTemplate
+        isSearching={isSearching}
+        meta={<Meta title={`${condition}のスペース検索結果 - モノオク`} />}
+        searchResult={this.infiniteScroll()}
+        options={this.options()}
+      />
+    );
+  };
+
   render() {
-    const { spaces, isMore, history, maxCount, isSearching } = this.props;
+    const { spaces, isMore, maxCount } = this.props;
+
     if (spaces.length === 0 && !isMore) {
       return this.renderNotFound();
     }
 
     const condition = this.getCondition();
-
     return (
       <MenuPageTemplate
         header={<Header />}
         headline={`「${condition}」のスペース検索結果${maxCount}件`}
-        leftContent={
-          <SearchResultTemplate
-            isSearching={isSearching}
-            meta={<Meta title={`${condition}のスペース検索結果 - モノオク`} />}
-            searchResult={
-              <InfiniteScroll
-                pageStart={0}
-                loadMore={this.loadItems}
-                hasMore={isMore}
-                loader={<Loader size="medium" key={0} />}
-                initialLoad
-              >
-                <SearchResult
-                  history={history}
-                  spaces={spaces.map(s => ({
-                    id: s.id,
-                    image: (s.images[0] || {}).imageUrl,
-                    title: s.title,
-                    address: `${s.addressPref}${s.addressCity}`,
-                    isFurniture: s.isFurniture,
-                    priceFull: s.priceFull,
-                    priceHalf: s.priceHalf,
-                    priceQuarter: s.priceQuarter,
-                    onClick: () => this.onClickSpace(s),
-                  }))}
-                />
-              </InfiniteScroll>
-            }
-            options={
-              <Fragment>
-                <SearchButtonWrap>
-                  <Button
-                    primary
-                    fontbold
-                    center
-                    onClick={this.onClickBackSearchCondition}
-                    onKeyDown={this.onKeyDownButtonReserch}
-                  >
-                    条件を変えて再検索する
-                  </Button>
-                </SearchButtonWrap>
-                <ConciergeContents />
-              </Fragment>
-            }
-          />
-        }
+        leftContent={this.leftContent(condition)}
         rightContent={<ServiceMenu />}
       />
     );

@@ -97,7 +97,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
   };
 
   handleChangeForm = (name: string, value: any) => {
-    const state = this.state;
+    const { state } = this;
     state[name] = value;
     state.hasChanged = true;
     this.setState(state);

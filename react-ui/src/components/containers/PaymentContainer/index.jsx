@@ -178,14 +178,12 @@ class PaymentContainer extends Component<PropTypes> {
     dispatch(requestActions.paymentOther({ apiEndpointName, requestId }));
   };
 
-  backToMessage: Function;
   backToMessage = () => {
     const { match } = this.props;
     const { roomId } = this.status;
     window.location.href = Path.message(roomId);
   };
 
-  handleChangeUI: Function;
   handleChangeUI = (propName: string, value: string) => {
     const { state } = this;
     const { error } = state;
@@ -229,8 +227,6 @@ class PaymentContainer extends Component<PropTypes> {
     this.setState({ ...state, error });
   };
 
-  onKeyDownBack: Function;
-
   onKeyDownBack = e => {
     if (iskeyDownEnter(e)) {
       const { modeView } = this.state;
@@ -241,8 +237,6 @@ class PaymentContainer extends Component<PropTypes> {
       }
     }
   };
-
-  onKeyDownPay: Function;
 
   onKeyDownPay = e => {
     if (iskeyDownEnter(e) && this.validate()) {
@@ -263,15 +257,11 @@ class PaymentContainer extends Component<PropTypes> {
     }
   };
 
-  onKeyDownMessage: Function;
-
   onKeyDownMessage = e => {
     if (iskeyDownEnter(e)) {
       this.backToMessage();
     }
   };
-
-  validate: Function;
 
   validate = price => {
     const { state } = this;

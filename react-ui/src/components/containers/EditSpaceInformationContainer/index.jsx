@@ -115,23 +115,17 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     history.push(Path.editProfile());
   };
 
-  onKeyDownButtonNext: Function;
-
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.onClickNext();
     }
   };
 
-  onClickRemove: Function;
-
   onClickRemove = space => {
     const { dispatch } = this.props;
     window.removeEventListener('beforeunload', this.handleBeforeUnload);
     dispatch(spaceActions.deleteSpace({ space }));
   };
-
-  handleChangeImage: Function;
 
   handleChangeImage = async (pickedImages: Array<File>) => {
     this.setState({ isImageUploading: true });
@@ -164,8 +158,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     this.handleChangeUI('images', setImage);
   };
 
-  handleDeleteImage: Function;
-
   handleDeleteImage = (deleteTargetIndex: number) => {
     const { images } = this.state;
     const nextImages = Object.assign([], images);
@@ -173,8 +165,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     this.setState({ images: nextImages });
     this.handleChangeUI('images', nextImages);
   };
-
-  onClickNext: Function;
 
   onClickNext = () => {
     const { state } = this;
@@ -205,8 +195,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
   };
 
   close = () => this.setState({ errorModal: false });
-
-  handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
     const { state } = this;
@@ -256,8 +244,6 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     this.setState({ ...state, error });
   };
 
-  validate: Function;
-
   validate = () => {
     const { title, introduction, address, images } = this.state;
     const AddressMatch = address.match(Validate.Address);
@@ -278,8 +264,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     );
   };
 
-  render() {
-    const { space } = this.props;
+  leftContent = space => {
     const {
       images,
       title,
@@ -301,54 +286,59 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     }
 
     return (
+      <Fragment>
+        <EditSpaceInformation
+          edit={space.id}
+          errors={error}
+          address={address}
+          onChangeAddress={v => this.handleChangeUI('address', v)}
+          type={type}
+          onChangeType={v => this.handleChangeUI('type', v)}
+          title={title}
+          onChangeTitle={v => this.handleChangeUI('title', v)}
+          images={ImagesRender.map(image => ({
+            url: image.imageUrl || image.preview,
+          }))}
+          onChangeImage={this.handleChangeImage}
+          onClickDeleteImage={this.handleDeleteImage}
+          isImageUploading={isImageUploading}
+          introduction={introduction}
+          onChangeIntroduction={v => this.handleChangeUI('introduction', v)}
+          OnClickRemove={() => this.onClickRemove(space)}
+          onClickNext={this.onClickNext}
+          onKeyDownButtonNext={this.onKeyDownButtonNext}
+          buttonNextDisabled={isNoProfile || !this.validate()}
+        />
+        <Modal size="large" open={errorModal} onClose={this.close}>
+          <Modal.Header>プロフィールをご登録ください</Modal.Header>
+          <Modal.Content>
+            <p>
+              スペースを登録するにはプロフィールの登録が必要です。
+              <br />
+              <br />
+              プロフィールをご登録いただくことで、取引時に荷物保管に関する保険が適用されます。
+              <br />
+              また、プロフィールの内容を充実させることで借り手に安心感を与えることができるため、成約率UPにも繋がります。
+              <br />
+            </p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button className="brandPrimary" onClick={this.onClickEditProfile}>
+              登録画面へ進む
+            </Button>
+          </Modal.Actions>
+        </Modal>
+      </Fragment>
+    );
+  };
+
+  render() {
+    const { space } = this.props;
+    return (
       <MenuPageTemplate
         header={<Header />}
         headline={`スペースの${space.id ? '編集' : '登録'}`}
-        leftContent={
-          <Fragment>
-            <EditSpaceInformation
-              edit={space.id}
-              errors={error}
-              address={address}
-              onChangeAddress={v => this.handleChangeUI('address', v)}
-              type={type}
-              onChangeType={v => this.handleChangeUI('type', v)}
-              title={title}
-              onChangeTitle={v => this.handleChangeUI('title', v)}
-              images={ImagesRender.map(image => ({
-                url: image.imageUrl || image.preview,
-              }))}
-              onChangeImage={this.handleChangeImage}
-              onClickDeleteImage={this.handleDeleteImage}
-              isImageUploading={isImageUploading}
-              introduction={introduction}
-              onChangeIntroduction={v => this.handleChangeUI('introduction', v)}
-              OnClickRemove={() => this.onClickRemove(space)}
-              onClickNext={this.onClickNext}
-              onKeyDownButtonNext={this.onKeyDownButtonNext}
-              buttonNextDisabled={isNoProfile || !this.validate()}
-            />
-            <Modal size="large" open={errorModal} onClose={this.close}>
-              <Modal.Header>プロフィールをご登録ください</Modal.Header>
-              <Modal.Content>
-                <p>
-                  スペースを登録するにはプロフィールの登録が必要です。
-                  <br />
-                  <br />
-                  プロフィールをご登録いただくことで、取引時に荷物保管に関する保険が適用されます。
-                  <br />
-                  また、プロフィールの内容を充実させることで借り手に安心感を与えることができるため、成約率UPにも繋がります。
-                  <br />
-                </p>
-              </Modal.Content>
-              <Modal.Actions>
-                <Button className="brandPrimary" onClick={this.onClickEditProfile}>
-                  登録画面へ進む
-                </Button>
-              </Modal.Actions>
-            </Modal>
-          </Fragment>
-        }
+        leftContent={this.leftContent(space)}
         rightContent={<ServiceMenu />}
       />
     );
