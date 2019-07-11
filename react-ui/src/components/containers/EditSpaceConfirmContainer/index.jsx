@@ -102,23 +102,17 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     }
   }
 
-  onKeyDownButtonNext: Function;
-
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e)) {
       this.onClickNext();
     }
   };
 
-  onKeyDownButtonBack: Function;
-
   onKeyDownButtonBack = e => {
     if (iskeyDownEnter(e)) {
       this.onClickBack();
     }
   };
-
-  onClickNext: Function;
 
   onClickNext = () => {
     const { dispatch, space, user } = this.props;
@@ -139,8 +133,6 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     }
   };
 
-  onClickBack: Function;
-
   onClickBack = () => {
     const { history, space } = this.props;
 
@@ -148,8 +140,82 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     history.push(nextPath);
   };
 
+  leftContent = (space, isLoading) => {
+    const { user } = this.props;
+    return (
+      <Fragment>
+        <ConfirmMessage>実際にお客様にこのように表示されます</ConfirmMessage>
+        <Spacer />
+        <Detail
+          confirm
+          id={space.id}
+          map={<SpaceMap lat={space.lat} lng={space.lng} />}
+          pref={space.addressPref}
+          city={space.addressCity}
+          town={space.addressTown}
+          name={space.title}
+          images={space.images.map(image => ({
+            original: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
+            thumbnail: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
+          }))}
+          description={space.introduction}
+          address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
+          type={SPACE_TYPES[space.type]}
+          furniture={space.isFurniture}
+          aboutBaggage={space.about}
+          delivery={
+            space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
+          }
+          meeting={
+            space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Meeting
+          }
+          supplement={space.receiptAbout}
+          user={{
+            id: user.id,
+            name: user.name,
+            imageUrl: user.imageUrl,
+            profile: user.profile,
+          }}
+          pricefull={numeral(space.priceFull).format('0,0')}
+          pricehalf={
+            formatRemoveComma(space.priceHalf) > 0 && numeral(space.priceHalf).format('0,0')
+          }
+          pricequarter={
+            formatRemoveComma(space.priceQuarter) > 0 && numeral(space.priceQuarter).format('0,0')
+          }
+        />
+        <EntryButtonWrap>
+          <EntryButtons
+            enabled
+            rerative
+            loading={isLoading}
+            backButton={{
+              text: '戻って修正する',
+              onClick: this.onClickBack,
+              onKeyDown: this.onKeyDownButtonBack,
+            }}
+            enabledButton={{
+              text: `登録する`,
+              onClick: this.onClickNext,
+              onKeyDown: this.onKeyDownButtonNext,
+            }}
+          />
+        </EntryButtonWrap>
+      </Fragment>
+    );
+  };
+
+  rightContent = () => {
+    return (
+      <Fragment>
+        <Spacer />
+        <ServiceMenu />
+      </Fragment>
+    );
+  };
+
   render() {
-    const { user, space, isLoading, isComplete } = this.props;
+    const { space, isLoading, isComplete } = this.props;
     const { isUpdate } = this.state;
 
     if (isUpdate) {
@@ -170,74 +236,8 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     return (
       <MenuPageTemplate
         header={<Header />}
-        leftContent={
-          <Fragment>
-            <ConfirmMessage>実際にお客様にこのように表示されます</ConfirmMessage>
-            <Spacer />
-            <Detail
-              confirm
-              id={space.id}
-              map={<SpaceMap lat={space.lat} lng={space.lng} />}
-              pref={space.addressPref}
-              city={space.addressCity}
-              town={space.addressTown}
-              name={space.title}
-              images={space.images.map(image => ({
-                original: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
-                thumbnail: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
-              }))}
-              description={space.introduction}
-              address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
-              type={SPACE_TYPES[space.type]}
-              furniture={space.isFurniture}
-              aboutBaggage={space.about}
-              delivery={
-                space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
-              }
-              meeting={
-                space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Meeting
-              }
-              supplement={space.receiptAbout}
-              user={{
-                id: user.id,
-                name: user.name,
-                imageUrl: user.imageUrl,
-                profile: user.profile,
-              }}
-              pricefull={numeral(space.priceFull).format('0,0')}
-              pricehalf={
-                formatRemoveComma(space.priceHalf) > 0 && numeral(space.priceHalf).format('0,0')
-              }
-              pricequarter={
-                formatRemoveComma(space.priceQuarter) > 0 &&
-                numeral(space.priceQuarter).format('0,0')
-              }
-            />
-            <EntryButtonWrap>
-              <EntryButtons
-                enabled
-                rerative
-                loading={isLoading}
-                backButton={{
-                  text: '戻って修正する',
-                  onClick: this.onClickBack,
-                  onKeyDown: this.onKeyDownButtonBack,
-                }}
-                enabledButton={{
-                  text: `登録する`,
-                  onClick: this.onClickNext,
-                  onKeyDown: this.onKeyDownButtonNext,
-                }}
-              />
-            </EntryButtonWrap>
-          </Fragment>
-        }
-        rightContent={
-          <Fragment>
-            <Spacer />
-            <ServiceMenu />
-          </Fragment>
-        }
+        leftContent={this.leftContent(space, isLoading)}
+        rightContent={this.rightContent()}
       />
     );
   }
