@@ -9,7 +9,7 @@ import InlineText from 'components/LV1/InlineText';
 import InputField from 'components/LV1/InputField';
 import InputForm from 'components/LV2/InputForm';
 import SelectForm from 'components/LV2/SelectForm';
-import { Dimens, Colors } from 'variables';
+import { Dimens, Colors, FormValues } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 
 export const ContentsWrap = styled.div`
@@ -202,23 +202,23 @@ export default ({
           label="スペースの広さで絞り込み"
           options={[
             {
-              value: 0,
+              value: `${FormValues.typeSpaceNoSelect}`,
               text: '指定なし',
             },
             {
-              value: 1,
+              value: `${FormValues.typeSpaceCloset}`,
               text: 'クローゼット・押入れ',
             },
             {
-              value: 3,
+              value: `${FormValues.typeSpaceRoom}`,
               text: '部屋',
             },
             {
-              value: 4,
+              value: `${FormValues.typeSpaceWarehouse}`,
               text: '屋外倉庫',
             },
             {
-              value: 5,
+              value: `${FormValues.typeSpaceOther}`,
               text: 'その他',
             },
           ]}
@@ -243,19 +243,19 @@ export default ({
           label="受け取り方法で絞り込み"
           options={[
             {
-              value: 0,
+              value: `${FormValues.typeReceiptNoSelect}`,
               text: '指定なし',
             },
             {
-              value: 1,
+              value: `${FormValues.typeReceiptAll}`,
               text: '対面・配送の両方に対応する',
             },
             {
-              value: 2,
+              value: `${FormValues.typeReceiptOnlyFTF}`,
               text: '対面のみ',
             },
             {
-              value: 3,
+              value: `${FormValues.typeReceiptOnlyDelivery}`,
               text: '配送のみ',
             },
           ]}

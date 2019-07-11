@@ -29,6 +29,8 @@ import { formatDate, formatStringSlash } from 'helpers/date';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 const MAX_PAY_PRICE_CONVENIENT = 49999;
+const MODE_VIEW_INPUT = 0;
+const MODE_VIEW_CONFIRM = 1;
 
 type PropTypes = {
   dispatch: Function,
@@ -131,7 +133,7 @@ class PaymentContainer extends Component<PropTypes> {
       cvc: '',
       paymentMethod: -1,
       error: {},
-      modeView: 0,
+      modeView: MODE_VIEW_INPUT,
       roomId: roomId || '',
     };
   }
@@ -230,9 +232,9 @@ class PaymentContainer extends Component<PropTypes> {
   onKeyDownBack = e => {
     if (iskeyDownEnter(e)) {
       const { modeView } = this.state;
-      if (modeView === 0) {
+      if (modeView === MODE_VIEW_INPUT) {
         this.backToMessage();
-      } else if (modeView === 1) {
+      } else if (modeView === MODE_VIEW_CONFIRM) {
         this.backButton();
       }
     }
@@ -241,9 +243,9 @@ class PaymentContainer extends Component<PropTypes> {
   onKeyDownPay = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       const { paymentMethod, modeView } = this.state;
-      if (modeView === 0) {
+      if (modeView === MODE_VIEW_INPUT) {
         this.confirmButton();
-      } else if (modeView === 1) {
+      } else if (modeView === MODE_VIEW_CONFIRM) {
         switch (paymentMethod) {
           case 0:
             this.payment();
@@ -401,7 +403,7 @@ class PaymentContainer extends Component<PropTypes> {
 
   backButton = () => {
     window.scrollTo(0, 0);
-    this.setState({ modeView: 0 });
+    this.setState({ modeView: MODE_VIEW_INPUT });
   };
 
   confirmButton = () => {
@@ -410,7 +412,7 @@ class PaymentContainer extends Component<PropTypes> {
     if (paymentMethod === 2) {
       this.paymentBank();
     } else {
-      this.setState({ modeView: 1 });
+      this.setState({ modeView: MODE_VIEW_CONFIRM });
     }
   };
 
@@ -442,7 +444,7 @@ class PaymentContainer extends Component<PropTypes> {
 
     let leftContent = this.leftContent();
 
-    if (modeView === 1) {
+    if (modeView === MODE_VIEW_CONFIRM) {
       leftContent = this.leftContentConfirm();
     }
 
