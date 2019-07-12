@@ -40,8 +40,6 @@ class EstimateContainer extends Component<PropTypes> {
     };
   }
 
-  onDateChange: Function;
-
   onDateChange = (name, date) => {
     const { state } = this;
     state[name] = date;
@@ -51,15 +49,11 @@ class EstimateContainer extends Component<PropTypes> {
     });
   };
 
-  onFocusChangeDatePicker: Function;
-
   onFocusChangeDatePicker = (name, focus) => {
     const { state } = this;
     state[name] = focus;
     this.setState(state);
   };
-
-  handleChangePrice: Function;
 
   handleChangePrice = (propName: string, value: any) => {
     const { state } = this;
@@ -88,8 +82,6 @@ class EstimateContainer extends Component<PropTypes> {
     this.setState({ ...state, error });
   };
 
-  sendRequest: Function;
-
   sendRequest = () => {
     const { user, match } = this.props;
     const userId = user.id;
@@ -106,15 +98,11 @@ class EstimateContainer extends Component<PropTypes> {
     );
   };
 
-  onKeyDownSend: Function;
-
   onKeyDownSend = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.sendRequest();
     }
   };
-
-  validate: Function;
 
   validate = () => {
     const { begin, end, price } = this.state;
@@ -131,37 +119,40 @@ class EstimateContainer extends Component<PropTypes> {
     );
   };
 
-  render() {
+  leftContent = () => {
     const { isSending } = this.props;
     const { begin, end, error, price, beginFocus, endFocus } = this.state;
+    return (
+      <InputEstimate
+        schedule={{
+          beginDate: begin,
+          beginDateFocused: beginFocus,
+          onFocusChangeBegin: focus => this.onFocusChangeDatePicker('beginFocus', focus),
+          onDateChangeBegin: date => this.onDateChange('begin', date),
+          endDate: end,
+          endDateFocused: endFocus,
+          onFocusChangeEnd: focus => this.onFocusChangeDatePicker('endFocus', focus),
+          onDateChangeEnd: date => this.onDateChange('end', date),
+        }}
+        price={{
+          errors: error.price,
+          onChange: value => this.handleChangePrice('price', value),
+          value: price,
+        }}
+        buttonDisabled={!this.validate()}
+        buttonLoading={isSending}
+        onClickSend={this.sendRequest}
+        onKeyDownSend={this.onKeyDownSend}
+      />
+    );
+  };
 
+  render() {
     return (
       <MenuPageTemplate
         header={<Header />}
         headline="見積もりを送る"
-        leftContent={
-          <InputEstimate
-            schedule={{
-              beginDate: begin,
-              beginDateFocused: beginFocus,
-              onFocusChangeBegin: focus => this.onFocusChangeDatePicker('beginFocus', focus),
-              onDateChangeBegin: date => this.onDateChange('begin', date),
-              endDate: end,
-              endDateFocused: endFocus,
-              onFocusChangeEnd: focus => this.onFocusChangeDatePicker('endFocus', focus),
-              onDateChangeEnd: date => this.onDateChange('end', date),
-            }}
-            price={{
-              errors: error.price,
-              onChange: value => this.handleChangePrice('price', value),
-              value: price,
-            }}
-            buttonDisabled={!this.validate()}
-            buttonLoading={isSending}
-            onClickSend={this.sendRequest}
-            onKeyDownSend={this.onKeyDownSend}
-          />
-        }
+        leftContent={this.leftContent()}
         rightContent={<ServiceMenu />}
       />
     );

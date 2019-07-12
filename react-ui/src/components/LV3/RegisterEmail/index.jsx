@@ -11,6 +11,97 @@ import InputField from 'components/LV1/InputField';
 import { Colors, FontSizes } from 'variables';
 import Form from './Form';
 
+function inputField(email, onChangeEmail) {
+  return (
+    <InputField
+      placeholder="メールアドレス"
+      value={email}
+      onChange={e => onChangeEmail(e.target.value)}
+    />
+  );
+}
+
+function iconInputField(
+  ispasswordVisible,
+  password,
+  onChangePassword,
+  onKeyDownPassword,
+  onClickIconPassword,
+) {
+  return (
+    <IconInputField
+      right="true"
+      iconClassName={ispasswordVisible ? 'fal fa-eye-slash' : 'fal fa-eye'}
+      type={ispasswordVisible ? 'password' : 'text'}
+      placeholder="パスワード"
+      value={password}
+      onChange={e => onChangePassword(e.target.value)}
+      onKeyDown={onKeyDownPassword}
+      clickIcon={onClickIconPassword}
+    />
+  );
+}
+
+function inlineText() {
+  return (
+    <InlineText.Base fontSize={12}>
+      新規登録を行うと、
+      <br />
+      <TextLink
+        to={Path.terms()}
+        target="_blank"
+        rel="noopener noreferrer"
+        fontSize={FontSizes.small_12}
+        color={Colors.brandPrimary}
+        underline="true"
+      >
+        利用規約
+      </TextLink>
+      と
+      <TextLink
+        to={Path.privacy()}
+        target="_blank"
+        rel="noopener noreferrer"
+        fontSize={FontSizes.small_12}
+        color={Colors.brandPrimary}
+        underline="true"
+      >
+        プライバシーポリシー
+      </TextLink>
+      に同意したとみなします
+    </InlineText.Base>
+  );
+}
+
+function button(mode, onClick, disabled, loading) {
+  let returnVal;
+  switch (mode) {
+    case 'next':
+      returnVal = (
+        <Button primary fill={1} fontbold onClick={onClick} disabled={disabled} loading={loading}>
+          新規登録
+        </Button>
+      );
+      break;
+    case 'facebook':
+      returnVal = (
+        <Button facebook fill={1} fontbold onClick={onClick} loading={loading}>
+          Facebookで新規登録
+        </Button>
+      );
+      break;
+    case 'login':
+      returnVal = (
+        <Button secondary borderbold fontbold fill={1} onClick={onClick}>
+          ログインはこちら
+        </Button>
+      );
+      break;
+    default:
+  }
+  return returnVal;
+}
+
 type PropTypes = {
   email: string,
   onChangeEmail: Function,
@@ -46,85 +137,28 @@ export default ({
 }: PropTypes) => (
   <Form
     title={<H1 bold>新規登録</H1>}
-    email={
-      <InputField
-        placeholder="メールアドレス"
-        value={email}
-        onChange={e => onChangeEmail(e.target.value)}
-      />
-    }
+    email={inputField(email, onChangeEmail)}
     emailError={emailError.map((text, i) => (
       <InlineText.Small key={`email_error_${i}`.toString()} color={Colors.error}>
         {text}
       </InlineText.Small>
     ))}
-    pass={
-      <IconInputField
-        right
-        iconClassName={ispasswordVisible ? 'fal fa-eye-slash' : 'fal fa-eye'}
-        type={ispasswordVisible ? 'password' : 'text'}
-        placeholder="パスワード"
-        value={password}
-        onChange={e => onChangePassword(e.target.value)}
-        onKeyDown={onKeyDownPassword}
-        clickIcon={onClickIconPassword}
-      />
-    }
+    pass={iconInputField(
+      ispasswordVisible,
+      password,
+      onChangePassword,
+      onKeyDownPassword,
+      onClickIconPassword,
+    )}
     passError={passError.map((text, i) => (
       <InlineText.Small key={`pass_error_${i}`.toString()} color={Colors.error}>
         {text}
       </InlineText.Small>
     ))}
-    terms={
-      <InlineText.Base fontSize={12}>
-        新規登録を行うと、
-        <br />
-        <TextLink
-          to={Path.terms()}
-          target="_blank"
-          rel="noopener noreferrer"
-          fontSize={FontSizes.small_12}
-          color={Colors.brandPrimary}
-          underline="true"
-        >
-          利用規約
-        </TextLink>
-        と
-        <TextLink
-          to={Path.privacy()}
-          target="_blank"
-          rel="noopener noreferrer"
-          fontSize={FontSizes.small_12}
-          color={Colors.brandPrimary}
-          underline="true"
-        >
-          プライバシーポリシー
-        </TextLink>
-        に同意したとみなします
-      </InlineText.Base>
-    }
-    next={
-      <Button
-        primary
-        fill={1}
-        fontbold
-        onClick={onClickNext}
-        disabled={buttonDisabled}
-        loading={isRegisterChecking}
-      >
-        新規登録
-      </Button>
-    }
+    terms={inlineText()}
+    next={button('next', onClickNext, buttonDisabled, isRegisterChecking)}
     otherLogin={<InlineText.Base>お持ちのアカウントで登録</InlineText.Base>}
-    facebook={
-      <Button facebook fill={1} fontbold onClick={onClickFacebook} loading={isRegisterChecking}>
-        Facebookで新規登録
-      </Button>
-    }
-    toLogin={
-      <Button secondary borderbold fontbold fill={1} onClick={onClickLogin}>
-        ログインはこちら
-      </Button>
-    }
+    facebook={button('facebook', onClickFacebook, false, isRegisterChecking)}
+    toLogin={button('login', onClickLogin, false, false)}
   />
 );

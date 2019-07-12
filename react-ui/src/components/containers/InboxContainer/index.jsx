@@ -38,14 +38,10 @@ class InboxContainer extends Component<PropTypes> {
     dispatch(messagesActions.fetchRoomsStart());
   }
 
-  historyToHome: Function;
-
   historyToHome = () => {
     const { history } = this.props;
     history.push(Path.home());
   };
-
-  onKeyDownButtonHome: Function;
 
   onKeyDownButtonHome = e => {
     if (iskeyDownEnter(e)) {

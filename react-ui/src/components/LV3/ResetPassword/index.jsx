@@ -7,10 +7,35 @@ import Button from 'components/LV1/Button';
 import InlineText from 'components/LV1/InlineText';
 import InputForm from 'components/LV2/InputForm';
 import { H1 } from 'components/LV1/Headline';
-import { Colors, Dimens } from 'variables';
+import { Colors, Dimens, FontSizes } from 'variables';
 
 const Container = styled.div`
   text-align: center;
+  ${props =>
+    props.resetError &&
+    `
+    margin-top: ${Dimens.medium3_40}px;
+  `};
+`;
+
+const ErrMessage = styled.div`
+  width: 100%;
+  height: 54px;
+  display: block;
+  position: fixed;
+  left: 0px;
+  top: 64px;
+  z-index: 100;
+  text-align: center;
+  padding: ${Dimens.medium_17}px;
+  line-height: 22px;
+  font-size: ${FontSizes.small_15}px;
+  font-weight: bold;
+  color: ${Colors.white};
+  background-color: ${Colors.brandPrimary};
+  ${media.tablet`
+    top: 54px;
+  `};
 `;
 
 const Title = styled.div`
@@ -47,8 +72,20 @@ const MarginTopMediumWrapper = styled.div`
   `};
 `;
 
+function displayErrors(key: string, errors: Array<string>) {
+  return (
+    Array.isArray(errors) &&
+    errors.map((e, i) => (
+      <ErrorWrapper key={`${key}_${i}`.toString()}>
+        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
+      </ErrorWrapper>
+    ))
+  );
+}
+
 type PropTypes = {
   sended: boolean,
+  resetError?: string,
   email: string,
   onChangeEmail: Function,
   errors: Array<string>,
@@ -59,6 +96,7 @@ type PropTypes = {
 
 export default ({
   sended,
+  resetError,
   email,
   onChangeEmail,
   errors,
@@ -66,7 +104,7 @@ export default ({
   buttonDisabled,
   buttonLoading,
 }: PropTypes) => (
-  <Container>
+  <Container resetError={resetError}>
     {sended ? (
       <Fragment>
         <Title>
@@ -82,14 +120,15 @@ export default ({
       </Fragment>
     ) : (
       <Fragment>
+        {resetError && <ErrMessage>{resetError}</ErrMessage>}
         <Title>
           <H1 bold>パスワードの再設定</H1>
         </Title>
         <MarginTopMediumWrapper>
           <InlineText.Base>
-            再設定のメールが受け取れる登録したメールアドレスを入力してください。
+            モノオクに登録したメールアドレスを入力してください。
             <br />
-            届いたメールからパスワードの設定が行えます。
+            パスワードを再設定するためのメールをお送りします。
           </InlineText.Base>
         </MarginTopMediumWrapper>
         <InputWrapper>
@@ -100,12 +139,7 @@ export default ({
             onChange={e => onChangeEmail(e.target.value)}
           />
         </InputWrapper>
-        {errors &&
-          errors.map((error, i) => (
-            <ErrorWrapper key={`email_error_${i}`.toString()}>
-              <InlineText.Base color={Colors.error}>{error}</InlineText.Base>
-            </ErrorWrapper>
-          ))}
+        {displayErrors('email', errors.email)}
         <ButtonWrapper>
           <Button fill={1} onClick={onClickSend} disabled={buttonDisabled} loading={buttonLoading}>
             再設定メールを送信する

@@ -23,22 +23,16 @@ class ScheduleContainer extends Component {
     dispatch(requestActions.fetchSchedule());
   }
 
-  historyToHome: Function;
-
   historyToHome = () => {
     const { history } = this.props;
     history.push(Path.home());
   };
-
-  onKeyDownButtonHome: Function;
 
   onKeyDownButtonHome = e => {
     if (iskeyDownEnter(e)) {
       this.historyToHome();
     }
   };
-
-  getScheduleProps: Function;
 
   getScheduleProps = (schedule: Object, isHost: boolean) => ({
     schedule: {

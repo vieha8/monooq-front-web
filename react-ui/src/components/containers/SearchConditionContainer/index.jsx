@@ -72,15 +72,11 @@ class SearchConditionContainer extends Component<PropTypes> {
     }
   };
 
-  onKeyDownButtonSerch: Function;
-
   onKeyDownButtonSerch = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.onClickSearch();
     }
   };
-
-  onClickSearch: Function;
 
   onClickSearch = () => {
     const { history, dispatch } = this.props;
@@ -109,8 +105,6 @@ class SearchConditionContainer extends Component<PropTypes> {
 
     history.push(`${searchPath}${query}`);
   };
-
-  handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
     const { state } = this;
@@ -143,8 +137,6 @@ class SearchConditionContainer extends Component<PropTypes> {
     this.setState({ ...state, error });
   };
 
-  validate: Function;
-
   validate = () => {
     const { priceMin, priceMax } = this.state;
     let isNoErr = true;
@@ -162,7 +154,7 @@ class SearchConditionContainer extends Component<PropTypes> {
     return isNoErr;
   };
 
-  render() {
+  leftContent = () => {
     const {
       keyword,
       prefCode,
@@ -173,34 +165,37 @@ class SearchConditionContainer extends Component<PropTypes> {
       receiptType,
       error,
     } = this.state;
+    return (
+      <SearchCondition
+        errors={error}
+        keyword={keyword}
+        onChangeKeyword={v => this.handleChangeUI('keyword', v)}
+        prefCode={prefCode}
+        onChangePrefCode={v => this.handleChangeUI('prefCode', v)}
+        priceMin={priceMin}
+        onChangePriceMin={v => this.handleChangeUI('priceMin', v)}
+        priceMax={priceMax}
+        onChangePriceMax={v => this.handleChangeUI('priceMax', v)}
+        type={type}
+        onChangeType={v => this.handleChangeUI('type', v)}
+        checkedFurniture={isFurniture}
+        onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
+        onKeyDownFurniture={this.onKeyDownFurniture}
+        receive={receiptType}
+        onChangeReceive={v => this.handleChangeUI('receiptType', v)}
+        buttonDisabled={!this.validate()}
+        onClickSearch={this.onClickSearch}
+        onKeyDownButtonSerch={this.onKeyDownButtonSerch}
+      />
+    );
+  };
 
+  render() {
     return (
       <MenuPageTemplate
         header={<Header />}
         headline="スペース検索"
-        leftContent={
-          <SearchCondition
-            errors={error}
-            keyword={keyword}
-            onChangeKeyword={v => this.handleChangeUI('keyword', v)}
-            prefCode={prefCode}
-            onChangePrefCode={v => this.handleChangeUI('prefCode', v)}
-            priceMin={priceMin}
-            onChangePriceMin={v => this.handleChangeUI('priceMin', v)}
-            priceMax={priceMax}
-            onChangePriceMax={v => this.handleChangeUI('priceMax', v)}
-            type={type}
-            onChangeType={v => this.handleChangeUI('type', v)}
-            checkedFurniture={isFurniture}
-            onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
-            onKeyDownFurniture={this.onKeyDownFurniture}
-            receive={receiptType}
-            onChangeReceive={v => this.handleChangeUI('receiptType', v)}
-            buttonDisabled={!this.validate()}
-            onClickSearch={this.onClickSearch}
-            onKeyDownButtonSerch={this.onKeyDownButtonSerch}
-          />
-        }
+        leftContent={this.leftContent()}
         rightContent={<ServiceMenu />}
       />
     );
