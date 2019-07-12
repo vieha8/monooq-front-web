@@ -8,7 +8,9 @@ import { connect } from 'react-redux';
 
 export default function authRequired(WrappedComponent: Component) {
   class authRequiredComponent extends Component {
-    componentWillMount() {
+    constructor(props) {
+      super(props);
+
       const { isLogin } = this.props;
       if (!isLogin) {
         const { dispatch, location } = this.props;
