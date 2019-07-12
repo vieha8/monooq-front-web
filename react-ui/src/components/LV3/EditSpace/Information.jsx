@@ -5,11 +5,10 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import SpaceImagePicker from 'components/LV2/SpaceImagePicker';
 import Button from 'components/LV1/Button';
-import InlineText from 'components/LV1/InlineText';
-import InputForm from 'components/LV2/InputForm';
+import DisplayErrors from 'components/LV2/DisplayErrors';
 import EntryButtons from 'components/LV2/EntryButtons';
+import InputForm from 'components/LV2/InputForm';
 import SelectForm from 'components/LV2/SelectForm';
-import { Colors } from 'variables';
 import { Section } from './Shared';
 
 const ButtonWrap = styled.div`
@@ -41,17 +40,6 @@ type PropTypes = {
   buttonNextDisabled: boolean,
 };
 
-function displayErrors(key: string, errors: Array<string>) {
-  return (
-    Array.isArray(errors) &&
-    errors.map((e, i) => (
-      <div key={`${key}_${i}`.toString()}>
-        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
-      </div>
-    ))
-  );
-}
-
 export default ({
   edit,
   errors,
@@ -81,7 +69,7 @@ export default ({
         value={address}
         onChange={e => onChangeAddress(e.target.value)}
       />
-      {displayErrors('address_errors', errors.address)}
+      <DisplayErrors keyName="address_errors" errors={errors.address} />
     </Section>
     <Section>
       <SelectForm
@@ -107,7 +95,7 @@ export default ({
         value={type}
         onChange={e => onChangeType(e.target.value)}
       />
-      {displayErrors('type_errors', errors.type)}
+      <DisplayErrors keyName="type_errors" errors={errors.type} />
     </Section>
     <Section>
       <InputForm
@@ -117,7 +105,7 @@ export default ({
         value={title}
         onChange={e => onChangeTitle(e.target.value)}
       />
-      {displayErrors('title_errors', errors.title)}
+      <DisplayErrors keyName="title_errors" errors={errors.title} />
     </Section>
     <Section>
       <SpaceImagePicker
@@ -126,7 +114,7 @@ export default ({
         onClickDeleteImage={onClickDeleteImage}
         isImageUploading={isImageUploading}
       />
-      {displayErrors('image_errors', errors.images)}
+      <DisplayErrors keyName="image_errors" errors={errors.images} />
     </Section>
     <Section>
       <InputForm
@@ -137,7 +125,7 @@ export default ({
         value={introduction}
         onChange={e => onChangeIntroduction(e.target.value)}
       />
-      {displayErrors('introduction_errors', errors.introduction)}
+      <DisplayErrors keyName="introduction_errors" errors={errors.introduction} />
     </Section>
     <Section>
       {edit ? (
