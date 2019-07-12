@@ -85,7 +85,7 @@ class ResetPasswordContainer extends Component<PropTypes> {
         onChangeEmail={v => this.handleChangeUI('email', v)}
         onClickSend={this.onClickSend}
         errors={error}
-        resetError={resetError}
+        resetError={resetError.toString() || ''}
         sended={emailSended}
         buttonLoading={isChecking}
         buttonDisabled={!this.validate()}
