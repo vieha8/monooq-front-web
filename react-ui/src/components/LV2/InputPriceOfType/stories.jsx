@@ -3,26 +3,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
-import { Dimens, Colors } from 'variables';
+import { Dimens } from 'variables';
 import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
+import DisplayErrors from 'components/LV2/DisplayErrors';
 
-import InlineText from 'components/LV1/InlineText';
 import InputPriceOfType from './index';
 
 InputPriceOfType.displayName = 'InputPriceOfType';
-
-function displayErrors(key: string, errors: Array<string>) {
-  return (
-    Array.isArray(errors) &&
-    errors.map((e, i) => (
-      <div key={`${key}_${i}`.toString()}>
-        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
-      </div>
-    ))
-  );
-}
 
 storiesOf('Molecules(LV2)/InputPriceOfType', module).add(
   'Enabled',
@@ -38,7 +27,7 @@ storiesOf('Molecules(LV2)/InputPriceOfType', module).add(
         placeholder="3000"
         price="3000"
         onChange=""
-        error={displayErrors('price_errors_1', 'error1')}
+        error={<DisplayErrors keyName="price_errors_1" errors={['error1', 'error2', 'error3']} />}
       />
       <br />
       <InputPriceOfType
@@ -48,7 +37,7 @@ storiesOf('Molecules(LV2)/InputPriceOfType', module).add(
         placeholder="4000"
         price="4000"
         onChange=""
-        error={displayErrors('price_errors_2', 'error2')}
+        error={<DisplayErrors keyName="price_errors_2" errors={['error1', 'error2', 'error3']} />}
       />
       <br />
       <InputPriceOfType
@@ -58,7 +47,7 @@ storiesOf('Molecules(LV2)/InputPriceOfType', module).add(
         placeholder="5000"
         price="5000"
         onChange=""
-        error={displayErrors('price_errors_3', 'error3')}
+        error={<DisplayErrors keyName="price_errors_3" errors={['error1', 'error2', 'error3']} />}
       />
     </div>
   )),

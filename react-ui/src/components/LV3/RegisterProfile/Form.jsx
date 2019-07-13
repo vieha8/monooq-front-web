@@ -2,9 +2,9 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Colors, Dimens } from 'variables';
+import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import InlineText from 'components/LV1/InlineText';
+import DisplayErrors from 'components/LV2/DisplayErrors';
 
 const Title = styled.div`
   text-align: center;
@@ -54,17 +54,6 @@ const Button = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
-function displayErrors(key: string, errors: Array<string>) {
-  return (
-    Array.isArray(errors) &&
-    errors.map((e, i) => (
-      <div key={`${key}_${i}`.toString()}>
-        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
-      </div>
-    ))
-  );
-}
-
 type PropTypes = {
   errors: Array<Array<string>>,
   title: React.Element<*>,
@@ -92,19 +81,19 @@ export default ({
     <Image>{image}</Image>
     <Name>
       {name}
-      {displayErrors('name_errors', errors.name)}
+      <DisplayErrors keyName="name_errors" errors={errors.name} />
     </Name>
     <PrefCode>
       {prefCode}
-      {displayErrors('prefCode_errors', errors.prefCode)}
+      <DisplayErrors keyName="prefCode_errors" errors={errors.prefCode} />
     </PrefCode>
     <Profile>
       {profile}
-      {displayErrors('profile_errors', errors.profile)}
+      <DisplayErrors keyName="profile_errors" errors={errors.profile} />
     </Profile>
     <PhoneNumber>
       {phoneNumber}
-      {displayErrors('phoneNumber_errors', errors.phoneNumber)}
+      <DisplayErrors keyName="phoneNumber_errors" errors={errors.phoneNumber} />
     </PhoneNumber>
     <Button>{button}</Button>
   </Fragment>

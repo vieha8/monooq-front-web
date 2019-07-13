@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Button';
 import InlineText from 'components/LV1/InlineText';
+import DisplayErrors from 'components/LV2/DisplayErrors';
 import InputForm from 'components/LV2/InputForm';
 import { H1 } from 'components/LV1/Headline';
 import { Colors, Dimens, FontSizes } from 'variables';
@@ -72,17 +73,6 @@ const MarginTopMediumWrapper = styled.div`
   `};
 `;
 
-function displayErrors(key: string, errors: Array<string>) {
-  return (
-    Array.isArray(errors) &&
-    errors.map((e, i) => (
-      <ErrorWrapper key={`${key}_${i}`.toString()}>
-        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
-      </ErrorWrapper>
-    ))
-  );
-}
-
 type PropTypes = {
   sended: boolean,
   resetError?: string,
@@ -139,7 +129,9 @@ export default ({
             onChange={e => onChangeEmail(e.target.value)}
           />
         </InputWrapper>
-        {displayErrors('email', errors.email)}
+        <ErrorWrapper>
+          <DisplayErrors keyName="email" errors={errors.email} />
+        </ErrorWrapper>
         <ButtonWrapper>
           <Button fill={1} onClick={onClickSend} disabled={buttonDisabled} loading={buttonLoading}>
             再設定メールを送信する

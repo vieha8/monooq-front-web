@@ -11,6 +11,7 @@ import { H2 } from 'components/LV1/Headline';
 import InlineText from 'components/LV1/InlineText';
 import Button from 'components/LV1/Button';
 import HeroImage from 'components/LV1/HeroImage';
+import DisplayErrors from 'components/LV2/DisplayErrors';
 import HostInfo from 'components/LV2/Space/HostInfo';
 import InputForm from 'components/LV2/InputForm';
 import Payment from 'components/LV2/Payment';
@@ -248,17 +249,6 @@ type PropTypes = {
   confirm: boolean,
 };
 
-function displayErrors(key: string, errors: Array<string>) {
-  return (
-    Array.isArray(errors) &&
-    errors.map((e, i) => (
-      <div key={`${key}_${i}`.toString()}>
-        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
-      </div>
-    ))
-  );
-}
-
 function maskify(cc) {
   return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
 }
@@ -403,7 +393,7 @@ export default ({
                   onChange={e => onChangeName(e.target.value)}
                   value={name}
                 />
-                {displayErrors('name_errors', errors.name)}
+                <DisplayErrors keyName="name_errors" errors={errors.name} />
               </Row>
               <Row>
                 <InputForm
@@ -414,7 +404,7 @@ export default ({
                   onChange={e => onChangeNumber(e.target.value)}
                   value={number}
                 />
-                {displayErrors('number_errors', errors.number)}
+                <DisplayErrors keyName="number_errors" errors={errors.number} />
               </Row>
               <Row>
                 <SelectBox>
@@ -461,7 +451,7 @@ export default ({
                   value={cvc}
                   autoComplete="cc-csc"
                 />
-                {displayErrors('cvc_errors', errors.cvc)}
+                <DisplayErrors keyName="cvc_errors" errors={errors.cvc} />
               </Row>
             </Fragment>,
             '',

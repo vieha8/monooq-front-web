@@ -3,15 +3,15 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Colors, Dimens } from 'variables';
-import RegsiterProfileImage from 'components/LV1/DragAndDrop/RegisterProfileImage';
-import InputForm from 'components/LV2/InputForm';
-import SelectForm from 'components/LV2/SelectForm';
-import InlineText from 'components/LV1/InlineText';
-import Check from 'components/LV1/Check';
-import Button from 'components/LV1/Button';
+import { Dimens } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 import { selectOptionPurpose } from 'helpers/purposes';
+import Check from 'components/LV1/Check';
+import Button from 'components/LV1/Button';
+import RegsiterProfileImage from 'components/LV1/DragAndDrop/RegisterProfileImage';
+import DisplayErrors from 'components/LV2/DisplayErrors';
+import InputForm from 'components/LV2/InputForm';
+import SelectForm from 'components/LV2/SelectForm';
 
 const Row = styled.div`
   &:not(:first-child) {
@@ -26,17 +26,6 @@ const ButtonWrap = styled.div`
     max-width: 100%;
   `};
 `;
-
-function displayErrors(key: string, errors: Array<string>) {
-  return (
-    Array.isArray(errors) &&
-    errors.map((e, i) => (
-      <div key={`${key}_${i}`.toString()}>
-        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
-      </div>
-    ))
-  );
-}
 
 function extention(onChangeImage, imagePreview, image) {
   return (
@@ -109,7 +98,7 @@ export default ({
         onChange={e => onChangeName(e.target.value)}
         value={name}
       />
-      {displayErrors('name_errors', errors.name)}
+      <DisplayErrors keyName="name_errors" errors={errors.name} />
     </Row>
     <Row>
       <InputForm
@@ -118,7 +107,7 @@ export default ({
         onChange={e => onChangeEmail(e.target.value)}
         value={email}
       />
-      {displayErrors('email_errors', errors.email)}
+      <DisplayErrors keyName="email_errors" errors={errors.email} />
     </Row>
     <Row>
       <Check checked={isNoticeEmail} onClick={onChangeNoticeEmail} onKeyDown={onKeyDownNoticeEmail}>
@@ -134,7 +123,7 @@ export default ({
         type="tel"
         hint="取引時の保険適用に必須となります。緊急時の連絡先として利用させていただく場合もございます。"
       />
-      {displayErrors('phoneNumber_errors', errors.phoneNumber)}
+      <DisplayErrors keyName="phoneNumber_errors" errors={errors.phoneNumber} />
     </Row>
     <Row>
       <SelectForm
@@ -143,7 +132,7 @@ export default ({
         onChange={e => onChangePrefCode(e.target.value)}
         value={prefCode}
       />
-      {displayErrors('prefCode_errors', errors.prefCode)}
+      <DisplayErrors keyName="prefCode_errors" errors={errors.prefCode} />
     </Row>
     <Row>
       <InputForm
@@ -154,7 +143,7 @@ export default ({
         onChange={e => onChangeProfile(e.target.value)}
         value={profile}
       />
-      {displayErrors('profile_errors', errors.profile)}
+      <DisplayErrors keyName="profile_errors" errors={errors.profile} />
     </Row>
     <Row>
       <SelectForm
@@ -163,7 +152,7 @@ export default ({
         onChange={e => onChangePurpose(e.target.value)}
         value={purpose}
       />
-      {displayErrors('purpose_errors', errors.purpose)}
+      <DisplayErrors keyName="purpose_errors" errors={errors.purpose} />
     </Row>
     <ButtonWrap>
       <Button
