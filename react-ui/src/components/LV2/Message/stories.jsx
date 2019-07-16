@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StorybookRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -21,7 +21,7 @@ Photo.displayName = 'Photo';
 Input.displayName = 'Input';
 
 storiesOf('Molecules(LV2)/Message', module)
-  .addDecorator(StorybookRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Other',
     withInfo(`

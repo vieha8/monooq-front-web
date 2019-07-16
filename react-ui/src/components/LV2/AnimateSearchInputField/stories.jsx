@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import StoryRouter from 'storybook-router';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
@@ -11,7 +11,7 @@ import AnimateSearchInputField from './index';
 AnimateSearchInputField.displayName = 'AnimateSearchInputField';
 
 storiesOf('Molecules(LV2)/AnimateSearchInputField', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'IconRightPhone',
     withInfo(`

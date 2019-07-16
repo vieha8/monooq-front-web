@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -10,7 +10,7 @@ import InboxList from './index';
 
 InboxList.displayName = 'InboxList';
 
-function getMessages() {
+const getMessages = () => {
   const data = [];
   for (let i = 0; i < 5; i += 1) {
     data.push({
@@ -22,10 +22,10 @@ function getMessages() {
     });
   }
   return data;
-}
+};
 
 storiesOf('Organisms(LV3)/InboxList', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
     withInfo(`

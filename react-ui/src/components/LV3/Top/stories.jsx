@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import PickupStaffSpaceList from 'components/LV3/Top/pickup';
 import { Dimens } from 'variables';
@@ -12,7 +12,7 @@ import Top from './index';
 Top.displayName = 'Top';
 
 storiesOf('Organisms(LV3)/Top', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
     withInfo(`

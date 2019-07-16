@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -10,7 +10,7 @@ import ManageSpaceList from './index';
 
 ManageSpaceList.displayName = 'ManageSpaceList';
 
-function getData() {
+const getData = () => {
   const spaces = [];
   for (let i = 0; i <= 5; i += 1) {
     spaces.push({
@@ -28,10 +28,10 @@ function getData() {
     });
   }
   return spaces;
-}
+};
 
 storiesOf('Organisms(LV3)/ManageSpaceList', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
     withInfo(`
