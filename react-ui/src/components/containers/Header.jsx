@@ -25,12 +25,6 @@ class HeaderContainer extends Component<PropTypes> {
       document.body.style.overflowY = 'auto';
     }
   }
-
-  onClickLogin = () => {
-    const { dispatch, location } = this.props;
-    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-  };
-
   render() {
     const { isLogin, isChecking, noHeaderButton, user, top, unreadRooms } = this.props;
     return (
@@ -63,7 +57,6 @@ class HeaderContainer extends Component<PropTypes> {
             : null
         }
         loginUri={Path.login()}
-        onClickLogin={this.onClickLogin}
         signupUri={Path.signUp()}
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} isPhone />}
       />

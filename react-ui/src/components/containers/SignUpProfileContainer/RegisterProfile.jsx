@@ -2,6 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import { userActions } from 'redux/modules/user';
+import { uiActions } from 'redux/modules/ui';
 import RegisterProfile from 'components/LV3/RegisterProfile';
 import ReactGA from 'react-ga';
 import Path from 'config/path';
@@ -79,6 +80,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
   onClickRegisterProfile = () => {
     const { dispatch, user, history } = this.props;
     const { image, name, prefCode, profile, phoneNumber } = this.state;
+    dispatch(uiActions.setUiState({ redirectPath: '' }));
     dispatch(
       userActions.updateUser({
         userId: user.id,
