@@ -49,11 +49,10 @@ const OnlyPhone = styled.span`
 
 type PropTypes = {
   loginUri: string,
-  onClickLogin: Function,
   signupUri: string,
 };
 
-export default ({ signupUri, loginUri, onClickLogin }: PropTypes) => (
+export default ({ signupUri, loginUri }: PropTypes) => (
   <Container>
     <OnlyPC>
       <TextWrapper>
@@ -62,15 +61,7 @@ export default ({ signupUri, loginUri, onClickLogin }: PropTypes) => (
         </TextLink>
       </TextWrapper>
       <TextWrapper>
-        <Button
-          primary
-          link
-          href={loginUri}
-          onClick={onClickLogin}
-          fontbold
-          height={40}
-          lineheight={15}
-        >
+        <Button primary link href={loginUri} fontbold height={40} lineheight={15}>
           ログイン
         </Button>
       </TextWrapper>
@@ -81,7 +72,6 @@ export default ({ signupUri, loginUri, onClickLogin }: PropTypes) => (
           primary
           link
           href={loginUri}
-          onClick={onClickLogin}
           fontSize={FontSizes.small_12}
           fontSizeSp={FontSizes.small_12}
           fontbold
