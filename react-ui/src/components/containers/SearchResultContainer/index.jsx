@@ -263,12 +263,21 @@ class SearchResultContainer extends Component<PropTypes, State> {
     );
   };
 
+  meta = condition => {
+    return (
+      <Meta
+        title={`${condition}のスペース検索結果 - モノオク`}
+        description={`${condition}のスペース検索結果`}
+      />
+    );
+  };
+
   leftContent = condition => {
     const { isSearching } = this.props;
     return (
       <SearchResultTemplate
         isSearching={isSearching}
-        meta={<Meta title={`${condition}のスペース検索結果 - モノオク`} />}
+        meta={this.meta(condition)}
         searchResult={this.infiniteScroll()}
         options={this.options()}
       />

@@ -42,9 +42,10 @@ class ProfileContainer extends Component<PropTypes> {
   meta = user => {
     return (
       <Meta
-        title={`${formatName(user.name)}さんのプロフィール - モノオク`}
-        ogUrl={`user/${user.id}`}
-        ogImageUrl={user.imageUrl}
+        title={user && `${formatName(user.name)}さんのプロフィール - モノオク`}
+        description={user && user.profile}
+        ogUrl={user && `user/${user.id}`}
+        ogImageUrl={user && user.imageUrl}
         noindex
       />
     );
@@ -59,7 +60,6 @@ class ProfileContainer extends Component<PropTypes> {
 
     return (
       <Profile
-        meta={this.meta(user)}
         image={user.imageUrl}
         name={user.name}
         prefCode={user.prefCode}
@@ -81,8 +81,10 @@ class ProfileContainer extends Component<PropTypes> {
   };
 
   render() {
+    const { user } = this.props;
     return (
       <MenuPageTemplate
+        meta={this.meta(user)}
         header={<Header />}
         headline="プロフィール"
         leftContent={this.leftContent()}

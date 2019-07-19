@@ -93,7 +93,6 @@ const Cell = styled.div`
 `;
 
 type PropTypes = {
-  meta: React.Element<*>,
   image: string,
   name: string,
   prefCode: string,
@@ -102,9 +101,8 @@ type PropTypes = {
   spaces: Array<SpaceType>,
 };
 
-export default ({ meta, image, name, prefCode, lastLoginAt, profile, spaces }: PropTypes) => (
+export default ({ image, name, prefCode, lastLoginAt, profile, spaces }: PropTypes) => (
   <Fragment>
-    {meta}
     <Container>
       <User>
         <ImageWrap>
