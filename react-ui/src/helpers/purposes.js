@@ -2,7 +2,7 @@
 
 export const purposes = ['荷物を預けたい', '荷物を預かりたい'];
 
-export function selectOptionPurpose(placeholder: string) {
+const selectOptionPurpose = (placeholder: string) => {
   const purposesList = [];
   if (placeholder) {
     purposesList.push({
@@ -21,4 +21,6 @@ export function selectOptionPurpose(placeholder: string) {
       };
     }),
   );
-}
+};
+
+export default selectOptionPurpose;

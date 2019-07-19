@@ -118,14 +118,12 @@ class LoginContainer extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    isLogin: state.auth.isLogin,
-    isChecking: state.auth.isChecking,
-    loginFailed: state.auth.error,
-    ui: state.ui,
-  };
-}
+const mapStateToProps = state => ({
+  isLogin: state.auth.isLogin,
+  isChecking: state.auth.isChecking,
+  loginFailed: state.auth.error,
+  ui: state.ui,
+});
 
 export default connect(
   LoginContainer,

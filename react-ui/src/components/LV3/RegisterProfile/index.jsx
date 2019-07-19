@@ -10,21 +10,21 @@ import { selectOptionPrefectures } from 'helpers/prefectures';
 import EntryButtons from 'components/LV2/EntryButtons';
 import Form from './Form';
 
-function inlineText(text) {
+const inlineText = text => {
   return (
     <InlineText.Base fontSize={FontSizes.medium2} bold>
       {text}
     </InlineText.Base>
   );
-}
+};
 
-function regsiterProfileImage(imagePreview, image, onChangeImage) {
+const regsiterProfileImage = (imagePreview, image, onChangeImage) => {
   return (
     <RegsiterProfileImage onDrop={data => onChangeImage(data[0])} image={imagePreview || image} />
   );
-}
+};
 
-function inputForm(label, hint, placeholder, onChange, value, multiline, rows, type, extension) {
+const inputForm = (label, hint, placeholder, onChange, value, multiline, rows, type, extension) => {
   return (
     <InputForm
       label={label}
@@ -38,9 +38,9 @@ function inputForm(label, hint, placeholder, onChange, value, multiline, rows, t
       extension={extension}
     />
   );
-}
+};
 
-function selectForm(onChangeArea, prefCode) {
+const selectForm = (onChangeArea, prefCode) => {
   return (
     <SelectForm
       label="お住いの地域"
@@ -49,9 +49,9 @@ function selectForm(onChangeArea, prefCode) {
       value={prefCode}
     />
   );
-}
+};
 
-function entryButtons(buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile) {
+const entryButtons = (buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile) => {
   return (
     <EntryButtons
       enabled
@@ -70,7 +70,7 @@ function entryButtons(buttonDisabled, buttonLoading, onClickSkip, onClickRegiste
       }}
     />
   );
-}
+};
 
 type PropTypes = {
   errors: Array<Array<string>>,

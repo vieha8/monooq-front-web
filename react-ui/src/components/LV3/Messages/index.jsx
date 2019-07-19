@@ -71,7 +71,7 @@ const SeparatedCautionWrapper = styled(CautionWrapper)`
   padding-bottom: 0;
 `;
 
-function extensionPhotoMessage(message) {
+const extensionPhotoMessage = message => {
   return (
     <PhotoMessage
       id={message.other.id}
@@ -79,7 +79,7 @@ function extensionPhotoMessage(message) {
       receivedAt={formatDate(new Date(message.other.receivedAt), formatStringSlashTime)}
     />
   );
-}
+};
 
 type PropTypes = {
   messages: Array<{

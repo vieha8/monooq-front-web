@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -10,12 +10,12 @@ import ScheduleList from './index';
 
 ScheduleList.displayName = 'ScheduleList';
 
-function getData(isHost) {
+const getData = isHost => {
   const data = [];
   for (let i = 0; i < 3; i += 1) {
     data.push({
       schedule: {
-        isHost: isHost,
+        isHost,
         user: {
           ID: isHost ? 'モノオク太郎(ホスト)' : 'モノオク太郎(ゲスト)',
           Name: isHost ? 'モノオク太郎(ホスト)' : 'モノオク太郎(ゲスト)',
@@ -38,10 +38,10 @@ function getData(isHost) {
     });
   }
   return data;
-}
+};
 
 storiesOf('Organisms(LV3)/ScheduleList', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Host',
     withInfo(`

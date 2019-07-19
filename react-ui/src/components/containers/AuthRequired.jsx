@@ -6,7 +6,7 @@ import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { connect } from 'react-redux';
 
-export default function authRequired(WrappedComponent: Component) {
+const authRequired = (WrappedComponent: Component) => {
   class authRequiredComponent extends Component {
     constructor(props) {
       super(props);
@@ -32,4 +32,6 @@ export default function authRequired(WrappedComponent: Component) {
   });
 
   return withRouter(connect(mapStateToProps)(authRequiredComponent));
-}
+};
+
+export default authRequired;

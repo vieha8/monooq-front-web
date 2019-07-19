@@ -4,8 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StorybookRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens, Colors } from 'variables';
 
@@ -18,7 +18,7 @@ const LinkText = styled(Link)`
 `;
 
 storiesOf('Molecules(LV2)/StaticArt', module)
-  .addDecorator(StorybookRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
     withInfo(`

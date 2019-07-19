@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -11,7 +11,7 @@ import ScheduleListItem from './index';
 ScheduleListItem.displayName = 'ScheduleListItem';
 
 storiesOf('Molecules(LV2)/ScheduleListItem', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Guest',
     withInfo(`

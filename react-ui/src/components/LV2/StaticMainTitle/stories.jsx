@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StorybookRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -11,7 +11,7 @@ import MainTitleContainer from './index';
 MainTitleContainer.displayName = 'MainTitleContainer';
 
 storiesOf('Molecules(LV2)/StaticMainTitle', module)
-  .addDecorator(StorybookRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
     withInfo(`

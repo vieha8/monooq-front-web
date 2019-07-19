@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-export default function handleBeforeUnload(WrappedComponent: Component) {
+const handleBeforeUnload = (WrappedComponent: Component) => {
   class handleBeforeUnloadComponent extends Component {
     componentDidMount() {
       // window.addEventListener('beforeunload', this.handleBeforeUnload);
@@ -22,4 +22,6 @@ export default function handleBeforeUnload(WrappedComponent: Component) {
     }
   }
   return handleBeforeUnloadComponent;
-}
+};
+
+export default handleBeforeUnload;

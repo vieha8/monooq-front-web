@@ -17,6 +17,7 @@ import NoDataView from 'components/LV3/NoDataView';
 
 import type { SpaceType } from 'types/Space';
 
+import authRequired from 'components/containers/AuthRequired';
 import connect from '../connect';
 
 type PropTypes = {
@@ -101,15 +102,15 @@ class SpaceManagementContainer extends Component<PropTypes> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.auth.user,
-    spaces: state.user.spaces,
-    isLoading: state.user.isLoading,
-  };
-}
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  spaces: state.user.spaces,
+  isLoading: state.user.isLoading,
+});
 
-export default connect(
-  SpaceManagementContainer,
-  mapStateToProps,
+export default authRequired(
+  connect(
+    SpaceManagementContainer,
+    mapStateToProps,
+  ),
 );

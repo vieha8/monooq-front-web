@@ -54,11 +54,11 @@ export const prefectures = [
   '沖縄県',
 ];
 
-export function getPrefecture(prefCode: string | number) {
+export const getPrefecture = (prefCode: string | number) => {
   return prefectures[parseInt(prefCode, 10) - 1];
-}
+};
 
-export function selectOptionPrefectures(placeholder: string) {
+export const selectOptionPrefectures = (placeholder: string) => {
   const prefs = [];
   if (placeholder) {
     prefs.push({
@@ -77,9 +77,9 @@ export function selectOptionPrefectures(placeholder: string) {
       };
     }),
   );
-}
+};
 
-export function selectOptionPurpose(placeholder: string) {
+export const selectOptionPurpose = (placeholder: string) => {
   const purposesList = [];
   if (placeholder) {
     purposesList.push({
@@ -98,9 +98,9 @@ export function selectOptionPurpose(placeholder: string) {
       };
     }),
   );
-}
+};
 
-export function selectDepositType(placeholder: string) {
+export const selectDepositType = (placeholder: string) => {
   const depositTypeList = [];
   if (placeholder) {
     depositTypeList.push({
@@ -119,4 +119,4 @@ export function selectDepositType(placeholder: string) {
       };
     }),
   );
-}
+};

@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -15,7 +15,7 @@ AvatarIcon.displayName = 'AvatarIcon';
 Anonymouse.displayName = 'Anonymouse';
 
 storiesOf('Molecules(LV2)/HeaderAction', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'SearchIcon',
     withInfo(`

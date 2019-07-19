@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
-import { selectOptionPurpose } from 'helpers/purposes';
+import selectOptionPurpose from 'helpers/purposes';
 import Check from 'components/LV1/Check';
 import Button from 'components/LV1/Button';
 import RegsiterProfileImage from 'components/LV1/DragAndDrop/RegisterProfileImage';
@@ -27,11 +27,11 @@ const ButtonWrap = styled.div`
   `};
 `;
 
-function extention(onChangeImage, imagePreview, image) {
+const extention = (onChangeImage, imagePreview, image) => {
   return (
     <RegsiterProfileImage onDrop={data => onChangeImage(data[0])} image={imagePreview || image} />
   );
-}
+};
 
 type PropTypes = {
   errors: Array<Array<string>>,

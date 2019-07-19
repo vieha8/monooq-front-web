@@ -11,7 +11,7 @@ import InputField from 'components/LV1/InputField';
 import { Colors, FontSizes } from 'variables';
 import Form from './Form';
 
-function inputField(email, onChangeEmail) {
+const inputField = (email, onChangeEmail) => {
   return (
     <InputField
       placeholder="メールアドレス"
@@ -19,15 +19,15 @@ function inputField(email, onChangeEmail) {
       onChange={e => onChangeEmail(e.target.value)}
     />
   );
-}
+};
 
-function iconInputField(
+const iconInputField = (
   ispasswordVisible,
   password,
   onChangePassword,
   onKeyDownPassword,
   onClickIconPassword,
-) {
+) => {
   return (
     <IconInputField
       right="true"
@@ -40,9 +40,9 @@ function iconInputField(
       clickIcon={onClickIconPassword}
     />
   );
-}
+};
 
-function textLink() {
+const textLink = () => {
   return (
     <TextLink
       to={Path.resetPassword()}
@@ -53,9 +53,9 @@ function textLink() {
       パスワードを忘れた方はこちら
     </TextLink>
   );
-}
+};
 
-function button(mode, onClick, disabled, loading) {
+const button = (mode, onClick, disabled, loading) => {
   let returnVal;
   switch (mode) {
     case 'login':
@@ -82,7 +82,7 @@ function button(mode, onClick, disabled, loading) {
     default:
   }
   return returnVal;
-}
+};
 
 type PropTypes = {
   email: string,

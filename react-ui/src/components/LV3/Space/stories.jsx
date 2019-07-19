@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -17,7 +17,7 @@ Price.displayName = 'Price';
 SendMessage.displayName = 'SendMessage';
 
 storiesOf('Organisms(LV3)/Space', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Detail',
     withInfo(`

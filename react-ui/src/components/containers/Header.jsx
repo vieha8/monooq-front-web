@@ -6,7 +6,6 @@ import Header from 'components/LV3/Header';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
-import { uiActions } from '../../redux/modules/ui';
 
 type PropTypes = {
   isChecking: boolean,
@@ -25,6 +24,7 @@ class HeaderContainer extends Component<PropTypes> {
       document.body.style.overflowY = 'auto';
     }
   }
+
   render() {
     const { isLogin, isChecking, noHeaderButton, user, top, unreadRooms } = this.props;
     return (
