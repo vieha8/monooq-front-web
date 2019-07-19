@@ -249,11 +249,11 @@ type PropTypes = {
   confirm: boolean,
 };
 
-function maskify(cc) {
+const maskify = cc => {
   return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
-}
+};
 
-function contentConfirm(paymentMethod, number, name) {
+const contentConfirm = (paymentMethod, number, name) => {
   if (paymentMethod === METHOD_PAYMENT_CREDIT) {
     return (
       <Fragment>
@@ -306,7 +306,7 @@ function contentConfirm(paymentMethod, number, name) {
       </CmnWrap>
     </Fragment>
   );
-}
+};
 
 export default ({
   space,

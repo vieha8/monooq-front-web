@@ -118,7 +118,7 @@ const OnlyPhone = styled.span`
 
 const MAX_PREVIEW_COUNT = 4;
 
-function handleChangeImageWithOrientationFix(data, imagesTmp, onChangeImage) {
+const handleChangeImageWithOrientationFix = (data, imagesTmp, onChangeImage) => {
   const images = [];
   const currentCount =
     imagesTmp && imagesTmp.length > 0 && isImageDefault(imagesTmp[0].url)
@@ -156,18 +156,18 @@ function handleChangeImageWithOrientationFix(data, imagesTmp, onChangeImage) {
   setTimeout(() => {
     onChangeImage(images);
   }, 80);
-}
+};
 
 // TODO: 最適化したい。
-function getEmptyCount(length) {
+const getEmptyCount = length => {
   const emptyList = [];
   for (let i = 0; i < MAX_PREVIEW_COUNT - length; i += 1) {
     emptyList.push(i);
   }
   return emptyList;
-}
+};
 
-function showImagePreview(images, onClickDeleteImage) {
+const showImagePreview = (images, onClickDeleteImage) => {
   if (images) {
     return (
       <ImagePreviewContainer>
@@ -203,7 +203,7 @@ function showImagePreview(images, onClickDeleteImage) {
   }
 
   return null;
-}
+};
 
 type PropTypes = {
   images: Array<{

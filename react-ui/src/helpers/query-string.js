@@ -3,23 +3,23 @@
 import strictUriEncode from 'strict-uri-encode';
 import decodeComponent from 'decode-uri-component';
 
-function encode(value, options) {
+const encode = (value, options) => {
   if (options.encode) {
     return options.strict ? strictUriEncode(value) : encodeURIComponent(value);
   }
 
   return value;
-}
+};
 
-function decode(value, options) {
+const decode = (value, options) => {
   if (options.decode) {
     return decodeComponent(value);
   }
 
   return value;
-}
+};
 
-function keysSorter(input) {
+const keysSorter = input => {
   if (Array.isArray(input)) {
     return input.sort();
   }
@@ -31,9 +31,9 @@ function keysSorter(input) {
   }
 
   return input;
-}
+};
 
-function encoderForArrayFormat(options) {
+const encoderForArrayFormat = options => {
   switch (options.arrayFormat) {
     case 'index':
       return (key, value, index) =>
@@ -53,9 +53,9 @@ function encoderForArrayFormat(options) {
           ? encode(key, options)
           : [encode(key, options), '=', encode(value, options)].join('');
   }
-}
+};
 
-function parserForArrayFormat(options) {
+const parserForArrayFormat = options => {
   let result;
 
   switch (options.arrayFormat) {
@@ -103,17 +103,17 @@ function parserForArrayFormat(options) {
         accumulator[key] = [].concat(accumulator[key], value);
       };
   }
-}
+};
 
-export function extract(input) {
+export const extract = input => {
   const queryStart = input.indexOf('?');
   if (queryStart === -1) {
     return '';
   }
   return input.slice(queryStart + 1);
-}
+};
 
-export function parse(input, options) {
+export const parse = (input, options) => {
   options = Object.assign({ decode: true, arrayFormat: 'none' }, options);
 
   const formatter = parserForArrayFormat(options);
@@ -154,7 +154,7 @@ export function parse(input, options) {
 
       return result;
     }, Object.create(null));
-}
+};
 
 export const stringify = (obj, options) => {
   const defaults = {

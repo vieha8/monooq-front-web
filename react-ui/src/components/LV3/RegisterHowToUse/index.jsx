@@ -8,7 +8,7 @@ import EntryButtons from 'components/LV2/EntryButtons';
 import { formatName } from 'helpers/string';
 import Form from './Form';
 
-function inlineText(text, userName, fontSize, bold, color) {
+const inlineText = (text, userName, fontSize, bold, color) => {
   return (
     <InlineText.Base fontSize={fontSize} bold={bold} color={color}>
       {userName && (
@@ -20,9 +20,9 @@ function inlineText(text, userName, fontSize, bold, color) {
       {text}
     </InlineText.Base>
   );
-}
+};
 
-function radioList(onChangeIsHost, isHost) {
+const radioList = (onChangeIsHost, isHost) => {
   return (
     <RadioList
       labels={[
@@ -44,9 +44,9 @@ function radioList(onChangeIsHost, isHost) {
       border
     />
   );
-}
+};
 
-function entryButtons(buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile) {
+const entryButtons = (buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile) => {
   return (
     <EntryButtons
       enabled
@@ -65,7 +65,7 @@ function entryButtons(buttonDisabled, buttonLoading, onClickSkip, onClickRegiste
       }}
     />
   );
-}
+};
 
 type PropTypes = {
   userName: string,

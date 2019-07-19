@@ -76,7 +76,7 @@ const PaymentUrl = styled.a`
   word-break: break-all;
 `;
 
-function buttonPayment(host, status, payType, paymentLink) {
+const buttonPayment = (host, status, payType, paymentLink) => {
   if (host || (payType !== 1 && status === STATUS_PAY_WAITING) || status === STATUS_PAY_PAID) {
     return (
       <ButtonWrap>
@@ -94,9 +94,9 @@ function buttonPayment(host, status, payType, paymentLink) {
       </Button>
     </ButtonWrap>
   );
-}
+};
 
-function getPayInfo(payType, status) {
+const getPayInfo = (payType, status) => {
   let resultPayType = '';
   let resultStatus = '';
 
@@ -140,9 +140,9 @@ function getPayInfo(payType, status) {
       ※最新のステータスが反映されるまで時間がかかる場合があります。
     </Fragment>
   );
-}
+};
 
-function getDescriptionPay(payType, econtextUrl) {
+const getDescriptionPay = (payType, econtextUrl) => {
   let result;
   switch (payType) {
     case 1:
@@ -191,7 +191,7 @@ function getDescriptionPay(payType, econtextUrl) {
     default:
   }
   return result;
-}
+};
 
 type PropTypes = {
   name: string,

@@ -27,14 +27,14 @@ const CaptionWrap = styled.div`
   margin: ${Dimens.medium2}px auto 0;
 `;
 
-function checkSchedule(value, list, prop) {
+const checkSchedule = (value, list, prop) => {
   for (let i = 0; i < list.length; i += 1) {
     if (list[i].schedule[prop] === value) {
       return true;
     }
   }
   return false;
-}
+};
 
 type PropTypes = {
   schedules: Array<ScheduleListItemType>,

@@ -172,13 +172,11 @@ class SpaceContainer extends Component<PropTypes> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.auth.user,
-    space: state.space.space,
-    isRequesting: state.request.isLoading,
-  };
-}
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  space: state.space.space,
+  isRequesting: state.request.isLoading,
+});
 
 export default connect(
   SpaceContainer,

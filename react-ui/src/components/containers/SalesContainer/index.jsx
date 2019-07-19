@@ -21,7 +21,7 @@ import EntryButtons from 'components/LV2/EntryButtons';
 import InlineText from 'components/LV1/InlineText';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
-import { selectDepositType } from 'helpers/depositTypes';
+import selectDepositType from 'helpers/depositTypes';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 const PRICE_MIN_DEPOSIT = 3000;

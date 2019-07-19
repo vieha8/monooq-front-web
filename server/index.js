@@ -8,7 +8,7 @@ const compression = require("compression");
 
 const PORT = process.env.PORT || 3000;
 
-function forceHttps(req, res, next) {
+const forceHttps = (req, res, next) => {
   if (!PORT) {
     return next();
   }
@@ -19,7 +19,7 @@ function forceHttps(req, res, next) {
     return res.redirect(301, `https://${req.headers.host}${req.url}`);
   }
   return next();
-}
+};
 
 // Multi-process to utilize all CPU cores.
 if (cluster.isMaster) {

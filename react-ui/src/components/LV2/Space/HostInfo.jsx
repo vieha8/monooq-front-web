@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import AvatarImage from 'components/LV1/AvatarImage';
@@ -17,6 +17,26 @@ const ProfileWrap = styled.div`
   line-height: 1.5;
 `;
 
+const headContent = (id, imageUrl, name) => {
+  return (
+    <Link to={Path.profile(id)}>
+      <AvatarImage size={45} src={imageUrl} alt={name} />
+    </Link>
+  );
+};
+
+const contentHostName = name => {
+  return (
+    <Content>
+      <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
+        ホスト
+      </InlineText.Base>
+      <br />
+      <InlineText.Base>{`${formatName(name)}さん`}</InlineText.Base>
+    </Content>
+  );
+};
+
 type PropTypes = {
   hostinfo: string,
   message: string,
@@ -30,22 +50,8 @@ export default ({ hostinfo, message, id, imageUrl, name, profile }: PropTypes) =
   <Attribute
     hostinfo={hostinfo}
     message={message}
-    headContent={
-      <Link to={Path.profile(id)}>
-        <AvatarImage size={45} src={imageUrl} alt={name} />
-      </Link>
-    }
-    contentHostName={
-      <Content>
-        <Fragment>
-          <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
-            ホスト
-          </InlineText.Base>
-          <br />
-          <InlineText.Base>{`${formatName(name)}さん`}</InlineText.Base>
-        </Fragment>
-      </Content>
-    }
+    headContent={headContent(id, imageUrl, name)}
+    contentHostName={contentHostName(name)}
     contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
   />
 );

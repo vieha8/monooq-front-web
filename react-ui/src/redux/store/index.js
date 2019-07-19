@@ -18,7 +18,7 @@ history.listen((location, action) => {
 
 let store = null;
 
-export default function configureStore() {
+const configureStore = () => {
   const middleware = [
     routerMiddleware(history),
     sagaMiddleware,
@@ -41,4 +41,6 @@ export default function configureStore() {
   sagaMiddleware.run(rootSaga);
 
   return store;
-}
+};
+
+export default configureStore;

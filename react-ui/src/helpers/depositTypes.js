@@ -2,7 +2,7 @@
 
 export const depositTypes: Array<string> = ['普通', '当座'];
 
-export function selectDepositType(placeholder: string) {
+const selectDepositType = (placeholder: string) => {
   const depositTypeList = [];
   if (placeholder) {
     depositTypeList.push({
@@ -19,4 +19,6 @@ export function selectDepositType(placeholder: string) {
       text: type,
     })),
   );
-}
+};
+
+export default selectDepositType;

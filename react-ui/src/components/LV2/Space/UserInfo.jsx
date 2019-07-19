@@ -25,15 +25,15 @@ type PropTypes = {
   profile: string,
 };
 
-function headContent(id, imageUrl, name) {
+const headContent = (id, imageUrl, name) => {
   return (
     <Link to={Path.profile(id)}>
       <AvatarImage size={45} src={imageUrl} alt={name} />
     </Link>
   );
-}
+};
 
-function contentHostName(name) {
+const contentHostName = name => {
   return (
     <Content>
       <Fragment>
@@ -45,7 +45,7 @@ function contentHostName(name) {
       </Fragment>
     </Content>
   );
-}
+};
 
 export default ({ hostinfo, message, id, imageUrl, name, profile }: PropTypes) => (
   <Attribute
