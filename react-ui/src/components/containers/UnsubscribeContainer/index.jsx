@@ -42,6 +42,8 @@ class UnsubscribeContainer extends Component<PropTypes> {
 
   constructor(props: PropTypes) {
     super(props);
+    const { dispatch } = this.props;
+    dispatch(authActions.initUnsubscribe());
     this.state = {
       reasonType: [],
       reasonText: '',
