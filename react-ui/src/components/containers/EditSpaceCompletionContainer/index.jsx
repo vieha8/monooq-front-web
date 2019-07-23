@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Path from 'config/path';
 
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
@@ -8,6 +8,7 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import EditSpaceCompletion from 'components/LV3/EditSpace/Completion';
 import { iskeyDownEnter } from 'helpers/keydown';
+import HostGuide from 'components/LV1/HostGuide';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -89,18 +90,29 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline={`${!isEdit ? '登録' : '編集'}が完了しました`}
-        caption="お客様とはメッセージ機能にてやりとりしていただき、ご成約までお進みください。"
+        caption={`モノオクにスペースが掲載されました！利用希望のリクエストが届くと、メッセージページにてユーザーさんとのやり取りが行えるようになります。利用期間や価格等を調整し、取引を進めましょう！`}
         leftContent={
-          <EditSpaceCompletion
-            edit={isEdit}
-            userId={user.id}
-            onClickBackHome={this.onClickBackHome}
-            onKeyDownHome={this.onKeyDownHome}
-            onClickCreateSpace={this.onClickCreateSpace}
-            onKeyDownCreateSpace={this.onKeyDownCreateSpace}
-            onClickViewSpace={this.onClickViewSpace}
-            onKeyDownViewSpace={this.onKeyDownViewSpace}
-          />
+          <Fragment>
+            <HostGuide
+              header="ご成約までの流れ"
+              data1="リクエストが届いてから24時間以内に返信しましょう。
+              早めに返信した方が、成約率が高くなります！"
+              data2="荷物の内容や量・利用期間などユーザーさんの要望を確認し、
+              引き受けられる場合は見積もりを提出しましょう。"
+              data3="ユーザーさんからの決済が完了すると取引が成立し、スペースの住所がメッセージルームに公開されます。
+              利用開始日になったら荷物を受け取りましょう。"
+            />
+            <EditSpaceCompletion
+              edit={isEdit}
+              userId={user.id}
+              onClickBackHome={this.onClickBackHome}
+              onKeyDownHome={this.onKeyDownHome}
+              onClickCreateSpace={this.onClickCreateSpace}
+              onKeyDownCreateSpace={this.onKeyDownCreateSpace}
+              onClickViewSpace={this.onClickViewSpace}
+              onKeyDownViewSpace={this.onKeyDownViewSpace}
+            />
+          </Fragment>
         }
         rightContent={<ServiceMenu />}
       />
