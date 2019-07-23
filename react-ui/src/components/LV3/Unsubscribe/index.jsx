@@ -55,7 +55,6 @@ const StyledDropdown = styled(Dropdown)`
 
 type PropTypes = {
   onChangeReasonType: Function,
-  reasonType: number,
   reasonTypeError: string,
   reasonText: string,
   onChangeReasonText: Function,
@@ -67,7 +66,6 @@ type PropTypes = {
 
 export default ({
   onChangeReasonType,
-  reasonType,
   reasonTypeError,
   reasonText,
   onChangeReasonText,
@@ -95,7 +93,6 @@ export default ({
         multiple
         placeholder="選択してください"
         onChange={(_, data) => onChangeReasonType(data.value)}
-        value={reasonType}
       />
       {reasonTypeError && (
         <InlineText.Small color={Colors.error}>{reasonTypeError}</InlineText.Small>

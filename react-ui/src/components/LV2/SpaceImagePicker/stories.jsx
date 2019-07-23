@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -11,7 +11,7 @@ import SpaceImagePicker from './index';
 SpaceImagePicker.displayName = 'SpaceImagePicker';
 
 storiesOf('Molecules(LV2)/SpaceImagePicker', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Has not image',
     withInfo(`

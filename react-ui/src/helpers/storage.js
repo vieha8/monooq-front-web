@@ -1,4 +1,4 @@
-export function storageAvailable(type) {
+export const storageAvailable = type => {
   let storage;
   const x = '__storage_test__';
 
@@ -33,6 +33,6 @@ export function storageAvailable(type) {
       storage.length !== 0
     );
   }
-}
+};
 
 export const isAvailableLocalStorage = () => storageAvailable('localStorage');

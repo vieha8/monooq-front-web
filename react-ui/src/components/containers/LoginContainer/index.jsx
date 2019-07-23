@@ -45,8 +45,6 @@ class LoginContainer extends Component {
 
   state: State;
 
-  props: PropTypes;
-
   loginEmail = () => {
     const { dispatch } = this.props;
     const { email, password } = this.state;
@@ -59,13 +57,6 @@ class LoginContainer extends Component {
     dispatch(authActions.loginFacebook());
   };
 
-  handleChangeForm = (name: string, value: any) => {
-    const state = this.state;
-    state[name] = value;
-    state.hasChanged = true;
-    this.setState(state);
-  };
-
   onClickIconPassword = () => {
     const { isUnVisiblePW } = this.state;
     if (isUnVisiblePW) {
@@ -76,58 +67,63 @@ class LoginContainer extends Component {
     }
   };
 
-  validate = () => {
-    const { email, password } = this.state;
-    return email && email.length > 0 && password && password.length > 0;
-  };
-
   onKeyDownPassword = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.loginEmail();
     }
   };
 
-  render() {
-    const { ui, isLogin, isChecking, loginFailed, history } = this.props;
+  handleChangeForm = (name: string, value: any) => {
+    const { state } = this;
+    state[name] = value;
+    state.hasChanged = true;
+    this.setState(state);
+  };
+
+  validate = () => {
+    const { email, password } = this.state;
+    return email && email.length > 0 && password && password.length > 0;
+  };
+
+  form = () => {
+    const { isChecking, loginFailed, history } = this.props;
     const { email, password, isUnVisiblePW, hasChanged } = this.state;
+    return (
+      <Login
+        onClickFacebook={this.loginFacebook}
+        onClickLogin={this.loginEmail}
+        onChangeEmail={value => this.handleChangeForm('email', value)}
+        onChangePassword={value => this.handleChangeForm('password', value)}
+        onKeyDownPassword={this.onKeyDownPassword}
+        email={email}
+        password={password}
+        ispasswordVisible={isUnVisiblePW}
+        onClickIconPassword={this.onClickIconPassword}
+        loginFailed={loginFailed && !hasChanged && !isChecking}
+        isLoginChecking={isChecking}
+        buttonDisabled={!this.validate()}
+        onClickSignup={() => history.push(Path.signUp())}
+      />
+    );
+  };
+
+  render() {
+    const { ui, isLogin } = this.props;
 
     if (!isLogin) {
-      return (
-        <AccountTemplate
-          header={<Header noHeaderButton />}
-          form={
-            <Login
-              onClickFacebook={this.loginFacebook}
-              onClickLogin={this.loginEmail}
-              onChangeEmail={value => this.handleChangeForm('email', value)}
-              onChangePassword={value => this.handleChangeForm('password', value)}
-              onKeyDownPassword={this.onKeyDownPassword}
-              email={email}
-              password={password}
-              ispasswordVisible={isUnVisiblePW}
-              onClickIconPassword={this.onClickIconPassword}
-              loginFailed={loginFailed && !hasChanged && !isChecking}
-              isLoginChecking={isChecking}
-              buttonDisabled={!this.validate()}
-              onClickSignup={() => history.push(Path.signUp())}
-            />
-          }
-        />
-      );
+      return <AccountTemplate header={<Header noHeaderButton />} form={this.form()} />;
     }
 
     return <Redirect to={ui.redirectPath || Path.home()} />;
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    isLogin: state.auth.isLogin,
-    isChecking: state.auth.isChecking,
-    loginFailed: state.auth.error,
-    ui: state.ui,
-  };
-}
+const mapStateToProps = state => ({
+  isLogin: state.auth.isLogin,
+  isChecking: state.auth.isChecking,
+  loginFailed: state.auth.error,
+  ui: state.ui,
+});
 
 export default connect(
   LoginContainer,

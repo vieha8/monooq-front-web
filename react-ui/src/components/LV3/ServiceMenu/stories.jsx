@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 import Path from 'config/path';
@@ -14,7 +14,7 @@ ServiceMenu.displayName = 'ServiceMenu';
 const user = { name: 'AAA', image: '' };
 
 storiesOf('Organisms(LV3)/ServiceMenu', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'PC',
     withInfo(`

@@ -159,7 +159,6 @@ type PropTypes = {
   spMenu: React.Element<*>,
   homeUri: string,
   loginUri: string,
-  onClickLogin: Function,
   signupUri: string,
 };
 
@@ -176,7 +175,6 @@ export default ({
   spMenu,
   homeUri,
   loginUri,
-  onClickLogin,
   signupUri,
 }: PropTypes) => {
   return (
@@ -220,11 +218,7 @@ export default ({
             ) : (
               <ActionContainer>
                 <AnonymouseWrapper>
-                  <Anonymouse
-                    loginUri={loginUri}
-                    onClickLogin={onClickLogin}
-                    signupUri={signupUri}
-                  />
+                  <Anonymouse loginUri={loginUri} signupUri={signupUri} />
                 </AnonymouseWrapper>
               </ActionContainer>
             )}

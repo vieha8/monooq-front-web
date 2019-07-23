@@ -1,17 +1,17 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import UserSpaceImage from './index';
+import FeatureSpaceCard from './index';
 
-UserSpaceImage.displayName = 'UserSpaceImage';
+FeatureSpaceCard.displayName = 'FeatureSpaceCard';
 
-storiesOf('Molecules(LV2)/UserSpaceImage', module)
-  .addDecorator(StoryRouter())
+storiesOf('Molecules(LV2)/FeatureSpaceCard', module)
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
     withInfo(`
@@ -19,7 +19,7 @@ storiesOf('Molecules(LV2)/UserSpaceImage', module)
       ユーザスペースカード
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <UserSpaceImage
+        <FeatureSpaceCard
           link="#"
           user={{
             image: 'http://placehold.jp/500x500.png',

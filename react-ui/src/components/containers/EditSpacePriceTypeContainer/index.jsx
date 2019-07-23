@@ -58,9 +58,9 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       this.state.isUpdate = true;
-    } else if (space.address) {
-      dispatch(spaceActions.getGeocode({ address: space.address }));
     }
+
+    dispatch(spaceActions.getGeocode({ address: space.address }));
   }
 
   componentDidMount() {
@@ -91,15 +91,11 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     return null;
   }
 
-  onKeyDownButtonNext: Function;
-
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.onClickNext();
     }
   };
-
-  onKeyDownButtonBack: Function;
 
   onKeyDownButtonBack = e => {
     if (iskeyDownEnter(e)) {
@@ -107,17 +103,13 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     }
   };
 
-  onClickNext: Function;
-
   onClickNext = () => {
-    const { dispatch, space, history, match } = this.props;
+    const { dispatch, space, history } = this.props;
     const { priceFull, priceHalf, priceQuarter } = this.state;
 
-    const spaceId = match.params.space_id;
-    if (!spaceId && space.address) {
+    if (space.address) {
       const { geocode } = this.props;
       const arrayAddress = space.address.match(Validate.Address);
-
       const saveSpaceNew = Object.assign(space, {
         lat: (geocode || {}).lat,
         lng: (geocode || {}).lng,
@@ -147,8 +139,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     history.push(nextPath);
   };
 
-  onClickBack: Function;
-
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
     const { priceFull, priceHalf, priceQuarter } = this.state;
@@ -166,8 +156,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     const nextPath = space.id ? Path.editSpaceReceive(space.id) : Path.createSpaceReceive();
     history.push(nextPath);
   };
-
-  handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
     const { state } = this;
@@ -197,8 +185,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     this.setState({ ...state, error });
   };
 
-  validate: Function;
-
   validate = () => {
     const { priceFull, priceHalf, priceQuarter } = this.state;
 
@@ -219,8 +205,29 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     );
   };
 
+  leftContent = (priceFull, priceHalf, priceQuarter, error) => {
+    const { isLoading } = this.props;
+    return (
+      <EditSpaceInputPriceType
+        errors={error}
+        priceFull={priceFull}
+        onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
+        priceHalf={priceHalf}
+        onChangePriceHalf={v => this.handleChangeUI('priceHalf', v)}
+        priceQuarter={priceQuarter}
+        onChangePriceQuarter={v => this.handleChangeUI('priceQuarter', v)}
+        buttonLoading={isLoading}
+        onClickBack={this.onClickBack}
+        onKeyDownButtonBack={this.onKeyDownButtonBack}
+        onClickNext={this.onClickNext}
+        onKeyDownButtonNext={this.onKeyDownButtonNext}
+        buttonNextDisabled={!this.validate()}
+      />
+    );
+  };
+
   render() {
-    const { space, isLoading } = this.props;
+    const { space } = this.props;
     const { priceFull, priceHalf, priceQuarter, error, isUpdate, isFirst } = this.state;
 
     if (!isUpdate) {
@@ -239,23 +246,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline="スペース料金の設定"
-        leftContent={
-          <EditSpaceInputPriceType
-            errors={error}
-            priceFull={priceFull}
-            onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
-            priceHalf={priceHalf}
-            onChangePriceHalf={v => this.handleChangeUI('priceHalf', v)}
-            priceQuarter={priceQuarter}
-            onChangePriceQuarter={v => this.handleChangeUI('priceQuarter', v)}
-            buttonLoading={isLoading}
-            onClickBack={this.onClickBack}
-            onKeyDownButtonBack={this.onKeyDownButtonBack}
-            onClickNext={this.onClickNext}
-            onKeyDownButtonNext={this.onKeyDownButtonNext}
-            buttonNextDisabled={!this.validate()}
-          />
-        }
+        leftContent={this.leftContent(priceFull, priceHalf, priceQuarter, error)}
         rightContent={<ServiceMenu />}
       />
     );

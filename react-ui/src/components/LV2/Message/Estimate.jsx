@@ -1,12 +1,18 @@
 // @flow
 
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import Card from 'components/LV1/Card';
 import InlineText from 'components/LV1/InlineText';
 import Button from 'components/LV1/Button';
-import { Colors } from 'variables';
+import { Dimens, Colors } from 'variables';
 import { formatAddComma, formatName } from 'helpers/string';
+
+const STATUS_PAY_ESTIMATE = 'estimate';
+const STATUS_PAY_WAITING = 'waiting';
+const STATUS_PAY_PAID = 'paid';
 
 const Text = styled(InlineText.Base)`
   display: block;
@@ -34,15 +40,44 @@ const ButtonWrap = styled.div`
   max-width: 170px;
 `;
 
-const ButtonLinkStyled = styled.a`
+const ButtonLinkStyled = styled(Link)`
   color: ${Colors.white};
   &:hover {
     color: ${Colors.white};
   }
 `;
 
-function buttonPayment(host, status, paymentLink) {
-  if (host) {
+const CmnWrap = styled.div`
+  margin: ${Dimens.medium_20}px auto 0px;
+  ${props =>
+    props.noMarginSide &&
+    `
+    margin: ${Dimens.medium_20}px auto 0px;
+  `}
+  ${media.phone`
+    margin: ${Dimens.medium_20}px auto 0px;
+  `};
+`;
+
+const AccountNumber = styled.div`
+  max-width: 250px;
+  background-color: ${Colors.lightYellow};
+  border-radius: ${Dimens.xsmall}px;
+  margin: 0px auto;
+  padding: ${Dimens.medium_20}px;
+  text-align: center;
+  line-height: 1.5rem;
+  letter-spacing: 0.05em;
+  font-weight: bold;
+  border: 1px solid ${Colors.yellow};
+`;
+
+const PaymentUrl = styled.a`
+  word-break: break-all;
+`;
+
+const buttonPayment = (host, status, payType, paymentLink) => {
+  if (host || (payType !== 1 && status === STATUS_PAY_WAITING) || status === STATUS_PAY_PAID) {
     return (
       <ButtonWrap>
         <Button primary fontbold center fill={1} disabled>
@@ -52,27 +87,111 @@ function buttonPayment(host, status, paymentLink) {
     );
   }
 
-  if (status === 'paid') {
-    return (
-      <Fragment>
-        <ButtonWrap>
-          <Button primary fontbold center fill={1} disabled>
-            お支払い画面に進む
-          </Button>
-        </ButtonWrap>
-        <Text>※お支払い済み</Text>
-      </Fragment>
-    );
-  }
-
   return (
     <ButtonWrap>
       <Button primary fontbold center fill={1}>
-        <ButtonLinkStyled href={paymentLink}>お支払い画面に進む</ButtonLinkStyled>
+        <ButtonLinkStyled to={paymentLink}>お支払い画面に進む</ButtonLinkStyled>
       </Button>
     </ButtonWrap>
   );
-}
+};
+
+const getPayInfo = (payType, status) => {
+  let resultPayType = '';
+  let resultStatus = '';
+
+  switch (payType) {
+    case 1:
+      if (status === STATUS_PAY_PAID) {
+        resultPayType = 'クレジットカード決済';
+      } else {
+        resultPayType = '未選択';
+      }
+      break;
+    case 2:
+      resultPayType = '銀行振込';
+      break;
+    case 4:
+      resultPayType = 'コンビニ払い・Pay-easy決済';
+      break;
+    default:
+      resultPayType = '未選択';
+  }
+
+  switch (status) {
+    case STATUS_PAY_ESTIMATE:
+    case STATUS_PAY_WAITING:
+      resultStatus = 'お支払い待ち';
+      break;
+    case STATUS_PAY_PAID:
+      resultStatus = 'お支払い完了';
+      break;
+    default:
+  }
+
+  return (
+    <Fragment>
+      お支払い方法：
+      {resultPayType}
+      <br />
+      お支払いステータス：
+      {resultStatus}
+      <br />
+      ※最新のステータスが反映されるまで時間がかかる場合があります。
+    </Fragment>
+  );
+};
+
+const getDescriptionPay = (payType, econtextUrl) => {
+  let result;
+  switch (payType) {
+    case 1:
+      result = (
+        <Fragment>
+          ※2ヶ月以上ご利用の場合は、毎月の利用料をクレジットカードで自動的にお支払いいただくことが可能です。
+          <br />
+          ご希望の場合は、ひと月分の利用料をクレジットカードでお支払いの上、
+          <a href="mailto:support@monooq.com">support@monooq.com</a>
+          までご連絡ください。
+          <br />
+          このお見積もりがひと月分でない場合は、ホストにお見積もりを再発行してもらい、お支払いいただくようお願いいたします。
+        </Fragment>
+      );
+      break;
+    case 2:
+      result = (
+        <Fragment>
+          下記口座にお振込後、
+          <a href="mailto:support@monooq.com?subject=銀行振込が完了しました&amp;body=こちらのメールに振込明細のお写真と、モノオクに登録しているメールアドレスをお送りください。">
+            support@monooq.com
+          </a>
+          まで振込明細の写真とモノオクで登録しているメールアドレスをお送りください。
+          <CmnWrap>
+            <AccountNumber>
+              みずほ銀行 渋谷中央支店
+              <br />
+              普通 1806441 モノオク(カ
+            </AccountNumber>
+          </CmnWrap>
+        </Fragment>
+      );
+      break;
+    case 4:
+      result = (
+        <Fragment>
+          下記からお支払い画面に移動し、お支払いをお願いします。
+          <br />
+          <br />
+          <PaymentUrl href={econtextUrl} target="_blank" rel="noopener noreferrer">
+            {econtextUrl}
+          </PaymentUrl>
+        </Fragment>
+      );
+      break;
+    default:
+  }
+  return result;
+};
 
 type PropTypes = {
   name: string,
@@ -84,6 +203,8 @@ type PropTypes = {
   status: string,
   paymentLink: string,
   receivedAt: string,
+  payType?: number,
+  econtextUrl?: string,
 };
 
 export default ({
@@ -96,8 +217,10 @@ export default ({
   status,
   paymentLink,
   receivedAt,
+  payType, // 1:クレジットカード 2:銀行振込 4:イーコンテクスト
+  econtextUrl,
 }: PropTypes) => (
-  <div>
+  <Fragment>
     <Card block noBorder background={Colors.lightGreen} isPadding={14}>
       <Text>{`${formatName(name)}さんからのお見積もり`}</Text>
       <Text>
@@ -118,47 +241,32 @@ export default ({
       </Text>
       <CaptionWrapper>
         <Text>
-          ＜ユーザーの方＞
+          <InlineText.Base fontSize={17} bold>
+            ■お支払い情報
+          </InlineText.Base>
           <br />
-          見積もり内容に問題がなければ、決済に進みましょう。
-          <br />
-          クレジットカード(VISA、MasterCard)または、銀行振込での決済が可能です。
-          <br />
-          <br />
-          ■クレジットカード決済をご希望の場合
-          <br />
-          お支払い画面から決済を行ってください。
-          <br />
-          <ButtonPaymentWrap>{buttonPayment(host, status, paymentLink)}</ButtonPaymentWrap>
+          {getPayInfo(payType, status)}
           <br />
           <br />
-          ■銀行振込をご希望の場合
+          <InlineText.Base fontSize={17} bold>
+            ■ユーザーの方
+          </InlineText.Base>
           <br />
-          下記口座にお振込後、
-          <a href="mailto:support@monooq.com">support@monooq.com</a>
-          まで振込明細の写真とモノオクで登録しているメールアドレスをお送りください。
+          お見積もり内容に問題がなければ料金を支払いましょう。
           <br />
+          <ButtonPaymentWrap>{buttonPayment(host, status, payType, paymentLink)}</ButtonPaymentWrap>
           <br />
-          <InlineText.Bold>
-            みずほ銀行 渋谷中央支店
-            <br />
-            普通 1806441 モノオク(カ
-          </InlineText.Bold>
+          {getDescriptionPay(payType, econtextUrl)}
           <br />
           <br />
+          <InlineText.Base fontSize={17} bold>
+            ■ホストの方
+          </InlineText.Base>
           <br />
-          ※長期利用（2ヶ月以上）の場合は、クレジットカードでの月額自動支払いにも対応しております。ご希望の場合は、初月利用料をクレジット決済の上、
-          <a href="mailto:support@monooq.com">support@monooq.com</a>
-          までご連絡ください。現状の見積もりが初月分の内容でない場合は、ホストに見積もりを再発行してもらい、決済を行ってください。
-          <br />
-          <br />
-          <br />
-          ＜ホストの方＞
-          <br />
-          期間や料金に変更があった場合は、新しく見積りを発行してください。
+          期間や料金に変更があった場合は、新しくお見積もりを発行してください。
           <br />
           <br />
-          <Caution>モノオク上で決済を行わない場合、保険が適応されません。</Caution>
+          <Caution>モノオク上でお支払い手続きを行わない場合、保険が適応されません。</Caution>
           <br />
         </Text>
       </CaptionWrapper>
@@ -166,5 +274,5 @@ export default ({
     <DateWrapper>
       <InlineText.EmphasisTiny>{receivedAt}</InlineText.EmphasisTiny>
     </DateWrapper>
-  </div>
+  </Fragment>
 );

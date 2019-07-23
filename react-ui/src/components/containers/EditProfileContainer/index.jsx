@@ -15,6 +15,9 @@ import EditProfileCompleted from 'components/LV3/EditProfile/Completed';
 import { ErrorMessages } from 'variables';
 import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 
+const PURPOSE_USER = '1';
+const PURPOSE_HOST = '2';
+
 type PropTypes = {
   dispatch: Function,
   user: {
@@ -50,7 +53,7 @@ class EditProfileContainer extends Component<PropTypes> {
       phoneNumber: user.phoneNumber || '',
       prefCode: user.prefCode || '',
       profile: user.profile || '',
-      purpose: user.isHost ? 2 : 1,
+      purpose: user.isHost ? PURPOSE_HOST : PURPOSE_USER,
       isNoticeEmail: user.isNoticeEmail,
       error: {},
     };
@@ -79,8 +82,6 @@ class EditProfileContainer extends Component<PropTypes> {
     }
   };
 
-  onClickUpdate: Function;
-
   onClickUpdate = () => {
     const { user } = this.props;
     const { name, profile, purpose } = this.state;
@@ -92,12 +93,10 @@ class EditProfileContainer extends Component<PropTypes> {
       const body = this.state;
       body.name = name === undefined ? '' : name.trim();
       body.profile = profile === undefined ? '' : profile.trim();
-      body.isHost = purpose === '2';
+      body.isHost = purpose === PURPOSE_HOST;
       dispatch(userActions.updateUser({ userId: user.id, body }));
     }
   };
-
-  handleChangeUI: Function;
 
   handleChangeUI = (propName: string, value: any) => {
     const { state } = this;
@@ -159,8 +158,6 @@ class EditProfileContainer extends Component<PropTypes> {
     error[propName] = errors;
     this.setState({ ...state, error });
   };
-
-  validate: Function;
 
   validate = () => {
     const { name, email, phoneNumber, prefCode, profile, purpose } = this.state;

@@ -1,12 +1,11 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import Header from './Header';
 import Attribute from './Attribute';
 import Address from './Address';
 import Image from './Image';
@@ -19,7 +18,6 @@ import PriceHead from './PriceHead';
 import Price from './Price';
 import SendMessage from './SendMessage';
 
-Header.displayName = 'Header';
 Attribute.displayName = 'Attribute';
 Address.displayName = 'Address';
 Image.displayName = 'Image';
@@ -33,23 +31,7 @@ Price.displayName = 'Price';
 SendMessage.displayName = 'SendMessage';
 
 storiesOf('Molecules(LV2)/Space', module)
-  .addDecorator(StoryRouter())
-  .add(
-    'Header',
-    withInfo(`
-      ### コンポーネント概要
-      スペース情報(タイトル)
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Header
-          pref="東京都"
-          city="渋谷区区"
-          town="渋谷"
-          name="テストテストテストテストテストテスト"
-        />
-      </div>
-    )),
-  )
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Attribute',
     withInfo(`

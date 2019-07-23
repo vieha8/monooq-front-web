@@ -1,11 +1,10 @@
 // @flow
 
 import React from 'react';
-import SelectForm from 'components/LV2/SelectForm';
-import InlineText from 'components/LV1/InlineText';
-import InputForm from 'components/LV2/InputForm';
+import DisplayErrors from 'components/LV2/DisplayErrors';
 import EntryButtons from 'components/LV2/EntryButtons';
-import { Colors } from 'variables';
+import InputForm from 'components/LV2/InputForm';
+import SelectForm from 'components/LV2/SelectForm';
 import { Section } from './Shared';
 
 type PropTypes = {
@@ -20,17 +19,6 @@ type PropTypes = {
   onKeyDownButtonNext: Function,
   buttonNextDisabled: boolean,
 };
-
-function displayErrors(key: string, errors: Array<string>) {
-  return (
-    Array.isArray(errors) &&
-    errors.map((e, i) => (
-      <div key={`${key}_${i}`.toString()}>
-        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
-      </div>
-    ))
-  );
-}
 
 export default ({
   errors,
@@ -65,7 +53,7 @@ export default ({
         value={receive}
         onChange={e => onChangeReceive(e.target.value)}
       />
-      {displayErrors('receive_errors', errors.ReceiptType)}
+      <DisplayErrors keyName="receive_errors" errors={errors.ReceiptType} />
     </Section>
     <Section>
       <InputForm
@@ -76,7 +64,7 @@ export default ({
         value={receiveAbout}
         onChange={e => onChangeReceiveAbout(e.target.value)}
       />
-      {displayErrors('receive_about_errors', errors.receiptAbout)}
+      <DisplayErrors keyName="receive_about_errors" errors={errors.receiptAbout} />
     </Section>
     <Section>
       <EntryButtons

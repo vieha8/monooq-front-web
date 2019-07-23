@@ -39,6 +39,18 @@ class ProfileContainer extends Component<PropTypes> {
     dispatch(userActions.fetchUserSpaces({ userId }));
   }
 
+  meta = user => {
+    return (
+      <Meta
+        title={user && `${formatName(user.name)}さんのプロフィール - モノオク`}
+        description={user && user.profile}
+        ogUrl={user && `user/${user.id}`}
+        ogImageUrl={user && user.imageUrl}
+        noindex
+      />
+    );
+  };
+
   leftContent = () => {
     const { user, spaces } = this.props;
 
@@ -48,14 +60,6 @@ class ProfileContainer extends Component<PropTypes> {
 
     return (
       <Profile
-        meta={
-          <Meta
-            title={`${formatName(user.name)}さんのプロフィール - モノオク`}
-            ogUrl={`user/${user.id}`}
-            ogImageUrl={user.imageUrl}
-            noindex
-          />
-        }
         image={user.imageUrl}
         name={user.name}
         prefCode={user.prefCode}
@@ -77,8 +81,10 @@ class ProfileContainer extends Component<PropTypes> {
   };
 
   render() {
+    const { user } = this.props;
     return (
       <MenuPageTemplate
+        meta={this.meta(user)}
         header={<Header />}
         headline="プロフィール"
         leftContent={this.leftContent()}

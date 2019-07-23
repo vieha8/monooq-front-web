@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -10,10 +10,10 @@ import Messages from './index';
 
 Messages.displayName = 'Messages';
 
-let lastReadDt = new Date(2017, 0, 15, 22, 30); // 2017年1月15日 22時30分
-let lastReadDt_kidoku = new Date(9999, 0, 15, 22, 30); // 9999年1月15日 22時30分
+const lastReadDt = new Date(2017, 0, 15, 22, 30); // 2017年1月15日 22時30分
+const lastReadDtKidoku = new Date(9999, 0, 15, 22, 30); // 9999年1月15日 22時30分
 
-function getMessages() {
+const getMessages = () => {
   return [
     {
       self: {
@@ -58,10 +58,10 @@ function getMessages() {
       },
     },
   ];
-}
+};
 
 storiesOf('Organisms(LV3)/Messages', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'hostUser',
     withInfo(`
@@ -80,7 +80,7 @@ storiesOf('Organisms(LV3)/Messages', module)
         メッセージ(ホストユーザver)(既読)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Messages hostUser messages={getMessages()} lastReadDt={lastReadDt_kidoku} />
+        <Messages hostUser messages={getMessages()} lastReadDt={lastReadDtKidoku} />
       </div>
     )),
   )

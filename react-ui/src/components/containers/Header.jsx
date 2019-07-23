@@ -6,7 +6,6 @@ import Header from 'components/LV3/Header';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
-import { uiActions } from '../../redux/modules/ui';
 
 type PropTypes = {
   isChecking: boolean,
@@ -25,11 +24,6 @@ class HeaderContainer extends Component<PropTypes> {
       document.body.style.overflowY = 'auto';
     }
   }
-
-  onClickLogin = () => {
-    const { dispatch, location } = this.props;
-    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-  };
 
   render() {
     const { isLogin, isChecking, noHeaderButton, user, top, unreadRooms } = this.props;
@@ -63,7 +57,6 @@ class HeaderContainer extends Component<PropTypes> {
             : null
         }
         loginUri={Path.login()}
-        onClickLogin={this.onClickLogin}
         signupUri={Path.signUp()}
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} isPhone />}
       />

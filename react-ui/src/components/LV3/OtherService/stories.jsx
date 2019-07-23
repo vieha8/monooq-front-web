@@ -2,8 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens, FontSizes, Colors } from 'variables';
 
@@ -35,7 +35,7 @@ const PickGoDescription = styled.div`
 `;
 
 storiesOf('Organisms(LV3)/OtherService', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'PickGo',
     withInfo(`

@@ -90,8 +90,6 @@ class SpaceContainer extends Component<PropTypes> {
     return null;
   }
 
-  onClickSendMessage: Function;
-
   onClickSendMessage = async () => {
     const { dispatch, location, user, space, history } = this.props;
     // 未ログインの場合はログイン画面へ
@@ -102,8 +100,6 @@ class SpaceContainer extends Component<PropTypes> {
     }
     dispatch(requestActions.request({ user, space }));
   };
-
-  onKeyDownButtonMessage: Function;
 
   onKeyDownButtonMessage = e => {
     if (iskeyDownEnter(e)) {
@@ -176,13 +172,11 @@ class SpaceContainer extends Component<PropTypes> {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    user: state.auth.user,
-    space: state.space.space,
-    isRequesting: state.request.isLoading,
-  };
-}
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  space: state.space.space,
+  isRequesting: state.request.isLoading,
+});
 
 export default connect(
   SpaceContainer,

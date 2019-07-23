@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StorybookRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -10,7 +10,7 @@ import SearchResult from './index';
 
 SearchResult.displayName = 'SearchNotFound';
 
-function getData() {
+const getData = () => {
   const data = [];
   for (let i = 0; i < 10; i += 1) {
     data.push({
@@ -26,10 +26,10 @@ function getData() {
   }
 
   return data;
-}
+};
 
 storiesOf('Organisms(LV3)/SearchResult', module)
-  .addDecorator(StorybookRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
     withInfo(`

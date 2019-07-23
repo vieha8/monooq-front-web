@@ -3,10 +3,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Check from 'components/LV1/Check';
-import InlineText from 'components/LV1/InlineText';
-import InputForm from 'components/LV2/InputForm';
+import DisplayErrors from 'components/LV2/DisplayErrors';
 import EntryButtons from 'components/LV2/EntryButtons';
-import { Colors, Dimens } from 'variables';
+import InputForm from 'components/LV2/InputForm';
+import { Dimens } from 'variables';
 import { Section } from './Shared';
 
 const CheckWrapper = styled.div`
@@ -26,17 +26,6 @@ type PropTypes = {
   onKeyDownButtonNext: Function,
   buttonNextDisabled: boolean,
 };
-
-function displayErrors(key: string, errors: Array<string>) {
-  return (
-    Array.isArray(errors) &&
-    errors.map((e, i) => (
-      <div key={`${key}_${i}`.toString()}>
-        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
-      </div>
-    ))
-  );
-}
 
 export default ({
   errors,
@@ -61,7 +50,7 @@ export default ({
         value={baggage}
         onChange={e => onChangeBaggage(e.target.value)}
       />
-      {displayErrors('baggage_errors', errors.about)}
+      <DisplayErrors keyName="baggage_errors" errors={errors.about} />
       <CheckWrapper>
         <Check checked={checkedFurniture} onClick={onClickFurniture} onKeyDown={onKeyDownFurniture}>
           家具や家電製品に対応する

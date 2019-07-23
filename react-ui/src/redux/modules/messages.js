@@ -138,7 +138,7 @@ function* fetchRoomStart() {
     const partnerId = user.id === userId1 ? userId2 : userId1;
     room.user = data.find(u => u.id === partnerId);
     if (room.user) {
-      room.user.imageUrl = convertImgixUrl(room.user.imageUrl, 'w=32&auto=format');
+      room.user.imageUrl = convertImgixUrl(room.user.imageUrl, 'w=128&auto=format');
     }
 
     return room;
@@ -205,7 +205,6 @@ function messageChannel(observer) {
   return eventChannel(emit => {
     return observer.onSnapshot(snapshot => {
       if (snapshot.docChanges().length === 1) {
-        // TODO 見積もり＆決済完了時の情報取得処理
         emit(snapshot);
       }
     });
@@ -219,6 +218,14 @@ function* watchMessages(observer) {
       const snapshot = yield take(messages);
       const message = snapshot.docChanges()[0].doc.data();
       message.createDt = message.createDt.toDate();
+
+      if (message.messageType === 2 || message.messageType === 3) {
+        const { requestId } = message;
+        const token = yield* getToken();
+        const { data } = yield call(getApiRequest, apiEndpoint.requests(requestId), {}, token);
+        message.request = data;
+      }
+
       yield put(messagesActions.updateMessage(message));
     }
   } finally {

@@ -25,26 +25,34 @@ type PropTypes = {
   profile: string,
 };
 
+const headContent = (id, imageUrl, name) => {
+  return (
+    <Link to={Path.profile(id)}>
+      <AvatarImage size={45} src={imageUrl} alt={name} />
+    </Link>
+  );
+};
+
+const contentHostName = name => {
+  return (
+    <Content>
+      <Fragment>
+        <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
+          ユーザー
+        </InlineText.Base>
+        <br />
+        <InlineText.Base>{`${formatName(name)}さん`}</InlineText.Base>
+      </Fragment>
+    </Content>
+  );
+};
+
 export default ({ hostinfo, message, id, imageUrl, name, profile }: PropTypes) => (
   <Attribute
     hostinfo={hostinfo}
     message={message}
-    headContent={
-      <Link to={Path.profile(id)}>
-        <AvatarImage size={45} src={imageUrl} alt={name} />
-      </Link>
-    }
-    contentHostName={
-      <Content>
-        <Fragment>
-          <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
-            ユーザー
-          </InlineText.Base>
-          <br />
-          <InlineText.Base>{`${formatName(name)}さん`}</InlineText.Base>
-        </Fragment>
-      </Content>
-    }
+    headContent={headContent(id, imageUrl, name)}
+    contentHostName={contentHostName(name)}
     contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
   />
 );

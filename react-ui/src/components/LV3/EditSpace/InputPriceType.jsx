@@ -3,12 +3,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/InlineText';
+import DisplayErrors from 'components/LV2/DisplayErrors';
 import EntryButtons from 'components/LV2/EntryButtons';
 import InputPriceOfType from 'components/LV2/InputPriceOfType';
 import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
-import { Colors, Dimens } from 'variables';
+import { Dimens } from 'variables';
 import { Section } from './Shared';
 
 const CommissionWrap = styled.div`
@@ -42,17 +43,6 @@ type PropTypes = {
   onKeyDownButtonNext: Function,
   buttonNextDisabled: boolean,
 };
-
-function displayErrors(key: string, errors: Array<string>) {
-  return (
-    Array.isArray(errors) &&
-    errors.map((e, i) => (
-      <div key={`${key}_${i}`.toString()}>
-        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
-      </div>
-    ))
-  );
-}
 
 export default ({
   errors,
@@ -94,7 +84,7 @@ export default ({
         placeholder="30,000"
         price={priceFull}
         onChange={onChangePriceFull}
-        error={displayErrors('price_errors_1', errors.priceFull)}
+        error={<DisplayErrors keyName="price_errors_1" errors={errors.priceFull} />}
       />
       <InputPriceOfType
         image={imageFurnitureHalf}
@@ -103,7 +93,7 @@ export default ({
         placeholder="16,000"
         price={priceHalf}
         onChange={onChangePriceHalf}
-        error={displayErrors('price_errors_2', errors.priceHalf)}
+        error={<DisplayErrors keyName="price_errors_2" errors={errors.priceHalf} />}
       />
       <InputPriceOfType
         image={imageFurnitureQuarter}
@@ -112,7 +102,7 @@ export default ({
         placeholder="9,000"
         price={priceQuarter}
         onChange={onChangePriceQuarter}
-        error={displayErrors('price_errors_3', errors.priceQuarter)}
+        error={<DisplayErrors keyName="price_errors_3" errors={errors.priceQuarter} />}
       />
     </Section>
     <Section marginTop={20}>

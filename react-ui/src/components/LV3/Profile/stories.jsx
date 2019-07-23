@@ -1,8 +1,8 @@
 // @flow
 
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
-import StoryRouter from 'storybook-router';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
@@ -10,7 +10,7 @@ import Profile from './index';
 
 Profile.displayName = 'Profile';
 
-function getSpaces() {
+const getSpaces = () => {
   const spaces = [];
   for (let i = 0; i < 10; i += 1) {
     spaces.push({
@@ -24,10 +24,10 @@ function getSpaces() {
   }
 
   return spaces;
-}
+};
 
 storiesOf('Organisms(LV3)/Profile', module)
-  .addDecorator(StoryRouter())
+  .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
     withInfo(`

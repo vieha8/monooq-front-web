@@ -7,9 +7,10 @@ import { H3 } from 'components/LV1/Headline';
 import Button from 'components/LV1/Button';
 import InlineText from 'components/LV1/InlineText';
 import InputField from 'components/LV1/InputField';
+import DisplayErrors from 'components/LV2/DisplayErrors';
 import InputForm from 'components/LV2/InputForm';
 import SelectForm from 'components/LV2/SelectForm';
-import { Dimens, Colors } from 'variables';
+import { Dimens, Colors, FormValues } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 
 export const ContentsWrap = styled.div`
@@ -68,6 +69,10 @@ const PriceItem = styled.div`
   `};
 `;
 
+const ErrorPrice = styled.div`
+  clear: both;
+`;
+
 const SearchButtonWrap = styled.div`
   width: 100%;
   max-width: 540px;
@@ -117,17 +122,6 @@ type PropTypes = {
   onKeyDownButtonSerch: Function,
 };
 
-function displayErrors(key: string, errors: Array<string>) {
-  return (
-    Array.isArray(errors) &&
-    errors.map((e, i) => (
-      <div key={`${key}_${i}`.toString()}>
-        <InlineText.Small color={Colors.error}>{e}</InlineText.Small>
-      </div>
-    ))
-  );
-}
-
 export default ({
   errors,
   keyword,
@@ -157,7 +151,7 @@ export default ({
           value={keyword}
           onChange={e => onChangeKeyword(e.target.value)}
         />
-        {displayErrors('keyword_errors', errors.keyword)}
+        <DisplayErrors keyName="keyword_errors" errors={errors.keyword} />
       </Section>
       <Section>
         <SelectForm
@@ -166,7 +160,7 @@ export default ({
           value={prefCode}
           onChange={e => onChangePrefCode(e.target.value)}
         />
-        {displayErrors('prefcode_errors', errors.prefCode)}
+        <DisplayErrors keyName="prefcode_errors" errors={errors.prefCode} />
       </Section>
       <Section>
         <H3 bold>料金で絞り込み</H3>
@@ -194,38 +188,40 @@ export default ({
             <InlineText.Base>円まで</InlineText.Base>
           </PriceItem>
         </PriceWrap>
-        {displayErrors('price_errors', errors.priceMin)}
-        {displayErrors('price_errors', errors.priceMax)}
+        <ErrorPrice>
+          <DisplayErrors keyName="price_errors_min" errors={errors.priceMin} />
+          <DisplayErrors keyName="price_errors_max" errors={errors.priceMax} />
+        </ErrorPrice>
       </Section>
       <Section>
         <SelectForm
           label="スペースの広さで絞り込み"
           options={[
             {
-              value: 0,
+              value: `${FormValues.typeSpaceNoSelect}`,
               text: '指定なし',
             },
             {
-              value: 1,
+              value: `${FormValues.typeSpaceCloset}`,
               text: 'クローゼット・押入れ',
             },
             {
-              value: 3,
+              value: `${FormValues.typeSpaceRoom}`,
               text: '部屋',
             },
             {
-              value: 4,
+              value: `${FormValues.typeSpaceWarehouse}`,
               text: '屋外倉庫',
             },
             {
-              value: 5,
+              value: `${FormValues.typeSpaceOther}`,
               text: 'その他',
             },
           ]}
           value={type}
           onChange={e => onChangeType(e.target.value)}
         />
-        {displayErrors('type_errors', errors.type)}
+        <DisplayErrors keyName="type_errors" errors={errors.type} />
       </Section>
       <Section visible>
         <InputForm
@@ -236,33 +232,33 @@ export default ({
           onClick={onClickFurniture}
           onKeyDown={onKeyDownFurniture}
         />
-        {displayErrors('furniture_errors', errors.furniture)}
+        <DisplayErrors keyName="furniture_errors" errors={errors.furniture} />
       </Section>
       <Section>
         <SelectForm
           label="受け取り方法で絞り込み"
           options={[
             {
-              value: 0,
+              value: `${FormValues.typeReceiptNoSelect}`,
               text: '指定なし',
             },
             {
-              value: 1,
+              value: `${FormValues.typeReceiptAll}`,
               text: '対面・配送の両方に対応する',
             },
             {
-              value: 2,
+              value: `${FormValues.typeReceiptOnlyFTF}`,
               text: '対面のみ',
             },
             {
-              value: 3,
+              value: `${FormValues.typeReceiptOnlyDelivery}`,
               text: '配送のみ',
             },
           ]}
           value={receive}
           onChange={e => onChangeReceive(e.target.value)}
         />
-        {displayErrors('receive_errors', errors.receiptType)}
+        <DisplayErrors keyName="receive_errors" errors={errors.receiptType} />
       </Section>
     </ContentsWrap>
     <SearchButtonWrap>
