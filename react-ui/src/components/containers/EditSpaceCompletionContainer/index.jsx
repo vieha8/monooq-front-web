@@ -8,7 +8,7 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import EditSpaceCompletion from 'components/LV3/EditSpace/Completion';
 import { iskeyDownEnter } from 'helpers/keydown';
-import HostGuide from 'components/LV1/HostGuide';
+import HostGuide from 'components/LV2/HostGuide';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -92,7 +92,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline={`${!isEdit ? '登録' : '編集'}が完了しました`}
-        caption={`モノオクにスペースが掲載されました！利用希望のリクエストが届くと、メッセージページにてユーザーさんとのやり取りが行えるようになります。利用期間や価格等を調整し、取引を進めましょう！`}
+        caption={`モノオクにスペースが掲載されました！\n利用希望のリクエストが届くと、メッセージページにてユーザーさんとのやり取りが行えるようになります。\n利用期間や価格等を調整し、取引を進めましょう！`}
         leftContent={
           <Fragment>
             <HostGuide
@@ -104,16 +104,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
               data3="ユーザーさんからの決済が完了すると取引が成立し、スペースの住所がメッセージルームに公開されます。
               利用開始日になったら荷物を受け取りましょう。"
             />
-            <EditSpaceCompletion
-              edit={isEdit}
-              userId={user.id}
-              onClickBackHome={this.onClickBackHome}
-              onKeyDownHome={this.onKeyDownHome}
-              onClickCreateSpace={this.onClickCreateSpace}
-              onKeyDownCreateSpace={this.onKeyDownCreateSpace}
-              onClickViewSpace={this.onClickViewSpace}
-              onKeyDownViewSpace={this.onKeyDownViewSpace}
-            />
+            {this.leftContent(isEdit)}
           </Fragment>
         }
         rightContent={<ServiceMenu />}

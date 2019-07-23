@@ -56,6 +56,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
           <Section>
             <EntryButtons
               enabled
+              relative
               backButton={{
                 text: 'スペースをさらに登録する',
                 onClick: onClickCreateSpace,
