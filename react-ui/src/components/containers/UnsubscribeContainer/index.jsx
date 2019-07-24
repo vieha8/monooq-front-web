@@ -42,6 +42,8 @@ class UnsubscribeContainer extends Component<PropTypes> {
 
   constructor(props: PropTypes) {
     super(props);
+    const { dispatch } = this.props;
+    dispatch(authActions.initUnsubscribe());
     this.state = {
       reasonType: [],
       reasonText: '',
@@ -89,7 +91,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
 
     switch (propName) {
       case 'reasonType':
-        if (value === undefined ? true : value.length === 0) {
+        if (!value || value.length === 0) {
           errors.push(ErrorMessages.PleaseSelect);
         }
         break;

@@ -181,7 +181,6 @@ class PaymentContainer extends Component<PropTypes> {
   };
 
   backToMessage = () => {
-    const { match } = this.props;
     const { roomId } = this.status;
     window.location.href = Path.message(roomId);
   };
@@ -193,7 +192,7 @@ class PaymentContainer extends Component<PropTypes> {
 
     switch (propName) {
       case 'name':
-        if (value.length === 0) {
+        if (!value || value.length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         }
         if (value.length > 0 && !value.match(ValidateRegExp.CardName)) {
@@ -202,19 +201,19 @@ class PaymentContainer extends Component<PropTypes> {
         break;
 
       case 'number':
-        if (value.length === 0) {
+        if (!value || value.length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         }
-        if (isNaN(value) || !String(value).match(ValidateRegExp.CardNumber)) {
+        if (Number.isNaN(value) || !String(value).match(ValidateRegExp.CardNumber)) {
           errors.push(ErrorMessages.CreditCardNumber);
         }
         break;
 
       case 'cvc':
-        if (value.length === 0) {
+        if (!value || value.length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         }
-        if (isNaN(value) || !String(value).match(ValidateRegExp.Cvc)) {
+        if (Number.isNaN(value) || !String(value).match(ValidateRegExp.Cvc)) {
           errors.push(ErrorMessages.Cvc);
         }
         break;

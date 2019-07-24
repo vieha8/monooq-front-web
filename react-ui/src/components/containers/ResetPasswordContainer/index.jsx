@@ -56,7 +56,7 @@ class ResetPasswordContainer extends Component<PropTypes> {
 
     switch (propName) {
       case 'email':
-        if (value === undefined ? true : value.trim().length === 0) {
+        if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (!value.match(Validate.Email)) {
           errors.push(ErrorMessages.InvalidEmail);

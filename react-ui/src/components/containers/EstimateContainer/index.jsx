@@ -61,20 +61,18 @@ class EstimateContainer extends Component<PropTypes> {
     const errors = [];
     let returnValue = formatRemoveComma(value);
 
-    if (returnValue.length === 0) {
+    if (!returnValue || returnValue.length === 0) {
       errors.push(ErrorMessages.PleaseInput);
+    } else if (Number.isNaN(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
+      errors.push(ErrorMessages.PriceNumber);
     } else {
-      if (isNaN(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
-        errors.push(ErrorMessages.PriceNumber);
-      } else {
-        if (returnValue < Validate.Price.Min) {
-          errors.push(ErrorMessages.EstimateMin(Validate.Price.Min));
-        }
-        if (returnValue > Validate.Price.Max) {
-          errors.push(ErrorMessages.EstimateMax(Validate.Price.Max));
-        }
-        returnValue = formatAddComma(returnValue);
+      if (returnValue < Validate.Price.Min) {
+        errors.push(ErrorMessages.EstimateMin(Validate.Price.Min));
       }
+      if (returnValue > Validate.Price.Max) {
+        errors.push(ErrorMessages.EstimateMax(Validate.Price.Max));
+      }
+      returnValue = formatAddComma(returnValue);
     }
 
     state[propName] = returnValue;
