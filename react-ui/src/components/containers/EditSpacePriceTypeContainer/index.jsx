@@ -59,8 +59,6 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       this.state.isUpdate = true;
     }
-
-    dispatch(spaceActions.getGeocode({ address: space.address }));
   }
 
   componentDidMount() {
@@ -73,8 +71,11 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { space } = nextProps;
+    const { space, dispatch } = nextProps;
+
     if (space.id && !prevState.id) {
+      dispatch(spaceActions.getGeocode({ address: space.address }));
+
       const {
         priceFull: PriceFullTmp,
         priceHalf: PriceHalfTmp,
