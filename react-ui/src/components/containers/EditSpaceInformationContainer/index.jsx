@@ -203,31 +203,31 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
     switch (propName) {
       case 'title':
-        if (value === undefined ? true : value.trim().length === 0) {
+        if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.Title.Max) {
           errors.push(ErrorMessages.LengthMax('タイトル', Validate.Title.Max));
         }
         break;
       case 'introduction':
-        if (value === undefined ? true : value.trim().length === 0) {
+        if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.Introduction.Max) {
           errors.push(ErrorMessages.LengthMax('紹介文', Validate.Introduction.Max));
         }
         break;
       case 'address':
-        if (value === undefined ? true : value.trim().length === 0) {
+        if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else {
-          const match = value.match(Validate.Address);
+          const match = value ? value.match(Validate.Address) : '';
           if (!match || (match && match[4] === '')) {
             errors.push(ErrorMessages.InvalidAddress);
           }
         }
         break;
       case 'images':
-        if (value === undefined ? true : value.length === 0) {
+        if (!value || value.length === 0) {
           errors.push(ErrorMessages.MustSpaceImage);
         } else if (value.length === 1) {
           if (value[0].ImageUrl && isImageDefault(value[0].ImageUrl)) {
@@ -246,7 +246,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
   validate = () => {
     const { title, introduction, address, images } = this.state;
-    const AddressMatch = address.match(Validate.Address);
+    const AddressMatch = address ? address.match(Validate.Address) : '';
 
     return (
       title &&

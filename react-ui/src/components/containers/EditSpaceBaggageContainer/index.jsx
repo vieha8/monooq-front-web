@@ -124,7 +124,7 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
     switch (propName) {
       case 'about':
-        if (value === undefined ? true : value.trim().length === 0) {
+        if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.About.Max) {
           errors.push(ErrorMessages.LengthMax('説明', Validate.About.Max));
