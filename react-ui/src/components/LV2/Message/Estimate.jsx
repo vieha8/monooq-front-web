@@ -10,6 +10,9 @@ import Button from 'components/LV1/Button';
 import { Dimens, Colors } from 'variables';
 import { formatAddComma, formatName } from 'helpers/string';
 
+const PAYTYPE_CREDITCARD = 1;
+const PAYTYPE_BANK = 2;
+const PAYTYPE_ECONTEXT = 4;
 const STATUS_PAY_ESTIMATE = 'estimate';
 const STATUS_PAY_WAITING = 'waiting';
 const STATUS_PAY_PAID = 'paid';
@@ -99,19 +102,20 @@ const buttonPayment = (host, status, payType, paymentLink) => {
 const getPayInfo = (payType, status) => {
   let resultPayType = '';
   let resultStatus = '';
+  let messagePayInfo = '※最新のステータスが反映されるまで時間がかかる場合があります。';
 
   switch (payType) {
-    case 1:
+    case PAYTYPE_CREDITCARD:
       if (status === STATUS_PAY_PAID) {
         resultPayType = 'クレジットカード決済';
       } else {
         resultPayType = '未選択';
       }
       break;
-    case 2:
+    case PAYTYPE_BANK:
       resultPayType = '銀行振込';
       break;
-    case 4:
+    case PAYTYPE_ECONTEXT:
       resultPayType = 'コンビニ払い・Pay-easy決済';
       break;
     default:
@@ -125,6 +129,19 @@ const getPayInfo = (payType, status) => {
       break;
     case STATUS_PAY_PAID:
       resultStatus = 'お支払い完了';
+
+      switch (payType) {
+        case PAYTYPE_BANK:
+          messagePayInfo =
+            '※入金確認後にステータスが反映されます。土日祝日または銀行営業時間外にお振込みの場合、翌銀行営業日に入金確認を行います。';
+          break;
+        case PAYTYPE_ECONTEXT:
+          messagePayInfo =
+            '※お支払い後、モノオクサービス上で決済完了通知が反映されるまでに2時間程度のお時間をいただきます。';
+          break;
+        default:
+      }
+
       break;
     default:
   }
@@ -137,7 +154,7 @@ const getPayInfo = (payType, status) => {
       お支払いステータス：
       {resultStatus}
       <br />
-      ※最新のステータスが反映されるまで時間がかかる場合があります。
+      {messagePayInfo}
     </Fragment>
   );
 };
