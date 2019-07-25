@@ -59,6 +59,9 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       this.state.isUpdate = true;
     }
+    if (space.address) {
+      dispatch(spaceActions.getGeocode({ address: space.address }));
+    }
   }
 
   componentDidMount() {
@@ -74,6 +77,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
     const { space, dispatch } = nextProps;
 
     if (space.id && !prevState.id) {
+      // TODO: スペース編集時のリロード対策(最適化したい)
       dispatch(spaceActions.getGeocode({ address: space.address }));
 
       const {
