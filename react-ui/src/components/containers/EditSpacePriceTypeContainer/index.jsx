@@ -106,7 +106,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
   onClickNext = () => {
     const { dispatch, space, history } = this.props;
-    const { priceFull, priceHalf, priceQuarter } = this.state;
+    const { priceFull, priceHalf, priceQuarter, isUpdate } = this.state;
 
     if (space.address) {
       const { geocode } = this.props;
@@ -136,13 +136,13 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = space.id ? Path.editSpaceConfirm(space.id) : Path.createSpaceConfirm();
+    const nextPath = isUpdate ? Path.editSpaceConfirm(space.id) : Path.createSpaceConfirm();
     history.push(nextPath);
   };
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { priceFull, priceHalf, priceQuarter } = this.state;
+    const { priceFull, priceHalf, priceQuarter, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
@@ -154,7 +154,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = space.id ? Path.editSpaceReceive(space.id) : Path.createSpaceReceive();
+    const nextPath = isUpdate ? Path.editSpaceReceive(space.id) : Path.createSpaceReceive();
     history.push(nextPath);
   };
 

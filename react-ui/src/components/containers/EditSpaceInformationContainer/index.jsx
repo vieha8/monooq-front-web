@@ -190,7 +190,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = space.id ? Path.editSpaceBaggage(space.id) : Path.createSpaceBaggage();
+    const nextPath = isUpdate ? Path.editSpaceBaggage(space.id) : Path.createSpaceBaggage();
     history.push(nextPath);
   };
 
@@ -288,7 +288,7 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
     return (
       <Fragment>
         <EditSpaceInformation
-          edit={space.id}
+          edit={isUpdate}
           errors={error}
           address={address}
           onChangeAddress={v => this.handleChangeUI('address', v)}
@@ -334,10 +334,11 @@ class EditSpaceInformationContainer extends Component<PropTypes> {
 
   render() {
     const { space } = this.props;
+    const { isUpdate } = this.state;
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={`スペースの${space.id ? '編集' : '登録'}`}
+        headline={`スペースの${isUpdate ? '編集' : '登録'}`}
         leftContent={this.leftContent(space)}
         rightContent={<ServiceMenu />}
       />

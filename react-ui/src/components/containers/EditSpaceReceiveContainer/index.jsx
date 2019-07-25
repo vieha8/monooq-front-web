@@ -78,7 +78,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
   onClickNext = () => {
     const { dispatch, history, space } = this.props;
-    const { receiptType, receiptAbout } = this.state;
+    const { receiptType, receiptAbout, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
@@ -89,7 +89,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = space.id
+    const nextPath = isUpdate
       ? Path.editSpacePrice(space.id, 'about')
       : Path.createSpacePrice('about');
     history.push(nextPath);
@@ -97,7 +97,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { receiptType, receiptAbout } = this.state;
+    const { receiptType, receiptAbout, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
@@ -108,7 +108,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = space.id ? Path.editSpaceBaggage(space.id) : Path.createSpaceBaggage();
+    const nextPath = isUpdate ? Path.editSpaceBaggage(space.id) : Path.createSpaceBaggage();
     history.push(nextPath);
   };
 
