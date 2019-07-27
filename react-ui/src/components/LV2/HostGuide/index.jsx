@@ -6,14 +6,14 @@ import GuideContent from 'components/LV1/GuideContent';
 
 const GuideContainer = styled.div`
   width: 100%;
-  margin-bottom: 100px;
+  margin-bottom: 24px;
 `;
 
 const GuideHeader = styled.div`
   font-size: 18px;
   font-weight: bold;
   width: 100%;
-  padding-bottom: 16px;
+  padding: 8px 0 16px 0;
 `;
 
 type PropTypes = {
