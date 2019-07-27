@@ -164,20 +164,18 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
     const priceErrors = [];
 
-    if (returnValue.length === 0) {
+    if (!returnValue || returnValue.length === 0) {
       priceErrors.push(ErrorMessages.PleaseInput);
+    } else if (Number.isNaN(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
+      priceErrors.push(ErrorMessages.PriceNumber);
     } else {
-      if (isNaN(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
-        priceErrors.push(ErrorMessages.PriceNumber);
-      } else {
-        if (returnValue < Validate.Price.Min) {
-          priceErrors.push(ErrorMessages.PriceMin(Validate.Price.Min));
-        }
-        if (returnValue > Validate.Price.Max) {
-          priceErrors.push(ErrorMessages.PriceMax(Validate.Price.Max));
-        }
-        returnValue = formatAddComma(returnValue);
+      if (returnValue < Validate.Price.Min) {
+        priceErrors.push(ErrorMessages.PriceMin(Validate.Price.Min));
       }
+      if (returnValue > Validate.Price.Max) {
+        priceErrors.push(ErrorMessages.PriceMax(Validate.Price.Max));
+      }
+      returnValue = formatAddComma(returnValue);
     }
 
     state[propName] = returnValue;

@@ -109,13 +109,13 @@ class EditProfileContainer extends Component<PropTypes> {
         break;
 
       case 'name':
-        if (value === undefined ? true : value.trim().length === 0) {
+        if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         }
         break;
 
       case 'email':
-        if (value.replace(/\s/g, '').length === 0) {
+        if (!value || value.replace(/\s/g, '').length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (!value.match(Validate.Email)) {
           errors.push(ErrorMessages.InvalidEmail);
@@ -123,7 +123,7 @@ class EditProfileContainer extends Component<PropTypes> {
         break;
 
       case 'phoneNumber':
-        if (value.replace(/\s/g, '').length === 0) {
+        if (!value || value.replace(/\s/g, '').length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (
           !(
@@ -136,7 +136,7 @@ class EditProfileContainer extends Component<PropTypes> {
         break;
 
       case 'profile':
-        if (value === undefined ? true : value.trim().length === 0) {
+        if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.Profile.Max) {
           errors.push(ErrorMessages.LengthMax('自己紹介', Validate.Profile.Max));

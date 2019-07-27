@@ -101,19 +101,19 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
         break;
 
       case 'name':
-        if (value === undefined ? true : value.trim().length === 0) {
+        if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         }
         break;
 
       case 'prefCode':
-        if (value.length === 0) {
+        if (!value || value.length === 0) {
           errors.push(ErrorMessages.PleaseSelect);
         }
         break;
 
       case 'profile':
-        if (value === undefined ? true : value.trim().length === 0) {
+        if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.Profile.Max) {
           errors.push(ErrorMessages.LengthMax('自己紹介', Validate.Profile.Max));
@@ -121,7 +121,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
         break;
 
       case 'phoneNumber':
-        if (value.replace(/\s/g, '').length === 0) {
+        if (!value || value.replace(/\s/g, '').length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (
           !(

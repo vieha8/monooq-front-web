@@ -11,6 +11,7 @@ import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { ErrorMessages } from 'variables';
 import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
+import { formatRemoveComma } from 'helpers/string';
 import connect from '../connect';
 
 type PropTypes = {
@@ -110,20 +111,25 @@ class SearchConditionContainer extends Component<PropTypes> {
     const { state } = this;
     const { error } = state;
     const errors = [];
+    let returnValue = value;
 
     switch (propName) {
       case 'priceMin':
-        if (value.length > 0) {
+        if (value && value.length > 0) {
           if (!value.match(ValidateRegExp.PriceNumber)) {
             errors.push(ErrorMessages.PriceNumberName('最安料金'));
+          } else {
+            returnValue = Number(value);
           }
         }
         break;
 
       case 'priceMax':
-        if (value.length > 0) {
+        if (value && value.length > 0) {
           if (!value.match(ValidateRegExp.PriceNumber)) {
             errors.push(ErrorMessages.PriceNumberName('最高料金'));
+          } else {
+            returnValue = Number(value);
           }
         }
         break;
@@ -132,7 +138,7 @@ class SearchConditionContainer extends Component<PropTypes> {
         break;
     }
 
-    state[propName] = value;
+    state[propName] = returnValue;
     error[propName] = errors;
     this.setState({ ...state, error });
   };
@@ -140,12 +146,12 @@ class SearchConditionContainer extends Component<PropTypes> {
   validate = () => {
     const { priceMin, priceMax } = this.state;
     let isNoErr = true;
-    if (priceMin.length > 0) {
+    if (priceMin && priceMin.length > 0) {
       if (!priceMin.match(ValidateRegExp.PriceNumber)) {
         isNoErr = false;
       }
     }
-    if (priceMax.length > 0) {
+    if (priceMax && priceMax.length > 0) {
       if (!priceMax.match(ValidateRegExp.PriceNumber)) {
         isNoErr = false;
       }

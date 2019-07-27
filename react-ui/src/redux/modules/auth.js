@@ -29,6 +29,7 @@ const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
 const TOKEN_GENERATE = 'TOKEN_GENERATE';
 const TOKEN_GENERATE_SUCCESS = 'TOKEN_GENERATE_SUCCESS';
+const INIT_UNSUBSCRIBE = 'INIT_UNSUBSCRIBE';
 const UNSUBSCRIBE = 'UNSUBSCRIBE';
 const UNSUBSCRIBE_SUCCESS = 'UNSUBSCRIBE_SUCCESS';
 const UNSUBSCRIBE_FAILED = 'UNSUBSCRIBE_FAILED';
@@ -62,6 +63,7 @@ export const authActions = createActions(
   TOKEN_GENERATE_SUCCESS,
   SET_USER,
   SET_TOKEN,
+  INIT_UNSUBSCRIBE,
   UNSUBSCRIBE,
   UNSUBSCRIBE_SUCCESS,
   UNSUBSCRIBE_FAILED,
@@ -174,6 +176,12 @@ export const authReducer = handleActions(
       isResetTrying: false,
       isResetSuccess: false,
       error: action.payload,
+    }),
+    [INIT_UNSUBSCRIBE]: state => ({
+      ...state,
+      isUnsubscribeTrying: false,
+      isUnsubscribeSuccess: false,
+      isUnsubscribeFailed: false,
     }),
     [UNSUBSCRIBE]: state => ({
       ...state,

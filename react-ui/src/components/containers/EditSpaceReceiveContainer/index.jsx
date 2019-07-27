@@ -119,7 +119,7 @@ class EditSpaceReceiveContainer extends Component<PropTypes> {
 
     switch (propName) {
       case 'receiptAbout':
-        if (value === undefined ? true : value.trim().length === 0) {
+        if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (value.length > Validate.ReceiptAbout.Max) {
           errors.push(ErrorMessages.LengthMax('説明', Validate.ReceiptAbout.Max));
