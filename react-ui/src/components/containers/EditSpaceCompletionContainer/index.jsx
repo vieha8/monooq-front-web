@@ -10,6 +10,7 @@ import EditSpaceCompletion from 'components/LV3/EditSpace/Completion';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
+import { uiActions } from 'redux/modules/ui';
 import authRequired from 'components/containers/AuthRequired';
 
 type PropTypes = {
@@ -66,7 +67,8 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
   };
 
   onClickCreateSpace = () => {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
+    dispatch(uiActions.setUiState({ space: {} }));
     history.push(Path.createSpaceInfo());
   };
 
