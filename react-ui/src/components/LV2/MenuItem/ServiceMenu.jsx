@@ -92,7 +92,7 @@ export default ({
   ) : (
     <MenuItem>
       <LinkWrap line={line}>
-        <MenuLink to={to}>
+        <MenuLink to={to} onClick={onClick}>
           <MenuText>
             <InlineText.Base fontSize={FontSizes.small_15}>{title}</InlineText.Base>
           </MenuText>

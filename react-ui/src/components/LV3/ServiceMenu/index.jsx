@@ -20,9 +20,10 @@ const AvaterName = styled.span`
 `;
 
 type MenuItemProps = {
-  href: string,
-  to: string,
+  href?: string,
+  to?: string,
   notificationCount?: number,
+  onClick?: Function,
 };
 
 type PropTypes = {
