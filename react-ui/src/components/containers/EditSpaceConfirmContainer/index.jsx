@@ -116,9 +116,11 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
 
   onClickNext = () => {
     const { dispatch, space, user } = this.props;
+    const { isUpdate } = this.state;
+
     const saveSpace = Object.assign(space);
 
-    if (space.id) {
+    if (isUpdate) {
       dispatch(
         spaceActions.updateSpace({
           spaceId: space.id,
@@ -135,8 +137,9 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
 
   onClickBack = () => {
     const { history, space } = this.props;
+    const { isUpdate } = this.state;
 
-    const nextPath = space.id ? Path.editSpacePrice(space.id) : Path.createSpacePrice();
+    const nextPath = isUpdate ? Path.editSpacePrice(space.id) : Path.createSpacePrice();
     history.push(nextPath);
   };
 
@@ -227,7 +230,7 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
     }
 
     if (!isLoading && isComplete) {
-      if (space.id) {
+      if (isUpdate) {
         return <Redirect to={Path.editSpaceCompletion(space.id)} />;
       }
       return <Redirect to={Path.createSpaceCompletion()} />;

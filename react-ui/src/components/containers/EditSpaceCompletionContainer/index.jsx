@@ -12,7 +12,9 @@ import { iskeyDownEnter } from 'helpers/keydown';
 import HostGuide from 'components/LV2/HostGuide';
 
 import { connect } from 'react-redux';
+import { uiActions } from 'redux/modules/ui';
 import authRequired from 'components/containers/AuthRequired';
+import { isUpdateExpression } from '@babel/types';
 
 const content = styled.div``;
 
@@ -32,9 +34,16 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
 
+    this.state = {
+      spaceId: '',
+      isUpdate: false,
+    };
+
     const spaceId = props.match.params.space_id;
-    const isEdit = !!spaceId;
-    this.state = { spaceId, isEdit };
+    this.state.spaceId = spaceId;
+    if (spaceId) {
+      this.state.isUpdate = true;
+    }
   }
 
   // TODO: イベント処理を共通化したい
@@ -63,7 +72,8 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
   };
 
   onClickCreateSpace = () => {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
+    dispatch(uiActions.setUiState({ space: {} }));
     history.push(Path.createSpaceInfo());
   };
 
@@ -85,7 +95,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
     );
   };
 
-  leftContent = isEdit => {
+  leftContent = isUpdate => {
     const { user } = this.props;
     return (
       <Fragment>
@@ -99,7 +109,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
           利用開始日になったら荷物を受け取りましょう。"
         />
         <EditSpaceCompletion
-          edit={isEdit}
+          edit={isUpdate}
           userId={user.id}
           onClickBackHome={this.onClickBackHome}
           onKeyDownHome={this.onKeyDownHome}
@@ -113,13 +123,13 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { isEdit } = this.state;
+    const { isUpdate } = this.state;
     return (
       <MenuPageTemplate
         header={<Header />}
-        headline={`${!isEdit ? '登録' : '編集'}が完了しました`}
+        headline={`${!isUpdate ? '登録' : '編集'}が完了しました`}
         caption={this.captionContent()}
-        leftContent={this.leftContent(isEdit)}
+        leftContent={this.leftContent(isUpdate)}
         rightContent={<ServiceMenu />}
       />
     );

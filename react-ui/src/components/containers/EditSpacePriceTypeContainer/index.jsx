@@ -59,8 +59,9 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       this.state.isUpdate = true;
     }
-
-    dispatch(spaceActions.getGeocode({ address: space.address }));
+    if (space.address) {
+      dispatch(spaceActions.getGeocode({ address: space.address }));
+    }
   }
 
   componentDidMount() {
@@ -73,8 +74,12 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { space } = nextProps;
+    const { space, dispatch } = nextProps;
+
     if (space.id && !prevState.id) {
+      // TODO: スペース編集時のリロード対策(最適化したい)
+      dispatch(spaceActions.getGeocode({ address: space.address }));
+
       const {
         priceFull: PriceFullTmp,
         priceHalf: PriceHalfTmp,
@@ -105,7 +110,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
 
   onClickNext = () => {
     const { dispatch, space, history } = this.props;
-    const { priceFull, priceHalf, priceQuarter } = this.state;
+    const { priceFull, priceHalf, priceQuarter, isUpdate } = this.state;
 
     if (space.address) {
       const { geocode } = this.props;
@@ -135,13 +140,13 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = space.id ? Path.editSpaceConfirm(space.id) : Path.createSpaceConfirm();
+    const nextPath = isUpdate ? Path.editSpaceConfirm(space.id) : Path.createSpaceConfirm();
     history.push(nextPath);
   };
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { priceFull, priceHalf, priceQuarter } = this.state;
+    const { priceFull, priceHalf, priceQuarter, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
@@ -153,7 +158,7 @@ class EditSpacePriceTypeContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = space.id ? Path.editSpaceReceive(space.id) : Path.createSpaceReceive();
+    const nextPath = isUpdate ? Path.editSpaceReceive(space.id) : Path.createSpaceReceive();
     history.push(nextPath);
   };
 

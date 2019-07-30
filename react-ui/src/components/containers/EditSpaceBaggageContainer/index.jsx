@@ -85,7 +85,7 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
 
   onClickNext = () => {
     const { dispatch, history, space } = this.props;
-    const { about, isFurniture } = this.state;
+    const { about, isFurniture, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
@@ -96,13 +96,13 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = space.id ? Path.editSpaceReceive(space.id) : Path.createSpaceReceive();
+    const nextPath = isUpdate ? Path.editSpaceReceive(space.id) : Path.createSpaceReceive();
     history.push(nextPath);
   };
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { about, isFurniture } = this.state;
+    const { about, isFurniture, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
@@ -113,7 +113,7 @@ class EditSpaceBaggageContainer extends Component<PropTypes> {
       }),
     );
 
-    const nextPath = space.id ? Path.editSpaceInfo(space.id) : Path.createSpaceInfo();
+    const nextPath = isUpdate ? Path.editSpaceInfo(space.id) : Path.createSpaceInfo();
     history.push(nextPath);
   };
 
