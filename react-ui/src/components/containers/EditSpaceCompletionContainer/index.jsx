@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import Path from 'config/path';
 
@@ -14,9 +14,6 @@ import HostGuide from 'components/LV2/HostGuide';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import authRequired from 'components/containers/AuthRequired';
-import { isUpdateExpression } from '@babel/types';
-
-const content = styled.div``;
 
 type PropTypes = {
   history: {
@@ -85,20 +82,20 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
 
   captionContent = () => {
     return (
-      <content>
+      <div>
         モノオクにスペースが掲載されました！
         <br />
         利用希望のリクエストが届くと、メッセージページにてユーザーとのやり取りが可能になります。
         <br />
         利用期間や価格等を調整し、取引を進めましょう！
-      </content>
+      </div>
     );
   };
 
   leftContent = isUpdate => {
     const { user } = this.props;
     return (
-      <Fragment>
+      <div>
         <HostGuide
           header="ご成約までの流れ"
           data1="リクエストが届いてから24時間以内に返信しましょう。
@@ -118,7 +115,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
           onClickViewSpace={this.onClickViewSpace}
           onKeyDownViewSpace={this.onKeyDownViewSpace}
         />
-      </Fragment>
+      </div>
     );
   };
 
