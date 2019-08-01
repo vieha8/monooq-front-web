@@ -9,14 +9,35 @@ import styled from 'styled-components';
 import Path from 'config/path';
 
 import Header from './index';
-import HeaderMock from './mock/header';
+import ServiceMenu from '../ServiceMenu';
 
-HeaderMock.displayName = 'HeaderMock';
 Header.displayName = 'Header';
 
 const BodyMock = styled.div`
   background-image: url('http://placehold.jp/1000x500.png');
 `;
+
+const ServiceMenuSP = () => {
+  return (
+    <ServiceMenu
+      home={{ to: Path.home() }}
+      message={{ to: Path.messages(), notificationCount: 0 }}
+      schedule={{ to: Path.schedule(), notificationCount: 0 }}
+      spaces={{ to: Path.spaces() }}
+      addSpace={{ to: Path.createSpaceInfo() }}
+      sales={{ to: Path.sales() }}
+      paymentHistory={{ to: Path.paid() }}
+      editProfile={{ to: Path.editProfile() }}
+      help={{ href: 'https://help.monooq.com/' }}
+      inquiry={{ to: Path.inquiry() }}
+      howToUse={{ to: Path.howToUse() }}
+      service={{ to: Path.service() }}
+      userName="name"
+      userImage="http://placehold.jp/500x500.png"
+      isPhone
+    />
+  );
+};
 
 storiesOf('Organisms(LV3)/Header', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
@@ -28,7 +49,22 @@ storiesOf('Organisms(LV3)/Header', module)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <BodyMock>
-          <HeaderMock />
+          <Header
+            topUrl={Path.top()}
+            homeUrl={Path.home()}
+            searchConditionUrl={Path.searchCondition()}
+            messageUrl={Path.messages()}
+            messageCount={4}
+            user={{
+              image: 'http://placehold.jp/500x500.png',
+              name: 'name',
+            }}
+            loginUrl="#"
+            signupUrl="#"
+            onClickAvatar={() => this.setState()}
+            spMenu={ServiceMenuSP()}
+            stories
+          />
         </BodyMock>
       </div>
     )),
@@ -42,25 +78,14 @@ storiesOf('Organisms(LV3)/Header', module)
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <BodyMock>
           <Header
-            topUri={Path.top()}
-            homeUri={Path.home()}
-            editProfileUri={Path.editProfile()}
-            searchUri={Path.search()}
-            searchConditionUri={Path.searchCondition()}
-            scheduleUri={Path.schedule()}
-            createSpaceInfoUri={Path.createSpaceInfo()}
-            spacesUri={Path.spaces()}
-            salesUri={Path.sales()}
-            helpUri="https://help.monooq.com/"
-            inquiryUri={Path.inquiry()}
-            howToUseUri={Path.howToUse()}
-            serviceUri={Path.service()}
-            tidyUri="https://tidy.monooq.com/"
-            messageUri={Path.messages()}
+            topUrl={Path.top()}
+            homeUrl={Path.home()}
+            searchConditionUrl={Path.searchCondition()}
+            messageUrl={Path.messages()}
             messageCount={0}
             user={null}
-            loginUri="#"
-            signupUri="#"
+            loginUrl="#"
+            signupUrl="#"
             stories
           />
         </BodyMock>
@@ -75,7 +100,23 @@ storiesOf('Organisms(LV3)/Header', module)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <BodyMock>
-          <HeaderMock top />
+          <Header
+            topUrl={Path.top()}
+            homeUrl={Path.home()}
+            searchConditionUrl={Path.searchCondition()}
+            messageUrl={Path.messages()}
+            messageCount={4}
+            user={{
+              image: 'http://placehold.jp/500x500.png',
+              name: 'name',
+            }}
+            loginUrl="#"
+            signupUrl="#"
+            onClickAvatar={() => this.setState()}
+            top
+            spMenu={ServiceMenuSP()}
+            stories
+          />
         </BodyMock>
       </div>
     )),
@@ -89,25 +130,14 @@ storiesOf('Organisms(LV3)/Header', module)
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <BodyMock>
           <Header
-            topUri={Path.top()}
-            homeUri={Path.home()}
-            editProfileUri={Path.editProfile()}
-            searchUri={Path.search()}
-            searchConditionUri={Path.searchCondition()}
-            scheduleUri={Path.schedule()}
-            createSpaceInfoUri={Path.createSpaceInfo()}
-            spacesUri={Path.spaces()}
-            salesUri={Path.sales()}
-            helpUri="https://help.monooq.com/"
-            inquiryUri={Path.inquiry()}
-            howToUseUri={Path.howToUse()}
-            serviceUri={Path.service()}
-            tidyUri="https://tidy.monooq.com/"
-            messageUri={Path.messages()}
+            topUrl={Path.top()}
+            homeUrl={Path.home()}
+            searchConditionUrl={Path.searchCondition()}
+            messageUrl={Path.messages()}
             messageCount={0}
             user={null}
-            loginUri="#"
-            signupUri="#"
+            loginUrl="#"
+            signupUrl="#"
             top
             stories
           />

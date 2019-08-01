@@ -55,14 +55,14 @@ const Delete = styled.span`
 `;
 
 type PropTypes = {
-  imageUri: string,
+  imageUrl: string,
   onClickDelete: Function,
 };
 
-export default ({ imageUri, onClickDelete }: PropTypes) => (
+export default ({ imageUrl, onClickDelete }: PropTypes) => (
   <Container>
     <ImageWrapper>
-      <Image src={imageUri} alt="" />
+      <Image src={imageUrl} alt="" />
       <TextLink
         onClick={e => {
           e.preventDefault();

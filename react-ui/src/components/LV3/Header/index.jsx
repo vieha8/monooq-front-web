@@ -146,41 +146,41 @@ const OnlyPhone = styled.span`
 type PropTypes = {
   top?: boolean,
   stories?: boolean,
-  topUri: string,
+  topUrl: string,
   isCheckingLogin: boolean,
   noHeaderButton: boolean,
   user: {
     name: string,
     image: string,
   },
-  messageUri: string,
+  messageUrl: string,
   messageCount?: number,
-  searchConditionUri: string,
+  searchConditionUrl: string,
   spMenu: React.Element<*>,
-  homeUri: string,
-  loginUri: string,
-  signupUri: string,
+  homeUrl: string,
+  loginUrl: string,
+  signupUrl: string,
 };
 
 export default ({
   top,
   stories,
-  topUri,
+  topUrl,
   isCheckingLogin,
   noHeaderButton,
   user,
-  messageUri,
+  messageUrl,
   messageCount,
-  searchConditionUri,
+  searchConditionUrl,
   spMenu,
-  homeUri,
-  loginUri,
-  signupUri,
+  homeUrl,
+  loginUrl,
+  signupUrl,
 }: PropTypes) => {
   return (
     <Container top={top} stories={stories}>
       <Nav>
-        <LogoWrapper to={topUri}>
+        <LogoWrapper to={topUrl}>
           {top ? <Logo.HeaderWhiteFill /> : <Logo.HeaderFill />}
         </LogoWrapper>
         {!isCheckingLogin && !noHeaderButton && (
@@ -191,14 +191,14 @@ export default ({
                   <OnlyPhone>
                     <AnimateSearchInputField
                       iconRight
-                      messageUri={messageUri}
+                      messageUrl={messageUrl}
                       messageCount={messageCount}
-                      searchConditionUri={searchConditionUri}
+                      searchConditionUrl={searchConditionUrl}
                       isPhone
                     />
                   </OnlyPhone>
                   <OnlyPC>
-                    <AnimateSearchInputField iconRight searchConditionUri={searchConditionUri} />
+                    <AnimateSearchInputField iconRight searchConditionUrl={searchConditionUrl} />
                   </OnlyPC>
                 </SearchFiledCell>
                 <OnlyPhone>
@@ -206,10 +206,10 @@ export default ({
                 </OnlyPhone>
                 <OnlyPC>
                   <ActionCell>
-                    <AvatarIcon imageSrc={user.image} to={homeUri} />
+                    <AvatarIcon imageSrc={user.image} to={homeUrl} />
                   </ActionCell>
                   <ActionCell>
-                    <Link to={homeUri}>
+                    <Link to={homeUrl}>
                       <AvaterName>{formatName(user.name)}</AvaterName>
                     </Link>
                   </ActionCell>
@@ -218,7 +218,7 @@ export default ({
             ) : (
               <ActionContainer>
                 <AnonymouseWrapper>
-                  <Anonymouse loginUri={loginUri} signupUri={signupUri} />
+                  <Anonymouse loginUrl={loginUrl} signupUrl={signupUrl} />
                 </AnonymouseWrapper>
               </ActionContainer>
             )}

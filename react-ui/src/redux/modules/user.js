@@ -181,9 +181,9 @@ function* updateUser({ payload: { userId, body } }) {
     handleGTM('userRegistered', user.id);
   }
 
-  if (body.imageUri instanceof Blob) {
+  if (body.imageUrl instanceof Blob) {
     const fileReader = new FileReader();
-    fileReader.readAsArrayBuffer(body.imageUri);
+    fileReader.readAsArrayBuffer(body.imageUrl);
     const ext = yield new Promise(resolve => {
       fileReader.onload = () => {
         const imageType = fileType(fileReader.result);
@@ -192,7 +192,7 @@ function* updateUser({ payload: { userId, body } }) {
     });
     const timeStamp = Date.now();
     const imagePath = `/img/users/${userId}/profile/${timeStamp}.${ext}`;
-    body.imageUrl = yield uploadImage(imagePath, body.imageUri);
+    body.imageUrl = yield uploadImage(imagePath, body.imageUrl);
   }
   const token = yield* getToken();
   const { data, err } = yield call(putApiRequest, apiEndpoint.users(userId), body, token);

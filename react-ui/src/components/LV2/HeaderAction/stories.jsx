@@ -49,7 +49,7 @@ storiesOf('Molecules(LV2)/HeaderAction', module)
       ヘッダアクション(ログイン、登録リンク)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Anonymouse loginUri="#" signupUri="#" />
+        <Anonymouse loginUrl="#" signupUrl="#" />
       </div>
     )),
   );

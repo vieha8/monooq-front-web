@@ -48,20 +48,20 @@ const OnlyPhone = styled.span`
 `;
 
 type PropTypes = {
-  loginUri: string,
-  signupUri: string,
+  loginUrl: string,
+  signupUrl: string,
 };
 
-export default ({ signupUri, loginUri }: PropTypes) => (
+export default ({ signupUrl, loginUrl }: PropTypes) => (
   <Container>
     <OnlyPC>
       <TextWrapper>
-        <TextLink href={signupUri} color={Colors.brandPrimary} bold>
+        <TextLink href={signupUrl} color={Colors.brandPrimary} bold>
           新規登録
         </TextLink>
       </TextWrapper>
       <TextWrapper>
-        <Button primary link href={loginUri} fontbold height={40} lineheight={15}>
+        <Button primary link href={loginUrl} fontbold height={40} lineheight={15}>
           ログイン
         </Button>
       </TextWrapper>
@@ -71,7 +71,7 @@ export default ({ signupUri, loginUri }: PropTypes) => (
         <Button
           primary
           link
-          href={loginUri}
+          href={loginUrl}
           fontSize={FontSizes.small_12}
           fontSizeSp={FontSizes.small_12}
           fontbold

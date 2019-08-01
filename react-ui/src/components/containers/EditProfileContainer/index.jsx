@@ -47,7 +47,7 @@ class EditProfileContainer extends Component<PropTypes> {
     dispatch(userActions.prepareUpdateUser());
 
     this.state = {
-      imageUri: user.imageUrl,
+      imageUrl: user.imageUrl,
       name: user.name || '',
       email: user.email || '',
       phoneNumber: user.phoneNumber || '',
@@ -104,8 +104,8 @@ class EditProfileContainer extends Component<PropTypes> {
     const errors = [];
 
     switch (propName) {
-      case 'imageUri':
-        state.imageUriPreview = URL.createObjectURL(value);
+      case 'imageUrl':
+        state.imageUrlPreview = URL.createObjectURL(value);
         break;
 
       case 'name':
@@ -182,8 +182,8 @@ class EditProfileContainer extends Component<PropTypes> {
     const { updateSuccess, isLoading, user, errMessage } = this.props;
 
     const {
-      imageUri,
-      imageUriPreview,
+      imageUrl,
+      imageUrlPreview,
       name,
       email,
       phoneNumber,
@@ -208,9 +208,9 @@ class EditProfileContainer extends Component<PropTypes> {
           ) : (
             <EditProfile
               errors={error}
-              onChangeImage={value => this.handleChangeUI('imageUri', value)}
-              imagePreview={imageUriPreview}
-              image={imageUri}
+              onChangeImage={value => this.handleChangeUI('imageUrl', value)}
+              imagePreview={imageUrlPreview}
+              image={imageUrl}
               onChangeName={value => this.handleChangeUI('name', value)}
               name={name}
               onChangeEmail={value => this.handleChangeUI('email', value)}
