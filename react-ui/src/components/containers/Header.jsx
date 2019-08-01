@@ -30,24 +30,9 @@ class HeaderContainer extends Component<PropTypes> {
     return (
       <Header
         top={top}
+        topUrl={Path.top()}
         isCheckingLogin={isChecking}
         noHeaderButton={noHeaderButton}
-        topUri={Path.top()}
-        homeUri={Path.home()}
-        editProfileUri={Path.editProfile()}
-        searchUri={Path.search()}
-        searchConditionUri={Path.searchCondition()}
-        scheduleUri={Path.schedule()}
-        createSpaceInfoUri={Path.createSpaceInfo()}
-        spacesUri={Path.spaces()}
-        salesUri={Path.sales()}
-        helpUri="https://help.monooq.com/"
-        inquiryUri={Path.inquiry()}
-        howToUseUri={Path.howToUse()}
-        serviceUri={Path.service()}
-        tidyUri="https://tidy.monooq.com/"
-        messageUri={Path.messages()}
-        messageCount={unreadRooms}
         user={
           isLogin
             ? {
@@ -56,9 +41,13 @@ class HeaderContainer extends Component<PropTypes> {
               }
             : null
         }
-        loginUri={Path.login()}
-        signupUri={Path.signUp()}
+        messageUrl={Path.messages()}
+        messageCount={unreadRooms}
+        searchConditionUrl={Path.searchCondition()}
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} isPhone />}
+        homeUrl={Path.home()}
+        loginUrl={Path.login()}
+        signupUrl={Path.signUp()}
       />
     );
   }

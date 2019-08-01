@@ -39,7 +39,7 @@ export default class RegisterProfileContainer extends Component<PropTypes, State
 
     this.state = {
       image: null,
-      imageUriPreview: '',
+      imageUrlPreview: '',
       name: '',
       prefCode: '',
       profile: '',
@@ -84,7 +84,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
     dispatch(
       userActions.updateUser({
         userId: user.id,
-        body: { imageUri: image, name, prefCode, profile, phoneNumber },
+        body: { imageUrl: image, name, prefCode, profile, phoneNumber },
       }),
     );
     history.push(Path.signUpPurpose());
@@ -97,7 +97,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
 
     switch (name) {
       case 'image':
-        state.imageUriPreview = URL.createObjectURL(value);
+        state.imageUrlPreview = URL.createObjectURL(value);
         break;
 
       case 'name':
@@ -160,14 +160,14 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
 
   render() {
     const { isLoading, history } = this.props;
-    const { image, imageUriPreview, name, prefCode, profile, phoneNumber, error } = this.state;
+    const { image, imageUrlPreview, name, prefCode, profile, phoneNumber, error } = this.state;
 
     return (
       <Fragment>
         <RegisterProfile
           errors={error}
           onChangeImage={picked => this.handleChangeForm('image', picked)}
-          imagePreview={imageUriPreview}
+          imagePreview={imageUrlPreview}
           image={image}
           onChangeName={value => this.handleChangeForm('name', value)}
           name={name}

@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 import { Colors } from 'variables';
 
-import arrowImageUri from './drop-down-arrow.png';
+import arrowImage from './drop-down-arrow.png';
 
 const Select = styled.select`
   appearance: none;
@@ -14,7 +14,7 @@ const Select = styled.select`
   border: 1px solid ${Colors.lightGray1};
   color: ${Colors.black};
   outline: none;
-  background: ${Colors.lightGray2Bg} url(${arrowImageUri}) 95% 50% no-repeat;
+  background: ${Colors.lightGray2Bg} url(${arrowImage}) 95% 50% no-repeat;
   background-size: 10px 8px;
   &:focus {
     border-color: ${Colors.brandPrimary};
