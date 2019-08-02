@@ -11,7 +11,6 @@ import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { ErrorMessages } from 'variables';
 import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
-import { formatRemoveComma } from 'helpers/string';
 import connect from '../connect';
 
 type PropTypes = {

@@ -15,21 +15,21 @@ type PropTypes = {
   iconLeft?: boolean,
   iconRight?: boolean,
   isPhone?: boolean,
-  messageUri?: string,
+  messageUrl?: string,
   messageCount?: number,
-  searchConditionUri: string,
+  searchConditionUrl: string,
 };
 
 export default ({
   iconLeft,
   iconRight,
   isPhone,
-  messageUri,
+  messageUrl,
   messageCount,
-  searchConditionUri,
+  searchConditionUrl,
 }: PropTypes) => (
   <Container align={(iconLeft && 'left') || (iconRight && 'right')}>
-    {isPhone && <MessageIcon href={messageUri} messageCount={messageCount} />}
-    <SearchIcon href={searchConditionUri} />
+    {isPhone && <MessageIcon href={messageUrl} messageCount={messageCount} />}
+    <SearchIcon href={searchConditionUrl} />
   </Container>
 );

@@ -182,7 +182,7 @@ const showImagePreview = (images, onClickDeleteImage) => {
 
             return (
               <ImagePreviewWrapper key={`image_preivew_${i}`.toString()} widthRate={25}>
-                <ImagePreview imageUri={imageUrl} onClickDelete={() => onClickDeleteImage(i)} />
+                <ImagePreview imageUrl={imageUrl} onClickDelete={() => onClickDeleteImage(i)} />
               </ImagePreviewWrapper>
             );
           }

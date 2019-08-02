@@ -29,7 +29,7 @@ export const apiEndpoint = {
 
 const createApiInstance = token =>
   axios.create({
-    baseURL: apiConfig().baseURI,
+    baseURL: apiConfig().baseURL,
     timeout: 20000,
     headers: {
       Accept: 'application/json',

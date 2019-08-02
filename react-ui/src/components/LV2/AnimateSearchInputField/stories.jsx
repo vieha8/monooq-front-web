@@ -19,7 +19,7 @@ storiesOf('Molecules(LV2)/AnimateSearchInputField', module)
       検索条件入力欄(検索ボタン右配置)(phone) ※検索欄廃止済み
     `)(() => (
       <div style={{ width: '100%', maxWidth: '320px', padding: `${Dimens.storyBookPadding}` }}>
-        <AnimateSearchInputField iconRight searchConditionUri="" isPhone />
+        <AnimateSearchInputField iconRight searchConditionUrl="" isPhone />
       </div>
     )),
   )
@@ -30,7 +30,7 @@ storiesOf('Molecules(LV2)/AnimateSearchInputField', module)
       検索条件入力欄(検索ボタン右配置)(pc) ※検索欄廃止済み
     `)(() => (
       <div style={{ width: '100%', maxWidth: '320px', padding: `${Dimens.storyBookPadding}` }}>
-        <AnimateSearchInputField iconRight searchConditionUri="" />
+        <AnimateSearchInputField iconRight searchConditionUrl="" />
       </div>
     )),
   );

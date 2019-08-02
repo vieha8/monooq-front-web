@@ -29,17 +29,6 @@ type PropTypes = {
 };
 
 class UnsubscribeContainer extends Component<PropTypes> {
-  static renderCompleted() {
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline="退会処理が完了しました"
-        leftContent={<UnsubscribeCompleted />}
-        rightContent={<div style={{ height: '400px' }} />}
-      />
-    );
-  }
-
   constructor(props: PropTypes) {
     super(props);
     const { dispatch } = this.props;
@@ -110,6 +99,15 @@ class UnsubscribeContainer extends Component<PropTypes> {
     return reasonType && reasonType.length > 0;
   };
 
+  renderCompleted = () => (
+    <MenuPageTemplate
+      header={<Header />}
+      headline="退会処理が完了しました"
+      leftContent={<UnsubscribeCompleted />}
+      rightContent={<div style={{ height: '400px' }} />}
+    />
+  );
+
   renderFailed = () => {
     const { user } = this.props;
     return (
@@ -147,11 +145,11 @@ class UnsubscribeContainer extends Component<PropTypes> {
     }
 
     if (isUnsubscribeSuccess) {
-      return UnsubscribeContainer.renderCompleted();
+      return this.renderCompleted();
     }
 
     if (isUnsubscribeFailed) {
-      return UnsubscribeContainer.renderFailed();
+      return this.renderFailed();
     }
 
     return (
