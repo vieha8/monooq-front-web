@@ -402,7 +402,7 @@ function* signUpEmail({ payload: { email, password } }) {
 function* signUpFacebook() {
   try {
     const provider = new firebase.auth.FacebookAuthProvider();
-    const result = yield firebase.auth().signInWithPopup(provider);
+    const result = yield firebase.auth().signInWithRedirect(provider);
     const { isNewUser } = result.additionalUserInfo;
     if (!isNewUser) {
       yield put(authActions.signupFailed(ErrorMessages.FailedSignUpMailExist));
@@ -484,7 +484,7 @@ function* unsubscribe({ payload: { reason, description } }) {
   const { err } = yield call(deleteApiRequest, apiEndpoint.users(user.id), token);
 
   if (err) {
-    yield handleError(authActions.unsubscribeFailed, '', 'unsubscribe', err, false);
+    yield handleError(authActions.unsubscribeFailed, '', 'unsubscribe', err, true);
     return;
   }
 
