@@ -80,10 +80,10 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
     }
   };
 
-  captionContent = () => {
+  captionContent = isUpdate => {
     return (
       <div>
-        モノオクにスペースが掲載されました！
+        {!isUpdate ? 'モノオクにスペースが掲載されました！' : 'スペースの情報を更新しました！'}
         <br />
         利用希望のリクエストが届くと、メッセージページにてユーザーとのやり取りが可能になります。
         <br />
@@ -125,7 +125,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
       <MenuPageTemplate
         header={<Header />}
         headline={`${!isUpdate ? '登録' : '編集'}が完了しました`}
-        caption={this.captionContent()}
+        caption={this.captionContent(isUpdate)}
         leftContent={this.leftContent(isUpdate)}
         rightContent={<ServiceMenu />}
       />
