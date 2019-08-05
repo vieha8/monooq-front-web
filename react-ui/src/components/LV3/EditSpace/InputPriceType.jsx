@@ -115,7 +115,7 @@ export default ({
     </Section>
     <Section>
       <EntryButtons
-        rerative
+        relative
         enabled
         loading={buttonLoading}
         backButton={{

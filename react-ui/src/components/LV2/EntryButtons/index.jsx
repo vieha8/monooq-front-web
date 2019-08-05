@@ -11,13 +11,13 @@ const EntryButtonsWrap = styled.div`
   ${media.phone`
     display: block;
     width: 100%;
-    position: ${props => props.rerative || 'absolute'};
+    position: ${props => props.relative || 'absolute'};
     left: 0px;
     bottom: 0px;
     text-align: center;
     padding: 0 15px 15px;
     ${props =>
-      props.rerative &&
+      props.relative &&
       `
       padding: 0;
     `};
@@ -68,7 +68,7 @@ const Wrapper = styled.div`
 `;
 
 type PropTypes = {
-  rerative?: boolean,
+  relative?: boolean,
   remove?: boolean,
   backButton: {
     text: string,
@@ -91,7 +91,7 @@ type PropTypes = {
 };
 
 export default ({
-  rerative,
+  relative,
   remove,
   backButton,
   loading,
@@ -99,7 +99,7 @@ export default ({
   enabledButton,
   disabledButton,
 }: PropTypes) => (
-  <EntryButtonsWrap rerative={rerative}>
+  <EntryButtonsWrap relative={relative}>
     <Container>
       <Cell align="left">
         <Wrapper backButton>

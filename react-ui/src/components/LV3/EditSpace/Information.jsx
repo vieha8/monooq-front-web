@@ -131,7 +131,7 @@ export default ({
       {edit ? (
         <EntryButtons
           enabled
-          rerative
+          relative
           remove
           backButton={{
             text: 'このスペースを削除する',
