@@ -190,7 +190,7 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
         <EntryButtonWrap>
           <EntryButtons
             enabled
-            rerative
+            relative
             loading={isLoading}
             backButton={{
               text: '戻って修正する',
