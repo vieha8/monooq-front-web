@@ -2,19 +2,15 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Dimens } from 'variables';
-import { media } from 'helpers/style/media-query';
+import { Dimens, FontSizes } from 'variables';
 
 const GuideContent = styled.div`
   background-color: #f2f2f2;
-  padding: 20px;
-  font-size: 15px;
+  border-radius: ${Dimens.xxsmall_4}px;
+  padding: ${Dimens.medium}px;
+  margin-bottom: ${Dimens.medium}px;
+  font-size: ${FontSizes.small_15}px;
   line-height: 140%;
-  padding: 16px;
-  margin-bottom: 16px;
-  ${media.phone`
-    margin-top: ${Dimens.small_15}px;
-  `};
 `;
 
 type PropTypes = {

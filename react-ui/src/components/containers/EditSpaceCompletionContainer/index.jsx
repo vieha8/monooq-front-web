@@ -1,15 +1,14 @@
 // @flow
 
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component, Fragment } from 'react';
 import Path from 'config/path';
 
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
+import HostGuide from 'components/LV2/HostGuide';
 import EditSpaceCompletion from 'components/LV3/EditSpace/Completion';
 import { iskeyDownEnter } from 'helpers/keydown';
-import HostGuide from 'components/LV2/HostGuide';
 
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
@@ -82,28 +81,25 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
 
   captionContent = isUpdate => {
     return (
-      <div>
+      <Fragment>
         {!isUpdate ? 'モノオクにスペースが掲載されました！' : 'スペースの情報を更新しました！'}
         <br />
         利用希望のリクエストが届くと、メッセージページにてユーザーとのやり取りが可能になります。
         <br />
         利用期間や価格等を調整し、取引を進めましょう！
-      </div>
+      </Fragment>
     );
   };
 
   leftContent = isUpdate => {
     const { user } = this.props;
     return (
-      <div>
+      <Fragment>
         <HostGuide
           header="ご成約までの流れ"
-          data1="リクエストが届いてから24時間以内に返信しましょう。
-          早めに返信した方が、成約率が高くなります！"
-          data2="荷物の内容や量・利用期間などユーザーの要望を確認し、
-          引き受けられる場合は見積もりを提出しましょう。"
-          data3="ユーザーからの決済が完了すると取引が成立し、スペースの住所がメッセージルームに公開されます。
-          利用開始日になったら荷物を受け取りましょう。"
+          data1="リクエストが届いてから24時間以内に返信しましょう。早めに返信した方が、成約率が高くなります！"
+          data2="荷物の内容や量・利用期間などユーザーの要望を確認し、引き受けられる場合は見積もりを提出しましょう。"
+          data3="ユーザーからの決済が完了すると取引が成立し、スペースの住所がメッセージルームに公開されます。利用開始日になったら荷物を受け取りましょう。"
         />
         <EditSpaceCompletion
           edit={isUpdate}
@@ -115,7 +111,7 @@ class EditSpaceCompletionContainer extends Component<PropTypes> {
           onClickViewSpace={this.onClickViewSpace}
           onKeyDownViewSpace={this.onKeyDownViewSpace}
         />
-      </div>
+      </Fragment>
     );
   };
 

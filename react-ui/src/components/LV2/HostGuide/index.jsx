@@ -2,18 +2,19 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Dimens, FontSizes } from 'variables';
 import GuideContent from 'components/LV1/GuideContent';
 
 const GuideContainer = styled.div`
   width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: ${Dimens.medium2}px;
 `;
 
 const GuideHeader = styled.div`
-  font-size: 18px;
-  font-weight: bold;
   width: 100%;
-  padding: 8px 0 16px 0;
+  padding: ${Dimens.small}px 0 ${Dimens.medium}px 0;
+  font-size: ${FontSizes.medium_18}px;
+  font-weight: bold;
 `;
 
 type PropTypes = {
