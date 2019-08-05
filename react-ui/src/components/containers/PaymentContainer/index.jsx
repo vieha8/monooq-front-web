@@ -16,8 +16,8 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import InputPayment from 'components/LV3/InputPayment';
 import Header from 'components/containers/Header';
 import LoadingPage from 'components/LV3/LoadingPage';
-import Button from 'components/LV1/Button';
-import { H1 } from 'components/LV1/Headline';
+import Button from 'components/LV1/Forms/Button';
+import { H1 } from 'components/LV1/Texts/Headline';
 
 import { Dimens, Colors, FontSizes, ErrorMessages } from 'variables';
 

@@ -2,8 +2,8 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import TextButton from 'components/LV1/TextButton';
-import InputField from 'components/LV1/InputField';
+import InputField from 'components/LV1/Forms/InputField';
+import TextButton from 'components/LV1/Texts/TextButton';
 import { Colors } from 'variables';
 
 const Wrapper = styled.div`

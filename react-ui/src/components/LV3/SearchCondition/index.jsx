@@ -3,10 +3,10 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { H3 } from 'components/LV1/Headline';
-import Button from 'components/LV1/Button';
-import InlineText from 'components/LV1/InlineText';
-import InputField from 'components/LV1/InputField';
+import Button from 'components/LV1/Forms/Button';
+import InputField from 'components/LV1/Forms/InputField';
+import { H3 } from 'components/LV1/Texts/Headline';
+import InlineText from 'components/LV1/Texts/InlineText';
 import DisplayErrors from 'components/LV2/DisplayErrors';
 import InputForm from 'components/LV2/InputForm';
 import SelectForm from 'components/LV2/SelectForm';

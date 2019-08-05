@@ -6,9 +6,9 @@ import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 import selectOptionPurpose from 'helpers/purposes';
-import Check from 'components/LV1/Check';
-import Button from 'components/LV1/Button';
-import RegsiterProfileImage from 'components/LV1/DragAndDrop/RegisterProfileImage';
+import Button from 'components/LV1/Forms/Button';
+import CheckBox from 'components/LV1/Forms/CheckBox';
+import RegsiterProfileImage from 'components/LV1/Forms/DragAndDrop/RegisterProfileImage';
 import DisplayErrors from 'components/LV2/DisplayErrors';
 import InputForm from 'components/LV2/InputForm';
 import SelectForm from 'components/LV2/SelectForm';
@@ -110,9 +110,13 @@ export default ({
       <DisplayErrors keyName="email_errors" errors={errors.email} />
     </Row>
     <Row>
-      <Check checked={isNoticeEmail} onClick={onChangeNoticeEmail} onKeyDown={onKeyDownNoticeEmail}>
+      <CheckBox
+        checked={isNoticeEmail}
+        onClick={onChangeNoticeEmail}
+        onKeyDown={onKeyDownNoticeEmail}
+      >
         サービスに関するお知らせメールを受け取る
-      </Check>
+      </CheckBox>
     </Row>
     <Row>
       <InputForm

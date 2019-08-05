@@ -3,8 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
+import Button from 'components/LV1/Forms/Button';
 import SpaceImagePicker from 'components/LV2/SpaceImagePicker';
-import Button from 'components/LV1/Button';
 import DisplayErrors from 'components/LV2/DisplayErrors';
 import EntryButtons from 'components/LV2/EntryButtons';
 import InputForm from 'components/LV2/InputForm';

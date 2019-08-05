@@ -2,12 +2,12 @@
 
 import React from 'react';
 import Path from 'config/path';
-import Button from 'components/LV1/Button';
-import InlineText from 'components/LV1/InlineText';
-import { H1 } from 'components/LV1/Headline';
-import TextLink from 'components/LV1/TextLink';
+import Button from 'components/LV1/Forms/Button';
+import InputField from 'components/LV1/Forms/InputField';
+import { H1 } from 'components/LV1/Texts/Headline';
+import InlineText from 'components/LV1/Texts/InlineText';
+import TextLink from 'components/LV1/Texts/TextLink';
 import IconInputField from 'components/LV2/IconInputField';
-import InputField from 'components/LV1/InputField';
 import { Colors, FontSizes } from 'variables';
 import Form from './Form';
 

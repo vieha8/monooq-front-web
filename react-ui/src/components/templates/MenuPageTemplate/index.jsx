@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import ClearfixContainer from 'components/LV1/ClearfixContainer';
-import { H1 } from 'components/LV1/Headline';
-import InlineText from 'components/LV1/InlineText';
+import { H1 } from 'components/LV1/Texts/Headline';
+import InlineText from 'components/LV1/Texts/InlineText';
 import Page from '../Page';
 
 const Caption = styled.div`

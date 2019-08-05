@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
-import Text from 'components/LV1/StaticText';
+import Text from 'components/LV1/Texts/StaticText';
 
 const ContentContainer = styled.div`
   width: 100%;

@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Colors } from 'variables';
-import InlineText from 'components/LV1/InlineText';
+import InlineText from 'components/LV1/Texts/InlineText';
 
 const Wrapper = styled.div`
   ${props =>

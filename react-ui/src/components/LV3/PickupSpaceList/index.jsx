@@ -4,9 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
-
-import { H2 } from 'components/LV1/Headline';
-import TextButton from 'components/LV1/TextButton';
+import { H2 } from 'components/LV1/Texts/Headline';
 import FeatureSpaceCard from 'components/LV2/FeatureSpaceCard';
 
 const Container = styled.div`
@@ -54,15 +52,6 @@ const CardWrapper = styled.div`
   margin: ${Dimens.xxsmall_4}px;
 `;
 
-const MoreViewContainer = styled.div`
-  text-align: center;
-  padding: ${Dimens.medium}px 0;
-  display: none;
-  ${media.tablet`
-    display: block;
-  `};
-`;
-
 const HorizontalScroll = styled.ul`
   overflow-x: auto;
   &::-webkit-scrollbar {
@@ -87,11 +76,9 @@ type PropTypes = {
     },
     large: boolean,
   }>,
-  noMore: boolean,
-  onClickMoreView: Function,
 };
 
-const PickupSpaceList = ({ title, spaceList, noMore, onClickMoreView }: PropTypes) => (
+const PickupSpaceList = ({ title, spaceList }: PropTypes) => (
   <Container>
     <TitleContainer>
       <H2>{title}</H2>
@@ -105,11 +92,6 @@ const PickupSpaceList = ({ title, spaceList, noMore, onClickMoreView }: PropType
         ))}
       </HorizontalScroll>
     </ListContainer>
-    {!noMore && (
-      <MoreViewContainer>
-        <TextButton onClick={onClickMoreView}>もっとみる</TextButton>
-      </MoreViewContainer>
-    )}
   </Container>
 );
 

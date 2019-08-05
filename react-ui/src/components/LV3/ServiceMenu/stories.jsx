@@ -11,8 +11,6 @@ import ServiceMenu from './index';
 
 ServiceMenu.displayName = 'ServiceMenu';
 
-const user = { name: 'AAA', image: '' };
-
 storiesOf('Organisms(LV3)/ServiceMenu', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(

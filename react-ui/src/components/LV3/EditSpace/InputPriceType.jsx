@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/LV1/InlineText';
+import InlineText from 'components/LV1/Texts/InlineText';
 import DisplayErrors from 'components/LV2/DisplayErrors';
 import EntryButtons from 'components/LV2/EntryButtons';
 import InputPriceOfType from 'components/LV2/InputPriceOfType';

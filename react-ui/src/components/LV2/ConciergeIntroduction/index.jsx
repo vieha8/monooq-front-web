@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Button from 'components/LV1/Button';
+import Button from 'components/LV1/Forms/Button';
 
 const ConciergeContents = () => {
   const StyledContainer = styled.div`

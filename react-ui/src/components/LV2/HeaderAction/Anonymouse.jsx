@@ -2,9 +2,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import TextLink from 'components/LV1/TextLink';
+import Button from 'components/LV1/Forms/Button';
+import TextLink from 'components/LV1/Texts/TextLink';
 import { Colors, FontSizes } from 'variables';
-import Button from 'components/LV1/Button';
 import { media } from 'helpers/style/media-query';
 
 const Container = styled.span`

@@ -2,9 +2,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Button from 'components/LV1/Button';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import Button from 'components/LV1/Forms/Button';
 import ConfirmBtnModal from 'components/LV2/ConfirmBtnModal';
 
 const EntryButtonsWrap = styled.div`

@@ -2,7 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import { Modal, Button } from 'semantic-ui-react';
-import ButtonLV1 from 'components/LV1/Button';
+import ButtonLV1 from 'components/LV1/Forms/Button';
 
 type PropTypes = {
   btnText: string,

@@ -2,8 +2,8 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import Radio from 'components/LV1/Radio';
-import { H3 } from 'components/LV1/Headline';
+import Radio from 'components/LV1/Forms/Radio';
+import { H3 } from 'components/LV1/Texts/Headline';
 import { Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 

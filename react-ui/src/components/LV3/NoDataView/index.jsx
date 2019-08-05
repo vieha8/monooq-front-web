@@ -2,8 +2,8 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/LV1/InlineText';
-import Button from 'components/LV1/Button';
+import Button from 'components/LV1/Forms/Button';
+import InlineText from 'components/LV1/Texts/InlineText';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import ConciergeContents from 'components/LV2/ConciergeIntroduction';

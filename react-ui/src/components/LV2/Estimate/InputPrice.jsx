@@ -2,8 +2,8 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/InputForm';
-import InlineText from 'components/LV1/InlineText';
 import { Colors, Dimens } from 'variables';
 
 const TextWrap = styled.div`

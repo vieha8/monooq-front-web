@@ -2,9 +2,9 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { H3 } from 'components/LV1/Headline';
-import InlineText from 'components/LV1/InlineText';
-import Select from 'components/LV1/Select';
+import Select from 'components/LV1/Forms/Select';
+import { H3 } from 'components/LV1/Texts/Headline';
+import InlineText from 'components/LV1/Texts/InlineText';
 
 const SelectWrapper = styled.div`
   margin-top: 6px;

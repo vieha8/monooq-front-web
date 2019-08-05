@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/LV1/InlineText';
+import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/InputForm';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';

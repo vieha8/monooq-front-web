@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import TextLink from 'components/LV1/TextLink';
+import TextLink from 'components/LV1/Texts/TextLink';
 import { Dimens, Colors, FontSizes } from 'variables';
 
 const Container = styled.div`

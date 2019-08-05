@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import { Colors } from 'variables';
-import InlineText from 'components/LV1/InlineText';
+import InlineText from 'components/LV1/Texts/InlineText';
 
 type PropTypes = {
   keyName: string,

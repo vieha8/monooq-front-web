@@ -2,8 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/LV1/InlineText';
-import SlideImage from 'components/LV1/SlideImage';
+import InlineText from 'components/LV1/Texts/InlineText';
+import SlideImage from 'components/LV1/Images/SlideImage';
 import { Dimens } from 'variables';
 
 const Desc = styled.div`

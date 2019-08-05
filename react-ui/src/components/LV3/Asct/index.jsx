@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { Link } from 'react-router-dom';
 import DefaultContainer from 'components/LV1/DefaultContainer';
+import Text from 'components/LV1/Texts/StaticText';
 import Footer from 'components/LV2/Footer';
 import MainTitleContainer from 'components/LV2/StaticMainTitle';
 import AsctContent from 'components/LV2/AsctContent';
-import Text from 'components/LV1/StaticText';
 
 const LinkText = styled(Link)`
   color: ${Colors.linkBlue};

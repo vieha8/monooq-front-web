@@ -2,9 +2,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/LV1/InlineText';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
+import InlineText from 'components/LV1/Texts/InlineText';
 
 const Container = styled.div`
   width: 100%;

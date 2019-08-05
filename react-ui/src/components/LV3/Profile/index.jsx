@@ -6,8 +6,8 @@ import { media } from 'helpers/style/media-query';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { getPrefecture } from 'helpers/prefectures';
 import { formatName } from 'helpers/string';
-import InlineText from 'components/LV1/InlineText';
-import AvatarImage from 'components/LV1/AvatarImage';
+import InlineText from 'components/LV1/Texts/InlineText';
+import AvatarImage from 'components/LV1/Images/AvatarImage';
 import SearchResultItem from 'components/LV2/SearchResultItem';
 import type { SpaceType } from 'types/Space';
 

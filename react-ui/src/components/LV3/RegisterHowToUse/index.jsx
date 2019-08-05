@@ -1,10 +1,10 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import InlineText from 'components/LV1/InlineText';
+import InlineText from 'components/LV1/Texts/InlineText';
+import EntryButtons from 'components/LV2/EntryButtons';
 import RadioList from 'components/LV2/RadioList';
 import { Colors, FontSizes } from 'variables';
-import EntryButtons from 'components/LV2/EntryButtons';
 import { formatName } from 'helpers/string';
 import Form from './Form';
 

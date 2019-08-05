@@ -134,12 +134,7 @@ export default ({
     />
 
     <PickupContainer>
-      <PickupSpaceList
-        title="スタッフのおすすめ"
-        spaceList={pickUpSpaces}
-        noMore
-        onClickMoreView={() => {}}
-      />
+      <PickupSpaceList title="スタッフのおすすめ" spaceList={pickUpSpaces} />
     </PickupContainer>
 
     <CommonContainer>

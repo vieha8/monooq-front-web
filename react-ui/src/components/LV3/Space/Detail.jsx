@@ -4,7 +4,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Button from 'components/LV1/Button';
+import Button from 'components/LV1/Forms/Button';
+import InlineText from 'components/LV1/Texts/InlineText';
 import Description from 'components/LV2/Space/Description';
 import Image from 'components/LV2/Space/Image';
 import Address from 'components/LV2/Space/Address';
@@ -13,7 +14,6 @@ import AboutBaggage from 'components/LV2/Space/AboutBaggage';
 import Receive from 'components/LV2/Space/Receive';
 import Supplement from 'components/LV2/Space/Supplement';
 import HostInfo from 'components/LV2/Space/HostInfo';
-import InlineText from 'components/LV1/InlineText';
 import Price from 'components/LV3/Space/Price';
 import ReactGA from 'react-ga';
 

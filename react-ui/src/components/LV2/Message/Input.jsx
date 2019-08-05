@@ -3,9 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
-import { PictureIcon } from 'components/LV1/ActionIcon';
-import InlineText from 'components/LV1/InlineText';
-import TextArea from 'components/LV1/TextArea';
+import { PictureIcon } from 'components/LV1/Images/ActionIcon';
+import TextArea from 'components/LV1/Forms/TextArea';
+import InlineText from 'components/LV1/Texts/InlineText';
 import { Dimens } from 'variables';
 
 const PickImageWrap = styled.div`

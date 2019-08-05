@@ -1,8 +1,8 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import AvatarImage from 'components/LV1/AvatarImage';
+import AvatarImage from 'components/LV1/Images/AvatarImage';
 
 type PropTypes = {
   to?: string,
@@ -16,7 +16,5 @@ export default ({ to, imageSrc, size }: PropTypes) =>
       <AvatarImage src={imageSrc} size={size || 32} />
     </Link>
   ) : (
-    <Fragment>
-      <AvatarImage src={imageSrc} size={size || 32} />
-    </Fragment>
+    <AvatarImage src={imageSrc} size={size || 32} />
   );

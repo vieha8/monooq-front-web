@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Check from 'components/LV1/Check';
+import CheckBox from 'components/LV1/Forms/CheckBox';
 import DisplayErrors from 'components/LV2/DisplayErrors';
 import EntryButtons from 'components/LV2/EntryButtons';
 import InputForm from 'components/LV2/InputForm';
@@ -52,9 +52,13 @@ export default ({
       />
       <DisplayErrors keyName="baggage_errors" errors={errors.about} />
       <CheckWrapper>
-        <Check checked={checkedFurniture} onClick={onClickFurniture} onKeyDown={onKeyDownFurniture}>
+        <CheckBox
+          checked={checkedFurniture}
+          onClick={onClickFurniture}
+          onKeyDown={onKeyDownFurniture}
+        >
           家具や家電製品に対応する
-        </Check>
+        </CheckBox>
       </CheckWrapper>
     </Section>
     <Section>

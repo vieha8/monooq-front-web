@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
-import InlineText from 'components/LV1/InlineText';
+import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors, Dimens } from 'variables';
 
 const Container = styled.div`

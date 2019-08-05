@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import DefaultContainer from 'components/LV1/DefaultContainer';
-import { Height as HeaderHeight } from 'components/LV3/Header';
 import Hr from 'components/LV1/HorizontalRule';
-import MainTitle from 'components/LV1/StaticMainTitle';
-import Text from 'components/LV1/StaticText';
+import MainTitle from 'components/LV1/Texts/StaticMainTitle';
+import Text from 'components/LV1/Texts/StaticText';
+import { Height as HeaderHeight } from 'components/LV3/Header';
 
 const MainTitleContainer = styled(DefaultContainer)`
   ${props =>

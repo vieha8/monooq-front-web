@@ -9,7 +9,7 @@ import SpaceMap from './index';
 
 SpaceMap.displayName = 'SpaceMap';
 
-storiesOf('Atoms(LV1)/SpaceMap', module).add(
+storiesOf('Atoms(LV1)/Util/SpaceMap', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要

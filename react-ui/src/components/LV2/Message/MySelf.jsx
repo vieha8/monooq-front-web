@@ -4,8 +4,8 @@ import React from 'react';
 import styled from 'styled-components';
 import ClearfixContainer from 'components/LV1/ClearfixContainer';
 import Card from 'components/LV1/Card';
-import InlineText from 'components/LV1/InlineText';
-import TextLink from 'components/LV1/TextLink';
+import InlineText from 'components/LV1/Texts/InlineText';
+import TextLink from 'components/LV1/Texts/TextLink';
 import { Colors } from 'variables';
 
 const ActionTable = styled.div`

@@ -5,8 +5,8 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { H2 } from 'components/LV1/Headline';
-import Button from 'components/LV1/Button';
+import Button from 'components/LV1/Forms/Button';
+import { H2 } from 'components/LV1/Texts/Headline';
 import InputSchedule from 'components/LV2/Estimate/InputSchedule';
 import InputPrice from 'components/LV2/Estimate/InputPrice';
 

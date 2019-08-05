@@ -6,10 +6,10 @@ import Dropzone from 'react-dropzone';
 import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { isImageDefault } from 'helpers/images';
-import { H3 } from 'components/LV1/Headline';
-import InlineText from 'components/LV1/InlineText';
 import Loading from 'components/LV1/Loading';
-import { PictureIcon } from 'components/LV1/ActionIcon';
+import { PictureIcon } from 'components/LV1/Images/ActionIcon';
+import { H3 } from 'components/LV1/Texts/Headline';
+import InlineText from 'components/LV1/Texts/InlineText';
 import loadImage from 'blueimp-load-image';
 import ImagePreview from './ImagePreview';
 

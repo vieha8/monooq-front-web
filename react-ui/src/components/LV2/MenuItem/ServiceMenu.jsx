@@ -3,9 +3,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import InlineText from 'components/LV1/InlineText';
 import NotificationCount from 'components/LV1/NotificationCount';
 import MenuItem from 'components/LV1/Menu/Item';
+import InlineText from 'components/LV1/Texts/InlineText';
 import { Dimens, FontSizes, Colors } from 'variables';
 
 const MenuLink = styled(Link)`

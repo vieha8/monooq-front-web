@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
 import StyledDefaultContainer from 'components/LV1/DefaultContainer/StyledDefaultContainer';
-import Button from 'components/LV1/Button';
+import Button from 'components/LV1/Forms/Button';
 import ExplainSection from 'components/LV2/ExplainSection';
 import ForSafeSection from 'components/LV2/ForSafeSection';
 

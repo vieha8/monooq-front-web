@@ -3,8 +3,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens } from 'variables';
-import InlineText from 'components/LV1/InlineText';
-import Button from 'components/LV1/Button';
+import Button from 'components/LV1/Forms/Button';
+import InlineText from 'components/LV1/Texts/InlineText';
 
 const Row = styled.div`
   width: 100%;

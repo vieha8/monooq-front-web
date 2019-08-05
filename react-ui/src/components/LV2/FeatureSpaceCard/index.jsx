@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import { media } from 'helpers/style/media-query';
 import LazyLoad from 'react-lazyload';
 import Card from 'components/LV1/Card';
-import HeroImage from 'components/LV1/HeroImage';
-import AvatarImage from 'components/LV1/AvatarImage';
-import InlineText from 'components/LV1/InlineText';
+import AvatarImage from 'components/LV1/Images/AvatarImage';
+import HeroImage from 'components/LV1/Images/HeroImage';
+import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors, Dimens } from 'variables';
 import { formatName } from 'helpers/string';
 

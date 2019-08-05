@@ -3,8 +3,8 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import AvatarImage from 'components/LV1/AvatarImage';
-import InlineText from 'components/LV1/InlineText';
+import AvatarImage from 'components/LV1/Images/AvatarImage';
+import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
 import { FontSizes } from 'variables';
 import { formatName } from 'helpers/string';

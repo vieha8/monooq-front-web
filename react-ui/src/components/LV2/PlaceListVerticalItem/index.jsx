@@ -6,8 +6,8 @@ import { media } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import { Colors, Dimens } from 'variables';
 import Card from 'components/LV1/Card';
-import InlineText from 'components/LV1/InlineText';
-import HeroImage from 'components/LV1/HeroImage';
+import HeroImage from 'components/LV1/Images/HeroImage';
+import InlineText from 'components/LV1/Texts/InlineText';
 
 const Container = styled.div`
   ${props =>

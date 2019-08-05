@@ -3,7 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Logo from 'components/LV1/Logo';
+import Logo from 'components/LV1/Images/Logo';
 import AvatarIcon from 'components/LV2/HeaderAction/AvatarIcon';
 import Anonymouse from 'components/LV2/HeaderAction/Anonymouse';
 import AnimateSearchInputField from 'components/LV2/AnimateSearchInputField';

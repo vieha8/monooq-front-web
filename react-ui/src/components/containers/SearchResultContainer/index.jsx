@@ -11,7 +11,7 @@ import SearchResultTemplate from 'components/templates/SearchResultTemplate';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
-import Button from 'components/LV1/Button';
+import Button from 'components/LV1/Forms/Button';
 import SearchResult from 'components/LV3/SearchResult';
 import NoDataView from 'components/LV3/NoDataView';
 import ConciergeContents from 'components/LV2/ConciergeIntroduction';

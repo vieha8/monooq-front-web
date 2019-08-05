@@ -1,13 +1,15 @@
+// @flow
+
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import InlineText from 'components/LV1/InlineText';
-import Button from 'components/LV1/Button';
+import Hr from 'components/LV1/HorizontalRule';
+import Button from 'components/LV1/Forms/Button';
+import Text from 'components/LV1/Texts/StaticText';
+import InlineText from 'components/LV1/Texts/InlineText';
 import DefaultContainer from 'components/LV1/DefaultContainer';
 import Footer from 'components/LV2/Footer';
-import Hr from 'components/LV1/HorizontalRule';
-import Text from 'components/LV1/StaticText';
 import WhenIUseList from 'components/LV2/WhenIUseList';
 import IfIFindList from 'components/LV2/IfIFindList';
 import mainVisual from 'images/about_main_visual@2x.jpg';

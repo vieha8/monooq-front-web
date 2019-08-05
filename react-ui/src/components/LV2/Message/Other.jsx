@@ -3,10 +3,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import ClearfixContainer from 'components/LV1/ClearfixContainer';
-import AvatarImage from 'components/LV1/AvatarImage';
 import Card from 'components/LV1/Card';
-import InlineText from 'components/LV1/InlineText';
+import ClearfixContainer from 'components/LV1/ClearfixContainer';
+import AvatarImage from 'components/LV1/Images/AvatarImage';
+import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
 import { Dimens, Colors } from 'variables';
 

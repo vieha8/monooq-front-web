@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { CloseIcon } from 'components/LV1/ActionIcon';
+import { CloseIcon } from 'components/LV1/Images/ActionIcon';
 
 const LinkWrapper = styled.span`
   display: inline-block;

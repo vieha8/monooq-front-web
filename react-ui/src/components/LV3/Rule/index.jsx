@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import DefaultContainer from 'components/LV1/DefaultContainer';
-import Footer from 'components/LV2/Footer';
-import MainTitleContainer from 'components/LV2/StaticMainTitle';
 import Hr from 'components/LV1/HorizontalRule';
-import Text from 'components/LV1/StaticText';
+import Text from 'components/LV1/Texts/StaticText';
 import AboutCancellContent from 'components/LV2/AboutCancellContent';
 import DescriptionContent from 'components/LV2/DescriptionContent';
+import Footer from 'components/LV2/Footer';
+import MainTitleContainer from 'components/LV2/StaticMainTitle';
 
 const SubTitle = styled.div`
   font-size: ${FontSizes.large}px;

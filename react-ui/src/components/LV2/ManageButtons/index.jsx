@@ -2,8 +2,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import Button from 'components/LV1/Button';
-import { PrimaryButton } from 'components/LV1/Button/Primary';
+import Button from 'components/LV1/Forms/Button';
+import { PrimaryButton } from 'components/LV1/Forms/Button/Primary';
 import { Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 

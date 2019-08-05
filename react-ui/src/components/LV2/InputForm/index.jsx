@@ -3,11 +3,11 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
-import Check from 'components/LV1/Check';
-import { H3 } from 'components/LV1/Headline';
-import InlineText from 'components/LV1/InlineText';
-import InputField from 'components/LV1/InputField';
-import TextArea from 'components/LV1/TextArea';
+import Check from 'components/LV1/Forms/CheckBox';
+import InputField from 'components/LV1/Forms/InputField';
+import TextArea from 'components/LV1/Forms/TextArea';
+import { H3 } from 'components/LV1/Texts/Headline';
+import InlineText from 'components/LV1/Texts/InlineText';
 
 const InputFieldWrapper = styled.div`
   display: inline-block;

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
 import DefaultContainer from 'components/LV1/DefaultContainer';
-import Text from 'components/LV1/StaticText';
+import Text from 'components/LV1/Texts/StaticText';
 
 const StyledContainer = styled(DefaultContainer)`
   margin-bottom: ${Dimens.large_60}px;
@@ -29,13 +29,6 @@ const Para = styled(Text)`
   text-align: ${props => (props.isRight ? 'right' : 'left')};
 `;
 
-const ParaText = props => (
-  <Fragment>
-    {props.text}
-    {props.customText}
-  </Fragment>
-);
-
 export type PropTypes = {
   title?: string,
   paraList: Array<{
@@ -49,18 +42,13 @@ export default ({ title, paraList, isRight }: PropTypes) => (
   <StyledContainer>
     <Art>{title}</Art>
     <Para isRight={isRight}>
-      {paraList.map((item, i) =>
-        i !== 0 ? (
-          <Fragment key={i.toString()}>
-            <br />
-            <ParaText {...item} />
-          </Fragment>
-        ) : (
-          <Fragment key={i.toString()}>
-            <ParaText {...item} />
-          </Fragment>
-        ),
-      )}
+      {paraList.map((item, i) => (
+        <Fragment key={i.toString()}>
+          {i !== 0 && <br />}
+          {item.text}
+          {item.customText}
+        </Fragment>
+      ))}
     </Para>
   </StyledContainer>
 );
