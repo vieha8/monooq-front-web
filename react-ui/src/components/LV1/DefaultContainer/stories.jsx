@@ -11,7 +11,7 @@ import StyledDefaultContainer from './StyledDefaultContainer';
 DefaultContainer.displayName = 'DefaultContainer';
 DefaultContainer.StyledDefaultContainer = 'StyledDefaultContainer';
 
-storiesOf('Atoms(LV1)/Util/DefaultContainer', module)
+storiesOf('Atoms(LV1)/DefaultContainer', module)
   .add(
     'Normal',
     withInfo(`

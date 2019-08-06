@@ -8,7 +8,7 @@ import MenuItem from './Item';
 
 MenuItem.displayName = 'MenuItem';
 
-storiesOf('Atoms(LV1)/Util/Menu/item', module).add(
+storiesOf('Atoms(LV1)/Menu/item', module).add(
   'Normal',
   withInfo(`
     ### コンポーネント概要

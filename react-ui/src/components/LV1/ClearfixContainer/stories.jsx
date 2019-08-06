@@ -9,7 +9,7 @@ import ClearfixContainer from './index';
 
 ClearfixContainer.displayName = 'ClearfixContainer';
 
-storiesOf('Atoms(LV1)/Util/ClearfixContainer', module).add(
+storiesOf('Atoms(LV1)/ClearfixContainer', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要

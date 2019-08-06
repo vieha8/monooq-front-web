@@ -11,7 +11,7 @@ import NoCollapsible from './NoCollapsible';
 Collapsible.displayName = 'Collapsible';
 NoCollapsible.displayName = 'NoCollapsible';
 
-storiesOf('Atoms(LV1)/Util/Collapsible', module)
+storiesOf('Atoms(LV1)/Collapsible', module)
   .add(
     'Collapsible',
     withInfo(`

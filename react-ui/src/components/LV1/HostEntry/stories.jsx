@@ -9,7 +9,7 @@ import HostEntry from './index';
 
 HostEntry.displayName = 'HostEntry';
 
-storiesOf('Atoms(LV1)/Util/HostEntry', module).add(
+storiesOf('Atoms(LV1)/HostEntry', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要

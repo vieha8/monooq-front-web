@@ -9,7 +9,7 @@ import NotificationCount from './index';
 
 NotificationCount.displayName = 'NotificationCount';
 
-storiesOf('Atoms(LV1)/Util/NotificationCount', module).add(
+storiesOf('Atoms(LV1)/NotificationCount', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要

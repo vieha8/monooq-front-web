@@ -9,7 +9,7 @@ import StaticPageContent from './index';
 
 StaticPageContent.displayName = 'StaticPageContent';
 
-storiesOf('Atoms(LV1)/Util/StaticPageContent', module).add(
+storiesOf('Atoms(LV1)/StaticPageContent', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要
