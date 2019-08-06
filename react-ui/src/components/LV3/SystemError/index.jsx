@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
-import DefaultContainer from 'components/LV1/DefaultContainer';
-import Logo from 'components/LV1/Images/Logo';
+import ContainerDefault from 'components/LV1/ContainerDefault';
+import ImageLogo from 'components/LV1/Images/ImageLogo';
 import Text from 'components/LV1/Texts/StaticText';
 import MainTitleContainer from 'components/LV2/StaticMainTitle';
 
@@ -11,7 +11,7 @@ const WrapContent = styled.div`
   text-align: center;
 `;
 
-const MessageContainer = styled(DefaultContainer)`
+const MessageContainer = styled(ContainerDefault)`
   margin-bottom: ${Dimens.medium2}px;
 `;
 
@@ -30,7 +30,7 @@ export default () => (
   <Fragment>
     <WrapContent>
       <MonoboyWrap>
-        <Logo.MonoboyBlack />
+        <ImageLogo.MonoboyBlack />
       </MonoboyWrap>
       <MainTitleContainer
         mainTitle="Sorry..."

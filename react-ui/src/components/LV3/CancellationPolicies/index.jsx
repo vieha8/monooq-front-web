@@ -1,9 +1,11 @@
+// @flow
+
 import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import Hr from 'components/LV1/HorizontalRule';
 import Text from 'components/LV1/Texts/StaticText';
 import Footer from 'components/LV2/Footer';
@@ -20,7 +22,7 @@ const HilightText = styled(Text)`
   `};
 `;
 
-const AboutCancellContainer = styled(DefaultContainer)`
+const AboutCancellContainer = styled(ContainerDefault)`
   ${props =>
     props.hostcancel &&
     `

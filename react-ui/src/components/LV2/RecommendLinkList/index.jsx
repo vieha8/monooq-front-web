@@ -4,10 +4,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import LinkList from 'components/LV2/LinkList';
 
-const RecommendLinkContainer = styled(DefaultContainer)`
+const RecommendLinkContainer = styled(ContainerDefault)`
   margin-bottom: 120px;
   ${media.tablet`
     margin-bottom: 60px;

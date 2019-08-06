@@ -4,10 +4,10 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import Text from 'components/LV1/Texts/StaticText';
 
-const StyledContainer = styled(DefaultContainer)`
+const StyledContainer = styled(ContainerDefault)`
   margin-bottom: ${Dimens.large_60}px;
   ${media.phone`
     margin-bottom: ${Dimens.medium3_40}px;

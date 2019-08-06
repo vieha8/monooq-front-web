@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import AvatarImage from 'components/LV1/Images/AvatarImage';
+import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Dimens, Colors, FontSizes } from 'variables';
 import LazyLoad from 'react-lazyload';
@@ -67,7 +67,7 @@ export default ({ link, image, name, receivedAt, lastMessage, isRead }: PropType
     <Link to={link || ''}>
       <Cell>
         <LazyLoad width={32}>
-          <AvatarImage size={32} src={image} />
+          <ImageAvatar size={32} src={image} />
         </LazyLoad>
       </Cell>
       <Cell nametime>

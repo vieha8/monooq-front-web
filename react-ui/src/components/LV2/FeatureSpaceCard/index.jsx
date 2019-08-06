@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import { media } from 'helpers/style/media-query';
 import LazyLoad from 'react-lazyload';
 import Card from 'components/LV1/Card';
-import AvatarImage from 'components/LV1/Images/AvatarImage';
-import HeroImage from 'components/LV1/Images/HeroImage';
+import ImageAvatar from 'components/LV1/Images/ImageAvatar';
+import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors, Dimens } from 'variables';
 import { formatName } from 'helpers/string';
@@ -92,12 +92,12 @@ export default ({ link, large, space, user }: PropTypes) => (
         <SpaceImageContainer>
           <SpaceImageFilter />
           <LazyLoad>
-            <HeroImage src={space.image} />
+            <ImageHero src={space.image} />
           </LazyLoad>
         </SpaceImageContainer>
         <UserContainer>
           <LazyLoad>
-            <AvatarImage src={user.image} size={44} />
+            <ImageAvatar src={user.image} size={44} />
           </LazyLoad>
           <div>
             <InlineText.Base color={Colors.white}>{`${formatName(user.name)}さん`}</InlineText.Base>

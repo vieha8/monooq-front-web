@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 
 const DEFAULT_SIZE = 64;
-const AvaterImage = styled.img`
+const ImageAvatar = styled.img`
   width: ${props => props.size || DEFAULT_SIZE}px;
   height: ${props => props.size || DEFAULT_SIZE}px;
   border-radius: ${props => (props.size || DEFAULT_SIZE) / 2}px;
@@ -11,4 +11,4 @@ const AvaterImage = styled.img`
   vertical-align: middle;
 `;
 
-export default AvaterImage;
+export default ImageAvatar;

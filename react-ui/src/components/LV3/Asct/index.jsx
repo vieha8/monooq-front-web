@@ -1,10 +1,12 @@
+// @flow
+
 import React, { Fragment } from 'react';
 import Path from 'config/path';
 
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { Link } from 'react-router-dom';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import Text from 'components/LV1/Texts/StaticText';
 import Footer from 'components/LV2/Footer';
 import MainTitleContainer from 'components/LV2/StaticMainTitle';
@@ -14,7 +16,7 @@ const LinkText = styled(Link)`
   color: ${Colors.linkBlue};
 `;
 
-const AsctContainer = styled(DefaultContainer)`
+const AsctContainer = styled(ContainerDefault)`
   margin-bottom: ${Dimens.large4_80}px;
 `;
 

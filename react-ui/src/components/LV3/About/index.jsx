@@ -8,7 +8,7 @@ import Hr from 'components/LV1/HorizontalRule';
 import Button from 'components/LV1/Forms/Button';
 import Text from 'components/LV1/Texts/StaticText';
 import InlineText from 'components/LV1/Texts/InlineText';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import Footer from 'components/LV2/Footer';
 import WhenIUseList from 'components/LV2/WhenIUseList';
 import IfIFindList from 'components/LV2/IfIFindList';
@@ -122,14 +122,14 @@ const TopLabel = styled.div`
   `};
 `;
 
-const WhenIUseContainer = styled(DefaultContainer)`
+const WhenIUseContainer = styled(ContainerDefault)`
   padding-top: 50px;
   ${media.phone`
     padding-top: 20px;
   `};
 `;
 
-const ContentContainer = styled(DefaultContainer)`
+const ContentContainer = styled(ContainerDefault)`
   ${props =>
     props.bottom &&
     `

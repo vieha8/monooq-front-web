@@ -5,18 +5,18 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import HostEntry from './index';
+import ContainerClearfix from './index';
 
-HostEntry.displayName = 'HostEntry';
+ContainerClearfix.displayName = 'ContainerClearfix';
 
-storiesOf('Atoms(LV1)/HostEntry', module).add(
+storiesOf('Atoms(LV1)/ContainerClearfix', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要
-      スペース登録ボタン(円形)
-    `)(() => (
+      Clearfixコンテナ
+  `)(() => (
     <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-      <HostEntry onClick={() => console.log('onClick HostEntry')} />
+      <ContainerClearfix>StoryBook</ContainerClearfix>
     </div>
   )),
 );

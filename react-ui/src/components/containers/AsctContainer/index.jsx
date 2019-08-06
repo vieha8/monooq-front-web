@@ -3,7 +3,7 @@
 import React, { Fragment } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import StaticPageContent from 'components/LV1/StaticPageContent';
+import ContainerStaticPage from 'components/LV1/ContainerStaticPage';
 import Asct from 'components/LV3/Asct';
 import Header from 'components/containers/Header';
 
@@ -12,9 +12,9 @@ class AsctContainer extends React.Component {
     return (
       <Fragment>
         <Header />
-        <StaticPageContent>
+        <ContainerStaticPage>
           <Asct />
-        </StaticPageContent>
+        </ContainerStaticPage>
       </Fragment>
     );
   }

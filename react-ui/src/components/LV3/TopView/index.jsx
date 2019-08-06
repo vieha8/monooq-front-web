@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors } from 'variables';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import CatchPhrase from 'components/LV1/Texts/CatchPhrase';
 import SubCatchPhrase from 'components/LV1/Texts/SubCatchPhrase';
 import SearchInput from 'components/LV2/SearchInput';
@@ -37,7 +37,7 @@ const TopViewFilter = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-const TopViewContainer = styled(DefaultContainer)``;
+const TopViewContainer = styled(ContainerDefault)``;
 
 const SearchInputContainer = styled.div`
   margin-top: ${Dimens.medium_20}px;

@@ -3,8 +3,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
-import SlideImage from 'components/LV1/Images/SlideImage';
+import ImageSlide from 'components/LV1/Images/ImageSlide';
 import { Dimens } from 'variables';
+
+const ImageWrapper = styled.div``;
 
 const Desc = styled.div`
   margin-top: ${Dimens.medium}px;
@@ -20,10 +22,10 @@ type PropTypes = {
 };
 
 export default ({ images, description }: PropTypes) => (
-  <div>
-    <SlideImage images={images} />
+  <ImageWrapper>
+    <ImageSlide images={images} />
     <Desc>
       <InlineText.Base>{description}</InlineText.Base>
     </Desc>
-  </div>
+  </ImageWrapper>
 );

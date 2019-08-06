@@ -3,10 +3,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
-import StyledDefaultContainer from 'components/LV1/DefaultContainer/StyledDefaultContainer';
+import ContainerDefaultStyled from 'components/LV1/ContainerDefault/ContainerDefaultStyled';
 import LineupList from 'components/LV2/LineupList';
 
-const MediaLineupContainer = styled(StyledDefaultContainer)`
+const MediaLineupContainer = styled(ContainerDefaultStyled)`
   padding-top: ${Dimens.medium3_40}px;
   padding-bottom: ${Dimens.medium3_40}px;
 `;

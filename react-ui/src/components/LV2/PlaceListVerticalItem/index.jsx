@@ -6,7 +6,7 @@ import { media } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import { Colors, Dimens } from 'variables';
 import Card from 'components/LV1/Card';
-import HeroImage from 'components/LV1/Images/HeroImage';
+import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
 
 const Container = styled.div`
@@ -152,7 +152,7 @@ export default ({
       <Link to={href || ''}>
         <Card noBorder noPadding pointer onClick={onClick} customStyle={NoCardShadowStyle}>
           <ImageWrapper>
-            <HeroImage height={290} heightSp={180} large src={image.src} alt={image.alt} />
+            <ImageHero height={290} heightSp={180} large src={image.src} alt={image.alt} />
           </ImageWrapper>
           <ContentWrapper>
             <AddressText manage={manage}>{address || ''}</AddressText>
@@ -174,7 +174,7 @@ export default ({
       <Link to={href || ''}>
         <Card noPadding pointer onClick={onClick} customStyle={CardShadowStyle}>
           <ImageWrapper>
-            <HeroImage height={150} medium src={image.src} alt={image.alt} />
+            <ImageHero height={150} medium src={image.src} alt={image.alt} />
           </ImageWrapper>
           <ContentWrapper>
             <AddressText>{address || ''}</AddressText>

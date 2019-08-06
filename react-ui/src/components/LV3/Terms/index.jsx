@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
@@ -5,7 +7,7 @@ import { media } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
 import { Dimens, FontSizes, Colors } from 'variables';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import Footer from 'components/LV2/Footer';
 import MainTitleContainer from 'components/LV2/StaticMainTitle';
 import ArtContainer from 'components/LV2/StaticArt';
@@ -28,10 +30,10 @@ const Chapter = styled.div`
 `;
 
 const ChapterContainer = props => (
-  <DefaultContainer className={props.className}>
+  <ContainerDefault className={props.className}>
     <Chapter>{props.title}</Chapter>
     {props.children}
-  </DefaultContainer>
+  </ContainerDefault>
 );
 
 const StyledChapterContainer = styled(ChapterContainer)`

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import numeral from 'numeral';
 import Card from 'components/LV1/Card';
-import HeroImage from 'components/LV1/Images/HeroImage';
+import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors } from 'variables';
 import { Link } from 'react-router-dom';
@@ -54,7 +54,7 @@ export default ({ id, title, image, address, priceQuarter, priceFull }: PropType
     <Link to={Path.space(id)}>
       <Card noPadding noBorder customStyle={CardShadowStyle}>
         <LazyLoad height={123}>
-          <HeroImage src={image} alt={title} height={123} heightTab={145} heightSp={123} />
+          <ImageHero src={image} alt={title} height={123} heightTab={145} heightSp={123} />
         </LazyLoad>
         <Content>
           <Row>

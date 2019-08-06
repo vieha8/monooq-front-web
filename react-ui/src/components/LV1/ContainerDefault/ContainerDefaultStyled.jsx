@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
-import DefaultContainer from './index';
+import ContainerDefault from './index';
 
-const StyledDefaultContainer = styled(DefaultContainer)`
+const ContainerDefaultStyled = styled(ContainerDefault)`
   padding-top: ${Dimens.large4_80}px;
   padding-bottom: ${Dimens.large4_80}px;
   color: ${Colors.darkGray1};
@@ -13,4 +13,4 @@ const StyledDefaultContainer = styled(DefaultContainer)`
   `};
 `;
 
-export default StyledDefaultContainer;
+export default ContainerDefaultStyled;

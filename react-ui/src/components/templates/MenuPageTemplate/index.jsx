@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
-import ClearfixContainer from 'components/LV1/ClearfixContainer';
+import ContainerClearfix from 'components/LV1/ContainerClearfix';
 import { H1 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Page from '../Page';
@@ -74,7 +74,7 @@ export default ({
     {header}
     {meta}
     <Page bottomButtonMargin={bottomButtonMargin} noMargin={noMargin}>
-      <ClearfixContainer>
+      <ContainerClearfix>
         <Content>
           <LeftContent>
             {headline && <H1 bold>{headline}</H1>}
@@ -87,7 +87,7 @@ export default ({
           </LeftContent>
           <RightContent>{rightContent}</RightContent>
         </Content>
-      </ClearfixContainer>
+      </ContainerClearfix>
     </Page>
   </div>
 );

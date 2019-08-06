@@ -4,11 +4,11 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 
-import MenuItem from './Item';
+import MenuItem from './index';
 
 MenuItem.displayName = 'MenuItem';
 
-storiesOf('Atoms(LV1)/Menu/item', module).add(
+storiesOf('Atoms(LV1)/MenuItem', module).add(
   'Normal',
   withInfo(`
     ### コンポーネント概要

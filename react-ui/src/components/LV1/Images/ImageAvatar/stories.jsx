@@ -5,11 +5,11 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import AvatarImage from './index';
+import ImageAvatar from './index';
 
-AvatarImage.displayName = 'AvatarImage';
+ImageAvatar.displayName = 'ImageAvatar';
 
-storiesOf('Atoms(LV1)/Images/AvaterImage', module).add(
+storiesOf('Atoms(LV1)/Images/ImageAvatar', module).add(
   'Normal',
   withInfo(`
     ### コンポーネント概要
@@ -25,7 +25,7 @@ storiesOf('Atoms(LV1)/Images/AvaterImage', module).add(
           padding: `${Dimens.storyBookPadding}`,
         }}
       >
-        <AvatarImage size={92} src="http://placehold.jp/500x500.png" alt="name" />
+        <ImageAvatar size={92} src="http://placehold.jp/500x500.png" alt="name" />
       </div>
       <div
         style={{
@@ -35,7 +35,7 @@ storiesOf('Atoms(LV1)/Images/AvaterImage', module).add(
           padding: `${Dimens.storyBookPadding}`,
         }}
       >
-        <AvatarImage size={64} src="http://placehold.jp/500x500.png" alt="name" />
+        <ImageAvatar size={64} src="http://placehold.jp/500x500.png" alt="name" />
       </div>
       <div
         style={{
@@ -45,7 +45,7 @@ storiesOf('Atoms(LV1)/Images/AvaterImage', module).add(
           padding: `${Dimens.storyBookPadding}`,
         }}
       >
-        <AvatarImage size={32} src="http://placehold.jp/500x500.png" alt="name" />
+        <ImageAvatar size={32} src="http://placehold.jp/500x500.png" alt="name" />
       </div>
     </div>
   )),

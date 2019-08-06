@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 
-const HeroImage = styled.img`
+const ImageHero = styled.img`
   width: 100%;
   ${props =>
     props.large &&
@@ -47,4 +47,4 @@ const HeroImage = styled.img`
   object-fit: cover;
 `;
 
-export default HeroImage;
+export default ImageHero;

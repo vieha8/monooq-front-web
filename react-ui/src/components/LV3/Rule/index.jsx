@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import Hr from 'components/LV1/HorizontalRule';
 import Text from 'components/LV1/Texts/StaticText';
 import AboutCancellContent from 'components/LV2/AboutCancellContent';
@@ -21,7 +21,7 @@ const SubTitle = styled.div`
   `};
 `;
 
-const ContentWrap = styled(DefaultContainer)`
+const ContentWrap = styled(ContainerDefault)`
   ${props =>
     props.DoNotAction &&
     `

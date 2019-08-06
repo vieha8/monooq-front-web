@@ -5,13 +5,13 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import DefaultContainer from './index';
-import StyledDefaultContainer from './StyledDefaultContainer';
+import ContainerDefault from './index';
+import ContainerDefaultStyled from './ContainerDefaultStyled';
 
-DefaultContainer.displayName = 'DefaultContainer';
-DefaultContainer.StyledDefaultContainer = 'StyledDefaultContainer';
+ContainerDefault.displayName = 'ContainerDefault';
+ContainerDefault.ContainerDefaultStyled = 'ContainerDefaultStyled';
 
-storiesOf('Atoms(LV1)/DefaultContainer', module)
+storiesOf('Atoms(LV1)/ContainerDefault', module)
   .add(
     'Normal',
     withInfo(`
@@ -19,7 +19,7 @@ storiesOf('Atoms(LV1)/DefaultContainer', module)
         Defaultコンテナ
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <DefaultContainer>Default Container.</DefaultContainer>
+        <ContainerDefault>Default Container.</ContainerDefault>
       </div>
     )),
   )
@@ -30,7 +30,7 @@ storiesOf('Atoms(LV1)/DefaultContainer', module)
         Styled Defaultコンテナ
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <StyledDefaultContainer>Styled Default Container.</StyledDefaultContainer>
+        <ContainerDefaultStyled>Styled Default Container.</ContainerDefaultStyled>
       </div>
     )),
   );

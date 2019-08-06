@@ -4,7 +4,7 @@ import { media } from 'helpers/style/media-query';
 
 // TODO Deprecated
 
-const DefaultContainer = styled.div`
+const ContainerDefault = styled.div`
   width: auto;
   max-width: ${Dimens.fixedWidthPc}px;
   margin: 0 auto;
@@ -16,4 +16,4 @@ const DefaultContainer = styled.div`
   `};
 `;
 
-export default DefaultContainer;
+export default ContainerDefault;

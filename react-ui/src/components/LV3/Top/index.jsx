@@ -7,7 +7,7 @@ import Header from 'components/containers/Header';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import StyledDefaultContainer from 'components/LV1/DefaultContainer/StyledDefaultContainer';
+import ContainerDefaultStyled from 'components/LV1/ContainerDefault/ContainerDefaultStyled';
 import Footer from 'components/LV2/Footer';
 import PickupSpaceList from 'components/LV3/PickupSpaceList';
 import TopView from 'components/LV3/TopView';
@@ -79,7 +79,7 @@ const CommonContainer = styled.div`
     `};
 `;
 
-const ForSafeContainer = styled(StyledDefaultContainer)``;
+const ForSafeContainer = styled(ContainerDefaultStyled)``;
 
 const PickupContainer = styled.div`
   margin: ${Dimens.medium}px 0;

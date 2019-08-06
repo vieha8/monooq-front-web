@@ -4,9 +4,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 
-const MovieContainer = styled(DefaultContainer)`
+const MovieContainer = styled(ContainerDefault)`
   padding-top: ${Dimens.large2_70}px;
   padding-bottom: ${Dimens.large2_70}px;
   display: flex;

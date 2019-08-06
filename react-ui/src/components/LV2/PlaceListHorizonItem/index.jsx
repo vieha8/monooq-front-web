@@ -3,9 +3,9 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import ClearfixContainer from 'components/LV1/ClearfixContainer';
-import AvatarImage from 'components/LV1/Images/AvatarImage';
-import HeroImage from 'components/LV1/Images/HeroImage';
+import ContainerClearfix from 'components/LV1/ContainerClearfix';
+import ImageAvatar from 'components/LV1/Images/ImageAvatar';
+import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors, Dimens, FontSizes } from 'variables';
 import Path from 'config/path';
@@ -60,10 +60,10 @@ type PropTypes = {
 
 export default ({ user, isHost, href, onClick, image, address }: PropTypes) => (
   <Fragment>
-    <ClearfixContainer>
+    <ContainerClearfix>
       <HostContent>
         <Link to={Path.profile(user.id)}>
-          <AvatarImage size={45} src={user.imageUrl} alt={user.name} />
+          <ImageAvatar size={45} src={user.imageUrl} alt={user.name} />
         </Link>
       </HostContent>
       <HostContent>
@@ -77,16 +77,16 @@ export default ({ user, isHost, href, onClick, image, address }: PropTypes) => (
           </InlineText.Base>
         </HostNameWrap>
       </HostContent>
-    </ClearfixContainer>
-    <ClearfixContainer>
+    </ContainerClearfix>
+    <ContainerClearfix>
       <Row to={href || ''} onClick={onClick}>
         <ImageWrapper>
-          <HeroImage small src={image.src} alt={image.alt} />
+          <ImageHero small src={image.src} alt={image.alt} />
         </ImageWrapper>
         <ContentWrapper>
           <AddressText>{address}</AddressText>
         </ContentWrapper>
       </Row>
-    </ClearfixContainer>
+    </ContainerClearfix>
   </Fragment>
 );

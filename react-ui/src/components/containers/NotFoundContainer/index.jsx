@@ -3,7 +3,7 @@
 import React, { Fragment } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import StaticPageContent from 'components/LV1/StaticPageContent';
+import ContainerStaticPage from 'components/LV1/ContainerStaticPage';
 import NotFound from 'components/LV3/NotFound';
 import Header from 'components/containers/Header';
 
@@ -12,9 +12,9 @@ class NotFoundContainer extends React.Component {
     return (
       <Fragment>
         <Header />
-        <StaticPageContent>
+        <ContainerStaticPage>
           <NotFound />
-        </StaticPageContent>
+        </ContainerStaticPage>
       </Fragment>
     );
   }

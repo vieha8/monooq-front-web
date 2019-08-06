@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AvatarImage from 'components/LV1/Images/AvatarImage';
+import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 
 type PropTypes = {
   to?: string,
@@ -13,8 +13,8 @@ type PropTypes = {
 export default ({ to, imageSrc, size }: PropTypes) =>
   to ? (
     <Link to={to}>
-      <AvatarImage src={imageSrc} size={size || 32} />
+      <ImageAvatar src={imageSrc} size={size || 32} />
     </Link>
   ) : (
-    <AvatarImage src={imageSrc} size={size || 32} />
+    <ImageAvatar src={imageSrc} size={size || 32} />
   );

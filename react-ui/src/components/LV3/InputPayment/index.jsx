@@ -10,7 +10,7 @@ import { formatRemoveComma } from 'helpers/string';
 import Button from 'components/LV1/Forms/Button';
 import { H2 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
-import HeroImage from 'components/LV1/Images/HeroImage';
+import ImageHero from 'components/LV1/Images/ImageHero';
 import DisplayErrors from 'components/LV2/DisplayErrors';
 import HostInfo from 'components/LV2/Space/HostInfo';
 import InputForm from 'components/LV2/InputForm';
@@ -342,7 +342,7 @@ export default ({
     <HostInfo id={space.user.id} name={space.user.name} imageUrl={space.user.imageUrl} message />
     <Row to={Path.space(space.id)} noMarginTop borderBottom>
       <ImageWrapper>
-        <HeroImage small src={space.images[0].imageUrl} />
+        <ImageHero small src={space.images[0].imageUrl} />
       </ImageWrapper>
       <ContentWrapper>
         <AddressText>

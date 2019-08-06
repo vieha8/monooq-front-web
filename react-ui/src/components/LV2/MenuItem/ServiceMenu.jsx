@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import NotificationCount from 'components/LV1/NotificationCount';
-import MenuItem from 'components/LV1/Menu/Item';
+import MenuItem from 'components/LV1/MenuItem';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Dimens, FontSizes, Colors } from 'variables';
 

@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
-import StyledDefaultContainer from 'components/LV1/DefaultContainer/StyledDefaultContainer';
+import ContainerDefaultStyled from 'components/LV1/ContainerDefault/ContainerDefaultStyled';
 
-const ServiceContainer = styled(StyledDefaultContainer)`
+const ServiceContainer = styled(ContainerDefaultStyled)`
   display: flex;
 `;
 

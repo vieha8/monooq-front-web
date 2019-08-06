@@ -4,13 +4,13 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import Hr from 'components/LV1/HorizontalRule';
 import MainTitle from 'components/LV1/Texts/StaticMainTitle';
 import Text from 'components/LV1/Texts/StaticText';
 import { Height as HeaderHeight } from 'components/LV3/Header';
 
-const MainTitleContainer = styled(DefaultContainer)`
+const MainTitleContainer = styled(ContainerDefault)`
   ${props =>
     !props.noMarginTop &&
     `

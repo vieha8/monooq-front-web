@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import ClearfixContainer from 'components/LV1/ClearfixContainer';
+import ContainerClearfix from 'components/LV1/ContainerClearfix';
 import Card from 'components/LV1/Card';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';
@@ -33,7 +33,7 @@ type PropTypes = {
 };
 
 export default ({ message, error, onClickRetry, sentAt, isRead }: PropTypes) => (
-  <ClearfixContainer>
+  <ContainerClearfix>
     <Card block noBorder background={Colors.brandPrimary} isPadding={14}>
       <InlineText.Base fontSize={15} color={Colors.white}>
         {message}
@@ -55,5 +55,5 @@ export default ({ message, error, onClickRetry, sentAt, isRead }: PropTypes) => 
         </InlineText.EmphasisTiny>
       </DateCell>
     </ActionTable>
-  </ClearfixContainer>
+  </ContainerClearfix>
 );

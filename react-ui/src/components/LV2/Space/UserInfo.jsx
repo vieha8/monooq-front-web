@@ -3,7 +3,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import AvatarImage from 'components/LV1/Images/AvatarImage';
+import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
 import { FontSizes } from 'variables';
@@ -28,7 +28,7 @@ type PropTypes = {
 const headContent = (id, imageUrl, name) => {
   return (
     <Link to={Path.profile(id)}>
-      <AvatarImage size={45} src={imageUrl} alt={name} />
+      <ImageAvatar size={45} src={imageUrl} alt={name} />
     </Link>
   );
 };

@@ -5,18 +5,18 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import SlideImage from './index';
+import ImageSlide from './index';
 
-SlideImage.displayName = 'SlideImage';
+ImageSlide.displayName = 'ImageSlide';
 
-storiesOf('Atoms(LV1)/Images/SlideImage', module).add(
+storiesOf('Atoms(LV1)/Images/ImageSlide', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要
       画像スライダー
     `)(() => (
     <div style={{ width: '100%', maxWidth: '540px', padding: `${Dimens.storyBookPadding}` }}>
-      <SlideImage
+      <ImageSlide
         images={[
           {
             original: 'http://placehold.jp/200x100.png',

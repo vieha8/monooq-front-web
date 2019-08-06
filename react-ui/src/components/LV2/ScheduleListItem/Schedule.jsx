@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ClearfixContainer from 'components/LV1/ClearfixContainer';
+import ContainerClearfix from 'components/LV1/ContainerClearfix';
 import PlaceListHorizonItem from 'components/LV2/PlaceListHorizonItem';
 import Duration from './Duration';
 // import Operation from './Operation';
@@ -45,7 +45,7 @@ type PropTypes = {
 };
 
 export default (props: PropTypes) => (
-  <ClearfixContainer>
+  <ContainerClearfix>
     <SpaceContainer>
       <SpaceWrapper>
         <PlaceListHorizonItem {...props.space} {...props} />
@@ -55,5 +55,5 @@ export default (props: PropTypes) => (
       <Duration startDate={props.startDate} endDate={props.endDate} />
       {/*<Operation roomId={props.roomId} float="right" />*/}
     </ScheduleWrapper>
-  </ClearfixContainer>
+  </ContainerClearfix>
 );

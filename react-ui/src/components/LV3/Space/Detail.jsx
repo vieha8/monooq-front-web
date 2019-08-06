@@ -42,8 +42,6 @@ const SectionHeader = styled.div`
   `};
 `;
 
-const ImageWrapper = styled.div``;
-
 const MapWrapper = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
@@ -152,9 +150,7 @@ export default ({
   name,
 }: PropTypes) => (
   <Container confirm={confirm}>
-    <ImageWrapper>
-      <Image images={images} />
-    </ImageWrapper>
+    <Image images={images} />
     <SpaceTitleWrapper>
       <AddressText>{`${pref} ${city} ${town}`}</AddressText>
       <ContentText>{name || ''}</ContentText>

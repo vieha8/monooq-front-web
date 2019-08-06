@@ -14,7 +14,7 @@ import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import Messages from 'components/LV3/Messages';
 import Header from 'components/containers/Header';
 import Loading from 'components/LV1/Loading';
-import HeroImage from 'components/LV1/Images/HeroImage';
+import ImageHero from 'components/LV1/Images/ImageHero';
 import HostInfo from 'components/LV2/Space/HostInfo';
 import UserInfo from 'components/LV2/Space/UserInfo';
 import { convertImgixUrl } from 'helpers/imgix';
@@ -262,7 +262,7 @@ class MessageContainer extends Component<PropTypes, State> {
           )}
           <Row to={Path.space(room.space.id)}>
             <ImageWrapper>
-              <HeroImage small src={room.space.images[0].imageUrl} />
+              <ImageHero small src={room.space.images[0].imageUrl} />
             </ImageWrapper>
             <ContentWrapper>
               <AddressText>
