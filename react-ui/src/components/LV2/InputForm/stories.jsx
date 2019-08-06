@@ -13,6 +13,17 @@ Confirm.displayName = 'Confirm';
 
 storiesOf('Molecules(LV2)/InputForm', module)
   .add(
+    'No Label',
+    withInfo(`
+      ### コンポーネント概要
+      フォーム入力項目(ラベル無しver)
+    `)(() => (
+      <div style={{ width: '100%', maxWidth: '800px', padding: `${Dimens.storyBookPadding}` }}>
+        <InputFormMock placeholder="例）六本木駅チカで便利です。" />
+      </div>
+    )),
+  )
+  .add(
     'Hint',
     withInfo(`
       ### コンポーネント概要
@@ -21,7 +32,7 @@ storiesOf('Molecules(LV2)/InputForm', module)
       <div style={{ width: '100%', maxWidth: '800px', padding: `${Dimens.storyBookPadding}` }}>
         <InputFormMock
           label="特徴がわかるタイトルをつけましょう"
-          hint="全角40文字まで"
+          hint="全角200文字まで"
           placeholder="例）六本木駅チカで便利です。"
         />
       </div>
@@ -35,6 +46,7 @@ storiesOf('Molecules(LV2)/InputForm', module)
     `)(() => (
       <div style={{ width: '100%', maxWidth: '800px', padding: `${Dimens.storyBookPadding}` }}>
         <InputFormMock
+          label="特徴がわかるタイトルをつけましょう"
           hintbottom="8文字以上の半角英数字で入力してください"
           placeholder="パスワード"
         />

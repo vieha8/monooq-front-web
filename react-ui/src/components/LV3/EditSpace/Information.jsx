@@ -100,7 +100,6 @@ export default ({
     <Section>
       <InputForm
         label="特徴がわかるタイトル"
-        hintbottom="全角40文字まで"
         placeholder="【約6畳】新宿エリアのワンルーム！駐車場もあり搬入に便利！"
         value={title}
         onChange={e => onChangeTitle(e.target.value)}
