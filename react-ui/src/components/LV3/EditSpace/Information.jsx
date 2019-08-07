@@ -4,11 +4,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
-import SpaceImagePicker from 'components/LV2/SpaceImagePicker';
-import DisplayErrors from 'components/LV2/DisplayErrors';
-import EntryButtons from 'components/LV2/EntryButtons';
-import InputForm from 'components/LV2/InputForm';
-import SelectForm from 'components/LV2/SelectForm';
+import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
+import InputForm from 'components/LV2/Forms/InputForm';
+import SelectForm from 'components/LV2/Forms/SelectForm';
+import ImagePickerSpace from 'components/LV2/ImagePickerSpace';
+import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Section } from './Shared';
 
 const ButtonWrap = styled.div`
@@ -69,7 +69,7 @@ export default ({
         value={address}
         onChange={e => onChangeAddress(e.target.value)}
       />
-      <DisplayErrors keyName="address_errors" errors={errors.address} />
+      <ErrorList keyName="address_errors" errors={errors.address} />
     </Section>
     <Section>
       <SelectForm
@@ -95,7 +95,7 @@ export default ({
         value={type}
         onChange={e => onChangeType(e.target.value)}
       />
-      <DisplayErrors keyName="type_errors" errors={errors.type} />
+      <ErrorList keyName="type_errors" errors={errors.type} />
     </Section>
     <Section>
       <InputForm
@@ -105,16 +105,16 @@ export default ({
         value={title}
         onChange={e => onChangeTitle(e.target.value)}
       />
-      <DisplayErrors keyName="title_errors" errors={errors.title} />
+      <ErrorList keyName="title_errors" errors={errors.title} />
     </Section>
     <Section>
-      <SpaceImagePicker
+      <ImagePickerSpace
         images={images}
         onChangeImage={onChangeImage}
         onClickDeleteImage={onClickDeleteImage}
         isImageUploading={isImageUploading}
       />
-      <DisplayErrors keyName="image_errors" errors={errors.images} />
+      <ErrorList keyName="image_errors" errors={errors.images} />
     </Section>
     <Section>
       <InputForm
@@ -125,11 +125,11 @@ export default ({
         value={introduction}
         onChange={e => onChangeIntroduction(e.target.value)}
       />
-      <DisplayErrors keyName="introduction_errors" errors={errors.introduction} />
+      <ErrorList keyName="introduction_errors" errors={errors.introduction} />
     </Section>
     <Section>
       {edit ? (
-        <EntryButtons
+        <ButtonEntry
           enabled
           rerative
           remove

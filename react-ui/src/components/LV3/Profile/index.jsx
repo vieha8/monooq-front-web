@@ -8,7 +8,7 @@ import { getPrefecture } from 'helpers/prefectures';
 import { formatName } from 'helpers/string';
 import InlineText from 'components/LV1/Texts/InlineText';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
-import SearchResultItem from 'components/LV2/SearchResultItem';
+import SearchResultItem from 'components/LV2/Items/SearchResultItem';
 import type { SpaceType } from 'types/Space';
 
 const IMAGE_SIZE = 100;

@@ -3,9 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import CheckBox from 'components/LV1/Forms/CheckBox';
-import DisplayErrors from 'components/LV2/DisplayErrors';
-import EntryButtons from 'components/LV2/EntryButtons';
-import InputForm from 'components/LV2/InputForm';
+import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
+import InputForm from 'components/LV2/Forms/InputForm';
+import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Dimens } from 'variables';
 import { Section } from './Shared';
 
@@ -50,7 +50,7 @@ export default ({
         value={baggage}
         onChange={e => onChangeBaggage(e.target.value)}
       />
-      <DisplayErrors keyName="baggage_errors" errors={errors.about} />
+      <ErrorList keyName="baggage_errors" errors={errors.about} />
       <CheckWrapper>
         <CheckBox
           checked={checkedFurniture}
@@ -62,7 +62,7 @@ export default ({
       </CheckWrapper>
     </Section>
     <Section>
-      <EntryButtons
+      <ButtonEntry
         enabled
         backButton={{
           text: '戻る',

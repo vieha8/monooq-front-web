@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import ContainerDefaultStyled from 'components/LV1/ContainerDefault/ContainerDefaultStyled';
-import LineupList from 'components/LV2/LineupList';
+import LineupList from 'components/LV2/Lists/LineupList';
 
 const MediaLineupContainer = styled(ContainerDefaultStyled)`
   padding-top: ${Dimens.medium3_40}px;

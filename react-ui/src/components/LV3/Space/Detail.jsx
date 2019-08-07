@@ -10,7 +10,7 @@ import Description from 'components/LV2/Space/Description';
 import Image from 'components/LV2/Space/Image';
 import Address from 'components/LV2/Space/Address';
 import Type from 'components/LV2/Space/Type';
-import AboutBaggage from 'components/LV2/Space/AboutBaggage';
+import Baggage from 'components/LV2/Space/Baggage';
 import Receive from 'components/LV2/Space/Receive';
 import Supplement from 'components/LV2/Space/Supplement';
 import HostInfo from 'components/LV2/Space/HostInfo';
@@ -119,7 +119,7 @@ type PropTypes = {
   type: string,
   pricehalf: Number,
   furniture: boolean,
-  aboutBaggage: string,
+  baggage: string,
   delivery: boolean,
   meeting: boolean,
   supplement: string,
@@ -142,7 +142,7 @@ export default ({
   type,
   pricehalf,
   furniture,
-  aboutBaggage,
+  baggage,
   delivery,
   meeting,
   supplement,
@@ -173,7 +173,7 @@ export default ({
     <Price full={pricefull} half={pricehalf} quarter={pricequarter} />
     <SectionHeader>荷物について</SectionHeader>
     <Fragment>
-      <AboutBaggage furniture={furniture} content={aboutBaggage} />
+      <Baggage furniture={furniture} content={baggage} />
       <Receive delivery={delivery} meeting={meeting} />
       <Supplement content={supplement} />
     </Fragment>

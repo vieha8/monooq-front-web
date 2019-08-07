@@ -3,9 +3,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
-import DisplayErrors from 'components/LV2/DisplayErrors';
-import EntryButtons from 'components/LV2/EntryButtons';
-import InputPriceOfType from 'components/LV2/InputPriceOfType';
+import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
+import InputPriceOfType from 'components/LV2/Forms/InputPriceOfType';
+import ErrorList from 'components/LV2/Lists/ErrorList';
 import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
@@ -84,7 +84,7 @@ export default ({
         placeholder="30,000"
         price={priceFull}
         onChange={onChangePriceFull}
-        error={<DisplayErrors keyName="price_errors_1" errors={errors.priceFull} />}
+        error={<ErrorList keyName="price_errors_1" errors={errors.priceFull} />}
       />
       <InputPriceOfType
         image={imageFurnitureHalf}
@@ -93,7 +93,7 @@ export default ({
         placeholder="16,000"
         price={priceHalf}
         onChange={onChangePriceHalf}
-        error={<DisplayErrors keyName="price_errors_2" errors={errors.priceHalf} />}
+        error={<ErrorList keyName="price_errors_2" errors={errors.priceHalf} />}
       />
       <InputPriceOfType
         image={imageFurnitureQuarter}
@@ -102,7 +102,7 @@ export default ({
         placeholder="9,000"
         price={priceQuarter}
         onChange={onChangePriceQuarter}
-        error={<DisplayErrors keyName="price_errors_3" errors={errors.priceQuarter} />}
+        error={<ErrorList keyName="price_errors_3" errors={errors.priceQuarter} />}
       />
     </Section>
     <Section marginTop={20}>
@@ -114,7 +114,7 @@ export default ({
       </CommissionWrap>
     </Section>
     <Section>
-      <EntryButtons
+      <ButtonEntry
         rerative
         enabled
         loading={buttonLoading}

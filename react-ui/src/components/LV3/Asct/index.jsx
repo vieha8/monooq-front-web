@@ -9,28 +9,27 @@ import { Link } from 'react-router-dom';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import Text from 'components/LV1/Texts/StaticText';
 import Footer from 'components/LV2/Footer';
-import MainTitleContainer from 'components/LV2/StaticMainTitle';
-import AsctContent from 'components/LV2/AsctContent';
+import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
+import ContentAsct from 'components/LV2/Texts/ContentAsct';
+
+const Container = styled(ContainerDefault)`
+  margin-bottom: ${Dimens.large4_80}px;
+`;
+
+const Wrapper = styled.div`
+  margin-bottom: ${Dimens.medium3_40}px;
+`;
 
 const LinkText = styled(Link)`
   color: ${Colors.linkBlue};
 `;
 
-const AsctContainer = styled(ContainerDefault)`
-  margin-bottom: ${Dimens.large4_80}px;
-`;
-
-const AsctContentWrapper = styled.div`
-  margin-bottom: ${Dimens.medium3_40}px;
-`;
-
 export default () => (
   <Fragment>
     <MainTitleContainer mainTitle="特定商取引に関する表記" />
-
-    <AsctContainer>
-      <AsctContentWrapper>
-        <AsctContent
+    <Container>
+      <Wrapper>
+        <ContentAsct
           asctList={[
             {
               header: '提供事業者',
@@ -89,15 +88,14 @@ export default () => (
             },
           ]}
         />
-      </AsctContentWrapper>
-
-      <AsctContentWrapper>
+      </Wrapper>
+      <Wrapper>
         <Text>※取引やサービスについてのお問い合わせは電話では受け付けておりません。</Text>
         <Text>
           利用に関するお問い合わせは、ログイン後のメニュー「お問い合わせ」よりご連絡ください。
         </Text>
-      </AsctContentWrapper>
-    </AsctContainer>
+      </Wrapper>
+    </Container>
     <Footer />
   </Fragment>
 );

@@ -14,7 +14,7 @@ import Header from 'components/containers/Header';
 import Button from 'components/LV1/Forms/Button';
 import SearchResult from 'components/LV3/SearchResult';
 import NoDataView from 'components/LV3/NoDataView';
-import ConciergeContents from 'components/LV2/ConciergeIntroduction';
+import ConciergeContents from 'components/LV2/IntroductionConcierge';
 import Meta from 'components/LV1/Meta';
 import { Dimens, FormValues } from 'variables';
 

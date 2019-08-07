@@ -9,8 +9,8 @@ import ContainerDefault from 'components/LV1/ContainerDefault';
 import Hr from 'components/LV1/HorizontalRule';
 import Text from 'components/LV1/Texts/StaticText';
 import Footer from 'components/LV2/Footer';
-import MainTitleContainer from 'components/LV2/StaticMainTitle';
-import AboutCancellContent from 'components/LV2/AboutCancellContent';
+import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
+import AboutCancelList from 'components/LV2/Lists/AboutCancelList';
 
 const HilightText = styled(Text)`
   font-size: ${FontSizes.medium1}px;
@@ -30,7 +30,7 @@ const AboutCancellContainer = styled(ContainerDefault)`
     `};
 `;
 
-const AboutCancellContentWrapper = styled.div`
+const AboutCancelListWrapper = styled.div`
   margin-bottom: ${Dimens.medium2}px;
   ${props =>
     props.hostcancel &&
@@ -84,8 +84,8 @@ export default () => (
         sub
       />
       <HilightText>利用開始日から</HilightText>
-      <AboutCancellContentWrapper>
-        <AboutCancellContent
+      <AboutCancelListWrapper>
+        <AboutCancelList
           cancelContentList={[
             {
               header: '15日前まで',
@@ -105,7 +105,7 @@ export default () => (
             },
           ]}
         />
-      </AboutCancellContentWrapper>
+      </AboutCancelListWrapper>
       <NoticeWrapper>
         <Text>
           ※連絡がつかないなど、無断でのキャンセルも利用開始日以降の返金はありません。*1
@@ -141,8 +141,8 @@ export default () => (
         text="取引成立後にホスト都合のキャンセルがあると、ユーザーの予定が立たたなくなり、あなたにもサービスの信頼にも影響が出ます。スペースのキャンセルを行う場合は下記のペナルティが発生します。"
         sub
       />
-      <AboutCancellContentWrapper hostcancel>
-        <AboutCancellContent
+      <AboutCancelListWrapper hostcancel>
+        <AboutCancelList
           cancelContentList={[
             {
               header: 'アカウント停止',
@@ -151,7 +151,7 @@ export default () => (
             },
           ]}
         />
-      </AboutCancellContentWrapper>
+      </AboutCancelListWrapper>
       <NoticeWrapper>
         <Text>
           避けられない事故や緊急な事情により、やむを得ずキャンセルしなければならない場合など、モノオクがホストのキャンセル理由が酌量すべき事情と判断した場合には、上記のペナルティは免除される可能性があります。キャンセルをしなくてはならない場合は、すみやかにユーザーに事情を連絡してください。その上でモノオクカスタマーサポートまでスペースや荷物の状況をご連絡ください。

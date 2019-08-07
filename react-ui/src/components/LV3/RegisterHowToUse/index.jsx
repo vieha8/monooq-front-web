@@ -2,8 +2,8 @@
 
 import React, { Fragment } from 'react';
 import InlineText from 'components/LV1/Texts/InlineText';
-import EntryButtons from 'components/LV2/EntryButtons';
-import RadioList from 'components/LV2/RadioList';
+import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
+import RadioList from 'components/LV2/Forms/RadioList';
 import { Colors, FontSizes } from 'variables';
 import { formatName } from 'helpers/string';
 import Form from './Form';
@@ -46,9 +46,9 @@ const radioList = (onChangeIsHost, isHost) => {
   );
 };
 
-const entryButtons = (buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile) => {
+const buttonEntry = (buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile) => {
   return (
-    <EntryButtons
+    <ButtonEntry
       enabled
       rerative
       backButton={{
@@ -103,6 +103,6 @@ export default ({
       false,
       Colors.darkGray2,
     )}
-    button={entryButtons(buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile)}
+    button={buttonEntry(buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile)}
   />
 );

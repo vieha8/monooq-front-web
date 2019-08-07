@@ -7,9 +7,9 @@ import Button from 'components/LV1/Forms/Button';
 import InputField from 'components/LV1/Forms/InputField';
 import { H3 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
-import DisplayErrors from 'components/LV2/DisplayErrors';
-import InputForm from 'components/LV2/InputForm';
-import SelectForm from 'components/LV2/SelectForm';
+import InputForm from 'components/LV2/Forms/InputForm';
+import SelectForm from 'components/LV2/Forms/SelectForm';
+import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Dimens, Colors, FormValues } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 
@@ -151,7 +151,7 @@ export default ({
           value={keyword}
           onChange={e => onChangeKeyword(e.target.value)}
         />
-        <DisplayErrors keyName="keyword_errors" errors={errors.keyword} />
+        <ErrorList keyName="keyword_errors" errors={errors.keyword} />
       </Section>
       <Section>
         <SelectForm
@@ -160,7 +160,7 @@ export default ({
           value={prefCode}
           onChange={e => onChangePrefCode(e.target.value)}
         />
-        <DisplayErrors keyName="prefcode_errors" errors={errors.prefCode} />
+        <ErrorList keyName="prefcode_errors" errors={errors.prefCode} />
       </Section>
       <Section>
         <H3 bold>料金で絞り込み</H3>
@@ -189,8 +189,8 @@ export default ({
           </PriceItem>
         </PriceWrap>
         <ErrorPrice>
-          <DisplayErrors keyName="price_errors_min" errors={errors.priceMin} />
-          <DisplayErrors keyName="price_errors_max" errors={errors.priceMax} />
+          <ErrorList keyName="price_errors_min" errors={errors.priceMin} />
+          <ErrorList keyName="price_errors_max" errors={errors.priceMax} />
         </ErrorPrice>
       </Section>
       <Section>
@@ -221,7 +221,7 @@ export default ({
           value={type}
           onChange={e => onChangeType(e.target.value)}
         />
-        <DisplayErrors keyName="type_errors" errors={errors.type} />
+        <ErrorList keyName="type_errors" errors={errors.type} />
       </Section>
       <Section visible>
         <InputForm
@@ -232,7 +232,7 @@ export default ({
           onClick={onClickFurniture}
           onKeyDown={onKeyDownFurniture}
         />
-        <DisplayErrors keyName="furniture_errors" errors={errors.furniture} />
+        <ErrorList keyName="furniture_errors" errors={errors.furniture} />
       </Section>
       <Section>
         <SelectForm
@@ -258,7 +258,7 @@ export default ({
           value={receive}
           onChange={e => onChangeReceive(e.target.value)}
         />
-        <DisplayErrors keyName="receive_errors" errors={errors.receiptType} />
+        <ErrorList keyName="receive_errors" errors={errors.receiptType} />
       </Section>
     </ContentsWrap>
     <SearchButtonWrap>

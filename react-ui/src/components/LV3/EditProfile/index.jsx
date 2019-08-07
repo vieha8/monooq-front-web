@@ -9,9 +9,9 @@ import selectOptionPurpose from 'helpers/purposes';
 import Button from 'components/LV1/Forms/Button';
 import CheckBox from 'components/LV1/Forms/CheckBox';
 import RegsiterProfileImage from 'components/LV1/Forms/DragAndDrop/RegisterProfileImage';
-import DisplayErrors from 'components/LV2/DisplayErrors';
-import InputForm from 'components/LV2/InputForm';
-import SelectForm from 'components/LV2/SelectForm';
+import InputForm from 'components/LV2/Forms/InputForm';
+import SelectForm from 'components/LV2/Forms/SelectForm';
+import ErrorList from 'components/LV2/Lists/ErrorList';
 
 const Row = styled.div`
   &:not(:first-child) {
@@ -98,7 +98,7 @@ export default ({
         onChange={e => onChangeName(e.target.value)}
         value={name}
       />
-      <DisplayErrors keyName="name_errors" errors={errors.name} />
+      <ErrorList keyName="name_errors" errors={errors.name} />
     </Row>
     <Row>
       <InputForm
@@ -107,7 +107,7 @@ export default ({
         onChange={e => onChangeEmail(e.target.value)}
         value={email}
       />
-      <DisplayErrors keyName="email_errors" errors={errors.email} />
+      <ErrorList keyName="email_errors" errors={errors.email} />
     </Row>
     <Row>
       <CheckBox
@@ -127,7 +127,7 @@ export default ({
         type="tel"
         hint="取引時の保険適用に必須となります。緊急時の連絡先として利用させていただく場合もございます。"
       />
-      <DisplayErrors keyName="phoneNumber_errors" errors={errors.phoneNumber} />
+      <ErrorList keyName="phoneNumber_errors" errors={errors.phoneNumber} />
     </Row>
     <Row>
       <SelectForm
@@ -136,7 +136,7 @@ export default ({
         onChange={e => onChangePrefCode(e.target.value)}
         value={prefCode}
       />
-      <DisplayErrors keyName="prefCode_errors" errors={errors.prefCode} />
+      <ErrorList keyName="prefCode_errors" errors={errors.prefCode} />
     </Row>
     <Row>
       <InputForm
@@ -147,7 +147,7 @@ export default ({
         onChange={e => onChangeProfile(e.target.value)}
         value={profile}
       />
-      <DisplayErrors keyName="profile_errors" errors={errors.profile} />
+      <ErrorList keyName="profile_errors" errors={errors.profile} />
     </Row>
     <Row>
       <SelectForm
@@ -156,7 +156,7 @@ export default ({
         onChange={e => onChangePurpose(e.target.value)}
         value={purpose}
       />
-      <DisplayErrors keyName="purpose_errors" errors={errors.purpose} />
+      <ErrorList keyName="purpose_errors" errors={errors.purpose} />
     </Row>
     <ButtonWrap>
       <Button

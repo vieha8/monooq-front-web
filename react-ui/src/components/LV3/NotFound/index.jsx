@@ -8,8 +8,8 @@ import ContainerDefault from 'components/LV1/ContainerDefault';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
 import Text from 'components/LV1/Texts/StaticText';
 import Footer from 'components/LV2/Footer';
-import MainTitleContainer from 'components/LV2/StaticMainTitle';
-import RecommendLinkList from 'components/LV2/RecommendLinkList';
+import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
+import RecommendLinkList from 'components/LV2/Lists/RecommendLinkList';
 
 const WrapContent = styled.div`
   text-align: center;

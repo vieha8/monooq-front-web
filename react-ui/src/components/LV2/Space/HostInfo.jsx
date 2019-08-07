@@ -8,7 +8,7 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
 import { FontSizes } from 'variables';
 import { formatName } from 'helpers/string';
-import Attribute from './Attribute';
+import Attribute from 'components/LV2/Space/Attribute';
 
 const Content = styled.div``;
 

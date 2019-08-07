@@ -2,9 +2,9 @@
 
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import EntryButtons from 'components/LV2/EntryButtons';
-import { Dimens } from 'variables';
 import GoogleTagManager from 'components/LV1/GTM';
+import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
+import { Dimens } from 'variables';
 
 const Section = styled.div`
   margin-top: ${Dimens.medium}px;
@@ -54,7 +54,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
       <Fragment>
         {!edit ? (
           <Section>
-            <EntryButtons
+            <ButtonEntry
               enabled
               backButton={{
                 text: 'スペースをさらに登録する',
@@ -70,7 +70,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
           </Section>
         ) : (
           <Section>
-            <EntryButtons
+            <ButtonEntry
               enabled
               backButton={{
                 text: '編集したページを確認する',

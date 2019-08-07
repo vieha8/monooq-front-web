@@ -6,7 +6,7 @@ import { media } from 'helpers/style/media-query';
 import PriceHead from 'components/LV2/Space/PriceHead';
 import { Colors, Dimens } from 'variables';
 
-import InputPriceOfType from 'components/LV2/InputPriceOfType';
+import InputPriceOfType from 'components/LV2/Forms/InputPriceOfType';
 import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';

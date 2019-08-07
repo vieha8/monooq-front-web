@@ -9,8 +9,8 @@ import Path from 'config/path';
 import { Dimens, FontSizes, Colors } from 'variables';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import Footer from 'components/LV2/Footer';
-import MainTitleContainer from 'components/LV2/StaticMainTitle';
-import ArtContainer from 'components/LV2/StaticArt';
+import ArtContainer from 'components/LV2/Texts/StaticArt';
+import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
 
 const LinkText = styled(Link)`
   color: ${Colors.linkBlue};

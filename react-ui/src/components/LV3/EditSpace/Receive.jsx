@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react';
-import DisplayErrors from 'components/LV2/DisplayErrors';
-import EntryButtons from 'components/LV2/EntryButtons';
-import InputForm from 'components/LV2/InputForm';
-import SelectForm from 'components/LV2/SelectForm';
+import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
+import InputForm from 'components/LV2/Forms/InputForm';
+import SelectForm from 'components/LV2/Forms/SelectForm';
+import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Section } from './Shared';
 
 type PropTypes = {
@@ -53,7 +53,7 @@ export default ({
         value={receive}
         onChange={e => onChangeReceive(e.target.value)}
       />
-      <DisplayErrors keyName="receive_errors" errors={errors.ReceiptType} />
+      <ErrorList keyName="receive_errors" errors={errors.ReceiptType} />
     </Section>
     <Section>
       <InputForm
@@ -64,10 +64,10 @@ export default ({
         value={receiveAbout}
         onChange={e => onChangeReceiveAbout(e.target.value)}
       />
-      <DisplayErrors keyName="receive_about_errors" errors={errors.receiptAbout} />
+      <ErrorList keyName="receive_about_errors" errors={errors.receiptAbout} />
     </Section>
     <Section>
-      <EntryButtons
+      <ButtonEntry
         enabled
         backButton={{
           text: '戻る',

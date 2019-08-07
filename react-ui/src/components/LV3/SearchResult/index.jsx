@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
 import Button from 'components/LV1/Forms/Button';
-import SearchResultItem from 'components/LV2/SearchResultItem';
+import SearchResultItem from 'components/LV2/Items/SearchResultItem';
 
 const Container = styled.div`
   width: ${props => (props.isHome ? '100%' : '540px')};

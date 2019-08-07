@@ -3,9 +3,9 @@
 import React from 'react';
 import InlineText from 'components/LV1/Texts/InlineText';
 import RegsiterProfileImage from 'components/LV1/Forms/DragAndDrop/RegisterProfileImage';
-import EntryButtons from 'components/LV2/EntryButtons';
-import InputForm from 'components/LV2/InputForm';
-import SelectForm from 'components/LV2/SelectForm';
+import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
+import InputForm from 'components/LV2/Forms/InputForm';
+import SelectForm from 'components/LV2/Forms/SelectForm';
 import { FontSizes } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 import Form from './Form';
@@ -51,9 +51,9 @@ const selectForm = (onChangeArea, prefCode) => {
   );
 };
 
-const entryButtons = (buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile) => {
+const buttonEntry = (buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile) => {
   return (
-    <EntryButtons
+    <ButtonEntry
       enabled
       rerative
       backButton={{
@@ -160,6 +160,6 @@ export default ({
       'tel',
       '',
     )}
-    button={entryButtons(buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile)}
+    button={buttonEntry(buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile)}
   />
 );

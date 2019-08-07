@@ -6,10 +6,10 @@ import { media } from 'helpers/style/media-query';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import Hr from 'components/LV1/HorizontalRule';
 import Text from 'components/LV1/Texts/StaticText';
-import AboutCancellContent from 'components/LV2/AboutCancellContent';
-import DescriptionContent from 'components/LV2/DescriptionContent';
+import AboutCancelList from 'components/LV2/Lists/AboutCancelList';
 import Footer from 'components/LV2/Footer';
-import MainTitleContainer from 'components/LV2/StaticMainTitle';
+import ContentDescription from 'components/LV2/Texts/ContentDescription';
+import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
 
 const SubTitle = styled.div`
   font-size: ${FontSizes.large}px;
@@ -43,7 +43,7 @@ export default () => (
 
     <ContentWrap>
       <SubTitle>荷物を置くスペースを探している方</SubTitle>
-      <DescriptionContent
+      <ContentDescription
         dontActionList={[
           {
             header: 'スペース情報をしっかり確認。',
@@ -67,7 +67,7 @@ export default () => (
 
     <ContentWrap>
       <SubTitle>モノオクでホストをしたい方</SubTitle>
-      <DescriptionContent
+      <ContentDescription
         dontActionList={[
           {
             header: '誠実なスペース情報を掲載しましょう。',
@@ -93,7 +93,7 @@ export default () => (
       <SubTitle>取引ができない荷物</SubTitle>
       <Text>モノオクでは、以下に相当する荷物のスペース利用を禁止しています。</Text>
       <NotAllowedContentWrapper>
-        <AboutCancellContent
+        <AboutCancelList
           cancelContentList={[
             {
               header: '危険物・劇毒物',
@@ -150,7 +150,7 @@ export default () => (
     <ContentWrap DoNotAction>
       <SubTitle>禁止されている行為</SubTitle>
 
-      <DescriptionContent
+      <ContentDescription
         title="取り引き"
         dontActionList={[
           {
@@ -180,7 +180,7 @@ export default () => (
         ]}
       />
 
-      <DescriptionContent
+      <ContentDescription
         title="スペース登録"
         dontActionList={[
           {
@@ -204,7 +204,7 @@ export default () => (
         ]}
       />
 
-      <DescriptionContent
+      <ContentDescription
         title="その他"
         dontActionList={[
           {

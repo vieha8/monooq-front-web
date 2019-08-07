@@ -10,7 +10,7 @@ import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import SpaceMap from 'components/LV1/SpaceMap';
-import EntryButtons from 'components/LV2/EntryButtons';
+import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
 import type { SpaceType } from 'types/Space';
 
@@ -165,7 +165,7 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
           type={SPACE_TYPES[space.type]}
           furniture={space.isFurniture}
-          aboutBaggage={space.about}
+          baggage={space.about}
           delivery={
             space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
           }
@@ -188,7 +188,7 @@ class EditSpaceConfirmContainer extends Component<PropTypes> {
           }
         />
         <EntryButtonWrap>
-          <EntryButtons
+          <ButtonEntry
             enabled
             rerative
             loading={isLoading}

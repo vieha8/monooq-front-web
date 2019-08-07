@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import ManageSpaceListItem from 'components/LV2/ManageSpaceListItem';
+import ManageSpaceListItem from 'components/LV2/Items/ManageSpaceListItem';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 

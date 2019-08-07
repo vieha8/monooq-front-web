@@ -11,12 +11,12 @@ import Button from 'components/LV1/Forms/Button';
 import { H2 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
 import ImageHero from 'components/LV1/Images/ImageHero';
-import DisplayErrors from 'components/LV2/DisplayErrors';
 import HostInfo from 'components/LV2/Space/HostInfo';
-import InputForm from 'components/LV2/InputForm';
-import Payment from 'components/LV2/Payment';
-import RadioList from 'components/LV2/RadioList';
-import SelectForm from 'components/LV2/SelectForm';
+import ContentPayment from 'components/LV2/Texts/ContentPayment';
+import InputForm from 'components/LV2/Forms/InputForm';
+import RadioList from 'components/LV2/Forms/RadioList';
+import SelectForm from 'components/LV2/Forms/SelectForm';
+import ErrorList from 'components/LV2/Lists/ErrorList';
 import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
 
@@ -354,7 +354,7 @@ export default ({
       </ContentWrapper>
     </Row>
     <Row noMarginTop>
-      <Payment {...payment} noDescription />
+      <ContentPayment {...payment} noDescription />
     </Row>
     <Row noMarginTop borderTop borderBottom>
       <H2>お支払い方法</H2>
@@ -391,7 +391,7 @@ export default ({
                   onChange={e => onChangeName(e.target.value)}
                   value={name}
                 />
-                <DisplayErrors keyName="name_errors" errors={errors.name} />
+                <ErrorList keyName="name_errors" errors={errors.name} />
               </Row>
               <Row>
                 <InputForm
@@ -402,7 +402,7 @@ export default ({
                   onChange={e => onChangeNumber(e.target.value)}
                   value={number}
                 />
-                <DisplayErrors keyName="number_errors" errors={errors.number} />
+                <ErrorList keyName="number_errors" errors={errors.number} />
               </Row>
               <Row>
                 <SelectBox>
@@ -449,7 +449,7 @@ export default ({
                   value={cvc}
                   autoComplete="cc-csc"
                 />
-                <DisplayErrors keyName="cvc_errors" errors={errors.cvc} />
+                <ErrorList keyName="cvc_errors" errors={errors.cvc} />
               </Row>
             </Fragment>,
             '',

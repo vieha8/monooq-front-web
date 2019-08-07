@@ -2,8 +2,8 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import MenuItem from 'components/LV2/MenuItem/ServiceMenu';
-import AvatarIcon from 'components/LV2/HeaderAction/AvatarIcon';
+import MenuItem from 'components/LV2/Items/MenuItem';
+import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import { Dimens } from 'variables';
 import { formatName } from 'helpers/string';
 

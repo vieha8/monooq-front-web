@@ -11,7 +11,7 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
 import NoCollapsible from 'components/LV1/Collapsible/NoCollapsible';
 import SearchResult from 'components/LV3/SearchResult';
-import ConciergeContents from 'components/LV2/ConciergeIntroduction';
+import ConciergeContents from 'components/LV2/IntroductionConcierge';
 import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';

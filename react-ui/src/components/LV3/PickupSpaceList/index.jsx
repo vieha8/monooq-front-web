@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import { H2 } from 'components/LV1/Texts/Headline';
-import FeatureSpaceCard from 'components/LV2/FeatureSpaceCard';
+import FeatureSpaceItem from 'components/LV2/Items/FeatureSpaceItem';
 
 const Container = styled.div`
   margin: 0 auto;
@@ -87,7 +87,7 @@ const PickupSpaceList = ({ title, spaceList }: PropTypes) => (
       <HorizontalScroll>
         {spaceList.map((space, i) => (
           <CardWrapper key={`space_list_${i}`.toString()} large={space.large ? 1 : 0}>
-            <FeatureSpaceCard {...space} />
+            <FeatureSpaceItem {...space} />
           </CardWrapper>
         ))}
       </HorizontalScroll>

@@ -7,7 +7,7 @@ import { Dimens, Colors } from 'variables';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import CatchPhrase from 'components/LV1/Texts/CatchPhrase';
 import SubCatchPhrase from 'components/LV1/Texts/SubCatchPhrase';
-import SearchInput from 'components/LV2/SearchInput';
+import SearchInput from 'components/LV2/Forms/SearchInput';
 import { Height as HeaderHeight } from 'components/LV3/Header';
 
 const mainVisual =

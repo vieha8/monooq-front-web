@@ -8,30 +8,45 @@ import { Dimens } from 'variables';
 
 import Attribute from './Attribute';
 import Address from './Address';
-import Image from './Image';
-import Type from './Type';
-import AboutBaggage from './AboutBaggage';
-import Receive from './Receive';
-import Supplement from './Supplement';
+import Baggage from './Baggage';
+import Description from './Description';
 import HostInfo from './HostInfo';
-import PriceHead from './PriceHead';
+import Image from './Image';
 import Price from './Price';
+import PriceHead from './PriceHead';
+import Receive from './Receive';
 import SendMessage from './SendMessage';
+import Supplement from './Supplement';
+import Type from './Type';
+import UserInfo from './UserInfo';
 
-Attribute.displayName = 'Attribute';
 Address.displayName = 'Address';
-Image.displayName = 'Image';
-Type.displayName = 'Type';
-AboutBaggage.displayName = 'AboutBaggage';
-Receive.displayName = 'Receive';
-Supplement.displayName = 'Supplement';
+Attribute.displayName = 'Attribute';
+Baggage.displayName = 'Baggage';
+Description.displayName = 'Description';
 HostInfo.displayName = 'HostInfo';
-PriceHead.displayName = 'PriceHead';
+Image.displayName = 'Image';
 Price.displayName = 'Price';
+PriceHead.displayName = 'PriceHead';
+Receive.displayName = 'Receive';
 SendMessage.displayName = 'SendMessage';
+Supplement.displayName = 'Supplement';
+Type.displayName = 'Type';
+UserInfo.displayName = 'UserInfo';
 
 storiesOf('Molecules(LV2)/Space', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
+  .add(
+    'Address',
+    withInfo(`
+      ### コンポーネント概要
+      スペース情報(所在地)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Address content="東京都渋谷区渋谷" />
+      </div>
+    )),
+  )
   .add(
     'Attribute',
     withInfo(`
@@ -70,13 +85,40 @@ storiesOf('Molecules(LV2)/Space', module)
     )),
   )
   .add(
-    'Address',
+    'Baggage',
     withInfo(`
       ### コンポーネント概要
-      スペース情報(所在地)
+      スペース情報(スペースに置ける荷物)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Address content="東京都渋谷区渋谷" />
+        <Baggage furniture content="東京都渋谷区渋谷" />
+      </div>
+    )),
+  )
+  .add(
+    'Description',
+    withInfo(`
+      ### コンポーネント概要
+      スペース情報(スペースの説明文)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Description content="Description Text." />
+      </div>
+    )),
+  )
+  .add(
+    'HostInfo',
+    withInfo(`
+      ### コンポーネント概要
+      スペース情報(ホストの情報)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <HostInfo
+          id={100}
+          name="ものおくほすと"
+          profile="よろしくお願いします！"
+          imageUrl="http://placehold.jp/500x500.png"
+        />
       </div>
     )),
   )
@@ -116,62 +158,15 @@ storiesOf('Molecules(LV2)/Space', module)
     )),
   )
   .add(
-    'Type',
+    'Price',
     withInfo(`
       ### コンポーネント概要
-      スペース情報(種類)
+      スペース情報(料金)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Type content="東京都渋谷区渋谷" />
-      </div>
-    )),
-  )
-  .add(
-    'AboutBaggage',
-    withInfo(`
-      ### コンポーネント概要
-      スペース情報(スペースに置ける荷物)
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <AboutBaggage furniture content="東京都渋谷区渋谷" />
-      </div>
-    )),
-  )
-  .add(
-    'Receive',
-    withInfo(`
-      ### コンポーネント概要
-      スペース情報(受取り方法)
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Receive delivery meeting />
-      </div>
-    )),
-  )
-  .add(
-    'Supplement',
-    withInfo(`
-      ### コンポーネント概要
-      スペース情報(受取りについて補足)
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Supplement content="受け取りは日曜日にお願いします" />
-      </div>
-    )),
-  )
-  .add(
-    'HostInfo',
-    withInfo(`
-      ### コンポーネント概要
-      スペース情報(ホストの情報)
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <HostInfo
-          id={100}
-          name="ものおくほすと"
-          profile="よろしくお願いします！"
-          imageUrl="http://placehold.jp/500x500.png"
-        />
+        <Price full price="¥40,000" />
+        <Price half price="¥20,000" />
+        <Price quarter price="¥10,000" />
       </div>
     )),
   )
@@ -187,15 +182,13 @@ storiesOf('Molecules(LV2)/Space', module)
     )),
   )
   .add(
-    'Price',
+    'Receive',
     withInfo(`
       ### コンポーネント概要
-      スペース情報(料金)
+      スペース情報(受取り方法)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Price full price="¥40,000" />
-        <Price half price="¥20,000" />
-        <Price quarter price="¥10,000" />
+        <Receive delivery meeting />
       </div>
     )),
   )
@@ -209,6 +202,46 @@ storiesOf('Molecules(LV2)/Space', module)
         <SendMessage onClick={() => console.log('onClick')} />
         <br />
         <SendMessage loading onClick={() => console.log('onClick')} />
+      </div>
+    )),
+  )
+  .add(
+    'Supplement',
+    withInfo(`
+      ### コンポーネント概要
+      スペース情報(受取りについて補足)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Supplement content="受け取りは日曜日にお願いします" />
+      </div>
+    )),
+  )
+  .add(
+    'Type',
+    withInfo(`
+      ### コンポーネント概要
+      スペース情報(種類)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Type content="東京都渋谷区渋谷" />
+      </div>
+    )),
+  )
+  .add(
+    'UserInfo',
+    withInfo(`
+      ### コンポーネント概要
+      スペース情報(ホストの情報)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <UserInfo
+          id={100}
+          name="ものおくげすと"
+          profile="よろしくお願いします！"
+          imageUrl="http://placehold.jp/500x500.png"
+          hostinfo
+          message
+        />
       </div>
     )),
   );

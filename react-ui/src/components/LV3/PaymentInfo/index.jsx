@@ -1,8 +1,8 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import Payment from 'components/LV2/Payment';
-import PlaceListHorizonItem from 'components/LV2/PlaceListHorizonItem';
+import ContentPayment from 'components/LV2/Texts/ContentPayment';
+import PlaceListHorizonItem from 'components/LV2/Items/PlaceListHorizonItem';
 
 type PropTypes = {
   hostName: string,
@@ -26,6 +26,6 @@ type PropTypes = {
 export default (props: PropTypes) => (
   <Fragment>
     <PlaceListHorizonItem {...props.space} {...props} />
-    <Payment {...props.payment} />
+    <ContentPayment {...props.payment} />
   </Fragment>
 );

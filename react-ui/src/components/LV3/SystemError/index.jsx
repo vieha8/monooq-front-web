@@ -5,7 +5,7 @@ import { Dimens, FontSizes } from 'variables';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
 import Text from 'components/LV1/Texts/StaticText';
-import MainTitleContainer from 'components/LV2/StaticMainTitle';
+import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
 
 const WrapContent = styled.div`
   text-align: center;

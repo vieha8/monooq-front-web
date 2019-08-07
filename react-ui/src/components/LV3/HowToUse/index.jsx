@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Dimens, Colors, FontSizes } from 'variables';
 
+const Wrapper = styled.div`
+  margin-top: ${Dimens.medium_20}px;
+`;
+
 const MenuLink = styled(Link)`
   display: block;
   width: 100%;
@@ -13,10 +17,6 @@ const MenuLink = styled(Link)`
   color: ${Colors.darkGray1};
   text-decoration: none;
   padding: 2px 0;
-`;
-
-const AsctContentWrapper = styled.div`
-  margin-top: ${Dimens.medium_20}px;
 `;
 
 const ItemContainer = styled.div`
@@ -30,7 +30,7 @@ const HyperLink = MenuLink.withComponent('a');
 
 export default () => (
   <Fragment>
-    <AsctContentWrapper>
+    <Wrapper>
       <MenuLink to={Path.about()}>
         <ItemContainer>初めてのモノオク</ItemContainer>
       </MenuLink>
@@ -43,6 +43,6 @@ export default () => (
       <HyperLink href="https://help.monooq.com/" target="_blank" rel="noopener noreferrer">
         <ItemContainer>よくある質問</ItemContainer>
       </HyperLink>
-    </AsctContentWrapper>
+    </Wrapper>
   </Fragment>
 );
