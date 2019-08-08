@@ -85,7 +85,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
               }}
               sales={{ to: Path.sales() }}
               paymentHistory={{ to: Path.paid() }}
-              editProfile={{ to: Path.editProfile() }}
+              profileEdit={{ to: Path.profileEdit() }}
               inquiry={{ to: Path.inquiry() }}
               howToUse={{ to: Path.howToUse() }}
               service={{ to: Path.service() }}
@@ -125,7 +125,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
         }}
         sales={{ to: Path.sales() }}
         paymentHistory={{ to: Path.paid() }}
-        editProfile={{ to: Path.editProfile() }}
+        profileEdit={{ to: Path.profileEdit() }}
         help={{ href: 'https://help.monooq.com/' }}
         inquiry={{ to: Path.inquiry() }}
         howToUse={{ to: Path.howToUse() }}

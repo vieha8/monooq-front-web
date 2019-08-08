@@ -82,7 +82,7 @@ export default () => (
           <FooterLink to={Path.asct()}>特定商取引法に基づく表記</FooterLink>
         </Cell>
         <Cell>
-          <FooterLink to={Path.cancellationPolicies()}>キャンセルポリシー</FooterLink>
+          <FooterLink to={Path.cancelPolicy()}>キャンセルポリシー</FooterLink>
         </Cell>
         <Cell>
           <InlineText.Base fontSize={11}>@ 2019 MonooQ</InlineText.Base>

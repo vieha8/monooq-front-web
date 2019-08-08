@@ -8,7 +8,7 @@ import { Dimens } from 'variables';
 
 import SearchResult from './index';
 
-SearchResult.displayName = 'SearchNotFound';
+SearchResult.displayName = 'SearchResult';
 
 const getData = () => {
   const data = [];

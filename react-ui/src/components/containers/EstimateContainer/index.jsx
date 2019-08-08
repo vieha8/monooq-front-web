@@ -8,7 +8,7 @@ import { ErrorMessages } from 'variables';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
-import InputEstimate from 'components/LV3/InputEstimate';
+import Estimate from 'components/LV3/Estimate';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -121,7 +121,7 @@ class EstimateContainer extends Component<PropTypes> {
     const { isSending } = this.props;
     const { begin, end, error, price, beginFocus, endFocus } = this.state;
     return (
-      <InputEstimate
+      <Estimate
         schedule={{
           beginDate: begin,
           beginDateFocused: beginFocus,

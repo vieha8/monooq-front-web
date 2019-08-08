@@ -81,7 +81,7 @@ export default () => (
               data: (
                 <Fragment>
                   モノオクの定める
-                  <LinkText to={Path.cancellationPolicies()}>キャンセルポリシー</LinkText>
+                  <LinkText to={Path.cancelPolicy()}>キャンセルポリシー</LinkText>
                   がございます。お支払い前に必ずお読みください。
                 </Fragment>
               ),

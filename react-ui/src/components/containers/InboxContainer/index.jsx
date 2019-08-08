@@ -9,8 +9,8 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import Header from 'components/containers/Header';
 import Loading from 'components/LV1/Loading';
-import InboxList from 'components/LV3/InboxList';
-import NoDataView from 'components/LV3/NoDataView';
+import MessageList from 'components/LV3/MessageList';
+import SpaceDataNone from 'components/LV3/SpaceDataNone';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
@@ -57,7 +57,7 @@ class InboxContainer extends Component<PropTypes> {
     }
 
     return Array.isArray(rooms) && rooms.length > 0 ? (
-      <InboxList
+      <MessageList
         messages={rooms
           .filter(room => room.user)
           .map(message => ({
@@ -70,7 +70,7 @@ class InboxContainer extends Component<PropTypes> {
           }))}
       />
     ) : (
-      <NoDataView
+      <SpaceDataNone
         captionHead="メッセージのやり取りがありません"
         caption="メッセージがありません。ご希望のスペースを見つけて連絡を取ってみましょう。"
         buttonText="ホームへ戻る"

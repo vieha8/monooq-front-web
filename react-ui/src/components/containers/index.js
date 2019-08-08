@@ -12,18 +12,18 @@ import SearchCondition from './SearchConditionContainer';
 import SpaceManagement from './SpaceManagementContainer';
 import Schedule from './ScheduleContainer';
 import Profile from './ProfileContainer';
-import EditProfile from './EditProfileContainer';
+import ProfileEdit from './ProfileEditContainer';
 import Inquiry from './InquiryContainer';
 import Inbox from './InboxContainer';
 import Message from './MessageContainer';
 import Estimate from './EstimateContainer';
 import Payment from './PaymentContainer';
-import EditSpaceInformation from './EditSpaceInformationContainer';
-import EditSpaceBaggage from './EditSpaceBaggageContainer';
-import EditSpaceReceive from './EditSpaceReceiveContainer';
-import EditSpacePriceType from './EditSpacePriceTypeContainer';
-import EditSpaceConfirm from './EditSpaceConfirmContainer';
-import EditSpaceCompletion from './EditSpaceCompletionContainer';
+import SpaceEditInformation from './SpaceEditInformationContainer';
+import SpaceEditBaggage from './SpaceEditBaggageContainer';
+import SpaceEditReceive from './SpaceEditReceiveContainer';
+import SpaceEditPriceType from './SpaceEditPriceTypeContainer';
+import SpaceEditConfirm from './SpaceEditConfirmContainer';
+import SpaceEditCompletion from './SpaceEditCompletionContainer';
 import Unsubscribe from './UnsubscribeContainer';
 import Sales from './SalesContainer';
 import HowToUse from './HowToUseContainer';
@@ -42,18 +42,18 @@ export default {
   SpaceManagement,
   Schedule,
   Profile,
-  EditProfile,
+  ProfileEdit,
   Inquiry,
   Inbox,
   Message,
   Estimate,
   Payment,
-  EditSpaceInformation,
-  EditSpaceBaggage,
-  EditSpaceReceive,
-  EditSpacePriceType,
-  EditSpaceConfirm,
-  EditSpaceCompletion,
+  SpaceEditInformation,
+  SpaceEditBaggage,
+  SpaceEditReceive,
+  SpaceEditPriceType,
+  SpaceEditConfirm,
+  SpaceEditCompletion,
   Unsubscribe,
   Sales,
   HowToUse,

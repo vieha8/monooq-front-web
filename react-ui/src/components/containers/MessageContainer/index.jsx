@@ -214,10 +214,10 @@ class MessageContainer extends Component<PropTypes, State> {
 
   close = () => this.setState({ errorModal: false });
 
-  onClickEditProfile = () => {
+  onClickProfileEdit = () => {
     const { history, dispatch, location } = this.props;
     dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-    history.push(Path.editProfile());
+    history.push(Path.profileEdit());
   };
 
   leftContent = () => {
@@ -300,7 +300,7 @@ class MessageContainer extends Component<PropTypes, State> {
             </p>
           </Modal.Content>
           <Modal.Actions>
-            <Button className="brandPrimary" onClick={this.onClickEditProfile}>
+            <Button className="brandPrimary" onClick={this.onClickProfileEdit}>
               登録画面へ進む
             </Button>
           </Modal.Actions>

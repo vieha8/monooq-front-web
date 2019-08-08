@@ -11,8 +11,8 @@ import ContainerDefaultStyled from 'components/LV1/ContainerDefault/ContainerDef
 import Footer from 'components/LV2/Footer';
 import PickupSpaceList from 'components/LV3/PickupSpaceList';
 import TopView from 'components/LV3/TopView';
-import MediaLineup from 'components/LV3/MediaLineup';
-import OtherService from 'components/LV3/OtherService';
+import MediaList from 'components/LV3/MediaList';
+import ServiceOther from 'components/LV3/ServiceOther';
 import TopIntro from 'components/LV3/TopIntro';
 import TopIntroMovie from 'components/LV3/TopIntroMovie';
 import LogoEnepi from 'images/logo-enepi-blue.png';
@@ -263,7 +263,7 @@ export default ({
     </ForSafeContainer>
 
     <CommonContainer gray>
-      <OtherService
+      <ServiceOther
         serviceList={[
           {
             title: '提携サービス',
@@ -327,7 +327,7 @@ export default ({
       />
     </CommonContainer>
 
-    <MediaLineup
+    <MediaList
       title="メディア掲載"
       list={[
         {

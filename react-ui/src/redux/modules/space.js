@@ -195,7 +195,7 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
 
   if (err) {
     if (status === 404) {
-      yield put(push(Path.notFound()));
+      yield put(push(Path.pageNotFound()));
     } else {
       yield handleError(spaceActions.fetchFailedSpace, '', 'getSpace', err, false);
     }
@@ -388,7 +388,7 @@ function* prepareUpdateSpace({ payload: spaceId }) {
 
   if (err) {
     if (status === 404) {
-      yield put(push(Path.notFound()));
+      yield put(push(Path.pageNotFound()));
     } else {
       yield handleError(spaceActions.fetchFailedSpace, '', 'prepareUpdateSpace', err, false);
     }

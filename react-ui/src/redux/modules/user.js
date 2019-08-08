@@ -141,7 +141,7 @@ function* getSpaces(params) {
 
   if (err) {
     if (status === 404) {
-      yield put(push(Path.notFound()));
+      yield put(push(Path.pageNotFound()));
     } else {
       yield handleError(userActions.fetchFailedUserSpaces, '', functionName, err, false);
     }

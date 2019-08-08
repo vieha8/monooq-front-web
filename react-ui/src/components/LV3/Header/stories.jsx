@@ -27,7 +27,7 @@ const ServiceMenuSP = () => {
       addSpace={{ to: Path.createSpaceInfo() }}
       sales={{ to: Path.sales() }}
       paymentHistory={{ to: Path.paid() }}
-      editProfile={{ to: Path.editProfile() }}
+      profileEdit={{ to: Path.profileEdit() }}
       help={{ href: 'https://help.monooq.com/' }}
       inquiry={{ to: Path.inquiry() }}
       howToUse={{ to: Path.howToUse() }}

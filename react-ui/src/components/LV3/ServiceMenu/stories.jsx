@@ -28,7 +28,32 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           addSpace={{ to: Path.createSpaceInfo() }}
           sales={{ to: Path.sales() }}
           paymentHistory={{ to: Path.paid() }}
-          editProfile={{ to: Path.editProfile() }}
+          profileEdit={{ to: Path.profileEdit() }}
+          help={{ href: 'https://help.monooq.com/' }}
+          inquiry={{ to: Path.inquiry() }}
+          howToUse={{ to: Path.howToUse() }}
+          service={{ to: Path.service() }}
+          isLogin
+        />
+      </div>
+    )),
+  )
+  .add(
+    'PC_nologin',
+    withInfo(`
+        ### コンポーネント概要
+        サービスメニュー(PC)(未ログイン)
+      `)(() => (
+      <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
+        <ServiceMenu
+          home={{ to: Path.home() }}
+          message={{ to: Path.messages(), notificationCount: 0 }}
+          schedule={{ to: Path.schedule(), notificationCount: 0 }}
+          spaces={{ to: Path.spaces() }}
+          addSpace={{ to: Path.createSpaceInfo() }}
+          sales={{ to: Path.sales() }}
+          paymentHistory={{ to: Path.paid() }}
+          profileEdit={{ to: Path.profileEdit() }}
           help={{ href: 'https://help.monooq.com/' }}
           inquiry={{ to: Path.inquiry() }}
           howToUse={{ to: Path.howToUse() }}
@@ -52,7 +77,35 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           addSpace={{ to: Path.createSpaceInfo() }}
           sales={{ to: Path.sales() }}
           paymentHistory={{ to: Path.paid() }}
-          editProfile={{ to: Path.editProfile() }}
+          profileEdit={{ to: Path.profileEdit() }}
+          help={{ href: 'https://help.monooq.com/' }}
+          inquiry={{ to: Path.inquiry() }}
+          howToUse={{ to: Path.howToUse() }}
+          service={{ to: Path.service() }}
+          userName="モノオク タロウ"
+          userImage="http://placehold.jp/500x500.png"
+          isPhone
+          isLogin
+        />
+      </div>
+    )),
+  )
+  .add(
+    'Phone_nologin',
+    withInfo(`
+        ### コンポーネント概要
+        サービスメニュー(Phone)(未ログイン)
+      `)(() => (
+      <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
+        <ServiceMenu
+          home={{ to: Path.home() }}
+          message={{ to: Path.messages(), notificationCount: 0 }}
+          schedule={{ to: Path.schedule(), notificationCount: 0 }}
+          spaces={{ to: Path.spaces() }}
+          addSpace={{ to: Path.createSpaceInfo() }}
+          sales={{ to: Path.sales() }}
+          paymentHistory={{ to: Path.paid() }}
+          profileEdit={{ to: Path.profileEdit() }}
           help={{ href: 'https://help.monooq.com/' }}
           inquiry={{ to: Path.inquiry() }}
           howToUse={{ to: Path.howToUse() }}

@@ -69,7 +69,7 @@ storiesOf('Molecules(LV2)/Texts/ContentAsct', module)
             },
             {
               header: '返品・交換について',
-              data: `モノオクの定める<a href=${Path.cancellationPolicies()}>キャンセルポリシー</a>がございます。お支払い前に必ずお読みください。`,
+              data: `モノオクの定める<a href=${Path.cancelPolicy()}>キャンセルポリシー</a>がございます。お支払い前に必ずお読みください。`,
             },
           ]}
         />

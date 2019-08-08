@@ -43,7 +43,7 @@ export default () => (
       <MenuLink to={Path.asct()}>
         <ItemContainer>特定商取引法に基づく表記</ItemContainer>
       </MenuLink>
-      <MenuLink to={Path.cancellationPolicies()}>
+      <MenuLink to={Path.cancelPolicy()}>
         <ItemContainer>キャンセルポリシー</ItemContainer>
       </MenuLink>
     </Wrapper>
