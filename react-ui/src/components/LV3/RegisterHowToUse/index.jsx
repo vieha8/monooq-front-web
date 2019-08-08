@@ -50,7 +50,7 @@ const buttonEntry = (buttonDisabled, buttonLoading, onClickSkip, onClickRegister
   return (
     <ButtonEntry
       enabled
-      rerative
+      relative
       backButton={{
         text: 'スキップ',
         disabled: buttonDisabled,

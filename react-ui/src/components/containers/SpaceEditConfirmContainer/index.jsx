@@ -190,7 +190,7 @@ class SpaceEditConfirmContainer extends Component<PropTypes> {
         <EntryButtonWrap>
           <ButtonEntry
             enabled
-            rerative
+            relative
             loading={isLoading}
             backButton={{
               text: '戻って修正する',

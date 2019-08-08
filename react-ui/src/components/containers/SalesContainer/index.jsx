@@ -381,7 +381,7 @@ class SalesContainer extends Component {
           </CautionText>
         </CautionWrapper>
         <ButtonEntry
-          rerative
+          relative
           enabled
           backButton={{
             text: '戻る',

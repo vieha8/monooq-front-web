@@ -10,10 +10,7 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import Page from '../Page';
 
 const Caption = styled.div`
-  margin: ${Dimens.medium_20}px 0 ${Dimens.medium2}px;
-  ${media.tablet`
-    margin-bottom: ${Dimens.medium_20}px;
-  `};
+  margin: ${Dimens.medium_20}px 0;
 `;
 
 const Content = styled.div`
