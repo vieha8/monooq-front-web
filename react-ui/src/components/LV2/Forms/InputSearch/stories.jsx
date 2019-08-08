@@ -6,11 +6,11 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import SearchInput from './index';
+import InputSearch from './index';
 
-SearchInput.displayName = 'SearchInput';
+InputSearch.displayName = 'InputSearch';
 
-storiesOf('Molecules(LV2)/Forms/SearchInput', module)
+storiesOf('Molecules(LV2)/Forms/InputSearch', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
@@ -19,7 +19,7 @@ storiesOf('Molecules(LV2)/Forms/SearchInput', module)
       検索条件入力欄(検索ボタン活性ver)
     `)(() => (
       <div style={{ width: '100%', maxWidth: '800px', padding: `${Dimens.storyBookPadding}` }}>
-        <SearchInput
+        <InputSearch
           onRef={() => {}}
           onClickSearchButton={() => console.log('onClickSearchButton')}
         />
@@ -33,7 +33,7 @@ storiesOf('Molecules(LV2)/Forms/SearchInput', module)
       検索条件入力欄(検索ボタン非活性ver)
     `)(() => (
       <div style={{ width: '100%', maxWidth: '800px', padding: `${Dimens.storyBookPadding}` }}>
-        <SearchInput onRef={() => {}} searchDisabled />
+        <InputSearch onRef={() => {}} searchDisabled />
       </div>
     )),
   );

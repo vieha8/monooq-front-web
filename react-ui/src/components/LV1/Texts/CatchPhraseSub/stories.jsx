@@ -5,22 +5,22 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import SubCatchPhrase from './index';
+import CatchPhraseSub from './index';
 
-SubCatchPhrase.displayName = 'SubCatchPhrase';
+CatchPhraseSub.displayName = 'CatchPhraseSub';
 
-storiesOf('Atoms(LV1)/Texts/SubCatchPhraserd', module).add(
+storiesOf('Atoms(LV1)/Texts/CatchPhraseSub', module).add(
   'Normal',
   withInfo(`
     ### コンポーネント概要
     サブキャッチフレーズ
   `)(() => (
     <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-      <SubCatchPhrase>
+      <CatchPhraseSub>
         モノオクは空きスペースを活用できる、
         <br />
         物置きシェアサービスです。
-      </SubCatchPhrase>
+      </CatchPhraseSub>
     </div>
   )),
 );

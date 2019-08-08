@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
@@ -8,14 +8,22 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
 import { FontSizes } from 'variables';
 import { formatName } from 'helpers/string';
-import Attribute from 'components/LV2/Space/Attribute';
+import Attribute from './Attribute';
 
 const Content = styled.div``;
 
 const ProfileWrap = styled.div`
   font-size: ${FontSizes.small}px;
-  line-height: 1.5;
 `;
+
+type PropTypes = {
+  infoHost: string,
+  message: string,
+  id: string,
+  imageUrl: string,
+  name: string,
+  profile: string,
+};
 
 const headContent = (id, imageUrl, name) => {
   return (
@@ -28,27 +36,20 @@ const headContent = (id, imageUrl, name) => {
 const contentHostName = name => {
   return (
     <Content>
-      <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
-        ホスト
-      </InlineText.Base>
-      <br />
-      <InlineText.Base>{`${formatName(name)}さん`}</InlineText.Base>
+      <Fragment>
+        <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
+          ユーザー
+        </InlineText.Base>
+        <br />
+        <InlineText.Base>{`${formatName(name)}さん`}</InlineText.Base>
+      </Fragment>
     </Content>
   );
 };
 
-type PropTypes = {
-  hostinfo: string,
-  message: string,
-  id: string,
-  imageUrl: string,
-  name: string,
-  profile: string,
-};
-
-export default ({ hostinfo, message, id, imageUrl, name, profile }: PropTypes) => (
+export default ({ infoHost, message, id, imageUrl, name, profile }: PropTypes) => (
   <Attribute
-    hostinfo={hostinfo}
+    infoHost={infoHost}
     message={message}
     headContent={headContent(id, imageUrl, name)}
     contentHostName={contentHostName(name)}

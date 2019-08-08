@@ -6,11 +6,11 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import IconInputField from './index';
+import InputFieldIcon from './index';
 
-IconInputField.displayName = 'IconInputField';
+InputFieldIcon.displayName = 'InputFieldIcon';
 
-storiesOf('Molecules(LV2)/Forms/IconInputField', module)
+storiesOf('Molecules(LV2)/Forms/InputFieldIcon', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Email',
@@ -19,7 +19,7 @@ storiesOf('Molecules(LV2)/Forms/IconInputField', module)
       入力欄(Email)
     `)(() => (
       <div style={{ width: '100%', maxWidth: '800px', padding: `${Dimens.storyBookPadding}` }}>
-        <IconInputField iconClassName="fal fa-envelope" />
+        <InputFieldIcon iconClassName="fal fa-envelope" />
       </div>
     )),
   )
@@ -30,7 +30,7 @@ storiesOf('Molecules(LV2)/Forms/IconInputField', module)
       入力欄(パスワード)
     `)(() => (
       <div style={{ width: '100%', maxWidth: '800px', padding: `${Dimens.storyBookPadding}` }}>
-        <IconInputField iconClassName="fal fa-unlock-alt" type="password" />
+        <InputFieldIcon iconClassName="fal fa-unlock-alt" type="password" />
       </div>
     )),
   )
@@ -41,7 +41,7 @@ storiesOf('Molecules(LV2)/Forms/IconInputField', module)
       入力欄(パスワード)(アイコン右)
     `)(() => (
       <div style={{ width: '100%', maxWidth: '800px', padding: `${Dimens.storyBookPadding}` }}>
-        <IconInputField iconClassName="fal fa-eye-slash" type="password" right />
+        <InputFieldIcon iconClassName="fal fa-eye-slash" type="password" right />
       </div>
     )),
   );

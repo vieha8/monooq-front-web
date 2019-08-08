@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
 import ContainerDefault from 'components/LV1/ContainerDefault';
-import Text from 'components/LV1/Texts/StaticText';
+import Text from 'components/LV1/Texts/TextStatic';
 
 const StyledContainer = styled(ContainerDefault)`
   margin-bottom: ${Dimens.large_60}px;

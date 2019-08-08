@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Text from 'components/LV1/Texts/StaticText';
+import Text from 'components/LV1/Texts/TextStatic';
 
 const WhySafeContentWrapper = styled.div`
   width: 100%;

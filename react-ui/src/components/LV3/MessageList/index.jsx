@@ -1,16 +1,18 @@
 // @flow
 
 import React from 'react';
-import InboxItem, { type PropTypes as InboxItemPropTypes } from 'components/LV2/Items/InboxItem';
+import MessageListItem, {
+  type PropTypes as MessageListItemPropTypes,
+} from 'components/LV2/Items/MessageListItem';
 
 type PropTypes = {
-  messages: Array<InboxItemPropTypes>,
+  messages: Array<MessageListItemPropTypes>,
 };
 
 export default ({ messages }: PropTypes) => (
   <ul>
     {messages.map((message, i) => (
-      <InboxItem key={`inbox_item_${i}`.toString()} {...message} />
+      <MessageListItem key={`inbox_item_${i}`.toString()} {...message} />
     ))}
   </ul>
 );

@@ -6,11 +6,11 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import InboxItem from './index';
+import MessageListItem from './index';
 
-InboxItem.displayName = 'InboxItem';
+MessageListItem.displayName = 'MessageListItem';
 
-storiesOf('Molecules(LV2)/Items/InboxItem', module)
+storiesOf('Molecules(LV2)/Items/MessageListItem', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
@@ -19,7 +19,7 @@ storiesOf('Molecules(LV2)/Items/InboxItem', module)
       IMBOXアイテム
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <InboxItem
+        <MessageListItem
           image="http://placehold.jp/500x500.png"
           name="モノオク太郎さん"
           spaceName="ほげほげスペース"

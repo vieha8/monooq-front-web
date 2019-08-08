@@ -21,7 +21,7 @@ const ServiceMenuSP = () => {
   return (
     <ServiceMenu
       home={{ to: Path.home() }}
-      message={{ to: Path.messages(), notificationCount: 0 }}
+      message={{ to: Path.messageList(), notificationCount: 0 }}
       schedule={{ to: Path.schedule(), notificationCount: 0 }}
       spaces={{ to: Path.spaces() }}
       addSpace={{ to: Path.createSpaceInfo() }}
@@ -53,7 +53,7 @@ storiesOf('Organisms(LV3)/Header', module)
             topUrl={Path.top()}
             homeUrl={Path.home()}
             searchConditionUrl={Path.searchCondition()}
-            messageUrl={Path.messages()}
+            messageUrl={Path.messageList()}
             messageCount={4}
             user={{
               image: 'http://placehold.jp/500x500.png',
@@ -81,7 +81,7 @@ storiesOf('Organisms(LV3)/Header', module)
             topUrl={Path.top()}
             homeUrl={Path.home()}
             searchConditionUrl={Path.searchCondition()}
-            messageUrl={Path.messages()}
+            messageUrl={Path.messageList()}
             messageCount={0}
             user={null}
             loginUrl="#"
@@ -104,7 +104,7 @@ storiesOf('Organisms(LV3)/Header', module)
             topUrl={Path.top()}
             homeUrl={Path.home()}
             searchConditionUrl={Path.searchCondition()}
-            messageUrl={Path.messages()}
+            messageUrl={Path.messageList()}
             messageCount={4}
             user={{
               image: 'http://placehold.jp/500x500.png',
@@ -133,7 +133,7 @@ storiesOf('Organisms(LV3)/Header', module)
             topUrl={Path.top()}
             homeUrl={Path.home()}
             searchConditionUrl={Path.searchCondition()}
-            messageUrl={Path.messages()}
+            messageUrl={Path.messageList()}
             messageCount={0}
             user={null}
             loginUrl="#"

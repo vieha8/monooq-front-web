@@ -6,11 +6,11 @@ import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 import moment from 'moment';
 
-import InputCalendar from './index';
+import Calendar from './index';
 
-InputCalendar.displayName = 'InputCalendar';
+Calendar.displayName = 'Calendar';
 
-storiesOf('Atoms(LV1)/Forms/InputCalendar', module)
+storiesOf('Atoms(LV1)/Forms/Calendar', module)
   .add(
     'NonInput',
     withInfo(`
@@ -18,7 +18,7 @@ storiesOf('Atoms(LV1)/Forms/InputCalendar', module)
       カレンダー(フォーカスしてないver)
     `)(() => (
       <div style={{ width: '380px', padding: `${Dimens.storyBookPadding}` }}>
-        <InputCalendar
+        <Calendar
           date={null}
           block
           onDateChange={date => console.log(date)}
@@ -40,7 +40,7 @@ storiesOf('Atoms(LV1)/Forms/InputCalendar', module)
           padding: `${Dimens.storyBookPadding}`,
         }}
       >
-        <InputCalendar
+        <Calendar
           date={moment()}
           focused
           block

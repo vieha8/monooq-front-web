@@ -3,7 +3,7 @@
 import React from 'react';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import InputForm from 'components/LV2/Forms/InputForm';
-import SelectForm from 'components/LV2/Forms/SelectForm';
+import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Section } from './Shared';
 
@@ -34,7 +34,7 @@ export default ({
 }: PropTypes) => (
   <div>
     <Section>
-      <SelectForm
+      <Select
         label="受け取り方法"
         options={[
           {

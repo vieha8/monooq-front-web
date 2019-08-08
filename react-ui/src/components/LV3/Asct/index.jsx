@@ -7,9 +7,9 @@ import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { Link } from 'react-router-dom';
 import ContainerDefault from 'components/LV1/ContainerDefault';
-import Text from 'components/LV1/Texts/StaticText';
+import Text from 'components/LV1/Texts/TextStatic';
 import Footer from 'components/LV2/Footer';
-import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
+import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 import ContentAsct from 'components/LV2/Texts/ContentAsct';
 
 const Container = styled(ContainerDefault)`

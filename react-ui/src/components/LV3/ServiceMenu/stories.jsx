@@ -22,7 +22,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
           home={{ to: Path.home() }}
-          message={{ to: Path.messages(), notificationCount: 0 }}
+          message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
           addSpace={{ to: Path.createSpaceInfo() }}
@@ -47,7 +47,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
           home={{ to: Path.home() }}
-          message={{ to: Path.messages(), notificationCount: 0 }}
+          message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
           addSpace={{ to: Path.createSpaceInfo() }}
@@ -71,7 +71,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
           home={{ to: Path.home() }}
-          message={{ to: Path.messages(), notificationCount: 0 }}
+          message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
           addSpace={{ to: Path.createSpaceInfo() }}
@@ -99,7 +99,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
           home={{ to: Path.home() }}
-          message={{ to: Path.messages(), notificationCount: 0 }}
+          message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
           addSpace={{ to: Path.createSpaceInfo() }}

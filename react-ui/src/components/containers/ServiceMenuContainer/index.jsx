@@ -76,7 +76,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
           <Menu id={currentMenu} right>
             <ServiceMenu
               home={{ to: Path.home() }}
-              message={{ to: Path.messages(), notificationCount: unreadRooms }}
+              message={{ to: Path.messageList(), notificationCount: unreadRooms }}
               schedule={{ to: Path.schedule() }}
               spaces={{ to: Path.spaces() }}
               addSpace={{
@@ -116,7 +116,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
     return (
       <ServiceMenu
         home={{ to: Path.home() }}
-        message={{ to: Path.messages(), notificationCount: unreadRooms }}
+        message={{ to: Path.messageList(), notificationCount: unreadRooms }}
         schedule={{ to: Path.schedule() }}
         spaces={{ to: Path.spaces() }}
         addSpace={{

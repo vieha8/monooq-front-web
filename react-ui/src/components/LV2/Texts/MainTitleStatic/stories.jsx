@@ -10,7 +10,7 @@ import MainTitleContainer from './index';
 
 MainTitleContainer.displayName = 'MainTitleContainer';
 
-storiesOf('Molecules(LV2)/Texts/StaticMainTitle', module)
+storiesOf('Molecules(LV2)/Texts/MainTitleStatic', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',

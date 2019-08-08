@@ -10,7 +10,7 @@ import Attribute from './Attribute';
 import Address from './Address';
 import Baggage from './Baggage';
 import Description from './Description';
-import HostInfo from './HostInfo';
+import InfoHost from './InfoHost';
 import Image from './Image';
 import Price from './Price';
 import PriceHead from './PriceHead';
@@ -18,13 +18,13 @@ import Receive from './Receive';
 import SendMessage from './SendMessage';
 import Supplement from './Supplement';
 import Type from './Type';
-import UserInfo from './UserInfo';
+import InfoUser from './InfoUser';
 
 Address.displayName = 'Address';
 Attribute.displayName = 'Attribute';
 Baggage.displayName = 'Baggage';
 Description.displayName = 'Description';
-HostInfo.displayName = 'HostInfo';
+InfoHost.displayName = 'InfoHost';
 Image.displayName = 'Image';
 Price.displayName = 'Price';
 PriceHead.displayName = 'PriceHead';
@@ -32,7 +32,7 @@ Receive.displayName = 'Receive';
 SendMessage.displayName = 'SendMessage';
 Supplement.displayName = 'Supplement';
 Type.displayName = 'Type';
-UserInfo.displayName = 'UserInfo';
+InfoUser.displayName = 'InfoUser';
 
 storiesOf('Molecules(LV2)/Space', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
@@ -107,17 +107,35 @@ storiesOf('Molecules(LV2)/Space', module)
     )),
   )
   .add(
-    'HostInfo',
+    'InfoHost',
     withInfo(`
       ### コンポーネント概要
       スペース情報(ホストの情報)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <HostInfo
+        <InfoHost
           id={100}
           name="ものおくほすと"
           profile="よろしくお願いします！"
           imageUrl="http://placehold.jp/500x500.png"
+        />
+      </div>
+    )),
+  )
+  .add(
+    'InfoUser',
+    withInfo(`
+      ### コンポーネント概要
+      スペース情報(ホストの情報)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <InfoUser
+          id={100}
+          name="ものおくげすと"
+          profile="よろしくお願いします！"
+          imageUrl="http://placehold.jp/500x500.png"
+          infoHost
+          message
         />
       </div>
     )),
@@ -224,24 +242,6 @@ storiesOf('Molecules(LV2)/Space', module)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Type content="東京都渋谷区渋谷" />
-      </div>
-    )),
-  )
-  .add(
-    'UserInfo',
-    withInfo(`
-      ### コンポーネント概要
-      スペース情報(ホストの情報)
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <UserInfo
-          id={100}
-          name="ものおくげすと"
-          profile="よろしくお願いします！"
-          imageUrl="http://placehold.jp/500x500.png"
-          hostinfo
-          message
-        />
       </div>
     )),
   );

@@ -3,8 +3,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import Footer from 'components/LV2/Footer';
-import ArtContainer from 'components/LV2/Texts/StaticArt';
-import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
+import ArtContainer from 'components/LV2/Texts/ArtStatic';
+import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 
 const Address = styled.span`
   display: inline-block;

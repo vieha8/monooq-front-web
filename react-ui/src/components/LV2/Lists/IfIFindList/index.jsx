@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
-import Text from 'components/LV1/Texts/StaticText';
+import Text from 'components/LV1/Texts/TextStatic';
 
 const IfIFindContentWrapper = styled.div`
   width: 100%;

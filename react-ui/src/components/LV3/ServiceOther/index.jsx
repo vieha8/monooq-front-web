@@ -108,7 +108,7 @@ const CatchPhrase = styled.div`
   `};
 `;
 
-const SubCatchPhrase = styled.div`
+const CatchPhraseSub = styled.div`
   font-size: ${FontSizes.medium2}px;
   ${media.phone`
     font-size: ${FontSizes.small_15}px;
@@ -154,7 +154,7 @@ export default ({ serviceList }: PropTypes) => (
           </LeftSection>
           <RightSection>
             <CatchPhrase>{item.catchPhrase}</CatchPhrase>
-            <SubCatchPhrase>{item.description}</SubCatchPhrase>
+            <CatchPhraseSub>{item.description}</CatchPhraseSub>
           </RightSection>
         </ItemWrap>
       ))}

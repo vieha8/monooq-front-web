@@ -5,11 +5,11 @@ import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import Hr from 'components/LV1/HorizontalRule';
-import Text from 'components/LV1/Texts/StaticText';
+import Text from 'components/LV1/Texts/TextStatic';
 import AboutCancelList from 'components/LV2/Lists/AboutCancelList';
 import Footer from 'components/LV2/Footer';
 import ContentDescription from 'components/LV2/Texts/ContentDescription';
-import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
+import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 
 const SubTitle = styled.div`
   font-size: ${FontSizes.large}px;

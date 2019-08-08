@@ -14,7 +14,7 @@ import Schedule from './ScheduleContainer';
 import Profile from './ProfileContainer';
 import ProfileEdit from './ProfileEditContainer';
 import Inquiry from './InquiryContainer';
-import Inbox from './InboxContainer';
+import MessagesList from './MessageListContainer';
 import Message from './MessageContainer';
 import Estimate from './EstimateContainer';
 import Payment from './PaymentContainer';
@@ -44,7 +44,7 @@ export default {
   Profile,
   ProfileEdit,
   Inquiry,
-  Inbox,
+  MessagesList,
   Message,
   Estimate,
   Payment,

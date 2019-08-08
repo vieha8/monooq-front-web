@@ -6,7 +6,7 @@ import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import InputForm from 'components/LV2/Forms/InputForm';
-import SelectForm from 'components/LV2/Forms/SelectForm';
+import Select from 'components/LV2/Forms/Select';
 import ImagePickerSpace from 'components/LV2/ImagePickerSpace';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Section } from './Shared';
@@ -72,7 +72,7 @@ export default ({
       <ErrorList keyName="address_errors" errors={errors.address} />
     </Section>
     <Section>
-      <SelectForm
+      <Select
         label="スペースの種類"
         options={[
           {

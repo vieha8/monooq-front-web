@@ -4,8 +4,8 @@ import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
-import Text from 'components/LV1/Texts/StaticText';
-import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
+import Text from 'components/LV1/Texts/TextStatic';
+import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 
 const WrapContent = styled.div`
   text-align: center;

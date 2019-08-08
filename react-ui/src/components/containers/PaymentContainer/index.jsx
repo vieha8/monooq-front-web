@@ -429,7 +429,7 @@ class PaymentContainer extends Component<PropTypes> {
 
     const requestId = match.params.request_id;
     if (!requestId) {
-      return <Redirect to={Path.messages()} />;
+      return <Redirect to={Path.messageList()} />;
     }
 
     if (!request) {

@@ -55,8 +55,8 @@ const ProfileEdit = loadable(() =>
 const Inquiry = loadable(() =>
   import('components/containers/InquiryContainer').catch(() => window.location.reload()),
 );
-const Messages = loadable(() =>
-  import('components/containers/InboxContainer').catch(() => window.location.reload()),
+const MessageList = loadable(() =>
+  import('components/containers/MessageListContainer').catch(() => window.location.reload()),
 );
 const Message = loadable(() =>
   import('components/containers/MessageContainer').catch(() => window.location.reload()),
@@ -168,7 +168,7 @@ export default ({ history }) => (
       <Route exact path={Path.profile()} component={Profile} />
       <Route exact path={Path.profileEdit()} component={ProfileEdit} />
       <Route exact path={Path.inquiry()} component={Inquiry} />
-      <Route exact path={Path.messages()} component={Messages} />
+      <Route exact path={Path.messageList()} component={MessageList} />
       <Route exact path={Path.message()} component={Message} />
       <Route exact path={Path.estimate()} component={Estimate} />
       <Route exact path={Path.payment()} component={Payment} />

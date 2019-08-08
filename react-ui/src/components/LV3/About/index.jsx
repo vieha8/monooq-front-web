@@ -6,7 +6,7 @@ import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Hr from 'components/LV1/HorizontalRule';
 import Button from 'components/LV1/Forms/Button';
-import Text from 'components/LV1/Texts/StaticText';
+import Text from 'components/LV1/Texts/TextStatic';
 import InlineText from 'components/LV1/Texts/InlineText';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import Footer from 'components/LV2/Footer';

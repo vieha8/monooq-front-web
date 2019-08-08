@@ -41,7 +41,7 @@ class HeaderContainer extends Component<PropTypes> {
               }
             : null
         }
-        messageUrl={Path.messages()}
+        messageUrl={Path.messageList()}
         messageCount={unreadRooms}
         searchConditionUrl={Path.searchCondition()}
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} isPhone />}

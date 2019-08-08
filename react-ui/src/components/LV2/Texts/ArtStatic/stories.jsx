@@ -17,7 +17,7 @@ const LinkText = styled(Link)`
   color: ${Colors.linkBlue};
 `;
 
-storiesOf('Molecules(LV2)/Texts/StaticArt', module)
+storiesOf('Molecules(LV2)/Texts/ArtStatic', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',

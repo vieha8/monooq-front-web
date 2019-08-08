@@ -6,10 +6,10 @@ import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
-import Text from 'components/LV1/Texts/StaticText';
+import Text from 'components/LV1/Texts/TextStatic';
 import Footer from 'components/LV2/Footer';
-import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
-import RecommendLinkList from 'components/LV2/Lists/RecommendLinkList';
+import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
+import LinkList from 'components/LV2/Lists/LinkList';
 
 const WrapContent = styled.div`
   text-align: center;
@@ -40,6 +40,13 @@ const BrStyled = styled.br`
   `};
 `;
 
+const LinkListContainer = styled(ContainerDefault)`
+  margin-bottom: 120px;
+  ${media.tablet`
+    margin-bottom: 60px;
+  `};
+`;
+
 export default () => (
   <Fragment>
     <WrapContent>
@@ -64,28 +71,29 @@ export default () => (
         </Text>
       </MessageContainer>
 
-      <RecommendLinkList
-        Text="参考のリンク"
-        list={[
-          {
-            text: 'トップページへ戻る',
-            path: '/',
-          },
-          {
-            text: 'ホストになる',
-            path: Path.signUp(),
-          },
-          {
-            text: 'はじめての方へ',
-            path: Path.about(),
-          },
-          {
-            text: 'よくある質問',
-            path: 'https://help.monooq.com/',
-            blank: '_blank',
-          },
-        ]}
-      />
+      <LinkListContainer>
+        <LinkList
+          list={[
+            {
+              text: 'トップページへ戻る',
+              path: '/',
+            },
+            {
+              text: 'ホストになる',
+              path: Path.signUp(),
+            },
+            {
+              text: 'はじめての方へ',
+              path: Path.about(),
+            },
+            {
+              text: 'よくある質問',
+              path: 'https://help.monooq.com/',
+              blank: '_blank',
+            },
+          ]}
+        />
+      </LinkListContainer>
     </WrapContent>
 
     <Footer />

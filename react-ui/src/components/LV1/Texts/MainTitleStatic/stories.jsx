@@ -9,7 +9,7 @@ import MainTitle from './index';
 
 MainTitle.displayName = 'MainTitle';
 
-storiesOf('Atoms(LV1)/Texts/StaticMainTitle', module).add(
+storiesOf('Atoms(LV1)/Texts/MainTitleStatic', module).add(
   'Base',
   withInfo(`
     ### コンポーネント概要

@@ -7,7 +7,7 @@ import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import Footer from 'components/LV2/Footer';
-import MainTitleContainer from 'components/LV2/Texts/StaticMainTitle';
+import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 import Hr from 'components/LV1/HorizontalRule';
 import WhySafeList from 'components/LV2/Lists/WhySafeList';
 import HowSafeList from 'components/LV2/Lists/HowSafeList';

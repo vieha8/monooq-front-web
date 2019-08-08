@@ -40,7 +40,7 @@ const StyledTextButton = styled(TextButton)`
     `};
 `;
 
-const IconInputField = styled(InputField)`
+const InputFieldIcon = styled(InputField)`
   padding: 18px 25px 18px 46px;
   ${props =>
     props.right &&
@@ -73,7 +73,7 @@ export default ({
   <Wrapper>
     {right ? (
       <Fragment>
-        <IconInputField
+        <InputFieldIcon
           right={right}
           type={type}
           placeholder={placeholder}
@@ -86,7 +86,7 @@ export default ({
     ) : (
       <Fragment>
         <Icon className={iconClassName} />
-        <IconInputField
+        <InputFieldIcon
           right={right}
           type={type}
           placeholder={placeholder}

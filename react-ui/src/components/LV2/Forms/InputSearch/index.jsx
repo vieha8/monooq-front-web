@@ -17,7 +17,7 @@ const SearchWrapper = styled.div`
   `};
 `;
 
-const SearchInput = styled.input`
+const InputSearch = styled.input`
   margin: 0;
   border: 1px solid ${props => props.borderColor || Colors.borderGray};
   border-radius: 5px;
@@ -72,7 +72,7 @@ export default ({
   onClickSearchButton,
 }: PropTypes) => (
   <SearchWrapper>
-    <SearchInput
+    <InputSearch
       placeholder={placeholder}
       onChange={onChange}
       onKeyDown={onKeyDown}

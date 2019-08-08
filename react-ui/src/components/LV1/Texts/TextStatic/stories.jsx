@@ -9,7 +9,7 @@ import Text from './index';
 
 Text.displayName = 'Text';
 
-storiesOf('Atoms(LV1)/Texts/StaticText', module).add(
+storiesOf('Atoms(LV1)/Texts/TextStatic', module).add(
   'Base',
   withInfo(`
     ### コンポーネント概要

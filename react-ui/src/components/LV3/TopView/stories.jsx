@@ -27,7 +27,7 @@ storiesOf('Organisms(LV3)/TopView', module)
               荷物を置くための新しい方法。
             </div>
           }
-          subCatchPhrase={
+          catchPhraseSub={
             <div>
               モノオクは空きスペースを活用できる、
               <br />

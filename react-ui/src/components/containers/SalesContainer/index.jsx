@@ -15,7 +15,7 @@ import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Confirm from 'components/LV2/Forms/InputForm/confirm';
-import SelectForm from 'components/LV2/Forms/SelectForm';
+import Select from 'components/LV2/Forms/Select';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import SalesAmountItem from 'components/LV2/Items/SalesAmountItem';
 import LoadingPage from 'components/LV3/LoadingPage';
@@ -298,7 +298,7 @@ class SalesContainer extends Component {
           />
         </InputText>
         <InputText>
-          <SelectForm
+          <Select
             label="預金種目"
             options={selectDepositType('選択してください')}
             onChange={e => this.handleChangeInput('accountType', e.target.value)}

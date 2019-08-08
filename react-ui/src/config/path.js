@@ -38,7 +38,7 @@ export default {
   // キャンセル確認
   confirmCancel: (scheduleId = SCHEDULE_ID) => `/schedule/${scheduleId}/cancel`,
   // メッセージ一覧
-  messages: () => '/messages',
+  messageList: () => '/messages',
   // メッセージ詳細
   message: (messageRoomId = MESSAGE_ROOM_ID) => `/messages/${messageRoomId}`,
   // 見積もり

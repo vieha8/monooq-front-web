@@ -118,7 +118,7 @@ export default ({
           荷物を置くための新しい方法。
         </Fragment>
       }
-      subCatchPhrase={
+      catchPhraseSub={
         <Fragment>
           モノオクは空きスペースを活用できる、
           <br />

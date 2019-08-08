@@ -15,8 +15,8 @@ import Messages from 'components/LV3/Messages';
 import Header from 'components/containers/Header';
 import Loading from 'components/LV1/Loading';
 import ImageHero from 'components/LV1/Images/ImageHero';
-import HostInfo from 'components/LV2/Space/HostInfo';
-import UserInfo from 'components/LV2/Space/UserInfo';
+import InfoHost from 'components/LV2/Space/InfoHost';
+import InfoUser from 'components/LV2/Space/InfoUser';
 import { convertImgixUrl } from 'helpers/imgix';
 import { messagesActions } from 'redux/modules/messages';
 import { connect } from 'react-redux';
@@ -244,19 +244,19 @@ class MessageContainer extends Component<PropTypes, State> {
       <Fragment>
         <TopWrap>
           {isHost ? (
-            <UserInfo
+            <InfoUser
               id={room.user.id}
               name={(room.user || {}).name}
               imageUrl={room.user.imageUrl}
-              hostinfo
+              infoHost
               message
             />
           ) : (
-            <HostInfo
+            <InfoHost
               id={room.space.user.id}
               name={(room.space.user || {}).name}
               imageUrl={room.space.user.imageUrl}
-              hostinfo
+              infoHost
               message
             />
           )}

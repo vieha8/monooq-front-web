@@ -5,7 +5,7 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import RegsiterProfileImage from 'components/LV1/Forms/DragAndDrop/RegisterProfileImage';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import InputForm from 'components/LV2/Forms/InputForm';
-import SelectForm from 'components/LV2/Forms/SelectForm';
+import Select from 'components/LV2/Forms/Select';
 import { FontSizes } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 import Form from './Form';
@@ -42,7 +42,7 @@ const inputForm = (label, hint, placeholder, onChange, value, multiline, rows, t
 
 const selectForm = (onChangeArea, prefCode) => {
   return (
-    <SelectForm
+    <Select
       label="お住いの地域"
       options={selectOptionPrefectures('選択してください')}
       onChange={e => onChangeArea(e.target.value)}

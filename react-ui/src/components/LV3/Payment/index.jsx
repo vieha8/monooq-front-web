@@ -11,11 +11,11 @@ import Button from 'components/LV1/Forms/Button';
 import { H2 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
 import ImageHero from 'components/LV1/Images/ImageHero';
-import HostInfo from 'components/LV2/Space/HostInfo';
+import InfoHost from 'components/LV2/Space/InfoHost';
 import ContentPayment from 'components/LV2/Texts/ContentPayment';
 import InputForm from 'components/LV2/Forms/InputForm';
 import RadioList from 'components/LV2/Forms/RadioList';
-import SelectForm from 'components/LV2/Forms/SelectForm';
+import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
@@ -339,7 +339,7 @@ export default ({
       {confirm ? 'お支払い内容を確認してください' : 'お支払い方法を選択してください'}
     </HeadMessage>
     <Spacer />
-    <HostInfo id={space.user.id} name={space.user.name} imageUrl={space.user.imageUrl} message />
+    <InfoHost id={space.user.id} name={space.user.name} imageUrl={space.user.imageUrl} message />
     <Row to={Path.space(space.id)} noMarginTop borderBottom>
       <ImageWrapper>
         <ImageHero small src={space.images[0].imageUrl} />
@@ -406,7 +406,7 @@ export default ({
               </Row>
               <Row>
                 <SelectBox>
-                  <SelectForm
+                  <Select
                     label="有効期限"
                     options={Array(12)
                       .fill(0)
@@ -423,7 +423,7 @@ export default ({
                   <Padding>/</Padding>
                 </InlineText.Base>
                 <SelectBox>
-                  <SelectForm
+                  <Select
                     options={Array(10)
                       .fill(0)
                       .map((_, i) => ({

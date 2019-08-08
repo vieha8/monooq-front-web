@@ -10,7 +10,7 @@ import Button from 'components/LV1/Forms/Button';
 import CheckBox from 'components/LV1/Forms/CheckBox';
 import RegsiterProfileImage from 'components/LV1/Forms/DragAndDrop/RegisterProfileImage';
 import InputForm from 'components/LV2/Forms/InputForm';
-import SelectForm from 'components/LV2/Forms/SelectForm';
+import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 
 const Row = styled.div`
@@ -130,7 +130,7 @@ export default ({
       <ErrorList keyName="phoneNumber_errors" errors={errors.phoneNumber} />
     </Row>
     <Row>
-      <SelectForm
+      <Select
         label="お住いの地域"
         options={selectOptionPrefectures('選択してください')}
         onChange={e => onChangePrefCode(e.target.value)}
@@ -150,7 +150,7 @@ export default ({
       <ErrorList keyName="profile_errors" errors={errors.profile} />
     </Row>
     <Row>
-      <SelectForm
+      <Select
         label="モノオクの利用方法"
         options={selectOptionPurpose('選択してください')}
         onChange={e => onChangePurpose(e.target.value)}

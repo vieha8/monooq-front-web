@@ -8,7 +8,7 @@ import InputField from 'components/LV1/Forms/InputField';
 import { H3 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/Forms/InputForm';
-import SelectForm from 'components/LV2/Forms/SelectForm';
+import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Dimens, Colors, FormValues } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
@@ -154,7 +154,7 @@ export default ({
         <ErrorList keyName="keyword_errors" errors={errors.keyword} />
       </Section>
       <Section>
-        <SelectForm
+        <Select
           label="地域で絞り込み"
           options={selectOptionPrefectures('指定なし')}
           value={prefCode}
@@ -194,7 +194,7 @@ export default ({
         </ErrorPrice>
       </Section>
       <Section>
-        <SelectForm
+        <Select
           label="スペースの広さで絞り込み"
           options={[
             {
@@ -235,7 +235,7 @@ export default ({
         <ErrorList keyName="furniture_errors" errors={errors.furniture} />
       </Section>
       <Section>
-        <SelectForm
+        <Select
           label="受け取り方法で絞り込み"
           options={[
             {

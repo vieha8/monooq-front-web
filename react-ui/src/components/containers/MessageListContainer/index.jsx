@@ -30,7 +30,7 @@ type PropTypes = {
   isLoading: boolean,
 };
 
-class InboxContainer extends Component<PropTypes> {
+class MessageListContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
@@ -97,4 +97,4 @@ const mapStateToProps = state => ({
   isLoading: state.messages.isLoading,
 });
 
-export default authRequired(connect(mapStateToProps)(InboxContainer));
+export default authRequired(connect(mapStateToProps)(MessageListContainer));

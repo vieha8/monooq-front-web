@@ -14,7 +14,7 @@ const Container = styled.div`
   margin: 35px auto;
   &:not(:first-child) {
     ${props =>
-      props.hostinfo &&
+      props.infoHost &&
       `
       margin: auto;
       border: 1px solid #DBDBDB;
@@ -72,7 +72,7 @@ const ProfileContainer = styled.div`
 `;
 
 type PropTypes = {
-  hostinfo?: boolean,
+  infoHost?: boolean,
   message?: boolean,
   headContent?: React.Element<*>,
   title: string,
@@ -81,14 +81,14 @@ type PropTypes = {
 };
 
 export default ({
-  hostinfo,
+  infoHost,
   message,
   headContent,
   title,
   contentHostName,
   contentProfile,
 }: PropTypes) => (
-  <Container hostinfo={hostinfo} message={message}>
+  <Container infoHost={infoHost} message={message}>
     <HostImageContainer>
       {headContent || <InlineText.Base>{title}</InlineText.Base>}
     </HostImageContainer>

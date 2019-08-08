@@ -6,8 +6,8 @@ import { media } from 'helpers/style/media-query';
 import { Dimens, Colors } from 'variables';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import CatchPhrase from 'components/LV1/Texts/CatchPhrase';
-import SubCatchPhrase from 'components/LV1/Texts/SubCatchPhrase';
-import SearchInput from 'components/LV2/Forms/SearchInput';
+import CatchPhraseSub from 'components/LV1/Texts/CatchPhraseSub';
+import InputSearch from 'components/LV2/Forms/InputSearch';
 import { Height as HeaderHeight } from 'components/LV3/Header';
 
 const mainVisual =
@@ -39,14 +39,14 @@ const TopViewFilter = styled.div`
 
 const TopViewContainer = styled(ContainerDefault)``;
 
-const SearchInputContainer = styled.div`
+const InputSearchContainer = styled.div`
   margin-top: ${Dimens.medium_20}px;
   margin-bottom: ${Dimens.medium3_40}px;
 `;
 
 type PropTypes = {
   catchPhrase: React.Element<*>,
-  subCatchPhrase: React.Element<*>,
+  catchPhraseSub: React.Element<*>,
   SIplaceholder: string,
   SIlocationText: string,
   SIonChange: Function,
@@ -57,7 +57,7 @@ type PropTypes = {
 
 export default ({
   catchPhrase,
-  subCatchPhrase,
+  catchPhraseSub,
   SIplaceholder,
   SIlocationText,
   SIonChange,
@@ -69,9 +69,9 @@ export default ({
     <TopViewFilter>
       <TopViewContainer>
         <CatchPhrase>{catchPhrase}</CatchPhrase>
-        <SubCatchPhrase>{subCatchPhrase}</SubCatchPhrase>
-        <SearchInputContainer>
-          <SearchInput
+        <CatchPhraseSub>{catchPhraseSub}</CatchPhraseSub>
+        <InputSearchContainer>
+          <InputSearch
             placeholder={SIplaceholder}
             locationText={SIlocationText}
             onChange={SIonChange}
@@ -79,7 +79,7 @@ export default ({
             searchDisabled={SIsearchDisabled}
             onClickSearchButton={SIonClickSearchButton}
           />
-        </SearchInputContainer>
+        </InputSearchContainer>
       </TopViewContainer>
     </TopViewFilter>
   </TopView>

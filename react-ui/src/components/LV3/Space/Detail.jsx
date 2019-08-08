@@ -13,7 +13,7 @@ import Type from 'components/LV2/Space/Type';
 import Baggage from 'components/LV2/Space/Baggage';
 import Receive from 'components/LV2/Space/Receive';
 import Supplement from 'components/LV2/Space/Supplement';
-import HostInfo from 'components/LV2/Space/HostInfo';
+import InfoHost from 'components/LV2/Space/InfoHost';
 import Price from 'components/LV3/Space/Price';
 import ReactGA from 'react-ga';
 
@@ -159,7 +159,7 @@ export default ({
         円〜
       </PriceText>
     </SpaceTitleWrapper>
-    <HostInfo {...user} hostinfo />
+    <InfoHost {...user} infoHost />
     <Description content={description} />
     <SectionHeader>スペースについて</SectionHeader>
     <MapWrapper>
