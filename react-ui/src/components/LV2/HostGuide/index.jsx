@@ -3,14 +3,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
-import GuideContent from 'components/LV1/GuideContent';
+import TextGuide from 'components/LV1/Texts/TextGuide';
 
-const GuideContainer = styled.div`
+const Container = styled.div`
   width: 100%;
   margin-bottom: ${Dimens.medium2}px;
 `;
 
-const GuideHeader = styled.div`
+const Header = styled.div`
   width: 100%;
   padding: ${Dimens.small}px 0 ${Dimens.medium}px 0;
   font-size: ${FontSizes.medium_18}px;
@@ -25,10 +25,10 @@ type PropTypes = {
 };
 
 export default ({ header, data1, data2, data3 }: PropTypes) => (
-  <GuideContainer>
-    <GuideHeader>{header}</GuideHeader>
-    <GuideContent data={data1} />
-    <GuideContent data={data2} />
-    <GuideContent data={data3} />
-  </GuideContainer>
+  <Container>
+    <Header>{header}</Header>
+    <TextGuide data={data1} />
+    <TextGuide data={data2} />
+    <TextGuide data={data3} />
+  </Container>
 );

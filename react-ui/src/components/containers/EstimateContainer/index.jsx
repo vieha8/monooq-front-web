@@ -81,11 +81,11 @@ class EstimateContainer extends Component<PropTypes> {
   };
 
   sendRequest = () => {
-    const { user, match } = this.props;
+    const { user, match, dispatch } = this.props;
     const userId = user.id;
     const roomId = match.params.message_room_id;
     const { begin, end, price } = this.state;
-    this.props.dispatch(
+    dispatch(
       requestActions.estimate({
         userId,
         roomId,
