@@ -24,11 +24,6 @@ const displayPickupFeatureSpaceList = shuffleArray(PickupStaffSpaceList);
 
 PickupSpaceList.displayName = 'PickupSpaceList';
 
-const moreFeatureTrue = true;
-const moreFeatureFalse = false;
-const isMoreTrue = true;
-const isMoreFalse = false;
-
 storiesOf('Organisms(LV3)/PickupSpaceList', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
@@ -40,27 +35,7 @@ storiesOf('Organisms(LV3)/PickupSpaceList', module)
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <PickupSpaceList
           title="特徴でピックアップ"
-          spaceList={displayPickupFeatureSpaceList.slice(0, 4 + (moreFeatureFalse ? 4 : 0))}
-          noMore={isMoreTrue}
-          onClickMoreView={() => {}}
-        />
-      </div>
-    )),
-  )
-  .add(
-    'Normal isMore',
-    withInfo(`
-        ### コンポーネント概要
-        ピックアップスペースリスト(MoreVer)
-        - ・MoreVerは現状、利用していない。
-        - ・「もっとみる」ボタンはCSSでdisplay:none指定されており、見えないため注意。
-      `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <PickupSpaceList
-          title="特徴でピックアップ"
-          spaceList={displayPickupFeatureSpaceList.slice(0, 4 + (moreFeatureTrue ? 4 : 0))}
-          noMore={isMoreFalse}
-          onClickMoreView={() => {}}
+          spaceList={displayPickupFeatureSpaceList.slice(0, 4)}
         />
       </div>
     )),

@@ -9,7 +9,7 @@ import Hr from './index';
 
 Hr.displayName = 'Hr';
 
-storiesOf('Atoms(LV1)/Util/HorizontalRule', module).add(
+storiesOf('Atoms(LV1)/HorizontalRule', module).add(
   'Base',
   withInfo(`
     ### コンポーネント概要

@@ -10,7 +10,7 @@ import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import Header from 'components/containers/Header';
 import LoadingPage from 'components/LV3/LoadingPage';
 import ScheduleList from 'components/LV3/ScheduleList';
-import NoDataView from 'components/LV3/NoDataView';
+import SpaceDataNone from 'components/LV3/SpaceDataNone';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
@@ -71,7 +71,7 @@ class ScheduleContainer extends Component {
     return Array.isArray(schedules) && schedules.length > 0 ? (
       <ScheduleList schedules={schedules} isHost={isHost} />
     ) : (
-      <NoDataView
+      <SpaceDataNone
         captionHead={isHost ? '利用されたスペースがありません' : '利用したスペースがありません'}
         caption={
           isHost

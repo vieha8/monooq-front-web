@@ -2,10 +2,10 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import SearchResultItem from 'components/LV2/SearchResultItem';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
-import Button from 'components/LV1/Button';
+import Button from 'components/LV1/Forms/Button';
+import SearchResultItem from 'components/LV2/Items/SearchResultItem';
 
 const Container = styled.div`
   width: ${props => (props.isHome ? '100%' : '540px')};

@@ -4,16 +4,16 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Button from 'components/LV1/Button';
+import Button from 'components/LV1/Forms/Button';
+import InlineText from 'components/LV1/Texts/InlineText';
 import Description from 'components/LV2/Space/Description';
 import Image from 'components/LV2/Space/Image';
 import Address from 'components/LV2/Space/Address';
 import Type from 'components/LV2/Space/Type';
-import AboutBaggage from 'components/LV2/Space/AboutBaggage';
+import Baggage from 'components/LV2/Space/Baggage';
 import Receive from 'components/LV2/Space/Receive';
 import Supplement from 'components/LV2/Space/Supplement';
-import HostInfo from 'components/LV2/Space/HostInfo';
-import InlineText from 'components/LV1/InlineText';
+import InfoHost from 'components/LV2/Space/InfoHost';
 import Price from 'components/LV3/Space/Price';
 import ReactGA from 'react-ga';
 
@@ -41,8 +41,6 @@ const SectionHeader = styled.div`
     padding: ${Dimens.medium_20}px 0 0;
   `};
 `;
-
-const ImageWrapper = styled.div``;
 
 const MapWrapper = styled.div`
   margin-top: ${Dimens.medium}px;
@@ -121,7 +119,7 @@ type PropTypes = {
   type: string,
   pricehalf: Number,
   furniture: boolean,
-  aboutBaggage: string,
+  baggage: string,
   delivery: boolean,
   meeting: boolean,
   supplement: string,
@@ -144,7 +142,7 @@ export default ({
   type,
   pricehalf,
   furniture,
-  aboutBaggage,
+  baggage,
   delivery,
   meeting,
   supplement,
@@ -152,9 +150,7 @@ export default ({
   name,
 }: PropTypes) => (
   <Container confirm={confirm}>
-    <ImageWrapper>
-      <Image images={images} />
-    </ImageWrapper>
+    <Image images={images} />
     <SpaceTitleWrapper>
       <AddressText>{`${pref} ${city} ${town}`}</AddressText>
       <ContentText>{name || ''}</ContentText>
@@ -163,7 +159,7 @@ export default ({
         円〜
       </PriceText>
     </SpaceTitleWrapper>
-    <HostInfo {...user} hostinfo />
+    <InfoHost {...user} infoHost />
     <Description content={description} />
     <SectionHeader>スペースについて</SectionHeader>
     <MapWrapper>
@@ -177,7 +173,7 @@ export default ({
     <Price full={pricefull} half={pricehalf} quarter={pricequarter} />
     <SectionHeader>荷物について</SectionHeader>
     <Fragment>
-      <AboutBaggage furniture={furniture} content={aboutBaggage} />
+      <Baggage furniture={furniture} content={baggage} />
       <Receive delivery={delivery} meeting={meeting} />
       <Supplement content={supplement} />
     </Fragment>

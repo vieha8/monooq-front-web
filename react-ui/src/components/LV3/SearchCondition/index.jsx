@@ -3,13 +3,13 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { H3 } from 'components/LV1/Headline';
-import Button from 'components/LV1/Button';
-import InlineText from 'components/LV1/InlineText';
-import InputField from 'components/LV1/InputField';
-import DisplayErrors from 'components/LV2/DisplayErrors';
-import InputForm from 'components/LV2/InputForm';
-import SelectForm from 'components/LV2/SelectForm';
+import Button from 'components/LV1/Forms/Button';
+import InputField from 'components/LV1/Forms/InputField';
+import { H3 } from 'components/LV1/Texts/Headline';
+import InlineText from 'components/LV1/Texts/InlineText';
+import InputForm from 'components/LV2/Forms/InputForm';
+import Select from 'components/LV2/Forms/Select';
+import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Dimens, Colors, FormValues } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 
@@ -151,16 +151,16 @@ export default ({
           value={keyword}
           onChange={e => onChangeKeyword(e.target.value)}
         />
-        <DisplayErrors keyName="keyword_errors" errors={errors.keyword} />
+        <ErrorList keyName="keyword_errors" errors={errors.keyword} />
       </Section>
       <Section>
-        <SelectForm
+        <Select
           label="地域で絞り込み"
           options={selectOptionPrefectures('指定なし')}
           value={prefCode}
           onChange={e => onChangePrefCode(e.target.value)}
         />
-        <DisplayErrors keyName="prefcode_errors" errors={errors.prefCode} />
+        <ErrorList keyName="prefcode_errors" errors={errors.prefCode} />
       </Section>
       <Section>
         <H3 bold>料金で絞り込み</H3>
@@ -189,12 +189,12 @@ export default ({
           </PriceItem>
         </PriceWrap>
         <ErrorPrice>
-          <DisplayErrors keyName="price_errors_min" errors={errors.priceMin} />
-          <DisplayErrors keyName="price_errors_max" errors={errors.priceMax} />
+          <ErrorList keyName="price_errors_min" errors={errors.priceMin} />
+          <ErrorList keyName="price_errors_max" errors={errors.priceMax} />
         </ErrorPrice>
       </Section>
       <Section>
-        <SelectForm
+        <Select
           label="スペースの広さで絞り込み"
           options={[
             {
@@ -221,7 +221,7 @@ export default ({
           value={type}
           onChange={e => onChangeType(e.target.value)}
         />
-        <DisplayErrors keyName="type_errors" errors={errors.type} />
+        <ErrorList keyName="type_errors" errors={errors.type} />
       </Section>
       <Section visible>
         <InputForm
@@ -232,10 +232,10 @@ export default ({
           onClick={onClickFurniture}
           onKeyDown={onKeyDownFurniture}
         />
-        <DisplayErrors keyName="furniture_errors" errors={errors.furniture} />
+        <ErrorList keyName="furniture_errors" errors={errors.furniture} />
       </Section>
       <Section>
-        <SelectForm
+        <Select
           label="受け取り方法で絞り込み"
           options={[
             {
@@ -258,7 +258,7 @@ export default ({
           value={receive}
           onChange={e => onChangeReceive(e.target.value)}
         />
-        <DisplayErrors keyName="receive_errors" errors={errors.receiptType} />
+        <ErrorList keyName="receive_errors" errors={errors.receiptType} />
       </Section>
     </ContentsWrap>
     <SearchButtonWrap>

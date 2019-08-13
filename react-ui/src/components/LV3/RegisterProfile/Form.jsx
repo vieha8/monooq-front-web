@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import DisplayErrors from 'components/LV2/DisplayErrors';
+import ErrorList from 'components/LV2/Lists/ErrorList';
 
 const Title = styled.div`
   text-align: center;
@@ -81,19 +81,19 @@ export default ({
     <Image>{image}</Image>
     <Name>
       {name}
-      <DisplayErrors keyName="name_errors" errors={errors.name} />
+      <ErrorList keyName="name_errors" errors={errors.name} />
     </Name>
     <PrefCode>
       {prefCode}
-      <DisplayErrors keyName="prefCode_errors" errors={errors.prefCode} />
+      <ErrorList keyName="prefCode_errors" errors={errors.prefCode} />
     </PrefCode>
     <Profile>
       {profile}
-      <DisplayErrors keyName="profile_errors" errors={errors.profile} />
+      <ErrorList keyName="profile_errors" errors={errors.profile} />
     </Profile>
     <PhoneNumber>
       {phoneNumber}
-      <DisplayErrors keyName="phoneNumber_errors" errors={errors.phoneNumber} />
+      <ErrorList keyName="phoneNumber_errors" errors={errors.phoneNumber} />
     </PhoneNumber>
     <Button>{button}</Button>
   </Fragment>

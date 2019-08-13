@@ -2,8 +2,8 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import MenuItem from 'components/LV2/MenuItem/ServiceMenu';
-import AvatarIcon from 'components/LV2/HeaderAction/AvatarIcon';
+import MenuItem from 'components/LV2/Items/MenuItem';
+import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import { Dimens } from 'variables';
 import { formatName } from 'helpers/string';
 
@@ -35,7 +35,7 @@ type PropTypes = {
   message: MenuItemProps,
   isSchedule?: boolean,
   schedule: MenuItemProps,
-  editProfile: MenuItemProps,
+  profileEdit: MenuItemProps,
   isHost: boolean,
   addSpace: MenuItemProps,
   spaces: MenuItemProps,
@@ -56,7 +56,7 @@ export default ({
   message,
   isSchedule,
   schedule,
-  editProfile,
+  profileEdit,
   isHost,
   addSpace,
   spaces,
@@ -81,7 +81,7 @@ export default ({
         <MenuItem title="ホーム" {...home} line={isPhone} />
         <MenuItem title="メッセージ" {...message} />
         {isSchedule && <MenuItem title="利用状況" {...schedule} />}
-        <MenuItem title="プロフィールの編集" {...editProfile} />
+        <MenuItem title="プロフィールの編集" {...profileEdit} />
         {isHost && (
           <Fragment>
             <MenuItem title="スペースの登録" {...addSpace} line />

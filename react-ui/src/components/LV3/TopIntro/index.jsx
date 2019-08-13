@@ -4,10 +4,10 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
-import StyledDefaultContainer from 'components/LV1/DefaultContainer/StyledDefaultContainer';
-import Button from 'components/LV1/Button';
-import ExplainSection from 'components/LV2/ExplainSection';
-import ForSafeSection from 'components/LV2/ForSafeSection';
+import ContainerDefaultStyled from 'components/LV1/ContainerDefault/ContainerDefaultStyled';
+import Button from 'components/LV1/Forms/Button';
+import ContentExplain from 'components/LV2/Texts/ContentExplain';
+import ForSafeList from 'components/LV2/Lists/ForSafeList';
 
 const topImage1 =
   'https://monooq.imgix.net/img%2Fservice%2Ftop1%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&w=500';
@@ -16,7 +16,7 @@ const topImage1Sp =
 const topImage2 =
   'https://monooq.imgix.net/img%2Fservice%2Ftop2%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&w=500';
 
-const UserReasonContainer = styled(StyledDefaultContainer)`
+const UserReasonContainer = styled(ContainerDefaultStyled)`
   background-image: url(${topImage1});
   background-repeat: no-repeat;
   background-position: right;
@@ -40,7 +40,7 @@ const HostReasonBackground = styled.div`
   `};
 `;
 
-const HostReasonContainer = styled(StyledDefaultContainer)`
+const HostReasonContainer = styled(ContainerDefaultStyled)`
   padding: ${Dimens.large4_80}px 0 ${Dimens.large4_80}px 600px;
   box-sizing: border-box;
   ${media.phone`
@@ -121,16 +121,7 @@ export default ({
             <HilightCopy>{hilightcopy}</HilightCopy>
             <DefaultTitle>{title}</DefaultTitle>
             <ForSafeContainer className="for-safe-section-list">
-              {list.map((item, i) => (
-                <ForSafeSection
-                  key={i.toString()}
-                  iconClass={item.iconClass}
-                  title={item.title}
-                  description={item.description}
-                  buttonText={item.buttonText}
-                  onClick={item.onClickItem}
-                />
-              ))}
+              <ForSafeList list={list} />
             </ForSafeContainer>
           </Fragment>
         ) : (
@@ -139,7 +130,7 @@ export default ({
             <DefaultTitle>{title}</DefaultTitle>
             <ExplainContainer isUser>
               {list.map((item, i) => (
-                <ExplainSection
+                <ContentExplain
                   key={i.toString()}
                   title={item.title}
                   description={item.description}
@@ -157,7 +148,7 @@ export default ({
           <DefaultTitle>{title}</DefaultTitle>
           <ExplainContainer>
             {list.map((item, i) => (
-              <ExplainSection
+              <ContentExplain
                 key={i.toString()}
                 title={item.title}
                 description={item.description}

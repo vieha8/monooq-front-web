@@ -1,15 +1,17 @@
+// @flow
+
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import InlineText from 'components/LV1/InlineText';
-import Button from 'components/LV1/Button';
-import DefaultContainer from 'components/LV1/DefaultContainer';
-import Footer from 'components/LV2/Footer';
 import Hr from 'components/LV1/HorizontalRule';
-import Text from 'components/LV1/StaticText';
-import WhenIUseList from 'components/LV2/WhenIUseList';
-import IfIFindList from 'components/LV2/IfIFindList';
+import Button from 'components/LV1/Forms/Button';
+import Text from 'components/LV1/Texts/TextStatic';
+import InlineText from 'components/LV1/Texts/InlineText';
+import ContainerDefault from 'components/LV1/ContainerDefault';
+import Footer from 'components/LV2/Footer';
+import WhenIUseList from 'components/LV2/Lists/WhenIUseList';
+import IfIFindList from 'components/LV2/Lists/IfIFindList';
 import mainVisual from 'images/about_main_visual@2x.jpg';
 import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';
 import useImage1 from 'images/about_use1@2x.jpg';
@@ -120,14 +122,14 @@ const TopLabel = styled.div`
   `};
 `;
 
-const WhenIUseContainer = styled(DefaultContainer)`
+const WhenIUseContainer = styled(ContainerDefault)`
   padding-top: 50px;
   ${media.phone`
     padding-top: 20px;
   `};
 `;
 
-const ContentContainer = styled(DefaultContainer)`
+const ContentContainer = styled(ContainerDefault)`
   ${props =>
     props.bottom &&
     `

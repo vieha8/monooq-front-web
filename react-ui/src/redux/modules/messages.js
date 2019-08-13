@@ -246,14 +246,14 @@ function* fetchMessagesStart({ payload: roomId }) {
   const messageData = yield getMessages(roomId);
   const { room, messageObserver } = messageData;
   if (!room) {
-    yield put(push(Path.notFound()));
+    yield put(push(Path.pageNotFound()));
     return;
   }
 
   // アクセス制限
   if (user.id !== 7111 && user.id !== 2613 && user.id !== 9000) {
     if (!(room.userId1 === user.id || room.userId2 === user.id)) {
-      yield put(push(Path.notFound()));
+      yield put(push(Path.pageNotFound()));
       return;
     }
   }

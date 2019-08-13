@@ -27,18 +27,18 @@ export default {
   createSpacePrice: () => `/space/new/price/about`,
   createSpaceConfirm: () => `/space/new/confirm`,
   createSpaceCompletion: () => '/space/new/completion',
-  editSpaceInfo: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/info`,
-  editSpaceBaggage: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/baggage`,
-  editSpaceReceive: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/receive`,
-  editSpacePrice: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/price/about`,
-  editSpaceConfirm: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/confirm`,
-  editSpaceCompletion: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/completion`,
+  spaceEditInfo: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/info`,
+  spaceEditBaggage: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/baggage`,
+  spaceEditReceive: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/receive`,
+  spaceEditPrice: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/price/about`,
+  spaceEditConfirm: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/confirm`,
+  spaceEditCompletion: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/completion`,
   // スケジュール
   schedule: () => '/schedule',
   // キャンセル確認
   confirmCancel: (scheduleId = SCHEDULE_ID) => `/schedule/${scheduleId}/cancel`,
   // メッセージ一覧
-  messages: () => '/messages',
+  messageList: () => '/messages',
   // メッセージ詳細
   message: (messageRoomId = MESSAGE_ROOM_ID) => `/messages/${messageRoomId}`,
   // 見積もり
@@ -49,7 +49,7 @@ export default {
   // プロフィール
   profile: (userId = USER_ID) => `/user/${userId}`,
   // プロフィール編集
-  editProfile: () => '/profile/edit',
+  profileEdit: () => '/profile/edit',
   // スペース一覧
   spaces: () => '/user/spaces',
   // レビュー投稿
@@ -81,9 +81,9 @@ export default {
   rule: () => '/rule',
   howToUse: () => '/howtouse',
   service: () => '/service',
-  notFound: () => '/notfound',
+  pageNotFound: () => '/notfound',
   error: (status = ':status') => `/error/${status}`,
-  cancellationPolicies: () => '/cancel/policy',
+  cancelPolicy: () => '/cancel/policy',
   asct: () => '/asct',
   privacy: () => '/privacy',
   terms: () => '/terms',

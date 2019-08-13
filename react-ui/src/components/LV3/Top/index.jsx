@@ -7,12 +7,12 @@ import Header from 'components/containers/Header';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import StyledDefaultContainer from 'components/LV1/DefaultContainer/StyledDefaultContainer';
+import ContainerDefaultStyled from 'components/LV1/ContainerDefault/ContainerDefaultStyled';
 import Footer from 'components/LV2/Footer';
 import PickupSpaceList from 'components/LV3/PickupSpaceList';
 import TopView from 'components/LV3/TopView';
-import MediaLineup from 'components/LV3/MediaLineup';
-import OtherService from 'components/LV3/OtherService';
+import MediaList from 'components/LV3/MediaList';
+import ServiceOther from 'components/LV3/ServiceOther';
 import TopIntro from 'components/LV3/TopIntro';
 import TopIntroMovie from 'components/LV3/TopIntroMovie';
 import LogoEnepi from 'images/logo-enepi-blue.png';
@@ -79,7 +79,7 @@ const CommonContainer = styled.div`
     `};
 `;
 
-const ForSafeContainer = styled(StyledDefaultContainer)``;
+const ForSafeContainer = styled(ContainerDefaultStyled)``;
 
 const PickupContainer = styled.div`
   margin: ${Dimens.medium}px 0;
@@ -118,7 +118,7 @@ export default ({
           荷物を置くための新しい方法。
         </Fragment>
       }
-      subCatchPhrase={
+      catchPhraseSub={
         <Fragment>
           モノオクは空きスペースを活用できる、
           <br />
@@ -134,12 +134,7 @@ export default ({
     />
 
     <PickupContainer>
-      <PickupSpaceList
-        title="スタッフのおすすめ"
-        spaceList={pickUpSpaces}
-        noMore
-        onClickMoreView={() => {}}
-      />
+      <PickupSpaceList title="スタッフのおすすめ" spaceList={pickUpSpaces} />
     </PickupContainer>
 
     <CommonContainer>
@@ -268,7 +263,7 @@ export default ({
     </ForSafeContainer>
 
     <CommonContainer gray>
-      <OtherService
+      <ServiceOther
         serviceList={[
           {
             title: '提携サービス',
@@ -332,7 +327,7 @@ export default ({
       />
     </CommonContainer>
 
-    <MediaLineup
+    <MediaList
       title="メディア掲載"
       list={[
         {

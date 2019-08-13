@@ -9,7 +9,7 @@ import Card from './index';
 
 Card.displayName = 'Card';
 
-storiesOf('Atoms(LV1)/Util/Card', module)
+storiesOf('Atoms(LV1)/Card', module)
   .add(
     'Block',
     withInfo(`

@@ -79,7 +79,8 @@ class TopContainer extends React.Component {
   };
 
   viewMoreFeature = () => {
-    this.props.dispatch(
+    const { dispatch } = this.props;
+    dispatch(
       uiActions.setUiState({
         moreFeature: true,
       }),
@@ -87,7 +88,8 @@ class TopContainer extends React.Component {
   };
 
   viewMoreArea = () => {
-    this.props.dispatch(
+    const { dispatch } = this.props;
+    dispatch(
       uiActions.setUiState({
         moreArea: true,
       }),

@@ -11,9 +11,9 @@ import { uiActions } from 'redux/modules/ui';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import Header from 'components/containers/Header';
-import ManageSpaceList from 'components/LV3/ManageSpaceList';
+import SpaceManageList from 'components/LV3/SpaceManageList';
 import LoadingPage from 'components/LV3/LoadingPage';
-import NoDataView from 'components/LV3/NoDataView';
+import SpaceDataNone from 'components/LV3/SpaceDataNone';
 
 import type { SpaceType } from 'types/Space';
 
@@ -40,7 +40,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
   onClickEdit = space => {
     const { dispatch, history } = this.props;
     dispatch(uiActions.setUiState({ space }));
-    history.push(Path.editSpaceInfo(space.id));
+    history.push(Path.spaceEditInfo(space.id));
   };
 
   onClickRemove = space => {
@@ -57,7 +57,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
 
     if (Array.isArray(spaces) && spaces.length === 0) {
       return (
-        <NoDataView
+        <SpaceDataNone
           captionHead="登録したスペースがありません"
           caption="スペースの登録がありません。以下のボタンからスペースを登録して荷物を預る準備をしましょう。"
           buttonText="スペースを登録する"
@@ -67,7 +67,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
     }
 
     return (
-      <ManageSpaceList
+      <SpaceManageList
         spaces={spaces.map(space => ({
           image: {
             src: (space.images[0] || {}).imageUrl,

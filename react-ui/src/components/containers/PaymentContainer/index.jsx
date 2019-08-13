@@ -13,11 +13,11 @@ import { media } from 'helpers/style/media-query';
 
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import InputPayment from 'components/LV3/InputPayment';
+import Payment from 'components/LV3/Payment';
 import Header from 'components/containers/Header';
 import LoadingPage from 'components/LV3/LoadingPage';
-import Button from 'components/LV1/Button';
-import { H1 } from 'components/LV1/Headline';
+import Button from 'components/LV1/Forms/Button';
+import { H1 } from 'components/LV1/Texts/Headline';
 
 import { Dimens, Colors, FontSizes, ErrorMessages } from 'variables';
 
@@ -303,7 +303,7 @@ class PaymentContainer extends Component<PropTypes> {
     const space = request.space || {};
     const { name, number, month, year, cvc, error, paymentMethod } = this.state;
     return (
-      <InputPayment
+      <Payment
         space={space}
         onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
         paymentMethod={paymentMethod}
@@ -344,7 +344,7 @@ class PaymentContainer extends Component<PropTypes> {
     const { name, number, paymentMethod } = this.state;
 
     return (
-      <InputPayment
+      <Payment
         space={space}
         onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
         paymentMethod={paymentMethod}
@@ -429,7 +429,7 @@ class PaymentContainer extends Component<PropTypes> {
 
     const requestId = match.params.request_id;
     if (!requestId) {
-      return <Redirect to={Path.messages()} />;
+      return <Redirect to={Path.messageList()} />;
     }
 
     if (!request) {

@@ -9,7 +9,7 @@ import Loading from './index';
 
 Loading.displayName = 'Loading';
 
-storiesOf('Atoms(LV1)/Util/Loading', module).add(
+storiesOf('Atoms(LV1)/Loading', module).add(
   'Normal',
   withInfo(`
     ### コンポーネント概要

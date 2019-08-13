@@ -1,34 +1,35 @@
+// @flow
+
 import React, { Fragment } from 'react';
 import Path from 'config/path';
 
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { Link } from 'react-router-dom';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
+import Text from 'components/LV1/Texts/TextStatic';
 import Footer from 'components/LV2/Footer';
-import MainTitleContainer from 'components/LV2/StaticMainTitle';
-import AsctContent from 'components/LV2/AsctContent';
-import Text from 'components/LV1/StaticText';
+import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
+import ContentAsct from 'components/LV2/Texts/ContentAsct';
+
+const Container = styled(ContainerDefault)`
+  margin-bottom: ${Dimens.large4_80}px;
+`;
+
+const Wrapper = styled.div`
+  margin-bottom: ${Dimens.medium3_40}px;
+`;
 
 const LinkText = styled(Link)`
   color: ${Colors.linkBlue};
 `;
 
-const AsctContainer = styled(DefaultContainer)`
-  margin-bottom: ${Dimens.large4_80}px;
-`;
-
-const AsctContentWrapper = styled.div`
-  margin-bottom: ${Dimens.medium3_40}px;
-`;
-
 export default () => (
   <Fragment>
     <MainTitleContainer mainTitle="特定商取引に関する表記" />
-
-    <AsctContainer>
-      <AsctContentWrapper>
-        <AsctContent
+    <Container>
+      <Wrapper>
+        <ContentAsct
           asctList={[
             {
               header: '提供事業者',
@@ -80,22 +81,21 @@ export default () => (
               data: (
                 <Fragment>
                   モノオクの定める
-                  <LinkText to={Path.cancellationPolicies()}>キャンセルポリシー</LinkText>
+                  <LinkText to={Path.cancelPolicy()}>キャンセルポリシー</LinkText>
                   がございます。お支払い前に必ずお読みください。
                 </Fragment>
               ),
             },
           ]}
         />
-      </AsctContentWrapper>
-
-      <AsctContentWrapper>
+      </Wrapper>
+      <Wrapper>
         <Text>※取引やサービスについてのお問い合わせは電話では受け付けておりません。</Text>
         <Text>
           利用に関するお問い合わせは、ログイン後のメニュー「お問い合わせ」よりご連絡ください。
         </Text>
-      </AsctContentWrapper>
-    </AsctContainer>
+      </Wrapper>
+    </Container>
     <Footer />
   </Fragment>
 );

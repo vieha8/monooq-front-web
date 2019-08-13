@@ -3,10 +3,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Logo from 'components/LV1/Logo';
-import AvatarIcon from 'components/LV2/HeaderAction/AvatarIcon';
-import Anonymouse from 'components/LV2/HeaderAction/Anonymouse';
-import AnimateSearchInputField from 'components/LV2/AnimateSearchInputField';
+import ImageLogo from 'components/LV1/Images/ImageLogo';
+import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
+import Anonymouse from 'components/LV2/ButtonHeader/Anonymouse';
+import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, ZIndexes } from 'variables';
 import { formatName } from 'helpers/string';
@@ -181,7 +181,7 @@ export default ({
     <Container top={top} stories={stories}>
       <Nav>
         <LogoWrapper to={topUrl}>
-          {top ? <Logo.HeaderWhiteFill /> : <Logo.HeaderFill />}
+          {top ? <ImageLogo.HeaderWhiteFill /> : <ImageLogo.HeaderFill />}
         </LogoWrapper>
         {!isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>
@@ -189,7 +189,7 @@ export default ({
               <ActionContainer>
                 <SearchFiledCell>
                   <OnlyPhone>
-                    <AnimateSearchInputField
+                    <ImageMenuHeader
                       iconRight
                       messageUrl={messageUrl}
                       messageCount={messageCount}
@@ -198,7 +198,7 @@ export default ({
                     />
                   </OnlyPhone>
                   <OnlyPC>
-                    <AnimateSearchInputField iconRight searchConditionUrl={searchConditionUrl} />
+                    <ImageMenuHeader iconRight searchConditionUrl={searchConditionUrl} />
                   </OnlyPC>
                 </SearchFiledCell>
                 <OnlyPhone>

@@ -3,8 +3,8 @@
 import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
-import InputCalendar from 'components/LV1/InputCalendar';
-import InlineText from 'components/LV1/InlineText';
+import Calendar from 'components/LV1/Forms/Calendar';
+import InlineText from 'components/LV1/Texts/InlineText';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
@@ -75,7 +75,7 @@ export default ({
       <DateLabel>
         <InlineText.Bold>{beginTitle || '利用開始日'}</InlineText.Bold>
       </DateLabel>
-      <InputCalendar
+      <Calendar
         date={beginDate}
         block
         focused={Boolean(beginDateFocused)}
@@ -88,7 +88,7 @@ export default ({
       <DateLabel>
         <InlineText.Bold>{endTitle || '利用終了日'}</InlineText.Bold>
       </DateLabel>
-      <InputCalendar
+      <Calendar
         date={endDate}
         block
         focused={Boolean(endDateFocused)}

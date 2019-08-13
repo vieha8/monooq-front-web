@@ -2,10 +2,10 @@
 
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/LV1/InlineText';
+import InlineText from 'components/LV1/Texts/InlineText';
 import ScheduleListItem, {
   type PropTypes as ScheduleListItemType,
-} from 'components/LV2/ScheduleListItem';
+} from 'components/LV2/Items/ScheduleListItem';
 import { Colors, Dimens, FontSizes } from 'variables';
 
 const Row = styled.div`

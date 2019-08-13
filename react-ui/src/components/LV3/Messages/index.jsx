@@ -5,15 +5,15 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { formatDate, formatStringSlash, formatStringSlashTime } from 'helpers/date';
 import Path from 'config/path';
+import Button from 'components/LV1/Forms/Button';
+import InlineText from 'components/LV1/Texts/InlineText';
+import TextLink from 'components/LV1/Texts/TextLink';
 import AdminMessage from 'components/LV2/Message/Admin';
 import SelfMessage from 'components/LV2/Message/MySelf';
 import OtherMessage from 'components/LV2/Message/Other';
 import EstimateMessage from 'components/LV2/Message/Estimate';
 import PhotoMessage from 'components/LV2/Message/Photo';
 import MessageInput from 'components/LV2/Message/Input';
-import Button from 'components/LV1/Button';
-import InlineText from 'components/LV1/InlineText';
-import TextLink from 'components/LV1/TextLink';
 import { Dimens, Colors } from 'variables';
 
 const Row = styled.div`

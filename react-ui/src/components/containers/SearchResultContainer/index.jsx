@@ -11,10 +11,10 @@ import SearchResultTemplate from 'components/templates/SearchResultTemplate';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Header from 'components/containers/Header';
-import Button from 'components/LV1/Button';
+import Button from 'components/LV1/Forms/Button';
 import SearchResult from 'components/LV3/SearchResult';
-import NoDataView from 'components/LV3/NoDataView';
-import ConciergeContents from 'components/LV2/ConciergeIntroduction';
+import SpaceDataNone from 'components/LV3/SpaceDataNone';
+import ConciergeContents from 'components/LV2/IntroductionConcierge';
 import Meta from 'components/LV1/Meta';
 import { Dimens, FormValues } from 'variables';
 
@@ -192,9 +192,9 @@ class SearchResultContainer extends Component<PropTypes, State> {
     this.setState({ offset: newOffset });
   };
 
-  leftContentNotFound = () => {
+  leftContentPageNotFound = () => {
     return (
-      <NoDataView
+      <SpaceDataNone
         captionHead="該当するスペースが見つかりませんでした"
         caption="別のキーワード及び条件で検索をお試しください"
         buttonText="条件を変えて再検索する"
@@ -204,13 +204,13 @@ class SearchResultContainer extends Component<PropTypes, State> {
     );
   };
 
-  renderNotFound = () => {
+  renderPageNotFound = () => {
     const condition = this.getCondition();
     return (
       <MenuPageTemplate
         header={<Header />}
         headline={`「${condition}」のスペース検索結果 0件`}
-        leftContent={this.leftContentNotFound()}
+        leftContent={this.leftContentPageNotFound()}
         rightContent={<ServiceMenu />}
       />
     );
@@ -288,7 +288,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     const { spaces, isMore, maxCount } = this.props;
 
     if (spaces.length === 0 && !isMore) {
-      return this.renderNotFound();
+      return this.renderPageNotFound();
     }
 
     const condition = this.getCondition();

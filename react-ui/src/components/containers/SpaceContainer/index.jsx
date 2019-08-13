@@ -127,7 +127,7 @@ class SpaceContainer extends Component<PropTypes> {
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
           type={SPACE_TYPES[space.type]}
           furniture={space.isFurniture}
-          aboutBaggage={space.about}
+          baggage={space.about}
           delivery={
             space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
           }

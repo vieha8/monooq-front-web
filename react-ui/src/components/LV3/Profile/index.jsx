@@ -6,9 +6,9 @@ import { media } from 'helpers/style/media-query';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { getPrefecture } from 'helpers/prefectures';
 import { formatName } from 'helpers/string';
-import InlineText from 'components/LV1/InlineText';
-import AvatarImage from 'components/LV1/AvatarImage';
-import SearchResultItem from 'components/LV2/SearchResultItem';
+import InlineText from 'components/LV1/Texts/InlineText';
+import ImageAvatar from 'components/LV1/Images/ImageAvatar';
+import SearchResultItem from 'components/LV2/Items/SearchResultItem';
 import type { SpaceType } from 'types/Space';
 
 const IMAGE_SIZE = 100;
@@ -106,7 +106,7 @@ export default ({ image, name, prefCode, lastLoginAt, profile, spaces }: PropTyp
     <Container>
       <User>
         <ImageWrap>
-          <AvatarImage src={image} alt={name} size={IMAGE_SIZE} />
+          <ImageAvatar src={image} alt={name} size={IMAGE_SIZE} />
         </ImageWrap>
         <InfoTopWrap>
           <HostName>{`${formatName(name)}さん`}</HostName>

@@ -4,10 +4,10 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
-import InlineText from 'components/LV1/InlineText';
-import InputForm from 'components/LV2/InputForm';
+import Button from 'components/LV1/Forms/Button';
+import InlineText from 'components/LV1/Texts/InlineText';
+import InputForm from 'components/LV2/Forms/InputForm';
 import { Dropdown } from 'semantic-ui-react';
-import Button from 'components/LV1/Button';
 
 import 'stylesheets/dropdown_overrides.css';
 

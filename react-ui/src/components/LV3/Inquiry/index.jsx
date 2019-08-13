@@ -4,9 +4,9 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
-import InlineText from 'components/LV1/InlineText';
-import TextLink from 'components/LV1/TextLink';
-import Button from 'components/LV1/Button';
+import Button from 'components/LV1/Forms/Button';
+import InlineText from 'components/LV1/Texts/InlineText';
+import TextLink from 'components/LV1/Texts/TextLink';
 
 import { Colors, Dimens } from 'variables';
 import Path from 'config/path';

@@ -8,15 +8,15 @@ import Path from 'config/path';
 import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import InlineText from 'components/LV1/InlineText';
+import InlineText from 'components/LV1/Texts/InlineText';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import Messages from 'components/LV3/Messages';
 import Header from 'components/containers/Header';
 import Loading from 'components/LV1/Loading';
-import HeroImage from 'components/LV1/HeroImage';
-import HostInfo from 'components/LV2/Space/HostInfo';
-import UserInfo from 'components/LV2/Space/UserInfo';
+import ImageHero from 'components/LV1/Images/ImageHero';
+import InfoHost from 'components/LV2/Space/InfoHost';
+import InfoUser from 'components/LV2/Space/InfoUser';
 import { convertImgixUrl } from 'helpers/imgix';
 import { messagesActions } from 'redux/modules/messages';
 import { connect } from 'react-redux';
@@ -214,10 +214,10 @@ class MessageContainer extends Component<PropTypes, State> {
 
   close = () => this.setState({ errorModal: false });
 
-  onClickEditProfile = () => {
+  onClickProfileEdit = () => {
     const { history, dispatch, location } = this.props;
     dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-    history.push(Path.editProfile());
+    history.push(Path.profileEdit());
   };
 
   leftContent = () => {
@@ -244,25 +244,25 @@ class MessageContainer extends Component<PropTypes, State> {
       <Fragment>
         <TopWrap>
           {isHost ? (
-            <UserInfo
+            <InfoUser
               id={room.user.id}
               name={(room.user || {}).name}
               imageUrl={room.user.imageUrl}
-              hostinfo
+              infoHost
               message
             />
           ) : (
-            <HostInfo
+            <InfoHost
               id={room.space.user.id}
               name={(room.space.user || {}).name}
               imageUrl={room.space.user.imageUrl}
-              hostinfo
+              infoHost
               message
             />
           )}
           <Row to={Path.space(room.space.id)}>
             <ImageWrapper>
-              <HeroImage small src={room.space.images[0].imageUrl} />
+              <ImageHero small src={room.space.images[0].imageUrl} />
             </ImageWrapper>
             <ContentWrapper>
               <AddressText>
@@ -300,7 +300,7 @@ class MessageContainer extends Component<PropTypes, State> {
             </p>
           </Modal.Content>
           <Modal.Actions>
-            <Button className="brandPrimary" onClick={this.onClickEditProfile}>
+            <Button className="brandPrimary" onClick={this.onClickProfileEdit}>
               登録画面へ進む
             </Button>
           </Modal.Actions>

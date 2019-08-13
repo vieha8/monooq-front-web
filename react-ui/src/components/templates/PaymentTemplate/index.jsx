@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ClearfixContainer from 'components/LV1/ClearfixContainer';
+import ContainerClearfix from 'components/LV1/ContainerClearfix';
 import Page from '../Page';
 
 const LeftContent = styled.div`
@@ -37,10 +37,10 @@ export default ({ header, left, right }: PropTypes) => (
   <div>
     {header}
     <Page>
-      <ClearfixContainer>
+      <ContainerClearfix>
         <LeftContent>{left}</LeftContent>
         <RightContent>{right}</RightContent>
-      </ClearfixContainer>
+      </ContainerClearfix>
     </Page>
   </div>
 );

@@ -11,14 +11,14 @@ import { salesActions } from 'redux/modules/sales';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import Header from 'components/containers/Header';
+import Button from 'components/LV1/Forms/Button';
+import InlineText from 'components/LV1/Texts/InlineText';
+import InputForm from 'components/LV2/Forms/InputForm';
+import Confirm from 'components/LV2/Forms/InputForm/confirm';
+import Select from 'components/LV2/Forms/Select';
+import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
+import SalesAmountItem from 'components/LV2/Items/SalesAmountItem';
 import LoadingPage from 'components/LV3/LoadingPage';
-import InputForm from 'components/LV2/InputForm';
-import Confirm from 'components/LV2/InputForm/confirm';
-import SelectForm from 'components/LV2/SelectForm';
-import SalesAmountItem from 'components/LV2/SalesAmountItem';
-import Button from 'components/LV1/Button';
-import EntryButtons from 'components/LV2/EntryButtons';
-import InlineText from 'components/LV1/InlineText';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 import selectDepositType from 'helpers/depositTypes';
@@ -298,7 +298,7 @@ class SalesContainer extends Component {
           />
         </InputText>
         <InputText>
-          <SelectForm
+          <Select
             label="預金種目"
             options={selectDepositType('選択してください')}
             onChange={e => this.handleChangeInput('accountType', e.target.value)}
@@ -380,7 +380,7 @@ class SalesContainer extends Component {
             ※銀行口座の情報が間違っている場合、振込ができません。振込手数料を売上から引かせていただきます。入力内容をしっかりご確認ください。
           </CautionText>
         </CautionWrapper>
-        <EntryButtons
+        <ButtonEntry
           relative
           enabled
           backButton={{

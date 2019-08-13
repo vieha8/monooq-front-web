@@ -4,8 +4,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import InlineText from 'components/LV1/InlineText';
-import TextLink from 'components/LV1/TextLink';
+import InlineText from 'components/LV1/Texts/InlineText';
+import TextLink from 'components/LV1/Texts/TextLink';
 import Path from 'config/path';
 
 const Row = styled.div`

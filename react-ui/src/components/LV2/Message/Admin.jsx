@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Card from 'components/LV1/Card';
-import InlineText from 'components/LV1/InlineText';
+import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors } from 'variables';
 
 const DateWrapper = styled.div`

@@ -4,11 +4,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors } from 'variables';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
+import CatchPhrase from 'components/LV1/Texts/CatchPhrase';
+import CatchPhraseSub from 'components/LV1/Texts/CatchPhraseSub';
+import InputSearch from 'components/LV2/Forms/InputSearch';
 import { Height as HeaderHeight } from 'components/LV3/Header';
-import CatchPhrase from 'components/LV1/CatchPhrase';
-import SubCatchPhrase from 'components/LV1/SubCatchPhrase';
-import SearchInput from 'components/LV2/SearchInput';
 
 const mainVisual =
   'https://monooq.imgix.net/img%2Fservice%2Fmain_visual%402x.jpg?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=540';
@@ -37,16 +37,16 @@ const TopViewFilter = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-const TopViewContainer = styled(DefaultContainer)``;
+const TopViewContainer = styled(ContainerDefault)``;
 
-const SearchInputContainer = styled.div`
+const InputSearchContainer = styled.div`
   margin-top: ${Dimens.medium_20}px;
   margin-bottom: ${Dimens.medium3_40}px;
 `;
 
 type PropTypes = {
   catchPhrase: React.Element<*>,
-  subCatchPhrase: React.Element<*>,
+  catchPhraseSub: React.Element<*>,
   SIplaceholder: string,
   SIlocationText: string,
   SIonChange: Function,
@@ -57,7 +57,7 @@ type PropTypes = {
 
 export default ({
   catchPhrase,
-  subCatchPhrase,
+  catchPhraseSub,
   SIplaceholder,
   SIlocationText,
   SIonChange,
@@ -69,9 +69,9 @@ export default ({
     <TopViewFilter>
       <TopViewContainer>
         <CatchPhrase>{catchPhrase}</CatchPhrase>
-        <SubCatchPhrase>{subCatchPhrase}</SubCatchPhrase>
-        <SearchInputContainer>
-          <SearchInput
+        <CatchPhraseSub>{catchPhraseSub}</CatchPhraseSub>
+        <InputSearchContainer>
+          <InputSearch
             placeholder={SIplaceholder}
             locationText={SIlocationText}
             onChange={SIonChange}
@@ -79,7 +79,7 @@ export default ({
             searchDisabled={SIsearchDisabled}
             onClickSearchButton={SIonClickSearchButton}
           />
-        </SearchInputContainer>
+        </InputSearchContainer>
       </TopViewContainer>
     </TopViewFilter>
   </TopView>

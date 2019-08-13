@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/LV1/InlineText';
+import InlineText from 'components/LV1/Texts/InlineText';
 import { FontSizes, Dimens } from 'variables';
 
 import imageFurnitureFull from 'images/furniture-full.svg';

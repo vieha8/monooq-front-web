@@ -1,13 +1,13 @@
 // @flow
 
 import React from 'react';
-import InlineText from 'components/LV1/InlineText';
-import RegsiterProfileImage from 'components/LV1/DragAndDrop/RegisterProfileImage';
-import InputForm from 'components/LV2/InputForm';
-import SelectForm from 'components/LV2/SelectForm';
+import InlineText from 'components/LV1/Texts/InlineText';
+import RegsiterProfileImage from 'components/LV1/Forms/DragAndDrop/RegisterProfileImage';
+import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
+import InputForm from 'components/LV2/Forms/InputForm';
+import Select from 'components/LV2/Forms/Select';
 import { FontSizes } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
-import EntryButtons from 'components/LV2/EntryButtons';
 import Form from './Form';
 
 const inlineText = text => {
@@ -42,7 +42,7 @@ const inputForm = (label, hint, placeholder, onChange, value, multiline, rows, t
 
 const selectForm = (onChangeArea, prefCode) => {
   return (
-    <SelectForm
+    <Select
       label="お住いの地域"
       options={selectOptionPrefectures('選択してください')}
       onChange={e => onChangeArea(e.target.value)}
@@ -51,9 +51,9 @@ const selectForm = (onChangeArea, prefCode) => {
   );
 };
 
-const entryButtons = (buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile) => {
+const buttonEntry = (buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile) => {
   return (
-    <EntryButtons
+    <ButtonEntry
       enabled
       relative
       backButton={{
@@ -160,6 +160,6 @@ export default ({
       'tel',
       '',
     )}
-    button={entryButtons(buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile)}
+    button={buttonEntry(buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile)}
   />
 );

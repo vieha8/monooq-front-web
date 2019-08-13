@@ -5,19 +5,19 @@ import Path from 'config/path';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import DefaultContainer from 'components/LV1/DefaultContainer';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import Footer from 'components/LV2/Footer';
-import MainTitleContainer from 'components/LV2/StaticMainTitle';
+import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 import Hr from 'components/LV1/HorizontalRule';
-import WhySafeList from 'components/LV2/WhySafeList';
-import HowSafeList from 'components/LV2/HowSafeList';
-import QuestionList from 'components/LV2/QuestionList';
+import WhySafeList from 'components/LV2/Lists/WhySafeList';
+import HowSafeList from 'components/LV2/Lists/HowSafeList';
+import QuestionList from 'components/LV2/Lists/QuestionList';
 
 import insuranceImage1 from 'images/insurance-img01.svg';
 import insuranceImage2 from 'images/insurance-img02.svg';
 import insuranceImage3 from 'images/insurance-img03.svg';
 
-const ContentContainer = styled(DefaultContainer)`
+const ContentContainer = styled(ContainerDefault)`
   ${props =>
     props.bottom &&
     `
