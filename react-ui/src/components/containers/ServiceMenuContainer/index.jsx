@@ -6,7 +6,6 @@ import ServiceMenu from 'components/LV3/ServiceMenu';
 import MenuWrapPhone from 'components/LV3/ServiceMenu/MenuWrapPhone';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
-import { requestActions } from 'redux/modules/request';
 import { userActions } from 'redux/modules/user';
 
 import { authActions } from 'redux/modules/auth';
@@ -22,13 +21,6 @@ type PropTypes = {
 class ServiceMenuContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
-
-    const { isLogin, dispatch } = this.props;
-    if (isLogin) {
-      // TODO: 利用状況画面の場合は2重実行になるため対策したい。
-      dispatch(requestActions.fetchSchedule());
-    }
-
     this.state = {
       currentMenu: 'slide',
       side: 'right',
