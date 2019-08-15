@@ -14,7 +14,6 @@ import Detail from 'components/LV3/Space/Detail';
 import SendMessage from 'components/LV3/Space/SendMessage';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Meta from 'components/LV1/Meta';
-import type { SpaceType } from 'types/Space';
 import dummySpaceImage from 'images/dummy_space.png';
 import { iskeyDownEnter } from 'helpers/keydown';
 
@@ -33,7 +32,36 @@ type PropTypes = {
   user: {
     id: number,
   },
-  space: SpaceType,
+  space: {
+    id: number,
+    user: {
+      id: number,
+      firebaseUid: string,
+      imageUrl: string,
+      name: string,
+      profile: string,
+    },
+    addressPref: string,
+    addressCity: string,
+    addressTown: string,
+    title: string,
+    images: Array<{
+      imageUrl: string,
+    }>,
+    introduction: string,
+    type: number,
+    isFurniture: boolean,
+    about: string,
+    receiptAbout: string,
+    priceFull: number,
+    priceHalf: number,
+    priceQuarter: number,
+    location: {
+      lat: number,
+      lng: number,
+    },
+    status: string,
+  },
 };
 
 const SPACE_TYPES = ['', 'クローゼット・押入れ', '', '部屋', '屋外倉庫', 'その他'];

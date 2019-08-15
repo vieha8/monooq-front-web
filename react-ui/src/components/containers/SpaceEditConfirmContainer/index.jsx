@@ -12,7 +12,6 @@ import Header from 'components/containers/Header';
 import SpaceMap from 'components/LV1/SpaceMap';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
-import type { SpaceType } from 'types/Space';
 
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
@@ -37,7 +36,36 @@ type PropTypes = {
   user: {
     id: number,
   },
-  space: SpaceType,
+  space: {
+    id: number,
+    user: {
+      id: number,
+      firebaseUid: string,
+      imageUrl: string,
+      name: string,
+      profile: string,
+    },
+    addressPref: string,
+    addressCity: string,
+    addressTown: string,
+    title: string,
+    images: Array<{
+      imageUrl: string,
+    }>,
+    introduction: string,
+    type: number,
+    isFurniture: boolean,
+    about: string,
+    receiptAbout: string,
+    priceFull: number,
+    priceHalf: number,
+    priceQuarter: number,
+    location: {
+      lat: number,
+      lng: number,
+    },
+    status: string,
+  },
 };
 
 const SPACE_TYPES = ['', 'クローゼット・押入れ', '', '部屋', '屋外倉庫', 'その他'];

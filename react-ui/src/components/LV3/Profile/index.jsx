@@ -9,7 +9,6 @@ import { formatName } from 'helpers/string';
 import InlineText from 'components/LV1/Texts/InlineText';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import SearchResultItem from 'components/LV2/Items/SearchResultItem';
-import type { SpaceType } from 'types/Space';
 
 const IMAGE_SIZE = 100;
 
@@ -98,7 +97,36 @@ type PropTypes = {
   prefCode: string,
   lastLoginAt: Date,
   profile: string,
-  spaces: Array<SpaceType>,
+  spaces: Array<{
+    id: number,
+    user: {
+      id: number,
+      firebaseUid: string,
+      imageUrl: string,
+      name: string,
+      profile: string,
+    },
+    addressPref: string,
+    addressCity: string,
+    addressTown: string,
+    title: string,
+    images: Array<{
+      imageUrl: string,
+    }>,
+    introduction: string,
+    type: number,
+    isFurniture: boolean,
+    about: string,
+    receiptAbout: string,
+    priceFull: number,
+    priceHalf: number,
+    priceQuarter: number,
+    location: {
+      lat: number,
+      lng: number,
+    },
+    status: string,
+  }>,
 };
 
 export default ({ image, name, prefCode, lastLoginAt, profile, spaces }: PropTypes) => (

@@ -7,7 +7,6 @@ import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import LoadingPage from 'components/LV3/LoadingPage';
 import { userActions } from 'redux/modules/user';
-import type { SpaceType } from 'types/Space';
 import { formatDate, formatStringSlash } from 'helpers/date';
 import { formatName } from 'helpers/string';
 import Meta from 'components/LV1/Meta';
@@ -26,7 +25,36 @@ type PropTypes = {
     prefCode: string,
     profile: string,
   },
-  spaces: Array<SpaceType>,
+  spaces: Array<{
+    id: number,
+    user: {
+      id: number,
+      firebaseUid: string,
+      imageUrl: string,
+      name: string,
+      profile: string,
+    },
+    addressPref: string,
+    addressCity: string,
+    addressTown: string,
+    title: string,
+    images: Array<{
+      imageUrl: string,
+    }>,
+    introduction: string,
+    type: number,
+    isFurniture: boolean,
+    about: string,
+    receiptAbout: string,
+    priceFull: number,
+    priceHalf: number,
+    priceQuarter: number,
+    location: {
+      lat: number,
+      lng: number,
+    },
+    status: string,
+  }>,
 };
 
 class ProfileContainer extends Component<PropTypes> {
