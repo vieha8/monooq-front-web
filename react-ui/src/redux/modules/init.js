@@ -2,6 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, select, take, takeEvery } from 'redux-saga/effects';
 import { authActions } from 'redux/modules/auth';
 import { messagesActions } from 'redux/modules/messages';
+import { requestActions } from 'redux/modules/request';
 
 // Actions
 const INIT = 'INIT';
@@ -32,6 +33,7 @@ function* init() {
 
   const user = yield select(state => state.auth.user);
   if (user.id) {
+    yield put(requestActions.fetchSchedule());
     yield put(messagesActions.fetchUnreadRoomsStart());
     yield take(messagesActions.fetchUnreadRoomsEnd);
   }
