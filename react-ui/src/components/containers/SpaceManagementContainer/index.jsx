@@ -15,8 +15,6 @@ import SpaceManageList from 'components/LV3/SpaceManageList';
 import LoadingPage from 'components/LV3/LoadingPage';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
 
-import type { SpaceType } from 'types/Space';
-
 import authRequired from 'components/containers/AuthRequired';
 import connect from '../connect';
 
@@ -25,7 +23,36 @@ type PropTypes = {
   history: {
     push: Function,
   },
-  spaces: Array<SpaceType>,
+  spaces: Array<{
+    id: number,
+    user: {
+      id: number,
+      firebaseUid: string,
+      imageUrl: string,
+      name: string,
+      profile: string,
+    },
+    addressPref: string,
+    addressCity: string,
+    addressTown: string,
+    title: string,
+    images: Array<{
+      imageUrl: string,
+    }>,
+    introduction: string,
+    type: number,
+    isFurniture: boolean,
+    about: string,
+    receiptAbout: string,
+    priceFull: number,
+    priceHalf: number,
+    priceQuarter: number,
+    location: {
+      lat: number,
+      lng: number,
+    },
+    status: string,
+  }>,
   isLoading: boolean,
 };
 

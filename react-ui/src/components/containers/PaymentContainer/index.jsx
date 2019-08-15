@@ -21,8 +21,6 @@ import { H1 } from 'components/LV1/Texts/Headline';
 
 import { Dimens, Colors, FontSizes, ErrorMessages } from 'variables';
 
-import type { SpaceType } from 'types/Space';
-
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 import { formatDate, formatStringSlash } from 'helpers/date';
@@ -41,7 +39,36 @@ type PropTypes = {
     },
   },
   room: {
-    space: SpaceType,
+    space: {
+      id: number,
+      user: {
+        id: number,
+        firebaseUid: string,
+        imageUrl: string,
+        name: string,
+        profile: string,
+      },
+      addressPref: string,
+      addressCity: string,
+      addressTown: string,
+      title: string,
+      images: Array<{
+        imageUrl: string,
+      }>,
+      introduction: string,
+      type: number,
+      isFurniture: boolean,
+      about: string,
+      receiptAbout: string,
+      priceFull: number,
+      priceHalf: number,
+      priceQuarter: number,
+      location: {
+        lat: number,
+        lng: number,
+      },
+      status: string,
+    },
   },
   isPaymentSuccess: boolean,
   isSending: boolean,
