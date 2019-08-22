@@ -92,7 +92,5 @@ export const recordEvent = (eventName, body) => {
       ],
     },
   };
-  keenClient.recordEvent(eventName, eventBody, (res, err) => {
-    console.log(res, err);
-  });
+  keenClient.recordEvent(eventName, eventBody);
 };
