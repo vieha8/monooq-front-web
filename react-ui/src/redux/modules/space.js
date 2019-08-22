@@ -16,10 +16,8 @@ import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
 import { getPrefecture } from 'helpers/prefectures';
-import { keenClient } from 'helpers/keen';
 import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
-import { captureException } from '@sentry/browser';
 import { handleError } from './error';
 
 // Actions
@@ -559,24 +557,6 @@ function* search({
     }
     return space;
   });
-
-  const user = yield select(state => state.auth.user);
-
-  try {
-    keenClient.recordEvent('search', {
-      keyword,
-      priceMin,
-      priceMax,
-      receiptType,
-      type,
-      isFurniture,
-      prefecture: getPrefecture(prefCode),
-      user,
-      env: process.env.NODE_ENV,
-    });
-  } catch (e) {
-    captureException(e);
-  }
 
   const isMore = res.length === limit;
   yield put(

@@ -30,9 +30,6 @@ export const recordEvent = (eventName, body) => {
     page: {
       url: document.location.href,
     },
-    referrer: {
-      url: document.referrer,
-    },
     timestamp: new Date().toISOString(),
     visitor: {
       uuid: sessionCookie.get('keen_uuid'),
@@ -95,5 +92,7 @@ export const recordEvent = (eventName, body) => {
       ],
     },
   };
-  keenClient.recordEvent(eventName, eventBody);
+  keenClient.recordEvent(eventName, eventBody, (res, err) => {
+    console.log(res, err);
+  });
 };

@@ -18,6 +18,7 @@ import dummySpaceImage from 'images/dummy_space.png';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 import connect from '../connect';
+import { loggerActions } from 'redux/modules/logger';
 
 type PropTypes = {
   dispatch: Function,
@@ -80,6 +81,13 @@ class SpaceContainer extends Component<PropTypes> {
     const spaceId = match.params.space_id;
     dispatch(spaceActions.fetchSpace({ spaceId }));
     dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
+
+    dispatch(
+      loggerActions.recordEvent({
+        event: 'space_views',
+        detail: { spaceId },
+      }),
+    );
 
     this.state = {
       meta: {
