@@ -5,6 +5,7 @@ import axios from 'axios';
 import dummySpaceImage from 'images/dummy_space.png';
 import { authActions, getToken } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
+import { loggerActions } from 'redux/modules/logger';
 import {
   getApiRequest,
   postApiRequest,
@@ -16,10 +17,8 @@ import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
 import { getPrefecture } from 'helpers/prefectures';
-import { keenClient } from 'helpers/keen';
 import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
-import { captureException } from '@sentry/browser';
 import { handleError } from './error';
 
 // Actions
@@ -522,22 +521,20 @@ function* search({
   payload: { limit, offset, keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture },
 }) {
   const token = yield* getToken();
-  const { data, err, headers } = yield call(
-    getApiRequest,
-    apiEndpoint.spaces(),
-    {
-      limit,
-      offset,
-      keyword,
-      pref: getPrefecture(prefCode),
-      priceMin: priceMin || 0,
-      priceMax: priceMax || 0,
-      receiptType,
-      spaceType: type,
-      isFurniture,
-    },
-    token,
-  );
+
+  const params = {
+    limit,
+    offset,
+    keyword,
+    pref: getPrefecture(prefCode),
+    priceMin: priceMin || 0,
+    priceMax: priceMax || 0,
+    receiptType,
+    spaceType: type,
+    isFurniture,
+  };
+
+  const { data, err, headers } = yield call(getApiRequest, apiEndpoint.spaces(), params, token);
 
   if (err) {
     yield handleError(spaceActions.failedSearch, '', 'search', err, false);
@@ -560,23 +557,14 @@ function* search({
     return space;
   });
 
-  const user = yield select(state => state.auth.user);
-
-  try {
-    keenClient.recordEvent('search', {
-      keyword,
-      priceMin,
-      priceMax,
-      receiptType,
-      type,
-      isFurniture,
-      prefecture: getPrefecture(prefCode),
-      user,
-      env: process.env.NODE_ENV,
-    });
-  } catch (e) {
-    captureException(e);
-  }
+  yield put(
+    loggerActions.recordEvent({
+      event: 'space_searches',
+      detail: {
+        params,
+      },
+    }),
+  );
 
   const isMore = res.length === limit;
   yield put(

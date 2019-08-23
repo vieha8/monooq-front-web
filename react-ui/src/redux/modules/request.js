@@ -11,6 +11,7 @@ import Path from '../../config/path';
 import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import { handleError } from './error';
 import { getRoomId, createRoom } from './messages';
+import { loggerActions } from 'redux/modules/logger';
 
 // Actions
 const ESTIMATE = 'ESTIMATE';
@@ -428,6 +429,17 @@ function* request({ payload: { user, space } }) {
   if (isAvailableLocalStorage()) {
     isRequested = localStorage.getItem('isRequested');
   }
+
+  yield put(
+    loggerActions.recordEvent({
+      event: 'space_requests',
+      detail: {
+        spaceId: space.id,
+        userId: user.id,
+        roomId: roomId,
+      },
+    }),
+  );
 
   if (!isRequested && user.id !== 2613) {
     handleGTM('newRequest', user.id);

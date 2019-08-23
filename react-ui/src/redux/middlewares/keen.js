@@ -21,7 +21,7 @@ const client = new Keen({
 
 if (process.env.NODE_ENV !== 'production') {
   // Optionally prevent recording in dev mode
-  Keen.enabled = false;
+  Keen.enabled = true;
   // Display events in the browser console
   client.on('recordEvent', Keen.log);
 }

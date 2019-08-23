@@ -5,8 +5,8 @@ import createReducers from 'redux/store/reducers';
 import sagaMiddleware, { rootSaga } from 'redux/middlewares/saga';
 
 import gaMiddleware from '../middlewares/googleAnalytics';
-import keenMiddleware from '../middlewares/keen';
 import sentryMiddleware from '../middlewares/sentry';
+import prevPathMiddleware from '../middlewares/prevPath';
 
 export const history = createBrowserHistory();
 history.listen((location, action) => {
@@ -21,9 +21,9 @@ let store = null;
 const configureStore = () => {
   const middleware = [
     routerMiddleware(history),
+    prevPathMiddleware,
     sagaMiddleware,
     gaMiddleware,
-    keenMiddleware,
     sentryMiddleware({}),
   ];
 

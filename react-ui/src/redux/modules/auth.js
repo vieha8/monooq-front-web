@@ -7,6 +7,7 @@ import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import { ErrorMessages } from 'variables';
 import { uiActions } from './ui';
+import { loggerActions } from './logger';
 import { handleError } from './error';
 import { getApiRequest, postApiRequest, deleteApiRequest, apiEndpoint } from '../helpers/api';
 import Path from '../../config/path';
@@ -379,6 +380,15 @@ function* signUpEmail({ payload: { email, password } }) {
       return;
     }
 
+    yield put(
+      loggerActions.recordEvent({
+        event: 'user_signups',
+        detail: {
+          data,
+        },
+      }),
+    );
+
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
     yield put(push(Path.signUpProfile()));
@@ -433,6 +443,15 @@ function* signUpFacebook() {
       yield handleError(authActions.signupFailed, '', 'signUpFacebook', err, false);
       return;
     }
+
+    yield put(
+      loggerActions.recordEvent({
+        event: 'user_signups',
+        detail: {
+          data,
+        },
+      }),
+    );
 
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());

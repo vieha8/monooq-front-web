@@ -8,6 +8,7 @@ import { captureException } from '@sentry/browser';
 import { getToken } from 'redux/modules/auth';
 import { userActions } from 'redux/modules/user';
 import { spaceActions } from 'redux/modules/space';
+import { loggerActions } from 'redux/modules/logger';
 import { handleError } from 'redux/modules/error';
 import { getApiRequest, postApiRequest, apiEndpoint } from 'redux/helpers/api';
 import { uploadImage } from 'redux/helpers/firebase';
@@ -368,6 +369,16 @@ function* sendMessage(payload) {
       const timeStamp = Date.now();
       imageUrl = yield call(() => uploadImage(`/${roomId}/${userId}/${timeStamp}.${ext}`, image));
     }
+
+    yield put(
+      loggerActions.recordEvent({
+        event: 'send_messages',
+        detail: {
+          userId: userId,
+          roomId: roomId,
+        },
+      }),
+    );
 
     return yield new Promise(async resolve => {
       const message = {
