@@ -20,9 +20,13 @@ storiesOf('Organisms(LV3)/ResetPassword', module)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <ResetPassword
-          email=""
+          email="info@monooq.com"
           onChangeEmail={() => console.log('onChangeEmail')}
           onClickSend={() => console.log('onClickSend')}
+          errors={[]}
+          resetError=""
+          sended={false}
+          buttonLoading={false}
           buttonDisabled={false}
         />
       </div>
@@ -36,11 +40,14 @@ storiesOf('Organisms(LV3)/ResetPassword', module)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <ResetPassword
-          email=""
+          email="info@monooq.com"
           onChangeEmail={() => console.log('onChangeEmail')}
           onClickSend={() => console.log('onClickSend')}
-          buttonDisabled={false}
+          errors={[]}
+          resetError=""
           sended
+          buttonLoading={false}
+          buttonDisabled={false}
         />
       </div>
     )),

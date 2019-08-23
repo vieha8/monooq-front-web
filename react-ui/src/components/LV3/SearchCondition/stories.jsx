@@ -19,7 +19,27 @@ storiesOf('Organisms(LV3)/SearchCondition', module)
         スペース検索条件入力画面
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <SearchCondition onClickSearch={console.log('Clicked')} />
+        <SearchCondition
+          errors={[]}
+          keyword="渋谷"
+          onChangeKeyword={() => console.log('onChangeKeyword')}
+          prefCode={0}
+          onChangePrefCode={() => console.log('onChangePrefCode')}
+          priceMin={1000}
+          onChangePriceMin={() => console.log('onChangePriceMin')}
+          priceMax={10000}
+          onChangePriceMax={() => console.log('onChangePriceMax')}
+          type={0}
+          onChangeType={() => console.log('onChangeType')}
+          checkedFurniture={false}
+          onClickFurniture={() => console.log('onClickFurniture')}
+          onKeyDownFurniture={() => console.log('onKeyDownFurniture')}
+          receive={0}
+          onChangeReceive={() => console.log('onChangeReceive')}
+          buttonDisabled={false}
+          onClickSearch={() => console.log('onClickSearch')}
+          onKeyDownButtonSerch={() => console.log('onKeyDownButtonSerch')}
+        />
       </div>
     )),
   );

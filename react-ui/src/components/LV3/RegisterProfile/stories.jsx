@@ -20,16 +20,21 @@ storiesOf('Organisms(LV3)/RegisterProfile', module)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <RegisterProfile
-          onClickNext={() => {}}
-          onClickFacebook={() => {}}
-          onChangeEmail={() => {}}
-          onChangePassword={() => {}}
-          email=""
-          emailError={[]}
-          password=""
-          passError={[]}
+          errors={[]}
+          onChangeImage={() => console.log('onChangeImage')}
+          imagePreview=""
+          image=""
+          onChangeName={() => console.log('onChangeName')}
+          name="name"
+          onChangeArea={() => console.log('onChangeArea')}
+          prefCode={1}
+          onChangeProfile={() => console.log('onChangeProfile')}
+          profile="sample profile"
+          onChangePhoneNumber={() => console.log('onChangePhoneNumber')}
+          phoneNumber="0901231234"
           buttonDisabled={false}
-          isRegisterChecking={false}
+          buttonLoading={false}
+          onClickRegisterProfile={() => console.log('onClickRegisterProfile')}
           story
         />
       </div>

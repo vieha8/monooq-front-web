@@ -88,19 +88,117 @@ storiesOf('Molecules(LV2)/Message', module)
     )),
   )
   .add(
-    'Estimate',
+    'Estimate Host',
     withInfo(`
       ### コンポーネント概要
-      メッセージ(見積もり)
+      メッセージ(見積もり)(ホスト)(支払方法:未選択)(支払ステータス:支払い待ち)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Estimate
+          id="10"
           name="YUKI HASHIDA"
-          beginAt={new Date()}
-          endAt={new Date()}
-          price="24,000円"
+          beginAt="2019/07/16 11:39:21"
+          endAt="2019/07/16 12:39:21"
+          price="24000"
+          host
+          status="estimate"
           paymentLink="#"
-          receivedAt="2018/03/02 10:52"
+          receivedAt="2019/07/16 13:39:21"
+          payType={0}
+          econtextUrl="#"
+        />
+      </div>
+    )),
+  )
+  .add(
+    'Estimate No Paid',
+    withInfo(`
+      ### コンポーネント概要
+      メッセージ(見積もり)(ゲスト)(支払方法:未選択)(支払ステータス:支払い待ち)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Estimate
+          id="10"
+          name="YUKI HASHIDA"
+          beginAt="2019/07/16 11:39:21"
+          endAt="2019/07/16 12:39:21"
+          price="24000"
+          host={false}
+          status="estimate"
+          paymentLink="#"
+          receivedAt="2019/07/16 13:39:21"
+          payType={0}
+          econtextUrl="#"
+        />
+      </div>
+    )),
+  )
+  .add(
+    'Estimate Paid CreditCard',
+    withInfo(`
+      ### コンポーネント概要
+      メッセージ(見積もり)(ゲスト)(支払方法:クレジットカード)(支払ステータス:支払完了)
+      status：estimate、waiting、paid
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Estimate
+          id="10"
+          name="YUKI HASHIDA"
+          beginAt="2019/07/16 11:39:21"
+          endAt="2019/07/16 12:39:21"
+          price="24000"
+          host={false}
+          status="paid"
+          paymentLink="#"
+          receivedAt="2019/07/16 13:39:21"
+          payType={1}
+          econtextUrl="#"
+        />
+      </div>
+    )),
+  )
+  .add(
+    'Estimate Paid Bank',
+    withInfo(`
+      ### コンポーネント概要
+      メッセージ(見積もり)(ゲスト)(支払い方法:銀行振込)(支払ステータス:支払完了)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Estimate
+          id="10"
+          name="YUKI HASHIDA"
+          beginAt="2019/07/16 11:39:21"
+          endAt="2019/07/16 12:39:21"
+          price="24000"
+          host={false}
+          status="paid"
+          paymentLink="#"
+          receivedAt="2019/07/16 13:39:21"
+          payType={2}
+          econtextUrl="#"
+        />
+      </div>
+    )),
+  )
+  .add(
+    'Estimate Paid Econtext',
+    withInfo(`
+      ### コンポーネント概要
+      メッセージ(見積もり)(ゲスト)(支払い方法:イーコンテキスト)(支払ステータス:支払完了)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Estimate
+          id="10"
+          name="YUKI HASHIDA"
+          beginAt="2019/07/16 11:39:21"
+          endAt="2019/07/16 12:39:21"
+          price="24000"
+          host={false}
+          status="paid"
+          paymentLink="#"
+          receivedAt="2019/07/16 13:39:21"
+          payType={4}
+          econtextUrl="https://google.com"
         />
       </div>
     )),
