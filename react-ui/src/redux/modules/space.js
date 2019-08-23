@@ -5,6 +5,7 @@ import axios from 'axios';
 import dummySpaceImage from 'images/dummy_space.png';
 import { authActions, getToken } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
+import { loggerActions } from 'redux/modules/logger';
 import {
   getApiRequest,
   postApiRequest,
@@ -520,22 +521,20 @@ function* search({
   payload: { limit, offset, keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture },
 }) {
   const token = yield* getToken();
-  const { data, err, headers } = yield call(
-    getApiRequest,
-    apiEndpoint.spaces(),
-    {
-      limit,
-      offset,
-      keyword,
-      pref: getPrefecture(prefCode),
-      priceMin: priceMin || 0,
-      priceMax: priceMax || 0,
-      receiptType,
-      spaceType: type,
-      isFurniture,
-    },
-    token,
-  );
+
+  const params = {
+    limit,
+    offset,
+    keyword,
+    pref: getPrefecture(prefCode),
+    priceMin: priceMin || 0,
+    priceMax: priceMax || 0,
+    receiptType,
+    spaceType: type,
+    isFurniture,
+  };
+
+  const { data, err, headers } = yield call(getApiRequest, apiEndpoint.spaces(), params, token);
 
   if (err) {
     yield handleError(spaceActions.failedSearch, '', 'search', err, false);
@@ -557,6 +556,15 @@ function* search({
     }
     return space;
   });
+
+  yield put(
+    loggerActions.recordEvent({
+      event: 'space_searches',
+      detail: {
+        params,
+      },
+    }),
+  );
 
   const isMore = res.length === limit;
   yield put(
