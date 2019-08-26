@@ -1,27 +1,13 @@
 // @flow
 
-import React, { Fragment } from 'react';
-import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
-import ContainerStaticPage from 'components/LV1/ContainerStaticPage';
+import React from 'react';
+import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import About from 'components/LV3/About';
-import Header from 'components/containers/Header';
 
 class AboutContainer extends React.Component {
   render() {
-    return (
-      <Fragment>
-        <Header />
-        <ContainerStaticPage>
-          <About />
-        </ContainerStaticPage>
-      </Fragment>
-    );
+    return <About />;
   }
 }
 
-const mapStateToProps = state => ({
-  ui: state.ui,
-});
-
-export default withRouter(connect(mapStateToProps)(AboutContainer));
+export default ContentPageStatic(AboutContainer);
