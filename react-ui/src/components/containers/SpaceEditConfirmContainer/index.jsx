@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import numeral from 'numeral';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
-import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
+import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';

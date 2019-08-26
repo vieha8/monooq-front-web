@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'semantic-ui-react';
 import Path from 'config/path';
-import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
+import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/Texts/InlineText';

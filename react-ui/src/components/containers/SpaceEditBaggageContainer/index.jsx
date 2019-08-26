@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
-import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
+import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 
 import { uiActions } from 'redux/modules/ui';
 
