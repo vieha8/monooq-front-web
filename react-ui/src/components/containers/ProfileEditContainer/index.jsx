@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
-import handleBeforeUnload from 'components/hocs/handleBeforeUnload';
+import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 
 import { userActions } from 'redux/modules/user';
 
