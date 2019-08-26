@@ -21,7 +21,31 @@ storiesOf('Organisms(LV3)/ProfileEdit', module)
         プロフィール編集フォーム
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <ProfileEdit />
+        <ProfileEdit
+          errors={{}}
+          onChangeImage={() => console.log('onChangeImage')}
+          imagePreview=""
+          image=""
+          onChangeName={() => console.log('onChangeName')}
+          name="モノオク太郎"
+          onChangeEmail={() => console.log('onChangeEmail')}
+          email="info@monooq.com"
+          isNoticeEmail
+          onChangeNoticeEmail={() => console.log('onChangeNoticeEmail')}
+          onKeyDownNoticeEmail={() => console.log('onKeyDownNoticeEmail')}
+          onChangePhoneNumber={() => console.log('onChangePhoneNumber')}
+          phoneNumber="0901231234"
+          onChangePrefCode={() => console.log('onChangePrefCode')}
+          prefCode="1"
+          onChangeProfile={() => console.log('onChangeProfile')}
+          profile="sample profile."
+          onChangePurpose={() => console.log('onChangePurpose')}
+          purpose={1}
+          buttonDisabled={false}
+          buttonLoading={false}
+          onClickUpdate={() => console.log('onClickUpdate')}
+          onKeyDownButtonUpdate={() => console.log('onKeyDownButtonUpdate')}
+        />
       </div>
     )),
   )
