@@ -19,6 +19,7 @@ import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
+import dummySpaceImage from 'images/dummy_space.png';
 
 const MAX_PAY_PRICE_CONVENIENT = 49999;
 const METHOD_PAYMENT_CREDIT = 0;
@@ -342,7 +343,10 @@ export default ({
     <InfoHost id={space.user.id} name={space.user.name} imageUrl={space.user.imageUrl} message />
     <Row to={Path.space(space.id)} noMarginTop borderBottom>
       <ImageWrapper>
-        <ImageHero small src={space.images[0].imageUrl} />
+        <ImageHero
+          small
+          src={space.images && space.images.length > 0 ? space.images[0].imageUrl : dummySpaceImage}
+        />
       </ImageWrapper>
       <ContentWrapper>
         <AddressText>
