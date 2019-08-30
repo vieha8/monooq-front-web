@@ -45,14 +45,6 @@ const Page = styled.div`
   ${media.phone`
     margin-top: 20px;
     ${props =>
-      props.bottomButtonMargin &&
-      `
-      min-height: calc(100vh - 20px);
-      position: relative;
-      padding-bottom: ${props.bottomButtonMargin}px;
-      box-sizing: border-box;
-    `};
-    ${props =>
       props.noMargin &&
       `
       margin-top: 0px;

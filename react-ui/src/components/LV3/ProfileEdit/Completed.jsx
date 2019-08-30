@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { H1 } from 'components/LV1/Texts/Headline';
 import Path from 'config/path';
 
 const Content = styled.div`
@@ -15,6 +16,7 @@ const Content = styled.div`
 `;
 
 const ToProfileLink = styled(Link)`
+  margin-top: ${Dimens.medium2}px;
   display: block;
   font-size: ${FontSizes.medium}px;
   text-align: left;
@@ -22,6 +24,9 @@ const ToProfileLink = styled(Link)`
   &:hover {
     color: ${Colors.linkBlue};
   }
+  ${media.phone`
+    margin-top: ${Dimens.medium_20}px;
+  `}
 `;
 
 type PropTypes = {
@@ -30,6 +35,7 @@ type PropTypes = {
 
 export default ({ userId }: PropTypes) => (
   <Content>
+    <H1 bold>プロフィール編集が完了しました</H1>
     <ToProfileLink to={Path.profile(userId)}>プロフィールページを確認する</ToProfileLink>
   </Content>
 );

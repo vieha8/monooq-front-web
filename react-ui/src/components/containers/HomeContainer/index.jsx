@@ -5,10 +5,8 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import Path from 'config/path';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import HomeTemplate from 'components/templates/HomeTemplate';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
 import Collapsible from 'components/LV1/Collapsible';
 import SearchResult from 'components/LV3/SearchResult';
 import ConciergeContents from 'components/LV2/IntroductionConcierge';
@@ -142,22 +140,12 @@ class HomeContainer extends Component<PropTypes> {
 
   render() {
     const { isLoading } = this.props;
-
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        leftContent={
-          isLoading ? (
-            <LoadingPage />
-          ) : (
-            <HomeWrap>
-              <HomeTemplate sections={this.showSections()} margin="0px" />
-            </HomeWrap>
-          )
-        }
-        rightContent={<ServiceMenu />}
-        noMargin
-      />
+    return isLoading ? (
+      <LoadingPage />
+    ) : (
+      <HomeWrap>
+        <HomeTemplate sections={this.showSections()} margin="0px" />
+      </HomeWrap>
     );
   }
 }
@@ -167,4 +155,8 @@ const mapStateToProps = state => ({
   isLoading: state.home.isLoading,
 });
 
-export default authRequired(connect(mapStateToProps)(HomeContainer));
+export default authRequired(
+  ContentPageMenu(connect(mapStateToProps)(HomeContainer), {
+    noMargin: true,
+  }),
+);

@@ -3,15 +3,11 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-
-import { uiActions } from 'redux/modules/ui';
-
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
 import SpaceEditReceive from 'components/LV3/SpaceEdit/Receive';
 
+import { uiActions } from 'redux/modules/ui';
 import { ErrorMessages } from 'variables';
 
 import { connect } from 'react-redux';
@@ -143,8 +139,17 @@ class SpaceEditReceiveContainer extends Component<PropTypes> {
     );
   };
 
-  leftContent = () => {
-    const { receiptType, receiptAbout, error } = this.state;
+  render() {
+    const { space } = this.props;
+    const { isUpdate, receiptType, receiptAbout, error } = this.state;
+
+    if (!isUpdate) {
+      if (Object.keys(space).length === 0) {
+        // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
+        return <Redirect to={Path.createSpaceInfo()} />;
+      }
+    }
+
     return (
       <SpaceEditReceive
         errors={error}
@@ -159,28 +164,6 @@ class SpaceEditReceiveContainer extends Component<PropTypes> {
         buttonNextDisabled={!this.validate()}
       />
     );
-  };
-
-  render() {
-    const { space } = this.props;
-    const { isUpdate } = this.state;
-
-    if (!isUpdate) {
-      if (Object.keys(space).length === 0) {
-        // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
-        return <Redirect to={Path.createSpaceInfo()} />;
-      }
-    }
-
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline="荷物の受け取りについて"
-        bottomButtonMargin={130}
-        leftContent={this.leftContent()}
-        rightContent={<ServiceMenu />}
-      />
-    );
   }
 }
 
@@ -189,5 +172,9 @@ const mapStateToProps = state => ({
 });
 
 export default authRequired(
-  handleBeforeUnload(connect(mapStateToProps)(SpaceEditReceiveContainer)),
+  handleBeforeUnload(
+    ContentPageMenu(connect(mapStateToProps)(SpaceEditReceiveContainer), {
+      headline: '荷物の受け取りについて',
+    }),
+  ),
 );

@@ -5,14 +5,12 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'semantic-ui-react';
 import Path from 'config/path';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/Texts/InlineText';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import Messages from 'components/LV3/Messages';
-import Header from 'components/containers/Header';
 import Loading from 'components/LV1/Loading';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InfoHost from 'components/LV2/Space/InfoHost';
@@ -220,7 +218,7 @@ class MessageContainer extends Component<PropTypes, State> {
     history.push(Path.profileEdit());
   };
 
-  leftContent = () => {
+  render() {
     const { isLoading, user, room } = this.props;
     const { text, image, errorModal } = this.state;
 
@@ -307,16 +305,6 @@ class MessageContainer extends Component<PropTypes, State> {
         </Modal>
       </Fragment>
     );
-  };
-
-  render() {
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        leftContent={this.leftContent()}
-        rightContent={<ServiceMenu />}
-      />
-    );
   }
 }
 
@@ -327,4 +315,6 @@ const mapStateToProps = state => ({
   isLoading: state.messages.isLoading,
 });
 
-export default authRequired(handleBeforeUnload(connect(mapStateToProps)(MessageContainer)));
+export default authRequired(
+  handleBeforeUnload(ContentPageMenu(connect(mapStateToProps)(MessageContainer), {})),
+);

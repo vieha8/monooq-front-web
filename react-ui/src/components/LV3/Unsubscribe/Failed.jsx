@@ -1,12 +1,19 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';
 import Path from 'config/path';
+
+const Wrap = styled.div`
+  margin-top: ${Dimens.medium2}px;
+  ${media.phone`
+    margin-top: ${Dimens.medium_20}px;
+  `}
+`;
 
 const Row = styled.div`
   margin-top: ${Dimens.medium2}px;
@@ -34,7 +41,7 @@ type PropTypes = {
 };
 
 export default ({ userId }: PropTypes) => (
-  <Fragment>
+  <Wrap>
     <InlineText.Base>
       現在進行中の取引があります。
       <br />
@@ -45,5 +52,5 @@ export default ({ userId }: PropTypes) => (
     <Row>
       <TextLink to={Path.schedule(userId)}>スケジュールを確認する</TextLink>
     </Row>
-  </Fragment>
+  </Wrap>
 );

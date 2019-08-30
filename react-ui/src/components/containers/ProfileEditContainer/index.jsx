@@ -1,17 +1,14 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-
-import { userActions } from 'redux/modules/user';
-
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import Header from 'components/containers/Header';
 import ProfileEdit from 'components/LV3/ProfileEdit';
 import ProfileEditCompleted from 'components/LV3/ProfileEdit/Completed';
+import { H1 } from 'components/LV1/Texts/Headline';
+import { userActions } from 'redux/modules/user';
 import { ErrorMessages } from 'variables';
 import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 
@@ -198,43 +195,39 @@ class ProfileEditContainer extends Component<PropTypes> {
       error.email = [errMessage];
     }
 
+    if (updateSuccess) {
+      return <ProfileEditCompleted userId={user.id} />;
+    }
+
     return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline={updateSuccess ? 'プロフィール編集が完了しました' : 'プロフィール編集'}
-        leftContent={
-          updateSuccess ? (
-            <ProfileEditCompleted userId={user.id} />
-          ) : (
-            <ProfileEdit
-              errors={error}
-              onChangeImage={value => this.handleChangeUI('imageUrl', value)}
-              imagePreview={imageUrlPreview}
-              image={imageUrl}
-              onChangeName={value => this.handleChangeUI('name', value)}
-              name={name}
-              onChangeEmail={value => this.handleChangeUI('email', value)}
-              email={email}
-              isNoticeEmail={isNoticeEmail}
-              onChangeNoticeEmail={() => this.handleChangeUI('isNoticeEmail', !isNoticeEmail)}
-              onKeyDownNoticeEmail={this.onKeyDownNoticeEmail}
-              onChangePhoneNumber={value => this.handleChangeUI('phoneNumber', value)}
-              phoneNumber={phoneNumber}
-              onChangePrefCode={value => this.handleChangeUI('prefCode', value)}
-              prefCode={prefCode}
-              onChangeProfile={value => this.handleChangeUI('profile', value)}
-              profile={profile}
-              onChangePurpose={value => this.handleChangeUI('purpose', value)}
-              purpose={purpose}
-              buttonDisabled={!this.validate()}
-              buttonLoading={isLoading}
-              onClickUpdate={this.onClickUpdate}
-              onKeyDownButtonUpdate={this.onKeyDownButtonUpdate}
-            />
-          )
-        }
-        rightContent={<ServiceMenu />}
-      />
+      <Fragment>
+        <H1 bold>プロフィール編集</H1>
+        <ProfileEdit
+          errors={error}
+          onChangeImage={value => this.handleChangeUI('imageUrl', value)}
+          imagePreview={imageUrlPreview}
+          image={imageUrl}
+          onChangeName={value => this.handleChangeUI('name', value)}
+          name={name}
+          onChangeEmail={value => this.handleChangeUI('email', value)}
+          email={email}
+          isNoticeEmail={isNoticeEmail}
+          onChangeNoticeEmail={() => this.handleChangeUI('isNoticeEmail', !isNoticeEmail)}
+          onKeyDownNoticeEmail={this.onKeyDownNoticeEmail}
+          onChangePhoneNumber={value => this.handleChangeUI('phoneNumber', value)}
+          phoneNumber={phoneNumber}
+          onChangePrefCode={value => this.handleChangeUI('prefCode', value)}
+          prefCode={prefCode}
+          onChangeProfile={value => this.handleChangeUI('profile', value)}
+          profile={profile}
+          onChangePurpose={value => this.handleChangeUI('purpose', value)}
+          purpose={purpose}
+          buttonDisabled={!this.validate()}
+          buttonLoading={isLoading}
+          onClickUpdate={this.onClickUpdate}
+          onKeyDownButtonUpdate={this.onKeyDownButtonUpdate}
+        />
+      </Fragment>
     );
   }
 }
@@ -247,4 +240,6 @@ const mapStateToProps = state => ({
   redirectPath: state.ui.redirectPath,
 });
 
-export default authRequired(handleBeforeUnload(connect(mapStateToProps)(ProfileEditContainer)));
+export default authRequired(
+  handleBeforeUnload(ContentPageMenu(connect(mapStateToProps)(ProfileEditContainer), {})),
+);

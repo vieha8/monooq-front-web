@@ -4,11 +4,9 @@ import React, { Component, Fragment } from 'react';
 import numeral from 'numeral';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
 import SpaceMap from 'components/LV1/SpaceMap';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
@@ -171,7 +169,25 @@ class SpaceEditConfirmContainer extends Component<PropTypes> {
     history.push(nextPath);
   };
 
-  leftContent = (space, isLoading) => {
+  render() {
+    const { space, isLoading, isComplete } = this.props;
+    const { isUpdate } = this.state;
+
+    if (isUpdate) {
+      if (!space.id) {
+        return <Redirect to={Path.createSpaceInfo()} />;
+      }
+    } else if (space.images === undefined) {
+      return <Redirect to={Path.createSpaceInfo()} />;
+    }
+
+    if (!isLoading && isComplete) {
+      if (isUpdate) {
+        return <Redirect to={Path.spaceEditCompletion(space.id)} />;
+      }
+      return <Redirect to={Path.createSpaceCompletion()} />;
+    }
+
     const { user } = this.props;
     return (
       <Fragment>
@@ -234,43 +250,6 @@ class SpaceEditConfirmContainer extends Component<PropTypes> {
         </EntryButtonWrap>
       </Fragment>
     );
-  };
-
-  rightContent = () => {
-    return (
-      <Fragment>
-        <Spacer />
-        <ServiceMenu />
-      </Fragment>
-    );
-  };
-
-  render() {
-    const { space, isLoading, isComplete } = this.props;
-    const { isUpdate } = this.state;
-
-    if (isUpdate) {
-      if (!space.id) {
-        return <Redirect to={Path.createSpaceInfo()} />;
-      }
-    } else if (space.images === undefined) {
-      return <Redirect to={Path.createSpaceInfo()} />;
-    }
-
-    if (!isLoading && isComplete) {
-      if (isUpdate) {
-        return <Redirect to={Path.spaceEditCompletion(space.id)} />;
-      }
-      return <Redirect to={Path.createSpaceCompletion()} />;
-    }
-
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        leftContent={this.leftContent(space, isLoading)}
-        rightContent={this.rightContent()}
-      />
-    );
   }
 }
 
@@ -283,5 +262,14 @@ const mapStateToProps = state => ({
 });
 
 export default authRequired(
-  handleBeforeUnload(connect(mapStateToProps)(SpaceEditConfirmContainer)),
+  handleBeforeUnload(
+    ContentPageMenu(connect(mapStateToProps)(SpaceEditConfirmContainer), {
+      rightContent: (
+        <Fragment>
+          <Spacer />
+          <ServiceMenu />
+        </Fragment>
+      ),
+    }),
+  ),
 );

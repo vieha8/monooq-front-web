@@ -4,10 +4,7 @@ import React, { Component } from 'react';
 import Path from 'config/path';
 
 import { requestActions } from 'redux/modules/request';
-
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import Header from 'components/containers/Header';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import LoadingPage from 'components/LV3/LoadingPage';
 import ScheduleList from 'components/LV3/ScheduleList';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
@@ -87,15 +84,7 @@ class ScheduleContainer extends Component {
 
   render() {
     const { isLoading } = this.props;
-
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline="利用状況"
-        leftContent={isLoading ? <LoadingPage /> : this.showLeftContent()}
-        rightContent={<ServiceMenu />}
-      />
-    );
+    return isLoading ? <LoadingPage /> : this.showLeftContent();
   }
 }
 
@@ -105,4 +94,8 @@ const mapStateToProps = state => ({
   schedule: state.request.schedule,
 });
 
-export default authRequired(connect(mapStateToProps)(ScheduleContainer));
+export default authRequired(
+  ContentPageMenu(connect(mapStateToProps)(ScheduleContainer), {
+    headline: '利用状況',
+  }),
+);
