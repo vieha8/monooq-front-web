@@ -36,7 +36,7 @@ export default ({ delivery, meeting }: PropTypes) => (
         </ItemWrap>
         <ItemWrap>
           <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
-            Pickgo・ヤマト運輸など配送サービス
+            ヤマト運輸など配送サービス
           </InlineText.Base>
         </ItemWrap>
       </div>
