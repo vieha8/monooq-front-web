@@ -77,7 +77,7 @@ const RightSection = styled.div`
   `};
 `;
 
-const LinkToPickGo = styled.a`
+const LinkLogo = styled.a`
   display: block;
   &:hover {
     opacity: 0.8;
@@ -138,7 +138,7 @@ export default ({ serviceList }: PropTypes) => (
         <ItemWrap key={i.toString()}>
           <Title>{item.title}</Title>
           <LeftSection noMarginBottom={item.noMarginBottom}>
-            <LinkToPickGo
+            <LinkLogo
               component={Link}
               href={item.serviceUrl}
               target="_blank"
@@ -149,7 +149,7 @@ export default ({ serviceList }: PropTypes) => (
                 src={item.serviceLogo.src}
                 alt={item.serviceLogo.alt}
               />
-            </LinkToPickGo>
+            </LinkLogo>
             <DescriptionLogoWrap>{item.descriptionLogo}</DescriptionLogoWrap>
           </LeftSection>
           <RightSection>
