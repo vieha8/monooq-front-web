@@ -4,10 +4,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import HomeTemplate from 'components/templates/HomeTemplate';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
 import SearchResult from 'components/LV3/SearchResult';
 import ConciergeContents from 'components/LV2/IntroductionConcierge';
 import { homeActions } from 'redux/modules/home';
@@ -92,22 +90,12 @@ class HomePrefectureContainer extends Component<PropTypes> {
 
   render() {
     const { isLoading } = this.props;
-
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        leftContent={
-          isLoading ? (
-            <LoadingPage />
-          ) : (
-            <HomeWrap>
-              <HomeTemplate sections={this.showSections()} />
-            </HomeWrap>
-          )
-        }
-        rightContent={<ServiceMenu />}
-        noMargin
-      />
+    return isLoading ? (
+      <LoadingPage />
+    ) : (
+      <HomeWrap>
+        <HomeTemplate sections={this.showSections()} />
+      </HomeWrap>
     );
   }
 }
@@ -117,4 +105,8 @@ const mapStateToProps = state => ({
   isLoading: state.home.isLoading,
 });
 
-export default authRequired(connect(mapStateToProps)(HomePrefectureContainer));
+export default authRequired(
+  ContentPageMenu(connect(mapStateToProps)(HomePrefectureContainer), {
+    noMargin: true,
+  }),
+);

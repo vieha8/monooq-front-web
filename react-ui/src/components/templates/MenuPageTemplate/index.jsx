@@ -6,12 +6,7 @@ import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import ContainerClearfix from 'components/LV1/ContainerClearfix';
 import { H1 } from 'components/LV1/Texts/Headline';
-import InlineText from 'components/LV1/Texts/InlineText';
 import Page from '../Page';
-
-const Caption = styled.div`
-  margin: ${Dimens.medium_20}px 0;
-`;
 
 const Content = styled.div`
   overflow: hidden;
@@ -47,39 +42,21 @@ const RightContent = styled.div`
 `;
 
 type PropTypes = {
-  meta?: React.Element<*>,
   header: React.Element<*>,
   headline: string,
-  caption: string,
   leftContent: React.Element<*>,
   rightContent: React.Element<*>,
-  bottomButtonMargin?: string,
   noMargin?: boolean,
 };
 
-export default ({
-  header,
-  meta,
-  bottomButtonMargin,
-  noMargin,
-  headline,
-  caption,
-  leftContent,
-  rightContent,
-}: PropTypes) => (
+export default ({ header, noMargin, headline, leftContent, rightContent }: PropTypes) => (
   <div>
     {header}
-    {meta}
-    <Page bottomButtonMargin={bottomButtonMargin} noMargin={noMargin}>
+    <Page noMargin={noMargin}>
       <ContainerClearfix>
         <Content>
           <LeftContent>
             {headline && <H1 bold>{headline}</H1>}
-            {caption && (
-              <Caption>
-                <InlineText.Base>{caption}</InlineText.Base>
-              </Caption>
-            )}
             {leftContent}
           </LeftContent>
           <RightContent>{rightContent}</RightContent>

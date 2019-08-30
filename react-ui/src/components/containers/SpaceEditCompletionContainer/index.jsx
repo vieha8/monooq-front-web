@@ -1,18 +1,20 @@
 // @flow
 
 import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
 import Path from 'config/path';
 
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import HostGuide from 'components/LV2/HostGuide';
 import SpaceEditCompletion from 'components/LV3/SpaceEdit/Completion';
+import { H1 } from 'components/LV1/Texts/Headline';
+import InlineText from 'components/LV1/Texts/InlineText';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import authRequired from 'components/containers/AuthRequired';
+import { Dimens } from 'variables';
 
 type PropTypes = {
   history: {
@@ -25,6 +27,10 @@ type PropTypes = {
     id: number,
   },
 };
+
+const Caption = styled.div`
+  margin: ${Dimens.medium_20}px 0;
+`;
 
 class SpaceEditCompletionContainer extends Component<PropTypes> {
   constructor(props) {
@@ -79,18 +85,6 @@ class SpaceEditCompletionContainer extends Component<PropTypes> {
     }
   };
 
-  captionContent = isUpdate => {
-    return (
-      <Fragment>
-        {!isUpdate ? 'モノオクにスペースが掲載されました！' : 'スペースの情報を更新しました！'}
-        <br />
-        利用希望のリクエストが届くと、メッセージページにてユーザーとのやり取りが可能になります。
-        <br />
-        利用期間や価格等を調整し、取引を進めましょう！
-      </Fragment>
-    );
-  };
-
   leftContent = isUpdate => {
     const { user } = this.props;
     return (
@@ -118,13 +112,19 @@ class SpaceEditCompletionContainer extends Component<PropTypes> {
   render() {
     const { isUpdate } = this.state;
     return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline={`${!isUpdate ? '登録' : '編集'}が完了しました`}
-        caption={this.captionContent(isUpdate)}
-        leftContent={this.leftContent(isUpdate)}
-        rightContent={<ServiceMenu />}
-      />
+      <Fragment>
+        <H1 bold>{`${!isUpdate ? '登録' : '編集'}が完了しました`}</H1>
+        <Caption>
+          <InlineText.Base>
+            {!isUpdate ? 'モノオクにスペースが掲載されました！' : 'スペースの情報を更新しました！'}
+            <br />
+            利用希望のリクエストが届くと、メッセージページにてユーザーとのやり取りが可能になります。
+            <br />
+            利用期間や価格等を調整し、取引を進めましょう！
+          </InlineText.Base>
+        </Caption>
+        {this.leftContent(isUpdate)}
+      </Fragment>
     );
   }
 }
@@ -133,4 +133,6 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default authRequired(connect(mapStateToProps)(SpaceEditCompletionContainer));
+export default authRequired(
+  ContentPageMenu(connect(mapStateToProps)(SpaceEditCompletionContainer), {}),
+);

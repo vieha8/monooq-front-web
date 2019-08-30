@@ -8,9 +8,7 @@ import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { salesActions } from 'redux/modules/sales';
 
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import Header from 'components/containers/Header';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/Forms/InputForm';
@@ -19,6 +17,7 @@ import Select from 'components/LV2/Forms/Select';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import SalesAmountItem from 'components/LV2/Items/SalesAmountItem';
 import LoadingPage from 'components/LV3/LoadingPage';
+import { H1 } from 'components/LV1/Texts/Headline';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 import selectDepositType from 'helpers/depositTypes';
@@ -438,13 +437,13 @@ class SalesContainer extends Component {
       leftContent = this.leftContentComplete();
     }
 
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline={headline}
-        leftContent={isLoading ? <LoadingPage /> : leftContent}
-        rightContent={<ServiceMenu />}
-      />
+    return isLoading ? (
+      <LoadingPage />
+    ) : (
+      <Fragment>
+        <H1 bold>{headline}</H1>
+        {leftContent}
+      </Fragment>
     );
   }
 }
@@ -459,4 +458,4 @@ const mapStateToProps = state => ({
   isSend: state.sales.isSend,
 });
 
-export default authRequired(connect(mapStateToProps)(SalesContainer));
+export default authRequired(ContentPageMenu(connect(mapStateToProps)(SalesContainer), {}));

@@ -1,17 +1,17 @@
 // @flow
 
-import React, { Component } from 'react';
-
+import React, { Component, Fragment } from 'react';
+import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import { authActions } from 'redux/modules/auth';
 
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import Header from 'components/containers/Header';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import Unsubscribe from 'components/LV3/Unsubscribe';
 import UnsubscribeCompleted from 'components/LV3/Unsubscribe/Completed';
 import UnsubscribeFailed from 'components/LV3/Unsubscribe/Failed';
 import LoadingPage from 'components/LV3/LoadingPage';
-import { ErrorMessages } from 'variables';
+import { H1 } from 'components/LV1/Texts/Headline';
+import { ErrorMessages, Dimens, Colors } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
@@ -27,6 +27,20 @@ type PropTypes = {
   isUnsubscribeSuccess: boolean,
   isUnsubscribeFailed: boolean,
 };
+
+const Caption = styled.div`
+  margin: ${Dimens.medium_20}px 0;
+`;
+
+const UnsubscribeCompletedWrap = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: ${Colors.white};
+  ${media.phone`
+    position: relative;
+  `};
+`;
 
 class UnsubscribeContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
@@ -95,71 +109,58 @@ class UnsubscribeContainer extends Component<PropTypes> {
 
   validate = () => {
     const { reasonType } = this.state;
-
     return reasonType && reasonType.length > 0;
   };
 
-  renderCompleted = () => (
-    <MenuPageTemplate
-      header={<Header />}
-      headline="退会処理が完了しました"
-      leftContent={<UnsubscribeCompleted />}
-      rightContent={<div style={{ height: '400px' }} />}
-    />
-  );
-
-  renderFailed = () => {
-    const { user } = this.props;
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline="退会処理が完了できませんでした"
-        leftContent={<UnsubscribeFailed userId={user.id} />}
-        rightContent={<ServiceMenu />}
-      />
-    );
-  };
-
-  leftContent = () => {
-    const { isUnsubscribeTrying } = this.props;
-    const { reasonText, error } = this.state;
-    return (
-      <Unsubscribe
-        onChangeReasonType={v => this.handleChangeUI('reasonType', v)}
-        reasonTypeError={error.reasonType}
-        reasonText={reasonText}
-        onChangeReasonText={v => this.handleChangeUI('reasonText', v)}
-        onClickUnsubscribe={this.unsubscribe}
-        onKeyDownUnsubscribe={this.onKeyDownUnsubscribe}
-        buttonLoading={isUnsubscribeTrying}
-        buttonDisabled={!this.validate()}
-      />
-    );
-  };
-
   render() {
-    const { isLoading, isUnsubscribeSuccess, isUnsubscribeFailed } = this.props;
+    const {
+      isLoading,
+      isUnsubscribeSuccess,
+      isUnsubscribeFailed,
+      user,
+      isUnsubscribeTrying,
+    } = this.props;
+    const { reasonText, error } = this.state;
 
     if (isLoading) {
       return <LoadingPage />;
     }
 
     if (isUnsubscribeSuccess) {
-      return this.renderCompleted();
+      return (
+        <UnsubscribeCompletedWrap>
+          <H1 bold>退会処理が完了しました</H1>
+          <UnsubscribeCompleted />
+        </UnsubscribeCompletedWrap>
+      );
     }
 
     if (isUnsubscribeFailed) {
-      return this.renderFailed();
+      return (
+        <Fragment>
+          <H1 bold>退会処理が完了できませんでした</H1>
+          <UnsubscribeFailed userId={user.id} />
+        </Fragment>
+      );
     }
 
     return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline="退会の理由"
-        caption="モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。"
-        leftContent={this.leftContent()}
-        rightContent={<ServiceMenu />}
-      />
+      <Fragment>
+        <H1 bold>退会の理由</H1>
+        <Caption>
+          モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。
+        </Caption>
+        <Unsubscribe
+          onChangeReasonType={v => this.handleChangeUI('reasonType', v)}
+          reasonTypeError={error.reasonType}
+          reasonText={reasonText}
+          onChangeReasonText={v => this.handleChangeUI('reasonText', v)}
+          onClickUnsubscribe={this.unsubscribe}
+          onKeyDownUnsubscribe={this.onKeyDownUnsubscribe}
+          buttonLoading={isUnsubscribeTrying}
+          buttonDisabled={!this.validate()}
+        />
+      </Fragment>
     );
   }
 }
@@ -172,4 +173,4 @@ const mapStateToProps = state => ({
   isUnsubscribeFailed: state.auth.isUnsubscribeFailed,
 });
 
-export default authRequired(connect(mapStateToProps)(UnsubscribeContainer));
+export default authRequired(ContentPageMenu(connect(mapStateToProps)(UnsubscribeContainer), {}));
