@@ -21,6 +21,10 @@ const Container = styled.div`
   `};
   cursor: pointer;
   margin: auto;
+  padding: ${Dimens.xxsmall_5}px;
+  ${media.phone`
+    padding: ${Dimens.xxsmall_5}px 0;
+  `};
 `;
 
 const Content = styled.div`
@@ -29,6 +33,11 @@ const Content = styled.div`
 
 const Row = styled.div`
   margin-top: ${props => props.marginTop || Dimens.xsmall}px;
+  ${props =>
+    props.right &&
+    `
+    text-align: right;
+  `};
 `;
 
 const ImageStar = styled.img`
@@ -83,8 +92,14 @@ export default ({
               {title}
             </InlineText.Base>
           </Row>
-          <Row>
-            <InlineText.Base noWrap fontSize={16} lineheight="1rem" bold>
+          <Row right>
+            <InlineText.Base
+              noWrap
+              fontSize={16}
+              lineheight="1rem"
+              bold
+              color={Colors.brandPrimary}
+            >
               ¥
               {priceQuarter
                 ? numeral(priceQuarter).format('0,0')
