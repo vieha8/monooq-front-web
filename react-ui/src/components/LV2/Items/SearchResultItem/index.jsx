@@ -21,9 +21,9 @@ const Container = styled.div`
   `};
   cursor: pointer;
   margin: auto;
-  padding: ${Dimens.xxsmall_5}px;
+  padding: ${Dimens.xxsmall_4}px;
   ${media.phone`
-    padding: ${Dimens.xxsmall_5}px 0;
+    padding: ${Dimens.xxsmall_4}px 0;
   `};
 `;
 
