@@ -79,16 +79,17 @@ export default ({
             </InlineText.Base>
           </Row>
           <Row marginTop={4}>
-            <InlineText.Base fontSize={16} bold lineheight="140%">
-              {title && title.length > 50 ? `${title.slice(0, 50)}…` : title}
+            <InlineText.Base fontSize={16} bold lineheight="140%" lineClamp={2}>
+              {title}
             </InlineText.Base>
           </Row>
           <Row>
             <InlineText.Base noWrap fontSize={16} lineheight="1rem" bold>
+              ¥
               {priceQuarter
                 ? numeral(priceQuarter).format('0,0')
                 : numeral(priceFull).format('0,0')}
-              円〜
+              〜&nbsp;/&nbsp;月
             </InlineText.Base>
           </Row>
           {tagList && (

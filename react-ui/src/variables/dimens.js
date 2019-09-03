@@ -21,6 +21,7 @@ export default {
   medium1_25: 25,
   medium1_26: 26,
   medium2: 30,
+  medium2_32: 32,
   medium2_35: 35,
   medium2_34: 34,
   medium2_36: 36,

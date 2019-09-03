@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const ScheduleContainer = styled.div`
   display: table-cell;
-  border-radius: 6px;
+  border-radius: 4px;
   padding: ${Dimens.medium}px 0;
   width: 110px;
   ${props =>

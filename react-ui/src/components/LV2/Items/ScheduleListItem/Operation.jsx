@@ -18,7 +18,7 @@ const OperationContainer = styled.div`
   width: 100%;
   max-width: 164px;
   border: 2px solid ${Colors.brandPrimary};
-  border-radius: 6px;
+  border-radius: 4px;
   padding: ${Dimens.small}px ${Dimens.medium}px;
   float: ${props => props.float || 'none'};
   text-align: center;

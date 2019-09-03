@@ -28,7 +28,7 @@ const DndContent = styled.div`
   width: 100%;
   height: 164px;
   border: 1px solid ${Colors.borderGray};
-  border-radius: 6px;
+  border-radius: 4px;
   background: ${Colors.lightGray1Bg};
   display: flex;
   flex-direction: column;

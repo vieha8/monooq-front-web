@@ -21,23 +21,23 @@ const Cell = styled.div`
   width: 50%;
   display: inline-block;
   vertical-align: top;
-  padding: 0 0 ${Dimens.medium_20}px;
+  padding: 0 0 ${Dimens.medium2_32}px;
   ${props =>
     props.index % 2 === 1 &&
     `
-    padding: 0 0 ${Dimens.medium_20}px ${Dimens.medium}px;
+    padding: 0 0 ${Dimens.medium2_32}px ${Dimens.medium}px;
   `};
   ${media.tablet`
     width: 50%;
     ${props =>
       props.index % 2 === 1 &&
       `
-      padding: 0 0 ${Dimens.medium_20}px ${Dimens.medium}px;
+      padding: 0 0 ${Dimens.medium2_32}px ${Dimens.medium}px;
     `};
   `};
   ${media.phone`
     width: 100%;
-    padding: 0 0 ${Dimens.medium1}px;
+    padding: 0 0 ${Dimens.medium2_32}px;
   `};
 `;
 
