@@ -79,18 +79,12 @@ export default ({
             </InlineText.Base>
           </Row>
           <Row marginTop={4}>
-            <InlineText.Base fontSize={18} bold lineheight="140%">
+            <InlineText.Base fontSize={16} bold lineheight="140%">
               {title && title.length > 50 ? `${title.slice(0, 50)}…` : title}
             </InlineText.Base>
           </Row>
           <Row>
-            <InlineText.Base
-              noWrap
-              fontSize={16}
-              lineheight="1rem"
-              bold
-              color={Colors.brandPrimary}
-            >
+            <InlineText.Base noWrap fontSize={16} lineheight="1rem" bold>
               {priceQuarter
                 ? numeral(priceQuarter).format('0,0')
                 : numeral(priceFull).format('0,0')}
