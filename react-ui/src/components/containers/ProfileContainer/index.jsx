@@ -93,7 +93,7 @@ class ProfileContainer extends Component<PropTypes> {
               id: space.id,
               image: (space.images[0] || {}).imageUrl,
               address: `${space.addressPref}${space.addressCity}${space.addressTown}`,
-              content: space.title,
+              title: space.title,
               furniture: space.isFurniture,
               priceFull: space.priceFull,
               priceQuarter: space.priceQuarter,
