@@ -4,7 +4,6 @@ import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
-import PickupStaffSpaceList from 'components/LV3/Top/pickup';
 import { Dimens } from 'variables';
 
 import Top from './index';
@@ -32,7 +31,6 @@ storiesOf('Organisms(LV3)/Top', module)
           onClickMoreArea={() => console.log('onClickMoreArea')}
           moreArea={false}
           history=""
-          pickUpSpaces={PickupStaffSpaceList.slice(0, 4)}
           story
         />
       </div>

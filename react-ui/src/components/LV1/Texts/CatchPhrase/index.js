@@ -2,21 +2,22 @@
 
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Dimens, FontSizes } from 'variables';
+import { Dimens, FontSizes, Colors } from 'variables';
 
 const CatchPhrase = styled.h1`
-  font-size: ${FontSizes.xxlarge}px;
-  line-height: ${FontSizes.xxlarge * 1.5}px;
+  margin: ${Dimens.small_10}px auto ${Dimens.medium2_34}px;
+  color: ${Colors.black2};
+  font-size: ${FontSizes.xxxlarge}px;
+  line-height: ${Dimens.large2_71}px;
   font-weight: bold;
-  text-align: left;
-  width: 570px;
-  height: 114px;
-  margin-bottom: ${Dimens.small_10}px;
+  text-align: center;
   ${media.phone`
-    font-size: ${FontSizes.medium1}px;
-    line-height: ${FontSizes.medium1 * 1.75}px;
     width: 100%;
     height: auto;
+    margin-top: ${Dimens.small_10}px;
+    font-size: ${FontSizes.medium3}px;
+    line-height: ${Dimens.medium2_36}px;
+    font-weight: 900;
   `};
 `;
 

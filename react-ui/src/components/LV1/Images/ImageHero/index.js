@@ -42,6 +42,11 @@ const ImageHero = styled.img`
       `
       height: ${props.heightSp}px;
     `};
+    ${props =>
+      props.heightSpTag &&
+      `
+      height: ${props.heightSpTag}px;
+    `};
   `};
   
   object-fit: cover;

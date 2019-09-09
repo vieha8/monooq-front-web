@@ -2,92 +2,124 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/LV1/Texts/InlineText';
-import TextLink from 'components/LV1/Texts/TextLink';
-import { Colors, Dimens } from 'variables';
+import Hr from 'components/LV1/HorizontalRule';
+import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
+import ListItem from './ListItem';
+import CompanyInfo from './CompanyInfo';
 
 const Container = styled.footer`
+  display: flex;
   width: 100%;
-  background-color: ${Colors.white};
+  background-color: ${Colors.black4};
   border-top: 1px solid ${Colors.borderGray};
   padding: 0px ${Dimens.medium2}px;
-  ${media.tablet`
-    padding: 0;
-  `};
+  margin-top: 65px;
 `;
 
-const List = styled.ul`
+const Wrap = styled.div`
   display: flex;
-  align-items: center;
-  height: ${Dimens.large_60}px;
-  ${media.phone`
-    height: auto;
-    display: block;
+  width: 100%;
+  max-width: 1156px;
+  margin: auto;
+  padding: 48px 0px;
+  ${media.tablet`
+    flex-wrap: wrap;
   `};
 `;
 
-const Cell = styled.li`
-  display: inline-flex;
-  padding: 0 ${Dimens.small}px;
-  &:last-child {
-    margin-left: auto;
+const WrapItems = styled.div`
+  width: ${props => (props.company ? 20 : 33)}%;
+  &:not(:first-child) {
+    margin-left: ${Dimens.medium4_50}px;
   }
-  ${media.phone`
-    display: block;
-    padding: 6px 24px;
-    &:last-child {
-      margin-left: none;
+  ${media.tablet`
+    width: 100%;
+    &:not(:first-child) {
+      margin-left: 0px;
     }
   `};
 `;
 
-const FooterLink = (props: Object) => (
-  <TextLink {...props} fontSize={11}>
-    {props.children}
-  </TextLink>
-);
+const WrapList = styled.div`
+  display: flex;
+`;
+
+const Caption = styled.div`
+  margin-bottom: ${Dimens.small}px;
+  font-size: ${FontSizes.medium}px;
+  font-weight: bold;
+  color: ${Colors.white};
+`;
+
+const HrStyled = styled(Hr)`
+  display: none;
+  ${media.tablet`
+    display: block;
+  `};
+`;
 
 export default () => (
   <Container>
-    <nav>
-      <List>
-        <Cell>
-          <FooterLink href="https://monooq.co.jp/" target="_blank">
-            運営会社
-          </FooterLink>
-        </Cell>
-        <Cell>
-          <FooterLink to={Path.about()}>はじめての方へ</FooterLink>
-        </Cell>
-        <Cell>
-          <FooterLink to={Path.insurance()}>荷物に対する保険</FooterLink>
-        </Cell>
-        <Cell>
-          <FooterLink to={Path.rule()}>ルールとマナー</FooterLink>
-        </Cell>
-        <Cell>
-          <FooterLink href="https://help.monooq.com/" target="_blank">
-            よくある質問
-          </FooterLink>
-        </Cell>
-        <Cell>
-          <FooterLink to={Path.terms()}>利用規約</FooterLink>
-        </Cell>
-        <Cell>
-          <FooterLink to={Path.privacy()}>プライバシーポリシー</FooterLink>
-        </Cell>
-        <Cell>
-          <FooterLink to={Path.asct()}>特定商取引法に基づく表記</FooterLink>
-        </Cell>
-        <Cell>
-          <FooterLink to={Path.cancelPolicy()}>キャンセルポリシー</FooterLink>
-        </Cell>
-        <Cell>
-          <InlineText.Base fontSize={11}>@ 2019 MonooQ</InlineText.Base>
-        </Cell>
-      </List>
-    </nav>
+    <Wrap>
+      <WrapItems>
+        <Caption>サービスについて</Caption>
+        <WrapList>
+          <ListItem
+            list={[
+              { name: 'モノオクとは', link: Path.about() },
+              { name: '利用の流れ', link: 'https://help.monooq.com/', blank: true },
+              { name: 'ホストを始める', link: '3' },
+              { name: 'ルールとマナー', link: Path.rule() },
+              { name: '荷物に対する保険', link: Path.insurance() },
+              { name: 'よくある質問', href: 'https://help.monooq.com/', blank: true },
+            ]}
+          />
+          <ListItem
+            list={[
+              { name: 'モノオクとは', link: Path.about() },
+              { name: '運営会社', link: 'https://monooq.co.jp/', blank: true },
+              { name: '利用規約', link: Path.terms() },
+              { name: '特定商取引法に基づく表記', link: Path.asct() },
+              { name: 'キャンセルポリシー', link: Path.cancelPolicy() },
+              { name: '個人情報保護方針', link: Path.privacy() },
+            ]}
+          />
+        </WrapList>
+      </WrapItems>
+      <HrStyled backgroundColor="rgba(255, 255, 255, 0.1)" marginPhone="20px auto 24px" />
+      <WrapItems>
+        <Caption>利用ガイド</Caption>
+        <WrapList>
+          <ListItem
+            list={[
+              { name: 'ユーザー編' },
+              { name: 'モノオクとは', link: Path.about() },
+              { name: '利用の流れ', link: 'https://help.monooq.com/', blank: true },
+              { name: 'ホストを始める', link: '3' },
+              { name: 'ルールとマナー', link: Path.rule() },
+              { name: '荷物に対する保険', link: Path.insurance() },
+              { name: 'よくある質問', link: 'https://help.monooq.com/', blank: true },
+            ]}
+          />
+          <ListItem
+            list={[
+              { name: 'ホスト編' },
+              { name: 'モノオクとは', link: Path.about() },
+              { name: '運営会社', link: 'https://monooq.co.jp/', blank: true },
+              { name: '利用規約', link: Path.terms() },
+              { name: '特定商取引法に基づく表記', link: Path.asct() },
+              { name: 'キャンセルポリシー', link: Path.cancelPolicy() },
+              { name: '個人情報保護方針', link: Path.privacy() },
+            ]}
+          />
+        </WrapList>
+      </WrapItems>
+      <HrStyled backgroundColor="rgba(255, 255, 255, 0.1)" marginPhone="20px auto 24px" />
+      <WrapItems company>
+        <CompanyInfo />
+      </WrapItems>
+    </Wrap>
   </Container>
 );

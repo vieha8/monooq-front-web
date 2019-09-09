@@ -15,7 +15,6 @@ type PropTypes = {
     name: string,
     imageUrl: string,
   },
-  top: boolean,
 };
 
 class HeaderContainer extends Component<PropTypes> {
@@ -26,10 +25,9 @@ class HeaderContainer extends Component<PropTypes> {
   }
 
   render() {
-    const { isLogin, isChecking, noHeaderButton, user, top, unreadRooms } = this.props;
+    const { isLogin, isChecking, noHeaderButton, user, unreadRooms } = this.props;
     return (
       <Header
-        top={top}
         topUrl={Path.top()}
         isCheckingLogin={isChecking}
         noHeaderButton={noHeaderButton}

@@ -11,7 +11,7 @@ import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, ZIndexes } from 'variables';
 import { formatName } from 'helpers/string';
 
-export const Height = 64;
+export const Height = 85;
 export const HeightPhone = 54;
 
 const Container = styled.header`
@@ -23,14 +23,7 @@ const Container = styled.header`
   `} top: 0;
   width: 100%;
   min-width: 260px;
-  border-bottom: 1px solid ${Colors.borderGray};
-  background: ${Colors.white};
   z-index: ${ZIndexes.nav};
-  ${props =>
-    props.top &&
-    `
-    background: rgba(255, 255, 255, 0.6);
-  `};
 `;
 
 const Nav = styled.nav`
@@ -45,7 +38,8 @@ const Nav = styled.nav`
 const LogoWrapper = styled(Link)`
   width: 138px;
   display: inline-flex;
-  margin-left: 52px;
+  margin-left: ${Dimens.medium3_40}px;
+  margin-right: ${Dimens.medium_20}px;
   ${props =>
     props.hide &&
     `
@@ -53,14 +47,14 @@ const LogoWrapper = styled(Link)`
   `} ${media.tablet`
     width: 100px;
     margin-top: 0px;
-    margin-left: 17px;
+    margin-left: ${Dimens.medium_17}px;
   `};
 `;
 
 const ActionWrapper = styled.div`
   display: inline-flex;
   margin-left: auto;
-  margin-right: 46px;
+  margin-right: ${Dimens.medium3_40}px;
   ${props =>
     props.fill &&
     `
@@ -68,7 +62,7 @@ const ActionWrapper = styled.div`
   `};
   ${media.tablet`
     margin-left: auto;
-    margin-right: 16px;
+    margin-right: ${Dimens.medium}px;
   `};
 `;
 
@@ -178,7 +172,7 @@ export default ({
   signupUrl,
 }: PropTypes) => {
   return (
-    <Container top={top} stories={stories}>
+    <Container stories={stories}>
       <Nav>
         <LogoWrapper to={topUrl}>
           {top ? <ImageLogo.HeaderWhiteFill /> : <ImageLogo.HeaderFill />}

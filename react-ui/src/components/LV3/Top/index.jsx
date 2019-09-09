@@ -1,56 +1,23 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import Path from 'config/path';
 import Header from 'components/containers/Header';
 import styled from 'styled-components';
-import { Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ContainerDefaultStyled from 'components/LV1/ContainerDefault/ContainerDefaultStyled';
 import Footer from 'components/LV2/Footer';
-import PickupSpaceList from 'components/LV3/PickupSpaceList';
 import TopView from 'components/LV3/TopView';
-import MediaList from 'components/LV3/MediaList';
-import TopIntro from 'components/LV3/TopIntro';
-import TopIntroMovie from 'components/LV3/TopIntroMovie';
-
-const logoAppliv =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-appliv%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
-const logoAscii =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-ascii%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
-const logoBridge =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-bridge%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
-const logoCnet =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-cnet%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
-const logoLifehacker =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-lifehacker%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
-const logoTechcrunch =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-techcrunch%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
-const logoTechable =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-techable%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=26';
+import PrefectureList from 'components/LV3/PrefectureList';
+import SpaceList from 'components/LV3/SpaceList';
 
 const TopPage = styled.div`
-  min-width: ${Dimens.fixedWidthPc + 32}px;
-  margin-top: -${Dimens.medium_20}px;
-  background: ${Colors.lightGray2Bg};
-  ${media.phone`
-    min-width: auto;
+  width: 100%;
+`;
+
+const BrStyled = styled.br`
+  display: none;
+  ${media.tablet`
+    display: block;
   `};
-`;
-
-const CommonContainer = styled.div`
-  background-color: ${Colors.brandPrimary};
-  ${props =>
-    props.gray &&
-    `
-      background-color: ${Colors.lightGray1Bg};
-    `};
-`;
-
-const ForSafeContainer = styled(ContainerDefaultStyled)``;
-
-const PickupContainer = styled.div`
-  margin: ${Dimens.medium}px 0;
 `;
 
 type PropTypes = {
@@ -60,9 +27,149 @@ type PropTypes = {
   onKeyDownSearchField: Function,
   searchButtonDisabled: boolean,
   onClickSearch: Function,
-  pickUpSpaces: Array<*>,
-  onClickSignup: Function,
-  history: History,
+};
+
+// TODO: テストデータのため実装後に削除する
+const getSpaceData = () => {
+  const data = [];
+  for (let i = 0; i < 4; i += 1) {
+    data.push({
+      ID: 3,
+      PrefectureId: 13,
+      SpaceId: 3,
+      Space: {
+        ID: 3,
+        UserID: 8,
+        Title: '広々8畳・和室・武蔵小杉駅より徒歩5分以内の駅近スペース',
+        Introduction:
+          'サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。',
+        PriceFull: 3000,
+        PriceHalf: 0,
+        PriceQuarter: 0,
+        Address: '東京都渋谷区東1-2',
+        AddressPref: '東京都',
+        AddressCity: '渋谷区',
+        AddressTown: '東',
+        Images: [
+          {
+            ID: 3,
+            CreatedAt: '2018-11-28T05:08:30+09:00',
+            UpdatedAt: '2018-11-28T05:08:30+09:00',
+            DeletedAt: null,
+            SpaceID: 3,
+            ImageUrl:
+              'https://firebasestorage.googleapis.com/v0/b/monooq-dev.appspot.com/o/img%2Fspaces%2F3%2F1543381707934.jpg?alt=media&token=f10230b7-3ff8-4e58-9a26-57c3d2ab941c',
+          },
+        ],
+      },
+    });
+  }
+
+  return data;
+};
+
+// TODO: テストデータのため実装後に削除する
+const getPrefectureList = () => {
+  return [
+    {
+      region: '北海道・東北',
+      prefectureList: [
+        { name: '北海道', link: '1' },
+        { name: '青森', link: '2' },
+        { name: '山形', link: '3' },
+        { name: '秋田', link: '4' },
+        { name: '岩手', link: '5' },
+        { name: '宮城', link: '6' },
+        { name: '福島', link: '7' },
+      ],
+    },
+    {
+      region: '甲信越・北陸',
+      prefectureList: [
+        { name: '北海道', link: '1' },
+        { name: '青森', link: '2' },
+        { name: '山形', link: '3' },
+        { name: '秋田', link: '4' },
+        { name: '岩手', link: '5' },
+        { name: '宮城', link: '6' },
+        { name: '福島', link: '7' },
+      ],
+    },
+    {
+      region: '関東',
+      prefectureList: [
+        { name: '北海道', link: '1' },
+        { name: '青森', link: '2' },
+        { name: '山形', link: '3' },
+        { name: '秋田', link: '4' },
+        { name: '岩手', link: '5' },
+        { name: '宮城', link: '6' },
+        { name: '福島', link: '7' },
+      ],
+    },
+    {
+      region: '東海',
+      prefectureList: [
+        { name: '北海道', link: '1' },
+        { name: '青森', link: '2' },
+        { name: '山形', link: '3' },
+        { name: '秋田', link: '4' },
+      ],
+    },
+    {
+      region: '関西',
+      prefectureList: [
+        { name: '北海道', link: '1' },
+        { name: '青森', link: '2' },
+        { name: '山形', link: '3' },
+        { name: '秋田', link: '4' },
+        { name: '岩手', link: '5' },
+        { name: '宮城', link: '6' },
+        { name: '福島', link: '7' },
+      ],
+    },
+    {
+      region: '四国',
+      prefectureList: [
+        { name: '北海道', link: '1' },
+        { name: '青森', link: '2' },
+        { name: '山形', link: '3' },
+        { name: '秋田', link: '4' },
+      ],
+    },
+    {
+      region: '中国',
+      prefectureList: [
+        { name: '北海道', link: '1' },
+        { name: '青森', link: '2' },
+        { name: '山形', link: '3' },
+        { name: '秋田', link: '4' },
+        { name: '岩手', link: '5' },
+      ],
+    },
+    {
+      region: '九州・沖縄',
+      prefectureList: [
+        { name: '北海道', link: '1' },
+        { name: '青森', link: '2' },
+        { name: '山形', link: '3' },
+        { name: '秋田', link: '4' },
+        { name: '岩手', link: '5' },
+        { name: '宮城', link: '6' },
+        { name: '福島', link: '7' },
+      ],
+    },
+  ];
+};
+
+const getCatchPhrase = () => {
+  return (
+    <Fragment>
+      近所のスペースを
+      <BrStyled />
+      探してみよう。
+    </Fragment>
+  );
 };
 
 export default ({
@@ -72,205 +179,43 @@ export default ({
   onKeyDownSearchField,
   searchButtonDisabled,
   onClickSearch,
-  pickUpSpaces,
-  onClickSignup,
-  history,
 }: PropTypes) => (
   <TopPage>
     {!story && <Header />}
     <TopView
-      catchPhrase={
-        <Fragment>
-          個人間だからできる、
-          <br />
-          荷物を置くための新しい方法。
-        </Fragment>
-      }
-      catchPhraseSub={
-        <Fragment>
-          モノオクは空きスペースを活用できる、
-          <br />
-          物置きシェアサービスです。
-        </Fragment>
-      }
-      SIplaceholder="近くのスペースを検索してみよう！　例）東京都港区"
+      catchPhrase={getCatchPhrase()}
+      catchPhraseSub="スキマ空間のシェアサービス「モノオク」"
+      SIplaceholder="東京都 千代田区"
       SIlocationText={locationText}
       SIonChange={handleChangeLocation}
       SIonKeyDown={onKeyDownSearchField}
       SIsearchDisabled={searchButtonDisabled}
       SIonClickSearchButton={onClickSearch}
     />
-
-    <PickupContainer>
-      <PickupSpaceList title="スタッフのおすすめ" spaceList={pickUpSpaces} />
-    </PickupContainer>
-
-    <CommonContainer>
-      <TopIntroMovie
-        srcMovie="https://www.youtube.com/embed/t0t50WBDwzc?showinfo=0&rel=0"
-        frameBorder="0"
-        allow="autoplay; encrypted-media;"
-        allowFullScreen
-        ExplanTitle={
-          <Fragment>
-            モノオクは、
-            <br />
-            荷物の置き場所に困っている人と、
-            <br />
-            余ったスペースを活用したい人をつなぎます。
-          </Fragment>
-        }
-        ExplanText={
-          <Fragment>
-            1分でわかるサービスの流れ。
-            <br />
-            誰でもかんたんに物置きスペースを探せて、気軽にホストになる
-            <br />
-            ことができます。
-          </Fragment>
-        }
-      />
-    </CommonContainer>
-
-    <TopIntro
-      hilightcopy="小さいモノから大きなモノまで。"
-      title="モノオクで物置きスペースを探す理由"
-      list={[
-        {
-          title: '安心の料金',
-          description:
-            'ホストから提示される金額のみをお支払い。余計な費用なしに荷物を置くことができます。※配送は別途',
-        },
-        {
-          title: '面倒な手続きが不要',
-          description:
-            '面倒くさい申込書の記入や内覧の必要はありません。必要なのはメッセージや荷物写真のやりとりだけです。',
-        },
-        {
-          title: '拠点数が多い',
-          description:
-            'モノオクだからできる日本全国に広がる拠点数。あなたのお部屋や引越し先のご近所でも見つかるはず。',
-        },
-        {
-          title: '1ヶ月だけでもOK',
-          description:
-            '3ヶ月や半年などの契約期間の縛りはありません。ホストと相談して必要な期間だけ荷物を置くことができます。',
-        },
-        {
-          title: '交渉が可能',
-          description:
-            'もう少し延長できませんか？荷物の搬入を手伝ってくれませんか？など、ホストと気軽に交渉することが可能です。',
-        },
-      ]}
-      isUser
+    <PrefectureList list={getPrefectureList()} />
+    <SpaceList
+      caption="運営のおすすめスペース紹介"
+      captionSub="公式がイチオシする高評価スペース"
+      spaceList={getSpaceData()}
     />
-
-    <CommonContainer gray>
-      <TopIntro
-        hilightcopy="余っているスペースはありませんか？"
-        title="モノオクでホストをする理由"
-        list={[
-          {
-            title: '新しい副収入につなげる',
-            description: '余っているスペースとスキマ時間で、新しいおこづかいが生まれます。',
-          },
-          {
-            title: '余ったスペースが活用できる',
-            description:
-              '使っていないクローゼットや押入れ・空き部屋はありませんか？モノオクならどんな場所でも活用できます。',
-          },
-          {
-            title: 'かんたんに誰でもできる',
-            description:
-              '荷物を受け取ってスペースに置く、最後は持ち主まで返す。これだけで喜んでくれる人がいます。',
-          },
-          {
-            title: '誰かの役にたつ',
-            description:
-              '引っ越しやリフォーム、片付けなど荷物を置ける場所を探すのは意外と大変なんです。困っている誰かの力になってくれませんか？',
-          },
-        ]}
-        buttonText="ホスト登録はこちら"
-        onClick={onClickSignup}
-      />
-    </CommonContainer>
-
-    <ForSafeContainer>
-      <TopIntro
-        hilightcopy="みんなでもっと便利に物置きシェアができる世の中へ。"
-        title="安心して物置きのシェアをするために"
-        list={[
-          {
-            iconClass: 'far fa-heart',
-            title: 'はじめての方へ',
-            description:
-              'まずは自分に合う物置きスペースを探し、メッセージで荷物を置かせてもらえるかホストに相談をします。サービスの使い方がよくわからない、お困りの方はこちら。',
-            buttonText: '使い方について',
-            onClickItem: () => history.push(Path.about()),
-          },
-          {
-            iconClass: 'far fa-bookmark',
-            title: '荷物に対する保険',
-            description:
-              'サービス内の記録であなたの荷物だと証明できる荷物には最大10万円までの補償があります。あなたがホストの時に、もし誰かの荷物を破損・紛失してしまっても同じ補償が受けられるので安心です。',
-            buttonText: '保険について',
-            onClickItem: () => history.push(Path.insurance()),
-          },
-          {
-            iconClass: 'far fa-handshake',
-            title: 'ルールとマナー',
-            description:
-              'モノオクは個人間の物置きシェアサービスです。トラブルや揉め事がないようにルールを設けています。みんなが安心して使えるようにマナーを大切にしましょう。',
-            buttonText: 'ルールとマナーについて',
-            onClickItem: () => history.push(Path.rule()),
-          },
-        ]}
-        isUser
-        isForSafe
-      />
-    </ForSafeContainer>
-
-    <MediaList
-      title="メディア掲載"
-      list={[
-        {
-          link: 'https://japan.cnet.com/',
-          image: logoCnet,
-          alt: 'CNET Japan',
-        },
-        {
-          link: 'http://ascii.jp/',
-          image: logoAscii,
-          alt: 'ASCII.jp',
-        },
-        {
-          link: 'http://thebridge.jp/',
-          image: logoBridge,
-          alt: 'THE BRIDGE',
-        },
-        {
-          link: 'https://mag.app-liv.jp/',
-          image: logoAppliv,
-          alt: 'Appliv',
-        },
-        {
-          link: 'https://www.lifehacker.jp/',
-          image: logoLifehacker,
-          alt: 'lifehacker',
-        },
-        {
-          link: 'https://jp.techcrunch.com/',
-          image: logoTechcrunch,
-          alt: 'TechCrunch',
-        },
-        {
-          link: 'https://techable.jp',
-          image: logoTechable,
-          alt: 'TECHABLE',
-        },
-      ]}
+    <SpaceList
+      isTag
+      caption="＃4畳以上"
+      captionSub="大型家具や物をたくさん預けたいときに"
+      spaceList={getSpaceData()}
     />
-
+    <SpaceList
+      isTag
+      caption="＃ダンボール1箱〜"
+      captionSub="大型家具や物をたくさん預けたいときに"
+      spaceList={getSpaceData()}
+    />
+    <SpaceList
+      isTag
+      caption="＃短期歓迎"
+      captionSub="大型家具や物をたくさん預けたいときに"
+      spaceList={getSpaceData()}
+    />
     <Footer />
   </TopPage>
 );

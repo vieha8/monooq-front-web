@@ -6,6 +6,9 @@ import styled from 'styled-components';
 import Primary from './Primary';
 import Secondary from './Secondary';
 import Tertiary from './Tertiary';
+import Quaternary from './Quaternary';
+import Quinary from './Quinary';
+
 import Facebook from './Facebook';
 import Twitter from './Twitter';
 import Line from './Line';
@@ -14,6 +17,8 @@ type PropTypes = {
   primary?: boolean,
   secondary?: boolean,
   tertiary?: boolean,
+  quaternary?: boolean,
+  quinary?: boolean,
   facebook?: boolean,
   twitter?: boolean,
   line?: boolean,
@@ -54,6 +59,34 @@ export default (props: PropTypes) => {
           props.children
         )}
       </Tertiary>
+    );
+  }
+
+  if (props.quaternary) {
+    return (
+      <Quaternary {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
+        {props.loading ? (
+          <LoaderWrap>
+            <Loader active inverted inline="centered" size="mini" />
+          </LoaderWrap>
+        ) : (
+          props.children
+        )}
+      </Quaternary>
+    );
+  }
+
+  if (props.quinary) {
+    return (
+      <Quinary {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
+        {props.loading ? (
+          <LoaderWrap>
+            <Loader active inverted inline="centered" size="mini" />
+          </LoaderWrap>
+        ) : (
+          props.children
+        )}
+      </Quinary>
     );
   }
 

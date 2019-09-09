@@ -10,7 +10,6 @@ import { media } from 'helpers/style/media-query';
 const Container = styled.span`
   display: table;
   height: 100%;
-  margin-right: 35px;
   ${media.tablet`
     margin-right: 3px;
   `};
@@ -56,13 +55,28 @@ export default ({ signupUrl, loginUrl }: PropTypes) => (
   <Container>
     <OnlyPC>
       <TextWrapper>
-        <TextLink href={signupUrl} color={Colors.brandPrimary} bold>
-          新規登録
+        <TextLink href={signupUrl} color={Colors.black}>
+          モノオクとは？
         </TextLink>
       </TextWrapper>
       <TextWrapper>
-        <Button primary link href={loginUrl} fontbold height={40} lineheight={15}>
+        <TextLink href={signupUrl} color={Colors.black}>
+          利用の流れ
+        </TextLink>
+      </TextWrapper>
+      <TextWrapper>
+        <TextLink href={signupUrl} color={Colors.black}>
+          よくある質問
+        </TextLink>
+      </TextWrapper>
+      <TextWrapper>
+        <TextLink href={loginUrl} color={Colors.white} colorHover={Colors.brandPrimary} bold>
           ログイン
+        </TextLink>
+      </TextWrapper>
+      <TextWrapper>
+        <Button quaternary link href={signupUrl} fontbold height={40} lineheight={15}>
+          新規登録
         </Button>
       </TextWrapper>
     </OnlyPC>
