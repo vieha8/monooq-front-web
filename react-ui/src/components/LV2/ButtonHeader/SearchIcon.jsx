@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
-import SerchIcon from 'images/icon-search.svg';
+import SearchIcon from 'images/icon-search.svg';
 
 const StyledLink = styled(Link)`
   display: inline-block;
@@ -28,6 +28,6 @@ type PropTypes = {
 
 export default ({ href, onClick }: PropTypes) => (
   <StyledLink to={href} onClick={onClick}>
-    <Image src={SerchIcon} alt="icon-serch" />
+    <Image src={SearchIcon} alt="icon-search" />
   </StyledLink>
 );

@@ -38,7 +38,7 @@ storiesOf('Organisms(LV3)/SearchCondition', module)
           onChangeReceive={() => console.log('onChangeReceive')}
           buttonDisabled={false}
           onClickSearch={() => console.log('onClickSearch')}
-          onKeyDownButtonSerch={() => console.log('onKeyDownButtonSerch')}
+          onKeyDownButtonSearch={() => console.log('onKeyDownButtonSearch')}
         />
       </div>
     )),
