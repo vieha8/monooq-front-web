@@ -549,7 +549,7 @@ function* search({
       space.images = space.images.map(image => {
         image.imageUrl = convertImgixUrl(
           image.imageUrl,
-          'fit=fillmax&fill-color=DBDBDB&w=165&h=120&auto=format',
+          'fit=fillmax&fill-color=DBDBDB&w=340&h=240&auto=format',
         );
         return image;
       });

@@ -66,28 +66,23 @@ const SpaceListContainer = styled.div``;
 const Cell = styled.div`
   display: inline-block;
   vertical-align: top;
+  padding: 0 0 ${Dimens.medium2_32}px;
   ${props =>
-    props.index % 3 === 1 &&
+    props.index % 2 === 1 &&
     `
-    padding: 0 ${Dimens.medium1}px ${Dimens.medium_20}px;
+    padding: 0 0 ${Dimens.medium2_32}px ${Dimens.medium}px;
   `};
   ${media.tablet`
-    width: calc(33.333333% - 11px);
-    ${props =>
-      props.index % 3 === 1 &&
-      `
-      width: calc(33.333333% + 22px);
-      padding: 0 ${Dimens.medium}px ${Dimens.medium1}px;
-    `};
-  `};
-  ${media.phone`
     width: 50%;
-    padding: 0 7.5px ${Dimens.medium1}px 0;
     ${props =>
       props.index % 2 === 1 &&
       `
-      padding: 0 0 ${Dimens.medium1}px 7.5px;
+      padding: 0 0 ${Dimens.medium2_32}px ${Dimens.medium}px;
     `};
+  `};
+  ${media.phone`
+    width: 100%;
+    padding: 0 0 ${Dimens.medium2_32}px;
   `};
 `;
 

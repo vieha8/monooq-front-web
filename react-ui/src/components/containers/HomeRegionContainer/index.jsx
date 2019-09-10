@@ -92,7 +92,7 @@ class HomeRegionContainer extends Component<PropTypes> {
                 Space.Images.length !== 0
                   ? convertImgixUrl(
                       Space.Images[0].ImageUrl,
-                      'fit=fillmax&fill-color=DBDBDB&w=170&h=120&auto=format',
+                      'fit=fillmax&fill-color=DBDBDB&w=340&h=240&auto=format',
                     )
                   : dummySpaceImage,
               title: Space.Title,

@@ -20,7 +20,7 @@ const ImageHero = styled.img`
   `
     max-width: 104px;
     max-height: 79px;
-  `} border-radius: 6px;
+  `} border-radius: 4px;
 
   ${props =>
     props.height &&

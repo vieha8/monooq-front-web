@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
-import TextGuide from 'components/LV1/Texts/TextGuide';
+import TextCard from 'components/LV1/Texts/TextCard';
 
 const Container = styled.div`
   width: 100%;
@@ -27,8 +27,8 @@ type PropTypes = {
 export default ({ header, data1, data2, data3 }: PropTypes) => (
   <Container>
     <Header>{header}</Header>
-    <TextGuide data={data1} />
-    <TextGuide data={data2} />
-    <TextGuide data={data3} />
+    <TextCard data={data1} />
+    <TextCard data={data2} />
+    <TextCard data={data3} />
   </Container>
 );
