@@ -1,6 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import numeral from 'numeral';
 import Path from 'config/path';
 
@@ -8,9 +9,6 @@ import { userActions } from 'redux/modules/user';
 import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
 
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import Header from 'components/containers/Header';
 import SpaceManageList from 'components/LV3/SpaceManageList';
 import LoadingPage from 'components/LV3/LoadingPage';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
@@ -75,7 +73,7 @@ class SpaceManagementContainer extends Component<PropTypes> {
     dispatch(spaceActions.deleteSpace({ space }));
   };
 
-  leftContent = () => {
+  render() {
     const { isLoading, spaces, history } = this.props;
 
     if (isLoading) {
@@ -115,17 +113,6 @@ class SpaceManagementContainer extends Component<PropTypes> {
         }))}
       />
     );
-  };
-
-  render() {
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline="スペースの管理"
-        leftContent={this.leftContent()}
-        rightContent={<ServiceMenu />}
-      />
-    );
   }
 }
 
@@ -136,8 +123,13 @@ const mapStateToProps = state => ({
 });
 
 export default authRequired(
-  connect(
-    SpaceManagementContainer,
-    mapStateToProps,
+  ContentPageMenu(
+    connect(
+      SpaceManagementContainer,
+      mapStateToProps,
+    ),
+    {
+      headline: 'スペースの管理',
+    },
   ),
 );

@@ -52,6 +52,14 @@ const Base = styled.span`
       display: inline-block;
       margin: ${props.margin};
     `};
+    ${props =>
+      props.lineClamp &&
+      css`
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: ${props.lineClamp};
+        overflow: hidden;
+      `};
   ${media.phone`
     ${props =>
       props.fontSizeSp &&

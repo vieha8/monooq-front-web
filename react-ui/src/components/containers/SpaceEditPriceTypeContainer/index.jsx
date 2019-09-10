@@ -3,15 +3,12 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
+import SpaceEditInputPriceType from 'components/LV3/SpaceEdit/InputPriceType';
 
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
-
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
-import SpaceEditInputPriceType from 'components/LV3/SpaceEdit/InputPriceType';
 
 import { ErrorMessages } from 'variables';
 
@@ -208,8 +205,22 @@ class SpaceEditPriceTypeContainer extends Component<PropTypes> {
     );
   };
 
-  leftContent = (priceFull, priceHalf, priceQuarter, error) => {
-    const { isLoading } = this.props;
+  render() {
+    const { space, isLoading } = this.props;
+    const { priceFull, priceHalf, priceQuarter, error, isUpdate, isFirst } = this.state;
+
+    if (!isUpdate) {
+      if (Object.keys(space).length === 0) {
+        // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
+        return <Redirect to={Path.createSpaceInfo()} />;
+      }
+    } else if (priceFull && priceHalf && priceQuarter && isFirst) {
+      // リロード時にvalidate実行する。
+      this.handleChangeUI('priceFull', priceFull);
+      this.handleChangeUI('priceHalf', priceHalf);
+      this.handleChangeUI('priceQuarter', priceQuarter);
+    }
+
     return (
       <SpaceEditInputPriceType
         errors={error}
@@ -227,32 +238,6 @@ class SpaceEditPriceTypeContainer extends Component<PropTypes> {
         buttonNextDisabled={!this.validate()}
       />
     );
-  };
-
-  render() {
-    const { space } = this.props;
-    const { priceFull, priceHalf, priceQuarter, error, isUpdate, isFirst } = this.state;
-
-    if (!isUpdate) {
-      if (Object.keys(space).length === 0) {
-        // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
-        return <Redirect to={Path.createSpaceInfo()} />;
-      }
-    } else if (priceFull && priceHalf && priceQuarter && isFirst) {
-      // リロード時にvalidate実行する。
-      this.handleChangeUI('priceFull', priceFull);
-      this.handleChangeUI('priceHalf', priceHalf);
-      this.handleChangeUI('priceQuarter', priceQuarter);
-    }
-
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline="スペース料金の設定"
-        leftContent={this.leftContent(priceFull, priceHalf, priceQuarter, error)}
-        rightContent={<ServiceMenu />}
-      />
-    );
   }
 }
 
@@ -264,5 +249,9 @@ const mapStateToProps = state => ({
 });
 
 export default authRequired(
-  handleBeforeUnload(connect(mapStateToProps)(SpaceEditPriceTypeContainer)),
+  handleBeforeUnload(
+    ContentPageMenu(connect(mapStateToProps)(SpaceEditPriceTypeContainer), {
+      headline: 'スペース料金の設定',
+    }),
+  ),
 );

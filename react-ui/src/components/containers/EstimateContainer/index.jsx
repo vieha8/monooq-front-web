@@ -1,17 +1,12 @@
 // @flow
 
 import React, { Component } from 'react';
-
 import { requestActions } from 'redux/modules/request';
 import { ErrorMessages } from 'variables';
-
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
-import Estimate from 'components/LV3/Estimate';
-
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import Estimate from 'components/LV3/Estimate';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
 
@@ -117,7 +112,7 @@ class EstimateContainer extends Component<PropTypes> {
     );
   };
 
-  leftContent = () => {
+  render() {
     const { isSending } = this.props;
     const { begin, end, error, price, beginFocus, endFocus } = this.state;
     return (
@@ -143,17 +138,6 @@ class EstimateContainer extends Component<PropTypes> {
         onKeyDownSend={this.onKeyDownSend}
       />
     );
-  };
-
-  render() {
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline="見積もりを送る"
-        leftContent={this.leftContent()}
-        rightContent={<ServiceMenu />}
-      />
-    );
   }
 }
 
@@ -162,4 +146,8 @@ const mapStateToProps = state => ({
   isSending: state.request.estimate.isSending,
 });
 
-export default authRequired(connect(mapStateToProps)(EstimateContainer));
+export default authRequired(
+  ContentPageMenu(connect(mapStateToProps)(EstimateContainer), {
+    headline: '見積もりを送る',
+  }),
+);

@@ -5,10 +5,8 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import Path from 'config/path';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import HomeTemplate from 'components/templates/HomeTemplate';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
 import NoCollapsible from 'components/LV1/Collapsible/NoCollapsible';
 import SearchResult from 'components/LV3/SearchResult';
 import ConciergeContents from 'components/LV2/IntroductionConcierge';
@@ -94,7 +92,7 @@ class HomeRegionContainer extends Component<PropTypes> {
                 Space.Images.length !== 0
                   ? convertImgixUrl(
                       Space.Images[0].ImageUrl,
-                      'fit=fillmax&fill-color=DBDBDB&w=170&h=120&auto=format',
+                      'fit=fillmax&fill-color=DBDBDB&w=340&h=240&auto=format',
                     )
                   : dummySpaceImage,
               title: Space.Title,
@@ -121,22 +119,12 @@ class HomeRegionContainer extends Component<PropTypes> {
 
   render() {
     const { isLoading } = this.props;
-
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        leftContent={
-          isLoading ? (
-            <LoadingPage />
-          ) : (
-            <HomeWrap>
-              <HomeTemplate sections={this.showSections()} />
-            </HomeWrap>
-          )
-        }
-        rightContent={<ServiceMenu />}
-        noMargin
-      />
+    return isLoading ? (
+      <LoadingPage />
+    ) : (
+      <HomeWrap>
+        <HomeTemplate sections={this.showSections()} />
+      </HomeWrap>
     );
   }
 }
@@ -146,4 +134,8 @@ const mapStateToProps = state => ({
   isLoading: state.home.isLoading,
 });
 
-export default authRequired(connect(mapStateToProps)(HomeRegionContainer));
+export default authRequired(
+  ContentPageMenu(connect(mapStateToProps)(HomeRegionContainer), {
+    noMargin: true,
+  }),
+);

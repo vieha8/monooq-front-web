@@ -7,15 +7,14 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Loading from 'components/LV1/Loading';
 import Path from 'config/path';
 
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SearchResultTemplate from 'components/templates/SearchResultTemplate';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
 import Button from 'components/LV1/Forms/Button';
 import SearchResult from 'components/LV3/SearchResult';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
 import ConciergeContents from 'components/LV2/IntroductionConcierge';
 import Meta from 'components/LV1/Meta';
+import { H1 } from 'components/LV1/Texts/Headline';
 import { Dimens, FormValues } from 'variables';
 
 import { spaceActions } from 'redux/modules/space';
@@ -192,30 +191,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
     this.setState({ offset: newOffset });
   };
 
-  leftContentPageNotFound = () => {
-    return (
-      <SpaceDataNone
-        captionHead="該当するスペースが見つかりませんでした"
-        caption="別のキーワード及び条件で検索をお試しください"
-        buttonText="条件を変えて再検索する"
-        onClick={this.onClickBackSearchCondition}
-        onKeyDown={this.onKeyDownButtonResearch}
-      />
-    );
-  };
-
-  renderPageNotFound = () => {
-    const condition = this.getCondition();
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline={`「${condition}」のスペース検索結果 0件`}
-        leftContent={this.leftContentPageNotFound()}
-        rightContent={<ServiceMenu />}
-      />
-    );
-  };
-
   infiniteScroll = () => {
     const { spaces, isMore, history } = this.props;
     return (
@@ -272,33 +247,35 @@ class SearchResultContainer extends Component<PropTypes, State> {
     );
   };
 
-  leftContent = condition => {
-    const { isSearching } = this.props;
-    return (
-      <SearchResultTemplate
-        isSearching={isSearching}
-        meta={this.meta(condition)}
-        searchResult={this.infiniteScroll()}
-        options={this.options()}
-      />
-    );
-  };
-
   render() {
-    const { spaces, isMore, maxCount } = this.props;
+    const { spaces, isMore, maxCount, isSearching } = this.props;
+    const condition = this.getCondition();
 
     if (spaces.length === 0 && !isMore) {
-      return this.renderPageNotFound();
+      return (
+        <Fragment>
+          <H1 bold>{`「${condition}」のスペース検索結果 0件`}</H1>
+          <SpaceDataNone
+            captionHead="該当するスペースが見つかりませんでした"
+            caption="別のキーワード及び条件で検索をお試しください"
+            buttonText="条件を変えて再検索する"
+            onClick={this.onClickBackSearchCondition}
+            onKeyDown={this.onKeyDownButtonReserch}
+          />
+        </Fragment>
+      );
     }
 
-    const condition = this.getCondition();
     return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline={`「${condition}」のスペース検索結果${maxCount}件`}
-        leftContent={this.leftContent(condition)}
-        rightContent={<ServiceMenu />}
-      />
+      <Fragment>
+        <H1 bold>{`「${condition}」のスペース検索結果${maxCount}件`}</H1>
+        <SearchResultTemplate
+          isSearching={isSearching}
+          meta={this.meta(condition)}
+          searchResult={this.infiniteScroll()}
+          options={this.options()}
+        />
+      </Fragment>
     );
   }
 }
@@ -310,7 +287,10 @@ const mapStateToProps = state => ({
   isMore: state.space.isMore,
 });
 
-export default connect(
-  SearchResultContainer,
-  mapStateToProps,
+export default ContentPageMenu(
+  connect(
+    SearchResultContainer,
+    mapStateToProps,
+  ),
+  {},
 );

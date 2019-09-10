@@ -3,9 +3,7 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import ReactGA from 'react-ga';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SearchCondition from 'components/LV3/SearchCondition';
 import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
@@ -100,8 +98,9 @@ class SearchConditionContainer extends Component<PropTypes> {
     return true;
   };
 
-  leftContent = () => {
+  render() {
     const { keyword, prefCode, type, isFurniture, receiptType, error } = this.state;
+
     return (
       <SearchCondition
         errors={error}
@@ -121,18 +120,9 @@ class SearchConditionContainer extends Component<PropTypes> {
         onKeyDownButtonSearch={this.onKeyDownButtonSearch}
       />
     );
-  };
-
-  render() {
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline="スペース検索"
-        leftContent={this.leftContent()}
-        rightContent={<ServiceMenu />}
-      />
-    );
   }
 }
 
-export default connect(SearchConditionContainer);
+export default ContentPageMenu(connect(SearchConditionContainer), {
+  headline: 'スペース検索',
+});

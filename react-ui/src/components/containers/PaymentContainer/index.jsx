@@ -11,10 +11,9 @@ import { requestActions } from 'redux/modules/request';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Payment from 'components/LV3/Payment';
-import Header from 'components/containers/Header';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Button from 'components/LV1/Forms/Button';
 import { H1 } from 'components/LV1/Texts/Headline';
@@ -442,15 +441,6 @@ class PaymentContainer extends Component<PropTypes> {
     }
   };
 
-  rightContent = () => {
-    return (
-      <Fragment>
-        <Spacer />
-        <ServiceMenu />
-      </Fragment>
-    );
-  };
-
   render() {
     const { match, request, paymentUrl, isPaymentSuccess } = this.props;
 
@@ -530,13 +520,7 @@ class PaymentContainer extends Component<PropTypes> {
       leftContent = this.leftContentComplete(headline, description);
     }
 
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        leftContent={leftContent}
-        rightContent={this.rightContent()}
-      />
-    );
+    return leftContent;
   }
 }
 
@@ -549,4 +533,13 @@ const mapStateToProps = state => ({
   paymentUrl: state.request.payment.url,
 });
 
-export default authRequired(connect(mapStateToProps)(PaymentContainer));
+export default authRequired(
+  ContentPageMenu(connect(mapStateToProps)(PaymentContainer), {
+    rightContent: (
+      <Fragment>
+        <Spacer />
+        <ServiceMenu />
+      </Fragment>
+    ),
+  }),
+);

@@ -2,10 +2,10 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Dimens, FontSizes } from 'variables';
+import { Dimens, FontSizes, Colors } from 'variables';
 
-const TextGuide = styled.div`
-  background-color: #f2f2f2;
+const TextCard = styled.div`
+  background-color: ${Colors.lightGray4};
   border-radius: ${Dimens.xxsmall_4}px;
   padding: ${Dimens.medium}px;
   margin-bottom: ${Dimens.medium}px;
@@ -17,4 +17,4 @@ type PropTypes = {
   data: String,
 };
 
-export default ({ data }: PropTypes) => <TextGuide>{data}</TextGuide>;
+export default ({ data }: PropTypes) => <TextCard>{data}</TextCard>;

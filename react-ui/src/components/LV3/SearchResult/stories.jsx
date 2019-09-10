@@ -15,8 +15,8 @@ const getData = () => {
   for (let i = 0; i < 10; i += 1) {
     data.push({
       image: 'http://placehold.jp/200x200.png',
-      addressTown: '六本木六本木六本木六本木六本木',
-      title: 'テストテストテストテストテスト',
+      address: '東京都渋谷区渋谷',
+      title: '広々8畳・和室・武蔵小杉駅より徒歩5分以内の駅近スペース',
       isFurniture: true,
       priceFull: '10000',
       priceHalf: '5000',

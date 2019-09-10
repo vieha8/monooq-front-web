@@ -6,9 +6,7 @@ import Path from 'config/path';
 import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
 import { requestActions } from 'redux/modules/request';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SpaceMap from 'components/LV1/SpaceMap';
 import Detail from 'components/LV3/Space/Detail';
 import SendMessage from 'components/LV3/Space/SendMessage';
@@ -17,8 +15,8 @@ import Meta from 'components/LV1/Meta';
 import dummySpaceImage from 'images/dummy_space.png';
 import { iskeyDownEnter } from 'helpers/keydown';
 
-import connect from '../connect';
 import { loggerActions } from 'redux/modules/logger';
+import connect from '../connect';
 
 type PropTypes = {
   dispatch: Function,
@@ -145,9 +143,14 @@ class SpaceContainer extends Component<PropTypes> {
 
   showLeftContent = () => {
     const { space, user, isRequesting } = this.props;
+    const {
+      meta: { title, description, url, imageUrl },
+    } = this.state;
     const isSelfSpace = user.id === (space.user || {}).id;
+
     return (
       <Fragment>
+        <Meta title={title} description={description} ogUrl={url} ogImageUrl={imageUrl} />
         <Detail
           id={space.id}
           map={<SpaceMap lat={space.lat} lng={space.lng} />}
@@ -193,18 +196,7 @@ class SpaceContainer extends Component<PropTypes> {
 
   render() {
     const { space } = this.props;
-    const {
-      meta: { title, description, url, imageUrl },
-    } = this.state;
-
-    return (
-      <MenuPageTemplate
-        meta={<Meta title={title} description={description} ogUrl={url} ogImageUrl={imageUrl} />}
-        header={<Header />}
-        leftContent={!space ? <LoadingPage /> : this.showLeftContent()}
-        rightContent={<ServiceMenu />}
-      />
-    );
+    return !space ? <LoadingPage /> : this.showLeftContent();
   }
 }
 
@@ -214,7 +206,10 @@ const mapStateToProps = state => ({
   isRequesting: state.request.isLoading,
 });
 
-export default connect(
-  SpaceContainer,
-  mapStateToProps,
+export default ContentPageMenu(
+  connect(
+    SpaceContainer,
+    mapStateToProps,
+  ),
+  {},
 );

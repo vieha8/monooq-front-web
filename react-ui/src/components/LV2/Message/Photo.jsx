@@ -8,7 +8,7 @@ import { Dimens } from 'variables';
 
 const ImageWrapper = styled.div`
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: 4px;
   max-width: 400px;
   ${props =>
     props.align === 'right' &&

@@ -1,10 +1,8 @@
 // @flow
 
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Profile from 'components/LV3/Profile';
-import Header from 'components/containers/Header';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import LoadingPage from 'components/LV3/LoadingPage';
 import { userActions } from 'redux/modules/user';
 import { formatDate, formatStringSlash } from 'helpers/date';
@@ -67,19 +65,7 @@ class ProfileContainer extends Component<PropTypes> {
     dispatch(userActions.fetchUserSpaces({ userId }));
   }
 
-  meta = user => {
-    return (
-      <Meta
-        title={user && `${formatName(user.name)}さんのプロフィール - モノオク`}
-        description={user && user.profile}
-        ogUrl={user && `user/${user.id}`}
-        ogImageUrl={user && user.imageUrl}
-        noindex
-      />
-    );
-  };
-
-  leftContent = () => {
+  render() {
     const { user, spaces } = this.props;
 
     if (!user) {
@@ -87,37 +73,33 @@ class ProfileContainer extends Component<PropTypes> {
     }
 
     return (
-      <Profile
-        image={user.imageUrl}
-        name={user.name}
-        prefCode={user.prefCode}
-        profile={user.profile}
-        lastLoginAt={formatDate(new Date(user.lastLoginAt), formatStringSlash)}
-        spaces={(spaces || [])
-          .filter(v => v.status === 'public')
-          .map((space: SpaceType) => ({
-            id: space.id,
-            image: (space.images[0] || {}).imageUrl,
-            address: `${space.addressPref}${space.addressCity}${space.addressTown}`,
-            content: space.title,
-            furniture: space.isFurniture,
-            priceFull: space.priceFull,
-            priceQuarter: space.priceQuarter,
-          }))}
-      />
-    );
-  };
-
-  render() {
-    const { user } = this.props;
-    return (
-      <MenuPageTemplate
-        meta={this.meta(user)}
-        header={<Header />}
-        headline="プロフィール"
-        leftContent={this.leftContent()}
-        rightContent={<ServiceMenu />}
-      />
+      <Fragment>
+        <Meta
+          title={user && `${formatName(user.name)}さんのプロフィール - モノオク`}
+          description={user && user.profile}
+          ogUrl={user && `user/${user.id}`}
+          ogImageUrl={user && user.imageUrl}
+          noindex
+        />
+        <Profile
+          image={user.imageUrl}
+          name={user.name}
+          prefCode={user.prefCode}
+          profile={user.profile}
+          lastLoginAt={formatDate(new Date(user.lastLoginAt), formatStringSlash)}
+          spaces={(spaces || [])
+            .filter(v => v.status === 'public')
+            .map((space: SpaceType) => ({
+              id: space.id,
+              image: (space.images[0] || {}).imageUrl,
+              address: `${space.addressPref}${space.addressCity}${space.addressTown}`,
+              title: space.title,
+              furniture: space.isFurniture,
+              priceFull: space.priceFull,
+              priceQuarter: space.priceQuarter,
+            }))}
+        />
+      </Fragment>
     );
   }
 }
@@ -127,7 +109,12 @@ const mapStateToProps = state => ({
   spaces: state.user.spaces,
 });
 
-export default connect(
-  ProfileContainer,
-  mapStateToProps,
+export default ContentPageMenu(
+  connect(
+    ProfileContainer,
+    mapStateToProps,
+  ),
+  {
+    headline: 'プロフィール',
+  },
 );

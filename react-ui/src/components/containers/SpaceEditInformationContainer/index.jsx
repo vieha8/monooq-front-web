@@ -7,10 +7,9 @@ import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
 
-import MenuPageTemplate from 'components/templates/MenuPageTemplate';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
-import Header from 'components/containers/Header';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SpaceEditInformation from 'components/LV3/SpaceEdit/Information';
+import { H1 } from 'components/LV1/Texts/Headline';
 
 import { ErrorMessages, FormValues } from 'variables';
 
@@ -264,7 +263,8 @@ class SpaceEditInformationContainer extends Component<PropTypes> {
     );
   };
 
-  leftContent = space => {
+  render() {
+    const { space } = this.props;
     const {
       images,
       title,
@@ -287,6 +287,7 @@ class SpaceEditInformationContainer extends Component<PropTypes> {
 
     return (
       <Fragment>
+        <H1 bold>{`スペースの${isUpdate ? '編集' : '登録'}`}</H1>
         <SpaceEditInformation
           edit={isUpdate}
           errors={error}
@@ -330,19 +331,6 @@ class SpaceEditInformationContainer extends Component<PropTypes> {
         </Modal>
       </Fragment>
     );
-  };
-
-  render() {
-    const { space } = this.props;
-    const { isUpdate } = this.state;
-    return (
-      <MenuPageTemplate
-        header={<Header />}
-        headline={`スペースの${isUpdate ? '編集' : '登録'}`}
-        leftContent={this.leftContent(space)}
-        rightContent={<ServiceMenu />}
-      />
-    );
   }
 }
 
@@ -351,4 +339,6 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default authRequired(connect(mapStateToProps)(SpaceEditInformationContainer));
+export default authRequired(
+  ContentPageMenu(connect(mapStateToProps)(SpaceEditInformationContainer), {}),
+);
