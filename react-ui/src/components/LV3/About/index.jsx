@@ -11,15 +11,12 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import Footer from 'components/LV2/Footer';
 import WhenIUseList from 'components/LV2/Lists/WhenIUseList';
+import WhenIUseCardList from 'components/LV2/Lists/WhenIUseCardList';
 import IfIFindList from 'components/LV2/Lists/IfIFindList';
 import mainVisual from 'images/about_main_visual@2x.jpg';
 import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';
-import useImage1 from 'images/about_use1@2x.jpg';
-import useImage2 from 'images/about_use2@2x.jpg';
-import useImage3 from 'images/about_use3@2x.jpg';
-import useImage4 from 'images/about_use4@2x.jpg';
-import useImage5 from 'images/about_use5@2x.jpg';
-import useImage6 from 'images/about_use6@2x.jpg';
+import moneyMetapher from 'images/money_metapher@2x.png';
+import beginner from 'images/beginner@2x.png';
 import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
 
@@ -31,9 +28,15 @@ const ImageCp = styled.img`
   max-width: 300px;
 `;
 
+const AttentionWord = styled.div`
+  font-size: ${FontSizes.medium_18}px;
+  color: ${Colors.brandPrimary};
+  margin-bottom: 12px;
+`;
+
 const SubTitle = styled.div`
-  font-size: ${FontSizes.large}px;
-  line-height: ${FontSizes.large * 1.5}px;
+  font-size: ${FontSizes.xxlarge}px;
+  line-height: ${FontSizes.xxlarge * 1.5}px;
   margin-bottom: 45px;
   ${media.phone`
     font-size: 6vw;
@@ -124,9 +127,15 @@ const TopLabel = styled.div`
 
 const WhenIUseContainer = styled(ContainerDefault)`
   padding-top: 50px;
+  text-align: center;
   ${media.phone`
     padding-top: 20px;
   `};
+`;
+
+const WhenIUseContent = styled.div`
+  margin-top: 124px;
+  margin-bottom: 124px;
 `;
 
 const ContentContainer = styled(ContainerDefault)`
@@ -175,35 +184,64 @@ export default () => (
       </TopContainer>
 
       <WhenIUseContainer>
-        <SubTitle>こんな時にモノオクを使おう！</SubTitle>
-        <WhenIUseList
-          list={[
-            {
-              image: useImage1,
-              text: '引越しで一時的に荷物を置きたい。',
-            },
-            {
-              image: useImage2,
-              text: '自宅リフォーム中の家具を置く場所がない。',
-            },
-            {
-              image: useImage3,
-              text: '出張・転勤・留学で荷物の保管をしたい。',
-            },
-            {
-              image: useImage4,
-              text: '仕事場をもっと広く使いたい。',
-            },
-            {
-              image: useImage5,
-              text: '費用の高いトランクルームの代わりに。',
-            },
-            {
-              image: useImage6,
-              text: '生活空間を広げるため。',
-            },
-          ]}
-        />
+        <WhenIUseContent>
+          <AttentionWord>「荷物の置き場所に困った…」を解決！</AttentionWord>
+          <SubTitle>こんなときにはモノオク！</SubTitle>
+          <WhenIUseList
+            list={[
+              {
+                image: moneyMetapher,
+                title: '手頃な価格で荷物を置きたい',
+                text:
+                  '費用はホストから提示される料金だけ。余計な出費なしで荷物を置くことができます。※配送は別途',
+              },
+              {
+                image: moneyMetapher,
+                title: '利用期間はまだ未定',
+                text:
+                  '１ヶ月、半年、１年でも。ホストとの相談次第で、利用期間の延長も柔軟に対応できます。',
+              },
+              {
+                image: moneyMetapher,
+                title: '緊急で今すぐ物置が必要',
+                text:
+                  '急な引っ越しや用事など、できるだけすぐに物を置く場所が必要になったような緊急時にも。',
+              },
+            ]}
+          />
+        </WhenIUseContent>
+        <WhenIUseContent>
+          <AttentionWord>モノオクのことをもっと詳しく</AttentionWord>
+          <SubTitle>ご利用にあたって</SubTitle>
+          <WhenIUseCardList
+            list={[
+              {
+                image: beginner,
+                subTitle: 'モノオクを利用する前に',
+                title: '初めてのご利用ガイド',
+                text:
+                  '「モノオクの利用が初めてで使い方がよく分からない...」そんな初めての方に、使い方とかんたんな利用の流れをご紹介。',
+                buttonText: '初めてのご利用ガイド',
+              },
+              {
+                image: beginner,
+                subTitle: '荷物の紛失・破損時に',
+                title: 'モノオクあんしん補償',
+                text:
+                  '取引が確認できるお荷物に対して最大10万円までの補償が適応できます。ホスト時にも同様の補償が適応されるのでご安心ください。',
+                buttonText: 'モノオクあんしん補償について',
+              },
+              {
+                image: beginner,
+                subTitle: 'より快適にご利用いただくために',
+                title: 'ルールとマナー',
+                text:
+                  'モノオクは個人間の取引で成立しています。誰もが気持ちよく安心して使えるよう、ルールとマナーを守ってご利用ください。',
+                buttonText: 'ルールとマナーについて',
+              },
+            ]}
+          />
+        </WhenIUseContent>
         <Hr />
       </WhenIUseContainer>
 
