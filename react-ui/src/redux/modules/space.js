@@ -518,7 +518,7 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
 }
 
 function* search({
-  payload: { limit, offset, keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture },
+  payload: { limit, offset, keyword, prefCode, receiptType, type, isFurniture },
 }) {
   const token = yield* getToken();
 
@@ -527,8 +527,6 @@ function* search({
     offset,
     keyword,
     pref: getPrefecture(prefCode),
-    priceMin: priceMin || 0,
-    priceMax: priceMax || 0,
     receiptType,
     spaceType: type,
     isFurniture,
