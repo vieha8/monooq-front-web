@@ -10,24 +10,6 @@ import SpaceList from './index';
 
 SpaceList.displayName = 'SpaceList';
 
-const aaa = () => {
-  const data = [];
-  for (let i = 0; i < 10; i += 1) {
-    data.push({
-      image: 'http://placehold.jp/200x200.png',
-      address: '東京都渋谷区渋谷',
-      title: '広々8畳・和室・武蔵小杉駅より徒歩5分以内の駅近スペース',
-      isFurniture: true,
-      priceFull: '10000',
-      priceHalf: '5000',
-      priceQuarter: '3000',
-      onClick: () => console.log('onClick'),
-    });
-  }
-
-  return data;
-};
-
 const getData = () => {
   const data = [];
   for (let i = 0; i < 8; i += 1) {

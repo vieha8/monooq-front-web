@@ -70,6 +70,7 @@ export default ({
       <Card noPadding noBorder>
         <LazyLoad height={123}>
           <ImageHero
+            isTag={isTag}
             src={image}
             alt={title}
             height={184}

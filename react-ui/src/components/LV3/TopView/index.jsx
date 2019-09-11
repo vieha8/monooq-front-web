@@ -22,6 +22,7 @@ const TopView = styled.div`
   background-size: cover;
   color: ${Colors.white};
   background-repeat: no-repeat;
+  background-position: top center;
   ${media.phone`
     height: 328px;
     background-image: url(${mainVisualSp});
@@ -30,12 +31,14 @@ const TopView = styled.div`
 `;
 
 const TopViewWrap = styled.div`
+  min-width: 320px;
   height: 100%;
   padding-top: 209px;
   box-sizing: border-box;
 `;
 
 const TopViewContainer = styled(ContainerDefault)`
+  min-width: 320px;
   position: relative;
   &:before {
     content: '';

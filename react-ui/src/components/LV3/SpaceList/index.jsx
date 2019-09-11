@@ -30,6 +30,9 @@ const Caption = styled.div`
   line-height: ${Dimens.medium1}px;
   color: ${Colors.black2};
   margin-bottom: ${Dimens.small2}px;
+  ${media.phone`
+    margin-bottom: ${Dimens.small}px;
+  `};
 `;
 
 const CaptionSub = styled.div`
