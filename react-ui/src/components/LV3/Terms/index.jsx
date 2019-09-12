@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import Path from 'config/path';
 import { Dimens, FontSizes, Colors } from 'variables';
 import ContainerDefault from 'components/LV1/ContainerDefault';
-import Footer from 'components/LV2/Footer';
 import ArtContainer from 'components/LV2/Texts/ArtStatic';
 import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 
@@ -671,7 +670,5 @@ export default () => (
       ]}
       isRight
     />
-
-    <Footer />
   </Fragment>
 );

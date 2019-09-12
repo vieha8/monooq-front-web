@@ -8,7 +8,6 @@ import { media } from 'helpers/style/media-query';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import Hr from 'components/LV1/HorizontalRule';
 import Text from 'components/LV1/Texts/TextStatic';
-import Footer from 'components/LV2/Footer';
 import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 import AboutCancelList from 'components/LV2/Lists/AboutCancelList';
 
@@ -158,7 +157,5 @@ export default () => (
         </Text>
       </NoticeWrapper>
     </AboutCancellContainer>
-
-    <Footer />
   </Fragment>
 );

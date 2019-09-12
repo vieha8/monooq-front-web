@@ -7,7 +7,6 @@ import { Dimens, FontSizes } from 'variables';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
 import Text from 'components/LV1/Texts/TextStatic';
-import Footer from 'components/LV2/Footer';
 import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 import LinkList from 'components/LV2/Lists/LinkList';
 
@@ -41,10 +40,7 @@ const BrStyled = styled.br`
 `;
 
 const LinkListContainer = styled(ContainerDefault)`
-  margin-bottom: 120px;
-  ${media.tablet`
-    margin-bottom: 60px;
-  `};
+  margin-bottom: ${Dimens.large_60}px;
 `;
 
 export default () => (
@@ -95,7 +91,5 @@ export default () => (
         />
       </LinkListContainer>
     </WrapContent>
-
-    <Footer />
   </Fragment>
 );

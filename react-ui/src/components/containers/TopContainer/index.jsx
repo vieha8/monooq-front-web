@@ -1,16 +1,20 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
+import Footer from 'components/LV2/Footer';
 import Top from 'components/LV3/Top';
 import ReactGA from 'react-ga';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { spaceActions } from 'redux/modules/space';
 import { iskeyDownEnter } from 'helpers/keydown';
+
+const Wrap = styled.div``;
 
 class TopContainer extends React.Component {
   constructor(props) {
@@ -92,18 +96,21 @@ class TopContainer extends React.Component {
     }
 
     return (
-      <Top
-        locationText={locationText}
-        handleChangeLocation={this.handleChangeLocation}
-        onKeyDownSearchField={this.onKeyDownSearchField}
-        searchButtonDisabled={searchButtonDisabled}
-        onClickSearch={() => this.search(locationText)}
-        moreFeature={ui.moreFeature}
-        onClickMoreFeature={() => this.viewMoreFeature()}
-        onClickMoreArea={() => this.viewMoreArea()}
-        moreArea={ui.moreArea}
-        history={history}
-      />
+      <Wrap>
+        <Top
+          locationText={locationText}
+          handleChangeLocation={this.handleChangeLocation}
+          onKeyDownSearchField={this.onKeyDownSearchField}
+          searchButtonDisabled={searchButtonDisabled}
+          onClickSearch={() => this.search(locationText)}
+          moreFeature={ui.moreFeature}
+          onClickMoreFeature={() => this.viewMoreFeature()}
+          onClickMoreArea={() => this.viewMoreArea()}
+          moreArea={ui.moreArea}
+          history={history}
+        />
+        <Footer />
+      </Wrap>
     );
   }
 }

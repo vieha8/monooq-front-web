@@ -21,7 +21,7 @@ const Container = styled.footer`
 const Wrap = styled.div`
   display: flex;
   width: 100%;
-  max-width: 1156px;
+  max-width: 1200px;
   margin: auto;
   padding: 48px 0px;
   ${media.tablet`

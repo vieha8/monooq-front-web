@@ -262,14 +262,5 @@ const mapStateToProps = state => ({
 });
 
 export default authRequired(
-  handleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEditConfirmContainer), {
-      rightContent: (
-        <Fragment>
-          <Spacer />
-          <ServiceMenu />
-        </Fragment>
-      ),
-    }),
-  ),
+  handleBeforeUnload(ContentPageMenu(connect(mapStateToProps)(SpaceEditConfirmContainer), {})),
 );

@@ -9,7 +9,6 @@ import Button from 'components/LV1/Forms/Button';
 import Text from 'components/LV1/Texts/TextStatic';
 import InlineText from 'components/LV1/Texts/InlineText';
 import ContainerDefault from 'components/LV1/ContainerDefault';
-import Footer from 'components/LV2/Footer';
 import WhenIUseList from 'components/LV2/Lists/WhenIUseList';
 import IfIFindList from 'components/LV2/Lists/IfIFindList';
 import mainVisual from 'images/about_main_visual@2x.jpg';
@@ -311,7 +310,5 @@ export default () => (
         </Text>
       </ContentContainer>
     </MainContainer>
-
-    <Footer />
   </Fragment>
 );

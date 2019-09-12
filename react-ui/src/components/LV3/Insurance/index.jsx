@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import ContainerDefault from 'components/LV1/ContainerDefault';
-import Footer from 'components/LV2/Footer';
 import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 import Hr from 'components/LV1/HorizontalRule';
 import WhySafeList from 'components/LV2/Lists/WhySafeList';
@@ -153,7 +152,5 @@ export default () => (
         text="もしも緊急のトラブルが発生した場合は、警察・消防など所轄窓口に通報してください。その上でモノオクカスタマーサポートまでご連絡ください。"
       />
     </ContentContainer>
-
-    <Footer />
   </Fragment>
 );

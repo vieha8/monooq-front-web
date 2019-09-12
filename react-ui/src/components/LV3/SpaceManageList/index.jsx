@@ -9,7 +9,6 @@ import { media } from 'helpers/style/media-query';
 const ListItem = styled.div`
   display: inline-block;
   width: 100%;
-  max-width: 540px;
   margin: 27px auto ${Dimens.small}px;
   ${media.tablet`
     display: block;

@@ -4,7 +4,6 @@ import React, { Fragment } from 'react';
 import Header from 'components/containers/Header';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import Footer from 'components/LV2/Footer';
 import TopView from 'components/LV3/TopView';
 import PrefectureList from 'components/LV3/PrefectureList';
 import SpaceList from 'components/LV3/SpaceList';
@@ -216,6 +215,5 @@ export default ({
       captionSub="大型家具や物をたくさん預けたいときに"
       spaceList={getSpaceData()}
     />
-    <Footer />
   </TopPage>
 );

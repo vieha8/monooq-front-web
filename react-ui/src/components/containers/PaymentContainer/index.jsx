@@ -533,13 +533,4 @@ const mapStateToProps = state => ({
   paymentUrl: state.request.payment.url,
 });
 
-export default authRequired(
-  ContentPageMenu(connect(mapStateToProps)(PaymentContainer), {
-    rightContent: (
-      <Fragment>
-        <Spacer />
-        <ServiceMenu />
-      </Fragment>
-    ),
-  }),
-);
+export default authRequired(ContentPageMenu(connect(mapStateToProps)(PaymentContainer), {}));

@@ -8,10 +8,7 @@ import Button from 'components/LV1/Forms/Button';
 import SearchResultItem from 'components/LV2/Items/SearchResultItem';
 
 const Container = styled.div`
-  width: ${props => (props.isHome ? '100%' : '540px')};
-  ${media.tablet`
-    width: 100%;
-  `};
+  width: 100%;
   ${media.phone`
     margin: ${Dimens.medium1_25}px 0 0 auto;
   `};
