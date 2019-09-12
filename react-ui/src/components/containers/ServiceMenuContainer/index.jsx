@@ -79,8 +79,6 @@ class ServiceMenuContainer extends Component<PropTypes> {
               paymentHistory={{ to: Path.paid() }}
               profileEdit={{ to: Path.profileEdit() }}
               inquiry={{ to: Path.inquiry() }}
-              howToUse={{ to: Path.howToUse() }}
-              service={{ to: Path.service() }}
               userName={userName}
               userImage={userImage}
               isPhone
@@ -120,8 +118,6 @@ class ServiceMenuContainer extends Component<PropTypes> {
         profileEdit={{ to: Path.profileEdit() }}
         help={{ href: 'https://help.monooq.com/' }}
         inquiry={{ to: Path.inquiry() }}
-        howToUse={{ to: Path.howToUse() }}
-        service={{ to: Path.service() }}
         isLogin={isLogin}
         isSchedule={isSchedule}
         isHost={user.isHost || false}

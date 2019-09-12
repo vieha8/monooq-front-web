@@ -40,9 +40,7 @@ type PropTypes = {
   addSpace: MenuItemProps,
   spaces: MenuItemProps,
   sales: MenuItemProps,
-  howToUse: MenuItemProps,
   inquiry: MenuItemProps,
-  service: MenuItemProps,
   changePurposeEvent: Function,
   logoutEvent: Function,
 };
@@ -61,9 +59,7 @@ export default ({
   addSpace,
   spaces,
   sales,
-  howToUse,
   inquiry,
-  service,
   changePurposeEvent,
   logoutEvent,
 }: PropTypes) => (
@@ -91,9 +87,7 @@ export default ({
         )}
       </Fragment>
     )}
-    <MenuItem title="ご利用ガイド・よくある質問" {...howToUse} line={isLogin} />
     <MenuItem title="お問い合わせ" {...inquiry} />
-    <MenuItem title="モノオクについて" {...service} />
     {isLogin && (
       <Fragment>
         <MenuItem

@@ -30,8 +30,6 @@ const ServiceMenuSP = () => {
       profileEdit={{ to: Path.profileEdit() }}
       help={{ href: 'https://help.monooq.com/' }}
       inquiry={{ to: Path.inquiry() }}
-      howToUse={{ to: Path.howToUse() }}
-      service={{ to: Path.service() }}
       userName="name"
       userImage="http://placehold.jp/500x500.png"
       isPhone
