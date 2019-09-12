@@ -9,7 +9,6 @@ import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import HomeTemplate from 'components/templates/HomeTemplate';
 import NoCollapsible from 'components/LV1/Collapsible/NoCollapsible';
 import SearchResult from 'components/LV3/SearchResult';
-import ConciergeContents from 'components/LV2/IntroductionConcierge';
 import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
@@ -107,10 +106,6 @@ class HomeRegionContainer extends Component<PropTypes> {
             onKeyDownButtonMore={onKeyDownButtonMore}
           />
         );
-      }
-
-      if (displayType === 'concierge') {
-        return <ConciergeContents key={key} />;
       }
 
       return null;

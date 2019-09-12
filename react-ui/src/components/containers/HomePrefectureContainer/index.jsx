@@ -7,7 +7,6 @@ import { Dimens } from 'variables';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import HomeTemplate from 'components/templates/HomeTemplate';
 import SearchResult from 'components/LV3/SearchResult';
-import ConciergeContents from 'components/LV2/IntroductionConcierge';
 import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
@@ -78,10 +77,6 @@ class HomePrefectureContainer extends Component<PropTypes> {
             onKeyDownButtonMore={onKeyDownButtonMore}
           />
         );
-      }
-
-      if (displayType === 'concierge') {
-        return <ConciergeContents key={key} />;
       }
 
       return null;

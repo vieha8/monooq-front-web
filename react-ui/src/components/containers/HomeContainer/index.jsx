@@ -9,7 +9,6 @@ import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import HomeTemplate from 'components/templates/HomeTemplate';
 import Collapsible from 'components/LV1/Collapsible';
 import SearchResult from 'components/LV3/SearchResult';
-import ConciergeContents from 'components/LV2/IntroductionConcierge';
 import { homeActions } from 'redux/modules/home';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
@@ -71,14 +70,6 @@ class HomeContainer extends Component<PropTypes> {
         return (
           <HomeContentWrap key={key}>
             <Collapsible key={key} title={title} contents={contents} />
-          </HomeContentWrap>
-        );
-      }
-
-      if (displayType === 'concierge') {
-        return (
-          <HomeContentWrap key={key}>
-            <ConciergeContents key={key} />
           </HomeContentWrap>
         );
       }

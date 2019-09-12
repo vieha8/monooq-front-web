@@ -6,7 +6,6 @@ import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
-import ConciergeContents from 'components/LV2/IntroductionConcierge';
 
 const ButtonWrap = styled.div`
   margin: ${Dimens.medium2}px auto;
@@ -58,6 +57,5 @@ export default ({ captionHead, caption, buttonText, onClick, onKeyDown }: PropTy
         {buttonText}
       </Button>
     </ButtonWrap>
-    <ConciergeContents />
   </Fragment>
 );

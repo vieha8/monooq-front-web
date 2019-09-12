@@ -12,7 +12,6 @@ import SearchResultTemplate from 'components/templates/SearchResultTemplate';
 import Button from 'components/LV1/Forms/Button';
 import SearchResult from 'components/LV3/SearchResult';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
-import ConciergeContents from 'components/LV2/IntroductionConcierge';
 import Meta from 'components/LV1/Meta';
 import { H1 } from 'components/LV1/Texts/Headline';
 import { Dimens, FormValues } from 'variables';
@@ -233,7 +232,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
             条件を変えて再検索する
           </Button>
         </SearchButtonWrap>
-        <ConciergeContents />
       </Fragment>
     );
   };
