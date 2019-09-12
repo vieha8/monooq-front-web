@@ -29,6 +29,7 @@ export default {
   medium2_36: 36,
   medium3_40: 40,
   medium3: 42,
+  medium3_44: 44,
   medium3_45: 45,
   medium4: 48,
   medium4_50: 50,
@@ -41,6 +42,6 @@ export default {
   large3: 74,
   large4_80: 80,
   huge: 84,
-  fixedWidthPc: 1048,
+  fixedWidthPc: 1200,
   storyBookPadding: `20px 40px`,
 };

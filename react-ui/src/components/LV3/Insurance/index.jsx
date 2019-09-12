@@ -16,7 +16,7 @@ import insuranceImage1 from 'images/insurance-img01.svg';
 import insuranceImage2 from 'images/insurance-img02.svg';
 import insuranceImage3 from 'images/insurance-img03.svg';
 
-const ContentContainer = styled(ContainerDefault)`
+const ContentContainer = styled.div`
   ${props =>
     props.bottom &&
     `
@@ -46,9 +46,8 @@ const WhenAttentionHilightText = styled.div`
 `;
 
 export default () => (
-  <Fragment>
+  <ContainerDefault>
     <MainTitleContainer mainTitle="荷物に対する保険" />
-
     <ContentContainer>
       <SubTitle>もしもの時も大丈夫。三井住友海上と協力し、安心サポート。</SubTitle>
       <WhySafeList
@@ -72,7 +71,6 @@ export default () => (
       />
       <Hr />
     </ContentContainer>
-
     <ContentContainer>
       <SubTitle>安心して取引をするために。</SubTitle>
       <HowSafeList
@@ -98,7 +96,6 @@ export default () => (
         ]}
       />
     </ContentContainer>
-
     <ContentContainer>
       <SubTitle>こんな場合もご注意を。</SubTitle>
       <WhenAttentionHilightText>
@@ -122,7 +119,6 @@ export default () => (
       />
       <Hr />
     </ContentContainer>
-
     <ContentContainer bottom>
       <SubTitle>よくある質問</SubTitle>
       <QuestionList
@@ -152,5 +148,5 @@ export default () => (
         text="もしも緊急のトラブルが発生した場合は、警察・消防など所轄窓口に通報してください。その上でモノオクカスタマーサポートまでご連絡ください。"
       />
     </ContentContainer>
-  </Fragment>
+  </ContainerDefault>
 );

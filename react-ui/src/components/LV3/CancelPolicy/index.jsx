@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
@@ -21,7 +21,7 @@ const HilightText = styled(Text)`
   `};
 `;
 
-const AboutCancellContainer = styled(ContainerDefault)`
+const AboutCancellContainer = styled.div`
   ${props =>
     props.hostcancel &&
     `
@@ -69,7 +69,7 @@ const ExampleText = styled.div`
 `;
 
 export default () => (
-  <Fragment>
+  <ContainerDefault>
     <MainTitleContainer
       mainTitle="キャンセルポリシー"
       text="キャンセルポリシーとは、モノオクが定める取引成立後のキャンセルに発生する手数料やご注意事項です。見積もりを送る前・お支払いの前に必ずご確認ください。"
@@ -157,5 +157,5 @@ export default () => (
         </Text>
       </NoticeWrapper>
     </AboutCancellContainer>
-  </Fragment>
+  </ContainerDefault>
 );

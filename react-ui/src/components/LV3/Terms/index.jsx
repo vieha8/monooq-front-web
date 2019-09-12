@@ -29,10 +29,10 @@ const Chapter = styled.div`
 `;
 
 const ChapterContainer = props => (
-  <ContainerDefault className={props.className}>
+  <div className={props.className}>
     <Chapter>{props.title}</Chapter>
     {props.children}
-  </ContainerDefault>
+  </div>
 );
 
 const StyledChapterContainer = styled(ChapterContainer)`
@@ -44,7 +44,7 @@ const StyledChapterContainer = styled(ChapterContainer)`
 `;
 
 export default () => (
-  <Fragment>
+  <ContainerDefault>
     <MainTitleContainer
       mainTitle="利用規約"
       text="本利用規約（以下「本規約」といいます。）には、モノオク株式会社（以下「当社」といいます。）の提供する本サービス（第2条に定義）のご利用にあたり、利用者の皆様に遵守していただかなければならない事項及び当社と利用者の皆様との間の権利義務関係が定められております。本サービスをご利用になる方は、本規約に同意する前に、必ず全文お読み下さいますようお願い致します。"
@@ -670,5 +670,5 @@ export default () => (
       ]}
       isRight
     />
-  </Fragment>
+  </ContainerDefault>
 );

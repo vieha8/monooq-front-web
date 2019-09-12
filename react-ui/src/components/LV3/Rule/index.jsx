@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
@@ -20,7 +20,7 @@ const SubTitle = styled.div`
   `};
 `;
 
-const ContentWrap = styled(ContainerDefault)`
+const ContentWrap = styled.div`
   ${props =>
     props.DoNotAction &&
     `
@@ -33,7 +33,7 @@ const NotAllowedContentWrapper = styled.div`
 `;
 
 export default () => (
-  <Fragment>
+  <ContainerDefault>
     <MainTitleContainer
       mainTitle="ルールとマナー"
       text="モノオクは、みなさんのあたたかく誠実なご対応と共に運営を行っています。だれもが気持ちよく物置きシェアを行うためにルールとマナーは必ず守ってください。"
@@ -227,5 +227,5 @@ export default () => (
         ]}
       />
     </ContentWrap>
-  </Fragment>
+  </ContainerDefault>
 );

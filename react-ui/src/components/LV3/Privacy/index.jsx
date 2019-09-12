@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import ArtContainer from 'components/LV2/Texts/ArtStatic';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 
 const Address = styled.span`
@@ -11,13 +12,12 @@ const Address = styled.span`
 `;
 
 export default () => (
-  <Fragment>
+  <ContainerDefault>
     <MainTitleContainer
       mainTitle="プライバシーポリシー"
       text="モノオク株式会社（以下「当社」といいます。）は、個人情報保護の重要性について認識し、個人情報の保護に関する法律（以下「個人情報保護法」といいます。）を遵守すると共に、以下のプライバシーポリシー（以下「本プライバシーポリシー」といいます。）に従い、適切な取扱い及び保護に努めます。なお、本プライバシーポリシーにおいて別段の定めがない限り、本プライバシーポリシーにおける用語の定義は、個人情報保護法の定めに従います。"
       isHr
     />
-
     <ArtContainer
       title="1. 個人情報の定義"
       paraList={[
@@ -27,7 +27,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="2. 個人情報の利用目的"
       paraList={[
@@ -69,7 +68,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="3. 個人情報利用目的の変更"
       paraList={[
@@ -79,7 +77,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="4. 個人情報利用の制限"
       paraList={[
@@ -104,7 +101,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="5. 個人情報の適正な取得"
       paraList={[
@@ -150,7 +146,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="6. 個人情報の安全管理"
       paraList={[
@@ -160,7 +155,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="7. 第三者提供"
       paraList={[
@@ -189,7 +183,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="8. 個人情報の開示"
       paraList={[
@@ -199,7 +192,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="9. 個人情報の訂正等"
       paraList={[
@@ -209,7 +201,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="10. 個人情報の利用停止等"
       paraList={[
@@ -219,7 +210,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="11. Cookie（クッキー）その他の技術の利用"
       paraList={[
@@ -229,7 +219,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="12. お問い合わせ"
       paraList={[
@@ -252,7 +241,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       title="13. 継続的改善"
       paraList={[
@@ -262,7 +250,6 @@ export default () => (
         },
       ]}
     />
-
     <ArtContainer
       paraList={[
         {
@@ -274,5 +261,5 @@ export default () => (
       ]}
       isRight
     />
-  </Fragment>
+  </ContainerDefault>
 );
