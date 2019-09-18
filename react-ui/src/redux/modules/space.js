@@ -488,14 +488,11 @@ function* deleteSpace({ payload: { space } }) {
     return;
   }
   const token = yield* getToken();
-  // const { err } = yield call(deleteApiRequest, apiEndpoint.spaces(space.id), token);
-  yield call(deleteApiRequest, apiEndpoint.spaces(space.id), token);
-
-  // TODO ElasticSearchの削除不具合が解消されるまで一時的にコメントアウト
-  // if (err) {
-  //   yield handleError(spaceActions.deleteFailedSpace, '', 'deleteSpace', err, false);
-  //   return;
-  // }
+  const { err } = yield call(deleteApiRequest, apiEndpoint.spaces(space.id), token);
+  if (err) {
+    yield handleError(spaceActions.deleteFailedSpace, '', 'deleteSpace', err, false);
+    return;
+  }
 
   window.location.href = Path.spaces();
 }
