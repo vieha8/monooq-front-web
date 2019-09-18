@@ -81,7 +81,7 @@ const SpacesWrap = styled.div``;
 
 type PropTypes = {
   isTag?: boolean,
-  isHome?: boolean,
+  isTop?: boolean,
   caption: string,
   spaces: Array<{
     id: number,
@@ -103,14 +103,14 @@ type PropTypes = {
 
 export default ({
   isTag,
-  isHome,
+  isTop,
   caption,
   spaces,
   isMore,
   onClickMore,
   onKeyDownButtonMore,
 }: PropTypes) => (
-  <Container isHome={isHome}>
+  <Container isTop={isTop}>
     {caption && <CaptionWrap>{caption}</CaptionWrap>}
     <SpacesWrap>
       {spaces.map((space, i) => (

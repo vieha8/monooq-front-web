@@ -155,14 +155,14 @@ class SalesContainer extends Component {
     }
   };
 
-  historyToHome = () => {
+  historyToTop = () => {
     const { history } = this.props;
-    history.push(Path.home());
+    history.push(Path.top());
   };
 
-  onKeyDownButtonHome = e => {
+  onKeyDownButtonTop = e => {
     if (iskeyDownEnter(e)) {
-      this.historyToHome();
+      this.historyToTop();
     }
   };
 
@@ -410,10 +410,10 @@ class SalesContainer extends Component {
             primary
             fontbold
             center
-            onClick={this.historyToHome}
-            onKeyDown={this.onKeyDownButtonHome}
+            onClick={this.historyToTop}
+            onKeyDown={this.onKeyDownButtonTop}
           >
-            ホームへ戻る
+            トップに戻る
           </Button>
         </ButtonWrap>
       </Fragment>

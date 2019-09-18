@@ -67,7 +67,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
         <MenuWrapPhone wait={20} side={side}>
           <Menu id={currentMenu} right>
             <ServiceMenu
-              home={{ to: Path.home() }}
+              top={{ to: Path.top() }}
               message={{ to: Path.messageList(), notificationCount: unreadRooms }}
               schedule={{ to: Path.schedule() }}
               spaces={{ to: Path.spaces() }}
@@ -105,7 +105,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
 
     return (
       <ServiceMenu
-        home={{ to: Path.home() }}
+        top={{ to: Path.top() }}
         message={{ to: Path.messageList(), notificationCount: unreadRooms }}
         schedule={{ to: Path.schedule() }}
         spaces={{ to: Path.spaces() }}

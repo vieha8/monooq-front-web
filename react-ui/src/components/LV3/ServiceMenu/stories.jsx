@@ -21,7 +21,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       `)(() => (
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
-          home={{ to: Path.home() }}
+          top={{ to: Path.top() }}
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
@@ -44,7 +44,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       `)(() => (
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
-          home={{ to: Path.home() }}
+          top={{ to: Path.top() }}
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
@@ -66,7 +66,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       `)(() => (
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
-          home={{ to: Path.home() }}
+          top={{ to: Path.top() }}
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
@@ -92,7 +92,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       `)(() => (
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
-          home={{ to: Path.home() }}
+          top={{ to: Path.top() }}
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}

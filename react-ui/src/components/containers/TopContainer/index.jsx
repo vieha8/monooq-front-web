@@ -2,7 +2,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
@@ -88,13 +87,8 @@ class TopContainer extends React.Component {
   };
 
   render() {
-    const { ui, history, isLogin } = this.props;
+    const { ui, history } = this.props;
     const { locationText, searchButtonDisabled } = this.state;
-
-    if (isLogin) {
-      return <Redirect to={Path.home()} />;
-    }
-
     return (
       <Wrap>
         <Top

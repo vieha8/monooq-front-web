@@ -60,7 +60,7 @@ export default ({ isTag, caption, captionSub, spaceList }: PropTypes) => (
       <WrapList>
         <SearchResult
           isTag={isTag}
-          isHome
+          isTop
           key=""
           spaces={spaceList.map(({ Space }) => ({
             id: Space.ID,

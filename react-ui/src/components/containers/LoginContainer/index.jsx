@@ -114,7 +114,7 @@ class LoginContainer extends Component {
       return <AccountTemplate header={<Header noHeaderButton />} form={this.form()} />;
     }
 
-    return <Redirect to={ui.redirectPath || Path.home()} />;
+    return <Redirect to={ui.redirectPath || Path.top()} />;
   }
 }
 

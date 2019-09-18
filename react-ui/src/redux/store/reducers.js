@@ -9,7 +9,6 @@ import { requestReducer } from 'redux/modules/request';
 import { salesReducer } from 'redux/modules/sales';
 import { errorReducer } from 'redux/modules/error';
 import { initReducer } from 'redux/modules/init';
-import { homeReducer } from 'redux/modules/home';
 import { loggerReducer } from 'redux/modules/logger';
 
 const createReducers = history =>
@@ -24,7 +23,6 @@ const createReducers = history =>
     sales: salesReducer,
     error: errorReducer,
     init: initReducer,
-    home: homeReducer,
     logger: loggerReducer,
   });
 

@@ -62,14 +62,14 @@ class SpaceEditCompletionContainer extends Component<PropTypes> {
     }
   };
 
-  onClickBackHome = () => {
+  onClickBackTop = () => {
     const { history } = this.props;
-    history.push(Path.home());
+    history.push(Path.top());
   };
 
-  onKeyDownHome = e => {
+  onKeyDownTop = e => {
     if (iskeyDownEnter(e)) {
-      this.onClickBackHome();
+      this.onClickBackTop();
     }
   };
 
@@ -98,8 +98,8 @@ class SpaceEditCompletionContainer extends Component<PropTypes> {
         <SpaceEditCompletion
           edit={isUpdate}
           userId={user.id}
-          onClickBackHome={this.onClickBackHome}
-          onKeyDownHome={this.onKeyDownHome}
+          onClickBackTop={this.onClickBackTop}
+          onKeyDownTop={this.onKeyDownTop}
           onClickCreateSpace={this.onClickCreateSpace}
           onKeyDownCreateSpace={this.onKeyDownCreateSpace}
           onClickViewSpace={this.onClickViewSpace}

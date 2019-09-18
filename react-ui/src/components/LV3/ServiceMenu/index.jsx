@@ -30,7 +30,7 @@ type PropTypes = {
   isPhone: boolean,
   userImage?: string,
   userName?: string,
-  home: MenuItemProps,
+  top: MenuItemProps,
   isLogin: boolean,
   message: MenuItemProps,
   isSchedule?: boolean,
@@ -49,7 +49,7 @@ export default ({
   isPhone,
   userImage,
   userName,
-  home,
+  top,
   isLogin,
   message,
   isSchedule,
@@ -74,7 +74,7 @@ export default ({
     )}
     {isLogin && (
       <Fragment>
-        <MenuItem title="ホーム" {...home} line={isPhone} />
+        <MenuItem title="トップページ" {...top} line={isPhone} />
         <MenuItem title="メッセージ" {...message} />
         {isSchedule && <MenuItem title="利用状況" {...schedule} />}
         <MenuItem title="プロフィールの編集" {...profileEdit} />

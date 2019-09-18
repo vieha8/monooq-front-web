@@ -22,15 +22,6 @@ const SignUpPurpose = loadable(() =>
 const ResetPassword = loadable(() =>
   import('components/containers/ResetPasswordContainer').catch(() => window.location.reload()),
 );
-const Home = loadable(() =>
-  import('components/containers/HomeContainer').catch(() => window.location.reload()),
-);
-const HomeRegion = loadable(() =>
-  import('components/containers/HomeRegionContainer').catch(() => window.location.reload()),
-);
-const HomePrefecture = loadable(() =>
-  import('components/containers/HomePrefectureContainer').catch(() => window.location.reload()),
-);
 const Search = loadable(() =>
   import('components/containers/SearchResultContainer').catch(() => window.location.reload()),
 );
@@ -151,9 +142,6 @@ export default ({ history }) => (
       <Route exact path={Path.signUpProfile()} component={SignUpProfile} />
       <Route exact path={Path.signUpPurpose()} component={SignUpPurpose} />
       <Route exact path={Path.resetPassword()} component={ResetPassword} />
-      <Route exact path={Path.home()} component={Home} />
-      <Route exact path={Path.homeRegion()} component={HomeRegion} />
-      <Route exact path={Path.homePrefecture()} component={HomePrefecture} />
       <Route exact path={Path.search()} component={Search} />
       <Route exact path={Path.searchCondition()} component={SearchCondition} />
       <Route exact path={Path.space()} component={Space} />
