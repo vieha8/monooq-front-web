@@ -10,14 +10,12 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import { Dimens, Colors, FormValues } from 'variables';
+import { Dimens, FormValues } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 
 export const ContentsWrap = styled.div`
-  max-width: 540px;
   ${media.tablet`
     max-width: 100%;
-    padding: 0 0 70px;
   `};
 `;
 
@@ -75,21 +73,7 @@ const ErrorPrice = styled.div`
 
 const SearchButtonWrap = styled.div`
   width: 100%;
-  max-width: 540px;
   margin-top: ${Dimens.medium2}px;
-  ${media.tablet`
-    max-width: 100%;
-    margin-top: auto;
-    display: block;
-    position: fixed;
-    left: 0px;
-    bottom: 0px;
-    z-index: 100;
-    text-align: center;
-    padding: ${Dimens.medium}px;
-    background-color: ${Colors.white};
-    border-top: 1px solid ${Colors.borderGray};
-  `};
 `;
 
 const ButtonWrap = styled.div`

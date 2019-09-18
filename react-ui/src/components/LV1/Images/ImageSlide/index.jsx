@@ -15,7 +15,7 @@ const convertImageUrl = images => {
   return images.map(({ original }) => {
     const replaceUrl = convertImgixUrl(
       original,
-      'fit=fill&fill-color=DBDBDB&w=540&h=300&auto=format',
+      'fit=crop&fill-color=DBDBDB&w=1200&h=800&auto=format',
     );
     return {
       original: replaceUrl || '',

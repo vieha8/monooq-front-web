@@ -18,6 +18,7 @@ import Price from 'components/LV3/Space/Price';
 import ReactGA from 'react-ga';
 
 const Container = styled.div`
+  max-width: 600px;
   margin: auto;
   padding: 0 0 ${Dimens.medium_20}px;
   ${media.tablet`

@@ -1,15 +1,19 @@
 // @flow
 
-import React from 'react';
+import React, { Fragment } from 'react';
+import PopupMenu from 'reactjs-popup';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
+import InlineText from 'components/LV1/Texts/InlineText';
+import TextLink from 'components/LV1/Texts/TextLink';
 import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import Anonymouse from 'components/LV2/ButtonHeader/Anonymouse';
+import InfoUser from 'components/LV2/InfoUser';
+import MenuItem from 'components/LV2/Items/MenuItem';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
 import { media } from 'helpers/style/media-query';
-import { Colors, Dimens, ZIndexes } from 'variables';
-import { formatName } from 'helpers/string';
+import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 
 export const Height = 85;
 export const HeightPhone = 54;
@@ -30,6 +34,7 @@ const Nav = styled.nav`
   display: flex;
   align-items: center;
   height: ${Height}px;
+  background: rgba(255, 255, 255, 0.8);
   ${media.tablet`
     height: ${HeightPhone}px;
   `};
@@ -96,8 +101,9 @@ const SearchFiledCell = styled.div`
   display: inline-block;
   vertical-align: middle;
   width: auto;
-  margin-right: ${Dimens.medium}px;
+  margin: ${Dimens.xxsmall_5}px ${Dimens.medium1_26}px 0 ${Dimens.medium_20}px;
   ${media.tablet`
+    margin: 0 ${Dimens.medium1_26}px 0 ${Dimens.medium_20}px;
     ${props =>
       props.fill &&
       `
@@ -116,11 +122,6 @@ const AnonymouseWrapper = styled.div`
   `};
 `;
 
-const AvaterName = styled.span`
-  font-weight: bold;
-  color: ${Colors.black};
-`;
-
 const OnlyPC = styled.span`
   display: inline-block;
   vertical-align: middle;
@@ -137,6 +138,43 @@ const OnlyPhone = styled.span`
   `};
 `;
 
+const TextWrapper = styled.span`
+  width: 108px;
+  ${media.tablet`
+    max-width: 108px;
+  `};
+  ${media.phone`
+    min-width: 128px;
+  `};
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  &:not(:first-child) {
+    margin-left: 8px;
+  }
+`;
+
+const TitleMenu = styled.div`
+  padding-left: ${Dimens.medium_20}px;
+  font-size: ${FontSizes.small_12}px;
+  font-weight: 500;
+  line-height: ${Dimens.medium_18}px;
+  color: ${Colors.darkGray3};
+`;
+
+const trigger = imageUrl => {
+  return (
+    <div>
+      <ActionCell>
+        <AvatarIcon imageSrc={imageUrl} />
+      </ActionCell>
+      <ActionCell>
+        <InlineText.Base bold>マイページ</InlineText.Base>
+      </ActionCell>
+    </div>
+  );
+};
+
 type PropTypes = {
   top?: boolean,
   stories?: boolean,
@@ -144,16 +182,20 @@ type PropTypes = {
   isCheckingLogin: boolean,
   noHeaderButton: boolean,
   user: {
+    id: number,
     name: string,
     image: string,
+    isHost: boolean,
   },
   messageUrl: string,
   messageCount?: number,
-  searchConditionUrl: string,
   spMenu: React.Element<*>,
-  homeUrl: string,
   loginUrl: string,
   signupUrl: string,
+  addSpace: MenuItemProps,
+  spaces: MenuItemProps,
+  sales: MenuItemProps,
+  logoutEvent: Function,
 };
 
 export default ({
@@ -165,11 +207,13 @@ export default ({
   user,
   messageUrl,
   messageCount,
-  searchConditionUrl,
   spMenu,
-  homeUrl,
   loginUrl,
   signupUrl,
+  addSpace,
+  spaces,
+  sales,
+  logoutEvent,
 }: PropTypes) => {
   return (
     <Container stories={stories}>
@@ -181,32 +225,53 @@ export default ({
           <ActionWrapper>
             {user ? (
               <ActionContainer>
+                <OnlyPC>
+                  <TextWrapper>
+                    <TextLink href={signupUrl} color={Colors.black}>
+                      モノオクとは？
+                    </TextLink>
+                  </TextWrapper>
+                  <TextWrapper>
+                    <TextLink href={signupUrl} color={Colors.black}>
+                      利用の流れ
+                    </TextLink>
+                  </TextWrapper>
+                  <TextWrapper>
+                    <TextLink href={signupUrl} color={Colors.black}>
+                      よくある質問
+                    </TextLink>
+                  </TextWrapper>
+                </OnlyPC>
                 <SearchFiledCell>
-                  <OnlyPhone>
-                    <ImageMenuHeader
-                      iconRight
-                      messageUrl={messageUrl}
-                      messageCount={messageCount}
-                      searchConditionUrl={searchConditionUrl}
-                      isPhone
-                    />
-                  </OnlyPhone>
-                  <OnlyPC>
-                    <ImageMenuHeader iconRight searchConditionUrl={searchConditionUrl} />
-                  </OnlyPC>
+                  <ImageMenuHeader iconRight messageUrl={messageUrl} messageCount={messageCount} />
                 </SearchFiledCell>
                 <OnlyPhone>
                   <ActionCell noCursol>{spMenu}</ActionCell>
                 </OnlyPhone>
                 <OnlyPC>
-                  <ActionCell>
-                    <AvatarIcon imageSrc={user.image} to={homeUrl} />
-                  </ActionCell>
-                  <ActionCell>
-                    <Link to={homeUrl}>
-                      <AvaterName>{formatName(user.name)}</AvaterName>
-                    </Link>
-                  </ActionCell>
+                  <PopupMenu
+                    trigger={trigger(user.image)}
+                    position="bottom right"
+                    closeOnDocumentClick
+                  >
+                    <div>
+                      <InfoUser
+                        isHost={user.isHost || false}
+                        id={user.id}
+                        imageUrl={user.image}
+                        name={user.name}
+                      />
+                      {user.isHost && (
+                        <Fragment>
+                          <TitleMenu>管理ページ</TitleMenu>
+                          <MenuItem title="スペースの新規登録" {...addSpace} />
+                          <MenuItem title="スペースの管理" {...spaces} />
+                          <MenuItem title="売り上げ・振り込み申請" {...sales} />
+                        </Fragment>
+                      )}
+                      {user && <MenuItem title="ログアウト" {...logoutEvent} blank logout />}
+                    </div>
+                  </PopupMenu>
                 </OnlyPC>
               </ActionContainer>
             ) : (

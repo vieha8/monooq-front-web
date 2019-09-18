@@ -50,7 +50,6 @@ storiesOf('Organisms(LV3)/Header', module)
           <Header
             topUrl={Path.top()}
             homeUrl={Path.home()}
-            searchConditionUrl={Path.searchCondition()}
             messageUrl={Path.messageList()}
             messageCount={4}
             user={{
@@ -78,7 +77,6 @@ storiesOf('Organisms(LV3)/Header', module)
           <Header
             topUrl={Path.top()}
             homeUrl={Path.home()}
-            searchConditionUrl={Path.searchCondition()}
             messageUrl={Path.messageList()}
             messageCount={0}
             user={null}
@@ -101,7 +99,6 @@ storiesOf('Organisms(LV3)/Header', module)
           <Header
             topUrl={Path.top()}
             homeUrl={Path.home()}
-            searchConditionUrl={Path.searchCondition()}
             messageUrl={Path.messageList()}
             messageCount={4}
             user={{
@@ -130,7 +127,6 @@ storiesOf('Organisms(LV3)/Header', module)
           <Header
             topUrl={Path.top()}
             homeUrl={Path.home()}
-            searchConditionUrl={Path.searchCondition()}
             messageUrl={Path.messageList()}
             messageCount={0}
             user={null}

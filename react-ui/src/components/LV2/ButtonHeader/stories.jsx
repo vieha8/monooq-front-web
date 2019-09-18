@@ -9,12 +9,10 @@ import { Dimens } from 'variables';
 import AvatarIcon from './AvatarIcon';
 import Anonymouse from './Anonymouse';
 import MessageIcon from './MessageIcon';
-import SearchIcon from './SearchIcon';
 
 AvatarIcon.displayName = 'AvatarIcon';
 Anonymouse.displayName = 'Anonymouse';
 MessageIcon.displayName = 'MessageIcon';
-SearchIcon.displayName = 'SearchIcon';
 
 storiesOf('Molecules(LV2)/HeaderAction', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
@@ -52,17 +50,6 @@ storiesOf('Molecules(LV2)/HeaderAction', module)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <MessageIcon href="#" messageCount={10} />
-      </div>
-    )),
-  )
-  .add(
-    'SearchIcon',
-    withInfo(`
-      ### コンポーネント概要
-      ヘッダアクション(検索アイコン)
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <SearchIcon href="#" />
       </div>
     )),
   );

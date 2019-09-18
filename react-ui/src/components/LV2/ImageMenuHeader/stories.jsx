@@ -16,21 +16,10 @@ storiesOf('Molecules(LV2)/ImageMenuHeader', module)
     'SP',
     withInfo(`
       ### コンポーネント概要
-      ヘッダーメニュー(SP)
+      ヘッダーメニュー
     `)(() => (
       <div style={{ width: '100%', maxWidth: '320px', padding: `${Dimens.storyBookPadding}` }}>
-        <ImageMenuHeader iconRight searchConditionUrl="" isPhone />
-      </div>
-    )),
-  )
-  .add(
-    'PC',
-    withInfo(`
-      ### コンポーネント概要
-      ヘッダーメニュー(PC)
-    `)(() => (
-      <div style={{ width: '100%', maxWidth: '320px', padding: `${Dimens.storyBookPadding}` }}>
-        <ImageMenuHeader iconRight searchConditionUrl="" />
+        <ImageMenuHeader iconRight />
       </div>
     )),
   );

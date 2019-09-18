@@ -6,6 +6,8 @@ import Header from 'components/LV3/Header';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
+import { uiActions } from 'redux/modules/ui';
+import { authActions } from 'redux/modules/auth';
 
 type PropTypes = {
   isChecking: boolean,
@@ -24,8 +26,16 @@ class HeaderContainer extends Component<PropTypes> {
     }
   }
 
+  logout = () => {
+    if (document && document.body) {
+      document.body.style.overflowY = 'auto';
+    }
+    const { dispatch } = this.props;
+    dispatch(authActions.logout());
+  };
+
   render() {
-    const { isLogin, isChecking, noHeaderButton, user, unreadRooms } = this.props;
+    const { isLogin, isChecking, noHeaderButton, user, unreadRooms, dispatch } = this.props;
     return (
       <Header
         topUrl={Path.top()}
@@ -34,8 +44,10 @@ class HeaderContainer extends Component<PropTypes> {
         user={
           isLogin
             ? {
+                id: user.id,
                 name: user.name,
                 image: user.imageUrl,
+                isHost: user.isHost,
               }
             : null
         }
@@ -43,9 +55,20 @@ class HeaderContainer extends Component<PropTypes> {
         messageCount={unreadRooms}
         searchConditionUrl={Path.searchCondition()}
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} isPhone />}
-        homeUrl={Path.home()}
         loginUrl={Path.login()}
         signupUrl={Path.signUp()}
+        addSpace={{
+          to: Path.createSpaceInfo(),
+          onClick: () => dispatch(uiActions.setUiState({ space: {} })),
+        }}
+        spaces={{ to: Path.spaces() }}
+        sales={{ to: Path.sales() }}
+        logoutEvent={{
+          onClick: e => {
+            e.preventDefault();
+            this.logout();
+          },
+        }}
       />
     );
   }

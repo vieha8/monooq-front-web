@@ -18,10 +18,17 @@ const Tag = styled.span`
 
 type PropTypes = {
   tagList: Array<String>,
+  isNoMark?: boolean,
 };
 
-export default ({ tagList }: PropTypes) => (
+export default ({ tagList, isNoMark }: PropTypes) => (
   <Fragment>
-    {tagList && tagList.map((tag, i) => <Tag key={i.toString()}>{`#${tag}`}</Tag>)}
+    {tagList &&
+      tagList.map((tag, i) => (
+        <Tag key={i.toString()}>
+          {!isNoMark && '#'}
+          {tag}
+        </Tag>
+      ))}
   </Fragment>
 );

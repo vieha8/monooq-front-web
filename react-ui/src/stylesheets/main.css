@@ -125,15 +125,12 @@
 }
 
 /* space imge slider */
-.image-gallery-slide img {
-  height: 300px;
-  border-radius: 10px;
+.image-gallery-slides {
+  border-radius: 3px;
 }
 
-@media (max-width: 30em) {
-  .image-gallery-slide img {
-    height: 200px;
-  }
+.image-gallery-slide img {
+  height: auto;
 }
 
 /* 
@@ -249,4 +246,21 @@
   .wrapTopView {
     padding-top: 98px;
   }
+}
+
+/* 
+  Header Menu
+ */
+.popup-content {
+  width: 320px !important;
+  padding: 0px !important;
+  border: none !important;
+  border-radius: 6px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.popup-arrow {
+  left: 90% !important;
+  border: none !important;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1) !important;
 }

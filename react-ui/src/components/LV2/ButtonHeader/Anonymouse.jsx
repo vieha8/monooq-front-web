@@ -55,22 +55,12 @@ export default ({ signupUrl, loginUrl }: PropTypes) => (
   <Container>
     <OnlyPC>
       <TextWrapper>
-        <TextLink href={signupUrl} color={Colors.black}>
-          モノオクとは？
-        </TextLink>
-      </TextWrapper>
-      <TextWrapper>
-        <TextLink href={signupUrl} color={Colors.black}>
-          利用の流れ
-        </TextLink>
-      </TextWrapper>
-      <TextWrapper>
-        <TextLink href={signupUrl} color={Colors.black}>
-          よくある質問
-        </TextLink>
-      </TextWrapper>
-      <TextWrapper>
-        <TextLink href={loginUrl} color={Colors.white} colorHover={Colors.brandPrimary} bold>
+        <TextLink
+          href={loginUrl}
+          color={Colors.brandPrimary}
+          colorHover={Colors.brandTerciary}
+          bold
+        >
           ログイン
         </TextLink>
       </TextWrapper>
