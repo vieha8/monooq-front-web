@@ -68,22 +68,21 @@ export default () => (
         <WrapList>
           <ListItem
             list={[
-              { name: 'モノオクとは', link: Path.about() },
-              { name: '利用の流れ', href: 'https://help.monooq.com/', blank: true },
-              { name: 'ホストを始める', link: '3' },
-              { name: 'ルールとマナー', link: Path.rule() },
-              { name: '荷物に対する保険', link: Path.insurance() },
+              { name: 'モノオクとは？', link: Path.about() },
+              { name: '利用の流れ(未実装)', href: 'https://help.monooq.com/', blank: true },
+              { name: 'ホスト案内(未実装)', link: '3' },
               { name: 'よくある質問', href: 'https://help.monooq.com/', blank: true },
+              { name: 'お問い合わせ', link: Path.inquiry() },
+              { name: 'ルールとマナー', link: Path.rule() },
             ]}
           />
           <ListItem
             list={[
-              { name: 'モノオクとは', link: Path.about() },
               { name: '運営会社', href: 'https://monooq.co.jp/', blank: true },
               { name: '利用規約', link: Path.terms() },
+              { name: '個人情報保護方針', link: Path.privacy() },
               { name: '特定商取引法に基づく表記', link: Path.asct() },
               { name: 'キャンセルポリシー', link: Path.cancelPolicy() },
-              { name: '個人情報保護方針', link: Path.privacy() },
             ]}
           />
         </WrapList>
@@ -94,24 +93,61 @@ export default () => (
         <WrapList>
           <ListItem
             list={[
-              { name: 'ユーザー編' },
-              { name: 'モノオクとは', link: Path.about() },
-              { name: '利用の流れ', href: 'https://help.monooq.com/', blank: true },
-              { name: 'ホストを始める', link: '3' },
-              { name: 'ルールとマナー', link: Path.rule() },
-              { name: '荷物に対する保険', link: Path.insurance() },
-              { name: 'よくある質問', href: 'https://help.monooq.com/', blank: true },
+              { name: 'ゲスト編' },
+              {
+                name: '登録方法',
+                href:
+                  'https://help.monooq.com/ja/articles/2944042-%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E7%99%BB%E9%8C%B2%E3%81%AE%E3%82%84%E3%82%8A%E6%96%B9%E3%81%AF',
+                blank: true,
+              },
+              {
+                name: '取引の流れ',
+                href:
+                  'https://help.monooq.com/ja/articles/3029220-%E5%8F%96%E5%BC%95%E3%81%AE%E6%B5%81%E3%82%8C%E3%81%AF',
+                blank: true,
+              },
+              {
+                name: '決済の流れ',
+                href:
+                  'https://help.monooq.com/ja/articles/2948181-%E5%88%A9%E7%94%A8%E6%96%99%E3%82%92%E6%94%AF%E6%89%95%E3%81%86%E6%96%B9%E6%B3%95%E3%81%AF',
+                blank: true,
+              },
+              {
+                name: '配送方法について',
+                href:
+                  'https://help.monooq.com/ja/articles/3022639-%E3%82%AA%E3%82%B9%E3%82%B9%E3%83%A1%E3%81%AE%E8%8D%B7%E7%89%A9%E6%90%AC%E5%85%A5-%E6%90%AC%E5%87%BA%E6%96%B9%E6%B3%95%E3%81%AF',
+                blank: true,
+              },
+              { name: 'あんしん荷物補償', link: Path.insurance() },
             ]}
           />
           <ListItem
             list={[
               { name: 'ホスト編' },
-              { name: 'モノオクとは', link: Path.about() },
-              { name: '運営会社', href: 'https://monooq.co.jp/', blank: true },
-              { name: '利用規約', link: Path.terms() },
-              { name: '特定商取引法に基づく表記', link: Path.asct() },
-              { name: 'キャンセルポリシー', link: Path.cancelPolicy() },
-              { name: '個人情報保護方針', link: Path.privacy() },
+              {
+                name: 'スペースの登録方法',
+                href:
+                  'https://help.monooq.com/ja/articles/2929168-%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%E7%99%BB%E9%8C%B2%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF',
+                blank: true,
+              },
+              {
+                name: '取引の流れ',
+                href:
+                  'https://help.monooq.com/ja/articles/3029212-%E5%8F%96%E5%BC%95%E3%81%AE%E6%B5%81%E3%82%8C%E3%81%AF',
+                blank: true,
+              },
+              {
+                name: '売上金の受け取り方法',
+                href:
+                  'https://help.monooq.com/ja/articles/2083706-%E5%A3%B2%E4%B8%8A%E9%87%91%E3%82%92%E5%8F%97%E3%81%91%E5%8F%96%E3%82%8B%E3%81%AB%E3%81%AF',
+                blank: true,
+              },
+              {
+                name: '人気スペースになるコツ',
+                href:
+                  'https://help.monooq.com/ja/articles/2966791-%E3%82%B9%E3%83%9A%E3%83%BC%E3%82%B9%E3%82%92%E7%B6%BA%E9%BA%97%E3%81%AB%E6%92%AE%E5%BD%B1%E3%81%99%E3%82%8B%E3%81%AB%E3%81%AF',
+                blank: true,
+              },
             ]}
           />
         </WrapList>
