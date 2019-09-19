@@ -19,12 +19,12 @@ const Image = styled.img`
 const NoticeIcon = styled.span`
   content: '';
   position: absolute;
-  top: 2px;
-  right: 2px;
-  width: ${Dimens.small2}px;
-  height: ${Dimens.small2}px;
+  top: 0px;
+  right: 0px;
+  width: ${Dimens.small}px;
+  height: ${Dimens.small}px;
   background-color: ${Colors.brandPrimary};
-  border-radius: ${Dimens.small2}px;
+  border-radius: ${Dimens.small}px;
 `;
 
 type PropTypes = {

@@ -180,7 +180,7 @@ const trigger = imageUrl => {
   );
 };
 
-const menuCommon = signupUrl => {
+const menuCommon = (signupUrl, helpUrl) => {
   return (
     <OnlyPC>
       <TextWrapper>
@@ -194,7 +194,7 @@ const menuCommon = signupUrl => {
         </TextLink>
       </TextWrapper>
       <TextWrapper>
-        <TextLink href={signupUrl} color={Colors.black}>
+        <TextLink href={helpUrl} color={Colors.black} target="_blank" rel="noopener noreferrer">
           よくある質問
         </TextLink>
       </TextWrapper>
@@ -219,6 +219,7 @@ type PropTypes = {
   spMenu: React.Element<*>,
   loginUrl: string,
   signupUrl: string,
+  helpUrl: string,
   addSpace: MenuItemProps,
   spaces: MenuItemProps,
   isSchedule?: boolean,
@@ -239,6 +240,7 @@ export default ({
   spMenu,
   loginUrl,
   signupUrl,
+  helpUrl,
   addSpace,
   spaces,
   isSchedule,
@@ -256,7 +258,7 @@ export default ({
           <ActionWrapper>
             {user ? (
               <ActionContainer>
-                {menuCommon(signupUrl)}
+                {menuCommon(signupUrl, helpUrl)}
                 <SearchFiledCell>
                   <ImageMenuHeader iconRight messageUrl={messageUrl} messageCount={messageCount} />
                 </SearchFiledCell>
@@ -292,7 +294,7 @@ export default ({
               </ActionContainer>
             ) : (
               <ActionContainer>
-                {menuCommon(signupUrl)}
+                {menuCommon(signupUrl, helpUrl)}
                 <AnonymouseWrapper>
                   <OnlyPhone>
                     <ActionCell noCursol>{spMenu}</ActionCell>

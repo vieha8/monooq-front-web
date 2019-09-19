@@ -133,6 +133,8 @@ function* fetchRoomStart() {
       const lastMessageDt = parseInt(room.lastMessageDt.getTime() / 1000, 10);
       const lastReadDt = room[`user${user.id}LastReadDt`].seconds;
       room.isRead = room.isRead || lastMessageDt <= lastReadDt;
+    } else {
+      room.isRead = false;
     }
 
     const { userId1, userId2 } = room;
@@ -150,7 +152,7 @@ function* fetchRoomStart() {
   yield put(messagesActions.fetchRoomsEnd({ rooms: res, unreadRooms }));
 }
 
-function* fetchUnreadRooms() {
+function* fetchUnreadRoomsStart() {
   const user = yield select(state => state.auth.user);
   const rooms = yield getRooms(user.id);
 
@@ -161,6 +163,8 @@ function* fetchUnreadRooms() {
       const lastMessageDt = parseInt(room.lastMessageDt.getTime() / 1000, 10);
       const lastReadDt = room[`user${user.id}LastReadDt`].seconds;
       room.isRead = room.isRead || lastMessageDt <= lastReadDt;
+    } else {
+      room.isRead = false;
     }
     return room;
   });
@@ -480,7 +484,7 @@ function* sendMessageAndNotice({ payload }) {
 // Sagas
 export const messagesSagas = [
   takeEvery(FETCH_ROOMS_START, fetchRoomStart),
-  takeEvery(FETCH_UNREAD_ROOMS_START, fetchUnreadRooms),
+  takeEvery(FETCH_UNREAD_ROOMS_START, fetchUnreadRoomsStart),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),
   takeEvery(SEND_MESSAGE, sendMessageAndNotice),
 ];
