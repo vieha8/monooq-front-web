@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
 import Button from 'components/LV1/Forms/Button';
@@ -116,26 +117,27 @@ export default ({ list }: PropTypes) => (
       <Caption>都道府県別でスペースを探す</Caption>
       <WrapList>
         {list.map((item, i) => (
-          <WrapItem>
-            <Wrap key={i.toString()}>
+          <WrapItem key={i.toString()}>
+            <Wrap>
               <WrapRegion>{item.region}</WrapRegion>
               {item.prefectureList.map((prefecture, j) => (
-                <WrapButton>
-                  <Button
-                    key={j.toString()}
-                    quinary
-                    fontSize={14}
-                    fontbold
-                    lineheight={21}
-                    height={38}
-                    padding="8px 10"
-                    borderRadius={6}
-                    fill={1}
-                    onClick={prefecture.link}
-                    // onKeyDown={onKeyDown}
-                  >
-                    {prefecture.name}
-                  </Button>
+                <WrapButton key={j.toString()}>
+                  {/* TODO: 誠意先実装 */}
+                  <Link to={prefecture.link}>
+                    <Button
+                      key={j.toString()}
+                      quinary
+                      fontSize={14}
+                      fontbold
+                      lineheight={21}
+                      height={38}
+                      padding="8px 10"
+                      borderRadius={6}
+                      fill={1}
+                    >
+                      {prefecture.name}
+                    </Button>
+                  </Link>
                 </WrapButton>
               ))}
             </Wrap>
