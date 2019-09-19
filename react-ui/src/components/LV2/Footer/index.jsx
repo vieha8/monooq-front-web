@@ -69,7 +69,7 @@ export default () => (
           <ListItem
             list={[
               { name: 'モノオクとは', link: Path.about() },
-              { name: '利用の流れ', link: 'https://help.monooq.com/', blank: true },
+              { name: '利用の流れ', href: 'https://help.monooq.com/', blank: true },
               { name: 'ホストを始める', link: '3' },
               { name: 'ルールとマナー', link: Path.rule() },
               { name: '荷物に対する保険', link: Path.insurance() },
@@ -79,7 +79,7 @@ export default () => (
           <ListItem
             list={[
               { name: 'モノオクとは', link: Path.about() },
-              { name: '運営会社', link: 'https://monooq.co.jp/', blank: true },
+              { name: '運営会社', href: 'https://monooq.co.jp/', blank: true },
               { name: '利用規約', link: Path.terms() },
               { name: '特定商取引法に基づく表記', link: Path.asct() },
               { name: 'キャンセルポリシー', link: Path.cancelPolicy() },
@@ -96,18 +96,18 @@ export default () => (
             list={[
               { name: 'ユーザー編' },
               { name: 'モノオクとは', link: Path.about() },
-              { name: '利用の流れ', link: 'https://help.monooq.com/', blank: true },
+              { name: '利用の流れ', href: 'https://help.monooq.com/', blank: true },
               { name: 'ホストを始める', link: '3' },
               { name: 'ルールとマナー', link: Path.rule() },
               { name: '荷物に対する保険', link: Path.insurance() },
-              { name: 'よくある質問', link: 'https://help.monooq.com/', blank: true },
+              { name: 'よくある質問', href: 'https://help.monooq.com/', blank: true },
             ]}
           />
           <ListItem
             list={[
               { name: 'ホスト編' },
               { name: 'モノオクとは', link: Path.about() },
-              { name: '運営会社', link: 'https://monooq.co.jp/', blank: true },
+              { name: '運営会社', href: 'https://monooq.co.jp/', blank: true },
               { name: '利用規約', link: Path.terms() },
               { name: '特定商取引法に基づく表記', link: Path.asct() },
               { name: 'キャンセルポリシー', link: Path.cancelPolicy() },
