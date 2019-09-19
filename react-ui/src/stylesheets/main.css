@@ -59,6 +59,61 @@
 /* 
   slide menu
  */
+.bm-overlay {
+  top: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+.bm-menu-wrap {
+  top: 0px;
+}
+
+.bm-menu-wrap .bm-menu {
+  font-size: 1.15em;
+  background: #f8f8f8;
+}
+
+.bm-menu-wrap .bm-menu a {
+  color: #333333;
+}
+
+.bm-menu-wrap .bm-menu a:hover,
+.bm-menu-wrap .bm-menu a:focus {
+  color: #888787;
+}
+
+.bm-menu-wrap .bm-menu .bm-item-list {
+  position: relative;
+}
+
+.bm-menu-wrap .bm-menu .bm-item-list a {
+  font-size: 15px;
+}
+
+.bm-menu-wrap.close .bm-cross-button {
+  display: none;
+}
+
+@media (max-width: 20em) {
+  .bm-menu-wrap .bm-cross-button {
+    display: none;
+  }
+}
+
+.bm-cross-button {
+  width: 25px !important;
+  height: 35px !important;
+  left: -35px !important;
+  top: 10px !important;
+}
+
+.bm-cross-button .bm-cross {
+  width: 2px !important;
+  height: 25px !important;
+  background: #ffffff;
+}
+
 .bm-burger-button {
   position: relative;
   width: 24px;
@@ -69,48 +124,6 @@
   background: #333333;
   border-radius: 20px !important;
   height: 15% !important;
-}
-
-.bm-menu {
-  background: #fff;
-}
-
-.bm-menu a {
-  color: #333333;
-}
-
-.bm-menu a:hover,
-.bm-menu a:focus {
-  color: #888787;
-}
-
-.bm-item-list {
-  position: relative;
-}
-
-.bm-item-list a {
-  font-size: 15px;
-}
-
-.bm-cross-button {
-  display: none;
-}
-
-#slide {
-  top: 0px;
-}
-
-#slide .bm-cross {
-  background: #bdc3c7;
-}
-#slide .bm-menu {
-  padding: 15px 0px;
-  font-size: 1.15em;
-}
-
-.bm-overlay {
-  top: 0px;
-  left: 0px;
 }
 
 .ePahOV:not(:last-child) {

@@ -13,6 +13,7 @@ import { media } from 'helpers/style/media-query';
 const Container = styled.div`
   width: 100%;
   padding: ${Dimens.medium_20}px ${Dimens.medium}px;
+  background-color: ${Colors.white};
   &::after {
     clear: both;
     content: '';

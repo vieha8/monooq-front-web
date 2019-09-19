@@ -4,11 +4,11 @@ import React, { Fragment } from 'react';
 import PopupMenu from 'reactjs-popup';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Button from 'components/LV1/Forms/Button';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';
 import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
-import Anonymouse from 'components/LV2/ButtonHeader/Anonymouse';
 import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
@@ -28,13 +28,18 @@ const Container = styled.header`
   width: 100%;
   min-width: 260px;
   z-index: ${ZIndexes.nav};
+  background: rgba(255, 255, 255, 0.8);
 `;
 
 const Nav = styled.nav`
   display: flex;
   align-items: center;
   height: ${Height}px;
-  background: rgba(255, 255, 255, 0.8);
+  ${props =>
+    props.top &&
+    `
+    background: rgba(255, 255, 255, 0.8);
+  `}
   ${media.tablet`
     height: ${HeightPhone}px;
   `};
@@ -139,9 +144,9 @@ const OnlyPhone = styled.span`
 `;
 
 const TextWrapper = styled.span`
-  width: 108px;
+  width: 106px;
   ${media.tablet`
-    max-width: 108px;
+    max-width: 106px;
   `};
   ${media.phone`
     min-width: 128px;
@@ -175,6 +180,28 @@ const trigger = imageUrl => {
   );
 };
 
+const menuCommon = signupUrl => {
+  return (
+    <OnlyPC>
+      <TextWrapper>
+        <TextLink href={signupUrl} color={Colors.black}>
+          モノオクとは？
+        </TextLink>
+      </TextWrapper>
+      <TextWrapper>
+        <TextLink href={signupUrl} color={Colors.black}>
+          利用の流れ
+        </TextLink>
+      </TextWrapper>
+      <TextWrapper>
+        <TextLink href={signupUrl} color={Colors.black}>
+          よくある質問
+        </TextLink>
+      </TextWrapper>
+    </OnlyPC>
+  );
+};
+
 type PropTypes = {
   top?: boolean,
   stories?: boolean,
@@ -194,6 +221,8 @@ type PropTypes = {
   signupUrl: string,
   addSpace: MenuItemProps,
   spaces: MenuItemProps,
+  isSchedule?: boolean,
+  schedule: MenuItemProps,
   sales: MenuItemProps,
   logoutEvent: Function,
 };
@@ -212,36 +241,22 @@ export default ({
   signupUrl,
   addSpace,
   spaces,
+  isSchedule,
+  schedule,
   sales,
   logoutEvent,
 }: PropTypes) => {
   return (
     <Container stories={stories}>
-      <Nav>
+      <Nav top={top}>
         <LogoWrapper to={topUrl}>
-          {top ? <ImageLogo.HeaderWhiteFill /> : <ImageLogo.HeaderFill />}
+          <ImageLogo.HeaderFill />
         </LogoWrapper>
         {!isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>
             {user ? (
               <ActionContainer>
-                <OnlyPC>
-                  <TextWrapper>
-                    <TextLink href={signupUrl} color={Colors.black}>
-                      モノオクとは？
-                    </TextLink>
-                  </TextWrapper>
-                  <TextWrapper>
-                    <TextLink href={signupUrl} color={Colors.black}>
-                      利用の流れ
-                    </TextLink>
-                  </TextWrapper>
-                  <TextWrapper>
-                    <TextLink href={signupUrl} color={Colors.black}>
-                      よくある質問
-                    </TextLink>
-                  </TextWrapper>
-                </OnlyPC>
+                {menuCommon(signupUrl)}
                 <SearchFiledCell>
                   <ImageMenuHeader iconRight messageUrl={messageUrl} messageCount={messageCount} />
                 </SearchFiledCell>
@@ -263,10 +278,11 @@ export default ({
                       />
                       {user.isHost && (
                         <Fragment>
-                          <TitleMenu>管理ページ</TitleMenu>
+                          <TitleMenu>スペース運営</TitleMenu>
                           <MenuItem title="スペースの新規登録" {...addSpace} />
                           <MenuItem title="スペースの管理" {...spaces} />
-                          <MenuItem title="売り上げ・振り込み申請" {...sales} />
+                          {isSchedule && <MenuItem title="利用状況" {...schedule} />}
+                          <MenuItem title="売上・振込申請" {...sales} />
                         </Fragment>
                       )}
                       {user && <MenuItem title="ログアウト" {...logoutEvent} blank logout />}
@@ -276,8 +292,28 @@ export default ({
               </ActionContainer>
             ) : (
               <ActionContainer>
+                {menuCommon(signupUrl)}
                 <AnonymouseWrapper>
-                  <Anonymouse loginUrl={loginUrl} signupUrl={signupUrl} />
+                  <OnlyPhone>
+                    <ActionCell noCursol>{spMenu}</ActionCell>
+                  </OnlyPhone>
+                  <OnlyPC>
+                    <TextWrapper>
+                      <TextLink
+                        href={loginUrl}
+                        color={Colors.brandPrimary}
+                        colorHover={Colors.brandTerciary}
+                        bold
+                      >
+                        ログイン
+                      </TextLink>
+                    </TextWrapper>
+                    <TextWrapper>
+                      <Button quaternary link href={signupUrl} fontbold height={40} lineheight={15}>
+                        新規登録
+                      </Button>
+                    </TextWrapper>
+                  </OnlyPC>
                 </AnonymouseWrapper>
               </ActionContainer>
             )}

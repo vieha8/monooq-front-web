@@ -1,7 +1,7 @@
 // @flow
 
 import styled from 'styled-components';
-import { Colors } from 'variables';
+import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const MenuItem = styled.li`
@@ -10,19 +10,20 @@ const MenuItem = styled.li`
   width: 100%;
   margin: auto;
   font-weight: 500;
+  background-color: ${Colors.white};
   border-top: 1px solid ${Colors.borderGray2};
   &:hover {
     cursor: pointer;
-    background: ${Colors.lightGray1Bg};
+    background: ${Colors.lightGray5};
   }
   &:before {
     position: absolute;
     top: 50%;
-    right: 20px;
+    right: ${Dimens.medium_20}px;
     display: block;
     content: '';
-    width: 10px;
-    height: 10px;
+    width: ${Dimens.small_10}px;
+    height: ${Dimens.small_10}px;
     margin-top: -5px;
     border-top: 1.5px solid ${Colors.black2};
     border-right: 1.5px solid ${Colors.black2};
@@ -31,14 +32,26 @@ const MenuItem = styled.li`
   &:first-child {
     border-top: none;
   }
-  &:last-child:before {
-    content: none;
-  }
+  ${props =>
+    props.logout &&
+    `
+      background-color: unset;
+      &:last-child:before {
+        content: none;
+      }
+    `};
+  ${props =>
+    props.header &&
+    `
+      pointer-events: none;
+      background-color: unset;
+      padding: ${Dimens.xxsmall_4}px 0 ${Dimens.xxsmall_4}px ${Dimens.medium_20}px;
+      &:before {
+        content: none;
+      }
+    `};
   ${media.tablet`
-    width: calc(100% - 40px);
-  `};
-  ${media.phone`
-    padding: 0px;
+    width: 100%;
   `};
 `;
 

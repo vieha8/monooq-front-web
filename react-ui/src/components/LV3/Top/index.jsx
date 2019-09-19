@@ -180,7 +180,7 @@ export default ({
   onClickSearch,
 }: PropTypes) => (
   <TopPage>
-    {!story && <Header />}
+    {!story && <Header top />}
     <TopView
       catchPhrase={getCatchPhrase()}
       catchPhraseSub="スキマ空間のシェアサービス「モノオク」"

@@ -49,12 +49,12 @@ type PropTypes = {
   line?: boolean,
   logout?: boolean,
   href?: string,
-  changePurposeEvent?: Function,
   logoutEvent?: Function,
   onClick?: Function,
   title: string,
   notificationCount?: number,
   to?: string,
+  header?: boolean,
 };
 
 const HyperLinkStyled = MenuLink.withComponent('a');
@@ -64,20 +64,20 @@ export default ({
   line,
   logout,
   href,
-  changePurposeEvent,
   logoutEvent,
   onClick,
   title,
   notificationCount,
   to,
+  header,
 }: PropTypes) =>
   blank ? (
-    <MenuItem>
+    <MenuItem logout={logout}>
       <LinkWrap line={line} logout={logout}>
         <HyperLinkStyled
           href={href || ''}
-          onClick={changePurposeEvent || logoutEvent || onClick}
-          target={changePurposeEvent || logoutEvent ? '' : '_blank'}
+          onClick={logoutEvent || onClick}
+          target={logoutEvent ? '' : '_blank'}
           logout={logout}
         >
           <MenuText>
@@ -90,6 +90,14 @@ export default ({
           </NotificationWrapper>
         </HyperLinkStyled>
       </LinkWrap>
+    </MenuItem>
+  ) : header ? (
+    <MenuItem header={header}>
+      <MenuText>
+        <InlineText.Base fontSize={FontSizes.small_12} color={Colors.darkGray3}>
+          {title}
+        </InlineText.Base>
+      </MenuText>
     </MenuItem>
   ) : (
     <MenuItem>

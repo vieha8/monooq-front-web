@@ -7,26 +7,13 @@ import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
 import AvatarIcon from './AvatarIcon';
-import Anonymouse from './Anonymouse';
 import MessageIcon from './MessageIcon';
 
 AvatarIcon.displayName = 'AvatarIcon';
-Anonymouse.displayName = 'Anonymouse';
 MessageIcon.displayName = 'MessageIcon';
 
 storiesOf('Molecules(LV2)/HeaderAction', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
-  .add(
-    'Anonymouse',
-    withInfo(`
-      ### コンポーネント概要
-      ヘッダアクション(ログイン、登録リンク)
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Anonymouse loginUrl="#" signupUrl="#" />
-      </div>
-    )),
-  )
   .add(
     'AvatarIcon',
     withInfo(`

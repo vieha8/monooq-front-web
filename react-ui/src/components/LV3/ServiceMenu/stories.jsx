@@ -78,7 +78,6 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           inquiry={{ to: Path.inquiry() }}
           userName="モノオク タロウ"
           userImage="http://placehold.jp/500x500.png"
-          isPhone
           isLogin
         />
       </div>
@@ -104,7 +103,6 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           inquiry={{ to: Path.inquiry() }}
           userName="モノオク タロウ"
           userImage="http://placehold.jp/500x500.png"
-          isPhone
         />
       </div>
     )),

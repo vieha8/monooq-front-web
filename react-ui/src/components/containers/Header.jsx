@@ -35,9 +35,25 @@ class HeaderContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { isLogin, isChecking, noHeaderButton, user, unreadRooms, dispatch } = this.props;
+    const {
+      top,
+      isLogin,
+      isChecking,
+      noHeaderButton,
+      user,
+      unreadRooms,
+      schedule,
+      dispatch,
+    } = this.props;
+
+    let isSchedule = false;
+    if (schedule && (schedule.user.length > 0 || schedule.host.length > 0)) {
+      isSchedule = true;
+    }
+
     return (
       <Header
+        top={top}
         topUrl={Path.top()}
         isCheckingLogin={isChecking}
         noHeaderButton={noHeaderButton}
@@ -54,7 +70,7 @@ class HeaderContainer extends Component<PropTypes> {
         messageUrl={Path.messageList()}
         messageCount={unreadRooms}
         searchConditionUrl={Path.searchCondition()}
-        spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} isPhone />}
+        spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} />}
         loginUrl={Path.login()}
         signupUrl={Path.signUp()}
         addSpace={{
@@ -62,6 +78,8 @@ class HeaderContainer extends Component<PropTypes> {
           onClick: () => dispatch(uiActions.setUiState({ space: {} })),
         }}
         spaces={{ to: Path.spaces() }}
+        schedule={{ to: Path.schedule() }}
+        isSchedule={isSchedule}
         sales={{ to: Path.sales() }}
         logoutEvent={{
           onClick: e => {
@@ -79,6 +97,7 @@ const mapStateToProps = state => ({
   isLogin: state.auth.isLogin,
   user: state.auth.user,
   unreadRooms: state.messages.unreadRooms,
+  schedule: state.request.schedule,
 });
 
 export default withRouter(connect(mapStateToProps)(HeaderContainer));

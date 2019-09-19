@@ -11,8 +11,8 @@ const ContainerDefault = styled.div`
   padding: 0 ${Dimens.medium}px;
   box-sizing: initial;
   ${media.phone`
-    width: 92vw;
-    padding: 0px 4vw;
+    width: 100%;
+    padding: 0px;
   `};
 `;
 

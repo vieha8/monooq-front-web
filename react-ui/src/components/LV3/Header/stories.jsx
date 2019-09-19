@@ -32,7 +32,6 @@ const ServiceMenuSP = () => {
       inquiry={{ to: Path.inquiry() }}
       userName="name"
       userImage="http://placehold.jp/500x500.png"
-      isPhone
     />
   );
 };

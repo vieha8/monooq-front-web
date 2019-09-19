@@ -1,23 +1,8 @@
 // @flow
 
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
 import MenuItem from 'components/LV2/Items/MenuItem';
-import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
-import { Dimens } from 'variables';
-import { formatName } from 'helpers/string';
-
-const LinkWrap = styled.div`
-  padding: 1px 25px ${Dimens.medium}px;
-`;
-
-const AvaterName = styled.span`
-  display: inline-block !important;
-  font-weight: bold;
-  vertical-align: middle;
-  max-width: calc(100% - 56px);
-  margin-left: ${Dimens.medium}px;
-`;
+import InfoUser from 'components/LV2/InfoUser';
 
 type MenuItemProps = {
   href?: string,
@@ -27,77 +12,72 @@ type MenuItemProps = {
 };
 
 type PropTypes = {
-  isPhone: boolean,
+  userId?: string,
   userImage?: string,
   userName?: string,
+  signupUrl: MenuItemProps,
+  loginUrl: MenuItemProps,
   top: MenuItemProps,
   isLogin: boolean,
-  message: MenuItemProps,
   isSchedule?: boolean,
   schedule: MenuItemProps,
-  profileEdit: MenuItemProps,
   isHost: boolean,
   addSpace: MenuItemProps,
   spaces: MenuItemProps,
   sales: MenuItemProps,
   inquiry: MenuItemProps,
-  changePurposeEvent: Function,
+  help: MenuItemProps,
   logoutEvent: Function,
 };
 
 export default ({
-  isPhone,
+  userId,
   userImage,
   userName,
+  signupUrl,
+  loginUrl,
   top,
   isLogin,
-  message,
   isSchedule,
   schedule,
-  profileEdit,
   isHost,
   addSpace,
   spaces,
   sales,
   inquiry,
-  changePurposeEvent,
+  help,
   logoutEvent,
 }: PropTypes) => (
   <Fragment>
-    {isPhone && (
+    {isLogin ? (
       <Fragment>
-        <LinkWrap>
-          <AvatarIcon imageSrc={userImage} size={40} />
-          <AvaterName>{formatName(userName)}</AvaterName>
-        </LinkWrap>
-      </Fragment>
-    )}
-    {isLogin && (
-      <Fragment>
-        <MenuItem title="トップページ" {...top} line={isPhone} />
-        <MenuItem title="メッセージ" {...message} />
-        {isSchedule && <MenuItem title="利用状況" {...schedule} />}
-        <MenuItem title="プロフィールの編集" {...profileEdit} />
+        <InfoUser isHost={isHost} id={userId} imageUrl={userImage} name={userName} />
         {isHost && (
           <Fragment>
-            <MenuItem title="スペースの登録" {...addSpace} line />
+            <MenuItem title="スペース運営" header />
+            <MenuItem title="スペースの新規登録" {...addSpace} />
             <MenuItem title="スペースの管理" {...spaces} />
-            <MenuItem title="売り上げ・振込申請" {...sales} />
+            {isSchedule && <MenuItem title="利用状況" {...schedule} />}
+            <MenuItem title="売上・振込申請" {...sales} />
           </Fragment>
         )}
       </Fragment>
-    )}
-    <MenuItem title="お問い合わせ" {...inquiry} />
-    {isLogin && (
+    ) : (
       <Fragment>
-        <MenuItem
-          title={isHost ? 'スペース登録機能の使用をやめる' : 'スペース登録機能を使用する'}
-          {...changePurposeEvent}
-          blank
-          line
-        />
-        <MenuItem title="ログアウト" {...logoutEvent} blank line logout />
+        <MenuItem title="新規登録・ログイン" header />
+        <MenuItem title="新規登録" {...signupUrl} />
+        <MenuItem title="ログイン" {...loginUrl} />
       </Fragment>
     )}
+    <MenuItem title="サービスについて" header />
+    {isLogin ? (
+      <MenuItem title="トップページ" {...top} />
+    ) : (
+      <MenuItem title="モノオクとは？(未実装)" {...top} />
+    )}
+    <MenuItem title="利用の流れ(未実装)" {...inquiry} />
+    <MenuItem title="よくある質問" {...help} blank />
+    <MenuItem title="お問い合わせ" {...inquiry} />
+    {isLogin && <MenuItem title="ログアウト" {...logoutEvent} blank logout />}
   </Fragment>
 );
