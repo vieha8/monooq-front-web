@@ -184,12 +184,12 @@ export default ({
     <TopView
       catchPhrase={getCatchPhrase()}
       catchPhraseSub="スキマ空間のシェアサービス「モノオク」"
-      SIplaceholder="東京都 千代田区"
-      SIlocationText={locationText}
-      SIonChange={handleChangeLocation}
-      SIonKeyDown={onKeyDownSearchField}
-      SIsearchDisabled={searchButtonDisabled}
-      SIonClickSearchButton={onClickSearch}
+      placeholder="東京都 千代田区"
+      locationText={locationText}
+      onChange={handleChangeLocation}
+      onKeyDown={onKeyDownSearchField}
+      searchDisabled={searchButtonDisabled}
+      onClickSearchButton={onClickSearch}
     />
     <PrefectureList list={getPrefectureList()} />
     <SpaceList

@@ -80,23 +80,23 @@ const InputSearchContainer = styled.div`
 type PropTypes = {
   catchPhrase: React.Element<*>,
   catchPhraseSub: React.Element<*>,
-  SIplaceholder: string,
-  SIlocationText: string,
-  SIonChange: Function,
-  SIonKeyDown: Function,
-  SIsearchDisabled: boolean,
-  SIonClickSearchButton: Function,
+  placeholder: string,
+  locationText: string,
+  onChange: Function,
+  onKeyDown: Function,
+  searchDisabled: boolean,
+  onClickSearchButton: Function,
 };
 
 export default ({
   catchPhrase,
   catchPhraseSub,
-  SIplaceholder,
-  SIlocationText,
-  SIonChange,
-  SIonKeyDown,
-  SIsearchDisabled,
-  SIonClickSearchButton,
+  placeholder,
+  locationText,
+  onChange,
+  onKeyDown,
+  searchDisabled,
+  onClickSearchButton,
 }: PropTypes) => (
   <TopView>
     <TopViewWrap className="wrapTopView">
@@ -105,12 +105,12 @@ export default ({
         <CatchPhrase>{catchPhrase}</CatchPhrase>
         <InputSearchContainer>
           <InputSearch
-            placeholder={SIplaceholder}
-            locationText={SIlocationText}
-            onChange={SIonChange}
-            onKeyDown={SIonKeyDown}
-            searchDisabled={SIsearchDisabled}
-            onClickSearchButton={SIonClickSearchButton}
+            placeholder={placeholder}
+            locationText={locationText}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+            searchDisabled={searchDisabled}
+            onClickSearchButton={onClickSearchButton}
           />
         </InputSearchContainer>
       </TopViewContainer>
