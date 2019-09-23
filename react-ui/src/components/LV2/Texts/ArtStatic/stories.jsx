@@ -56,7 +56,7 @@ storiesOf('Molecules(LV2)/Texts/ArtStatic', module)
               customText: (
                 <div>
                   1.登録利用者は、登録情報に含まれる登録利用者の個人情報（個人情報の保護に関する法律（以下「個人情報保護法」といいます。）第2条1項に定義する個人情報を意味します。）について、当社の
-                  <LinkText to={Path.privacy()}>プライバシーポリシー</LinkText>
+                  <LinkText to={Path.privacy()}>個人情報保護方針</LinkText>
                   に従って取り扱われることに同意するものとします。
                 </div>
               ),

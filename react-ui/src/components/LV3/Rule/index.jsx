@@ -13,10 +13,10 @@ import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 const SubTitle = styled.div`
   font-size: ${FontSizes.large}px;
   line-height: ${FontSizes.large}px;
-  margin-bottom: ${Dimens.medium3_40}px;
-  ${media.phone`
-    font-size: 6.5vw;
-    line-height: ${6.5 * 1.5}vw;
+  margin: ${Dimens.medium3_44}px auto;
+  ${media.tablet`
+    font-size: ${FontSizes.medium2_26}px;
+    margin: ${Dimens.medium3_44}px auto ${Dimens.medium1}px;
   `};
 `;
 

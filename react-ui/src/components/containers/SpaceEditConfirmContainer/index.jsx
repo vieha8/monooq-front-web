@@ -6,10 +6,10 @@ import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import SpaceMap from 'components/LV1/SpaceMap';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
+import { Height as HeaderHeight, HeightPhone as HeaderHeightPhone } from 'components/LV3/Header';
 
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
@@ -79,7 +79,7 @@ const ConfirmMessage = styled.div`
   display: block;
   position: fixed;
   left: 0px;
-  top: 64px;
+  top: ${HeaderHeight}px;
   z-index: 100;
   text-align: center;
   padding: ${Dimens.medium_17}px;
@@ -89,7 +89,7 @@ const ConfirmMessage = styled.div`
   color: ${Colors.white};
   background-color: ${Colors.brandPrimary};
   ${media.tablet`
-    top: 54px;
+    top: ${HeaderHeightPhone}px;
   `};
 `;
 
@@ -108,9 +108,7 @@ const EntryButtonWrap = styled.div`
 `;
 
 const Spacer = styled.div`
-  margin: 40px auto 0;
-  ${media.tablet`
-  `};
+  margin: ${Dimens.medium3_40}px auto 0;
 `;
 
 class SpaceEditConfirmContainer extends Component<PropTypes> {

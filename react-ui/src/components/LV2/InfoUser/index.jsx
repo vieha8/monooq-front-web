@@ -61,7 +61,7 @@ export default ({ isHost, id, imageUrl, name }: PropTypes) => (
     <HostNameContainer>
       {isHost && (
         <Fragment>
-          <Tag tagList={['HOST']} isNoMark />
+          <Tag tagList={['ホスト']} isNoMark />
           <br />
         </Fragment>
       )}

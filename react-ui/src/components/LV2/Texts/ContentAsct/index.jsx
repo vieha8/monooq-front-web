@@ -14,10 +14,13 @@ const ContentContainer = styled.div`
   justify-content: flex-start;
   font-size: ${FontSizes.small_15}px;
   border-bottom: 1px solid #dbdbdb;
+  ${media.phone`
+    padding: ${Dimens.medium_20}px 0 ${Dimens.xsmall}px;
+  `};
 `;
 
 const Header = styled(Text)`
-  width: 150px;
+  width: 25%;
   font-weight: bold;
   margin-right: ${Dimens.medium_20}px;
   ${media.phone`
@@ -26,8 +29,9 @@ const Header = styled(Text)`
 `;
 
 const Data = styled(Text)`
+  width: calc(75% - ${Dimens.medium_20}px);
   ${media.phone`
-    margin-top: ${Dimens.small}px;
+    width: 100%;
     line-height: ${Dimens.medium2}px;
   `};
 `;

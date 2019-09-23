@@ -26,7 +26,7 @@ const Container = styled.div`
     ${props =>
       props.confirm &&
       `
-      padding: 0 0 130px;
+      padding: 0;
     `};
   `};
 `;

@@ -27,11 +27,10 @@ const ContentContainer = styled.div`
 const SubTitle = styled.div`
   font-size: ${FontSizes.large}px;
   line-height: ${FontSizes.large}px;
-  margin-bottom: ${Dimens.medium3_45}px;
+  margin: ${Dimens.medium3_44}px auto;
   ${media.phone`
-    font-size: 6.5vw;
-    line-height: ${6.5 * 1.5}vw;
-    margin-bottom: ${Dimens.medium_20}px;
+    font-size: ${FontSizes.medium2_26}px;
+    margin: ${Dimens.medium3_44}px auto ${Dimens.medium1}px;
   `};
 `;
 

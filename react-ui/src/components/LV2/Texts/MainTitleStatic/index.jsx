@@ -13,7 +13,7 @@ const MainTitleContainer = styled.div`
   ${props =>
     !props.noMarginTop &&
     `
-    margin-top: calc(${HeaderHeight}px + ${Dimens.large2}px);
+    margin-top: calc(${HeaderHeight}px + ${Dimens.medium3_40}px);
   `};
   ${props =>
     props.sub &&
@@ -22,6 +22,13 @@ const MainTitleContainer = styled.div`
       padding: 0;
       margin-top: ${Dimens.large2}px;
   `};
+  ${media.tablet`
+    ${props =>
+      !props.noMarginTop &&
+      `
+        margin-top: ${HeaderHeight}px;
+    `};
+  `};
   ${media.phone`
     ${props =>
       props.sub &&
@@ -29,11 +36,6 @@ const MainTitleContainer = styled.div`
         width: 100%;
         padding: 0;
       `};
-    ${props =>
-      !props.noMarginTop &&
-      `
-        margin-top: ${Dimens.medium3_40}px;
-    `};    
   `};
 `;
 
