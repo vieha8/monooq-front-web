@@ -57,7 +57,6 @@ const ButtonWrapper = styled.div`
 const CautionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: ${Dimens.medium1}px ${Dimens.small}px;
 `;
 
@@ -342,8 +341,34 @@ export default ({
         </ButtonWrapper>
       )}
       <CautionWrapper>
-        <CautionText>モノオクではサービス外のお支払いや現金取引は禁止です。</CautionText>
-        <TextLink to={Path.rule()} fontSize={11} target="_blank" rel="noopener noreferrer">
+        <TextLink
+          href="https://help.monooq.com/ja/articles/2944042-%E3%83%A6%E3%83%BC%E3%82%B6%E3%83%BC%E7%99%BB%E9%8C%B2%E3%81%AE%E3%82%84%E3%82%8A%E6%96%B9%E3%81%AF"
+          fontSize={14}
+          fontsizesp={14}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="gaMessageBottomFlowLink"
+        >
+          取引完了までの流れ
+        </TextLink>
+        <TextLink
+          href="https://help.monooq.com/ja/?_ga=2.29825786.477264581.1569136727-1606691571.1527770591"
+          fontSize={14}
+          fontsizesp={14}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="gaMessageBottomQuestionLink"
+        >
+          よくある質問
+        </TextLink>
+        <TextLink
+          to={Path.rule()}
+          fontSize={14}
+          fontsizesp={14}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="gaMessageBottomRuleLink"
+        >
           ルールとマナーを読む
         </TextLink>
       </CautionWrapper>
