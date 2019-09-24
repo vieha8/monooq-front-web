@@ -340,5 +340,7 @@ const mapStateToProps = state => ({
 });
 
 export default authRequired(
-  ContentPageMenu(connect(mapStateToProps)(SpaceEditInformationContainer), {}),
+  ContentPageMenu(connect(mapStateToProps)(SpaceEditInformationContainer), {
+    noFooter: true,
+  }),
 );

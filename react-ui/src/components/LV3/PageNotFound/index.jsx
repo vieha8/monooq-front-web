@@ -1,6 +1,4 @@
 import React from 'react';
-import Path from 'config/path';
-
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
@@ -63,19 +61,6 @@ export default () => (
         {
           text: 'トップページへ戻る',
           path: '/',
-        },
-        {
-          text: 'ホストになる',
-          path: Path.signUp(),
-        },
-        {
-          text: 'はじめての方へ',
-          path: Path.about(),
-        },
-        {
-          text: 'よくある質問',
-          path: 'https://help.monooq.com/',
-          blank: '_blank',
         },
       ]}
     />

@@ -12,11 +12,13 @@ type PropTypes = {
     caption?: string,
     headline?: string,
     noMargin?: boolean,
+    noFooter?: boolean,
+    bottomMargin?: boolean,
   },
 };
 
-const ContentPageMenu = (WrappedComponent, option): PropTypes => {
-  class ContentPageStaticComponent extends Component {
+export default (WrappedComponent, option): PropTypes => {
+  return class ContentPageStaticComponent extends Component {
     render() {
       return (
         <Fragment>
@@ -27,12 +29,11 @@ const ContentPageMenu = (WrappedComponent, option): PropTypes => {
             leftContent={<WrappedComponent {...this.props} />}
             noMargin={option && option.noMargin ? option.noMargin : false}
           />
-          <Footer />
+          {option && !option.noFooter && (
+            <Footer bottomMargin={!!(option && option.bottomMargin)} />
+          )}
         </Fragment>
       );
     }
-  }
-  return ContentPageStaticComponent;
+  };
 };
-
-export default ContentPageMenu;

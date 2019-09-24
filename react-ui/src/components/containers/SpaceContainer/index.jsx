@@ -211,5 +211,7 @@ export default ContentPageMenu(
     SpaceContainer,
     mapStateToProps,
   ),
-  {},
+  {
+    bottomMargin: true,
+  },
 );

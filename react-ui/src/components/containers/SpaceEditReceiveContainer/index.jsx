@@ -175,6 +175,7 @@ export default authRequired(
   handleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEditReceiveContainer), {
       headline: '荷物の受け取りについて',
+      noFooter: true,
     }),
   ),
 );
