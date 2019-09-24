@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { media } from 'helpers/style/media-query';
 import { FontSizes, Colors, Dimens } from 'variables';
 import Text from 'components/LV1/Texts/TextStatic';
@@ -65,7 +66,9 @@ export default ({ list }: PropTypes) => (
         <SubTitle>{item.subTitle}</SubTitle>
         <Title>{item.title}</Title>
         <Text fontSize={FontSizes.small_13}>{item.text}</Text>
-        <Button>{item.buttonText}</Button>
+        <Link to={item.buttonLink}>
+          <Button>{item.buttonText}</Button>
+        </Link>
       </WhenIUseWrap>
     ))}
   </WhenIUseCardContentWrapper>

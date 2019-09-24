@@ -19,6 +19,7 @@ const WhenIUseWrap = styled.div`
   margin-bottom: ${Dimens.medium_20}px;
   ${media.phone`
     width: 100%;
+    margin-bottom: ${Dimens.medium2_36}px;
   `};
 `;
 
