@@ -86,7 +86,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     history.push(Path.searchCondition());
   };
 
-  onKeyDownButtonReserch = e => {
+  onKeyDownButtonResearch = e => {
     if (iskeyDownEnter(e)) {
       this.onClickBackSearchCondition();
     }
@@ -227,7 +227,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
             fontbold
             center
             onClick={this.onClickBackSearchCondition}
-            onKeyDown={this.onKeyDownButtonReserch}
+            onKeyDown={this.onKeyDownButtonResearch}
           >
             条件を変えて再検索する
           </Button>
