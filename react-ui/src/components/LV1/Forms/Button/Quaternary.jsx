@@ -15,8 +15,8 @@ const Quaternary = styled(PrimaryButton)`
       padding: ${props.padding}px;
     `};
   background: none;
-  border: 2px solid ${Colors.brandPrimary};
-  color: ${Colors.brandPrimary};
+  border: 2px solid ${props => props.color || Colors.brandPrimary};
+  color: ${props => props.color || Colors.brandPrimary};
 
   ${props =>
     props.disabled
@@ -28,8 +28,7 @@ const Quaternary = styled(PrimaryButton)`
       : `
     &:hover {
       background: none;
-      border-color: ${Colors.brandTerciary};
-      color: ${Colors.brandTerciary};
+      opacity: 0.8;
     }
   `};
 `;

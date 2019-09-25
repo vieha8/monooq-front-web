@@ -28,17 +28,18 @@ const Container = styled.header`
   width: 100%;
   min-width: 260px;
   z-index: ${ZIndexes.nav};
-  background: rgba(255, 255, 255, 0.8);
 `;
 
 const Nav = styled.nav`
   display: flex;
   align-items: center;
   height: ${Height}px;
+  transition: 0.3s;
   ${props =>
-    props.top &&
+    (!props.top || props.isOverTopView) &&
     `
     background: rgba(255, 255, 255, 0.8);
+    transition: 0.3s;
   `}
   ${media.tablet`
     height: ${HeightPhone}px;
@@ -204,6 +205,7 @@ const menuCommon = (signupUrl, helpUrl) => {
 
 type PropTypes = {
   top?: boolean,
+  isOverTopView?: boolean,
   stories?: boolean,
   topUrl: string,
   isCheckingLogin: boolean,
@@ -230,6 +232,7 @@ type PropTypes = {
 
 export default ({
   top,
+  isOverTopView,
   stories,
   topUrl,
   isCheckingLogin,
@@ -250,7 +253,7 @@ export default ({
 }: PropTypes) => {
   return (
     <Container stories={stories}>
-      <Nav top={top}>
+      <Nav top={top} isOverTopView={isOverTopView} id="nav">
         <LogoWrapper to={topUrl}>
           <ImageLogo.HeaderFill />
         </LogoWrapper>
@@ -303,15 +306,23 @@ export default ({
                     <TextWrapper>
                       <TextLink
                         href={loginUrl}
-                        color={Colors.brandPrimary}
-                        colorHover={Colors.brandTerciary}
+                        color={!top || isOverTopView ? Colors.brandPrimary : Colors.white}
+                        colorHover={!top || isOverTopView ? Colors.brandTerciary : Colors.white}
                         bold
                       >
                         ログイン
                       </TextLink>
                     </TextWrapper>
                     <TextWrapper>
-                      <Button quaternary link href={signupUrl} fontbold height={40} lineheight={15}>
+                      <Button
+                        quaternary
+                        link
+                        href={signupUrl}
+                        fontbold
+                        height={40}
+                        lineheight={15}
+                        color={!top || isOverTopView ? Colors.brandPrimary : Colors.white}
+                      >
                         新規登録
                       </Button>
                     </TextWrapper>
