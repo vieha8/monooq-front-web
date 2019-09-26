@@ -361,6 +361,18 @@ export default ({
         </CautionWrapperItem>
         <CautionWrapperItem>
           <TextLink
+            href="https://help.monooq.com/ja/articles/3368023-%E5%BF%85%E8%A6%81%E3%81%AA%E7%95%B3%E6%95%B0%E3%81%AE%E7%9B%AE%E5%AE%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"
+            fontSize={14}
+            fontsizesp={14}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gaMessageBottomBreadthLink"
+          >
+            必要な広さの目安
+          </TextLink>
+        </CautionWrapperItem>
+        <CautionWrapperItem>
+          <TextLink
             href="https://help.monooq.com/ja/"
             fontSize={14}
             fontsizesp={14}
