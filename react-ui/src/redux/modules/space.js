@@ -194,7 +194,9 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
 
   if (err) {
     if (status === 404) {
-      yield put(push(Path.pageNotFound()));
+      // yield put(push(Path.pageNotFound()));
+      window.location.href = Path.pageNotFound();
+      // node.jsサーバー側で404返すための処置
     } else {
       yield handleError(spaceActions.fetchFailedSpace, '', 'getSpace', err, false);
     }

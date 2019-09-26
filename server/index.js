@@ -78,6 +78,11 @@ if (cluster.isMaster) {
     next();
   });
 
+  app.get("/notfound", (req, res, next) => {
+    res.status(404);
+    next();
+  });
+
   app.get("/ja", (req, res) => {
     res.redirect(301, "/");
   });
