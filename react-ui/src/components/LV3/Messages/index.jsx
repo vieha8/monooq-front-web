@@ -61,7 +61,9 @@ const CautionWrapper = styled.div`
 `;
 
 const CautionWrapperItem = styled.div`
-  margin-bottom: ${Dimens.small}px;
+  &:not(:last-child) {
+    margin-bottom: ${Dimens.small}px;
+  }
 `;
 
 const CautionText = styled(InlineText.Small)`
@@ -70,7 +72,6 @@ const CautionText = styled(InlineText.Small)`
 
 const SeparatedCautionWrapper = styled(CautionWrapper)`
   border-top: 1px solid ${Colors.borderGray};
-  text-align: center;
   padding-bottom: 0;
 `;
 
