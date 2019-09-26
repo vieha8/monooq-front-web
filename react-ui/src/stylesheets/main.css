@@ -233,35 +233,6 @@
 }
 
 /* 
-  TopView
- */
-@media (max-width: 1330px) {
-  .wrapTopView {
-    padding-top: 224px;
-  }
-  .container-topview::before {
-    top: -130px;
-    left: -4px;
-  }
-  .container-topview::after {
-    top: -130px;
-    right: 0px;
-  }
-}
-
-@media (max-width: 48em) {
-  .wrapTopView {
-    padding-top: 158px;
-  }
-}
-
-@media (max-width: 30em) {
-  .wrapTopView {
-    padding-top: 98px;
-  }
-}
-
-/* 
   Header Menu
  */
 .popup-content {
