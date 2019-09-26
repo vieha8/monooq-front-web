@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   max-width: 1200px;
   margin: ${Dimens.large}px auto;
   ${media.phone`
-    margin: ${Dimens.medium2_36}px ${Dimens.xxsmall_4}px;
+    margin: ${Dimens.medium2_36}px auto;
   `};
 `;
 

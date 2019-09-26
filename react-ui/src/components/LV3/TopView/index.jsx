@@ -47,7 +47,6 @@ const TopViewWrap = styled.div`
 `;
 
 const TopViewContainer = styled(ContainerDefault)`
-  min-width: 320px;
   position: relative;
   &:before {
     content: '';
