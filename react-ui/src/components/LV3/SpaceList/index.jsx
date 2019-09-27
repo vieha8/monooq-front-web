@@ -36,8 +36,8 @@ const Caption = styled.div`
 `;
 
 const CaptionSub = styled.div`
-  font-size: ${FontSizes.medium}px;
-  line-height: ${Dimens.medium}px;
+  font-size: ${FontSizes.small}px;
+  line-height: ${Dimens.small2_14}px;
   color: ${Colors.black2};
   margin-bottom: ${Dimens.medium2_32}px;
   ${media.phone`

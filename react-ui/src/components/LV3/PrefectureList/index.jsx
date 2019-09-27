@@ -10,7 +10,7 @@ import Button from 'components/LV1/Forms/Button';
 const Wrapper = styled.div`
   width: 100%;
   max-width: 1200px;
-  margin: ${Dimens.large}px auto;
+  margin: ${Dimens.large}px auto ${Dimens.medium3_44}px;
   ${media.phone`
     margin: ${Dimens.medium2_36}px auto;
   `};
@@ -63,7 +63,6 @@ const Caption = styled.div`
     margin: auto 12px ${Dimens.small}px;
   `};
   ${media.phone`
-    font-size: ${FontSizes.medium_18}px;
     margin-bottom: ${Dimens.small_10}px;
   `};
 `;

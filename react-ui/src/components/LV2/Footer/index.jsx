@@ -14,7 +14,7 @@ const Container = styled.footer`
   width: 100%;
   background-color: ${Colors.black4};
   border-top: 1px solid ${Colors.borderGray};
-  margin-top: 65px;
+  margin-top: ${Dimens.medium3_44}px;
   padding: 0px ${Dimens.medium2}px;
   ${props =>
     props.bottomMargin &&

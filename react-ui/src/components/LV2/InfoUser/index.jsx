@@ -9,6 +9,7 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import Tag from 'components/LV1/Texts/Tag';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { formatName } from 'helpers/string';
 
 const Container = styled.div`
   width: 100%;
@@ -65,7 +66,7 @@ export default ({ isHost, id, imageUrl, name }: PropTypes) => (
           <br />
         </Fragment>
       )}
-      <InlineText.Base bold>{name}</InlineText.Base>
+      <InlineText.Base bold>{`${formatName(name)}さん`}</InlineText.Base>
       <br />
       <LinkStyled to={Path.profileEdit()}>
         <InlineText.Base color={Colors.lightGray3} fontSize={12}>

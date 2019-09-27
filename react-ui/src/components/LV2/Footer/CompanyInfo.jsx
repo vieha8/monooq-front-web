@@ -16,11 +16,8 @@ const Wrapper = styled.div`
 `;
 
 const WrapLogo = styled(Link)`
-  width: 107px;
+  width: 112px;
   display: inline-flex;
-  ${media.tablet`
-    width: 112px;
-  `};
 `;
 
 const WrapList = styled.div`
@@ -39,7 +36,7 @@ export default () => (
   <Fragment>
     <Wrapper>
       <WrapLogo to={Path.top()}>
-        <ImageLogo.HeaderFill />
+        <ImageLogo.Header width={112} />
       </WrapLogo>
       <WrapList>&copy; MonooQ inc.</WrapList>
     </Wrapper>

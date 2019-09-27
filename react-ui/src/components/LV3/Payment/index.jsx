@@ -159,6 +159,7 @@ const Padding = styled.span`
 `;
 
 const CmnWrap = styled.div`
+  line-height: normal;
   margin: ${Dimens.medium_20}px;
   padding-top: ${Dimens.medium_20}px;
   border-top: 1px solid ${Colors.borderGray};
