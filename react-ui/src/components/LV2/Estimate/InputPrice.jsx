@@ -28,6 +28,7 @@ export default ({ onChange, value, errors }: PropTypes) => (
   <Fragment>
     <div>
       <InputForm
+        type="tel"
         label="お見積もり料金"
         placeholder="金額を入力してください。"
         unit="円"
