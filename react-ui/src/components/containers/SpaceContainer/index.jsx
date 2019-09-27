@@ -148,9 +148,17 @@ class SpaceContainer extends Component<PropTypes> {
     } = this.state;
     const isSelfSpace = user.id === (space.user || {}).id;
 
+    const isNoIndex = space.status !== 'public';
+
     return (
       <Fragment>
-        <Meta title={title} description={description} ogUrl={url} ogImageUrl={imageUrl} />
+        <Meta
+          title={title}
+          description={description}
+          ogUrl={url}
+          ogImageUrl={imageUrl}
+          noindex={isNoIndex}
+        />
         <Detail
           id={space.id}
           map={<SpaceMap lat={space.lat} lng={space.lng} />}
