@@ -52,6 +52,7 @@ type PropTypes = {
   onChange?: Function,
   hintbottom?: string,
   unit?: string,
+  className?: string,
 };
 
 export default ({
@@ -73,6 +74,7 @@ export default ({
   onChange,
   hintbottom,
   unit,
+  className,
 }: PropTypes) => (
   <Fragment>
     <H3 bold>{label}</H3>
@@ -95,6 +97,7 @@ export default ({
               placeholder={placeholder}
               value={value}
               onChange={onChange}
+              className={className}
             />
           ))}
       </InputFieldWrapper>
