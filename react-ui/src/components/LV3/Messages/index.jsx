@@ -57,17 +57,21 @@ const ButtonWrapper = styled.div`
 const CautionWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: ${Dimens.medium1}px ${Dimens.small}px;
 `;
 
-const CautionText = styled(InlineText.Tiny)`
-  margin-bottom: ${Dimens.xsmall}px;
+const CautionWrapperItem = styled.div`
+  &:not(:last-child) {
+    margin-bottom: ${Dimens.small}px;
+  }
+`;
+
+const CautionText = styled(InlineText.Small)`
+  margin-bottom: ${Dimens.small2}px;
 `;
 
 const SeparatedCautionWrapper = styled(CautionWrapper)`
   border-top: 1px solid ${Colors.borderGray};
-  text-align: center;
   padding-bottom: 0;
 `;
 
@@ -343,9 +347,54 @@ export default ({
       )}
       <CautionWrapper>
         <CautionText>モノオクではサービス外のお支払いや現金取引は禁止です。</CautionText>
-        <TextLink to={Path.rule()} fontSize={11} target="_blank" rel="noopener noreferrer">
-          ルールとマナーを読む
-        </TextLink>
+        <CautionWrapperItem>
+          <TextLink
+            href="https://help.monooq.com/ja/articles/2948108-%E3%83%9B%E3%82%B9%E3%83%88%E3%81%A8%E3%81%AE%E3%82%84%E3%82%8A%E5%8F%96%E3%82%8A%E3%81%AF%E3%81%A9%E3%81%86%E3%82%84%E3%81%A3%E3%81%A6%E9%80%B2%E3%82%81%E3%82%8B%E3%81%AE"
+            fontSize={14}
+            fontsizesp={14}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gaMessageBottomFlowLink"
+          >
+            取引完了までの流れ
+          </TextLink>
+        </CautionWrapperItem>
+        <CautionWrapperItem>
+          <TextLink
+            href="https://help.monooq.com/ja/articles/3368023-%E5%BF%85%E8%A6%81%E3%81%AA%E7%95%B3%E6%95%B0%E3%81%AE%E7%9B%AE%E5%AE%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"
+            fontSize={14}
+            fontsizesp={14}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gaMessageBottomBreadthLink"
+          >
+            必要な広さの目安
+          </TextLink>
+        </CautionWrapperItem>
+        <CautionWrapperItem>
+          <TextLink
+            href="https://help.monooq.com/ja/"
+            fontSize={14}
+            fontsizesp={14}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gaMessageBottomQuestionLink"
+          >
+            よくある質問
+          </TextLink>
+        </CautionWrapperItem>
+        <CautionWrapperItem>
+          <TextLink
+            to={Path.rule()}
+            fontSize={14}
+            fontsizesp={14}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gaMessageBottomRuleLink"
+          >
+            ルールとマナー
+          </TextLink>
+        </CautionWrapperItem>
       </CautionWrapper>
       <SeparatedCautionWrapper>
         <CautionText>
