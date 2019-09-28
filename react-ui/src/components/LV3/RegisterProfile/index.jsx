@@ -24,7 +24,18 @@ const regsiterProfileImage = (imagePreview, image, onChangeImage) => {
   );
 };
 
-const inputForm = (label, hint, placeholder, onChange, value, multiline, rows, type, extension) => {
+const inputForm = (
+  label,
+  hint,
+  placeholder,
+  onChange,
+  value,
+  multiline,
+  rows,
+  type,
+  extension,
+  className,
+) => {
   return (
     <InputForm
       label={label}
@@ -36,17 +47,19 @@ const inputForm = (label, hint, placeholder, onChange, value, multiline, rows, t
       rows={rows}
       type={type}
       extension={extension}
+      className={className}
     />
   );
 };
 
-const selectForm = (onChangeArea, prefCode) => {
+const selectForm = (onChangeArea, prefCode, className) => {
   return (
     <Select
       label="お住いの地域"
       options={selectOptionPrefectures('選択してください')}
       onChange={e => onChangeArea(e.target.value)}
       value={prefCode}
+      className={className}
     />
   );
 };
@@ -125,6 +138,7 @@ export default ({
       0,
       '',
       regsiterProfileImage(imagePreview, image, onChangeImage),
+      'gaSignupImage',
     )}
     name={inputForm(
       'お名前',
@@ -136,8 +150,9 @@ export default ({
       0,
       '',
       '',
+      'gaSignupName',
     )}
-    prefCode={selectForm(onChangeArea, prefCode)}
+    prefCode={selectForm(onChangeArea, prefCode, 'gaSignupPref')}
     profile={inputForm(
       '自己紹介',
       '',
@@ -148,6 +163,7 @@ export default ({
       10,
       '',
       '',
+      'gaSignupProfile',
     )}
     phoneNumber={inputForm(
       '電話番号',
@@ -159,6 +175,7 @@ export default ({
       0,
       'tel',
       '',
+      'gaSignupPhoneNumber',
     )}
     button={buttonEntry(buttonDisabled, buttonLoading, onClickSkip, onClickRegisterProfile)}
   />
