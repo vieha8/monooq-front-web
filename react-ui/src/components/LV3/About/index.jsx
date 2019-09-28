@@ -9,14 +9,103 @@ import ContainerDefault from 'components/LV1/ContainerDefault';
 import Footer from 'components/LV2/Footer';
 import WhenIUseList from 'components/LV2/Lists/WhenIUseList';
 import WhenIUseCardList from 'components/LV2/Lists/WhenIUseCardList';
-import mainVisual from 'images/about_main_visual@2x.jpg';
-import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';
 import moneyMetapher from 'images/money_metapher@2x.png';
 import scheduleMetapher from 'images/schedule_metapher@2x.png';
 import timeMetapher from 'images/time_metapher@2x.png';
 import beginner from 'images/beginner@2x.png';
 import guarantee from 'images/guarantee@2x.png';
 import ruleManner from 'images/rule_manner@2x.png';
+import howtouseEyeCatch from 'images/about_eye_catch@2x.png';
+
+const TopWrapper = styled.div`
+  position: relative;
+  top: -84px;
+  height: 620px;
+  color: ${Colors.black};
+  margin-bottom: 16px;
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 70%;
+    height: 325px
+    background: ${Colors.lightGray1Bg};
+    z-index: -2;
+  }
+  ${media.phone`
+    top: -54px;
+    width: 100%;
+    height: 410px;
+    margin-bottom: 0;
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+      height: 200px;
+    }
+  `};
+`;
+
+const TopEyeCatch = styled.img`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70%;
+  z-index: -1;
+  ${media.phone`
+    width: 100%;
+  `};
+`;
+
+const TopMessageContent = styled.div`
+  position: absolute;
+  top: 210px;
+  right: 50%;
+  height: 311px;
+  width: 549px;
+  padding: 56px 30px 40px 30px;
+  background-color: ${Colors.white};
+  ${media.phone`
+    top: 181px;
+    left: 5%;
+    width: 90%;
+    height: initial;
+    text-align: center;
+    padding: 24px;
+  `};
+`;
+
+const TopSubTitle = styled.div`
+  color: ${Colors.brandPrimary};
+  font-size: ${FontSizes.medium_18}px;
+  line-height: 27px;
+  margin-bottom: 8px;
+  ${media.phone`
+    font-size: ${FontSizes.small}px;
+    line-height: 24px;
+  `}
+`;
+
+const TopTitle = styled.div`
+  font-size: 40px;
+  line-height: 48px;
+  margin-bottom: 12px;
+  ${media.phone`
+    font-size: ${FontSizes.medium2}px;
+    line-height: 32px;
+  `}
+`;
+
+const TopDescription = styled.div`
+  font-size: ${FontSizes.medium}px;
+  line-height: 24px;
+  ${media.phone`
+    font-size: ${FontSizes.small_12}px;
+    line-height: 20px;
+  `}
+`;
 
 const AttentionWord = styled.div`
   font-size: ${FontSizes.medium_18}px;
@@ -43,91 +132,14 @@ const MainContainer = styled.div`
   `};
 `;
 
-const TopContainer = styled.div`
-  height: 500px;
-  background-image: url(${mainVisual});
-  background-size: cover;
-  color: ${Colors.white};
-  text-align: center;
-  ${media.phone`
-    height: 100%;
-    background-position: 60% 0;
-    background-image: url(${mainVisualSP});
-  `};
-`;
-
-const TopTransparency = styled.div`
-  height: 500px;
-  padding: 100px 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  ${media.phone`
-    padding: 40px 8vw 80px;
-  `};
-`;
-
-const TopTitle = styled.div`
-  font-size: ${FontSizes.xlarge}px;
-  line-height: ${FontSizes.xlarge * 1.5}px;
-  margin-bottom: 20px;
-  ${media.phone`
-    font-size: 8vw;
-    line-height: 16vw;
-  `};
-`;
-
-const TopText = styled.div`
-  font-size: ${FontSizes.medium3}px;
-  line-height: ${FontSizes.medium3 * 1.75}px;
-  margin-bottom: 30px;
-  width: 480px;
-  ${media.phone`
-    font-size: 5vw;
-    line-height: 10vw;
-    width: 84vw;
-  `};
-`;
-
-const TopLabelWrapper = styled.div`
-  width: 434px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  ${media.phone`
-    width: 100%;
-  `};
-`;
-
-const TopLabel = styled.div`
-  height: 40px;
-  width: 212px;
-  border-radius: 2px;
-  background-color: ${Colors.brandTerciary};
-  font-size: ${FontSizes.medium}px;
-  line-height: 40px;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
-  ${media.phone`
-    width: 100%;
-  `};
-`;
-
 const WhenIUseContainer = styled(ContainerDefault)`
   padding-top: 50px;
   text-align: center;
-  ${media.phone`
-    padding-top: 20px;
-  `};
 `;
 
 const WhenIUseContent = styled.div`
-  margin-top: 124px;
   margin-bottom: 124px;
   ${media.phone`
-    margin-top: 32px;
     margin-bottom: 32px;
   `};
 `;
@@ -176,20 +188,26 @@ const QuestionItem = styled.div`
 
 const Answer = styled.div``;
 
+const HeaderContainer = ({ title, subtitle, description, eyeCatchImage }: HeaderPropTypes) => (
+  <TopWrapper>
+    <TopEyeCatch src={eyeCatchImage} />
+    <TopMessageContent>
+      <TopSubTitle>{subtitle}</TopSubTitle>
+      <TopTitle>{title}</TopTitle>
+      <TopDescription>{description}</TopDescription>
+    </TopMessageContent>
+  </TopWrapper>
+);
+
 export default () => (
   <Fragment>
     <MainContainer>
-      <TopContainer>
-        <TopTransparency>
-          <TopTitle>はじめての方へ</TopTitle>
-          <TopText>モノオクは空きスペースを活用する、物置きシェアサービスです。</TopText>
-          <TopLabelWrapper>
-            {['安心の料金', '面倒な手続きが不要', '拠点数が多い', '1ヶ月だけでもOK'].map((v, i) => (
-              <TopLabel key={i.toString()}>{v}</TopLabel>
-            ))}
-          </TopLabelWrapper>
-        </TopTransparency>
-      </TopContainer>
+      <HeaderContainer
+        title="スキマ空間を活用する　　スペースシェアサービス"
+        subtitle="モノオクとは？"
+        description="「手頃な物置がない。来月には引越しなのに...」 モノオクは、置き場所に困った荷物と持て余した空き部屋を繋ぐスペースシェアサービスです。"
+        eyeCatchImage={howtouseEyeCatch}
+      />
 
       <WhenIUseContainer>
         <WhenIUseContent>
