@@ -13,47 +13,41 @@ import useImage4 from 'images/about_use4@2x.jpg';
 import useImage5 from 'images/about_use5@2x.jpg';
 import useImage6 from 'images/about_use6@2x.jpg';
 
-import WhenIUseList from './index';
+import WhenIUseCardList from './index';
 
-WhenIUseList.displayName = 'WhenIUseList';
+WhenIUseCardList.displayName = 'WhenIUseCardList';
 
-storiesOf('Molecules(LV2)/Lists/WhenIUseList', module).add(
+storiesOf('Molecules(LV2)/Lists/WhenIUseCardList', module).add(
   'Normal',
   withInfo(`
       ### コンポーネント概要
       利用例リスト
     `)(() => (
     <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-      <WhenIUseList
+      <WhenIUseCardList
         list={[
           {
             image: useImage1,
-            title: '引っ越しに',
             text: '引越しで一時的に荷物を置きたい。',
           },
           {
             image: useImage2,
-            title: 'リフォームに',
             text: '自宅リフォーム中の家具を置く場所がない。',
           },
           {
             image: useImage3,
-            title: '転機に',
             text: '出張・転勤・留学で荷物の保管をしたい。',
           },
           {
             image: useImage4,
-            title: '仕事に',
             text: '仕事場をもっと広く使いたい。',
           },
           {
             image: useImage5,
-            title: 'リーズナブルに',
             text: '費用の高いトランクルームの代わりに。',
           },
           {
             image: useImage6,
-            title: '快適に',
             text: '生活空間を広げるため。',
           },
         ]}

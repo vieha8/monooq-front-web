@@ -2,11 +2,12 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { media } from 'helpers/style/media-query';
-import { FontSizes, Dimens } from 'variables';
+import { FontSizes, Colors, Dimens } from 'variables';
 import Text from 'components/LV1/Texts/TextStatic';
 
-const WhenIUseContentWrapper = styled.div`
+const WhenIUseCardContentWrapper = styled.div`
   width: 90%;
   margin: auto;
   display: flex;
@@ -19,18 +20,35 @@ const WhenIUseWrap = styled.div`
   margin-bottom: ${Dimens.medium_20}px;
   ${media.phone`
     width: 100%;
-    margin-bottom: ${Dimens.medium2_36}px;
   `};
 `;
 
 const Title = styled.div`
   font-size: ${FontSizes.medium1}px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 `;
 
 const ContentImage = styled.img`
-  width: 50%;
+  width: 100%;
   margin-bottom: ${Dimens.small_10}px;
+`;
+
+const SubTitle = styled.div`
+  font-size: ${FontSizes.small_12}px;
+  color: ${Colors.lightGray3};
+  margin-top: 6px;
+  margin-bottom: 6px;
+`;
+
+const Button = styled.div`
+  font-size: ${FontSizes.small}px;
+  line-height: ${FontSizes.small * 1.5}px;
+  padding: 8px;
+  color: ${Colors.brandPrimary};
+  border: 2px solid ${Colors.brandPrimary};
+  box-sizing: border-box;
+  border-radius: 3px;
+  margin-top: 16px;
 `;
 
 type PropTypes = {
@@ -41,13 +59,17 @@ type PropTypes = {
 };
 
 export default ({ list }: PropTypes) => (
-  <WhenIUseContentWrapper>
+  <WhenIUseCardContentWrapper>
     {list.map((item, i) => (
       <WhenIUseWrap key={i.toString()}>
         <ContentImage src={item.image} />
+        <SubTitle>{item.subTitle}</SubTitle>
         <Title>{item.title}</Title>
-        <Text fontSize={FontSizes.small}>{item.text}</Text>
+        <Text fontSize={FontSizes.small_13}>{item.text}</Text>
+        <Link to={item.buttonLink}>
+          <Button>{item.buttonText}</Button>
+        </Link>
       </WhenIUseWrap>
     ))}
-  </WhenIUseContentWrapper>
+  </WhenIUseCardContentWrapper>
 );
