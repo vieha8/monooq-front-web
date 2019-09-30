@@ -52,7 +52,7 @@ const MainTitleStyled = styled(MainTitle)`
 export type PropTypes = {
   mainTitle: string,
   mainTitleSub?: string,
-  text?: string,
+  text?: string | component,
   isHr?: boolean,
   noMarginTop?: boolean,
   fontSizeSp?: number,

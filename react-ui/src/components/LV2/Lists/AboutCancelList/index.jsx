@@ -1,9 +1,11 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
+
+const Wrap = styled.div``;
 
 const ContentContainer = styled.div`
   width: 100%;
@@ -25,6 +27,7 @@ const ContentContainer = styled.div`
     box-sizing: border-box;
   `};
 `;
+
 const Header = styled.div`
   width: 178.22px;
   font-weight: bold;
@@ -36,6 +39,7 @@ const Header = styled.div`
     line-height: 2;
   `};
 `;
+
 const Data = styled.div`
   display: table-cell;
   ${media.phone`
@@ -43,6 +47,7 @@ const Data = styled.div`
     line-height: 2;
   `};
 `;
+
 export type PropTypes = {
   cancelContentList: Array<{
     header: string,
@@ -51,12 +56,12 @@ export type PropTypes = {
 };
 
 export default ({ cancelContentList }: PropTypes) => (
-  <Fragment>
+  <Wrap>
     {cancelContentList.map((item, i) => (
       <ContentContainer key={i.toString()}>
         <Header>{item.header}</Header>
         <Data>{item.data}</Data>
       </ContentContainer>
     ))}
-  </Fragment>
+  </Wrap>
 );
