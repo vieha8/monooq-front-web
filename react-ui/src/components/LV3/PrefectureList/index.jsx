@@ -30,13 +30,18 @@ const WrapList = styled.ul`
   background-color: white;
   box-shadow: 0px 0px ${Dimens.small2}px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  ${media.tablet`
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  box-shadow: none;
+  padding: 0px;
+  ${'' /* ${media.tablet`
     display: block;
     overflow-x: auto;
     white-space: nowrap;
     box-shadow: none;
     padding: 0px;
-  `};
+  `}; */}
 `;
 
 const WrapItem = styled.li`
@@ -45,12 +50,16 @@ const WrapItem = styled.li`
   &:not(:first-child) {
     margin-left: ${Dimens.small2}px;
   }
-  ${media.tablet`
+  width: auto;
+  &:not(:first-child) {
+    margin-left: -${Dimens.small2}px;
+  }
+  ${'' /* ${media.tablet`
     width: auto;
     &:not(:first-child) {
       margin-left: -${Dimens.small2}px;
     }
-  `};
+  `}; */}
 `;
 
 const Caption = styled.div`
@@ -59,9 +68,10 @@ const Caption = styled.div`
   line-height: ${Dimens.medium1}px;
   color: ${Colors.black2};
   margin-bottom: ${Dimens.medium2_32}px;
-  ${media.tablet`
+  margin: auto 12px ${Dimens.small}px;
+  ${'' /* ${media.tablet`
     margin: auto 12px ${Dimens.small}px;
-  `};
+  `}; */}
   ${media.phone`
     margin-bottom: ${Dimens.small_10}px;
   `};
@@ -73,7 +83,15 @@ const Wrap = styled.ul`
   &:not(:first-child) {
     margin-left: ${Dimens.small2}px;
   }
-  ${media.tablet`
+  width: 252px;
+  max-width: 100%;
+  height: 241px;
+  padding: 20px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0px 0px ${Dimens.small2}px rgba(0, 0, 0, 0.1);
+  margin: ${Dimens.small2}px ${Dimens.small2}px ${Dimens.medium_20}px;
+  ${'' /* ${media.tablet`
     width: 252px;
     max-width: 100%;
     height: 241px;
@@ -82,18 +100,23 @@ const Wrap = styled.ul`
     border-radius: 8px;
     box-shadow: 0px 0px ${Dimens.small2}px rgba(0, 0, 0, 0.1);
     margin: ${Dimens.small2}px ${Dimens.small2}px ${Dimens.medium_20}px;
-  `};
+  `}; */}
 `;
 
 const WrapButton = styled.li`
   margin-top: ${Dimens.xxsmall_4}px;
-  ${media.tablet`
+  float: left;
+  width: calc(50% - 2px);
+  &:nth-child(2n) {
+    margin-right: ${Dimens.xxsmall_4}px;
+  }
+  ${'' /* ${media.tablet`
     float: left;
     width: calc(50% - 2px);
     &:nth-child(2n) {
       margin-right: ${Dimens.xxsmall_4}px;
     }
-  `};
+  `}; */}
 `;
 
 const WrapRegion = styled.div`
