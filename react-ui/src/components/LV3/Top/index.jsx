@@ -71,18 +71,6 @@ const getSpaceData = () => {
 const getPrefectureList = () => {
   return [
     {
-      region: '関東',
-      prefectureList: [
-        { name: '東京', link: '1' },
-        { name: '神奈川', link: '2' },
-        { name: '埼玉', link: '3' },
-        { name: '千葉', link: '4' },
-        { name: '茨城', link: '5' },
-        { name: '群馬', link: '6' },
-        { name: '栃木', link: '7' },
-      ],
-    },
-    {
       region: '北海道・東北',
       prefectureList: [
         { name: '北海道', link: '1' },
@@ -92,6 +80,18 @@ const getPrefectureList = () => {
         { name: '秋田', link: '5' },
         { name: '山形', link: '6' },
         { name: '福島', link: '7' },
+      ],
+    },
+    {
+      region: '関東',
+      prefectureList: [
+        { name: '東京', link: '1' },
+        { name: '神奈川', link: '2' },
+        { name: '埼玉', link: '3' },
+        { name: '千葉', link: '4' },
+        { name: '茨城', link: '5' },
+        { name: '群馬', link: '6' },
+        { name: '栃木', link: '7' },
       ],
     },
     {
