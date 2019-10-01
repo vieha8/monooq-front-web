@@ -111,6 +111,9 @@ const Sales = loadable(() =>
 const About = loadable(() =>
   import('components/containers/AboutContainer').catch(() => window.location.reload()),
 );
+const HowToUse = loadable(() =>
+  import('components/containers/HowToUseContainer').catch(() => window.location.reload()),
+);
 const Insurance = loadable(() =>
   import('components/containers/InsuranceContainer').catch(() => window.location.reload()),
 );
@@ -169,6 +172,7 @@ export default ({ history }) => (
       <Route exact path={Path.unsubscribe()} component={Unsubscribe} />
       <Route exact path={Path.sales()} component={Sales} />
       <Route exact path={Path.about()} component={About} />
+      <Route exact path={Path.howtouse()} component={HowToUse} />
       <Route exact path={Path.insurance()} component={Insurance} />
       <Route exact path={Path.rule()} component={Rule} />
       <Route exact path={Path.cancelPolicy()} component={CancelPolicy} />

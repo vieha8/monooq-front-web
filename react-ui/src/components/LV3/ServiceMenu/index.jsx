@@ -18,6 +18,7 @@ type PropTypes = {
   signupUrl: MenuItemProps,
   loginUrl: MenuItemProps,
   top: MenuItemProps,
+  about: MenuItemProps,
   isLogin: boolean,
   isSchedule?: boolean,
   schedule: MenuItemProps,
@@ -26,6 +27,7 @@ type PropTypes = {
   spaces: MenuItemProps,
   sales: MenuItemProps,
   inquiry: MenuItemProps,
+  howtouse: MenuItemProps,
   help: MenuItemProps,
   logoutEvent: Function,
 };
@@ -37,6 +39,7 @@ export default ({
   signupUrl,
   loginUrl,
   top,
+  about,
   isLogin,
   isSchedule,
   schedule,
@@ -45,6 +48,7 @@ export default ({
   spaces,
   sales,
   inquiry,
+  howtouse,
   help,
   logoutEvent,
 }: PropTypes) => (
@@ -73,9 +77,9 @@ export default ({
     {isLogin ? (
       <MenuItem title="トップページ" {...top} />
     ) : (
-      <MenuItem title="モノオクとは？(未実装)" {...top} />
+      <MenuItem title="モノオクとは？" {...about} />
     )}
-    <MenuItem title="利用の流れ(未実装)" {...inquiry} />
+    <MenuItem title="利用の流れ" {...howtouse} />
     <MenuItem title="よくある質問" {...help} blank />
     <MenuItem title="お問い合わせ" {...inquiry} />
     {isLogin && <MenuItem title="ログアウト" {...logoutEvent} blank logout />}

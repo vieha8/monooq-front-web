@@ -118,6 +118,8 @@ class HeaderContainer extends Component<PropTypes> {
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} />}
         loginUrl={Path.login()}
         signupUrl={Path.signUp()}
+        aboutUrl={Path.about()}
+        howtouseUrl={Path.howtouse()}
         helpUrl="https://help.monooq.com/"
         addSpace={{
           to: Path.createSpaceInfo(),

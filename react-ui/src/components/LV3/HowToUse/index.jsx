@@ -4,7 +4,6 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Footer from 'components/LV2/Footer';
 import howtouseEyeCatch from 'images/howtouse_eye_catch@2x.png';
 import howtouse01 from 'images/howtouse_01@2x.png';
 import howtouse02 from 'images/howtouse_02@2x.png';
@@ -23,7 +22,7 @@ const TopWrapper = styled.div`
     bottom: 0px;
     right: 0px;
     width: 70%;
-    height: 325px
+    height: 325px;
     background: ${Colors.lightGray1Bg};
     z-index: -2;
   }
@@ -67,66 +66,66 @@ const TopMessageContent = styled.div`
     width: 90%;
     height: initial;
     text-align: center;
-    padding: 24px;
+    padding: ${Dimens.medium1}px;
   `};
 `;
 
 const TopSubTitle = styled.div`
   color: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium_18}px;
-  line-height: 27px;
-  margin-bottom: 8px;
+  line-height: ${Dimens.medium1_28}px;
+  margin-bottom: ${Dimens.small}px;
   ${media.phone`
     font-size: ${FontSizes.small}px;
-    line-height: 24px;
+    line-height: ${Dimens.medium1}px;
   `}
 `;
 
 const TopTitle = styled.div`
-  font-size: 40px;
-  line-height: 48px;
-  margin-bottom: 12px;
+  font-size: ${FontSizes.xxxlarge}px;
+  line-height: ${Dimens.medium4}px;
+  margin-bottom: ${Dimens.small2}px;
   ${media.phone`
     font-size: ${FontSizes.medium2}px;
-    line-height: 32px;
+    line-height: ${Dimens.medium2_32}px;
   `}
 `;
 
 const TopDescription = styled.div`
   font-size: ${FontSizes.medium}px;
-  line-height: 24px;
+  line-height: ${Dimens.medium1}px;
   ${media.phone`
     font-size: ${FontSizes.small_12}px;
-    line-height: 20px;
+    line-height: ${Dimens.medium_20}px;
   `}
 `;
 
 const MainContainer = styled.div`
   min-width: ${Dimens.fixedWidthPc + 32}px;
   text-align: center;
-  margin-bottom: 80px;
+  margin-bottom: ${Dimens.large4_80}px;
   ${media.phone`
     min-width: auto;
-    margin-bottom: 48px;
+    margin-bottom: ${Dimens.medium4}px;
   `};
 `;
 
 const Attention = styled.div`
   color: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium_18}px;
-  margin-bottom: 12px;
+  margin-bottom: ${Dimens.small2}px;
   ${media.phone`
     font-size: ${FontSizes.small}px;
-    margin-bottom: 8px;
+    margin-bottom: ${Dimens.small}px;
   `};
 `;
 
 const Headline = styled.div`
-  font-size: 40px;
-  margin-bottom: 48px;
+  font-size: ${FontSizes.xxxlarge}px;
+  margin-bottom: ${Dimens.medium4}px;
   ${media.phone`
     font-size: ${FontSizes.medium2}px;
-    margin-bottom: 44px;
+    margin-bottom: ${Dimens.medium3_44}px;
   `};
 `;
 
@@ -157,10 +156,10 @@ const ContentWrapper = styled.div`
   position: relative;
   width: 523px;
   height: 422px;
-  margin: ${Dimens.medium_18}px 10px;
-  padding-left: 24px;
+  margin: ${Dimens.medium_18}px ${Dimens.small_10}px;
+  padding-left: ${Dimens.medium1}px;
   &:nth-child(2) {
-    margin-top: 64px;
+    margin-top: ${Dimens.large2}px;
   }
   ${media.phone`
     width: 100%;
@@ -200,7 +199,7 @@ const ContentNo = styled.div`
 const ContentText = styled.div`
   position: absolute;
   top: 252px;
-  left: 40px;
+  left: ${Dimens.medium3_40}px
   padding: 25px 36px 24px 81px;
   width: 477px;
   height: 150px;
@@ -210,18 +209,18 @@ const ContentText = styled.div`
   ${media.phone`
     width: 100%;
     left: 0px;
-    padding: 20px 10px;
+    padding: ${Dimens.medium_20}px ${Dimens.small_10}px;
   `}
 `;
 
 const ContentTitle = styled.div`
   font-size: ${FontSizes.medium1}px;
-  color: #e85258;
-  margin-bottom: 12px;
+  color: ${Colors.brandPrimary};
+  margin-bottom: ${Dimens.small2}px;
 `;
 
 const ContentDetail = styled.div`
-  font-size: 14px;
+  font-size: ${FontSizes.small}px;
 `;
 
 type HeaderPropTypes = {
@@ -301,6 +300,5 @@ export default () => (
         />
       </HowToUseContentRow>
     </MainContainer>
-    <Footer />
   </Fragment>
 );

@@ -71,6 +71,7 @@ export default {
   reportSpace: () => '/report/space',
   // 静的ページ
   about: () => '/about',
+  howtouse: () => '/howtouse',
   insurance: () => '/insurance',
   rule: () => '/rule',
   pageNotFound: () => '/notfound',

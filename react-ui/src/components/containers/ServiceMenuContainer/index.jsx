@@ -58,6 +58,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
           signupUrl={{ to: Path.signUp() }}
           loginUrl={{ to: Path.login() }}
           top={{ to: Path.top() }}
+          about={{ to: Path.about() }}
           schedule={{ to: Path.schedule() }}
           spaces={{ to: Path.spaces() }}
           addSpace={{
@@ -66,6 +67,7 @@ class ServiceMenuContainer extends Component<PropTypes> {
           }}
           sales={{ to: Path.sales() }}
           paymentHistory={{ to: Path.paid() }}
+          howtouse={{ to: Path.howtouse() }}
           help={{ href: 'https://help.monooq.com/' }}
           inquiry={{ to: Path.inquiry() }}
           userId={user.id}

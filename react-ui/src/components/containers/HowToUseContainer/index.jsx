@@ -10,4 +10,6 @@ class HowToUseContainer extends Component<*> {
   }
 }
 
-export default ContentPageStatic(HowToUseContainer);
+export default ContentPageStatic(HowToUseContainer, {
+  maxWidth: true,
+});

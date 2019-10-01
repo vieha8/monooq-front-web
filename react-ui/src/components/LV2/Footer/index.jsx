@@ -85,8 +85,7 @@ export default ({ bottomMargin }: PropTypes) => (
           <ListItem
             list={[
               { name: 'モノオクとは？', link: Path.about() },
-              { name: '利用の流れ(未実装)', href: 'https://help.monooq.com/', blank: true },
-              { name: 'ホスト案内(未実装)', link: '3' },
+              { name: '利用の流れ', link: Path.howtouse() },
               { name: 'よくある質問', href: 'https://help.monooq.com/', blank: true },
               { name: 'お問い合わせ', link: Path.inquiry() },
               { name: 'ルールとマナー', link: Path.rule() },

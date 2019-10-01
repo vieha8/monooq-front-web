@@ -18,7 +18,7 @@ type PropTypes = {
 };
 
 export default (WrappedComponent, option): PropTypes => {
-  return class ContentPageStaticComponent extends Component {
+  return class ContentPageMenuComponent extends Component {
     render() {
       return (
         <Fragment>

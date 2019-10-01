@@ -181,16 +181,16 @@ const trigger = imageUrl => {
   );
 };
 
-const menuCommon = (signupUrl, helpUrl) => {
+const menuCommon = (aboutUrl, howtouseUrl, helpUrl) => {
   return (
     <OnlyPC>
       <TextWrapper>
-        <TextLink href={signupUrl} color={Colors.black}>
+        <TextLink href={aboutUrl} color={Colors.black}>
           モノオクとは？
         </TextLink>
       </TextWrapper>
       <TextWrapper>
-        <TextLink href={signupUrl} color={Colors.black}>
+        <TextLink href={howtouseUrl} color={Colors.black}>
           利用の流れ
         </TextLink>
       </TextWrapper>
@@ -221,6 +221,8 @@ type PropTypes = {
   spMenu: React.Element<*>,
   loginUrl: string,
   signupUrl: string,
+  aboutpUrl: string,
+  howtouseUrl: string,
   helpUrl: string,
   addSpace: MenuItemProps,
   spaces: MenuItemProps,
@@ -243,6 +245,8 @@ export default ({
   spMenu,
   loginUrl,
   signupUrl,
+  aboutUrl,
+  howtouseUrl,
   helpUrl,
   addSpace,
   spaces,
@@ -261,7 +265,7 @@ export default ({
           <ActionWrapper>
             {user ? (
               <ActionContainer>
-                {menuCommon(signupUrl, helpUrl)}
+                {menuCommon(aboutUrl, howtouseUrl, helpUrl)}
                 <SearchFiledCell>
                   <ImageMenuHeader iconRight messageUrl={messageUrl} messageCount={messageCount} />
                 </SearchFiledCell>
@@ -297,7 +301,7 @@ export default ({
               </ActionContainer>
             ) : (
               <ActionContainer>
-                {menuCommon(signupUrl, helpUrl)}
+                {menuCommon(aboutUrl, howtouseUrl, helpUrl)}
                 <AnonymouseWrapper>
                   <OnlyPhone>
                     <ActionCell noCursol>{spMenu}</ActionCell>

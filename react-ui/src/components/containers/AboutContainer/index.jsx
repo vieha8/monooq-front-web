@@ -10,4 +10,6 @@ class AboutContainer extends React.Component {
   }
 }
 
-export default ContentPageStatic(AboutContainer);
+export default ContentPageStatic(AboutContainer, {
+  maxWidth: true,
+});

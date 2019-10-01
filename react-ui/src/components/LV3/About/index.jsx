@@ -21,7 +21,7 @@ const TopWrapper = styled.div`
   top: -84px;
   height: 620px;
   color: ${Colors.black};
-  margin-bottom: 16px;
+  margin-bottom: ${Dimens.medium}px;
   &:after {
     content: '';
     position: absolute;
@@ -72,7 +72,7 @@ const TopMessageContent = styled.div`
     width: 90%;
     height: initial;
     text-align: center;
-    padding: 24px;
+    padding: ${Dimens.medium1}px;
   `};
 `;
 
@@ -83,26 +83,26 @@ const TopSubTitle = styled.div`
   margin-bottom: 8px;
   ${media.phone`
     font-size: ${FontSizes.small}px;
-    line-height: 24px;
+    line-height: ${Dimens.medium1}px;
   `}
 `;
 
 const TopTitle = styled.div`
-  font-size: 40px;
-  line-height: 48px;
-  margin-bottom: 12px;
+  font-size: ${FontSizes.xxlarge_40}px;
+  line-height: ${Dimens.medium4}px;
+  margin-bottom: ${Dimens.small2}px;
   ${media.phone`
     font-size: ${FontSizes.medium2}px;
-    line-height: 32px;
+    line-height: ${Dimens.medium2_32}px;
   `}
 `;
 
 const TopDescription = styled.div`
   font-size: ${FontSizes.medium}px;
-  line-height: 24px;
+  line-height: ${Dimens.medium1}px;
   ${media.phone`
     font-size: ${FontSizes.small_12}px;
-    line-height: 20px;
+    line-height: ${Dimens.medium_20}px;
   `}
 `;
 
@@ -115,12 +115,12 @@ const AttentionWord = styled.div`
 const SubTitle = styled.div`
   font-size: ${FontSizes.xxlarge}px;
   line-height: ${FontSizes.xxlarge * 1.5}px;
-  margin-bottom: 45px;
+  margin-bottom: ${Dimens.medium3_45}px;
   ${media.phone`
     font-size: 6vw;
     line-height: 9vw;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: ${Dimens.medium_20}px;
   `};
 `;
 
@@ -132,7 +132,7 @@ const MainContainer = styled.div`
 `;
 
 const WhenIUseContainer = styled(ContainerDefault)`
-  padding-top: 50px;
+  padding-top: ${Dimens.medium4_50}px;
   text-align: center;
 `;
 
