@@ -28,13 +28,15 @@ const WrapList = styled.ul`
   display: flex;
   padding: ${Dimens.medium3_40}px;
   background-color: white;
-  box-shadow: 0px 0px ${Dimens.small2}px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
   border-radius: 8px;
   display: block;
   overflow-x: auto;
   white-space: nowrap;
-  box-shadow: none;
-  padding: 0px;
+  padding: ${Dimens.small2}px 0px;
+  ::-webkit-scrollbar-thumb {
+    background-color: ${Colors.lightGray6};
+  }
 `;
 
 const WrapItem = styled.li`
@@ -75,6 +77,12 @@ const Wrap = styled.ul`
   border-radius: 8px;
   box-shadow: 0px 0px ${Dimens.small2}px rgba(0, 0, 0, 0.1);
   margin: ${Dimens.small2}px ${Dimens.small2}px ${Dimens.medium_20}px;
+  transition: 0.2s;
+  &:hover {
+    transition: 0.2s;
+    transform: scale(1.1);
+    margin: ${Dimens.small2}px ${Dimens.medium1_25}px ${Dimens.medium_20}px;
+  }
 `;
 
 const WrapButton = styled.li`

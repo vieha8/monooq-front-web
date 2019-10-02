@@ -68,7 +68,7 @@ export default ({ isTag, caption, captionSub, spaceList }: PropTypes) => (
               Space.Images.length !== 0
                 ? convertImgixUrl(
                     Space.Images[0].ImageUrl,
-                    'fit=fillmax&fill-color=DBDBDB&w=340&h=240&auto=format',
+                    'fit=crop&fill-color=DBDBDB&w=600&h=400&auto=format',
                   )
                 : dummySpaceImage,
             title: Space.Title,
