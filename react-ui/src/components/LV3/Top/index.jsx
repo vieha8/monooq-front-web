@@ -182,7 +182,7 @@ export default ({
     {!story && <Header top />}
     <TopView
       catchPhrase={getCatchPhrase()}
-      catchPhraseSub="スキマ空間のシェアサービス「モノオク」"
+      catchPhraseSub="物置シェアサービス「モノオク」"
       placeholder="東京都 千代田区"
       locationText={locationText}
       onChange={handleChangeLocation}
@@ -192,7 +192,7 @@ export default ({
     />
     <PrefectureList list={getPrefectureList()} />
     <SpaceList
-      caption="運営のおすすめスペース紹介"
+      caption="おすすめスペース紹介"
       captionSub="公式がイチオシする高評価スペース"
       spaceList={getSpaceData()}
     />
