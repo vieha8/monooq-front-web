@@ -33,7 +33,10 @@ const WrapList = styled.ul`
   display: block;
   overflow-x: auto;
   white-space: nowrap;
-  padding: ${Dimens.small2}px 0px;
+  padding: ${Dimens.medium}px 0px;
+  ::-webkit-scrollbar-track {
+    background-color: ${Colors.lightGray7};
+  }
   ::-webkit-scrollbar-thumb {
     background-color: ${Colors.lightGray6};
   }

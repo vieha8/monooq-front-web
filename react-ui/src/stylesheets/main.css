@@ -191,6 +191,7 @@
   border: 1px solid #dbdbdb;
   border-bottom: none;
   background-color: #f7f7f7;
+  text-align: left;
 }
 
 @media (max-width: 30em) {
