@@ -86,6 +86,7 @@ class HeaderContainer extends Component<PropTypes> {
       unreadRooms,
       schedule,
       dispatch,
+      history,
     } = this.props;
 
     const { isOverTopView } = this.state;
@@ -117,7 +118,7 @@ class HeaderContainer extends Component<PropTypes> {
         searchConditionUrl={Path.searchCondition()}
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} />}
         loginUrl={Path.login()}
-        signupUrl={Path.signUp()}
+        onClickSignup={() => history.push(Path.signUp())}
         aboutUrl={Path.about()}
         howtouseUrl={Path.howtouse()}
         helpUrl="https://help.monooq.com/"

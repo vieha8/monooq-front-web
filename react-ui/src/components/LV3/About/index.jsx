@@ -191,7 +191,13 @@ const TextBeginner = () => (
   </Fragment>
 );
 
-export default () => (
+type PropTypes = {
+  onClickHowToUse: Function,
+  onClickInsurance: Function,
+  onClickRule: Function,
+};
+
+export default ({ onClickHowToUse, onClickInsurance, onClickRule }: PropTypes) => (
   <Fragment>
     <MainContainer>
       <TopWrapper>
@@ -247,7 +253,7 @@ export default () => (
                 title: 'はじめてのご利用ガイド',
                 text: TextBeginner(),
                 buttonText: 'はじめてのご利用ガイド',
-                buttonLink: '/howtouse',
+                onClick: onClickHowToUse,
               },
               {
                 image: guarantee,
@@ -256,7 +262,7 @@ export default () => (
                 text:
                   '大切な荷物を最大10万円まで補償します。万が一トラブルがおきても、ゲストとホストをあんしんサポート。',
                 buttonText: 'あんしん荷物補償について',
-                buttonLink: '/insurance',
+                onClick: onClickInsurance,
               },
               {
                 image: ruleManner,
@@ -265,7 +271,7 @@ export default () => (
                 text:
                   'モノオクは個人間の取引で成立しています。誰もが気持ちよくサービスを使えるよう、ルールとマナーを守ってご利用ください。',
                 buttonText: 'ルールとマナーについて',
-                buttonLink: '/rule',
+                onClick: onClickRule,
               },
             ]}
           />

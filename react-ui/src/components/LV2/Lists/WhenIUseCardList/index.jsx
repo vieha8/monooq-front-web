@@ -97,7 +97,7 @@ export default ({ list }: PropTypes) => (
               quaternary
               center
               link
-              href={item.buttonLink}
+              onClick={item.onClick}
               height={40}
               fontSize={14}
               lineheight={15}
