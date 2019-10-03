@@ -68,6 +68,7 @@ export default ({
     </Section>
     <Section>
       <ButtonEntry
+        relative
         enabled
         backButton={{
           text: '戻る',

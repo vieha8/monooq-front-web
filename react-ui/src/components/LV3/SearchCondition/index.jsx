@@ -4,9 +4,6 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
-import InputField from 'components/LV1/Forms/InputField';
-import { H3 } from 'components/LV1/Texts/Headline';
-import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
@@ -36,39 +33,6 @@ export const Section = styled.div`
       margin-top: ${Dimens.small_10}px;
     `};
   `};
-`;
-
-const PriceWrap = styled.div`
-  float: left;
-`;
-
-const PriceItem = styled.div`
-  display: inline-block;
-  padding: 0;
-  max-width: 142px;
-  margin-top: 7px;
-  ${props =>
-    props.caption &&
-    `
-    padding: 0 12px;
-  `};
-  ${media.phone`
-    max-width: 92px;
-    ${props =>
-      props.caption &&
-      `
-      padding: 0 5px;
-    `};
-    ${props =>
-      props.captionUpper &&
-      `
-      padding: 0 0 0 5px;
-    `};
-  `};
-`;
-
-const ErrorPrice = styled.div`
-  clear: both;
 `;
 
 const SearchButtonWrap = styled.div`
@@ -103,7 +67,7 @@ type PropTypes = {
   onChangeReceive: Function,
   buttonDisabled: boolean,
   onClickSearch: Function,
-  onKeyDownButtonSerch: Function,
+  onKeyDownButtonSearch: Function,
 };
 
 export default ({
@@ -112,10 +76,6 @@ export default ({
   onChangeKeyword,
   prefCode,
   onChangePrefCode,
-  priceMin,
-  onChangePriceMin,
-  priceMax,
-  onChangePriceMax,
   type,
   onChangeType,
   checkedFurniture,
@@ -125,7 +85,7 @@ export default ({
   onChangeReceive,
   buttonDisabled,
   onClickSearch,
-  onKeyDownButtonSerch,
+  onKeyDownButtonSearch,
 }: PropTypes) => (
   <Fragment>
     <ContentsWrap>
@@ -145,37 +105,6 @@ export default ({
           onChange={e => onChangePrefCode(e.target.value)}
         />
         <ErrorList keyName="prefcode_errors" errors={errors.prefCode} />
-      </Section>
-      <Section>
-        <H3 bold>料金で絞り込み</H3>
-        <PriceWrap>
-          <PriceItem>
-            <InputField
-              placeholder="最安"
-              value={priceMin}
-              onChange={e => onChangePriceMin(e.target.value)}
-            />
-          </PriceItem>
-          <PriceItem caption>
-            <InlineText.Base>円から</InlineText.Base>
-          </PriceItem>
-        </PriceWrap>
-        <PriceWrap>
-          <PriceItem>
-            <InputField
-              placeholder="最高"
-              value={priceMax}
-              onChange={e => onChangePriceMax(e.target.value)}
-            />
-          </PriceItem>
-          <PriceItem caption captionUpper>
-            <InlineText.Base>円まで</InlineText.Base>
-          </PriceItem>
-        </PriceWrap>
-        <ErrorPrice>
-          <ErrorList keyName="price_errors_min" errors={errors.priceMin} />
-          <ErrorList keyName="price_errors_max" errors={errors.priceMax} />
-        </ErrorPrice>
       </Section>
       <Section>
         <Select
@@ -253,7 +182,7 @@ export default ({
           fill={1}
           disabled={buttonDisabled}
           onClick={onClickSearch}
-          onKeyDown={onKeyDownButtonSerch}
+          onKeyDown={onKeyDownButtonSearch}
         >
           検索する
         </Button>

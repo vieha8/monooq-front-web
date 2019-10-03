@@ -35,10 +35,18 @@ const TopViewWrap = styled.div`
   height: 100%;
   padding-top: 209px;
   box-sizing: border-box;
+  ${media.giant1`
+    padding-top: 224px;
+  `};
+  ${media.tablet`
+    padding-top: 158px;
+  `};
+  ${media.phone`
+    padding-top: 98px;
+  `};
 `;
 
 const TopViewContainer = styled(ContainerDefault)`
-  min-width: 320px;
   position: relative;
   &:before {
     content: '';
@@ -62,10 +70,18 @@ const TopViewContainer = styled(ContainerDefault)`
     background-repeat: no-repeat;
     background-size: cover;
   }
-  ${media.tablet`
+  ${media.giant1`
     &:before {
-      display: none;
+      top: -130px;
+      left: -4px;
     }
+    &:after {
+      top: -130px;
+      right: 0px;
+    }
+  `};
+  ${media.tablet`
+    &:before,
     &:after {
       display: none;
     }

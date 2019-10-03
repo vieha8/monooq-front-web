@@ -10,53 +10,18 @@ import ImageLogo from 'components/LV1/Images/ImageLogo';
 
 const Wrapper = styled.div`
   width: 100%;
-  ${props =>
-    props.sp &&
-    `
-      display: none;
-    `};
-
   ${media.tablet`
-    display: none;
-    ${props =>
-      props.sp &&
-      `
-        display: flex;
-      `};
+    text-align: right;
   `};
-`;
-
-const WrapInner = styled.div`
-  width: 50%;
-  text-align: ${props => (props.right ? 'right' : 'left')};
-  ${props =>
-    props.sp &&
-    `
-      margin-top: ${Dimens.xxsmall_4}px;
-    `};
 `;
 
 const WrapLogo = styled(Link)`
-  width: 107px;
+  width: 112px;
   display: inline-flex;
-  ${media.tablet`
-    width: 112px;
-  `};
-`;
-
-const WrapCaption = styled.div`
-  margin: ${Dimens.medium_22}px auto ${Dimens.small2_14}px;
-  font-size: ${FontSizes.medium}px;
-  line-height: ${Dimens.medium_18}px;
-  color: ${Colors.white};
-  ${props =>
-    props.sp &&
-    `
-      margin-top: 0px;
-    `};
 `;
 
 const WrapList = styled.div`
+  margin-top: ${Dimens.xsmall}px;
   font-size: ${FontSizes.small_12}px;
   line-height: ${Dimens.medium_18}px;
   color: ${Colors.white};
@@ -71,33 +36,9 @@ export default () => (
   <Fragment>
     <Wrapper>
       <WrapLogo to={Path.top()}>
-        <ImageLogo.HeaderFill />
+        <ImageLogo.Header width={112} />
       </WrapLogo>
-      <WrapCaption>モノオク株式会社</WrapCaption>
-      <WrapList>
-        東京都渋谷区渋谷2-6-6
-        <br />
-        Goodmorning building
-        <br />
-        <br />
-        Monooq inc. &copy;2019
-      </WrapList>
-    </Wrapper>
-    <Wrapper sp>
-      <WrapInner>
-        <WrapCaption sp>モノオク株式会社</WrapCaption>
-        <WrapList>
-          東京都渋谷区渋谷2-6-6
-          <br />
-          Goodmorning building
-        </WrapList>
-      </WrapInner>
-      <WrapInner right>
-        <WrapLogo to={Path.top()}>
-          <ImageLogo.HeaderFill />
-        </WrapLogo>
-        <WrapList sp>Monooq inc. &copy;2019</WrapList>
-      </WrapInner>
+      <WrapList>&copy; MonooQ inc.</WrapList>
     </Wrapper>
   </Fragment>
 );

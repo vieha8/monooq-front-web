@@ -28,17 +28,18 @@ const Container = styled.header`
   width: 100%;
   min-width: 260px;
   z-index: ${ZIndexes.nav};
-  background: rgba(255, 255, 255, 0.8);
 `;
 
 const Nav = styled.nav`
   display: flex;
   align-items: center;
   height: ${Height}px;
+  transition: 0.3s;
   ${props =>
-    props.top &&
+    (!props.top || props.isOverTopView) &&
     `
     background: rgba(255, 255, 255, 0.8);
+    transition: 0.3s;
   `}
   ${media.tablet`
     height: ${HeightPhone}px;
@@ -180,16 +181,16 @@ const trigger = imageUrl => {
   );
 };
 
-const menuCommon = (signupUrl, helpUrl) => {
+const menuCommon = (aboutUrl, howtouseUrl, helpUrl) => {
   return (
     <OnlyPC>
       <TextWrapper>
-        <TextLink href={signupUrl} color={Colors.black}>
+        <TextLink href={aboutUrl} color={Colors.black}>
           モノオクとは？
         </TextLink>
       </TextWrapper>
       <TextWrapper>
-        <TextLink href={signupUrl} color={Colors.black}>
+        <TextLink href={howtouseUrl} color={Colors.black}>
           利用の流れ
         </TextLink>
       </TextWrapper>
@@ -204,6 +205,7 @@ const menuCommon = (signupUrl, helpUrl) => {
 
 type PropTypes = {
   top?: boolean,
+  isOverTopView?: boolean,
   stories?: boolean,
   topUrl: string,
   isCheckingLogin: boolean,
@@ -219,6 +221,8 @@ type PropTypes = {
   spMenu: React.Element<*>,
   loginUrl: string,
   signupUrl: string,
+  aboutpUrl: string,
+  howtouseUrl: string,
   helpUrl: string,
   addSpace: MenuItemProps,
   spaces: MenuItemProps,
@@ -230,6 +234,7 @@ type PropTypes = {
 
 export default ({
   top,
+  isOverTopView,
   stories,
   topUrl,
   isCheckingLogin,
@@ -240,6 +245,8 @@ export default ({
   spMenu,
   loginUrl,
   signupUrl,
+  aboutUrl,
+  howtouseUrl,
   helpUrl,
   addSpace,
   spaces,
@@ -250,7 +257,7 @@ export default ({
 }: PropTypes) => {
   return (
     <Container stories={stories}>
-      <Nav top={top}>
+      <Nav top={top} isOverTopView={isOverTopView} id="nav">
         <LogoWrapper to={topUrl}>
           <ImageLogo.HeaderFill />
         </LogoWrapper>
@@ -258,7 +265,7 @@ export default ({
           <ActionWrapper>
             {user ? (
               <ActionContainer>
-                {menuCommon(signupUrl, helpUrl)}
+                {menuCommon(aboutUrl, howtouseUrl, helpUrl)}
                 <SearchFiledCell>
                   <ImageMenuHeader iconRight messageUrl={messageUrl} messageCount={messageCount} />
                 </SearchFiledCell>
@@ -294,7 +301,7 @@ export default ({
               </ActionContainer>
             ) : (
               <ActionContainer>
-                {menuCommon(signupUrl, helpUrl)}
+                {menuCommon(aboutUrl, howtouseUrl, helpUrl)}
                 <AnonymouseWrapper>
                   <OnlyPhone>
                     <ActionCell noCursol>{spMenu}</ActionCell>
@@ -303,15 +310,23 @@ export default ({
                     <TextWrapper>
                       <TextLink
                         href={loginUrl}
-                        color={Colors.brandPrimary}
-                        colorHover={Colors.brandTerciary}
+                        color={!top || isOverTopView ? Colors.brandPrimary : Colors.white}
+                        colorHover={!top || isOverTopView ? Colors.brandTerciary : Colors.white}
                         bold
                       >
                         ログイン
                       </TextLink>
                     </TextWrapper>
                     <TextWrapper>
-                      <Button quaternary link href={signupUrl} fontbold height={40} lineheight={15}>
+                      <Button
+                        quaternary
+                        link
+                        href={signupUrl}
+                        fontbold
+                        height={40}
+                        lineheight={15}
+                        color={!top || isOverTopView ? Colors.brandPrimary : Colors.white}
+                      >
                         新規登録
                       </Button>
                     </TextWrapper>

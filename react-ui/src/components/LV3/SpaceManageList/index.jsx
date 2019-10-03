@@ -6,6 +6,11 @@ import SpaceManageListItem from 'components/LV2/Items/SpaceManageListItem';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
+const ListWrap = styled.div`
+  max-width: 600px;
+  margin: auto;
+`;
+
 const ListItem = styled.div`
   display: inline-block;
   width: 100%;
@@ -33,7 +38,7 @@ type PropTypes = {
 };
 
 export default ({ spaces }: PropTypes) => (
-  <Fragment>
+  <ListWrap>
     {spaces.map((space, i) => (
       <Fragment key={`manage_space_list_item_${i}`.toString()}>
         <ListItem index={i}>
@@ -42,5 +47,5 @@ export default ({ spaces }: PropTypes) => (
         {i % 2 === 1 && <br />}
       </Fragment>
     ))}
-  </Fragment>
+  </ListWrap>
 );

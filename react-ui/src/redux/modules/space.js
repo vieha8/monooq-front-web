@@ -489,7 +489,6 @@ function* deleteSpace({ payload: { space } }) {
   }
   const token = yield* getToken();
   const { err } = yield call(deleteApiRequest, apiEndpoint.spaces(space.id), token);
-
   if (err) {
     yield handleError(spaceActions.deleteFailedSpace, '', 'deleteSpace', err, false);
     return;
@@ -518,7 +517,7 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
 }
 
 function* search({
-  payload: { limit, offset, keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture },
+  payload: { limit, offset, keyword, prefCode, receiptType, type, isFurniture },
 }) {
   const token = yield* getToken();
 
@@ -527,8 +526,6 @@ function* search({
     offset,
     keyword,
     pref: getPrefecture(prefCode),
-    priceMin: priceMin || 0,
-    priceMax: priceMax || 0,
     receiptType,
     spaceType: type,
     isFurniture,
@@ -549,7 +546,7 @@ function* search({
       space.images = space.images.map(image => {
         image.imageUrl = convertImgixUrl(
           image.imageUrl,
-          'fit=fillmax&fill-color=DBDBDB&w=340&h=240&auto=format',
+          'fit=crop&fill-color=DBDBDB&w=600&h=400&auto=format',
         );
         return image;
       });

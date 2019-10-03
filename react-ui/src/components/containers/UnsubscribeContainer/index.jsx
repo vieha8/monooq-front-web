@@ -2,7 +2,6 @@
 
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
 import { authActions } from 'redux/modules/auth';
 
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
@@ -11,7 +10,7 @@ import UnsubscribeCompleted from 'components/LV3/Unsubscribe/Completed';
 import UnsubscribeFailed from 'components/LV3/Unsubscribe/Failed';
 import LoadingPage from 'components/LV3/LoadingPage';
 import { H1 } from 'components/LV1/Texts/Headline';
-import { ErrorMessages, Dimens, Colors } from 'variables';
+import { ErrorMessages, Dimens } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
@@ -33,13 +32,7 @@ const Caption = styled.div`
 `;
 
 const UnsubscribeCompletedWrap = styled.div`
-  position: absolute;
   width: 100%;
-  height: 100%;
-  background-color: ${Colors.white};
-  ${media.phone`
-    position: relative;
-  `};
 `;
 
 class UnsubscribeContainer extends Component<PropTypes> {

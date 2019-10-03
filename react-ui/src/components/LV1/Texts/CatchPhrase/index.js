@@ -14,7 +14,7 @@ const CatchPhrase = styled.h1`
   ${media.phone`
     width: 100%;
     height: auto;
-    margin-top: ${Dimens.small_10}px;
+    margin: ${Dimens.small_10}px auto ${Dimens.medium_20}px;
     font-size: ${FontSizes.medium3}px;
     line-height: ${Dimens.medium2_36}px;
     font-weight: 900;

@@ -63,6 +63,7 @@ export default {
   resetPassword: () => '/password/reset',
   // 静的ページ
   about: () => '/about',
+  howtouse: () => '/howtouse',
   insurance: () => '/insurance',
   rule: () => '/rule',
   pageNotFound: () => '/notfound',

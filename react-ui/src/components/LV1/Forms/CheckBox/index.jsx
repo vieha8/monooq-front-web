@@ -2,24 +2,22 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Colors } from 'variables';
 import { Checkbox } from 'semantic-ui-react';
-
-const CHECK_SIZE = 16;
+import { Colors, Dimens, FontSizes } from 'variables';
 
 const Container = styled.div`
-  display: inline-block;
+  display: flex;
   cursor: pointer;
   vertical-align: top;
 `;
 
 const Label = styled.div`
-  display: inline-block;
-  font-size: 15px;
-  color: ${Colors.black};
-  margin-left: 10px;
+  width: calc(100% - 27px);
+  margin-left: ${Dimens.small_10}px;
   vertical-align: top;
-  line-height: ${CHECK_SIZE}px;
+  font-size: ${FontSizes.small_15}px;
+  line-height: ${Dimens.medium}px;
+  color: ${Colors.black};
 `;
 
 type PropTypes = {

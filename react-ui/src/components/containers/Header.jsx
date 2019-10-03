@@ -20,7 +20,20 @@ type PropTypes = {
 };
 
 class HeaderContainer extends Component<PropTypes> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isTop: !!props.top,
+      isOverTopView: false,
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
+  }
+
   componentWillUnmount() {
+    window.removeEventListener('scroll');
     if (document && document.body) {
       document.body.style.overflowY = 'auto';
     }
@@ -34,6 +47,35 @@ class HeaderContainer extends Component<PropTypes> {
     dispatch(authActions.logout());
   };
 
+  scrollTop = () => {
+    let tgt;
+    if ('scrollingElement' in document) {
+      tgt = document.scrollingElement;
+    } else if (this.browser.isWebKit) {
+      tgt = document.body;
+    } else {
+      tgt = document.documentElement;
+    }
+    const scrollTop = (tgt && tgt.scrollTop) || 0;
+    return Math.max(window.pageYOffset, scrollTop);
+  };
+
+  watchCurrentPosition() {
+    const { isTop } = this.state;
+    if (isTop) {
+      const positionScroll = this.scrollTop();
+      this.setState({ isOverTopView: false });
+
+      if (window.parent.screen.width > 480) {
+        if (positionScroll > 450) {
+          this.setState({ isOverTopView: true });
+        }
+      } else if (positionScroll > 290) {
+        this.setState({ isOverTopView: true });
+      }
+    }
+  }
+
   render() {
     const {
       top,
@@ -46,6 +88,8 @@ class HeaderContainer extends Component<PropTypes> {
       dispatch,
     } = this.props;
 
+    const { isOverTopView } = this.state;
+
     let isSchedule = false;
     if (schedule && (schedule.user.length > 0 || schedule.host.length > 0)) {
       isSchedule = true;
@@ -53,6 +97,7 @@ class HeaderContainer extends Component<PropTypes> {
 
     return (
       <Header
+        isOverTopView={isOverTopView}
         top={top}
         topUrl={Path.top()}
         isCheckingLogin={isChecking}
@@ -73,6 +118,8 @@ class HeaderContainer extends Component<PropTypes> {
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} />}
         loginUrl={Path.login()}
         signupUrl={Path.signUp()}
+        aboutUrl={Path.about()}
+        howtouseUrl={Path.howtouse()}
         helpUrl="https://help.monooq.com/"
         addSpace={{
           to: Path.createSpaceInfo(),

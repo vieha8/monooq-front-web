@@ -18,6 +18,8 @@ const Content = styled.div`
 
 const LeftContent = styled.div`
   width: 100%;
+  max-width: 768px;
+  margin: auto;
   ${media.tablet`
     float: none;
     margin-left: 0;

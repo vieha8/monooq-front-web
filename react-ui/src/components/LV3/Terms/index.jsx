@@ -16,15 +16,12 @@ const LinkText = styled(Link)`
 `;
 
 const Chapter = styled.div`
-  font-size: ${FontSizes.large}px;
+  font-size: ${FontSizes.medium3}px;
   line-height: ${FontSizes.large}px;
-  margin-bottom: ${Dimens.medium3_45}px;
+  margin: ${Dimens.medium3_44}px auto;
   ${media.phone`
-    width: 92vw;
-    padding: 0px 4vw;
-    font-size: 6.5vw;
-    line-height: ${6.5 * 1.5}vw;
-    margin-bottom: ${Dimens.medium2}px;
+    font-size: ${FontSizes.medium2_26}px;
+    margin: ${Dimens.medium3_44}px auto ${Dimens.medium1}px;
   `};
 `;
 
@@ -37,10 +34,6 @@ const ChapterContainer = props => (
 
 const StyledChapterContainer = styled(ChapterContainer)`
   margin-bottom: ${Dimens.large2}px;
-  ${media.phone`
-    width: 100%;
-    padding: 0px;
-  `};
 `;
 
 export default () => (
@@ -346,7 +339,7 @@ export default () => (
             customText: (
               <Fragment>
                 1.登録利用者は、登録情報に含まれる登録利用者の個人情報（個人情報の保護に関する法律（以下「個人情報保護法」といいます。）第2条1項に定義する個人情報を意味します。）について、当社の
-                <LinkText to={Path.privacy()}>プライバシーポリシー</LinkText>
+                <LinkText to={Path.privacy()}>個人情報保護方針</LinkText>
                 に従って取り扱われることに同意するものとします。
               </Fragment>
             ),

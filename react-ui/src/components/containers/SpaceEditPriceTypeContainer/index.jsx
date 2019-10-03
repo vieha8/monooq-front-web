@@ -252,6 +252,7 @@ export default authRequired(
   handleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEditPriceTypeContainer), {
       headline: 'スペース料金の設定',
+      noFooter: true,
     }),
   ),
 );

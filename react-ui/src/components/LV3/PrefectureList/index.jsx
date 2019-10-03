@@ -10,9 +10,9 @@ import Button from 'components/LV1/Forms/Button';
 const Wrapper = styled.div`
   width: 100%;
   max-width: 1200px;
-  margin: ${Dimens.large}px auto;
+  margin: ${Dimens.large}px auto ${Dimens.medium3_44}px;
   ${media.phone`
-    margin: ${Dimens.medium2_36}px ${Dimens.xxsmall_4}px;
+    margin: ${Dimens.medium2_36}px auto;
   `};
 `;
 
@@ -28,15 +28,18 @@ const WrapList = styled.ul`
   display: flex;
   padding: ${Dimens.medium3_40}px;
   background-color: white;
-  box-shadow: 0px 0px ${Dimens.small2}px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
   border-radius: 8px;
-  ${media.tablet`
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
-    box-shadow: none;
-    padding: 0px;
-  `};
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: ${Dimens.medium}px 0px;
+  ::-webkit-scrollbar-track {
+    background-color: ${Colors.lightGray7};
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${Colors.lightGray6};
+  }
 `;
 
 const WrapItem = styled.li`
@@ -45,12 +48,10 @@ const WrapItem = styled.li`
   &:not(:first-child) {
     margin-left: ${Dimens.small2}px;
   }
-  ${media.tablet`
-    width: auto;
-    &:not(:first-child) {
-      margin-left: -${Dimens.small2}px;
-    }
-  `};
+  width: auto;
+  &:not(:first-child) {
+    margin-left: -${Dimens.small2}px;
+  }
 `;
 
 const Caption = styled.div`
@@ -59,11 +60,8 @@ const Caption = styled.div`
   line-height: ${Dimens.medium1}px;
   color: ${Colors.black2};
   margin-bottom: ${Dimens.medium2_32}px;
-  ${media.tablet`
-    margin: auto 12px ${Dimens.small}px;
-  `};
+  margin: auto 12px ${Dimens.small}px;
   ${media.phone`
-    font-size: ${FontSizes.medium_18}px;
     margin-bottom: ${Dimens.small_10}px;
   `};
 `;
@@ -74,27 +72,29 @@ const Wrap = styled.ul`
   &:not(:first-child) {
     margin-left: ${Dimens.small2}px;
   }
-  ${media.tablet`
-    width: 252px;
-    max-width: 100%;
-    height: 241px;
-    padding: 20px;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0px 0px ${Dimens.small2}px rgba(0, 0, 0, 0.1);
-    margin: ${Dimens.small2}px ${Dimens.small2}px ${Dimens.medium_20}px;
-  `};
+  width: 252px;
+  max-width: 100%;
+  height: 241px;
+  padding: 20px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0px 0px ${Dimens.small2}px rgba(0, 0, 0, 0.1);
+  margin: ${Dimens.small2}px ${Dimens.small2}px ${Dimens.medium_20}px;
+  transition: 0.2s;
+  &:hover {
+    transition: 0.2s;
+    transform: scale(1.1);
+    margin: ${Dimens.small2}px ${Dimens.medium1_25}px ${Dimens.medium_20}px;
+  }
 `;
 
 const WrapButton = styled.li`
   margin-top: ${Dimens.xxsmall_4}px;
-  ${media.tablet`
-    float: left;
-    width: calc(50% - 2px);
-    &:nth-child(2n) {
-      margin-right: ${Dimens.xxsmall_4}px;
-    }
-  `};
+  float: left;
+  width: calc(50% - 2px);
+  &:nth-child(2n) {
+    margin-right: ${Dimens.xxsmall_4}px;
+  }
 `;
 
 const WrapRegion = styled.div`
@@ -122,7 +122,6 @@ export default ({ list }: PropTypes) => (
               <WrapRegion>{item.region}</WrapRegion>
               {item.prefectureList.map((prefecture, j) => (
                 <WrapButton key={j.toString()}>
-                  {/* TODO: 誠意先実装 */}
                   <Link to={prefecture.link}>
                     <Button
                       key={j.toString()}

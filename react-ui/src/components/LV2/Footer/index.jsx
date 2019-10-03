@@ -14,8 +14,20 @@ const Container = styled.footer`
   width: 100%;
   background-color: ${Colors.black4};
   border-top: 1px solid ${Colors.borderGray};
+  margin-top: ${Dimens.medium3_44}px;
   padding: 0px ${Dimens.medium2}px;
-  margin-top: 65px;
+  ${props =>
+    props.bottomMargin &&
+    `
+      padding: 0px ${Dimens.medium2}px ${Dimens.large2_70}px;
+    `};
+  ${media.phone`
+    ${props =>
+      props.bottomMargin &&
+      `
+        padding: 0px ${Dimens.medium2}px ${Dimens.large4_80}px;
+      `};
+  `};
 `;
 
 const Wrap = styled.div`
@@ -23,7 +35,7 @@ const Wrap = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: auto;
-  padding: 48px 0px;
+  padding: ${Dimens.medium4}px 0px;
   ${media.tablet`
     flex-wrap: wrap;
   `};
@@ -60,8 +72,12 @@ const HrStyled = styled(Hr)`
   `};
 `;
 
-export default () => (
-  <Container>
+type PropTypes = {
+  bottomMargin?: boolean,
+};
+
+export default ({ bottomMargin }: PropTypes) => (
+  <Container bottomMargin={bottomMargin}>
     <Wrap>
       <WrapItems>
         <Caption>サービスについて</Caption>
@@ -69,8 +85,7 @@ export default () => (
           <ListItem
             list={[
               { name: 'モノオクとは？', link: Path.about() },
-              { name: '利用の流れ(未実装)', href: 'https://help.monooq.com/', blank: true },
-              { name: 'ホスト案内(未実装)', link: '3' },
+              { name: '利用の流れ', link: Path.howtouse() },
               { name: 'よくある質問', href: 'https://help.monooq.com/', blank: true },
               { name: 'お問い合わせ', link: Path.inquiry() },
               { name: 'ルールとマナー', link: Path.rule() },

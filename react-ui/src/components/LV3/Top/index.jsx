@@ -75,87 +75,86 @@ const getPrefectureList = () => {
       prefectureList: [
         { name: '北海道', link: '1' },
         { name: '青森', link: '2' },
-        { name: '山形', link: '3' },
-        { name: '秋田', link: '4' },
-        { name: '岩手', link: '5' },
-        { name: '宮城', link: '6' },
-        { name: '福島', link: '7' },
-      ],
-    },
-    {
-      region: '甲信越・北陸',
-      prefectureList: [
-        { name: '北海道', link: '1' },
-        { name: '青森', link: '2' },
-        { name: '山形', link: '3' },
-        { name: '秋田', link: '4' },
-        { name: '岩手', link: '5' },
-        { name: '宮城', link: '6' },
+        { name: '岩手', link: '3' },
+        { name: '宮城', link: '4' },
+        { name: '秋田', link: '5' },
+        { name: '山形', link: '6' },
         { name: '福島', link: '7' },
       ],
     },
     {
       region: '関東',
       prefectureList: [
-        { name: '北海道', link: '1' },
-        { name: '青森', link: '2' },
-        { name: '山形', link: '3' },
-        { name: '秋田', link: '4' },
-        { name: '岩手', link: '5' },
-        { name: '宮城', link: '6' },
-        { name: '福島', link: '7' },
+        { name: '東京', link: '1' },
+        { name: '神奈川', link: '2' },
+        { name: '埼玉', link: '3' },
+        { name: '千葉', link: '4' },
+        { name: '茨城', link: '5' },
+        { name: '群馬', link: '6' },
+        { name: '栃木', link: '7' },
+      ],
+    },
+    {
+      region: '甲信越・北陸',
+      prefectureList: [
+        { name: '山梨', link: '1' },
+        { name: '新潟', link: '2' },
+        { name: '長野', link: '3' },
+        { name: '富山', link: '4' },
+        { name: '石川', link: '5' },
+        { name: '福井', link: '6' },
       ],
     },
     {
       region: '東海',
       prefectureList: [
-        { name: '北海道', link: '1' },
-        { name: '青森', link: '2' },
-        { name: '山形', link: '3' },
-        { name: '秋田', link: '4' },
+        { name: '愛知', link: '1' },
+        { name: '岐阜', link: '2' },
+        { name: '静岡', link: '3' },
+        { name: '三重', link: '4' },
       ],
     },
     {
       region: '関西',
       prefectureList: [
-        { name: '北海道', link: '1' },
-        { name: '青森', link: '2' },
-        { name: '山形', link: '3' },
-        { name: '秋田', link: '4' },
-        { name: '岩手', link: '5' },
-        { name: '宮城', link: '6' },
-        { name: '福島', link: '7' },
+        { name: '大阪', link: '1' },
+        { name: '兵庫', link: '2' },
+        { name: '京都', link: '3' },
+        { name: '滋賀', link: '4' },
+        { name: '奈良', link: '5' },
+        { name: '和歌山', link: '6' },
       ],
     },
     {
       region: '四国',
       prefectureList: [
-        { name: '北海道', link: '1' },
-        { name: '青森', link: '2' },
-        { name: '山形', link: '3' },
-        { name: '秋田', link: '4' },
+        { name: '徳島', link: '1' },
+        { name: '香川', link: '2' },
+        { name: '愛媛', link: '3' },
+        { name: '高知', link: '4' },
       ],
     },
     {
       region: '中国',
       prefectureList: [
-        { name: '北海道', link: '1' },
-        { name: '青森', link: '2' },
-        { name: '山形', link: '3' },
-        { name: '秋田', link: '4' },
-        { name: '岩手', link: '5' },
+        { name: '鳥取', link: '1' },
+        { name: '島根', link: '2' },
+        { name: '岡山', link: '3' },
+        { name: '広島', link: '4' },
+        { name: '山口', link: '5' },
       ],
     },
     {
       region: '九州・沖縄',
       prefectureList: [
-        { name: '北海道', link: '1' },
-        { name: '青森', link: '2' },
-        { name: '山形', link: '3' },
-        { name: '秋田', link: '4' },
-        { name: '岩手', link: '5' },
-        { name: '宮城', link: '6' },
-        { name: '福島', link: '7' },
+        { name: '福岡', link: '1' },
+        { name: '佐賀', link: '2' },
+        { name: '長崎', link: '3' },
+        { name: '熊本', link: '4' },
+        { name: '大分', link: '5' },
+        { name: '宮崎', link: '6' },
+        { name: '鹿児島', link: '7' },
+        { name: '沖縄', link: '8' },
       ],
     },
   ];
@@ -183,7 +182,7 @@ export default ({
     {!story && <Header top />}
     <TopView
       catchPhrase={getCatchPhrase()}
-      catchPhraseSub="スキマ空間のシェアサービス「モノオク」"
+      catchPhraseSub="物置シェアサービス「モノオク」"
       placeholder="東京都 千代田区"
       locationText={locationText}
       onChange={handleChangeLocation}
@@ -193,7 +192,7 @@ export default ({
     />
     <PrefectureList list={getPrefectureList()} />
     <SpaceList
-      caption="運営のおすすめスペース紹介"
+      caption="おすすめスペース紹介"
       captionSub="公式がイチオシする高評価スペース"
       spaceList={getSpaceData()}
     />

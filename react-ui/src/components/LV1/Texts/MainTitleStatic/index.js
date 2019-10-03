@@ -10,7 +10,6 @@ const MainTitleStatic = styled.div`
   line-height: ${Dimens.medium3_44}px;
   margin-bottom: ${Dimens.medium_22}px;
   ${media.phone`
-    font-size: ${FontSizes.medium2}px;
     line-height: normal;
     margin-bottom: ${Dimens.small2}px;
   `};
