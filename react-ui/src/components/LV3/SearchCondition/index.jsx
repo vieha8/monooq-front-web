@@ -60,9 +60,6 @@ type PropTypes = {
   onChangePriceMax: Function,
   type: number,
   onChangeType: Function,
-  checkedFurniture: boolean,
-  onClickFurniture: Function,
-  onKeyDownFurniture: Function,
   receive: number,
   onChangeReceive: Function,
   buttonDisabled: boolean,
@@ -78,9 +75,6 @@ export default ({
   onChangePrefCode,
   type,
   onChangeType,
-  checkedFurniture,
-  onClickFurniture,
-  onKeyDownFurniture,
   receive,
   onChangeReceive,
   buttonDisabled,
@@ -135,17 +129,6 @@ export default ({
           onChange={e => onChangeType(e.target.value)}
         />
         <ErrorList keyName="type_errors" errors={errors.type} />
-      </Section>
-      <Section visible>
-        <InputForm
-          checkbox
-          label="預けられる荷物で絞り込み"
-          checktext="家具や家電製品に対応する"
-          checked={checkedFurniture}
-          onClick={onClickFurniture}
-          onKeyDown={onKeyDownFurniture}
-        />
-        <ErrorList keyName="furniture_errors" errors={errors.furniture} />
       </Section>
       <Section>
         <Select

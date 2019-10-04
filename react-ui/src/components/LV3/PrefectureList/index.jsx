@@ -113,7 +113,7 @@ type PropTypes = {
 };
 
 const makeSearchLink = prefectureId => {
-  const query = `?keyword=&prefCode=${prefectureId}&type=0&receiptType=0&priceMin=&priceMax=&isFurniture=false`;
+  const query = `?keyword=&prefCode=${prefectureId}&type=0&receiptType=0&priceMin=&priceMax=&isFurniture=true`;
   const path = `${Path.search()}${query}`;
   return path;
 };

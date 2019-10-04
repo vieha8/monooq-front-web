@@ -7,7 +7,7 @@ import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SearchCondition from 'components/LV3/SearchCondition';
 import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
-import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
+import { iskeyDownEnter } from 'helpers/keydown';
 import connect from '../connect';
 
 type PropTypes = {
@@ -25,12 +25,11 @@ class SearchConditionContainer extends Component<PropTypes> {
 
     if (isAvailableLocalStorage() && localStorage.getItem('searchCondition')) {
       const savedConditions = JSON.parse(localStorage.getItem('searchCondition'));
-      const { keyword, prefCode, type, isFurniture, receiptType } = savedConditions;
+      const { keyword, prefCode, type, receiptType } = savedConditions;
       this.state = {
         keyword: keyword || '',
         prefCode: prefCode || 0,
         type: type || 0,
-        isFurniture,
         receiptType: receiptType || 0,
         error: {},
       };
@@ -39,19 +38,11 @@ class SearchConditionContainer extends Component<PropTypes> {
         keyword: '',
         prefCode: 0,
         type: 0,
-        isFurniture: false,
         receiptType: 0,
         error: {},
       };
     }
   }
-
-  onKeyDownFurniture = e => {
-    if (iskeyDownSpace(e)) {
-      const { isFurniture } = this.state;
-      this.handleChangeUI('isFurniture', !isFurniture);
-    }
-  };
 
   onKeyDownButtonSearch = e => {
     if (iskeyDownEnter(e) && this.validate()) {
@@ -63,12 +54,12 @@ class SearchConditionContainer extends Component<PropTypes> {
     const { history, dispatch } = this.props;
     dispatch(spaceActions.resetSearch());
 
-    const { keyword, prefCode, type, isFurniture, receiptType } = this.state;
+    const { keyword, prefCode, type, receiptType } = this.state;
     const searchPath = Path.search();
     let query = `?keyword=${keyword}`;
     query += `&prefCode=${prefCode}`;
     query += `&type=${type}`;
-    query += `&isFurniture=${isFurniture}`;
+    query += `&isFurniture=true`;
     query += `&receiptType=${receiptType}`;
 
     ReactGA.event({
@@ -78,7 +69,7 @@ class SearchConditionContainer extends Component<PropTypes> {
     });
 
     if (isAvailableLocalStorage()) {
-      const params = { keyword, prefCode, type, isFurniture, receiptType };
+      const params = { keyword, prefCode, type, receiptType };
       localStorage.setItem('searchCondition', JSON.stringify(params));
     }
 
@@ -99,7 +90,7 @@ class SearchConditionContainer extends Component<PropTypes> {
   };
 
   render() {
-    const { keyword, prefCode, type, isFurniture, receiptType, error } = this.state;
+    const { keyword, prefCode, type, receiptType, error } = this.state;
 
     return (
       <SearchCondition
@@ -110,9 +101,6 @@ class SearchConditionContainer extends Component<PropTypes> {
         onChangePrefCode={v => this.handleChangeUI('prefCode', v)}
         type={type}
         onChangeType={v => this.handleChangeUI('type', v)}
-        checkedFurniture={isFurniture}
-        onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
-        onKeyDownFurniture={this.onKeyDownFurniture}
         receive={receiptType}
         onChangeReceive={v => this.handleChangeUI('receiptType', v)}
         buttonDisabled={!this.validate()}

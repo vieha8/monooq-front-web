@@ -98,7 +98,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
   };
 
   getCondition = () => {
-    const { keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture } = this.state;
+    const { keyword, prefCode, priceMin, priceMax, receiptType, type } = this.state;
 
     let condition = '';
 
@@ -140,10 +140,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
     if (priceMax !== '') {
       condition += `${priceMax}円以下、`;
-    }
-
-    if (isFurniture === 'true') {
-      condition += `家具家電可、`;
     }
 
     condition = condition.slice(0, -1);
