@@ -185,12 +185,12 @@ const menuCommon = (aboutUrl, howtouseUrl, helpUrl) => {
   return (
     <OnlyPC>
       <TextWrapper>
-        <TextLink href={aboutUrl} color={Colors.black}>
+        <TextLink to={aboutUrl} color={Colors.black}>
           モノオクとは？
         </TextLink>
       </TextWrapper>
       <TextWrapper>
-        <TextLink href={howtouseUrl} color={Colors.black}>
+        <TextLink to={howtouseUrl} color={Colors.black}>
           利用の流れ
         </TextLink>
       </TextWrapper>

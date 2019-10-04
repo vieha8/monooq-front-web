@@ -157,7 +157,7 @@ export default ({
         key={i}
         caption={item.title}
         captionSub="公式がイチオシする高評価スペース"
-        spaceList={item.contents.sort(() => Math.random() - 0.5).slice(0, 4)}
+        spaceList={item.contents}
       />
     ))}
   </TopPage>
