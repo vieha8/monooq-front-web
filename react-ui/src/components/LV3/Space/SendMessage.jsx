@@ -11,7 +11,7 @@ const SendMessageWrap = styled.div`
   position: fixed;
   left: 0px;
   bottom: 0px;
-  z-index: 100;
+  z-index: 2000;
   text-align: center;
   padding: ${Dimens.medium}px;
   background-color: ${Colors.white};
