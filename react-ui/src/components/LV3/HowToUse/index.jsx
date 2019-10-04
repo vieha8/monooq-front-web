@@ -10,6 +10,8 @@ import howtouse02 from 'images/howtouse_02@2x.png';
 import howtouse03 from 'images/howtouse_03@2x.png';
 import howtouse04 from 'images/howtouse_04@2x.png';
 
+const Wrap = styled.div``;
+
 const TopWrapper = styled.div`
   position: relative;
   top: -84px;
@@ -29,16 +31,19 @@ const TopWrapper = styled.div`
     z-index: -2;
   }
   ${media.tablet`
-    top: -54px;
+    top: 0px;
     width: 100%;
     height: 410px;
     margin-bottom: 0;
     &:after {
       content: '';
       position: absolute;
-      bottom: ${Dimens.medium1_28}px;
       width: 100%;
-      height: 200px;
+      height: 100%;
+    }
+  `};
+  ${media.phone`
+    height: 374px;
     }
   `};
 `;
@@ -66,12 +71,21 @@ const TopMessageContent = styled.div`
   padding: ${Dimens.medium4_50}px ${Dimens.medium2}px;
   background-color: ${Colors.white};
   ${media.tablet`
-    top: 180px;
-    left: 5%;
-    width: 90%;
+    top: 230px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 500px;
     height: initial;
+    margin: auto;
     text-align: center;
     padding: ${Dimens.medium1}px;
+  `};
+  ${media.tablet`
+    width: calc(100% - 32px);
+  `};
+  ${media.phone`
+    top: 180px;
   `};
 `;
 
@@ -112,6 +126,9 @@ const TopDescription = styled.div`
 const MainContainer = styled.div`
   width: 100%;
   text-align: center;
+  ${media.tablet`
+    margin-top: ${Dimens.medium2_32}px;
+  `}
 `;
 
 const Attention = styled.div`
@@ -130,11 +147,11 @@ const Headline = styled.div`
   font-size: ${FontSizes.xxlarge}px;
   line-height: ${Dimens.medium2_38}px;
   font-weight: bold;
-  margin-bottom: ${Dimens.medium_20}px;
+  margin-bottom: ${Dimens.medium2}px;
   ${media.phone`
     font-size: ${FontSizes.medium2}px;
     line-height: ${Dimens.medium1}px;
-    margin-bottom: ${Dimens.xxsmall_5}px;
+    margin-bottom: ${Dimens.medium3_40}px;
   `};
 `;
 
@@ -191,6 +208,7 @@ const ContentWrapper = styled.div`
   `}
   ${media.tablet`
     width: 100%;
+    max-width: 500px;
     height: auto;
     padding-left: 0px;
     &:nth-child(2) {
@@ -237,9 +255,9 @@ const ContentTextWrap = styled.div`
     &:after {
       content: '';
       position: absolute;
-      left: -${Dimens.medium}px;
+      left: -50%;
       top: 86px
-      width: calc(100% + ${Dimens.medium2_32}px);
+      width: 200%;
       height: 250px;
       background: ${Colors.lightGray1Bg};
     }
@@ -286,6 +304,14 @@ type ContentPropTypes = {
   image: string,
 };
 
+const TextDetail02 = () => (
+  <Fragment>
+    ホストと相談し利用が確定したら、ホストから見積りが届きます。見積もり内容に問題がなければ、お支払いをして取り引き成立です！
+    <br />
+    WEB上で決済できるので、面倒な手続きはありません。
+  </Fragment>
+);
+
 const HowToUseContent = ({ contentNo, title, detail, image }: ContentPropTypes) => (
   <ContentWrapper>
     <ContentImage src={image} />
@@ -300,7 +326,7 @@ const HowToUseContent = ({ contentNo, title, detail, image }: ContentPropTypes) 
 );
 
 export default () => (
-  <Fragment>
+  <Wrap>
     <TopWrapper>
       <TopEyeCatch src={howtouseEyeCatch} />
       <TopMessageContent>
@@ -322,13 +348,13 @@ export default () => (
         <HowToUseContent
           contentNo="01"
           title="登録・相談"
-          detail="ユーザー登録をしてスペースを検索！気になるスペースを見つけたら、ホストに預けたい荷物の内容や利用期間を伝え、相談を開始しましょう。 荷物の種類や量・日程を調整して、ホストとの条件に合えば無事契約成立です。"
+          detail="ユーザー登録をしてスペースを検索！気になるスペースを見つけたら、ホストに預けたい荷物の内容や利用期間を伝え、相談を開始しましょう。"
           image={howtouse01}
         />
         <HowToUseContent
           contentNo="02"
           title="見積もり確認・お支払い"
-          detail="ホストと相談し利用が確定したら、ホストから見積りが届きます。見積もり内容に問題がなければ、お支払いをして取り引き成立です！WEB上で決済できるので、面倒な手続きはありません。"
+          detail={TextDetail02()}
           image={howtouse02}
         />
       </HowToUseContentRow>
@@ -347,5 +373,5 @@ export default () => (
         />
       </HowToUseContentRow>
     </MainContainer>
-  </Fragment>
+  </Wrap>
 );

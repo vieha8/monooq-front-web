@@ -35,7 +35,7 @@ const TopWrapper = styled.div`
     z-index: -2;
   }
   ${media.tablet`
-    top: -54px;
+    top: 0px;
     width: 100%;
     height: 410px;
     margin-bottom: 0;
@@ -128,7 +128,7 @@ const Attention = styled.div`
 
 const Headline = styled.div`
   font-size: ${FontSizes.xxlarge}px;
-  line-height: ${FontSizes.xxlarge * 1.5}px;
+  line-height: ${Dimens.medium2_38}px;
   font-weight: bold;
   margin-bottom: ${Dimens.medium2}px;
   ${media.phone`
