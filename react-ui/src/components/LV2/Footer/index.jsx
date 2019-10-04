@@ -3,17 +3,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import Hr from 'components/LV1/HorizontalRule';
-import { Colors, Dimens, FontSizes } from 'variables';
+import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 import ListItem from './ListItem';
 import CompanyInfo from './CompanyInfo';
 
 const Container = styled.footer`
+  position: relative;
+  z-index: ${ZIndexes.nav};
   display: flex;
   width: 100%;
   background-color: ${Colors.black4};
-  border-top: 1px solid ${Colors.borderGray};
   margin-top: ${Dimens.medium3_44}px;
   padding: 0px ${Dimens.medium2}px;
   ${props =>

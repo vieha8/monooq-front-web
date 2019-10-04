@@ -97,11 +97,11 @@ const TopTitle = styled.div`
   margin-bottom: ${Dimens.small2}px;
   ${media.tablet`
     font-size: ${FontSizes.medium2}px;
-    line-height: ${Dimens.medium2_32}px;
+    line-height: ${Dimens.medium2}px;
+    margin-bottom: ${Dimens.xsmall}px;
   `}
   ${media.phoneSmall`
     font-size: ${FontSizes.medium1}px;
-    line-height: ${Dimens.medium1_22}px;
   `}
 `;
 
@@ -114,24 +114,26 @@ const TopDescription = styled.div`
   `}
 `;
 
-const AttentionWord = styled.div`
+const Attention = styled.div`
   font-size: ${FontSizes.medium_18}px;
   color: ${Colors.brandPrimary};
   margin-bottom: ${Dimens.small2}px;
   ${media.tablet`
-    margin-bottom: ${Dimens.xxsmall_4}px;
+    margin-bottom: ${Dimens.small}px;
   `}
+  ${media.phone`
+    font-size: ${FontSizes.medium}px;
+  `};
 `;
 
-const SubTitle = styled.div`
+const Headline = styled.div`
   font-size: ${FontSizes.xxlarge}px;
   line-height: ${FontSizes.xxlarge * 1.5}px;
   font-weight: bold;
   margin-bottom: ${Dimens.medium2}px;
-  ${media.tablet`
-    font-size: 6vw;
-    line-height: 9vw;
-    text-align: center;
+  ${media.phone`
+    font-size: ${FontSizes.medium2}px;
+    line-height: ${Dimens.medium1}px;
     margin-bottom: ${Dimens.xxsmall_5}px;
   `};
 `;
@@ -217,8 +219,8 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }: PropTypes) =
 
       <WhenIUseContainer>
         <WhenIUseContent>
-          <AttentionWord>「荷物の置き場所に困った…」を解決！</AttentionWord>
-          <SubTitle>こんなときにはモノオク！</SubTitle>
+          <Attention>「荷物の置き場所に困った…」を解決！</Attention>
+          <Headline>こんなときにはモノオク！</Headline>
           <WhenIUseList
             list={[
               {
@@ -243,8 +245,8 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }: PropTypes) =
           />
         </WhenIUseContent>
         <WhenIUseContent>
-          <AttentionWord>モノオクのことをもっと詳しく</AttentionWord>
-          <SubTitle>ご利用にあたって</SubTitle>
+          <Attention>モノオクのことをもっと詳しく</Attention>
+          <Headline>ご利用にあたって</Headline>
           <WhenIUseCardList
             list={[
               {
@@ -292,8 +294,8 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }: PropTypes) =
 
       <ContentContainer>
         <QuestionsContainer>
-          <AttentionWord>困ったときのFAQ</AttentionWord>
-          <SubTitle>よくある質問</SubTitle>
+          <Attention>困ったときのFAQ</Attention>
+          <Headline>よくある質問</Headline>
           <QuestionRow>
             <QuestionItem>
               <Collapsible trigger="Q. 初期費用はかかりますか？">
