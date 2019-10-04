@@ -21,6 +21,7 @@ import { iskeyDownEnter } from 'helpers/keydown';
 import { getPrefecture } from 'helpers/prefectures';
 
 import connect from '../connect';
+import LoadingPage from 'components/LV3/LoadingPage';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
@@ -245,6 +246,10 @@ class SearchResultContainer extends Component<PropTypes, State> {
     const { spaces, isMore, maxCount, isSearching } = this.props;
     const condition = this.getCondition();
 
+    if (isSearching && spaces.length === 0) {
+      return <LoadingPage />;
+    }
+
     if (spaces.length === 0 && !isMore) {
       return (
         <Fragment>
@@ -254,7 +259,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
             caption="別のキーワード及び条件で検索をお試しください"
             buttonText="条件を変えて再検索する"
             onClick={this.onClickBackSearchCondition}
-            onKeyDown={this.onKeyDownButtonReserch}
+            onKeyDown={this.onKeyDownButtonResearch}
           />
         </Fragment>
       );
