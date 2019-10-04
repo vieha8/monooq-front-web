@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
 import Button from 'components/LV1/Forms/Button';
-import HorizontalScroll from 'react-scroll-horizontal';
 import Path from '../../../config/path';
 
 const Wrapper = styled.div`
@@ -42,11 +41,14 @@ const WrapList = styled.ul`
   ::-webkit-scrollbar-thumb {
     background-color: ${Colors.lightGray6};
   }
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
 `;
 
 const WrapItem = styled.li`
   width: 100%;
   display: inline-block;
+  scroll-snap-align: center;
   &:not(:first-child) {
     margin-left: ${Dimens.small2}px;
   }
@@ -124,34 +126,32 @@ export default ({ list }: PropTypes) => (
     <WrapInner>
       <Caption>都道府県別でスペースを探す</Caption>
       <WrapList>
-        <HorizontalScroll>
-          {list.map((item, i) => (
-            <WrapItem key={i.toString()}>
-              <Wrap>
-                <WrapRegion>{item.region}</WrapRegion>
-                {item.prefectureList.map((prefecture, j) => (
-                  <WrapButton key={j.toString()}>
-                    <Link to={makeSearchLink(prefecture.id)}>
-                      <Button
-                        key={j.toString()}
-                        quinary
-                        fontSize={14}
-                        fontbold
-                        lineheight={21}
-                        height={38}
-                        padding="8px 10"
-                        borderRadius={6}
-                        fill={1}
-                      >
-                        {prefecture.name}
-                      </Button>
-                    </Link>
-                  </WrapButton>
-                ))}
-              </Wrap>
-            </WrapItem>
-          ))}
-        </HorizontalScroll>
+        {list.map((item, i) => (
+          <WrapItem key={i.toString()}>
+            <Wrap>
+              <WrapRegion>{item.region}</WrapRegion>
+              {item.prefectureList.map((prefecture, j) => (
+                <WrapButton key={j.toString()}>
+                  <Link to={makeSearchLink(prefecture.id)}>
+                    <Button
+                      key={j.toString()}
+                      quinary
+                      fontSize={14}
+                      fontbold
+                      lineheight={21}
+                      height={38}
+                      padding="8px 10"
+                      borderRadius={6}
+                      fill={1}
+                    >
+                      {prefecture.name}
+                    </Button>
+                  </Link>
+                </WrapButton>
+              ))}
+            </Wrap>
+          </WrapItem>
+        ))}
       </WrapList>
     </WrapInner>
   </Wrapper>
