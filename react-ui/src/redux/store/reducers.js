@@ -10,6 +10,7 @@ import { salesReducer } from 'redux/modules/sales';
 import { errorReducer } from 'redux/modules/error';
 import { initReducer } from 'redux/modules/init';
 import { loggerReducer } from 'redux/modules/logger';
+import { sectionReducer } from 'redux/modules/section';
 
 const createReducers = history =>
   combineReducers({
@@ -23,6 +24,7 @@ const createReducers = history =>
     sales: salesReducer,
     error: errorReducer,
     init: initReducer,
+    section: sectionReducer,
     logger: loggerReducer,
   });
 

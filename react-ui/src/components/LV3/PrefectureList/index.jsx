@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
 import Button from 'components/LV1/Forms/Button';
+import Path from '../../../config/path';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -111,6 +112,12 @@ type PropTypes = {
   }>,
 };
 
+const makeSearchLink = prefectureId => {
+  const query = `?keyword=&prefCode=${prefectureId}&type=0&receiptType=0&priceMin=&priceMax=&isFurniture=false`;
+  const path = `${Path.search()}${query}`;
+  return path;
+};
+
 export default ({ list }: PropTypes) => (
   <Wrapper>
     <WrapInner>
@@ -122,7 +129,7 @@ export default ({ list }: PropTypes) => (
               <WrapRegion>{item.region}</WrapRegion>
               {item.prefectureList.map((prefecture, j) => (
                 <WrapButton key={j.toString()}>
-                  <Link to={prefecture.link}>
+                  <Link to={makeSearchLink(prefecture.id)}>
                     <Button
                       key={j.toString()}
                       quinary

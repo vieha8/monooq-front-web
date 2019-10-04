@@ -28,133 +28,93 @@ type PropTypes = {
   onClickSearch: Function,
 };
 
-// TODO: テストデータのため実装後に削除する
-const getSpaceData = () => {
-  const data = [];
-  for (let i = 0; i < 4; i += 1) {
-    data.push({
-      ID: 3,
-      PrefectureId: 13,
-      SpaceId: 3,
-      Space: {
-        ID: 3,
-        UserID: 8,
-        Title: '広々8畳・和室・武蔵小杉駅より徒歩5分以内の駅近スペース',
-        Introduction:
-          'サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。',
-        PriceFull: 3000,
-        PriceHalf: 0,
-        PriceQuarter: 0,
-        Address: '東京都渋谷区東1-2',
-        AddressPref: '東京都',
-        AddressCity: '渋谷区',
-        AddressTown: '東',
-        Images: [
-          {
-            ID: 3,
-            CreatedAt: '2018-11-28T05:08:30+09:00',
-            UpdatedAt: '2018-11-28T05:08:30+09:00',
-            DeletedAt: null,
-            SpaceID: 3,
-            ImageUrl:
-              'https://firebasestorage.googleapis.com/v0/b/monooq-dev.appspot.com/o/img%2Fspaces%2F3%2F1543381707934.jpg?alt=media&token=f10230b7-3ff8-4e58-9a26-57c3d2ab941c',
-          },
-        ],
-      },
-    });
-  }
-
-  return data;
-};
-
-// TODO: テストデータのため実装後に削除する
 const getPrefectureList = () => {
   return [
     {
       region: '北海道・東北',
       prefectureList: [
-        { name: '北海道', link: '1' },
-        { name: '青森', link: '2' },
-        { name: '岩手', link: '3' },
-        { name: '宮城', link: '4' },
-        { name: '秋田', link: '5' },
-        { name: '山形', link: '6' },
-        { name: '福島', link: '7' },
+        { name: '北海道', id: 1 },
+        { name: '青森', id: 2 },
+        { name: '岩手', id: 3 },
+        { name: '宮城', id: 4 },
+        { name: '秋田', id: 5 },
+        { name: '山形', id: 6 },
+        { name: '福島', id: 7 },
       ],
     },
     {
       region: '関東',
       prefectureList: [
-        { name: '東京', link: '1' },
-        { name: '神奈川', link: '2' },
-        { name: '埼玉', link: '3' },
-        { name: '千葉', link: '4' },
-        { name: '茨城', link: '5' },
-        { name: '群馬', link: '6' },
-        { name: '栃木', link: '7' },
+        { name: '東京', id: 13 },
+        { name: '神奈川', id: 14 },
+        { name: '埼玉', id: 11 },
+        { name: '千葉', id: 12 },
+        { name: '茨城', id: 8 },
+        { name: '群馬', id: 10 },
+        { name: '栃木', id: 9 },
       ],
     },
     {
       region: '甲信越・北陸',
       prefectureList: [
-        { name: '山梨', link: '1' },
-        { name: '新潟', link: '2' },
-        { name: '長野', link: '3' },
-        { name: '富山', link: '4' },
-        { name: '石川', link: '5' },
-        { name: '福井', link: '6' },
+        { name: '山梨', id: 19 },
+        { name: '新潟', id: 15 },
+        { name: '長野', id: 20 },
+        { name: '富山', id: 16 },
+        { name: '石川', id: 17 },
+        { name: '福井', id: 18 },
       ],
     },
     {
       region: '東海',
       prefectureList: [
-        { name: '愛知', link: '1' },
-        { name: '岐阜', link: '2' },
-        { name: '静岡', link: '3' },
-        { name: '三重', link: '4' },
+        { name: '愛知', id: 23 },
+        { name: '岐阜', id: 21 },
+        { name: '静岡', id: 22 },
+        { name: '三重', id: 24 },
       ],
     },
     {
       region: '関西',
       prefectureList: [
-        { name: '大阪', link: '1' },
-        { name: '兵庫', link: '2' },
-        { name: '京都', link: '3' },
-        { name: '滋賀', link: '4' },
-        { name: '奈良', link: '5' },
-        { name: '和歌山', link: '6' },
+        { name: '大阪', id: 27 },
+        { name: '兵庫', id: 28 },
+        { name: '京都', id: 26 },
+        { name: '滋賀', id: 25 },
+        { name: '奈良', id: 29 },
+        { name: '和歌山', id: 30 },
       ],
     },
     {
       region: '四国',
       prefectureList: [
-        { name: '徳島', link: '1' },
-        { name: '香川', link: '2' },
-        { name: '愛媛', link: '3' },
-        { name: '高知', link: '4' },
+        { name: '徳島', id: 36 },
+        { name: '香川', id: 37 },
+        { name: '愛媛', id: 38 },
+        { name: '高知', id: 39 },
       ],
     },
     {
       region: '中国',
       prefectureList: [
-        { name: '鳥取', link: '1' },
-        { name: '島根', link: '2' },
-        { name: '岡山', link: '3' },
-        { name: '広島', link: '4' },
-        { name: '山口', link: '5' },
+        { name: '鳥取', id: 31 },
+        { name: '島根', id: 32 },
+        { name: '岡山', id: 33 },
+        { name: '広島', id: 34 },
+        { name: '山口', id: 35 },
       ],
     },
     {
       region: '九州・沖縄',
       prefectureList: [
-        { name: '福岡', link: '1' },
-        { name: '佐賀', link: '2' },
-        { name: '長崎', link: '3' },
-        { name: '熊本', link: '4' },
-        { name: '大分', link: '5' },
-        { name: '宮崎', link: '6' },
-        { name: '鹿児島', link: '7' },
-        { name: '沖縄', link: '8' },
+        { name: '福岡', id: 40 },
+        { name: '佐賀', id: 41 },
+        { name: '長崎', id: 42 },
+        { name: '熊本', id: 43 },
+        { name: '大分', id: 44 },
+        { name: '宮崎', id: 45 },
+        { name: '鹿児島', id: 46 },
+        { name: '沖縄', id: 47 },
       ],
     },
   ];
@@ -177,6 +137,7 @@ export default ({
   onKeyDownSearchField,
   searchButtonDisabled,
   onClickSearch,
+  sections,
 }: PropTypes) => (
   <TopPage>
     {!story && <Header top />}
@@ -191,28 +152,13 @@ export default ({
       onClickSearchButton={onClickSearch}
     />
     <PrefectureList list={getPrefectureList()} />
-    <SpaceList
-      caption="おすすめスペース紹介"
-      captionSub="公式がイチオシする高評価スペース"
-      spaceList={getSpaceData()}
-    />
-    <SpaceList
-      isTag
-      caption="＃4畳以上"
-      captionSub="大型家具や物をたくさん預けたいときに"
-      spaceList={getSpaceData()}
-    />
-    <SpaceList
-      isTag
-      caption="＃ダンボール1箱〜"
-      captionSub="大型家具や物をたくさん預けたいときに"
-      spaceList={getSpaceData()}
-    />
-    <SpaceList
-      isTag
-      caption="＃短期歓迎"
-      captionSub="大型家具や物をたくさん預けたいときに"
-      spaceList={getSpaceData()}
-    />
+    {sections.map((item, i) => (
+      <SpaceList
+        key={i}
+        caption={item.title}
+        captionSub="公式がイチオシする高評価スペース"
+        spaceList={item.contents.sort(() => Math.random() - 0.5).slice(0, 4)}
+      />
+    ))}
   </TopPage>
 );

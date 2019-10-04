@@ -62,21 +62,15 @@ export default ({ isTag, caption, captionSub, spaceList }: PropTypes) => (
           isTag={isTag}
           isTop
           key=""
-          spaces={spaceList.map(({ Space }) => ({
-            id: Space.ID,
+          spaces={spaceList.map(space => ({
+            ...space,
             image:
-              Space.Images.length !== 0
+              space.images.length !== 0
                 ? convertImgixUrl(
-                    Space.Images[0].ImageUrl,
+                    space.images[0].imageUrl,
                     'fit=crop&fill-color=DBDBDB&w=600&h=400&auto=format',
                   )
                 : dummySpaceImage,
-            title: Space.Title,
-            address: `${Space.AddressPref}${Space.AddressCity}`,
-            isFurniture: Space.IsFurniture,
-            priceFull: Space.PriceFull,
-            priceHalf: Space.PriceHalf,
-            priceQuarter: Space.PriceQuarter,
           }))}
         />
       </WrapList>
