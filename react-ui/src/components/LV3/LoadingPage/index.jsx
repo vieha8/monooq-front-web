@@ -27,7 +27,7 @@ const Content = styled.div`
 export default () => (
   <Container>
     <Content>
-      <Loading size="large" />
+      <Loading loadingPage size="large" />
     </Content>
   </Container>
 );
