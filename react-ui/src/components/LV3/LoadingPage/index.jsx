@@ -10,7 +10,7 @@ const Container = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 255, 255, 1);
+  background: rgba(0, 255, 255, 1);
 `;
 
 const Content = styled.div`
@@ -18,12 +18,10 @@ const Content = styled.div`
   top: 50%;
 `;
 
-type PropTypes = {
-  hideProgress?: boolean,
-};
-
-export default ({ hideProgress }: PropTypes) => (
+export default () => (
   <Container>
-    <Content>{!hideProgress && <Loading size="large" />}</Content>
+    <Content>
+      <Loading size="large" />
+    </Content>
   </Container>
 );
