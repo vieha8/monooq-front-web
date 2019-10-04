@@ -151,8 +151,7 @@
   collapsible
  */
 .Collapsible {
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 14px;
   text-decoration: none;
   line-height: normal;
   background-color: rgb(255, 255, 255);
@@ -166,7 +165,6 @@
   position: relative;
   padding: 10px 24px;
   border: 1px solid #dbdbdb;
-  border-bottom: none;
 }
 
 @media (max-width: 30em) {
@@ -181,7 +179,7 @@
 
 .Collapsible:last-child .Collapsible__contentInner a:last-child p {
   border-bottom: 1px solid #dbdbdb;
-  border-radius: 0px 0px 4px 4px;
+  border-radius: 3px 3px 3px 3px;
 }
 
 .Collapsible__trigger {
@@ -200,28 +198,37 @@
   }
 }
 
+@media (max-width: 23.375em) {
+  .Collapsible__trigger {
+    font-size: 13px;
+  }
+}
+
 .Collapsible:nth-child(2) .Collapsible__trigger {
-  border-radius: 4px 4px 0px 0px;
+  border-radius: 3px 3px 3px 3px;
 }
 
 .Collapsible:last-child .Collapsible__trigger {
   border-bottom: 1px solid #dbdbdb;
-  border-radius: 0px 0px 4px 4px;
+  border-radius: 3px 3px 3px 3px;
 }
 
 .Collapsible:last-child .Collapsible__trigger.is-open {
-  border-radius: 0px;
+  border-radius: 3px 3px 0px 0px;
 }
 
 .Collapsible__trigger:after {
   content: '';
-  background-image: url(../images/toggle.svg);
+  display: block;
   position: absolute;
-  right: 24px;
   top: 14px;
-  width: 16px;
-  height: 16px;
-  border-radius: 2px;
+  right: 20px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #2e2929;
+  border-right: 2px solid #2e2929;
+  transform: rotate(135deg);
+  transition: 0.3s;
 }
 
 @media (max-width: 30em) {
@@ -231,7 +238,9 @@
 }
 
 .Collapsible__trigger.is-open::after {
-  transform: rotateZ(180deg);
+  top: 16.5px;
+  transform: rotate(315deg);
+  transition: 0.3s;
 }
 
 /* 

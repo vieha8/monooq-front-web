@@ -99,7 +99,7 @@ const CardShadowStyle = `
   transition: 0.3s;
   &:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    transition: 0.3s; 
+    transition: 0.3s;
     border-radius:6px;
   }
   width: 100%;
