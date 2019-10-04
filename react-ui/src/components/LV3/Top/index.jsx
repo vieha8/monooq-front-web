@@ -144,7 +144,7 @@ export default ({
     <TopView
       catchPhrase={getCatchPhrase()}
       catchPhraseSub="物置シェアサービス「モノオク」"
-      placeholder="東京都 千代田区"
+      placeholder="東京都 世田谷区"
       locationText={locationText}
       onChange={handleChangeLocation}
       onKeyDown={onKeyDownSearchField}

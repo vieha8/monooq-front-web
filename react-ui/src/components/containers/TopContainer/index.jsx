@@ -36,6 +36,19 @@ class TopContainer extends React.Component {
     dispatch(sectionActions.fetchSections());
   }
 
+  componentDidMount() {
+    // TODO componentDidUpdateにおきかえる
+    const id = 'space_search_area_1';
+    if (document.getElementById(id)) {
+      const target = document.getElementById(id);
+      target.scrollIntoView({
+        inline: 'center',
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
+  }
+
   handleChangeLocation = event => {
     if (event.target.value === '') {
       this.setState({
