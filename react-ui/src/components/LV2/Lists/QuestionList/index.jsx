@@ -30,10 +30,11 @@ const List = styled(Text.withComponent('li'))`
 `;
 
 const QuestionTitle = styled(Label)`
+  margin-bottom: ${Dimens.small_10}px;
   ${media.phone`
     font-size: 6vw;
     line-height: ${6 * 1.5}vw;
-    margin-bottom: ${Dimens.small_10}px;
+    margin-bottom: ${Dimens.xxsmall_5}px;
   `};
 `;
 

@@ -220,7 +220,7 @@ type PropTypes = {
   messageCount?: number,
   spMenu: React.Element<*>,
   loginUrl: string,
-  signupUrl: string,
+  onClickSignup: Function,
   aboutpUrl: string,
   howtouseUrl: string,
   helpUrl: string,
@@ -244,7 +244,7 @@ export default ({
   messageCount,
   spMenu,
   loginUrl,
-  signupUrl,
+  onClickSignup,
   aboutUrl,
   howtouseUrl,
   helpUrl,
@@ -321,7 +321,7 @@ export default ({
                       <Button
                         quaternary
                         link
-                        href={signupUrl}
+                        onClick={onClickSignup}
                         fontbold
                         height={40}
                         lineheight={15}

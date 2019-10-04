@@ -13,30 +13,32 @@ import howtouse04 from 'images/howtouse_04@2x.png';
 const TopWrapper = styled.div`
   position: relative;
   top: -84px;
-  height: 600px;
+  height: 620px;
   color: ${Colors.black};
-  margin-bottom: 16px;
+  margin-bottom: ${Dimens.medium}px;
+  width: 100%;
+  overflow: hidden;
   &:after {
     content: '';
     position: absolute;
     bottom: 0px;
     right: 0px;
     width: 70%;
-    height: 325px;
+    height: 324px;
     background: ${Colors.lightGray1Bg};
     z-index: -2;
   }
-  ${media.phone`
+  ${media.tablet`
     top: -54px;
     width: 100%;
-    height: 440px;
+    height: 410px;
     margin-bottom: 0;
     &:after {
       content: '';
       position: absolute;
-      bottom: 0px;
+      bottom: ${Dimens.medium1_28}px;
       width: 100%;
-      height: 104px;
+      height: 200px;
     }
   `};
 `;
@@ -47,7 +49,10 @@ const TopEyeCatch = styled.img`
   left: 0;
   width: 70%;
   z-index: -1;
-  ${media.phone`
+  ${media.giant`
+    width: 90%;
+  `};
+  ${media.tablet`
     width: 100%;
   `};
 `;
@@ -55,13 +60,13 @@ const TopEyeCatch = styled.img`
 const TopMessageContent = styled.div`
   position: absolute;
   top: 190px;
-  left: 50%;
-  height: 311px;
-  width: 549px;
-  padding: 56px 30px 40px 30px;
+  right: 5%;
+  height: 310px;
+  width: 550px;
+  padding: ${Dimens.medium4_50}px ${Dimens.medium2}px;
   background-color: ${Colors.white};
-  ${media.phone`
-    top: 181px;
+  ${media.tablet`
+    top: 180px;
     left: 5%;
     width: 90%;
     height: initial;
@@ -75,57 +80,61 @@ const TopSubTitle = styled.div`
   font-size: ${FontSizes.medium_18}px;
   line-height: ${Dimens.medium1_28}px;
   margin-bottom: ${Dimens.small}px;
-  ${media.phone`
-    font-size: ${FontSizes.small}px;
-    line-height: ${Dimens.medium1}px;
+  ${media.tablet`
+    display: none;
   `}
 `;
 
 const TopTitle = styled.div`
-  font-size: ${FontSizes.xxxlarge}px;
+  font-size: ${FontSizes.xxlarge_40}px;
   line-height: ${Dimens.medium4}px;
+  font-weight: bold;
   margin-bottom: ${Dimens.small2}px;
-  ${media.phone`
+  ${media.tablet`
     font-size: ${FontSizes.medium2}px;
-    line-height: ${Dimens.medium2_32}px;
+    line-height: ${Dimens.medium2}px;
+    margin-bottom: ${Dimens.xsmall}px;
+  `}
+  ${media.phoneSmall`
+    font-size: ${FontSizes.medium1}px;
   `}
 `;
 
 const TopDescription = styled.div`
   font-size: ${FontSizes.medium}px;
   line-height: ${Dimens.medium1}px;
-  ${media.phone`
+  ${media.tablet`
     font-size: ${FontSizes.small_12}px;
     line-height: ${Dimens.medium_20}px;
   `}
 `;
 
 const MainContainer = styled.div`
-  min-width: ${Dimens.fixedWidthPc + 32}px;
+  width: 100%;
   text-align: center;
-  margin-bottom: ${Dimens.large4_80}px;
-  ${media.phone`
-    min-width: auto;
-    margin-bottom: ${Dimens.medium4}px;
-  `};
 `;
 
 const Attention = styled.div`
-  color: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium_18}px;
+  color: ${Colors.brandPrimary};
   margin-bottom: ${Dimens.small2}px;
-  ${media.phone`
-    font-size: ${FontSizes.small}px;
+  ${media.tablet`
     margin-bottom: ${Dimens.small}px;
+  `};
+  ${media.phone`
+    font-size: ${FontSizes.medium}px;
   `};
 `;
 
 const Headline = styled.div`
-  font-size: ${FontSizes.xxxlarge}px;
-  margin-bottom: ${Dimens.medium4}px;
+  font-size: ${FontSizes.xxlarge}px;
+  line-height: ${Dimens.medium2_38}px;
+  font-weight: bold;
+  margin-bottom: ${Dimens.medium_20}px;
   ${media.phone`
     font-size: ${FontSizes.medium2}px;
-    margin-bottom: ${Dimens.medium3_44}px;
+    line-height: ${Dimens.medium1}px;
+    margin-bottom: ${Dimens.xxsmall_5}px;
   `};
 `;
 
@@ -133,22 +142,38 @@ const HowToUseContentRow = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  padding: 0 ${Dimens.medium}px;
   &:after {
     content: '';
     position: absolute;
-    bottom: 0px;
+    bottom: -${Dimens.medium_20}px;
     width: 90%;
-    height: 319px;
+    height: 320px;
     background: ${Colors.lightGray1Bg};
   }
+  &:last-child {
+    margin: ${Dimens.medium4_50}px auto ${Dimens.large4_80}px;
+  }
   &:nth-child(3):after {
-    left: 0px;
+    left: 0;
   }
   &:nth-child(4):after {
-    right: 0px;
+    right: 0;
   }
-  ${media.phone`
+  ${media.desktop`
     display: block;
+  `};
+  ${media.tablet`
+    padding: 0 ${Dimens.medium}px;
+    &:last-child {
+      margin: auto;
+    }
+    &:after {
+      display: none;
+    }
+  `};
+  ${media.phone`
+    padding: 0;
   `};
 `;
 
@@ -161,74 +186,98 @@ const ContentWrapper = styled.div`
   &:nth-child(2) {
     margin-top: ${Dimens.large2}px;
   }
-  ${media.phone`
+  ${media.desktop`
+    margin: ${Dimens.medium_18}px auto;
+  `}
+  ${media.tablet`
     width: 100%;
-    margin: initial;
+    height: auto;
+    padding-left: 0px;
     &:nth-child(2) {
-      margin-top: initial;
+      margin-top: auto;
     }
+  `}
+  ${media.phone`
+    padding: 0 ${Dimens.medium}px;
+    margin-top: ${Dimens.medium1}px;
   `}
 `;
 
 const ContentImage = styled.img`
   position: absolute;
-  left: 24px;
+  left: ${Dimens.medium_18}px;
   height: 280px;
   z-index: 1;
-  ${media.phone`
+  ${media.tablet`
+    position: relative;
     width: 100%;
-    height: initial;
-    left: 0px;
+    height: auto;
+    left: 0;
   `}
 `;
 
 const ContentNo = styled.div`
   position: absolute;
-  top: 206px;
-  left: -5px;
+  top: -${Dimens.medium3_46}px;
+  left: -${Dimens.medium3_46}px;
   font-size: 100px;
   font-weight: bold;
   color: rgba(232, 82, 88, 0.9);
-  z-index: 3 ${media.phone`
+  z-index: 3;
+  ${media.tablet`
+    top: -${Dimens.medium2_38}px;
+    left: ${Dimens.small2_14}px;
     font-size: 72px;
-    left: 10px;
-    top: 190px;
   `};
+`;
+
+const ContentTextWrap = styled.div`
+  ${media.tablet`
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      left: -${Dimens.medium}px;
+      top: 86px
+      width: calc(100% + ${Dimens.medium2_32}px);
+      height: 250px;
+      background: ${Colors.lightGray1Bg};
+    }
+  `}
 `;
 
 const ContentText = styled.div`
   position: absolute;
   top: 252px;
-  left: ${Dimens.medium3_40}px
-  padding: 25px 36px 24px 81px;
+  left: ${Dimens.medium3_40}px;
+  padding: ${Dimens.medium1}px ${Dimens.medium2_36}px ${Dimens.medium1}px ${Dimens.large4_80}px;
   width: 477px;
-  height: 150px;
+  height: 170px;
   text-align: left;
   background-color: ${Colors.white};
   z-index: 2;
-  ${media.phone`
+  ${media.tablet`
+    position: relative;
     width: 100%;
-    left: 0px;
-    padding: ${Dimens.medium_20}px ${Dimens.small_10}px;
+    height: auto;
+    top: unset;
+    left: 0;
+    margin-top: -2px;
+    padding: ${Dimens.medium4_50}px ${Dimens.medium_20}px ${Dimens.medium_20}px;
   `}
 `;
 
 const ContentTitle = styled.div`
   font-size: ${FontSizes.medium1}px;
+  font-weight: bold;
   color: ${Colors.brandPrimary};
   margin-bottom: ${Dimens.small2}px;
 `;
 
 const ContentDetail = styled.div`
   font-size: ${FontSizes.small}px;
+  line-height: ${Dimens.medium_22}px;
 `;
-
-type HeaderPropTypes = {
-  title: string,
-  subtitle: string,
-  description: string,
-  eyeCatchImage: string,
-};
 
 type ContentPropTypes = {
   contentNo: string,
@@ -237,51 +286,49 @@ type ContentPropTypes = {
   image: string,
 };
 
-const HeaderContainer = ({ title, subtitle, description, eyeCatchImage }: HeaderPropTypes) => (
-  <TopWrapper>
-    <TopEyeCatch src={eyeCatchImage} />
-    <TopMessageContent>
-      <TopSubTitle>{subtitle}</TopSubTitle>
-      <TopTitle>{title}</TopTitle>
-      <TopDescription>{description}</TopDescription>
-    </TopMessageContent>
-  </TopWrapper>
-);
-
 const HowToUseContent = ({ contentNo, title, detail, image }: ContentPropTypes) => (
   <ContentWrapper>
     <ContentImage src={image} />
-    <ContentNo>{contentNo}</ContentNo>
-    <ContentText>
-      <ContentTitle>{title}</ContentTitle>
-      <ContentDetail>{detail}</ContentDetail>
-    </ContentText>
+    <ContentTextWrap>
+      <ContentText>
+        <ContentNo>{contentNo}</ContentNo>
+        <ContentTitle>{title}</ContentTitle>
+        <ContentDetail>{detail}</ContentDetail>
+      </ContentText>
+    </ContentTextWrap>
   </ContentWrapper>
 );
 
 export default () => (
   <Fragment>
-    <HeaderContainer
-      title="使い方はとっても簡単！ モノオクの楽チンガイド。"
-      subtitle="利用の流れ"
-      description="使い方がわからない方向けのご利用ガイド。登録から搬出まで簡単4ステップでご利用できるので、急な引越しやリフォームなどにも最適です！"
-      eyeCatchImage={howtouseEyeCatch}
-    />
-
+    <TopWrapper>
+      <TopEyeCatch src={howtouseEyeCatch} />
+      <TopMessageContent>
+        <TopSubTitle>利用の流れ</TopSubTitle>
+        <TopTitle>
+          使い方はとっても簡単！
+          <br />
+          モノオクはじめてガイド。
+        </TopTitle>
+        <TopDescription>
+          登録から荷物の搬入・搬出まで簡単4ステップでご利用いただけるので、急な引越しやリフォームなどお急ぎの際にも最適です！
+        </TopDescription>
+      </TopMessageContent>
+    </TopWrapper>
     <MainContainer>
-      <Attention>登録から搬出完了までかんたん４ステップ！</Attention>
+      <Attention>登録から搬入出までかんたん４ステップ！</Attention>
       <Headline>荷物を預ける利用手順</Headline>
       <HowToUseContentRow>
         <HowToUseContent
           contentNo="01"
           title="登録・相談"
-          detail="候補のスペースを見つけたら、詳細画面の「このホストに相談する」ボタンからホストに連絡してみましょう。 荷物の種類や量・日程を調整して、ホストとの条件に合えば無事契約成立です。"
+          detail="ユーザー登録をしてスペースを検索！気になるスペースを見つけたら、ホストに預けたい荷物の内容や利用期間を伝え、相談を開始しましょう。 荷物の種類や量・日程を調整して、ホストとの条件に合えば無事契約成立です。"
           image={howtouse01}
         />
         <HowToUseContent
           contentNo="02"
-          title="見積もり・お支払い"
-          detail="ホストから提示された金額でお互いの合意が取れたら支払いへ進みましょう。荷物の内容次第で利用料は変動するため、支払い日までに荷物の詳細について伝えておくと追加料金が発生せずスムーズに済みます。"
+          title="見積もり確認・お支払い"
+          detail="ホストと相談し利用が確定したら、ホストから見積りが届きます。見積もり内容に問題がなければ、お支払いをして取り引き成立です！WEB上で決済できるので、面倒な手続きはありません。"
           image={howtouse02}
         />
       </HowToUseContentRow>
@@ -289,13 +336,13 @@ export default () => (
         <HowToUseContent
           contentNo="03"
           title="荷物の搬入"
-          detail="ホストのスペースへ荷物を運び入れましょう。当日の遅刻や無断キャンセルはトラブルの原因となるため、搬入当日はルールやマナーを守り、こまめな連絡を入れるなど誠実な対応を心がけることが大切です。"
+          detail="利用開始日になったらホストのスペースへ荷物を運び入れます。ご自身での搬入、または配送業者の手配を行いましょう。"
           image={howtouse03}
         />
         <HowToUseContent
           contentNo="04"
           title="荷物の搬出"
-          detail="気持ちよく撤収するため、余裕のある搬出準備を！ 無断での延長や音信不通時には、運営側から規約に基づいた対応やペナルティ料金が発生する場合があるのでご注意ください。"
+          detail="利用終了日になったら荷物を引き取ります。もし延長を希望する場合は、ホストに相談し延長契約を結ぶことができます。"
           image={howtouse04}
         />
       </HowToUseContentRow>

@@ -31,6 +31,12 @@ const SubTitle = styled.div`
   font-weight: bold;
   margin: ${Dimens.medium3}px auto;
   ${props =>
+    props.caption &&
+    `
+      font-size: ${FontSizes.medium}px;
+      font-weight: unset;
+    `};
+  ${props =>
     props.sub &&
     `
       margin: ${Dimens.medium3}px auto ${Dimens.medium}px;
@@ -38,6 +44,11 @@ const SubTitle = styled.div`
   ${media.phone`
     font-size: ${FontSizes.medium1}px;
     margin: ${Dimens.medium_22}px auto ${Dimens.medium1}px;
+    ${props =>
+      props.caption &&
+      `
+        font-size: ${FontSizes.medium}px;
+      `};
     ${props =>
       props.sub &&
       `
@@ -65,12 +76,15 @@ export default () => (
         <br />
         三井住友海上と協力したあんしん荷物補償サービス
       </SubTitle>
+      <SubTitle caption>
+        モノオクでは、ゲストとホストの双方が安心して契約できるよう補償サービスを用意しています。
+      </SubTitle>
       <WhySafeList
         list={[
           {
             label: '最大10万円の補償',
             text:
-              'モノオクでは、ゲストとホストの双方が安心してご契約いただけるよう補償サービスを用意しています。万が一、契約中に荷物の破損・紛失・盗難などのトラブルが起きてしまった場合には、最大10万円（免責金額3,000円）までの補償を提供しています。',
+              '万が一、契約中に荷物の破損・紛失・盗難などのトラブルが起きてしまった場合には、最大10万円（免責金額3,000円）までの補償を提供しています。',
           },
           {
             label: 'すべての取引に対応',

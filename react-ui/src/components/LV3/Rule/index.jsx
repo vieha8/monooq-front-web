@@ -41,7 +41,7 @@ const NotAllowedContentWrapper = styled.div`
   `};
 `;
 
-const ContentText = styled.div`
+const ContentText = styled(Text)`
   margin: ${Dimens.medium1}px 0;
 `;
 
@@ -120,7 +120,7 @@ export default () => (
               data: '毛皮、着物など',
             },
             {
-              header: 'その他取り扱い・保管に注意が必要なもの',
+              header: '保管に注意が必要なもの',
               data: 'タイヤ、楽器、機材類など',
             },
           ]}
