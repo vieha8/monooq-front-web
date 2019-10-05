@@ -41,8 +41,8 @@ const WrapList = styled.ul`
   ::-webkit-scrollbar-thumb {
     background-color: ${Colors.lightGray6};
   }
-  scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
+  scroll-padding: 50%;
   ${media.tablet`
     padding: ${Dimens.medium}px ${Dimens.small}px;
   `};
@@ -59,6 +59,14 @@ const WrapItem = styled.li`
   &:not(:first-child) {
     margin-left: -${Dimens.small2}px;
   }
+  ${media.phone`
+    :first-child {
+      margin-left: ${Dimens.large}px;
+    }
+    :last-child {
+      margin-right: ${Dimens.large}px;
+    }
+  `};
 `;
 
 const Caption = styled.div`
@@ -128,7 +136,7 @@ export default ({ list }: PropTypes) => (
       <Caption>都道府県別でスペースを探す</Caption>
       <WrapList>
         {list.map((item, i) => (
-          <WrapItem key={i.toString()}>
+          <WrapItem key={i.toString()} id={'space_search_area_' + (i + 1).toString()}>
             <Wrap>
               <WrapRegion>{item.region}</WrapRegion>
               {item.prefectureList.map((prefecture, j) => (
