@@ -9,6 +9,10 @@ import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
 
+const PATH_TOP = '/';
+const PATH_ABOUT = '/about';
+const PATH_HOWTOUSE = '/howtouse';
+
 type PropTypes = {
   isChecking: boolean,
   isLogin: boolean,
@@ -22,9 +26,23 @@ type PropTypes = {
 class HeaderContainer extends Component<PropTypes> {
   constructor(props) {
     super(props);
+
+    const targetUrl = props.match ? props.match.url : '';
+    let pagePathScrollPage = '';
+    let isLinkRed = false;
+
+    if (targetUrl === PATH_ABOUT || targetUrl === PATH_HOWTOUSE) {
+      isLinkRed = true;
+    }
+
+    if (targetUrl && (props.top || isLinkRed)) {
+      pagePathScrollPage = targetUrl;
+    }
+
     this.state = {
-      isTop: !!props.top,
+      pagePathScrollPage,
       isOverTopView: false,
+      isLinkRed: !!isLinkRed,
     };
   }
 
@@ -61,16 +79,32 @@ class HeaderContainer extends Component<PropTypes> {
   };
 
   watchCurrentPosition() {
-    const { isTop } = this.state;
-    if (isTop) {
+    const { pagePathScrollPage } = this.state;
+    let positionScrollPC = 0;
+    let positionScrollSP = 0;
+
+    if (pagePathScrollPage) {
       const positionScroll = this.scrollTop();
       this.setState({ isOverTopView: false });
 
+      switch (pagePathScrollPage) {
+        case PATH_TOP:
+          positionScrollPC = 450;
+          positionScrollSP = 290;
+          break;
+        case PATH_ABOUT:
+        case PATH_HOWTOUSE:
+          positionScrollPC = 540;
+          positionScrollSP = 320;
+          break;
+        default:
+      }
+
       if (window.parent.screen.width > 480) {
-        if (positionScroll > 450) {
+        if (positionScroll > positionScrollPC) {
           this.setState({ isOverTopView: true });
         }
-      } else if (positionScroll > 290) {
+      } else if (positionScroll > positionScrollSP) {
         this.setState({ isOverTopView: true });
       }
     }
@@ -89,7 +123,7 @@ class HeaderContainer extends Component<PropTypes> {
       history,
     } = this.props;
 
-    const { isOverTopView } = this.state;
+    const { isOverTopView, pagePathScrollPage, isLinkRed } = this.state;
 
     let isSchedule = false;
     if (schedule && (schedule.user.length > 0 || schedule.host.length > 0)) {
@@ -98,8 +132,10 @@ class HeaderContainer extends Component<PropTypes> {
 
     return (
       <Header
-        isOverTopView={isOverTopView}
         top={top}
+        isOverTopView={isOverTopView}
+        isScrollPage={pagePathScrollPage}
+        isLinkRed={isLinkRed}
         topUrl={Path.top()}
         isCheckingLogin={isChecking}
         noHeaderButton={noHeaderButton}

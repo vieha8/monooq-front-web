@@ -24,7 +24,8 @@ const Container = styled.header`
     props.stories &&
     `
     position: relative;
-  `} top: 0;
+  `};
+  top: 0;
   width: 100%;
   min-width: 260px;
   z-index: ${ZIndexes.nav};
@@ -36,7 +37,7 @@ const Nav = styled.nav`
   height: ${Height}px;
   transition: 0.3s;
   ${props =>
-    (!props.top || props.isOverTopView) &&
+    (props.isOverTopView || (!props.isLinkRed && !props.top)) &&
     `
     background: rgba(255, 255, 255, 0.8);
     transition: 0.3s;
@@ -203,8 +204,22 @@ const menuCommon = (aboutUrl, howtouseUrl, helpUrl) => {
   );
 };
 
+const linkColor = (top, isOverTopView, isHoverColor) => {
+  // TODO: 最適化したい
+  return top
+    ? isOverTopView
+      ? isHoverColor
+        ? Colors.brandTerciary
+        : Colors.brandPrimary
+      : Colors.white
+    : isHoverColor
+    ? Colors.brandTerciary
+    : Colors.brandPrimary;
+};
+
 type PropTypes = {
   top?: boolean,
+  isLinkRed?: boolean,
   isOverTopView?: boolean,
   stories?: boolean,
   topUrl: string,
@@ -234,6 +249,7 @@ type PropTypes = {
 
 export default ({
   top,
+  isLinkRed,
   isOverTopView,
   stories,
   topUrl,
@@ -257,7 +273,7 @@ export default ({
 }: PropTypes) => {
   return (
     <Container stories={stories}>
-      <Nav top={top} isOverTopView={isOverTopView} id="nav">
+      <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
         <LogoWrapper to={topUrl}>
           <ImageLogo.HeaderFill />
         </LogoWrapper>
@@ -310,8 +326,8 @@ export default ({
                     <TextWrapper>
                       <TextLink
                         href={loginUrl}
-                        color={!top || isOverTopView ? Colors.brandPrimary : Colors.white}
-                        colorHover={!top || isOverTopView ? Colors.brandTerciary : Colors.white}
+                        color={linkColor(top, isOverTopView, false)}
+                        colorHover={linkColor(top, isOverTopView, true)}
                         bold
                       >
                         ログイン
@@ -325,7 +341,7 @@ export default ({
                         fontbold
                         height={40}
                         lineheight={15}
-                        color={!top || isOverTopView ? Colors.brandPrimary : Colors.white}
+                        color={linkColor(top, isOverTopView, false)}
                       >
                         新規登録
                       </Button>

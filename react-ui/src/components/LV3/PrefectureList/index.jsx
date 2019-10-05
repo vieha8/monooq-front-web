@@ -43,6 +43,9 @@ const WrapList = styled.ul`
   }
   scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
+  ${media.tablet`
+    padding: ${Dimens.medium}px ${Dimens.small}px;
+  `};
 `;
 
 const WrapItem = styled.li`
@@ -63,10 +66,8 @@ const Caption = styled.div`
   font-weight: bold;
   line-height: ${Dimens.medium1}px;
   color: ${Colors.black2};
-  margin-bottom: ${Dimens.medium2_32}px;
-  margin: auto 12px ${Dimens.small}px;
-  ${media.phone`
-    margin-bottom: ${Dimens.small_10}px;
+  ${media.tablet`
+    margin: auto ${Dimens.medium}px 0; 
   `};
 `;
 
