@@ -37,8 +37,17 @@ class TopContainer extends React.Component {
   }
 
   componentDidMount() {
-    // TODO componentDidUpdateにおきかえる
-    const id = 'space_search_area_1';
+    this.setScrollRegion(this.props.regionId);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.regionId !== prevProps.regionId) {
+      this.setScrollRegion(this.props.regionId);
+    }
+  }
+
+  setScrollRegion = regionId => {
+    const id = 'space_search_area_' + regionId;
     if (document.getElementById(id)) {
       const target = document.getElementById(id);
       target.scrollIntoView({
@@ -47,7 +56,7 @@ class TopContainer extends React.Component {
         block: 'end',
       });
     }
-  }
+  };
 
   handleChangeLocation = event => {
     if (event.target.value === '') {
@@ -131,6 +140,7 @@ const mapStateToProps = state => ({
   ui: state.ui,
   isLogin: state.auth.isLogin,
   sections: state.section.sections,
+  regionId: state.section.regionId,
 });
 
 export default withRouter(connect(mapStateToProps)(TopContainer));

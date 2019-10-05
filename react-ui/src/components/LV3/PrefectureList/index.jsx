@@ -135,7 +135,7 @@ export default ({ list }: PropTypes) => (
       <Caption>都道府県別でスペースを探す</Caption>
       <WrapList>
         {list.map((item, i) => (
-          <WrapItem key={i.toString()} id={'space_search_area_' + i.toString()}>
+          <WrapItem key={i.toString()} id={'space_search_area_' + (i + 1).toString()}>
             <Wrap>
               <WrapRegion>{item.region}</WrapRegion>
               {item.prefectureList.map((prefecture, j) => (
