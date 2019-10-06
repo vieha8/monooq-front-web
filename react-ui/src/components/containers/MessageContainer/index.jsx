@@ -11,7 +11,7 @@ import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Messages from 'components/LV3/Messages';
-import Loading from 'components/LV1/Loading';
+import LoadingPage from 'components/LV3/LoadingPage';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InfoHost from 'components/LV2/Space/InfoHost';
 import InfoUser from 'components/LV2/Space/InfoUser';
@@ -223,7 +223,7 @@ class MessageContainer extends Component<PropTypes, State> {
     const { text, image, errorModal } = this.state;
 
     if (isLoading || !room) {
-      return <Loading size="large" />;
+      return <LoadingPage size="large" />;
     }
 
     const isHost = room.space.user.id === user.id;

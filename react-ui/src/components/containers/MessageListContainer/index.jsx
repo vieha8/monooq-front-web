@@ -5,7 +5,7 @@ import Path from 'config/path';
 
 import { messagesActions } from 'redux/modules/messages';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import Loading from 'components/LV1/Loading';
+import LoadingPage from 'components/LV3/LoadingPage';
 import MessageList from 'components/LV3/MessageList';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
 import { iskeyDownEnter } from 'helpers/keydown';
@@ -49,7 +49,7 @@ class MessageListContainer extends Component<PropTypes> {
   render() {
     const { isLoading, rooms } = this.props;
     if (isLoading) {
-      return <Loading size="large" />;
+      return <LoadingPage size="large" />;
     }
 
     return Array.isArray(rooms) && rooms.length > 0 ? (
