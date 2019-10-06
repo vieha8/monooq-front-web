@@ -1,9 +1,8 @@
 // @flow
 
 import React, { Component } from 'react';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import HowToUse from 'components/LV3/HowToUse';
-import connect from '../connect';
 
 class HowToUseContainer extends Component<*> {
   render() {
@@ -11,6 +10,6 @@ class HowToUseContainer extends Component<*> {
   }
 }
 
-export default ContentPageMenu(connect(HowToUseContainer), {
-  headline: 'ご利用ガイド・よくある質問',
+export default ContentPageStatic(HowToUseContainer, {
+  maxWidth: true,
 });

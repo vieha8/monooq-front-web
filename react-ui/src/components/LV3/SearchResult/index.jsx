@@ -8,36 +8,49 @@ import Button from 'components/LV1/Forms/Button';
 import SearchResultItem from 'components/LV2/Items/SearchResultItem';
 
 const Container = styled.div`
-  width: ${props => (props.isHome ? '100%' : '540px')};
-  margin: 0 0 ${Dimens.medium4}px 0;
-  ${media.tablet`
-    width: 100%;
-    text-align: left;
-    margin: ${Dimens.medium1_25}px 0 ${Dimens.medium3_40}px auto;
+  width: 100%;
+  ${media.phone`
+    margin: ${Dimens.medium1_25}px 0 0 auto;
   `};
 `;
 
 const Cell = styled.div`
-  width: 50%;
+  width: calc(25% - ${Dimens.small2}px);
   display: inline-block;
   vertical-align: top;
-  padding: 0 0 ${Dimens.medium2_32}px;
-  ${props =>
-    props.index % 2 === 1 &&
-    `
-    padding: 0 0 ${Dimens.medium2_32}px ${Dimens.medium}px;
-  `};
+  margin: 0 ${Dimens.medium}px ${Dimens.medium2_32}px 0;
+  &:nth-child(4n) {
+    width: calc(25% - ${Dimens.small2}px);
+    margin: 0 0 ${Dimens.medium2_32}px;
+  }
+
   ${media.tablet`
-    width: 50%;
-    ${props =>
-      props.index % 2 === 1 &&
-      `
-      padding: 0 0 ${Dimens.medium2_32}px ${Dimens.medium}px;
-    `};
+    width: calc(50% - ${Dimens.small}px);
+    max-width: 100%;
+    &:nth-child(2n) {
+      width: calc(50% - ${Dimens.small}px);
+      margin: 0 0 ${Dimens.medium2_32}px;
+    }
   `};
+
   ${media.phone`
     width: 100%;
-    padding: 0 0 ${Dimens.medium2_32}px;
+    max-width: 100%;
+    margin: 0 0 ${Dimens.large2_65}px;
+    &:nth-child(2n) {
+      width: 100%;
+      margin: 0 0 ${Dimens.large2_65}px;
+    }
+    ${props =>
+      props.isTag &&
+      `
+      width: calc(50% - 3.5px);
+      margin: 0 ${Dimens.xsmall_7}px ${Dimens.medium2_35}px 0;
+      &:nth-child(2n) {
+        width: calc(50% - 3.5px);
+        margin: 0 0 ${Dimens.medium2_35}px;
+      }
+    `};
   `};
 `;
 
@@ -67,7 +80,8 @@ const MoreButtonWrap = styled.div`
 const SpacesWrap = styled.div``;
 
 type PropTypes = {
-  isHome?: boolean,
+  isTag?: boolean,
+  isTop?: boolean,
   caption: string,
   spaces: Array<{
     id: number,
@@ -88,19 +102,20 @@ type PropTypes = {
 };
 
 export default ({
-  isHome,
+  isTag,
+  isTop,
   caption,
   spaces,
   isMore,
   onClickMore,
   onKeyDownButtonMore,
 }: PropTypes) => (
-  <Container isHome={isHome}>
+  <Container isTop={isTop}>
     {caption && <CaptionWrap>{caption}</CaptionWrap>}
     <SpacesWrap>
       {spaces.map((space, i) => (
-        <Cell key={`result_list_result_item_${i}`.toString()} index={i}>
-          <SearchResultItem {...space} />
+        <Cell key={`result_list_result_item_${i}`.toString()} index={i} isTag={isTag}>
+          <SearchResultItem {...space} isTag={isTag} />
         </Cell>
       ))}
     </SpacesWrap>

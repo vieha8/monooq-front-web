@@ -193,7 +193,7 @@ export default ({
         </OnlyPhone>
         <InputWrapper>
           <InputForm
-            type="text"
+            type="tel"
             unit="円"
             value={price}
             onChange={e => onChange(e.target.value)}

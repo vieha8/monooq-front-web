@@ -20,13 +20,21 @@ const ListWrapper = styled.div`
   margin-bottom: ${Dimens.medium2}px;
 `;
 
-const List = Text.withComponent('li');
+const List = styled(Text.withComponent('li'))`
+  ${props =>
+    props.isNoDisc &&
+    `
+      margin: ${Dimens.small_10}px auto;
+      list-style-type: none;
+    `};
+`;
 
 const QuestionTitle = styled(Label)`
+  margin-bottom: ${Dimens.small_10}px;
   ${media.phone`
     font-size: 6vw;
     line-height: ${6 * 1.5}vw;
-    margin-bottom: ${Dimens.small_10}px;
+    margin-bottom: ${Dimens.xxsmall_5}px;
   `};
 `;
 
@@ -35,6 +43,7 @@ type PropTypes = {
   list: Array<{
     text?: string,
     textCustom?: React.Element<*>,
+    isNoDisc?: boolean,
   }>,
   text?: string,
 };
@@ -45,7 +54,7 @@ export default ({ title, text, list }: PropTypes) => (
     {list && (
       <ListWrapper>
         {list.map((item, i) => (
-          <List key={i.toString()}>
+          <List key={i.toString()} isNoDisc={item.isNoDisc}>
             {item.text}
             {item.textCustom}
           </List>

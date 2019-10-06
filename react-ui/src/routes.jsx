@@ -22,15 +22,6 @@ const SignUpPurpose = loadable(() =>
 const ResetPassword = loadable(() =>
   import('components/containers/ResetPasswordContainer').catch(() => window.location.reload()),
 );
-const Home = loadable(() =>
-  import('components/containers/HomeContainer').catch(() => window.location.reload()),
-);
-const HomeRegion = loadable(() =>
-  import('components/containers/HomeRegionContainer').catch(() => window.location.reload()),
-);
-const HomePrefecture = loadable(() =>
-  import('components/containers/HomePrefectureContainer').catch(() => window.location.reload()),
-);
 const Search = loadable(() =>
   import('components/containers/SearchResultContainer').catch(() => window.location.reload()),
 );
@@ -120,17 +111,14 @@ const Sales = loadable(() =>
 const About = loadable(() =>
   import('components/containers/AboutContainer').catch(() => window.location.reload()),
 );
+const HowToUse = loadable(() =>
+  import('components/containers/HowToUseContainer').catch(() => window.location.reload()),
+);
 const Insurance = loadable(() =>
   import('components/containers/InsuranceContainer').catch(() => window.location.reload()),
 );
 const Rule = loadable(() =>
   import('components/containers/RuleContainer').catch(() => window.location.reload()),
-);
-const HowToUse = loadable(() =>
-  import('components/containers/HowToUseContainer').catch(() => window.location.reload()),
-);
-const Service = loadable(() =>
-  import('components/containers/ServiceContainer').catch(() => window.location.reload()),
 );
 const PageNotFound = loadable(() =>
   import('components/containers/PageNotFoundContainer').catch(() => window.location.reload()),
@@ -157,9 +145,6 @@ export default ({ history }) => (
       <Route exact path={Path.signUpProfile()} component={SignUpProfile} />
       <Route exact path={Path.signUpPurpose()} component={SignUpPurpose} />
       <Route exact path={Path.resetPassword()} component={ResetPassword} />
-      <Route exact path={Path.home()} component={Home} />
-      <Route exact path={Path.homeRegion()} component={HomeRegion} />
-      <Route exact path={Path.homePrefecture()} component={HomePrefecture} />
       <Route exact path={Path.search()} component={Search} />
       <Route exact path={Path.searchCondition()} component={SearchCondition} />
       <Route exact path={Path.space()} component={Space} />
@@ -187,10 +172,9 @@ export default ({ history }) => (
       <Route exact path={Path.unsubscribe()} component={Unsubscribe} />
       <Route exact path={Path.sales()} component={Sales} />
       <Route exact path={Path.about()} component={About} />
+      <Route exact path={Path.howtouse()} component={HowToUse} />
       <Route exact path={Path.insurance()} component={Insurance} />
       <Route exact path={Path.rule()} component={Rule} />
-      <Route exact path={Path.howToUse()} component={HowToUse} />
-      <Route exact path={Path.service()} component={Service} />
       <Route exact path={Path.cancelPolicy()} component={CancelPolicy} />
       <Route exact path={Path.asct()} component={Asct} />
       <Route exact path={Path.privacy()} component={Privacy} />

@@ -26,8 +26,6 @@ import SpaceEditConfirm from './SpaceEditConfirmContainer';
 import SpaceEditCompletion from './SpaceEditCompletionContainer';
 import Unsubscribe from './UnsubscribeContainer';
 import Sales from './SalesContainer';
-import HowToUse from './HowToUseContainer';
-import Home from './HomeContainer';
 
 export default {
   Top,
@@ -56,6 +54,4 @@ export default {
   SpaceEditCompletion,
   Unsubscribe,
   Sales,
-  HowToUse,
-  Home,
 };

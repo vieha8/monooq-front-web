@@ -2,7 +2,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
 import numeral from 'numeral';
 import Card from 'components/LV1/Card';
 import ImageHero from 'components/LV1/Images/ImageHero';
@@ -15,16 +14,8 @@ import LazyLoad from 'react-lazyload';
 import iconStar from 'images/img-space-star.svg';
 
 const Container = styled.div`
-  max-width: 262px;
-  ${media.tablet`
-    max-width: 100%;
-  `};
   cursor: pointer;
   margin: auto;
-  padding: ${Dimens.xxsmall_4}px;
-  ${media.phone`
-    padding: ${Dimens.xxsmall_4}px 0;
-  `};
 `;
 
 const Content = styled.div`
@@ -33,6 +24,11 @@ const Content = styled.div`
 
 const Row = styled.div`
   margin-top: ${props => props.marginTop || Dimens.xsmall}px;
+  ${props =>
+    props.inline &&
+    `
+    display: flex;
+  `};
   ${props =>
     props.right &&
     `
@@ -47,6 +43,7 @@ const ImageStar = styled.img`
 `;
 
 type PropTypes = {
+  isTag?: boolean,
   id: number,
   image: string,
   title: string,
@@ -58,6 +55,7 @@ type PropTypes = {
 };
 
 export default ({
+  isTag,
   id,
   title,
   isRecommended,
@@ -71,19 +69,30 @@ export default ({
     <Link to={Path.space(id)}>
       <Card noPadding noBorder>
         <LazyLoad height={123}>
-          <ImageHero src={image} alt={title} height={184} heightTab={195} heightSp={225} />
+          <ImageHero
+            isTag={isTag}
+            src={image}
+            alt={title}
+            height={184}
+            heightTab={195}
+            heightSp={225}
+            heightSpTag={110}
+          />
         </LazyLoad>
         <Content>
-          {isRecommended && (
-            <Row>
-              <InlineText.Base singleLine fontSize={14} bold color={Colors.brandAccent}>
-                <ImageStar src={iconStar} />
-                公式おすすめ
-              </InlineText.Base>
-            </Row>
-          )}
           <Row marginTop={10}>
             <InlineText.Base singleLine fontSize={14} color={Colors.lightGray3}>
+              {isRecommended && (
+                <InlineText.Base
+                  fontSize={14}
+                  bold
+                  color={Colors.brandAccent}
+                  margin={isTag ? '0 4px 0 0' : '0 8px 0 0'}
+                >
+                  <ImageStar src={iconStar} />
+                  {!isTag && '公式おすすめ'}
+                </InlineText.Base>
+              )}
               {address}
             </InlineText.Base>
           </Row>

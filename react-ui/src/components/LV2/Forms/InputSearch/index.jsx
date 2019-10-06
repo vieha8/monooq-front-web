@@ -2,56 +2,43 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { FontSizes, Colors, Dimens } from 'variables';
+import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-
-const WIDTH = 500;
-const HEIGHT = 60;
+import Button from 'components/LV1/Forms/Button';
+import InputForm from 'components/LV2/Forms/InputForm';
 
 const SearchWrapper = styled.div`
-  width: ${WIDTH}px;
+  width: 100%;
+  display: flex;
   position: relative;
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
   ${media.phone`
-    width: 84vw;
+    max-width: 327px;
   `};
 `;
 
-const InputSearch = styled.input`
-  margin: 0;
-  border: 1px solid ${props => props.borderColor || Colors.borderGray};
-  border-radius: 5px;
-  padding: 20px 60px 20px 20px;
-  display: inline-block;
-  vertical-align: middle;
-  background: #fff;
-  height: ${HEIGHT}px;
-  width: ${WIDTH}px;
-  line-height: ${Dimens.medium_20}px;
-  box-sizing: border-box;
-  font-size: ${FontSizes.small}px;
-  &:focus {
-    outline: none;
-  }
-  ${media.phone`
-    width: 84vw;
+const Wrap = styled.div`
+  width: 80%;
+  max-width: 699px;
+  ${props =>
+    props.button &&
+    `
+    width: 20%;
+    max-width: 109px;
+    margin-left: ${Dimens.small_10}px;
   `};
-`;
-
-const SearchButton = styled.div`
-  position: absolute;
-  top: calc(50% - ${Dimens.small_11}px);
-  font-size: ${FontSizes.medium1_22}px;
-  right: ${Dimens.medium_20}px;
-  width: auto;
-  height: auto;
-  text-align: center;
-  padding: 0;
-  color: ${props => props.color};
-  cursor: pointer;
-  &:hover {
-    opacity: ${props => (props.disabled ? 1 : 0.6)};
-  }
+  ${media.phone`
+    width: 100%;
+    ${props =>
+      props.button &&
+      `
+      width: 100%;
+      max-width: 78px;
+    `};
+  `};
 `;
 
 type PropTypes = {
@@ -72,19 +59,26 @@ export default ({
   onClickSearchButton,
 }: PropTypes) => (
   <SearchWrapper>
-    <InputSearch
-      placeholder={placeholder}
-      onChange={onChange}
-      onKeyDown={onKeyDown}
-      margin="normal"
-      borderColor={borderColor}
-    />
-    <SearchButton
-      onClick={searchDisabled ? null : onClickSearchButton}
-      disabled={searchDisabled}
-      tabIndex={0}
-      className="fal fa-search"
-      color={searchDisabled ? Colors.lightGray1 : Colors.brandPrimary}
-    />
+    <Wrap>
+      <InputForm
+        placeholder={placeholder}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+        borderColor={borderColor}
+        margintop="0"
+      />
+    </Wrap>
+    <Wrap button>
+      <Button
+        primary
+        fill={1}
+        fontbold
+        disabled={searchDisabled}
+        onClick={searchDisabled ? null : onClickSearchButton}
+        onKeyDown={onKeyDown}
+      >
+        検索
+      </Button>
+    </Wrap>
   </SearchWrapper>
 );

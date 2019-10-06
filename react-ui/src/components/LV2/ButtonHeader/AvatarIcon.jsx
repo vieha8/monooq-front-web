@@ -1,8 +1,14 @@
 // @flow
 
 import React from 'react';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
+
+const LinkStyled = styled(Link)`
+  display: block;
+  width: 100%;
+`;
 
 type PropTypes = {
   to?: string,
@@ -12,9 +18,9 @@ type PropTypes = {
 
 export default ({ to, imageSrc, size }: PropTypes) =>
   to ? (
-    <Link to={to}>
-      <ImageAvatar src={imageSrc} size={size || 32} />
-    </Link>
+    <LinkStyled to={to}>
+      <ImageAvatar src={imageSrc} size={size || 40} />
+    </LinkStyled>
   ) : (
-    <ImageAvatar src={imageSrc} size={size || 32} />
+    <ImageAvatar src={imageSrc} size={size || 40} />
   );

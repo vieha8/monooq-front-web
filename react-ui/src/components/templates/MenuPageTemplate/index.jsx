@@ -8,19 +8,18 @@ import ContainerClearfix from 'components/LV1/ContainerClearfix';
 import { H1 } from 'components/LV1/Texts/Headline';
 import Page from '../Page';
 
+const Wrap = styled.div``;
+
 const Content = styled.div`
   overflow: hidden;
   margin: auto;
-  width: 844px;
-  ${media.tablet`
-    width: 100%;
-  `};
+  width: 100%;
 `;
 
 const LeftContent = styled.div`
-  float: left;
-  width: 65%;
-  max-width: 540px;
+  width: 100%;
+  max-width: 768px;
+  margin: auto;
   ${media.tablet`
     float: none;
     margin-left: 0;
@@ -30,27 +29,15 @@ const LeftContent = styled.div`
   `};
 `;
 
-const RightContent = styled.div`
-  float: left;
-  width: 28%;
-  min-width: 192px;
-  margin-left: 67px;
-  ${media.tablet`
-    display: none;
-    float: none;
-  `};
-`;
-
 type PropTypes = {
   header: React.Element<*>,
   headline: string,
   leftContent: React.Element<*>,
-  rightContent: React.Element<*>,
   noMargin?: boolean,
 };
 
-export default ({ header, noMargin, headline, leftContent, rightContent }: PropTypes) => (
-  <div>
+export default ({ header, noMargin, headline, leftContent }: PropTypes) => (
+  <Wrap>
     {header}
     <Page noMargin={noMargin}>
       <ContainerClearfix>
@@ -59,9 +46,8 @@ export default ({ header, noMargin, headline, leftContent, rightContent }: PropT
             {headline && <H1 bold>{headline}</H1>}
             {leftContent}
           </LeftContent>
-          <RightContent>{rightContent}</RightContent>
         </Content>
       </ContainerClearfix>
     </Page>
-  </div>
+  </Wrap>
 );

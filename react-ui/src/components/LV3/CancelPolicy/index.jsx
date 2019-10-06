@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
@@ -8,7 +8,6 @@ import { media } from 'helpers/style/media-query';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import Hr from 'components/LV1/HorizontalRule';
 import Text from 'components/LV1/Texts/TextStatic';
-import Footer from 'components/LV2/Footer';
 import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
 import AboutCancelList from 'components/LV2/Lists/AboutCancelList';
 
@@ -22,7 +21,7 @@ const HilightText = styled(Text)`
   `};
 `;
 
-const AboutCancellContainer = styled(ContainerDefault)`
+const AboutCancellContainer = styled.div`
   ${props =>
     props.hostcancel &&
     `
@@ -70,7 +69,7 @@ const ExampleText = styled.div`
 `;
 
 export default () => (
-  <Fragment>
+  <ContainerDefault>
     <MainTitleContainer
       mainTitle="キャンセルポリシー"
       text="キャンセルポリシーとは、モノオクが定める取引成立後のキャンセルに発生する手数料やご注意事項です。見積もりを送る前・お支払いの前に必ずご確認ください。"
@@ -158,7 +157,5 @@ export default () => (
         </Text>
       </NoticeWrapper>
     </AboutCancellContainer>
-
-    <Footer />
-  </Fragment>
+  </ContainerDefault>
 );

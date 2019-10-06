@@ -9,8 +9,8 @@ import { requestReducer } from 'redux/modules/request';
 import { salesReducer } from 'redux/modules/sales';
 import { errorReducer } from 'redux/modules/error';
 import { initReducer } from 'redux/modules/init';
-import { homeReducer } from 'redux/modules/home';
 import { loggerReducer } from 'redux/modules/logger';
+import { sectionReducer } from 'redux/modules/section';
 
 const createReducers = history =>
   combineReducers({
@@ -24,7 +24,7 @@ const createReducers = history =>
     sales: salesReducer,
     error: errorReducer,
     init: initReducer,
-    home: homeReducer,
+    section: sectionReducer,
     logger: loggerReducer,
   });
 

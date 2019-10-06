@@ -38,7 +38,7 @@ export default class RegisterHowToUseContainer extends Component<PropTypes, Stat
         body: { isHost: Boolean(isHost) },
       }),
     );
-    history.push(Path.home());
+    history.push(Path.top());
   };
 
   handleChangeForm = (name: string, value: any) => {
@@ -61,7 +61,7 @@ export default class RegisterHowToUseContainer extends Component<PropTypes, Stat
             category: 'User Register',
             action: 'Skip HowToUse',
           });
-          history.push(Path.home());
+          history.push(Path.top());
         }}
         onClickRegisterProfile={this.onClickRegisterProfile}
         buttonLoading={isLoading}

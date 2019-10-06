@@ -1,15 +1,16 @@
 // @flow
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';
-
 import { Colors, Dimens } from 'variables';
 import Path from 'config/path';
+
+const Wrap = styled.div``;
 
 const LinkText = styled(Link)`
   color: ${Colors.brandPrimary};
@@ -21,7 +22,7 @@ const Text = styled.div`
 
 const ButtonWrap = styled.div`
   max-width: 240px;
-  margin: 30px auto;
+  margin: ${Dimens.medium2}px auto ${Dimens.medium2}px 0px;
   ${media.phone`
     display: block;
     width: 100%;
@@ -34,12 +35,7 @@ const ButtonWrap = styled.div`
   `};
 `;
 
-const UnsubscribeText = styled.div`
-  ${media.phone`
-    position: absolute;
-    bottom: 15px;
-  `};
-`;
+const UnsubscribeText = styled.div``;
 
 const HyperLink = LinkText.withComponent('a');
 
@@ -48,7 +44,7 @@ type PropTypes = {
 };
 
 export default ({ isLogin }: PropTypes) => (
-  <Fragment>
+  <Wrap>
     <Text>
       <InlineText.Base>
         サービス利用でのご不明点は「
@@ -76,5 +72,5 @@ export default ({ isLogin }: PropTypes) => (
         </TextLink>
       </UnsubscribeText>
     )}
-  </Fragment>
+  </Wrap>
 );

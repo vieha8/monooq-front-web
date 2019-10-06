@@ -1,25 +1,21 @@
-const HOST_ID = ':host_id';
 const USER_ID = ':user_id';
 const SPACE_ID = ':space_id';
 const MESSAGE_ROOM_ID = ':message_room_id';
-const SCHEDULE_ID = ':schedule_id';
 const REQUEST_ID = ':request_id';
-const REGION_ID = ':region_id';
-const PREFECTURE_ID = ':prefecture_id';
+const PREFECTURE = ':prefecture';
+const CITY_CODE = ':city_code';
+const TOWN_CODE = ':town_code';
 
 export default {
-  // トップ
-  top: () => '/',
-  // 検索
-  search: () => '/search',
-  // 検索条件
-  searchCondition: () => '/search/condition',
-  // ホーム
-  home: () => '/home',
-  homeRegion: (regionId = REGION_ID) => `/home/region/${regionId}`,
-  homePrefecture: (prefectureId = PREFECTURE_ID) => `/home/prefecture/${prefectureId}`,
-  // スペース詳細
-  space: (spaceId = SPACE_ID) => `/space/${spaceId}`,
+  top: () => '/', // トップ
+  search: () => '/search', // 検索結果
+  searchCondition: () => '/search/condition', // 検索条件
+  spacesByPrefecture: (prefecture = PREFECTURE) => `/spaces/p${prefecture}`, // 都道府県別スペース一覧
+  spacesByCity: (prefecture = PREFECTURE, cityCode = CITY_CODE) =>
+    `/spaces/p${prefecture}/c${cityCode}`, // 市区町村別スペース一覧
+  spacesByTown: (prefecture = PREFECTURE, cityCode = CITY_CODE, townCode = TOWN_CODE) =>
+    `/spaces/p${prefecture}/c${cityCode}/t${townCode}`, // 町域別スペース一覧
+  space: (spaceId = SPACE_ID) => `/space/${spaceId}`, // スペース詳細
   // スペース作成
   createSpaceInfo: () => '/space/new/info',
   createSpaceBaggage: () => '/space/new/baggage',
@@ -35,8 +31,6 @@ export default {
   spaceEditCompletion: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/completion`,
   // スケジュール
   schedule: () => '/schedule',
-  // キャンセル確認
-  confirmCancel: (scheduleId = SCHEDULE_ID) => `/schedule/${scheduleId}/cancel`,
   // メッセージ一覧
   messageList: () => '/messages',
   // メッセージ詳細
@@ -52,15 +46,10 @@ export default {
   profileEdit: () => '/profile/edit',
   // スペース一覧
   spaces: () => '/user/spaces',
-  // レビュー投稿
-  hostReview: (hostId = HOST_ID, scheduleId = SCHEDULE_ID) =>
-    `/host/${hostId}/schedule/${scheduleId}/review/new`,
   // 支払い一覧
   paid: () => '/paid',
   // 売上一覧
   sales: () => '/sales',
-  // 口座編集
-  editBankAccount: () => '/bank/edit',
   // お問い合わせ
   inquiry: () => `/inquiry`,
   // 登録
@@ -72,15 +61,11 @@ export default {
   // 退会
   unsubscribe: () => '/unsubscribe',
   resetPassword: () => '/password/reset',
-  // 違反報告
-  reportUser: () => '/report/user',
-  reportSpace: () => '/report/space',
   // 静的ページ
   about: () => '/about',
+  howtouse: () => '/howtouse',
   insurance: () => '/insurance',
   rule: () => '/rule',
-  howToUse: () => '/howtouse',
-  service: () => '/service',
   pageNotFound: () => '/notfound',
   error: (status = ':status') => `/error/${status}`,
   cancelPolicy: () => '/cancel/policy',

@@ -59,6 +59,61 @@
 /* 
   slide menu
  */
+.bm-overlay {
+  top: 0px;
+  left: 0px;
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+.bm-menu-wrap {
+  top: 0px;
+}
+
+.bm-menu-wrap .bm-menu {
+  font-size: 1.15em;
+  background: #f8f8f8;
+}
+
+.bm-menu-wrap .bm-menu a {
+  color: #333333;
+}
+
+.bm-menu-wrap .bm-menu a:hover,
+.bm-menu-wrap .bm-menu a:focus {
+  color: #888787;
+}
+
+.bm-menu-wrap .bm-menu .bm-item-list {
+  position: relative;
+}
+
+.bm-menu-wrap .bm-menu .bm-item-list a {
+  font-size: 15px;
+}
+
+.bm-menu-wrap.close .bm-cross-button {
+  display: none;
+}
+
+@media (max-width: 20em) {
+  .bm-menu-wrap .bm-cross-button {
+    display: none;
+  }
+}
+
+.bm-cross-button {
+  width: 25px !important;
+  height: 35px !important;
+  left: -35px !important;
+  top: 10px !important;
+}
+
+.bm-cross-button .bm-cross {
+  width: 2px !important;
+  height: 25px !important;
+  background: #ffffff;
+}
+
 .bm-burger-button {
   position: relative;
   width: 24px;
@@ -69,48 +124,6 @@
   background: #333333;
   border-radius: 20px !important;
   height: 15% !important;
-}
-
-.bm-menu {
-  background: #fff;
-}
-
-.bm-menu a {
-  color: #333333;
-}
-
-.bm-menu a:hover,
-.bm-menu a:focus {
-  color: #888787;
-}
-
-.bm-item-list {
-  position: relative;
-}
-
-.bm-item-list a {
-  font-size: 15px;
-}
-
-.bm-cross-button {
-  display: none;
-}
-
-#slide {
-  top: 0px;
-}
-
-#slide .bm-cross {
-  background: #bdc3c7;
-}
-#slide .bm-menu {
-  padding: 15px 0px;
-  font-size: 1.15em;
-}
-
-.bm-overlay {
-  top: 0px;
-  left: 0px;
 }
 
 .ePahOV:not(:last-child) {
@@ -125,23 +138,20 @@
 }
 
 /* space imge slider */
-.image-gallery-slide img {
-  height: 300px;
-  border-radius: 10px;
+.image-gallery-slides {
+  z-index: 1;
+  border-radius: 3px;
 }
 
-@media (max-width: 30em) {
-  .image-gallery-slide img {
-    height: 200px;
-  }
+.image-gallery-slide img {
+  height: auto;
 }
 
 /* 
   collapsible
  */
 .Collapsible {
-  font-size: 15px;
-  font-weight: bold;
+  font-size: 14px;
   text-decoration: none;
   line-height: normal;
   background-color: rgb(255, 255, 255);
@@ -155,7 +165,6 @@
   position: relative;
   padding: 10px 24px;
   border: 1px solid #dbdbdb;
-  border-bottom: none;
 }
 
 @media (max-width: 30em) {
@@ -170,7 +179,7 @@
 
 .Collapsible:last-child .Collapsible__contentInner a:last-child p {
   border-bottom: 1px solid #dbdbdb;
-  border-radius: 0px 0px 4px 4px;
+  border-radius: 3px 3px 3px 3px;
 }
 
 .Collapsible__trigger {
@@ -180,6 +189,7 @@
   border: 1px solid #dbdbdb;
   border-bottom: none;
   background-color: #f7f7f7;
+  text-align: left;
 }
 
 @media (max-width: 30em) {
@@ -188,28 +198,37 @@
   }
 }
 
+@media (max-width: 23.375em) {
+  .Collapsible__trigger {
+    font-size: 13px;
+  }
+}
+
 .Collapsible:nth-child(2) .Collapsible__trigger {
-  border-radius: 4px 4px 0px 0px;
+  border-radius: 3px 3px 3px 3px;
 }
 
 .Collapsible:last-child .Collapsible__trigger {
   border-bottom: 1px solid #dbdbdb;
-  border-radius: 0px 0px 4px 4px;
+  border-radius: 3px 3px 3px 3px;
 }
 
 .Collapsible:last-child .Collapsible__trigger.is-open {
-  border-radius: 0px;
+  border-radius: 3px 3px 0px 0px;
 }
 
 .Collapsible__trigger:after {
   content: '';
-  background-image: url(../images/toggle.svg);
+  display: block;
   position: absolute;
-  right: 24px;
   top: 14px;
-  width: 16px;
-  height: 16px;
-  border-radius: 2px;
+  right: 20px;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #2e2929;
+  border-right: 2px solid #2e2929;
+  transform: rotate(135deg);
+  transition: 0.3s;
 }
 
 @media (max-width: 30em) {
@@ -219,5 +238,24 @@
 }
 
 .Collapsible__trigger.is-open::after {
-  transform: rotateZ(180deg);
+  top: 16.5px;
+  transform: rotate(315deg);
+  transition: 0.3s;
+}
+
+/* 
+  Header Menu
+ */
+.popup-content {
+  width: 320px !important;
+  padding: 0px !important;
+  border: none !important;
+  border-radius: 6px;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.popup-arrow {
+  left: 90% !important;
+  border: none !important;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1) !important;
 }

@@ -25,6 +25,7 @@ class Head extends React.Component {
       description: props.description || DEFAULT_DESCRIPTION,
       keyword: props.keyword || '荷物預かり,引越し,荷物預かり 引っ越し,物置き,シェア',
       noindex: props.noindex,
+      jsonLd: '',
       ogUrl: `https://monooq.com/${props.ogUrl || ''}`,
       ogImageUrl:
         props.ogImageUrl ||
@@ -41,7 +42,16 @@ class Head extends React.Component {
   }
 
   render() {
-    const { siteName, title, description, keyword, ogUrl, ogImageUrl, noindex } = this.state;
+    const {
+      siteName,
+      title,
+      description,
+      keyword,
+      ogUrl,
+      ogImageUrl,
+      noindex,
+      jsonLd,
+    } = this.state;
     const path = window.location.pathname;
     return (
       <Helmet>
@@ -57,6 +67,7 @@ class Head extends React.Component {
         <meta property="og:image" content={ogImageUrl} />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="canonical" href={`https://monooq.com${path}`} />
+        {jsonLd !== '' && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
       </Helmet>
     );
   }

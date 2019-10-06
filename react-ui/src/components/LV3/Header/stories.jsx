@@ -20,7 +20,7 @@ const BodyMock = styled.div`
 const ServiceMenuSP = () => {
   return (
     <ServiceMenu
-      home={{ to: Path.home() }}
+      top={{ to: Path.top() }}
       message={{ to: Path.messageList(), notificationCount: 0 }}
       schedule={{ to: Path.schedule(), notificationCount: 0 }}
       spaces={{ to: Path.spaces() }}
@@ -30,11 +30,8 @@ const ServiceMenuSP = () => {
       profileEdit={{ to: Path.profileEdit() }}
       help={{ href: 'https://help.monooq.com/' }}
       inquiry={{ to: Path.inquiry() }}
-      howToUse={{ to: Path.howToUse() }}
-      service={{ to: Path.service() }}
       userName="name"
       userImage="http://placehold.jp/500x500.png"
-      isPhone
     />
   );
 };
@@ -51,8 +48,6 @@ storiesOf('Organisms(LV3)/Header', module)
         <BodyMock>
           <Header
             topUrl={Path.top()}
-            homeUrl={Path.home()}
-            searchConditionUrl={Path.searchCondition()}
             messageUrl={Path.messageList()}
             messageCount={4}
             user={{
@@ -79,8 +74,6 @@ storiesOf('Organisms(LV3)/Header', module)
         <BodyMock>
           <Header
             topUrl={Path.top()}
-            homeUrl={Path.home()}
-            searchConditionUrl={Path.searchCondition()}
             messageUrl={Path.messageList()}
             messageCount={0}
             user={null}
@@ -102,8 +95,6 @@ storiesOf('Organisms(LV3)/Header', module)
         <BodyMock>
           <Header
             topUrl={Path.top()}
-            homeUrl={Path.home()}
-            searchConditionUrl={Path.searchCondition()}
             messageUrl={Path.messageList()}
             messageCount={4}
             user={{
@@ -131,8 +122,6 @@ storiesOf('Organisms(LV3)/Header', module)
         <BodyMock>
           <Header
             topUrl={Path.top()}
-            homeUrl={Path.home()}
-            searchConditionUrl={Path.searchCondition()}
             messageUrl={Path.messageList()}
             messageCount={0}
             user={null}

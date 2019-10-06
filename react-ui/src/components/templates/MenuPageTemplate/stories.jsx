@@ -41,17 +41,6 @@ storiesOf('Templates/MenuPageTemplate', module)
               left content section
             </div>
           }
-          rightContent={
-            <div
-              style={{
-                width: '100%',
-                height: '500px',
-                background: 'yellow',
-              }}
-            >
-              right content section
-            </div>
-          }
         />
       </div>
     )),
@@ -86,17 +75,6 @@ storiesOf('Templates/MenuPageTemplate', module)
               }}
             >
               left content section
-            </div>
-          }
-          rightContent={
-            <div
-              style={{
-                width: '100%',
-                height: '500px',
-                background: 'yellow',
-              }}
-            >
-              right content section
             </div>
           }
         />

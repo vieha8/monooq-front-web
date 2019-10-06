@@ -21,7 +21,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       `)(() => (
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
-          home={{ to: Path.home() }}
+          top={{ to: Path.top() }}
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
@@ -31,8 +31,6 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           profileEdit={{ to: Path.profileEdit() }}
           help={{ href: 'https://help.monooq.com/' }}
           inquiry={{ to: Path.inquiry() }}
-          howToUse={{ to: Path.howToUse() }}
-          service={{ to: Path.service() }}
           isLogin
         />
       </div>
@@ -46,7 +44,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       `)(() => (
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
-          home={{ to: Path.home() }}
+          top={{ to: Path.top() }}
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
@@ -56,8 +54,6 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           profileEdit={{ to: Path.profileEdit() }}
           help={{ href: 'https://help.monooq.com/' }}
           inquiry={{ to: Path.inquiry() }}
-          howToUse={{ to: Path.howToUse() }}
-          service={{ to: Path.service() }}
         />
       </div>
     )),
@@ -70,7 +66,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       `)(() => (
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
-          home={{ to: Path.home() }}
+          top={{ to: Path.top() }}
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
@@ -80,11 +76,8 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           profileEdit={{ to: Path.profileEdit() }}
           help={{ href: 'https://help.monooq.com/' }}
           inquiry={{ to: Path.inquiry() }}
-          howToUse={{ to: Path.howToUse() }}
-          service={{ to: Path.service() }}
           userName="モノオク タロウ"
           userImage="http://placehold.jp/500x500.png"
-          isPhone
           isLogin
         />
       </div>
@@ -98,7 +91,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
       `)(() => (
       <div style={{ width: '400px', padding: `${Dimens.storyBookPadding}` }}>
         <ServiceMenu
-          home={{ to: Path.home() }}
+          top={{ to: Path.top() }}
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
@@ -108,11 +101,8 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           profileEdit={{ to: Path.profileEdit() }}
           help={{ href: 'https://help.monooq.com/' }}
           inquiry={{ to: Path.inquiry() }}
-          howToUse={{ to: Path.howToUse() }}
-          service={{ to: Path.service() }}
           userName="モノオク タロウ"
           userImage="http://placehold.jp/500x500.png"
-          isPhone
         />
       </div>
     )),

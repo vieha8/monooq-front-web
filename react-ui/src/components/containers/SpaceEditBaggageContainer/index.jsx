@@ -178,6 +178,7 @@ export default authRequired(
   handleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEditBaggageContainer), {
       headline: '預かれる荷物について',
+      noFooter: true,
     }),
   ),
 );

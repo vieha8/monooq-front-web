@@ -13,7 +13,7 @@ const MenuLink = styled(Link)`
   width: 100%;
   height: 100%;
   text-decoration: none;
-  padding: ${Dimens.medium}px 0;
+  padding: ${Dimens.medium}px 0 ${Dimens.medium}px ${Dimens.medium_20}px;
 `;
 
 const MenuText = styled.span`
@@ -29,6 +29,9 @@ const NotificationWrapper = styled.span`
 `;
 
 const LinkWrap = styled.div`
+  font-size: ${FontSizes.small}px;
+  font-weight: 500;
+  line-height: 100%;
   ${props =>
     props.line &&
     `
@@ -38,7 +41,6 @@ const LinkWrap = styled.div`
     props.logout &&
     `
       text-align: center;
-      padding: ${Dimens.small_9}px 0px;
     `};
 `;
 
@@ -47,12 +49,12 @@ type PropTypes = {
   line?: boolean,
   logout?: boolean,
   href?: string,
-  changePurposeEvent?: Function,
   logoutEvent?: Function,
   onClick?: Function,
   title: string,
   notificationCount?: number,
   to?: string,
+  header?: boolean,
 };
 
 const HyperLinkStyled = MenuLink.withComponent('a');
@@ -62,24 +64,24 @@ export default ({
   line,
   logout,
   href,
-  changePurposeEvent,
   logoutEvent,
   onClick,
   title,
   notificationCount,
   to,
+  header,
 }: PropTypes) =>
   blank ? (
-    <MenuItem>
+    <MenuItem logout={logout}>
       <LinkWrap line={line} logout={logout}>
         <HyperLinkStyled
           href={href || ''}
-          onClick={changePurposeEvent || logoutEvent || onClick}
-          target={changePurposeEvent || logoutEvent ? '' : '_blank'}
+          onClick={logoutEvent || onClick}
+          target={logoutEvent ? '' : '_blank'}
           logout={logout}
         >
           <MenuText>
-            <InlineText.Base fontSize={FontSizes.small_15} color={logout && Colors.lightGray3}>
+            <InlineText.Base fontSize={FontSizes.small} color={logout && Colors.lightGray3}>
               {title}
             </InlineText.Base>
           </MenuText>
@@ -89,12 +91,20 @@ export default ({
         </HyperLinkStyled>
       </LinkWrap>
     </MenuItem>
+  ) : header ? (
+    <MenuItem header={header}>
+      <MenuText>
+        <InlineText.Base fontSize={FontSizes.small_12} color={Colors.darkGray3}>
+          {title}
+        </InlineText.Base>
+      </MenuText>
+    </MenuItem>
   ) : (
     <MenuItem>
       <LinkWrap line={line}>
         <MenuLink to={to} onClick={onClick}>
           <MenuText>
-            <InlineText.Base fontSize={FontSizes.small_15}>{title}</InlineText.Base>
+            <InlineText.Base fontSize={FontSizes.small}>{title}</InlineText.Base>
           </MenuText>
           <NotificationWrapper>
             <NotificationCount count={notificationCount} />

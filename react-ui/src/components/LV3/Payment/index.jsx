@@ -17,6 +17,7 @@ import InputForm from 'components/LV2/Forms/InputForm';
 import RadioList from 'components/LV2/Forms/RadioList';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
+import { Height as HeaderHeight, HeightPhone as HeaderHeightPhone } from 'components/LV3/Header';
 import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
 import dummySpaceImage from 'images/dummy_space.png';
@@ -51,7 +52,7 @@ const HeadMessage = styled.div`
   display: block;
   position: fixed;
   left: 0px;
-  top: 64px;
+  top: ${HeaderHeight}px;
   z-index: 100;
   text-align: center;
   padding: ${Dimens.medium_17}px;
@@ -61,7 +62,7 @@ const HeadMessage = styled.div`
   color: ${Colors.white};
   background-color: ${Colors.brandPrimary};
   ${media.tablet`
-    top: 54px;
+    top: ${HeaderHeightPhone}px;
   `};
 `;
 
@@ -158,6 +159,7 @@ const Padding = styled.span`
 `;
 
 const CmnWrap = styled.div`
+  line-height: normal;
   margin: ${Dimens.medium_20}px;
   padding-top: ${Dimens.medium_20}px;
   border-top: 1px solid ${Colors.borderGray};
@@ -279,7 +281,7 @@ const contentConfirm = (paymentMethod, number, name) => {
           </ConfirmCreditInfo>
           ・お支払い後にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
           <br />
-          ・「確定する」ボタンを押すことで、お客様は当サイトのプライバシーポリシーと利用規約に同意の上、モノオクサービスの予約を確定したことになります。
+          ・「確定する」ボタンを押すことで、お客様は当サイトの個人情報保護方針と利用規約に同意の上、モノオクサービスの予約を確定したことになります。
         </CmnWrap>
       </Fragment>
     );
@@ -295,7 +297,7 @@ const contentConfirm = (paymentMethod, number, name) => {
         <br />
         ・お支払い方法確定後、お支払いページのURLを発行します。
         <br />
-        ・「確定する」ボタンを押すことで、お客様は当サイトのプライバシーポリシーと利用規約に同意の上、モノオクサービスの予約を確定したことになります。
+        ・「確定する」ボタンを押すことで、お客様は当サイトの個人情報保護方針と利用規約に同意の上、モノオクサービスの予約を確定したことになります。
         <br />
         ・お支払い後、モノオクサービス上で決済完了通知が反映されるまでに2時間程度のお時間をいただきます。
         <br />

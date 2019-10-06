@@ -12,7 +12,6 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import Payment from 'components/LV3/Payment';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Button from 'components/LV1/Forms/Button';
@@ -80,12 +79,6 @@ const ValidateRegExp = {
   CardNumber: /^[0-9]{16}$/,
   Cvc: /^[0-9]{3}$/,
 };
-
-const Spacer = styled.div`
-  margin: 40px auto 0;
-  ${media.tablet`
-  `};
-`;
 
 const HeadlineWrap = styled.div`
   margin: 0px auto ${Dimens.medium2}px;
@@ -533,13 +526,4 @@ const mapStateToProps = state => ({
   paymentUrl: state.request.payment.url,
 });
 
-export default authRequired(
-  ContentPageMenu(connect(mapStateToProps)(PaymentContainer), {
-    rightContent: (
-      <Fragment>
-        <Spacer />
-        <ServiceMenu />
-      </Fragment>
-    ),
-  }),
-);
+export default authRequired(ContentPageMenu(connect(mapStateToProps)(PaymentContainer), {}));

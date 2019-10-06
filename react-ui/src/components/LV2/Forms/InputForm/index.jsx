@@ -77,7 +77,7 @@ export default ({
   className,
 }: PropTypes) => (
   <Fragment>
-    <H3 bold>{label}</H3>
+    {label && <H3 bold>{label}</H3>}
     {hint && <InlineText.EmphasisSmall>{hint}</InlineText.EmphasisSmall>}
     {checkbox ? (
       <CheckWrap>

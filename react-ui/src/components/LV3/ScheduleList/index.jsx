@@ -6,25 +6,44 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import ScheduleListItem, {
   type PropTypes as ScheduleListItemType,
 } from 'components/LV2/Items/ScheduleListItem';
+import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, FontSizes } from 'variables';
 
-const Row = styled.div`
-  &:not(:first-child) {
-    margin-top: ${Dimens.medium}px;
-  }
-`;
+const ScheduleListWrap = styled.div``;
 
-const ScheduleListWrap = styled.div`
-  padding-bottom: ${Dimens.medium}px;
-  ${props =>
-    props.rented &&
-    `
-    border-top: 1px solid ${Colors.borderGray};
+const CaptionWrap = styled.div`
+  margin: ${Dimens.medium4_50}px auto 0;
+  ${media.tablet`
+    margin: ${Dimens.medium2}px auto 0;
   `};
 `;
 
-const CaptionWrap = styled.div`
-  margin: ${Dimens.medium2}px auto 0;
+const Row = styled.div`
+  width: calc(50% - 1%);
+  max-width: 100%;
+  margin-top: ${Dimens.medium}px;
+  &:nth-child(2n) {
+    width: calc(50% - 1%);
+    margin-left: 2%;
+  }
+  box-sizing: border-box;
+  border: 1px solid ${Colors.borderGray};
+  border-radius: 4px;
+  padding: 0px 10px;
+  ${media.phone`
+    width: 100%;
+    max-width: 320px;
+    margin: ${Dimens.medium}px auto 0;
+    &:nth-child(2n) {
+      width: 100%;
+      margin: ${Dimens.medium}px auto 0;
+    }
+  `};
+`;
+
+const SchedulesWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const checkSchedule = (value, list, prop) => {
@@ -49,14 +68,16 @@ export default ({ schedules }: PropTypes) => (
             貸したスペース
           </InlineText.Base>
         </CaptionWrap>
-        {schedules.map(
-          (v, i) =>
-            v.schedule.isHost && (
-              <Row key={`schedule_item_host_${i}`.toString()}>
-                <ScheduleListItem {...v} />
-              </Row>
-            ),
-        )}
+        <SchedulesWrap>
+          {schedules.map(
+            (v, i) =>
+              v.schedule.isHost && (
+                <Row key={`schedule_item_host_${i}`.toString()}>
+                  <ScheduleListItem {...v} />
+                </Row>
+              ),
+          )}
+        </SchedulesWrap>
       </Fragment>
     )}
     {checkSchedule(false, schedules, 'isHost') && (
@@ -66,14 +87,16 @@ export default ({ schedules }: PropTypes) => (
             借りたスペース
           </InlineText.Base>
         </CaptionWrap>
-        {schedules.map(
-          (v, i) =>
-            !v.schedule.isHost && (
-              <Row key={`schedule_item_guest_${i}`.toString()}>
-                <ScheduleListItem {...v} />
-              </Row>
-            ),
-        )}
+        <SchedulesWrap>
+          {schedules.map(
+            (v, i) =>
+              !v.schedule.isHost && (
+                <Row key={`schedule_item_guest_${i}`.toString()}>
+                  <ScheduleListItem {...v} />
+                </Row>
+              ),
+          )}
+        </SchedulesWrap>
       </Fragment>
     )}
   </ScheduleListWrap>

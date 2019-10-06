@@ -20,14 +20,14 @@ class ScheduleContainer extends Component {
     dispatch(requestActions.fetchSchedule());
   }
 
-  historyToHome = () => {
+  historyToTop = () => {
     const { history } = this.props;
-    history.push(Path.home());
+    history.push(Path.top());
   };
 
-  onKeyDownButtonHome = e => {
+  onKeyDownButtonTop = e => {
     if (iskeyDownEnter(e)) {
-      this.historyToHome();
+      this.historyToTop();
     }
   };
 
@@ -75,9 +75,9 @@ class ScheduleContainer extends Component {
             ? 'まだスペースは利用されていません。他のホストの方を参考に、スペース情報を充実させてみましょう。'
             : '利用したスペースがありません。ご希望のスペースを見つけて連絡を取ってみましょう。'
         }
-        buttonText="ホームへ戻る"
-        onClick={this.historyToHome}
-        onKeyDown={this.onKeyDownButtonHome}
+        buttonText="トップに戻る"
+        onClick={this.historyToTop}
+        onKeyDown={this.onKeyDownButtonTop}
       />
     );
   };

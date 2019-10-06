@@ -20,7 +20,8 @@ export const PrimaryButton = styled.div`
   font-weight: ${props => (props.fontbold ? 'bold' : 'normal')};
   color: ${Colors.white};
   background: ${Colors.brandPrimary};
-  border-radius: 4px;
+
+  border-radius: ${props => (props.borderRadius ? props.borderRadius : 3)}px;
   cursor: pointer;
   
   ${props => (props.lineheight ? `line-height: ${props.lineheight}px;` : `line-height: normal`)};

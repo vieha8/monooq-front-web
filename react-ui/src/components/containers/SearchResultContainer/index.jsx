@@ -12,7 +12,6 @@ import SearchResultTemplate from 'components/templates/SearchResultTemplate';
 import Button from 'components/LV1/Forms/Button';
 import SearchResult from 'components/LV3/SearchResult';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
-import ConciergeContents from 'components/LV2/IntroductionConcierge';
 import Meta from 'components/LV1/Meta';
 import { H1 } from 'components/LV1/Texts/Headline';
 import { Dimens, FormValues } from 'variables';
@@ -22,6 +21,7 @@ import { iskeyDownEnter } from 'helpers/keydown';
 import { getPrefecture } from 'helpers/prefectures';
 
 import connect from '../connect';
+import LoadingPage from 'components/LV3/LoadingPage';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
@@ -99,7 +99,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
   };
 
   getCondition = () => {
-    const { keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture } = this.state;
+    const { keyword, prefCode, priceMin, priceMax, receiptType, type } = this.state;
 
     let condition = '';
 
@@ -141,10 +141,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
     if (priceMax !== '') {
       condition += `${priceMax}円以下、`;
-    }
-
-    if (isFurniture === 'true') {
-      condition += `家具家電可、`;
     }
 
     condition = condition.slice(0, -1);
@@ -233,7 +229,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
             条件を変えて再検索する
           </Button>
         </SearchButtonWrap>
-        <ConciergeContents />
       </Fragment>
     );
   };
@@ -251,6 +246,10 @@ class SearchResultContainer extends Component<PropTypes, State> {
     const { spaces, isMore, maxCount, isSearching } = this.props;
     const condition = this.getCondition();
 
+    if (isSearching && spaces.length === 0) {
+      return <LoadingPage />;
+    }
+
     if (spaces.length === 0 && !isMore) {
       return (
         <Fragment>
@@ -260,7 +259,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
             caption="別のキーワード及び条件で検索をお試しください"
             buttonText="条件を変えて再検索する"
             onClick={this.onClickBackSearchCondition}
-            onKeyDown={this.onKeyDownButtonReserch}
+            onKeyDown={this.onKeyDownButtonResearch}
           />
         </Fragment>
       );

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import { Colors, Dimens } from 'variables';
 import Card from 'components/LV1/Card';
@@ -21,18 +20,6 @@ const ImageWrapper = styled.div``;
 
 const ContentWrapper = styled.div`
   padding: ${Dimens.small_10}px ${Dimens.medium}px;
-  ${props =>
-    props.manage &&
-    `
-    padding: ${Dimens.medium_20}px ${Dimens.xsmall}px ${Dimens.xsmall}px;
-  `};
-  ${media.phone`
-    ${props =>
-      props.manage &&
-      `
-        padding: ${Dimens.small_10}px ${Dimens.xsmall}px ${Dimens.xsmall}px;
-    `};
-  `};
 `;
 
 const AddressText = styled(InlineText.Base)`
@@ -99,13 +86,10 @@ const PriceText = styled(InlineText.Base)`
 `;
 
 const NoCardShadowStyle = `
-  box-shadow: none;
   transition: 0.3s;
-  border: 1px solid rgba(0,0,0,0);
   &:hover {
-    border: 1px solid rgba(0,0,0,0.4);
+    opacity: 0.8;
     transition: 0.3s; 
-    border-radius:6px;
   }
   width: 100%;
 `;
@@ -115,7 +99,7 @@ const CardShadowStyle = `
   transition: 0.3s;
   &:hover {
     box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    transition: 0.3s; 
+    transition: 0.3s;
     border-radius:6px;
   }
   width: 100%;
@@ -152,7 +136,7 @@ export default ({
       <Link to={href || ''}>
         <Card noBorder noPadding pointer onClick={onClick} customStyle={NoCardShadowStyle}>
           <ImageWrapper>
-            <ImageHero height={290} heightSp={180} large src={image.src} alt={image.alt} />
+            <ImageHero large src={image.src} alt={image.alt} />
           </ImageWrapper>
           <ContentWrapper>
             <AddressText manage={manage}>{address || ''}</AddressText>

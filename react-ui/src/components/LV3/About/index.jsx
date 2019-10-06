@@ -4,314 +4,370 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Hr from 'components/LV1/HorizontalRule';
-import Button from 'components/LV1/Forms/Button';
-import Text from 'components/LV1/Texts/TextStatic';
-import InlineText from 'components/LV1/Texts/InlineText';
+import Collapsible from 'react-collapsible';
 import ContainerDefault from 'components/LV1/ContainerDefault';
-import Footer from 'components/LV2/Footer';
 import WhenIUseList from 'components/LV2/Lists/WhenIUseList';
-import IfIFindList from 'components/LV2/Lists/IfIFindList';
-import mainVisual from 'images/about_main_visual@2x.jpg';
-import mainVisualSP from 'images/about_main_visual_sp@2x.jpg';
-import useImage1 from 'images/about_use1@2x.jpg';
-import useImage2 from 'images/about_use2@2x.jpg';
-import useImage3 from 'images/about_use3@2x.jpg';
-import useImage4 from 'images/about_use4@2x.jpg';
-import useImage5 from 'images/about_use5@2x.jpg';
-import useImage6 from 'images/about_use6@2x.jpg';
-import iconBrandCredit from 'images/icon-brand-credit.png';
-import iconCp from 'images/logo-cp.png';
+import WhenIUseCardList from 'components/LV2/Lists/WhenIUseCardList';
+import moneyMetapher from 'images/money_metapher@2x.png';
+import scheduleMetapher from 'images/schedule_metapher@2x.png';
+import timeMetapher from 'images/time_metapher@2x.png';
+import beginner from 'images/beginner@2x.png';
+import guarantee from 'images/guarantee@2x.png';
+import ruleManner from 'images/rule_manner@2x.png';
+import howtouseEyeCatch from 'images/about_eye_catch@2x.png';
 
-const ImageBrandCredit = styled.img`
-  max-width: 160px;
-`;
+const Wrap = styled.div``;
 
-const ImageCp = styled.img`
-  max-width: 300px;
-`;
-
-const SubTitle = styled.div`
-  font-size: ${FontSizes.large}px;
-  line-height: ${FontSizes.large * 1.5}px;
-  margin-bottom: 45px;
+const TopWrapper = styled.div`
+  position: relative;
+  top: -84px;
+  height: 620px;
+  color: ${Colors.black};
+  margin-bottom: ${Dimens.medium}px;
+  width: 100%;
+  overflow: hidden;
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 70%;
+    height: 324px;
+    background: ${Colors.lightGray1Bg};
+    z-index: -2;
+  }
+  ${media.tablet`
+    top: 0px;
+    width: 100%;
+    height: 410px;
+    margin-bottom: 0;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  `};
   ${media.phone`
-    font-size: 6vw;
-    line-height: 9vw;
+    height: 374px;
+    }
+  `};
+`;
+
+const TopEyeCatch = styled.img`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70%;
+  z-index: -1;
+  ${media.giant`
+    width: 90%;
+  `};
+  ${media.tablet`
+    width: 100%;
+  `};
+`;
+
+const TopMessageContent = styled.div`
+  position: absolute;
+  top: 190px;
+  left: 5%;
+  height: 310px;
+  width: 550px;
+  padding: ${Dimens.medium4_50}px ${Dimens.medium2}px;
+  background-color: ${Colors.white};
+  ${media.tablet`
+    top: 230px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 500px;
+    height: initial;
+    margin: auto;
     text-align: center;
-    margin-bottom: 20px;
+    padding: ${Dimens.medium1}px;
+  `};
+  ${media.tablet`
+    width: calc(100% - 32px);
+  `};
+  ${media.phone`
+    top: 180px;
   `};
 `;
 
-const MainContainer = styled.div`
-  min-width: ${Dimens.fixedWidthPc + 32}px;
-  ${media.phone`
-    min-width: auto;
-  `};
-`;
-
-const TopContainer = styled.div`
-  height: 500px;
-  background-image: url(${mainVisual});
-  background-size: cover;
-  color: ${Colors.white};
-  text-align: center;
-  ${media.phone`
-    height: 100%;
-    background-position: 60% 0;
-    background-image: url(${mainVisualSP});
-  `};
-`;
-
-const TopTransparency = styled.div`
-  height: 500px;
-  padding: 100px 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  ${media.phone`
-    padding: 40px 8vw 80px;
-  `};
+const TopSubTitle = styled.div`
+  color: ${Colors.brandPrimary};
+  font-size: ${FontSizes.medium_18}px;
+  line-height: ${Dimens.medium1_28}px;
+  margin-bottom: ${Dimens.small}px;
+  ${media.tablet`
+    display: none;
+  `}
 `;
 
 const TopTitle = styled.div`
-  font-size: ${FontSizes.xlarge}px;
-  line-height: ${FontSizes.xlarge * 1.5}px;
-  margin-bottom: 20px;
-  ${media.phone`
-    font-size: 8vw;
-    line-height: 16vw;
-  `};
+  font-size: ${FontSizes.xxlarge_40}px;
+  line-height: ${Dimens.medium4}px;
+  font-weight: bold;
+  margin-bottom: ${Dimens.small2}px;
+  ${media.tablet`
+    font-size: ${FontSizes.medium2}px;
+    line-height: ${Dimens.medium2}px;
+    margin-bottom: ${Dimens.xsmall}px;
+  `}
+  ${media.phoneSmall`
+    font-size: ${FontSizes.medium1}px;
+  `}
 `;
 
-const TopText = styled.div`
-  font-size: ${FontSizes.medium3}px;
-  line-height: ${FontSizes.medium3 * 1.75}px;
-  margin-bottom: 30px;
-  width: 480px;
-  ${media.phone`
-    font-size: 5vw;
-    line-height: 10vw;
-    width: 84vw;
-  `};
-`;
-
-const TopLabelWrapper = styled.div`
-  width: 434px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  ${media.phone`
-    width: 100%;
-  `};
-`;
-
-const TopLabel = styled.div`
-  height: 40px;
-  width: 212px;
-  border-radius: 2px;
-  background-color: ${Colors.brandTerciary};
+const TopDescription = styled.div`
   font-size: ${FontSizes.medium}px;
-  line-height: 40px;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+  line-height: ${Dimens.medium1}px;
+  ${media.tablet`
+    font-size: ${FontSizes.small_12}px;
+    line-height: ${Dimens.medium_20}px;
+  `}
+`;
+
+const Attention = styled.div`
+  font-size: ${FontSizes.medium_18}px;
+  color: ${Colors.brandPrimary};
+  margin-bottom: ${Dimens.small2}px;
+  ${media.tablet`
+    margin-bottom: ${Dimens.small}px;
+  `};
   ${media.phone`
-    width: 100%;
+    font-size: ${FontSizes.medium}px;
+  `};
+`;
+
+const Headline = styled.div`
+  font-size: ${FontSizes.xxlarge}px;
+  line-height: ${Dimens.medium2_38}px;
+  font-weight: bold;
+  margin-bottom: ${Dimens.medium2}px;
+  ${media.phone`
+    font-size: ${FontSizes.medium2}px;
+    line-height: ${Dimens.medium1}px;
+    margin-bottom: ${Dimens.medium1}px;
   `};
 `;
 
 const WhenIUseContainer = styled(ContainerDefault)`
-  padding-top: 50px;
-  ${media.phone`
-    padding-top: 20px;
+  text-align: center;
+  ${media.tablet`
+    margin-top: ${Dimens.medium2_32}px;
   `};
+`;
+
+const WhenIUseContent = styled.div`
+  &:not(:first-child) {
+    padding-top: 100px;
+  }
 `;
 
 const ContentContainer = styled(ContainerDefault)`
-  ${props =>
-    props.bottom &&
-    `
-    margin-bottom: 164px;
-    `};
-  ${media.phone`
-    ${props =>
-      props.bottom &&
-      `
-      margin-bottom: ${Dimens.large4_80}px;
-      `};
-  `};
+  text-align: center;
 `;
 
-const ButtonWrap = styled.div`
-  max-width: 240px;
-  margin: 30px auto 30px 0px;
-  ${media.phone`
+const ConceptVideo = styled.iframe`
+  margin: ${Dimens.large2_70}px auto;
+  max-width: 600px;
+`;
+
+const QuestionsContainer = styled.div`
+  text-align: center;
+`;
+
+const QuestionRow = styled.div`
+  &::after {
+    content: '';
     display: block;
-    width: 100%;
-    max-width: 100%;
-    left: 0px;
-    bottom: 0px;
-    z-index: 1000;
-    text-align: center;
-    padding: 0 0 15px;
-  `};
+    clear: both;
+  }
 `;
 
-export default () => (
-  <Fragment>
-    <MainContainer>
-      <TopContainer>
-        <TopTransparency>
-          <TopTitle>はじめての方へ</TopTitle>
-          <TopText>モノオクは空きスペースを活用する、物置きシェアサービスです。</TopText>
-          <TopLabelWrapper>
-            {['安心の料金', '面倒な手続きが不要', '拠点数が多い', '1ヶ月だけでもOK'].map((v, i) => (
-              <TopLabel key={i.toString()}>{v}</TopLabel>
-            ))}
-          </TopLabelWrapper>
-        </TopTransparency>
-      </TopContainer>
+const QuestionItem = styled.div`
+  width: 100%;
+  max-width: 600px;
+  margin: ${Dimens.small2}px auto 0px;
+`;
 
-      <WhenIUseContainer>
-        <SubTitle>こんな時にモノオクを使おう！</SubTitle>
+const Answer = styled.div`
+  padding: ${Dimens.small_10}px ${Dimens.medium1}px;
+  text-align: left;
+  ${media.phone`
+    padding: ${Dimens.small_10}px ${Dimens.medium}px;
+  `}
+`;
+
+const TextBeginner = () => (
+  <Fragment>
+    「どうやって使えばいいの？」
+    <br />
+    はじめてご利用の方に、登録から契約までの流れを紹介します。
+  </Fragment>
+);
+
+type PropTypes = {
+  onClickHowToUse: Function,
+  onClickInsurance: Function,
+  onClickRule: Function,
+};
+
+export default ({ onClickHowToUse, onClickInsurance, onClickRule }: PropTypes) => (
+  <Wrap>
+    <TopWrapper>
+      <TopEyeCatch src={howtouseEyeCatch} />
+      <TopMessageContent>
+        <TopSubTitle>モノオクとは？</TopSubTitle>
+        <TopTitle>
+          空きスペースを活用できる
+          <br />
+          物置きのシェアサービス。
+        </TopTitle>
+        <TopDescription>
+          モノオクは、荷物の保管場所を探している人と、余ったスペースを有効活用したい人をつなぐ、物置きのシェアサービスです。
+        </TopDescription>
+      </TopMessageContent>
+    </TopWrapper>
+
+    <WhenIUseContainer>
+      <WhenIUseContent>
+        <Attention>「荷物の置き場所に困った…」を解決！</Attention>
+        <Headline>こんなときにはモノオク！</Headline>
         <WhenIUseList
           list={[
             {
-              image: useImage1,
-              text: '引越しで一時的に荷物を置きたい。',
+              image: moneyMetapher,
+              title: '手頃な価格で荷物を預けたい',
+              text:
+                '初期費用無料！無駄な費用が一切かからないため、トランクルームに比べて安く荷物を保管できます。',
             },
             {
-              image: useImage2,
-              text: '自宅リフォーム中の家具を置く場所がない。',
+              image: scheduleMetapher,
+              title: '利用期間が未定',
+              text:
+                '1ヶ月、半年、1年でも。お試しでの短期から長期まで、ホストとの相談次第で預ける期間を柔軟に決められます。',
             },
             {
-              image: useImage3,
-              text: '出張・転勤・留学で荷物の保管をしたい。',
-            },
-            {
-              image: useImage4,
-              text: '仕事場をもっと広く使いたい。',
-            },
-            {
-              image: useImage5,
-              text: '費用の高いトランクルームの代わりに。',
-            },
-            {
-              image: useImage6,
-              text: '生活空間を広げるため。',
+              image: timeMetapher,
+              title: '今すぐに物置きが必要',
+              text:
+                '急な引越しやリフォーム、留学など、緊急で預ける場所が必要なときにも。かんたん手続きですぐに利用できます。',
             },
           ]}
         />
-        <Hr />
-      </WhenIUseContainer>
-
-      <ContentContainer>
-        <SubTitle>物置きスペースの探し方。</SubTitle>
-        <Text>
-          お住まいの地域・引っ越し予定エリアなどを入力するだけです。あなたにとって便利な物置きスペースを探しましょう！
-        </Text>
-        <Hr />
-      </ContentContainer>
-
-      <ContentContainer>
-        <SubTitle>物置きスペースが見つかったら。</SubTitle>
-        <IfIFindList
+      </WhenIUseContent>
+      <WhenIUseContent>
+        <Attention>モノオクのことをもっと詳しく</Attention>
+        <Headline>ご利用にあたって</Headline>
+        <WhenIUseCardList
           list={[
             {
-              label: '相談',
-              text:
-                'スペースが見つかったら、まずはホストに預けたい荷物の種類や量と希望期間をメッセージで相談しましょう。この時点でまだ支払いは発生しないので、気軽に連絡してみましょう。',
+              image: beginner,
+              subTitle: 'モノオクを利用する前に',
+              title: 'はじめてのご利用ガイド',
+              text: TextBeginner(),
+              buttonText: 'はじめてのご利用ガイド',
+              onClick: onClickHowToUse,
             },
             {
-              label: '見積もり',
-              text: 'あなたの荷物内容と利用期間に応じて、ホストから見積もりが送られてきます。',
+              image: guarantee,
+              subTitle: '荷物の紛失・破損時に',
+              title: 'あんしん荷物補償',
+              text:
+                '大切な荷物を最大10万円まで補償します。万が一トラブルがおきても、ゲストとホストをあんしんサポート。',
+              buttonText: 'あんしん荷物補償について',
+              onClick: onClickInsurance,
             },
             {
-              label: 'お支払い',
+              image: ruleManner,
+              subTitle: 'より快適にご利用いただくために',
+              title: 'ルールとマナー',
               text:
-                '提示された見積もりに納得したらお支払いへ進みます。ホストが困らないように支払い前までに荷物の詳細はすべて伝えておきましょう。',
+                'モノオクは個人間の取引で成立しています。誰もが気持ちよくサービスを使えるよう、ルールとマナーを守ってご利用ください。',
+              buttonText: 'ルールとマナーについて',
+              onClick: onClickRule,
             },
-            {
-              label: '取引成立',
-              text:
-                'お支払いが完了したら取り引き成立です！直前に慌ただしくならないように荷物の準備はお早めに。',
-            },
-            {
-              label: '利用開始',
-              text:
-                'ホストのスペースへ荷物を置かせてもらいます。事前に連絡がない荷物は受けてもらえないこともあるので約束通り誠実な対応を。',
-            },
-            {
-              label: '利用終了',
-              text:
-                'スペース利用終了日はお忘れなく！無断での延長・あなたと連絡がとれない時は、規約に基づいた対応やペナルティ料金が発生する場合があります。',
-            },
-            // {
-            //   label: 'レビュー',
-            //   text: '親切に預かってくれたホストに感謝の気持ちをこめてレビューを送りましょう！',
-            // },
           ]}
         />
-        <Hr />
-      </ContentContainer>
+      </WhenIUseContent>
+    </WhenIUseContainer>
 
-      <ContentContainer>
-        <SubTitle>お支払い方法について</SubTitle>
-        <Text>
-          ■クレジットカード決済
-          <br />
-          ＜ご利用可能カード＞
-          <br />
-          VISA、Mastercardがご利用いただけます。
-          <br />
-          <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />
-          <br />
-          <br />
-          ■コンビニ払い・Pay-easy決済
-          <br />
-          ＜対応コンビニ＞
-          <br />
-          ローソン、ファミリーマート、ミニストップ、セイコーマートのコンビニ決済及びPay-easy決済がご利用いただけます。
-          <br />
-          <ImageCp src={iconCp} alt="icon-cp" />
-          <br />
-          <br />
-          ■銀行振込
-          <br />
-          下記口座にお振込後、
-          <a href="mailto:support@monooq.com?subject=銀行振込が完了しました&amp;body=こちらのメールに振込明細のお写真と、モノオクに登録しているメールアドレスをお送りください。">
-            support@monooq.com
-          </a>
-          まで振込明細の写真とモノオクに登録しているメールアドレスをお送りください。
-          <br />
-          <br />
-          みずほ銀行 渋谷中央支店
-          <br />
-          普通 1806441 モノオク(カ
-        </Text>
-        <Hr />
-      </ContentContainer>
+    <ContentContainer>
+      <ConceptVideo
+        title="about"
+        width="100%"
+        height="470"
+        src="https://www.youtube.com/embed/t0t50WBDwzc"
+        frameBorder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    </ContentContainer>
 
-      <ContentContainer bottom>
-        <SubTitle>お困りの際はモノオクカスタマーサポートまで。</SubTitle>
-        <Text>
-          <InlineText.Base>
-            サービスの不明点・お困りのことがあれば、モノオクカスタマーサポートまでお寄せください。
-            <br />
-            お問い合わせはLINEにて対応しております。下記より友だち追加の上、ご連絡ください。
-            <br />
-          </InlineText.Base>
-          <ButtonWrap>
-            <Button line reactGACategory="About" reactGAAction="Push LINE Register Button">
-              友だち追加
-            </Button>
-          </ButtonWrap>
-        </Text>
-      </ContentContainer>
-    </MainContainer>
-
-    <Footer />
-  </Fragment>
+    <ContentContainer>
+      <QuestionsContainer>
+        <Attention>困ったときのFAQ</Attention>
+        <Headline>よくある質問</Headline>
+        <QuestionRow>
+          <QuestionItem>
+            <Collapsible trigger="Q. 初期費用はかかりますか？">
+              <Answer>
+                モノオクでお支払いいただく費用は、ホストスペースの月額利用料のみです。サービス登録料や初期費用は必要ございません。
+                <br />
+                ※荷物の配送費用はゲスト（利用者）の負担となります。
+              </Answer>
+            </Collapsible>
+          </QuestionItem>
+          <QuestionItem>
+            <Collapsible trigger="Q. 対応地域はどこですか？">
+              <Answer>全国47都道府県で対応しています。</Answer>
+            </Collapsible>
+          </QuestionItem>
+        </QuestionRow>
+        <QuestionRow>
+          <QuestionItem>
+            <Collapsible trigger="Q. 最短の契約期間は何日からですか？">
+              <Answer>
+                基本的には最短1ヶ月となります。ただし、ホスト側と相談して期間を1ヶ月より短くすることも可能です。
+              </Answer>
+            </Collapsible>
+          </QuestionItem>
+          <QuestionItem>
+            <Collapsible trigger="Q. 支払い方法を教えてください。">
+              <Answer>クレジットカード・銀行振込・コンビニ支払いに対応しています。</Answer>
+            </Collapsible>
+          </QuestionItem>
+        </QuestionRow>
+        <QuestionRow>
+          <QuestionItem>
+            <Collapsible trigger="Q. 補償適用の条件を教えてください。">
+              <Answer>
+                ・モノオクサービス内で決済が行われていること。
+                <br />
+                ・メッセージ上でやりとりの記録が残っていること。
+                <br />
+                上記に加えて、利用規約を遵守した利用方法であれば、もしも破損・紛失・盗難などが起きた場合に、最大10万円（免責金額3,000円）までの補償を受けることができます。
+              </Answer>
+            </Collapsible>
+          </QuestionItem>
+          <QuestionItem>
+            <Collapsible trigger="Q. 配送の手配はどうしたらいいですか？">
+              <Answer>
+                配送方法は以下の3つが可能です。用途に合う方法で配送を行ってください。
+                <br />
+                1.ヤマト運輸などの一般的な配送サービス
+                <br />
+                2.直接運ぶ
+                <br />
+                3.提携の配送サービス（レントラ便など）の利用
+              </Answer>
+            </Collapsible>
+          </QuestionItem>
+        </QuestionRow>
+      </QuestionsContainer>
+    </ContentContainer>
+  </Wrap>
 );

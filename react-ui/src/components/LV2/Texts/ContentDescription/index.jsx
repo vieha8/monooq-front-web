@@ -10,23 +10,28 @@ const ContentWrap = styled.div``;
 
 const Title = styled(Text)`
   font-size: ${FontSizes.medium1}px;
+  line-height: normal;
   font-weight: bold;
-  margin-bottom: ${Dimens.medium1}px;
+  margin: ${Dimens.medium2_32}px auto ${Dimens.small2}px;
   ${media.phone`
-    font-size: 5vw;
-    line-height: 7.5vw;
+    font-size: ${FontSizes.medium}px;
   `};
 `;
 
+const ItemSub = styled(Text)`
+  margin-left: ${Dimens.medium}px;
+  line-height: normal;
+`;
+
 const TextWrapper = styled.div`
-  margin-bottom: ${Dimens.medium3_40}px;
+  margin-bottom: ${Dimens.small2}px;
 `;
 
 export type PropTypes = {
   title: string,
   dontActionList: Array<{
-    header: string,
     text: string,
+    textSubList: Array<string>,
   }>,
 };
 
@@ -35,10 +40,14 @@ export default ({ title, dontActionList }: PropTypes) => (
     <Title>{title}</Title>
     {dontActionList.map((item, i) => (
       <TextWrapper key={i.toString()}>
-        <Text fontSize={FontSizes.medium2} fontSizeSp={FontSizes.medium1_22}>
-          {item.header}
-        </Text>
-        <Text>{item.text}</Text>
+        <Text>{`・${item.text}`}</Text>
+        {item.textSubList &&
+          item.textSubList.map((itemSub, j) => (
+            <ItemSub key={j.toString()}>
+              {!item.textSubListNoBar && '- '}
+              {itemSub}
+            </ItemSub>
+          ))}
       </TextWrapper>
     ))}
   </ContentWrap>

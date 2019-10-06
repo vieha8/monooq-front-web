@@ -6,6 +6,7 @@ export default {
   small: 14,
   small_15: 15,
   medium: 16,
+  medium_17: 17,
   medium_18: 18,
   medium1: 20,
   medium1_22: 22,
@@ -16,6 +17,8 @@ export default {
   large_32: 32,
   xlarge: 34,
   xxlarge: 38,
+  xxlarge_40: 40,
+  xxxlarge: 48,
   custom1large: 50,
   custom2large: 60,
 };

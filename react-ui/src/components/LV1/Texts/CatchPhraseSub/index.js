@@ -2,16 +2,18 @@
 
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { FontSizes } from 'variables';
+import { FontSizes, Colors } from 'variables';
 
 const CatchPhraseSub = styled.h2`
+  color: ${Colors.black2};
   display: block;
-  font-size: ${FontSizes.medium3}px;
-  line-height: ${FontSizes.medium3 * 1.5}px;
+  font-size: ${FontSizes.medium_18}px;
+  font-weight: bold;
+  line-height: 116.75%;
+  text-align: center;
   ${media.phone`
-    font-size: ${FontSizes.medium}px;
-    line-height: ${FontSizes.medium * 1.75}px;
     width: 100%;
+    font-size: ${FontSizes.small_12}px;
   `};
 `;
 

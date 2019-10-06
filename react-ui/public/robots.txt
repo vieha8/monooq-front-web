@@ -8,9 +8,7 @@ Disallow: /sales
 Disallow: /sales/
 Disallow: /ja
 Disallow: /en
-Disallow: /hub
 Disallow: /unsubscribe
 Disallow: /renewal*.pdf
-Disallow: /home
 
 Sitemap: https://monooq.com/sitemap.xml

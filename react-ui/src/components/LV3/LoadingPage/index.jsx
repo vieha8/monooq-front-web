@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Colors } from 'variables';
 import Loading from 'components/LV1/Loading';
 
 const Container = styled.div`
@@ -15,15 +16,18 @@ const Container = styled.div`
 
 const Content = styled.div`
   position: relative;
-  top: 50%;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: ${Colors.white};
+  z-index: 1500;
 `;
 
-type PropTypes = {
-  hideProgress?: boolean,
-};
-
-export default ({ hideProgress }: PropTypes) => (
+export default () => (
   <Container>
-    <Content>{!hideProgress && <Loading size="large" />}</Content>
+    <Content>
+      <Loading loadingPage size="large" />
+    </Content>
   </Container>
 );

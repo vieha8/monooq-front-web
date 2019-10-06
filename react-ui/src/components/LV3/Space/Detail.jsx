@@ -18,15 +18,14 @@ import Price from 'components/LV3/Space/Price';
 import ReactGA from 'react-ga';
 
 const Container = styled.div`
-  max-width: 540px;
+  max-width: 600px;
   margin: auto;
-  padding: 0 0 ${Dimens.medium_20}px;
+  padding: 0;
   ${media.tablet`
-    padding: 0 0 ${Dimens.large2_70}px;
     ${props =>
       props.confirm &&
       `
-      padding: 0 0 130px;
+      padding: ${Dimens.small2}px 0 140px;
     `};
   `};
 `;

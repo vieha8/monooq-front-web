@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
@@ -11,7 +11,7 @@ const WrapContent = styled.div`
   text-align: center;
 `;
 
-const MessageContainer = styled(ContainerDefault)`
+const MessageContainer = styled.div`
   margin-bottom: ${Dimens.medium2}px;
 `;
 
@@ -27,7 +27,7 @@ const MonoboyWrap = styled.div`
 `;
 
 export default () => (
-  <Fragment>
+  <ContainerDefault>
     <WrapContent>
       <MonoboyWrap>
         <ImageLogo.MonoboyBlack />
@@ -48,5 +48,5 @@ export default () => (
         </Text>
       </MessageContainer>
     </WrapContent>
-  </Fragment>
+  </ContainerDefault>
 );

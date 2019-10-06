@@ -40,7 +40,7 @@ const Wrapper = styled.div`
 const Label = styled.div`
   font-size: ${FontSizes.medium2}px;
   line-height: ${FontSizes.medium2 * 1.5}px;
-  margin-bottom: ${Dimens.medium_20}px;
+  margin: ${Dimens.small_10}px auto;
 `;
 
 const StyledLabel = styled(Label)`

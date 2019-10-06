@@ -51,6 +51,16 @@ const TextLink = styled(Link)`
         color: ${props.linkBlue};
       }`};
 
+  ${props =>
+    props.colorHover &&
+    `
+    &:hover {
+      color: ${props.colorHover};
+    }
+    &:active {
+      color: ${props.colorHover};
+  `};
+
   ${props => props.custom} ${props =>
     props.disabled &&
     `

@@ -16,8 +16,8 @@ type PropTypes = {
   userId: number,
   onClickCreateSpace: Function,
   onKeyDownCreateSpace: Function,
-  onClickBackHome: Function,
-  onKeyDownHome: Function,
+  onClickBackTop: Function,
+  onKeyDownTop: Function,
   onClickViewSpace: Function,
   onKeyDownViewSpace: Function,
 };
@@ -45,8 +45,8 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
       edit,
       onClickCreateSpace,
       onKeyDownCreateSpace,
-      onClickBackHome,
-      onKeyDownHome,
+      onClickBackTop,
+      onKeyDownTop,
       onClickViewSpace,
       onKeyDownViewSpace,
     } = this.props;
@@ -63,9 +63,9 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
                 onKeyDown: onKeyDownCreateSpace,
               }}
               enabledButton={{
-                text: `ホームへ戻る`,
-                onClick: onClickBackHome,
-                onKeyDown: onKeyDownHome,
+                text: `トップに戻る`,
+                onClick: onClickBackTop,
+                onKeyDown: onKeyDownTop,
               }}
             />
           </Section>
@@ -80,9 +80,9 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
                 onKeyDown: onKeyDownViewSpace,
               }}
               enabledButton={{
-                text: `ホームへ戻る`,
-                onClick: onClickBackHome,
-                onKeyDown: onKeyDownHome,
+                text: `トップに戻る`,
+                onClick: onClickBackTop,
+                onKeyDown: onKeyDownTop,
               }}
             />
           </Section>

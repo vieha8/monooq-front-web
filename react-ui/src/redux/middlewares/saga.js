@@ -7,8 +7,8 @@ import { userSagas } from 'redux/modules/user';
 import { requestSagas } from 'redux/modules/request';
 import { salesSagas } from 'redux/modules/sales';
 import { initSagas } from 'redux/modules/init';
-import { homeSagas } from 'redux/modules/home';
 import { loggerSagas } from 'redux/modules/logger';
+import { sectionSagas } from 'redux/modules/section';
 
 export function* rootSaga() {
   yield all([
@@ -19,8 +19,8 @@ export function* rootSaga() {
     ...requestSagas,
     ...salesSagas,
     ...initSagas,
-    ...homeSagas,
     ...loggerSagas,
+    ...sectionSagas,
   ]);
 }
 

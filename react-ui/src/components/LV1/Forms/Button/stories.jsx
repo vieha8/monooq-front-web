@@ -3,7 +3,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
-import { Dimens } from 'variables';
+import { Dimens, Colors } from 'variables';
 
 import Button from './index';
 
@@ -97,6 +97,58 @@ storiesOf('Atoms(LV1)/Forms/Button', module)
         <br />
         <Button tertiary fontbold fill={1} disabled>
           Tertiary(文字太字/横幅100%)
+        </Button>
+      </div>
+    )),
+  )
+  .add(
+    'Quaternary',
+    withInfo(`
+      ### コンポーネント概要
+      ボタン(Quaternary)
+      * ■パラメータ
+      * fill={1}：横幅100%にする。
+      * fontbold：ボタンのテキストを太字にする。
+    `)(() => (
+      <div style={{ background: `${Colors.darkGray2}`, padding: `${Dimens.storyBookPadding}` }}>
+        <Button quaternary>Quaternary</Button>
+        <br />
+        <Button quaternary disabled>
+          Quaternary
+        </Button>
+        <br />
+        <Button quaternary fontbold fill={1}>
+          Quaternary(文字太字/横幅100%)
+        </Button>
+        <br />
+        <Button quaternary fontbold fill={1} disabled>
+          Quaternary(文字太字/横幅100%)
+        </Button>
+      </div>
+    )),
+  )
+  .add(
+    'Quinary',
+    withInfo(`
+      ### コンポーネント概要
+      ボタン(Quinary)
+      * ■パラメータ
+      * fill={1}：横幅100%にする。
+      * fontbold：ボタンのテキストを太字にする。
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Button quinary>Quinary</Button>
+        <br />
+        <Button quinary disabled>
+          Quinary
+        </Button>
+        <br />
+        <Button quinary fontbold fill={1}>
+          Quinary(文字太字/横幅100%)
+        </Button>
+        <br />
+        <Button quinary fontbold fill={1} disabled>
+          Quinary(文字太字/横幅100%)
         </Button>
       </div>
     )),

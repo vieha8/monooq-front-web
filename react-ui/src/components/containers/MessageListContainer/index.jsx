@@ -35,14 +35,14 @@ class MessageListContainer extends Component<PropTypes> {
     dispatch(messagesActions.fetchRoomsStart());
   }
 
-  historyToHome = () => {
+  historyToTop = () => {
     const { history } = this.props;
-    history.push(Path.home());
+    history.push(Path.top());
   };
 
-  onKeyDownButtonHome = e => {
+  onKeyDownButtonTop = e => {
     if (iskeyDownEnter(e)) {
-      this.historyToHome();
+      this.historyToTop();
     }
   };
 
@@ -69,9 +69,9 @@ class MessageListContainer extends Component<PropTypes> {
       <SpaceDataNone
         captionHead="メッセージのやり取りがありません"
         caption="メッセージがありません。ご希望のスペースを見つけて連絡を取ってみましょう。"
-        buttonText="ホームへ戻る"
-        onClick={this.historyToHome}
-        onKeyDown={this.onKeyDownButtonHome}
+        buttonText="トップに戻る"
+        onClick={this.historyToTop}
+        onKeyDown={this.onKeyDownButtonTop}
       />
     );
   }
