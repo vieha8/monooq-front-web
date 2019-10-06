@@ -8,13 +8,21 @@ import Collapsible from 'react-collapsible';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import WhenIUseList from 'components/LV2/Lists/WhenIUseList';
 import WhenIUseCardList from 'components/LV2/Lists/WhenIUseCardList';
-import moneyMetapher from 'images/money_metapher@2x.png';
-import scheduleMetapher from 'images/schedule_metapher@2x.png';
-import timeMetapher from 'images/time_metapher@2x.png';
-import beginner from 'images/beginner@2x.png';
-import guarantee from 'images/guarantee@2x.png';
-import ruleManner from 'images/rule_manner@2x.png';
-import howtouseEyeCatch from 'images/about_eye_catch@2x.png';
+
+const moneyMetapher =
+  'https://monooq.imgix.net/img%2Fservice%2Fmoney_metapher%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const scheduleMetapher =
+  'https://monooq.imgix.net/img%2Fservice%2Fschedule_metapher%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const timeMetapher =
+  'https://monooq.imgix.net/img%2Fservice%2Ftime_metapher%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const beginner =
+  'https://monooq.imgix.net/img%2Fservice%2Fbeginner%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const guarantee =
+  'https://monooq.imgix.net/img%2Fservice%2Fguarantee%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const ruleManner =
+  'https://monooq.imgix.net/img%2Fservice%2Frule_manner%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const howtouseEyeCatch =
+  'https://monooq.imgix.net/img%2Fservice%2Fabout_eye_catch%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
 
 const Wrap = styled.div``;
 

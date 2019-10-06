@@ -9,12 +9,14 @@ import CatchPhrase from 'components/LV1/Texts/CatchPhrase';
 import CatchPhraseSub from 'components/LV1/Texts/CatchPhraseSub';
 import InputSearch from 'components/LV2/Forms/InputSearch';
 
-// TODO: imgix化
-import mainVisual from 'images/img-hero.png';
-import mainVisualSp from 'images/img-hero-sp.png';
-
-import calloutLeft from 'images/callout-left.png';
-import calloutRight from 'images/callout-right.png';
+const mainVisual =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-hero.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const mainVisualSp =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-hero-sp.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const calloutLeft =
+  'https://monooq.imgix.net/img%2Fservice%2Fcallout-left.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const calloutRight =
+  'https://monooq.imgix.net/img%2Fservice%2Fcallout-right.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
 
 const TopView = styled.div`
   height: 512px;

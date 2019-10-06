@@ -4,11 +4,17 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import howtouseEyeCatch from 'images/howtouse_eye_catch@2x.png';
-import howtouse01 from 'images/howtouse_01@2x.png';
-import howtouse02 from 'images/howtouse_02@2x.png';
-import howtouse03 from 'images/howtouse_03@2x.png';
-import howtouse04 from 'images/howtouse_04@2x.png';
+
+const howtouseEyeCatch =
+  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_eye_catch%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const howtouse01 =
+  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_01%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const howtouse02 =
+  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_02%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const howtouse03 =
+  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_03%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+const howtouse04 =
+  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_04%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
 
 const Wrap = styled.div``;
 
