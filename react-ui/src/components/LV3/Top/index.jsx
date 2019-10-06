@@ -154,7 +154,7 @@ export default ({
     <PrefectureList list={getPrefectureList()} />
     {sections.map((item, i) => (
       <SpaceList
-        key={i}
+        key={i.toString()}
         caption={item.title}
         captionSub="公式がイチオシする高評価スペース"
         spaceList={item.contents}

@@ -98,6 +98,7 @@ export default ({
               value={value}
               onChange={onChange}
               className={className}
+              onKeyDown={onKeyDown}
             />
           ))}
       </InputFieldWrapper>
