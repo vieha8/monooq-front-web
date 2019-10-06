@@ -54,7 +54,10 @@ function* getRegion() {
   const api = apiEndpoint.region();
   const { data } = yield call(getApiRequest, api, {}, token);
 
-  yield put(sectionActions.getRegionSuccess(data.regionId));
+  if (data) {
+    // 取得できなくても問題ないのでエラーは出さない
+    yield put(sectionActions.getRegionSuccess(data.regionId));
+  }
 }
 
 function* getSections() {
