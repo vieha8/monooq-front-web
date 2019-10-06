@@ -32,7 +32,7 @@ const WrapList = styled.ul`
   box-shadow: none;
   border-radius: 8px;
   display: block;
-  overflow-x: auto;
+  overflow-x: scroll;
   white-space: nowrap;
   padding: ${Dimens.medium}px 0px;
   ::-webkit-scrollbar-track {
@@ -42,7 +42,7 @@ const WrapList = styled.ul`
     background-color: ${Colors.lightGray6};
   }
   scroll-snap-type: x mandatory;
-  scroll-padding: 50%;
+  -webkit-overflow-scrolling: touch;
   ${media.tablet`
     padding: ${Dimens.medium}px ${Dimens.small}px;
   `};
@@ -126,8 +126,7 @@ type PropTypes = {
 
 const makeSearchLink = prefectureId => {
   const query = `?keyword=&prefCode=${prefectureId}&type=0&receiptType=0&priceMin=&priceMax=&isFurniture=true`;
-  const path = `${Path.search()}${query}`;
-  return path;
+  return `${Path.search()}${query}`;
 };
 
 export default ({ list }: PropTypes) => (
