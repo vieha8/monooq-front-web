@@ -1,3 +1,5 @@
+// @flow
+
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -10,6 +12,10 @@ import LinkList from 'components/LV2/Lists/LinkList';
 
 const WrapContent = styled(ContainerDefault)`
   text-align: center;
+  margin: 100px auto ${Dimens.medium3_40}px;
+  ${media.tablet`
+    margin: ${Dimens.large4_80}px auto ${Dimens.medium3_40}px;
+  `};
 `;
 
 const MessageContainer = styled.div`
@@ -22,10 +28,9 @@ const MessageContainer = styled.div`
 const MonoboyWrap = styled.div`
   width: 100%;
   max-width: 200px;
-  margin: ${Dimens.medium2_36}px auto 0px;
+  margin: 0px auto;
   ${media.phone`
     max-width: 120px;
-    margin: 0px auto;
   `};
 `;
 

@@ -37,17 +37,19 @@ class TopContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.setScrollRegion(this.props.regionId);
+    const { regionId } = this.props;
+    this.setScrollRegion(regionId);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.regionId !== prevProps.regionId) {
-      this.setScrollRegion(this.props.regionId);
+    const { regionId } = this.props;
+    if (regionId !== prevProps.regionId) {
+      this.setScrollRegion(regionId);
     }
   }
 
   setScrollRegion = regionId => {
-    const id = 'space_search_area_' + regionId;
+    const id = `space_search_area_${regionId}`;
     if (document.getElementById(id)) {
       const target = document.getElementById(id);
       target.scrollIntoView({

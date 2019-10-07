@@ -51,7 +51,8 @@ class HeaderContainer extends Component<PropTypes> {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll');
+    this.state = {};
+    window.removeEventListener('scroll', () => this.watchCurrentPosition(), true);
     if (document && document.body) {
       document.body.style.overflowY = 'auto';
     }
