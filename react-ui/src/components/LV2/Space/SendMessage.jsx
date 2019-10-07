@@ -4,7 +4,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/LV1/Forms/Button';
 import TextLink from 'components/LV1/Texts/TextLink';
-import InlineText from 'components/LV1/Texts/InlineText';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
