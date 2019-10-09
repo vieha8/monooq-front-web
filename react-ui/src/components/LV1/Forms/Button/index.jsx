@@ -12,6 +12,7 @@ import Quinary from './Quinary';
 import Facebook from './Facebook';
 import Twitter from './Twitter';
 import Line from './Line';
+import AreaPin from './AreaPin';
 
 type PropTypes = {
   primary?: boolean,
@@ -22,6 +23,7 @@ type PropTypes = {
   facebook?: boolean,
   twitter?: boolean,
   line?: boolean,
+  areaPin?: boolean,
   disabled?: boolean,
   loading?: boolean,
   onClick: Function,
@@ -129,6 +131,20 @@ export default (props: PropTypes) => {
           props.children
         )}
       </Line>
+    );
+  }
+
+  if (props.areaPin) {
+    return (
+      <AreaPin {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
+        {props.loading ? (
+          <LoaderWrap>
+            <Loader active inverted inline="centered" size="mini" />
+          </LoaderWrap>
+        ) : (
+          props.children
+        )}
+      </AreaPin>
     );
   }
 

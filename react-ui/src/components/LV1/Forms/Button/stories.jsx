@@ -180,6 +180,23 @@ storiesOf('Atoms(LV1)/Forms/Button', module)
     )),
   )
   .add(
+    'Area Pin',
+    withInfo(`
+      ### コンポーネント概要
+      ボタン(エリアボタンPin付き)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Button areaPin>武蔵村山市</Button>
+        <br />
+        <Button areaPin>渋谷区</Button>
+        <br />
+        <Button areaPin disabled>
+          北区(disable)
+        </Button>
+      </div>
+    )),
+  )
+  .add(
     'Custom Height',
     withInfo(`
       ### コンポーネント概要
