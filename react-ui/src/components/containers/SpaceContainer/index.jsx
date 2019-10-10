@@ -79,6 +79,7 @@ class SpaceContainer extends Component<PropTypes> {
     const spaceId = match.params.space_id;
     dispatch(spaceActions.fetchSpace({ spaceId }));
     dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
+    dispatch(spaceActions.getRecommendSpaces({ spaceId }));
 
     dispatch(
       loggerActions.recordEvent({
@@ -142,7 +143,7 @@ class SpaceContainer extends Component<PropTypes> {
   };
 
   showLeftContent = () => {
-    const { space, user, isRequesting } = this.props;
+    const { space, user, isRequesting, recommendSpaces } = this.props;
     const {
       meta: { title, description, url, imageUrl },
     } = this.state;
@@ -150,7 +151,9 @@ class SpaceContainer extends Component<PropTypes> {
 
     const isNoIndex = space.status !== 'public';
 
-    const recommend = [space, space, space, space].map(s => ({
+    console.log(recommendSpaces);
+
+    const recommend = recommendSpaces.map(s => ({
       id: s.id,
       image: (s.images[0] || {}).imageUrl,
       title: s.title,
@@ -224,6 +227,7 @@ class SpaceContainer extends Component<PropTypes> {
 const mapStateToProps = state => ({
   user: state.auth.user,
   space: state.space.space,
+  recommendSpaces: state.space.recommendSpaces,
   isRequesting: state.request.isLoading,
 });
 

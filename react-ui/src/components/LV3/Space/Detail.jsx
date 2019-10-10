@@ -16,9 +16,6 @@ import Supplement from 'components/LV2/Space/Supplement';
 import InfoHost from 'components/LV2/Space/InfoHost';
 import Price from 'components/LV3/Space/Price';
 import ReactGA from 'react-ga';
-import SpaceList from '../SpaceList';
-import { convertImgixUrl } from '../../../helpers/imgix';
-import dummySpaceImage from '../../../images/dummy_space.png';
 import SearchResult from '../SearchResult';
 
 const Container = styled.div`
