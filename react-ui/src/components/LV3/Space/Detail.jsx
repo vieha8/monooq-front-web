@@ -225,7 +225,7 @@ export default ({
           <Fragment>
             <SectionHeader>近隣のおすすめスペース</SectionHeader>
             <RecommendSpacesWrap>
-              <SearchResult spaces={recommend} />
+              <SearchResult spaces={recommend} narrow />
             </RecommendSpacesWrap>
           </Fragment>
         )}
