@@ -113,6 +113,10 @@ storiesOf('Atoms(LV1)/Forms/Button', module)
       <div style={{ background: `${Colors.darkGray2}`, padding: `${Dimens.storyBookPadding}` }}>
         <Button quaternary>Quaternary</Button>
         <br />
+        <Button quaternary circle>
+          Quaternary(circle)
+        </Button>
+        <br />
         <Button quaternary disabled>
           Quaternary
         </Button>
