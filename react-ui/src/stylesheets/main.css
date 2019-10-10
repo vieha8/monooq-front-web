@@ -259,3 +259,27 @@
   border: none !important;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1) !important;
 }
+
+/* 
+  Checkbox Custom (semantic-ui)
+ */
+.ui.checkbox,
+.ui.checkbox input[type='checkbox'],
+.ui.checkbox label:before,
+.ui.checkbox label:after {
+  width: 24px !important;
+  height: 24px !important;
+}
+.ui.checkbox {
+  box-sizing: border-box;
+}
+.ui.checkbox label:before {
+  border-radius: unset;
+  border: 1px solid #d8d8d8;
+}
+.ui.checkbox label:after {
+  font-size: 18px;
+  line-height: 24px;
+  color: #fff !important;
+  background: #e85258 !important;
+}

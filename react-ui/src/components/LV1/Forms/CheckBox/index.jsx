@@ -14,9 +14,9 @@ const Container = styled.div`
 const Label = styled.div`
   width: calc(100% - 27px);
   margin-left: ${Dimens.small_10}px;
-  vertical-align: top;
-  font-size: ${FontSizes.small_15}px;
-  line-height: ${Dimens.medium}px;
+  vertical-align: middle;
+  font-size: ${FontSizes.small}px;
+  line-height: ${Dimens.medium1}px;
   color: ${Colors.black};
 `;
 
