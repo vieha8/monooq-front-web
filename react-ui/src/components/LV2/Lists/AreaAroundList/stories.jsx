@@ -6,11 +6,11 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import AreaCircleList from './index';
+import AreaAroundList from './index';
 
-AreaCircleList.displayName = 'AreaCircleList';
+AreaAroundList.displayName = 'AreaAroundList';
 
-storiesOf('Molecules(LV2)/Lists/AreaCircleList', module)
+storiesOf('Molecules(LV2)/Lists/AreaAroundList', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
@@ -19,9 +19,9 @@ storiesOf('Molecules(LV2)/Lists/AreaCircleList', module)
       ボタンリスト(エリアボタン赤丸ver)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <AreaCircleList
+        <AreaAroundList
           caption="周辺エリアを含めて探す"
-          areaCircleList={[
+          areaAroundList={[
             {
               text: '武蔵村山市',
               link: '/musashimurayama',

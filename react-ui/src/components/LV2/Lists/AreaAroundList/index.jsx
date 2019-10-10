@@ -50,17 +50,17 @@ const LinkStyled = styled(Link)`
 
 export type PropTypes = {
   caption: string,
-  areaCircleList: Array<{
+  areaAroundList: Array<{
     text: string,
     link: string,
   }>,
 };
 
-export default ({ caption, areaCircleList }: PropTypes) => (
+export default ({ caption, areaAroundList }: PropTypes) => (
   <Wrap>
     <Caption>{caption}</Caption>
     <AreaPinList>
-      {areaCircleList.map((item, i) => (
+      {areaAroundList.map((item, i) => (
         <Item key={i.toString()}>
           <LinkStyled to={item.link} color={Colors.lightGray3}>
             <Button quaternary circle height={30} fontSize={14} lineheight={6}>
