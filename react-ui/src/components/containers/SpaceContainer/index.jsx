@@ -150,6 +150,18 @@ class SpaceContainer extends Component<PropTypes> {
 
     const isNoIndex = space.status !== 'public';
 
+    const recommend = [space, space, space, space].map(s => ({
+      id: s.id,
+      image: (s.images[0] || {}).imageUrl,
+      title: s.title,
+      address: `${s.addressPref}${s.addressCity}`,
+      isFurniture: s.isFurniture,
+      priceFull: s.priceFull,
+      priceHalf: s.priceHalf,
+      priceQuarter: s.priceQuarter,
+      onClick: () => this.onClickSpace(s),
+    }));
+
     return (
       <Fragment>
         <Meta
@@ -188,9 +200,10 @@ class SpaceContainer extends Component<PropTypes> {
             imageUrl: space.user.imageUrl,
             profile: space.user.profile,
           }}
-          pricefull={numeral(space.priceFull).format('0,0')}
-          pricehalf={space.priceHalf > 0 && numeral(space.priceHalf).format('0,0')}
-          pricequarter={space.priceQuarter > 0 && numeral(space.priceQuarter).format('0,0')}
+          priceFull={numeral(space.priceFull).format('0,0')}
+          priceHalf={space.priceHalf > 0 && numeral(space.priceHalf).format('0,0')}
+          priceQuarter={space.priceQuarter > 0 && numeral(space.priceQuarter).format('0,0')}
+          recommend={recommend}
         />
         <SendMessage
           disabled={isSelfSpace}
