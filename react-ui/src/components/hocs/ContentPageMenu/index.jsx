@@ -23,6 +23,7 @@ export default (WrappedComponent, option): PropTypes => {
       return (
         <Fragment>
           <MenuPageTemplate
+            maxWidth={option && option.maxWidth ? option.maxWidth : ''}
             caption={option && option.caption ? option.caption : ''}
             header={<Header />}
             headline={option && option.headline ? option.headline : ''}

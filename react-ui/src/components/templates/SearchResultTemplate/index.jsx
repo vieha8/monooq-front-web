@@ -2,8 +2,13 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Dimens } from 'variables';
+import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
+import AreaAroundList from 'components/LV2/Lists/AreaAroundList';
+import AreaPinList from 'components/LV2/Lists/AreaPinList';
+import BreadcrumbsList from 'components/LV2/Lists/BreadcrumbsList';
+import SortList from 'components/LV2/Lists/LinkList';
+import SearchResultHeader from 'components/LV3/SearchResultHeader';
 
 const Content = styled.div`
   margin: ${Dimens.medium2}px 0;
@@ -17,16 +22,86 @@ const Content = styled.div`
   `};
 `;
 
+const SortListWrap = styled.div`
+  margin: ${Dimens.medium2}px auto;
+  text-align: right;
+  ${media.tablet`
+    margin: ${Dimens.medium}px auto;
+  `};
+`;
+
 type PropTypes = {
   meta: React.Element<*>,
-  searchResult: React.Element<*>,
+  condition: string,
+  maxCount: string,
+  prefectures?: string,
+  city?: string,
+  townArea?: string,
+  onClickMore: Function,
+  onKeyDownButtonMore: Function,
+  breadcrumbsList?: Array<{
+    text: string,
+    link: string,
+  }>,
+  captionAreaAroundList?: string,
+  areaAroundList?: Array<{
+    text: string,
+    link: string,
+  }>,
+  captionAreaPinList?: string,
+  areaPinList?: Array<{
+    text: string,
+    link: string,
+  }>,
+  sortList?: Array<{
+    text: string,
+    path: string,
+  }>,
   noTopMargin?: boolean,
   options: React.Element<*>,
 };
 
-export default ({ meta, searchResult, noTopMargin, options, isSearching }: PropTypes) => (
+export default ({
+  meta,
+  condition,
+  maxCount,
+  onClickMore,
+  onKeyDownButtonMore,
+  searchResult,
+  noTopMargin,
+  options,
+  isSearching,
+  breadcrumbsList,
+  captionAreaAroundList,
+  areaAroundList,
+  captionAreaPinList,
+  areaPinList,
+  sortList,
+  prefectures,
+  city,
+  townArea,
+}: PropTypes) => (
   <div>
     {meta}
+    {breadcrumbsList && <BreadcrumbsList breadcrumbsList={breadcrumbsList} />}
+    <SearchResultHeader
+      condition={condition}
+      maxCount={maxCount}
+      prefectures={prefectures}
+      city={city}
+      townArea={townArea}
+      onClickMore={onClickMore}
+      onKeyDownButtonMore={onKeyDownButtonMore}
+    />
+    {areaAroundList && (
+      <AreaAroundList caption={captionAreaAroundList} areaAroundList={areaAroundList} />
+    )}
+    {areaPinList && <AreaPinList caption={captionAreaPinList} areaPinList={areaPinList} />}
+    {sortList && (
+      <SortListWrap>
+        <SortList list={sortList} landscape color={Colors.brandPrimary} />
+      </SortListWrap>
+    )}
     <Content noTopMargin={noTopMargin}>{searchResult}</Content>
     {!isSearching && options}
   </div>

@@ -20,8 +20,8 @@ import { spaceActions } from 'redux/modules/space';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { getPrefecture } from 'helpers/prefectures';
 
-import connect from '../connect';
 import LoadingPage from 'components/LV3/LoadingPage';
+import connect from '../connect';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
@@ -235,10 +235,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
   meta = condition => {
     return (
-      <Meta
-        title={`${condition}のスペース検索結果 - モノオク`}
-        description={`${condition}のスペース検索結果`}
-      />
+      <Meta title={`${condition}の検索結果 - モノオク`} description={`${condition}の検索結果`} />
     );
   };
 
@@ -253,7 +250,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     if (spaces.length === 0 && !isMore) {
       return (
         <Fragment>
-          <H1 bold>{`「${condition}」のスペース検索結果 0件`}</H1>
+          <H1 bold>{`「${condition}」の検索結果 0件`}</H1>
           <SpaceDataNone
             captionHead="該当するスペースが見つかりませんでした"
             caption="別のキーワード及び条件で検索をお試しください"
@@ -267,12 +264,173 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
     return (
       <Fragment>
-        <H1 bold>{`「${condition}」のスペース検索結果${maxCount}件`}</H1>
         <SearchResultTemplate
           isSearching={isSearching}
           meta={this.meta(condition)}
           searchResult={this.infiniteScroll()}
           options={this.options()}
+          condition={condition}
+          maxCount={maxCount}
+          // TODO: あとから実装
+          // onClickMore=""
+          // onKeyDownButtonMore=""
+          breadcrumbsList={[
+            {
+              text: 'TOP',
+              link: '/',
+            },
+            {
+              text: '東京都',
+              link: '/tokyo',
+            },
+            {
+              text: '渋谷区のスペース一覧',
+            },
+          ]}
+          captionAreaPinList="人気エリアで探す"
+          areaPinList={[
+            {
+              text: '武蔵村山市',
+              link: '/musashimurayama',
+            },
+            {
+              text: '渋谷区',
+              link: '/shibuya',
+            },
+            {
+              text: '北区',
+              link: '/kita',
+            },
+            {
+              text: '武蔵村山市',
+              link: '/musashimurayama',
+            },
+            {
+              text: '渋谷区',
+              link: '/shibuya',
+            },
+            {
+              text: '北区',
+              link: '/kita',
+            },
+            {
+              text: '武蔵村山市',
+              link: '/musashimurayama',
+            },
+            {
+              text: '渋谷区',
+              link: '/shibuya',
+            },
+            {
+              text: '北区',
+              link: '/kita',
+            },
+            {
+              text: '武蔵村山市',
+              link: '/musashimurayama',
+            },
+            {
+              text: '渋谷区',
+              link: '/shibuya',
+            },
+            {
+              text: '北区',
+              link: '/kita',
+            },
+            {
+              text: '武蔵村山市',
+              link: '/musashimurayama',
+            },
+            {
+              text: '渋谷区',
+              link: '/shibuya',
+            },
+            {
+              text: '北区',
+              link: '/kita',
+            },
+          ]}
+          captionAreaAroundList="周辺エリアを含めて探す"
+          areaAroundList={[
+            {
+              text: '武蔵村山市',
+              link: '/musashimurayama',
+            },
+            {
+              text: '渋谷区',
+              link: '/shibuya',
+            },
+            {
+              text: '北区',
+              link: '/kita',
+            },
+            {
+              text: '武蔵村山市',
+              link: '/musashimurayama',
+            },
+            {
+              text: '渋谷区',
+              link: '/shibuya',
+            },
+            {
+              text: '北区',
+              link: '/kita',
+            },
+            {
+              text: '武蔵村山市',
+              link: '/musashimurayama',
+            },
+            {
+              text: '渋谷区',
+              link: '/shibuya',
+            },
+            {
+              text: '北区',
+              link: '/kita',
+            },
+            {
+              text: '武蔵村山市',
+              link: '/musashimurayama',
+            },
+            {
+              text: '渋谷区',
+              link: '/shibuya',
+            },
+            {
+              text: '北区',
+              link: '/kita',
+            },
+            {
+              text: '武蔵村山市',
+              link: '/musashimurayama',
+            },
+            {
+              text: '渋谷区',
+              link: '/shibuya',
+            },
+            {
+              text: '北区',
+              link: '/kita',
+            },
+          ]}
+          sortList={[
+            {
+              text: '新着順',
+              path: '/',
+              current: true,
+            },
+            {
+              text: 'おすすめ',
+              path: Path.signUp(),
+            },
+            {
+              text: '安い順',
+              path: Path.about(),
+            },
+          ]}
+          prefectures="東京都"
+          city="渋谷区,新宿区,目黒区,千代田区,文京区,港区"
+          townArea="上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷"
         />
       </Fragment>
     );
@@ -291,5 +449,7 @@ export default ContentPageMenu(
     SearchResultContainer,
     mapStateToProps,
   ),
-  {},
+  {
+    maxWidth: 1168,
+  },
 );
