@@ -73,10 +73,22 @@ const ReceiptType = {
 class SpaceContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
+    this.init();
+    this.state = {
+      meta: {
+        title: '',
+        description: '',
+        url: '',
+        imageUrl: '',
+      },
+    };
+  }
 
-    const { dispatch, match } = props;
-
+  init = () => {
+    const { dispatch, match } = this.props;
     const spaceId = match.params.space_id;
+
+    dispatch(spaceActions.clearSpace());
     dispatch(spaceActions.fetchSpace({ spaceId }));
     dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
     dispatch(spaceActions.getRecommendSpaces({ spaceId }));
@@ -87,15 +99,14 @@ class SpaceContainer extends Component<PropTypes> {
         detail: { spaceId },
       }),
     );
+  };
 
-    this.state = {
-      meta: {
-        title: '',
-        description: '',
-        url: '',
-        imageUrl: '',
-      },
-    };
+  componentDidUpdate(prevProps) {
+    // おすすめから遷移した時はconstructorが発火しないのでここで
+    const spaceId = this.props.match.params.space_id;
+    if (prevProps.space && prevProps.space.id !== Number(spaceId)) {
+      this.init();
+    }
   }
 
   componentWillUnmount() {
@@ -150,8 +161,6 @@ class SpaceContainer extends Component<PropTypes> {
     const isSelfSpace = user.id === (space.user || {}).id;
 
     const isNoIndex = space.status !== 'public';
-
-    console.log(recommendSpaces);
 
     const recommend = recommendSpaces.map(s => ({
       id: s.id,

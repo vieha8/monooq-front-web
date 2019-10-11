@@ -11,7 +11,7 @@ export const apiEndpoint = {
   userSpaceAccessLog: id => `users/${id}/spaces/log`,
   addUserSpaceAccessLog: (userId, spaceId) => `users/${userId}/spaces/${spaceId}`,
   spaces: id => (id ? `/spaces/${id}` : `/spaces`),
-  spacesRecommend: id => `/spaces/${id}/recommend/sample`,
+  spacesRecommend: id => `/spaces/${id}/recommend/sims`,
   spaceImage: (spaceId, imageId) =>
     imageId ? `/spaces/${spaceId}/image/${imageId}` : `/spaces/${spaceId}/image`,
   requests: id => (id ? `/requests/${id}` : `/requests`),

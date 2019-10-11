@@ -223,7 +223,7 @@ export default ({
         </ShareButtonsWrapper>
         {recommend && recommend.length > 0 && (
           <Fragment>
-            <SectionHeader>近隣のおすすめスペース</SectionHeader>
+            <SectionHeader>このスペースをみた人はこんなスペースもみています</SectionHeader>
             <RecommendSpacesWrap>
               <SearchResult spaces={recommend} narrow />
             </RecommendSpacesWrap>
