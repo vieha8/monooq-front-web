@@ -172,115 +172,74 @@ export default ({
     <div>
       {messageList.map((message, i) => {
         const key = `message_item_${i}`;
+        const id = `message_item_${i}`;
 
         if (message.self) {
           const isRead = lastReadDt.getTime() > message.self.sentAt.getTime();
-
-          if (message.self.image) {
-            // 自分が送信
-            if (message.self.message) {
-              return (
-                <Fragment key={key}>
-                  <Row self>
-                    <SelfMessage
-                      message={message.self.message}
-                      sentAt={formatDate(new Date(message.self.sentAt), formatStringSlashTime)}
-                      isRead={isRead}
-                    />
-                  </Row>
-                  <Row self>
-                    <PhotoMessage
-                      align="right"
-                      src={message.self.image}
-                      receivedAt={formatDate(new Date(message.self.sentAt), formatStringSlashTime)}
-                      isRead={isRead}
-                      self
-                    />
-                  </Row>
-                </Fragment>
-              );
-            }
-            return (
-              <Row key={key} self>
-                <PhotoMessage
-                  align="right"
-                  src={message.self.image}
-                  receivedAt={formatDate(new Date(message.self.sentAt), formatStringSlashTime)}
-                  isRead={isRead}
-                  self
-                />
-              </Row>
-            );
-          }
           return (
-            <Row key={key} self>
-              <SelfMessage
-                message={message.self.message}
-                sentAt={formatDate(new Date(message.self.sentAt), formatStringSlashTime)}
-                isRead={isRead}
-              />
-            </Row>
+            <div key={key} id={id}>
+              {message.self.message && (
+                <Row self>
+                  <SelfMessage
+                    message={message.self.message}
+                    sentAt={formatDate(new Date(message.self.sentAt), formatStringSlashTime)}
+                    isRead={isRead}
+                  />
+                </Row>
+              )}
+              {message.self.image && (
+                <Row self>
+                  <PhotoMessage
+                    align="right"
+                    src={message.self.image}
+                    receivedAt={formatDate(new Date(message.self.sentAt), formatStringSlashTime)}
+                    isRead={isRead}
+                    self
+                  />
+                </Row>
+              )}
+            </div>
           );
         }
 
         if (message.other) {
           // 相手が送信
-          if (message.other.image) {
-            if (message.other.message) {
-              return (
-                <Fragment key={key}>
-                  <Row>
-                    <OtherMessage
-                      id={message.other.id}
-                      image={message.other.userImage}
-                      message={message.other.message}
-                      receivedAt={formatDate(
-                        new Date(message.other.receivedAt),
-                        formatStringSlashTime,
-                      )}
-                    />
-                  </Row>
-                  <Row>
-                    <OtherMessage
-                      id={message.other.id}
-                      image={message.other.userImage}
-                      receivedAt={formatDate(
-                        new Date(message.other.receivedAt),
-                        formatStringSlashTime,
-                      )}
-                      extension={extensionPhotoMessage(message)}
-                    />
-                  </Row>
-                </Fragment>
-              );
-            }
-            return (
-              <Row key={key}>
-                <OtherMessage
-                  id={message.other.id}
-                  image={message.other.userImage}
-                  receivedAt={formatDate(new Date(message.other.receivedAt), formatStringSlashTime)}
-                  extension={extensionPhotoMessage(message)}
-                />
-              </Row>
-            );
-          }
           return (
-            <Row key={key}>
-              <OtherMessage
-                id={message.other.id}
-                image={message.other.userImage}
-                message={message.other.message}
-                receivedAt={formatDate(new Date(message.other.receivedAt), formatStringSlashTime)}
-              />
-            </Row>
+            <div key={key} id={id}>
+              {message.other.message && (
+                <Row>
+                  <OtherMessage
+                    id={message.other.id}
+                    image={message.other.userImage}
+                    message={message.other.message}
+                    receivedAt={formatDate(
+                      new Date(message.other.receivedAt),
+                      formatStringSlashTime,
+                    )}
+                  />
+                </Row>
+              )}
+              {message.other.image && (
+                <Row>
+                  <OtherMessage
+                    id={message.other.id}
+                    image={message.other.userImage}
+                    receivedAt={formatDate(
+                      new Date(message.other.receivedAt),
+                      formatStringSlashTime,
+                    )}
+                    extension={extensionPhotoMessage(message)}
+                  />
+                </Row>
+              )}
+            </div>
           );
         }
 
         if (message.admin) {
           // システムメッセージ
           return (
-            <Row key={key} admin>
+            <Row key={key} admin id={id}>
               <AdminMessage
                 message={message.admin.message || ''}
                 receivedAt={
@@ -296,7 +255,7 @@ export default ({
         if (message.estimate) {
           // 見積もりメッセージ
           return (
-            <Row key={key} admin>
+            <Row key={key} admin id={id}>
               <EstimateMessage
                 id={message.estimate.id}
                 host={hostUser}

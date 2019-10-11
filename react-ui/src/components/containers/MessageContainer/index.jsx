@@ -105,11 +105,28 @@ class MessageContainer extends Component<PropTypes, State> {
     };
   }
 
-  componentWillReceiveProps = next => {
-    if (!next.user.email || !next.user.phoneNumber) {
-      this.setState({ errorModal: true });
+  static getDerivedStateFromProps(nextProps) {
+    if (!nextProps.user.email || !nextProps.user.phoneNumber) {
+      return { errorModal: true };
     }
-  };
+    return null;
+  }
+
+  componentDidUpdate(prevProps) {
+    const messagesCount = this.props.messages.length;
+    if (messagesCount > 0 && prevProps.isLoading && !this.props.isLoading) {
+      const last = messagesCount + 1;
+      const id = `message_item_${last}`;
+      if (document.getElementById(id)) {
+        const target = document.getElementById(id);
+        target.scrollIntoView({
+          inline: 'center',
+          behavior: 'instant',
+          block: 'center',
+        });
+      }
+    }
+  }
 
   handlePickImage = (image: File) => {
     image.preview = URL.createObjectURL(image);
@@ -174,35 +191,43 @@ class MessageContainer extends Component<PropTypes, State> {
               receivedAt: message.createDt,
             },
           };
-        case MessageType.Estimate: {
-          const { startDate, endDate, price, requestId, request } = message;
-          return {
-            estimate: {
-              id: requestId,
-              name: (room.space.user || {}).name,
-              beginAt: startDate.toDate(),
-              endAt: endDate.toDate(),
-              price,
-              link: Path.payment(match.params.message_room_id, requestId),
-              receivedAt: message.createDt,
-              status: request.status,
-              payType: request.payType,
-              econtextUrl: request.paymentUrl,
-            },
-          };
-        }
+          break;
+        case MessageType.Estimate:
+          {
+            const { startDate, endDate, price, requestId, request } = message;
+            if (request) {
+              return {
+                estimate: {
+                  id: requestId,
+                  name: (room.space.user || {}).name,
+                  beginAt: startDate.toDate(),
+                  endAt: endDate.toDate(),
+                  price,
+                  link: Path.payment(match.params.message_room_id, requestId),
+                  receivedAt: message.createDt,
+                  status: request.status,
+                  payType: request.payType,
+                  econtextUrl: request.paymentUrl,
+                },
+              };
+            }
+          }
+          break;
         case MessageType.Completed:
           const { request } = message;
-          return {
-            admin: {
-              message: `お見積もりID:${
-                request.id
-              }\n決済が完了しました。スペース取引成立です！\nスペース所在地:${
-                request.space.address
-              }`,
-              receivedAt: message.createDt,
-            },
-          };
+          if (request) {
+            return {
+              admin: {
+                message: `お見積もりID:${
+                  request.id
+                }\n決済が完了しました。スペース取引成立です！\nスペース所在地:${
+                  request.space.address
+                }`,
+                receivedAt: message.createDt,
+              },
+            };
+          }
+          break;
         default:
           break;
       }
