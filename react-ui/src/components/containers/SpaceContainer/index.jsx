@@ -73,20 +73,7 @@ const ReceiptType = {
 class SpaceContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
-
-    const { dispatch, match } = props;
-
-    const spaceId = match.params.space_id;
-    dispatch(spaceActions.fetchSpace({ spaceId }));
-    dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
-
-    dispatch(
-      loggerActions.recordEvent({
-        event: 'space_views',
-        detail: { spaceId },
-      }),
-    );
-
+    this.init();
     this.state = {
       meta: {
         title: '',
@@ -95,6 +82,31 @@ class SpaceContainer extends Component<PropTypes> {
         imageUrl: '',
       },
     };
+  }
+
+  init = () => {
+    const { dispatch, match } = this.props;
+    const spaceId = match.params.space_id;
+
+    dispatch(spaceActions.clearSpace());
+    dispatch(spaceActions.fetchSpace({ spaceId }));
+    dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
+    dispatch(spaceActions.getRecommendSpaces({ spaceId }));
+
+    dispatch(
+      loggerActions.recordEvent({
+        event: 'space_views',
+        detail: { spaceId },
+      }),
+    );
+  };
+
+  componentDidUpdate(prevProps) {
+    // おすすめから遷移した時はconstructorが発火しないのでここで
+    const spaceId = this.props.match.params.space_id;
+    if (prevProps.space && prevProps.space.id !== Number(spaceId)) {
+      this.init();
+    }
   }
 
   componentWillUnmount() {
@@ -142,13 +154,25 @@ class SpaceContainer extends Component<PropTypes> {
   };
 
   showLeftContent = () => {
-    const { space, user, isRequesting } = this.props;
+    const { space, user, isRequesting, recommendSpaces } = this.props;
     const {
       meta: { title, description, url, imageUrl },
     } = this.state;
     const isSelfSpace = user.id === (space.user || {}).id;
 
     const isNoIndex = space.status !== 'public';
+
+    const recommend = recommendSpaces.map(s => ({
+      id: s.id,
+      image: (s.images[0] || {}).imageUrl,
+      title: s.title,
+      address: `${s.addressPref}${s.addressCity}`,
+      isFurniture: s.isFurniture,
+      priceFull: s.priceFull,
+      priceHalf: s.priceHalf,
+      priceQuarter: s.priceQuarter,
+      onClick: () => this.onClickSpace(s),
+    }));
 
     return (
       <Fragment>
@@ -188,9 +212,10 @@ class SpaceContainer extends Component<PropTypes> {
             imageUrl: space.user.imageUrl,
             profile: space.user.profile,
           }}
-          pricefull={numeral(space.priceFull).format('0,0')}
-          pricehalf={space.priceHalf > 0 && numeral(space.priceHalf).format('0,0')}
-          pricequarter={space.priceQuarter > 0 && numeral(space.priceQuarter).format('0,0')}
+          priceFull={numeral(space.priceFull).format('0,0')}
+          priceHalf={space.priceHalf > 0 && numeral(space.priceHalf).format('0,0')}
+          priceQuarter={space.priceQuarter > 0 && numeral(space.priceQuarter).format('0,0')}
+          recommend={recommend}
         />
         <SendMessage
           disabled={isSelfSpace}
@@ -211,6 +236,7 @@ class SpaceContainer extends Component<PropTypes> {
 const mapStateToProps = state => ({
   user: state.auth.user,
   space: state.space.space,
+  recommendSpaces: state.space.recommendSpaces,
   isRequesting: state.request.isLoading,
 });
 
