@@ -108,6 +108,10 @@ export function* getUser({ payload: { userId } }) {
     return;
   }
 
+  if (data.imageUrl) {
+    data.imageUrl = convertImgixUrl(data.imageUrl, 'w=128&auto=format');
+  }
+
   yield put(userActions.fetchSuccessUser(data));
 }
 
