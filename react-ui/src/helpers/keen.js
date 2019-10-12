@@ -1,4 +1,5 @@
 import KeenTracking from 'keen-tracking';
+import { captureException } from '@sentry/browser';
 
 const PROJECT_ID = '5cb6df09c9e77c0001ee1cad';
 const WRITE_KEY =
@@ -92,5 +93,7 @@ export const recordEvent = (eventName, body) => {
       ],
     },
   };
-  keenClient.recordEvent(eventName, eventBody);
+  keenClient.recordEvent(eventName, eventBody).catch(err => {
+    captureException(err);
+  });
 };
