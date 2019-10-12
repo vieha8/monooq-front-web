@@ -12,9 +12,14 @@ class SignUpContainer extends Component {
   componentDidMount() {
     const { dispatch, user, history } = this.props;
     if (user.id) {
-      history.push(Path.top());
+      if (user.name === '') {
+        history.push(Path.signUpProfile());
+      } else {
+        history.push(Path.top());
+      }
+    } else {
+      dispatch(authActions.initSignup());
     }
-    dispatch(authActions.initSignup());
   }
 
   render() {
