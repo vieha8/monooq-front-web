@@ -431,6 +431,10 @@ class SearchResultContainer extends Component<PropTypes, State> {
           prefectures="東京都"
           city="渋谷区,新宿区,目黒区,千代田区,文京区,港区"
           townArea="上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷"
+          textButtonBottom="地域を絞り込む"
+          // TODO: あとから実装
+          // onClickButtonBottom={() => console.log('onClick')}
+          // onKeyDownButtonBottom={() => console.log('onClick')}
         />
       </Fragment>
     );
@@ -451,5 +455,6 @@ export default ContentPageMenu(
   ),
   {
     maxWidth: 1168,
+    bottomMarginOnlySP: true,
   },
 );

@@ -19,12 +19,13 @@ const Container = styled.footer`
   padding: 0px ${Dimens.medium2}px;
   ${props =>
     props.bottomMargin &&
+    !props.bottomMarginOnlySP &&
     `
       padding: 0px ${Dimens.medium2}px ${Dimens.large2_70}px;
     `};
-  ${media.phone`
+  ${media.tablet`
     ${props =>
-      props.bottomMargin &&
+      (props.bottomMargin || props.bottomMarginOnlySP) &&
       `
         padding: 0px ${Dimens.medium2}px ${Dimens.large4_80}px;
       `};
@@ -75,10 +76,11 @@ const HrStyled = styled(Hr)`
 
 type PropTypes = {
   bottomMargin?: boolean,
+  bottomMarginOnlySP?: boolean,
 };
 
-export default ({ bottomMargin }: PropTypes) => (
-  <Container bottomMargin={bottomMargin}>
+export default ({ bottomMargin, bottomMarginOnlySP }: PropTypes) => (
+  <Container bottomMargin={bottomMargin} bottomMarginOnlySP={bottomMarginOnlySP}>
     <Wrap>
       <WrapItems>
         <Caption>サービスについて</Caption>

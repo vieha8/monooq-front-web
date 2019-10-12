@@ -9,6 +9,7 @@ import ImageLogo from 'components/LV1/Images/ImageLogo';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';
 import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
+import SearchIcon from 'components/LV2/ButtonHeader/SearchIcon';
 import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
@@ -27,7 +28,7 @@ const Container = styled.header`
   `};
   top: 0;
   width: 100%;
-  min-width: 260px;
+  min-width: 320px;
   z-index: ${ZIndexes.nav};
 `;
 
@@ -44,10 +45,24 @@ const Nav = styled.nav`
   `}
   ${media.tablet`
     height: ${HeightPhone}px;
+    position: relative;
+    display: flex;
+    justify-content: center;
   `};
 `;
 
-const LogoWrapper = styled(Link)`
+const SearchIconWrapper = styled.div`
+  display: none;
+  ${media.tablet`
+    display: block;
+    position: absolute;
+    left: ${Dimens.small_10}px;
+  `};
+`;
+
+const LogoWrapper = styled.div``;
+
+const LogoLink = styled(Link)`
   width: 138px;
   display: inline-flex;
   margin-left: ${Dimens.medium3_40}px;
@@ -73,8 +88,9 @@ const ActionWrapper = styled.div`
     margin-left: 0;
   `};
   ${media.tablet`
-    margin-left: auto;
-    margin-right: ${Dimens.medium}px;
+    position: absolute;
+    right: ${Dimens.medium}px;
+    margin-right: 0px;
   `};
 `;
 
@@ -274,8 +290,14 @@ export default ({
   return (
     <Container stories={stories}>
       <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
-        <LogoWrapper to={topUrl}>
-          <ImageLogo.HeaderFill />
+        <SearchIconWrapper>
+          {/* TODO: URL設定 */}
+          <SearchIcon href={messageUrl} />
+        </SearchIconWrapper>
+        <LogoWrapper>
+          <LogoLink to={topUrl}>
+            <ImageLogo.HeaderFill />
+          </LogoLink>
         </LogoWrapper>
         {!isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>

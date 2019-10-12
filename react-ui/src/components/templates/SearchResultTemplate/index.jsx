@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
+import ButtonBottom from 'components/LV2/Forms/ButtonBottom';
 import AreaAroundList from 'components/LV2/Lists/AreaAroundList';
 import AreaPinList from 'components/LV2/Lists/AreaPinList';
 import BreadcrumbsList from 'components/LV2/Lists/BreadcrumbsList';
@@ -59,6 +60,9 @@ type PropTypes = {
   }>,
   noTopMargin?: boolean,
   options: React.Element<*>,
+  textButtonBottom?: string,
+  onClickButtonBottom?: Function,
+  onKeyDownButtonBottom?: Function,
 };
 
 export default ({
@@ -80,6 +84,9 @@ export default ({
   prefectures,
   city,
   townArea,
+  textButtonBottom,
+  onClickButtonBottom,
+  onKeyDownButtonBottom,
 }: PropTypes) => (
   <div>
     {meta}
@@ -104,5 +111,12 @@ export default ({
     )}
     <Content noTopMargin={noTopMargin}>{searchResult}</Content>
     {!isSearching && options}
+    {textButtonBottom && (
+      <ButtonBottom
+        text={textButtonBottom}
+        onClick={onClickButtonBottom}
+        onKeyDownButton={onKeyDownButtonBottom}
+      />
+    )}
   </div>
 );

@@ -14,6 +14,7 @@ type PropTypes = {
     noMargin?: boolean,
     noFooter?: boolean,
     bottomMargin?: boolean,
+    bottomMarginOnlySP?: boolean,
   },
 };
 
@@ -31,7 +32,10 @@ export default (WrappedComponent, option): PropTypes => {
             noMargin={option && option.noMargin ? option.noMargin : false}
           />
           {option && !option.noFooter && (
-            <Footer bottomMargin={!!(option && option.bottomMargin)} />
+            <Footer
+              bottomMargin={!!(option && option.bottomMargin)}
+              bottomMarginOnlySP={!!(option && option.bottomMarginOnlySP)}
+            />
           )}
         </Fragment>
       );
