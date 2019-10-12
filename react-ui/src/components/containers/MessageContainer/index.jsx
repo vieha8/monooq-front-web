@@ -191,7 +191,6 @@ class MessageContainer extends Component<PropTypes, State> {
               receivedAt: message.createDt,
             },
           };
-          break;
         case MessageType.Estimate:
           {
             const { startDate, endDate, price, requestId, request } = message;
