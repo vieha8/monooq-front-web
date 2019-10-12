@@ -6,12 +6,13 @@ import { push } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import { ErrorMessages } from 'variables';
+import Path from 'config/path';
+import { isAvailableLocalStorage } from 'helpers/storage';
+import { convertImgixUrl } from 'helpers/imgix';
 import { uiActions } from './ui';
 import { loggerActions } from './logger';
 import { handleError } from './error';
 import { getApiRequest, postApiRequest, deleteApiRequest, apiEndpoint } from '../helpers/api';
-import Path from '../../config/path';
-import { isAvailableLocalStorage } from '../../helpers/storage';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -312,6 +313,11 @@ function* checkLogin() {
         }
       }
     }
+
+    if (status.user && status.user.imageUrl) {
+      status.user.imageUrl = convertImgixUrl(status.user.imageUrl, 'w=128&auto=format');
+    }
+
     yield put(authActions.checkLoginSuccess(status));
   } catch (err) {
     yield put(authActions.checkLoginFailed(err));
