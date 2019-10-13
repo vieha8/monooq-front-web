@@ -104,7 +104,7 @@ class SpaceContainer extends Component<PropTypes> {
   componentDidUpdate(prevProps) {
     // おすすめから遷移した時はconstructorが発火しないのでここで
     const spaceId = this.props.match.params.space_id;
-    if (prevProps.space && prevProps.space.id !== Number(spaceId)) {
+    if (prevProps.space && prevProps.space.id !== Number(spaceId) && !this.props.isLoading) {
       this.init();
     }
   }
@@ -236,6 +236,7 @@ class SpaceContainer extends Component<PropTypes> {
 const mapStateToProps = state => ({
   user: state.auth.user,
   space: state.space.space,
+  isLoading: state.space.isLoading,
   recommendSpaces: state.space.recommendSpaces,
   isRequesting: state.request.isLoading,
 });
