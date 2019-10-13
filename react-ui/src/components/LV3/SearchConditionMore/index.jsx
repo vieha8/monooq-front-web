@@ -4,12 +4,11 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Modal } from 'semantic-ui-react';
-import { Dimens, Colors, FontSizes } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 import ButtonLV1 from 'components/LV1/Forms/Button';
-import InlineText from 'components/LV1/Texts/InlineText';
 import CityTownAreaList from 'components/LV2/Lists/CityTownAreaList';
+import SearchConditionCurrentList from 'components/LV2/Lists/SearchConditionCurrentList';
 import PrefectureList from 'components/LV3/PrefectureList';
-import IconAreaRed from 'images/icon-area-red.png';
 
 const SearchConditionWrap = styled.div`
   display: flex;
@@ -26,36 +25,6 @@ const SearchConditionLeft = styled.div`
   font-size: ${FontSizes.small}px;
   font-weight: bold;
 `;
-
-const ImageIconAreaRed = styled.img`
-  width: ${Dimens.medium_18}px;
-  height: auto;
-  vertical-align: middle;
-  margin-right: ${Dimens.small2}px;
-`;
-
-const ConditionList = styled.div`
-  display: flex;
-`;
-
-const ConditionListItem = styled.div`
-  width: 100%;
-  margin-right: ${Dimens.small}px;
-  text-align: left;
-  &:first-child {
-    white-space: nowrap;
-    margin-right: ${Dimens.medium4}px;
-  }
-`;
-
-const ConditionListItemTitle = styled.div`
-  margin-bottom: ${Dimens.small}px;
-  font-size: ${FontSizes.small_12}px;
-  color: ${Colors.lightGray3};
-  font-weight: normal;
-`;
-
-const ConditionListItemValue = styled.div``;
 
 const SearchConditionRight = styled.div`
   margin: auto;
@@ -210,37 +179,23 @@ class ButtonModalConfirm extends Component<PropTypes> {
           <Modal.Actions>
             <SearchConditionWrap>
               <SearchConditionLeft>
-                {/* TODO: コンポーネント整理 */}
-                <ConditionList>
-                  <ConditionListItem>
-                    <ImageIconAreaRed src={IconAreaRed} alt="icon-area" />
-                    現在の検索条件
-                  </ConditionListItem>
-                  <ConditionListItem>
-                    <ConditionListItemTitle>都道府県</ConditionListItemTitle>
-                    <ConditionListItemValue>
-                      <InlineText.Base fontSize={14} lineClamp={2}>
-                        {prefecture || '指定なし'}
-                      </InlineText.Base>
-                    </ConditionListItemValue>
-                  </ConditionListItem>
-                  <ConditionListItem>
-                    <ConditionListItemTitle>市区町村</ConditionListItemTitle>
-                    <ConditionListItemValue>
-                      <InlineText.Base fontSize={14} lineClamp={2}>
-                        {city || '指定なし'}
-                      </InlineText.Base>
-                    </ConditionListItemValue>
-                  </ConditionListItem>
-                  <ConditionListItem>
-                    <ConditionListItemTitle>町域・エリア</ConditionListItemTitle>
-                    <ConditionListItemValue>
-                      <InlineText.Base fontSize={14} lineClamp={2}>
-                        {townArea || '指定なし'}
-                      </InlineText.Base>
-                    </ConditionListItemValue>
-                  </ConditionListItem>
-                </ConditionList>
+                <SearchConditionCurrentList
+                  SearchConditionCurrentList={[
+                    {
+                      title: '都道府県',
+                      value: prefecture,
+                    },
+                    {
+                      title: '市区町村',
+                      value: city,
+                    },
+                    {
+                      title: '町域・エリア',
+                      value: townArea,
+                    },
+                  ]}
+                  modal
+                />
               </SearchConditionLeft>
               <SearchConditionRight>
                 <MoreButtonWrap>

@@ -8,7 +8,7 @@ import { formatAddComma } from 'helpers/string';
 import Button from 'components/LV1/Forms/Button';
 import { H1 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
-import IconAreaRed from 'images/icon-area-red.png';
+import SearchConditionCurrentList from 'components/LV2/Lists/SearchConditionCurrentList';
 
 const HeaderWrap = styled.div`
   margin: ${Dimens.medium_20}px ${Dimens.xxsmall_4}px;
@@ -53,36 +53,6 @@ const SearchConditionLeft = styled.div`
   font-weight: bold;
 `;
 
-const ImageIconAreaRed = styled.img`
-  width: ${Dimens.medium_18}px;
-  height: auto;
-  vertical-align: middle;
-  margin-right: ${Dimens.small2}px;
-`;
-
-const ConditionTitle = styled.div`
-  margin-bottom: ${Dimens.medium}px;
-`;
-
-const ConditionList = styled.div`
-  display: flex;
-  width: 364px;
-`;
-
-const ConditionListItem = styled.div`
-  width: 100%;
-  margin-right: ${Dimens.small}px;
-`;
-
-const ConditionListItemTitle = styled.div`
-  margin-bottom: ${Dimens.small}px;
-  font-size: ${FontSizes.small_12}px;
-  color: ${Colors.lightGray3};
-  font-weight: normal;
-`;
-
-const ConditionListItemValue = styled.div``;
-
 const SearchConditionRight = styled.div`
   margin: auto;
 `;
@@ -103,7 +73,7 @@ type PropTypes = {
   maxCount: string,
   onClickMore?: Function,
   onKeyDownButtonMore?: Function,
-  prefectures?: string,
+  prefecture?: string,
   city?: string,
   townArea?: string,
 };
@@ -113,7 +83,7 @@ export default ({
   maxCount,
   onClickMore,
   onKeyDownButtonMore,
-  prefectures,
+  prefecture,
   city,
   townArea,
 }: PropTypes) => (
@@ -130,37 +100,22 @@ export default ({
     </ResultCountWrap>
     <SearchConditionWrap>
       <SearchConditionLeft>
-        {/* TODO: コンポーネント整理 */}
-        <ConditionTitle>
-          <ImageIconAreaRed src={IconAreaRed} alt="icon-area" />
-          現在の検索条件
-        </ConditionTitle>
-        <ConditionList>
-          <ConditionListItem>
-            <ConditionListItemTitle>都道府県</ConditionListItemTitle>
-            <ConditionListItemValue>
-              <InlineText.Base fontSize={14} lineClamp={2}>
-                {prefectures || '指定なし'}
-              </InlineText.Base>
-            </ConditionListItemValue>
-          </ConditionListItem>
-          <ConditionListItem>
-            <ConditionListItemTitle>市区町村</ConditionListItemTitle>
-            <ConditionListItemValue>
-              <InlineText.Base fontSize={14} lineClamp={2}>
-                {city || '指定なし'}
-              </InlineText.Base>
-            </ConditionListItemValue>
-          </ConditionListItem>
-          <ConditionListItem>
-            <ConditionListItemTitle>町域・エリア</ConditionListItemTitle>
-            <ConditionListItemValue>
-              <InlineText.Base fontSize={14} lineClamp={2}>
-                {townArea || '指定なし'}
-              </InlineText.Base>
-            </ConditionListItemValue>
-          </ConditionListItem>
-        </ConditionList>
+        <SearchConditionCurrentList
+          SearchConditionCurrentList={[
+            {
+              title: '都道府県',
+              value: prefecture,
+            },
+            {
+              title: '市区町村',
+              value: city,
+            },
+            {
+              title: '町域・エリア',
+              value: townArea,
+            },
+          ]}
+        />
       </SearchConditionLeft>
       <SearchConditionRight>
         <MoreButtonWrap>

@@ -10,6 +10,69 @@ import TownAreaCheckboxList from './index';
 
 TownAreaCheckboxList.displayName = 'TownAreaCheckboxList';
 
+const AreaAroundList = () => [
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+];
+
 storiesOf('Molecules(LV2)/Lists/TownAreaCheckboxList', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
@@ -21,74 +84,9 @@ storiesOf('Molecules(LV2)/Lists/TownAreaCheckboxList', module)
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <TownAreaCheckboxList
           caption="地域から選ぶ"
-          captionColor={Colors.lightGray3}
           cityName="目黒区"
-          areaAroundList={[
-            {
-              text: '代々木神園町',
-              link: '/1111',
-            },
-            {
-              text: '宇田川町',
-              link: '/2222',
-            },
-            {
-              text: '上原',
-              link: '/333',
-            },
-            {
-              text: '東',
-              link: '/333',
-            },
-            {
-              text: '代々木神園町',
-              link: '/1111',
-            },
-            {
-              text: '宇田川町',
-              link: '/2222',
-            },
-            {
-              text: '上原',
-              link: '/333',
-            },
-            {
-              text: '東',
-              link: '/333',
-            },
-            {
-              text: '代々木神園町',
-              link: '/1111',
-            },
-            {
-              text: '宇田川町',
-              link: '/2222',
-            },
-            {
-              text: '上原',
-              link: '/333',
-            },
-            {
-              text: '東',
-              link: '/333',
-            },
-            {
-              text: '代々木神園町',
-              link: '/1111',
-            },
-            {
-              text: '宇田川町',
-              link: '/2222',
-            },
-            {
-              text: '上原',
-              link: '/333',
-            },
-            {
-              text: '東',
-              link: '/333',
-            },
-          ]}
+          captionColor={Colors.lightGray3}
+          townAreaList={AreaAroundList()}
         />
       </div>
     )),

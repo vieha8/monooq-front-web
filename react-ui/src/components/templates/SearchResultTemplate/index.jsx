@@ -35,7 +35,7 @@ type PropTypes = {
   meta: React.Element<*>,
   condition: string,
   maxCount: string,
-  prefectures?: string,
+  prefecture?: string,
   city?: string,
   townArea?: string,
   onClickMore: Function,
@@ -81,7 +81,7 @@ export default ({
   captionAreaPinList,
   areaPinList,
   sortList,
-  prefectures,
+  prefecture,
   city,
   townArea,
   textButtonBottom,
@@ -94,7 +94,7 @@ export default ({
     <SearchResultHeader
       condition={condition}
       maxCount={maxCount}
-      prefectures={prefectures}
+      prefecture={prefecture}
       city={city}
       townArea={townArea}
       onClickMore={onClickMore}
