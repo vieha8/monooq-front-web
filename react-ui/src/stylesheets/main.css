@@ -243,6 +243,29 @@
   transition: 0.3s;
 }
 
+/* Custom Collapsible Search Condition */
+.item-condition-search:last-child {
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.item-condition-search .Collapsible .Collapsible__trigger {
+  background-color: #fff !important;
+  padding: 16px;
+}
+
+.item-condition-search .Collapsible:last-child .Collapsible__trigger {
+  border-bottom: unset;
+  border-radius: unset !important;
+}
+
+.item-condition-search .Collapsible:last-child .Collapsible__trigger::after {
+  top: 22px;
+}
+
+.item-condition-search .Collapsible:last-child .Collapsible__trigger.is-open::after {
+  top: 22.5px;
+}
+
 /* 
   Header Menu
  */
@@ -282,4 +305,15 @@
   line-height: 24px;
   color: #fff !important;
   background: #e85258 !important;
+}
+
+/* Modal Search Condition More */
+.ButtonModalSearchConditionMore {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: unset !important;
+}
+
+.ButtonModalSearchConditionMore .scrolling.content {
+  padding: 0 !important;
 }

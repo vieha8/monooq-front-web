@@ -6,7 +6,7 @@ import { Dimens, FontSizes, Colors } from 'variables';
 import InlineText from 'components/LV1/Texts/InlineText';
 import IconAreaRed from 'images/icon-area-red.png';
 
-const Wrap = styled.nav``;
+const Wrap = styled.div``;
 
 const TitleOuter = styled.div`
   margin-bottom: ${Dimens.medium}px;
@@ -17,7 +17,7 @@ const ConditionList = styled.ul`
   ${props =>
     !props.modal &&
     `
-      width: 364px;
+      width: ${props.width ? `${props.width}px` : '100%'};
   `};
 `;
 
@@ -52,14 +52,15 @@ const Title = styled.div`
 const Value = styled.div``;
 
 export type PropTypes = {
-  SearchConditionCurrentList: Array<{
+  searchConditionCurrentList: Array<{
     title: string,
     value: string,
   }>,
   modal?: boolean,
+  width?: number,
 };
 
-export default ({ SearchConditionCurrentList, modal }: PropTypes) => (
+export default ({ searchConditionCurrentList, modal, width }: PropTypes) => (
   <Wrap>
     {!modal && (
       <TitleOuter>
@@ -67,14 +68,14 @@ export default ({ SearchConditionCurrentList, modal }: PropTypes) => (
         現在の検索条件
       </TitleOuter>
     )}
-    <ConditionList modal={modal}>
+    <ConditionList modal={modal} width={width}>
       {modal && (
         <Item modal>
           <ImageIconAreaRed src={IconAreaRed} alt="icon-area" />
           現在の検索条件
         </Item>
       )}
-      {SearchConditionCurrentList.map((item, i) => (
+      {searchConditionCurrentList.map((item, i) => (
         <Item key={i.toString()} modal={modal}>
           <Title>{item.title}</Title>
           <Value>

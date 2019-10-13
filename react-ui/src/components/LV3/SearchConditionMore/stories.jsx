@@ -143,7 +143,7 @@ const TownAreaList1 = () => [
 storiesOf('Organisms(LV3)/SearchConditionMore', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
-    'Enabled',
+    'Normal',
     withInfo(`
         ### コンポーネント概要
         スペース削除ボタン

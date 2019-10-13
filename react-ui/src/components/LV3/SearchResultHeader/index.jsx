@@ -115,6 +115,7 @@ export default ({
               value: townArea,
             },
           ]}
+          width={364}
         />
       </SearchConditionLeft>
       <SearchConditionRight>
