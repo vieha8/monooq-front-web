@@ -12,6 +12,11 @@ const Caption = styled.div`
   font-size: ${FontSizes.small}px;
   font-weight: bold;
   line-height: normal;
+  ${props =>
+    props.captionColor &&
+    `
+      color: ${props.captionColor};    
+  `};
 `;
 
 const AreaPinList = styled.ul`
@@ -50,15 +55,16 @@ const LinkStyled = styled(Link)`
 
 export type PropTypes = {
   caption: string,
+  captionColor?: string,
   areaAroundList: Array<{
     text: string,
     link: string,
   }>,
 };
 
-export default ({ caption, areaAroundList }: PropTypes) => (
+export default ({ caption, captionColor, areaAroundList }: PropTypes) => (
   <Wrap>
-    <Caption>{caption}</Caption>
+    <Caption captionColor={captionColor}>{caption}</Caption>
     <AreaPinList>
       {areaAroundList.map((item, i) => (
         <Item key={i.toString()}>

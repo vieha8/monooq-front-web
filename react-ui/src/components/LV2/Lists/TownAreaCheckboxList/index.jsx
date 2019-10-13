@@ -44,13 +44,13 @@ export type PropTypes = {
   caption: string,
   cityName: string,
   captionColor?: string,
-  areaAroundList: Array<{
+  townAreaList: Array<{
     text: string,
     link: string,
   }>,
 };
 
-export default ({ caption, cityName, captionColor, areaAroundList }: PropTypes) => (
+export default ({ caption, cityName, captionColor, townAreaList }: PropTypes) => (
   <Wrap>
     <Caption captionColor={captionColor}>{caption}</Caption>
     <CheckBoxCityAllWrap>
@@ -65,7 +65,7 @@ export default ({ caption, cityName, captionColor, areaAroundList }: PropTypes) 
       </CheckBox>
     </CheckBoxCityAllWrap>
     <AreaPinList>
-      {areaAroundList.map((item, i) => (
+      {townAreaList.map((item, i) => (
         <Item key={i.toString()}>
           <CheckBox
           // TODO: あとで実装
