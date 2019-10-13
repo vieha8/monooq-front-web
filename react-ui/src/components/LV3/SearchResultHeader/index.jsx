@@ -130,6 +130,7 @@ export default ({
     </ResultCountWrap>
     <SearchConditionWrap>
       <SearchConditionLeft>
+        {/* TODO: コンポーネント整理 */}
         <ConditionTitle>
           <ImageIconAreaRed src={IconAreaRed} alt="icon-area" />
           現在の検索条件
@@ -152,7 +153,7 @@ export default ({
             </ConditionListItemValue>
           </ConditionListItem>
           <ConditionListItem>
-            <ConditionListItemTitle>町域</ConditionListItemTitle>
+            <ConditionListItemTitle>町域・エリア</ConditionListItemTitle>
             <ConditionListItemValue>
               <InlineText.Base fontSize={14} lineClamp={2}>
                 {townArea || '指定なし'}
@@ -164,6 +165,7 @@ export default ({
       <SearchConditionRight>
         <MoreButtonWrap>
           <Button
+            primary
             height={42}
             heightTab={42}
             padding="10px 10px"
