@@ -250,7 +250,7 @@
 
 .item-condition-search .Collapsible .Collapsible__trigger {
   background-color: #fff !important;
-  padding: 16px;
+  padding: 13px 16px;
 }
 
 .item-condition-search .Collapsible:last-child .Collapsible__trigger {
@@ -259,11 +259,11 @@
 }
 
 .item-condition-search .Collapsible:last-child .Collapsible__trigger::after {
-  top: 22px;
+  top: 20px;
 }
 
 .item-condition-search .Collapsible:last-child .Collapsible__trigger.is-open::after {
-  top: 22.5px;
+  top: 20.5px;
 }
 
 /* 

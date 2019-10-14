@@ -41,12 +41,12 @@ const CollapsibleItem = styled.li`
   position: relative;
   display: inline-block;
   width: 100%;
-  border-top: 1px solid #dbdbdb;
+  border-top: 1px solid ${Colors.lightGray2};
   &:after {
     content: '';
     display: block;
     position: absolute;
-    top: 22px;
+    top: 20px;
     right: 16px;
     width: 12px;
     height: 12px;
@@ -59,9 +59,20 @@ const CollapsibleItem = styled.li`
 const CollapsibleItemLink = styled(Link)`
   display: block;
   width: 100%;
-  padding: ${Dimens.medium}px ${Dimens.medium}px ${Dimens.medium}px ${Dimens.medium2_38}px;
+  padding: ${Dimens.small2_15}px ${Dimens.medium}px ${Dimens.small2_15}px ${Dimens.medium2_38}px;
+  font-weight: bold;
   color: ${Colors.black2};
 `;
+
+const PrefectureWrap = styled.div`
+  font-size: ${FontSizes.medium}px;
+  font-weight: bold;
+  line-height: normal;
+`;
+
+const PrefectureName = title => {
+  return <PrefectureWrap>{title}</PrefectureWrap>;
+};
 
 export type PropTypes = {
   searchConditionSPList: Array<{
@@ -85,7 +96,7 @@ export default ({ searchConditionSPList }: PropTypes) => (
     <ConditionList>
       {searchConditionSPList.map((item, i) => (
         <Item key={i.toString()} className="item-condition-search">
-          <Collapsible trigger={item.title}>
+          <Collapsible trigger={PrefectureName(item.title)}>
             <CollapsibleItemList>
               {item.collapsibleItemList.map((itemJ, j) => (
                 <CollapsibleItem key={j.toString()}>

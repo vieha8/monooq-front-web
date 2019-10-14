@@ -143,6 +143,7 @@ const TownAreaList1 = () => [
 const SearchConditionSPList = () => [
   {
     title: '東北・北海道',
+    areaAroundList: AreaAroundList(),
     collapsibleItemList: [
       {
         to: '123',
@@ -164,6 +165,7 @@ const SearchConditionSPList = () => [
   },
   {
     title: '北陸・甲信越',
+    areaAroundList: AreaAroundList(),
     collapsibleItemList: [
       {
         to: '123',
@@ -185,6 +187,7 @@ const SearchConditionSPList = () => [
   },
   {
     title: '関東',
+    areaAroundList: AreaAroundList(),
     collapsibleItemList: [
       {
         to: '123',
@@ -206,6 +209,7 @@ const SearchConditionSPList = () => [
   },
   {
     title: '東海',
+    areaAroundList: AreaAroundList(),
     collapsibleItemList: [
       {
         to: '123',
@@ -227,6 +231,7 @@ const SearchConditionSPList = () => [
   },
   {
     title: '関西',
+    areaAroundList: AreaAroundList(),
     collapsibleItemList: [
       {
         to: '123',
@@ -248,6 +253,7 @@ const SearchConditionSPList = () => [
   },
   {
     title: '四国',
+    areaAroundList: AreaAroundList(),
     collapsibleItemList: [
       {
         to: '123',
@@ -269,6 +275,7 @@ const SearchConditionSPList = () => [
   },
   {
     title: '九州・沖縄',
+    areaAroundList: AreaAroundList(),
     collapsibleItemList: [
       {
         to: '123',

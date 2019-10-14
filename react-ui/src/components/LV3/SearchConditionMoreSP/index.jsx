@@ -8,10 +8,12 @@ import { Modal } from 'semantic-ui-react';
 import { Dimens, FontSizes, Colors } from 'variables';
 import Hr from 'components/LV1/HorizontalRule';
 import ButtonLV1 from 'components/LV1/Forms/Button';
+import ButtonBottom from 'components/LV2/Forms/ButtonBottom';
 import CloseIcon from 'components/LV2/ButtonHeader/CloseIcon';
 // import CityTownAreaList from 'components/LV2/Lists/CityTownAreaList';
 import SearchConditionCurrentList from 'components/LV2/Lists/SearchConditionCurrentList';
 import SearchConditionSPList from 'components/LV2/Lists/SearchConditionSPList';
+import SearchConditionSPListCityTownArea from 'components/LV2/Lists/SearchConditionSPList/CityTownArea';
 
 const CloseIconWrap = styled.div`
   display: none;
@@ -32,28 +34,34 @@ const SearchConditionWrap = styled.div`
   `};
 `;
 
-const QuestionsContainer = styled.div`
+const SearchConditionPrefectureWrap = styled.div`
   text-align: center;
 `;
 
-const QuestionRow = styled.div`
-  &::after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-`;
-
 const Headline = styled.div`
-  font-size: ${FontSizes.xxlarge}px;
-  line-height: ${Dimens.medium2_38}px;
+  position: relative;
+  font-size: ${FontSizes.medium_18}px;
+  line-height: normal;
   font-weight: bold;
   margin-left: ${Dimens.medium}px;
   margin-bottom: ${Dimens.medium_20}px;
   text-align: left;
-  ${media.phone`
-    font-size: ${FontSizes.medium2}px;
-    line-height: ${Dimens.medium1}px;
+  ${props =>
+    props.isTownArea &&
+    `
+      margin-left: ${Dimens.medium3_40}px;
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 8px;
+        left: -20px;
+        width: 12px;
+        height: 12px;
+        border-top: 2px solid ${Colors.black2};
+        border-right: 2px solid ${Colors.black2};
+        transform: rotate(225deg);
+      }
   `};
 `;
 
@@ -85,8 +93,11 @@ type PropTypes = {
 
 // TODO: ★改修途中(このあとの実装で拡張予定なので、参考ソースはそのまま配置してある状態)★
 class ButtonModalSearchConditionMore extends Component<PropTypes> {
-  // state = { open: false };
-  state = { open: true };
+  // TODO: 開発向けに初期trueにしたら、あとで戻しておく。
+  state = {
+    open: false,
+    isTownArea: false,
+  };
 
   open = () => this.setState({ open: true });
 
@@ -99,7 +110,7 @@ class ButtonModalSearchConditionMore extends Component<PropTypes> {
       searchConditionCurrentList,
       searchConditionSPList,
     } = this.props;
-    const { open } = this.state;
+    const { open, isTownArea } = this.state;
 
     return (
       <Fragment>
@@ -116,16 +127,38 @@ class ButtonModalSearchConditionMore extends Component<PropTypes> {
             <CloseIconWrap>
               <CloseIcon onClick={this.close} />
             </CloseIconWrap>
-            <SearchConditionWrap>
-              <SearchConditionCurrentList searchConditionCurrentList={searchConditionCurrentList} />
-            </SearchConditionWrap>
-            <Hr margin="10px 0 20px" />
-            <QuestionsContainer>
-              <Headline>スペースを探す</Headline>
-              <QuestionRow>
-                <SearchConditionSPList searchConditionSPList={searchConditionSPList} />
-              </QuestionRow>
-            </QuestionsContainer>
+            {isTownArea ? (
+              <Fragment>
+                <SearchConditionPrefectureWrap>
+                  <Headline isTownArea>
+                    {/* TODO: リンク実装(全画面遷移) */}
+                    都道府県を選択
+                  </Headline>
+                  <SearchConditionSPListCityTownArea
+                    searchConditionSPList={searchConditionSPList}
+                  />
+                </SearchConditionPrefectureWrap>
+                <ButtonBottom
+                  text="この条件で検索する"
+                  // TODO: あとで実装する
+                  // onClick={onClickButtonBottom}
+                  // onKeyDownButton={onKeyDownButtonBottom}
+                />
+              </Fragment>
+            ) : (
+              <Fragment>
+                <SearchConditionWrap>
+                  <SearchConditionCurrentList
+                    searchConditionCurrentList={searchConditionCurrentList}
+                  />
+                </SearchConditionWrap>
+                <Hr margin="10px 0 20px" />
+                <SearchConditionPrefectureWrap>
+                  <Headline>スペースを探す</Headline>
+                  <SearchConditionSPList searchConditionSPList={searchConditionSPList} />
+                </SearchConditionPrefectureWrap>
+              </Fragment>
+            )}
           </Modal.Content>
         </Modal>
       </Fragment>
