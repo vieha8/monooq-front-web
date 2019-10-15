@@ -42,6 +42,8 @@ const CollapsibleItem = styled.li`
   display: inline-block;
   width: 100%;
   border-top: 1px solid ${Colors.lightGray2};
+  border-left: 1px solid ${Colors.lightGray2};
+  border-right: 1px solid ${Colors.lightGray2};
   &:after {
     content: '';
     display: block;
@@ -84,15 +86,8 @@ export type PropTypes = {
   }>,
 };
 
-// TODO: ★改修途中(このあとの実装で拡張予定なので、参考ソースはそのまま配置してある状態)★
 export default ({ searchConditionSPList }: PropTypes) => (
   <Wrap>
-    {/* {!modal && (
-      <TitleOuter>
-        <ImageIconAreaRed src={IconAreaRed} alt="icon-area" />
-        現在の検索条件
-      </TitleOuter>
-    )} */}
     <ConditionList>
       {searchConditionSPList.map((item, i) => (
         <Item key={i.toString()} className="item-condition-search">

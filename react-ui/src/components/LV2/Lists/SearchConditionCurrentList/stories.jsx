@@ -20,7 +20,7 @@ storiesOf('Molecules(LV2)/Lists/SearchConditionCurrentList', module)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <SearchConditionCurrentList
-          SearchConditionCurrentList={[
+          searchConditionCurrentList={[
             {
               title: '都道府県',
               value: '東京都',

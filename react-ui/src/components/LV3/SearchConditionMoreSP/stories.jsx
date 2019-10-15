@@ -303,12 +303,51 @@ storiesOf('Organisms(LV3)/SearchConditionMoreSP', module)
     'Normal',
     withInfo(`
         ### コンポーネント概要
-        スペース削除ボタン
-        - ・ボタン押下時、削除確認POPUPを表示。
+        SP向けの検索条件POPUP＆表示ボタン
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <SearchConditionMoreSP
           btnText="地域を絞り込む"
+          searchConditionCurrentList={[
+            {
+              title: '都道府県',
+              value: '東京都',
+            },
+            {
+              title: '市区町村',
+              value: '渋谷区,新宿区,目黒区,千代田区,文京区,港区',
+            },
+            {
+              title: '町域・エリア',
+              value: '上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷',
+            },
+          ]}
+          searchConditionSPList={SearchConditionSPList()}
+          cityTownAreaList={[
+            {
+              cityName: '目黒区',
+              areaAroundList: AreaAroundList(),
+              townAreaList: TownAreaList1(),
+            },
+            {
+              cityName: '港区',
+              areaAroundList: AreaAroundList(),
+              townAreaList: TownAreaList1(),
+            },
+          ]}
+        />
+      </div>
+    )),
+  )
+  .add(
+    'Search Icon',
+    withInfo(`
+        ### コンポーネント概要
+        SP向けの検索条件POPUP＆表示ボタン(Search Icon ver)
+      `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <SearchConditionMoreSP
+          searchIcon
           searchConditionCurrentList={[
             {
               title: '都道府県',

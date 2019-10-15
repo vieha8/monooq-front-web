@@ -10,6 +10,7 @@ import Hr from 'components/LV1/HorizontalRule';
 import ButtonLV1 from 'components/LV1/Forms/Button';
 import ButtonBottom from 'components/LV2/Forms/ButtonBottom';
 import CloseIcon from 'components/LV2/ButtonHeader/CloseIcon';
+import SearchIcon from 'components/LV2/ButtonHeader/SearchIcon';
 // import CityTownAreaList from 'components/LV2/Lists/CityTownAreaList';
 import SearchConditionCurrentList from 'components/LV2/Lists/SearchConditionCurrentList';
 import SearchConditionSPList from 'components/LV2/Lists/SearchConditionSPList';
@@ -105,6 +106,7 @@ class ButtonModalSearchConditionMore extends Component<PropTypes> {
 
   render() {
     const {
+      searchIcon,
       btnText,
       // cityTownAreaList,
       searchConditionCurrentList,
@@ -114,9 +116,13 @@ class ButtonModalSearchConditionMore extends Component<PropTypes> {
 
     return (
       <Fragment>
-        <ButtonLV1 secondary borderbold fontbold fill={1} onClick={this.open}>
-          {btnText}
-        </ButtonLV1>
+        {searchIcon ? (
+          <SearchIcon onClick={this.open} />
+        ) : (
+          <ButtonLV1 primary borderbold fontbold fill={1} onClick={this.open}>
+            {btnText}
+          </ButtonLV1>
+        )}
         <Modal
           size="large"
           open={open}

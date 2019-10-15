@@ -111,12 +111,6 @@ export default ({
     )}
     <Content noTopMargin={noTopMargin}>{searchResult}</Content>
     {!isSearching && options}
-    {textButtonBottom && (
-      <ButtonBottom
-        text={textButtonBottom}
-        onClick={onClickButtonBottom}
-        onKeyDownButton={onKeyDownButtonBottom}
-      />
-    )}
+    {textButtonBottom && <ButtonBottom modal text={textButtonBottom} />}
   </div>
 );

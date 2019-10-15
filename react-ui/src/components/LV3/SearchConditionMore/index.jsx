@@ -180,7 +180,7 @@ class ButtonModalConfirm extends Component<PropTypes> {
             <SearchConditionWrap>
               <SearchConditionLeft>
                 <SearchConditionCurrentList
-                  SearchConditionCurrentList={[
+                  searchConditionCurrentList={[
                     {
                       title: '都道府県',
                       value: prefecture,
