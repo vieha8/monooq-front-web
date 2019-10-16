@@ -16,6 +16,7 @@ import Supplement from 'components/LV2/Space/Supplement';
 import InfoHost from 'components/LV2/Space/InfoHost';
 import Price from 'components/LV3/Space/Price';
 import ReactGA from 'react-ga';
+import SearchResult from '../SearchResult';
 
 const Container = styled.div`
   max-width: 600px;
@@ -95,6 +96,10 @@ const ButtonWrap = styled.div`
   `};
 `;
 
+const RecommendSpacesWrap = styled.div`
+  margin: 20px auto;
+`;
+
 type PropTypes = {
   confirm: boolean,
   images: Array<{
@@ -104,8 +109,8 @@ type PropTypes = {
   pref: string,
   city: string,
   town: string,
-  pricequarter: Number,
-  pricefull: Number,
+  priceQuarter: Number,
+  priceFull: Number,
   user: {
     id: string,
     name: string,
@@ -116,7 +121,7 @@ type PropTypes = {
   map: React.Element<*>,
   address: string,
   type: string,
-  pricehalf: Number,
+  priceHalf: Number,
   furniture: boolean,
   baggage: string,
   delivery: boolean,
@@ -132,14 +137,14 @@ export default ({
   pref,
   city,
   town,
-  pricequarter,
-  pricefull,
+  priceQuarter,
+  priceFull,
   user,
   description,
   map,
   address,
   type,
-  pricehalf,
+  priceHalf,
   furniture,
   baggage,
   delivery,
@@ -147,6 +152,7 @@ export default ({
   supplement,
   id,
   name,
+  recommend,
 }: PropTypes) => (
   <Container confirm={confirm}>
     <Image images={images} />
@@ -154,7 +160,7 @@ export default ({
       <AddressText>{`${pref} ${city} ${town}`}</AddressText>
       <ContentText>{name || ''}</ContentText>
       <PriceText>
-        {pricequarter || pricefull}
+        {priceQuarter || priceFull}
         円〜
       </PriceText>
     </SpaceTitleWrapper>
@@ -169,7 +175,7 @@ export default ({
       <Address content={address} />
       <Type content={type} />
     </MapWrapper>
-    <Price full={pricefull} half={pricehalf} quarter={pricequarter} />
+    <Price full={priceFull} half={priceHalf} quarter={priceQuarter} />
     <SectionHeader>荷物について</SectionHeader>
     <Fragment>
       <Baggage furniture={furniture} content={baggage} />
@@ -177,43 +183,53 @@ export default ({
       <Supplement content={supplement} />
     </Fragment>
     {!confirm && (
-      <ShareButtonsWrapper>
-        <ButtonWrap>
-          <Button
-            twitter
-            fill={1}
-            url={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${id}&text=${name}｜モノオク&hashtags=モノオク`}
-            fontbold
-            OnClick={() =>
-              ReactGA.event({
-                category: 'Share',
-                action: 'Push Twitter Share Button At Space',
-                value: id,
-              })
-            }
-          >
-            ツイートする
-          </Button>
-        </ButtonWrap>
-        <ButtonWrap>
-          <Button
-            facebook
-            type2
-            fill={1}
-            url={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${id}&quote=${name}｜モノオク`}
-            fontbold
-            OnClick={() =>
-              ReactGA.event({
-                category: 'Share',
-                action: 'Push Facebook Share Button At Space',
-                value: id,
-              })
-            }
-          >
-            シェアする
-          </Button>
-        </ButtonWrap>
-      </ShareButtonsWrapper>
+      <Fragment>
+        <ShareButtonsWrapper>
+          <ButtonWrap>
+            <Button
+              twitter
+              fill={1}
+              url={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${id}&text=${name}｜モノオク&hashtags=モノオク`}
+              fontbold
+              OnClick={() =>
+                ReactGA.event({
+                  category: 'Share',
+                  action: 'Push Twitter Share Button At Space',
+                  value: id,
+                })
+              }
+            >
+              ツイートする
+            </Button>
+          </ButtonWrap>
+          <ButtonWrap>
+            <Button
+              facebook
+              type2
+              fill={1}
+              url={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${id}&quote=${name}｜モノオク`}
+              fontbold
+              OnClick={() =>
+                ReactGA.event({
+                  category: 'Share',
+                  action: 'Push Facebook Share Button At Space',
+                  value: id,
+                })
+              }
+            >
+              シェアする
+            </Button>
+          </ButtonWrap>
+        </ShareButtonsWrapper>
+        {recommend && recommend.length > 0 && (
+          <Fragment>
+            <SectionHeader>このスペースをみた人はこんなスペースもみています</SectionHeader>
+            <RecommendSpacesWrap>
+              <SearchResult spaces={recommend} narrow />
+            </RecommendSpacesWrap>
+          </Fragment>
+        )}
+      </Fragment>
     )}
   </Container>
 );

@@ -78,14 +78,21 @@ const button = (mode, onClick, disabled, loading) => {
   switch (mode) {
     case 'next':
       returnVal = (
-        <Button primary fill={1} fontbold onClick={onClick} disabled={disabled} loading={loading}>
+        <Button
+          primary
+          fill={1}
+          fontbold
+          onClick={onClick}
+          disabled={disabled}
+          loading={loading ? 1 : 0}
+        >
           新規登録
         </Button>
       );
       break;
     case 'facebook':
       returnVal = (
-        <Button facebook fill={1} fontbold onClick={onClick} loading={loading}>
+        <Button facebook fill={1} fontbold onClick={onClick} loading={loading ? 1 : 0}>
           Facebookで新規登録
         </Button>
       );

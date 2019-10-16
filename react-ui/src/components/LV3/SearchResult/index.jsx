@@ -24,7 +24,9 @@ const Cell = styled.div`
     margin: 0 0 ${Dimens.medium2_32}px;
   }
 
-  ${media.tablet`
+  ${props =>
+    props.narrow &&
+    `
     width: calc(50% - ${Dimens.small}px);
     max-width: 100%;
     &:nth-child(2n) {
@@ -33,13 +35,26 @@ const Cell = styled.div`
     }
   `};
 
+  ${media.tablet`
+    ${props =>
+      !props.narrow &&
+      `
+        width: calc(50% - ${Dimens.small}px);
+        max-width: 100%;
+        &:nth-child(2n) {
+          width: calc(50% - ${Dimens.small}px);
+          margin: 0 0 ${Dimens.medium2_32}px;
+        }
+      `};
+  `};
+
   ${media.phone`
     width: 100%;
     max-width: 100%;
-    margin: 0 0 ${Dimens.large2_65}px;
+    margin: 0 0 ${Dimens.medium3_45}px;
     &:nth-child(2n) {
       width: 100%;
-      margin: 0 0 ${Dimens.large2_65}px;
+      margin: 0 0 ${Dimens.medium3_45}px;
     }
     ${props =>
       props.isTag &&
@@ -96,6 +111,7 @@ type PropTypes = {
   history: {
     push: Function,
   },
+  narrow?: boolean,
   isMore?: boolean,
   onClickMore?: Function,
   onKeyDownButtonMore?: Function,
@@ -106,6 +122,7 @@ export default ({
   isTop,
   caption,
   spaces,
+  narrow,
   isMore,
   onClickMore,
   onKeyDownButtonMore,
@@ -114,7 +131,12 @@ export default ({
     {caption && <CaptionWrap>{caption}</CaptionWrap>}
     <SpacesWrap>
       {spaces.map((space, i) => (
-        <Cell key={`result_list_result_item_${i}`.toString()} index={i} isTag={isTag}>
+        <Cell
+          narrow={narrow}
+          key={`result_list_result_item_${i}`.toString()}
+          index={i}
+          isTag={isTag}
+        >
           <SearchResultItem {...space} isTag={isTag} />
         </Cell>
       ))}

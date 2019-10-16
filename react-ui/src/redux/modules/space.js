@@ -44,6 +44,9 @@ const GET_GEOCODE = 'GET_GEOCODE';
 const GET_FAILED_GEOCODE = 'GET_FAILED_GEOCODE';
 const GET_SUCCESS_GEOCODE = 'GET_SUCCESS_GEOCODE';
 const RESET_SEARCH = 'RESET_SEARCH';
+const GET_RECOMMEND_SPACES = 'GET_RECOMMEND_SPACES';
+const GET_RECOMMEND_SPACES_SUCCESS = 'GET_RECOMMEND_SPACES_SUCCESS';
+const GET_RECOMMEND_SPACES_FAILED = 'GET_RECOMMEND_SPACES_FAILED';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -68,6 +71,9 @@ export const spaceActions = createActions(
   GET_GEOCODE,
   GET_FAILED_GEOCODE,
   GET_SUCCESS_GEOCODE,
+  GET_RECOMMEND_SPACES,
+  GET_RECOMMEND_SPACES_SUCCESS,
+  GET_RECOMMEND_SPACES_FAILED,
 );
 
 // Reducer
@@ -87,6 +93,7 @@ const initialState = {
       { text: '東京都のスペース一覧' },
     ],
   },
+  recommendSpaces: [],
 };
 
 export const spaceReducer = handleActions(
@@ -194,6 +201,10 @@ export const spaceReducer = handleActions(
     [GET_FAILED_GEOCODE]: state => ({
       ...state,
       isLoading: false,
+    }),
+    [GET_RECOMMEND_SPACES_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      recommendSpaces: payload,
     }),
   },
   initialState,
@@ -600,6 +611,30 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
   );
 }
 
+function* getRecommendSpaces({ payload: { spaceId } }) {
+  const token = yield* getToken();
+  const { data } = yield call(getApiRequest, apiEndpoint.spacesRecommend(spaceId), {}, token);
+  // TODO エラーハンドリング
+
+  const res = data.map(v => {
+    const space = v;
+    if (space.images.length === 0) {
+      space.images = [{ imageUrl: dummySpaceImage }];
+    } else {
+      space.images = space.images.map(image => {
+        image.imageUrl = convertImgixUrl(
+          image.imageUrl,
+          'fit=crop&fill-color=DBDBDB&w=600&h=400&auto=format',
+        );
+        return image;
+      });
+    }
+    return space;
+  });
+
+  yield put(spaceActions.getRecommendSpacesSuccess(res));
+}
+
 export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
@@ -609,4 +644,5 @@ export const spaceSagas = [
   takeEvery(ADD_SPACE_ACCESS_LOG, addSpaceAccessLog),
   takeEvery(DO_SEARCH, search),
   takeEvery(GET_GEOCODE, getGeocode),
+  takeEvery(GET_RECOMMEND_SPACES, getRecommendSpaces),
 ];
