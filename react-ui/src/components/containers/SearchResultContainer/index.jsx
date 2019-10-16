@@ -64,6 +64,12 @@ class SearchResultContainer extends Component<PropTypes, State> {
     super(props);
     const { dispatch } = props;
     dispatch(spaceActions.resetSearch());
+    this.state = {
+      keyword: '',
+    };
+  }
+
+  componentDidMount() {
     this.setInitialState();
   }
 
@@ -86,7 +92,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
       state.townCode = townCode;
     }
 
-    this.state = state;
+    this.setState(state);
   };
 
   onClickBackSearchCondition = () => {
@@ -133,7 +139,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     if (isSearching) {
       return;
     }
-    const { limit, offset, keyword, prefCode } = this.state;
+    const { limit, offset, keyword, prefCode, cityCode, townCode } = this.state;
 
     dispatch(
       spaceActions.doSearch({
@@ -141,6 +147,8 @@ class SearchResultContainer extends Component<PropTypes, State> {
         offset,
         keyword,
         prefCode,
+        cityCode,
+        townCode,
       }),
     );
     const newOffset = offset + limit;
@@ -163,7 +171,8 @@ class SearchResultContainer extends Component<PropTypes, State> {
             id: s.id,
             image: (s.images[0] || {}).imageUrl,
             title: s.title,
-            address: `${s.addressPref}${s.addressCity}`,
+            addressPref: s.addressPref,
+            addressCity: s.addressCity,
             isFurniture: s.isFurniture,
             priceFull: s.priceFull,
             priceHalf: s.priceHalf,
