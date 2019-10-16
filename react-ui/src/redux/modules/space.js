@@ -589,14 +589,28 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     return space;
   });
 
-  const { data: area } = yield call(getApiRequest, apiEndpoint.areaCities(prefCode), {}, token);
-  const areaRes = area.map(v => {
-    return {
-      ...v,
-      link: Path.spacesByCity(prefCode, v.code),
-    };
-  });
+  let areaRes;
   //TODO エラーハンドリング
+
+  let areaEndpoint = apiEndpoint.areaCities(prefCode);
+  if (cities.length === 1) {
+    areaEndpoint = apiEndpoint.areaTowns(cities[0]);
+    const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
+    areaRes = area.map(v => {
+      return {
+        ...v,
+        link: Path.spacesByTown(prefCode, cities[0], v.code),
+      };
+    });
+  } else {
+    const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
+    areaRes = area.map(v => {
+      return {
+        ...v,
+        link: Path.spacesByCity(prefCode, v.code),
+      };
+    });
+  }
 
   yield put(
     loggerActions.recordEvent({

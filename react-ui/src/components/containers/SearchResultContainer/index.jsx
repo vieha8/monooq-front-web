@@ -260,17 +260,25 @@ class SearchResultContainer extends Component<PropTypes> {
     }
     const { limit, offset, keyword, prefCode, cityCode, townCode, sort } = this.state;
 
-    dispatch(
-      spaceActions.doSearch({
-        limit,
-        offset,
-        keyword,
-        prefCode,
-        cities: [cityCode],
-        towns: [townCode],
-        sort,
-      }),
-    );
+    const params = {
+      limit,
+      offset,
+      keyword,
+      prefCode,
+      sort,
+      cities: [],
+      towns: [],
+    };
+
+    if (cityCode) {
+      params.cities = [cityCode];
+    }
+
+    if (townCode) {
+      params.towns = [townCode];
+    }
+
+    dispatch(spaceActions.doSearch(params));
     const newOffset = offset + limit;
     this.setState({ offset: newOffset });
   };
@@ -354,6 +362,18 @@ class SearchResultContainer extends Component<PropTypes> {
       return this.renderNotFound(condition);
     }
 
+    let areaPinList = [];
+    let areaAroundList = [];
+    console.log(conditions);
+    if (conditions.pref && conditions.pref.name && conditions.cities.length === 0) {
+      // 都道府県一覧
+      areaPinList = area;
+    } else if (!conditions.keyword) {
+      areaAroundList = area;
+    }
+
+    console.log(areaPinList, areaAroundList);
+
     return (
       <SearchResultTemplate
         isSearching={isSearching}
@@ -380,9 +400,9 @@ class SearchResultContainer extends Component<PropTypes> {
           },
         ]}
         captionAreaPinList="人気エリアで探す"
-        areaPinList={area}
-        captionAreaAroundList="周辺エリアを含めて探す"
-        areaAroundList={area}
+        areaPinList={areaPinList}
+        captionAreaAroundList="周辺エリアで探す"
+        areaAroundList={areaAroundList}
         cityTownAreaList={[
           {
             cityName: '目黒区',
