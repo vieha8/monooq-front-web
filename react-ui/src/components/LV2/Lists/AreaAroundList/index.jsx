@@ -94,9 +94,13 @@ export default ({ caption, captionColor, areaAroundList, isNoScroll }: PropTypes
     <AreaPinList isNoScroll={isNoScroll}>
       {areaAroundList.map((item, i) => (
         <Item key={i.toString()} isNoScroll={isNoScroll}>
-          <LinkStyled to={item.link} color={Colors.lightGray3}>
+          <LinkStyled
+            to={item.link}
+            color={Colors.lightGray3}
+            rel={item.count < 5 ? 'nofollow' : ''}
+          >
             <Button quaternary circle height={30} fontSize={14} lineheight={6}>
-              {item.text}
+              {item.name}
             </Button>
           </LinkStyled>
         </Item>

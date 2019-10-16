@@ -71,6 +71,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
       keyword: '',
       limit: 12,
       offset: 0,
+      sort: 1,
     };
 
     if (!match.url.indexOf('/search')) {
@@ -130,7 +131,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     if (isSearching) {
       return;
     }
-    const { limit, offset, keyword, prefCode, cityCode, townCode } = this.state;
+    const { limit, offset, keyword, prefCode, cityCode, townCode, sort } = this.state;
 
     dispatch(
       spaceActions.doSearch({
@@ -140,6 +141,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
         prefCode,
         cityCode,
         townCode,
+        sort,
       }),
     );
     const newOffset = offset + limit;
@@ -200,7 +202,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
   };
 
   render() {
-    const { spaces, isMore, maxCount, isSearching } = this.props;
+    const { spaces, isMore, maxCount, isSearching, breadcrumbs, area } = this.props;
     const condition = this.getCondition();
 
     if (isSearching && spaces.length === 0) {
@@ -222,204 +224,72 @@ class SearchResultContainer extends Component<PropTypes, State> {
       );
     }
 
+    console.log(area);
+
     return (
-      <Fragment>
-        <SearchResultTemplate
-          isSearching={isSearching}
-          meta={this.meta(condition)}
-          searchResult={this.infiniteScroll()}
-          options={this.options()}
-          condition={condition}
-          maxCount={maxCount}
-          // TODO: あとから実装
-          // onClickMore=""
-          // onKeyDownButtonMore=""
-          breadcrumbsList={[
-            {
-              text: 'TOP',
-              link: '/',
-            },
-            {
-              text: '東京都',
-              link: '/tokyo',
-            },
-            {
-              text: '渋谷区のスペース一覧',
-            },
-          ]}
-          searchConditionCurrentList={[
-            {
-              title: '都道府県',
-              value: '東京都',
-            },
-            {
-              title: '市区町村',
-              value: '渋谷区,新宿区,目黒区,千代田区,文京区,港区',
-            },
-            {
-              title: '町域・エリア',
-              value: '上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷',
-            },
-          ]}
-          captionAreaPinList="人気エリアで探す"
-          areaPinList={[
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-          ]}
-          captionAreaAroundList="周辺エリアを含めて探す"
-          areaAroundList={[
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-          ]}
-          sortList={[
-            {
-              text: '新着順',
-              path: '/',
-              current: true,
-            },
-            {
-              text: 'おすすめ',
-              path: Path.signUp(),
-            },
-            {
-              text: '安い順',
-              path: Path.about(),
-            },
-          ]}
-          prefecture="東京都"
-          city="渋谷区,新宿区,目黒区,千代田区,文京区,港区"
-          townArea="上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷"
-          textButtonBottom="地域を絞り込む"
-          // TODO: あとから実装
-          // onClickButtonBottom={() => console.log('onClick')}
-          // onKeyDownButtonBottom={() => console.log('onClick')}
-        />
-      </Fragment>
+      <SearchResultTemplate
+        isSearching={isSearching}
+        meta={this.meta(condition)}
+        searchResult={this.infiniteScroll()}
+        options={this.options()}
+        condition={condition}
+        maxCount={maxCount}
+        // TODO: あとから実装
+        // onClickMore=""
+        // onKeyDownButtonMore=""
+        breadcrumbsList={breadcrumbs}
+        searchConditionCurrentList={[
+          {
+            title: '都道府県',
+            value: '東京都',
+          },
+          {
+            title: '市区町村',
+            value: '渋谷区,新宿区,目黒区,千代田区,文京区,港区',
+          },
+          {
+            title: '町域・エリア',
+            value: '上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷',
+          },
+        ]}
+        captionAreaPinList="人気エリアで探す"
+        areaPinList={area}
+        captionAreaAroundList="周辺エリアを含めて探す"
+        areaAroundList={area}
+        sortList={[
+          {
+            text: '新着順',
+            path: '/',
+            current: true,
+          },
+          {
+            text: 'おすすめ',
+            path: Path.signUp(),
+          },
+          {
+            text: '安い順',
+            path: Path.about(),
+          },
+        ]}
+        prefecture="東京都"
+        city="渋谷区,新宿区,目黒区,千代田区,文京区,港区"
+        townArea="上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷"
+        textButtonBottom="地域を絞り込む"
+        // TODO: あとから実装
+        // onClickButtonBottom={() => console.log('onClick')}
+        // onKeyDownButtonBottom={() => console.log('onClick')}
+      />
     );
   }
 }
 
 const mapStateToProps = state => ({
-  spaces: state.space.spaces,
-  maxCount: state.space.maxCount,
-  isSearching: state.space.isLoading,
-  isMore: state.space.isMore,
+  spaces: state.space.search.results,
+  maxCount: state.space.search.maxCount,
+  isSearching: state.space.search.isLoading,
+  isMore: state.space.search.isMore,
+  breadcrumbs: state.space.search.breadcrumbs,
+  area: state.space.search.area,
 });
 
 export default ContentPageMenu(

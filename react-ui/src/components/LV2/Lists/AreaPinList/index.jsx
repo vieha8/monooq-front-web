@@ -62,8 +62,12 @@ export default ({ caption, areaPinList }: PropTypes) => (
     <AreaPinList>
       {areaPinList.map((item, i) => (
         <Item key={i.toString()}>
-          <LinkStyled to={item.link} color={Colors.lightGray3}>
-            <Button areaPin>{item.text}</Button>
+          <LinkStyled
+            to={item.link}
+            color={Colors.lightGray3}
+            rel={item.count < 5 ? 'nofollow' : ''}
+          >
+            <Button areaPin>{item.name}</Button>
           </LinkStyled>
         </Item>
       ))}

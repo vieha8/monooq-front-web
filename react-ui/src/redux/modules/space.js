@@ -75,10 +75,18 @@ const initialState = {
   isComplete: false,
   isLoading: false,
   space: null,
-  isMore: true,
-  location: '',
-  spaces: [],
-  maxCount: 0,
+  search: {
+    area: [],
+    isLoading: false,
+    results: [],
+    maxCount: 0,
+    isMore: true,
+    breadcrumbs: [
+      // TODO 仮データ
+      { text: 'TOP', link: '/' },
+      { text: '東京都のスペース一覧' },
+    ],
+  },
 };
 
 export const spaceReducer = handleActions(
@@ -147,23 +155,32 @@ export const spaceReducer = handleActions(
       ...state,
       isComplete: false,
     }),
-    [DO_SEARCH]: (state, action) => ({
+    [DO_SEARCH]: state => ({
       ...state,
-      isLoading: true,
-      location: action.payload,
+      search: {
+        ...state.search,
+        isLoading: true,
+      },
     }),
     [SUCCESS_SEARCH]: (state, { payload }) => ({
       ...state,
-      isLoading: false,
-      spaces: [...state.spaces, ...payload.spaces],
-      isMore: payload.isMore,
-      maxCount: payload.maxCount,
+      search: {
+        ...state.search,
+        isLoading: false,
+        results: [...state.search.results, ...payload.spaces],
+        isMore: payload.isMore,
+        maxCount: payload.maxCount,
+        area: payload.area,
+      },
     }),
     [RESET_SEARCH]: state => ({
       ...state,
-      spaces: [],
-      isMore: true,
-      maxCount: 0,
+      search: {
+        ...state.search,
+        results: [],
+        isMore: true,
+        maxCount: 0,
+      },
     }),
     [GET_GEOCODE]: state => ({
       ...state,
@@ -518,9 +535,7 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
   }
 }
 
-function* search({
-  payload: { limit, offset, keyword, prefCode, receiptType, type, isFurniture },
-}) {
+function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, sort } }) {
   const token = yield* getToken();
 
   const params = {
@@ -528,9 +543,9 @@ function* search({
     offset,
     keyword,
     pref: getPrefecture(prefCode),
-    receiptType,
-    spaceType: type,
-    isFurniture,
+    cities,
+    towns,
+    sort,
   };
 
   const { data, err, headers } = yield call(getApiRequest, apiEndpoint.spaces(), params, token);
@@ -556,6 +571,15 @@ function* search({
     return space;
   });
 
+  const { data: area } = yield call(getApiRequest, apiEndpoint.areaCities(prefCode), {}, token);
+  const areaRes = area.map(v => {
+    return {
+      ...v,
+      link: Path.spacesByCity(prefCode, v.code),
+    };
+  });
+  //TODO エラーハンドリング
+
   yield put(
     loggerActions.recordEvent({
       event: 'space_searches',
@@ -571,6 +595,7 @@ function* search({
       spaces: res,
       isMore,
       maxCount: parseInt(headers['content-range'], 10),
+      area: areaRes,
     }),
   );
 }
