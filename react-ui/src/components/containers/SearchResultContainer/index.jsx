@@ -52,6 +52,137 @@ type PropTypes = {
   }>,
 };
 
+// TODO: 【検索UI】以下はサンプルデータなので、APIとのつなぎ込み時に削除しちゃってください。
+const AreaAroundList = () => [
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+];
+
+const TownAreaList1 = () => [
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+];
+
 class SearchResultContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
@@ -225,9 +356,6 @@ class SearchResultContainer extends Component<PropTypes> {
         options={this.options()}
         condition={condition}
         maxCount={maxCount}
-        // TODO: あとから実装
-        // onClickMore=""
-        // onKeyDownButtonMore=""
         onClickMore={() => console.log('絞り込みボタン押下')}
         regionPrefectureList={areaPrefectures}
         breadcrumbsList={breadcrumbs}
@@ -249,6 +377,19 @@ class SearchResultContainer extends Component<PropTypes> {
         areaPinList={area}
         captionAreaAroundList="周辺エリアを含めて探す"
         areaAroundList={area}
+        cityTownAreaList={[
+          {
+            cityName: '目黒区',
+            areaAroundList: AreaAroundList(),
+            townAreaList: TownAreaList1(),
+          },
+          {
+            cityName: '港区',
+            areaAroundList: AreaAroundList(),
+            townAreaList: TownAreaList1(),
+          },
+        ]}
+        townAreaList={area}
         sortList={[
           {
             text: '新着順',
@@ -265,12 +406,7 @@ class SearchResultContainer extends Component<PropTypes> {
           },
         ]}
         prefecture="東京都"
-        city="渋谷区,新宿区,目黒区,千代田区,文京区,港区"
-        townArea="上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷"
         textButtonBottom="地域を絞り込む"
-        // TODO: あとから実装
-        // onClickButtonBottom={() => console.log('onClick')}
-        // onKeyDownButtonBottom={() => console.log('onClick')}
       />
     );
   }
