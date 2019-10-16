@@ -36,10 +36,14 @@ type PropTypes = {
   condition: string,
   maxCount: string,
   prefecture?: string,
-  city?: string,
-  townArea?: string,
   onClickMore: Function,
-  onKeyDownButtonMore: Function,
+  regionPrefectureList: Array<{
+    region: string,
+    prefectureList: Array<{
+      name: string,
+      id: string,
+    }>,
+  }>,
   breadcrumbsList?: Array<{
     text: string,
     link: string,
@@ -69,6 +73,17 @@ type PropTypes = {
     title: string,
     value?: string,
   }>,
+  cityTownAreaList: Array<{
+    cityName: string,
+    areaAroundList: Array<{
+      text: string,
+      link: string,
+    }>,
+    townAreaList: Array<{
+      text: string,
+      link: string,
+    }>,
+  }>,
 };
 
 export default ({
@@ -76,7 +91,7 @@ export default ({
   condition,
   maxCount,
   onClickMore,
-  onKeyDownButtonMore,
+  regionPrefectureList,
   searchResult,
   noTopMargin,
   options,
@@ -88,10 +103,9 @@ export default ({
   areaPinList,
   sortList,
   prefecture,
-  city,
-  townArea,
   textButtonBottom,
   searchConditionCurrentList,
+  cityTownAreaList,
 }: PropTypes) => (
   <div>
     {meta}
@@ -100,10 +114,11 @@ export default ({
       condition={condition}
       maxCount={maxCount}
       prefecture={prefecture}
-      city={city}
-      townArea={townArea}
       onClickMore={onClickMore}
-      onKeyDownButtonMore={onKeyDownButtonMore}
+      regionPrefectureList={regionPrefectureList}
+      cityTownAreaList={cityTownAreaList}
+      textButtonBottom={textButtonBottom}
+      searchConditionCurrentList={searchConditionCurrentList}
     />
     {areaAroundList && (
       <AreaAroundList caption={captionAreaAroundList} areaAroundList={areaAroundList} />
