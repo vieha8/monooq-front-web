@@ -1,7 +1,6 @@
 // @flow
 
 import React, { Component, Fragment } from 'react';
-// import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Modal } from 'semantic-ui-react';
@@ -11,28 +10,27 @@ import ButtonLV1 from 'components/LV1/Forms/Button';
 import ButtonBottom from 'components/LV2/Forms/ButtonBottom';
 import CloseIcon from 'components/LV2/ButtonHeader/CloseIcon';
 import SearchIcon from 'components/LV2/ButtonHeader/SearchIcon';
-// import CityTownAreaList from 'components/LV2/Lists/CityTownAreaList';
 import SearchConditionCurrentList from 'components/LV2/Lists/SearchConditionCurrentList';
 import SearchConditionSPList from 'components/LV2/Lists/SearchConditionSPList';
 import SearchConditionSPListCityTownArea from 'components/LV2/Lists/SearchConditionSPList/CityTownArea';
 
-const CloseIconWrap = styled.div`
+const Wrap = styled.div`
   display: none;
   ${media.tablet`
     display: block;
-    margin-left: -2px;
-    margin: ${Dimens.medium}px auto ${Dimens.medium1_25}px ${Dimens.medium}px;
   `};
 `;
 
+const CloseIconWrap = styled.div`
+  margin-left: -2px;
+  margin: ${Dimens.medium}px auto ${Dimens.medium1_25}px ${Dimens.medium}px;
+`;
+
 const SearchConditionWrap = styled.div`
-  display: none;
-  ${media.tablet`
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
-    margin: auto ${Dimens.medium}px;
-  `};
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  margin: auto ${Dimens.medium}px;
 `;
 
 const SearchConditionPrefectureWrap = styled.div`
@@ -55,10 +53,10 @@ const Headline = styled.div`
         content: '';
         display: block;
         position: absolute;
-        top: 8px;
-        left: -20px;
-        width: 12px;
-        height: 12px;
+        top: ${Dimens.small}px;
+        left: -${Dimens.medium_20}px;
+        width: ${Dimens.small2}px;
+        height: ${Dimens.small2}px;
         border-top: 2px solid ${Colors.black2};
         border-right: 2px solid ${Colors.black2};
         transform: rotate(225deg);
@@ -66,19 +64,23 @@ const Headline = styled.div`
   `};
 `;
 
+const BackPrefectureLink = styled.a`
+  ${props => props.color && `color: ${props.color};`}
+  ${props =>
+    props.current &&
+    `
+    color: ${Colors.black};
+    pointer-events: none;
+  `}
+  text-decoration: none;
+  :hover {
+    ${props => props.color && `color: ${props.color};`}
+    opacity: 0.8;
+  }
+`;
+
 type PropTypes = {
   btnText: string,
-  // cityTownAreaList: Array<{
-  //   cityName: string,
-  //   areaAroundList: Array<{
-  //     text: string,
-  //     link: string,
-  //   }>,
-  //   townAreaList: Array<{
-  //     text: string,
-  //     link: string,
-  //   }>,
-  // }>,
   searchConditionCurrentList: Array<{
     title: string,
     value: string,
@@ -90,11 +92,10 @@ type PropTypes = {
       text: string,
     }>,
   }>,
+  onClickSearch?: Function,
 };
 
-// TODO: ★改修途中(このあとの実装で拡張予定なので、参考ソースはそのまま配置してある状態)★
 class ButtonModalSearchConditionMore extends Component<PropTypes> {
-  // TODO: 開発向けに初期trueにしたら、あとで戻しておく。
   state = {
     open: false,
     isTownArea: false,
@@ -104,18 +105,20 @@ class ButtonModalSearchConditionMore extends Component<PropTypes> {
 
   close = () => this.setState({ open: false });
 
+  backSelectPrefecture = () => this.setState({ isTownArea: false });
+
   render() {
     const {
       searchIcon,
       btnText,
-      // cityTownAreaList,
       searchConditionCurrentList,
       searchConditionSPList,
+      onClickSearch,
     } = this.props;
     const { open, isTownArea } = this.state;
 
     return (
-      <Fragment>
+      <Wrap>
         {searchIcon ? (
           <SearchIcon onClick={this.open} />
         ) : (
@@ -137,19 +140,15 @@ class ButtonModalSearchConditionMore extends Component<PropTypes> {
               <Fragment>
                 <SearchConditionPrefectureWrap>
                   <Headline isTownArea>
-                    {/* TODO: リンク実装(全画面遷移) */}
-                    都道府県を選択
+                    <BackPrefectureLink color={Colors.black} onClick={this.backSelectPrefecture}>
+                      都道府県を選択
+                    </BackPrefectureLink>
                   </Headline>
                   <SearchConditionSPListCityTownArea
                     searchConditionSPList={searchConditionSPList}
                   />
                 </SearchConditionPrefectureWrap>
-                <ButtonBottom
-                  text="この条件で検索する"
-                  // TODO: あとで実装する
-                  // onClick={onClickButtonBottom}
-                  // onKeyDownButton={onKeyDownButtonBottom}
-                />
+                <ButtonBottom text="この条件で検索する" onClick={onClickSearch} />
               </Fragment>
             ) : (
               <Fragment>
@@ -167,7 +166,7 @@ class ButtonModalSearchConditionMore extends Component<PropTypes> {
             )}
           </Modal.Content>
         </Modal>
-      </Fragment>
+      </Wrap>
     );
   }
 }

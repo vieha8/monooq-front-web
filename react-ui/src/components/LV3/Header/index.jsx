@@ -242,7 +242,6 @@ type PropTypes = {
     title: string,
     value?: string,
   }>,
-
   searchConditionSPList: Array<{
     title: string,
     areaAroundList: Array<{
@@ -254,7 +253,6 @@ type PropTypes = {
       text: string,
     }>,
   }>,
-
   cityTownAreaList: Array<{
     cityName: string,
     areaAroundList: Array<{
@@ -266,6 +264,7 @@ type PropTypes = {
       link: string,
     }>,
   }>,
+  onClickSearch?: Function,
   stories?: boolean,
   topUrl: string,
   isCheckingLogin: boolean,
@@ -300,6 +299,7 @@ export default ({
   searchConditionCurrentList,
   searchConditionSPList,
   cityTownAreaList,
+  onClickSearch,
   stories,
   topUrl,
   isCheckingLogin,
@@ -329,6 +329,7 @@ export default ({
             searchConditionCurrentList={searchConditionCurrentList}
             searchConditionSPList={searchConditionSPList}
             cityTownAreaList={cityTownAreaList}
+            onClickSearch={onClickSearch}
           />
         </SearchIconWrapper>
         <LogoWrapper>

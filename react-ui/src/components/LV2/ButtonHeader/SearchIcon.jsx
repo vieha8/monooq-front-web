@@ -27,7 +27,7 @@ type PropTypes = {
 };
 
 export default ({ href, onClick }: PropTypes) => (
-  <StyledLink to={href} onClick={onClick}>
+  <StyledLink to={href || ''} onClick={onClick}>
     <Image src={SearchIcon} alt="icon-search" />
   </StyledLink>
 );

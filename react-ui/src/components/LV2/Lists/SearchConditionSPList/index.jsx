@@ -5,27 +5,13 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Collapsible from 'react-collapsible';
 import { Dimens, FontSizes, Colors } from 'variables';
-// import InlineText from 'components/LV1/Texts/InlineText';
-// import IconAreaRed from 'images/icon-area-red.png';
 
 const Wrap = styled.div``;
 
 const ConditionList = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  ${'' /* ${props =>
-    !props.modal &&
-    `
-      width: ${props.width ? `${props.width}px` : '100%'};
-  `}; */}
 `;
-
-// const ImageIconAreaRed = styled.img`
-//   width: ${Dimens.medium_18}px;
-//   height: auto;
-//   vertical-align: middle;
-//   margin-right: ${Dimens.small2}px;
-// `;
 
 const Item = styled.li`
   width: 100%;
@@ -48,10 +34,10 @@ const CollapsibleItem = styled.li`
     content: '';
     display: block;
     position: absolute;
-    top: 20px;
-    right: 16px;
-    width: 12px;
-    height: 12px;
+    top: ${Dimens.medium_20}px;
+    right: ${Dimens.medium}px;
+    width: ${Dimens.small2}px;
+    height: ${Dimens.small2}px;
     border-top: 2px solid ${Colors.lightGray2};
     border-right: 2px solid ${Colors.lightGray2};
     transform: rotate(45deg);

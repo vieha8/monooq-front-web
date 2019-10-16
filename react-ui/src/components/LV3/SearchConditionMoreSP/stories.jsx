@@ -335,6 +335,7 @@ storiesOf('Organisms(LV3)/SearchConditionMoreSP', module)
               townAreaList: TownAreaList1(),
             },
           ]}
+          onClickSearch={() => console.log('検索ボタン押下')}
         />
       </div>
     )),
@@ -375,6 +376,7 @@ storiesOf('Organisms(LV3)/SearchConditionMoreSP', module)
               townAreaList: TownAreaList1(),
             },
           ]}
+          onClickSearch={() => console.log('検索ボタン押下')}
         />
       </div>
     )),

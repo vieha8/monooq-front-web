@@ -58,11 +58,17 @@ type PropTypes = {
     text: string,
     path: string,
   }>,
+  searchResult: React.Element<*>,
   noTopMargin?: boolean,
   options: React.Element<*>,
+  isSearching: boolean,
   textButtonBottom?: string,
   onClickButtonBottom?: Function,
   onKeyDownButtonBottom?: Function,
+  searchConditionCurrentList: Array<{
+    title: string,
+    value?: string,
+  }>,
 };
 
 export default ({
@@ -85,8 +91,7 @@ export default ({
   city,
   townArea,
   textButtonBottom,
-  onClickButtonBottom,
-  onKeyDownButtonBottom,
+  searchConditionCurrentList,
 }: PropTypes) => (
   <div>
     {meta}
@@ -111,6 +116,12 @@ export default ({
     )}
     <Content noTopMargin={noTopMargin}>{searchResult}</Content>
     {!isSearching && options}
-    {textButtonBottom && <ButtonBottom modal text={textButtonBottom} />}
+    {textButtonBottom && (
+      <ButtonBottom
+        modal
+        text={textButtonBottom}
+        searchConditionCurrentList={searchConditionCurrentList}
+      />
+    )}
   </div>
 );

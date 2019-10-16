@@ -323,29 +323,20 @@ const ButtonWrap = styled.div`
 type PropTypes = {
   text: string,
   modal?: boolean,
+  searchConditionCurrentList: Array<{
+    title: string,
+    value?: string,
+  }>,
   onClick?: Function,
 };
 
-export default ({ text, modal, onClick }: PropTypes) => (
+export default ({ text, modal, searchConditionCurrentList, onClick }: PropTypes) => (
   <SendMessageWrap>
     <ButtonWrap>
       {modal ? (
         <SearchConditionMoreSP
           btnText={text}
-          searchConditionCurrentList={[
-            {
-              title: '都道府県',
-              value: '東京都',
-            },
-            {
-              title: '市区町村',
-              value: '渋谷区,新宿区,目黒区,千代田区,文京区,港区',
-            },
-            {
-              title: '町域・エリア',
-              value: '上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷',
-            },
-          ]}
+          searchConditionCurrentList={searchConditionCurrentList}
           searchConditionSPList={SearchConditionSPList()}
           cityTownAreaList={[
             {
