@@ -64,16 +64,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     super(props);
     const { dispatch } = props;
     dispatch(spaceActions.resetSearch());
-    this.state = {
-      keyword: '',
-    };
-  }
 
-  componentDidMount() {
-    this.setInitialState();
-  }
-
-  setInitialState = () => {
     const { location, match } = this.props;
 
     const state = {
@@ -92,8 +83,8 @@ class SearchResultContainer extends Component<PropTypes, State> {
       state.townCode = townCode;
     }
 
-    this.setState(state);
-  };
+    this.state = state;
+  }
 
   onClickBackSearchCondition = () => {
     const { history } = this.props;
