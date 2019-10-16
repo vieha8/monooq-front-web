@@ -91,7 +91,12 @@ const initialState = {
       { text: 'TOP', link: '/' },
       { text: '東京都のスペース一覧' },
     ],
-    conditions: {},
+    conditions: {
+      keyword: '',
+      pref: '',
+      cities: [],
+      towns: [],
+    },
   },
   recommendSpaces: [],
 };

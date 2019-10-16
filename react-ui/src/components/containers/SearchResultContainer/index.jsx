@@ -342,7 +342,7 @@ class SearchResultContainer extends Component<PropTypes> {
   );
 
   render() {
-    const { spaces, isMore, maxCount, isSearching, breadcrumbs, area, prefName } = this.props;
+    const { spaces, isMore, maxCount, isSearching, breadcrumbs, area, conditions } = this.props;
     const condition = this.getCondition();
 
     if (isSearching && spaces.length === 0) {
@@ -367,15 +367,15 @@ class SearchResultContainer extends Component<PropTypes> {
         searchConditionCurrentList={[
           {
             title: '都道府県',
-            value: '東京都',
+            value: conditions.pref,
           },
           {
             title: '市区町村',
-            value: '渋谷区,新宿区,目黒区,千代田区,文京区,港区',
+            value: conditions.cities.join(','),
           },
           {
             title: '町域・エリア',
-            value: '上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷',
+            value: conditions.towns.join(','),
           },
         ]}
         captionAreaPinList="人気エリアで探す"
@@ -410,7 +410,7 @@ class SearchResultContainer extends Component<PropTypes> {
             path: Path.about(),
           },
         ]}
-        prefecture={prefName}
+        prefecture={conditions.pref}
         textButtonBottom="地域を絞り込む"
       />
     );
@@ -425,7 +425,6 @@ const mapStateToProps = state => ({
   breadcrumbs: state.space.search.breadcrumbs,
   area: state.space.search.area,
   conditions: state.space.search.conditions,
-  prefName: state.space.search.prefName,
 });
 
 export default ContentPageMenu(
