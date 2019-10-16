@@ -147,6 +147,9 @@ export default ({ history }) => (
       <Route exact path={Path.resetPassword()} component={ResetPassword} />
       <Route exact path={Path.search()} component={Search} />
       <Route exact path={Path.searchCondition()} component={SearchCondition} />
+      <Route exact path={Path.spacesByPrefecture()} component={Search} />
+      <Route exact path={Path.spacesByCity()} component={Search} />
+      <Route exact path={Path.spacesByTown()} component={Search} />
       <Route exact path={Path.space()} component={Space} />
       <Route exact path={Path.spaces()} component={Spaces} />
       <Route exact path={Path.schedule()} component={Schedule} />
