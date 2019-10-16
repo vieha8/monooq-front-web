@@ -14,7 +14,7 @@ import SearchResult from 'components/LV3/SearchResult';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
 import Meta from 'components/LV1/Meta';
 import { H1 } from 'components/LV1/Texts/Headline';
-import { Dimens, FormValues } from 'variables';
+import { Dimens } from 'variables';
 
 import { spaceActions } from 'redux/modules/space';
 import { iskeyDownEnter } from 'helpers/keydown';
@@ -62,25 +62,32 @@ type State = {
 class SearchResultContainer extends Component<PropTypes, State> {
   constructor(props: PropTypes) {
     super(props);
-
-    const { location, dispatch } = props;
-    const query = parse(location.search);
-    const { keyword, prefCode, priceMin, priceMax, receiptType, type, isFurniture } = query;
-
+    const { dispatch } = props;
     dispatch(spaceActions.resetSearch());
+    this.setInitialState();
+  }
 
-    this.state = {
-      keyword: keyword || '',
-      prefCode: prefCode || '0',
-      priceMin: priceMin || '',
-      priceMax: priceMax || '',
-      receiptType: receiptType || `${FormValues.typeReceiptNoSelect}`,
-      type: type || `${FormValues.typeSpaceNoSelect}`,
-      isFurniture: isFurniture || false,
+  setInitialState = () => {
+    const { location, match } = this.props;
+
+    const state = {
+      keyword: '',
       limit: 12,
       offset: 0,
     };
-  }
+
+    if (!match.url.indexOf('/search')) {
+      const { keyword } = parse(location.search);
+      state.keyword = keyword;
+    } else {
+      const { pref_code: prefCode, city_code: cityCode, town_code: townCode } = match.params;
+      state.prefCode = prefCode;
+      state.cityCode = cityCode;
+      state.townCode = townCode;
+    }
+
+    this.state = state;
+  };
 
   onClickBackSearchCondition = () => {
     const { history } = this.props;
@@ -99,7 +106,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
   };
 
   getCondition = () => {
-    const { keyword, prefCode, priceMin, priceMax, receiptType, type } = this.state;
+    const { keyword, prefCode } = this.state;
 
     let condition = '';
 
@@ -109,38 +116,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
 
     if (prefCode !== '0') {
       condition += `${getPrefecture(parseInt(prefCode, 10))}、`;
-    }
-
-    if (type !== `${FormValues.typeSpaceNoSelect}`) {
-      // TODO タイプ管理の汎用関数作る
-      if (type === `${FormValues.typeSpaceCloset}`) {
-        condition += `クローゼット・押入れ、`;
-      } else if (type === `${FormValues.typeSpaceRoom}`) {
-        condition += `部屋、`;
-      } else if (type === `${FormValues.typeSpaceWarehouse}`) {
-        condition += `屋外倉庫、`;
-      } else if (type === `${FormValues.typeSpaceOther}`) {
-        condition += `その他、`;
-      }
-    }
-
-    if (receiptType !== `${FormValues.typeReceiptNoSelect}`) {
-      // TODO タイプ管理の汎用関数作る
-      if (receiptType === `${FormValues.typeReceiptAll}`) {
-        condition += `対面・配送受取対応、`;
-      } else if (receiptType === `${FormValues.typeReceiptOnlyFTF}`) {
-        condition += `対面受取のみ、`;
-      } else if (receiptType === `${FormValues.typeReceiptOnlyDelivery}`) {
-        condition += `配送受取のみ、`;
-      }
-    }
-
-    if (priceMin !== '') {
-      condition += `${priceMin}円以上、`;
-    }
-
-    if (priceMax !== '') {
-      condition += `${priceMax}円以下、`;
     }
 
     condition = condition.slice(0, -1);
@@ -158,17 +133,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
     if (isSearching) {
       return;
     }
-    const {
-      limit,
-      offset,
-      keyword,
-      prefCode,
-      priceMin,
-      priceMax,
-      receiptType,
-      type,
-      isFurniture,
-    } = this.state;
+    const { limit, offset, keyword, prefCode } = this.state;
 
     dispatch(
       spaceActions.doSearch({
@@ -176,11 +141,6 @@ class SearchResultContainer extends Component<PropTypes, State> {
         offset,
         keyword,
         prefCode,
-        priceMin,
-        priceMax,
-        receiptType,
-        type,
-        isFurniture,
       }),
     );
     const newOffset = offset + limit;
