@@ -13,7 +13,7 @@ const PATH_TOP = '/';
 const PATH_ABOUT = '/about';
 const PATH_HOWTOUSE = '/howtouse';
 
-// TODO: 以下はサンプルデータなので、APIとのつなぎ込み時に削除しちゃってください。
+// TODO: 【検索UI】以下はサンプルデータなので、APIとのつなぎ込み時に削除しちゃってください。
 const AreaAroundList = () => [
   {
     text: '武蔵村山市',
@@ -488,6 +488,8 @@ class HeaderContainer extends Component<PropTypes> {
             townAreaList: TownAreaList1(),
           },
         ]}
+        // TODO:【検索UI】検索処理を実装する
+        onClickSearch={() => console.log('検索ボタン押下')}
       />
     );
   }

@@ -34,7 +34,7 @@ type PropTypes = {
 };
 
 export default ({ href, onClick, messageCount }: PropTypes) => (
-  <StyledLink to={href} onClick={onClick}>
+  <StyledLink to={href || ''} onClick={onClick}>
     <Image src={MessageIcon} messageCount={messageCount} alt="icon-chat" />
     {messageCount > 0 && <NoticeIcon />}
   </StyledLink>

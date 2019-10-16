@@ -9,7 +9,6 @@ import ResetPassword from './ResetPasswordContainer';
 import SearchResult from './SearchResultContainer';
 import Space from './SpaceContainer';
 import SearchCondition from './SearchConditionContainer';
-import SearchConditionMore from './SearchConditionMoreContainer';
 import SpaceManagement from './SpaceManagementContainer';
 import Schedule from './ScheduleContainer';
 import Profile from './ProfileContainer';
@@ -38,7 +37,6 @@ export default {
   SearchResult,
   Space,
   SearchCondition,
-  SearchConditionMore,
   SpaceManagement,
   Schedule,
   Profile,
