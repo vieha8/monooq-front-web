@@ -184,6 +184,7 @@ export const spaceReducer = handleActions(
         maxCount: payload.maxCount,
         area: payload.area,
         conditions: payload.conditions,
+        breadcrumbs: payload.breadcrumbs,
       },
     }),
     [RESET_SEARCH]: state => ({
@@ -565,8 +566,6 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     sort,
   };
 
-  console.log(cities, towns);
-
   const { data, err, headers } = yield call(getApiRequest, apiEndpoint.spaces(), params, token);
 
   if (err) {
@@ -608,6 +607,8 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     }),
   );
 
+  const breadcrumbs = makeBreadcrumbs(data.conditions);
+
   const isMore = res.length === limit;
   yield put(
     spaceActions.successSearch({
@@ -616,9 +617,36 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
       maxCount: parseInt(headers['content-range'], 10),
       area: areaRes,
       conditions: data.conditions,
+      breadcrumbs,
     }),
   );
 }
+
+const makeBreadcrumbs = ({ keyword, pref, cities, towns }) => {
+  const breadcrumbs = [{ text: 'トップ', link: Path.top() }];
+
+  if (towns && towns.length === 1) {
+    breadcrumbs.push(
+      {
+        text: pref.name,
+        link: Path.spacesByPrefecture(pref.code),
+      },
+      {
+        text: cities[0].name,
+        link: Path.spacesByCity(pref.code, cities[0].code),
+      },
+      {
+        text: `${towns[0].name}のスペース一覧`,
+      },
+    );
+  } else if (keyword && keyword !== '') {
+    breadcrumbs.push({
+      text: `スペース検索結果`,
+    });
+  }
+
+  return breadcrumbs;
+};
 
 function* getRecommendSpaces({ payload: { spaceId } }) {
   const token = yield* getToken();

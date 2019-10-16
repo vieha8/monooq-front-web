@@ -65,6 +65,7 @@ export default ({
   address,
   addressPref,
   addressCity,
+  addressTown,
   priceQuarter,
   priceFull,
   tagList,
@@ -97,7 +98,7 @@ export default ({
                   {!isTag && '公式おすすめ'}
                 </InlineText.Base>
               )}
-              {address || addressPref + addressCity}
+              {address || addressPref + addressCity + addressTown}
             </InlineText.Base>
           </Row>
           <Row marginTop={4}>

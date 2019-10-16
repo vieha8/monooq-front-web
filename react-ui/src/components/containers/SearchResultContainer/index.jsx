@@ -237,16 +237,16 @@ class SearchResultContainer extends Component<PropTypes> {
 
     let condition = '';
 
-    if (pref && pref !== '') {
-      condition += pref;
+    if (pref && pref.name !== '') {
+      condition += pref.name;
     }
 
     if (cities && cities.length > 0) {
-      condition += `/${cities.join(',')}`;
+      condition += `/${cities.map(v => v.name).join(',')}`;
     }
 
     if (towns && towns.length > 0) {
-      condition += `/${towns.join(',')}`;
+      condition += `/${towns.map(v => v.name).join(',')}`;
     }
 
     return condition;
@@ -293,6 +293,7 @@ class SearchResultContainer extends Component<PropTypes> {
             title: s.title,
             addressPref: s.addressPref,
             addressCity: s.addressCity,
+            addressTown: s.addressTown,
             isFurniture: s.isFurniture,
             priceFull: s.priceFull,
             priceHalf: s.priceHalf,
@@ -367,15 +368,15 @@ class SearchResultContainer extends Component<PropTypes> {
         searchConditionCurrentList={[
           {
             title: '都道府県',
-            value: conditions.pref,
+            value: conditions.pref.name,
           },
           {
             title: '市区町村',
-            value: conditions.cities.join(','),
+            value: conditions.cities.map(v => v.name).join(','),
           },
           {
             title: '町域・エリア',
-            value: conditions.towns.join(','),
+            value: conditions.towns.map(v => v.name).join(','),
           },
         ]}
         captionAreaPinList="人気エリアで探す"
@@ -410,7 +411,7 @@ class SearchResultContainer extends Component<PropTypes> {
             path: Path.about(),
           },
         ]}
-        prefecture={conditions.pref}
+        prefecture={conditions.pref.name}
         textButtonBottom="地域を絞り込む"
       />
     );
