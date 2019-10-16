@@ -23,6 +23,137 @@ import { getPrefecture } from 'helpers/prefectures';
 import LoadingPage from 'components/LV3/LoadingPage';
 import connect from '../connect';
 
+// TODO: 【検索UI】以下はサンプルデータなので、APIとのつなぎ込み時に削除しちゃってください。
+const AreaAroundList = () => [
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+];
+
+const TownAreaList1 = () => [
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+];
+
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
   text-align: center;
@@ -271,9 +402,96 @@ class SearchResultContainer extends Component<PropTypes, State> {
           options={this.options()}
           condition={condition}
           maxCount={maxCount}
-          // TODO: あとから実装
-          // onClickMore=""
-          // onKeyDownButtonMore=""
+          onClickMore={() => console.log('絞り込みボタン押下')}
+          regionPrefectureList={[
+            {
+              region: '北海道・東北',
+              prefectureList: [
+                { name: '北海道', id: 1 },
+                { name: '青森', id: 2 },
+                { name: '岩手', id: 3 },
+                { name: '宮城', id: 4 },
+                { name: '秋田', id: 5 },
+                { name: '山形', id: 6 },
+                { name: '福島', id: 7 },
+              ],
+            },
+            {
+              region: '関東',
+              prefectureList: [
+                { name: '東京', id: 13 },
+                { name: '神奈川', id: 14 },
+                { name: '埼玉', id: 11 },
+                { name: '千葉', id: 12 },
+                { name: '茨城', id: 8 },
+                { name: '群馬', id: 10 },
+                { name: '栃木', id: 9 },
+              ],
+            },
+            {
+              region: '甲信越・北陸',
+              prefectureList: [
+                { name: '山梨', id: 19 },
+                { name: '新潟', id: 15 },
+                { name: '長野', id: 20 },
+                { name: '富山', id: 16 },
+                { name: '石川', id: 17 },
+                { name: '福井', id: 18 },
+              ],
+            },
+            {
+              region: '東海',
+              prefectureList: [
+                { name: '愛知', id: 23 },
+                { name: '岐阜', id: 21 },
+                { name: '静岡', id: 22 },
+                { name: '三重', id: 24 },
+              ],
+            },
+            {
+              region: '関西',
+              prefectureList: [
+                { name: '大阪', id: 27 },
+                { name: '兵庫', id: 28 },
+                { name: '京都', id: 26 },
+                { name: '滋賀', id: 25 },
+                { name: '奈良', id: 29 },
+                { name: '和歌山', id: 30 },
+              ],
+            },
+            {
+              region: '四国',
+              prefectureList: [
+                { name: '徳島', id: 36 },
+                { name: '香川', id: 37 },
+                { name: '愛媛', id: 38 },
+                { name: '高知', id: 39 },
+              ],
+            },
+            {
+              region: '中国',
+              prefectureList: [
+                { name: '鳥取', id: 31 },
+                { name: '島根', id: 32 },
+                { name: '岡山', id: 33 },
+                { name: '広島', id: 34 },
+                { name: '山口', id: 35 },
+              ],
+            },
+            {
+              region: '九州・沖縄',
+              prefectureList: [
+                { name: '福岡', id: 40 },
+                { name: '佐賀', id: 41 },
+                { name: '長崎', id: 42 },
+                { name: '熊本', id: 43 },
+                { name: '大分', id: 44 },
+                { name: '宮崎', id: 45 },
+                { name: '鹿児島', id: 46 },
+                { name: '沖縄', id: 47 },
+              ],
+            },
+          ]}
           breadcrumbsList={[
             {
               text: 'TOP',
@@ -365,66 +583,17 @@ class SearchResultContainer extends Component<PropTypes, State> {
             },
           ]}
           captionAreaAroundList="周辺エリアを含めて探す"
-          areaAroundList={[
+          areaAroundList={AreaAroundList()} // TODO: 【検索UI】cityTownAreaListとかぶるので、1つにまとめる
+          cityTownAreaList={[
             {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
+              cityName: '目黒区',
+              areaAroundList: AreaAroundList(),
+              townAreaList: TownAreaList1(),
             },
             {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
-            },
-            {
-              text: '武蔵村山市',
-              link: '/musashimurayama',
-            },
-            {
-              text: '渋谷区',
-              link: '/shibuya',
-            },
-            {
-              text: '北区',
-              link: '/kita',
+              cityName: '港区',
+              areaAroundList: AreaAroundList(),
+              townAreaList: TownAreaList1(),
             },
           ]}
           sortList={[
@@ -443,12 +612,7 @@ class SearchResultContainer extends Component<PropTypes, State> {
             },
           ]}
           prefecture="東京都"
-          city="渋谷区,新宿区,目黒区,千代田区,文京区,港区"
-          townArea="上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷"
           textButtonBottom="地域を絞り込む"
-          // TODO: あとから実装
-          // onClickButtonBottom={() => console.log('onClick')}
-          // onKeyDownButtonBottom={() => console.log('onClick')}
         />
       </Fragment>
     );

@@ -9,6 +9,7 @@ import Button from 'components/LV1/Forms/Button';
 import { H1 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
 import SearchConditionCurrentList from 'components/LV2/Lists/SearchConditionCurrentList';
+import SearchConditionMore from 'components/LV3/SearchConditionMore';
 
 const HeaderWrap = styled.div`
   margin: ${Dimens.medium_20}px ${Dimens.xxsmall_4}px;
@@ -72,20 +73,39 @@ type PropTypes = {
   condition: string,
   maxCount: string,
   onClickMore?: Function,
-  onKeyDownButtonMore?: Function,
   prefecture?: string,
-  city?: string,
-  townArea?: string,
+  regionPrefectureList: Array<{
+    region: string,
+    prefectureList: Array<{
+      name: string,
+      id: string,
+    }>,
+  }>,
+  searchConditionCurrentList: Array<{
+    title: string,
+    value?: string,
+  }>,
+  cityTownAreaList: Array<{
+    cityName: string,
+    areaAroundList: Array<{
+      text: string,
+      link: string,
+    }>,
+    townAreaList: Array<{
+      text: string,
+      link: string,
+    }>,
+  }>,
 };
 
 export default ({
   condition,
   maxCount,
   onClickMore,
-  onKeyDownButtonMore,
   prefecture,
-  city,
-  townArea,
+  regionPrefectureList,
+  searchConditionCurrentList,
+  cityTownAreaList,
 }: PropTypes) => (
   <HeaderWrap>
     <ResultCountWrap>
@@ -101,36 +121,20 @@ export default ({
     <SearchConditionWrap>
       <SearchConditionLeft>
         <SearchConditionCurrentList
-          searchConditionCurrentList={[
-            {
-              title: '都道府県',
-              value: prefecture,
-            },
-            {
-              title: '市区町村',
-              value: city,
-            },
-            {
-              title: '町域・エリア',
-              value: townArea,
-            },
-          ]}
+          searchConditionCurrentList={searchConditionCurrentList}
           width={364}
         />
       </SearchConditionLeft>
       <SearchConditionRight>
         <MoreButtonWrap>
-          <Button
-            primary
-            height={42}
-            heightTab={42}
-            padding="10px 10px"
-            paddingTab="10px 10px"
-            onClick={onClickMore}
-            onKeyDown={onKeyDownButtonMore}
-          >
-            地域を絞り込む
-          </Button>
+          <SearchConditionMore
+            btnText="地域を絞り込む"
+            prefecture={prefecture}
+            regionPrefectureList={regionPrefectureList}
+            searchConditionCurrentList={searchConditionCurrentList}
+            cityTownAreaList={cityTownAreaList}
+            onClickMore={onClickMore}
+          />
         </MoreButtonWrap>
       </SearchConditionRight>
     </SearchConditionWrap>
