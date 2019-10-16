@@ -18,7 +18,7 @@ import { Dimens } from 'variables';
 
 import { spaceActions } from 'redux/modules/space';
 import { iskeyDownEnter } from 'helpers/keydown';
-import { getPrefecture, areaPrefectures } from 'helpers/prefectures';
+import { areaPrefectures } from 'helpers/prefectures';
 
 import LoadingPage from 'components/LV3/LoadingPage';
 import connect from '../connect';
@@ -228,22 +228,25 @@ class SearchResultContainer extends Component<PropTypes> {
   };
 
   getCondition = () => {
-    const { keyword, prefCode } = this.state;
+    const { conditions } = this.props;
+    const { keyword, pref, cities, towns } = conditions;
+
+    if (keyword && keyword !== '') {
+      return keyword;
+    }
 
     let condition = '';
 
-    if (keyword !== '') {
-      condition += `${keyword}、`;
+    if (pref && pref !== '') {
+      condition += pref;
     }
 
-    if (prefCode !== '0') {
-      condition += `${getPrefecture(parseInt(prefCode, 10))}、`;
+    if (cities && cities.length > 0) {
+      condition += `/${cities.join(',')}`;
     }
 
-    condition = condition.slice(0, -1);
-
-    if (condition === '') {
-      condition = 'すべて';
+    if (towns && towns.length > 0) {
+      condition += `/${towns.join(',')}`;
     }
 
     return condition;
@@ -263,8 +266,8 @@ class SearchResultContainer extends Component<PropTypes> {
         offset,
         keyword,
         prefCode,
-        cityCode,
-        townCode,
+        cities: [cityCode],
+        towns: [townCode],
         sort,
       }),
     );
@@ -325,8 +328,21 @@ class SearchResultContainer extends Component<PropTypes> {
     );
   };
 
+  renderNotFound = condition => (
+    <Fragment>
+      <H1 bold>{`「${condition}」の検索結果 0件`}</H1>
+      <SpaceDataNone
+        captionHead="該当するスペースが見つかりませんでした"
+        caption="別のキーワード及び条件で検索をお試しください"
+        buttonText="条件を変えて再検索する"
+        onClick={this.onClickBackSearchCondition}
+        onKeyDown={this.onKeyDownButtonResearch}
+      />
+    </Fragment>
+  );
+
   render() {
-    const { spaces, isMore, maxCount, isSearching, breadcrumbs, area } = this.props;
+    const { spaces, isMore, maxCount, isSearching, breadcrumbs, area, prefName } = this.props;
     const condition = this.getCondition();
 
     if (isSearching && spaces.length === 0) {
@@ -334,18 +350,7 @@ class SearchResultContainer extends Component<PropTypes> {
     }
 
     if (spaces.length === 0 && !isMore) {
-      return (
-        <Fragment>
-          <H1 bold>{`「${condition}」の検索結果 0件`}</H1>
-          <SpaceDataNone
-            captionHead="該当するスペースが見つかりませんでした"
-            caption="別のキーワード及び条件で検索をお試しください"
-            buttonText="条件を変えて再検索する"
-            onClick={this.onClickBackSearchCondition}
-            onKeyDown={this.onKeyDownButtonResearch}
-          />
-        </Fragment>
-      );
+      return this.renderNotFound(condition);
     }
 
     return (
@@ -405,7 +410,7 @@ class SearchResultContainer extends Component<PropTypes> {
             path: Path.about(),
           },
         ]}
-        prefecture="東京都"
+        prefecture={prefName}
         textButtonBottom="地域を絞り込む"
       />
     );
@@ -419,6 +424,8 @@ const mapStateToProps = state => ({
   isMore: state.space.search.isMore,
   breadcrumbs: state.space.search.breadcrumbs,
   area: state.space.search.area,
+  conditions: state.space.search.conditions,
+  prefName: state.space.search.prefName,
 });
 
 export default ContentPageMenu(

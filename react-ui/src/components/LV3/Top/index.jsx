@@ -62,13 +62,17 @@ export default ({
       onClickSearchButton={onClickSearch}
     />
     <PrefectureList list={areaPrefectures} />
-    {sections.map((item, i) => (
-      <SpaceList
-        key={i.toString()}
-        caption={item.title}
-        captionSub="公式がイチオシする高評価スペース"
-        spaceList={item.contents}
-      />
-    ))}
+    {sections.length === 0 ? (
+      <Loading />
+    ) : (
+      sections.map((item, i) => (
+        <SpaceList
+          key={i.toString()}
+          caption={item.title}
+          captionSub="公式がイチオシする高評価スペース"
+          spaceList={item.contents}
+        />
+      ))
+    )}
   </TopPage>
 );

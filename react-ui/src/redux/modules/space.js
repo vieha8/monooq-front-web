@@ -16,7 +16,6 @@ import {
 import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
-import { getPrefecture } from 'helpers/prefectures';
 import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
 import { handleError } from './error';
@@ -92,6 +91,7 @@ const initialState = {
       { text: 'TOP', link: '/' },
       { text: '東京都のスペース一覧' },
     ],
+    conditions: {},
   },
   recommendSpaces: [],
 };
@@ -178,6 +178,7 @@ export const spaceReducer = handleActions(
         isMore: payload.isMore,
         maxCount: payload.maxCount,
         area: payload.area,
+        conditions: payload.conditions,
       },
     }),
     [RESET_SEARCH]: state => ({
@@ -553,11 +554,13 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     limit,
     offset,
     keyword,
-    pref: getPrefecture(prefCode),
-    cities,
-    towns,
+    pref: prefCode,
+    cities: cities.join(','),
+    towns: towns.join(','),
     sort,
   };
+
+  console.log(cities, towns);
 
   const { data, err, headers } = yield call(getApiRequest, apiEndpoint.spaces(), params, token);
 
@@ -566,7 +569,7 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     return;
   }
 
-  const res = data.map(v => {
+  const res = data.results.map(v => {
     const space = v;
     if (space.images.length === 0) {
       space.images = [{ imageUrl: dummySpaceImage }];
@@ -607,6 +610,7 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
       isMore,
       maxCount: parseInt(headers['content-range'], 10),
       area: areaRes,
+      conditions: data.conditions,
     }),
   );
 }
