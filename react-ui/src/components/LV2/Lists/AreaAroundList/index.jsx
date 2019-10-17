@@ -100,7 +100,7 @@ export default ({ caption, captionColor, areaAroundList, isNoScroll }: PropTypes
             rel={item.count < 5 ? 'nofollow' : ''}
           >
             <Button quaternary circle height={30} fontSize={14} lineheight={6}>
-              {item.name}
+              {item.text}
             </Button>
           </LinkStyled>
         </Item>

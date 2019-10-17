@@ -27,6 +27,7 @@ export const apiEndpoint = {
   region: () => `region`,
   areaCities: prefCode => `spaces/area/p${prefCode}`,
   areaTowns: cityCode => `spaces/area/c${cityCode}`,
+  areaSearch: prefCode => `spaces/area/p${prefCode}/all`,
 };
 
 const createApiInstance = token =>

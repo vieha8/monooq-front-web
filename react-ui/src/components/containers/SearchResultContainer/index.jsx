@@ -377,7 +377,16 @@ class SearchResultContainer extends Component<PropTypes> {
   );
 
   render() {
-    const { spaces, isMore, maxCount, isSearching, breadcrumbs, area, conditions } = this.props;
+    const {
+      spaces,
+      isMore,
+      maxCount,
+      isSearching,
+      breadcrumbs,
+      area,
+      conditions,
+      cities,
+    } = this.props;
     const condition = this.getCondition();
 
     if (isSearching && spaces.length === 0) {
@@ -396,6 +405,24 @@ class SearchResultContainer extends Component<PropTypes> {
     } else if (!conditions.keyword) {
       areaAroundList = area;
     }
+
+    const cityTownAreaList = cities.map(v => {
+      return {
+        cityName: v.name,
+        areaAroundList: v.popularArea.map(w => {
+          return {
+            text: w.name,
+            link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
+          };
+        }),
+        townAreaList: v.towns.map(w => {
+          return {
+            text: w.name,
+            link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
+          };
+        }),
+      };
+    });
 
     return (
       <SearchResultTemplate
@@ -425,18 +452,7 @@ class SearchResultContainer extends Component<PropTypes> {
         areaPinList={areaPinList}
         captionAreaAroundList="周辺エリアで探す"
         areaAroundList={areaAroundList}
-        cityTownAreaList={[
-          {
-            cityName: '目黒区',
-            areaAroundList: AreaAroundList(),
-            townAreaList: TownAreaList1(),
-          },
-          {
-            cityName: '港区',
-            areaAroundList: AreaAroundList(),
-            townAreaList: TownAreaList1(),
-          },
-        ]}
+        cityTownAreaList={cityTownAreaList}
         townAreaList={area}
         sortList={[
           {
@@ -468,6 +484,7 @@ const mapStateToProps = state => ({
   breadcrumbs: state.space.search.breadcrumbs,
   area: state.space.search.area,
   conditions: state.space.search.conditions,
+  cities: state.space.search.cities,
 });
 
 export default ContentPageMenu(

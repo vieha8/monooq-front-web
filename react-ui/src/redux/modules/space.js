@@ -97,6 +97,7 @@ const initialState = {
       cities: [],
       towns: [],
     },
+    cities: [],
   },
   recommendSpaces: [],
 };
@@ -185,6 +186,7 @@ export const spaceReducer = handleActions(
         area: payload.area,
         conditions: payload.conditions,
         breadcrumbs: payload.breadcrumbs,
+        cities: payload.cities,
       },
     }),
     [RESET_SEARCH]: state => ({
@@ -612,6 +614,14 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     });
   }
 
+  const { data: areaSearch } = yield call(
+    getApiRequest,
+    apiEndpoint.areaSearch(prefCode),
+    {},
+    token,
+  );
+  //TODO エラーハンドリング
+
   yield put(
     loggerActions.recordEvent({
       event: 'space_searches',
@@ -632,6 +642,7 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
       area: areaRes,
       conditions: data.conditions,
       breadcrumbs,
+      cities: areaSearch,
     }),
   );
 }

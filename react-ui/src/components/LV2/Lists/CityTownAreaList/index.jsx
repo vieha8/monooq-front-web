@@ -76,13 +76,15 @@ export default ({ cityTownAreaList, prefecture }: PropTypes) => (
             <ImageAreaPin src={IconAreaGray} alt="icon-area" />
             {item.cityName}
           </CityWrap>
-          <AreaPinList>
-            <AreaAroundList
-              caption="人気のエリアから選ぶ"
-              captionColor={Colors.lightGray3}
-              areaAroundList={item.areaAroundList}
-            />
-          </AreaPinList>
+          {item.areaAroundList.length > 0 && (
+            <AreaPinList>
+              <AreaAroundList
+                caption="人気のエリアから選ぶ"
+                captionColor={Colors.lightGray3}
+                areaAroundList={item.areaAroundList}
+              />
+            </AreaPinList>
+          )}
           <Hr margin="10px 0 20px" />
           <TownAreaCheckboxList
             caption="地域から選ぶ"

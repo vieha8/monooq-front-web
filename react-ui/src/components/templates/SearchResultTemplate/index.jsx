@@ -93,7 +93,6 @@ export default ({
   regionPrefectureList,
   searchResult,
   noTopMargin,
-  isSearching,
   breadcrumbsList,
   captionAreaAroundList,
   areaAroundList,
