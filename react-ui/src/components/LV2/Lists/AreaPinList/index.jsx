@@ -17,7 +17,7 @@ const Caption = styled.div`
 const AreaPinList = styled.ul`
   width: 100%;
   white-space: nowrap;
-  overflow-x: scroll;
+  overflow-x: auto;
   padding: ${Dimens.small2}px ${Dimens.xxsmall}px ${Dimens.small2_15}px;
   ::-webkit-scrollbar-track {
     background-color: ${Colors.lightGray7};
