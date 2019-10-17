@@ -82,7 +82,7 @@ export type PropTypes = {
   caption: string,
   captionColor?: string,
   areaAroundList: Array<{
-    text: string,
+    name: string,
     link: string,
   }>,
   isNoScroll?: boolean,

@@ -23,63 +23,63 @@ storiesOf('Molecules(LV2)/Lists/AreaPinList', module)
           caption="人気エリアで探す"
           areaPinList={[
             {
-              text: '武蔵村山市',
+              name: '武蔵村山市',
               link: '/musashimurayama',
             },
             {
-              text: '渋谷区',
+              name: '渋谷区',
               link: '/shibuya',
             },
             {
-              text: '北区',
+              name: '北区',
               link: '/kita',
             },
             {
-              text: '武蔵村山市',
+              name: '武蔵村山市',
               link: '/musashimurayama',
             },
             {
-              text: '渋谷区',
+              name: '渋谷区',
               link: '/shibuya',
             },
             {
-              text: '北区',
+              name: '北区',
               link: '/kita',
             },
             {
-              text: '武蔵村山市',
+              name: '武蔵村山市',
               link: '/musashimurayama',
             },
             {
-              text: '渋谷区',
+              name: '渋谷区',
               link: '/shibuya',
             },
             {
-              text: '北区',
+              name: '北区',
               link: '/kita',
             },
             {
-              text: '武蔵村山市',
+              name: '武蔵村山市',
               link: '/musashimurayama',
             },
             {
-              text: '渋谷区',
+              name: '渋谷区',
               link: '/shibuya',
             },
             {
-              text: '北区',
+              name: '北区',
               link: '/kita',
             },
             {
-              text: '武蔵村山市',
+              name: '武蔵村山市',
               link: '/musashimurayama',
             },
             {
-              text: '渋谷区',
+              name: '渋谷区',
               link: '/shibuya',
             },
             {
-              text: '北区',
+              name: '北区',
               link: '/kita',
             },
           ]}

@@ -51,7 +51,7 @@ const LinkStyled = styled(Link)`
 export type PropTypes = {
   caption: string,
   areaPinList: Array<{
-    text: string,
+    name: string,
     link: string,
   }>,
 };

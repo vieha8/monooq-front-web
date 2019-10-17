@@ -52,11 +52,11 @@ export type PropTypes = {
   cityTownAreaList: Array<{
     cityName: string,
     areaAroundList: Array<{
-      text: string,
+      name: string,
       link: string,
     }>,
     townAreaList: Array<{
-      text: string,
+      name: string,
       link: string,
     }>,
   }>,
