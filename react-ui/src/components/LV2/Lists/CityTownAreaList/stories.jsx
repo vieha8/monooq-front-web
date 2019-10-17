@@ -12,130 +12,130 @@ CityTownAreaList.displayName = 'CityTownAreaList';
 
 const AreaAroundList = () => [
   {
-    text: '武蔵村山市',
+    name: '武蔵村山市',
     link: '/musashimurayama',
   },
   {
-    text: '渋谷区',
+    name: '渋谷区',
     link: '/shibuya',
   },
   {
-    text: '北区',
+    name: '北区',
     link: '/kita',
   },
   {
-    text: '武蔵村山市',
+    name: '武蔵村山市',
     link: '/musashimurayama',
   },
   {
-    text: '渋谷区',
+    name: '渋谷区',
     link: '/shibuya',
   },
   {
-    text: '北区',
+    name: '北区',
     link: '/kita',
   },
   {
-    text: '武蔵村山市',
+    name: '武蔵村山市',
     link: '/musashimurayama',
   },
   {
-    text: '渋谷区',
+    name: '渋谷区',
     link: '/shibuya',
   },
   {
-    text: '北区',
+    name: '北区',
     link: '/kita',
   },
   {
-    text: '武蔵村山市',
+    name: '武蔵村山市',
     link: '/musashimurayama',
   },
   {
-    text: '渋谷区',
+    name: '渋谷区',
     link: '/shibuya',
   },
   {
-    text: '北区',
+    name: '北区',
     link: '/kita',
   },
   {
-    text: '武蔵村山市',
+    name: '武蔵村山市',
     link: '/musashimurayama',
   },
   {
-    text: '渋谷区',
+    name: '渋谷区',
     link: '/shibuya',
   },
   {
-    text: '北区',
+    name: '北区',
     link: '/kita',
   },
 ];
 
 const TownAreaList1 = () => [
   {
-    text: '代々木神園町',
+    name: '代々木神園町',
     link: '/1111',
   },
   {
-    text: '宇田川町',
+    name: '宇田川町',
     link: '/2222',
   },
   {
-    text: '上原',
+    name: '上原',
     link: '/333',
   },
   {
-    text: '東',
+    name: '東',
     link: '/333',
   },
   {
-    text: '代々木神園町',
+    name: '代々木神園町',
     link: '/1111',
   },
   {
-    text: '宇田川町',
+    name: '宇田川町',
     link: '/2222',
   },
   {
-    text: '上原',
+    name: '上原',
     link: '/333',
   },
   {
-    text: '東',
+    name: '東',
     link: '/333',
   },
   {
-    text: '代々木神園町',
+    name: '代々木神園町',
     link: '/1111',
   },
   {
-    text: '宇田川町',
+    name: '宇田川町',
     link: '/2222',
   },
   {
-    text: '上原',
+    name: '上原',
     link: '/333',
   },
   {
-    text: '東',
+    name: '東',
     link: '/333',
   },
   {
-    text: '代々木神園町',
+    name: '代々木神園町',
     link: '/1111',
   },
   {
-    text: '宇田川町',
+    name: '宇田川町',
     link: '/2222',
   },
   {
-    text: '上原',
+    name: '上原',
     link: '/333',
   },
   {
-    text: '東',
+    name: '東',
     link: '/333',
   },
 ];
