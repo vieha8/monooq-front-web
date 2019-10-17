@@ -601,6 +601,7 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     areaRes = area.map(v => {
       return {
         ...v,
+        text: v.name,
         link: Path.spacesByTown(prefCode, cities[0], v.code),
       };
     });
@@ -609,6 +610,7 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     areaRes = area.map(v => {
       return {
         ...v,
+        text: v.name,
         link: Path.spacesByCity(prefCode, v.code),
       };
     });

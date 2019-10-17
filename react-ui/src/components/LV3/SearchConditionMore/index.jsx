@@ -61,7 +61,7 @@ type PropTypes = {
       link: string,
     }>,
   }>,
-  prefucture: string,
+  prefecture: string,
   searchConditionCurrentList: Array<{
     title: string,
     value: string,
@@ -70,7 +70,7 @@ type PropTypes = {
 };
 
 class ButtonModalConfirm extends Component<PropTypes> {
-  state = { open: true };
+  state = { open: false };
 
   open = () => this.setState({ open: true });
 
@@ -104,7 +104,7 @@ class ButtonModalConfirm extends Component<PropTypes> {
         </ButtonLV1>
         <Modal size="large" open={open} onClose={this.close}>
           <Modal.Content scrolling>
-            <div>{/*<PrefectureList list={regionPrefectureList} />*/}</div>
+            <div>{<PrefectureList list={regionPrefectureList} />}</div>
             <div>
               <CityTownAreaList cityTownAreaList={cityTownAreaList} prefecture={prefecture} />
             </div>
