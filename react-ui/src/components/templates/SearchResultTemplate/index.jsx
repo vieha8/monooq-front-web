@@ -64,7 +64,6 @@ type PropTypes = {
   }>,
   searchResult: React.Element<*>,
   noTopMargin?: boolean,
-  options: React.Element<*>,
   isSearching: boolean,
   textButtonBottom?: string,
   onClickButtonBottom?: Function,
@@ -94,7 +93,6 @@ export default ({
   regionPrefectureList,
   searchResult,
   noTopMargin,
-  options,
   isSearching,
   breadcrumbsList,
   captionAreaAroundList,
@@ -132,7 +130,6 @@ export default ({
       </SortListWrap>
     )}
     <Content noTopMargin={noTopMargin}>{searchResult}</Content>
-    {!isSearching && options}
     {textButtonBottom && (
       <ButtonBottom
         modal

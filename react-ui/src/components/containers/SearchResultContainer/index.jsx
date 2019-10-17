@@ -9,7 +9,6 @@ import Path from 'config/path';
 
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SearchResultTemplate from 'components/templates/SearchResultTemplate';
-import Button from 'components/LV1/Forms/Button';
 import SearchResult from 'components/LV3/SearchResult';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
 import Meta from 'components/LV1/Meta';
@@ -26,10 +25,6 @@ import connect from '../connect';
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
   text-align: center;
-`;
-
-const SearchButtonWrap = styled.div`
-  margin-top: 40px;
 `;
 
 type PropTypes = {
@@ -304,7 +299,6 @@ class SearchResultContainer extends Component<PropTypes> {
   // ローディング処理
   loadItems = () => {
     const { dispatch, isSearching } = this.props;
-    console.log('loadItems');
     if (isSearching) {
       return;
     }
@@ -363,24 +357,6 @@ class SearchResultContainer extends Component<PropTypes> {
     );
   };
 
-  options = () => {
-    return (
-      <Fragment>
-        <SearchButtonWrap>
-          <Button
-            primary
-            fontbold
-            center
-            onClick={this.onClickBackSearchCondition}
-            onKeyDown={this.onKeyDownButtonResearch}
-          >
-            条件を変えて再検索する
-          </Button>
-        </SearchButtonWrap>
-      </Fragment>
-    );
-  };
-
   meta = condition => {
     return (
       <Meta title={`${condition}の検索結果 - モノオク`} description={`${condition}の検索結果`} />
@@ -426,7 +402,6 @@ class SearchResultContainer extends Component<PropTypes> {
         isSearching={isSearching}
         meta={this.meta(condition)}
         searchResult={this.infiniteScroll()}
-        options={this.options()}
         condition={condition}
         maxCount={maxCount}
         onClickMore={() => console.log('絞り込みボタン押下')}
