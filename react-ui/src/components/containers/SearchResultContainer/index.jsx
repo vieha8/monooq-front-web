@@ -186,8 +186,6 @@ const TownAreaList1 = () => [
 class SearchResultContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
-    const { dispatch } = props;
-    dispatch(spaceActions.resetSearch());
 
     const { location, match } = this.props;
 
@@ -209,6 +207,57 @@ class SearchResultContainer extends Component<PropTypes> {
     }
 
     this.state = state;
+
+    // initと統合したいが取り急ぎ
+    // constructorでinitを呼ぶとレンダリング終わる前にsetStateすなと叱られる
+    // componentDidMountでinitを呼ぶとloadItemsが先に走ってしまう為検索条件が反映されない
+    // 上記の問題を解決している余裕がないので一旦冗長のままとしている
+  }
+
+  init = () => {
+    const { dispatch } = this.props;
+    dispatch(spaceActions.resetSearch());
+
+    const { location, match } = this.props;
+
+    const state = {
+      keyword: '',
+      limit: 12,
+      offset: 0,
+      sort: 1,
+    };
+
+    if (!match.url.indexOf('/search')) {
+      const { keyword } = parse(location.search);
+      state.keyword = keyword;
+    } else {
+      const { pref_code: prefCode, city_code: cityCode, town_code: townCode } = match.params;
+      state.prefCode = prefCode;
+      state.cityCode = cityCode;
+      state.townCode = townCode;
+    }
+
+    this.setState(state);
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    // パンくずやエリアタグから遷移した時はconstructorが発火しないのでここで
+    const { match } = this.props;
+    const { pref_code: prefCode, city_code: cityCode, town_code: townCode } = match.params;
+
+    if (
+      !this.props.isSearching &&
+      (prevState.prefCode !== prefCode ||
+        prevState.cityCode !== cityCode ||
+        prevState.townCode !== townCode)
+    ) {
+      this.init();
+    }
+  }
+
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch(spaceActions.resetSearch());
   }
 
   onClickBackSearchCondition = () => {
@@ -255,6 +304,7 @@ class SearchResultContainer extends Component<PropTypes> {
   // ローディング処理
   loadItems = () => {
     const { dispatch, isSearching } = this.props;
+    console.log('loadItems');
     if (isSearching) {
       return;
     }
@@ -364,15 +414,12 @@ class SearchResultContainer extends Component<PropTypes> {
 
     let areaPinList = [];
     let areaAroundList = [];
-    console.log(conditions);
     if (conditions.pref && conditions.pref.name && conditions.cities.length === 0) {
       // 都道府県一覧
       areaPinList = area;
     } else if (!conditions.keyword) {
       areaAroundList = area;
     }
-
-    console.log(areaPinList, areaAroundList);
 
     return (
       <SearchResultTemplate
