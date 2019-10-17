@@ -196,6 +196,7 @@ export const spaceReducer = handleActions(
         results: [],
         isMore: true,
         maxCount: 0,
+        cities: [],
       },
     }),
     [GET_GEOCODE]: state => ({
@@ -598,13 +599,15 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
   if (cities.length === 1) {
     areaEndpoint = apiEndpoint.areaTowns(cities[0]);
     const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
-    areaRes = area.map(v => {
-      return {
-        ...v,
-        text: v.name,
-        link: Path.spacesByTown(prefCode, cities[0], v.code),
-      };
-    });
+    areaRes = area
+      .map(v => {
+        return {
+          ...v,
+          text: v.name,
+          link: Path.spacesByTown(prefCode, cities[0], v.code),
+        };
+      })
+      .filter(v => !towns.includes(v.code));
   } else {
     const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
     areaRes = area.map(v => {
