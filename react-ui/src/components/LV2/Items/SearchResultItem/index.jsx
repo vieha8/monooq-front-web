@@ -48,8 +48,9 @@ type PropTypes = {
   image: string,
   title: string,
   isRecommended?: boolean,
-  addressPref: string,
-  addressCity: string,
+  address?: string,
+  addressPref?: string,
+  addressCity?: string,
   priceFull: number,
   priceQuarter: number,
   tagList?: Array<String>,
@@ -61,8 +62,10 @@ export default ({
   title,
   isRecommended,
   image,
+  address,
   addressPref,
   addressCity,
+  addressTown,
   priceQuarter,
   priceFull,
   tagList,
@@ -95,8 +98,7 @@ export default ({
                   {!isTag && '公式おすすめ'}
                 </InlineText.Base>
               )}
-              {addressPref}
-              {addressCity}
+              {address || addressPref + addressCity + addressTown}
             </InlineText.Base>
           </Row>
           <Row marginTop={4}>

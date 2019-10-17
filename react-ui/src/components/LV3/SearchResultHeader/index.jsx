@@ -109,7 +109,7 @@ export default ({
   <HeaderWrap>
     <ResultCountWrap>
       <H1 bold>
-        {`「${condition}」の検索結果`}
+        {`${condition}の検索結果`}
         <br />
         <ResultCount>{formatAddComma(maxCount)}</ResultCount>
         <InlineText.Base fontSize={FontSizes.small} nobold>

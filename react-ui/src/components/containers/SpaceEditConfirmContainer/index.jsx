@@ -221,11 +221,11 @@ class SpaceEditConfirmContainer extends Component<PropTypes> {
             imageUrl: user.imageUrl,
             profile: user.profile,
           }}
-          pricefull={numeral(space.priceFull).format('0,0')}
-          pricehalf={
+          priceFull={numeral(space.priceFull).format('0,0')}
+          priceHalf={
             formatRemoveComma(space.priceHalf) > 0 && numeral(space.priceHalf).format('0,0')
           }
-          pricequarter={
+          priceQuarter={
             formatRemoveComma(space.priceQuarter) > 0 && numeral(space.priceQuarter).format('0,0')
           }
         />

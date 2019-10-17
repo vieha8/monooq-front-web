@@ -16,7 +16,6 @@ import {
 import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
-import { getPrefecture } from 'helpers/prefectures';
 import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
 import { handleError } from './error';
@@ -44,6 +43,9 @@ const GET_GEOCODE = 'GET_GEOCODE';
 const GET_FAILED_GEOCODE = 'GET_FAILED_GEOCODE';
 const GET_SUCCESS_GEOCODE = 'GET_SUCCESS_GEOCODE';
 const RESET_SEARCH = 'RESET_SEARCH';
+const GET_RECOMMEND_SPACES = 'GET_RECOMMEND_SPACES';
+const GET_RECOMMEND_SPACES_SUCCESS = 'GET_RECOMMEND_SPACES_SUCCESS';
+const GET_RECOMMEND_SPACES_FAILED = 'GET_RECOMMEND_SPACES_FAILED';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -68,6 +70,9 @@ export const spaceActions = createActions(
   GET_GEOCODE,
   GET_FAILED_GEOCODE,
   GET_SUCCESS_GEOCODE,
+  GET_RECOMMEND_SPACES,
+  GET_RECOMMEND_SPACES_SUCCESS,
+  GET_RECOMMEND_SPACES_FAILED,
 );
 
 // Reducer
@@ -86,7 +91,14 @@ const initialState = {
       { text: 'TOP', link: '/' },
       { text: '東京都のスペース一覧' },
     ],
+    conditions: {
+      keyword: '',
+      pref: '',
+      cities: [],
+      towns: [],
+    },
   },
+  recommendSpaces: [],
 };
 
 export const spaceReducer = handleActions(
@@ -171,6 +183,8 @@ export const spaceReducer = handleActions(
         isMore: payload.isMore,
         maxCount: payload.maxCount,
         area: payload.area,
+        conditions: payload.conditions,
+        breadcrumbs: payload.breadcrumbs,
       },
     }),
     [RESET_SEARCH]: state => ({
@@ -194,6 +208,10 @@ export const spaceReducer = handleActions(
     [GET_FAILED_GEOCODE]: state => ({
       ...state,
       isLoading: false,
+    }),
+    [GET_RECOMMEND_SPACES_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      recommendSpaces: payload,
     }),
   },
   initialState,
@@ -542,9 +560,9 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     limit,
     offset,
     keyword,
-    pref: getPrefecture(prefCode),
-    cities,
-    towns,
+    pref: prefCode,
+    cities: cities.join(','),
+    towns: towns.join(','),
     sort,
   };
 
@@ -554,6 +572,114 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     yield handleError(spaceActions.failedSearch, '', 'search', err, false);
     return;
   }
+
+  const res = data.results.map(v => {
+    const space = v;
+    if (space.images.length === 0) {
+      space.images = [{ imageUrl: dummySpaceImage }];
+    } else {
+      space.images = space.images.map(image => {
+        image.imageUrl = convertImgixUrl(
+          image.imageUrl,
+          'fit=crop&fill-color=DBDBDB&w=600&h=400&auto=format',
+        );
+        return image;
+      });
+    }
+    return space;
+  });
+
+  let areaRes;
+  //TODO エラーハンドリング
+
+  let areaEndpoint = apiEndpoint.areaCities(prefCode);
+  if (cities.length === 1) {
+    areaEndpoint = apiEndpoint.areaTowns(cities[0]);
+    const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
+    areaRes = area.map(v => {
+      return {
+        ...v,
+        link: Path.spacesByTown(prefCode, cities[0], v.code),
+      };
+    });
+  } else {
+    const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
+    areaRes = area.map(v => {
+      return {
+        ...v,
+        link: Path.spacesByCity(prefCode, v.code),
+      };
+    });
+  }
+
+  yield put(
+    loggerActions.recordEvent({
+      event: 'space_searches',
+      detail: {
+        params,
+      },
+    }),
+  );
+
+  const breadcrumbs = makeBreadcrumbs(data.conditions);
+
+  const isMore = res.length === limit;
+  yield put(
+    spaceActions.successSearch({
+      spaces: res,
+      isMore,
+      maxCount: parseInt(headers['content-range'], 10),
+      area: areaRes,
+      conditions: data.conditions,
+      breadcrumbs,
+    }),
+  );
+}
+
+const makeBreadcrumbs = ({ keyword, pref, cities, towns }) => {
+  const breadcrumbs = [{ text: 'トップ', link: Path.top() }];
+
+  if (towns && towns.length === 1) {
+    breadcrumbs.push(
+      {
+        text: pref.name,
+        link: Path.spacesByPrefecture(pref.code),
+      },
+      {
+        text: cities[0].name,
+        link: Path.spacesByCity(pref.code, cities[0].code),
+      },
+      {
+        text: `${towns[0].name}のスペース一覧`,
+      },
+    );
+  } else if (cities && cities.length === 1) {
+    breadcrumbs.push(
+      {
+        text: pref.name,
+        link: Path.spacesByPrefecture(pref.code),
+      },
+      {
+        text: `${cities[0].name}のスペース一覧`,
+      },
+    );
+  } else if (pref && pref.name) {
+    breadcrumbs.push({
+      text: `${pref.name}のスペース一覧`,
+    });
+  } else if (keyword && keyword !== '') {
+    breadcrumbs.push({
+      text: `スペース検索結果`,
+    });
+  }
+
+  return breadcrumbs;
+};
+
+function* getRecommendSpaces({ payload: { spaceId } }) {
+  const token = yield* getToken();
+  const { data } = yield call(getApiRequest, apiEndpoint.spacesRecommend(spaceId), {}, token);
+  // TODO エラーハンドリング
 
   const res = data.map(v => {
     const space = v;
@@ -571,33 +697,7 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     return space;
   });
 
-  const { data: area } = yield call(getApiRequest, apiEndpoint.areaCities(prefCode), {}, token);
-  const areaRes = area.map(v => {
-    return {
-      ...v,
-      link: Path.spacesByCity(prefCode, v.code),
-    };
-  });
-  //TODO エラーハンドリング
-
-  yield put(
-    loggerActions.recordEvent({
-      event: 'space_searches',
-      detail: {
-        params,
-      },
-    }),
-  );
-
-  const isMore = res.length === limit;
-  yield put(
-    spaceActions.successSearch({
-      spaces: res,
-      isMore,
-      maxCount: parseInt(headers['content-range'], 10),
-      area: areaRes,
-    }),
-  );
+  yield put(spaceActions.getRecommendSpacesSuccess(res));
 }
 
 export const spaceSagas = [
@@ -609,4 +709,5 @@ export const spaceSagas = [
   takeEvery(ADD_SPACE_ACCESS_LOG, addSpaceAccessLog),
   takeEvery(DO_SEARCH, search),
   takeEvery(GET_GEOCODE, getGeocode),
+  takeEvery(GET_RECOMMEND_SPACES, getRecommendSpaces),
 ];

@@ -120,10 +120,12 @@ export default ({
       textButtonBottom={textButtonBottom}
       searchConditionCurrentList={searchConditionCurrentList}
     />
-    {areaAroundList && (
+    {areaAroundList && areaAroundList.length > 0 && (
       <AreaAroundList caption={captionAreaAroundList} areaAroundList={areaAroundList} />
     )}
-    {areaPinList && <AreaPinList caption={captionAreaPinList} areaPinList={areaPinList} />}
+    {areaPinList && areaPinList.length > 0 && (
+      <AreaPinList caption={captionAreaPinList} areaPinList={areaPinList} />
+    )}
     {sortList && (
       <SortListWrap>
         <SortList list={sortList} landscape color={Colors.brandPrimary} />

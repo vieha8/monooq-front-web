@@ -18,7 +18,7 @@ import { Dimens } from 'variables';
 
 import { spaceActions } from 'redux/modules/space';
 import { iskeyDownEnter } from 'helpers/keydown';
-import { getPrefecture } from 'helpers/prefectures';
+import { areaPrefectures } from 'helpers/prefectures';
 
 import LoadingPage from 'components/LV3/LoadingPage';
 import connect from '../connect';
@@ -52,11 +52,140 @@ type PropTypes = {
   }>,
 };
 
+// TODO: 【検索UI】以下はサンプルデータなので、APIとのつなぎ込み時に削除しちゃってください。
+const AreaAroundList = () => [
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+  {
+    text: '武蔵村山市',
+    link: '/musashimurayama',
+  },
+  {
+    text: '渋谷区',
+    link: '/shibuya',
+  },
+  {
+    text: '北区',
+    link: '/kita',
+  },
+];
+
+const TownAreaList1 = () => [
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+  {
+    text: '代々木神園町',
+    link: '/1111',
+  },
+  {
+    text: '宇田川町',
+    link: '/2222',
+  },
+  {
+    text: '上原',
+    link: '/333',
+  },
+  {
+    text: '東',
+    link: '/333',
+  },
+];
+
 class SearchResultContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
-    const { dispatch } = props;
-    dispatch(spaceActions.resetSearch());
 
     const { location, match } = this.props;
 
@@ -78,6 +207,57 @@ class SearchResultContainer extends Component<PropTypes> {
     }
 
     this.state = state;
+
+    // initと統合したいが取り急ぎ
+    // constructorでinitを呼ぶとレンダリング終わる前にsetStateすなと叱られる
+    // componentDidMountでinitを呼ぶとloadItemsが先に走ってしまう為検索条件が反映されない
+    // 上記の問題を解決している余裕がないので一旦冗長のままとしている
+  }
+
+  init = () => {
+    const { dispatch } = this.props;
+    dispatch(spaceActions.resetSearch());
+
+    const { location, match } = this.props;
+
+    const state = {
+      keyword: '',
+      limit: 12,
+      offset: 0,
+      sort: 1,
+    };
+
+    if (!match.url.indexOf('/search')) {
+      const { keyword } = parse(location.search);
+      state.keyword = keyword;
+    } else {
+      const { pref_code: prefCode, city_code: cityCode, town_code: townCode } = match.params;
+      state.prefCode = prefCode;
+      state.cityCode = cityCode;
+      state.townCode = townCode;
+    }
+
+    this.setState(state);
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    // パンくずやエリアタグから遷移した時はconstructorが発火しないのでここで
+    const { match } = this.props;
+    const { pref_code: prefCode, city_code: cityCode, town_code: townCode } = match.params;
+
+    if (
+      !this.props.isSearching &&
+      (prevState.prefCode !== prefCode ||
+        prevState.cityCode !== cityCode ||
+        prevState.townCode !== townCode)
+    ) {
+      this.init();
+    }
+  }
+
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch(spaceActions.resetSearch());
   }
 
   onClickBackSearchCondition = () => {
@@ -97,22 +277,25 @@ class SearchResultContainer extends Component<PropTypes> {
   };
 
   getCondition = () => {
-    const { keyword, prefCode } = this.state;
+    const { conditions } = this.props;
+    const { keyword, pref, cities, towns } = conditions;
+
+    if (keyword && keyword !== '') {
+      return keyword;
+    }
 
     let condition = '';
 
-    if (keyword !== '') {
-      condition += `${keyword}、`;
+    if (pref && pref.name !== '') {
+      condition += pref.name;
     }
 
-    if (prefCode !== '0') {
-      condition += `${getPrefecture(parseInt(prefCode, 10))}、`;
+    if (cities && cities.length > 0) {
+      condition += `/${cities.map(v => v.name).join(',')}`;
     }
 
-    condition = condition.slice(0, -1);
-
-    if (condition === '') {
-      condition = 'すべて';
+    if (towns && towns.length > 0) {
+      condition += `/${towns.map(v => v.name).join(',')}`;
     }
 
     return condition;
@@ -121,22 +304,31 @@ class SearchResultContainer extends Component<PropTypes> {
   // ローディング処理
   loadItems = () => {
     const { dispatch, isSearching } = this.props;
+    console.log('loadItems');
     if (isSearching) {
       return;
     }
     const { limit, offset, keyword, prefCode, cityCode, townCode, sort } = this.state;
 
-    dispatch(
-      spaceActions.doSearch({
-        limit,
-        offset,
-        keyword,
-        prefCode,
-        cityCode,
-        townCode,
-        sort,
-      }),
-    );
+    const params = {
+      limit,
+      offset,
+      keyword,
+      prefCode,
+      sort,
+      cities: [],
+      towns: [],
+    };
+
+    if (cityCode) {
+      params.cities = [cityCode];
+    }
+
+    if (townCode) {
+      params.towns = [townCode];
+    }
+
+    dispatch(spaceActions.doSearch(params));
     const newOffset = offset + limit;
     this.setState({ offset: newOffset });
   };
@@ -159,6 +351,7 @@ class SearchResultContainer extends Component<PropTypes> {
             title: s.title,
             addressPref: s.addressPref,
             addressCity: s.addressCity,
+            addressTown: s.addressTown,
             isFurniture: s.isFurniture,
             priceFull: s.priceFull,
             priceHalf: s.priceHalf,
@@ -194,8 +387,21 @@ class SearchResultContainer extends Component<PropTypes> {
     );
   };
 
+  renderNotFound = condition => (
+    <Fragment>
+      <H1 bold>{`「${condition}」の検索結果 0件`}</H1>
+      <SpaceDataNone
+        captionHead="該当するスペースが見つかりませんでした"
+        caption="別のキーワード及び条件で検索をお試しください"
+        buttonText="条件を変えて再検索する"
+        onClick={this.onClickBackSearchCondition}
+        onKeyDown={this.onKeyDownButtonResearch}
+      />
+    </Fragment>
+  );
+
   render() {
-    const { spaces, isMore, maxCount, isSearching, breadcrumbs, area } = this.props;
+    const { spaces, isMore, maxCount, isSearching, breadcrumbs, area, conditions } = this.props;
     const condition = this.getCondition();
 
     if (isSearching && spaces.length === 0) {
@@ -203,18 +409,16 @@ class SearchResultContainer extends Component<PropTypes> {
     }
 
     if (spaces.length === 0 && !isMore) {
-      return (
-        <Fragment>
-          <H1 bold>{`「${condition}」の検索結果 0件`}</H1>
-          <SpaceDataNone
-            captionHead="該当するスペースが見つかりませんでした"
-            caption="別のキーワード及び条件で検索をお試しください"
-            buttonText="条件を変えて再検索する"
-            onClick={this.onClickBackSearchCondition}
-            onKeyDown={this.onKeyDownButtonResearch}
-          />
-        </Fragment>
-      );
+      return this.renderNotFound(condition);
+    }
+
+    let areaPinList = [];
+    let areaAroundList = [];
+    if (conditions.pref && conditions.pref.name && conditions.cities.length === 0) {
+      // 都道府県一覧
+      areaPinList = area;
+    } else if (!conditions.keyword) {
+      areaAroundList = area;
     }
 
     return (
@@ -226,114 +430,39 @@ class SearchResultContainer extends Component<PropTypes> {
         condition={condition}
         maxCount={maxCount}
         onClickMore={() => console.log('絞り込みボタン押下')}
-        regionPrefectureList={[
-          {
-            region: '北海道・東北',
-            prefectureList: [
-              { name: '北海道', id: 1 },
-              { name: '青森', id: 2 },
-              { name: '岩手', id: 3 },
-              { name: '宮城', id: 4 },
-              { name: '秋田', id: 5 },
-              { name: '山形', id: 6 },
-              { name: '福島', id: 7 },
-            ],
-          },
-          {
-            region: '関東',
-            prefectureList: [
-              { name: '東京', id: 13 },
-              { name: '神奈川', id: 14 },
-              { name: '埼玉', id: 11 },
-              { name: '千葉', id: 12 },
-              { name: '茨城', id: 8 },
-              { name: '群馬', id: 10 },
-              { name: '栃木', id: 9 },
-            ],
-          },
-          {
-            region: '甲信越・北陸',
-            prefectureList: [
-              { name: '山梨', id: 19 },
-              { name: '新潟', id: 15 },
-              { name: '長野', id: 20 },
-              { name: '富山', id: 16 },
-              { name: '石川', id: 17 },
-              { name: '福井', id: 18 },
-            ],
-          },
-          {
-            region: '東海',
-            prefectureList: [
-              { name: '愛知', id: 23 },
-              { name: '岐阜', id: 21 },
-              { name: '静岡', id: 22 },
-              { name: '三重', id: 24 },
-            ],
-          },
-          {
-            region: '関西',
-            prefectureList: [
-              { name: '大阪', id: 27 },
-              { name: '兵庫', id: 28 },
-              { name: '京都', id: 26 },
-              { name: '滋賀', id: 25 },
-              { name: '奈良', id: 29 },
-              { name: '和歌山', id: 30 },
-            ],
-          },
-          {
-            region: '四国',
-            prefectureList: [
-              { name: '徳島', id: 36 },
-              { name: '香川', id: 37 },
-              { name: '愛媛', id: 38 },
-              { name: '高知', id: 39 },
-            ],
-          },
-          {
-            region: '中国',
-            prefectureList: [
-              { name: '鳥取', id: 31 },
-              { name: '島根', id: 32 },
-              { name: '岡山', id: 33 },
-              { name: '広島', id: 34 },
-              { name: '山口', id: 35 },
-            ],
-          },
-          {
-            region: '九州・沖縄',
-            prefectureList: [
-              { name: '福岡', id: 40 },
-              { name: '佐賀', id: 41 },
-              { name: '長崎', id: 42 },
-              { name: '熊本', id: 43 },
-              { name: '大分', id: 44 },
-              { name: '宮崎', id: 45 },
-              { name: '鹿児島', id: 46 },
-              { name: '沖縄', id: 47 },
-            ],
-          },
-        ]}
+        regionPrefectureList={areaPrefectures}
         breadcrumbsList={breadcrumbs}
         searchConditionCurrentList={[
           {
             title: '都道府県',
-            value: '東京都',
+            value: conditions.pref.name,
           },
           {
             title: '市区町村',
-            value: '渋谷区,新宿区,目黒区,千代田区,文京区,港区',
+            value: conditions.cities.map(v => v.name).join(','),
           },
           {
             title: '町域・エリア',
-            value: '上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷',
+            value: conditions.towns.map(v => v.name).join(','),
           },
         ]}
         captionAreaPinList="人気エリアで探す"
-        areaPinList={area}
-        captionAreaAroundList="周辺エリアを含めて探す"
-        areaAroundList={area}
+        areaPinList={areaPinList}
+        captionAreaAroundList="周辺エリアで探す"
+        areaAroundList={areaAroundList}
+        cityTownAreaList={[
+          {
+            cityName: '目黒区',
+            areaAroundList: AreaAroundList(),
+            townAreaList: TownAreaList1(),
+          },
+          {
+            cityName: '港区',
+            areaAroundList: AreaAroundList(),
+            townAreaList: TownAreaList1(),
+          },
+        ]}
+        townAreaList={area}
         sortList={[
           {
             text: '新着順',
@@ -349,9 +478,7 @@ class SearchResultContainer extends Component<PropTypes> {
             path: Path.about(),
           },
         ]}
-        prefecture="東京都"
-        city="渋谷区,新宿区,目黒区,千代田区,文京区,港区"
-        townArea="上原,恵比寿,神山町,笹塚,松濤,神宮前,神泉町,千駄ヶ谷"
+        prefecture={conditions.pref.name}
         textButtonBottom="地域を絞り込む"
       />
     );
@@ -365,6 +492,7 @@ const mapStateToProps = state => ({
   isMore: state.space.search.isMore,
   breadcrumbs: state.space.search.breadcrumbs,
   area: state.space.search.area,
+  conditions: state.space.search.conditions,
 });
 
 export default ContentPageMenu(
