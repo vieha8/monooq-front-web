@@ -653,6 +653,20 @@ const makeBreadcrumbs = ({ keyword, pref, cities, towns }) => {
         text: `${towns[0].name}のスペース一覧`,
       },
     );
+  } else if (cities && cities.length === 1) {
+    breadcrumbs.push(
+      {
+        text: pref.name,
+        link: Path.spacesByPrefecture(pref.code),
+      },
+      {
+        text: `${cities[0].name}のスペース一覧`,
+      },
+    );
+  } else if (pref && pref.name) {
+    breadcrumbs.push({
+      text: `${pref.name}のスペース一覧`,
+    });
   } else if (keyword && keyword !== '') {
     breadcrumbs.push({
       text: `スペース検索結果`,
