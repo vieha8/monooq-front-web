@@ -157,7 +157,7 @@ class ButtonModalSearchConditionMore extends Component<PropTypes> {
                     searchConditionCurrentList={searchConditionCurrentList}
                   />
                 </SearchConditionWrap>
-                <Hr margin="10px 0 20px" />
+                <Hr width="calc(100% - 32px)" marginPhone="20px 16px" />
                 <SearchConditionPrefectureWrap>
                   <Headline>スペースを探す</Headline>
                   <SearchConditionSPList searchConditionSPList={searchConditionSPList} />

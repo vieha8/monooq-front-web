@@ -7,7 +7,7 @@ import { media } from 'helpers/style/media-query';
 const Hr = styled.hr`
   border: 0;
   height: 1px;
-  width: 100%;
+  width: ${props => (props.width ? props.width : '100%')};
   background-color: ${props => (props.backgroundColor ? props.backgroundColor : Colors.lightGray2)};
   margin: ${props => (props.margin ? props.margin : `${Dimens.medium4}px 0`)};
   ${media.tablet`

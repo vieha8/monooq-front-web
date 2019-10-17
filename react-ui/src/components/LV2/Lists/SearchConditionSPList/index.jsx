@@ -28,8 +28,6 @@ const CollapsibleItem = styled.li`
   display: inline-block;
   width: 100%;
   border-top: 1px solid ${Colors.lightGray2};
-  border-left: 1px solid ${Colors.lightGray2};
-  border-right: 1px solid ${Colors.lightGray2};
   &:after {
     content: '';
     display: block;

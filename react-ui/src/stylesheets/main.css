@@ -187,6 +187,8 @@
   position: relative;
   padding: 10px 24px;
   border: 1px solid #dbdbdb;
+  border-left: unset;
+  border-right: unset;
   border-bottom: none;
   background-color: #f7f7f7;
   text-align: left;
@@ -321,6 +323,8 @@
 }
 
 .ButtonModalSearchConditionMore .scrolling.content {
+  height: 100vh !important;
   max-height: 100vh !important;
   padding: 0 !important;
+  overflow-y: scroll !important;
 }
