@@ -111,12 +111,11 @@ export default ({
     </Row>
     <Row>
       <CheckBox
+        label="サービスに関するお知らせメールを受け取る"
         checked={isNoticeEmail}
         onClick={onChangeNoticeEmail}
         onKeyDown={onKeyDownNoticeEmail}
-      >
-        サービスに関するお知らせメールを受け取る
-      </CheckBox>
+      />
     </Row>
     <Row>
       <InputForm

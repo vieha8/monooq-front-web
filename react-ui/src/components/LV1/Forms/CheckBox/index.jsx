@@ -3,7 +3,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Checkbox } from 'semantic-ui-react';
-import { Colors, Dimens, FontSizes } from 'variables';
 
 const Container = styled.div`
   display: flex;
@@ -11,24 +10,15 @@ const Container = styled.div`
   vertical-align: top;
 `;
 
-const Label = styled.div`
-  width: calc(100% - 27px);
-  margin-left: ${Dimens.small_10}px;
-  vertical-align: middle;
-  font-size: ${FontSizes.small}px;
-  line-height: ${Dimens.medium1}px;
-  color: ${Colors.black};
-`;
-
 type PropTypes = {
+  label: string,
   checked?: boolean,
-  children: string,
-  onClick: Function,
+  onClick?: Function,
+  onClickCheck?: Function,
 };
 
-export default ({ onClick, checked, children }: PropTypes) => (
+export default ({ onClick, label, checked, onClickCheck }: PropTypes) => (
   <Container onClick={onClick}>
-    <Checkbox checked={checked} />
-    <Label>{children}</Label>
+    <Checkbox label={label} checked={checked} onChange={onClickCheck} />
   </Container>
 );

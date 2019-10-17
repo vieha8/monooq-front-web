@@ -47,34 +47,46 @@ export type PropTypes = {
   townAreaList: Array<{
     text: string,
     link: string,
+    checked?: boolean,
   }>,
+  // isParentCheck: boolean,
+  // isTownAreaCheck: boolean,
+  onChangeCheckCity: Function,
+  onChangeCheckTownArea: Function,
 };
 
-export default ({ caption, cityName, captionColor, townAreaList }: PropTypes) => (
+export default ({
+  caption,
+  cityName,
+  captionColor,
+  townAreaList,
+  // isParentCheck,
+  // isTownAreaCheck,
+  onChangeCheckCity,
+  onChangeCheckTownArea,
+}: PropTypes) => (
   <Wrap>
     <Caption captionColor={captionColor}>{caption}</Caption>
     <CheckBoxCityAllWrap>
       <CheckBox
-      // TODO: あとで実装
-      // checked={isNoticeEmail}
-      // onClick={onChangeNoticeEmail}
-      // onKeyDown={onKeyDownNoticeEmail}
-      >
-        {cityName}
-        から選ぶ
-      </CheckBox>
+        // TODO: あとで実装
+        // checked={isNoticeEmail}
+        label={`${cityName}から選ぶ`}
+        onClick={onChangeCheckCity}
+        // onKeyDown={onKeyDownNoticeEmail}
+      />
     </CheckBoxCityAllWrap>
     <AreaPinList>
       {townAreaList.map((item, i) => (
         <Item key={i.toString()}>
           <CheckBox
-          // TODO: あとで実装
-          // checked={isNoticeEmail}
-          // onClick={onChangeNoticeEmail}
-          // onKeyDown={onKeyDownNoticeEmail}
-          >
-            {item.text}
-          </CheckBox>
+            // TODO: あとで実装
+            // checked={isParentCheck || isTownAreaCheck}
+            // name={item.text}
+            label={item.text}
+            checked={item.checked}
+            onClickCheck={onChangeCheckTownArea}
+          />
         </Item>
       ))}
     </AreaPinList>

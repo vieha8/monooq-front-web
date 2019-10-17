@@ -101,13 +101,12 @@ export default ({ searchConditionSPList }: PropTypes) => (
               {item.collapsibleItemList.map((itemJ, j) => (
                 <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
                   <CheckBox
-                  // TODO: あとで実装
-                  // checked={isNoticeEmail}
-                  // onClick={onChangeNoticeEmail}
-                  // onKeyDown={onKeyDownNoticeEmail}
-                  >
-                    {itemJ.text}
-                  </CheckBox>
+                    // TODO: あとで実装
+                    label={itemJ.text}
+                    // checked={isNoticeEmail}
+                    // onClick={onChangeNoticeEmail}
+                    // onKeyDown={onKeyDownNoticeEmail}
+                  />
                 </CollapsibleItem>
               ))}
             </CollapsibleItemList>

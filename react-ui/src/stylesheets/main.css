@@ -286,7 +286,6 @@
 /* 
   Checkbox Custom (semantic-ui)
  */
-.ui.checkbox,
 .ui.checkbox input[type='checkbox'],
 .ui.checkbox label:before,
 .ui.checkbox label:after {
@@ -295,6 +294,9 @@
 }
 .ui.checkbox {
   box-sizing: border-box;
+}
+.ui.checkbox label {
+  line-height: 24px;
 }
 .ui.checkbox label:before {
   border-radius: unset;
