@@ -75,4 +75,38 @@ storiesOf('Molecules(LV2)/Lists/LinkList', module)
         />
       </div>
     )),
+  )
+  .add(
+    'Landscape Event',
+    withInfo(`
+      ### コンポーネント概要
+      リンクリスト(横並びver)(EventVer)
+      * ■パラメータ
+      * isLinkEvent：リンクではなくイベントを発火したい場合に指定
+      * text：リンク名
+      * current：カレントリンク(リンク非活性になる)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <LinkList
+          isLinkEvent
+          list={[
+            {
+              onClickItem: () => console.log('新着順がクリックされた'),
+              text: '新着順',
+              current: true,
+            },
+            {
+              onClickItem: () => console.log('おすすめがクリックされた'),
+              text: 'おすすめ',
+            },
+            {
+              onClickItem: () => console.log('安い順がクリックされた'),
+              text: '安い順',
+            },
+          ]}
+          landscape
+          color={Colors.brandPrimary}
+        />
+      </div>
+    )),
   );

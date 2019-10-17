@@ -42,26 +42,34 @@ const Anchor = styled.a`
 
 type PropTypes = {
   list: Array<{
+    onClickItem?: Function,
     text: string,
     path: string,
     current?: boolean,
   }>,
   landscape?: boolean,
   color?: string,
+  isLinkEvent?: Function,
 };
 
-export default ({ list, landscape, color }: PropTypes) => (
+export default ({ list, landscape, color, isLinkEvent }: PropTypes) => (
   <List>
     {list.map((item, i) => (
       <Item key={i.toString()} landscape={landscape}>
-        <Anchor
-          href={item.path}
-          target={item.blank || '_self'}
-          color={color}
-          current={item.current}
-        >
-          {item.text}
-        </Anchor>
+        {isLinkEvent ? (
+          <Anchor onClick={item.onClickItem} color={color} current={item.current}>
+            {item.text}
+          </Anchor>
+        ) : (
+          <Anchor
+            href={item.path}
+            target={item.blank || '_self'}
+            color={color}
+            current={item.current}
+          >
+            {item.text}
+          </Anchor>
+        )}
       </Item>
     ))}
   </List>
