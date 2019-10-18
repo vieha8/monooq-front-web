@@ -52,15 +52,17 @@ export type PropTypes = {
   cityTownAreaList: Array<{
     cityName: string,
     areaAroundList: Array<{
-      name: string,
+      text: string,
       link: string,
     }>,
     townAreaList: Array<{
-      name: string,
+      text: string,
       link: string,
     }>,
   }>,
   prefecture?: string,
+  onChangeCheckCity: Function,
+  onChangeCheckTownArea: Function,
 };
 
 export default ({

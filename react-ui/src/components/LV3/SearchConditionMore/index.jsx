@@ -62,6 +62,8 @@ type PropTypes = {
     }>,
   }>,
   prefecture: string,
+  onChangeCheckCity: Function,
+  onChangeCheckTownArea: Function,
   searchConditionCurrentList: Array<{
     title: string,
     value: string,
