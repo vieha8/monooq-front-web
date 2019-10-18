@@ -90,6 +90,8 @@ export default ({
   condition,
   maxCount,
   onClickMore,
+  onClickCheckCity,
+  onClickCheckTown,
   regionPrefectureList,
   searchResult,
   noTopMargin,
@@ -112,6 +114,8 @@ export default ({
       maxCount={maxCount}
       prefecture={prefecture}
       onClickMore={onClickMore}
+      onClickCheckCity={onClickCheckCity}
+      onClickCheckTown={onClickCheckTown}
       regionPrefectureList={regionPrefectureList}
       cityTownAreaList={cityTownAreaList}
       textButtonBottom={textButtonBottom}

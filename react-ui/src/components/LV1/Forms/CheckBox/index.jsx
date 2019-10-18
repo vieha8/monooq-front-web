@@ -17,8 +17,8 @@ type PropTypes = {
   onClickCheck?: Function,
 };
 
-export default ({ onClick, label, checked, onClickCheck }: PropTypes) => (
+export default ({ onClick, label, checked, onClickCheck, options }: PropTypes) => (
   <Container onClick={onClick}>
-    <Checkbox label={label} checked={checked} onChange={onClickCheck} />
+    <Checkbox label={label} checked={checked} onChange={onClickCheck} {...options} />
   </Container>
 );

@@ -95,7 +95,7 @@ type PropTypes = {
   onClickSearch?: Function,
 };
 
-class ButtonModalSearchConditionMore extends Component<PropTypes> {
+class SearchConditionMoreSP extends Component<PropTypes> {
   state = {
     open: false,
     isTownArea: false,
@@ -171,4 +171,4 @@ class ButtonModalSearchConditionMore extends Component<PropTypes> {
   }
 }
 
-export default ButtonModalSearchConditionMore;
+export default SearchConditionMoreSP;

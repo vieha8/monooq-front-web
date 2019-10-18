@@ -69,7 +69,7 @@ type PropTypes = {
   onClickMore: Function,
 };
 
-class ButtonModalConfirm extends Component<PropTypes> {
+class SearchConditionMore extends Component<PropTypes> {
   state = { open: false };
 
   open = () => this.setState({ open: true });
@@ -84,6 +84,8 @@ class ButtonModalConfirm extends Component<PropTypes> {
       prefecture,
       searchConditionCurrentList,
       onClickMore,
+      onClickCheckCity,
+      onClickCheckTown,
     } = this.props;
     const { open } = this.state;
 
@@ -104,9 +106,14 @@ class ButtonModalConfirm extends Component<PropTypes> {
         </ButtonLV1>
         <Modal size="large" open={open} onClose={this.close}>
           <Modal.Content scrolling>
-            <div>{<PrefectureList list={regionPrefectureList} />}</div>
+            {/*<div>{<PrefectureList list={regionPrefectureList} />}</div>*/}
             <div>
-              <CityTownAreaList cityTownAreaList={cityTownAreaList} prefecture={prefecture} />
+              <CityTownAreaList
+                cityTownAreaList={cityTownAreaList}
+                prefecture={prefecture}
+                onClickCheckCity={onClickCheckCity}
+                onClickCheckTown={onClickCheckTown}
+              />
             </div>
           </Modal.Content>
           <Modal.Actions>
@@ -139,4 +146,4 @@ class ButtonModalConfirm extends Component<PropTypes> {
   }
 }
 
-export default ButtonModalConfirm;
+export default SearchConditionMore;

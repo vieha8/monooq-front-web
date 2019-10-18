@@ -63,7 +63,12 @@ export type PropTypes = {
   prefecture?: string,
 };
 
-export default ({ cityTownAreaList, prefecture }: PropTypes) => (
+export default ({
+  cityTownAreaList,
+  prefecture,
+  onClickCheckCity,
+  onClickCheckTown,
+}: PropTypes) => (
   <Wrap>
     <Caption>
       {prefecture}
@@ -90,7 +95,11 @@ export default ({ cityTownAreaList, prefecture }: PropTypes) => (
             caption="地域から選ぶ"
             captionColor={Colors.lightGray3}
             cityName={item.cityName}
+            cityCode={item.cityCode}
+            isChecked={item.isChecked}
             townAreaList={item.townAreaList}
+            onClickCheckCity={onClickCheckCity}
+            onClickCheckTown={onClickCheckTown}
           />
         </Item>
       ))}

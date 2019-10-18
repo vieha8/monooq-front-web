@@ -51,29 +51,31 @@ export type PropTypes = {
   }>,
   // isParentCheck: boolean,
   // isTownAreaCheck: boolean,
-  onChangeCheckCity: Function,
-  onChangeCheckTownArea: Function,
+  onClickCheckCity: Function,
+  onClickCheckTown: Function,
 };
 
 export default ({
   caption,
   cityName,
+  cityCode,
+  isChecked,
   captionColor,
   townAreaList,
   // isParentCheck,
   // isTownAreaCheck,
-  onChangeCheckCity,
-  onChangeCheckTownArea,
+  onClickCheckCity,
+  onClickCheckTown,
 }: PropTypes) => (
   <Wrap>
     <Caption captionColor={captionColor}>{caption}</Caption>
     <CheckBoxCityAllWrap>
       <CheckBox
         // TODO: あとで実装
-        // checked={isNoticeEmail}
+        checked={isChecked}
         label={`${cityName}から選ぶ`}
-        onClick={onChangeCheckCity}
-        // onKeyDown={onKeyDownNoticeEmail}
+        onClickCheck={onClickCheckCity}
+        options={{ code: cityCode }}
       />
     </CheckBoxCityAllWrap>
     <AreaPinList>
@@ -84,8 +86,9 @@ export default ({
             // checked={isParentCheck || isTownAreaCheck}
             // name={item.text}
             label={item.text}
-            checked={item.checked}
-            onClickCheck={onChangeCheckTownArea}
+            checked={item.isChecked}
+            onClickCheck={onClickCheckTown}
+            options={{ code: item.code }}
           />
         </Item>
       ))}

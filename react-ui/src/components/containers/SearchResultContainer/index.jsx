@@ -58,6 +58,7 @@ class SearchResultContainer extends Component<PropTypes> {
       limit: 12,
       offset: 0,
       sort: 1,
+      cities: [],
     };
 
     if (!match.url.indexOf('/search')) {
@@ -89,6 +90,7 @@ class SearchResultContainer extends Component<PropTypes> {
       limit: 12,
       offset: 0,
       sort: 1,
+      cities: [],
     };
 
     if (!match.url.indexOf('/search')) {
@@ -124,6 +126,37 @@ class SearchResultContainer extends Component<PropTypes> {
     dispatch(spaceActions.resetSearch());
   }
 
+  static getDerivedStateFromProps(props, state) {
+    const { cities, conditions } = props;
+    if (state.cities.length === 0 && cities.length > 0) {
+      const cityTownAreaList = cities.map(v => {
+        return {
+          cityName: v.name,
+          cityCode: v.code,
+          isChecked: false,
+          areaAroundList: v.popularArea.map(w => {
+            return {
+              text: w.name,
+              link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
+            };
+          }),
+          townAreaList: v.towns.map(w => {
+            return {
+              text: w.name,
+              code: w.code,
+              link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
+              isChecked: false,
+            };
+          }),
+        };
+      });
+      return {
+        cities: cityTownAreaList,
+      };
+    }
+    return null;
+  }
+
   onClickBackSearchCondition = () => {
     const { history } = this.props;
     history.push(Path.searchCondition());
@@ -138,6 +171,35 @@ class SearchResultContainer extends Component<PropTypes> {
   onClickSpace = (space: { id: number }) => {
     const { history } = this.props;
     history.push(Path.space(space.id));
+  };
+
+  onClickCheckCity = (_, { code, checked }) => {
+    const { cities } = this.state;
+    const res = cities.map(v => {
+      if (v.cityCode !== code) {
+        return v;
+      }
+      return {
+        ...v,
+        isChecked: checked,
+        townAreaList: v.townAreaList.map(w => ({ ...w, isChecked: checked })),
+      };
+    });
+    this.setState({ cities: res });
+  };
+
+  onClickCheckTown = (_, { code, checked }) => {
+    const { cities } = this.state;
+    const res = cities.map(city => {
+      const towns = city.townAreaList.map(town => {
+        if (town.code !== code) {
+          return town;
+        }
+        return { ...town, isChecked: checked };
+      });
+      return { ...city, townAreaList: towns };
+    });
+    this.setState({ cities: res });
   };
 
   getCondition = () => {
@@ -246,16 +308,10 @@ class SearchResultContainer extends Component<PropTypes> {
   );
 
   render() {
-    const {
-      spaces,
-      isMore,
-      maxCount,
-      isSearching,
-      breadcrumbs,
-      area,
-      conditions,
-      cities,
-    } = this.props;
+    const { spaces, isMore, maxCount, isSearching, breadcrumbs, area, conditions } = this.props;
+
+    const { cities } = this.state;
+
     const condition = this.getCondition();
 
     if (isSearching && spaces.length === 0) {
@@ -274,25 +330,6 @@ class SearchResultContainer extends Component<PropTypes> {
     } else if (!conditions.keyword) {
       areaAroundList = area;
     }
-
-    const cityTownAreaList = cities.map(v => {
-      return {
-        cityName: v.name,
-        areaAroundList: v.popularArea.map(w => {
-          return {
-            text: w.name,
-            link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
-          };
-        }),
-        townAreaList: v.towns.map(w => {
-          return {
-            text: w.name,
-            link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
-          };
-        }),
-      };
-    });
-
     return (
       <SearchResultTemplate
         isSearching={isSearching}
@@ -321,7 +358,7 @@ class SearchResultContainer extends Component<PropTypes> {
         areaPinList={areaPinList}
         captionAreaAroundList="周辺エリアで探す"
         areaAroundList={areaAroundList}
-        cityTownAreaList={cityTownAreaList}
+        cityTownAreaList={cities}
         townAreaList={area}
         sortList={[
           {
@@ -340,6 +377,8 @@ class SearchResultContainer extends Component<PropTypes> {
         ]}
         prefecture={conditions.pref.name}
         textButtonBottom="地域を絞り込む"
+        onClickCheckCity={this.onClickCheckCity}
+        onClickCheckTown={this.onClickCheckTown}
       />
     );
   }

@@ -101,6 +101,8 @@ export default ({
   condition,
   maxCount,
   onClickMore,
+  onClickCheckCity,
+  onClickCheckTown,
   prefecture,
   regionPrefectureList,
   searchConditionCurrentList,
@@ -133,6 +135,8 @@ export default ({
             searchConditionCurrentList={searchConditionCurrentList}
             cityTownAreaList={cityTownAreaList}
             onClickMore={onClickMore}
+            onClickCheckCity={onClickCheckCity}
+            onClickCheckTown={onClickCheckTown}
           />
         </MoreButtonWrap>
       </SearchConditionRight>
