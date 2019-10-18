@@ -95,6 +95,8 @@ type PropTypes = {
       link: string,
     }>,
   }>,
+  onChangeCheckCity: Function,
+  onChangeCheckTownArea: Function,
 };
 
 export default ({
@@ -105,6 +107,8 @@ export default ({
   regionPrefectureList,
   searchConditionCurrentList,
   cityTownAreaList,
+  onChangeCheckCity,
+  onChangeCheckTownArea,
 }: PropTypes) => (
   <HeaderWrap>
     <ResultCountWrap>
@@ -133,6 +137,8 @@ export default ({
             searchConditionCurrentList={searchConditionCurrentList}
             cityTownAreaList={cityTownAreaList}
             onClickMore={onClickMore}
+            onChangeCheckCity={onChangeCheckCity}
+            onChangeCheckTownArea={onChangeCheckTownArea}
           />
         </MoreButtonWrap>
       </SearchConditionRight>

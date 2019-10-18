@@ -62,6 +62,8 @@ type PropTypes = {
     }>,
   }>,
   prefecture: string,
+  onChangeCheckCity: Function,
+  onChangeCheckTownArea: Function,
   searchConditionCurrentList: Array<{
     title: string,
     value: string,
@@ -82,6 +84,8 @@ class ButtonModalConfirm extends Component<PropTypes> {
       regionPrefectureList,
       cityTownAreaList,
       prefecture,
+      onChangeCheckCity,
+      onChangeCheckTownArea,
       searchConditionCurrentList,
       onClickMore,
     } = this.props;
@@ -106,7 +110,12 @@ class ButtonModalConfirm extends Component<PropTypes> {
           <Modal.Content scrolling>
             <div>{<PrefectureList list={regionPrefectureList} />}</div>
             <div>
-              <CityTownAreaList cityTownAreaList={cityTownAreaList} prefecture={prefecture} />
+              <CityTownAreaList
+                cityTownAreaList={cityTownAreaList}
+                prefecture={prefecture}
+                onChangeCheckCity={onChangeCheckCity}
+                onChangeCheckTownArea={onChangeCheckTownArea}
+              />
             </div>
           </Modal.Content>
           <Modal.Actions>

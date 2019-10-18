@@ -83,6 +83,8 @@ type PropTypes = {
       link: string,
     }>,
   }>,
+  onChangeCheckCity: Function,
+  onChangeCheckTownArea: Function,
 };
 
 export default ({
@@ -102,6 +104,8 @@ export default ({
   prefecture,
   textButtonBottom,
   searchConditionCurrentList,
+  onChangeCheckCity,
+  onChangeCheckTownArea,
   cityTownAreaList,
 }: PropTypes) => (
   <div>
@@ -116,6 +120,8 @@ export default ({
       cityTownAreaList={cityTownAreaList}
       textButtonBottom={textButtonBottom}
       searchConditionCurrentList={searchConditionCurrentList}
+      onChangeCheckCity={onChangeCheckCity}
+      onChangeCheckTownArea={onChangeCheckTownArea}
     />
     {areaAroundList && areaAroundList.length > 0 && (
       <AreaAroundList caption={captionAreaAroundList} areaAroundList={areaAroundList} />

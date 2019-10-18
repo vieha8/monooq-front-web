@@ -52,18 +52,25 @@ export type PropTypes = {
   cityTownAreaList: Array<{
     cityName: string,
     areaAroundList: Array<{
-      name: string,
+      text: string,
       link: string,
     }>,
     townAreaList: Array<{
-      name: string,
+      text: string,
       link: string,
     }>,
   }>,
   prefecture?: string,
+  onChangeCheckCity: Function,
+  onChangeCheckTownArea: Function,
 };
 
-export default ({ cityTownAreaList, prefecture }: PropTypes) => (
+export default ({
+  cityTownAreaList,
+  prefecture,
+  onChangeCheckCity,
+  onChangeCheckTownArea,
+}: PropTypes) => (
   <Wrap>
     <Caption>
       {prefecture}
@@ -91,6 +98,8 @@ export default ({ cityTownAreaList, prefecture }: PropTypes) => (
             captionColor={Colors.lightGray3}
             cityName={item.cityName}
             townAreaList={item.townAreaList}
+            onChangeCheckCity={onChangeCheckCity}
+            onChangeCheckTownArea={onChangeCheckTownArea}
           />
         </Item>
       ))}

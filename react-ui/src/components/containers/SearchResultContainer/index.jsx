@@ -226,6 +226,16 @@ class SearchResultContainer extends Component<PropTypes> {
     );
   };
 
+  // TODO: のちほど実装
+  onChangeCheckCity = e => {
+    console.log('Cityチェック');
+  };
+
+  // TODO: のちほど実装
+  onChangeCheckTownArea = e => {
+    console.log('TownAreaチェック');
+  };
+
   meta = condition => {
     return (
       <Meta title={`${condition}の検索結果 - モノオク`} description={`${condition}の検索結果`} />
@@ -340,6 +350,8 @@ class SearchResultContainer extends Component<PropTypes> {
         ]}
         prefecture={conditions.pref.name}
         textButtonBottom="地域を絞り込む"
+        onChangeCheckCity={() => this.onChangeCheckCity()}
+        onChangeCheckTownArea={() => this.onChangeCheckTownArea()}
       />
     );
   }
