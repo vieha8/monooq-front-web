@@ -254,8 +254,10 @@ class SearchResultContainer extends Component<PropTypes> {
             citiesCode.push(city.cityCode); // TODO ここで重複push防ぐような判定いれる
             townsCode.push(town.code);
           }
+          return null;
         });
       }
+      return null;
     });
 
     citiesCode = citiesCode.filter((x, i, self) => self.indexOf(x) === i);

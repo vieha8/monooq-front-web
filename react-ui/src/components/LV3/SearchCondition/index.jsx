@@ -7,7 +7,7 @@ import Button from 'components/LV1/Forms/Button';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import { Dimens, FormValues } from 'variables';
+import { Dimens } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 
 export const ContentsWrap = styled.div`
