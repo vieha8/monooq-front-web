@@ -126,7 +126,7 @@ class SearchResultContainer extends Component<PropTypes> {
     const { dispatch } = this.props;
     dispatch(spaceActions.resetSearch());
     const conditions = this.getConditionsFromUrl();
-    this.setState({ ...conditions, offset: 0 });
+    this.setState({ ...conditions, offset: 0, checkCities: [], checkTowns: [] });
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -158,12 +158,17 @@ class SearchResultContainer extends Component<PropTypes> {
 
   static getDerivedStateFromProps(props, state) {
     const { cities, conditions } = props;
-    if (state.cityAndTowns.length === 0 && cities.length > 0) {
+    if (
+      (state.cityAndTowns.length === 0 && cities.length > 0) ||
+      state.cities.length !== conditions.cities.length ||
+      state.towns.length !== conditions.towns.length
+    ) {
       const cityTownAreaList = cities.map(v => {
+        const isAlreadyCity = conditions.cities.filter(c => c.code === v.code).length > 0;
         return {
           cityName: v.name,
           cityCode: v.code,
-          isChecked: false,
+          isChecked: isAlreadyCity,
           areaAroundList: v.popularArea.map(w => {
             return {
               text: w.name,
@@ -171,11 +176,12 @@ class SearchResultContainer extends Component<PropTypes> {
             };
           }),
           townAreaList: v.towns.map(w => {
+            const isAlreadyTown = conditions.towns.filter(t => t.code === w.code).length > 0;
             return {
               text: w.name,
               code: w.code,
               link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
-              isChecked: false,
+              isChecked: isAlreadyCity || isAlreadyTown,
             };
           }),
         };
