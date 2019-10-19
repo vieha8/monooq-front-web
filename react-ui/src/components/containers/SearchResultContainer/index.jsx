@@ -133,14 +133,18 @@ class SearchResultContainer extends Component<PropTypes> {
     // パンくずやエリアタグから遷移した時はconstructorが発火しないのでここで
     const newConditions = this.getConditionsFromUrl();
 
-    console.log('didupdate', newConditions);
-    // TODO 絞り込み条件チェック
+    const isCheckCities =
+      newConditions.cities.length !== prevState.cities.length
+        ? true
+        : !newConditions.cities.every(v => prevState.cities.includes(v));
+    const isCheckTowns =
+      newConditions.towns.length !== prevState.towns.length
+        ? true
+        : !newConditions.towns.every(v => prevState.towns.includes(v));
 
     if (
       !this.props.isSearching &&
-      (prevState.pref !== newConditions.pref ||
-        prevState.cities[0] !== newConditions.cities[0] ||
-        prevState.towns[0] !== newConditions.towns[0])
+      (prevState.pref !== newConditions.pref || isCheckCities || isCheckTowns)
     ) {
       this.init();
     }
