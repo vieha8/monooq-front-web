@@ -49,8 +49,6 @@ export type PropTypes = {
     link: string,
     checked?: boolean,
   }>,
-  // isParentCheck: boolean,
-  // isTownAreaCheck: boolean,
   onClickCheckCity: Function,
   onClickCheckTown: Function,
 };
@@ -62,8 +60,6 @@ export default ({
   isChecked,
   captionColor,
   townAreaList,
-  // isParentCheck,
-  // isTownAreaCheck,
   onClickCheckCity,
   onClickCheckTown,
 }: PropTypes) => (
@@ -71,7 +67,6 @@ export default ({
     <Caption captionColor={captionColor}>{caption}</Caption>
     <CheckBoxCityAllWrap>
       <CheckBox
-        // TODO: あとで実装
         checked={isChecked}
         label={`${cityName}から選ぶ`}
         onClickCheck={onClickCheckCity}
@@ -82,9 +77,6 @@ export default ({
       {townAreaList.map((item, i) => (
         <Item key={i.toString()}>
           <CheckBox
-            // TODO: あとで実装
-            // checked={isParentCheck || isTownAreaCheck}
-            // name={item.text}
             label={item.text}
             checked={item.isChecked}
             onClickCheck={onClickCheckTown}

@@ -95,8 +95,6 @@ type PropTypes = {
       link: string,
     }>,
   }>,
-  onChangeCheckCity: Function,
-  onChangeCheckTownArea: Function,
 };
 
 export default ({

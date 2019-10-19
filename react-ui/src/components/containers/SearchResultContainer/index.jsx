@@ -51,27 +51,19 @@ class SearchResultContainer extends Component<PropTypes> {
   constructor(props: PropTypes) {
     super(props);
 
-    const { location, match } = this.props;
-
     const state = {
       keyword: '',
       limit: 12,
       offset: 0,
       sort: 1,
-      cities: [],
+      cityAndTowns: [],
+      checkCities: [],
+      checkTowns: [],
     };
 
-    if (!match.url.indexOf('/search')) {
-      const { keyword } = parse(location.search);
-      state.keyword = keyword;
-    } else {
-      const { pref_code: prefCode, city_code: cityCode, town_code: townCode } = match.params;
-      state.prefCode = prefCode;
-      state.cityCode = cityCode;
-      state.townCode = townCode;
-    }
+    const conditions = this.getConditionsFromUrl();
 
-    this.state = state;
+    this.state = { ...state, ...conditions };
 
     // initと統合したいが取り急ぎ
     // constructorでinitを呼ぶとレンダリング終わる前にsetStateすなと叱られる
@@ -79,44 +71,74 @@ class SearchResultContainer extends Component<PropTypes> {
     // 上記の問題を解決している余裕がないので一旦冗長のままとしている
   }
 
+  getConditionsFromUrl = () => {
+    const conditions = {
+      keyword: '',
+      pref: '',
+      cities: [],
+      towns: [],
+      sort: 1,
+    };
+
+    const { location, match } = this.props;
+    const { keyword, sort, cities: queryCities, towns: queryTowns } = parse(location.search);
+    if (sort) {
+      conditions.sort = sort;
+    }
+
+    if (!match.url.indexOf('/search')) {
+      // フリーワード検索
+      if (keyword) {
+        conditions.keyword = keyword;
+      }
+    } else {
+      const { pref_code: prefCode, city_code: cityCode, town_code: townCode } = match.params;
+      if (prefCode && cityCode && townCode) {
+        // 町域一覧
+        conditions.pref = prefCode;
+        conditions.cities = [cityCode];
+        conditions.towns = [townCode];
+      } else if (prefCode && cityCode) {
+        // 市区町村一覧
+        if (queryTowns) {
+          conditions.towns = queryTowns.split(',');
+        }
+        conditions.pref = prefCode;
+        conditions.cities = [cityCode];
+      } else if (prefCode) {
+        // 都道府県一覧
+        if (queryCities) {
+          conditions.cities = queryCities.split(',');
+        }
+        conditions.pref = prefCode;
+      }
+    }
+
+    console.log('conditisons:', conditions);
+
+    return conditions;
+  };
+
   init = () => {
     const { dispatch } = this.props;
     dispatch(spaceActions.resetSearch());
 
-    const { location, match } = this.props;
+    const conditions = this.getConditionsFromUrl();
 
-    const state = {
-      keyword: '',
-      limit: 12,
-      offset: 0,
-      sort: 1,
-      cities: [],
-    };
-
-    if (!match.url.indexOf('/search')) {
-      const { keyword } = parse(location.search);
-      state.keyword = keyword;
-    } else {
-      const { pref_code: prefCode, city_code: cityCode, town_code: townCode } = match.params;
-      state.prefCode = prefCode;
-      state.cityCode = cityCode;
-      state.townCode = townCode;
-    }
-
-    this.setState(state);
+    this.setState({ ...conditions, offset: 0 });
   };
 
   componentDidUpdate(prevProps, prevState) {
     // パンくずやエリアタグから遷移した時はconstructorが発火しないのでここで
-    const { match } = this.props;
-    const { pref_code: prefCode, city_code: cityCode, town_code: townCode } = match.params;
+    const newConditions = this.getConditionsFromUrl();
 
     if (
       !this.props.isSearching &&
-      (prevState.prefCode !== prefCode ||
-        prevState.cityCode !== cityCode ||
-        prevState.townCode !== townCode)
+      (prevState.pref !== newConditions.pref ||
+        prevState.cities[0] !== newConditions.cities[0] ||
+        prevState.towns[0] !== newConditions.towns[0])
     ) {
+      console.log('A');
       this.init();
     }
   }
@@ -151,7 +173,7 @@ class SearchResultContainer extends Component<PropTypes> {
         };
       });
       return {
-        cities: cityTownAreaList,
+        cityAndTowns: cityTownAreaList,
       };
     }
     return null;
@@ -174,8 +196,8 @@ class SearchResultContainer extends Component<PropTypes> {
   };
 
   onClickCheckCity = (_, { code, checked }) => {
-    const { cities } = this.state;
-    const res = cities.map(v => {
+    const { cityAndTowns } = this.state;
+    const res = cityAndTowns.map(v => {
       if (v.cityCode !== code) {
         return v;
       }
@@ -185,12 +207,12 @@ class SearchResultContainer extends Component<PropTypes> {
         townAreaList: v.townAreaList.map(w => ({ ...w, isChecked: checked })),
       };
     });
-    this.setState({ cities: res });
+    this.setState({ cityAndTowns: res });
   };
 
   onClickCheckTown = (_, { code, checked }) => {
-    const { cities } = this.state;
-    const res = cities.map(city => {
+    const { cityAndTowns } = this.state;
+    const res = cityAndTowns.map(city => {
       const towns = city.townAreaList.map(town => {
         if (town.code !== code) {
           return town;
@@ -199,7 +221,35 @@ class SearchResultContainer extends Component<PropTypes> {
       });
       return { ...city, townAreaList: towns };
     });
-    this.setState({ cities: res });
+    this.setState({ cityAndTowns: res });
+  };
+
+  onClickMore = () => {
+    const citiesCode = [];
+    const townsCode = [];
+    const { cityAndTowns } = this.state;
+    cityAndTowns.map(city => {
+      if (city.isChecked) {
+        citiesCode.push(city.cityCode);
+      } else {
+        city.townAreaList.map(town => {
+          if (town.isChecked) {
+            townsCode.push(town.code);
+          }
+        });
+      }
+    });
+
+    if (citiesCode.length === 0 && townsCode.length === 0) {
+      return;
+    }
+
+    this.setState({
+      checkCities: citiesCode,
+      checkTowns: townsCode,
+    });
+
+    this.init();
   };
 
   getCondition = () => {
@@ -217,11 +267,11 @@ class SearchResultContainer extends Component<PropTypes> {
     }
 
     if (cities && cities.length > 0) {
-      condition += `/${cities.map(v => v.name).join(',')}`;
+      condition += `/${cities.map(v => v.name).join('・')}`;
     }
 
     if (towns && towns.length > 0) {
-      condition += `/${towns.map(v => v.name).join(',')}`;
+      condition += `/${towns.map(v => v.name).join('・')}`;
     }
 
     return condition;
@@ -233,24 +283,42 @@ class SearchResultContainer extends Component<PropTypes> {
     if (isSearching) {
       return;
     }
-    const { limit, offset, keyword, prefCode, cityCode, townCode, sort } = this.state;
+    const {
+      limit,
+      offset,
+      keyword,
+      pref,
+      cities,
+      towns,
+      sort,
+      checkCities,
+      checkTowns,
+    } = this.state;
 
     const params = {
       limit,
       offset,
       keyword,
-      prefCode,
+      prefCode: pref,
       sort,
       cities: [],
       towns: [],
     };
 
-    if (cityCode) {
-      params.cities = [cityCode];
+    if (cities.length > 0) {
+      params.cities = cities;
     }
 
-    if (townCode) {
-      params.towns = [townCode];
+    if (checkCities.length > 0) {
+      params.cities = checkCities;
+    }
+
+    if (towns.length > 0) {
+      params.towns = towns;
+    }
+
+    if (checkTowns.length > 0) {
+      params.towns = checkTowns;
     }
 
     dispatch(spaceActions.doSearch(params));
@@ -310,17 +378,17 @@ class SearchResultContainer extends Component<PropTypes> {
   render() {
     const { spaces, isMore, maxCount, isSearching, breadcrumbs, area, conditions } = this.props;
 
-    const { cities } = this.state;
-
-    const condition = this.getCondition();
-
     if (isSearching && spaces.length === 0) {
       return <LoadingPage />;
     }
 
+    const condition = this.getCondition();
+
     if (spaces.length === 0 && !isMore) {
       return this.renderNotFound(condition);
     }
+
+    const { cityAndTowns } = this.state;
 
     let areaPinList = [];
     let areaAroundList = [];
@@ -330,6 +398,8 @@ class SearchResultContainer extends Component<PropTypes> {
     } else if (!conditions.keyword) {
       areaAroundList = area;
     }
+    console.log(cityAndTowns);
+
     return (
       <SearchResultTemplate
         isSearching={isSearching}
@@ -337,7 +407,7 @@ class SearchResultContainer extends Component<PropTypes> {
         searchResult={this.infiniteScroll()}
         condition={condition}
         maxCount={maxCount}
-        onClickMore={() => console.log('絞り込みボタン押下')}
+        onClickMore={this.onClickMore}
         regionPrefectureList={areaPrefectures}
         breadcrumbsList={breadcrumbs}
         searchConditionCurrentList={[
@@ -358,7 +428,7 @@ class SearchResultContainer extends Component<PropTypes> {
         areaPinList={areaPinList}
         captionAreaAroundList="周辺エリアで探す"
         areaAroundList={areaAroundList}
-        cityTownAreaList={cities}
+        cityTownAreaList={cityAndTowns}
         townAreaList={area}
         sortList={[
           {
