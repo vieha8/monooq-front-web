@@ -225,6 +225,9 @@ class SearchResultContainer extends Component<PropTypes> {
         if (town.code !== code) {
           return town;
         }
+        if (!checked) {
+          city.isChecked = false;
+        }
         return { ...town, isChecked: checked };
       });
       return { ...city, townAreaList: towns };
