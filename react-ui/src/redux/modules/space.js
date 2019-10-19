@@ -583,8 +583,6 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     params.sort = sort;
   }
 
-  console.log(params);
-
   const { data, err, headers } = yield call(getApiRequest, apiEndpoint.spaces(), params, token);
 
   if (err) {
