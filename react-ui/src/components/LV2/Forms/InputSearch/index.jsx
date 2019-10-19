@@ -72,6 +72,7 @@ export default ({
       <Button
         primary
         fill={1}
+        height={50}
         fontbold
         disabled={searchDisabled}
         onClick={searchDisabled ? null : onClickSearchButton}

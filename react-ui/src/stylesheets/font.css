@@ -21,5 +21,6 @@
 }
 
 body {
-  font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans Japanese', sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans Japanese', 'ヒラギノ角ゴ Pro W3',
+    'ヒラギノ角ゴ W3', -apple-system, BlinkMacSystemFont, 'メイリオ', 'ＭＳ Ｐゴシック', sans-serif;
 }
