@@ -81,7 +81,9 @@ class SearchResultContainer extends Component<PropTypes> {
     };
 
     const { location, match } = this.props;
-    const { keyword, sort, cities: queryCities, towns: queryTowns } = parse(location.search);
+    const { keyword, sort, pref: queryPref, cities: queryCities, towns: queryTowns } = parse(
+      location.search,
+    );
     if (sort) {
       conditions.sort = sort;
     }
@@ -90,6 +92,15 @@ class SearchResultContainer extends Component<PropTypes> {
       // フリーワード検索
       if (keyword) {
         conditions.keyword = keyword;
+      }
+      if (queryPref) {
+        conditions.pref = queryPref;
+      }
+      if (queryTowns) {
+        conditions.towns = queryTowns.split(',');
+      }
+      if (queryCities) {
+        conditions.cities = queryCities.split(',');
       }
     } else {
       const { pref_code: prefCode, city_code: cityCode, town_code: townCode } = match.params;
@@ -100,16 +111,10 @@ class SearchResultContainer extends Component<PropTypes> {
         conditions.towns = [townCode];
       } else if (prefCode && cityCode) {
         // 市区町村一覧
-        if (queryTowns) {
-          conditions.towns = queryTowns.split(',');
-        }
         conditions.pref = prefCode;
         conditions.cities = [cityCode];
       } else if (prefCode) {
         // 都道府県一覧
-        if (queryCities) {
-          conditions.cities = queryCities.split(',');
-        }
         conditions.pref = prefCode;
       }
     }
@@ -127,6 +132,9 @@ class SearchResultContainer extends Component<PropTypes> {
   componentDidUpdate(prevProps, prevState) {
     // パンくずやエリアタグから遷移した時はconstructorが発火しないのでここで
     const newConditions = this.getConditionsFromUrl();
+
+    console.log('didupdate', newConditions);
+    // TODO 絞り込み条件チェック
 
     if (
       !this.props.isSearching &&
@@ -220,7 +228,7 @@ class SearchResultContainer extends Component<PropTypes> {
   };
 
   onClickMore = () => {
-    const citiesCode = [];
+    let citiesCode = [];
     const townsCode = [];
     const { cityAndTowns } = this.state;
     cityAndTowns.map(city => {
@@ -229,22 +237,37 @@ class SearchResultContainer extends Component<PropTypes> {
       } else {
         city.townAreaList.map(town => {
           if (town.isChecked) {
+            citiesCode.push(city.cityCode); // TODO ここで重複push防ぐような判定いれる
             townsCode.push(town.code);
           }
         });
       }
     });
 
+    citiesCode = citiesCode.filter((x, i, self) => self.indexOf(x) === i);
+
     if (citiesCode.length === 0 && townsCode.length === 0) {
       return;
     }
 
-    this.setState({
-      checkCities: citiesCode,
-      checkTowns: townsCode,
-    });
+    const { history, conditions } = this.props;
 
-    this.init();
+    console.log(townsCode, citiesCode);
+
+    if (townsCode.length === 1) {
+      // 町域ひとつ
+      // TODO 町域ひとつと別の市区町村を選択した場合の挙動
+      history.push(Path.spacesByTown(conditions.pref.code, citiesCode[0], townsCode[0]));
+    } else if (citiesCode.length === 1) {
+      // 市区町村ひとつ
+      history.push(Path.spacesByCity(conditions.pref.code, citiesCode[0]));
+    } else {
+      console.log('AAA');
+      const query = `?pref=${conditions.pref.code}&cities=${citiesCode.join(
+        ',',
+      )}&towns=${townsCode.join(',')}`;
+      history.push(`${Path.search()}${query}`);
+    }
   };
 
   getCondition = () => {

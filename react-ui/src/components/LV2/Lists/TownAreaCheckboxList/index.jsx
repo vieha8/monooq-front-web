@@ -68,7 +68,7 @@ export default ({
     <CheckBoxCityAllWrap>
       <CheckBox
         checked={isChecked}
-        label={`${cityName}から選ぶ`}
+        label={`${cityName}すべて`}
         onClickCheck={onClickCheckCity}
         options={{ code: cityCode }}
       />
