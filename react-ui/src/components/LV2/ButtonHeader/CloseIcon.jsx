@@ -1,13 +1,12 @@
 // @flow
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import CloseIcon from 'images/icon-close-black.png';
 
-const StyledLink = styled(Link)`
+const Wrap = styled.div`
   display: inline-block;
   margin-top: ${Dimens.xsmall}px;
   ${media.tablet`
@@ -22,12 +21,11 @@ const Image = styled.img`
 `;
 
 type PropTypes = {
-  href?: string,
   onClick?: Function,
 };
 
-export default ({ href, onClick }: PropTypes) => (
-  <StyledLink to={href || ''} onClick={onClick}>
+export default ({ onClick }: PropTypes) => (
+  <Wrap onClick={onClick}>
     <Image src={CloseIcon} alt="icon-close" />
-  </StyledLink>
+  </Wrap>
 );

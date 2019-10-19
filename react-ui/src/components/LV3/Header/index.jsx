@@ -12,7 +12,7 @@ import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
-import SearchConditionMoreSP from 'components/LV3/SearchConditionMoreSP';
+import SearchIcon from 'components/LV2/ButtonHeader/SearchIcon';
 
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
@@ -296,10 +296,6 @@ export default ({
   top,
   isLinkRed,
   isOverTopView,
-  searchConditionCurrentList,
-  searchConditionSPList,
-  cityTownAreaList,
-  onClickSearch,
   stories,
   topUrl,
   isCheckingLogin,
@@ -319,18 +315,13 @@ export default ({
   schedule,
   sales,
   logoutEvent,
+  onClickSearch,
 }: PropTypes) => {
   return (
     <Container stories={stories}>
       <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
         <SearchIconWrapper>
-          <SearchConditionMoreSP
-            searchIcon
-            searchConditionCurrentList={searchConditionCurrentList}
-            searchConditionSPList={searchConditionSPList}
-            cityTownAreaList={cityTownAreaList}
-            onClickSearch={onClickSearch}
-          />
+          <SearchIcon onClick={onClickSearch} />
         </SearchIconWrapper>
         <LogoWrapper>
           <LogoLink to={topUrl}>

@@ -137,6 +137,10 @@ export default ({
       <ButtonBottom
         modal
         text={textButtonBottom}
+        cityTownAreaList={cityTownAreaList}
+        onClickMore={onClickMore}
+        onClickCheckCity={onClickCheckCity}
+        onClickCheckTown={onClickCheckTown}
         searchConditionCurrentList={searchConditionCurrentList}
       />
     )}

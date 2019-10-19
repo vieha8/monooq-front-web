@@ -81,31 +81,32 @@ export type PropTypes = {
 };
 
 // TODO: ★改修途中(このあとの実装で拡張予定なので、参考ソースはそのまま配置してある状態)★
-export default ({ searchConditionSPList }: PropTypes) => (
+export default ({ searchConditionSPList, onClickCheckTown }: PropTypes) => (
   <Wrap>
     <ConditionList>
       {searchConditionSPList.map((item, i) => (
         <Item key={`item_citytownarea_${i}`.toString()} className="item-condition-search">
-          <Collapsible trigger={CityName(item.title)}>
+          <Collapsible trigger={CityName(item.cityName)}>
             <CollapsibleItemList>
-              <CollapsibleItem areaAroundList>
-                <AreaPinList>
-                  <AreaAroundList
-                    caption="人気エリアタグ"
-                    captionColor={Colors.lightGray3}
-                    areaAroundList={item.areaAroundList}
-                    isNoScroll
-                  />
-                </AreaPinList>
-              </CollapsibleItem>
-              {item.collapsibleItemList.map((itemJ, j) => (
+              {item.areaAroundList.length > 0 && (
+                <CollapsibleItem areaAroundList>
+                  <AreaPinList>
+                    <AreaAroundList
+                      caption="人気エリアタグ"
+                      captionColor={Colors.lightGray3}
+                      areaAroundList={item.areaAroundList}
+                      isNoScroll
+                    />
+                  </AreaPinList>
+                </CollapsibleItem>
+              )}
+              {item.townAreaList.map((town, j) => (
                 <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
                   <CheckBox
-                    // TODO: あとで実装
-                    label={itemJ.text}
-                    // checked={isNoticeEmail}
-                    // onClick={onChangeNoticeEmail}
-                    // onKeyDown={onKeyDownNoticeEmail}
+                    label={town.text}
+                    checked={town.isChecked}
+                    options={{ code: town.code }}
+                    onClickCheck={onClickCheckTown}
                   />
                 </CollapsibleItem>
               ))}

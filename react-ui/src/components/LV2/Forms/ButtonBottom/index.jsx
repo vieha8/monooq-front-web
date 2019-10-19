@@ -6,6 +6,7 @@ import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
 import SearchConditionMoreSP from 'components/LV3/SearchConditionMoreSP';
+import SearchResultHeader from '../../../LV3/SearchResultHeader';
 
 // TODO: 以下はサンプルデータなので、APIとのつなぎ込み時に削除しちゃってください。
 const AreaAroundList = () => [
@@ -330,26 +331,26 @@ type PropTypes = {
   onClick?: Function,
 };
 
-export default ({ text, modal, searchConditionCurrentList, onClick }: PropTypes) => (
+export default ({
+  text,
+  modal,
+  searchConditionCurrentList,
+  onClick,
+  cityTownAreaList,
+  onClickMore,
+  onClickCheckCity,
+  onClickCheckTown,
+}: PropTypes) => (
   <SendMessageWrap>
     <ButtonWrap>
       {modal ? (
         <SearchConditionMoreSP
           btnText={text}
           searchConditionCurrentList={searchConditionCurrentList}
-          searchConditionSPList={SearchConditionSPList()}
-          cityTownAreaList={[
-            {
-              cityName: '目黒区',
-              areaAroundList: AreaAroundList(),
-              townAreaList: TownAreaList1(),
-            },
-            {
-              cityName: '港区',
-              areaAroundList: AreaAroundList(),
-              townAreaList: TownAreaList1(),
-            },
-          ]}
+          cityTownAreaList={cityTownAreaList}
+          onClickMore={onClickMore}
+          onClickCheckCity={onClickCheckCity}
+          onClickCheckTown={onClickCheckTown}
         />
       ) : (
         <Button center primary fontbold fill={1} onClick={onClick}>

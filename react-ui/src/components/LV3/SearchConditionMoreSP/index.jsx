@@ -98,7 +98,7 @@ type PropTypes = {
 class SearchConditionMoreSP extends Component<PropTypes> {
   state = {
     open: false,
-    isTownArea: false,
+    isTownArea: true,
   };
 
   open = () => this.setState({ open: true });
@@ -112,8 +112,10 @@ class SearchConditionMoreSP extends Component<PropTypes> {
       searchIcon,
       btnText,
       searchConditionCurrentList,
-      searchConditionSPList,
-      onClickSearch,
+      cityTownAreaList,
+      onClickMore,
+      onClickCheckCity,
+      onClickCheckTown,
     } = this.props;
     const { open, isTownArea } = this.state;
 
@@ -139,16 +141,18 @@ class SearchConditionMoreSP extends Component<PropTypes> {
             {isTownArea ? (
               <Fragment>
                 <SearchConditionPrefectureWrap>
-                  <Headline isTownArea>
-                    <BackPrefectureLink color={Colors.black} onClick={this.backSelectPrefecture}>
-                      都道府県を選択
-                    </BackPrefectureLink>
-                  </Headline>
+                  {/*<Headline isTownArea>*/}
+                  {/*  <BackPrefectureLink color={Colors.black} onClick={this.backSelectPrefecture}>*/}
+                  {/*    都道府県を選択*/}
+                  {/*  </BackPrefectureLink>*/}
+                  {/*</Headline>*/}
                   <SearchConditionSPListCityTownArea
-                    searchConditionSPList={searchConditionSPList}
+                    searchConditionSPList={cityTownAreaList}
+                    onClickCheckCity={onClickCheckCity}
+                    onClickCheckTown={onClickCheckTown}
                   />
                 </SearchConditionPrefectureWrap>
-                <ButtonBottom text="この条件で検索する" onClick={onClickSearch} />
+                <ButtonBottom text="この条件で検索する" onClick={onClickMore} />
               </Fragment>
             ) : (
               <Fragment>
@@ -160,7 +164,7 @@ class SearchConditionMoreSP extends Component<PropTypes> {
                 <Hr width="calc(100% - 32px)" marginPhone="20px 16px" />
                 <SearchConditionPrefectureWrap>
                   <Headline>スペースを探す</Headline>
-                  <SearchConditionSPList searchConditionSPList={searchConditionSPList} />
+                  <SearchConditionSPList searchConditionSPList={cityTownAreaList} />
                 </SearchConditionPrefectureWrap>
               </Fragment>
             )}
