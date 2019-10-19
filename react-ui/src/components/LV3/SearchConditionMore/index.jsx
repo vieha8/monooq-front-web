@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Modal } from 'semantic-ui-react';
 import { Dimens, FontSizes } from 'variables';
-import ButtonLV1 from 'components/LV1/Forms/Button';
+import Button from 'components/LV1/Forms/Button';
 import CityTownAreaList from 'components/LV2/Lists/CityTownAreaList';
 import SearchConditionCurrentList from 'components/LV2/Lists/SearchConditionCurrentList';
 import PrefectureList from 'components/LV3/PrefectureList';
@@ -93,7 +93,7 @@ class SearchConditionMore extends Component<PropTypes> {
 
     return (
       <Fragment>
-        <ButtonLV1
+        <Button
           primary
           height={42}
           heightTab={42}
@@ -105,43 +105,45 @@ class SearchConditionMore extends Component<PropTypes> {
           onClick={this.open}
         >
           {btnText}
-        </ButtonLV1>
+        </Button>
         <Modal size="large" open={open} onClose={this.close}>
           <Modal.Content scrolling>
-            {/*<div>{<PrefectureList list={regionPrefectureList} />}</div>*/}
-            <div>
+            {cityTownAreaList.length === 0 && <PrefectureList list={regionPrefectureList} />}
+            {cityTownAreaList.length > 0 && (
               <CityTownAreaList
                 cityTownAreaList={cityTownAreaList}
                 prefecture={prefecture}
                 onClickCheckCity={onClickCheckCity}
                 onClickCheckTown={onClickCheckTown}
               />
-            </div>
+            )}
           </Modal.Content>
-          <Modal.Actions>
-            <SearchConditionWrap>
-              <SearchConditionLeft>
-                <SearchConditionCurrentList
-                  searchConditionCurrentList={searchConditionCurrentList}
-                  modal
-                />
-              </SearchConditionLeft>
-              <SearchConditionRight>
-                <MoreButtonWrap>
-                  <ButtonLV1
-                    primary
-                    height={42}
-                    heightTab={42}
-                    padding="10px 10px"
-                    paddingTab="10px 10px"
-                    onClick={onClickMore}
-                  >
-                    この条件で検索する
-                  </ButtonLV1>
-                </MoreButtonWrap>
-              </SearchConditionRight>
-            </SearchConditionWrap>
-          </Modal.Actions>
+          {cityTownAreaList.length > 0 && (
+            <Modal.Actions>
+              <SearchConditionWrap>
+                <SearchConditionLeft>
+                  <SearchConditionCurrentList
+                    searchConditionCurrentList={searchConditionCurrentList}
+                    modal
+                  />
+                </SearchConditionLeft>
+                <SearchConditionRight>
+                  <MoreButtonWrap>
+                    <Button
+                      primary
+                      height={42}
+                      heightTab={42}
+                      padding="10px 10px"
+                      paddingTab="10px 10px"
+                      onClick={onClickMore}
+                    >
+                      この条件で検索する
+                    </Button>
+                  </MoreButtonWrap>
+                </SearchConditionRight>
+              </SearchConditionWrap>
+            </Modal.Actions>
+          )}
         </Modal>
       </Fragment>
     );

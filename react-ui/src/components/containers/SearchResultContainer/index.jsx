@@ -252,8 +252,6 @@ class SearchResultContainer extends Component<PropTypes> {
 
     const { history, conditions } = this.props;
 
-    console.log(townsCode, citiesCode);
-
     if (townsCode.length === 1) {
       // 町域ひとつ
       // TODO 町域ひとつと別の市区町村を選択した場合の挙動
@@ -262,7 +260,6 @@ class SearchResultContainer extends Component<PropTypes> {
       // 市区町村ひとつ
       history.push(Path.spacesByCity(conditions.pref.code, citiesCode[0]));
     } else {
-      console.log('AAA');
       const query = `?pref=${conditions.pref.code}&cities=${citiesCode.join(
         ',',
       )}&towns=${townsCode.join(',')}`;
@@ -417,6 +414,28 @@ class SearchResultContainer extends Component<PropTypes> {
       areaAroundList = area;
     }
 
+    // TODO getDerivedで
+    const searchConditionCurrentList = [
+      {
+        title: '都道府県',
+        value: conditions.pref.name,
+      },
+      {
+        title: '市区町村',
+        value: conditions.cities.map(v => v.name).join('・'),
+      },
+      {
+        title: '町域・エリア',
+        value: conditions.towns.map(v => v.name).join('・'),
+      },
+    ];
+    if (conditions.keyword) {
+      searchConditionCurrentList.push({
+        title: 'キーワード',
+        value: conditions.keyword,
+      });
+    }
+
     return (
       <SearchResultTemplate
         isSearching={isSearching}
@@ -427,41 +446,30 @@ class SearchResultContainer extends Component<PropTypes> {
         onClickMore={this.onClickMore}
         regionPrefectureList={areaPrefectures}
         breadcrumbsList={breadcrumbs}
-        searchConditionCurrentList={[
-          {
-            title: '都道府県',
-            value: conditions.pref.name,
-          },
-          {
-            title: '市区町村',
-            value: conditions.cities.map(v => v.name).join(','),
-          },
-          {
-            title: '町域・エリア',
-            value: conditions.towns.map(v => v.name).join(','),
-          },
-        ]}
+        searchConditionCurrentList={searchConditionCurrentList}
         captionAreaPinList="人気エリアで探す"
         areaPinList={areaPinList}
         captionAreaAroundList="周辺エリアで探す"
         areaAroundList={areaAroundList}
         cityTownAreaList={cityAndTowns}
         townAreaList={area}
-        sortList={[
-          {
-            text: '新着順',
-            path: '/',
-            current: true,
-          },
-          {
-            text: 'おすすめ',
-            path: Path.signUp(),
-          },
-          {
-            text: '安い順',
-            path: Path.about(),
-          },
-        ]}
+        sortList={
+          [
+            // {
+            //   text: 'おすすめ',
+            //   path: '/',
+            //   current: true,
+            // },
+            // {
+            //   text: '新着順',
+            //   path: Path.signUp(),
+            // },
+            // {
+            //   text: '安い順',
+            //   path: Path.about(),
+            // },
+          ]
+        }
         prefecture={conditions.pref.name}
         textButtonBottom="地域を絞り込む"
         onClickCheckCity={this.onClickCheckCity}

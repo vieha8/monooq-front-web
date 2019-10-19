@@ -562,12 +562,28 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
   const params = {
     limit,
     offset,
-    keyword,
-    pref: prefCode,
-    cities: cities.join(','),
-    towns: towns.join(','),
-    sort,
   };
+
+  if (keyword) {
+    params.keyword = keyword;
+  }
+  if (prefCode) {
+    params.pref = prefCode;
+  }
+
+  if (cities && cities.length > 0) {
+    params.cities = cities.join(',');
+  }
+
+  if (towns && towns.length > 0) {
+    params.towns = towns.join(',');
+  }
+
+  if (sort) {
+    params.sort = sort;
+  }
+
+  console.log(params);
 
   const { data, err, headers } = yield call(getApiRequest, apiEndpoint.spaces(), params, token);
 
@@ -592,40 +608,46 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     return space;
   });
 
-  let areaRes;
-  //TODO エラーハンドリング
+  let areaRes = [];
+  let areaSearchRes = [];
 
-  let areaEndpoint = apiEndpoint.areaCities(prefCode);
-  if (cities.length === 1) {
-    areaEndpoint = apiEndpoint.areaTowns(cities[0]);
-    const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
-    areaRes = area
-      .map(v => {
+  if (prefCode) {
+    //TODO エラーハンドリング
+    // 人気エリア取得
+    let areaEndpoint = apiEndpoint.areaCities(prefCode);
+    if (cities.length === 1) {
+      areaEndpoint = apiEndpoint.areaTowns(cities[0]);
+      const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
+      areaRes = area
+        .map(v => {
+          return {
+            ...v,
+            text: v.name,
+            link: Path.spacesByTown(prefCode, cities[0], v.code),
+          };
+        })
+        .filter(v => !towns.includes(v.code));
+    } else {
+      const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
+      areaRes = area.map(v => {
         return {
           ...v,
           text: v.name,
-          link: Path.spacesByTown(prefCode, cities[0], v.code),
+          link: Path.spacesByCity(prefCode, v.code),
         };
-      })
-      .filter(v => !towns.includes(v.code));
-  } else {
-    const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
-    areaRes = area.map(v => {
-      return {
-        ...v,
-        text: v.name,
-        link: Path.spacesByCity(prefCode, v.code),
-      };
-    });
-  }
+      });
+    }
 
-  const { data: areaSearch } = yield call(
-    getApiRequest,
-    apiEndpoint.areaSearch(prefCode),
-    {},
-    token,
-  );
-  //TODO エラーハンドリング
+    // 絞り込み用市区町村・町域取得
+    const { data: areaSearch } = yield call(
+      getApiRequest,
+      apiEndpoint.areaSearch(prefCode),
+      {},
+      token,
+    );
+    //TODO エラーハンドリング
+    areaSearchRes = areaSearch;
+  }
 
   yield put(
     loggerActions.recordEvent({
@@ -647,7 +669,7 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
       area: areaRes,
       conditions: data.conditions,
       breadcrumbs,
-      cities: areaSearch,
+      cities: areaSearchRes,
     }),
   );
 }
