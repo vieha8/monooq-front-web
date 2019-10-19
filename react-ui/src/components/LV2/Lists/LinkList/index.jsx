@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
+import { Link } from 'react-router-dom';
 
 const List = styled.ul``;
 
@@ -40,6 +41,21 @@ const Anchor = styled.a`
   }
 `;
 
+const StyledLink = styled(Link)`
+  ${props => props.color && `color: ${props.color};`}
+  ${props =>
+    props.current &&
+    `
+    color: ${Colors.black};
+    pointer-events: none;
+  `}
+  text-decoration: none;
+  :hover {
+    ${props => props.color && `color: ${props.color};`}
+    opacity: 0.8;
+  }
+`;
+
 type PropTypes = {
   list: Array<{
     onClickItem?: Function,
@@ -57,9 +73,9 @@ export default ({ list, landscape, color, isLinkEvent }: PropTypes) => (
     {list.map((item, i) => (
       <Item key={i.toString()} landscape={landscape}>
         {isLinkEvent ? (
-          <Anchor onClick={item.onClickItem} color={color} current={item.current}>
+          <StyledLink to={item.path} color={color} current={item.current}>
             {item.text}
-          </Anchor>
+          </StyledLink>
         ) : (
           <Anchor
             href={item.path}

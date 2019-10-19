@@ -129,7 +129,7 @@ export default ({
     )}
     {sortList && (
       <SortListWrap>
-        <SortList list={sortList} landscape color={Colors.brandPrimary} />
+        <SortList list={sortList} isLinkEvent landscape color={Colors.brandPrimary} />
       </SortListWrap>
     )}
     <Content noTopMargin={noTopMargin}>{searchResult}</Content>

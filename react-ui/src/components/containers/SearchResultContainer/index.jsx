@@ -2,7 +2,7 @@
 
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import { parse } from 'helpers/query-string';
+import { parse, stringify } from 'helpers/query-string';
 import InfiniteScroll from 'react-infinite-scroller';
 import Loading from 'components/LV1/Loading';
 import Path from 'config/path';
@@ -85,7 +85,7 @@ class SearchResultContainer extends Component<PropTypes> {
       location.search,
     );
     if (sort) {
-      conditions.sort = sort;
+      conditions.sort = Number(sort);
     }
 
     if (!match.url.indexOf('/search')) {
@@ -141,10 +141,11 @@ class SearchResultContainer extends Component<PropTypes> {
       newConditions.towns.length !== prevState.towns.length
         ? true
         : !newConditions.towns.every(v => prevState.towns.includes(v));
+    const isCheckSort = newConditions.sort !== prevProps.conditions.sort;
 
     if (
       !this.props.isSearching &&
-      (prevState.pref !== newConditions.pref || isCheckCities || isCheckTowns)
+      (prevState.pref !== newConditions.pref || isCheckCities || isCheckTowns || isCheckSort)
     ) {
       this.init();
     }
@@ -394,6 +395,14 @@ class SearchResultContainer extends Component<PropTypes> {
     </Fragment>
   );
 
+  makeSortPath = sort => {
+    const { location } = this.props;
+    const q = parse(location.search);
+    q.sort = sort;
+    const newQuery = stringify(q);
+    return `${window.location.pathname}?${newQuery}`;
+  };
+
   render() {
     const { spaces, isMore, maxCount, isSearching, breadcrumbs, area, conditions } = this.props;
 
@@ -440,6 +449,24 @@ class SearchResultContainer extends Component<PropTypes> {
       });
     }
 
+    const sortList = [
+      {
+        text: 'おすすめ',
+        path: this.makeSortPath(1),
+        current: Number(conditions.sort === 1),
+      },
+      {
+        text: '新着順',
+        path: this.makeSortPath(2),
+        current: Number(conditions.sort === 2),
+      },
+      {
+        text: '安い順',
+        path: this.makeSortPath(3),
+        current: Number(conditions.sort === 3),
+      },
+    ];
+
     return (
       <SearchResultTemplate
         isSearching={isSearching}
@@ -457,23 +484,7 @@ class SearchResultContainer extends Component<PropTypes> {
         areaAroundList={areaAroundList}
         cityTownAreaList={cityAndTowns}
         townAreaList={area}
-        sortList={
-          [
-            // {
-            //   text: 'おすすめ',
-            //   path: '/',
-            //   current: true,
-            // },
-            // {
-            //   text: '新着順',
-            //   path: Path.signUp(),
-            // },
-            // {
-            //   text: '安い順',
-            //   path: Path.about(),
-            // },
-          ]
-        }
+        sortList={sortList}
         prefecture={conditions.pref.name}
         textButtonBottom="地域を絞り込む"
         onClickCheckCity={this.onClickCheckCity}

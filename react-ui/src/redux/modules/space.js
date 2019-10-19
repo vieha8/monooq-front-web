@@ -96,6 +96,7 @@ const initialState = {
       pref: '',
       cities: [],
       towns: [],
+      sort: 1,
     },
     cities: [],
   },
@@ -187,6 +188,7 @@ export const spaceReducer = handleActions(
         conditions: payload.conditions,
         breadcrumbs: payload.breadcrumbs,
         cities: payload.cities,
+        sort: payload.sort,
       },
     }),
     [RESET_SEARCH]: state => ({
@@ -668,6 +670,7 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
       conditions: data.conditions,
       breadcrumbs,
       cities: areaSearchRes,
+      sort: sort || 1,
     }),
   );
 }
