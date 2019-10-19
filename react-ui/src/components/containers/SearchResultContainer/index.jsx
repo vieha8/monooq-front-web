@@ -114,17 +114,13 @@ class SearchResultContainer extends Component<PropTypes> {
       }
     }
 
-    console.log('conditisons:', conditions);
-
     return conditions;
   };
 
   init = () => {
     const { dispatch } = this.props;
     dispatch(spaceActions.resetSearch());
-
     const conditions = this.getConditionsFromUrl();
-
     this.setState({ ...conditions, offset: 0 });
   };
 
@@ -138,7 +134,6 @@ class SearchResultContainer extends Component<PropTypes> {
         prevState.cities[0] !== newConditions.cities[0] ||
         prevState.towns[0] !== newConditions.towns[0])
     ) {
-      console.log('A');
       this.init();
     }
   }
@@ -150,7 +145,7 @@ class SearchResultContainer extends Component<PropTypes> {
 
   static getDerivedStateFromProps(props, state) {
     const { cities, conditions } = props;
-    if (state.cities.length === 0 && cities.length > 0) {
+    if (state.cityAndTowns.length === 0 && cities.length > 0) {
       const cityTownAreaList = cities.map(v => {
         return {
           cityName: v.name,
@@ -398,7 +393,6 @@ class SearchResultContainer extends Component<PropTypes> {
     } else if (!conditions.keyword) {
       areaAroundList = area;
     }
-    console.log(cityAndTowns);
 
     return (
       <SearchResultTemplate
