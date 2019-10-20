@@ -129,3 +129,11 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+/* Semantic UI */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: unset;
+}

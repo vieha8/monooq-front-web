@@ -5,7 +5,7 @@ import { Colors, FontSizes } from 'variables';
 
 const InputField = styled.input`
   width: ${props => props.width || '100%'};
-  padding: 11px 15px;
+  padding: 14px 15px;
   box-sizing: border-box;
   font-size: ${FontSizes.small_15}px;
   line-height: normal;
