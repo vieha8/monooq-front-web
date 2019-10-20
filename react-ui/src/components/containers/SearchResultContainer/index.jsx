@@ -387,9 +387,66 @@ class SearchResultContainer extends Component<PropTypes> {
     );
   };
 
+  makeMetaBreadcrumbs = () => {
+    let position = 1;
+    const baseUrl = 'https://monooq.com';
+    const itemList = [
+      {
+        '@type': 'ListItem',
+        position,
+        name: 'トップ',
+        item: baseUrl,
+      },
+    ];
+
+    const { conditions } = this.props;
+    const { pref, cities, towns } = conditions;
+
+    if (pref) {
+      position += 1;
+      itemList.push({
+        '@type': 'ListItem',
+        position,
+        name: `${pref.name}のスペース`,
+        item: `${baseUrl}/pref${pref.code}`,
+      });
+      if (cities.length === 1) {
+        position += 1;
+        const city = cities[0];
+        itemList.push({
+          '@type': 'ListItem',
+          position,
+          name: `${city.name}のスペース`,
+          item: `${baseUrl}/pref${pref.code}/city${city.code}`,
+        });
+        if (towns.length === 1) {
+          position += 1;
+          const town = towns[0];
+          itemList.push({
+            '@type': 'ListItem',
+            position,
+            name: `${town.name}のスペース`,
+            item: `${baseUrl}/pref${pref.code}/city${city.code}/town${town.code}`,
+          });
+        }
+      }
+    }
+
+    console.log(itemList);
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: itemList,
+    };
+  };
+
   meta = condition => {
     return (
-      <Meta title={`${condition}の検索結果 - モノオク`} description={`${condition}の検索結果`} />
+      <Meta
+        title={`${condition}の保管スペース検索結果 - モノオク`}
+        jsonLd={this.makeMetaBreadcrumbs()}
+      />
     );
   };
 

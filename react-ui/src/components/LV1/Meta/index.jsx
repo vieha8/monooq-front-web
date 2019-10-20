@@ -23,9 +23,9 @@ class Head extends React.Component {
       siteName: 'モノオク',
       title: props.title || DEFAULT_SITE_TITLE,
       description: props.description || DEFAULT_DESCRIPTION,
-      keyword: props.keyword || '荷物預かり,引越し,荷物預かり 引っ越し,物置き,シェア',
+      keyword: props.keyword || '荷物預かり,引っ越し,物置き,シェア,保管',
       noindex: props.noindex,
-      jsonLd: '',
+      jsonLd: props.jsonLd,
       ogUrl: `https://monooq.com/${props.ogUrl || ''}`,
       ogImageUrl:
         props.ogImageUrl ||
@@ -67,7 +67,7 @@ class Head extends React.Component {
         <meta property="og:image" content={ogImageUrl} />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="canonical" href={`https://monooq.com${path}`} />
-        {jsonLd !== '' && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
+        {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
       </Helmet>
     );
   }
