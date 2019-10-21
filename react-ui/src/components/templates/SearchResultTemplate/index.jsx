@@ -105,6 +105,7 @@ export default ({
   textButtonBottom,
   searchConditionCurrentList,
   cityTownAreaList,
+  prefectureList,
 }: PropTypes) => (
   <div>
     {meta}
@@ -142,6 +143,7 @@ export default ({
         onClickCheckCity={onClickCheckCity}
         onClickCheckTown={onClickCheckTown}
         searchConditionCurrentList={searchConditionCurrentList}
+        prefectureList={prefectureList}
       />
     )}
   </div>

@@ -98,7 +98,7 @@ type PropTypes = {
 class SearchConditionMoreSP extends Component<PropTypes> {
   state = {
     open: false,
-    isTownArea: true,
+    isTownArea: false,
   };
 
   open = () => this.setState({ open: true });
@@ -107,12 +107,20 @@ class SearchConditionMoreSP extends Component<PropTypes> {
 
   backSelectPrefecture = () => this.setState({ isTownArea: false });
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.cityTownAreaList.length > 0 && !state.isTownArea) {
+      return { isTownArea: true };
+    }
+    return null;
+  }
+
   render() {
     const {
       searchIcon,
       btnText,
       searchConditionCurrentList,
       cityTownAreaList,
+      prefectureList,
       onClickMore,
       onClickCheckCity,
       onClickCheckTown,
@@ -141,11 +149,11 @@ class SearchConditionMoreSP extends Component<PropTypes> {
             {isTownArea ? (
               <Fragment>
                 <SearchConditionPrefectureWrap>
-                  {/*<Headline isTownArea>*/}
-                  {/*  <BackPrefectureLink color={Colors.black} onClick={this.backSelectPrefecture}>*/}
-                  {/*    都道府県を選択*/}
-                  {/*  </BackPrefectureLink>*/}
-                  {/*</Headline>*/}
+                  <Headline isTownArea>
+                    {/*<BackPrefectureLink color={Colors.black} onClick={this.backSelectPrefecture}>*/}
+                    {/*  都道府県を選択*/}
+                    {/*</BackPrefectureLink>*/}
+                  </Headline>
                   <SearchConditionSPListCityTownArea
                     searchConditionSPList={cityTownAreaList}
                     onClickCheckCity={onClickCheckCity}
@@ -163,8 +171,8 @@ class SearchConditionMoreSP extends Component<PropTypes> {
                 </SearchConditionWrap>
                 <Hr width="calc(100% - 32px)" marginPhone="20px 16px" />
                 <SearchConditionPrefectureWrap>
-                  <Headline>スペースを探す</Headline>
-                  <SearchConditionSPList searchConditionSPList={cityTownAreaList} />
+                  <Headline>都道府県でスペースを探す</Headline>
+                  <SearchConditionSPList searchConditionSPList={prefectureList} />
                 </SearchConditionPrefectureWrap>
               </Fragment>
             )}

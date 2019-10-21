@@ -432,8 +432,6 @@ class SearchResultContainer extends Component<PropTypes> {
       }
     }
 
-    console.log(itemList);
-
     return {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
@@ -535,6 +533,18 @@ class SearchResultContainer extends Component<PropTypes> {
       },
     ];
 
+    const prefectureList = areaPrefectures.map(a => {
+      return {
+        title: a.region,
+        collapsibleItemList: a.prefectureList.map(p => {
+          return {
+            text: p.name,
+            to: Path.spacesByPrefecture(p.id),
+          };
+        }),
+      };
+    });
+
     return (
       <SearchResultTemplate
         isSearching={isSearching}
@@ -551,6 +561,7 @@ class SearchResultContainer extends Component<PropTypes> {
         captionAreaAroundList="周辺エリアで探す"
         areaAroundList={areaAroundList}
         cityTownAreaList={cityAndTowns}
+        prefectureList={prefectureList}
         townAreaList={area}
         sortList={sortList}
         prefecture={conditions.pref.name}

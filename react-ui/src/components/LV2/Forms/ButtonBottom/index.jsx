@@ -51,6 +51,7 @@ export default ({
   onClickMore,
   onClickCheckCity,
   onClickCheckTown,
+  prefectureList,
 }: PropTypes) => (
   <SendMessageWrap>
     <ButtonWrap>
@@ -59,6 +60,7 @@ export default ({
           btnText={text}
           searchConditionCurrentList={searchConditionCurrentList}
           cityTownAreaList={cityTownAreaList}
+          prefectureList={prefectureList}
           onClickMore={onClickMore}
           onClickCheckCity={onClickCheckCity}
           onClickCheckTown={onClickCheckTown}
