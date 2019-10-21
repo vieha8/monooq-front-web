@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Dimens, Colors } from 'variables';
+import { Dimens, Colors, FontSizes } from 'variables';
 import { Link } from 'react-router-dom';
 
 const List = styled.ul``;
@@ -20,7 +20,9 @@ const Item = styled.li`
         content: '|';
         display: block;
         position: absolute;
-        left: -${Dimens.small2_15}px;
+        top: 1px;
+        left: -${Dimens.small2_13}px;
+        font-size: ${FontSizes.small_13}px;
       }
     }
   `};
@@ -33,9 +35,10 @@ const Anchor = styled.a`
     `
     color: ${Colors.black};
     pointer-events: none;
-  `}
+  `};
+  vertical-align: middle;
   text-decoration: none;
-  :hover {
+  &:hover {
     ${props => props.color && `color: ${props.color};`}
     opacity: 0.8;
   }
@@ -48,9 +51,10 @@ const StyledLink = styled(Link)`
     `
     color: ${Colors.black};
     pointer-events: none;
-  `}
+  `};
+  vertical-align: middle;
   text-decoration: none;
-  :hover {
+  &:hover {
     ${props => props.color && `color: ${props.color};`}
     opacity: 0.8;
   }
