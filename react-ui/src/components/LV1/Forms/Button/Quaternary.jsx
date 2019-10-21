@@ -7,7 +7,7 @@ import { PrimaryButton } from './Primary';
 
 const Quaternary = styled(PrimaryButton)`
   height: 48px;
-  padding: 11px 10px;
+  padding: ${Dimens.small_10}px;
   ${props =>
     props.height &&
     `

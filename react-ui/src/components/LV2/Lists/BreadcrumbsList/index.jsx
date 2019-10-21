@@ -21,10 +21,10 @@ const Item = styled.li`
       content: '';
       display: block;
       position: absolute;
-      top: ${Dimens.xsmall_7}px;
+      top: calc(50% - 3px);
       left: -${Dimens.medium}px;
-      width: ${Dimens.small}px;
-      height: ${Dimens.small}px;
+      width: 8px;
+      height: 8.25px;
       border-top: 1px solid ${Colors.black2};
       border-right: 1px solid ${Colors.black2};
       transform: rotate(45deg);
