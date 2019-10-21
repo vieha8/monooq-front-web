@@ -266,11 +266,12 @@ class SearchResultContainer extends Component<PropTypes> {
       return;
     }
 
+    console.log(citiesCode, townsCode);
+
     const { history, conditions } = this.props;
 
-    if (townsCode.length === 1) {
+    if (townsCode.length === 1 && citiesCode.length === 1) {
       // 町域ひとつ
-      // TODO 町域ひとつと別の市区町村を選択した場合の挙動
       history.push(Path.spacesByTown(conditions.pref.code, citiesCode[0], townsCode[0]));
     } else if (citiesCode.length === 1) {
       // 市区町村ひとつ
