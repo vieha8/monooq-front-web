@@ -18,10 +18,10 @@ storiesOf('Molecules(LV2)/Forms/ButtonModalConfirm', module).add(
     `)(() => (
     <div style={{ padding: `${Dimens.storyBookPadding}` }}>
       <ButtonModalConfirm
-        btnText={'削除する'}
-        modalTitle={'スペース削除'}
-        modalText={'登録済みのスペースを削除します。よろしいですか？'}
-        onClickRemove={''}
+        btnText="削除する"
+        modalTitle="スペース削除"
+        modalText="登録済みのスペースを削除します。よろしいですか？"
+        onClickRemove=""
       />
     </div>
   )),

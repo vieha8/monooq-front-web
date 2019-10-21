@@ -12,6 +12,8 @@ import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
+import SearchIcon from 'components/LV2/ButtonHeader/SearchIcon';
+
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 
@@ -27,7 +29,7 @@ const Container = styled.header`
   `};
   top: 0;
   width: 100%;
-  min-width: 260px;
+  min-width: 320px;
   z-index: ${ZIndexes.nav};
 `;
 
@@ -44,10 +46,24 @@ const Nav = styled.nav`
   `}
   ${media.tablet`
     height: ${HeightPhone}px;
+    position: relative;
+    display: flex;
+    justify-content: center;
   `};
 `;
 
-const LogoWrapper = styled(Link)`
+const SearchIconWrapper = styled.div`
+  display: none;
+  ${media.tablet`
+    display: block;
+    position: absolute;
+    left: ${Dimens.small_10}px;
+  `};
+`;
+
+const LogoWrapper = styled.div``;
+
+const LogoLink = styled(Link)`
   width: 138px;
   display: inline-flex;
   margin-left: ${Dimens.medium3_40}px;
@@ -73,8 +89,9 @@ const ActionWrapper = styled.div`
     margin-left: 0;
   `};
   ${media.tablet`
-    margin-left: auto;
-    margin-right: ${Dimens.medium}px;
+    position: absolute;
+    right: ${Dimens.medium}px;
+    margin-right: 0px;
   `};
 `;
 
@@ -221,6 +238,33 @@ type PropTypes = {
   top?: boolean,
   isLinkRed?: boolean,
   isOverTopView?: boolean,
+  searchConditionCurrentList: Array<{
+    title: string,
+    value?: string,
+  }>,
+  searchConditionSPList: Array<{
+    title: string,
+    areaAroundList: Array<{
+      text: string,
+      link: string,
+    }>,
+    collapsibleItemList: Array<{
+      to: string,
+      text: string,
+    }>,
+  }>,
+  cityTownAreaList: Array<{
+    cityName: string,
+    areaAroundList: Array<{
+      text: string,
+      link: string,
+    }>,
+    townAreaList: Array<{
+      text: string,
+      link: string,
+    }>,
+  }>,
+  onClickSearch?: Function,
   stories?: boolean,
   topUrl: string,
   isCheckingLogin: boolean,
@@ -236,6 +280,7 @@ type PropTypes = {
   spMenu: React.Element<*>,
   loginUrl: string,
   onClickSignup: Function,
+  aboutUrl: string,
   aboutpUrl: string,
   howtouseUrl: string,
   helpUrl: string,
@@ -270,12 +315,18 @@ export default ({
   schedule,
   sales,
   logoutEvent,
+  onClickSearch,
 }: PropTypes) => {
   return (
     <Container stories={stories}>
       <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
-        <LogoWrapper to={topUrl}>
-          <ImageLogo.HeaderFill />
+        <SearchIconWrapper>
+          <SearchIcon onClick={onClickSearch} />
+        </SearchIconWrapper>
+        <LogoWrapper>
+          <LogoLink to={topUrl}>
+            <ImageLogo.HeaderFill />
+          </LogoLink>
         </LogoWrapper>
         {!isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>

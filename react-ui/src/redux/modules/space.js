@@ -16,7 +16,6 @@ import {
 import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
-import { getPrefecture } from 'helpers/prefectures';
 import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
 import { handleError } from './error';
@@ -81,11 +80,27 @@ const initialState = {
   isComplete: false,
   isLoading: false,
   space: null,
-  isMore: true,
-  location: '',
-  spaces: [],
+  search: {
+    area: [],
+    isLoading: false,
+    results: [],
+    maxCount: 0,
+    isMore: true,
+    breadcrumbs: [
+      // TODO 仮データ
+      { text: 'TOP', link: '/' },
+      { text: '東京都のスペース一覧' },
+    ],
+    conditions: {
+      keyword: '',
+      pref: '',
+      cities: [],
+      towns: [],
+      sort: 1,
+    },
+    cities: [],
+  },
   recommendSpaces: [],
-  maxCount: 0,
 };
 
 export const spaceReducer = handleActions(
@@ -154,23 +169,37 @@ export const spaceReducer = handleActions(
       ...state,
       isComplete: false,
     }),
-    [DO_SEARCH]: (state, action) => ({
+    [DO_SEARCH]: state => ({
       ...state,
-      isLoading: true,
-      location: action.payload,
+      search: {
+        ...state.search,
+        isLoading: true,
+      },
     }),
     [SUCCESS_SEARCH]: (state, { payload }) => ({
       ...state,
-      isLoading: false,
-      spaces: [...state.spaces, ...payload.spaces],
-      isMore: payload.isMore,
-      maxCount: payload.maxCount,
+      search: {
+        ...state.search,
+        isLoading: false,
+        results: [...state.search.results, ...payload.spaces],
+        isMore: payload.isMore,
+        maxCount: payload.maxCount,
+        area: payload.area,
+        conditions: payload.conditions,
+        breadcrumbs: payload.breadcrumbs,
+        cities: payload.cities,
+        sort: payload.sort,
+      },
     }),
     [RESET_SEARCH]: state => ({
       ...state,
-      spaces: [],
-      isMore: true,
-      maxCount: 0,
+      search: {
+        ...state.search,
+        results: [],
+        isMore: true,
+        maxCount: 0,
+        cities: [],
+      },
     }),
     [GET_GEOCODE]: state => ({
       ...state,
@@ -529,20 +558,32 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
   }
 }
 
-function* search({
-  payload: { limit, offset, keyword, prefCode, receiptType, type, isFurniture },
-}) {
+function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, sort } }) {
   const token = yield* getToken();
 
   const params = {
     limit,
     offset,
-    keyword,
-    pref: getPrefecture(prefCode),
-    receiptType,
-    spaceType: type,
-    isFurniture,
   };
+
+  if (keyword) {
+    params.keyword = keyword;
+  }
+  if (prefCode) {
+    params.pref = prefCode;
+  }
+
+  if (cities && cities.length > 0) {
+    params.cities = cities.join(',');
+  }
+
+  if (towns && towns.length > 0) {
+    params.towns = towns.join(',');
+  }
+
+  if (sort) {
+    params.sort = sort;
+  }
 
   const { data, err, headers } = yield call(getApiRequest, apiEndpoint.spaces(), params, token);
 
@@ -551,7 +592,7 @@ function* search({
     return;
   }
 
-  const res = data.map(v => {
+  const res = data.results.map(v => {
     const space = v;
     if (space.images.length === 0) {
       space.images = [{ imageUrl: dummySpaceImage }];
@@ -567,6 +608,47 @@ function* search({
     return space;
   });
 
+  let areaRes = [];
+  let areaSearchRes = [];
+
+  if (prefCode) {
+    //TODO エラーハンドリング
+    // 人気エリア取得
+    let areaEndpoint = apiEndpoint.areaCities(prefCode);
+    if (cities.length === 1) {
+      areaEndpoint = apiEndpoint.areaTowns(cities[0]);
+      const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
+      areaRes = area
+        .map(v => {
+          return {
+            ...v,
+            text: v.name,
+            link: Path.spacesByTown(prefCode, cities[0], v.code),
+          };
+        })
+        .filter(v => !towns.includes(v.code));
+    } else {
+      const { data: area } = yield call(getApiRequest, areaEndpoint, {}, token);
+      areaRes = area.map(v => {
+        return {
+          ...v,
+          text: v.name,
+          link: Path.spacesByCity(prefCode, v.code),
+        };
+      });
+    }
+
+    // 絞り込み用市区町村・町域取得
+    const { data: areaSearch } = yield call(
+      getApiRequest,
+      apiEndpoint.areaSearch(prefCode),
+      {},
+      token,
+    );
+    //TODO エラーハンドリング
+    areaSearchRes = areaSearch;
+  }
+
   yield put(
     loggerActions.recordEvent({
       event: 'space_searches',
@@ -576,15 +658,62 @@ function* search({
     }),
   );
 
+  const breadcrumbs = makeBreadcrumbs(data.conditions);
+
   const isMore = res.length === limit;
   yield put(
     spaceActions.successSearch({
       spaces: res,
       isMore,
       maxCount: parseInt(headers['content-range'], 10),
+      area: areaRes,
+      conditions: data.conditions,
+      breadcrumbs,
+      cities: areaSearchRes,
+      sort: sort || 1,
     }),
   );
 }
+
+const makeBreadcrumbs = ({ keyword, pref, cities, towns }) => {
+  const breadcrumbs = [{ text: 'トップ', link: Path.top() }];
+
+  if (towns && towns.length === 1) {
+    breadcrumbs.push(
+      {
+        text: pref.name,
+        link: Path.spacesByPrefecture(pref.code),
+      },
+      {
+        text: cities[0].name,
+        link: Path.spacesByCity(pref.code, cities[0].code),
+      },
+      {
+        text: `${towns[0].name}のスペース一覧`,
+      },
+    );
+  } else if (cities && cities.length === 1) {
+    breadcrumbs.push(
+      {
+        text: pref.name,
+        link: Path.spacesByPrefecture(pref.code),
+      },
+      {
+        text: `${cities[0].name}のスペース一覧`,
+      },
+    );
+  } else if (pref && pref.name) {
+    breadcrumbs.push({
+      text: `${pref.name}のスペース一覧`,
+    });
+  } else if (keyword && keyword !== '') {
+    breadcrumbs.push({
+      text: `スペース検索結果`,
+    });
+  }
+
+  return breadcrumbs;
+};
 
 function* getRecommendSpaces({ payload: { spaceId } }) {
   const token = yield* getToken();

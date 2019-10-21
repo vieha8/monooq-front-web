@@ -187,6 +187,8 @@
   position: relative;
   padding: 10px 24px;
   border: 1px solid #dbdbdb;
+  border-left: unset;
+  border-right: unset;
   border-bottom: none;
   background-color: #f7f7f7;
   text-align: left;
@@ -243,6 +245,29 @@
   transition: 0.3s;
 }
 
+/* Custom Collapsible Search Condition */
+.item-condition-search:last-child {
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.item-condition-search .Collapsible .Collapsible__trigger {
+  background-color: #fff !important;
+  padding: 13px 16px;
+}
+
+.item-condition-search .Collapsible:last-child .Collapsible__trigger {
+  border-bottom: unset;
+  border-radius: unset !important;
+}
+
+.item-condition-search .Collapsible:last-child .Collapsible__trigger::after {
+  top: 20px;
+}
+
+.item-condition-search .Collapsible:last-child .Collapsible__trigger.is-open::after {
+  top: 20.5px;
+}
+
 /* 
   Header Menu
  */
@@ -258,4 +283,48 @@
   left: 90% !important;
   border: none !important;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 
+  Checkbox Custom (semantic-ui)
+ */
+.ui.checkbox input[type='checkbox'],
+.ui.checkbox label:before,
+.ui.checkbox label:after {
+  width: 24px !important;
+  height: 24px !important;
+}
+.ui.checkbox {
+  box-sizing: border-box;
+}
+.ui.checkbox label {
+  line-height: 24px;
+}
+.ui.checkbox label:before {
+  border-radius: unset;
+  border: 1px solid #d8d8d8;
+}
+.ui.checkbox label:after {
+  font-size: 18px;
+  line-height: 24px;
+  color: #fff !important;
+  background: #e85258 !important;
+}
+
+/* Modal Search Condition More */
+.ui.dimmer {
+  z-index: 3000 !important;
+}
+
+.ButtonModalSearchConditionMore {
+  width: 100vw !important;
+  height: 100vh !important;
+  border-radius: unset !important;
+}
+
+.ButtonModalSearchConditionMore .scrolling.content {
+  height: 100vh !important;
+  max-height: 100vh !important;
+  padding: 0 !important;
+  overflow-y: scroll !important;
 }

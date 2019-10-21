@@ -84,7 +84,7 @@ class TopContainer extends React.Component {
     const { dispatch, history } = this.props;
 
     dispatch(spaceActions.resetSearch());
-    const query = `?keyword=${keyword}&prefCode=0&type=0&receiptType=0&priceMin=&priceMax=&isFurniture=true`;
+    const query = `?keyword=${keyword}`;
     const path = `${Path.search()}${query}`;
 
     ReactGA.event({

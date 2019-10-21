@@ -16,15 +16,11 @@ storiesOf('Atoms(LV1)/Forms/CheckBox', module).add(
       チェックボックス
     `)(() => (
     <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-      <div>
-        <CheckBox checked>タンス</CheckBox>
-      </div>
-      <div>
-        <CheckBox>本棚</CheckBox>
-      </div>
-      <div>
-        <CheckBox checked>クローゼット</CheckBox>
-      </div>
+      <CheckBox checked>タンス</CheckBox>
+      <br />
+      <CheckBox>本棚</CheckBox>
+      <br />
+      <CheckBox checked>クローゼット</CheckBox>
     </div>
   )),
 );

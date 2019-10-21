@@ -10,35 +10,22 @@ import { isAvailableLocalStorage } from 'helpers/storage';
 import { iskeyDownEnter } from 'helpers/keydown';
 import connect from '../connect';
 
-type PropTypes = {
-  history: {
-    push: Function,
-  },
-  space: {
-    id: number,
-  },
-};
-
-class SearchConditionContainer extends Component<PropTypes> {
+class SearchConditionContainer extends Component {
   constructor(props) {
     super(props);
 
     if (isAvailableLocalStorage() && localStorage.getItem('searchCondition')) {
       const savedConditions = JSON.parse(localStorage.getItem('searchCondition'));
-      const { keyword, prefCode, type, receiptType } = savedConditions;
+      const { keyword, prefCode } = savedConditions;
       this.state = {
         keyword: keyword || '',
         prefCode: prefCode || 0,
-        type: type || 0,
-        receiptType: receiptType || 0,
         error: {},
       };
     } else {
       this.state = {
         keyword: '',
         prefCode: 0,
-        type: 0,
-        receiptType: 0,
         error: {},
       };
     }
@@ -54,13 +41,12 @@ class SearchConditionContainer extends Component<PropTypes> {
     const { history, dispatch } = this.props;
     dispatch(spaceActions.resetSearch());
 
-    const { keyword, prefCode, type, receiptType } = this.state;
+    const { keyword, prefCode } = this.state;
     const searchPath = Path.search();
     let query = `?keyword=${keyword}`;
-    query += `&prefCode=${prefCode}`;
-    query += `&type=${type}`;
-    query += `&isFurniture=true`;
-    query += `&receiptType=${receiptType}`;
+    if (prefCode !== 0) {
+      query += `&pref=${prefCode}`;
+    }
 
     ReactGA.event({
       category: 'Search',
@@ -69,7 +55,7 @@ class SearchConditionContainer extends Component<PropTypes> {
     });
 
     if (isAvailableLocalStorage()) {
-      const params = { keyword, prefCode, type, receiptType };
+      const params = { keyword, prefCode };
       localStorage.setItem('searchCondition', JSON.stringify(params));
     }
 
@@ -86,11 +72,15 @@ class SearchConditionContainer extends Component<PropTypes> {
   };
 
   validate = () => {
-    return true;
+    const { prefCode, keyword } = this.state;
+    if (keyword !== '' || prefCode !== 0) {
+      return true;
+    }
+    return false;
   };
 
   render() {
-    const { keyword, prefCode, type, receiptType, error } = this.state;
+    const { keyword, prefCode, error } = this.state;
 
     return (
       <SearchCondition
@@ -99,10 +89,6 @@ class SearchConditionContainer extends Component<PropTypes> {
         onChangeKeyword={v => this.handleChangeUI('keyword', v)}
         prefCode={prefCode}
         onChangePrefCode={v => this.handleChangeUI('prefCode', v)}
-        type={type}
-        onChangeType={v => this.handleChangeUI('type', v)}
-        receive={receiptType}
-        onChangeReceive={v => this.handleChangeUI('receiptType', v)}
         buttonDisabled={!this.validate()}
         onClickSearch={this.onClickSearch}
         onKeyDownButtonSearch={this.onKeyDownButtonSearch}

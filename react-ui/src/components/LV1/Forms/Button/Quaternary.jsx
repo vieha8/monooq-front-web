@@ -2,12 +2,12 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Colors } from 'variables';
+import { Dimens, Colors } from 'variables';
 import { PrimaryButton } from './Primary';
 
 const Quaternary = styled(PrimaryButton)`
   height: 48px;
-  padding: 11px 10px;
+  padding: ${Dimens.small_10}px;
   ${props =>
     props.height &&
     `
@@ -17,6 +17,13 @@ const Quaternary = styled(PrimaryButton)`
   background: none;
   border: 2px solid ${props => props.color || Colors.brandPrimary};
   color: ${props => props.color || Colors.brandPrimary};
+
+  ${props =>
+    props.circle &&
+    `
+      border-radius: ${Dimens.medium2}px;
+      box-sizing: border-box;
+    `};
 
   ${props =>
     props.disabled

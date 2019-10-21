@@ -124,23 +124,18 @@ type PropTypes = {
   }>,
 };
 
-const makeSearchLink = prefectureId => {
-  const query = `?keyword=&prefCode=${prefectureId}&type=0&receiptType=0&priceMin=&priceMax=&isFurniture=true`;
-  return `${Path.search()}${query}`;
-};
-
 export default ({ list }: PropTypes) => (
   <Wrapper>
     <WrapInner>
       <Caption>都道府県別でスペースを探す</Caption>
       <WrapList>
         {list.map((item, i) => (
-          <WrapItem key={i.toString()} id={'space_search_area_' + (i + 1).toString()}>
+          <WrapItem key={i.toString()} id={`space_search_area_${(i + 1).toString()}`}>
             <Wrap>
               <WrapRegion>{item.region}</WrapRegion>
               {item.prefectureList.map((prefecture, j) => (
                 <WrapButton key={j.toString()}>
-                  <Link to={makeSearchLink(prefecture.id)}>
+                  <Link to={Path.spacesByPrefecture(prefecture.id)}>
                     <Button
                       key={j.toString()}
                       quinary

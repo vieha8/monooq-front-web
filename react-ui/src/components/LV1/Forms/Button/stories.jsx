@@ -113,6 +113,10 @@ storiesOf('Atoms(LV1)/Forms/Button', module)
       <div style={{ background: `${Colors.darkGray2}`, padding: `${Dimens.storyBookPadding}` }}>
         <Button quaternary>Quaternary</Button>
         <br />
+        <Button quaternary circle>
+          Quaternary(circle)
+        </Button>
+        <br />
         <Button quaternary disabled>
           Quaternary
         </Button>
@@ -175,6 +179,23 @@ storiesOf('Atoms(LV1)/Forms/Button', module)
         <br />
         <Button facebook fontbold fill={1} disabled>
           Facebook(文字太字/横幅100%)
+        </Button>
+      </div>
+    )),
+  )
+  .add(
+    'Area Pin',
+    withInfo(`
+      ### コンポーネント概要
+      ボタン(エリアボタンPin付き)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Button areaPin>武蔵村山市</Button>
+        <br />
+        <Button areaPin>渋谷区</Button>
+        <br />
+        <Button areaPin disabled>
+          北区(disable)
         </Button>
       </div>
     )),

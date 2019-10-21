@@ -316,6 +316,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }: PropTypes) =
     </ContentContainer>
 
     <ContentContainer>
+      {/* TODO: コンポーネント化したい */}
       <QuestionsContainer>
         <Attention>困ったときのFAQ</Attention>
         <Headline>よくある質問</Headline>

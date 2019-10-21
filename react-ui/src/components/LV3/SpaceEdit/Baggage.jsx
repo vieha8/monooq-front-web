@@ -53,12 +53,11 @@ export default ({
       <ErrorList keyName="baggage_errors" errors={errors.about} />
       <CheckWrapper>
         <CheckBox
+          label="家具や家電製品に対応する"
           checked={checkedFurniture}
           onClick={onClickFurniture}
           onKeyDown={onKeyDownFurniture}
-        >
-          家具や家電製品に対応する
-        </CheckBox>
+        />
       </CheckWrapper>
     </Section>
     <Section>

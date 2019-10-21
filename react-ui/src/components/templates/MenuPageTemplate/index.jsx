@@ -18,7 +18,7 @@ const Content = styled.div`
 
 const LeftContent = styled.div`
   width: 100%;
-  max-width: 768px;
+  max-width: ${props => (props.maxWidth ? props.maxWidth : 768)}px;
   margin: auto;
   ${media.tablet`
     float: none;
@@ -30,19 +30,20 @@ const LeftContent = styled.div`
 `;
 
 type PropTypes = {
+  maxWidth?: number,
   header: React.Element<*>,
   headline: string,
   leftContent: React.Element<*>,
   noMargin?: boolean,
 };
 
-export default ({ header, noMargin, headline, leftContent }: PropTypes) => (
+export default ({ maxWidth, header, noMargin, headline, leftContent }: PropTypes) => (
   <Wrap>
     {header}
     <Page noMargin={noMargin}>
       <ContainerClearfix>
         <Content>
-          <LeftContent>
+          <LeftContent maxWidth={maxWidth}>
             {headline && <H1 bold>{headline}</H1>}
             {leftContent}
           </LeftContent>

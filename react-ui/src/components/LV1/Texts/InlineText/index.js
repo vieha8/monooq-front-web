@@ -12,6 +12,11 @@ const Base = styled.span`
     `
     font-weight: bold;
   `};
+  ${props =>
+    props.nobold &&
+    `
+    font-weight: normal;
+  `};
   line-height: ${props => props.lineheight || 'normal'};
   ${props =>
     props.float &&

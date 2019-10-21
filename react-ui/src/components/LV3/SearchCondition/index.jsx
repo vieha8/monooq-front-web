@@ -7,7 +7,7 @@ import Button from 'components/LV1/Forms/Button';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import { Dimens, FormValues } from 'variables';
+import { Dimens } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 
 export const ContentsWrap = styled.div`
@@ -54,14 +54,6 @@ type PropTypes = {
   onChangeKeyword: Function,
   prefCode: number,
   onChangePrefCode: Function,
-  priceMin: string,
-  onChangePriceMin: Function,
-  priceMax: string,
-  onChangePriceMax: Function,
-  type: number,
-  onChangeType: Function,
-  receive: number,
-  onChangeReceive: Function,
   buttonDisabled: boolean,
   onClickSearch: Function,
   onKeyDownButtonSearch: Function,
@@ -73,10 +65,6 @@ export default ({
   onChangeKeyword,
   prefCode,
   onChangePrefCode,
-  type,
-  onChangeType,
-  receive,
-  onChangeReceive,
   buttonDisabled,
   onClickSearch,
   onKeyDownButtonSearch,
@@ -99,62 +87,6 @@ export default ({
           onChange={e => onChangePrefCode(e.target.value)}
         />
         <ErrorList keyName="prefcode_errors" errors={errors.prefCode} />
-      </Section>
-      <Section>
-        <Select
-          label="スペースの広さで絞り込み"
-          options={[
-            {
-              value: `${FormValues.typeSpaceNoSelect}`,
-              text: '指定なし',
-            },
-            {
-              value: `${FormValues.typeSpaceCloset}`,
-              text: 'クローゼット・押入れ',
-            },
-            {
-              value: `${FormValues.typeSpaceRoom}`,
-              text: '部屋',
-            },
-            {
-              value: `${FormValues.typeSpaceWarehouse}`,
-              text: '屋外倉庫',
-            },
-            {
-              value: `${FormValues.typeSpaceOther}`,
-              text: 'その他',
-            },
-          ]}
-          value={type}
-          onChange={e => onChangeType(e.target.value)}
-        />
-        <ErrorList keyName="type_errors" errors={errors.type} />
-      </Section>
-      <Section>
-        <Select
-          label="受け取り方法で絞り込み"
-          options={[
-            {
-              value: `${FormValues.typeReceiptNoSelect}`,
-              text: '指定なし',
-            },
-            {
-              value: `${FormValues.typeReceiptAll}`,
-              text: '対面・配送の両方に対応する',
-            },
-            {
-              value: `${FormValues.typeReceiptOnlyFTF}`,
-              text: '対面のみ',
-            },
-            {
-              value: `${FormValues.typeReceiptOnlyDelivery}`,
-              text: '配送のみ',
-            },
-          ]}
-          value={receive}
-          onChange={e => onChangeReceive(e.target.value)}
-        />
-        <ErrorList keyName="receive_errors" errors={errors.receiptType} />
       </Section>
     </ContentsWrap>
     <SearchButtonWrap>

@@ -2,7 +2,7 @@ const USER_ID = ':user_id';
 const SPACE_ID = ':space_id';
 const MESSAGE_ROOM_ID = ':message_room_id';
 const REQUEST_ID = ':request_id';
-const PREFECTURE = ':prefecture';
+const PREFECTURE = ':pref_code';
 const CITY_CODE = ':city_code';
 const TOWN_CODE = ':town_code';
 
@@ -10,11 +10,11 @@ export default {
   top: () => '/', // トップ
   search: () => '/search', // 検索結果
   searchCondition: () => '/search/condition', // 検索条件
-  spacesByPrefecture: (prefecture = PREFECTURE) => `/spaces/p${prefecture}`, // 都道府県別スペース一覧
+  spacesByPrefecture: (prefecture = PREFECTURE) => `/spaces/pref${prefecture}`, // 都道府県別スペース一覧
   spacesByCity: (prefecture = PREFECTURE, cityCode = CITY_CODE) =>
-    `/spaces/p${prefecture}/c${cityCode}`, // 市区町村別スペース一覧
+    `/spaces/pref${prefecture}/city${cityCode}`, // 市区町村別スペース一覧
   spacesByTown: (prefecture = PREFECTURE, cityCode = CITY_CODE, townCode = TOWN_CODE) =>
-    `/spaces/p${prefecture}/c${cityCode}/t${townCode}`, // 町域別スペース一覧
+    `/spaces/pref${prefecture}/city${cityCode}/town${townCode}`, // 町域別スペース一覧
   space: (spaceId = SPACE_ID) => `/space/${spaceId}`, // スペース詳細
   // スペース作成
   createSpaceInfo: () => '/space/new/info',
