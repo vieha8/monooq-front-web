@@ -314,11 +314,13 @@
 /* Modal Search Condition More */
 .ui.dimmer {
   z-index: 3000 !important;
+  padding: 0 !important;
 }
 
 .ButtonModalSearchConditionMore {
   width: 100vw !important;
   height: 100vh !important;
+  margin: 0 !important;
   border-radius: unset !important;
 }
 
