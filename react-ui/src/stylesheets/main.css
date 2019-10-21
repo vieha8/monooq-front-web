@@ -328,5 +328,6 @@
   height: 100vh !important;
   max-height: 100vh !important;
   padding: 0 !important;
+  overflow: unset !important;
   overflow-y: scroll !important;
 }
