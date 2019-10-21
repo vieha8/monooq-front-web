@@ -13,6 +13,7 @@ const Wrap = styled.div``;
 const ConditionList = styled.ul`
   display: flex;
   flex-wrap: wrap;
+  padding-bottom: ${Dimens.large4_80}px;
 `;
 
 const Item = styled.li`

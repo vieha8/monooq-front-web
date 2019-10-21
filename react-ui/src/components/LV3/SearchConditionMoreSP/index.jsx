@@ -35,6 +35,11 @@ const SearchConditionWrap = styled.div`
 
 const SearchConditionPrefectureWrap = styled.div`
   text-align: center;
+  ${props =>
+    props.isTownArea &&
+    `
+      margin-bottom: 114px;
+  `};
 `;
 
 const Headline = styled.div`
@@ -45,23 +50,6 @@ const Headline = styled.div`
   margin-left: ${Dimens.medium}px;
   margin-bottom: ${Dimens.medium_20}px;
   text-align: left;
-  ${props =>
-    props.isTownArea &&
-    `
-      margin-left: ${Dimens.medium3_40}px;
-      &:after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: ${Dimens.small}px;
-        left: -${Dimens.medium_20}px;
-        width: ${Dimens.small2}px;
-        height: ${Dimens.small2}px;
-        border-top: 2px solid ${Colors.black2};
-        border-right: 2px solid ${Colors.black2};
-        transform: rotate(225deg);
-      }
-  `};
 `;
 
 type PropTypes = {
@@ -131,8 +119,7 @@ class SearchConditionMoreSP extends Component<PropTypes> {
             </CloseIconWrap>
             {isTownArea ? (
               <Fragment>
-                <SearchConditionPrefectureWrap>
-                  <Headline isTownArea />
+                <SearchConditionPrefectureWrap isTownArea>
                   <SearchConditionSPListCityTownArea
                     searchConditionSPList={cityTownAreaList}
                     onClickCheckCity={onClickCheckCity}
