@@ -9,25 +9,20 @@ const Wrap = styled.nav``;
 const WrapPre = styled.ol``;
 
 const Item = styled.li`
-  width: 100%;
   position: relative;
   display: inline;
   font-size: ${FontSizes.small_15}px;
   line-height: normal;
   color: ${Colors.black2};
   &:not(:first-child) {
-    margin-left: ${Dimens.medium_20}px;
+    margin-left: ${Dimens.medium1}px;
     &:before {
-      content: '';
+      content: '>';
       display: block;
       position: absolute;
-      top: calc(50% - 3px);
-      left: -${Dimens.medium}px;
-      width: 8px;
-      height: 8.25px;
-      border-top: 1px solid ${Colors.black2};
-      border-right: 1px solid ${Colors.black2};
-      transform: rotate(45deg);
+      font-size: ${FontSizes.medium_18}px;
+      top: -2px;
+      left: -${Dimens.medium_17}px;
     }
   }
 `;
