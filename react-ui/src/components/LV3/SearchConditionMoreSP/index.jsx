@@ -64,21 +64,6 @@ const Headline = styled.div`
   `};
 `;
 
-const BackPrefectureLink = styled.a`
-  ${props => props.color && `color: ${props.color};`}
-  ${props =>
-    props.current &&
-    `
-    color: ${Colors.black};
-    pointer-events: none;
-  `}
-  text-decoration: none;
-  :hover {
-    ${props => props.color && `color: ${props.color};`}
-    opacity: 0.8;
-  }
-`;
-
 type PropTypes = {
   btnText: string,
   searchConditionCurrentList: Array<{
@@ -101,18 +86,16 @@ class SearchConditionMoreSP extends Component<PropTypes> {
     isTownArea: false,
   };
 
-  open = () => this.setState({ open: true });
-
-  close = () => this.setState({ open: false });
-
-  backSelectPrefecture = () => this.setState({ isTownArea: false });
-
   static getDerivedStateFromProps(props, state) {
     if (props.cityTownAreaList.length > 0 && !state.isTownArea) {
       return { isTownArea: true };
     }
     return null;
   }
+
+  open = () => this.setState({ open: true });
+
+  close = () => this.setState({ open: false });
 
   render() {
     const {
@@ -149,11 +132,7 @@ class SearchConditionMoreSP extends Component<PropTypes> {
             {isTownArea ? (
               <Fragment>
                 <SearchConditionPrefectureWrap>
-                  <Headline isTownArea>
-                    {/*<BackPrefectureLink color={Colors.black} onClick={this.backSelectPrefecture}>*/}
-                    {/*  都道府県を選択*/}
-                    {/*</BackPrefectureLink>*/}
-                  </Headline>
+                  <Headline isTownArea />
                   <SearchConditionSPListCityTownArea
                     searchConditionSPList={cityTownAreaList}
                     onClickCheckCity={onClickCheckCity}
