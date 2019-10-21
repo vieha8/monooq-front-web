@@ -185,6 +185,7 @@ class SearchResultContainer extends Component<PropTypes> {
             code: w.code,
             link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
             isChecked: isAlreadyTown || isAlreadyCity,
+            count: w.count,
           };
         });
 
@@ -199,6 +200,7 @@ class SearchResultContainer extends Component<PropTypes> {
             };
           }),
           townAreaList,
+          count: v.count,
         };
       });
       return {

@@ -86,13 +86,13 @@ export default ({ searchConditionSPList, onClickCheckTown }: PropTypes) => (
     <ConditionList>
       {searchConditionSPList.map((item, i) => (
         <Item key={`item_citytownarea_${i}`.toString()} className="item-condition-search">
-          <Collapsible trigger={CityName(item.cityName)}>
+          <Collapsible trigger={CityName(`${item.cityName}(${item.count})`)}>
             <CollapsibleItemList>
               {item.areaAroundList.length > 0 && (
                 <CollapsibleItem areaAroundList>
                   <AreaPinList>
                     <AreaAroundList
-                      caption="人気エリアタグ"
+                      caption="人気エリア"
                       captionColor={Colors.lightGray3}
                       areaAroundList={item.areaAroundList}
                       isNoScroll
@@ -103,7 +103,7 @@ export default ({ searchConditionSPList, onClickCheckTown }: PropTypes) => (
               {item.townAreaList.map((town, j) => (
                 <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
                   <CheckBox
-                    label={town.text}
+                    label={`${town.text}(${town.count})`}
                     checked={town.isChecked}
                     options={{ code: town.code }}
                     onClickCheck={onClickCheckTown}

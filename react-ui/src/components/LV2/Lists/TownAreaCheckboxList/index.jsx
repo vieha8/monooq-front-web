@@ -77,7 +77,7 @@ export default ({
       {townAreaList.map((item, i) => (
         <Item key={i.toString()}>
           <CheckBox
-            label={item.text}
+            label={`${item.text}(${item.count})`}
             checked={item.isChecked}
             onClickCheck={onClickCheckTown}
             options={{ code: item.code }}
