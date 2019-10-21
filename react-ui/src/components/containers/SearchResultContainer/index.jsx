@@ -266,8 +266,6 @@ class SearchResultContainer extends Component<PropTypes> {
       return;
     }
 
-    console.log(citiesCode, townsCode);
-
     const { history, conditions } = this.props;
 
     if (townsCode.length === 1 && citiesCode.length === 1) {
