@@ -458,7 +458,7 @@ class SearchResultContainer extends Component<PropTypes> {
   meta = condition => {
     return (
       <Meta
-        title={`${condition}の保管スペース検索結果 - モノオク`}
+        title={`${condition}のスペース検索結果 - モノオク`}
         jsonLd={this.makeMetaBreadcrumbs()}
       />
     );
