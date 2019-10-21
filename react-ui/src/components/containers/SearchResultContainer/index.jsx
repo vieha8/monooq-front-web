@@ -163,8 +163,31 @@ class SearchResultContainer extends Component<PropTypes> {
       state.cities.length !== conditions.cities.length ||
       state.towns.length !== conditions.towns.length
     ) {
+      // TODO だいぶ煩雑になっているのでリファクタリング
       const cityTownAreaList = cities.map(v => {
-        const isAlreadyCity = conditions.cities.filter(c => c.code === v.code).length > 0;
+        const checkAlreadyCity = () => {
+          if (conditions.cities.filter(c => c.code === v.code).length > 0) {
+            const checkedTowns = v.towns.filter(
+              w => conditions.towns.filter(t => t.code === w.code).length > 0,
+            ).length;
+            if (checkedTowns === 0 || checkedTowns === v.towns.length) {
+              return true;
+            }
+          }
+          return false;
+        };
+        const isAlreadyCity = checkAlreadyCity();
+
+        const townAreaList = v.towns.map(w => {
+          const isAlreadyTown = conditions.towns.filter(t => t.code === w.code).length > 0;
+          return {
+            text: w.name,
+            code: w.code,
+            link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
+            isChecked: isAlreadyTown || isAlreadyCity,
+          };
+        });
+
         return {
           cityName: v.name,
           cityCode: v.code,
@@ -175,15 +198,7 @@ class SearchResultContainer extends Component<PropTypes> {
               link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
             };
           }),
-          townAreaList: v.towns.map(w => {
-            const isAlreadyTown = conditions.towns.filter(t => t.code === w.code).length > 0;
-            return {
-              text: w.name,
-              code: w.code,
-              link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
-              isChecked: isAlreadyCity || isAlreadyTown,
-            };
-          }),
+          townAreaList,
         };
       });
       return {
