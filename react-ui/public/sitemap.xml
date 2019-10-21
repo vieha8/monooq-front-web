@@ -2,28 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url><loc>https://monooq.com</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/about</loc><priority>0.5</priority></url>
+    <url><loc>https://monooq.com/howtouse</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/insurance</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/rule</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/terms</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/privacy</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/asct</loc><priority>0.5</priority></url>
     <url><loc>https://monooq.com/inquiry</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=東京都&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=世田谷区&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=大田区&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=港区&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=渋谷区&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=新宿区&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=品川区&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=足立区&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=杉並区&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=目黒区&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=大阪府&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=神奈川県&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=埼玉県&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=千葉県&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=愛知県&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=兵庫県&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=福岡県&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
-    <url><loc>https://monooq.com/search?keyword=北海道&amp;prefCode=0&amp;priceMin=&amp;priceMax=&amp;type=0&amp;isFurniture=false&amp;receiptType=0</loc><priority>0.5</priority></url>
 </urlset>
