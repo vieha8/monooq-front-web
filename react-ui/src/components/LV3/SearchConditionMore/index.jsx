@@ -1,27 +1,49 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Modal } from 'semantic-ui-react';
-import { Dimens, FontSizes } from 'variables';
+import { Dimens, FontSizes, Colors } from 'variables';
 import Button from 'components/LV1/Forms/Button';
+import CloseIcon from 'components/LV2/ButtonHeader/CloseIcon';
 import CityTownAreaList from 'components/LV2/Lists/CityTownAreaList';
 import SearchConditionCurrentList from 'components/LV2/Lists/SearchConditionCurrentList';
 import PrefectureList from 'components/LV3/PrefectureList';
 
-const SearchConditionWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: ${Dimens.medium_22}px 0 ${Dimens.medium_22}px ${Dimens.medium_22}px;
-  margin-left: ${Dimens.small_10}px;
+const Wrap = styled.div`
+  display: block;
   ${media.tablet`
     display: none;
   `};
 `;
 
+const CloseIconWrap = styled.div`
+  margin-left: -2px;
+  margin: ${Dimens.medium}px auto ${Dimens.medium1_25}px ${Dimens.medium}px;
+`;
+
+const CityTownAreaListWrap = styled.div`
+  margin: auto;
+  max-width: 1000px;
+  padding: 0 ${Dimens.medium}px;
+  ${props =>
+    props.isCityTownAreaList &&
+    `
+      margin-bottom: 114px;
+  `};
+`;
+
+const SearchConditionWrap = styled.div`
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  padding: ${Dimens.medium_22}px ${Dimens.medium}px;
+`;
+
 const SearchConditionLeft = styled.div`
-  width: 70%;
+  width: 100%;
   font-size: ${FontSizes.small}px;
   font-weight: bold;
 `;
@@ -33,12 +55,17 @@ const SearchConditionRight = styled.div`
 const MoreButtonWrap = styled.div`
   width: 200px;
   margin: auto;
-  font-size: ${FontSizes.small}px;
-  font-weight: bold;
-  ${media.tablet`
-    max-width: 120px;
-    margin: auto;
-  `};
+`;
+
+const BottomWrap = styled.div`
+  width: 100%;
+  min-width: 768px;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  z-index: 2000;
+  background-color: ${Colors.white};
+  border-top: 1px solid ${Colors.borderGray};
 `;
 
 type PropTypes = {
@@ -92,7 +119,7 @@ class SearchConditionMore extends Component<PropTypes> {
     const { open } = this.state;
 
     return (
-      <Fragment>
+      <Wrap>
         <Button
           primary
           height={42}
@@ -106,46 +133,56 @@ class SearchConditionMore extends Component<PropTypes> {
         >
           {btnText}
         </Button>
-        <Modal size="large" open={open} onClose={this.close}>
+        <Modal
+          size="large"
+          open={open}
+          onClose={this.close}
+          className="ButtonModalSearchConditionMore pc"
+        >
           <Modal.Content scrolling>
-            {cityTownAreaList.length === 0 && <PrefectureList list={regionPrefectureList} />}
+            <CloseIconWrap>
+              <CloseIcon onClick={this.close} />
+            </CloseIconWrap>
+            <CityTownAreaListWrap isCityTownAreaList={cityTownAreaList.length > 0}>
+              {cityTownAreaList.length === 0 && <PrefectureList list={regionPrefectureList} />}
+              {cityTownAreaList.length > 0 && (
+                <CityTownAreaList
+                  cityTownAreaList={cityTownAreaList}
+                  prefecture={prefecture}
+                  onClickCheckCity={onClickCheckCity}
+                  onClickCheckTown={onClickCheckTown}
+                />
+              )}
+            </CityTownAreaListWrap>
             {cityTownAreaList.length > 0 && (
-              <CityTownAreaList
-                cityTownAreaList={cityTownAreaList}
-                prefecture={prefecture}
-                onClickCheckCity={onClickCheckCity}
-                onClickCheckTown={onClickCheckTown}
-              />
+              <BottomWrap>
+                <SearchConditionWrap>
+                  <SearchConditionLeft>
+                    <SearchConditionCurrentList
+                      searchConditionCurrentList={searchConditionCurrentList}
+                      modal
+                    />
+                  </SearchConditionLeft>
+                  <SearchConditionRight>
+                    <MoreButtonWrap>
+                      <Button
+                        primary
+                        height={42}
+                        heightTab={42}
+                        padding="10px 10px"
+                        paddingTab="10px 10px"
+                        onClick={onClickMore}
+                      >
+                        この条件で検索する
+                      </Button>
+                    </MoreButtonWrap>
+                  </SearchConditionRight>
+                </SearchConditionWrap>
+              </BottomWrap>
             )}
           </Modal.Content>
-          {cityTownAreaList.length > 0 && (
-            <Modal.Actions>
-              <SearchConditionWrap>
-                <SearchConditionLeft>
-                  <SearchConditionCurrentList
-                    searchConditionCurrentList={searchConditionCurrentList}
-                    modal
-                  />
-                </SearchConditionLeft>
-                <SearchConditionRight>
-                  <MoreButtonWrap>
-                    <Button
-                      primary
-                      height={42}
-                      heightTab={42}
-                      padding="10px 10px"
-                      paddingTab="10px 10px"
-                      onClick={onClickMore}
-                    >
-                      この条件で検索する
-                    </Button>
-                  </MoreButtonWrap>
-                </SearchConditionRight>
-              </SearchConditionWrap>
-            </Modal.Actions>
-          )}
         </Modal>
-      </Fragment>
+      </Wrap>
     );
   }
 }
