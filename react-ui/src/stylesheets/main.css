@@ -331,3 +331,7 @@
   overflow: unset !important;
   overflow-y: scroll !important;
 }
+
+.ButtonModalSearchConditionMore.pc .scrolling.content {
+  min-width: 768px !important;
+}

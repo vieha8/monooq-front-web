@@ -7,7 +7,7 @@ import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
 import SearchConditionMoreSP from 'components/LV3/SearchConditionMoreSP';
 
-const SendMessageWrap = styled.div`
+const Wrap = styled.div`
   width: 100%;
   position: fixed;
   left: 0px;
@@ -49,7 +49,7 @@ export default ({
   onClickCheckTown,
   prefectureList,
 }: PropTypes) => (
-  <SendMessageWrap>
+  <Wrap>
     <ButtonWrap>
       {modal ? (
         <SearchConditionMoreSP
@@ -67,5 +67,5 @@ export default ({
         </Button>
       )}
     </ButtonWrap>
-  </SendMessageWrap>
+  </Wrap>
 );

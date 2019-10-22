@@ -26,6 +26,11 @@ const CloseIconWrap = styled.div`
   margin: ${Dimens.medium}px auto ${Dimens.medium1_25}px ${Dimens.medium}px;
 `;
 
+const ContentWrap = styled.div`
+  max-width: 600px;
+  margin: auto;
+`;
+
 const SearchConditionWrap = styled.div`
   display: flex;
   justify-content: space-between;
@@ -118,7 +123,7 @@ class SearchConditionMoreSP extends Component<PropTypes> {
               <CloseIcon onClick={this.close} />
             </CloseIconWrap>
             {isTownArea ? (
-              <Fragment>
+              <ContentWrap>
                 <SearchConditionPrefectureWrap isTownArea>
                   <SearchConditionSPListCityTownArea
                     searchConditionSPList={cityTownAreaList}
@@ -127,20 +132,24 @@ class SearchConditionMoreSP extends Component<PropTypes> {
                   />
                 </SearchConditionPrefectureWrap>
                 <ButtonBottom text="この条件で検索する" onClick={onClickMore} />
-              </Fragment>
+              </ContentWrap>
             ) : (
-              <Fragment>
+              <ContentWrap>
                 <SearchConditionWrap>
                   <SearchConditionCurrentList
                     searchConditionCurrentList={searchConditionCurrentList}
                   />
                 </SearchConditionWrap>
-                <Hr width="calc(100% - 32px)" marginPhone="20px 16px" />
+                <Hr
+                  width="calc(100% - 32px)"
+                  margin={`${Dimens.medium4}px auto`}
+                  marginPhone="20px 16px"
+                />
                 <SearchConditionPrefectureWrap>
                   <Headline>都道府県でスペースを探す</Headline>
                   <SearchConditionSPList searchConditionSPList={prefectureList} />
                 </SearchConditionPrefectureWrap>
-              </Fragment>
+              </ContentWrap>
             )}
           </Modal.Content>
         </Modal>

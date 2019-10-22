@@ -6,7 +6,9 @@ import { Dimens, FontSizes, Colors } from 'variables';
 import InlineText from 'components/LV1/Texts/InlineText';
 import IconAreaRed from 'images/icon-area-red.png';
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  width: 100%;
+`;
 
 const TitleOuter = styled.div`
   margin-bottom: ${Dimens.medium}px;
