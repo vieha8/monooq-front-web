@@ -9,18 +9,21 @@ export const errorActions = createActions(SET_ERROR, RESET_ERROR);
 
 // Reducer
 const initialState = {
-  message: null,
+  message: '',
+  functionName: '',
   hasError: true,
 };
 
 export const errorReducer = handleActions(
   {
     [SET_ERROR]: (state, action) => ({
-      message: action.payload,
+      functionName: action.payload.functionName,
+      message: action.payload.message,
       hasError: true,
     }),
     [RESET_ERROR]: () => ({
-      message: null,
+      message: '',
+      functionName: '',
       hasError: false,
     }),
   },
@@ -34,5 +37,10 @@ export function* handleError(action, errMessage, functionName, err, isOnlyAction
   if (isOnlyAction) {
     return;
   }
-  yield put(errorActions.setError(`error(${functionName}):${err}`));
+  yield put(
+    errorActions.setError({
+      message: errMessage,
+      functionName,
+    }),
+  );
 }

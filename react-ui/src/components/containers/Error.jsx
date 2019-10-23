@@ -11,32 +11,39 @@ class ErrorModal extends Component {
   componentWillReceiveProps = next => {
     if (next.error.hasError) {
       this.setState({ open: true });
-      captureMessage(next.error.message || 'Error');
+      let msg = 'Error';
+      if (next.error.message) {
+        msg = `error(${next.error.functionName}):${next.error.message}`;
+      }
+      captureMessage(msg);
     }
   };
 
   render() {
     const { open } = this.state;
+    const { error } = this.props;
 
     return (
-      <div>
-        <Modal size="large" open={open} onClose={this.close}>
-          <Modal.Header>Sorry...</Modal.Header>
-          <Modal.Content>
+      <Modal size="large" open={open} onClose={this.close}>
+        <Modal.Header>Sorry...</Modal.Header>
+        <Modal.Content>
+          {error.message !== '' ? (
+            <p>{error.message}</p>
+          ) : (
             <p>
-              通信エラーが発生しました。ご不便をおかけし大変申し訳ございません。
+              エラーが発生しました。ご不便をおかけし大変申し訳ございません。
               <br />
               <br />
               日々改善に努めております。しばらく時間を置いて再度試しても解決されない場合は、お手数ですがお問い合わせください。
             </p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button small={1} onClick={this.close}>
-              閉じる
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      </div>
+          )}
+        </Modal.Content>
+        <Modal.Actions>
+          <Button small={1} onClick={this.close}>
+            閉じる
+          </Button>
+        </Modal.Actions>
+      </Modal>
     );
   }
 }

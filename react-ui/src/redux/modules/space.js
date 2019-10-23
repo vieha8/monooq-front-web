@@ -532,7 +532,14 @@ function* deleteSpace({ payload: { space } }) {
   const token = yield* getToken();
   const { err } = yield call(deleteApiRequest, apiEndpoint.spaces(space.id), token);
   if (err) {
-    yield handleError(spaceActions.deleteFailedSpace, '', 'deleteSpace', err, false);
+    let errMessage = '';
+    console.log(err);
+    if (err === '進行中の取引があります') {
+      console.log('A');
+      errMessage = '進行中の取引があるスペースは削除できません';
+    }
+
+    yield handleError(spaceActions.deleteFailedSpace, errMessage, 'deleteSpace', err, false);
     return;
   }
 
