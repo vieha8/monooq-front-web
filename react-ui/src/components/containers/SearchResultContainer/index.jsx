@@ -309,7 +309,7 @@ class SearchResultContainer extends Component<PropTypes> {
 
     let condition = '';
 
-    if (pref && pref.name !== '') {
+    if (pref && pref.name && pref.name !== '') {
       condition += pref.name;
     }
 
@@ -319,6 +319,10 @@ class SearchResultContainer extends Component<PropTypes> {
 
     if (towns && towns.length > 0) {
       condition += `/${towns.map(v => v.name).join('・')}`;
+    }
+
+    if (condition === '') {
+      condition = 'すべて';
     }
 
     return condition;
