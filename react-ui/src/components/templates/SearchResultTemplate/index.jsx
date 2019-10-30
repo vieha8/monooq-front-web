@@ -31,6 +31,13 @@ const SortListWrap = styled.div`
   `};
 `;
 
+const ButtonBottomWrap = styled.div`
+  display: none;
+  ${media.tablet`
+    display: block;
+  `};
+`;
+
 type PropTypes = {
   meta: React.Element<*>,
   condition: string,
@@ -135,16 +142,18 @@ export default ({
     )}
     <Content noTopMargin={noTopMargin}>{searchResult}</Content>
     {textButtonBottom && (
-      <ButtonBottom
-        modal
-        text={textButtonBottom}
-        cityTownAreaList={cityTownAreaList}
-        onClickMore={onClickMore}
-        onClickCheckCity={onClickCheckCity}
-        onClickCheckTown={onClickCheckTown}
-        searchConditionCurrentList={searchConditionCurrentList}
-        prefectureList={prefectureList}
-      />
+      <ButtonBottomWrap>
+        <ButtonBottom
+          modal
+          text={textButtonBottom}
+          cityTownAreaList={cityTownAreaList}
+          onClickMore={onClickMore}
+          onClickCheckCity={onClickCheckCity}
+          onClickCheckTown={onClickCheckTown}
+          searchConditionCurrentList={searchConditionCurrentList}
+          prefectureList={prefectureList}
+        />
+      </ButtonBottomWrap>
     )}
   </div>
 );
