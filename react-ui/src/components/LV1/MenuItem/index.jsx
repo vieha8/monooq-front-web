@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
-import { media } from 'helpers/style/media-query';
+import { media, mediaMin } from 'helpers/style/media-query';
 
 const MenuItem = styled.li`
   position: relative;
@@ -12,7 +12,7 @@ const MenuItem = styled.li`
   font-weight: 500;
   background-color: ${Colors.white};
   border-top: 1px solid ${Colors.borderGray2};
-  &:hover {
+  &:active {
     cursor: pointer;
     background: ${Colors.lightGray5};
   }
@@ -50,6 +50,18 @@ const MenuItem = styled.li`
         content: none;
       }
     `};
+
+  ${mediaMin.tablet`
+    ${props =>
+      !props.disabled &&
+      `
+        &:hover {
+          cursor: pointer;
+          background: ${Colors.lightGray5};
+        }
+      `};
+  `};
+
   ${media.tablet`
     width: 100%;
   `};

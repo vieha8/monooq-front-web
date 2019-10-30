@@ -34,6 +34,10 @@ const LinkStyled = styled(Link)`
     color: ${Colors.lightGray3};
     opacity: 0.8;
   }
+  &:active {
+    color: ${Colors.lightGray3};
+    opacity: 0.8;
+  }
 `;
 
 export type PropTypes = {

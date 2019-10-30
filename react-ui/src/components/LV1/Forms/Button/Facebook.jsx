@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { media } from 'helpers/style/media-query';
+import { media, mediaMin } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import { Colors, Dimens } from 'variables';
 import imageFacebook from 'images/icon-facebook.svg';
@@ -20,10 +20,11 @@ const Facebook = styled(PrimaryButton)`
       color: ${Colors.lightGray1};    
     `
       : `
-      &:hover {
+      &:active {
         background: ${Colors.facebookHover};
       }
     `};
+
   ${props =>
     props.type2 &&
     `
@@ -32,15 +33,37 @@ const Facebook = styled(PrimaryButton)`
       color: ${Colors.facebook_type2};
       border: 2px solid ${Colors.facebook_type2};
       padding-left: ${Dimens.medium}px;
-      &:hover {
+      &:active {
         background: ${Colors.white};
         color: ${Colors.facebookHover_type2};
         border-color: ${Colors.facebookHover_type2};
       }
-      &:hover span img {
+      &:active span img {
         opacity: 0.7;
       }
     `};
+
+  ${mediaMin.tablet`
+    ${props =>
+      !props.disabled &&
+      `
+        &:hover {
+          background: ${Colors.facebookHover};
+        };
+        ${props.type2 &&
+          `
+            &:hover {
+              background: ${Colors.white};
+              color: ${Colors.facebookHover_type2};
+              border-color: ${Colors.facebookHover_type2};
+            }
+            &:hover span img {
+              opacity: 0.7;
+            }
+          `};
+      `};
+  `};
+
   ${media.phone`
     ${props =>
       props.type2 &&

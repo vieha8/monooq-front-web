@@ -85,26 +85,6 @@ const PriceText = styled(InlineText.Base)`
   `};
 `;
 
-const NoCardShadowStyle = `
-  transition: 0.3s;
-  &:hover {
-    opacity: 0.8;
-    transition: 0.3s; 
-  }
-  width: 100%;
-`;
-
-const CardShadowStyle = `
-  box-shadow: none;
-  transition: 0.3s;
-  &:hover {
-    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-    transition: 0.3s;
-    border-radius:6px;
-  }
-  width: 100%;
-`;
-
 type PropTypes = {
   href?: string,
   onClick?: Function,
@@ -134,7 +114,7 @@ export default ({
   manage ? (
     <Container manage>
       <Link to={href || ''}>
-        <Card noBorder noPadding pointer onClick={onClick} customStyle={NoCardShadowStyle}>
+        <Card noBorder noPadding pointer onClick={onClick}>
           <ImageWrapper>
             <ImageHero large src={image.src} alt={image.alt} />
           </ImageWrapper>
@@ -156,7 +136,7 @@ export default ({
   ) : (
     <Container>
       <Link to={href || ''}>
-        <Card noPadding pointer onClick={onClick} customStyle={CardShadowStyle}>
+        <Card noPadding pointer onClick={onClick}>
           <ImageWrapper>
             <ImageHero height={150} medium src={image.src} alt={image.alt} />
           </ImageWrapper>

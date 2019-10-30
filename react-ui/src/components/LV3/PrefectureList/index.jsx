@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { media } from 'helpers/style/media-query';
+import { media, mediaMin } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
 import Button from 'components/LV1/Forms/Button';
 import Path from '../../../config/path';
@@ -94,11 +94,18 @@ const Wrap = styled.ul`
   box-shadow: 0px 0px ${Dimens.small2}px rgba(0, 0, 0, 0.1);
   margin: ${Dimens.small2}px ${Dimens.small2}px ${Dimens.medium_20}px;
   transition: 0.2s;
-  &:hover {
+  &:active {
     transition: 0.2s;
     transform: scale(1.1);
     margin: ${Dimens.small2}px ${Dimens.medium1_25}px ${Dimens.medium_20}px;
   }
+  ${mediaMin.tablet`
+    &:hover {
+      transition: 0.2s;
+      transform: scale(1.1);
+      margin: ${Dimens.small2}px ${Dimens.medium1_25}px ${Dimens.medium_20}px;
+    }
+  `};
 `;
 
 const WrapButton = styled.li`

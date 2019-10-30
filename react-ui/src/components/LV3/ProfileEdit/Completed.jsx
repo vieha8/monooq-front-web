@@ -21,9 +21,6 @@ const ToProfileLink = styled(Link)`
   font-size: ${FontSizes.medium}px;
   text-align: left;
   color: ${Colors.linkBlue};
-  &:hover {
-    color: ${Colors.linkBlue};
-  }
   ${media.phone`
     margin-top: ${Dimens.medium_20}px;
   `}
