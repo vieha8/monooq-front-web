@@ -261,11 +261,19 @@
 }
 
 .item-condition-search .Collapsible:last-child .Collapsible__trigger::after {
-  top: 20px;
+  top: 15px;
+  right: 20px;
+  width: 25px;
+  height: 25px;
+  border: unset;
+  background-image: url('../images/icon-arrow-circle.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform: rotate(0deg);
 }
 
 .item-condition-search .Collapsible:last-child .Collapsible__trigger.is-open::after {
-  top: 20.5px;
+  transform: rotate(180deg);
 }
 
 /* 
