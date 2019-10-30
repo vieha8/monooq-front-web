@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { mediaMin } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
 import Button from 'components/LV1/Forms/Button';
 
@@ -42,10 +43,16 @@ const Item = styled.li`
 const LinkStyled = styled(Link)`
   line-height: ${Dimens.medium_20}px;
   color: ${Colors.lightGray3};
-  &:hover {
+  &:active {
     color: ${Colors.lightGray3};
     opacity: 0.8;
   }
+  ${mediaMin.tablet`
+    &:hover {
+      color: ${Colors.lightGray3};
+      opacity: 0.8;
+    }
+  `};
 `;
 
 export type PropTypes = {

@@ -45,7 +45,8 @@ const ButtonWrap = styled.div`
 
 const ButtonLinkStyled = styled(Link)`
   color: ${Colors.white};
-  &:hover {
+  &:hover,
+  &:active {
     color: ${Colors.white};
   }
 `;

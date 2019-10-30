@@ -12,63 +12,63 @@ AreaAroundList.displayName = 'AreaAroundList';
 
 const AreaAroundListData = () => [
   {
-    name: '武蔵村山市',
+    text: '武蔵村山市',
     link: '/musashimurayama',
   },
   {
-    name: '渋谷区',
+    text: '渋谷区',
     link: '/shibuya',
   },
   {
-    name: '北区',
+    text: '北区',
     link: '/kita',
   },
   {
-    name: '武蔵村山市',
+    text: '武蔵村山市',
     link: '/musashimurayama',
   },
   {
-    name: '渋谷区',
+    text: '渋谷区',
     link: '/shibuya',
   },
   {
-    name: '北区',
+    text: '北区',
     link: '/kita',
   },
   {
-    name: '武蔵村山市',
+    text: '武蔵村山市',
     link: '/musashimurayama',
   },
   {
-    name: '渋谷区',
+    text: '渋谷区',
     link: '/shibuya',
   },
   {
-    name: '北区',
+    text: '北区',
     link: '/kita',
   },
   {
-    name: '武蔵村山市',
+    text: '武蔵村山市',
     link: '/musashimurayama',
   },
   {
-    name: '渋谷区',
+    text: '渋谷区',
     link: '/shibuya',
   },
   {
-    name: '北区',
+    text: '北区',
     link: '/kita',
   },
   {
-    name: '武蔵村山市',
+    text: '武蔵村山市',
     link: '/musashimurayama',
   },
   {
-    name: '渋谷区',
+    text: '渋谷区',
     link: '/shibuya',
   },
   {
-    name: '北区',
+    text: '北区',
     link: '/kita',
   },
 ];

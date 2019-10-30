@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { mediaMin } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import { Colors } from 'variables';
 import LogoLineSrc from 'images/logo-line-w.png';
@@ -20,13 +21,26 @@ const Line = styled(PrimaryButton)`
       color: ${Colors.lightGray1};    
     `
       : `
-      &:hover {
+      &:active {
         background: ${Colors.lineHover};
       }
-      &:hover span img {
+      &:active span img {
         opacity: 0.8;
       }
     `};
+
+  ${mediaMin.tablet`
+    ${props =>
+      !props.disabled &&
+      `
+        &:hover {
+          background: ${Colors.lineHover};
+        }
+        &:hover span img {
+          opacity: 0.8;
+        }
+      `};
+  `};
 `;
 
 const SpanStyled = styled.span`

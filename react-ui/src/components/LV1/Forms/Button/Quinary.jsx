@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { mediaMin } from 'helpers/style/media-query';
 import { Colors } from 'variables';
 import { PrimaryButton } from './Primary';
 
@@ -21,16 +22,28 @@ const Quinary = styled(PrimaryButton)`
   ${props =>
     props.disabled
       ? `
-    cursor: not-allowed;
-    border-color: ${Colors.lightGray1};
-    color: ${Colors.lightGray1};    
-  `
+        cursor: not-allowed;
+        border-color: ${Colors.lightGray1};
+        color: ${Colors.lightGray1};    
+      `
       : `
-    &:hover {
-      background: ${Colors.brandPrimary};
-      border-color: ${Colors.brandPrimary};
-      color: ${Colors.white};
-    }
+        &:active {
+          background: ${Colors.brandPrimary};
+          border-color: ${Colors.brandPrimary};
+          color: ${Colors.white};
+        }
+      `};
+
+  ${mediaMin.tablet`
+    ${props =>
+      !props.disabled &&
+      `
+        &:hover {
+          background: ${Colors.brandPrimary};
+          border-color: ${Colors.brandPrimary};
+          color: ${Colors.white};
+        }
+      `};
   `};
 `;
 

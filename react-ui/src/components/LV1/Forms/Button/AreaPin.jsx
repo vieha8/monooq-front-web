@@ -3,6 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
+import { mediaMin } from 'helpers/style/media-query';
 import IconAreaGray from 'images/icon-area-gray.png';
 import { PrimaryButton } from './Primary';
 
@@ -34,17 +35,30 @@ const Button = styled(PrimaryButton)`
   ${props =>
     props.disabled
       ? `
-    cursor: not-allowed;
-    border-color: ${Colors.lightGray1};
-    color: ${Colors.lightGray1};    
-  `
+        cursor: not-allowed;
+        border-color: ${Colors.lightGray1};
+        color: ${Colors.lightGray1};
+      `
       : `
-    &:hover {
-      color: ${Colors.black};
-      background: ${Colors.white};
-      border-color: ${Colors.white};
-      opacity: 0.8;
-    }
+        &:active {
+          color: ${Colors.black};
+          background: ${Colors.white};
+          border-color: ${Colors.white};
+          opacity: 0.8;
+        }
+      `};
+
+  ${mediaMin.tablet`
+    ${props =>
+      !props.disabled &&
+      `
+        &:hover {
+          color: ${Colors.black};
+          background: ${Colors.white};
+          border-color: ${Colors.white};
+          opacity: 0.8;
+        }
+      `};
   `};
 `;
 

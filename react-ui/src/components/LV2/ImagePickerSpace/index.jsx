@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import { Colors, Dimens } from 'variables';
-import { media } from 'helpers/style/media-query';
+import { media, mediaMin } from 'helpers/style/media-query';
 import { isImageDefault } from 'helpers/images';
 import Loading from 'components/LV1/Loading';
 import { PictureIcon } from 'components/LV1/Images/ActionIcon';
@@ -56,9 +56,15 @@ const DropZoneWrap = styled.div`
   width: 100%;
   margin-top: ${Dimens.small2}px;
   cursor: pointer;
-  &:hover {
+  &:active {
     opacity: 0.6;
   }
+
+  ${mediaMin.tablet`
+    &:hover {
+      opacity: 0.6;
+    }
+  `};
 `;
 
 const ImagePreviewContainer = styled.ul`

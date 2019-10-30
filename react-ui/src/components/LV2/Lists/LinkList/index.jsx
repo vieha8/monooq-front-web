@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { mediaMin } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { Link } from 'react-router-dom';
 
@@ -38,10 +39,16 @@ const Anchor = styled.a`
   `};
   vertical-align: middle;
   text-decoration: none;
-  &:hover {
+  &:active {
     ${props => props.color && `color: ${props.color};`}
     opacity: 0.8;
   }
+  ${mediaMin.tablet`
+    &:hover {
+      ${props => props.color && `color: ${props.color};`}
+      opacity: 0.8;
+    }
+  `};
 `;
 
 const StyledLink = styled(Link)`
@@ -58,6 +65,16 @@ const StyledLink = styled(Link)`
     ${props => props.color && `color: ${props.color};`}
     opacity: 0.8;
   }
+  &:active {
+    ${props => props.color && `color: ${props.color};`}
+    opacity: 0.8;
+  }
+  ${mediaMin.tablet`
+    &:hover {
+      ${props => props.color && `color: ${props.color};`}
+      opacity: 0.8;
+    }
+  `};
 `;
 
 type PropTypes = {

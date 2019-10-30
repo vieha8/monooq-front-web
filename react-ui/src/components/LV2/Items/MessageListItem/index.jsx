@@ -4,7 +4,7 @@ import React from 'react';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
+import { media, mediaMin } from 'helpers/style/media-query';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Dimens, Colors, FontSizes } from 'variables';
@@ -15,7 +15,7 @@ import { formatName } from 'helpers/string';
 const Container = styled.li`
   padding: ${Dimens.medium1}px 5px ${Dimens.medium}px;
   border-bottom: 1px solid ${Colors.borderGray};
-  &:hover {
+  &:active {
     cursor: pointer;
     background: rgba(0, 0, 0, 0.1);
   }
@@ -32,6 +32,12 @@ const Container = styled.li`
       padding: ${Dimens.medium2}px 5px ${Dimens.small_10}px;
     `};
   }
+  ${mediaMin.tablet`
+    &:hover {
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.1);
+    }
+  `};
 `;
 
 const Cell = styled.div`

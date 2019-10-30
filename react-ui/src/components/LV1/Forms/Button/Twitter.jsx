@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
+import { media, mediaMin } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import { Colors, Dimens } from 'variables';
 import imageTwitter from 'images/icon-twitter.svg';
@@ -11,25 +11,43 @@ import { PrimaryButton } from './Primary';
 const Twitter = styled(PrimaryButton)`
   padding: ${Dimens.small_11}px ${Dimens.small_10}px;
   ${props =>
-    props.disabled &&
-    `
-      cursor: not-allowed;
-      border-color: ${Colors.lightGray1};
-      color: ${Colors.lightGray1};    
-    `};
+    props.disabled
+      ? `
+        cursor: not-allowed;
+        border-color: ${Colors.lightGray1};
+        color: ${Colors.lightGray1};
+      `
+      : `
+        &:active {
+          background: ${Colors.white};
+          border-color: ${Colors.twitterHover};
+          color: ${Colors.twitterHover};
+        }
+        &:active span img {
+          opacity: 0.5;
+        }
+      `};
 
   background: ${Colors.white};
   color: ${Colors.twitter};
   border: 2px solid ${Colors.twitter};
   padding-left: 11px;
-  &:hover {
-    background: ${Colors.white};
-    border-color: ${Colors.twitterHover};
-    color: ${Colors.twitterHover};
-  }
-  &:hover span img {
-    opacity: 0.5;
-  }
+
+  ${mediaMin.tablet`
+    ${props =>
+      !props.disabled &&
+      `
+        &:hover {
+          background: ${Colors.white};
+          border-color: ${Colors.twitterHover};
+          color: ${Colors.twitterHover};
+        }
+        &:hover span img {
+          opacity: 0.5;
+        }
+      `};
+  `};
+
   ${media.phone`
     padding: ${Dimens.small_10}px;
     padding-left: ${Dimens.xsmall}px;

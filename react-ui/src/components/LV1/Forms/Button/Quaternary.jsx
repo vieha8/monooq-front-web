@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { mediaMin } from 'helpers/style/media-query';
 import { Dimens, Colors } from 'variables';
 import { PrimaryButton } from './Primary';
 
@@ -33,10 +34,21 @@ const Quaternary = styled(PrimaryButton)`
     color: ${Colors.lightGray1};    
   `
       : `
-    &:hover {
+    &:active {
       background: none;
       opacity: 0.8;
     }
+  `};
+
+  ${mediaMin.tablet`
+    ${props =>
+      !props.disabled &&
+      `
+        &:hover {
+          background: none;
+          opacity: 0.8;
+        }
+      `};
   `};
 `;
 

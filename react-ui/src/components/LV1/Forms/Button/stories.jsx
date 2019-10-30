@@ -184,6 +184,60 @@ storiesOf('Atoms(LV1)/Forms/Button', module)
     )),
   )
   .add(
+    'Twitter',
+    withInfo(`
+      ### コンポーネント概要
+      ボタン(Twitter)
+      * ■パラメータ
+      * fill={1}：横幅100%にする。
+      * fontbold：ボタンのテキストを太字にする。
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Button twitter url="">
+          Twitter
+        </Button>
+        <br />
+        <Button twitter url="" disabled>
+          Twitter
+        </Button>
+        <br />
+        <Button twitter url="" fontbold fill={1}>
+          Twitter(文字太字/横幅100%)
+        </Button>
+        <br />
+        <Button twitter url="" fontbold fill={1} disabled>
+          Twitter(文字太字/横幅100%)
+        </Button>
+      </div>
+    )),
+  )
+  .add(
+    'LINE',
+    withInfo(`
+      ### コンポーネント概要
+      ボタン(LINE)
+      * ■パラメータ
+      * fill={1}：横幅100%にする。
+      * fontbold：ボタンのテキストを太字にする。
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Button line>LINE</Button>
+        <br />
+        <Button line disabled>
+          LINE
+        </Button>
+        <br />
+        <Button line fontbold fill={1}>
+          LINE(文字太字/横幅100%)
+        </Button>
+        <br />
+        <Button line fontbold fill={1} disabled>
+          LINE(文字太字/横幅100%)
+        </Button>
+      </div>
+    )),
+  )
+  .add(
     'Area Pin',
     withInfo(`
       ### コンポーネント概要

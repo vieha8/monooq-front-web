@@ -1,10 +1,10 @@
 // @flow
 
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Modal } from 'semantic-ui-react';
-import { Dimens, FontSizes, Colors } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 import Hr from 'components/LV1/HorizontalRule';
 import ButtonLV1 from 'components/LV1/Forms/Button';
 import ButtonBottom from 'components/LV2/Forms/ButtonBottom';

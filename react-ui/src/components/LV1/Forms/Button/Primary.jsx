@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Colors, FontSizes } from 'variables';
-import { media } from 'helpers/style/media-query';
+import { media, mediaMin } from 'helpers/style/media-query';
 
 const btnlink = styled(Link)``;
 
@@ -23,10 +23,10 @@ export const PrimaryButton = styled.div`
 
   border-radius: ${props => (props.borderRadius ? props.borderRadius : 3)}px;
   cursor: pointer;
-  
+
   ${props => (props.lineheight ? `line-height: ${props.lineheight}px;` : `line-height: normal`)};
 
-  height: 48px;  
+  height: 48px;
   ${props =>
     props.height &&
     `
@@ -50,31 +50,49 @@ export const PrimaryButton = styled.div`
     props.center &&
     `
     margin: 0 auto;
-  `} ${props =>
-  props.disabled
-    ? css`
+  `};
+
+  ${props =>
+    props.disabled
+      ? `
         background: ${Colors.lightGray1};
         cursor: not-allowed;
       `
-    : css`
+      : `
+        &:active {
+          background: ${Colors.brandTerciary};
+        }
+      `};
+
+  ${mediaMin.tablet`
+    ${props =>
+      !props.disabled &&
+      `
         &:hover {
           background: ${Colors.brandTerciary};
         }
-      `} ${props =>
-  props.small &&
-  css`
-    padding: 8px 4px;
-    font-size: 12px;
-  `} ${props =>
-  props.medium &&
-  css`
-    padding: 12px 8px;
-    font-size: 16px;
-  `} ${props =>
-  props.fontSize &&
-  css`
-    font-size: ${props.fontSize}px;
+      `};
   `};
+
+  ${props =>
+    props.small &&
+    `
+      padding: 8px 4px;
+      font-size: 12px;
+    `};
+
+  ${props =>
+    props.medium &&
+    `
+      padding: 12px 8px;
+      font-size: 16px;
+    `};
+
+  ${props =>
+    props.fontSize &&
+    `
+      font-size: ${props.fontSize}px;
+    `};
 
   ${media.tablet`
     ${props =>
