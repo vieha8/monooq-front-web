@@ -719,6 +719,12 @@ const makeBreadcrumbs = ({ keyword, pref, cities, towns }) => {
     });
   }
 
+  if (breadcrumbs.length === 1) {
+    breadcrumbs.push({
+      text: `スペース検索結果`,
+    });
+  }
+
   return breadcrumbs;
 };
 

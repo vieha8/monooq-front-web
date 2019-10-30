@@ -422,7 +422,7 @@ class SearchResultContainer extends Component<PropTypes> {
     const { conditions } = this.props;
     const { pref, cities, towns } = conditions;
 
-    if (pref) {
+    if (pref && pref.name) {
       position += 1;
       itemList.push({
         '@type': 'ListItem',
@@ -450,6 +450,16 @@ class SearchResultContainer extends Component<PropTypes> {
           });
         }
       }
+    }
+
+    if (itemList.length === 1) {
+      position += 1;
+      itemList.push({
+        '@type': 'ListItem',
+        position,
+        name: `スペース検索結果`,
+        item: `${baseUrl}/search`,
+      });
     }
 
     return {
