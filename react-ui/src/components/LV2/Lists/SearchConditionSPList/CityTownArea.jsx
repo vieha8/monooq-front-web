@@ -81,13 +81,15 @@ export type PropTypes = {
   }>,
 };
 
-// TODO: ★改修途中(このあとの実装で拡張予定なので、参考ソースはそのまま配置してある状態)★
 export default ({ searchConditionSPList, onClickCheckTown }: PropTypes) => (
   <Wrap>
     <ConditionList>
       {searchConditionSPList.map((item, i) => (
         <Item key={`item_citytownarea_${i}`.toString()} className="item-condition-search">
-          <Collapsible trigger={CityName(`${item.cityName}(${item.count})`)}>
+          <Collapsible
+            trigger={CityName(`${item.cityName}(${item.count})`)}
+            open={item.townAreaList.filter(town => town.isChecked).length > 0}
+          >
             <CollapsibleItemList>
               {item.areaAroundList.length > 0 && (
                 <CollapsibleItem areaAroundList>
