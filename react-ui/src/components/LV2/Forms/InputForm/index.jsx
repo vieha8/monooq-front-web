@@ -29,18 +29,13 @@ const HintBottomWrap = styled.div`
   margin-top: ${Dimens.small}px;
 `;
 
-const CheckWrap = styled.div`
-  margin-top: ${Dimens.small}px;
-`;
-
 type PropTypes = {
   label?: string,
   hint?: string,
   checkbox?: boolean,
+  labelCheckBox?: string,
   checked?: boolean,
-  onClick?: Function,
   onKeyDown?: Function,
-  checktext?: string,
   margintop?: number,
   extension?: React.Element<*>,
   multiline?: boolean,
@@ -50,19 +45,25 @@ type PropTypes = {
   type?: string,
   autoComplete?: string,
   onChange?: Function,
+  onClick?: Function,
+  onClickCheck?: Function,
   hintbottom?: string,
   unit?: string,
   className?: string,
+  options?: any,
 };
 
 export default ({
   label,
   hint,
   checkbox,
+  labelCheckBox,
   checked,
+  onChange,
   onClick,
+  onClickCheck,
   onKeyDown,
-  checktext,
+  options,
   margintop,
   extension,
   multiline,
@@ -71,7 +72,6 @@ export default ({
   value,
   type,
   autoComplete,
-  onChange,
   hintbottom,
   unit,
   className,
@@ -80,11 +80,15 @@ export default ({
     {label && <H3 bold>{label}</H3>}
     {hint && <InlineText.EmphasisSmall>{hint}</InlineText.EmphasisSmall>}
     {checkbox ? (
-      <CheckWrap>
-        <Check checked={checked} onClick={onClick} onKeyDown={onKeyDown}>
-          {checktext}
-        </Check>
-      </CheckWrap>
+      <Check
+        label={labelCheckBox}
+        checked={checked}
+        onClick={onClick}
+        onClickCheck={onClickCheck}
+        onKeyDown={onKeyDown}
+        className={className}
+        options={options}
+      />
     ) : (
       <InputFieldWrapper unit={unit} margintop={margintop}>
         {extension ||

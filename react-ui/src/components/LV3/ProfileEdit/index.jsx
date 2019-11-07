@@ -7,7 +7,6 @@ import { Dimens } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 import selectOptionPurpose from 'helpers/purposes';
 import Button from 'components/LV1/Forms/Button';
-import CheckBox from 'components/LV1/Forms/CheckBox';
 import RegsiterProfileImage from 'components/LV1/Forms/DragAndDrop/RegisterProfileImage';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
@@ -110,10 +109,11 @@ export default ({
       <ErrorList keyName="email_errors" errors={errors.email} />
     </Row>
     <Row>
-      <CheckBox
-        label="サービスに関するお知らせメールを受け取る"
+      <InputForm
+        checkbox
+        labelCheckBox="サービスに関するお知らせメールを受け取る"
         checked={isNoticeEmail}
-        onClick={onChangeNoticeEmail}
+        onClickCheck={onChangeNoticeEmail}
         onKeyDown={onKeyDownNoticeEmail}
       />
     </Row>

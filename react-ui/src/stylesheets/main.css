@@ -187,8 +187,6 @@
   position: relative;
   padding: 10px 24px;
   border: 1px solid #dbdbdb;
-  border-left: unset;
-  border-right: unset;
   border-bottom: none;
   background-color: #f7f7f7;
   text-align: left;
@@ -251,6 +249,8 @@
 }
 
 .item-condition-search .Collapsible .Collapsible__trigger {
+  border-left: unset;
+  border-right: unset;
   background-color: #fff !important;
   padding: 13px 16px;
 }
@@ -303,6 +303,7 @@
   height: 24px !important;
 }
 .ui.checkbox {
+  width: 100%;
   box-sizing: border-box;
 }
 .ui.checkbox label {
@@ -317,6 +318,9 @@
   line-height: 24px;
   color: #fff !important;
   background: #e85258 !important;
+}
+.ui.checkbox.list-citytown {
+  padding: 15px 16px 15px 38px;
 }
 
 /* Modal Search Condition More */

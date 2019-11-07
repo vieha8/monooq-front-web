@@ -81,7 +81,8 @@ export default ({
         <Item key={i.toString()}>
           <CityWrap>
             <ImageAreaPin src={IconAreaGray} alt="icon-area" />
-            {item.cityName}({item.count})
+            {item.cityName}
+            {`(${item.count})`}
           </CityWrap>
           {item.areaAroundList.length > 0 && (
             <AreaPinList>
