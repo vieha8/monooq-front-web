@@ -90,6 +90,11 @@ class SearchConditionMoreSP extends Component<PropTypes> {
 
   close = () => this.setState({ open: false });
 
+  getIsChecked = cityTownAreaList =>
+    cityTownAreaList
+      .map(item => item.townAreaList.filter(town => town.isChecked).length > 0 && 1)
+      .indexOf(1) === -1;
+
   render() {
     const {
       searchIcon,
@@ -131,7 +136,11 @@ class SearchConditionMoreSP extends Component<PropTypes> {
                     onClickCheckTown={onClickCheckTown}
                   />
                 </SearchConditionPrefectureWrap>
-                <ButtonBottom text="この条件で検索する" onClick={onClickMore} />
+                <ButtonBottom
+                  text="この条件で検索する"
+                  onClick={onClickMore}
+                  disabled={this.getIsChecked(cityTownAreaList)}
+                />
               </ContentWrap>
             ) : (
               <ContentWrap>
