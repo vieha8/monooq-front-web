@@ -9,10 +9,11 @@ import Path from 'config/path';
 import Footer from 'components/LV2/Footer';
 import Top from 'components/LV3/Top';
 import ReactGA from 'react-ga';
-import { isAvailableLocalStorage } from 'helpers/storage';
 import { spaceActions } from 'redux/modules/space';
 import { sectionActions } from 'redux/modules/section';
+import { isAvailableLocalStorage } from 'helpers/storage';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { parse } from 'helpers/query-string';
 
 const Wrap = styled.div``;
 
@@ -21,9 +22,15 @@ class TopContainer extends React.Component {
     super(props);
 
     const { referrer } = document;
+    const { location } = props;
+    const query = parse(location.search);
+
     if (isAvailableLocalStorage()) {
       if (!localStorage.getItem('referrer')) {
         localStorage.setItem('referrer', referrer);
+      }
+      if (query.invite_code) {
+        localStorage.setItem('invite_code', query.invite_code);
       }
     }
 

@@ -364,8 +364,10 @@ function* signUpEmail({ payload: { email, password } }) {
       'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363';
 
     let referrer = '';
+    let inviteCode = '';
     if (isAvailableLocalStorage()) {
       referrer = localStorage.getItem('referrer');
+      inviteCode = localStorage.getItem('invite_code');
     }
 
     const token = yield* getToken();
@@ -377,6 +379,7 @@ function* signUpEmail({ payload: { email, password } }) {
         FirebaseUid: firebaseUid,
         ImageUrl: defaultImage,
         RefererUrl: referrer,
+        InviteCode: inviteCode,
       },
       token,
     );
@@ -427,8 +430,10 @@ function* signUpFacebook() {
     const { displayName, email, uid, photoURL } = result.user;
 
     let referrer = '';
+    let inviteCode = '';
     if (isAvailableLocalStorage()) {
       referrer = localStorage.getItem('referrer');
+      inviteCode = localStorage.getItem('invite_code');
     }
 
     const token = yield* getToken();
@@ -441,6 +446,7 @@ function* signUpFacebook() {
         Name: displayName,
         ImageUrl: photoURL,
         RefererUrl: referrer,
+        InviteCode: inviteCode,
       },
       token,
     );
