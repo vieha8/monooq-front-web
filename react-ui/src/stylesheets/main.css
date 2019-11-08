@@ -322,7 +322,7 @@
 }
 .ui.checkbox input:checked ~ label:after {
   content: '';
-  background-image: url(/static/media/icon-check.b3761c92.svg) !important;
+  background-image: url('../images/icon-check.svg') !important;
   background-size: 76% !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
