@@ -37,6 +37,11 @@ const DateWrapper = styled.div`
 
 const Caution = styled.span`
   color: ${Colors.error};
+  ${props =>
+    props.bold &&
+    `
+      font-weight: bold;
+    `};
 `;
 
 const ButtonWrap = styled.div`
@@ -286,6 +291,16 @@ export default ({
           <br />
           <Caution>モノオク上でお支払い手続きを行わない場合、保険が適応されません。</Caution>
           <br />
+          <br />
+          <Caution bold>
+            【お知らせ】
+            <br />
+            2019年12月15日(日)をもって、銀行振込による決済を終了いたします。
+            <br />
+            2019年12月16日(月)以降、新規で契約される方は、クレジットカード決済およびコンビニ・Pay-easy決済にてお支払いいただきますよう、よろしくお願いいたします。
+            <br />
+            ※現在契約中で銀行振込にてお支払いの方は、取引完了まで銀行振込にてお支払いいただけます。
+          </Caution>
         </Text>
       </CaptionWrapper>
     </Card>

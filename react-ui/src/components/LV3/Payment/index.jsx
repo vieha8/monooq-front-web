@@ -214,6 +214,11 @@ const AccountNumber = styled.div`
   border: 1px solid ${Colors.yellow};
 `;
 
+const Caution = styled.span`
+  color: ${Colors.error};
+  font-weight: bold;
+`;
+
 type PropTypes = {
   space: any,
   payment: {
@@ -468,6 +473,17 @@ export default ({
               ・振込手数料はお客様にてご負担願います。
               <br />
               ・土日祝日または、銀行営業時間外にお振込みの場合、翌銀行営業日に順次入金確認を行います。
+              <br />
+              <br />
+              <Caution>
+                【お知らせ】
+                <br />
+                2019年12月15日(日)をもって、銀行振込による決済を終了いたします。
+                <br />
+                2019年12月16日(月)以降、新規で契約される方は、クレジットカード決済およびコンビニ・Pay-easy決済にてお支払いいただきますよう、よろしくお願いいたします。
+                <br />
+                ※現在契約中で銀行振込にてお支払いの方は、取引完了まで銀行振込にてお支払いいただけます。
+              </Caution>
             </CmnWrap>,
           ]}
           onClick={onChangeIsHost}
