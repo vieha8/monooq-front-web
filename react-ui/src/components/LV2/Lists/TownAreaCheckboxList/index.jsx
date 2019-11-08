@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
-import CheckBox from 'components/LV1/Forms/CheckBox';
+import InputForm from 'components/LV2/Forms/InputForm';
 
 const Wrap = styled.div``;
 
@@ -66,9 +66,10 @@ export default ({
   <Wrap>
     <Caption captionColor={captionColor}>{caption}</Caption>
     <CheckBoxCityAllWrap>
-      <CheckBox
+      <InputForm
+        checkbox
         checked={isChecked}
-        label={`${cityName}すべて`}
+        labelCheckBox={`${cityName}すべて`}
         onClickCheck={onClickCheckCity}
         options={{ code: cityCode }}
       />
@@ -76,8 +77,9 @@ export default ({
     <AreaPinList>
       {townAreaList.map((item, i) => (
         <Item key={i.toString()}>
-          <CheckBox
-            label={`${item.text}(${item.count})`}
+          <InputForm
+            checkbox
+            labelCheckBox={`${item.text}(${item.count})`}
             checked={item.isChecked}
             onClickCheck={onClickCheckTown}
             options={{ code: item.code }}

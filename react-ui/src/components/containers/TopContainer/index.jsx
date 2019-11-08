@@ -46,6 +46,7 @@ class TopContainer extends React.Component {
   componentDidMount() {
     const { regionId } = this.props;
     this.setScrollRegion(regionId);
+    window.scrollTo(0, 0);
   }
 
   componentDidUpdate(prevProps) {
@@ -53,6 +54,7 @@ class TopContainer extends React.Component {
     if (regionId !== prevProps.regionId) {
       this.setScrollRegion(regionId);
     }
+    window.scrollTo(0, 0);
   }
 
   setScrollRegion = regionId => {

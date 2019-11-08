@@ -67,10 +67,12 @@ class HeaderContainer extends Component<PropTypes> {
   };
 
   scrollTop = () => {
+    const isWebKit = this.browser ? this.browser.isWebKit : false;
     let tgt;
+
     if ('scrollingElement' in document) {
       tgt = document.scrollingElement;
-    } else if (this.browser.isWebKit) {
+    } else if (isWebKit) {
       tgt = document.body;
     } else {
       tgt = document.documentElement;

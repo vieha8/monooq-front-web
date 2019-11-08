@@ -107,7 +107,7 @@ storiesOf('Molecules(LV2)/Forms/InputForm', module)
         <InputFormMock
           checkbox
           label="預けられる荷物で絞り込み"
-          checktext="家具や家電製品に対応する"
+          labelCheckBox="家具や家電製品に対応する"
           checked={false}
           onClick={console.log('Clicked')}
         />

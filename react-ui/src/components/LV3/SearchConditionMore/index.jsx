@@ -105,6 +105,11 @@ class SearchConditionMore extends Component<PropTypes> {
 
   close = () => this.setState({ open: false });
 
+  getIsChecked = cityTownAreaList =>
+    cityTownAreaList
+      .map(item => item.townAreaList.filter(town => town.isChecked).length > 0 && 1)
+      .indexOf(1) === -1;
+
   render() {
     const {
       btnText,
@@ -172,6 +177,7 @@ class SearchConditionMore extends Component<PropTypes> {
                         padding="10px 10px"
                         paddingTab="10px 10px"
                         onClick={onClickMore}
+                        disabled={this.getIsChecked(cityTownAreaList)}
                       >
                         この条件で検索する
                       </Button>

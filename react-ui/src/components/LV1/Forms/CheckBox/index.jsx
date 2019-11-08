@@ -14,11 +14,18 @@ type PropTypes = {
   label: string,
   checked?: boolean,
   onClick?: Function,
-  onClickCheck?: Function,
+  onChange?: Function,
+  className?: string,
 };
 
-export default ({ onClick, label, checked, onClickCheck, options }: PropTypes) => (
+export default ({ onClick, label, checked, onClickCheck, className, options }: PropTypes) => (
   <Container onClick={onClick}>
-    <Checkbox label={label} checked={checked} onChange={onClickCheck} {...options} />
+    <Checkbox
+      label={label}
+      checked={checked}
+      onChange={onClickCheck}
+      className={className}
+      {...options}
+    />
   </Container>
 );

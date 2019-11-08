@@ -36,6 +36,7 @@ type PropTypes = {
     value?: string,
   }>,
   onClick?: Function,
+  disabled?: boolean,
 };
 
 export default ({
@@ -48,6 +49,7 @@ export default ({
   onClickCheckCity,
   onClickCheckTown,
   prefectureList,
+  disabled,
 }: PropTypes) => (
   <Wrap>
     <ButtonWrap>
@@ -62,7 +64,7 @@ export default ({
           onClickCheckTown={onClickCheckTown}
         />
       ) : (
-        <Button center primary fontbold fill={1} onClick={onClick}>
+        <Button center primary fontbold fill={1} onClick={onClick} disabled={disabled}>
           {text}
         </Button>
       )}

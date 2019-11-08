@@ -4,7 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Collapsible from 'react-collapsible';
 import { Dimens, FontSizes, Colors } from 'variables';
-import CheckBox from 'components/LV1/Forms/CheckBox';
+import InputForm from 'components/LV2/Forms/InputForm';
 import AreaAroundList from 'components/LV2/Lists/AreaAroundList';
 import IconAreaGray from 'images/icon-area-gray.png';
 
@@ -28,13 +28,12 @@ const CollapsibleItemList = styled.ul`
 
 const CollapsibleItem = styled.li`
   width: 100%;
-  padding: ${Dimens.small2_15}px ${Dimens.medium}px ${Dimens.small2_15}px ${Dimens.medium2_38}px;
-  font-weight: bold;
   color: ${Colors.black2};
   border-top: 1px solid ${Colors.lightGray2};
   ${props =>
     props.areaAroundList &&
     `
+      font-weight: bold;
       padding: ${Dimens.xxsmall_4}px ${Dimens.medium}px;
   `};
 `;
@@ -105,11 +104,13 @@ export default ({ searchConditionSPList, onClickCheckTown }: PropTypes) => (
               )}
               {item.townAreaList.map((town, j) => (
                 <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
-                  <CheckBox
-                    label={`${town.text}(${town.count})`}
+                  <InputForm
+                    checkbox
+                    labelCheckBox={`${town.text}(${town.count})`}
                     checked={town.isChecked}
                     options={{ code: town.code }}
                     onClickCheck={onClickCheckTown}
+                    className="list-citytown"
                   />
                 </CollapsibleItem>
               ))}
