@@ -38,7 +38,7 @@ const ButtonBottomWrap = styled.div`
 
 export default ({
   meta,
-  condition,
+  conditionTitle,
   maxCount,
   onClickMore,
   onClickCheckCity,
@@ -47,7 +47,6 @@ export default ({
   searchResult,
   noTopMargin,
   breadcrumbsList,
-  captionAreaAroundList,
   areaAroundList,
   areaPinList,
   sortList,
@@ -61,7 +60,7 @@ export default ({
     {meta}
     {breadcrumbsList && <BreadcrumbsList breadcrumbsList={breadcrumbsList} />}
     <SearchResultHeader
-      condition={condition}
+      conditionTitle={conditionTitle}
       maxCount={maxCount}
       prefecture={prefecture}
       onClickMore={onClickMore}

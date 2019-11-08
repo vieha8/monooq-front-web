@@ -16,6 +16,12 @@ import { Dimens } from 'variables';
 import { spaceActions } from 'redux/modules/space';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { areaPrefectures } from 'helpers/prefectures';
+import {
+  isConditionChanged,
+  isDefaultCheckCity,
+  makeCurrentSearchConditions,
+  makeMetaBreadcrumbs,
+} from 'helpers/search';
 
 import LoadingPage from 'components/LV3/LoadingPage';
 import connect from '../connect';
@@ -124,36 +130,18 @@ class SearchResultContainer extends Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    const { cities, conditions } = props;
-
-    if (
-      (state.cityAndTowns.length === 0 && cities.length > 0) ||
-      state.cities.length !== conditions.cities.length ||
-      state.towns.length !== conditions.towns.length ||
-      state.sort !== conditions.sort
-    ) {
-      // TODO だいぶ煩雑になっているのでリファクタリング
+    const { conditions, cities } = props;
+    if (isConditionChanged(state, conditions, cities)) {
       const cityTownAreaList = cities.map(v => {
-        const checkAlreadyCity = () => {
-          if (conditions.cities.filter(c => c.code === v.code).length > 0) {
-            const checkedTowns = v.towns.filter(
-              w => conditions.towns.filter(t => t.code === w.code).length > 0,
-            ).length;
-            if (checkedTowns === 0 || checkedTowns === v.towns.length) {
-              return true;
-            }
-          }
-          return false;
-        };
-        const isAlreadyCity = checkAlreadyCity();
+        const isCheckedCity = isDefaultCheckCity(v, conditions);
 
         const townAreaList = v.towns.map(w => {
-          const isAlreadyTown = conditions.towns.filter(t => t.code === w.code).length > 0;
+          const isCheckedTown = conditions.towns.filter(t => t.code === w.code).length > 0;
           return {
             text: w.name,
             code: w.code,
             link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
-            isChecked: isAlreadyTown || isAlreadyCity,
+            isChecked: isCheckedTown || isCheckedCity,
             count: w.count,
           };
         });
@@ -161,7 +149,7 @@ class SearchResultContainer extends Component {
         return {
           cityName: v.name,
           cityCode: v.code,
-          isChecked: isAlreadyCity,
+          isChecked: isCheckedCity,
           areaAroundList: v.popularArea.map(w => {
             return {
               text: w.name,
@@ -199,26 +187,7 @@ class SearchResultContainer extends Component {
         },
       ];
 
-      const searchConditionCurrentList = [
-        {
-          title: '都道府県',
-          value: conditions.pref.name,
-        },
-        {
-          title: '市区町村',
-          value: conditions.cities.map(v => v.name).join('・'),
-        },
-        {
-          title: '町域・エリア',
-          value: conditions.towns.map(v => v.name).join('・'),
-        },
-      ];
-      if (conditions.keyword) {
-        searchConditionCurrentList.push({
-          title: 'キーワード',
-          value: conditions.keyword,
-        });
-      }
+      const searchConditionCurrentList = makeCurrentSearchConditions(conditions);
 
       return {
         cityAndTowns: cityTownAreaList,
@@ -321,7 +290,7 @@ class SearchResultContainer extends Component {
     }
   };
 
-  getCondition = () => {
+  getConditionTitle = () => {
     const { conditions } = this.props;
     const { keyword, pref, cities, towns } = conditions;
 
@@ -425,77 +394,6 @@ class SearchResultContainer extends Component {
     );
   };
 
-  makeMetaBreadcrumbs = () => {
-    let position = 1;
-    const baseUrl = 'https://monooq.com';
-    const itemList = [
-      {
-        '@type': 'ListItem',
-        position,
-        name: 'トップ',
-        item: baseUrl,
-      },
-    ];
-
-    const { conditions } = this.props;
-    const { pref, cities, towns } = conditions;
-
-    if (pref && pref.name) {
-      position += 1;
-      itemList.push({
-        '@type': 'ListItem',
-        position,
-        name: `${pref.name}のスペース`,
-        item: `${baseUrl}/pref${pref.code}`,
-      });
-      if (cities.length === 1) {
-        position += 1;
-        const city = cities[0];
-        itemList.push({
-          '@type': 'ListItem',
-          position,
-          name: `${city.name}のスペース`,
-          item: `${baseUrl}/pref${pref.code}/city${city.code}`,
-        });
-        if (towns.length === 1) {
-          position += 1;
-          const town = towns[0];
-          itemList.push({
-            '@type': 'ListItem',
-            position,
-            name: `${town.name}のスペース`,
-            item: `${baseUrl}/pref${pref.code}/city${city.code}/town${town.code}`,
-          });
-        }
-      }
-    }
-
-    if (itemList.length === 1) {
-      position += 1;
-      itemList.push({
-        '@type': 'ListItem',
-        position,
-        name: `スペース検索結果`,
-        item: `${baseUrl}/search`,
-      });
-    }
-
-    return {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: itemList,
-    };
-  };
-
-  meta = condition => {
-    return (
-      <Meta
-        title={`${condition}のスペース検索結果 - モノオク`}
-        jsonLd={this.makeMetaBreadcrumbs()}
-      />
-    );
-  };
-
   renderNotFound = condition => (
     <Fragment>
       <H1 bold>{`「${condition}」の検索結果 0件`}</H1>
@@ -531,10 +429,10 @@ class SearchResultContainer extends Component {
       return <LoadingPage />;
     }
 
-    const condition = this.getCondition();
+    const conditionTitle = this.getConditionTitle();
 
     if (spaces.length === 0 && !isMore) {
-      return this.renderNotFound(condition);
+      return this.renderNotFound(conditionTitle);
     }
 
     const { cityAndTowns, sortList, searchConditionCurrentList } = this.state;
@@ -551,9 +449,14 @@ class SearchResultContainer extends Component {
     return (
       <SearchResultTemplate
         isSearching={isSearching}
-        meta={this.meta(condition)}
+        meta={
+          <Meta
+            title={`${conditionTitle}のスペース検索結果 - モノオク`}
+            jsonLd={makeMetaBreadcrumbs(conditions)}
+          />
+        }
         searchResult={this.infiniteScroll()}
-        condition={condition}
+        conditionTitle={conditionTitle}
         maxCount={maxCount}
         onClickMore={this.onClickMore}
         regionPrefectureList={areaPrefectures}

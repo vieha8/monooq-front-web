@@ -67,7 +67,7 @@ const MoreButtonWrap = styled.div`
 `;
 
 export default ({
-  condition,
+  conditionTitle,
   maxCount,
   onClickMore,
   onClickCheckCity,
@@ -80,7 +80,7 @@ export default ({
   <HeaderWrap>
     <ResultCountWrap>
       <H1 bold>
-        {`${condition}の検索結果`}
+        {`${conditionTitle}の検索結果`}
         <br />
         <ResultCount>{formatAddComma(maxCount)}</ResultCount>
         <InlineText.Base fontSize={FontSizes.small} nobold>
