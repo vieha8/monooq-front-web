@@ -11,4 +11,4 @@ const TextCard = styled.div`
   line-height: 140%;
 `;
 
-export default ({ data }) => <TextCard>{data}</TextCard>;
+export default ({ text }) => <TextCard>{text}</TextCard>;
