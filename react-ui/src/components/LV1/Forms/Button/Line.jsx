@@ -55,7 +55,7 @@ const ImageLine = styled.img`
 const btnlink = styled(Link)``;
 const HyperLink = btnlink.withComponent('a');
 
-export default props => (
+export default ({ loading, reactGACategory, reactGAAction, children }) => (
   <HyperLink href="https://line.me/R/ti/p/%40wna0649g" target="_blank" rel="noopener noreferrer">
     <Line
       center
@@ -64,17 +64,15 @@ export default props => (
       fontSizeSp={18}
       height={44}
       lineheight={18}
-      onClick={() =>
-        ReactGA.event({ category: props.reactGACategory, action: props.reactGAAction })
-      }
+      onClick={() => ReactGA.event({ category: reactGACategory, action: reactGAAction })}
     >
-      {!props.loading && (
+      {!loading && (
         <SpanStyled>
           <ImageLine src={LogoLineSrc} alt="logo-line" />
           &nbsp;&nbsp;&nbsp;
         </SpanStyled>
       )}
-      {props.children}
+      {children}
     </Line>
   </HyperLink>
 );

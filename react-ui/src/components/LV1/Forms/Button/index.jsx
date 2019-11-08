@@ -28,7 +28,7 @@ const handleText = ({ loading, children }) => {
   return children;
 };
 
-export default props => {
+export default ({ loading, ...props }) => {
   const { secondary, tertiary, quaternary, quinary, facebook, twitter, line, areaPin } = props;
   if (secondary) {
     return (
@@ -60,14 +60,14 @@ export default props => {
   }
   if (facebook) {
     return (
-      <Facebook {...props} onClick={handleOnClick(props)}>
+      <Facebook {...props} onClick={handleOnClick(props)} loading={loading}>
         {handleText(props)}
       </Facebook>
     );
   }
   if (twitter) {
     return (
-      <Twitter {...props} onClick={handleOnClick(props)}>
+      <Twitter {...props} onClick={handleOnClick(props)} loading={loading}>
         {handleText(props)}
       </Twitter>
     );

@@ -89,11 +89,11 @@ const Image = styled.img`
   left: -6px;
 `;
 
-export default props =>
-  props.type2 ? (
+export default ({ type2, loading, ...props }) =>
+  type2 ? (
     <HyperLink href={props.url.toString('base64')} target="_blank" rel="noopener noreferrer">
       <Facebook {...props}>
-        {!props.loading && (
+        {!loading && (
           <ImageWrap>
             <Image src={imageFacebook} alt="icon-facebook" />
             &nbsp;
@@ -104,7 +104,7 @@ export default props =>
     </HyperLink>
   ) : (
     <Facebook {...props} tabIndex={0}>
-      {!props.loading && (
+      {!loading && (
         <span>
           <i className="fab fa-facebook-square" />
           &nbsp;
