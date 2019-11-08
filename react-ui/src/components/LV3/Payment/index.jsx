@@ -212,6 +212,11 @@ const AccountNumber = styled.div`
   border: 1px solid ${Colors.yellow};
 `;
 
+const Caution = styled.span`
+  color: ${Colors.error};
+  font-weight: bold;
+`;
+
 const maskify = cc => {
   return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
 };
