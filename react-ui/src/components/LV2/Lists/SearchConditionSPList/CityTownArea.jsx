@@ -28,12 +28,12 @@ const CollapsibleItemList = styled.ul`
 
 const CollapsibleItem = styled.li`
   width: 100%;
-  font-weight: bold;
   color: ${Colors.black2};
   border-top: 1px solid ${Colors.lightGray2};
   ${props =>
     props.areaAroundList &&
     `
+      font-weight: bold;
       padding: ${Dimens.xxsmall_4}px ${Dimens.medium}px;
   `};
 `;

@@ -308,6 +308,7 @@
 }
 .ui.checkbox label {
   line-height: 24px;
+  padding-left: 2.1em;
 }
 .ui.checkbox label:before {
   border-radius: unset;
@@ -318,6 +319,13 @@
   line-height: 24px;
   color: #fff !important;
   background: #e85258 !important;
+}
+.ui.checkbox input:checked ~ label:after {
+  content: '';
+  background-image: url(/static/media/icon-check.b3761c92.svg) !important;
+  background-size: 76% !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
 }
 .ui.checkbox.list-citytown {
   padding: 15px 16px 15px 38px;
