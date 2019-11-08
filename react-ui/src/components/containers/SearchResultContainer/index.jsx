@@ -28,19 +28,20 @@ const Loader = styled(Loading)`
 class SearchResultContainer extends Component {
   constructor(props) {
     super(props);
-    const state = {
-      keyword: '',
+    this.state = {
       limit: 12,
       offset: 0,
       sort: 1,
+      keyword: '',
+      pref: '',
+      cities: [],
+      towns: [],
       cityAndTowns: [],
       checkCities: [],
       checkTowns: [],
       sortList: [],
       searchConditionCurrentList: [],
     };
-    const conditions = this.getConditionsFromUrl();
-    this.state = { ...state, ...conditions };
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -124,6 +125,7 @@ class SearchResultContainer extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const { cities, conditions } = props;
+
     if (
       (state.cityAndTowns.length === 0 && cities.length > 0) ||
       state.cities.length !== conditions.cities.length ||
@@ -243,11 +245,6 @@ class SearchResultContainer extends Component {
     if (iskeyDownEnter(e)) {
       this.onClickBackSearchCondition();
     }
-  };
-
-  onClickSpace = space => {
-    const { history } = this.props;
-    history.push(Path.space(space.id));
   };
 
   onClickCheckCity = (_, { code, checked }) => {
@@ -402,8 +399,13 @@ class SearchResultContainer extends Component {
     this.setState({ offset: newOffset });
   };
 
+  onClickSpace = spaceId => {
+    const { history } = this.props;
+    history.push(Path.space(spaceId));
+  };
+
   infiniteScroll = () => {
-    const { spaces, isMore, history } = this.props;
+    const { spaces, isMore } = this.props;
     return (
       <InfiniteScroll
         pageStart={0}
@@ -413,19 +415,10 @@ class SearchResultContainer extends Component {
         initialLoad
       >
         <SearchResult
-          history={history}
           spaces={spaces.map(s => ({
-            id: s.id,
+            ...s,
             image: (s.images[0] || {}).imageUrl,
-            title: s.title,
-            addressPref: s.addressPref,
-            addressCity: s.addressCity,
-            addressTown: s.addressTown,
-            isFurniture: s.isFurniture,
-            priceFull: s.priceFull,
-            priceHalf: s.priceHalf,
-            priceQuarter: s.priceQuarter,
-            onClick: () => this.onClickSpace(s),
+            onClick: () => this.onClickSpace(s.id),
           }))}
         />
       </InfiniteScroll>
