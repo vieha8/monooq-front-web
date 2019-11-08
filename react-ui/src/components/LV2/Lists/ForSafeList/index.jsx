@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -52,18 +50,7 @@ const TitleText = styled.span`
   font-size: ${FontSizes.medium1}px;
 `;
 
-type PropTypes = {
-  list: Array<{
-    iconClass?: string,
-    title: string,
-    description: string,
-    buttonText?: string,
-    onClickItem?: Function,
-  }>,
-  onClick: Function,
-};
-
-export default ({ list }: PropTypes) =>
+export default ({ list }) =>
   list.map((item, i) => (
     <StyledContainer key={i.toString()}>
       <StyledTitle>

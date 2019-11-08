@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import InlineText from 'components/LV1/Texts/InlineText';
 import RegsiterProfileImage from 'components/LV1/Forms/DragAndDrop/RegisterProfileImage';
@@ -85,26 +83,6 @@ const buttonEntry = (buttonDisabled, buttonLoading, onClickSkip, onClickRegister
   );
 };
 
-type PropTypes = {
-  errors: Array<Array<string>>,
-  onChangeImage: Function,
-  imagePreview: File | string,
-  image: File | string,
-  onChangeName: Function,
-  name: string,
-  onChangeArea: Function,
-  prefCode: string,
-  onChangeProfile: Function,
-  profile: string,
-  onChangePhoneNumber: Function,
-  phoneNumber: string,
-  buttonDisabled: boolean,
-  buttonLoading: boolean,
-  onClickSkip: Function,
-  onClickRegisterProfile: Function,
-  story?: boolean,
-};
-
 export default ({
   errors,
   onChangeImage,
@@ -123,7 +101,7 @@ export default ({
   onClickSkip,
   onClickRegisterProfile,
   story,
-}: PropTypes) => (
+}) => (
   <Form
     story={story}
     errors={errors}

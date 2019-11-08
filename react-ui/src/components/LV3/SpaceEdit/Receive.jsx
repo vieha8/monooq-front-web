@@ -1,24 +1,9 @@
-// @flow
-
 import React from 'react';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Section } from './Shared';
-
-type PropTypes = {
-  errors: Array<Array<string>>,
-  receive: number,
-  onChangeReceive: Function,
-  receiveAbout: string,
-  onChangeReceiveAbout: Function,
-  onClickBack: Function,
-  onKeyDownButtonBack: Function,
-  onClickNext: Function,
-  onKeyDownButtonNext: Function,
-  buttonNextDisabled: boolean,
-};
 
 export default ({
   errors,
@@ -31,7 +16,7 @@ export default ({
   onClickNext,
   onKeyDownButtonNext,
   buttonNextDisabled,
-}: PropTypes) => (
+}) => (
   <div>
     <Section>
       <Select

@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -32,32 +30,6 @@ const extention = (onChangeImage, imagePreview, image) => {
   );
 };
 
-type PropTypes = {
-  errors: Array<Array<string>>,
-  onChangeImage: Function,
-  imagePreview: File | sting,
-  image: File | string,
-  onChangeName: Function,
-  name: string,
-  onChangeEmail: Function,
-  email: string,
-  isNoticeEmail: boolean,
-  onChangeNoticeEmail: Function,
-  onKeyDownNoticeEmail: Function,
-  onChangePhoneNumber: Function,
-  phoneNumber: string,
-  onChangePrefCode: Function,
-  prefCode: string,
-  onChangeProfile: Function,
-  profile: string,
-  onChangePurpose: Function,
-  purpose: string,
-  buttonDisabled: boolean,
-  buttonLoading: boolean,
-  onClickUpdate: Function,
-  onKeyDownButtonUpdate: Function,
-};
-
 export default ({
   errors,
   onChangeImage,
@@ -82,7 +54,7 @@ export default ({
   buttonLoading,
   onClickUpdate,
   onKeyDownButtonUpdate,
-}: PropTypes) => (
+}) => (
   <Fragment>
     <Row>
       <InputForm

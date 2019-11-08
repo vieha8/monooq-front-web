@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
@@ -14,23 +12,13 @@ import authRequired from 'components/containers/AuthRequired';
 import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 import { spaceActions } from '../../../redux/modules/space';
 
-type PropTypes = {
-  dispatch: Function,
-  history: {
-    push: Function,
-  },
-  space: {
-    id: number,
-  },
-};
-
 const Validate = {
   About: {
     Max: 5000,
   },
 };
 
-class SpaceEditBaggageContainer extends Component<PropTypes> {
+class SpaceEditBaggageContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -112,7 +100,7 @@ class SpaceEditBaggageContainer extends Component<PropTypes> {
     history.push(nextPath);
   };
 
-  handleChangeUI = (propName: string, value: any) => {
+  handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
     const errors = [];

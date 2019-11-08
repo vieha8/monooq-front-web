@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
@@ -26,14 +24,7 @@ const Thumbnail = styled.img`
   object-fit: cover;
 `;
 
-type PropTypes = {
-  onPickImage: Function,
-  preview: File,
-  value: string,
-  onChange: Function,
-};
-
-export default ({ onPickImage, preview, value, onChange }: PropTypes) => (
+export default ({ onPickImage, preview, value, onChange }) => (
   <PickImageWrap>
     <Dropzone accept="image/jpeg, image/png" onDrop={data => onPickImage(data[0])}>
       {({ getRootProps, getInputProps }) => (

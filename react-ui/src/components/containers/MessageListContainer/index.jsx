@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import Path from 'config/path';
 
@@ -13,22 +11,8 @@ import { iskeyDownEnter } from 'helpers/keydown';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 
-type PropTypes = {
-  dispatch: Function,
-  rooms: Array<{
-    id: string,
-    user: {
-      id: number,
-      imageUrl: string,
-      name: string,
-    },
-    lastMessageDt: string,
-  }>,
-  isLoading: boolean,
-};
-
-class MessageListContainer extends Component<PropTypes> {
-  constructor(props: PropTypes) {
+class MessageListContainer extends Component {
+  constructor(props) {
     super(props);
 
     const { dispatch } = this.props;

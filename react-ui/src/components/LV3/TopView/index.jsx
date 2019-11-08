@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -95,17 +93,6 @@ const InputSearchContainer = styled.div`
   margin-bottom: ${Dimens.medium3_40}px;
 `;
 
-type PropTypes = {
-  catchPhrase: React.Element<*>,
-  catchPhraseSub: React.Element<*>,
-  placeholder: string,
-  locationText: string,
-  onChange: Function,
-  onKeyDown: Function,
-  searchDisabled: boolean,
-  onClickSearchButton: Function,
-};
-
 export default ({
   catchPhrase,
   catchPhraseSub,
@@ -115,7 +102,7 @@ export default ({
   onKeyDown,
   searchDisabled,
   onClickSearchButton,
-}: PropTypes) => (
+}) => (
   <TopView>
     <TopViewWrap className="wrapTopView">
       <TopViewContainer className="container-topview">

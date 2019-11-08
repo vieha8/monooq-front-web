@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
@@ -63,14 +61,7 @@ const LabelText = styled.span`
   `};
 `;
 
-type PropTypes = {
-  list: Array<{
-    label: string,
-    text: string,
-  }>,
-};
-
-export default ({ list }: PropTypes) => (
+export default ({ list }) => (
   <WhySafeContentWrapper>
     {list.map((item, i) => (
       <WhySafeWrap key={i.toString()}>

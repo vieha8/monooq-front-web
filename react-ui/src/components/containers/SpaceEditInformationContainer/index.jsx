@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import Path from 'config/path';
@@ -20,16 +18,6 @@ import fileType from 'helpers/file-type';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 
-type PropTypes = {
-  dispatch: Function,
-  history: {
-    push: Function,
-  },
-  space: {
-    id: number,
-  },
-};
-
 const Validate = {
   Address: `(...??[都道府県])((?:旭川|伊達|石狩|盛岡|奥州|田村|南相馬|那須塩原|東村山|武蔵村山|羽村|十日町|上越|富山|野々市|大町|蒲郡|四日市|姫路|大和郡山|廿日市|下松|岩国|田川|大村)市|.+?郡(?:玉村|大町|.+?)[町村]|.+?市.+?区|.+?[市区町村郡])(\\D+)(.*)`,
   Title: {
@@ -40,7 +28,7 @@ const Validate = {
   },
 };
 
-class SpaceEditInformationContainer extends Component<PropTypes> {
+class SpaceEditInformationContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -126,7 +114,7 @@ class SpaceEditInformationContainer extends Component<PropTypes> {
     dispatch(spaceActions.deleteSpace({ space }));
   };
 
-  handleChangeImage = async (pickedImages: Array<File>) => {
+  handleChangeImage = async pickedImages => {
     this.setState({ isImageUploading: true });
 
     const { images: ImagesTmp } = this.state;
@@ -157,7 +145,7 @@ class SpaceEditInformationContainer extends Component<PropTypes> {
     this.handleChangeUI('images', setImage);
   };
 
-  handleDeleteImage = (deleteTargetIndex: number) => {
+  handleDeleteImage = deleteTargetIndex => {
     const { images } = this.state;
     const nextImages = Object.assign([], images);
     nextImages.splice(deleteTargetIndex, 1);
@@ -195,7 +183,7 @@ class SpaceEditInformationContainer extends Component<PropTypes> {
 
   close = () => this.setState({ errorModal: false });
 
-  handleChangeUI = (propName: string, value: any) => {
+  handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
     const errors = [];

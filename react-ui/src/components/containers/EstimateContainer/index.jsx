@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { requestActions } from 'redux/modules/request';
 import { ErrorMessages } from 'variables';
@@ -18,15 +16,7 @@ const Validate = {
   },
 };
 
-type PropTypes = {
-  dispatch: Function,
-  isSending: boolean,
-  user: {
-    id: number,
-  },
-};
-
-class EstimateContainer extends Component<PropTypes> {
+class EstimateContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -50,7 +40,7 @@ class EstimateContainer extends Component<PropTypes> {
     this.setState(state);
   };
 
-  handleChangePrice = (propName: string, value: any) => {
+  handleChangePrice = (propName, value) => {
     const { state } = this;
     const { error } = state;
     const errors = [];

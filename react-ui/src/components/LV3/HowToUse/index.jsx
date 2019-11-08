@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors, FontSizes } from 'variables';
@@ -303,13 +301,6 @@ const ContentDetail = styled.div`
   line-height: ${Dimens.medium_22}px;
 `;
 
-type ContentPropTypes = {
-  contentNo: string,
-  title: string,
-  detail: string,
-  image: string,
-};
-
 const TextDetail02 = () => (
   <Fragment>
     ホストと相談し利用が確定したら、ホストから見積りが届きます。見積もり内容に問題がなければ、お支払いをして取り引き成立です！
@@ -318,7 +309,7 @@ const TextDetail02 = () => (
   </Fragment>
 );
 
-const HowToUseContent = ({ contentNo, title, detail, image }: ContentPropTypes) => (
+const HowToUseContent = ({ contentNo, title, detail, image }) => (
   <ContentWrapper>
     <ContentImage src={image} />
     <ContentTextWrap>

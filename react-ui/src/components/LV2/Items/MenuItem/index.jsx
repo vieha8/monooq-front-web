@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -44,19 +42,6 @@ const LinkWrap = styled.div`
     `};
 `;
 
-type PropTypes = {
-  blank?: boolean,
-  line?: boolean,
-  logout?: boolean,
-  href?: string,
-  logoutEvent?: Function,
-  onClick?: Function,
-  title: string,
-  notificationCount?: number,
-  to?: string,
-  header?: boolean,
-};
-
 const HyperLinkStyled = MenuLink.withComponent('a');
 
 export default ({
@@ -70,7 +55,7 @@ export default ({
   notificationCount,
   to,
   header,
-}: PropTypes) =>
+}) =>
   blank ? (
     <MenuItem logout={logout}>
       <LinkWrap line={line} logout={logout}>

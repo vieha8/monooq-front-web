@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -30,16 +28,7 @@ const Para = styled(Text)`
   text-align: ${props => (props.isRight ? 'right' : 'left')};
 `;
 
-export type PropTypes = {
-  title?: string,
-  paraList: Array<{
-    text?: string,
-    customText?: React.Element<*>,
-  }>,
-  isRight?: boolean,
-};
-
-export default ({ title, paraList, isRight }: PropTypes) => (
+export default ({ title, paraList, isRight }) => (
   <StyledContainer>
     <Art>{title}</Art>
     <Para isRight={isRight}>

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
@@ -51,15 +49,7 @@ const StyledLabel = styled(Label)`
   `};
 `;
 
-type PropTypes = {
-  list: Array<{
-    image: string,
-    label: string,
-    text: string,
-  }>,
-};
-
-export default ({ list }: PropTypes) => (
+export default ({ list }) => (
   <HowSafeContentWrapper>
     {list.map((item, i) => (
       <HowSafeWrap key={i.toString()}>

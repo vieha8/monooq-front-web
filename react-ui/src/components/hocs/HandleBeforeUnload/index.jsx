@@ -1,11 +1,9 @@
-// @flow
-
 import React, { Component } from 'react';
 
-const handleBeforeUnload = (WrappedComponent: Component) => {
+const handleBeforeUnload = WrappedComponent => {
   class handleBeforeUnloadComponent extends Component {
     componentDidMount() {
-      // window.addEventListener('beforeunload', this.handleBeforeUnload);
+      window.addEventListener('beforeunload', this.handleBeforeUnload);
     }
 
     componentWillUnmount() {

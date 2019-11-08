@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import Profile from 'components/LV3/Profile';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
@@ -10,52 +8,7 @@ import { formatName } from 'helpers/string';
 import Meta from 'components/LV1/Meta';
 import connect from '../connect';
 
-type PropTypes = {
-  match: {
-    params: {
-      user_id: string,
-    },
-  },
-  dispatch: Function,
-  user: {
-    imageUrl: string,
-    name: string,
-    prefCode: string,
-    profile: string,
-  },
-  spaces: Array<{
-    id: number,
-    user: {
-      id: number,
-      firebaseUid: string,
-      imageUrl: string,
-      name: string,
-      profile: string,
-    },
-    addressPref: string,
-    addressCity: string,
-    addressTown: string,
-    title: string,
-    images: Array<{
-      imageUrl: string,
-    }>,
-    introduction: string,
-    type: number,
-    isFurniture: boolean,
-    about: string,
-    receiptAbout: string,
-    priceFull: number,
-    priceHalf: number,
-    priceQuarter: number,
-    location: {
-      lat: number,
-      lng: number,
-    },
-    status: string,
-  }>,
-};
-
-class ProfileContainer extends Component<PropTypes> {
+class ProfileContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -89,7 +42,7 @@ class ProfileContainer extends Component<PropTypes> {
           lastLoginAt={formatDate(new Date(user.lastLoginAt), formatStringSlash)}
           spaces={(spaces || [])
             .filter(v => v.status === 'public')
-            .map((space: SpaceType) => ({
+            .map(space => ({
               id: space.id,
               image: (space.images[0] || {}).imageUrl,
               address: `${space.addressPref}${space.addressCity}${space.addressTown}`,

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -55,15 +53,7 @@ const LinkStyled = styled(Link)`
   `};
 `;
 
-export type PropTypes = {
-  caption: string,
-  areaPinList: Array<{
-    name: string,
-    link: string,
-  }>,
-};
-
-export default ({ caption, areaPinList }: PropTypes) => (
+export default ({ caption, areaPinList }) => (
   <Wrap>
     <Caption>{caption}</Caption>
     <AreaPinList>

@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { authActions } from 'redux/modules/auth';
@@ -16,17 +14,6 @@ import { iskeyDownEnter } from 'helpers/keydown';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 
-type PropTypes = {
-  dispatch: Function,
-  user: {
-    id: number,
-  },
-  isLoading: boolean,
-  isUnsubscribeTrying: boolean,
-  isUnsubscribeSuccess: boolean,
-  isUnsubscribeFailed: boolean,
-};
-
 const Caption = styled.div`
   margin: ${Dimens.medium_20}px 0;
 `;
@@ -35,8 +22,8 @@ const UnsubscribeCompletedWrap = styled.div`
   width: 100%;
 `;
 
-class UnsubscribeContainer extends Component<PropTypes> {
-  constructor(props: PropTypes) {
+class UnsubscribeContainer extends Component {
+  constructor(props) {
     super(props);
     const { dispatch } = this.props;
     dispatch(authActions.initUnsubscribe());
@@ -51,7 +38,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
     this.handleChangeUI('reasonType', '');
   }
 
-  componentWillReceiveProps(nextProps: PropTypes) {
+  componentWillReceiveProps(nextProps) {
     if (!this.isUnsubscribeSuccess && nextProps.isUnsubscribeSuccess) {
       setTimeout(() => {
         const { dispatch } = this.props;
@@ -80,7 +67,7 @@ class UnsubscribeContainer extends Component<PropTypes> {
     );
   };
 
-  handleChangeUI = (propName: string, value) => {
+  handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
     const errors = [];

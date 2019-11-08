@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
@@ -41,15 +39,6 @@ const Wrap = styled.div`
   `};
 `;
 
-type PropTypes = {
-  placeholder: string,
-  onChange: Function,
-  onKeyDown: Function,
-  borderColor?: string,
-  searchDisabled: boolean,
-  onClickSearchButton: Function,
-};
-
 export default ({
   placeholder,
   onChange,
@@ -57,7 +46,7 @@ export default ({
   borderColor,
   searchDisabled,
   onClickSearchButton,
-}: PropTypes) => (
+}) => (
   <SearchWrapper>
     <Wrap>
       <InputForm

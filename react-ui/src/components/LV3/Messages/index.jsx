@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -85,48 +83,6 @@ const extensionPhotoMessage = message => {
   );
 };
 
-type PropTypes = {
-  messages: Array<{
-    self?: {
-      sentAt: string,
-      message?: string,
-      image?: string,
-    },
-    other?: {
-      id: number,
-      userImage: string,
-      receivedAt: string,
-      message?: string,
-      image?: string,
-    },
-    admin?: {
-      receivedAt?: string,
-      message?: string,
-      link?: {
-        text: string,
-        url: string,
-      },
-    },
-    estimate?: {
-      name: string,
-      beginAt: string,
-      endAt: string,
-      price: number,
-      link: string,
-      receivedAt: string,
-    },
-  }>,
-  hostUser: boolean,
-  lastReadDt: string,
-  onChangeText: Function,
-  text: string,
-  onPickImage: Function,
-  pickedImage: string,
-  buttonDisabled: boolean,
-  onClickSend: Function,
-  onClickEstimate: Function,
-};
-
 export default ({
   messages,
   hostUser,
@@ -138,7 +94,7 @@ export default ({
   buttonDisabled,
   onClickSend,
   onClickEstimate,
-}: PropTypes) => {
+}) => {
   const messageList = messages;
 
   if (messageList.length >= 1) {

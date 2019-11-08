@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -85,32 +83,7 @@ const PriceText = styled(InlineText.Base)`
   `};
 `;
 
-type PropTypes = {
-  href?: string,
-  onClick?: Function,
-  image: {
-    src: string,
-    alt: string,
-  },
-  manage?: boolean,
-  address: string,
-  content: string,
-  prices: Array<number>,
-  status?: string,
-  furniture?: boolean,
-};
-
-export default ({
-  href,
-  onClick,
-  image,
-  manage,
-  address,
-  content,
-  prices,
-  status,
-  furniture,
-}: PropTypes) =>
+export default ({ href, onClick, image, manage, address, content, prices, status, furniture }) =>
   manage ? (
     <Container manage>
       <Link to={href || ''}>

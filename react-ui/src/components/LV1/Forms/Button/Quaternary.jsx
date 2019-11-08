@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { mediaMin } from 'helpers/style/media-query';
@@ -52,4 +50,4 @@ const Quaternary = styled(PrimaryButton)`
   `};
 `;
 
-export default (props: Object) => <Quaternary {...props} tabIndex={0} />;
+export default props => <Quaternary {...props} tabIndex={0} />;

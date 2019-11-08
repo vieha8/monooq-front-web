@@ -1,23 +1,12 @@
-// @flow
-
 import React from 'react';
 import { Helmet } from 'react-helmet';
-
-type PropTypes = {
-  title: string,
-  description: string,
-  keyword: string,
-  ogUrl: string,
-  ogImageUrl: string,
-  noindex: boolean,
-};
 
 const DEFAULT_SITE_TITLE = 'モノオク｜荷物の困ったを解決する、あたらしい物置きのかたち';
 const DEFAULT_DESCRIPTION =
   'モノオクは荷物の置き場所に困っている人と余ったスペースを活用したい人をつなぐ、物置きシェアサービスです。利用シーンは引っ越し・リフォーム・出張・転勤・留学など。トランクルームを使う様に、気軽に荷物を預けるためのあたらしい仕組みです。';
 
 class Head extends React.Component {
-  constructor(props: PropTypes) {
+  constructor(props) {
     super(props);
     this.state = {
       siteName: 'モノオク',

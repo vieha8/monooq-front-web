@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -45,14 +43,7 @@ const CaptionSub = styled.div`
   `};
 `;
 
-type PropTypes = {
-  isTag?: boolean,
-  caption: string,
-  captionSub: string,
-  spaceList: Array<string>,
-};
-
-export default ({ isTag, caption, captionSub, spaceList }: PropTypes) => (
+export default ({ isTag, caption, captionSub, spaceList }) => (
   <Wrapper>
     <WrapInner>
       <Caption>{caption}</Caption>

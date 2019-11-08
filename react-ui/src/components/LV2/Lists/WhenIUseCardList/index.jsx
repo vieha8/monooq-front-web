@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -76,14 +74,7 @@ const ButtonWrap = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
-type PropTypes = {
-  list: Array<{
-    image: string,
-    text: string | component,
-  }>,
-};
-
-export default ({ list }: PropTypes) => (
+export default ({ list }) => (
   <WhenIUseCardContentWrapper>
     {list.map((item, i) => (
       <WhenIUseWrap key={i.toString()}>

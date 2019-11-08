@@ -24,7 +24,7 @@ export const loggerReducer = handleActions(
 function* record({ payload: { event, detail } }) {
   const user = yield select(state => state.auth.user);
   const prevPath = yield select(state => state.logger.prevPath);
-  const referrerUrl = prevPath === '' ? document.referrer : 'https://' + document.domain + prevPath;
+  const referrerUrl = prevPath === '' ? document.referrer : `https://${document.domain}${prevPath}`;
 
   recordEvent('important_events', {
     event,

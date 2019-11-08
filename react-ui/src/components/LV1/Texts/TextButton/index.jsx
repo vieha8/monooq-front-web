@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { media } from 'helpers/style/media-query';
 import TextLink from 'components/LV1/Texts/TextLink';
@@ -10,7 +8,7 @@ const customStyle = `
   `};
 `;
 
-export default (props: Object) => (
+export default props => (
   <TextLink
     {...props}
     custom={customStyle || ''}

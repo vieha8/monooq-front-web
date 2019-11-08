@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -56,43 +54,14 @@ const TitleText = styled(InlineText.Small)`
   `};
 `;
 
-type PropTypes = {
-  dispatch: Function,
-  match: {
-    params: {
-      message_room_id: string,
-    },
-  },
-  room: Array<{
-    id: string,
-    space: {
-      user: {
-        id: number,
-        name: string,
-      },
-    },
-    user: {
-      id: number,
-      imageUrl: string,
-      name: string,
-    },
-    lastMessageDt: string,
-  }>,
-  isLoading: boolean,
-};
-
-type State = {
-  text: string,
-};
-
 const MessageType = {
   Text: 1,
   Estimate: 2,
   Completed: 3,
 };
 
-class MessageContainer extends Component<PropTypes, State> {
-  constructor(props: PropTypes) {
+class MessageContainer extends Component {
+  constructor(props) {
     super(props);
     const { dispatch, match } = this.props;
     const roomId = match.params.message_room_id;
@@ -128,12 +97,12 @@ class MessageContainer extends Component<PropTypes, State> {
     }
   }
 
-  handlePickImage = (image: File) => {
+  handlePickImage = image => {
     image.preview = URL.createObjectURL(image);
     this.setState({ image });
   };
 
-  handleChangeText = (text: string) => {
+  handleChangeText = text => {
     this.setState({ text });
   };
 

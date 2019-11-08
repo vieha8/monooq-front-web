@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -28,22 +26,6 @@ const UnderLine = styled.span`
   text-decoration: underline;
 `;
 
-type PropTypes = {
-  errors: Array<Array<string>>,
-  priceFull: number,
-  onChangePriceFull: Function,
-  priceHalf: number,
-  onChangePriceHalf: Function,
-  priceQuarter: number,
-  onChangePriceQuarter: Function,
-  buttonLoading: boolean,
-  onClickBack: Function,
-  onKeyDownButtonBack: Function,
-  onClickNext: Function,
-  onKeyDownButtonNext: Function,
-  buttonNextDisabled: boolean,
-};
-
 export default ({
   errors,
   priceFull,
@@ -58,7 +40,7 @@ export default ({
   onClickNext,
   onKeyDownButtonNext,
   buttonNextDisabled,
-}: PropTypes) => (
+}) => (
   <div>
     <Section marginTopSp={20}>
       <CaptionWrap>

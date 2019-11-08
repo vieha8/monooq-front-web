@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
@@ -40,19 +38,6 @@ const Item = styled.li`
   color: ${Colors.black2};
 `;
 
-export type PropTypes = {
-  caption: string,
-  cityName: string,
-  captionColor?: string,
-  townAreaList: Array<{
-    text: string,
-    link: string,
-    checked?: boolean,
-  }>,
-  onClickCheckCity: Function,
-  onClickCheckTown: Function,
-};
-
 export default ({
   caption,
   cityName,
@@ -62,7 +47,7 @@ export default ({
   townAreaList,
   onClickCheckCity,
   onClickCheckTown,
-}: PropTypes) => (
+}) => (
   <Wrap>
     <Caption captionColor={captionColor}>{caption}</Caption>
     <CheckBoxCityAllWrap>

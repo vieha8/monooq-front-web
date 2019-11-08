@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -25,12 +23,7 @@ const ExplainDescription = styled.span`
   `};
 `;
 
-type PropTypes = {
-  title: string,
-  description: string,
-};
-
-export default ({ title, description }: PropTypes) => (
+export default ({ title, description }) => (
   <Root>
     <ExplainTitle>{title}</ExplainTitle>
     <ExplainDescription>{description}</ExplainDescription>

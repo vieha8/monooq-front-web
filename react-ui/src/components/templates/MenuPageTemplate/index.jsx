@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -29,15 +27,7 @@ const LeftContent = styled.div`
   `};
 `;
 
-type PropTypes = {
-  maxWidth?: number,
-  header: React.Element<*>,
-  headline: string,
-  leftContent: React.Element<*>,
-  noMargin?: boolean,
-};
-
-export default ({ maxWidth, header, noMargin, headline, leftContent }: PropTypes) => (
+export default ({ maxWidth, header, noMargin, headline, leftContent }) => (
   <Wrap>
     {header}
     <Page noMargin={noMargin}>

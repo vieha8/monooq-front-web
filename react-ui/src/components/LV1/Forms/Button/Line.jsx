@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { mediaMin } from 'helpers/style/media-query';
@@ -57,7 +55,7 @@ const ImageLine = styled.img`
 const btnlink = styled(Link)``;
 const HyperLink = btnlink.withComponent('a');
 
-export default (props: Object) => (
+export default props => (
   <HyperLink href="https://line.me/R/ti/p/%40wna0649g" target="_blank" rel="noopener noreferrer">
     <Line
       center

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -37,16 +35,7 @@ const contentHostName = name => {
   );
 };
 
-type PropTypes = {
-  infoHost: string,
-  message: string,
-  id: string,
-  imageUrl: string,
-  name: string,
-  profile: string,
-};
-
-export default ({ infoHost, message, id, imageUrl, name, profile }: PropTypes) => (
+export default ({ infoHost, message, id, imageUrl, name, profile }) => (
   <Attribute
     infoHost={infoHost}
     message={message}

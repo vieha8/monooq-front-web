@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -23,15 +21,7 @@ const DateWrapper = styled.div`
   margin-top: ${Dimens.small}px;
 `;
 
-type PropTypes = {
-  id: number,
-  image: string,
-  extension: React.Element<*>,
-  message: string,
-  receivedAt: string,
-};
-
-export default ({ id, image, extension, message, receivedAt }: PropTypes) => (
+export default ({ id, image, extension, message, receivedAt }) => (
   <ContainerClearfix>
     <div>
       <AvatarWrapper>

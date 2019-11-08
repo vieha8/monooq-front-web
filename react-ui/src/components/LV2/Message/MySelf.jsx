@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import ContainerClearfix from 'components/LV1/ContainerClearfix';
@@ -24,15 +22,7 @@ const DateCell = styled.div`
   text-align: right;
 `;
 
-type PropTypes = {
-  message: string,
-  error?: boolean,
-  onClickRetry: Function,
-  sentAt: string,
-  isRead?: boolean,
-};
-
-export default ({ message, error, onClickRetry, sentAt, isRead }: PropTypes) => (
+export default ({ message, error, onClickRetry, sentAt, isRead }) => (
   <ContainerClearfix>
     <Card block noBorder background={Colors.brandPrimary} isPadding={14}>
       <InlineText.Base fontSize={15} color={Colors.white}>

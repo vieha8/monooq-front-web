@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
@@ -38,17 +36,7 @@ const QuestionTitle = styled(Label)`
   `};
 `;
 
-type PropTypes = {
-  title?: string,
-  list: Array<{
-    text?: string,
-    textCustom?: React.Element<*>,
-    isNoDisc?: boolean,
-  }>,
-  text?: string,
-};
-
-export default ({ title, text, list }: PropTypes) => (
+export default ({ title, text, list }) => (
   <QuestionListWrapper>
     {title && <QuestionTitle>{title}</QuestionTitle>}
     {list && (

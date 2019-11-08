@@ -1,11 +1,9 @@
-// @flow
-
 import React from 'react';
 
 import InputForm from '../index';
 
 export default class HeaderMock extends React.Component {
-  constructor(props: Object) {
+  constructor(props) {
     super(props);
     this.state = { value: '' };
   }

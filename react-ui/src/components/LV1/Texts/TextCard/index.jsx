@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
@@ -13,8 +11,4 @@ const TextCard = styled.div`
   line-height: 140%;
 `;
 
-type PropTypes = {
-  data: String,
-};
-
-export default ({ data }: PropTypes) => <TextCard>{data}</TextCard>;
+export default ({ data }) => <TextCard>{data}</TextCard>;

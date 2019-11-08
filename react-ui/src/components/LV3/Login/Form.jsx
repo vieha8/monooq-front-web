@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -60,29 +58,7 @@ const ToSignup = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-type PropTypes = {
-  logo: React.Element<*>,
-  title: React.Element<*>,
-  email: React.Element<*>,
-  pass: React.Element<*>,
-  failed: React.Element<*>,
-  remind: React.Element<*>,
-  login: React.Element<*>,
-  facebook: React.Element<*>,
-  toSignup: React.Element<*>,
-};
-
-export default ({
-  logo,
-  title,
-  email,
-  pass,
-  failed,
-  remind,
-  login,
-  facebook,
-  toSignup,
-}: PropTypes) => (
+export default ({ logo, title, email, pass, failed, remind, login, facebook, toSignup }) => (
   <Fragment>
     <Logo>{logo}</Logo>
     <Title>{title}</Title>

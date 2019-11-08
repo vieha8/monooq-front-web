@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
@@ -40,13 +38,7 @@ const Preview = styled.img`
   float: left;
 `;
 
-type PropTypes = {
-  onDrop: Function,
-  image: File | string,
-  imagePreview: File | string,
-};
-
-export default ({ onDrop, image, imagePreview }: PropTypes) => (
+export default ({ onDrop, image, imagePreview }) => (
   <DropzoneWrap>
     <Dropzone accept="image/jpeg, image/png" onDrop={onDrop}>
       {({ getRootProps, getInputProps }) => (

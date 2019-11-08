@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import Inquiry from 'components/LV3/Inquiry';

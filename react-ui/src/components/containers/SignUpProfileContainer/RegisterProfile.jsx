@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import { userActions } from 'redux/modules/user';
 import { uiActions } from 'redux/modules/ui';
@@ -8,20 +6,6 @@ import ReactGA from 'react-ga';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { handleGTM } from 'helpers/gtm';
-
-type PropTypes = {
-  dispatch: Function,
-  isLoading: boolean,
-};
-
-type State = {
-  image: ?File,
-  name: string,
-  prefCode: string,
-  profile: string,
-  isHost: boolean,
-  hasChanged: boolean,
-};
 
 const Validate = {
   phoneNumber: {
@@ -33,8 +17,8 @@ const Validate = {
   },
 };
 
-export default class RegisterProfileContainer extends Component<PropTypes, State> {
-  constructor(props: PropTypes) {
+export default class RegisterProfileContainer extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -90,7 +74,7 @@ a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document)
     history.push(Path.signUpPurpose());
   };
 
-  handleChangeForm = (name: string, value: any) => {
+  handleChangeForm = (name, value) => {
     const { state } = this;
     const { error } = state;
     const errors = [];

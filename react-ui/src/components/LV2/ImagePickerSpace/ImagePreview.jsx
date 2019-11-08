@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -54,12 +52,7 @@ const Delete = styled.span`
   `};
 `;
 
-type PropTypes = {
-  imageUrl: string,
-  onClickDelete: Function,
-};
-
-export default ({ imageUrl, onClickDelete }: PropTypes) => (
+export default ({ imageUrl, onClickDelete }) => (
   <Container>
     <ImageWrapper>
       <Image src={imageUrl} alt="" />

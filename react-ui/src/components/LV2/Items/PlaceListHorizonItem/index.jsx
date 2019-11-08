@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -42,23 +40,7 @@ const HostNameWrap = styled.div`
   margin-left: ${Dimens.small2}px;
 `;
 
-type PropTypes = {
-  user: {
-    id: string,
-    imageUrl: string,
-    name: string,
-  },
-  isHost: boolean,
-  href?: string,
-  onClick?: Function,
-  image: {
-    src: string,
-    alt: string,
-  },
-  address: string,
-};
-
-export default ({ user, isHost, href, onClick, image, address }: PropTypes) => (
+export default ({ user, isHost, href, onClick, image, address }) => (
   <Fragment>
     <ContainerClearfix>
       <HostContent>

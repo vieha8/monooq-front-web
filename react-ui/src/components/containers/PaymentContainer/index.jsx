@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
@@ -27,52 +25,6 @@ import { iskeyDownEnter } from 'helpers/keydown';
 const MAX_PAY_PRICE_CONVENIENT = 49999;
 const MODE_VIEW_INPUT = 0;
 const MODE_VIEW_CONFIRM = 1;
-
-type PropTypes = {
-  dispatch: Function,
-  match: {
-    params: {
-      requestId: string,
-      message_room_id: string,
-    },
-  },
-  room: {
-    space: {
-      id: number,
-      user: {
-        id: number,
-        firebaseUid: string,
-        imageUrl: string,
-        name: string,
-        profile: string,
-      },
-      addressPref: string,
-      addressCity: string,
-      addressTown: string,
-      title: string,
-      images: Array<{
-        imageUrl: string,
-      }>,
-      introduction: string,
-      type: number,
-      isFurniture: boolean,
-      about: string,
-      receiptAbout: string,
-      priceFull: number,
-      priceHalf: number,
-      priceQuarter: number,
-      location: {
-        lat: number,
-        lng: number,
-      },
-      status: string,
-    },
-  },
-  isPaymentSuccess: boolean,
-  isSending: boolean,
-  isPaymentFailed: boolean,
-  errMsgPayment: string,
-};
 
 const ValidateRegExp = {
   CardName: /^[a-zA-Z\s]+$/,
@@ -135,7 +87,7 @@ const PaymentUrl = styled.a`
   word-break: break-all;
 `;
 
-class PaymentContainer extends Component<PropTypes> {
+class PaymentContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -157,7 +109,7 @@ class PaymentContainer extends Component<PropTypes> {
     };
   }
 
-  componentWillReceiveProps(nextProps: PropTypes) {
+  componentWillReceiveProps(nextProps) {
     if (
       (!this.isPaymentFailed && nextProps.isPaymentFailed) ||
       (!this.isPaymentSuccess && nextProps.isPaymentSuccess)
@@ -204,7 +156,7 @@ class PaymentContainer extends Component<PropTypes> {
     window.location.href = Path.message(roomId);
   };
 
-  handleChangeUI = (propName: string, value: string) => {
+  handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
     const errors = [];

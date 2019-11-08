@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import Path from 'config/path';
@@ -16,23 +14,11 @@ import { uiActions } from 'redux/modules/ui';
 import authRequired from 'components/containers/AuthRequired';
 import { Dimens } from 'variables';
 
-type PropTypes = {
-  history: {
-    push: Function,
-  },
-  space: {
-    Title: string,
-  },
-  editedSpace: {
-    id: number,
-  },
-};
-
 const Caption = styled.div`
   margin: ${Dimens.medium_20}px 0;
 `;
 
-class SpaceEditCompletionContainer extends Component<PropTypes> {
+class SpaceEditCompletionContainer extends Component {
   constructor(props) {
     super(props);
 

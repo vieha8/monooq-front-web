@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { mediaMin } from 'helpers/style/media-query';
@@ -47,4 +45,4 @@ const Quinary = styled(PrimaryButton)`
   `};
 `;
 
-export default (props: Object) => <Quinary {...props} tabIndex={0} />;
+export default props => <Quinary {...props} tabIndex={0} />;

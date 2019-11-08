@@ -1,17 +1,8 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import ButtonLV1 from 'components/LV1/Forms/Button';
 
-type PropTypes = {
-  btnText: string,
-  modalTitle: string,
-  modalText: string,
-  onClickRemove: Function,
-};
-
-class ButtonModalConfirm extends Component<PropTypes> {
+class ButtonModalConfirm extends Component {
   state = { open: false };
 
   open = () => this.setState({ open: true });

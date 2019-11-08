@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { media, mediaMin } from 'helpers/style/media-query';
@@ -91,7 +89,7 @@ const Image = styled.img`
   left: -6px;
 `;
 
-export default (props: Object) =>
+export default props =>
   props.type2 ? (
     <HyperLink href={props.url.toString('base64')} target="_blank" rel="noopener noreferrer">
       <Facebook {...props}>

@@ -10,8 +10,8 @@ export const keenClient = new KeenTracking({
   writeKey: WRITE_KEY,
 });
 
-const helpers = KeenTracking.helpers;
-const utils = KeenTracking.utils;
+const { helpers } = KeenTracking;
+const { utils } = KeenTracking;
 
 const sessionCookie = utils.cookie('keen-monooq');
 if (!sessionCookie.get('keen_uuid')) {

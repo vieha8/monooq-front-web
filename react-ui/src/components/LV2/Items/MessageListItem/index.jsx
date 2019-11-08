@@ -1,7 +1,4 @@
-// @flow
-
 import React from 'react';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { media, mediaMin } from 'helpers/style/media-query';
@@ -59,16 +56,7 @@ const Cell = styled.div`
   `};
 `;
 
-export type PropTypes = {
-  link: string,
-  image: string,
-  name: string,
-  receivedAt: string | Date | moment,
-  lastMessage: string,
-  isRead: boolean,
-};
-
-export default ({ link, image, name, receivedAt, lastMessage, isRead }: PropTypes) => (
+export default ({ link, image, name, receivedAt, lastMessage, isRead }) => (
   <Container>
     <Link to={link || ''}>
       <Cell>

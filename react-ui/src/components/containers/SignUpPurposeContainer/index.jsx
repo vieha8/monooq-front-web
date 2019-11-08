@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import AccountTemplate from 'components/templates/AccountTemplate';
 import Header from 'components/containers/Header';

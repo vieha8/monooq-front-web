@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
@@ -11,20 +9,6 @@ import { Section } from './Shared';
 const CheckWrapper = styled.div`
   margin-top: ${Dimens.small}px;
 `;
-
-type PropTypes = {
-  errors: Array<Array<string>>,
-  baggage: string,
-  onChangeBaggage: Function,
-  checkedFurniture: boolean,
-  onClickFurniture: Function,
-  onKeyDownFurniture: Function,
-  onClickBack: Function,
-  onKeyDownButtonBack: Function,
-  onClickNext: Function,
-  onKeyDownButtonNext: Function,
-  buttonNextDisabled: boolean,
-};
 
 export default ({
   errors,
@@ -38,7 +22,7 @@ export default ({
   onClickNext,
   onKeyDownButtonNext,
   buttonNextDisabled,
-}: PropTypes) => (
+}) => (
   <div>
     <Section>
       <InputForm

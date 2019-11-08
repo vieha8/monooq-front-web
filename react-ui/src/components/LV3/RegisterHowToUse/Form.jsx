@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -34,15 +32,7 @@ const Button = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
-type PropTypes = {
-  title: React.Element<*>,
-  caption: React.Element<*>,
-  isHost: React.Element<*>,
-  captionSub: React.Element<*>,
-  button: React.Element<*>,
-};
-
-export default ({ title, caption, isHost, captionSub, button }: PropTypes) => (
+export default ({ title, caption, isHost, captionSub, button }) => (
   <Fragment>
     <Title>{title}</Title>
     <Caption>{caption}</Caption>

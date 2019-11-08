@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 
@@ -14,25 +12,8 @@ import Path from 'config/path';
 
 import connect from '../connect';
 
-type PropTypes = {
-  dispatch: Function,
-  isLogin: boolean,
-  isChecking: boolean,
-  loginFailed: boolean,
-  ui: {
-    redirectPath?: string,
-  },
-};
-
-type State = {
-  email: string,
-  password: string,
-  isUnVisiblePW: boolean,
-  hasChanged: boolean,
-};
-
 class LoginContainer extends Component {
-  constructor(props: PropTypes) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -42,8 +23,6 @@ class LoginContainer extends Component {
       hasChanged: false,
     };
   }
-
-  state: State;
 
   loginEmail = () => {
     const { dispatch } = this.props;
@@ -73,7 +52,7 @@ class LoginContainer extends Component {
     }
   };
 
-  handleChangeForm = (name: string, value: any) => {
+  handleChangeForm = (name, value) => {
     const { state } = this;
     state[name] = value;
     state.hasChanged = true;

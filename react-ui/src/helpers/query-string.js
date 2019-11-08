@@ -1,5 +1,3 @@
-// @flow
-
 import strictUriEncode from 'strict-uri-encode';
 import decodeComponent from 'decode-uri-component';
 
