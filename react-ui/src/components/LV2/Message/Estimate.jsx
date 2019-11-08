@@ -251,7 +251,7 @@ export default ({
           <br />
           <br />
           <InlineText.Base fontSize={17} bold>
-            ■ユーザーの方
+            ■ゲストの方
           </InlineText.Base>
           <br />
           お見積もり内容に問題がなければ料金を支払いましょう。

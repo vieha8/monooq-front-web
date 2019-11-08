@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Path from 'config/path';
 
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import HostGuide from 'components/LV2/HostGuide';
+import HostGuideList from 'components/LV2/Lists/HostGuideList';
 import SpaceEditCompletion from 'components/LV3/SpaceEdit/Completion';
 import { H1 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -75,11 +75,27 @@ class SpaceEditCompletionContainer extends Component {
     const { user } = this.props;
     return (
       <Fragment>
-        <HostGuide
+        <HostGuideList
           header="ご成約までの流れ"
-          data1="リクエストが届いてから24時間以内に返信しましょう。早めに返信した方が、成約率が高くなります！"
-          data2="荷物の内容や量・利用期間などユーザーの要望を確認し、引き受けられる場合は見積もりを提出しましょう。"
-          data3="ユーザーからの決済が完了すると取引が成立し、スペースの住所がメッセージルームに公開されます。利用開始日になったら荷物を受け取りましょう。"
+          guideList={[
+            {
+              text:
+                'リクエストが届いてから24時間以内に返信しましょう。早めに返信をすると成約率が高くなります！',
+            },
+            {
+              text:
+                '荷物の内容や量・利用期間などゲストの要望を確認し、引き受ける場合は見積もりを提出しましょう。',
+            },
+            {
+              text: (
+                <Fragment>
+                  ゲストの決済が完了すると取引が成立し、スペースの住所がメッセージページに公開されます。
+                  <br />
+                  利用開始日になったら荷物を受け取りましょう。
+                </Fragment>
+              ),
+            },
+          ]}
         />
         <SpaceEditCompletion
           edit={isUpdate}
@@ -102,11 +118,11 @@ class SpaceEditCompletionContainer extends Component {
         <H1 bold>{`${!isUpdate ? '登録' : '編集'}が完了しました`}</H1>
         <Caption>
           <InlineText.Base>
-            {!isUpdate ? 'モノオクにスペースが掲載されました！' : 'スペースの情報を更新しました！'}
+            {!isUpdate ? 'スペースが掲載されました！' : 'スペースの情報を更新しました！'}
             <br />
-            利用希望のリクエストが届くと、メッセージページにてユーザーとのやり取りが可能になります。
+            利用リクエストがあると、メッセージページでゲストとのやり取りがはじまります。
             <br />
-            利用期間や価格等を調整し、取引を進めましょう！
+            ご登録のメールアドレスにメッセージ通知が届きますので、随時メールをご確認ください。
           </InlineText.Base>
         </Caption>
         {this.leftContent(isUpdate)}
