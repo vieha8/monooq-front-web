@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -15,15 +13,6 @@ const Content = styled.div``;
 const ProfileWrap = styled.div`
   font-size: ${FontSizes.small}px;
 `;
-
-type PropTypes = {
-  infoHost: string,
-  message: string,
-  id: string,
-  imageUrl: string,
-  name: string,
-  profile: string,
-};
 
 const headContent = (id, imageUrl, name) => {
   return (
@@ -47,7 +36,7 @@ const contentHostName = name => {
   );
 };
 
-export default ({ infoHost, message, id, imageUrl, name, profile }: PropTypes) => (
+export default ({ infoHost, message, id, imageUrl, name, profile }) => (
   <Attribute
     infoHost={infoHost}
     message={message}

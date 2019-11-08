@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Colors } from 'variables';
@@ -29,28 +27,14 @@ const Icon = styled.i`
   `}
 `;
 
-type PropTypes = {
-  fontSize: number,
-};
-
-export const SearchIcon = (props: PropTypes) => (
-  <Icon {...props} className="fas fa-search color-darkGray1" />
-);
-export const MessageIcon = (props: PropTypes) => (
-  <Icon {...props} className="fas fa-comment" rotateY180 />
-);
-export const OtherIcon = (props: PropTypes) => (
+export const SearchIcon = props => <Icon {...props} className="fas fa-search color-darkGray1" />;
+export const MessageIcon = props => <Icon {...props} className="fas fa-comment" rotateY180 />;
+export const OtherIcon = props => (
   <Icon {...props} className="fal fa-ellipsis-h fa-2x color-darkGray1" />
 );
-export const PictureIcon = (props: PropTypes) => <Icon {...props} className="fal fa-image fa-2x" />;
-export const AngleRight = (props: PropTypes) => <Icon {...props} className="fal fa-angle-right" />;
-export const AngleDown = (props: PropTypes) => <Icon {...props} className="fal fa-angle-down" />;
-export const CircleRight = (props: PropTypes) => (
-  <Icon {...props} className="fal fa-chevron-circle-right" />
-);
-export const CircleDown = (props: PropTypes) => (
-  <Icon {...props} className="fal fa-chevron-circle-down" />
-);
-export const CloseIcon = (props: PropTypes) => (
-  <Icon {...props} className="fas fa-times color-white" />
-);
+export const PictureIcon = props => <Icon {...props} className="fal fa-image fa-2x" />;
+export const AngleRight = props => <Icon {...props} className="fal fa-angle-right" />;
+export const AngleDown = props => <Icon {...props} className="fal fa-angle-down" />;
+export const CircleRight = props => <Icon {...props} className="fal fa-chevron-circle-right" />;
+export const CircleDown = props => <Icon {...props} className="fal fa-chevron-circle-down" />;
+export const CloseIcon = props => <Icon {...props} className="fas fa-times color-white" />;

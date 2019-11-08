@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -84,17 +82,7 @@ const LinkStyled = styled(Link)`
   `};
 `;
 
-export type PropTypes = {
-  caption: string,
-  captionColor?: string,
-  areaAroundList: Array<{
-    name: string,
-    link: string,
-  }>,
-  isNoScroll?: boolean,
-};
-
-export default ({ caption, captionColor, areaAroundList, isNoScroll }: PropTypes) => (
+export default ({ caption, captionColor, areaAroundList, isNoScroll }) => (
   <Wrap>
     <Caption captionColor={captionColor}>{caption}</Caption>
     <AreaPinList isNoScroll={isNoScroll}>

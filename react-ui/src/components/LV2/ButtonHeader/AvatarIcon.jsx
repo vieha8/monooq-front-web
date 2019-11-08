@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -10,13 +8,7 @@ const LinkStyled = styled(Link)`
   width: 100%;
 `;
 
-type PropTypes = {
-  to?: string,
-  imageSrc: string,
-  size?: string,
-};
-
-export default ({ to, imageSrc, size }: PropTypes) =>
+export default ({ to, imageSrc, size }) =>
   to ? (
     <LinkStyled to={to}>
       <ImageAvatar src={imageSrc} size={size || 40} />

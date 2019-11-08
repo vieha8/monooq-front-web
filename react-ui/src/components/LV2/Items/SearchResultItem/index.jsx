@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
@@ -42,20 +40,6 @@ const ImageStar = styled.img`
   vertical-align: text-top;
 `;
 
-type PropTypes = {
-  isTag?: boolean,
-  id: number,
-  image: string,
-  title: string,
-  isRecommended?: boolean,
-  address?: string,
-  addressPref?: string,
-  addressCity?: string,
-  priceFull: number,
-  priceQuarter: number,
-  tagList?: Array<String>,
-};
-
 export default ({
   isTag,
   id,
@@ -69,7 +53,7 @@ export default ({
   priceQuarter,
   priceFull,
   tagList,
-}: PropTypes) => (
+}) => (
   <Container>
     <Link to={Path.space(id)}>
       <Card noPadding noBorder>

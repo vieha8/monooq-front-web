@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import Path from 'config/path';
@@ -37,16 +35,7 @@ const Other = styled(Message)`
   text-align: right;
 `;
 
-type PropTypes = {
-  float?: boolean,
-  roomId: string,
-  otherAction?: {
-    text: string,
-    href: string,
-  },
-};
-
-export default ({ float, roomId, otherAction }: PropTypes) => (
+export default ({ float, roomId, otherAction }) => (
   <Container>
     <OperationContainer float={float}>
       <Message>

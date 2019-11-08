@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -27,15 +25,7 @@ const TextWrapper = styled.div`
   margin-bottom: ${Dimens.small2}px;
 `;
 
-export type PropTypes = {
-  title: string,
-  dontActionList: Array<{
-    text: string,
-    textSubList: Array<string>,
-  }>,
-};
-
-export default ({ title, dontActionList }: PropTypes) => (
+export default ({ title, dontActionList }) => (
   <ContentWrap>
     <Title>{title}</Title>
     {dontActionList.map((item, i) => (

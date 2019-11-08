@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -103,45 +101,7 @@ const Cell = styled.div`
   `};
 `;
 
-type PropTypes = {
-  image: string,
-  name: string,
-  prefCode: string,
-  lastLoginAt: Date,
-  profile: string,
-  spaces: Array<{
-    id: number,
-    user: {
-      id: number,
-      firebaseUid: string,
-      imageUrl: string,
-      name: string,
-      profile: string,
-    },
-    addressPref: string,
-    addressCity: string,
-    addressTown: string,
-    title: string,
-    images: Array<{
-      imageUrl: string,
-    }>,
-    introduction: string,
-    type: number,
-    isFurniture: boolean,
-    about: string,
-    receiptAbout: string,
-    priceFull: number,
-    priceHalf: number,
-    priceQuarter: number,
-    location: {
-      lat: number,
-      lng: number,
-    },
-    status: string,
-  }>,
-};
-
-export default ({ image, name, prefCode, lastLoginAt, profile, spaces }: PropTypes) => (
+export default ({ image, name, prefCode, lastLoginAt, profile, spaces }) => (
   <Fragment>
     <Container>
       <User>

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -27,13 +25,7 @@ const NoticeIcon = styled.span`
   border-radius: ${Dimens.small}px;
 `;
 
-type PropTypes = {
-  href?: string,
-  onClick?: Function,
-  messageCount?: number,
-};
-
-export default ({ href, onClick, messageCount }: PropTypes) => (
+export default ({ href, onClick, messageCount }) => (
   <StyledLink to={href || ''} onClick={onClick}>
     <Image src={MessageIcon} messageCount={messageCount} alt="icon-chat" />
     {messageCount > 0 && <NoticeIcon />}

@@ -1,7 +1,4 @@
-// @flow
-
 import React from 'react';
-import moment from 'moment';
 import styled from 'styled-components';
 import Calendar from 'components/LV1/Forms/Calendar';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -45,19 +42,6 @@ const DateLabel = styled.span`
   margin: 5px auto 7px;
 `;
 
-type PropTypes = {
-  beginTitle: string,
-  beginDate: moment,
-  beginDateFocused: boolean,
-  onDateChangeBegin: Function,
-  onFocusChangeBegin: Function,
-  endTitle: string,
-  endDate: moment,
-  endDateFocused: boolean,
-  onDateChangeEnd: Function,
-  onFocusChangeEnd: Function,
-};
-
 export default ({
   beginTitle,
   beginDate,
@@ -69,7 +53,7 @@ export default ({
   endDateFocused,
   onDateChangeEnd,
   onFocusChangeEnd,
-}: PropTypes) => (
+}) => (
   <Container>
     <DateCell>
       <DateLabel>

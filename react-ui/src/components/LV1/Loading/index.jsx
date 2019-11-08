@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Loader } from 'semantic-ui-react';
@@ -14,12 +12,7 @@ const Wrap = styled.span`
   `};
 `;
 
-type PropTypes = {
-  loadingPage?: boolean,
-  size: 'mini' | 'medium' | 'large',
-};
-
-export default ({ loadingPage, size }: PropTypes) => (
+export default ({ loadingPage, size }) => (
   <Wrap loadingPage={loadingPage}>
     <Loader active inline="centered" size={size} />
   </Wrap>

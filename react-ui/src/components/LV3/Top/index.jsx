@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import Header from 'components/containers/Header';
 import styled from 'styled-components';
@@ -21,15 +19,6 @@ const BrStyled = styled.br`
   `};
 `;
 
-type PropTypes = {
-  story: boolean,
-  locationText: Function,
-  handleChangeLocation: Function,
-  onKeyDownSearchField: Function,
-  searchButtonDisabled: boolean,
-  onClickSearch: Function,
-};
-
 const getCatchPhrase = () => {
   return (
     <Fragment>
@@ -48,7 +37,7 @@ export default ({
   searchButtonDisabled,
   onClickSearch,
   sections,
-}: PropTypes) => (
+}) => (
   <TopPage>
     {!story && <Header top />}
     <TopView

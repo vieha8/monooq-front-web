@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -39,11 +37,7 @@ const UnsubscribeText = styled.div``;
 
 const HyperLink = LinkText.withComponent('a');
 
-type PropTypes = {
-  isLogin: boolean,
-};
-
-export default ({ isLogin }: PropTypes) => (
+export default ({ isLogin }) => (
   <Wrap>
     <Text>
       <InlineText.Base>

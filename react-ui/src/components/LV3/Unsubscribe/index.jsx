@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
@@ -53,17 +51,6 @@ const StyledDropdown = styled(Dropdown)`
   }
 `;
 
-type PropTypes = {
-  onChangeReasonType: Function,
-  reasonTypeError: string,
-  reasonText: string,
-  onChangeReasonText: Function,
-  buttonDisabled: boolean,
-  onClickUnsubscribe: Function,
-  buttonLoading: boolean,
-  onKeyDownUnsubscribe: Function,
-};
-
 export default ({
   onChangeReasonType,
   reasonTypeError,
@@ -73,7 +60,7 @@ export default ({
   onClickUnsubscribe,
   buttonLoading,
   onKeyDownUnsubscribe,
-}: PropTypes) => (
+}) => (
   <Fragment>
     <InlineText.EmphasisSmall>
       当てはまる理由をご選択ください。今後のサービス改善の参考とさせていただきます。

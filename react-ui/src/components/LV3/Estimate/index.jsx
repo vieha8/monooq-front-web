@@ -1,7 +1,4 @@
-// @flow
-
 import React from 'react';
-import moment from 'moment';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -22,36 +19,7 @@ const ButtonWrap = styled.div`
   `};
 `;
 
-type PropTypes = {
-  schedule: {
-    beginDate: moment,
-    endDate: moment,
-    beginDateFocused: boolean,
-    onDateChangeBegin: Function,
-    onFocusChangeBegin: Function,
-    endDateFocused: boolean,
-    onDateChangeEnd: Function,
-    onFocusChangeEnd: Function,
-  },
-  price: {
-    errors: Array<string>,
-    onChange: Function,
-    value: string,
-  },
-  buttonLoading: boolean,
-  buttonDisabled: boolean,
-  onClickSend: Function,
-  onKeyDownSend: Function,
-};
-
-export default ({
-  schedule,
-  price,
-  buttonLoading,
-  buttonDisabled,
-  onClickSend,
-  onKeyDownSend,
-}: PropTypes) => (
+export default ({ schedule, price, buttonLoading, buttonDisabled, onClickSend, onKeyDownSend }) => (
   <div>
     <Section>
       <H2>スケジュール</H2>

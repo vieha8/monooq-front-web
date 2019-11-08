@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
@@ -29,30 +27,6 @@ const HintBottomWrap = styled.div`
   margin-top: ${Dimens.small}px;
 `;
 
-type PropTypes = {
-  label?: string,
-  hint?: string,
-  checkbox?: boolean,
-  labelCheckBox?: string,
-  checked?: boolean,
-  onKeyDown?: Function,
-  margintop?: number,
-  extension?: React.Element<*>,
-  multiline?: boolean,
-  rows?: number,
-  placeholder?: string,
-  value: string,
-  type?: string,
-  autoComplete?: string,
-  onChange?: Function,
-  onClick?: Function,
-  onClickCheck?: Function,
-  hintbottom?: string,
-  unit?: string,
-  className?: string,
-  options?: any,
-};
-
 export default ({
   label,
   hint,
@@ -75,7 +49,7 @@ export default ({
   hintbottom,
   unit,
   className,
-}: PropTypes) => (
+}) => (
   <Fragment>
     {label && <H3 bold>{label}</H3>}
     {hint && <InlineText.EmphasisSmall>{hint}</InlineText.EmphasisSmall>}

@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -49,24 +47,7 @@ const MainTitleStyled = styled(MainTitle)`
   `};
 `;
 
-export type PropTypes = {
-  mainTitle: string,
-  mainTitleSub?: string,
-  text?: string | component,
-  isHr?: boolean,
-  noMarginTop?: boolean,
-  fontSizeSp?: number,
-};
-
-export default ({
-  mainTitle,
-  mainTitleSub,
-  text,
-  isHr,
-  sub,
-  noMarginTop,
-  fontSizeSp,
-}: PropTypes) => (
+export default ({ mainTitle, mainTitleSub, text, isHr, sub, noMarginTop, fontSizeSp }) => (
   <MainTitleContainer sub={sub} noMarginTop={noMarginTop}>
     <MainTitleStyled fontSizeSp={fontSizeSp}>
       {mainTitle}

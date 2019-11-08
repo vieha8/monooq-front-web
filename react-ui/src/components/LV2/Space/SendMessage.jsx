@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/LV1/Forms/Button';
@@ -27,14 +25,7 @@ const ButtonWrap = styled.div`
   `};
 `;
 
-type PropTypes = {
-  disabled: boolean,
-  loading: boolean,
-  onClick: Function,
-  onKeyDownButtonMessage: Function,
-};
-
-export default ({ disabled, loading, onClick, onKeyDownButtonMessage }: PropTypes) => (
+export default ({ disabled, loading, onClick, onKeyDownButtonMessage }) => (
   <div>
     <ButtonWrap>
       <Button

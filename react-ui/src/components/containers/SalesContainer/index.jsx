@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';

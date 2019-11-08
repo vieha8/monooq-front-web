@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -21,12 +19,7 @@ const Image = styled.img`
   height: auto;
 `;
 
-type PropTypes = {
-  href?: string,
-  onClick?: Function,
-};
-
-export default ({ href, onClick }: PropTypes) => (
+export default ({ href, onClick }) => (
   <StyledLink to={href || ''} onClick={onClick}>
     <Image src={SearchIcon} alt="icon-search" />
   </StyledLink>

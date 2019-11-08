@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import InlineText from 'components/LV1/Texts/InlineText';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
@@ -67,16 +65,6 @@ const buttonEntry = (buttonDisabled, buttonLoading, onClickSkip, onClickRegister
   );
 };
 
-type PropTypes = {
-  userName: string,
-  onChangeIsHost: Function,
-  isHost: boolean,
-  buttonDisabled: boolean,
-  buttonLoading: boolean,
-  onClickSkip: Function,
-  onClickRegisterProfile: Function,
-};
-
 export default ({
   userName,
   onChangeIsHost,
@@ -85,7 +73,7 @@ export default ({
   buttonLoading,
   onClickSkip,
   onClickRegisterProfile,
-}: PropTypes) => (
+}) => (
   <Form
     title={inlineText('モノオクへようこそ！', userName, FontSizes.medium2, true, '')}
     caption={inlineText(

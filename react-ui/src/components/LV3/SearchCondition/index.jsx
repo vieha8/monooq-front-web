@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -48,17 +46,6 @@ const ButtonWrap = styled.div`
   `};
 `;
 
-type PropTypes = {
-  errors: Array<Array<string>>,
-  keyword: string,
-  onChangeKeyword: Function,
-  prefCode: number,
-  onChangePrefCode: Function,
-  buttonDisabled: boolean,
-  onClickSearch: Function,
-  onKeyDownButtonSearch: Function,
-};
-
 export default ({
   errors,
   keyword,
@@ -68,7 +55,7 @@ export default ({
   buttonDisabled,
   onClickSearch,
   onKeyDownButtonSearch,
-}: PropTypes) => (
+}) => (
   <Fragment>
     <ContentsWrap>
       <Section top>

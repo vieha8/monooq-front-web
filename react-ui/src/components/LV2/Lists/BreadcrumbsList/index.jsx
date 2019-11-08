@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -40,14 +38,7 @@ const LinkStyled = styled(Link)`
   }
 `;
 
-export type PropTypes = {
-  breadcrumbsList: Array<{
-    text: string,
-    link?: string,
-  }>,
-};
-
-export default ({ breadcrumbsList }: PropTypes) => (
+export default ({ breadcrumbsList }) => (
   <Wrap>
     <WrapPre>
       {breadcrumbsList.map((item, i) => (

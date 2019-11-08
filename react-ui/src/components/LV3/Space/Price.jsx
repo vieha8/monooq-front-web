@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -21,13 +19,7 @@ const Wrap = styled.div`
   `};
 `;
 
-type PropTypes = {
-  full?: string,
-  half?: string,
-  quarter?: string,
-};
-
-export default ({ full, half, quarter }: PropTypes) => (
+export default ({ full, half, quarter }) => (
   <Wrap>
     <PriceHead />
     {full && (

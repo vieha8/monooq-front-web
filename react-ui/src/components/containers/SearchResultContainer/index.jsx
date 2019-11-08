@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { parse, stringify } from 'helpers/query-string';
@@ -27,28 +25,8 @@ const Loader = styled(Loading)`
   text-align: center;
 `;
 
-type PropTypes = {
-  dispatch: Function,
-  history: {
-    push: Function,
-  },
-  isSearching: boolean,
-  spaces: Array<{
-    id: number,
-    images: Array<{
-      ImageUrl: string,
-    }>,
-    addressTown: string,
-    title: string,
-    isFurniture: boolean,
-    priceFull: number,
-    priceHalf: number,
-    priceQuarter: number,
-  }>,
-};
-
-class SearchResultContainer extends Component<PropTypes> {
-  constructor(props: PropTypes) {
+class SearchResultContainer extends Component {
+  constructor(props) {
     super(props);
 
     const state = {
@@ -221,7 +199,7 @@ class SearchResultContainer extends Component<PropTypes> {
     }
   };
 
-  onClickSpace = (space: { id: number }) => {
+  onClickSpace = space => {
     const { history } = this.props;
     history.push(Path.space(space.id));
   };

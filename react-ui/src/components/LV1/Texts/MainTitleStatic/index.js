@@ -1,5 +1,3 @@
-// @flow
-
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';

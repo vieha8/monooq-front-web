@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import SpaceManageListItem from 'components/LV2/Items/SpaceManageListItem';
@@ -21,23 +19,7 @@ const ListItem = styled.div`
   `};
 `;
 
-type PropTypes = {
-  spaces: Array<{
-    image: {
-      src: string,
-      alt: string,
-    },
-    address: string,
-    content: string,
-    furniture?: boolean,
-    prices: Array<number>,
-    onClickEdit: Function,
-    onClickRemove: Function,
-    link: string,
-  }>,
-};
-
-export default ({ spaces }: PropTypes) => (
+export default ({ spaces }) => (
   <ListWrap>
     {spaces.map((space, i) => (
       <Fragment key={`manage_space_list_item_${i}`.toString()}>

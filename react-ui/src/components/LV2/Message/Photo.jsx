@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -23,16 +21,7 @@ const DateWrapper = styled.div`
   margin-top: ${Dimens.small}px;
 `;
 
-type PropTypes = {
-  align: string,
-  src: string,
-  alt?: string,
-  self?: boolean,
-  receivedAt: string,
-  isRead?: boolean,
-};
-
-export default ({ align, src, alt, self, receivedAt, isRead }: PropTypes) => (
+export default ({ align, src, alt, self, receivedAt, isRead }) => (
   <div>
     <ImageWrapper align={align}>
       <a href={src} target="_blank" rel="noreferrer noopener">

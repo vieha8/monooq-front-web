@@ -1,5 +1,3 @@
-// @flow
-
 export const depositTypes: Array<string> = ['普通', '当座'];
 
 const selectDepositType = (placeholder: string) => {

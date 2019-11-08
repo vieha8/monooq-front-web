@@ -1,5 +1,3 @@
-// @flow
-
 export const purposes = ['荷物を預けたい', '荷物を預かりたい'];
 
 const selectOptionPurpose = (placeholder: string) => {

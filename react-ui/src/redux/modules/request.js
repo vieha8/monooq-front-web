@@ -5,13 +5,13 @@ import { push } from 'connected-react-router';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { formatName } from 'helpers/string';
 import { handleGTM } from 'helpers/gtm';
+import { loggerActions } from 'redux/modules/logger';
 import { authActions, getToken } from './auth';
 import { createOmiseToken } from '../helpers/omise';
 import Path from '../../config/path';
 import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import { handleError } from './error';
 import { getRoomId, createRoom } from './messages';
-import { loggerActions } from 'redux/modules/logger';
 
 // Actions
 const ESTIMATE = 'ESTIMATE';
@@ -436,7 +436,7 @@ function* request({ payload: { user, space } }) {
       detail: {
         spaceId: space.id,
         userId: user.id,
-        roomId: roomId,
+        roomId,
       },
     }),
   );

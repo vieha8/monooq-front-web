@@ -378,8 +378,8 @@ function* sendMessage(payload) {
       loggerActions.recordEvent({
         event: 'send_messages',
         detail: {
-          userId: userId,
-          roomId: roomId,
+          userId,
+          roomId,
         },
       }),
     );

@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Select from 'components/LV1/Forms/Select';
@@ -10,19 +8,7 @@ const SelectWrapper = styled.div`
   margin-top: 6px;
 `;
 
-type PropTypes = {
-  label: string,
-  hint?: string,
-  value: string,
-  onChange: Function,
-  options: Array<{
-    text: string,
-    value: any,
-  }>,
-  className?: string,
-};
-
-export default ({ label, hint, value, onChange, options, className }: PropTypes) => (
+export default ({ label, hint, value, onChange, options, className }) => (
   <Fragment>
     <H3 bold>{label}</H3>
     {hint && <InlineText.EmphasisTiny>{hint}</InlineText.EmphasisTiny>}

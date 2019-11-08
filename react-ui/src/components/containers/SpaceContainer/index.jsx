@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import numeral from 'numeral';
 import Path from 'config/path';
@@ -18,51 +16,6 @@ import { iskeyDownEnter } from 'helpers/keydown';
 import { loggerActions } from 'redux/modules/logger';
 import connect from '../connect';
 
-type PropTypes = {
-  dispatch: Function,
-  history: {
-    push: Function,
-  },
-  match: {
-    params: {
-      space_id: string,
-    },
-  },
-  user: {
-    id: number,
-  },
-  space: {
-    id: number,
-    user: {
-      id: number,
-      firebaseUid: string,
-      imageUrl: string,
-      name: string,
-      profile: string,
-    },
-    addressPref: string,
-    addressCity: string,
-    addressTown: string,
-    title: string,
-    images: Array<{
-      imageUrl: string,
-    }>,
-    introduction: string,
-    type: number,
-    isFurniture: boolean,
-    about: string,
-    receiptAbout: string,
-    priceFull: number,
-    priceHalf: number,
-    priceQuarter: number,
-    location: {
-      lat: number,
-      lng: number,
-    },
-    status: string,
-  },
-};
-
 const SPACE_TYPES = ['', 'クローゼット・押入れ', '', '部屋', '屋外倉庫', 'その他'];
 const ReceiptType = {
   Both: 1,
@@ -70,8 +23,8 @@ const ReceiptType = {
   Delivery: 3,
 };
 
-class SpaceContainer extends Component<PropTypes> {
-  constructor(props: PropTypes) {
+class SpaceContainer extends Component {
+  constructor(props) {
     super(props);
     this.init();
     this.state = {

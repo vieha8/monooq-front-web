@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import Path from 'config/path';
 import Button from 'components/LV1/Forms/Button';
@@ -84,22 +82,6 @@ const button = (mode, onClick, disabled, loading) => {
   return returnVal;
 };
 
-type PropTypes = {
-  email: string,
-  onChangeEmail: Function,
-  ispasswordVisible: boolean,
-  password: string,
-  onChangePassword: Function,
-  onKeyDownPassword: Function,
-  onClickIconPassword: Function,
-  loginFailed: boolean,
-  onClickLogin: Function,
-  buttonDisabled: boolean,
-  isLoginChecking: boolean,
-  onClickFacebook: Function,
-  onClickSignup: Function,
-};
-
 export default ({
   email,
   onChangeEmail,
@@ -114,7 +96,7 @@ export default ({
   isLoginChecking,
   onClickFacebook,
   onClickSignup,
-}: PropTypes) => (
+}) => (
   <Form
     title={<H1 bold>ログイン</H1>}
     email={inputField(email, onChangeEmail)}

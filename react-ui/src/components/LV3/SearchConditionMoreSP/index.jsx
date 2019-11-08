@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -57,23 +55,7 @@ const Headline = styled.div`
   text-align: left;
 `;
 
-type PropTypes = {
-  btnText: string,
-  searchConditionCurrentList: Array<{
-    title: string,
-    value: string,
-  }>,
-  searchConditionSPList: Array<{
-    title: string,
-    collapsibleItemList: Array<{
-      to: string,
-      text: string,
-    }>,
-  }>,
-  onClickSearch?: Function,
-};
-
-class SearchConditionMoreSP extends Component<PropTypes> {
+class SearchConditionMoreSP extends Component {
   state = {
     open: false,
     isTownArea: false,

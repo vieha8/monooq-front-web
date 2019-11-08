@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import Insurance from 'components/LV3/Insurance';

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -124,14 +122,7 @@ const WrapRegion = styled.div`
   color: ${Colors.lightGray3};
 `;
 
-type PropTypes = {
-  list: Array<{
-    region: string,
-    prefectureList: Array<string>,
-  }>,
-};
-
-export default ({ list }: PropTypes) => (
+export default ({ list }) => (
   <Wrapper>
     <WrapInner>
       <Caption>都道府県別でスペースを探す</Caption>

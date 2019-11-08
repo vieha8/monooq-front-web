@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -121,27 +119,7 @@ const OnlyPhone = styled.span`
   `};
 `;
 
-type PropTypes = {
-  detail?: boolean,
-  image: any,
-  title: string,
-  price: string,
-  caption: string,
-  error: React.Element<*>,
-  onChange: Function,
-  placeholder: string,
-};
-
-export default ({
-  detail,
-  image,
-  title,
-  price,
-  caption,
-  error,
-  onChange,
-  placeholder,
-}: PropTypes) =>
+export default ({ detail, image, title, price, caption, error, onChange, placeholder }) =>
   detail ? (
     <Container detail>
       <OnlyPC>

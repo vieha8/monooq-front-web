@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -18,27 +16,6 @@ const ButtonWrap = styled.div`
     max-width: 100%;
   `};
 `;
-
-type PropTypes = {
-  edit: boolean,
-  errors: Array<Array<string>>,
-  address: string,
-  onChangeAddress: Function,
-  type: number,
-  onChangeType: Function,
-  title: string,
-  onChangeTitle: Function,
-  images: Array<{ url: string }>,
-  onChangeImage: Function,
-  onClickDeleteImage: Function,
-  isImageUploading: boolean,
-  introduction: string,
-  onChangeIntroduction: Function,
-  OnClickRemove: Function,
-  onClickNext: Function,
-  onKeyDownButtonNext: Function,
-  buttonNextDisabled: boolean,
-};
 
 export default ({
   edit,
@@ -59,7 +36,7 @@ export default ({
   onClickNext,
   onKeyDownButtonNext,
   buttonNextDisabled,
-}: PropTypes) => (
+}) => (
   <div>
     <Section>
       <InputForm

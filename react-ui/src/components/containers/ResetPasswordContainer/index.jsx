@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
@@ -19,15 +17,8 @@ const Validate = {
   Email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
 };
 
-type PropTypes = {
-  dispatch: Function,
-  isLogin: boolean,
-  isChecking: boolean,
-  emailSended: boolean,
-};
-
-class ResetPasswordContainer extends Component<PropTypes> {
-  constructor(props: PropTypes) {
+class ResetPasswordContainer extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -49,7 +40,7 @@ class ResetPasswordContainer extends Component<PropTypes> {
     }
   };
 
-  handleChangeUI = (propName: string, value: any) => {
+  handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
     const errors = [];

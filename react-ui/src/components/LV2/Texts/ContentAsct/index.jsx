@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -36,14 +34,7 @@ const Data = styled(Text)`
   `};
 `;
 
-export type PropTypes = {
-  asctList: Array<{
-    header: string,
-    data: string,
-  }>,
-};
-
-export default ({ asctList }: PropTypes) => (
+export default ({ asctList }) => (
   <Fragment>
     {asctList.map((item, i) => (
       <ContentContainer key={i.toString()}>

@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import BurgerMenu from 'react-burger-menu';
 import ServiceMenu from 'components/LV3/ServiceMenu';
@@ -8,12 +6,7 @@ import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
 import connect from '../connect';
 
-type PropTypes = {
-  userName?: string,
-  userImage?: string,
-};
-
-class ServiceMenuContainer extends Component<PropTypes> {
+class ServiceMenuContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {

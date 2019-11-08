@@ -1,11 +1,7 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
-import ScheduleListItem, {
-  type PropTypes as ScheduleListItemType,
-} from 'components/LV2/Items/ScheduleListItem';
+import ScheduleListItem from 'components/LV2/Items/ScheduleListItem';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, FontSizes } from 'variables';
 
@@ -55,11 +51,7 @@ const checkSchedule = (value, list, prop) => {
   return false;
 };
 
-type PropTypes = {
-  schedules: Array<ScheduleListItemType>,
-};
-
-export default ({ schedules }: PropTypes) => (
+export default ({ schedules }) => (
   <ScheduleListWrap>
     {checkSchedule(true, schedules, 'isHost') && (
       <Fragment>

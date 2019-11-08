@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
@@ -36,11 +34,7 @@ const Row = styled.div`
   `}
 `;
 
-type PropTypes = {
-  userId: number,
-};
-
-export default ({ userId }: PropTypes) => (
+export default ({ userId }) => (
   <Wrap>
     <InlineText.Base>
       現在進行中の取引があります。

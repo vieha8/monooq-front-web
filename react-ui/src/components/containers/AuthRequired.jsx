@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import Path from 'config/path';

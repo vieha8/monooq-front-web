@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Colors, FontSizes } from 'variables';
@@ -55,14 +53,7 @@ const Label = styled.div`
   `};
 `;
 
-type PropTypes = {
-  onClick: Function,
-  checked?: boolean,
-  border?: boolean,
-  children: string,
-};
-
-export default ({ onClick, checked, border, children }: PropTypes) => (
+export default ({ onClick, checked, border, children }) => (
   <Container onClick={onClick}>
     <Radio checked={checked} />
     <Label border={border}>{children}</Label>

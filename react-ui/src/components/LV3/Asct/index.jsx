@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import Path from 'config/path';
 

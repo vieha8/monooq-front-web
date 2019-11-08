@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -45,13 +43,7 @@ const Container = styled.div`
   `};
 `;
 
-type PropTypes = {
-  header: React.Element<*>,
-  form: React.Element<*>,
-  stories?: boolean,
-};
-
-export default class AccountTemplate extends Component<PropTypes> {
+export default class AccountTemplate extends Component {
   componentDidMount() {
     this.prevBg = document.body.style.background;
     document.body.style.background = Colors.lightGray1Bg;

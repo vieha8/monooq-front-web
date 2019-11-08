@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
@@ -217,13 +215,7 @@ const TextBeginner = () => (
   </Fragment>
 );
 
-type PropTypes = {
-  onClickHowToUse: Function,
-  onClickInsurance: Function,
-  onClickRule: Function,
-};
-
-export default ({ onClickHowToUse, onClickInsurance, onClickRule }: PropTypes) => (
+export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
   <Wrap>
     <TopWrapper>
       <TopEyeCatch src={howtouseEyeCatch} />

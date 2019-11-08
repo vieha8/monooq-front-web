@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -44,14 +42,7 @@ const Caption = styled.div`
   display: block;
 `;
 
-type PropTypes = {
-  full?: boolean,
-  half?: boolean,
-  quarter?: boolean,
-  price: string,
-};
-
-export default ({ full, half, quarter, price }: PropTypes) => (
+export default ({ full, half, quarter, price }) => (
   <Container>
     <PriceContainer>
       <TextContainer>

@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -68,37 +66,7 @@ const BottomWrap = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-type PropTypes = {
-  btnText: string,
-  regionPrefectureList: Array<{
-    region: string,
-    prefectureList: Array<{
-      name: string,
-      id: string,
-    }>,
-  }>,
-  cityTownAreaList: Array<{
-    cityName: string,
-    areaAroundList: Array<{
-      text: string,
-      link: string,
-    }>,
-    townAreaList: Array<{
-      text: string,
-      link: string,
-    }>,
-  }>,
-  prefecture: string,
-  onChangeCheckCity: Function,
-  onChangeCheckTownArea: Function,
-  searchConditionCurrentList: Array<{
-    title: string,
-    value: string,
-  }>,
-  onClickMore: Function,
-};
-
-class SearchConditionMore extends Component<PropTypes> {
+class SearchConditionMore extends Component {
   state = { open: false };
 
   open = () => this.setState({ open: true });

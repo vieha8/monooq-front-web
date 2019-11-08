@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { mediaMin } from 'helpers/style/media-query';
@@ -77,19 +75,7 @@ const StyledLink = styled(Link)`
   `};
 `;
 
-type PropTypes = {
-  list: Array<{
-    onClickItem?: Function,
-    text: string,
-    path: string,
-    current?: boolean,
-  }>,
-  landscape?: boolean,
-  color?: string,
-  isLinkEvent?: Function,
-};
-
-export default ({ list, landscape, color, isLinkEvent }: PropTypes) => (
+export default ({ list, landscape, color, isLinkEvent }) => (
   <List>
     {list.map((item, i) => (
       <Item key={i.toString()} landscape={landscape}>

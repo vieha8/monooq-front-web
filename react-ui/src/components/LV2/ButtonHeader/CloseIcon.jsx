@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -20,11 +18,7 @@ const Image = styled.img`
   height: auto;
 `;
 
-type PropTypes = {
-  onClick?: Function,
-};
-
-export default ({ onClick }: PropTypes) => (
+export default ({ onClick }) => (
   <Wrap onClick={onClick}>
     <Image src={CloseIcon} alt="icon-close" />
   </Wrap>

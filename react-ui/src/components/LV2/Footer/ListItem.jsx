@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import TextLink from 'components/LV1/Texts/TextLink';
@@ -25,20 +23,13 @@ const Item = styled.li`
   margin-top: ${Dimens.small2}px;
 `;
 
-const FooterLink = (props: Object) => (
+const FooterLink = props => (
   <TextLink {...props} fontSize={12} line-height={16} color={Colors.white}>
     {props.children}
   </TextLink>
 );
 
-type PropTypes = {
-  list: Array<{
-    name: string,
-    link: string,
-  }>,
-};
-
-export default ({ list }: PropTypes) => (
+export default ({ list }) => (
   <Wrapper>
     <WrapList>
       {list.map((item, i) => (

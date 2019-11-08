@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
@@ -67,29 +65,6 @@ const Wrapper = styled.div`
   `};
 `;
 
-type PropTypes = {
-  relative?: boolean,
-  remove?: boolean,
-  backButton: {
-    text: string,
-    modalTitle?: string,
-    modalText?: string,
-    onClick: Function,
-    onKeyDown?: Function,
-  },
-  loading?: boolean,
-  enabled: boolean,
-  enabledButton: {
-    text: string,
-    disabled?: boolean,
-    onClick: Function,
-    onKeyDown?: Function,
-  },
-  disabledButton: {
-    text: string,
-  },
-};
-
 export default ({
   relative,
   remove,
@@ -98,7 +73,7 @@ export default ({
   enabled,
   enabledButton,
   disabledButton,
-}: PropTypes) => (
+}) => (
   <WrapperOuter relative={relative}>
     <Container>
       <Cell align="left">

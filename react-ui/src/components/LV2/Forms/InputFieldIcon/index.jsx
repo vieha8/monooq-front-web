@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import InputField from 'components/LV1/Forms/InputField';
@@ -49,17 +47,6 @@ const InputFieldIcon = styled(InputField)`
     `};
 `;
 
-type PropTypes = {
-  right?: boolean,
-  iconClassName: string,
-  type: string,
-  placeholder: string,
-  value: string | number,
-  onChange: Function,
-  onKeyDown: Function,
-  clickIcon: Function,
-};
-
 export default ({
   right,
   type,
@@ -69,7 +56,7 @@ export default ({
   onKeyDown,
   clickIcon,
   iconClassName,
-}: PropTypes) => (
+}) => (
   <Wrapper>
     {right ? (
       <Fragment>

@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Radio from 'components/LV1/Forms/Radio';
@@ -35,17 +33,6 @@ const Wrapper = styled.div`
 
 const ImageWrapper = styled.div``;
 
-type PropTypes = {
-  labelTitle?: string,
-  border?: boolean,
-  borderTop?: boolean,
-  labels: Array<string>,
-  onClick: Function,
-  contents?: Object,
-  captions?: object,
-  checkedIndex?: number,
-};
-
 export default ({
   labelTitle,
   labels,
@@ -55,7 +42,7 @@ export default ({
   contents,
   captions,
   checkedIndex,
-}: PropTypes) => (
+}) => (
   <Fragment>
     <H3 bold>{labelTitle}</H3>
     {labels.map((label, i) => (

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -120,23 +118,7 @@ const CatchPhraseSub = styled.div`
   `};
 `;
 
-type PropTypes = {
-  serviceList: Array<{
-    title: string,
-    noMarginBottom?: boolean,
-    serviceUrl: string,
-    serviceLogo: Array<{
-      type_70?: boolean,
-      src: string,
-      alt: string,
-    }>,
-    descriptionLogo?: React.Element<*>,
-    catchPhrase: React.Element<*>,
-    description?: React.Element<*>,
-  }>,
-};
-
-export default ({ serviceList }: PropTypes) => (
+export default ({ serviceList }) => (
   <ServiceContainer>
     <ServiceWrapper>
       {serviceList.map((item, i) => (

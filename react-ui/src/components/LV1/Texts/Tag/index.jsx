@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
@@ -16,12 +14,7 @@ const Tag = styled.span`
   border-radius: ${Dimens.xxsmall_4}px;
 `;
 
-type PropTypes = {
-  tagList: Array<String>,
-  isNoMark?: boolean,
-};
-
-export default ({ tagList, isNoMark }: PropTypes) => (
+export default ({ tagList, isNoMark }) => (
   <Fragment>
     {tagList &&
       tagList.map((tag, i) => (

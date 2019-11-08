@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -26,11 +24,7 @@ const ToProfileLink = styled(Link)`
   `}
 `;
 
-type PropTypes = {
-  userId: number,
-};
-
-export default ({ userId }: PropTypes) => (
+export default ({ userId }) => (
   <Content>
     <H1 bold>プロフィール編集が完了しました</H1>
     <ToProfileLink to={Path.profile(userId)}>プロフィールページを確認する</ToProfileLink>

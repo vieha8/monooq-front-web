@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
@@ -54,28 +52,7 @@ const Button = styled.div`
   margin-top: ${Dimens.medium2}px;
 `;
 
-type PropTypes = {
-  errors: Array<Array<string>>,
-  title: React.Element<*>,
-  image: React.Element<*>,
-  name: React.Element<*>,
-  prefCode: React.Element<*>,
-  profile: React.Element<*>,
-  phoneNumber: React.Element<*>,
-  button: React.Element<*>,
-  story?: boolean,
-};
-
-export default ({
-  errors,
-  title,
-  image,
-  name,
-  prefCode,
-  profile,
-  phoneNumber,
-  button,
-}: PropTypes) => (
+export default ({ errors, title, image, name, prefCode, profile, phoneNumber, button }) => (
   <Fragment>
     <Title>{title}</Title>
     <Image>{image}</Image>

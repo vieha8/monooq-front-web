@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -73,17 +71,6 @@ const MarginTopMediumWrapper = styled.div`
   `};
 `;
 
-type PropTypes = {
-  sended: boolean,
-  resetError?: string,
-  email: string,
-  onChangeEmail: Function,
-  errors: Array<string>,
-  onClickSend: Function,
-  buttonDisabled: boolean,
-  buttonLoading: boolean,
-};
-
 export default ({
   sended,
   resetError,
@@ -93,7 +80,7 @@ export default ({
   onClickSend,
   buttonDisabled,
   buttonLoading,
-}: PropTypes) => (
+}) => (
   <Container resetError={resetError}>
     {sended ? (
       <Fragment>

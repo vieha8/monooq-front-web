@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/LV1/Forms/Button';
@@ -41,21 +39,7 @@ const PrivateButton = styled(PrimaryButton)`
   `};
 `;
 
-type PropTypes = {
-  onClickEdit: Function,
-  statusPrivate?: boolean,
-  onClickPublic?: Function,
-  statusPublic?: boolean,
-  onClickPrivate?: Function,
-};
-
-export default ({
-  onClickEdit,
-  statusPrivate,
-  onClickPublic,
-  statusPublic,
-  onClickPrivate,
-}: PropTypes) => (
+export default ({ onClickEdit, statusPrivate, onClickPublic, statusPublic, onClickPrivate }) => (
   <Container>
     <Wrapper>
       <Button primary fontbold fill={1} onClick={onClickEdit}>

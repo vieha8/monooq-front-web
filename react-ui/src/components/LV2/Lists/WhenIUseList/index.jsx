@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -48,14 +46,7 @@ const ContentImage = styled.img`
   width: 50%;
 `;
 
-type PropTypes = {
-  list: Array<{
-    image: string,
-    text: string,
-  }>,
-};
-
-export default ({ list }: PropTypes) => (
+export default ({ list }) => (
   <WhenIUseContentWrapper>
     {list.map((item, i) => (
       <WhenIUseWrap key={i.toString()}>
