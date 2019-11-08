@@ -40,7 +40,7 @@ class EstimateContainer extends Component {
     this.setState(state);
   };
 
-  handleChangePrice = (propName: string, value: any) => {
+  handleChangePrice = (propName, value) => {
     const { state } = this;
     const { error } = state;
     const errors = [];

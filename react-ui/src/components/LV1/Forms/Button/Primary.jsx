@@ -121,7 +121,7 @@ export const PrimaryButton = styled.div`
 
 const HyperLink = btnlink.withComponent('a');
 
-export default (props: Object) =>
+export default props =>
   props.link ? (
     props.blank ? (
       <HyperLink {...props} href={props.href} target="_blank">

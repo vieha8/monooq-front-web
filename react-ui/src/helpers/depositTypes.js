@@ -1,6 +1,6 @@
-export const depositTypes: Array<string> = ['普通', '当座'];
+export const depositTypes = ['普通', '当座'];
 
-const selectDepositType = (placeholder: string) => {
+const selectDepositType = placeholder => {
   const depositTypeList = [];
   if (placeholder) {
     depositTypeList.push({

@@ -45,4 +45,4 @@ const Quinary = styled(PrimaryButton)`
   `};
 `;
 
-export default (props: Object) => <Quinary {...props} tabIndex={0} />;
+export default props => <Quinary {...props} tabIndex={0} />;

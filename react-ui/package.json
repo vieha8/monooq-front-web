@@ -50,7 +50,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev-start": "react-app-rewired start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "storybook": "export NODE_PATH=src && start-storybook -p 9009 -s public",
@@ -58,7 +57,6 @@
     "lint": "eslint src",
     "fix": "eslint src --fix",
     "precommit": "pretty-quick --staged",
-    "worker": "babel-node batch/worker.js",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "babel": {
@@ -95,7 +93,6 @@
     "prettier": "1.17.1",
     "pretty-quick": "^1.6.0",
     "react-app-rewire-bundle-analyzer": "^1.0.1",
-    "react-app-rewired": "^2.1.0",
     "redux-devtools": "^3.4.1",
     "redux-logger": "^3.0.6",
     "storybook-router": "^0.3.4",

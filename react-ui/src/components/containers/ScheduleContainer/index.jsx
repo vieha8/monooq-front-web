@@ -29,7 +29,7 @@ class ScheduleContainer extends Component {
     }
   };
 
-  getScheduleProps = (schedule: Object, isHost: boolean) => ({
+  getScheduleProps = (schedule, isHost) => ({
     schedule: {
       isHost,
       user: {

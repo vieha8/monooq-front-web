@@ -145,7 +145,7 @@ class SpaceEditInformationContainer extends Component {
     this.handleChangeUI('images', setImage);
   };
 
-  handleDeleteImage = (deleteTargetIndex: number) => {
+  handleDeleteImage = deleteTargetIndex => {
     const { images } = this.state;
     const nextImages = Object.assign([], images);
     nextImages.splice(deleteTargetIndex, 1);

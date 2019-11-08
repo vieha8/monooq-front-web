@@ -52,4 +52,4 @@ const Secondary = styled(PrimaryButton)`
   `};
 `;
 
-export default (props: Object) => <Secondary {...props} tabIndex={0} />;
+export default props => <Secondary {...props} tabIndex={0} />;

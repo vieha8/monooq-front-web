@@ -60,4 +60,4 @@ const Button = styled(PrimaryButton)`
   `};
 `;
 
-export default (props: Object) => <Button {...props} tabIndex={0} />;
+export default props => <Button {...props} tabIndex={0} />;

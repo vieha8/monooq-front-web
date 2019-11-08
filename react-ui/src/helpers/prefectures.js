@@ -138,11 +138,11 @@ export const areaPrefectures = [
   },
 ];
 
-export const getPrefecture = (prefCode: string | number) => {
+export const getPrefecture = prefCode => {
   return prefectures[parseInt(prefCode, 10) - 1];
 };
 
-export const selectOptionPrefectures = (placeholder: string) => {
+export const selectOptionPrefectures = placeholder => {
   const prefs = [];
   if (placeholder) {
     prefs.push({

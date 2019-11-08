@@ -52,7 +52,7 @@ class LoginContainer extends Component {
     }
   };
 
-  handleChangeForm = (name: string, value: any) => {
+  handleChangeForm = (name, value) => {
     const { state } = this;
     state[name] = value;
     state.hasChanged = true;

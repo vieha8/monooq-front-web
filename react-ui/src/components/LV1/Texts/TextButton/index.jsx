@@ -8,7 +8,7 @@ const customStyle = `
   `};
 `;
 
-export default (props: Object) => (
+export default props => (
   <TextLink
     {...props}
     custom={customStyle || ''}

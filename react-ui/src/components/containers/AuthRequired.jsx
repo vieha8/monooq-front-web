@@ -4,7 +4,7 @@ import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { connect } from 'react-redux';
 
-const authRequired = (WrappedComponent: Component) => {
+const authRequired = WrappedComponent => {
   class authRequiredComponent extends Component {
     constructor(props) {
       super(props);
