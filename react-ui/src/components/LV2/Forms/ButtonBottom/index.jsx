@@ -6,6 +6,7 @@ import Button from 'components/LV1/Forms/Button';
 import SearchConditionMoreSP from 'components/LV3/SearchConditionMoreSP';
 
 const Wrap = styled.div`
+  display; none;
   width: 100%;
   position: fixed;
   left: 0px;
@@ -15,6 +16,9 @@ const Wrap = styled.div`
   padding: ${Dimens.medium}px;
   background-color: rgba(255, 255, 255, 0.8);
   border-top: 1px solid ${Colors.borderGray};
+  ${media.tablet`
+    display: block;
+  `};
 `;
 
 const ButtonWrap = styled.div`

@@ -6,12 +6,11 @@ import Loading from 'components/LV1/Loading';
 import Path from 'config/path';
 
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import SearchResultTemplate from 'components/templates/SearchResultTemplate';
 import SearchResult from 'components/LV3/SearchResult';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
 import Meta from 'components/LV1/Meta';
 import { H1 } from 'components/LV1/Texts/Headline';
-import { Dimens } from 'variables';
+import { Colors, Dimens } from 'variables';
 
 import { spaceActions } from 'redux/modules/space';
 import { iskeyDownEnter } from 'helpers/keydown';
@@ -25,10 +24,29 @@ import {
 
 import LoadingPage from 'components/LV3/LoadingPage';
 import connect from '../connect';
+import { media } from '../../../helpers/style/media-query';
+import BreadcrumbsList from '../../LV2/Lists/BreadcrumbsList';
+import SearchResultHeader from '../../LV3/SearchResultHeader';
+import AreaAroundList from '../../LV2/Lists/AreaAroundList';
+import AreaPinList from '../../LV2/Lists/AreaPinList';
+import SortList from '../../LV2/Lists/LinkList';
+import ButtonBottom from '../../LV2/Forms/ButtonBottom';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
   text-align: center;
+`;
+
+const Content = styled.div`
+  margin: ${Dimens.medium2}px 0;
+  ${media.tablet`
+    margin: ${Dimens.medium}px 0;
+  `};
+  ${props =>
+    props.noTopMargin &&
+    `
+    margin: 0;
+  `};
 `;
 
 class SearchResultContainer extends Component {
@@ -447,32 +465,43 @@ class SearchResultContainer extends Component {
     }
 
     return (
-      <SearchResultTemplate
-        isSearching={isSearching}
-        meta={
-          <Meta
-            title={`${conditionTitle}のスペース検索結果 - モノオク`}
-            jsonLd={makeMetaBreadcrumbs(conditions)}
-          />
-        }
-        searchResult={this.infiniteScroll()}
-        conditionTitle={conditionTitle}
-        maxCount={maxCount}
-        onClickMore={this.onClickMore}
-        regionPrefectureList={areaPrefectures}
-        breadcrumbsList={breadcrumbs}
-        searchConditionCurrentList={searchConditionCurrentList}
-        areaPinList={areaPinList}
-        areaAroundList={areaAroundList}
-        cityTownAreaList={cityAndTowns}
-        prefectureList={this.getPrefectureList()}
-        townAreaList={area}
-        sortList={sortList}
-        prefecture={conditions.pref.name}
-        textButtonBottom="地域を絞り込む" // TODO SearchConditionMoreとSearchConditionMoreSPを共通化できれば不要になる
-        onClickCheckCity={this.onClickCheckCity}
-        onClickCheckTown={this.onClickCheckTown}
-      />
+      <Fragment>
+        <Meta
+          title={`${conditionTitle}のスペース検索結果 - モノオク`}
+          jsonLd={makeMetaBreadcrumbs(conditions)}
+        />
+        {breadcrumbs && <BreadcrumbsList breadcrumbsList={breadcrumbs} />}
+        <SearchResultHeader
+          conditionTitle={conditionTitle}
+          maxCount={maxCount}
+          prefecture={conditions.pref.name}
+          onClickMore={this.onClickMore}
+          onClickCheckCity={this.onClickCheckCity}
+          onClickCheckTown={this.onClickCheckTown}
+          regionPrefectureList={areaPrefectures}
+          cityTownAreaList={cityAndTowns}
+          textButtonBottom="地域を絞り込む"
+          searchConditionCurrentList={searchConditionCurrentList}
+        />
+        {areaAroundList && areaAroundList.length > 0 && (
+          <AreaAroundList areaAroundList={areaAroundList} />
+        )}
+        {areaPinList && areaPinList.length > 0 && <AreaPinList areaPinList={areaPinList} />}
+        {sortList && sortList.length > 0 && (
+          <SortList list={sortList} isLinkEvent landscape color={Colors.brandPrimary} />
+        )}
+        <Content>{this.infiniteScroll()}</Content>
+        <ButtonBottom
+          modal
+          text="地域を絞り込む"
+          cityTownAreaList={cityAndTowns}
+          onClickMore={this.onClickMore}
+          onClickCheckCity={this.onClickCheckCity}
+          onClickCheckTown={this.onClickCheckTown}
+          searchConditionCurrentList={searchConditionCurrentList}
+          prefectureList={this.getPrefectureList()}
+        />
+      </Fragment>
     );
   }
 }
