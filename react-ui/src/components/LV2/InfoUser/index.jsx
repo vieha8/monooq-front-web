@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -45,14 +43,7 @@ const LinkStyled = styled(Link)`
   line-height: ${Dimens.medium_20}px;
 `;
 
-type PropTypes = {
-  isHost?: boolean,
-  id: number,
-  imageUrl: string,
-  name: string,
-};
-
-export default ({ isHost, id, imageUrl, name }: PropTypes) => (
+export default ({ isHost, id, imageUrl, name }) => (
   <Container>
     <HostImageContainer>
       <Link to={Path.profile(id)}>

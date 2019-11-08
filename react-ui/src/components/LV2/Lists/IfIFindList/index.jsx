@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -62,14 +60,7 @@ const IfIFindContentText = styled(Text)`
   `};
 `;
 
-type PropTypes = {
-  list: Array<{
-    label: string,
-    text: string,
-  }>,
-};
-
-export default ({ list }: PropTypes) => (
+export default ({ list }) => (
   <IfIFindContentWrapper>
     {list.map((item, i) => (
       <ContentContainer key={i.toString()}>

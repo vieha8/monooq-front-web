@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -13,12 +11,7 @@ const ItemWrap = styled.div`
   margin: 4px auto;
 `;
 
-type PropTypes = {
-  furniture: boolean,
-  content: string,
-};
-
-export default ({ furniture, content }: PropTypes) => (
+export default ({ furniture, content }) => (
   <Wrap>
     <ItemWrap>
       <InlineText.Base fontSize={`${FontSizes.small_12}`}>このスペースに置ける荷物</InlineText.Base>

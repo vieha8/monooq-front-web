@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
@@ -214,49 +212,6 @@ const AccountNumber = styled.div`
   border: 1px solid ${Colors.yellow};
 `;
 
-const Caution = styled.span`
-  color: ${Colors.error};
-  font-weight: bold;
-`;
-
-type PropTypes = {
-  space: any,
-  payment: {
-    beginAt: string,
-    endAt: string,
-    duration: string,
-    price: string,
-  },
-  onChangeIsHost: Function,
-  paymentMethod: number,
-  errors: {
-    name: Array<string>,
-    number: Array<string>,
-    cvc: Array<string>,
-  },
-  paidError: string,
-  errMsgPayment: string,
-  onChangeName: Function,
-  name: string,
-  onChangeNumber: Function,
-  number: string,
-  onChangeMonth: Function,
-  month: number,
-  onChangeYear: Function,
-  year: number,
-  onChangeCvc: Function,
-  cvc: string,
-  buttonDisabled: boolean,
-  buttonLoading: boolean,
-  onKeyDownBack: Function,
-  onKeyDownPay: Function,
-  backButton: Function,
-  submitButton: Function,
-  backButtonText: string,
-  submitButtonText: string,
-  confirm: boolean,
-};
-
 const maskify = cc => {
   return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
 };
@@ -341,7 +296,7 @@ export default ({
   backButtonText,
   submitButtonText,
   confirm,
-}: PropTypes) => (
+}) => (
   <Fragment>
     <HeadMessage>
       {confirm ? 'お支払い内容を確認してください' : 'お支払い方法を選択してください'}

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -17,12 +15,7 @@ const ItemMeetingWrap = styled.div`
   margin-top: 10px;
 `;
 
-type PropTypes = {
-  delivery: boolean,
-  meeting: boolean,
-};
-
-export default ({ delivery, meeting }: PropTypes) => (
+export default ({ delivery, meeting }) => (
   <Wrap>
     <ItemWrap>
       <InlineText.Base fontSize={`${FontSizes.small_12}`}>受取り方法</InlineText.Base>

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -68,35 +66,6 @@ const MoreButtonWrap = styled.div`
   `};
 `;
 
-type PropTypes = {
-  condition: string,
-  maxCount: string,
-  onClickMore?: Function,
-  prefecture?: string,
-  regionPrefectureList: Array<{
-    region: string,
-    prefectureList: Array<{
-      name: string,
-      id: string,
-    }>,
-  }>,
-  searchConditionCurrentList: Array<{
-    title: string,
-    value?: string,
-  }>,
-  cityTownAreaList: Array<{
-    cityName: string,
-    areaAroundList: Array<{
-      text: string,
-      link: string,
-    }>,
-    townAreaList: Array<{
-      text: string,
-      link: string,
-    }>,
-  }>,
-};
-
 export default ({
   condition,
   maxCount,
@@ -107,7 +76,7 @@ export default ({
   regionPrefectureList,
   searchConditionCurrentList,
   cityTownAreaList,
-}: PropTypes) => (
+}) => (
   <HeaderWrap>
     <ResultCountWrap>
       <H1 bold>

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { Loader } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -14,28 +12,12 @@ import Twitter from './Twitter';
 import Line from './Line';
 import AreaPin from './AreaPin';
 
-type PropTypes = {
-  primary?: boolean,
-  secondary?: boolean,
-  tertiary?: boolean,
-  quaternary?: boolean,
-  quinary?: boolean,
-  facebook?: boolean,
-  twitter?: boolean,
-  line?: boolean,
-  areaPin?: boolean,
-  disabled?: boolean,
-  loading?: boolean,
-  onClick: Function,
-  children: any,
-};
-
 export const LoaderWrap = styled.span`
   display: inline-block;
   vertical-align: middle;
 `;
 
-export default (props: PropTypes) => {
+export default props => {
   if (props.secondary) {
     return (
       <Secondary {...props} onClick={props.disabled || props.loading ? null : props.onClick}>

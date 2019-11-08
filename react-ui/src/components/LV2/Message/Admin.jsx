@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -12,16 +10,7 @@ const DateWrapper = styled.div`
   margin-top: 8px;
 `;
 
-type PropTypes = {
-  message: string,
-  link: {
-    text?: string,
-    url?: string,
-  },
-  receivedAt?: string,
-};
-
-export default ({ message, link, receivedAt }: PropTypes) => (
+export default ({ message, link, receivedAt }) => (
   <div>
     <Card block noBorder background={Colors.lightGreen} isPadding={14}>
       <InlineText.Base fontSize={15}>{message}</InlineText.Base>

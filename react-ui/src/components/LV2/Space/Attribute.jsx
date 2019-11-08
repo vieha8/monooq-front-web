@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -71,23 +69,7 @@ const ProfileContainer = styled.div`
   `};
 `;
 
-type PropTypes = {
-  infoHost?: boolean,
-  message?: boolean,
-  headContent?: React.Element<*>,
-  title: string,
-  contentHostName: React.Element<*>,
-  contentProfile?: React.Element<*>,
-};
-
-export default ({
-  infoHost,
-  message,
-  headContent,
-  title,
-  contentHostName,
-  contentProfile,
-}: PropTypes) => (
+export default ({ infoHost, message, headContent, title, contentHostName, contentProfile }) => (
   <Container infoHost={infoHost} message={message}>
     <HostImageContainer>
       {headContent || <InlineText.Base>{title}</InlineText.Base>}

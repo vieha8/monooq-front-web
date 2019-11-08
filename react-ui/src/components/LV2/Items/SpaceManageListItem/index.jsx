@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import ButtonManage from 'components/LV2/Forms/ButtonManage';
@@ -19,30 +17,7 @@ const Cell = styled.div`
   }
 `;
 
-type PropTypes = {
-  image: {
-    src: string,
-    alt: string,
-  },
-  address: string,
-  content: string,
-  furniture?: boolean,
-  prices: Array<number>,
-  link: string,
-  status: string,
-  onClickEdit: Function,
-};
-
-export default ({
-  image,
-  address,
-  content,
-  furniture,
-  prices,
-  link,
-  status,
-  onClickEdit,
-}: PropTypes) => (
+export default ({ image, address, content, furniture, prices, link, status, onClickEdit }) => (
   <Container>
     <Cell>
       <PlaceListVerticalItem

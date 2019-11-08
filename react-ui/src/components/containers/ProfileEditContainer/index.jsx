@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -15,15 +13,6 @@ import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 const PURPOSE_USER = '1';
 const PURPOSE_HOST = '2';
 
-type PropTypes = {
-  dispatch: Function,
-  user: {
-    id: number,
-  },
-  isLoading: boolean,
-  updateSuccess: boolean,
-};
-
 const Validate = {
   Email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
   phoneNumber: {
@@ -35,8 +24,8 @@ const Validate = {
   },
 };
 
-class ProfileEditContainer extends Component<PropTypes> {
-  constructor(props: PropTypes) {
+class ProfileEditContainer extends Component {
+  constructor(props) {
     super(props);
 
     const { dispatch, user } = this.props;
@@ -95,7 +84,7 @@ class ProfileEditContainer extends Component<PropTypes> {
     }
   };
 
-  handleChangeUI = (propName: string, value: any) => {
+  handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
     const errors = [];

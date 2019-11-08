@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -18,13 +16,7 @@ const Error = styled.div`
   margin-top: ${Dimens.small}px 0;
 `;
 
-type PropTypes = {
-  onChange: Function,
-  value: string,
-  errors: Array<string>,
-};
-
-export default ({ onChange, value, errors }: PropTypes) => (
+export default ({ onChange, value, errors }) => (
   <Fragment>
     <div>
       <InputForm

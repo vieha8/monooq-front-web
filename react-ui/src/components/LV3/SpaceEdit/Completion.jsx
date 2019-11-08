@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import GoogleTagManager from 'components/LV1/GTM';
@@ -10,19 +8,7 @@ const Section = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
-type PropTypes = {
-  story?: boolean,
-  edit?: boolean,
-  userId: number,
-  onClickCreateSpace: Function,
-  onKeyDownCreateSpace: Function,
-  onClickBackTop: Function,
-  onKeyDownTop: Function,
-  onClickViewSpace: Function,
-  onKeyDownViewSpace: Function,
-};
-
-export default class SpaceCreatedCompletion extends Component<PropTypes> {
+export default class SpaceCreatedCompletion extends Component {
   componentDidMount() {
     if (!this.props.edit && this.props.userId) {
       const script = document.createElement('script');

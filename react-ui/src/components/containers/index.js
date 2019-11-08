@@ -1,5 +1,3 @@
-// @flow
-
 import Top from './TopContainer';
 import Login from './LoginContainer';
 import SignUp from './SignUpContainer';

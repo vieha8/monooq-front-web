@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -48,14 +46,7 @@ const Data = styled.div`
   `};
 `;
 
-export type PropTypes = {
-  cancelContentList: Array<{
-    header: string,
-    data: string,
-  }>,
-};
-
-export default ({ cancelContentList }: PropTypes) => (
+export default ({ cancelContentList }) => (
   <Wrap>
     {cancelContentList.map((item, i) => (
       <ContentContainer key={i.toString()}>

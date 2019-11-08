@@ -1,18 +1,16 @@
-// @flow
-
 import React from 'react';
 
 import RadioList from '../index';
 
 export default class HeaderMock extends React.Component {
-  constructor(props: Object) {
+  constructor(props) {
     super(props);
     this.state = {
       checkedIndex: -1,
     };
   }
 
-  onClickRadio = (clickedIndex: number) => {
+  onClickRadio = clickedIndex => {
     this.setState({ checkedIndex: clickedIndex });
   };
 

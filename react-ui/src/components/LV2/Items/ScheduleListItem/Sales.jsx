@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
@@ -25,11 +23,6 @@ const Sales = styled(LabelContainer)`
   color: ${Colors.black};
 `;
 
-type PropTypes = {
-  paid?: boolean,
-  amount: number,
-};
-
 const salesFormat = price => {
   const fee = 0.2;
   const rate = 1 - fee;
@@ -37,7 +30,7 @@ const salesFormat = price => {
   return numeral(priceMinusFee).format('0,0');
 };
 
-export default ({ paid, amount }: PropTypes) => (
+export default ({ paid, amount }) => (
   <Container>
     <LabelContainer>
       <div>

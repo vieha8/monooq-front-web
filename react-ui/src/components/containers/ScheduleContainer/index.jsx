@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import Path from 'config/path';
 
@@ -31,7 +29,7 @@ class ScheduleContainer extends Component {
     }
   };
 
-  getScheduleProps = (schedule: Object, isHost: boolean) => ({
+  getScheduleProps = (schedule, isHost) => ({
     schedule: {
       isHost,
       user: {

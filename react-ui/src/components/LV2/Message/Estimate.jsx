@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -216,20 +214,6 @@ const getDescriptionPay = (payType, econtextUrl) => {
   return result;
 };
 
-type PropTypes = {
-  name: string,
-  id: string,
-  beginAt: Date,
-  endAt: Date,
-  price: string,
-  host: boolean,
-  status: string,
-  paymentLink: string,
-  receivedAt: string,
-  payType?: number,
-  econtextUrl?: string,
-};
-
 export default ({
   name,
   id,
@@ -242,7 +226,7 @@ export default ({
   receivedAt,
   payType, // 1:クレジットカード 2:銀行振込 4:イーコンテクスト
   econtextUrl,
-}: PropTypes) => (
+}) => (
   <Fragment>
     <Card block noBorder background={Colors.lightGreen} isPadding={14}>
       <Text>{`${formatName(name)}さんからのお見積もり`}</Text>

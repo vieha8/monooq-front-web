@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -13,11 +11,7 @@ const ItemWrap = styled.div`
   margin: 4px auto;
 `;
 
-type PropTypes = {
-  content: string,
-};
-
-export default ({ content }: PropTypes) => (
+export default ({ content }) => (
   <Wrap>
     <ItemWrap>
       <InlineText.Base fontSize={`${FontSizes.small_12}`}>受取りについて補足</InlineText.Base>

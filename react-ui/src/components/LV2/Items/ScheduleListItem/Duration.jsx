@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -23,12 +21,7 @@ const DateText = styled.span`
   display: block;
 `;
 
-type PropTypes = {
-  startDate: Date | string,
-  endDate: Date | string,
-};
-
-export default ({ startDate, endDate }: PropTypes) => (
+export default ({ startDate, endDate }) => (
   <Container>
     <ScheduleContainer>
       <Label>

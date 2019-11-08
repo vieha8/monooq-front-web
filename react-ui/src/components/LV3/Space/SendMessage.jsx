@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import SendMessage from 'components/LV2/Space/SendMessage';
@@ -18,14 +16,7 @@ const SendMessageWrap = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-type PropTypes = {
-  disabled: boolean,
-  loading: boolean,
-  onClick: Function,
-  onKeyDownButtonMessage: Function,
-};
-
-export default ({ disabled, loading, onClick, onKeyDownButtonMessage }: PropTypes) => (
+export default ({ disabled, loading, onClick, onKeyDownButtonMessage }) => (
   <SendMessageWrap>
     <SendMessage
       disabled={disabled}

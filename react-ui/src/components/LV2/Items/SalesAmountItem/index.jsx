@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
@@ -37,14 +35,7 @@ const SalesAmountItemWrapper = styled.div`
   `};
 `;
 
-type PropTypes = {
-  title: string,
-  amount: number,
-  bold: boolean,
-  colorPrimary: boolean,
-};
-
-export default ({ title, bold, amount, colorPrimary }: PropTypes) => (
+export default ({ title, bold, amount, colorPrimary }) => (
   <InputFieldWrapper>
     <SalesTitleWrapper>{title}</SalesTitleWrapper>
     <SalesAmountItemWrapper bold={bold} colorPrimary={colorPrimary}>

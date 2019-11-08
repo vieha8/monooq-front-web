@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import PageNotFound from 'components/LV3/PageNotFound';

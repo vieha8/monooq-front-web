@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import { authActions } from 'redux/modules/auth';
 import RegisterEmail from 'components/LV3/RegisterEmail';
@@ -29,22 +27,6 @@ const ErrMessage = styled.div`
   `};
 `;
 
-type PropTypes = {
-  dispatch: Function,
-  isRegistering: boolean,
-};
-
-type State = {
-  email: string,
-  password: string,
-  isUnVisiblePW: boolean,
-  hasChanged: boolean,
-  errors: {
-    email?: Array<string>,
-    password?: Array<string>,
-  },
-};
-
 const Validate = {
   Email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
   Password: {
@@ -52,8 +34,8 @@ const Validate = {
   },
 };
 
-export default class RegisterContainer extends Component<PropTypes, State> {
-  constructor(props: PropTypes) {
+export default class RegisterContainer extends Component {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -96,7 +78,7 @@ export default class RegisterContainer extends Component<PropTypes, State> {
     dispatch(authActions.signupFacebook());
   };
 
-  handleChangeForm = (name: string, value: any) => {
+  handleChangeForm = (name, value) => {
     const { state } = this;
     state[name] = value;
     state.hasChanged = true;

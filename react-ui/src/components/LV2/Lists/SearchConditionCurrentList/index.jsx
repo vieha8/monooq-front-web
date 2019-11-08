@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
@@ -53,16 +51,7 @@ const Title = styled.div`
 
 const Value = styled.div``;
 
-export type PropTypes = {
-  searchConditionCurrentList: Array<{
-    title: string,
-    value: string,
-  }>,
-  modal?: boolean,
-  width?: number,
-};
-
-export default ({ searchConditionCurrentList, modal, width }: PropTypes) => (
+export default ({ searchConditionCurrentList, modal, width }) => (
   <Wrap>
     {!modal && (
       <TitleOuter>

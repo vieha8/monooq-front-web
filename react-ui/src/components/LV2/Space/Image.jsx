@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -13,15 +11,7 @@ const Desc = styled.div`
   white-space: pre-wrap;
 `;
 
-type PropTypes = {
-  images: Array<{
-    original: string,
-    thumbnail: string,
-  }>,
-  description: string,
-};
-
-export default ({ images, description }: PropTypes) => (
+export default ({ images, description }) => (
   <ImageWrapper>
     <ImageSlide images={images} />
     <Desc>

@@ -1,24 +1,9 @@
-// @flow
-
 import React, { Component, Fragment } from 'react';
 import Header from 'components/containers/Header';
 import Footer from 'components/LV2/Footer';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 
-type PropTypes = {
-  WrappedComponent: Component,
-  option: {
-    meta?: string,
-    caption?: string,
-    headline?: string,
-    noMargin?: boolean,
-    noFooter?: boolean,
-    bottomMargin?: boolean,
-    bottomMarginOnlySP?: boolean,
-  },
-};
-
-export default (WrappedComponent, option): PropTypes => {
+export default (WrappedComponent, option) => {
   return class ContentPageMenuComponent extends Component {
     render() {
       return (

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
@@ -13,13 +11,8 @@ const MapContainer = styled.div`
   `};
 `;
 
-type PropTypes = {
-  lat: number,
-  lng: number,
-};
-
 const Map = withScriptjs(
-  withGoogleMap(({ lat, lng }: PropTypes) => {
+  withGoogleMap(({ lat, lng }) => {
     if (lat === null || lng === null || lat === undefined || lng === undefined) {
       return null;
     }

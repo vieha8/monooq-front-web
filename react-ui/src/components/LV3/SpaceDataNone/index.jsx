@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Button from 'components/LV1/Forms/Button';
@@ -34,15 +32,7 @@ const CaptionWrap = styled.div`
   `};
 `;
 
-type PropTypes = {
-  captionHead: string,
-  caption: string,
-  buttonText: string,
-  onClick: Function,
-  onKeyDown: Function,
-};
-
-export default ({ captionHead, caption, buttonText, onClick, onKeyDown }: PropTypes) => (
+export default ({ captionHead, caption, buttonText, onClick, onKeyDown }) => (
   <Fragment>
     <CaptionWrap>
       <InlineText.Base fontSize={18} bold>

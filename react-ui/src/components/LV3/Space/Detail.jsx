@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
@@ -100,37 +98,6 @@ const RecommendSpacesWrap = styled.div`
   margin: 20px auto;
 `;
 
-type PropTypes = {
-  confirm: boolean,
-  images: Array<{
-    original: string,
-    thumbnail: string,
-  }>,
-  pref: string,
-  city: string,
-  town: string,
-  priceQuarter: Number,
-  priceFull: Number,
-  user: {
-    id: string,
-    name: string,
-    imageUrl: string,
-    profile: string,
-  },
-  description: string,
-  map: React.Element<*>,
-  address: string,
-  type: string,
-  priceHalf: Number,
-  furniture: boolean,
-  baggage: string,
-  delivery: boolean,
-  meeting: boolean,
-  supplement: string,
-  id: Number,
-  name: string,
-};
-
 export default ({
   confirm,
   images,
@@ -153,7 +120,7 @@ export default ({
   id,
   name,
   recommend,
-}: PropTypes) => (
+}) => (
   <Container confirm={confirm}>
     <Image images={images} />
     <SpaceTitleWrapper>

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 
@@ -19,12 +17,7 @@ const Image16x9 = styled.img`
   height: auto;
 `;
 
-type PropTypes = {
-  src: string,
-  alt: string,
-};
-
-export default ({ src, alt }: PropTypes) => (
+export default ({ src, alt }) => (
   <Wrapper>
     <Image16x9 src={src} alt={alt} />
   </Wrapper>

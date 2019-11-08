@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -24,15 +22,7 @@ const Text = styled(InlineText.Base)`
   line-height: 2;
 `;
 
-type PropTypes = {
-  beginAt: string,
-  endAt: string,
-  duration: string,
-  price: string,
-  noDescription?: boolean,
-};
-
-export default ({ beginAt, endAt, duration, price, noDescription }: PropTypes) => (
+export default ({ beginAt, endAt, duration, price, noDescription }) => (
   <div>
     <Row>
       <Text>利用スケジュール</Text>

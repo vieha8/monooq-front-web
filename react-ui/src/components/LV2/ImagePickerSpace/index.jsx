@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
@@ -211,16 +209,7 @@ const showImagePreview = (images, onClickDeleteImage) => {
   return null;
 };
 
-type PropTypes = {
-  images: Array<{
-    url: string,
-  }>,
-  isImageUploading: boolean,
-  onChangeImage: Function,
-  onClickDeleteImage: Function,
-};
-
-export default ({ images, isImageUploading, onClickDeleteImage, onChangeImage }: PropTypes) => {
+export default ({ images, isImageUploading, onClickDeleteImage, onChangeImage }) => {
   return (
     <Fragment>
       <div>

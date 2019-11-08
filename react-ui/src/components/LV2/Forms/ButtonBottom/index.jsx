@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
@@ -28,17 +26,6 @@ const ButtonWrap = styled.div`
   `};
 `;
 
-type PropTypes = {
-  text: string,
-  modal?: boolean,
-  searchConditionCurrentList: Array<{
-    title: string,
-    value?: string,
-  }>,
-  onClick?: Function,
-  disabled?: boolean,
-};
-
 export default ({
   text,
   modal,
@@ -50,7 +37,7 @@ export default ({
   onClickCheckTown,
   prefectureList,
   disabled,
-}: PropTypes) => (
+}) => (
   <Wrap>
     <ButtonWrap>
       {modal ? (

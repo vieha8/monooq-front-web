@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -48,29 +46,7 @@ const AreaPinList = styled.ul`
   padding: ${Dimens.small2}px ${Dimens.xxsmall}px ${Dimens.small2_15}px;
 `;
 
-export type PropTypes = {
-  cityTownAreaList: Array<{
-    cityName: string,
-    areaAroundList: Array<{
-      text: string,
-      link: string,
-    }>,
-    townAreaList: Array<{
-      text: string,
-      link: string,
-    }>,
-  }>,
-  prefecture?: string,
-  onChangeCheckCity: Function,
-  onChangeCheckTownArea: Function,
-};
-
-export default ({
-  cityTownAreaList,
-  prefecture,
-  onClickCheckCity,
-  onClickCheckTown,
-}: PropTypes) => (
+export default ({ cityTownAreaList, prefecture, onClickCheckCity, onClickCheckTown }) => (
   <Wrap>
     <Caption>
       {prefecture}

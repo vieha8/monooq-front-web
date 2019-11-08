@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -21,11 +19,7 @@ const TypeContent = styled.div`
   `};
 `;
 
-type PropTypes = {
-  content: string,
-};
-
-export default ({ content }: PropTypes) => (
+export default ({ content }) => (
   <Wrap>
     <TypeContent typeTitle>
       <InlineText.Base fontSize={`${FontSizes.small_12}`}>カテゴリ</InlineText.Base>

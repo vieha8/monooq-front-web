@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
@@ -7,7 +5,6 @@ import { media } from 'helpers/style/media-query';
 import ContainerClearfix from 'components/LV1/ContainerClearfix';
 import PlaceListHorizonItem from 'components/LV2/Items/PlaceListHorizonItem';
 import Duration from './Duration';
-// import Operation from './Operation';
 
 const SpaceContainer = styled.div`
   ${media.tablet`
@@ -25,26 +22,7 @@ const ScheduleWrapper = styled.div`
   `};
 `;
 
-type PropTypes = {
-  user: {
-    id: string,
-    name: string,
-    imageUrl: string,
-  },
-  space: {
-    image: {
-      src: string,
-      alt: string,
-    },
-    address: string,
-    content: string,
-    href: string,
-  },
-  startDate: Date | string,
-  endDate: Date | string,
-};
-
-export default (props: PropTypes) => (
+export default props => (
   <ContainerClearfix>
     <SpaceContainer>
       <SpaceWrapper>
@@ -53,7 +31,6 @@ export default (props: PropTypes) => (
     </SpaceContainer>
     <ScheduleWrapper>
       <Duration startDate={props.startDate} endDate={props.endDate} />
-      {/*<Operation roomId={props.roomId} float="right" />*/}
     </ScheduleWrapper>
   </ContainerClearfix>
 );

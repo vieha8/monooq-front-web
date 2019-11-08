@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -33,14 +31,7 @@ const WrapRegion = styled.div`
   color: ${Colors.lightGray3};
 `;
 
-type PropTypes = {
-  list: Array<{
-    region: string,
-    prefectureList: Array<string>,
-  }>,
-};
-
-export default ({ list }: PropTypes) => (
+export default ({ list }) => (
   <Wrapper>
     {list.map((item, i) => (
       <Wrap key={i.toString()}>

@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -60,17 +58,7 @@ const PrefectureName = title => {
   return <PrefectureWrap>{title}</PrefectureWrap>;
 };
 
-export type PropTypes = {
-  searchConditionSPList: Array<{
-    title: string,
-    collapsibleItemList: Array<{
-      to: string,
-      text: string,
-    }>,
-  }>,
-};
-
-export default ({ searchConditionSPList }: PropTypes) => (
+export default ({ searchConditionSPList }) => (
   <Wrap>
     <ConditionList>
       {searchConditionSPList.map((item, i) => (

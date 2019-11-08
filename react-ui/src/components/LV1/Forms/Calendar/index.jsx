@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import 'moment/locale/ja';
@@ -23,15 +21,7 @@ const Container = styled.div`
   `};
 `;
 
-type PropTypes = {
-  focused: boolean,
-  date: Date,
-  placeholder?: string,
-  onDateChange: Function,
-  onFocusChange: Function,
-};
-
-export default ({ focused, date, placeholder, onDateChange, onFocusChange }: PropTypes) => (
+export default ({ focused, date, placeholder, onDateChange, onFocusChange }) => (
   <Container focused={focused}>
     <SingleDatePicker
       date={date}

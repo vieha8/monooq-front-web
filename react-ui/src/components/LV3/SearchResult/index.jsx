@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
@@ -94,29 +92,6 @@ const MoreButtonWrap = styled.div`
 
 const SpacesWrap = styled.div``;
 
-type PropTypes = {
-  isTag?: boolean,
-  isTop?: boolean,
-  caption: string,
-  spaces: Array<{
-    id: number,
-    image: string,
-    title: string,
-    addressTown: string,
-    isFurniture: boolean,
-    priceFull: number,
-    priceHalf: number,
-    priceQuarter: number,
-  }>,
-  history: {
-    push: Function,
-  },
-  narrow?: boolean,
-  isMore?: boolean,
-  onClickMore?: Function,
-  onKeyDownButtonMore?: Function,
-};
-
 export default ({
   isTag,
   isTop,
@@ -126,7 +101,7 @@ export default ({
   isMore,
   onClickMore,
   onKeyDownButtonMore,
-}: PropTypes) => (
+}) => (
   <Container isTop={isTop}>
     {caption && <CaptionWrap>{caption}</CaptionWrap>}
     <SpacesWrap>

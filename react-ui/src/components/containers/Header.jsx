@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from 'components/LV3/Header';
@@ -13,17 +11,7 @@ const PATH_TOP = '/';
 const PATH_ABOUT = '/about';
 const PATH_HOWTOUSE = '/howtouse';
 
-type PropTypes = {
-  isChecking: boolean,
-  isLogin: boolean,
-  user: {
-    id: string,
-    name: string,
-    imageUrl: string,
-  },
-};
-
-class HeaderContainer extends Component<PropTypes> {
+class HeaderContainer extends Component {
   constructor(props) {
     super(props);
 

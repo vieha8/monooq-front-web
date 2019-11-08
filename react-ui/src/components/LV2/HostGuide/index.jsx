@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
@@ -17,14 +15,7 @@ const Header = styled.div`
   font-weight: bold;
 `;
 
-type PropTypes = {
-  header: String,
-  data1: String,
-  data2: String,
-  data3: String,
-};
-
-export default ({ header, data1, data2, data3 }: PropTypes) => (
+export default ({ header, data1, data2, data3 }) => (
   <Container>
     <Header>{header}</Header>
     <TextCard data={data1} />

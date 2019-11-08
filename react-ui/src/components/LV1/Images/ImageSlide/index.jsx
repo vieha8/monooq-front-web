@@ -1,15 +1,6 @@
-// @flow
-
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
 import { convertImgixUrl } from 'helpers/imgix';
-
-type PropTypes = {
-  images: Array<{
-    original: string,
-    thumbnail: string,
-  }>,
-};
 
 const convertImageUrl = images => {
   return images.map(({ original }) => {
@@ -25,7 +16,7 @@ const convertImageUrl = images => {
   });
 };
 
-export default ({ images }: PropTypes) => (
+export default ({ images }) => (
   <ImageGallery
     items={convertImageUrl(images)}
     showThumbnails={false}

@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import PopupMenu from 'reactjs-popup';
 import { Link } from 'react-router-dom';
@@ -234,64 +232,6 @@ const linkColor = (top, isOverTopView, isHoverColor) => {
     : Colors.brandPrimary;
 };
 
-type PropTypes = {
-  top?: boolean,
-  isLinkRed?: boolean,
-  isOverTopView?: boolean,
-  searchConditionCurrentList: Array<{
-    title: string,
-    value?: string,
-  }>,
-  searchConditionSPList: Array<{
-    title: string,
-    areaAroundList: Array<{
-      text: string,
-      link: string,
-    }>,
-    collapsibleItemList: Array<{
-      to: string,
-      text: string,
-    }>,
-  }>,
-  cityTownAreaList: Array<{
-    cityName: string,
-    areaAroundList: Array<{
-      text: string,
-      link: string,
-    }>,
-    townAreaList: Array<{
-      text: string,
-      link: string,
-    }>,
-  }>,
-  onClickSearch?: Function,
-  stories?: boolean,
-  topUrl: string,
-  isCheckingLogin: boolean,
-  noHeaderButton: boolean,
-  user: {
-    id: number,
-    name: string,
-    image: string,
-    isHost: boolean,
-  },
-  messageUrl: string,
-  messageCount?: number,
-  spMenu: React.Element<*>,
-  loginUrl: string,
-  onClickSignup: Function,
-  aboutUrl: string,
-  aboutpUrl: string,
-  howtouseUrl: string,
-  helpUrl: string,
-  addSpace: MenuItemProps,
-  spaces: MenuItemProps,
-  isSchedule?: boolean,
-  schedule: MenuItemProps,
-  sales: MenuItemProps,
-  logoutEvent: Function,
-};
-
 export default ({
   top,
   isLinkRed,
@@ -316,7 +256,7 @@ export default ({
   sales,
   logoutEvent,
   onClickSearch,
-}: PropTypes) => {
+}) => {
   return (
     <Container stories={stories}>
       <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">

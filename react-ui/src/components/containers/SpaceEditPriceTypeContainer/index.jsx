@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
@@ -26,17 +24,7 @@ const Validate = {
   },
 };
 
-type PropTypes = {
-  dispatch: Function,
-  history: {
-    push: Function,
-  },
-  space: {
-    id: number,
-  },
-};
-
-class SpaceEditPriceTypeContainer extends Component<PropTypes> {
+class SpaceEditPriceTypeContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -159,7 +147,7 @@ class SpaceEditPriceTypeContainer extends Component<PropTypes> {
     history.push(nextPath);
   };
 
-  handleChangeUI = (propName: string, value: any) => {
+  handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
     let returnValue = formatRemoveComma(value);

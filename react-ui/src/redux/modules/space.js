@@ -619,7 +619,7 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
   let areaSearchRes = [];
 
   if (prefCode) {
-    //TODO エラーハンドリング
+    // TODO エラーハンドリング
     // 人気エリア取得
     let areaEndpoint = apiEndpoint.areaCities(prefCode);
     if (cities.length === 1) {
@@ -652,7 +652,7 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
       {},
       token,
     );
-    //TODO エラーハンドリング
+    // TODO エラーハンドリング
     areaSearchRes = areaSearch;
   }
 

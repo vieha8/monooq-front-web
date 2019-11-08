@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import Hr from 'components/LV1/HorizontalRule';
@@ -74,12 +72,7 @@ const HrStyled = styled(Hr)`
   `};
 `;
 
-type PropTypes = {
-  bottomMargin?: boolean,
-  bottomMarginOnlySP?: boolean,
-};
-
-export default ({ bottomMargin, bottomMarginOnlySP }: PropTypes) => (
+export default ({ bottomMargin, bottomMarginOnlySP }) => (
   <Container bottomMargin={bottomMargin} bottomMarginOnlySP={bottomMarginOnlySP}>
     <Wrap>
       <WrapItems>

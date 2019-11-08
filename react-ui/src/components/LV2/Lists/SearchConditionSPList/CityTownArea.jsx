@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import Collapsible from 'react-collapsible';
@@ -66,21 +64,7 @@ const AreaPinList = styled.ul`
   padding: ${Dimens.small2}px ${Dimens.xxsmall}px ${Dimens.small2_15}px;
 `;
 
-export type PropTypes = {
-  searchConditionSPList: Array<{
-    title: string,
-    collapsibleItemList: Array<{
-      to: string,
-      text: string,
-    }>,
-    areaAroundList: Array<{
-      text: string,
-      link: string,
-    }>,
-  }>,
-};
-
-export default ({ searchConditionSPList, onClickCheckTown }: PropTypes) => (
+export default ({ searchConditionSPList, onClickCheckTown }) => (
   <Wrap>
     <ConditionList>
       {searchConditionSPList.map((item, i) => (

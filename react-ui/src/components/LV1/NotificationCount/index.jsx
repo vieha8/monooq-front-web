@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import styled from 'styled-components';
 import { Colors, FontSizes } from 'variables';
@@ -22,11 +20,7 @@ const NoticeCount = styled.div`
   line-height: normal;
 `;
 
-type PropTypes = {
-  count: number,
-};
-
-export default ({ count }: PropTypes) =>
+export default ({ count }) =>
   count > 0 && (
     <NoticeCountWrap>
       <NoticeCount>{count}</NoticeCount>

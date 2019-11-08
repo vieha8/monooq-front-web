@@ -1,36 +1,6 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import MenuItem from 'components/LV2/Items/MenuItem';
 import InfoUser from 'components/LV2/InfoUser';
-
-type MenuItemProps = {
-  href?: string,
-  to?: string,
-  notificationCount?: number,
-  onClick?: Function,
-};
-
-type PropTypes = {
-  userId?: string,
-  userImage?: string,
-  userName?: string,
-  signupUrl: MenuItemProps,
-  loginUrl: MenuItemProps,
-  top: MenuItemProps,
-  about: MenuItemProps,
-  isLogin: boolean,
-  isSchedule?: boolean,
-  schedule: MenuItemProps,
-  isHost: boolean,
-  addSpace: MenuItemProps,
-  spaces: MenuItemProps,
-  sales: MenuItemProps,
-  inquiry: MenuItemProps,
-  howtouse: MenuItemProps,
-  help: MenuItemProps,
-  logoutEvent: Function,
-};
 
 export default ({
   userId,
@@ -51,7 +21,7 @@ export default ({
   howtouse,
   help,
   logoutEvent,
-}: PropTypes) => (
+}) => (
   <Fragment>
     {isLogin ? (
       <Fragment>

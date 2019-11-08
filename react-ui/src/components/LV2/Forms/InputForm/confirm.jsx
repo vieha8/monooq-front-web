@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { H3 } from 'components/LV1/Texts/Headline';
@@ -11,12 +9,7 @@ const Field = styled.div`
   width: 100%;
 `;
 
-type PropTypes = {
-  label: string,
-  value: string,
-};
-
-export default ({ label, value }: PropTypes) => (
+export default ({ label, value }) => (
   <Fragment>
     <H3 bold>
       <InlineText.Base fontSize={12}>{label}</InlineText.Base>

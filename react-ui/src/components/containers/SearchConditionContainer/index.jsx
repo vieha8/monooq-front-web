@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import Path from 'config/path';
 import ReactGA from 'react-ga';
@@ -62,7 +60,7 @@ class SearchConditionContainer extends Component {
     history.push(`${searchPath}${query}`);
   };
 
-  handleChangeUI = (propName: string, value: any) => {
+  handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
     const errors = [];
