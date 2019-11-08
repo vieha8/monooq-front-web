@@ -566,16 +566,14 @@ class SearchResultContainer extends Component {
         regionPrefectureList={areaPrefectures}
         breadcrumbsList={breadcrumbs}
         searchConditionCurrentList={searchConditionCurrentList}
-        captionAreaPinList="人気エリアで探す"
         areaPinList={areaPinList}
-        captionAreaAroundList="周辺エリアで探す"
         areaAroundList={areaAroundList}
         cityTownAreaList={cityAndTowns}
         prefectureList={this.getPrefectureList()}
         townAreaList={area}
         sortList={sortList}
         prefecture={conditions.pref.name}
-        textButtonBottom="地域を絞り込む"
+        textButtonBottom="地域を絞り込む" // TODO SearchConditionMoreとSearchConditionMoreSPを共通化できれば不要になる
         onClickCheckCity={this.onClickCheckCity}
         onClickCheckTown={this.onClickCheckTown}
       />

@@ -49,7 +49,6 @@ export default ({
   breadcrumbsList,
   captionAreaAroundList,
   areaAroundList,
-  captionAreaPinList,
   areaPinList,
   sortList,
   prefecture,
@@ -74,11 +73,9 @@ export default ({
       searchConditionCurrentList={searchConditionCurrentList}
     />
     {areaAroundList && areaAroundList.length > 0 && (
-      <AreaAroundList caption={captionAreaAroundList} areaAroundList={areaAroundList} />
+      <AreaAroundList areaAroundList={areaAroundList} />
     )}
-    {areaPinList && areaPinList.length > 0 && (
-      <AreaPinList caption={captionAreaPinList} areaPinList={areaPinList} />
-    )}
+    {areaPinList && areaPinList.length > 0 && <AreaPinList areaPinList={areaPinList} />}
     {sortList && (
       <SortListWrap>
         <SortList list={sortList} isLinkEvent landscape color={Colors.brandPrimary} />

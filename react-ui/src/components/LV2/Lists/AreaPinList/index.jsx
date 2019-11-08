@@ -53,9 +53,9 @@ const LinkStyled = styled(Link)`
   `};
 `;
 
-export default ({ caption, areaPinList }) => (
+export default ({ areaPinList }) => (
   <Wrap>
-    <Caption>{caption}</Caption>
+    <Caption>人気エリアで探す</Caption>
     <AreaPinList>
       {areaPinList.map((item, i) => (
         <Item key={i.toString()}>
