@@ -28,7 +28,6 @@ const Loader = styled(Loading)`
 class SearchResultContainer extends Component {
   constructor(props) {
     super(props);
-
     const state = {
       keyword: '',
       limit: 12,
@@ -37,16 +36,39 @@ class SearchResultContainer extends Component {
       cityAndTowns: [],
       checkCities: [],
       checkTowns: [],
+      sortList: [],
+      searchConditionCurrentList: [],
     };
-
     const conditions = this.getConditionsFromUrl();
-
     this.state = { ...state, ...conditions };
+  }
 
-    // initと統合したいが取り急ぎ
-    // constructorでinitを呼ぶとレンダリング終わる前にsetStateすなと叱られる
-    // componentDidMountでinitを呼ぶとloadItemsが先に走ってしまう為検索条件が反映されない
-    // 上記の問題を解決している余裕がないので一旦冗長のままとしている
+  componentDidUpdate(prevProps, prevState) {
+    // パンくずやエリアタグから遷移した時はconstructorが発火しないのでここで
+    const newConditions = this.getConditionsFromUrl();
+
+    const isCheckCities =
+      newConditions.cities.length !== prevState.cities.length
+        ? true
+        : !newConditions.cities.every(v => prevState.cities.includes(v));
+    const isCheckTowns =
+      newConditions.towns.length !== prevState.towns.length
+        ? true
+        : !newConditions.towns.every(v => prevState.towns.includes(v));
+    const isCheckSort = newConditions.sort !== prevProps.conditions.sort;
+
+    const { isSearching } = this.props;
+    if (
+      !isSearching &&
+      (prevState.pref !== newConditions.pref || isCheckCities || isCheckTowns || isCheckSort)
+    ) {
+      this.init();
+    }
+  }
+
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch(spaceActions.resetSearch());
   }
 
   getConditionsFromUrl = () => {
@@ -100,46 +122,13 @@ class SearchResultContainer extends Component {
     return conditions;
   };
 
-  init = () => {
-    const { dispatch } = this.props;
-    dispatch(spaceActions.resetSearch());
-    const conditions = this.getConditionsFromUrl();
-    this.setState({ ...conditions, offset: 0, checkCities: [], checkTowns: [] });
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    // パンくずやエリアタグから遷移した時はconstructorが発火しないのでここで
-    const newConditions = this.getConditionsFromUrl();
-
-    const isCheckCities =
-      newConditions.cities.length !== prevState.cities.length
-        ? true
-        : !newConditions.cities.every(v => prevState.cities.includes(v));
-    const isCheckTowns =
-      newConditions.towns.length !== prevState.towns.length
-        ? true
-        : !newConditions.towns.every(v => prevState.towns.includes(v));
-    const isCheckSort = newConditions.sort !== prevProps.conditions.sort;
-
-    if (
-      !this.props.isSearching &&
-      (prevState.pref !== newConditions.pref || isCheckCities || isCheckTowns || isCheckSort)
-    ) {
-      this.init();
-    }
-  }
-
-  componentWillUnmount() {
-    const { dispatch } = this.props;
-    dispatch(spaceActions.resetSearch());
-  }
-
   static getDerivedStateFromProps(props, state) {
     const { cities, conditions } = props;
     if (
       (state.cityAndTowns.length === 0 && cities.length > 0) ||
       state.cities.length !== conditions.cities.length ||
-      state.towns.length !== conditions.towns.length
+      state.towns.length !== conditions.towns.length ||
+      state.sort !== conditions.sort
     ) {
       // TODO だいぶ煩雑になっているのでリファクタリング
       const cityTownAreaList = cities.map(v => {
@@ -181,12 +170,69 @@ class SearchResultContainer extends Component {
           count: v.count,
         };
       });
+
+      const makeSortPath = sort => {
+        const { location } = props;
+        const q = parse(location.search);
+        q.sort = sort;
+        const newQuery = stringify(q);
+        return `${window.location.pathname}?${newQuery}`;
+      };
+
+      const sortList = [
+        {
+          text: 'おすすめ',
+          path: makeSortPath(1),
+          current: Number(conditions.sort === 1),
+        },
+        {
+          text: '新着順',
+          path: makeSortPath(2),
+          current: Number(conditions.sort === 2),
+        },
+        {
+          text: '安い順',
+          path: makeSortPath(3),
+          current: Number(conditions.sort === 3),
+        },
+      ];
+
+      const searchConditionCurrentList = [
+        {
+          title: '都道府県',
+          value: conditions.pref.name,
+        },
+        {
+          title: '市区町村',
+          value: conditions.cities.map(v => v.name).join('・'),
+        },
+        {
+          title: '町域・エリア',
+          value: conditions.towns.map(v => v.name).join('・'),
+        },
+      ];
+      if (conditions.keyword) {
+        searchConditionCurrentList.push({
+          title: 'キーワード',
+          value: conditions.keyword,
+        });
+      }
+
       return {
         cityAndTowns: cityTownAreaList,
+        sortList,
+        searchConditionCurrentList,
       };
     }
     return null;
   }
+
+  init = () => {
+    const { dispatch } = this.props;
+    dispatch(spaceActions.resetSearch());
+    const conditions = this.getConditionsFromUrl();
+    this.setState({ ...conditions, offset: 0, checkCities: [], checkTowns: [] });
+  };
 
   onClickBackSearchCondition = () => {
     const { history } = this.props;
@@ -222,16 +268,17 @@ class SearchResultContainer extends Component {
   onClickCheckTown = (_, { code, checked }) => {
     const { cityAndTowns } = this.state;
     const res = cityAndTowns.map(city => {
+      const cityRes = { ...city };
       const towns = city.townAreaList.map(town => {
         if (town.code !== code) {
           return town;
         }
         if (!checked) {
-          city.isChecked = false;
+          cityRes.isChecked = false;
         }
         return { ...town, isChecked: checked };
       });
-      return { ...city, townAreaList: towns };
+      return { ...cityRes, townAreaList: towns };
     });
     this.setState({ cityAndTowns: res });
   };
@@ -469,12 +516,19 @@ class SearchResultContainer extends Component {
     </Fragment>
   );
 
-  makeSortPath = sort => {
-    const { location } = this.props;
-    const q = parse(location.search);
-    q.sort = sort;
-    const newQuery = stringify(q);
-    return `${window.location.pathname}?${newQuery}`;
+  getPrefectureList = () => {
+    // TODO render走る度回るのアホくさいのでキャッシュ的なことしたい
+    areaPrefectures.map(a => {
+      return {
+        title: a.region,
+        collapsibleItemList: a.prefectureList.map(p => {
+          return {
+            text: p.name,
+            to: Path.spacesByPrefecture(p.id),
+          };
+        }),
+      };
+    });
   };
 
   render() {
@@ -490,7 +544,7 @@ class SearchResultContainer extends Component {
       return this.renderNotFound(condition);
     }
 
-    const { cityAndTowns } = this.state;
+    const { cityAndTowns, sortList, searchConditionCurrentList } = this.state;
 
     let areaPinList = [];
     let areaAroundList = [];
@@ -500,58 +554,6 @@ class SearchResultContainer extends Component {
     } else if (!conditions.keyword) {
       areaAroundList = area;
     }
-
-    // TODO getDerivedで
-    const searchConditionCurrentList = [
-      {
-        title: '都道府県',
-        value: conditions.pref.name,
-      },
-      {
-        title: '市区町村',
-        value: conditions.cities.map(v => v.name).join('・'),
-      },
-      {
-        title: '町域・エリア',
-        value: conditions.towns.map(v => v.name).join('・'),
-      },
-    ];
-    if (conditions.keyword) {
-      searchConditionCurrentList.push({
-        title: 'キーワード',
-        value: conditions.keyword,
-      });
-    }
-
-    const sortList = [
-      {
-        text: 'おすすめ',
-        path: this.makeSortPath(1),
-        current: Number(conditions.sort === 1),
-      },
-      {
-        text: '新着順',
-        path: this.makeSortPath(2),
-        current: Number(conditions.sort === 2),
-      },
-      {
-        text: '安い順',
-        path: this.makeSortPath(3),
-        current: Number(conditions.sort === 3),
-      },
-    ];
-
-    const prefectureList = areaPrefectures.map(a => {
-      return {
-        title: a.region,
-        collapsibleItemList: a.prefectureList.map(p => {
-          return {
-            text: p.name,
-            to: Path.spacesByPrefecture(p.id),
-          };
-        }),
-      };
-    });
 
     return (
       <SearchResultTemplate
@@ -569,7 +571,7 @@ class SearchResultContainer extends Component {
         captionAreaAroundList="周辺エリアで探す"
         areaAroundList={areaAroundList}
         cityTownAreaList={cityAndTowns}
-        prefectureList={prefectureList}
+        prefectureList={this.getPrefectureList()}
         townAreaList={area}
         sortList={sortList}
         prefecture={conditions.pref.name}
