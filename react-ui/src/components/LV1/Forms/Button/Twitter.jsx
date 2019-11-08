@@ -69,10 +69,10 @@ const Image = styled.img`
   left: 0px;
 `;
 
-export default props => (
+export default ({ loading, ...props }) => (
   <HyperLink href={props.url.toString('base64')} target="_blank">
     <Twitter {...props}>
-      {!props.loading && (
+      {!loading && (
         <ImageWrap>
           <Image src={imageTwitter} alt="icon-twitter" />
           &nbsp;

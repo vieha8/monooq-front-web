@@ -6,139 +6,90 @@ import Secondary from './Secondary';
 import Tertiary from './Tertiary';
 import Quaternary from './Quaternary';
 import Quinary from './Quinary';
-
 import Facebook from './Facebook';
 import Twitter from './Twitter';
 import Line from './Line';
 import AreaPin from './AreaPin';
 
-export const LoaderWrap = styled.span`
+const LoaderWrap = styled.span`
   display: inline-block;
   vertical-align: middle;
 `;
 
-export default props => {
-  if (props.secondary) {
+const handleOnClick = ({ disabled, loading, onClick }) => (disabled || loading ? null : onClick);
+const handleText = ({ loading, children }) => {
+  if (loading) {
     return (
-      <Secondary {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
-        {props.loading ? (
-          <LoaderWrap>
-            <Loader active inline="centered" size="mini" />
-          </LoaderWrap>
-        ) : (
-          props.children
-        )}
+      <LoaderWrap>
+        <Loader active inverted inline="centered" size="mini" />
+      </LoaderWrap>
+    );
+  }
+  return children;
+};
+
+export default ({ loading, ...props }) => {
+  const { secondary, tertiary, quaternary, quinary, facebook, twitter, line, areaPin } = props;
+  if (secondary) {
+    return (
+      <Secondary {...props} onClick={handleOnClick(props)}>
+        {handleText(props)}
       </Secondary>
     );
   }
-
-  if (props.tertiary) {
+  if (tertiary) {
     return (
-      <Tertiary {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
-        {props.loading ? (
-          <LoaderWrap>
-            <Loader active inverted inline="centered" size="mini" />
-          </LoaderWrap>
-        ) : (
-          props.children
-        )}
+      <Tertiary {...props} onClick={handleOnClick(props)}>
+        {handleText(props)}
       </Tertiary>
     );
   }
-
-  if (props.quaternary) {
+  if (quaternary) {
     return (
-      <Quaternary {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
-        {props.loading ? (
-          <LoaderWrap>
-            <Loader active inverted inline="centered" size="mini" />
-          </LoaderWrap>
-        ) : (
-          props.children
-        )}
+      <Quaternary {...props} onClick={handleOnClick(props)}>
+        {handleText(props)}
       </Quaternary>
     );
   }
-
-  if (props.quinary) {
+  if (quinary) {
     return (
-      <Quinary {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
-        {props.loading ? (
-          <LoaderWrap>
-            <Loader active inverted inline="centered" size="mini" />
-          </LoaderWrap>
-        ) : (
-          props.children
-        )}
+      <Quinary {...props} onClick={handleOnClick(props)}>
+        {handleText(props)}
       </Quinary>
     );
   }
-
-  if (props.facebook) {
+  if (facebook) {
     return (
-      <Facebook {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
-        {props.loading ? (
-          <LoaderWrap>
-            <Loader active inverted inline="centered" size="mini" />
-          </LoaderWrap>
-        ) : (
-          props.children
-        )}
+      <Facebook {...props} onClick={handleOnClick(props)} loading={loading}>
+        {handleText(props)}
       </Facebook>
     );
   }
-
-  if (props.twitter) {
+  if (twitter) {
     return (
-      <Twitter {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
-        {props.loading ? (
-          <LoaderWrap>
-            <Loader active inverted inline="centered" size="mini" />
-          </LoaderWrap>
-        ) : (
-          props.children
-        )}
+      <Twitter {...props} onClick={handleOnClick(props)} loading={loading}>
+        {handleText(props)}
       </Twitter>
     );
   }
-
-  if (props.line) {
+  if (line) {
     return (
-      <Line {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
-        {props.loading ? (
-          <LoaderWrap>
-            <Loader active inverted inline="centered" size="mini" />
-          </LoaderWrap>
-        ) : (
-          props.children
-        )}
+      <Line {...props} onClick={handleOnClick(props)}>
+        {handleText(props)}
       </Line>
     );
   }
-
-  if (props.areaPin) {
+  if (areaPin) {
     return (
-      <AreaPin {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
-        {props.loading ? (
-          <LoaderWrap>
-            <Loader active inverted inline="centered" size="mini" />
-          </LoaderWrap>
-        ) : (
-          props.children
-        )}
+      <AreaPin {...props} onClick={handleOnClick(props)}>
+        {handleText(props)}
       </AreaPin>
     );
   }
 
   return (
-    <Primary {...props} onClick={props.disabled || props.loading ? null : props.onClick}>
-      {props.loading ? (
-        <LoaderWrap>
-          <Loader active inverted inline="centered" size="mini" />
-        </LoaderWrap>
-      ) : (
-        props.children
-      )}
+    <Primary {...props} onClick={handleOnClick(props)}>
+      {handleText(props)}
     </Primary>
   );
 };
