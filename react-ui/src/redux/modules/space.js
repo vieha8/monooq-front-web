@@ -199,6 +199,7 @@ export const spaceReducer = handleActions(
         isMore: true,
         maxCount: 0,
         cities: [],
+        isLoading: false,
       },
     }),
     [GET_GEOCODE]: state => ({

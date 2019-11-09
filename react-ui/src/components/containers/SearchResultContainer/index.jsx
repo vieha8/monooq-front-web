@@ -1,36 +1,20 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import { parse, stringify } from 'helpers/query-string';
+import { parse } from 'helpers/query-string';
 import InfiniteScroll from 'react-infinite-scroller';
 import Loading from 'components/LV1/Loading';
 import Path from 'config/path';
-
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import SearchResultHeaderContainer from 'components/containers/SearchResultContainer/SearchResultHeaderContainer';
+import { H1 } from 'components/LV1/Texts/Headline';
 import SearchResult from 'components/LV3/SearchResult';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
-import Meta from 'components/LV1/Meta';
-import { H1 } from 'components/LV1/Texts/Headline';
-import { Colors, Dimens } from 'variables';
-
+import { Dimens } from 'variables';
 import { spaceActions } from 'redux/modules/space';
 import { iskeyDownEnter } from 'helpers/keydown';
-import { areaPrefectures } from 'helpers/prefectures';
-import {
-  isConditionChanged,
-  isDefaultCheckCity,
-  makeCurrentSearchConditions,
-  makeMetaBreadcrumbs,
-} from 'helpers/search';
-
 import LoadingPage from 'components/LV3/LoadingPage';
-import connect from '../connect';
-import { media } from '../../../helpers/style/media-query';
-import BreadcrumbsList from '../../LV2/Lists/BreadcrumbsList';
-import SearchResultHeader from '../../LV3/SearchResultHeader';
-import AreaAroundList from '../../LV2/Lists/AreaAroundList';
-import AreaPinList from '../../LV2/Lists/AreaPinList';
-import SortList from '../../LV2/Lists/LinkList';
-import ButtonBottom from '../../LV2/Forms/ButtonBottom';
+import connect from 'components/containers/connect';
+import { media } from 'helpers/style/media-query';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
@@ -60,15 +44,21 @@ class SearchResultContainer extends Component {
       pref: '',
       cities: [],
       towns: [],
-      cityAndTowns: [],
       checkCities: [],
       checkTowns: [],
-      sortList: [],
-      searchConditionCurrentList: [],
+      isInit: false,
     };
   }
 
+  componentDidMount() {
+    this.init();
+  }
+
   componentDidUpdate(prevProps, prevState) {
+    if (!prevState.isInit) {
+      return;
+    }
+
     // パンくずやエリアタグから遷移した時はconstructorが発火しないのでここで
     const newConditions = this.getConditionsFromUrl();
 
@@ -83,6 +73,7 @@ class SearchResultContainer extends Component {
     const isCheckSort = newConditions.sort !== prevProps.conditions.sort;
 
     const { isSearching } = this.props;
+
     if (
       !isSearching &&
       (prevState.pref !== newConditions.pref || isCheckCities || isCheckTowns || isCheckSort)
@@ -147,80 +138,11 @@ class SearchResultContainer extends Component {
     return conditions;
   };
 
-  static getDerivedStateFromProps(props, state) {
-    const { conditions, cities } = props;
-    if (isConditionChanged(state, conditions, cities)) {
-      const cityTownAreaList = cities.map(v => {
-        const isCheckedCity = isDefaultCheckCity(v, conditions);
-
-        const townAreaList = v.towns.map(w => {
-          const isCheckedTown = conditions.towns.filter(t => t.code === w.code).length > 0;
-          return {
-            text: w.name,
-            code: w.code,
-            link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
-            isChecked: isCheckedTown || isCheckedCity,
-            count: w.count,
-          };
-        });
-
-        return {
-          cityName: v.name,
-          cityCode: v.code,
-          isChecked: isCheckedCity,
-          areaAroundList: v.popularArea.map(w => {
-            return {
-              text: w.name,
-              link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
-            };
-          }),
-          townAreaList,
-          count: v.count,
-        };
-      });
-
-      const makeSortPath = sort => {
-        const { location } = props;
-        const q = parse(location.search);
-        q.sort = sort;
-        const newQuery = stringify(q);
-        return `${window.location.pathname}?${newQuery}`;
-      };
-
-      const sortList = [
-        {
-          text: 'おすすめ',
-          path: makeSortPath(1),
-          current: Number(conditions.sort === 1),
-        },
-        {
-          text: '新着順',
-          path: makeSortPath(2),
-          current: Number(conditions.sort === 2),
-        },
-        {
-          text: '安い順',
-          path: makeSortPath(3),
-          current: Number(conditions.sort === 3),
-        },
-      ];
-
-      const searchConditionCurrentList = makeCurrentSearchConditions(conditions);
-
-      return {
-        cityAndTowns: cityTownAreaList,
-        sortList,
-        searchConditionCurrentList,
-      };
-    }
-    return null;
-  }
-
   init = () => {
     const { dispatch } = this.props;
     dispatch(spaceActions.resetSearch());
     const conditions = this.getConditionsFromUrl();
-    this.setState({ ...conditions, offset: 0, checkCities: [], checkTowns: [] });
+    this.setState({ ...conditions, offset: 0, checkCities: [], checkTowns: [], isInit: true });
   };
 
   onClickBackSearchCondition = () => {
@@ -231,80 +153,6 @@ class SearchResultContainer extends Component {
   onKeyDownButtonResearch = e => {
     if (iskeyDownEnter(e)) {
       this.onClickBackSearchCondition();
-    }
-  };
-
-  onClickCheckCity = (_, { code, checked }) => {
-    const { cityAndTowns } = this.state;
-    const res = cityAndTowns.map(v => {
-      if (v.cityCode !== code) {
-        return v;
-      }
-      return {
-        ...v,
-        isChecked: checked,
-        townAreaList: v.townAreaList.map(w => ({ ...w, isChecked: checked })),
-      };
-    });
-    this.setState({ cityAndTowns: res });
-  };
-
-  onClickCheckTown = (_, { code, checked }) => {
-    const { cityAndTowns } = this.state;
-    const res = cityAndTowns.map(city => {
-      const cityRes = { ...city };
-      const towns = city.townAreaList.map(town => {
-        if (town.code !== code) {
-          return town;
-        }
-        if (!checked) {
-          cityRes.isChecked = false;
-        }
-        return { ...town, isChecked: checked };
-      });
-      return { ...cityRes, townAreaList: towns };
-    });
-    this.setState({ cityAndTowns: res });
-  };
-
-  onClickMore = () => {
-    let citiesCode = [];
-    const townsCode = [];
-    const { cityAndTowns } = this.state;
-    cityAndTowns.map(city => {
-      if (city.isChecked) {
-        citiesCode.push(city.cityCode);
-      } else {
-        city.townAreaList.map(town => {
-          if (town.isChecked) {
-            citiesCode.push(city.cityCode); // TODO ここで重複push防ぐような判定いれる
-            townsCode.push(town.code);
-          }
-          return null;
-        });
-      }
-      return null;
-    });
-
-    citiesCode = citiesCode.filter((x, i, self) => self.indexOf(x) === i);
-
-    if (citiesCode.length === 0 && townsCode.length === 0) {
-      return;
-    }
-
-    const { history, conditions } = this.props;
-
-    if (townsCode.length === 1 && citiesCode.length === 1) {
-      // 町域ひとつ
-      history.push(Path.spacesByTown(conditions.pref.code, citiesCode[0], townsCode[0]));
-    } else if (citiesCode.length === 1) {
-      // 市区町村ひとつ
-      history.push(Path.spacesByCity(conditions.pref.code, citiesCode[0]));
-    } else {
-      const query = `?pref=${conditions.pref.code}&cities=${citiesCode.join(
-        ',',
-      )}&towns=${townsCode.join(',')}`;
-      history.push(`${Path.search()}${query}`);
     }
   };
 
@@ -425,25 +273,11 @@ class SearchResultContainer extends Component {
     </Fragment>
   );
 
-  getPrefectureList = () => {
-    // TODO render走る度回るのアホくさいのでキャッシュ的なことしたい
-    areaPrefectures.map(a => {
-      return {
-        title: a.region,
-        collapsibleItemList: a.prefectureList.map(p => {
-          return {
-            text: p.name,
-            to: Path.spacesByPrefecture(p.id),
-          };
-        }),
-      };
-    });
-  };
-
   render() {
-    const { spaces, isMore, maxCount, isSearching, breadcrumbs, area, conditions } = this.props;
+    const { spaces, isMore, isSearching } = this.props;
+    const { isInit } = this.state;
 
-    if (isSearching && spaces.length === 0) {
+    if (!isInit || (isSearching && spaces.length === 0)) {
       return <LoadingPage />;
     }
 
@@ -453,54 +287,10 @@ class SearchResultContainer extends Component {
       return this.renderNotFound(conditionTitle);
     }
 
-    const { cityAndTowns, sortList, searchConditionCurrentList } = this.state;
-
-    let areaPinList = [];
-    let areaAroundList = [];
-    if (conditions.pref && conditions.pref.name && conditions.cities.length === 0) {
-      // 都道府県一覧
-      areaPinList = area;
-    } else if (!conditions.keyword) {
-      areaAroundList = area;
-    }
-
     return (
       <Fragment>
-        <Meta
-          title={`${conditionTitle}のスペース検索結果 - モノオク`}
-          jsonLd={makeMetaBreadcrumbs(conditions)}
-        />
-        {breadcrumbs && <BreadcrumbsList breadcrumbsList={breadcrumbs} />}
-        <SearchResultHeader
-          conditionTitle={conditionTitle}
-          maxCount={maxCount}
-          prefecture={conditions.pref.name}
-          onClickMore={this.onClickMore}
-          onClickCheckCity={this.onClickCheckCity}
-          onClickCheckTown={this.onClickCheckTown}
-          regionPrefectureList={areaPrefectures}
-          cityTownAreaList={cityAndTowns}
-          textButtonBottom="地域を絞り込む"
-          searchConditionCurrentList={searchConditionCurrentList}
-        />
-        {areaAroundList && areaAroundList.length > 0 && (
-          <AreaAroundList areaAroundList={areaAroundList} />
-        )}
-        {areaPinList && areaPinList.length > 0 && <AreaPinList areaPinList={areaPinList} />}
-        {sortList && sortList.length > 0 && (
-          <SortList list={sortList} isLinkEvent landscape color={Colors.brandPrimary} />
-        )}
+        <SearchResultHeaderContainer />
         <Content>{this.infiniteScroll()}</Content>
-        <ButtonBottom
-          modal
-          text="地域を絞り込む"
-          cityTownAreaList={cityAndTowns}
-          onClickMore={this.onClickMore}
-          onClickCheckCity={this.onClickCheckCity}
-          onClickCheckTown={this.onClickCheckTown}
-          searchConditionCurrentList={searchConditionCurrentList}
-          prefectureList={this.getPrefectureList()}
-        />
       </Fragment>
     );
   }
