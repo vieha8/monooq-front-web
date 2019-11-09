@@ -4,12 +4,7 @@ import connect from 'components/containers/connect';
 import { Colors } from 'variables';
 import { areaPrefectures } from 'helpers/prefectures';
 import { parse, stringify } from 'helpers/query-string';
-import {
-  isDefaultCheckCity,
-  makeConditionTitle,
-  makeCurrentSearchConditions,
-  makeMetaBreadcrumbs,
-} from 'helpers/search';
+import { makeConditionTitle } from 'helpers/search';
 import Meta from 'components/LV1/Meta';
 import BreadcrumbsList from 'components/LV2/Lists/BreadcrumbsList';
 import AreaAroundList from 'components/LV2/Lists/AreaAroundList';
@@ -25,14 +20,17 @@ class SearchResultHeaderContainer extends Component {
       cityAndTowns: [],
       sortList: [],
       searchConditionCurrentList: [],
+      areaPinList: [],
+      areaAroundList: [],
+      prefectureList: [],
     };
   }
 
   componentDidMount() {
-    const { conditions, cities } = this.props;
+    const { conditions, cities, area } = this.props;
 
     const cityAndTowns = cities.map(v => {
-      const isCheckedCity = isDefaultCheckCity(v, conditions);
+      const isCheckedCity = this.isDefaultCheckCity(v, conditions);
       const townAreaList = v.towns.map(w => {
         const isCheckedTown = conditions.towns.filter(t => t.code === w.code).length > 0;
         return {
@@ -77,8 +75,25 @@ class SearchResultHeaderContainer extends Component {
       },
     ];
 
-    const searchConditionCurrentList = makeCurrentSearchConditions(conditions);
-    this.setState({ cityAndTowns, searchConditionCurrentList, sortList });
+    let areaPinList = [];
+    let areaAroundList = [];
+    if (conditions.pref && conditions.pref.name && conditions.cities.length === 0) {
+      areaPinList = area;
+    } else if (!conditions.keyword) {
+      areaAroundList = area;
+    }
+
+    const prefectureList = this.getPrefectureList();
+
+    const searchConditionCurrentList = this.makeCurrentSearchConditions(conditions);
+    this.setState({
+      cityAndTowns,
+      searchConditionCurrentList,
+      sortList,
+      areaPinList,
+      areaAroundList,
+      prefectureList,
+    });
   }
 
   makeSortPath = sort => {
@@ -164,7 +179,6 @@ class SearchResultHeaderContainer extends Component {
   };
 
   getPrefectureList = () => {
-    // TODO render走る度回るのアホくさいのでキャッシュ的なことしたい
     areaPrefectures.map(a => {
       return {
         title: a.region,
@@ -178,19 +192,113 @@ class SearchResultHeaderContainer extends Component {
     });
   };
 
-  render() {
-    const { maxCount, breadcrumbs, area, conditions } = this.props;
-    const { cityAndTowns, sortList, searchConditionCurrentList } = this.state;
-
-    // TODO getDerivedでやる
-    let areaPinList = [];
-    let areaAroundList = [];
-    if (conditions.pref && conditions.pref.name && conditions.cities.length === 0) {
-      // 都道府県一覧
-      areaPinList = area;
-    } else if (!conditions.keyword) {
-      areaAroundList = area;
+  isDefaultCheckCity = (city, conditions) => {
+    if (conditions.cities.filter(c => c.code === city.code).length > 0) {
+      const checkedTowns = city.towns.filter(
+        w => conditions.towns.filter(t => t.code === w.code).length > 0,
+      ).length;
+      if (checkedTowns === 0 || checkedTowns === city.towns.length) {
+        return true;
+      }
     }
+    return false;
+  };
+
+  makeCurrentSearchConditions = conditions => {
+    const list = [
+      {
+        title: '都道府県',
+        value: conditions.pref.name,
+      },
+      {
+        title: '市区町村',
+        value: conditions.cities.map(v => v.name).join('・'),
+      },
+      {
+        title: '町域・エリア',
+        value: conditions.towns.map(v => v.name).join('・'),
+      },
+    ];
+    if (conditions.keyword) {
+      list.push({
+        title: 'キーワード',
+        value: conditions.keyword,
+      });
+    }
+    return list;
+  };
+
+  makeMetaBreadcrumbs = conditions => {
+    const { pref, cities, towns } = conditions;
+
+    let position = 1;
+    const baseUrl = 'https://monooq.com';
+    const itemList = [
+      {
+        '@type': 'ListItem',
+        position,
+        name: 'トップ',
+        item: baseUrl,
+      },
+    ];
+
+    if (pref && pref.name) {
+      position += 1;
+      itemList.push({
+        '@type': 'ListItem',
+        position,
+        name: `${pref.name}のスペース`,
+        item: `${baseUrl}/pref${pref.code}`,
+      });
+      if (cities.length === 1) {
+        position += 1;
+        const city = cities[0];
+        itemList.push({
+          '@type': 'ListItem',
+          position,
+          name: `${city.name}のスペース`,
+          item: `${baseUrl}/pref${pref.code}/city${city.code}`,
+        });
+        if (towns.length === 1) {
+          position += 1;
+          const town = towns[0];
+          itemList.push({
+            '@type': 'ListItem',
+            position,
+            name: `${town.name}のスペース`,
+            item: `${baseUrl}/pref${pref.code}/city${city.code}/town${town.code}`,
+          });
+        }
+      }
+    }
+
+    if (itemList.length === 1) {
+      position += 1;
+      itemList.push({
+        '@type': 'ListItem',
+        position,
+        name: `スペース検索結果`,
+        item: `${baseUrl}/search`,
+      });
+    }
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: itemList,
+    };
+  };
+
+  render() {
+    const { maxCount, breadcrumbs, conditions } = this.props;
+    const {
+      cityAndTowns,
+      sortList,
+      searchConditionCurrentList,
+      areaPinList,
+      areaAroundList,
+      prefectureList,
+    } = this.state;
 
     const buttonText = '地域を絞り込む';
     const conditionTitle = makeConditionTitle(conditions);
@@ -199,7 +307,7 @@ class SearchResultHeaderContainer extends Component {
       <Fragment>
         <Meta
           title={`${conditionTitle}のスペース検索結果 - モノオク`}
-          jsonLd={makeMetaBreadcrumbs(conditions)}
+          jsonLd={this.makeMetaBreadcrumbs(conditions)}
         />
         {breadcrumbs && <BreadcrumbsList breadcrumbsList={breadcrumbs} />}
         <SearchResultHeader
@@ -229,7 +337,7 @@ class SearchResultHeaderContainer extends Component {
           onClickCheckCity={this.onClickCheckCity}
           onClickCheckTown={this.onClickCheckTown}
           searchConditionCurrentList={searchConditionCurrentList}
-          prefectureList={this.getPrefectureList()}
+          prefectureList={prefectureList}
         />
       </Fragment>
     );
@@ -237,10 +345,7 @@ class SearchResultHeaderContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  spaces: state.space.search.results,
   maxCount: state.space.search.maxCount,
-  isSearching: state.space.search.isLoading,
-  isMore: state.space.search.isMore,
   breadcrumbs: state.space.search.breadcrumbs,
   area: state.space.search.area,
   conditions: state.space.search.conditions,

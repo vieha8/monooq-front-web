@@ -250,13 +250,9 @@ class SearchResultContainer extends Component {
 
 const mapStateToProps = state => ({
   spaces: state.space.search.results,
-  maxCount: state.space.search.maxCount,
   isSearching: state.space.search.isLoading,
   isMore: state.space.search.isMore,
-  breadcrumbs: state.space.search.breadcrumbs,
-  area: state.space.search.area,
   conditions: state.space.search.conditions,
-  cities: state.space.search.cities,
 });
 
 export default ContentPageMenu(
