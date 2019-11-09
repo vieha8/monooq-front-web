@@ -15,6 +15,7 @@ import { iskeyDownEnter } from 'helpers/keydown';
 import LoadingPage from 'components/LV3/LoadingPage';
 import connect from 'components/containers/connect';
 import { media } from 'helpers/style/media-query';
+import { makeConditionTitle } from '../../../helpers/search';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
@@ -44,8 +45,6 @@ class SearchResultContainer extends Component {
       pref: '',
       cities: [],
       towns: [],
-      checkCities: [],
-      checkTowns: [],
       isInit: false,
     };
   }
@@ -139,10 +138,12 @@ class SearchResultContainer extends Component {
   };
 
   init = () => {
-    const { dispatch } = this.props;
-    dispatch(spaceActions.resetSearch());
+    const { dispatch, spaces } = this.props;
+    if (spaces.length !== 0) {
+      dispatch(spaceActions.resetSearch());
+    }
     const conditions = this.getConditionsFromUrl();
-    this.setState({ ...conditions, offset: 0, checkCities: [], checkTowns: [], isInit: true });
+    this.setState({ ...conditions, offset: 0, isInit: true });
   };
 
   onClickBackSearchCondition = () => {
@@ -156,52 +157,13 @@ class SearchResultContainer extends Component {
     }
   };
 
-  getConditionTitle = () => {
-    const { conditions } = this.props;
-    const { keyword, pref, cities, towns } = conditions;
-
-    if (keyword && keyword !== '') {
-      return keyword;
-    }
-
-    let condition = '';
-
-    if (pref && pref.name && pref.name !== '') {
-      condition += pref.name;
-    }
-
-    if (cities && cities.length > 0) {
-      condition += `/${cities.map(v => v.name).join('・')}`;
-    }
-
-    if (towns && towns.length > 0) {
-      condition += `/${towns.map(v => v.name).join('・')}`;
-    }
-
-    if (condition === '') {
-      condition = 'すべて';
-    }
-
-    return condition;
-  };
-
   // ローディング処理
   loadItems = () => {
     const { dispatch, isSearching } = this.props;
     if (isSearching) {
       return;
     }
-    const {
-      limit,
-      offset,
-      keyword,
-      pref,
-      cities,
-      towns,
-      sort,
-      checkCities,
-      checkTowns,
-    } = this.state;
+    const { limit, offset, keyword, pref, cities, towns, sort } = this.state;
 
     const params = {
       limit,
@@ -217,16 +179,8 @@ class SearchResultContainer extends Component {
       params.cities = cities;
     }
 
-    if (checkCities.length > 0) {
-      params.cities = checkCities;
-    }
-
     if (towns.length > 0) {
       params.towns = towns;
-    }
-
-    if (checkTowns.length > 0) {
-      params.towns = checkTowns;
     }
 
     dispatch(spaceActions.doSearch(params));
@@ -260,9 +214,9 @@ class SearchResultContainer extends Component {
     );
   };
 
-  renderNotFound = condition => (
+  renderNotFound = conditions => (
     <Fragment>
-      <H1 bold>{`「${condition}」の検索結果 0件`}</H1>
+      <H1 bold>{`「${makeConditionTitle(conditions)}」の検索結果 0件`}</H1>
       <SpaceDataNone
         captionHead="該当するスペースが見つかりませんでした"
         caption="別のキーワード及び条件で検索をお試しください"
@@ -274,17 +228,15 @@ class SearchResultContainer extends Component {
   );
 
   render() {
-    const { spaces, isMore, isSearching } = this.props;
+    const { spaces, isMore, isSearching, conditions } = this.props;
     const { isInit } = this.state;
 
     if (!isInit || (isSearching && spaces.length === 0)) {
       return <LoadingPage />;
     }
 
-    const conditionTitle = this.getConditionTitle();
-
     if (spaces.length === 0 && !isMore) {
-      return this.renderNotFound(conditionTitle);
+      return this.renderNotFound(conditions);
     }
 
     return (

@@ -67,7 +67,7 @@ const BottomWrap = styled.div`
 `;
 
 class SearchConditionMore extends Component {
-  state = { open: true };
+  state = { open: false };
 
   open = () => this.setState({ open: true });
 

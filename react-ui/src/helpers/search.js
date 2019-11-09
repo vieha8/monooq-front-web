@@ -1,17 +1,3 @@
-// 検索条件変化判定
-export const isConditionChanged = (state, conditions, cities) => {
-  // state.cities 現在開いている市区町村のコード
-  // conditions.cities 現在開いている市区町村の情報(名前・コード)
-  // state.cityAndTowns 絞り込みのチェック情報
-  // cities 市区町村町域のマスタデータ
-  return (
-    (state.cityAndTowns.length === 0 && cities.length > 0) ||
-    state.cities.length !== conditions.cities.length ||
-    state.towns.length !== conditions.towns.length ||
-    state.sort !== conditions.sort
-  );
-};
-
 // チェックボックスの選択済み市区町村かの判定
 export const isDefaultCheckCity = (city, conditions) => {
   if (conditions.cities.filter(c => c.code === city.code).length > 0) {
@@ -110,4 +96,31 @@ export const makeMetaBreadcrumbs = conditions => {
     '@type': 'BreadcrumbList',
     itemListElement: itemList,
   };
+};
+
+// this.props.conditions
+export const makeConditionTitle = ({ keyword, pref, cities, towns }) => {
+  if (keyword && keyword !== '') {
+    return keyword;
+  }
+
+  let condition = '';
+
+  if (pref && pref.name && pref.name !== '') {
+    condition += pref.name;
+  }
+
+  if (cities && cities.length > 0) {
+    condition += `/${cities.map(v => v.name).join('・')}`;
+  }
+
+  if (towns && towns.length > 0) {
+    condition += `/${towns.map(v => v.name).join('・')}`;
+  }
+
+  if (condition === '') {
+    condition = 'すべて';
+  }
+
+  return condition;
 };

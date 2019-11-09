@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import { parse, stringify } from 'helpers/query-string';
 import Path from 'config/path';
 import connect from 'components/containers/connect';
 import { Colors } from 'variables';
 import { areaPrefectures } from 'helpers/prefectures';
+import { parse, stringify } from 'helpers/query-string';
 import {
-  isConditionChanged,
   isDefaultCheckCity,
+  makeConditionTitle,
   makeCurrentSearchConditions,
   makeMetaBreadcrumbs,
 } from 'helpers/search';
@@ -22,86 +22,72 @@ class SearchResultHeaderContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sort: 1,
-      keyword: '',
-      pref: '',
-      cities: [],
-      towns: [],
       cityAndTowns: [],
-      checkCities: [],
-      checkTowns: [],
       sortList: [],
       searchConditionCurrentList: [],
     };
   }
 
-  static getDerivedStateFromProps(props, state) {
-    const { conditions, cities } = props;
-    if (isConditionChanged(state, conditions, cities)) {
-      const cityTownAreaList = cities.map(v => {
-        const isCheckedCity = isDefaultCheckCity(v, conditions);
-        const townAreaList = v.towns.map(w => {
-          const isCheckedTown = conditions.towns.filter(t => t.code === w.code).length > 0;
-          return {
-            text: w.name,
-            code: w.code,
-            link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
-            isChecked: isCheckedTown || isCheckedCity,
-            count: w.count,
-          };
-        });
+  componentDidMount() {
+    const { conditions, cities } = this.props;
 
+    const cityAndTowns = cities.map(v => {
+      const isCheckedCity = isDefaultCheckCity(v, conditions);
+      const townAreaList = v.towns.map(w => {
+        const isCheckedTown = conditions.towns.filter(t => t.code === w.code).length > 0;
         return {
-          cityName: v.name,
-          cityCode: v.code,
-          isChecked: isCheckedCity,
-          areaAroundList: v.popularArea.map(w => {
-            return {
-              text: w.name,
-              link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
-            };
-          }),
-          townAreaList,
-          count: v.count,
+          text: w.name,
+          code: w.code,
+          link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
+          isChecked: isCheckedTown || isCheckedCity,
+          count: w.count,
         };
       });
 
-      const makeSortPath = sort => {
-        const { location } = props;
-        const q = parse(location.search);
-        q.sort = sort;
-        const newQuery = stringify(q);
-        return `${window.location.pathname}?${newQuery}`;
-      };
-
-      const sortList = [
-        {
-          text: 'おすすめ',
-          path: makeSortPath(1),
-          current: Number(conditions.sort === 1),
-        },
-        {
-          text: '新着順',
-          path: makeSortPath(2),
-          current: Number(conditions.sort === 2),
-        },
-        {
-          text: '安い順',
-          path: makeSortPath(3),
-          current: Number(conditions.sort === 3),
-        },
-      ];
-
-      const searchConditionCurrentList = makeCurrentSearchConditions(conditions);
-
       return {
-        cityAndTowns: cityTownAreaList,
-        sortList,
-        searchConditionCurrentList,
+        cityName: v.name,
+        cityCode: v.code,
+        isChecked: isCheckedCity,
+        areaAroundList: v.popularArea.map(w => {
+          return {
+            text: w.name,
+            link: Path.spacesByTown(conditions.pref.code, v.code, w.code),
+          };
+        }),
+        townAreaList,
+        count: v.count,
       };
-    }
-    return null;
+    });
+
+    const sortList = [
+      {
+        text: 'おすすめ',
+        path: this.makeSortPath(1),
+        current: Number(conditions.sort === 1),
+      },
+      {
+        text: '新着順',
+        path: this.makeSortPath(2),
+        current: Number(conditions.sort === 2),
+      },
+      {
+        text: '安い順',
+        path: this.makeSortPath(3),
+        current: Number(conditions.sort === 3),
+      },
+    ];
+
+    const searchConditionCurrentList = makeCurrentSearchConditions(conditions);
+    this.setState({ cityAndTowns, searchConditionCurrentList, sortList });
   }
+
+  makeSortPath = sort => {
+    const { location } = this.props;
+    const q = parse(location.search);
+    q.sort = sort;
+    const newQuery = stringify(q);
+    return `${window.location.pathname}?${newQuery}`;
+  };
 
   onClickCheckCity = (_, { code, checked }) => {
     const { cityAndTowns } = this.state;
@@ -177,35 +163,6 @@ class SearchResultHeaderContainer extends Component {
     }
   };
 
-  getConditionTitle = () => {
-    const { conditions } = this.props;
-    const { keyword, pref, cities, towns } = conditions;
-
-    if (keyword && keyword !== '') {
-      return keyword;
-    }
-
-    let condition = '';
-
-    if (pref && pref.name && pref.name !== '') {
-      condition += pref.name;
-    }
-
-    if (cities && cities.length > 0) {
-      condition += `/${cities.map(v => v.name).join('・')}`;
-    }
-
-    if (towns && towns.length > 0) {
-      condition += `/${towns.map(v => v.name).join('・')}`;
-    }
-
-    if (condition === '') {
-      condition = 'すべて';
-    }
-
-    return condition;
-  };
-
   getPrefectureList = () => {
     // TODO render走る度回るのアホくさいのでキャッシュ的なことしたい
     areaPrefectures.map(a => {
@@ -225,8 +182,6 @@ class SearchResultHeaderContainer extends Component {
     const { maxCount, breadcrumbs, area, conditions } = this.props;
     const { cityAndTowns, sortList, searchConditionCurrentList } = this.state;
 
-    const conditionTitle = this.getConditionTitle();
-
     // TODO getDerivedでやる
     let areaPinList = [];
     let areaAroundList = [];
@@ -238,8 +193,7 @@ class SearchResultHeaderContainer extends Component {
     }
 
     const buttonText = '地域を絞り込む';
-
-    console.log(cityAndTowns);
+    const conditionTitle = makeConditionTitle(conditions);
 
     return (
       <Fragment>
