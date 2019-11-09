@@ -1,21 +1,21 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
-import { parse } from 'helpers/query-string';
 import InfiniteScroll from 'react-infinite-scroller';
-import Loading from 'components/LV1/Loading';
 import Path from 'config/path';
+import { Dimens } from 'variables';
+import { parse } from 'helpers/query-string';
+import { iskeyDownEnter } from 'helpers/keydown';
+import { makeConditionTitle } from 'helpers/search';
+import { media } from 'helpers/style/media-query';
+import { spaceActions } from 'redux/modules/space';
+import connect from 'components/containers/connect';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SearchResultHeaderContainer from 'components/containers/SearchResultContainer/SearchResultHeaderContainer';
-import { H1 } from 'components/LV1/Texts/Headline';
 import SearchResult from 'components/LV3/SearchResult';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
-import { Dimens } from 'variables';
-import { spaceActions } from 'redux/modules/space';
-import { iskeyDownEnter } from 'helpers/keydown';
 import LoadingPage from 'components/LV3/LoadingPage';
-import connect from 'components/containers/connect';
-import { media } from 'helpers/style/media-query';
-import { makeConditionTitle } from '../../../helpers/search';
+import Loading from 'components/LV1/Loading';
+import { H1 } from 'components/LV1/Texts/Headline';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
@@ -26,11 +26,6 @@ const Content = styled.div`
   margin: ${Dimens.medium2}px 0;
   ${media.tablet`
     margin: ${Dimens.medium}px 0;
-  `};
-  ${props =>
-    props.noTopMargin &&
-    `
-    margin: 0;
   `};
 `;
 
@@ -193,27 +188,6 @@ class SearchResultContainer extends Component {
     history.push(Path.space(spaceId));
   };
 
-  infiniteScroll = () => {
-    const { spaces, isMore } = this.props;
-    return (
-      <InfiniteScroll
-        pageStart={0}
-        loadMore={this.loadItems}
-        hasMore={isMore}
-        loader={<Loader size="medium" key={0} />}
-        initialLoad
-      >
-        <SearchResult
-          spaces={spaces.map(s => ({
-            ...s,
-            image: (s.images[0] || {}).imageUrl,
-            onClick: () => this.onClickSpace(s.id),
-          }))}
-        />
-      </InfiniteScroll>
-    );
-  };
-
   renderNotFound = conditions => (
     <Fragment>
       <H1 bold>{`「${makeConditionTitle(conditions)}」の検索結果 0件`}</H1>
@@ -242,7 +216,23 @@ class SearchResultContainer extends Component {
     return (
       <Fragment>
         <SearchResultHeaderContainer />
-        <Content>{this.infiniteScroll()}</Content>
+        <Content>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={this.loadItems}
+            hasMore={isMore}
+            loader={<Loader size="medium" key={0} />}
+            initialLoad
+          >
+            <SearchResult
+              spaces={spaces.map(s => ({
+                ...s,
+                image: (s.images[0] || {}).imageUrl,
+                onClick: () => this.onClickSpace(s.id),
+              }))}
+            />
+          </InfiniteScroll>
+        </Content>
       </Fragment>
     );
   }
