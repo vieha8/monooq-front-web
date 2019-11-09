@@ -35,11 +35,12 @@ class HeaderContainer extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
   }
 
   componentWillUnmount() {
-    this.state = {};
+    this._isMounted = false;
     window.removeEventListener('scroll', () => this.watchCurrentPosition(), true);
     if (document && document.body) {
       document.body.style.overflowY = 'auto';
@@ -76,7 +77,10 @@ class HeaderContainer extends Component {
 
     if (pagePathScrollPage) {
       const positionScroll = this.scrollTop();
-      this.setState({ isOverTopView: false });
+
+      if (this._isMounted) {
+        this.setState({ isOverTopView: false });
+      }
 
       switch (pagePathScrollPage) {
         case PATH_TOP:
@@ -93,10 +97,14 @@ class HeaderContainer extends Component {
 
       if (window.parent.screen.width > 480) {
         if (positionScroll > positionScrollPC) {
-          this.setState({ isOverTopView: true });
+          if (this._isMounted) {
+            this.setState({ isOverTopView: true });
+          }
         }
       } else if (positionScroll > positionScrollSP) {
-        this.setState({ isOverTopView: true });
+        if (this._isMounted) {
+          this.setState({ isOverTopView: true });
+        }
       }
     }
   }
