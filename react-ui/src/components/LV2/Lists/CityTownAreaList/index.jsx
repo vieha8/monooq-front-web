@@ -7,7 +7,9 @@ import AreaAroundList from 'components/LV2/Lists/AreaAroundList';
 import TownAreaCheckboxList from 'components/LV2/Lists/TownAreaCheckboxList';
 import IconAreaGray from 'images/icon-area-gray.png';
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  padding-bottom: 150px;
+`;
 
 const Caption = styled.div`
   font-size: ${FontSizes.medium2}px;
