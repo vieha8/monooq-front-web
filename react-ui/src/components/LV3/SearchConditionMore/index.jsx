@@ -28,7 +28,7 @@ const CityTownAreaListWrap = styled.div`
   ${props =>
     props.isCityTownAreaList &&
     `
-      margin-bottom: 114px;
+      padding: 0 ${Dimens.medium}px 25px;
   `};
 `;
 
