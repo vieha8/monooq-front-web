@@ -10,7 +10,6 @@ import BreadcrumbsList from 'components/LV2/Lists/BreadcrumbsList';
 import AreaAroundList from 'components/LV2/Lists/AreaAroundList';
 import AreaPinList from 'components/LV2/Lists/AreaPinList';
 import SortList from 'components/LV2/Lists/LinkList';
-import ButtonBottom from 'components/LV2/Forms/ButtonBottom';
 import SearchResultHeader from 'components/LV3/SearchResultHeader';
 
 class SearchResultHeaderContainer extends Component {
@@ -300,7 +299,6 @@ class SearchResultHeaderContainer extends Component {
       prefectureList,
     } = this.state;
 
-    const buttonText = '地域を絞り込む';
     const conditionTitle = makeConditionTitle(conditions);
 
     return (
@@ -318,8 +316,8 @@ class SearchResultHeaderContainer extends Component {
           onClickCheckCity={this.onClickCheckCity}
           onClickCheckTown={this.onClickCheckTown}
           regionPrefectureList={areaPrefectures}
+          prefectureList={prefectureList}
           cityTownAreaList={cityAndTowns}
-          textButtonBottom={buttonText}
           searchConditionCurrentList={searchConditionCurrentList}
         />
         {areaAroundList && areaAroundList.length > 0 && (
@@ -329,16 +327,6 @@ class SearchResultHeaderContainer extends Component {
         {sortList && sortList.length > 0 && (
           <SortList list={sortList} isLinkEvent landscape color={Colors.brandPrimary} />
         )}
-        <ButtonBottom
-          modal
-          text={buttonText}
-          cityTownAreaList={cityAndTowns}
-          onClickMore={this.onClickMore}
-          onClickCheckCity={this.onClickCheckCity}
-          onClickCheckTown={this.onClickCheckTown}
-          searchConditionCurrentList={searchConditionCurrentList}
-          prefectureList={prefectureList}
-        />
       </Fragment>
     );
   }

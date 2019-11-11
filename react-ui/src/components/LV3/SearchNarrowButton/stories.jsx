@@ -7,7 +7,7 @@ import ButtonBottom from './index';
 
 ButtonBottom.displayName = 'ButtonBottom';
 
-storiesOf('Molecules(LV2)/Forms/ButtonBottom', module).add(
+storiesOf('Molecules(LV2)/Forms/SearchNarrowButton', module).add(
   'Public',
   withInfo(`
     ### コンポーネント概要
