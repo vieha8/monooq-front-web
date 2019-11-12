@@ -33,63 +33,63 @@ export default ({ loading, ...props }) => {
   if (secondary) {
     return (
       <Secondary {...props} onClick={handleOnClick(props)}>
-        {handleText(props)}
+        {handleText({ ...props, loading })}
       </Secondary>
     );
   }
   if (tertiary) {
     return (
       <Tertiary {...props} onClick={handleOnClick(props)}>
-        {handleText(props)}
+        {handleText({ ...props, loading })}
       </Tertiary>
     );
   }
   if (quaternary) {
     return (
       <Quaternary {...props} onClick={handleOnClick(props)}>
-        {handleText(props)}
+        {handleText({ ...props, loading })}
       </Quaternary>
     );
   }
   if (quinary) {
     return (
       <Quinary {...props} onClick={handleOnClick(props)}>
-        {handleText(props)}
+        {handleText({ ...props, loading })}
       </Quinary>
     );
   }
   if (facebook) {
     return (
       <Facebook {...props} onClick={handleOnClick(props)} loading={loading}>
-        {handleText(props)}
+        {handleText({ ...props, loading })}
       </Facebook>
     );
   }
   if (twitter) {
     return (
       <Twitter {...props} onClick={handleOnClick(props)} loading={loading}>
-        {handleText(props)}
+        {handleText({ ...props, loading })}
       </Twitter>
     );
   }
   if (line) {
     return (
       <Line {...props} onClick={handleOnClick(props)}>
-        {handleText(props)}
+        {handleText({ ...props, loading })}
       </Line>
     );
   }
   if (areaPin) {
     return (
       <AreaPin {...props} onClick={handleOnClick(props)}>
-        {handleText(props)}
+        {handleText({ ...props, loading })}
       </AreaPin>
     );
   }
 
   return (
     <Primary {...props} onClick={handleOnClick(props)}>
-      {handleText(props)}
+      {handleText({ ...props, loading })}
     </Primary>
   );
 };
