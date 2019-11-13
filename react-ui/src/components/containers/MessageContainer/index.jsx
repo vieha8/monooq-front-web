@@ -134,13 +134,15 @@ class MessageContainer extends Component {
 
   createMessageList = () => {
     const { messages, match, user, room } = this.props;
+
+    if (!messages) return false;
+
     return messages.map(message => {
       switch (message.messageType) {
-        case MessageType.Text:
-          let imageUrl = message.image;
-          if (imageUrl) {
-            imageUrl = convertImgixUrl(message.image, 'fit=crop&auto=format');
-          }
+        case MessageType.Text: {
+          const imageUrl = message.image
+            ? convertImgixUrl(message.image, 'fit=crop&auto=format')
+            : '';
 
           if (message.userId === user.id) {
             return {
@@ -160,6 +162,7 @@ class MessageContainer extends Component {
               receivedAt: message.createDt,
             },
           };
+        }
         case MessageType.Estimate:
           {
             const { startDate, endDate, price, requestId, request } = message;
@@ -181,7 +184,7 @@ class MessageContainer extends Component {
             }
           }
           break;
-        case MessageType.Completed:
+        case MessageType.Completed: {
           const { request } = message;
           if (request) {
             return {
@@ -196,6 +199,7 @@ class MessageContainer extends Component {
             };
           }
           break;
+        }
         default:
           break;
       }
