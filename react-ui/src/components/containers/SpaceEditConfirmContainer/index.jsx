@@ -10,7 +10,7 @@ import Detail from 'components/LV3/Space/Detail';
 import { Height as HeaderHeight, HeightPhone as HeaderHeightPhone } from 'components/LV3/Header';
 
 import styled from 'styled-components';
-import { Colors, Dimens, FontSizes } from 'variables';
+import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import dummySpaceImage from 'images/dummy_space.png';
 import { connect } from 'react-redux';
@@ -33,7 +33,7 @@ const ConfirmMessage = styled.div`
   position: fixed;
   left: 0px;
   top: ${HeaderHeight}px;
-  z-index: 100;
+  z-index: ${ZIndexes.frontParts};
   text-align: center;
   padding: ${Dimens.medium_17}px;
   line-height: 22px;
@@ -53,7 +53,7 @@ const EntryButtonWrap = styled.div`
   position: fixed;
   left: 0px;
   bottom: 0px;
-  z-index: 100;
+  z-index: ${ZIndexes.frontParts};
   text-align: center;
   padding: ${Dimens.medium}px;
   background-color: ${Colors.white};

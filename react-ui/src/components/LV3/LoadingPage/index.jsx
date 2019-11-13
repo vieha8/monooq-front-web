@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Colors } from 'variables';
+import { Colors, ZIndexes } from 'variables';
 import Loading from 'components/LV1/Loading';
 
 const Container = styled.div`
@@ -19,7 +19,7 @@ const Content = styled.div`
   top: 0px;
   left: 0px;
   background-color: ${Colors.white};
-  z-index: 1500;
+  z-index: ${ZIndexes.loader};
 `;
 
 export default () => (

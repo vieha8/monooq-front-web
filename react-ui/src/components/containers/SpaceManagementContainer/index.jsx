@@ -40,7 +40,18 @@ class SpaceManagementContainer extends Component {
       return <LoadingPage />;
     }
 
-    if (Array.isArray(spaces) && spaces.length === 0) {
+    if (!Array.isArray(spaces)) {
+      return (
+        <SpaceDataNone
+          captionHead="スペース情報の取得に失敗しました。"
+          caption="画面を再読み込みするか、時間をおいてから再度アクセスをお願いいたします。"
+          buttonText="画面を再読み込みする"
+          onClick={() => window.location.reload()}
+        />
+      );
+    }
+
+    if (spaces.length === 0) {
       return (
         <SpaceDataNone
           captionHead="登録したスペースがありません"

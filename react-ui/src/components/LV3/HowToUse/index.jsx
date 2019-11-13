@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Dimens, Colors, FontSizes } from 'variables';
+import { Dimens, Colors, FontSizes, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const howtouseEyeCatch =
@@ -32,7 +32,6 @@ const TopWrapper = styled.div`
     width: 70%;
     height: 324px;
     background: ${Colors.lightGray1Bg};
-    z-index: -2;
   }
   ${media.tablet`
     top: 0px;
@@ -57,7 +56,7 @@ const TopEyeCatch = styled.img`
   top: 0;
   left: 0;
   width: 70%;
-  z-index: -1;
+  z-index: ${ZIndexes.child_1};
   ${media.giant`
     width: 90%;
   `};
@@ -74,6 +73,7 @@ const TopMessageContent = styled.div`
   width: 550px;
   padding: ${Dimens.medium4_50}px ${Dimens.medium2}px;
   background-color: ${Colors.white};
+  z-index: ${ZIndexes.child_2};
   ${media.tablet`
     top: 230px;
     left: 0;
@@ -229,7 +229,7 @@ const ContentImage = styled.img`
   position: absolute;
   left: ${Dimens.medium_18}px;
   height: 280px;
-  z-index: 1;
+  z-index: ${ZIndexes.child_1};
   ${media.tablet`
     position: relative;
     width: 100%;
@@ -245,7 +245,7 @@ const ContentNo = styled.div`
   font-size: 100px;
   font-weight: bold;
   color: rgba(232, 82, 88, 0.9);
-  z-index: 3;
+  z-index: ${ZIndexes.child_3};
   ${media.tablet`
     top: -${Dimens.medium2_38}px;
     left: ${Dimens.small2_14}px;
@@ -277,7 +277,7 @@ const ContentText = styled.div`
   height: 170px;
   text-align: left;
   background-color: ${Colors.white};
-  z-index: 2;
+  z-index: ${ZIndexes.child_2};
   ${media.tablet`
     position: relative;
     width: 100%;

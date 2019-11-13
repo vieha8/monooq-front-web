@@ -12,6 +12,7 @@ import OtherMessage from 'components/LV2/Message/Other';
 import EstimateMessage from 'components/LV2/Message/Estimate';
 import PhotoMessage from 'components/LV2/Message/Photo';
 import MessageInput from 'components/LV2/Message/Input';
+import DataNone from 'components/LV3/SpaceDataNone';
 import { Dimens, Colors } from 'variables';
 
 const Row = styled.div`
@@ -96,6 +97,17 @@ export default ({
   onClickEstimate,
 }) => {
   const messageList = messages;
+
+  if (!messageList) {
+    return (
+      <DataNone
+        captionHead="メッセージの取得に失敗しました。"
+        caption="画面を再読み込みするか、時間をおいてから再度アクセスをお願いいたします。"
+        buttonText="画面を再読み込みする"
+        onClick={() => window.location.reload()}
+      />
+    );
+  }
 
   if (messageList.length >= 1) {
     // ルームの初回メッセージをトリガーとして、ユーザー・ホストの「双方」に表示 ※永続表示
