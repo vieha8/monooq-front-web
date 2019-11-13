@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Dimens, Colors } from 'variables';
+import { Dimens, Colors, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
 import SearchConditionMoreSP from 'components/LV3/SearchConditionMoreSP';
@@ -10,7 +10,7 @@ const Wrap = styled.div`
   position: fixed;
   left: 0px;
   bottom: 0px;
-  z-index: 1100;
+  z-index: ${ZIndexes.frontPartsOverFooter};
   text-align: center;
   padding: ${Dimens.medium}px;
   background-color: rgba(255, 255, 255, 0.8);

@@ -80,13 +80,8 @@ const ButtonWrap = styled.div`
     margin-left: ${Dimens.medium1}px;
   }
   ${media.phone`
-    display: inline-block;
     width: 100%;
     max-width: calc(50% - 8px);
-    left: 0px;
-    bottom: 0px;
-    z-index: 1000;
-    text-align: center;
     padding: 0 0 15px;
     &:last-child {
       margin-left: ${Dimens.medium}px;

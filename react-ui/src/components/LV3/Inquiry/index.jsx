@@ -22,13 +22,8 @@ const ButtonWrap = styled.div`
   max-width: 240px;
   margin: ${Dimens.medium2}px auto ${Dimens.medium2}px 0px;
   ${media.phone`
-    display: block;
     width: 100%;
     max-width: 100%;
-    left: 0px;
-    bottom: 0px;
-    z-index: 1000;
-    text-align: center;
     padding: 0 0 15px;
   `};
 `;
