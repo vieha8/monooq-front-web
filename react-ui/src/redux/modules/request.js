@@ -262,8 +262,8 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     token,
   );
 
-  let errMsg = 'カード情報の認証に失敗しました。\n';
-  const errMsgCs = `${errMsg}繰り返し認証に失敗する場合、モノオクカスタマーサポートまでお問い合わせください。`;
+  let errMsg = '以下の理由により決済ができませんでした。\n';
+  const errMsgCs = `${errMsg}繰り返し失敗する場合、モノオクカスタマーサポートまでお問い合わせください。`;
 
   if (err) {
     yield handleError(requestActions.paymentFailed, { errMsg: errMsgCs }, 'payment', err, false);
@@ -330,7 +330,9 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
       case 'invalid_account_number': // 利用できないカード番号です。
         errMsg = errMsgCs;
         break;
-
+      case 'already_paid':
+        errMsg += 'お支払済みです。';
+        break;
       default:
         errMsg += 'カード名義・カード番号・有効期限・セキュリティコードをお確かめください。';
         break;
