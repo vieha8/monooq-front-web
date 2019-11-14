@@ -316,7 +316,7 @@ export default ({
                   <OnlyPC>
                     <TextWrapper>
                       <TextLink
-                        href={loginUrl}
+                        to={loginUrl}
                         color={linkColor(top, isOverTopView, false)}
                         colorHover={linkColor(top, isOverTopView, true)}
                         bold
