@@ -6,7 +6,7 @@ import Button from 'components/LV1/Forms/Button';
 import SearchConditionMoreSP from 'components/LV3/SearchConditionMoreSP';
 
 const Wrap = styled.div`
-  display; none;
+  display: none;
   width: 100%;
   position: fixed;
   left: 0px;
