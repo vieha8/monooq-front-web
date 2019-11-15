@@ -178,7 +178,7 @@ class SearchResultHeaderContainer extends Component {
   };
 
   getPrefectureList = () => {
-    areaPrefectures.map(a => {
+    return areaPrefectures.map(a => {
       return {
         title: a.region,
         collapsibleItemList: a.prefectureList.map(p => {
