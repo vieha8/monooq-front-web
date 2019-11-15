@@ -112,7 +112,7 @@ export const extract = input => {
 };
 
 export const parse = (input, options) => {
-  options = Object.assign({ decode: true, arrayFormat: 'none' }, options);
+  options = { decode: true, arrayFormat: 'none', ...options };
 
   const formatter = parserForArrayFormat(options);
 
