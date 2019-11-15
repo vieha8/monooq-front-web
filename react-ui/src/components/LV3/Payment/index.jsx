@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import Path from 'config/path';
-import { Dimens, Colors, FontSizes } from 'variables';
+import { Dimens, Colors, FontSizes, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { formatRemoveComma } from 'helpers/string';
 import Button from 'components/LV1/Forms/Button';
@@ -51,7 +51,7 @@ const HeadMessage = styled.div`
   position: fixed;
   left: 0px;
   top: ${HeaderHeight}px;
-  z-index: 100;
+  z-index: ${ZIndexes.frontParts};
   text-align: center;
   padding: ${Dimens.medium_17}px;
   line-height: 22px;
@@ -436,13 +436,7 @@ export default ({
       )}
     </Row>
     <Row button>
-      <Button
-        secondary
-        fill={1}
-        loading={buttonLoading}
-        onClick={backButton}
-        onKeyDown={onKeyDownBack}
-      >
+      <Button secondary fill={1} onClick={backButton} onKeyDown={onKeyDownBack}>
         {backButtonText}
       </Button>
     </Row>

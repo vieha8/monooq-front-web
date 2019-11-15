@@ -6,7 +6,7 @@ import { H1 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/Forms/InputForm';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import { Colors, Dimens, FontSizes } from 'variables';
+import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 
 const Container = styled.div`
   text-align: center;
@@ -23,8 +23,8 @@ const ErrMessage = styled.div`
   display: block;
   position: fixed;
   left: 0px;
-  top: 64px;
-  z-index: 100;
+  top: 85px;
+  z-index: ${ZIndexes.frontParts};
   text-align: center;
   padding: ${Dimens.medium_17}px;
   line-height: 22px;

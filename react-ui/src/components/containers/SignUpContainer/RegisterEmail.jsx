@@ -3,7 +3,7 @@ import { authActions } from 'redux/modules/auth';
 import RegisterEmail from 'components/LV3/RegisterEmail';
 import Path from 'config/path';
 import styled from 'styled-components';
-import { Colors, Dimens, FontSizes, ErrorMessages } from 'variables';
+import { Colors, Dimens, FontSizes, ErrorMessages, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
 
@@ -13,8 +13,8 @@ const ErrMessage = styled.div`
   display: block;
   position: fixed;
   left: 0px;
-  top: 64px;
-  z-index: 100;
+  top: 85px;
+  z-index: ${ZIndexes.frontParts};
   text-align: center;
   padding: ${Dimens.medium_17}px;
   line-height: 22px;

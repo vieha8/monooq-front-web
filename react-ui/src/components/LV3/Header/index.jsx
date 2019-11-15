@@ -220,16 +220,21 @@ const menuCommon = (aboutUrl, howtouseUrl, helpUrl) => {
 };
 
 const linkColor = (top, isOverTopView, isHoverColor) => {
-  // TODO: 最適化したい
-  return top
-    ? isOverTopView
-      ? isHoverColor
-        ? Colors.brandTerciary
-        : Colors.brandPrimary
-      : Colors.white
-    : isHoverColor
-    ? Colors.brandTerciary
-    : Colors.brandPrimary;
+  let resultVal = Colors.brandPrimary;
+
+  if (top) {
+    if (isOverTopView) {
+      if (isHoverColor) {
+        resultVal = Colors.brandTerciary;
+      }
+    } else {
+      resultVal = Colors.white;
+    }
+  } else if (isHoverColor) {
+    resultVal = Colors.brandTerciary;
+  }
+
+  return resultVal;
 };
 
 export default ({
@@ -316,7 +321,7 @@ export default ({
                   <OnlyPC>
                     <TextWrapper>
                       <TextLink
-                        href={loginUrl}
+                        to={loginUrl}
                         color={linkColor(top, isOverTopView, false)}
                         colorHover={linkColor(top, isOverTopView, true)}
                         bold

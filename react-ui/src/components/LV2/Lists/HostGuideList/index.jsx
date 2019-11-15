@@ -15,11 +15,11 @@ const Header = styled.div`
   font-weight: bold;
 `;
 
-export default ({ header, data1, data2, data3 }) => (
+export default ({ header, guideList }) => (
   <Container>
     <Header>{header}</Header>
-    <TextCard data={data1} />
-    <TextCard data={data2} />
-    <TextCard data={data3} />
+    {guideList.map((item, i) => (
+      <TextCard key={i.toString()} text={item.text} />
+    ))}
   </Container>
 );

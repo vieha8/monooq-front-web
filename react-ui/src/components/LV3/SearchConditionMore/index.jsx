@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Modal } from 'semantic-ui-react';
-import { Dimens, FontSizes, Colors } from 'variables';
+import { Dimens, FontSizes, Colors, ZIndexes } from 'variables';
 import Button from 'components/LV1/Forms/Button';
 import CloseIcon from 'components/LV2/ButtonHeader/CloseIcon';
 import CityTownAreaList from 'components/LV2/Lists/CityTownAreaList';
@@ -28,7 +28,7 @@ const CityTownAreaListWrap = styled.div`
   ${props =>
     props.isCityTownAreaList &&
     `
-      margin-bottom: 114px;
+      padding: 0 ${Dimens.medium}px 25px;
   `};
 `;
 
@@ -61,7 +61,7 @@ const BottomWrap = styled.div`
   position: fixed;
   left: 0px;
   bottom: 0px;
-  z-index: 2000;
+  z-index: ${ZIndexes.modal};
   background-color: ${Colors.white};
   border-top: 1px solid ${Colors.borderGray};
 `;

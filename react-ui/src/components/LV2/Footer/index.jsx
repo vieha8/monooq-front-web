@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Hr from 'components/LV1/HorizontalRule';
-import { Colors, Dimens, FontSizes } from 'variables';
+import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 import ListItem from './ListItem';
@@ -9,7 +9,7 @@ import CompanyInfo from './CompanyInfo';
 
 const Container = styled.footer`
   position: relative;
-  z-index: 1000;
+  z-index: ${ZIndexes.footer};
   display: flex;
   width: 100%;
   background-color: ${Colors.black4};

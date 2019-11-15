@@ -333,7 +333,7 @@
 
 /* Modal Search Condition More */
 .ui.dimmer {
-  z-index: 3000 !important;
+  z-index: 2500 !important;
   padding: 0 !important;
 }
 

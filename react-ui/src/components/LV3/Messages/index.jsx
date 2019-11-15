@@ -12,6 +12,7 @@ import OtherMessage from 'components/LV2/Message/Other';
 import EstimateMessage from 'components/LV2/Message/Estimate';
 import PhotoMessage from 'components/LV2/Message/Photo';
 import MessageInput from 'components/LV2/Message/Input';
+import DataNone from 'components/LV3/SpaceDataNone';
 import { Dimens, Colors } from 'variables';
 
 const Row = styled.div`
@@ -97,12 +98,23 @@ export default ({
 }) => {
   const messageList = messages;
 
+  if (!messageList) {
+    return (
+      <DataNone
+        captionHead="メッセージの取得に失敗しました。"
+        caption="画面を再読み込みするか、時間をおいてから再度アクセスをお願いいたします。"
+        buttonText="画面を再読み込みする"
+        onClick={() => window.location.reload()}
+      />
+    );
+  }
+
   if (messageList.length >= 1) {
     // ルームの初回メッセージをトリガーとして、ユーザー・ホストの「双方」に表示 ※永続表示
     messageList.splice(1, 0, {
       admin: {
         message:
-          '【リクエストが送信されました】\n取引を開始しましょう！\n＜ホストの方＞\nリクエスト内容を確認し、荷物を保管できるか確認しましょう。\n保管できる場合は、金額を提案し、見積もりを発行してください。\n※「見積もりを送る」ボタンはホストのメッセージ送信ボタン下部にございます。\n\n＜ユーザーの方＞\n利用期間や金額等、保管条件をホストと相談しましょう。\nホストから見積もりが届いたら決済を行ってください。\n※モノオク上での決済は保険適用のため必須となります。決済完了後、ホストスペースの住所をお知らせします。',
+          '【リクエストが送信されました】\n取引を開始しましょう！\n＜ホストの方＞\nリクエスト内容を確認し、荷物を保管できるか確認しましょう。\n保管できる場合は、金額を提案し、見積もりを発行してください。\n※「見積もりを送る」ボタンはホストのメッセージ送信ボタン下部にございます。\n\n＜ゲストの方＞\n利用期間や金額等、保管条件をホストと相談しましょう。\nホストから見積もりが届いたら決済を行ってください。\n※モノオク上での決済は保険適用のため必須となります。決済完了後、ホストスペースの住所をお知らせします。',
       },
     });
   }
@@ -111,7 +123,7 @@ export default ({
     // 自分がホストの場合かつ未送信の場合は、初期メッセージを追加する ※永続表示
     messageList.unshift({
       admin: {
-        message: 'あなたのスペースが興味をもたれています。ユーザーに希望条件を聞いてみましょう！',
+        message: 'あなたのスペースが興味をもたれています。ゲストに希望条件を聞いてみましょう！',
       },
     });
   } else if (!hostUser && messageList.length >= 0) {

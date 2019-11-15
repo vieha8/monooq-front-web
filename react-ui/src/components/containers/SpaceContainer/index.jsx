@@ -115,18 +115,19 @@ class SpaceContainer extends Component {
 
     const isNoIndex = space.status !== 'public';
 
-    const recommend = recommendSpaces.map(s => ({
-      id: s.id,
-      image: (s.images[0] || {}).imageUrl,
-      title: s.title,
-      address: `${s.addressPref}${s.addressCity}`,
-      isFurniture: s.isFurniture,
-      priceFull: s.priceFull,
-      priceHalf: s.priceHalf,
-      priceQuarter: s.priceQuarter,
-      onClick: () => this.onClickSpace(s),
-    }));
-
+    const recommend = recommendSpaces
+      ? recommendSpaces.map(s => ({
+          id: s.id,
+          image: (s.images[0] || {}).imageUrl,
+          title: s.title,
+          address: `${s.addressPref}${s.addressCity}`,
+          isFurniture: s.isFurniture,
+          priceFull: s.priceFull,
+          priceHalf: s.priceHalf,
+          priceQuarter: s.priceQuarter,
+          onClick: () => this.onClickSpace(s),
+        }))
+      : null;
     return (
       <Fragment>
         <Meta

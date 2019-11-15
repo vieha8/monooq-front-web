@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { FontSizes, Colors, Dimens } from 'variables';
+import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
 import ContainerDefault from 'components/LV1/ContainerDefault';
@@ -40,7 +40,6 @@ const TopWrapper = styled.div`
     width: 70%;
     height: 324px;
     background: ${Colors.lightGray1Bg};
-    z-index: -2;
   }
   ${media.tablet`
     top: 0px;
@@ -65,7 +64,7 @@ const TopEyeCatch = styled.img`
   top: 0;
   right: 0;
   width: 70%;
-  z-index: -1;
+  z-index: ${ZIndexes.child_1};
   ${media.giant`
     width: 90%;
   `};
@@ -82,6 +81,7 @@ const TopMessageContent = styled.div`
   width: 550px;
   padding: ${Dimens.medium4_50}px ${Dimens.medium2}px;
   background-color: ${Colors.white};
+  z-index: ${ZIndexes.child_2};
   ${media.tablet`
     top: 230px;
     left: 0;
