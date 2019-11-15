@@ -1,10 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import { mediaMin } from 'helpers/style/media-query';
+import { media, mediaMin } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { Link } from 'react-router-dom';
 
-const List = styled.ul``;
+const List = styled.ul`
+  margin: ${Dimens.medium2}px auto;
+  text-align: right;
+  ${media.tablet`
+    margin: ${Dimens.medium}px auto;
+  `};
+`;
 
 const Item = styled.li`
   line-height: ${Dimens.medium1}px;
