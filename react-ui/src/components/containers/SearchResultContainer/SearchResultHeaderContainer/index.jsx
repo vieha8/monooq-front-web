@@ -166,7 +166,7 @@ class SearchResultHeaderContainer extends Component {
     if (townsCode.length === 1 && citiesCode.length === 1) {
       // 町域ひとつ
       history.push(Path.spacesByTown(conditions.pref.code, citiesCode[0], townsCode[0]));
-    } else if (citiesCode.length === 1) {
+    } else if (townsCode.length === 0 && citiesCode.length === 1) {
       // 市区町村ひとつ
       history.push(Path.spacesByCity(conditions.pref.code, citiesCode[0]));
     } else {
