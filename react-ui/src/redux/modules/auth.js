@@ -494,15 +494,17 @@ function* unsubscribe({ payload: { reason, description } }) {
     return;
   }
 
-  const messageBody = `退会理由:${JSON.stringify(reason)}\n詳細:${description}\n`;
-  const body = {
-    Subject: `【退会完了】ユーザーID:${user.id}`,
-    Uid: 'DDtN7dr9r5VQKyuXRx8AcRgtPIW2', // 本番モノオク公式アカウント(info@monooq.com)
-    Body: messageBody,
-    Category: 'unsubscribe',
-  };
+  if (process.env.REACT_APP_ENV === 'production') {
+    const messageBody = `退会理由:${JSON.stringify(reason)}\n詳細:${description}\n`;
+    const body = {
+      Subject: `【退会完了】ユーザーID:${user.id}`,
+      Uid: 'DDtN7dr9r5VQKyuXRx8AcRgtPIW2', // 本番モノオク公式アカウント(info@monooq.com)
+      Body: messageBody,
+      Category: 'unsubscribe',
+    };
+    yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
+  }
 
-  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
   yield put(authActions.unsubscribeSuccess());
 }
 
