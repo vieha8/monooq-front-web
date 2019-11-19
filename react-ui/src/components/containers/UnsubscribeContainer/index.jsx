@@ -38,8 +38,8 @@ class UnsubscribeContainer extends Component {
     this.handleChangeUI('reasonType', '');
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.isUnsubscribeSuccess && nextProps.isUnsubscribeSuccess) {
+  componentDidUpdate(prevProps) {
+    if (!prevProps.isUnsubscribeSuccess && this.props.isUnsubscribeSuccess) {
       setTimeout(() => {
         const { dispatch } = this.props;
         dispatch(authActions.logout());

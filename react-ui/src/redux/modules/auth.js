@@ -294,7 +294,7 @@ function* checkLogin() {
     }
     yield put(authActions.checkLoginSuccess(status));
   } catch (err) {
-    yield put(authActions.checkLoginFailed(err));
+    yield handleError(authActions.checkLoginFailed, '', 'checkLogin', err, false);
   }
 }
 
@@ -305,6 +305,7 @@ function* loginEmail({ payload: { email, password } }) {
     yield put(authActions.loginSuccess());
   } catch (err) {
     yield put(authActions.loginFailed(err));
+    yield handleError(authActions.loginFailed, '', 'loginEmail', err, true);
   }
 }
 
@@ -317,7 +318,7 @@ function* loginFacebook() {
     const provider = new firebase.auth.FacebookAuthProvider();
     yield firebase.auth().signInWithRedirect(provider);
   } catch (err) {
-    yield put(authActions.loginFailed(err));
+    yield handleError(authActions.loginFailed, '', 'loginFacebook', err, true);
   }
 }
 
@@ -493,15 +494,17 @@ function* unsubscribe({ payload: { reason, description } }) {
     return;
   }
 
-  const messageBody = `退会理由:${JSON.stringify(reason)}\n詳細:${description}\n`;
-  const body = {
-    Subject: `【退会完了】ユーザーID:${user.id}`,
-    Uid: 'DDtN7dr9r5VQKyuXRx8AcRgtPIW2', // 本番モノオク公式アカウント(info@monooq.com)
-    Body: messageBody,
-    Category: 'unsubscribe',
-  };
+  if (process.env.REACT_APP_ENV === 'production') {
+    const messageBody = `退会理由:${JSON.stringify(reason)}\n詳細:${description}\n`;
+    const body = {
+      Subject: `【退会完了】ユーザーID:${user.id}`,
+      Uid: 'DDtN7dr9r5VQKyuXRx8AcRgtPIW2', // 本番モノオク公式アカウント(info@monooq.com)
+      Body: messageBody,
+      Category: 'unsubscribe',
+    };
+    yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
+  }
 
-  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
   yield put(authActions.unsubscribeSuccess());
 }
 
