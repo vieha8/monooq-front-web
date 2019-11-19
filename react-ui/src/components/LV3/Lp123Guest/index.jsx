@@ -8,6 +8,9 @@ import ContainerDefault from 'components/LV1/ContainerDefault';
 import WhenIUseList from 'components/LV2/Lists/WhenIUseList';
 import WhenIUseCardList from 'components/LV2/Lists/WhenIUseCardList';
 import ImageHero from 'images/lp123guest/hero.jpg';
+import ImageBarLeft from 'images/lp123guest/icon-bar-left.png';
+import ImageBarRight from 'images/lp123guest/icon-bar-right.png';
+
 import ImageWantFile from 'images/lp123guest/icon-want-file.png';
 import ImageWantGolf from 'images/lp123guest/icon-want-golf.png';
 import ImageWantHome from 'images/lp123guest/icon-want-home.png';
@@ -40,7 +43,10 @@ const guarantee =
 const ruleManner =
   'https://monooq.imgix.net/img%2Fservice%2Frule_manner%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  min-width: 320px;
+  font-weight: 500;
+`;
 
 const TopWrapper = styled.div`
   position: relative;
@@ -49,6 +55,12 @@ const TopWrapper = styled.div`
   width: 100%;
   overflow: hidden;
   background-color: ${Colors.darkGray1};
+  background-image: url(${ImageHero});
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.2);
+  background-blend-mode: lighten;
   ${media.tablet`
     top: 0px;
     width: 100%;
@@ -61,47 +73,25 @@ const TopWrapper = styled.div`
   `};
 `;
 
-const TopEyeCatch = styled.img`
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0.6;
-`;
-
 const TopMessageContent = styled.div`
   position: relative;
   width: 100%;
   top: 130px;
   text-align: center;
   ${media.tablet`
-    top: 230px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-width: 500px;
-    height: initial;
     margin: auto;
-    text-align: center;
-    padding: ${Dimens.medium1}px;
-  `};
-  ${media.tablet`
-    width: calc(100% - 32px);
-  `};
-  ${media.phone`
-    top: 180px;
+    padding: 0 ${Dimens.medium}px;
   `};
 `;
 
 const TopTitle = styled.h1`
-  font-size: ${FontSizes.xxlarge_40}px;
-  line-height: ${Dimens.medium4}px;
+  font-size: ${FontSizes.medium3}px;
+  line-height: ${Dimens.medium2_38}px;
   font-weight: bold;
   margin-bottom: ${Dimens.small2}px;
   margin-bottom: 20px;
   color: ${Colors.white};
   text-shadow: 1px 1px 1px #333;
-
   ${media.tablet`
     font-size: ${FontSizes.medium2}px;
     line-height: ${Dimens.medium2}px;
@@ -112,20 +102,78 @@ const TopTitle = styled.h1`
   `}
 `;
 
+const InitialCost = styled.span`
+  display: block;
+  margin-bottom: 14px;
+  color: ${Colors.white};
+  text-shadow: 1px 1px 1px #333;
+  &::before,
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    vertical-align: bottom;
+    background-repeat: no-repeat;
+  }
+  &::before {
+    margin-right: 5px;
+    background: url(${ImageBarLeft}) 0% 0% / 25px 25px no-repeat;
+  }
+  &:after {
+    margin-left: 5px;
+    background: url(${ImageBarRight}) 0% 0% / 25px 25px no-repeat;
+  }
+`;
+
+const ButtonTopMessageWrap = styled.div`
+  position: relative;
+  max-width: 440px;
+  margin: auto;
+  &:after {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    display: block;
+    content: '';
+    width: 12px;
+    height: 12px;
+    margin-top: -6px;
+    border-top: 4px solid ${Colors.white};
+    border-right: 4px solid ${Colors.white};
+    transform: rotate(45deg);
+  }
+  ${media.phone`
+    &:after {
+      right: 20px;
+    }
+  `}
+`;
+
+const ButtonTopMessageButtonText = styled.span`
+  vertical-align: middle;
+  padding: 6px;
+  margin-left: -30px;
+  margin-right: 12px;
+  background-color: ${Colors.white};
+  color: ${Colors.black};
+  font-size: 12px;
+`;
+
 const SectionTitle = styled.span`
   position: relative;
   display: block;
   font-size: x-large;
   text-align: center;
   margin-top: 0.7em;
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
   &::before {
     content: '';
     position: absolute;
     display: block;
     width: 60px;
-    height: 2px;
-    bottom: -10px;
+    height: 3px;
+    bottom: -16px;
     left: 50%;
     -moz-transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
@@ -137,28 +185,58 @@ const SectionTitle = styled.span`
 `;
 
 const WantWrap = styled.div`
+  max-width: 960px;
   position: relative;
-  background: #fff;
-  padding-top: 10px;
-  padding-bottom: 25px;
+  background: ${Colors.white};
+  padding: ${Dimens.medium1_25}px;
   border-radius: 6px;
   box-shadow: 0.5px 0px 3px #333;
+  margin: ${Dimens.small_10}px auto ${Dimens.medium4_50}px;
+  ${media.tablet`
+    box-shadow: unset;
+    padding: ${Dimens.medium1_25}px ${Dimens.medium}px;
+  `};
+  ${media.phone`
+    padding: ${Dimens.medium}px ${Dimens.medium}px;
+  `};
 `;
 
 const WantUl = styled.ul`
   width: 100%;
+  box-sizing: border-box;
   text-align: center;
 `;
 
 const WantLi = styled.li`
-  border: solid 1px #eee;
+  border: solid 1px ${Colors.lightGray2};
   border-radius: 6px;
   display: inline-block;
-  width: 32%;
+  width: calc(33.333333% - 6px);
+  margin: 0 auto ${Dimens.small_10}px;
+  &:nth-child(2),
+  &:nth-child(5) {
+    margin: 0 ${Dimens.small_9}px ${Dimens.small_10}px;
+  }
+  ${media.phone`
+    width: calc(50% - 10px);
+    &:nth-child(2),
+    &:nth-child(5) {
+      margin: 0 auto ${Dimens.small_10}px;
+    }
+    &:nth-child(2n) {
+      margin: 0 auto ${Dimens.small_10}px ${Dimens.small_10}px;
+    }
+  `};
 `;
 
 const WantLiFigure = styled.figure`
   padding: 10px 5px;
+  ${media.tablet`
+    font-size: ${FontSizes.small}px;
+  `};
+  ${media.phone`
+    font-size: ${FontSizes.small_12}px;
+  `};
 `;
 
 const WantLiImg = styled.img`
@@ -169,10 +247,11 @@ const WantLiImg = styled.img`
 
 const WorryWrap = styled.div`
   position: relative;
+  margin: ${Dimens.small_10}px auto ${Dimens.medium_20}px;
   margin-bottom: 0 !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-  background-color: #eee;
+  background-color: ${Colors.lightGray9};
   background-image: url(${ImageBgWorry});
   background-repeat: no-repeat;
   background-size: cover;
@@ -187,10 +266,10 @@ const WorryWrap = styled.div`
     height: 0px;
     margin: auto;
     border-style: solid;
-    border-color: #fff transparent transparent transparent;
-    border-width: 25px 50px 0 50px;
+    border-color: ${Colors.white} transparent transparent transparent;
+    border-width: ${Dimens.medium1_25}px ${Dimens.medium4_50}px 0 ${Dimens.medium4_50}px;
   }
-  &::before {
+  &::after {
     content: '';
     position: absolute;
     right: 0;
@@ -200,37 +279,56 @@ const WorryWrap = styled.div`
     height: 0px;
     margin: auto;
     border-style: solid;
-    border-color: #eee transparent transparent transparent;
-    border-width: 25px 50px 0 50px;
+    border-color: ${Colors.lightGray9} transparent transparent transparent;
+    border-width: ${Dimens.medium1_25}px ${Dimens.medium4_50}px 0 ${Dimens.medium4_50}px;
     z-index: 1;
   }
 `;
 
 const WorryConnect = styled.span`
   top: 12%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  ${media.phone`
+    top: 20%;
+  `};
 `;
 
 const WorryWrapUl = styled.div`
   position: relative;
   min-height: 280px;
+  max-width: 960px;
+  margin: auto;
+  padding: 0px ${Dimens.medium2}px;
   background-image: url(${ImageBgWorryPerson});
   background-repeat: no-repeat;
   background-size: 280px;
   background-position: bottom right;
-  padding-left: 30px;
-  padding-right: 30px;
+  ${media.tablet`
+    padding: 0px ${Dimens.medium}px;
+  `};
+  ${media.phone`
+    min-height: 220px;
+    padding: 0px ${Dimens.small_10}px;
+    background-size: 100px;
+  `};
 `;
 
 const WorryUl = styled.ul`
   position: absolute;
   top: 50%;
-  -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
-  font-size: x-large;
+  font-size: ${FontSizes.medium2_26}px;
+  text-align: left;
+  ${media.phone`
+    background-size: 100px;
+    font-size: ${FontSizes.small_12}px;
+  `};
 `;
 
 const WorryLi = styled.li`
-  top: 12%;
+  margin-bottom: 0.7em;
 `;
 
 // TODO: activeクラス付与時のみ、background-position
@@ -249,7 +347,8 @@ const Marker = styled.span`
 
 const CatchPhraseWrap = styled.div`
   position: relative;
-  background: #e85258;
+  background-color: ${Colors.brandPrimary};
+  margin: ${Dimens.small_10}px auto ${Dimens.medium_20}px;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
   min-height: 150px;
@@ -258,22 +357,34 @@ const CatchPhraseWrap = styled.div`
 
 const CatchPhraseConnect = styled.span`
   top: 30%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 const CatchPhraseText = styled.span`
-  font-size: xx-large;
   display: block;
+  font-size: ${FontSizes.large}px;
+  line-height: normal;
   text-align: center;
-  margin-top: 55px;
+  padding-top: ${Dimens.large4_80}px;
+  ${media.tablet`
+    font-size: 24px;
+    padding: ${Dimens.large4_80}px ${Dimens.medium}px ${Dimens.medium2}px;
+  `};
+`;
+
+const BrOnlyTabletSP = styled.br`
+  display: none;
+  ${media.tablet`
+    display: block;
+  `};
 `;
 
 const MeritWrap = styled.div`
   position: relative;
-  background: #ffeaeb;
-  margin-top: 0 !important;
-  padding-top: 30px !important;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding: ${Dimens.medium2}px;
+  background-color: ${Colors.brandQuaternary};
   &::before {
     content: '';
     position: absolute;
@@ -284,8 +395,8 @@ const MeritWrap = styled.div`
     height: 0px;
     margin: auto;
     border-style: solid;
-    border-color: #e85258 transparent transparent transparent;
-    border-width: 25px 50px 0 50px;
+    border-color: ${Colors.brandPrimary} transparent transparent transparent;
+    border-width: ${Dimens.medium1_25}px ${Dimens.medium4_50}px 0 ${Dimens.medium4_50}px;
   }
   &::after {
     content: '';
@@ -297,73 +408,156 @@ const MeritWrap = styled.div`
     height: 0px;
     margin: auto;
     border-style: solid;
-    border-color: #ffeaeb transparent transparent transparent;
-    border-width: 25px 50px 0 50px;
+    border-color: ${Colors.brandQuaternary} transparent transparent transparent;
+    border-width: ${Dimens.medium1_25}px ${Dimens.medium4_50}px 0 ${Dimens.medium4_50}px;
     z-index: 1;
   }
+  ${media.tablet`
+    padding: ${Dimens.medium2}px ${Dimens.medium}px;
+  `};
 `;
 
 const MeritTable = styled.table`
-  background: #fff;
-  border: solid 3px #ddd;
+  max-width: 900px;
+  margin: auto;
+  background: ${Colors.white};
+  border: solid 3px ${Colors.lightGray2};
+  text-align: left;
+  ${media.tablet`
+    font-size: ${FontSizes.small}px;
+  `};
+  ${media.phone`
+    font-size: ${FontSizes.small_12}px;
+  `};
 `;
 
 const MeritTableHead = styled.thead`
-  background: #ddd;
-  color: #fff;
+  background-color: ${Colors.lightGray2};
+  color: ${Colors.white};
+  text-align: center;
 `;
 
 const MeritTableHeadTh = styled.th`
-  border: solid 1px #ddd;
+  &:first-child {
+    width: 20%;
+  }
+  padding: ${Dimens.small2}px ${Dimens.small}px;
+  border: solid 1px ${Colors.lightGray2};
   font-weight: normal;
-  background: #efefef;
+  vertical-align: middle;
+  color: ${Colors.black};
+  background-color: ${Colors.lightGray2};
+  ${props =>
+    props.monooq &&
+    `
+      font-size: ${FontSizes.medium1}px;
+      color: ${Colors.white};
+      background-color: ${Colors.brandPrimary};;
+      border: solid 3px ${Colors.brandPrimary};
+    `};
+  ${media.phone`
+    ${props =>
+      props.monooq &&
+      `
+        font-size: ${FontSizes.medium}px;
+      `};
+  `};
+`;
+
+const MeritTableTbodyTh = styled.th`
+  padding: ${Dimens.small2}px ${Dimens.small}px;
+  border: solid 1px ${Colors.lightGray2};
   font-weight: normal;
-  width: 20%;
+  text-align: center;
+  background-color: ${Colors.lightGray8};
   &:nth-child(2) {
-    background: #e85258;
-    border: solid 3px #e85258;
-    color: #fff;
-    font-size: large;
+    border: solid 3px ${Colors.brandPrimary} !important;
   }
 `;
 
 const MeritTableTbodyTd = styled.td`
-  border: solid 1px #ddd;
-  font-weight: normal;
-  &:nth-child(2) {
-    border: solid 3px #e85258 !important;
-  }
-`;
-
-const MeritTableTrTd = styled.td`
-  &:nth-child(1) {
-    border: solid 5px #e85258 !important;
-  }
+  padding: ${Dimens.small2}px ${Dimens.small}px;
+  border: solid 1px ${Colors.lightGray2};
+  ${props =>
+    props.monooq &&
+    `
+      border: solid 3px ${Colors.brandPrimary};
+    `};
 `;
 
 const BusinessmodelWrap = styled.div`
   position: relative;
+  padding: ${Dimens.medium2}px 0;
   &:nth-child(1) {
-    border: solid 5px #e85258 !important;
+    border: solid 5px ${Colors.brandPrimary} !important;
   }
+  ${media.tablet`
+    padding: ${Dimens.medium2}px ${Dimens.medium}px;
+  `};
 `;
 
-const BusinessmodelWrapFigure = styled.figure``;
+const BusinessmodelWrapFigure = styled.figure`
+  max-width: 900px;
+  margin: auto;
+  font-size: ${FontSizes.medium2_26}px;
+`;
+
+const BusinessmodelWrapFigureImage = styled.img`
+  width: 100%;
+`;
 
 const BusinessmodelWrapFigcaption = styled.figcaption`
-  font-size: medium;
+  margin-top: ${Dimens.medium_20}px;
+  font-size: ${FontSizes.medium_18}px;
+  line-height: 2em;
+  text-align: left;
 `;
 
 const PickupSpaceWrap = styled.div`
   position: relative;
+  background-color: ${Colors.brandQuaternary};
+  padding: ${Dimens.medium2}px;
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    left: 0;
+    width: 0px;
+    height: 0px;
+    margin: auto;
+    border-style: solid;
+    border-width: ${Dimens.medium1_25}px ${Dimens.medium4_50}px 0 ${Dimens.medium4_50}px;
+  }
+  &::before {
+    top: 0px;
+    border-color: ${Colors.white} transparent transparent transparent;
+  }
+  &::after {
+    bottom: -25px;
+    border-color: ${Colors.brandQuaternary} transparent transparent transparent;
+    z-index: 1;
+  }
+  ${media.tablet`
+    padding: ${Dimens.medium2}px ${Dimens.medium}px;
+  `};
 `;
 
 const PickupSpaceItem = styled.div`
+  max-width: 825px;
+  margin: auto;
   border-radius: 6px;
-  padding: 15px 15px 0;
-  margin-bottom: 15px;
+  padding: ${Dimens.small2_15}px ${Dimens.small2_15}px 0;
+  margin-bottom: ${Dimens.small2_15}px;
   background: #fff;
   box-shadow: 0.5px 0px 3px #333;
+  ${media.phone`
+    padding: 0;
+  `};
+`;
+
+const PickupSpaceBasic = styled.div`
+  overflow: hidden;
 `;
 
 const PickupSpaceImageWrap = styled.div`
@@ -371,113 +565,252 @@ const PickupSpaceImageWrap = styled.div`
   text-align: center;
 `;
 
-const PickupSpaceImagePrice = styled.span`
-  color: #fff;
-  background: rgba(33, 33, 33, 0.6);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  padding: 0.2em 0.5em;
+const PickupSpaceImage = styled.img`
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  float: left;
+  ${media.tablet`
+    max-width: 160px;
+  `};
+  ${media.phone`
+    max-width: 100%;
+    border-top-left-radius: ${Dimens.xsmall}px;
+    border-top-right-radius: ${Dimens.xsmall}px;
+    float: none;
+  `};
 `;
 
-const Yen = styled.span`
-  color: #fff;
-  margin: 0;
+const PickupSpaceImagePrice = styled.span`
+  display: none;
+  ${media.phone`
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    padding: ${Dimens.small_10}px;
+    color: ${Colors.white};
+    background-color: rgba(33, 33, 33, 0.6);
+  `};
 `;
 
 const PickupSpaceDesc = styled.div`
-  margin: 0;
-  float: none;
-  padding-left: 15px;
-  padding-right: 15px;
+  overflow: hidden;
+  margin-left: 270px;
+  line-height: 1.8em;
+  ${media.tablet`
+    margin-left: 170px;
+  `};
+  ${media.phone`
+    margin: 0;
+    float: none;
+    padding: ${Dimens.small_10}px ${Dimens.small2_15}px 0;
+    line-height: 1.5em;
+  `};
 `;
 
 const PickupSpaceDescLocation = styled.div`
-  float: none;
+  width: 50%;
+  float: left;
+  text-align: left;
+  ${media.phone`
+    // float: none;
+    ${props =>
+      props.backage &&
+      `
+        // display: none;
+      `};
+  `};
+`;
+
+const PickupSpaceDescLocationTitle = styled.span`
+  ${media.phone`
+    display: none;
+  `};
 `;
 
 const PickupSpaceDescDl = styled.dl`
-  width: 100%;
-  margin: 0 0 10px;
+  width: 250px;
+  overflow: hidden;
+  margin-top: 6px;
+  ${media.tablet`
+    font-size: ${FontSizes.small_12}px;
+  `};
+  ${media.phone`
+    width: 100%;
+    margin: 0 0 10px;
+  `};
 `;
 
 const PickupSpaceDescDt = styled.dt`
-  width: 23%;
+  float: left;
+  clear: left;
+  width: 70px;
+  ${media.tablet`
+    width: 55px;
+  `};
+  ${media.phone`
+    width: 45%;
+  `};
 `;
 
 const PickupSpaceDescDd = styled.dd`
-  width: 77%;
+  ${media.phone`
+    width: 100%;
+  `};
+`;
+
+const PickupSpaceDescLocationViewPlan = styled.span`
+  display: none;
+  ${media.phone`
+    display: block;
+  `};
 `;
 
 const PickupSpaceDescHostWrap = styled.div`
-  margin: 0 -15px;
-  padding-left: 15px;
-  padding-right: 15px;
+  margin-top: 8px;
+  margin-bottom: 10px;
+  line-height: 1em;
+  overflow: hidden;
+  padding: ${Dimens.small_10}px ${Dimens.small}px;
   background: #eee;
-  line-height: 1.6em;
+  ${media.tablet`
+    padding: ${Dimens.xsmall}px ${Dimens.xxsmall_4}px;
+  `};
+  ${media.phone`
+    padding: ${Dimens.xsmall}px;
+  `};
 `;
 
 const PickupSpaceDescHostImage = styled.img`
   float: none;
   width: 30px;
   vertical-align: middle;
+  ${media.tablet`
+    width: 25px;
+  `};
 `;
 
 const PickupSpaceDescHostName = styled.span`
   margin-left: 0.3em;
   line-height: 1em;
+  ${media.tablet`
+    font-size: ${FontSizes.small_12}px;
+  `};
 `;
 
 const PickupSpacePlanUl = styled.ul`
   margin-top: 0;
   padding-top: 0;
+  margin: auto -${Dimens.small2_15}px;
+  ${media.phone`
+    margin: auto;
+  `};
 `;
 
 const PickupSpacePlanLi = styled.li`
-  padding-right: 90px;
+  position: relative;
+  margin-bottom: 0;
+  border-top: solid 1px #eee;
+  text-align: left;
+  &:after {
+    position: absolute;
+    top: 50%;
+    right: ${Dimens.medium2}px;
+    display: block;
+    content: '';
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    border-top: 2px solid ${Colors.black};
+    border-right: 2px solid ${Colors.black};
+    transform: rotate(45deg);
+  }
+  ${media.phone`
+    &:after {
+      right: ${Dimens.medium_20}px;
+    }
+  `};
 `;
 
 const PickupSpacePlanLiLink = styled.a`
-  line-height: 1.6em;
-  font-size: small;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  position: relative;
+  display: block;
+  text-decoration: none;
+  line-height: 1.8em;
+  padding: 1em 1.2em;
+  color: ${Colors.black};
+  ${media.phone`
+    line-height: 1.6em;
+    font-size: small;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  `};
 `;
 
 const PickupSpacePlanLiPrice = styled.span`
-  margin-right: 0.6em;
-  font-weight: bold;
-  &::after {
-    right: -25%;
-  }
+  position: absolute;
+  top: calc(50% - ${Dimens.medium_18}px);
+  right: ${Dimens.medium4_50}px;
+  ${media.phone`
+    top: calc(50% - ${Dimens.small_9}px);
+    right: ${Dimens.medium3_40}px;
+    font-weight: bold;
+  `};
 `;
 
 const PickupSpacePlanLiSmallButton = styled.span`
   display: inline-block;
-  font-size: small;
-  background: #e85258;
-  color: #fff;
-  padding: 3px 8px;
-  border-radius: 3px;
-  vertical-align: top;
+  font-size: ${FontSizes.small}px;
+  background-color: ${Colors.brandPrimary};
+  color: ${Colors.white};
+  padding: ${Dimens.xxsmall_4}px ${Dimens.small}px;
+  margin-left: ${Dimens.small2}px;
+  border-radius: ${Dimens.xxsmall_4}px;
+  ${media.phone`
+    display: none;
+  `};
 `;
 
-const FlowWrap = styled.div``;
+const FlowWrap = styled.div`
+  max-width: 900px;
+  margin: auto;
+  padding: ${Dimens.medium2}px;
+  ${media.tablet`
+    padding: ${Dimens.medium2}px ${Dimens.medium}px;
+  `};
+`;
 
-const FlowUl = styled.ul``;
+const FlowUl = styled.ul`
+  display: flex;
+  ${media.tablet`
+    flex-wrap: wrap;
+  `};
+`;
 
 const FlowLi = styled.li`
   display: inline-block;
-  width: 32%;
+  width: 33.333333333%;
   border: solid 1px #eee;
   border-radius: 6px;
+  line-height: 1.7em;
+  text-align: left;
+  &:nth-child(2) {
+    margin: auto ${Dimens.small_10}px;
+  }
+  ${media.tablet`
+    width: 100%;
+    &:nth-child(2) {
+      margin: ${Dimens.small_10}px auto;
+    }
+  `};
 `;
 
 const FlowLiItem = styled.div`
-  padding: 10px 5px;
+  padding: ${Dimens.small_10}px;
   overflow: hidden;
 `;
 
@@ -488,7 +821,9 @@ const FlowLiImg = styled.img`
   float: left;
 `;
 
-const FlowLiB = styled.b``;
+const FlowLiB = styled.b`
+  font-weight: bold;
+`;
 
 const FlowLiText = styled.span`
   display: block;
@@ -528,6 +863,7 @@ const WhenIUseContainer = styled(ContainerDefault)`
   text-align: center;
   ${media.tablet`
     margin-top: ${Dimens.medium2_32}px;
+    padding: 0px;
   `};
 `;
 
@@ -537,8 +873,29 @@ const WhenIUseContent = styled.div`
   }
 `;
 
-const ContentContainer = styled(ContainerDefault)`
+const QaWrap = styled.div`
+  position: relative;
+  background-color: ${Colors.brandQuaternary};
+  padding: ${Dimens.medium2}px;
   text-align: center;
+  &::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    left: 0;
+    width: 0px;
+    height: 0px;
+    margin: auto;
+    border-style: solid;
+    border-width: ${Dimens.medium1_25}px ${Dimens.medium4_50}px 0 ${Dimens.medium4_50}px;
+  }
+  &::before {
+    top: 0px;
+    border-color: ${Colors.white} transparent transparent transparent;
+  }
+  ${media.tablet`
+    padding: ${Dimens.medium2}px ${Dimens.medium}px;
+  `};
 `;
 
 const ConceptVideo = styled.iframe`
@@ -572,29 +929,32 @@ const Answer = styled.div`
   `}
 `;
 
-const TextBeginner = () => (
-  <Fragment>
-    「どうやって使えばいいの？」
-    <br />
-    はじめてご利用の方に、登録から契約までの流れを紹介します。
-  </Fragment>
-);
-
 export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
   <Wrap>
     <TopWrapper>
-      <TopEyeCatch src={ImageHero} />
       <TopMessageContent>
         <TopTitle itemProp="headline">
           トランクルームより安く荷物を
           <br />
           預けるなら『モノオク』
         </TopTitle>
-        <div>初期費用0円</div>
-        <Button center primary fontbold fill={1}>
-          <span>60秒で簡単登録</span>
-          保管スペースを探す
-        </Button>
+        <InitialCost>初期費用0円</InitialCost>
+        <ButtonTopMessageWrap>
+          <Button
+            center
+            primary
+            fontbold
+            fill={1}
+            height={72}
+            heightSp={60}
+            fontSize={24}
+            lineheight={46}
+            lineheightSp={34}
+          >
+            <ButtonTopMessageButtonText>60秒で簡単登録</ButtonTopMessageButtonText>
+            保管スペースを探す
+          </Button>
+        </ButtonTopMessageWrap>
       </TopMessageContent>
     </TopWrapper>
 
@@ -641,8 +1001,8 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
         </WantUl>
       </WantWrap>
       <WorryWrap>
-        <WorryConnect class="connect">でも</WorryConnect>
         <WorryWrapUl class="worry-inner">
+          <WorryConnect class="connect">でも</WorryConnect>
           <WorryUl class="worry">
             <WorryLi>
               <Marker>トランクルームは高いし空きがない</Marker>
@@ -657,10 +1017,12 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
         </WorryWrapUl>
       </WorryWrap>
       <CatchPhraseWrap>
-        <div>
-          <CatchPhraseConnect>そんな時は</CatchPhraseConnect>
-          <CatchPhraseText>個人宅に荷物を預けられる『モノオク』がおすすめ！</CatchPhraseText>
-        </div>
+        <CatchPhraseConnect>そんな時は</CatchPhraseConnect>
+        <CatchPhraseText>
+          個人宅に荷物を預けられる
+          <BrOnlyTabletSP />
+          『モノオク』がおすすめ！
+        </CatchPhraseText>
       </CatchPhraseWrap>
       <MeritWrap>
         <SectionTitle>モノオクのメリット</SectionTitle>
@@ -668,40 +1030,40 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
           <MeritTableHead>
             <tr>
               <MeritTableHeadTh />
-              <MeritTableHeadTh>モノオク</MeritTableHeadTh>
+              <MeritTableHeadTh monooq>モノオク</MeritTableHeadTh>
               <MeritTableHeadTh>一般的なトランクルーム</MeritTableHeadTh>
             </tr>
           </MeritTableHead>
           <tbody>
             <tr>
-              <MeritTableTbodyTd>一畳あたりの平均価格</MeritTableTbodyTd>
-              <td>6,000円〜</td>
-              <td>15,000円〜</td>
+              <MeritTableTbodyTh>一畳あたりの平均価格</MeritTableTbodyTh>
+              <MeritTableTbodyTd monooq>6,000円〜</MeritTableTbodyTd>
+              <MeritTableTbodyTd>15,000円〜</MeritTableTbodyTd>
             </tr>
             <tr>
-              <MeritTableTbodyTd>初期費用</MeritTableTbodyTd>
-              <td>無料</td>
-              <td>月額料の1.5〜3.5ヶ月分程度</td>
+              <MeritTableTbodyTh>初期費用</MeritTableTbodyTh>
+              <MeritTableTbodyTd monooq>無料</MeritTableTbodyTd>
+              <MeritTableTbodyTd>月額料の1.5〜3.5ヶ月分程度</MeritTableTbodyTd>
             </tr>
             <tr>
-              <MeritTableTbodyTd>荷物サイズ</MeritTableTbodyTd>
-              <td>大きな荷物、大量の荷物も保管可</td>
-              <td>大きな荷物、大量の荷物も保管可</td>
+              <MeritTableTbodyTh>荷物サイズ</MeritTableTbodyTh>
+              <MeritTableTbodyTd monooq>大きな荷物、大量の荷物も保管可</MeritTableTbodyTd>
+              <MeritTableTbodyTd>大きな荷物、大量の荷物も保管可</MeritTableTbodyTd>
             </tr>
             <tr>
-              <MeritTableTbodyTd>距離</MeritTableTbodyTd>
-              <td>最寄りのスペースを探せる</td>
-              <td>指定場所のみ対応（郊外が中心）</td>
+              <MeritTableTbodyTh>距離</MeritTableTbodyTh>
+              <MeritTableTbodyTd monooq>最寄りのスペースを探せる</MeritTableTbodyTd>
+              <MeritTableTbodyTd>指定場所のみ対応（郊外が中心）</MeritTableTbodyTd>
             </tr>
             <tr>
-              <MeritTableTbodyTd>保険</MeritTableTbodyTd>
-              <td>荷物保険込みの料金(三井住友海上)</td>
-              <td>業者によって様々</td>
+              <MeritTableTbodyTh>保険</MeritTableTbodyTh>
+              <MeritTableTbodyTd monooq>荷物保険込みの料金(三井住友海上)</MeritTableTbodyTd>
+              <MeritTableTbodyTd>業者によって様々</MeritTableTbodyTd>
             </tr>
             <tr>
-              <MeritTableTbodyTd>手続き</MeritTableTbodyTd>
-              <td>一切不要</td>
-              <td>必要</td>
+              <MeritTableTbodyTh>手続き</MeritTableTbodyTh>
+              <MeritTableTbodyTd monooq>一切不要</MeritTableTbodyTd>
+              <MeritTableTbodyTd>必要</MeritTableTbodyTd>
             </tr>
           </tbody>
         </MeritTable>
@@ -709,7 +1071,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
       <BusinessmodelWrap>
         <SectionTitle>モノオクの仕組み</SectionTitle>
         <BusinessmodelWrapFigure class="businessmodel">
-          <img alt="モノオクのビジネスモデル" src={ImageBusinessmodel} />
+          <BusinessmodelWrapFigureImage alt="モノオクのビジネスモデル" src={ImageBusinessmodel} />
           <BusinessmodelWrapFigcaption>
             <Marker>モノオクは「荷物を預けたい人」と「荷物を保管したい人」を繋ぐサービス</Marker>
             です。
@@ -720,21 +1082,17 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
           </BusinessmodelWrapFigcaption>
         </BusinessmodelWrapFigure>
       </BusinessmodelWrap>
-
       <PickupSpaceWrap>
         <SectionTitle>PickUP!スペース</SectionTitle>
         <PickupSpaceItem>
-          <div class="basic">
+          <PickupSpaceBasic>
             <PickupSpaceImageWrap>
-              <img src={ImagePickupSpace1} alt="スペース1" />
-              <PickupSpaceImagePrice>
-                5,000
-                <Yen>円〜</Yen>
-              </PickupSpaceImagePrice>
+              <PickupSpaceImage src={ImagePickupSpace1} alt="スペース1" />
+              <PickupSpaceImagePrice>5,000円〜</PickupSpaceImagePrice>
             </PickupSpaceImageWrap>
             <PickupSpaceDesc>
               <PickupSpaceDescLocation>
-                <span>部屋情報</span>
+                <PickupSpaceDescLocationTitle>■部屋情報</PickupSpaceDescLocationTitle>
                 <PickupSpaceDescDl>
                   <PickupSpaceDescDt>最寄駅</PickupSpaceDescDt>
                   <PickupSpaceDescDd>西川口駅</PickupSpaceDescDd>
@@ -744,10 +1102,8 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
                   <PickupSpaceDescDd>部屋</PickupSpaceDescDd>
                 </PickupSpaceDescDl>
               </PickupSpaceDescLocation>
-              <span className="sp-more">プランをみる</span>
-
-              <div className="backage">
-                <span>荷物情報</span>
+              <PickupSpaceDescLocation backage>
+                <PickupSpaceDescLocationTitle>■荷物情報</PickupSpaceDescLocationTitle>
                 <PickupSpaceDescDl>
                   <PickupSpaceDescDt>対応荷物</PickupSpaceDescDt>
                   <PickupSpaceDescDd>家具・家電</PickupSpaceDescDd>
@@ -758,172 +1114,218 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
                   <PickupSpaceDescHostImage src={ImagePickupSpace1Host} alt="ホストアイコン1" />
                   <PickupSpaceDescHostName>ithurricaneさん</PickupSpaceDescHostName>
                 </PickupSpaceDescHostWrap>
-              </div>
+              </PickupSpaceDescLocation>
             </PickupSpaceDesc>
-          </div>
-          <div className="plan-outer">
-            <PickupSpacePlanUl>
-              <PickupSpacePlanLi>
-                <PickupSpacePlanLiLink
-                  href="https://monooq.com/space/2278"
-                  target="_blank"
-                  rel="follow"
-                >
-                  1/4程度のスペースの月額料金
-                  <PickupSpacePlanLiPrice>
-                    5,000
-                    <Yen>円</Yen>
-                    <PickupSpacePlanLiSmallButton>詳細をみる</PickupSpacePlanLiSmallButton>
-                  </PickupSpacePlanLiPrice>
-                </PickupSpacePlanLiLink>
-              </PickupSpacePlanLi>
-              <PickupSpacePlanLi>
-                <PickupSpacePlanLiLink
-                  href="https://monooq.com/space/2278"
-                  target="_blank"
-                  rel="follow"
-                >
-                  半分のスペースの月額料金
-                  <PickupSpacePlanLiPrice>
-                    10,000
-                    <Yen>円</Yen>
-                    <PickupSpacePlanLiSmallButton className="small-btn">
-                      詳細をみる
-                    </PickupSpacePlanLiSmallButton>
-                  </PickupSpacePlanLiPrice>
-                </PickupSpacePlanLiLink>
-              </PickupSpacePlanLi>
-              <PickupSpacePlanLi>
-                <PickupSpacePlanLiLink
-                  href="https://monooq.com/space/2278"
-                  target="_blank"
-                  rel="follow"
-                >
-                  全てのスペースの月額料金
-                  <PickupSpacePlanLiPrice>
-                    18,000
-                    <Yen>円</Yen>
-                    <PickupSpacePlanLiSmallButton className="small-btn">
-                      詳細をみる
-                    </PickupSpacePlanLiSmallButton>
-                  </PickupSpacePlanLiPrice>
-                </PickupSpacePlanLiLink>
-              </PickupSpacePlanLi>
-            </PickupSpacePlanUl>
-          </div>
+          </PickupSpaceBasic>
+          {/* TODO: コンポーネント化け */}
+          <PickupSpacePlanUl>
+            <PickupSpacePlanLi>
+              <PickupSpacePlanLiLink
+                href="https://monooq.com/space/2278"
+                target="_blank"
+                rel="follow"
+              >
+                1/4程度のスペースの月額料金
+                <PickupSpacePlanLiPrice>
+                  5,000円
+                  <PickupSpacePlanLiSmallButton>詳細をみる</PickupSpacePlanLiSmallButton>
+                </PickupSpacePlanLiPrice>
+              </PickupSpacePlanLiLink>
+            </PickupSpacePlanLi>
+            <PickupSpacePlanLi>
+              <PickupSpacePlanLiLink
+                href="https://monooq.com/space/2278"
+                target="_blank"
+                rel="follow"
+              >
+                半分のスペースの月額料金
+                <PickupSpacePlanLiPrice>
+                  10,000円
+                  <PickupSpacePlanLiSmallButton className="small-btn">
+                    詳細をみる
+                  </PickupSpacePlanLiSmallButton>
+                </PickupSpacePlanLiPrice>
+              </PickupSpacePlanLiLink>
+            </PickupSpacePlanLi>
+            <PickupSpacePlanLi>
+              <PickupSpacePlanLiLink
+                href="https://monooq.com/space/2278"
+                target="_blank"
+                rel="follow"
+              >
+                全てのスペースの月額料金
+                <PickupSpacePlanLiPrice>
+                  18,000円
+                  <PickupSpacePlanLiSmallButton className="small-btn">
+                    詳細をみる
+                  </PickupSpacePlanLiSmallButton>
+                </PickupSpacePlanLiPrice>
+              </PickupSpacePlanLiLink>
+            </PickupSpacePlanLi>
+          </PickupSpacePlanUl>
         </PickupSpaceItem>
 
-        {/* <div class="space-item 02">
-          <div class="basic">
-            <div class="space-image">
-              <img class="lazyload" alt="スペース02" src="../wp-content/themes/jin-child03/img/dummy.jpg" data-src="https://tidy.monooq.com/wp-content/uploads/2019/01/space02.jpg" />
-              <span class="about-price">5,000<span class="yen">円〜</span></span>
-            </div>
-            <div class="desc">
-              <div class="location">
-                <span>部屋情報</span>
-                <dl>
-                  <dt>最寄駅</dt>
-                  <dd>成瀬駅</dd>
-                  <dt>徒歩</dt>
-                  <dd>5分</dd>
-                  <dt>タイプ</dt>
-                  <dd>部屋</dd>
-                </dl>
-              </div>
-              <span class="sp-more">プランをみる</span>
-              <div class="backage">
-                <span>荷物情報</span>
-                <dl>
-                  <dt>対応荷物</dt>
-                  <dd>家具・家電</dd>
-                  <dt>受取方法</dt>
-                  <dd>配送/対面</dd>
-                </dl>
-                <div class="host">
-                  <img alt="ホストアイコン02" class="host-icon" src="../wp-content/uploads/2019/01/host02-1.jpg" />
-                  <span>もかさん</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="plan-outer">
-            <ul class="plan">
-              <li>
-                <a href="https://monooq.com/space/2203" target="_blank" rel="follow">
-                  1/4程度のスペースの月額料金<span class="price">5,000<span class="yen">円</span><span class="small-btn">詳細をみる</span></span></a></li>
-              <li>
-                <a href="https://monooq.com/space/2203" target="_blank" rel="follow">
-                  半分のスペースの月額料金<span class="price">10,000<span class="yen">円</span><span class="small-btn">詳細をみる</span></span>
-                </a>
-              </li>
-              <li>
-                <a href="https://monooq.com/space/2203" target="_blank" rel="follow">
-                  全てのスペースの月額料金<span class="price">20,000<span class="yen">円</span><span class="small-btn">詳細をみる</span></span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div> */}
+        <PickupSpaceItem>
+          <PickupSpaceBasic>
+            <PickupSpaceImageWrap>
+              <PickupSpaceImage src={ImagePickupSpace2} alt="スペース2" />
+              <PickupSpaceImagePrice>5,000円〜</PickupSpaceImagePrice>
+            </PickupSpaceImageWrap>
+            <PickupSpaceDesc>
+              <PickupSpaceDescLocation>
+                <PickupSpaceDescLocationTitle>■部屋情報</PickupSpaceDescLocationTitle>
+                <PickupSpaceDescDl>
+                  <PickupSpaceDescDt>最寄駅</PickupSpaceDescDt>
+                  <PickupSpaceDescDd>成瀬駅</PickupSpaceDescDd>
+                  <PickupSpaceDescDt>徒歩</PickupSpaceDescDt>
+                  <PickupSpaceDescDd>5分</PickupSpaceDescDd>
+                  <PickupSpaceDescDt>タイプ</PickupSpaceDescDt>
+                  <PickupSpaceDescDd>部屋</PickupSpaceDescDd>
+                </PickupSpaceDescDl>
+              </PickupSpaceDescLocation>
+              <PickupSpaceDescLocation backage>
+                <PickupSpaceDescLocationTitle>■荷物情報</PickupSpaceDescLocationTitle>
+                <PickupSpaceDescDl>
+                  <PickupSpaceDescDt>対応荷物</PickupSpaceDescDt>
+                  <PickupSpaceDescDd>家具・家電</PickupSpaceDescDd>
+                  <PickupSpaceDescDt>受取方法</PickupSpaceDescDt>
+                  <PickupSpaceDescDd>配送/対面</PickupSpaceDescDd>
+                </PickupSpaceDescDl>
+                <PickupSpaceDescHostWrap>
+                  <PickupSpaceDescHostImage src={ImagePickupSpace2Host} alt="ホストアイコン2" />
+                  <PickupSpaceDescHostName>もかさん</PickupSpaceDescHostName>
+                </PickupSpaceDescHostWrap>
+              </PickupSpaceDescLocation>
+            </PickupSpaceDesc>
+          </PickupSpaceBasic>
+          {/* TODO: コンポーネント化け */}
+          <PickupSpacePlanUl>
+            <PickupSpacePlanLi>
+              <PickupSpacePlanLiLink
+                href="https://monooq.com/space/2203"
+                target="_blank"
+                rel="follow"
+              >
+                1/4程度のスペースの月額料金
+                <PickupSpacePlanLiPrice>
+                  5,000円
+                  <PickupSpacePlanLiSmallButton>詳細をみる</PickupSpacePlanLiSmallButton>
+                </PickupSpacePlanLiPrice>
+              </PickupSpacePlanLiLink>
+            </PickupSpacePlanLi>
+            <PickupSpacePlanLi>
+              <PickupSpacePlanLiLink
+                href="https://monooq.com/space/2203"
+                target="_blank"
+                rel="follow"
+              >
+                半分のスペースの月額料金
+                <PickupSpacePlanLiPrice>
+                  10,000円
+                  <PickupSpacePlanLiSmallButton className="small-btn">
+                    詳細をみる
+                  </PickupSpacePlanLiSmallButton>
+                </PickupSpacePlanLiPrice>
+              </PickupSpacePlanLiLink>
+            </PickupSpacePlanLi>
+            <PickupSpacePlanLi>
+              <PickupSpacePlanLiLink
+                href="https://monooq.com/space/2203"
+                target="_blank"
+                rel="follow"
+              >
+                全てのスペースの月額料金
+                <PickupSpacePlanLiPrice>
+                  20,000円
+                  <PickupSpacePlanLiSmallButton className="small-btn">
+                    詳細をみる
+                  </PickupSpacePlanLiSmallButton>
+                </PickupSpacePlanLiPrice>
+              </PickupSpacePlanLiLink>
+            </PickupSpacePlanLi>
+          </PickupSpacePlanUl>
+        </PickupSpaceItem>
 
-        {/* <div class="space-item 03">
-          <div class="basic">
-            <div class="space-image">
-              <img class="lazyload" alt="スペース03" src="../wp-content/themes/jin-child03/img/dummy.jpg" data-src="https://tidy.monooq.com/wp-content/uploads/2019/01/img_space-syun.jpg" />
-              <span class="about-price">3,000<span class="yen">円〜</span></span>
-            </div>
-            <div class="desc">
-              <div class="location">
-                <span>部屋情報</span>
-                <dl>
-                  <dt>最寄駅</dt>
-                  <dd>東北沢駅</dd>
-                  <dt>徒歩</dt>
-                  <dd>2分</dd>
-                  <dt>タイプ</dt>
-                  <dd>部屋</dd>
-                </dl>
-              </div>
-              <span class="sp-more">プランをみる</span>
-              <div class="backage">
-                <span>荷物情報</span>
-                <dl>
-                  <dt>対応荷物</dt>
-                  <dd>家具・家電</dd>
-                  <dt>受取方法</dt>
-                  <dd>配送/対面</dd>
-                </dl>
-                <div class="host">
-                  <img
-                    alt="ホストアイコン03"
-                    class="host-icon"
-                    src="../wp-content/uploads/2019/08/sample_user.jpg"
-                  />
-                  <span>Syunさん</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="plan-outer">
-            <ul class="plan">
-              <li>
-                <a href="https://monooq.com/space/2412" target="_blank" rel="follow">
-                  1/4程度のスペースの月額料金<span class="price">3,000<span class="yen">円</span><span class="small-btn">詳細をみる</span></span>
-                </a>
-              </li>
-              <li>
-                <a href="https://monooq.com/space/2412" target="_blank" rel="follow">
-                  半分のスペースの月額料金<span class="price">6,000<span class="yen">円</span><span class="small-btn">詳細をみる</span></span>
-                </a>
-              </li>
-              <li>
-                <a href="https://monooq.com/space/2412" target="_blank" rel="follow">
-                  全てのスペースの月額料金<span class="price">10,000<span class="yen">円</span><span class="small-btn">詳細をみる</span></span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div> */}
+        <PickupSpaceItem>
+          <PickupSpaceBasic>
+            <PickupSpaceImageWrap>
+              <PickupSpaceImage src={ImagePickupSpace3} alt="スペース3" />
+              <PickupSpaceImagePrice>3,000円〜</PickupSpaceImagePrice>
+            </PickupSpaceImageWrap>
+            <PickupSpaceDesc>
+              <PickupSpaceDescLocation>
+                <PickupSpaceDescLocationTitle>■部屋情報</PickupSpaceDescLocationTitle>
+                <PickupSpaceDescDl>
+                  <PickupSpaceDescDt>最寄駅</PickupSpaceDescDt>
+                  <PickupSpaceDescDd>東北沢駅</PickupSpaceDescDd>
+                  <PickupSpaceDescDt>徒歩</PickupSpaceDescDt>
+                  <PickupSpaceDescDd>2分</PickupSpaceDescDd>
+                  <PickupSpaceDescDt>タイプ</PickupSpaceDescDt>
+                  <PickupSpaceDescDd>部屋</PickupSpaceDescDd>
+                </PickupSpaceDescDl>
+              </PickupSpaceDescLocation>
+              <PickupSpaceDescLocation backage>
+                <PickupSpaceDescLocationTitle>■荷物情報</PickupSpaceDescLocationTitle>
+                <PickupSpaceDescDl>
+                  <PickupSpaceDescDt>対応荷物</PickupSpaceDescDt>
+                  <PickupSpaceDescDd>家具・家電</PickupSpaceDescDd>
+                  <PickupSpaceDescDt>受取方法</PickupSpaceDescDt>
+                  <PickupSpaceDescDd>配送/対面</PickupSpaceDescDd>
+                </PickupSpaceDescDl>
+                <PickupSpaceDescHostWrap>
+                  <PickupSpaceDescHostImage src={ImagePickupSpace3Host} alt="ホストアイコン3" />
+                  <PickupSpaceDescHostName>Syunさん</PickupSpaceDescHostName>
+                </PickupSpaceDescHostWrap>
+              </PickupSpaceDescLocation>
+            </PickupSpaceDesc>
+          </PickupSpaceBasic>
+          {/* TODO: コンポーネント化け */}
+          <PickupSpacePlanUl>
+            <PickupSpacePlanLi>
+              <PickupSpacePlanLiLink
+                href="https://monooq.com/space/2412"
+                target="_blank"
+                rel="follow"
+              >
+                1/4程度のスペースの月額料金
+                <PickupSpacePlanLiPrice>
+                  3,000円
+                  <PickupSpacePlanLiSmallButton>詳細をみる</PickupSpacePlanLiSmallButton>
+                </PickupSpacePlanLiPrice>
+              </PickupSpacePlanLiLink>
+            </PickupSpacePlanLi>
+            <PickupSpacePlanLi>
+              <PickupSpacePlanLiLink
+                href="https://monooq.com/space/2412"
+                target="_blank"
+                rel="follow"
+              >
+                半分のスペースの月額料金
+                <PickupSpacePlanLiPrice>
+                  6,000円
+                  <PickupSpacePlanLiSmallButton className="small-btn">
+                    詳細をみる
+                  </PickupSpacePlanLiSmallButton>
+                </PickupSpacePlanLiPrice>
+              </PickupSpacePlanLiLink>
+            </PickupSpacePlanLi>
+            <PickupSpacePlanLi>
+              <PickupSpacePlanLiLink
+                href="https://monooq.com/space/2412"
+                target="_blank"
+                rel="follow"
+              >
+                全てのスペースの月額料金
+                <PickupSpacePlanLiPrice>
+                  10,000円
+                  <PickupSpacePlanLiSmallButton className="small-btn">
+                    詳細をみる
+                  </PickupSpacePlanLiSmallButton>
+                </PickupSpacePlanLiPrice>
+              </PickupSpacePlanLiLink>
+            </PickupSpacePlanLi>
+          </PickupSpacePlanUl>
+        </PickupSpaceItem>
       </PickupSpaceWrap>
 
       <FlowWrap>
@@ -962,9 +1364,9 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
         </FlowUl>
       </FlowWrap>
 
-      <ContentContainer>
+      <QaWrap>
+        <SectionTitle>よくある質問</SectionTitle>
         <QuestionsContainer>
-          <Headline>よくある質問</Headline>
           <QuestionRow>
             <QuestionItem>
               <Collapsible trigger="Q. 対応地域はどこでしょうか？">
@@ -1029,7 +1431,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
             </QuestionItem>
           </QuestionRow>
         </QuestionsContainer>
-      </ContentContainer>
+      </QaWrap>
     </WhenIUseContainer>
   </Wrap>
 );

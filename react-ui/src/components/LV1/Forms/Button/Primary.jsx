@@ -116,6 +116,11 @@ export const PrimaryButton = styled.div`
       `
         padding: ${props.paddingSp};
       `};
+      ${props =>
+        props.lineheightSp &&
+        `
+          line-height: ${props.lineheightSp}px;
+        `};
   `};
 `;
 
