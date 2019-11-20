@@ -184,6 +184,62 @@ const TitleMenu = styled.div`
   color: ${Colors.darkGray3};
 `;
 
+const ButtonBottomWrap = styled.div`
+  opacity: 0;
+  transition: 0.3s;
+  width: 100%;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  z-index: ${ZIndexes.frontPartsOverFooter};
+  text-align: center;
+  padding: ${Dimens.medium}px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+  border-top: 1px solid ${Colors.borderGray};
+  ${props =>
+    props.isOverTopView &&
+    `
+      opacity: 1;
+      transition: 0.3s;
+    `};
+`;
+
+// TODO: コンポーネント化する
+const ButtonTopMessageWrap = styled.div`
+  position: relative;
+  max-width: 440px;
+  margin: auto;
+  &:after {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    display: block;
+    content: '';
+    width: 12px;
+    height: 12px;
+    margin-top: -6px;
+    border-top: 4px solid ${Colors.white};
+    border-right: 4px solid ${Colors.white};
+    transform: rotate(45deg);
+  }
+  ${media.phone`
+    &:after {
+      right: 20px;
+    }
+  `}
+`;
+
+const ButtonTopMessageButtonText = styled.span`
+  vertical-align: middle;
+  padding: 6px;
+  margin-left: -30px;
+  margin-right: 12px;
+  background-color: ${Colors.white};
+  color: ${Colors.black};
+  font-size: 12px;
+`;
+
 const trigger = imageUrl => {
   return (
     <div>
@@ -241,6 +297,7 @@ export default ({
   top,
   isLinkRed,
   isOverTopView,
+  isPageLp1,
   stories,
   topUrl,
   isCheckingLogin,
@@ -347,6 +404,26 @@ export default ({
               </ActionContainer>
             )}
           </ActionWrapper>
+        )}
+        {isPageLp1 && (
+          <ButtonBottomWrap isOverTopView={isOverTopView}>
+            <ButtonTopMessageWrap>
+              <Button
+                center
+                primary
+                fontbold
+                fill={1}
+                height={72}
+                heightSp={60}
+                fontSize={24}
+                lineheight={46}
+                lineheightSp={34}
+              >
+                <ButtonTopMessageButtonText>60秒で簡単登録</ButtonTopMessageButtonText>
+                保管スペースを探す
+              </Button>
+            </ButtonTopMessageWrap>
+          </ButtonBottomWrap>
         )}
       </Nav>
     </Container>

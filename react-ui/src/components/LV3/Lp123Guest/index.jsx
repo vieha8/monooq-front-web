@@ -5,12 +5,10 @@ import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
 import Button from 'components/LV1/Forms/Button';
 import ContainerDefault from 'components/LV1/ContainerDefault';
-import WhenIUseList from 'components/LV2/Lists/WhenIUseList';
-import WhenIUseCardList from 'components/LV2/Lists/WhenIUseCardList';
+
 import ImageHero from 'images/lp123guest/hero.jpg';
 import ImageBarLeft from 'images/lp123guest/icon-bar-left.png';
 import ImageBarRight from 'images/lp123guest/icon-bar-right.png';
-
 import ImageWantFile from 'images/lp123guest/icon-want-file.png';
 import ImageWantGolf from 'images/lp123guest/icon-want-golf.png';
 import ImageWantHome from 'images/lp123guest/icon-want-home.png';
@@ -30,27 +28,15 @@ import ImageFlow1 from 'images/lp123guest/flow-1.png';
 import ImageFlow2 from 'images/lp123guest/flow-2.png';
 import ImageFlow3 from 'images/lp123guest/flow-3.png';
 
-const moneyMetapher =
-  'https://monooq.imgix.net/img%2Fservice%2Fmoney_metapher%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
-const scheduleMetapher =
-  'https://monooq.imgix.net/img%2Fservice%2Fschedule_metapher%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
-const timeMetapher =
-  'https://monooq.imgix.net/img%2Fservice%2Ftime_metapher%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
-const beginner =
-  'https://monooq.imgix.net/img%2Fservice%2Fbeginner%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
-const guarantee =
-  'https://monooq.imgix.net/img%2Fservice%2Fguarantee%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
-const ruleManner =
-  'https://monooq.imgix.net/img%2Fservice%2Frule_manner%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
-
 const Wrap = styled.div`
   min-width: 320px;
+  margin-top: -84px;
   font-weight: 500;
 `;
 
-const TopWrapper = styled.div`
+const TopWrap = styled.div`
   position: relative;
-  height: 550px;
+  height: 600px;
   color: ${Colors.black};
   width: 100%;
   overflow: hidden;
@@ -68,7 +54,7 @@ const TopWrapper = styled.div`
     margin-bottom: 0;
   `};
   ${media.phone`
-    height: 374px;
+    height: 440px;
     }
   `};
 `;
@@ -76,9 +62,10 @@ const TopWrapper = styled.div`
 const TopMessageContent = styled.div`
   position: relative;
   width: 100%;
-  top: 130px;
+  top: 190px;
   text-align: center;
   ${media.tablet`
+    top: 210px;
     margin: auto;
     padding: 0 ${Dimens.medium}px;
   `};
@@ -107,6 +94,12 @@ const InitialCost = styled.span`
   margin-bottom: 14px;
   color: ${Colors.white};
   text-shadow: 1px 1px 1px #333;
+  animation: flashCost 1s infinite;
+  @keyframes flashCost {
+    50% {
+      opacity: 0;
+    }
+  }
   &::before,
   &::after {
     content: '';
@@ -218,7 +211,7 @@ const WantLi = styled.li`
     margin: 0 ${Dimens.small_9}px ${Dimens.small_10}px;
   }
   ${media.phone`
-    width: calc(50% - 10px);
+    width: calc(50% - 5px);
     &:nth-child(2),
     &:nth-child(5) {
       margin: 0 auto ${Dimens.small_10}px;
@@ -286,7 +279,7 @@ const WorryWrap = styled.div`
 `;
 
 const WorryConnect = styled.span`
-  top: 12%;
+  top: 15%;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -317,13 +310,16 @@ const WorryWrapUl = styled.div`
 
 const WorryUl = styled.ul`
   position: absolute;
-  top: 50%;
+  top: 55%;
   transform: translateY(-50%);
   font-size: ${FontSizes.medium2_26}px;
   text-align: left;
   ${media.phone`
     background-size: 100px;
-    font-size: ${FontSizes.small_12}px;
+    font-size: ${FontSizes.medium}px;
+  `};
+  ${media.phoneSmall`
+    font-size: ${FontSizes.small}px;
   `};
 `;
 
@@ -663,13 +659,6 @@ const PickupSpaceDescDd = styled.dd`
   `};
 `;
 
-const PickupSpaceDescLocationViewPlan = styled.span`
-  display: none;
-  ${media.phone`
-    display: block;
-  `};
-`;
-
 const PickupSpaceDescHostWrap = styled.div`
   margin-top: 8px;
   margin-bottom: 10px;
@@ -831,33 +820,7 @@ const FlowLiText = styled.span`
   padding-bottom: 0;
 `;
 
-// AAAAAAAAAAAAAAA
-
-const Attention = styled.div`
-  font-size: ${FontSizes.medium_18}px;
-  color: ${Colors.brandPrimary};
-  margin-bottom: ${Dimens.small2}px;
-  ${media.tablet`
-    margin-bottom: ${Dimens.small}px;
-  `};
-  ${media.phone`
-    font-size: ${FontSizes.medium}px;
-  `};
-`;
-
-const Headline = styled.div`
-  font-size: ${FontSizes.xxlarge}px;
-  line-height: ${Dimens.medium2_38}px;
-  font-weight: bold;
-  margin-bottom: ${Dimens.medium2}px;
-  ${media.phone`
-    font-size: ${FontSizes.medium2}px;
-    line-height: ${Dimens.medium1}px;
-    margin-bottom: ${Dimens.medium1}px;
-  `};
-`;
-
-const WhenIUseContainer = styled(ContainerDefault)`
+const ContentsWrap = styled(ContainerDefault)`
   position: relative;
   margin-top: -60px;
   text-align: center;
@@ -865,12 +828,6 @@ const WhenIUseContainer = styled(ContainerDefault)`
     margin-top: ${Dimens.medium2_32}px;
     padding: 0px;
   `};
-`;
-
-const WhenIUseContent = styled.div`
-  &:not(:first-child) {
-    padding-top: 100px;
-  }
 `;
 
 const QaWrap = styled.div`
@@ -896,11 +853,6 @@ const QaWrap = styled.div`
   ${media.tablet`
     padding: ${Dimens.medium2}px ${Dimens.medium}px;
   `};
-`;
-
-const ConceptVideo = styled.iframe`
-  margin: ${Dimens.large2_70}px auto;
-  max-width: 600px;
 `;
 
 const QuestionsContainer = styled.div`
@@ -931,7 +883,7 @@ const Answer = styled.div`
 
 export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
   <Wrap>
-    <TopWrapper>
+    <TopWrap>
       <TopMessageContent>
         <TopTitle itemProp="headline">
           トランクルームより安く荷物を
@@ -956,54 +908,54 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
           </Button>
         </ButtonTopMessageWrap>
       </TopMessageContent>
-    </TopWrapper>
+    </TopWrap>
 
-    <WhenIUseContainer>
+    <ContentsWrap>
       <WantWrap>
         <SectionTitle>こんな荷物ありませんか？</SectionTitle>
         <WantUl>
           <WantLi>
             <WantLiFigure>
-              <WantLiImg alt="" src={ImageWantTruck} />
+              <WantLiImg src={ImageWantTruck} alt="img-truck" />
               <figcaption>引越し時の荷物</figcaption>
             </WantLiFigure>
           </WantLi>
           <WantLi>
             <WantLiFigure>
-              <WantLiImg alt="" src={ImageWantHome} />
+              <WantLiImg src={ImageWantHome} alt="img-home" />
               <figcaption>リフォーム中の荷物</figcaption>
             </WantLiFigure>
           </WantLi>
           <WantLi>
             <WantLiFigure>
-              <WantLiImg alt="" src={ImageWantSnowboard} />
+              <WantLiImg src={ImageWantSnowboard} alt="img-snowboard" />
               <figcaption>季節のレジャー用品</figcaption>
             </WantLiFigure>
           </WantLi>
           <WantLi>
             <WantLiFigure>
-              <WantLiImg alt="" src={ImageWantFile} />
+              <WantLiImg src={ImageWantFile} alt="img-file" />
               <figcaption>仕事道具・書類</figcaption>
             </WantLiFigure>
           </WantLi>
           <WantLi>
             <WantLiFigure>
-              <WantLiImg alt="" src={ImageWantWear} />
+              <WantLiImg src={ImageWantWear} alt="img-wear" />
               <figcaption>衣替え時の衣類</figcaption>
             </WantLiFigure>
           </WantLi>
           <WantLi>
             <WantLiFigure>
-              <WantLiImg alt="" src={ImageWantGolf} />
+              <WantLiImg src={ImageWantGolf} alt="img-golf" />
               <figcaption>趣味の道具</figcaption>
             </WantLiFigure>
           </WantLi>
         </WantUl>
       </WantWrap>
       <WorryWrap>
-        <WorryWrapUl class="worry-inner">
-          <WorryConnect class="connect">でも</WorryConnect>
-          <WorryUl class="worry">
+        <WorryWrapUl>
+          <WorryConnect>でも</WorryConnect>
+          <WorryUl>
             <WorryLi>
               <Marker>トランクルームは高いし空きがない</Marker>
             </WorryLi>
@@ -1070,8 +1022,8 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
       </MeritWrap>
       <BusinessmodelWrap>
         <SectionTitle>モノオクの仕組み</SectionTitle>
-        <BusinessmodelWrapFigure class="businessmodel">
-          <BusinessmodelWrapFigureImage alt="モノオクのビジネスモデル" src={ImageBusinessmodel} />
+        <BusinessmodelWrapFigure>
+          <BusinessmodelWrapFigureImage src={ImageBusinessmodel} alt="img-businessmodel" />
           <BusinessmodelWrapFigcaption>
             <Marker>モノオクは「荷物を預けたい人」と「荷物を保管したい人」を繋ぐサービス</Marker>
             です。
@@ -1087,7 +1039,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
         <PickupSpaceItem>
           <PickupSpaceBasic>
             <PickupSpaceImageWrap>
-              <PickupSpaceImage src={ImagePickupSpace1} alt="スペース1" />
+              <PickupSpaceImage src={ImagePickupSpace1} alt="img-space1" />
               <PickupSpaceImagePrice>5,000円〜</PickupSpaceImagePrice>
             </PickupSpaceImageWrap>
             <PickupSpaceDesc>
@@ -1111,7 +1063,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
                   <PickupSpaceDescDd>配送/対面</PickupSpaceDescDd>
                 </PickupSpaceDescDl>
                 <PickupSpaceDescHostWrap>
-                  <PickupSpaceDescHostImage src={ImagePickupSpace1Host} alt="ホストアイコン1" />
+                  <PickupSpaceDescHostImage src={ImagePickupSpace1Host} alt="img-host1" />
                   <PickupSpaceDescHostName>ithurricaneさん</PickupSpaceDescHostName>
                 </PickupSpaceDescHostWrap>
               </PickupSpaceDescLocation>
@@ -1168,7 +1120,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
         <PickupSpaceItem>
           <PickupSpaceBasic>
             <PickupSpaceImageWrap>
-              <PickupSpaceImage src={ImagePickupSpace2} alt="スペース2" />
+              <PickupSpaceImage src={ImagePickupSpace2} alt="img-space2" />
               <PickupSpaceImagePrice>5,000円〜</PickupSpaceImagePrice>
             </PickupSpaceImageWrap>
             <PickupSpaceDesc>
@@ -1192,7 +1144,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
                   <PickupSpaceDescDd>配送/対面</PickupSpaceDescDd>
                 </PickupSpaceDescDl>
                 <PickupSpaceDescHostWrap>
-                  <PickupSpaceDescHostImage src={ImagePickupSpace2Host} alt="ホストアイコン2" />
+                  <PickupSpaceDescHostImage src={ImagePickupSpace2Host} alt="img-host2" />
                   <PickupSpaceDescHostName>もかさん</PickupSpaceDescHostName>
                 </PickupSpaceDescHostWrap>
               </PickupSpaceDescLocation>
@@ -1249,7 +1201,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
         <PickupSpaceItem>
           <PickupSpaceBasic>
             <PickupSpaceImageWrap>
-              <PickupSpaceImage src={ImagePickupSpace3} alt="スペース3" />
+              <PickupSpaceImage src={ImagePickupSpace3} alt="img-space3" />
               <PickupSpaceImagePrice>3,000円〜</PickupSpaceImagePrice>
             </PickupSpaceImageWrap>
             <PickupSpaceDesc>
@@ -1273,7 +1225,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
                   <PickupSpaceDescDd>配送/対面</PickupSpaceDescDd>
                 </PickupSpaceDescDl>
                 <PickupSpaceDescHostWrap>
-                  <PickupSpaceDescHostImage src={ImagePickupSpace3Host} alt="ホストアイコン3" />
+                  <PickupSpaceDescHostImage src={ImagePickupSpace3Host} alt="img-host3" />
                   <PickupSpaceDescHostName>Syunさん</PickupSpaceDescHostName>
                 </PickupSpaceDescHostWrap>
               </PickupSpaceDescLocation>
@@ -1432,6 +1384,6 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
           </QuestionRow>
         </QuestionsContainer>
       </QaWrap>
-    </WhenIUseContainer>
+    </ContentsWrap>
   </Wrap>
 );
