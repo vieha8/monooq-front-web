@@ -95,8 +95,7 @@
     "react-app-rewire-bundle-analyzer": "1.0.1",
     "redux-devtools": "3.5.0",
     "redux-logger": "3.0.6",
-    "storybook-router": "0.3.4",
-    "why-did-you-update": "1.0.6"
+    "storybook-router": "0.3.4"
   },
   "browserslist": [
     ">0.2%",

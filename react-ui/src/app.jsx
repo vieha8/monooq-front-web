@@ -20,11 +20,6 @@ sentryInit({
 ReactGA.initialize('UA-84238514-1');
 firebase.initializeApp(firebaseConfig());
 
-if (process.env.NODE_ENV !== 'production') {
-  // const { whyDidYouUpdate } = require('why-did-you-update');
-  // whyDidYouUpdate(React);
-}
-
 const store = createStore();
 
 ReactDOM.render(
