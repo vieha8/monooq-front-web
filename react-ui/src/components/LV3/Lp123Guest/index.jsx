@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Path from 'config/path';
 import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
-import { media } from 'helpers/style/media-query';
+import { media, mediaMin } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ContainerDefault from 'components/LV1/ContainerDefault';
@@ -685,14 +686,22 @@ const PickupSpacePlanLi = styled.li`
     border-right: 2px solid ${Colors.black};
     transform: rotate(45deg);
   }
+  &:active {
+    opacity: 0.8;
+  }
   ${media.phone`
     &:after {
       right: ${Dimens.medium_20}px;
     }
   `};
+  ${mediaMin.tablet`
+    &:hover {
+      opacity: 0.8;
+    }
+  `};
 `;
 
-const PickupSpacePlanLiLink = styled.a`
+const PickupSpacePlanLiLink = styled(Link)`
   position: relative;
   display: block;
   text-decoration: none;
@@ -1024,11 +1033,7 @@ export default ({ onClickSignup }) => (
           {/* TODO: コンポーネント化け */}
           <PickupSpacePlanUl>
             <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink
-                href="https://monooq.com/space/2278"
-                target="_blank"
-                rel="follow"
-              >
+              <PickupSpacePlanLiLink to={Path.space(2278)}>
                 1/4程度のスペースの月額料金
                 <PickupSpacePlanLiPrice>
                   5,000円
@@ -1037,11 +1042,7 @@ export default ({ onClickSignup }) => (
               </PickupSpacePlanLiLink>
             </PickupSpacePlanLi>
             <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink
-                href="https://monooq.com/space/2278"
-                target="_blank"
-                rel="follow"
-              >
+              <PickupSpacePlanLiLink to={Path.space(2278)}>
                 半分のスペースの月額料金
                 <PickupSpacePlanLiPrice>
                   10,000円
@@ -1052,11 +1053,7 @@ export default ({ onClickSignup }) => (
               </PickupSpacePlanLiLink>
             </PickupSpacePlanLi>
             <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink
-                href="https://monooq.com/space/2278"
-                target="_blank"
-                rel="follow"
-              >
+              <PickupSpacePlanLiLink to={Path.space(2278)}>
                 全てのスペースの月額料金
                 <PickupSpacePlanLiPrice>
                   18,000円
@@ -1105,11 +1102,7 @@ export default ({ onClickSignup }) => (
           {/* TODO: コンポーネント化け */}
           <PickupSpacePlanUl>
             <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink
-                href="https://monooq.com/space/2203"
-                target="_blank"
-                rel="follow"
-              >
+              <PickupSpacePlanLiLink to={Path.space(2203)}>
                 1/4程度のスペースの月額料金
                 <PickupSpacePlanLiPrice>
                   5,000円
@@ -1118,11 +1111,7 @@ export default ({ onClickSignup }) => (
               </PickupSpacePlanLiLink>
             </PickupSpacePlanLi>
             <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink
-                href="https://monooq.com/space/2203"
-                target="_blank"
-                rel="follow"
-              >
+              <PickupSpacePlanLiLink to={Path.space(2203)}>
                 半分のスペースの月額料金
                 <PickupSpacePlanLiPrice>
                   10,000円
@@ -1133,11 +1122,7 @@ export default ({ onClickSignup }) => (
               </PickupSpacePlanLiLink>
             </PickupSpacePlanLi>
             <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink
-                href="https://monooq.com/space/2203"
-                target="_blank"
-                rel="follow"
-              >
+              <PickupSpacePlanLiLink to={Path.space(2203)}>
                 全てのスペースの月額料金
                 <PickupSpacePlanLiPrice>
                   20,000円
@@ -1186,11 +1171,7 @@ export default ({ onClickSignup }) => (
           {/* TODO: コンポーネント化け */}
           <PickupSpacePlanUl>
             <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink
-                href="https://monooq.com/space/2412"
-                target="_blank"
-                rel="follow"
-              >
+              <PickupSpacePlanLiLink to={Path.space(2412)}>
                 1/4程度のスペースの月額料金
                 <PickupSpacePlanLiPrice>
                   3,000円
@@ -1199,11 +1180,7 @@ export default ({ onClickSignup }) => (
               </PickupSpacePlanLiLink>
             </PickupSpacePlanLi>
             <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink
-                href="https://monooq.com/space/2412"
-                target="_blank"
-                rel="follow"
-              >
+              <PickupSpacePlanLiLink to={Path.space(2412)}>
                 半分のスペースの月額料金
                 <PickupSpacePlanLiPrice>
                   6,000円
@@ -1214,11 +1191,7 @@ export default ({ onClickSignup }) => (
               </PickupSpacePlanLiLink>
             </PickupSpacePlanLi>
             <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink
-                href="https://monooq.com/space/2412"
-                target="_blank"
-                rel="follow"
-              >
+              <PickupSpacePlanLiLink to={Path.space(120)}>
                 全てのスペースの月額料金
                 <PickupSpacePlanLiPrice>
                   10,000円
