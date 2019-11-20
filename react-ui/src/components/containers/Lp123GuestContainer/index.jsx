@@ -18,4 +18,5 @@ class Lp123GuestContainer extends React.Component {
 
 export default ContentPageStatic(Lp123GuestContainer, {
   maxWidth: true,
+  bottomMargin: true,
 });

@@ -10,6 +10,7 @@ import { authActions } from 'redux/modules/auth';
 const PATH_TOP = '/';
 const PATH_ABOUT = '/about';
 const PATH_HOWTOUSE = '/howtouse';
+const PATH_LP1_GUEST = '/lp1/guest';
 
 class HeaderContainer extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class HeaderContainer extends Component {
     let pagePathScrollPage = '';
     let isLinkRed = false;
 
-    if (targetUrl === PATH_ABOUT || targetUrl === PATH_HOWTOUSE) {
+    if (targetUrl === PATH_ABOUT || targetUrl === PATH_HOWTOUSE || targetUrl === PATH_LP1_GUEST) {
       isLinkRed = true;
     }
 
@@ -89,6 +90,7 @@ class HeaderContainer extends Component {
           break;
         case PATH_ABOUT:
         case PATH_HOWTOUSE:
+        case PATH_LP1_GUEST:
           positionScrollPC = 540;
           positionScrollSP = 320;
           break;
