@@ -1,11 +1,10 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
-import Path from 'config/path';
 import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
-import { media, mediaMin } from 'helpers/style/media-query';
+import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
+import PickupSpaceList from 'components/LV2/Lists/PickupSpaceList';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 
 import ImageHero from 'images/lp123guest/hero.jpg';
@@ -242,7 +241,7 @@ const WorryWrap = styled.div`
     border-style: solid;
     border-color: ${Colors.lightGray9} transparent transparent transparent;
     border-width: ${Dimens.medium1_25}px ${Dimens.medium4_50}px 0 ${Dimens.medium4_50}px;
-    z-index: 1;
+    z-index: ${ZIndexes.child_1};
   }
 `;
 
@@ -374,7 +373,7 @@ const MeritWrap = styled.div`
     border-style: solid;
     border-color: ${Colors.brandQuaternary} transparent transparent transparent;
     border-width: ${Dimens.medium1_25}px ${Dimens.medium4_50}px 0 ${Dimens.medium4_50}px;
-    z-index: 1;
+    z-index: ${ZIndexes.child_1};
   }
   ${media.tablet`
     padding: ${Dimens.medium2}px ${Dimens.medium}px;
@@ -500,243 +499,10 @@ const PickupSpaceWrap = styled.div`
   &::after {
     bottom: -25px;
     border-color: ${Colors.brandQuaternary} transparent transparent transparent;
-    z-index: 1;
+    z-index: ${ZIndexes.child_1};
   }
   ${media.tablet`
     padding: ${Dimens.medium2}px ${Dimens.medium}px;
-  `};
-`;
-
-const PickupSpaceItem = styled.div`
-  max-width: 825px;
-  margin: auto;
-  border-radius: 6px;
-  padding: ${Dimens.small2_15}px ${Dimens.small2_15}px 0;
-  margin-bottom: ${Dimens.small2_15}px;
-  background: #fff;
-  box-shadow: 0.5px 0px 3px #333;
-  ${media.phone`
-    padding: 0;
-  `};
-`;
-
-const PickupSpaceBasic = styled.div`
-  overflow: hidden;
-`;
-
-const PickupSpaceImageWrap = styled.div`
-  position: relative;
-  text-align: center;
-`;
-
-const PickupSpaceImage = styled.img`
-  width: 100%;
-  max-width: 250px;
-  height: auto;
-  float: left;
-  ${media.tablet`
-    max-width: 160px;
-  `};
-  ${media.phone`
-    max-width: 100%;
-    border-top-left-radius: ${Dimens.xsmall}px;
-    border-top-right-radius: ${Dimens.xsmall}px;
-    float: none;
-  `};
-`;
-
-const PickupSpaceImagePrice = styled.span`
-  display: none;
-  ${media.phone`
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    padding: ${Dimens.small_10}px;
-    color: ${Colors.white};
-    background-color: rgba(33, 33, 33, 0.6);
-  `};
-`;
-
-const PickupSpaceDesc = styled.div`
-  overflow: hidden;
-  margin-left: 270px;
-  line-height: 1.8em;
-  ${media.tablet`
-    margin-left: 170px;
-  `};
-  ${media.phone`
-    margin: 0;
-    float: none;
-    padding: ${Dimens.small_10}px ${Dimens.small2_15}px 0;
-    line-height: 1.5em;
-  `};
-`;
-
-const PickupSpaceDescLocation = styled.div`
-  width: 50%;
-  float: left;
-  text-align: left;
-  ${media.phone`
-    // float: none;
-    ${props =>
-      props.backage &&
-      `
-        // display: none;
-      `};
-  `};
-`;
-
-const PickupSpaceDescLocationTitle = styled.span`
-  ${media.phone`
-    display: none;
-  `};
-`;
-
-const PickupSpaceDescDl = styled.dl`
-  width: 250px;
-  overflow: hidden;
-  margin-top: 6px;
-  ${media.tablet`
-    font-size: ${FontSizes.small_12}px;
-  `};
-  ${media.phone`
-    width: 100%;
-    margin: 0 0 10px;
-  `};
-`;
-
-const PickupSpaceDescDt = styled.dt`
-  float: left;
-  clear: left;
-  width: 70px;
-  ${media.tablet`
-    width: 55px;
-  `};
-  ${media.phone`
-    width: 45%;
-  `};
-`;
-
-const PickupSpaceDescDd = styled.dd`
-  ${media.phone`
-    width: 100%;
-  `};
-`;
-
-const PickupSpaceDescHostWrap = styled.div`
-  margin-top: 8px;
-  margin-bottom: 10px;
-  line-height: 1em;
-  overflow: hidden;
-  padding: ${Dimens.small_10}px ${Dimens.small}px;
-  background: #eee;
-  ${media.tablet`
-    padding: ${Dimens.xsmall}px ${Dimens.xxsmall_4}px;
-  `};
-  ${media.phone`
-    padding: ${Dimens.xsmall}px;
-  `};
-`;
-
-const PickupSpaceDescHostImage = styled.img`
-  float: none;
-  width: 30px;
-  vertical-align: middle;
-  ${media.tablet`
-    width: 25px;
-  `};
-`;
-
-const PickupSpaceDescHostName = styled.span`
-  margin-left: 0.3em;
-  line-height: 1em;
-  ${media.tablet`
-    font-size: ${FontSizes.small_12}px;
-  `};
-`;
-
-const PickupSpacePlanUl = styled.ul`
-  margin-top: 0;
-  padding-top: 0;
-  margin: auto -${Dimens.small2_15}px;
-  ${media.phone`
-    margin: auto;
-  `};
-`;
-
-const PickupSpacePlanLi = styled.li`
-  position: relative;
-  margin-bottom: 0;
-  border-top: solid 1px #eee;
-  text-align: left;
-  &:after {
-    position: absolute;
-    top: 50%;
-    right: ${Dimens.medium2}px;
-    display: block;
-    content: '';
-    width: 8px;
-    height: 8px;
-    margin-top: -4px;
-    border-top: 2px solid ${Colors.black};
-    border-right: 2px solid ${Colors.black};
-    transform: rotate(45deg);
-  }
-  &:active {
-    opacity: 0.8;
-  }
-  ${media.phone`
-    &:after {
-      right: ${Dimens.medium_20}px;
-    }
-  `};
-  ${mediaMin.tablet`
-    &:hover {
-      opacity: 0.8;
-    }
-  `};
-`;
-
-const PickupSpacePlanLiLink = styled(Link)`
-  position: relative;
-  display: block;
-  text-decoration: none;
-  line-height: 1.8em;
-  padding: 1em 1.2em;
-  color: ${Colors.black};
-  ${media.phone`
-    line-height: 1.6em;
-    font-size: small;
-    padding-top: 12px;
-    padding-bottom: 12px;
-  `};
-`;
-
-const PickupSpacePlanLiPrice = styled.span`
-  position: absolute;
-  top: calc(50% - ${Dimens.medium_18}px);
-  right: ${Dimens.medium4_50}px;
-  ${media.phone`
-    top: calc(50% - ${Dimens.small_9}px);
-    right: ${Dimens.medium3_40}px;
-    font-weight: bold;
-  `};
-`;
-
-const PickupSpacePlanLiSmallButton = styled.span`
-  display: inline-block;
-  font-size: ${FontSizes.small}px;
-  background-color: ${Colors.brandPrimary};
-  color: ${Colors.white};
-  padding: ${Dimens.xxsmall_4}px ${Dimens.small}px;
-  margin-left: ${Dimens.small2}px;
-  border-radius: ${Dimens.xxsmall_4}px;
-  ${media.phone`
-    display: none;
   `};
 `;
 
@@ -997,214 +763,95 @@ export default ({ onClickSignup }) => (
       </BusinessmodelWrap>
       <PickupSpaceWrap>
         <SectionTitle>PickUP!スペース</SectionTitle>
-        <PickupSpaceItem>
-          <PickupSpaceBasic>
-            <PickupSpaceImageWrap>
-              <PickupSpaceImage src={ImagePickupSpace1} alt="img-space1" />
-              <PickupSpaceImagePrice>5,000円〜</PickupSpaceImagePrice>
-            </PickupSpaceImageWrap>
-            <PickupSpaceDesc>
-              <PickupSpaceDescLocation>
-                <PickupSpaceDescLocationTitle>■部屋情報</PickupSpaceDescLocationTitle>
-                <PickupSpaceDescDl>
-                  <PickupSpaceDescDt>最寄駅</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>西川口駅</PickupSpaceDescDd>
-                  <PickupSpaceDescDt>徒歩</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>2分</PickupSpaceDescDd>
-                  <PickupSpaceDescDt>タイプ</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>部屋</PickupSpaceDescDd>
-                </PickupSpaceDescDl>
-              </PickupSpaceDescLocation>
-              <PickupSpaceDescLocation backage>
-                <PickupSpaceDescLocationTitle>■荷物情報</PickupSpaceDescLocationTitle>
-                <PickupSpaceDescDl>
-                  <PickupSpaceDescDt>対応荷物</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>家具・家電</PickupSpaceDescDd>
-                  <PickupSpaceDescDt>受取方法</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>配送/対面</PickupSpaceDescDd>
-                </PickupSpaceDescDl>
-                <PickupSpaceDescHostWrap>
-                  <PickupSpaceDescHostImage src={ImagePickupSpace1Host} alt="img-host1" />
-                  <PickupSpaceDescHostName>ithurricaneさん</PickupSpaceDescHostName>
-                </PickupSpaceDescHostWrap>
-              </PickupSpaceDescLocation>
-            </PickupSpaceDesc>
-          </PickupSpaceBasic>
-          {/* TODO: コンポーネント化け */}
-          <PickupSpacePlanUl>
-            <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink to={Path.space(2278)}>
-                1/4程度のスペースの月額料金
-                <PickupSpacePlanLiPrice>
-                  5,000円
-                  <PickupSpacePlanLiSmallButton>詳細をみる</PickupSpacePlanLiSmallButton>
-                </PickupSpacePlanLiPrice>
-              </PickupSpacePlanLiLink>
-            </PickupSpacePlanLi>
-            <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink to={Path.space(2278)}>
-                半分のスペースの月額料金
-                <PickupSpacePlanLiPrice>
-                  10,000円
-                  <PickupSpacePlanLiSmallButton className="small-btn">
-                    詳細をみる
-                  </PickupSpacePlanLiSmallButton>
-                </PickupSpacePlanLiPrice>
-              </PickupSpacePlanLiLink>
-            </PickupSpacePlanLi>
-            <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink to={Path.space(2278)}>
-                全てのスペースの月額料金
-                <PickupSpacePlanLiPrice>
-                  18,000円
-                  <PickupSpacePlanLiSmallButton className="small-btn">
-                    詳細をみる
-                  </PickupSpacePlanLiSmallButton>
-                </PickupSpacePlanLiPrice>
-              </PickupSpacePlanLiLink>
-            </PickupSpacePlanLi>
-          </PickupSpacePlanUl>
-        </PickupSpaceItem>
-
-        <PickupSpaceItem>
-          <PickupSpaceBasic>
-            <PickupSpaceImageWrap>
-              <PickupSpaceImage src={ImagePickupSpace2} alt="img-space2" />
-              <PickupSpaceImagePrice>5,000円〜</PickupSpaceImagePrice>
-            </PickupSpaceImageWrap>
-            <PickupSpaceDesc>
-              <PickupSpaceDescLocation>
-                <PickupSpaceDescLocationTitle>■部屋情報</PickupSpaceDescLocationTitle>
-                <PickupSpaceDescDl>
-                  <PickupSpaceDescDt>最寄駅</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>成瀬駅</PickupSpaceDescDd>
-                  <PickupSpaceDescDt>徒歩</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>5分</PickupSpaceDescDd>
-                  <PickupSpaceDescDt>タイプ</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>部屋</PickupSpaceDescDd>
-                </PickupSpaceDescDl>
-              </PickupSpaceDescLocation>
-              <PickupSpaceDescLocation backage>
-                <PickupSpaceDescLocationTitle>■荷物情報</PickupSpaceDescLocationTitle>
-                <PickupSpaceDescDl>
-                  <PickupSpaceDescDt>対応荷物</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>家具・家電</PickupSpaceDescDd>
-                  <PickupSpaceDescDt>受取方法</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>配送/対面</PickupSpaceDescDd>
-                </PickupSpaceDescDl>
-                <PickupSpaceDescHostWrap>
-                  <PickupSpaceDescHostImage src={ImagePickupSpace2Host} alt="img-host2" />
-                  <PickupSpaceDescHostName>もかさん</PickupSpaceDescHostName>
-                </PickupSpaceDescHostWrap>
-              </PickupSpaceDescLocation>
-            </PickupSpaceDesc>
-          </PickupSpaceBasic>
-          {/* TODO: コンポーネント化け */}
-          <PickupSpacePlanUl>
-            <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink to={Path.space(2203)}>
-                1/4程度のスペースの月額料金
-                <PickupSpacePlanLiPrice>
-                  5,000円
-                  <PickupSpacePlanLiSmallButton>詳細をみる</PickupSpacePlanLiSmallButton>
-                </PickupSpacePlanLiPrice>
-              </PickupSpacePlanLiLink>
-            </PickupSpacePlanLi>
-            <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink to={Path.space(2203)}>
-                半分のスペースの月額料金
-                <PickupSpacePlanLiPrice>
-                  10,000円
-                  <PickupSpacePlanLiSmallButton className="small-btn">
-                    詳細をみる
-                  </PickupSpacePlanLiSmallButton>
-                </PickupSpacePlanLiPrice>
-              </PickupSpacePlanLiLink>
-            </PickupSpacePlanLi>
-            <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink to={Path.space(2203)}>
-                全てのスペースの月額料金
-                <PickupSpacePlanLiPrice>
-                  20,000円
-                  <PickupSpacePlanLiSmallButton className="small-btn">
-                    詳細をみる
-                  </PickupSpacePlanLiSmallButton>
-                </PickupSpacePlanLiPrice>
-              </PickupSpacePlanLiLink>
-            </PickupSpacePlanLi>
-          </PickupSpacePlanUl>
-        </PickupSpaceItem>
-
-        <PickupSpaceItem>
-          <PickupSpaceBasic>
-            <PickupSpaceImageWrap>
-              <PickupSpaceImage src={ImagePickupSpace3} alt="img-space3" />
-              <PickupSpaceImagePrice>3,000円〜</PickupSpaceImagePrice>
-            </PickupSpaceImageWrap>
-            <PickupSpaceDesc>
-              <PickupSpaceDescLocation>
-                <PickupSpaceDescLocationTitle>■部屋情報</PickupSpaceDescLocationTitle>
-                <PickupSpaceDescDl>
-                  <PickupSpaceDescDt>最寄駅</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>東北沢駅</PickupSpaceDescDd>
-                  <PickupSpaceDescDt>徒歩</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>2分</PickupSpaceDescDd>
-                  <PickupSpaceDescDt>タイプ</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>部屋</PickupSpaceDescDd>
-                </PickupSpaceDescDl>
-              </PickupSpaceDescLocation>
-              <PickupSpaceDescLocation backage>
-                <PickupSpaceDescLocationTitle>■荷物情報</PickupSpaceDescLocationTitle>
-                <PickupSpaceDescDl>
-                  <PickupSpaceDescDt>対応荷物</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>家具・家電</PickupSpaceDescDd>
-                  <PickupSpaceDescDt>受取方法</PickupSpaceDescDt>
-                  <PickupSpaceDescDd>配送/対面</PickupSpaceDescDd>
-                </PickupSpaceDescDl>
-                <PickupSpaceDescHostWrap>
-                  <PickupSpaceDescHostImage src={ImagePickupSpace3Host} alt="img-host3" />
-                  <PickupSpaceDescHostName>Syunさん</PickupSpaceDescHostName>
-                </PickupSpaceDescHostWrap>
-              </PickupSpaceDescLocation>
-            </PickupSpaceDesc>
-          </PickupSpaceBasic>
-          {/* TODO: コンポーネント化け */}
-          <PickupSpacePlanUl>
-            <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink to={Path.space(2412)}>
-                1/4程度のスペースの月額料金
-                <PickupSpacePlanLiPrice>
-                  3,000円
-                  <PickupSpacePlanLiSmallButton>詳細をみる</PickupSpacePlanLiSmallButton>
-                </PickupSpacePlanLiPrice>
-              </PickupSpacePlanLiLink>
-            </PickupSpacePlanLi>
-            <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink to={Path.space(2412)}>
-                半分のスペースの月額料金
-                <PickupSpacePlanLiPrice>
-                  6,000円
-                  <PickupSpacePlanLiSmallButton className="small-btn">
-                    詳細をみる
-                  </PickupSpacePlanLiSmallButton>
-                </PickupSpacePlanLiPrice>
-              </PickupSpacePlanLiLink>
-            </PickupSpacePlanLi>
-            <PickupSpacePlanLi>
-              <PickupSpacePlanLiLink to={Path.space(120)}>
-                全てのスペースの月額料金
-                <PickupSpacePlanLiPrice>
-                  10,000円
-                  <PickupSpacePlanLiSmallButton className="small-btn">
-                    詳細をみる
-                  </PickupSpacePlanLiSmallButton>
-                </PickupSpacePlanLiPrice>
-              </PickupSpacePlanLiLink>
-            </PickupSpacePlanLi>
-          </PickupSpacePlanUl>
-        </PickupSpaceItem>
+        <PickupSpaceList
+          list={[
+            {
+              spaceImage: ImagePickupSpace1,
+              spaceImageAlt: 'img-space1',
+              spaceImageprice: '5,000円〜',
+              station: '西川口駅',
+              walk: '2分',
+              type: '部屋',
+              backage: '家具・家電',
+              delivery: '配送/対面',
+              hostImage: ImagePickupSpace1Host,
+              hostImageAlt: 'img-host1',
+              hostName: 'ithurricaneさん',
+              priceList: [
+                {
+                  title: '1/4程度のスペースの月額料金',
+                  price: '5,000円',
+                },
+                {
+                  title: '1/4程度のスペースの月額料金',
+                  price: '10,000円',
+                },
+                {
+                  title: '1/4程度のスペースの月額料金',
+                  price: '18,000円',
+                },
+              ],
+              spaceId: 2278,
+            },
+            {
+              spaceImage: ImagePickupSpace2,
+              spaceImageAlt: 'img-space2',
+              spaceImageprice: '5,000円〜',
+              station: '成瀬駅',
+              walk: '5分',
+              type: '部屋',
+              backage: '家具・家電',
+              delivery: '配送/対面',
+              hostImage: ImagePickupSpace2Host,
+              hostImageAlt: 'img-host2',
+              hostName: 'もかさん',
+              priceList: [
+                {
+                  title: '1/4程度のスペースの月額料金',
+                  price: '5,000円',
+                },
+                {
+                  title: '1/4程度のスペースの月額料金',
+                  price: '10,000円',
+                },
+                {
+                  title: '1/4程度のスペースの月額料金',
+                  price: '20,000円',
+                },
+              ],
+              spaceId: 2203,
+            },
+            {
+              spaceImage: ImagePickupSpace3,
+              spaceImageAlt: 'img-space3',
+              spaceImageprice: '3,000円〜',
+              station: '東北沢駅',
+              walk: '2分',
+              type: '部屋',
+              backage: '家具・家電',
+              delivery: '配送/対面',
+              hostImage: ImagePickupSpace3Host,
+              hostImageAlt: 'img-host3',
+              hostName: 'Syunさん',
+              priceList: [
+                {
+                  title: '1/4程度のスペースの月額料金',
+                  price: '3,000円',
+                },
+                {
+                  title: '1/4程度のスペースの月額料金',
+                  price: '6,000円',
+                },
+                {
+                  title: '1/4程度のスペースの月額料金',
+                  price: '10,000円',
+                },
+              ],
+              spaceId: 2412,
+            },
+          ]}
+        />
       </PickupSpaceWrap>
-
       <FlowWrap>
         <SectionTitle>ご利用の流れ</SectionTitle>
         <FlowUl>

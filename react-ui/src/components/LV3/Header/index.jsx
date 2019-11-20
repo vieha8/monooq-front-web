@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import PopupMenu from 'reactjs-popup';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Path from 'config/path';
 import Button from 'components/LV1/Forms/Button';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
 import InlineText from 'components/LV1/Texts/InlineText';
