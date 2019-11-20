@@ -49,14 +49,7 @@ const TopWrap = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
   background-blend-mode: lighten;
   ${media.tablet`
-    top: 0px;
-    width: 100%;
-    height: 410px;
-    margin-bottom: 0;
-  `};
-  ${media.phone`
     height: 440px;
-    }
   `};
 `;
 
@@ -76,17 +69,19 @@ const TopTitle = styled.h1`
   font-size: ${FontSizes.medium3}px;
   line-height: ${Dimens.medium2_38}px;
   font-weight: bold;
-  margin-bottom: ${Dimens.small2}px;
-  margin-bottom: 20px;
+  margin-bottom: ${Dimens.medium_20}px;
   color: ${Colors.white};
   text-shadow: 1px 1px 1px #333;
   ${media.tablet`
     font-size: ${FontSizes.medium2}px;
     line-height: ${Dimens.medium2}px;
-    margin-bottom: ${Dimens.xsmall}px;
+    margin-bottom: ${Dimens.small_10}px;
+  `}
+  ${media.phone`
+    font-size: ${FontSizes.medium1}px;
   `}
   ${media.phoneSmall`
-    font-size: ${FontSizes.medium1}px;
+    font-size: ${FontSizes.medium_18}px;
   `}
 `;
 
@@ -123,7 +118,7 @@ const InitialCost = styled.span`
 const SectionTitle = styled.span`
   position: relative;
   display: block;
-  font-size: x-large;
+  font-size: ${FontSizes.medium2_26}px;
   text-align: center;
   margin-top: 0.7em;
   margin-bottom: 2em;
@@ -142,6 +137,9 @@ const SectionTitle = styled.span`
     background-color: black;
     border-radius: 10px;
   }
+  ${media.phone`
+    font-size: ${FontSizes.medium1}px;
+  `};
 `;
 
 const WantWrap = styled.div`
@@ -623,15 +621,11 @@ const Answer = styled.div`
   `}
 `;
 
-export default ({ onClickSignup }) => (
+export default ({ headline, titleWant, onClickSignup }) => (
   <Wrap>
     <TopWrap>
       <TopMessageContent>
-        <TopTitle itemProp="headline">
-          トランクルームより安く荷物を
-          <br />
-          預けるなら『モノオク』
-        </TopTitle>
+        <TopTitle itemProp="headline">{headline}</TopTitle>
         <InitialCost>初期費用0円</InitialCost>
         <ButtonCaption caption="60秒で簡単登録" text="保管スペースを探す" onClick={onClickSignup} />
       </TopMessageContent>
@@ -639,7 +633,7 @@ export default ({ onClickSignup }) => (
 
     <ContentsWrap>
       <WantWrap>
-        <SectionTitle>こんな荷物ありませんか？</SectionTitle>
+        <SectionTitle>{titleWant}</SectionTitle>
         <WantUl>
           <WantLi>
             <WantLiFigure>
@@ -684,13 +678,13 @@ export default ({ onClickSignup }) => (
           <WorryConnect>でも</WorryConnect>
           <WorryUl>
             <WorryLi>
-              <Marker>トランクルームは高いし空きがない</Marker>
+              <Marker>トランクルームやレンタル倉庫は高いし空きがない</Marker>
             </WorryLi>
             <WorryLi>
               <Marker>コンテナは環境が悪い</Marker>
             </WorryLi>
             <WorryLi>
-              <Marker>宅配型の保管サービスでは預けきれない</Marker>
+              <Marker>宅配型の保管サービスでは置ききれない</Marker>
             </WorryLi>
           </WorryUl>
         </WorryWrapUl>

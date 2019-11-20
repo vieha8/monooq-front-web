@@ -11,6 +11,8 @@ const PATH_TOP = '/';
 const PATH_ABOUT = '/about';
 const PATH_HOWTOUSE = '/howtouse';
 const PATH_LP1_GUEST = '/lp1/guest';
+const PATH_LP2_GUEST = '/lp2/guest';
+const PATH_LP3_GUEST = '/lp3/guest';
 
 class HeaderContainer extends Component {
   constructor(props) {
@@ -20,7 +22,13 @@ class HeaderContainer extends Component {
     let pagePathScrollPage = '';
     let isLinkRed = false;
 
-    if (targetUrl === PATH_ABOUT || targetUrl === PATH_HOWTOUSE || targetUrl === PATH_LP1_GUEST) {
+    if (
+      targetUrl === PATH_ABOUT ||
+      targetUrl === PATH_HOWTOUSE ||
+      targetUrl === PATH_LP1_GUEST ||
+      targetUrl === PATH_LP2_GUEST ||
+      targetUrl === PATH_LP3_GUEST
+    ) {
       isLinkRed = true;
     }
 
@@ -91,6 +99,8 @@ class HeaderContainer extends Component {
         case PATH_ABOUT:
         case PATH_HOWTOUSE:
         case PATH_LP1_GUEST:
+        case PATH_LP2_GUEST:
+        case PATH_LP3_GUEST:
           positionScrollPC = 540;
           positionScrollSP = 320;
           break;
