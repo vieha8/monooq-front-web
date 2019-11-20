@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PopupMenu from 'reactjs-popup';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Path from 'config/path';
 import Button from 'components/LV1/Forms/Button';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -9,6 +10,7 @@ import TextLink from 'components/LV1/Texts/TextLink';
 import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
+import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
 import SearchIcon from 'components/LV2/ButtonHeader/SearchIcon';
 
@@ -205,41 +207,6 @@ const ButtonBottomWrap = styled.div`
     `};
 `;
 
-// TODO: コンポーネント化する
-const ButtonTopMessageWrap = styled.div`
-  position: relative;
-  max-width: 440px;
-  margin: auto;
-  &:after {
-    position: absolute;
-    top: 50%;
-    right: 30px;
-    display: block;
-    content: '';
-    width: 12px;
-    height: 12px;
-    margin-top: -6px;
-    border-top: 4px solid ${Colors.white};
-    border-right: 4px solid ${Colors.white};
-    transform: rotate(45deg);
-  }
-  ${media.phone`
-    &:after {
-      right: 20px;
-    }
-  `}
-`;
-
-const ButtonTopMessageButtonText = styled.span`
-  vertical-align: middle;
-  padding: 6px;
-  margin-left: -30px;
-  margin-right: 12px;
-  background-color: ${Colors.white};
-  color: ${Colors.black};
-  font-size: 12px;
-`;
-
 const trigger = imageUrl => {
   return (
     <div>
@@ -407,22 +374,11 @@ export default ({
         )}
         {isPageLp1 && (
           <ButtonBottomWrap isOverTopView={isOverTopView}>
-            <ButtonTopMessageWrap>
-              <Button
-                center
-                primary
-                fontbold
-                fill={1}
-                height={72}
-                heightSp={60}
-                fontSize={24}
-                lineheight={46}
-                lineheightSp={34}
-              >
-                <ButtonTopMessageButtonText>60秒で簡単登録</ButtonTopMessageButtonText>
-                保管スペースを探す
-              </Button>
-            </ButtonTopMessageWrap>
+            <ButtonCaption
+              caption="60秒で簡単登録"
+              text="保管スペースを探す"
+              onClick={onClickSignup}
+            />
           </ButtonBottomWrap>
         )}
       </Nav>

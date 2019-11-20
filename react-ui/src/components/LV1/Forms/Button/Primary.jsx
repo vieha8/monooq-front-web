@@ -60,6 +60,9 @@ export const PrimaryButton = styled.div`
         &:active {
           background: ${Colors.brandTerciary};
         }
+        &:active span {
+          opacity: 0.8;
+        }
       `};
 
   ${mediaMin.tablet`
@@ -68,6 +71,9 @@ export const PrimaryButton = styled.div`
       `
         &:hover {
           background: ${Colors.brandTerciary};
+        }
+        &:hover span {
+          opacity: 0.8;
         }
       `};
   `};

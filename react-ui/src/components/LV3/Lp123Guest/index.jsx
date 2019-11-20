@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import Path from 'config/path';
 import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
-import Button from 'components/LV1/Forms/Button';
+import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 
 import ImageHero from 'images/lp123guest/hero.jpg';
@@ -117,40 +118,6 @@ const InitialCost = styled.span`
     margin-left: 5px;
     background: url(${ImageBarRight}) 0% 0% / 25px 25px no-repeat;
   }
-`;
-
-const ButtonTopMessageWrap = styled.div`
-  position: relative;
-  max-width: 440px;
-  margin: auto;
-  &:after {
-    position: absolute;
-    top: 50%;
-    right: 30px;
-    display: block;
-    content: '';
-    width: 12px;
-    height: 12px;
-    margin-top: -6px;
-    border-top: 4px solid ${Colors.white};
-    border-right: 4px solid ${Colors.white};
-    transform: rotate(45deg);
-  }
-  ${media.phone`
-    &:after {
-      right: 20px;
-    }
-  `}
-`;
-
-const ButtonTopMessageButtonText = styled.span`
-  vertical-align: middle;
-  padding: 6px;
-  margin-left: -30px;
-  margin-right: 12px;
-  background-color: ${Colors.white};
-  color: ${Colors.black};
-  font-size: 12px;
 `;
 
 const SectionTitle = styled.span`
@@ -881,7 +848,7 @@ const Answer = styled.div`
   `}
 `;
 
-export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
+export default ({ onClickSignup }) => (
   <Wrap>
     <TopWrap>
       <TopMessageContent>
@@ -891,22 +858,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
           預けるなら『モノオク』
         </TopTitle>
         <InitialCost>初期費用0円</InitialCost>
-        <ButtonTopMessageWrap>
-          <Button
-            center
-            primary
-            fontbold
-            fill={1}
-            height={72}
-            heightSp={60}
-            fontSize={24}
-            lineheight={46}
-            lineheightSp={34}
-          >
-            <ButtonTopMessageButtonText>60秒で簡単登録</ButtonTopMessageButtonText>
-            保管スペースを探す
-          </Button>
-        </ButtonTopMessageWrap>
+        <ButtonCaption caption="60秒で簡単登録" text="保管スペースを探す" onClick={onClickSignup} />
       </TopMessageContent>
     </TopWrap>
 
