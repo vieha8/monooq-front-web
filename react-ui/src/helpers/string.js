@@ -16,3 +16,7 @@ export const formatName = value => {
   if (value === null || !value) return '名無し';
   return value;
 };
+
+export const partialMatch = (target, format) => {
+  return !target.indexOf(format);
+};

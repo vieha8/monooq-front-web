@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import Path from 'config/path';
+import { partialMatch } from 'helpers/string';
 import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import Lp123Guest from 'components/LV3/Lp123Guest';
 
@@ -26,20 +27,16 @@ class Lp123GuestContainer extends React.Component {
     let headline = this.getHeadlineLp1();
     let titleWant = 'こんな荷物ありませんか？';
 
-    switch (targetUrl) {
-      case PATH_LP2_GUEST:
-        titleMeta =
-          'レンタル倉庫・コンテナより安く荷物を預けるなら「モノオク」｜トランクルーム・コンテナよりもお手軽に収納';
-        headline = this.getHeadlineLp2();
-        titleWant = '荷物の保管場所に困ってませんか？';
-        break;
-      case PATH_LP3_GUEST:
-        titleMeta =
-          '引っ越し荷物の一時保管を安くするなら「モノオク」｜トランクルーム・コンテナよりもお手軽に収納';
-        headline = this.getHeadlineLp3();
-        titleWant = '荷物の保管場所に困ってませんか？';
-        break;
-      default:
+    if (partialMatch(targetUrl, PATH_LP2_GUEST)) {
+      titleMeta =
+        'レンタル倉庫・コンテナより安く荷物を預けるなら「モノオク」｜トランクルーム・コンテナよりもお手軽に収納';
+      headline = this.getHeadlineLp2();
+      titleWant = '荷物の保管場所に困ってませんか？';
+    } else if (partialMatch(targetUrl, PATH_LP3_GUEST)) {
+      titleMeta =
+        '引っ越し荷物の一時保管を安くするなら「モノオク」｜トランクルーム・コンテナよりもお手軽に収納';
+      headline = this.getHeadlineLp3();
+      titleWant = '荷物の保管場所に困ってませんか？';
     }
 
     this.setState({ titleWant, headline, titleMeta });

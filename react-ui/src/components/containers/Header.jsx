@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { partialMatch } from 'helpers/string';
 import Header from 'components/LV3/Header';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import { withRouter } from 'react-router';
@@ -23,11 +24,11 @@ class HeaderContainer extends Component {
     let isLinkRed = false;
 
     if (
-      targetUrl === PATH_ABOUT ||
-      targetUrl === PATH_HOWTOUSE ||
-      targetUrl === PATH_LP1_GUEST ||
-      targetUrl === PATH_LP2_GUEST ||
-      targetUrl === PATH_LP3_GUEST
+      partialMatch(targetUrl, PATH_ABOUT) ||
+      partialMatch(targetUrl, PATH_HOWTOUSE) ||
+      partialMatch(targetUrl, PATH_LP1_GUEST) ||
+      partialMatch(targetUrl, PATH_LP2_GUEST) ||
+      partialMatch(targetUrl, PATH_LP3_GUEST)
     ) {
       isLinkRed = true;
     }
@@ -91,20 +92,18 @@ class HeaderContainer extends Component {
         this.setState({ isOverTopView: false });
       }
 
-      switch (pagePathScrollPage) {
-        case PATH_TOP:
-          positionScrollPC = 450;
-          positionScrollSP = 290;
-          break;
-        case PATH_ABOUT:
-        case PATH_HOWTOUSE:
-        case PATH_LP1_GUEST:
-        case PATH_LP2_GUEST:
-        case PATH_LP3_GUEST:
-          positionScrollPC = 540;
-          positionScrollSP = 320;
-          break;
-        default:
+      if (partialMatch(pagePathScrollPage, PATH_TOP)) {
+        positionScrollPC = 450;
+        positionScrollSP = 290;
+      } else if (
+        partialMatch(pagePathScrollPage, PATH_ABOUT) ||
+        partialMatch(pagePathScrollPage, PATH_HOWTOUSE) ||
+        partialMatch(pagePathScrollPage, PATH_LP1_GUEST) ||
+        partialMatch(pagePathScrollPage, PATH_LP2_GUEST) ||
+        partialMatch(pagePathScrollPage, PATH_LP3_GUEST)
+      ) {
+        positionScrollPC = 540;
+        positionScrollSP = 320;
       }
 
       if (window.parent.screen.width > 480) {
