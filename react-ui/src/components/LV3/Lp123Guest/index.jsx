@@ -624,7 +624,7 @@ const Answer = styled.div`
 
 export default ({ titleMeta, headline, titleWant, onClickSignup }) => (
   <Wrap>
-    <Meta title={titleMeta} />
+    <Meta title={titleMeta} noindex />
 
     <TopWrap>
       <TopMessageContent>
@@ -780,11 +780,11 @@ export default ({ titleMeta, headline, titleWant, onClickSignup }) => (
                   price: '5,000円',
                 },
                 {
-                  title: '1/4程度のスペースの月額料金',
+                  title: '半分のスペースの月額料金',
                   price: '10,000円',
                 },
                 {
-                  title: '1/4程度のスペースの月額料金',
+                  title: '全てのスペースの月額料金',
                   price: '18,000円',
                 },
               ],
@@ -808,11 +808,11 @@ export default ({ titleMeta, headline, titleWant, onClickSignup }) => (
                   price: '5,000円',
                 },
                 {
-                  title: '1/4程度のスペースの月額料金',
+                  title: '半分のスペースの月額料金',
                   price: '10,000円',
                 },
                 {
-                  title: '1/4程度のスペースの月額料金',
+                  title: '全てのスペースの月額料金',
                   price: '20,000円',
                 },
               ],
@@ -836,11 +836,11 @@ export default ({ titleMeta, headline, titleWant, onClickSignup }) => (
                   price: '3,000円',
                 },
                 {
-                  title: '1/4程度のスペースの月額料金',
+                  title: '半分のスペースの月額料金',
                   price: '6,000円',
                 },
                 {
-                  title: '1/4程度のスペースの月額料金',
+                  title: '全てのスペースの月額料金',
                   price: '10,000円',
                 },
               ],

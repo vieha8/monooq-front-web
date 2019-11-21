@@ -288,15 +288,17 @@ export default ({
   return (
     <Container stories={stories}>
       <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
-        <SearchIconWrapper>
-          <SearchIcon onClick={onClickSearch} />
-        </SearchIconWrapper>
+        {!isPageLp123 && (
+          <SearchIconWrapper>
+            <SearchIcon onClick={onClickSearch} />
+          </SearchIconWrapper>
+        )}
         <LogoWrapper>
           <LogoLink to={topUrl}>
             <ImageLogo.HeaderFill />
           </LogoLink>
         </LogoWrapper>
-        {!isCheckingLogin && !noHeaderButton && (
+        {!isPageLp123 && !isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>
             {user ? (
               <ActionContainer>
@@ -321,13 +323,13 @@ export default ({
                         name={user.name}
                       />
                       {user.isHost && (
-                        <Fragment>
+                        <>
                           <TitleMenu>スペース運営</TitleMenu>
                           <MenuItem title="スペースの新規登録" {...addSpace} />
                           <MenuItem title="スペースの管理" {...spaces} />
                           {isSchedule && <MenuItem title="利用状況" {...schedule} />}
                           <MenuItem title="売上・振込申請" {...sales} />
-                        </Fragment>
+                        </>
                       )}
                       {user && <MenuItem title="ログアウト" {...logoutEvent} blank logout />}
                     </div>

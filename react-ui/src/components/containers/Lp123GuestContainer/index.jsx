@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Path from 'config/path';
 import { partialMatch } from 'helpers/string';
 import ContentPageStatic from 'components/hocs/ContentPageStatic';
@@ -44,31 +44,31 @@ class Lp123GuestContainer extends React.Component {
 
   getHeadlineLp1 = () => {
     return (
-      <Fragment>
+      <>
         トランクルームより安く荷物を
         <br />
         預けるなら『モノオク』
-      </Fragment>
+      </>
     );
   };
 
   getHeadlineLp2 = () => {
     return (
-      <Fragment>
+      <>
         レンタル倉庫・コンテナより
         <br />
         安く荷物を預けるなら『モノオク』
-      </Fragment>
+      </>
     );
   };
 
   getHeadlineLp3 = () => {
     return (
-      <Fragment>
+      <>
         引っ越し荷物の一時保管を
         <br />
         安くするなら「モノオク」
-      </Fragment>
+      </>
     );
   };
 
@@ -87,6 +87,7 @@ class Lp123GuestContainer extends React.Component {
 }
 
 export default ContentPageStatic(Lp123GuestContainer, {
+  isLp: true,
   maxWidth: true,
   bottomMargin: true,
 });
