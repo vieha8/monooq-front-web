@@ -12,28 +12,37 @@ class Lp123GuestContainer extends React.Component {
     const targetUrl = props.match ? props.match.url : '';
     this.state = {
       targetUrl,
+      titleMeta: '',
+      headline: '',
+      titleWant: '',
     };
   }
 
   componentDidMount() {
     const { targetUrl } = this.state;
 
+    let titleMeta =
+      'トランクルームより安く荷物を預けるなら『モノオク』｜トランクルーム・コンテナよりもお手軽に収納';
     let headline = this.getHeadlineLp1();
     let titleWant = 'こんな荷物ありませんか？';
 
     switch (targetUrl) {
       case PATH_LP2_GUEST:
+        titleMeta =
+          'レンタル倉庫・コンテナより安く荷物を預けるなら「モノオク」｜トランクルーム・コンテナよりもお手軽に収納';
         headline = this.getHeadlineLp2();
         titleWant = '荷物の保管場所に困ってませんか？';
         break;
       case PATH_LP3_GUEST:
+        titleMeta =
+          '引っ越し荷物の一時保管を安くするなら「モノオク」｜トランクルーム・コンテナよりもお手軽に収納';
         headline = this.getHeadlineLp3();
         titleWant = '荷物の保管場所に困ってませんか？';
         break;
       default:
     }
 
-    this.setState({ titleWant, headline });
+    this.setState({ titleWant, headline, titleMeta });
   }
 
   getHeadlineLp1 = () => {
@@ -68,12 +77,13 @@ class Lp123GuestContainer extends React.Component {
 
   render() {
     const { history } = this.props;
-    const { titleWant, headline } = this.state;
+    const { titleMeta, headline, titleWant } = this.state;
     return (
       <Lp123Guest
-        onClickSignup={() => history.push(Path.signUp())}
-        titleWant={titleWant}
+        titleMeta={titleMeta}
         headline={headline}
+        titleWant={titleWant}
+        onClickSignup={() => history.push(Path.signUp())}
       />
     );
   }

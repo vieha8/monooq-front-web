@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
+import Meta from 'components/LV1/Meta';
+import ContainerDefault from 'components/LV1/ContainerDefault';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import PickupSpaceList from 'components/LV2/Lists/PickupSpaceList';
-import ContainerDefault from 'components/LV1/ContainerDefault';
 
 import ImageHero from 'images/lp123guest/hero.jpg';
 import ImageBarLeft from 'images/lp123guest/icon-bar-left.png';
@@ -621,8 +622,10 @@ const Answer = styled.div`
   `}
 `;
 
-export default ({ headline, titleWant, onClickSignup }) => (
+export default ({ titleMeta, headline, titleWant, onClickSignup }) => (
   <Wrap>
+    <Meta title={titleMeta} />
+
     <TopWrap>
       <TopMessageContent>
         <TopTitle itemProp="headline">{headline}</TopTitle>
