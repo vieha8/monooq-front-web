@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Colors, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 
-const TextLink = styled(Link)`
+const TextLink = styled(({ bold, colorHover, ...props }) => <Link {...props} />)`
   color: ${Colors.linkBlue};
   line-height: normal;
   font-size: ${props => props.fontSize || FontSizes.small_15}px;

@@ -109,10 +109,11 @@ class PaymentContainer extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
+    const { isPaymentFailed, isPaymentSuccess } = this.props;
     if (
-      (!this.isPaymentFailed && nextProps.isPaymentFailed) ||
-      (!this.isPaymentSuccess && nextProps.isPaymentSuccess)
+      (!prevProps.isPaymentFailed && isPaymentFailed) ||
+      (!prevProps.isPaymentSuccess && isPaymentSuccess)
     ) {
       window.scrollTo(0, 0);
     }

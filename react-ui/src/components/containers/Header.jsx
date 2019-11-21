@@ -7,6 +7,7 @@ import { withRouter } from 'react-router';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
+import ReactGA from 'react-ga';
 
 const PATH_TOP = '/';
 const PATH_ABOUT = '/about';
@@ -165,7 +166,13 @@ class HeaderContainer extends Component {
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} />}
         loginUrl={Path.login()}
         onClickSignup={() => history.push(Path.signUp())}
-        onClickSearch={() => history.push(Path.top())}
+        onClickSearch={() => {
+          ReactGA.event({
+            category: 'Search',
+            action: 'Tap Header Icon',
+          });
+          history.push(Path.top());
+        }}
         aboutUrl={Path.about()}
         howtouseUrl={Path.howtouse()}
         helpUrl="https://help.monooq.com/"

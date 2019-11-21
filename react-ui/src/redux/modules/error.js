@@ -11,7 +11,7 @@ export const errorActions = createActions(SET_ERROR, RESET_ERROR);
 const initialState = {
   message: '',
   functionName: '',
-  hasError: true,
+  hasError: false,
 };
 
 export const errorReducer = handleActions(

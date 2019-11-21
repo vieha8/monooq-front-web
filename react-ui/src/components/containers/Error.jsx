@@ -4,20 +4,27 @@ import { Modal, Button } from 'semantic-ui-react';
 import { captureMessage } from '@sentry/browser';
 
 class ErrorModal extends Component {
-  state = { open: false };
+  constructor(props) {
+    super(props);
+    this.state = { open: false };
+  }
 
-  close = () => this.setState({ open: false });
-
-  componentWillReceiveProps = next => {
-    if (next.error.hasError) {
-      this.setState({ open: true });
+  componentDidUpdate(prevProps, prevState) {
+    const { error } = this.props;
+    if (!prevProps.error.hasError && error.hasError) {
       let msg = 'Error';
-      if (next.error.message) {
-        msg = `error(${next.error.functionName}):${next.error.message}`;
+      if (error.message) {
+        msg = `error(${error.functionName}):${error.message}`;
       }
       captureMessage(msg);
     }
-  };
+    if (error.hasError && !prevState.open) {
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ open: true });
+    }
+  }
+
+  close = () => this.setState({ open: false });
 
   render() {
     const { open } = this.state;
@@ -39,9 +46,7 @@ class ErrorModal extends Component {
           )}
         </Modal.Content>
         <Modal.Actions>
-          <Button small={1} onClick={this.close}>
-            閉じる
-          </Button>
+          <Button onClick={this.close}>閉じる</Button>
         </Modal.Actions>
       </Modal>
     );

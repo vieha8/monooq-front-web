@@ -71,10 +71,7 @@ class SearchConditionContainer extends Component {
 
   validate = () => {
     const { prefCode, keyword } = this.state;
-    if (keyword !== '' || prefCode !== 0) {
-      return true;
-    }
-    return false;
+    return keyword !== '' || prefCode !== 0;
   };
 
   render() {

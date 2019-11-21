@@ -82,9 +82,9 @@ const LinkStyled = styled(Link)`
   `};
 `;
 
-export default ({ caption, captionColor, areaAroundList, isNoScroll }) => (
+export default ({ captionColor, areaAroundList, isNoScroll }) => (
   <Wrap>
-    <Caption captionColor={captionColor}>{caption}</Caption>
+    <Caption captionColor={captionColor}>周辺エリアで探す</Caption>
     <AreaPinList isNoScroll={isNoScroll}>
       {areaAroundList.map((item, i) => (
         <Item key={i.toString()} isNoScroll={isNoScroll}>

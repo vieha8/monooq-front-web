@@ -22,6 +22,11 @@ export const loggerReducer = handleActions(
 
 // Sagas
 function* record({ payload: { event, detail } }) {
+  if (process.env.REACT_APP_ENV !== 'production') {
+    // 開発環境はログ送信しない
+    return;
+  }
+
   const user = yield select(state => state.auth.user);
   const prevPath = yield select(state => state.logger.prevPath);
   const referrerUrl = prevPath === '' ? document.referrer : `https://${document.domain}${prevPath}`;

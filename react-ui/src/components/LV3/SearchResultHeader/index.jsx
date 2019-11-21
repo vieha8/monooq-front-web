@@ -7,6 +7,7 @@ import { H1 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
 import SearchConditionCurrentList from 'components/LV2/Lists/SearchConditionCurrentList';
 import SearchConditionMore from 'components/LV3/SearchConditionMore';
+import SearchNarrowButton from 'components/LV3/SearchNarrowButton';
 
 const HeaderWrap = styled.div`
   margin: ${Dimens.medium_20}px ${Dimens.xxsmall_4}px;
@@ -67,20 +68,21 @@ const MoreButtonWrap = styled.div`
 `;
 
 export default ({
-  condition,
+  conditionTitle,
   maxCount,
   onClickMore,
   onClickCheckCity,
   onClickCheckTown,
   prefecture,
   regionPrefectureList,
+  prefectureList,
   searchConditionCurrentList,
   cityTownAreaList,
 }) => (
   <HeaderWrap>
     <ResultCountWrap>
       <H1 bold>
-        {`${condition}の検索結果`}
+        {`${conditionTitle}の検索結果`}
         <br />
         <ResultCount>{formatAddComma(maxCount)}</ResultCount>
         <InlineText.Base fontSize={FontSizes.small} nobold>
@@ -110,5 +112,15 @@ export default ({
         </MoreButtonWrap>
       </SearchConditionRight>
     </SearchConditionWrap>
+    <SearchNarrowButton
+      modal
+      text="地域を絞り込む"
+      cityTownAreaList={cityTownAreaList}
+      onClickMore={onClickMore}
+      onClickCheckCity={onClickCheckCity}
+      onClickCheckTown={onClickCheckTown}
+      searchConditionCurrentList={searchConditionCurrentList}
+      prefectureList={prefectureList}
+    />
   </HeaderWrap>
 );

@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, call, takeEvery, take, select } from 'redux-saga/effects';
+import { put, call, takeEvery, select } from 'redux-saga/effects';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { push } from 'connected-react-router';
@@ -29,8 +29,6 @@ const INIT_PASSWORD_RESET = 'INIT_PASSWORD_RESET';
 const PASSWORD_RESET = 'PASSWORD_RESET';
 const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 const PASSWORD_RESET_FAILED = 'PASSWORD_RESET_FAILED';
-const TOKEN_GENERATE = 'TOKEN_GENERATE';
-const TOKEN_GENERATE_SUCCESS = 'TOKEN_GENERATE_SUCCESS';
 const INIT_UNSUBSCRIBE = 'INIT_UNSUBSCRIBE';
 const UNSUBSCRIBE = 'UNSUBSCRIBE';
 const UNSUBSCRIBE_SUCCESS = 'UNSUBSCRIBE_SUCCESS';
@@ -61,8 +59,6 @@ export const authActions = createActions(
   PASSWORD_RESET,
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILED,
-  TOKEN_GENERATE,
-  TOKEN_GENERATE_SUCCESS,
   SET_USER,
   SET_TOKEN,
   INIT_UNSUBSCRIBE,
@@ -81,7 +77,6 @@ const initialState = {
   isUnsubscribeTrying: false,
   isUnsubscribeSuccess: false,
   isUnsubscribeFailed: false,
-  isTokenGenerating: false,
   user: {},
   error: '',
   token: null,
@@ -203,19 +198,9 @@ export const authReducer = handleActions(
       isUnsubscribeSuccess: false,
       isUnsubscribeFailed: true,
     }),
-    [TOKEN_GENERATE]: state => ({
-      ...state,
-      isTokenGenerating: true,
-    }),
-    [TOKEN_GENERATE_SUCCESS]: (state, action) => ({
-      ...state,
-      token: action.payload,
-      isTokenGenerating: false,
-    }),
     [SET_TOKEN]: (state, action) => ({
       ...state,
       token: action.payload,
-      isTokenGenerating: false,
     }),
   },
   initialState,
@@ -239,57 +224,51 @@ const setSentryConfig = user => {
   });
 };
 
+const getFirebaseAuthToken = () =>
+  new Promise((resolve, reject) => {
+    firebase
+      .auth()
+      .currentUser.getIdToken(true)
+      .then(token => {
+        resolve(token);
+      })
+      .catch(err => reject(err));
+  });
+
 // Sagas
 export function* getToken() {
   const token = yield select(state => state.auth.token);
   if (token) {
     return token;
   }
-  if (isAvailableLocalStorage()) {
-    const tokenCache = localStorage.getItem('token');
-    if (tokenCache) {
-      return tokenCache;
-    }
+  if (firebase.auth().currentUser) {
+    return yield call(getFirebaseAuthToken);
   }
-  const isGenerating = yield select(state => state.auth.isTokenGenerating);
-  if (isGenerating) {
-    const { payload } = yield take(authActions.tokenGenerateSuccess);
-    if (isAvailableLocalStorage()) {
-      localStorage.setItem('token', payload);
-    }
-    return payload;
-  }
-  yield put(authActions.tokenGenerate());
-  const { payload } = yield take(authActions.tokenGenerateSuccess);
-
-  if (isAvailableLocalStorage()) {
-    localStorage.setItem('token', payload);
-  }
-
-  return payload;
-}
-
-function* tokenGenerate() {
-  const { data, err } = yield call(postApiRequest, apiEndpoint.tokenGenerate(), {});
-
-  if (err) {
-    yield handleError('', '', 'tokenGenerate', err, false);
-    return;
-  }
-
-  yield put(authActions.tokenGenerateSuccess(data.token));
+  return '';
 }
 
 function* checkLogin() {
   const status = { isLogin: false };
   try {
-    const user = yield call(getLoginUserFirebaseAuth);
-    if (user) {
+    const { currentUser } = firebase.auth();
+    let firebaseUid = '';
+
+    if (currentUser) {
+      firebaseUid = currentUser.uid;
+    } else {
+      const user = yield call(getLoginUserFirebaseAuth);
+      if (user) {
+        firebaseUid = user.uid;
+      }
+    }
+
+    if (firebaseUid !== '') {
+      // ログイン済み
       status.isLogin = true;
-      const token = yield* getToken();
+      const token = yield getToken();
       const { data, err } = yield call(
         getApiRequest,
-        apiEndpoint.authFirebase(user.uid),
+        apiEndpoint.authFirebase(firebaseUid),
         {},
         token,
       );
@@ -299,12 +278,12 @@ function* checkLogin() {
         window.location.reload();
         return;
       }
+      data.imageUrl = convertImgixUrl(data.imageUrl, 'w=128&auto=format');
       status.user = data;
       yield put(authActions.setToken(token));
       yield call(postApiRequest, apiEndpoint.login(), { UserId: data.id }, token);
       ReactGA.set({ userId: data.id });
       setSentryConfig(data);
-
       if (isAvailableLocalStorage()) {
         const redirectPath = localStorage.getItem('redirectPath');
         if (redirectPath) {
@@ -313,14 +292,9 @@ function* checkLogin() {
         }
       }
     }
-
-    if (status.user && status.user.imageUrl) {
-      status.user.imageUrl = convertImgixUrl(status.user.imageUrl, 'w=128&auto=format');
-    }
-
     yield put(authActions.checkLoginSuccess(status));
   } catch (err) {
-    yield put(authActions.checkLoginFailed(err));
+    yield handleError(authActions.checkLoginFailed, '', 'checkLogin', err, false);
   }
 }
 
@@ -331,6 +305,7 @@ function* loginEmail({ payload: { email, password } }) {
     yield put(authActions.loginSuccess());
   } catch (err) {
     yield put(authActions.loginFailed(err));
+    yield handleError(authActions.loginFailed, '', 'loginEmail', err, true);
   }
 }
 
@@ -343,7 +318,7 @@ function* loginFacebook() {
     const provider = new firebase.auth.FacebookAuthProvider();
     yield firebase.auth().signInWithRedirect(provider);
   } catch (err) {
-    yield put(authActions.loginFailed(err));
+    yield handleError(authActions.loginFailed, '', 'loginFacebook', err, true);
   }
 }
 
@@ -519,15 +494,17 @@ function* unsubscribe({ payload: { reason, description } }) {
     return;
   }
 
-  const messageBody = `退会理由:${JSON.stringify(reason)}\n詳細:${description}\n`;
-  const body = {
-    Subject: `【退会完了】ユーザーID:${user.id}`,
-    Uid: 'DDtN7dr9r5VQKyuXRx8AcRgtPIW2', // 本番モノオク公式アカウント(info@monooq.com)
-    Body: messageBody,
-    Category: 'unsubscribe',
-  };
+  if (process.env.REACT_APP_ENV === 'production') {
+    const messageBody = `退会理由:${JSON.stringify(reason)}\n詳細:${description}\n`;
+    const body = {
+      Subject: `【退会完了】ユーザーID:${user.id}`,
+      Uid: 'DDtN7dr9r5VQKyuXRx8AcRgtPIW2', // 本番モノオク公式アカウント(info@monooq.com)
+      Body: messageBody,
+      Category: 'unsubscribe',
+    };
+    yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
+  }
 
-  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
   yield put(authActions.unsubscribeSuccess());
 }
 
@@ -539,6 +516,5 @@ export const authSagas = [
   takeEvery(SIGNUP_EMAIL, signUpEmail),
   takeEvery(SIGNUP_FACEBOOK, signUpFacebook),
   takeEvery(PASSWORD_RESET, passwordReset),
-  takeEvery(TOKEN_GENERATE, tokenGenerate),
   takeEvery(UNSUBSCRIBE, unsubscribe),
 ];

@@ -13,7 +13,7 @@ const sizes = {
 export const media = Object.keys(sizes).reduce((_accumulator, label) => {
   // use em in breakpoints to work properly cross-browser and support users
   // changing their browsers font-size: https://zellwk.com/blog/media-query-units/
-  const accumulator = Object.assign({}, _accumulator);
+  const accumulator = { ..._accumulator };
   const emSize = sizes[label] / 16;
   accumulator[label] = (...args) => css`
     @media (max-width: ${emSize}em) {
@@ -27,7 +27,7 @@ export const media = Object.keys(sizes).reduce((_accumulator, label) => {
 export const mediaMin = Object.keys(sizes).reduce((_accumulator, label) => {
   // use em in breakpoints to work properly cross-browser and support users
   // changing their browsers font-size: https://zellwk.com/blog/media-query-units/
-  const accumulator = Object.assign({}, _accumulator);
+  const accumulator = { ..._accumulator };
   const emSize = sizes[label] / 16;
   accumulator[label] = (...args) => css`
     @media (min-width: ${emSize}em) {

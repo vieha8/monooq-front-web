@@ -5,7 +5,7 @@ import { Modal } from 'semantic-ui-react';
 import { Dimens, FontSizes } from 'variables';
 import Hr from 'components/LV1/HorizontalRule';
 import ButtonLV1 from 'components/LV1/Forms/Button';
-import ButtonBottom from 'components/LV2/Forms/ButtonBottom';
+import ButtonBottom from 'components/LV3/SearchNarrowButton';
 import CloseIcon from 'components/LV2/ButtonHeader/CloseIcon';
 import SearchIcon from 'components/LV2/ButtonHeader/SearchIcon';
 import SearchConditionCurrentList from 'components/LV2/Lists/SearchConditionCurrentList';

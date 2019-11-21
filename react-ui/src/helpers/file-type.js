@@ -11,12 +11,10 @@ export default input => {
   }
 
   const check = (header, options) => {
-    options = Object.assign(
-      {
-        offset: 0,
-      },
-      options,
-    );
+    options = {
+      offset: 0,
+      ...options,
+    };
 
     for (let i = 0; i < header.length; i++) {
       // If a bitmask is set
