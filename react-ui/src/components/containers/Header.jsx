@@ -145,7 +145,11 @@ class HeaderContainer extends Component {
       <Header
         top={top}
         isOverTopView={isOverTopView}
-        isPageLp1={pagePathScrollPage === PATH_LP1_GUEST}
+        isPageLp123={
+          partialMatch(pagePathScrollPage, PATH_LP1_GUEST) ||
+          partialMatch(pagePathScrollPage, PATH_LP2_GUEST) ||
+          partialMatch(pagePathScrollPage, PATH_LP3_GUEST)
+        }
         isLinkRed={isLinkRed}
         topUrl={Path.top()}
         isCheckingLogin={isChecking}

@@ -263,7 +263,7 @@ export default ({
   top,
   isLinkRed,
   isOverTopView,
-  isPageLp1,
+  isPageLp123,
   stories,
   topUrl,
   isCheckingLogin,
@@ -371,7 +371,7 @@ export default ({
             )}
           </ActionWrapper>
         )}
-        {isPageLp1 && (
+        {isPageLp123 && (
           <ButtonBottomWrap isOverTopView={isOverTopView}>
             <ButtonCaption
               caption="60秒で簡単登録"
