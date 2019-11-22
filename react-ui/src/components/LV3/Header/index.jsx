@@ -323,13 +323,13 @@ export default ({
                         name={user.name}
                       />
                       {user.isHost && (
-                        <>
+                        <Fragment>
                           <TitleMenu>スペース運営</TitleMenu>
                           <MenuItem title="スペースの新規登録" {...addSpace} />
                           <MenuItem title="スペースの管理" {...spaces} />
                           {isSchedule && <MenuItem title="利用状況" {...schedule} />}
                           <MenuItem title="売上・振込申請" {...sales} />
-                        </>
+                        </Fragment>
                       )}
                       {user && <MenuItem title="ログアウト" {...logoutEvent} blank logout />}
                     </div>
