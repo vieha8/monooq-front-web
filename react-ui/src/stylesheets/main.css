@@ -154,7 +154,11 @@
   font-size: 14px;
   text-decoration: none;
   line-height: normal;
+}
+
+.Collapsible__contentOuter {
   background-color: rgb(255, 255, 255);
+  border-radius: 0px 0px 3px 3px;
 }
 
 .Collapsible__contentInner {

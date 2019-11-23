@@ -325,7 +325,7 @@ export default ({
       </CautionWrapper>
       <SeparatedCautionWrapper>
         <CautionText>
-          経年劣化によるショート・不具合の可能性がある製品に関して。自然発生的な故障のケースは一切の保証ができません。電化製品・家電などでスペース利用を検討している場合は予めご了承ください。
+          経年劣化によるショート・不具合の可能性がある製品に関して。自然発生的な故障のケースは一切の保証ができません。電化製品・家電などでスペース利用を検討している場合はあらかじめご了承ください。
         </CautionText>
       </SeparatedCautionWrapper>
     </div>

@@ -14,7 +14,7 @@ const ContentPageStatic = (WrappedComponent, option) => {
           <ContainerStaticPage maxWidth={option && option.maxWidth ? option.maxWidth : ''}>
             <WrappedComponent {...this.props} />
           </ContainerStaticPage>
-          <Footer />
+          <Footer bottomMargin={!!(option && option.bottomMargin)} />
         </Fragment>
       );
     }

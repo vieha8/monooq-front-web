@@ -6,7 +6,7 @@ const Card = styled.div`
   width: 100%;
   display: ${props => (props.block ? 'block' : 'inline-block')};
   background-color: ${Colors.white};
-  border: 1px solid ${Colors.borderGray};
+  border: 1px solid ${props => (props.borderColor ? props.borderColor : Colors.borderGray)};
   border-radius: 4px;
   overflow: hidden;
   ${props =>

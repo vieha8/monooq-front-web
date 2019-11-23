@@ -228,7 +228,7 @@ export default ({
   econtextUrl,
 }) => (
   <Fragment>
-    <Card block noBorder background={Colors.lightGreen} isPadding={14}>
+    <Card block borderColor={Colors.brandPrimary} isPadding={24}>
       <Text>{`${formatName(name)}さんからのお見積もり`}</Text>
       <Text>
         ID：
