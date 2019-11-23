@@ -896,7 +896,7 @@ export default ({ titleMeta, headline, titleWant, onClickSignup }) => (
             </QuestionItem>
             <QuestionItem>
               <Collapsible trigger="Q. 支払い方法は何に対応していますか？">
-                <Answer>クレジットカード・銀行振込に対応しています。</Answer>
+                <Answer>クレジットカード・コンビニ払い(Pay-easy)に対応しています。</Answer>
               </Collapsible>
             </QuestionItem>
           </QuestionRow>
