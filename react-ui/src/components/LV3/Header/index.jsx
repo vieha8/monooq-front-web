@@ -9,6 +9,7 @@ import TextLink from 'components/LV1/Texts/TextLink';
 import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
+import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
 import SearchIcon from 'components/LV2/ButtonHeader/SearchIcon';
 
@@ -184,6 +185,27 @@ const TitleMenu = styled.div`
   color: ${Colors.darkGray3};
 `;
 
+const ButtonBottomWrap = styled.div`
+  opacity: 0;
+  transition: 0.3s;
+  width: 100%;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  z-index: ${ZIndexes.frontPartsOverFooter};
+  text-align: center;
+  padding: ${Dimens.medium}px;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+  border-top: 1px solid ${Colors.borderGray};
+  ${props =>
+    props.isOverTopView &&
+    `
+      opacity: 1;
+      transition: 0.3s;
+    `};
+`;
+
 const trigger = imageUrl => {
   return (
     <div>
@@ -241,6 +263,7 @@ export default ({
   top,
   isLinkRed,
   isOverTopView,
+  isPageLp123,
   stories,
   topUrl,
   isCheckingLogin,
@@ -265,15 +288,17 @@ export default ({
   return (
     <Container stories={stories}>
       <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
-        <SearchIconWrapper>
-          <SearchIcon onClick={onClickSearch} />
-        </SearchIconWrapper>
+        {!isPageLp123 && (
+          <SearchIconWrapper>
+            <SearchIcon onClick={onClickSearch} />
+          </SearchIconWrapper>
+        )}
         <LogoWrapper>
           <LogoLink to={topUrl}>
             <ImageLogo.HeaderFill />
           </LogoLink>
         </LogoWrapper>
-        {!isCheckingLogin && !noHeaderButton && (
+        {!isPageLp123 && !isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>
             {user ? (
               <ActionContainer>
@@ -347,6 +372,15 @@ export default ({
               </ActionContainer>
             )}
           </ActionWrapper>
+        )}
+        {isPageLp123 && (
+          <ButtonBottomWrap isOverTopView={isOverTopView}>
+            <ButtonCaption
+              caption="60秒で簡単登録"
+              text="保管スペースを探す"
+              onClick={onClickSignup}
+            />
+          </ButtonBottomWrap>
         )}
       </Nav>
     </Container>
