@@ -81,7 +81,7 @@ class MessageContainer extends Component {
     return null;
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const messagesCount = this.props.messages.length;
     if (messagesCount > 0 && prevProps.isLoading && !this.props.isLoading) {
       const last = messagesCount + 1;
@@ -95,7 +95,22 @@ class MessageContainer extends Component {
         });
       }
     }
+    if (prevState.text.length === 0 && this.state.text.length > 0) {
+      window.addEventListener('beforeunload', this.handleBeforeUnload);
+    }
+    if (prevState.text.length > 0 && this.state.text.length === 0) {
+      window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    }
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
+  }
+
+  handleBeforeUnload = e => {
+    e.preventDefault();
+    e.returnValue = '未送信のメッセージが取り消されますが、よろしいですか?';
+  };
 
   handlePickImage = image => {
     image.preview = URL.createObjectURL(image);
@@ -189,11 +204,7 @@ class MessageContainer extends Component {
           if (request) {
             return {
               admin: {
-                message: `お見積もりID:${
-                  request.id
-                }\n決済が完了しました。スペース取引成立です！\nスペース所在地:${
-                  request.space.address
-                }`,
+                message: `お見積もりID:${request.id}\n決済が完了しました。スペース取引成立です！\nスペース所在地:${request.space.address}`,
                 receivedAt: message.createDt,
               },
             };
@@ -312,6 +323,4 @@ const mapStateToProps = state => ({
   isLoading: state.messages.isLoading,
 });
 
-export default authRequired(
-  handleBeforeUnload(ContentPageMenu(connect(mapStateToProps)(MessageContainer), {})),
-);
+export default authRequired(ContentPageMenu(connect(mapStateToProps)(MessageContainer), {}));
