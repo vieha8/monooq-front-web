@@ -15,9 +15,9 @@ const Card = styled.div`
     padding: 20px;  
   `};
   ${props =>
-    props.isPadding &&
+    props.padding &&
     `
-    padding: ${props.isPadding}px;
+    padding: ${props.padding}px;
   `};
   vertical-align: middle;
 
@@ -58,9 +58,9 @@ const Card = styled.div`
       ${props.customStylePhone}
     `}
     ${props =>
-      props.isPaddingSp &&
+      props.paddingSp &&
       `
-      padding: ${props.isPaddingSp}px;
+      padding: ${props.paddingSp}px;
     `};
   `};
 `;
