@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { formatDate, formatStringSlash, formatStringSlashTime } from 'helpers/date';
@@ -111,12 +111,41 @@ export default ({
 
   if (messageList.length >= 1) {
     // ルームの初回メッセージをトリガーとして、ユーザー・ホストの「双方」に表示 ※永続表示
-    messageList.splice(1, 0, {
-      admin: {
-        message:
-          '【リクエストが送信されました】\n取引を開始しましょう！\n＜ホストの方＞\nリクエスト内容を確認し、荷物を保管できるか確認しましょう。\n保管できる場合は、金額を提案し、見積もりを発行してください。\n※「見積もりを送る」ボタンはホストのメッセージ送信ボタン下部にございます。\n\n＜ゲストの方＞\n利用期間や金額等、保管条件をホストと相談しましょう。\nホストから見積もりが届いたら決済を行ってください。\n※モノオク上での決済は保険適用のため必須となります。決済完了後、ホストスペースの住所をお知らせします。',
-      },
-    });
+    if (hostUser) {
+      messageList.splice(1, 0, {
+        admin: {
+          message:
+            '【リクエストが送信されました】\nリクエスト内容を確認し、荷物を保管できるか確認しましょう。\n保管できる場合は、見積もりを発行してください。見積もりへのお支払いを終えると契約成立し、スペースの住所がゲストに伝わります。\n※「見積もりを送る」ボタンはメッセージ送信ボタン下部にあります。',
+        },
+      });
+    } else {
+      messageList.splice(1, 0, {
+        admin: {
+          message: (
+            <Fragment>
+              【リクエストが送信されました】
+              <br />
+              ホストと条件と調整し、見積もりをもらいましょう。
+              <br />
+              見積もりへのお支払いを終えると契約成立となります。
+              <br />
+              お支払い完了後にスペースの住所をお知らせします。
+              <br />
+              <br />
+              モノオクから簡単に配送手配ができます！
+              <br />
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfI3YOtJhWe04NlzVOU5_Jr1cMTcEYCEUUus6wJZEyNmws6QA/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ▶配送申込みはこちら
+              </a>
+            </Fragment>
+          ),
+        },
+      });
+    }
   }
 
   if (hostUser && messageList.length >= 0) {
