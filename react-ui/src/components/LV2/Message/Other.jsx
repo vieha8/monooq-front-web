@@ -31,7 +31,7 @@ export default ({ id, image, extension, message, receivedAt }) => (
       </AvatarWrapper>
       <CardWrapper>
         {extension || (
-          <Card block noBorder background={Colors.lightGray1Bg} isPadding={24}>
+          <Card block noBorder background={Colors.lightGray1Bg} isPadding={24} isPaddingSp={14}>
             <InlineText.Base fontSize={15}>{message}</InlineText.Base>
           </Card>
         )}
