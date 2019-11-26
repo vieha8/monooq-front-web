@@ -12,7 +12,7 @@ const DateWrapper = styled.div`
 
 export default ({ message, link, receivedAt }) => (
   <div>
-    <Card block borderColor={Colors.brandPrimary} isPadding={24}>
+    <Card block borderColor={Colors.brandPrimary} isPadding={24} isPaddingSp={14}>
       <InlineText.Base fontSize={15}>{message}</InlineText.Base>
       <InlineText.Base fontSize={15}>
         <Link to={link.url || ''}>{link.text || ''}</Link>

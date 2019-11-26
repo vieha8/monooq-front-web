@@ -228,8 +228,9 @@ export default ({
   econtextUrl,
 }) => (
   <Fragment>
-    <Card block borderColor={Colors.brandPrimary} isPadding={24}>
-      <Text>{`${formatName(name)}さんからのお見積もり`}</Text>
+    <Card block borderColor={Colors.brandPrimary} isPadding={24} isPaddingSp={14}>
+      <Text>{host ? '【見積もりを送りました】' : '【見積もりが届きました】'}</Text>
+      {!host && <Text>{`${formatName(name)}さんからのお見積もり`}</Text>}
       <Text>
         ID：
         {id}
@@ -248,29 +249,28 @@ export default ({
       </Text>
       <CaptionWrapper>
         <Text>
+          {host ? (
+            <Fragment>
+              期間や料金に変更があった場合は、新しくお見積もりを発行してください。
+            </Fragment>
+          ) : (
+            <Fragment>
+              お見積もり内容に問題がなければ料金を支払いましょう。
+              <br />
+              <ButtonPaymentWrap>
+                {buttonPayment(host, status, payType, paymentLink)}
+              </ButtonPaymentWrap>
+              <br />
+              {getDescriptionPay(payType, econtextUrl)}
+            </Fragment>
+          )}
+          <br />
+          <br />
           <InlineText.Base fontSize={17} bold>
             ■お支払い情報
           </InlineText.Base>
           <br />
           {getPayInfo(payType, status)}
-          <br />
-          <br />
-          <InlineText.Base fontSize={17} bold>
-            ■ゲストの方
-          </InlineText.Base>
-          <br />
-          お見積もり内容に問題がなければ料金を支払いましょう。
-          <br />
-          <ButtonPaymentWrap>{buttonPayment(host, status, payType, paymentLink)}</ButtonPaymentWrap>
-          <br />
-          {getDescriptionPay(payType, econtextUrl)}
-          <br />
-          <br />
-          <InlineText.Base fontSize={17} bold>
-            ■ホストの方
-          </InlineText.Base>
-          <br />
-          期間や料金に変更があった場合は、新しくお見積もりを発行してください。
           <br />
           <br />
           <Caution>モノオク上でお支払い手続きを行わない場合、保険が適応されません。</Caution>

@@ -24,7 +24,7 @@ const DateCell = styled.div`
 
 export default ({ message, error, onClickRetry, sentAt, isRead }) => (
   <ContainerClearfix>
-    <Card block noBorder background={Colors.lightGray2} isPadding={24}>
+    <Card block noBorder background={Colors.lightGray2} isPadding={24} isPaddingSp={14}>
       <InlineText.Base fontSize={15}>{message}</InlineText.Base>
     </Card>
     <ActionTable>

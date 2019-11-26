@@ -57,6 +57,11 @@ const Card = styled.div`
       `
       ${props.customStylePhone}
     `}
+    ${props =>
+      props.isPaddingSp &&
+      `
+      padding: ${props.isPaddingSp}px;
+    `};
   `};
 `;
 
