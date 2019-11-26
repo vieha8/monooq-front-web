@@ -3,8 +3,8 @@ import Path from 'config/path';
 import { partialMatch } from 'helpers/string';
 import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import Lp123Guest from 'components/LV3/Lp123Guest';
-import { parse } from '../../../helpers/query-string';
-import { isAvailableLocalStorage } from '../../../helpers/storage';
+import { parse } from 'helpers/query-string';
+import { isAvailableLocalStorage } from 'helpers/storage';
 
 const PATH_LP2_GUEST = '/lp2/guest';
 const PATH_LP3_GUEST = '/lp3/guest';
