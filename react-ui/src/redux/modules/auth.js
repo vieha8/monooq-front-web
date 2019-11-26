@@ -39,7 +39,6 @@ const CHECK_LOGIN_SUCCESS = 'CHECK_LOGIN_SUCCESS';
 const CHECK_LOGIN_FAILED = 'CHECK_LOGIN_FAILED';
 
 const SET_USER = 'SET_USER';
-const SET_TOKEN = 'SET_TOKEN';
 
 export const authActions = createActions(
   LOGIN_EMAIL,
@@ -60,7 +59,6 @@ export const authActions = createActions(
   PASSWORD_RESET_SUCCESS,
   PASSWORD_RESET_FAILED,
   SET_USER,
-  SET_TOKEN,
   INIT_UNSUBSCRIBE,
   UNSUBSCRIBE,
   UNSUBSCRIBE_SUCCESS,
@@ -198,10 +196,6 @@ export const authReducer = handleActions(
       isUnsubscribeSuccess: false,
       isUnsubscribeFailed: true,
     }),
-    [SET_TOKEN]: (state, action) => ({
-      ...state,
-      token: action.payload,
-    }),
   },
   initialState,
 );
@@ -230,6 +224,11 @@ const getFirebaseAuthToken = () =>
       .auth()
       .currentUser.getIdToken(true)
       .then(token => {
+        if (isAvailableLocalStorage()) {
+          const limit = new Date();
+          limit.setMinutes(limit.getMinutes() + 50);
+          localStorage.setItem('firebase_token', JSON.stringify({ token, limit }));
+        }
         resolve(token);
       })
       .catch(err => reject(err));
@@ -237,10 +236,22 @@ const getFirebaseAuthToken = () =>
 
 // Sagas
 export function* getToken() {
-  const token = yield select(state => state.auth.token);
-  if (token) {
-    return token;
+  if (isAvailableLocalStorage()) {
+    const cache = localStorage.getItem('firebase_token');
+    if (cache) {
+      const { token, limit } = JSON.parse(cache);
+      if (token) {
+        if (new Date().getTime() < new Date(limit).getTime()) {
+          // 有効期限判定
+          return token;
+        }
+        localStorage.removeItem('firebase_token');
+        window.location.reload();
+        return null;
+      }
+    }
   }
+
   if (firebase.auth().currentUser) {
     return yield call(getFirebaseAuthToken);
   }
@@ -280,7 +291,6 @@ function* checkLogin() {
       }
       data.imageUrl = convertImgixUrl(data.imageUrl, 'w=128&auto=format');
       status.user = data;
-      yield put(authActions.setToken(token));
       yield call(postApiRequest, apiEndpoint.login(), { UserId: data.id }, token);
       ReactGA.set({ userId: data.id });
       setSentryConfig(data);
