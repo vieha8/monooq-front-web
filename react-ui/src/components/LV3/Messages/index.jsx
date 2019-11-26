@@ -125,7 +125,7 @@ export default ({
             <Fragment>
               【リクエストが送信されました】
               <br />
-              ホストと条件と調整し、見積もりをもらいましょう。
+              ホストと条件を調整し、見積もりをもらいましょう。
               <br />
               見積もりへのお支払いを終えると契約成立となります。
               <br />
@@ -148,7 +148,7 @@ export default ({
     }
   }
 
-  if (hostUser && messageList.length >= 0) {
+  if (hostUser && messageList.length === 0) {
     // 自分がホストの場合かつ未送信の場合は、初期メッセージを追加する ※永続表示
     messageList.unshift({
       admin: {
