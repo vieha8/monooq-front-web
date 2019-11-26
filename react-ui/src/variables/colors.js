@@ -33,6 +33,7 @@ export default {
   lightBlue: '#D4F1FE',
   error: '#BA4246',
   yellow: '#E7BD63',
+  green: '#3ECDAB',
   lightGreen: '#D9FFE5',
   lightYellow: '#FFFCEC',
   orange: '#FF8000',
