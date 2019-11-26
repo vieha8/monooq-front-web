@@ -6,8 +6,7 @@ import { Colors, Dimens } from 'variables';
 
 import InputPriceOfType from 'components/LV2/Forms/InputPriceOfType';
 import imageFurnitureFull from 'images/furniture-full.svg';
-import imageFurnitureHalf from 'images/furniture-half.svg';
-import imageFurnitureQuarter from 'images/furniture-quarter.svg';
+import imageFurnitureTatami from 'images/furniture-tatami.svg';
 
 const Wrap = styled.div`
   margin: ${Dimens.medium2}px auto 0;
@@ -19,33 +18,24 @@ const Wrap = styled.div`
   `};
 `;
 
-export default ({ full, half, quarter }) => (
+export default ({ full, tatami }) => (
   <Wrap>
     <PriceHead />
     {full && (
       <InputPriceOfType
         image={imageFurnitureFull}
         title="全てのスペースの月額料金"
-        caption="このスペースすべてを使用する場合"
+        caption="スペースを全範囲使用する場合の料金"
         price={full}
         detail
       />
     )}
-    {half && (
+    {tatami && (
       <InputPriceOfType
-        image={imageFurnitureHalf}
-        title="半分のスペースの月額料金"
-        caption="このスペースの半分を使用する場合"
-        price={half}
-        detail
-      />
-    )}
-    {quarter && (
-      <InputPriceOfType
-        image={imageFurnitureQuarter}
-        title="1/4程度のスペースの月額料金"
-        caption="このスペースの1/4程度を使用する場合"
-        price={quarter}
+        image={imageFurnitureTatami}
+        title="1畳分のスペースの月額料金"
+        caption="スペースの一部を使用する場合の1畳あたりの料金"
+        price={tatami}
         detail
       />
     )}

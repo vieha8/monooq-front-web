@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/Forms/InputForm';
@@ -38,11 +38,20 @@ const Container = styled.div`
 
 const PriceContainer = styled.div`
   display: block;
-  width: 60%;
+  width: 100%;
+  max-width: 263px;
   float: left;
+  box-sizing: border-box;
+  border-radius: ${Dimens.xxsmall_4}px;
+  border: 1px solid ${Colors.borderGray};
+  padding: ${Dimens.medium2_34}px;
+  text-align: center;
   ${media.phone`
-    width: 100%;
+    max-width: 100%;
     float: none;
+    padding: 0;
+    border: none;
+    text-align: left;
   `};
 `;
 
@@ -50,25 +59,34 @@ const Image = styled.img`
   width: 100%;
 `;
 
-const ImageContainer = styled.div`
+const ImageWrap = styled.div`
   display: block;
-  width: 40%;
-  max-width: 190px;
+  width: 100%;
+  max-width: 108px;
   text-align: center;
-  float: right;
+  margin: auto;
   ${media.phone`
-    width: 100%;
-    max-width: 240px;
-    float: none;
-    margin: ${Dimens.medium}px auto;
+    float: left;
+    margin: 0 ${Dimens.medium2_32}px auto 0;
+  `};
+`;
+
+const TitleWrap = styled.div`
+  margin-top: ${Dimens.small2}px;
+  font-size: ${FontSizes.medium}px;
+  font-weight: bold;
+  line-height: normal;
+  ${media.phone`
+    font-size: ${FontSizes.small}px;
   `};
 `;
 
 const Caption = styled.div`
   width: 100%;
-  margin: 5px auto;
+  margin-top: ${Dimens.small_10}px;
   ${media.phone`
-    width: 100%;
+    margin-top: 0;
+    font-size: ${FontSizes.small_12}px;
   `};
 `;
 
@@ -83,92 +101,38 @@ const PriceWrapper = styled.div`
   color: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium_18}px;
   font-weight: bold;
-  margin-top: ${Dimens.small2}px;
-`;
-
-const PriceTitleWrapper = styled.span`
-  font-size: ${FontSizes.small_15}px;
-  font-weight: bold;
-  line-height: normal;
-`;
-
-const PriceWrapperPhone = styled.span`
-  display: none;
-  color: ${Colors.brandPrimary};
-  font-size: ${FontSizes.medium_18}px;
-  font-weight: bold;
-  line-height: normal;
-  float: right;
-  ${media.phone`
-    display: inline-block;
-    line-height: 1;
-  `};
-`;
-
-const OnlyPC = styled.span`
-  display: block;
-  ${media.phone`
-    display: none;
-  `};
-`;
-
-const OnlyPhone = styled.span`
-  display: none;
-  ${media.phone`
-    display: block;
-  `};
+  margin-top: ${Dimens.small_10}px;
 `;
 
 export default ({ detail, image, title, price, caption, error, onChange, placeholder }) =>
   detail ? (
     <Container detail>
-      <OnlyPC>
-        <ImageContainer>
-          <Image src={image} alt="" />
-        </ImageContainer>
-      </OnlyPC>
       <PriceContainer>
-        <Fragment>
-          <PriceTitleWrapper>{title}</PriceTitleWrapper>
-          <PriceWrapperPhone>{`${price}円`}</PriceWrapperPhone>
-        </Fragment>
+        <ImageWrap>
+          <Image src={image} alt="img-space-price" />
+        </ImageWrap>
+        <TitleWrap>{title}</TitleWrap>
         <Caption>
-          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
+          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small}>
             {caption}
           </InlineText.Base>
-        </Caption>
-        <OnlyPhone>
-          <ImageContainer>
-            <Image src={image} alt="" />
-          </ImageContainer>
-        </OnlyPhone>
-        <OnlyPC>
           <PriceWrapper>{`${price}円`}</PriceWrapper>
-        </OnlyPC>
-        {error}
+        </Caption>
       </PriceContainer>
     </Container>
   ) : (
     <Container>
-      <OnlyPC>
-        <ImageContainer>
-          <Image src={image} alt="" />
-        </ImageContainer>
-      </OnlyPC>
       <PriceContainer>
-        <Fragment>
-          <InlineText.Strong>{title}</InlineText.Strong>
-        </Fragment>
+        <ImageWrap>
+          <Image src={image} alt="img-space-price" />
+        </ImageWrap>
+        <TitleWrap>{title}</TitleWrap>
         <Caption>
-          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
+          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small}>
             {caption}
           </InlineText.Base>
+          <PriceWrapper>{`${price}円`}</PriceWrapper>
         </Caption>
-        <OnlyPhone>
-          <ImageContainer>
-            <Image src={image} alt="" />
-          </ImageContainer>
-        </OnlyPhone>
         <InputWrapper>
           <InputForm
             type="tel"
