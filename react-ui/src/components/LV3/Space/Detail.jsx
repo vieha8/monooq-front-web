@@ -141,6 +141,7 @@ export default ({
     <SectionHeader>荷物について</SectionHeader>
     <Fragment>
       <Baggage furniture={furniture} content={baggage} />
+      <SectionHeader>荷物の受け取り方法</SectionHeader>
       <Receive delivery={delivery} meeting={meeting} />
       <Supplement content={supplement} />
     </Fragment>

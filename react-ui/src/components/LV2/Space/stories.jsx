@@ -204,7 +204,13 @@ storiesOf('Molecules(LV2)/Space', module)
       スペース情報(受取り方法)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Receive delivery meeting />
+        <Receive />
+        <br />
+        <Receive isDelivery />
+        <br />
+        <Receive isMeeting />
+        <br />
+        <Receive isDelivery isMeeting />
       </div>
     )),
   )
