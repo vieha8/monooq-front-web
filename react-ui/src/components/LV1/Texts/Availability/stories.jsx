@@ -14,10 +14,13 @@ storiesOf('Atoms(LV1)/Texts/Availability', module).add(
       空室状況
     `)(() => (
     <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+      <Availability />
+      <br />
+      <br />
       <Availability isFull />
       <br />
       <br />
-      <Availability />
+      <Availability isConsultation />
     </div>
   )),
 );
