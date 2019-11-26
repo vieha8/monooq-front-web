@@ -136,6 +136,7 @@ export default ({
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfI3YOtJhWe04NlzVOU5_Jr1cMTcEYCEUUus6wJZEyNmws6QA/viewform"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="gaMessageTipsPickgoLinkFirst"
               >
                 ▶配送申込みはこちら
               </a>

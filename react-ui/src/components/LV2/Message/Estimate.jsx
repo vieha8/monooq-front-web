@@ -228,7 +228,7 @@ export default ({
   econtextUrl,
 }) => (
   <Fragment>
-    <Card block borderColor={Colors.brandPrimary} isPadding={24} isPaddingSp={14}>
+    <Card block borderColor={Colors.brandPrimary} padding={24} paddingSp={14}>
       <Text>{host ? '【見積もりを送りました】' : '【見積もりが届きました】'}</Text>
       {!host && <Text>{`${formatName(name)}さんからのお見積もり`}</Text>}
       <Text>
