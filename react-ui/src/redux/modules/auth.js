@@ -339,7 +339,7 @@ function* loginFacebook() {
 function* logout() {
   yield put(push(Path.top()));
   if (isAvailableLocalStorage()) {
-    localStorage.removeItem('token');
+    localStorage.removeItem(tokenCacheKey);
   }
   yield firebase.auth().signOut();
 }
