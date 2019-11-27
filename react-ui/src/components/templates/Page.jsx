@@ -4,7 +4,7 @@ import { HeightPhone as HeaderHeight } from 'components/LV3/Header';
 
 const Page = styled.div`
   width: 100%;
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 20px 80px;
 

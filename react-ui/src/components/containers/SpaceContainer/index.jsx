@@ -171,6 +171,10 @@ class SpaceContainer extends Component {
           // priceTatami={space.priceTatami > 0 && numeral(space.priceTatami).format('0,0')}
 
           recommend={recommend}
+          requestButtondisabled={isSelfSpace}
+          requestButtonloading={isRequesting}
+          requestButtononClick={isSelfSpace ? null : this.onClickSendMessage}
+          onKeyDownButtonRequest={isSelfSpace ? null : this.onKeyDownButtonMessage}
         />
         <SendMessage
           disabled={isSelfSpace}
@@ -198,4 +202,5 @@ const mapStateToProps = state => ({
 
 export default ContentPageMenu(connect(SpaceContainer, mapStateToProps), {
   bottomMargin: true,
+  maxWidth: 1440,
 });
