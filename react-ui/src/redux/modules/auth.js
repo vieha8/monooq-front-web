@@ -223,21 +223,16 @@ const getFirebaseAuthToken = () =>
     firebase
       .auth()
       .currentUser.getIdToken(true)
-      .then(token => {
-        if (isAvailableLocalStorage()) {
-          const limit = new Date();
-          limit.setMinutes(limit.getMinutes() + 50);
-          localStorage.setItem('firebase_token', JSON.stringify({ token, limit }));
-        }
-        resolve(token);
-      })
+      .then(token => resolve(token))
       .catch(err => reject(err));
   });
+
+const tokenCacheKey = 'firebase_token';
 
 // Sagas
 export function* getToken() {
   if (isAvailableLocalStorage()) {
-    const cache = localStorage.getItem('firebase_token');
+    const cache = localStorage.getItem(tokenCacheKey);
     if (cache) {
       const { token, limit } = JSON.parse(cache);
       if (token) {
@@ -245,15 +240,20 @@ export function* getToken() {
           // 有効期限判定
           return token;
         }
-        localStorage.removeItem('firebase_token');
+        localStorage.removeItem(tokenCacheKey);
         window.location.reload();
-        return null;
+        return '';
       }
     }
   }
-
   if (firebase.auth().currentUser) {
-    return yield call(getFirebaseAuthToken);
+    const token = yield call(getFirebaseAuthToken);
+    if (isAvailableLocalStorage()) {
+      const limit = new Date();
+      limit.setMinutes(limit.getMinutes() + 50);
+      localStorage.setItem(tokenCacheKey, JSON.stringify({ token, limit }));
+    }
+    return token;
   }
   return '';
 }
