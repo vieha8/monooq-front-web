@@ -23,24 +23,23 @@ const headContent = (id, imageUrl, name) => {
   );
 };
 
-const contentHostName = name => {
+const contentHostName = (name, pref) => {
   return (
     <Content>
-      <InlineText.Base fontSize={`${FontSizes.small_12}`} bold>
-        ホスト
-      </InlineText.Base>
+      {`${formatName(name)}`}
       <br />
-      <InlineText.Base>{`${formatName(name)}さん`}</InlineText.Base>
+      <InlineText.Base fontSize={`${FontSizes.small_12}`}>{`${pref}在住`}</InlineText.Base>
     </Content>
   );
 };
 
-export default ({ infoHost, message, id, imageUrl, name, profile }) => (
+export default ({ infoHost, message, id, imageUrl, name, pref, profile, isNoProfile }) => (
   <Attribute
     infoHost={infoHost}
     message={message}
     headContent={headContent(id, imageUrl, name)}
-    contentHostName={contentHostName(name)}
+    contentHostName={isNoProfile ? formatName(name) : contentHostName(name, pref)}
     contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
+    isNoProfile={isNoProfile}
   />
 );

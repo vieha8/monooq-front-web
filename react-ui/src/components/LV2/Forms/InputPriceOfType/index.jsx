@@ -44,7 +44,7 @@ const PriceContainer = styled.div`
   box-sizing: border-box;
   border-radius: ${Dimens.xxsmall_4}px;
   border: 1px solid ${Colors.borderGray};
-  padding: ${Dimens.medium2_34}px;
+  padding: ${Dimens.medium2}px;
   text-align: center;
   ${media.phone`
     max-width: 100%;

@@ -1,32 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/LV1/Forms/Button';
-import TextLink from 'components/LV1/Texts/TextLink';
-import { Dimens } from 'variables';
-import { media } from 'helpers/style/media-query';
+import InlineText from 'components/LV1/Texts/InlineText';
+import { Dimens, FontSizes } from 'variables';
+
+const Wrap = styled.div`
+  display: flex;
+`;
 
 const Caption = styled.div`
+  width: 100%;
   display: inline-block;
-  text-align: center;
   margin-top: ${Dimens.small_10}px;
-  margin-left: ${Dimens.medium1}px;
-  ${media.phone`
-    display: block;
-    margin-left: 0;
-  `};
+  margin-left: -${Dimens.medium}px;
+  text-align: center;
 `;
+
+const Price = styled.span`
+  font-size: ${FontSizes.medium_18}px;
+  font-weight: bold;
+`;
+
+const Unit = styled.div``;
 
 const ButtonWrap = styled.div`
   display: inline-block;
-  min-width: 300px;
-  ${media.phone`
-    display: block;
-    min-width: auto;
-  `};
+  min-width: 200px;
 `;
 
-export default ({ disabled, loading, onClick, onKeyDownButtonMessage }) => (
-  <div>
+export default ({ priceTatami, disabled, loading, onClick, onKeyDownButtonMessage }) => (
+  <Wrap>
+    <Caption>
+      <Price>{priceTatami}</Price>
+      <InlineText.Base fontSize={FontSizes.small_12} bold>
+        &nbsp;円/月
+      </InlineText.Base>
+      <Unit>
+        <InlineText.EmphasisTiny>一畳あたり</InlineText.EmphasisTiny>
+      </Unit>
+    </Caption>
     <ButtonWrap>
       <Button
         center
@@ -38,20 +50,8 @@ export default ({ disabled, loading, onClick, onKeyDownButtonMessage }) => (
         onClick={onClick}
         onKeyDown={onKeyDownButtonMessage}
       >
-        このホストに相談する
+        リクエストを送る
       </Button>
     </ButtonWrap>
-    <Caption>
-      <TextLink
-        href="https://help.monooq.com/ja/articles/2948108-%E3%83%9B%E3%82%B9%E3%83%88%E3%81%A8%E3%81%AE%E3%82%84%E3%82%8A%E5%8F%96%E3%82%8A%E3%81%AF%E3%81%A9%E3%81%86%E3%82%84%E3%81%A3%E3%81%A6%E9%80%B2%E3%82%81%E3%82%8B%E3%81%AE"
-        fontSize={15}
-        fontsizesp={15}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="gaSpaceDetailBottomFlowLink"
-      >
-        取引の流れをみる
-      </TextLink>
-    </Caption>
-  </div>
+  </Wrap>
 );

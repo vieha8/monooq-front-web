@@ -5,13 +5,13 @@ import { Colors, Dimens, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
+import Availability from 'components/LV1/Texts/Availability';
+import Tag from 'components/LV1/Texts/Tag';
 import Description from 'components/LV2/Space/Description';
+import BreadcrumbsList from 'components/LV2/Lists/BreadcrumbsList';
 import Image from 'components/LV2/Space/Image';
 import Address from 'components/LV2/Space/Address';
-import Type from 'components/LV2/Space/Type';
-import Baggage from 'components/LV2/Space/Baggage';
 import Receive from 'components/LV2/Space/Receive';
-import Supplement from 'components/LV2/Space/Supplement';
 import InfoHost from 'components/LV2/Space/InfoHost';
 import Price from 'components/LV3/Space/Price';
 import ReactGA from 'react-ga';
@@ -33,6 +33,12 @@ const Container = styled.div`
   `};
 `;
 
+const ImageSpaceWrap = styled.div`
+  width: 100%;
+  max-width: 550px;
+  margin: auto;
+`;
+
 const SpaceDetailWrap = styled.div`
   display: flex;
   max-width: 1000px;
@@ -42,7 +48,20 @@ const SpaceDetailWrap = styled.div`
 const LeftWrap = styled.div`
   width: 100%;
   max-width: 660px;
-  background-color: green;
+  padding-right: ${Dimens.medium4_50}px;
+`;
+
+const AvailabilityWrap = styled.div`
+  margin: ${Dimens.medium}px auto ${Dimens.xsmall}px;
+`;
+
+const SpaceTitleWrapper = styled.div``;
+
+const SpaceTitle = styled(InlineText.H1)`
+  display: block;
+  margin: 5px auto;
+  font-size: ${FontSizes.medium2}px;
+  font-weight: bold;
 `;
 
 const RightWrap = styled.div`
@@ -161,61 +180,19 @@ const ImageLogo = styled.img`
 const SectionHeader = styled.div`
   margin: 0 auto;
   padding: ${Dimens.medium2}px 0 0;
-  border-top: 1px solid ${Colors.borderGray};
-  font-size: 18px;
-  font-weight: 700;
+  font-size: ${FontSizes.medium_18}px;
+  font-weight: bold;
   ${media.phone`
     padding: ${Dimens.medium_20}px 0 0;
   `};
 `;
 
+const TagListWrap = styled.div`
+  margin: ${Dimens.medium1}px auto 0;
+`;
+
 const MapWrapper = styled.div`
   margin-top: ${Dimens.medium}px;
-`;
-
-const SpaceTitleWrapper = styled.div`
-  padding: 0 ${Dimens.xsmall}px ${Dimens.medium}px;
-`;
-
-const AddressText = styled(InlineText.Base)`
-  display: block;
-  color: ${Colors.brandPrimary};
-`;
-
-const ContentText = styled(InlineText.H1)`
-  display: block;
-  margin: 5px auto;
-`;
-
-const PriceText = styled(InlineText.Base)`
-  display: block;
-  font-size: 18px;
-  font-weight: bold;
-  ${media.phone`
-    text-align: right;
-  `};
-`;
-
-const ShareButtonsWrapper = styled.div`
-  position: relative;
-`;
-
-const ButtonWrap = styled.div`
-  width: 100%;
-  max-width: 184px;
-  display: inline-block;
-  margin: 30px auto;
-  &:last-child {
-    margin-left: ${Dimens.medium1}px;
-  }
-  ${media.phone`
-    width: 100%;
-    max-width: calc(50% - 8px);
-    padding: 0 0 15px;
-    &:last-child {
-      margin-left: ${Dimens.medium}px;
-    }
-  `};
 `;
 
 const RecommendSpacesWrap = styled.div`
@@ -226,20 +203,18 @@ export default ({
   confirm,
   images,
   pref,
-  city,
-  town,
+  statusAvailability,
   priceTatami,
   priceFull,
+  tagList,
+  breadcrumbsList,
   user,
   description,
+  breadth,
   map,
   address,
-  type,
-  furniture,
-  baggage,
   delivery,
   meeting,
-  supplement,
   id,
   name,
   recommend,
@@ -249,83 +224,52 @@ export default ({
   onKeyDownButtonRequest,
 }) => (
   <Container confirm={confirm}>
-    <Image images={images} />
+    <ImageSpaceWrap>
+      <Image images={images} />
+    </ImageSpaceWrap>
     <SpaceDetailWrap>
       <LeftWrap>
+        <AvailabilityWrap>
+          <Availability status={statusAvailability} />
+        </AvailabilityWrap>
         <SpaceTitleWrapper>
-          <AddressText>{`${pref} ${city} ${town}`}</AddressText>
-          <ContentText>{name || ''}</ContentText>
-          <PriceText>
-            {priceTatami || priceFull}
-            円〜
-          </PriceText>
+          <SpaceTitle>{name || ''}</SpaceTitle>
+          <BreadcrumbsList
+            breadcrumbsList={breadcrumbsList}
+            separatorLandscape
+            fontColor={Colors.lightGray3}
+          />
         </SpaceTitleWrapper>
-        <InfoHost {...user} infoHost />
+        <InfoHost {...user} infoHost isNoProfile />
+        <SectionHeader>スペース概要</SectionHeader>
         <Description content={description} />
-        <SectionHeader>スペースについて</SectionHeader>
-        <MapWrapper>
-          <InlineText.Base fontSize={`${FontSizes.small_12}`} margin="2px auto 12px">
-            所在地
-          </InlineText.Base>
-          {map}
-          <Address content={address} />
-          <Type content={type} />
-        </MapWrapper>
+        <SectionHeader>スペースの広さ</SectionHeader>
+        <Description content={breadth} />
+        <SectionHeader>料金の目安</SectionHeader>
         <Price full={priceFull} tatami={priceTatami} />
-        <SectionHeader>荷物について</SectionHeader>
-        <Fragment>
-          <Baggage furniture={furniture} content={baggage} />
-          <SectionHeader>荷物の受け取り方法</SectionHeader>
-          <Receive delivery={delivery} meeting={meeting} />
-          <Supplement content={supplement} />
-        </Fragment>
-        {!confirm && (
+        {tagList && (
           <Fragment>
-            <ShareButtonsWrapper>
-              <ButtonWrap>
-                <Button
-                  twitter
-                  fill={1}
-                  url={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${id}&text=${name}｜モノオク&hashtags=モノオク`}
-                  fontbold
-                  OnClick={() =>
-                    ReactGA.event({
-                      category: 'Share',
-                      action: 'Push Twitter Share Button At Space',
-                      value: id,
-                    })
-                  }
-                >
-                  ツイートする
-                </Button>
-              </ButtonWrap>
-              <ButtonWrap>
-                <Button
-                  facebook
-                  type2
-                  fill={1}
-                  url={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${id}&quote=${name}｜モノオク`}
-                  fontbold
-                  OnClick={() =>
-                    ReactGA.event({
-                      category: 'Share',
-                      action: 'Push Facebook Share Button At Space',
-                      value: id,
-                    })
-                  }
-                >
-                  シェアする
-                </Button>
-              </ButtonWrap>
-            </ShareButtonsWrapper>
-            {recommend && recommend.length > 0 && (
-              <Fragment>
-                <SectionHeader>このスペースをみた人はこんなスペースもみています</SectionHeader>
-                <RecommendSpacesWrap>
-                  <SearchResult spaces={recommend} narrow />
-                </RecommendSpacesWrap>
-              </Fragment>
-            )}
+            <SectionHeader>設備・条件</SectionHeader>
+            <TagListWrap>
+              <Tag tagList={tagList} />
+            </TagListWrap>
+          </Fragment>
+        )}
+        <SectionHeader>アクセスマップ</SectionHeader>
+        <MapWrapper>
+          <Address content={address} />
+          {map}
+        </MapWrapper>
+        <SectionHeader>ホストについて</SectionHeader>
+        <InfoHost {...user} pref={pref} infoHost />
+        <SectionHeader>荷物の受け取り方法</SectionHeader>
+        <Receive isDelivery={delivery} isMeeting={meeting} />
+        {!confirm && recommend && recommend.length > 0 && (
+          <Fragment>
+            <SectionHeader>このスペースをみた人はこんなスペースもみています</SectionHeader>
+            <RecommendSpacesWrap>
+              <SearchResult spaces={recommend} narrow />
+            </RecommendSpacesWrap>
           </Fragment>
         )}
       </LeftWrap>
@@ -358,31 +302,47 @@ export default ({
           リクエストを送る
           リクエストを送ることで、あなたがスペースに興味を持っていることがホストに伝わります。
         </RequestCard>
-        <SnsWrap>
-          <SnsTitle>SNSでシェア</SnsTitle>
-          <SnsUl>
-            <SnsLi>
-              <LinkLogo
-                component={Link}
-                href={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${id}&text=${name}｜モノオク&hashtags=モノオク`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <ImageLogo src={ImageSnsTwitter} alt="icon-twitter" />
-              </LinkLogo>
-            </SnsLi>
-            <SnsLi>
-              <LinkLogo
-                component={Link}
-                href={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${id}&quote=${name}｜モノオク`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <ImageLogo src={ImageSnsFacebook} alt="icon-facebook" />
-              </LinkLogo>
-            </SnsLi>
-          </SnsUl>
-        </SnsWrap>
+        {!confirm && (
+          <SnsWrap>
+            <SnsTitle>SNSでシェア</SnsTitle>
+            <SnsUl>
+              <SnsLi>
+                <LinkLogo
+                  component={Link}
+                  href={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${id}&text=${name}｜モノオク&hashtags=モノオク`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  OnClick={() =>
+                    ReactGA.event({
+                      category: 'Share',
+                      action: 'Push Twitter Share Button At Space',
+                      value: id,
+                    })
+                  }
+                >
+                  <ImageLogo src={ImageSnsTwitter} alt="icon-twitter" />
+                </LinkLogo>
+              </SnsLi>
+              <SnsLi>
+                <LinkLogo
+                  component={Link}
+                  href={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${id}&quote=${name}｜モノオク`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  OnClick={() =>
+                    ReactGA.event({
+                      category: 'Share',
+                      action: 'Push Facebook Share Button At Space',
+                      value: id,
+                    })
+                  }
+                >
+                  <ImageLogo src={ImageSnsFacebook} alt="icon-facebook" />
+                </LinkLogo>
+              </SnsLi>
+            </SnsUl>
+          </SnsWrap>
+        )}
       </RightWrap>
     </SpaceDetailWrap>
   </Container>

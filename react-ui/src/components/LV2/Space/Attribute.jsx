@@ -7,18 +7,7 @@ import { media } from 'helpers/style/media-query';
 const Container = styled.div`
   width: 100%;
   min-height: 20px;
-  padding: ${Dimens.medium1}px;
-  border-top: 1px solid ${Colors.borderGray};
-  margin: 35px auto;
-  &:not(:first-child) {
-    ${props =>
-      props.infoHost &&
-      `
-      margin: auto;
-      border: 1px solid #DBDBDB;
-      border-radius: 5px;
-    `};
-  }
+  margin: ${Dimens.medium_20}px auto;
   &::after {
     clear: both;
     content: '';
@@ -27,9 +16,7 @@ const Container = styled.div`
   ${props =>
     props.message &&
     `
-    padding: 0px;
     margin: 5px auto;
-    border: none;
   `};
 
   ${media.phone`
@@ -38,7 +25,6 @@ const Container = styled.div`
     ${props =>
       props.message &&
       `
-      padding: 0px;
       margin: 0px auto;
     `};
   `};
@@ -52,6 +38,14 @@ const HostNameContainer = styled.div`
   float: left;
   margin-top: 2px;
   margin-left: 15px;
+  color: ${Colors.brandPrimary};
+  font-weight: bold;
+  ${props =>
+    props.isNoProfile &&
+    `
+    margin-top: ${Dimens.small2_15}px
+  `};
+
   ${media.phone`
     max-width: 175px;
     margin-top: 2px;
@@ -69,12 +63,20 @@ const ProfileContainer = styled.div`
   `};
 `;
 
-export default ({ infoHost, message, headContent, title, contentHostName, contentProfile }) => (
-  <Container infoHost={infoHost} message={message}>
+export default ({
+  infoHost,
+  message,
+  headContent,
+  title,
+  contentHostName,
+  contentProfile,
+  isNoProfile,
+}) => (
+  <Container infoHost={infoHost} message={message} isNoProfile={isNoProfile}>
     <HostImageContainer>
       {headContent || <InlineText.Base>{title}</InlineText.Base>}
     </HostImageContainer>
-    <HostNameContainer>{contentHostName}</HostNameContainer>
-    <ProfileContainer>{contentProfile}</ProfileContainer>
+    <HostNameContainer isNoProfile={isNoProfile}>{contentHostName}</HostNameContainer>
+    {!isNoProfile && <ProfileContainer>{contentProfile}</ProfileContainer>}
   </Container>
 );

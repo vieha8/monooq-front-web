@@ -7,7 +7,7 @@ import { requestActions } from 'redux/modules/request';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SpaceMap from 'components/LV1/SpaceMap';
 import Detail from 'components/LV3/Space/Detail';
-import SendMessage from 'components/LV3/Space/SendMessage';
+import SendMessageOnlySp from 'components/LV3/Space/SendMessage';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Meta from 'components/LV1/Meta';
 import dummySpaceImage from 'images/dummy_space.png';
@@ -16,7 +16,6 @@ import { iskeyDownEnter } from 'helpers/keydown';
 import { loggerActions } from 'redux/modules/logger';
 import connect from '../connect';
 
-const SPACE_TYPES = ['', 'クローゼット・押入れ', '', '部屋', '屋外倉庫', 'その他'];
 const ReceiptType = {
   Both: 1,
   Meeting: 2,
@@ -140,18 +139,44 @@ class SpaceContainer extends Component {
           id={space.id}
           map={<SpaceMap lat={space.lat} lng={space.lng} />}
           pref={space.addressPref}
-          city={space.addressCity}
-          town={space.addressTown}
           name={space.title}
           images={space.images.map(image => ({
             original: image.imageUrl || dummySpaceImage,
             thumbnail: image.imageUrl || dummySpaceImage,
           }))}
+          // TODO: 【API連携】ステータス(1:満室,2:要相談,これ以外:空室)
+          statusAvailability={0}
+          // TODO: 【API連携】パンくずリスト
+          breadcrumbsList={[
+            {
+              text: '神奈川県',
+            },
+            {
+              text: '川崎市',
+            },
+            {
+              text: '中原区',
+            },
+            {
+              text: '下沼部',
+            },
+          ]}
           description={space.introduction}
+          // TODO: 【API連携】スペースの広さ
+          breadth="4畳以上12畳未満"
+          // TODO:【API連携】タグ
+          tagList={[
+            '4畳以上',
+            '1階',
+            'ダンボール1箱〜',
+            '4畳以上4畳以上4畳以上',
+            '1階1階',
+            'ダンボール1箱〜ダンボール1箱〜ダンボール1箱〜',
+            '4畳以上',
+            '1階',
+            'ダンボール1箱〜',
+          ]}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
-          type={SPACE_TYPES[space.type]}
-          furniture={space.isFurniture}
-          baggage={space.about}
           delivery={
             space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
           }
@@ -166,7 +191,7 @@ class SpaceContainer extends Component {
             profile: space.user.profile,
           }}
           priceFull={numeral(space.priceFull).format('0,0')}
-          // TODO: 現状固定値なので、API連携する
+          // TODO: 【API連携】現状固定値なので、API連携する
           priceTatami={numeral(3123).format('0,0')}
           // priceTatami={space.priceTatami > 0 && numeral(space.priceTatami).format('0,0')}
 
@@ -176,7 +201,8 @@ class SpaceContainer extends Component {
           requestButtononClick={isSelfSpace ? null : this.onClickSendMessage}
           onKeyDownButtonRequest={isSelfSpace ? null : this.onKeyDownButtonMessage}
         />
-        <SendMessage
+        <SendMessageOnlySp
+          priceTatami={numeral(3123).format('0,0')}
           disabled={isSelfSpace}
           loading={isRequesting}
           onClick={isSelfSpace ? null : this.onClickSendMessage}
@@ -201,6 +227,6 @@ const mapStateToProps = state => ({
 });
 
 export default ContentPageMenu(connect(SpaceContainer, mapStateToProps), {
-  bottomMargin: true,
+  bottomMarginOnlySP: true,
   maxWidth: 1440,
 });

@@ -159,7 +159,7 @@ storiesOf('Atoms(LV1)/Forms/Button', module)
     'Facebook',
     withInfo(`
       ### コンポーネント概要
-      ボタン(Facebook)
+      【利用箇所無し】ボタン(Facebook)
       * ■パラメータ
       * fill={1}：横幅100%にする。
       * fontbold：ボタンのテキストを太字にする。
@@ -185,7 +185,7 @@ storiesOf('Atoms(LV1)/Forms/Button', module)
     'Twitter',
     withInfo(`
       ### コンポーネント概要
-      ボタン(Twitter)
+      【利用箇所無し】ボタン(Twitter)
       * ■パラメータ
       * fill={1}：横幅100%にする。
       * fontbold：ボタンのテキストを太字にする。

@@ -2,6 +2,9 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
 
+const STATUS_FULL = 1;
+const STATUS_CONSULTATION = 2;
+
 const Availability = styled.span`
   display: inline-flex;
   width: fit-content;
@@ -15,16 +18,14 @@ const Availability = styled.span`
   border-radius: 2px;
 `;
 
-const getComponent = (isFull, isConsultation) => {
+const getComponent = status => {
   let returnVal = <Availability bgColor={Colors.green}>空室</Availability>;
-  if (isFull) {
+  if (status === STATUS_FULL) {
     returnVal = <Availability bgColor={Colors.brandPrimary}>満室</Availability>;
-  } else if (isConsultation) {
+  } else if (status === STATUS_CONSULTATION) {
     returnVal = <Availability bgColor={Colors.lightGray3}>要相談</Availability>;
   }
   return returnVal;
 };
 
-export default ({ isFull, isConsultation }) => (
-  <Fragment>{getComponent(isFull, isConsultation)}</Fragment>
-);
+export default ({ status }) => <Fragment>{getComponent(status)}</Fragment>;
