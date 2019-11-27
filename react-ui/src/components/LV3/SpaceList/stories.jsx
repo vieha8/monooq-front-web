@@ -22,8 +22,7 @@ const getData = () => {
         Introduction:
           'サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。サンプル部屋です。',
         PriceFull: 3000,
-        PriceHalf: 0,
-        PriceQuarter: 0,
+        PriceTatami: 3123,
         Address: '東京都渋谷区東1-2',
         AddressPref: '東京都',
         AddressCity: '渋谷区',

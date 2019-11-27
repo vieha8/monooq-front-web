@@ -5,8 +5,7 @@ import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import InputPriceOfType from 'components/LV2/Forms/InputPriceOfType';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import imageFurnitureFull from 'images/furniture-full.svg';
-import imageFurnitureHalf from 'images/furniture-half.svg';
-import imageFurnitureQuarter from 'images/furniture-quarter.svg';
+import imageFurnitureTatami from 'images/furniture-tatami.svg';
 import { Dimens } from 'variables';
 import { Section } from './Shared';
 
@@ -30,10 +29,8 @@ export default ({
   errors,
   priceFull,
   onChangePriceFull,
-  priceHalf,
-  onChangePriceHalf,
-  priceQuarter,
-  onChangePriceQuarter,
+  priceTatami,
+  onChangePriceTatami,
   buttonLoading,
   onClickBack,
   onKeyDownButtonBack,
@@ -62,29 +59,20 @@ export default ({
       <InputPriceOfType
         image={imageFurnitureFull}
         title="全てのスペースの月額料金"
-        caption="このスペースすべてを使用する場合"
+        caption="スペースを全範囲使用する場合の料金"
         placeholder="30,000"
         price={priceFull}
         onChange={onChangePriceFull}
         error={<ErrorList keyName="price_errors_1" errors={errors.priceFull} />}
       />
       <InputPriceOfType
-        image={imageFurnitureHalf}
-        title="半分のスペースの月額料金"
-        caption="このスペースの半分を使用する場合"
+        image={imageFurnitureTatami}
+        title="1畳分のスペースの月額料金"
+        caption="スペースの一部を使用する場合の1畳あたりの料金"
         placeholder="16,000"
-        price={priceHalf}
-        onChange={onChangePriceHalf}
+        price={priceTatami}
+        onChange={onChangePriceTatami}
         error={<ErrorList keyName="price_errors_2" errors={errors.priceHalf} />}
-      />
-      <InputPriceOfType
-        image={imageFurnitureQuarter}
-        title="1/4程度のスペースの月額料金"
-        caption="このスペースの1/4程度を使用する場合"
-        placeholder="9,000"
-        price={priceQuarter}
-        onChange={onChangePriceQuarter}
-        error={<ErrorList keyName="price_errors_3" errors={errors.priceQuarter} />}
       />
     </Section>
     <Section marginTop={20}>

@@ -49,7 +49,7 @@ class ProfileContainer extends Component {
               title: space.title,
               furniture: space.isFurniture,
               priceFull: space.priceFull,
-              priceQuarter: space.priceQuarter,
+              priceTatami: space.priceTatami,
             }))}
         />
       </Fragment>
@@ -62,12 +62,6 @@ const mapStateToProps = state => ({
   spaces: state.user.spaces,
 });
 
-export default ContentPageMenu(
-  connect(
-    ProfileContainer,
-    mapStateToProps,
-  ),
-  {
-    headline: 'プロフィール',
-  },
-);
+export default ContentPageMenu(connect(ProfileContainer, mapStateToProps), {
+  headline: 'プロフィール',
+});

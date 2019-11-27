@@ -123,8 +123,7 @@ class SpaceContainer extends Component {
           address: `${s.addressPref}${s.addressCity}`,
           isFurniture: s.isFurniture,
           priceFull: s.priceFull,
-          priceHalf: s.priceHalf,
-          priceQuarter: s.priceQuarter,
+          priceTatami: s.priceTatami,
           onClick: () => this.onClickSpace(s),
         }))
       : null;
@@ -167,8 +166,10 @@ class SpaceContainer extends Component {
             profile: space.user.profile,
           }}
           priceFull={numeral(space.priceFull).format('0,0')}
-          priceHalf={space.priceHalf > 0 && numeral(space.priceHalf).format('0,0')}
-          priceQuarter={space.priceQuarter > 0 && numeral(space.priceQuarter).format('0,0')}
+          // TODO: 現状固定値なので、API連携する
+          priceTatami={numeral(3123).format('0,0')}
+          // priceTatami={space.priceTatami > 0 && numeral(space.priceTatami).format('0,0')}
+
           recommend={recommend}
         />
         <SendMessage
@@ -195,12 +196,6 @@ const mapStateToProps = state => ({
   isRequesting: state.request.isLoading,
 });
 
-export default ContentPageMenu(
-  connect(
-    SpaceContainer,
-    mapStateToProps,
-  ),
-  {
-    bottomMargin: true,
-  },
-);
+export default ContentPageMenu(connect(SpaceContainer, mapStateToProps), {
+  bottomMargin: true,
+});

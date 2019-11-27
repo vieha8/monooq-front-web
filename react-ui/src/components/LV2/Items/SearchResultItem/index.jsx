@@ -50,7 +50,7 @@ export default ({
   addressPref,
   addressCity,
   addressTown,
-  priceQuarter,
+  priceTatami,
   priceFull,
   tagList,
 }) => (
@@ -98,9 +98,8 @@ export default ({
               bold
               color={Colors.brandPrimary}
             >
-              ¥
-              {priceQuarter
-                ? numeral(priceQuarter).format('0,0')
+              {`¥${priceTatami}`
+                ? numeral(priceTatami).format('0,0')
                 : numeral(priceFull).format('0,0')}
               〜&nbsp;/&nbsp;月
             </InlineText.Base>

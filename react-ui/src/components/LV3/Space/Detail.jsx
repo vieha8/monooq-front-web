@@ -99,14 +99,13 @@ export default ({
   pref,
   city,
   town,
-  priceQuarter,
+  priceTatami,
   priceFull,
   user,
   description,
   map,
   address,
   type,
-  priceHalf,
   furniture,
   baggage,
   delivery,
@@ -122,7 +121,7 @@ export default ({
       <AddressText>{`${pref} ${city} ${town}`}</AddressText>
       <ContentText>{name || ''}</ContentText>
       <PriceText>
-        {priceQuarter || priceFull}
+        {priceTatami || priceFull}
         円〜
       </PriceText>
     </SpaceTitleWrapper>
@@ -137,7 +136,7 @@ export default ({
       <Address content={address} />
       <Type content={type} />
     </MapWrapper>
-    <Price full={priceFull} half={priceHalf} quarter={priceQuarter} />
+    <Price full={priceFull} tatami={priceTatami} />
     <SectionHeader>荷物について</SectionHeader>
     <Fragment>
       <Baggage furniture={furniture} content={baggage} />

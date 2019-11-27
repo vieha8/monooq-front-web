@@ -23,8 +23,7 @@ storiesOf('Molecules(LV2)/Items/SearchResultItem', module)
           title="広々8畳・和室・武蔵小杉駅より徒歩5分以内の駅近スペース"
           isFurniture
           priceFull="10000"
-          priceHalf="5000"
-          priceQuarter="3000"
+          priceTatami="5123"
           onClick={() => console.log('onClick')}
         />
       </div>
@@ -43,8 +42,7 @@ storiesOf('Molecules(LV2)/Items/SearchResultItem', module)
           title="広々8畳・和室・武蔵小杉駅より徒歩5分以内の駅近スペース"
           isFurniture
           priceFull="10000"
-          priceHalf="5000"
-          priceQuarter="3000"
+          priceTatami="5123"
           isRecommended
           tagList={['4畳以上', '1階', 'ダンボール1箱']}
           onClick={() => console.log('onClick')}

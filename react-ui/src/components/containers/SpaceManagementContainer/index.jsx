@@ -74,8 +74,7 @@ class SpaceManagementContainer extends Component {
           furniture: space.isFurniture,
           prices: [
             numeral(space.priceFull).format('0,0'),
-            numeral(space.priceHalf).format('0,0'),
-            numeral(space.priceQuarter).format('0,0'),
+            numeral(space.priceTatami).format('0,0'),
           ],
           link: Path.space(space.id),
           status: space.status,
@@ -94,13 +93,7 @@ const mapStateToProps = state => ({
 });
 
 export default authRequired(
-  ContentPageMenu(
-    connect(
-      SpaceManagementContainer,
-      mapStateToProps,
-    ),
-    {
-      headline: 'スペースの管理',
-    },
-  ),
+  ContentPageMenu(connect(SpaceManagementContainer, mapStateToProps), {
+    headline: 'スペースの管理',
+  }),
 );

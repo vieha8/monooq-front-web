@@ -133,10 +133,8 @@ storiesOf('Organisms(LV3)/SpaceEdit', module)
           errors={[]}
           priceFull={10000}
           onChangePriceFull={() => console.log('onChangePriceFull')}
-          priceHalf={5000}
-          onChangePriceHalf={() => console.log('onChangePriceHalf')}
-          priceQuarter={3000}
-          onChangePriceQuarter={() => console.log('onChangePriceQuarter')}
+          priceTatami={3123}
+          onChangePriceTatami={() => console.log('onChangePriceTatami')}
           buttonLoading={false}
           onClickBack={() => console.log('onClickBack')}
           onKeyDownButtonBack={() => console.log('onKeyDownButtonBack')}
