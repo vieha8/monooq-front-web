@@ -3,6 +3,8 @@ import Path from 'config/path';
 import { partialMatch } from 'helpers/string';
 import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import Lp123Guest from 'components/LV3/Lp123Guest';
+import { parse } from 'helpers/query-string';
+import { isAvailableLocalStorage } from 'helpers/storage';
 
 const PATH_LP2_GUEST = '/lp2/guest';
 const PATH_LP3_GUEST = '/lp3/guest';
@@ -40,6 +42,14 @@ class Lp123GuestContainer extends React.Component {
     }
 
     this.setState({ titleWant, headline, titleMeta });
+
+    const { location } = this.props;
+    const query = parse(location.search);
+    if (isAvailableLocalStorage()) {
+      if (query.invite_code) {
+        localStorage.setItem('invite_code', query.invite_code);
+      }
+    }
   }
 
   getHeadlineLp1 = () => {

@@ -6,6 +6,7 @@ import ReactGA from 'react-ga';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { handleGTM } from 'helpers/gtm';
+import { handleAccessTrade, handleCircuitX } from 'helpers/asp';
 
 const Validate = {
   phoneNumber: {
@@ -45,18 +46,8 @@ export default class RegisterProfileContainer extends Component {
   componentDidUpdate(props) {
     if (!props.user.id && this.props.user.id) {
       const { user } = this.props;
-      const script = document.createElement('script');
-
-      script.innerHTML = `var __atw = __atw || [];
-    __atw.push({ "merchant" : "monooq", "param" : {
-        "result_id" : "100",
-        "verify" : "user_register_${user.id}",
-    }});
-(function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
-a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
-
-      document.body.appendChild(script);
-
+      handleAccessTrade(100, `user_register_${user.id}`);
+      handleCircuitX(1373, user.id);
       handleGTM('leadUserRegistered', user.id);
     }
   }

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Modal, Button } from 'semantic-ui-react';
 import Path from 'config/path';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -81,7 +80,7 @@ class MessageContainer extends Component {
     return null;
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const messagesCount = this.props.messages.length;
     if (messagesCount > 0 && prevProps.isLoading && !this.props.isLoading) {
       const last = messagesCount + 1;
@@ -95,7 +94,22 @@ class MessageContainer extends Component {
         });
       }
     }
+    if (prevState.text.length === 0 && this.state.text.length > 0) {
+      window.addEventListener('beforeunload', this.handleBeforeUnload);
+    }
+    if (prevState.text.length > 0 && this.state.text.length === 0) {
+      window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    }
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('beforeunload', this.handleBeforeUnload);
+  }
+
+  handleBeforeUnload = e => {
+    e.preventDefault();
+    e.returnValue = '未送信のメッセージが取り消されますが、よろしいですか?';
+  };
 
   handlePickImage = image => {
     image.preview = URL.createObjectURL(image);
@@ -132,7 +146,7 @@ class MessageContainer extends Component {
     history.push(Path.estimate(match.params.message_room_id));
   };
 
-  createMessageList = () => {
+  createMessageList = isHost => {
     const { messages, match, user, room } = this.props;
 
     if (!messages) return false;
@@ -187,13 +201,43 @@ class MessageContainer extends Component {
         case MessageType.Completed: {
           const { request } = message;
           if (request) {
+            if (isHost) {
+              return {
+                admin: {
+                  message: `【決済が完了しました】\n見積もりID:${request.id}\nスペース取引成立です！下記住所をゲストにお伝えしました。\n\nスペース所在地:${request.space.address}`,
+                  receivedAt: message.createDt,
+                },
+              };
+            }
+
             return {
               admin: {
-                message: `お見積もりID:${
-                  request.id
-                }\n決済が完了しました。スペース取引成立です！\nスペース所在地:${
-                  request.space.address
-                }`,
+                message: (
+                  <Fragment>
+                    【決済が完了しました】
+                    <br />
+                    見積もりID:
+                    {request.id}
+                    <br />
+                    スペース取引成立です！下記住所まで荷物を送りましょう。
+                    <br />
+                    <br />
+                    スペース所在地:
+                    {request.space.address}
+                    <br />
+                    <br />
+                    モノオクから簡単に配送手配ができます！
+                    <br />
+                    <a
+                      href="https://docs.google.com/forms/d/e/1FAIpQLSfI3YOtJhWe04NlzVOU5_Jr1cMTcEYCEUUus6wJZEyNmws6QA/viewform"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="gaMessageTipsPickgoLinkPaid"
+                    >
+                      ▶配送申込みはこちら
+                    </a>
+                  </Fragment>
+                ),
                 receivedAt: message.createDt,
               },
             };
@@ -226,7 +270,7 @@ class MessageContainer extends Component {
     const isHost = room.space.user.id === user.id;
     const otherUserId = room.userId1 === user.id ? room.userId2 : room.userId1;
 
-    const messageList = this.createMessageList();
+    const messageList = this.createMessageList(isHost);
 
     let lastReadDt = new Date(1990, 0, 1, 0, 0);
     if (room[`user${otherUserId}LastReadDt`]) {
@@ -312,6 +356,4 @@ const mapStateToProps = state => ({
   isLoading: state.messages.isLoading,
 });
 
-export default authRequired(
-  handleBeforeUnload(ContentPageMenu(connect(mapStateToProps)(MessageContainer), {})),
-);
+export default authRequired(ContentPageMenu(connect(mapStateToProps)(MessageContainer), {}));

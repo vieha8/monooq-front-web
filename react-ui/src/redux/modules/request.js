@@ -12,6 +12,7 @@ import Path from '../../config/path';
 import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import { handleError } from './error';
 import { getRoomId, createRoom } from './messages';
+import { handleAccessTrade, handleCircuitX } from '../../helpers/asp';
 
 // Actions
 const ESTIMATE = 'ESTIMATE';
@@ -429,7 +430,7 @@ function* request({ payload: { user, space } }) {
 
   let isRequested = 'false';
   if (isAvailableLocalStorage()) {
-    isRequested = localStorage.getItem('isRequested');
+    // isRequested = localStorage.getItem('isRequested');
   }
 
   yield put(
@@ -443,21 +444,10 @@ function* request({ payload: { user, space } }) {
     }),
   );
 
-  if (!isRequested && user.id !== 2613) {
+  if (isRequested === 'false' && user.id !== 2613) {
     handleGTM('newRequest', user.id);
-
-    const script = document.createElement('script');
-
-    script.innerHTML = `var __atw = __atw || [];
-    __atw.push({ "merchant" : "monooq", "param" : {
-        "result_id" : "105",
-        "verify" : "new_request_user${user.id}_space${space.id}",
-    }});
-(function(a){var b=a.createElement("script");b.src="https://h.accesstrade.net/js/nct/cv.min.js";b.async=!0;
-a=a.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})(document);`;
-
-    document.body.appendChild(script);
-
+    handleAccessTrade(105, `new_request_user${user.id}_space${space.id}`);
+    handleCircuitX(1374, user.id);
     if (isAvailableLocalStorage()) {
       localStorage.setItem('isRequested', 'true');
     }
