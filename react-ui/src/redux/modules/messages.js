@@ -267,18 +267,21 @@ function* fetchMessagesStart({ payload: roomId }) {
   const token = yield* getToken();
 
   // 見積もりステータスの取得
-  messages = yield Promise.all(
-    messages.map(async message => {
-      const { messageType } = message;
-      if (messageType === 1) {
-        return message;
-      }
-      const { requestId } = message;
-      const { data } = await getApiRequest(apiEndpoint.requests(requestId), {}, token);
-      message.request = data;
-      return message;
-    }),
+  const requestIds = messages.filter(v => v.requestId != null).map(v => v.requestId);
+  const { data } = yield call(
+    getApiRequest,
+    apiEndpoint.requests(),
+    { ids: requestIds.join(',') },
+    token,
   );
+
+  messages = messages.map(message => {
+    if (message.requestId) {
+      const request = data.filter(v => v.id === message.requestId)[0];
+      return { ...message, request };
+    }
+    return message;
+  });
 
   // 既読フラグ付加
   if (messages.length > 0) {
