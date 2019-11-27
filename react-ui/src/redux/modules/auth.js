@@ -12,7 +12,13 @@ import { convertImgixUrl } from 'helpers/imgix';
 import { uiActions } from './ui';
 import { loggerActions } from './logger';
 import { handleError } from './error';
-import { getApiRequest, postApiRequest, deleteApiRequest, apiEndpoint } from '../helpers/api';
+import {
+  getApiRequest,
+  postApiRequest,
+  deleteApiRequest,
+  apiEndpoint,
+  putApiRequest,
+} from '../helpers/api';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -231,6 +237,9 @@ const tokenCacheKey = 'firebase_token';
 
 // Sagas
 export function* getToken() {
+  if (!firebase.auth().currentUser) {
+    return '';
+  }
   if (isAvailableLocalStorage()) {
     const cache = localStorage.getItem(tokenCacheKey);
     if (cache) {
@@ -240,22 +249,17 @@ export function* getToken() {
           // 有効期限判定
           return token;
         }
-        localStorage.removeItem(tokenCacheKey);
-        window.location.reload();
-        return '';
       }
     }
   }
-  if (firebase.auth().currentUser) {
-    const token = yield call(getFirebaseAuthToken);
-    if (isAvailableLocalStorage()) {
-      const limit = new Date();
-      limit.setMinutes(limit.getMinutes() + 50);
-      localStorage.setItem(tokenCacheKey, JSON.stringify({ token, limit }));
-    }
-    return token;
+  const token = yield call(getFirebaseAuthToken);
+  yield call(putApiRequest, apiEndpoint.authFirebase(firebase.auth().currentUser.uid), token);
+  if (isAvailableLocalStorage()) {
+    const limit = new Date();
+    limit.setMinutes(limit.getMinutes() + 50);
+    localStorage.setItem(tokenCacheKey, JSON.stringify({ token, limit }));
   }
-  return '';
+  return token;
 }
 
 function* checkLogin() {
