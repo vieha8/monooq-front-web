@@ -146,7 +146,7 @@ class MessageContainer extends Component {
     history.push(Path.estimate(match.params.message_room_id));
   };
 
-  createMessageList = () => {
+  createMessageList = isHost => {
     const { messages, match, user, room } = this.props;
 
     if (!messages) return false;
@@ -201,9 +201,43 @@ class MessageContainer extends Component {
         case MessageType.Completed: {
           const { request } = message;
           if (request) {
+            if (isHost) {
+              return {
+                admin: {
+                  message: `【決済が完了しました】\n見積もりID:${request.id}\nスペース取引成立です！下記住所をゲストにお伝えしました。\n\nスペース所在地:${request.space.address}`,
+                  receivedAt: message.createDt,
+                },
+              };
+            }
+
             return {
               admin: {
-                message: `お見積もりID:${request.id}\n決済が完了しました。スペース取引成立です！\nスペース所在地:${request.space.address}`,
+                message: (
+                  <Fragment>
+                    【決済が完了しました】
+                    <br />
+                    見積もりID:
+                    {request.id}
+                    <br />
+                    スペース取引成立です！下記住所まで荷物を送りましょう。
+                    <br />
+                    <br />
+                    スペース所在地:
+                    {request.space.address}
+                    <br />
+                    <br />
+                    モノオクから簡単に配送手配ができます！
+                    <br />
+                    <a
+                      href="https://docs.google.com/forms/d/e/1FAIpQLSfI3YOtJhWe04NlzVOU5_Jr1cMTcEYCEUUus6wJZEyNmws6QA/viewform"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="gaMessageTipsPickgoLinkPaid"
+                    >
+                      ▶配送申込みはこちら
+                    </a>
+                  </Fragment>
+                ),
                 receivedAt: message.createDt,
               },
             };
@@ -236,7 +270,7 @@ class MessageContainer extends Component {
     const isHost = room.space.user.id === user.id;
     const otherUserId = room.userId1 === user.id ? room.userId2 : room.userId1;
 
-    const messageList = this.createMessageList();
+    const messageList = this.createMessageList(isHost);
 
     let lastReadDt = new Date(1990, 0, 1, 0, 0);
     if (room[`user${otherUserId}LastReadDt`]) {
