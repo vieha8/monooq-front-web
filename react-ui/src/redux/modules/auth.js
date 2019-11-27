@@ -253,7 +253,7 @@ export function* getToken() {
     }
   }
   const token = yield call(getFirebaseAuthToken);
-  yield call(putApiRequest, apiEndpoint.authFirebase(firebase.auth().currentUser.uid), token);
+  yield call(putApiRequest, apiEndpoint.authFirebase(firebase.auth().currentUser.uid), {}, token);
   if (isAvailableLocalStorage()) {
     const limit = new Date();
     limit.setMinutes(limit.getMinutes() + 50);
