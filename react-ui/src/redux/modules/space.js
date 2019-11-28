@@ -604,13 +604,10 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     if (space.images.length === 0) {
       space.images = [{ imageUrl: dummySpaceImage }];
     } else {
-      space.images = space.images.map(image => {
-        image.imageUrl = convertImgixUrl(
-          image.imageUrl,
-          'fit=crop&fill-color=DBDBDB&w=600&h=400&auto=format',
-        );
-        return image;
-      });
+      space.images = space.images.map(image => ({
+        ...image,
+        imageUrl: convertImgixUrl(image.imageUrl, 'fit=crop&w=600&h=400&auto=enhance'),
+      }));
     }
     return space;
   });
