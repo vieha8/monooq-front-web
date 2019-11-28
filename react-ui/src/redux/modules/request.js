@@ -430,7 +430,9 @@ function* request({ payload: { user, space } }) {
 
   let isRequested = 'false';
   if (isAvailableLocalStorage()) {
-    isRequested = localStorage.getItem('isRequested');
+    if (localStorage.getItem('isRequested')) {
+      isRequested = localStorage.getItem('isRequested');
+    }
   }
 
   yield put(
