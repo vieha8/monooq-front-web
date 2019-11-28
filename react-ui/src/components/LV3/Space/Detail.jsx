@@ -86,12 +86,17 @@ const RightWrap = styled.div`
 `;
 
 const RightInner = styled.div`
-  ${'' /* TODO: 画面固定処理 */}
-  ${'' /* position: fixed;
-  max-width: 340px;
-  top: 100px;
-  right: ${Dimens.medium2}px;
-  z-index: ${ZIndexes.frontPartsOverFooter}; */}
+  transition: 1s;
+  ${props =>
+    props.isOverTopView &&
+    `
+    position: fixed;
+    max-width: 340px;
+    top: 100px;
+    right: ${Dimens.medium2}px;
+    z-index: ${ZIndexes.frontPartsOverFooter};
+    transition: 1s;
+  `};
 `;
 
 const RequestCard = styled.div`
@@ -238,6 +243,7 @@ export default ({
   id,
   name,
   recommend,
+  isOverTopView,
   requestButtondisabled,
   requestButtonloading,
   requestButtononClick,
@@ -294,7 +300,7 @@ export default ({
         )}
       </LeftWrap>
       <RightWrap>
-        <RightInner>
+        <RightInner isOverTopView={isOverTopView}>
           <RequestCard>
             気になるスペースを見つけたら？
             <RequestTitle>ホストに相談しよう</RequestTitle>

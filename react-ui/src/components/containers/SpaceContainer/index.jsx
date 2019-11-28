@@ -33,25 +33,14 @@ class SpaceContainer extends Component {
         url: '',
         imageUrl: '',
       },
+      isOverTopView: false,
     };
   }
 
-  init = () => {
-    const { dispatch, match } = this.props;
-    const spaceId = match.params.space_id;
-
-    dispatch(spaceActions.clearSpace());
-    dispatch(spaceActions.fetchSpace({ spaceId }));
-    dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
-    dispatch(spaceActions.getRecommendSpaces({ spaceId }));
-
-    dispatch(
-      loggerActions.recordEvent({
-        event: 'space_views',
-        detail: { spaceId },
-      }),
-    );
-  };
+  componentDidMount() {
+    this._isMounted = true;
+    window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
+  }
 
   componentDidUpdate(prevProps) {
     // おすすめから遷移した時はconstructorが発火しないのでここで
@@ -64,6 +53,8 @@ class SpaceContainer extends Component {
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch(spaceActions.clearSpace());
+    this._isMounted = false;
+    window.removeEventListener('scroll', () => this.watchCurrentPosition(), true);
   }
 
   static getDerivedStateFromProps(nextProps) {
@@ -88,6 +79,52 @@ class SpaceContainer extends Component {
     return null;
   }
 
+  init = () => {
+    const { dispatch, match } = this.props;
+    const spaceId = match.params.space_id;
+
+    dispatch(spaceActions.clearSpace());
+    dispatch(spaceActions.fetchSpace({ spaceId }));
+    dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
+    dispatch(spaceActions.getRecommendSpaces({ spaceId }));
+
+    dispatch(
+      loggerActions.recordEvent({
+        event: 'space_views',
+        detail: { spaceId },
+      }),
+    );
+  };
+
+  scrollTop = () => {
+    const isWebKit = this.browser ? this.browser.isWebKit : false;
+    let tgt;
+
+    if ('scrollingElement' in document) {
+      tgt = document.scrollingElement;
+    } else if (isWebKit) {
+      tgt = document.body;
+    } else {
+      tgt = document.documentElement;
+    }
+    const scrollTop = (tgt && tgt.scrollTop) || 0;
+    return Math.max(window.pageYOffset, scrollTop);
+  };
+
+  watchCurrentPosition() {
+    if (window.parent.screen.width > 768) {
+      const positionScroll = this.scrollTop();
+      if (this._isMounted) {
+        this.setState({ isOverTopView: false });
+      }
+      if (positionScroll > 500) {
+        if (this._isMounted) {
+          this.setState({ isOverTopView: true });
+        }
+      }
+    }
+  }
+
   onClickSendMessage = async () => {
     const { dispatch, location, user, space, history } = this.props;
     // 未ログインの場合はログイン画面へ
@@ -109,6 +146,7 @@ class SpaceContainer extends Component {
     const { space, user, isRequesting, recommendSpaces } = this.props;
     const {
       meta: { title, description, url, imageUrl },
+      isOverTopView,
     } = this.state;
     const isSelfSpace = user.id === (space.user || {}).id;
 
@@ -126,6 +164,7 @@ class SpaceContainer extends Component {
           onClick: () => this.onClickSpace(s),
         }))
       : null;
+
     return (
       <Fragment>
         <Meta
@@ -136,6 +175,7 @@ class SpaceContainer extends Component {
           noindex={isNoIndex}
         />
         <Detail
+          isOverTopView={isOverTopView}
           id={space.id}
           map={<SpaceMap lat={space.lat} lng={space.lng} />}
           pref={space.addressPref}
