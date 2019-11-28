@@ -268,20 +268,22 @@ function* fetchMessagesStart({ payload: roomId }) {
 
   // 見積もりステータスの取得
   const requestIds = messages.filter(v => v.requestId != null).map(v => v.requestId);
-  const { data } = yield call(
-    getApiRequest,
-    apiEndpoint.requests(),
-    { ids: requestIds.join(',') },
-    token,
-  );
+  if (requestIds.length > 0) {
+    const { data } = yield call(
+      getApiRequest,
+      apiEndpoint.requests(),
+      { ids: requestIds.join(',') },
+      token,
+    );
 
-  messages = messages.map(message => {
-    if (message.requestId) {
-      const request = data.filter(v => v.id === message.requestId)[0];
-      return { ...message, request };
-    }
-    return message;
-  });
+    messages = messages.map(message => {
+      if (message.requestId) {
+        const request = data.filter(v => v.id === message.requestId)[0];
+        return { ...message, request };
+      }
+      return message;
+    });
+  }
 
   // 既読フラグ付加
   if (messages.length > 0) {
