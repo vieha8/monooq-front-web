@@ -430,7 +430,7 @@ function* request({ payload: { user, space } }) {
 
   let isRequested = 'false';
   if (isAvailableLocalStorage()) {
-    // isRequested = localStorage.getItem('isRequested');
+    isRequested = localStorage.getItem('isRequested');
   }
 
   yield put(
@@ -448,6 +448,7 @@ function* request({ payload: { user, space } }) {
     handleGTM('newRequest', user.id);
     handleAccessTrade(105, `new_request_user${user.id}_space${space.id}`);
     handleCircuitX(1374, user.id);
+    handleCircuitX(1377, user.id);
     if (isAvailableLocalStorage()) {
       localStorage.setItem('isRequested', 'true');
     }

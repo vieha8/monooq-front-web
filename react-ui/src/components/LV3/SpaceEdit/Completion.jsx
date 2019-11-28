@@ -15,6 +15,7 @@ export default class SpaceCreatedCompletion extends Component {
     if (!edit && userId) {
       handleAccessTrade(101, `host_register_${userId}`);
       handleCircuitX(1375, userId);
+      handleCircuitX(1378, userId);
     }
   }
 

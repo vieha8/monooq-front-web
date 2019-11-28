@@ -48,6 +48,7 @@ export default class RegisterProfileContainer extends Component {
       const { user } = this.props;
       handleAccessTrade(100, `user_register_${user.id}`);
       handleCircuitX(1373, user.id);
+      handleCircuitX(1376, user.id);
       handleGTM('leadUserRegistered', user.id);
     }
   }
