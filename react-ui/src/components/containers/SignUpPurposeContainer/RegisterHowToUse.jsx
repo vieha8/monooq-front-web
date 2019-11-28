@@ -3,6 +3,7 @@ import Path from 'config/path';
 import { userActions } from 'redux/modules/user';
 import RegisterHowToUse from 'components/LV3/RegisterHowToUse';
 import ReactGA from 'react-ga';
+import { handleAccessTrade, handleCircuitX } from 'helpers/asp';
 
 export default class RegisterHowToUseContainer extends Component {
   constructor(props) {
@@ -11,6 +12,15 @@ export default class RegisterHowToUseContainer extends Component {
     this.state = {
       isHost: 0,
     };
+  }
+
+  componentDidMount() {
+    if (this.props.user.id) {
+      const { user } = this.props;
+      handleAccessTrade(100, `user_register_${user.id}`);
+      handleCircuitX(1373, user.id);
+      handleCircuitX(1376, user.id);
+    }
   }
 
   onClickRegisterProfile = () => {
