@@ -43,16 +43,22 @@ const SpaceDetailWrap = styled.div`
   display: flex;
   max-width: 1000px;
   margin: auto;
+  ${media.tablet`
+    padding: 0 ${Dimens.medium}px;
+  `};
 `;
 
 const LeftWrap = styled.div`
   width: 100%;
   max-width: 660px;
   padding-right: ${Dimens.medium4_50}px;
+  ${media.tablet`
+    padding-right: 0px;
+  `};
 `;
 
 const AvailabilityWrap = styled.div`
-  margin: ${Dimens.medium}px auto ${Dimens.xsmall}px;
+  margin: ${Dimens.medium}px auto;
 `;
 
 const SpaceTitleWrapper = styled.div``;
@@ -62,11 +68,15 @@ const SpaceTitle = styled(InlineText.H1)`
   margin: 5px auto;
   font-size: ${FontSizes.medium2}px;
   font-weight: bold;
+  ${media.tablet`
+    font-size: ${FontSizes.medium}px;
+  `};
 `;
 
 const RightWrap = styled.div`
   width: 100%;
   max-width: 340px;
+  padding-right: ${Dimens.small_10}px;
   font-size: ${FontSizes.small_12}px;
   text-align: center;
   ${media.tablet`

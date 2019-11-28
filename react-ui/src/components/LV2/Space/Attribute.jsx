@@ -21,7 +21,6 @@ const Container = styled.div`
 
   ${media.phone`
     display: block;
-    padding: ${Dimens.medium}px;
     ${props =>
       props.message &&
       `
@@ -36,20 +35,25 @@ const HostImageContainer = styled.span`
 
 const HostNameContainer = styled.div`
   float: left;
-  margin-top: 2px;
-  margin-left: 15px;
+  margin-top: ${Dimens.xsmall_7}px;
+  margin-left: ${Dimens.small2_15}px;
   color: ${Colors.brandPrimary};
   font-weight: bold;
   ${props =>
     props.isNoProfile &&
     `
-    margin-top: ${Dimens.small2_15}px
+    margin-top: ${Dimens.small2_15}px;
   `};
 
   ${media.phone`
     max-width: 175px;
-    margin-top: 2px;
+    margin-top: ${Dimens.small_10}px;
     font-size: ${FontSizes.small_12}px;
+    ${props =>
+      props.isNoProfile &&
+      `
+      margin-top: ${Dimens.medium_18}px;
+    `};
   `};
 `;
 

@@ -7,48 +7,42 @@ import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
   width: 100%;
-  padding: ${Dimens.small2_14}px 0 ${Dimens.medium}px;
-
-  border-bottom-style: none;
-  ${media.phone`
-    padding: ${Dimens.xsmall}px 0px;
-    ${props =>
-      !props.detail &&
-      `
-        padding: ${Dimens.xsmall}px 0px ${Dimens.medium1}px;
-      `};
+  border: 1px solid ${Colors.borderGray};
+  border-radius: ${Dimens.xxsmall_4}px;
+  ${media.tablet`
+    padding: ${Dimens.small}px 0px;
   `};
-
-  &:first-child {
-    border-radius: 3px 3px 0 0;
-  }
-
-  &:last-child {
-    border-bottom-style: solid;
-    border-radius: 0 0 3px 3px;
-    padding: ${Dimens.small2_14}px 0 ${Dimens.small_10}px;
-  }
-
+  ${props =>
+    props.marginLeft &&
+    `
+      margin-left: 5%;
+  `};
   &::after {
     clear: both;
     content: '';
     display: block;
   }
+  ${media.tablet`
+    border: none;
+    ${props =>
+      props.marginLeft &&
+      `
+        margin-left: auto;
+    `};
+  `};
 `;
 
 const PriceContainer = styled.div`
   display: block;
   width: 100%;
   max-width: 263px;
-  float: left;
   box-sizing: border-box;
-  border-radius: ${Dimens.xxsmall_4}px;
-  border: 1px solid ${Colors.borderGray};
-  padding: ${Dimens.medium2}px;
+  padding: 10%;
   text-align: center;
-  ${media.phone`
+  margin: auto;
+
+  ${media.tablet`
     max-width: 100%;
-    float: none;
     padding: 0;
     border: none;
     text-align: left;
@@ -65,9 +59,16 @@ const ImageWrap = styled.div`
   max-width: 108px;
   text-align: center;
   margin: auto;
-  ${media.phone`
+  ${media.tablet`
     float: left;
     margin: 0 ${Dimens.medium2_32}px auto 0;
+  `};
+  ${media.phone`
+    float: left;
+    margin: 0 ${Dimens.medium}px auto 0;
+  `};
+  ${media.phoneSmall`
+    max-width: 95px;
   `};
 `;
 
@@ -76,7 +77,8 @@ const TitleWrap = styled.div`
   font-size: ${FontSizes.medium}px;
   font-weight: bold;
   line-height: normal;
-  ${media.phone`
+  ${media.tablet`
+    margin-top: 0;
     font-size: ${FontSizes.small}px;
   `};
 `;
@@ -84,8 +86,8 @@ const TitleWrap = styled.div`
 const Caption = styled.div`
   width: 100%;
   margin-top: ${Dimens.small_10}px;
-  ${media.phone`
-    margin-top: 0;
+  ${media.tablet`
+    margin-top: ${Dimens.xxsmall_5}px;
     font-size: ${FontSizes.small_12}px;
   `};
 `;
@@ -102,18 +104,35 @@ const PriceWrapper = styled.div`
   font-size: ${FontSizes.medium_18}px;
   font-weight: bold;
   margin-top: ${Dimens.small_10}px;
+  ${media.tablet`
+    margin-top: ${Dimens.xxsmall_5}px;
+  `};
 `;
 
-export default ({ detail, image, title, price, caption, error, onChange, placeholder }) =>
+export default ({
+  detail,
+  image,
+  title,
+  price,
+  caption,
+  error,
+  onChange,
+  placeholder,
+  marginLeft,
+}) =>
   detail ? (
-    <Container detail>
+    <Container detail marginLeft={marginLeft}>
       <PriceContainer>
         <ImageWrap>
           <Image src={image} alt="img-space-price" />
         </ImageWrap>
         <TitleWrap>{title}</TitleWrap>
         <Caption>
-          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small}>
+          <InlineText.Base
+            color={Colors.darkGray2}
+            fontSize={FontSizes.small}
+            fontSizeSp={FontSizes.small_12}
+          >
             {caption}
           </InlineText.Base>
           <PriceWrapper>{`${price}円`}</PriceWrapper>

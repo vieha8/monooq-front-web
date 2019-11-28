@@ -23,7 +23,6 @@ const LeftContent = styled.div`
     margin-left: 0;
     width: 100%;
     max-width: 100%;
-    padding-top: ${Dimens.small_10}px;
   `};
 `;
 

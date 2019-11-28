@@ -140,7 +140,6 @@
 /* space imge slider */
 .image-gallery-slides {
   z-index: 1;
-  border-radius: 3px;
 }
 
 .image-gallery-slide img {

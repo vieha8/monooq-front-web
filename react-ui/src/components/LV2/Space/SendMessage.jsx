@@ -6,12 +6,14 @@ import { Dimens, FontSizes } from 'variables';
 
 const Wrap = styled.div`
   display: flex;
+  max-width: 320px;
+  margin: auto;
 `;
 
 const Caption = styled.div`
   width: 100%;
   display: inline-block;
-  margin-top: ${Dimens.small_10}px;
+  margin-top: ${Dimens.xsmall}px;
   margin-left: -${Dimens.medium}px;
   text-align: center;
 `;

@@ -7,6 +7,7 @@ import { Colors, Dimens, ZIndexes } from 'variables';
 const SendMessageWrap = styled.div`
   display: none;
   width: 100%;
+  min-width: 320px;
   position: fixed;
   left: 0px;
   bottom: 0px;
@@ -15,7 +16,7 @@ const SendMessageWrap = styled.div`
   padding: ${Dimens.small2}px ${Dimens.medium}px;
   background-color: ${Colors.white};
   border-top: 1px solid ${Colors.borderGray};
-  ${media.phone`
+  ${media.tablet`
     display: block;
   `};
 `;

@@ -14,8 +14,10 @@ const Desc = styled.div`
 export default ({ images, description }) => (
   <ImageWrapper>
     <ImageSlide images={images} />
-    <Desc>
-      <InlineText.Base>{description}</InlineText.Base>
-    </Desc>
+    {description && (
+      <Desc>
+        <InlineText.Base>{description}</InlineText.Base>
+      </Desc>
+    )}
   </ImageWrapper>
 );

@@ -7,7 +7,7 @@ import { requestActions } from 'redux/modules/request';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SpaceMap from 'components/LV1/SpaceMap';
 import Detail from 'components/LV3/Space/Detail';
-import SendMessageOnlySp from 'components/LV3/Space/SendMessage';
+import SendMessageOnlyTabletSp from 'components/LV3/Space/SendMessage';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Meta from 'components/LV1/Meta';
 import dummySpaceImage from 'images/dummy_space.png';
@@ -201,7 +201,7 @@ class SpaceContainer extends Component {
           requestButtononClick={isSelfSpace ? null : this.onClickSendMessage}
           onKeyDownButtonRequest={isSelfSpace ? null : this.onKeyDownButtonMessage}
         />
-        <SendMessageOnlySp
+        <SendMessageOnlyTabletSp
           priceTatami={numeral(3123).format('0,0')}
           disabled={isSelfSpace}
           loading={isRequesting}
@@ -229,4 +229,5 @@ const mapStateToProps = state => ({
 export default ContentPageMenu(connect(SpaceContainer, mapStateToProps), {
   bottomMarginOnlySP: true,
   maxWidth: 1440,
+  noMargin: true,
 });

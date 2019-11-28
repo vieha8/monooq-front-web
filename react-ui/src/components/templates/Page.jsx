@@ -36,7 +36,7 @@ const Page = styled.div`
       props.noMargin &&
       `
       margin-top: 0px;
-      padding: ${HeaderHeight - 20}px 0px;
+      padding: ${HeaderHeight}px 0px;
     `};
   `};
 
@@ -46,7 +46,7 @@ const Page = styled.div`
       props.noMargin &&
       `
       margin-top: 0px;
-      padding: ${HeaderHeight - 20}px 0px;
+      padding: ${HeaderHeight}px 0px;
     `};
   `};
 `;
