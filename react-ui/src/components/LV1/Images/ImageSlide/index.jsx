@@ -22,7 +22,11 @@ export default ({ images }) => (
     showThumbnails={false}
     showPlayButton={false}
     showFullscreenButton={false}
-    showNav={false}
+    showNav
+    showIndex
     showBullets
+    // TODO: 要調整
+    slideDuration={100}
+    // slideDuration={450}
   />
 );

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Colors, Dimens, FontSizes } from 'variables';
+import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -35,7 +35,7 @@ const Container = styled.div`
 
 const ImageSpaceWrap = styled.div`
   width: 100%;
-  max-width: 550px;
+  max-width: 700px;
   margin: auto;
 `;
 
@@ -43,8 +43,9 @@ const SpaceDetailWrap = styled.div`
   display: flex;
   max-width: 1000px;
   margin: auto;
+  padding: ${Dimens.medium2_36}px ${Dimens.medium}px 0;
   ${media.tablet`
-    padding: 0 ${Dimens.medium}px;
+    padding: ${Dimens.medium}px ${Dimens.medium}px 0;
   `};
 `;
 
@@ -82,6 +83,15 @@ const RightWrap = styled.div`
   ${media.tablet`
     display: none;
   `};
+`;
+
+const RightInner = styled.div`
+  ${'' /* TODO: 画面固定処理 */}
+  ${'' /* position: fixed;
+  max-width: 340px;
+  top: 100px;
+  right: ${Dimens.medium2}px;
+  z-index: ${ZIndexes.frontPartsOverFooter}; */}
 `;
 
 const RequestCard = styled.div`
@@ -284,75 +294,77 @@ export default ({
         )}
       </LeftWrap>
       <RightWrap>
-        <RequestCard>
-          気になるスペースを見つけたら？
-          <RequestTitle>ホストに相談しよう</RequestTitle>
-          <RequestCheckWrap>
-            <RequestCheckTitle>よくある確認事項</RequestCheckTitle>
-            <RequestCheckUl>
-              <RequestCheckLi>預けたい日程は決まっているか</RequestCheckLi>
-              <RequestCheckLi margin>荷物の量はだいたい決まっているか</RequestCheckLi>
-              <RequestCheckLi>荷物の出し入れは頻繁に行うか</RequestCheckLi>
-            </RequestCheckUl>
-          </RequestCheckWrap>
-          <RequestButtonWrap>
-            <Button
-              center
-              primary
-              fontbold
-              fill={1}
-              disabled={requestButtondisabled}
-              loading={requestButtonloading}
-              onClick={requestButtononClick}
-              onKeyDown={onKeyDownButtonRequest}
-            >
-              リクエストを送る
-            </Button>
-          </RequestButtonWrap>
-          リクエストを送る
-          リクエストを送ることで、あなたがスペースに興味を持っていることがホストに伝わります。
-        </RequestCard>
-        {!confirm && (
-          <SnsWrap>
-            <SnsTitle>SNSでシェア</SnsTitle>
-            <SnsUl>
-              <SnsLi>
-                <LinkLogo
-                  component={Link}
-                  href={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${id}&text=${name}｜モノオク&hashtags=モノオク`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  OnClick={() =>
-                    ReactGA.event({
-                      category: 'Share',
-                      action: 'Push Twitter Share Button At Space',
-                      value: id,
-                    })
-                  }
-                >
-                  <ImageLogo src={ImageSnsTwitter} alt="icon-twitter" />
-                </LinkLogo>
-              </SnsLi>
-              <SnsLi>
-                <LinkLogo
-                  component={Link}
-                  href={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${id}&quote=${name}｜モノオク`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  OnClick={() =>
-                    ReactGA.event({
-                      category: 'Share',
-                      action: 'Push Facebook Share Button At Space',
-                      value: id,
-                    })
-                  }
-                >
-                  <ImageLogo src={ImageSnsFacebook} alt="icon-facebook" />
-                </LinkLogo>
-              </SnsLi>
-            </SnsUl>
-          </SnsWrap>
-        )}
+        <RightInner>
+          <RequestCard>
+            気になるスペースを見つけたら？
+            <RequestTitle>ホストに相談しよう</RequestTitle>
+            <RequestCheckWrap>
+              <RequestCheckTitle>よくある確認事項</RequestCheckTitle>
+              <RequestCheckUl>
+                <RequestCheckLi>預けたい日程は決まっているか</RequestCheckLi>
+                <RequestCheckLi margin>荷物の量はだいたい決まっているか</RequestCheckLi>
+                <RequestCheckLi>荷物の出し入れは頻繁に行うか</RequestCheckLi>
+              </RequestCheckUl>
+            </RequestCheckWrap>
+            <RequestButtonWrap>
+              <Button
+                center
+                primary
+                fontbold
+                fill={1}
+                disabled={requestButtondisabled}
+                loading={requestButtonloading}
+                onClick={requestButtononClick}
+                onKeyDown={onKeyDownButtonRequest}
+              >
+                リクエストを送る
+              </Button>
+            </RequestButtonWrap>
+            リクエストを送る
+            リクエストを送ることで、あなたがスペースに興味を持っていることがホストに伝わります。
+          </RequestCard>
+          {!confirm && (
+            <SnsWrap>
+              <SnsTitle>SNSでシェア</SnsTitle>
+              <SnsUl>
+                <SnsLi>
+                  <LinkLogo
+                    component={Link}
+                    href={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${id}&text=${name}｜モノオク&hashtags=モノオク`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    OnClick={() =>
+                      ReactGA.event({
+                        category: 'Share',
+                        action: 'Push Twitter Share Button At Space',
+                        value: id,
+                      })
+                    }
+                  >
+                    <ImageLogo src={ImageSnsTwitter} alt="icon-twitter" />
+                  </LinkLogo>
+                </SnsLi>
+                <SnsLi>
+                  <LinkLogo
+                    component={Link}
+                    href={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${id}&quote=${name}｜モノオク`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    OnClick={() =>
+                      ReactGA.event({
+                        category: 'Share',
+                        action: 'Push Facebook Share Button At Space',
+                        value: id,
+                      })
+                    }
+                  >
+                    <ImageLogo src={ImageSnsFacebook} alt="icon-facebook" />
+                  </LinkLogo>
+                </SnsLi>
+              </SnsUl>
+            </SnsWrap>
+          )}
+        </RightInner>
       </RightWrap>
     </SpaceDetailWrap>
   </Container>
