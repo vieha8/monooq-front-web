@@ -117,7 +117,7 @@ class SpaceContainer extends Component {
       if (this._isMounted) {
         this.setState({ isOverTopView: false });
       }
-      if (positionScroll > 500) {
+      if (positionScroll > 485) {
         if (this._isMounted) {
           this.setState({ isOverTopView: true });
         }

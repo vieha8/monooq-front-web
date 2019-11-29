@@ -18,6 +18,9 @@ import ReactGA from 'react-ga';
 import ImageCheckRed from 'images/check-circle-red.svg';
 import ImageSnsTwitter from 'images/sns-twitter-circle.svg';
 import ImageSnsFacebook from 'images/sns-facebook-circle.svg';
+import ImageLogoPayCredit from 'images/logo-pay-credit.svg';
+import ImageLogoPayEcontext from 'images/logo-pay-econtext.svg';
+
 import SearchResult from '../SearchResult';
 
 const Container = styled.div`
@@ -74,6 +77,30 @@ const SpaceTitle = styled(InlineText.H1)`
   `};
 `;
 
+const LogoPayWrap = styled.div`
+  width: 100%;
+`;
+
+const ImageLogoPay = styled.img`
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  ${props =>
+    props.credit &&
+    `
+    margin-right:  ${Dimens.medium3_40}px;
+  `};
+  ${props =>
+    props.maxWidth &&
+    `
+    max-width:  ${props.maxWidth}px;
+  `};
+  ${media.phone`
+    display: block;
+    margin:  ${Dimens.small2}px 0 0;
+  `};
+`;
+
 const RightWrap = styled.div`
   width: 100%;
   max-width: 340px;
@@ -91,9 +118,8 @@ const RightInner = styled.div`
     props.isOverTopView &&
     `
     position: fixed;
-    max-width: 340px;
+    max-width: 330px;
     top: 100px;
-    right: ${Dimens.medium2}px;
     z-index: ${ZIndexes.frontPartsOverFooter};
     transition: 1s;
   `};
@@ -186,8 +212,14 @@ const SnsLi = styled.li`
   max-width: ${Dimens.medium3_40}px;
 `;
 
-const LinkLogo = styled.a`
+const LinkStyled = styled.a`
   display: block;
+  ${props =>
+    props.inlinePc &&
+    `
+    display: inline-block;
+    margin-right:  ${Dimens.medium}px;
+  `};
   &:active {
     opacity: 0.8;
   }
@@ -195,6 +227,14 @@ const LinkLogo = styled.a`
     &:hover {
       opacity: 0.8;
     }
+  `};
+  ${media.phone`
+    ${props =>
+      props.inlinePc &&
+      `
+      display: block;
+      margin:  ${Dimens.xsmall}px auto 0;
+    `};
   `};
 `;
 
@@ -222,6 +262,19 @@ const MapWrapper = styled.div`
 
 const RecommendSpacesWrap = styled.div`
   margin: 20px auto;
+`;
+
+const AttentionWrap = styled.div``;
+
+const SectionWrap = styled.div`
+  margin: ${Dimens.medium1}px auto;
+  font-size: ${FontSizes.small}px;
+  line-height: normal;
+`;
+
+const SectionTitle = styled.div`
+  margin: ${Dimens.medium_20}px auto ${Dimens.xsmall}px;
+  font-weight: bold;
 `;
 
 export default ({
@@ -298,6 +351,48 @@ export default ({
             </RecommendSpacesWrap>
           </Fragment>
         )}
+        <AttentionWrap>
+          <SectionHeader>注意事項</SectionHeader>
+          <SectionWrap>
+            モノオクは、皆様の厚意や配慮の上で成り立つサービスです。お互いが気持ちよく利用できるよう丁寧なコミュニケーションを心がけましょう。
+          </SectionWrap>
+          <SectionWrap>
+            <SectionTitle>お支払い方法について</SectionTitle>
+            クレジットカード決済、コンビニ・Pay-easy決済がご利用できます。
+            <br />
+            一部クレジットカード・コンビニはご利用できない場合がございますので、以下の決済可能なお支払い方法をご確認ください。
+            <SectionTitle>お支払いに関するヘルプ</SectionTitle>
+            <LinkStyled
+              component={Link}
+              href="https://help.monooq.com/ja/articles/3124614-"
+              target="_blank"
+              rel="noopener noreferrer"
+              inlinePc
+            >
+              クレジットカード決済の手順
+            </LinkStyled>
+            <LinkStyled
+              component={Link}
+              href="https://help.monooq.com/ja/articles/3124622-"
+              target="_blank"
+              rel="noopener noreferrer"
+              inlinePc
+            >
+              コンビニ払い・Pay-easy決済の手順
+            </LinkStyled>
+            <SectionTitle>決済可能なお支払い方法</SectionTitle>
+            <LogoPayWrap>
+              <ImageLogoPay src={ImageLogoPayCredit} maxWidth={110} credit alt="icon-logo-credit" />
+              <ImageLogoPay src={ImageLogoPayEcontext} maxWidth={240} alt="icon-logo-econtext" />
+            </LogoPayWrap>
+            <SectionTitle>長期利用の方向け：クレジットカードでの自動決済</SectionTitle>
+            長期利用の際には、クレジットカード支払いにて毎月の自動決済が可能です。ホストとのメッセージ欄にて直接「自動決済の利用」の旨をお伝えください。
+          </SectionWrap>
+          <SectionWrap>
+            <SectionTitle>トラブル時の補償対応について</SectionTitle>
+            サービス外で発生した破損・トラブルには対応致しかねます。スペースを利用する際の契約や連絡は、原則モノオクのメッセージ画面で行うよう、あらかじめご了承ください。
+          </SectionWrap>
+        </AttentionWrap>
       </LeftWrap>
       <RightWrap>
         <RightInner isOverTopView={isOverTopView}>
@@ -334,7 +429,7 @@ export default ({
               <SnsTitle>SNSでシェア</SnsTitle>
               <SnsUl>
                 <SnsLi>
-                  <LinkLogo
+                  <LinkStyled
                     component={Link}
                     href={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${id}&text=${name}｜モノオク&hashtags=モノオク`}
                     target="_blank"
@@ -348,10 +443,10 @@ export default ({
                     }
                   >
                     <ImageLogo src={ImageSnsTwitter} alt="icon-twitter" />
-                  </LinkLogo>
+                  </LinkStyled>
                 </SnsLi>
                 <SnsLi>
-                  <LinkLogo
+                  <LinkStyled
                     component={Link}
                     href={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${id}&quote=${name}｜モノオク`}
                     target="_blank"
@@ -365,7 +460,7 @@ export default ({
                     }
                   >
                     <ImageLogo src={ImageSnsFacebook} alt="icon-facebook" />
-                  </LinkLogo>
+                  </LinkStyled>
                 </SnsLi>
               </SnsUl>
             </SnsWrap>
