@@ -606,7 +606,10 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
     } else {
       space.images = space.images.map(image => ({
         ...image,
-        imageUrl: convertImgixUrl(image.imageUrl, 'fit=crop&w=600&h=400&auto=enhance'),
+        imageUrl: convertImgixUrl(
+          image.imageUrl,
+          'fit=crop&w=600&h=400&auto=enhance&bri=5&sharp=10&sat=50',
+        ),
       }));
     }
     return space;
