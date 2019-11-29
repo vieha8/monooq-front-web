@@ -113,7 +113,6 @@ const RightWrap = styled.div`
 `;
 
 const RightInner = styled.div`
-  transition: 1s;
   ${props =>
     props.isOverTopView &&
     `
@@ -121,7 +120,8 @@ const RightInner = styled.div`
     max-width: 330px;
     top: 100px;
     z-index: ${ZIndexes.frontPartsOverFooter};
-    transition: 1s;
+    background-color: ${Colors.white};
+    border-radius: ${Dimens.xxsmall}px;
   `};
 `;
 
@@ -192,7 +192,7 @@ const RequestButtonWrap = styled.div`
 `;
 
 const SnsWrap = styled.div`
-  margin-top: ${Dimens.medium2_32}px;
+  margin: ${Dimens.medium2_32}px auto ${Dimens.medium}px;
 `;
 
 const SnsTitle = styled.div`
