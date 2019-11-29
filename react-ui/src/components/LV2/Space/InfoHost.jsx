@@ -26,7 +26,7 @@ const headContent = (id, imageUrl, name) => {
 const contentHostName = (name, pref) => {
   return (
     <Content>
-      {`${formatName(name)}`}
+      {`${formatName(name)}さん`}
       <br />
       <InlineText.Base fontSize={`${FontSizes.small_12}`}>{`${pref}在住`}</InlineText.Base>
     </Content>
@@ -38,7 +38,7 @@ export default ({ infoHost, message, id, imageUrl, name, pref, profile, isNoProf
     infoHost={infoHost}
     message={message}
     headContent={headContent(id, imageUrl, name)}
-    contentHostName={isNoProfile ? formatName(name) : contentHostName(name, pref)}
+    contentHostName={isNoProfile ? `${formatName(name)}さん` : contentHostName(name, pref)}
     contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
     isNoProfile={isNoProfile}
   />
