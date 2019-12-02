@@ -7,7 +7,6 @@ import { spaceActions } from 'redux/modules/space';
 
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SpaceEditInformation from 'components/LV3/SpaceEdit/Information';
-import { H1 } from 'components/LV1/Texts/Headline';
 
 import { ErrorMessages, FormValues } from 'variables';
 
@@ -275,7 +274,6 @@ class SpaceEditInformationContainer extends Component {
 
     return (
       <Fragment>
-        <H1 bold>{`スペースの${isUpdate ? '編集' : '登録'}`}</H1>
         <SpaceEditInformation
           edit={isUpdate}
           errors={error}

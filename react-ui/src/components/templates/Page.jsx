@@ -7,7 +7,7 @@ const Page = styled.div`
   max-width: ${props => (props.noMargin ? '100%' : '1440px')};
   margin: 0 auto;
   margin-top: 85px;
-  padding: 40px 20px 80px;
+  padding: 20px 20px 80px;
   ${props =>
     props.noMargin &&
     `
@@ -25,7 +25,7 @@ const Page = styled.div`
   `};
 
   ${media.phone`
-    margin-top: 20px;
+    margin-top: 54px;
     padding: ${HeaderHeight - 10}px 15px 15px;
     ${props =>
       props.fillPhone &&

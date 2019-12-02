@@ -2,12 +2,29 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
+import { H1 } from 'components/LV1/Texts/Headline';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ImagePickerSpace from 'components/LV2/ImagePickerSpace';
 import ErrorList from 'components/LV2/Lists/ErrorList';
+import ImageStatusEditSpace1 from 'images/status-edit-space1.svg';
+import { Dimens } from 'variables';
 import { Section } from './Shared';
+
+const PageHeader = styled.div`
+  text-align: center;
+`;
+
+const TopImage = styled.img`
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto ${Dimens.medium3_40}px;
+  ${media.phone`
+    margin: 0 auto ${Dimens.medium}px;
+    padding: 0 ${Dimens.medium}px;
+  `};
+`;
 
 const ButtonWrap = styled.div`
   max-width: 240px;
@@ -38,6 +55,30 @@ export default ({
   buttonNextDisabled,
 }) => (
   <div>
+    <PageHeader>
+      <TopImage src={ImageStatusEditSpace1} alt="image-edit-status" />
+      <H1 bold>{`スペース${edit ? '編集' : '登録'}`}</H1>
+    </PageHeader>
+    <Section>
+      <ImagePickerSpace
+        images={images}
+        onChangeImage={onChangeImage}
+        onClickDeleteImage={onClickDeleteImage}
+        isImageUploading={isImageUploading}
+      />
+      <ErrorList keyName="image_errors" errors={errors.images} />
+    </Section>
+    <Section>
+      <InputForm
+        label="スペースの紹介文"
+        placeholder="例) 世田谷エリアにある6畳ほどのワンルームです。会社員のため平日は夜間の対応、土日は終日可能です。大事なお荷物、責任もってお預かりしますのでお気軽に問い合わせください！"
+        multiline
+        rows={6}
+        value={introduction}
+        onChange={e => onChangeIntroduction(e.target.value)}
+      />
+      <ErrorList keyName="introduction_errors" errors={errors.introduction} />
+    </Section>
     <Section>
       <InputForm
         label="所在地"
@@ -76,32 +117,12 @@ export default ({
     </Section>
     <Section>
       <InputForm
-        label="特徴がわかるタイトル"
-        placeholder="【約6畳】新宿エリアのワンルーム！駐車場もあり搬入に便利！"
+        label="タイトル"
+        placeholder="例)【6畳】世田谷エリア、搬入の楽な1階スペース"
         value={title}
         onChange={e => onChangeTitle(e.target.value)}
       />
       <ErrorList keyName="title_errors" errors={errors.title} />
-    </Section>
-    <Section>
-      <ImagePickerSpace
-        images={images}
-        onChangeImage={onChangeImage}
-        onClickDeleteImage={onClickDeleteImage}
-        isImageUploading={isImageUploading}
-      />
-      <ErrorList keyName="image_errors" errors={errors.images} />
-    </Section>
-    <Section>
-      <InputForm
-        label="スペースの紹介文"
-        placeholder="広さ6畳ほどのワンルームが余っています。長期利用も可能なので気軽にご相談ください！便利な新宿エリアで、駅から徒歩圏内の好アクセスです。駐車場もありますので、車搬入される場合も便利！"
-        multiline
-        rows={6}
-        value={introduction}
-        onChange={e => onChangeIntroduction(e.target.value)}
-      />
-      <ErrorList keyName="introduction_errors" errors={errors.introduction} />
     </Section>
     <Section>
       {edit ? (
