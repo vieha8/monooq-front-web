@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import Path from 'config/path';
 import { partialMatch } from 'helpers/string';
 import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import Lp123Guest from 'components/LV3/Lp123Guest';
@@ -73,16 +72,8 @@ class Lp123GuestContainer extends React.Component {
   };
 
   render() {
-    const { history } = this.props;
     const { titleMeta, headline, titleWant } = this.state;
-    return (
-      <Lp123Guest
-        titleMeta={titleMeta}
-        headline={headline}
-        titleWant={titleWant}
-        onClickSignup={() => history.push(Path.signUp())}
-      />
-    );
+    return <Lp123Guest titleMeta={titleMeta} headline={headline} titleWant={titleWant} />;
   }
 }
 

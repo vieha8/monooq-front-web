@@ -7,6 +7,7 @@ import Meta from 'components/LV1/Meta';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import PickupSpaceList from 'components/LV2/Lists/PickupSpaceList';
+import Path from 'config/path';
 
 import ImageHero from 'images/lp123guest/hero.jpg';
 import ImageBarLeft from 'images/lp123guest/icon-bar-left.png';
@@ -622,7 +623,7 @@ const Answer = styled.div`
   `}
 `;
 
-export default ({ titleMeta, headline, titleWant, onClickSignup }) => (
+export default ({ titleMeta, headline, titleWant }) => (
   <Wrap>
     <Meta title={titleMeta} noindex />
 
@@ -630,7 +631,12 @@ export default ({ titleMeta, headline, titleWant, onClickSignup }) => (
       <TopMessageContent>
         <TopTitle itemProp="headline">{headline}</TopTitle>
         <InitialCost>初期費用0円</InitialCost>
-        <ButtonCaption caption="60秒で簡単登録" text="保管スペースを探す" onClick={onClickSignup} />
+        <ButtonCaption
+          caption="60秒で簡単登録"
+          text="保管スペースを探す"
+          link
+          href={Path.signUp()}
+        />
       </TopMessageContent>
     </TopWrap>
 

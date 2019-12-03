@@ -37,7 +37,7 @@ const CaptionWrap = styled.span`
   color: ${Colors.black};
 `;
 
-export default ({ caption, text, onClick }) => (
+export default ({ caption, text, onClick, link, href }) => (
   <Wrap>
     <Button
       center
@@ -50,6 +50,8 @@ export default ({ caption, text, onClick }) => (
       lineheight={46}
       lineheightSp={34}
       onClick={onClick}
+      link={link}
+      href={href}
     >
       <CaptionWrap>{caption}</CaptionWrap>
       {text}

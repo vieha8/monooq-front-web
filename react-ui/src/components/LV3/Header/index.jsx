@@ -12,6 +12,7 @@ import MenuItem from 'components/LV2/Items/MenuItem';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
 import SearchIcon from 'components/LV2/ButtonHeader/SearchIcon';
+import Path from 'config/path';
 
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
@@ -378,7 +379,8 @@ export default ({
             <ButtonCaption
               caption="60秒で簡単登録"
               text="保管スペースを探す"
-              onClick={onClickSignup}
+              link
+              href={Path.signUp()}
             />
           </ButtonBottomWrap>
         )}
