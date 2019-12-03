@@ -8,23 +8,31 @@ const Wrap = styled.div`
   position: relative;
   max-width: 440px;
   margin: auto;
-  &:after {
-    position: absolute;
-    top: 50%;
-    right: ${Dimens.medium2}px;
-    display: block;
-    content: '';
-    width: ${Dimens.small2}px;
-    height: ${Dimens.small2}px;
-    margin-top: -${Dimens.xsmall}px;
-    border-top: ${Dimens.xxsmall_4}px solid ${Colors.white};
-    border-right: ${Dimens.xxsmall_4}px solid ${Colors.white};
-    transform: rotate(45deg);
-  }
+  ${props =>
+    !props.isNoArrow &&
+    `
+      &:after {
+        position: absolute;
+        top: 50%;
+        right: ${Dimens.medium2}px;
+        display: block;
+        content: '';
+        width: ${Dimens.small2}px;
+        height: ${Dimens.small2}px;
+        margin-top: -${Dimens.xsmall}px;
+        border-top: ${Dimens.xxsmall_4}px solid ${Colors.white};
+        border-right: ${Dimens.xxsmall_4}px solid ${Colors.white};
+        transform: rotate(45deg);
+      }
+    `};
   ${media.phone`
-    &:after {
-      right: ${Dimens.medium_20}px;
-    }
+    ${props =>
+      !props.isNoArrow &&
+      `
+        &:after {
+          right: ${Dimens.medium_20}px;
+        }
+      `};
   `}
 `;
 
@@ -37,8 +45,8 @@ const CaptionWrap = styled.span`
   color: ${Colors.black};
 `;
 
-export default ({ caption, text, onClick }) => (
-  <Wrap>
+export default ({ caption, text, onClick, isNoArrow }) => (
+  <Wrap isNoArrow={isNoArrow}>
     <Button
       center
       primary

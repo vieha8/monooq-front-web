@@ -263,7 +263,8 @@ export default ({
   top,
   isLinkRed,
   isOverTopView,
-  isPageLp123,
+  isPageLp,
+  isPageLp123Guest,
   stories,
   topUrl,
   isCheckingLogin,
@@ -288,7 +289,7 @@ export default ({
   return (
     <Container stories={stories}>
       <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
-        {!isPageLp123 && (
+        {!isPageLp && (
           <SearchIconWrapper>
             <SearchIcon onClick={onClickSearch} />
           </SearchIconWrapper>
@@ -298,7 +299,7 @@ export default ({
             <ImageLogo.HeaderFill />
           </LogoLink>
         </LogoWrapper>
-        {!isPageLp123 && !isCheckingLogin && !noHeaderButton && (
+        {!isPageLp && !isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>
             {user ? (
               <ActionContainer>
@@ -373,7 +374,7 @@ export default ({
             )}
           </ActionWrapper>
         )}
-        {isPageLp123 && (
+        {isPageLp && isPageLp123Guest && (
           <ButtonBottomWrap isOverTopView={isOverTopView}>
             <ButtonCaption
               caption="60秒で簡単登録"
