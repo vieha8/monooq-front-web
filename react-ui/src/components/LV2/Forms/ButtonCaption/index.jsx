@@ -45,7 +45,7 @@ const CaptionWrap = styled.span`
   color: ${Colors.black};
 `;
 
-export default ({ caption, text, onClick, isNoArrow }) => (
+export default ({ caption, text, onClick, link, href, isNoArrow }) => (
   <Wrap isNoArrow={isNoArrow}>
     <Button
       center
@@ -58,6 +58,8 @@ export default ({ caption, text, onClick, isNoArrow }) => (
       lineheight={46}
       lineheightSp={34}
       onClick={onClick}
+      link={link}
+      href={href}
     >
       <CaptionWrap>{caption}</CaptionWrap>
       {text}

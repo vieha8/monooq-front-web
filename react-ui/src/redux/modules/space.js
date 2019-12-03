@@ -731,7 +731,10 @@ const makeBreadcrumbs = ({ keyword, pref, cities, towns }) => {
 function* getRecommendSpaces({ payload: { spaceId } }) {
   const token = yield* getToken();
   const { data } = yield call(getApiRequest, apiEndpoint.spacesRecommend(spaceId), {}, token);
-  // TODO エラーハンドリング
+
+  if (!data) {
+    return;
+  }
 
   const res = data.map(v => {
     const space = v;
