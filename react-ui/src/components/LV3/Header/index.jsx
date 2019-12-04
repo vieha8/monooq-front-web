@@ -375,11 +375,11 @@ export default ({
             )}
           </ActionWrapper>
         )}
-        {isPageLp && isPageLp123Guest && (
+        {isPageLp && (
           <ButtonBottomWrap isOverTopView={isOverTopView}>
             <ButtonCaption
-              caption="60秒で簡単登録"
-              text="保管スペースを探す"
+              caption={isPageLp123Guest ? '60秒で簡単登録' : '1分で完了'}
+              text={isPageLp123Guest ? '保管スペースを探す' : 'アカウントを作成する'}
               link
               href={Path.signUp()}
             />
