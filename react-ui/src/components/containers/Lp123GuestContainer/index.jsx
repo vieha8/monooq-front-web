@@ -1,10 +1,8 @@
 import React, { Fragment } from 'react';
+import Path from 'config/path';
 import { partialMatch } from 'helpers/string';
 import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import Lp123Guest from 'components/LV3/Lp123Guest';
-
-const PATH_LP2_GUEST = '/lp2/guest';
-const PATH_LP3_GUEST = '/lp3/guest';
 
 class Lp123GuestContainer extends React.Component {
   constructor(props) {
@@ -15,6 +13,7 @@ class Lp123GuestContainer extends React.Component {
       titleMeta: '',
       headline: '',
       titleWant: '',
+      buttonLink: '',
     };
   }
 
@@ -25,20 +24,22 @@ class Lp123GuestContainer extends React.Component {
       'トランクルームより安く荷物を預けるなら『モノオク』｜トランクルーム・コンテナよりもお手軽に収納';
     let headline = this.getHeadlineLp1();
     let titleWant = 'こんな荷物ありませんか？';
-
-    if (partialMatch(targetUrl, PATH_LP2_GUEST)) {
+    let buttonLink = Path.signUp();
+    if (partialMatch(targetUrl, Path.lp2Guest())) {
       titleMeta =
         'レンタル倉庫・コンテナより安く荷物を預けるなら「モノオク」｜トランクルーム・コンテナよりもお手軽に収納';
       headline = this.getHeadlineLp2();
       titleWant = '荷物の保管場所に困ってませんか？';
-    } else if (partialMatch(targetUrl, PATH_LP3_GUEST)) {
+    } else if (partialMatch(targetUrl, Path.lp3Guest())) {
       titleMeta =
         '引っ越し荷物の一時保管を安くするなら「モノオク」｜トランクルーム・コンテナよりもお手軽に収納';
       headline = this.getHeadlineLp3();
       titleWant = '荷物の保管場所に困ってませんか？';
     }
-
-    this.setState({ titleWant, headline, titleMeta });
+    if (partialMatch(targetUrl, Path.lp1Guest2())) {
+      buttonLink = Path.top();
+    }
+    this.setState({ titleWant, headline, titleMeta, buttonLink });
   }
 
   getHeadlineLp1 = () => {
@@ -72,8 +73,15 @@ class Lp123GuestContainer extends React.Component {
   };
 
   render() {
-    const { titleMeta, headline, titleWant } = this.state;
-    return <Lp123Guest titleMeta={titleMeta} headline={headline} titleWant={titleWant} />;
+    const { titleMeta, headline, titleWant, buttonLink } = this.state;
+    return (
+      <Lp123Guest
+        titleMeta={titleMeta}
+        headline={headline}
+        titleWant={titleWant}
+        buttonLink={buttonLink}
+      />
+    );
   }
 }
 
