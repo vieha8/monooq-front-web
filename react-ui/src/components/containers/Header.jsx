@@ -9,13 +9,6 @@ import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
 import ReactGA from 'react-ga';
 
-const PATH_TOP = '/';
-const PATH_ABOUT = '/about';
-const PATH_HOWTOUSE = '/howtouse';
-const PATH_LP1_GUEST = '/lp1/guest';
-const PATH_LP2_GUEST = '/lp2/guest';
-const PATH_LP3_GUEST = '/lp3/guest';
-
 class HeaderContainer extends Component {
   constructor(props) {
     super(props);
@@ -25,11 +18,12 @@ class HeaderContainer extends Component {
     let isLinkRed = false;
 
     if (
-      partialMatch(targetUrl, PATH_ABOUT) ||
-      partialMatch(targetUrl, PATH_HOWTOUSE) ||
-      partialMatch(targetUrl, PATH_LP1_GUEST) ||
-      partialMatch(targetUrl, PATH_LP2_GUEST) ||
-      partialMatch(targetUrl, PATH_LP3_GUEST)
+      partialMatch(targetUrl, Path.about()) ||
+      partialMatch(targetUrl, Path.howtouse()) ||
+      partialMatch(targetUrl, Path.lp1Guest()) ||
+      partialMatch(targetUrl, Path.lp1Guest2()) ||
+      partialMatch(targetUrl, Path.lp2Guest()) ||
+      partialMatch(targetUrl, Path.lp3Guest())
     ) {
       isLinkRed = true;
     }
@@ -93,15 +87,16 @@ class HeaderContainer extends Component {
         this.setState({ isOverTopView: false });
       }
 
-      if (partialMatch(pagePathScrollPage, PATH_TOP)) {
+      if (partialMatch(pagePathScrollPage, Path.top())) {
         positionScrollPC = 450;
         positionScrollSP = 290;
       } else if (
-        partialMatch(pagePathScrollPage, PATH_ABOUT) ||
-        partialMatch(pagePathScrollPage, PATH_HOWTOUSE) ||
-        partialMatch(pagePathScrollPage, PATH_LP1_GUEST) ||
-        partialMatch(pagePathScrollPage, PATH_LP2_GUEST) ||
-        partialMatch(pagePathScrollPage, PATH_LP3_GUEST)
+        partialMatch(pagePathScrollPage, Path.about()) ||
+        partialMatch(pagePathScrollPage, Path.howtouse()) ||
+        partialMatch(pagePathScrollPage, Path.lp1Guest()) ||
+        partialMatch(pagePathScrollPage, Path.lp1Guest2()) ||
+        partialMatch(pagePathScrollPage, Path.lp2Guest()) ||
+        partialMatch(pagePathScrollPage, Path.lp3Guest())
       ) {
         positionScrollPC = 540;
         positionScrollSP = 320;
@@ -146,9 +141,13 @@ class HeaderContainer extends Component {
         top={top}
         isOverTopView={isOverTopView}
         isPageLp123={
-          partialMatch(pagePathScrollPage, PATH_LP1_GUEST) ||
-          partialMatch(pagePathScrollPage, PATH_LP2_GUEST) ||
-          partialMatch(pagePathScrollPage, PATH_LP3_GUEST)
+          partialMatch(pagePathScrollPage, Path.lp1Guest()) ||
+          partialMatch(pagePathScrollPage, Path.lp1Guest2()) ||
+          partialMatch(pagePathScrollPage, Path.lp2Guest()) ||
+          partialMatch(pagePathScrollPage, Path.lp3Guest())
+        }
+        isPageLp1_2={
+          partialMatch(pagePathScrollPage, Path.lp1Guest2()) // 命名あれなのわかってるが暫定的に by masaya
         }
         isLinkRed={isLinkRed}
         topUrl={Path.top()}

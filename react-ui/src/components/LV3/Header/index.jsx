@@ -265,6 +265,7 @@ export default ({
   isLinkRed,
   isOverTopView,
   isPageLp123,
+  isPageLp1_2,
   stories,
   topUrl,
   isCheckingLogin,
@@ -380,7 +381,7 @@ export default ({
               caption="60秒で簡単登録"
               text="保管スペースを探す"
               link
-              href={Path.signUp()}
+              href={isPageLp1_2 ? Path.top() : Path.signUp()}
             />
           </ButtonBottomWrap>
         )}
