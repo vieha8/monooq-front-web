@@ -43,7 +43,6 @@ import ImageFlow10 from 'images/lp1host/flow-10.jpg';
 const Wrap = styled.div`
   min-width: 320px;
   margin-top: -84px;
-  font-weight: 500;
 `;
 
 const TopWrap = styled.div`
@@ -278,7 +277,6 @@ const TypeLiText = styled.span`
   display: block;
   text-align: center;
   font-size: ${FontSizes.medium1}px;
-  font-weight: 100;
   padding: ${Dimens.small2_14}px 0;
   ${media.phone`
     font-size: ${FontSizes.medium_18}px;
@@ -318,6 +316,7 @@ const FlowUl = styled.ul`
   flex-wrap: wrap;
   ${media.tablet`
     flex-wrap: wrap;
+    margin: auto -${Dimens.xxsmall_5}px);
   `};
 `;
 
@@ -491,7 +490,11 @@ export default () => (
         </TypeUl>
       </TypeWrap>
       <ExampleWrap>
-        <SectionTitle>こうやって副収入を得てる人がいます</SectionTitle>
+        <SectionTitle>
+          こうやって副収入を
+          <BrOnlySP />
+          得てる人がいます
+        </SectionTitle>
         <ExampleSpaceList
           list={[
             {

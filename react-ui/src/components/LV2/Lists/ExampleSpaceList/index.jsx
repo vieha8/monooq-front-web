@@ -1,29 +1,37 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { media, mediaMin } from 'helpers/style/media-query';
+import { media } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
 
-const ExampleListUl = styled.ul``;
-
-const Item = styled.li`
-  position: relative;
-  margin-bottom: calc(100vw / 20);
-  overflow: hidden;
-`;
-
-const PickupListLiImage = styled.img`
-  width: 40%;
-  float: left;
-  border-radius: 4px;
+const List = styled.ul`
+  padding: 0 ${Dimens.medium}px;
   ${media.tablet`
-    width: 100%;
-    float: unset;
+    padding: 0;
   `};
 `;
 
-const ExampleListLiSection = styled.div`
+const Item = styled.li`
+  position: relative;
+  margin-bottom: ${Dimens.large4_80}px;
+  overflow: hidden;
+  ${media.tablet`
+    margin-bottom: ${Dimens.medium3_40}px;
+  `};
+`;
+
+const SpaceImage = styled.img`
+  width: 40%;
+  float: left;
+  border-radius: ${Dimens.xxsmall_4}px;
+  ${media.tablet`
+    width: 100%;
+    float: unset;
+    border-radius: 0;
+  `};
+`;
+
+const ItemSection = styled.div`
   margin-left: 43%;
-  margin-bottom: 0.6em;
   ${props =>
     props.table &&
     `
@@ -31,11 +39,11 @@ const ExampleListLiSection = styled.div`
       padding: 1em 1em 0;
     `};
   ${media.tablet`
-    margin-left: 0;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    margin-left: 0;
     background: rgba(255,255,255,.7);
     ${props =>
       props.table &&
@@ -46,60 +54,72 @@ const ExampleListLiSection = styled.div`
   `};
 `;
 
-const ExampleListLiSectionDl = styled.dl`
+const Dl = styled.dl`
   overflow: hidden;
-  margin-bottom: 1em;
+  margin-bottom: ${Dimens.medium}px;
+  ${media.tablet`
+    ${props =>
+      props.s_bg &&
+      `
+        margin: ${Dimens.medium}px ${Dimens.xxsmall_5}px;
+      `};
+  `};
 `;
 
-const ExampleListLiSectionDlDt = styled.dt`
+const Dt = styled.dt`
   float: left;
-  color: #fff;
   width: 6em;
-  padding: 5px 0;
+  padding: ${Dimens.xxsmall_5}px 0;
   text-align: center;
+  color: ${Colors.white};
   background: rgb(188, 188, 188);
   ${props =>
     props.s_bg &&
     `
-      height: 6vw;
-      width: 6vw;
-      border-radius: 12vw;
       position: relative;
+      padding: ${Dimens.xxsmall_5}px;
+      height: ${Dimens.large4_80}px;
+      width: ${Dimens.large4_80}px;
+      border-radius: ${Dimens.medium3_45}px;
       background-color: ${Colors.brandPrimary};
     `};
   ${media.tablet`
     ${props =>
       props.s_bg &&
       `
-        height: 20vw;
-        width: 20vw;
+          height: ${Dimens.large_60}px;
+          width: ${Dimens.large_60}px;
+          border-radius: ${Dimens.medium2_35}px;
       `};
   `};
 `;
 
-const ExampleListLiSectionDlDtSpan = styled.span`
-  color: #fff;
-  font-size: calc(100vw / 50);
-  white-space: nowrap;
+const CircleText = styled.span`
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  white-space: nowrap;
+  font-size: ${FontSizes.medium2}px;
+  color: ${Colors.white};
+`;
+
+const Dd = styled.dd`
+  margin-left: 112px;
+  padding: ${Dimens.xxsmall}px 0;
+  text-align: left;
   ${media.tablet`
-    font-size: calc(100vw / 17);
+    ${props =>
+      props.s_bg &&
+      `
+          margin-left: ${Dimens.large4_80}px;
+      `};
   `};
 `;
 
-const ExampleListLiSectionDlDd = styled.dd`
-  margin-left: 7em;
-  padding: ${Dimens.xxsmall}px 0;
-  text-align: left;
-  font-weight: 100;
-`;
-
-const ExampleListLiSectionDlDdSpan = styled.span`
+const DdSpan = styled.span`
   display: block;
-  font-size: 1.2em;
+  font-size: ${FontSizes.medium1}px;
   ${props =>
     props.price &&
     `
@@ -112,69 +132,69 @@ const ExampleListLiSectionDlDdSpan = styled.span`
     `
       margin-bottom: ${Dimens.small_10}px;
     `};
+
+  ${media.tablet`
+    font-size: ${FontSizes.medium}px;
+    ${props =>
+      props.price &&
+      `
+          font-size: ${FontSizes.medium3}px;
+      `};
+  `};
 `;
 
-const ExampleCaption = styled.p`
+const Caption = styled.p`
   text-align: right;
+  margin-top: ${Dimens.small_10}px;
 `;
 
 export default ({ list }) => (
-  <Fragment>
-    <ExampleListUl>
-      {list &&
-        list.map((item, i) => (
-          <Item key={i.toString()}>
-            <PickupListLiImage src={item.spaceImage} alt="" />
-            <ExampleListLiSection>
-              <ExampleListLiSectionDl>
-                <ExampleListLiSectionDlDt s_bg>
-                  <ExampleListLiSectionDlDtSpan>収入</ExampleListLiSectionDlDtSpan>
-                </ExampleListLiSectionDlDt>
-                <ExampleListLiSectionDlDd>
-                  <ExampleListLiSectionDlDdSpan>{item.spaceAddress}</ExampleListLiSectionDlDdSpan>
-                  <ExampleListLiSectionDlDdSpan price>
-                    {`${item.spacePrice}円`}
-                  </ExampleListLiSectionDlDdSpan>
-                  <ExampleListLiSectionDlDdSpan>
-                    {`[内訳]${item.spacePriceDtail}`}
-                  </ExampleListLiSectionDlDdSpan>
-                </ExampleListLiSectionDlDd>
-              </ExampleListLiSectionDl>
-            </ExampleListLiSection>
-            <ExampleListLiSection table>
-              <ExampleListLiSectionDl>
-                <ExampleListLiSectionDlDt>保管料金</ExampleListLiSectionDlDt>
-                <ExampleListLiSectionDlDd>
-                  <ExampleListLiSectionDlDdSpan>
-                    {`${item.examplePriceMonth}円/月`}
-                  </ExampleListLiSectionDlDdSpan>
-                </ExampleListLiSectionDlDd>
-              </ExampleListLiSectionDl>
-              <ExampleListLiSectionDl>
-                <ExampleListLiSectionDlDt>スペース</ExampleListLiSectionDlDt>
-                <ExampleListLiSectionDlDd>
-                  <ExampleListLiSectionDlDdSpan>{item.exampleSpace}</ExampleListLiSectionDlDdSpan>
-                </ExampleListLiSectionDlDd>
-              </ExampleListLiSectionDl>
-              <ExampleListLiSectionDl>
-                <ExampleListLiSectionDlDt>保管期間</ExampleListLiSectionDlDt>
-                <ExampleListLiSectionDlDd>
-                  <ExampleListLiSectionDlDdSpan>{item.exampleTerm}</ExampleListLiSectionDlDdSpan>
-                </ExampleListLiSectionDlDd>
-              </ExampleListLiSectionDl>
-              <ExampleListLiSectionDl>
-                <ExampleListLiSectionDlDt>保管物</ExampleListLiSectionDlDt>
-                <ExampleListLiSectionDlDd>
-                  <ExampleListLiSectionDlDdSpan marginBottom>
-                    {item.exampleItem}
-                  </ExampleListLiSectionDlDdSpan>
-                  {item.exampleItemDetail}
-                </ExampleListLiSectionDlDd>
-              </ExampleListLiSectionDl>
-            </ExampleListLiSection>
-            <ExampleCaption>※20%はモノオクの手数料</ExampleCaption>
-          </Item>
-        ))}
-    </ExampleListUl>
-  </Fragment>
+  <List>
+    {list &&
+      list.map((item, i) => (
+        <Item key={i.toString()}>
+          <SpaceImage src={item.spaceImage} alt={item.spaceImageAlt} />
+          <ItemSection>
+            <Dl s_bg>
+              <Dt s_bg>
+                <CircleText>収入</CircleText>
+              </Dt>
+              <Dd s_bg>
+                <DdSpan>{item.spaceAddress}</DdSpan>
+                <DdSpan price>{`${item.spacePrice}円`}</DdSpan>
+                <DdSpan>{`[内訳]${item.spacePriceDtail}`}</DdSpan>
+              </Dd>
+            </Dl>
+          </ItemSection>
+          <ItemSection table>
+            <Dl>
+              <Dt>保管料金</Dt>
+              <Dd>
+                <DdSpan>{`${item.examplePriceMonth}円/月`}</DdSpan>
+              </Dd>
+            </Dl>
+            <Dl>
+              <Dt>スペース</Dt>
+              <Dd>
+                <DdSpan>{item.exampleSpace}</DdSpan>
+              </Dd>
+            </Dl>
+            <Dl>
+              <Dt>保管期間</Dt>
+              <Dd>
+                <DdSpan>{item.exampleTerm}</DdSpan>
+              </Dd>
+            </Dl>
+            <Dl>
+              <Dt>保管物</Dt>
+              <Dd>
+                <DdSpan marginBottom>{item.exampleItem}</DdSpan>
+                {item.exampleItemDetail}
+              </Dd>
+            </Dl>
+          </ItemSection>
+          <Caption>※20%はモノオクの手数料</Caption>
+        </Item>
+      ))}
+  </List>
 );
