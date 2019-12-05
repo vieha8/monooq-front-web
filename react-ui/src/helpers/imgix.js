@@ -34,3 +34,7 @@ export const convertBaseUrl = imgixUrl => {
   }
   return url;
 };
+
+export const convertSpaceImg = (url, params) => {
+  convertImgixUrl(url, `${params}`);
+};

@@ -600,19 +600,19 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
   }
 
   const res = data.results.map(v => {
-    const space = v;
-    if (space.images.length === 0) {
-      space.images = [{ imageUrl: dummySpaceImage }];
+    let images = [];
+    if (v.images.length === 0) {
+      images = [{ imageUrl: dummySpaceImage }];
     } else {
-      space.images = space.images.map(image => ({
+      images = v.images.map(image => ({
         ...image,
         imageUrl: convertImgixUrl(
           image.imageUrl,
-          'fit=crop&w=600&h=400&auto=enhance&bri=5&sharp=10&sat=50',
+          'fit=crop&h=225&dpr=2&auto=enhance&bri=5&sharp=10&sat=10',
         ),
       }));
     }
-    return space;
+    return { ...v, images };
   });
 
   let areaRes = [];
