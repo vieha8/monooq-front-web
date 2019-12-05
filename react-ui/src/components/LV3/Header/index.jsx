@@ -11,7 +11,6 @@ import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
-import SearchIcon from 'components/LV2/ButtonHeader/SearchIcon';
 import Path from 'config/path';
 
 import { media } from 'helpers/style/media-query';
@@ -49,15 +48,6 @@ const Nav = styled.nav`
     position: relative;
     display: flex;
     justify-content: center;
-  `};
-`;
-
-const SearchIconWrapper = styled.div`
-  display: none;
-  ${media.tablet`
-    display: block;
-    position: absolute;
-    left: ${Dimens.small_10}px;
   `};
 `;
 
@@ -286,16 +276,10 @@ export default ({
   schedule,
   sales,
   logoutEvent,
-  onClickSearch,
 }) => {
   return (
     <Container stories={stories}>
       <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
-        {!isPageLp && (
-          <SearchIconWrapper>
-            <SearchIcon onClick={onClickSearch} />
-          </SearchIconWrapper>
-        )}
         <LogoWrapper>
           <LogoLink to={topUrl}>
             <ImageLogo.HeaderFill />
