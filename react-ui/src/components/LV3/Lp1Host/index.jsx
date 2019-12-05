@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -13,7 +13,6 @@ import ImageHero from 'images/lp1host/fv-bg.jpeg';
 import ImageWoman from 'images/lp1host/fv-woman.png';
 import ImageWhatMonooq from 'images/lp1host/what-monooq.jpg';
 import ImageWhatBg from 'images/lp1host/what-bg.png';
-
 import ImageSpace1 from 'images/lp1host/space-1.jpg';
 import ImageSpace2 from 'images/lp1host/space-2.jpg';
 import ImageSpace3 from 'images/lp1host/space-3.jpg';
@@ -24,21 +23,19 @@ import ImageSpace7 from 'images/lp1host/space-7.jpg';
 import ImageSpace8 from 'images/lp1host/space-8.jpg';
 import ImageSpace9 from 'images/lp1host/space-9.jpg';
 import ImageSpace10 from 'images/lp1host/space-10.jpg';
-
 import ImageExample1 from 'images/lp1host/example-1.jpg';
 import ImageExample2 from 'images/lp1host/example-2.jpg';
 import ImageExample3 from 'images/lp1host/example-3.jpg';
-
-import ImageFlow1 from 'images/lp1host/flow-1.jpg';
-import ImageFlow2 from 'images/lp1host/flow-2.jpg';
-import ImageFlow3 from 'images/lp1host/flow-3.jpg';
-import ImageFlow4 from 'images/lp1host/flow-4.jpg';
-import ImageFlow5 from 'images/lp1host/flow-5.jpg';
-import ImageFlow6 from 'images/lp1host/flow-6.jpg';
-import ImageFlow7 from 'images/lp1host/flow-7.jpg';
-import ImageFlow8 from 'images/lp1host/flow-8.jpg';
-import ImageFlow9 from 'images/lp1host/flow-9.jpg';
-import ImageFlow10 from 'images/lp1host/flow-10.jpg';
+import ImageFlow1 from 'images/lp1host/flow-1.png';
+import ImageFlow2 from 'images/lp1host/flow-2.png';
+import ImageFlow3 from 'images/lp1host/flow-3.png';
+import ImageFlow4 from 'images/lp1host/flow-4.png';
+import ImageFlow5 from 'images/lp1host/flow-5.png';
+import ImageFlow6 from 'images/lp1host/flow-6.png';
+import ImageFlow7 from 'images/lp1host/flow-7.png';
+import ImageFlow8 from 'images/lp1host/flow-8.png';
+import ImageFlow9 from 'images/lp1host/flow-9.png';
+import ImageFlow10 from 'images/lp1host/flow-10.png';
 
 const Wrap = styled.div`
   min-width: 320px;
@@ -47,9 +44,9 @@ const Wrap = styled.div`
 
 const TopWrap = styled.div`
   position: relative;
+  width: 100%;
   height: 600px;
   color: ${Colors.black};
-  width: 100%;
   overflow: hidden;
   background-color: ${Colors.darkGray1};
   background-image: url(${ImageHero});
@@ -382,14 +379,6 @@ const QuestionsContainer = styled.div`
   text-align: center;
 `;
 
-const QuestionRow = styled.div`
-  &::after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-`;
-
 const QuestionItem = styled.div`
   width: 100%;
   max-width: 600px;
@@ -403,6 +392,49 @@ const Answer = styled.div`
     padding: ${Dimens.small_10}px ${Dimens.medium}px;
   `}
 `;
+
+function getTypeList(list) {
+  return (
+    <Fragment>
+      {list &&
+        list.map((item, i) => (
+          <TypeLi key={i.toString()}>
+            <TypeLiImg src={item.image} alt={item.alt} />
+            <TypeLiText>{item.text}</TypeLiText>
+          </TypeLi>
+        ))}
+    </Fragment>
+  );
+}
+
+function getFlowList(list) {
+  return (
+    <Fragment>
+      {list &&
+        list.map((item, i) => (
+          <FlowLi key={i.toString()}>
+            <FlowLiImg src={item.image} alt={item.alt} />
+            <FlowLiText>{item.text}</FlowLiText>
+          </FlowLi>
+        ))}
+    </Fragment>
+  );
+}
+
+function getQaList(list) {
+  return (
+    <Fragment>
+      {list &&
+        list.map((item, i) => (
+          <QuestionItem key={i.toString()}>
+            <Collapsible trigger={item.question}>
+              <Answer>{item.answer}</Answer>
+            </Collapsible>
+          </QuestionItem>
+        ))}
+    </Fragment>
+  );
+}
 
 export default () => (
   <Wrap>
@@ -447,46 +479,58 @@ export default () => (
       </CatchPhraseWrap>
       <TypeWrap>
         <TypeUl>
-          <TypeLi>
-            <TypeLiImg src={ImageSpace1} alt="" />
-            <TypeLiText>空き部屋</TypeLiText>
-          </TypeLi>
-          <TypeLi>
-            <TypeLiImg src={ImageSpace2} alt="" />
-            <TypeLiText>部屋の一角</TypeLiText>
-          </TypeLi>
-          <TypeLi>
-            <TypeLiImg src={ImageSpace3} alt="" />
-            <TypeLiText>押入れ</TypeLiText>
-          </TypeLi>
-          <TypeLi>
-            <TypeLiImg src={ImageSpace4} alt="" />
-            <TypeLiText>物置・屋外倉庫</TypeLiText>
-          </TypeLi>
-          <TypeLi>
-            <TypeLiImg src={ImageSpace5} alt="" />
-            <TypeLiText>物置・屋外倉庫</TypeLiText>
-          </TypeLi>
-          <TypeLi>
-            <TypeLiImg src={ImageSpace6} alt="" />
-            <TypeLiText>空き部屋</TypeLiText>
-          </TypeLi>
-          <TypeLi>
-            <TypeLiImg src={ImageSpace7} alt="" />
-            <TypeLiText>部屋の一角</TypeLiText>
-          </TypeLi>
-          <TypeLi>
-            <TypeLiImg src={ImageSpace8} alt="" />
-            <TypeLiText>押入れ</TypeLiText>
-          </TypeLi>
-          <TypeLi>
-            <TypeLiImg src={ImageSpace9} alt="" />
-            <TypeLiText>物置・屋外倉庫</TypeLiText>
-          </TypeLi>
-          <TypeLi>
-            <TypeLiImg src={ImageSpace10} alt="" />
-            <TypeLiText>物置・屋外倉庫</TypeLiText>
-          </TypeLi>
+          {getTypeList([
+            {
+              image: ImageSpace1,
+              alt: 'img-space-1',
+              text: '空き部屋',
+            },
+            {
+              image: ImageSpace2,
+              alt: 'img-space-2',
+              text: '部屋の一角',
+            },
+            {
+              image: ImageSpace3,
+              alt: 'img-space-3',
+              text: '押入れ',
+            },
+            {
+              image: ImageSpace4,
+              alt: 'img-space-4',
+              text: '物置・屋外倉庫',
+            },
+            {
+              image: ImageSpace5,
+              alt: 'img-space-5',
+              text: '物置・屋外倉庫',
+            },
+            {
+              image: ImageSpace6,
+              alt: 'img-space-6',
+              text: '物置・屋外倉庫',
+            },
+            {
+              image: ImageSpace7,
+              alt: 'img-space-7',
+              text: '空き部屋',
+            },
+            {
+              image: ImageSpace8,
+              alt: 'img-space-8',
+              text: '空き部屋',
+            },
+            {
+              image: ImageSpace9,
+              alt: 'img-space-9',
+              text: '空き部屋',
+            },
+            {
+              image: ImageSpace10,
+              alt: 'img-space-10',
+              text: '部屋の一角',
+            },
+          ])}
         </TypeUl>
       </TypeWrap>
       <ExampleWrap>
@@ -540,87 +584,88 @@ export default () => (
       <FlowWrap>
         <SectionTitle>ご利用方法</SectionTitle>
         <FlowUl>
-          <FlowLi>
-            <FlowLiImg src={ImageFlow1} alt="img-flow-1" />
-            <FlowLiText>新規登録ページへ</FlowLiText>
-          </FlowLi>
-          <FlowLi>
-            <FlowLiImg src={ImageFlow2} alt="img-flow-2" />
-            <FlowLiText>プロフィール情報の入力</FlowLiText>
-          </FlowLi>
-          <FlowLi>
-            <FlowLiImg src={ImageFlow3} alt="img-flow-3" />
-            <FlowLiText>「貸す・借りる」を選択</FlowLiText>
-          </FlowLi>
-          <FlowLi>
-            <FlowLiImg src={ImageFlow4} alt="img-flow-4" />
-            <FlowLiText>スペースの新規登録</FlowLiText>
-          </FlowLi>
-          <FlowLi>
-            <FlowLiImg src={ImageFlow5} alt="img-flow-5" />
-            <FlowLiText>スペースの基本情報を入力</FlowLiText>
-          </FlowLi>
-          <FlowLi>
-            <FlowLiImg src={ImageFlow6} alt="img-flow-6" />
-            <FlowLiText>預かれる荷物を入力</FlowLiText>
-          </FlowLi>
-          <FlowLi>
-            <FlowLiImg src={ImageFlow7} alt="img-flow-7" />
-            <FlowLiText>荷物の受取り方を選択</FlowLiText>
-          </FlowLi>
-          <FlowLi>
-            <FlowLiImg src={ImageFlow8} alt="img-flow-8" />
-            <FlowLiText>料金を設定</FlowLiText>
-          </FlowLi>
-          <FlowLi>
-            <FlowLiImg src={ImageFlow9} alt="img-flow-9" />
-            <FlowLiText>プレビュー画面の確認</FlowLiText>
-          </FlowLi>
-          <FlowLi>
-            <FlowLiImg src={ImageFlow10} alt="img-flow-10" />
-            <FlowLiText>スペース公開完了</FlowLiText>
-          </FlowLi>
+          {getFlowList([
+            {
+              image: ImageFlow1,
+              alt: 'img-flow-1',
+              text: '新規登録ページへ',
+            },
+            {
+              image: ImageFlow2,
+              alt: 'img-flow-2',
+              text: 'プロフィール情報の入力',
+            },
+            {
+              image: ImageFlow3,
+              alt: 'img-flow-3',
+              text: '「貸す・借りる」を選択',
+            },
+            {
+              image: ImageFlow4,
+              alt: 'img-flow-4',
+              text: 'スペースの新規登録',
+            },
+            {
+              image: ImageFlow5,
+              alt: 'img-flow-5',
+              text: 'スペースの基本情報を入力',
+            },
+            {
+              image: ImageFlow6,
+              alt: 'img-flow-6',
+              text: '預かれる荷物を入力',
+            },
+            {
+              image: ImageFlow7,
+              alt: 'img-flow-7',
+              text: '荷物の受取り方を選択',
+            },
+            {
+              image: ImageFlow8,
+              alt: 'img-flow-8',
+              text: '料金を設定',
+            },
+            {
+              image: ImageFlow9,
+              alt: 'img-flow-9',
+              text: 'プレビュー画面の確認',
+            },
+            {
+              image: ImageFlow10,
+              alt: 'img-flow-10',
+              text: 'スペース公開完了',
+            },
+          ])}
         </FlowUl>
       </FlowWrap>
       <QaWrap>
         <SectionTitle>よくある質問</SectionTitle>
         <QuestionsContainer>
-          <QuestionRow>
-            <QuestionItem>
-              <Collapsible trigger="Q. どのような荷物を預かることが多いのでしょうか？">
-                <Answer>
-                  引越し時の荷物、リフォーム時の荷物、季節のレジャー品、仕事道具、衣替え時の衣類、趣味の道具などがご利用ケースとしては多いです。
-                </Answer>
-              </Collapsible>
-            </QuestionItem>
-            <QuestionItem>
-              <Collapsible trigger="Q. どのようなスペースを登録しても良いのでしょうか？">
-                <Answer>
-                  空き部屋、部屋の一角、物置・屋外倉庫、押入れ・クローゼットが主な対象スペースです。無人スペース、法人スペース、古い、汚れのある部屋、電気がないスペースなども実績がございます。
-                </Answer>
-              </Collapsible>
-            </QuestionItem>
-          </QuestionRow>
-          <QuestionRow>
-            <QuestionItem>
-              <Collapsible trigger="Q. どのくらいの料金設定がおすすめですか？">
-                <Answer>
-                  7,000円～10,000円を推奨しております。地域によって変わりますが、一般的なトランクルームの半額～7割にあたる料金設定です。
-                </Answer>
-              </Collapsible>
-            </QuestionItem>
-            <QuestionItem>
-              <Collapsible trigger="Q. 荷物が破損、紛失等のトラブルが起きた際にはどうすれば良いでしょうか？">
-                <Answer>
-                  モノオクでは、あなたの荷物をお守りするために補償制度をご用意しています。万が一、破損・紛失・盗難などが起きてしまった場合には、最大10万円までの補償を提供しています。まずはモノオクのカスタマーセンターまでご連絡ください。なお、モノオクの決済を通さずに直接連絡を取り合ってお取引された場合は補償外となります。
-                </Answer>
-              </Collapsible>
-            </QuestionItem>
-          </QuestionRow>
-          <QuestionRow>
-            <QuestionItem>
-              <Collapsible trigger="Q. 荷物の受け渡しはどのようにすればよいでしょうか？">
-                <Answer>
+          {getQaList([
+            {
+              question: 'Q. どのような荷物を預かることが多いのでしょうか？',
+              answer:
+                '引越し時の荷物、リフォーム時の荷物、季節のレジャー品、仕事道具、衣替え時の衣類、趣味の道具などがご利用ケースとしては多いです。',
+            },
+            {
+              question: 'Q. どのようなスペースを登録しても良いのでしょうか？',
+              answer:
+                '空き部屋、部屋の一角、物置・屋外倉庫、押入れ・クローゼットが主な対象スペースです。無人スペース、法人スペース、古い、汚れのある部屋、電気がないスペースなども実績がございます。',
+            },
+            {
+              question: 'Q. どのくらいの料金設定がおすすめですか？',
+              answer:
+                '5,000円～7,000円を推奨しております。地域によって変わりますが、一般的なトランクルームの半額～7割にあたる料金設定です。',
+            },
+            {
+              question: 'Q. 荷物が破損、紛失等のトラブルが起きた際にはどうすれば良いでしょうか？',
+              answer:
+                'モノオクでは、あなたの荷物をお守りするために補償制度をご用意しています。万が一、破損・紛失・盗難などが起きてしまった場合には、最大10万円までの補償を提供しています。まずはモノオクのカスタマーセンターまでご連絡ください。なお、モノオクの決済を通さずに直接連絡を取り合ってお取引された場合は補償外となります。',
+            },
+            {
+              question: 'Q. 荷物の受け渡しはどのようにすればよいでしょうか？',
+              answer: (
+                <Fragment>
                   荷物の配送は、原則依頼主が手配します。下記のような配送手段があり、取引中に受け渡し方法を相談することができます。
                   <br />
                   1.ヤマト運輸などの一般的な配送サービス
@@ -628,17 +673,15 @@ export default () => (
                   2.直接運ぶ
                   <br />
                   3.提携の配送サービス（PickGo）の利用
-                </Answer>
-              </Collapsible>
-            </QuestionItem>
-            <QuestionItem>
-              <Collapsible trigger="Q. どうして20%の手数料を取られるのでしょうか？">
-                <Answer>
-                  モノオクは、皆さまのご協力を得てサービスを運営しております。補償などの付帯サービスも20%の中からご提供しております。より良いサービスをご提供させていただくため、何卒ご理解いただけますと幸いです。
-                </Answer>
-              </Collapsible>
-            </QuestionItem>
-          </QuestionRow>
+                </Fragment>
+              ),
+            },
+            {
+              question: 'Q. どうして20%の手数料を取られるのでしょうか？',
+              answer:
+                'モノオクは、皆さまのご協力を得てサービスを運営しております。補償などの付帯サービスも20%の中からご提供しております。より良いサービスをご提供させていただくため、何卒ご理解いただけますと幸いです。',
+            },
+          ])}
         </QuestionsContainer>
       </QaWrap>
     </ContentsWrap>
