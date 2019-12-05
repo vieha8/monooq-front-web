@@ -1,5 +1,8 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import ImageSlider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
@@ -8,7 +11,6 @@ import Meta from 'components/LV1/Meta';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ExampleSpaceList from 'components/LV2/Lists/ExampleSpaceList';
-
 import ImageHero from 'images/lp1host/fv-bg.jpeg';
 import ImageWoman from 'images/lp1host/fv-woman.png';
 import ImageWhatMonooq from 'images/lp1host/what-monooq.jpg';
@@ -250,33 +252,29 @@ const TypeUl = styled.ul`
 `;
 
 const TypeLi = styled.li`
-  display: inline-block;
-  width: calc(25% - ${Dimens.small_10}px);
-  margin: ${Dimens.xxsmall_5}px;
-  border: solid 1px #eee;
-  border-radius: 6px;
+  padding: 0 ${Dimens.xxsmall_5}px;
   line-height: 1.7em;
-  text-align: left;
   overflow: hidden;
-  box-sizing: border-box;
+`;
+
+const TypeLiInner = styled.div`
   background-color: ${Colors.white};
-  ${media.tablet`
-    width: calc(50% - ${Dimens.small_10}px);
-  `};
+  border-radius: 6px;
 `;
 
 const TypeLiImg = styled.img`
   display: block;
   width: 100%;
+  border-radius: 6px 6px 0 0;
 `;
 
 const TypeLiText = styled.span`
   display: block;
   text-align: center;
-  font-size: ${FontSizes.medium1}px;
+  font-size: ${FontSizes.medium}px;
   padding: ${Dimens.small2_14}px 0;
   ${media.phone`
-    font-size: ${FontSizes.medium_18}px;
+    font-size: ${FontSizes.small}px;
   `};
 `;
 
@@ -309,23 +307,19 @@ const FlowWrap = styled.div`
 const FlowUl = styled.ul`
   max-width: 900px;
   margin: auto;
+  padding: 0 ${Dimens.medium}px;
   display: flex;
   flex-wrap: wrap;
-  ${media.tablet`
-    flex-wrap: wrap;
-    margin: auto -${Dimens.xxsmall_5}px);
-  `};
 `;
 
 const FlowLi = styled.li`
   display: inline-block;
   width: calc(33% - ${Dimens.small_9}px);
-  margin: ${Dimens.xxsmall_5}px;
+  padding: 0 ${Dimens.xxsmall_5}px;
   line-height: 1.7em;
   text-align: left;
   overflow: hidden;
   box-sizing: border-box;
-  background-color: ${Colors.white};
   ${media.tablet`
     width: calc(50% - ${Dimens.small_10}px);
   `};
@@ -335,6 +329,10 @@ const FlowLiImg = styled.img`
   display: block;
   width: 100%;
   border: 5px solid ${Colors.borderGray};
+`;
+
+const FlowLiInner = styled.div`
+  background-color: ${Colors.white};
 `;
 
 const FlowLiText = styled.span`
@@ -396,13 +394,39 @@ const Answer = styled.div`
 function getTypeList(list) {
   return (
     <Fragment>
-      {list &&
-        list.map((item, i) => (
-          <TypeLi key={i.toString()}>
-            <TypeLiImg src={item.image} alt={item.alt} />
-            <TypeLiText>{item.text}</TypeLiText>
-          </TypeLi>
-        ))}
+      <ImageSlider
+        dots={false}
+        arrows={false}
+        autoplay
+        autoplaySpeed={0}
+        speed={5000}
+        cssEase="linear"
+        slidesToShow={4}
+        responsive={[
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 3,
+            },
+          },
+          {
+            breakpoint: 640,
+            settings: {
+              slidesToShow: 2,
+            },
+          },
+        ]}
+      >
+        {list &&
+          list.map((item, i) => (
+            <TypeLi key={i.toString()}>
+              <TypeLiInner>
+                <TypeLiImg src={item.image} alt={item.alt} />
+                <TypeLiText>{item.text}</TypeLiText>
+              </TypeLiInner>
+            </TypeLi>
+          ))}
+      </ImageSlider>
     </Fragment>
   );
 }
@@ -410,13 +434,32 @@ function getTypeList(list) {
 function getFlowList(list) {
   return (
     <Fragment>
-      {list &&
-        list.map((item, i) => (
-          <FlowLi key={i.toString()}>
-            <FlowLiImg src={item.image} alt={item.alt} />
-            <FlowLiText>{item.text}</FlowLiText>
-          </FlowLi>
-        ))}
+      <ImageSlider
+        className="custom-arrow-1"
+        infinite={false}
+        dots={false}
+        arrows
+        cssEase="linear"
+        slidesToShow={3}
+        responsive={[
+          {
+            breakpoint: 640,
+            settings: {
+              slidesToShow: 2,
+            },
+          },
+        ]}
+      >
+        {list &&
+          list.map((item, i) => (
+            <FlowLi key={i.toString()}>
+              <FlowLiInner>
+                <FlowLiImg src={item.image} alt={item.alt} />
+                <FlowLiText>{item.text}</FlowLiText>
+              </FlowLiInner>
+            </FlowLi>
+          ))}
+      </ImageSlider>
     </Fragment>
   );
 }

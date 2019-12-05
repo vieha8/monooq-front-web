@@ -335,7 +335,9 @@
   padding: 15px 16px 15px 38px;
 }
 
-/* Modal Search Condition More */
+/*
+Modal Search Condition More
+ */
 .ui.dimmer {
   z-index: 2500 !important;
   padding: 0 !important;
@@ -358,4 +360,37 @@
 
 .ButtonModalSearchConditionMore.pc .scrolling.content {
   min-width: 768px !important;
+}
+
+/*
+React Slick
+ */
+.slick-slider {
+  width: 100%;
+}
+
+/* custom-arrow-1 */
+.custom-arrow-1 .slick-prev,
+.custom-arrow-1 .slick-next {
+  top: calc(50% - 45px) !important;
+  width: 60px !important;
+  height: 60px !important;
+  z-index: 100 !important;
+}
+
+.custom-arrow-1 .slick-prev:before,
+.custom-arrow-1 .slick-next:before {
+  content: '' !important;
+  position: absolute;
+  top: calc(50% - 30px);
+  left: calc(-50% + 30px);
+  width: 60px;
+  height: 60px;
+  background-image: url('../images/icon-arrow-circle-big.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.custom-arrow-1 .slick-next:before {
+  transform: rotate(180deg);
 }
