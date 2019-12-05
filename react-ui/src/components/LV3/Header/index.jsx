@@ -47,7 +47,6 @@ const Nav = styled.nav`
     height: ${HeightPhone}px;
     position: relative;
     display: flex;
-    justify-content: center;
   `};
 `;
 

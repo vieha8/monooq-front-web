@@ -162,7 +162,7 @@ export default ({ list }) => (
               <Dd s_bg>
                 <DdSpan>{item.spaceAddress}</DdSpan>
                 <DdSpan price>{`${item.spacePrice}円`}</DdSpan>
-                <DdSpan>{`[内訳]${item.spacePriceDtail}`}</DdSpan>
+                <DdSpan>{`[内訳] ${item.spacePriceDtail}`}</DdSpan>
               </Dd>
             </Dl>
           </ItemSection>
