@@ -622,7 +622,7 @@ const Answer = styled.div`
   `}
 `;
 
-export default ({ titleMeta, headline, titleWant, onClickSignup }) => (
+export default ({ titleMeta, headline, titleWant, buttonLink }) => (
   <Wrap>
     <Meta title={titleMeta} noindex />
 
@@ -630,7 +630,7 @@ export default ({ titleMeta, headline, titleWant, onClickSignup }) => (
       <TopMessageContent>
         <TopTitle itemProp="headline">{headline}</TopTitle>
         <InitialCost>初期費用0円</InitialCost>
-        <ButtonCaption caption="60秒で簡単登録" text="保管スペースを探す" onClick={onClickSignup} />
+        <ButtonCaption caption="60秒で簡単登録" text="保管スペースを探す" link href={buttonLink} />
       </TopMessageContent>
     </TopWrap>
 

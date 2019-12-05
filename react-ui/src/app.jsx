@@ -24,7 +24,7 @@ const store = createStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Root>
+    <Root history={history}>
       <Meta />
       <Error />
       <Routes history={history} />

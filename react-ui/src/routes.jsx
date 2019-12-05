@@ -196,6 +196,7 @@ export default ({ history }) => (
       <Route exact path={Path.terms()} component={Terms} />
       {/* <Route exact path={Path.lp1Host()} component={Lp1Host} /> */}
       <Route exact path={Path.lp1Guest()} component={Lp1Guest} />
+      <Route exact path={Path.lp1Guest2()} component={Lp1Guest} />
       <Route exact path={Path.lp2Guest()} component={Lp2Guest} />
       <Route exact path={Path.lp3Guest()} component={Lp3Guest} />
       <Route component={PageNotFound} />
