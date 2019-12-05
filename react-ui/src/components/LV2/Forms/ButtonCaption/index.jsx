@@ -37,7 +37,7 @@ const Wrap = styled.div`
 `;
 
 const CaptionWrap = styled.span`
-  vertical-align: middle;
+  vertical-align: top;
   padding: ${Dimens.xsmall}px;
   margin: auto ${Dimens.small2}px auto -${Dimens.medium2}px;
   font-size: ${FontSizes.small_12}px;
