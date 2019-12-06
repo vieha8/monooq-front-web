@@ -1,13 +1,10 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
-import { convertImgixUrl } from 'helpers/imgix';
+import { convertSpaceImgUrl } from 'helpers/imgix';
 
 const convertImageUrl = images => {
   return images.map(({ original }) => {
-    const replaceUrl = convertImgixUrl(
-      original,
-      'fit=crop&fill-color=DBDBDB&w=1200&h=800&auto=format',
-    );
+    const replaceUrl = convertSpaceImgUrl(original, 'w=600');
     return {
       original: replaceUrl || '',
       thumbnail: replaceUrl || '',

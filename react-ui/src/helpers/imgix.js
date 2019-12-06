@@ -48,3 +48,7 @@ export const convertBaseUrl = imgixUrl => {
   }
   return url;
 };
+
+export const convertSpaceImgUrl = (url, params) => {
+  return convertImgixUrl(url, `${params}&auto=enhance&bri=8&sharp=10&sat=10`);
+};
