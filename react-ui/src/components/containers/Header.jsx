@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { partialMatch } from 'helpers/string';
+import { getSafeValue } from 'helpers/properties';
 import Header from 'components/LV3/Header';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import { withRouter } from 'react-router';
@@ -75,6 +76,12 @@ class HeaderContainer extends Component {
     return Math.max(window.pageYOffset, scrollTop);
   };
 
+  setStateOverTopView = isOverTopView => {
+    if (this._isMounted) {
+      this.setState({ isOverTopView });
+    }
+  };
+
   watchCurrentPosition() {
     const { pagePathScrollPage } = this.state;
     let positionScrollPC = 450;
@@ -83,9 +90,7 @@ class HeaderContainer extends Component {
     if (pagePathScrollPage) {
       const positionScroll = this.scrollTop();
 
-      if (this._isMounted) {
-        this.setState({ isOverTopView: false });
-      }
+      this.setStateOverTopView(false);
 
       if (
         partialMatch(pagePathScrollPage, Path.about()) ||
@@ -102,16 +107,17 @@ class HeaderContainer extends Component {
         positionScrollSP = 360;
       }
 
-      if (window.parent.screen.width > 480) {
-        if (positionScroll > positionScrollPC) {
-          if (this._isMounted) {
-            this.setState({ isOverTopView: true });
+      const widthWindow = getSafeValue(() => window.parent.screen.width);
+      if (widthWindow) {
+        if (widthWindow > 480) {
+          if (positionScroll > positionScrollPC) {
+            this.setStateOverTopView(true);
           }
+        } else if (positionScroll > positionScrollSP) {
+          this.setStateOverTopView(true);
         }
-      } else if (positionScroll > positionScrollSP) {
-        if (this._isMounted) {
-          this.setState({ isOverTopView: true });
-        }
+      } else {
+        this.setStateOverTopView(true);
       }
     }
   }
