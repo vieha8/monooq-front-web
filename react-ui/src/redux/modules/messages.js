@@ -451,7 +451,7 @@ function* sendEmail(payload, messageDocId) {
     Uid: toUser.firebaseUid,
     Body: messageBody,
     Category: 'message',
-    customData: { messageDocId },
+    CustomData: { messageDocId },
   };
 
   yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
