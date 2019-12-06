@@ -18,6 +18,7 @@ export default {
   xlarge: 34,
   xxlarge: 38,
   xxlarge_40: 40,
+  xxlarge_42: 42,
   xxxlarge: 48,
   custom1large: 50,
   custom2large: 60,

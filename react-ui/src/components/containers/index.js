@@ -12,6 +12,7 @@ import Schedule from './ScheduleContainer';
 import Profile from './ProfileContainer';
 import ProfileEdit from './ProfileEditContainer';
 import Inquiry from './InquiryContainer';
+import Lp1Host from './Lp1HostContainer';
 import Lp123Guest from './Lp123GuestContainer';
 import MessagesList from './MessageListContainer';
 import Message from './MessageContainer';
@@ -41,6 +42,7 @@ export default {
   Profile,
   ProfileEdit,
   Inquiry,
+  Lp1Host,
   Lp123Guest,
   MessagesList,
   Message,

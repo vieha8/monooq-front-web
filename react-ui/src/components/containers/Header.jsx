@@ -7,7 +7,6 @@ import { withRouter } from 'react-router';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
-import ReactGA from 'react-ga';
 
 class HeaderContainer extends Component {
   constructor(props) {
@@ -20,6 +19,7 @@ class HeaderContainer extends Component {
     if (
       partialMatch(targetUrl, Path.about()) ||
       partialMatch(targetUrl, Path.howtouse()) ||
+      partialMatch(targetUrl, Path.lp1Host()) ||
       partialMatch(targetUrl, Path.lp1Guest()) ||
       partialMatch(targetUrl, Path.lp1Guest2()) ||
       partialMatch(targetUrl, Path.lp2Guest()) ||
@@ -77,8 +77,8 @@ class HeaderContainer extends Component {
 
   watchCurrentPosition() {
     const { pagePathScrollPage } = this.state;
-    let positionScrollPC = 0;
-    let positionScrollSP = 0;
+    let positionScrollPC = 450;
+    let positionScrollSP = 290;
 
     if (pagePathScrollPage) {
       const positionScroll = this.scrollTop();
@@ -87,10 +87,7 @@ class HeaderContainer extends Component {
         this.setState({ isOverTopView: false });
       }
 
-      if (partialMatch(pagePathScrollPage, Path.top())) {
-        positionScrollPC = 450;
-        positionScrollSP = 290;
-      } else if (
+      if (
         partialMatch(pagePathScrollPage, Path.about()) ||
         partialMatch(pagePathScrollPage, Path.howtouse()) ||
         partialMatch(pagePathScrollPage, Path.lp1Guest()) ||
@@ -100,6 +97,9 @@ class HeaderContainer extends Component {
       ) {
         positionScrollPC = 540;
         positionScrollSP = 320;
+      } else if (partialMatch(pagePathScrollPage, Path.lp1Host())) {
+        positionScrollPC = 520;
+        positionScrollSP = 360;
       }
 
       if (window.parent.screen.width > 480) {
@@ -140,7 +140,14 @@ class HeaderContainer extends Component {
       <Header
         top={top}
         isOverTopView={isOverTopView}
-        isPageLp123={
+        isPageLp={
+          partialMatch(pagePathScrollPage, Path.lp1Host()) ||
+          partialMatch(pagePathScrollPage, Path.lp1Guest()) ||
+          partialMatch(pagePathScrollPage, Path.lp1Guest2()) ||
+          partialMatch(pagePathScrollPage, Path.lp2Guest()) ||
+          partialMatch(pagePathScrollPage, Path.lp3Guest())
+        }
+        isPageLp123Guest={
           partialMatch(pagePathScrollPage, Path.lp1Guest()) ||
           partialMatch(pagePathScrollPage, Path.lp1Guest2()) ||
           partialMatch(pagePathScrollPage, Path.lp2Guest()) ||
@@ -169,13 +176,6 @@ class HeaderContainer extends Component {
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} />}
         loginUrl={Path.login()}
         onClickSignup={() => history.push(Path.signUp())}
-        onClickSearch={() => {
-          ReactGA.event({
-            category: 'Search',
-            action: 'Tap Header Icon',
-          });
-          history.push(Path.top());
-        }}
         aboutUrl={Path.about()}
         howtouseUrl={Path.howtouse()}
         helpUrl="https://help.monooq.com/"

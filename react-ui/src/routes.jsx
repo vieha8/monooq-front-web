@@ -135,9 +135,9 @@ const Privacy = loadable(() =>
 const Terms = loadable(() =>
   import('components/containers/TermsContainer').catch(() => window.location.reload()),
 );
-// const Lp1Host = loadable(() =>
-//   import('components/containers/TermsContainer').catch(() => window.location.reload()),
-// );
+const Lp1Host = loadable(() =>
+  import('components/containers/Lp1HostContainer').catch(() => window.location.reload()),
+);
 const Lp1Guest = loadable(() =>
   import('components/containers/Lp123GuestContainer').catch(() => window.location.reload()),
 );
@@ -194,7 +194,7 @@ export default ({ history }) => (
       <Route exact path={Path.asct()} component={Asct} />
       <Route exact path={Path.privacy()} component={Privacy} />
       <Route exact path={Path.terms()} component={Terms} />
-      {/* <Route exact path={Path.lp1Host()} component={Lp1Host} /> */}
+      <Route exact path={Path.lp1Host()} component={Lp1Host} />
       <Route exact path={Path.lp1Guest()} component={Lp1Guest} />
       <Route exact path={Path.lp1Guest2()} component={Lp1Guest} />
       <Route exact path={Path.lp2Guest()} component={Lp2Guest} />

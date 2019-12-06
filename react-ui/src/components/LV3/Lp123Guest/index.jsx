@@ -331,7 +331,7 @@ const CatchPhraseText = styled.span`
   text-align: center;
   padding-top: ${Dimens.large4_80}px;
   ${media.tablet`
-    font-size: 24px;
+    font-size: ${FontSizes.medium2}px;
     padding: ${Dimens.large4_80}px ${Dimens.medium}px ${Dimens.medium2}px;
   `};
 `;
