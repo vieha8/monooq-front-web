@@ -18,7 +18,7 @@ export const handleCircuitX = (campaignId, oid) => {
   img.setAttribute('style', 'display:none;');
   img.setAttribute(
     'src',
-    `https://x-api.cir.io/postback/circuit_x_beacon?oid=${oid}&ma_campaign_id=&${campaignId}`,
+    `https://x-api.cir.io/postback/circuit_x_beacon?oid=${oid}&ma_campaign_id=${campaignId}`,
   );
   img.setAttribute('height', 1);
   img.setAttribute('width', 1);

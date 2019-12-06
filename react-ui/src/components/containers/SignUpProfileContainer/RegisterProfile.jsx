@@ -6,7 +6,6 @@ import ReactGA from 'react-ga';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { handleGTM } from 'helpers/gtm';
-import { handleAccessTrade, handleCircuitX } from 'helpers/asp';
 
 const Validate = {
   phoneNumber: {
@@ -46,8 +45,6 @@ export default class RegisterProfileContainer extends Component {
   componentDidUpdate(props) {
     if (!props.user.id && this.props.user.id) {
       const { user } = this.props;
-      handleAccessTrade(100, `user_register_${user.id}`);
-      handleCircuitX(1373, user.id);
       handleGTM('leadUserRegistered', user.id);
     }
   }

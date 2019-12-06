@@ -12,7 +12,13 @@ import { convertImgixUrl } from 'helpers/imgix';
 import { uiActions } from './ui';
 import { loggerActions } from './logger';
 import { handleError } from './error';
-import { getApiRequest, postApiRequest, deleteApiRequest, apiEndpoint } from '../helpers/api';
+import {
+  getApiRequest,
+  postApiRequest,
+  deleteApiRequest,
+  apiEndpoint,
+  putApiRequest,
+} from '../helpers/api';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -223,39 +229,41 @@ const getFirebaseAuthToken = () =>
     firebase
       .auth()
       .currentUser.getIdToken(true)
-      .then(token => {
-        if (isAvailableLocalStorage()) {
-          const limit = new Date();
-          limit.setMinutes(limit.getMinutes() + 50);
-          localStorage.setItem('firebase_token', JSON.stringify({ token, limit }));
-        }
-        resolve(token);
-      })
+      .then(token => resolve(token))
       .catch(err => reject(err));
   });
 
+const tokenCacheKey = 'firebase_token';
+
 // Sagas
 export function* getToken() {
+  if (!firebase.auth().currentUser) {
+    return '';
+  }
   if (isAvailableLocalStorage()) {
-    const cache = localStorage.getItem('firebase_token');
+    const cache = localStorage.getItem(tokenCacheKey);
     if (cache) {
       const { token, limit } = JSON.parse(cache);
-      if (token) {
+      if (token && token !== '') {
         if (new Date().getTime() < new Date(limit).getTime()) {
           // 有効期限判定
           return token;
         }
-        localStorage.removeItem('firebase_token');
-        window.location.reload();
-        return null;
       }
     }
   }
-
-  if (firebase.auth().currentUser) {
-    return yield call(getFirebaseAuthToken);
+  const token = yield call(getFirebaseAuthToken);
+  if (!token || token === '') {
+    return '';
   }
-  return '';
+
+  yield call(putApiRequest, apiEndpoint.authFirebase(firebase.auth().currentUser.uid), {}, token);
+  if (isAvailableLocalStorage()) {
+    const limit = new Date();
+    limit.setMinutes(limit.getMinutes() + 50);
+    localStorage.setItem(tokenCacheKey, JSON.stringify({ token, limit }));
+  }
+  return token;
 }
 
 function* checkLogin() {
@@ -335,7 +343,7 @@ function* loginFacebook() {
 function* logout() {
   yield put(push(Path.top()));
   if (isAvailableLocalStorage()) {
-    localStorage.removeItem('token');
+    localStorage.removeItem(tokenCacheKey);
   }
   yield firebase.auth().signOut();
 }

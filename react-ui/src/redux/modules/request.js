@@ -145,7 +145,7 @@ export const requestReducer = handleActions(
   initialState,
 );
 
-function* sendEstimateEmail(payload) {
+function* sendEstimateEmail(payload, messageDocId) {
   const { roomId, toUserId } = payload;
 
   const token = yield* getToken();
@@ -166,6 +166,7 @@ function* sendEstimateEmail(payload) {
     Uid: toUser.firebaseUid,
     Body: messageBody,
     category: 'estimate',
+    CustomData: { messageDocId },
   };
 
   yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
@@ -211,7 +212,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
     startDate,
     endDate,
   };
-  yield roomDoc.collection('messages').add(message);
+  const messageDoc = yield roomDoc.collection('messages').add(message);
   yield roomDoc.set(
     {
       lastMessage: 'お見積もりが届いています',
@@ -220,7 +221,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
     { merge: true },
   );
 
-  yield sendEstimateEmail({ toUserId: requestUserId, roomId });
+  yield sendEstimateEmail({ toUserId: requestUserId, roomId }, messageDoc.id);
   yield put(requestActions.estimateSuccess(requestInfo));
 
   handleGTM('estimate', requestInfo.id);
@@ -430,7 +431,9 @@ function* request({ payload: { user, space } }) {
 
   let isRequested = 'false';
   if (isAvailableLocalStorage()) {
-    // isRequested = localStorage.getItem('isRequested');
+    if (localStorage.getItem('isRequested')) {
+      isRequested = localStorage.getItem('isRequested');
+    }
   }
 
   yield put(
@@ -448,6 +451,7 @@ function* request({ payload: { user, space } }) {
     handleGTM('newRequest', user.id);
     handleAccessTrade(105, `new_request_user${user.id}_space${space.id}`);
     handleCircuitX(1374, user.id);
+    handleCircuitX(1377, user.id);
     if (isAvailableLocalStorage()) {
       localStorage.setItem('isRequested', 'true');
     }

@@ -11,7 +11,7 @@ import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
-import SearchIcon from 'components/LV2/ButtonHeader/SearchIcon';
+import Path from 'config/path';
 
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
@@ -47,16 +47,6 @@ const Nav = styled.nav`
     height: ${HeightPhone}px;
     position: relative;
     display: flex;
-    justify-content: center;
-  `};
-`;
-
-const SearchIconWrapper = styled.div`
-  display: none;
-  ${media.tablet`
-    display: block;
-    position: absolute;
-    left: ${Dimens.small_10}px;
   `};
 `;
 
@@ -263,7 +253,9 @@ export default ({
   top,
   isLinkRed,
   isOverTopView,
-  isPageLp123,
+  isPageLp,
+  isPageLp123Guest,
+  isPageLp1_2,
   stories,
   topUrl,
   isCheckingLogin,
@@ -283,22 +275,16 @@ export default ({
   schedule,
   sales,
   logoutEvent,
-  onClickSearch,
 }) => {
   return (
     <Container stories={stories}>
       <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
-        {!isPageLp123 && (
-          <SearchIconWrapper>
-            <SearchIcon onClick={onClickSearch} />
-          </SearchIconWrapper>
-        )}
         <LogoWrapper>
           <LogoLink to={topUrl}>
             <ImageLogo.HeaderFill />
           </LogoLink>
         </LogoWrapper>
-        {!isPageLp123 && !isCheckingLogin && !noHeaderButton && (
+        {!isPageLp && !isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>
             {user ? (
               <ActionContainer>
@@ -373,12 +359,13 @@ export default ({
             )}
           </ActionWrapper>
         )}
-        {isPageLp123 && (
+        {isPageLp && (
           <ButtonBottomWrap isOverTopView={isOverTopView}>
             <ButtonCaption
-              caption="60秒で簡単登録"
-              text="保管スペースを探す"
-              onClick={onClickSignup}
+              caption={isPageLp123Guest ? '60秒で簡単登録' : '1分で完了'}
+              text={isPageLp123Guest ? '保管スペースを探す' : 'アカウントを作成する'}
+              link
+              href={isPageLp1_2 ? Path.top() : Path.signUp()}
             />
           </ButtonBottomWrap>
         )}

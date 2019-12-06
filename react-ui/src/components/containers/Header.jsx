@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { partialMatch } from 'helpers/string';
+import { getSafeValue } from 'helpers/properties';
 import Header from 'components/LV3/Header';
 import ServiceMenu from 'components/containers/ServiceMenuContainer';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
-import ReactGA from 'react-ga';
-
-const PATH_TOP = '/';
-const PATH_ABOUT = '/about';
-const PATH_HOWTOUSE = '/howtouse';
-const PATH_LP1_GUEST = '/lp1/guest';
-const PATH_LP2_GUEST = '/lp2/guest';
-const PATH_LP3_GUEST = '/lp3/guest';
 
 class HeaderContainer extends Component {
   constructor(props) {
@@ -25,11 +18,13 @@ class HeaderContainer extends Component {
     let isLinkRed = false;
 
     if (
-      partialMatch(targetUrl, PATH_ABOUT) ||
-      partialMatch(targetUrl, PATH_HOWTOUSE) ||
-      partialMatch(targetUrl, PATH_LP1_GUEST) ||
-      partialMatch(targetUrl, PATH_LP2_GUEST) ||
-      partialMatch(targetUrl, PATH_LP3_GUEST)
+      partialMatch(targetUrl, Path.about()) ||
+      partialMatch(targetUrl, Path.howtouse()) ||
+      partialMatch(targetUrl, Path.lp1Host()) ||
+      partialMatch(targetUrl, Path.lp1Guest()) ||
+      partialMatch(targetUrl, Path.lp1Guest2()) ||
+      partialMatch(targetUrl, Path.lp2Guest()) ||
+      partialMatch(targetUrl, Path.lp3Guest())
     ) {
       isLinkRed = true;
     }
@@ -81,42 +76,48 @@ class HeaderContainer extends Component {
     return Math.max(window.pageYOffset, scrollTop);
   };
 
+  setStateOverTopView = isOverTopView => {
+    if (this._isMounted) {
+      this.setState({ isOverTopView });
+    }
+  };
+
   watchCurrentPosition() {
     const { pagePathScrollPage } = this.state;
-    let positionScrollPC = 0;
-    let positionScrollSP = 0;
+    let positionScrollPC = 450;
+    let positionScrollSP = 290;
 
     if (pagePathScrollPage) {
       const positionScroll = this.scrollTop();
 
-      if (this._isMounted) {
-        this.setState({ isOverTopView: false });
-      }
+      this.setStateOverTopView(false);
 
-      if (partialMatch(pagePathScrollPage, PATH_TOP)) {
-        positionScrollPC = 450;
-        positionScrollSP = 290;
-      } else if (
-        partialMatch(pagePathScrollPage, PATH_ABOUT) ||
-        partialMatch(pagePathScrollPage, PATH_HOWTOUSE) ||
-        partialMatch(pagePathScrollPage, PATH_LP1_GUEST) ||
-        partialMatch(pagePathScrollPage, PATH_LP2_GUEST) ||
-        partialMatch(pagePathScrollPage, PATH_LP3_GUEST)
+      if (
+        partialMatch(pagePathScrollPage, Path.about()) ||
+        partialMatch(pagePathScrollPage, Path.howtouse()) ||
+        partialMatch(pagePathScrollPage, Path.lp1Guest()) ||
+        partialMatch(pagePathScrollPage, Path.lp1Guest2()) ||
+        partialMatch(pagePathScrollPage, Path.lp2Guest()) ||
+        partialMatch(pagePathScrollPage, Path.lp3Guest())
       ) {
         positionScrollPC = 540;
         positionScrollSP = 320;
+      } else if (partialMatch(pagePathScrollPage, Path.lp1Host())) {
+        positionScrollPC = 520;
+        positionScrollSP = 360;
       }
 
-      if (window.parent.screen.width > 480) {
-        if (positionScroll > positionScrollPC) {
-          if (this._isMounted) {
-            this.setState({ isOverTopView: true });
+      const widthWindow = getSafeValue(() => window.parent.screen.width);
+      if (widthWindow) {
+        if (widthWindow > 480) {
+          if (positionScroll > positionScrollPC) {
+            this.setStateOverTopView(true);
           }
+        } else if (positionScroll > positionScrollSP) {
+          this.setStateOverTopView(true);
         }
-      } else if (positionScroll > positionScrollSP) {
-        if (this._isMounted) {
-          this.setState({ isOverTopView: true });
-        }
+      } else {
+        this.setStateOverTopView(true);
       }
     }
   }
@@ -145,10 +146,21 @@ class HeaderContainer extends Component {
       <Header
         top={top}
         isOverTopView={isOverTopView}
-        isPageLp123={
-          partialMatch(pagePathScrollPage, PATH_LP1_GUEST) ||
-          partialMatch(pagePathScrollPage, PATH_LP2_GUEST) ||
-          partialMatch(pagePathScrollPage, PATH_LP3_GUEST)
+        isPageLp={
+          partialMatch(pagePathScrollPage, Path.lp1Host()) ||
+          partialMatch(pagePathScrollPage, Path.lp1Guest()) ||
+          partialMatch(pagePathScrollPage, Path.lp1Guest2()) ||
+          partialMatch(pagePathScrollPage, Path.lp2Guest()) ||
+          partialMatch(pagePathScrollPage, Path.lp3Guest())
+        }
+        isPageLp123Guest={
+          partialMatch(pagePathScrollPage, Path.lp1Guest()) ||
+          partialMatch(pagePathScrollPage, Path.lp1Guest2()) ||
+          partialMatch(pagePathScrollPage, Path.lp2Guest()) ||
+          partialMatch(pagePathScrollPage, Path.lp3Guest())
+        }
+        isPageLp1_2={
+          partialMatch(pagePathScrollPage, Path.lp1Guest2()) // 命名あれなのわかってるが暫定的に by masaya
         }
         isLinkRed={isLinkRed}
         topUrl={Path.top()}
@@ -170,13 +182,6 @@ class HeaderContainer extends Component {
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} />}
         loginUrl={Path.login()}
         onClickSignup={() => history.push(Path.signUp())}
-        onClickSearch={() => {
-          ReactGA.event({
-            category: 'Search',
-            action: 'Tap Header Icon',
-          });
-          history.push(Path.top());
-        }}
         aboutUrl={Path.about()}
         howtouseUrl={Path.howtouse()}
         helpUrl="https://help.monooq.com/"

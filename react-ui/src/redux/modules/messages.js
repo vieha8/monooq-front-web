@@ -267,18 +267,23 @@ function* fetchMessagesStart({ payload: roomId }) {
   const token = yield* getToken();
 
   // 見積もりステータスの取得
-  messages = yield Promise.all(
-    messages.map(async message => {
-      const { messageType } = message;
-      if (messageType === 1) {
-        return message;
+  const requestIds = messages.filter(v => v.requestId != null).map(v => v.requestId);
+  if (requestIds.length > 0) {
+    const { data } = yield call(
+      getApiRequest,
+      apiEndpoint.requests(),
+      { ids: requestIds.join(',') },
+      token,
+    );
+
+    messages = messages.map(message => {
+      if (message.requestId) {
+        const request = data.filter(v => v.id === message.requestId)[0];
+        return { ...message, request };
       }
-      const { requestId } = message;
-      const { data } = await getApiRequest(apiEndpoint.requests(requestId), {}, token);
-      message.request = data;
       return message;
-    }),
-  );
+    });
+  }
 
   // 既読フラグ付加
   if (messages.length > 0) {
@@ -395,7 +400,7 @@ function* sendMessage(payload) {
         message.image = imageUrl;
       }
       const roomDoc = roomCollection().doc(roomId);
-      await roomDoc.collection('messages').add(message);
+      const messageDoc = await roomDoc.collection('messages').add(message);
       await roomDoc.set(
         {
           lastMessage: message.text,
@@ -404,14 +409,14 @@ function* sendMessage(payload) {
         },
         { merge: true },
       );
-      resolve();
+      resolve(messageDoc.id);
     });
   } catch (err) {
     return captureException(err);
   }
 }
 
-function* sendEmail(payload) {
+function* sendEmail(payload, messageDocId) {
   const { roomId, toUserId, text } = payload;
 
   const token = yield* getToken();
@@ -446,6 +451,7 @@ function* sendEmail(payload) {
     Uid: toUser.firebaseUid,
     Body: messageBody,
     Category: 'message',
+    CustomData: { messageDocId },
   };
 
   yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
@@ -476,8 +482,8 @@ function* sendSMS(payload) {
 }
 
 function* sendMessageAndNotice({ payload }) {
-  yield sendMessage(payload);
-  yield sendEmail(payload);
+  const messageDocId = yield sendMessage(payload);
+  yield sendEmail(payload, messageDocId);
   yield sendSMS(payload);
 }
 

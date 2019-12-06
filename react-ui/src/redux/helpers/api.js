@@ -1,6 +1,7 @@
 import axios from 'axios';
 import apiConfig from 'config/api';
 import { captureException } from '@sentry/browser';
+import { parseUrl, stringify } from '../../helpers/query-string';
 
 export const apiEndpoint = {
   authFirebase: id => (id ? `/auth/firebase/${id}` : `/auth/firebase`),
@@ -60,11 +61,17 @@ const responseErrorHandler = (resolve, error) => {
   });
 };
 
+const addNoCache = path => {
+  const { url, query } = parseUrl(path);
+  query.nocache = new Date().getTime();
+  return `${url}?${stringify(query)}`;
+};
+
 export const getApiRequest = (path, params, token) => {
   const api = createApiInstance(token);
   return new Promise(resolve => {
     api
-      .get(path, { params })
+      .get(addNoCache(path), { params })
       .then(res => {
         resolve({ ...res });
       })
@@ -76,7 +83,7 @@ export const postApiRequest = (path, body, token) => {
   const api = createApiInstance(token);
   return new Promise(resolve => {
     api
-      .post(path, body)
+      .post(addNoCache(path), body)
       .then(res => {
         resolve({ status: res.status, data: res.data });
       })
@@ -88,7 +95,7 @@ export const putApiRequest = (path, body, token) => {
   const api = createApiInstance(token);
   return new Promise(resolve => {
     api
-      .put(path, body)
+      .put(addNoCache(path), body)
       .then(res => {
         resolve({ status: res.status, data: res.data });
       })
@@ -100,7 +107,7 @@ export const deleteApiRequest = (path, token) => {
   const api = createApiInstance(token);
   return new Promise(resolve => {
     api
-      .delete(path)
+      .delete(addNoCache(path))
       .then(res => {
         resolve({ status: res.status, data: res.data });
       })

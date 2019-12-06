@@ -15,6 +15,8 @@ storiesOf('Molecules(LV2)/Forms/ButtonCaption', module).add(
   `)(() => (
     <div style={{ padding: `${Dimens.storyBookPadding}` }}>
       <ButtonCaption caption="60秒で簡単登録" text="保管スペースを探す" />
+      <br />
+      <ButtonCaption caption="60秒で簡単登録" text="保管スペースを探す" isNoArrow />
     </div>
   )),
 );
