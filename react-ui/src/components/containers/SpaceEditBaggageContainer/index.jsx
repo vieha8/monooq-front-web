@@ -13,6 +13,7 @@ import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 import { spaceActions } from '../../../redux/modules/space';
 
 const Validate = {
+  Address: `(...??[都道府県])((?:旭川|伊達|石狩|盛岡|奥州|田村|南相馬|那須塩原|東村山|武蔵村山|羽村|十日町|上越|富山|野々市|大町|蒲郡|四日市|姫路|大和郡山|廿日市|下松|岩国|田川|大村)市|.+?郡(?:玉村|大町|.+?)[町村]|.+?市.+?区|.+?[市区町村郡])(\\D+)(.*)`,
   About: {
     Max: 5000,
   },
@@ -25,6 +26,7 @@ class SpaceEditBaggageContainer extends Component {
     const { space, dispatch } = this.props;
 
     this.state = {
+      address: space.address || '',
       about: space.about || '',
       isFurniture: space.isFurniture || false,
       error: {},
@@ -68,11 +70,12 @@ class SpaceEditBaggageContainer extends Component {
 
   onClickNext = () => {
     const { dispatch, history, space } = this.props;
-    const { about, isFurniture, isUpdate } = this.state;
+    const { address, about, isFurniture, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
+          address,
           about,
           isFurniture,
         }),
@@ -106,6 +109,16 @@ class SpaceEditBaggageContainer extends Component {
     const errors = [];
 
     switch (propName) {
+      case 'address':
+        if (!value || value.trim().length === 0) {
+          errors.push(ErrorMessages.PleaseInput);
+        } else {
+          const match = value ? value.match(Validate.Address) : '';
+          if (!match || (match && match[4] === '')) {
+            errors.push(ErrorMessages.InvalidAddress);
+          }
+        }
+        break;
       case 'about':
         if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
@@ -123,8 +136,12 @@ class SpaceEditBaggageContainer extends Component {
   };
 
   validate = () => {
-    const { about } = this.state;
+    const { address, about } = this.state;
+    const AddressMatch = address ? address.match(Validate.Address) : '';
     return (
+      address &&
+      (address === undefined ? false : address.trim().length > 0) &&
+      (AddressMatch ? AddressMatch[4] !== '' : false) &&
       about &&
       (about === undefined ? false : about.trim().length > 0) &&
       about.trim().length <= Validate.About.Max
@@ -133,7 +150,7 @@ class SpaceEditBaggageContainer extends Component {
 
   render() {
     const { space } = this.props;
-    const { isUpdate, about, isFurniture, error } = this.state;
+    const { isUpdate, address, about, isFurniture, error } = this.state;
 
     if (!isUpdate && Object.keys(space).length === 0) {
       // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
@@ -143,6 +160,8 @@ class SpaceEditBaggageContainer extends Component {
     return (
       <SpaceEditBaggage
         errors={error}
+        address={address}
+        onChangeAddress={v => this.handleChangeUI('address', v)}
         baggage={about}
         onChangeBaggage={v => this.handleChangeUI('about', v)}
         checkedFurniture={isFurniture}

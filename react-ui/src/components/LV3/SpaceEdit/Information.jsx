@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
 import { H1 } from 'components/LV1/Texts/Headline';
-import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
+import Tag from 'components/LV1/Texts/Tag';
+import TagCheckboxList from 'components/LV2/Lists/TagCheckboxList';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ImagePickerSpace from 'components/LV2/ImagePickerSpace';
@@ -26,6 +27,10 @@ const TopImage = styled.img`
   `};
 `;
 
+const TagListWrap = styled.div`
+  margin: ${Dimens.medium1}px auto 0;
+`;
+
 const ButtonWrap = styled.div`
   max-width: 240px;
   margin: auto;
@@ -37,10 +42,8 @@ const ButtonWrap = styled.div`
 export default ({
   edit,
   errors,
-  address,
-  onChangeAddress,
-  type,
-  onChangeType,
+  status,
+  onChangeStatus,
   title,
   onChangeTitle,
   images,
@@ -49,7 +52,12 @@ export default ({
   isImageUploading,
   introduction,
   onChangeIntroduction,
-  OnClickRemove,
+  breadth,
+  onChangeBreadth,
+  tagList,
+  tagCustom,
+  onChangeTagCustom,
+  tagCustomList,
   onClickNext,
   onKeyDownButtonNext,
   buttonNextDisabled,
@@ -69,6 +77,39 @@ export default ({
       <ErrorList keyName="image_errors" errors={errors.images} />
     </Section>
     <Section>
+      <Select
+        label="ステータス"
+        options={[
+          {
+            value: 0,
+            text: '空室',
+          },
+          {
+            value: 1,
+            text: '満室',
+          },
+          {
+            value: 2,
+            text: '要相談',
+          },
+        ]}
+        value={status}
+        onChange={e => onChangeStatus(e.target.value)}
+      />
+      <ErrorList keyName="status_errors" errors={errors.status} />
+    </Section>
+    <Section>
+      <InputForm
+        label="タイトル"
+        placeholder="例)【6畳】世田谷エリア、搬入の楽な1階スペース"
+        hintbottom="全角20文字まで"
+        hintBottomRight
+        value={title}
+        onChange={e => onChangeTitle(e.target.value)}
+      />
+      <ErrorList keyName="title_errors" errors={errors.title} />
+    </Section>
+    <Section>
       <InputForm
         label="スペースの紹介文"
         placeholder="例) 世田谷エリアにある6畳ほどのワンルームです。会社員のため平日は夜間の対応、土日は終日可能です。大事なお荷物、責任もってお預かりしますのでお気軽に問い合わせください！"
@@ -80,18 +121,8 @@ export default ({
       <ErrorList keyName="introduction_errors" errors={errors.introduction} />
     </Section>
     <Section>
-      <InputForm
-        label="所在地"
-        hintbottom="取引が成立するまで番地以降の住所は表示されません。番地は半角数字で入力してください。"
-        placeholder="例）東京都渋谷区渋谷2-6-6-201"
-        value={address}
-        onChange={e => onChangeAddress(e.target.value)}
-      />
-      <ErrorList keyName="address_errors" errors={errors.address} />
-    </Section>
-    <Section>
       <Select
-        label="スペースの種類"
+        label="スペースの広さ"
         options={[
           {
             value: 3,
@@ -110,53 +141,39 @@ export default ({
             text: 'その他',
           },
         ]}
-        value={type}
-        onChange={e => onChangeType(e.target.value)}
+        value={breadth}
+        onChange={e => onChangeBreadth(e.target.value)}
       />
-      <ErrorList keyName="type_errors" errors={errors.type} />
+      <ErrorList keyName="breadth_errors" errors={errors.breadth} />
     </Section>
     <Section>
+      <TagCheckboxList tagList={tagList} />
       <InputForm
-        label="タイトル"
-        placeholder="例)【6畳】世田谷エリア、搬入の楽な1階スペース"
-        value={title}
-        onChange={e => onChangeTitle(e.target.value)}
+        placeholder="タグを追加する (全角8文字まで)"
+        value={tagCustom}
+        onChange={e => onChangeTagCustom(e.target.value)}
       />
-      <ErrorList keyName="title_errors" errors={errors.title} />
+      {tagCustomList && (
+        <Fragment>
+          <TagListWrap>
+            <Tag tagList={tagCustomList} />
+          </TagListWrap>
+        </Fragment>
+      )}
     </Section>
     <Section>
-      {edit ? (
-        <ButtonEntry
-          enabled
-          relative
-          remove
-          backButton={{
-            text: 'このスペースを削除する',
-            modalTitle: 'スペース削除',
-            modalText: '登録済みのスペースを削除します。よろしいですか？',
-            onClick: OnClickRemove,
-          }}
-          enabledButton={{
-            text: '次へ',
-            onClick: onClickNext,
-            onKeyDown: onKeyDownButtonNext,
-            disabled: buttonNextDisabled,
-          }}
-        />
-      ) : (
-        <ButtonWrap>
-          <Button
-            primary
-            fontbold
-            fill={1}
-            onClick={onClickNext}
-            onKeyDown={onKeyDownButtonNext}
-            disabled={buttonNextDisabled}
-          >
-            次へ
-          </Button>
-        </ButtonWrap>
-      )}
+      <ButtonWrap>
+        <Button
+          primary
+          fontbold
+          fill={1}
+          onClick={onClickNext}
+          onKeyDown={onKeyDownButtonNext}
+          disabled={buttonNextDisabled}
+        >
+          次へ
+        </Button>
+      </ButtonWrap>
     </Section>
   </div>
 );

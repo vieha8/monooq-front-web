@@ -8,4 +8,7 @@ export default {
   typeReceiptAll: '1',
   typeReceiptOnlyFTF: '2',
   typeReceiptOnlyDelivery: '3',
+  statusVacancy: '0',
+  statusNoVacancy: '1',
+  statusConsultationRequired: '0',
 };

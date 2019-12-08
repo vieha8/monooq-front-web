@@ -18,7 +18,6 @@ import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 
 const Validate = {
-  Address: `(...??[都道府県])((?:旭川|伊達|石狩|盛岡|奥州|田村|南相馬|那須塩原|東村山|武蔵村山|羽村|十日町|上越|富山|野々市|大町|蒲郡|四日市|姫路|大和郡山|廿日市|下松|岩国|田川|大村)市|.+?郡(?:玉村|大町|.+?)[町村]|.+?市.+?区|.+?[市区町村郡])(\\D+)(.*)`,
   Title: {
     Max: 200,
   },
@@ -26,6 +25,57 @@ const Validate = {
     Max: 5000,
   },
 };
+
+const TagList = () => [
+  {
+    text: '4畳以上',
+    isChecked: true,
+    onClickCheckTown: () => console.log('onClickCheckTown'),
+    options: { code: 1 },
+  },
+  {
+    text: 'エレベータあり',
+    isChecked: true,
+    onClickCheckTown: () => console.log('onClickCheckTown'),
+    options: { code: 2 },
+  },
+  {
+    text: '1階',
+    isChecked: true,
+    onClickCheckTown: () => console.log('onClickCheckTown'),
+    options: { code: 3 },
+  },
+  {
+    text: '駐車スペースあり',
+    isChecked: false,
+    onClickCheckTown: () => console.log('onClickCheckTown'),
+    options: { code: 4 },
+  },
+  {
+    text: '換気可',
+    isChecked: false,
+    onClickCheckTown: () => console.log('onClickCheckTown'),
+    options: { code: 5 },
+  },
+  {
+    text: '出し入れ可',
+    isChecked: true,
+    onClickCheckTown: () => console.log('onClickCheckTown'),
+    options: { code: 6 },
+  },
+];
+
+const TagCustomList = () => [
+  '4畳以上',
+  '1階',
+  'ダンボール1箱〜',
+  '4畳以上4畳以上4畳以上',
+  '1階1階',
+  'ダンボール1箱〜ダンボール1箱〜ダンボール1箱〜',
+  '4畳以上',
+  '1階',
+  'ダンボール1箱〜',
+];
 
 class SpaceEditInformationContainer extends Component {
   constructor(props) {
@@ -37,15 +87,18 @@ class SpaceEditInformationContainer extends Component {
 
     this.state = {
       images: space.images || [],
+      status: space.status || `${FormValues.statusVacancy}`,
       title: space.title || '',
-      type: space.type || `${FormValues.typeSpaceRoom}`,
       introduction: space.introduction || '',
-      address: space.address || '',
+      breadth: space.Breadth || 0,
       error: {},
       isImageUploading: false,
       errorModal: false,
       isNoProfile: false,
       isUpdate: false,
+      tagList: TagList(), // TODO: 【API連携】タグ
+      tagCustom: '',
+      tagCustomList: TagCustomList(), // TODO: 【API連携】タグ
     };
 
     if (spaceId) {
@@ -74,10 +127,9 @@ class SpaceEditInformationContainer extends Component {
     if (user.name === '') {
       this.setState({ errorModal: true, isNoProfile: true });
     } else if (!isUpdate) {
-      const { title, introduction, address, images } = this.state;
+      const { title, introduction, images } = this.state;
       this.handleChangeUI('title', title);
       this.handleChangeUI('introduction', introduction);
-      this.handleChangeUI('address', address);
       this.handleChangeUI('images', images);
     }
   }
@@ -89,8 +141,8 @@ class SpaceEditInformationContainer extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.id && !prevState.id) {
-      const { title, type, introduction, address, images, id } = space;
-      return { title, type, introduction, address, images, id };
+      const { title, status, introduction, breadth, tagCustom, images, id } = space;
+      return { title, status, introduction, breadth, tagCustom, images, id };
     }
     return null;
   }
@@ -155,7 +207,7 @@ class SpaceEditInformationContainer extends Component {
   onClickNext = () => {
     const { state } = this;
     const { dispatch, history, space } = this.props;
-    const { images, title, type, introduction, address, isUpdate } = state;
+    const { images, title, status, introduction, breadth, tagCustom, isUpdate } = state;
 
     if (isUpdate) {
       if (images && images.length > 0 && isImageDefault(images[0].ImageUrl)) {
@@ -169,9 +221,10 @@ class SpaceEditInformationContainer extends Component {
         space: Object.assign(space, {
           images,
           title,
-          type: parseInt(type, 10),
+          status: parseInt(status, 10),
           introduction,
-          address,
+          breadth: parseInt(breadth, 10),
+          tagCustom,
         }),
       }),
     );
@@ -202,16 +255,6 @@ class SpaceEditInformationContainer extends Component {
           errors.push(ErrorMessages.LengthMax('紹介文', Validate.Introduction.Max));
         }
         break;
-      case 'address':
-        if (!value || value.trim().length === 0) {
-          errors.push(ErrorMessages.PleaseInput);
-        } else {
-          const match = value ? value.match(Validate.Address) : '';
-          if (!match || (match && match[4] === '')) {
-            errors.push(ErrorMessages.InvalidAddress);
-          }
-        }
-        break;
       case 'images':
         if (!value || value.length === 0) {
           errors.push(ErrorMessages.MustSpaceImage);
@@ -231,8 +274,7 @@ class SpaceEditInformationContainer extends Component {
   };
 
   validate = () => {
-    const { title, introduction, address, images } = this.state;
-    const AddressMatch = address ? address.match(Validate.Address) : '';
+    const { title, introduction, images } = this.state;
 
     return (
       title &&
@@ -241,9 +283,6 @@ class SpaceEditInformationContainer extends Component {
       introduction &&
       (introduction === undefined ? false : introduction.trim().length > 0) &&
       introduction.trim().length <= Validate.Introduction.Max &&
-      address &&
-      (address === undefined ? false : address.trim().length > 0) &&
-      (AddressMatch ? AddressMatch[4] !== '' : false) &&
       images &&
       images.length > 0 &&
       (isImageDefault(images[0].ImageUrl) ? images.length > 1 : true)
@@ -255,14 +294,17 @@ class SpaceEditInformationContainer extends Component {
     const {
       images,
       title,
-      type,
+      status,
       introduction,
-      address,
+      breadth,
       error,
       isImageUploading,
       errorModal,
       isNoProfile,
       isUpdate,
+      tagList,
+      tagCustom,
+      tagCustomList,
     } = this.state;
 
     let ImagesRender = images;
@@ -277,10 +319,8 @@ class SpaceEditInformationContainer extends Component {
         <SpaceEditInformation
           edit={isUpdate}
           errors={error}
-          address={address}
-          onChangeAddress={v => this.handleChangeUI('address', v)}
-          type={type}
-          onChangeType={v => this.handleChangeUI('type', v)}
+          status={status}
+          onChangeStatus={v => this.handleChangeUI('status', v)}
           title={title}
           onChangeTitle={v => this.handleChangeUI('title', v)}
           images={ImagesRender.map(image => ({
@@ -291,10 +331,16 @@ class SpaceEditInformationContainer extends Component {
           isImageUploading={isImageUploading}
           introduction={introduction}
           onChangeIntroduction={v => this.handleChangeUI('introduction', v)}
+          breadth={breadth}
+          onChangeBreadth={v => this.handleChangeUI('breadth', v)}
           OnClickRemove={() => this.onClickRemove(space)}
           onClickNext={this.onClickNext}
           onKeyDownButtonNext={this.onKeyDownButtonNext}
           buttonNextDisabled={isNoProfile || !this.validate()}
+          tagList={tagList}
+          tagCustom={tagCustom}
+          onChangeTagCustom={v => this.handleChangeUI('tagCustom', v)}
+          tagCustomList={tagCustomList}
         />
         <Modal size="large" open={errorModal} onClose={this.close}>
           <Modal.Header>プロフィールをご登録ください</Modal.Header>
@@ -328,5 +374,6 @@ const mapStateToProps = state => ({
 export default authRequired(
   ContentPageMenu(connect(mapStateToProps)(SpaceEditInformationContainer), {
     noFooter: true,
+    maxWidth: 540,
   }),
 );

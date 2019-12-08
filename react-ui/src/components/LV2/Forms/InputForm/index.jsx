@@ -25,6 +25,11 @@ const UnitWrapper = styled.div`
 
 const HintBottomWrap = styled.div`
   margin-top: ${Dimens.small}px;
+  ${props =>
+    props.hintBottomRight &&
+    `
+      text-align: right;
+    `};
 `;
 
 export default ({
@@ -47,6 +52,7 @@ export default ({
   type,
   autoComplete,
   hintbottom,
+  hintBottomRight,
   unit,
   className,
 }) => (
@@ -82,7 +88,7 @@ export default ({
       </InputFieldWrapper>
     )}
     {hintbottom && (
-      <HintBottomWrap>
+      <HintBottomWrap hintBottomRight={hintBottomRight}>
         <InlineText.Tiny>{hintbottom}</InlineText.Tiny>
       </HintBottomWrap>
     )}

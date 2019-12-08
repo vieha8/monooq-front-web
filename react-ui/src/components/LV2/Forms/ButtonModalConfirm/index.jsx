@@ -3,7 +3,10 @@ import { Modal, Button } from 'semantic-ui-react';
 import ButtonLV1 from 'components/LV1/Forms/Button';
 
 class ButtonModalConfirm extends Component {
-  state = { open: false };
+  constructor(props) {
+    super(props);
+    this.state = { open: false };
+  }
 
   open = () => this.setState({ open: true });
 

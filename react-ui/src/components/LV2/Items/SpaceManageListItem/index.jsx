@@ -17,7 +17,17 @@ const Cell = styled.div`
   }
 `;
 
-export default ({ image, address, content, furniture, prices, link, status, onClickEdit }) => (
+export default ({
+  image,
+  address,
+  content,
+  furniture,
+  prices,
+  link,
+  status,
+  onClickRemove,
+  onClickEdit,
+}) => (
   <Container>
     <Cell>
       <PlaceListVerticalItem
@@ -30,7 +40,7 @@ export default ({ image, address, content, furniture, prices, link, status, onCl
         status={status}
         manage
       />
-      <ButtonManage onClickEdit={onClickEdit} fontBold />
+      <ButtonManage onClickRemove={onClickRemove} onClickEdit={onClickEdit} />
     </Cell>
   </Container>
 );

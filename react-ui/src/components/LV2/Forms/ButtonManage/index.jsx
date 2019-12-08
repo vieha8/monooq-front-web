@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/LV1/Forms/Button';
 import { PrimaryButton } from 'components/LV1/Forms/Button/Primary';
+import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import { Colors } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 
 const Container = styled.div`
-  max-width: 240px;
   margin: 20px auto auto;
   ${media.tablet`
       max-width: 100%;
@@ -39,12 +39,31 @@ const PrivateButton = styled(PrimaryButton)`
   `};
 `;
 
-export default ({ onClickEdit, statusPrivate, onClickPublic, statusPublic, onClickPrivate }) => (
+export default ({
+  onClickRemove,
+  onClickEdit,
+  statusPrivate,
+  onClickPublic,
+  statusPublic,
+  onClickPrivate,
+}) => (
   <Container>
     <Wrapper>
-      <Button primary fontbold fill={1} onClick={onClickEdit}>
-        編集する
-      </Button>
+      <ButtonEntry
+        enabled
+        relative
+        remove
+        backButton={{
+          text: 'このスペースを削除する',
+          modalTitle: 'スペース削除',
+          modalText: '登録済みのスペースを削除します。よろしいですか？',
+          onClick: onClickRemove,
+        }}
+        enabledButton={{
+          text: '編集する',
+          onClick: onClickEdit,
+        }}
+      />
     </Wrapper>
     <Wrapper>
       {statusPrivate && (

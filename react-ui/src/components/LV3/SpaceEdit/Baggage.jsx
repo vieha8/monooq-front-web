@@ -12,6 +12,8 @@ const CheckWrapper = styled.div`
 
 export default ({
   errors,
+  address,
+  onChangeAddress,
   baggage,
   onChangeBaggage,
   checkedFurniture,
@@ -24,6 +26,16 @@ export default ({
   buttonNextDisabled,
 }) => (
   <div>
+    <Section>
+      <InputForm
+        label="所在地"
+        hintbottom="取引が成立するまで番地以降の住所は表示されません。番地は半角数字で入力してください。"
+        placeholder="例）東京都渋谷区渋谷2-6-6-201"
+        value={address}
+        onChange={e => onChangeAddress(e.target.value)}
+      />
+      <ErrorList keyName="address_errors" errors={errors.address} />
+    </Section>
     <Section>
       <InputForm
         label="このスペースで預かれる荷物"
