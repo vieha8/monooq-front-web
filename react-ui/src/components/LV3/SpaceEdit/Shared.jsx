@@ -28,7 +28,7 @@ export const PageHeader = property => {
 };
 
 export const Section = styled.div`
-  max-width: 500px;
+  max-width: 540px;
   margin: auto;
   margin-top: ${props => props.marginTop || Dimens.medium2}px;
   ${media.phone`

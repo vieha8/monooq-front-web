@@ -284,6 +284,7 @@ export default ({
   priceTatami,
   priceFull,
   tagList,
+  tagCustomList,
   breadcrumbsList,
   user,
   description,

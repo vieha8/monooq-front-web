@@ -26,7 +26,7 @@ const Validate = {
   },
 };
 
-const TagList = () => [
+const TagList = [
   {
     text: '4畳以上',
     isChecked: true,
@@ -65,7 +65,7 @@ const TagList = () => [
   },
 ];
 
-const TagCustomList = () => [
+const TagCustomList = [
   '4畳以上',
   '1階',
   'ダンボール1箱〜',
@@ -84,21 +84,20 @@ class SpaceEditInformationContainer extends Component {
     const { dispatch, space } = this.props;
 
     const spaceId = props.match.params.space_id;
-
     this.state = {
       images: space.images || [],
       status: space.status || `${FormValues.statusVacancy}`,
       title: space.title || '',
       introduction: space.introduction || '',
-      breadth: space.Breadth || 0,
+      breadth: space.breadth ? space.breadth : `${FormValues.breadthRoom}`,
       error: {},
       isImageUploading: false,
       errorModal: false,
       isNoProfile: false,
       isUpdate: false,
-      tagList: TagList(), // TODO: 【API連携】タグ
+      tagList: TagList, // TODO: 【API連携】タグ
       tagCustom: '',
-      tagCustomList: TagCustomList(), // TODO: 【API連携】タグ
+      tagCustomList: TagCustomList, // TODO: 【API連携】タグ
     };
 
     if (spaceId) {
@@ -214,7 +213,7 @@ class SpaceEditInformationContainer extends Component {
   onClickNext = () => {
     const { state } = this;
     const { dispatch, history, space } = this.props;
-    const { images, title, status, introduction, breadth, tagCustom, isUpdate } = state;
+    const { images, title, status, introduction, breadth, tagList, tagCustom, isUpdate } = state;
 
     if (isUpdate) {
       if (images && images.length > 0 && isImageDefault(images[0].ImageUrl)) {
@@ -222,15 +221,16 @@ class SpaceEditInformationContainer extends Component {
         images.shift();
       }
     }
-
+    console.log(`breadth:${breadth}`);
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
           images,
           title,
-          status: parseInt(status, 10),
+          status: parseInt(status, 10) || FormValues.statusVacancy,
           introduction,
-          breadth: parseInt(breadth, 10),
+          breadth: parseInt(breadth, 10) || FormValues.breadthRoom,
+          tagList,
           tagCustom,
         }),
       }),

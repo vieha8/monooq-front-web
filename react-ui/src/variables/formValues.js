@@ -14,4 +14,8 @@ export default {
   receiveAll: '1',
   receiveFaceToFace: '2',
   receiveDelivery: '3',
+  breadthRoom: '3',
+  breadthCloset: '1',
+  breadthOutdoorWarehouse: '4',
+  breadthOther: '5',
 };
