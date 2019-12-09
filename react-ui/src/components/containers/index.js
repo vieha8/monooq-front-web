@@ -20,7 +20,6 @@ import Estimate from './EstimateContainer';
 import Payment from './PaymentContainer';
 import SpaceEditInformation from './SpaceEditInformationContainer';
 import SpaceEditAddressMethod from './SpaceEditAddressMethodContainer';
-import SpaceEditReceive from './SpaceEditReceiveContainer';
 import SpaceEditPriceType from './SpaceEditPriceTypeContainer';
 import SpaceEditConfirm from './SpaceEditConfirmContainer';
 import SpaceEditCompletion from './SpaceEditCompletionContainer';
@@ -50,7 +49,6 @@ export default {
   Payment,
   SpaceEditInformation,
   SpaceEditAddressMethod,
-  SpaceEditReceive,
   SpaceEditPriceType,
   SpaceEditConfirm,
   SpaceEditCompletion,

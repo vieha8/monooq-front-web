@@ -78,12 +78,6 @@ const SpaceEditAddressMethod = loadable(() =>
     window.location.reload(),
   ),
 );
-const CreateSpaceReceive = loadable(() =>
-  import('components/containers/SpaceEditReceiveContainer').catch(() => window.location.reload()),
-);
-const SpaceEditReceive = loadable(() =>
-  import('components/containers/SpaceEditReceiveContainer').catch(() => window.location.reload()),
-);
 const CreateSpacePriceType = loadable(() =>
   import('components/containers/SpaceEditPriceTypeContainer').catch(() => window.location.reload()),
 );
@@ -180,8 +174,6 @@ export default ({ history }) => (
       <Route exact path={Path.spaceEditInfo()} component={SpaceEditInfo} />
       <Route exact path={Path.createSpaceAddressMethod()} component={CreateSpaceAddressMethod} />
       <Route exact path={Path.spaceEditAddressMethod()} component={SpaceEditAddressMethod} />
-      <Route exact path={Path.createSpaceReceive()} component={CreateSpaceReceive} />
-      <Route exact path={Path.spaceEditReceive()} component={SpaceEditReceive} />
       <Route exact path={Path.createSpacePrice()} component={CreateSpacePriceType} />
       <Route exact path={Path.spaceEditPrice()} component={SpaceEditPriceType} />
       <Route exact path={Path.createSpaceConfirm()} component={CreateSpaceConfirm} />

@@ -6,13 +6,11 @@ import { Dimens } from 'variables';
 
 import Information from './Information';
 import AddressMethod from './AddressMethod';
-import Receive from './Receive';
 import InputPriceType from './InputPriceType';
 import Completion from './Completion';
 
 Information.displayName = 'Information';
 AddressMethod.displayName = 'AddressMethod';
-Receive.displayName = 'Receive';
 InputPriceType.displayName = 'InputPriceType';
 Completion.displayName = 'Completion';
 
@@ -136,28 +134,6 @@ storiesOf('Organisms(LV3)/SpaceEdit', module)
           priceTatami={3123}
           onChangePriceTatami={() => console.log('onChangePriceTatami')}
           buttonLoading={false}
-          onClickBack={() => console.log('onClickBack')}
-          onKeyDownButtonBack={() => console.log('onKeyDownButtonBack')}
-          onClickNext={() => console.log('onClickNext')}
-          onKeyDownButtonNext={() => console.log('onKeyDownButtonNext')}
-          buttonNextDisabled={false}
-        />
-      </div>
-    )),
-  )
-  .add(
-    'Receive',
-    withInfo(`
-        ### コンポーネント概要
-        スペース編集フォーム(荷物の受け取り)
-      `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Receive
-          errors={[]}
-          receive={0}
-          onChangeReceive={() => console.log('onChangeReceive')}
-          receiveAbout="receive text"
-          onChangeReceiveAbout={() => console.log('onChangeReceiveAbout')}
           onClickBack={() => console.log('onClickBack')}
           onKeyDownButtonBack={() => console.log('onKeyDownButtonBack')}
           onClickNext={() => console.log('onClickNext')}
