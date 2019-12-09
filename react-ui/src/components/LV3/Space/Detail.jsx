@@ -24,14 +24,13 @@ import ImageLogoPayEcontext from 'images/logo-pay-econtext.svg';
 import SearchResult from '../SearchResult';
 
 const Container = styled.div`
-  ${'' /* max-width: 600px; */}
   margin: auto;
   padding: 0;
   ${media.tablet`
     ${props =>
       props.confirm &&
       `
-      padding: ${Dimens.small2}px 0 140px;
+      padding: 0 0 140px;
     `};
   `};
 `;
@@ -118,7 +117,7 @@ const RightInner = styled.div`
     `
     position: fixed;
     max-width: 330px;
-    top: 100px;
+    top: ${props.confirm ? `190` : `100`}px;
     z-index: ${ZIndexes.frontPartsOverFooter};
     background-color: ${Colors.white};
     border-radius: ${Dimens.xxsmall}px;
@@ -313,11 +312,13 @@ export default ({
         </AvailabilityWrap>
         <SpaceTitleWrapper>
           <SpaceTitle>{name || ''}</SpaceTitle>
-          <BreadcrumbsList
-            breadcrumbsList={breadcrumbsList}
-            separatorLandscape
-            fontColor={Colors.lightGray3}
-          />
+          {breadcrumbsList && (
+            <BreadcrumbsList
+              breadcrumbsList={breadcrumbsList}
+              separatorLandscape
+              fontColor={Colors.lightGray3}
+            />
+          )}
         </SpaceTitleWrapper>
         <InfoHost {...user} infoHost isNoProfile />
         <SectionHeader>スペース概要</SectionHeader>
@@ -395,7 +396,7 @@ export default ({
         </AttentionWrap>
       </LeftWrap>
       <RightWrap>
-        <RightInner isOverTopView={isOverTopView}>
+        <RightInner isOverTopView={isOverTopView} confirm={confirm}>
           <RequestCard>
             気になるスペースを見つけたら？
             <RequestTitle>ホストに相談しよう</RequestTitle>
@@ -413,7 +414,7 @@ export default ({
                 primary
                 fontbold
                 fill={1}
-                disabled={requestButtondisabled}
+                disabled={confirm || requestButtondisabled}
                 loading={requestButtonloading}
                 onClick={requestButtononClick}
                 onKeyDown={onKeyDownButtonRequest}

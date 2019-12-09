@@ -3,20 +3,20 @@ import styled from 'styled-components';
 import Button from 'components/LV1/Forms/Button';
 import { PrimaryButton } from 'components/LV1/Forms/Button/Primary';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
-import { Colors } from 'variables';
+import { Dimens, Colors } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 
 const Container = styled.div`
-  margin: 20px auto auto;
+  margin: ${Dimens.small_10}px auto ${Dimens.medium4_50}px;
   ${media.tablet`
       max-width: 100%;
-      margin: 10px auto auto;
+      margin: ${Dimens.xxsmall_5}px auto ${Dimens.medium1_25}px;
   `};
 `;
 
 const Wrapper = styled.div`
   &:not(:first-child) {
-    margin-top: 10px;
+    margin-top: ${Dimens.small_10}px;
   }
 `;
 

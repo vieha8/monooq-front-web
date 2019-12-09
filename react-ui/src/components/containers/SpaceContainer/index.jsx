@@ -96,35 +96,6 @@ class SpaceContainer extends Component {
     );
   };
 
-  scrollTop = () => {
-    const isWebKit = this.browser ? this.browser.isWebKit : false;
-    let tgt;
-
-    if ('scrollingElement' in document) {
-      tgt = document.scrollingElement;
-    } else if (isWebKit) {
-      tgt = document.body;
-    } else {
-      tgt = document.documentElement;
-    }
-    const scrollTop = (tgt && tgt.scrollTop) || 0;
-    return Math.max(window.pageYOffset, scrollTop);
-  };
-
-  watchCurrentPosition() {
-    if (window.parent.screen.width > 768) {
-      const positionScroll = this.scrollTop();
-      if (this._isMounted) {
-        this.setState({ isOverTopView: false });
-      }
-      if (positionScroll > 485) {
-        if (this._isMounted) {
-          this.setState({ isOverTopView: true });
-        }
-      }
-    }
-  }
-
   onClickSendMessage = async () => {
     const { dispatch, location, user, space, history } = this.props;
     // 未ログインの場合はログイン画面へ
@@ -251,6 +222,35 @@ class SpaceContainer extends Component {
       </Fragment>
     );
   };
+
+  scrollTop = () => {
+    const isWebKit = this.browser ? this.browser.isWebKit : false;
+    let tgt;
+
+    if ('scrollingElement' in document) {
+      tgt = document.scrollingElement;
+    } else if (isWebKit) {
+      tgt = document.body;
+    } else {
+      tgt = document.documentElement;
+    }
+    const scrollTop = (tgt && tgt.scrollTop) || 0;
+    return Math.max(window.pageYOffset, scrollTop);
+  };
+
+  watchCurrentPosition() {
+    if (window.parent.screen.width > 768) {
+      const positionScroll = this.scrollTop();
+      if (this._isMounted) {
+        this.setState({ isOverTopView: false });
+      }
+      if (positionScroll > 485) {
+        if (this._isMounted) {
+          this.setState({ isOverTopView: true });
+        }
+      }
+    }
+  }
 
   render() {
     const { space } = this.props;

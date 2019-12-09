@@ -6,6 +6,7 @@ import Secondary from './Secondary';
 import Tertiary from './Tertiary';
 import Quaternary from './Quaternary';
 import Quinary from './Quinary';
+import Senary from './Senary';
 import Facebook from './Facebook';
 import Twitter from './Twitter';
 import Line from './Line';
@@ -29,7 +30,17 @@ const handleText = ({ loading, children }) => {
 };
 
 export default ({ loading, ...props }) => {
-  const { secondary, tertiary, quaternary, quinary, facebook, twitter, line, areaPin } = props;
+  const {
+    secondary,
+    tertiary,
+    quaternary,
+    quinary,
+    senary,
+    facebook,
+    twitter,
+    line,
+    areaPin,
+  } = props;
   if (secondary) {
     return (
       <Secondary {...props} onClick={handleOnClick(props)}>
@@ -56,6 +67,13 @@ export default ({ loading, ...props }) => {
       <Quinary {...props} onClick={handleOnClick(props)}>
         {handleText({ ...props, loading })}
       </Quinary>
+    );
+  }
+  if (senary) {
+    return (
+      <Senary {...props} onClick={handleOnClick(props)}>
+        {handleText({ ...props, loading })}
+      </Senary>
     );
   }
   if (facebook) {

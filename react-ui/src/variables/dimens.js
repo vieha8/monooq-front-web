@@ -42,8 +42,10 @@ export default {
   large2_70: 70,
   large2_71: 71,
   large3: 74,
+  large3_76: 76,
   large4_80: 80,
   huge: 84,
+  huge_86: 86,
   fixedWidthPc: 1200,
   storyBookPadding: `20px 40px`,
 };

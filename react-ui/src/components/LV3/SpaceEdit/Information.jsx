@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
-import { H1 } from 'components/LV1/Texts/Headline';
 import Tag from 'components/LV1/Texts/Tag';
 import TagCheckboxList from 'components/LV2/Lists/TagCheckboxList';
 import InputForm from 'components/LV2/Forms/InputForm';
@@ -11,21 +10,7 @@ import ImagePickerSpace from 'components/LV2/ImagePickerSpace';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import ImageStatusEditSpace1 from 'images/status-edit-space1.svg';
 import { Dimens } from 'variables';
-import { Section } from './Shared';
-
-const PageHeader = styled.div`
-  text-align: center;
-`;
-
-const TopImage = styled.img`
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto ${Dimens.medium3_40}px;
-  ${media.phone`
-    margin: 0 auto ${Dimens.medium}px;
-    padding: 0 ${Dimens.medium}px;
-  `};
-`;
+import { PageHeader, Section } from './Shared';
 
 const TagListWrap = styled.div`
   margin: ${Dimens.medium1}px auto 0;
@@ -63,10 +48,7 @@ export default ({
   buttonNextDisabled,
 }) => (
   <div>
-    <PageHeader>
-      <TopImage src={ImageStatusEditSpace1} alt="image-edit-status" />
-      <H1 bold>{`スペース${edit ? '編集' : '登録'}`}</H1>
-    </PageHeader>
+    <PageHeader optionItem={{ src: ImageStatusEditSpace1, edit }} />
     <Section>
       <ImagePickerSpace
         images={images}

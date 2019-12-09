@@ -143,7 +143,9 @@ class SpaceEditPriceTypeContainer extends Component {
       }),
     );
 
-    const nextPath = isUpdate ? Path.spaceEditReceive(space.id) : Path.createSpaceReceive();
+    const nextPath = isUpdate
+      ? Path.spaceEditAddressMethod(space.id)
+      : Path.createSpaceAddressMethod();
     history.push(nextPath);
   };
 
@@ -211,6 +213,7 @@ class SpaceEditPriceTypeContainer extends Component {
 
     return (
       <SpaceEditInputPriceType
+        edit={isUpdate}
         errors={error}
         priceFull={priceFull}
         onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
@@ -239,8 +242,8 @@ const mapStateToProps = state => ({
 export default authRequired(
   handleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEditPriceTypeContainer), {
-      headline: 'スペース料金の設定',
       noFooter: true,
+      maxWidth: 540,
     }),
   ),
 );

@@ -5,13 +5,13 @@ import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
 import Information from './Information';
-import Baggage from './Baggage';
+import AddressMethod from './AddressMethod';
 import Receive from './Receive';
 import InputPriceType from './InputPriceType';
 import Completion from './Completion';
 
 Information.displayName = 'Information';
-Baggage.displayName = 'Baggage';
+AddressMethod.displayName = 'AddressMethod';
 Receive.displayName = 'Receive';
 InputPriceType.displayName = 'InputPriceType';
 Completion.displayName = 'Completion';
@@ -19,16 +19,16 @@ Completion.displayName = 'Completion';
 storiesOf('Organisms(LV3)/SpaceEdit', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
-    'Baggage',
+    'AddressMethod',
     withInfo(`
         ### コンポーネント概要
         スペース編集フォーム(荷物の内容)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Baggage
+        <AddressMethod
           errors={[]}
-          baggage="baggage text"
-          onChangeBaggage={() => console.log('onChangeBaggage')}
+          addressMethod="addressMethod text"
+          onChangeAddressMethod={() => console.log('onChangeAddressMethod')}
           checkedFurniture={false}
           onClickFurniture={() => console.log('onClickFurniture')}
           onKeyDownFurniture={() => console.log('onKeyDownFurniture')}

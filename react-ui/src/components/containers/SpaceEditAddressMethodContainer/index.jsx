@@ -3,13 +3,13 @@ import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-import SpaceEditBaggage from 'components/LV3/SpaceEdit/Baggage';
+import SpaceEditAddressMethod from 'components/LV3/SpaceEdit/AddressMethod';
 
 import { uiActions } from 'redux/modules/ui';
 import { ErrorMessages } from 'variables';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
-import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
+import { iskeyDownEnter } from 'helpers/keydown';
 import { spaceActions } from '../../../redux/modules/space';
 
 const Validate = {
@@ -19,7 +19,7 @@ const Validate = {
   },
 };
 
-class SpaceEditBaggageContainer extends Component {
+class SpaceEditAddressMethodContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -27,8 +27,8 @@ class SpaceEditBaggageContainer extends Component {
 
     this.state = {
       address: space.address || '',
-      about: space.about || '',
-      isFurniture: space.isFurniture || false,
+      receiveTypeType: space.receve || 1,
+      timezone: space.timezone || 1,
       error: {},
       isUpdate: false,
     };
@@ -39,13 +39,6 @@ class SpaceEditBaggageContainer extends Component {
       this.state.isUpdate = true;
     }
   }
-
-  onKeyDownFurniture = e => {
-    if (iskeyDownSpace(e)) {
-      const { isFurniture } = this.state;
-      this.handleChangeUI('isFurniture', !isFurniture);
-    }
-  };
 
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e) && this.validate()) {
@@ -62,39 +55,42 @@ class SpaceEditBaggageContainer extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.id && !prevState.id) {
-      const { about, isFurniture, id } = space;
-      return { about, isFurniture, id };
+      const { id } = space;
+      return { id };
     }
     return null;
   }
 
   onClickNext = () => {
     const { dispatch, history, space } = this.props;
-    const { address, about, isFurniture, isUpdate } = this.state;
+    const { address, receiveType, timezone, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
           address,
-          about,
-          isFurniture,
+          receiveType: parseInt(receiveType, 10),
+          timezone: parseInt(timezone, 10),
         }),
       }),
     );
 
-    const nextPath = isUpdate ? Path.spaceEditReceive(space.id) : Path.createSpaceReceive();
+    const nextPath = isUpdate
+      ? Path.spaceEditPrice(space.id, 'about')
+      : Path.createSpacePrice('about');
     history.push(nextPath);
   };
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { about, isFurniture, isUpdate } = this.state;
+    const { address, receiveType, timezone, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          about,
-          isFurniture,
+          address,
+          receiveType: parseInt(receiveType, 10),
+          timezone: parseInt(timezone, 10),
         }),
       }),
     );
@@ -119,13 +115,6 @@ class SpaceEditBaggageContainer extends Component {
           }
         }
         break;
-      case 'about':
-        if (!value || value.trim().length === 0) {
-          errors.push(ErrorMessages.PleaseInput);
-        } else if (value.length > Validate.About.Max) {
-          errors.push(ErrorMessages.LengthMax('説明', Validate.About.Max));
-        }
-        break;
       default:
         break;
     }
@@ -136,21 +125,18 @@ class SpaceEditBaggageContainer extends Component {
   };
 
   validate = () => {
-    const { address, about } = this.state;
+    const { address } = this.state;
     const AddressMatch = address ? address.match(Validate.Address) : '';
     return (
       address &&
       (address === undefined ? false : address.trim().length > 0) &&
-      (AddressMatch ? AddressMatch[4] !== '' : false) &&
-      about &&
-      (about === undefined ? false : about.trim().length > 0) &&
-      about.trim().length <= Validate.About.Max
+      (AddressMatch ? AddressMatch[4] !== '' : false)
     );
   };
 
   render() {
     const { space } = this.props;
-    const { isUpdate, address, about, isFurniture, error } = this.state;
+    const { isUpdate, address, receiveType, timeZone, error } = this.state;
 
     if (!isUpdate && Object.keys(space).length === 0) {
       // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
@@ -158,15 +144,15 @@ class SpaceEditBaggageContainer extends Component {
     }
 
     return (
-      <SpaceEditBaggage
+      <SpaceEditAddressMethod
+        edit={isUpdate}
         errors={error}
         address={address}
         onChangeAddress={v => this.handleChangeUI('address', v)}
-        baggage={about}
-        onChangeBaggage={v => this.handleChangeUI('about', v)}
-        checkedFurniture={isFurniture}
-        onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
-        onKeyDownFurniture={this.onKeyDownFurniture}
+        receiveType={receiveType}
+        onChangeReceiveType={v => this.handleChangeUI('receive', v)}
+        timezone={timeZone}
+        onChangeTimezone={v => this.handleChangeUI('timeZone', v)}
         onClickBack={this.onClickBack}
         onKeyDownButtonBack={this.onKeyDownButtonBack}
         onClickNext={this.onClickNext}
@@ -183,9 +169,9 @@ const mapStateToProps = state => ({
 
 export default authRequired(
   handleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEditBaggageContainer), {
-      headline: '預かれる荷物について',
+    ContentPageMenu(connect(mapStateToProps)(SpaceEditAddressMethodContainer), {
       noFooter: true,
+      maxWidth: 540,
     }),
   ),
 );

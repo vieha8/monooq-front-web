@@ -1,5 +1,7 @@
 export default {
   xsmall_8: 8,
+  xsmall_9: 9,
+  xsmall_10: 10,
   xsmall: 11,
   small_12: 12,
   small_13: 13,

@@ -4,6 +4,8 @@ import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
+import Button from 'components/LV1/Forms/Button';
+import InlineText from 'components/LV1/Texts/InlineText';
 import SpaceMap from 'components/LV1/SpaceMap';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
@@ -28,21 +30,65 @@ const ReceiptType = {
 
 const ConfirmMessage = styled.div`
   width: 100%;
-  height: 54px;
+  height: 86px;
   display: block;
   position: fixed;
   left: 0px;
   top: ${HeaderHeight}px;
   z-index: ${ZIndexes.frontParts};
-  text-align: center;
+  text-align: left;
   padding: ${Dimens.medium_17}px;
-  line-height: 22px;
-  font-size: ${FontSizes.small_15}px;
-  font-weight: bold;
+  line-height: normal;
+  font-size: ${FontSizes.medium_18}px;
   color: ${Colors.white};
-  background-color: ${Colors.brandPrimary};
+  background-color: ${Colors.green};
   ${media.tablet`
     top: ${HeaderHeightPhone}px;
+    height: 76px;
+    padding: ${Dimens.small2_14}px ${Dimens.medium}px;
+  `};
+`;
+
+const ConfirmMessageInner = styled.div`
+  max-width: 1022px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ConfirmMessageLeft = styled.div`
+  width: 100%;
+  max-width: 400px;
+  ${media.tablet`
+    margin-right: ${Dimens.small_10}px;
+  `};
+`;
+
+const OnlyPcTab = styled.div`
+  display: block;
+  ${media.tablet`
+    display: none;
+  `};
+`;
+
+const BrOnlySP = styled.br`
+  display: none;
+  ${media.phone`
+    display: block;
+  `};
+`;
+
+const ConfirmMessageRight = styled.div`
+  width: 100%;
+  max-width: 320px;
+  ${media.tablet`
+    max-width: 240px;
+  `};
+  ${media.phone`
+    max-width: 140px;
+  `};
+  ${media.phoneSmall`
+    max-width: 130px;
   `};
 `;
 
@@ -61,7 +107,10 @@ const EntryButtonWrap = styled.div`
 `;
 
 const Spacer = styled.div`
-  margin: ${Dimens.medium3_40}px auto 0;
+  margin: ${Dimens.huge_86}px auto 0;
+  ${media.tablet`
+    margin: ${Dimens.large3_76}px auto 0;
+  `};
 `;
 
 class SpaceEditConfirmContainer extends Component {
@@ -70,6 +119,7 @@ class SpaceEditConfirmContainer extends Component {
 
     this.state = {
       isUpdate: false,
+      isOverTopView: false,
     };
 
     const spaceId = props.match.params.space_id;
@@ -77,6 +127,16 @@ class SpaceEditConfirmContainer extends Component {
     if (spaceId) {
       this.state.isUpdate = true;
     }
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+    window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    window.removeEventListener('scroll', () => this.watchCurrentPosition(), true);
   }
 
   onKeyDownButtonNext = e => {
@@ -120,9 +180,38 @@ class SpaceEditConfirmContainer extends Component {
     history.push(nextPath);
   };
 
+  scrollTop = () => {
+    const isWebKit = this.browser ? this.browser.isWebKit : false;
+    let tgt;
+
+    if ('scrollingElement' in document) {
+      tgt = document.scrollingElement;
+    } else if (isWebKit) {
+      tgt = document.body;
+    } else {
+      tgt = document.documentElement;
+    }
+    const scrollTop = (tgt && tgt.scrollTop) || 0;
+    return Math.max(window.pageYOffset, scrollTop);
+  };
+
+  watchCurrentPosition() {
+    if (window.parent.screen.width > 768) {
+      const positionScroll = this.scrollTop();
+      if (this._isMounted) {
+        this.setState({ isOverTopView: false });
+      }
+      if (positionScroll > 485) {
+        if (this._isMounted) {
+          this.setState({ isOverTopView: true });
+        }
+      }
+    }
+  }
+
   render() {
     const { space, isLoading, isComplete } = this.props;
-    const { isUpdate } = this.state;
+    const { isUpdate, isOverTopView } = this.state;
 
     if (isUpdate) {
       if (!space.id) {
@@ -142,10 +231,44 @@ class SpaceEditConfirmContainer extends Component {
     const { user } = this.props;
     return (
       <Fragment>
-        <ConfirmMessage>実際にお客様にこのように表示されます</ConfirmMessage>
+        <ConfirmMessage>
+          <ConfirmMessageInner>
+            <ConfirmMessageLeft>
+              <OnlyPcTab>
+                <InlineText.Base color={Colors.white} fontSize={FontSizes.small} bold>
+                  まだ登録が終わっていませんか？
+                </InlineText.Base>
+                <br />
+              </OnlyPcTab>
+              <InlineText.Base
+                color={Colors.white}
+                fontSize={FontSizes.small}
+                fontSizeSp={FontSizes.xsmall_10}
+              >
+                まだ登録が終わってない場合は
+                <BrOnlySP />
+                下書き状態で保存ができます。
+              </InlineText.Base>
+            </ConfirmMessageLeft>
+            <ConfirmMessageRight>
+              <Button
+                senary
+                fontbold
+                fill={1}
+                // loading={loading}
+                // onClick={onClick}
+                // disabled={disabled}
+                // onKeyDown={onKeyDown}
+              >
+                下書き保存する
+              </Button>
+            </ConfirmMessageRight>
+          </ConfirmMessageInner>
+        </ConfirmMessage>
         <Spacer />
         <Detail
           confirm
+          isOverTopView={isOverTopView}
           id={space.id}
           map={<SpaceMap lat={space.lat} lng={space.lng} />}
           pref={space.addressPref}
@@ -156,11 +279,41 @@ class SpaceEditConfirmContainer extends Component {
             original: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
             thumbnail: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
           }))}
+          // TODO: 【API連携】ステータス(1:満室,2:要相談,これ以外:空室)
+          statusAvailability={0}
+          // TODO: 【API連携】パンくずリスト
+          breadcrumbsList={[
+            {
+              text: '神奈川県',
+            },
+            {
+              text: '川崎市',
+            },
+            {
+              text: '中原区',
+            },
+            {
+              text: '下沼部',
+            },
+          ]}
           description={space.introduction}
+          // TODO: 【API連携】スペースの広さ
+          breadth="4畳以上12畳未満"
+          // TODO:【API連携】タグ
+          tagList={[
+            '4畳以上',
+            '1階',
+            'ダンボール1箱〜',
+            '4畳以上4畳以上4畳以上',
+            '1階1階',
+            'ダンボール1箱〜ダンボール1箱〜ダンボール1箱〜',
+            '4畳以上',
+            '1階',
+            'ダンボール1箱〜',
+          ]}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
-          type={SPACE_TYPES[space.type]}
-          furniture={space.isFurniture}
-          baggage={space.about}
+          // type={SPACE_TYPES[space.type]}
+          addressMethod={space.about}
           delivery={
             space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
           }
@@ -175,12 +328,8 @@ class SpaceEditConfirmContainer extends Component {
             profile: user.profile,
           }}
           priceFull={numeral(space.priceFull).format('0,0')}
-          priceHalf={
-            formatRemoveComma(space.priceHalf) > 0 && numeral(space.priceHalf).format('0,0')
-          }
-          priceQuarter={
-            formatRemoveComma(space.priceQuarter) > 0 && numeral(space.priceQuarter).format('0,0')
-          }
+          // TODO: 【API連携】現状固定値なので、API連携する
+          priceTatami={numeral(3123).format('0,0')}
         />
         <EntryButtonWrap>
           <ButtonEntry
@@ -216,6 +365,8 @@ export default authRequired(
   handleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEditConfirmContainer), {
       noFooter: true,
+      maxWidth: 1440,
+      noMargin: true,
     }),
   ),
 );

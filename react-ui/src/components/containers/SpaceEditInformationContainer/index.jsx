@@ -153,6 +153,13 @@ class SpaceEditInformationContainer extends Component {
     history.push(Path.profileEdit());
   };
 
+  // onKeyDownFurniture = e => {
+  //   if (iskeyDownSpace(e)) {
+  //     const { isFurniture } = this.state;
+  //     this.handleChangeUI('isFurniture', !isFurniture);
+  //   }
+  // };
+
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e) && this.validate()) {
       this.onClickNext();
@@ -229,7 +236,9 @@ class SpaceEditInformationContainer extends Component {
       }),
     );
 
-    const nextPath = isUpdate ? Path.spaceEditBaggage(space.id) : Path.createSpaceBaggage();
+    const nextPath = isUpdate
+      ? Path.spaceEditAddressMethod(space.id)
+      : Path.createSpaceAddressMethod();
     history.push(nextPath);
   };
 
@@ -341,6 +350,10 @@ class SpaceEditInformationContainer extends Component {
           tagCustom={tagCustom}
           onChangeTagCustom={v => this.handleChangeUI('tagCustom', v)}
           tagCustomList={tagCustomList}
+          //TODO: チェックボックス系のイベント
+          //checkedFurniture={isFurniture}
+          //onKeyDownFurniture={this.onKeyDownFurniture}
+          // onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
         />
         <Modal size="large" open={errorModal} onClose={this.close}>
           <Modal.Header>プロフィールをご登録ください</Modal.Header>

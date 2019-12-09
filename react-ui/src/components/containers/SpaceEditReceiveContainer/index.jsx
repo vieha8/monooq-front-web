@@ -92,7 +92,9 @@ class SpaceEditReceiveContainer extends Component {
       }),
     );
 
-    const nextPath = isUpdate ? Path.spaceEditBaggage(space.id) : Path.createSpaceBaggage();
+    const nextPath = isUpdate
+      ? Path.spaceEditAddressMethod(space.id)
+      : Path.createSpaceAddressMethod();
     history.push(nextPath);
   };
 

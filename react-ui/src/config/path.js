@@ -18,13 +18,13 @@ export default {
   space: (spaceId = SPACE_ID) => `/space/${spaceId}`, // スペース詳細
   // スペース作成
   createSpaceInfo: () => '/space/new/info',
-  createSpaceBaggage: () => '/space/new/baggage',
+  createSpaceAddressMethod: () => '/space/new/addressmethod',
   createSpaceReceive: () => '/space/new/receive',
   createSpacePrice: () => `/space/new/price/about`,
   createSpaceConfirm: () => `/space/new/confirm`,
   createSpaceCompletion: () => '/space/new/completion',
   spaceEditInfo: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/info`,
-  spaceEditBaggage: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/baggage`,
+  spaceEditAddressMethod: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/addressMethod`,
   spaceEditReceive: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/receive`,
   spaceEditPrice: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/price/about`,
   spaceEditConfirm: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/confirm`,

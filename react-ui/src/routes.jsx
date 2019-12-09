@@ -68,11 +68,15 @@ const SpaceEditInfo = loadable(() =>
     window.location.reload(),
   ),
 );
-const CreateSpaceBaggage = loadable(() =>
-  import('components/containers/SpaceEditBaggageContainer').catch(() => window.location.reload()),
+const CreateSpaceAddressMethod = loadable(() =>
+  import('components/containers/SpaceEditAddressMethodContainer').catch(() =>
+    window.location.reload(),
+  ),
 );
-const SpaceEditBaggage = loadable(() =>
-  import('components/containers/SpaceEditBaggageContainer').catch(() => window.location.reload()),
+const SpaceEditAddressMethod = loadable(() =>
+  import('components/containers/SpaceEditAddressMethodContainer').catch(() =>
+    window.location.reload(),
+  ),
 );
 const CreateSpaceReceive = loadable(() =>
   import('components/containers/SpaceEditReceiveContainer').catch(() => window.location.reload()),
@@ -174,8 +178,8 @@ export default ({ history }) => (
       <Route exact path={Path.payment()} component={Payment} />
       <Route exact path={Path.createSpaceInfo()} component={CreateSpaceInfo} />
       <Route exact path={Path.spaceEditInfo()} component={SpaceEditInfo} />
-      <Route exact path={Path.createSpaceBaggage()} component={CreateSpaceBaggage} />
-      <Route exact path={Path.spaceEditBaggage()} component={SpaceEditBaggage} />
+      <Route exact path={Path.createSpaceAddressMethod()} component={CreateSpaceAddressMethod} />
+      <Route exact path={Path.spaceEditAddressMethod()} component={SpaceEditAddressMethod} />
       <Route exact path={Path.createSpaceReceive()} component={CreateSpaceReceive} />
       <Route exact path={Path.spaceEditReceive()} component={SpaceEditReceive} />
       <Route exact path={Path.createSpacePrice()} component={CreateSpacePriceType} />

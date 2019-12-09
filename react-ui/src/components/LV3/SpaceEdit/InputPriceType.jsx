@@ -6,8 +6,9 @@ import InputPriceOfType from 'components/LV2/Forms/InputPriceOfType';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureTatami from 'images/furniture-tatami.svg';
+import ImageStatusEditSpace3 from 'images/status-edit-space3.svg';
 import { Dimens } from 'variables';
-import { Section } from './Shared';
+import { PageHeader, Section } from './Shared';
 
 const CommissionWrap = styled.div`
   margin-bottom: ${Dimens.medium1}px;
@@ -26,6 +27,7 @@ const UnderLine = styled.span`
 `;
 
 export default ({
+  edit,
   errors,
   priceFull,
   onChangePriceFull,
@@ -39,16 +41,17 @@ export default ({
   buttonNextDisabled,
 }) => (
   <div>
+    <PageHeader optionItem={{ src: ImageStatusEditSpace3, edit }} />
     <Section marginTopSp={20}>
       <CaptionWrap>
-        <InlineText.Base>様々なご相談に対応できるように料金目安を設定しましょう。</InlineText.Base>
+        <InlineText.Base>様々なご相談に対応できるように料金を設定しましょう。</InlineText.Base>
       </CaptionWrap>
       <CaptionWrap sub>
         <InlineText.Tiny>
-          お客様によって荷物の内容が異なるので、スペースの広さに対する料金を設定してください。
+          ゲストによって荷物の内容が異なるので、スペースの広さに対する月額料金を設定してください。
           <br />
           <InlineText.Bold>
-            エリアや条件にもよりますが、目安は
+            地域や条件によりますが、目安は
             <UnderLine>1畳あたり約5,000〜7,000円/月</UnderLine>
             です。
           </InlineText.Bold>
