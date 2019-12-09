@@ -32,63 +32,63 @@ export default ({ loading, ...props }) => {
   const { secondary, tertiary, quaternary, quinary, facebook, twitter, line, areaPin } = props;
   if (secondary) {
     return (
-      <Secondary {...props} onClick={handleOnClick(props)}>
+      <Secondary {...props} onClick={handleOnClick({ ...props, loading })}>
         {handleText({ ...props, loading })}
       </Secondary>
     );
   }
   if (tertiary) {
     return (
-      <Tertiary {...props} onClick={handleOnClick(props)}>
+      <Tertiary {...props} onClick={handleOnClick({ ...props, loading })}>
         {handleText({ ...props, loading })}
       </Tertiary>
     );
   }
   if (quaternary) {
     return (
-      <Quaternary {...props} onClick={handleOnClick(props)}>
+      <Quaternary {...props} onClick={handleOnClick({ ...props, loading })}>
         {handleText({ ...props, loading })}
       </Quaternary>
     );
   }
   if (quinary) {
     return (
-      <Quinary {...props} onClick={handleOnClick(props)}>
+      <Quinary {...props} onClick={handleOnClick({ ...props, loading })}>
         {handleText({ ...props, loading })}
       </Quinary>
     );
   }
   if (facebook) {
     return (
-      <Facebook {...props} onClick={handleOnClick(props)} loading={loading}>
+      <Facebook {...props} onClick={handleOnClick({ ...props, loading })} loading={loading}>
         {handleText({ ...props, loading })}
       </Facebook>
     );
   }
   if (twitter) {
     return (
-      <Twitter {...props} onClick={handleOnClick(props)} loading={loading}>
+      <Twitter {...props} onClick={handleOnClick({ ...props, loading })} loading={loading}>
         {handleText({ ...props, loading })}
       </Twitter>
     );
   }
   if (line) {
     return (
-      <Line {...props} onClick={handleOnClick(props)}>
+      <Line {...props} onClick={handleOnClick({ ...props, loading })}>
         {handleText({ ...props, loading })}
       </Line>
     );
   }
   if (areaPin) {
     return (
-      <AreaPin {...props} onClick={handleOnClick(props)}>
+      <AreaPin {...props} onClick={handleOnClick({ ...props, loading })}>
         {handleText({ ...props, loading })}
       </AreaPin>
     );
   }
 
   return (
-    <Primary {...props} onClick={handleOnClick(props)}>
+    <Primary {...props} onClick={handleOnClick({ ...props, loading })}>
       {handleText({ ...props, loading })}
     </Primary>
   );
