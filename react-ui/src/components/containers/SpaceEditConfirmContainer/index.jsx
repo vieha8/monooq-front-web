@@ -18,10 +18,10 @@ import dummySpaceImage from 'images/dummy_space.png';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { breadths } from 'helpers/breadths';
 import { spaceActions } from '../../../redux/modules/space';
 import { formatRemoveComma } from '../../../helpers/string';
 
-const SPACE_TYPES = ['', 'クローゼット・押入れ', '', '部屋', '屋外倉庫', 'その他'];
 const ReceiptType = {
   Both: 1,
   Meeting: 2,
@@ -296,7 +296,7 @@ class SpaceEditConfirmContainer extends Component {
             },
           ]}
           description={space.introduction}
-          breadth={SPACE_TYPES[space.breadth]}
+          breadth={breadths[space.breadth - 1]}
           tagList={space.tagList
             .filter(value => {
               return value.isChecked === true;
@@ -319,8 +319,7 @@ class SpaceEditConfirmContainer extends Component {
             profile: user.profile,
           }}
           priceFull={numeral(space.priceFull).format('0,0')}
-          // TODO: 【API連携】現状固定値なので、API連携する
-          priceTatami={numeral(3123).format('0,0')}
+          priceTatami={numeral(space.priceTatami).format('0,0')}
         />
         <EntryButtonWrap>
           <ButtonEntry

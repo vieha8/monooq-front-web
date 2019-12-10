@@ -89,7 +89,7 @@ class SpaceEditInformationContainer extends Component {
       status: space.status || `${FormValues.statusVacancy}`,
       title: space.title || '',
       introduction: space.introduction || '',
-      breadth: space.breadth ? space.breadth : `${FormValues.breadthRoom}`,
+      breadth: space.breadth,
       error: {},
       isImageUploading: false,
       errorModal: false,
@@ -126,10 +126,11 @@ class SpaceEditInformationContainer extends Component {
     if (user.name === '') {
       this.setState({ errorModal: true, isNoProfile: true });
     } else if (!isUpdate) {
-      const { title, introduction, images } = this.state;
+      const { title, introduction, images, breadth } = this.state;
       this.handleChangeUI('title', title);
       this.handleChangeUI('introduction', introduction);
       this.handleChangeUI('images', images);
+      this.handleChangeUI('breadth', breadth);
     }
   }
 
@@ -221,7 +222,7 @@ class SpaceEditInformationContainer extends Component {
         images.shift();
       }
     }
-    console.log(`breadth:${breadth}`);
+
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
@@ -229,7 +230,7 @@ class SpaceEditInformationContainer extends Component {
           title,
           status: parseInt(status, 10) || FormValues.statusVacancy,
           introduction,
-          breadth: parseInt(breadth, 10) || FormValues.breadthRoom,
+          breadth: parseInt(breadth, 10) || 0,
           tagList,
           tagCustom,
         }),
@@ -273,6 +274,11 @@ class SpaceEditInformationContainer extends Component {
           }
         }
         break;
+      case 'breadth':
+        if (!value || value === 0) {
+          errors.push(ErrorMessages.PleaseSelect);
+        }
+        break;
       default:
         break;
     }
@@ -283,7 +289,7 @@ class SpaceEditInformationContainer extends Component {
   };
 
   validate = () => {
-    const { title, introduction, images } = this.state;
+    const { title, introduction, images, breadth } = this.state;
 
     return (
       title &&
@@ -294,7 +300,9 @@ class SpaceEditInformationContainer extends Component {
       introduction.trim().length <= Validate.Introduction.Max &&
       images &&
       images.length > 0 &&
-      (isImageDefault(images[0].ImageUrl) ? images.length > 1 : true)
+      (isImageDefault(images[0].ImageUrl) ? images.length > 1 : true) &&
+      breadth &&
+      breadth.length > 0
     );
   };
 

@@ -68,7 +68,7 @@ class SpaceEditAddressMethodContainer extends Component {
       uiActions.setUiState({
         space: Object.assign(space, {
           address,
-          receiveType: parseInt(receiveType, 10),
+          receiveType: parseInt(receiveType, 10) || 0,
         }),
       }),
     );

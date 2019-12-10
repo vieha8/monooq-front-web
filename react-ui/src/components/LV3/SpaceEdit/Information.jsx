@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
+import { selectOptionBreadths } from 'helpers/breadths';
 import Button from 'components/LV1/Forms/Button';
 import Tag from 'components/LV1/Texts/Tag';
 import TagCheckboxList from 'components/LV2/Lists/TagCheckboxList';
@@ -105,24 +106,7 @@ export default ({
     <Section>
       <Select
         label="スペースの広さ"
-        options={[
-          {
-            value: 3,
-            text: '部屋',
-          },
-          {
-            value: 1,
-            text: 'クローゼット・押入れ',
-          },
-          {
-            value: 4,
-            text: '屋外倉庫',
-          },
-          {
-            value: 5,
-            text: 'その他',
-          },
-        ]}
+        options={selectOptionBreadths('選択してください')}
         value={breadth}
         onChange={e => onChangeBreadth(e.target.value)}
       />
