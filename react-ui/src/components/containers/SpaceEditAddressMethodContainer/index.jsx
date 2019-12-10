@@ -27,7 +27,7 @@ class SpaceEditAddressMethodContainer extends Component {
 
     this.state = {
       address: space.address || '',
-      receiveType: space.receve || 1,
+      receiptType: space.receiptType || 0,
       error: {},
       isUpdate: false,
     };
@@ -62,13 +62,13 @@ class SpaceEditAddressMethodContainer extends Component {
 
   onClickNext = () => {
     const { dispatch, history, space } = this.props;
-    const { address, receiveType, isUpdate } = this.state;
+    const { address, receiptType, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
           address,
-          receiveType: parseInt(receiveType, 10) || 0,
+          receiptType: parseInt(receiptType, 10) || 0,
         }),
       }),
     );
@@ -81,13 +81,13 @@ class SpaceEditAddressMethodContainer extends Component {
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { address, receiveType, isUpdate } = this.state;
+    const { address, receiptType, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
           address,
-          receiveType: parseInt(receiveType, 10),
+          receiptType: parseInt(receiptType, 10) || 0,
         }),
       }),
     );
@@ -112,6 +112,11 @@ class SpaceEditAddressMethodContainer extends Component {
           }
         }
         break;
+      case 'receiptType':
+        if (!value || value === 0) {
+          errors.push(ErrorMessages.PleaseSelect);
+        }
+        break;
       default:
         break;
     }
@@ -122,18 +127,20 @@ class SpaceEditAddressMethodContainer extends Component {
   };
 
   validate = () => {
-    const { address } = this.state;
+    const { address, receiptType } = this.state;
     const AddressMatch = address ? address.match(Validate.Address) : '';
     return (
       address &&
       (address === undefined ? false : address.trim().length > 0) &&
-      (AddressMatch ? AddressMatch[4] !== '' : false)
+      (AddressMatch ? AddressMatch[4] !== '' : false) &&
+      receiptType &&
+      receiptType > 0
     );
   };
 
   render() {
     const { space } = this.props;
-    const { isUpdate, address, receiveType, error } = this.state;
+    const { isUpdate, address, receiptType, error } = this.state;
 
     if (!isUpdate && Object.keys(space).length === 0) {
       // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
@@ -146,8 +153,8 @@ class SpaceEditAddressMethodContainer extends Component {
         errors={error}
         address={address}
         onChangeAddress={v => this.handleChangeUI('address', v)}
-        receiveType={receiveType}
-        onChangeReceiveType={v => this.handleChangeUI('receiveType', v)}
+        receiptType={receiptType}
+        onChangereceiptType={v => this.handleChangeUI('receiptType', v)}
         onClickBack={this.onClickBack}
         onKeyDownButtonBack={this.onKeyDownButtonBack}
         onClickNext={this.onClickNext}
