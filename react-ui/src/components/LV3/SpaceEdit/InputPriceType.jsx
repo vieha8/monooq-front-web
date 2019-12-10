@@ -75,7 +75,7 @@ export default ({
         placeholder="16,000"
         price={priceTatami}
         onChange={onChangePriceTatami}
-        error={<ErrorList keyName="price_errors_2" errors={errors.priceHalf} />}
+        error={<ErrorList keyName="price_errors_2" errors={errors.priceTatami} />}
       />
     </Section>
     <Section marginTop={20}>

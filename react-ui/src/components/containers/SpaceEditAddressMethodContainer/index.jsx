@@ -27,8 +27,7 @@ class SpaceEditAddressMethodContainer extends Component {
 
     this.state = {
       address: space.address || '',
-      receiveTypeType: space.receve || 1,
-      timezone: space.timezone || 1,
+      receiveType: space.receve || 1,
       error: {},
       isUpdate: false,
     };
@@ -63,14 +62,13 @@ class SpaceEditAddressMethodContainer extends Component {
 
   onClickNext = () => {
     const { dispatch, history, space } = this.props;
-    const { address, receiveType, timezone, isUpdate } = this.state;
+    const { address, receiveType, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
           address,
           receiveType: parseInt(receiveType, 10),
-          timezone: parseInt(timezone, 10),
         }),
       }),
     );
@@ -83,14 +81,13 @@ class SpaceEditAddressMethodContainer extends Component {
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { address, receiveType, timezone, isUpdate } = this.state;
+    const { address, receiveType, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
           address,
           receiveType: parseInt(receiveType, 10),
-          timezone: parseInt(timezone, 10),
         }),
       }),
     );
@@ -136,7 +133,7 @@ class SpaceEditAddressMethodContainer extends Component {
 
   render() {
     const { space } = this.props;
-    const { isUpdate, address, receiveType, timeZone, error } = this.state;
+    const { isUpdate, address, receiveType, error } = this.state;
 
     if (!isUpdate && Object.keys(space).length === 0) {
       // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
@@ -150,9 +147,7 @@ class SpaceEditAddressMethodContainer extends Component {
         address={address}
         onChangeAddress={v => this.handleChangeUI('address', v)}
         receiveType={receiveType}
-        onChangeReceiveType={v => this.handleChangeUI('receive', v)}
-        timezone={timeZone}
-        onChangeTimezone={v => this.handleChangeUI('timeZone', v)}
+        onChangeReceiveType={v => this.handleChangeUI('receiveType', v)}
         onClickBack={this.onClickBack}
         onKeyDownButtonBack={this.onKeyDownButtonBack}
         onClickNext={this.onClickNext}

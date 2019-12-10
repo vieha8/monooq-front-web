@@ -33,8 +33,7 @@ class SpaceEditPriceTypeContainer extends Component {
 
     this.state = {
       priceFull: space.priceFull || '',
-      priceHalf: space.priceHalf || '',
-      priceQuarter: space.priceQuarter || '',
+      priceTatami: space.priceTatami || '',
       error: {},
       isUpdate: false,
       isFirst: true,
@@ -50,12 +49,9 @@ class SpaceEditPriceTypeContainer extends Component {
   }
 
   componentDidMount() {
-    const { priceFull, priceHalf, priceQuarter, isUpdate } = this.state;
-    if (!isUpdate) {
-      this.handleChangeUI('priceFull', priceFull);
-      this.handleChangeUI('priceHalf', priceHalf);
-      this.handleChangeUI('priceQuarter', priceQuarter);
-    }
+    const { priceFull, priceTatami } = this.state;
+    this.handleChangeUI('priceFull', priceFull);
+    this.handleChangeUI('priceTatami', priceTatami);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -65,18 +61,12 @@ class SpaceEditPriceTypeContainer extends Component {
       // TODO: スペース編集時のリロード対策(最適化したい)
       dispatch(spaceActions.getGeocode({ address: space.address }));
 
-      const {
-        priceFull: PriceFullTmp,
-        priceHalf: PriceHalfTmp,
-        priceQuarter: PriceQuarterTmp,
-        id,
-      } = space;
+      const { priceFull: PriceFullTmp, priceTatami: PriceTatamiTmp, id } = space;
 
       const priceFull = formatAddComma(PriceFullTmp);
-      const priceHalf = formatAddComma(PriceHalfTmp);
-      const priceQuarter = formatAddComma(PriceQuarterTmp);
+      const priceTatami = formatAddComma(PriceTatamiTmp);
 
-      return { priceFull, priceHalf, priceQuarter, id, isFirst: false };
+      return { priceFull, priceTatami, id, isFirst: false };
     }
     return null;
   }
@@ -95,7 +85,7 @@ class SpaceEditPriceTypeContainer extends Component {
 
   onClickNext = () => {
     const { dispatch, space, history } = this.props;
-    const { priceFull, priceHalf, priceQuarter, isUpdate } = this.state;
+    const { priceFull, priceTatami, isUpdate } = this.state;
 
     if (space.address) {
       const { geocode } = this.props;
@@ -116,8 +106,7 @@ class SpaceEditPriceTypeContainer extends Component {
 
     const saveSpace = Object.assign(space, {
       priceFull: formatRemoveComma(priceFull),
-      priceHalf: formatRemoveComma(priceHalf),
-      priceQuarter: formatRemoveComma(priceQuarter),
+      priceTatami: formatRemoveComma(priceTatami),
     });
     dispatch(
       uiActions.setUiState({
@@ -131,14 +120,13 @@ class SpaceEditPriceTypeContainer extends Component {
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { priceFull, priceHalf, priceQuarter, isUpdate } = this.state;
+    const { priceFull, priceTatami, isUpdate } = this.state;
 
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
           priceFull: formatRemoveComma(priceFull),
-          priceHalf: formatRemoveComma(priceHalf),
-          priceQuarter: formatRemoveComma(priceQuarter),
+          priceTatami: formatRemoveComma(priceTatami),
         }),
       }),
     );
@@ -176,39 +164,34 @@ class SpaceEditPriceTypeContainer extends Component {
   };
 
   validate = () => {
-    const { priceFull, priceHalf, priceQuarter } = this.state;
+    const { priceFull, priceTatami } = this.state;
 
     const checkPriceFull = formatRemoveComma(priceFull);
-    const checkPriceHalf = formatRemoveComma(priceHalf);
-    const checkPriceQuarter = formatRemoveComma(priceQuarter);
+    const checkPriceTatami = formatRemoveComma(priceTatami);
 
     return (
       checkPriceFull &&
       checkPriceFull >= Validate.Price.Min &&
       checkPriceFull <= Validate.Price.Max &&
-      checkPriceHalf &&
-      checkPriceHalf >= Validate.Price.Min &&
-      checkPriceHalf <= Validate.Price.Max &&
-      checkPriceQuarter &&
-      checkPriceQuarter >= Validate.Price.Min &&
-      checkPriceQuarter <= Validate.Price.Max
+      checkPriceTatami &&
+      checkPriceTatami >= Validate.Price.Min &&
+      checkPriceTatami <= Validate.Price.Max
     );
   };
 
   render() {
     const { space, isLoading } = this.props;
-    const { priceFull, priceHalf, priceQuarter, error, isUpdate, isFirst } = this.state;
+    const { priceFull, priceTatami, error, isUpdate, isFirst } = this.state;
 
     if (!isUpdate) {
       if (Object.keys(space).length === 0) {
         // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
         return <Redirect to={Path.createSpaceInfo()} />;
       }
-    } else if (priceFull && priceHalf && priceQuarter && isFirst) {
+    } else if (priceFull && priceTatami && isFirst) {
       // リロード時にvalidate実行する。
       this.handleChangeUI('priceFull', priceFull);
-      this.handleChangeUI('priceHalf', priceHalf);
-      this.handleChangeUI('priceQuarter', priceQuarter);
+      this.handleChangeUI('priceTatami', priceTatami);
     }
 
     return (
@@ -217,10 +200,8 @@ class SpaceEditPriceTypeContainer extends Component {
         errors={error}
         priceFull={priceFull}
         onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
-        priceHalf={priceHalf}
-        onChangePriceHalf={v => this.handleChangeUI('priceHalf', v)}
-        priceQuarter={priceQuarter}
-        onChangePriceQuarter={v => this.handleChangeUI('priceQuarter', v)}
+        priceTatami={priceTatami}
+        onChangePriceTatami={v => this.handleChangeUI('priceTatami', v)}
         buttonLoading={isLoading}
         onClickBack={this.onClickBack}
         onKeyDownButtonBack={this.onKeyDownButtonBack}

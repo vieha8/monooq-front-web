@@ -279,40 +279,31 @@ class SpaceEditConfirmContainer extends Component {
             original: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
             thumbnail: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
           }))}
-          // TODO: 【API連携】ステータス(1:満室,2:要相談,これ以外:空室)
-          statusAvailability={0}
-          // TODO: 【API連携】パンくずリスト
+          statusAvailability={space.status}
+          // TODO: 【API連携】パンくずリスト。町域を表示する。
           breadcrumbsList={[
             {
-              text: '神奈川県',
+              text: space.addressPref,
             },
             {
-              text: '川崎市',
+              text: space.addressCity,
             },
             {
-              text: '中原区',
+              text: space.addressTown,
             },
             {
               text: '下沼部',
             },
           ]}
           description={space.introduction}
-          // TODO: 【API連携】スペースの広さ
-          breadth="4畳以上12畳未満"
-          // TODO:【API連携】タグ
-          tagList={[
-            '4畳以上',
-            '1階',
-            'ダンボール1箱〜',
-            '4畳以上4畳以上4畳以上',
-            '1階1階',
-            'ダンボール1箱〜ダンボール1箱〜ダンボール1箱〜',
-            '4畳以上',
-            '1階',
-            'ダンボール1箱〜',
-          ]}
+          breadth={SPACE_TYPES[space.breadth]}
+          tagList={space.tagList
+            .filter(value => {
+              return value.isChecked === true;
+            })
+            .map(item => item.text)}
+          tagCustomList={space.tagCustomList}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
-          // type={SPACE_TYPES[space.type]}
           addressMethod={space.about}
           delivery={
             space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery

@@ -23,8 +23,6 @@ export default ({
   onChangeAddress,
   receiveType,
   onChangeReceiveType,
-  timezone,
-  onChangeTimezone,
   onClickBack,
   onKeyDownButtonBack,
   onClickNext,
@@ -66,28 +64,7 @@ export default ({
       />
       <ErrorList keyName="receive_errors" errors={errors.ReceiptType} />
     </Section>
-    <Section>
-      <Select
-        label="対応可能な時間帯"
-        options={[
-          {
-            value: 1,
-            text: '対面・配送の両方に対応する',
-          },
-          {
-            value: 2,
-            text: '対面',
-          },
-          {
-            value: 3,
-            text: '配送',
-          },
-        ]}
-        value={timezone}
-        onChange={e => onChangeTimezone(e.target.value)}
-      />
-      <ErrorList keyName="receive_errors" errors={errors.ReceiptType} />
-    </Section>
+
     <Section>
       <ButtonEntry
         relative
