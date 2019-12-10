@@ -89,7 +89,7 @@ class SpaceEditInformationContainer extends Component {
       status: space.status || `${FormValues.statusVacancy}`,
       title: space.title || '',
       introduction: space.introduction || '',
-      breadth: space.breadth,
+      breadth: space.breadth || 0,
       error: {},
       isImageUploading: false,
       errorModal: false,
@@ -121,17 +121,17 @@ class SpaceEditInformationContainer extends Component {
     window.addEventListener('beforeunload', this.handleBeforeUnload);
 
     const { user } = this.props;
-    const { isUpdate } = this.state;
+    const { isUpdate, breadth } = this.state;
 
     if (user.name === '') {
       this.setState({ errorModal: true, isNoProfile: true });
     } else if (!isUpdate) {
-      const { title, introduction, images, breadth } = this.state;
+      const { title, introduction, images } = this.state;
       this.handleChangeUI('title', title);
       this.handleChangeUI('introduction', introduction);
       this.handleChangeUI('images', images);
-      this.handleChangeUI('breadth', breadth);
     }
+    this.handleChangeUI('breadth', breadth);
   }
 
   componentWillUnmount() {
@@ -302,7 +302,7 @@ class SpaceEditInformationContainer extends Component {
       images.length > 0 &&
       (isImageDefault(images[0].ImageUrl) ? images.length > 1 : true) &&
       breadth &&
-      breadth.length > 0
+      breadth > 0
     );
   };
 

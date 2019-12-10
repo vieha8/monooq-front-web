@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
+import { selectOptionreceiptTypes } from 'helpers/receiptTypes';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
@@ -21,8 +22,8 @@ export default ({
   errors,
   address,
   onChangeAddress,
-  receiveType,
-  onChangeReceiveType,
+  receiptType,
+  onChangereceiptType,
   onClickBack,
   onKeyDownButtonBack,
   onClickNext,
@@ -45,26 +46,12 @@ export default ({
     <Section>
       <Select
         label="受け取り方法"
-        options={[
-          {
-            value: 1,
-            text: '対面・配送の両方に対応する',
-          },
-          {
-            value: 2,
-            text: '対面',
-          },
-          {
-            value: 3,
-            text: '配送',
-          },
-        ]}
-        value={receiveType}
-        onChange={e => onChangeReceiveType(e.target.value)}
+        options={selectOptionreceiptTypes('選択してください')}
+        value={receiptType}
+        onChange={e => onChangereceiptType(e.target.value)}
       />
       <ErrorList keyName="receive_errors" errors={errors.ReceiptType} />
     </Section>
-
     <Section>
       <ButtonEntry
         relative
