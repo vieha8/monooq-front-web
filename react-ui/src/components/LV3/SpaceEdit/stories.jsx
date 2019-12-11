@@ -4,29 +4,29 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import Information from './Information';
-import AddressMethod from './AddressMethod';
-import InputPriceType from './InputPriceType';
+import Step1 from './Step1';
+import Step2 from './Step2';
+import Step3 from './Step3';
 import Completion from './Completion';
 
-Information.displayName = 'Information';
-AddressMethod.displayName = 'AddressMethod';
-InputPriceType.displayName = 'InputPriceType';
+Step1.displayName = 'Step1';
+Step2.displayName = 'Step2';
+Step3.displayName = 'Step3';
 Completion.displayName = 'Completion';
 
 storiesOf('Organisms(LV3)/SpaceEdit', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
-    'AddressMethod',
+    'Step2',
     withInfo(`
         ### コンポーネント概要
         スペース編集フォーム(荷物の内容)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <AddressMethod
+        <Step2
           errors={[]}
           addressMethod="addressMethod text"
-          onChangeAddressMethod={() => console.log('onChangeAddressMethod')}
+          onChangeStep2={() => console.log('onChangeStep2')}
           checkedFurniture={false}
           onClickFurniture={() => console.log('onClickFurniture')}
           onKeyDownFurniture={() => console.log('onKeyDownFurniture')}
@@ -62,13 +62,13 @@ storiesOf('Organisms(LV3)/SpaceEdit', module)
     )),
   )
   .add(
-    'Information',
+    'Step1',
     withInfo(`
         ### コンポーネント概要
         スペース新規登録フォーム(基本情報)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Information
+        <Step1
           errors={[]}
           address="東京都渋谷区東1-1"
           onChangeAddress={() => console.log('onChangeAddress')}
@@ -91,13 +91,13 @@ storiesOf('Organisms(LV3)/SpaceEdit', module)
     )),
   )
   .add(
-    'Information edit',
+    'Step1 edit',
     withInfo(`
         ### コンポーネント概要
         スペース編集フォーム(基本情報)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Information
+        <Step1
           edit
           errors={[]}
           address="東京都渋谷区東1-1"
@@ -121,13 +121,13 @@ storiesOf('Organisms(LV3)/SpaceEdit', module)
     )),
   )
   .add(
-    'InputPriceType',
+    'Step3',
     withInfo(`
         ### コンポーネント概要
         スペース編集フォーム(スペースの料金[スペース区分別])
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <InputPriceType
+        <Step3
           errors={[]}
           priceFull={10000}
           onChangePriceFull={() => console.log('onChangePriceFull')}

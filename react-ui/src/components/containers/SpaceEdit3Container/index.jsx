@@ -3,7 +3,7 @@ import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-import SpaceEditInputPriceType from 'components/LV3/SpaceEdit/InputPriceType';
+import SpaceEditStep3 from 'components/LV3/SpaceEdit/Step3';
 
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
@@ -208,7 +208,7 @@ class SpaceEdit3Container extends Component {
     }
 
     return (
-      <SpaceEditInputPriceType
+      <SpaceEditStep3
         isPriceTatami={isPriceTatami}
         edit={isUpdate}
         errors={error}

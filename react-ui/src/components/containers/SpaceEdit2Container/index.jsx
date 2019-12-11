@@ -3,7 +3,7 @@ import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-import SpaceEdit2 from 'components/LV3/SpaceEdit/AddressMethod';
+import SpaceEdit2 from 'components/LV3/SpaceEdit/Step2';
 
 import { uiActions } from 'redux/modules/ui';
 import { ErrorMessages } from 'variables';

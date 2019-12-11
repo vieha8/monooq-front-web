@@ -6,7 +6,7 @@ import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
 
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import SpaceEdit1 from 'components/LV3/SpaceEdit/Information';
+import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
 
 import { ErrorMessages, FormValues } from 'variables';
 
