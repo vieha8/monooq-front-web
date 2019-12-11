@@ -141,9 +141,7 @@ class SpaceEditPriceTypeContainer extends Component {
       }),
     );
 
-    const nextPath = isUpdate
-      ? Path.spaceEditAddressMethod(space.id)
-      : Path.createSpaceAddressMethod();
+    const nextPath = isUpdate ? Path.spaceEdit2(space.id) : Path.spaceCreate2();
     history.push(nextPath);
   };
 

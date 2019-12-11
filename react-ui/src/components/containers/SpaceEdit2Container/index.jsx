@@ -3,7 +3,7 @@ import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-import SpaceEditAddressMethod from 'components/LV3/SpaceEdit/AddressMethod';
+import SpaceEdit2 from 'components/LV3/SpaceEdit/AddressMethod';
 
 import { uiActions } from 'redux/modules/ui';
 import { ErrorMessages } from 'variables';
@@ -19,7 +19,7 @@ const Validate = {
   },
 };
 
-class SpaceEditAddressMethodContainer extends Component {
+class SpaceEdit2Container extends Component {
   constructor(props) {
     super(props);
 
@@ -148,7 +148,7 @@ class SpaceEditAddressMethodContainer extends Component {
     }
 
     return (
-      <SpaceEditAddressMethod
+      <SpaceEdit2
         edit={isUpdate}
         errors={error}
         address={address}
@@ -171,7 +171,7 @@ const mapStateToProps = state => ({
 
 export default authRequired(
   handleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEditAddressMethodContainer), {
+    ContentPageMenu(connect(mapStateToProps)(SpaceEdit2Container), {
       noFooter: true,
       maxWidth: 540,
     }),

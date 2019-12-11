@@ -18,13 +18,13 @@ export default {
   space: (spaceId = SPACE_ID) => `/space/${spaceId}`, // スペース詳細
   // スペース登録
   spaceCreate1: () => '/space/new/1',
-  createSpaceAddressMethod: () => '/space/new/addressmethod',
+  spaceCreate2: () => '/space/new/2',
   createSpacePrice: () => `/space/new/price/about`,
   createSpaceConfirm: () => `/space/new/confirm`,
   createSpaceCompletion: () => '/space/new/completion',
   // スペース編集
   spaceEdit1: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/1`,
-  spaceEditAddressMethod: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/addressMethod`,
+  spaceEdit2: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/2`,
   spaceEditPrice: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/price/about`,
   spaceEditConfirm: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/confirm`,
   spaceEditCompletion: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/completion`,
