@@ -66,6 +66,7 @@ export default () => (
           path: '/',
         },
       ]}
+      isCenter
     />
   </WrapContent>
 );
