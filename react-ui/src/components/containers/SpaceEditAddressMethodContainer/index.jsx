@@ -92,7 +92,7 @@ class SpaceEditAddressMethodContainer extends Component {
       }),
     );
 
-    const nextPath = isUpdate ? Path.spaceEditInfo(space.id) : Path.createSpaceInfo();
+    const nextPath = isUpdate ? Path.spaceEdit1(space.id) : Path.spaceCreate1();
     history.push(nextPath);
   };
 
@@ -144,7 +144,7 @@ class SpaceEditAddressMethodContainer extends Component {
 
     if (!isUpdate && Object.keys(space).length === 0) {
       // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
-      return <Redirect to={Path.createSpaceInfo()} />;
+      return <Redirect to={Path.spaceCreate1()} />;
     }
 
     return (

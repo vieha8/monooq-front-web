@@ -58,15 +58,11 @@ const Estimate = loadable(() =>
 const Payment = loadable(() =>
   import('components/containers/PaymentContainer').catch(() => window.location.reload()),
 );
-const CreateSpaceInfo = loadable(() =>
-  import('components/containers/SpaceEditInformationContainer').catch(() =>
-    window.location.reload(),
-  ),
+const SpaceCreate1 = loadable(() =>
+  import('components/containers/SpaceEdit1Container').catch(() => window.location.reload()),
 );
-const SpaceEditInfo = loadable(() =>
-  import('components/containers/SpaceEditInformationContainer').catch(() =>
-    window.location.reload(),
-  ),
+const SpaceEdit1 = loadable(() =>
+  import('components/containers/SpaceEdit1Container').catch(() => window.location.reload()),
 );
 const CreateSpaceAddressMethod = loadable(() =>
   import('components/containers/SpaceEditAddressMethodContainer').catch(() =>
@@ -170,8 +166,8 @@ export default ({ history }) => (
       <Route exact path={Path.message()} component={Message} />
       <Route exact path={Path.estimate()} component={Estimate} />
       <Route exact path={Path.payment()} component={Payment} />
-      <Route exact path={Path.createSpaceInfo()} component={CreateSpaceInfo} />
-      <Route exact path={Path.spaceEditInfo()} component={SpaceEditInfo} />
+      <Route exact path={Path.spaceCreate1()} component={SpaceCreate1} />
+      <Route exact path={Path.spaceEdit1()} component={SpaceEdit1} />
       <Route exact path={Path.createSpaceAddressMethod()} component={CreateSpaceAddressMethod} />
       <Route exact path={Path.spaceEditAddressMethod()} component={SpaceEditAddressMethod} />
       <Route exact path={Path.createSpacePrice()} component={CreateSpacePriceType} />

@@ -186,7 +186,7 @@ class HeaderContainer extends Component {
         howtouseUrl={Path.howtouse()}
         helpUrl="https://help.monooq.com/"
         addSpace={{
-          to: Path.createSpaceInfo(),
+          to: Path.spaceCreate1(),
           onClick: () => dispatch(uiActions.setUiState({ space: {} })),
         }}
         spaces={{ to: Path.spaces() }}

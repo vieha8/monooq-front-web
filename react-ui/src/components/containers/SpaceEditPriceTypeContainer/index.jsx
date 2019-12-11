@@ -201,7 +201,7 @@ class SpaceEditPriceTypeContainer extends Component {
     if (!isUpdate) {
       if (Object.keys(space).length === 0) {
         // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
-        return <Redirect to={Path.createSpaceInfo()} />;
+        return <Redirect to={Path.spaceCreate1()} />;
       }
     } else if (priceFull && priceTatami && isFirst) {
       // リロード時にvalidate実行する。

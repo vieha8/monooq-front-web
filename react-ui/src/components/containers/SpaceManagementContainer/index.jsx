@@ -25,7 +25,7 @@ class SpaceManagementContainer extends Component {
   onClickEdit = space => {
     const { dispatch, history } = this.props;
     dispatch(uiActions.setUiState({ space }));
-    history.push(Path.spaceEditInfo(space.id));
+    history.push(Path.spaceEdit1(space.id));
   };
 
   onClickRemove = space => {
@@ -57,7 +57,7 @@ class SpaceManagementContainer extends Component {
           captionHead="登録したスペースがありません"
           caption="スペースの登録がありません。以下のボタンからスペースを登録して荷物を預る準備をしましょう。"
           buttonText="スペースを登録する"
-          onClick={() => history.push(Path.createSpaceInfo())}
+          onClick={() => history.push(Path.spaceCreate1())}
         />
       );
     }

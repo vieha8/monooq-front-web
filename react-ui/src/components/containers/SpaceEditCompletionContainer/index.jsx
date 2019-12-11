@@ -62,7 +62,7 @@ class SpaceEditCompletionContainer extends Component {
   onClickCreateSpace = () => {
     const { history, dispatch } = this.props;
     dispatch(uiActions.setUiState({ space: {} }));
-    history.push(Path.createSpaceInfo());
+    history.push(Path.spaceCreate1());
   };
 
   onKeyDownCreateSpace = e => {

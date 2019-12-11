@@ -23,7 +23,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
-          addSpace={{ to: Path.createSpaceInfo() }}
+          addSpace={{ to: Path.spaceCreate1() }}
           sales={{ to: Path.sales() }}
           paymentHistory={{ to: Path.paid() }}
           profileEdit={{ to: Path.profileEdit() }}
@@ -46,7 +46,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
-          addSpace={{ to: Path.createSpaceInfo() }}
+          addSpace={{ to: Path.spaceCreate1() }}
           sales={{ to: Path.sales() }}
           paymentHistory={{ to: Path.paid() }}
           profileEdit={{ to: Path.profileEdit() }}
@@ -68,7 +68,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
-          addSpace={{ to: Path.createSpaceInfo() }}
+          addSpace={{ to: Path.spaceCreate1() }}
           sales={{ to: Path.sales() }}
           paymentHistory={{ to: Path.paid() }}
           profileEdit={{ to: Path.profileEdit() }}
@@ -93,7 +93,7 @@ storiesOf('Organisms(LV3)/ServiceMenu', module)
           message={{ to: Path.messageList(), notificationCount: 0 }}
           schedule={{ to: Path.schedule(), notificationCount: 0 }}
           spaces={{ to: Path.spaces() }}
-          addSpace={{ to: Path.createSpaceInfo() }}
+          addSpace={{ to: Path.spaceCreate1() }}
           sales={{ to: Path.sales() }}
           paymentHistory={{ to: Path.paid() }}
           profileEdit={{ to: Path.profileEdit() }}

@@ -16,13 +16,14 @@ export default {
   spacesByTown: (prefecture = PREFECTURE, cityCode = CITY_CODE, townCode = TOWN_CODE) =>
     `/spaces/pref${prefecture}/city${cityCode}/town${townCode}`, // 町域別スペース一覧
   space: (spaceId = SPACE_ID) => `/space/${spaceId}`, // スペース詳細
-  // スペース作成
-  createSpaceInfo: () => '/space/new/info',
+  // スペース登録
+  spaceCreate1: () => '/space/new/1',
   createSpaceAddressMethod: () => '/space/new/addressmethod',
   createSpacePrice: () => `/space/new/price/about`,
   createSpaceConfirm: () => `/space/new/confirm`,
   createSpaceCompletion: () => '/space/new/completion',
-  spaceEditInfo: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/info`,
+  // スペース編集
+  spaceEdit1: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/1`,
   spaceEditAddressMethod: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/addressMethod`,
   spaceEditPrice: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/price/about`,
   spaceEditConfirm: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/confirm`,

@@ -6,7 +6,7 @@ import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
 
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import SpaceEditInformation from 'components/LV3/SpaceEdit/Information';
+import SpaceEdit1 from 'components/LV3/SpaceEdit/Information';
 
 import { ErrorMessages, FormValues } from 'variables';
 
@@ -77,7 +77,7 @@ const TagCustomList = [
   'ダンボール1箱〜',
 ];
 
-class SpaceEditInformationContainer extends Component {
+class SpaceEdit1Container extends Component {
   constructor(props) {
     super(props);
 
@@ -333,7 +333,7 @@ class SpaceEditInformationContainer extends Component {
 
     return (
       <Fragment>
-        <SpaceEditInformation
+        <SpaceEdit1
           edit={isUpdate}
           errors={error}
           status={status}
@@ -393,7 +393,7 @@ const mapStateToProps = state => ({
 });
 
 export default authRequired(
-  ContentPageMenu(connect(mapStateToProps)(SpaceEditInformationContainer), {
+  ContentPageMenu(connect(mapStateToProps)(SpaceEdit1Container), {
     noFooter: true,
     maxWidth: 540,
   }),

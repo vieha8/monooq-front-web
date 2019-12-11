@@ -18,7 +18,7 @@ import MessagesList from './MessageListContainer';
 import Message from './MessageContainer';
 import Estimate from './EstimateContainer';
 import Payment from './PaymentContainer';
-import SpaceEditInformation from './SpaceEditInformationContainer';
+import SpaceEdit1 from './SpaceEdit1Container';
 import SpaceEditAddressMethod from './SpaceEditAddressMethodContainer';
 import SpaceEditPriceType from './SpaceEditPriceTypeContainer';
 import SpaceEditConfirm from './SpaceEditConfirmContainer';
@@ -47,7 +47,7 @@ export default {
   Message,
   Estimate,
   Payment,
-  SpaceEditInformation,
+  SpaceEdit1,
   SpaceEditAddressMethod,
   SpaceEditPriceType,
   SpaceEditConfirm,

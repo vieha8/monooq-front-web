@@ -229,10 +229,10 @@ class SpaceEditConfirmContainer extends Component {
 
     if (isUpdate) {
       if (!space.id) {
-        return <Redirect to={Path.createSpaceInfo()} />;
+        return <Redirect to={Path.spaceCreate1()} />;
       }
     } else if (space.images === undefined) {
-      return <Redirect to={Path.createSpaceInfo()} />;
+      return <Redirect to={Path.spaceCreate1()} />;
     }
 
     if (!isLoading && isComplete) {
