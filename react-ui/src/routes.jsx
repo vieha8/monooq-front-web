@@ -70,11 +70,11 @@ const SpaceCreate2 = loadable(() =>
 const SpaceEdit2 = loadable(() =>
   import('components/containers/SpaceEdit2Container').catch(() => window.location.reload()),
 );
-const CreateSpacePriceType = loadable(() =>
-  import('components/containers/SpaceEditPriceTypeContainer').catch(() => window.location.reload()),
+const SpaceCreate3 = loadable(() =>
+  import('components/containers/SpaceEdit3Container').catch(() => window.location.reload()),
 );
-const SpaceEditPriceType = loadable(() =>
-  import('components/containers/SpaceEditPriceTypeContainer').catch(() => window.location.reload()),
+const SpaceEdit3 = loadable(() =>
+  import('components/containers/SpaceEdit3Container').catch(() => window.location.reload()),
 );
 const CreateSpaceConfirm = loadable(() =>
   import('components/containers/SpaceEditConfirmContainer').catch(() => window.location.reload()),
@@ -166,8 +166,8 @@ export default ({ history }) => (
       <Route exact path={Path.spaceEdit1()} component={SpaceEdit1} />
       <Route exact path={Path.spaceCreate2()} component={SpaceCreate2} />
       <Route exact path={Path.spaceEdit2()} component={SpaceEdit2} />
-      <Route exact path={Path.createSpacePrice()} component={CreateSpacePriceType} />
-      <Route exact path={Path.spaceEditPrice()} component={SpaceEditPriceType} />
+      <Route exact path={Path.spaceCreate3()} component={SpaceCreate3} />
+      <Route exact path={Path.spaceEdit3()} component={SpaceEdit3} />
       <Route exact path={Path.createSpaceConfirm()} component={CreateSpaceConfirm} />
       <Route exact path={Path.spaceEditConfirm()} component={SpaceEditConfirm} />
       <Route exact path={Path.createSpaceCompletion()} component={CreateSpaceCompletion} />

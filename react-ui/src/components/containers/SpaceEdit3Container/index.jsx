@@ -24,7 +24,7 @@ const Validate = {
   },
 };
 
-class SpaceEditPriceTypeContainer extends Component {
+class SpaceEdit3Container extends Component {
   constructor(props) {
     super(props);
 
@@ -236,7 +236,7 @@ const mapStateToProps = state => ({
 
 export default authRequired(
   handleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEditPriceTypeContainer), {
+    ContentPageMenu(connect(mapStateToProps)(SpaceEdit3Container), {
       noFooter: true,
       maxWidth: 540,
     }),

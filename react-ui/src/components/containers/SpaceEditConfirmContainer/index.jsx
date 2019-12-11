@@ -190,7 +190,7 @@ class SpaceEditConfirmContainer extends Component {
     const { history, space } = this.props;
     const { isUpdate } = this.state;
 
-    const nextPath = isUpdate ? Path.spaceEditPrice(space.id) : Path.createSpacePrice();
+    const nextPath = isUpdate ? Path.spaceEdit3(space.id) : Path.spaceCreate3();
     history.push(nextPath);
   };
 

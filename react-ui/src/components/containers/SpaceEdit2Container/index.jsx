@@ -73,9 +73,7 @@ class SpaceEdit2Container extends Component {
       }),
     );
 
-    const nextPath = isUpdate
-      ? Path.spaceEditPrice(space.id, 'about')
-      : Path.createSpacePrice('about');
+    const nextPath = isUpdate ? Path.spaceEdit3(space.id, 'about') : Path.spaceCreate3('about');
     history.push(nextPath);
   };
 
