@@ -4,7 +4,7 @@ import { convertSpaceImgUrl } from 'helpers/imgix';
 
 const convertImageUrl = images => {
   return images.map(({ original }) => {
-    const replaceUrl = convertSpaceImgUrl(original, 'w=600&h=400&fit=crop');
+    const replaceUrl = convertSpaceImgUrl(original, 'w=1200&h=800&fit=crop');
     return {
       original: replaceUrl || '',
       thumbnail: replaceUrl || '',
