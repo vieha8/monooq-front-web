@@ -32,6 +32,7 @@ class SpaceEditPriceTypeContainer extends Component {
     const spaceId = props.match.params.space_id;
 
     this.state = {
+      isPriceTatami: false,
       priceFull: space.priceFull || '',
       priceTatami: space.priceTatami || '',
       error: {},
@@ -49,9 +50,19 @@ class SpaceEditPriceTypeContainer extends Component {
   }
 
   componentDidMount() {
+    const { space } = this.props;
     const { priceFull, priceTatami } = this.state;
     this.handleChangeUI('priceFull', priceFull);
     this.handleChangeUI('priceTatami', priceTatami);
+
+    switch (space.breadth) {
+      case 1:
+      case 2:
+      case 3:
+        this.setState({ isPriceTatami: true });
+        break;
+      default:
+    }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -85,7 +96,7 @@ class SpaceEditPriceTypeContainer extends Component {
 
   onClickNext = () => {
     const { dispatch, space, history } = this.props;
-    const { priceFull, priceTatami, isUpdate } = this.state;
+    const { priceFull, priceTatami, isPriceTatami, isUpdate } = this.state;
 
     if (space.address) {
       const { geocode } = this.props;
@@ -106,7 +117,7 @@ class SpaceEditPriceTypeContainer extends Component {
 
     const saveSpace = Object.assign(space, {
       priceFull: formatRemoveComma(priceFull),
-      priceTatami: formatRemoveComma(priceTatami),
+      priceTatami: isPriceTatami ? formatRemoveComma(priceTatami) : '0',
     });
     dispatch(
       uiActions.setUiState({
@@ -120,13 +131,12 @@ class SpaceEditPriceTypeContainer extends Component {
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { priceFull, priceTatami, isUpdate } = this.state;
-
+    const { priceFull, priceTatami, isPriceTatami, isUpdate } = this.state;
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
           priceFull: formatRemoveComma(priceFull),
-          priceTatami: formatRemoveComma(priceTatami),
+          priceTatami: isPriceTatami ? formatRemoveComma(priceTatami) : '0',
         }),
       }),
     );
@@ -164,24 +174,29 @@ class SpaceEditPriceTypeContainer extends Component {
   };
 
   validate = () => {
-    const { priceFull, priceTatami } = this.state;
-
+    const { isPriceTatami, priceFull, priceTatami } = this.state;
     const checkPriceFull = formatRemoveComma(priceFull);
     const checkPriceTatami = formatRemoveComma(priceTatami);
+    let resultCheckTatami = true;
+
+    if (isPriceTatami) {
+      resultCheckTatami =
+        checkPriceTatami &&
+        checkPriceTatami >= Validate.Price.Min &&
+        checkPriceTatami <= Validate.Price.Max;
+    }
 
     return (
       checkPriceFull &&
       checkPriceFull >= Validate.Price.Min &&
       checkPriceFull <= Validate.Price.Max &&
-      checkPriceTatami &&
-      checkPriceTatami >= Validate.Price.Min &&
-      checkPriceTatami <= Validate.Price.Max
+      resultCheckTatami
     );
   };
 
   render() {
     const { space, isLoading } = this.props;
-    const { priceFull, priceTatami, error, isUpdate, isFirst } = this.state;
+    const { isPriceTatami, priceFull, priceTatami, error, isUpdate, isFirst } = this.state;
 
     if (!isUpdate) {
       if (Object.keys(space).length === 0) {
@@ -196,6 +211,7 @@ class SpaceEditPriceTypeContainer extends Component {
 
     return (
       <SpaceEditInputPriceType
+        isPriceTatami={isPriceTatami}
         edit={isUpdate}
         errors={error}
         priceFull={priceFull}

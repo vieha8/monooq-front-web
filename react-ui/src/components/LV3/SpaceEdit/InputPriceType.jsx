@@ -27,6 +27,7 @@ const UnderLine = styled.span`
 `;
 
 export default ({
+  isPriceTatami,
   edit,
   errors,
   priceFull,
@@ -68,15 +69,17 @@ export default ({
         onChange={onChangePriceFull}
         error={<ErrorList keyName="price_errors_1" errors={errors.priceFull} />}
       />
-      <InputPriceOfType
-        image={imageFurnitureTatami}
-        title="1畳分のスペースの月額料金"
-        caption="スペースの一部を使用する場合の1畳あたりの料金"
-        placeholder="16,000"
-        price={priceTatami}
-        onChange={onChangePriceTatami}
-        error={<ErrorList keyName="price_errors_2" errors={errors.priceTatami} />}
-      />
+      {isPriceTatami && (
+        <InputPriceOfType
+          image={imageFurnitureTatami}
+          title="1畳分のスペースの月額料金"
+          caption="スペースの一部を使用する場合の1畳あたりの料金"
+          placeholder="16,000"
+          price={priceTatami}
+          onChange={onChangePriceTatami}
+          error={<ErrorList keyName="price_errors_2" errors={errors.priceTatami} />}
+        />
+      )}
     </Section>
     <Section marginTop={20}>
       <CommissionWrap>

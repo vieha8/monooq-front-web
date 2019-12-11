@@ -127,9 +127,23 @@ class SpaceEditConfirmContainer extends Component {
     if (spaceId) {
       this.state.isUpdate = true;
     }
+
+    this.state = {
+      isPriceTatami: false,
+    };
   }
 
   componentDidMount() {
+    const { space } = this.props;
+    switch (space.breadth) {
+      case 1:
+      case 2:
+      case 3:
+        this.setState({ isPriceTatami: true });
+        break;
+      default:
+    }
+
     this._isMounted = true;
     window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
   }
@@ -211,7 +225,7 @@ class SpaceEditConfirmContainer extends Component {
 
   render() {
     const { space, isLoading, isComplete } = this.props;
-    const { isUpdate, isOverTopView } = this.state;
+    const { isPriceTatami, isUpdate, isOverTopView } = this.state;
 
     if (isUpdate) {
       if (!space.id) {
@@ -267,6 +281,7 @@ class SpaceEditConfirmContainer extends Component {
         </ConfirmMessage>
         <Spacer />
         <Detail
+          isPriceTatami={isPriceTatami}
           confirm
           isOverTopView={isOverTopView}
           id={space.id}

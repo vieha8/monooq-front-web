@@ -17,10 +17,10 @@ export const selectOptionBreadths = placeholder => {
   }
   return list.concat(
     breadths.map((item, i) => {
-      const purpose = i + 1;
+      const index = i + 1;
       return {
-        key: purpose,
-        value: purpose.toString(),
+        key: index,
+        value: index.toString(),
         text: item,
       };
     }),

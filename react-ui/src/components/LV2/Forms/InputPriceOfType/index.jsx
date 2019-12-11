@@ -7,9 +7,12 @@ import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
   width: 100%;
+  max-width: 263px;
   border: 1px solid ${Colors.borderGray};
   border-radius: ${Dimens.xxsmall_4}px;
+  box-sizing: border-box;
   ${media.tablet`
+    max-width: 100%;
     padding: ${Dimens.small}px 0px;
   `};
   ${props =>
@@ -20,6 +23,7 @@ const Container = styled.div`
   ${props =>
     props.price &&
     `
+      max-width: 100%;
       border: none;
       margin: auto;
   `};
@@ -41,7 +45,6 @@ const Container = styled.div`
 const PriceContainer = styled.div`
   display: block;
   width: 100%;
-  max-width: 263px;
   box-sizing: border-box;
   padding: 10%;
   text-align: center;
@@ -142,14 +145,15 @@ const Caption = styled.div`
 
 const InputWrapper = styled.div`
   display: inline-block;
+  width: calc(100% - 156px);
   ${media.phone`
-    width: 100%;
     ${props =>
       props.price &&
       `
         width: initial;
         vertical-align: bottom;
         margin-bottom: 2px;
+        width: calc(100% - 140px);
     `};
   `};
 `;
@@ -238,8 +242,8 @@ export default ({
             onChange={e => onChange(e.target.value)}
             placeholder={placeholder}
           />
+          {error}
         </InputWrapper>
-        {error}
       </PriceContainer>
     </Container>
   );
