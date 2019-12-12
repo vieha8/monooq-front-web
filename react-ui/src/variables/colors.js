@@ -15,6 +15,7 @@ export default {
   darkGray2: '#888787',
   darkGray3: '#979797',
   disabled: '#AAABAB',
+  disabled2: '#DBDBDB',
   lightGray1Bg: '#F7F7F7',
   lightGray2Bg: '#FCFCFC',
   lightGray1: '#BCBCBC',

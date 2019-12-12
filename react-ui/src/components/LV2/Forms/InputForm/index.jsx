@@ -55,6 +55,7 @@ export default ({
   hintBottomRight,
   unit,
   className,
+  disabled,
 }) => (
   <Fragment>
     {label && <H3 bold>{label}</H3>}
@@ -83,6 +84,7 @@ export default ({
               onChange={onChange}
               className={className}
               onKeyDown={onKeyDown}
+              disabled={disabled}
             />
           ))}
       </InputFieldWrapper>

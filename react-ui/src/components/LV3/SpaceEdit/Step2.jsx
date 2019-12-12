@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
 import { selectOptionreceiptTypes } from 'helpers/receiptTypes';
+import Address from 'components/LV2/Forms/Address';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
-import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import ImageStatusEditSpace2 from 'images/status-edit-space2.svg';
@@ -11,17 +10,31 @@ import { Dimens, FontSizes } from 'variables';
 import { PageHeader, Section } from './Shared';
 
 const TitleName = styled.div`
+  max-width: 540px;
   font-size: ${FontSizes.medium_18}px;
   line-height: 27px;
   font-weight: bold;
   margin: ${Dimens.medium2}px auto -${Dimens.small2_15}px;
+  ${props =>
+    props.address &&
+    `
+      margin: ${Dimens.medium2}px auto -${Dimens.medium2}px;
+    `};
 `;
 
 export default ({
   edit,
   errors,
-  address,
-  onChangeAddress,
+  formAddress,
+  onChangePostalCode,
+  onChangePref,
+  onChangeTown,
+  onChangeLine1,
+  onChangeLine2,
+  buttonDisabled,
+  buttonLoading,
+  onClickGetAddress,
+  onKeyDownButtonGetAddress,
   receiptType,
   onChangereceiptType,
   onClickBack,
@@ -32,15 +45,21 @@ export default ({
 }) => (
   <div>
     <PageHeader optionItem={{ src: ImageStatusEditSpace2, edit }} />
+    <TitleName address>スペースの住所</TitleName>
     <Section>
-      <InputForm
-        label="スペースの住所"
-        hintbottom="取引が成立するまで番地以降の住所は表示されません。番地は半角数字で入力してください。"
-        placeholder="例）東京都渋谷区渋谷2-6-6-201"
-        value={address}
-        onChange={e => onChangeAddress(e.target.value)}
+      <Address
+        errors={errors}
+        formAddress={formAddress}
+        onChangePostalCode={onChangePostalCode}
+        onChangePref={onChangePref}
+        onChangeTown={onChangeTown}
+        onChangeLine1={onChangeLine1}
+        onChangeLine2={onChangeLine2}
+        buttonDisabled={buttonDisabled}
+        buttonLoading={buttonLoading}
+        onClickGetAddress={onClickGetAddress}
+        onKeyDownButtonGetAddress={onKeyDownButtonGetAddress}
       />
-      <ErrorList keyName="address_errors" errors={errors.address} />
     </Section>
     <TitleName>荷物の対応方法</TitleName>
     <Section>
@@ -50,7 +69,7 @@ export default ({
         value={receiptType}
         onChange={e => onChangereceiptType(e.target.value)}
       />
-      <ErrorList keyName="receive_errors" errors={errors.ReceiptType} />
+      <ErrorList keyName="receive_errors" errors={errors.receiptType} />
     </Section>
     <Section>
       <ButtonEntry
