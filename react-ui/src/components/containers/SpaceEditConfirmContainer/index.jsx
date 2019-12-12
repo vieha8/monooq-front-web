@@ -165,6 +165,12 @@ class SpaceEditConfirmContainer extends Component {
     }
   };
 
+  onKeyDownButtonDraft = e => {
+    if (iskeyDownEnter(e)) {
+      this.onClickDraft();
+    }
+  };
+
   onClickNext = () => {
     const { dispatch, space, user } = this.props;
     const { isUpdate } = this.state;
@@ -192,6 +198,11 @@ class SpaceEditConfirmContainer extends Component {
 
     const nextPath = isUpdate ? Path.spaceEdit3(space.id) : Path.spaceCreate3();
     history.push(nextPath);
+  };
+
+  onClickDraft = () => {
+    // TODO:【API連携】下書き処理
+    console.log('onClickDraft');
   };
 
   scrollTop = () => {
@@ -269,10 +280,9 @@ class SpaceEditConfirmContainer extends Component {
                 senary
                 fontbold
                 fill={1}
-                // loading={loading}
-                // onClick={onClick}
-                // disabled={disabled}
-                // onKeyDown={onKeyDown}
+                loading={isLoading}
+                onClick={this.onClickDraft}
+                onKeyDown={this.onKeyDownButtonDraft}
               >
                 下書き保存する
               </Button>
