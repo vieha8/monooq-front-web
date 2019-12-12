@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import MessageIcon from 'components/LV2/ButtonHeader/MessageIcon';
 
 const Container = styled.div`
-  display: inline-block;
   width: 100%;
   text-align: ${props => props.align};
 `;
