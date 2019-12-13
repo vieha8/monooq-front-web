@@ -1,5 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put } from 'redux-saga/effects';
+import { captureMessage } from '@sentry/browser';
 
 // Actions
 const SET_ERROR = 'SET_ERROR';
@@ -31,12 +32,20 @@ export const errorReducer = handleActions(
 );
 
 export function* handleError(action, errMessage, functionName, err, isOnlyAction) {
+  let msg = 'Error';
+  if (errMessage) {
+    msg = `error(${functionName}):${errMessage}`;
+  }
+  captureMessage(msg);
+
   if (action !== '') {
     yield put(action(errMessage || ''));
   }
+
   if (isOnlyAction) {
     return;
   }
+
   yield put(
     errorActions.setError({
       message: errMessage,

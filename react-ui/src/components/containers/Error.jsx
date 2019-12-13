@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button } from 'semantic-ui-react';
-import { captureMessage } from '@sentry/browser';
 
 class ErrorModal extends Component {
   constructor(props) {
@@ -11,13 +10,6 @@ class ErrorModal extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { error } = this.props;
-    if (!prevProps.error.hasError && error.hasError) {
-      let msg = 'Error';
-      if (error.message) {
-        msg = `error(${error.functionName}):${error.message}`;
-      }
-      captureMessage(msg);
-    }
     if (error.hasError && !prevState.open) {
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({ open: true });
