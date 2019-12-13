@@ -24,6 +24,10 @@ const Validate = {
   Introduction: {
     Max: 5000,
   },
+  TagCustom: {
+    MaxText: 8,
+    MaxArrayCount: 8,
+  },
 };
 
 const TagList = [
@@ -57,19 +61,19 @@ const TagList = [
     isChecked: true,
     options: { code: 6 },
   },
+  {
+    text: '平日対応可',
+    isChecked: true,
+    options: { code: 6 },
+  },
+  {
+    text: '長期歓迎',
+    isChecked: true,
+    options: { code: 6 },
+  },
 ];
 
-const TagCustomList = [
-  '4畳以上',
-  '1階',
-  'ダンボール1箱〜',
-  '4畳以上4畳以上4畳以上',
-  '1階1階',
-  'ダンボール1箱〜ダンボール1箱〜ダンボール1箱〜',
-  '4畳以上',
-  '1階',
-  'ダンボール1箱〜',
-];
+const TagCustomList = ['4畳以上', '1階', 'ダンボール1箱〜', '1階', '常時換気'];
 
 class SpaceEdit1Container extends Component {
   constructor(props) {
@@ -85,6 +89,7 @@ class SpaceEdit1Container extends Component {
       introduction: space.introduction || '',
       breadth: space.breadth || 0,
       error: {},
+      errorsTagCustomMax: [],
       isImageUploading: false,
       errorModal: false,
       isNoProfile: false,
@@ -197,10 +202,25 @@ class SpaceEdit1Container extends Component {
     this.setState({ tagList: res });
   };
 
+  onClickTagCustomDelete = e => {
+    const { tagCustomList } = this.state;
+    const newArray = tagCustomList.filter(n => n !== e.target.innerHTML.replace('#', ''));
+    this.setState({ tagCustomList: newArray });
+  };
+
   onClickNext = () => {
     const { state } = this;
     const { dispatch, history, space } = this.props;
-    const { images, title, status, introduction, breadth, tagList, tagCustom, isUpdate } = state;
+    const {
+      images,
+      title,
+      status,
+      introduction,
+      breadth,
+      tagList,
+      tagCustomList,
+      isUpdate,
+    } = state;
 
     if (isUpdate) {
       if (images && images.length > 0 && isImageDefault(images[0].ImageUrl)) {
@@ -218,7 +238,7 @@ class SpaceEdit1Container extends Component {
           introduction,
           breadth: parseInt(breadth, 10) || 0,
           tagList,
-          tagCustom,
+          tagCustomList,
         }),
       }),
     );
@@ -231,6 +251,34 @@ class SpaceEdit1Container extends Component {
     if (iskeyDownSpace(e)) {
       const { isTag } = this.state;
       this.handleChangeUI('isTag', !isTag);
+    }
+  };
+
+  onKeyDownTagCustom = e => {
+    if (iskeyDownEnter(e) && this.validateTagCustom()) {
+      const { tagCustomList, errorsTagCustomMax } = this.state;
+      let textError = '';
+
+      if (tagCustomList && tagCustomList.length >= Validate.TagCustom.MaxArrayCount) {
+        textError = ErrorMessages.TagCustomMax;
+      } else if (tagCustomList.filter(n => n === e.target.value).length > 0) {
+        textError = ErrorMessages.TagCustomSame;
+      } else {
+        const inputVal = e.target.value;
+        this.setState(state => {
+          return state.tagCustomList.push(inputVal);
+        });
+      }
+
+      if (textError) {
+        if (errorsTagCustomMax.length === 0) {
+          this.setState(state => {
+            return state.errorsTagCustomMax.push(textError);
+          });
+        }
+      } else {
+        this.setState({ errorsTagCustomMax: [] });
+      }
     }
   };
 
@@ -276,6 +324,11 @@ class SpaceEdit1Container extends Component {
           errors.push(ErrorMessages.PleaseSelect);
         }
         break;
+      case 'tagCustom':
+        if (value && value.length > Validate.TagCustom.MaxText) {
+          errors.push(ErrorMessages.LengthMax('条件タグ', Validate.TagCustom.MaxText));
+        }
+        break;
       default:
         break;
     }
@@ -303,6 +356,16 @@ class SpaceEdit1Container extends Component {
     );
   };
 
+  validateTagCustom = () => {
+    const { tagCustom } = this.state;
+
+    return (
+      tagCustom &&
+      (tagCustom === undefined ? false : tagCustom.trim().length > 0) &&
+      tagCustom.trim().length <= Validate.TagCustom.MaxText
+    );
+  };
+
   render() {
     const {
       images,
@@ -311,6 +374,7 @@ class SpaceEdit1Container extends Component {
       introduction,
       breadth,
       error,
+      errorsTagCustomMax,
       isImageUploading,
       errorModal,
       isNoProfile,
@@ -332,6 +396,7 @@ class SpaceEdit1Container extends Component {
         <SpaceEdit1
           edit={isUpdate}
           errors={error}
+          errorsTagCustomMax={errorsTagCustomMax}
           status={status}
           onChangeStatus={v => this.handleChangeUI('status', v)}
           title={title}
@@ -354,7 +419,10 @@ class SpaceEdit1Container extends Component {
           onKeyDownTag={this.onKeyDownTag}
           tagCustom={tagCustom}
           onChangeTagCustom={v => this.handleChangeUI('tagCustom', v)}
+          onKeyDownTagCustom={this.onKeyDownTagCustom}
+          onClickInputTagcuttom
           tagCustomList={tagCustomList}
+          onClickTagCustomDelete={this.onClickTagCustomDelete}
         />
         <Modal size="large" open={errorModal} onClose={this.close}>
           <Modal.Header>プロフィールをご登録ください</Modal.Header>

@@ -28,6 +28,7 @@ const ButtonWrap = styled.div`
 export default ({
   edit,
   errors,
+  errorsTagCustomMax,
   status,
   onChangeStatus,
   title,
@@ -44,8 +45,10 @@ export default ({
   onClickTag,
   onKeyDownTag,
   tagCustom,
+  onKeyDownTagCustom,
   onChangeTagCustom,
   tagCustomList,
+  onClickTagCustomDelete,
   onClickNext,
   onKeyDownButtonNext,
   buttonNextDisabled,
@@ -120,11 +123,14 @@ export default ({
         placeholder="タグを追加する (全角8文字まで)"
         value={tagCustom}
         onChange={e => onChangeTagCustom(e.target.value)}
+        onKeyDown={onKeyDownTagCustom}
       />
+      <ErrorList keyName="tagcustom_errors" errors={errors.tagCustom} />
+      <ErrorList keyName="tagcustommax_errors" errors={errorsTagCustomMax} />
       {tagCustomList && (
         <Fragment>
           <TagListWrap>
-            <Tag tagList={tagCustomList} />
+            <Tag tagList={tagCustomList} onClick={onClickTagCustomDelete} isMarkDelete />
           </TagListWrap>
         </Fragment>
       )}

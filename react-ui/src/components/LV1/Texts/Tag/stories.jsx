@@ -7,14 +7,31 @@ import Tag from './index';
 
 Tag.displayName = 'Tag';
 
-storiesOf('Atoms(LV1)/Texts/Tag', module).add(
-  'Normal',
-  withInfo(`
-      ### コンポーネント概要
-      灰色背景の文字コンテンツ（スペース登録・編集完了画面で使用）
-    `)(() => (
-    <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-      <Tag tagList={['4畳以上', '1階', 'ダンボール1箱〜']} />
-    </div>
-  )),
-);
+storiesOf('Atoms(LV1)/Texts/Tag', module)
+  .add(
+    'Normal',
+    withInfo(`
+        ### コンポーネント概要
+        灰色背景の文字コンテンツ（スペース登録・編集完了画面で使用）
+      `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Tag tagList={['4畳以上', '1階', 'ダンボール1箱〜']} />
+      </div>
+    )),
+  )
+  .add(
+    'onClick ver',
+    withInfo(`
+        ### コンポーネント概要
+        灰色背景の文字コンテンツ（スペース登録・編集完了画面で使用）
+        ※onClickVer(isDelete)
+      `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Tag
+          tagList={['4畳以上', '1階', 'ダンボール1箱〜']}
+          onClick={() => console.log('onClick')}
+          isMarkDelete
+        />
+      </div>
+    )),
+  );
