@@ -20,7 +20,6 @@ import authRequired from 'components/containers/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { breadths } from 'helpers/breadths';
 import { spaceActions } from '../../../redux/modules/space';
-import { formatRemoveComma } from '../../../helpers/string';
 
 const ReceiptType = {
   Both: 1,
@@ -326,8 +325,8 @@ class SpaceEditConfirmContainer extends Component {
             .filter(value => {
               return value.isChecked === true;
             })
-            .map(item => item.text)}
-          tagCustomList={space.tagCustomList}
+            .map(item => item.text)
+            .concat(space.tagCustomList)}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
           addressMethod={space.about}
           delivery={

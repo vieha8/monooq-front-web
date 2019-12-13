@@ -187,7 +187,7 @@ class SpaceEdit2Container extends Component {
       return <Redirect to={Path.spaceCreate1()} />;
     }
 
-    // 【API連携】住所
+    // TODO:【API連携】住所
     return (
       <SpaceEdit2
         edit={isUpdate}

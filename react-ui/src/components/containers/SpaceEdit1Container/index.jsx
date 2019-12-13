@@ -64,12 +64,12 @@ const TagList = [
   {
     text: '平日対応可',
     isChecked: true,
-    options: { code: 6 },
+    options: { code: 7 },
   },
   {
     text: '長期歓迎',
     isChecked: true,
-    options: { code: 6 },
+    options: { code: 8 },
   },
 ];
 
