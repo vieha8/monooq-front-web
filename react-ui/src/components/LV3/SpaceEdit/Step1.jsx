@@ -41,6 +41,8 @@ export default ({
   breadth,
   onChangeBreadth,
   tagList,
+  onClickTag,
+  onKeyDownTag,
   tagCustom,
   onChangeTagCustom,
   tagCustomList,
@@ -113,7 +115,7 @@ export default ({
       <ErrorList keyName="breadth_errors" errors={errors.breadth} />
     </Section>
     <Section>
-      <TagCheckboxList tagList={tagList} />
+      <TagCheckboxList tagList={tagList} onClickTag={onClickTag} onKeyDownTag={onKeyDownTag} />
       <InputForm
         placeholder="タグを追加する (全角8文字まで)"
         value={tagCustom}

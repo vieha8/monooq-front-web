@@ -11,7 +11,7 @@ import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
 import { ErrorMessages, FormValues } from 'variables';
 
 import { uploadImage } from 'redux/helpers/firebase';
-import { iskeyDownEnter } from 'helpers/keydown';
+import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 import { isImageDefault } from 'helpers/images';
 import fileType from 'helpers/file-type';
 import { connect } from 'react-redux';
@@ -30,37 +30,31 @@ const TagList = [
   {
     text: '4畳以上',
     isChecked: true,
-    onClickCheckTown: () => console.log('onClickCheckTown'),
     options: { code: 1 },
   },
   {
     text: 'エレベータあり',
     isChecked: true,
-    onClickCheckTown: () => console.log('onClickCheckTown'),
     options: { code: 2 },
   },
   {
     text: '1階',
     isChecked: true,
-    onClickCheckTown: () => console.log('onClickCheckTown'),
     options: { code: 3 },
   },
   {
     text: '駐車スペースあり',
     isChecked: false,
-    onClickCheckTown: () => console.log('onClickCheckTown'),
     options: { code: 4 },
   },
   {
     text: '換気可',
     isChecked: false,
-    onClickCheckTown: () => console.log('onClickCheckTown'),
     options: { code: 5 },
   },
   {
     text: '出し入れ可',
     isChecked: true,
-    onClickCheckTown: () => console.log('onClickCheckTown'),
     options: { code: 6 },
   },
 ];
@@ -147,31 +141,6 @@ class SpaceEdit1Container extends Component {
     return null;
   }
 
-  onClickProfileEdit = () => {
-    const { history, dispatch, location } = this.props;
-    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-    history.push(Path.profileEdit());
-  };
-
-  // onKeyDownFurniture = e => {
-  //   if (iskeyDownSpace(e)) {
-  //     const { isFurniture } = this.state;
-  //     this.handleChangeUI('isFurniture', !isFurniture);
-  //   }
-  // };
-
-  onKeyDownButtonNext = e => {
-    if (iskeyDownEnter(e) && this.validate()) {
-      this.onClickNext();
-    }
-  };
-
-  onClickRemove = space => {
-    const { dispatch } = this.props;
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
-    dispatch(spaceActions.deleteSpace({ space }));
-  };
-
   handleChangeImage = async pickedImages => {
     this.setState({ isImageUploading: true });
 
@@ -211,6 +180,23 @@ class SpaceEdit1Container extends Component {
     this.handleChangeUI('images', nextImages);
   };
 
+  onClickProfileEdit = () => {
+    const { history, dispatch, location } = this.props;
+    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
+    history.push(Path.profileEdit());
+  };
+
+  onClickTag = (_, { code, checked }) => {
+    const { tagList } = this.state;
+    const res = tagList.map(tag => {
+      if (tag.options.code !== code) {
+        return tag;
+      }
+      return { ...tag, isChecked: checked };
+    });
+    this.setState({ tagList: res });
+  };
+
   onClickNext = () => {
     const { state } = this;
     const { dispatch, history, space } = this.props;
@@ -239,6 +225,19 @@ class SpaceEdit1Container extends Component {
 
     const nextPath = isUpdate ? Path.spaceEdit2(space.id) : Path.spaceCreate2();
     history.push(nextPath);
+  };
+
+  onKeyDownTag = e => {
+    if (iskeyDownSpace(e)) {
+      const { isTag } = this.state;
+      this.handleChangeUI('isTag', !isTag);
+    }
+  };
+
+  onKeyDownButtonNext = e => {
+    if (iskeyDownEnter(e) && this.validate()) {
+      this.onClickNext();
+    }
   };
 
   close = () => this.setState({ errorModal: false });
@@ -305,7 +304,6 @@ class SpaceEdit1Container extends Component {
   };
 
   render() {
-    const { space } = this.props;
     const {
       images,
       title,
@@ -348,18 +346,15 @@ class SpaceEdit1Container extends Component {
           onChangeIntroduction={v => this.handleChangeUI('introduction', v)}
           breadth={breadth}
           onChangeBreadth={v => this.handleChangeUI('breadth', v)}
-          OnClickRemove={() => this.onClickRemove(space)}
           onClickNext={this.onClickNext}
           onKeyDownButtonNext={this.onKeyDownButtonNext}
           buttonNextDisabled={isNoProfile || !this.validate()}
           tagList={tagList}
+          onClickTag={this.onClickTag}
+          onKeyDownTag={this.onKeyDownTag}
           tagCustom={tagCustom}
           onChangeTagCustom={v => this.handleChangeUI('tagCustom', v)}
           tagCustomList={tagCustomList}
-          //TODO: チェックボックス系のイベント
-          //checkedFurniture={isFurniture}
-          //onKeyDownFurniture={this.onKeyDownFurniture}
-          // onClickFurniture={() => this.handleChangeUI('isFurniture', !isFurniture)}
         />
         <Modal size="large" open={errorModal} onClose={this.close}>
           <Modal.Header>プロフィールをご登録ください</Modal.Header>

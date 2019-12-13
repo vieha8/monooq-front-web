@@ -27,7 +27,7 @@ const Item = styled.li`
   line-height: normal;
 `;
 
-export default ({ tagList, onClickCheckTown }) => (
+export default ({ tagList, onClickTag, onKeyDownTag }) => (
   <Wrap>
     <Caption>条件タグ</Caption>
     <List>
@@ -37,8 +37,9 @@ export default ({ tagList, onClickCheckTown }) => (
             checkbox
             labelCheckBox={`${item.text}`}
             checked={item.isChecked}
-            onClickCheck={onClickCheckTown}
-            options={{ code: item.code }}
+            onClickCheck={onClickTag}
+            options={{ code: item.options.code }}
+            onKeyDown={onKeyDownTag}
           />
         </Item>
       ))}
