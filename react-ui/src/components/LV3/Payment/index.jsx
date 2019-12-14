@@ -199,24 +199,6 @@ const Item = styled.div`
   line-height: 1.5rem;
 `;
 
-const AccountNumber = styled.div`
-  max-width: 250px;
-  background-color: ${Colors.lightYellow};
-  border-radius: ${Dimens.xsmall}px;
-  margin: 0px auto ${Dimens.medium_20}px;
-  padding: ${Dimens.medium_20}px;
-  text-align: center;
-  line-height: 1.5rem;
-  letter-spacing: 0.05em;
-  font-weight: bold;
-  border: 1px solid ${Colors.yellow};
-`;
-
-const Caution = styled.span`
-  color: ${Colors.error};
-  font-weight: bold;
-`;
-
 const maskify = cc => {
   return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
 };
@@ -339,7 +321,7 @@ export default ({
       ) : (
         <RadioList
           borderTop
-          labels={['クレジットカード', 'コンビニ払い・Pay-easy決済', '銀行振込']}
+          labels={['クレジットカード', 'コンビニ払い・Pay-easy決済']}
           captions={[
             <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />,
             <Fragment>
@@ -424,27 +406,6 @@ export default ({
               </Row>
             </Fragment>,
             '',
-            <CmnWrap noPaddingTop noBorderTop>
-              <AccountNumber>
-                みずほ銀行 渋谷中央支店
-                <br />
-                普通 1806441 モノオク(カ
-              </AccountNumber>
-              ・振込手数料はお客様にてご負担願います。
-              <br />
-              ・土日祝日または、銀行営業時間外にお振込みの場合、翌銀行営業日に順次入金確認を行います。
-              <br />
-              <br />
-              <Caution>
-                【お知らせ】
-                <br />
-                2019年12月15日(日)をもって、銀行振込による決済を終了いたします。
-                <br />
-                2019年12月16日(月)以降、新規で契約される方は、クレジットカード決済およびコンビニ・Pay-easy決済にてお支払いいただきますよう、よろしくお願いいたします。
-                <br />
-                ※現在契約中で銀行振込にてお支払いの方は、取引完了まで銀行振込にてお支払いいただけます。
-              </Caution>
-            </CmnWrap>,
           ]}
           onClick={onChangeIsHost}
           checkedIndex={paymentMethod}
