@@ -15,23 +15,25 @@ import { spaceActions } from '../../../redux/modules/space';
 class SpaceEdit2Container extends Component {
   constructor(props) {
     super(props);
-
-    const { space, dispatch } = this.props;
-
     this.state = {
-      postalCode: space.postalCode || '',
-      pref: space.town || '',
-      line1: space.line1 || '',
-      line2: space.line2 || '',
-      receiptType: space.receiptType || 0,
+      postalCode: '',
+      pref: '',
+      town: '',
+      line1: '',
+      line2: '',
+      receiptType: 0,
       error: {},
-      isUpdate: false,
+      isUpdate: !!props.match.params.space_id,
     };
+  }
 
-    const spaceId = props.match.params.space_id;
-    if (spaceId) {
+  componentDidMount() {
+    const { match, dispatch, space } = this.props;
+    const { isUpdate } = this.state;
+
+    const spaceId = match.params.space_id;
+    if (isUpdate && !space.id) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
-      this.state.isUpdate = true;
     }
 
     const { receiptType } = this.state;
@@ -59,8 +61,18 @@ class SpaceEdit2Container extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.id && !prevState.id) {
-      const { id } = space;
-      return { id };
+      // TODO
+      const { id, receiveType, zipCode, address, addressPref, addressCity, addressTown } = space;
+      const line1 = address.replace(`${addressPref}${addressCity}${addressTown}`, '');
+      console.log(line1);
+      return {
+        id,
+        receiveType,
+        pref: addressPref,
+        zipCode,
+        town: `${addressCity}${addressTown}`,
+        line1,
+      };
     }
     return null;
   }
@@ -80,7 +92,7 @@ class SpaceEdit2Container extends Component {
       }),
     );
 
-    const nextPath = isUpdate ? Path.spaceEdit3(space.id, 'about') : Path.spaceCreate3('about');
+    const nextPath = isUpdate ? Path.spaceEdit3(space.id) : Path.spaceCreate3();
     history.push(nextPath);
   };
 
@@ -131,7 +143,6 @@ class SpaceEdit2Container extends Component {
         }
         break;
       case 'receiptType':
-        console.log(`receiptType:${value}`);
         if (!value || value === 0) {
           errors.push(ErrorMessages.PleaseSelect);
         }
@@ -173,7 +184,11 @@ class SpaceEdit2Container extends Component {
 
   render() {
     const { space, isLoading } = this.props;
-    const { isUpdate, receiptType, error } = this.state;
+    const { isUpdate, receiptType, error, zipCode, pref, town, line1 } = this.state;
+
+    if (isLoading) {
+      return null;
+    }
 
     if (!isUpdate && Object.keys(space).length === 0) {
       // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
@@ -185,15 +200,12 @@ class SpaceEdit2Container extends Component {
       <SpaceEdit2
         edit={isUpdate}
         errors={error}
-        formAddress={[
-          {
-            postalCode: '123-1235',
-            pref: '東京都',
-            town: '渋谷区南平台町',
-            line1: '12-9',
-            line2: '南平台サニーハイツ404号室',
-          },
-        ]}
+        formAddress={{
+          postalCode: zipCode,
+          pref,
+          town,
+          line1,
+        }}
         onChangePostalCode={v => this.handleChangeUI('postalCode', v)}
         onChangePref={v => this.handleChangeUI('pref', v)}
         onChangeTown={v => this.handleChangeUI('town', v)}

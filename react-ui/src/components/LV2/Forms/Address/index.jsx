@@ -97,17 +97,17 @@ export default ({
     </Wrap>
     <InputForm
       margintop={12}
-      placeholder="例) 2-6-6"
+      placeholder="例) 2-6-6 モノオクマンション 301号室"
       value={formAddress.line1}
       onChange={e => onChangeLine1(e.target.value)}
     />
-    <InputForm
-      margintop={12}
-      placeholder="例) モノオクマンション 301号室"
-      hintbottom={AddressHint()}
-      value={formAddress.line2}
-      onChange={e => onChangeLine2(e.target.value)}
-    />
+    {/*<InputForm*/}
+    {/*  margintop={12}*/}
+    {/*  placeholder="例) モノオクマンション 301号室"*/}
+    {/*  hintbottom={AddressHint()}*/}
+    {/*  value={formAddress.line2}*/}
+    {/*  onChange={e => onChangeLine2(e.target.value)}*/}
+    {/*/>*/}
     <ErrorList keyName="postalCode_errors" errors={errors.postalCode} />
     <ErrorList keyName="line1_errors" errors={errors.line1} />
   </Fragment>
