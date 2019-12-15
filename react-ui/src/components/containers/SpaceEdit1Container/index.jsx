@@ -16,6 +16,7 @@ import { isImageDefault } from 'helpers/images';
 import fileType from 'helpers/file-type';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
+import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 
 const Validate = {
   Title: {
@@ -33,17 +34,17 @@ const Validate = {
 const TagList = [
   {
     text: '4畳以上',
-    isChecked: true,
+    isChecked: false,
     options: { code: 1 },
   },
   {
     text: 'エレベータあり',
-    isChecked: true,
+    isChecked: false,
     options: { code: 2 },
   },
   {
     text: '1階',
-    isChecked: true,
+    isChecked: false,
     options: { code: 3 },
   },
   {
@@ -58,17 +59,17 @@ const TagList = [
   },
   {
     text: '出し入れ可',
-    isChecked: true,
+    isChecked: false,
     options: { code: 6 },
   },
   {
     text: '平日対応可',
-    isChecked: true,
+    isChecked: false,
     options: { code: 7 },
   },
   {
     text: '長期歓迎',
-    isChecked: true,
+    isChecked: false,
     options: { code: 8 },
   },
 ];
@@ -78,70 +79,57 @@ const TagCustomList = ['4畳以上', '1階', 'ダンボール1箱〜', '1階', '
 class SpaceEdit1Container extends Component {
   constructor(props) {
     super(props);
-
-    const { dispatch, space } = this.props;
-
-    const spaceId = props.match.params.space_id;
     this.state = {
-      images: space.images || [],
-      status: space.status || `${FormValues.statusVacancy}`,
-      title: space.title || '',
-      introduction: space.introduction || '',
-      breadth: space.breadth || 0,
+      images: [],
+      status: `${FormValues.statusVacancy}`,
+      title: '',
+      introduction: '',
       error: {},
       errorsTagCustomMax: [],
       isImageUploading: false,
       errorModal: false,
       isNoProfile: false,
       isUpdate: false,
-      tagList: TagList, // TODO: 【API連携】タグ
+      tags: [],
+      sizeType: 0,
+      tagList: [],
       tagCustom: '',
-      tagCustomList: TagCustomList, // TODO: 【API連携】タグ
+      tagCustomList: [],
     };
+  }
 
+  componentDidMount() {
+    const { user, space, dispatch, match } = this.props;
+    const spaceId = match.params.space_id;
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
-      this.state.isUpdate = true;
-
+      this.setState({ isUpdate: true });
       if (space.images && space.images.length === 1 && isImageDefault(space.images[0].imageUrl)) {
-        this.state.images = [];
+        this.setState({ images: [] });
       }
     } else {
       dispatch(spaceActions.clearSpace());
     }
-  }
-
-  handleBeforeUnload = e => {
-    e.preventDefault();
-    e.returnValue = 'データが保存されませんが、よろしいですか?';
-  };
-
-  componentDidMount() {
-    window.addEventListener('beforeunload', this.handleBeforeUnload);
-
-    const { user } = this.props;
-    const { isUpdate, breadth } = this.state;
-
     if (user.name === '') {
       this.setState({ errorModal: true, isNoProfile: true });
-    } else if (!isUpdate) {
-      const { title, introduction, images } = this.state;
-      this.handleChangeUI('title', title);
-      this.handleChangeUI('introduction', introduction);
-      this.handleChangeUI('images', images);
     }
-    this.handleChangeUI('breadth', breadth);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('beforeunload', this.handleBeforeUnload);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.id && !prevState.id) {
-      const { title, status, introduction, breadth, tagCustom, images, id } = space;
-      return { title, status, introduction, breadth, tagCustom, images, id };
+      const { title, status, introduction, sizeType, tags, images, id } = space;
+      const officialTags = tags.filter(v => v.isOfficial === true);
+      const otherTags = tags.filter(v => v.isOfficial === false);
+
+      const tagList = TagList.map(v => {
+        const isChecked = officialTags.filter(t => v.text === t.name).length > 0;
+        return { ...v, isChecked };
+      });
+
+      const tagCustomList = otherTags.map(v => v.name);
+
+      return { title, status, introduction, sizeType, tagList, tagCustomList, images, id };
     }
     return null;
   }
@@ -216,7 +204,7 @@ class SpaceEdit1Container extends Component {
       title,
       status,
       introduction,
-      breadth,
+      sizeType,
       tagList,
       tagCustomList,
       isUpdate,
@@ -236,7 +224,7 @@ class SpaceEdit1Container extends Component {
           title,
           status: parseInt(status, 10) || FormValues.statusVacancy,
           introduction,
-          breadth: parseInt(breadth, 10) || 0,
+          sizeType: parseInt(sizeType, 10) || 0,
           tagList,
           tagCustomList,
         }),
@@ -319,7 +307,7 @@ class SpaceEdit1Container extends Component {
           }
         }
         break;
-      case 'breadth':
+      case 'sizeType':
         if (!value || value === 0) {
           errors.push(ErrorMessages.PleaseSelect);
         }
@@ -339,7 +327,7 @@ class SpaceEdit1Container extends Component {
   };
 
   validate = () => {
-    const { title, introduction, images, breadth } = this.state;
+    const { title, introduction, images, sizeType } = this.state;
 
     return (
       title &&
@@ -351,8 +339,8 @@ class SpaceEdit1Container extends Component {
       images &&
       images.length > 0 &&
       (isImageDefault(images[0].ImageUrl) ? images.length > 1 : true) &&
-      breadth &&
-      breadth > 0
+      sizeType &&
+      sizeType > 0
     );
   };
 
@@ -372,7 +360,7 @@ class SpaceEdit1Container extends Component {
       title,
       status,
       introduction,
-      breadth,
+      sizeType,
       error,
       errorsTagCustomMax,
       isImageUploading,
@@ -409,8 +397,8 @@ class SpaceEdit1Container extends Component {
           isImageUploading={isImageUploading}
           introduction={introduction}
           onChangeIntroduction={v => this.handleChangeUI('introduction', v)}
-          breadth={breadth}
-          onChangeBreadth={v => this.handleChangeUI('breadth', v)}
+          breadth={sizeType}
+          onChangeBreadth={v => this.handleChangeUI('sizeType', v)}
           onClickNext={this.onClickNext}
           onKeyDownButtonNext={this.onKeyDownButtonNext}
           buttonNextDisabled={isNoProfile || !this.validate()}
@@ -454,8 +442,10 @@ const mapStateToProps = state => ({
 });
 
 export default authRequired(
-  ContentPageMenu(connect(mapStateToProps)(SpaceEdit1Container), {
-    noFooter: true,
-    maxWidth: 540,
-  }),
+  handleBeforeUnload(
+    ContentPageMenu(connect(mapStateToProps)(SpaceEdit1Container), {
+      noFooter: true,
+      maxWidth: 540,
+    }),
+  ),
 );
