@@ -114,6 +114,27 @@ class SpaceContainer extends Component {
     }
   };
 
+  makeBreadCrumbs = ({ addressPref, prefCode, addressCity, cityCode, addressTown, townCode }) => {
+    const breadcrumbs = [];
+
+    breadcrumbs.push({
+      text: addressPref,
+      link: Path.spacesByPrefecture(prefCode),
+    });
+
+    breadcrumbs.push({
+      text: addressCity,
+      link: Path.spacesByCity(prefCode, cityCode),
+    });
+
+    breadcrumbs.push({
+      text: addressTown,
+      link: Path.spacesByTown(prefCode, cityCode, townCode),
+    });
+
+    return breadcrumbs;
+  };
+
   showLeftContent = () => {
     const { space, user, isRequesting, recommendSpaces } = this.props;
     const {
@@ -157,21 +178,7 @@ class SpaceContainer extends Component {
             thumbnail: image.imageUrl || dummySpaceImage,
           }))}
           status={space.status}
-          // TODO: 【API連携】パンくずリスト
-          breadcrumbsList={[
-            {
-              text: '神奈川県',
-            },
-            {
-              text: '川崎市',
-            },
-            {
-              text: '中原区',
-            },
-            {
-              text: '下沼部',
-            },
-          ]}
+          breadcrumbsList={this.makeBreadCrumbs(space)}
           description={space.introduction}
           breadth={getBreadths(space.sizeType)}
           tagList={space.tags.map(v => v.name)}
