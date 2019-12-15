@@ -15,6 +15,7 @@ import { iskeyDownEnter } from 'helpers/keydown';
 
 import { loggerActions } from 'redux/modules/logger';
 import connect from '../connect';
+import { getBreadths } from '../../../helpers/breadths';
 
 const ReceiptType = {
   Both: 1,
@@ -155,8 +156,7 @@ class SpaceContainer extends Component {
             original: image.imageUrl || dummySpaceImage,
             thumbnail: image.imageUrl || dummySpaceImage,
           }))}
-          // TODO: 【API連携】ステータス(1:満室,2:要相談,これ以外:空室)
-          statusAvailability={0}
+          status={space.status}
           // TODO: 【API連携】パンくずリスト
           breadcrumbsList={[
             {
@@ -173,20 +173,8 @@ class SpaceContainer extends Component {
             },
           ]}
           description={space.introduction}
-          // TODO: 【API連携】スペースの広さ
-          breadth="4畳以上12畳未満"
-          // TODO:【API連携】タグ
-          tagList={[
-            '4畳以上',
-            '1階',
-            'ダンボール1箱〜',
-            '4畳以上4畳以上4畳以上',
-            '1階1階',
-            'ダンボール1箱〜ダンボール1箱〜ダンボール1箱〜',
-            '4畳以上',
-            '1階',
-            'ダンボール1箱〜',
-          ]}
+          breadth={getBreadths(space.sizeType)}
+          tagList={space.tags.map(v => v.name)}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
           delivery={
             space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
@@ -202,18 +190,15 @@ class SpaceContainer extends Component {
             profile: space.user.profile,
           }}
           priceFull={numeral(space.priceFull).format('0,0')}
-          // TODO: 【API連携】現状固定値なので、API連携する
-          priceTatami={numeral(3123).format('0,0')}
-          // priceTatami={space.priceTatami > 0 && numeral(space.priceTatami).format('0,0')}
-
+          priceTatami={space.priceTatami > 0 && numeral(space.priceTatami).format('0,0')}
           recommend={recommend}
-          requestButtondisabled={isSelfSpace}
-          requestButtonloading={isRequesting}
-          requestButtononClick={isSelfSpace ? null : this.onClickSendMessage}
+          requestButtonDisabled={isSelfSpace}
+          requestButtonLoading={isRequesting}
+          requestButtonOnClick={isSelfSpace ? null : this.onClickSendMessage}
           onKeyDownButtonRequest={isSelfSpace ? null : this.onKeyDownButtonMessage}
         />
         <SendMessageOnlyTabletSp
-          priceTatami={numeral(3123).format('0,0')}
+          priceTatami={numeral(space.priceTatami).format('0,0')}
           disabled={isSelfSpace}
           loading={isRequesting}
           onClick={isSelfSpace ? null : this.onClickSendMessage}

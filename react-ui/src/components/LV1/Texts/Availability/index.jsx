@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
 
-const STATUS_FULL = 1;
-const STATUS_CONSULTATION = 2;
+const STATUS_FULL = 'full';
+const STATUS_CONSULTATION = 'consultation';
 
 const Availability = styled.span`
   display: inline-flex;

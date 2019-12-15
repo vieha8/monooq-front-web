@@ -280,11 +280,10 @@ export default ({
   confirm,
   images,
   pref,
-  statusAvailability,
+  status,
   priceTatami,
   priceFull,
   tagList,
-  tagCustomList,
   breadcrumbsList,
   user,
   description,
@@ -297,9 +296,9 @@ export default ({
   name,
   recommend,
   isOverTopView,
-  requestButtondisabled,
-  requestButtonloading,
-  requestButtononClick,
+  requestButtonDisabled,
+  requestButtonLoading,
+  requestButtonOnClick,
   onKeyDownButtonRequest,
 }) => (
   <Container confirm={confirm}>
@@ -309,7 +308,7 @@ export default ({
     <SpaceDetailWrap>
       <LeftWrap>
         <AvailabilityWrap>
-          <Availability status={statusAvailability} />
+          <Availability status={status} />
         </AvailabilityWrap>
         <SpaceTitleWrapper>
           <SpaceTitle>{name || ''}</SpaceTitle>
@@ -324,11 +323,15 @@ export default ({
         <InfoHost {...user} infoHost isNoProfile />
         <SectionHeader>スペース概要</SectionHeader>
         <Description content={description} />
-        <SectionHeader>スペースの広さ</SectionHeader>
-        <Description content={breadth} />
+        {breadth && breadth !== '' && (
+          <Fragment>
+            <SectionHeader>スペースの広さ</SectionHeader>
+            <Description content={breadth} />
+          </Fragment>
+        )}
         <SectionHeader>料金の目安</SectionHeader>
         <Price full={priceFull} tatami={priceTatami} />
-        {tagList && (
+        {tagList && tagList.length > 0 && (
           <Fragment>
             <SectionHeader>設備・条件</SectionHeader>
             <TagListWrap>
@@ -415,9 +418,9 @@ export default ({
                 primary
                 fontbold
                 fill={1}
-                disabled={confirm || requestButtondisabled}
-                loading={requestButtonloading}
-                onClick={requestButtononClick}
+                disabled={confirm || requestButtonDisabled}
+                loading={requestButtonLoading}
+                onClick={requestButtonOnClick}
                 onKeyDown={onKeyDownButtonRequest}
               >
                 リクエストを送る

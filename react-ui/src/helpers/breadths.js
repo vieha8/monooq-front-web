@@ -6,6 +6,13 @@ export const breadths = [
   '物置き・屋外倉庫',
 ];
 
+export const getBreadths = type => {
+  if (type === 0) {
+    return '';
+  }
+  return breadths[type - 1];
+};
+
 export const selectOptionBreadths = placeholder => {
   const list = [];
   if (placeholder) {
