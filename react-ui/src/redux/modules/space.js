@@ -319,12 +319,8 @@ function generateSpaceRequestParams(space) {
     params.priceFull = parseInt(params.priceFull, 10);
   }
 
-  if (params.priceHalf) {
-    params.priceHalf = parseInt(params.priceHalf, 10);
-  }
-
-  if (params.priceQuarter) {
-    params.priceQuarter = parseInt(params.priceQuarter, 10);
+  if (params.priceTatami) {
+    params.priceTatami = parseInt(params.priceTatami, 10);
   }
 
   return params;
