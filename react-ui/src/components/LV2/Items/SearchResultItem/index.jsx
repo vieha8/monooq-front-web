@@ -52,7 +52,7 @@ export default ({
   addressTown,
   priceTatami,
   priceFull,
-  tagList,
+  tags,
 }) => (
   <Container>
     <Link to={Path.space(id)}>
@@ -98,15 +98,16 @@ export default ({
               bold
               color={Colors.brandPrimary}
             >
-              {`¥${priceTatami}`
+              ¥
+              {priceTatami > 0
                 ? numeral(priceTatami).format('0,0')
                 : numeral(priceFull).format('0,0')}
               〜&nbsp;/&nbsp;月
             </InlineText.Base>
           </Row>
-          {tagList && (
+          {tags && tags.length > 0 && (
             <Row>
-              <Tag tagList={tagList} />
+              <Tag tagList={tags.map(v => v.name)} />
             </Row>
           )}
         </Content>
