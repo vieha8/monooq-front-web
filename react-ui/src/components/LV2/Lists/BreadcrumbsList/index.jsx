@@ -8,7 +8,7 @@ const WrapPre = styled.ol``;
 
 const Item = styled.li`
   position: relative;
-  display: inline;
+  display: inline-block;
   font-size: ${FontSizes.small_15}px;
   line-height: normal;
   color: ${props => (props.fontColor ? props.fontColor : Colors.black2)};

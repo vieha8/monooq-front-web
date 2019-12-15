@@ -29,13 +29,13 @@ const handleText = ({ loading, children }) => {
   return children;
 };
 
-export default ({ loading, ...props }) => {
+export default ({ loading, disabled, ...props }) => {
   const {
     secondary,
     tertiary,
     quaternary,
-    quinary,
     senary,
+    quinary,
     facebook,
     twitter,
     line,
@@ -43,70 +43,108 @@ export default ({ loading, ...props }) => {
   } = props;
   if (secondary) {
     return (
-      <Secondary {...props} onClick={handleOnClick(props)}>
+      <Secondary
+        {...props}
+        disabled={disabled || loading}
+        onClick={handleOnClick({ ...props, loading, disabled })}
+      >
         {handleText({ ...props, loading })}
       </Secondary>
     );
   }
   if (tertiary) {
     return (
-      <Tertiary {...props} onClick={handleOnClick(props)}>
+      <Tertiary
+        {...props}
+        disabled={disabled || loading}
+        onClick={handleOnClick({ ...props, loading, disabled })}
+      >
         {handleText({ ...props, loading })}
       </Tertiary>
     );
   }
   if (quaternary) {
     return (
-      <Quaternary {...props} onClick={handleOnClick(props)}>
+      <Quaternary
+        {...props}
+        disabled={disabled || loading}
+        onClick={handleOnClick({ ...props, loading, disabled })}
+      >
         {handleText({ ...props, loading })}
       </Quaternary>
     );
   }
   if (quinary) {
     return (
-      <Quinary {...props} onClick={handleOnClick(props)}>
+      <Quinary
+        {...props}
+        disabled={disabled || loading}
+        onClick={handleOnClick({ ...props, loading, disabled })}
+      >
         {handleText({ ...props, loading })}
       </Quinary>
     );
   }
   if (senary) {
     return (
-      <Senary {...props} onClick={handleOnClick(props)}>
+      <Senary {...props} onClick={handleOnClick({ ...props, loading, disabled })}>
         {handleText({ ...props, loading })}
       </Senary>
     );
   }
   if (facebook) {
     return (
-      <Facebook {...props} onClick={handleOnClick(props)} loading={loading}>
+      <Facebook
+        {...props}
+        disabled={disabled || loading}
+        onClick={handleOnClick({ ...props, loading, disabled })}
+        loading={loading}
+      >
         {handleText({ ...props, loading })}
       </Facebook>
     );
   }
   if (twitter) {
     return (
-      <Twitter {...props} onClick={handleOnClick(props)} loading={loading}>
+      <Twitter
+        {...props}
+        disabled={disabled || loading}
+        onClick={handleOnClick({ ...props, loading, disabled })}
+        loading={loading}
+      >
         {handleText({ ...props, loading })}
       </Twitter>
     );
   }
   if (line) {
     return (
-      <Line {...props} onClick={handleOnClick(props)}>
+      <Line
+        {...props}
+        disabled={disabled || loading}
+        onClick={handleOnClick({ ...props, loading, disabled })}
+      >
         {handleText({ ...props, loading })}
       </Line>
     );
   }
   if (areaPin) {
     return (
-      <AreaPin {...props} onClick={handleOnClick(props)}>
+      <AreaPin
+        {...props}
+        disabled={disabled || loading}
+        onClick={handleOnClick({ ...props, loading, disabled })}
+      >
         {handleText({ ...props, loading })}
       </AreaPin>
     );
   }
 
   return (
-    <Primary {...props} onClick={handleOnClick(props)}>
+    <Primary
+      {...props}
+      disabled={disabled || loading}
+      onClick={handleOnClick({ ...props, loading, disabled })}
+    >
       {handleText({ ...props, loading })}
     </Primary>
   );

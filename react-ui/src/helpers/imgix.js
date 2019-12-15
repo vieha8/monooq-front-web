@@ -33,18 +33,22 @@ export const convertBaseUrl = imgixUrl => {
   let replaceUrl;
   if (url.indexOf('monooq-dev.imgix.net') > -1) {
     const storageUrl = 'https://firebasestorage.googleapis.com/v0/b/monooq-dev.appspot.com/o/';
-    replaceUrl = imgixUrl.replace('https://monooq-dev.imgix.net/', storageUrl);
+    replaceUrl = url.replace('https://monooq-dev.imgix.net/', storageUrl);
   }
   if (url.indexOf('monooq.imgix.net') > -1) {
     const storageUrl = 'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/';
-    replaceUrl = imgixUrl.replace('https://monooq.imgix.net/', storageUrl);
+    replaceUrl = url.replace('https://monooq.imgix.net/', storageUrl);
   }
   if (url.indexOf('monooq-s3.imgix.net') > -1) {
     const storageUrl = 'https://s3-ap-northeast-1.amazonaws.com/monooq/';
-    replaceUrl = imgixUrl.replace('https://monooq.imgix.net/', storageUrl);
+    replaceUrl = url.replace('https://monooq.imgix.net/', storageUrl);
   }
   if (alt && token) {
     return `${replaceUrl}?${stringify({ alt, token })}`;
   }
   return url;
+};
+
+export const convertSpaceImgUrl = (url, params) => {
+  return convertImgixUrl(url, `${params}&auto=enhance&bri=8&sharp=10&sat=10`);
 };

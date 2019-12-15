@@ -15,7 +15,7 @@ import {
 } from 'redux/helpers/api';
 import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
-import { convertBaseUrl, convertImgixUrl } from 'helpers/imgix';
+import { convertBaseUrl, convertSpaceImgUrl } from 'helpers/imgix';
 import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
 import { handleError } from './error';
@@ -596,19 +596,16 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
   }
 
   const res = data.results.map(v => {
-    const space = v;
-    if (space.images.length === 0) {
-      space.images = [{ imageUrl: dummySpaceImage }];
+    let images = [];
+    if (v.images.length === 0) {
+      images = [{ imageUrl: dummySpaceImage }];
     } else {
-      space.images = space.images.map(image => {
-        image.imageUrl = convertImgixUrl(
-          image.imageUrl,
-          'fit=crop&fill-color=DBDBDB&w=600&h=400&auto=format',
-        );
-        return image;
-      });
+      images = v.images.map(image => ({
+        ...image,
+        imageUrl: convertSpaceImgUrl(image.imageUrl, 'w=360'),
+      }));
     }
-    return space;
+    return { ...v, images };
   });
 
   let areaRes = [];
@@ -737,13 +734,10 @@ function* getRecommendSpaces({ payload: { spaceId } }) {
     if (space.images.length === 0) {
       space.images = [{ imageUrl: dummySpaceImage }];
     } else {
-      space.images = space.images.map(image => {
-        image.imageUrl = convertImgixUrl(
-          image.imageUrl,
-          'fit=crop&fill-color=DBDBDB&w=600&h=400&auto=format',
-        );
-        return image;
-      });
+      space.images = space.images.map(image => ({
+        ...image,
+        imageUrl: convertSpaceImgUrl(image.imageUrl, 'w=600'),
+      }));
     }
     return space;
   });

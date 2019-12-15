@@ -322,8 +322,7 @@ function* loginEmail({ payload: { email, password } }) {
     yield checkLogin();
     yield put(authActions.loginSuccess());
   } catch (err) {
-    yield put(authActions.loginFailed(err));
-    yield handleError(authActions.loginFailed, '', 'loginEmail', err, true);
+    yield handleError(authActions.loginFailed, err.message, 'loginEmail', err, true);
   }
 }
 
@@ -336,7 +335,7 @@ function* loginFacebook() {
     const provider = new firebase.auth.FacebookAuthProvider();
     yield firebase.auth().signInWithRedirect(provider);
   } catch (err) {
-    yield handleError(authActions.loginFailed, '', 'loginFacebook', err, true);
+    yield handleError(authActions.loginFailed, err.message, 'loginFacebook', err, true);
   }
 }
 

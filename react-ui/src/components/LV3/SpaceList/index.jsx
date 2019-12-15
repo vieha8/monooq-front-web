@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
-import { convertImgixUrl } from 'helpers/imgix';
+import { convertSpaceImgUrl } from 'helpers/imgix';
 import dummySpaceImage from 'images/dummy_space.png';
 import SearchResult from 'components/LV3/SearchResult';
 
@@ -57,10 +57,7 @@ export default ({ isTag, caption, captionSub, spaceList }) => (
             ...space,
             image:
               space.images.length !== 0
-                ? convertImgixUrl(
-                    space.images[0].imageUrl,
-                    'fit=crop&fill-color=DBDBDB&w=600&h=400&auto=format',
-                  )
+                ? convertSpaceImgUrl(space.images[0].imageUrl, 'w=600')
                 : dummySpaceImage,
           }))}
         />
