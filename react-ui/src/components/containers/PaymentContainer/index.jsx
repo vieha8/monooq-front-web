@@ -15,7 +15,7 @@ import LoadingPage from 'components/LV3/LoadingPage';
 import Button from 'components/LV1/Forms/Button';
 import { H1 } from 'components/LV1/Texts/Headline';
 
-import { Dimens, Colors, FontSizes, ErrorMessages } from 'variables';
+import { Dimens, FontSizes, ErrorMessages } from 'variables';
 
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -57,30 +57,6 @@ const ButtonWrap = styled.div`
     text-align: center;
     padding: 0 0px 15px;
   `};
-`;
-
-const CmnWrap = styled.div`
-  margin: ${Dimens.medium_20}px;
-  ${props =>
-    props.noMarginSide &&
-    `
-    margin: ${Dimens.medium_20}px auto;
-  `}
-  ${media.phone`
-    margin: ${Dimens.medium_20}px auto;
-  `};
-`;
-
-const AccountNumber = styled.div`
-  max-width: 250px;
-  background-color: ${Colors.lightYellow};
-  border-radius: ${Dimens.xsmall}px;
-  margin: 0px auto ${Dimens.medium_20}px;
-  padding: ${Dimens.medium_20}px;
-  text-align: center;
-  line-height: 1.5rem;
-  letter-spacing: 0.05em;
-  font-weight: bold;
 `;
 
 const PaymentUrl = styled.a`
@@ -438,26 +414,6 @@ class PaymentContainer extends Component {
               <br />
               <br />
               決済画面URLなどのお支払い情報はご登録メールアドレスにもお送りしております。
-            </Fragment>
-          );
-          break;
-        case 2:
-          headline = 'お支払い方法が確定しました';
-          description = (
-            <Fragment>
-              下記口座にお振込後、
-              <a href="mailto:support@monooq.com?subject=銀行振込が完了しました&amp;body=こちらのメールに振込明細のお写真と、モノオクに登録しているメールアドレスをお送りください。">
-                support@monooq.com
-              </a>
-              まで振込明細の写真とモノオクに登録しているメールアドレスをお送りください。
-              <CmnWrap>
-                <AccountNumber>
-                  みずほ銀行 渋谷中央支店
-                  <br />
-                  普通 1806441 モノオク(カ
-                </AccountNumber>
-              </CmnWrap>
-              振込先口座などのお支払い情報はご登録メールアドレスにもお送りしております。
             </Fragment>
           );
           break;

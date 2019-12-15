@@ -55,7 +55,7 @@ storiesOf('Molecules(LV2)/Texts/ContentAsct', module)
             },
             {
               header: '代金の支払方法',
-              data: 'クレジットカード、銀行振込',
+              data: 'クレジットカード',
             },
             {
               header: '代金の支払時期',
