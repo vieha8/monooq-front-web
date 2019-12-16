@@ -36,13 +36,12 @@ class SpaceEdit3Container extends Component {
       priceFull: space.priceFull || '',
       priceTatami: space.priceTatami || '',
       error: {},
-      isUpdate: false,
+      isUpdate: !!props.match.params.space_id,
       isFirst: true,
     };
 
     if (spaceId) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
-      this.state.isUpdate = true;
     }
     if (space.address) {
       dispatch(spaceActions.getGeocode({ address: space.address }));
@@ -50,34 +49,29 @@ class SpaceEdit3Container extends Component {
   }
 
   componentDidMount() {
-    const { space } = this.props;
-    const { priceFull, priceTatami } = this.state;
-    this.handleChangeUI('priceFull', priceFull);
-    this.handleChangeUI('priceTatami', priceTatami);
+    const { match, dispatch, space } = this.props;
+    const { isUpdate } = this.state;
 
-    switch (space.breadth) {
-      case 1:
-      case 2:
-      case 3:
-        this.setState({ isPriceTatami: true });
-        break;
-      default:
+    const spaceId = match.params.space_id;
+    if (isUpdate && !space.id) {
+      dispatch(spaceActions.prepareUpdateSpace(spaceId));
     }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space, dispatch } = nextProps;
-
     if (space.id && !prevState.id) {
       // TODO: スペース編集時のリロード対策(最適化したい)
       dispatch(spaceActions.getGeocode({ address: space.address }));
 
-      const { priceFull: PriceFullTmp, priceTatami: PriceTatamiTmp, id } = space;
+      const { priceFull: PriceFullTmp, priceTatami: PriceTatamiTmp, id, sizeType } = space;
+
+      const isPriceTatami = sizeType === 1 || sizeType === 2 || sizeType === 3;
 
       const priceFull = formatAddComma(PriceFullTmp);
       const priceTatami = formatAddComma(PriceTatamiTmp);
 
-      return { priceFull, priceTatami, id, isFirst: false };
+      return { priceFull, priceTatami, id, isFirst: false, isPriceTatami };
     }
     return null;
   }
@@ -196,11 +190,9 @@ class SpaceEdit3Container extends Component {
     const { space, isLoading } = this.props;
     const { isPriceTatami, priceFull, priceTatami, error, isUpdate, isFirst } = this.state;
 
-    if (!isUpdate) {
-      if (Object.keys(space).length === 0) {
-        // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
-        return <Redirect to={Path.spaceCreate1()} />;
-      }
+    if (!isUpdate && !space.id) {
+      // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
+      return <Redirect to={Path.spaceCreate1()} />;
     } else if (priceFull && priceTatami && isFirst) {
       // リロード時にvalidate実行する。
       this.handleChangeUI('priceFull', priceFull);

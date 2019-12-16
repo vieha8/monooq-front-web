@@ -64,13 +64,23 @@ class SearchResultContainer extends Component {
       newConditions.towns.length !== prevState.towns.length
         ? true
         : !newConditions.towns.every(v => prevState.towns.includes(v));
+
+    const isCheckTags =
+      newConditions.tags.length !== prevState.tags.length
+        ? true
+        : !newConditions.tags.every(v => prevState.tags.includes(v));
+
     const isCheckSort = newConditions.sort !== prevProps.conditions.sort;
 
     const { isSearching } = this.props;
 
     if (
       !isSearching &&
-      (prevState.pref !== newConditions.pref || isCheckCities || isCheckTowns || isCheckSort)
+      (prevState.pref !== newConditions.pref ||
+        isCheckCities ||
+        isCheckTowns ||
+        isCheckSort ||
+        isCheckTags)
     ) {
       this.init();
     }
@@ -87,15 +97,19 @@ class SearchResultContainer extends Component {
       pref: '',
       cities: [],
       towns: [],
+      tags: [],
       sort: 1,
     };
 
     const { location, match } = this.props;
-    const { keyword, sort, pref: queryPref, cities: queryCities, towns: queryTowns } = parse(
+    const { keyword, sort, pref: queryPref, cities: queryCities, towns: queryTowns, tags } = parse(
       location.search,
     );
     if (sort) {
       conditions.sort = Number(sort);
+    }
+    if (tags) {
+      conditions.tags = tags.split(',');
     }
 
     if (!match.url.indexOf('/search')) {
@@ -158,7 +172,7 @@ class SearchResultContainer extends Component {
     if (isSearching) {
       return;
     }
-    const { limit, offset, keyword, pref, cities, towns, sort } = this.state;
+    const { limit, offset, keyword, pref, cities, towns, sort, tags } = this.state;
 
     const params = {
       limit,
@@ -168,6 +182,7 @@ class SearchResultContainer extends Component {
       sort,
       cities: [],
       towns: [],
+      tags: [],
     };
 
     if (cities.length > 0) {
@@ -176,6 +191,10 @@ class SearchResultContainer extends Component {
 
     if (towns.length > 0) {
       params.towns = towns;
+    }
+
+    if (tags.length > 0) {
+      params.tags = tags;
     }
 
     dispatch(spaceActions.doSearch(params));
@@ -245,13 +264,7 @@ const mapStateToProps = state => ({
   conditions: state.space.search.conditions,
 });
 
-export default ContentPageMenu(
-  connect(
-    SearchResultContainer,
-    mapStateToProps,
-  ),
-  {
-    maxWidth: 1168,
-    bottomMarginOnlySP: true,
-  },
-);
+export default ContentPageMenu(connect(SearchResultContainer, mapStateToProps), {
+  maxWidth: 1168,
+  bottomMarginOnlySP: true,
+});

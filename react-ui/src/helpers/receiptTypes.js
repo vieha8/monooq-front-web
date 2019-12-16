@@ -4,7 +4,7 @@ export const receiptTypes = [
   '対面での受け取りのみ対応する',
 ];
 
-export const selectOptionreceiptTypes = placeholder => {
+export const selectOptionReceiptTypes = placeholder => {
   const list = [];
   if (placeholder) {
     list.push({
@@ -18,7 +18,7 @@ export const selectOptionreceiptTypes = placeholder => {
       const purpose = i + 1;
       return {
         key: purpose,
-        value: purpose.toString(),
+        value: purpose,
         text: item,
       };
     }),

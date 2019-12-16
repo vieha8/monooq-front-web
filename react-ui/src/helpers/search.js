@@ -1,4 +1,4 @@
-export const makeConditionTitle = ({ keyword, pref, cities, towns }) => {
+export const makeConditionTitle = ({ keyword, pref, cities, towns, tags }) => {
   if (keyword && keyword !== '') {
     return keyword;
   }
@@ -15,6 +15,13 @@ export const makeConditionTitle = ({ keyword, pref, cities, towns }) => {
 
   if (towns && towns.length > 0) {
     condition += `/${towns.map(v => v.name).join('・')}`;
+  }
+
+  if (tags && tags.length > 0) {
+    if (condition !== '') {
+      condition += '/';
+    }
+    condition += `${tags.join('・')}`;
   }
 
   if (condition === '') {

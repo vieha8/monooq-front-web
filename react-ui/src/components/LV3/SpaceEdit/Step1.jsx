@@ -69,15 +69,15 @@ export default ({
         label="ステータス"
         options={[
           {
-            value: 0,
+            value: 'open',
             text: '空室',
           },
           {
-            value: 1,
+            value: 'full',
             text: '満室',
           },
           {
-            value: 2,
+            value: 'consultation',
             text: '要相談',
           },
         ]}

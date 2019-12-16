@@ -8,7 +8,7 @@ import { spaceActions } from 'redux/modules/space';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
 
-import { ErrorMessages, FormValues } from 'variables';
+import { ErrorMessages } from 'variables';
 
 import { uploadImage } from 'redux/helpers/firebase';
 import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
@@ -79,7 +79,7 @@ class SpaceEdit1Container extends Component {
     super(props);
     this.state = {
       images: [],
-      status: `${FormValues.statusVacancy}`,
+      status: '',
       title: '',
       introduction: '',
       error: {},
@@ -87,10 +87,10 @@ class SpaceEdit1Container extends Component {
       isImageUploading: false,
       errorModal: false,
       isNoProfile: false,
-      isUpdate: false,
+      isUpdate: !!props.match.params.space_id,
       tags: [],
       sizeType: 0,
-      tagList: [],
+      tagList: TagList,
       tagCustom: '',
       tagCustomList: [],
     };
@@ -98,10 +98,10 @@ class SpaceEdit1Container extends Component {
 
   componentDidMount() {
     const { user, space, dispatch, match } = this.props;
+    const { isUpdate } = this.state;
     const spaceId = match.params.space_id;
-    if (spaceId) {
+    if (isUpdate && !space.id) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
-      this.setState({ isUpdate: true });
       if (space.images && space.images.length === 1 && isImageDefault(space.images[0].imageUrl)) {
         this.setState({ images: [] });
       }
@@ -220,7 +220,7 @@ class SpaceEdit1Container extends Component {
         space: Object.assign(space, {
           images,
           title,
-          status: parseInt(status, 10) || FormValues.statusVacancy,
+          status,
           introduction,
           sizeType: parseInt(sizeType, 10) || 0,
           tagList,
@@ -321,6 +321,9 @@ class SpaceEdit1Container extends Component {
 
     state[propName] = value;
     error[propName] = errors;
+
+    console.log(propName, value);
+
     this.setState({ ...state, error });
   };
 

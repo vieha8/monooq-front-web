@@ -119,21 +119,11 @@ class SpaceEditConfirmContainer extends Component {
     this.state = {
       isUpdate: !!props.match.params.space_id,
       isOverTopView: false,
-      isPriceTatami: false,
     };
   }
 
   componentDidMount() {
     const { space, dispatch, match } = this.props;
-    switch (space.breadth) {
-      case 1:
-      case 2:
-      case 3:
-        this.setState({ isPriceTatami: true });
-        break;
-      default:
-    }
-
     const { isUpdate } = this.state;
 
     const spaceId = match.params.space_id;
@@ -244,7 +234,7 @@ class SpaceEditConfirmContainer extends Component {
 
   render() {
     const { space, isLoading, isComplete } = this.props;
-    const { isPriceTatami, isUpdate, isOverTopView } = this.state;
+    const { isUpdate, isOverTopView } = this.state;
 
     if (isUpdate) {
       if (!space.id) {
@@ -261,7 +251,7 @@ class SpaceEditConfirmContainer extends Component {
       return <Redirect to={Path.createSpaceCompletion()} />;
     }
 
-    let tagList = space.tags.map(v => v.name);
+    let tagList;
     if (space.tagList) {
       tagList = space.tagList
         .filter(value => {
@@ -269,6 +259,8 @@ class SpaceEditConfirmContainer extends Component {
         })
         .map(item => item.text)
         .concat(space.tagCustomList);
+    } else {
+      tagList = space.tags.map(v => v.name);
     }
 
     const { user } = this.props;
@@ -309,7 +301,6 @@ class SpaceEditConfirmContainer extends Component {
         </ConfirmMessage>
         <Spacer />
         <Detail
-          isPriceTatami={isPriceTatami}
           confirm
           isOverTopView={isOverTopView}
           id={space.id}
@@ -322,8 +313,7 @@ class SpaceEditConfirmContainer extends Component {
             original: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
             thumbnail: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
           }))}
-          statusAvailability={space.status}
-          // TODO: 【API連携】パンくずリスト。町域を表示する。
+          status={space.status}
           breadcrumbsList={[
             {
               text: space.addressPref,
@@ -333,9 +323,6 @@ class SpaceEditConfirmContainer extends Component {
             },
             {
               text: space.addressTown,
-            },
-            {
-              text: '下沼部',
             },
           ]}
           description={space.introduction}
