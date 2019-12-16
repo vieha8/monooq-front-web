@@ -12,6 +12,12 @@ import authRequired from 'components/containers/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { spaceActions } from '../../../redux/modules/space';
 
+const Validate = {
+  PostalCode: {
+    Match: /^\d{3}-?\d{4}$/, // 7桁の数字であるか(ハイフンは任意)
+  },
+};
+
 class SpaceEdit2Container extends Component {
   constructor(props) {
     super(props);
@@ -116,13 +122,14 @@ class SpaceEdit2Container extends Component {
     switch (propName) {
       case 'postalCode':
         if (!value || value.trim().length === 0) {
-          errors.push(ErrorMessages.PleaseInput);
-        } else {
-          // TODO: 郵便番号のバリデートはあとで実装
-          // const match = value ? value.match(Validate.Address) : '';
-          // if (!match || (match && match[4] === '')) {
-          //   errors.push(ErrorMessages.InvalidAddress);
-          // }
+          errors.push(`郵便番号を${ErrorMessages.PleaseInput}`);
+        } else if (!value.match(Validate.PostalCode.Match)) {
+          errors.push(ErrorMessages.InvalidPostalCode);
+        }
+        break;
+      case 'pref':
+        if (!value || value.trim().length === 0) {
+          errors.push(`住所の自動入力を${ErrorMessages.PleaseDo}`);
         }
         break;
       case 'line1':
@@ -131,7 +138,6 @@ class SpaceEdit2Container extends Component {
         }
         break;
       case 'receiptType':
-        console.log(`receiptType:${value}`);
         if (!value || value === 0) {
           errors.push(ErrorMessages.PleaseSelect);
         }
@@ -146,29 +152,32 @@ class SpaceEdit2Container extends Component {
   };
 
   validate = () => {
-    const { receiptType } = this.state;
-    // const AddressMatch = address ? address.match(Validate.Address) : '';
+    const { postalCode, pref, town, line1, receiptType } = this.state;
+    const PostalCodeMatch = postalCode ? postalCode.match(Validate.PostalCode.Match) : '';
     return (
-      // TODO: 住所のバリデートを実装する
-      // address &&
-      // (address === undefined ? false : address.trim().length > 0) &&
-      // (AddressMatch ? AddressMatch[4] !== '' : false) &&
-      receiptType && receiptType > 0
+      postalCode &&
+      (postalCode === undefined ? false : postalCode.trim().length > 0) &&
+      PostalCodeMatch &&
+      pref &&
+      (pref === undefined ? false : pref.trim().length > 0) &&
+      town &&
+      (town === undefined ? false : town.trim().length > 0) &&
+      line1 &&
+      (line1 === undefined ? false : line1.trim().length > 0) &&
+      receiptType &&
+      receiptType > 0
     );
   };
 
   validatePostCode = () => {
     // TODO: 郵便番号のバリデートはあとで実装
-    return true;
-    // const { postalCode } = this.state;
-    // const AddressMatch = address ? address.match(Validate.Address) : '';
-    // return (
-    //   address &&
-    //   (address === undefined ? false : address.trim().length > 0) &&
-    //   (AddressMatch ? AddressMatch[4] !== '' : false) &&
-    //   receiptType &&
-    //   receiptType > 0
-    // );
+    const { postalCode } = this.state;
+    const PostalCodeMatch = postalCode ? postalCode.match(Validate.PostalCode.Match) : '';
+    return (
+      postalCode &&
+      (postalCode === undefined ? false : postalCode.trim().length > 0) &&
+      PostalCodeMatch
+    );
   };
 
   render() {
@@ -199,8 +208,8 @@ class SpaceEdit2Container extends Component {
         onChangeTown={v => this.handleChangeUI('town', v)}
         onChangeLine1={v => this.handleChangeUI('line1', v)}
         onChangeLine2={v => this.handleChangeUI('line2', v)}
-        buttonDisabled={!this.validatePostCode()}
-        buttonLoading={isLoading}
+        buttonAddressDisabled={!this.validatePostCode()}
+        buttonAddressLoading={isLoading}
         onClickGetAddress={this.onClickGetAddress}
         onKeyDownButtonGetAddress={this.onKeyDownButtonGetAddress}
         receiptType={receiptType}

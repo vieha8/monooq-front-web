@@ -44,8 +44,8 @@ export default ({
   onChangeTown,
   onChangeLine1,
   onChangeLine2,
-  buttonDisabled,
-  buttonLoading,
+  buttonAddressDisabled,
+  buttonAddressLoading,
   onClickGetAddress,
   onKeyDownButtonGetAddress,
 }) => (
@@ -66,9 +66,9 @@ export default ({
           height={50}
           lineheight={25}
           fontSize={14}
-          disabled={buttonDisabled}
-          onClick={buttonLoading ? null : onClickGetAddress}
-          loading={buttonLoading}
+          disabled={buttonAddressDisabled}
+          onClick={buttonAddressLoading ? null : onClickGetAddress}
+          loading={buttonAddressLoading}
           onKeyDown={onKeyDownButtonGetAddress}
         >
           住所を自動で入力
@@ -109,6 +109,7 @@ export default ({
       onChange={e => onChangeLine2(e.target.value)}
     />
     <ErrorList keyName="postalCode_errors" errors={errors.postalCode} />
+    <ErrorList keyName="pref_errors" errors={errors.pref} />
     <ErrorList keyName="line1_errors" errors={errors.line1} />
   </Fragment>
 );

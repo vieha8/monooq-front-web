@@ -3,6 +3,7 @@ import numeral from 'numeral';
 export default {
   PleaseInput: '入力してください。',
   PleaseSelect: '選択してください。',
+  PleaseDo: '行ってください。',
   PriceNumber: '金額は半角数字(整数)で入力してください。',
   PriceNumberName: name => `${name}は半角数字(整数)で入力してください。`,
   MustSpaceImage: '写真は1枚以上登録してください。',
@@ -16,6 +17,7 @@ export default {
   AlphaOnly: name => `${name}は半角ローマ字で入力してください。`,
   CreditCardNumber: 'クレジットカード番号は16桁の半角数字で入力してください。',
   Cvc: 'セキュリティコードは3桁の半角数字で入力してください。',
+  InvalidPostalCode: 'これは正しい郵便番号ではないようです。',
   InvalidEmail: 'これは正しいメールアドレスではないようです。',
   InvalidPhoneNumber: 'これは正しい電話番号ではないようです。',
   InvalidPassword: 'パスワードは8桁以上の半角英数字で登録してください。',
