@@ -15,12 +15,7 @@ storiesOf('Molecules(LV2)/Forms/ButtonManage', module)
       管理ボタン(PuclicVer)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <ButtonManage
-          onClickEdit={() => console.log('onClickEdit')}
-          onClickPublic={() => console.log('onClickPublic')}
-          onClickPrivate={() => console.log('onClickPrivate')}
-          public
-        />
+        <ButtonManage onClickEdit={() => console.log('onClickEdit')} public />
       </div>
     )),
   )
@@ -31,12 +26,7 @@ storiesOf('Molecules(LV2)/Forms/ButtonManage', module)
       管理ボタン(PrivateVer)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <ButtonManage
-          onClickEdit={() => console.log('onClickEdit')}
-          onClickPublic={() => console.log('onClickPublic')}
-          onClickPrivate={() => console.log('onClickPrivate')}
-          private
-        />
+        <ButtonManage onClickEdit={() => console.log('onClickEdit')} private />
       </div>
     )),
   );

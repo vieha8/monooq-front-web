@@ -82,7 +82,6 @@ storiesOf('Organisms(LV3)/SpaceEdit', module)
           isImageUploading={false}
           introduction="Space Introdiction"
           onChangeIntroduction={() => console.log('onChangeIntroduction')}
-          OnClickRemove={() => console.log('OnClickRemove')}
           onClickNext={() => console.log('onClickNext')}
           onKeyDownButtonNext={() => console.log('onKeyDownButtonNext')}
           buttonNextDisabled={false}
@@ -112,7 +111,6 @@ storiesOf('Organisms(LV3)/SpaceEdit', module)
           isImageUploading={false}
           introduction="Space Introdiction"
           onChangeIntroduction={() => console.log('onChangeIntroduction')}
-          OnClickRemove={() => console.log('OnClickRemove')}
           onClickNext={() => console.log('onClickNext')}
           onKeyDownButtonNext={() => console.log('onKeyDownButtonNext')}
           buttonNextDisabled={false}

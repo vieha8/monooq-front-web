@@ -95,6 +95,7 @@ const mapStateToProps = state => ({
 export default authRequired(
   ContentPageMenu(connect(SpaceManagementContainer, mapStateToProps), {
     headline: 'スペースの管理',
-    maxWidth: 540,
+    maxWidth: 1000,
+    bgGray: true,
   }),
 );

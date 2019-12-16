@@ -5,6 +5,7 @@ import { Colors, Dimens } from 'variables';
 import Card from 'components/LV1/Card';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
+import Availability from 'components/LV1/Texts/Availability';
 
 const Container = styled.div`
   ${props =>
@@ -14,10 +15,21 @@ const Container = styled.div`
   `};
 `;
 
-const ImageWrapper = styled.div``;
+const CardStyled = styled(Card)`
+  display: flex;
+`;
+
+const ImageWrapper = styled.div`
+  max-width: 180px;
+`;
 
 const ContentWrapper = styled.div`
-  padding: ${Dimens.small_10}px ${Dimens.medium}px;
+  max-width: 300px;
+  padding-left: ${Dimens.medium}px;
+`;
+
+const TopWrap = styled.div`
+  display: inline-flex;
 `;
 
 const AddressText = styled(InlineText.Base)`
@@ -32,21 +44,30 @@ const AddressText = styled(InlineText.Base)`
   `};
 `;
 
-const ContentText = styled(InlineText.Base)`
+const ContentTextWrap = styled(InlineText.Base)`
   display: block;
+  height: 6rem;
   margin: 5px auto;
   ${props =>
     !props.manage &&
     `
+      height: auto;
       max-height: 1.5em;
       overflow: hidden;
       text-overflow: ellipsis;
   `};
 `;
 
+const ContentText = styled.span`
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+`;
+
 const StatusText = styled(InlineText.Tiny)`
   display: block;
-  margin: 5px auto;
+  margin: auto 0 auto ${Dimens.medium}px;
   color: ${Colors.brandPrimary};
   ${props =>
     !props.manage &&
@@ -73,6 +94,7 @@ const PriceLabel = styled(InlineText.Tiny)`
 
 const PriceText = styled(InlineText.Base)`
   display: block;
+  margin-top: ${Dimens.xxsmall_5}px;
   font-weight: bold;
   ${props =>
     !props.manage &&
@@ -87,23 +109,28 @@ export default ({ href, onClick, image, manage, address, content, prices, status
   manage ? (
     <Container manage>
       <Link to={href || ''}>
-        <Card noBorder noPadding pointer onClick={onClick}>
+        <CardStyled noBorder noPadding pointer onClick={onClick}>
           <ImageWrapper>
             <ImageHero large src={image.src} alt={image.alt} />
           </ImageWrapper>
           <ContentWrapper>
-            <AddressText manage={manage}>{address || ''}</AddressText>
-            <ContentText manage={manage}>{content || ''}</ContentText>
-            <PriceText manage={manage}>{`${prices.join('円/')}円`}</PriceText>
-            {status === 'public' ? (
-              <StatusText manage={manage}>●公開中</StatusText>
-            ) : (
-              <StatusText manage={manage} draft>
-                ○下書き
-              </StatusText>
-            )}
+            <TopWrap>
+              {/* TODO: 動的化 */}
+              <Availability status={1} />
+              {status === 'public' ? (
+                <StatusText manage={manage}>●公開中</StatusText>
+              ) : (
+                <StatusText manage={manage} draft>
+                  ○下書き
+                </StatusText>
+              )}
+            </TopWrap>
+            <ContentTextWrap manage={manage}>
+              <ContentText>{content || ''}</ContentText>
+              <PriceText manage={manage}>{`${prices.join('円/')}円`}</PriceText>
+            </ContentTextWrap>
           </ContentWrapper>
-        </Card>
+        </CardStyled>
       </Link>
     </Container>
   ) : (
@@ -115,7 +142,7 @@ export default ({ href, onClick, image, manage, address, content, prices, status
           </ImageWrapper>
           <ContentWrapper>
             <AddressText>{address || ''}</AddressText>
-            <ContentText>{content || ''}</ContentText>
+            <ContentTextWrap>{content || ''}</ContentTextWrap>
             <HomeApplianceText>{furniture ? '家具・家電OK' : ' '}</HomeApplianceText>
             <PriceLabel>料金目安（30日間）</PriceLabel>
             <PriceText>{prices.join(' / ')}</PriceText>
