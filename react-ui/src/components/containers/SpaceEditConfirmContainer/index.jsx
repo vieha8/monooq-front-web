@@ -175,6 +175,17 @@ class SpaceEditConfirmContainer extends Component {
     const saveSpace = Object.assign(space);
 
     if (isUpdate) {
+      if (space.tagList) {
+        saveSpace.tags = space.tagList
+          .filter(value => {
+            return value.isChecked === true;
+          })
+          .map(item => item.text)
+          .concat(space.tagCustomList);
+      } else {
+        saveSpace.tags = space.tags.map(v => v.name);
+      }
+
       dispatch(
         spaceActions.updateSpace({
           spaceId: space.id,
@@ -234,10 +245,6 @@ class SpaceEditConfirmContainer extends Component {
   render() {
     const { space, isLoading, isComplete } = this.props;
     const { isPriceTatami, isUpdate, isOverTopView } = this.state;
-
-    if (isLoading || !space.id) {
-      return null;
-    }
 
     if (isUpdate) {
       if (!space.id) {

@@ -5,7 +5,7 @@ import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import SpaceEdit2 from 'components/LV3/SpaceEdit/Step2';
 
-import { ErrorMessages, FormValues } from 'variables';
+import { ErrorMessages } from 'variables';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
