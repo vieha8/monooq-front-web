@@ -25,7 +25,8 @@ class Lp123GuestContainer extends React.Component {
     let headline = this.getHeadlineLp1();
     let titleWant = 'こんな荷物ありませんか？';
     let buttonLink = Path.signUp();
-    if (partialMatch(targetUrl, Path.lp2Guest())) {
+
+    if (partialMatch(targetUrl, Path.lp2Guest()) || partialMatch(targetUrl, Path.lp2Guest2())) {
       titleMeta =
         'レンタル倉庫・コンテナより安く荷物を預けるなら「モノオク」｜トランクルーム・コンテナよりもお手軽に収納';
       headline = this.getHeadlineLp2();
