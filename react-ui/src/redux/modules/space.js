@@ -46,6 +46,9 @@ const RESET_SEARCH = 'RESET_SEARCH';
 const GET_RECOMMEND_SPACES = 'GET_RECOMMEND_SPACES';
 const GET_RECOMMEND_SPACES_SUCCESS = 'GET_RECOMMEND_SPACES_SUCCESS';
 const GET_RECOMMEND_SPACES_FAILED = 'GET_RECOMMEND_SPACES_FAILED';
+const GET_ADDRESS = 'GET_ADDRESS';
+const GET_ADDRESS_SUCCESS = 'GET_ADDRESS_SUCCESS';
+const GET_ADDRESS_FAILED = 'GET_ADDRESS_FAILED';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -73,6 +76,9 @@ export const spaceActions = createActions(
   GET_RECOMMEND_SPACES,
   GET_RECOMMEND_SPACES_SUCCESS,
   GET_RECOMMEND_SPACES_FAILED,
+  GET_ADDRESS,
+  GET_ADDRESS_SUCCESS,
+  GET_ADDRESS_FAILED,
 );
 
 // Reducer
@@ -86,11 +92,7 @@ const initialState = {
     results: [],
     maxCount: 0,
     isMore: true,
-    breadcrumbs: [
-      // TODO 仮データ
-      { text: 'TOP', link: '/' },
-      { text: '東京都のスペース一覧' },
-    ],
+    breadcrumbs: [],
     conditions: {
       keyword: '',
       pref: '',
@@ -101,6 +103,7 @@ const initialState = {
     cities: [],
   },
   recommendSpaces: [],
+  geo: {},
 };
 
 export const spaceReducer = handleActions(
@@ -218,6 +221,10 @@ export const spaceReducer = handleActions(
       ...state,
       recommendSpaces: payload,
     }),
+    [GET_ADDRESS_SUCCESS]: (state, { payload: { pref, city, town } }) => ({
+      ...state,
+      geo: { pref, city, town },
+    }),
   },
   initialState,
 );
@@ -267,9 +274,10 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   yield put(spaceActions.fetchSuccessSpace(payload));
 }
 
+const GEOCODE_API_KEY = 'AIzaSyAF1kxs-DsZJHW3tX3eNi88tKixy-zbGtk';
+
 function* getGeocode({ payload: { address } }) {
-  const KEY = 'AIzaSyAF1kxs-DsZJHW3tX3eNi88tKixy-zbGtk';
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${KEY}&address=${address}`;
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${GEOCODE_API_KEY}&address=${address}`;
 
   try {
     const { data: places, err } = yield call(
@@ -286,6 +294,8 @@ function* getGeocode({ payload: { address } }) {
       yield handleError(spaceActions.getFailedGeocode, '', 'getGeocode', err, false);
       return;
     }
+
+    console.log(places);
 
     if (places.results.length > 0) {
       yield put(
@@ -529,12 +539,9 @@ function* deleteSpace({ payload: { space } }) {
   const { err } = yield call(deleteApiRequest, apiEndpoint.spaces(space.id), token);
   if (err) {
     let errMessage = '';
-    console.log(err);
     if (err === '進行中の取引があります') {
-      console.log('A');
       errMessage = '進行中の取引があるスペースは削除できません';
     }
-
     yield handleError(spaceActions.deleteFailedSpace, errMessage, 'deleteSpace', err, false);
     return;
   }
@@ -745,6 +752,35 @@ function* getRecommendSpaces({ payload: { spaceId } }) {
   yield put(spaceActions.getRecommendSpacesSuccess(res));
 }
 
+function* getAddressByPostalCode({ payload: { postalCode } }) {
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${GEOCODE_API_KEY}&address=${postalCode}`;
+
+  try {
+    const { data: places, err } = yield call(
+      () =>
+        new Promise((resolve, reject) => {
+          axios
+            .get(url)
+            .then(result => resolve(result))
+            .catch(error => reject(error));
+        }),
+    );
+
+    if (err) {
+      yield handleError(spaceActions.getAddressFailed, '', 'getAddress', err, false);
+      return;
+    }
+
+    const pref = places.results[0].address_components[3].long_name;
+    const city = places.results[0].address_components[2].long_name;
+    const town = places.results[0].address_components[1].long_name;
+
+    yield put(spaceActions.getAddressSuccess({ pref, city, town }));
+  } catch (err) {
+    yield handleError(spaceActions.getAddressFailed, '', 'getAddress(exception)', err, false);
+  }
+}
+
 export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
@@ -755,4 +791,5 @@ export const spaceSagas = [
   takeEvery(DO_SEARCH, search),
   takeEvery(GET_GEOCODE, getGeocode),
   takeEvery(GET_RECOMMEND_SPACES, getRecommendSpaces),
+  takeEvery(GET_ADDRESS, getAddressByPostalCode),
 ];

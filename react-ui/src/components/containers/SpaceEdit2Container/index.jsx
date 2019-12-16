@@ -20,7 +20,6 @@ class SpaceEdit2Container extends Component {
       pref: '',
       town: '',
       line1: '',
-      line2: '',
       receiptType: 0,
       error: {},
       isUpdate: !!props.match.params.space_id,
@@ -59,21 +58,27 @@ class SpaceEdit2Container extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { space } = nextProps;
+    const { space, geo } = nextProps;
     if (space.id && !prevState.id) {
-      // TODO
-      const { id, receiveType, zipCode, address, addressPref, addressCity, addressTown } = space;
+      const { id, receiveType, postalCode, address, addressPref, addressCity, addressTown } = space;
       const line1 = address.replace(`${addressPref}${addressCity}${addressTown}`, '');
-      console.log(line1);
       return {
         id,
         receiveType,
         pref: addressPref,
-        zipCode,
+        postalCode,
         town: `${addressCity}${addressTown}`,
         line1,
       };
     }
+
+    if (geo.pref) {
+      return {
+        pref: geo.pref,
+        town: `${geo.city}${geo.town}`,
+      };
+    }
+
     return null;
   }
 
@@ -116,8 +121,9 @@ class SpaceEdit2Container extends Component {
   };
 
   onClickGetAddress = () => {
-    // TODO:【API連携】住所取得＆値セット
-    console.log('onClickGetAddress');
+    const { dispatch } = this.props;
+    const { postalCode } = this.state;
+    dispatch(spaceActions.getAddress({ postalCode }));
   };
 
   handleChangeUI = (propName, value) => {
@@ -184,7 +190,7 @@ class SpaceEdit2Container extends Component {
 
   render() {
     const { space, isLoading } = this.props;
-    const { isUpdate, receiptType, error, zipCode, pref, town, line1 } = this.state;
+    const { isUpdate, receiptType, error, postalCode, pref, town, line1 } = this.state;
 
     if (isLoading) {
       return null;
@@ -196,12 +202,13 @@ class SpaceEdit2Container extends Component {
     }
 
     // TODO:【API連携】住所
+
     return (
       <SpaceEdit2
         edit={isUpdate}
         errors={error}
         formAddress={{
-          postalCode: zipCode,
+          postalCode,
           pref,
           town,
           line1,
@@ -210,7 +217,6 @@ class SpaceEdit2Container extends Component {
         onChangePref={v => this.handleChangeUI('pref', v)}
         onChangeTown={v => this.handleChangeUI('town', v)}
         onChangeLine1={v => this.handleChangeUI('line1', v)}
-        onChangeLine2={v => this.handleChangeUI('line2', v)}
         buttonDisabled={!this.validatePostCode()}
         buttonLoading={isLoading}
         onClickGetAddress={this.onClickGetAddress}
@@ -230,6 +236,7 @@ class SpaceEdit2Container extends Component {
 const mapStateToProps = state => ({
   space: state.ui.space || {},
   isLoading: state.space.isLoading,
+  geo: state.space.geo,
 });
 
 export default authRequired(
