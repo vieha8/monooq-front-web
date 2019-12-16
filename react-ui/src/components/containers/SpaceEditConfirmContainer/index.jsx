@@ -334,9 +334,6 @@ class SpaceEditConfirmContainer extends Component {
             {
               text: space.addressTown,
             },
-            {
-              text: '下沼部',
-            },
           ]}
           description={space.introduction}
           breadth={breadths[space.breadth - 1]}
