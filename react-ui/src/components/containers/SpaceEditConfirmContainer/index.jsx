@@ -117,23 +117,14 @@ class SpaceEditConfirmContainer extends Component {
     super(props);
 
     this.state = {
-      isUpdate: false,
+      isUpdate: !!props.match.params.space_id,
       isOverTopView: false,
-    };
-
-    const spaceId = props.match.params.space_id;
-
-    if (spaceId) {
-      this.state.isUpdate = true;
-    }
-
-    this.state = {
       isPriceTatami: false,
     };
   }
 
   componentDidMount() {
-    const { space } = this.props;
+    const { space, dispatch, match } = this.props;
     switch (space.breadth) {
       case 1:
       case 2:
@@ -141,6 +132,13 @@ class SpaceEditConfirmContainer extends Component {
         this.setState({ isPriceTatami: true });
         break;
       default:
+    }
+
+    const { isUpdate } = this.state;
+
+    const spaceId = match.params.space_id;
+    if (isUpdate && !space.id) {
+      dispatch(spaceActions.prepareUpdateSpace(spaceId));
     }
 
     this._isMounted = true;
@@ -237,6 +235,10 @@ class SpaceEditConfirmContainer extends Component {
     const { space, isLoading, isComplete } = this.props;
     const { isPriceTatami, isUpdate, isOverTopView } = this.state;
 
+    if (isLoading || !space.id) {
+      return null;
+    }
+
     if (isUpdate) {
       if (!space.id) {
         return <Redirect to={Path.spaceCreate1()} />;
@@ -250,6 +252,16 @@ class SpaceEditConfirmContainer extends Component {
         return <Redirect to={Path.spaceEditCompletion(space.id)} />;
       }
       return <Redirect to={Path.createSpaceCompletion()} />;
+    }
+
+    let tagList = space.tags.map(v => v.name);
+    if (space.tagList) {
+      tagList = space.tagList
+        .filter(value => {
+          return value.isChecked === true;
+        })
+        .map(item => item.text)
+        .concat(space.tagCustomList);
     }
 
     const { user } = this.props;
@@ -321,12 +333,7 @@ class SpaceEditConfirmContainer extends Component {
           ]}
           description={space.introduction}
           breadth={breadths[space.breadth - 1]}
-          tagList={space.tagList
-            .filter(value => {
-              return value.isChecked === true;
-            })
-            .map(item => item.text)
-            .concat(space.tagCustomList)}
+          tagList={tagList}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
           addressMethod={space.about}
           delivery={
