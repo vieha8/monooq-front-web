@@ -5,11 +5,12 @@ import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import SpaceEdit2 from 'components/LV3/SpaceEdit/Step2';
 
-import { ErrorMessages } from 'variables';
+import { ErrorMessages, FormValues } from 'variables';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { spaceActions } from '../../../redux/modules/space';
+import { uiActions } from '../../../redux/modules/ui';
 
 const Validate = {
   PostalCode: {
@@ -67,9 +68,10 @@ class SpaceEdit2Container extends Component {
       return {
         id,
         receiptType,
-        pref: addressPref,
         postalCode,
-        town: `${addressCity}${addressTown}`,
+        pref: addressPref,
+        city: addressCity,
+        town: addressTown,
         line1,
       };
     }
@@ -77,7 +79,8 @@ class SpaceEdit2Container extends Component {
     if (geo.pref) {
       return {
         pref: geo.pref,
-        town: `${geo.city}${geo.town}`,
+        city: geo.city,
+        town: geo.town,
       };
     }
 
@@ -85,16 +88,44 @@ class SpaceEdit2Container extends Component {
   }
 
   onClickNext = () => {
-    const { history, space } = this.props;
-    const { isUpdate } = this.state;
+    const { history, space, dispatch } = this.props;
+    const { isUpdate, receiptType, postalCode, pref, city, town, line1 } = this.state;
     const nextPath = isUpdate ? Path.spaceEdit3(space.id) : Path.spaceCreate3();
+
+    dispatch(
+      uiActions.setUiState({
+        space: Object.assign(space, {
+          receiptType,
+          postalCode,
+          address: `${pref}${city}${town}${line1}`,
+          addressPref: pref,
+          addressCity: city,
+          addressTown: town,
+        }),
+      }),
+    );
+
     history.push(nextPath);
   };
 
   onClickBack = () => {
-    const { history, space } = this.props;
-    const { isUpdate } = this.state;
+    const { history, space, dispatch } = this.props;
+    const { isUpdate, receiptType, postalCode, pref, city, town, line1 } = this.state;
     const nextPath = isUpdate ? Path.spaceEdit1(space.id) : Path.spaceCreate1();
+
+    dispatch(
+      uiActions.setUiState({
+        space: Object.assign(space, {
+          receiptType,
+          postalCode,
+          address: `${pref}${city}${town}${line1}`,
+          addressPref: pref,
+          addressCity: city,
+          addressTown: town,
+        }),
+      }),
+    );
+
     history.push(nextPath);
   };
 
@@ -172,7 +203,7 @@ class SpaceEdit2Container extends Component {
 
   render() {
     const { space, isLoading } = this.props;
-    const { isUpdate, receiptType, error, postalCode, pref, town, line1 } = this.state;
+    const { isUpdate, receiptType, error, postalCode, pref, city, town, line1 } = this.state;
 
     if (isLoading) {
       return null;
@@ -192,7 +223,7 @@ class SpaceEdit2Container extends Component {
         formAddress={{
           postalCode,
           pref,
-          town,
+          town: `${city}${town}`,
           line1,
         }}
         onChangePostalCode={v => this.handleChangeUI('postalCode', v)}
