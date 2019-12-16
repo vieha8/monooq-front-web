@@ -77,5 +77,6 @@ export default {
   lp1Guest: () => '/lp1/guest',
   lp1Guest2: () => '/lp1_2/guest',
   lp2Guest: () => '/lp2/guest',
+  lp2Guest2: () => '/lp2_2/guest',
   lp3Guest: () => '/lp3/guest',
 };

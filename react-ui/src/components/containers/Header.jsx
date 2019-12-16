@@ -21,10 +21,7 @@ class HeaderContainer extends Component {
       partialMatch(targetUrl, Path.about()) ||
       partialMatch(targetUrl, Path.howtouse()) ||
       partialMatch(targetUrl, Path.lp1Host()) ||
-      partialMatch(targetUrl, Path.lp1Guest()) ||
-      partialMatch(targetUrl, Path.lp1Guest2()) ||
-      partialMatch(targetUrl, Path.lp2Guest()) ||
-      partialMatch(targetUrl, Path.lp3Guest())
+      this.isLpGuest(targetUrl)
     ) {
       isLinkRed = true;
     }
@@ -82,6 +79,20 @@ class HeaderContainer extends Component {
     }
   };
 
+  isLpGuest = path => {
+    return (
+      partialMatch(path, Path.lp1Guest()) ||
+      partialMatch(path, Path.lp1Guest2()) ||
+      partialMatch(path, Path.lp2Guest()) ||
+      partialMatch(path, Path.lp2Guest2()) ||
+      partialMatch(path, Path.lp3Guest())
+    );
+  };
+
+  isLpGuest2 = path => {
+    return partialMatch(path, Path.lp1Guest2()) || partialMatch(path, Path.lp2Guest2());
+  };
+
   watchCurrentPosition() {
     const { pagePathScrollPage } = this.state;
     let positionScrollPC = 450;
@@ -95,10 +106,7 @@ class HeaderContainer extends Component {
       if (
         partialMatch(pagePathScrollPage, Path.about()) ||
         partialMatch(pagePathScrollPage, Path.howtouse()) ||
-        partialMatch(pagePathScrollPage, Path.lp1Guest()) ||
-        partialMatch(pagePathScrollPage, Path.lp1Guest2()) ||
-        partialMatch(pagePathScrollPage, Path.lp2Guest()) ||
-        partialMatch(pagePathScrollPage, Path.lp3Guest())
+        this.isLpGuest(pagePathScrollPage)
       ) {
         positionScrollPC = 540;
         positionScrollSP = 320;
@@ -147,21 +155,10 @@ class HeaderContainer extends Component {
         top={top}
         isOverTopView={isOverTopView}
         isPageLp={
-          partialMatch(pagePathScrollPage, Path.lp1Host()) ||
-          partialMatch(pagePathScrollPage, Path.lp1Guest()) ||
-          partialMatch(pagePathScrollPage, Path.lp1Guest2()) ||
-          partialMatch(pagePathScrollPage, Path.lp2Guest()) ||
-          partialMatch(pagePathScrollPage, Path.lp3Guest())
+          partialMatch(pagePathScrollPage, Path.lp1Host()) || this.isLpGuest(pagePathScrollPage)
         }
-        isPageLp123Guest={
-          partialMatch(pagePathScrollPage, Path.lp1Guest()) ||
-          partialMatch(pagePathScrollPage, Path.lp1Guest2()) ||
-          partialMatch(pagePathScrollPage, Path.lp2Guest()) ||
-          partialMatch(pagePathScrollPage, Path.lp3Guest())
-        }
-        isPageLp1_2={
-          partialMatch(pagePathScrollPage, Path.lp1Guest2()) // 命名あれなのわかってるが暫定的に by masaya
-        }
+        isPageLp123Guest={this.isLpGuest(pagePathScrollPage)}
+        isPageLp12GuestLinkTop={this.isLpGuest2(pagePathScrollPage)}
         isLinkRed={isLinkRed}
         topUrl={Path.top()}
         isCheckingLogin={isChecking}

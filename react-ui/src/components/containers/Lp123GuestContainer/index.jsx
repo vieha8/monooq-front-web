@@ -36,7 +36,7 @@ class Lp123GuestContainer extends React.Component {
       headline = this.getHeadlineLp3();
       titleWant = '荷物の保管場所に困ってませんか？';
     }
-    if (partialMatch(targetUrl, Path.lp1Guest2())) {
+    if (partialMatch(targetUrl, Path.lp1Guest2()) || partialMatch(targetUrl, Path.lp2Guest2())) {
       buttonLink = Path.top();
     }
     this.setState({ titleWant, headline, titleMeta, buttonLink });

@@ -198,6 +198,7 @@ export default ({ history }) => (
       <Route exact path={Path.lp1Guest()} component={Lp1Guest} />
       <Route exact path={Path.lp1Guest2()} component={Lp1Guest} />
       <Route exact path={Path.lp2Guest()} component={Lp2Guest} />
+      <Route exact path={Path.lp2Guest2()} component={Lp2Guest} />
       <Route exact path={Path.lp3Guest()} component={Lp3Guest} />
       <Route component={PageNotFound} />
     </Switch>
