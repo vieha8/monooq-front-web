@@ -295,8 +295,6 @@ function* getGeocode({ payload: { address } }) {
       return;
     }
 
-    console.log(places);
-
     if (places.results.length > 0) {
       yield put(
         spaceActions.getSuccessGeocode({

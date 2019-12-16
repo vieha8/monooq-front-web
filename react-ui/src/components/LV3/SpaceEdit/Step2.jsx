@@ -31,8 +31,8 @@ export default ({
   onChangeTown,
   onChangeLine1,
   onChangeLine2,
-  buttonDisabled,
-  buttonLoading,
+  buttonAddressDisabled,
+  buttonAddressLoading,
   onClickGetAddress,
   onKeyDownButtonGetAddress,
   receiptType,
@@ -55,8 +55,8 @@ export default ({
         onChangeTown={onChangeTown}
         onChangeLine1={onChangeLine1}
         onChangeLine2={onChangeLine2}
-        buttonDisabled={buttonDisabled}
-        buttonLoading={buttonLoading}
+        buttonAddressDisabled={buttonAddressDisabled}
+        buttonAddressLoading={buttonAddressLoading}
         onClickGetAddress={onClickGetAddress}
         onKeyDownButtonGetAddress={onKeyDownButtonGetAddress}
       />

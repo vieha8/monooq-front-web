@@ -5,12 +5,17 @@ import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import SpaceEdit2 from 'components/LV3/SpaceEdit/Step2';
 
-import { uiActions } from 'redux/modules/ui';
 import { ErrorMessages } from 'variables';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { spaceActions } from '../../../redux/modules/space';
+
+const Validate = {
+  PostalCode: {
+    Match: /^\d{3}-?\d{4}$/, // 7桁の数字であるか(ハイフンは任意)
+  },
+};
 
 class SpaceEdit2Container extends Component {
   constructor(props) {
@@ -34,9 +39,6 @@ class SpaceEdit2Container extends Component {
     if (isUpdate && !space.id) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
     }
-
-    const { receiptType } = this.state;
-    this.handleChangeUI('receiptType', receiptType);
   }
 
   onKeyDownButtonNext = e => {
@@ -60,11 +62,11 @@ class SpaceEdit2Container extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space, geo } = nextProps;
     if (space.id && !prevState.id) {
-      const { id, receiveType, postalCode, address, addressPref, addressCity, addressTown } = space;
+      const { id, receiptType, postalCode, address, addressPref, addressCity, addressTown } = space;
       const line1 = address.replace(`${addressPref}${addressCity}${addressTown}`, '');
       return {
         id,
-        receiveType,
+        receiptType,
         pref: addressPref,
         postalCode,
         town: `${addressCity}${addressTown}`,
@@ -83,39 +85,15 @@ class SpaceEdit2Container extends Component {
   }
 
   onClickNext = () => {
-    const { dispatch, history, space } = this.props;
-    const { receiptType, isUpdate } = this.state;
-
-    // TODO: 【API連携】住所処理が組み込み終わったら差し替える。
-    // （この値はスペース料金設定画面でMap座標取得処理で利用している)
-    dispatch(
-      uiActions.setUiState({
-        space: Object.assign(space, {
-          address: '東京都渋谷区東1-1',
-          receiptType: parseInt(receiptType, 10) || 0,
-        }),
-      }),
-    );
-
+    const { history, space } = this.props;
+    const { isUpdate } = this.state;
     const nextPath = isUpdate ? Path.spaceEdit3(space.id) : Path.spaceCreate3();
     history.push(nextPath);
   };
 
   onClickBack = () => {
-    const { dispatch, history, space } = this.props;
-    const { receiptType, isUpdate } = this.state;
-
-    // TODO: 【API連携】住所処理が組み込み終わったら差し替える。
-    // （この値はスペース料金設定画面でMap座標取得処理で利用している)
-    dispatch(
-      uiActions.setUiState({
-        space: Object.assign(space, {
-          address: '東京都渋谷区東1-1',
-          receiptType: parseInt(receiptType, 10) || 0,
-        }),
-      }),
-    );
-
+    const { history, space } = this.props;
+    const { isUpdate } = this.state;
     const nextPath = isUpdate ? Path.spaceEdit1(space.id) : Path.spaceCreate1();
     history.push(nextPath);
   };
@@ -134,13 +112,14 @@ class SpaceEdit2Container extends Component {
     switch (propName) {
       case 'postalCode':
         if (!value || value.trim().length === 0) {
-          errors.push(ErrorMessages.PleaseInput);
-        } else {
-          // TODO: 郵便番号のバリデートはあとで実装
-          // const match = value ? value.match(Validate.Address) : '';
-          // if (!match || (match && match[4] === '')) {
-          //   errors.push(ErrorMessages.InvalidAddress);
-          // }
+          errors.push(`郵便番号を${ErrorMessages.PleaseInput}`);
+        } else if (!value.match(Validate.PostalCode.Match)) {
+          errors.push(ErrorMessages.InvalidPostalCode);
+        }
+        break;
+      case 'pref':
+        if (!value || value.trim().length === 0) {
+          errors.push(`住所の自動入力を${ErrorMessages.PleaseDo}`);
         }
         break;
       case 'line1':
@@ -163,29 +142,32 @@ class SpaceEdit2Container extends Component {
   };
 
   validate = () => {
-    const { receiptType } = this.state;
-    // const AddressMatch = address ? address.match(Validate.Address) : '';
+    const { postalCode, pref, town, line1, receiptType } = this.state;
+    const PostalCodeMatch = postalCode ? postalCode.match(Validate.PostalCode.Match) : '';
     return (
-      // TODO: 住所のバリデートを実装する
-      // address &&
-      // (address === undefined ? false : address.trim().length > 0) &&
-      // (AddressMatch ? AddressMatch[4] !== '' : false) &&
-      receiptType && receiptType > 0
+      postalCode &&
+      (postalCode === undefined ? false : postalCode.trim().length > 0) &&
+      PostalCodeMatch &&
+      pref &&
+      (pref === undefined ? false : pref.trim().length > 0) &&
+      town &&
+      (town === undefined ? false : town.trim().length > 0) &&
+      line1 &&
+      (line1 === undefined ? false : line1.trim().length > 0) &&
+      receiptType &&
+      receiptType > 0
     );
   };
 
   validatePostCode = () => {
     // TODO: 郵便番号のバリデートはあとで実装
-    return true;
-    // const { postalCode } = this.state;
-    // const AddressMatch = address ? address.match(Validate.Address) : '';
-    // return (
-    //   address &&
-    //   (address === undefined ? false : address.trim().length > 0) &&
-    //   (AddressMatch ? AddressMatch[4] !== '' : false) &&
-    //   receiptType &&
-    //   receiptType > 0
-    // );
+    const { postalCode } = this.state;
+    const PostalCodeMatch = postalCode ? postalCode.match(Validate.PostalCode.Match) : '';
+    return (
+      postalCode &&
+      (postalCode === undefined ? false : postalCode.trim().length > 0) &&
+      PostalCodeMatch
+    );
   };
 
   render() {
@@ -219,6 +201,9 @@ class SpaceEdit2Container extends Component {
         onChangeLine1={v => this.handleChangeUI('line1', v)}
         buttonDisabled={!this.validatePostCode()}
         buttonLoading={isLoading}
+        onChangeLine2={v => this.handleChangeUI('line2', v)}
+        buttonAddressDisabled={!this.validatePostCode()}
+        buttonAddressLoading={isLoading}
         onClickGetAddress={this.onClickGetAddress}
         onKeyDownButtonGetAddress={this.onKeyDownButtonGetAddress}
         receiptType={receiptType}
