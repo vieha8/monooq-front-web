@@ -91,7 +91,6 @@ export default ({
               borderbold
               fontbold
               fill={1}
-              loading={loading}
               onClick={backButton.onClick}
               onKeyDown={backButton.onKeyDown}
             >
