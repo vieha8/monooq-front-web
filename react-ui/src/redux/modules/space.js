@@ -566,7 +566,7 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
   }
 }
 
-function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, sort } }) {
+function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, tags, sort } }) {
   const token = yield* getToken();
 
   const params = {
@@ -587,6 +587,10 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
 
   if (towns && towns.length > 0) {
     params.towns = towns.join(',');
+  }
+
+  if (tags && tags.length > 0) {
+    params.tags = tags.join(',');
   }
 
   if (sort) {

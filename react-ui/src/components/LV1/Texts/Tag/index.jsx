@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
 import { mediaMin } from 'helpers/style/media-query';
+import { Link } from 'react-router-dom';
+import Path from 'config/path';
 
 const Tag = styled.div`
   position: relative;
@@ -38,14 +40,16 @@ const Tag = styled.div`
   `};
 `;
 
-export default ({ tagList, onClick, isNoMark, isMarkDelete }) => (
+export default ({ tagList, isNoMark, isMarkDelete }) => (
   <Fragment>
     {tagList &&
       tagList.map((tag, i) => (
-        <Tag key={i.toString()} onClick={onClick} isMarkDelete={isMarkDelete}>
-          {!isNoMark && '#'}
-          {tag}
-        </Tag>
+        <Link key={i.toString()} to={`${Path.search()}?tags=${tag}`}>
+          <Tag isMarkDelete={isMarkDelete}>
+            {!isNoMark && '#'}
+            {tag}
+          </Tag>
+        </Link>
       ))}
   </Fragment>
 );
