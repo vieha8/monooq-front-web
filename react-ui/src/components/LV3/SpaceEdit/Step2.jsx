@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { selectOptionreceiptTypes } from 'helpers/receiptTypes';
+import { selectOptionReceiptTypes } from 'helpers/receiptTypes';
 import Address from 'components/LV2/Forms/Address';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Select from 'components/LV2/Forms/Select';
@@ -36,7 +36,7 @@ export default ({
   onClickGetAddress,
   onKeyDownButtonGetAddress,
   receiptType,
-  onChangereceiptType,
+  onChangeReceiptType,
   onClickBack,
   onKeyDownButtonBack,
   onClickNext,
@@ -65,9 +65,9 @@ export default ({
     <Section>
       <Select
         label="受け取り方法"
-        options={selectOptionreceiptTypes('選択してください')}
+        options={selectOptionReceiptTypes('選択してください')}
         value={receiptType}
-        onChange={e => onChangereceiptType(e.target.value)}
+        onChange={e => onChangeReceiptType(e.target.value)}
       />
       <ErrorList keyName="receive_errors" errors={errors.receiptType} />
     </Section>

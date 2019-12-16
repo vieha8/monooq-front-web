@@ -24,6 +24,7 @@ class SpaceEdit2Container extends Component {
     this.state = {
       postalCode: '',
       pref: '',
+      city: '',
       town: '',
       line1: '',
       receiptType: 0,
@@ -214,8 +215,6 @@ class SpaceEdit2Container extends Component {
       return <Redirect to={Path.spaceCreate1()} />;
     }
 
-    // TODO:【API連携】住所
-
     return (
       <SpaceEdit2
         edit={isUpdate}
@@ -238,7 +237,7 @@ class SpaceEdit2Container extends Component {
         onClickGetAddress={this.onClickGetAddress}
         onKeyDownButtonGetAddress={this.onKeyDownButtonGetAddress}
         receiptType={receiptType}
-        onChangereceiptType={v => this.handleChangeUI('receiptType', v)}
+        onChangeReceiptType={v => this.handleChangeUI('receiptType', v)}
         onClickBack={this.onClickBack}
         onKeyDownButtonBack={this.onKeyDownButtonBack}
         onClickNext={this.onClickNext}

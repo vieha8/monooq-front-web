@@ -79,7 +79,7 @@ class SpaceEdit1Container extends Component {
     super(props);
     this.state = {
       images: [],
-      status: `${FormValues.statusVacancy}`,
+      status: '',
       title: '',
       introduction: '',
       error: {},
@@ -90,7 +90,7 @@ class SpaceEdit1Container extends Component {
       isUpdate: false,
       tags: [],
       sizeType: 0,
-      tagList: [],
+      tagList: TagList,
       tagCustom: '',
       tagCustomList: [],
     };
@@ -220,7 +220,7 @@ class SpaceEdit1Container extends Component {
         space: Object.assign(space, {
           images,
           title,
-          status: parseInt(status, 10) || FormValues.statusVacancy,
+          status,
           introduction,
           sizeType: parseInt(sizeType, 10) || 0,
           tagList,
@@ -321,6 +321,9 @@ class SpaceEdit1Container extends Component {
 
     state[propName] = value;
     error[propName] = errors;
+
+    console.log(propName, value);
+
     this.setState({ ...state, error });
   };
 

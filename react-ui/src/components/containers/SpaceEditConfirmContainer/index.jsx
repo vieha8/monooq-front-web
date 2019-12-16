@@ -261,7 +261,7 @@ class SpaceEditConfirmContainer extends Component {
       return <Redirect to={Path.createSpaceCompletion()} />;
     }
 
-    let tagList = space.tags.map(v => v.name);
+    let tagList;
     if (space.tagList) {
       tagList = space.tagList
         .filter(value => {
@@ -269,6 +269,8 @@ class SpaceEditConfirmContainer extends Component {
         })
         .map(item => item.text)
         .concat(space.tagCustomList);
+    } else {
+      tagList = space.tags.map(v => v.name);
     }
 
     const { user } = this.props;
@@ -322,8 +324,7 @@ class SpaceEditConfirmContainer extends Component {
             original: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
             thumbnail: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
           }))}
-          statusAvailability={space.status}
-          // TODO: 【API連携】パンくずリスト。町域を表示する。
+          status={space.status}
           breadcrumbsList={[
             {
               text: space.addressPref,
