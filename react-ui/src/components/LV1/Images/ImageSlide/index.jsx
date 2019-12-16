@@ -1,29 +1,28 @@
 import React from 'react';
-import ImageGallery from 'react-image-gallery';
+import styled from 'styled-components';
+import ImageSlider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import { convertSpaceImgUrl } from 'helpers/imgix';
 
-const convertImageUrl = images => {
-  return images.map(({ original }) => {
-    const replaceUrl = convertSpaceImgUrl(original, 'w=1200&h=800&fit=crop');
-    return {
-      original: replaceUrl || '',
-      thumbnail: replaceUrl || '',
-      bulletClass: 'space_image_gallery_bullet',
-    };
-  });
-};
+const ImageLi = styled.li`
+  overflow: hidden;
+`;
+
+const ImageSpace = styled.img`
+  width: 100%;
+`;
 
 export default ({ images }) => (
-  <ImageGallery
-    items={convertImageUrl(images)}
-    showThumbnails={false}
-    showPlayButton={false}
-    showFullscreenButton={false}
-    showNav
-    showIndex
-    showBullets
-    // TODO: 要調整
-    slideDuration={100}
-    // slideDuration={450}
-  />
+  <ImageSlider className="custom-arrow-2" dots cssEase="linear" slidesToShow={1}>
+    {images &&
+      images.map((item, i) => (
+        <ImageLi key={i.toString()}>
+          <ImageSpace
+            src={convertSpaceImgUrl(`${item.original}`, 'w=1200&h=800&fit=crop')}
+            alt={item.alt}
+          />
+        </ImageLi>
+      ))}
+  </ImageSlider>
 );
