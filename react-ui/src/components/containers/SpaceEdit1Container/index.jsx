@@ -74,8 +74,6 @@ const TagList = [
   },
 ];
 
-const TagCustomList = ['4畳以上', '1階', 'ダンボール1箱〜', '1階', '常時換気'];
-
 class SpaceEdit1Container extends Component {
   constructor(props) {
     super(props);
