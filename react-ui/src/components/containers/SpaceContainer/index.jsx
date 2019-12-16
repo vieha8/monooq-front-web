@@ -135,6 +135,44 @@ class SpaceContainer extends Component {
     return breadcrumbs;
   };
 
+  makeMetaBreadcrumbs = space => {
+    const { addressPref, addressCity, addressTown, prefCode, cityCode, townCode } = space;
+
+    const baseUrl = 'https://monooq.com';
+    const itemList = [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'トップ',
+        item: baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: `${addressPref}のスペース`,
+        item: `${baseUrl}/pref${prefCode}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: `${addressCity}のスペース`,
+        item: `${baseUrl}/pref${prefCode}/city${cityCode}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 4,
+        name: `${addressTown}のスペース`,
+        item: `${baseUrl}/pref${prefCode}/city${cityCode}/town${townCode}`,
+      },
+    ];
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: itemList,
+    };
+  };
+
   showLeftContent = () => {
     const { space, user, isRequesting, recommendSpaces } = this.props;
     const {
@@ -166,6 +204,7 @@ class SpaceContainer extends Component {
           ogUrl={url}
           ogImageUrl={imageUrl}
           noindex={isNoIndex}
+          jsonLd={this.makeMetaBreadcrumbs(space)}
         />
         <Detail
           isOverTopView={isOverTopView}
