@@ -55,7 +55,7 @@ export default ({
       </InlineText.Base>
       {isRoom && (
         <Unit>
-          <InlineText.EmphasisTiny>一畳あたり</InlineText.EmphasisTiny>
+          <InlineText.EmphasisTiny>1畳あたり</InlineText.EmphasisTiny>
         </Unit>
       )}
     </Caption>
