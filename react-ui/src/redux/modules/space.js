@@ -528,7 +528,7 @@ function* updateSpace({ payload: { spaceId, body } }) {
     apiEndpoint.spaces(spaceId),
     {
       title: params.title,
-      introduction: params.introcuction,
+      introduction: params.introduction,
       receiptType: params.receiptType,
       sizeType: params.sizeType,
       priceFull: params.priceFull,
