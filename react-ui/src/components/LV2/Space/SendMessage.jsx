@@ -1,4 +1,5 @@
 import React from 'react';
+import numeral from 'numeral';
 import styled from 'styled-components';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -13,9 +14,14 @@ const Wrap = styled.div`
 const Caption = styled.div`
   width: 100%;
   display: inline-block;
-  margin-top: ${Dimens.xsmall}px;
   margin-left: -${Dimens.medium}px;
   text-align: center;
+  line-height: ${Dimens.medium4}px;
+  ${props =>
+    props.isRoom &&
+    `
+      line-height: normal;
+    `};
 `;
 
 const Price = styled.span`
@@ -30,16 +36,28 @@ const ButtonWrap = styled.div`
   min-width: 200px;
 `;
 
-export default ({ priceTatami, disabled, loading, onClick, onKeyDownButtonMessage }) => (
+export default ({
+  isRoom,
+  priceFull,
+  priceTatami,
+  disabled,
+  loading,
+  onClick,
+  onKeyDownButtonMessage,
+}) => (
   <Wrap>
-    <Caption>
-      <Price>{priceTatami}</Price>
+    <Caption isRoom={isRoom}>
+      <Price>
+        {isRoom ? numeral(priceTatami).format('0,0') : `〜${numeral(priceFull).format('0,0')}`}
+      </Price>
       <InlineText.Base fontSize={FontSizes.small_12} bold>
         &nbsp;円/月
       </InlineText.Base>
-      <Unit>
-        <InlineText.EmphasisTiny>一畳あたり</InlineText.EmphasisTiny>
-      </Unit>
+      {isRoom && (
+        <Unit>
+          <InlineText.EmphasisTiny>一畳あたり</InlineText.EmphasisTiny>
+        </Unit>
+      )}
     </Caption>
     <ButtonWrap>
       <Button

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
@@ -23,12 +23,16 @@ const headContent = (id, imageUrl, name) => {
   );
 };
 
-const contentHostName = (name, pref) => {
+const contentHostName = (message, name, pref) => {
   return (
     <Content>
       {`${formatName(name)}さん`}
-      <br />
-      <InlineText.Base fontSize={`${FontSizes.small_12}`}>{`${pref}在住`}</InlineText.Base>
+      {!message && (
+        <Fragment>
+          <br />
+          <InlineText.Base fontSize={FontSizes.small_12}>{`${pref}在住`}</InlineText.Base>
+        </Fragment>
+      )}
     </Content>
   );
 };
@@ -38,7 +42,7 @@ export default ({ infoHost, message, id, imageUrl, name, pref, profile, isNoProf
     infoHost={infoHost}
     message={message}
     headContent={headContent(id, imageUrl, name)}
-    contentHostName={isNoProfile ? `${formatName(name)}さん` : contentHostName(name, pref)}
+    contentHostName={isNoProfile ? `${formatName(name)}さん` : contentHostName(message, name, pref)}
     contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
     isNoProfile={isNoProfile}
   />

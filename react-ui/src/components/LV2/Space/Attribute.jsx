@@ -44,7 +44,12 @@ const HostNameContainer = styled.div`
     `
     margin-top: ${Dimens.small2_15}px;
   `};
-
+  ${props =>
+    props.message &&
+    `
+      margin-top: 0;
+      line-height: ${Dimens.medium3_45}px;
+    `};
   ${media.phone`
     max-width: 175px;
     margin-top: ${Dimens.small_10}px;
@@ -80,7 +85,9 @@ export default ({
     <HostImageContainer>
       {headContent || <InlineText.Base>{title}</InlineText.Base>}
     </HostImageContainer>
-    <HostNameContainer isNoProfile={isNoProfile}>{contentHostName}</HostNameContainer>
+    <HostNameContainer message={message} isNoProfile={isNoProfile}>
+      {contentHostName}
+    </HostNameContainer>
     {!isNoProfile && <ProfileContainer>{contentProfile}</ProfileContainer>}
   </Container>
 );

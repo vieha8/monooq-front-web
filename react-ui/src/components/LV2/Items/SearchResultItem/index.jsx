@@ -105,13 +105,13 @@ export default ({
               〜&nbsp;/&nbsp;月
             </InlineText.Base>
           </Row>
-          {tags && tags.length > 0 && (
-            <Row>
-              <Tag tagList={tags.map(v => v.name)} />
-            </Row>
-          )}
         </Content>
       </Card>
     </Link>
+    {tags && tags.length > 0 && (
+      <Row marginTop={12}>
+        <Tag tagList={tags.map(v => v.name)} />
+      </Row>
+    )}
   </Container>
 );
