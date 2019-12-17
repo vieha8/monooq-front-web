@@ -24,6 +24,23 @@ const Validate = {
   },
 };
 
+const checkError = value => {
+  const errors = [];
+  if (!value || value.length === 0) {
+    errors.push(ErrorMessages.PleaseInput);
+  } else if (Number.isNaN(value) || !String(value).match(Validate.Price.Num)) {
+    errors.push(ErrorMessages.PriceNumber);
+  } else {
+    if (value < Validate.Price.Min) {
+      errors.push(ErrorMessages.PriceMin(Validate.Price.Min));
+    }
+    if (value > Validate.Price.Max) {
+      errors.push(ErrorMessages.PriceMax(Validate.Price.Max));
+    }
+  }
+  return errors;
+};
+
 class SpaceEdit3Container extends Component {
   constructor(props) {
     super(props);
@@ -39,34 +56,42 @@ class SpaceEdit3Container extends Component {
 
   componentDidMount() {
     const { match, dispatch, space } = this.props;
-    const { isUpdate } = this.state;
+    const { isUpdate, priceFull, priceTatami } = this.state;
 
     const spaceId = match.params.space_id;
     if (isUpdate && !space.id) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
     }
 
+    const { sizeType } = space;
+    const isPriceTatami = sizeType === 1 || sizeType === 2 || sizeType === 3;
+
     if (space.address) {
       dispatch(spaceActions.getGeocode({ address: space.address }));
-      const { sizeType } = space;
-      const isPriceTatami = sizeType === 1 || sizeType === 2 || sizeType === 3;
-      this.setState({ isPriceTatami });
     }
+
+    if (!isUpdate) {
+      this.handleChangeUI('priceFull', priceFull);
+      if (isPriceTatami) {
+        this.handleChangeUI('priceTatami', priceTatami);
+      }
+    }
+
+    this.setState({ isPriceTatami });
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.id && !prevState.id) {
-      // TODO: スペース編集時のリロード対策(最適化したい)
-
-      const { priceFull: PriceFullTmp, priceTatami: PriceTatamiTmp, id, sizeType } = space;
+      const { priceFull, priceTatami, id, sizeType } = space;
 
       const isPriceTatami = sizeType === 1 || sizeType === 2 || sizeType === 3;
 
-      const priceFull = formatAddComma(PriceFullTmp);
-      const priceTatami = formatAddComma(PriceTatamiTmp);
+      const error = {};
+      error.priceFull = checkError(formatRemoveComma(priceFull));
+      error.priceTatami = checkError(formatRemoveComma(priceTatami));
 
-      return { priceFull, priceTatami, id, isPriceTatami };
+      return { priceFull, priceTatami, id, isPriceTatami, error };
     }
     return null;
   }
@@ -137,25 +162,9 @@ class SpaceEdit3Container extends Component {
   handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
-    let returnValue = formatRemoveComma(value);
-
-    const priceErrors = [];
-
-    if (!returnValue || returnValue.length === 0) {
-      priceErrors.push(ErrorMessages.PleaseInput);
-    } else if (Number.isNaN(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
-      priceErrors.push(ErrorMessages.PriceNumber);
-    } else {
-      if (returnValue < Validate.Price.Min) {
-        priceErrors.push(ErrorMessages.PriceMin(Validate.Price.Min));
-      }
-      if (returnValue > Validate.Price.Max) {
-        priceErrors.push(ErrorMessages.PriceMax(Validate.Price.Max));
-      }
-      returnValue = formatAddComma(returnValue);
-    }
-
-    state[propName] = returnValue;
+    const returnValue = formatRemoveComma(value);
+    const priceErrors = checkError(returnValue);
+    state[propName] = formatAddComma(returnValue);
     error[propName] = priceErrors;
     this.setState({ ...state, error });
   };

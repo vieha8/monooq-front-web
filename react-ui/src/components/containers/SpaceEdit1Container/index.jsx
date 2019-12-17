@@ -75,6 +75,48 @@ const TagList = [
   },
 ];
 
+const checkError = (name, value) => {
+  const errors = [];
+  switch (name) {
+    case 'title':
+      if (!value || value.trim().length === 0) {
+        errors.push(ErrorMessages.PleaseInput);
+      } else if (value.length > Validate.Title.Max) {
+        errors.push(ErrorMessages.LengthMax('タイトル', Validate.Title.Max));
+      }
+      break;
+    case 'introduction':
+      if (!value || value.trim().length === 0) {
+        errors.push(ErrorMessages.PleaseInput);
+      } else if (value.length > Validate.Introduction.Max) {
+        errors.push(ErrorMessages.LengthMax('紹介文', Validate.Introduction.Max));
+      }
+      break;
+    case 'images':
+      if (!value || value.length === 0) {
+        errors.push(ErrorMessages.MustSpaceImage);
+      } else if (value.length === 1) {
+        if (value[0].ImageUrl && isImageDefault(value[0].ImageUrl)) {
+          errors.push(ErrorMessages.MustSpaceImage);
+        }
+      }
+      break;
+    case 'sizeType':
+      if (!value || value === 0) {
+        errors.push(ErrorMessages.PleaseSelect);
+      }
+      break;
+    case 'tagCustom':
+      if (value && value.length > Validate.TagCustom.MaxText) {
+        errors.push(ErrorMessages.LengthMax('条件タグ', Validate.TagCustom.MaxText));
+      }
+      break;
+    default:
+      break;
+  }
+  return errors;
+};
+
 class SpaceEdit1Container extends Component {
   constructor(props) {
     super(props);
@@ -99,7 +141,7 @@ class SpaceEdit1Container extends Component {
 
   componentDidMount() {
     const { user, space, dispatch, match } = this.props;
-    const { isUpdate } = this.state;
+    const { isUpdate, images, title, introduction, sizeType } = this.state;
     const spaceId = match.params.space_id;
     if (isUpdate && (!space.id || spaceId !== space.id)) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
@@ -109,6 +151,12 @@ class SpaceEdit1Container extends Component {
     }
     if (user.name === '') {
       this.setState({ errorModal: true, isNoProfile: true });
+    }
+    if (!isUpdate) {
+      this.handleChangeUI('images', images);
+      this.handleChangeUI('title', title);
+      this.handleChangeUI('introduction', introduction);
+      this.handleChangeUI('sizeType', sizeType);
     }
   }
 
@@ -126,7 +174,10 @@ class SpaceEdit1Container extends Component {
 
       const tagCustomList = otherTags.map(v => v.name);
 
-      return { title, status, introduction, sizeType, tagList, tagCustomList, images, id };
+      const error = {};
+      error.sizeType = checkError('sizeType', sizeType);
+
+      return { title, status, introduction, sizeType, tagList, tagCustomList, images, id, error };
     }
     return null;
   }
@@ -281,49 +332,9 @@ class SpaceEdit1Container extends Component {
   handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
-    const errors = [];
-
-    switch (propName) {
-      case 'title':
-        if (!value || value.trim().length === 0) {
-          errors.push(ErrorMessages.PleaseInput);
-        } else if (value.length > Validate.Title.Max) {
-          errors.push(ErrorMessages.LengthMax('タイトル', Validate.Title.Max));
-        }
-        break;
-      case 'introduction':
-        if (!value || value.trim().length === 0) {
-          errors.push(ErrorMessages.PleaseInput);
-        } else if (value.length > Validate.Introduction.Max) {
-          errors.push(ErrorMessages.LengthMax('紹介文', Validate.Introduction.Max));
-        }
-        break;
-      case 'images':
-        if (!value || value.length === 0) {
-          errors.push(ErrorMessages.MustSpaceImage);
-        } else if (value.length === 1) {
-          if (value[0].ImageUrl && isImageDefault(value[0].ImageUrl)) {
-            errors.push(ErrorMessages.MustSpaceImage);
-          }
-        }
-        break;
-      case 'sizeType':
-        if (!value || value === 0) {
-          errors.push(ErrorMessages.PleaseSelect);
-        }
-        break;
-      case 'tagCustom':
-        if (value && value.length > Validate.TagCustom.MaxText) {
-          errors.push(ErrorMessages.LengthMax('条件タグ', Validate.TagCustom.MaxText));
-        }
-        break;
-      default:
-        break;
-    }
-
+    const errors = checkError(propName, value);
     state[propName] = value;
     error[propName] = errors;
-
     this.setState({ ...state, error });
   };
 

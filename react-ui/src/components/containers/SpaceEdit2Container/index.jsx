@@ -18,6 +18,37 @@ const Validate = {
   },
 };
 
+const checkError = (name, value) => {
+  const errors = [];
+  switch (name) {
+    case 'postalCode':
+      if (!value || value.trim().length === 0) {
+        errors.push(`郵便番号を${ErrorMessages.PleaseInput}`);
+      } else if (!value.match(Validate.PostalCode.Match)) {
+        errors.push(ErrorMessages.InvalidPostalCode);
+      }
+      break;
+    case 'pref':
+      if (!value || value.trim().length === 0) {
+        errors.push(`住所の自動入力を${ErrorMessages.PleaseDo}`);
+      }
+      break;
+    case 'line1':
+      if (!value || value.trim().value === 0) {
+        errors.push(`番地を${ErrorMessages.PleaseInput}`);
+      }
+      break;
+    case 'receiptType':
+      if (!value || value === 0) {
+        errors.push(ErrorMessages.PleaseSelect);
+      }
+      break;
+    default:
+      break;
+  }
+  return errors;
+};
+
 class SpaceEdit2Container extends Component {
   constructor(props) {
     super(props);
@@ -35,12 +66,51 @@ class SpaceEdit2Container extends Component {
 
   componentDidMount() {
     const { match, dispatch, space } = this.props;
-    const { isUpdate } = this.state;
+    const { isUpdate, postalCode, pref, line1, receiptType } = this.state;
 
     const spaceId = match.params.space_id;
     if (isUpdate && !space.id) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
     }
+
+    if (!isUpdate) {
+      this.handleChangeUI('postalCode', postalCode);
+      this.handleChangeUI('pref', pref);
+      this.handleChangeUI('line1', line1);
+      this.handleChangeUI('receiptType', receiptType);
+    }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { space, geo } = nextProps;
+    if (space.id && !prevState.id) {
+      const { id, receiptType, postalCode, address, addressPref, addressCity, addressTown } = space;
+      const line1 = address.replace(`${addressPref}${addressCity}${addressTown}`, '');
+
+      const error = {};
+      error.postalCode = checkError('postalCode', postalCode);
+
+      return {
+        id,
+        receiptType,
+        postalCode,
+        pref: addressPref,
+        city: addressCity,
+        town: addressTown,
+        line1,
+        error,
+      };
+    }
+
+    if (geo.pref) {
+      return {
+        pref: geo.pref,
+        city: geo.city,
+        town: geo.town,
+      };
+    }
+
+    return null;
   }
 
   onKeyDownButtonNext = e => {
@@ -61,33 +131,6 @@ class SpaceEdit2Container extends Component {
     }
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { space, geo } = nextProps;
-    if (space.id && !prevState.id) {
-      const { id, receiptType, postalCode, address, addressPref, addressCity, addressTown } = space;
-      const line1 = address.replace(`${addressPref}${addressCity}${addressTown}`, '');
-      return {
-        id,
-        receiptType,
-        postalCode,
-        pref: addressPref,
-        city: addressCity,
-        town: addressTown,
-        line1,
-      };
-    }
-
-    if (geo.pref) {
-      return {
-        pref: geo.pref,
-        city: geo.city,
-        town: geo.town,
-      };
-    }
-
-    return null;
-  }
-
   onClickNext = () => {
     const { history, space, dispatch } = this.props;
     const { isUpdate, receiptType, postalCode, pref, city, town, line1 } = this.state;
@@ -96,7 +139,7 @@ class SpaceEdit2Container extends Component {
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
-          receiptType,
+          receiptType: parseInt(receiptType, 10),
           postalCode,
           address: `${pref}${city}${town}${line1}`,
           addressPref: pref,
@@ -139,39 +182,8 @@ class SpaceEdit2Container extends Component {
   handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
-    const errors = [];
-
-    let v = value;
-
-    switch (propName) {
-      case 'postalCode':
-        if (!value || value.trim().length === 0) {
-          errors.push(`郵便番号を${ErrorMessages.PleaseInput}`);
-        } else if (!value.match(Validate.PostalCode.Match)) {
-          errors.push(ErrorMessages.InvalidPostalCode);
-        }
-        break;
-      case 'pref':
-        if (!value || value.trim().length === 0) {
-          errors.push(`住所の自動入力を${ErrorMessages.PleaseDo}`);
-        }
-        break;
-      case 'line1':
-        if (!value || value.trim().value === 0) {
-          errors.push(`番地を${ErrorMessages.PleaseInput}`);
-        }
-        break;
-      case 'receiptType':
-        if (!value || value === 0) {
-          errors.push(ErrorMessages.PleaseSelect);
-        }
-        v = parseInt(v, 10);
-        break;
-      default:
-        break;
-    }
-
-    state[propName] = v;
+    const errors = checkError(propName, value);
+    state[propName] = value;
     error[propName] = errors;
     this.setState({ ...state, error });
   };
