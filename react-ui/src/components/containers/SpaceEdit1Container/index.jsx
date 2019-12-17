@@ -120,22 +120,32 @@ const checkError = (name, value) => {
 class SpaceEdit1Container extends Component {
   constructor(props) {
     super(props);
+    const {
+      images,
+      status,
+      title,
+      introduction,
+      sizeType,
+      tags,
+      tagList,
+      tagCustomList,
+    } = props.space;
     this.state = {
-      images: [],
-      status: 'open',
-      title: '',
-      introduction: '',
+      images: images || [],
+      status: status || 'open',
+      title: title || '',
+      introduction: introduction || '',
+      sizeType: sizeType || 0,
+      tags: tags || [],
+      tagList: tagList || TagList,
+      tagCustom: '',
+      tagCustomList: tagCustomList || [],
       error: {},
       errorsTagCustomMax: [],
       isImageUploading: false,
       errorModal: false,
       isNoProfile: false,
       isUpdate: !!props.match.params.space_id,
-      tags: [],
-      sizeType: 0,
-      tagList: TagList,
-      tagCustom: '',
-      tagCustomList: [],
     };
   }
 
