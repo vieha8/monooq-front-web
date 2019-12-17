@@ -141,6 +141,8 @@ class SpaceEdit2Container extends Component {
     const { error } = state;
     const errors = [];
 
+    let v = value;
+
     switch (propName) {
       case 'postalCode':
         if (!value || value.trim().length === 0) {
@@ -163,12 +165,13 @@ class SpaceEdit2Container extends Component {
         if (!value || value === 0) {
           errors.push(ErrorMessages.PleaseSelect);
         }
+        v = parseInt(v, 10);
         break;
       default:
         break;
     }
 
-    state[propName] = value;
+    state[propName] = v;
     error[propName] = errors;
     this.setState({ ...state, error });
   };
