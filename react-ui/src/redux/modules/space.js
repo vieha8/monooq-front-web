@@ -791,7 +791,7 @@ function* getAddressByPostalCode({ payload: { postalCode } }) {
     );
 
     if (err) {
-      yield handleError(spaceActions.getAddressFailed, '', 'getAddress', err, false);
+      yield handleError(spaceActions.getAddressFailed, '', 'getAddress', err, true);
       return;
     }
 
@@ -801,7 +801,7 @@ function* getAddressByPostalCode({ payload: { postalCode } }) {
 
     yield put(spaceActions.getAddressSuccess({ pref, city, town }));
   } catch (err) {
-    yield handleError(spaceActions.getAddressFailed, '', 'getAddress(exception)', err, false);
+    yield handleError(spaceActions.getAddressFailed, '', 'getAddress(exception)', err, true);
   }
 }
 
