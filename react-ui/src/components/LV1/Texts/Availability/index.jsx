@@ -4,6 +4,7 @@ import { Dimens, FontSizes, Colors } from 'variables';
 
 const STATUS_FULL = 'full';
 const STATUS_CONSULTATION = 'consultation';
+const STATUS_DRAFT = 'draft';
 
 const Availability = styled.span`
   display: inline-flex;
@@ -24,6 +25,8 @@ const getComponent = status => {
     returnVal = <Availability bgColor={Colors.brandPrimary}>満室</Availability>;
   } else if (status === STATUS_CONSULTATION) {
     returnVal = <Availability bgColor={Colors.lightGray3}>要相談</Availability>;
+  } else if (status === STATUS_DRAFT) {
+    returnVal = <Availability bgColor={Colors.lightGray3}>下書き</Availability>;
   }
   return returnVal;
 };
