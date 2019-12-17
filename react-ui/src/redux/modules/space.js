@@ -419,7 +419,7 @@ function* prepareUpdateSpace({ payload: spaceId }) {
   }
 
   const spaceCache = yield select(state => state.ui.space);
-  if (spaceCache.id) {
+  if (spaceCache.id === spaceId) {
     return;
   }
 
