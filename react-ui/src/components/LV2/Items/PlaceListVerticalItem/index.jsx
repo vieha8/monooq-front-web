@@ -65,24 +65,6 @@ const ContentText = styled.span`
   -webkit-box-orient: vertical;
 `;
 
-const StatusText = styled(InlineText.Tiny)`
-  display: block;
-  margin: auto 0 auto ${Dimens.medium}px;
-  color: ${Colors.brandPrimary};
-  ${props =>
-    !props.manage &&
-    `
-      max-height: 1.5em;
-      overflow: hidden;
-      text-overflow: ellipsis;
-  `};
-  ${props =>
-    props.draft &&
-    `
-      color: ${Colors.lightGray1};
-  `};
-`;
-
 const HomeApplianceText = styled(InlineText.Tiny)`
   display: block;
   font-weight: bold;
@@ -115,15 +97,7 @@ export default ({ href, onClick, image, manage, address, content, prices, status
           </ImageWrapper>
           <ContentWrapper>
             <TopWrap>
-              {/* TODO: 動的化 */}
-              <Availability status={1} />
-              {status === 'public' ? (
-                <StatusText manage={manage}>●公開中</StatusText>
-              ) : (
-                <StatusText manage={manage} draft>
-                  ○下書き
-                </StatusText>
-              )}
+              <Availability status={status} />
             </TopWrap>
             <ContentTextWrap manage={manage}>
               <ContentText>{content || ''}</ContentText>

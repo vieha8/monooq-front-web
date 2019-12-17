@@ -12,16 +12,18 @@ storiesOf('Atoms(LV1)/Texts/Availability', module).add(
   withInfo(`
       ### コンポーネント概要
       空室状況
-      ・ステータス(1:満室,2:要相談,これ以外:空室)
     `)(() => (
     <div style={{ padding: `${Dimens.storyBookPadding}` }}>
       <Availability />
       <br />
       <br />
-      <Availability status={1} />
+      <Availability status="full" />
       <br />
       <br />
-      <Availability status={2} />
+      <Availability status="consultation" />
+      <br />
+      <br />
+      <Availability status="draft" />
     </div>
   )),
 );
