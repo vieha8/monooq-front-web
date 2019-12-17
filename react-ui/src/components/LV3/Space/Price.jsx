@@ -31,7 +31,7 @@ export default ({ full, tatami }) => (
       <InputPriceOfType
         image={imageFurnitureTatami}
         title="1畳分のスペースの月額料金"
-        caption="スペースの一部を使用する場合の一畳あたりの料金"
+        caption="スペースの一部を使用する場合の1畳あたりの料金"
         price={tatami}
         detail
         marginLeft

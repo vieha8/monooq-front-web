@@ -712,7 +712,7 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
           </MeritTableHead>
           <tbody>
             <tr>
-              <MeritTableTbodyTh>一畳あたりの平均価格</MeritTableTbodyTh>
+              <MeritTableTbodyTh>1畳あたりの平均価格</MeritTableTbodyTh>
               <MeritTableTbodyTd monooq>6,000円〜</MeritTableTbodyTd>
               <MeritTableTbodyTd>15,000円〜</MeritTableTbodyTd>
             </tr>
