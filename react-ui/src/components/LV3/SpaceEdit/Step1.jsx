@@ -20,7 +20,7 @@ const TagListWrap = styled.div`
 const ButtonWrap = styled.div`
   max-width: 240px;
   margin: auto;
-  ${media.phone`
+  ${media.tablet`
     max-width: 100%;
   `};
 `;
