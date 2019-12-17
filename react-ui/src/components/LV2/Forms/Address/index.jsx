@@ -30,7 +30,7 @@ const PrefTownRight = styled.div`
 
 const AddressHint = () => (
   <Fragment>
-    取引が成立するまで番地以降の住所は表示されません。
+    番地以降・マンション名は取引の成立後、成立相手にのみ表示されます。
     <br />
     番地は半角数字で入力してください。
   </Fragment>
@@ -43,7 +43,6 @@ export default ({
   onChangePref,
   onChangeTown,
   onChangeLine1,
-  onChangeLine2,
   buttonAddressDisabled,
   buttonAddressLoading,
   onClickGetAddress,
