@@ -52,13 +52,14 @@ const checkError = (name, value) => {
 class SpaceEdit2Container extends Component {
   constructor(props) {
     super(props);
+    const { postalCode, addressPref, addressCity, addressTown, line1, receiptType } = props.space;
     this.state = {
-      postalCode: '',
-      pref: '',
-      city: '',
-      town: '',
-      line1: '',
-      receiptType: 0,
+      postalCode: postalCode || '',
+      pref: addressPref || '',
+      city: addressCity || '',
+      town: addressTown || '',
+      line1: line1 || '',
+      receiptType: receiptType || 0,
       error: {},
       isUpdate: !!props.match.params.space_id,
     };
@@ -145,6 +146,7 @@ class SpaceEdit2Container extends Component {
           addressPref: pref,
           addressCity: city,
           addressTown: town,
+          line1,
         }),
       }),
     );
@@ -166,6 +168,7 @@ class SpaceEdit2Container extends Component {
           addressPref: pref,
           addressCity: city,
           addressTown: town,
+          line1,
         }),
       }),
     );
