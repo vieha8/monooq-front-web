@@ -21,9 +21,19 @@ const SendMessageWrap = styled.div`
   `};
 `;
 
-export default ({ priceTatami, disabled, loading, onClick, onKeyDownButtonMessage }) => (
+export default ({
+  isRoom,
+  priceFull,
+  priceTatami,
+  disabled,
+  loading,
+  onClick,
+  onKeyDownButtonMessage,
+}) => (
   <SendMessageWrap>
     <SendMessage
+      isRoom={isRoom}
+      priceFull={priceFull}
       priceTatami={priceTatami}
       disabled={disabled}
       loading={loading}

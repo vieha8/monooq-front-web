@@ -53,7 +53,7 @@ export default ({
           <br />
           <InlineText.Bold>
             地域や条件によりますが、目安は
-            <UnderLine>1畳あたり約5,000〜7,000円/月</UnderLine>
+            <UnderLine>一畳あたり約5,000〜7,000円/月</UnderLine>
             です。
           </InlineText.Bold>
         </InlineText.Tiny>
@@ -73,7 +73,7 @@ export default ({
         <InputPriceOfType
           image={imageFurnitureTatami}
           title="1畳分のスペースの月額料金"
-          caption="スペースの一部を使用する場合の1畳あたりの料金"
+          caption="スペースの一部を使用する場合の一畳あたりの料金"
           placeholder="16,000"
           price={priceTatami}
           onChange={onChangePriceTatami}
