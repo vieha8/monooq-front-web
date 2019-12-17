@@ -10,7 +10,7 @@ const Tag = styled.div`
   display: inline-flex;
   width: fit-content;
   padding: ${Dimens.small}px ${Dimens.xsmall}px;
-  margin: 0px ${Dimens.xxsmall_4}px ${Dimens.xxsmall_4}px 0px;
+  margin: 0px ${Dimens.small}px ${Dimens.small}px 0px;
   font-size: ${FontSizes.small}px;
   line-height: ${Dimens.small2}px;
   color: ${Colors.lightGray3};
@@ -24,13 +24,20 @@ const Tag = styled.div`
     props.isMarkDelete &&
     `
       padding-right: ${Dimens.medium1}px;
+      &::before,
       &::after {
-        content: '×';
+        display: block;
+        content: '';
         position: absolute;
-        display: inline;
-        right: ${Dimens.xsmall}px;
-        font-size: ${FontSizes.medium2}px;
-        font-weight: bold;
+        top: calc(50% - ${Dimens.small}px);
+        right: ${Dimens.small_10}px;
+        width: ${Dimens.xxsmall_4}px;
+        height: ${Dimens.medium}px;
+        background: ${Colors.lightGray1};
+        transform: rotate(45deg);
+      }
+      &::after {
+        transform: rotate(135deg);
       }
     `};
   ${mediaMin.tablet`
