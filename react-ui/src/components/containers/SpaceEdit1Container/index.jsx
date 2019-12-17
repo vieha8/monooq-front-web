@@ -152,8 +152,11 @@ class SpaceEdit1Container extends Component {
           .toString(32)
           .substring(2);
         const imagePath = `/img/spaces/tmp/${rand}${timeStamp}.${ext}`;
-        image.tmpUrl = convertSpaceImgUrl(await uploadImage(imagePath, image));
-        return image;
+        const tmpUrl = convertSpaceImgUrl(
+          await uploadImage(imagePath, image),
+          'w=1200&h=800&fit=crop',
+        );
+        return { ...image, tmpUrl };
       }),
     ).catch(error => ({ error }));
 
@@ -388,7 +391,7 @@ class SpaceEdit1Container extends Component {
           title={title}
           onChangeTitle={v => this.handleChangeUI('title', v)}
           images={ImagesRender.map(image => ({
-            url: image.imageUrl || image.preview,
+            url: image.imageUrl || image.tmpUrl,
           }))}
           onChangeImage={this.handleChangeImage}
           onClickDeleteImage={this.handleDeleteImage}
