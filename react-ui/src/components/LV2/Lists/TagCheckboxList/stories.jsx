@@ -53,7 +53,7 @@ storiesOf('Molecules(LV2)/Lists/TagCheckboxList', module)
     'Normal',
     withInfo(`
       ### コンポーネント概要
-      条件タグチェックボックスリスト
+      設備・条件チェックボックスリスト
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <TagCheckboxList tagList={TagList()} />

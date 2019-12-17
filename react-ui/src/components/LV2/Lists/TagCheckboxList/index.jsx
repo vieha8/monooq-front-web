@@ -31,7 +31,7 @@ const Item = styled.li`
 
 export default ({ tagList, onClickTag, onKeyDownTag }) => (
   <Wrap>
-    <Caption>条件タグ</Caption>
+    <Caption>設備・条件</Caption>
     <List>
       {tagList.map((item, i) => (
         <Item key={i.toString()}>

@@ -108,7 +108,7 @@ const checkError = (name, value) => {
       break;
     case 'tagCustom':
       if (value && value.length > Validate.TagCustom.MaxText) {
-        errors.push(ErrorMessages.LengthMax('条件タグ', Validate.TagCustom.MaxText));
+        errors.push(ErrorMessages.LengthMax('設備・条件', Validate.TagCustom.MaxText));
       }
       break;
     default:

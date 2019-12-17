@@ -426,7 +426,6 @@ export default ({
                 リクエストを送る
               </Button>
             </RequestButtonWrap>
-            リクエストを送る
             リクエストを送ることで、あなたがスペースに興味を持っていることがホストに伝わります。
           </RequestCard>
           {!confirm && (

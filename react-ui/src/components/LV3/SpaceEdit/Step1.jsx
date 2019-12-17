@@ -4,6 +4,7 @@ import { media } from 'helpers/style/media-query';
 import { selectOptionBreadths } from 'helpers/breadths';
 import Button from 'components/LV1/Forms/Button';
 import Tag from 'components/LV1/Texts/Tag';
+import InlineText from 'components/LV1/Texts/InlineText';
 import TagCheckboxList from 'components/LV2/Lists/TagCheckboxList';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
@@ -22,6 +23,13 @@ const ButtonWrap = styled.div`
   margin: auto;
   ${media.tablet`
     max-width: 100%;
+  `};
+`;
+
+const HintBottomWrap = styled.div`
+  margin-top: ${Dimens.medium}px;
+  ${media.tablet`
+    margin-top: ${Dimens.xsmall}px;
   `};
 `;
 
@@ -89,8 +97,8 @@ export default ({
     <Section>
       <InputForm
         label="タイトル"
-        placeholder="例)【6畳】世田谷エリア、搬入の楽な1階スペース"
-        hintbottom="全角20文字まで"
+        placeholder="例)【6畳】渋谷にある搬入の楽な1階スペース"
+        hintbottom="全角40文字まで"
         hintBottomRight
         value={title}
         onChange={e => onChangeTitle(e.target.value)}
@@ -100,7 +108,7 @@ export default ({
     <Section>
       <InputForm
         label="スペースの紹介文"
-        placeholder="例) 世田谷エリアにある6畳ほどのワンルームです。会社員のため平日は夜間の対応、土日は終日可能です。大事なお荷物、責任もってお預かりしますのでお気軽に問い合わせください！"
+        placeholder="例) 渋谷エリアにある6畳ほどのワンルームです。会社員のため平日は夜間の対応、土日は終日可能です。大事なお荷物、責任もってお預かりしますのでお気軽に問い合わせください！"
         multiline
         rows={6}
         value={introduction}
@@ -132,6 +140,14 @@ export default ({
           <Tag tagList={tagCustomList} onClick={onClickTagCustomDelete} isMarkDelete isNoLink />
         </TagListWrap>
       )}
+      <HintBottomWrap>
+        <InlineText.Tiny>
+          次の補足をプレースホルダ下部に追加(タグ入力後の結果はプレースホルダと補足分の間に)
+          各タグ入力後に改行またはエンターを押してください。
+          <br />
+          最大8個までアピールしたい特徴を追加できます。
+        </InlineText.Tiny>
+      </HintBottomWrap>
     </Section>
     <Section>
       <ButtonWrap>
