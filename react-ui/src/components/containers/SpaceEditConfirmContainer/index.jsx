@@ -321,7 +321,7 @@ class SpaceEditConfirmContainer extends Component {
             },
           ]}
           description={space.introduction}
-          breadth={breadths[space.breadth - 1]}
+          breadth={breadths[space.sizeType - 1]}
           tagList={tagList}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
           addressMethod={space.about}
