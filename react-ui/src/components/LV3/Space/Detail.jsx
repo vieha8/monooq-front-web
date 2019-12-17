@@ -390,8 +390,6 @@ export default ({
               <ImageLogoPay src={ImageLogoPayCredit} maxWidth={110} credit alt="icon-logo-credit" />
               <ImageLogoPay src={ImageLogoPayEcontext} maxWidth={240} alt="icon-logo-econtext" />
             </LogoPayWrap>
-            <SectionTitle>長期利用の方向け：クレジットカードでの自動決済</SectionTitle>
-            長期利用の際には、クレジットカード支払いにて毎月の自動決済が可能です。ホストとのメッセージ欄にて直接「自動決済の利用」の旨をお伝えください。
           </SectionWrap>
           <SectionWrap>
             <SectionTitle>トラブル時の補償対応について</SectionTitle>
