@@ -104,10 +104,13 @@ class SpaceEdit2Container extends Component {
     }
 
     if (geo.pref) {
+      const { error } = prevState;
+      error.pref = checkError('pref', geo.pref);
       return {
         pref: geo.pref,
         city: geo.city,
         town: geo.town,
+        error,
       };
     }
 
