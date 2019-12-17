@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { selectOptionBreadths } from 'helpers/breadths';
@@ -14,7 +14,7 @@ import { Dimens } from 'variables';
 import { PageHeader, Section } from './Shared';
 
 const TagListWrap = styled.div`
-  margin: ${Dimens.medium1}px auto 0;
+  margin: ${Dimens.small}px auto 0;
 `;
 
 const ButtonWrap = styled.div`
@@ -128,11 +128,9 @@ export default ({
       <ErrorList keyName="tagcustom_errors" errors={errors.tagCustom} />
       <ErrorList keyName="tagcustommax_errors" errors={errorsTagCustomMax} />
       {tagCustomList && (
-        <Fragment>
-          <TagListWrap>
-            <Tag tagList={tagCustomList} onClick={onClickTagCustomDelete} isMarkDelete isNoLink />
-          </TagListWrap>
-        </Fragment>
+        <TagListWrap>
+          <Tag tagList={tagCustomList} onClick={onClickTagCustomDelete} isMarkDelete isNoLink />
+        </TagListWrap>
       )}
     </Section>
     <Section>

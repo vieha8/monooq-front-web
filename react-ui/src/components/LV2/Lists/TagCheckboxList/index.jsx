@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import InputForm from 'components/LV2/Forms/InputForm';
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  margin-bottom: ${Dimens.small2}px;
+`;
 
 const Caption = styled.div`
   font-size: ${FontSizes.small}px;
