@@ -82,6 +82,14 @@ class SpaceEdit2Container extends Component {
     }
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.validatePostCode() && prevProps.geo.postalCode !== prevState.postalCode) {
+      const { dispatch } = this.props;
+      const { postalCode } = this.state;
+      dispatch(spaceActions.getAddress({ postalCode }));
+    }
+  }
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space, geo } = nextProps;
     if (space.id && !prevState.id) {
@@ -250,7 +258,6 @@ class SpaceEdit2Container extends Component {
         onChangePref={v => this.handleChangeUI('pref', v)}
         onChangeTown={v => this.handleChangeUI('town', v)}
         onChangeLine1={v => this.handleChangeUI('line1', v)}
-        buttonDisabled={!this.validatePostCode()}
         buttonLoading={isLoading}
         onChangeLine2={v => this.handleChangeUI('line2', v)}
         buttonAddressDisabled={!this.validatePostCode()}

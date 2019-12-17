@@ -221,9 +221,9 @@ export const spaceReducer = handleActions(
       ...state,
       recommendSpaces: payload,
     }),
-    [GET_ADDRESS_SUCCESS]: (state, { payload: { pref, city, town } }) => ({
+    [GET_ADDRESS_SUCCESS]: (state, { payload: { pref, city, town, postalCode } }) => ({
       ...state,
-      geo: { pref, city, town },
+      geo: { pref, city, town, postalCode },
     }),
   },
   initialState,
@@ -799,7 +799,7 @@ function* getAddressByPostalCode({ payload: { postalCode } }) {
     const city = places.results[0].address_components[2].long_name;
     const town = places.results[0].address_components[1].long_name;
 
-    yield put(spaceActions.getAddressSuccess({ pref, city, town }));
+    yield put(spaceActions.getAddressSuccess({ pref, city, town, postalCode }));
   } catch (err) {
     yield handleError(spaceActions.getAddressFailed, '', 'getAddress(exception)', err, true);
   }
