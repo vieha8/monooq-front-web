@@ -41,13 +41,12 @@ class ProfileContainer extends Component {
           profile={user.profile}
           lastLoginAt={formatDate(new Date(user.lastLoginAt), formatStringSlash)}
           spaces={(spaces || [])
-            .filter(v => v.status === 'public')
+            .filter(v => v.status !== 'draft')
             .map(space => ({
               id: space.id,
               image: (space.images[0] || {}).imageUrl,
               address: `${space.addressPref}${space.addressCity}${space.addressTown}`,
               title: space.title,
-              furniture: space.isFurniture,
               priceFull: space.priceFull,
               priceTatami: space.priceTatami,
             }))}

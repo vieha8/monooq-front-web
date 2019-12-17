@@ -181,7 +181,7 @@ class SpaceContainer extends Component {
     } = this.state;
     const isSelfSpace = user.id === (space.user || {}).id;
 
-    const isNoIndex = space.status !== 'public';
+    const isNoIndex = space.status === 'draft';
 
     const recommend = recommendSpaces
       ? recommendSpaces.map(s => ({
@@ -189,7 +189,6 @@ class SpaceContainer extends Component {
           image: (s.images[0] || {}).imageUrl,
           title: s.title,
           address: `${s.addressPref}${s.addressCity}`,
-          isFurniture: s.isFurniture,
           priceFull: s.priceFull,
           priceTatami: s.priceTatami,
           onClick: () => this.onClickSpace(s),
