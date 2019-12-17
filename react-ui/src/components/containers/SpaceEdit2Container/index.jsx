@@ -52,7 +52,9 @@ const checkError = (name, value) => {
 class SpaceEdit2Container extends Component {
   constructor(props) {
     super(props);
+    const { dispatch } = this.props;
     const { postalCode, addressPref, addressCity, addressTown, line1, receiptType } = props.space;
+    dispatch(spaceActions.getAddressInit());
     this.state = {
       postalCode: postalCode || '',
       pref: addressPref || '',
@@ -79,14 +81,6 @@ class SpaceEdit2Container extends Component {
       this.handleChangeUI('pref', pref);
       this.handleChangeUI('line1', line1);
       this.handleChangeUI('receiptType', receiptType);
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.validatePostCode() && prevProps.geo.postalCode !== prevState.postalCode) {
-      const { dispatch } = this.props;
-      const { postalCode } = this.state;
-      dispatch(spaceActions.getAddress({ postalCode }));
     }
   }
 
@@ -232,7 +226,7 @@ class SpaceEdit2Container extends Component {
   };
 
   render() {
-    const { space, isLoading } = this.props;
+    const { space, isLoading, isLoadingAddress, errMessage } = this.props;
     const { isUpdate, receiptType, error, postalCode, pref, city, town, line1 } = this.state;
 
     if (isLoading) {
@@ -243,6 +237,8 @@ class SpaceEdit2Container extends Component {
       // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
       return <Redirect to={Path.spaceCreate1()} />;
     }
+
+    error.address = [errMessage];
 
     return (
       <SpaceEdit2
@@ -261,7 +257,7 @@ class SpaceEdit2Container extends Component {
         buttonLoading={isLoading}
         onChangeLine2={v => this.handleChangeUI('line2', v)}
         buttonAddressDisabled={!this.validatePostCode()}
-        buttonAddressLoading={isLoading}
+        buttonAddressLoading={isLoadingAddress}
         onClickGetAddress={this.onClickGetAddress}
         onKeyDownButtonGetAddress={this.onKeyDownButtonGetAddress}
         receiptType={receiptType}
@@ -280,6 +276,8 @@ const mapStateToProps = state => ({
   space: state.ui.space || {},
   isLoading: state.space.isLoading,
   geo: state.space.geo,
+  isLoadingAddress: state.space.isLoadingAddress,
+  errMessage: state.space.errMessage,
 });
 
 export default authRequired(

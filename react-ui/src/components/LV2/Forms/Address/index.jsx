@@ -61,6 +61,7 @@ export default ({
       <PostalCodeRight>
         <Button
           quaternary
+          isInverted
           fill={1}
           height={50}
           lineheight={25}
@@ -102,6 +103,7 @@ export default ({
       onChange={e => onChangeLine1(e.target.value)}
     />
     <ErrorList keyName="postalCode_errors" errors={errors.postalCode} />
+    <ErrorList keyName="address_errors" errors={errors.address} />
     <ErrorList keyName="pref_errors" errors={errors.pref} />
     <ErrorList keyName="line1_errors" errors={errors.line1} />
   </Fragment>

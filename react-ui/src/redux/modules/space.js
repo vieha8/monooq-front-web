@@ -18,6 +18,7 @@ import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertSpaceImgUrl } from 'helpers/imgix';
 import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
+import { ErrorMessages } from 'variables';
 import { handleError } from './error';
 
 // Actions
@@ -46,6 +47,7 @@ const RESET_SEARCH = 'RESET_SEARCH';
 const GET_RECOMMEND_SPACES = 'GET_RECOMMEND_SPACES';
 const GET_RECOMMEND_SPACES_SUCCESS = 'GET_RECOMMEND_SPACES_SUCCESS';
 const GET_RECOMMEND_SPACES_FAILED = 'GET_RECOMMEND_SPACES_FAILED';
+const GET_ADDRESS_INIT = 'GET_ADDRESS_INIT';
 const GET_ADDRESS = 'GET_ADDRESS';
 const GET_ADDRESS_SUCCESS = 'GET_ADDRESS_SUCCESS';
 const GET_ADDRESS_FAILED = 'GET_ADDRESS_FAILED';
@@ -76,6 +78,7 @@ export const spaceActions = createActions(
   GET_RECOMMEND_SPACES,
   GET_RECOMMEND_SPACES_SUCCESS,
   GET_RECOMMEND_SPACES_FAILED,
+  GET_ADDRESS_INIT,
   GET_ADDRESS,
   GET_ADDRESS_SUCCESS,
   GET_ADDRESS_FAILED,
@@ -221,9 +224,26 @@ export const spaceReducer = handleActions(
       ...state,
       recommendSpaces: payload,
     }),
+    [GET_ADDRESS_INIT]: state => ({
+      ...state,
+      isLoadingAddress: false,
+      errMessage: '',
+    }),
+    [GET_ADDRESS]: state => ({
+      ...state,
+      isLoadingAddress: true,
+      errMessage: '',
+    }),
     [GET_ADDRESS_SUCCESS]: (state, { payload: { pref, city, town, postalCode } }) => ({
       ...state,
       geo: { pref, city, town, postalCode },
+      isLoadingAddress: false,
+      errMessage: '',
+    }),
+    [GET_ADDRESS_FAILED]: (state, action) => ({
+      ...state,
+      isLoadingAddress: false,
+      errMessage: action.payload,
     }),
   },
   initialState,
@@ -795,11 +815,20 @@ function* getAddressByPostalCode({ payload: { postalCode } }) {
       return;
     }
 
-    const pref = places.results[0].address_components[3].long_name;
-    const city = places.results[0].address_components[2].long_name;
-    const town = places.results[0].address_components[1].long_name;
-
-    yield put(spaceActions.getAddressSuccess({ pref, city, town, postalCode }));
+    if (places && places.results.length > 0) {
+      const pref = places.results[0].address_components[3].long_name;
+      const city = places.results[0].address_components[2].long_name;
+      const town = places.results[0].address_components[1].long_name;
+      yield put(spaceActions.getAddressSuccess({ pref, city, town, postalCode }));
+    } else {
+      yield handleError(
+        spaceActions.getAddressFailed,
+        ErrorMessages.FailedGetAddress,
+        'getAddress',
+        err,
+        true,
+      );
+    }
   } catch (err) {
     yield handleError(spaceActions.getAddressFailed, '', 'getAddress(exception)', err, true);
   }

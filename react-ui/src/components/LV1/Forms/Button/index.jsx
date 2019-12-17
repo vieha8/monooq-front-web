@@ -18,18 +18,18 @@ const LoaderWrap = styled.span`
 `;
 
 const handleOnClick = ({ disabled, loading, onClick }) => (disabled || loading ? null : onClick);
-const handleText = ({ loading, children }) => {
+const handleText = ({ loading, children, isInverted }) => {
   if (loading) {
     return (
       <LoaderWrap>
-        <Loader active inverted inline="centered" size="mini" />
+        <Loader active inverted={!isInverted} inline="centered" size="mini" />
       </LoaderWrap>
     );
   }
   return children;
 };
 
-export default ({ loading, disabled, ...props }) => {
+export default ({ loading, disabled, isInverted, ...props }) => {
   const {
     secondary,
     tertiary,
@@ -48,7 +48,7 @@ export default ({ loading, disabled, ...props }) => {
         disabled={disabled || loading}
         onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Secondary>
     );
   }
@@ -59,7 +59,7 @@ export default ({ loading, disabled, ...props }) => {
         disabled={disabled || loading}
         onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Tertiary>
     );
   }
@@ -70,7 +70,7 @@ export default ({ loading, disabled, ...props }) => {
         disabled={disabled || loading}
         onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Quaternary>
     );
   }
@@ -81,14 +81,14 @@ export default ({ loading, disabled, ...props }) => {
         disabled={disabled || loading}
         onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Quinary>
     );
   }
   if (senary) {
     return (
       <Senary {...props} onClick={handleOnClick({ ...props, loading, disabled })}>
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Senary>
     );
   }
@@ -100,7 +100,7 @@ export default ({ loading, disabled, ...props }) => {
         onClick={handleOnClick({ ...props, loading, disabled })}
         loading={loading}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Facebook>
     );
   }
@@ -112,7 +112,7 @@ export default ({ loading, disabled, ...props }) => {
         onClick={handleOnClick({ ...props, loading, disabled })}
         loading={loading}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Twitter>
     );
   }
@@ -123,7 +123,7 @@ export default ({ loading, disabled, ...props }) => {
         disabled={disabled || loading}
         onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Line>
     );
   }
@@ -134,7 +134,7 @@ export default ({ loading, disabled, ...props }) => {
         disabled={disabled || loading}
         onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </AreaPin>
     );
   }
@@ -145,7 +145,7 @@ export default ({ loading, disabled, ...props }) => {
       disabled={disabled || loading}
       onClick={handleOnClick({ ...props, loading, disabled })}
     >
-      {handleText({ ...props, loading })}
+      {handleText({ ...props, loading, isInverted })}
     </Primary>
   );
 };
