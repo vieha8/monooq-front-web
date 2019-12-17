@@ -40,16 +40,22 @@ const Tag = styled.div`
   `};
 `;
 
-export default ({ tagList, isNoMark, isMarkDelete }) => (
+export default ({ tagList, isNoMark, isMarkDelete, isNoLink, onClick }) => (
   <Fragment>
-    {tagList &&
-      tagList.map((tag, i) => (
-        <Link key={i.toString()} to={`${Path.search()}?tags=${tag}`}>
-          <Tag isMarkDelete={isMarkDelete}>
+    {isNoLink
+      ? tagList.map((tag, i) => (
+          <Tag key={i.toString()} isMarkDelete={isMarkDelete} onClick={onClick}>
             {!isNoMark && '#'}
             {tag}
           </Tag>
-        </Link>
-      ))}
+        ))
+      : tagList.map((tag, i) => (
+          <Link key={i.toString()} to={`${Path.search()}?tags=${tag}`}>
+            <Tag isMarkDelete={isMarkDelete}>
+              {!isNoMark && '#'}
+              {tag}
+            </Tag>
+          </Link>
+        ))}
   </Fragment>
 );
