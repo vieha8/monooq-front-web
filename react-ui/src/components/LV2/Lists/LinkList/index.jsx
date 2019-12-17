@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 const List = styled.ul`
   margin: ${Dimens.medium2}px auto;
-  text-align: right;
+  text-align: ${props => (props.isCenter ? 'center' : 'right')};
   ${media.tablet`
     margin: ${Dimens.medium}px auto;
   `};
@@ -81,8 +81,8 @@ const StyledLink = styled(Link)`
   `};
 `;
 
-export default ({ list, landscape, color, isLinkEvent }) => (
-  <List>
+export default ({ list, isCenter, landscape, color, isLinkEvent }) => (
+  <List isCenter={isCenter}>
     {list.map((item, i) => (
       <Item key={i.toString()} landscape={landscape}>
         {isLinkEvent ? (

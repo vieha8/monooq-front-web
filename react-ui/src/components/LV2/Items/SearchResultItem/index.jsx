@@ -50,9 +50,9 @@ export default ({
   addressPref,
   addressCity,
   addressTown,
-  priceQuarter,
+  priceTatami,
   priceFull,
-  tagList,
+  tags,
 }) => (
   <Container>
     <Link to={Path.space(id)}>
@@ -99,19 +99,19 @@ export default ({
               color={Colors.brandPrimary}
             >
               ¥
-              {priceQuarter
-                ? numeral(priceQuarter).format('0,0')
+              {priceTatami > 0
+                ? numeral(priceTatami).format('0,0')
                 : numeral(priceFull).format('0,0')}
               〜&nbsp;/&nbsp;月
             </InlineText.Base>
           </Row>
-          {tagList && (
-            <Row>
-              <Tag tagList={tagList} />
-            </Row>
-          )}
         </Content>
       </Card>
     </Link>
+    {tags && tags.length > 0 && (
+      <Row marginTop={12}>
+        <Tag tagList={tags.map(v => v.name)} />
+      </Row>
+    )}
   </Container>
 );

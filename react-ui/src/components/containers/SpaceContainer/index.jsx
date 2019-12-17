@@ -7,7 +7,7 @@ import { requestActions } from 'redux/modules/request';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SpaceMap from 'components/LV1/SpaceMap';
 import Detail from 'components/LV3/Space/Detail';
-import SendMessage from 'components/LV3/Space/SendMessage';
+import SendMessageOnlyTabletSp from 'components/LV3/Space/SendMessage';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Meta from 'components/LV1/Meta';
 import dummySpaceImage from 'images/dummy_space.png';
@@ -15,8 +15,8 @@ import { iskeyDownEnter } from 'helpers/keydown';
 
 import { loggerActions } from 'redux/modules/logger';
 import connect from '../connect';
+import { getBreadths } from '../../../helpers/breadths';
 
-const SPACE_TYPES = ['', 'クローゼット・押入れ', '', '部屋', '屋外倉庫', 'その他'];
 const ReceiptType = {
   Both: 1,
   Meeting: 2,
@@ -34,25 +34,14 @@ class SpaceContainer extends Component {
         url: '',
         imageUrl: '',
       },
+      isOverTopView: false,
     };
   }
 
-  init = () => {
-    const { dispatch, match } = this.props;
-    const spaceId = match.params.space_id;
-
-    dispatch(spaceActions.clearSpace());
-    dispatch(spaceActions.fetchSpace({ spaceId }));
-    dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
-    dispatch(spaceActions.getRecommendSpaces({ spaceId }));
-
-    dispatch(
-      loggerActions.recordEvent({
-        event: 'space_views',
-        detail: { spaceId },
-      }),
-    );
-  };
+  componentDidMount() {
+    this._isMounted = true;
+    window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
+  }
 
   componentDidUpdate(prevProps) {
     // おすすめから遷移した時はconstructorが発火しないのでここで
@@ -65,6 +54,8 @@ class SpaceContainer extends Component {
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch(spaceActions.clearSpace());
+    this._isMounted = false;
+    window.removeEventListener('scroll', () => this.watchCurrentPosition(), true);
   }
 
   static getDerivedStateFromProps(nextProps) {
@@ -89,6 +80,23 @@ class SpaceContainer extends Component {
     return null;
   }
 
+  init = () => {
+    const { dispatch, match } = this.props;
+    const spaceId = match.params.space_id;
+
+    dispatch(spaceActions.clearSpace());
+    dispatch(spaceActions.fetchSpace({ spaceId }));
+    dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
+    dispatch(spaceActions.getRecommendSpaces({ spaceId }));
+
+    dispatch(
+      loggerActions.recordEvent({
+        event: 'space_views',
+        detail: { spaceId },
+      }),
+    );
+  };
+
   onClickSendMessage = async () => {
     const { dispatch, location, user, space, history } = this.props;
     // 未ログインの場合はログイン画面へ
@@ -106,14 +114,74 @@ class SpaceContainer extends Component {
     }
   };
 
+  makeBreadCrumbs = ({ addressPref, prefCode, addressCity, cityCode, addressTown, townCode }) => {
+    const breadcrumbs = [];
+
+    breadcrumbs.push({
+      text: addressPref,
+      link: Path.spacesByPrefecture(prefCode),
+    });
+
+    breadcrumbs.push({
+      text: addressCity,
+      link: Path.spacesByCity(prefCode, cityCode),
+    });
+
+    breadcrumbs.push({
+      text: addressTown,
+      link: Path.spacesByTown(prefCode, cityCode, townCode),
+    });
+
+    return breadcrumbs;
+  };
+
+  makeMetaBreadcrumbs = space => {
+    const { addressPref, addressCity, addressTown, prefCode, cityCode, townCode } = space;
+
+    const baseUrl = 'https://monooq.com';
+    const itemList = [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'トップ',
+        item: baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: `${addressPref}のスペース`,
+        item: `${baseUrl}/pref${prefCode}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: `${addressCity}のスペース`,
+        item: `${baseUrl}/pref${prefCode}/city${cityCode}`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 4,
+        name: `${addressTown}のスペース`,
+        item: `${baseUrl}/pref${prefCode}/city${cityCode}/town${townCode}`,
+      },
+    ];
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: itemList,
+    };
+  };
+
   showLeftContent = () => {
     const { space, user, isRequesting, recommendSpaces } = this.props;
     const {
       meta: { title, description, url, imageUrl },
+      isOverTopView,
     } = this.state;
     const isSelfSpace = user.id === (space.user || {}).id;
 
-    const isNoIndex = space.status !== 'public';
+    const isNoIndex = space.status === 'draft';
 
     const recommend = recommendSpaces
       ? recommendSpaces.map(s => ({
@@ -121,13 +189,12 @@ class SpaceContainer extends Component {
           image: (s.images[0] || {}).imageUrl,
           title: s.title,
           address: `${s.addressPref}${s.addressCity}`,
-          isFurniture: s.isFurniture,
           priceFull: s.priceFull,
-          priceHalf: s.priceHalf,
-          priceQuarter: s.priceQuarter,
+          priceTatami: s.priceTatami,
           onClick: () => this.onClickSpace(s),
         }))
       : null;
+
     return (
       <Fragment>
         <Meta
@@ -136,23 +203,24 @@ class SpaceContainer extends Component {
           ogUrl={url}
           ogImageUrl={imageUrl}
           noindex={isNoIndex}
+          jsonLd={this.makeMetaBreadcrumbs(space)}
         />
         <Detail
+          isOverTopView={isOverTopView}
           id={space.id}
           map={<SpaceMap lat={space.lat} lng={space.lng} />}
           pref={space.addressPref}
-          city={space.addressCity}
-          town={space.addressTown}
           name={space.title}
           images={space.images.map(image => ({
             original: image.imageUrl || dummySpaceImage,
             thumbnail: image.imageUrl || dummySpaceImage,
           }))}
+          status={space.status}
+          breadcrumbsList={this.makeBreadCrumbs(space)}
           description={space.introduction}
+          breadth={getBreadths(space.sizeType)}
+          tagList={space.tags.map(v => v.name)}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
-          type={SPACE_TYPES[space.type]}
-          furniture={space.isFurniture}
-          baggage={space.about}
           delivery={
             space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
           }
@@ -167,11 +235,17 @@ class SpaceContainer extends Component {
             profile: space.user.profile,
           }}
           priceFull={numeral(space.priceFull).format('0,0')}
-          priceHalf={space.priceHalf > 0 && numeral(space.priceHalf).format('0,0')}
-          priceQuarter={space.priceQuarter > 0 && numeral(space.priceQuarter).format('0,0')}
+          priceTatami={space.priceTatami > 0 && numeral(space.priceTatami).format('0,0')}
           recommend={recommend}
+          requestButtonDisabled={isSelfSpace}
+          requestButtonLoading={isRequesting}
+          requestButtonOnClick={isSelfSpace ? null : this.onClickSendMessage}
+          onKeyDownButtonRequest={isSelfSpace ? null : this.onKeyDownButtonMessage}
         />
-        <SendMessage
+        <SendMessageOnlyTabletSp
+          isRoom={space.sizeType > 0 && space.sizeType < 3}
+          priceFull={space.priceFull}
+          priceTatami={space.priceTatami}
           disabled={isSelfSpace}
           loading={isRequesting}
           onClick={isSelfSpace ? null : this.onClickSendMessage}
@@ -180,6 +254,35 @@ class SpaceContainer extends Component {
       </Fragment>
     );
   };
+
+  scrollTop = () => {
+    const isWebKit = this.browser ? this.browser.isWebKit : false;
+    let tgt;
+
+    if ('scrollingElement' in document) {
+      tgt = document.scrollingElement;
+    } else if (isWebKit) {
+      tgt = document.body;
+    } else {
+      tgt = document.documentElement;
+    }
+    const scrollTop = (tgt && tgt.scrollTop) || 0;
+    return Math.max(window.pageYOffset, scrollTop);
+  };
+
+  watchCurrentPosition() {
+    if (window.parent.screen.width > 768) {
+      const positionScroll = this.scrollTop();
+      if (this._isMounted) {
+        this.setState({ isOverTopView: false });
+      }
+      if (positionScroll > 485) {
+        if (this._isMounted) {
+          this.setState({ isOverTopView: true });
+        }
+      }
+    }
+  }
 
   render() {
     const { space } = this.props;
@@ -195,12 +298,8 @@ const mapStateToProps = state => ({
   isRequesting: state.request.isLoading,
 });
 
-export default ContentPageMenu(
-  connect(
-    SpaceContainer,
-    mapStateToProps,
-  ),
-  {
-    bottomMargin: true,
-  },
-);
+export default ContentPageMenu(connect(SpaceContainer, mapStateToProps), {
+  bottomMarginOnlySP: true,
+  maxWidth: 1440,
+  noMargin: true,
+});

@@ -7,44 +7,20 @@ import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import SpaceMap from 'components/LV1/SpaceMap';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
-import { Height as HeaderHeight, HeightPhone as HeaderHeightPhone } from 'components/LV3/Header';
-
 import styled from 'styled-components';
-import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
-import { media } from 'helpers/style/media-query';
+import { Colors, Dimens, ZIndexes } from 'variables';
 import dummySpaceImage from 'images/dummy_space.png';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { breadths } from 'helpers/breadths';
 import { spaceActions } from '../../../redux/modules/space';
-import { formatRemoveComma } from '../../../helpers/string';
 
-const SPACE_TYPES = ['', 'クローゼット・押入れ', '', '部屋', '屋外倉庫', 'その他'];
 const ReceiptType = {
   Both: 1,
-  Meeting: 2,
-  Delivery: 3,
+  Meeting: 3,
+  Delivery: 2,
 };
-
-const ConfirmMessage = styled.div`
-  width: 100%;
-  height: 54px;
-  display: block;
-  position: fixed;
-  left: 0px;
-  top: ${HeaderHeight}px;
-  z-index: ${ZIndexes.frontParts};
-  text-align: center;
-  padding: ${Dimens.medium_17}px;
-  line-height: 22px;
-  font-size: ${FontSizes.small_15}px;
-  font-weight: bold;
-  color: ${Colors.white};
-  background-color: ${Colors.brandPrimary};
-  ${media.tablet`
-    top: ${HeaderHeightPhone}px;
-  `};
-`;
 
 const EntryButtonWrap = styled.div`
   width: 100%;
@@ -60,23 +36,32 @@ const EntryButtonWrap = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-const Spacer = styled.div`
-  margin: ${Dimens.medium3_40}px auto 0;
-`;
-
 class SpaceEditConfirmContainer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isUpdate: false,
+      isUpdate: !!props.match.params.space_id,
+      isOverTopView: false,
     };
+  }
 
-    const spaceId = props.match.params.space_id;
+  componentDidMount() {
+    const { space, dispatch, match } = this.props;
+    const { isUpdate } = this.state;
 
-    if (spaceId) {
-      this.state.isUpdate = true;
+    const spaceId = match.params.space_id;
+    if (isUpdate && !space.id) {
+      dispatch(spaceActions.prepareUpdateSpace(spaceId));
     }
+
+    this._isMounted = true;
+    window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    window.removeEventListener('scroll', () => this.watchCurrentPosition(), true);
   }
 
   onKeyDownButtonNext = e => {
@@ -96,6 +81,16 @@ class SpaceEditConfirmContainer extends Component {
     const { isUpdate } = this.state;
 
     const saveSpace = Object.assign(space);
+    if (space.tagList) {
+      saveSpace.tags = space.tagList
+        .filter(value => {
+          return value.isChecked === true;
+        })
+        .map(item => item.text)
+        .concat(space.tagCustomList);
+    } else {
+      saveSpace.tags = space.tags.map(v => v.name);
+    }
 
     if (isUpdate) {
       dispatch(
@@ -116,20 +111,45 @@ class SpaceEditConfirmContainer extends Component {
     const { history, space } = this.props;
     const { isUpdate } = this.state;
 
-    const nextPath = isUpdate ? Path.spaceEditPrice(space.id) : Path.createSpacePrice();
+    const nextPath = isUpdate ? Path.spaceEdit3(space.id) : Path.spaceCreate3();
     history.push(nextPath);
   };
 
+  scrollTop = () => {
+    const isWebKit = this.browser ? this.browser.isWebKit : false;
+    let tgt;
+
+    if ('scrollingElement' in document) {
+      tgt = document.scrollingElement;
+    } else if (isWebKit) {
+      tgt = document.body;
+    } else {
+      tgt = document.documentElement;
+    }
+    const scrollTop = (tgt && tgt.scrollTop) || 0;
+    return Math.max(window.pageYOffset, scrollTop);
+  };
+
+  watchCurrentPosition() {
+    if (window.parent.screen.width > 768) {
+      const positionScroll = this.scrollTop();
+      if (this._isMounted) {
+        this.setState({ isOverTopView: false });
+      }
+      if (positionScroll > 485) {
+        if (this._isMounted) {
+          this.setState({ isOverTopView: true });
+        }
+      }
+    }
+  }
+
   render() {
     const { space, isLoading, isComplete } = this.props;
-    const { isUpdate } = this.state;
+    const { isUpdate, isOverTopView } = this.state;
 
-    if (isUpdate) {
-      if (!space.id) {
-        return <Redirect to={Path.createSpaceInfo()} />;
-      }
-    } else if (space.images === undefined) {
-      return <Redirect to={Path.createSpaceInfo()} />;
+    if (!isLoading && isUpdate && !space.id) {
+      return null;
     }
 
     if (!isLoading && isComplete) {
@@ -139,13 +159,24 @@ class SpaceEditConfirmContainer extends Component {
       return <Redirect to={Path.createSpaceCompletion()} />;
     }
 
+    let tagList;
+    if (space.tagList) {
+      tagList = space.tagList
+        .filter(value => {
+          return value.isChecked === true;
+        })
+        .map(item => item.text)
+        .concat(space.tagCustomList);
+    } else {
+      tagList = space.tags.map(v => v.name);
+    }
+
     const { user } = this.props;
     return (
       <Fragment>
-        <ConfirmMessage>実際にお客様にこのように表示されます</ConfirmMessage>
-        <Spacer />
         <Detail
           confirm
+          isOverTopView={isOverTopView}
           id={space.id}
           map={<SpaceMap lat={space.lat} lng={space.lng} />}
           pref={space.addressPref}
@@ -156,11 +187,23 @@ class SpaceEditConfirmContainer extends Component {
             original: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
             thumbnail: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
           }))}
+          status={space.status}
+          breadcrumbsList={[
+            {
+              text: space.addressPref,
+            },
+            {
+              text: space.addressCity,
+            },
+            {
+              text: space.addressTown,
+            },
+          ]}
           description={space.introduction}
+          breadth={breadths[space.sizeType - 1]}
+          tagList={tagList}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
-          type={SPACE_TYPES[space.type]}
-          furniture={space.isFurniture}
-          baggage={space.about}
+          addressMethod={space.about}
           delivery={
             space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
           }
@@ -175,12 +218,7 @@ class SpaceEditConfirmContainer extends Component {
             profile: user.profile,
           }}
           priceFull={numeral(space.priceFull).format('0,0')}
-          priceHalf={
-            formatRemoveComma(space.priceHalf) > 0 && numeral(space.priceHalf).format('0,0')
-          }
-          priceQuarter={
-            formatRemoveComma(space.priceQuarter) > 0 && numeral(space.priceQuarter).format('0,0')
-          }
+          priceTatami={numeral(space.priceTatami).format('0,0')}
         />
         <EntryButtonWrap>
           <ButtonEntry
@@ -216,6 +254,8 @@ export default authRequired(
   handleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEditConfirmContainer), {
       noFooter: true,
+      maxWidth: 1440,
+      noMargin: true,
     }),
   ),
 );

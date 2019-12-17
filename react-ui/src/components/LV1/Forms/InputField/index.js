@@ -29,6 +29,12 @@ const InputField = styled.input`
   }
 
   ${props =>
+    props.disabled &&
+    `
+      background-color: ${Colors.disabled2};
+    `};
+
+  ${props =>
     props.error &&
     css`
       color: ${Colors.red};

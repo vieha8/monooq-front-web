@@ -1,52 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
-import InlineText from 'components/LV1/Texts/InlineText';
-import { Colors, FontSizes } from 'variables';
+import { Dimens, Colors, FontSizes } from 'variables';
+import ImageCheckGreen from 'images/check-circle-green.svg';
+import ImageCheckWhite from 'images/check-circle-gray.svg';
 
 const Wrap = styled.div`
   margin: 20px auto;
 `;
 
 const ItemWrap = styled.div`
-  margin: 4px auto;
+  position: relative;
+  margin: ${Dimens.small2_14}px auto;
+  padding-left: ${Dimens.medium2_34}px;
+  font-size: ${FontSizes.small}px;
+  ${props =>
+    !props.isEnable &&
+    `
+      color: ${Colors.lightGray1};
+    `};
+  &::before {
+    position: absolute;
+    content: '';
+    top: calc(50% - ${Dimens.small2}px);
+    left: 0px;
+    width: ${Dimens.medium1}px;
+    height: ${Dimens.medium1}px;
+    background-image: url(${props => (props.isEnable ? ImageCheckGreen : ImageCheckWhite)});
+    background-size: cover;
+    background-position: top left;
+    background-repeat: no-repeat;
+  }
 `;
 
-const ItemMeetingWrap = styled.div`
-  margin-top: 10px;
-`;
-
-export default ({ delivery, meeting }) => (
+export default ({ isDelivery, isMeeting }) => (
   <Wrap>
-    <ItemWrap>
-      <InlineText.Base fontSize={`${FontSizes.small_12}`}>受取り方法</InlineText.Base>
+    <ItemWrap isEnable={isDelivery}>
+      配送サービスでの受け取り
+      <br />
+      （ヤマト運輸・佐川急便など）
     </ItemWrap>
-    {delivery && (
-      <div>
-        <ItemWrap>
-          <InlineText.Base fontSize={`${FontSizes.small_15}`} bold>
-            配送
-          </InlineText.Base>
-        </ItemWrap>
-        <ItemWrap>
-          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
-            ヤマト運輸など配送サービス
-          </InlineText.Base>
-        </ItemWrap>
-      </div>
-    )}
-    {meeting && (
-      <ItemMeetingWrap>
-        <ItemWrap>
-          <InlineText.Base fontSize={`${FontSizes.small_15}`} bold>
-            対面
-          </InlineText.Base>
-        </ItemWrap>
-        <ItemWrap>
-          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
-            直接本人から荷物を受け取ります
-          </InlineText.Base>
-        </ItemWrap>
-      </ItemMeetingWrap>
-    )}
+    <ItemWrap isEnable={isMeeting}>対面での受け取り</ItemWrap>
   </Wrap>
 );

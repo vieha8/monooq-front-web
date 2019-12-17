@@ -235,6 +235,26 @@ const getFirebaseAuthToken = () =>
 
 const tokenCacheKey = 'firebase_token';
 
+function* makeToken() {
+  if (!firebase.auth().currentUser) {
+    return '';
+  }
+
+  const token = yield call(getFirebaseAuthToken);
+  if (!token || token === '') {
+    return '';
+  }
+
+  yield call(putApiRequest, apiEndpoint.authFirebase(firebase.auth().currentUser.uid), {}, token);
+  if (isAvailableLocalStorage()) {
+    const limit = new Date();
+    limit.setMinutes(limit.getMinutes() + 50);
+    localStorage.setItem(tokenCacheKey, JSON.stringify({ token, limit }));
+  }
+
+  return token;
+}
+
 // Sagas
 export function* getToken() {
   if (!firebase.auth().currentUser) {
@@ -252,18 +272,8 @@ export function* getToken() {
       }
     }
   }
-  const token = yield call(getFirebaseAuthToken);
-  if (!token || token === '') {
-    return '';
-  }
 
-  yield call(putApiRequest, apiEndpoint.authFirebase(firebase.auth().currentUser.uid), {}, token);
-  if (isAvailableLocalStorage()) {
-    const limit = new Date();
-    limit.setMinutes(limit.getMinutes() + 50);
-    localStorage.setItem(tokenCacheKey, JSON.stringify({ token, limit }));
-  }
-  return token;
+  return yield makeToken();
 }
 
 function* checkLogin() {
@@ -284,13 +294,18 @@ function* checkLogin() {
     if (firebaseUid !== '') {
       // ログイン済み
       status.isLogin = true;
-      const token = yield getToken();
+      let token = yield getToken();
       const { data, err } = yield call(
         getApiRequest,
         apiEndpoint.authFirebase(firebaseUid),
         {},
         token,
       );
+
+      if (token !== data.token) {
+        token = yield makeToken();
+      }
+
       if (err || data.id === 0) {
         yield put(authActions.checkLoginFailed({ error: err }));
         yield put(authActions.logout());

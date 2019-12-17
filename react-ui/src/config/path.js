@@ -16,17 +16,16 @@ export default {
   spacesByTown: (prefecture = PREFECTURE, cityCode = CITY_CODE, townCode = TOWN_CODE) =>
     `/spaces/pref${prefecture}/city${cityCode}/town${townCode}`, // 町域別スペース一覧
   space: (spaceId = SPACE_ID) => `/space/${spaceId}`, // スペース詳細
-  // スペース作成
-  createSpaceInfo: () => '/space/new/info',
-  createSpaceBaggage: () => '/space/new/baggage',
-  createSpaceReceive: () => '/space/new/receive',
-  createSpacePrice: () => `/space/new/price/about`,
+  // スペース登録
+  spaceCreate1: () => '/space/new/1',
+  spaceCreate2: () => '/space/new/2',
+  spaceCreate3: () => `/space/new/3`,
   createSpaceConfirm: () => `/space/new/confirm`,
   createSpaceCompletion: () => '/space/new/completion',
-  spaceEditInfo: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/info`,
-  spaceEditBaggage: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/baggage`,
-  spaceEditReceive: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/receive`,
-  spaceEditPrice: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/price/about`,
+  // スペース編集
+  spaceEdit1: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/1`,
+  spaceEdit2: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/2`,
+  spaceEdit3: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/3`,
   spaceEditConfirm: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/confirm`,
   spaceEditCompletion: (spaceId = SPACE_ID) => `/space/${spaceId}/edit/completion`,
   // スケジュール

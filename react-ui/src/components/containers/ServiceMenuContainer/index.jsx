@@ -55,7 +55,7 @@ class ServiceMenuContainer extends Component {
           schedule={{ to: Path.schedule() }}
           spaces={{ to: Path.spaces() }}
           addSpace={{
-            to: Path.createSpaceInfo(),
+            to: Path.spaceCreate1(),
             onClick: () => dispatch(uiActions.setUiState({ space: {} })),
           }}
           sales={{ to: Path.sales() }}
@@ -87,7 +87,4 @@ const mapStateToProps = state => ({
   schedule: state.request.schedule,
 });
 
-export default connect(
-  ServiceMenuContainer,
-  mapStateToProps,
-);
+export default connect(ServiceMenuContainer, mapStateToProps);

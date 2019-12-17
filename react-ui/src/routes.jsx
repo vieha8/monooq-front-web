@@ -58,33 +58,23 @@ const Estimate = loadable(() =>
 const Payment = loadable(() =>
   import('components/containers/PaymentContainer').catch(() => window.location.reload()),
 );
-const CreateSpaceInfo = loadable(() =>
-  import('components/containers/SpaceEditInformationContainer').catch(() =>
-    window.location.reload(),
-  ),
+const SpaceCreate1 = loadable(() =>
+  import('components/containers/SpaceEdit1Container').catch(() => window.location.reload()),
 );
-const SpaceEditInfo = loadable(() =>
-  import('components/containers/SpaceEditInformationContainer').catch(() =>
-    window.location.reload(),
-  ),
+const SpaceEdit1 = loadable(() =>
+  import('components/containers/SpaceEdit1Container').catch(() => window.location.reload()),
 );
-const CreateSpaceBaggage = loadable(() =>
-  import('components/containers/SpaceEditBaggageContainer').catch(() => window.location.reload()),
+const SpaceCreate2 = loadable(() =>
+  import('components/containers/SpaceEdit2Container').catch(() => window.location.reload()),
 );
-const SpaceEditBaggage = loadable(() =>
-  import('components/containers/SpaceEditBaggageContainer').catch(() => window.location.reload()),
+const SpaceEdit2 = loadable(() =>
+  import('components/containers/SpaceEdit2Container').catch(() => window.location.reload()),
 );
-const CreateSpaceReceive = loadable(() =>
-  import('components/containers/SpaceEditReceiveContainer').catch(() => window.location.reload()),
+const SpaceCreate3 = loadable(() =>
+  import('components/containers/SpaceEdit3Container').catch(() => window.location.reload()),
 );
-const SpaceEditReceive = loadable(() =>
-  import('components/containers/SpaceEditReceiveContainer').catch(() => window.location.reload()),
-);
-const CreateSpacePriceType = loadable(() =>
-  import('components/containers/SpaceEditPriceTypeContainer').catch(() => window.location.reload()),
-);
-const SpaceEditPriceType = loadable(() =>
-  import('components/containers/SpaceEditPriceTypeContainer').catch(() => window.location.reload()),
+const SpaceEdit3 = loadable(() =>
+  import('components/containers/SpaceEdit3Container').catch(() => window.location.reload()),
 );
 const CreateSpaceConfirm = loadable(() =>
   import('components/containers/SpaceEditConfirmContainer').catch(() => window.location.reload()),
@@ -172,14 +162,12 @@ export default ({ history }) => (
       <Route exact path={Path.message()} component={Message} />
       <Route exact path={Path.estimate()} component={Estimate} />
       <Route exact path={Path.payment()} component={Payment} />
-      <Route exact path={Path.createSpaceInfo()} component={CreateSpaceInfo} />
-      <Route exact path={Path.spaceEditInfo()} component={SpaceEditInfo} />
-      <Route exact path={Path.createSpaceBaggage()} component={CreateSpaceBaggage} />
-      <Route exact path={Path.spaceEditBaggage()} component={SpaceEditBaggage} />
-      <Route exact path={Path.createSpaceReceive()} component={CreateSpaceReceive} />
-      <Route exact path={Path.spaceEditReceive()} component={SpaceEditReceive} />
-      <Route exact path={Path.createSpacePrice()} component={CreateSpacePriceType} />
-      <Route exact path={Path.spaceEditPrice()} component={SpaceEditPriceType} />
+      <Route exact path={Path.spaceCreate1()} component={SpaceCreate1} />
+      <Route exact path={Path.spaceEdit1()} component={SpaceEdit1} />
+      <Route exact path={Path.spaceCreate2()} component={SpaceCreate2} />
+      <Route exact path={Path.spaceEdit2()} component={SpaceEdit2} />
+      <Route exact path={Path.spaceCreate3()} component={SpaceCreate3} />
+      <Route exact path={Path.spaceEdit3()} component={SpaceEdit3} />
       <Route exact path={Path.createSpaceConfirm()} component={CreateSpaceConfirm} />
       <Route exact path={Path.spaceEditConfirm()} component={SpaceEditConfirm} />
       <Route exact path={Path.createSpaceCompletion()} component={CreateSpaceCompletion} />

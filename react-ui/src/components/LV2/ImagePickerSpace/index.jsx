@@ -213,7 +213,7 @@ export default ({ images, isImageUploading, onClickDeleteImage, onChangeImage })
   return (
     <Fragment>
       <div>
-        <H3 bold>スペースの様子がわかる写真</H3>
+        <H3 bold>スペースの写真</H3>
       </div>
       {isImageUploading && (
         <DropZoneWrap>
@@ -255,7 +255,7 @@ export default ({ images, isImageUploading, onClickDeleteImage, onChangeImage })
         <InlineText.Tiny>
           最大4枚まで登録が可能です。
           <br />
-          ※写真は横向きに登録しましょう！
+          横向きの撮影がおすすめです。
         </InlineText.Tiny>
       </HintBottomWrap>
     </Fragment>

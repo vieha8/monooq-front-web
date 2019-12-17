@@ -156,10 +156,36 @@ storiesOf('Atoms(LV1)/Forms/Button', module)
     )),
   )
   .add(
+    'Senary',
+    withInfo(`
+      ### コンポーネント概要
+      ボタン(Senary)
+      * ■パラメータ
+      * fill={1}：横幅100%にする。
+      * fontbold：ボタンのテキストを太字にする。
+    `)(() => (
+      <div style={{ background: `${Colors.darkGray2}`, padding: `${Dimens.storyBookPadding}` }}>
+        <Button senary>Senary</Button>
+        <br />
+        <Button senary disabled>
+          Senary
+        </Button>
+        <br />
+        <Button senary fontbold fill={1}>
+          Senary(文字太字/横幅100%)
+        </Button>
+        <br />
+        <Button senary fontbold fill={1} disabled>
+          Senary(文字太字/横幅100%)
+        </Button>
+      </div>
+    )),
+  )
+  .add(
     'Facebook',
     withInfo(`
       ### コンポーネント概要
-      ボタン(Facebook)
+      【利用箇所無し】ボタン(Facebook)
       * ■パラメータ
       * fill={1}：横幅100%にする。
       * fontbold：ボタンのテキストを太字にする。
@@ -185,7 +211,7 @@ storiesOf('Atoms(LV1)/Forms/Button', module)
     'Twitter',
     withInfo(`
       ### コンポーネント概要
-      ボタン(Twitter)
+      【利用箇所無し】ボタン(Twitter)
       * ■パラメータ
       * fill={1}：横幅100%にする。
       * fontbold：ボタンのテキストを太字にする。

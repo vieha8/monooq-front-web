@@ -144,7 +144,7 @@ class SalesContainer extends Component {
 
   historyToSpaceInfo = () => {
     const { history } = this.props;
-    history.push(Path.createSpaceInfo());
+    history.push(Path.spaceCreate1());
   };
 
   onKeyDownButtonSpaceInfo = e => {

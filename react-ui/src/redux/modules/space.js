@@ -18,6 +18,7 @@ import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertSpaceImgUrl } from 'helpers/imgix';
 import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
+import { ErrorMessages } from 'variables';
 import { handleError } from './error';
 
 // Actions
@@ -46,6 +47,10 @@ const RESET_SEARCH = 'RESET_SEARCH';
 const GET_RECOMMEND_SPACES = 'GET_RECOMMEND_SPACES';
 const GET_RECOMMEND_SPACES_SUCCESS = 'GET_RECOMMEND_SPACES_SUCCESS';
 const GET_RECOMMEND_SPACES_FAILED = 'GET_RECOMMEND_SPACES_FAILED';
+const GET_ADDRESS_INIT = 'GET_ADDRESS_INIT';
+const GET_ADDRESS = 'GET_ADDRESS';
+const GET_ADDRESS_SUCCESS = 'GET_ADDRESS_SUCCESS';
+const GET_ADDRESS_FAILED = 'GET_ADDRESS_FAILED';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -73,6 +78,10 @@ export const spaceActions = createActions(
   GET_RECOMMEND_SPACES,
   GET_RECOMMEND_SPACES_SUCCESS,
   GET_RECOMMEND_SPACES_FAILED,
+  GET_ADDRESS_INIT,
+  GET_ADDRESS,
+  GET_ADDRESS_SUCCESS,
+  GET_ADDRESS_FAILED,
 );
 
 // Reducer
@@ -86,11 +95,7 @@ const initialState = {
     results: [],
     maxCount: 0,
     isMore: true,
-    breadcrumbs: [
-      // TODO 仮データ
-      { text: 'TOP', link: '/' },
-      { text: '東京都のスペース一覧' },
-    ],
+    breadcrumbs: [],
     conditions: {
       keyword: '',
       pref: '',
@@ -101,6 +106,7 @@ const initialState = {
     cities: [],
   },
   recommendSpaces: [],
+  geo: {},
 };
 
 export const spaceReducer = handleActions(
@@ -218,6 +224,27 @@ export const spaceReducer = handleActions(
       ...state,
       recommendSpaces: payload,
     }),
+    [GET_ADDRESS_INIT]: state => ({
+      ...state,
+      isLoadingAddress: false,
+      errMessage: '',
+    }),
+    [GET_ADDRESS]: state => ({
+      ...state,
+      isLoadingAddress: true,
+      errMessage: '',
+    }),
+    [GET_ADDRESS_SUCCESS]: (state, { payload: { pref, city, town, postalCode } }) => ({
+      ...state,
+      geo: { pref, city, town, postalCode },
+      isLoadingAddress: false,
+      errMessage: '',
+    }),
+    [GET_ADDRESS_FAILED]: (state, action) => ({
+      ...state,
+      isLoadingAddress: false,
+      errMessage: action.payload,
+    }),
   },
   initialState,
 );
@@ -267,9 +294,10 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   yield put(spaceActions.fetchSuccessSpace(payload));
 }
 
+const GEOCODE_API_KEY = 'AIzaSyAF1kxs-DsZJHW3tX3eNi88tKixy-zbGtk';
+
 function* getGeocode({ payload: { address } }) {
-  const KEY = 'AIzaSyAF1kxs-DsZJHW3tX3eNi88tKixy-zbGtk';
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${KEY}&address=${address}`;
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${GEOCODE_API_KEY}&address=${address}`;
 
   try {
     const { data: places, err } = yield call(
@@ -319,12 +347,8 @@ function generateSpaceRequestParams(space) {
     params.priceFull = parseInt(params.priceFull, 10);
   }
 
-  if (params.priceHalf) {
-    params.priceHalf = parseInt(params.priceHalf, 10);
-  }
-
-  if (params.priceQuarter) {
-    params.priceQuarter = parseInt(params.priceQuarter, 10);
+  if (params.priceTatami) {
+    params.priceTatami = parseInt(params.priceTatami, 10);
   }
 
   return params;
@@ -338,6 +362,9 @@ const createImageUrls = (spaceId, images) =>
           return '';
         }
         return convertBaseUrl(image.imageUrl);
+      }
+      if (image.tmpUrl) {
+        return convertBaseUrl(image.tmpUrl);
       }
       const fileReader = new FileReader();
       fileReader.readAsArrayBuffer(image);
@@ -415,7 +442,7 @@ function* prepareUpdateSpace({ payload: spaceId }) {
   }
 
   const spaceCache = yield select(state => state.ui.space);
-  if (spaceCache.id) {
+  if (spaceCache.id === spaceId) {
     return;
   }
 
@@ -459,6 +486,11 @@ function* prepareUpdateSpace({ payload: spaceId }) {
     return;
   }
 
+  space.images = space.images.map(image => ({
+    ...image,
+    imageUrl: convertSpaceImgUrl(image.imageUrl, 'w=1200&h=800&fit=crop'),
+  }));
+
   space.priceFull = formatAddComma(space.priceFull);
   space.priceHalf = formatAddComma(space.priceHalf);
   space.priceQuarter = formatAddComma(space.priceQuarter);
@@ -488,14 +520,28 @@ function* updateSpace({ payload: { spaceId, body } }) {
     params.images = imageUrls
       .filter(url => url !== '')
       .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
-    params.Status = 'public';
   }
 
   const token = yield* getToken();
   const { data, status, err } = yield call(
     putApiRequest,
     apiEndpoint.spaces(spaceId),
-    params,
+    {
+      title: params.title,
+      introduction: params.introcuction,
+      receiptType: params.receiptType,
+      sizeType: params.sizeType,
+      priceFull: params.priceFull,
+      priceTatami: params.priceTatami,
+      address: params.address,
+      addressPref: params.addressPref,
+      addressCity: params.addressCity,
+      addressTown: params.addressTown,
+      postalCode: params.postalCode,
+      images: params.images,
+      tags: params.tags,
+      status: params.status,
+    },
     token,
   );
 
@@ -533,12 +579,9 @@ function* deleteSpace({ payload: { space } }) {
   const { err } = yield call(deleteApiRequest, apiEndpoint.spaces(space.id), token);
   if (err) {
     let errMessage = '';
-    console.log(err);
     if (err === '進行中の取引があります') {
-      console.log('A');
       errMessage = '進行中の取引があるスペースは削除できません';
     }
-
     yield handleError(spaceActions.deleteFailedSpace, errMessage, 'deleteSpace', err, false);
     return;
   }
@@ -565,7 +608,7 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
   }
 }
 
-function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, sort } }) {
+function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, tags, sort } }) {
   const token = yield* getToken();
 
   const params = {
@@ -586,6 +629,10 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, s
 
   if (towns && towns.length > 0) {
     params.towns = towns.join(',');
+  }
+
+  if (tags && tags.length > 0) {
+    params.tags = tags.join(',');
   }
 
   if (sort) {
@@ -749,6 +796,44 @@ function* getRecommendSpaces({ payload: { spaceId } }) {
   yield put(spaceActions.getRecommendSpacesSuccess(res));
 }
 
+function* getAddressByPostalCode({ payload: { postalCode } }) {
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${GEOCODE_API_KEY}&address=${postalCode}`;
+
+  try {
+    const { data: places, err } = yield call(
+      () =>
+        new Promise((resolve, reject) => {
+          axios
+            .get(url)
+            .then(result => resolve(result))
+            .catch(error => reject(error));
+        }),
+    );
+
+    if (err) {
+      yield handleError(spaceActions.getAddressFailed, '', 'getAddress', err, true);
+      return;
+    }
+
+    if (places && places.results.length > 0) {
+      const pref = places.results[0].address_components[3].long_name;
+      const city = places.results[0].address_components[2].long_name;
+      const town = places.results[0].address_components[1].long_name;
+      yield put(spaceActions.getAddressSuccess({ pref, city, town, postalCode }));
+    } else {
+      yield handleError(
+        spaceActions.getAddressFailed,
+        ErrorMessages.FailedGetAddress,
+        'getAddress',
+        err,
+        true,
+      );
+    }
+  } catch (err) {
+    yield handleError(spaceActions.getAddressFailed, '', 'getAddress(exception)', err, true);
+  }
+}
+
 export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
@@ -759,4 +844,5 @@ export const spaceSagas = [
   takeEvery(DO_SEARCH, search),
   takeEvery(GET_GEOCODE, getGeocode),
   takeEvery(GET_RECOMMEND_SPACES, getRecommendSpaces),
+  takeEvery(GET_ADDRESS, getAddressByPostalCode),
 ];

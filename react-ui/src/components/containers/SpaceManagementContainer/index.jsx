@@ -5,7 +5,6 @@ import Path from 'config/path';
 
 import { userActions } from 'redux/modules/user';
 import { spaceActions } from 'redux/modules/space';
-import { uiActions } from 'redux/modules/ui';
 
 import SpaceManageList from 'components/LV3/SpaceManageList';
 import LoadingPage from 'components/LV3/LoadingPage';
@@ -23,9 +22,8 @@ class SpaceManagementContainer extends Component {
   }
 
   onClickEdit = space => {
-    const { dispatch, history } = this.props;
-    dispatch(uiActions.setUiState({ space }));
-    history.push(Path.spaceEditInfo(space.id));
+    const { history } = this.props;
+    history.push(Path.spaceEdit1(space.id));
   };
 
   onClickRemove = space => {
@@ -57,7 +55,7 @@ class SpaceManagementContainer extends Component {
           captionHead="登録したスペースがありません"
           caption="スペースの登録がありません。以下のボタンからスペースを登録して荷物を預る準備をしましょう。"
           buttonText="スペースを登録する"
-          onClick={() => history.push(Path.createSpaceInfo())}
+          onClick={() => history.push(Path.spaceCreate1())}
         />
       );
     }
@@ -71,11 +69,9 @@ class SpaceManagementContainer extends Component {
           },
           address: `${space.address}`,
           content: space.title,
-          furniture: space.isFurniture,
           prices: [
             numeral(space.priceFull).format('0,0'),
-            numeral(space.priceHalf).format('0,0'),
-            numeral(space.priceQuarter).format('0,0'),
+            numeral(space.priceTatami).format('0,0'),
           ],
           link: Path.space(space.id),
           status: space.status,
@@ -94,13 +90,9 @@ const mapStateToProps = state => ({
 });
 
 export default authRequired(
-  ContentPageMenu(
-    connect(
-      SpaceManagementContainer,
-      mapStateToProps,
-    ),
-    {
-      headline: 'スペースの管理',
-    },
-  ),
+  ContentPageMenu(connect(SpaceManagementContainer, mapStateToProps), {
+    headline: 'スペースの管理',
+    maxWidth: 1000,
+    bgGray: true,
+  }),
 );

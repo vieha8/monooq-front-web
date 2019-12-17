@@ -18,10 +18,9 @@ import MessagesList from './MessageListContainer';
 import Message from './MessageContainer';
 import Estimate from './EstimateContainer';
 import Payment from './PaymentContainer';
-import SpaceEditInformation from './SpaceEditInformationContainer';
-import SpaceEditBaggage from './SpaceEditBaggageContainer';
-import SpaceEditReceive from './SpaceEditReceiveContainer';
-import SpaceEditPriceType from './SpaceEditPriceTypeContainer';
+import SpaceEdit1 from './SpaceEdit1Container';
+import SpaceEdit2 from './SpaceEdit2Container';
+import SpaceEdit3 from './SpaceEdit3Container';
 import SpaceEditConfirm from './SpaceEditConfirmContainer';
 import SpaceEditCompletion from './SpaceEditCompletionContainer';
 import Unsubscribe from './UnsubscribeContainer';
@@ -48,10 +47,9 @@ export default {
   Message,
   Estimate,
   Payment,
-  SpaceEditInformation,
-  SpaceEditBaggage,
-  SpaceEditReceive,
-  SpaceEditPriceType,
+  SpaceEdit1,
+  SpaceEdit2,
+  SpaceEdit3,
   SpaceEditConfirm,
   SpaceEditCompletion,
   Unsubscribe,

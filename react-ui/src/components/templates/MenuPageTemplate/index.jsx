@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Dimens } from 'variables';
 import ContainerClearfix from 'components/LV1/ContainerClearfix';
 import { H1 } from 'components/LV1/Texts/Headline';
 import Page from '../Page';
@@ -23,7 +22,6 @@ const LeftContent = styled.div`
     margin-left: 0;
     width: 100%;
     max-width: 100%;
-    padding-top: ${Dimens.small_10}px;
   `};
 `;
 

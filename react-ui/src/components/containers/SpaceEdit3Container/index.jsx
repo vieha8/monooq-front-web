@@ -3,7 +3,7 @@ import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-import SpaceEditInputPriceType from 'components/LV3/SpaceEdit/InputPriceType';
+import SpaceEditStep3 from 'components/LV3/SpaceEdit/Step3';
 
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
@@ -24,59 +24,74 @@ const Validate = {
   },
 };
 
-class SpaceEditPriceTypeContainer extends Component {
+const checkError = value => {
+  const errors = [];
+  if (!value || value.length === 0) {
+    errors.push(ErrorMessages.PleaseInput);
+  } else if (Number.isNaN(value) || !String(value).match(Validate.Price.Num)) {
+    errors.push(ErrorMessages.PriceNumber);
+  } else {
+    if (value < Validate.Price.Min) {
+      errors.push(ErrorMessages.PriceMin(Validate.Price.Min));
+    }
+    if (value > Validate.Price.Max) {
+      errors.push(ErrorMessages.PriceMax(Validate.Price.Max));
+    }
+  }
+  return errors;
+};
+
+class SpaceEdit3Container extends Component {
   constructor(props) {
     super(props);
-
-    const { space, dispatch } = this.props;
-    const spaceId = props.match.params.space_id;
-
+    const { space } = this.props;
     this.state = {
+      isPriceTatami: false,
       priceFull: space.priceFull || '',
-      priceHalf: space.priceHalf || '',
-      priceQuarter: space.priceQuarter || '',
+      priceTatami: space.priceTatami || '',
       error: {},
-      isUpdate: false,
-      isFirst: true,
+      isUpdate: !!props.match.params.space_id,
     };
-
-    if (spaceId) {
-      dispatch(spaceActions.prepareUpdateSpace(spaceId));
-      this.state.isUpdate = true;
-    }
-    if (space.address) {
-      dispatch(spaceActions.getGeocode({ address: space.address }));
-    }
   }
 
   componentDidMount() {
-    const { priceFull, priceHalf, priceQuarter, isUpdate } = this.state;
+    const { match, dispatch, space } = this.props;
+    const { isUpdate, priceFull, priceTatami } = this.state;
+
+    const spaceId = match.params.space_id;
+    if (isUpdate && !space.id) {
+      dispatch(spaceActions.prepareUpdateSpace(spaceId));
+    }
+
+    const { sizeType } = space;
+    const isPriceTatami = sizeType === 1 || sizeType === 2 || sizeType === 3;
+
+    if (space.address) {
+      dispatch(spaceActions.getGeocode({ address: space.address }));
+    }
+
     if (!isUpdate) {
       this.handleChangeUI('priceFull', priceFull);
-      this.handleChangeUI('priceHalf', priceHalf);
-      this.handleChangeUI('priceQuarter', priceQuarter);
+      if (isPriceTatami) {
+        this.handleChangeUI('priceTatami', priceTatami);
+      }
     }
+
+    this.setState({ isPriceTatami });
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { space, dispatch } = nextProps;
-
+    const { space } = nextProps;
     if (space.id && !prevState.id) {
-      // TODO: スペース編集時のリロード対策(最適化したい)
-      dispatch(spaceActions.getGeocode({ address: space.address }));
+      const { priceFull, priceTatami, id, sizeType } = space;
 
-      const {
-        priceFull: PriceFullTmp,
-        priceHalf: PriceHalfTmp,
-        priceQuarter: PriceQuarterTmp,
-        id,
-      } = space;
+      const isPriceTatami = sizeType === 1 || sizeType === 2 || sizeType === 3;
 
-      const priceFull = formatAddComma(PriceFullTmp);
-      const priceHalf = formatAddComma(PriceHalfTmp);
-      const priceQuarter = formatAddComma(PriceQuarterTmp);
+      const error = {};
+      error.priceFull = checkError(formatRemoveComma(priceFull));
+      error.priceTatami = checkError(formatRemoveComma(priceTatami));
 
-      return { priceFull, priceHalf, priceQuarter, id, isFirst: false };
+      return { priceFull, priceTatami, id, isPriceTatami, error };
     }
     return null;
   }
@@ -95,7 +110,7 @@ class SpaceEditPriceTypeContainer extends Component {
 
   onClickNext = () => {
     const { dispatch, space, history } = this.props;
-    const { priceFull, priceHalf, priceQuarter, isUpdate } = this.state;
+    const { priceFull, priceTatami, isPriceTatami, isUpdate } = this.state;
 
     if (space.address) {
       const { geocode } = this.props;
@@ -116,8 +131,7 @@ class SpaceEditPriceTypeContainer extends Component {
 
     const saveSpace = Object.assign(space, {
       priceFull: formatRemoveComma(priceFull),
-      priceHalf: formatRemoveComma(priceHalf),
-      priceQuarter: formatRemoveComma(priceQuarter),
+      priceTatami: isPriceTatami ? formatRemoveComma(priceTatami) : '0',
     });
     dispatch(
       uiActions.setUiState({
@@ -131,93 +145,69 @@ class SpaceEditPriceTypeContainer extends Component {
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { priceFull, priceHalf, priceQuarter, isUpdate } = this.state;
-
+    const { priceFull, priceTatami, isPriceTatami, isUpdate } = this.state;
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
           priceFull: formatRemoveComma(priceFull),
-          priceHalf: formatRemoveComma(priceHalf),
-          priceQuarter: formatRemoveComma(priceQuarter),
+          priceTatami: isPriceTatami ? formatRemoveComma(priceTatami) : '0',
         }),
       }),
     );
 
-    const nextPath = isUpdate ? Path.spaceEditReceive(space.id) : Path.createSpaceReceive();
+    const nextPath = isUpdate ? Path.spaceEdit2(space.id) : Path.spaceCreate2();
     history.push(nextPath);
   };
 
   handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
-    let returnValue = formatRemoveComma(value);
-
-    const priceErrors = [];
-
-    if (!returnValue || returnValue.length === 0) {
-      priceErrors.push(ErrorMessages.PleaseInput);
-    } else if (Number.isNaN(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
-      priceErrors.push(ErrorMessages.PriceNumber);
-    } else {
-      if (returnValue < Validate.Price.Min) {
-        priceErrors.push(ErrorMessages.PriceMin(Validate.Price.Min));
-      }
-      if (returnValue > Validate.Price.Max) {
-        priceErrors.push(ErrorMessages.PriceMax(Validate.Price.Max));
-      }
-      returnValue = formatAddComma(returnValue);
-    }
-
-    state[propName] = returnValue;
+    const returnValue = formatRemoveComma(value);
+    const priceErrors = checkError(returnValue);
+    state[propName] = formatAddComma(returnValue);
     error[propName] = priceErrors;
     this.setState({ ...state, error });
   };
 
   validate = () => {
-    const { priceFull, priceHalf, priceQuarter } = this.state;
-
+    const { isPriceTatami, priceFull, priceTatami } = this.state;
     const checkPriceFull = formatRemoveComma(priceFull);
-    const checkPriceHalf = formatRemoveComma(priceHalf);
-    const checkPriceQuarter = formatRemoveComma(priceQuarter);
+    const checkPriceTatami = formatRemoveComma(priceTatami);
+    let resultCheckTatami = true;
+
+    if (isPriceTatami) {
+      resultCheckTatami =
+        checkPriceTatami &&
+        checkPriceTatami >= Validate.Price.Min &&
+        checkPriceTatami <= Validate.Price.Max;
+    }
 
     return (
       checkPriceFull &&
       checkPriceFull >= Validate.Price.Min &&
       checkPriceFull <= Validate.Price.Max &&
-      checkPriceHalf &&
-      checkPriceHalf >= Validate.Price.Min &&
-      checkPriceHalf <= Validate.Price.Max &&
-      checkPriceQuarter &&
-      checkPriceQuarter >= Validate.Price.Min &&
-      checkPriceQuarter <= Validate.Price.Max
+      resultCheckTatami
     );
   };
 
   render() {
     const { space, isLoading } = this.props;
-    const { priceFull, priceHalf, priceQuarter, error, isUpdate, isFirst } = this.state;
+    const { isPriceTatami, priceFull, priceTatami, error, isUpdate } = this.state;
 
-    if (!isUpdate) {
-      if (Object.keys(space).length === 0) {
-        // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
-        return <Redirect to={Path.createSpaceInfo()} />;
-      }
-    } else if (priceFull && priceHalf && priceQuarter && isFirst) {
-      // リロード時にvalidate実行する。
-      this.handleChangeUI('priceFull', priceFull);
-      this.handleChangeUI('priceHalf', priceHalf);
-      this.handleChangeUI('priceQuarter', priceQuarter);
+    if (!isUpdate && !space.title) {
+      // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
+      return <Redirect to={Path.spaceCreate1()} />;
     }
 
     return (
-      <SpaceEditInputPriceType
+      <SpaceEditStep3
+        isPriceTatami={isPriceTatami}
+        edit={isUpdate}
         errors={error}
         priceFull={priceFull}
         onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
-        priceHalf={priceHalf}
-        onChangePriceHalf={v => this.handleChangeUI('priceHalf', v)}
-        priceQuarter={priceQuarter}
-        onChangePriceQuarter={v => this.handleChangeUI('priceQuarter', v)}
+        priceTatami={priceTatami}
+        onChangePriceTatami={v => this.handleChangeUI('priceTatami', v)}
         buttonLoading={isLoading}
         onClickBack={this.onClickBack}
         onKeyDownButtonBack={this.onKeyDownButtonBack}
@@ -238,9 +228,9 @@ const mapStateToProps = state => ({
 
 export default authRequired(
   handleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEditPriceTypeContainer), {
-      headline: 'スペース料金の設定',
+    ContentPageMenu(connect(mapStateToProps)(SpaceEdit3Container), {
       noFooter: true,
+      maxWidth: 540,
     }),
   ),
 );

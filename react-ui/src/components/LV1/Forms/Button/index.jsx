@@ -6,6 +6,7 @@ import Secondary from './Secondary';
 import Tertiary from './Tertiary';
 import Quaternary from './Quaternary';
 import Quinary from './Quinary';
+import Senary from './Senary';
 import Facebook from './Facebook';
 import Twitter from './Twitter';
 import Line from './Line';
@@ -17,27 +18,37 @@ const LoaderWrap = styled.span`
 `;
 
 const handleOnClick = ({ disabled, loading, onClick }) => (disabled || loading ? null : onClick);
-const handleText = ({ loading, children }) => {
+const handleText = ({ loading, children, isInverted }) => {
   if (loading) {
     return (
       <LoaderWrap>
-        <Loader active inverted inline="centered" size="mini" />
+        <Loader active inverted={!isInverted} inline="centered" size="mini" />
       </LoaderWrap>
     );
   }
   return children;
 };
 
-export default ({ loading, disabled, ...props }) => {
-  const { secondary, tertiary, quaternary, quinary, facebook, twitter, line, areaPin } = props;
+export default ({ loading, disabled, isInverted, ...props }) => {
+  const {
+    secondary,
+    tertiary,
+    quaternary,
+    senary,
+    quinary,
+    facebook,
+    twitter,
+    line,
+    areaPin,
+  } = props;
   if (secondary) {
     return (
       <Secondary
         {...props}
         disabled={disabled || loading}
-        onClick={handleOnClick({ ...props, loading })}
+        onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Secondary>
     );
   }
@@ -46,9 +57,9 @@ export default ({ loading, disabled, ...props }) => {
       <Tertiary
         {...props}
         disabled={disabled || loading}
-        onClick={handleOnClick({ ...props, loading })}
+        onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Tertiary>
     );
   }
@@ -57,9 +68,9 @@ export default ({ loading, disabled, ...props }) => {
       <Quaternary
         {...props}
         disabled={disabled || loading}
-        onClick={handleOnClick({ ...props, loading })}
+        onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Quaternary>
     );
   }
@@ -68,10 +79,17 @@ export default ({ loading, disabled, ...props }) => {
       <Quinary
         {...props}
         disabled={disabled || loading}
-        onClick={handleOnClick({ ...props, loading })}
+        onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Quinary>
+    );
+  }
+  if (senary) {
+    return (
+      <Senary {...props} onClick={handleOnClick({ ...props, loading, disabled })}>
+        {handleText({ ...props, loading, isInverted })}
+      </Senary>
     );
   }
   if (facebook) {
@@ -79,10 +97,10 @@ export default ({ loading, disabled, ...props }) => {
       <Facebook
         {...props}
         disabled={disabled || loading}
-        onClick={handleOnClick({ ...props, loading })}
+        onClick={handleOnClick({ ...props, loading, disabled })}
         loading={loading}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Facebook>
     );
   }
@@ -91,10 +109,10 @@ export default ({ loading, disabled, ...props }) => {
       <Twitter
         {...props}
         disabled={disabled || loading}
-        onClick={handleOnClick({ ...props, loading })}
+        onClick={handleOnClick({ ...props, loading, disabled })}
         loading={loading}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Twitter>
     );
   }
@@ -103,9 +121,9 @@ export default ({ loading, disabled, ...props }) => {
       <Line
         {...props}
         disabled={disabled || loading}
-        onClick={handleOnClick({ ...props, loading })}
+        onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </Line>
     );
   }
@@ -114,9 +132,9 @@ export default ({ loading, disabled, ...props }) => {
       <AreaPin
         {...props}
         disabled={disabled || loading}
-        onClick={handleOnClick({ ...props, loading })}
+        onClick={handleOnClick({ ...props, loading, disabled })}
       >
-        {handleText({ ...props, loading })}
+        {handleText({ ...props, loading, isInverted })}
       </AreaPin>
     );
   }
@@ -125,9 +143,9 @@ export default ({ loading, disabled, ...props }) => {
     <Primary
       {...props}
       disabled={disabled || loading}
-      onClick={handleOnClick({ ...props, loading })}
+      onClick={handleOnClick({ ...props, loading, disabled })}
     >
-      {handleText({ ...props, loading })}
+      {handleText({ ...props, loading, isInverted })}
     </Primary>
   );
 };

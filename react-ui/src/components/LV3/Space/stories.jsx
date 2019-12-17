@@ -54,7 +54,7 @@ storiesOf('Organisms(LV3)/Space', module)
           description="スペースの説明。これは説明です。"
           address="東京都渋谷区渋谷"
           type="物置き"
-          baggage="荷物についてほげほげ"
+          addressMethod="荷物についてほげほげ"
           delivery
           meeting
           supplement="土日に受けとることが可能です"
@@ -75,7 +75,7 @@ storiesOf('Organisms(LV3)/Space', module)
         スペース情報(料金)
       `)(() => (
       <div style={{ width: '580px', padding: `${Dimens.storyBookPadding}` }}>
-        <Price full="50,000" half="50,000" quarter="50,000" />
+        <Price full="22,000" tatami="60,000" />
       </div>
     )),
   )

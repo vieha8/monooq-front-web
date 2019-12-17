@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/Forms/InputForm';
@@ -7,42 +7,67 @@ import { media } from 'helpers/style/media-query';
 
 const Container = styled.div`
   width: 100%;
-  padding: ${Dimens.small2_14}px 0 ${Dimens.medium}px;
-
-  border-bottom-style: none;
-  ${media.phone`
-    padding: ${Dimens.xsmall}px 0px;
-    ${props =>
-      !props.detail &&
-      `
-        padding: ${Dimens.xsmall}px 0px ${Dimens.medium1}px;
-      `};
+  max-width: 263px;
+  border: 1px solid ${Colors.borderGray};
+  border-radius: ${Dimens.xxsmall_4}px;
+  box-sizing: border-box;
+  ${media.tablet`
+    max-width: 100%;
+    padding: ${Dimens.small}px 0px;
   `};
-
-  &:first-child {
-    border-radius: 3px 3px 0 0;
-  }
-
-  &:last-child {
-    border-bottom-style: solid;
-    border-radius: 0 0 3px 3px;
-    padding: ${Dimens.small2_14}px 0 ${Dimens.small_10}px;
-  }
-
+  ${props =>
+    props.marginLeft &&
+    `
+      margin-left: 5%;
+  `};
+  ${props =>
+    props.price &&
+    `
+      max-width: 100%;
+      border: none;
+      margin: auto;
+  `};
   &::after {
     clear: both;
     content: '';
     display: block;
   }
+  ${media.tablet`
+    border: none;
+    ${props =>
+      props.marginLeft &&
+      `
+        margin-left: auto;
+    `};
+  `};
 `;
 
 const PriceContainer = styled.div`
   display: block;
-  width: 60%;
-  float: left;
-  ${media.phone`
-    width: 100%;
-    float: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10%;
+  text-align: center;
+  margin: auto;
+  ${props =>
+    props.price &&
+    `
+      max-width: 100%;
+      padding: ${Dimens.medium1}px 0;
+      text-align: left;
+  `};
+
+  ${media.tablet`
+    max-width: 100%;
+    padding: 0;
+    border: none;
+    text-align: left;
+    ${props =>
+      props.price &&
+      `
+        padding: ${Dimens.small2}px 0;
+        text-align: left;
+    `};
   `};
 `;
 
@@ -50,32 +75,86 @@ const Image = styled.img`
   width: 100%;
 `;
 
-const ImageContainer = styled.div`
+const ImageWrap = styled.div`
   display: block;
-  width: 40%;
-  max-width: 190px;
-  text-align: center;
-  float: right;
+  width: 100%;
+  max-width: ${props => (props.price ? 124 : 108)}px;
+  margin: auto;
+  ${props =>
+    props.price &&
+    `
+      float: left;
+      margin-right: ${Dimens.medium2_32}px;
+      margin-top: ${Dimens.small2_15}px;
+  `};
+  ${media.tablet`
+    float: left;
+    margin: 0 ${Dimens.medium2_32}px auto 0;
+    ${props =>
+      props.price &&
+      `
+        margin-top: ${Dimens.small2_15}px;
+    `};
+  `};
   ${media.phone`
-    width: 100%;
-    max-width: 240px;
-    float: none;
-    margin: ${Dimens.medium}px auto;
+    float: left;
+    margin: 0 ${Dimens.medium}px auto 0;
+    ${props =>
+      props.price &&
+      `
+        float: unset;
+        display: inline-block;
+    `};
+  `};
+  ${media.phoneSmall`
+    max-width: 95px;
+  `};
+`;
+
+const TitleWrap = styled.div`
+  margin-top: ${props => (props.price ? 0 : `${Dimens.small2}`)}px;
+  font-size: ${FontSizes.medium}px;
+  font-weight: bold;
+  line-height: normal;
+  ${media.tablet`
+    margin-top: 0;
+    font-size: ${FontSizes.small}px;
   `};
 `;
 
 const Caption = styled.div`
   width: 100%;
-  margin: 5px auto;
+  margin-top: ${Dimens.small_10}px;
+  ${props =>
+    props.price &&
+    `
+      margin-bottom: ${Dimens.xxsmall_5}px;
+  `};
+  ${media.tablet`
+    margin-top: ${Dimens.xxsmall_5}px;
+    font-size: ${FontSizes.small_12}px;
+  `};
   ${media.phone`
-    width: 100%;
+    ${props =>
+      props.top &&
+      `
+        margin-bottom: ${Dimens.small_10}px;
+    `};
   `};
 `;
 
 const InputWrapper = styled.div`
   display: inline-block;
+  width: calc(100% - 156px);
   ${media.phone`
-    width: 100%;
+    ${props =>
+      props.price &&
+      `
+        width: initial;
+        vertical-align: bottom;
+        margin-bottom: 2px;
+        width: calc(100% - 140px);
+    `};
   `};
 `;
 
@@ -83,93 +162,79 @@ const PriceWrapper = styled.div`
   color: ${Colors.brandPrimary};
   font-size: ${FontSizes.medium_18}px;
   font-weight: bold;
-  margin-top: ${Dimens.small2}px;
-`;
-
-const PriceTitleWrapper = styled.span`
-  font-size: ${FontSizes.small_15}px;
-  font-weight: bold;
-  line-height: normal;
-`;
-
-const PriceWrapperPhone = styled.span`
-  display: none;
-  color: ${Colors.brandPrimary};
-  font-size: ${FontSizes.medium_18}px;
-  font-weight: bold;
-  line-height: normal;
-  float: right;
-  ${media.phone`
-    display: inline-block;
-    line-height: 1;
+  margin-top: ${Dimens.small_10}px;
+  ${media.tablet`
+    margin-top: ${Dimens.xxsmall_5}px;
   `};
 `;
 
-const OnlyPC = styled.span`
+const OnlyPcTab = styled.div`
   display: block;
   ${media.phone`
     display: none;
   `};
 `;
 
-const OnlyPhone = styled.span`
+const OnlySP = styled.div`
   display: none;
   ${media.phone`
     display: block;
   `};
 `;
 
-export default ({ detail, image, title, price, caption, error, onChange, placeholder }) =>
+export default ({
+  detail,
+  image,
+  title,
+  price,
+  caption,
+  error,
+  onChange,
+  placeholder,
+  marginLeft,
+}) =>
   detail ? (
-    <Container detail>
-      <OnlyPC>
-        <ImageContainer>
-          <Image src={image} alt="" />
-        </ImageContainer>
-      </OnlyPC>
+    <Container marginLeft={marginLeft}>
       <PriceContainer>
-        <Fragment>
-          <PriceTitleWrapper>{title}</PriceTitleWrapper>
-          <PriceWrapperPhone>{`${price}円`}</PriceWrapperPhone>
-        </Fragment>
+        <ImageWrap>
+          <Image src={image} alt="img-space-price" />
+        </ImageWrap>
+        <TitleWrap>{title}</TitleWrap>
         <Caption>
-          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
+          <InlineText.Base
+            color={Colors.darkGray2}
+            fontSize={FontSizes.small}
+            fontSizeSp={FontSizes.small_12}
+          >
             {caption}
           </InlineText.Base>
-        </Caption>
-        <OnlyPhone>
-          <ImageContainer>
-            <Image src={image} alt="" />
-          </ImageContainer>
-        </OnlyPhone>
-        <OnlyPC>
           <PriceWrapper>{`${price}円`}</PriceWrapper>
-        </OnlyPC>
-        {error}
+        </Caption>
       </PriceContainer>
     </Container>
   ) : (
-    <Container>
-      <OnlyPC>
-        <ImageContainer>
-          <Image src={image} alt="" />
-        </ImageContainer>
-      </OnlyPC>
-      <PriceContainer>
-        <Fragment>
-          <InlineText.Strong>{title}</InlineText.Strong>
-        </Fragment>
-        <Caption>
-          <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small_12}>
-            {caption}
-          </InlineText.Base>
-        </Caption>
-        <OnlyPhone>
-          <ImageContainer>
-            <Image src={image} alt="" />
-          </ImageContainer>
-        </OnlyPhone>
-        <InputWrapper>
+    <Container price>
+      <PriceContainer price>
+        <OnlySP>
+          <TitleWrap price>{title}</TitleWrap>
+          <Caption price top>
+            <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small}>
+              {caption}
+            </InlineText.Base>
+          </Caption>
+        </OnlySP>
+        <ImageWrap price>
+          <Image src={image} alt="img-space-price" />
+        </ImageWrap>
+        <OnlyPcTab>
+          <TitleWrap price>{title}</TitleWrap>
+          <Caption price>
+            <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small}>
+              {caption}
+            </InlineText.Base>
+          </Caption>
+        </OnlyPcTab>
+        <InputWrapper price>
           <InputForm
             type="tel"
             unit="円"
@@ -177,8 +242,8 @@ export default ({ detail, image, title, price, caption, error, onChange, placeho
             onChange={e => onChange(e.target.value)}
             placeholder={placeholder}
           />
+          {error}
         </InputWrapper>
-        {error}
       </PriceContainer>
     </Container>
   );

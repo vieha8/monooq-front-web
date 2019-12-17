@@ -7,18 +7,7 @@ import { media } from 'helpers/style/media-query';
 const Container = styled.div`
   width: 100%;
   min-height: 20px;
-  padding: ${Dimens.medium1}px;
-  border-top: 1px solid ${Colors.borderGray};
-  margin: 35px auto;
-  &:not(:first-child) {
-    ${props =>
-      props.infoHost &&
-      `
-      margin: auto;
-      border: 1px solid #DBDBDB;
-      border-radius: 5px;
-    `};
-  }
+  margin: ${Dimens.medium_20}px auto;
   &::after {
     clear: both;
     content: '';
@@ -27,18 +16,14 @@ const Container = styled.div`
   ${props =>
     props.message &&
     `
-    padding: 0px;
     margin: 5px auto;
-    border: none;
   `};
 
   ${media.phone`
     display: block;
-    padding: ${Dimens.medium}px;
     ${props =>
       props.message &&
       `
-      padding: 0px;
       margin: 0px auto;
     `};
   `};
@@ -50,12 +35,30 @@ const HostImageContainer = styled.span`
 
 const HostNameContainer = styled.div`
   float: left;
-  margin-top: 2px;
-  margin-left: 15px;
+  margin-top: ${Dimens.xsmall_7}px;
+  margin-left: ${Dimens.small2_15}px;
+  color: ${Colors.brandPrimary};
+  font-weight: bold;
+  ${props =>
+    props.isNoProfile &&
+    `
+    margin-top: ${Dimens.small2_15}px;
+  `};
+  ${props =>
+    props.message &&
+    `
+      margin-top: 0;
+      line-height: ${Dimens.medium3_45}px;
+    `};
   ${media.phone`
     max-width: 175px;
-    margin-top: 2px;
+    margin-top: ${Dimens.small_10}px;
     font-size: ${FontSizes.small_12}px;
+    ${props =>
+      props.isNoProfile &&
+      `
+      margin-top: ${Dimens.medium_18}px;
+    `};
   `};
 `;
 
@@ -69,12 +72,22 @@ const ProfileContainer = styled.div`
   `};
 `;
 
-export default ({ infoHost, message, headContent, title, contentHostName, contentProfile }) => (
-  <Container infoHost={infoHost} message={message}>
+export default ({
+  infoHost,
+  message,
+  headContent,
+  title,
+  contentHostName,
+  contentProfile,
+  isNoProfile,
+}) => (
+  <Container infoHost={infoHost} message={message} isNoProfile={isNoProfile}>
     <HostImageContainer>
       {headContent || <InlineText.Base>{title}</InlineText.Base>}
     </HostImageContainer>
-    <HostNameContainer>{contentHostName}</HostNameContainer>
-    <ProfileContainer>{contentProfile}</ProfileContainer>
+    <HostNameContainer message={message} isNoProfile={isNoProfile}>
+      {contentHostName}
+    </HostNameContainer>
+    {!isNoProfile && <ProfileContainer>{contentProfile}</ProfileContainer>}
   </Container>
 );

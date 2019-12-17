@@ -17,8 +17,7 @@ const getData = () => {
       title: '広々8畳・和室・武蔵小杉駅より徒歩5分以内の駅近スペース',
       isFurniture: true,
       priceFull: '10000',
-      priceHalf: '5000',
-      priceQuarter: '3000',
+      priceTatami: '3123',
       onClick: () => console.log('onClick'),
     });
   }

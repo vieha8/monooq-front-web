@@ -21,17 +21,15 @@ const Caption = styled.div`
 class SpaceEditCompletionContainer extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      spaceId: '',
-      isUpdate: false,
+      spaceId: props.match.params.space_id,
+      isUpdate: !!props.match.params.space_id,
     };
+  }
 
-    const spaceId = props.match.params.space_id;
-    this.state.spaceId = spaceId;
-    if (spaceId) {
-      this.state.isUpdate = true;
-    }
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(uiActions.setUiState({ space: {} }));
   }
 
   // TODO: イベント処理を共通化したい
@@ -60,9 +58,8 @@ class SpaceEditCompletionContainer extends Component {
   };
 
   onClickCreateSpace = () => {
-    const { history, dispatch } = this.props;
-    dispatch(uiActions.setUiState({ space: {} }));
-    history.push(Path.createSpaceInfo());
+    const { history } = this.props;
+    history.push(Path.spaceCreate1());
   };
 
   onKeyDownCreateSpace = e => {
