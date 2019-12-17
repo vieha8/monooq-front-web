@@ -115,7 +115,7 @@ export default ({
         value={breadth}
         onChange={e => onChangeBreadth(e.target.value)}
       />
-      <ErrorList keyName="breadth_errors" errors={errors.breadth} />
+      <ErrorList keyName="breadth_errors" errors={errors.sizeType} />
     </Section>
     <Section>
       <TagCheckboxList tagList={tagList} onClickTag={onClickTag} onKeyDownTag={onKeyDownTag} />
