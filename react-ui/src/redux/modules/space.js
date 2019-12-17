@@ -492,14 +492,28 @@ function* updateSpace({ payload: { spaceId, body } }) {
     params.images = imageUrls
       .filter(url => url !== '')
       .map(url => ({ SpaceID: spaceId, ImageUrl: url }));
-    params.Status = 'public';
   }
 
   const token = yield* getToken();
   const { data, status, err } = yield call(
     putApiRequest,
     apiEndpoint.spaces(spaceId),
-    params,
+    {
+      title: params.title,
+      introduction: params.introcuction,
+      receiptType: params.receiptType,
+      sizeType: params.sizeType,
+      priceFull: params.priceFull,
+      priceTatami: params.priceTatami,
+      address: params.address,
+      addressPref: params.addressPref,
+      addressCity: params.addressCity,
+      addressTown: params.addressTown,
+      postalCode: params.postalCode,
+      images: params.images,
+      tags: params.tags,
+      status: params.status,
+    },
     token,
   );
 

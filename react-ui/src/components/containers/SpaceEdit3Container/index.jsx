@@ -27,10 +27,7 @@ const Validate = {
 class SpaceEdit3Container extends Component {
   constructor(props) {
     super(props);
-
-    const { space, dispatch } = this.props;
-    const spaceId = props.match.params.space_id;
-
+    const { space } = this.props;
     this.state = {
       isPriceTatami: false,
       priceFull: space.priceFull || '',
@@ -39,13 +36,6 @@ class SpaceEdit3Container extends Component {
       isUpdate: !!props.match.params.space_id,
       isFirst: true,
     };
-
-    if (spaceId) {
-      dispatch(spaceActions.prepareUpdateSpace(spaceId));
-    }
-    if (space.address) {
-      dispatch(spaceActions.getGeocode({ address: space.address }));
-    }
   }
 
   componentDidMount() {
