@@ -34,7 +34,6 @@ class SpaceEdit3Container extends Component {
       priceTatami: space.priceTatami || '',
       error: {},
       isUpdate: !!props.match.params.space_id,
-      isFirst: true,
     };
   }
 
@@ -67,7 +66,7 @@ class SpaceEdit3Container extends Component {
       const priceFull = formatAddComma(PriceFullTmp);
       const priceTatami = formatAddComma(PriceTatamiTmp);
 
-      return { priceFull, priceTatami, id, isFirst: false, isPriceTatami };
+      return { priceFull, priceTatami, id, isPriceTatami };
     }
     return null;
   }
@@ -184,7 +183,7 @@ class SpaceEdit3Container extends Component {
 
   render() {
     const { space, isLoading } = this.props;
-    const { isPriceTatami, priceFull, priceTatami, error, isUpdate, isFirst } = this.state;
+    const { isPriceTatami, priceFull, priceTatami, error, isUpdate } = this.state;
 
     if (!isUpdate && !space.title) {
       // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト

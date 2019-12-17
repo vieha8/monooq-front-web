@@ -69,7 +69,6 @@ class SpaceManagementContainer extends Component {
           },
           address: `${space.address}`,
           content: space.title,
-          furniture: space.isFurniture,
           prices: [
             numeral(space.priceFull).format('0,0'),
             numeral(space.priceTatami).format('0,0'),

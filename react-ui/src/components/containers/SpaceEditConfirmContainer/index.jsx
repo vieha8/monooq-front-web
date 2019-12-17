@@ -235,12 +235,8 @@ class SpaceEditConfirmContainer extends Component {
     const { space, isLoading, isComplete } = this.props;
     const { isUpdate, isOverTopView } = this.state;
 
-    if (isUpdate) {
-      if (!space.id) {
-        return <Redirect to={Path.spaceCreate1()} />;
-      }
-    } else if (space.images === undefined) {
-      return <Redirect to={Path.spaceCreate1()} />;
+    if (!isLoading && isUpdate && !space.id) {
+      return null;
     }
 
     if (!isLoading && isComplete) {

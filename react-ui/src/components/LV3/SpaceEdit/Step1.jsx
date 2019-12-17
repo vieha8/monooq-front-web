@@ -130,7 +130,7 @@ export default ({
       {tagCustomList && (
         <Fragment>
           <TagListWrap>
-            <Tag tagList={tagCustomList} onClick={onClickTagCustomDelete} isMarkDelete />
+            <Tag tagList={tagCustomList} onClick={onClickTagCustomDelete} isMarkDelete isNoLink />
           </TagListWrap>
         </Fragment>
       )}

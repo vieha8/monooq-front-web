@@ -17,6 +17,7 @@ import fileType from 'helpers/file-type';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
+import { convertSpaceImgUrl } from 'helpers/imgix';
 
 const Validate = {
   Title: {
@@ -100,13 +101,11 @@ class SpaceEdit1Container extends Component {
     const { user, space, dispatch, match } = this.props;
     const { isUpdate } = this.state;
     const spaceId = match.params.space_id;
-    if (isUpdate && !space.id) {
+    if (isUpdate && (!space.id || spaceId !== space.id)) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       if (space.images && space.images.length === 1 && isImageDefault(space.images[0].imageUrl)) {
         this.setState({ images: [] });
       }
-    } else {
-      dispatch(spaceActions.clearSpace());
     }
     if (user.name === '') {
       this.setState({ errorModal: true, isNoProfile: true });
@@ -115,7 +114,7 @@ class SpaceEdit1Container extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
-    if (space.id && !prevState.id) {
+    if ((space.id && !prevState.id) || space.id !== prevState.id) {
       const { title, status, introduction, sizeType, tags, images, id } = space;
       const officialTags = tags.filter(v => v.isOfficial === true);
       const otherTags = tags.filter(v => v.isOfficial === false);
@@ -153,8 +152,11 @@ class SpaceEdit1Container extends Component {
           .toString(32)
           .substring(2);
         const imagePath = `/img/spaces/tmp/${rand}${timeStamp}.${ext}`;
-        image.tmpUrl = await uploadImage(imagePath, image);
-        return image;
+        const tmpUrl = convertSpaceImgUrl(
+          await uploadImage(imagePath, image),
+          'w=1200&h=800&fit=crop',
+        );
+        return { ...image, tmpUrl };
       }),
     ).catch(error => ({ error }));
 
@@ -389,7 +391,7 @@ class SpaceEdit1Container extends Component {
           title={title}
           onChangeTitle={v => this.handleChangeUI('title', v)}
           images={ImagesRender.map(image => ({
-            url: image.imageUrl || image.preview,
+            url: image.imageUrl || image.tmpUrl,
           }))}
           onChangeImage={this.handleChangeImage}
           onClickDeleteImage={this.handleDeleteImage}

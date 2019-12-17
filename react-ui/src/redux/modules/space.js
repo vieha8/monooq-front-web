@@ -343,6 +343,9 @@ const createImageUrls = (spaceId, images) =>
         }
         return convertBaseUrl(image.imageUrl);
       }
+      if (image.tmpUrl) {
+        return convertBaseUrl(image.tmpUrl);
+      }
       const fileReader = new FileReader();
       fileReader.readAsArrayBuffer(image);
       const ext = await new Promise(resolve => {
@@ -419,7 +422,7 @@ function* prepareUpdateSpace({ payload: spaceId }) {
   }
 
   const spaceCache = yield select(state => state.ui.space);
-  if (spaceCache.id) {
+  if (spaceCache.id === spaceId) {
     return;
   }
 
@@ -462,6 +465,11 @@ function* prepareUpdateSpace({ payload: spaceId }) {
     );
     return;
   }
+
+  space.images = space.images.map(image => ({
+    ...image,
+    imageUrl: convertSpaceImgUrl(image.imageUrl, 'w=1200&h=800&fit=crop'),
+  }));
 
   space.priceFull = formatAddComma(space.priceFull);
   space.priceHalf = formatAddComma(space.priceHalf);
