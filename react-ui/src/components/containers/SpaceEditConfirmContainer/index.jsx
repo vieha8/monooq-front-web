@@ -163,19 +163,18 @@ class SpaceEditConfirmContainer extends Component {
     const { isUpdate } = this.state;
 
     const saveSpace = Object.assign(space);
+    if (space.tagList) {
+      saveSpace.tags = space.tagList
+        .filter(value => {
+          return value.isChecked === true;
+        })
+        .map(item => item.text)
+        .concat(space.tagCustomList);
+    } else {
+      saveSpace.tags = space.tags.map(v => v.name);
+    }
 
     if (isUpdate) {
-      if (space.tagList) {
-        saveSpace.tags = space.tagList
-          .filter(value => {
-            return value.isChecked === true;
-          })
-          .map(item => item.text)
-          .concat(space.tagCustomList);
-      } else {
-        saveSpace.tags = space.tags.map(v => v.name);
-      }
-
       dispatch(
         spaceActions.updateSpace({
           spaceId: space.id,

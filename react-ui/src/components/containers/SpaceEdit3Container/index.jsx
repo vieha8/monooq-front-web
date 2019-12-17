@@ -46,13 +46,19 @@ class SpaceEdit3Container extends Component {
     if (isUpdate && !space.id) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
     }
+
+    if (space.address) {
+      dispatch(spaceActions.getGeocode({ address: space.address }));
+      const { sizeType } = space;
+      const isPriceTatami = sizeType === 1 || sizeType === 2 || sizeType === 3;
+      this.setState({ isPriceTatami });
+    }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { space, dispatch } = nextProps;
+    const { space } = nextProps;
     if (space.id && !prevState.id) {
       // TODO: スペース編集時のリロード対策(最適化したい)
-      dispatch(spaceActions.getGeocode({ address: space.address }));
 
       const { priceFull: PriceFullTmp, priceTatami: PriceTatamiTmp, id, sizeType } = space;
 
@@ -180,13 +186,9 @@ class SpaceEdit3Container extends Component {
     const { space, isLoading } = this.props;
     const { isPriceTatami, priceFull, priceTatami, error, isUpdate, isFirst } = this.state;
 
-    if (!isUpdate && !space.id) {
+    if (!isUpdate && !space.title) {
       // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
       return <Redirect to={Path.spaceCreate1()} />;
-    } else if (priceFull && priceTatami && isFirst) {
-      // リロード時にvalidate実行する。
-      this.handleChangeUI('priceFull', priceFull);
-      this.handleChangeUI('priceTatami', priceTatami);
     }
 
     return (

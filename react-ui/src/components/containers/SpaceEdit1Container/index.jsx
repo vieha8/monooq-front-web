@@ -79,7 +79,7 @@ class SpaceEdit1Container extends Component {
     super(props);
     this.state = {
       images: [],
-      status: '',
+      status: 'open',
       title: '',
       introduction: '',
       error: {},

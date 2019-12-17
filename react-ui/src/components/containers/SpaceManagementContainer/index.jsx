@@ -5,7 +5,6 @@ import Path from 'config/path';
 
 import { userActions } from 'redux/modules/user';
 import { spaceActions } from 'redux/modules/space';
-import { uiActions } from 'redux/modules/ui';
 
 import SpaceManageList from 'components/LV3/SpaceManageList';
 import LoadingPage from 'components/LV3/LoadingPage';
@@ -23,8 +22,7 @@ class SpaceManagementContainer extends Component {
   }
 
   onClickEdit = space => {
-    const { dispatch, history } = this.props;
-    dispatch(uiActions.setUiState({ space }));
+    const { history } = this.props;
     history.push(Path.spaceEdit1(space.id));
   };
 
