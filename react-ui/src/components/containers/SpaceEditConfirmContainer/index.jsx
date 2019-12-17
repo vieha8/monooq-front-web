@@ -4,16 +4,11 @@ import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-import Button from 'components/LV1/Forms/Button';
-import InlineText from 'components/LV1/Texts/InlineText';
 import SpaceMap from 'components/LV1/SpaceMap';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
-import { Height as HeaderHeight, HeightPhone as HeaderHeightPhone } from 'components/LV3/Header';
-
 import styled from 'styled-components';
-import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
-import { media } from 'helpers/style/media-query';
+import { Colors, Dimens, ZIndexes } from 'variables';
 import dummySpaceImage from 'images/dummy_space.png';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
@@ -27,70 +22,6 @@ const ReceiptType = {
   Delivery: 2,
 };
 
-const ConfirmMessage = styled.div`
-  width: 100%;
-  height: 86px;
-  display: block;
-  position: fixed;
-  left: 0px;
-  top: ${HeaderHeight}px;
-  z-index: ${ZIndexes.frontParts};
-  text-align: left;
-  padding: ${Dimens.medium_17}px;
-  line-height: normal;
-  font-size: ${FontSizes.medium_18}px;
-  color: ${Colors.white};
-  background-color: ${Colors.green};
-  ${media.tablet`
-    top: ${HeaderHeightPhone}px;
-    height: 76px;
-    padding: ${Dimens.small2_14}px ${Dimens.medium}px;
-  `};
-`;
-
-const ConfirmMessageInner = styled.div`
-  max-width: 1022px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const ConfirmMessageLeft = styled.div`
-  width: 100%;
-  max-width: 400px;
-  ${media.tablet`
-    margin-right: ${Dimens.small_10}px;
-  `};
-`;
-
-const OnlyPcTab = styled.div`
-  display: block;
-  ${media.tablet`
-    display: none;
-  `};
-`;
-
-const BrOnlySP = styled.br`
-  display: none;
-  ${media.phone`
-    display: block;
-  `};
-`;
-
-const ConfirmMessageRight = styled.div`
-  width: 100%;
-  max-width: 320px;
-  ${media.tablet`
-    max-width: 240px;
-  `};
-  ${media.phone`
-    max-width: 140px;
-  `};
-  ${media.phoneSmall`
-    max-width: 130px;
-  `};
-`;
-
 const EntryButtonWrap = styled.div`
   width: 100%;
   max-width: 100%;
@@ -103,13 +34,6 @@ const EntryButtonWrap = styled.div`
   padding: ${Dimens.medium}px;
   background-color: ${Colors.white};
   border-top: 1px solid ${Colors.borderGray};
-`;
-
-const Spacer = styled.div`
-  margin: ${Dimens.huge_86}px auto 0;
-  ${media.tablet`
-    margin: ${Dimens.large3_76}px auto 0;
-  `};
 `;
 
 class SpaceEditConfirmContainer extends Component {
@@ -152,12 +76,6 @@ class SpaceEditConfirmContainer extends Component {
     }
   };
 
-  onKeyDownButtonDraft = e => {
-    if (iskeyDownEnter(e)) {
-      this.onClickDraft();
-    }
-  };
-
   onClickNext = () => {
     const { dispatch, space, user } = this.props;
     const { isUpdate } = this.state;
@@ -195,11 +113,6 @@ class SpaceEditConfirmContainer extends Component {
 
     const nextPath = isUpdate ? Path.spaceEdit3(space.id) : Path.spaceCreate3();
     history.push(nextPath);
-  };
-
-  onClickDraft = () => {
-    // TODO:【API連携】下書き処理
-    console.log('onClickDraft');
   };
 
   scrollTop = () => {
@@ -261,40 +174,6 @@ class SpaceEditConfirmContainer extends Component {
     const { user } = this.props;
     return (
       <Fragment>
-        <ConfirmMessage>
-          <ConfirmMessageInner>
-            <ConfirmMessageLeft>
-              <OnlyPcTab>
-                <InlineText.Base color={Colors.white} fontSize={FontSizes.small} bold>
-                  まだ登録が終わっていませんか？
-                </InlineText.Base>
-                <br />
-              </OnlyPcTab>
-              <InlineText.Base
-                color={Colors.white}
-                fontSize={FontSizes.small}
-                fontSizeSp={FontSizes.xsmall_10}
-              >
-                まだ登録が終わってない場合は
-                <BrOnlySP />
-                下書き状態で保存ができます。
-              </InlineText.Base>
-            </ConfirmMessageLeft>
-            <ConfirmMessageRight>
-              <Button
-                senary
-                fontbold
-                fill={1}
-                loading={isLoading}
-                onClick={this.onClickDraft}
-                onKeyDown={this.onKeyDownButtonDraft}
-              >
-                下書き保存する
-              </Button>
-            </ConfirmMessageRight>
-          </ConfirmMessageInner>
-        </ConfirmMessage>
-        <Spacer />
         <Detail
           confirm
           isOverTopView={isOverTopView}
