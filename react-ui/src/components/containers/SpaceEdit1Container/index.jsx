@@ -322,8 +322,6 @@ class SpaceEdit1Container extends Component {
     state[propName] = value;
     error[propName] = errors;
 
-    console.log(propName, value);
-
     this.setState({ ...state, error });
   };
 
