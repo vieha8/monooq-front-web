@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
-import ButtonModalConfirm from 'components/LV2/Forms/ButtonModalConfirm';
 
 const WrapperOuter = styled.div`
   ${media.phone`
@@ -65,38 +64,21 @@ const Wrapper = styled.div`
   `};
 `;
 
-export default ({
-  relative,
-  remove,
-  backButton,
-  loading,
-  enabled,
-  enabledButton,
-  disabledButton,
-}) => (
+export default ({ relative, backButton, loading, enabled, enabledButton, disabledButton }) => (
   <WrapperOuter relative={relative}>
     <Container>
       <Cell align="left">
         <Wrapper backButton>
-          {remove ? (
-            <ButtonModalConfirm
-              btnText={backButton.text}
-              modalTitle={backButton.modalTitle}
-              modalText={backButton.modalText}
-              onClickRemove={backButton.onClick}
-            />
-          ) : (
-            <Button
-              secondary
-              borderbold
-              fontbold
-              fill={1}
-              onClick={backButton.onClick}
-              onKeyDown={backButton.onKeyDown}
-            >
-              {backButton.text}
-            </Button>
-          )}
+          <Button
+            secondary
+            borderbold
+            fontbold
+            fill={1}
+            onClick={backButton.onClick}
+            onKeyDown={backButton.onKeyDown}
+          >
+            {backButton.text}
+          </Button>
         </Wrapper>
       </Cell>
       <Cell align="right">

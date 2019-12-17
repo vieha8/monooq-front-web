@@ -3,11 +3,11 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import ButtonModalConfirm from './index';
+import ButtonModalConfirmRemove from './index';
 
-ButtonModalConfirm.displayName = 'ButtonModalConfirm';
+ButtonModalConfirmRemove.displayName = 'ButtonModalConfirmRemove';
 
-storiesOf('Molecules(LV2)/Forms/ButtonModalConfirm', module).add(
+storiesOf('Molecules(LV2)/Forms/ButtonModalConfirmRemove', module).add(
   'Enabled',
   withInfo(`
       ### コンポーネント概要
@@ -15,12 +15,7 @@ storiesOf('Molecules(LV2)/Forms/ButtonModalConfirm', module).add(
       - ・ボタン押下時、削除確認POPUPを表示。
     `)(() => (
     <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-      <ButtonModalConfirm
-        btnText="削除する"
-        modalTitle="スペース削除"
-        modalText="登録済みのスペースを削除します。よろしいですか？"
-        onClickRemove=""
-      />
+      <ButtonModalConfirmRemove onClickRemove={() => console.log('onClick')} />
     </div>
   )),
 );
