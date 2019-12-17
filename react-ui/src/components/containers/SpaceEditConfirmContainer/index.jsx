@@ -23,8 +23,8 @@ import { spaceActions } from '../../../redux/modules/space';
 
 const ReceiptType = {
   Both: 1,
-  Meeting: 2,
-  Delivery: 3,
+  Meeting: 3,
+  Delivery: 2,
 };
 
 const ConfirmMessage = styled.div`
