@@ -5,6 +5,7 @@ import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
 import { FontSizes } from 'variables';
+import { getPrefecture } from 'helpers/prefectures';
 import { formatName } from 'helpers/string';
 import Attribute from 'components/LV2/Space/Attribute';
 
@@ -23,26 +24,30 @@ const headContent = (id, imageUrl, name) => {
   );
 };
 
-const contentHostName = (message, name, pref) => {
+const contentHostName = (message, name, prefCode) => {
   return (
     <Content>
       {`${formatName(name)}さん`}
       {!message && (
         <Fragment>
           <br />
-          <InlineText.Base fontSize={FontSizes.small_12}>{`${pref}在住`}</InlineText.Base>
+          <InlineText.Base fontSize={FontSizes.small_12}>
+            {`${getPrefecture(prefCode)}在住`}
+          </InlineText.Base>
         </Fragment>
       )}
     </Content>
   );
 };
 
-export default ({ infoHost, message, id, imageUrl, name, pref, profile, isNoProfile }) => (
+export default ({ infoHost, message, id, imageUrl, name, prefCode, profile, isNoProfile }) => (
   <Attribute
     infoHost={infoHost}
     message={message}
     headContent={headContent(id, imageUrl, name)}
-    contentHostName={isNoProfile ? `${formatName(name)}さん` : contentHostName(message, name, pref)}
+    contentHostName={
+      isNoProfile ? `${formatName(name)}さん` : contentHostName(message, name, prefCode)
+    }
     contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
     isNoProfile={isNoProfile}
   />

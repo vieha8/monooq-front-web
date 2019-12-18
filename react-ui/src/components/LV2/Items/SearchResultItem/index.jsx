@@ -53,6 +53,7 @@ export default ({
   priceTatami,
   priceFull,
   tags,
+  sizeType,
 }) => (
   <Container>
     <Link to={Path.space(id)}>
@@ -98,11 +99,11 @@ export default ({
               bold
               color={Colors.brandPrimary}
             >
-              ¥
-              {priceTatami > 0
+              〜
+              {sizeType > 0 && sizeType < 4
                 ? numeral(priceTatami).format('0,0')
                 : numeral(priceFull).format('0,0')}
-              〜&nbsp;/&nbsp;月
+              円&nbsp;/&nbsp;月
             </InlineText.Base>
           </Row>
         </Content>

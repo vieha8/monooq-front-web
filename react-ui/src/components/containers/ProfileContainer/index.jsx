@@ -49,6 +49,7 @@ class ProfileContainer extends Component {
               title: space.title,
               priceFull: space.priceFull,
               priceTatami: space.priceTatami,
+              sizeType: space.sizeType,
             }))}
         />
       </Fragment>
