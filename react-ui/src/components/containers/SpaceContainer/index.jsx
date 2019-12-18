@@ -233,6 +233,7 @@ class SpaceContainer extends Component {
             name: space.user.name,
             imageUrl: space.user.imageUrl,
             profile: space.user.profile,
+            prefCode: space.user.prefCode,
           }}
           priceFull={numeral(space.priceFull).format('0,0')}
           priceTatami={space.priceTatami > 0 && numeral(space.priceTatami).format('0,0')}
