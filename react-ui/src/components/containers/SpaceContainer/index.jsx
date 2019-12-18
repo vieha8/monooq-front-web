@@ -243,7 +243,7 @@ class SpaceContainer extends Component {
           onKeyDownButtonRequest={isSelfSpace ? null : this.onKeyDownButtonMessage}
         />
         <SendMessageOnlyTabletSp
-          isRoom={space.sizeType > 0 && space.sizeType < 3}
+          isRoom={space.sizeType > 0 && space.sizeType < 4}
           priceFull={space.priceFull}
           priceTatami={space.priceTatami}
           disabled={isSelfSpace}
