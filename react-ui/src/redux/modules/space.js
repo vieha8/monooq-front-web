@@ -821,7 +821,18 @@ function* getAddressByPostalCode({ payload: { postalCode } }) {
       )[0].long_name;
       const city = places.results[0].address_components.filter(v => v.types.includes('locality'))[0]
         .long_name;
-      const town = places.results[0].address_components.filter(v =>
+
+      let town = '';
+      if (
+        places.results[0].address_components.filter(v => v.types.includes('sublocality_level_1'))
+          .length === 1
+      ) {
+        town = places.results[0].address_components.filter(v =>
+          v.types.includes('sublocality_level_1'),
+        )[0].long_name;
+      }
+
+      town += places.results[0].address_components.filter(v =>
         v.types.includes('sublocality_level_2'),
       )[0].long_name;
       yield put(spaceActions.getAddressSuccess({ pref, city, town, postalCode }));
