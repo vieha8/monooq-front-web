@@ -326,7 +326,7 @@ class SpaceEdit1Container extends Component {
           });
         }
       } else {
-        this.setState({ errorsTagCustomMax: [] });
+        this.setState({ tagCustom: '', errorsTagCustomMax: [] });
       }
     }
   };
