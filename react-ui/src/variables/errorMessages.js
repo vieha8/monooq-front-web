@@ -9,6 +9,7 @@ export default {
   MustSpaceImage: '写真は1枚以上登録してください。',
   TagCustomMax: '設備・条件は8個以下で設定してください。',
   TagCustomSame: '同じ値を設定することはできません。',
+  TagCustomIncludesSpaceLiteral: 'スペース文字を含むことはできません。',
   PriceMin: val => `登録できる料金目安は${numeral(val).format('0,0')}円以上です。`,
   PriceMax: val => `登録できる料金目安は${numeral(val).format('0,0')}円以下です。`,
   LengthMax: (name, len) => `${name}は全角${len}文字が上限です。文字数を減らしてください。`,
