@@ -60,15 +60,6 @@ export default ({
       </CaptionWrap>
     </Section>
     <Section marginTop={20}>
-      <InputPriceOfType
-        image={imageFurnitureFull}
-        title="全てのスペースの月額料金"
-        caption="スペースを全範囲使用する場合の料金"
-        placeholder="30,000"
-        price={priceFull}
-        onChange={onChangePriceFull}
-        error={<ErrorList keyName="price_errors_1" errors={errors.priceFull} />}
-      />
       {isPriceTatami && (
         <InputPriceOfType
           image={imageFurnitureTatami}
@@ -80,6 +71,15 @@ export default ({
           error={<ErrorList keyName="price_errors_2" errors={errors.priceTatami} />}
         />
       )}
+      <InputPriceOfType
+        image={imageFurnitureFull}
+        title="全てのスペースの月額料金"
+        caption="スペースを全範囲使用する場合の料金"
+        placeholder="30,000"
+        price={priceFull}
+        onChange={onChangePriceFull}
+        error={<ErrorList keyName="price_errors_1" errors={errors.priceFull} />}
+      />
     </Section>
     <Section marginTop={20}>
       <CommissionWrap>
