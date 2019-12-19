@@ -10,7 +10,7 @@ const PageHeaderWrap = styled.div`
 
 const TopImage = styled.img`
   width: 100%;
-  max-width: 300px;
+  max-width: 330px;
   margin: 0 auto ${Dimens.medium3_40}px;
   ${media.phone`
     margin: 0 auto ${Dimens.medium}px;
