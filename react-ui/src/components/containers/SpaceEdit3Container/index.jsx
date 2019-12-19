@@ -70,7 +70,7 @@ class SpaceEdit3Container extends Component {
       dispatch(spaceActions.getGeocode({ address: space.address }));
     }
 
-    if (!isUpdate) {
+    if (isUpdate) {
       this.handleChangeUI('priceFull', priceFull);
       if (isPriceTatami) {
         this.handleChangeUI('priceTatami', priceTatami);
