@@ -34,10 +34,10 @@ const Item = styled.li`
   ${media.phoneSmall`
     &:nth-child(odd){
       margin-left: 0;
-      width: calc(44% - ${Dimens.xxsmall_4}px);
+      width: calc(43% - ${Dimens.xxsmall_4 / 2}px);
     }
     &:nth-child(even){
-      width: calc(56% - ${Dimens.xxsmall_4}px);
+      width: calc(57% - ${Dimens.xxsmall_4 / 2}px);
     }
   `}
 `;
