@@ -4,12 +4,19 @@ import { Link } from 'react-router-dom';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
-import { FontSizes } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 import { getPrefecture } from 'helpers/prefectures';
 import { formatName } from 'helpers/string';
 import Attribute from 'components/LV2/Space/Attribute';
 
-const Content = styled.div``;
+const Content = styled.div`
+  ${props =>
+    props.message &&
+    `
+      margin-top: 0;
+      line-height: ${Dimens.medium3_45}px;
+    `};
+`;
 
 const ProfileWrap = styled.div`
   font-size: ${FontSizes.small}px;
@@ -26,7 +33,7 @@ const headContent = (id, imageUrl, name) => {
 
 const contentHostName = (message, name, prefCode) => {
   return (
-    <Content>
+    <Content message={message}>
       {`${formatName(name)}さん`}
       {!message && (
         <Fragment>
