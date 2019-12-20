@@ -31,6 +31,12 @@ const Item = styled.li`
   ${media.tablet`
     width: calc(50% - ${Dimens.xxsmall_4}px);
   `};
+  ${media.phoneSmall`
+    &:nth-child(odd){
+      margin-left: 0;
+      width: calc(44% - ${Dimens.xxsmall_4}px);
+    }
+  `}
 `;
 
 export default ({ tagList, onClickTag, onKeyDownTag }) => (
