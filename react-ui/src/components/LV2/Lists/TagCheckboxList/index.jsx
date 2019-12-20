@@ -36,6 +36,9 @@ const Item = styled.li`
       margin-left: 0;
       width: calc(44% - ${Dimens.xxsmall_4}px);
     }
+    &:nth-child(even){
+      width: calc(56% - ${Dimens.xxsmall_4}px);
+    }
   `}
 `;
 
