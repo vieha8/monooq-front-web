@@ -158,7 +158,7 @@ class SpaceEdit1Container extends Component {
     const { user, space, dispatch, match } = this.props;
     const { isUpdate, images, title, introduction, sizeType } = this.state;
     const spaceId = match.params.space_id;
-    if (isUpdate && (!space.id || parseInt(spaceId, 10) !== space.id)) {
+    if (isUpdate && (!space.id || spaceId !== space.id)) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
       if (space.images && space.images.length === 1 && isImageDefault(space.images[0].imageUrl)) {
         this.setState({ images: [] });
