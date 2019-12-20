@@ -37,6 +37,13 @@ const ImageSpaceWrap = styled.div`
   width: 100%;
   max-width: 700px;
   margin: auto;
+  ${media.tablet`
+    width: 80%;
+    max-width: 500px;
+  `};
+  ${media.phone`
+    width: 100%;
+  `};
 `;
 
 const SpaceDetailWrap = styled.div`
