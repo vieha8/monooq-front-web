@@ -19,6 +19,8 @@ import authRequired from 'components/containers/AuthRequired';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import { convertSpaceImgUrl } from 'helpers/imgix';
 
+const ZENKAKU_SPACE_LITERAL = '　';
+const SPACE_LITERAL = ' ';
 const Validate = {
   Title: {
     Max: 200,
@@ -29,6 +31,7 @@ const Validate = {
   TagCustom: {
     MaxText: 8,
     MaxArrayCount: 8,
+    IncludeSpaceLiteralRegExp: new RegExp(`(${SPACE_LITERAL}|${ZENKAKU_SPACE_LITERAL})`),
   },
 };
 
@@ -109,6 +112,8 @@ const checkError = (name, value) => {
     case 'tagCustom':
       if (value && value.length > Validate.TagCustom.MaxText) {
         errors.push(ErrorMessages.LengthMax('設備・条件', Validate.TagCustom.MaxText));
+      } else if (Validate.TagCustom.IncludeSpaceLiteralRegExp.test(value)) {
+        errors.push(ErrorMessages.TagCustomIncludesSpaceLiteral);
       }
       break;
     default:
@@ -372,7 +377,8 @@ class SpaceEdit1Container extends Component {
     return (
       tagCustom &&
       (tagCustom === undefined ? false : tagCustom.trim().length > 0) &&
-      tagCustom.trim().length <= Validate.TagCustom.MaxText
+      tagCustom.trim().length <= Validate.TagCustom.MaxText &&
+      !Validate.TagCustom.IncludeSpaceLiteralRegExp.test(tagCustom)
     );
   };
 
