@@ -100,9 +100,9 @@ export default ({
               color={Colors.brandPrimary}
             >
               〜
-              {sizeType > 0 && sizeType < 4
-                ? numeral(priceTatami).format('0,0')
-                : numeral(priceFull).format('0,0')}
+              {(sizeType > 0 && sizeType < 4) || priceTatami === 0
+                ? numeral(priceFull).format('0,0')
+                : numeral(priceTatami).format('0,0')}
               円&nbsp;/&nbsp;月
             </InlineText.Base>
           </Row>
