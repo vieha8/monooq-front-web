@@ -30,6 +30,7 @@ export default ({
   isPriceTatami,
   edit,
   errors,
+  isRoom,
   priceFull,
   onChangePriceFull,
   priceTatami,
@@ -45,17 +46,25 @@ export default ({
     <PageHeader optionItem={{ src: ImageStatusEditSpace3, edit }} />
     <Section marginTopSp={20}>
       <CaptionWrap>
-        <InlineText.Base>様々なご相談に対応できるように料金を設定しましょう。</InlineText.Base>
+        <InlineText.Base>
+          {isRoom
+            ? '様々なご相談に対応できるように料金を設定しましょう。'
+            : '目安となる料金を設定しましょう。'}
+        </InlineText.Base>
       </CaptionWrap>
       <CaptionWrap sub>
         <InlineText.Tiny>
           ゲストによって荷物の内容が異なるので、スペースの広さに対する月額料金を設定してください。
           <br />
-          <InlineText.Bold>
-            地域や条件によりますが、目安は
-            <UnderLine>1畳あたり約5,000〜7,000円/月</UnderLine>
-            です。
-          </InlineText.Bold>
+          {isRoom ? (
+            <InlineText.Bold>
+              地域や条件によりますが、目安は
+              <UnderLine>1畳あたり約5,000〜7,000円/月</UnderLine>
+              です。
+            </InlineText.Bold>
+          ) : (
+            'より細かな範囲での料金目安がある場合は、スペース紹介文への記入がおすすめです。'
+          )}
         </InlineText.Tiny>
       </CaptionWrap>
     </Section>
