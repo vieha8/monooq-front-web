@@ -69,7 +69,7 @@ storiesOf('Molecules(LV2)/Forms/InputForm', module)
       フォーム入力項目(Confirm)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Confirm label="銀行名" value="モノオク銀行" />
+        <Confirm label="タイトル" value="入力内容" />
       </div>
     )),
   )
@@ -80,7 +80,7 @@ storiesOf('Molecules(LV2)/Forms/InputForm', module)
       フォーム入力項目(Extension)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <InputFormMock label="銀行名" extension={<div>任意のコンポーネント</div>} />
+        <InputFormMock label="ラベル" extension={<div>任意のコンポーネント</div>} />
       </div>
     )),
   )
@@ -91,7 +91,7 @@ storiesOf('Molecules(LV2)/Forms/InputForm', module)
       フォーム入力項目(複数行対応ver)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <InputFormMock label="銀行名" multiline />
+        <InputFormMock label="ラベル" multiline />
       </div>
     )),
   )

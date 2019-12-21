@@ -21,7 +21,7 @@ const Container = styled.div`
   `};
 `;
 
-export default ({ focused, date, placeholder, onDateChange, onFocusChange }) => (
+export default ({ focused, date, placeholder, onDateChange, onFocusChange, isAllowKeyboard }) => (
   <Container focused={focused}>
     <SingleDatePicker
       date={date}
@@ -32,6 +32,7 @@ export default ({ focused, date, placeholder, onDateChange, onFocusChange }) => 
       focused={focused}
       onFocusChange={onFocusChange}
       numberOfMonths={1}
+      readOnly={!isAllowKeyboard}
     />
   </Container>
 );

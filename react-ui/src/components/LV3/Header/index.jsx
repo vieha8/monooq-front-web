@@ -255,7 +255,7 @@ export default ({
   isOverTopView,
   isPageLp,
   isPageLp123Guest,
-  isPageLp1_2,
+  isPageLp12GuestLinkTop,
   stories,
   topUrl,
   isCheckingLogin,
@@ -365,7 +365,7 @@ export default ({
               caption={isPageLp123Guest ? '60秒で簡単登録' : '1分で完了'}
               text={isPageLp123Guest ? '保管スペースを探す' : 'アカウントを作成する'}
               link
-              href={isPageLp1_2 ? Path.top() : Path.signUp()}
+              href={isPageLp12GuestLinkTop ? Path.top() : Path.signUp()}
             />
           </ButtonBottomWrap>
         )}

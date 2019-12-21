@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import InputForm from 'components/LV2/Forms/InputForm';
+import { media } from 'helpers/style/media-query';
 
 const Wrap = styled.div`
   margin-bottom: ${Dimens.small2}px;
@@ -27,6 +28,18 @@ const Item = styled.li`
   margin-left: ${Dimens.xxsmall_4}px;
   font-size: ${FontSizes.small}px;
   line-height: normal;
+  ${media.tablet`
+    width: calc(50% - ${Dimens.xxsmall_4}px);
+  `};
+  ${media.phoneSmall`
+    &:nth-child(odd){
+      margin-left: 0;
+      width: calc(43% - ${Dimens.xxsmall_4 / 2}px);
+    }
+    &:nth-child(even){
+      width: calc(57% - ${Dimens.xxsmall_4 / 2}px);
+    }
+  `}
 `;
 
 export default ({ tagList, onClickTag, onKeyDownTag }) => (

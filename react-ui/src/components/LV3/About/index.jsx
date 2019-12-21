@@ -338,7 +338,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
           </QuestionItem>
           <QuestionItem>
             <Collapsible trigger="Q. 支払い方法を教えてください。">
-              <Answer>クレジットカード・銀行振込・コンビニ支払いに対応しています。</Answer>
+              <Answer>クレジットカード・コンビニ支払いに対応しています。</Answer>
             </Collapsible>
           </QuestionItem>
         </QuestionRow>

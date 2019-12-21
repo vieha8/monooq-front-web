@@ -528,7 +528,7 @@ function* updateSpace({ payload: { spaceId, body } }) {
     apiEndpoint.spaces(spaceId),
     {
       title: params.title,
-      introduction: params.introcuction,
+      introduction: params.introduction,
       receiptType: params.receiptType,
       sizeType: params.sizeType,
       priceFull: params.priceFull,
@@ -816,9 +816,25 @@ function* getAddressByPostalCode({ payload: { postalCode } }) {
     }
 
     if (places && places.results.length > 0) {
-      const pref = places.results[0].address_components[3].long_name;
-      const city = places.results[0].address_components[2].long_name;
-      const town = places.results[0].address_components[1].long_name;
+      const pref = places.results[0].address_components.filter(v =>
+        v.types.includes('administrative_area_level_1'),
+      )[0].long_name;
+      const city = places.results[0].address_components.filter(v => v.types.includes('locality'))[0]
+        .long_name;
+
+      let town = '';
+      if (
+        places.results[0].address_components.filter(v => v.types.includes('sublocality_level_1'))
+          .length === 1
+      ) {
+        town = places.results[0].address_components.filter(v =>
+          v.types.includes('sublocality_level_1'),
+        )[0].long_name;
+      }
+
+      town += places.results[0].address_components.filter(v =>
+        v.types.includes('sublocality_level_2'),
+      )[0].long_name;
       yield put(spaceActions.getAddressSuccess({ pref, city, town, postalCode }));
     } else {
       yield handleError(

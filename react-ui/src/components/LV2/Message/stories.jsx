@@ -156,29 +156,6 @@ storiesOf('Molecules(LV2)/Message', module)
     )),
   )
   .add(
-    'Estimate Paid Bank',
-    withInfo(`
-      ### コンポーネント概要
-      メッセージ(見積もり)(ゲスト)(支払い方法:銀行振込)(支払ステータス:支払完了)
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Estimate
-          id="10"
-          name="YUKI HASHIDA"
-          beginAt="2019/07/16 11:39:21"
-          endAt="2019/07/16 12:39:21"
-          price="24000"
-          host={false}
-          status="paid"
-          paymentLink="#"
-          receivedAt="2019/07/16 13:39:21"
-          payType={2}
-          econtextUrl="#"
-        />
-      </div>
-    )),
-  )
-  .add(
     'Estimate Paid Econtext',
     withInfo(`
       ### コンポーネント概要

@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import numeral from 'numeral';
 import Path from 'config/path';
 import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
@@ -15,7 +14,6 @@ import { iskeyDownEnter } from 'helpers/keydown';
 
 import { loggerActions } from 'redux/modules/logger';
 import connect from '../connect';
-import { getBreadths } from '../../../helpers/breadths';
 
 const ReceiptType = {
   Both: 1,
@@ -218,7 +216,7 @@ class SpaceContainer extends Component {
           status={space.status}
           breadcrumbsList={this.makeBreadCrumbs(space)}
           description={space.introduction}
-          breadth={getBreadths(space.sizeType)}
+          sizeType={space.sizeType}
           tagList={space.tags.map(v => v.name)}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
           delivery={
@@ -235,8 +233,8 @@ class SpaceContainer extends Component {
             profile: space.user.profile,
             prefCode: space.user.prefCode,
           }}
-          priceFull={numeral(space.priceFull).format('0,0')}
-          priceTatami={space.priceTatami > 0 && numeral(space.priceTatami).format('0,0')}
+          priceFull={space.priceFull}
+          priceTatami={space.priceTatami}
           recommend={recommend}
           requestButtonDisabled={isSelfSpace}
           requestButtonLoading={isRequesting}

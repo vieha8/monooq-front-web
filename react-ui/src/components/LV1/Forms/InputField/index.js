@@ -35,6 +35,13 @@ const InputField = styled.input`
     `};
 
   ${props =>
+    props.disabled &&
+    (props.type === undefined || props.type === 'text') &&
+    css`
+      opacity: 1;
+    `};
+
+  ${props =>
     props.error &&
     css`
       color: ${Colors.red};

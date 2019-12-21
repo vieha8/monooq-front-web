@@ -65,6 +65,7 @@ export default ({
         focused={Boolean(beginDateFocused)}
         onDateChange={date => onDateChangeBegin(date)}
         onFocusChange={e => onFocusChangeBegin(e.focused)}
+        isAllowKeyboard={false}
       />
     </DateCell>
     <Arrow className="fas fa-arrow-right" />
@@ -78,6 +79,7 @@ export default ({
         focused={Boolean(endDateFocused)}
         onDateChange={date => onDateChangeEnd(date)}
         onFocusChange={e => onFocusChangeEnd(e.focused)}
+        isAllowKeyboard={false}
       />
     </DateCell>
   </Container>

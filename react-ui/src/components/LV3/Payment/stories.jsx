@@ -129,48 +129,6 @@ storiesOf('Organisms(LV3)/Payment', module)
     )),
   )
   .add(
-    'Select Bank',
-    withInfo(`
-        ### コンポーネント概要
-        決済フォーム(銀行振込を選択した状態)
-      `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Payment
-          space={space}
-          onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
-          paymentMethod={2}
-          payment={{
-            beginAt: '2019/07/12',
-            endAt: '2019/07/31',
-            duration: 20,
-            price: 5000,
-          }}
-          errors=""
-          paidError=""
-          errMsgPayment=""
-          onChangeName={() => console.log('onChangeName')}
-          name="name"
-          onChangeNumber={() => console.log('onChangeNumber')}
-          number="1234567890123456"
-          onChangeYear={() => console.log('onChangeYear')}
-          year="2020"
-          onChangeMonth={() => console.log('onChangeMonth')}
-          month="10"
-          onChangeCvc={() => console.log('onChangeCvc')}
-          cvc={123}
-          buttonDisabled={false}
-          buttonLoading={false}
-          onKeyDownBack={() => console.log('onKeyDownBack')}
-          onKeyDownPay={() => console.log('onKeyDownPay')}
-          backButton={() => console.log('backButton')}
-          submitButton={() => console.log('submitButton')}
-          backButtonText="戻る"
-          submitButtonText="確認する"
-        />
-      </div>
-    )),
-  )
-  .add(
     'Confirm CreditCard',
     withInfo(`
         ### コンポーネント概要
