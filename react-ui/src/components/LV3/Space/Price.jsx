@@ -1,4 +1,5 @@
 import React from 'react';
+import numeral from 'numeral';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
@@ -16,23 +17,23 @@ const Wrap = styled.div`
   `};
 `;
 
-export default ({ full, tatami }) => (
+export default ({ sizeType, full, tatami }) => (
   <Wrap>
-    {full && (
+    {full > 0 && (
       <InputPriceOfType
         image={imageFurnitureFull}
         title="全てのスペースの月額料金"
         caption="スペースの全範囲を使用する場合の料金"
-        price={full}
+        price={numeral(full).format('0,0')}
         detail
       />
     )}
-    {tatami && tatami !== '0' && (
+    {tatami > 0 && sizeType < 4 && (
       <InputPriceOfType
         image={imageFurnitureTatami}
         title="1畳分のスペースの月額料金"
         caption="スペースの一部を使用する場合の1畳あたりの料金"
-        price={tatami}
+        price={numeral(tatami).format('0,0')}
         detail
         marginLeft
       />

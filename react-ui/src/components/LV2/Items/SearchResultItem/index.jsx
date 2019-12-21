@@ -50,10 +50,8 @@ export default ({
   addressPref,
   addressCity,
   addressTown,
-  priceTatami,
   priceFull,
   tags,
-  sizeType,
 }) => (
   <Container>
     <Link to={Path.space(id)}>
@@ -92,17 +90,8 @@ export default ({
             </InlineText.Base>
           </Row>
           <Row right>
-            <InlineText.Base
-              noWrap
-              fontSize={16}
-              lineheight="1rem"
-              bold
-              color={Colors.brandPrimary}
-            >
-              〜
-              {sizeType > 0 && sizeType < 4
-                ? numeral(priceTatami).format('0,0')
-                : numeral(priceFull).format('0,0')}
+            <InlineText.Base noWrap fontSize={16} bold color={Colors.brandPrimary}>
+              {`〜${numeral(priceFull).format('0,0')}`}
               円&nbsp;/&nbsp;月
             </InlineText.Base>
           </Row>
