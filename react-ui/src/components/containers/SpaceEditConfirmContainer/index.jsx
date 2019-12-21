@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import numeral from 'numeral';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
@@ -13,7 +12,6 @@ import dummySpaceImage from 'images/dummy_space.png';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
-import { breadths } from 'helpers/breadths';
 import { spaceActions } from '../../../redux/modules/space';
 
 const ReceiptType = {
@@ -200,7 +198,7 @@ class SpaceEditConfirmContainer extends Component {
             },
           ]}
           description={space.introduction}
-          breadth={breadths[space.sizeType - 1]}
+          sizeType={space.sizeType}
           tagList={tagList}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
           addressMethod={space.about}
@@ -217,8 +215,8 @@ class SpaceEditConfirmContainer extends Component {
             imageUrl: user.imageUrl,
             profile: user.profile,
           }}
-          priceFull={numeral(space.priceFull).format('0,0')}
-          priceTatami={numeral(space.priceTatami).format('0,0')}
+          priceFull={space.priceFull}
+          priceTatami={space.priceTatami}
         />
         <EntryButtonWrap>
           <ButtonEntry

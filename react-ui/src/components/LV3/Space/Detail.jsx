@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
+import { getBreadths } from 'helpers/breadths';
 import { media, mediaMin } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -287,7 +288,7 @@ export default ({
   breadcrumbsList,
   user,
   description,
-  breadth,
+  sizeType,
   map,
   address,
   delivery,
@@ -323,14 +324,14 @@ export default ({
         <InfoHost {...user} infoHost isNoProfile />
         <SectionHeader>スペース概要</SectionHeader>
         <Description content={description} />
-        {breadth && breadth !== '' && (
+        {sizeType && getBreadths(sizeType) !== '' && (
           <Fragment>
             <SectionHeader>スペースの広さ</SectionHeader>
-            <Description content={breadth} />
+            <Description content={getBreadths(sizeType)} />
           </Fragment>
         )}
         <SectionHeader>料金の目安</SectionHeader>
-        <Price full={priceFull} tatami={priceTatami} />
+        <Price sizeType={sizeType} full={priceFull} tatami={priceTatami} />
         {tagList && tagList.length > 0 && (
           <Fragment>
             <SectionHeader>設備・条件</SectionHeader>
