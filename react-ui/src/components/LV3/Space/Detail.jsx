@@ -8,6 +8,7 @@ import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Availability from 'components/LV1/Texts/Availability';
 import Tag from 'components/LV1/Texts/Tag';
+import SnsShare from 'components/LV2/SnsShare';
 import Description from 'components/LV2/Space/Description';
 import BreadcrumbsList from 'components/LV2/Lists/BreadcrumbsList';
 import Image from 'components/LV2/Space/Image';
@@ -15,10 +16,7 @@ import Address from 'components/LV2/Space/Address';
 import Receive from 'components/LV2/Space/Receive';
 import InfoHost from 'components/LV2/Space/InfoHost';
 import Price from 'components/LV3/Space/Price';
-import ReactGA from 'react-ga';
 import ImageCheckRed from 'images/check-circle-red.svg';
-import ImageSnsTwitter from 'images/sns-twitter-circle.svg';
-import ImageSnsFacebook from 'images/sns-facebook-circle.svg';
 import ImageLogoPayCredit from 'images/logo-pay-credit.svg';
 import ImageLogoPayEcontext from 'images/logo-pay-econtext.svg';
 
@@ -40,6 +38,13 @@ const ImageSpaceWrap = styled.div`
   width: 100%;
   max-width: 700px;
   margin: auto;
+  ${media.tablet`
+    width: 80%;
+    max-width: 500px;
+  `};
+  ${media.phone`
+    width: 100%;
+  `};
 `;
 
 const SpaceDetailWrap = styled.div`
@@ -102,6 +107,7 @@ const ImageLogoPay = styled.img`
 `;
 
 const RightWrap = styled.div`
+  position: relative;
   width: 100%;
   max-width: 340px;
   padding-right: ${Dimens.small_10}px;
@@ -122,6 +128,13 @@ const RightInner = styled.div`
     z-index: ${ZIndexes.frontPartsOverFooter};
     background-color: ${Colors.white};
     border-radius: ${Dimens.xxsmall}px;
+  `};
+  ${props =>
+    props.isBottom &&
+    `
+    position: absolute;
+    top: unset;
+    bottom: 0;
   `};
 `;
 
@@ -191,35 +204,8 @@ const RequestButtonWrap = styled.div`
   `};
 `;
 
-const SnsWrap = styled.div`
-  margin: ${Dimens.medium2_32}px auto ${Dimens.medium}px;
-`;
-
-const SnsTitle = styled.div`
-  font-size: ${FontSizes.small}px;
-  color: ${Colors.black};
-  margin-bottom: ${Dimens.medium}px;
-`;
-
-const SnsUl = styled.ul`
-  display: flex;
-  width: 100px;
-  margin: auto;
-`;
-
-const SnsLi = styled.li`
-  margin: auto;
-  max-width: ${Dimens.medium3_40}px;
-`;
-
 const LinkStyled = styled.a`
-  display: block;
-  ${props =>
-    props.inlinePc &&
-    `
-    display: inline-block;
-    margin-right:  ${Dimens.medium}px;
-  `};
+  margin-right: ${Dimens.medium}px;
   &:active {
     opacity: 0.8;
   }
@@ -229,17 +215,9 @@ const LinkStyled = styled.a`
     }
   `};
   ${media.phone`
-    ${props =>
-      props.inlinePc &&
-      `
-      display: block;
-      margin:  ${Dimens.xsmall}px auto 0;
-    `};
+    display: block;
+    margin:  ${Dimens.xsmall}px auto 0;
   `};
-`;
-
-const ImageLogo = styled.img`
-  width: 100%;
 `;
 
 const SectionHeader = styled.div`
@@ -280,7 +258,6 @@ const SectionTitle = styled.div`
 export default ({
   confirm,
   images,
-  pref,
   status,
   priceTatami,
   priceFull,
@@ -297,6 +274,7 @@ export default ({
   name,
   recommend,
   isOverTopView,
+  isBottom,
   requestButtonDisabled,
   requestButtonLoading,
   requestButtonOnClick,
@@ -346,17 +324,9 @@ export default ({
           {map}
         </MapWrapper>
         <SectionHeader>ホストについて</SectionHeader>
-        <InfoHost {...user} pref={pref} infoHost />
+        <InfoHost {...user} infoHost />
         <SectionHeader>荷物の受け取り方法</SectionHeader>
         <Receive isDelivery={delivery} isMeeting={meeting} />
-        {!confirm && recommend && recommend.length > 0 && (
-          <Fragment>
-            <SectionHeader>このスペースをみた人はこんなスペースもみています</SectionHeader>
-            <RecommendSpacesWrap>
-              <SearchResult spaces={recommend} narrow />
-            </RecommendSpacesWrap>
-          </Fragment>
-        )}
         <AttentionWrap>
           <SectionHeader>注意事項</SectionHeader>
           <SectionWrap>
@@ -373,7 +343,6 @@ export default ({
               href="https://help.monooq.com/ja/articles/3124614-"
               target="_blank"
               rel="noopener noreferrer"
-              inlinePc
             >
               クレジットカード決済の手順
             </LinkStyled>
@@ -382,7 +351,6 @@ export default ({
               href="https://help.monooq.com/ja/articles/3124622-"
               target="_blank"
               rel="noopener noreferrer"
-              inlinePc
             >
               コンビニ払い・Pay-easy決済の手順
             </LinkStyled>
@@ -397,9 +365,18 @@ export default ({
             サービス外で発生した破損・トラブルには対応致しかねます。スペースを利用する際の契約や連絡は、原則モノオクのメッセージ画面で行うよう、あらかじめご了承ください。
           </SectionWrap>
         </AttentionWrap>
+        {!confirm && recommend && recommend.length > 0 && (
+          <Fragment>
+            <SnsShare id={id} name={name} isOnlyTabSp />
+            <SectionHeader>このスペースをみた人はこんなスペースもみています</SectionHeader>
+            <RecommendSpacesWrap>
+              <SearchResult spaces={recommend} narrow />
+            </RecommendSpacesWrap>
+          </Fragment>
+        )}
       </LeftWrap>
       <RightWrap>
-        <RightInner isOverTopView={isOverTopView} confirm={confirm}>
+        <RightInner isOverTopView={isOverTopView} isBottom={isBottom} confirm={confirm}>
           <RequestCard>
             気になるスペースを見つけたら？
             <RequestTitle>ホストに相談しよう</RequestTitle>
@@ -427,47 +404,7 @@ export default ({
             </RequestButtonWrap>
             リクエストを送ることで、あなたがスペースに興味を持っていることがホストに伝わります。
           </RequestCard>
-          {!confirm && (
-            <SnsWrap>
-              <SnsTitle>SNSでシェア</SnsTitle>
-              <SnsUl>
-                <SnsLi>
-                  <LinkStyled
-                    component={Link}
-                    href={`https://twitter.com/intent/tweet?url=https://monooq.com/space/${id}&text=${name}｜モノオク&hashtags=モノオク`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    OnClick={() =>
-                      ReactGA.event({
-                        category: 'Share',
-                        action: 'Push Twitter Share Button At Space',
-                        value: id,
-                      })
-                    }
-                  >
-                    <ImageLogo src={ImageSnsTwitter} alt="icon-twitter" />
-                  </LinkStyled>
-                </SnsLi>
-                <SnsLi>
-                  <LinkStyled
-                    component={Link}
-                    href={`https://www.facebook.com/sharer/sharer.php?u=https://monooq.com/space/${id}&quote=${name}｜モノオク`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    OnClick={() =>
-                      ReactGA.event({
-                        category: 'Share',
-                        action: 'Push Facebook Share Button At Space',
-                        value: id,
-                      })
-                    }
-                  >
-                    <ImageLogo src={ImageSnsFacebook} alt="icon-facebook" />
-                  </LinkStyled>
-                </SnsLi>
-              </SnsUl>
-            </SnsWrap>
-          )}
+          {!confirm && <SnsShare id={id} name={name} />}
         </RightInner>
       </RightWrap>
     </SpaceDetailWrap>

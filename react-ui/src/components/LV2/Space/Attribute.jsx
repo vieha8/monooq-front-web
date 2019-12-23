@@ -48,7 +48,7 @@ const HostNameContainer = styled.div`
     props.message &&
     `
       margin-top: 0;
-      line-height: ${Dimens.medium3_45}px;
+      line-height: normal;
     `};
   ${media.phone`
     max-width: 175px;
@@ -59,6 +59,11 @@ const HostNameContainer = styled.div`
       `
       margin-top: ${Dimens.medium_18}px;
     `};
+    ${props =>
+      props.message &&
+      `
+        margin-top: 0;
+      `};
   `};
 `;
 
