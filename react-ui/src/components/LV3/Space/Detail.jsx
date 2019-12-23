@@ -107,6 +107,7 @@ const ImageLogoPay = styled.img`
 `;
 
 const RightWrap = styled.div`
+  position: relative;
   width: 100%;
   max-width: 340px;
   padding-right: ${Dimens.small_10}px;
@@ -127,6 +128,13 @@ const RightInner = styled.div`
     z-index: ${ZIndexes.frontPartsOverFooter};
     background-color: ${Colors.white};
     border-radius: ${Dimens.xxsmall}px;
+  `};
+  ${props =>
+    props.isBottom &&
+    `
+    position: absolute;
+    top: unset;
+    bottom: 0;
   `};
 `;
 
@@ -266,6 +274,7 @@ export default ({
   name,
   recommend,
   isOverTopView,
+  isBottom,
   requestButtonDisabled,
   requestButtonLoading,
   requestButtonOnClick,
@@ -367,7 +376,7 @@ export default ({
         )}
       </LeftWrap>
       <RightWrap>
-        <RightInner isOverTopView={isOverTopView} confirm={confirm}>
+        <RightInner isOverTopView={isOverTopView} isBottom={isBottom} confirm={confirm}>
           <RequestCard>
             気になるスペースを見つけたら？
             <RequestTitle>ホストに相談しよう</RequestTitle>
