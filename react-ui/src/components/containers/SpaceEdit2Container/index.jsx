@@ -188,7 +188,7 @@ class SpaceEdit2Container extends Component {
   };
 
   handleChangeUI = (propName, value) => {
-    const { state } = this;
+    const state = { ...this.state };
     const { error } = state;
     const errors = checkError(propName, value);
     state[propName] = value;
