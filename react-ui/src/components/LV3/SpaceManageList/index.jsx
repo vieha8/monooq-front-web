@@ -51,7 +51,7 @@ const LinkStyled = styled(Link)`
     color: ${Colors.brandPrimary};
     opacity: 0.8;
   }
-  ${mediaMin.tablet`
+  ${media.tablet`
     &:hover {
       color: ${Colors.brandPrimary};
       opacity: 0.8;
