@@ -159,6 +159,16 @@ class SpaceEdit3Container extends Component {
     history.push(nextPath);
   };
 
+  handleChangePriceUI = (propName, value) => {
+    const state = { ...this.state };
+    const { error } = state;
+    const returnValue = formatRemoveComma(value);
+    const priceErrors = checkError(returnValue);
+    state[propName] = value === '' ? '' : formatAddComma(returnValue);
+    error[propName] = priceErrors;
+    this.setState({ ...state, error });
+  };
+
   handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
@@ -205,9 +215,9 @@ class SpaceEdit3Container extends Component {
         edit={isUpdate}
         errors={error}
         priceFull={priceFull}
-        onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
+        onChangePriceFull={v => this.handleChangePriceUI('priceFull', v)}
         priceTatami={priceTatami}
-        onChangePriceTatami={v => this.handleChangeUI('priceTatami', v)}
+        onChangePriceTatami={v => this.handleChangePriceUI('priceTatami', v)}
         buttonLoading={isLoading}
         onClickBack={this.onClickBack}
         onKeyDownButtonBack={this.onKeyDownButtonBack}
