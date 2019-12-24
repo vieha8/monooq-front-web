@@ -49,7 +49,7 @@ const LinkStyled = styled(Link)`
   &:active {
     opacity: 0.8;
   }
-  ${media.tablet`
+  ${mediaMin.tablet`
     &:hover {
       opacity: 0.8;
     }
