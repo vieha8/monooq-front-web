@@ -178,21 +178,47 @@ class SpaceEdit1Container extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if ((space.id && !prevState.id) || space.id !== prevState.id) {
-      const { title, status, introduction, sizeType, tags, images, id } = space;
-      const officialTags = tags.filter(v => v.isOfficial === true);
-      const otherTags = tags.filter(v => v.isOfficial === false);
+      const {
+        title,
+        status,
+        introduction,
+        sizeType,
+        tags,
+        tagList,
+        tagCustomList,
+        images,
+        id,
+      } = space;
 
-      const tagList = TagList.map(v => {
-        const isChecked = officialTags.filter(t => v.text === t.name).length > 0;
-        return { ...v, isChecked };
-      });
+      let newStateTagCustomList = tagCustomList;
+      if (newStateTagCustomList === undefined) {
+        const otherTags = tags.filter(v => v.isOfficial === false);
+        newStateTagCustomList = otherTags.map(v => v.name);
+      }
 
-      const tagCustomList = otherTags.map(v => v.name);
+      let newStateTagList = tagList;
+      if (newStateTagList === undefined) {
+        const officialTags = tags.filter(v => v.isOfficial === true);
+        newStateTagList = TagList.map(v => {
+          const isChecked = officialTags.filter(t => v.text === t.name).length > 0;
+          return { ...v, isChecked };
+        });
+      }
 
       const error = {};
       error.sizeType = checkError('sizeType', sizeType);
 
-      return { title, status, introduction, sizeType, tagList, tagCustomList, images, id, error };
+      return {
+        title,
+        status,
+        introduction,
+        sizeType,
+        tagList: newStateTagList,
+        tagCustomList: newStateTagCustomList,
+        images,
+        id,
+        error,
+      };
     }
     return null;
   }
