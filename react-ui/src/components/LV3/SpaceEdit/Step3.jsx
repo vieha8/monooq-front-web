@@ -26,8 +26,19 @@ const UnderLine = styled.span`
   text-decoration: underline;
 `;
 
+const getPlaceHolderPriceFull = sizeType => {
+  let placeHolder = '30,000';
+  if (sizeType === 4) {
+    placeHolder = '5,000';
+  } else if (sizeType === 5) {
+    placeHolder = '40,000';
+  }
+  return placeHolder;
+};
+
 export default ({
   isPriceTatami,
+  sizeType,
   edit,
   errors,
   priceFull,
@@ -64,7 +75,7 @@ export default ({
         image={imageFurnitureFull}
         title="全てのスペースの月額料金"
         caption="スペースを全範囲使用する場合の料金"
-        placeholder="30,000"
+        placeholder={getPlaceHolderPriceFull(sizeType)}
         price={priceFull}
         onChange={onChangePriceFull}
         error={<ErrorList keyName="price_errors_1" errors={errors.priceFull} />}
@@ -74,7 +85,7 @@ export default ({
           image={imageFurnitureTatami}
           title="1畳分のスペースの月額料金"
           caption="スペースの一部を使用する場合の1畳あたりの料金"
-          placeholder="16,000"
+          placeholder="6,000"
           price={priceTatami}
           onChange={onChangePriceTatami}
           error={<ErrorList keyName="price_errors_2" errors={errors.priceTatami} />}

@@ -212,6 +212,7 @@ class SpaceEdit3Container extends Component {
     return (
       <SpaceEditStep3
         isPriceTatami={isPriceTatami}
+        sizeType={space.sizeType}
         edit={isUpdate}
         errors={error}
         priceFull={priceFull}
