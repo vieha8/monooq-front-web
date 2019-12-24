@@ -189,6 +189,7 @@ class SpaceEdit1Container extends Component {
         images,
         id,
       } = space;
+
       let newStateTagCustomList = tagCustomList;
       if (newStateTagCustomList === undefined) {
         const otherTags = tags.filter(v => v.isOfficial === false);
@@ -198,7 +199,6 @@ class SpaceEdit1Container extends Component {
       let newStateTagList = tagList;
       if (newStateTagList === undefined) {
         const officialTags = tags.filter(v => v.isOfficial === true);
-
         newStateTagList = TagList.map(v => {
           const isChecked = officialTags.filter(t => v.text === t.name).length > 0;
           return { ...v, isChecked };
