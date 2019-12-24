@@ -46,14 +46,11 @@ const LinkStyled = styled(Link)`
   display: block;
   width: 100%;
   height: 100%;
-  color: ${Colors.brandPrimary};
   &:active {
-    color: ${Colors.brandPrimary};
     opacity: 0.8;
   }
   ${mediaMin.tablet`
     &:hover {
-      color: ${Colors.brandPrimary};
       opacity: 0.8;
     }
   `};
@@ -64,6 +61,7 @@ const AddIcon = styled.span`
   top: calc(50% + ${Dimens.small_10}px);
   left: calc(50% - 95px);
   font-weight: bold;
+  color: ${Colors.brandPrimary};
   &::before,
   &::after {
     display: block;
