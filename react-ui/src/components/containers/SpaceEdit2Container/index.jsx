@@ -84,7 +84,7 @@ class SpaceEdit2Container extends Component {
     }
   }
 
-  componentDidUpdate(x, prevState, y) {
+  componentDidUpdate(_, prevState) {
     const { dispatch } = this.props;
     const { postalCode } = this.state;
     if (this.validatePostCode() && postalCode !== prevState.postalCode) {
