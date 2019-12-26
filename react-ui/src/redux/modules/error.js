@@ -32,6 +32,10 @@ export const errorReducer = handleActions(
 );
 
 export function* handleError(action, errMessage, functionName, err, isOnlyAction) {
+  if (process.env.NODE_ENV !== 'production') {
+    console.error(err);
+  }
+
   let msg = 'Error';
   if (errMessage) {
     msg = `error(${functionName}):${errMessage}`;

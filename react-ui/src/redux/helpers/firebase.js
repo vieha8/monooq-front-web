@@ -1,8 +1,9 @@
-import firebase from 'firebase/app';
-import 'firebase/storage';
 import { captureException } from '@sentry/browser';
 
-export const uploadImage = (path, file) => {
+export const uploadImage = async (path, file) => {
+  const firebase = await import('firebase/app');
+  await import('firebase/storage');
+
   const storageRef = firebase.storage().ref();
   const imageRef = storageRef.child(path);
   return new Promise((resolve, reject) => {

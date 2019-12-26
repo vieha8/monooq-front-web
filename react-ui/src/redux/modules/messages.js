@@ -1,8 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, take, select, fork, cancel, cancelled } from 'redux-saga/effects';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 import { push } from 'connected-react-router';
 import { captureException } from '@sentry/browser';
 import { getToken } from 'redux/modules/auth';
@@ -77,18 +75,18 @@ export const messagesReducer = handleActions(
   initialState,
 );
 
-const roomCollection = () => {
-  const firestore = firebase.firestore();
-  return firestore.collection('rooms');
+const roomCollection = async () => {
+  const firebase = await import('firebase/app');
+  await import('firebase/firestore');
+  return firebase.firestore().collection('rooms');
 };
 
 // ルーム取得
 const getRooms = userId =>
   new Promise(async (resolve, reject) => {
     try {
-      const rooms = await roomCollection()
-        .where(`user${userId}`, '==', true)
-        .get();
+      const c = await roomCollection();
+      const rooms = await c.where(`user${userId}`, '==', true).get();
       const res = [];
       rooms.forEach(room => {
         if (room.data().lastMessageDt) {

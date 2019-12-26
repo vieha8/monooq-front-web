@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Sentry from '@sentry/browser';
+import ReactGA from 'react-ga';
 import { initActions } from 'redux/modules/init';
 import SystemError from 'components/LV3/SystemError';
 import { parse } from 'helpers/query-string';
@@ -40,6 +41,11 @@ class Root extends React.Component {
     if (!isLp) {
       dispatch(initActions.init());
     }
+    ReactGA.initialize('UA-84238514-1');
+    Sentry.init({
+      dsn: 'https://d3223c25da3e4dcda892c9ac1cf7b0be@sentry.io/1287932',
+      environment: process.env.NODE_ENV,
+    });
   }
 
   componentDidCatch(error, errorInfo) {
