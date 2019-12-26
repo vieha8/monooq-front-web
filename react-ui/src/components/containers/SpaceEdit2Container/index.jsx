@@ -84,6 +84,14 @@ class SpaceEdit2Container extends Component {
     }
   }
 
+  componentDidUpdate(_, prevState) {
+    const { dispatch } = this.props;
+    const { postalCode } = this.state;
+    if (this.validatePostCode() && postalCode !== prevState.postalCode) {
+      dispatch(spaceActions.getAddress({ postalCode }));
+    }
+  }
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space, geo } = nextProps;
     if (space.id && !prevState.id) {
@@ -188,7 +196,7 @@ class SpaceEdit2Container extends Component {
   };
 
   handleChangeUI = (propName, value) => {
-    const { state } = this;
+    const state = { ...this.state };
     const { error } = state;
     const errors = checkError(propName, value);
     state[propName] = value;
