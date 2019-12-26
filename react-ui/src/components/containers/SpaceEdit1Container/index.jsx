@@ -173,6 +173,10 @@ class SpaceEdit1Container extends Component {
       this.handleChangeUI('introduction', introduction);
       this.handleChangeUI('sizeType', sizeType);
     }
+
+    if (!isUpdate && !this.props.space.postalCode) {
+      dispatch(spaceActions.resetAddress());
+    }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
