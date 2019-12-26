@@ -71,6 +71,7 @@ export default ({
         isImageUploading={isImageUploading}
       />
       <ErrorList keyName="image_errors" errors={errors.images} />
+      <ErrorList keyName="imagesize_errors" errors={errors.imagesMaxSize} />
     </Section>
     <Section>
       <Select
