@@ -21,7 +21,6 @@ class Root extends React.Component {
       isIncompatible,
       hasError: false,
     };
-    props.dispatch(initActions.init());
   }
 
   static getDerivedStateFromError(error) {
@@ -33,10 +32,15 @@ class Root extends React.Component {
   }
 
   componentDidMount() {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
     const query = parse(history.location.search);
     if (isAvailableLocalStorage() && query.invite_code) {
       localStorage.setItem('invite_code', query.invite_code);
+    }
+
+    const isLp = history.location.pathname.includes('/lp');
+    if (!isLp) {
+      dispatch(initActions.init());
     }
   }
 
@@ -70,7 +74,7 @@ class Root extends React.Component {
     }
 
     if (!isInitialized) {
-      return <LoadingPage />;
+      // return <LoadingPage />;
     }
 
     return children;
