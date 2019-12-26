@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Sentry from '@sentry/browser';
 import { initActions } from 'redux/modules/init';
-import LoadingPage from 'components/LV3/LoadingPage';
 import SystemError from 'components/LV3/SystemError';
 import { parse } from 'helpers/query-string';
 import { isAvailableLocalStorage } from 'helpers/storage';
@@ -37,7 +36,6 @@ class Root extends React.Component {
     if (isAvailableLocalStorage() && query.invite_code) {
       localStorage.setItem('invite_code', query.invite_code);
     }
-
     const isLp = history.location.pathname.includes('/lp');
     if (!isLp) {
       dispatch(initActions.init());
@@ -45,12 +43,14 @@ class Root extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    Sentry.configureScope(scope => {
-      Object.keys(errorInfo).forEach(key => {
-        scope.setExtra(key, errorInfo[key]);
+    if (process.env.NODE_ENV === 'production') {
+      Sentry.configureScope(scope => {
+        Object.keys(errorInfo).forEach(key => {
+          scope.setExtra(key, errorInfo[key]);
+        });
       });
-    });
-    Sentry.captureException(error);
+      Sentry.captureException(error);
+    }
   }
 
   incompatibleMessage = () => (
@@ -62,7 +62,7 @@ class Root extends React.Component {
   );
 
   render() {
-    const { isInitialized, children } = this.props;
+    const { children } = this.props;
     const { isIncompatible, hasError } = this.state;
 
     if (hasError) {
@@ -73,16 +73,8 @@ class Root extends React.Component {
       return this.incompatibleMessage();
     }
 
-    if (!isInitialized) {
-      // return <LoadingPage />;
-    }
-
     return children;
   }
 }
 
-const mapStateToProps = state => ({
-  isInitialized: state.init.isInitialized,
-});
-
-export default connect(mapStateToProps)(Root);
+export default connect()(Root);
