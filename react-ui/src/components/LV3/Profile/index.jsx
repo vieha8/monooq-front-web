@@ -110,9 +110,11 @@ export default ({ image, name, prefCode, lastLoginAt, profile, spaces }) => (
         </ImageWrap>
         <InfoTopWrap>
           <HostName>{`${formatName(name)}さん`}</HostName>
-          <ResidenceText>
-            <InlineText.Small>{`${getPrefecture(prefCode)}在住`}</InlineText.Small>
-          </ResidenceText>
+          {prefCode && (
+            <ResidenceText>
+              <InlineText.Small>{`${getPrefecture(prefCode)}在住`}</InlineText.Small>
+            </ResidenceText>
+          )}
           <LastLoginText>
             <InlineText.Small>{`最終ログイン日:${lastLoginAt}`}</InlineText.Small>
           </LastLoginText>
