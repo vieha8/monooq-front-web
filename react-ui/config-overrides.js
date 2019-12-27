@@ -1,4 +1,5 @@
 const PrerenderSPAPlugin = require('prerender-spa-plugin');
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
 const path = require('path');
 
 module.exports = (config, env) => {
@@ -7,6 +8,9 @@ module.exports = (config, env) => {
       new PrerenderSPAPlugin({
         routes: ['/', '/about', '/lp1/guest'],
         staticDir: path.join(__dirname, 'build'),
+        renderer: new Renderer({
+          '--no-sandbox': 1,
+        }),
       }),
     ]);
   }
