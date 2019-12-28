@@ -214,7 +214,7 @@ class SpaceEditConfirmContainer extends Component {
             name: user.name,
             imageUrl: user.imageUrl,
             profile: user.profile,
-            prefCode: space.user.prefCode,
+            prefCode: user.prefCode,
           }}
           priceFull={space.priceFull}
           priceTatami={space.priceTatami}

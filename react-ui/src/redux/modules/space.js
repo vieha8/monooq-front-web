@@ -51,6 +51,7 @@ const GET_ADDRESS_INIT = 'GET_ADDRESS_INIT';
 const GET_ADDRESS = 'GET_ADDRESS';
 const GET_ADDRESS_SUCCESS = 'GET_ADDRESS_SUCCESS';
 const GET_ADDRESS_FAILED = 'GET_ADDRESS_FAILED';
+const RESET_ADDRESS = 'RESET_ADDRESS';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -82,6 +83,7 @@ export const spaceActions = createActions(
   GET_ADDRESS,
   GET_ADDRESS_SUCCESS,
   GET_ADDRESS_FAILED,
+  RESET_ADDRESS,
 );
 
 // Reducer
@@ -244,6 +246,12 @@ export const spaceReducer = handleActions(
       ...state,
       isLoadingAddress: false,
       errMessage: action.payload,
+    }),
+    [RESET_ADDRESS]: (state, _) => ({
+      ...state,
+      geo: {},
+      isLoadingAddress: false,
+      errMessage: '',
     }),
   },
   initialState,
