@@ -10,6 +10,7 @@ import ReactGA from 'react-ga';
 import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { sectionActions } from 'redux/modules/section';
 
 const Wrap = styled.div``;
 
@@ -27,6 +28,9 @@ class TopContainer extends React.Component {
       locationText: '',
       searchButtonDisabled: true,
     };
+
+    const { dispatch } = this.props;
+    dispatch(sectionActions.getRegion());
   }
 
   componentDidMount() {
