@@ -8,9 +8,9 @@ import Footer from 'components/LV2/Footer';
 import Top from 'components/LV3/Top';
 import ReactGA from 'react-ga';
 import { spaceActions } from 'redux/modules/space';
-import { sectionActions } from 'redux/modules/section';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { sectionActions } from 'redux/modules/section';
 
 const Wrap = styled.div``;
 
@@ -30,7 +30,7 @@ class TopContainer extends React.Component {
     };
 
     const { dispatch } = this.props;
-    dispatch(sectionActions.fetchSections());
+    dispatch(sectionActions.getRegion());
   }
 
   componentDidMount() {
@@ -116,7 +116,7 @@ class TopContainer extends React.Component {
   };
 
   render() {
-    const { ui, history, sections } = this.props;
+    const { ui, history } = this.props;
     const { locationText, searchButtonDisabled } = this.state;
     return (
       <Wrap>
@@ -131,7 +131,7 @@ class TopContainer extends React.Component {
           onClickMoreArea={() => this.viewMoreArea()}
           moreArea={ui.moreArea}
           history={history}
-          sections={sections}
+          sections={[]}
         />
         <Footer />
       </Wrap>
@@ -142,7 +142,6 @@ class TopContainer extends React.Component {
 const mapStateToProps = state => ({
   ui: state.ui,
   isLogin: state.auth.isLogin,
-  sections: state.section.sections,
   regionId: state.section.regionId,
 });
 
