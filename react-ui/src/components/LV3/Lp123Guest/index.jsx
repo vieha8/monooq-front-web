@@ -7,8 +7,6 @@ import Meta from 'components/LV1/Meta';
 import ContainerDefault from 'components/LV1/ContainerDefault';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import PickupSpaceList from 'components/LV2/Lists/PickupSpaceList';
-
-import ImageHero from 'images/lp123guest/hero.jpg';
 import ImageBarLeft from 'images/lp123guest/icon-bar-left.png';
 import ImageBarRight from 'images/lp123guest/icon-bar-right.png';
 import ImageWantFile from 'images/lp123guest/icon-want-file.png';
@@ -29,6 +27,9 @@ import ImagePickupSpace3Host from 'images/lp123guest/pickup-space-3-host.jpg';
 import ImageFlow1 from 'images/lp123guest/flow-1.png';
 import ImageFlow2 from 'images/lp123guest/flow-2.png';
 import ImageFlow3 from 'images/lp123guest/flow-3.png';
+
+const ImageHero =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1guest%2Fhero.jpg?alt=media&token=54970526-c660-48de-b378-f63cc44f4666&auto=format';
 
 const Wrap = styled.div`
   min-width: 320px;
