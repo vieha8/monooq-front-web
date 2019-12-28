@@ -74,7 +74,7 @@ export default ({
           image={imageFurnitureTatami}
           title="1畳分のスペースの月額料金"
           caption="スペースの一部を使用する場合の1畳あたりの料金"
-          placeholder="16,000"
+          placeholder="6,000"
           price={priceTatami}
           onChange={onChangePriceTatami}
           error={<ErrorList keyName="price_errors_2" errors={errors.priceTatami} />}
