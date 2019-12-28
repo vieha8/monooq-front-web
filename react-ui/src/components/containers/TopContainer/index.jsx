@@ -37,6 +37,8 @@ class TopContainer extends React.Component {
     const { regionId } = this.props;
     this.setScrollRegion(regionId);
     window.scrollTo(0, 0);
+    // eslint-disable-next-line no-undef
+    document.dispatchEvent(new Event('custom-render-trigger'));
   }
 
   componentDidUpdate(prevProps) {

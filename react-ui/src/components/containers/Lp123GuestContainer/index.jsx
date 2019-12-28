@@ -41,6 +41,8 @@ class Lp123GuestContainer extends React.Component {
       buttonLink = Path.top();
     }
     this.setState({ titleWant, headline, titleMeta, buttonLink });
+    // eslint-disable-next-line no-undef
+    document.dispatchEvent(new Event('custom-render-trigger'));
   }
 
   getHeadlineLp1 = () => {
