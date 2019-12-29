@@ -12,13 +12,8 @@ import dummySpaceImage from 'images/dummy_space.png';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { receiptTypeList } from 'helpers/receiptTypes';
 import { spaceActions } from '../../../redux/modules/space';
-
-const ReceiptType = {
-  Both: 1,
-  Delivery: 2,
-  Meeting: 3,
-};
 
 const EntryButtonWrap = styled.div`
   width: 100%;
@@ -203,10 +198,12 @@ class SpaceEditConfirmContainer extends Component {
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
           addressMethod={space.about}
           delivery={
-            space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
+            space.receiptType === receiptTypeList.Both ||
+            space.receiptType === receiptTypeList.Delivery
           }
           meeting={
-            space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Meeting
+            space.receiptType === receiptTypeList.Both ||
+            space.receiptType === receiptTypeList.Meeting
           }
           supplement={space.receiptAbout}
           user={{
