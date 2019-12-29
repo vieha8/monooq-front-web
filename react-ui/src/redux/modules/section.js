@@ -8,12 +8,14 @@ import { handleError } from './error';
 const FETCH_SECTIONS = 'FETCH_SECTIONS';
 const FETCH_SECTIONS_SUCCESS = 'FETCH_SECTIONS_SUCCESS';
 const FETCH_SECTIONS_FAILED = 'FETCH_SECTIONS_FAILED';
+const GET_REGION = 'GET_REGION';
 const GET_REGION_SUCCESS = 'GET_REGION_SUCCESS';
 
 export const sectionActions = createActions(
   FETCH_SECTIONS,
   FETCH_SECTIONS_SUCCESS,
   FETCH_SECTIONS_FAILED,
+  GET_REGION,
   GET_REGION_SUCCESS,
 );
 
@@ -75,4 +77,7 @@ function* getSections() {
   yield put(sectionActions.fetchSectionsSuccess(data));
 }
 
-export const sectionSagas = [takeEvery(FETCH_SECTIONS, getSections)];
+export const sectionSagas = [
+  takeEvery(FETCH_SECTIONS, getSections),
+  takeEvery(GET_REGION, getRegion),
+];

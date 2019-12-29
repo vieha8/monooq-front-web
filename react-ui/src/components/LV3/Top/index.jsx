@@ -6,7 +6,6 @@ import TopView from 'components/LV3/TopView';
 import PrefectureList from 'components/LV3/PrefectureList';
 import SpaceList from 'components/LV3/SpaceList';
 import { areaPrefectures } from 'helpers/prefectures';
-import Loading from 'components/LV1/Loading';
 
 const TopPage = styled.div`
   width: 100%;
@@ -51,17 +50,13 @@ export default ({
       onClickSearchButton={onClickSearch}
     />
     <PrefectureList list={areaPrefectures} />
-    {sections.length === 0 ? (
-      <Loading />
-    ) : (
-      sections.map((item, i) => (
-        <SpaceList
-          key={i.toString()}
-          caption={item.title}
-          captionSub="公式がイチオシする高評価スペース"
-          spaceList={item.contents}
-        />
-      ))
-    )}
+    {sections.map((item, i) => (
+      <SpaceList
+        key={i.toString()}
+        caption={item.title}
+        captionSub="公式がイチオシする高評価スペース"
+        spaceList={item.contents}
+      />
+    ))}
   </TopPage>
 );
