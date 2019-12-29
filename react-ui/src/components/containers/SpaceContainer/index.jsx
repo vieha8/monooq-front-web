@@ -17,8 +17,8 @@ import connect from '../connect';
 
 const ReceiptType = {
   Both: 1,
-  Meeting: 2,
-  Delivery: 3,
+  Delivery: 2,
+  Meeting: 3,
 };
 
 class SpaceContainer extends Component {

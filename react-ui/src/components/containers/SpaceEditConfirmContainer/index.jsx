@@ -16,8 +16,8 @@ import { spaceActions } from '../../../redux/modules/space';
 
 const ReceiptType = {
   Both: 1,
-  Meeting: 3,
   Delivery: 2,
+  Meeting: 3,
 };
 
 const EntryButtonWrap = styled.div`
