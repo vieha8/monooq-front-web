@@ -29,6 +29,7 @@
     "react-google-maps": "9.4.5",
     "react-helmet": "5.2.1",
     "react-infinite-scroller": "1.2.4",
+    "react-intercom": "^1.0.15",
     "react-lazyload": "2.6.5",
     "react-redux": "7.1.3",
     "react-router": "5.1.2",
