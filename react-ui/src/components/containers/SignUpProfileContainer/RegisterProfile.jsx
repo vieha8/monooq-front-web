@@ -12,6 +12,9 @@ const Validate = {
     NoHyphenVer: /^0\d{9,10}$/, // 先頭「0」+「半角数字9〜10桁」
     HyphenVer: /^0\d{2,3}-\d{2,4}-\d{4}$/, // 先頭「0」＋「半角数字2〜3桁」＋「-」＋「半角数字1〜4桁」＋「-」＋「半角数字4桁」
   },
+  ImageSize: {
+    Max: 10485760, // 10MB
+  },
   Profile: {
     Max: 1000,
   },
@@ -69,6 +72,9 @@ export default class RegisterProfileContainer extends Component {
 
     switch (name) {
       case 'image':
+        if (value && value.size > Validate.ImageSize.Max) {
+          errors.push(ErrorMessages.OverSizeSpaceImage('10MB'));
+        }
         state.imageUrlPreview = URL.createObjectURL(value);
         break;
 
@@ -115,9 +121,11 @@ export default class RegisterProfileContainer extends Component {
     this.setState({ ...state, error });
   };
 
+  // TODO: 最適化したい(imageUrl箇所含む)
   validate = () => {
-    const { name, prefCode, profile, phoneNumber } = this.state;
+    const { error, name, prefCode, profile, phoneNumber } = this.state;
     return (
+      (error.image === undefined || (error.image && error.image.length === 0)) &&
       name &&
       name.length > 0 &&
       prefCode &&
