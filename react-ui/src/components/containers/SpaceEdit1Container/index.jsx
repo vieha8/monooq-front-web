@@ -25,6 +25,9 @@ const Validate = {
   Title: {
     Max: 200,
   },
+  ImageSize: {
+    Max: 31457280, // 30MB
+  },
   Introduction: {
     Max: 5000,
   },
@@ -102,6 +105,11 @@ const checkError = (name, value) => {
         if (value[0].ImageUrl && isImageDefault(value[0].ImageUrl)) {
           errors.push(ErrorMessages.MustSpaceImage);
         }
+      }
+      break;
+    case 'imagesMaxSize':
+      if (value) {
+        errors.push(ErrorMessages.OverSizeSpaceImage('30MB'));
       }
       break;
     case 'sizeType':
@@ -235,6 +243,10 @@ class SpaceEdit1Container extends Component {
 
     const nextImages = await Promise.all(
       pickedImages.map(async image => {
+        if (image && image.size > Validate.ImageSize.Max) {
+          return null;
+        }
+
         const fileReader = new FileReader();
         fileReader.readAsArrayBuffer(image);
         const ext = await new Promise(resolve => {
@@ -256,9 +268,15 @@ class SpaceEdit1Container extends Component {
       }),
     ).catch(error => ({ error }));
 
-    const setImage = [].concat(images, nextImages);
-    this.setState({ images: setImage, isImageUploading: false });
-    this.handleChangeUI('images', setImage);
+    if (nextImages && nextImages.length > 0 && nextImages[0] !== null) {
+      const setImage = [].concat(images, nextImages);
+      this.setState({ images: setImage });
+      this.handleChangeUI('imagesMaxSize', false);
+    } else {
+      this.handleChangeUI('imagesMaxSize', true);
+    }
+
+    this.setState({ isImageUploading: false });
   };
 
   handleDeleteImage = deleteTargetIndex => {

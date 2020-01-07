@@ -55,7 +55,10 @@ const Button = styled.div`
 export default ({ errors, title, image, name, prefCode, profile, phoneNumber, button }) => (
   <Fragment>
     <Title>{title}</Title>
-    <Image>{image}</Image>
+    <Image>
+      {image}
+      <ErrorList keyName="image_errors" errors={errors.image} />
+    </Image>
     <Name>
       {name}
       <ErrorList keyName="name_errors" errors={errors.name} />

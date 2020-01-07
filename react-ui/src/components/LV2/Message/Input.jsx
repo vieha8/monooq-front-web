@@ -4,11 +4,15 @@ import Dropzone from 'react-dropzone';
 import { PictureIcon } from 'components/LV1/Images/ActionIcon';
 import TextArea from 'components/LV1/Forms/TextArea';
 import InlineText from 'components/LV1/Texts/InlineText';
-import { Dimens } from 'variables';
+import { Dimens, Colors, FontSizes, ErrorMessages } from 'variables';
 
-const PickImageWrap = styled.div`
+const Wrap = styled.div`
   cursor: pointer;
   margin-bottom: 8px;
+`;
+
+const DropzoneWrap = styled.div`
+  margin-bottom: ${Dimens.small}px;
 `;
 
 const LabelWrapper = styled.span`
@@ -24,25 +28,48 @@ const Thumbnail = styled.img`
   object-fit: cover;
 `;
 
-export default ({ onPickImage, preview, value, onChange }) => (
-  <PickImageWrap>
-    <Dropzone accept="image/jpeg, image/png" onDrop={data => onPickImage(data[0])}>
-      {({ getRootProps, getInputProps }) => (
-        <div {...getRootProps()}>
-          <PictureIcon verticalMiddle fontSize={24} />
-          <LabelWrapper>
-            <InlineText.Small>写真を送信する</InlineText.Small>
-          </LabelWrapper>
-          <input {...getInputProps()} />
-          {preview && <Thumbnail src={preview} />}
-        </div>
-      )}
-    </Dropzone>
+const MessageErr = styled.div`
+  white-space: pre-wrap;
+  font-size: ${FontSizes.small}px;
+  color: ${Colors.error};
+`;
+
+export default ({
+  setStatucPickImage,
+  onPickImage,
+  isErrorPickImage,
+  preview,
+  value,
+  onChange,
+}) => (
+  <Wrap>
+    <DropzoneWrap>
+      <Dropzone
+        accept="image/jpeg, image/png"
+        onDropAccepted={data => onPickImage(data[0])}
+        onDropRejected={setStatucPickImage}
+        maxSize={10485760} // 10MB
+      >
+        {({ getRootProps, getInputProps }) => (
+          <div {...getRootProps()}>
+            <PictureIcon verticalMiddle fontSize={24} />
+            <LabelWrapper>
+              <InlineText.Small>写真を送信する</InlineText.Small>
+            </LabelWrapper>
+            {isErrorPickImage && (
+              <MessageErr>{ErrorMessages.OverSizeSpaceImage('10MB')}</MessageErr>
+            )}
+            <input {...getInputProps()} />
+            {preview && <Thumbnail src={preview} />}
+          </div>
+        )}
+      </Dropzone>
+    </DropzoneWrap>
     <TextArea
       rows={5}
       placeholder="メッセージを入力する…"
       value={value}
       onChange={e => onChange(e.target.value)}
     />
-  </PickImageWrap>
+  </Wrap>
 );

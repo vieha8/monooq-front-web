@@ -61,6 +61,7 @@ export default ({
         label="プロフィール写真"
         extension={extention(onChangeImage, imagePreview, image)}
       />
+      <ErrorList keyName="imageurl_errors" errors={errors.imageUrl} />
     </Row>
     <Row>
       <InputForm

@@ -11,15 +11,10 @@ import LoadingPage from 'components/LV3/LoadingPage';
 import Meta from 'components/LV1/Meta';
 import dummySpaceImage from 'images/dummy_space.png';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { receiptTypeList } from 'helpers/receiptTypes';
 
 import { loggerActions } from 'redux/modules/logger';
 import connect from '../connect';
-
-const ReceiptType = {
-  Both: 1,
-  Meeting: 2,
-  Delivery: 3,
-};
 
 class SpaceContainer extends Component {
   constructor(props) {
@@ -223,10 +218,12 @@ class SpaceContainer extends Component {
           tagList={space.tags.map(v => v.name)}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
           delivery={
-            space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
+            space.receiptType === receiptTypeList.Both ||
+            space.receiptType === receiptTypeList.Delivery
           }
           meeting={
-            space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Meeting
+            space.receiptType === receiptTypeList.Both ||
+            space.receiptType === receiptTypeList.Meeting
           }
           supplement={space.receiptAbout}
           user={{

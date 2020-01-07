@@ -274,7 +274,9 @@ class SpaceEdit2Container extends Component {
         onKeyDownButtonBack={this.onKeyDownButtonBack}
         onClickNext={this.onClickNext}
         onKeyDownButtonNext={this.onKeyDownButtonNext}
-        buttonNextDisabled={!this.validate()}
+        buttonNextDisabled={
+          isLoadingAddress || errMessage === ErrorMessages.FailedGetAddress || !this.validate()
+        }
       />
     );
   }

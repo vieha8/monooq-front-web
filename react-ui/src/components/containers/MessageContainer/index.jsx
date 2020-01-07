@@ -69,6 +69,7 @@ class MessageContainer extends Component {
     this.state = {
       text: '',
       image: null,
+      isErrorPickImage: false,
       errorModal: false,
     };
   }
@@ -111,9 +112,13 @@ class MessageContainer extends Component {
     e.returnValue = '未送信のメッセージが取り消されますが、よろしいですか?';
   };
 
+  setStatucPickImage = () => {
+    this.setState({ isErrorPickImage: true });
+  };
+
   handlePickImage = image => {
     image.preview = URL.createObjectURL(image);
-    this.setState({ image });
+    this.setState({ image, isErrorPickImage: false });
   };
 
   handleChangeText = text => {
@@ -261,7 +266,7 @@ class MessageContainer extends Component {
 
   render() {
     const { isLoading, user, room } = this.props;
-    const { text, image, errorModal } = this.state;
+    const { text, image, isErrorPickImage, errorModal } = this.state;
 
     if (isLoading || !room) {
       return <LoadingPage size="large" />;
@@ -317,11 +322,15 @@ class MessageContainer extends Component {
           onClickEstimate={this.transitionToEstimate}
           hostUser={isHost}
           messages={messageList}
+          setStatucPickImage={this.setStatucPickImage}
           onPickImage={this.handlePickImage}
           onChangeText={this.handleChangeText}
           text={text}
           pickedImage={(image || {}).preview}
-          buttonDisabled={(text === '' && !image) || !isRegisterEmailPhoneNumber}
+          isErrorPickImage={isErrorPickImage}
+          buttonDisabled={
+            (text.trim().length === 0 && !image) || isErrorPickImage || !isRegisterEmailPhoneNumber
+          }
           onClickSend={this.sendMessage}
           lastReadDt={lastReadDt}
         />
