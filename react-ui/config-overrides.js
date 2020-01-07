@@ -6,11 +6,12 @@ module.exports = (config, env) => {
   if (env === 'production') {
     config.plugins = config.plugins.concat([
       new PrerenderSPAPlugin({
-        routes: ['/', '/lp1/guest'],
+        routes: ['/lp1/guest'],
         staticDir: path.join(__dirname, 'build'),
         renderer: new Renderer({
           // '--no-sandbox': 1,
           renderAfterDocumentEvent: 'custom-render-trigger',
+          renderAfterTime: 500,
         }),
       }),
     ]);
