@@ -120,7 +120,7 @@ class TopContainer extends React.Component {
 
     const isProd =
       document.domain === 'monooq.com' ||
-      document.domain === 'https://monooq-front-web-staging.herokuapp.com/';
+      document.domain === 'monooq-front-web-staging.herokuapp.com';
 
     return (
       <Wrap>
