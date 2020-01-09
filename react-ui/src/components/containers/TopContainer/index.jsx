@@ -117,6 +117,11 @@ class TopContainer extends React.Component {
   render() {
     const { ui, history, user, intercomHash } = this.props;
     const { locationText, searchButtonDisabled } = this.state;
+
+    const isProd =
+      document.domain === 'monooq.com' ||
+      document.domain === 'https://monooq-front-web-staging.herokuapp.com/';
+
     return (
       <Wrap>
         <Top
@@ -133,13 +138,15 @@ class TopContainer extends React.Component {
           sections={[]}
         />
         <Footer />
-        <Intercom
-          appID="v0rdx0ap"
-          user_id={user.id}
-          email={user.email}
-          name={user.name}
-          user_hash={intercomHash}
-        />
+        {isProd && (
+          <Intercom
+            appID="v0rdx0ap"
+            user_id={user.id}
+            email={user.email}
+            name={user.name}
+            user_hash={intercomHash}
+          />
+        )}
       </Wrap>
     );
   }
