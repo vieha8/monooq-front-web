@@ -24,6 +24,7 @@ export const apiEndpoint = {
   areaCities: prefCode => `spaces/area/p${prefCode}`,
   areaTowns: cityCode => `spaces/area/c${cityCode}`,
   areaSearch: prefCode => `spaces/area/p${prefCode}/all`,
+  intercom: userId => `intercom/hash/${userId}`,
 };
 
 const createApiInstance = token =>
