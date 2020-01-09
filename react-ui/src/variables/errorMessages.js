@@ -7,6 +7,7 @@ export default {
   PriceNumber: '金額は半角数字(整数)で入力してください。',
   PriceNumberName: name => `${name}は半角数字(整数)で入力してください。`,
   MustSpaceImage: '写真は1枚以上登録してください。',
+  OverSizeSpaceImage: val => `登録できる画像の最大アップロードサイズは${val}です。`,
   TagCustomMax: '設備・条件は8個以下で設定してください。',
   TagCustomSame: '同じ値を設定することはできません。',
   TagCustomIncludesSpaceLiteral: 'スペース文字を含むことはできません。',

@@ -14,7 +14,7 @@ const ImageSpace = styled.img`
 `;
 
 export default ({ images }) => (
-  <ImageSlider className="custom-arrow-2" dots cssEase="linear" slidesToShow={1}>
+  <ImageSlider className="space custom-arrow-2" dots cssEase="linear" slidesToShow={1}>
     {images &&
       images.map((item, i) => (
         <ImageLi key={i.toString()}>

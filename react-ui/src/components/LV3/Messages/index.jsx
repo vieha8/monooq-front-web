@@ -90,7 +90,9 @@ export default ({
   lastReadDt,
   onChangeText,
   text,
+  setStatucPickImage,
   onPickImage,
+  isErrorPickImage,
   pickedImage,
   buttonDisabled,
   onClickSend,
@@ -278,7 +280,9 @@ export default ({
         <MessageInput
           onChange={onChangeText}
           value={text}
+          setStatucPickImage={setStatucPickImage}
           onPickImage={onPickImage}
+          isErrorPickImage={isErrorPickImage}
           preview={pickedImage}
         />
       </MessageInputWrap>

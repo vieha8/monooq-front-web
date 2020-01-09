@@ -11,15 +11,10 @@ import LoadingPage from 'components/LV3/LoadingPage';
 import Meta from 'components/LV1/Meta';
 import dummySpaceImage from 'images/dummy_space.png';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { receiptTypeList } from 'helpers/receiptTypes';
 
 import { loggerActions } from 'redux/modules/logger';
 import connect from '../connect';
-
-const ReceiptType = {
-  Both: 1,
-  Meeting: 2,
-  Delivery: 3,
-};
 
 class SpaceContainer extends Component {
   constructor(props) {
@@ -33,6 +28,7 @@ class SpaceContainer extends Component {
         imageUrl: '',
       },
       isOverTopView: false,
+      isBottom: false,
     };
   }
 
@@ -176,6 +172,7 @@ class SpaceContainer extends Component {
     const {
       meta: { title, description, url, imageUrl },
       isOverTopView,
+      isBottom,
     } = this.state;
     const isSelfSpace = user.id === (space.user || {}).id;
 
@@ -205,6 +202,7 @@ class SpaceContainer extends Component {
         />
         <Detail
           isOverTopView={isOverTopView}
+          isBottom={isBottom}
           id={space.id}
           map={<SpaceMap lat={space.lat} lng={space.lng} />}
           pref={space.addressPref}
@@ -220,10 +218,12 @@ class SpaceContainer extends Component {
           tagList={space.tags.map(v => v.name)}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
           delivery={
-            space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Delivery
+            space.receiptType === receiptTypeList.Both ||
+            space.receiptType === receiptTypeList.Delivery
           }
           meeting={
-            space.receiptType === ReceiptType.Both || space.receiptType === ReceiptType.Meeting
+            space.receiptType === receiptTypeList.Both ||
+            space.receiptType === receiptTypeList.Meeting
           }
           supplement={space.receiptAbout}
           user={{
@@ -254,6 +254,12 @@ class SpaceContainer extends Component {
     );
   };
 
+  setStateOverTopView = (isOverTopView, isBottom) => {
+    if (this._isMounted) {
+      this.setState({ isOverTopView, isBottom });
+    }
+  };
+
   scrollTop = () => {
     const isWebKit = this.browser ? this.browser.isWebKit : false;
     let tgt;
@@ -272,12 +278,19 @@ class SpaceContainer extends Component {
   watchCurrentPosition() {
     if (window.parent.screen.width > 768) {
       const positionScroll = this.scrollTop();
-      if (this._isMounted) {
-        this.setState({ isOverTopView: false });
-      }
+      this.setStateOverTopView(false, false);
+
       if (positionScroll > 485) {
-        if (this._isMounted) {
-          this.setState({ isOverTopView: true });
+        const { body } = window.document;
+        const html = window.document.documentElement;
+
+        const scrollTop = body.scrollTop || html.scrollTop;
+        const scrollBottom = html.scrollHeight - html.clientHeight - scrollTop;
+
+        if (scrollBottom > 450) {
+          this.setStateOverTopView(true, false);
+        } else {
+          this.setStateOverTopView(true, true);
         }
       }
     }

@@ -339,6 +339,22 @@ React Slick
   width: 100%;
 }
 
+/* space image */
+.slick-slider.space .slick-slide {
+  opacity: 0.3;
+}
+
+.slick-slider.space .slick-slide.slick-current {
+  opacity: 1;
+}
+
+@media (max-width: 30em) {
+  .slick-slider.space .slick-slide,
+  .slick-slider.space .slick-slide.slick-current {
+    opacity: 1;
+  }
+}
+
 /* custom-arrow-1 */
 .custom-arrow-1 .slick-prev,
 .custom-arrow-1 .slick-next {
