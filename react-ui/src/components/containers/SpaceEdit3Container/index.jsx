@@ -71,9 +71,9 @@ class SpaceEdit3Container extends Component {
     }
 
     if (!isUpdate) {
-      this.handleChangeUI('priceFull', priceFull);
+      this.handleChangePriceUI('priceFull', priceFull);
       if (isPriceTatami) {
-        this.handleChangeUI('priceTatami', priceTatami);
+        this.handleChangePriceUI('priceTatami', priceTatami);
       }
     }
 
