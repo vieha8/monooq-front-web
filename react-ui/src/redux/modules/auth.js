@@ -19,6 +19,7 @@ import {
   apiEndpoint,
   putApiRequest,
 } from '../helpers/api';
+import { parseUrl } from '../../helpers/query-string';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -277,7 +278,20 @@ export function* getToken() {
   return yield makeToken();
 }
 
+const checkLoginWithEmailLink = (email, url) => {
+  return firebase
+    .auth()
+    .signInWithEmailLink(email, url)
+    .then(r => r)
+    .catch(e => e);
+};
+
 function* checkLogin() {
+  const { query } = parseUrl(window.location.href);
+  if (query.mode && query.mode === 'signIn') {
+    yield call(checkLoginWithEmailLink, query.email, window.location.href);
+  }
+
   const status = { isLogin: false };
   try {
     const { currentUser } = firebase.auth();
