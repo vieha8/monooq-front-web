@@ -31,6 +31,15 @@ class SpaceManagementContainer extends Component {
     dispatch(spaceActions.deleteSpace({ space }));
   };
 
+  getPrices = (sizeType, priceFull, priceTatami) => {
+    const prices = [numeral(priceFull).format('0,0')];
+    if (sizeType > 0 && sizeType < 4) {
+      // 部屋の場合
+      prices.push(numeral(priceTatami).format('0,0'));
+    }
+    return prices;
+  };
+
   render() {
     const { isLoading, spaces, history } = this.props;
 
@@ -59,20 +68,17 @@ class SpaceManagementContainer extends Component {
         />
       );
     }
-
     return (
       <SpaceManageList
         spaces={spaces.map(space => ({
+          sizeType: space.sizeType,
           image: {
             src: (space.images[0] || {}).imageUrl,
             alt: '',
           },
           address: `${space.address}`,
           content: space.title,
-          prices: [
-            numeral(space.priceFull).format('0,0'),
-            numeral(space.priceTatami).format('0,0'),
-          ],
+          prices: this.getPrices(space.sizeType, space.priceFull, space.priceTatami),
           link: Path.space(space.id),
           status: space.status,
           onClickEdit: () => this.onClickEdit(space),
