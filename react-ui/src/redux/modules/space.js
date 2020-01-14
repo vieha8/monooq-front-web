@@ -805,7 +805,7 @@ function* getRecommendSpaces({ payload: { spaceId } }) {
 }
 
 function* getAddressByPostalCode({ payload: { postalCode } }) {
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${GEOCODE_API_KEY}&address=${postalCode}`;
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${GEOCODE_API_KEY}&address=${postalCode}&language=ja`;
 
   try {
     const { data: places, err } = yield call(
