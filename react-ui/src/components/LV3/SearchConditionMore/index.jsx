@@ -67,12 +67,6 @@ const BottomWrap = styled.div`
 `;
 
 class SearchConditionMore extends Component {
-  state = { open: false };
-
-  open = () => this.setState({ open: true });
-
-  close = () => this.setState({ open: false });
-
   getIsChecked = cityTownAreaList =>
     cityTownAreaList
       .map(item => item.townAreaList.filter(town => town.isChecked).length > 0 && 1)
@@ -80,6 +74,9 @@ class SearchConditionMore extends Component {
 
   render() {
     const {
+      isModalOpen,
+      handleModalOpen,
+      handleModalClose,
       btnText,
       regionPrefectureList,
       cityTownAreaList,
@@ -89,7 +86,6 @@ class SearchConditionMore extends Component {
       onClickCheckCity,
       onClickCheckTown,
     } = this.props;
-    const { open } = this.state;
 
     return (
       <Wrap>
@@ -102,19 +98,19 @@ class SearchConditionMore extends Component {
           borderbold
           fontbold
           fill={1}
-          onClick={this.open}
+          onClick={handleModalOpen}
         >
           {btnText}
         </Button>
         <Modal
           size="large"
-          open={open}
-          onClose={this.close}
+          open={isModalOpen}
+          onClose={handleModalClose}
           className="ButtonModalSearchConditionMore pc"
         >
           <Modal.Content scrolling>
             <CloseIconWrap>
-              <CloseIcon onClick={this.close} />
+              <CloseIcon onClick={handleModalClose} />
             </CloseIconWrap>
             <CityTownAreaListWrap isCityTownAreaList={cityTownAreaList.length > 0}>
               {cityTownAreaList.length === 0 && <PrefectureList list={regionPrefectureList} />}

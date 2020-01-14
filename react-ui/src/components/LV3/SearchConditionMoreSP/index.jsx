@@ -56,10 +56,12 @@ const Headline = styled.div`
 `;
 
 class SearchConditionMoreSP extends Component {
-  state = {
-    open: false,
-    isTownArea: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isTownArea: false,
+    };
+  }
 
   static getDerivedStateFromProps(props, state) {
     if (props.cityTownAreaList.length > 0 && !state.isTownArea) {
@@ -67,10 +69,6 @@ class SearchConditionMoreSP extends Component {
     }
     return null;
   }
-
-  open = () => this.setState({ open: true });
-
-  close = () => this.setState({ open: false });
 
   getIsChecked = cityTownAreaList =>
     cityTownAreaList
@@ -87,27 +85,30 @@ class SearchConditionMoreSP extends Component {
       onClickMore,
       onClickCheckCity,
       onClickCheckTown,
+      isModalOpen,
+      handleModalOpen,
+      handleModalClose,
     } = this.props;
-    const { open, isTownArea } = this.state;
+    const { isTownArea } = this.state;
 
     return (
       <Wrap>
         {searchIcon ? (
-          <SearchIcon onClick={this.open} />
+          <SearchIcon onClick={handleModalOpen} />
         ) : (
-          <ButtonLV1 primary borderbold fontbold fill={1} onClick={this.open}>
+          <ButtonLV1 primary borderbold fontbold fill={1} onClick={handleModalOpen}>
             {btnText}
           </ButtonLV1>
         )}
         <Modal
           size="large"
-          open={open}
-          onClose={this.close}
+          open={isModalOpen}
+          onClose={handleModalClose}
           className="ButtonModalSearchConditionMore"
         >
           <Modal.Content scrolling>
             <CloseIconWrap>
-              <CloseIcon onClick={this.close} />
+              <CloseIcon onClick={handleModalClose} />
             </CloseIconWrap>
             {isTownArea ? (
               <ContentWrap>
