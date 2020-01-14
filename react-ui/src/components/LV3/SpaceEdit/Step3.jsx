@@ -26,19 +26,8 @@ const UnderLine = styled.span`
   text-decoration: underline;
 `;
 
-const getPlaceHolderPriceFull = sizeType => {
-  let placeHolder = '30,000';
-  if (sizeType === 4) {
-    placeHolder = '5,000';
-  } else if (sizeType === 5) {
-    placeHolder = '40,000';
-  }
-  return placeHolder;
-};
-
 export default ({
   isPriceTatami,
-  sizeType,
   edit,
   errors,
   isRoom,
