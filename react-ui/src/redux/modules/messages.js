@@ -1,8 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, take, select, fork, cancel, cancelled } from 'redux-saga/effects';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 import { push } from 'connected-react-router';
 import { captureException } from '@sentry/browser';
 import { getToken } from 'redux/modules/auth';
@@ -77,18 +75,18 @@ export const messagesReducer = handleActions(
   initialState,
 );
 
-const roomCollection = () => {
-  const firestore = firebase.firestore();
-  return firestore.collection('rooms');
+const roomCollection = async () => {
+  const firebase = await import('firebase/app');
+  await import('firebase/firestore');
+  return firebase.firestore().collection('rooms');
 };
 
 // ルーム取得
 const getRooms = userId =>
   new Promise(async (resolve, reject) => {
     try {
-      const rooms = await roomCollection()
-        .where(`user${userId}`, '==', true)
-        .get();
+      const c = await roomCollection();
+      const rooms = await c.where(`user${userId}`, '==', true).get();
       const res = [];
       rooms.forEach(room => {
         if (room.data().lastMessageDt) {
@@ -178,10 +176,8 @@ function* fetchUnreadRoomsStart() {
 const getMessages = roomId =>
   new Promise(async (resolve, reject) => {
     try {
-      if (roomId === 'TzcRXl3C27n02lK2CaEj' || roomId === '2ALocP9qppkAjMjjynlF') {
-        reject();
-      }
-      const roomDoc = roomCollection().doc(roomId);
+      const c = await roomCollection();
+      const roomDoc = await c.doc(roomId);
       const messages = await roomDoc
         .collection('messages')
         .orderBy('createDt')
@@ -288,16 +284,14 @@ function* fetchMessagesStart({ payload: roomId }) {
   // 既読フラグ付加
   if (messages.length > 0) {
     const lastMessage = messages[messages.length - 1];
-    roomCollection()
-      .doc(roomId)
-      .set(
-        { [`user${user.id}LastRead`]: lastMessage.id, [`user${user.id}LastReadDt`]: new Date() },
-        { merge: true },
-      );
+    const c = yield roomCollection();
+    c.doc(roomId).set(
+      { [`user${user.id}LastRead`]: lastMessage.id, [`user${user.id}LastReadDt`]: new Date() },
+      { merge: true },
+    );
   } else {
-    roomCollection()
-      .doc(roomId)
-      .set({ [`user${user.id}LastReadDt`]: new Date() }, { merge: true });
+    const c = yield roomCollection();
+    c.doc(roomId).set({ [`user${user.id}LastReadDt`]: new Date() }, { merge: true });
   }
 
   // メッセージが１件のみの場合はobserverから取得した方を使用するためViewとして追加しない
@@ -344,13 +338,15 @@ export const createRoom = (userId1, userName, firebaseUid1, userId2, firebaseUid
       lastMessage: `${formatName(userName)}さんが興味を持っています`,
       status: 0,
     };
-    const roomRef = await roomCollection().add(room);
+    const c = await roomCollection();
+    const roomRef = await c.add(room);
     resolve(roomRef.id);
   });
 
 export const getRoomId = (userId1, userId2, spaceId) =>
   new Promise(async resolve => {
-    const rooms = await roomCollection()
+    const c = await roomCollection();
+    const rooms = await c
       .where(`user${userId1}`, '==', true)
       .where(`user${userId2}`, '==', true)
       .where(`space${spaceId}`, '==', true)
@@ -405,7 +401,8 @@ function* sendMessage(payload) {
       if (imageUrl) {
         message.image = imageUrl;
       }
-      const roomDoc = roomCollection().doc(roomId);
+      const c = await roomCollection();
+      const roomDoc = await c.doc(roomId);
       const messageDoc = await roomDoc.collection('messages').add(message);
       await roomDoc.set(
         {

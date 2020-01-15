@@ -1,12 +1,11 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, select } from 'redux-saga/effects';
-import firebase from 'firebase/app';
-import 'firebase/auth';
 import { push } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import { ErrorMessages } from 'variables';
 import Path from 'config/path';
+import firebaseConfig from 'config/firebase';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { convertImgixUrl } from 'helpers/imgix';
 import { uiActions } from './ui';
@@ -208,9 +207,25 @@ export const authReducer = handleActions(
   initialState,
 );
 
+const getFirebaseAuth = async () => {
+  const firebase = await import('firebase/app');
+  await import('firebase/auth');
+
+  try {
+    firebase.initializeApp(firebaseConfig());
+  } catch (err) {
+    if (!/already exists/.test(err.message)) {
+      console.error('Firebase initialization error', err.stack);
+    }
+  }
+
+  return firebase.auth;
+};
+
 const getLoginUserFirebaseAuth = () =>
-  new Promise((resolve, reject) => {
-    const unsub = firebase.auth().onAuthStateChanged(user => {
+  new Promise(async (resolve, reject) => {
+    const auth = await getFirebaseAuth();
+    const unsub = auth().onAuthStateChanged(user => {
       unsub();
       resolve(user);
     }, reject);
@@ -227,9 +242,9 @@ const setSentryConfig = user => {
 };
 
 const getFirebaseAuthToken = () =>
-  new Promise((resolve, reject) => {
-    firebase
-      .auth()
+  new Promise(async (resolve, reject) => {
+    const auth = await getFirebaseAuth();
+    auth()
       .currentUser.getIdToken(true)
       .then(token => resolve(token))
       .catch(err => reject(err));
@@ -238,7 +253,8 @@ const getFirebaseAuthToken = () =>
 const tokenCacheKey = 'firebase_token';
 
 function* makeToken() {
-  if (!firebase.auth().currentUser) {
+  const auth = yield call(getFirebaseAuth);
+  if (!auth().currentUser) {
     return '';
   }
 
@@ -247,7 +263,7 @@ function* makeToken() {
     return '';
   }
 
-  yield call(putApiRequest, apiEndpoint.authFirebase(firebase.auth().currentUser.uid), {}, token);
+  yield call(putApiRequest, apiEndpoint.authFirebase(auth().currentUser.uid), {}, token);
   if (isAvailableLocalStorage()) {
     const limit = new Date();
     limit.setMinutes(limit.getMinutes() + 50);
@@ -259,9 +275,11 @@ function* makeToken() {
 
 // Sagas
 export function* getToken() {
-  if (!firebase.auth().currentUser) {
+  const auth = yield call(getFirebaseAuth);
+  if (!auth().currentUser) {
     return '';
   }
+
   if (isAvailableLocalStorage()) {
     const cache = localStorage.getItem(tokenCacheKey);
     if (cache) {
@@ -278,9 +296,8 @@ export function* getToken() {
   return yield makeToken();
 }
 
-const checkLoginWithEmailLink = (email, url) => {
-  return firebase
-    .auth()
+const checkLoginWithEmailLink = (auth, email, url) => {
+  return auth
     .signInWithEmailLink(email, url)
     .then(r => r)
     .catch(e => e);
@@ -288,13 +305,14 @@ const checkLoginWithEmailLink = (email, url) => {
 
 function* checkLogin() {
   const { query } = parseUrl(window.location.href);
+  const auth = yield call(getFirebaseAuth);
   if (query.mode && query.mode === 'signIn') {
-    yield call(checkLoginWithEmailLink, query.email, window.location.href);
+    yield call(checkLoginWithEmailLink, auth, query.email, window.location.href);
   }
-
   const status = { isLogin: false };
   try {
-    const { currentUser } = firebase.auth();
+    const { currentUser } = auth();
+
     let firebaseUid = '';
 
     if (currentUser) {
@@ -352,7 +370,8 @@ function* checkLogin() {
 
 function* loginEmail({ payload: { email, password } }) {
   try {
-    yield firebase.auth().signInWithEmailAndPassword(email, password);
+    const auth = yield call(getFirebaseAuth);
+    yield auth().signInWithEmailAndPassword(email, password);
     yield checkLogin();
     yield put(authActions.loginSuccess());
   } catch (err) {
@@ -366,8 +385,9 @@ function* loginFacebook() {
     if (redirectPath && isAvailableLocalStorage()) {
       localStorage.setItem('redirectPath', redirectPath);
     }
-    const provider = new firebase.auth.FacebookAuthProvider();
-    yield firebase.auth().signInWithRedirect(provider);
+    const auth = yield call(getFirebaseAuth);
+    const provider = new auth.FacebookAuthProvider();
+    yield auth().signInWithRedirect(provider);
   } catch (err) {
     yield handleError(authActions.loginFailed, err.message, 'loginFacebook', err, true);
   }
@@ -378,12 +398,14 @@ function* logout() {
   if (isAvailableLocalStorage()) {
     localStorage.removeItem(tokenCacheKey);
   }
-  yield firebase.auth().signOut();
+  const auth = yield call(getFirebaseAuth);
+  yield auth().signOut();
 }
 
 function* signUpEmail({ payload: { email, password } }) {
   try {
-    const result = yield firebase.auth().createUserWithEmailAndPassword(email, password);
+    const auth = yield call(getFirebaseAuth);
+    const result = yield auth().createUserWithEmailAndPassword(email, password);
     const firebaseUid = result.user.uid;
 
     const defaultImage =
@@ -446,8 +468,9 @@ function* signUpEmail({ payload: { email, password } }) {
 
 function* signUpFacebook() {
   try {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    const result = yield firebase.auth().signInWithRedirect(provider);
+    const auth = yield call(getFirebaseAuth);
+    const provider = new auth.FacebookAuthProvider();
+    const result = yield auth().signInWithRedirect(provider);
     const { isNewUser } = result.additionalUserInfo;
     if (!isNewUser) {
       yield put(authActions.signupFailed(ErrorMessages.FailedSignUpMailExist));
@@ -513,7 +536,7 @@ function* signUpFacebook() {
 }
 
 function* passwordReset({ payload: { email } }) {
-  const auth = firebase.auth();
+  const auth = yield call(getFirebaseAuth);
   try {
     yield auth.sendPasswordResetEmail(email);
     yield put(authActions.passwordResetSuccess());

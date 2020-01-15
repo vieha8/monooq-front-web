@@ -603,6 +603,9 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
     yield take(authActions.checkLoginSuccess);
   }
   user = yield select(state => state.auth.user);
+  if (!user.id) {
+    return;
+  }
   const token = yield* getToken();
   const { err } = yield call(
     postApiRequest,
@@ -610,7 +613,6 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
     {},
     token,
   );
-
   if (err) {
     yield handleError('', '', 'addSpaceAccessLog', err, false);
   }
