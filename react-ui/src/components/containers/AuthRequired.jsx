@@ -19,7 +19,7 @@ const authRequired = WrappedComponent => {
 
     render() {
       const { isLogin, isInit } = this.props;
-      if (!isInit) {
+      if (!isLogin && !isInit) {
         return <LoadingPage />;
       }
       if (!isLogin && isInit) {
