@@ -11,7 +11,7 @@ import { handleError } from 'redux/modules/error';
 import { getApiRequest, postApiRequest, apiEndpoint } from 'redux/helpers/api';
 import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
-import { convertImgixUrl } from 'helpers/imgix';
+import { convertImgixUrl, convertSpaceImgUrl } from 'helpers/imgix';
 import { formatName } from 'helpers/string';
 import Path from 'config/path';
 
@@ -315,6 +315,12 @@ function* fetchMessagesStart({ payload: roomId }) {
 
   yield put(spaceActions.fetchSpace({ spaceId }));
   const { payload: space } = yield take(spaceActions.fetchSuccessSpace);
+
+  space.images = space.images.map(image => ({
+    ...image,
+    imageUrl: convertSpaceImgUrl(image.imageUrl, 'w=100&fit=crop'),
+  }));
+
   room.space = space;
 
   yield put(messagesActions.fetchMessagesEnd({ messages, room }));

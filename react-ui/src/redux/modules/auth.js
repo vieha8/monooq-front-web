@@ -18,6 +18,7 @@ import {
   apiEndpoint,
   putApiRequest,
 } from '../helpers/api';
+import { parseUrl } from '../../helpers/query-string';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -83,6 +84,7 @@ const initialState = {
   user: {},
   error: '',
   token: null,
+  intercom: { hash: '' },
 };
 export const authReducer = handleActions(
   {
@@ -294,7 +296,20 @@ export function* getToken() {
   return yield makeToken();
 }
 
+const checkLoginWithEmailLink = (email, url) => {
+  return firebase
+    .auth()
+    .signInWithEmailLink(email, url)
+    .then(r => r)
+    .catch(e => e);
+};
+
 function* checkLogin() {
+  const { query } = parseUrl(window.location.href);
+  if (query.mode && query.mode === 'signIn') {
+    yield call(checkLoginWithEmailLink, query.email, window.location.href);
+  }
+
   const status = { isLogin: false };
   try {
     const auth = yield call(getFirebaseAuth);
@@ -337,6 +352,10 @@ function* checkLogin() {
       yield call(postApiRequest, apiEndpoint.login(), { UserId: data.id }, token);
       ReactGA.set({ userId: data.id });
       setSentryConfig(data);
+
+      const { data: intercom } = yield call(getApiRequest, apiEndpoint.intercom(data.id), {}, '');
+      status.intercom = { hash: intercom.hash };
+
       if (isAvailableLocalStorage()) {
         const redirectPath = localStorage.getItem('redirectPath');
         if (redirectPath) {

@@ -46,8 +46,8 @@ class SpaceEdit3Container extends Component {
     const { space } = this.props;
     this.state = {
       isPriceTatami: false,
-      priceFull: space.priceFull || '',
-      priceTatami: space.priceTatami || '',
+      priceFull: space.priceFull || 0,
+      priceTatami: space.priceTatami || 0,
       error: {},
       isUpdate: !!props.match.params.space_id,
     };
@@ -68,11 +68,10 @@ class SpaceEdit3Container extends Component {
     if (space.address) {
       dispatch(spaceActions.getGeocode({ address: space.address }));
     }
-
     if (isUpdate) {
-      this.handleChangeUI('priceFull', priceFull);
+      this.handleChangePriceUI('priceFull', priceFull);
       if (isPriceTatami) {
-        this.handleChangeUI('priceTatami', priceTatami);
+        this.handleChangePriceUI('priceTatami', priceTatami);
       }
     }
 
@@ -154,12 +153,12 @@ class SpaceEdit3Container extends Component {
     history.push(nextPath);
   };
 
-  handleChangeUI = (propName, value) => {
-    const { state } = this;
+  handleChangePriceUI = (propName, value) => {
+    const state = { ...this.state };
     const { error } = state;
     const returnValue = formatRemoveComma(value);
     const priceErrors = checkError(returnValue);
-    state[propName] = formatAddComma(returnValue);
+    state[propName] = returnValue === '' ? 0 : returnValue;
     error[propName] = priceErrors;
     this.setState({ ...state, error });
   };
@@ -197,13 +196,14 @@ class SpaceEdit3Container extends Component {
     return (
       <SpaceEditStep3
         isPriceTatami={isPriceTatami}
+        sizeType={space.sizeType}
         edit={isUpdate}
         errors={error}
         isRoom={space.sizeType > 0 && space.sizeType < 4}
-        priceFull={priceFull}
-        onChangePriceFull={v => this.handleChangeUI('priceFull', v)}
-        priceTatami={priceTatami}
-        onChangePriceTatami={v => this.handleChangeUI('priceTatami', v)}
+        priceFull={parseInt(priceFull, 10) === 0 ? '' : formatAddComma(priceFull)}
+        onChangePriceFull={v => this.handleChangePriceUI('priceFull', v)}
+        priceTatami={parseInt(priceTatami, 10) === 0 ? '' : formatAddComma(priceTatami)}
+        onChangePriceTatami={v => this.handleChangePriceUI('priceTatami', v)}
         buttonLoading={isLoading}
         onClickBack={this.onClickBack}
         onKeyDownButtonBack={this.onKeyDownButtonBack}

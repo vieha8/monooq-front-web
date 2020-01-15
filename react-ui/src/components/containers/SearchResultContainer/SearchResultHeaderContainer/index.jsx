@@ -22,6 +22,7 @@ class SearchResultHeaderContainer extends Component {
       areaPinList: [],
       areaAroundList: [],
       prefectureList: [],
+      isModalOpen: false,
     };
   }
 
@@ -161,6 +162,8 @@ class SearchResultHeaderContainer extends Component {
       return;
     }
 
+    this.setState({ isModalOpen: false });
+
     const { history, conditions } = this.props;
 
     if (townsCode.length === 1 && citiesCode.length === 1) {
@@ -297,6 +300,7 @@ class SearchResultHeaderContainer extends Component {
       areaPinList,
       areaAroundList,
       prefectureList,
+      isModalOpen,
     } = this.state;
 
     const conditionTitle = makeConditionTitle(conditions);
@@ -309,6 +313,9 @@ class SearchResultHeaderContainer extends Component {
         />
         {breadcrumbs && <BreadcrumbsList breadcrumbsList={breadcrumbs} />}
         <SearchResultHeader
+          isModalOpen={isModalOpen}
+          handleModalOpen={() => this.setState({ isModalOpen: true })}
+          handleModalClose={() => this.setState({ isModalOpen: false })}
           conditionTitle={conditionTitle}
           maxCount={maxCount}
           prefecture={conditions.pref.name}
@@ -340,7 +347,4 @@ const mapStateToProps = state => ({
   cities: state.space.search.cities,
 });
 
-export default connect(
-  SearchResultHeaderContainer,
-  mapStateToProps,
-);
+export default connect(SearchResultHeaderContainer, mapStateToProps);
