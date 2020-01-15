@@ -296,9 +296,8 @@ export function* getToken() {
   return yield makeToken();
 }
 
-const checkLoginWithEmailLink = (email, url) => {
-  return firebase
-    .auth()
+const checkLoginWithEmailLink = (auth, email, url) => {
+  return auth
     .signInWithEmailLink(email, url)
     .then(r => r)
     .catch(e => e);
@@ -306,13 +305,12 @@ const checkLoginWithEmailLink = (email, url) => {
 
 function* checkLogin() {
   const { query } = parseUrl(window.location.href);
+  const auth = yield call(getFirebaseAuth);
   if (query.mode && query.mode === 'signIn') {
-    yield call(checkLoginWithEmailLink, query.email, window.location.href);
+    yield call(checkLoginWithEmailLink, auth, query.email, window.location.href);
   }
-
   const status = { isLogin: false };
   try {
-    const auth = yield call(getFirebaseAuth);
     const { currentUser } = auth();
 
     let firebaseUid = '';
@@ -373,7 +371,7 @@ function* checkLogin() {
 function* loginEmail({ payload: { email, password } }) {
   try {
     const auth = yield call(getFirebaseAuth);
-    auth().signInWithEmailAndPassword(email, password);
+    yield auth().signInWithEmailAndPassword(email, password);
     yield checkLogin();
     yield put(authActions.loginSuccess());
   } catch (err) {
