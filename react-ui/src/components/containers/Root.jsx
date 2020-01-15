@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import * as Sentry from '@sentry/browser';
 import ReactGA from 'react-ga';
 import { initActions } from 'redux/modules/init';
-import SystemError from 'components/LV3/SystemError';
 import { parse } from 'helpers/query-string';
 import { isAvailableLocalStorage } from 'helpers/storage';
+import loadable from '@loadable/component';
+
+const SystemError = loadable(() => import('components/LV3/SystemError'));
 
 class Root extends React.Component {
   constructor(props) {
