@@ -4,6 +4,7 @@ import { userActions } from 'redux/modules/user';
 import RegisterHowToUse from 'components/LV3/RegisterHowToUse';
 import ReactGA from 'react-ga';
 import { handleAccessTrade, handleCircuitX } from 'helpers/asp';
+import { handleGTM } from 'helpers/gtm';
 
 export default class RegisterHowToUseContainer extends Component {
   constructor(props) {
@@ -26,6 +27,11 @@ export default class RegisterHowToUseContainer extends Component {
   onClickRegisterProfile = () => {
     const { dispatch, user, history } = this.props;
     const { isHost } = this.state;
+
+    if (isHost === 0) {
+      handleGTM('userRegistered', user.id);
+    }
+
     dispatch(
       userActions.updateUser({
         userId: user.id,

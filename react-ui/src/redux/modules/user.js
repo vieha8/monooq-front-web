@@ -2,7 +2,6 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, select, call } from 'redux-saga/effects';
 import dummySpaceImage from 'images/dummy_space.png';
 import { convertImgixUrl } from 'helpers/imgix';
-import { handleGTM } from 'helpers/gtm';
 import { push } from 'connected-react-router';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
@@ -180,11 +179,6 @@ function* getSpaces(params) {
 }
 
 function* updateUser({ payload: { userId, body } }) {
-  const user = yield select(state => state.auth.user);
-  if (user.name === '' && body.name !== '') {
-    handleGTM('userRegistered', user.id);
-  }
-
   if (body.imageUrl instanceof Blob) {
     const fileReader = new FileReader();
     fileReader.readAsArrayBuffer(body.imageUrl);
