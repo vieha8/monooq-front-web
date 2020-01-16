@@ -538,7 +538,7 @@ function* signUpFacebook() {
 function* passwordReset({ payload: { email } }) {
   const auth = yield call(getFirebaseAuth);
   try {
-    yield auth.sendPasswordResetEmail(email);
+    yield auth().sendPasswordResetEmail(email);
     yield put(authActions.passwordResetSuccess());
   } catch (err) {
     let errMessage = '';
