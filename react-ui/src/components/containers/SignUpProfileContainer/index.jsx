@@ -9,7 +9,7 @@ class SignUpProfileContainer extends Component {
     return (
       <AccountTemplate
         title="新規登録"
-        header={<Header noHeaderButton />}
+        header={<Header noHeaderButton noLinkLogo />}
         form={<RegisterProfile {...this.props} />}
       />
     );

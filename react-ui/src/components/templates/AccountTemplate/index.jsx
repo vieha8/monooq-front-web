@@ -5,16 +5,16 @@ import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { H1 } from 'components/LV1/Texts/Headline';
 
 const Page = styled.div`
-  padding: 128px 0;
+  padding: 85px 0;
   ${media.phone`
     padding: 54px 0;
   `};
 `;
 
 const Spacer = styled.div`
-  margin-top: 34px;
+  margin-top: 54px;
   ${media.tablet`
-    margin-top: 0;
+    margin-top: 24px;
   `};
   ${media.phone`
     margin-top: 54px;

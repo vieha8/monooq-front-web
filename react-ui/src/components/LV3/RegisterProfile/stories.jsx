@@ -18,6 +18,7 @@ storiesOf('Organisms(LV3)/RegisterProfile', module)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <RegisterProfile
+          isHost={0}
           errors={[]}
           onChangeImage={() => console.log('onChangeImage')}
           imagePreview=""
@@ -26,10 +27,8 @@ storiesOf('Organisms(LV3)/RegisterProfile', module)
           name="name"
           onChangeArea={() => console.log('onChangeArea')}
           prefCode={1}
-          onChangeProfile={() => console.log('onChangeProfile')}
-          profile="sample profile"
-          onChangePhoneNumber={() => console.log('onChangePhoneNumber')}
-          phoneNumber="0901231234"
+          onClickPurposeGuest={() => console.log('onClickPurposeGuest')}
+          onClickPurposeHost={() => console.log('onClickPurposeHost')}
           buttonDisabled={false}
           buttonLoading={false}
           onClickRegisterProfile={() => console.log('onClickRegisterProfile')}
