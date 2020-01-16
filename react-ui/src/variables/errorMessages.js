@@ -22,9 +22,7 @@ export default {
   InvalidPostalCode: 'これは正しい郵便番号ではないようです。',
   InvalidEmail: 'これは正しいメールアドレスではないようです。',
   InvalidPhoneNumber: 'これは正しい電話番号ではないようです。',
-  InvalidPassword: 'パスワードは8桁以上の半角英数字で登録してください。',
-  NotMatchPassword:
-    '異なるパスワードが入力されています。同じ8桁以上の半角英数字を入力してください。',
+  InvalidPassword: 'パスワードは8文字以上の半角英数字で登録してください。',
   FailedSignUpMailExist: 'すでに登録済みのメールアドレスです。',
   FailedResetPassword: 'このメールアドレスは未登録です。',
   FailedGetAddress: '存在しない郵便番号です。',

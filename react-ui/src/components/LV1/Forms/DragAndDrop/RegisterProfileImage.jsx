@@ -2,23 +2,23 @@ import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import { Colors, FontSizes } from 'variables';
+import IconProfileDefault from 'images/icon-profile-default.svg';
 
 const DropzoneWrap = styled.div`
   display: table;
   cursor: pointer;
+  margin: auto;
 `;
 
 const Container = styled.div`
   display: table-cell;
   vertical-align: middle;
-  text-align: left;
+  text-align: center;
 `;
 
-const Image = styled.i`
+const Image = styled.img`
   display: block;
-  font-size: 70px;
   margin: 0 auto;
-  color: ${Colors.lightGray1};
 `;
 
 const Text = styled.div`
@@ -47,8 +47,8 @@ export default ({ onDrop, image, imagePreview }) => (
             <Preview src={imagePreview || image} />
           ) : (
             <div>
-              <Image className="fal fa-image" />
-              <Text>写真を登録する</Text>
+              <Image src={IconProfileDefault} alt="profile" />
+              <Text>写真を選択</Text>
             </div>
           )}
           <input {...getInputProps()} />

@@ -8,6 +8,7 @@ class SignUpProfileContainer extends Component {
   render() {
     return (
       <AccountTemplate
+        title="新規登録"
         header={<Header noHeaderButton />}
         form={<RegisterProfile {...this.props} />}
       />
@@ -22,7 +23,4 @@ const mapStateToProps = state => ({
   isSignupFailed: state.auth.isSignupFailed,
 });
 
-export default connect(
-  SignUpProfileContainer,
-  mapStateToProps,
-);
+export default connect(SignUpProfileContainer, mapStateToProps);

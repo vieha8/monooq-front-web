@@ -29,9 +29,7 @@ const ErrMessage = styled.div`
 
 const Validate = {
   Email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
-  Password: {
-    Min: 8,
-  },
+  Password: /^([a-zA-Z0-9]{8,})$/,
 };
 
 export default class RegisterContainer extends Component {
@@ -42,35 +40,14 @@ export default class RegisterContainer extends Component {
       email: '',
       password: '',
       isUnVisiblePW: true,
-      hasChanged: false,
-      errors: {},
+      error: {},
     };
   }
 
   onClickNext = () => {
     const { email, password } = this.state;
-
-    this.setState({ hasChanged: false, errors: {} });
-
-    if (this.validate()) {
-      const { dispatch } = this.props;
-      dispatch(authActions.signupEmail({ email, password }));
-      return;
-    }
-
-    const errors = {};
-    // emailチェック
-    if (!email) {
-      errors.email = [].concat(errors.email, [ErrorMessages.PleaseInput]);
-    }
-    if (!email.match(Validate.Email)) {
-      errors.email = [].concat(errors.email, [ErrorMessages.InvalidEmail]);
-    }
-    // パスワードチェック
-    if (password.length < Validate.Password.Min) {
-      errors.password = [].concat(errors.password, [ErrorMessages.InvalidPassword]);
-    }
-    this.setState({ errors });
+    const { dispatch } = this.props;
+    dispatch(authActions.signupEmail({ email, password }));
   };
 
   onClickFacebook = () => {
@@ -78,11 +55,33 @@ export default class RegisterContainer extends Component {
     dispatch(authActions.signupFacebook());
   };
 
-  handleChangeForm = (name, value) => {
+  handleChangeUI = (propName, value) => {
     const { state } = this;
-    state[name] = value;
-    state.hasChanged = true;
-    this.setState(state);
+    const { error } = state;
+    const errors = [];
+
+    switch (propName) {
+      case 'email':
+        if (!value || value.trim().length === 0) {
+          errors.push(ErrorMessages.PleaseInput);
+        } else if (!value.match(Validate.Email)) {
+          errors.push(ErrorMessages.InvalidEmail);
+        }
+        break;
+      case 'password':
+        if (!value || value.trim().length === 0) {
+          errors.push(ErrorMessages.PleaseInput);
+        } else if (!value.match(Validate.Password)) {
+          errors.push(ErrorMessages.InvalidPassword);
+        }
+        break;
+      default:
+        break;
+    }
+
+    state[propName] = value;
+    error[propName] = errors;
+    this.setState({ ...state, error });
   };
 
   onClickIconPassword = () => {
@@ -97,9 +96,7 @@ export default class RegisterContainer extends Component {
 
   validate = () => {
     const { email, password } = this.state;
-    return (
-      email && email.match(Validate.Email) && password && password.length >= Validate.Password.Min
-    );
+    return email && email.match(Validate.Email) && password && password.match(Validate.Password);
   };
 
   onKeyDownPassword = e => {
@@ -110,23 +107,24 @@ export default class RegisterContainer extends Component {
 
   render() {
     const { isRegistering, errorMessage, history } = this.props;
-    const { email, password, isUnVisiblePW, hasChanged, errors } = this.state;
+    const { email, password, isUnVisiblePW, error } = this.state;
     return (
       <Fragment>
         {errorMessage && <ErrMessage>{errorMessage}</ErrMessage>}
         <RegisterEmail
+          errors={error}
+          isErrorMessage={errorMessage}
           onClickNext={this.onClickNext}
           onClickFacebook={this.onClickFacebook}
-          onChangeEmail={value => this.handleChangeForm('email', value)}
-          onChangePassword={value => this.handleChangeForm('password', value)}
+          onChangeEmail={v => this.handleChangeUI('email', v)}
+          onChangePassword={v => this.handleChangeUI('password', v)}
           onKeyDownPassword={this.onKeyDownPassword}
           email={email}
-          emailError={(!hasChanged && errors.email) || []}
           password={password}
-          passError={(!hasChanged && errors.password) || []}
           ispasswordVisible={isUnVisiblePW}
           onClickIconPassword={this.onClickIconPassword}
           isRegisterChecking={isRegistering}
+          buttonDisabled={!this.validate()}
           onClickLogin={() => history.push(Path.login())}
         />
       </Fragment>

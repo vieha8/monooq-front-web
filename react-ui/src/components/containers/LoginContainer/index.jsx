@@ -90,7 +90,7 @@ class LoginContainer extends Component {
     const { ui, isLogin } = this.props;
 
     if (!isLogin) {
-      return <AccountTemplate header={<Header noHeaderButton />} form={this.form()} />;
+      return <AccountTemplate title="ログイン" header={<Header />} form={this.form()} />;
     }
 
     return <Redirect to={ui.redirectPath || Path.top()} />;
@@ -104,7 +104,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(
-  LoginContainer,
-  mapStateToProps,
-);
+export default connect(LoginContainer, mapStateToProps);

@@ -1,7 +1,6 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
-import { media, mediaMin } from 'helpers/style/media-query';
-import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { mediaMin } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
 import imageFacebook from 'images/icon-facebook.svg';
 import { PrimaryButton } from './Primary';
@@ -23,24 +22,6 @@ const Facebook = styled(PrimaryButton)`
       }
     `};
 
-  ${props =>
-    props.type2 &&
-    `
-      padding: ${Dimens.small_11}px ${Dimens.small_10}px;
-      background: ${Colors.white};
-      color: ${Colors.facebook_type2};
-      border: 2px solid ${Colors.facebook_type2};
-      padding-left: ${Dimens.medium}px;
-      &:active {
-        background: ${Colors.white};
-        color: ${Colors.facebookHover_type2};
-        border-color: ${Colors.facebookHover_type2};
-      }
-      &:active span img {
-        opacity: 0.7;
-      }
-    `};
-
   ${mediaMin.tablet`
     ${props =>
       !props.disabled &&
@@ -48,68 +29,33 @@ const Facebook = styled(PrimaryButton)`
         &:hover {
           background: ${Colors.facebookHover};
         };
-        ${props.type2 &&
-          `
-            &:hover {
-              background: ${Colors.white};
-              color: ${Colors.facebookHover_type2};
-              border-color: ${Colors.facebookHover_type2};
-            }
-            &:hover span img {
-              opacity: 0.7;
-            }
-          `};
       `};
-  `};
-
-  ${media.phone`
-    ${props =>
-      props.type2 &&
-      css`
-        padding: ${Dimens.small_10}px;
-        padding-left: ${Dimens.small_10}px;
-        padding-right: ${Dimens.xxsmall}px;
-      `}
   `};
 `;
 
-const btnlink = styled(Link)``;
-const HyperLink = btnlink.withComponent('a');
-
 const ImageWrap = styled.span`
-  display: inline-block;
-  position: relative;
-  padding-left: ${Dimens.medium_22}px;
+  vertical-align: top;
 `;
 
 const Image = styled.img`
-  width: ${Dimens.medium1}px;
-  position: absolute;
-  top: -1px;
-  left: -6px;
+  width: ${Dimens.medium_20}px;
+  position: relative;
+  top: 1px;
 `;
 
-export default ({ type2, loading, ...props }) =>
-  type2 ? (
-    <HyperLink href={props.url.toString('base64')} target="_blank" rel="noopener noreferrer">
-      <Facebook {...props}>
-        {!loading && (
-          <ImageWrap>
-            <Image src={imageFacebook} alt="icon-facebook" />
-            &nbsp;
-          </ImageWrap>
-        )}
-        {props.children}
-      </Facebook>
-    </HyperLink>
-  ) : (
-    <Facebook {...props} tabIndex={0}>
-      {!loading && (
-        <span>
-          <i className="fab fa-facebook-square" />
-          &nbsp;
-        </span>
-      )}
-      {props.children}
-    </Facebook>
-  );
+const getChildren = props => {
+  const { children } = props;
+  return children;
+};
+
+export default ({ loading, ...props }) => (
+  <Facebook {...props} tabIndex={0}>
+    {!loading && (
+      <ImageWrap>
+        <Image src={imageFacebook} alt="icon-facebook" />
+        &nbsp;&nbsp;
+      </ImageWrap>
+    )}
+    {getChildren(props)}
+  </Facebook>
+);

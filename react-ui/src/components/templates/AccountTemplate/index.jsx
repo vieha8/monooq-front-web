@@ -1,12 +1,32 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Colors, Dimens, ZIndexes } from 'variables';
+import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
+import { H1 } from 'components/LV1/Texts/Headline';
 
 const Page = styled.div`
   padding: 128px 0;
   ${media.phone`
-    padding: 60px 0;
+    padding: 54px 0;
+  `};
+`;
+
+const Spacer = styled.div`
+  margin-top: 34px;
+  ${media.tablet`
+    margin-top: 0;
+  `};
+  ${media.phone`
+    margin-top: 54px;
+  `};
+`;
+
+const Title = styled(H1)`
+  padding: ${Dimens.medium_20}px 0px;
+  text-align: center;
+  ${media.phone`
+    font-size: ${FontSizes.medium_18}px;
+    border-bottom: 1px solid ${Colors.borderGray};
   `};
 `;
 
@@ -31,11 +51,6 @@ const Container = styled.div`
   padding: ${Dimens.medium2}px;
   border-radius: 3px;
   border: 1px solid ${Colors.lightGray1};
-  ${props =>
-    props.err &&
-    `
-    margin-top: ${Dimens.medium3_40}px;
-  `};
   ${media.phone`
     width: 100%;
     padding: ${Dimens.medium}px;
@@ -44,20 +59,14 @@ const Container = styled.div`
 `;
 
 export default class AccountTemplate extends Component {
-  componentDidMount() {
-    this.prevBg = document.body.style.background;
-    document.body.style.background = Colors.lightGray1Bg;
-  }
-
-  componentWillUnmount() {
-    document.body.style.background = this.prevBg;
-  }
-
   render() {
+    const { errorHeader, title, stories, header, form } = this.props;
     return (
       <Page>
-        <HeaderContainer stories={this.props.stories}>{this.props.header}</HeaderContainer>
-        <Container err={this.props.err}>{this.props.form}</Container>
+        {errorHeader && <Spacer />}
+        <Title bold>{title}</Title>
+        <HeaderContainer stories={stories}>{header}</HeaderContainer>
+        <Container>{form}</Container>
       </Page>
     );
   }

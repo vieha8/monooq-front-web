@@ -1,49 +1,35 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Dimens, Colors } from 'variables';
+import { Dimens, Colors, FontSizes } from 'variables';
+import Path from 'config/path';
+import InputForm from 'components/LV2/Forms/InputForm';
+import InlineText from 'components/LV1/Texts/InlineText';
+import TextLink from 'components/LV1/Texts/TextLink';
+import ErrorList from 'components/LV2/Lists/ErrorList';
 
-const Logo = styled.div`
-  text-align: center;
-`;
+const Email = styled.div``;
 
-const Title = styled.div`
-  text-align: center;
+const ErrorWrapper = styled.div`
   margin-top: ${Dimens.small}px;
-  ${media.phone`
-    text-align: left;
-    margin-top: ${Dimens.xxsmall}px;
-  `};
-`;
-
-const Email = styled.div`
-  margin-top: ${Dimens.medium2_35}px;
-  ${media.phone`
-    margin-top: ${Dimens.medium1}px;
-  `};
 `;
 
 const Pass = styled.div`
   margin-top: ${Dimens.medium}px;
 `;
 
-const Failed = styled.div`
-  text-align: center;
-  margin-top: ${Dimens.xsmall}px;
-`;
-
 const Terms = styled.div`
   text-align: center;
-  margin-top: ${Dimens.medium2_35}px;
+  margin-top: ${Dimens.medium1_26}px;
   ${media.phone`
-    margin-top: ${Dimens.medium2}px;
+    margin-top: ${Dimens.medium_20}px;
   `};
 `;
 
 const Next = styled.div`
-  margin-top: ${Dimens.medium2_35}px;
+  margin-top: ${Dimens.medium1_26}px;
   ${media.phone`
-    margin-top: ${Dimens.medium2}px;
+    margin-top: ${Dimens.medium_20}px;
   `};
 `;
 
@@ -63,31 +49,49 @@ const ToLogin = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-export default ({
-  logo,
-  title,
-  email,
-  emailError,
-  pass,
-  passError,
-  terms,
-  next,
-  otherSignup,
-  facebook,
-  toLogin,
-}) => (
+export default ({ errors, email, onChangeEmail, pass, next, otherSignup, facebook, toLogin }) => (
   <Fragment>
-    <Logo>{logo}</Logo>
-    <Title>{title}</Title>
-    <Email>{email}</Email>
-    {emailError.map((dom, i) => (
-      <Failed key={`email_error_text_${i}`.toString()}>{dom}</Failed>
-    ))}
+    <Email>
+      <InputForm
+        label="メールアドレス"
+        placeholder="例）info@monooq.com"
+        value={email}
+        onChange={e => onChangeEmail(e.target.value)}
+      />
+    </Email>
+    <ErrorWrapper>
+      <ErrorList keyName="error_email" errors={errors.email} />
+    </ErrorWrapper>
     <Pass>{pass}</Pass>
-    {passError.map((dom, i) => (
-      <Failed key={`password_error_text_${i}`.toString()}>{dom}</Failed>
-    ))}
-    <Terms>{terms}</Terms>
+    <ErrorWrapper>
+      <ErrorList keyName="error_password" errors={errors.password} />
+    </ErrorWrapper>
+    <Terms>
+      <InlineText.Base fontSize={12}>
+        新規登録を行うと、
+        <br />
+        <TextLink
+          to={Path.terms()}
+          target="_blank"
+          rel="noopener noreferrer"
+          fontSize={FontSizes.small_12}
+          color={Colors.brandPrimary}
+        >
+          利用規約
+        </TextLink>
+        と
+        <TextLink
+          to={Path.privacy()}
+          target="_blank"
+          rel="noopener noreferrer"
+          fontSize={FontSizes.small_12}
+          color={Colors.brandPrimary}
+        >
+          個人情報保護方針
+        </TextLink>
+        に同意したとみなします
+      </InlineText.Base>
+    </Terms>
     <Next>{next}</Next>
     <OtherSignup>{otherSignup}</OtherSignup>
     <Facebook>{facebook}</Facebook>

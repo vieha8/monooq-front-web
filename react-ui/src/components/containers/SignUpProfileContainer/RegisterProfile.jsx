@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { userActions } from 'redux/modules/user';
 import { uiActions } from 'redux/modules/ui';
 import RegisterProfile from 'components/LV3/RegisterProfile';
-import ReactGA from 'react-ga';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { handleGTM } from 'helpers/gtm';
@@ -15,9 +14,6 @@ const Validate = {
   ImageSize: {
     Max: 10485760, // 10MB
   },
-  Profile: {
-    Max: 1000,
-  },
 };
 
 export default class RegisterProfileContainer extends Component {
@@ -29,40 +25,41 @@ export default class RegisterProfileContainer extends Component {
       imageUrlPreview: '',
       name: '',
       prefCode: '',
-      profile: '',
-      isHost: 0,
+      isHost: 0, // 初期値はゲスト
       phoneNumber: '',
-      hasChanged: false,
       error: {},
     };
   }
 
   componentDidMount() {
-    const { name, prefCode, profile, phoneNumber } = this.state;
+    const { name, prefCode, phoneNumber } = this.state;
     this.handleChangeForm('name', name);
     this.handleChangeForm('prefCode', prefCode);
-    this.handleChangeForm('profile', profile);
     this.handleChangeForm('phoneNumber', phoneNumber);
   }
 
   componentDidUpdate(props) {
-    if (!props.user.id && this.props.user.id) {
-      const { user } = this.props;
+    const { user } = this.props;
+    if (!props.user.id && user.id) {
       handleGTM('leadUserRegistered', user.id);
     }
   }
 
   onClickRegisterProfile = () => {
     const { dispatch, user, history } = this.props;
-    const { image, name, prefCode, profile, phoneNumber } = this.state;
+    const { image, name, prefCode, phoneNumber } = this.state;
     dispatch(uiActions.setUiState({ redirectPath: '' }));
     dispatch(
       userActions.updateUser({
         userId: user.id,
-        body: { imageUrl: image, name, prefCode, profile, phoneNumber },
+        body: { imageUrl: image, name, prefCode, phoneNumber },
       }),
     );
     history.push(Path.signUpPurpose());
+  };
+
+  onClickPurpose = newState => {
+    this.setState({ isHost: newState });
   };
 
   handleChangeForm = (name, value) => {
@@ -90,14 +87,6 @@ export default class RegisterProfileContainer extends Component {
         }
         break;
 
-      case 'profile':
-        if (!value || value.trim().length === 0) {
-          errors.push(ErrorMessages.PleaseInput);
-        } else if (value.length > Validate.Profile.Max) {
-          errors.push(ErrorMessages.LengthMax('自己紹介', Validate.Profile.Max));
-        }
-        break;
-
       case 'phoneNumber':
         if (!value || value.replace(/\s/g, '').length === 0) {
           errors.push(ErrorMessages.PleaseInput);
@@ -117,21 +106,17 @@ export default class RegisterProfileContainer extends Component {
 
     state[name] = value;
     error[name] = errors;
-    state.hasChanged = true;
     this.setState({ ...state, error });
   };
 
   // TODO: 最適化したい(imageUrl箇所含む)
   validate = () => {
-    const { error, name, prefCode, profile, phoneNumber } = this.state;
+    const { error, name, prefCode, phoneNumber } = this.state;
     return (
       (error.image === undefined || (error.image && error.image.length === 0)) &&
       name &&
       name.length > 0 &&
       prefCode &&
-      profile &&
-      profile.length > 0 &&
-      profile.length <= Validate.Profile.Max &&
       phoneNumber &&
       (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
         phoneNumber.match(Validate.phoneNumber.HyphenVer))
@@ -139,12 +124,13 @@ export default class RegisterProfileContainer extends Component {
   };
 
   render() {
-    const { isLoading, history } = this.props;
-    const { image, imageUrlPreview, name, prefCode, profile, phoneNumber, error } = this.state;
+    const { isLoading } = this.props;
+    const { image, imageUrlPreview, name, prefCode, phoneNumber, isHost, error } = this.state;
 
     return (
       <Fragment>
         <RegisterProfile
+          isHost={isHost}
           errors={error}
           onChangeImage={picked => this.handleChangeForm('image', picked)}
           imagePreview={imageUrlPreview}
@@ -153,19 +139,12 @@ export default class RegisterProfileContainer extends Component {
           name={name}
           onChangeArea={value => this.handleChangeForm('prefCode', value)}
           prefCode={prefCode}
-          onChangeProfile={value => this.handleChangeForm('profile', value)}
-          profile={profile}
           onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
           phoneNumber={phoneNumber}
+          onClickPurposeGuest={() => this.onClickPurpose(0)}
+          onClickPurposeHost={() => this.onClickPurpose(1)}
           buttonDisabled={!this.validate()}
           buttonLoading={isLoading}
-          onClickSkip={() => {
-            ReactGA.event({
-              category: 'User Register',
-              action: 'Skip Profile',
-            });
-            history.push(Path.signUpPurpose());
-          }}
           onClickRegisterProfile={this.onClickRegisterProfile}
         />
       </Fragment>
