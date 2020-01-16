@@ -77,8 +77,16 @@ const ButtonPurpose = styled.div`
   border: 2px solid ${Colors.borderGray};
   border-radius: 3px;
   cursor: pointer;
-  background-image: url(${props => (props.home ? IconHomeGray : IconInteriaGray)});
-  background-size: ${props => (props.home ? 56 : 50)}px;
+  ${props =>
+    props.home
+      ? `
+        background-image: url(${IconHomeBlack}), url(${IconHomeGray});
+        background-size: 0, 56px;
+        `
+      : `
+        background-image: url(${IconInteriaBlack}), url(${IconInteriaGray});
+        background-size: 0, 50px;
+        `};
   background-position: center calc(50% - 12px);
   background-repeat: no-repeat;
   &:nth-child(2n) {
@@ -87,7 +95,7 @@ const ButtonPurpose = styled.div`
   ${props =>
     props.isHost &&
     `
-      background-image: url(${props.home ? IconHomeBlack : IconInteriaBlack});
+      background-size: ${props.home ? '56px, 0' : '50px, 0'};
       background-color: ${Colors.lightGray1Bg};
       border: 2px solid ${Colors.black};
     `};
