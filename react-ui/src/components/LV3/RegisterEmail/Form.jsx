@@ -49,7 +49,17 @@ const ToLogin = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-export default ({ errors, email, onChangeEmail, pass, next, otherSignup, facebook, toLogin }) => (
+export default ({
+  errors,
+  email,
+  onChangeEmail,
+  pass,
+  next,
+  otherSignup,
+  facebook,
+  toLogin,
+  isRegisterChecking,
+}) => (
   <Fragment>
     <Email>
       <InputForm
@@ -95,6 +105,6 @@ export default ({ errors, email, onChangeEmail, pass, next, otherSignup, faceboo
     <Next>{next}</Next>
     <OtherSignup>{otherSignup}</OtherSignup>
     <Facebook>{facebook}</Facebook>
-    <ToLogin>{toLogin}</ToLogin>
+    {!isRegisterChecking && <ToLogin>{toLogin}</ToLogin>}
   </Fragment>
 );

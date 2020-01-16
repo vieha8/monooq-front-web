@@ -48,7 +48,16 @@ const ToSignup = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-export default ({ email, onChangeEmail, pass, failed, login, facebook, toSignup }) => (
+export default ({
+  email,
+  onChangeEmail,
+  pass,
+  failed,
+  login,
+  facebook,
+  toSignup,
+  isLoginChecking,
+}) => (
   <Fragment>
     <Email>
       <InputField
@@ -71,6 +80,6 @@ export default ({ email, onChangeEmail, pass, failed, login, facebook, toSignup 
     </Remind>
     <Login>{login}</Login>
     <Facebook>{facebook}</Facebook>
-    <ToSignup>{toSignup}</ToSignup>
+    {!isLoginChecking && <ToSignup>{toSignup}</ToSignup>}
   </Fragment>
 );

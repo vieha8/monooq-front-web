@@ -45,7 +45,7 @@ const button = (mode, onClick, disabled, loading) => {
       break;
     case 'signup':
       returnVal = (
-        <Button secondary borderbold fontbold fill={1} onClick={onClick}>
+        <Button secondary borderbold fontbold fill={1} onClick={onClick} loading={loading}>
           新規登録はこちら
         </Button>
       );
@@ -89,6 +89,7 @@ export default ({
     }
     login={button('login', onClickLogin, buttonDisabled, isLoginChecking)}
     facebook={button('facebook', onClickFacebook, false, isLoginChecking)}
-    toSignup={button('signup', onClickSignup, false, false)}
+    toSignup={button('signup', onClickSignup, false, isLoginChecking)}
+    isLoginChecking={isLoginChecking}
   />
 );
