@@ -25,7 +25,7 @@ const Button = styled.div`
   `};
 `;
 
-export default ({ errors, image, name, prefCode, phoneNumber, buttonPurpose, button }) => (
+export default ({ errors, image, name, prefCode, buttonPurpose, button }) => (
   <Fragment>
     <SectionWrap noMarginTop>
       {image}
@@ -38,10 +38,6 @@ export default ({ errors, image, name, prefCode, phoneNumber, buttonPurpose, but
     <SectionWrap>
       {prefCode}
       <ErrorList keyName="prefCode_errors" errors={errors.prefCode} />
-    </SectionWrap>
-    <SectionWrap>
-      {phoneNumber}
-      <ErrorList keyName="phoneNumber_errors" errors={errors.phoneNumber} />
     </SectionWrap>
     <SectionWrap marginBottomSp={100}>{buttonPurpose}</SectionWrap>
     <Button>{button}</Button>

@@ -140,8 +140,6 @@ export default ({
   name,
   onChangeArea,
   prefCode,
-  onChangePhoneNumber,
-  phoneNumber,
   onClickPurposeHost,
   onClickPurposeGuest,
   buttonDisabled,
@@ -177,18 +175,6 @@ export default ({
       'gaSignupName',
     )}
     prefCode={selectForm(onChangeArea, prefCode, 'gaSignupPref')}
-    phoneNumber={inputForm(
-      '電話番号',
-      '取引時の保険適用に必須となります。緊急時の連絡先として利用させていただく場合もございます。',
-      '09012345678',
-      e => onChangePhoneNumber(e.target.value),
-      phoneNumber,
-      false,
-      0,
-      'tel',
-      '',
-      'gaSignupPhoneNumber',
-    )}
     buttonPurpose={buttonPurpose(isHost, onClickPurposeGuest, onClickPurposeHost)}
     button={buttonFinish(buttonDisabled, buttonLoading, onClickRegisterProfile)}
   />

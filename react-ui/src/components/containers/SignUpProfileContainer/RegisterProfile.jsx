@@ -7,10 +7,6 @@ import { ErrorMessages } from 'variables';
 import { handleGTM } from 'helpers/gtm';
 
 const Validate = {
-  phoneNumber: {
-    NoHyphenVer: /^0\d{9,10}$/, // 先頭「0」+「半角数字9〜10桁」
-    HyphenVer: /^0\d{2,3}-\d{2,4}-\d{4}$/, // 先頭「0」＋「半角数字2〜3桁」＋「-」＋「半角数字1〜4桁」＋「-」＋「半角数字4桁」
-  },
   ImageSize: {
     Max: 10485760, // 10MB
   },
@@ -26,16 +22,14 @@ export default class RegisterProfileContainer extends Component {
       name: '',
       prefCode: '',
       isHost: 0, // 初期値はゲスト
-      phoneNumber: '',
       error: {},
     };
   }
 
   componentDidMount() {
-    const { name, prefCode, phoneNumber } = this.state;
+    const { name, prefCode } = this.state;
     this.handleChangeForm('name', name);
     this.handleChangeForm('prefCode', prefCode);
-    this.handleChangeForm('phoneNumber', phoneNumber);
   }
 
   componentDidUpdate(props) {
@@ -47,12 +41,12 @@ export default class RegisterProfileContainer extends Component {
 
   onClickRegisterProfile = () => {
     const { dispatch, user, history } = this.props;
-    const { image, name, prefCode, phoneNumber, isHost } = this.state;
+    const { image, name, prefCode, isHost } = this.state;
     dispatch(uiActions.setUiState({ redirectPath: '' }));
     dispatch(
       userActions.updateUser({
         userId: user.id,
-        body: { imageUrl: image, name, prefCode, phoneNumber, isHost: Boolean(isHost) },
+        body: { imageUrl: image, name, prefCode, isHost: Boolean(isHost) },
       }),
     );
     history.push(Path.top());
@@ -87,19 +81,6 @@ export default class RegisterProfileContainer extends Component {
         }
         break;
 
-      case 'phoneNumber':
-        if (!value || value.replace(/\s/g, '').length === 0) {
-          errors.push(ErrorMessages.PleaseInput);
-        } else if (
-          !(
-            value.match(Validate.phoneNumber.NoHyphenVer) ||
-            value.match(Validate.phoneNumber.HyphenVer)
-          )
-        ) {
-          errors.push(ErrorMessages.InvalidPhoneNumber);
-        }
-        break;
-
       default:
         break;
     }
@@ -109,23 +90,19 @@ export default class RegisterProfileContainer extends Component {
     this.setState({ ...state, error });
   };
 
-  // TODO: 最適化したい(imageUrl箇所含む)
   validate = () => {
-    const { error, name, prefCode, phoneNumber } = this.state;
+    const { error, name, prefCode } = this.state;
     return (
       (error.image === undefined || (error.image && error.image.length === 0)) &&
       name &&
       name.length > 0 &&
-      prefCode &&
-      phoneNumber &&
-      (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
-        phoneNumber.match(Validate.phoneNumber.HyphenVer))
+      prefCode
     );
   };
 
   render() {
     const { isLoading } = this.props;
-    const { image, imageUrlPreview, name, prefCode, phoneNumber, isHost, error } = this.state;
+    const { image, imageUrlPreview, name, prefCode, isHost, error } = this.state;
 
     return (
       <Fragment>
@@ -139,8 +116,6 @@ export default class RegisterProfileContainer extends Component {
           name={name}
           onChangeArea={value => this.handleChangeForm('prefCode', value)}
           prefCode={prefCode}
-          onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
-          phoneNumber={phoneNumber}
           onClickPurposeGuest={() => this.onClickPurpose(0)}
           onClickPurposeHost={() => this.onClickPurpose(1)}
           buttonDisabled={!this.validate()}
