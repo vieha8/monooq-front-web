@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Sentry from '@sentry/browser';
+import ReactGA from 'react-ga';
 import { initActions } from 'redux/modules/init';
-import LoadingPage from 'components/LV3/LoadingPage';
-import SystemError from 'components/LV3/SystemError';
 import { parse } from 'helpers/query-string';
 import { isAvailableLocalStorage } from 'helpers/storage';
+import loadable from '@loadable/component';
+
+const SystemError = loadable(() => import('components/LV3/SystemError'));
 
 class Root extends React.Component {
   constructor(props) {
@@ -21,7 +23,6 @@ class Root extends React.Component {
       isIncompatible,
       hasError: false,
     };
-    props.dispatch(initActions.init());
   }
 
   static getDerivedStateFromError(error) {
@@ -33,20 +34,31 @@ class Root extends React.Component {
   }
 
   componentDidMount() {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
     const query = parse(history.location.search);
     if (isAvailableLocalStorage() && query.invite_code) {
       localStorage.setItem('invite_code', query.invite_code);
     }
+    const isLp = history.location.pathname.includes('/lp');
+    if (!isLp) {
+      dispatch(initActions.init());
+    }
+    ReactGA.initialize('UA-84238514-1');
+    Sentry.init({
+      dsn: 'https://d3223c25da3e4dcda892c9ac1cf7b0be@sentry.io/1287932',
+      environment: process.env.NODE_ENV,
+    });
   }
 
   componentDidCatch(error, errorInfo) {
-    Sentry.configureScope(scope => {
-      Object.keys(errorInfo).forEach(key => {
-        scope.setExtra(key, errorInfo[key]);
+    if (process.env.NODE_ENV === 'production') {
+      Sentry.configureScope(scope => {
+        Object.keys(errorInfo).forEach(key => {
+          scope.setExtra(key, errorInfo[key]);
+        });
       });
-    });
-    Sentry.captureException(error);
+      Sentry.captureException(error);
+    }
   }
 
   incompatibleMessage = () => (
@@ -58,7 +70,7 @@ class Root extends React.Component {
   );
 
   render() {
-    const { isInitialized, children } = this.props;
+    const { children } = this.props;
     const { isIncompatible, hasError } = this.state;
 
     if (hasError) {
@@ -69,16 +81,8 @@ class Root extends React.Component {
       return this.incompatibleMessage();
     }
 
-    if (!isInitialized) {
-      return <LoadingPage />;
-    }
-
     return children;
   }
 }
 
-const mapStateToProps = state => ({
-  isInitialized: state.init.isInitialized,
-});
-
-export default connect(mapStateToProps)(Root);
+export default connect()(Root);

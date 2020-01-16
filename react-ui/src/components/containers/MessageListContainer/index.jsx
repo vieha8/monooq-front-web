@@ -12,9 +12,7 @@ import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 
 class MessageListContainer extends Component {
-  constructor(props) {
-    super(props);
-
+  componentDidMount() {
     const { dispatch } = this.props;
     dispatch(messagesActions.fetchRoomsStart());
   }

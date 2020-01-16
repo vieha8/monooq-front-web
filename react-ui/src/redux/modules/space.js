@@ -603,6 +603,9 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
     yield take(authActions.checkLoginSuccess);
   }
   user = yield select(state => state.auth.user);
+  if (!user.id) {
+    return;
+  }
   const token = yield* getToken();
   const { err } = yield call(
     postApiRequest,
@@ -610,7 +613,6 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
     {},
     token,
   );
-
   if (err) {
     yield handleError('', '', 'addSpaceAccessLog', err, false);
   }
@@ -805,7 +807,7 @@ function* getRecommendSpaces({ payload: { spaceId } }) {
 }
 
 function* getAddressByPostalCode({ payload: { postalCode } }) {
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${GEOCODE_API_KEY}&address=${postalCode}`;
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${GEOCODE_API_KEY}&address=${postalCode}&language=ja`;
 
   try {
     const { data: places, err } = yield call(
@@ -827,20 +829,19 @@ function* getAddressByPostalCode({ payload: { postalCode } }) {
       const pref = places.results[0].address_components.filter(v =>
         v.types.includes('administrative_area_level_1'),
       )[0].long_name;
-      const city = places.results[0].address_components.filter(v => v.types.includes('locality'))[0]
+      let city = places.results[0].address_components.filter(v => v.types.includes('locality'))[0]
         .long_name;
 
-      let town = '';
       if (
         places.results[0].address_components.filter(v => v.types.includes('sublocality_level_1'))
           .length === 1
       ) {
-        town = places.results[0].address_components.filter(v =>
+        city += places.results[0].address_components.filter(v =>
           v.types.includes('sublocality_level_1'),
         )[0].long_name;
       }
 
-      town += places.results[0].address_components.filter(v =>
+      const town = places.results[0].address_components.filter(v =>
         v.types.includes('sublocality_level_2'),
       )[0].long_name;
       yield put(spaceActions.getAddressSuccess({ pref, city, town, postalCode }));

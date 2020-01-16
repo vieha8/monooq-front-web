@@ -68,6 +68,9 @@ const MoreButtonWrap = styled.div`
 `;
 
 export default ({
+  isModalOpen,
+  handleModalOpen,
+  handleModalClose,
   conditionTitle,
   maxCount,
   onClickMore,
@@ -108,6 +111,9 @@ export default ({
             onClickMore={onClickMore}
             onClickCheckCity={onClickCheckCity}
             onClickCheckTown={onClickCheckTown}
+            isModalOpen={isModalOpen}
+            handleModalOpen={handleModalOpen}
+            handleModalClose={handleModalClose}
           />
         </MoreButtonWrap>
       </SearchConditionRight>
@@ -121,6 +127,9 @@ export default ({
       onClickCheckTown={onClickCheckTown}
       searchConditionCurrentList={searchConditionCurrentList}
       prefectureList={prefectureList}
+      isModalOpen={isModalOpen}
+      handleModalOpen={handleModalOpen}
+      handleModalClose={handleModalClose}
     />
   </HeaderWrap>
 );
