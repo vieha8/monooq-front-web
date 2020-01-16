@@ -409,7 +409,7 @@ function* signUpEmail({ payload: { email, password } }) {
     const firebaseUid = result.user.uid;
 
     const defaultImage =
-      'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault.png?alt=media&token=e36437c2-778c-44cf-a701-2d4c8c3e0363';
+      'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault%2Ficon-profile-default.svg?alt=media&token=442f7e2a-b6bc-4f4f-8019-2794307095e2';
 
     let referrer = '';
     let inviteCode = '';
