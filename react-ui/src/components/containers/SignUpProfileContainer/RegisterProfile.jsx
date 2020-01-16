@@ -47,15 +47,15 @@ export default class RegisterProfileContainer extends Component {
 
   onClickRegisterProfile = () => {
     const { dispatch, user, history } = this.props;
-    const { image, name, prefCode, phoneNumber } = this.state;
+    const { image, name, prefCode, phoneNumber, isHost } = this.state;
     dispatch(uiActions.setUiState({ redirectPath: '' }));
     dispatch(
       userActions.updateUser({
         userId: user.id,
-        body: { imageUrl: image, name, prefCode, phoneNumber },
+        body: { imageUrl: image, name, prefCode, phoneNumber, isHost: Boolean(isHost) },
       }),
     );
-    history.push(Path.signUpPurpose());
+    history.push(Path.top());
   };
 
   onClickPurpose = newState => {

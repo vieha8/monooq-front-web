@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
-import { media } from 'helpers/style/media-query';
+import { mediaMin } from 'helpers/style/media-query';
 import RegsiterProfileImage from 'components/LV1/Forms/DragAndDrop/RegisterProfileImage';
 import Button from 'components/LV1/Forms/Button';
 import { H3 } from 'components/LV1/Texts/Headline';
@@ -91,6 +91,11 @@ const ButtonPurpose = styled.div`
       background-color: ${Colors.lightGray1Bg};
       border: 2px solid ${Colors.black};
     `};
+  ${mediaMin.tablet`
+    &:hover {
+      opacity: 0.8;
+    }
+  `};
 `;
 
 const buttonPurpose = (isHost, onClickPurposeGuest, onClickPurposeHost) => {
