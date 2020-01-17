@@ -40,6 +40,10 @@ const ImageStar = styled.img`
   vertical-align: text-top;
 `;
 
+const Title = styled(InlineText.Base)`
+  height: 44px;
+`;
+
 export default ({
   isTag,
   id,
@@ -85,9 +89,9 @@ export default ({
             </InlineText.Base>
           </Row>
           <Row marginTop={4}>
-            <InlineText.Base fontSize={16} bold lineheight="140%" lineClamp={2}>
+            <Title fontSize={16} bold lineheight="140%" lineClamp={2}>
               {title}
-            </InlineText.Base>
+            </Title>
           </Row>
           <Row right>
             <InlineText.Base noWrap fontSize={16} bold color={Colors.brandPrimary}>
