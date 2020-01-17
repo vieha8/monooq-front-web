@@ -48,25 +48,27 @@ const ImageSpaceWrap = styled.div`
     width: 100%;
   `};
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-    width: calc((100vw - 100%) / 2);
-    top: 0;
-    background-color: white;
-    opacity: 0.3;
-  }
+  ${mediaMin.phone`
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      height: 100%;
+      width: calc((100vw - 100%) / 2);
+      top: 0;
+      background-color: white;
+      opacity: 0.3;
+    }
 
-  &::before {
-    left: calc(-1 * (100vw - 100%) / 2);
-  }
+    &::before {
+      left: calc(-1 * (100vw - 100%) / 2);
+    }
 
-  &::after {
-    right: calc(-1 * (100vw - 100%) / 2);
-  }
+    &::after {
+      right: calc(-1 * (100vw - 100%) / 2);
+    }
+  `}
 `;
 
 const SpaceDetailWrap = styled.div`
