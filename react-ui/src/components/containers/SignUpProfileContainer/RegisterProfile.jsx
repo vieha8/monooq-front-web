@@ -4,6 +4,7 @@ import { uiActions } from 'redux/modules/ui';
 import RegisterProfile from 'components/LV3/RegisterProfile';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
+import { handleAccessTrade, handleCircuitX } from 'helpers/asp';
 import { handleGTM } from 'helpers/gtm';
 
 const Validate = {
@@ -30,6 +31,13 @@ export default class RegisterProfileContainer extends Component {
     const { name, prefCode } = this.state;
     this.handleChangeForm('name', name);
     this.handleChangeForm('prefCode', prefCode);
+
+    const { user } = this.props;
+    if (user.id) {
+      handleAccessTrade(100, `user_register_${user.id}`);
+      handleCircuitX(1373, user.id);
+      handleCircuitX(1376, user.id);
+    }
   }
 
   componentDidUpdate(props) {
@@ -42,6 +50,11 @@ export default class RegisterProfileContainer extends Component {
   onClickRegisterProfile = () => {
     const { dispatch, user, history } = this.props;
     const { image, name, prefCode, isHost } = this.state;
+
+    if (isHost === 0) {
+      handleGTM('userRegistered', user.id);
+    }
+
     dispatch(uiActions.setUiState({ redirectPath: '' }));
     dispatch(
       userActions.updateUser({
