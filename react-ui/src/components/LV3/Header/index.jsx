@@ -52,7 +52,7 @@ const Nav = styled.nav`
 
 const LogoWrapper = styled.div``;
 
-const LogoLink = styled(Link)`
+const LogoLink = styled.span`
   width: 138px;
   display: inline-flex;
   margin-left: ${Dimens.medium3_40}px;
@@ -61,7 +61,8 @@ const LogoLink = styled(Link)`
     props.hide &&
     `
     display: none;
-  `} ${media.tablet`
+  `};
+  ${media.tablet`
     width: 100px;
     margin-top: 0px;
     margin-left: ${Dimens.medium_17}px;
@@ -260,6 +261,7 @@ export default ({
   topUrl,
   isCheckingLogin,
   noHeaderButton,
+  noLinkLogo,
   user,
   messageUrl,
   messageCount,
@@ -280,9 +282,15 @@ export default ({
     <Container stories={stories}>
       <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
         <LogoWrapper>
-          <LogoLink to={topUrl}>
-            <ImageLogo.HeaderFill />
-          </LogoLink>
+          {noLinkLogo ? (
+            <LogoLink>
+              <ImageLogo.HeaderFill />
+            </LogoLink>
+          ) : (
+            <LogoLink to={topUrl} as={Link}>
+              <ImageLogo.HeaderFill />
+            </LogoLink>
+          )}
         </LogoWrapper>
         {!isPageLp && !isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>

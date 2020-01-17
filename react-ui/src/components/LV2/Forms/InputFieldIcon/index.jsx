@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import InputField from 'components/LV1/Forms/InputField';
+import InputForm from 'components/LV2/Forms/InputForm';
 import TextButton from 'components/LV1/Texts/TextButton';
-import { Colors } from 'variables';
+import { Dimens, Colors, FontSizes } from 'variables';
+import { H3 } from 'components/LV1/Texts/Headline';
 
 const Wrapper = styled.div`
   position: relative;
@@ -11,9 +12,9 @@ const Wrapper = styled.div`
 const Icon = styled.i`
   position: absolute;
   top: 50%;
-  left: 15px;
+  left: ${Dimens.small2_15}px;
   margin-top: -10px;
-  font-size: 22px;
+  font-size: ${FontSizes.medium1_22}px;
   color: ${Colors.lightGray1};
   ${props =>
     props.right &&
@@ -27,7 +28,7 @@ const StyledTextButton = styled(TextButton)`
   position: absolute;
   top: 50%;
   left: 15px;
-  margin-top: -10px;
+  margin-top: -4px;
   font-size: 22px;
   color: ${Colors.lightGray1};
   ${props =>
@@ -38,16 +39,8 @@ const StyledTextButton = styled(TextButton)`
     `};
 `;
 
-const InputFieldIcon = styled(InputField)`
-  padding: 18px 25px 18px 46px;
-  ${props =>
-    props.right &&
-    `
-    padding: 11px 60px 11px 15px;
-    `};
-`;
-
 export default ({
+  label,
   right,
   type,
   placeholder,
@@ -57,31 +50,34 @@ export default ({
   clickIcon,
   iconClassName,
 }) => (
-  <Wrapper>
-    {right ? (
-      <Fragment>
-        <InputFieldIcon
-          right={right}
-          type={type}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-        />
-        <StyledTextButton onClick={clickIcon} className={iconClassName} right={right} />
-      </Fragment>
-    ) : (
-      <Fragment>
-        <Icon className={iconClassName} />
-        <InputFieldIcon
-          right={right}
-          type={type}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-        />
-      </Fragment>
-    )}
-  </Wrapper>
+  <Fragment>
+    {label && <H3 bold>{label}</H3>}
+    <Wrapper>
+      {right ? (
+        <Fragment>
+          <InputForm
+            right={right}
+            type={type}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+          />
+          <StyledTextButton onClick={clickIcon} className={iconClassName} right={right} />
+        </Fragment>
+      ) : (
+        <Fragment>
+          <Icon className={iconClassName} />
+          <InputForm
+            right={right}
+            type={type}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+          />
+        </Fragment>
+      )}
+    </Wrapper>
+  </Fragment>
 );

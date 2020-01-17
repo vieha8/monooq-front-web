@@ -16,9 +16,6 @@ const SignUp = loadable(() =>
 const SignUpProfile = loadable(() =>
   import('components/containers/SignUpProfileContainer').catch(() => window.location.reload()),
 );
-const SignUpPurpose = loadable(() =>
-  import('components/containers/SignUpPurposeContainer').catch(() => window.location.reload()),
-);
 const ResetPassword = loadable(() =>
   import('components/containers/ResetPasswordContainer').catch(() => window.location.reload()),
 );
@@ -145,7 +142,6 @@ export default ({ history }) => (
       <Route exact path={Path.login()} component={Login} />
       <Route exact path={Path.signUp()} component={SignUp} />
       <Route exact path={Path.signUpProfile()} component={SignUpProfile} />
-      <Route exact path={Path.signUpPurpose()} component={SignUpPurpose} />
       <Route exact path={Path.resetPassword()} component={ResetPassword} />
       <Route exact path={Path.search()} component={Search} />
       <Route exact path={Path.searchCondition()} component={SearchCondition} />

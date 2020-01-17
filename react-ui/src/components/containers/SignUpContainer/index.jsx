@@ -21,12 +21,13 @@ class SignUpContainer extends Component {
   }
 
   render() {
-    const { isSignUpFailed } = this.props;
+    const { errorMessage } = this.props;
     return (
       <AccountTemplate
-        header={<Header noHeaderButton />}
+        errorHeader={errorMessage}
+        title="新規登録"
+        header={<Header />}
         form={<RegisterEmail {...this.props} />}
-        err={isSignUpFailed}
       />
     );
   }
@@ -36,7 +37,6 @@ const mapStateToProps = state => ({
   user: state.auth.user,
   isRegistering: state.auth.isRegistering,
   isLoading: state.user.isLoading,
-  isSignUpFailed: state.auth.isSignupFailed,
   errorMessage: state.auth.errorMessage,
 });
 

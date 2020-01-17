@@ -26,7 +26,11 @@ const ButtonWrap = styled.div`
 
 const extention = (onChangeImage, imagePreview, image) => {
   return (
-    <RegsiterProfileImage onDrop={data => onChangeImage(data[0])} image={imagePreview || image} />
+    <RegsiterProfileImage
+      onDrop={data => onChangeImage(data[0])}
+      image={imagePreview || image}
+      noMarginleft
+    />
   );
 };
 

@@ -136,6 +136,7 @@ class HeaderContainer extends Component {
       isLogin,
       isChecking,
       noHeaderButton,
+      noLinkLogo,
       user,
       unreadRooms,
       schedule,
@@ -163,6 +164,7 @@ class HeaderContainer extends Component {
         topUrl={Path.top()}
         isCheckingLogin={isChecking}
         noHeaderButton={noHeaderButton}
+        noLinkLogo={noLinkLogo}
         user={
           isLogin
             ? {

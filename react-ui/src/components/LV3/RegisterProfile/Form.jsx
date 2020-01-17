@@ -1,80 +1,45 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Dimens } from 'variables';
+import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 
-const Title = styled.div`
-  text-align: center;
-  margin-top: ${Dimens.small}px;
+const SectionWrap = styled.div`
+  margin-top: ${props => (props.noMarginTop ? 0 : Dimens.medium)}px;
   ${media.phone`
-    text-align: left;
-    margin-top: ${Dimens.xxsmall}px;
-  `};
-`;
-
-const Image = styled.div`
-  margin-top: ${Dimens.medium2}px;
-  ${media.phone`
-    margin-top: ${Dimens.medium}px;
-  `};
-`;
-
-const Name = styled.div`
-  margin-top: ${Dimens.medium1}px;
-  ${media.phone`
-    margin-top: ${Dimens.medium}px;
-  `};
-`;
-
-const PrefCode = styled.div`
-  margin-top: ${Dimens.medium2}px;
-  ${media.phone`
-    margin-top: ${Dimens.medium1}px;
-  `};
-`;
-
-const Profile = styled.div`
-  margin-top: ${Dimens.medium2}px;
-  ${media.phone`
-    margin-top: ${Dimens.medium1}px;
-  `};
-`;
-
-const PhoneNumber = styled.div`
-  margin-top: ${Dimens.medium2}px;
-  ${media.phone`
-    margin-top: ${Dimens.medium1}px;
+    margin-bottom: ${props => (props.marginBottomSp ? props.marginBottomSp : 0)}px;
   `};
 `;
 
 const Button = styled.div`
   margin-top: ${Dimens.medium2}px;
+  ${media.phone`
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    padding: ${Dimens.medium}px;
+    border-top: 1px solid ${Colors.borderGray};
+    background-color: rgba(255, 255, 255, 1);
+  `};
 `;
 
-export default ({ errors, title, image, name, prefCode, profile, phoneNumber, button }) => (
+export default ({ errors, image, name, prefCode, buttonPurpose, button }) => (
   <Fragment>
-    <Title>{title}</Title>
-    <Image>
+    <SectionWrap noMarginTop>
       {image}
       <ErrorList keyName="image_errors" errors={errors.image} />
-    </Image>
-    <Name>
+    </SectionWrap>
+    <SectionWrap>
       {name}
       <ErrorList keyName="name_errors" errors={errors.name} />
-    </Name>
-    <PrefCode>
+    </SectionWrap>
+    <SectionWrap>
       {prefCode}
       <ErrorList keyName="prefCode_errors" errors={errors.prefCode} />
-    </PrefCode>
-    <Profile>
-      {profile}
-      <ErrorList keyName="profile_errors" errors={errors.profile} />
-    </Profile>
-    <PhoneNumber>
-      {phoneNumber}
-      <ErrorList keyName="phoneNumber_errors" errors={errors.phoneNumber} />
-    </PhoneNumber>
+    </SectionWrap>
+    <SectionWrap marginBottomSp={100}>{buttonPurpose}</SectionWrap>
     <Button>{button}</Button>
   </Fragment>
 );

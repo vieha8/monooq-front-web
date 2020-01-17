@@ -1,21 +1,15 @@
-import React from 'react';
-import Path from 'config/path';
+import React, { Fragment } from 'react';
 import Button from 'components/LV1/Forms/Button';
-import InputField from 'components/LV1/Forms/InputField';
-import { H1 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
-import TextLink from 'components/LV1/Texts/TextLink';
 import InputFieldIcon from 'components/LV2/Forms/InputFieldIcon';
-import { Colors, FontSizes } from 'variables';
 import Form from './Form';
 
-const inputField = (email, onChangeEmail) => {
+const getLabelPassword = () => {
   return (
-    <InputField
-      placeholder="メールアドレス"
-      value={email}
-      onChange={e => onChangeEmail(e.target.value)}
-    />
+    <Fragment>
+      パスワード
+      <InlineText.Tiny nobold>&nbsp;※半角英数字のみ8文字以上</InlineText.Tiny>
+    </Fragment>
   );
 };
 
@@ -31,43 +25,13 @@ const iconInputField = (
       right="true"
       iconClassName={ispasswordVisible ? 'fal fa-eye-slash' : 'fal fa-eye'}
       type={ispasswordVisible ? 'password' : 'text'}
-      placeholder="パスワード"
+      label={getLabelPassword()}
+      placeholder="例）mono09boys"
       value={password}
       onChange={e => onChangePassword(e.target.value)}
       onKeyDown={onKeyDownPassword}
       clickIcon={onClickIconPassword}
     />
-  );
-};
-
-const inlineText = () => {
-  return (
-    <InlineText.Base fontSize={12}>
-      新規登録を行うと、
-      <br />
-      <TextLink
-        to={Path.terms()}
-        target="_blank"
-        rel="noopener noreferrer"
-        fontSize={FontSizes.small_12}
-        color={Colors.brandPrimary}
-        underline="true"
-      >
-        利用規約
-      </TextLink>
-      と
-      <TextLink
-        to={Path.privacy()}
-        target="_blank"
-        rel="noopener noreferrer"
-        fontSize={FontSizes.small_12}
-        color={Colors.brandPrimary}
-        underline="true"
-      >
-        個人情報保護方針
-      </TextLink>
-      に同意したとみなします
-    </InlineText.Base>
   );
 };
 
@@ -97,7 +61,7 @@ const button = (mode, onClick, disabled, loading) => {
       break;
     case 'login':
       returnVal = (
-        <Button secondary borderbold fontbold fill={1} onClick={onClick}>
+        <Button secondary borderbold fontbold fill={1} onClick={onClick} loading={loading ? 1 : 0}>
           ログインはこちら
         </Button>
       );
@@ -108,15 +72,14 @@ const button = (mode, onClick, disabled, loading) => {
 };
 
 export default ({
+  errors,
   email,
   onChangeEmail,
-  emailError,
   ispasswordVisible,
   password,
   onChangePassword,
   onClickIconPassword,
   onKeyDownPassword,
-  passError,
   onClickNext,
   buttonDisabled,
   isRegisterChecking,
@@ -124,13 +87,9 @@ export default ({
   onClickLogin,
 }) => (
   <Form
-    title={<H1 bold>新規登録</H1>}
-    email={inputField(email, onChangeEmail)}
-    emailError={emailError.map((text, i) => (
-      <InlineText.Small key={`email_error_${i}`.toString()} color={Colors.error}>
-        {text}
-      </InlineText.Small>
-    ))}
+    errors={errors}
+    email={email}
+    onChangeEmail={onChangeEmail}
     pass={iconInputField(
       ispasswordVisible,
       password,
@@ -138,15 +97,9 @@ export default ({
       onKeyDownPassword,
       onClickIconPassword,
     )}
-    passError={passError.map((text, i) => (
-      <InlineText.Small key={`pass_error_${i}`.toString()} color={Colors.error}>
-        {text}
-      </InlineText.Small>
-    ))}
-    terms={inlineText()}
     next={button('next', onClickNext, buttonDisabled, isRegisterChecking)}
-    otherLogin={<InlineText.Base>お持ちのアカウントで登録</InlineText.Base>}
     facebook={button('facebook', onClickFacebook, false, isRegisterChecking)}
-    toLogin={button('login', onClickLogin, false, false)}
+    toLogin={button('login', onClickLogin, false, isRegisterChecking)}
+    isRegisterChecking={isRegisterChecking}
   />
 );
