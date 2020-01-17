@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import Path from 'config/path';
 import LazyLoad from 'react-lazyload';
 import iconStar from 'images/img-space-star.svg';
+import { mediaMin } from 'helpers/style/media-query';
 
 const Container = styled.div`
   cursor: pointer;
@@ -41,7 +42,9 @@ const ImageStar = styled.img`
 `;
 
 const Title = styled(InlineText.Base)`
-  height: 44px;
+  ${mediaMin.phone`
+    height: 44px;
+  `}
 `;
 
 export default ({
