@@ -11,6 +11,9 @@ const Validate = {
   ImageSize: {
     Max: 10485760, // 10MB
   },
+  Profile: {
+    nameMax: 40,
+  },
 };
 
 export default class RegisterProfileContainer extends Component {
@@ -86,6 +89,9 @@ export default class RegisterProfileContainer extends Component {
         if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         }
+        if (value && value.trim().length > Validate.Profile.nameMax) {
+          errors.push(ErrorMessages.LengthMax('お名前', Validate.Profile.nameMax));
+        }
         break;
 
       case 'prefCode':
@@ -107,8 +113,9 @@ export default class RegisterProfileContainer extends Component {
     const { error, name, prefCode } = this.state;
     return (
       (error.image === undefined || (error.image && error.image.length === 0)) &&
-      name &&
-      name.length > 0 &&
+      (name === undefined
+        ? false
+        : name.trim().length > 0 && name.trim().length <= Validate.Profile.nameMax) &&
       prefCode
     );
   };
