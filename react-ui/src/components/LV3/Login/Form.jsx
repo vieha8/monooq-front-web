@@ -1,20 +1,10 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Dimens, Colors } from 'variables';
-
-const Logo = styled.div`
-  text-align: center;
-`;
-
-const Title = styled.div`
-  text-align: center;
-  margin-top: ${Dimens.small}px;
-  ${media.phone`
-    text-align: left;
-    margin-top: ${Dimens.xxsmall}px;
-  `};
-`;
+import { Dimens, Colors, FontSizes } from 'variables';
+import Path from 'config/path';
+import InputField from 'components/LV1/Forms/InputField';
+import TextLink from 'components/LV1/Texts/TextLink';
 
 const Email = styled.div`
   margin-top: ${Dimens.medium2_35}px;
@@ -34,14 +24,14 @@ const Failed = styled.div`
 
 const Remind = styled.div`
   text-align: center;
-  margin-top: ${Dimens.medium2_35}px;
+  margin-top: ${Dimens.medium1_26}px;
   ${media.phone`
     margin-top: ${Dimens.medium2}px;
   `};
 `;
 
 const Login = styled.div`
-  margin-top: ${Dimens.medium2_35}px;
+  margin-top: ${Dimens.medium1_26}px;
   ${media.phone`
     margin-top: ${Dimens.medium2}px;
   `};
@@ -58,16 +48,38 @@ const ToSignup = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-export default ({ logo, title, email, pass, failed, remind, login, facebook, toSignup }) => (
+export default ({
+  email,
+  onChangeEmail,
+  pass,
+  failed,
+  login,
+  facebook,
+  toSignup,
+  isLoginChecking,
+}) => (
   <Fragment>
-    <Logo>{logo}</Logo>
-    <Title>{title}</Title>
-    <Email>{email}</Email>
+    <Email>
+      <InputField
+        placeholder="メールアドレス"
+        value={email}
+        onChange={e => onChangeEmail(e.target.value)}
+      />
+    </Email>
     <Pass>{pass}</Pass>
     <Failed>{failed}</Failed>
-    <Remind>{remind}</Remind>
+    <Remind>
+      <TextLink
+        to={Path.resetPassword()}
+        fontSize={FontSizes.small}
+        color={Colors.brandPrimary}
+        underline="true"
+      >
+        パスワードを忘れた方はこちら
+      </TextLink>
+    </Remind>
     <Login>{login}</Login>
     <Facebook>{facebook}</Facebook>
-    <ToSignup>{toSignup}</ToSignup>
+    {!isLoginChecking && <ToSignup>{toSignup}</ToSignup>}
   </Fragment>
 );

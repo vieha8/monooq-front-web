@@ -7,7 +7,9 @@ import { parse } from 'helpers/query-string';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import loadable from '@loadable/component';
 
-const SystemError = loadable(() => import('components/LV3/SystemError'));
+const SystemError = loadable(() =>
+  import('components/LV3/SystemError').catch(() => window.location.reload()),
+);
 
 class Root extends React.Component {
   constructor(props) {

@@ -85,13 +85,20 @@ class ResetPasswordContainer extends Component {
   };
 
   render() {
-    const { isLogin } = this.props;
+    const { isLogin, resetError } = this.props;
 
     if (isLogin) {
       return <Redirect to={Path.top()} />;
     }
 
-    return <AccountTemplate header={<Header />} form={this.form()} />;
+    return (
+      <AccountTemplate
+        errorHeader={resetError}
+        title="パスワードの再設定"
+        header={<Header />}
+        form={this.form()}
+      />
+    );
   }
 }
 
@@ -102,7 +109,4 @@ const mapStateToProps = state => ({
   resetError: state.auth.error,
 });
 
-export default connect(
-  ResetPasswordContainer,
-  mapStateToProps,
-);
+export default connect(ResetPasswordContainer, mapStateToProps);

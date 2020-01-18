@@ -10,11 +10,6 @@ import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 
 const Container = styled.div`
   text-align: center;
-  ${props =>
-    props.resetError &&
-    `
-    margin-top: ${Dimens.medium3_40}px;
-  `};
 `;
 
 const ErrMessage = styled.div`
@@ -39,10 +34,9 @@ const ErrMessage = styled.div`
 
 const Title = styled.div`
   ${media.phone`
-    text-align: left;
     margin-top: 0px;
   `};
-  margin-top: ${Dimens.small2}px;
+  margin-bottom: ${Dimens.small2}px;
 `;
 
 const InputWrapper = styled.div`
@@ -63,11 +57,9 @@ const ErrorWrapper = styled.div`
   margin-top: ${Dimens.small}px;
 `;
 
-const MarginTopMediumWrapper = styled.div`
-  margin-top: ${Dimens.medium1}px;
-  text-align: left;
+const TextWrap = styled.div`
   ${media.phone`
-    margin-top: ${Dimens.medium}px;
+    text-align: left;
   `};
 `;
 
@@ -81,33 +73,30 @@ export default ({
   buttonDisabled,
   buttonLoading,
 }) => (
-  <Container resetError={resetError}>
+  <Container>
     {sended ? (
       <Fragment>
         <Title>
           <H1 bold>再設定メールを送信しました</H1>
         </Title>
-        <MarginTopMediumWrapper>
+        <TextWrap>
           <InlineText.Base>
             パスワード再設定用のメールをお送りしました。
             <br />
             メールの内容にしたがってお手続きください。
           </InlineText.Base>
-        </MarginTopMediumWrapper>
+        </TextWrap>
       </Fragment>
     ) : (
       <Fragment>
         {resetError && <ErrMessage>{resetError}</ErrMessage>}
-        <Title>
-          <H1 bold>パスワードの再設定</H1>
-        </Title>
-        <MarginTopMediumWrapper>
+        <TextWrap>
           <InlineText.Base>
             モノオクに登録したメールアドレスを入力してください。
             <br />
             パスワードを再設定するためのメールをお送りします。
           </InlineText.Base>
-        </MarginTopMediumWrapper>
+        </TextWrap>
         <InputWrapper>
           <InputForm
             label="メールアドレス"
