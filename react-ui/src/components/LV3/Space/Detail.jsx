@@ -35,9 +35,11 @@ const Container = styled.div`
 `;
 
 const ImageSpaceWrap = styled.div`
+  position: relative;
   width: 100%;
   max-width: 700px;
   margin: auto;
+
   ${media.tablet`
     width: 80%;
     max-width: 500px;
@@ -45,6 +47,28 @@ const ImageSpaceWrap = styled.div`
   ${media.phone`
     width: 100%;
   `};
+
+  ${mediaMin.phone`
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      width: calc((100vw - 100%) / 2);
+      height: 100%;
+      top: 0;
+      background-color: ${Colors.white};
+      opacity: 0.3;
+    }
+
+    &::before {
+      left: calc(-1 * (100vw - 100%) / 2);
+    }
+
+    &::after {
+      right: calc(-1 * (100vw - 100%) / 2);
+    }
+  `}
 `;
 
 const SpaceDetailWrap = styled.div`
