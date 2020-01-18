@@ -35,10 +35,10 @@ const Container = styled.div`
 `;
 
 const ImageSpaceWrap = styled.div`
+  position: relative;
   width: 100%;
   max-width: 700px;
   margin: auto;
-  position: relative;
 
   ${media.tablet`
     width: 80%;
@@ -54,10 +54,10 @@ const ImageSpaceWrap = styled.div`
       content: '';
       position: absolute;
       z-index: 1;
-      height: 100%;
       width: calc((100vw - 100%) / 2);
+      height: 100%;
       top: 0;
-      background-color: white;
+      background-color: ${Colors.white};
       opacity: 0.3;
     }
 
