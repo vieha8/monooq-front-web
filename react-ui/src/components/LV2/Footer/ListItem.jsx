@@ -37,7 +37,7 @@ export default ({ list }) => (
           {item.link ? (
             <FooterLink to={item.link}>{item.name}</FooterLink>
           ) : item.href ? (
-            <FooterLink href={item.href} target="_blank">
+            <FooterLink href={item.href} target="_blank" rel="noopener noreferrer">
               {item.name}
             </FooterLink>
           ) : (

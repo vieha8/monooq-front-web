@@ -342,8 +342,8 @@ export default ({
                       <TextLink
                         to={loginUrl}
                         color={linkColor(top, isOverTopView, false)}
-                        colorHover={linkColor(top, isOverTopView, true)}
-                        bold
+                        colorhover={linkColor(top, isOverTopView, true)}
+                        bold="true"
                       >
                         ログイン
                       </TextLink>

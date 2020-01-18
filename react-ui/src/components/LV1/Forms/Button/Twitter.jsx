@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media, mediaMin } from 'helpers/style/media-query';
-import { Link } from 'react-router-dom';
 import { Colors, Dimens } from 'variables';
 import imageTwitter from 'images/icon-twitter.svg';
 import { PrimaryButton } from './Primary';
@@ -53,8 +52,7 @@ const Twitter = styled(PrimaryButton)`
   `};
 `;
 
-const btnlink = styled(Link)``;
-const HyperLink = btnlink.withComponent('a');
+const HyperLink = styled.a``;
 
 const ImageWrap = styled.span`
   display: inline-block;

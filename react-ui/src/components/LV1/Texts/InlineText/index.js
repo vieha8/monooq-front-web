@@ -77,15 +77,9 @@ const Base = styled.span`
   `};
 `;
 
-const Strong = styled(Base.withComponent('strong'))`
+const Bold = styled.b`
   font-weight: bold;
 `;
-
-const Bold = Strong.withComponent('b');
-
-const Del = Base.withComponent('del');
-
-const Ins = Base.withComponent('ins');
 
 const Small = styled(Base)`
   font-size: ${FontSizes.small}px;
@@ -105,17 +99,11 @@ const EmphasisTiny = styled(Base)`
   color: ${Colors.darkGray2};
 `;
 
-const H1 = Base.withComponent('h1');
-
 export default {
   Base,
-  Strong,
   Bold,
-  Del,
-  Ins,
   Small,
   Tiny,
   EmphasisSmall,
   EmphasisTiny,
-  H1,
 };

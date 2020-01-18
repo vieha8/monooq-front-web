@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { Colors, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 
-const btnlink = styled(Link)``;
-
 export const PrimaryButton = styled.div`
   box-sizing: border-box;
   width: ${props => (props.width ? props.width : '100%')};
@@ -130,7 +128,7 @@ export const PrimaryButton = styled.div`
   `};
 `;
 
-const HyperLink = btnlink.withComponent('a');
+const HyperLink = styled.a``;
 
 export default props =>
   props.link ? (

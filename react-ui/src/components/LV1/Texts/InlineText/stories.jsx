@@ -6,7 +6,6 @@ import { Dimens } from 'variables';
 import Inline from './index';
 
 Inline.Base.displayName = 'Inline.Base';
-Inline.Strong.displayName = 'Inline.Strong';
 Inline.Bold.displayName = 'Inline.Bold';
 Inline.Del.displayName = 'Inline.Del';
 Inline.Ins.displayName = 'Inline.Ins';
@@ -28,17 +27,6 @@ storiesOf('Atoms(LV1)/Texts/InlineText', module)
     )),
   )
   .add(
-    'Strong',
-    withInfo(`
-      ### コンポーネント概要
-      インラインテキスト(強調ver)
-    `)(() => (
-      <div style={{ width: '100%', maxWidth: '380px', padding: `${Dimens.storyBookPadding}` }}>
-        <Inline.Strong>強調したい文字列</Inline.Strong>
-      </div>
-    )),
-  )
-  .add(
     'Bold',
     withInfo(`
       ### コンポーネント概要
@@ -47,19 +35,6 @@ storiesOf('Atoms(LV1)/Texts/InlineText', module)
       <div style={{ width: '100%', maxWidth: '380px', padding: `${Dimens.storyBookPadding}` }}>
         一部だけ
         <Inline.Bold>太字にしたい</Inline.Bold>
-        ときに
-      </div>
-    )),
-  )
-  .add(
-    'Del',
-    withInfo(`
-      ### コンポーネント概要
-      インラインテキスト(一部取り消し線ver)
-    `)(() => (
-      <div style={{ width: '100%', maxWidth: '380px', padding: `${Dimens.storyBookPadding}` }}>
-        一部だけ
-        <Inline.Del>取り消ししたい</Inline.Del>
         ときに
       </div>
     )),

@@ -310,7 +310,7 @@ export default ({
       <ContentPayment {...payment} noDescription />
     </Row>
     <Row noMarginTop borderTop borderBottom>
-      <H2>お支払い方法</H2>
+      <H2 as="h2">お支払い方法</H2>
       {paidError && (
         <Row>
           <InlineText.Base color={Colors.error}>{errMsgPayment}</InlineText.Base>

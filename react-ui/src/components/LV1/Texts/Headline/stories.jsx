@@ -17,8 +17,8 @@ storiesOf('Atoms(LV1)/Texts/Headline', module).add(
     `)(() => (
     <div style={{ padding: `${Dimens.storyBookPadding}` }}>
       <H1>Headline Level 1</H1>
-      <H2>Headline Level 2</H2>
-      <H3>Headline Level 3</H3>
+      <H2 as="h2">Headline Level 2</H2>
+      <H3 as="h3">Headline Level 3</H3>
     </div>
   )),
 );

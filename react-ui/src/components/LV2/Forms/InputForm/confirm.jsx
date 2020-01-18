@@ -11,7 +11,7 @@ const Field = styled.div`
 
 export default ({ label, value }) => (
   <Fragment>
-    <H3 bold>
+    <H3 bold as="h3">
       <InlineText.Base fontSize={12}>{label}</InlineText.Base>
     </H3>
     <Field>
