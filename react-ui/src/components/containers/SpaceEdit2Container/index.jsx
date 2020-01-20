@@ -94,7 +94,9 @@ class SpaceEdit2Container extends Component {
       const { geo } = this.props;
       const { pref, city, town } = geo;
       // eslint-disable-next-line react/no-did-update-set-state
-      this.setState({ pref, city, town });
+      const { error } = prevState;
+      error.pref = checkError('pref', geo.pref);
+      this.setState({ pref, city, town, error });
     }
   }
 
