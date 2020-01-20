@@ -24,6 +24,7 @@ const Validate = {
   },
   Profile: {
     Max: 1000,
+    nameMax: 40,
   },
 };
 
@@ -104,6 +105,9 @@ class ProfileEditContainer extends Component {
         if (!value || value.trim().length === 0) {
           errors.push(ErrorMessages.PleaseInput);
         }
+        if (value && value.trim().length > Validate.Profile.nameMax) {
+          errors.push(ErrorMessages.LengthMax('お名前', Validate.Profile.nameMax));
+        }
         break;
 
       case 'email':
@@ -158,7 +162,9 @@ class ProfileEditContainer extends Component {
     return (
       (error.imageUrl === undefined || (error.imageUrl && error.imageUrl.length === 0)) &&
       name &&
-      (name === undefined ? false : name.trim().length > 0) &&
+      (name === undefined
+        ? false
+        : name.trim().length > 0 && name.trim().length <= Validate.Profile.nameMax) &&
       email &&
       email.match(Validate.Email) &&
       phoneNumber &&
