@@ -22,11 +22,11 @@ const ButtonWrap = styled.div`
 export default ({ schedule, price, buttonLoading, buttonDisabled, onClickSend, onKeyDownSend }) => (
   <div>
     <Section>
-      <H2>スケジュール</H2>
+      <H2 as="h2">スケジュール</H2>
       <InputSchedule {...schedule} />
     </Section>
     <Section>
-      <H2>料金を入力</H2>
+      <H2 as="h2">料金を入力</H2>
       <InputPrice {...price} />
     </Section>
     <Section>

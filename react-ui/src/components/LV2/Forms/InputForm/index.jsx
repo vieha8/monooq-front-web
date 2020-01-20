@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Dimens } from 'variables';
 import Check from 'components/LV1/Forms/CheckBox';
 import InputField from 'components/LV1/Forms/InputField';
-import TextArea from 'components/LV1/Forms/TextArea';
 import { H3 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
 
@@ -58,7 +57,11 @@ export default ({
   disabled,
 }) => (
   <Fragment>
-    {label && <H3 bold>{label}</H3>}
+    {label && (
+      <H3 bold as="h3">
+        {label}
+      </H3>
+    )}
     {hint && <InlineText.EmphasisSmall>{hint}</InlineText.EmphasisSmall>}
     {checkbox ? (
       <Check
@@ -74,7 +77,13 @@ export default ({
       <InputFieldWrapper unit={unit} margintop={margintop}>
         {extension ||
           (multiline ? (
-            <TextArea rows={rows} placeholder={placeholder} value={value} onChange={onChange} />
+            <InputField
+              as="textarea"
+              rows={rows}
+              placeholder={placeholder}
+              value={value}
+              onChange={onChange}
+            />
           ) : (
             <InputField
               type={type}

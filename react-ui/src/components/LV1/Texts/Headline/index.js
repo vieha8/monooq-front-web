@@ -12,7 +12,7 @@ export const H1 = styled.h1`
   `};
 `;
 
-export const H2 = styled(H1.withComponent('h2'))`
+export const H2 = styled(H1)`
   font-size: 26px;
   font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   ${media.phone`
@@ -20,7 +20,7 @@ export const H2 = styled(H1.withComponent('h2'))`
   `};
 `;
 
-export const H3 = styled(H1.withComponent('h3'))`
+export const H3 = styled(H1)`
   font-size: ${FontSizes.small_15}px;
   font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   ${media.phone`

@@ -4,7 +4,7 @@ import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Text from 'components/LV1/Texts/TextStatic';
 
-const QuestionListWrapper = styled.div`
+const Wrap = styled.div`
   margin-bottom: ${Dimens.medium4_50}px;
 `;
 
@@ -14,11 +14,13 @@ const Label = styled.div`
   margin-bottom: ${Dimens.medium_20}px;
 `;
 
-const ListWrapper = styled.div`
+const ListWrap = styled.ul`
   margin-bottom: ${Dimens.medium2}px;
+  list-style: disc;
+  list-style-position: inside;
 `;
 
-const List = styled(Text.withComponent('li'))`
+const List = styled(Text)`
   ${props =>
     props.isNoDisc &&
     `
@@ -27,7 +29,7 @@ const List = styled(Text.withComponent('li'))`
     `};
 `;
 
-const QuestionTitle = styled(Label)`
+const Title = styled(Label)`
   margin-bottom: ${Dimens.small_10}px;
   ${media.phone`
     font-size: 6vw;
@@ -37,18 +39,18 @@ const QuestionTitle = styled(Label)`
 `;
 
 export default ({ title, text, list }) => (
-  <QuestionListWrapper>
-    {title && <QuestionTitle>{title}</QuestionTitle>}
+  <Wrap>
+    {title && <Title>{title}</Title>}
     {list && (
-      <ListWrapper>
+      <ListWrap>
         {list.map((item, i) => (
-          <List key={i.toString()} isNoDisc={item.isNoDisc}>
+          <List as="li" key={i.toString()} isNoDisc={item.isNoDisc}>
             {item.text}
             {item.textCustom}
           </List>
         ))}
-      </ListWrapper>
+      </ListWrap>
     )}
     {text && <Text>{text}</Text>}
-  </QuestionListWrapper>
+  </Wrap>
 );

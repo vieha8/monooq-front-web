@@ -109,7 +109,9 @@ const ButtonPurpose = styled.div`
 const buttonPurpose = (isHost, onClickPurposeGuest, onClickPurposeHost) => {
   return (
     <Fragment>
-      <H3 bold>用途が近いのはどちらですか？</H3>
+      <H3 bold as="h3">
+        用途が近いのはどちらですか？
+      </H3>
       <ButtonWrap>
         <ButtonPurpose onClick={onClickPurposeGuest} isHost={!isHost}>
           荷物を預ける

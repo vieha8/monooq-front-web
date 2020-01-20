@@ -10,7 +10,9 @@ const SelectWrapper = styled.div`
 
 export default ({ label, hint, value, onChange, options, className }) => (
   <Fragment>
-    <H3 bold>{label}</H3>
+    <H3 bold as="h3">
+      {label}
+    </H3>
     {hint && <InlineText.EmphasisTiny>{hint}</InlineText.EmphasisTiny>}
     <SelectWrapper>
       <Select value={value} onChange={onChange} className={className}>

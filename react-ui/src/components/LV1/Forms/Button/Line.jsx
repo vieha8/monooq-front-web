@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { mediaMin } from 'helpers/style/media-query';
-import { Link } from 'react-router-dom';
 import { Colors } from 'variables';
 import LogoLineSrc from 'images/logo-line-w.png';
 import ReactGA from 'react-ga';
 import { PrimaryButton } from './Primary';
+
+const HyperLink = styled.a``;
 
 const Line = styled(PrimaryButton)`
   background: ${Colors.line};
@@ -51,9 +52,6 @@ const ImageLine = styled.img`
   margin-left: -20px;
   bottom: 1px;
 `;
-
-const btnlink = styled(Link)``;
-const HyperLink = btnlink.withComponent('a');
 
 export default ({ loading, reactGACategory, reactGAAction, children }) => (
   <HyperLink href="https://line.me/R/ti/p/%40wna0649g" target="_blank" rel="noopener noreferrer">

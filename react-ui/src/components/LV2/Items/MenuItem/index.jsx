@@ -6,7 +6,7 @@ import MenuItem from 'components/LV1/MenuItem';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Dimens, FontSizes, Colors } from 'variables';
 
-const MenuLink = styled(Link)`
+const MenuLink = styled.div`
   display: block;
   width: 100%;
   height: 100%;
@@ -42,8 +42,6 @@ const LinkWrap = styled.div`
     `};
 `;
 
-const HyperLinkStyled = MenuLink.withComponent('a');
-
 export default ({
   blank,
   line,
@@ -59,7 +57,8 @@ export default ({
   blank ? (
     <MenuItem logout={logout}>
       <LinkWrap line={line} logout={logout}>
-        <HyperLinkStyled
+        <MenuLink
+          as="a"
           href={href || ''}
           onClick={logoutEvent || onClick}
           target={logoutEvent ? '' : '_blank'}
@@ -73,7 +72,7 @@ export default ({
           <NotificationWrapper>
             <NotificationCount count={notificationCount} />
           </NotificationWrapper>
-        </HyperLinkStyled>
+        </MenuLink>
       </LinkWrap>
     </MenuItem>
   ) : header ? (
@@ -87,7 +86,7 @@ export default ({
   ) : (
     <MenuItem>
       <LinkWrap line={line}>
-        <MenuLink to={to} onClick={onClick}>
+        <MenuLink as={Link} to={to} onClick={onClick}>
           <MenuText>
             <InlineText.Base fontSize={FontSizes.small}>{title}</InlineText.Base>
           </MenuText>

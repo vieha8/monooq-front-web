@@ -51,7 +51,11 @@ export default ({
   iconClassName,
 }) => (
   <Fragment>
-    {label && <H3 bold>{label}</H3>}
+    {label && (
+      <H3 bold as="h3">
+        {label}
+      </H3>
+    )}
     <Wrapper>
       {right ? (
         <Fragment>

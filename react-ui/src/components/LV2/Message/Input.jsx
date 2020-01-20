@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
 import { PictureIcon } from 'components/LV1/Images/ActionIcon';
-import TextArea from 'components/LV1/Forms/TextArea';
+import InputField from 'components/LV1/Forms/InputField';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Dimens, Colors, FontSizes, ErrorMessages } from 'variables';
 
@@ -65,7 +65,8 @@ export default ({
         )}
       </Dropzone>
     </DropzoneWrap>
-    <TextArea
+    <InputField
+      as="textarea"
       rows={5}
       placeholder="メッセージを入力する…"
       value={value}

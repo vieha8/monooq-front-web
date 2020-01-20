@@ -44,7 +44,9 @@ export default ({
   checkedIndex,
 }) => (
   <Fragment>
-    <H3 bold>{labelTitle}</H3>
+    <H3 bold as="h3">
+      {labelTitle}
+    </H3>
     {labels.map((label, i) => (
       <Wrapper key={`radiolist_checkitem${i.toString()}`} border={border} borderTop={borderTop}>
         <Radio onClick={() => onClick(i)} checked={checkedIndex === i} border>

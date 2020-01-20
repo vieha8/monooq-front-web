@@ -96,7 +96,7 @@ const AvailabilityWrap = styled.div`
 
 const SpaceTitleWrapper = styled.div``;
 
-const SpaceTitle = styled(InlineText.H1)`
+const SpaceTitle = styled(InlineText.Base)`
   display: block;
   margin: 5px auto;
   font-size: ${FontSizes.medium2}px;
@@ -314,7 +314,7 @@ export default ({
           <Availability status={status} />
         </AvailabilityWrap>
         <SpaceTitleWrapper>
-          <SpaceTitle>{name || ''}</SpaceTitle>
+          <SpaceTitle as="h1">{name || ''}</SpaceTitle>
           {breadcrumbsList && (
             <BreadcrumbsList
               breadcrumbsList={breadcrumbsList}

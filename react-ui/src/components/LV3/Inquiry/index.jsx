@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Link } from 'react-router-dom';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';
@@ -10,7 +9,7 @@ import Path from 'config/path';
 
 const Wrap = styled.div``;
 
-const LinkText = styled(Link)`
+const HyperLink = styled.a`
   color: ${Colors.brandPrimary};
 `;
 
@@ -29,8 +28,6 @@ const ButtonWrap = styled.div`
 `;
 
 const UnsubscribeText = styled.div``;
-
-const HyperLink = LinkText.withComponent('a');
 
 export default ({ isLogin }) => (
   <Wrap>

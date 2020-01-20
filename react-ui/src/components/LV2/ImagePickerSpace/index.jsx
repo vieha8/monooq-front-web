@@ -213,7 +213,9 @@ export default ({ images, isImageUploading, onClickDeleteImage, onChangeImage })
   return (
     <Fragment>
       <div>
-        <H3 bold>スペースの写真</H3>
+        <H3 bold as="h3">
+          スペースの写真
+        </H3>
       </div>
       {isImageUploading && (
         <DropZoneWrap>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Colors, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 
-const TextLink = styled(({ bold, colorHover, ...props }) => <Link {...props} />)`
+const TextLink = styled.div`
   color: ${Colors.linkBlue};
   line-height: normal;
   font-size: ${props => props.fontSize || FontSizes.small_15}px;
@@ -46,10 +46,10 @@ const TextLink = styled(({ bold, colorHover, ...props }) => <Link {...props} />)
       `};
 
   ${props =>
-    props.colorHover &&
+    props.colorhover &&
     `
       &:active {
-        color: ${props.colorHover};
+        color: ${props.colorhover};
     `};
 
   ${props =>
@@ -91,10 +91,10 @@ const TextLink = styled(({ bold, colorHover, ...props }) => <Link {...props} />)
           `
         };
 
-        ${props.colorHover &&
+        ${props.colorhover &&
           `
             &:hover {
-              color: ${props.colorHover};
+              color: ${props.colorhover};
             }
           `};
 
@@ -123,21 +123,19 @@ const TextLink = styled(({ bold, colorHover, ...props }) => <Link {...props} />)
   `};
 `;
 
-const HyperLink = TextLink.withComponent('a');
-
 export default props =>
   props.href ? (
     props.key ? (
-      <HyperLink {...props} href={props.href} key={props.key}>
+      <TextLink as="a" {...props} href={props.href} key={props.key}>
         {props.children}
-      </HyperLink>
+      </TextLink>
     ) : (
-      <HyperLink {...props} href={props.href}>
+      <TextLink as="a" {...props} href={props.href}>
         {props.children}
-      </HyperLink>
+      </TextLink>
     )
   ) : (
-    <TextLink {...props} to={props.to || ''}>
+    <TextLink as={Link} {...props} to={props.to || ''}>
       {props.children}
     </TextLink>
   );
