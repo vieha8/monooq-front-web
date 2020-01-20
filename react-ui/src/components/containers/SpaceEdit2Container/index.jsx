@@ -84,16 +84,22 @@ class SpaceEdit2Container extends Component {
     }
   }
 
-  componentDidUpdate(_, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const { dispatch } = this.props;
     const { postalCode } = this.state;
     if (this.validatePostCode() && postalCode !== prevState.postalCode) {
       dispatch(spaceActions.getAddress({ postalCode }));
     }
+    if (prevProps.geo.postalCode !== this.props.geo.postalCode) {
+      const { geo } = this.props;
+      const { pref, city, town } = geo;
+      // eslint-disable-next-line react/no-did-update-set-state
+      this.setState({ pref, city, town });
+    }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { space, geo } = nextProps;
+    const { space } = nextProps;
     if (space.id && !prevState.id) {
       const { id, receiptType, postalCode, address, addressPref, addressCity, addressTown } = space;
       const line1 = address.replace(`${addressPref}${addressCity}${addressTown}`, '');
@@ -109,17 +115,6 @@ class SpaceEdit2Container extends Component {
         city: addressCity,
         town: addressTown,
         line1,
-        error,
-      };
-    }
-
-    if (geo.pref) {
-      const { error } = prevState;
-      error.pref = checkError('pref', geo.pref);
-      return {
-        pref: geo.pref,
-        city: geo.city,
-        town: geo.town,
         error,
       };
     }
@@ -201,6 +196,11 @@ class SpaceEdit2Container extends Component {
     const errors = checkError(propName, value);
     state[propName] = value;
     error[propName] = errors;
+
+    if (propName === 'town') {
+      state.town = value.replace(state.city, '');
+    }
+
     this.setState({ ...state, error });
   };
 

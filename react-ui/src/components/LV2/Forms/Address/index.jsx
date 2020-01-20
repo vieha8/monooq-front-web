@@ -78,7 +78,6 @@ export default ({
     <Wrap>
       <PrefTownLeft>
         <InputForm
-          disabled
           margintop={12}
           placeholder="例) 東京都"
           value={formAddress.pref}
@@ -87,7 +86,6 @@ export default ({
       </PrefTownLeft>
       <PrefTownRight>
         <InputForm
-          disabled
           margintop={12}
           placeholder="例) 渋谷区渋谷"
           value={formAddress.town}
