@@ -103,6 +103,7 @@ export default ({
     <ErrorList keyName="postalCode_errors" errors={errors.postalCode} />
     <ErrorList keyName="address_errors" errors={errors.address} />
     <ErrorList keyName="pref_errors" errors={errors.pref} />
+    <ErrorList keyName="town_errors" errors={errors.town} />
     <ErrorList keyName="line1_errors" errors={errors.line1} />
   </Fragment>
 );

@@ -30,7 +30,7 @@ const checkError = (name, value) => {
       break;
     case 'pref':
       if (!value || value.trim().length === 0) {
-        errors.push(`住所の自動入力を${ErrorMessages.PleaseDo}`);
+        errors.push(`都道府県を${ErrorMessages.PleaseInput}`);
       }
       break;
     case 'town':
@@ -91,10 +91,9 @@ class SpaceEdit2Container extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { dispatch } = this.props;
     const { postalCode } = this.state;
     if (this.validatePostCode() && postalCode !== prevState.postalCode) {
-      dispatch(spaceActions.getAddress({ postalCode }));
+      this.onClickGetAddress();
     }
     if (prevProps.geo.postalCode !== this.props.geo.postalCode) {
       const { geo } = this.props;
@@ -102,7 +101,7 @@ class SpaceEdit2Container extends Component {
       // eslint-disable-next-line react/no-did-update-set-state
       const { error } = prevState;
       error.pref = checkError('pref', geo.pref);
-      error.pref = checkError('town', geo.town);
+      error.town = checkError('town', geo.town);
       this.setState({ pref, city, town, error });
     }
   }
@@ -195,24 +194,35 @@ class SpaceEdit2Container extends Component {
 
   onClickGetAddress = () => {
     const { dispatch, geo } = this.props;
-    const { postalCode } = this.state;
+    const { postalCode, pref, city } = this.state;
     dispatch(spaceActions.getAddress({ postalCode }));
+
     this.handleChangeUI('pref', geo.pref);
     this.handleChangeUI('town', geo.town);
-    this.setState({ pref: geo.pref, town: geo.town });
+
+    this.setState({
+      pref: geo.pref || pref,
+      city: geo.city || city,
+      town: geo.town,
+    });
   };
 
   handleChangeUI = (propName, value) => {
     const state = { ...this.state };
     const { error } = state;
-    const errors = checkError(propName, value);
-    state[propName] = value;
-    error[propName] = errors;
+    let targetValue = value;
+
+    error[propName] = [];
+    this.setState({ error });
 
     if (propName === 'town') {
-      state.town = value.replace(state.city, '');
+      state.town = value ? value.replace(state.city, '') : '';
+      targetValue = state.town;
     }
 
+    state[propName] = targetValue;
+    const errors = checkError(propName, targetValue);
+    error[propName] = errors;
     this.setState({ ...state, error });
   };
 
@@ -267,7 +277,7 @@ class SpaceEdit2Container extends Component {
         formAddress={{
           postalCode,
           pref,
-          town: `${city}${town}`,
+          town: `${city || ''}${town || ''}`,
           line1,
         }}
         onChangePostalCode={v => this.handleChangeUI('postalCode', v)}
