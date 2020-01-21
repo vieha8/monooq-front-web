@@ -1,17 +1,13 @@
-import React, { Fragment } from 'react';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
+import React from 'react';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import PageNotFound from 'components/LV3/PageNotFound';
 import Meta from 'components/LV1/Meta';
 
-class PageNotFoundContainer extends React.Component {
-  render() {
-    return (
-      <Fragment>
-        <Meta noindex />
-        <PageNotFound />
-      </Fragment>
-    );
-  }
-}
+const PageNotFoundContainer = React.memo(() => (
+  <BaseTemplate>
+    <Meta noindex />
+    <PageNotFound />
+  </BaseTemplate>
+));
 
-export default ContentPageStatic(PageNotFoundContainer);
+export default PageNotFoundContainer;

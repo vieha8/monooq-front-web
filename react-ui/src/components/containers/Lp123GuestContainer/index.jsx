@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Path from 'config/path';
 import { partialMatch } from 'helpers/string';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Lp123Guest from 'components/LV3/Lp123Guest';
 
 class Lp123GuestContainer extends React.Component {
@@ -76,18 +76,16 @@ class Lp123GuestContainer extends React.Component {
   render() {
     const { titleMeta, headline, titleWant, buttonLink } = this.state;
     return (
-      <Lp123Guest
-        titleMeta={titleMeta}
-        headline={headline}
-        titleWant={titleWant}
-        buttonLink={buttonLink}
-      />
+      <BaseTemplate bottomMargin>
+        <Lp123Guest
+          titleMeta={titleMeta}
+          headline={headline}
+          titleWant={titleWant}
+          buttonLink={buttonLink}
+        />
+      </BaseTemplate>
     );
   }
 }
 
-export default ContentPageStatic(Lp123GuestContainer, {
-  isLp: true,
-  maxWidth: true,
-  bottomMargin: true,
-});
+export default Lp123GuestContainer;

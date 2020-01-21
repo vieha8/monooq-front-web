@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
@@ -156,4 +155,4 @@ const mapStateToProps = state => ({
   intercomHash: state.auth.intercom.hash,
 });
 
-export default withRouter(connect(mapStateToProps)(TopContainer));
+export default connect(mapStateToProps)(TopContainer);

@@ -1,11 +1,11 @@
 import React from 'react';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Terms from 'components/LV3/Terms';
 
-class TermsContainer extends React.Component {
-  render() {
-    return <Terms />;
-  }
-}
+const TermsContainer = React.memo(() => (
+  <BaseTemplate>
+    <Terms />
+  </BaseTemplate>
+));
 
-export default ContentPageStatic(TermsContainer);
+export default TermsContainer;

@@ -1,11 +1,11 @@
 import React from 'react';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import CancelPolicy from 'components/LV3/CancelPolicy';
 
-class CancelPolicyContainer extends React.Component {
-  render() {
-    return <CancelPolicy />;
-  }
-}
+const CancelPolicyContainer = React.memo(() => (
+  <BaseTemplate>
+    <CancelPolicy />
+  </BaseTemplate>
+));
 
-export default ContentPageStatic(CancelPolicyContainer);
+export default CancelPolicyContainer;

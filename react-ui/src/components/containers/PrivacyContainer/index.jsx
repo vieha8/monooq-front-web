@@ -1,11 +1,11 @@
 import React from 'react';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Privacy from 'components/LV3/Privacy';
 
-class PrivacyContainer extends React.Component {
-  render() {
-    return <Privacy />;
-  }
-}
+const PrivacyContainer = React.memo(() => (
+  <BaseTemplate>
+    <Privacy />
+  </BaseTemplate>
+));
 
-export default ContentPageStatic(PrivacyContainer);
+export default PrivacyContainer;

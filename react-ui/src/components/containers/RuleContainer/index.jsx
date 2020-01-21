@@ -1,11 +1,11 @@
 import React from 'react';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Rule from 'components/LV3/Rule';
 
-class RuleContainer extends React.Component {
-  render() {
-    return <Rule />;
-  }
-}
+const RuleContainer = React.memo(() => (
+  <BaseTemplate>
+    <Rule />
+  </BaseTemplate>
+));
 
-export default ContentPageStatic(RuleContainer);
+export default RuleContainer;

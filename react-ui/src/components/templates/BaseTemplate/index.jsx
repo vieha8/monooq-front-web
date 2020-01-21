@@ -1,14 +1,14 @@
 import React, { Fragment } from 'react';
 import Header from 'components/containers/Header';
 import Footer from 'components/LV2/Footer';
-import Page from '../Page';
+import Page from 'components/templates/Page';
 
-export default ({ children }) => {
-  return (
-    <Fragment>
-      <Header />
-      <Page noMargin>{children}</Page>
-      <Footer />
-    </Fragment>
-  );
-};
+const BaseTemplate = React.memo(({ children, bottomMargin }) => (
+  <Fragment>
+    <Header />
+    <Page noMargin>{children}</Page>
+    <Footer bottomMargin={bottomMargin} />
+  </Fragment>
+));
+
+export default BaseTemplate;

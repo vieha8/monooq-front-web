@@ -1,11 +1,11 @@
 import React from 'react';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Insurance from 'components/LV3/Insurance';
 
-class InsuranceContainer extends React.Component {
-  render() {
-    return <Insurance />;
-  }
-}
+const InsuranceContainer = React.memo(() => (
+  <BaseTemplate>
+    <Insurance />
+  </BaseTemplate>
+));
 
-export default ContentPageStatic(InsuranceContainer);
+export default InsuranceContainer;

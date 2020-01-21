@@ -1,11 +1,11 @@
 import React from 'react';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Asct from 'components/LV3/Asct';
 
-class AsctContainer extends React.Component {
-  render() {
-    return <Asct />;
-  }
-}
+const AsctContainer = React.memo(() => (
+  <BaseTemplate>
+    <Asct />
+  </BaseTemplate>
+));
 
-export default ContentPageStatic(AsctContainer);
+export default AsctContainer;

@@ -1,6 +1,6 @@
 import React from 'react';
-import HowToUse from 'components/LV3/HowToUse';
 import BaseTemplate from 'components/templates/BaseTemplate';
+import HowToUse from 'components/LV3/HowToUse';
 
 const HowToUseContainer = React.memo(() => (
   <BaseTemplate>
