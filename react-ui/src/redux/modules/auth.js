@@ -208,8 +208,8 @@ export const authReducer = handleActions(
 );
 
 const getFirebaseAuth = async () => {
-  const firebase = await import('firebase/app');
-  await import('firebase/auth');
+  const firebase = await import('firebase/app').catch(() => window.location.reload());
+  await import('firebase/auth').catch(() => window.location.reload());
 
   try {
     firebase.initializeApp(firebaseConfig());

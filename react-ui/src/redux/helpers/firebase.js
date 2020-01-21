@@ -1,8 +1,8 @@
 import { captureException } from '@sentry/browser';
 
 export const uploadImage = async (path, file) => {
-  const firebase = await import('firebase/app');
-  await import('firebase/storage');
+  const firebase = await import('firebase/app').catch(() => window.location.reload());
+  await import('firebase/storage').catch(() => window.location.reload());
 
   const storageRef = firebase.storage().ref();
   const imageRef = storageRef.child(path);

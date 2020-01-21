@@ -76,8 +76,8 @@ export const messagesReducer = handleActions(
 );
 
 const roomCollection = async () => {
-  const firebase = await import('firebase/app');
-  await import('firebase/firestore');
+  const firebase = await import('firebase/app').catch(() => window.location.reload());
+  await import('firebase/firestore').catch(() => window.location.reload());
   return firebase.firestore().collection('rooms');
 };
 
