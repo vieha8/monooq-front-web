@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import Header from 'components/containers/Header';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import TopView from 'components/LV3/TopView';
@@ -29,7 +28,6 @@ const getCatchPhrase = () => {
 };
 
 export default ({
-  story,
   locationText,
   handleChangeLocation,
   onKeyDownSearchField,
@@ -38,7 +36,6 @@ export default ({
   sections,
 }) => (
   <TopPage>
-    {!story && <Header top />}
     <TopView
       catchPhrase={getCatchPhrase()}
       catchPhraseSub="物置シェアサービス「モノオク」"

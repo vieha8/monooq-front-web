@@ -1,10 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
-import Footer from 'components/LV2/Footer';
 import Top from 'components/LV3/Top';
 import ReactGA from 'react-ga';
 import { spaceActions } from 'redux/modules/space';
@@ -12,8 +10,7 @@ import { isAvailableLocalStorage } from 'helpers/storage';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { sectionActions } from 'redux/modules/section';
 import Intercom from 'react-intercom';
-
-const Wrap = styled.div``;
+import BaseTemplate from 'components/templates/BaseTemplate';
 
 class TopContainer extends React.Component {
   constructor(props) {
@@ -123,7 +120,7 @@ class TopContainer extends React.Component {
       document.domain === 'monooq-front-web-staging.herokuapp.com';
 
     return (
-      <Wrap>
+      <BaseTemplate>
         <Top
           locationText={locationText}
           handleChangeLocation={this.handleChangeLocation}
@@ -137,7 +134,6 @@ class TopContainer extends React.Component {
           history={history}
           sections={[]}
         />
-        <Footer />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"
@@ -147,7 +143,7 @@ class TopContainer extends React.Component {
             user_hash={intercomHash}
           />
         )}
-      </Wrap>
+      </BaseTemplate>
     );
   }
 }
