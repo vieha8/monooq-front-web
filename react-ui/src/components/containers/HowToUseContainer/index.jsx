@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
+import React from 'react';
 import HowToUse from 'components/LV3/HowToUse';
+import BaseTemplate from 'components/templates/BaseTemplate';
 
-class HowToUseContainer extends Component<*> {
-  render() {
-    return <HowToUse />;
-  }
-}
+const HowToUseContainer = React.memo(() => (
+  <BaseTemplate>
+    <HowToUse />
+  </BaseTemplate>
+));
 
-export default ContentPageStatic(HowToUseContainer, {
-  maxWidth: true,
-});
+export default HowToUseContainer;

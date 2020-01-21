@@ -1,21 +1,17 @@
 import React from 'react';
 import Path from 'config/path';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import About from 'components/LV3/About';
+import BaseTemplate from 'components/templates/BaseTemplate';
 
-class AboutContainer extends React.Component {
-  render() {
-    const { history } = this.props;
-    return (
-      <About
-        onClickHowToUse={() => history.push(Path.howtouse())}
-        onClickInsurance={() => history.push(Path.insurance())}
-        onClickRule={() => history.push(Path.rule())}
-      />
-    );
-  }
-}
+const AboutContainer = React.memo(({ history }) => (
+  <BaseTemplate>
+    <About
+      // TODO リンク先はcontainerで設定する必要ないのでcomponent側に移したい
+      onClickHowToUse={() => history.push(Path.howtouse())}
+      onClickInsurance={() => history.push(Path.insurance())}
+      onClickRule={() => history.push(Path.rule())}
+    />
+  </BaseTemplate>
+));
 
-export default ContentPageStatic(AboutContainer, {
-  maxWidth: true,
-});
+export default AboutContainer;
