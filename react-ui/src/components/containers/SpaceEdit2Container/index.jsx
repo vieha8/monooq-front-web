@@ -33,6 +33,11 @@ const checkError = (name, value) => {
         errors.push(`住所の自動入力を${ErrorMessages.PleaseDo}`);
       }
       break;
+    case 'town':
+      if (!value || value.trim().length === 0) {
+        errors.push(`市区町村以降を${ErrorMessages.PleaseInput}`);
+      }
+      break;
     case 'line1':
       if (!value || value.trim().value === 0) {
         errors.push(`番地を${ErrorMessages.PleaseInput}`);
@@ -69,7 +74,7 @@ class SpaceEdit2Container extends Component {
 
   componentDidMount() {
     const { match, dispatch, space } = this.props;
-    const { isUpdate, postalCode, pref, line1, receiptType } = this.state;
+    const { isUpdate, postalCode, pref, town, line1, receiptType } = this.state;
 
     const spaceId = match.params.space_id;
     if (isUpdate && !space.id) {
@@ -79,6 +84,7 @@ class SpaceEdit2Container extends Component {
     if (!isUpdate) {
       this.handleChangeUI('postalCode', postalCode);
       this.handleChangeUI('pref', pref);
+      this.handleChangeUI('town', town);
       this.handleChangeUI('line1', line1);
       this.handleChangeUI('receiptType', receiptType);
     }
@@ -96,6 +102,7 @@ class SpaceEdit2Container extends Component {
       // eslint-disable-next-line react/no-did-update-set-state
       const { error } = prevState;
       error.pref = checkError('pref', geo.pref);
+      error.pref = checkError('town', geo.town);
       this.setState({ pref, city, town, error });
     }
   }
@@ -187,9 +194,12 @@ class SpaceEdit2Container extends Component {
   };
 
   onClickGetAddress = () => {
-    const { dispatch } = this.props;
+    const { dispatch, geo } = this.props;
     const { postalCode } = this.state;
     dispatch(spaceActions.getAddress({ postalCode }));
+    this.handleChangeUI('pref', geo.pref);
+    this.handleChangeUI('town', geo.town);
+    this.setState({ pref: geo.pref, town: geo.town });
   };
 
   handleChangeUI = (propName, value) => {
