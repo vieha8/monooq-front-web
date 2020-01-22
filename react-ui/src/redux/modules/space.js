@@ -857,7 +857,7 @@ function* getAddressByPostalCode({ payload: { postalCode } }) {
         spaceActions.getAddressFailed,
         ErrorMessages.FailedGetAddress,
         'getAddress',
-        err,
+        ErrorMessages.FailedGetAddress,
         true,
       );
     }
