@@ -30,7 +30,12 @@ const checkError = (name, value) => {
       break;
     case 'pref':
       if (!value || value.trim().length === 0) {
-        errors.push(`住所の自動入力を${ErrorMessages.PleaseDo}`);
+        errors.push(`都道府県を${ErrorMessages.PleaseInput}`);
+      }
+      break;
+    case 'town':
+      if (!value || value.trim().length === 0) {
+        errors.push(`市区町村以降を${ErrorMessages.PleaseInput}`);
       }
       break;
     case 'line1':
@@ -69,7 +74,7 @@ class SpaceEdit2Page extends Component {
 
   componentDidMount() {
     const { match, dispatch, space } = this.props;
-    const { isUpdate, postalCode, pref, line1, receiptType } = this.state;
+    const { isUpdate, postalCode, pref, town, line1, receiptType } = this.state;
 
     const spaceId = match.params.space_id;
     if (isUpdate && !space.id) {
@@ -79,16 +84,16 @@ class SpaceEdit2Page extends Component {
     if (!isUpdate) {
       this.handleChangeUI('postalCode', postalCode);
       this.handleChangeUI('pref', pref);
+      this.handleChangeUI('town', town);
       this.handleChangeUI('line1', line1);
       this.handleChangeUI('receiptType', receiptType);
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { dispatch } = this.props;
     const { postalCode } = this.state;
     if (this.validatePostCode() && postalCode !== prevState.postalCode) {
-      dispatch(spaceActions.getAddress({ postalCode }));
+      this.onClickGetAddress();
     }
     if (prevProps.geo.postalCode !== this.props.geo.postalCode) {
       const { geo } = this.props;
@@ -96,6 +101,7 @@ class SpaceEdit2Page extends Component {
       // eslint-disable-next-line react/no-did-update-set-state
       const { error } = prevState;
       error.pref = checkError('pref', geo.pref);
+      error.town = checkError('town', geo.town);
       this.setState({ pref, city, town, error });
     }
   }
@@ -187,22 +193,36 @@ class SpaceEdit2Page extends Component {
   };
 
   onClickGetAddress = () => {
-    const { dispatch } = this.props;
-    const { postalCode } = this.state;
+    const { dispatch, geo } = this.props;
+    const { postalCode, pref, city } = this.state;
     dispatch(spaceActions.getAddress({ postalCode }));
+
+    this.handleChangeUI('pref', geo.pref);
+    this.handleChangeUI('town', geo.town);
+
+    this.setState({
+      pref: geo.pref || pref,
+      city: geo.city || city,
+      town: geo.town,
+    });
   };
 
   handleChangeUI = (propName, value) => {
     const state = { ...this.state };
     const { error } = state;
-    const errors = checkError(propName, value);
-    state[propName] = value;
-    error[propName] = errors;
+    let targetValue = value;
+
+    error[propName] = [];
+    this.setState({ error });
 
     if (propName === 'town') {
-      state.town = value.replace(state.city, '');
+      state.town = value ? value.replace(state.city, '') : '';
+      targetValue = state.town;
     }
 
+    state[propName] = targetValue;
+    const errors = checkError(propName, targetValue);
+    error[propName] = errors;
     this.setState({ ...state, error });
   };
 
@@ -257,7 +277,7 @@ class SpaceEdit2Page extends Component {
         formAddress={{
           postalCode,
           pref,
-          town: `${city}${town}`,
+          town: `${city || ''}${town || ''}`,
           line1,
         }}
         onChangePostalCode={v => this.handleChangeUI('postalCode', v)}
