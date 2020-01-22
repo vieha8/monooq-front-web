@@ -5,134 +5,130 @@ import loadable from '@loadable/component';
 import Path from './config/path';
 
 const Top = loadable(() =>
-  import('components/containers/TopContainer').catch(() => window.location.reload()),
+  import('components/pages/TopPage').catch(() => window.location.reload()),
 );
 const Login = loadable(() =>
-  import('components/containers/LoginContainer').catch(() => window.location.reload()),
+  import('components/pages/LoginPage').catch(() => window.location.reload()),
 );
 const SignUp = loadable(() =>
-  import('components/containers/SignUpContainer').catch(() => window.location.reload()),
+  import('components/pages/SignUpPage').catch(() => window.location.reload()),
 );
 const SignUpProfile = loadable(() =>
-  import('components/containers/SignUpProfileContainer').catch(() => window.location.reload()),
+  import('components/pages/SignUpProfilePage').catch(() => window.location.reload()),
 );
 const ResetPassword = loadable(() =>
-  import('components/containers/ResetPasswordContainer').catch(() => window.location.reload()),
+  import('components/pages/ResetPasswordPage').catch(() => window.location.reload()),
 );
 const Search = loadable(() =>
-  import('components/containers/SearchResultContainer').catch(() => window.location.reload()),
+  import('components/pages/SearchResultPage').catch(() => window.location.reload()),
 );
 const SearchCondition = loadable(() =>
-  import('components/containers/SearchConditionContainer').catch(() => window.location.reload()),
+  import('components/pages/SearchConditionPage').catch(() => window.location.reload()),
 );
 const Space = loadable(() =>
-  import('components/containers/SpaceContainer').catch(() => window.location.reload()),
+  import('components/pages/SpacePage').catch(() => window.location.reload()),
 );
 const Spaces = loadable(() =>
-  import('components/containers/SpaceManagementContainer').catch(() => window.location.reload()),
+  import('components/pages/SpaceManagementPage').catch(() => window.location.reload()),
 );
 const Schedule = loadable(() =>
-  import('components/containers/ScheduleContainer').catch(() => window.location.reload()),
+  import('components/pages/SchedulePage').catch(() => window.location.reload()),
 );
 const Profile = loadable(() =>
-  import('components/containers/ProfileContainer').catch(() => window.location.reload()),
+  import('components/pages/ProfilePage').catch(() => window.location.reload()),
 );
 const ProfileEdit = loadable(() =>
-  import('components/containers/ProfileEditContainer').catch(() => window.location.reload()),
+  import('components/pages/ProfileEditPage').catch(() => window.location.reload()),
 );
 const Inquiry = loadable(() =>
-  import('components/containers/InquiryContainer').catch(() => window.location.reload()),
+  import('components/pages/InquiryPage').catch(() => window.location.reload()),
 );
 const MessageList = loadable(() =>
-  import('components/containers/MessageListContainer').catch(() => window.location.reload()),
+  import('components/pages/MessageListPage').catch(() => window.location.reload()),
 );
 const Message = loadable(() =>
-  import('components/containers/MessageContainer').catch(() => window.location.reload()),
+  import('components/pages/MessagePage').catch(() => window.location.reload()),
 );
 const Estimate = loadable(() =>
-  import('components/containers/EstimateContainer').catch(() => window.location.reload()),
+  import('components/pages/EstimatePage').catch(() => window.location.reload()),
 );
 const Payment = loadable(() =>
-  import('components/containers/PaymentContainer').catch(() => window.location.reload()),
+  import('components/pages/PaymentPage').catch(() => window.location.reload()),
 );
 const SpaceCreate1 = loadable(() =>
-  import('components/containers/SpaceEdit1Container').catch(() => window.location.reload()),
+  import('components/pages/SpaceEdit1Page').catch(() => window.location.reload()),
 );
 const SpaceEdit1 = loadable(() =>
-  import('components/containers/SpaceEdit1Container').catch(() => window.location.reload()),
+  import('components/pages/SpaceEdit1Page').catch(() => window.location.reload()),
 );
 const SpaceCreate2 = loadable(() =>
-  import('components/containers/SpaceEdit2Container').catch(() => window.location.reload()),
+  import('components/pages/SpaceEdit2Page').catch(() => window.location.reload()),
 );
 const SpaceEdit2 = loadable(() =>
-  import('components/containers/SpaceEdit2Container').catch(() => window.location.reload()),
+  import('components/pages/SpaceEdit2Page').catch(() => window.location.reload()),
 );
 const SpaceCreate3 = loadable(() =>
-  import('components/containers/SpaceEdit3Container').catch(() => window.location.reload()),
+  import('components/pages/SpaceEdit3Page').catch(() => window.location.reload()),
 );
 const SpaceEdit3 = loadable(() =>
-  import('components/containers/SpaceEdit3Container').catch(() => window.location.reload()),
+  import('components/pages/SpaceEdit3Page').catch(() => window.location.reload()),
 );
 const CreateSpaceConfirm = loadable(() =>
-  import('components/containers/SpaceEditConfirmContainer').catch(() => window.location.reload()),
+  import('components/pages/SpaceEditConfirmPage').catch(() => window.location.reload()),
 );
 const SpaceEditConfirm = loadable(() =>
-  import('components/containers/SpaceEditConfirmContainer').catch(() => window.location.reload()),
+  import('components/pages/SpaceEditConfirmPage').catch(() => window.location.reload()),
 );
 const CreateSpaceCompletion = loadable(() =>
-  import('components/containers/SpaceEditCompletionContainer').catch(() =>
-    window.location.reload(),
-  ),
+  import('components/pages/SpaceEditCompletionPage').catch(() => window.location.reload()),
 );
 const SpaceEditCompletion = loadable(() =>
-  import('components/containers/SpaceEditCompletionContainer').catch(() =>
-    window.location.reload(),
-  ),
+  import('components/pages/SpaceEditCompletionPage').catch(() => window.location.reload()),
 );
 const Unsubscribe = loadable(() =>
-  import('components/containers/UnsubscribeContainer').catch(() => window.location.reload()),
+  import('components/pages/UnsubscribePage').catch(() => window.location.reload()),
 );
 const Sales = loadable(() =>
-  import('components/containers/SalesContainer').catch(() => window.location.reload()),
+  import('components/pages/SalesPage').catch(() => window.location.reload()),
 );
 const About = loadable(() =>
-  import('components/containers/AboutContainer').catch(() => window.location.reload()),
+  import('components/pages/AboutPage').catch(() => window.location.reload()),
 );
 const HowToUse = loadable(() =>
-  import('components/containers/HowToUseContainer').catch(() => window.location.reload()),
+  import('components/pages/HowToUsePage').catch(() => window.location.reload()),
 );
 const Insurance = loadable(() =>
-  import('components/containers/InsuranceContainer').catch(() => window.location.reload()),
+  import('components/pages/InsurancePage').catch(() => window.location.reload()),
 );
 const Rule = loadable(() =>
-  import('components/containers/RuleContainer').catch(() => window.location.reload()),
+  import('components/pages/RulePage').catch(() => window.location.reload()),
 );
 const PageNotFound = loadable(() =>
-  import('components/containers/PageNotFoundContainer').catch(() => window.location.reload()),
+  import('components/pages/PageNotFoundPage').catch(() => window.location.reload()),
 );
 const CancelPolicy = loadable(() =>
-  import('components/containers/CancelPolicyContainer').catch(() => window.location.reload()),
+  import('components/pages/CancelPolicyPage').catch(() => window.location.reload()),
 );
 const Asct = loadable(() =>
-  import('components/containers/AsctContainer').catch(() => window.location.reload()),
+  import('components/pages/AsctPage').catch(() => window.location.reload()),
 );
 const Privacy = loadable(() =>
-  import('components/containers/PrivacyContainer').catch(() => window.location.reload()),
+  import('components/pages/PrivacyPage').catch(() => window.location.reload()),
 );
 const Terms = loadable(() =>
-  import('components/containers/TermsContainer').catch(() => window.location.reload()),
+  import('components/pages/TermsPage').catch(() => window.location.reload()),
 );
 const Lp1Host = loadable(() =>
-  import('components/containers/Lp1HostContainer').catch(() => window.location.reload()),
+  import('components/pages/Lp1HostPage').catch(() => window.location.reload()),
 );
 const Lp1Guest = loadable(() =>
-  import('components/containers/Lp123GuestContainer').catch(() => window.location.reload()),
+  import('components/pages/Lp123GuestPage').catch(() => window.location.reload()),
 );
 const Lp2Guest = loadable(() =>
-  import('components/containers/Lp123GuestContainer').catch(() => window.location.reload()),
+  import('components/pages/Lp123GuestPage').catch(() => window.location.reload()),
 );
 const Lp3Guest = loadable(() =>
-  import('components/containers/Lp123GuestContainer').catch(() => window.location.reload()),
+  import('components/pages/Lp123GuestPage').catch(() => window.location.reload()),
 );
 
 export default ({ history }) => (

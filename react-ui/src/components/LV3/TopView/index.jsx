@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors } from 'variables';
-import ContainerDefault from 'components/LV1/ContainerDefault';
+import PageDefault from 'components/LV1/PageDefault';
 import CatchPhrase from 'components/LV1/Texts/CatchPhrase';
 import CatchPhraseSub from 'components/LV1/Texts/CatchPhraseSub';
 import InputSearch from 'components/LV2/Forms/InputSearch';
@@ -16,7 +16,7 @@ const calloutLeft =
 const calloutRight =
   'https://monooq.imgix.net/img%2Fservice%2Fcallout-right.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
 
-const TopView = styled.div`
+const Wrap = styled.div`
   height: 512px;
   background-image: url(${mainVisual});
   background-size: cover;
@@ -46,7 +46,7 @@ const TopViewWrap = styled.div`
   `};
 `;
 
-const TopViewContainer = styled(ContainerDefault)`
+const TopViewContainer = styled(PageDefault)`
   position: relative;
   &:before {
     content: '';
@@ -88,7 +88,7 @@ const TopViewContainer = styled(ContainerDefault)`
   `};
 `;
 
-const InputSearchContainer = styled.div`
+const InputSearchWrap = styled.div`
   margin-top: ${Dimens.medium_20}px;
   margin-bottom: ${Dimens.medium3_40}px;
 `;
@@ -103,12 +103,12 @@ export default ({
   searchDisabled,
   onClickSearchButton,
 }) => (
-  <TopView>
+  <Wrap>
     <TopViewWrap className="wrapTopView">
       <TopViewContainer className="container-topview">
         <CatchPhraseSub>{catchPhraseSub}</CatchPhraseSub>
         <CatchPhrase>{catchPhrase}</CatchPhrase>
-        <InputSearchContainer>
+        <InputSearchWrap>
           <InputSearch
             placeholder={placeholder}
             locationText={locationText}
@@ -117,8 +117,8 @@ export default ({
             searchDisabled={searchDisabled}
             onClickSearchButton={onClickSearchButton}
           />
-        </InputSearchContainer>
+        </InputSearchWrap>
       </TopViewContainer>
     </TopViewWrap>
-  </TopView>
+  </Wrap>
 );

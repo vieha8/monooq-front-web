@@ -9,7 +9,7 @@ import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { formatName } from 'helpers/string';
 
-const Container = styled.div`
+const Wrap = styled.div`
   width: 100%;
   padding: ${Dimens.medium_20}px ${Dimens.medium}px;
   background-color: ${Colors.white};
@@ -20,11 +20,11 @@ const Container = styled.div`
   }
 `;
 
-const HostImageContainer = styled.div`
+const HostImageWrap = styled.div`
   display: inline-block;
 `;
 
-const HostNameContainer = styled.div`
+const HostNameWrap = styled.div`
   display: inline-block;
   vertical-align: middle;
   max-width: calc(100% - 66px);
@@ -44,13 +44,13 @@ const LinkStyled = styled(Link)`
 `;
 
 export default ({ isHost, id, imageUrl, name }) => (
-  <Container>
-    <HostImageContainer>
+  <Wrap>
+    <HostImageWrap>
       <Link to={Path.profile(id)}>
         <ImageAvatar size={54} src={imageUrl} alt={name} />
       </Link>
-    </HostImageContainer>
-    <HostNameContainer>
+    </HostImageWrap>
+    <HostNameWrap>
       {isHost && (
         <Fragment>
           <Tag tagList={['ホスト']} isNoMark />
@@ -64,6 +64,6 @@ export default ({ isHost, id, imageUrl, name }) => (
           プロフィール編集
         </InlineText.Base>
       </LinkStyled>
-    </HostNameContainer>
-  </Container>
+    </HostNameWrap>
+  </Wrap>
 );

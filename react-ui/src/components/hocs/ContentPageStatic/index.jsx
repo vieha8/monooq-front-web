@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import Header from 'components/containers/Header';
+import Header from 'components/pages/Header';
 import Footer from 'components/LV2/Footer';
-import ContainerStaticPage from 'components/LV1/ContainerStaticPage';
+import PageStatic from 'components/LV1/PageStatic';
 
 const ContentPageStatic = (WrappedComponent, option) => {
   class ContentPageStaticComponent extends Component {
@@ -11,9 +11,9 @@ const ContentPageStatic = (WrappedComponent, option) => {
       return (
         <Fragment>
           <Header />
-          <ContainerStaticPage maxWidth={option && option.maxWidth ? option.maxWidth : ''}>
+          <PageStatic maxWidth={option && option.maxWidth ? option.maxWidth : ''}>
             <WrappedComponent {...this.props} />
-          </ContainerStaticPage>
+          </PageStatic>
           <Footer bottomMargin={!!(option && option.bottomMargin)} />
         </Fragment>
       );

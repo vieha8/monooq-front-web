@@ -7,7 +7,7 @@ import MainTitle from 'components/LV1/Texts/MainTitleStatic';
 import Text from 'components/LV1/Texts/TextStatic';
 import { Height as HeaderHeight } from 'components/LV3/Header';
 
-const MainTitleContainer = styled.div`
+const MainTitleWrap = styled.div`
   ${props =>
     !props.noMarginTop &&
     `
@@ -48,7 +48,7 @@ const MainTitleStyled = styled(MainTitle)`
 `;
 
 export default ({ mainTitle, mainTitleSub, text, isHr, sub, noMarginTop, fontSizeSp }) => (
-  <MainTitleContainer sub={sub} noMarginTop={noMarginTop}>
+  <MainTitleWrap sub={sub} noMarginTop={noMarginTop}>
     <MainTitleStyled fontSizeSp={fontSizeSp}>
       {mainTitle}
       {mainTitleSub && (
@@ -60,5 +60,5 @@ export default ({ mainTitle, mainTitleSub, text, isHr, sub, noMarginTop, fontSiz
     </MainTitleStyled>
     {text && <Text>{text}</Text>}
     {isHr && <Hr />}
-  </MainTitleContainer>
+  </MainTitleWrap>
 );

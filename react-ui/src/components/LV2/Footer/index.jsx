@@ -7,7 +7,7 @@ import Path from 'config/path';
 import ListItem from './ListItem';
 import CompanyInfo from './CompanyInfo';
 
-const Container = styled.footer`
+const Wrap = styled.footer`
   position: relative;
   z-index: ${ZIndexes.footer};
   display: flex;
@@ -30,7 +30,7 @@ const Container = styled.footer`
   `};
 `;
 
-const Wrap = styled.div`
+const WrapInner = styled.div`
   display: flex;
   width: 100%;
   max-width: 1200px;
@@ -73,8 +73,8 @@ const HrStyled = styled(Hr)`
 `;
 
 export default ({ bottomMargin, bottomMarginOnlySP }) => (
-  <Container bottomMargin={bottomMargin} bottomMarginOnlySP={bottomMarginOnlySP}>
-    <Wrap>
+  <Wrap bottomMargin={bottomMargin} bottomMarginOnlySP={bottomMarginOnlySP}>
+    <WrapInner>
       <WrapItems>
         <Caption>サービスについて</Caption>
         <WrapList>
@@ -167,6 +167,6 @@ export default ({ bottomMargin, bottomMarginOnlySP }) => (
       <WrapItems company>
         <CompanyInfo />
       </WrapItems>
-    </Wrap>
-  </Container>
+    </WrapInner>
+  </Wrap>
 );

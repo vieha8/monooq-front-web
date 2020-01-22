@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Colors, ZIndexes } from 'variables';
 import Loading from 'components/LV1/Loading';
 
-const Container = styled.div`
+const Wrap = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -23,9 +23,9 @@ const Content = styled.div`
 `;
 
 export default () => (
-  <Container>
+  <Wrap>
     <Content>
       <Loading loadingPage size="large" />
     </Content>
-  </Container>
+  </Wrap>
 );

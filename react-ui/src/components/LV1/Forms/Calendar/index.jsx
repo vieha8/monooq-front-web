@@ -11,7 +11,7 @@ import { SingleDatePicker } from 'react-dates';
 
 moment.locale('ja');
 
-const Container = styled.div`
+const Wrap = styled.div`
   width: 100%;
   border: 1px solid ${Colors.borderGray};
   ${props =>
@@ -22,7 +22,7 @@ const Container = styled.div`
 `;
 
 export default ({ focused, date, placeholder, onDateChange, onFocusChange, isAllowKeyboard }) => (
-  <Container focused={focused}>
+  <Wrap focused={focused}>
     <SingleDatePicker
       date={date}
       placeholder={placeholder || '日付を選択してください'}
@@ -34,5 +34,5 @@ export default ({ focused, date, placeholder, onDateChange, onFocusChange, isAll
       numberOfMonths={1}
       readOnly={!isAllowKeyboard}
     />
-  </Container>
+  </Wrap>
 );

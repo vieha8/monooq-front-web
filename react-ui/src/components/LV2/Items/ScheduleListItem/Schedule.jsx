@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ContainerClearfix from 'components/LV1/ContainerClearfix';
+import PageClearfix from 'components/LV1/PageClearfix';
 import PlaceListHorizonItem from 'components/LV2/Items/PlaceListHorizonItem';
 import Duration from './Duration';
 
-const SpaceContainer = styled.div`
+const SpaceWrap = styled.div`
   ${media.tablet`
     float: none;
   `};
@@ -23,14 +23,14 @@ const ScheduleWrapper = styled.div`
 `;
 
 export default props => (
-  <ContainerClearfix>
-    <SpaceContainer>
+  <PageClearfix>
+    <SpaceWrap>
       <SpaceWrapper>
         <PlaceListHorizonItem {...props.space} {...props} />
       </SpaceWrapper>
-    </SpaceContainer>
+    </SpaceWrap>
     <ScheduleWrapper>
       <Duration startDate={props.startDate} endDate={props.endDate} />
     </ScheduleWrapper>
-  </ContainerClearfix>
+  </PageClearfix>
 );
