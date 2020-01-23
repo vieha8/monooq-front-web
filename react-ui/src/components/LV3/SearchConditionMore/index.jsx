@@ -74,9 +74,9 @@ class SearchConditionMore extends Component {
 
   render() {
     const {
-      isModalOpen,
-      handleModalOpen,
-      handleModalClose,
+      isModalOpenPC,
+      handleModalOpenPC,
+      handleModalClosePC,
       btnText,
       regionPrefectureList,
       cityTownAreaList,
@@ -98,19 +98,19 @@ class SearchConditionMore extends Component {
           borderbold
           fontbold
           fill={1}
-          onClick={handleModalOpen}
+          onClick={handleModalOpenPC}
         >
           {btnText}
         </Button>
         <Modal
           size="large"
-          open={isModalOpen}
-          onClose={handleModalClose}
+          open={isModalOpenPC}
+          onClose={handleModalClosePC}
           className="ButtonModalSearchConditionMore pc"
         >
           <Modal.Content scrolling>
             <CloseIconWrap>
-              <CloseIcon onClick={handleModalClose} />
+              <CloseIcon onClick={handleModalClosePC} />
             </CloseIconWrap>
             <CityTownAreaListWrap isCityTownAreaList={cityTownAreaList.length > 0}>
               {cityTownAreaList.length === 0 && <PrefectureList list={regionPrefectureList} />}
