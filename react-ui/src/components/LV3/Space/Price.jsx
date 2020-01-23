@@ -5,8 +5,8 @@ import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 
 import InputPriceOfType from 'components/LV2/Forms/InputPriceOfType';
-import imageFurnitureFull from 'images/furniture-full.svg';
-import imageFurnitureTatami from 'images/furniture-tatami.svg';
+import imageFurnitureFull from 'images/img-furniture-full.svg';
+import imageFurnitureTatami from 'images/img-furniture-tatami.svg';
 
 const Wrap = styled.div`
   display: flex;

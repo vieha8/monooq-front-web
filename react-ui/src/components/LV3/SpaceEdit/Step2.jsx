@@ -5,7 +5,7 @@ import Address from 'components/LV2/Forms/Address';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import ImageStatusEditSpace2 from 'images/status-edit-space2.svg';
+import ImageStatusEditSpace2 from 'images/img-status-edit-space2.svg';
 import { Dimens, FontSizes } from 'variables';
 import { PageHeader, Section } from './Shared';
 

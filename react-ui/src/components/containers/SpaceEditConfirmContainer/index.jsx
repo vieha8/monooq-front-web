@@ -8,7 +8,7 @@ import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
 import styled from 'styled-components';
 import { Colors, Dimens, ZIndexes } from 'variables';
-import dummySpaceImage from 'images/dummy_space.png';
+import dummySpaceImage from 'images/img-dummy-space.png';
 import { connect } from 'react-redux';
 import authRequired from 'components/containers/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';

@@ -12,9 +12,9 @@ const mainVisual =
 const mainVisualSp =
   'https://monooq.imgix.net/img%2Fservice%2Fimg-hero-sp.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
 const calloutLeft =
-  'https://monooq.imgix.net/img%2Fservice%2Fcallout-left.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-customer-voice1.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
 const calloutRight =
-  'https://monooq.imgix.net/img%2Fservice%2Fcallout-right.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-customer-voice2.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
 
 const TopView = styled.div`
   height: 512px;

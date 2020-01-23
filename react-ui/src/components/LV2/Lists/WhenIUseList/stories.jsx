@@ -4,12 +4,12 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import useImage1 from 'images/about_use1@2x.jpg';
-import useImage2 from 'images/about_use2@2x.jpg';
-import useImage3 from 'images/about_use3@2x.jpg';
-import useImage4 from 'images/about_use4@2x.jpg';
-import useImage5 from 'images/about_use5@2x.jpg';
-import useImage6 from 'images/about_use6@2x.jpg';
+import useImage1 from 'images/img-packing-family.jpg';
+import useImage2 from 'images/img-wood-houses.jpg';
+import useImage3 from 'images/img-carry-case.jpg';
+import useImage4 from 'images/img-work-desk.jpg';
+import useImage5 from 'images/img-warehouses.jpg';
+import useImage6 from 'images/img-family.jpg';
 
 import WhenIUseList from './index';
 

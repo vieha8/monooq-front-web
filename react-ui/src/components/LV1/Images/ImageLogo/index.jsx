@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import MonoboyImage from 'images/monoboy-b.png';
+import MonoboyImage from 'images/img-monoboy-b.png';
 import logoImage from './logo.svg';
 import logoWhiteImage from './logo-white.svg';
 

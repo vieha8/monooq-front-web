@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { media } from 'helpers/style/media-query';
-import mapMarkerIcon from 'images/space_map_marker@2x.svg';
+import mapMarkerIcon from 'images/img-space-map-marker.svg';
 
 const MapContainer = styled.div`
   height: 360px;

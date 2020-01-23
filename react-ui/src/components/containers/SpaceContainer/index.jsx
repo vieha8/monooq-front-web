@@ -9,7 +9,7 @@ import Detail from 'components/LV3/Space/Detail';
 import SendMessageOnlyTabletSp from 'components/LV3/Space/SendMessage';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Meta from 'components/LV1/Meta';
-import dummySpaceImage from 'images/dummy_space.png';
+import dummySpaceImage from 'images/img-dummy-space.png';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { receiptTypeList } from 'helpers/receiptTypes';
 
