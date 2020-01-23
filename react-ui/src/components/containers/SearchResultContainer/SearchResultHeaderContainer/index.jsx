@@ -22,7 +22,8 @@ class SearchResultHeaderContainer extends Component {
       areaPinList: [],
       areaAroundList: [],
       prefectureList: [],
-      isModalOpen: false,
+      isModalOpenPC: false,
+      isModalOpenSP: false,
     };
   }
 
@@ -162,7 +163,7 @@ class SearchResultHeaderContainer extends Component {
       return;
     }
 
-    this.setState({ isModalOpen: false });
+    this.setState({ isModalOpenPC: false, isModalOpenSP: false });
 
     const { history, conditions } = this.props;
 
@@ -300,7 +301,8 @@ class SearchResultHeaderContainer extends Component {
       areaPinList,
       areaAroundList,
       prefectureList,
-      isModalOpen,
+      isModalOpenPC,
+      isModalOpenSP,
     } = this.state;
 
     const conditionTitle = makeConditionTitle(conditions);
@@ -313,9 +315,12 @@ class SearchResultHeaderContainer extends Component {
         />
         {breadcrumbs && <BreadcrumbsList breadcrumbsList={breadcrumbs} />}
         <SearchResultHeader
-          isModalOpen={isModalOpen}
-          handleModalOpen={() => this.setState({ isModalOpen: true })}
-          handleModalClose={() => this.setState({ isModalOpen: false })}
+          isModalOpenPC={isModalOpenPC}
+          handleModalOpenPC={() => this.setState({ isModalOpenPC: true })}
+          handleModalClosePC={() => this.setState({ isModalOpenPC: false })}
+          isModalOpenSP={isModalOpenSP}
+          handleModalOpenSP={() => this.setState({ isModalOpenSP: true })}
+          handleModalCloseSP={() => this.setState({ isModalOpenSP: false })}
           conditionTitle={conditionTitle}
           maxCount={maxCount}
           prefecture={conditions.pref.name}
