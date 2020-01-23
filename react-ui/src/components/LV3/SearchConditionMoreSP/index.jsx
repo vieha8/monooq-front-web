@@ -85,30 +85,30 @@ class SearchConditionMoreSP extends Component {
       onClickMore,
       onClickCheckCity,
       onClickCheckTown,
-      isModalOpen,
-      handleModalOpen,
-      handleModalClose,
+      isModalOpenSP,
+      handleModalOpenSP,
+      handleModalCloseSP,
     } = this.props;
     const { isTownArea } = this.state;
 
     return (
       <Wrap>
         {searchIcon ? (
-          <SearchIcon onClick={handleModalOpen} />
+          <SearchIcon onClick={handleModalOpenSP} />
         ) : (
-          <ButtonLV1 primary borderbold fontbold fill={1} onClick={handleModalOpen}>
+          <ButtonLV1 primary borderbold fontbold fill={1} onClick={handleModalOpenSP}>
             {btnText}
           </ButtonLV1>
         )}
         <Modal
           size="large"
-          open={isModalOpen}
-          onClose={handleModalClose}
+          open={isModalOpenSP}
+          onClose={handleModalCloseSP}
           className="ButtonModalSearchConditionMore"
         >
           <Modal.Content scrolling>
             <CloseIconWrap>
-              <CloseIcon onClick={handleModalClose} />
+              <CloseIcon onClick={handleModalCloseSP} />
             </CloseIconWrap>
             {isTownArea ? (
               <ContentWrap>
