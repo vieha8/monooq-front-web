@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import { Modal } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Modal } from 'semantic-ui-react';
 import { selectOptionUsages } from 'helpers/usages';
 import { selectOptionBreadths } from 'helpers/breadths';
-import { Dimens, FontSizes, Colors, ZIndexes } from 'variables';
+import { Dimens, FontSizes, Colors } from 'variables';
 import Button from 'components/LV1/Forms/Button';
-import CloseIcon from 'components/LV2/ButtonHeader/CloseIcon';
+import TextButton from 'components/LV1/Texts/TextButton';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
@@ -18,11 +18,6 @@ const Wrap = styled.div`
   ${media.tablet`
     display: none;
   `};
-`;
-
-const CloseIconWrap = styled.div`
-  margin-left: -2px;
-  margin: ${Dimens.medium}px auto ${Dimens.medium1_25}px ${Dimens.medium}px;
 `;
 
 const Title = styled.h2`
@@ -59,28 +54,16 @@ const DateSelectWrap = styled.div`
   display: flex;
 `;
 
-const SearchConditionWrap = styled.div`
-  max-width: 1000px;
-  display: flex;
-  justify-content: space-between;
-  margin: auto;
-  padding: ${Dimens.medium_22}px ${Dimens.medium}px;
-`;
-
-const MoreButtonWrap = styled.div`
-  width: 200px;
-  margin: auto;
-`;
-
-const BottomWrap = styled.div`
+const LinkWrap = styled.div`
   width: 100%;
-  min-width: 768px;
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
-  z-index: ${ZIndexes.modal};
-  background-color: ${Colors.white};
-  border-top: 1px solid ${Colors.borderGray};
+  text-align: center;
+`;
+
+const StyledTextButton = styled(TextButton)`
+  font-size: ${FontSizes.small};
+  font-weight: bold;
+  color: ${Colors.lightGray10};
+  text-decoration: none;
 `;
 
 const getYear = lengthYear => {
@@ -124,8 +107,6 @@ export default class RequestApplication extends Component {
       onChangePackageContents,
       notes,
       onChangeNotes,
-      onClickRequest,
-      disableRequest,
     } = this.props;
 
     return (
@@ -150,9 +131,6 @@ export default class RequestApplication extends Component {
           className="ButtonModalSearchConditionMore pc"
         >
           <Modal.Content scrolling>
-            <CloseIconWrap>
-              <CloseIcon onClick={handleModalClose} />
-            </CloseIconWrap>
             <SendMessage
               isRoom={isRoom}
               priceFull={priceFull}
@@ -263,23 +241,9 @@ export default class RequestApplication extends Component {
                 <ErrorList keyName="notes_errors" errors={errors.notes} />
               </Row>
             </FormWrap>
-            <BottomWrap>
-              <SearchConditionWrap>
-                <MoreButtonWrap>
-                  <Button
-                    primary
-                    height={42}
-                    heightTab={42}
-                    padding="10px 10px"
-                    paddingTab="10px 10px"
-                    onClick={onClickRequest}
-                    disabled={disableRequest}
-                  >
-                    送信する
-                  </Button>
-                </MoreButtonWrap>
-              </SearchConditionWrap>
-            </BottomWrap>
+            <LinkWrap>
+              <StyledTextButton onClick={handleModalClose}>キャンセルする</StyledTextButton>
+            </LinkWrap>
           </Modal.Content>
         </Modal>
       </Wrap>
