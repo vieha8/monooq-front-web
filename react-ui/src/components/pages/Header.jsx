@@ -13,7 +13,7 @@ class HeaderPage extends Component {
   constructor(props) {
     super(props);
 
-    const targetUrl = props.match ? props.match.url : '';
+    const targetUrl = window.location.pathname;
     let pagePathScrollPage = '';
     let isLinkRed = false;
 
@@ -21,6 +21,8 @@ class HeaderPage extends Component {
       partialMatch(targetUrl, Path.about()) ||
       partialMatch(targetUrl, Path.howtouse()) ||
       partialMatch(targetUrl, Path.lp1Host()) ||
+      partialMatch(targetUrl, Path.signUp()) ||
+      partialMatch(targetUrl, Path.login()) ||
       this.isLpGuest(targetUrl)
     ) {
       isLinkRed = true;
@@ -141,7 +143,6 @@ class HeaderPage extends Component {
       schedule,
       dispatch,
       history,
-      match,
     } = this.props;
 
     const { isOverTopView, pagePathScrollPage, isLinkRed } = this.state;
@@ -151,7 +152,7 @@ class HeaderPage extends Component {
       isSchedule = true;
     }
 
-    const isTop = match.url === '/';
+    const isTop = window.location.pathname === '/';
 
     return (
       <Header
