@@ -15,8 +15,8 @@ import InfoUser from 'components/LV2/Space/InfoUser';
 import { convertImgixUrl } from 'helpers/imgix';
 import { messagesActions } from 'redux/modules/messages';
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
-import { uiActions } from '../../../redux/modules/ui';
+import { uiActions } from 'redux/modules/ui';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const TopWrap = styled.div`
   margin-bottom: 25px;
@@ -365,4 +365,4 @@ const mapStateToProps = state => ({
   isLoading: state.messages.isLoading,
 });
 
-export default authRequired(ContentPageMenu(connect(mapStateToProps)(MessagePage), {}));
+export default withAuthRequire(ContentPageMenu(connect(mapStateToProps)(MessagePage), {}));

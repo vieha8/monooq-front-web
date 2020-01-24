@@ -2,23 +2,29 @@ import React, { Component } from 'react';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import numeral from 'numeral';
 import Path from 'config/path';
-
 import { userActions } from 'redux/modules/user';
 import { spaceActions } from 'redux/modules/space';
-
 import SpaceManageList from 'components/LV3/SpaceManageList';
 import LoadingPage from 'components/LV3/LoadingPage';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
-
-import authRequired from 'components/pages/AuthRequired';
+import { Colors } from 'variables';
 import connect from '../connect';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 class SpaceManagementPage extends Component {
   constructor(props) {
     super(props);
-
     const { dispatch } = this.props;
     dispatch(userActions.fetchUserSpaces());
+  }
+
+  componentDidMount() {
+    this.prevBg = document.body.style.background;
+    document.body.style.background = Colors.lightGray1Bg;
+  }
+
+  componentWillUnmount() {
+    document.body.style.background = this.prevBg;
   }
 
   onClickEdit = space => {
@@ -95,10 +101,9 @@ const mapStateToProps = state => ({
   isLoading: state.user.isLoading,
 });
 
-export default authRequired(
+export default withAuthRequire(
   ContentPageMenu(connect(SpaceManagementPage, mapStateToProps), {
     headline: 'スペースの管理',
     maxWidth: 1000,
-    bgGray: true,
   }),
 );

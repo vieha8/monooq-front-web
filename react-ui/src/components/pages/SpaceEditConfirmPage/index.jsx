@@ -10,10 +10,10 @@ import styled from 'styled-components';
 import { Colors, Dimens, ZIndexes } from 'variables';
 import dummySpaceImage from 'images/dummy_space.png';
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { receiptTypeList } from 'helpers/receiptTypes';
 import { spaceActions } from '../../../redux/modules/space';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const EntryButtonWrap = styled.div`
   width: 100%;
@@ -246,7 +246,7 @@ const mapStateToProps = state => ({
   geocode: state.space.geocode,
 });
 
-export default authRequired(
+export default withAuthRequire(
   handleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEditConfirmPage), {
       noFooter: true,

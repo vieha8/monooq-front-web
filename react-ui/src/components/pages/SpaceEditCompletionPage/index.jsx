@@ -11,8 +11,8 @@ import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
-import authRequired from 'components/pages/AuthRequired';
 import { Dimens } from 'variables';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const Caption = styled.div`
   margin: ${Dimens.medium_20}px 0;
@@ -132,4 +132,6 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default authRequired(ContentPageMenu(connect(mapStateToProps)(SpaceEditCompletionPage), {}));
+export default withAuthRequire(
+  ContentPageMenu(connect(mapStateToProps)(SpaceEditCompletionPage), {}),
+);

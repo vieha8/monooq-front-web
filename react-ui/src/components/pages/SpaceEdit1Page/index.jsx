@@ -15,9 +15,9 @@ import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 import { isImageDefault } from 'helpers/images';
 import fileType from 'helpers/file-type';
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import { convertSpaceImgUrl } from 'helpers/imgix';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const ZENKAKU_SPACE_LITERAL = '　';
 const SPACE_LITERAL = ' ';
@@ -520,7 +520,7 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default authRequired(
+export default withAuthRequire(
   handleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEdit1Page), {
       noFooter: true,

@@ -7,10 +7,10 @@ import SpaceEdit2 from 'components/LV3/SpaceEdit/Step2';
 
 import { ErrorMessages } from 'variables';
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { spaceActions } from '../../../redux/modules/space';
 import { uiActions } from '../../../redux/modules/ui';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const Validate = {
   PostalCode: {
@@ -312,7 +312,7 @@ const mapStateToProps = state => ({
   errMessage: state.space.errMessage,
 });
 
-export default authRequired(
+export default withAuthRequire(
   handleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEdit2Page), {
       noFooter: true,

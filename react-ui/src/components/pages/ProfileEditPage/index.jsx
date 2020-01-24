@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import ProfileEdit from 'components/LV3/ProfileEdit';
@@ -9,6 +8,7 @@ import { H1 } from 'components/LV1/Texts/Headline';
 import { userActions } from 'redux/modules/user';
 import { ErrorMessages } from 'variables';
 import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const PURPOSE_USER = '1';
 const PURPOSE_HOST = '2';
@@ -243,6 +243,6 @@ const mapStateToProps = state => ({
   redirectPath: state.ui.redirectPath,
 });
 
-export default authRequired(
+export default withAuthRequire(
   handleBeforeUnload(ContentPageMenu(connect(mapStateToProps)(ProfileEditPage), {})),
 );

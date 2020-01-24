@@ -12,7 +12,7 @@ import { ErrorMessages, Dimens } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const Caption = styled.div`
   margin: ${Dimens.medium_20}px 0;
@@ -153,4 +153,4 @@ const mapStateToProps = state => ({
   isUnsubscribeFailed: state.auth.isUnsubscribeFailed,
 });
 
-export default authRequired(ContentPageMenu(connect(mapStateToProps)(UnsubscribePage), {}));
+export default withAuthRequire(ContentPageMenu(connect(mapStateToProps)(UnsubscribePage), {}));

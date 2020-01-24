@@ -3,24 +3,19 @@ import moment from 'moment';
 import numeral from 'numeral';
 import { Redirect } from 'react-router-dom';
 import Path from 'config/path';
-
 import { requestActions } from 'redux/modules/request';
-
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import Payment from 'components/LV3/Payment';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Button from 'components/LV1/Forms/Button';
 import { H1 } from 'components/LV1/Texts/Headline';
-
 import { Dimens, FontSizes, ErrorMessages } from 'variables';
-
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
 import { formatDate, formatStringSlash } from 'helpers/date';
 import { iskeyDownEnter } from 'helpers/keydown';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const MAX_PAY_PRICE_CONVENIENT = 49999;
 const MODE_VIEW_INPUT = 0;
@@ -435,4 +430,4 @@ const mapStateToProps = state => ({
   paymentUrl: state.request.payment.url,
 });
 
-export default authRequired(ContentPageMenu(connect(mapStateToProps)(PaymentPage), {}));
+export default withAuthRequire(ContentPageMenu(connect(mapStateToProps)(PaymentPage), {}));

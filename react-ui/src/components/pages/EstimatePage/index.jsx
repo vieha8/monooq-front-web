@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { requestActions } from 'redux/modules/request';
 import { ErrorMessages } from 'variables';
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import Estimate from 'components/LV3/Estimate';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const Validate = {
   Price: {
@@ -136,7 +136,7 @@ const mapStateToProps = state => ({
   isSending: state.request.estimate.isSending,
 });
 
-export default authRequired(
+export default withAuthRequire(
   ContentPageMenu(connect(mapStateToProps)(EstimatePage), {
     headline: '見積もりを送る',
   }),

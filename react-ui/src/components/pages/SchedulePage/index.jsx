@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
-
 import { requestActions } from 'redux/modules/request';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import LoadingPage from 'components/LV3/LoadingPage';
 import ScheduleList from 'components/LV3/ScheduleList';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
 import { iskeyDownEnter } from 'helpers/keydown';
-
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 class SchedulePage extends Component {
   constructor(props) {
@@ -92,7 +90,7 @@ const mapStateToProps = state => ({
   schedule: state.request.schedule,
 });
 
-export default authRequired(
+export default withAuthRequire(
   ContentPageMenu(connect(mapStateToProps)(SchedulePage), {
     headline: '利用状況',
   }),

@@ -1,11 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
-
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { salesActions } from 'redux/modules/sales';
-
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -20,6 +17,7 @@ import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
 import selectDepositType from 'helpers/depositTypes';
 import { iskeyDownEnter } from 'helpers/keydown';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const PRICE_MIN_DEPOSIT = 3000;
 
@@ -463,4 +461,4 @@ const mapStateToProps = state => ({
   isSend: state.sales.isSend,
 });
 
-export default authRequired(ContentPageMenu(connect(mapStateToProps)(SalesPage), {}));
+export default withAuthRequire(ContentPageMenu(connect(mapStateToProps)(SalesPage), {}));

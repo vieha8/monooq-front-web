@@ -11,9 +11,9 @@ import { spaceActions } from 'redux/modules/space';
 import { ErrorMessages } from 'variables';
 
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const Validate = {
   Price: {
@@ -222,7 +222,7 @@ const mapStateToProps = state => ({
   geocode: state.space.geocode,
 });
 
-export default authRequired(
+export default withAuthRequire(
   handleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEdit3Page), {
       noFooter: true,
