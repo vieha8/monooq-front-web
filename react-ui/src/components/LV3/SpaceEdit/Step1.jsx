@@ -120,7 +120,7 @@ export default ({
     <Section>
       <Select
         label="スペースの広さ"
-        options={selectOptionBreadths('選択してください')}
+        options={selectOptionBreadths('', '選択してください')}
         value={breadth}
         onChange={e => onChangeBreadth(e.target.value)}
       />

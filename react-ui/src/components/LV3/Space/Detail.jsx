@@ -423,7 +423,7 @@ export default ({
                 onClick={requestButtonOnClick}
                 onKeyDown={onKeyDownButtonRequest}
               >
-                リクエストを送る
+                リクエスト申請
               </Button>
             </RequestButtonWrap>
             リクエストを送ることで、あなたがスペースに興味を持っていることがホストに伝わります。

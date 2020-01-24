@@ -70,7 +70,7 @@ export default ({
         onClick={onClick}
         onKeyDown={onKeyDownButtonMessage}
       >
-        リクエストを送る
+        リクエスト申請
       </Button>
     </ButtonWrap>
   </Wrap>
