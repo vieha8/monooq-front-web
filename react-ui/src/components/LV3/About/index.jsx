@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
-import ContainerDefault from 'components/LV1/ContainerDefault';
+import PageDefault from 'components/LV1/PageDefault';
 import WhenIUseList from 'components/LV2/Lists/WhenIUseList';
 import WhenIUseCardList from 'components/LV2/Lists/WhenIUseCardList';
 
@@ -159,7 +159,7 @@ const Headline = styled.div`
   `};
 `;
 
-const WhenIUseContainer = styled(ContainerDefault)`
+const WhenIUseWrap = styled(PageDefault)`
   text-align: center;
   ${media.tablet`
     margin-top: ${Dimens.medium2_32}px;
@@ -172,7 +172,7 @@ const WhenIUseContent = styled.div`
   }
 `;
 
-const ContentContainer = styled(ContainerDefault)`
+const ContentWrap = styled(PageDefault)`
   text-align: center;
 `;
 
@@ -181,7 +181,7 @@ const ConceptVideo = styled.iframe`
   max-width: 600px;
 `;
 
-const QuestionsContainer = styled.div`
+const QuestionsWrap = styled.div`
   text-align: center;
 `;
 
@@ -232,7 +232,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
       </TopMessageContent>
     </TopWrapper>
 
-    <WhenIUseContainer>
+    <WhenIUseWrap>
       <WhenIUseContent>
         <Attention>「荷物の置き場所に困った…」を解決！</Attention>
         <Headline>こんなときにはモノオク！</Headline>
@@ -293,9 +293,9 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
           ]}
         />
       </WhenIUseContent>
-    </WhenIUseContainer>
+    </WhenIUseWrap>
 
-    <ContentContainer>
+    <ContentWrap>
       <ConceptVideo
         title="about"
         width="100%"
@@ -305,11 +305,11 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       />
-    </ContentContainer>
+    </ContentWrap>
 
-    <ContentContainer>
+    <ContentWrap>
       {/* TODO: コンポーネント化したい */}
-      <QuestionsContainer>
+      <QuestionsWrap>
         <Attention>困ったときのFAQ</Attention>
         <Headline>よくある質問</Headline>
         <QuestionRow>
@@ -368,7 +368,7 @@ export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
             </Collapsible>
           </QuestionItem>
         </QuestionRow>
-      </QuestionsContainer>
-    </ContentContainer>
+      </QuestionsWrap>
+    </ContentWrap>
   </Wrap>
 );

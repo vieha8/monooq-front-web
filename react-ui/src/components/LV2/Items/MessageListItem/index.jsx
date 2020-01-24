@@ -9,7 +9,7 @@ import LazyLoad from 'react-lazyload';
 import { formatDate, formatStringSlash } from 'helpers/date';
 import { formatName } from 'helpers/string';
 
-const Container = styled.li`
+const Wrap = styled.li`
   padding: ${Dimens.medium1}px 5px ${Dimens.medium}px;
   border-bottom: 1px solid ${Colors.borderGray};
   &:active {
@@ -57,7 +57,7 @@ const Cell = styled.div`
 `;
 
 export default ({ link, image, name, receivedAt, lastMessage, isRead }) => (
-  <Container>
+  <Wrap>
     <Link to={link || ''}>
       <Cell>
         <LazyLoad width={32}>
@@ -101,5 +101,5 @@ export default ({ link, image, name, receivedAt, lastMessage, isRead }) => (
         </InlineText.Base>
       </Cell>
     </Link>
-  </Container>
+  </Wrap>
 );

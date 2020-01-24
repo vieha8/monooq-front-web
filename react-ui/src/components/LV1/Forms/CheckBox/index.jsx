@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { Checkbox } from 'semantic-ui-react';
 
-const Container = styled.div`
+const Wrap = styled.div`
   display: flex;
   cursor: pointer;
   vertical-align: top;
 `;
 
 export default ({ onClick, label, checked, onClickCheck, className, options }) => (
-  <Container onClick={onClick}>
+  <Wrap onClick={onClick}>
     <Checkbox
       label={label}
       checked={checked}
@@ -17,5 +17,5 @@ export default ({ onClick, label, checked, onClickCheck, className, options }) =
       className={className}
       {...options}
     />
-  </Container>
+  </Wrap>
 );

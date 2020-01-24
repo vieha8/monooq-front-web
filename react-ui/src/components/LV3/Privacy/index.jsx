@@ -3,8 +3,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import ArtContainer from 'components/LV2/Texts/ArtStatic';
-import ContainerDefault from 'components/LV1/ContainerDefault';
-import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
+import PageDefault from 'components/LV1/PageDefault';
+import MainTitleWrap from 'components/LV2/Texts/MainTitleStatic';
 
 const Address = styled.span`
   display: inline-block;
@@ -12,8 +12,8 @@ const Address = styled.span`
 `;
 
 export default () => (
-  <ContainerDefault>
-    <MainTitleContainer
+  <PageDefault>
+    <MainTitleWrap
       mainTitle="個人情報保護方針"
       text="モノオク株式会社（以下「当社」といいます。）は、個人情報保護の重要性について認識し、個人情報の保護に関する法律（以下「個人情報保護法」といいます。）を遵守すると共に、以下の個人情報保護方針（以下「本個人情報保護方針」といいます。）に従い、適切な取扱い及び保護に努めます。なお、本個人情報保護方針において別段の定めがない限り、本個人情報保護方針における用語の定義は、個人情報保護法の定めに従います。"
       isHr
@@ -261,5 +261,5 @@ export default () => (
       ]}
       isRight
     />
-  </ContainerDefault>
+  </PageDefault>
 );

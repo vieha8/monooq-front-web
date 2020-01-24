@@ -4,9 +4,9 @@ import Path from 'config/path';
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { Link } from 'react-router-dom';
-import ContainerDefault from 'components/LV1/ContainerDefault';
+import PageDefault from 'components/LV1/PageDefault';
 import Text from 'components/LV1/Texts/TextStatic';
-import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
+import MainTitlePage from 'components/LV2/Texts/MainTitleStatic';
 import ContentAsct from 'components/LV2/Texts/ContentAsct';
 
 const Wrapper = styled.div`
@@ -18,9 +18,9 @@ const LinkText = styled(Link)`
 `;
 
 export default () => (
-  <ContainerDefault>
+  <PageDefault>
     <Wrapper>
-      <MainTitleContainer mainTitle="特定商取引に関する表記" />
+      <MainTitlePage mainTitle="特定商取引に関する表記" />
       <ContentAsct
         asctList={[
           {
@@ -87,5 +87,5 @@ export default () => (
         利用に関するお問い合わせは、ログイン後のメニュー「お問い合わせ」よりご連絡ください。
       </Text>
     </Wrapper>
-  </ContainerDefault>
+  </PageDefault>
 );

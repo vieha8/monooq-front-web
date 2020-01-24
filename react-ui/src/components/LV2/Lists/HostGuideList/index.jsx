@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import TextCard from 'components/LV1/Texts/TextCard';
 
-const Container = styled.div`
+const Wrap = styled.div`
   width: 100%;
   margin-bottom: ${Dimens.medium2}px;
 `;
@@ -16,10 +16,10 @@ const Header = styled.div`
 `;
 
 export default ({ header, guideList }) => (
-  <Container>
+  <Wrap>
     <Header>{header}</Header>
     {guideList.map((item, i) => (
       <TextCard key={i.toString()} text={item.text} />
     ))}
-  </Container>
+  </Wrap>
 );

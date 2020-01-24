@@ -127,7 +127,7 @@ const TopDescription = styled.div`
   `}
 `;
 
-const MainContainer = styled.div`
+const MainWrap = styled.div`
   width: 100%;
   text-align: center;
   ${media.tablet`
@@ -338,7 +338,7 @@ export default () => (
         </TopDescription>
       </TopMessageContent>
     </TopWrapper>
-    <MainContainer>
+    <MainWrap>
       <Attention>登録から搬入出までかんたん４ステップ！</Attention>
       <Headline>荷物を預ける利用手順</Headline>
       <HowToUseContentRow>
@@ -369,6 +369,6 @@ export default () => (
           image={howtouse04}
         />
       </HowToUseContentRow>
-    </MainContainer>
+    </MainWrap>
   </Wrap>
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import ContainerClearfix from 'components/LV1/ContainerClearfix';
+import PageClearfix from 'components/LV1/PageClearfix';
 import { H1 } from 'components/LV1/Texts/Headline';
 import Page from '../Page';
 
@@ -29,14 +29,14 @@ export default ({ maxWidth, header, noMargin, headline, leftContent }) => (
   <Wrap>
     {header}
     <Page noMargin={noMargin}>
-      <ContainerClearfix>
+      <PageClearfix>
         <Content>
           <LeftContent maxWidth={maxWidth}>
             {headline && <H1 bold>{headline}</H1>}
             {leftContent}
           </LeftContent>
         </Content>
-      </ContainerClearfix>
+      </PageClearfix>
     </Page>
   </Wrap>
 );

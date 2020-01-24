@@ -4,11 +4,11 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import { FontSizes, Dimens } from 'variables';
 import { formatDate, formatStringSlash } from 'helpers/date';
 
-const Container = styled.div`
+const Wrap = styled.div`
   margin: ${Dimens.small_10}px auto;
 `;
 
-const ScheduleContainer = styled.div`
+const ScheduleWrap = styled.div`
   border-radius: 4px;
   width: 100%;
 `;
@@ -22,8 +22,8 @@ const DateText = styled.span`
 `;
 
 export default ({ startDate, endDate }) => (
-  <Container>
-    <ScheduleContainer>
+  <Wrap>
+    <ScheduleWrap>
       <Label>
         <InlineText.Base fontSize={`${FontSizes.small}`} lineheight={`${Dimens.medium1_28}px`}>
           利用開始日：
@@ -34,8 +34,8 @@ export default ({ startDate, endDate }) => (
           </InlineText.Base>
         </DateText>
       </Label>
-    </ScheduleContainer>
-    <ScheduleContainer endDate>
+    </ScheduleWrap>
+    <ScheduleWrap endDate>
       <Label>
         <InlineText.Base fontSize={`${FontSizes.small}`} lineheight={`${Dimens.medium1_28}px`}>
           利用終了日：
@@ -46,6 +46,6 @@ export default ({ startDate, endDate }) => (
           </InlineText.Base>
         </DateText>
       </Label>
-    </ScheduleContainer>
-  </Container>
+    </ScheduleWrap>
+  </Wrap>
 );

@@ -5,9 +5,9 @@ import { media } from 'helpers/style/media-query';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
 import { Dimens, FontSizes, Colors } from 'variables';
-import ContainerDefault from 'components/LV1/ContainerDefault';
+import PageDefault from 'components/LV1/PageDefault';
 import ArtContainer from 'components/LV2/Texts/ArtStatic';
-import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
+import MainTitleWrap from 'components/LV2/Texts/MainTitleStatic';
 
 const LinkText = styled(Link)`
   color: ${Colors.linkBlue};
@@ -30,19 +30,19 @@ const ChapterContainer = props => (
   </div>
 );
 
-const StyledChapterContainer = styled(ChapterContainer)`
+const StyledChapterWrap = styled(ChapterContainer)`
   margin-bottom: ${Dimens.large2}px;
 `;
 
 export default () => (
-  <ContainerDefault>
-    <MainTitleContainer
+  <PageDefault>
+    <MainTitleWrap
       mainTitle="利用規約"
       text="本利用規約（以下「本規約」といいます。）には、モノオク株式会社（以下「当社」といいます。）の提供する本サービス（第2条に定義）のご利用にあたり、利用者の皆様に遵守していただかなければならない事項及び当社と利用者の皆様との間の権利義務関係が定められております。本サービスをご利用になる方は、本規約に同意する前に、必ず全文お読み下さいますようお願い致します。"
       isHr
     />
 
-    <StyledChapterContainer title="第1章　総則">
+    <StyledChapterWrap title="第1章　総則">
       <ArtContainer
         title="第1条 適用"
         paraList={[
@@ -173,9 +173,9 @@ export default () => (
           },
         ]}
       />
-    </StyledChapterContainer>
+    </StyledChapterWrap>
 
-    <StyledChapterContainer title="第2章　ホストに関する規定">
+    <StyledChapterWrap title="第2章　ホストに関する規定">
       <ArtContainer
         title="第1条 スペース情報の掲載"
         paraList={[
@@ -260,9 +260,9 @@ export default () => (
           },
         ]}
       />
-    </StyledChapterContainer>
+    </StyledChapterWrap>
 
-    <StyledChapterContainer title="第3章　ユーザーに関する規定">
+    <StyledChapterWrap title="第3章　ユーザーに関する規定">
       <ArtContainer
         title="第1条 スペースの利用等"
         paraList={[
@@ -327,9 +327,9 @@ export default () => (
           },
         ]}
       />
-    </StyledChapterContainer>
+    </StyledChapterWrap>
 
-    <StyledChapterContainer title="第4章　その他">
+    <StyledChapterWrap title="第4章　その他">
       <ArtContainer
         title="第1条 個人情報等の取扱い"
         paraList={[
@@ -648,7 +648,7 @@ export default () => (
           },
         ]}
       />
-    </StyledChapterContainer>
+    </StyledChapterWrap>
 
     <ArtContainer
       paraList={[
@@ -661,5 +661,5 @@ export default () => (
       ]}
       isRight
     />
-  </ContainerDefault>
+  </PageDefault>
 );

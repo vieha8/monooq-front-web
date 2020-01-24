@@ -7,7 +7,7 @@ import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Availability from 'components/LV1/Texts/Availability';
 
-const Container = styled.div`
+const Wrap = styled.div`
   ${props =>
     !props.manage &&
     `
@@ -89,7 +89,7 @@ const PriceText = styled(InlineText.Base)`
 
 export default ({ href, onClick, image, manage, address, content, prices, status, furniture }) =>
   manage ? (
-    <Container manage>
+    <Wrap manage>
       <Link to={href || ''}>
         <CardStyled noBorder noPadding pointer onClick={onClick}>
           <ImageWrapper>
@@ -106,9 +106,9 @@ export default ({ href, onClick, image, manage, address, content, prices, status
           </ContentWrapper>
         </CardStyled>
       </Link>
-    </Container>
+    </Wrap>
   ) : (
-    <Container>
+    <Wrap>
       <Link to={href || ''}>
         <Card noPadding pointer onClick={onClick}>
           <ImageWrapper>
@@ -123,5 +123,5 @@ export default ({ href, onClick, image, manage, address, content, prices, status
           </ContentWrapper>
         </Card>
       </Link>
-    </Container>
+    </Wrap>
   );

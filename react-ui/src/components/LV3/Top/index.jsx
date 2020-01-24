@@ -6,7 +6,7 @@ import PrefectureList from 'components/LV3/PrefectureList';
 import SpaceList from 'components/LV3/SpaceList';
 import { areaPrefectures } from 'helpers/prefectures';
 
-const TopPage = styled.div`
+const Wrap = styled.div`
   width: 100%;
 `;
 
@@ -35,7 +35,7 @@ export default ({
   onClickSearch,
   sections,
 }) => (
-  <TopPage>
+  <Wrap>
     <TopView
       catchPhrase={getCatchPhrase()}
       catchPhraseSub="物置シェアサービス「モノオク」"
@@ -55,5 +55,5 @@ export default ({
         spaceList={item.contents}
       />
     ))}
-  </TopPage>
+  </Wrap>
 );

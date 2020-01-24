@@ -7,11 +7,11 @@ import imageFurnitureFull from 'images/furniture-full.svg';
 import imageFurnitureHalf from 'images/furniture-half.svg';
 import imageFurnitureQuarter from 'images/furniture-quarter.svg';
 
-const Container = styled.div`
+const Wrap = styled.div`
   padding: ${Dimens.medium2}px 0;
 `;
 
-const PriceContainer = styled.div`
+const PriceWrap = styled.div`
   &::after {
     clear: both;
     content: '';
@@ -19,7 +19,7 @@ const PriceContainer = styled.div`
   }
 `;
 
-const TextContainer = styled.div`
+const TextWrap = styled.div`
   float: left;
 `;
 
@@ -43,9 +43,9 @@ const Caption = styled.div`
 `;
 
 export default ({ full, half, quarter, price }) => (
-  <Container>
-    <PriceContainer>
-      <TextContainer>
+  <Wrap>
+    <PriceWrap>
+      <TextWrap>
         {full && (
           <Text>
             <InlineText.Base fontSize={FontSizes.medium}>スペースまるごと</InlineText.Base>
@@ -64,11 +64,11 @@ export default ({ full, half, quarter, price }) => (
         <Price>
           <InlineText.Base fontSize={FontSizes.medium}>{`${price}円`}</InlineText.Base>
         </Price>
-      </TextContainer>
+      </TextWrap>
       {full && <Image src={imageFurnitureFull} alt="" />}
       {half && <Image src={imageFurnitureHalf} alt="" />}
       {quarter && <Image src={imageFurnitureQuarter} alt="" />}
-    </PriceContainer>
+    </PriceWrap>
     {full && (
       <Caption>
         <InlineText.EmphasisTiny fontSize={FontSizes.small}>
@@ -90,5 +90,5 @@ export default ({ full, half, quarter, price }) => (
         </InlineText.EmphasisTiny>
       </Caption>
     )}
-  </Container>
+  </Wrap>
 );

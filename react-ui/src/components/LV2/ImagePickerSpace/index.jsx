@@ -65,7 +65,7 @@ const DropZoneWrap = styled.div`
   `};
 `;
 
-const ImagePreviewContainer = styled.ul`
+const ImagePreviewWrap = styled.ul`
   width: 100%;
   display: flex;
   margin-top: ${Dimens.medium1}px;
@@ -174,7 +174,7 @@ const getEmptyCount = length => {
 const showImagePreview = (images, onClickDeleteImage) => {
   if (images) {
     return (
-      <ImagePreviewContainer>
+      <ImagePreviewWrap>
         {images.map((image, i) => {
           if (image.url) {
             const imageUrl = image.url;
@@ -202,7 +202,7 @@ const showImagePreview = (images, onClickDeleteImage) => {
             );
           },
         )}
-      </ImagePreviewContainer>
+      </ImagePreviewWrap>
     );
   }
 

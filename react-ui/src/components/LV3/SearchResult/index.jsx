@@ -5,7 +5,7 @@ import { Dimens, FontSizes } from 'variables';
 import Button from 'components/LV1/Forms/Button';
 import SearchResultItem from 'components/LV2/Items/SearchResultItem';
 
-const Container = styled.div`
+const Wrap = styled.div`
   width: 100%;
   ${media.phone`
     margin: ${Dimens.medium1_25}px 0 0 auto;
@@ -102,7 +102,7 @@ export default ({
   onClickMore,
   onKeyDownButtonMore,
 }) => (
-  <Container isTop={isTop}>
+  <Wrap isTop={isTop}>
     {caption && <CaptionWrap>{caption}</CaptionWrap>}
     <SpacesWrap>
       {spaces.map((space, i) => (
@@ -130,5 +130,5 @@ export default ({
         </Button>
       </MoreButtonWrap>
     )}
-  </Container>
+  </Wrap>
 );

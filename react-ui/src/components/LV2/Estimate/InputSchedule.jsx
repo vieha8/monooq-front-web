@@ -5,7 +5,7 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
-const Container = styled.div`
+const Wrap = styled.div`
   width: 100%;
   display: table;
 `;
@@ -54,7 +54,7 @@ export default ({
   onDateChangeEnd,
   onFocusChangeEnd,
 }) => (
-  <Container>
+  <Wrap>
     <DateCell>
       <DateLabel>
         <InlineText.Bold>{beginTitle || '利用開始日'}</InlineText.Bold>
@@ -82,5 +82,5 @@ export default ({
         isAllowKeyboard={false}
       />
     </DateCell>
-  </Container>
+  </Wrap>
 );

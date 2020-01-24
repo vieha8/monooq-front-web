@@ -4,7 +4,7 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
-const Container = styled.div`
+const Wrap = styled.div`
   width: 100%;
   min-height: 20px;
   margin: ${Dimens.medium_20}px auto;
@@ -29,11 +29,11 @@ const Container = styled.div`
   `};
 `;
 
-const HostImageContainer = styled.span`
+const HostImageWrap = styled.span`
   float: left;
 `;
 
-const HostNameContainer = styled.div`
+const HostNameWrap = styled.div`
   float: left;
   margin-top: ${Dimens.xsmall_7}px;
   margin-left: ${Dimens.small2_15}px;
@@ -67,7 +67,7 @@ const HostNameContainer = styled.div`
   `};
 `;
 
-const ProfileContainer = styled.div`
+const ProfileWrap = styled.div`
   clear: both;
   vertical-align: middle;
   padding-top: ${Dimens.small2}px;
@@ -86,13 +86,11 @@ export default ({
   contentProfile,
   isNoProfile,
 }) => (
-  <Container infoHost={infoHost} message={message} isNoProfile={isNoProfile}>
-    <HostImageContainer>
-      {headContent || <InlineText.Base>{title}</InlineText.Base>}
-    </HostImageContainer>
-    <HostNameContainer message={message} isNoProfile={isNoProfile}>
+  <Wrap infoHost={infoHost} message={message} isNoProfile={isNoProfile}>
+    <HostImageWrap>{headContent || <InlineText.Base>{title}</InlineText.Base>}</HostImageWrap>
+    <HostNameWrap message={message} isNoProfile={isNoProfile}>
       {contentHostName}
-    </HostNameContainer>
-    {!isNoProfile && <ProfileContainer>{contentProfile}</ProfileContainer>}
-  </Container>
+    </HostNameWrap>
+    {!isNoProfile && <ProfileWrap>{contentProfile}</ProfileWrap>}
+  </Wrap>
 );

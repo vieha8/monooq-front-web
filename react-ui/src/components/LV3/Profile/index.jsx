@@ -10,7 +10,7 @@ import SearchResultItem from 'components/LV2/Items/SearchResultItem';
 
 const IMAGE_SIZE = 100;
 
-const Container = styled.div`
+const Wrap = styled.div`
   margin: 27px auto 0px;
 `;
 
@@ -59,7 +59,7 @@ const Profile = styled.div`
   white-space: pre-wrap;
 `;
 
-const SpaceListContainer = styled.div``;
+const SpaceListWrap = styled.div``;
 
 const Cell = styled.div`
   width: calc(25% - ${Dimens.small2}px);
@@ -103,7 +103,7 @@ const Cell = styled.div`
 
 export default ({ image, name, prefCode, lastLoginAt, profile, spaces }) => (
   <Fragment>
-    <Container>
+    <Wrap>
       <User>
         <ImageWrap>
           <ImageAvatar src={image} alt={name} size={IMAGE_SIZE} />
@@ -126,15 +126,15 @@ export default ({ image, name, prefCode, lastLoginAt, profile, spaces }) => (
       {spaces.length > 0 && (
         <Fragment>
           <HostName spaces>{`${formatName(name)}さんのスペース`}</HostName>
-          <SpaceListContainer>
+          <SpaceListWrap>
             {spaces.map((space, i) => (
               <Cell key={`result_list_result_item_${i}`.toString()} index={i}>
                 <SearchResultItem {...space} />
               </Cell>
             ))}
-          </SpaceListContainer>
+          </SpaceListWrap>
         </Fragment>
       )}
-    </Container>
+    </Wrap>
   </Fragment>
 );

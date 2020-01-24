@@ -5,7 +5,7 @@ import { Dimens, FontSizes, Colors } from 'variables';
 
 const Wrap = styled.div``;
 
-const ContentContainer = styled.div`
+const ContentWrap = styled.div`
   width: 100%;
   display: table;
   font-size: ${FontSizes.small}px;
@@ -49,10 +49,10 @@ const Data = styled.div`
 export default ({ cancelContentList }) => (
   <Wrap>
     {cancelContentList.map((item, i) => (
-      <ContentContainer key={i.toString()}>
+      <ContentWrap key={i.toString()}>
         <Header>{item.header}</Header>
         <Data>{item.data}</Data>
-      </ContentContainer>
+      </ContentWrap>
     ))}
   </Wrap>
 );

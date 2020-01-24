@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import ContainerClearfix from 'components/LV1/ContainerClearfix';
+import PageClearfix from 'components/LV1/PageClearfix';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -42,7 +42,7 @@ const HostNameWrap = styled.div`
 
 export default ({ user, isHost, href, onClick, image, address }) => (
   <Fragment>
-    <ContainerClearfix>
+    <PageClearfix>
       <HostContent>
         <Link to={Path.profile(user.id)}>
           <ImageAvatar size={45} src={user.imageUrl} alt={user.name} />
@@ -59,8 +59,8 @@ export default ({ user, isHost, href, onClick, image, address }) => (
           </InlineText.Base>
         </HostNameWrap>
       </HostContent>
-    </ContainerClearfix>
-    <ContainerClearfix>
+    </PageClearfix>
+    <PageClearfix>
       <Row to={href || ''} onClick={onClick}>
         <ImageWrapper>
           <ImageHero small src={image.src} alt={image.alt} />
@@ -69,6 +69,6 @@ export default ({ user, isHost, href, onClick, image, address }) => (
           <AddressText>{address}</AddressText>
         </ContentWrapper>
       </Row>
-    </ContainerClearfix>
+    </PageClearfix>
   </Fragment>
 );

@@ -41,9 +41,9 @@ export default ({
   onClickCheckTown,
   prefectureList,
   disabled,
-  isModalOpen,
-  handleModalOpen,
-  handleModalClose,
+  isModalOpenSP,
+  handleModalOpenSP,
+  handleModalCloseSP,
 }) => (
   <Wrap>
     <ButtonWrap>
@@ -56,9 +56,9 @@ export default ({
           onClickMore={onClickMore}
           onClickCheckCity={onClickCheckCity}
           onClickCheckTown={onClickCheckTown}
-          isModalOpen={isModalOpen}
-          handleModalOpen={handleModalOpen}
-          handleModalClose={handleModalClose}
+          isModalOpenSP={isModalOpenSP}
+          handleModalOpenSP={handleModalOpenSP}
+          handleModalCloseSP={handleModalCloseSP}
         />
       ) : (
         <Button center primary fontbold fill={1} onClick={onClick} disabled={disabled}>
