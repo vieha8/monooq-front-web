@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Header from 'components/containers/Header';
+import Header from 'components/pages/Header';
 import Footer from 'components/LV2/Footer';
 import Page from 'components/templates/Page';
 
