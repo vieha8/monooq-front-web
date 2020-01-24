@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import SpaceMap from 'components/LV1/SpaceMap';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
@@ -13,7 +12,7 @@ import { connect } from 'react-redux';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { receiptTypeList } from 'helpers/receiptTypes';
 import { spaceActions } from '../../../redux/modules/space';
-import withAuthRequire from 'components/hooks/withAuthRequire';
+import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 
 const EntryButtonWrap = styled.div`
   width: 100%;
@@ -247,7 +246,7 @@ const mapStateToProps = state => ({
 });
 
 export default withAuthRequire(
-  handleBeforeUnload(
+  withHandleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEditConfirmPage), {
       noFooter: true,
       maxWidth: 1440,

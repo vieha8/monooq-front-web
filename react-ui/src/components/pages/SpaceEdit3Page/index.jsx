@@ -2,18 +2,14 @@ import React, { Component } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import SpaceEditStep3 from 'components/LV3/SpaceEdit/Step3';
-
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
-
 import { ErrorMessages } from 'variables';
-
 import { connect } from 'react-redux';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
-import withAuthRequire from 'components/hooks/withAuthRequire';
+import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 
 const Validate = {
   Price: {
@@ -223,7 +219,7 @@ const mapStateToProps = state => ({
 });
 
 export default withAuthRequire(
-  handleBeforeUnload(
+  withHandleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEdit3Page), {
       noFooter: true,
       maxWidth: 540,

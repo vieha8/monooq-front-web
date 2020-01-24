@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import SpaceEdit2 from 'components/LV3/SpaceEdit/Step2';
-
 import { ErrorMessages } from 'variables';
 import { connect } from 'react-redux';
 import { iskeyDownEnter } from 'helpers/keydown';
-import { spaceActions } from '../../../redux/modules/space';
-import { uiActions } from '../../../redux/modules/ui';
-import withAuthRequire from 'components/hooks/withAuthRequire';
+import { spaceActions } from 'redux/modules/space';
+import { uiActions } from 'redux/modules/ui';
+import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 
 const Validate = {
   PostalCode: {
@@ -313,7 +311,7 @@ const mapStateToProps = state => ({
 });
 
 export default withAuthRequire(
-  handleBeforeUnload(
+  withHandleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEdit2Page), {
       noFooter: true,
       maxWidth: 540,

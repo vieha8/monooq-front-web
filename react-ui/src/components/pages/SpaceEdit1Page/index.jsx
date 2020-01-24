@@ -1,23 +1,18 @@
 import React, { Component, Fragment } from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import Path from 'config/path';
-
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
-
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
-
 import { ErrorMessages } from 'variables';
-
 import { uploadImage } from 'redux/helpers/firebase';
 import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 import { isImageDefault } from 'helpers/images';
 import fileType from 'helpers/file-type';
 import { connect } from 'react-redux';
-import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import { convertSpaceImgUrl } from 'helpers/imgix';
-import withAuthRequire from 'components/hooks/withAuthRequire';
+import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 
 const ZENKAKU_SPACE_LITERAL = '　';
 const SPACE_LITERAL = ' ';
@@ -521,7 +516,7 @@ const mapStateToProps = state => ({
 });
 
 export default withAuthRequire(
-  handleBeforeUnload(
+  withHandleBeforeUnload(
     ContentPageMenu(connect(mapStateToProps)(SpaceEdit1Page), {
       noFooter: true,
       maxWidth: 540,
