@@ -7,8 +7,6 @@ import Inline from './index';
 
 Inline.Base.displayName = 'Inline.Base';
 Inline.Bold.displayName = 'Inline.Bold';
-Inline.Del.displayName = 'Inline.Del';
-Inline.Ins.displayName = 'Inline.Ins';
 Inline.Small.displayName = 'Inline.Small';
 Inline.Tiny.displayName = 'Inline.Tiny';
 Inline.EmphasisSmall.displayName = 'Inline.EmphasisSmall';
