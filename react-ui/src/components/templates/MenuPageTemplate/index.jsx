@@ -5,15 +5,13 @@ import PageClearfix from 'components/LV1/PageClearfix';
 import { H1 } from 'components/LV1/Texts/Headline';
 import Page from '../Page';
 
-const Wrap = styled.div``;
-
-const Content = styled.div`
+const Wrap = styled.div`
   overflow: hidden;
   margin: auto;
   width: 100%;
 `;
 
-const LeftContent = styled.div`
+const Content = styled.div`
   width: 100%;
   max-width: ${props => (props.maxWidth ? props.maxWidth : 768)}px;
   margin: auto;
@@ -25,17 +23,15 @@ const LeftContent = styled.div`
   `};
 `;
 
-export default ({ maxWidth, noMargin, headline, leftContent }) => (
-  <Wrap>
-    <Page noMargin={noMargin}>
-      <PageClearfix>
-        <Content>
-          <LeftContent maxWidth={maxWidth}>
-            {headline && <H1 bold>{headline}</H1>}
-            {leftContent}
-          </LeftContent>
+export default ({ maxWidth, noMargin, headline, children }) => (
+  <Page noMargin={noMargin}>
+    <PageClearfix>
+      <Wrap>
+        <Content maxWidth={maxWidth}>
+          {headline && <H1 bold>{headline}</H1>}
+          {children}
         </Content>
-      </PageClearfix>
-    </Page>
-  </Wrap>
+      </Wrap>
+    </PageClearfix>
+  </Page>
 );

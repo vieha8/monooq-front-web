@@ -3,7 +3,7 @@ import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import { Colors } from 'variables';
 
 export default (WrappedComponent, option) => {
-  return class ContentPageMenuComponent extends React.Component {
+  return class ContentPageMenu extends React.Component {
     componentDidMount() {
       if (option && option.bgGray) {
         this.prevBg = document.body.style.background;
@@ -23,9 +23,10 @@ export default (WrappedComponent, option) => {
           maxWidth={option && option.maxWidth ? option.maxWidth : ''}
           caption={option && option.caption ? option.caption : ''}
           headline={option && option.headline ? option.headline : ''}
-          leftContent={<WrappedComponent {...this.props} />}
           noMargin={option && option.noMargin ? option.noMargin : false}
-        />
+        >
+          <WrappedComponent {...this.props} />
+        </MenuPageTemplate>
       );
     }
   };
