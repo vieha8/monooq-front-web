@@ -6,7 +6,7 @@ import SearchCondition from 'components/LV3/SearchCondition';
 import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { iskeyDownEnter } from 'helpers/keydown';
-import connect from '../connect';
+import { connect } from 'react-redux';
 
 class SearchConditionPage extends Component {
   constructor(props) {

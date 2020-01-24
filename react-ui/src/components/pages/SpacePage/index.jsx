@@ -14,7 +14,7 @@ import { iskeyDownEnter } from 'helpers/keydown';
 import { receiptTypeList } from 'helpers/receiptTypes';
 
 import { loggerActions } from 'redux/modules/logger';
-import connect from '../connect';
+import { connect } from 'react-redux';
 
 class SpacePage extends Component {
   constructor(props) {
@@ -310,7 +310,7 @@ const mapStateToProps = state => ({
   isRequesting: state.request.isLoading,
 });
 
-export default ContentPageMenu(connect(SpacePage, mapStateToProps), {
+export default ContentPageMenu(connect(mapStateToProps)(SpacePage), {
   bottomMarginOnlySP: true,
   maxWidth: 1440,
   noMargin: true,

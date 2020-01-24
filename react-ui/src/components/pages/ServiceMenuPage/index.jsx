@@ -4,7 +4,7 @@ import ServiceMenu from 'components/LV3/ServiceMenu';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
-import connect from '../connect';
+import { connect } from 'react-redux';
 
 class ServiceMenuPage extends Component {
   constructor(props) {
@@ -87,4 +87,4 @@ const mapStateToProps = state => ({
   schedule: state.request.schedule,
 });
 
-export default connect(ServiceMenuPage, mapStateToProps);
+export default connect(mapStateToProps)(ServiceMenuPage);

@@ -5,7 +5,7 @@ import AccountTemplate from 'components/templates/AccountTemplate';
 import Login from 'components/LV3/Login';
 import { iskeyDownEnter } from 'helpers/keydown';
 import Path from 'config/path';
-import connect from '../connect';
+import { connect } from 'react-redux';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -99,4 +99,4 @@ const mapStateToProps = state => ({
   ui: state.ui,
 });
 
-export default connect(LoginPage, mapStateToProps);
+export default connect(mapStateToProps)(LoginPage);

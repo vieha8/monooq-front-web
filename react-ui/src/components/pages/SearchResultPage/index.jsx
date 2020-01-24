@@ -8,7 +8,7 @@ import { iskeyDownEnter } from 'helpers/keydown';
 import { makeConditionTitle } from 'helpers/search';
 import { media } from 'helpers/style/media-query';
 import { spaceActions } from 'redux/modules/space';
-import connect from 'components/pages/connect';
+import { connect } from 'react-redux';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SearchResultHeaderPage from 'components/pages/SearchResultPage/SearchResultHeaderPage';
 import SearchResult from 'components/LV3/SearchResult';
@@ -16,6 +16,7 @@ import SpaceDataNone from 'components/LV3/SpaceDataNone';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Loading from 'components/LV1/Loading';
 import { H1 } from 'components/LV1/Texts/Headline';
+import { withRouter } from 'react-router';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
@@ -264,7 +265,9 @@ const mapStateToProps = state => ({
   conditions: state.space.search.conditions,
 });
 
-export default ContentPageMenu(connect(SearchResultPage, mapStateToProps), {
-  maxWidth: 1168,
-  bottomMarginOnlySP: true,
-});
+export default withRouter(
+  ContentPageMenu(connect(mapStateToProps)(SearchResultPage), {
+    maxWidth: 1168,
+    bottomMarginOnlySP: true,
+  }),
+);

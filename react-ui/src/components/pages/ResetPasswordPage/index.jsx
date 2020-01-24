@@ -5,7 +5,7 @@ import AccountTemplate from 'components/templates/AccountTemplate';
 import ResetPassword from 'components/LV3/ResetPassword';
 import { authActions } from 'redux/modules/auth';
 import { ErrorMessages } from 'variables';
-import connect from '../connect';
+import { connect } from 'react-redux';
 
 const Validate = {
   Email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
@@ -98,4 +98,4 @@ const mapStateToProps = state => ({
   resetError: state.auth.error,
 });
 
-export default connect(ResetPasswordPage, mapStateToProps);
+export default connect(mapStateToProps)(ResetPasswordPage);

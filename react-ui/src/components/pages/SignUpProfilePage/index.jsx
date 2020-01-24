@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AccountTemplate from 'components/templates/AccountTemplate';
 import RegisterProfile from './RegisterProfile';
-import connect from '../connect';
+import { connect } from 'react-redux';
 
 class SignUpProfilePage extends Component {
   render() {
@@ -16,4 +16,4 @@ const mapStateToProps = state => ({
   isSignupFailed: state.auth.isSignupFailed,
 });
 
-export default connect(SignUpProfilePage, mapStateToProps);
+export default connect(mapStateToProps)(SignUpProfilePage);

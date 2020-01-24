@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Path from 'config/path';
-import connect from 'components/pages/connect';
+import { connect } from 'react-redux';
 import { Colors } from 'variables';
 import { areaPrefectures } from 'helpers/prefectures';
 import { parse, stringify } from 'helpers/query-string';
@@ -11,6 +11,7 @@ import AreaAroundList from 'components/LV2/Lists/AreaAroundList';
 import AreaPinList from 'components/LV2/Lists/AreaPinList';
 import SortList from 'components/LV2/Lists/LinkList';
 import SearchResultHeader from 'components/LV3/SearchResultHeader';
+import { withRouter } from 'react-router';
 
 class SearchResultHeaderPage extends Component {
   constructor(props) {
@@ -352,4 +353,4 @@ const mapStateToProps = state => ({
   cities: state.space.search.cities,
 });
 
-export default connect(SearchResultHeaderPage, mapStateToProps);
+export default withRouter(connect(mapStateToProps)(SearchResultHeaderPage));

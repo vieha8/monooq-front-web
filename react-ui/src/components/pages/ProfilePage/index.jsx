@@ -6,7 +6,7 @@ import { userActions } from 'redux/modules/user';
 import { formatDate, formatStringSlash } from 'helpers/date';
 import { formatName } from 'helpers/string';
 import Meta from 'components/LV1/Meta';
-import connect from '../connect';
+import { connect } from 'react-redux';
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -62,6 +62,6 @@ const mapStateToProps = state => ({
   spaces: state.user.spaces,
 });
 
-export default ContentPageMenu(connect(ProfilePage, mapStateToProps), {
+export default ContentPageMenu(connect(mapStateToProps)(ProfilePage), {
   headline: 'プロフィール',
 });

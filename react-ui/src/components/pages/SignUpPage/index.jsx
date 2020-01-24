@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AccountTemplate from 'components/templates/AccountTemplate';
 import Path from 'config/path';
 import { authActions } from 'redux/modules/auth';
-import connect from '../connect';
+import { connect } from 'react-redux';
 import RegisterEmail from './RegisterEmail';
 
 class SignUpPage extends Component {
@@ -38,4 +38,4 @@ const mapStateToProps = state => ({
   errorMessage: state.auth.errorMessage,
 });
 
-export default connect(SignUpPage, mapStateToProps);
+export default connect(mapStateToProps)(SignUpPage);

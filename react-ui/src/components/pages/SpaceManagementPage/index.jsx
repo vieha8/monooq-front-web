@@ -8,7 +8,7 @@ import SpaceManageList from 'components/LV3/SpaceManageList';
 import LoadingPage from 'components/LV3/LoadingPage';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
 import { Colors } from 'variables';
-import connect from '../connect';
+import { connect } from 'react-redux';
 import withAuthRequire from 'components/hooks/withAuthRequire';
 
 class SpaceManagementPage extends Component {
@@ -102,7 +102,7 @@ const mapStateToProps = state => ({
 });
 
 export default withAuthRequire(
-  ContentPageMenu(connect(SpaceManagementPage, mapStateToProps), {
+  ContentPageMenu(connect(mapStateToProps)(SpaceManagementPage), {
     headline: 'スペースの管理',
     maxWidth: 1000,
   }),
