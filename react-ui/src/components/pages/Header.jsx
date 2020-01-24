@@ -26,8 +26,6 @@ class HeaderPage extends Component {
       isLinkRed = true;
     }
 
-    console.log(targetUrl);
-
     if (targetUrl && (targetUrl === '/' || isLinkRed)) {
       pagePathScrollPage = targetUrl;
     }

@@ -1,11 +1,9 @@
-import React, { Component, Fragment } from 'react';
-import Header from 'components/pages/Header';
-import Footer from 'components/LV2/Footer';
+import React from 'react';
 import MenuPageTemplate from 'components/templates/MenuPageTemplate';
 import { Colors } from 'variables';
 
 export default (WrappedComponent, option) => {
-  return class ContentPageMenuComponent extends Component {
+  return class ContentPageMenuComponent extends React.Component {
     componentDidMount() {
       if (option && option.bgGray) {
         this.prevBg = document.body.style.background;
@@ -21,22 +19,13 @@ export default (WrappedComponent, option) => {
 
     render() {
       return (
-        <Fragment>
-          <MenuPageTemplate
-            maxWidth={option && option.maxWidth ? option.maxWidth : ''}
-            caption={option && option.caption ? option.caption : ''}
-            header={<Header />}
-            headline={option && option.headline ? option.headline : ''}
-            leftContent={<WrappedComponent {...this.props} />}
-            noMargin={option && option.noMargin ? option.noMargin : false}
-          />
-          {option && !option.noFooter && (
-            <Footer
-              bottomMargin={!!(option && option.bottomMargin)}
-              bottomMarginOnlySP={!!(option && option.bottomMarginOnlySP)}
-            />
-          )}
-        </Fragment>
+        <MenuPageTemplate
+          maxWidth={option && option.maxWidth ? option.maxWidth : ''}
+          caption={option && option.caption ? option.caption : ''}
+          headline={option && option.headline ? option.headline : ''}
+          leftContent={<WrappedComponent {...this.props} />}
+          noMargin={option && option.noMargin ? option.noMargin : false}
+        />
       );
     }
   };

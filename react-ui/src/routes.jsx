@@ -3,133 +3,176 @@ import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 import loadable from '@loadable/component';
 import BaseLayout from 'components/templates/BaseLayout';
+import LoadingPage from 'components/LV3/LoadingPage';
 import Path from './config/path';
 
-const Top = loadable(() =>
-  import('components/pages/TopPage').catch(() => window.location.reload()),
+const Top = loadable(
+  () => import('components/pages/TopPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Login = loadable(() =>
-  import('components/pages/LoginPage').catch(() => window.location.reload()),
+const Login = loadable(
+  () => import('components/pages/LoginPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const SignUp = loadable(() =>
-  import('components/pages/SignUpPage').catch(() => window.location.reload()),
+const SignUp = loadable(
+  () => import('components/pages/SignUpPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const SignUpProfile = loadable(() =>
-  import('components/pages/SignUpProfilePage').catch(() => window.location.reload()),
+const SignUpProfile = loadable(
+  () => import('components/pages/SignUpProfilePage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const ResetPassword = loadable(() =>
-  import('components/pages/ResetPasswordPage').catch(() => window.location.reload()),
+const ResetPassword = loadable(
+  () => import('components/pages/ResetPasswordPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Search = loadable(() =>
-  import('components/pages/SearchResultPage').catch(() => window.location.reload()),
+const Search = loadable(
+  () => import('components/pages/SearchResultPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const SearchCondition = loadable(() =>
-  import('components/pages/SearchConditionPage').catch(() => window.location.reload()),
+const SearchCondition = loadable(
+  () => import('components/pages/SearchConditionPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Space = loadable(() =>
-  import('components/pages/SpacePage').catch(() => window.location.reload()),
+const Space = loadable(
+  () => import('components/pages/SpacePage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Spaces = loadable(() =>
-  import('components/pages/SpaceManagementPage').catch(() => window.location.reload()),
+const Spaces = loadable(
+  () => import('components/pages/SpaceManagementPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Schedule = loadable(() =>
-  import('components/pages/SchedulePage').catch(() => window.location.reload()),
+const Schedule = loadable(
+  () => import('components/pages/SchedulePage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Profile = loadable(() =>
-  import('components/pages/ProfilePage').catch(() => window.location.reload()),
+const Profile = loadable(
+  () => import('components/pages/ProfilePage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const ProfileEdit = loadable(() =>
-  import('components/pages/ProfileEditPage').catch(() => window.location.reload()),
+const ProfileEdit = loadable(
+  () => import('components/pages/ProfileEditPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Inquiry = loadable(() =>
-  import('components/pages/InquiryPage').catch(() => window.location.reload()),
+const Inquiry = loadable(
+  () => import('components/pages/InquiryPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const MessageList = loadable(() =>
-  import('components/pages/MessageListPage').catch(() => window.location.reload()),
+const MessageList = loadable(
+  () => import('components/pages/MessageListPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Message = loadable(() =>
-  import('components/pages/MessagePage').catch(() => window.location.reload()),
+const Message = loadable(
+  () => import('components/pages/MessagePage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Estimate = loadable(() =>
-  import('components/pages/EstimatePage').catch(() => window.location.reload()),
+const Estimate = loadable(
+  () => import('components/pages/EstimatePage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Payment = loadable(() =>
-  import('components/pages/PaymentPage').catch(() => window.location.reload()),
+const Payment = loadable(
+  () => import('components/pages/PaymentPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const SpaceCreate1 = loadable(() =>
-  import('components/pages/SpaceEdit1Page').catch(() => window.location.reload()),
+const SpaceCreate1 = loadable(
+  () => import('components/pages/SpaceEdit1Page').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const SpaceEdit1 = loadable(() =>
-  import('components/pages/SpaceEdit1Page').catch(() => window.location.reload()),
+const SpaceEdit1 = loadable(
+  () => import('components/pages/SpaceEdit1Page').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const SpaceCreate2 = loadable(() =>
-  import('components/pages/SpaceEdit2Page').catch(() => window.location.reload()),
+const SpaceCreate2 = loadable(
+  () => import('components/pages/SpaceEdit2Page').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const SpaceEdit2 = loadable(() =>
-  import('components/pages/SpaceEdit2Page').catch(() => window.location.reload()),
+const SpaceEdit2 = loadable(
+  () => import('components/pages/SpaceEdit2Page').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const SpaceCreate3 = loadable(() =>
-  import('components/pages/SpaceEdit3Page').catch(() => window.location.reload()),
+const SpaceCreate3 = loadable(
+  () => import('components/pages/SpaceEdit3Page').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const SpaceEdit3 = loadable(() =>
-  import('components/pages/SpaceEdit3Page').catch(() => window.location.reload()),
+const SpaceEdit3 = loadable(
+  () => import('components/pages/SpaceEdit3Page').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const CreateSpaceConfirm = loadable(() =>
-  import('components/pages/SpaceEditConfirmPage').catch(() => window.location.reload()),
+const CreateSpaceConfirm = loadable(
+  () => import('components/pages/SpaceEditConfirmPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const SpaceEditConfirm = loadable(() =>
-  import('components/pages/SpaceEditConfirmPage').catch(() => window.location.reload()),
+const SpaceEditConfirm = loadable(
+  () => import('components/pages/SpaceEditConfirmPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const CreateSpaceCompletion = loadable(() =>
-  import('components/pages/SpaceEditCompletionPage').catch(() => window.location.reload()),
+const CreateSpaceCompletion = loadable(
+  () => import('components/pages/SpaceEditCompletionPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const SpaceEditCompletion = loadable(() =>
-  import('components/pages/SpaceEditCompletionPage').catch(() => window.location.reload()),
+const SpaceEditCompletion = loadable(
+  () => import('components/pages/SpaceEditCompletionPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Unsubscribe = loadable(() =>
-  import('components/pages/UnsubscribePage').catch(() => window.location.reload()),
+const Unsubscribe = loadable(
+  () => import('components/pages/UnsubscribePage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Sales = loadable(() =>
-  import('components/pages/SalesPage').catch(() => window.location.reload()),
+const Sales = loadable(
+  () => import('components/pages/SalesPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const About = loadable(() =>
-  import('components/pages/AboutPage').catch(() => window.location.reload()),
+const About = loadable(
+  () => import('components/pages/AboutPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const HowToUse = loadable(() =>
-  import('components/pages/HowToUsePage').catch(() => window.location.reload()),
+const HowToUse = loadable(
+  () => import('components/pages/HowToUsePage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Insurance = loadable(() =>
-  import('components/pages/InsurancePage').catch(() => window.location.reload()),
+const Insurance = loadable(
+  () => import('components/pages/InsurancePage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Rule = loadable(() =>
-  import('components/pages/RulePage').catch(() => window.location.reload()),
+const Rule = loadable(
+  () => import('components/pages/RulePage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const PageNotFound = loadable(() =>
-  import('components/pages/PageNotFoundPage').catch(() => window.location.reload()),
+const PageNotFound = loadable(
+  () => import('components/pages/PageNotFoundPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const CancelPolicy = loadable(() =>
-  import('components/pages/CancelPolicyPage').catch(() => window.location.reload()),
+const CancelPolicy = loadable(
+  () => import('components/pages/CancelPolicyPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Asct = loadable(() =>
-  import('components/pages/AsctPage').catch(() => window.location.reload()),
+const Asct = loadable(
+  () => import('components/pages/AsctPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Privacy = loadable(() =>
-  import('components/pages/PrivacyPage').catch(() => window.location.reload()),
+const Privacy = loadable(
+  () => import('components/pages/PrivacyPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Terms = loadable(() =>
-  import('components/pages/TermsPage').catch(() => window.location.reload()),
+const Terms = loadable(
+  () => import('components/pages/TermsPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Lp1Host = loadable(() =>
-  import('components/pages/Lp1HostPage').catch(() => window.location.reload()),
+const Lp1Host = loadable(
+  () => import('components/pages/Lp1HostPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Lp1Guest = loadable(() =>
-  import('components/pages/Lp123GuestPage').catch(() => window.location.reload()),
+const Lp1Guest = loadable(
+  () => import('components/pages/Lp123GuestPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Lp2Guest = loadable(() =>
-  import('components/pages/Lp123GuestPage').catch(() => window.location.reload()),
+const Lp2Guest = loadable(
+  () => import('components/pages/Lp123GuestPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
-const Lp3Guest = loadable(() =>
-  import('components/pages/Lp123GuestPage').catch(() => window.location.reload()),
+const Lp3Guest = loadable(
+  () => import('components/pages/Lp123GuestPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
 );
 
 export default ({ history }) => (

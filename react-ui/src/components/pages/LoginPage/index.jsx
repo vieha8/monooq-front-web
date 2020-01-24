@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-
 import { authActions } from 'redux/modules/auth';
-
 import AccountTemplate from 'components/templates/AccountTemplate';
 import Login from 'components/LV3/Login';
-import Header from 'components/pages/Header';
 import { iskeyDownEnter } from 'helpers/keydown';
-
 import Path from 'config/path';
-
 import connect from '../connect';
 
 class LoginPage extends Component {
@@ -90,7 +85,7 @@ class LoginPage extends Component {
     const { ui, isLogin } = this.props;
 
     if (!isLogin) {
-      return <AccountTemplate title="ログイン" header={<Header />} form={this.form()} />;
+      return <AccountTemplate title="ログイン" form={this.form()} />;
     }
 
     return <Redirect to={ui.redirectPath || Path.top()} />;

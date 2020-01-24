@@ -25,9 +25,8 @@ const LeftContent = styled.div`
   `};
 `;
 
-export default ({ maxWidth, header, noMargin, headline, leftContent }) => (
+export default ({ maxWidth, noMargin, headline, leftContent }) => (
   <Wrap>
-    {header}
     <Page noMargin={noMargin}>
       <PageClearfix>
         <Content>

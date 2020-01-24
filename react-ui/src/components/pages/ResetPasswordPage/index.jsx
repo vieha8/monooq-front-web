@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-
 import Path from 'config/path';
-
 import AccountTemplate from 'components/templates/AccountTemplate';
-import Header from 'components/pages/Header';
 import ResetPassword from 'components/LV3/ResetPassword';
-
 import { authActions } from 'redux/modules/auth';
-
 import { ErrorMessages } from 'variables';
-
 import connect from '../connect';
 
 const Validate = {
@@ -92,12 +86,7 @@ class ResetPasswordPage extends Component {
     }
 
     return (
-      <AccountTemplate
-        errorHeader={resetError}
-        title="パスワードの再設定"
-        header={<Header />}
-        form={this.form()}
-      />
+      <AccountTemplate errorHeader={resetError} title="パスワードの再設定" form={this.form()} />
     );
   }
 }

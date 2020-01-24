@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AccountTemplate from 'components/templates/AccountTemplate';
-import Header from 'components/pages/Header';
 import Path from 'config/path';
 import { authActions } from 'redux/modules/auth';
 import connect from '../connect';
@@ -26,7 +25,6 @@ class SignUpPage extends Component {
       <AccountTemplate
         errorHeader={errorMessage}
         title="新規登録"
-        header={<Header />}
         form={<RegisterEmail {...this.props} />}
       />
     );
