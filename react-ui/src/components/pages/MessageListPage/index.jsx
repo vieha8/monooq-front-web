@@ -9,7 +9,7 @@ import SpaceDataNone from 'components/LV3/SpaceDataNone';
 import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 class MessageListPage extends Component {
   componentDidMount() {
@@ -64,7 +64,7 @@ const mapStateToProps = state => ({
   isLoading: state.messages.isLoading,
 });
 
-export default authRequired(
+export default withAuthRequire(
   ContentPageMenu(connect(mapStateToProps)(MessageListPage), {
     headline: 'メッセージ一覧',
   }),
