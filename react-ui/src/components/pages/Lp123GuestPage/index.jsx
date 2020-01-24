@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import Path from 'config/path';
 import { partialMatch } from 'helpers/string';
-import BaseTemplate from 'components/templates/BaseTemplate';
 import Lp123Guest from 'components/LV3/Lp123Guest';
 
 class Lp123GuestPage extends React.Component {
@@ -76,14 +75,12 @@ class Lp123GuestPage extends React.Component {
   render() {
     const { titleMeta, headline, titleWant, buttonLink } = this.state;
     return (
-      <BaseTemplate bottomMargin>
-        <Lp123Guest
-          titleMeta={titleMeta}
-          headline={headline}
-          titleWant={titleWant}
-          buttonLink={buttonLink}
-        />
-      </BaseTemplate>
+      <Lp123Guest
+        titleMeta={titleMeta}
+        headline={headline}
+        titleWant={titleWant}
+        buttonLink={buttonLink}
+      />
     );
   }
 }

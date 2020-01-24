@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 import loadable from '@loadable/component';
+import BaseLayout from 'components/templates/BaseLayout';
 import Path from './config/path';
 
 const Top = loadable(() =>
@@ -133,54 +134,56 @@ const Lp3Guest = loadable(() =>
 
 export default ({ history }) => (
   <ConnectedRouter history={history}>
-    <Switch>
-      <Route exact path={Path.top()} component={Top} />
-      <Route exact path={Path.login()} component={Login} />
-      <Route exact path={Path.signUp()} component={SignUp} />
-      <Route exact path={Path.signUpProfile()} component={SignUpProfile} />
-      <Route exact path={Path.resetPassword()} component={ResetPassword} />
-      <Route exact path={Path.search()} component={Search} />
-      <Route exact path={Path.searchCondition()} component={SearchCondition} />
-      <Route exact path={Path.spacesByPrefecture()} component={Search} />
-      <Route exact path={Path.spacesByCity()} component={Search} />
-      <Route exact path={Path.spacesByTown()} component={Search} />
-      <Route exact path={Path.space()} component={Space} />
-      <Route exact path={Path.spaces()} component={Spaces} />
-      <Route exact path={Path.schedule()} component={Schedule} />
-      <Route exact path={Path.profile()} component={Profile} />
-      <Route exact path={Path.profileEdit()} component={ProfileEdit} />
-      <Route exact path={Path.inquiry()} component={Inquiry} />
-      <Route exact path={Path.messageList()} component={MessageList} />
-      <Route exact path={Path.message()} component={Message} />
-      <Route exact path={Path.estimate()} component={Estimate} />
-      <Route exact path={Path.payment()} component={Payment} />
-      <Route exact path={Path.spaceCreate1()} component={SpaceCreate1} />
-      <Route exact path={Path.spaceEdit1()} component={SpaceEdit1} />
-      <Route exact path={Path.spaceCreate2()} component={SpaceCreate2} />
-      <Route exact path={Path.spaceEdit2()} component={SpaceEdit2} />
-      <Route exact path={Path.spaceCreate3()} component={SpaceCreate3} />
-      <Route exact path={Path.spaceEdit3()} component={SpaceEdit3} />
-      <Route exact path={Path.createSpaceConfirm()} component={CreateSpaceConfirm} />
-      <Route exact path={Path.spaceEditConfirm()} component={SpaceEditConfirm} />
-      <Route exact path={Path.createSpaceCompletion()} component={CreateSpaceCompletion} />
-      <Route exact path={Path.spaceEditCompletion()} component={SpaceEditCompletion} />
-      <Route exact path={Path.unsubscribe()} component={Unsubscribe} />
-      <Route exact path={Path.sales()} component={Sales} />
-      <Route exact path={Path.about()} component={About} />
-      <Route exact path={Path.howtouse()} component={HowToUse} />
-      <Route exact path={Path.insurance()} component={Insurance} />
-      <Route exact path={Path.rule()} component={Rule} />
-      <Route exact path={Path.cancelPolicy()} component={CancelPolicy} />
-      <Route exact path={Path.asct()} component={Asct} />
-      <Route exact path={Path.privacy()} component={Privacy} />
-      <Route exact path={Path.terms()} component={Terms} />
-      <Route exact path={Path.lp1Host()} component={Lp1Host} />
-      <Route exact path={Path.lp1Guest()} component={Lp1Guest} />
-      <Route exact path={Path.lp1Guest2()} component={Lp1Guest} />
-      <Route exact path={Path.lp2Guest()} component={Lp2Guest} />
-      <Route exact path={Path.lp2Guest2()} component={Lp2Guest} />
-      <Route exact path={Path.lp3Guest()} component={Lp3Guest} />
-      <Route component={PageNotFound} />
-    </Switch>
+    <BaseLayout>
+      <Switch>
+        <Route exact path={Path.top()} component={Top} />
+        <Route exact path={Path.login()} component={Login} />
+        <Route exact path={Path.signUp()} component={SignUp} />
+        <Route exact path={Path.signUpProfile()} component={SignUpProfile} />
+        <Route exact path={Path.resetPassword()} component={ResetPassword} />
+        <Route exact path={Path.search()} component={Search} />
+        <Route exact path={Path.searchCondition()} component={SearchCondition} />
+        <Route exact path={Path.spacesByPrefecture()} component={Search} />
+        <Route exact path={Path.spacesByCity()} component={Search} />
+        <Route exact path={Path.spacesByTown()} component={Search} />
+        <Route exact path={Path.space()} component={Space} />
+        <Route exact path={Path.spaces()} component={Spaces} />
+        <Route exact path={Path.schedule()} component={Schedule} />
+        <Route exact path={Path.profile()} component={Profile} />
+        <Route exact path={Path.profileEdit()} component={ProfileEdit} />
+        <Route exact path={Path.inquiry()} component={Inquiry} />
+        <Route exact path={Path.messageList()} component={MessageList} />
+        <Route exact path={Path.message()} component={Message} />
+        <Route exact path={Path.estimate()} component={Estimate} />
+        <Route exact path={Path.payment()} component={Payment} />
+        <Route exact path={Path.spaceCreate1()} component={SpaceCreate1} />
+        <Route exact path={Path.spaceEdit1()} component={SpaceEdit1} />
+        <Route exact path={Path.spaceCreate2()} component={SpaceCreate2} />
+        <Route exact path={Path.spaceEdit2()} component={SpaceEdit2} />
+        <Route exact path={Path.spaceCreate3()} component={SpaceCreate3} />
+        <Route exact path={Path.spaceEdit3()} component={SpaceEdit3} />
+        <Route exact path={Path.createSpaceConfirm()} component={CreateSpaceConfirm} />
+        <Route exact path={Path.spaceEditConfirm()} component={SpaceEditConfirm} />
+        <Route exact path={Path.createSpaceCompletion()} component={CreateSpaceCompletion} />
+        <Route exact path={Path.spaceEditCompletion()} component={SpaceEditCompletion} />
+        <Route exact path={Path.unsubscribe()} component={Unsubscribe} />
+        <Route exact path={Path.sales()} component={Sales} />
+        <Route exact path={Path.about()} component={About} />
+        <Route exact path={Path.howtouse()} component={HowToUse} />
+        <Route exact path={Path.insurance()} component={Insurance} />
+        <Route exact path={Path.rule()} component={Rule} />
+        <Route exact path={Path.cancelPolicy()} component={CancelPolicy} />
+        <Route exact path={Path.asct()} component={Asct} />
+        <Route exact path={Path.privacy()} component={Privacy} />
+        <Route exact path={Path.terms()} component={Terms} />
+        <Route exact path={Path.lp1Host()} component={Lp1Host} />
+        <Route exact path={Path.lp1Guest()} component={Lp1Guest} />
+        <Route exact path={Path.lp1Guest2()} component={Lp1Guest} />
+        <Route exact path={Path.lp2Guest()} component={Lp2Guest} />
+        <Route exact path={Path.lp2Guest2()} component={Lp2Guest} />
+        <Route exact path={Path.lp3Guest()} component={Lp3Guest} />
+        <Route component={PageNotFound} />
+      </Switch>
+    </BaseLayout>
   </ConnectedRouter>
 );

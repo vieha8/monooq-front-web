@@ -1,11 +1,6 @@
 import React from 'react';
-import BaseTemplate from 'components/templates/BaseTemplate';
 import Privacy from 'components/LV3/Privacy';
 
-const PrivacyPage = React.memo(() => (
-  <BaseTemplate>
-    <Privacy />
-  </BaseTemplate>
-));
+const PrivacyPage = React.memo(() => <Privacy />);
 
 export default PrivacyPage;

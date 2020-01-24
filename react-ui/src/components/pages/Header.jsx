@@ -26,7 +26,9 @@ class HeaderPage extends Component {
       isLinkRed = true;
     }
 
-    if (targetUrl && (props.top || isLinkRed)) {
+    console.log(targetUrl);
+
+    if (targetUrl && (targetUrl === '/' || isLinkRed)) {
       pagePathScrollPage = targetUrl;
     }
 
@@ -132,7 +134,6 @@ class HeaderPage extends Component {
 
   render() {
     const {
-      top,
       isLogin,
       isChecking,
       noHeaderButton,
@@ -142,6 +143,7 @@ class HeaderPage extends Component {
       schedule,
       dispatch,
       history,
+      match,
     } = this.props;
 
     const { isOverTopView, pagePathScrollPage, isLinkRed } = this.state;
@@ -151,9 +153,11 @@ class HeaderPage extends Component {
       isSchedule = true;
     }
 
+    const isTop = match.url === '/';
+
     return (
       <Header
-        top={top}
+        top={isTop}
         isOverTopView={isOverTopView}
         isPageLp={
           partialMatch(pagePathScrollPage, Path.lp1Host()) || this.isLpGuest(pagePathScrollPage)

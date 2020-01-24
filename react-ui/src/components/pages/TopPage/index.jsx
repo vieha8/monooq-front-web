@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
 import Path from 'config/path';
@@ -9,7 +9,6 @@ import { isAvailableLocalStorage } from 'helpers/storage';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { sectionActions } from 'redux/modules/section';
 import Intercom from 'react-intercom';
-import BaseTemplate from 'components/templates/BaseTemplate';
 
 class TopPage extends React.Component {
   constructor(props) {
@@ -119,7 +118,7 @@ class TopPage extends React.Component {
       document.domain === 'monooq-front-web-staging.herokuapp.com';
 
     return (
-      <BaseTemplate>
+      <Fragment>
         <Top
           locationText={locationText}
           handleChangeLocation={this.handleChangeLocation}
@@ -142,7 +141,7 @@ class TopPage extends React.Component {
             user_hash={intercomHash}
           />
         )}
-      </BaseTemplate>
+      </Fragment>
     );
   }
 }
