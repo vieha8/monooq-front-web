@@ -4,7 +4,7 @@ import numeral from 'numeral';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors, Dimens } from 'variables';
 
-const Container = styled.div`
+const Wrap = styled.div`
   display: table;
   width: 100%;
   margin-top: ${Dimens.medium}px;
@@ -12,12 +12,12 @@ const Container = styled.div`
   padding: ${Dimens.medium}px ${Dimens.xsmall}px;
 `;
 
-const LabelContainer = styled.div`
+const LabelWrap = styled.div`
   display: table-cell;
   vertical-align: middle;
 `;
 
-const Sales = styled(LabelContainer)`
+const Sales = styled(LabelWrap)`
   text-align: right;
   font-weight: bold;
   color: ${Colors.black};
@@ -31,8 +31,8 @@ const salesFormat = price => {
 };
 
 export default ({ paid, amount }) => (
-  <Container>
-    <LabelContainer>
+  <Wrap>
+    <LabelWrap>
       <div>
         <InlineText.Base>{paid ? '料金' : '売上'}</InlineText.Base>
       </div>
@@ -43,9 +43,9 @@ export default ({ paid, amount }) => (
           </InlineText.EmphasisTiny>
         </div>
       )}
-    </LabelContainer>
+    </LabelWrap>
     <Sales>
       <InlineText.Base>{`${salesFormat(amount)}円`}</InlineText.Base>
     </Sales>
-  </Container>
+  </Wrap>
 );

@@ -17,7 +17,7 @@ const DropzoneWrap = styled.div`
     `};
 `;
 
-const Container = styled.div`
+const Wrap = styled.div`
   display: table-cell;
   vertical-align: middle;
   text-align: center;
@@ -49,7 +49,7 @@ export default ({ onDrop, image, imagePreview, noMarginleft }) => (
   <DropzoneWrap noMarginleft={noMarginleft}>
     <Dropzone accept="image/jpeg, image/png" onDrop={onDrop}>
       {({ getRootProps, getInputProps }) => (
-        <Container {...getRootProps()}>
+        <Wrap {...getRootProps()}>
           {image ? (
             <Preview src={imagePreview || image} />
           ) : (
@@ -59,7 +59,7 @@ export default ({ onDrop, image, imagePreview, noMarginleft }) => (
             </div>
           )}
           <input {...getInputProps()} />
-        </Container>
+        </Wrap>
       )}
     </Dropzone>
   </DropzoneWrap>

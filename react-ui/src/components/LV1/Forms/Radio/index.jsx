@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
-const Container = styled.div`
+const Wrap = styled.div`
   display: inline-block;
   cursor: pointer;
   width: 100%;
@@ -54,8 +54,8 @@ const Label = styled.div`
 `;
 
 export default ({ onClick, checked, border, children }) => (
-  <Container onClick={onClick}>
+  <Wrap onClick={onClick}>
     <Radio checked={checked} />
     <Label border={border}>{children}</Label>
-  </Container>
+  </Wrap>
 );

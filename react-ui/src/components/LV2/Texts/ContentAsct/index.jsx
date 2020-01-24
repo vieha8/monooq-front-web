@@ -4,7 +4,7 @@ import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
 import Text from 'components/LV1/Texts/TextStatic';
 
-const ContentContainer = styled.div`
+const ContentWrap = styled.div`
   width: 100%;
   padding: ${Dimens.medium_20}px 0;
   display: flex;
@@ -37,10 +37,10 @@ const Data = styled(Text)`
 export default ({ asctList }) => (
   <Fragment>
     {asctList.map((item, i) => (
-      <ContentContainer key={i.toString()}>
+      <ContentWrap key={i.toString()}>
         <Header>{item.header}</Header>
         <Data>{item.data}</Data>
-      </ContentContainer>
+      </ContentWrap>
     ))}
   </Fragment>
 );

@@ -8,7 +8,7 @@ import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
 import Path from 'config/path';
 import Meta from 'components/LV1/Meta';
-import ContainerDefault from 'components/LV1/ContainerDefault';
+import PageDefault from 'components/LV1/PageDefault';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ExampleSpaceList from 'components/LV2/Lists/ExampleSpaceList';
 import ImageHero from 'images/lp1host/fv-bg.jpeg';
@@ -278,7 +278,7 @@ const TypeLiText = styled.span`
   `};
 `;
 
-const ContentsWrap = styled(ContainerDefault)`
+const ContentsWrap = styled(PageDefault)`
   position: relative;
   max-width: 100%;
   text-align: center;
@@ -373,7 +373,7 @@ const QaWrap = styled.div`
   `};
 `;
 
-const QuestionsContainer = styled.div`
+const QuestionsWrap = styled.div`
   text-align: center;
 `;
 
@@ -683,7 +683,7 @@ export default () => (
       </FlowWrap>
       <QaWrap>
         <SectionTitle>よくある質問</SectionTitle>
-        <QuestionsContainer>
+        <QuestionsWrap>
           {getQaList([
             {
               question: 'Q. どのような荷物を預かることが多いのでしょうか？',
@@ -725,7 +725,7 @@ export default () => (
                 'モノオクは、皆さまのご協力を得てサービスを運営しております。補償などの付帯サービスも20%の中からご提供しております。より良いサービスをご提供させていただくため、何卒ご理解いただけますと幸いです。',
             },
           ])}
-        </QuestionsContainer>
+        </QuestionsWrap>
       </QaWrap>
     </ContentsWrap>
   </Wrap>

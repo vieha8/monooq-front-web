@@ -11,7 +11,7 @@ const IfIFindContentWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const ContentContainer = styled.div`
+const ContentWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -63,7 +63,7 @@ const IfIFindContentText = styled(Text)`
 export default ({ list }) => (
   <IfIFindContentWrapper>
     {list.map((item, i) => (
-      <ContentContainer key={i.toString()}>
+      <ContentWrap key={i.toString()}>
         <Oval>
           <LabelNumber>
             Step.
@@ -72,7 +72,7 @@ export default ({ list }) => (
           <LabelText>{item.label}</LabelText>
         </Oval>
         <IfIFindContentText>{item.text}</IfIFindContentText>
-      </ContentContainer>
+      </ContentWrap>
     ))}
   </IfIFindContentWrapper>
 );

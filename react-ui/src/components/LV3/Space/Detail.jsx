@@ -22,7 +22,7 @@ import ImageLogoPayEcontext from 'images/logo-pay-econtext.svg';
 
 import SearchResult from '../SearchResult';
 
-const Container = styled.div`
+const Wrap = styled.div`
   margin: auto;
   padding: 0;
   ${media.tablet`
@@ -304,7 +304,7 @@ export default ({
   requestButtonOnClick,
   onKeyDownButtonRequest,
 }) => (
-  <Container confirm={confirm}>
+  <Wrap confirm={confirm}>
     <ImageSpaceWrap>
       <Image images={images} />
     </ImageSpaceWrap>
@@ -432,5 +432,5 @@ export default ({
         </RightInner>
       </RightWrap>
     </SpaceDetailWrap>
-  </Container>
+  </Wrap>
 );

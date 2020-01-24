@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
-import ContainerDefault from 'components/LV1/ContainerDefault';
+import PageDefault from 'components/LV1/PageDefault';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
 import Text from 'components/LV1/Texts/TextStatic';
-import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
+import MainTitleWrap from 'components/LV2/Texts/MainTitleStatic';
 import LinkList from 'components/LV2/Lists/LinkList';
 
-const WrapContent = styled(ContainerDefault)`
+const WrapContent = styled(PageDefault)`
   text-align: center;
   margin: 100px auto ${Dimens.medium3_40}px;
   ${media.tablet`
@@ -16,7 +16,7 @@ const WrapContent = styled(ContainerDefault)`
   `};
 `;
 
-const MessageContainer = styled.div`
+const MessageWrap = styled.div`
   margin-bottom: ${Dimens.medium3_40}px;
   ${media.phone`
     margin-bottom: ${Dimens.medium_20}px;
@@ -44,13 +44,13 @@ export default () => (
     <MonoboyWrap>
       <ImageLogo.MonoboyBlack />
     </MonoboyWrap>
-    <MainTitleContainer
+    <MainTitleWrap
       mainTitle="ごめんなさい！"
       mainTitleSub="お探しのページが見つかりません。"
       noMarginTop
       fontSizeSp={FontSizes.medium1}
     />
-    <MessageContainer>
+    <MessageWrap>
       <Text fontSizeSp={FontSizes.small_15}>
         404エラー
         <br />
@@ -58,7 +58,7 @@ export default () => (
         <BrStyled />
         移動した可能性があります。
       </Text>
-    </MessageContainer>
+    </MessageWrap>
     <LinkList
       list={[
         {

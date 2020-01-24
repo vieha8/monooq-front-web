@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { media, mediaMin } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
-import ContainerDefaultStyled from 'components/LV1/ContainerDefault/ContainerDefaultStyled';
+import PageDefaultStyled from 'components/LV1/PageDefault/PageDefaultStyled';
 
-const ServiceContainer = styled(ContainerDefaultStyled)`
+const ServiceWrap = styled(PageDefaultStyled)`
   display: flex;
 `;
 
@@ -119,7 +119,7 @@ const CatchPhraseSub = styled.div`
 `;
 
 export default ({ serviceList }) => (
-  <ServiceContainer>
+  <ServiceWrap>
     <ServiceWrapper>
       {serviceList.map((item, i) => (
         <ItemWrap key={i.toString()}>
@@ -146,5 +146,5 @@ export default ({ serviceList }) => (
         </ItemWrap>
       ))}
     </ServiceWrapper>
-  </ServiceContainer>
+  </ServiceWrap>
 );

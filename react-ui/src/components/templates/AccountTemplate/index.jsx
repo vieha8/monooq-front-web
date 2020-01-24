@@ -30,7 +30,7 @@ const Title = styled(H1)`
   `};
 `;
 
-const HeaderContainer = styled.div`
+const Header = styled.div`
   position: fixed;
   ${props =>
     props.stories &&
@@ -65,7 +65,7 @@ export default class AccountTemplate extends Component {
       <Page>
         {errorHeader && <Spacer />}
         <Title bold>{title}</Title>
-        <HeaderContainer stories={stories}>{header}</HeaderContainer>
+        <Header stories={stories}>{header}</Header>
         <Container>{form}</Container>
       </Page>
     );

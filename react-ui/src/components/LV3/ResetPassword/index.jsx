@@ -8,7 +8,7 @@ import InputForm from 'components/LV2/Forms/InputForm';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 
-const Container = styled.div`
+const Wrap = styled.div`
   text-align: center;
 `;
 
@@ -73,7 +73,7 @@ export default ({
   buttonDisabled,
   buttonLoading,
 }) => (
-  <Container>
+  <Wrap>
     {sended ? (
       <Fragment>
         <Title>
@@ -115,5 +115,5 @@ export default ({
         </ButtonWrapper>
       </Fragment>
     )}
-  </Container>
+  </Wrap>
 );
