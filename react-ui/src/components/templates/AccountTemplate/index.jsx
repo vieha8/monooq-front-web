@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, FontSizes } from 'variables';
@@ -45,15 +45,12 @@ const Container = styled.div`
   `};
 `;
 
-export default class AccountTemplate extends Component {
-  render() {
-    const { errorHeader, title, form } = this.props;
-    return (
-      <Page>
-        {errorHeader && <Spacer />}
-        <Title bold>{title}</Title>
-        <Container>{form}</Container>
-      </Page>
-    );
-  }
-}
+const AccountTemplate = ({ errorHeader, title, form }) => (
+  <Page>
+    {errorHeader && <Spacer />}
+    <Title bold>{title}</Title>
+    <Container>{form}</Container>
+  </Page>
+);
+
+export default AccountTemplate;
