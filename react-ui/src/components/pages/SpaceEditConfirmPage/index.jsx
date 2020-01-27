@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Path from 'config/path';
 import { Redirect } from 'react-router-dom';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import SpaceMap from 'components/LV1/SpaceMap';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
@@ -165,7 +165,7 @@ class SpaceEditConfirmPage extends Component {
 
     const { user } = this.props;
     return (
-      <Fragment>
+      <BaseTemplate maxWidth={1440} noMargin>
         <Detail
           confirm
           isOverTopView={isOverTopView}
@@ -232,7 +232,7 @@ class SpaceEditConfirmPage extends Component {
             }}
           />
         </EntryButtonWrap>
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -246,11 +246,5 @@ const mapStateToProps = state => ({
 });
 
 export default withAuthRequire(
-  withHandleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEditConfirmPage), {
-      noFooter: true,
-      maxWidth: 1440,
-      noMargin: true,
-    }),
-  ),
+  withHandleBeforeUnload(connect(mapStateToProps)(SpaceEditConfirmPage)),
 );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import numeral from 'numeral';
 import Path from 'config/path';
 import { userActions } from 'redux/modules/user';
@@ -55,42 +55,48 @@ class SpaceManagementPage extends Component {
 
     if (!Array.isArray(spaces)) {
       return (
-        <SpaceDataNone
-          captionHead="スペース情報の取得に失敗しました。"
-          caption="画面を再読み込みするか、時間をおいてから再度アクセスをお願いいたします。"
-          buttonText="画面を再読み込みする"
-          onClick={() => window.location.reload()}
-        />
+        <BaseTemplate maxWidth={1000}>
+          <SpaceDataNone
+            captionHead="スペース情報の取得に失敗しました。"
+            caption="画面を再読み込みするか、時間をおいてから再度アクセスをお願いいたします。"
+            buttonText="画面を再読み込みする"
+            onClick={() => window.location.reload()}
+          />
+        </BaseTemplate>
       );
     }
 
     if (spaces.length === 0) {
       return (
-        <SpaceDataNone
-          captionHead="登録したスペースがありません"
-          caption="スペースの登録がありません。以下のボタンからスペースを登録して荷物を預る準備をしましょう。"
-          buttonText="スペースを登録する"
-          onClick={() => history.push(Path.spaceCreate1())}
-        />
+        <BaseTemplate maxWidth={1000}>
+          <SpaceDataNone
+            captionHead="登録したスペースがありません"
+            caption="スペースの登録がありません。以下のボタンからスペースを登録して荷物を預る準備をしましょう。"
+            buttonText="スペースを登録する"
+            onClick={() => history.push(Path.spaceCreate1())}
+          />
+        </BaseTemplate>
       );
     }
     return (
-      <SpaceManageList
-        spaces={spaces.map(space => ({
-          sizeType: space.sizeType,
-          image: {
-            src: (space.images[0] || {}).imageUrl,
-            alt: '',
-          },
-          address: `${space.address}`,
-          content: space.title,
-          prices: this.getPrices(space.sizeType, space.priceFull, space.priceTatami),
-          link: Path.space(space.id),
-          status: space.status,
-          onClickEdit: () => this.onClickEdit(space),
-          onClickRemove: () => this.onClickRemove(space),
-        }))}
-      />
+      <BaseTemplate maxWidth={1000}>
+        <SpaceManageList
+          spaces={spaces.map(space => ({
+            sizeType: space.sizeType,
+            image: {
+              src: (space.images[0] || {}).imageUrl,
+              alt: '',
+            },
+            address: `${space.address}`,
+            content: space.title,
+            prices: this.getPrices(space.sizeType, space.priceFull, space.priceTatami),
+            link: Path.space(space.id),
+            status: space.status,
+            onClickEdit: () => this.onClickEdit(space),
+            onClickRemove: () => this.onClickRemove(space),
+          }))}
+        />
+      </BaseTemplate>
     );
   }
 }
@@ -101,9 +107,4 @@ const mapStateToProps = state => ({
   isLoading: state.user.isLoading,
 });
 
-export default withAuthRequire(
-  ContentPageMenu(connect(mapStateToProps)(SpaceManagementPage), {
-    headline: 'スペースの管理',
-    maxWidth: 1000,
-  }),
-);
+export default withAuthRequire(connect(mapStateToProps)(SpaceManagementPage));

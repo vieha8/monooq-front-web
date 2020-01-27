@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
 import Path from 'config/path';
@@ -9,7 +9,7 @@ import { makeConditionTitle } from 'helpers/search';
 import { media } from 'helpers/style/media-query';
 import { spaceActions } from 'redux/modules/space';
 import { connect } from 'react-redux';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import SearchResultHeaderPage from 'components/pages/SearchResultPage/SearchResultHeaderPage';
 import SearchResult from 'components/LV3/SearchResult';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
@@ -209,7 +209,7 @@ class SearchResultPage extends Component {
   };
 
   renderNotFound = conditions => (
-    <Fragment>
+    <BaseTemplate maxWidth={1168}>
       <H1 bold>{`「${makeConditionTitle(conditions)}」の検索結果 0件`}</H1>
       <SpaceDataNone
         captionHead="該当するスペースが見つかりませんでした"
@@ -218,7 +218,7 @@ class SearchResultPage extends Component {
         onClick={this.onClickBackSearchCondition}
         onKeyDown={this.onKeyDownButtonResearch}
       />
-    </Fragment>
+    </BaseTemplate>
   );
 
   render() {
@@ -234,7 +234,7 @@ class SearchResultPage extends Component {
     }
 
     return (
-      <Fragment>
+      <BaseTemplate maxWidth={1168}>
         <SearchResultHeaderPage />
         <Content>
           <InfiniteScroll
@@ -253,7 +253,7 @@ class SearchResultPage extends Component {
             />
           </InfiniteScroll>
         </Content>
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -265,9 +265,4 @@ const mapStateToProps = state => ({
   conditions: state.space.search.conditions,
 });
 
-export default withRouter(
-  ContentPageMenu(connect(mapStateToProps)(SearchResultPage), {
-    maxWidth: 1168,
-    bottomMarginOnlySP: true,
-  }),
-);
+export default withRouter(connect(mapStateToProps)(SearchResultPage));

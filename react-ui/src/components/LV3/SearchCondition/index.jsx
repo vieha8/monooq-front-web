@@ -7,6 +7,7 @@ import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Dimens } from 'variables';
 import { selectOptionPrefectures } from 'helpers/prefectures';
+import { H1 } from 'components/LV1/Texts/Headline';
 
 export const ContentsWrap = styled.div`
   ${media.tablet`
@@ -57,6 +58,7 @@ export default ({
   onKeyDownButtonSearch,
 }) => (
   <Fragment>
+    <H1 bold>スペース検索</H1>
     <ContentsWrap>
       <Section top>
         <InputForm

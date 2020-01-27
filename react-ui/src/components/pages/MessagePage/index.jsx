@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'semantic-ui-react';
 import Path from 'config/path';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import { Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -285,7 +285,7 @@ class MessagePage extends Component {
     const isRegisterEmailPhoneNumber = !!user.email && !!user.phoneNumber;
 
     return (
-      <Fragment>
+      <BaseTemplate>
         <TopWrap>
           {isHost ? (
             <InfoUser
@@ -353,7 +353,7 @@ class MessagePage extends Component {
             </Button>
           </Modal.Actions>
         </Modal>
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -365,4 +365,4 @@ const mapStateToProps = state => ({
   isLoading: state.messages.isLoading,
 });
 
-export default withAuthRequire(ContentPageMenu(connect(mapStateToProps)(MessagePage), {}));
+export default withAuthRequire(connect(mapStateToProps)(MessagePage));

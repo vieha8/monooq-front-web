@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Path from 'config/path';
 import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
 import { requestActions } from 'redux/modules/request';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import SpaceMap from 'components/LV1/SpaceMap';
 import Detail from 'components/LV3/Space/Detail';
 import SendMessageOnlyTabletSp from 'components/LV3/Space/SendMessage';
@@ -12,7 +12,6 @@ import Meta from 'components/LV1/Meta';
 import dummySpaceImage from 'images/dummy_space.png';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { receiptTypeList } from 'helpers/receiptTypes';
-
 import { loggerActions } from 'redux/modules/logger';
 import { connect } from 'react-redux';
 
@@ -191,7 +190,7 @@ class SpacePage extends Component {
       : null;
 
     return (
-      <Fragment>
+      <BaseTemplate maxWidth={1440} noMargin>
         <Meta
           title={title}
           description={description}
@@ -250,7 +249,7 @@ class SpacePage extends Component {
           onClick={isSelfSpace ? null : this.onClickSendMessage}
           onKeyDownButtonMessage={isSelfSpace ? null : this.onKeyDownButtonMessage}
         />
-      </Fragment>
+      </BaseTemplate>
     );
   };
 
@@ -310,8 +309,4 @@ const mapStateToProps = state => ({
   isRequesting: state.request.isLoading,
 });
 
-export default ContentPageMenu(connect(mapStateToProps)(SpacePage), {
-  bottomMarginOnlySP: true,
-  maxWidth: 1440,
-  noMargin: true,
-});
+export default connect(mapStateToProps)(SpacePage);

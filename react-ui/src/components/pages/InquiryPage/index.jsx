@@ -1,11 +1,15 @@
 import React from 'react';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Inquiry from 'components/LV3/Inquiry';
 import { useSelector } from 'react-redux';
 
 const InquiryPage = () => {
   const isLogin = useSelector(state => state.auth.isLogin);
-  return <Inquiry isLogin={isLogin} />;
+  return (
+    <BaseTemplate>
+      <Inquiry isLogin={isLogin} />
+    </BaseTemplate>
+  );
 };
 
-export default ContentPageMenu(InquiryPage, { headline: 'お問い合わせ' });
+export default InquiryPage;

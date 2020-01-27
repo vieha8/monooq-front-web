@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { authActions } from 'redux/modules/auth';
-
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Unsubscribe from 'components/LV3/Unsubscribe';
 import UnsubscribeCompleted from 'components/LV3/Unsubscribe/Completed';
 import UnsubscribeFailed from 'components/LV3/Unsubscribe/Failed';
@@ -125,7 +124,7 @@ class UnsubscribePage extends Component {
     }
 
     return (
-      <Fragment>
+      <BaseTemplate>
         <H1 bold>退会の理由</H1>
         <Caption>
           モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。
@@ -140,7 +139,7 @@ class UnsubscribePage extends Component {
           buttonLoading={isUnsubscribeTrying}
           buttonDisabled={!this.validate()}
         />
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -153,4 +152,4 @@ const mapStateToProps = state => ({
   isUnsubscribeFailed: state.auth.isUnsubscribeFailed,
 });
 
-export default withAuthRequire(ContentPageMenu(connect(mapStateToProps)(UnsubscribePage), {}));
+export default withAuthRequire(connect(mapStateToProps)(UnsubscribePage), {});

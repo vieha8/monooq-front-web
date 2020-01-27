@@ -5,6 +5,7 @@ import { Dimens, Colors } from 'variables';
 import Path from 'config/path';
 import { media, mediaMin } from 'helpers/style/media-query';
 import SpaceManageListItem from 'components/LV2/Items/SpaceManageListItem';
+import { H1 } from 'components/LV1/Texts/Headline';
 
 const Wrap = styled.div`
   display: flex;
@@ -79,18 +80,21 @@ const AddIcon = styled.span`
 `;
 
 export default ({ spaces }) => (
-  <Wrap>
-    {spaces.map((space, i) => (
-      <Fragment key={`manage_space_list_item_${i}`.toString()}>
-        <ListItem index={i}>
-          <SpaceManageListItem {...space} />
-        </ListItem>
-      </Fragment>
-    ))}
-    <ListItem AddSpace>
-      <LinkStyled to={Path.spaceCreate1()}>
-        <AddIcon>新しいスペースを登録する</AddIcon>
-      </LinkStyled>
-    </ListItem>
-  </Wrap>
+  <Fragment>
+    <H1 bold>スペースの管理</H1>
+    <Wrap>
+      {spaces.map((space, i) => (
+        <Fragment key={`manage_space_list_item_${i}`.toString()}>
+          <ListItem index={i}>
+            <SpaceManageListItem {...space} />
+          </ListItem>
+        </Fragment>
+      ))}
+      <ListItem AddSpace>
+        <LinkStyled to={Path.spaceCreate1()}>
+          <AddIcon>新しいスペースを登録する</AddIcon>
+        </LinkStyled>
+      </ListItem>
+    </Wrap>
+  </Fragment>
 );

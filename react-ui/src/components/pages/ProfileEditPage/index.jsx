@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import ProfileEdit from 'components/LV3/ProfileEdit';
 import ProfileEditCompleted from 'components/LV3/ProfileEdit/Completed';
 import { H1 } from 'components/LV1/Texts/Headline';
@@ -202,7 +202,7 @@ class ProfileEditPage extends Component {
     }
 
     return (
-      <Fragment>
+      <BaseTemplate>
         <H1 bold>プロフィール編集</H1>
         <ProfileEdit
           errors={error}
@@ -229,7 +229,7 @@ class ProfileEditPage extends Component {
           onClickUpdate={this.onClickUpdate}
           onKeyDownButtonUpdate={this.onKeyDownButtonUpdate}
         />
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -242,6 +242,4 @@ const mapStateToProps = state => ({
   redirectPath: state.ui.redirectPath,
 });
 
-export default withAuthRequire(
-  withHandleBeforeUnload(ContentPageMenu(connect(mapStateToProps)(ProfileEditPage), {})),
-);
+export default withAuthRequire(withHandleBeforeUnload(connect(mapStateToProps)(ProfileEditPage)));

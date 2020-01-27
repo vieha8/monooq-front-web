@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import { requestActions } from 'redux/modules/request';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import LoadingPage from 'components/LV3/LoadingPage';
 import ScheduleList from 'components/LV3/ScheduleList';
 import SpaceDataNone from 'components/LV3/SpaceDataNone';
@@ -62,19 +62,23 @@ class SchedulePage extends Component {
     const { isHost } = user;
 
     return Array.isArray(schedules) && schedules.length > 0 ? (
-      <ScheduleList schedules={schedules} isHost={isHost} />
+      <BaseTemplate>
+        <ScheduleList schedules={schedules} isHost={isHost} />
+      </BaseTemplate>
     ) : (
-      <SpaceDataNone
-        captionHead={isHost ? '利用されたスペースがありません' : '利用したスペースがありません'}
-        caption={
-          isHost
-            ? 'まだスペースは利用されていません。他のホストの方を参考に、スペース情報を充実させてみましょう。'
-            : '利用したスペースがありません。ご希望のスペースを見つけて連絡を取ってみましょう。'
-        }
-        buttonText="トップに戻る"
-        onClick={this.historyToTop}
-        onKeyDown={this.onKeyDownButtonTop}
-      />
+      <BaseTemplate>
+        <SpaceDataNone
+          captionHead={isHost ? '利用されたスペースがありません' : '利用したスペースがありません'}
+          caption={
+            isHost
+              ? 'まだスペースは利用されていません。他のホストの方を参考に、スペース情報を充実させてみましょう。'
+              : '利用したスペースがありません。ご希望のスペースを見つけて連絡を取ってみましょう。'
+          }
+          buttonText="トップに戻る"
+          onClick={this.historyToTop}
+          onKeyDown={this.onKeyDownButtonTop}
+        />
+      </BaseTemplate>
     );
   };
 
@@ -90,8 +94,4 @@ const mapStateToProps = state => ({
   schedule: state.request.schedule,
 });
 
-export default withAuthRequire(
-  ContentPageMenu(connect(mapStateToProps)(SchedulePage), {
-    headline: '利用状況',
-  }),
-);
+export default withAuthRequire(connect(mapStateToProps)(SchedulePage));

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { salesActions } from 'redux/modules/sales';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/Forms/InputForm';
@@ -443,10 +443,10 @@ class SalesPage extends Component {
     return isLoading ? (
       <LoadingPage />
     ) : (
-      <Fragment>
+      <BaseTemplate>
         <H1 bold>{headline}</H1>
         {leftContent}
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -461,4 +461,4 @@ const mapStateToProps = state => ({
   isSend: state.sales.isSend,
 });
 
-export default withAuthRequire(ContentPageMenu(connect(mapStateToProps)(SalesPage), {}));
+export default withAuthRequire(connect(mapStateToProps)(SalesPage));

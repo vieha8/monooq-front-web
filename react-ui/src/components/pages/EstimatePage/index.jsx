@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { requestActions } from 'redux/modules/request';
 import { ErrorMessages } from 'variables';
 import { connect } from 'react-redux';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Estimate from 'components/LV3/Estimate';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
@@ -106,27 +106,29 @@ class EstimatePage extends Component {
     const { isSending } = this.props;
     const { begin, end, error, price, beginFocus, endFocus } = this.state;
     return (
-      <Estimate
-        schedule={{
-          beginDate: begin,
-          beginDateFocused: beginFocus,
-          onFocusChangeBegin: focus => this.onFocusChangeDatePicker('beginFocus', focus),
-          onDateChangeBegin: date => this.onDateChange('begin', date),
-          endDate: end,
-          endDateFocused: endFocus,
-          onFocusChangeEnd: focus => this.onFocusChangeDatePicker('endFocus', focus),
-          onDateChangeEnd: date => this.onDateChange('end', date),
-        }}
-        price={{
-          errors: error.price,
-          onChange: value => this.handleChangePrice('price', value),
-          value: price,
-        }}
-        buttonDisabled={!this.validate()}
-        buttonLoading={isSending}
-        onClickSend={this.sendRequest}
-        onKeyDownSend={this.onKeyDownSend}
-      />
+      <BaseTemplate>
+        <Estimate
+          schedule={{
+            beginDate: begin,
+            beginDateFocused: beginFocus,
+            onFocusChangeBegin: focus => this.onFocusChangeDatePicker('beginFocus', focus),
+            onDateChangeBegin: date => this.onDateChange('begin', date),
+            endDate: end,
+            endDateFocused: endFocus,
+            onFocusChangeEnd: focus => this.onFocusChangeDatePicker('endFocus', focus),
+            onDateChangeEnd: date => this.onDateChange('end', date),
+          }}
+          price={{
+            errors: error.price,
+            onChange: value => this.handleChangePrice('price', value),
+            value: price,
+          }}
+          buttonDisabled={!this.validate()}
+          buttonLoading={isSending}
+          onClickSend={this.sendRequest}
+          onKeyDownSend={this.onKeyDownSend}
+        />
+      </BaseTemplate>
     );
   }
 }
@@ -136,8 +138,4 @@ const mapStateToProps = state => ({
   isSending: state.request.estimate.isSending,
 });
 
-export default withAuthRequire(
-  ContentPageMenu(connect(mapStateToProps)(EstimatePage), {
-    headline: '見積もりを送る',
-  }),
-);
+export default withAuthRequire(connect(mapStateToProps)(EstimatePage));

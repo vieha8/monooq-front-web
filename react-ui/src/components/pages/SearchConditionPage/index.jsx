@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
 import ReactGA from 'react-ga';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
+import { withRouter } from 'react-router';
 import SearchCondition from 'components/LV3/SearchCondition';
 import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
@@ -78,20 +79,20 @@ class SearchConditionPage extends Component {
     const { keyword, prefCode, error } = this.state;
 
     return (
-      <SearchCondition
-        errors={error}
-        keyword={keyword}
-        onChangeKeyword={v => this.handleChangeUI('keyword', v)}
-        prefCode={prefCode}
-        onChangePrefCode={v => this.handleChangeUI('prefCode', v)}
-        buttonDisabled={!this.validate()}
-        onClickSearch={this.onClickSearch}
-        onKeyDownButtonSearch={this.onKeyDownButtonSearch}
-      />
+      <BaseTemplate>
+        <SearchCondition
+          errors={error}
+          keyword={keyword}
+          onChangeKeyword={v => this.handleChangeUI('keyword', v)}
+          prefCode={prefCode}
+          onChangePrefCode={v => this.handleChangeUI('prefCode', v)}
+          buttonDisabled={!this.validate()}
+          onClickSearch={this.onClickSearch}
+          onKeyDownButtonSearch={this.onKeyDownButtonSearch}
+        />
+      </BaseTemplate>
     );
   }
 }
 
-export default ContentPageMenu(connect(SearchConditionPage), {
-  headline: 'スペース検索',
-});
+export default withRouter(connect()(SearchConditionPage));

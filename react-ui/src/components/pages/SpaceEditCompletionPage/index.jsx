@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import Path from 'config/path';
-
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import HostGuideList from 'components/LV2/Lists/HostGuideList';
 import SpaceEditCompletion from 'components/LV3/SpaceEdit/Completion';
 import { H1 } from 'components/LV1/Texts/Headline';
@@ -111,7 +110,7 @@ class SpaceEditCompletionPage extends Component {
   render() {
     const { isUpdate } = this.state;
     return (
-      <Fragment>
+      <BaseTemplate>
         <H1 bold>{`${!isUpdate ? '登録' : '編集'}が完了しました`}</H1>
         <Caption>
           <InlineText.Base>
@@ -123,7 +122,7 @@ class SpaceEditCompletionPage extends Component {
           </InlineText.Base>
         </Caption>
         {this.leftContent(isUpdate)}
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -132,6 +131,4 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default withAuthRequire(
-  ContentPageMenu(connect(mapStateToProps)(SpaceEditCompletionPage), {}),
-);
+export default withAuthRequire(connect(mapStateToProps)(SpaceEditCompletionPage));

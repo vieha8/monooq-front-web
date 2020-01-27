@@ -1,9 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
 import { ErrorMessages } from 'variables';
 import { uploadImage } from 'redux/helpers/firebase';
@@ -454,7 +454,7 @@ class SpaceEdit1Page extends Component {
     }
 
     return (
-      <Fragment>
+      <BaseTemplate maxWidth={540}>
         <SpaceEdit1
           edit={isUpdate}
           errors={error}
@@ -505,7 +505,7 @@ class SpaceEdit1Page extends Component {
             </Button>
           </Modal.Actions>
         </Modal>
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -515,11 +515,4 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default withAuthRequire(
-  withHandleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEdit1Page), {
-      noFooter: true,
-      maxWidth: 540,
-    }),
-  ),
-);
+export default withAuthRequire(withHandleBeforeUnload(connect(mapStateToProps)(SpaceEdit1Page)));
