@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Card from 'components/LV1/Card';
-import ContainerClearfix from 'components/LV1/ContainerClearfix';
+import PageClearfix from 'components/LV1/PageClearfix';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
@@ -22,7 +22,7 @@ const DateWrapper = styled.div`
 `;
 
 export default ({ id, image, extension, message, receivedAt }) => (
-  <ContainerClearfix>
+  <PageClearfix>
     <div>
       <AvatarWrapper>
         <Link to={Path.profile(id)}>
@@ -40,5 +40,5 @@ export default ({ id, image, extension, message, receivedAt }) => (
         <InlineText.EmphasisTiny>{receivedAt}</InlineText.EmphasisTiny>
       </DateWrapper>
     </div>
-  </ContainerClearfix>
+  </PageClearfix>
 );

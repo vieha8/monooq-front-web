@@ -12,7 +12,7 @@ import LazyLoad from 'react-lazyload';
 import iconStar from 'images/img-space-star.svg';
 import { mediaMin } from 'helpers/style/media-query';
 
-const Container = styled.div`
+const Wrap = styled.div`
   cursor: pointer;
   margin: auto;
 `;
@@ -60,7 +60,7 @@ export default ({
   priceFull,
   tags,
 }) => (
-  <Container>
+  <Wrap>
     <Link to={Path.space(id)}>
       <Card noPadding noBorder>
         <LazyLoad height={123}>
@@ -110,5 +110,5 @@ export default ({
         <Tag tagList={tags.map(v => v.name)} />
       </Row>
     )}
-  </Container>
+  </Wrap>
 );

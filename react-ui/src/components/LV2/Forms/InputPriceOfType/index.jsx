@@ -5,7 +5,7 @@ import InputForm from 'components/LV2/Forms/InputForm';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
-const Container = styled.div`
+const Wrap = styled.div`
   width: 100%;
   max-width: 263px;
   border: 1px solid ${Colors.borderGray};
@@ -42,7 +42,7 @@ const Container = styled.div`
   `};
 `;
 
-const PriceContainer = styled.div`
+const PriceWrap = styled.div`
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -194,8 +194,8 @@ export default ({
   marginLeft,
 }) =>
   detail ? (
-    <Container marginLeft={marginLeft}>
-      <PriceContainer>
+    <Wrap marginLeft={marginLeft}>
+      <PriceWrap>
         <ImageWrap>
           <Image src={image} alt="img-space-price" />
         </ImageWrap>
@@ -210,11 +210,11 @@ export default ({
           </InlineText.Base>
           <PriceWrapper>{`${price}円`}</PriceWrapper>
         </Caption>
-      </PriceContainer>
-    </Container>
+      </PriceWrap>
+    </Wrap>
   ) : (
-    <Container price>
-      <PriceContainer price>
+    <Wrap price>
+      <PriceWrap price>
         <OnlySP>
           <TitleWrap price>{title}</TitleWrap>
           <Caption price top>
@@ -244,6 +244,6 @@ export default ({
           />
           {error}
         </InputWrapper>
-      </PriceContainer>
-    </Container>
+      </PriceWrap>
+    </Wrap>
   );

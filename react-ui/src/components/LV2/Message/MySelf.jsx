@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ContainerClearfix from 'components/LV1/ContainerClearfix';
+import PageClearfix from 'components/LV1/PageClearfix';
 import Card from 'components/LV1/Card';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';
@@ -23,7 +23,7 @@ const DateCell = styled.div`
 `;
 
 export default ({ message, error, onClickRetry, sentAt, isRead }) => (
-  <ContainerClearfix>
+  <PageClearfix>
     <Card block noBorder background={Colors.lightGray2} padding={24} paddingSp={14}>
       <InlineText.Base fontSize={15}>{message}</InlineText.Base>
     </Card>
@@ -43,5 +43,5 @@ export default ({ message, error, onClickRetry, sentAt, isRead }) => (
         </InlineText.EmphasisTiny>
       </DateCell>
     </ActionTable>
-  </ContainerClearfix>
+  </PageClearfix>
 );

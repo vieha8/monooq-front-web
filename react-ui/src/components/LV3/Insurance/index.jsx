@@ -5,9 +5,9 @@ import Path from 'config/path';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ContainerDefault from 'components/LV1/ContainerDefault';
+import PageDefault from 'components/LV1/PageDefault';
 import TextLink from 'components/LV1/Texts/TextLink';
-import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
+import MainTitleWrap from 'components/LV2/Texts/MainTitleStatic';
 import Hr from 'components/LV1/HorizontalRule';
 import WhySafeList from 'components/LV2/Lists/WhySafeList';
 import HowSafeList from 'components/LV2/Lists/HowSafeList';
@@ -17,7 +17,7 @@ import insuranceImage1 from 'images/img-send-message.svg';
 import insuranceImage2 from 'images/img-check-packages.svg';
 import insuranceImage3 from 'images/img-hart-with-hand.svg';
 
-const ContentContainer = styled.div`
+const ContentWrap = styled.div`
   ${props =>
     props.bottom &&
     `
@@ -68,9 +68,9 @@ const WhenAttentionHilightText = styled.div`
 `;
 
 export default () => (
-  <ContainerDefault>
-    <MainTitleContainer mainTitle="荷物に対する補償サービス" />
-    <ContentContainer>
+  <PageDefault>
+    <MainTitleWrap mainTitle="荷物に対する補償サービス" />
+    <ContentWrap>
       <SubTitle>
         もしもの時も大丈夫。
         <br />
@@ -99,8 +99,8 @@ export default () => (
         ]}
       />
       <Hr />
-    </ContentContainer>
-    <ContentContainer>
+    </ContentWrap>
+    <ContentWrap>
       <SubTitle>安心して取引をするために</SubTitle>
       <HowSafeList
         list={[
@@ -124,8 +124,8 @@ export default () => (
           },
         ]}
       />
-    </ContentContainer>
-    <ContentContainer>
+    </ContentWrap>
+    <ContentWrap>
       <SubTitle sub>こんな場合もご注意を</SubTitle>
       <WhenAttentionHilightText>
         以下のサービス利用上の注意が守られていない場合は、一切の補償をいたしかねます。
@@ -156,8 +156,8 @@ export default () => (
         ]}
       />
       <Hr />
-    </ContentContainer>
-    <ContentContainer bottom>
+    </ContentWrap>
+    <ContentWrap bottom>
       <SubTitle>よくある質問</SubTitle>
       <QuestionList
         title="補償サービスの適用範囲は？"
@@ -242,6 +242,6 @@ export default () => (
         title="緊急トラブルが発生したら？"
         text="緊急のトラブルが発生した場合は、警察・消防など所轄窓口に通報してください。その上でモノオクカスタマーサポートまでご連絡ください。"
       />
-    </ContentContainer>
-  </ContainerDefault>
+    </ContentWrap>
+  </PageDefault>
 );

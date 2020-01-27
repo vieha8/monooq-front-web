@@ -2,16 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
-import ContainerDefault from 'components/LV1/ContainerDefault';
+import PageDefault from 'components/LV1/PageDefault';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
 import Text from 'components/LV1/Texts/TextStatic';
-import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
+import MainTitleWrap from 'components/LV2/Texts/MainTitleStatic';
 
 const WrapContent = styled.div`
   text-align: center;
 `;
 
-const MessageContainer = styled.div`
+const MessageWrap = styled.div`
   margin-bottom: ${Dimens.medium2}px;
 `;
 
@@ -27,18 +27,18 @@ const MonoboyWrap = styled.div`
 `;
 
 export default () => (
-  <ContainerDefault>
+  <PageDefault>
     <WrapContent>
       <MonoboyWrap>
         <ImageLogo.MonoboyBlack />
       </MonoboyWrap>
-      <MainTitleContainer
+      <MainTitleWrap
         mainTitle="Sorry..."
         mainTitleSub="予期せぬエラーが発生しました"
         noMarginTop
         fontSizeSp={FontSizes.medium1}
       />
-      <MessageContainer>
+      <MessageWrap>
         <Text>
           ご不便をおかけし大変申し訳ございません。
           <br />
@@ -46,7 +46,7 @@ export default () => (
           <a href="mailto:support@monooq.com">support@monooq.com</a>
           までお問い合わせください。
         </Text>
-      </MessageContainer>
+      </MessageWrap>
     </WrapContent>
-  </ContainerDefault>
+  </PageDefault>
 );

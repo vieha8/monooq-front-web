@@ -4,7 +4,7 @@ import { media } from 'helpers/style/media-query';
 import TextLink from 'components/LV1/Texts/TextLink';
 import { Dimens, Colors, FontSizes } from 'variables';
 
-const Container = styled.div`
+const Wrap = styled.div`
   vertical-align: top;
   width: 100%;
   height: 117px;
@@ -53,7 +53,7 @@ const Delete = styled.span`
 `;
 
 export default ({ imageUrl, onClickDelete }) => (
-  <Container>
+  <Wrap>
     <ImageWrapper>
       <Image src={imageUrl} alt="" />
       <TextLink
@@ -66,5 +66,5 @@ export default ({ imageUrl, onClickDelete }) => (
         <Delete>削除</Delete>
       </TextLink>
     </ImageWrapper>
-  </Container>
+  </Wrap>
 );

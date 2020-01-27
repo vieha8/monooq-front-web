@@ -6,12 +6,12 @@ import TextLink from 'components/LV1/Texts/TextLink';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 
-const Container = styled.div`
+const Wrap = styled.div`
   width: 100%;
   padding: ${Dimens.medium}px 0;
 `;
 
-const OperationContainer = styled.div`
+const OperationWrap = styled.div`
   display: table;
   width: 100%;
   max-width: 164px;
@@ -36,8 +36,8 @@ const Other = styled(Message)`
 `;
 
 export default ({ float, roomId, otherAction }) => (
-  <Container>
-    <OperationContainer float={float}>
+  <Wrap>
+    <OperationWrap float={float}>
       <Message>
         <TextLink to={Path.message(roomId)}>
           <InlineText.Base fontSize={`${FontSizes.medium}`} color={`${Colors.brandPrimary}`} bold>
@@ -52,6 +52,6 @@ export default ({ float, roomId, otherAction }) => (
           </TextLink>
         </Other>
       )}
-    </OperationContainer>
-  </Container>
+    </OperationWrap>
+  </Wrap>
 );

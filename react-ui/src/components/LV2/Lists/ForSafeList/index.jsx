@@ -4,7 +4,7 @@ import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
 import Button from 'components/LV1/Forms/Button';
 
-const StyledContainer = styled.div`
+const StyledWrap = styled.div`
   width: 32%;
   ${media.phone`
     width: 100%;
@@ -52,7 +52,7 @@ const TitleText = styled.span`
 
 export default ({ list }) =>
   list.map((item, i) => (
-    <StyledContainer key={i.toString()}>
+    <StyledWrap key={i.toString()}>
       <StyledTitle>
         <TitleIcon className="fa-layers fa-fw">
           <CircleIcon className="fas fa-circle" />
@@ -64,5 +64,5 @@ export default ({ list }) =>
       <Button secondary center fontbold borderbold onClick={item.onClickItem}>
         {item.buttonText}
       </Button>
-    </StyledContainer>
+    </StyledWrap>
   ));

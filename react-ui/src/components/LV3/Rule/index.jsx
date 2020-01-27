@@ -3,11 +3,11 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ContainerDefault from 'components/LV1/ContainerDefault';
+import PageDefault from 'components/LV1/PageDefault';
 import Text from 'components/LV1/Texts/TextStatic';
 import AboutCancelList from 'components/LV2/Lists/AboutCancelList';
 import ContentDescription from 'components/LV2/Texts/ContentDescription';
-import MainTitleContainer from 'components/LV2/Texts/MainTitleStatic';
+import MainTitleWrap from 'components/LV2/Texts/MainTitleStatic';
 
 const SectionTitle = styled.div`
   font-size: ${FontSizes.medium3}px;
@@ -56,8 +56,8 @@ const titleCaption = () => {
 };
 
 export default () => (
-  <ContainerDefault>
-    <MainTitleContainer mainTitle="ルールとマナー" text={titleCaption()} />
+  <PageDefault>
+    <MainTitleWrap mainTitle="ルールとマナー" text={titleCaption()} />
 
     <ContentWrap id="not-allowed">
       <SectionTitle>ルール</SectionTitle>
@@ -325,5 +325,5 @@ export default () => (
         ]}
       />
     </ContentWrap>
-  </ContainerDefault>
+  </PageDefault>
 );

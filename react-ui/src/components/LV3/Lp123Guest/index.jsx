@@ -4,7 +4,7 @@ import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
 import Meta from 'components/LV1/Meta';
-import ContainerDefault from 'components/LV1/ContainerDefault';
+import PageDefault from 'components/LV1/PageDefault';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import PickupSpaceList from 'components/LV2/Lists/PickupSpaceList';
 import ImageBarLeft from 'images/lp123guest/icon-bar-left.png';
@@ -562,7 +562,7 @@ const FlowLiText = styled.span`
   padding-bottom: 0;
 `;
 
-const ContentsWrap = styled(ContainerDefault)`
+const ContentsWrap = styled(PageDefault)`
   position: relative;
   margin-top: -60px;
   text-align: center;
@@ -597,7 +597,7 @@ const QaWrap = styled.div`
   `};
 `;
 
-const QuestionsContainer = styled.div`
+const QuestionsWrap = styled.div`
   text-align: center;
 `;
 
@@ -888,7 +888,7 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
 
       <QaWrap>
         <SectionTitle>よくある質問</SectionTitle>
-        <QuestionsContainer>
+        <QuestionsWrap>
           <QuestionRow>
             <QuestionItem>
               <Collapsible trigger="Q. 対応地域はどこでしょうか？">
@@ -952,7 +952,7 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
               </Collapsible>
             </QuestionItem>
           </QuestionRow>
-        </QuestionsContainer>
+        </QuestionsWrap>
       </QaWrap>
     </ContentsWrap>
   </Wrap>

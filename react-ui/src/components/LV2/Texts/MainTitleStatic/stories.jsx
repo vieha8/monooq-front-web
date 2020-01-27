@@ -4,9 +4,9 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import MainTitleContainer from './index';
+import MainTitlePage from './index';
 
-MainTitleContainer.displayName = 'MainTitleContainer';
+MainTitlePage.displayName = 'MainTitlePage';
 
 storiesOf('Molecules(LV2)/Texts/MainTitleStatic', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
@@ -17,7 +17,7 @@ storiesOf('Molecules(LV2)/Texts/MainTitleStatic', module)
       画面タイトル(静的画面向け)(通常ver)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <MainTitleContainer mainTitle="キャンセルポリシー" />
+        <MainTitlePage mainTitle="キャンセルポリシー" />
       </div>
     )),
   )
@@ -28,10 +28,7 @@ storiesOf('Molecules(LV2)/Texts/MainTitleStatic', module)
       画面タイトル(静的画面向け)(サブタイトル有効ver)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <MainTitleContainer
-          mainTitle="ごめんなさい！"
-          mainTitleSub="お探しのページが見つかりません。"
-        />
+        <MainTitlePage mainTitle="ごめんなさい！" mainTitleSub="お探しのページが見つかりません。" />
       </div>
     )),
   )
@@ -42,7 +39,7 @@ storiesOf('Molecules(LV2)/Texts/MainTitleStatic', module)
       画面タイトル(静的画面向け)(テキスト有効ver)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <MainTitleContainer
+        <MainTitlePage
           mainTitle="キャンセルポリシー"
           text="キャンセルポリシーとは、モノオクが定める取引成立後のキャンセルに発生する手数料やご注意事項です。見積もりを送る前・お支払いの前に必ずご確認ください。"
         />
@@ -56,7 +53,7 @@ storiesOf('Molecules(LV2)/Texts/MainTitleStatic', module)
       画面タイトル(静的画面向け)(仕切り線有効ver)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <MainTitleContainer
+        <MainTitlePage
           mainTitle="キャンセルポリシー"
           text="キャンセルポリシーとは、モノオクが定める取引成立後のキャンセルに発生する手数料やご注意事項です。見積もりを送る前・お支払いの前に必ずご確認ください。"
           isHr
@@ -65,13 +62,13 @@ storiesOf('Molecules(LV2)/Texts/MainTitleStatic', module)
     )),
   )
   .add(
-    'Sub Container',
+    'Sub Page',
     withInfo(`
       ### コンポーネント概要
       画面タイトル(静的画面向け)(画面タイトルのネスト利用ver)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <MainTitleContainer
+        <MainTitlePage
           mainTitle="ホストのキャンセルについて"
           text="取引成立後にホスト都合のキャンセルがあると、ユーザーの予定が立たたなくなり、あなたにもサービスの信頼にも影響が出ます。スペースのキャンセルを行う場合は下記のペナルティが発生します。"
           sub

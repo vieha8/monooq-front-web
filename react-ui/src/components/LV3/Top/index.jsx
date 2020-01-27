@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Header from 'components/containers/Header';
+import Header from 'components/pages/Header';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import TopView from 'components/LV3/TopView';
@@ -7,7 +7,7 @@ import PrefectureList from 'components/LV3/PrefectureList';
 import SpaceList from 'components/LV3/SpaceList';
 import { areaPrefectures } from 'helpers/prefectures';
 
-const TopPage = styled.div`
+const Wrap = styled.div`
   width: 100%;
 `;
 
@@ -37,7 +37,7 @@ export default ({
   onClickSearch,
   sections,
 }) => (
-  <TopPage>
+  <Wrap>
     {!story && <Header top />}
     <TopView
       catchPhrase={getCatchPhrase()}
@@ -58,5 +58,5 @@ export default ({
         spaceList={item.contents}
       />
     ))}
-  </TopPage>
+  </Wrap>
 );

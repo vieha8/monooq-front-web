@@ -2,10 +2,10 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes } from 'variables';
-import ContainerDefault from 'components/LV1/ContainerDefault';
+import PageDefault from 'components/LV1/PageDefault';
 import Text from 'components/LV1/Texts/TextStatic';
 
-const StyledContainer = styled(ContainerDefault)`
+const StyledWrap = styled(PageDefault)`
   margin-bottom: ${Dimens.large_60}px;
   ${media.tablet`
     margin-bottom: ${Dimens.medium3_40}px;
@@ -29,7 +29,7 @@ const Para = styled(Text)`
 `;
 
 export default ({ title, paraList, isRight }) => (
-  <StyledContainer>
+  <StyledWrap>
     <Art>{title}</Art>
     <Para isRight={isRight}>
       {paraList.map((item, i) => (
@@ -40,5 +40,5 @@ export default ({ title, paraList, isRight }) => (
         </Fragment>
       ))}
     </Para>
-  </StyledContainer>
+  </StyledWrap>
 );

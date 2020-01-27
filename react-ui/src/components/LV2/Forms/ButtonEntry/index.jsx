@@ -21,7 +21,7 @@ const WrapperOuter = styled.div`
   `};
 `;
 
-const Container = styled.div`
+const Wrap = styled.div`
   display: table;
   width: 100%;
 `;
@@ -66,7 +66,7 @@ const Wrapper = styled.div`
 
 export default ({ relative, backButton, loading, enabled, enabledButton, disabledButton }) => (
   <WrapperOuter relative={relative}>
-    <Container>
+    <Wrap>
       <Cell align="left">
         <Wrapper backButton>
           <Button
@@ -103,6 +103,6 @@ export default ({ relative, backButton, loading, enabled, enabledButton, disable
           )}
         </Wrapper>
       </Cell>
-    </Container>
+    </Wrap>
   </WrapperOuter>
 );

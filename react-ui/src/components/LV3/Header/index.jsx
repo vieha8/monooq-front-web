@@ -19,7 +19,7 @@ import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 export const Height = 85;
 export const HeightPhone = 54;
 
-const Container = styled.header`
+const Wrap = styled.header`
   position: fixed;
   ${props =>
     props.stories &&
@@ -85,7 +85,7 @@ const ActionWrapper = styled.div`
   `};
 `;
 
-const ActionContainer = styled.div`
+const ActionWrap = styled.div`
   display: table;
   ${media.tablet`
     margin-top: 0px;
@@ -279,7 +279,7 @@ export default ({
   logoutEvent,
 }) => {
   return (
-    <Container stories={stories}>
+    <Wrap stories={stories}>
       <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
         <LogoWrapper>
           {noLinkLogo ? (
@@ -295,7 +295,7 @@ export default ({
         {!isPageLp && !isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>
             {user ? (
-              <ActionContainer>
+              <ActionWrap>
                 {menuCommon(aboutUrl, howtouseUrl, helpUrl)}
                 <SearchFiledCell>
                   <ImageMenuHeader iconRight messageUrl={messageUrl} messageCount={messageCount} />
@@ -329,9 +329,9 @@ export default ({
                     </div>
                   </PopupMenu>
                 </OnlyPC>
-              </ActionContainer>
+              </ActionWrap>
             ) : (
-              <ActionContainer>
+              <ActionWrap>
                 {menuCommon(aboutUrl, howtouseUrl, helpUrl)}
                 <AnonymouseWrapper>
                   <OnlyPhone>
@@ -363,7 +363,7 @@ export default ({
                     </TextWrapper>
                   </OnlyPC>
                 </AnonymouseWrapper>
-              </ActionContainer>
+              </ActionWrap>
             )}
           </ActionWrapper>
         )}
@@ -378,6 +378,6 @@ export default ({
           </ButtonBottomWrap>
         )}
       </Nav>
-    </Container>
+    </Wrap>
   );
 };

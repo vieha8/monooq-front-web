@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Dimens, FontSizes } from 'variables';
 
-const Container = styled.div`
+const Wrap = styled.div`
   margin-bottom: ${Dimens.small_10}px;
 `;
 
@@ -17,7 +17,7 @@ const Text = styled.span`
 `;
 
 export default () => (
-  <Container>
+  <Wrap>
     <Head>
       <InlineText.Base fontSize={`${FontSizes.medium_18}`} bold>
         料金の目安
@@ -28,5 +28,5 @@ export default () => (
         30日間あたり
       </InlineText.Base>
     </Text>
-  </Container>
+  </Wrap>
 );
