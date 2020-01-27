@@ -22,6 +22,9 @@ const SendMessageWrap = styled.div`
 `;
 
 export default ({
+  isModalOpenSP,
+  handleModalOpenSP,
+  handleModalCloseSP,
   isRoom,
   priceFull,
   priceTatami,
@@ -32,6 +35,9 @@ export default ({
 }) => (
   <SendMessageWrap>
     <SendMessage
+      isModalOpenSP={isModalOpenSP}
+      handleModalOpenSP={handleModalOpenSP}
+      handleModalCloseSP={handleModalCloseSP}
       isRoom={isRoom}
       priceFull={priceFull}
       priceTatami={priceTatami}

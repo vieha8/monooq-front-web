@@ -313,14 +313,14 @@ Modal Search Condition More
   padding: 0 !important;
 }
 
-.ButtonModalSearchConditionMore {
+.semantic-ui-modal-custom {
   width: 100vw !important;
   height: 100vh !important;
   margin: 0 !important;
   border-radius: unset !important;
 }
 
-.ButtonModalSearchConditionMore .scrolling.content {
+.semantic-ui-modal-custom .scrolling.content {
   height: 100vh !important;
   max-height: 100vh !important;
   padding: 0 !important;
@@ -328,7 +328,7 @@ Modal Search Condition More
   overflow-y: scroll !important;
 }
 
-.ButtonModalSearchConditionMore.pc .scrolling.content {
+.semantic-ui-modal-custom.pc .scrolling.content {
   min-width: 768px !important;
 }
 

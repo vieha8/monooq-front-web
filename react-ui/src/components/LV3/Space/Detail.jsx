@@ -15,6 +15,7 @@ import Image from 'components/LV2/Space/Image';
 import Address from 'components/LV2/Space/Address';
 import Receive from 'components/LV2/Space/Receive';
 import InfoHost from 'components/LV2/Space/InfoHost';
+import RequestApplication from 'components/LV3/RequestApplication';
 import Price from 'components/LV3/Space/Price';
 import ImageCheckRed from 'images/check-circle-red.svg';
 import ImageLogoPayCredit from 'images/logo-pay-credit.svg';
@@ -279,8 +280,15 @@ const SectionTitle = styled.div`
   font-weight: bold;
 `;
 
+const getCaptionMessage = () => {
+  return 'リクエストを送ることで、あなたがスペースに興味を持っていることがホストに伝わります。';
+};
+
 export default ({
   confirm,
+  isModalOpen,
+  handleModalOpen,
+  handleModalClose,
   images,
   status,
   priceTatami,
@@ -400,20 +408,65 @@ export default ({
         )}
       </LeftWrap>
       <RightWrap>
-        <RightInner isOverTopView={isOverTopView} isBottom={isBottom} confirm={confirm}>
+        <RightInner
+          isOverTopView={isOverTopView && !isModalOpen}
+          isBottom={isBottom && !isModalOpen}
+          confirm={confirm}
+        >
           <RequestCard>
             気になるスペースを見つけたら？
             <RequestTitle>ホストに相談しよう</RequestTitle>
-            <RequestCheckWrap>
-              <RequestCheckTitle>よくある確認事項</RequestCheckTitle>
-              <RequestCheckUl>
-                <RequestCheckLi>預けたい日程は決まっているか</RequestCheckLi>
-                <RequestCheckLi margin>荷物の量はだいたい決まっているか</RequestCheckLi>
-                <RequestCheckLi>荷物の出し入れは頻繁に行うか</RequestCheckLi>
-              </RequestCheckUl>
-            </RequestCheckWrap>
+            {isModalOpen ? (
+              getCaptionMessage()
+            ) : (
+              <RequestCheckWrap>
+                <RequestCheckTitle>よくある確認事項</RequestCheckTitle>
+                <RequestCheckUl>
+                  <RequestCheckLi>預けたい日程は決まっているか</RequestCheckLi>
+                  <RequestCheckLi margin>荷物の量はだいたい決まっているか</RequestCheckLi>
+                  <RequestCheckLi>荷物の出し入れは頻繁に行うか</RequestCheckLi>
+                </RequestCheckUl>
+              </RequestCheckWrap>
+            )}
             <RequestButtonWrap>
-              <Button
+              <RequestApplication
+                isPC
+                isModalOpen={isModalOpen}
+                handleModalOpen={handleModalOpen}
+                handleModalClose={handleModalClose}
+                errors={{}}
+                isRoom
+                priceFull="10,000"
+                priceTatami="5,000"
+                disabled={false}
+                loading={false}
+                onClick={() => console.log('onClick')}
+                onKeyDownButtonMessage={() => console.log('onKeyDownButtonMessage')}
+                sizeType={1} // TODO: isRoomと統合
+                usage={1}
+                onChangePurpose={() => console.log('onChangePurpose')}
+                breadth={1}
+                onChangeBreadth={() => console.log('onChangeBreadth')}
+                packageContents="冷蔵庫、洗濯機"
+                onChangePackageContents={() => console.log('onChangePackageContents')}
+                notes="1ヶ月延長するかもしれません"
+                onChangeNotes={() => console.log('onChangeNotes')}
+                startDate={[
+                  {
+                    year: 2020,
+                    month: 10,
+                    day: 20,
+                  },
+                ]}
+                endDate={[
+                  {
+                    year: 2020,
+                    month: 12,
+                    day: 31,
+                  },
+                ]}
+              />
+              {/* <Button
                 center
                 primary
                 fontbold
@@ -424,9 +477,9 @@ export default ({
                 onKeyDown={onKeyDownButtonRequest}
               >
                 リクエスト申請
-              </Button>
+              </Button> */}
             </RequestButtonWrap>
-            リクエストを送ることで、あなたがスペースに興味を持っていることがホストに伝わります。
+            {!isModalOpen && getCaptionMessage()}
           </RequestCard>
           {!confirm && <SnsShare id={id} name={name} />}
         </RightInner>

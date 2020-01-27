@@ -29,6 +29,8 @@ class SpacePage extends Component {
       },
       isOverTopView: false,
       isBottom: false,
+      isModalOpen: false,
+      isModalOpenSP: false,
     };
   }
 
@@ -99,6 +101,7 @@ class SpacePage extends Component {
       history.push(Path.login());
       return;
     }
+    this.setState({ isModalOpen: false, isModalOpenSP: false });
     dispatch(requestActions.request({ user, space }));
   };
 
@@ -173,6 +176,8 @@ class SpacePage extends Component {
       meta: { title, description, url, imageUrl },
       isOverTopView,
       isBottom,
+      isModalOpen,
+      isModalOpenSP,
     } = this.state;
     const isSelfSpace = user.id === (space.user || {}).id;
 
@@ -201,6 +206,9 @@ class SpacePage extends Component {
           jsonLd={this.makeMetaBreadcrumbs(space)}
         />
         <Detail
+          isModalOpen={isModalOpen}
+          handleModalOpen={() => this.setState({ isModalOpen: true })}
+          handleModalClose={() => this.setState({ isModalOpen: false })}
           isOverTopView={isOverTopView}
           isBottom={isBottom}
           id={space.id}
@@ -242,6 +250,9 @@ class SpacePage extends Component {
           onKeyDownButtonRequest={isSelfSpace ? null : this.onKeyDownButtonMessage}
         />
         <SendMessageOnlyTabletSp
+          isModalOpenSP={isModalOpenSP}
+          handleModalOpenSP={() => this.setState({ isModalOpenSP: true })}
+          handleModalCloseSP={() => this.setState({ isModalOpenSP: false })}
           isRoom={space.sizeType > 0 && space.sizeType < 4}
           priceFull={space.priceFull}
           priceTatami={space.priceTatami}
