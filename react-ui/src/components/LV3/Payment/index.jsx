@@ -18,7 +18,7 @@ import ErrorList from 'components/LV2/Lists/ErrorList';
 import { Height as HeaderHeight, HeightPhone as HeaderHeightPhone } from 'components/LV3/Header';
 import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
-import dummySpaceImage from 'images/dummy_space.png';
+import dummySpaceImage from 'images/img-dummy-space.png';
 
 const MAX_PAY_PRICE_CONVENIENT = 49999;
 const METHOD_PAYMENT_CREDIT = 0;

@@ -16,7 +16,7 @@ import Address from 'components/LV2/Space/Address';
 import Receive from 'components/LV2/Space/Receive';
 import InfoHost from 'components/LV2/Space/InfoHost';
 import Price from 'components/LV3/Space/Price';
-import ImageCheckRed from 'images/check-circle-red.svg';
+import ImageCheckRed from 'images/icon-check-circle-red.svg';
 import ImageLogoPayCredit from 'images/logo-pay-credit.svg';
 import ImageLogoPayEcontext from 'images/logo-pay-econtext.svg';
 

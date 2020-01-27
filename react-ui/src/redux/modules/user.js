@@ -1,6 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, select, call } from 'redux-saga/effects';
-import dummySpaceImage from 'images/dummy_space.png';
+import dummySpaceImage from 'images/img-dummy-space.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import { push } from 'connected-react-router';
 import Path from 'config/path';

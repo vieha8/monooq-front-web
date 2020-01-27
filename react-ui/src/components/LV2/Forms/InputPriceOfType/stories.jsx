@@ -2,9 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
-import imageFurnitureFull from 'images/furniture-full.svg';
-import imageFurnitureHalf from 'images/furniture-half.svg';
-import imageFurnitureQuarter from 'images/furniture-quarter.svg';
+import imageFurnitureFull from 'images/img-furniture-full.svg';
+import imageFurnitureHalf from 'images/img-furniture-half.svg';
+import imageFurnitureQuarter from 'images/img-furniture-quarter.svg';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 
 import InputPriceOfType from './index';

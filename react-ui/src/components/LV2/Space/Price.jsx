@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { FontSizes, Dimens } from 'variables';
 
-import imageFurnitureFull from 'images/furniture-full.svg';
-import imageFurnitureHalf from 'images/furniture-half.svg';
-import imageFurnitureQuarter from 'images/furniture-quarter.svg';
+import imageFurnitureFull from 'images/img-furniture-full.svg';
+import imageFurnitureHalf from 'images/img-furniture-half.svg';
+import imageFurnitureQuarter from 'images/img-furniture-quarter.svg';
 
 const Wrap = styled.div`
   padding: ${Dimens.medium2}px 0;

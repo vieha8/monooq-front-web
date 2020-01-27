@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import ReactGA from 'react-ga';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
-import ImageSnsTwitter from 'images/sns-twitter-circle.svg';
-import ImageSnsFacebook from 'images/sns-facebook-circle.svg';
+import ImageSnsTwitter from 'images/icon-sns-twitter-circle.svg';
+import ImageSnsFacebook from 'images/icon-sns-facebook-circle.svg';
 
 const SnsWrap = styled.div`
   text-align: center;

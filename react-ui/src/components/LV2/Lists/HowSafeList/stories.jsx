@@ -4,9 +4,9 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import insuranceImage1 from 'images/insurance-img01.svg';
-import insuranceImage2 from 'images/insurance-img02.svg';
-import insuranceImage3 from 'images/insurance-img03.svg';
+import insuranceImage1 from 'images/img-send-message.svg';
+import insuranceImage2 from 'images/img-check-packages.svg';
+import insuranceImage3 from 'images/img-hart-with-hand.svg';
 
 import HowSafeList from './index';
 
