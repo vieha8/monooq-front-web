@@ -28,7 +28,7 @@ storiesOf('Templates/MenuPageTemplate', module)
             </div>
           }
           headline="headline here"
-          leftContent={
+          content={
             <div
               style={{
                 width: '100%',
@@ -64,7 +64,7 @@ storiesOf('Templates/MenuPageTemplate', module)
           }
           headline="headline here"
           caption="caption here"
-          leftContent={
+          content={
             <div
               style={{
                 width: '100%',

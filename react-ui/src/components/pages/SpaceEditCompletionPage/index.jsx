@@ -67,7 +67,7 @@ class SpaceEditCompletionPage extends Component {
     }
   };
 
-  leftContent = isUpdate => {
+  content = isUpdate => {
     const { user } = this.props;
     return (
       <Fragment>
@@ -121,7 +121,7 @@ class SpaceEditCompletionPage extends Component {
             ご登録のメールアドレスにメッセージ通知が届きますので、随時メールをご確認ください。
           </InlineText.Base>
         </Caption>
-        {this.leftContent(isUpdate)}
+        {this.content(isUpdate)}
       </BaseTemplate>
     );
   }

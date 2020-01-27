@@ -241,7 +241,7 @@ class PaymentPage extends Component {
     );
   };
 
-  leftContent = () => {
+  content = () => {
     const { request, isSending, isPaymentFailed, errMsgPayment } = this.props;
     const space = request.space || {};
     const { name, number, month, year, cvc, error, paymentMethod } = this.state;
@@ -283,7 +283,7 @@ class PaymentPage extends Component {
     );
   };
 
-  leftContentConfirm = () => {
+  contentConfirm = () => {
     const { request, isSending, isPaymentFailed, errMsgPayment } = this.props;
     const space = request.space || {};
     const { name, number, paymentMethod } = this.state;
@@ -318,7 +318,7 @@ class PaymentPage extends Component {
     );
   };
 
-  leftContentComplete = (headline, description) => {
+  contentComplete = (headline, description) => {
     return (
       <BaseTemplate>
         <HeadlineWrap>
@@ -379,10 +379,10 @@ class PaymentPage extends Component {
     let headline = '';
     let description = '';
 
-    let leftContent = this.leftContent();
+    let content = this.content();
 
     if (modeView === MODE_VIEW_CONFIRM) {
-      leftContent = this.leftContentConfirm();
+      content = this.contentConfirm();
     }
 
     if (isPaymentSuccess) {
@@ -418,10 +418,10 @@ class PaymentPage extends Component {
           break;
         default:
       }
-      leftContent = this.leftContentComplete(headline, description);
+      content = this.contentComplete(headline, description);
     }
 
-    return leftContent;
+    return content;
   }
 }
 

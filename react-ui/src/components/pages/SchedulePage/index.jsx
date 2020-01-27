@@ -51,7 +51,7 @@ class SchedulePage extends Component {
     roomId: '',
   });
 
-  showLeftContent = () => {
+  showContent = () => {
     const { schedule, user } = this.props;
 
     const schedules = [].concat(
@@ -84,7 +84,7 @@ class SchedulePage extends Component {
 
   render() {
     const { isLoading } = this.props;
-    return isLoading ? <LoadingPage /> : this.showLeftContent();
+    return isLoading ? <LoadingPage /> : this.showContent();
   }
 }
 

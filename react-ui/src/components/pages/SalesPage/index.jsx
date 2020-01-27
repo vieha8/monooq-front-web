@@ -243,7 +243,7 @@ class SalesPage extends Component {
     );
   };
 
-  leftContent = () => {
+  content = () => {
     const { deposit } = this.props;
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
 
@@ -332,7 +332,7 @@ class SalesPage extends Component {
     );
   };
 
-  leftContentConfirm = () => {
+  contentConfirm = () => {
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
     const { deposit } = this.props;
 
@@ -400,7 +400,7 @@ class SalesPage extends Component {
     );
   };
 
-  leftContentComplete = () => {
+  contentComplete = () => {
     return (
       <Fragment>
         <MsgWrap>
@@ -428,16 +428,16 @@ class SalesPage extends Component {
     const { isConfirm } = this.state;
 
     let headline = '売上・振込申請';
-    let leftContent = this.leftContent();
+    let content = this.content();
 
     if (isConfirm) {
       headline = '振込申請確認';
-      leftContent = this.leftContentConfirm();
+      content = this.contentConfirm();
     }
 
     if (isSend) {
       headline = '振込申請完了';
-      leftContent = this.leftContentComplete();
+      content = this.contentComplete();
     }
 
     return isLoading ? (
@@ -445,7 +445,7 @@ class SalesPage extends Component {
     ) : (
       <BaseTemplate>
         <H1 bold>{headline}</H1>
-        {leftContent}
+        {content}
       </BaseTemplate>
     );
   }

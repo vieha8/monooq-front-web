@@ -166,7 +166,7 @@ class SpacePage extends Component {
     };
   };
 
-  showLeftContent = () => {
+  showContent = () => {
     const { space, user, isRequesting, recommendSpaces } = this.props;
     const {
       meta: { title, description, url, imageUrl },
@@ -297,7 +297,7 @@ class SpacePage extends Component {
 
   render() {
     const { space } = this.props;
-    return !space ? <LoadingPage /> : this.showLeftContent();
+    return !space ? <LoadingPage /> : this.showContent();
   }
 }
 
