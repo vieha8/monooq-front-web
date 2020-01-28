@@ -311,6 +311,16 @@ export default ({
   requestButtonLoading,
   requestButtonOnClick,
   onKeyDownButtonRequest,
+  usage,
+  onChangeUsage,
+  breadth,
+  onChangeBreadth,
+  packageContents,
+  onChangePackageContents,
+  notes,
+  onChangeNotes,
+  errors,
+  buttonRequestDisabled,
 }) => (
   <Wrap confirm={confirm}>
     <ImageSpaceWrap>
@@ -430,27 +440,27 @@ export default ({
             )}
             <RequestButtonWrap>
               <RequestApplication
+                errors={errors}
                 isPC
                 isModalOpen={isModalOpen}
                 handleModalOpen={handleModalOpen}
                 handleModalClose={handleModalClose}
-                errors={{}}
                 isRoom
                 priceFull="10,000"
                 priceTatami="5,000"
-                disabled={false}
+                disabled={buttonRequestDisabled}
                 loading={false}
                 onClick={() => console.log('onClick')}
                 onKeyDownButtonMessage={() => console.log('onKeyDownButtonMessage')}
                 sizeType={1} // TODO: isRoomと統合
-                usage={1}
-                onChangePurpose={() => console.log('onChangePurpose')}
-                breadth={1}
-                onChangeBreadth={() => console.log('onChangeBreadth')}
-                packageContents="冷蔵庫、洗濯機"
-                onChangePackageContents={() => console.log('onChangePackageContents')}
-                notes="1ヶ月延長するかもしれません"
-                onChangeNotes={() => console.log('onChangeNotes')}
+                usage={usage}
+                onChangeUsage={onChangeUsage}
+                breadth={breadth}
+                onChangeBreadth={onChangeBreadth}
+                packageContents={packageContents}
+                onChangePackageContents={onChangePackageContents}
+                notes={notes}
+                onChangeNotes={onChangeNotes}
                 startDate={[
                   {
                     year: 2020,

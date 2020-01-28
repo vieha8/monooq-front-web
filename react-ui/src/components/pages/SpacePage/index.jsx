@@ -3,6 +3,7 @@ import Path from 'config/path';
 import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
 import { requestActions } from 'redux/modules/request';
+import { ErrorMessages } from 'variables';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SpaceMap from 'components/LV1/SpaceMap';
 import Detail from 'components/LV3/Space/Detail';
@@ -15,6 +16,15 @@ import { receiptTypeList } from 'helpers/receiptTypes';
 
 import { loggerActions } from 'redux/modules/logger';
 import connect from '../connect';
+
+const Validate = {
+  PackageContents: {
+    Max: 1000,
+  },
+  Notes: {
+    Max: 1000,
+  },
+};
 
 class SpacePage extends Component {
   constructor(props) {
@@ -31,6 +41,11 @@ class SpacePage extends Component {
       isBottom: false,
       isModalOpen: false,
       isModalOpenSP: false,
+      usage: 0, // TODO: リクエストフォーム値を保持するよう、あとで修正する
+      breadth: 0,
+      packageContents: '',
+      notes: '',
+      error: {},
     };
   }
 
@@ -178,6 +193,11 @@ class SpacePage extends Component {
       isBottom,
       isModalOpen,
       isModalOpenSP,
+      usage,
+      breadth,
+      packageContents,
+      notes,
+      error,
     } = this.state;
     const isSelfSpace = user.id === (space.user || {}).id;
 
@@ -248,6 +268,16 @@ class SpacePage extends Component {
           requestButtonLoading={isRequesting}
           requestButtonOnClick={isSelfSpace ? null : this.onClickSendMessage}
           onKeyDownButtonRequest={isSelfSpace ? null : this.onKeyDownButtonMessage}
+          errors={error}
+          usage={usage}
+          onChangeUsage={value => this.handleChangeUI('usage', value)}
+          breadth={breadth}
+          onChangeBreadth={value => this.handleChangeUI('breadth', value)}
+          packageContents={packageContents}
+          onChangePackageContents={value => this.handleChangeUI('packageContents', value)}
+          notes={notes}
+          onChangeNotes={value => this.handleChangeUI('notes', value)}
+          buttonRequestDisabled={!this.validate()}
         />
         <SendMessageOnlyTabletSp
           isModalOpenSP={isModalOpenSP}
@@ -306,6 +336,55 @@ class SpacePage extends Component {
       }
     }
   }
+
+  handleChangeUI = (propName, value) => {
+    const { state } = this;
+    const { error } = state;
+    const errors = [];
+
+    switch (propName) {
+      case 'packageContents':
+        if (!value || value.trim().length === 0) {
+          errors.push(ErrorMessages.PleaseInput);
+        } else if (value.length > Validate.PackageContents.Max) {
+          errors.push(ErrorMessages.LengthMax('自己紹介', Validate.PackageContents.Max));
+        }
+        break;
+      case 'notes':
+        if (value.length > Validate.Notes.Max) {
+          errors.push(ErrorMessages.LengthMax('自己紹介', Validate.Notes.Max));
+        }
+        break;
+
+      case 'usage':
+      case 'breadth':
+        if (value.length === 0) {
+          errors.push(ErrorMessages.PleaseSelect);
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    state[propName] = value;
+    error[propName] = errors;
+    this.setState({ ...state, error });
+  };
+
+  validate = () => {
+    const { usage, breadth, packageContents, notes } = this.state;
+    return (
+      usage &&
+      breadth &&
+      packageContents &&
+      (packageContents === undefined
+        ? false
+        : packageContents.trim().length > 0 &&
+          packageContents.trim().length <= Validate.PackageContents.Max) &&
+      notes.trim().length <= Validate.Notes.Max
+    );
+  };
 
   render() {
     const { space } = this.props;

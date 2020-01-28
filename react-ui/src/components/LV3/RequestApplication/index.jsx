@@ -111,7 +111,7 @@ export default class RequestApplication extends Component {
       onKeyDownButtonMessage,
       sizeType,
       usage,
-      onChangePurpose,
+      onChangeUsage,
       breadth,
       onChangeBreadth,
       startDate,
@@ -144,10 +144,10 @@ export default class RequestApplication extends Component {
             <Select
               label="用途"
               options={selectOptionUsages('選択してください')}
-              onChange={e => onChangePurpose(e.target.value)}
+              onChange={e => onChangeUsage(e.target.value)}
               value={usage}
             />
-            <ErrorList keyName="purpose_errors" errors={errors.purpose} />
+            <ErrorList keyName="usage_errors" errors={errors.usage} />
           </Row>
           <Row date>
             <DataSelectTitle>利用開始日</DataSelectTitle>
@@ -174,7 +174,7 @@ export default class RequestApplication extends Component {
                 isInline
               />
             </DateSelectWrap>
-            <ErrorList keyName="breadths_errors" errors={errors.breadths} />
+            {/* <ErrorList keyName="breadths_errors" errors={errors.breadths} /> */}
           </Row>
           <Row date>
             <DataSelectTitle>利用終了日</DataSelectTitle>
@@ -201,7 +201,7 @@ export default class RequestApplication extends Component {
                 isInline
               />
             </DateSelectWrap>
-            <ErrorList keyName="breadths_errors" errors={errors.breadths} />
+            {/* <ErrorList keyName="breadths_errors" errors={errors.breadths} /> */}
           </Row>
           <Row>
             <Select
@@ -213,7 +213,7 @@ export default class RequestApplication extends Component {
               value={breadth}
               onChange={e => onChangeBreadth(e.target.value)}
             />
-            <ErrorList keyName="breadths_errors" errors={errors.breadths} />
+            <ErrorList keyName="breadth_errors" errors={errors.breadth} />
           </Row>
           <Row>
             <InputForm
