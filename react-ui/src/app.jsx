@@ -11,7 +11,7 @@ import Routes from './routes';
 import './index.css';
 
 const Error = loadable(() =>
-  import('components/pages/Error').catch(() => window.location.reload()),
+  import('components/LV3/ErrorModal').catch(() => window.location.reload()),
 );
 
 const store = createStore();
