@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Header from 'components/pages/Header';
+import Header from 'components/LV3/Header';
 import Footer from 'components/LV2/Footer';
 
 const BaseLayout = React.memo(({ children }) => (

@@ -15,7 +15,10 @@ import InputForm from 'components/LV2/Forms/InputForm';
 import RadioList from 'components/LV2/Forms/RadioList';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import { Height as HeaderHeight, HeightPhone as HeaderHeightPhone } from 'components/LV3/Header';
+import {
+  Height as HeaderHeight,
+  HeightPhone as HeaderHeightPhone,
+} from 'components/LV3/Header/view';
 import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
 import dummySpaceImage from 'images/dummy_space.png';
