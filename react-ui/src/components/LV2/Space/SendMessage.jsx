@@ -7,9 +7,8 @@ import RequestApplication from 'components/LV3/RequestApplication';
 import { Dimens, FontSizes, Colors } from 'variables';
 
 const Wrap = styled.div`
-  display: flex;
-  max-width: 320px;
-  margin: auto;
+  max-width: 640px;
+  min-width: 320px;
   ${props =>
     props.isModalRequest &&
     `
@@ -22,6 +21,12 @@ const Wrap = styled.div`
       background-color: ${Colors.white};
       border-bottom: 1px solid ${Colors.borderGray};
     `};
+`;
+
+const WrapInnter = styled.div`
+  display: flex;
+  max-width: 320px;
+  margin: auto;
 `;
 
 const Caption = styled.div`
@@ -63,68 +68,70 @@ export default ({
   onKeyDownButtonMessage,
 }) => (
   <Wrap isModalRequest={isModalRequest}>
-    <Caption isRoom={isRoom}>
-      <Price>
-        {isRoom ? numeral(priceTatami).format('0,0') : `〜${numeral(priceFull).format('0,0')}`}
-      </Price>
-      <InlineText.Base fontSize={FontSizes.small_12} bold>
-        &nbsp;円/月
-      </InlineText.Base>
-      {isRoom && (
-        <Unit>
-          <InlineText.EmphasisTiny>1畳あたり</InlineText.EmphasisTiny>
-        </Unit>
-      )}
-    </Caption>
-    <ButtonWrap>
-      {/* <Button
-        center
-        primary
-        fontbold
-        fill={1}
-        disabled={disabled}
-        loading={loading}
-        onClick={onClick}
-        onKeyDown={onKeyDownButtonMessage}
-      >
-        リクエストを作成する
-      </Button> */}
-      <RequestApplication
-        isModalOpenSP={isModalOpenSP}
-        handleModalOpenSP={handleModalOpenSP}
-        handleModalCloseSP={handleModalCloseSP}
-        errors={{}}
-        isRoom
-        priceFull="10,000"
-        priceTatami="5,000"
-        disabled={false}
-        loading={false}
-        onClick={() => console.log('onClick')}
-        onKeyDownButtonMessage={() => console.log('onKeyDownButtonMessage')}
-        sizeType={1} // TODO: isRoomと統合
-        usage={1}
-        onChangePurpose={() => console.log('onChangePurpose')}
-        breadth={1}
-        onChangeBreadth={() => console.log('onChangeBreadth')}
-        packageContents="冷蔵庫、洗濯機"
-        onChangePackageContents={() => console.log('onChangePackageContents')}
-        notes="1ヶ月延長するかもしれません"
-        onChangeNotes={() => console.log('onChangeNotes')}
-        startDate={[
-          {
-            year: 2020,
-            month: 10,
-            day: 20,
-          },
-        ]}
-        endDate={[
-          {
-            year: 2020,
-            month: 12,
-            day: 31,
-          },
-        ]}
-      />
-    </ButtonWrap>
+    <WrapInnter>
+      <Caption isRoom={isRoom}>
+        <Price>
+          {isRoom ? numeral(priceTatami).format('0,0') : `〜${numeral(priceFull).format('0,0')}`}
+        </Price>
+        <InlineText.Base fontSize={FontSizes.small_12} bold>
+          &nbsp;円/月
+        </InlineText.Base>
+        {isRoom && (
+          <Unit>
+            <InlineText.EmphasisTiny>1畳あたり</InlineText.EmphasisTiny>
+          </Unit>
+        )}
+      </Caption>
+      <ButtonWrap>
+        {/* <Button
+          center
+          primary
+          fontbold
+          fill={1}
+          disabled={disabled}
+          loading={loading}
+          onClick={onClick}
+          onKeyDown={onKeyDownButtonMessage}
+        >
+          リクエストを作成する
+        </Button> */}
+        <RequestApplication
+          isModalOpenSP={isModalOpenSP}
+          handleModalOpenSP={handleModalOpenSP}
+          handleModalCloseSP={handleModalCloseSP}
+          errors={{}}
+          isRoom
+          priceFull="10,000"
+          priceTatami="5,000"
+          disabled={false}
+          loading={false}
+          onClick={() => console.log('onClick')}
+          onKeyDownButtonMessage={() => console.log('onKeyDownButtonMessage')}
+          sizeType={1} // TODO: isRoomと統合
+          usage={1}
+          onChangePurpose={() => console.log('onChangePurpose')}
+          breadth={1}
+          onChangeBreadth={() => console.log('onChangeBreadth')}
+          packageContents="冷蔵庫、洗濯機"
+          onChangePackageContents={() => console.log('onChangePackageContents')}
+          notes="1ヶ月延長するかもしれません"
+          onChangeNotes={() => console.log('onChangeNotes')}
+          startDate={[
+            {
+              year: 2020,
+              month: 10,
+              day: 20,
+            },
+          ]}
+          endDate={[
+            {
+              year: 2020,
+              month: 12,
+              day: 31,
+            },
+          ]}
+        />
+      </ButtonWrap>
+    </WrapInnter>
   </Wrap>
 );

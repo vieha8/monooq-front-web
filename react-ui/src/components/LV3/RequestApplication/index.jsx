@@ -24,7 +24,8 @@ const ContentWrap = styled.div`
 `;
 
 const Title = styled.div`
-  margin: ${Dimens.medium2}px auto;
+  margin: 95px auto ${Dimens.medium_20}px;
+  padding: 0 ${Dimens.medium}px;
   text-align: center;
   font-size: ${FontSizes.medium_18}px;
   font-weight: bold;
@@ -34,10 +35,6 @@ const Title = styled.div`
     margin-top: ${Dimens.medium}px;
     padding-top: ${Dimens.medium2_32}px;
     border-top: 1px solid ${Colors.borderGray};
-  `};
-  ${media.tablet`
-    margin: 95px auto ${Dimens.medium_20}px;
-    padding: 0 ${Dimens.medium}px;
   `};
 `;
 
