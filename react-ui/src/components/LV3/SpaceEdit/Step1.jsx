@@ -82,12 +82,16 @@ export default ({
             text: '空室',
           },
           {
+            value: 'consultation',
+            text: '要相談',
+          },
+          {
             value: 'full',
             text: '満室',
           },
           {
-            value: 'consultation',
-            text: '要相談',
+            value: 'draft',
+            text: '下書き',
           },
         ]}
         value={status}
