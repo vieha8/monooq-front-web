@@ -162,6 +162,18 @@ const getDescriptionPay = (payType, econtextUrl) => {
   return result;
 };
 
+const isPaymentLimitOver = (date, status) => {
+  if (status === 'paid') {
+    return false;
+  }
+
+  const limit = new Date(date);
+  limit.setDate(limit.getDate() + 10);
+  const now = new Date().getTime();
+
+  return limit.getTime() < now;
+};
+
 export default ({
   name,
   id,
@@ -174,6 +186,7 @@ export default ({
   receivedAt,
   payType, // 1:クレジットカード 4:イーコンテクスト
   econtextUrl,
+  createdAt,
 }) => (
   <Fragment>
     <Card block borderColor={Colors.brandPrimary} padding={24} paddingSp={14}>
@@ -198,12 +211,20 @@ export default ({
       <CaptionWrapper>
         <Text>
           {host ? (
-            <Fragment>
-              期間や料金に変更があった場合は、新しくお見積もりを発行してください。
-            </Fragment>
+            isPaymentLimitOver(createdAt, status) ? (
+              <Caution>
+                この見積もりは支払期限を過ぎています。もう一度見積もりを提出しましょう。
+              </Caution>
+            ) : (
+              <Fragment>
+                期間や料金に変更があった場合は、新しくお見積もりを発行してください。
+              </Fragment>
+            )
+          ) : isPaymentLimitOver(createdAt, status) ? (
+            <Caution>支払期限を過ぎています。ホストに再度見積もりを出してもらいましょう。</Caution>
           ) : (
             <Fragment>
-              お見積もり内容に問題がなければ料金を支払いましょう。
+              見積もり内容を確認し、開始日までにお支払いしましょう。支払いを完了すると契約成立し、スペース住所をお知らせします。
               <br />
               <ButtonPaymentWrap>
                 {buttonPayment(host, status, payType, paymentLink)}
@@ -214,14 +235,18 @@ export default ({
           )}
           <br />
           <br />
-          <InlineText.Base fontSize={17} bold>
-            ■お支払い情報
-          </InlineText.Base>
-          <br />
-          {getPayInfo(payType, status)}
-          <br />
-          <br />
-          <Caution>モノオク上でお支払い手続きを行わない場合、保険が適応されません。</Caution>
+          {!isPaymentLimitOver(createdAt, status) && (
+            <Fragment>
+              <InlineText.Base fontSize={17} bold>
+                ■お支払い情報
+              </InlineText.Base>
+              <br />
+              {getPayInfo(payType, status)}
+              <br />
+              <br />
+              <Caution>モノオク上でお支払い手続きを行わない場合、保険が適応されません。</Caution>
+            </Fragment>
+          )}
         </Text>
       </CaptionWrapper>
     </Card>
