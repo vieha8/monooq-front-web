@@ -8,11 +8,9 @@ import SpaceMap from 'components/LV1/SpaceMap';
 
 import Detail from './Detail';
 import Price from './Price';
-import SendMessage from './SendMessage';
 
 Detail.displayName = 'Detail';
 Price.displayName = 'Price';
-SendMessage.displayName = 'SendMessage';
 
 storiesOf('Organisms(LV3)/Space', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
@@ -76,17 +74,6 @@ storiesOf('Organisms(LV3)/Space', module)
       `)(() => (
       <div style={{ width: '580px', padding: `${Dimens.storyBookPadding}` }}>
         <Price full="22,000" tatami="60,000" />
-      </div>
-    )),
-  )
-  .add(
-    'SendMessage',
-    withInfo(`
-        ### コンポーネント概要
-        スペース情報(相談するボタン)
-      `)(() => (
-      <div style={{ width: '580px', padding: `${Dimens.storyBookPadding}` }}>
-        <SendMessage onClick={() => console.log('onClick')} />
       </div>
     )),
   );

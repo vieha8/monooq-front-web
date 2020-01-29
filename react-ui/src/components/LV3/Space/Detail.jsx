@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { getBreadths } from 'helpers/breadths';
 import { media, mediaMin } from 'helpers/style/media-query';
-import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Availability from 'components/LV1/Texts/Availability';
 import Tag from 'components/LV1/Texts/Tag';
@@ -297,6 +296,7 @@ export default ({
   breadcrumbsList,
   user,
   description,
+  isRoom,
   sizeType,
   map,
   address,
@@ -315,12 +315,23 @@ export default ({
   onChangeUsage,
   breadth,
   onChangeBreadth,
+  startDate,
+  onChangeStartDateYear,
+  onChangeStartDateMonth,
+  onChangeStartDateDay,
+  endDate,
+  onChangeEndDateYear,
+  onChangeEndDateMonth,
+  onChangeEndDateDay,
   packageContents,
   onChangePackageContents,
   notes,
   onChangeNotes,
   errors,
   buttonRequestDisabled,
+  loading,
+  onClick,
+  onKeyDownButtonMessage,
 }) => (
   <Wrap confirm={confirm}>
     <ImageSpaceWrap>
@@ -445,36 +456,29 @@ export default ({
                 isModalOpen={isModalOpen}
                 handleModalOpen={handleModalOpen}
                 handleModalClose={handleModalClose}
-                isRoom
-                priceFull="10,000"
-                priceTatami="5,000"
+                priceFull={priceFull}
+                priceTatami={priceTatami}
                 disabled={buttonRequestDisabled}
-                loading={false}
-                onClick={() => console.log('onClick')}
-                onKeyDownButtonMessage={() => console.log('onKeyDownButtonMessage')}
-                sizeType={1} // TODO: isRoomと統合
+                loading={loading}
+                onClick={onClick}
+                onKeyDownButtonMessage={onKeyDownButtonMessage}
+                isRoom={isRoom}
                 usage={usage}
                 onChangeUsage={onChangeUsage}
                 breadth={breadth}
                 onChangeBreadth={onChangeBreadth}
+                startDate={startDate}
+                onChangeStartDateYear={onChangeStartDateYear}
+                onChangeStartDateMonth={onChangeStartDateMonth}
+                onChangeStartDateDay={onChangeStartDateDay}
+                endDate={endDate}
+                onChangeEndDateYear={onChangeEndDateYear}
+                onChangeEndDateMonth={onChangeEndDateMonth}
+                onChangeEndDateDay={onChangeEndDateDay}
                 packageContents={packageContents}
                 onChangePackageContents={onChangePackageContents}
                 notes={notes}
                 onChangeNotes={onChangeNotes}
-                startDate={[
-                  {
-                    year: 2020,
-                    month: 10,
-                    day: 20,
-                  },
-                ]}
-                endDate={[
-                  {
-                    year: 2020,
-                    month: 12,
-                    day: 31,
-                  },
-                ]}
               />
               {/* <Button
                 center

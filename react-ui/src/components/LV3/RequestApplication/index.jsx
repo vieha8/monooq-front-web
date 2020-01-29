@@ -109,13 +109,18 @@ export default class RequestApplication extends Component {
       loading,
       onClick,
       onKeyDownButtonMessage,
-      sizeType,
       usage,
       onChangeUsage,
+      startDate,
+      onChangeStartDateYear,
+      onChangeStartDateMonth,
+      onChangeStartDateDay,
+      endDate,
+      onChangeEndDateYear,
+      onChangeEndDateMonth,
+      onChangeEndDateDay,
       breadth,
       onChangeBreadth,
-      startDate,
-      endDate,
       packageContents,
       onChangePackageContents,
       notes,
@@ -147,73 +152,69 @@ export default class RequestApplication extends Component {
               onChange={e => onChangeUsage(e.target.value)}
               value={usage}
             />
-            <ErrorList keyName="usage_errors" errors={errors.usage} />
+            <ErrorList keyName="usage_errors" errors={errors && errors.usage} />
           </Row>
           <Row date>
             <DataSelectTitle>利用開始日</DataSelectTitle>
             <DateSelectWrap>
               <Select
                 options={getYear(5)}
-                value={startDate.year}
-                onChange={e => onChangeBreadth(e.target.value)}
+                value={startDate && startDate.year}
+                onChange={e => onChangeStartDateYear(e.target.value)}
                 width="100%"
                 isInline
               />
               <Select
                 options={getDate(12, '月')}
-                value={startDate.month}
-                onChange={e => onChangeBreadth(e.target.value)}
+                value={startDate && startDate.month}
+                onChange={e => onChangeStartDateMonth(e.target.value)}
                 width="100%"
                 isInline
               />
               <Select
                 options={getDate(31, '日')}
-                value={startDate.day}
-                onChange={e => onChangeBreadth(e.target.value)}
+                value={startDate && startDate.day}
+                onChange={e => onChangeStartDateDay(e.target.value)}
                 width="100%"
                 isInline
               />
             </DateSelectWrap>
-            {/* <ErrorList keyName="breadths_errors" errors={errors.breadths} /> */}
           </Row>
           <Row date>
             <DataSelectTitle>利用終了日</DataSelectTitle>
             <DateSelectWrap>
               <Select
                 options={getYear(5)}
-                value={endDate.year}
-                onChange={e => onChangeBreadth(e.target.value)}
+                value={startDate && endDate.year}
+                onChange={e => onChangeEndDateYear(e.target.value)}
                 width="100%"
                 isInline
               />
               <Select
                 options={getDate(12, '月')}
-                value={endDate.month}
-                onChange={e => onChangeBreadth(e.target.value)}
+                value={startDate && endDate.month}
+                onChange={e => onChangeEndDateMonth(e.target.value)}
                 width="100%"
                 isInline
               />
               <Select
                 options={getDate(31, '日')}
-                value={endDate.day}
-                onChange={e => onChangeBreadth(e.target.value)}
+                value={startDate && endDate.day}
+                onChange={e => onChangeEndDateDay(e.target.value)}
                 width="100%"
                 isInline
               />
             </DateSelectWrap>
-            {/* <ErrorList keyName="breadths_errors" errors={errors.breadths} /> */}
+            <ErrorList keyName="desiredPeriod_errors" errors={errors && errors.desiredPeriod} />
           </Row>
           <Row>
             <Select
               label="希望の広さ"
-              options={selectOptionBreadths(
-                sizeType === 1 || sizeType === 2 || sizeType === 3 ? 'room' : 'other',
-                '選択してください',
-              )}
+              options={selectOptionBreadths(isRoom ? 'room' : 'other', '選択してください')}
               value={breadth}
               onChange={e => onChangeBreadth(e.target.value)}
             />
-            <ErrorList keyName="breadth_errors" errors={errors.breadth} />
+            <ErrorList keyName="breadth_errors" errors={errors && errors.breadth} />
           </Row>
           <Row>
             <InputForm
@@ -224,7 +225,10 @@ export default class RequestApplication extends Component {
               onChange={e => onChangePackageContents(e.target.value)}
               value={packageContents}
             />
-            <ErrorList keyName="package_contents_errors" errors={errors.packageContents} />
+            <ErrorList
+              keyName="package_contents_errors"
+              errors={errors && errors.packageContents}
+            />
           </Row>
           <Row>
             <InputForm
@@ -236,7 +240,7 @@ export default class RequestApplication extends Component {
               onChange={e => onChangeNotes(e.target.value)}
               value={notes}
             />
-            <ErrorList keyName="notes_errors" errors={errors.notes} />
+            <ErrorList keyName="notes_errors" errors={errors && errors.notes} />
           </Row>
         </FormWrap>
         {isPC && (
@@ -267,7 +271,6 @@ export default class RequestApplication extends Component {
       isPC,
       isModalOpen,
       handleModalOpen,
-      // handleModalClose,
       isModalOpenSP,
       handleModalOpenSP,
       handleModalCloseSP,
@@ -291,7 +294,6 @@ export default class RequestApplication extends Component {
           <Modal
             size="large"
             open={isModalOpenSP}
-            // open={true}
             onClose={handleModalCloseSP}
             className="semantic-ui-modal-custom"
           >

@@ -1,10 +1,27 @@
 import React from 'react';
 import numeral from 'numeral';
 import styled from 'styled-components';
-import Button from 'components/LV1/Forms/Button';
+import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/Texts/InlineText';
 import RequestApplication from 'components/LV3/RequestApplication';
-import { Dimens, FontSizes, Colors } from 'variables';
+import { Dimens, FontSizes, Colors, ZIndexes } from 'variables';
+
+const WrapOuter = styled.div`
+  display: none;
+  width: 100%;
+  min-width: 320px;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  z-index: ${ZIndexes.frontPartsOverFooter};
+  text-align: center;
+  padding: ${Dimens.small2}px ${Dimens.medium}px;
+  background-color: ${Colors.white};
+  border-top: 1px solid ${Colors.borderGray};
+  ${media.tablet`
+    display: block;
+  `};
+`;
 
 const Wrap = styled.div`
   max-width: 640px;
@@ -62,76 +79,90 @@ export default ({
   isRoom,
   priceFull,
   priceTatami,
-  disabled,
+  buttonRequestDisabled,
   loading,
   onClick,
   onKeyDownButtonMessage,
+  usage,
+  onChangeUsage,
+  startDate,
+  startDateSP,
+  onChangeStartDateYear,
+  onChangeStartDateMonth,
+  onChangeStartDateDay,
+  endDate,
+  onChangeEndDateYear,
+  onChangeEndDateMonth,
+  onChangeEndDateDay,
+  breadth,
+  onChangeBreadth,
+  packageContents,
+  onChangePackageContents,
+  notes,
+  onChangeNotes,
+  errors,
 }) => (
-  <Wrap isModalRequest={isModalRequest}>
-    <WrapInnter>
-      <Caption isRoom={isRoom}>
-        <Price>
-          {isRoom ? numeral(priceTatami).format('0,0') : `〜${numeral(priceFull).format('0,0')}`}
-        </Price>
-        <InlineText.Base fontSize={FontSizes.small_12} bold>
-          &nbsp;円/月
-        </InlineText.Base>
-        {isRoom && (
-          <Unit>
-            <InlineText.EmphasisTiny>1畳あたり</InlineText.EmphasisTiny>
-          </Unit>
-        )}
-      </Caption>
-      <ButtonWrap>
-        {/* <Button
-          center
-          primary
-          fontbold
-          fill={1}
-          disabled={disabled}
-          loading={loading}
-          onClick={onClick}
-          onKeyDown={onKeyDownButtonMessage}
-        >
-          リクエストを作成する
-        </Button> */}
-        <RequestApplication
-          isModalOpenSP={isModalOpenSP}
-          handleModalOpenSP={handleModalOpenSP}
-          handleModalCloseSP={handleModalCloseSP}
-          errors={{}}
-          isRoom
-          priceFull="10,000"
-          priceTatami="5,000"
-          disabled={false}
-          loading={false}
-          onClick={() => console.log('onClick')}
-          onKeyDownButtonMessage={() => console.log('onKeyDownButtonMessage')}
-          sizeType={1} // TODO: isRoomと統合
-          usage={1}
-          onChangePurpose={() => console.log('onChangePurpose')}
-          breadth={1}
-          onChangeBreadth={() => console.log('onChangeBreadth')}
-          packageContents="冷蔵庫、洗濯機"
-          onChangePackageContents={() => console.log('onChangePackageContents')}
-          notes="1ヶ月延長するかもしれません"
-          onChangeNotes={() => console.log('onChangeNotes')}
-          startDate={[
-            {
-              year: 2020,
-              month: 10,
-              day: 20,
-            },
-          ]}
-          endDate={[
-            {
-              year: 2020,
-              month: 12,
-              day: 31,
-            },
-          ]}
-        />
-      </ButtonWrap>
-    </WrapInnter>
-  </Wrap>
+  <WrapOuter>
+    <Wrap isModalRequest={isModalRequest}>
+      <WrapInnter>
+        <Caption isRoom={isRoom}>
+          <Price>
+            {isRoom ? numeral(priceTatami).format('0,0') : `〜${numeral(priceFull).format('0,0')}`}
+          </Price>
+          <InlineText.Base fontSize={FontSizes.small_12} bold>
+            &nbsp;円/月
+          </InlineText.Base>
+          {isRoom && (
+            <Unit>
+              <InlineText.EmphasisTiny>1畳あたり</InlineText.EmphasisTiny>
+            </Unit>
+          )}
+        </Caption>
+        <ButtonWrap>
+          {/* <Button
+            center
+            primary
+            fontbold
+            fill={1}
+            disabled={disabled}
+            loading={loading}
+            onClick={onClick}
+            onKeyDown={onKeyDownButtonMessage}
+          >
+            リクエストを作成する
+          </Button> */}
+          <RequestApplication
+            errors={errors}
+            isModalOpenSP={isModalOpenSP}
+            handleModalOpenSP={handleModalOpenSP}
+            handleModalCloseSP={handleModalCloseSP}
+            priceFull={priceFull}
+            priceTatami={priceTatami}
+            disabled={buttonRequestDisabled}
+            loading={loading}
+            onClick={onClick}
+            onKeyDownButtonMessage={onKeyDownButtonMessage}
+            isRoom={isRoom}
+            usage={usage}
+            onChangeUsage={onChangeUsage}
+            breadth={breadth}
+            onChangeBreadth={onChangeBreadth}
+            startDate={startDate}
+            startDateSP={startDateSP}
+            onChangeStartDateYear={onChangeStartDateYear}
+            onChangeStartDateMonth={onChangeStartDateMonth}
+            onChangeStartDateDay={onChangeStartDateDay}
+            endDate={endDate}
+            onChangeEndDateYear={onChangeEndDateYear}
+            onChangeEndDateMonth={onChangeEndDateMonth}
+            onChangeEndDateDay={onChangeEndDateDay}
+            packageContents={packageContents}
+            onChangePackageContents={onChangePackageContents}
+            notes={notes}
+            onChangeNotes={onChangeNotes}
+          />
+        </ButtonWrap>
+      </WrapInnter>
+    </Wrap>
+  </WrapOuter>
 );

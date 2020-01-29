@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import moment from 'moment';
 import Path from 'config/path';
 import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
@@ -7,7 +8,7 @@ import { ErrorMessages } from 'variables';
 import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import SpaceMap from 'components/LV1/SpaceMap';
 import Detail from 'components/LV3/Space/Detail';
-import SendMessageOnlyTabletSp from 'components/LV3/Space/SendMessage';
+import SendMessageOnlyTabletSp from 'components/LV2/Space/SendMessage';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Meta from 'components/LV1/Meta';
 import dummySpaceImage from 'images/dummy_space.png';
@@ -16,6 +17,8 @@ import { receiptTypeList } from 'helpers/receiptTypes';
 
 import { loggerActions } from 'redux/modules/logger';
 import connect from '../connect';
+
+moment.locale('ja');
 
 const Validate = {
   PackageContents: {
@@ -45,6 +48,16 @@ class SpacePage extends Component {
       breadth: 0,
       packageContents: '',
       notes: '',
+      startDate: {
+        year: moment().year(),
+        month: moment().month() + 1,
+        day: moment().date(),
+      },
+      endDate: {
+        year: moment().year(),
+        month: moment().month() + 2,
+        day: moment().date(),
+      },
       error: {},
     };
   }
@@ -195,6 +208,8 @@ class SpacePage extends Component {
       isModalOpenSP,
       usage,
       breadth,
+      startDate,
+      endDate,
       packageContents,
       notes,
       error,
@@ -242,6 +257,7 @@ class SpacePage extends Component {
           status={space.status}
           breadcrumbsList={this.makeBreadCrumbs(space)}
           description={space.introduction}
+          isRoom={space.sizeType > 0 && space.sizeType < 4}
           sizeType={space.sizeType}
           tagList={space.tags.map(v => v.name)}
           address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
@@ -268,11 +284,22 @@ class SpacePage extends Component {
           requestButtonLoading={isRequesting}
           requestButtonOnClick={isSelfSpace ? null : this.onClickSendMessage}
           onKeyDownButtonRequest={isSelfSpace ? null : this.onKeyDownButtonMessage}
+          loading={isRequesting}
+          onClick={isSelfSpace ? null : this.onClickSendMessage}
+          onKeyDownButtonMessage={isSelfSpace ? null : this.onKeyDownButtonMessage}
           errors={error}
           usage={usage}
           onChangeUsage={value => this.handleChangeUI('usage', value)}
           breadth={breadth}
           onChangeBreadth={value => this.handleChangeUI('breadth', value)}
+          startDate={startDate}
+          onChangeStartDateYear={value => this.handleChangeDate('startDate', 'year', value)}
+          onChangeStartDateMonth={value => this.handleChangeDate('startDate', 'month', value)}
+          onChangeStartDateDay={value => this.handleChangeDate('startDate', 'day', value)}
+          endDate={endDate}
+          onChangeEndDateYear={value => this.handleChangeDate('endDate', 'year', value)}
+          onChangeEndDateMonth={value => this.handleChangeDate('endDate', 'month', value)}
+          onChangeEndDateDay={value => this.handleChangeDate('endDate', 'day', value)}
           packageContents={packageContents}
           onChangePackageContents={value => this.handleChangeUI('packageContents', value)}
           notes={notes}
@@ -290,6 +317,24 @@ class SpacePage extends Component {
           loading={isRequesting}
           onClick={isSelfSpace ? null : this.onClickSendMessage}
           onKeyDownButtonMessage={isSelfSpace ? null : this.onKeyDownButtonMessage}
+          errors={error}
+          usage={usage}
+          onChangeUsage={value => this.handleChangeUI('usage', value)}
+          breadth={breadth}
+          onChangeBreadth={value => this.handleChangeUI('breadth', value)}
+          startDate={JSON.parse(JSON.stringify(startDate))}
+          onChangeStartDateYear={value => this.handleChangeDate('startDate', 'year', value)}
+          onChangeStartDateMonth={value => this.handleChangeDate('startDate', 'month', value)}
+          onChangeStartDateDay={value => this.handleChangeDate('startDate', 'day', value)}
+          endDate={endDate}
+          onChangeEndDateYear={value => this.handleChangeDate('endDate', 'year', value)}
+          onChangeEndDateMonth={value => this.handleChangeDate('endDate', 'month', value)}
+          onChangeEndDateDay={value => this.handleChangeDate('endDate', 'day', value)}
+          packageContents={packageContents}
+          onChangePackageContents={value => this.handleChangeUI('packageContents', value)}
+          notes={notes}
+          onChangeNotes={value => this.handleChangeUI('notes', value)}
+          buttonRequestDisabled={!this.validate()}
         />
       </Fragment>
     );
@@ -369,6 +414,46 @@ class SpacePage extends Component {
 
     state[propName] = value;
     error[propName] = errors;
+    this.setState({ ...state, error });
+  };
+
+  getDateFormated = num => {
+    return `0${num}`.slice(-2);
+  };
+
+  handleChangeDate = (type, propName, value) => {
+    const { state } = this;
+
+    state[type][propName] = value;
+
+    const { error, startDate, endDate } = state;
+    const errors = [];
+    const todayDate = moment().format('YYYYMMDD');
+
+    const startDateAll =
+      startDate.year.toString() +
+      this.getDateFormated(startDate.month.toString()) +
+      this.getDateFormated(startDate.day.toString());
+
+    const endDateAll =
+      endDate.year.toString() +
+      this.getDateFormated(endDate.month.toString()) +
+      this.getDateFormated(endDate.day.toString());
+
+    if (moment(startDateAll).isValid() && moment(endDateAll).isValid()) {
+      if (moment(startDateAll).isBefore(moment(todayDate))) {
+        errors.push(ErrorMessages.InvalidStartDate);
+      }
+
+      if (moment(startDateAll).isSameOrAfter(moment(endDateAll))) {
+        errors.push(ErrorMessages.InvalidDateReverse);
+      }
+    } else {
+      errors.push(ErrorMessages.InvalidDate);
+    }
+
+    state[type][propName] = value;
+    error.desiredPeriod = errors;
     this.setState({ ...state, error });
   };
 
