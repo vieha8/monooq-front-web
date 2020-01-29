@@ -203,7 +203,7 @@ export default ({
             </Fragment>
           ) : (
             <Fragment>
-              お見積もり内容に問題がなければ料金を支払いましょう。
+              見積もり内容を確認し、開始日までにお支払いしましょう。支払いを完了すると契約成立し、スペース住所をお知らせします。
               <br />
               <ButtonPaymentWrap>
                 {buttonPayment(host, status, payType, paymentLink)}
