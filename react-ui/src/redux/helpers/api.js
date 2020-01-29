@@ -1,6 +1,6 @@
 import axios from 'axios';
 import apiConfig from 'config/api';
-import { captureException } from '@sentry/browser';
+import { captureException, withScope } from '@sentry/browser';
 import { parseUrl, stringify } from '../../helpers/query-string';
 
 export const apiEndpoint = {
@@ -38,9 +38,14 @@ const createApiInstance = token =>
     },
   });
 
-const responseErrorHandler = (resolve, error) => {
+const responseErrorHandler = (resolve, error, path, params) => {
   const { response, message } = error;
   if (!response) {
+    const err = new Error(`Network Error:${path}`);
+    withScope(scope => {
+      scope.setExtra('params', params);
+      captureException(err);
+    });
     resolve({ status: 503, err: message });
     return;
   }
@@ -52,7 +57,10 @@ const responseErrorHandler = (resolve, error) => {
 
     if (data.error !== 'Not mobile phone number') {
       // SMS送信エラーは通知させない
-      captureException(new Error(err));
+      withScope(scope => {
+        scope.setExtra('params', params);
+        captureException(new Error(err));
+      });
     }
   }
 
@@ -76,7 +84,7 @@ export const getApiRequest = (path, params, token) => {
       .then(res => {
         resolve({ ...res });
       })
-      .catch(error => responseErrorHandler(resolve, error));
+      .catch(error => responseErrorHandler(resolve, error, path, params));
   });
 };
 
@@ -88,7 +96,7 @@ export const postApiRequest = (path, body, token) => {
       .then(res => {
         resolve({ status: res.status, data: res.data });
       })
-      .catch(error => responseErrorHandler(resolve, error));
+      .catch(error => responseErrorHandler(resolve, error, path, body));
   });
 };
 
@@ -100,7 +108,7 @@ export const putApiRequest = (path, body, token) => {
       .then(res => {
         resolve({ status: res.status, data: res.data });
       })
-      .catch(error => responseErrorHandler(resolve, error));
+      .catch(error => responseErrorHandler(resolve, error, path, body));
   });
 };
 
@@ -112,6 +120,6 @@ export const deleteApiRequest = (path, token) => {
       .then(res => {
         resolve({ status: res.status, data: res.data });
       })
-      .catch(error => responseErrorHandler(resolve, error));
+      .catch(error => responseErrorHandler(resolve, error, path, {}));
   });
 };
