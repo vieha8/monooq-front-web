@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import { Modal } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
 import { selectOptionUsages } from 'helpers/usages';
 import { selectOptionBreadths } from 'helpers/breadths';
 import { Dimens, FontSizes, Colors } from 'variables';
@@ -21,11 +20,15 @@ const Wrap = styled.div`
 const ContentWrap = styled.div`
   max-width: 768px;
   margin: auto;
+  ${props =>
+    props.isModalRequest &&
+    `
+    padding: 0 ${Dimens.medium}px;
+  `};
 `;
 
 const Title = styled.div`
   margin: 95px auto ${Dimens.medium_20}px;
-  padding: 0 ${Dimens.medium}px;
   text-align: center;
   font-size: ${FontSizes.medium_18}px;
   font-weight: bold;
@@ -41,9 +44,6 @@ const Title = styled.div`
 const FormWrap = styled.div`
   margin: auto;
   max-width: 1000px;
-  ${media.tablet`
-    padding: 0 ${Dimens.medium}px;
-  `};
 `;
 
 const Row = styled.div`
@@ -130,7 +130,7 @@ export default class RequestApplication extends Component {
     } = this.props;
 
     return (
-      <ContentWrap>
+      <ContentWrap isModalRequest={!isPC}>
         {!isPC && (
           <SendMessage
             isModalRequest

@@ -1,13 +1,11 @@
 import React from 'react';
 import numeral from 'numeral';
 import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/Texts/InlineText';
 import RequestApplication from 'components/LV3/RequestApplication';
 import { Dimens, FontSizes, Colors, ZIndexes } from 'variables';
 
 const WrapOuter = styled.div`
-  display: none;
   width: 100%;
   min-width: 320px;
   position: fixed;
@@ -18,9 +16,11 @@ const WrapOuter = styled.div`
   padding: ${Dimens.small2}px ${Dimens.medium}px;
   background-color: ${Colors.white};
   border-top: 1px solid ${Colors.borderGray};
-  ${media.tablet`
-    display: block;
-  `};
+  ${props =>
+    props.noPadding &&
+    `
+      padding: 0 ${Dimens.medium}px;
+    `};
 `;
 
 const Wrap = styled.div`
@@ -102,7 +102,7 @@ export default ({
   onChangeNotes,
   errors,
 }) => (
-  <WrapOuter>
+  <WrapOuter noPadding={isModalOpenSP || isModalOpenSP === undefined}>
     <Wrap isModalRequest={isModalRequest}>
       <WrapInnter>
         <Caption isRoom={isRoom}>
