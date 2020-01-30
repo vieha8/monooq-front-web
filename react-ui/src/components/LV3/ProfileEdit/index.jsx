@@ -82,6 +82,7 @@ export default ({
         placeholder="info@monooq.com"
         onChange={e => onChangeEmail(e.target.value)}
         value={email}
+        name="email"
       />
       <ErrorList keyName="email_errors" errors={errors.email} />
     </Row>
