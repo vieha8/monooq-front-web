@@ -102,6 +102,7 @@ export default ({
         value={phoneNumber}
         type="tel"
         hint="取引時の保険適用に必須となります。緊急時の連絡先として利用させていただく場合もございます。"
+        name="tel"
       />
       <ErrorList keyName="phoneNumber_errors" errors={errors.phoneNumber} />
     </Row>
