@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors, FontSizes } from 'variables';
-import ImageCheckGreen from 'images/check-circle-green.svg';
-import ImageCheckWhite from 'images/check-circle-gray.svg';
+import ImageCheckGreen from 'images/icon-check-circle-green.svg';
+import ImageCheckWhite from 'images/icon-check-circle-gray.svg';
 
 const Wrap = styled.div`
   margin: 20px auto;

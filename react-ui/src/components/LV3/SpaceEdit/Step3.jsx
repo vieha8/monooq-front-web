@@ -4,9 +4,9 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import InputPriceOfType from 'components/LV2/Forms/InputPriceOfType';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import imageFurnitureFull from 'images/furniture-full.svg';
-import imageFurnitureTatami from 'images/furniture-tatami.svg';
-import ImageStatusEditSpace3 from 'images/status-edit-space3.svg';
+import imageFurnitureFull from 'images/img-furniture-full.svg';
+import imageFurnitureTatami from 'images/img-furniture-tatami.svg';
+import ImageStatusEditSpace3 from 'images/img-status-edit-space3.svg';
 import { Dimens } from 'variables';
 import { PageHeader, Section } from './Shared';
 

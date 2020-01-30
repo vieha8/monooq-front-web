@@ -10,7 +10,7 @@ import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ImagePickerSpace from 'components/LV2/ImagePickerSpace';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import ImageStatusEditSpace1 from 'images/status-edit-space1.svg';
+import ImageStatusEditSpace1 from 'images/img-status-edit-space1.svg';
 import { Dimens } from 'variables';
 import { PageHeader, Section } from './Shared';
 
@@ -82,12 +82,16 @@ export default ({
             text: '空室',
           },
           {
+            value: 'consultation',
+            text: '要相談',
+          },
+          {
             value: 'full',
             text: '満室',
           },
           {
-            value: 'consultation',
-            text: '要相談',
+            value: 'draft',
+            text: '下書き',
           },
         ]}
         value={status}

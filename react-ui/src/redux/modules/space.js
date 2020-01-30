@@ -2,7 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import axios from 'axios';
-import dummySpaceImage from 'images/dummy_space.png';
+import dummySpaceImage from 'images/img-dummy-space.png';
 import { authActions, getToken } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
 import { loggerActions } from 'redux/modules/logger';
