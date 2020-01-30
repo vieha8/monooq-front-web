@@ -4,6 +4,8 @@ import { push } from 'connected-react-router';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { formatName } from 'helpers/string';
 import { handleGTM } from 'helpers/gtm';
+import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
+import { getUsages } from 'helpers/usages';
 import { loggerActions } from 'redux/modules/logger';
 import { authActions, getToken } from './auth';
 import { createOmiseToken } from '../helpers/omise';
@@ -435,6 +437,14 @@ function* request({ payload: { user, space, body } }) {
     return;
   }
 
+  const setStartDate = `${params.startDate.year}/${params.startDate.month}/${params.startDate.day}`;
+  const setEndDate = `${params.endDate.year}/${params.endDate.month}/${params.endDate.day}`;
+  const usage = getUsages(params.usage);
+  const breadth =
+    space.sizeType > 0 && space.sizeType < 4
+      ? getBreadthsDetailRoom(params.breadth)
+      : getBreadthsDetailOther(params.breadth);
+
   roomId = yield call(
     createRoom,
     user.id,
@@ -443,6 +453,12 @@ function* request({ payload: { user, space, body } }) {
     space.user.id,
     space.user.firebaseUid,
     space.id,
+    usage,
+    breadth,
+    params.packageContents,
+    params.notes,
+    setStartDate,
+    setEndDate,
   );
   yield put(push(Path.message(roomId)));
 
