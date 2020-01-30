@@ -415,7 +415,19 @@ function* fetchSchedule() {
   yield put(requestActions.fetchScheduleSuccess({ user: userRequests, host: hostRequests }));
 }
 
-function* request({ payload: { user, space } }) {
+function generateRequestParams(space) {
+  const params = {};
+
+  Object.keys(space).forEach(key => {
+    const requestKey = `${key[0].toLowerCase()}${key.substr(1)}`;
+    params[requestKey] = space[key];
+  });
+
+  return params;
+}
+
+function* request({ payload: { user, space, body } }) {
+  const params = generateRequestParams(body);
   let roomId = yield call(getRoomId, user.id, space.user.id, space.id);
   if (roomId) {
     yield put(requestActions.requestSuccess());
@@ -439,6 +451,7 @@ function* request({ payload: { user, space } }) {
     if (localStorage.getItem('isRequested')) {
       isRequested = localStorage.getItem('isRequested');
     }
+    localStorage.setItem('request_params', JSON.stringify(params));
   }
 
   yield put(

@@ -2,6 +2,7 @@ import React from 'react';
 import numeral from 'numeral';
 import styled from 'styled-components';
 import { mediaMin } from 'helpers/style/media-query';
+import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import RequestApplication from 'components/LV3/RequestApplication';
 import { Dimens, FontSizes, Colors, ZIndexes } from 'variables';
@@ -90,6 +91,7 @@ export default ({
   priceTatami,
   buttonRequestCreatedisabled,
   buttonRequestDisabled,
+  disabled,
   loading,
   onClick,
   onKeyDownButtonMessage,
@@ -131,39 +133,54 @@ export default ({
             </Unit>
           )}
         </Caption>
-        <ButtonWrap>
-          <RequestApplication
-            errors={errors}
-            isModalOpenSP={isModalOpenSP}
-            handleModalOpenSP={handleModalOpenSP}
-            handleModalCloseSP={handleModalCloseSP}
-            priceFull={priceFull}
-            priceTatami={priceTatami}
-            buttonRequestCreatedisabled={buttonRequestCreatedisabled}
-            disabled={buttonRequestDisabled}
+        {isModalRequest ? (
+          <Button
+            primary
+            borderbold
+            fontbold
+            fill={1}
+            disabled={disabled}
             loading={loading}
             onClick={onClick}
-            onKeyDownButtonMessage={onKeyDownButtonMessage}
-            isRoom={isRoom}
-            usage={usage}
-            onChangeUsage={onChangeUsage}
-            breadth={breadth}
-            onChangeBreadth={onChangeBreadth}
-            startDate={startDate}
-            startDateSP={startDateSP}
-            onChangeStartDateYear={onChangeStartDateYear}
-            onChangeStartDateMonth={onChangeStartDateMonth}
-            onChangeStartDateDay={onChangeStartDateDay}
-            endDate={endDate}
-            onChangeEndDateYear={onChangeEndDateYear}
-            onChangeEndDateMonth={onChangeEndDateMonth}
-            onChangeEndDateDay={onChangeEndDateDay}
-            packageContents={packageContents}
-            onChangePackageContents={onChangePackageContents}
-            notes={notes}
-            onChangeNotes={onChangeNotes}
-          />
-        </ButtonWrap>
+            onKeyDown={onKeyDownButtonMessage}
+          >
+            リクエスト申請
+          </Button>
+        ) : (
+          <ButtonWrap>
+            <RequestApplication
+              errors={errors}
+              isModalOpenSP={isModalOpenSP}
+              handleModalOpenSP={handleModalOpenSP}
+              handleModalCloseSP={handleModalCloseSP}
+              priceFull={priceFull}
+              priceTatami={priceTatami}
+              buttonRequestCreatedisabled={buttonRequestCreatedisabled}
+              disabled={buttonRequestDisabled}
+              loading={loading}
+              onClick={onClick}
+              onKeyDownButtonMessage={onKeyDownButtonMessage}
+              isRoom={isRoom}
+              usage={usage}
+              onChangeUsage={onChangeUsage}
+              breadth={breadth}
+              onChangeBreadth={onChangeBreadth}
+              startDate={startDate}
+              startDateSP={startDateSP}
+              onChangeStartDateYear={onChangeStartDateYear}
+              onChangeStartDateMonth={onChangeStartDateMonth}
+              onChangeStartDateDay={onChangeStartDateDay}
+              endDate={endDate}
+              onChangeEndDateYear={onChangeEndDateYear}
+              onChangeEndDateMonth={onChangeEndDateMonth}
+              onChangeEndDateDay={onChangeEndDateDay}
+              packageContents={packageContents}
+              onChangePackageContents={onChangePackageContents}
+              notes={notes}
+              onChangeNotes={onChangeNotes}
+            />
+          </ButtonWrap>
+        )}
       </WrapInnter>
     </Wrap>
   </WrapOuter>

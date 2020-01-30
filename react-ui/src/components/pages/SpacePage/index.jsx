@@ -1,21 +1,21 @@
 import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import Path from 'config/path';
+import { loggerActions } from 'redux/modules/logger';
 import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
 import { requestActions } from 'redux/modules/request';
 import { ErrorMessages } from 'variables';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import SpaceMap from 'components/LV1/SpaceMap';
-import Detail from 'components/LV3/Space/Detail';
-import SendMessageOnlyTabletSp from 'components/LV2/Space/SendMessage';
-import LoadingPage from 'components/LV3/LoadingPage';
-import Meta from 'components/LV1/Meta';
-import dummySpaceImage from 'images/dummy_space.png';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { receiptTypeList } from 'helpers/receiptTypes';
-
-import { loggerActions } from 'redux/modules/logger';
+import { isAvailableLocalStorage } from 'helpers/storage';
+import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import Meta from 'components/LV1/Meta';
+import SpaceMap from 'components/LV1/SpaceMap';
+import SendMessageOnlyTabletSp from 'components/LV2/Space/SendMessage';
+import Detail from 'components/LV3/Space/Detail';
+import LoadingPage from 'components/LV3/LoadingPage';
+import dummySpaceImage from 'images/dummy_space.png';
 import connect from '../connect';
 
 moment.locale('ja');
@@ -33,6 +33,7 @@ class SpacePage extends Component {
   constructor(props) {
     super(props);
     this.init();
+
     this.state = {
       meta: {
         title: '',
@@ -44,7 +45,7 @@ class SpacePage extends Component {
       isBottom: false,
       isModalOpen: false,
       isModalOpenSP: false,
-      usage: 0, // TODO: リクエストフォーム値を保持するよう、あとで修正する
+      usage: 0,
       breadth: 0,
       packageContents: '',
       notes: '',
@@ -60,6 +61,29 @@ class SpacePage extends Component {
       },
       error: {},
     };
+
+    if (isAvailableLocalStorage() && localStorage.getItem('request_params')) {
+      const params = JSON.parse(localStorage.getItem('request_params'));
+      const { usage, breadth, packageContents, notes, startDate, endDate } = params;
+
+      this.state = {
+        usage: usage || 0,
+        breadth: breadth || 0,
+        packageContents: packageContents || '',
+        notes: notes || '',
+        startDate: {
+          year: startDate.year || moment().year(),
+          month: startDate.month || moment().month() + 1,
+          day: startDate.day || moment().date(),
+        },
+        endDate: {
+          year: endDate.year || moment().year(),
+          month: endDate.month || moment().month() + 2,
+          day: endDate.day || moment().date(),
+        },
+        error: {},
+      };
+    }
   }
 
   componentDidMount() {
@@ -123,6 +147,7 @@ class SpacePage extends Component {
 
   onClickSendMessage = async () => {
     const { dispatch, location, user, space, history } = this.props;
+    const { usage, breadth, packageContents, notes, startDate, endDate } = this.state;
     // 未ログインの場合はログイン画面へ
     if (!user.id) {
       dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
@@ -130,7 +155,20 @@ class SpacePage extends Component {
       return;
     }
     this.setState({ isModalOpen: false, isModalOpenSP: false });
-    dispatch(requestActions.request({ user, space }));
+    dispatch(
+      requestActions.request({
+        user,
+        space,
+        body: {
+          usage,
+          breadth,
+          packageContents,
+          notes,
+          startDate,
+          endDate,
+        },
+      }),
+    );
   };
 
   onKeyDownButtonMessage = e => {
