@@ -280,10 +280,7 @@ class SpacePage extends Component {
           priceFull={space.priceFull}
           priceTatami={space.priceTatami}
           recommend={recommend}
-          requestButtonDisabled={isSelfSpace}
-          requestButtonLoading={isRequesting}
-          requestButtonOnClick={isSelfSpace ? null : this.onClickSendMessage}
-          onKeyDownButtonRequest={isSelfSpace ? null : this.onKeyDownButtonMessage}
+          buttonRequestCreatedisabled={isSelfSpace}
           loading={isRequesting}
           onClick={isSelfSpace ? null : this.onClickSendMessage}
           onKeyDownButtonMessage={isSelfSpace ? null : this.onKeyDownButtonMessage}
@@ -313,7 +310,7 @@ class SpacePage extends Component {
           isRoom={space.sizeType > 0 && space.sizeType < 4}
           priceFull={space.priceFull}
           priceTatami={space.priceTatami}
-          disabled={isSelfSpace}
+          buttonRequestCreatedisabled={isSelfSpace}
           loading={isRequesting}
           onClick={isSelfSpace ? null : this.onClickSendMessage}
           onKeyDownButtonMessage={isSelfSpace ? null : this.onKeyDownButtonMessage}

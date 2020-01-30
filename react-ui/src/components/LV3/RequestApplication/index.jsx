@@ -268,12 +268,14 @@ export default class RequestApplication extends Component {
 
   render() {
     const {
+      confirm,
       isPC,
       isModalOpen,
       handleModalOpen,
       isModalOpenSP,
       handleModalOpenSP,
       handleModalCloseSP,
+      buttonRequestCreatedisabled,
     } = this.props;
     return (
       <Wrap>
@@ -283,6 +285,7 @@ export default class RequestApplication extends Component {
             borderbold
             fontbold
             fill={1}
+            disabled={confirm || buttonRequestCreatedisabled}
             onClick={isPC ? handleModalOpen : handleModalOpenSP}
           >
             リクエストを作成する

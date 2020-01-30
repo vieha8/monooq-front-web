@@ -307,10 +307,7 @@ export default ({
   recommend,
   isOverTopView,
   isBottom,
-  requestButtonDisabled,
-  requestButtonLoading,
-  requestButtonOnClick,
-  onKeyDownButtonRequest,
+  buttonRequestCreatedisabled,
   usage,
   onChangeUsage,
   breadth,
@@ -451,6 +448,7 @@ export default ({
             )}
             <RequestButtonWrap>
               <RequestApplication
+                confirm={confirm}
                 errors={errors}
                 isPC
                 isModalOpen={isModalOpen}
@@ -458,6 +456,7 @@ export default ({
                 handleModalClose={handleModalClose}
                 priceFull={priceFull}
                 priceTatami={priceTatami}
+                buttonRequestCreatedisabled={buttonRequestCreatedisabled}
                 disabled={buttonRequestDisabled}
                 loading={loading}
                 onClick={onClick}
@@ -480,18 +479,6 @@ export default ({
                 notes={notes}
                 onChangeNotes={onChangeNotes}
               />
-              {/* <Button
-                center
-                primary
-                fontbold
-                fill={1}
-                disabled={confirm || requestButtonDisabled}
-                loading={requestButtonLoading}
-                onClick={requestButtonOnClick}
-                onKeyDown={onKeyDownButtonRequest}
-              >
-                リクエスト申請
-              </Button> */}
             </RequestButtonWrap>
             {!isModalOpen && getCaptionMessage()}
           </RequestCard>

@@ -88,6 +88,7 @@ export default ({
   isRoom,
   priceFull,
   priceTatami,
+  buttonRequestCreatedisabled,
   buttonRequestDisabled,
   loading,
   onClick,
@@ -131,18 +132,6 @@ export default ({
           )}
         </Caption>
         <ButtonWrap>
-          {/* <Button
-            center
-            primary
-            fontbold
-            fill={1}
-            disabled={disabled}
-            loading={loading}
-            onClick={onClick}
-            onKeyDown={onKeyDownButtonMessage}
-          >
-            リクエストを作成する
-          </Button> */}
           <RequestApplication
             errors={errors}
             isModalOpenSP={isModalOpenSP}
@@ -150,6 +139,7 @@ export default ({
             handleModalCloseSP={handleModalCloseSP}
             priceFull={priceFull}
             priceTatami={priceTatami}
+            buttonRequestCreatedisabled={buttonRequestCreatedisabled}
             disabled={buttonRequestDisabled}
             loading={loading}
             onClick={onClick}
