@@ -7,7 +7,6 @@ import TextLink from 'components/LV1/Texts/TextLink';
 import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
-import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
 import Path from 'config/path';
 import { media } from 'helpers/style/media-query';
@@ -155,27 +154,6 @@ const TitleMenu = styled.div`
   color: ${Colors.darkGray3};
 `;
 
-const ButtonBottomWrap = styled.div`
-  opacity: 0;
-  transition: 0.3s;
-  width: 100%;
-  position: fixed;
-  left: 0px;
-  bottom: 0px;
-  z-index: ${ZIndexes.frontPartsOverFooter};
-  text-align: center;
-  padding: ${Dimens.medium}px;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-sizing: border-box;
-  border-top: 1px solid ${Colors.borderGray};
-  ${props =>
-    props.isOverTopView &&
-    `
-      opacity: 1;
-      transition: 0.3s;
-    `};
-`;
-
 const trigger = imageUrl => {
   return (
     <div>
@@ -239,8 +217,6 @@ export default ({
   isLinkRed,
   isOverTopView,
   isPageLp,
-  isPageLp123Guest,
-  isPageLp12GuestLinkTop,
   isCheckingLogin,
   noHeaderButton,
   noLinkLogo,
@@ -259,92 +235,83 @@ export default ({
         <Logo noLink={noLinkLogo} />
         {!isPageLp && !isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>
-            {user ? (
-              <ActionWrap>
-                {menuCommon()}
-                <SearchFiledCell>
-                  <ImageMenuHeader
-                    iconRight
-                    messageUrl={Path.messageList()}
-                    messageCount={messageCount}
-                  />
-                </SearchFiledCell>
-                <OnlyPhone>
-                  <ActionCell noCursol>{spMenu}</ActionCell>
-                </OnlyPhone>
-                <OnlyPC>
-                  <PopupMenu
-                    trigger={trigger(user.image)}
-                    position="bottom right"
-                    closeOnDocumentClick
-                  >
-                    <div>
-                      <InfoUser
-                        isHost={user.isHost || false}
-                        id={user.id}
-                        imageUrl={user.image}
-                        name={user.name}
-                      />
-                      {user.isHost && (
-                        <Fragment>
-                          <TitleMenu>スペース運営</TitleMenu>
-                          <MenuItem title="スペースの新規登録" {...addSpace} />
-                          <MenuItem title="スペースの管理" to={Path.spaces()} />
-                          {isSchedule && <MenuItem title="利用状況" to={Path.schedule()} />}
-                          <MenuItem title="売上・振込申請" to={Path.sales()} />
-                        </Fragment>
-                      )}
-                      {user && <MenuItem title="ログアウト" {...logoutEvent} blank logout />}
-                    </div>
-                  </PopupMenu>
-                </OnlyPC>
-              </ActionWrap>
-            ) : (
-              <ActionWrap>
-                {menuCommon()}
-                <AnonymouseWrapper>
+            <ActionWrap>
+              {menuCommon()}
+              {user ? (
+                <Fragment>
+                  <SearchFiledCell>
+                    <ImageMenuHeader
+                      iconRight
+                      messageUrl={Path.messageList()}
+                      messageCount={messageCount}
+                    />
+                  </SearchFiledCell>
                   <OnlyPhone>
                     <ActionCell noCursol>{spMenu}</ActionCell>
                   </OnlyPhone>
                   <OnlyPC>
-                    <TextWrapper>
-                      <TextLink
-                        to={Path.login()}
-                        color={linkColor(isTop, isOverTopView, false)}
-                        colorhover={linkColor(isTop, isOverTopView, true)}
-                        bold="true"
-                      >
-                        ログイン
-                      </TextLink>
-                    </TextWrapper>
-                    <TextWrapper>
-                      <Button
-                        quaternary
-                        link
-                        onClick={onClickSignup}
-                        fontbold
-                        height={40}
-                        lineheight={15}
-                        color={linkColor(isTop, isOverTopView, false)}
-                      >
-                        新規登録
-                      </Button>
-                    </TextWrapper>
+                    <PopupMenu
+                      trigger={trigger(user.image)}
+                      position="bottom right"
+                      closeOnDocumentClick
+                    >
+                      <div>
+                        <InfoUser
+                          isHost={user.isHost || false}
+                          id={user.id}
+                          imageUrl={user.image}
+                          name={user.name}
+                        />
+                        {user.isHost && (
+                          <Fragment>
+                            <TitleMenu>スペース運営</TitleMenu>
+                            <MenuItem title="スペースの新規登録" {...addSpace} />
+                            <MenuItem title="スペースの管理" to={Path.spaces()} />
+                            {isSchedule && <MenuItem title="利用状況" to={Path.schedule()} />}
+                            <MenuItem title="売上・振込申請" to={Path.sales()} />
+                          </Fragment>
+                        )}
+                        {user && <MenuItem title="ログアウト" {...logoutEvent} blank logout />}
+                      </div>
+                    </PopupMenu>
                   </OnlyPC>
-                </AnonymouseWrapper>
-              </ActionWrap>
-            )}
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <AnonymouseWrapper>
+                    <OnlyPhone>
+                      <ActionCell noCursol>{spMenu}</ActionCell>
+                    </OnlyPhone>
+                    <OnlyPC>
+                      <TextWrapper>
+                        <TextLink
+                          to={Path.login()}
+                          color={linkColor(isTop, isOverTopView, false)}
+                          colorhover={linkColor(isTop, isOverTopView, true)}
+                          bold="true"
+                        >
+                          ログイン
+                        </TextLink>
+                      </TextWrapper>
+                      <TextWrapper>
+                        <Button
+                          quaternary
+                          link
+                          onClick={onClickSignup}
+                          fontbold
+                          height={40}
+                          lineheight={15}
+                          color={linkColor(isTop, isOverTopView, false)}
+                        >
+                          新規登録
+                        </Button>
+                      </TextWrapper>
+                    </OnlyPC>
+                  </AnonymouseWrapper>
+                </Fragment>
+              )}
+            </ActionWrap>
           </ActionWrapper>
-        )}
-        {isPageLp && (
-          <ButtonBottomWrap isOverTopView={isOverTopView}>
-            <ButtonCaption
-              caption={isPageLp123Guest ? '60秒で簡単登録' : '1分で完了'}
-              text={isPageLp123Guest ? '保管スペースを探す' : 'アカウントを作成する'}
-              link
-              href={isPageLp12GuestLinkTop ? Path.top() : Path.signUp()}
-            />
-          </ButtonBottomWrap>
         )}
       </Nav>
     </Wrap>
