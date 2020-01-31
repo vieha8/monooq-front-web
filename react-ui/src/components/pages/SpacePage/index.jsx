@@ -15,7 +15,7 @@ import SpaceMap from 'components/LV1/SpaceMap';
 import SendMessageOnlyTabletSp from 'components/LV2/Space/SendMessage';
 import Detail from 'components/LV3/Space/Detail';
 import LoadingPage from 'components/LV3/LoadingPage';
-import dummySpaceImage from 'images/dummy_space.png';
+import dummySpaceImage from 'images/img-dummy-space.png';
 import connect from '../connect';
 
 moment.locale('ja');

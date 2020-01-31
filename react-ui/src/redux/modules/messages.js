@@ -338,26 +338,29 @@ export const createRoom = (
   requestSetEndDate,
 ) =>
   new Promise(async resolve => {
-    const requestMessage = `こんにちは、${formatName(userName)}です。
-以下の内容でリクエストをお送りします。
-見積もりをお願いいたします。
+    let requestMessage = `はじめまして、${formatName(userName)}と申します。
+以下の内容で荷物を置けるスペースを探しています。
+お見積もりをお願いします。
 
--- 用途 --
-${requestUsage}
+【期間】
+${requestSetStartDate} 〜 ${requestSetEndDate}
 
--- 期間 --
-利用開始希望日：${requestSetStartDate}
-利用終了希望日：${requestSetEndDate}
-
--- 希望の広さ --
+【借りたい広さ】
 ${requestBreadth}
 
--- 荷物の内容 --
-${requestPackageContents}
+【用途】
+${requestUsage}
 
--- 備考 --
-${requestNotes || '特になし'}
+【荷物の内容】
+${requestPackageContents}
 `;
+
+    if (requestNotes) {
+      requestMessage += `
+【備考】
+${requestNotes}`;
+    }
+
     const room = {
       [`user${userId1}`]: true,
       [`user${userId2}`]: true,
