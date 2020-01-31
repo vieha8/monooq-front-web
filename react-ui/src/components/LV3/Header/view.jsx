@@ -8,6 +8,7 @@ import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
+import ServiceMenu from 'components/pages/ServiceMenuPage';
 import Path from 'config/path';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
@@ -154,45 +155,41 @@ const TitleMenu = styled.div`
   color: ${Colors.darkGray3};
 `;
 
-const trigger = imageUrl => {
-  return (
-    <div>
-      <ActionCell>
-        <AvatarIcon imageSrc={imageUrl} />
-      </ActionCell>
-      <ActionCell>
-        <InlineText.Base bold>マイページ</InlineText.Base>
-      </ActionCell>
-    </div>
-  );
-};
+const trigger = imageUrl => (
+  <Fragment>
+    <ActionCell>
+      <AvatarIcon imageSrc={imageUrl} />
+    </ActionCell>
+    <ActionCell>
+      <InlineText.Base bold>マイページ</InlineText.Base>
+    </ActionCell>
+  </Fragment>
+);
 
-const menuCommon = () => {
-  return (
-    <OnlyPC>
-      <TextWrapper>
-        <TextLink to={Path.about()} color={Colors.black}>
-          モノオクとは？
-        </TextLink>
-      </TextWrapper>
-      <TextWrapper>
-        <TextLink to={Path.howtouse()} color={Colors.black}>
-          利用の流れ
-        </TextLink>
-      </TextWrapper>
-      <TextWrapper>
-        <TextLink
-          href="https://help.monooq.com"
-          color={Colors.black}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          よくある質問
-        </TextLink>
-      </TextWrapper>
-    </OnlyPC>
-  );
-};
+const menuCommon = () => (
+  <OnlyPC>
+    <TextWrapper>
+      <TextLink to={Path.about()} color={Colors.black}>
+        モノオクとは？
+      </TextLink>
+    </TextWrapper>
+    <TextWrapper>
+      <TextLink to={Path.howtouse()} color={Colors.black}>
+        利用の流れ
+      </TextLink>
+    </TextWrapper>
+    <TextWrapper>
+      <TextLink
+        href="https://help.monooq.com"
+        color={Colors.black}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        よくある質問
+      </TextLink>
+    </TextWrapper>
+  </OnlyPC>
+);
 
 const linkColor = (top, isOverTopView, isHoverColor) => {
   let resultVal = Colors.brandPrimary;
@@ -221,7 +218,6 @@ export default ({
   noLinkLogo,
   user,
   messageCount,
-  spMenu,
   onClickSignup,
   addSpace,
   isSchedule,
@@ -236,7 +232,7 @@ export default ({
           <ActionWrapper>
             <ActionWrap>
               {menuCommon()}
-              {user ? (
+              {user.id ? (
                 <Fragment>
                   <SearchFiledCell>
                     <ImageMenuHeader
@@ -246,7 +242,9 @@ export default ({
                     />
                   </SearchFiledCell>
                   <OnlyPhone>
-                    <ActionCell noCursol>{spMenu}</ActionCell>
+                    <ActionCell noCursol>
+                      <ServiceMenu />
+                    </ActionCell>
                   </OnlyPhone>
                   <OnlyPC>
                     <PopupMenu
@@ -254,7 +252,7 @@ export default ({
                       position="bottom right"
                       closeOnDocumentClick
                     >
-                      <div>
+                      <Fragment>
                         <InfoUser
                           isHost={user.isHost || false}
                           id={user.id}
@@ -271,7 +269,7 @@ export default ({
                           </Fragment>
                         )}
                         {user && <MenuItem title="ログアウト" {...logoutEvent} blank logout />}
-                      </div>
+                      </Fragment>
                     </PopupMenu>
                   </OnlyPC>
                 </Fragment>
@@ -279,7 +277,9 @@ export default ({
                 <Fragment>
                   <AnonymouseWrapper>
                     <OnlyPhone>
-                      <ActionCell noCursol>{spMenu}</ActionCell>
+                      <ActionCell noCursol>
+                        <ServiceMenu />
+                      </ActionCell>
                     </OnlyPhone>
                     <OnlyPC>
                       <TextWrapper>

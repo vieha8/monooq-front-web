@@ -29,7 +29,7 @@ class ServiceMenuPage extends Component {
   }
 
   render() {
-    const { userName, userImage, dispatch, isLogin, user, schedule } = this.props;
+    const { dispatch, isLogin, user, schedule } = this.props;
     const { currentMenu, isOpen } = this.state;
 
     let isSchedule = false;
@@ -64,8 +64,8 @@ class ServiceMenuPage extends Component {
           help={{ href: 'https://help.monooq.com/' }}
           inquiry={{ to: Path.inquiry() }}
           userId={user.id}
-          userName={userName}
-          userImage={userImage}
+          userName={user.name}
+          userImage={user.image}
           isLogin={isLogin}
           isSchedule={isSchedule}
           isHost={user.isHost || false}

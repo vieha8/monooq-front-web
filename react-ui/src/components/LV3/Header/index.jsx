@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { partialMatch } from 'helpers/string';
 import { getSafeValue } from 'helpers/properties';
 import HeaderComponent from 'components/LV3/Header/view';
-import ServiceMenu from 'components/pages/ServiceMenuPage';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
@@ -134,7 +133,7 @@ class Header extends Component {
   }
 
   render() {
-    const { isLogin, isChecking, user, unreadRooms, schedule, dispatch, history } = this.props;
+    const { isChecking, user, unreadRooms, schedule, dispatch, history } = this.props;
 
     const { isOverTopView } = this.state;
 
@@ -148,7 +147,8 @@ class Header extends Component {
 
     const noHeaderButton =
       this.isSignUpProfile(nowPath) ||
-      partialMatch(nowPath, Path.lp1Host()) || this.isLpGuest(nowPath);
+      partialMatch(nowPath, Path.lp1Host()) ||
+      this.isLpGuest(nowPath);
     const noLinkLogo = this.isSignUpProfile(nowPath);
 
     return (
@@ -160,18 +160,8 @@ class Header extends Component {
           isCheckingLogin={isChecking}
           noHeaderButton={noHeaderButton}
           noLinkLogo={noLinkLogo}
-          user={
-            isLogin
-              ? {
-                  id: user.id,
-                  name: user.name,
-                  image: user.imageUrl,
-                  isHost: user.isHost,
-                }
-              : null
-          }
+          user={user}
           messageCount={unreadRooms}
-          spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} />}
           onClickSignup={() => history.push(Path.signUp())}
           addSpace={{
             to: Path.spaceCreate1(),
