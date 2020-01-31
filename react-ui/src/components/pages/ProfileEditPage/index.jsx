@@ -132,9 +132,7 @@ class ProfileEditPage extends Component {
         break;
 
       case 'profile':
-        if (!value || value.trim().length === 0) {
-          errors.push(ErrorMessages.PleaseInput);
-        } else if (value.length > Validate.Profile.Max) {
+        if (value && value.length > Validate.Profile.Max) {
           errors.push(ErrorMessages.LengthMax('自己紹介', Validate.Profile.Max));
         }
         break;
@@ -171,9 +169,7 @@ class ProfileEditPage extends Component {
       (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
         phoneNumber.match(Validate.phoneNumber.HyphenVer)) &&
       prefCode &&
-      profile &&
-      (profile === undefined ? false : profile.trim().length > 0) &&
-      profile.length <= Validate.Profile.Max &&
+      (!profile || (profile && profile.length <= Validate.Profile.Max)) &&
       purpose
     );
   };
