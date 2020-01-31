@@ -57,7 +57,7 @@ class SpacePage extends Component {
       endDate: {
         year: moment().year(),
         month: moment().month() + 2,
-        day: moment().date(),
+        day: 1,
       },
       error: {},
     };
@@ -79,7 +79,7 @@ class SpacePage extends Component {
         endDate: {
           year: endDate.year || moment().year(),
           month: endDate.month || moment().month() + 2,
-          day: endDate.day || moment().date(),
+          day: endDate.day || 1,
         },
         error: {},
       };
@@ -493,7 +493,24 @@ class SpacePage extends Component {
   };
 
   validate = () => {
-    const { usage, breadth, packageContents, notes } = this.state;
+    const { usage, breadth, packageContents, notes, startDate, endDate } = this.state;
+    const todayDate = moment().format('YYYYMMDD');
+
+    const startDateAll =
+      startDate.year.toString() +
+      this.getDateFormated(startDate.month.toString()) +
+      this.getDateFormated(startDate.day.toString());
+
+    const endDateAll =
+      endDate.year.toString() +
+      this.getDateFormated(endDate.month.toString()) +
+      this.getDateFormated(endDate.day.toString());
+
+    console.log(`startDateAll:${moment(startDateAll).isValid()}`);
+    console.log(`endDateAll:${moment(endDateAll).isValid()}`);
+    console.log(`今日以降チェック:${!moment(startDateAll).isBefore(moment(todayDate))}`);
+    console.log(`逆転チェック:${!moment(startDateAll).isSameOrAfter(moment(endDateAll))}`);
+
     return (
       usage &&
       breadth &&
@@ -502,7 +519,11 @@ class SpacePage extends Component {
         ? false
         : packageContents.trim().length > 0 &&
           packageContents.trim().length <= Validate.PackageContents.Max) &&
-      notes.trim().length <= Validate.Notes.Max
+      notes.trim().length <= Validate.Notes.Max &&
+      moment(startDateAll).isValid() &&
+      moment(endDateAll).isValid() &&
+      !moment(startDateAll).isBefore(moment(todayDate)) &&
+      !moment(startDateAll).isSameOrAfter(moment(endDateAll))
     );
   };
 
