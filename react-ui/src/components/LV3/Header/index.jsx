@@ -10,33 +10,11 @@ import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
 
 // TODO function component化
-class Index extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
-
-    const targetUrl = window.location.pathname;
-    let pagePathScrollPage = '';
-    let isLinkRed = false;
-
-    if (
-      partialMatch(targetUrl, Path.about()) ||
-      partialMatch(targetUrl, Path.howtouse()) ||
-      partialMatch(targetUrl, Path.lp1Host()) ||
-      partialMatch(targetUrl, Path.signUp()) ||
-      partialMatch(targetUrl, Path.login()) ||
-      this.isLpGuest(targetUrl)
-    ) {
-      isLinkRed = true;
-    }
-
-    if (targetUrl && (targetUrl === '/' || isLinkRed)) {
-      pagePathScrollPage = targetUrl;
-    }
-
     this.state = {
-      pagePathScrollPage,
       isOverTopView: false,
-      isLinkRed: !!isLinkRed,
     };
   }
 
@@ -96,24 +74,45 @@ class Index extends Component {
     return partialMatch(path, Path.lp1Guest2()) || partialMatch(path, Path.lp2Guest2());
   };
 
+  isSignUpProfile = path => {
+    return partialMatch(path, Path.signUpProfile());
+  };
+
+  isLinkRed = () => {
+    const path = window.location.pathname;
+    return !!(
+      partialMatch(path, Path.about()) ||
+      partialMatch(path, Path.howtouse()) ||
+      partialMatch(path, Path.lp1Host()) ||
+      partialMatch(path, Path.signUp()) ||
+      partialMatch(path, Path.login()) ||
+      this.isLpGuest(path)
+    );
+  };
+
+  isScrollPage = () => {
+    const path = window.location.pathname;
+    return !!(path && (path === '/' || this.isLinkRed()));
+  };
+
   watchCurrentPosition() {
-    const { pagePathScrollPage } = this.state;
+    const path = window.location.pathname;
     let positionScrollPC = 450;
     let positionScrollSP = 290;
 
-    if (pagePathScrollPage) {
+    if (this.isScrollPage) {
       const positionScroll = this.scrollTop();
 
       this.setStateOverTopView(false);
 
       if (
-        partialMatch(pagePathScrollPage, Path.about()) ||
-        partialMatch(pagePathScrollPage, Path.howtouse()) ||
-        this.isLpGuest(pagePathScrollPage)
+        partialMatch(path, Path.about()) ||
+        partialMatch(path, Path.howtouse()) ||
+        this.isLpGuest(path)
       ) {
         positionScrollPC = 540;
         positionScrollSP = 320;
-      } else if (partialMatch(pagePathScrollPage, Path.lp1Host())) {
+      } else if (partialMatch(path, Path.lp1Host())) {
         positionScrollPC = 520;
         positionScrollSP = 360;
       }
@@ -134,38 +133,29 @@ class Index extends Component {
   }
 
   render() {
-    const {
-      isLogin,
-      isChecking,
-      noHeaderButton,
-      noLinkLogo,
-      user,
-      unreadRooms,
-      schedule,
-      dispatch,
-      history,
-    } = this.props;
+    const { isLogin, isChecking, user, unreadRooms, schedule, dispatch, history } = this.props;
 
-    const { isOverTopView, pagePathScrollPage, isLinkRed } = this.state;
+    const { isOverTopView } = this.state;
 
     let isSchedule = false;
     if (schedule && (schedule.user.length > 0 || schedule.host.length > 0)) {
       isSchedule = true;
     }
 
-    const isTop = window.location.pathname === '/';
+    const nowPath = window.location.pathname;
+    const isTop = nowPath === '/';
+
+    const noHeaderButton = this.isSignUpProfile(nowPath);
+    const noLinkLogo = this.isSignUpProfile(nowPath);
 
     return (
       <HeaderComponent
-        top={isTop}
+        isTop={isTop}
         isOverTopView={isOverTopView}
-        isPageLp={
-          partialMatch(pagePathScrollPage, Path.lp1Host()) || this.isLpGuest(pagePathScrollPage)
-        }
-        isPageLp123Guest={this.isLpGuest(pagePathScrollPage)}
-        isPageLp12GuestLinkTop={this.isLpGuest2(pagePathScrollPage)}
-        isLinkRed={isLinkRed}
-        topUrl={Path.top()}
+        isPageLp={partialMatch(nowPath, Path.lp1Host()) || this.isLpGuest(nowPath)}
+        isPageLp123Guest={this.isLpGuest(nowPath)}
+        isPageLp12GuestLinkTop={this.isLpGuest2(nowPath)}
+        isLinkRed={this.isLinkRed()}
         isCheckingLogin={isChecking}
         noHeaderButton={noHeaderButton}
         noLinkLogo={noLinkLogo}
@@ -179,23 +169,14 @@ class Index extends Component {
               }
             : null
         }
-        messageUrl={Path.messageList()}
         messageCount={unreadRooms}
-        searchConditionUrl={Path.searchCondition()}
         spMenu={<ServiceMenu userName={user.name} userImage={user.imageUrl} />}
-        loginUrl={Path.login()}
         onClickSignup={() => history.push(Path.signUp())}
-        aboutUrl={Path.about()}
-        howtouseUrl={Path.howtouse()}
-        helpUrl="https://help.monooq.com/"
         addSpace={{
           to: Path.spaceCreate1(),
           onClick: () => dispatch(uiActions.setUiState({ space: {} })),
         }}
-        spaces={{ to: Path.spaces() }}
-        schedule={{ to: Path.schedule() }}
         isSchedule={isSchedule}
-        sales={{ to: Path.sales() }}
         logoutEvent={{
           onClick: e => {
             e.preventDefault();
@@ -215,4 +196,4 @@ const mapStateToProps = state => ({
   schedule: state.request.schedule,
 });
 
-export default withRouter(connect(mapStateToProps)(Index));
+export default withRouter(connect(mapStateToProps)(Header));

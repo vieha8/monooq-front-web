@@ -210,21 +210,26 @@ const trigger = imageUrl => {
   );
 };
 
-const menuCommon = (aboutUrl, howtouseUrl, helpUrl) => {
+const menuCommon = () => {
   return (
     <OnlyPC>
       <TextWrapper>
-        <TextLink to={aboutUrl} color={Colors.black}>
+        <TextLink to={Path.about()} color={Colors.black}>
           モノオクとは？
         </TextLink>
       </TextWrapper>
       <TextWrapper>
-        <TextLink to={howtouseUrl} color={Colors.black}>
+        <TextLink to={Path.howtouse()} color={Colors.black}>
           利用の流れ
         </TextLink>
       </TextWrapper>
       <TextWrapper>
-        <TextLink href={helpUrl} color={Colors.black} target="_blank" rel="noopener noreferrer">
+        <TextLink
+          href="https://help.monooq.com"
+          color={Colors.black}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           よくある質問
         </TextLink>
       </TextWrapper>
@@ -251,43 +256,34 @@ const linkColor = (top, isOverTopView, isHoverColor) => {
 };
 
 export default ({
-  top,
+  isTop,
   isLinkRed,
   isOverTopView,
   isPageLp,
   isPageLp123Guest,
   isPageLp12GuestLinkTop,
-  stories,
-  topUrl,
   isCheckingLogin,
   noHeaderButton,
   noLinkLogo,
   user,
-  messageUrl,
   messageCount,
   spMenu,
-  loginUrl,
   onClickSignup,
-  aboutUrl,
-  howtouseUrl,
-  helpUrl,
   addSpace,
-  spaces,
   isSchedule,
-  schedule,
-  sales,
   logoutEvent,
+  stories,
 }) => {
   return (
     <Wrap stories={stories}>
-      <Nav top={top} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
+      <Nav top={isTop} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
         <LogoWrapper>
           {noLinkLogo ? (
             <LogoLink>
               <ImageLogo.HeaderFill />
             </LogoLink>
           ) : (
-            <LogoLink to={topUrl} as={Link}>
+            <LogoLink to={Path.top()} as={Link}>
               <ImageLogo.HeaderFill />
             </LogoLink>
           )}
@@ -296,9 +292,13 @@ export default ({
           <ActionWrapper>
             {user ? (
               <ActionWrap>
-                {menuCommon(aboutUrl, howtouseUrl, helpUrl)}
+                {menuCommon()}
                 <SearchFiledCell>
-                  <ImageMenuHeader iconRight messageUrl={messageUrl} messageCount={messageCount} />
+                  <ImageMenuHeader
+                    iconRight
+                    messageUrl={Path.messageList()}
+                    messageCount={messageCount}
+                  />
                 </SearchFiledCell>
                 <OnlyPhone>
                   <ActionCell noCursol>{spMenu}</ActionCell>
@@ -320,9 +320,9 @@ export default ({
                         <Fragment>
                           <TitleMenu>スペース運営</TitleMenu>
                           <MenuItem title="スペースの新規登録" {...addSpace} />
-                          <MenuItem title="スペースの管理" {...spaces} />
-                          {isSchedule && <MenuItem title="利用状況" {...schedule} />}
-                          <MenuItem title="売上・振込申請" {...sales} />
+                          <MenuItem title="スペースの管理" to={Path.spaces()} />
+                          {isSchedule && <MenuItem title="利用状況" to={Path.schedule()} />}
+                          <MenuItem title="売上・振込申請" to={Path.sales()} />
                         </Fragment>
                       )}
                       {user && <MenuItem title="ログアウト" {...logoutEvent} blank logout />}
@@ -332,7 +332,7 @@ export default ({
               </ActionWrap>
             ) : (
               <ActionWrap>
-                {menuCommon(aboutUrl, howtouseUrl, helpUrl)}
+                {menuCommon()}
                 <AnonymouseWrapper>
                   <OnlyPhone>
                     <ActionCell noCursol>{spMenu}</ActionCell>
@@ -340,9 +340,9 @@ export default ({
                   <OnlyPC>
                     <TextWrapper>
                       <TextLink
-                        to={loginUrl}
-                        color={linkColor(top, isOverTopView, false)}
-                        colorhover={linkColor(top, isOverTopView, true)}
+                        to={Path.login()}
+                        color={linkColor(isTop, isOverTopView, false)}
+                        colorhover={linkColor(isTop, isOverTopView, true)}
                         bold="true"
                       >
                         ログイン
@@ -356,7 +356,7 @@ export default ({
                         fontbold
                         height={40}
                         lineheight={15}
-                        color={linkColor(top, isOverTopView, false)}
+                        color={linkColor(isTop, isOverTopView, false)}
                       >
                         新規登録
                       </Button>
