@@ -18,7 +18,6 @@ const Wrap = styled.div``;
 
 const TopWrapper = styled.div`
   position: relative;
-  top: -84px;
   height: 620px;
   color: ${Colors.black};
   margin-bottom: ${Dimens.medium}px;
