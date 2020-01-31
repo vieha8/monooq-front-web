@@ -1,9 +1,7 @@
 import React, { Fragment } from 'react';
 import PopupMenu from 'reactjs-popup';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/LV1/Forms/Button';
-import ImageLogo from 'components/LV1/Images/ImageLogo';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';
 import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
@@ -12,9 +10,9 @@ import MenuItem from 'components/LV2/Items/MenuItem';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
 import Path from 'config/path';
-
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
+import Logo from './Logo';
 
 export const Height = 85;
 export const HeightPhone = 54;
@@ -47,25 +45,6 @@ const Nav = styled.nav`
     height: ${HeightPhone}px;
     position: relative;
     display: flex;
-  `};
-`;
-
-const LogoWrapper = styled.div``;
-
-const LogoLink = styled.span`
-  width: 138px;
-  display: inline-flex;
-  margin-left: ${Dimens.medium3_40}px;
-  margin-right: ${Dimens.medium_20}px;
-  ${props =>
-    props.hide &&
-    `
-    display: none;
-  `};
-  ${media.tablet`
-    width: 100px;
-    margin-top: 0px;
-    margin-left: ${Dimens.medium_17}px;
   `};
 `;
 
@@ -277,17 +256,7 @@ export default ({
   return (
     <Wrap stories={stories}>
       <Nav top={isTop} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
-        <LogoWrapper>
-          {noLinkLogo ? (
-            <LogoLink>
-              <ImageLogo.HeaderFill />
-            </LogoLink>
-          ) : (
-            <LogoLink to={Path.top()} as={Link}>
-              <ImageLogo.HeaderFill />
-            </LogoLink>
-          )}
-        </LogoWrapper>
+        <Logo noLink={noLinkLogo} />
         {!isPageLp && !isCheckingLogin && !noHeaderButton && (
           <ActionWrapper>
             {user ? (
