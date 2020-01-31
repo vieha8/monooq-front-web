@@ -236,29 +236,78 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   yield put(push(Path.message(roomId)));
 }
 
-function* sendRequestEmail(payload) {
-  const { user, space, roomId } = payload;
+function* sendRequestNotice(payload) {
+  const {
+    user,
+    toUserId,
+    space,
+    roomId,
+    usage,
+    breadth,
+    packageContents,
+    notes,
+    setStartDate,
+    setEndDate,
+  } = payload;
 
   const token = yield* getToken();
 
-  let messageBody = `${formatName(user.name)}さんがあなたのスペースに興味を持っています!\n`;
-  messageBody += 'こちらのメッセージ機能から希望条件などを聞いてみましょう。\n\n';
-
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  let urlMessageRoom;
   if (process.env.REACT_APP_ENV === 'production') {
-    messageBody += `https://monooq.com/messages/${roomId}`;
+    urlMessageRoom = `https://monooq.com/messages/${roomId}`;
   } else {
-    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
+    urlMessageRoom = `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
+  }
+
+  let messageBody = `${formatName(user.name)}さんからスペース利用希望のリクエストが届きました。
+
+下記リンクのメッセージルームから返信しましょう。
+${urlMessageRoom}
+
+ーーーリクエスト内容ーーー
+はじめまして、${formatName(user.name)}と申します。
+以下の内容で荷物を置けるスペースを探しています。
+お見積もりをお願いします。
+
+【期間】
+${setStartDate} 〜 ${setEndDate}
+
+【借りたい広さ】
+${breadth}
+
+【用途】
+${usage}
+
+【荷物の内容】
+${packageContents}
+`;
+
+  if (usage) {
+    messageBody += `
+  【備考】
+  ${notes}`;
   }
 
   const body = {
-    Subject: 'あなたのスペースが興味を持たれています：モノオクからのお知らせ',
+    Subject: '【スペース利用のリクエストが届きました】モノオクからのお知らせ',
     Uid: space.user.firebaseUid,
     Body: messageBody,
     Category: 'request',
   };
 
   yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
+
+  const messageBodySMS = `【モノオク】スペース利用のリクエストが届きました。下記リンクからご確認ください。
+
+${urlMessageRoom}`;
+
+  const bodySMS = {
+    UserId: toUserId,
+    Body: messageBodySMS,
+  };
+
+  yield call(postApiRequest, apiEndpoint.sendSMS(), bodySMS, token);
 }
 
 function* payment({ payload: { roomId, requestId, payment: card } }) {
@@ -490,7 +539,18 @@ function* request({ payload: { user, space, body } }) {
       localStorage.setItem('isRequested', 'true');
     }
   }
-  yield sendRequestEmail({ user, space, roomId });
+  yield sendRequestNotice({
+    user,
+    toUserId: space.user.id,
+    space,
+    roomId,
+    usage,
+    breadth,
+    packageContents: params.packageContents,
+    notes: params.notes,
+    setStartDate,
+    setEndDate,
+  });
   yield put(requestActions.requestSuccess());
 }
 

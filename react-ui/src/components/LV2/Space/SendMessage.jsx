@@ -1,7 +1,7 @@
 import React from 'react';
 import numeral from 'numeral';
 import styled from 'styled-components';
-import { mediaMin } from 'helpers/style/media-query';
+import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import RequestApplication from 'components/LV3/RequestApplication';
@@ -23,12 +23,17 @@ const WrapOuter = styled.div`
     `
       padding: 0 ${Dimens.medium}px;
     `};
-  ${mediaMin.tablet`
+  ${media.tablet`
     ${props =>
       !props.isModalRequest &&
       `
-      display: none;
+      display: block;
     `};
+  `};
+  ${props =>
+    !props.isModalRequest &&
+    `
+    display: none;
   `};
 `;
 

@@ -154,7 +154,6 @@ class SpacePage extends Component {
       history.push(Path.login());
       return;
     }
-    this.setState({ isModalOpen: false, isModalOpenSP: false });
     dispatch(
       requestActions.request({
         user,
@@ -505,11 +504,6 @@ class SpacePage extends Component {
       endDate.year.toString() +
       this.getDateFormated(endDate.month.toString()) +
       this.getDateFormated(endDate.day.toString());
-
-    console.log(`startDateAll:${moment(startDateAll).isValid()}`);
-    console.log(`endDateAll:${moment(endDateAll).isValid()}`);
-    console.log(`今日以降チェック:${!moment(startDateAll).isBefore(moment(todayDate))}`);
-    console.log(`逆転チェック:${!moment(startDateAll).isSameOrAfter(moment(endDateAll))}`);
 
     return (
       usage &&
