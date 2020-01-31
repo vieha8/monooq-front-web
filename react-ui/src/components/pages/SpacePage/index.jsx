@@ -68,7 +68,8 @@ class SpacePage extends Component {
 
       this.state = {
         usage: usage || 0,
-        breadth: breadth || 0,
+        // breadth: breadth || 0,
+        breadth: 0, // TODO: 一時的に保持を無効としておく。実装方針が決まったら手漉きで改修する。
         packageContents: packageContents || '',
         notes: notes || '',
         startDate: {

@@ -21,10 +21,10 @@ const ContentWrap = styled.div`
   max-width: 768px;
   margin: auto;
   position: relative;
-  top: 95px;
   ${props =>
     props.isModalRequest &&
     `
+    top: 95px;
     padding: 0 ${Dimens.medium}px 120px;
   `};
 `;
