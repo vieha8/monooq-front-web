@@ -146,7 +146,9 @@ class Header extends Component {
     const nowPath = window.location.pathname;
     const isTop = nowPath === '/';
 
-    const noHeaderButton = this.isSignUpProfile(nowPath);
+    const noHeaderButton =
+      this.isSignUpProfile(nowPath) ||
+      partialMatch(nowPath, Path.lp1Host()) || this.isLpGuest(nowPath);
     const noLinkLogo = this.isSignUpProfile(nowPath);
 
     return (
@@ -154,7 +156,6 @@ class Header extends Component {
         <HeaderComponent
           isTop={isTop}
           isOverTopView={isOverTopView}
-          isPageLp={partialMatch(nowPath, Path.lp1Host()) || this.isLpGuest(nowPath)}
           isLinkRed={this.isLinkRed()}
           isCheckingLogin={isChecking}
           noHeaderButton={noHeaderButton}

@@ -216,7 +216,6 @@ export default ({
   isTop,
   isLinkRed,
   isOverTopView,
-  isPageLp,
   isCheckingLogin,
   noHeaderButton,
   noLinkLogo,
@@ -233,7 +232,7 @@ export default ({
     <Wrap stories={stories}>
       <Nav top={isTop} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
         <Logo noLink={noLinkLogo} />
-        {!isPageLp && !isCheckingLogin && !noHeaderButton && (
+        {!noHeaderButton && (
           <ActionWrapper>
             <ActionWrap>
               {menuCommon()}
