@@ -42,6 +42,7 @@ export default ({
   onClickCheck,
   onKeyDown,
   options,
+  name,
   margintop,
   extension,
   multiline,
@@ -86,6 +87,7 @@ export default ({
             />
           ) : (
             <InputField
+              name={name}
               type={type}
               autoComplete={autoComplete}
               placeholder={placeholder}
