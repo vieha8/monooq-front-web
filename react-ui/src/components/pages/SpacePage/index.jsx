@@ -89,6 +89,7 @@ class SpacePage extends Component {
   componentDidMount() {
     this._isMounted = true;
     window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
+    this.setState({ isModalOpen: false, isModalOpenSP: false });
   }
 
   componentDidUpdate(prevProps) {

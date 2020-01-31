@@ -10,18 +10,17 @@ import { Dimens, FontSizes, Colors, ZIndexes } from 'variables';
 const WrapOuter = styled.div`
   width: 100%;
   min-width: 320px;
+  height: fit-content;
   position: fixed;
-  left: 0px;
-  bottom: 0px;
+  left: 0;
+  bottom: 0;
   z-index: ${ZIndexes.frontPartsOverFooter};
   text-align: center;
-  padding: ${Dimens.small2}px ${Dimens.medium}px;
-  background-color: ${Colors.white};
   border-top: 1px solid ${Colors.borderGray};
   ${props =>
-    props.noPadding &&
+    props.isModalRequest &&
     `
-      padding: 0 ${Dimens.medium}px;
+      top: 0;
     `};
   ${media.tablet`
     ${props =>
@@ -34,6 +33,7 @@ const WrapOuter = styled.div`
     !props.isModalRequest &&
     `
     display: none;
+    background-color: ${Colors.white};
   `};
 `;
 
@@ -41,6 +41,7 @@ const Wrap = styled.div`
   max-width: 640px;
   min-width: 320px;
   margin: auto;
+  padding: ${Dimens.small2}px ${Dimens.medium}px;
   ${props =>
     props.isModalRequest &&
     `
@@ -49,7 +50,6 @@ const Wrap = styled.div`
       top: 0;
       left: 0;
       right: 0;
-      padding: ${Dimens.small2}px ${Dimens.medium}px;
       background-color: ${Colors.white};
       border-bottom: 1px solid ${Colors.borderGray};
     `};
@@ -121,7 +121,10 @@ export default ({
 }) => (
   <WrapOuter
     isModalRequest={isModalRequest}
-    noPadding={isModalOpenSP || isModalOpenSP === undefined}
+    noPadding={
+      (!isModalRequest || isModalRequest === undefined) &&
+      (isModalOpenSP || isModalOpenSP === undefined)
+    }
   >
     <Wrap isModalRequest={isModalRequest}>
       <WrapInnter>

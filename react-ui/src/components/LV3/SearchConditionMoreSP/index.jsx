@@ -104,7 +104,7 @@ class SearchConditionMoreSP extends Component {
           size="large"
           open={isModalOpenSP}
           onClose={handleModalCloseSP}
-          className="semantic-ui-modal-custom"
+          className="semantic-ui-modal-custom serch-condition"
         >
           <Modal.Content scrolling>
             <CloseIconWrap>

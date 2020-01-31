@@ -20,15 +20,17 @@ const Wrap = styled.div`
 const ContentWrap = styled.div`
   max-width: 768px;
   margin: auto;
+  position: relative;
+  top: 95px;
   ${props =>
     props.isModalRequest &&
     `
-    padding: 0 ${Dimens.medium}px;
+    padding: 0 ${Dimens.medium}px 120px;
   `};
 `;
 
 const Title = styled.div`
-  margin: 95px auto ${Dimens.medium_20}px;
+  margin: ${Dimens.medium_20} auto ${Dimens.medium_20}px;
   text-align: center;
   font-size: ${FontSizes.medium_18}px;
   font-weight: bold;
@@ -103,8 +105,6 @@ export default class RequestApplication extends Component {
       isModalOpen,
       errors,
       isRoom,
-      priceFull,
-      priceTatami,
       disabled,
       loading,
       onClick,
@@ -131,18 +131,6 @@ export default class RequestApplication extends Component {
 
     return (
       <ContentWrap isModalRequest={!isPC}>
-        {!isPC && (
-          <SendMessage
-            isModalRequest
-            isRoom={isRoom}
-            priceFull={priceFull}
-            priceTatami={priceTatami}
-            disabled={disabled}
-            loading={loading}
-            onClick={onClick}
-            onKeyDownButtonMessage={onKeyDownButtonMessage}
-          />
-        )}
         <Title isTopBar={isPC && isModalOpen}>リクエスト内容</Title>
         <FormWrap>
           <Row>
@@ -276,6 +264,13 @@ export default class RequestApplication extends Component {
       handleModalOpenSP,
       handleModalCloseSP,
       buttonRequestCreatedisabled,
+      isRoom,
+      priceFull,
+      priceTatami,
+      disabled,
+      loading,
+      onClick,
+      onKeyDownButtonMessage,
     } = this.props;
     return (
       <Wrap>
@@ -298,9 +293,23 @@ export default class RequestApplication extends Component {
             size="large"
             open={isModalOpenSP}
             onClose={handleModalCloseSP}
-            className="semantic-ui-modal-custom"
+            className="semantic-ui-modal-custom request"
           >
-            <Modal.Content scrolling>{this.getContent()}</Modal.Content>
+            <Fragment>
+              {!isPC && (
+                <SendMessage
+                  isModalRequest
+                  isRoom={isRoom}
+                  priceFull={priceFull}
+                  priceTatami={priceTatami}
+                  disabled={disabled}
+                  loading={loading}
+                  onClick={onClick}
+                  onKeyDownButtonMessage={onKeyDownButtonMessage}
+                />
+              )}
+              <Modal.Content scrolling>{this.getContent()}</Modal.Content>
+            </Fragment>
           </Modal>
         )}
       </Wrap>

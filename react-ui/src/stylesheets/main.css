@@ -320,7 +320,7 @@ Modal Search Condition More
   border-radius: unset !important;
 }
 
-.semantic-ui-modal-custom .scrolling.content {
+.semantic-ui-modal-custom.serch-condition .scrolling.content {
   height: 100vh !important;
   max-height: 100vh !important;
   padding: 0 !important;
@@ -330,6 +330,11 @@ Modal Search Condition More
 
 .semantic-ui-modal-custom.pc .scrolling.content {
   min-width: 768px !important;
+}
+
+.semantic-ui-modal-custom.request .scrolling.content {
+  max-height: 100vh !important;
+  padding: 0 !important;
 }
 
 /*
