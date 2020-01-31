@@ -133,7 +133,7 @@ class Header extends Component {
   }
 
   render() {
-    const { isChecking, user, unreadRooms, schedule, dispatch, history } = this.props;
+    const { isChecking, user, schedule, dispatch, history } = this.props;
 
     const { isOverTopView } = this.state;
 
@@ -161,7 +161,6 @@ class Header extends Component {
           noHeaderButton={noHeaderButton}
           noLinkLogo={noLinkLogo}
           user={user}
-          messageCount={unreadRooms}
           onClickSignup={() => history.push(Path.signUp())}
           addSpace={{
             to: Path.spaceCreate1(),
@@ -189,7 +188,6 @@ const mapStateToProps = state => ({
   isChecking: state.auth.isChecking,
   isLogin: state.auth.isLogin,
   user: state.auth.user,
-  unreadRooms: state.messages.unreadRooms,
   schedule: state.request.schedule,
 });
 

@@ -7,12 +7,12 @@ import TextLink from 'components/LV1/Texts/TextLink';
 import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
-import ImageMenuHeader from 'components/LV2/ImageMenuHeader';
 import ServiceMenu from 'components/pages/ServiceMenuPage';
 import Path from 'config/path';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import Logo from './Logo';
+import MessagesIcon from './MessagesIcon';
 
 export const Height = 85;
 export const HeightPhone = 54;
@@ -217,7 +217,6 @@ export default ({
   noHeaderButton,
   noLinkLogo,
   user,
-  messageCount,
   onClickSignup,
   addSpace,
   isSchedule,
@@ -235,11 +234,7 @@ export default ({
               {user.id ? (
                 <Fragment>
                   <SearchFiledCell>
-                    <ImageMenuHeader
-                      iconRight
-                      messageUrl={Path.messageList()}
-                      messageCount={messageCount}
-                    />
+                    <MessagesIcon />
                   </SearchFiledCell>
                   <OnlyPhone>
                     <ActionCell noCursol>
