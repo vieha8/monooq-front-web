@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router';
 import { ConnectedRouter } from 'connected-react-router';
 import loadable from '@loadable/component';
-import BaseLayout from 'components/templates/BaseLayout';
+import BaseLayout from 'components/pages/Layout';
 import LoadingPage from 'components/LV3/LoadingPage';
 import Path from './config/path';
 
