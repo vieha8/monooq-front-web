@@ -320,6 +320,18 @@ Modal Search Condition More
   border-radius: unset !important;
 }
 
+.semantic-ui-modal-custom.serch-condition,
+.semantic-ui-modal-custom.request {
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
+.semantic-ui-modal-custom.serch-condition .scrolling.content,
+.semantic-ui-modal-custom.request .scrolling.content {
+  pointer-events: auto !important;
+  overflow-y: scroll !important;
+}
+
 .semantic-ui-modal-custom.serch-condition .scrolling.content {
   height: 100vh !important;
   max-height: 100vh !important;
@@ -328,7 +340,7 @@ Modal Search Condition More
   overflow-y: scroll !important;
 }
 
-.semantic-ui-modal-custom.pc .scrolling.content {
+.semantic-ui-modal-custom.serch-condition.pc .scrolling.content {
   min-width: 768px !important;
 }
 
