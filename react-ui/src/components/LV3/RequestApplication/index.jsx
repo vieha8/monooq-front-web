@@ -49,9 +49,7 @@ const FormWrap = styled.div`
 `;
 
 const Row = styled.div`
-  &:not(:first-child) {
-    margin: ${Dimens.medium2}px 0;
-  }
+  padding: ${Dimens.small2_14}px 0 0;
 `;
 
 const DataSelectTitle = styled.div`
@@ -64,6 +62,10 @@ const DateSelectWrap = styled.div`
   display: flex;
 `;
 
+const ButtonRequestWrap = styled.div`
+  margin: ${Dimens.medium_20}px auto 0;
+`;
+
 const LinkWrap = styled.div`
   width: 100%;
   margin: ${Dimens.medium2}px auto 0;
@@ -71,7 +73,7 @@ const LinkWrap = styled.div`
   ${props =>
     props.isModalRequest &&
     `
-    margin: -${Dimens.small_10}px auto ${Dimens.medium2}px;
+    margin: ${Dimens.medium_20}px auto ${Dimens.medium2}px;
   `};
 `;
 
@@ -231,25 +233,27 @@ export default class RequestApplication extends Component {
             <ErrorList keyName="notes_errors" errors={errors && errors.notes} />
           </Row>
         </FormWrap>
-        {isPC && (
-          <Button
-            center
-            primary
-            fontbold
-            fill={1}
-            disabled={disabled}
-            loading={loading}
-            onClick={onClick}
-            onKeyDown={onKeyDownButtonMessage}
-          >
-            リクエスト申請
-          </Button>
-        )}
-        <LinkWrap isModalRequest={!isPC}>
-          <StyledTextButton onClick={isPC ? handleModalClose : handleModalCloseSP}>
-            キャンセルする
-          </StyledTextButton>
-        </LinkWrap>
+        <ButtonRequestWrap>
+          {isPC && (
+            <Button
+              center
+              primary
+              fontbold
+              fill={1}
+              disabled={disabled}
+              loading={loading}
+              onClick={onClick}
+              onKeyDown={onKeyDownButtonMessage}
+            >
+              リクエスト申請
+            </Button>
+          )}
+          <LinkWrap isModalRequest={!isPC}>
+            <StyledTextButton onClick={isPC ? handleModalClose : handleModalCloseSP}>
+              キャンセルする
+            </StyledTextButton>
+          </LinkWrap>
+        </ButtonRequestWrap>
       </ContentWrap>
     );
   }
