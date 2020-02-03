@@ -83,7 +83,7 @@ const Unit = styled.div``;
 
 const ButtonWrap = styled.div`
   display: inline-block;
-  min-width: 200px;
+  min-width: 180px;
 `;
 
 export default ({
