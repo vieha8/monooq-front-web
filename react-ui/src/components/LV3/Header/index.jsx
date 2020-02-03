@@ -60,6 +60,17 @@ class Header extends Component {
     }
   };
 
+  isLp = path => {
+    return (
+      partialMatch(path, Path.lp1Guest()) ||
+      partialMatch(path, Path.lp1Guest2()) ||
+      partialMatch(path, Path.lp2Guest()) ||
+      partialMatch(path, Path.lp2Guest2()) ||
+      partialMatch(path, Path.lp3Guest()) ||
+      partialMatch(path, Path.lp1Host())
+    );
+  };
+
   isLpGuest = path => {
     return (
       partialMatch(path, Path.lp1Guest()) ||
@@ -151,6 +162,8 @@ class Header extends Component {
       this.isLpGuest(nowPath);
     const noLinkLogo = this.isSignUpProfile(nowPath);
 
+    const isLp = this.isLp(nowPath);
+
     return (
       <Fragment>
         <HeaderComponent
@@ -174,11 +187,13 @@ class Header extends Component {
             },
           }}
         />
-        <LPLink
-          isOverTopView={isOverTopView}
-          isPageLp123Guest={this.isLpGuest(nowPath)}
-          isPageLp12GuestLinkTop={this.isLpGuest2(nowPath)}
-        />
+        {isLp && (
+          <LPLink
+            isOverTopView={isOverTopView}
+            isPageLp123Guest={this.isLpGuest(nowPath)}
+            isPageLp12GuestLinkTop={this.isLpGuest2(nowPath)}
+          />
+        )}
       </Fragment>
     );
   }
