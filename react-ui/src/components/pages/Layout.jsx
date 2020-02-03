@@ -20,20 +20,41 @@ const isNoFooterPath = path => {
   );
 };
 
+const isBottomMarginPath = path => {
+  return (
+    path === Path.lp1Host() ||
+    path === Path.lp1Guest() ||
+    path === Path.lp1Guest2() ||
+    path === Path.lp2Guest() ||
+    path === Path.lp2Guest2() ||
+    path === Path.lp3Guest()
+  );
+};
+
+const isBottomMarginSpPath = path => {
+  return path === Path.spaces() || path === Path.search();
+};
+
 const BaseLayout = ({ children }) => {
   const [isNoFooter, setIsNoFooter] = useState(false);
+  const [isBottomMargin, setIsBottomMargin] = useState(false);
+  const [isBottomMarginSp, setIsBottomMarginSp] = useState(false);
   const location = useLocation();
   const { pathname } = location;
 
   useEffect(() => {
     setIsNoFooter(isNoFooterPath(pathname));
+    setIsBottomMargin(isBottomMarginPath(pathname));
+    setIsBottomMarginSp(isBottomMarginSpPath(pathname));
   }, [pathname]);
 
   return (
     <Fragment>
       <Header />
       {children}
-      {!isNoFooter && <Footer />}
+      {!isNoFooter && (
+        <Footer bottomMargin={isBottomMargin} bottomMarginOnlySP={isBottomMarginSp} />
+      )}
     </Fragment>
   );
 };
