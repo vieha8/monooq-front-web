@@ -74,6 +74,11 @@ const Caption = styled.div`
     `};
 `;
 
+const ButtonRequestWrap = styled.div`
+  width: 100%;
+  pointer-events: auto !important;
+`;
+
 const Price = styled.span`
   font-size: ${FontSizes.medium_18}px;
   font-weight: bold;
@@ -144,18 +149,20 @@ export default ({
           )}
         </Caption>
         {isModalRequest ? (
-          <Button
-            primary
-            borderbold
-            fontbold
-            fill={1}
-            disabled={disabled}
-            loading={loading}
-            onClick={onClick}
-            onKeyDown={onKeyDownButtonMessage}
-          >
-            リクエスト申請
-          </Button>
+          <ButtonRequestWrap>
+            <Button
+              primary
+              borderbold
+              fontbold
+              fill={1}
+              disabled={disabled}
+              loading={loading}
+              onClick={onClick}
+              onKeyDown={onKeyDownButtonMessage}
+            >
+              リクエスト申請
+            </Button>
+          </ButtonRequestWrap>
         ) : (
           <ButtonWrap>
             <RequestApplication

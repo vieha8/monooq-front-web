@@ -64,6 +64,7 @@ const DateSelectWrap = styled.div`
 
 const ButtonRequestWrap = styled.div`
   margin: ${Dimens.medium_20}px auto 0;
+  pointer-events: auto !important;
 `;
 
 const LinkWrap = styled.div`
