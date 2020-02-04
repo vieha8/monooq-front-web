@@ -526,6 +526,7 @@ function* request({ payload: { user, space, body } }) {
         spaceId: space.id,
         userId: user.id,
         roomId,
+        ...params,
       },
     }),
   );
