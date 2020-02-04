@@ -18,6 +18,7 @@ class SignUpProfilePage extends Component {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
+  redirectPath: state.ui.redirectPath,
   isRegistering: state.auth.isRegistering,
   isLoading: state.user.isLoading,
   isSignupFailed: state.auth.isSignupFailed,

@@ -51,20 +51,26 @@ export default class RegisterProfilePage extends Component {
   }
 
   onClickRegisterProfile = () => {
-    const { dispatch, user, history } = this.props;
+    const { dispatch, user, history, redirectPath } = this.props;
     const { image, name, prefCode, isHost } = this.state;
 
     if (isHost === 0) {
       handleGTM('userRegistered', user.id);
     }
 
-    dispatch(uiActions.setUiState({ redirectPath: '' }));
     dispatch(
       userActions.updateUser({
         userId: user.id,
         body: { imageUrl: image, name, prefCode, isHost: Boolean(isHost) },
       }),
     );
+
+    if (redirectPath && redirectPath !== '') {
+      history.push(redirectPath);
+      dispatch(uiActions.setUiState({ redirectPath: '' }));
+      return;
+    }
+
     history.push(Path.top());
   };
 

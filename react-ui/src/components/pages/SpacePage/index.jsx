@@ -237,6 +237,12 @@ class SpacePage extends Component {
     };
   };
 
+  handleSignUp = () => {
+    const { history, dispatch, location } = this.props;
+    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
+    history.push(Path.signUp());
+  };
+
   showLeftContent = () => {
     const { space, user, isRequesting, recommendSpaces } = this.props;
     const {
@@ -269,6 +275,8 @@ class SpacePage extends Component {
         }))
       : null;
 
+    const isLogin = !!user.id;
+
     return (
       <Fragment>
         <Meta
@@ -280,9 +288,11 @@ class SpacePage extends Component {
           jsonLd={this.makeMetaBreadcrumbs(space)}
         />
         <Detail
+          isLogin={isLogin}
           isModalOpen={isModalOpen}
           handleModalOpen={() => this.setState({ isModalOpen: true })}
           handleModalClose={() => this.setState({ isModalOpen: false })}
+          handleSignUp={this.handleSignUp}
           isOverTopView={isOverTopView}
           isBottom={isBottom}
           id={space.id}
@@ -343,9 +353,11 @@ class SpacePage extends Component {
           buttonRequestDisabled={!this.validate()}
         />
         <SendMessageOnlyTabletSp
+          isLogin={isLogin}
           isModalOpenSP={isModalOpenSP}
           handleModalOpenSP={() => this.setState({ isModalOpenSP: true })}
           handleModalCloseSP={() => this.setState({ isModalOpenSP: false })}
+          handleSignUp={this.handleSignUp}
           isRoom={space.sizeType > 0 && space.sizeType < 4}
           priceFull={space.priceFull}
           priceTatami={space.priceTatami}

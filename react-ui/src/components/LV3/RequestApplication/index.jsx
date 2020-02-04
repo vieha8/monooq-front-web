@@ -260,6 +260,7 @@ export default class RequestApplication extends Component {
 
   render() {
     const {
+      isLogin,
       confirm,
       isPC,
       isModalOpen,
@@ -267,6 +268,7 @@ export default class RequestApplication extends Component {
       isModalOpenSP,
       handleModalOpenSP,
       handleModalCloseSP,
+      handleSignUp,
       buttonRequestCreatedisabled,
       isRoom,
       priceFull,
@@ -276,18 +278,32 @@ export default class RequestApplication extends Component {
       onClick,
       onKeyDownButtonMessage,
     } = this.props;
+
+    const onClickButton = () => {
+      if (!isLogin) {
+        handleSignUp();
+        return;
+      }
+      if (isPC) {
+        handleModalOpen();
+        return;
+      }
+      handleModalOpenSP();
+    };
+
     return (
       <Wrap>
         {(!isPC || !(isPC && isModalOpen)) && (
           <Button
+            fontSize={14}
             primary
             borderbold
             fontbold
             fill={1}
             disabled={confirm || buttonRequestCreatedisabled}
-            onClick={isPC ? handleModalOpen : handleModalOpenSP}
+            onClick={onClickButton}
           >
-            リクエストを作成する
+            {isLogin ? 'リクエストを作成する' : '会員登録してリクエスト'}
           </Button>
         )}
         {isPC && isModalOpen ? (

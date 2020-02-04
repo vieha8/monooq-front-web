@@ -87,10 +87,12 @@ const ButtonWrap = styled.div`
 `;
 
 export default ({
+  isLogin,
   isModalRequest,
   isModalOpenSP,
   handleModalOpenSP,
   handleModalCloseSP,
+  handleSignUp,
   isRoom,
   priceFull,
   priceTatami,
@@ -157,10 +159,12 @@ export default ({
         ) : (
           <ButtonWrap>
             <RequestApplication
+              isLogin={isLogin}
               errors={errors}
               isModalOpenSP={isModalOpenSP}
               handleModalOpenSP={handleModalOpenSP}
               handleModalCloseSP={handleModalCloseSP}
+              handleSignUp={handleSignUp}
               priceFull={priceFull}
               priceTatami={priceTatami}
               buttonRequestCreatedisabled={buttonRequestCreatedisabled}

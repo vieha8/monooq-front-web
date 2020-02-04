@@ -284,10 +284,12 @@ const getCaptionMessage = () => {
 };
 
 export default ({
+  isLogin,
   confirm,
   isModalOpen,
   handleModalOpen,
   handleModalClose,
+  handleSignUp,
   images,
   status,
   priceTatami,
@@ -448,12 +450,14 @@ export default ({
             )}
             <RequestButtonWrap>
               <RequestApplication
+                isLogin={isLogin}
                 confirm={confirm}
                 errors={errors}
                 isPC
                 isModalOpen={isModalOpen}
                 handleModalOpen={handleModalOpen}
                 handleModalClose={handleModalClose}
+                handleSignUp={handleSignUp}
                 priceFull={priceFull}
                 priceTatami={priceTatami}
                 buttonRequestCreatedisabled={buttonRequestCreatedisabled}
