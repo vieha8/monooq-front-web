@@ -28,4 +28,7 @@ export default {
   FailedGetAddress: '存在しない郵便番号です。',
   InvalidAddress:
     '所在地には都道府県、市区町村、番地、建物名等を含めた正式な住所を入力してください。番地は半角数字でご登録ください。',
+  InvalidDate: '有効な日付を設定してください',
+  InvalidStartDate: '利用開始日には本日以降の日付を設定してください',
+  InvalidDateReverse: '利用終了日は利用開始日より後になるよう設定してください',
 };

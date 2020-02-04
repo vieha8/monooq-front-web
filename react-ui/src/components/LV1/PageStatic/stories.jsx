@@ -3,9 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import PageStaticPage from './index';
+import StaticPage from './index';
 
-PageStaticPage.displayName = 'PageStaticPage';
+StaticPage.displayName = 'StaticPage';
 
 storiesOf('Atoms(LV1)/StaticPage', module).add(
   'Normal',

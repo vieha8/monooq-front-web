@@ -1,10 +1,19 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Dimens } from 'variables';
+import { Dimens, Colors } from 'variables';
 import Check from 'components/LV1/Forms/CheckBox';
 import InputField from 'components/LV1/Forms/InputField';
 import { H3 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
+
+const Label = styled(H3)`
+  display: ${props => (props.labelSub ? 'inline' : 'display')};
+`;
+
+const LabelSub = styled(InlineText.Tiny)`
+  margin-left: ${Dimens.xxsmall_4}px;
+  color: ${Colors.lightGray10};
+`;
 
 const InputFieldWrapper = styled.div`
   display: inline-block;
@@ -33,6 +42,7 @@ const HintBottomWrap = styled.div`
 
 export default ({
   label,
+  labelSub,
   hint,
   checkbox,
   labelCheckBox,
@@ -59,10 +69,11 @@ export default ({
 }) => (
   <Fragment>
     {label && (
-      <H3 bold as="h3">
+      <Label as="h3" bold labelSub={labelSub}>
         {label}
-      </H3>
+      </Label>
     )}
+    {labelSub && <LabelSub>{labelSub}</LabelSub>}
     {hint && <InlineText.EmphasisSmall>{hint}</InlineText.EmphasisSmall>}
     {checkbox ? (
       <Check

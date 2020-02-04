@@ -4,7 +4,8 @@ import InlineText from 'components/LV1/Texts/InlineText';
 
 export default ({ keyName, errors }) => (
   <Fragment>
-    {Array.isArray(errors) &&
+    {errors &&
+      Array.isArray(errors) &&
       errors.map((e, i) => (
         <div key={`${keyName}_${i}`.toString()}>
           <InlineText.Small color={Colors.error}>{e}</InlineText.Small>

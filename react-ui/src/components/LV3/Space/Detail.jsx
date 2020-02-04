@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { getBreadths } from 'helpers/breadths';
 import { media, mediaMin } from 'helpers/style/media-query';
-import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Availability from 'components/LV1/Texts/Availability';
 import Tag from 'components/LV1/Texts/Tag';
@@ -15,6 +14,7 @@ import Image from 'components/LV2/Space/Image';
 import Address from 'components/LV2/Space/Address';
 import Receive from 'components/LV2/Space/Receive';
 import InfoHost from 'components/LV2/Space/InfoHost';
+import RequestApplication from 'components/LV3/RequestApplication';
 import Price from 'components/LV3/Space/Price';
 import ImageCheckRed from 'images/icon-check-circle-red.svg';
 import ImageLogoPayCredit from 'images/logo-pay-credit.svg';
@@ -279,8 +279,17 @@ const SectionTitle = styled.div`
   font-weight: bold;
 `;
 
+const getCaptionMessage = () => {
+  return 'リクエストを送ることで、あなたがスペースに興味を持っていることがホストに伝わります。';
+};
+
 export default ({
+  isLogin,
   confirm,
+  isModalOpen,
+  handleModalOpen,
+  handleModalClose,
+  handleSignUp,
   images,
   status,
   priceTatami,
@@ -289,6 +298,7 @@ export default ({
   breadcrumbsList,
   user,
   description,
+  isRoom,
   sizeType,
   map,
   address,
@@ -299,10 +309,28 @@ export default ({
   recommend,
   isOverTopView,
   isBottom,
-  requestButtonDisabled,
-  requestButtonLoading,
-  requestButtonOnClick,
-  onKeyDownButtonRequest,
+  buttonRequestCreatedisabled,
+  usage,
+  onChangeUsage,
+  breadth,
+  onChangeBreadth,
+  startDate,
+  onChangeStartDateYear,
+  onChangeStartDateMonth,
+  onChangeStartDateDay,
+  endDate,
+  onChangeEndDateYear,
+  onChangeEndDateMonth,
+  onChangeEndDateDay,
+  packageContents,
+  onChangePackageContents,
+  notes,
+  onChangeNotes,
+  errors,
+  buttonRequestDisabled,
+  loading,
+  onClick,
+  onKeyDownButtonMessage,
 }) => (
   <Wrap confirm={confirm}>
     <ImageSpaceWrap>
@@ -400,33 +428,63 @@ export default ({
         )}
       </LeftWrap>
       <RightWrap>
-        <RightInner isOverTopView={isOverTopView} isBottom={isBottom} confirm={confirm}>
+        <RightInner
+          isOverTopView={isOverTopView && !isModalOpen}
+          isBottom={isBottom && !isModalOpen}
+          confirm={confirm}
+        >
           <RequestCard>
             気になるスペースを見つけたら？
             <RequestTitle>ホストに相談しよう</RequestTitle>
-            <RequestCheckWrap>
-              <RequestCheckTitle>よくある確認事項</RequestCheckTitle>
-              <RequestCheckUl>
-                <RequestCheckLi>預けたい日程は決まっているか</RequestCheckLi>
-                <RequestCheckLi margin>荷物の量はだいたい決まっているか</RequestCheckLi>
-                <RequestCheckLi>荷物の出し入れは頻繁に行うか</RequestCheckLi>
-              </RequestCheckUl>
-            </RequestCheckWrap>
+            {isModalOpen ? (
+              getCaptionMessage()
+            ) : (
+              <RequestCheckWrap>
+                <RequestCheckTitle>よくある確認事項</RequestCheckTitle>
+                <RequestCheckUl>
+                  <RequestCheckLi>預けたい日程は決まっているか</RequestCheckLi>
+                  <RequestCheckLi margin>荷物の量はだいたい決まっているか</RequestCheckLi>
+                  <RequestCheckLi>荷物の出し入れは頻繁に行うか</RequestCheckLi>
+                </RequestCheckUl>
+              </RequestCheckWrap>
+            )}
             <RequestButtonWrap>
-              <Button
-                center
-                primary
-                fontbold
-                fill={1}
-                disabled={confirm || requestButtonDisabled}
-                loading={requestButtonLoading}
-                onClick={requestButtonOnClick}
-                onKeyDown={onKeyDownButtonRequest}
-              >
-                リクエストを送る
-              </Button>
+              <RequestApplication
+                isLogin={isLogin}
+                confirm={confirm}
+                errors={errors}
+                isPC
+                isModalOpen={isModalOpen}
+                handleModalOpen={handleModalOpen}
+                handleModalClose={handleModalClose}
+                handleSignUp={handleSignUp}
+                priceFull={priceFull}
+                priceTatami={priceTatami}
+                buttonRequestCreatedisabled={buttonRequestCreatedisabled}
+                disabled={buttonRequestDisabled}
+                loading={loading}
+                onClick={onClick}
+                onKeyDownButtonMessage={onKeyDownButtonMessage}
+                isRoom={isRoom}
+                usage={usage}
+                onChangeUsage={onChangeUsage}
+                breadth={breadth}
+                onChangeBreadth={onChangeBreadth}
+                startDate={startDate}
+                onChangeStartDateYear={onChangeStartDateYear}
+                onChangeStartDateMonth={onChangeStartDateMonth}
+                onChangeStartDateDay={onChangeStartDateDay}
+                endDate={endDate}
+                onChangeEndDateYear={onChangeEndDateYear}
+                onChangeEndDateMonth={onChangeEndDateMonth}
+                onChangeEndDateDay={onChangeEndDateDay}
+                packageContents={packageContents}
+                onChangePackageContents={onChangePackageContents}
+                notes={notes}
+                onChangeNotes={onChangeNotes}
+              />
             </RequestButtonWrap>
-            リクエストを送ることで、あなたがスペースに興味を持っていることがホストに伝わります。
+            {!isModalOpen && getCaptionMessage()}
           </RequestCard>
           {!confirm && <SnsShare id={id} name={name} />}
         </RightInner>

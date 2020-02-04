@@ -323,8 +323,44 @@ function* fetchMessagesStart({ payload: roomId }) {
 }
 
 // ルーム作成
-export const createRoom = (userId1, userName, firebaseUid1, userId2, firebaseUid2, spaceId) =>
+export const createRoom = (
+  userId1,
+  userName,
+  firebaseUid1,
+  userId2,
+  firebaseUid2,
+  spaceId,
+  requestUsage,
+  requestBreadth,
+  requestPackageContents,
+  requestNotes,
+  requestSetStartDate,
+  requestSetEndDate,
+) =>
   new Promise(async resolve => {
+    let requestMessage = `はじめまして、${formatName(userName)}と申します。
+以下の内容で荷物を置けるスペースを探しています。
+お見積もりをお願いします。
+
+【期間】
+${requestSetStartDate} 〜 ${requestSetEndDate}
+
+【借りたい広さ】
+${requestBreadth}
+
+【用途】
+${requestUsage}
+
+【荷物の内容】
+${requestPackageContents}
+`;
+
+    if (requestNotes) {
+      requestMessage += `
+【備考】
+${requestNotes}`;
+    }
+
     const room = {
       [`user${userId1}`]: true,
       [`user${userId2}`]: true,
@@ -335,11 +371,19 @@ export const createRoom = (userId1, userName, firebaseUid1, userId2, firebaseUid
       firebaseUid2,
       spaceId,
       lastMessageDt: new Date(),
-      lastMessage: `${formatName(userName)}さんが興味を持っています`,
+      lastMessage: requestMessage,
       status: 0,
     };
     const c = await roomCollection();
     const roomRef = await c.add(room);
+    const message = {
+      userId: userId1,
+      text: requestMessage,
+      messageType: 1,
+      createDt: new Date(),
+    };
+    await roomRef.collection('messages').add(message);
+
     resolve(roomRef.id);
   });
 
