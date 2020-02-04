@@ -75,7 +75,8 @@ class MessagePage extends Component {
   }
 
   static getDerivedStateFromProps(nextProps) {
-    if (!nextProps.user.email || !nextProps.user.phoneNumber) {
+    const isEstimated = nextProps.messages.filter(v => v.messageType === 2).length > 0;
+    if (isEstimated && (!nextProps.user.email || !nextProps.user.phoneNumber)) {
       return { errorModal: true };
     }
     return null;
@@ -339,7 +340,7 @@ class MessagePage extends Component {
           <Modal.Header>メールアドレス及び電話番号をご登録ください</Modal.Header>
           <Modal.Content>
             <p>
-              メッセージのやり取りにはメールアドレス及び電話番号の登録が必要です。
+              ご契約を進めるにはメールアドレス及び電話番号の登録が必要です。
               <br />
               <br />
               取引時の保険適用の条件となります。
