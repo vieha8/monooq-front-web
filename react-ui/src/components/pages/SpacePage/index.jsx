@@ -6,6 +6,7 @@ import { spaceActions } from 'redux/modules/space';
 import { uiActions } from 'redux/modules/ui';
 import { requestActions } from 'redux/modules/request';
 import { ErrorMessages } from 'variables';
+import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { receiptTypeList } from 'helpers/receiptTypes';
 import { isAvailableLocalStorage } from 'helpers/storage';
@@ -68,8 +69,7 @@ class SpacePage extends Component {
 
       this.state = {
         usage: usage || 0,
-        // breadth: breadth || 0,
-        breadth: 0, // TODO: 一時的に保持を無効としておく。実装方針が決まったら手漉きで改修する。
+        breadth: breadth || 0,
         packageContents: packageContents || '',
         notes: notes || '',
         startDate: {
@@ -326,7 +326,15 @@ class SpacePage extends Component {
           errors={error}
           usage={usage}
           onChangeUsage={value => this.handleChangeUI('usage', value)}
-          breadth={breadth}
+          breadth={
+            space.sizeType > 0 && space.sizeType < 4
+              ? getBreadthsDetailRoom(breadth)
+                ? breadth
+                : 0
+              : getBreadthsDetailOther(breadth)
+              ? breadth
+              : 0
+          }
           onChangeBreadth={value => this.handleChangeUI('breadth', value)}
           startDate={startDate}
           onChangeStartDateYear={value => this.handleChangeDate('startDate', 'year', value)}
@@ -356,7 +364,15 @@ class SpacePage extends Component {
           errors={error}
           usage={usage}
           onChangeUsage={value => this.handleChangeUI('usage', value)}
-          breadth={breadth}
+          breadth={
+            space.sizeType > 0 && space.sizeType < 4
+              ? getBreadthsDetailRoom(breadth)
+                ? breadth
+                : 0
+              : getBreadthsDetailOther(breadth)
+              ? breadth
+              : 0
+          }
           onChangeBreadth={value => this.handleChangeUI('breadth', value)}
           startDate={JSON.parse(JSON.stringify(startDate))}
           onChangeStartDateYear={value => this.handleChangeDate('startDate', 'year', value)}
