@@ -5,7 +5,7 @@ import { Dimens, Colors } from 'variables';
 import PageDefault from 'components/LV1/PageDefault';
 import CatchPhrase from 'components/LV1/Texts/CatchPhrase';
 import CatchPhraseSub from 'components/LV1/Texts/CatchPhraseSub';
-import InputSearch from 'components/LV2/Forms/InputSearch';
+import TopSearchForm from 'components/LV3/TopSearchForm';
 
 const mainVisual =
   'https://monooq.imgix.net/img%2Fservice%2Fimg-hero.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
@@ -93,30 +93,25 @@ const InputSearchWrap = styled.div`
   margin-bottom: ${Dimens.medium3_40}px;
 `;
 
-export default ({
-  catchPhrase,
-  catchPhraseSub,
-  placeholder,
-  locationText,
-  onChange,
-  onKeyDown,
-  searchDisabled,
-  onClickSearchButton,
-}) => (
+const BrStyled = styled.br`
+  display: none;
+  ${media.tablet`
+    display: block;
+  `};
+`;
+
+export default () => (
   <Wrap>
     <TopViewWrap className="wrapTopView">
       <TopViewContainer className="container-topview">
-        <CatchPhraseSub>{catchPhraseSub}</CatchPhraseSub>
-        <CatchPhrase>{catchPhrase}</CatchPhrase>
+        <CatchPhraseSub>物置シェアサービス「モノオク」</CatchPhraseSub>
+        <CatchPhrase>
+          近所のスペースを
+          <BrStyled />
+          探してみよう
+        </CatchPhrase>
         <InputSearchWrap>
-          <InputSearch
-            placeholder={placeholder}
-            locationText={locationText}
-            onChange={onChange}
-            onKeyDown={onKeyDown}
-            searchDisabled={searchDisabled}
-            onClickSearchButton={onClickSearchButton}
-          />
+          <TopSearchForm />
         </InputSearchWrap>
       </TopViewContainer>
     </TopViewWrap>

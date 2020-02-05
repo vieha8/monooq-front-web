@@ -1,12 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { uiActions } from 'redux/modules/ui';
-import Path from 'config/path';
 import Top from 'components/LV3/Top';
-import ReactGA from 'react-ga';
-import { spaceActions } from 'redux/modules/space';
 import { isAvailableLocalStorage } from 'helpers/storage';
-import { iskeyDownEnter } from 'helpers/keydown';
 import { sectionActions } from 'redux/modules/section';
 import Intercom from 'react-intercom';
 
@@ -19,12 +14,6 @@ class TopPage extends React.Component {
         localStorage.setItem('referrer', referrer);
       }
     }
-
-    this.state = {
-      locationText: '',
-      searchButtonDisabled: true,
-    };
-
     const { dispatch } = this.props;
     dispatch(sectionActions.getRegion());
   }
@@ -55,63 +44,8 @@ class TopPage extends React.Component {
     }
   };
 
-  handleChangeLocation = event => {
-    if (event.target.value === '') {
-      this.setState({
-        searchButtonDisabled: true,
-        locationText: '',
-      });
-    } else {
-      this.setState({
-        searchButtonDisabled: false,
-        locationText: event.target.value,
-      });
-    }
-  };
-
-  onKeyDownSearchField = e => {
-    if (iskeyDownEnter(e) && e.target.value) {
-      this.search(e.target.value);
-    }
-  };
-
-  search = keyword => {
-    const { dispatch, history } = this.props;
-
-    dispatch(spaceActions.resetSearch());
-    const query = `?keyword=${keyword}`;
-    const path = `${Path.search()}${query}`;
-
-    ReactGA.event({
-      category: 'Search',
-      action: 'Submit Top Search Form',
-      label: query,
-    });
-
-    history.push(path);
-  };
-
-  viewMoreFeature = () => {
-    const { dispatch } = this.props;
-    dispatch(
-      uiActions.setUiState({
-        moreFeature: true,
-      }),
-    );
-  };
-
-  viewMoreArea = () => {
-    const { dispatch } = this.props;
-    dispatch(
-      uiActions.setUiState({
-        moreArea: true,
-      }),
-    );
-  };
-
   render() {
-    const { ui, history, user, intercomHash } = this.props;
-    const { locationText, searchButtonDisabled } = this.state;
+    const { user, intercomHash } = this.props;
 
     const isProd =
       document.domain === 'monooq.com' ||
@@ -119,19 +53,7 @@ class TopPage extends React.Component {
 
     return (
       <Fragment>
-        <Top
-          locationText={locationText}
-          handleChangeLocation={this.handleChangeLocation}
-          onKeyDownSearchField={this.onKeyDownSearchField}
-          searchButtonDisabled={searchButtonDisabled}
-          onClickSearch={() => this.search(locationText)}
-          moreFeature={ui.moreFeature}
-          onClickMoreFeature={() => this.viewMoreFeature()}
-          onClickMoreArea={() => this.viewMoreArea()}
-          moreArea={ui.moreArea}
-          history={history}
-          sections={[]}
-        />
+        <Top sections={[]} />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"
