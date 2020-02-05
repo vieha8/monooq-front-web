@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import TopView from 'components/LV3/TopView';
+import View from 'components/LV3/Top/View';
 import PrefectureList from 'components/LV3/PrefectureList';
 import SpaceList from 'components/LV3/SpaceList';
 import { areaPrefectures } from 'helpers/prefectures';
@@ -11,7 +11,7 @@ const Wrap = styled.div`
 
 export default ({ sections }) => (
   <Wrap>
-    <TopView />
+    <View />
     <PrefectureList list={areaPrefectures} />
     {sections.map((item, i) => (
       <SpaceList
