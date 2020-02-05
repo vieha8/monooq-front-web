@@ -86,7 +86,7 @@ const TopSearchForm = () => {
           fill={1}
           height={50}
           fontbold
-          disabled={false} // TODO validation
+          disabled={keyword === ''} // TODO validation
           onClick={() => doSearch()}
           onKeyDown={onKeyDown}
         >
