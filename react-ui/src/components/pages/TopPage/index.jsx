@@ -69,8 +69,6 @@ class TopPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  ui: state.ui,
-  isLogin: state.auth.isLogin,
   regionId: state.section.regionId,
   user: state.auth.user,
   intercomHash: state.auth.intercom.hash,
