@@ -6,7 +6,7 @@ import { Dimens } from 'variables';
 import styled from 'styled-components';
 import Path from 'config/path';
 
-import Header from './view';
+import Header from './View';
 import ServiceMenu from '../ServiceMenu';
 
 Header.displayName = 'Header';

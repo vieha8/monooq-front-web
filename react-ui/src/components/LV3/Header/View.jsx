@@ -7,12 +7,12 @@ import TextLink from 'components/LV1/Texts/TextLink';
 import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
-import ServiceMenu from 'components/pages/ServiceMenuPage';
+import ServiceMenu from 'components/LV3/Header/Menu';
+import Logo from 'components/LV3/Header/Logo';
+import MessagesIcon from 'components/LV3/Header/MessagesIcon';
 import Path from 'config/path';
 import { media } from 'helpers/style/media-query';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
-import Logo from './Logo';
-import MessagesIcon from './MessagesIcon';
 
 export const Height = 85;
 export const HeightPhone = 54;

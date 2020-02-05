@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { partialMatch } from 'helpers/string';
 import { getSafeValue } from 'helpers/properties';
-import HeaderComponent from 'components/LV3/Header/view';
+import HeaderComponent from 'components/LV3/Header/View';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
