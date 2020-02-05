@@ -267,7 +267,7 @@ class MessagePage extends Component {
   };
 
   render() {
-    const { isLoading, user, room } = this.props;
+    const { isLoading, user, room, messages } = this.props;
     const { text, image, isErrorPickImage, errorModal } = this.state;
 
     if (isLoading || !room) {
@@ -284,7 +284,9 @@ class MessagePage extends Component {
       lastReadDt = room[`user${otherUserId}LastReadDt`].toDate();
     }
 
-    const isRegisterEmailPhoneNumber = !!user.email && !!user.phoneNumber;
+    const isEstimated = messages.filter(v => v.messageType === 2).length > 0;
+    const isRegisterEmailPhoneNumber =
+      !isEstimated || (isEstimated && !!user.email && !!user.phoneNumber);
 
     return (
       <Fragment>
