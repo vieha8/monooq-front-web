@@ -31,6 +31,7 @@ const SIGNUP_EMAIL = 'SIGNUP_EMAIL';
 const SIGNUP_FACEBOOK = 'SIGNUP_FACEBOOK';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNUP_FAILED = 'SIGNUP_FAILED';
+const CHECK_REDIRECT = 'CHECK_REDIRECT';
 const INIT_PASSWORD_RESET = 'INIT_PASSWORD_RESET';
 const PASSWORD_RESET = 'PASSWORD_RESET';
 const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
@@ -69,6 +70,7 @@ export const authActions = createActions(
   UNSUBSCRIBE,
   UNSUBSCRIBE_SUCCESS,
   UNSUBSCRIBE_FAILED,
+  CHECK_REDIRECT,
 );
 
 // Reducer
@@ -535,6 +537,69 @@ function* signUpFacebook() {
   }
 }
 
+const checkFirebaseRedirect = () =>
+  new Promise(async (resolve, reject) => {
+    const auth = await getFirebaseAuth();
+    await auth()
+      .getRedirectResult()
+      .then(result => resolve(result))
+      .catch(err => reject(err));
+  });
+
+function* checkRedirect() {
+  const result = yield checkFirebaseRedirect();
+
+  if (!result.user) {
+    return;
+  }
+
+  const { isNewUser } = result.additionalUserInfo;
+  if (!isNewUser) {
+    yield put(authActions.signupFailed(ErrorMessages.FailedSignUpMailExist));
+    return;
+  }
+  const { displayName, email, uid, photoURL } = result.user;
+
+  let referrer = '';
+  let inviteCode = '';
+  if (isAvailableLocalStorage()) {
+    referrer = localStorage.getItem('referrer');
+    inviteCode = localStorage.getItem('invite_code');
+  }
+
+  const token = yield* getToken();
+  const { data, err } = yield call(
+    postApiRequest,
+    apiEndpoint.users(),
+    {
+      Email: email,
+      FirebaseUid: uid,
+      Name: displayName,
+      ImageUrl: photoURL,
+      RefererUrl: referrer,
+      InviteCode: inviteCode,
+    },
+    token,
+  );
+
+  if (err) {
+    yield handleError(authActions.signupFailed, '', 'signUpFacebook', err, false);
+    return;
+  }
+
+  yield put(
+    loggerActions.recordEvent({
+      event: 'user_signups',
+      detail: {
+        data,
+      },
+    }),
+  );
+
+  yield put(authActions.signupSuccess(data));
+  yield put(push(Path.signUpProfile()));
+}
+
 function* passwordReset({ payload: { email } }) {
   const auth = yield call(getFirebaseAuth);
   try {
@@ -589,6 +654,7 @@ export const authSagas = [
   takeEvery(LOGOUT, logout),
   takeEvery(SIGNUP_EMAIL, signUpEmail),
   takeEvery(SIGNUP_FACEBOOK, signUpFacebook),
+  takeEvery(CHECK_REDIRECT, checkRedirect),
   takeEvery(PASSWORD_RESET, passwordReset),
   takeEvery(UNSUBSCRIBE, unsubscribe),
 ];
