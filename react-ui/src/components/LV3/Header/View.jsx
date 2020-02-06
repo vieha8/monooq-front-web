@@ -4,15 +4,15 @@ import styled from 'styled-components';
 import Path from 'config/path';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ServiceMenu from 'components/pages/ServiceMenuPage';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';
 import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import InfoUser from 'components/LV2/InfoUser';
 import MenuItem from 'components/LV2/Items/MenuItem';
-import Logo from './Logo';
-import MessagesIcon from './MessagesIcon';
+import ServiceMenu from 'components/LV3/Header/Menu';
+import Logo from 'components/LV3/Header/Logo';
+import MessagesIcon from 'components/LV3/Header/MessagesIcon';
 
 export const Height = 85;
 export const HeightPhone = 54;

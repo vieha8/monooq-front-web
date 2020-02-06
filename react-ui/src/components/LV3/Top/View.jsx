@@ -5,7 +5,7 @@ import { Dimens, Colors } from 'variables';
 import PageDefault from 'components/LV1/PageDefault';
 import CatchPhrase from 'components/LV1/Texts/CatchPhrase';
 import CatchPhraseSub from 'components/LV1/Texts/CatchPhraseSub';
-import TopSearchForm from 'components/LV3/TopSearchForm';
+import SearchForm from 'components/LV3/Top/SearchForm';
 
 const mainVisual =
   'https://monooq.imgix.net/img%2Fservice%2Fimg-hero.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
@@ -111,7 +111,7 @@ export default () => (
           探してみよう
         </CatchPhrase>
         <InputSearchWrap>
-          <TopSearchForm />
+          <SearchForm />
         </InputSearchWrap>
       </TopViewContainer>
     </TopViewWrap>
