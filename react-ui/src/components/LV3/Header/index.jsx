@@ -144,7 +144,7 @@ class Header extends Component {
   }
 
   render() {
-    const { isChecking, user, schedule, dispatch, history } = this.props;
+    const { user, schedule, dispatch, history } = this.props;
 
     const { isOverTopView } = this.state;
 
@@ -170,7 +170,6 @@ class Header extends Component {
           isTop={isTop}
           isOverTopView={isOverTopView}
           isLinkRed={this.isLinkRed()}
-          isCheckingLogin={isChecking}
           noHeaderButton={noHeaderButton}
           noLinkLogo={noLinkLogo}
           user={user}
@@ -200,7 +199,6 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  isChecking: state.auth.isChecking,
   isLogin: state.auth.isLogin,
   user: state.auth.user,
   schedule: state.request.schedule,

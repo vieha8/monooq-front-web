@@ -213,7 +213,6 @@ export default ({
   isTop,
   isLinkRed,
   isOverTopView,
-  isCheckingLogin,
   noHeaderButton,
   noLinkLogo,
   user,
