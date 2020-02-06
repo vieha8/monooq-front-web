@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
@@ -23,20 +23,13 @@ const WrapList = styled.div`
   font-size: ${FontSizes.small_12}px;
   line-height: ${Dimens.medium_18}px;
   color: ${Colors.white};
-  ${props =>
-    props.sp &&
-    `
-      margin-top: ${Dimens.medium_18}px;
-    `};
 `;
 
 export default () => (
-  <Fragment>
-    <Wrapper>
-      <WrapLogo to={Path.top()}>
-        <ImageLogo.Header width={112} />
-      </WrapLogo>
-      <WrapList>&copy; MonooQ inc.</WrapList>
-    </Wrapper>
-  </Fragment>
+  <Wrapper>
+    <WrapLogo to={Path.top()}>
+      <ImageLogo.Header width={112} />
+    </WrapLogo>
+    <WrapList>&copy; MonooQ inc.</WrapList>
+  </Wrapper>
 );

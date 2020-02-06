@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 import Path from 'config/path';
-import connect from 'components/pages/connect';
 import { Colors } from 'variables';
 import { areaPrefectures } from 'helpers/prefectures';
 import { parse, stringify } from 'helpers/query-string';
@@ -352,4 +353,4 @@ const mapStateToProps = state => ({
   cities: state.space.search.cities,
 });
 
-export default connect(SearchResultHeaderPage, mapStateToProps);
+export default withRouter(connect(mapStateToProps)(SearchResultHeaderPage));

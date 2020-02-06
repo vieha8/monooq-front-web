@@ -2,21 +2,21 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Modal, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import Path from 'config/path';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
 import { Colors, FontSizes } from 'variables';
+import { convertImgixUrl } from 'helpers/imgix';
+import { messagesActions } from 'redux/modules/messages';
+import { uiActions } from 'redux/modules/ui';
 import { media } from 'helpers/style/media-query';
+import withAuthRequire from 'components/hooks/withAuthRequire';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Messages from 'components/LV3/Messages';
 import LoadingPage from 'components/LV3/LoadingPage';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InfoHost from 'components/LV2/Space/InfoHost';
 import InfoUser from 'components/LV2/Space/InfoUser';
-import { convertImgixUrl } from 'helpers/imgix';
-import { messagesActions } from 'redux/modules/messages';
-import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
-import { uiActions } from '../../../redux/modules/ui';
 
 const TopWrap = styled.div`
   margin-bottom: 25px;
@@ -287,7 +287,7 @@ class MessagePage extends Component {
     const isRegisterEmailPhoneNumber = !!user.email && !!user.phoneNumber;
 
     return (
-      <Fragment>
+      <BaseTemplate>
         <TopWrap>
           {isHost ? (
             <InfoUser
@@ -355,7 +355,7 @@ class MessagePage extends Component {
             </Button>
           </Modal.Actions>
         </Modal>
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -367,4 +367,4 @@ const mapStateToProps = state => ({
   isLoading: state.messages.isLoading,
 });
 
-export default authRequired(ContentPageMenu(connect(mapStateToProps)(MessagePage), {}));
+export default withAuthRequire(connect(mapStateToProps)(MessagePage));

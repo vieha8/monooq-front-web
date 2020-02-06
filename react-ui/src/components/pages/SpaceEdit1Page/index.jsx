@@ -1,23 +1,19 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Modal, Button } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 import Path from 'config/path';
-
-import { uiActions } from 'redux/modules/ui';
-import { spaceActions } from 'redux/modules/space';
-
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
-
 import { ErrorMessages } from 'variables';
-
-import { uploadImage } from 'redux/helpers/firebase';
+import fileType from 'helpers/file-type';
 import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 import { isImageDefault } from 'helpers/images';
-import fileType from 'helpers/file-type';
-import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
-import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
+import { uploadImage } from 'redux/helpers/firebase';
+import { uiActions } from 'redux/modules/ui';
+import { spaceActions } from 'redux/modules/space';
+import BaseTemplate from 'components/templates/BaseTemplate';
+import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
+
 import { convertSpaceImgUrl } from 'helpers/imgix';
+import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 
 const ZENKAKU_SPACE_LITERAL = '　';
 const SPACE_LITERAL = ' ';
@@ -459,7 +455,7 @@ class SpaceEdit1Page extends Component {
     }
 
     return (
-      <Fragment>
+      <BaseTemplate maxWidth={540}>
         <SpaceEdit1
           edit={isUpdate}
           errors={error}
@@ -510,7 +506,7 @@ class SpaceEdit1Page extends Component {
             </Button>
           </Modal.Actions>
         </Modal>
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -520,11 +516,4 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default authRequired(
-  handleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEdit1Page), {
-      noFooter: true,
-      maxWidth: 540,
-    }),
-  ),
-);
+export default withAuthRequire(withHandleBeforeUnload(connect(mapStateToProps)(SpaceEdit1Page)));

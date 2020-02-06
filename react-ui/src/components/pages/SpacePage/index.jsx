@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
 import Path from 'config/path';
 import { loggerActions } from 'redux/modules/logger';
@@ -10,14 +10,14 @@ import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths'
 import { iskeyDownEnter } from 'helpers/keydown';
 import { receiptTypeList } from 'helpers/receiptTypes';
 import { isAvailableLocalStorage } from 'helpers/storage';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Meta from 'components/LV1/Meta';
 import SpaceMap from 'components/LV1/SpaceMap';
 import SendMessageOnlyTabletSp from 'components/LV2/Space/SendMessage';
 import Detail from 'components/LV3/Space/Detail';
 import LoadingPage from 'components/LV3/LoadingPage';
 import dummySpaceImage from 'images/img-dummy-space.png';
-import connect from '../connect';
+import { connect } from 'react-redux';
 
 moment.locale('ja');
 
@@ -243,7 +243,7 @@ class SpacePage extends Component {
     history.push(Path.signUp());
   };
 
-  showLeftContent = () => {
+  showContent = () => {
     const { space, user, isRequesting, recommendSpaces } = this.props;
     const {
       meta: { title, description, url, imageUrl },
@@ -278,7 +278,7 @@ class SpacePage extends Component {
     const isLogin = !!user.id;
 
     return (
-      <Fragment>
+      <BaseTemplate maxWidth={1440} noMargin>
         <Meta
           title={title}
           description={description}
@@ -400,7 +400,7 @@ class SpacePage extends Component {
           onChangeNotes={value => this.handleChangeUI('notes', value)}
           buttonRequestDisabled={!this.validate()}
         />
-      </Fragment>
+      </BaseTemplate>
     );
   };
 
@@ -553,7 +553,7 @@ class SpacePage extends Component {
 
   render() {
     const { space } = this.props;
-    return !space ? <LoadingPage /> : this.showLeftContent();
+    return !space ? <LoadingPage /> : this.showContent();
   }
 }
 
@@ -565,8 +565,4 @@ const mapStateToProps = state => ({
   isRequesting: state.request.isLoading,
 });
 
-export default ContentPageMenu(connect(SpacePage, mapStateToProps), {
-  bottomMarginOnlySP: true,
-  maxWidth: 1440,
-  noMargin: true,
-});
+export default connect(mapStateToProps)(SpacePage);

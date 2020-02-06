@@ -2,25 +2,20 @@ import React, { Component, Fragment } from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
 import { Redirect } from 'react-router-dom';
-import Path from 'config/path';
-
-import { requestActions } from 'redux/modules/request';
-
-import styled from 'styled-components';
-import { media } from 'helpers/style/media-query';
-
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import Payment from 'components/LV3/Payment';
-import LoadingPage from 'components/LV3/LoadingPage';
-import Button from 'components/LV1/Forms/Button';
-import { H1 } from 'components/LV1/Texts/Headline';
-
-import { Dimens, FontSizes, ErrorMessages } from 'variables';
-
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
+import styled from 'styled-components';
+import Path from 'config/path';
+import { Dimens, FontSizes, ErrorMessages } from 'variables';
 import { formatDate, formatStringSlash } from 'helpers/date';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { media } from 'helpers/style/media-query';
+import { requestActions } from 'redux/modules/request';
+import withAuthRequire from 'components/hooks/withAuthRequire';
+import BaseTemplate from 'components/templates/BaseTemplate';
+import Button from 'components/LV1/Forms/Button';
+import { H1 } from 'components/LV1/Texts/Headline';
+import Payment from 'components/LV3/Payment';
+import LoadingPage from 'components/LV3/LoadingPage';
 
 const MAX_PAY_PRICE_CONVENIENT = 49999;
 const MODE_VIEW_INPUT = 0;
@@ -246,82 +241,86 @@ class PaymentPage extends Component {
     );
   };
 
-  leftContent = () => {
+  content = () => {
     const { request, isSending, isPaymentFailed, errMsgPayment } = this.props;
     const space = request.space || {};
     const { name, number, month, year, cvc, error, paymentMethod } = this.state;
     return (
-      <Payment
-        space={space}
-        onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
-        paymentMethod={paymentMethod}
-        payment={{
-          beginAt: formatDate(new Date(request.startDate), formatStringSlash),
-          endAt: formatDate(new Date(request.endDate), formatStringSlash),
-          duration: moment(request.endDate).diff(moment(request.startDate), 'days') + 1,
-          price: numeral(request.price).format('0,0'),
-        }}
-        errors={error}
-        paidError={isPaymentFailed}
-        errMsgPayment={errMsgPayment}
-        onChangeName={value => this.handleChangeUI('name', value)}
-        name={name}
-        onChangeNumber={value => this.handleChangeUI('number', value)}
-        number={number}
-        onChangeYear={value => this.handleChangeUI('year', value)}
-        year={year}
-        onChangeMonth={value => this.handleChangeUI('month', value)}
-        month={month}
-        onChangeCvc={value => this.handleChangeUI('cvc', value)}
-        cvc={cvc}
-        buttonDisabled={!this.validate(request.price)}
-        buttonLoading={isSending}
-        onKeyDownBack={this.onKeyDownBack}
-        onKeyDownPay={this.onKeyDownPay}
-        backButton={this.backButtonMessage}
-        submitButton={this.confirmButton}
-        backButtonText="戻る"
-        submitButtonText={paymentMethod === 2 ? '確定する' : '確認する'}
-      />
+      <BaseTemplate>
+        <Payment
+          space={space}
+          onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
+          paymentMethod={paymentMethod}
+          payment={{
+            beginAt: formatDate(new Date(request.startDate), formatStringSlash),
+            endAt: formatDate(new Date(request.endDate), formatStringSlash),
+            duration: moment(request.endDate).diff(moment(request.startDate), 'days') + 1,
+            price: numeral(request.price).format('0,0'),
+          }}
+          errors={error}
+          paidError={isPaymentFailed}
+          errMsgPayment={errMsgPayment}
+          onChangeName={value => this.handleChangeUI('name', value)}
+          name={name}
+          onChangeNumber={value => this.handleChangeUI('number', value)}
+          number={number}
+          onChangeYear={value => this.handleChangeUI('year', value)}
+          year={year}
+          onChangeMonth={value => this.handleChangeUI('month', value)}
+          month={month}
+          onChangeCvc={value => this.handleChangeUI('cvc', value)}
+          cvc={cvc}
+          buttonDisabled={!this.validate(request.price)}
+          buttonLoading={isSending}
+          onKeyDownBack={this.onKeyDownBack}
+          onKeyDownPay={this.onKeyDownPay}
+          backButton={this.backButtonMessage}
+          submitButton={this.confirmButton}
+          backButtonText="戻る"
+          submitButtonText={paymentMethod === 2 ? '確定する' : '確認する'}
+        />
+      </BaseTemplate>
     );
   };
 
-  leftContentConfirm = () => {
+  contentConfirm = () => {
     const { request, isSending, isPaymentFailed, errMsgPayment } = this.props;
     const space = request.space || {};
     const { name, number, paymentMethod } = this.state;
 
     return (
-      <Payment
-        space={space}
-        onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
-        paymentMethod={paymentMethod}
-        payment={{
-          beginAt: formatDate(new Date(request.startDate), formatStringSlash),
-          endAt: formatDate(new Date(request.endDate), formatStringSlash),
-          duration: moment(request.endDate).diff(moment(request.startDate), 'days') + 1,
-          price: numeral(request.price).format('0,0'),
-        }}
-        paidError={isPaymentFailed}
-        errMsgPayment={errMsgPayment}
-        name={name}
-        number={number}
-        buttonDisabled={!this.validate(request.price)}
-        buttonLoading={isSending}
-        onKeyDownBack={this.onKeyDownBack}
-        onKeyDownPay={this.onKeyDownPay}
-        backButton={this.backButton}
-        submitButton={paymentMethod === 0 ? this.payment : this.paymentConvenience}
-        backButtonText={paymentMethod === 0 ? '修正する' : '戻る'}
-        submitButtonText="確定する"
-        confirm
-      />
+      <BaseTemplate>
+        <Payment
+          space={space}
+          onChangeIsHost={value => this.handleChangeUI('paymentMethod', value)}
+          paymentMethod={paymentMethod}
+          payment={{
+            beginAt: formatDate(new Date(request.startDate), formatStringSlash),
+            endAt: formatDate(new Date(request.endDate), formatStringSlash),
+            duration: moment(request.endDate).diff(moment(request.startDate), 'days') + 1,
+            price: numeral(request.price).format('0,0'),
+          }}
+          paidError={isPaymentFailed}
+          errMsgPayment={errMsgPayment}
+          name={name}
+          number={number}
+          buttonDisabled={!this.validate(request.price)}
+          buttonLoading={isSending}
+          onKeyDownBack={this.onKeyDownBack}
+          onKeyDownPay={this.onKeyDownPay}
+          backButton={this.backButton}
+          submitButton={paymentMethod === 0 ? this.payment : this.paymentConvenience}
+          backButtonText={paymentMethod === 0 ? '修正する' : '戻る'}
+          submitButtonText="確定する"
+          confirm
+        />
+      </BaseTemplate>
     );
   };
 
-  leftContentComplete = (headline, description) => {
+  contentComplete = (headline, description) => {
     return (
-      <Fragment>
+      <BaseTemplate>
         <HeadlineWrap>
           <H1>{headline}</H1>
         </HeadlineWrap>
@@ -337,7 +336,7 @@ class PaymentPage extends Component {
             メッセージ画面に戻る
           </Button>
         </ButtonWrap>
-      </Fragment>
+      </BaseTemplate>
     );
   };
 
@@ -380,10 +379,10 @@ class PaymentPage extends Component {
     let headline = '';
     let description = '';
 
-    let leftContent = this.leftContent();
+    let content = this.content();
 
     if (modeView === MODE_VIEW_CONFIRM) {
-      leftContent = this.leftContentConfirm();
+      content = this.contentConfirm();
     }
 
     if (isPaymentSuccess) {
@@ -419,10 +418,10 @@ class PaymentPage extends Component {
           break;
         default:
       }
-      leftContent = this.leftContentComplete(headline, description);
+      content = this.contentComplete(headline, description);
     }
 
-    return leftContent;
+    return content;
   }
 }
 
@@ -435,4 +434,4 @@ const mapStateToProps = state => ({
   paymentUrl: state.request.payment.url,
 });
 
-export default authRequired(ContentPageMenu(connect(mapStateToProps)(PaymentPage), {}));
+export default withAuthRequire(connect(mapStateToProps)(PaymentPage));

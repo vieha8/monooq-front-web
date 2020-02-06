@@ -46,6 +46,7 @@ class Root extends React.Component {
       dispatch(initActions.init());
     }
     ReactGA.initialize('UA-84238514-1');
+
     Sentry.init({
       dsn: 'https://d3223c25da3e4dcda892c9ac1cf7b0be@sentry.io/1287932',
       environment: process.env.NODE_ENV,

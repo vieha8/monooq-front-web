@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import BurgerMenu from 'react-burger-menu';
-import ServiceMenu from 'components/LV3/ServiceMenu';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
-import connect from '../connect';
+import ServiceMenu from 'components/LV3/ServiceMenu';
 
 class ServiceMenuPage extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class ServiceMenuPage extends Component {
   }
 
   render() {
-    const { userName, userImage, dispatch, isLogin, user, schedule } = this.props;
+    const { dispatch, isLogin, user, schedule } = this.props;
     const { currentMenu, isOpen } = this.state;
 
     let isSchedule = false;
@@ -64,8 +64,8 @@ class ServiceMenuPage extends Component {
           help={{ href: 'https://help.monooq.com/' }}
           inquiry={{ to: Path.inquiry() }}
           userId={user.id}
-          userName={userName}
-          userImage={userImage}
+          userName={user.name}
+          userImage={user.image}
           isLogin={isLogin}
           isSchedule={isSchedule}
           isHost={user.isHost || false}
@@ -87,4 +87,4 @@ const mapStateToProps = state => ({
   schedule: state.request.schedule,
 });
 
-export default connect(ServiceMenuPage, mapStateToProps);
+export default connect(mapStateToProps)(ServiceMenuPage);

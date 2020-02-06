@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import AccountTemplate from 'components/templates/AccountTemplate';
-import Header from 'components/pages/Header';
 import RegisterProfile from './RegisterProfile';
-import connect from '../connect';
 
 class SignUpProfilePage extends Component {
   render() {
-    return (
-      <AccountTemplate
-        title="新規登録"
-        header={<Header noHeaderButton noLinkLogo />}
-        form={<RegisterProfile {...this.props} />}
-      />
-    );
+    return <AccountTemplate title="新規登録" form={<RegisterProfile {...this.props} />} />;
   }
 }
 
@@ -24,4 +17,4 @@ const mapStateToProps = state => ({
   isSignupFailed: state.auth.isSignupFailed,
 });
 
-export default connect(SignUpProfilePage, mapStateToProps);
+export default connect(mapStateToProps)(SignUpProfilePage);

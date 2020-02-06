@@ -1,18 +1,16 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { ErrorMessages, Dimens } from 'variables';
+import { iskeyDownEnter } from 'helpers/keydown';
 import { authActions } from 'redux/modules/auth';
-
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
+import withAuthRequire from 'components/hooks/withAuthRequire';
+import { H1 } from 'components/LV1/Texts/Headline';
 import Unsubscribe from 'components/LV3/Unsubscribe';
 import UnsubscribeCompleted from 'components/LV3/Unsubscribe/Completed';
 import UnsubscribeFailed from 'components/LV3/Unsubscribe/Failed';
 import LoadingPage from 'components/LV3/LoadingPage';
-import { H1 } from 'components/LV1/Texts/Headline';
-import { ErrorMessages, Dimens } from 'variables';
-import { iskeyDownEnter } from 'helpers/keydown';
-
-import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
 
 const Caption = styled.div`
   margin: ${Dimens.medium_20}px 0;
@@ -125,7 +123,7 @@ class UnsubscribePage extends Component {
     }
 
     return (
-      <Fragment>
+      <BaseTemplate>
         <H1 bold>退会の理由</H1>
         <Caption>
           モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。
@@ -140,7 +138,7 @@ class UnsubscribePage extends Component {
           buttonLoading={isUnsubscribeTrying}
           buttonDisabled={!this.validate()}
         />
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -153,4 +151,4 @@ const mapStateToProps = state => ({
   isUnsubscribeFailed: state.auth.isUnsubscribeFailed,
 });
 
-export default authRequired(ContentPageMenu(connect(mapStateToProps)(UnsubscribePage), {}));
+export default withAuthRequire(connect(mapStateToProps)(UnsubscribePage), {});

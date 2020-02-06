@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-import Path from 'config/path';
-import { Redirect } from 'react-router-dom';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-import SpaceEditStep3 from 'components/LV3/SpaceEdit/Step3';
-
-import { uiActions } from 'redux/modules/ui';
-import { spaceActions } from 'redux/modules/space';
-
-import { ErrorMessages } from 'variables';
-
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
+import { Redirect } from 'react-router-dom';
+import Path from 'config/path';
+import { ErrorMessages } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
+import { uiActions } from 'redux/modules/ui';
+import { spaceActions } from 'redux/modules/space';
+import BaseTemplate from 'components/templates/BaseTemplate';
+import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
+import SpaceEditStep3 from 'components/LV3/SpaceEdit/Step3';
 
 const Validate = {
   Price: {
@@ -194,23 +190,25 @@ class SpaceEdit3Page extends Component {
     }
 
     return (
-      <SpaceEditStep3
-        isPriceTatami={isPriceTatami}
-        sizeType={space.sizeType}
-        edit={isUpdate}
-        errors={error}
-        isRoom={space.sizeType > 0 && space.sizeType < 4}
-        priceFull={parseInt(priceFull, 10) === 0 ? '' : formatAddComma(priceFull)}
-        onChangePriceFull={v => this.handleChangePriceUI('priceFull', v)}
-        priceTatami={parseInt(priceTatami, 10) === 0 ? '' : formatAddComma(priceTatami)}
-        onChangePriceTatami={v => this.handleChangePriceUI('priceTatami', v)}
-        buttonLoading={isLoading}
-        onClickBack={this.onClickBack}
-        onKeyDownButtonBack={this.onKeyDownButtonBack}
-        onClickNext={this.onClickNext}
-        onKeyDownButtonNext={this.onKeyDownButtonNext}
-        buttonNextDisabled={!this.validate()}
-      />
+      <BaseTemplate maxWidth={540}>
+        <SpaceEditStep3
+          isPriceTatami={isPriceTatami}
+          sizeType={space.sizeType}
+          edit={isUpdate}
+          errors={error}
+          isRoom={space.sizeType > 0 && space.sizeType < 4}
+          priceFull={parseInt(priceFull, 10) === 0 ? '' : formatAddComma(priceFull)}
+          onChangePriceFull={v => this.handleChangePriceUI('priceFull', v)}
+          priceTatami={parseInt(priceTatami, 10) === 0 ? '' : formatAddComma(priceTatami)}
+          onChangePriceTatami={v => this.handleChangePriceUI('priceTatami', v)}
+          buttonLoading={isLoading}
+          onClickBack={this.onClickBack}
+          onKeyDownButtonBack={this.onKeyDownButtonBack}
+          onClickNext={this.onClickNext}
+          onKeyDownButtonNext={this.onKeyDownButtonNext}
+          buttonNextDisabled={!this.validate()}
+        />
+      </BaseTemplate>
     );
   }
 }
@@ -222,11 +220,4 @@ const mapStateToProps = state => ({
   geocode: state.space.geocode,
 });
 
-export default authRequired(
-  handleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEdit3Page), {
-      noFooter: true,
-      maxWidth: 540,
-    }),
-  ),
-);
+export default withAuthRequire(withHandleBeforeUnload(connect(mapStateToProps)(SpaceEdit3Page)));

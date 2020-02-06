@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
-import { H2 } from 'components/LV1/Texts/Headline';
+import { H1, H2 } from 'components/LV1/Texts/Headline';
 import InputSchedule from 'components/LV2/Estimate/InputSchedule';
 import InputPrice from 'components/LV2/Estimate/InputPrice';
 
@@ -21,6 +21,7 @@ const ButtonWrap = styled.div`
 
 export default ({ schedule, price, buttonLoading, buttonDisabled, onClickSend, onKeyDownSend }) => (
   <div>
+    <H1 bold>お見積り</H1>
     <Section>
       <H2 as="h2">スケジュール</H2>
       <InputSchedule {...schedule} />

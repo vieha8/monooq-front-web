@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import Path from 'config/path';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import ReactGA from 'react-ga';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import SearchCondition from 'components/LV3/SearchCondition';
-import { spaceActions } from 'redux/modules/space';
-import { isAvailableLocalStorage } from 'helpers/storage';
+import Path from 'config/path';
 import { iskeyDownEnter } from 'helpers/keydown';
-import connect from '../connect';
+import { isAvailableLocalStorage } from 'helpers/storage';
+import { spaceActions } from 'redux/modules/space';
+import BaseTemplate from 'components/templates/BaseTemplate';
+import SearchCondition from 'components/LV3/SearchCondition';
 
 class SearchConditionPage extends Component {
   constructor(props) {
@@ -78,20 +79,20 @@ class SearchConditionPage extends Component {
     const { keyword, prefCode, error } = this.state;
 
     return (
-      <SearchCondition
-        errors={error}
-        keyword={keyword}
-        onChangeKeyword={v => this.handleChangeUI('keyword', v)}
-        prefCode={prefCode}
-        onChangePrefCode={v => this.handleChangeUI('prefCode', v)}
-        buttonDisabled={!this.validate()}
-        onClickSearch={this.onClickSearch}
-        onKeyDownButtonSearch={this.onKeyDownButtonSearch}
-      />
+      <BaseTemplate>
+        <SearchCondition
+          errors={error}
+          keyword={keyword}
+          onChangeKeyword={v => this.handleChangeUI('keyword', v)}
+          prefCode={prefCode}
+          onChangePrefCode={v => this.handleChangeUI('prefCode', v)}
+          buttonDisabled={!this.validate()}
+          onClickSearch={this.onClickSearch}
+          onKeyDownButtonSearch={this.onKeyDownButtonSearch}
+        />
+      </BaseTemplate>
     );
   }
 }
 
-export default ContentPageMenu(connect(SearchConditionPage), {
-  headline: 'スペース検索',
-});
+export default withRouter(connect()(SearchConditionPage));

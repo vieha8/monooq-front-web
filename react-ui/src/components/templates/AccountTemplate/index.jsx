@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
+import { Colors, Dimens, FontSizes } from 'variables';
 import { H1 } from 'components/LV1/Texts/Headline';
 
 const Page = styled.div`
@@ -30,19 +30,6 @@ const Title = styled(H1)`
   `};
 `;
 
-const Header = styled.div`
-  position: fixed;
-  ${props =>
-    props.stories &&
-    `
-    position: relative;
-    margin: auto auto 80px;
-  `} top: 0;
-  left: 0;
-  right: 0;
-  z-index: ${ZIndexes.nav};
-`;
-
 const Container = styled.div`
   width: 480px;
   margin: 0 auto;
@@ -58,16 +45,12 @@ const Container = styled.div`
   `};
 `;
 
-export default class AccountTemplate extends Component {
-  render() {
-    const { errorHeader, title, stories, header, form } = this.props;
-    return (
-      <Page>
-        {errorHeader && <Spacer />}
-        <Title bold>{title}</Title>
-        <Header stories={stories}>{header}</Header>
-        <Container>{form}</Container>
-      </Page>
-    );
-  }
-}
+const AccountTemplate = ({ errorHeader, title, form }) => (
+  <Page>
+    {errorHeader && <Spacer />}
+    <Title bold>{title}</Title>
+    <Container>{form}</Container>
+  </Page>
+);
+
+export default AccountTemplate;

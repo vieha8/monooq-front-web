@@ -1,19 +1,18 @@
-import React, { Component, Fragment } from 'react';
-import Path from 'config/path';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
+import styled from 'styled-components';
+import Path from 'config/path';
+import { Colors, Dimens, ZIndexes } from 'variables';
+import { iskeyDownEnter } from 'helpers/keydown';
+import { receiptTypeList } from 'helpers/receiptTypes';
+import { spaceActions } from 'redux/modules/space';
+import BaseTemplate from 'components/templates/BaseTemplate';
+import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceMap from 'components/LV1/SpaceMap';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
-import styled from 'styled-components';
-import { Colors, Dimens, ZIndexes } from 'variables';
 import dummySpaceImage from 'images/img-dummy-space.png';
-import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
-import { iskeyDownEnter } from 'helpers/keydown';
-import { receiptTypeList } from 'helpers/receiptTypes';
-import { spaceActions } from '../../../redux/modules/space';
 
 const EntryButtonWrap = styled.div`
   width: 100%;
@@ -166,7 +165,7 @@ class SpaceEditConfirmPage extends Component {
 
     const { user } = this.props;
     return (
-      <Fragment>
+      <BaseTemplate maxWidth={1440} noMargin>
         <Detail
           confirm
           isOverTopView={isOverTopView}
@@ -233,7 +232,7 @@ class SpaceEditConfirmPage extends Component {
             }}
           />
         </EntryButtonWrap>
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -246,12 +245,6 @@ const mapStateToProps = state => ({
   geocode: state.space.geocode,
 });
 
-export default authRequired(
-  handleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEditConfirmPage), {
-      noFooter: true,
-      maxWidth: 1440,
-      noMargin: true,
-    }),
-  ),
+export default withAuthRequire(
+  withHandleBeforeUnload(connect(mapStateToProps)(SpaceEditConfirmPage)),
 );

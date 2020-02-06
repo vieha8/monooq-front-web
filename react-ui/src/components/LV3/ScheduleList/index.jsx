@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { Colors, Dimens, FontSizes } from 'variables';
+import { media } from 'helpers/style/media-query';
+import { H1 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
 import ScheduleListItem from 'components/LV2/Items/ScheduleListItem';
-import { media } from 'helpers/style/media-query';
-import { Colors, Dimens, FontSizes } from 'variables';
 
 const ScheduleListWrap = styled.div``;
 
@@ -52,44 +53,47 @@ const checkSchedule = (value, list, prop) => {
 };
 
 export default ({ schedules }) => (
-  <ScheduleListWrap>
-    {checkSchedule(true, schedules, 'isHost') && (
-      <Fragment>
-        <CaptionWrap>
-          <InlineText.Base fontSize={`${FontSizes.medium1_22}`} bold>
-            貸したスペース
-          </InlineText.Base>
-        </CaptionWrap>
-        <SchedulesWrap>
-          {schedules.map(
-            (v, i) =>
-              v.schedule.isHost && (
-                <Row key={`schedule_item_host_${i}`.toString()}>
-                  <ScheduleListItem {...v} />
-                </Row>
-              ),
-          )}
-        </SchedulesWrap>
-      </Fragment>
-    )}
-    {checkSchedule(false, schedules, 'isHost') && (
-      <Fragment>
-        <CaptionWrap>
-          <InlineText.Base fontSize={`${FontSizes.medium1_22}`} bold>
-            借りたスペース
-          </InlineText.Base>
-        </CaptionWrap>
-        <SchedulesWrap>
-          {schedules.map(
-            (v, i) =>
-              !v.schedule.isHost && (
-                <Row key={`schedule_item_guest_${i}`.toString()}>
-                  <ScheduleListItem {...v} />
-                </Row>
-              ),
-          )}
-        </SchedulesWrap>
-      </Fragment>
-    )}
-  </ScheduleListWrap>
+  <Fragment>
+    <H1 bold>利用状況</H1>
+    <ScheduleListWrap>
+      {checkSchedule(true, schedules, 'isHost') && (
+        <Fragment>
+          <CaptionWrap>
+            <InlineText.Base fontSize={`${FontSizes.medium1_22}`} bold>
+              貸したスペース
+            </InlineText.Base>
+          </CaptionWrap>
+          <SchedulesWrap>
+            {schedules.map(
+              (v, i) =>
+                v.schedule.isHost && (
+                  <Row key={`schedule_item_host_${i}`.toString()}>
+                    <ScheduleListItem {...v} />
+                  </Row>
+                ),
+            )}
+          </SchedulesWrap>
+        </Fragment>
+      )}
+      {checkSchedule(false, schedules, 'isHost') && (
+        <Fragment>
+          <CaptionWrap>
+            <InlineText.Base fontSize={`${FontSizes.medium1_22}`} bold>
+              借りたスペース
+            </InlineText.Base>
+          </CaptionWrap>
+          <SchedulesWrap>
+            {schedules.map(
+              (v, i) =>
+                !v.schedule.isHost && (
+                  <Row key={`schedule_item_guest_${i}`.toString()}>
+                    <ScheduleListItem {...v} />
+                  </Row>
+                ),
+            )}
+          </SchedulesWrap>
+        </Fragment>
+      )}
+    </ScheduleListWrap>
+  </Fragment>
 );

@@ -1,11 +1,6 @@
 import React from 'react';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import Asct from 'components/LV3/Asct';
 
-class AsctPage extends React.Component {
-  render() {
-    return <Asct />;
-  }
-}
+const AsctPage = React.memo(() => <Asct />);
 
-export default ContentPageStatic(AsctPage);
+export default AsctPage;
