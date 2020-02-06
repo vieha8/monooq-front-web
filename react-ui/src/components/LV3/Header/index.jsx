@@ -6,7 +6,7 @@ import { partialMatch } from 'helpers/string';
 import { getSafeValue } from 'helpers/properties';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
-import HeaderComponent from 'components/LV3/Header/view';
+import HeaderComponent from 'components/LV3/Header/View';
 import LPLink from './LPLink';
 
 // TODO function component化

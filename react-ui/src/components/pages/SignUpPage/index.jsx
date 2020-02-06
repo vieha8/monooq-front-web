@@ -4,7 +4,6 @@ import { Redirect } from 'react-router';
 import Path from 'config/path';
 import { authActions } from 'redux/modules/auth';
 import AccountTemplate from 'components/templates/AccountTemplate';
-import Header from 'components/pages/Header';
 import LoadingPage from '../../LV3/LoadingPage';
 import RegisterEmail from './RegisterEmail';
 
