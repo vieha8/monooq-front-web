@@ -1,4 +1,5 @@
 import React from 'react';
+import Linkify from 'react-linkify';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Card from 'components/LV1/Card';
@@ -13,7 +14,9 @@ const DateWrapper = styled.div`
 export default ({ message, link, receivedAt }) => (
   <div>
     <Card block borderColor={Colors.brandPrimary} padding={24} paddingSp={14}>
-      <InlineText.Base fontSize={15}>{message}</InlineText.Base>
+      <InlineText.Base fontSize={15}>
+        <Linkify properties={{ target: '_blank' }}>{message}</Linkify>
+      </InlineText.Base>
       <InlineText.Base fontSize={15}>
         <Link to={link.url || ''}>{link.text || ''}</Link>
       </InlineText.Base>

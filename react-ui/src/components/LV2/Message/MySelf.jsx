@@ -1,4 +1,5 @@
 import React from 'react';
+import Linkify from 'react-linkify';
 import styled from 'styled-components';
 import PageClearfix from 'components/LV1/PageClearfix';
 import Card from 'components/LV1/Card';
@@ -25,7 +26,9 @@ const DateCell = styled.div`
 export default ({ message, error, onClickRetry, sentAt, isRead }) => (
   <PageClearfix>
     <Card block noBorder background={Colors.lightGray2} padding={24} paddingSp={14}>
-      <InlineText.Base fontSize={15}>{message}</InlineText.Base>
+      <InlineText.Base fontSize={15}>
+        <Linkify properties={{ target: '_blank' }}>{message}</Linkify>
+      </InlineText.Base>
     </Card>
     <ActionTable>
       <RetryCell>
