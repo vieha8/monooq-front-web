@@ -252,7 +252,6 @@ export default ({
                 status={message.estimate.status}
                 payType={message.estimate.payType}
                 econtextUrl={message.estimate.econtextUrl}
-                createdAt={message.estimate.createdAt}
               />
             </Row>
           );
