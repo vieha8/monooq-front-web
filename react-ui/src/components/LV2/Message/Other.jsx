@@ -1,4 +1,5 @@
 import React from 'react';
+import Linkify from 'react-linkify';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Card from 'components/LV1/Card';
@@ -32,7 +33,9 @@ export default ({ id, image, extension, message, receivedAt }) => (
       <CardWrapper>
         {extension || (
           <Card block noBorder background={Colors.lightGray1Bg} padding={24} paddingSp={14}>
-            <InlineText.Base fontSize={15}>{message}</InlineText.Base>
+            <InlineText.Base fontSize={15}>
+              <Linkify properties={{ target: '_blank' }}>{message}</Linkify>
+            </InlineText.Base>
           </Card>
         )}
       </CardWrapper>
