@@ -199,7 +199,6 @@ class MessagePage extends Component {
                   status: request.status,
                   payType: request.payType,
                   econtextUrl: request.paymentUrl,
-                  createdAt: request.createdAt,
                 },
               };
             }

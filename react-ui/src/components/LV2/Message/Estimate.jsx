@@ -186,7 +186,6 @@ export default ({
   receivedAt,
   payType, // 1:クレジットカード 4:イーコンテクスト
   econtextUrl,
-  createdAt,
 }) => (
   <Fragment>
     <Card block borderColor={Colors.brandPrimary} padding={24} paddingSp={14}>
@@ -211,7 +210,7 @@ export default ({
       <CaptionWrapper>
         <Text>
           {host ? (
-            isPaymentLimitOver(createdAt, status) ? (
+            isPaymentLimitOver(beginAt, status) ? (
               <Caution>
                 この見積もりは支払期限を過ぎています。もう一度見積もりを提出しましょう。
               </Caution>
@@ -220,7 +219,7 @@ export default ({
                 期間や料金に変更があった場合は、新しくお見積もりを発行してください。
               </Fragment>
             )
-          ) : isPaymentLimitOver(createdAt, status) ? (
+          ) : isPaymentLimitOver(beginAt, status) ? (
             <Caution>支払期限を過ぎています。ホストに再度見積もりを出してもらいましょう。</Caution>
           ) : (
             <Fragment>
@@ -235,7 +234,7 @@ export default ({
           )}
           <br />
           <br />
-          {!isPaymentLimitOver(createdAt, status) && (
+          {!isPaymentLimitOver(beginAt, status) && (
             <Fragment>
               <InlineText.Base fontSize={17} bold>
                 ■お支払い情報
