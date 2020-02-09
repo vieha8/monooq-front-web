@@ -522,8 +522,18 @@ class SpacePage extends Component {
   };
 
   validate = () => {
+    const { space } = this.props;
     const { usage, breadth, packageContents, notes, startDate, endDate } = this.state;
     const todayDate = moment().format('YYYYMMDD');
+
+    let checkBreadth = 0;
+    if (space) {
+      if (space.sizeType > 0 && space.sizeType < 4) {
+        checkBreadth = getBreadthsDetailRoom(breadth) ? breadth : 0;
+      } else {
+        checkBreadth = getBreadthsDetailOther(breadth) ? breadth : 0;
+      }
+    }
 
     const startDateAll =
       startDate.year.toString() +
@@ -538,6 +548,7 @@ class SpacePage extends Component {
     return (
       usage &&
       breadth &&
+      checkBreadth > 0 &&
       packageContents &&
       (packageContents === undefined
         ? false
