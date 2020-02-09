@@ -156,14 +156,14 @@ const TitleMenu = styled.div`
 `;
 
 const trigger = imageUrl => (
-  <Fragment>
+  <div>
     <ActionCell>
       <AvatarIcon imageSrc={imageUrl} />
     </ActionCell>
     <ActionCell>
       <InlineText.Base bold>マイページ</InlineText.Base>
     </ActionCell>
-  </Fragment>
+  </div>
 );
 
 const menuCommon = () => (
@@ -242,7 +242,7 @@ export default ({
                   </OnlyPhone>
                   <OnlyPC>
                     <PopupMenu
-                      trigger={trigger(user.image)}
+                      trigger={trigger(user.imageUrl)}
                       position="bottom right"
                       closeOnDocumentClick
                     >
@@ -250,7 +250,7 @@ export default ({
                         <InfoUser
                           isHost={user.isHost || false}
                           id={user.id}
-                          imageUrl={user.image}
+                          imageUrl={user.imageUrl}
                           name={user.name}
                         />
                         {user.isHost && (

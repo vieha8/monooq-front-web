@@ -65,7 +65,7 @@ class ServiceMenuPage extends Component {
           inquiry={{ to: Path.inquiry() }}
           userId={user.id}
           userName={user.name}
-          userImage={user.image}
+          userImage={user.imageUrl}
           isLogin={isLogin}
           isSchedule={isSchedule}
           isHost={user.isHost || false}
