@@ -27,8 +27,9 @@ const MAX_PAY_PRICE_CONVENIENT = 49999;
 const METHOD_PAYMENT_CREDIT = 0;
 
 const Spacer = styled.div`
-  margin: 40px auto 0;
+  margin: ${Dimens.large_60}px auto 0;
   ${media.tablet`
+    margin: ${Dimens.medium3_40}px auto 0;
   `};
 `;
 
