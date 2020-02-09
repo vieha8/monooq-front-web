@@ -1,24 +1,14 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { ErrorMessages, Dimens } from 'variables';
+import { ErrorMessages } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { authActions } from 'redux/modules/auth';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import withAuthRequire from 'components/hooks/withAuthRequire';
-import { H1 } from 'components/LV1/Texts/Headline';
 import Unsubscribe from 'components/LV3/Unsubscribe';
 import UnsubscribeCompleted from 'components/LV3/Unsubscribe/Completed';
 import UnsubscribeFailed from 'components/LV3/Unsubscribe/Failed';
 import LoadingPage from 'components/LV3/LoadingPage';
-
-const Caption = styled.div`
-  margin: ${Dimens.medium_20}px 0;
-`;
-
-const UnsubscribeCompletedWrap = styled.div`
-  width: 100%;
-`;
 
 class UnsubscribePage extends Component {
   constructor(props) {
@@ -106,28 +96,22 @@ class UnsubscribePage extends Component {
 
     if (isUnsubscribeSuccess) {
       return (
-        <UnsubscribeCompletedWrap>
-          <H1 bold>退会処理が完了しました</H1>
+        <BaseTemplate>
           <UnsubscribeCompleted />
-        </UnsubscribeCompletedWrap>
+        </BaseTemplate>
       );
     }
 
     if (isUnsubscribeFailed) {
       return (
-        <Fragment>
-          <H1 bold>退会処理が完了できませんでした</H1>
+        <BaseTemplate>
           <UnsubscribeFailed userId={user.id} />
-        </Fragment>
+        </BaseTemplate>
       );
     }
 
     return (
       <BaseTemplate>
-        <H1 bold>退会の理由</H1>
-        <Caption>
-          モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。
-        </Caption>
         <Unsubscribe
           onChangeReasonType={v => this.handleChangeUI('reasonType', v)}
           reasonTypeError={error.reasonType}

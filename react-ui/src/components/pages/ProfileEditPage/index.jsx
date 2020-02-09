@@ -194,7 +194,11 @@ class ProfileEditPage extends Component {
     }
 
     if (updateSuccess) {
-      return <ProfileEditCompleted userId={user.id} />;
+      return (
+        <BaseTemplate>
+          <ProfileEditCompleted userId={user.id} />
+        </BaseTemplate>
+      );
     }
 
     return (

@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/Texts/InlineText';
+import { H1 } from 'components/LV1/Texts/Headline';
 
 const Wrap = styled.div`
+  width: 100%;
   margin-top: ${Dimens.medium_20}px;
 `;
 
@@ -31,6 +33,7 @@ const Row = styled.div`
 
 export default () => (
   <Wrap>
+    <H1 bold>退会処理が完了しました</H1>
     <InlineText.Base>
       モノオクをご利用頂き、ありがとうございました。退会処理が完了しました。
     </InlineText.Base>

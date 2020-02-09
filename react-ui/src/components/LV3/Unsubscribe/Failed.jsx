@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import Path from 'config/path';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';
-import Path from 'config/path';
+import { H1 } from 'components/LV1/Texts/Headline';
 
 const Wrap = styled.div`
   margin-top: ${Dimens.medium2}px;
@@ -36,6 +37,7 @@ const Row = styled.div`
 
 export default ({ userId }) => (
   <Wrap>
+    <H1 bold>退会処理が完了できませんでした</H1>
     <InlineText.Base>
       現在進行中の取引があります。
       <br />
