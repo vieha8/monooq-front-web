@@ -41,10 +41,9 @@ class Root extends React.Component {
     if (isAvailableLocalStorage() && query.invite_code) {
       localStorage.setItem('invite_code', query.invite_code);
     }
-    const isLp = history.location.pathname.includes('/lp');
-    if (!isLp) {
-      dispatch(initActions.init());
-    }
+
+    dispatch(initActions.init());
+
     ReactGA.initialize('UA-84238514-1');
     Sentry.init({
       dsn: 'https://d3223c25da3e4dcda892c9ac1cf7b0be@sentry.io/1287932',
