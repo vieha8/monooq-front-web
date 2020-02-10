@@ -180,6 +180,13 @@ const ContentWrap = styled(PageDefault)`
 const ConceptVideo = styled.iframe`
   margin: ${Dimens.large2_70}px auto;
   max-width: 600px;
+  ${media.tablet`
+    width: 100%;
+    height: 320px;
+  `};
+  ${media.phone`
+    height: 186px;
+  `};
 `;
 
 const QuestionsWrap = styled.div`
@@ -300,8 +307,8 @@ export default () => {
       <ContentWrap>
         <ConceptVideo
           title="about"
-          width="100%"
-          height="470"
+          width="600"
+          height="337"
           src="https://www.youtube.com/embed/t0t50WBDwzc"
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
