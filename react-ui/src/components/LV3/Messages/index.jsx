@@ -3,16 +3,15 @@ import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { formatDate, formatStringSlash, formatStringSlashTime } from 'helpers/date';
-import Button from 'components/LV1/Forms/Button';
 import AdminMessage from 'components/LV2/Message/Admin';
 import SelfMessage from 'components/LV2/Message/MySelf';
 import OtherMessage from 'components/LV2/Message/Other';
 import EstimateMessage from 'components/LV2/Message/Estimate';
 import PhotoMessage from 'components/LV2/Message/Photo';
-import MessageInput from 'components/LV2/Message/Input';
 import NoneData from 'components/LV2/NoneData';
 import Caution from 'components/LV2/Message/Caution';
 import Requested from 'components/LV2/Message/Requested';
+import MessegeSendForm from './SendForm';
 
 const Row = styled.div`
   width: 66%;
@@ -44,14 +43,6 @@ const Row = styled.div`
   }
 `;
 
-const MessageInputWrap = styled.div`
-  margin-top: ${Dimens.medium3_40}px;
-`;
-
-const ButtonWrapper = styled.div`
-  margin-top: ${Dimens.medium}px;
-`;
-
 const extensionPhotoMessage = message => {
   return (
     <PhotoMessage
@@ -62,21 +53,7 @@ const extensionPhotoMessage = message => {
   );
 };
 
-export default ({
-  messages,
-  hostUser,
-  lastReadDt,
-  onChangeText,
-  text,
-  setStatucPickImage,
-  onPickImage,
-  isErrorPickImage,
-  pickedImage,
-  buttonDisabled,
-  onClickSend,
-  onClickEstimate,
-  isOpenModalError,
-}) => {
+export default ({ messages, lastReadDt, userIdFrom, userIdTo, hostUser, isOpenModalError }) => {
   const messageList = messages;
 
   if (!messageList) {
@@ -219,34 +196,12 @@ export default ({
 
         return null;
       })}
-      <MessageInputWrap>
-        <MessageInput
-          onChange={onChangeText}
-          value={text}
-          setStatucPickImage={setStatucPickImage}
-          onPickImage={onPickImage}
-          isErrorPickImage={isErrorPickImage}
-          preview={pickedImage}
-        />
-      </MessageInputWrap>
-      <ButtonWrapper>
-        <Button
-          primary
-          fill={1}
-          fontbold
-          disabled={buttonDisabled}
-          onClick={buttonDisabled ? null : onClickSend}
-        >
-          送信
-        </Button>
-      </ButtonWrapper>
-      {hostUser && (
-        <ButtonWrapper>
-          <Button secondary fill={1} fontbold onClick={onClickEstimate}>
-            見積もりを送る
-          </Button>
-        </ButtonWrapper>
-      )}
+      <MessegeSendForm
+        hostUser={hostUser}
+        userIdFrom={userIdFrom}
+        userIdTo={userIdTo}
+        isOpenModalError={isOpenModalError}
+      />
       <Caution />
     </div>
   );

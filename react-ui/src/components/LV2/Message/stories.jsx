@@ -11,7 +11,6 @@ import Estimate from './Estimate';
 import Paid from './Paid';
 import Requested from './Requested';
 import Photo from './Photo';
-import Input from './Input';
 import Caution from './Caution';
 
 Other.displayName = 'Other';
@@ -21,7 +20,6 @@ Estimate.displayName = 'Estimate';
 Paid.displayName = 'Paid';
 Requested.displayName = 'Requested';
 Photo.displayName = 'Photo';
-Input.displayName = 'Input';
 Caution.displayName = 'Caution';
 
 storiesOf('Molecules(LV2)/Message', module)
@@ -214,21 +212,6 @@ storiesOf('Molecules(LV2)/Message', module)
     `)(() => (
       <div style={{ width: '300px', padding: `${Dimens.storyBookPadding}` }}>
         <Photo src="http://placehold.jp/500x500.png" alt="photo" receivedAt="2018/03/02 10:52" />
-      </div>
-    )),
-  )
-  .add(
-    'Input',
-    withInfo(`
-      ### コンポーネント概要
-      メッセージ入力欄(画像添付機能付き)
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Input
-          onClickPickImage={() => console.log('onClickPickImage')}
-          value="test input"
-          onChange={() => console.log('onChange')}
-        />
       </div>
     )),
   )
