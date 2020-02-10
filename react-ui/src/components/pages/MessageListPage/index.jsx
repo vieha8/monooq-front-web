@@ -5,7 +5,7 @@ import { messagesActions } from 'redux/modules/messages';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import LoadingPage from 'components/LV3/LoadingPage';
 import MessageList from 'components/LV3/MessageList';
-import SpaceDataNone from 'components/LV3/SpaceDataNone';
+import NoneData from 'components/LV2/NoneData';
 
 import { connect } from 'react-redux';
 import withAuthRequire from 'components/hooks/withAuthRequire';
@@ -50,7 +50,7 @@ class MessageListPage extends Component {
       </BaseTemplate>
     ) : (
       <BaseTemplate>
-        <SpaceDataNone
+        <NoneData
           captionHead="メッセージのやり取りがありません"
           caption="メッセージがありません。ご希望のスペースを見つけて連絡を取ってみましょう。"
           buttonText="トップに戻る"

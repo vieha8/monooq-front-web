@@ -15,7 +15,7 @@ import SearchResultHeaderPage from 'components/pages/SearchResultPage/SearchResu
 import Loading from 'components/LV1/Loading';
 import { H1 } from 'components/LV1/Texts/Headline';
 import SearchResult from 'components/LV3/SearchResult';
-import SpaceDataNone from 'components/LV3/SpaceDataNone';
+import NoneData from 'components/LV2/NoneData';
 import LoadingPage from 'components/LV3/LoadingPage';
 
 const Loader = styled(Loading)`
@@ -211,7 +211,7 @@ class SearchResultPage extends Component {
   renderNotFound = conditions => (
     <BaseTemplate maxWidth={1168}>
       <H1 bold>{`「${makeConditionTitle(conditions)}」の検索結果 0件`}</H1>
-      <SpaceDataNone
+      <NoneData
         captionHead="該当するスペースが見つかりませんでした"
         caption="別のキーワード及び条件で検索をお試しください"
         buttonText="条件を変えて再検索する"

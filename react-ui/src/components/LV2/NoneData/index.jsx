@@ -5,20 +5,7 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 
-const ButtonWrap = styled.div`
-  margin: ${Dimens.medium2}px auto;
-  max-width: 240px;
-  ${media.phone`
-    display: block;
-    width: 100%;
-    max-width: 100%
-    position: relative;
-    left: 0px;
-    bottom: 0px;
-    text-align: center;
-    padding: 0 0px 15px;
-  `};
-`;
+const Caption = styled(InlineText.Base)``;
 
 const CaptionWrap = styled.div`
   margin: ${Dimens.medium}px auto;
@@ -32,15 +19,30 @@ const CaptionWrap = styled.div`
   `};
 `;
 
+const ButtonWrap = styled.div`
+  max-width: 240px;
+  margin: ${Dimens.medium2}px auto;
+  ${media.phone`
+    display: block;
+    width: 100%;
+    max-width: 100%
+    position: relative;
+    left: 0px;
+    bottom: 0px;
+    text-align: center;
+    padding: 0 0px ${Dimens.small2_15}px;
+  `};
+`;
+
 export default ({ captionHead, caption, buttonText, onClick, onKeyDown }) => (
   <Fragment>
     <CaptionWrap>
-      <InlineText.Base fontSize={18} bold>
+      <Caption fontSize={18} bold>
         {captionHead}
-      </InlineText.Base>
+      </Caption>
     </CaptionWrap>
     <CaptionWrap sub>
-      <InlineText.Base>{caption}</InlineText.Base>
+      <Caption>{caption}</Caption>
     </CaptionWrap>
     <ButtonWrap>
       <Button primary fontbold center fill={1} onClick={onClick} onKeyDown={onKeyDown}>

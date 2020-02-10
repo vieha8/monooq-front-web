@@ -9,7 +9,7 @@ import BaseTemplate from 'components/templates/BaseTemplate';
 import withAuthRequire from 'components/hooks/withAuthRequire';
 import SpaceManageList from 'components/LV3/SpaceManageList';
 import LoadingPage from 'components/LV3/LoadingPage';
-import SpaceDataNone from 'components/LV3/SpaceDataNone';
+import NoneData from 'components/LV2/NoneData';
 
 class SpaceManagementPage extends Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class SpaceManagementPage extends Component {
     if (!Array.isArray(spaces)) {
       return (
         <BaseTemplate maxWidth={1000}>
-          <SpaceDataNone
+          <NoneData
             captionHead="スペース情報の取得に失敗しました。"
             caption="画面を再読み込みするか、時間をおいてから再度アクセスをお願いいたします。"
             buttonText="画面を再読み込みする"
@@ -69,7 +69,7 @@ class SpaceManagementPage extends Component {
     if (spaces.length === 0) {
       return (
         <BaseTemplate maxWidth={1000}>
-          <SpaceDataNone
+          <NoneData
             captionHead="登録したスペースがありません"
             caption="スペースの登録がありません。以下のボタンからスペースを登録して荷物を預る準備をしましょう。"
             buttonText="スペースを登録する"

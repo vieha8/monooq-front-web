@@ -4,11 +4,11 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import SpaceDataNone from './index';
+import NoneData from './index';
 
-SpaceDataNone.displayName = 'SpaceDataNone';
+NoneData.displayName = 'NoneData';
 
-storiesOf('Organisms(LV3)/SpaceDataNone', module)
+storiesOf('Molecules(LV2)/NoneData', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
@@ -17,7 +17,7 @@ storiesOf('Organisms(LV3)/SpaceDataNone', module)
         データ無し画面で利用するコンポーネント
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <SpaceDataNone
+        <NoneData
           captionHead="登録したスペースがありません"
           caption="スペースの登録がありません。以下のボタンからスペースを登録して荷物を預る準備をしましょう。"
           buttonText="スペースを登録する"

@@ -7,7 +7,7 @@ import withAuthRequire from 'components/hooks/withAuthRequire';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import LoadingPage from 'components/LV3/LoadingPage';
 import ScheduleList from 'components/LV3/ScheduleList';
-import SpaceDataNone from 'components/LV3/SpaceDataNone';
+import NoneData from 'components/LV2/NoneData';
 
 class SchedulePage extends Component {
   constructor(props) {
@@ -67,7 +67,7 @@ class SchedulePage extends Component {
       </BaseTemplate>
     ) : (
       <BaseTemplate>
-        <SpaceDataNone
+        <NoneData
           captionHead={isHost ? '利用されたスペースがありません' : '利用したスペースがありません'}
           caption={
             isHost
