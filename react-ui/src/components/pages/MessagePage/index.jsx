@@ -1,57 +1,15 @@
-import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { Modal, Button } from 'semantic-ui-react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Path from 'config/path';
-import { Colors, FontSizes } from 'variables';
 import { convertImgixUrl } from 'helpers/imgix';
 import { messagesActions } from 'redux/modules/messages';
-import { uiActions } from 'redux/modules/ui';
-import { media } from 'helpers/style/media-query';
 import withAuthRequire from 'components/hooks/withAuthRequire';
 import BaseTemplate from 'components/templates/BaseTemplate';
-import InlineText from 'components/LV1/Texts/InlineText';
+import Paid from 'components/LV2/Message/Paid';
 import Messages from 'components/LV3/Messages';
 import LoadingPage from 'components/LV3/LoadingPage';
-import ImageHero from 'components/LV1/Images/ImageHero';
-import InfoHost from 'components/LV2/Space/InfoHost';
-import InfoUser from 'components/LV2/Space/InfoUser';
-
-const TopWrap = styled.div`
-  margin-bottom: 25px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid ${Colors.borderGray};
-`;
-
-const Row = styled(Link)`
-  display: table;
-  cursor: pointer;
-`;
-
-const ImageWrapper = styled.div`
-  display: table-cell;
-  vertical-align: top;
-  width: 100px;
-`;
-
-const ContentWrapper = styled.div`
-  display: table-cell;
-  vertical-align: middle;
-  padding-left: 16px;
-`;
-
-const AddressText = styled(InlineText.Base)`
-  display: block;
-  color: ${Colors.brandPrimary};
-`;
-
-const TitleText = styled(InlineText.Small)`
-  display: block;
-  ${media.phone`
-    font-size: ${FontSizes.small_12}px;
-  `};
-`;
+import SummaryMessage from 'components/LV3/Messages/SummaryMessage';
+import ModalToProfileEdit from 'components/LV3/ModalToProfileEdit';
 
 const MessageType = {
   Text: 1,
@@ -70,14 +28,14 @@ class MessagePage extends Component {
       text: '',
       image: null,
       isErrorPickImage: false,
-      errorModal: false,
+      isOpenModalError: false,
     };
   }
 
   static getDerivedStateFromProps(nextProps) {
     const isEstimated = nextProps.messages.filter(v => v.messageType === 2).length > 0;
     if (isEstimated && (!nextProps.user.email || !nextProps.user.phoneNumber)) {
-      return { errorModal: true };
+      return { isOpenModalError: true };
     }
     return null;
   }
@@ -218,32 +176,7 @@ class MessagePage extends Component {
 
             return {
               admin: {
-                message: (
-                  <Fragment>
-                    【決済が完了しました】
-                    <br />
-                    見積もりID:
-                    {request.id}
-                    <br />
-                    スペース取引成立です！下記住所まで荷物を送りましょう。
-                    <br />
-                    <br />
-                    スペース所在地:
-                    {request.space.address}
-                    <br />
-                    <br />
-                    モノオクから簡単に配送手配ができます！
-                    <br />
-                    <a
-                      href="https://docs.google.com/forms/d/e/1FAIpQLSfI3YOtJhWe04NlzVOU5_Jr1cMTcEYCEUUus6wJZEyNmws6QA/viewform"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="gaMessageTipsPickgoLinkPaid"
-                    >
-                      ▶配送申込みはこちら
-                    </a>
-                  </Fragment>
-                ),
+                message: <Paid request={request} />,
                 receivedAt: message.createDt,
               },
             };
@@ -257,17 +190,23 @@ class MessagePage extends Component {
     });
   };
 
-  close = () => this.setState({ errorModal: false });
-
-  onClickProfileEdit = () => {
-    const { history, dispatch, location } = this.props;
-    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-    history.push(Path.profileEdit());
+  getModalText = () => {
+    return (
+      <p>
+        ご契約を進めるにはメールアドレス及び電話番号の登録が必要です。
+        <br />
+        <br />
+        取引時の保険適用の条件となります。
+        <br />
+        また、緊急時のご連絡先として利用させて頂く場合がございます。
+        <br />
+      </p>
+    );
   };
 
   render() {
     const { isLoading, user, room, messages } = this.props;
-    const { text, image, isErrorPickImage, errorModal } = this.state;
+    const { text, image, isErrorPickImage, isOpenModalError } = this.state;
 
     if (isLoading || !room) {
       return <LoadingPage size="large" />;
@@ -289,38 +228,7 @@ class MessagePage extends Component {
 
     return (
       <BaseTemplate>
-        <TopWrap>
-          {isHost ? (
-            <InfoUser
-              id={room.user.id}
-              name={(room.user || {}).name}
-              imageUrl={room.user.imageUrl}
-              infoHost
-              message
-            />
-          ) : (
-            <InfoHost
-              id={room.space.user.id}
-              name={(room.space.user || {}).name}
-              imageUrl={room.space.user.imageUrl}
-              infoHost
-              message
-            />
-          )}
-          <Row to={Path.space(room.space.id)}>
-            <ImageWrapper>
-              <ImageHero small src={room.space.images[0].imageUrl} />
-            </ImageWrapper>
-            <ContentWrapper>
-              <AddressText>
-                {room.space.addressPref}
-                {room.space.addressCity}
-                {room.space.addressTown}
-              </AddressText>
-              <TitleText>{room.space.title}</TitleText>
-            </ContentWrapper>
-          </Row>
-        </TopWrap>
+        <SummaryMessage isHost={isHost} room={room} />
         <Messages
           onClickEstimate={this.transitionToEstimate}
           hostUser={isHost}
@@ -332,30 +240,21 @@ class MessagePage extends Component {
           pickedImage={(image || {}).preview}
           isErrorPickImage={isErrorPickImage}
           buttonDisabled={
-            (text.trim().length === 0 && !image) || isErrorPickImage || !isRegisterEmailPhoneNumber
+            isOpenModalError ||
+            (text.trim().length === 0 && !image) ||
+            isErrorPickImage ||
+            !isRegisterEmailPhoneNumber
           }
           onClickSend={this.sendMessage}
           lastReadDt={lastReadDt}
+          isOpenModalError={isOpenModalError}
         />
-        <Modal size="large" open={errorModal} onClose={this.close}>
-          <Modal.Header>メールアドレス及び電話番号をご登録ください</Modal.Header>
-          <Modal.Content>
-            <p>
-              ご契約を進めるにはメールアドレス及び電話番号の登録が必要です。
-              <br />
-              <br />
-              取引時の保険適用の条件となります。
-              <br />
-              また、緊急時のご連絡先として利用させて頂く場合がございます。
-              <br />
-            </p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button className="brandPrimary" onClick={this.onClickProfileEdit}>
-              登録画面へ進む
-            </Button>
-          </Modal.Actions>
-        </Modal>
+        {isOpenModalError && (
+          <ModalToProfileEdit
+            header="メールアドレス及び電話番号をご登録ください"
+            content={this.getModalText()}
+          />
+        )}
       </BaseTemplate>
     );
   }
