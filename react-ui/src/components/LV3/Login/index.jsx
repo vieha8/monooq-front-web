@@ -83,7 +83,7 @@ export default ({
     failed={
       loginFailed && (
         <InlineText.Small color={Colors.error}>
-          ユーザー名またはパスワードに誤りがあります。
+          メールアドレスまたはパスワードに誤りがあります。
         </InlineText.Small>
       )
     }
