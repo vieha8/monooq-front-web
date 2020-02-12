@@ -347,8 +347,10 @@ function* checkLogin() {
         window.location.reload();
         return;
       }
+
       data.imageUrl = convertImgixUrl(data.imageUrl, 'w=128&auto=format');
       status.user = data;
+
       yield call(postApiRequest, apiEndpoint.login(), { UserId: data.id }, token);
       ReactGA.set({ userId: data.id });
       setSentryConfig(data);

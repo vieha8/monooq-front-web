@@ -144,7 +144,7 @@ class Header extends Component {
   }
 
   render() {
-    const { user, schedule, dispatch, history } = this.props;
+    const { schedule, dispatch, history } = this.props;
 
     const { isOverTopView } = this.state;
 
@@ -172,8 +172,7 @@ class Header extends Component {
           isLinkRed={this.isLinkRed()}
           noHeaderButton={noHeaderButton}
           noLinkLogo={noLinkLogo}
-          user={user}
-          onClickSignup={() => history.push(Path.signUp())}
+          onClickSignup={() => history.push(Path.signUp())} // TODO View側に移す
           addSpace={{
             to: Path.spaceCreate1(),
             onClick: () => dispatch(uiActions.setUiState({ space: {} })),
@@ -199,8 +198,6 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLogin: state.auth.isLogin,
-  user: state.auth.user,
   schedule: state.request.schedule,
 });
 
