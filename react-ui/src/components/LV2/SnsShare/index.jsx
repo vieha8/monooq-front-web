@@ -87,7 +87,7 @@ const getIcon = list => {
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            OnClick={getEventGA(item.actionText, item.value)}
+            onClick={() => getEventGA(item.actionText, item.value)}
           >
             <ImageLogo src={item.imageSrc} alt={item.imageAlt} />
           </LinkStyled>
