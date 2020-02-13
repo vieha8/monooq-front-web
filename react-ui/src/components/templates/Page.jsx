@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { HeightPhone as HeaderHeight } from 'components/LV3/Header';
+import { HeightPhone as HeaderHeight } from 'components/LV3/Header/View';
 
 const Page = styled.div`
   width: 100%;

@@ -56,8 +56,13 @@ const PaymentUrl = styled.a`
   word-break: break-all;
 `;
 
-const buttonPayment = (host, status, payType, paymentLink) => {
-  if (host || (payType !== 1 && status === STATUS_PAY_WAITING) || status === STATUS_PAY_PAID) {
+const buttonPayment = (host, status, payType, paymentLink, isOpenModalError) => {
+  if (
+    host ||
+    (payType !== 1 && status === STATUS_PAY_WAITING) ||
+    status === STATUS_PAY_PAID ||
+    isOpenModalError
+  ) {
     return (
       <ButtonWrap>
         <Button primary fontbold center fill={1} disabled>
@@ -186,6 +191,7 @@ export default ({
   receivedAt,
   payType, // 1:クレジットカード 4:イーコンテクスト
   econtextUrl,
+  isOpenModalError,
 }) => (
   <Fragment>
     <Card block borderColor={Colors.brandPrimary} padding={24} paddingSp={14}>
@@ -226,7 +232,7 @@ export default ({
               見積もり内容を確認し、開始日までにお支払いしましょう。支払いを完了すると契約成立し、スペース住所をお知らせします。
               <br />
               <ButtonPaymentWrap>
-                {buttonPayment(host, status, payType, paymentLink)}
+                {buttonPayment(host, status, payType, paymentLink, isOpenModalError)}
               </ButtonPaymentWrap>
               <br />
               {getDescriptionPay(payType, econtextUrl)}

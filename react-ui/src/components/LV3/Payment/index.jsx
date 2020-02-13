@@ -15,7 +15,10 @@ import InputForm from 'components/LV2/Forms/InputForm';
 import RadioList from 'components/LV2/Forms/RadioList';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import { Height as HeaderHeight, HeightPhone as HeaderHeightPhone } from 'components/LV3/Header';
+import {
+  Height as HeaderHeight,
+  HeightPhone as HeaderHeightPhone,
+} from 'components/LV3/Header/View';
 import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
 import dummySpaceImage from 'images/img-dummy-space.png';
@@ -24,8 +27,9 @@ const MAX_PAY_PRICE_CONVENIENT = 49999;
 const METHOD_PAYMENT_CREDIT = 0;
 
 const Spacer = styled.div`
-  margin: 40px auto 0;
+  margin: ${Dimens.large_60}px auto 0;
   ${media.tablet`
+    margin: ${Dimens.medium3_40}px auto 0;
   `};
 `;
 

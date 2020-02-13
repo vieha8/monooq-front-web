@@ -1,13 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
-
 import styled from 'styled-components';
+import Path from 'config/path';
 import { Dimens, FontSizes } from 'variables';
+import selectDepositType from 'helpers/depositTypes';
+import { iskeyDownEnter } from 'helpers/keydown';
+import { media } from 'helpers/style/media-query';
 import { salesActions } from 'redux/modules/sales';
-
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import withAuthRequire from 'components/hooks/withAuthRequire';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Button from 'components/LV1/Forms/Button';
+import { H1 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Confirm from 'components/LV2/Forms/InputForm/confirm';
@@ -15,11 +18,6 @@ import Select from 'components/LV2/Forms/Select';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import SalesAmountItem from 'components/LV2/Items/SalesAmountItem';
 import LoadingPage from 'components/LV3/LoadingPage';
-import { H1 } from 'components/LV1/Texts/Headline';
-import { media } from 'helpers/style/media-query';
-import Path from 'config/path';
-import selectDepositType from 'helpers/depositTypes';
-import { iskeyDownEnter } from 'helpers/keydown';
 
 const PRICE_MIN_DEPOSIT = 3000;
 
@@ -245,7 +243,7 @@ class SalesPage extends Component {
     );
   };
 
-  leftContent = () => {
+  content = () => {
     const { deposit } = this.props;
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
 
@@ -334,7 +332,7 @@ class SalesPage extends Component {
     );
   };
 
-  leftContentConfirm = () => {
+  contentConfirm = () => {
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
     const { deposit } = this.props;
 
@@ -402,7 +400,7 @@ class SalesPage extends Component {
     );
   };
 
-  leftContentComplete = () => {
+  contentComplete = () => {
     return (
       <Fragment>
         <MsgWrap>
@@ -430,25 +428,25 @@ class SalesPage extends Component {
     const { isConfirm } = this.state;
 
     let headline = '売上・振込申請';
-    let leftContent = this.leftContent();
+    let content = this.content();
 
     if (isConfirm) {
       headline = '振込申請確認';
-      leftContent = this.leftContentConfirm();
+      content = this.contentConfirm();
     }
 
     if (isSend) {
       headline = '振込申請完了';
-      leftContent = this.leftContentComplete();
+      content = this.contentComplete();
     }
 
     return isLoading ? (
       <LoadingPage />
     ) : (
-      <Fragment>
+      <BaseTemplate>
         <H1 bold>{headline}</H1>
-        {leftContent}
-      </Fragment>
+        {content}
+      </BaseTemplate>
     );
   }
 }
@@ -463,4 +461,4 @@ const mapStateToProps = state => ({
   isSend: state.sales.isSend,
 });
 
-export default authRequired(ContentPageMenu(connect(mapStateToProps)(SalesPage), {}));
+export default withAuthRequire(connect(mapStateToProps)(SalesPage));

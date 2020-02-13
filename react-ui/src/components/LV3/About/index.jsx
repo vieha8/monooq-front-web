@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
+import { useHistory } from 'react-router';
+import Collapsible from 'react-collapsible';
 import styled from 'styled-components';
+import Path from 'config/path';
 import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Collapsible from 'react-collapsible';
 import PageDefault from 'components/LV1/PageDefault';
 import WhenIUseList from 'components/LV2/Lists/WhenIUseList';
 import WhenIUseCardList from 'components/LV2/Lists/WhenIUseCardList';
@@ -26,7 +28,6 @@ const Wrap = styled.div``;
 
 const TopWrapper = styled.div`
   position: relative;
-  top: -84px;
   height: 620px;
   color: ${Colors.black};
   margin-bottom: ${Dimens.medium}px;
@@ -179,6 +180,13 @@ const ContentWrap = styled(PageDefault)`
 const ConceptVideo = styled.iframe`
   margin: ${Dimens.large2_70}px auto;
   max-width: 600px;
+  ${media.tablet`
+    width: 100%;
+    height: 320px;
+  `};
+  ${media.phone`
+    height: 186px;
+  `};
 `;
 
 const QuestionsWrap = styled.div`
@@ -215,160 +223,162 @@ const TextBeginner = () => (
   </Fragment>
 );
 
-export default ({ onClickHowToUse, onClickInsurance, onClickRule }) => (
-  <Wrap>
-    <TopWrapper>
-      <TopEyeCatch src={howtouseEyeCatch} />
-      <TopMessageContent>
-        <TopSubTitle>モノオクとは？</TopSubTitle>
-        <TopTitle>
-          空きスペースを活用できる
-          <br />
-          物置きのシェアサービス。
-        </TopTitle>
-        <TopDescription>
-          モノオクは、荷物の保管場所を探している人と、余ったスペースを有効活用したい人をつなぐ、物置きのシェアサービスです。
-        </TopDescription>
-      </TopMessageContent>
-    </TopWrapper>
+export default () => {
+  const history = useHistory();
+  return (
+    <Wrap>
+      <TopWrapper>
+        <TopEyeCatch src={howtouseEyeCatch} />
+        <TopMessageContent>
+          <TopSubTitle>モノオクとは？</TopSubTitle>
+          <TopTitle>
+            空きスペースを活用できる
+            <br />
+            物置きのシェアサービス。
+          </TopTitle>
+          <TopDescription>
+            モノオクは、荷物の保管場所を探している人と、余ったスペースを有効活用したい人をつなぐ、物置きのシェアサービスです。
+          </TopDescription>
+        </TopMessageContent>
+      </TopWrapper>
+      <WhenIUseWrap>
+        <WhenIUseContent>
+          <Attention>「荷物の置き場所に困った…」を解決！</Attention>
+          <Headline>こんなときにはモノオク！</Headline>
+          <WhenIUseList
+            list={[
+              {
+                image: moneyMetapher,
+                title: '手頃な価格で荷物を預けたい',
+                text:
+                  '初期費用無料！無駄な費用が一切かからないため、トランクルームに比べて安く荷物を保管できます。',
+              },
+              {
+                image: scheduleMetapher,
+                title: '利用期間が未定',
+                text:
+                  '1ヶ月、半年、1年でも。お試しでの短期から長期まで、ホストとの相談次第で預ける期間を柔軟に決められます。',
+              },
+              {
+                image: timeMetapher,
+                title: '今すぐに物置きが必要',
+                text:
+                  '急な引越しやリフォーム、留学など、緊急で預ける場所が必要なときにも。かんたん手続きですぐに利用できます。',
+              },
+            ]}
+          />
+        </WhenIUseContent>
+        <WhenIUseContent>
+          <Attention>モノオクのことをもっと詳しく</Attention>
+          <Headline>ご利用にあたって</Headline>
+          <WhenIUseCardList
+            list={[
+              {
+                image: beginner,
+                subTitle: 'モノオクを利用する前に',
+                title: 'はじめてのご利用ガイド',
+                text: TextBeginner(),
+                buttonText: 'はじめてのご利用ガイド',
+                onClick: () => history.push(Path.howtouse()),
+              },
+              {
+                image: guarantee,
+                subTitle: '荷物の紛失・破損時に',
+                title: 'あんしん荷物補償',
+                text:
+                  '大切な荷物を最大10万円まで補償します。万が一トラブルがおきても、ゲストとホストをあんしんサポート。',
+                buttonText: 'あんしん荷物補償について',
+                onClick: () => history.push(Path.insurance()),
+              },
+              {
+                image: ruleManner,
+                subTitle: 'より快適にご利用いただくために',
+                title: 'ルールとマナー',
+                text:
+                  'モノオクは個人間の取引で成立しています。誰もが気持ちよくサービスを使えるよう、ルールとマナーを守ってご利用ください。',
+                buttonText: 'ルールとマナーについて',
+                onClick: () => history.push(Path.rule()),
+              },
+            ]}
+          />
+        </WhenIUseContent>
+      </WhenIUseWrap>
 
-    <WhenIUseWrap>
-      <WhenIUseContent>
-        <Attention>「荷物の置き場所に困った…」を解決！</Attention>
-        <Headline>こんなときにはモノオク！</Headline>
-        <WhenIUseList
-          list={[
-            {
-              image: moneyMetapher,
-              title: '手頃な価格で荷物を預けたい',
-              text:
-                '初期費用無料！無駄な費用が一切かからないため、トランクルームに比べて安く荷物を保管できます。',
-            },
-            {
-              image: scheduleMetapher,
-              title: '利用期間が未定',
-              text:
-                '1ヶ月、半年、1年でも。お試しでの短期から長期まで、ホストとの相談次第で預ける期間を柔軟に決められます。',
-            },
-            {
-              image: timeMetapher,
-              title: '今すぐに物置きが必要',
-              text:
-                '急な引越しやリフォーム、留学など、緊急で預ける場所が必要なときにも。かんたん手続きですぐに利用できます。',
-            },
-          ]}
+      <ContentWrap>
+        <ConceptVideo
+          title="about"
+          width="600"
+          height="337"
+          src="https://www.youtube.com/embed/t0t50WBDwzc"
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
         />
-      </WhenIUseContent>
-      <WhenIUseContent>
-        <Attention>モノオクのことをもっと詳しく</Attention>
-        <Headline>ご利用にあたって</Headline>
-        <WhenIUseCardList
-          list={[
-            {
-              image: beginner,
-              subTitle: 'モノオクを利用する前に',
-              title: 'はじめてのご利用ガイド',
-              text: TextBeginner(),
-              buttonText: 'はじめてのご利用ガイド',
-              onClick: onClickHowToUse,
-            },
-            {
-              image: guarantee,
-              subTitle: '荷物の紛失・破損時に',
-              title: 'あんしん荷物補償',
-              text:
-                '大切な荷物を最大10万円まで補償します。万が一トラブルがおきても、ゲストとホストをあんしんサポート。',
-              buttonText: 'あんしん荷物補償について',
-              onClick: onClickInsurance,
-            },
-            {
-              image: ruleManner,
-              subTitle: 'より快適にご利用いただくために',
-              title: 'ルールとマナー',
-              text:
-                'モノオクは個人間の取引で成立しています。誰もが気持ちよくサービスを使えるよう、ルールとマナーを守ってご利用ください。',
-              buttonText: 'ルールとマナーについて',
-              onClick: onClickRule,
-            },
-          ]}
-        />
-      </WhenIUseContent>
-    </WhenIUseWrap>
+      </ContentWrap>
 
-    <ContentWrap>
-      <ConceptVideo
-        title="about"
-        width="100%"
-        height="470"
-        src="https://www.youtube.com/embed/t0t50WBDwzc"
-        frameBorder="0"
-        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-    </ContentWrap>
-
-    <ContentWrap>
-      {/* TODO: コンポーネント化したい */}
-      <QuestionsWrap>
-        <Attention>困ったときのFAQ</Attention>
-        <Headline>よくある質問</Headline>
-        <QuestionRow>
-          <QuestionItem>
-            <Collapsible trigger="Q. 初期費用はかかりますか？">
-              <Answer>
-                モノオクでお支払いいただく費用は、ホストスペースの月額利用料のみです。サービス登録料や初期費用は必要ございません。
-                <br />
-                ※荷物の配送費用はゲスト（利用者）の負担となります。
-              </Answer>
-            </Collapsible>
-          </QuestionItem>
-          <QuestionItem>
-            <Collapsible trigger="Q. 対応地域はどこですか？">
-              <Answer>全国47都道府県で対応しています。</Answer>
-            </Collapsible>
-          </QuestionItem>
-        </QuestionRow>
-        <QuestionRow>
-          <QuestionItem>
-            <Collapsible trigger="Q. 最短の契約期間は何日からですか？">
-              <Answer>
-                基本的には最短1ヶ月となります。ただし、ホスト側と相談して期間を1ヶ月より短くすることも可能です。
-              </Answer>
-            </Collapsible>
-          </QuestionItem>
-          <QuestionItem>
-            <Collapsible trigger="Q. 支払い方法を教えてください。">
-              <Answer>クレジットカード・コンビニ支払いに対応しています。</Answer>
-            </Collapsible>
-          </QuestionItem>
-        </QuestionRow>
-        <QuestionRow>
-          <QuestionItem>
-            <Collapsible trigger="Q. 補償適用の条件を教えてください。">
-              <Answer>
-                ・モノオクサービス内で決済が行われていること。
-                <br />
-                ・メッセージ上でやりとりの記録が残っていること。
-                <br />
-                上記に加えて、利用規約を遵守した利用方法であれば、もしも破損・紛失・盗難などが起きた場合に、最大10万円（免責金額3,000円）までの補償を受けることができます。
-              </Answer>
-            </Collapsible>
-          </QuestionItem>
-          <QuestionItem>
-            <Collapsible trigger="Q. 配送の手配はどうしたらいいですか？">
-              <Answer>
-                配送方法は以下の3つが可能です。用途に合う方法で配送を行ってください。
-                <br />
-                1.ヤマト運輸などの一般的な配送サービス
-                <br />
-                2.直接運ぶ
-                <br />
-                3.提携の配送サービス（レントラ便など）の利用
-              </Answer>
-            </Collapsible>
-          </QuestionItem>
-        </QuestionRow>
-      </QuestionsWrap>
-    </ContentWrap>
-  </Wrap>
-);
+      <ContentWrap>
+        {/* TODO: コンポーネント化したい */}
+        <QuestionsWrap>
+          <Attention>困ったときのFAQ</Attention>
+          <Headline>よくある質問</Headline>
+          <QuestionRow>
+            <QuestionItem>
+              <Collapsible trigger="Q. 初期費用はかかりますか？">
+                <Answer>
+                  モノオクでお支払いいただく費用は、ホストスペースの月額利用料のみです。サービス登録料や初期費用は必要ございません。
+                  <br />
+                  ※荷物の配送費用はゲスト（利用者）の負担となります。
+                </Answer>
+              </Collapsible>
+            </QuestionItem>
+            <QuestionItem>
+              <Collapsible trigger="Q. 対応地域はどこですか？">
+                <Answer>全国47都道府県で対応しています。</Answer>
+              </Collapsible>
+            </QuestionItem>
+          </QuestionRow>
+          <QuestionRow>
+            <QuestionItem>
+              <Collapsible trigger="Q. 最短の契約期間は何日からですか？">
+                <Answer>
+                  基本的には最短1ヶ月となります。ただし、ホスト側と相談して期間を1ヶ月より短くすることも可能です。
+                </Answer>
+              </Collapsible>
+            </QuestionItem>
+            <QuestionItem>
+              <Collapsible trigger="Q. 支払い方法を教えてください。">
+                <Answer>クレジットカード・コンビニ支払いに対応しています。</Answer>
+              </Collapsible>
+            </QuestionItem>
+          </QuestionRow>
+          <QuestionRow>
+            <QuestionItem>
+              <Collapsible trigger="Q. 補償適用の条件を教えてください。">
+                <Answer>
+                  ・モノオクサービス内で決済が行われていること。
+                  <br />
+                  ・メッセージ上でやりとりの記録が残っていること。
+                  <br />
+                  上記に加えて、利用規約を遵守した利用方法であれば、もしも破損・紛失・盗難などが起きた場合に、最大10万円（免責金額3,000円）までの補償を受けることができます。
+                </Answer>
+              </Collapsible>
+            </QuestionItem>
+            <QuestionItem>
+              <Collapsible trigger="Q. 配送の手配はどうしたらいいですか？">
+                <Answer>
+                  配送方法は以下の3つが可能です。用途に合う方法で配送を行ってください。
+                  <br />
+                  1.ヤマト運輸などの一般的な配送サービス
+                  <br />
+                  2.直接運ぶ
+                  <br />
+                  3.提携の配送サービス（レントラ便など）の利用
+                </Answer>
+              </Collapsible>
+            </QuestionItem>
+          </QuestionRow>
+        </QuestionsWrap>
+      </ContentWrap>
+    </Wrap>
+  );
+};

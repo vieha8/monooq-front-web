@@ -1,13 +1,6 @@
-import React, { Component } from 'react';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
+import React from 'react';
 import HowToUse from 'components/LV3/HowToUse';
 
-class HowToUsePage extends Component<*> {
-  render() {
-    return <HowToUse />;
-  }
-}
+const HowToUsePage = React.memo(() => <HowToUse />);
 
-export default ContentPageStatic(HowToUsePage, {
-  maxWidth: true,
-});
+export default HowToUsePage;

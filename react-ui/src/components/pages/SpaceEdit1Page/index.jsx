@@ -1,23 +1,18 @@
-import React, { Component, Fragment } from 'react';
-import { Modal, Button } from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Path from 'config/path';
-
-import { uiActions } from 'redux/modules/ui';
-import { spaceActions } from 'redux/modules/space';
-
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
-
 import { ErrorMessages } from 'variables';
-
-import { uploadImage } from 'redux/helpers/firebase';
+import fileType from 'helpers/file-type';
 import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 import { isImageDefault } from 'helpers/images';
-import fileType from 'helpers/file-type';
-import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
-import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
 import { convertSpaceImgUrl } from 'helpers/imgix';
+import { uploadImage } from 'redux/helpers/firebase';
+import { uiActions } from 'redux/modules/ui';
+import { spaceActions } from 'redux/modules/space';
+import BaseTemplate from 'components/templates/BaseTemplate';
+import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
+import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
+import ModalToProfileEdit from 'components/LV3/ModalToProfileEdit';
 
 const ZENKAKU_SPACE_LITERAL = '　';
 const SPACE_LITERAL = ' ';
@@ -156,14 +151,13 @@ class SpaceEdit1Page extends Component {
       error: {},
       errorsTagCustomMax: [],
       isImageUploading: false,
-      errorModal: false,
-      isNoProfile: false,
+      isOpenModalError: false,
       isUpdate: !!props.match.params.space_id,
     };
   }
 
   componentDidMount() {
-    const { user, space, dispatch, match } = this.props;
+    const { space, dispatch, match } = this.props;
     const { isUpdate, images, title, introduction, sizeType } = this.state;
     const spaceId = match.params.space_id;
 
@@ -174,9 +168,6 @@ class SpaceEdit1Page extends Component {
       if (space.images && space.images.length === 1 && isImageDefault(space.images[0].imageUrl)) {
         this.setState({ images: [] });
       }
-    }
-    if (user.name === '') {
-      this.setState({ errorModal: true, isNoProfile: true });
     }
     if (!isUpdate) {
       this.handleChangeUI('images', images);
@@ -191,7 +182,12 @@ class SpaceEdit1Page extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { space } = nextProps;
+    const { user, space } = nextProps;
+
+    if (!user.email || !user.phoneNumber) {
+      return { isOpenModalError: true };
+    }
+
     if ((space.id && !prevState.id) || space.id !== prevState.id) {
       const {
         title,
@@ -288,12 +284,6 @@ class SpaceEdit1Page extends Component {
     nextImages.splice(deleteTargetIndex, 1);
     this.setState({ images: nextImages });
     this.handleChangeUI('images', nextImages);
-  };
-
-  onClickProfileEdit = () => {
-    const { history, dispatch, location } = this.props;
-    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-    history.push(Path.profileEdit());
   };
 
   onClickTag = (_, { code, checked }) => {
@@ -393,8 +383,6 @@ class SpaceEdit1Page extends Component {
     }
   };
 
-  close = () => this.setState({ errorModal: false });
-
   handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
@@ -433,6 +421,20 @@ class SpaceEdit1Page extends Component {
     );
   };
 
+  getModalText = () => {
+    return (
+      <p>
+        スペースを登録するにはプロフィールの登録が必要です。
+        <br />
+        <br />
+        プロフィールをご登録いただくことで、取引時に荷物保管に関する保険が適用されます。
+        <br />
+        また、プロフィールの内容を充実させることで借り手に安心感を与えることができるため、成約率UPにも繋がります。
+        <br />
+      </p>
+    );
+  };
+
   render() {
     const {
       images,
@@ -443,8 +445,7 @@ class SpaceEdit1Page extends Component {
       error,
       errorsTagCustomMax,
       isImageUploading,
-      errorModal,
-      isNoProfile,
+      isOpenModalError,
       isUpdate,
       tagList,
       tagCustom,
@@ -459,7 +460,7 @@ class SpaceEdit1Page extends Component {
     }
 
     return (
-      <Fragment>
+      <BaseTemplate maxWidth={540}>
         <SpaceEdit1
           edit={isUpdate}
           errors={error}
@@ -480,7 +481,7 @@ class SpaceEdit1Page extends Component {
           onChangeBreadth={v => this.handleChangeUI('sizeType', v)}
           onClickNext={this.onClickNext}
           onKeyDownButtonNext={this.onKeyDownButtonNext}
-          buttonNextDisabled={isNoProfile || !this.validate()}
+          buttonNextDisabled={isOpenModalError || !this.validate()}
           tagList={tagList}
           onClickTag={this.onClickTag}
           onKeyDownTag={this.onKeyDownTag}
@@ -491,26 +492,10 @@ class SpaceEdit1Page extends Component {
           tagCustomList={tagCustomList}
           onClickTagCustomDelete={this.onClickTagCustomDelete}
         />
-        <Modal size="large" open={errorModal} onClose={this.close}>
-          <Modal.Header>プロフィールをご登録ください</Modal.Header>
-          <Modal.Content>
-            <p>
-              スペースを登録するにはプロフィールの登録が必要です。
-              <br />
-              <br />
-              プロフィールをご登録いただくことで、取引時に荷物保管に関する保険が適用されます。
-              <br />
-              また、プロフィールの内容を充実させることで借り手に安心感を与えることができるため、成約率UPにも繋がります。
-              <br />
-            </p>
-          </Modal.Content>
-          <Modal.Actions>
-            <Button className="brandPrimary" onClick={this.onClickProfileEdit}>
-              登録画面へ進む
-            </Button>
-          </Modal.Actions>
-        </Modal>
-      </Fragment>
+        {isOpenModalError && (
+          <ModalToProfileEdit header="プロフィールをご登録ください" content={this.getModalText()} />
+        )}
+      </BaseTemplate>
     );
   }
 }
@@ -520,11 +505,4 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default authRequired(
-  handleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEdit1Page), {
-      noFooter: true,
-      maxWidth: 540,
-    }),
-  ),
-);
+export default withAuthRequire(withHandleBeforeUnload(connect(mapStateToProps)(SpaceEdit1Page)));

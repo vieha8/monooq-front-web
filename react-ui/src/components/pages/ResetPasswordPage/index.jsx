@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-
 import Path from 'config/path';
-
-import AccountTemplate from 'components/templates/AccountTemplate';
-import Header from 'components/pages/Header';
-import ResetPassword from 'components/LV3/ResetPassword';
-
-import { authActions } from 'redux/modules/auth';
-
 import { ErrorMessages } from 'variables';
-
-import connect from '../connect';
+import { authActions } from 'redux/modules/auth';
+import AccountTemplate from 'components/templates/AccountTemplate';
+import ResetPassword from 'components/LV3/ResetPassword';
 
 const Validate = {
   Email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
@@ -92,12 +86,7 @@ class ResetPasswordPage extends Component {
     }
 
     return (
-      <AccountTemplate
-        errorHeader={resetError}
-        title="パスワードの再設定"
-        header={<Header />}
-        form={this.form()}
-      />
+      <AccountTemplate errorHeader={resetError} title="パスワードの再設定" form={this.form()} />
     );
   }
 }
@@ -109,4 +98,4 @@ const mapStateToProps = state => ({
   resetError: state.auth.error,
 });
 
-export default connect(ResetPasswordPage, mapStateToProps);
+export default connect(mapStateToProps)(ResetPasswordPage);

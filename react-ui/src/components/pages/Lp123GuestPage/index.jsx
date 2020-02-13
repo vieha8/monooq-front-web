@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import Path from 'config/path';
 import { partialMatch } from 'helpers/string';
-import ContentPageStatic from 'components/hocs/ContentPageStatic';
 import Lp123Guest from 'components/LV3/Lp123Guest';
 
 class Lp123GuestPage extends React.Component {
@@ -86,8 +85,4 @@ class Lp123GuestPage extends React.Component {
   }
 }
 
-export default ContentPageStatic(Lp123GuestPage, {
-  isLp: true,
-  maxWidth: true,
-  bottomMargin: true,
-});
+export default Lp123GuestPage;

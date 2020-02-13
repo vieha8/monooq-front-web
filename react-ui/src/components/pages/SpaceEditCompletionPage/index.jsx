@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import Path from 'config/path';
-
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import HostGuideList from 'components/LV2/Lists/HostGuideList';
 import SpaceEditCompletion from 'components/LV3/SpaceEdit/Completion';
 import { H1 } from 'components/LV1/Texts/Headline';
@@ -11,8 +10,8 @@ import { iskeyDownEnter } from 'helpers/keydown';
 
 import { connect } from 'react-redux';
 import { uiActions } from 'redux/modules/ui';
-import authRequired from 'components/pages/AuthRequired';
 import { Dimens } from 'variables';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const Caption = styled.div`
   margin: ${Dimens.medium_20}px 0;
@@ -68,7 +67,7 @@ class SpaceEditCompletionPage extends Component {
     }
   };
 
-  leftContent = isUpdate => {
+  content = isUpdate => {
     const { user } = this.props;
     return (
       <Fragment>
@@ -111,7 +110,7 @@ class SpaceEditCompletionPage extends Component {
   render() {
     const { isUpdate } = this.state;
     return (
-      <Fragment>
+      <BaseTemplate>
         <H1 bold>{`${!isUpdate ? '登録' : '編集'}が完了しました`}</H1>
         <Caption>
           <InlineText.Base>
@@ -122,8 +121,8 @@ class SpaceEditCompletionPage extends Component {
             ご登録のメールアドレスにメッセージ通知が届きますので、随時メールをご確認ください。
           </InlineText.Base>
         </Caption>
-        {this.leftContent(isUpdate)}
-      </Fragment>
+        {this.content(isUpdate)}
+      </BaseTemplate>
     );
   }
 }
@@ -132,4 +131,4 @@ const mapStateToProps = state => ({
   user: state.auth.user,
 });
 
-export default authRequired(ContentPageMenu(connect(mapStateToProps)(SpaceEditCompletionPage), {}));
+export default withAuthRequire(connect(mapStateToProps)(SpaceEditCompletionPage));

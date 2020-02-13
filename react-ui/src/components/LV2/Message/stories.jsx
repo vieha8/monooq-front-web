@@ -8,15 +8,19 @@ import Other from './Other';
 import MySelf from './MySelf';
 import Admin from './Admin';
 import Estimate from './Estimate';
+import Paid from './Paid';
+import Requested from './Requested';
 import Photo from './Photo';
-import Input from './Input';
+import Caution from './Caution';
 
 Other.displayName = 'Other';
 MySelf.displayName = 'MySelf';
 Admin.displayName = 'Admin';
 Estimate.displayName = 'Estimate';
+Paid.displayName = 'Paid';
+Requested.displayName = 'Requested';
 Photo.displayName = 'Photo';
-Input.displayName = 'Input';
+Caution.displayName = 'Caution';
 
 storiesOf('Molecules(LV2)/Message', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
@@ -179,6 +183,28 @@ storiesOf('Molecules(LV2)/Message', module)
     )),
   )
   .add(
+    'Paid',
+    withInfo(`
+      ### コンポーネント概要
+      メッセージ(支払済み)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Paid request={{ id: 1, space: { address: '東京都渋谷区渋谷1234-5' } }} />
+      </div>
+    )),
+  )
+  .add(
+    'Requested',
+    withInfo(`
+      ### コンポーネント概要
+      メッセージ(ホストへのリクエスト送付済み)
+    `)(() => (
+      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
+        <Requested />
+      </div>
+    )),
+  )
+  .add(
     'Photo',
     withInfo(`
       ### コンポーネント概要
@@ -190,17 +216,13 @@ storiesOf('Molecules(LV2)/Message', module)
     )),
   )
   .add(
-    'Input',
+    'Caution',
     withInfo(`
       ### コンポーネント概要
-      メッセージ入力欄(画像添付機能付き)
+      メッセージ入力欄(説明欄)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Input
-          onClickPickImage={() => console.log('onClickPickImage')}
-          value={'test input'}
-          onChange={() => console.log('onChange')}
-        />
+        <Caution />
       </div>
     )),
   );

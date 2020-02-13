@@ -14,11 +14,13 @@ const howtouse03 =
 const howtouse04 =
   'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_04%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  width: 100%;
+  overflow: hidden;
+`;
 
 const TopWrapper = styled.div`
   position: relative;
-  top: -84px;
   height: 620px;
   color: ${Colors.black};
   margin-bottom: ${Dimens.medium}px;

@@ -1,13 +1,17 @@
 import React, { Fragment } from 'react';
+import { Dropdown } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
+import { H1 } from 'components/LV1/Texts/Headline';
 import InputForm from 'components/LV2/Forms/InputForm';
-import { Dropdown } from 'semantic-ui-react';
-
 import 'stylesheets/dropdown_overrides.css';
+
+const Caption = styled.div`
+  margin: ${Dimens.medium_20}px 0;
+`;
 
 const Row = styled.div`
   margin-top: ${Dimens.medium2}px;
@@ -62,6 +66,10 @@ export default ({
   onKeyDownUnsubscribe,
 }) => (
   <Fragment>
+    <H1 bold>退会の理由</H1>
+    <Caption>
+      モノオクをご利用頂き、ありがとうございました。サービス改善の為にアンケートにご協力ください。
+    </Caption>
     <InlineText.EmphasisSmall>
       当てはまる理由をご選択ください。今後のサービス改善の参考とさせていただきます。
     </InlineText.EmphasisSmall>

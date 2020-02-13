@@ -1,12 +1,12 @@
-import React, { Component, Fragment } from 'react';
-import Profile from 'components/LV3/Profile';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import LoadingPage from 'components/LV3/LoadingPage';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { userActions } from 'redux/modules/user';
-import { formatDate, formatStringSlash } from 'helpers/date';
 import { formatName } from 'helpers/string';
+import { formatDate, formatStringSlash } from 'helpers/date';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import Meta from 'components/LV1/Meta';
-import connect from '../connect';
+import LoadingPage from 'components/LV3/LoadingPage';
+import Profile from 'components/LV3/Profile';
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class ProfilePage extends Component {
     }
 
     return (
-      <Fragment>
+      <BaseTemplate>
         <Meta
           title={user && `${formatName(user.name)}さんのプロフィール - モノオク`}
           description={user && user.profile}
@@ -52,7 +52,7 @@ class ProfilePage extends Component {
               sizeType: space.sizeType,
             }))}
         />
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -62,6 +62,4 @@ const mapStateToProps = state => ({
   spaces: state.user.spaces,
 });
 
-export default ContentPageMenu(connect(ProfilePage, mapStateToProps), {
-  headline: 'プロフィール',
-});
+export default connect(mapStateToProps)(ProfilePage);

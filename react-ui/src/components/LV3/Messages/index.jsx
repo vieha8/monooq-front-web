@@ -1,19 +1,17 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { formatDate, formatStringSlash, formatStringSlashTime } from 'helpers/date';
-import Path from 'config/path';
-import Button from 'components/LV1/Forms/Button';
-import InlineText from 'components/LV1/Texts/InlineText';
-import TextLink from 'components/LV1/Texts/TextLink';
 import AdminMessage from 'components/LV2/Message/Admin';
 import SelfMessage from 'components/LV2/Message/MySelf';
 import OtherMessage from 'components/LV2/Message/Other';
 import EstimateMessage from 'components/LV2/Message/Estimate';
 import PhotoMessage from 'components/LV2/Message/Photo';
-import MessageInput from 'components/LV2/Message/Input';
-import DataNone from 'components/LV3/SpaceDataNone';
-import { Dimens, Colors } from 'variables';
+import NoneData from 'components/LV2/NoneData';
+import Caution from 'components/LV2/Message/Caution';
+import Requested from 'components/LV2/Message/Requested';
+import MessegeSendForm from './SendForm';
 
 const Row = styled.div`
   width: 66%;
@@ -45,35 +43,6 @@ const Row = styled.div`
   }
 `;
 
-const MessageInputWrap = styled.div`
-  margin-top: ${Dimens.medium3_40}px;
-`;
-
-const ButtonWrapper = styled.div`
-  margin-top: ${Dimens.medium}px;
-`;
-
-const CautionWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: ${Dimens.medium1}px ${Dimens.small}px;
-`;
-
-const CautionWrapperItem = styled.div`
-  &:not(:last-child) {
-    margin-bottom: ${Dimens.small}px;
-  }
-`;
-
-const CautionText = styled(InlineText.Small)`
-  margin-bottom: ${Dimens.small2}px;
-`;
-
-const SeparatedCautionWrapper = styled(CautionWrapper)`
-  border-top: 1px solid ${Colors.borderGray};
-  padding-bottom: 0;
-`;
-
 const extensionPhotoMessage = message => {
   return (
     <PhotoMessage
@@ -84,25 +53,12 @@ const extensionPhotoMessage = message => {
   );
 };
 
-export default ({
-  messages,
-  hostUser,
-  lastReadDt,
-  onChangeText,
-  text,
-  setStatucPickImage,
-  onPickImage,
-  isErrorPickImage,
-  pickedImage,
-  buttonDisabled,
-  onClickSend,
-  onClickEstimate,
-}) => {
+export default ({ messages, lastReadDt, userIdFrom, userIdTo, hostUser, isOpenModalError }) => {
   const messageList = messages;
 
   if (!messageList) {
     return (
-      <DataNone
+      <NoneData
         captionHead="メッセージの取得に失敗しました。"
         caption="画面を再読み込みするか、時間をおいてから再度アクセスをお願いいたします。"
         buttonText="画面を再読み込みする"
@@ -123,27 +79,7 @@ export default ({
     } else {
       messageList.splice(1, 0, {
         admin: {
-          message: (
-            <Fragment>
-              ホストへリクエストを送信しました。
-              <br />
-              返信が届いたら、条件を調整して見積もりをもらいましょう。
-              <br />
-              支払い完了後に住所詳細をお知らせします。
-              <br />
-              <br />
-              モノオクから簡単に配送手配ができます！
-              <br />
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSfI3YOtJhWe04NlzVOU5_Jr1cMTcEYCEUUus6wJZEyNmws6QA/viewform"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="gaMessageTipsPickgoLinkFirst"
-              >
-                ▶配送申込みはこちら
-              </a>
-            </Fragment>
-          ),
+          message: <Requested />,
         },
       });
     }
@@ -252,6 +188,7 @@ export default ({
                 status={message.estimate.status}
                 payType={message.estimate.payType}
                 econtextUrl={message.estimate.econtextUrl}
+                isOpenModalError={isOpenModalError}
               />
             </Row>
           );
@@ -259,90 +196,13 @@ export default ({
 
         return null;
       })}
-      <MessageInputWrap>
-        <MessageInput
-          onChange={onChangeText}
-          value={text}
-          setStatucPickImage={setStatucPickImage}
-          onPickImage={onPickImage}
-          isErrorPickImage={isErrorPickImage}
-          preview={pickedImage}
-        />
-      </MessageInputWrap>
-      <ButtonWrapper>
-        <Button
-          primary
-          fill={1}
-          fontbold
-          disabled={buttonDisabled}
-          onClick={buttonDisabled ? null : onClickSend}
-        >
-          送信
-        </Button>
-      </ButtonWrapper>
-      {hostUser && (
-        <ButtonWrapper>
-          <Button secondary fill={1} fontbold onClick={onClickEstimate}>
-            見積もりを送る
-          </Button>
-        </ButtonWrapper>
-      )}
-      <CautionWrapper>
-        <CautionText>モノオクではサービス外のお支払いや現金取引は禁止です。</CautionText>
-        <CautionWrapperItem>
-          <TextLink
-            href="https://help.monooq.com/ja/articles/2948108-%E3%83%9B%E3%82%B9%E3%83%88%E3%81%A8%E3%81%AE%E3%82%84%E3%82%8A%E5%8F%96%E3%82%8A%E3%81%AF%E3%81%A9%E3%81%86%E3%82%84%E3%81%A3%E3%81%A6%E9%80%B2%E3%82%81%E3%82%8B%E3%81%AE"
-            fontSize={14}
-            fontsizesp={14}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="gaMessageBottomFlowLink"
-          >
-            取引完了までの流れ
-          </TextLink>
-        </CautionWrapperItem>
-        <CautionWrapperItem>
-          <TextLink
-            href="https://help.monooq.com/ja/articles/3368023-%E5%BF%85%E8%A6%81%E3%81%AA%E7%95%B3%E6%95%B0%E3%81%AE%E7%9B%AE%E5%AE%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6"
-            fontSize={14}
-            fontsizesp={14}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="gaMessageBottomBreadthLink"
-          >
-            必要な広さの目安
-          </TextLink>
-        </CautionWrapperItem>
-        <CautionWrapperItem>
-          <TextLink
-            href="https://help.monooq.com/ja/"
-            fontSize={14}
-            fontsizesp={14}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="gaMessageBottomQuestionLink"
-          >
-            よくある質問
-          </TextLink>
-        </CautionWrapperItem>
-        <CautionWrapperItem>
-          <TextLink
-            to={Path.rule()}
-            fontSize={14}
-            fontsizesp={14}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="gaMessageBottomRuleLink"
-          >
-            ルールとマナー
-          </TextLink>
-        </CautionWrapperItem>
-      </CautionWrapper>
-      <SeparatedCautionWrapper>
-        <CautionText>
-          経年劣化によるショート・不具合の可能性がある製品に関して。自然発生的な故障のケースは一切の保証ができません。電化製品・家電などでスペース利用を検討している場合はあらかじめご了承ください。
-        </CautionText>
-      </SeparatedCautionWrapper>
+      <MessegeSendForm
+        hostUser={hostUser}
+        userIdFrom={userIdFrom}
+        userIdTo={userIdTo}
+        isOpenModalError={isOpenModalError}
+      />
+      <Caution />
     </div>
   );
 };

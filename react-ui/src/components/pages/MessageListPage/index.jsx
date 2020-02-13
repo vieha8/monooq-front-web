@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import Path from 'config/path';
-
+import { iskeyDownEnter } from 'helpers/keydown';
 import { messagesActions } from 'redux/modules/messages';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
+import BaseTemplate from 'components/templates/BaseTemplate';
 import LoadingPage from 'components/LV3/LoadingPage';
 import MessageList from 'components/LV3/MessageList';
-import SpaceDataNone from 'components/LV3/SpaceDataNone';
-import { iskeyDownEnter } from 'helpers/keydown';
+import NoneData from 'components/LV2/NoneData';
 
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
+import withAuthRequire from 'components/hooks/withAuthRequire';
 
 class MessageListPage extends Component {
   componentDidMount() {
@@ -35,26 +34,30 @@ class MessageListPage extends Component {
     }
 
     return Array.isArray(rooms) && rooms.length > 0 ? (
-      <MessageList
-        messages={rooms
-          .filter(room => room.user)
-          .map(message => ({
-            link: Path.message(message.id),
-            image: (message.user || {}).imageUrl,
-            name: (message.user || {}).name,
-            receivedAt: message.lastMessageDt,
-            lastMessage: message.lastMessage,
-            isRead: message.isRead,
-          }))}
-      />
+      <BaseTemplate>
+        <MessageList
+          messages={rooms
+            .filter(room => room.user)
+            .map(message => ({
+              link: Path.message(message.id),
+              image: (message.user || {}).imageUrl,
+              name: (message.user || {}).name,
+              receivedAt: message.lastMessageDt,
+              lastMessage: message.lastMessage,
+              isRead: message.isRead,
+            }))}
+        />
+      </BaseTemplate>
     ) : (
-      <SpaceDataNone
-        captionHead="メッセージのやり取りがありません"
-        caption="メッセージがありません。ご希望のスペースを見つけて連絡を取ってみましょう。"
-        buttonText="トップに戻る"
-        onClick={this.historyToTop}
-        onKeyDown={this.onKeyDownButtonTop}
-      />
+      <BaseTemplate>
+        <NoneData
+          captionHead="メッセージのやり取りがありません"
+          caption="メッセージがありません。ご希望のスペースを見つけて連絡を取ってみましょう。"
+          buttonText="トップに戻る"
+          onClick={this.historyToTop}
+          onKeyDown={this.onKeyDownButtonTop}
+        />
+      </BaseTemplate>
     );
   }
 }
@@ -64,8 +67,4 @@ const mapStateToProps = state => ({
   isLoading: state.messages.isLoading,
 });
 
-export default authRequired(
-  ContentPageMenu(connect(mapStateToProps)(MessageListPage), {
-    headline: 'メッセージ一覧',
-  }),
-);
+export default withAuthRequire(connect(mapStateToProps)(MessageListPage));

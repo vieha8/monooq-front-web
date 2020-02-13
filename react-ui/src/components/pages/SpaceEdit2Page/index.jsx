@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import Path from 'config/path';
-import { Redirect } from 'react-router-dom';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-import SpaceEdit2 from 'components/LV3/SpaceEdit/Step2';
-
-import { ErrorMessages } from 'variables';
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
+import { Redirect } from 'react-router-dom';
+import Path from 'config/path';
+import { ErrorMessages } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
-import { spaceActions } from '../../../redux/modules/space';
-import { uiActions } from '../../../redux/modules/ui';
+import { spaceActions } from 'redux/modules/space';
+import { uiActions } from 'redux/modules/ui';
+import BaseTemplate from 'components/templates/BaseTemplate';
+import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
+import SpaceEdit2 from 'components/LV3/SpaceEdit/Step2';
 
 const Validate = {
   PostalCode: {
@@ -271,35 +269,37 @@ class SpaceEdit2Page extends Component {
     error.address = [errMessage];
 
     return (
-      <SpaceEdit2
-        edit={isUpdate}
-        errors={error}
-        formAddress={{
-          postalCode,
-          pref,
-          town: `${city || ''}${town || ''}`,
-          line1,
-        }}
-        onChangePostalCode={v => this.handleChangeUI('postalCode', v)}
-        onChangePref={v => this.handleChangeUI('pref', v)}
-        onChangeTown={v => this.handleChangeUI('town', v)}
-        onChangeLine1={v => this.handleChangeUI('line1', v)}
-        buttonLoading={isLoading}
-        onChangeLine2={v => this.handleChangeUI('line2', v)}
-        buttonAddressDisabled={!this.validatePostCode()}
-        buttonAddressLoading={isLoadingAddress}
-        onClickGetAddress={this.onClickGetAddress}
-        onKeyDownButtonGetAddress={this.onKeyDownButtonGetAddress}
-        receiptType={receiptType}
-        onChangeReceiptType={v => this.handleChangeUI('receiptType', v)}
-        onClickBack={this.onClickBack}
-        onKeyDownButtonBack={this.onKeyDownButtonBack}
-        onClickNext={this.onClickNext}
-        onKeyDownButtonNext={this.onKeyDownButtonNext}
-        buttonNextDisabled={
-          isLoadingAddress || errMessage === ErrorMessages.FailedGetAddress || !this.validate()
-        }
-      />
+      <BaseTemplate maxWidth={540}>
+        <SpaceEdit2
+          edit={isUpdate}
+          errors={error}
+          formAddress={{
+            postalCode,
+            pref,
+            town: `${city || ''}${town || ''}`,
+            line1,
+          }}
+          onChangePostalCode={v => this.handleChangeUI('postalCode', v)}
+          onChangePref={v => this.handleChangeUI('pref', v)}
+          onChangeTown={v => this.handleChangeUI('town', v)}
+          onChangeLine1={v => this.handleChangeUI('line1', v)}
+          buttonLoading={isLoading}
+          onChangeLine2={v => this.handleChangeUI('line2', v)}
+          buttonAddressDisabled={!this.validatePostCode()}
+          buttonAddressLoading={isLoadingAddress}
+          onClickGetAddress={this.onClickGetAddress}
+          onKeyDownButtonGetAddress={this.onKeyDownButtonGetAddress}
+          receiptType={receiptType}
+          onChangeReceiptType={v => this.handleChangeUI('receiptType', v)}
+          onClickBack={this.onClickBack}
+          onKeyDownButtonBack={this.onKeyDownButtonBack}
+          onClickNext={this.onClickNext}
+          onKeyDownButtonNext={this.onKeyDownButtonNext}
+          buttonNextDisabled={
+            isLoadingAddress || errMessage === ErrorMessages.FailedGetAddress || !this.validate()
+          }
+        />
+      </BaseTemplate>
     );
   }
 }
@@ -312,11 +312,4 @@ const mapStateToProps = state => ({
   errMessage: state.space.errMessage,
 });
 
-export default authRequired(
-  handleBeforeUnload(
-    ContentPageMenu(connect(mapStateToProps)(SpaceEdit2Page), {
-      noFooter: true,
-      maxWidth: 540,
-    }),
-  ),
-);
+export default withAuthRequire(withHandleBeforeUnload(connect(mapStateToProps)(SpaceEdit2Page)));

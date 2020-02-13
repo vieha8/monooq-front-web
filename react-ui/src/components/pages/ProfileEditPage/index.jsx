@@ -1,14 +1,13 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import authRequired from 'components/pages/AuthRequired';
-import ContentPageMenu from 'components/hocs/ContentPageMenu';
-import handleBeforeUnload from 'components/hocs/HandleBeforeUnload';
-import ProfileEdit from 'components/LV3/ProfileEdit';
-import ProfileEditCompleted from 'components/LV3/ProfileEdit/Completed';
-import { H1 } from 'components/LV1/Texts/Headline';
-import { userActions } from 'redux/modules/user';
 import { ErrorMessages } from 'variables';
 import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
+import { userActions } from 'redux/modules/user';
+import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
+import { H1 } from 'components/LV1/Texts/Headline';
+import BaseTemplate from 'components/templates/BaseTemplate';
+import ProfileEdit from 'components/LV3/ProfileEdit';
+import ProfileEditCompleted from 'components/LV3/ProfileEdit/Completed';
 
 const PURPOSE_USER = '1';
 const PURPOSE_HOST = '2';
@@ -195,11 +194,15 @@ class ProfileEditPage extends Component {
     }
 
     if (updateSuccess) {
-      return <ProfileEditCompleted userId={user.id} />;
+      return (
+        <BaseTemplate>
+          <ProfileEditCompleted userId={user.id} />
+        </BaseTemplate>
+      );
     }
 
     return (
-      <Fragment>
+      <BaseTemplate>
         <H1 bold>プロフィール編集</H1>
         <ProfileEdit
           errors={error}
@@ -226,7 +229,7 @@ class ProfileEditPage extends Component {
           onClickUpdate={this.onClickUpdate}
           onKeyDownButtonUpdate={this.onKeyDownButtonUpdate}
         />
-      </Fragment>
+      </BaseTemplate>
     );
   }
 }
@@ -239,6 +242,4 @@ const mapStateToProps = state => ({
   redirectPath: state.ui.redirectPath,
 });
 
-export default authRequired(
-  handleBeforeUnload(ContentPageMenu(connect(mapStateToProps)(ProfileEditPage), {})),
-);
+export default withAuthRequire(withHandleBeforeUnload(connect(mapStateToProps)(ProfileEditPage)));
