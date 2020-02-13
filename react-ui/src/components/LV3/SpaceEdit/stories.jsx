@@ -46,7 +46,7 @@ storiesOf('Organisms(LV3)/SpaceEdit', module)
         スペース編集フォーム(基本情報)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Completion story space={{}} />
+        <Completion story userId={100} />
       </div>
     )),
   )
@@ -57,7 +57,7 @@ storiesOf('Organisms(LV3)/SpaceEdit', module)
         スペース編集フォーム(基本情報)
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Completion edit story space={{}} />
+        <Completion edit story userId={100} />
       </div>
     )),
   )
