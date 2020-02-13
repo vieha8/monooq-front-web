@@ -8,11 +8,9 @@ import { requestActions } from 'redux/modules/request';
 import { ErrorMessages } from 'variables';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
 import { iskeyDownEnter } from 'helpers/keydown';
-import { receiptTypeList } from 'helpers/receiptTypes';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import Meta from 'components/LV1/Meta';
-import SpaceMap from 'components/LV1/SpaceMap';
 import SendMessageOnlyTabletSp from 'components/LV2/Space/SendMessage';
 import Detail from 'components/LV3/Space/Detail';
 import LoadingPage from 'components/LV3/LoadingPage';
@@ -178,27 +176,6 @@ class SpacePage extends Component {
     }
   };
 
-  makeBreadCrumbs = ({ addressPref, prefCode, addressCity, cityCode, addressTown, townCode }) => {
-    const breadcrumbs = [];
-
-    breadcrumbs.push({
-      text: addressPref,
-      link: Path.spacesByPrefecture(prefCode),
-    });
-
-    breadcrumbs.push({
-      text: addressCity,
-      link: Path.spacesByCity(prefCode, cityCode),
-    });
-
-    breadcrumbs.push({
-      text: addressTown,
-      link: Path.spacesByTown(prefCode, cityCode, townCode),
-    });
-
-    return breadcrumbs;
-  };
-
   makeMetaBreadcrumbs = space => {
     const { addressPref, addressCity, addressTown, prefCode, cityCode, townCode } = space;
 
@@ -241,6 +218,16 @@ class SpacePage extends Component {
     const { history, dispatch, location } = this.props;
     dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
     history.push(Path.signUp());
+  };
+
+  getBreadths = (sizeType, breadth) => {
+    let returnBreadths = 0;
+    if (sizeType > 0 && sizeType < 4 && getBreadthsDetailRoom(breadth)) {
+      returnBreadths = breadth;
+    } else if (getBreadthsDetailOther(breadth)) {
+      returnBreadths = breadth;
+    }
+    return returnBreadths;
   };
 
   showContent = () => {
@@ -288,37 +275,12 @@ class SpacePage extends Component {
           jsonLd={this.makeMetaBreadcrumbs(space)}
         />
         <Detail
-          isLogin={isLogin}
-          isModalOpen={isModalOpen}
-          handleModalOpen={() => this.setState({ isModalOpen: true })}
-          handleModalClose={() => this.setState({ isModalOpen: false })}
-          handleSignUp={this.handleSignUp}
-          isOverTopView={isOverTopView}
-          isBottom={isBottom}
-          id={space.id}
-          map={<SpaceMap lat={space.lat} lng={space.lng} />}
-          pref={space.addressPref}
-          name={space.title}
+          space={space}
           images={space.images.map(image => ({
             original: image.imageUrl || dummySpaceImage,
             thumbnail: image.imageUrl || dummySpaceImage,
           }))}
-          status={space.status}
-          breadcrumbsList={this.makeBreadCrumbs(space)}
-          description={space.introduction}
-          isRoom={space.sizeType > 0 && space.sizeType < 4}
-          sizeType={space.sizeType}
           tagList={space.tags.map(v => v.name)}
-          address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
-          delivery={
-            space.receiptType === receiptTypeList.Both ||
-            space.receiptType === receiptTypeList.Delivery
-          }
-          meeting={
-            space.receiptType === receiptTypeList.Both ||
-            space.receiptType === receiptTypeList.Meeting
-          }
-          supplement={space.receiptAbout}
           user={{
             id: space.user.id,
             name: space.user.name,
@@ -326,9 +288,14 @@ class SpacePage extends Component {
             profile: space.user.profile,
             prefCode: space.user.prefCode,
           }}
-          priceFull={space.priceFull}
-          priceTatami={space.priceTatami}
           recommend={recommend}
+          isOverTopView={isOverTopView}
+          isBottom={isBottom}
+          isLogin={isLogin}
+          isModalOpen={isModalOpen}
+          handleModalOpen={() => this.setState({ isModalOpen: true })}
+          handleModalClose={() => this.setState({ isModalOpen: false })}
+          handleSignUp={this.handleSignUp}
           buttonRequestCreatedisabled={isSelfSpace}
           loading={isRequesting}
           onClick={isSelfSpace ? null : this.onClickSendMessage}
@@ -336,15 +303,7 @@ class SpacePage extends Component {
           errors={error}
           usage={usage}
           onChangeUsage={value => this.handleChangeUI('usage', value)}
-          breadth={
-            space.sizeType > 0 && space.sizeType < 4
-              ? getBreadthsDetailRoom(breadth)
-                ? breadth
-                : 0
-              : getBreadthsDetailOther(breadth)
-              ? breadth
-              : 0
-          }
+          breadth={this.getBreadths(space.sizeType, breadth)}
           onChangeBreadth={value => this.handleChangeUI('breadth', value)}
           startDate={startDate}
           onChangeStartDateYear={value => this.handleChangeDate('startDate', 'year', value)}
@@ -376,15 +335,7 @@ class SpacePage extends Component {
           errors={error}
           usage={usage}
           onChangeUsage={value => this.handleChangeUI('usage', value)}
-          breadth={
-            space.sizeType > 0 && space.sizeType < 4
-              ? getBreadthsDetailRoom(breadth)
-                ? breadth
-                : 0
-              : getBreadthsDetailOther(breadth)
-              ? breadth
-              : 0
-          }
+          breadth={this.getBreadths(space.sizeType, breadth)}
           onChangeBreadth={value => this.handleChangeUI('breadth', value)}
           startDate={JSON.parse(JSON.stringify(startDate))}
           onChangeStartDateYear={value => this.handleChangeDate('startDate', 'year', value)}

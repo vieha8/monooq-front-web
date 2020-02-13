@@ -7,6 +7,8 @@ import Path from 'config/path';
 import ListItem from './ListItem';
 import CompanyInfo from './CompanyInfo';
 
+// TODO: layout.jsxでパスで判断し、footerを画面別に表示分けしたい
+// スペース編集確認画面の場合、footerを非表示とし、padding-bottomをなくす。
 const Wrap = styled.footer`
   position: relative;
   z-index: ${ZIndexes.footer};
@@ -14,7 +16,7 @@ const Wrap = styled.footer`
   width: 100%;
   background-color: ${Colors.black4};
   margin-top: ${Dimens.medium3_44}px;
-  padding: 0px ${Dimens.medium2}px;
+  padding: 0px ${Dimens.medium2}px ${Dimens.large2_70}px;
   ${props =>
     props.bottomMargin &&
     !props.bottomMarginOnlySP &&

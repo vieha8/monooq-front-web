@@ -25,7 +25,6 @@ storiesOf('Organisms(LV3)/SpaceEdit', module)
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Step2
           errors={[]}
-          addressMethod="addressMethod text"
           onChangeStep2={() => console.log('onChangeStep2')}
           checkedFurniture={false}
           onClickFurniture={() => console.log('onClickFurniture')}

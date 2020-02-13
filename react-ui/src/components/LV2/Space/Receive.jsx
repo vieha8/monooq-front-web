@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Dimens, Colors, FontSizes } from 'variables';
 import ImageCheckGreen from 'images/icon-check-circle-green.svg';
 import ImageCheckWhite from 'images/icon-check-circle-gray.svg';
+import { SectionTitle } from './Section';
 
 const Wrap = styled.div`
   margin: 20px auto;
@@ -34,6 +35,7 @@ const ItemWrap = styled.div`
 
 export default ({ isDelivery, isMeeting }) => (
   <Wrap>
+    <SectionTitle text="荷物の受け取り方法" />
     <ItemWrap isEnable={isDelivery}>
       配送サービスでの受け取り
       <br />

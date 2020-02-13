@@ -29,7 +29,6 @@ const space = {
   about: 'iroiro',
   isFurniture: false,
   receiptType: 1,
-  receiptAbout: 'いつもでOK',
   sizeType: 0,
   priceFull: 5000,
   priceTatami: 3123,

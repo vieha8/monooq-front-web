@@ -5,11 +5,9 @@ import styled from 'styled-components';
 import Path from 'config/path';
 import { Colors, Dimens, ZIndexes } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
-import { receiptTypeList } from 'helpers/receiptTypes';
 import { spaceActions } from 'redux/modules/space';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
-import SpaceMap from 'components/LV1/SpaceMap';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Detail from 'components/LV3/Space/Detail';
 import dummySpaceImage from 'images/img-dummy-space.png';
@@ -21,7 +19,7 @@ const EntryButtonWrap = styled.div`
   position: fixed;
   left: 0px;
   bottom: 0px;
-  z-index: ${ZIndexes.frontParts};
+  z-index: ${ZIndexes.frontPartsOverFooter};
   text-align: center;
   padding: ${Dimens.medium}px;
   background-color: ${Colors.white};
@@ -168,43 +166,12 @@ class SpaceEditConfirmPage extends Component {
       <BaseTemplate maxWidth={1440} noMargin>
         <Detail
           confirm
-          isOverTopView={isOverTopView}
-          id={space.id}
-          map={<SpaceMap lat={space.lat} lng={space.lng} />}
-          pref={space.addressPref}
-          city={space.addressCity}
-          town={space.addressTown}
-          name={space.title}
+          space={space}
           images={space.images.map(image => ({
             original: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
             thumbnail: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
           }))}
-          status={space.status}
-          breadcrumbsList={[
-            {
-              text: space.addressPref,
-            },
-            {
-              text: space.addressCity,
-            },
-            {
-              text: space.addressTown,
-            },
-          ]}
-          description={space.introduction}
-          sizeType={space.sizeType}
           tagList={tagList}
-          address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
-          addressMethod={space.about}
-          delivery={
-            space.receiptType === receiptTypeList.Both ||
-            space.receiptType === receiptTypeList.Delivery
-          }
-          meeting={
-            space.receiptType === receiptTypeList.Both ||
-            space.receiptType === receiptTypeList.Meeting
-          }
-          supplement={space.receiptAbout}
           user={{
             id: user.id,
             name: user.name,
@@ -212,8 +179,7 @@ class SpaceEditConfirmPage extends Component {
             profile: user.profile,
             prefCode: user.prefCode,
           }}
-          priceFull={space.priceFull}
-          priceTatami={space.priceTatami}
+          isOverTopView={isOverTopView}
         />
         <EntryButtonWrap>
           <ButtonEntry
