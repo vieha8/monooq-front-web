@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
 import PopupMenu from 'reactjs-popup';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
@@ -8,7 +9,6 @@ import MenuItem from '../../LV2/Items/MenuItem';
 import Path from '../../../config/path';
 import AvatarIcon from '../../LV2/ButtonHeader/AvatarIcon';
 import InlineText from '../../LV1/Texts/InlineText';
-import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from '../../../variables';
 
 // TODO styled-componentをViewと統一する

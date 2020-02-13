@@ -4,12 +4,10 @@ import { withRouter } from 'react-router';
 import Path from 'config/path';
 import { partialMatch } from 'helpers/string';
 import { getSafeValue } from 'helpers/properties';
-import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
 import HeaderComponent from 'components/LV3/Header/View';
 import LPLink from './LPLink';
 
-// TODO function component化
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -144,7 +142,7 @@ class Header extends Component {
   }
 
   render() {
-    const { schedule, dispatch, history } = this.props;
+    const { schedule } = this.props;
 
     const { isOverTopView } = this.state;
 
@@ -172,11 +170,6 @@ class Header extends Component {
           isLinkRed={this.isLinkRed()}
           noHeaderButton={noHeaderButton}
           noLinkLogo={noLinkLogo}
-          onClickSignup={() => history.push(Path.signUp())} // TODO View側に移す
-          addSpace={{
-            to: Path.spaceCreate1(),
-            onClick: () => dispatch(uiActions.setUiState({ space: {} })),
-          }}
           isSchedule={isSchedule}
           logoutEvent={{
             onClick: e => {

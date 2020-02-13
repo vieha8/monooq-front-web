@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import Path from 'config/path';
 import { Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import Button from 'components/LV1/Forms/Button';
 import TextLink from 'components/LV1/Texts/TextLink';
 import MenuSP from 'components/LV3/Header/MenuSP';
 import MenuPC from 'components/LV3/Header/MenuPC';
 import Logo from 'components/LV3/Header/Logo';
 import MessagesIcon from 'components/LV3/Header/MessagesIcon';
 import { useSelector } from 'react-redux';
+import MenuPCVisitor from './MenuPCVisitor';
 
 export const Height = 85;
 export const HeightPhone = 54;
@@ -144,33 +144,7 @@ const TextWrapper = styled.span`
   }
 `;
 
-const linkColor = (top, isOverTopView, isHoverColor) => {
-  let resultVal = Colors.brandPrimary;
-
-  if (top) {
-    if (isOverTopView) {
-      if (isHoverColor) {
-        resultVal = Colors.brandTerciary;
-      }
-    } else {
-      resultVal = Colors.white;
-    }
-  } else if (isHoverColor) {
-    resultVal = Colors.brandTerciary;
-  }
-
-  return resultVal;
-};
-
-const HeaderView = ({
-  isTop,
-  isLinkRed,
-  isOverTopView,
-  noHeaderButton,
-  noLinkLogo,
-  onClickSignup,
-  stories,
-}) => {
+const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLogo, stories }) => {
   const isLogin = useSelector(state => state.auth.isLogin);
 
   if (noHeaderButton) {
@@ -235,29 +209,7 @@ const HeaderView = ({
                       </ActionCell>
                     </OnlyPhone>
                     <OnlyPC>
-                      <TextWrapper>
-                        <TextLink
-                          to={Path.login()}
-                          color={linkColor(isTop, isOverTopView, false)}
-                          colorhover={linkColor(isTop, isOverTopView, true)}
-                          bold="true"
-                        >
-                          ログイン
-                        </TextLink>
-                      </TextWrapper>
-                      <TextWrapper>
-                        <Button
-                          quaternary
-                          link
-                          onClick={onClickSignup}
-                          fontbold
-                          height={40}
-                          lineheight={15}
-                          color={linkColor(isTop, isOverTopView, false)}
-                        >
-                          新規登録
-                        </Button>
-                      </TextWrapper>
+                      <MenuPCVisitor isTop={isTop} isOverTopView={isOverTopView} />
                     </OnlyPC>
                   </AnonymouseWrapper>
                 </Fragment>
