@@ -36,6 +36,7 @@ class SignUpPage extends Component {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
+  isRegistering: state.auth.isRegistering, // TODO isRegisteringとisCheckingの役割整理
   isChecking: state.auth.isChecking,
   isLoading: state.user.isLoading,
   errorMessage: state.auth.errorMessage,
