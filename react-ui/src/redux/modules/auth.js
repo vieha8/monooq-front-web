@@ -32,6 +32,7 @@ const SIGNUP_FACEBOOK = 'SIGNUP_FACEBOOK';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNUP_FAILED = 'SIGNUP_FAILED';
 const CHECK_REDIRECT = 'CHECK_REDIRECT';
+const CHECK_REDIRECT_END = 'CHECK_REDIRECT_END';
 const INIT_PASSWORD_RESET = 'INIT_PASSWORD_RESET';
 const PASSWORD_RESET = 'PASSWORD_RESET';
 const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
@@ -71,6 +72,7 @@ export const authActions = createActions(
   UNSUBSCRIBE_SUCCESS,
   UNSUBSCRIBE_FAILED,
   CHECK_REDIRECT,
+  CHECK_REDIRECT_END,
 );
 
 // Reducer
@@ -147,6 +149,10 @@ export const authReducer = handleActions(
     [CHECK_REDIRECT]: state => ({
       ...state,
       isChecking: true,
+    }),
+    [CHECK_REDIRECT_END]: state => ({
+      ...state,
+      isChecking: false,
     }),
     [SIGNUP_SUCCESS]: state => ({
       ...state,
@@ -509,12 +515,14 @@ function* checkRedirect() {
   const result = yield checkFirebaseRedirect();
 
   if (!result.user) {
+    yield put(authActions.checkRedirectEnd());
     return;
   }
 
   const { isNewUser } = result.additionalUserInfo;
   if (!isNewUser) {
     yield put(authActions.signupFailed(ErrorMessages.FailedSignUpMailExist));
+    yield put(authActions.checkRedirectEnd());
     return;
   }
   const { displayName, email, uid, photoURL } = result.user;
@@ -543,6 +551,7 @@ function* checkRedirect() {
 
   if (err) {
     yield handleError(authActions.signupFailed, '', 'signUpFacebook', err, false);
+    yield put(authActions.checkRedirectEnd());
     return;
   }
 
@@ -556,6 +565,7 @@ function* checkRedirect() {
   );
 
   yield put(authActions.signupSuccess(data));
+  yield put(authActions.checkRedirectEnd());
   yield put(push(Path.signUpProfile()));
 }
 
