@@ -34,16 +34,12 @@ export default class RegisterProfilePage extends Component {
     const { name, prefCode } = this.state;
     this.handleChangeForm('name', name);
     this.handleChangeForm('prefCode', prefCode);
-  }
 
-  componentDidUpdate(props) {
     const { user } = this.props;
-    if (!props.user.id && user.id) {
-      handleGTM('leadUserRegistered', user.id);
-      handleAccessTrade(100, `user_register_${user.id}`);
-      handleCircuitX(1373, user.id);
-      handleCircuitX(1376, user.id);
-    }
+    handleGTM('leadUserRegistered', user.id);
+    handleAccessTrade(100, `user_register_${user.id}`);
+    handleCircuitX(1373, user.id);
+    handleCircuitX(1376, user.id);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
