@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AccountTemplate from 'components/templates/AccountTemplate';
+import LoadingPage from 'components/LV3/LoadingPage';
 import RegisterProfile from './RegisterProfile';
 
 class SignUpProfilePage extends Component {
   render() {
+    const { user } = this.props;
+    if (!user.id) {
+      return <LoadingPage />;
+    }
+
     return <AccountTemplate title="新規登録" form={<RegisterProfile {...this.props} />} />;
   }
 }

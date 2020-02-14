@@ -542,7 +542,7 @@ function* checkRedirect() {
       Email: email,
       FirebaseUid: uid,
       Name: displayName,
-      ImageUrl: photoURL,
+      ImageUrl: `${photoURL}?height=200`,
       RefererUrl: referrer,
       InviteCode: inviteCode,
     },
