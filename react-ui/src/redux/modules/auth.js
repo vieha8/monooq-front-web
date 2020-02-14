@@ -144,6 +144,10 @@ export const authReducer = handleActions(
       isSignupFailed: false,
       isRegistering: true,
     }),
+    [CHECK_REDIRECT]: state => ({
+      ...state,
+      isChecking: true,
+    }),
     [SIGNUP_SUCCESS]: state => ({
       ...state,
       isSignupFailed: false,
@@ -474,54 +478,7 @@ function* signUpFacebook() {
   try {
     const auth = yield call(getFirebaseAuth);
     const provider = new auth.FacebookAuthProvider();
-    const result = yield auth().signInWithRedirect(provider);
-    const { isNewUser } = result.additionalUserInfo;
-    if (!isNewUser) {
-      yield put(authActions.signupFailed(ErrorMessages.FailedSignUpMailExist));
-      return;
-    }
-    const { displayName, email, uid, photoURL } = result.user;
-
-    let referrer = '';
-    let inviteCode = '';
-    if (isAvailableLocalStorage()) {
-      referrer = localStorage.getItem('referrer');
-      inviteCode = localStorage.getItem('invite_code');
-    }
-
-    const token = yield* getToken();
-    const { data, err } = yield call(
-      postApiRequest,
-      apiEndpoint.users(),
-      {
-        Email: email,
-        FirebaseUid: uid,
-        Name: displayName,
-        ImageUrl: photoURL,
-        RefererUrl: referrer,
-        InviteCode: inviteCode,
-      },
-      token,
-    );
-
-    if (err) {
-      yield handleError(authActions.signupFailed, '', 'signUpFacebook', err, false);
-      return;
-    }
-
-    yield put(
-      loggerActions.recordEvent({
-        event: 'user_signups',
-        detail: {
-          data,
-        },
-      }),
-    );
-
-    yield put(authActions.signupSuccess(data));
-    yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signup: { name: displayName } }));
-    yield put(push(Path.signUpProfile()));
+    yield auth().signInWithRedirect(provider);
   } catch (err) {
     let errMessage = '';
     let isOnlyAction = false;
