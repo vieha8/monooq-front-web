@@ -43,10 +43,10 @@ const LinkStyled = styled(Link)`
   line-height: ${Dimens.medium_20}px;
 `;
 
-export default ({ isHost, id, imageUrl, name }) => (
+export default ({ isHost, id, imageUrl, name, close }) => (
   <Wrap>
     <HostImageWrap>
-      <Link to={Path.profile(id)}>
+      <Link to={Path.profile(id)} onClick={close}>
         <ImageAvatar size={54} src={imageUrl} alt={name} />
       </Link>
     </HostImageWrap>
@@ -59,7 +59,7 @@ export default ({ isHost, id, imageUrl, name }) => (
       )}
       <InlineText.Base bold>{`${formatName(name)}さん`}</InlineText.Base>
       <br />
-      <LinkStyled to={Path.profileEdit()}>
+      <LinkStyled to={Path.profileEdit()} onClick={close}>
         <InlineText.Base color={Colors.lightGray3} fontSize={12}>
           プロフィール編集
         </InlineText.Base>

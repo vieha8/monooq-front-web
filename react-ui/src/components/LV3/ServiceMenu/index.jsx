@@ -21,11 +21,12 @@ export default ({
   howtouse,
   help,
   logoutEvent,
+  close,
 }) => (
   <Fragment>
     {isLogin ? (
       <Fragment>
-        <InfoUser isHost={isHost} id={userId} imageUrl={userImage} name={userName} />
+        <InfoUser isHost={isHost} id={userId} imageUrl={userImage} name={userName} close={close} />
         {isHost && (
           <Fragment>
             <MenuItem title="スペース運営" header />
