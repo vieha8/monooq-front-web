@@ -58,6 +58,14 @@ const Caution = () => {
         </ItemLink>
         <ItemLink>
           {getTextLink(
+            'https://help.monooq.com/ja/articles/3694521-',
+            'gaMessageBottomFlowLink',
+            '見積もりの出し方',
+            false,
+          )}
+        </ItemLink>
+        <ItemLink>
+          {getTextLink(
             'https://help.monooq.com/ja/articles/3368023-%E5%BF%85%E8%A6%81%E3%81%AA%E7%95%B3%E6%95%B0%E3%81%AE%E7%9B%AE%E5%AE%89%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6',
             'gaMessageBottomBreadthLink',
             '必要な広さの目安',
