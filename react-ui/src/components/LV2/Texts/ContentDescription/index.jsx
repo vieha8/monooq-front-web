@@ -10,7 +10,7 @@ const Title = styled(Text)`
   font-size: ${FontSizes.medium1}px;
   line-height: normal;
   font-weight: bold;
-  margin: ${Dimens.medium2_32}px auto ${Dimens.small2}px;
+  margin: ${Dimens.medium1}px auto ${Dimens.small2}px;
   ${media.phone`
     font-size: ${FontSizes.medium}px;
   `};

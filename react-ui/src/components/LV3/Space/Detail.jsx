@@ -220,11 +220,10 @@ const RequestCheckLi = styled.li`
 
 const RequestButtonWrap = styled.div`
   display: inline-block;
-  min-width: 300px;
+  min-width: 100%;
   margin: ${Dimens.medium}px auto;
   ${media.phone`
     display: block;
-    min-width: auto;
   `};
 `;
 
