@@ -5,26 +5,17 @@ import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
 import Path from 'config/path';
-import { Dimens, FontSizes, Colors, ErrorMessages } from 'variables';
-import { getToday, generateDateAll } from 'helpers/date';
-import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
+import { Colors } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { requestActions } from 'redux/modules/request';
 import { uiActions } from 'redux/modules/ui';
 import Button from 'components/LV1/Forms/Button';
-import TextButton from 'components/LV1/Texts/TextButton';
+import LinkCancel from 'components/LV2/Space/LinkCancel';
+import SendMessageButton from 'components/LV2/Space/SendMessageButton';
 import Form from './Form';
+import { handleChangeUI, handleChangeDate, validate } from './Shere';
 
 moment.locale('ja');
-
-const Validate = {
-  PackageContents: {
-    Max: 1000,
-  },
-  Notes: {
-    Max: 1000,
-  },
-};
 
 const Wrap = styled.div`
   text-align: left;
@@ -37,38 +28,7 @@ const ContentWrap = styled.div`
   position: relative;
 `;
 
-const Title = styled.div`
-  margin: ${Dimens.medium_20} auto ${Dimens.medium_20}px;
-  text-align: center;
-  font-size: ${FontSizes.medium_18}px;
-  font-weight: bold;
-  ${props =>
-    props.isTopBar &&
-    `
-    margin-top: ${Dimens.medium}px;
-    padding-top: ${Dimens.medium2_32}px;
-    border-top: 1px solid ${Colors.borderGray};
-  `};
-`;
-
-const ButtonRequestWrap = styled.div`
-  margin: ${Dimens.medium_20}px auto 0;
-  pointer-events: auto !important;
-`;
-
-const LinkWrap = styled.div`
-  width: 100%;
-  margin: ${Dimens.medium2}px auto 0;
-  text-align: center;
-`;
-
-const StyledTextButton = styled(TextButton)`
-  font-size: ${FontSizes.small}px;
-  font-weight: bold;
-  color: ${Colors.lightGray10};
-  text-decoration: none;
-`;
-
+// TODO: SPと記述が重複している箇所は共通化したい。
 const RequestApplication = ({
   space,
   loginUser,
@@ -158,181 +118,103 @@ const RequestApplication = ({
     }
   };
 
-  const handleChangeDate = (type, propName, value) => {
-    const setError = [];
-
-    let startDateYear = startDate.year;
-    let startDateMonth = startDate.month;
-    let startDateDay = startDate.day;
-    let endDateYear = endDate.year;
-    let endDateMonth = endDate.month;
-    let endDateDay = endDate.day;
-
-    if (type === 'startDate') {
-      switch (propName) {
-        case 'year':
-          setStartDate(state => ({ ...state, year: value }));
-          startDateYear = value;
-          break;
-        case 'month':
-          setStartDate(state => ({ ...state, month: value }));
-          startDateMonth = value;
-          break;
-        case 'day':
-          setStartDate(state => ({ ...state, day: value }));
-          startDateDay = value;
-          break;
-        default:
-          break;
-      }
-    } else {
-      switch (propName) {
-        case 'year':
-          setEndDate(state => ({ ...state, year: value }));
-          endDateYear = value;
-          break;
-        case 'month':
-          setEndDate(state => ({ ...state, month: value }));
-          endDateMonth = value;
-          break;
-        case 'day':
-          setEndDate(state => ({ ...state, day: value }));
-          endDateDay = value;
-          break;
-        default:
-          break;
-      }
-    }
-
-    const startDateAll = generateDateAll(startDateYear, startDateMonth, startDateDay);
-    const endDateAll = generateDateAll(endDateYear, endDateMonth, endDateDay);
-    if (moment(startDateAll).isValid() && moment(endDateAll).isValid()) {
-      if (moment(startDateAll).isBefore(moment(getToday()))) {
-        setError.push(ErrorMessages.InvalidStartDate);
-      }
-      if (moment(startDateAll).isSameOrAfter(moment(endDateAll))) {
-        setError.push(ErrorMessages.InvalidDateReverse);
-      }
-    } else {
-      setError.push(ErrorMessages.InvalidDate);
-    }
-
-    setErrors(state => ({ ...state, desiredPeriod: setError }));
-  };
-
-  const handleChangeUI = (propName, value) => {
-    const setError = [];
-
-    switch (propName) {
-      case 'usage':
-        if (value.length === 0) {
-          setError.push(ErrorMessages.PleaseSelect);
-        }
-        setUsage(value);
-        setErrors(state => ({ ...state, usage: setError }));
-        break;
-
-      case 'breadth':
-        if (value.length === 0) {
-          setError.push(ErrorMessages.PleaseSelect);
-        }
-        setBreadth(value);
-        setErrors(state => ({ ...state, breadth: setError }));
-        break;
-
-      case 'packageContents':
-        if (!value || value.trim().length === 0) {
-          setError.push(ErrorMessages.PleaseInput);
-        } else if (value.length > Validate.PackageContents.Max) {
-          setError.push(ErrorMessages.LengthMax('自己紹介', Validate.PackageContents.Max));
-        }
-        setPackageContents(value);
-        setErrors(state => ({ ...state, packageContents: setError }));
-        break;
-
-      case 'notes':
-        if (value.length > Validate.Notes.Max) {
-          setError.push(ErrorMessages.LengthMax('自己紹介', Validate.Notes.Max));
-        }
-        setNotes(value);
-        setErrors(state => ({ ...state, notes: setError }));
-        break;
-
-      default:
-        break;
-    }
-  };
-
-  const validate = () => {
-    const startDateAll = generateDateAll(startDate.year, startDate.month, startDate.day);
-    const endDateAll = generateDateAll(endDate.year, endDate.month, endDate.day);
-
-    let checkBreadth = 0;
-    if (space.sizeType > 0 && space.sizeType < 4) {
-      checkBreadth = getBreadthsDetailRoom(breadth) ? breadth : 0;
-    } else {
-      checkBreadth = getBreadthsDetailOther(breadth) ? breadth : 0;
-    }
-
-    return (
-      usage &&
-      breadth &&
-      checkBreadth > 0 &&
-      packageContents &&
-      (packageContents === undefined
-        ? false
-        : packageContents.trim().length > 0 &&
-          packageContents.trim().length <= Validate.PackageContents.Max) &&
-      notes.trim().length <= Validate.Notes.Max &&
-      moment(startDateAll).isValid() &&
-      moment(endDateAll).isValid() &&
-      !moment(startDateAll).isBefore(moment(getToday())) &&
-      !moment(startDateAll).isSameOrAfter(moment(endDateAll))
-    );
-  };
-
   return (
     <Wrap>
       {isModalOpen ? (
         <ContentWrap>
-          <Title isTopBar={isModalOpen}>リクエスト内容</Title>
           <Form
+            isTopBar={isModalOpen}
             errors={errors}
             sizeType={space.sizeType}
             usage={usage}
-            onChangeUsage={e => handleChangeUI('usage', e.target.value)}
+            onChangeUsage={e => handleChangeUI('usage', e.target.value, setUsage, setErrors)}
             startDate={startDate}
-            onCHangeStartDateYear={e => handleChangeDate('startDate', 'year', e.target.value)}
-            onCHangeStartDateMonth={e => handleChangeDate('startDate', 'month', e.target.value)}
-            onCHangeStartDateDay={e => handleChangeDate('startDate', 'day', e.target.value)}
+            onCHangeStartDateYear={e =>
+              handleChangeDate(
+                'startDate',
+                'year',
+                e.target.value,
+                setStartDate,
+                setErrors,
+                startDate,
+                endDate,
+              )
+            }
+            onCHangeStartDateMonth={e =>
+              handleChangeDate(
+                'startDate',
+                'month',
+                e.target.value,
+                setStartDate,
+                setErrors,
+                startDate,
+                endDate,
+              )
+            }
+            onCHangeStartDateDay={e =>
+              handleChangeDate(
+                'startDate',
+                'day',
+                e.target.value,
+                setStartDate,
+                setErrors,
+                startDate,
+                endDate,
+              )
+            }
             endDate={endDate}
-            onCHangeEndDateYear={e => handleChangeDate('endDate', 'year', e.target.value)}
-            onCHangeEndDateMonth={e => handleChangeDate('endDate', 'month', e.target.value)}
-            onCHangeEndDateDay={e => handleChangeDate('endDate', 'day', e.target.value)}
+            onCHangeEndDateYear={e =>
+              handleChangeDate(
+                'endDate',
+                'year',
+                e.target.value,
+                setEndDate,
+                setErrors,
+                startDate,
+                endDate,
+              )
+            }
+            onCHangeEndDateMonth={e =>
+              handleChangeDate(
+                'endDate',
+                'month',
+                e.target.value,
+                setEndDate,
+                setErrors,
+                startDate,
+                endDate,
+              )
+            }
+            onCHangeEndDateDay={e =>
+              handleChangeDate(
+                'endDate',
+                'day',
+                e.target.value,
+                setEndDate,
+                setErrors,
+                startDate,
+                endDate,
+              )
+            }
             breadth={breadth}
-            onChangeBreadth={e => handleChangeUI('breadth', e.target.value)}
+            onChangeBreadth={e => handleChangeUI('breadth', e.target.value, setBreadth, setErrors)}
             packageContents={packageContents}
-            onChangePackageContents={e => handleChangeUI('packageContents', e.target.value)}
+            onChangePackageContents={e =>
+              handleChangeUI('packageContents', e.target.value, setPackageContents, setErrors)
+            }
             notes={notes}
-            onChangeNotes={e => handleChangeUI('notes', e.target.value)}
+            onChangeNotes={e => handleChangeUI('notes', e.target.value, setNotes, setErrors)}
           />
-          <ButtonRequestWrap>
-            <Button
-              center
-              primary
-              fontbold
-              fill={1}
-              disabled={!validate()}
-              loading={loading}
-              onClick={isSelfSpace ? null : onClickSendMessage}
-              onKeyDown={isSelfSpace ? null : onKeyDownButtonMessage}
-            >
-              リクエスト申請
-            </Button>
-            <LinkWrap>
-              <StyledTextButton onClick={handleModalClose}>キャンセルする</StyledTextButton>
-            </LinkWrap>
-          </ButtonRequestWrap>
+          <SendMessageButton
+            loading={loading}
+            onClick={isSelfSpace ? null : onClickSendMessage}
+            onKeyDown={isSelfSpace ? null : onKeyDownButtonMessage}
+            disabled={
+              !validate(startDate, endDate, usage, space.sizeType, breadth, packageContents, notes)
+            }
+            handleModalClose={handleModalClose}
+          />
+          <LinkCancel handleModalClose={handleModalClose} />
         </ContentWrap>
       ) : (
         <Button
