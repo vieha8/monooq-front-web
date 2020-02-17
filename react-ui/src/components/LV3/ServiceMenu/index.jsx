@@ -11,7 +11,6 @@ export default ({
   top,
   about,
   isLogin,
-  isSchedule,
   schedule,
   isHost,
   addSpace,
@@ -21,17 +20,18 @@ export default ({
   howtouse,
   help,
   logoutEvent,
+  close,
 }) => (
   <Fragment>
     {isLogin ? (
       <Fragment>
-        <InfoUser isHost={isHost} id={userId} imageUrl={userImage} name={userName} />
+        <InfoUser isHost={isHost} id={userId} imageUrl={userImage} name={userName} close={close} />
         {isHost && (
           <Fragment>
             <MenuItem title="スペース運営" header />
             <MenuItem title="スペースの新規登録" {...addSpace} />
             <MenuItem title="スペースの管理" {...spaces} />
-            {isSchedule && <MenuItem title="利用状況" {...schedule} />}
+            <MenuItem title="利用状況" {...schedule} />
             <MenuItem title="売上・振込申請" {...sales} />
           </Fragment>
         )}

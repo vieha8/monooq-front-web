@@ -8,17 +8,15 @@ import LoadingPage from '../../LV3/LoadingPage';
 import RegisterEmail from './RegisterEmail';
 
 class SignUpPage extends Component {
-  componentDidUpdate(prevProps) {
-    if (!prevProps.isInitialized && this.props.isInitialized) {
-      const { dispatch } = this.props;
-      dispatch(authActions.checkRedirect());
-    }
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(authActions.checkRedirect());
   }
 
   render() {
-    const { errorMessage, isInitialized, user } = this.props;
+    const { errorMessage, isInitialized, isChecking, user } = this.props;
 
-    if (!isInitialized) {
+    if (!isInitialized || isChecking) {
       return <LoadingPage />;
     }
 
@@ -38,7 +36,8 @@ class SignUpPage extends Component {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  isRegistering: state.auth.isRegistering,
+  isRegistering: state.auth.isRegistering, // TODO isRegisteringとisCheckingの役割整理
+  isChecking: state.auth.isChecking,
   isLoading: state.user.isLoading,
   errorMessage: state.auth.errorMessage,
   isInitialized: state.init.isInitialized,

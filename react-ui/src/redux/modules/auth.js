@@ -32,6 +32,7 @@ const SIGNUP_FACEBOOK = 'SIGNUP_FACEBOOK';
 const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 const SIGNUP_FAILED = 'SIGNUP_FAILED';
 const CHECK_REDIRECT = 'CHECK_REDIRECT';
+const CHECK_REDIRECT_END = 'CHECK_REDIRECT_END';
 const INIT_PASSWORD_RESET = 'INIT_PASSWORD_RESET';
 const PASSWORD_RESET = 'PASSWORD_RESET';
 const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
@@ -71,6 +72,7 @@ export const authActions = createActions(
   UNSUBSCRIBE_SUCCESS,
   UNSUBSCRIBE_FAILED,
   CHECK_REDIRECT,
+  CHECK_REDIRECT_END,
 );
 
 // Reducer
@@ -143,6 +145,14 @@ export const authReducer = handleActions(
       ...state,
       isSignupFailed: false,
       isRegistering: true,
+    }),
+    [CHECK_REDIRECT]: state => ({
+      ...state,
+      isChecking: true,
+    }),
+    [CHECK_REDIRECT_END]: state => ({
+      ...state,
+      isChecking: false,
     }),
     [SIGNUP_SUCCESS]: state => ({
       ...state,
@@ -379,7 +389,13 @@ function* loginEmail({ payload: { email, password } }) {
     yield checkLogin();
     yield put(authActions.loginSuccess());
   } catch (err) {
-    yield handleError(authActions.loginFailed, err.message, 'loginEmail', err, true);
+    yield handleError(
+      authActions.loginFailed,
+      `${err.message} address:${email}`,
+      'loginEmail',
+      err,
+      true,
+    );
   }
 }
 
@@ -474,54 +490,7 @@ function* signUpFacebook() {
   try {
     const auth = yield call(getFirebaseAuth);
     const provider = new auth.FacebookAuthProvider();
-    const result = yield auth().signInWithRedirect(provider);
-    const { isNewUser } = result.additionalUserInfo;
-    if (!isNewUser) {
-      yield put(authActions.signupFailed(ErrorMessages.FailedSignUpMailExist));
-      return;
-    }
-    const { displayName, email, uid, photoURL } = result.user;
-
-    let referrer = '';
-    let inviteCode = '';
-    if (isAvailableLocalStorage()) {
-      referrer = localStorage.getItem('referrer');
-      inviteCode = localStorage.getItem('invite_code');
-    }
-
-    const token = yield* getToken();
-    const { data, err } = yield call(
-      postApiRequest,
-      apiEndpoint.users(),
-      {
-        Email: email,
-        FirebaseUid: uid,
-        Name: displayName,
-        ImageUrl: photoURL,
-        RefererUrl: referrer,
-        InviteCode: inviteCode,
-      },
-      token,
-    );
-
-    if (err) {
-      yield handleError(authActions.signupFailed, '', 'signUpFacebook', err, false);
-      return;
-    }
-
-    yield put(
-      loggerActions.recordEvent({
-        event: 'user_signups',
-        detail: {
-          data,
-        },
-      }),
-    );
-
-    yield put(authActions.signupSuccess(data));
-    yield put(authActions.checkLogin());
-    yield put(uiActions.setUiState({ signup: { name: displayName } }));
-    yield put(push(Path.signUpProfile()));
+    yield auth().signInWithRedirect(provider);
   } catch (err) {
     let errMessage = '';
     let isOnlyAction = false;
@@ -552,12 +521,14 @@ function* checkRedirect() {
   const result = yield checkFirebaseRedirect();
 
   if (!result.user) {
+    yield put(authActions.checkRedirectEnd());
     return;
   }
 
   const { isNewUser } = result.additionalUserInfo;
   if (!isNewUser) {
     yield put(authActions.signupFailed(ErrorMessages.FailedSignUpMailExist));
+    yield put(authActions.checkRedirectEnd());
     return;
   }
   const { displayName, email, uid, photoURL } = result.user;
@@ -577,7 +548,7 @@ function* checkRedirect() {
       Email: email,
       FirebaseUid: uid,
       Name: displayName,
-      ImageUrl: photoURL,
+      ImageUrl: `${photoURL}?height=200`,
       RefererUrl: referrer,
       InviteCode: inviteCode,
     },
@@ -586,6 +557,7 @@ function* checkRedirect() {
 
   if (err) {
     yield handleError(authActions.signupFailed, '', 'signUpFacebook', err, false);
+    yield put(authActions.checkRedirectEnd());
     return;
   }
 
@@ -599,6 +571,7 @@ function* checkRedirect() {
   );
 
   yield put(authActions.signupSuccess(data));
+  yield put(authActions.checkRedirectEnd());
   yield put(push(Path.signUpProfile()));
 }
 

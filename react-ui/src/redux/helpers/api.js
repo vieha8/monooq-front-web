@@ -55,7 +55,7 @@ const responseErrorHandler = (resolve, error, path, params) => {
     const { method, url } = config;
     const err = `${method} ${url} ${status} ${statusText} : ${data.error}`;
 
-    if (data.error !== 'Not mobile phone number') {
+    if (data.error !== 'Not mobile phone number' || data.error !== 'Not register phone number') {
       // SMS送信エラーは通知させない
       withScope(scope => {
         scope.setExtra('params', params);
