@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
-import styled from 'styled-components';
 import moment from 'moment';
 import Path from 'config/path';
-import { Dimens, FontSizes, Colors, ErrorMessages } from 'variables';
+import { Modal } from 'semantic-ui-react';
+import styled from 'styled-components';
+import { Dimens, FontSizes, Colors, ErrorMessages, ZIndexes } from 'variables';
 import { getToday, generateDateAll } from 'helpers/date';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { media } from 'helpers/style/media-query';
 import { requestActions } from 'redux/modules/request';
 import { uiActions } from 'redux/modules/ui';
 import Button from 'components/LV1/Forms/Button';
 import TextButton from 'components/LV1/Texts/TextButton';
+import SendMessageCaption from 'components/LV2/Space/SendMessageCaption';
 import Form from './Form';
 
 moment.locale('ja');
@@ -35,6 +38,8 @@ const ContentWrap = styled.div`
   max-width: 768px;
   margin: auto;
   position: relative;
+  top: 95px;
+  padding: 0 ${Dimens.medium}px 120px;
 `;
 
 const Title = styled.div`
@@ -42,13 +47,6 @@ const Title = styled.div`
   text-align: center;
   font-size: ${FontSizes.medium_18}px;
   font-weight: bold;
-  ${props =>
-    props.isTopBar &&
-    `
-    margin-top: ${Dimens.medium}px;
-    padding-top: ${Dimens.medium2_32}px;
-    border-top: 1px solid ${Colors.borderGray};
-  `};
 `;
 
 const ButtonRequestWrap = styled.div`
@@ -60,6 +58,7 @@ const LinkWrap = styled.div`
   width: 100%;
   margin: ${Dimens.medium2}px auto 0;
   text-align: center;
+  margin: ${Dimens.medium_20}px auto ${Dimens.medium2}px;
 `;
 
 const StyledTextButton = styled(TextButton)`
@@ -69,15 +68,55 @@ const StyledTextButton = styled(TextButton)`
   text-decoration: none;
 `;
 
-const RequestApplication = ({
+const SendMessageWrapOuter = styled.div`
+  display: none;
+  width: 100%;
+  min-width: 320px;
+  height: fit-content;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: ${ZIndexes.frontPartsOverFooter};
+  text-align: center;
+  border-top: 1px solid ${Colors.borderGray};
+  ${props =>
+    props.isModal &&
+    `
+      top: 0;
+      display: block;
+    `};
+  ${media.tablet`
+    display: block;
+  `};
+`;
+
+const SendMessageWrap = styled.div`
+  min-width: 320px;
+  padding: ${Dimens.small2}px ${Dimens.medium}px;
+  background-color: ${Colors.white};
+  border-bottom: 1px solid ${Colors.borderGray};
+`;
+
+const SendMessageWrapInnter = styled.div`
+  display: flex;
+  max-width: 320px;
+  margin: auto;
+`;
+
+const SendMessageButtonWrap = styled.div`
+  display: inline-block;
+  min-width: 185px;
+`;
+
+const RequestApplicationSP = ({
   space,
   loginUser,
   isLogin,
   confirm,
   params,
-  isModalOpen,
-  handleModalOpen,
-  handleModalClose,
+  isModalOpenSP,
+  handleModalOpenSP,
+  handleModalCloseSP,
   loading,
 }) => {
   const dispatch = useDispatch();
@@ -127,7 +166,7 @@ const RequestApplication = ({
       handleSignUp();
       return;
     }
-    handleModalOpen();
+    handleModalOpenSP();
   };
 
   const onClickSendMessage = async () => {
@@ -293,62 +332,95 @@ const RequestApplication = ({
 
   return (
     <Wrap>
-      {isModalOpen ? (
-        <ContentWrap>
-          <Title isTopBar={isModalOpen}>リクエスト内容</Title>
-          <Form
-            errors={errors}
-            sizeType={space.sizeType}
-            usage={usage}
-            onChangeUsage={e => handleChangeUI('usage', e.target.value)}
-            startDate={startDate}
-            onCHangeStartDateYear={e => handleChangeDate('startDate', 'year', e.target.value)}
-            onCHangeStartDateMonth={e => handleChangeDate('startDate', 'month', e.target.value)}
-            onCHangeStartDateDay={e => handleChangeDate('startDate', 'day', e.target.value)}
-            endDate={endDate}
-            onCHangeEndDateYear={e => handleChangeDate('endDate', 'year', e.target.value)}
-            onCHangeEndDateMonth={e => handleChangeDate('endDate', 'month', e.target.value)}
-            onCHangeEndDateDay={e => handleChangeDate('endDate', 'day', e.target.value)}
-            breadth={breadth}
-            onChangeBreadth={e => handleChangeUI('breadth', e.target.value)}
-            packageContents={packageContents}
-            onChangePackageContents={e => handleChangeUI('packageContents', e.target.value)}
-            notes={notes}
-            onChangeNotes={e => handleChangeUI('notes', e.target.value)}
-          />
-          <ButtonRequestWrap>
-            <Button
-              center
-              primary
-              fontbold
-              fill={1}
-              disabled={!validate()}
-              loading={loading}
-              onClick={isSelfSpace ? null : onClickSendMessage}
-              onKeyDown={isSelfSpace ? null : onKeyDownButtonMessage}
-            >
-              リクエスト申請
-            </Button>
-            <LinkWrap>
-              <StyledTextButton onClick={handleModalClose}>キャンセルする</StyledTextButton>
-            </LinkWrap>
-          </ButtonRequestWrap>
-        </ContentWrap>
-      ) : (
-        <Button
-          fontSize={14}
-          primary
-          borderbold
-          fontbold
-          fill={1}
-          disabled={confirm || isSelfSpace}
-          onClick={onClickButton}
-        >
-          {isLogin ? 'リクエストを作成する' : '会員登録してリクエスト'}
-        </Button>
-      )}
+      <SendMessageWrapOuter>
+        <SendMessageWrap>
+          <SendMessageWrapInnter>
+            <SendMessageCaption
+              isRoom={space.sizeType > 0 && space.sizeType < 4}
+              priceTatami={space.priceFull}
+              priceFull={space.priceFull}
+            />
+            <SendMessageButtonWrap>
+              <Button
+                center
+                primary
+                fontbold
+                fill={1}
+                disabled={confirm || isSelfSpace}
+                onClick={onClickButton}
+              >
+                {isLogin ? 'リクエストを作成する' : '会員登録してリクエスト'}
+              </Button>
+            </SendMessageButtonWrap>
+          </SendMessageWrapInnter>
+        </SendMessageWrap>
+      </SendMessageWrapOuter>
+      <Modal
+        size="large"
+        open={isModalOpenSP}
+        onClose={handleModalCloseSP}
+        className="semantic-ui-modal-custom request"
+      >
+        <Fragment>
+          <Modal.Content scrolling>
+            <SendMessageWrapOuter isModal>
+              <SendMessageWrap>
+                <SendMessageWrapInnter>
+                  <SendMessageCaption
+                    isRoom={space.sizeType > 0 && space.sizeType < 4}
+                    priceTatami={space.priceFull}
+                    priceFull={space.priceFull}
+                  />
+                  <SendMessageButtonWrap>
+                    <Button
+                      center
+                      primary
+                      fontbold
+                      fill={1}
+                      disabled={!validate()}
+                      loading={loading}
+                      onClick={isSelfSpace ? null : onClickSendMessage}
+                      onKeyDown={isSelfSpace ? null : onKeyDownButtonMessage}
+                    >
+                      リクエスト申請
+                    </Button>
+                  </SendMessageButtonWrap>
+                </SendMessageWrapInnter>
+              </SendMessageWrap>
+            </SendMessageWrapOuter>
+            <ContentWrap>
+              <Title>リクエスト内容</Title>
+              <Form
+                errors={errors}
+                sizeType={space.sizeType}
+                usage={usage}
+                onChangeUsage={e => handleChangeUI('usage', e.target.value)}
+                startDate={startDate}
+                onCHangeStartDateYear={e => handleChangeDate('startDate', 'year', e.target.value)}
+                onCHangeStartDateMonth={e => handleChangeDate('startDate', 'month', e.target.value)}
+                onCHangeStartDateDay={e => handleChangeDate('startDate', 'day', e.target.value)}
+                endDate={endDate}
+                onCHangeEndDateYear={e => handleChangeDate('endDate', 'year', e.target.value)}
+                onCHangeEndDateMonth={e => handleChangeDate('endDate', 'month', e.target.value)}
+                onCHangeEndDateDay={e => handleChangeDate('endDate', 'day', e.target.value)}
+                breadth={breadth}
+                onChangeBreadth={e => handleChangeUI('breadth', e.target.value)}
+                packageContents={packageContents}
+                onChangePackageContents={e => handleChangeUI('packageContents', e.target.value)}
+                notes={notes}
+                onChangeNotes={e => handleChangeUI('notes', e.target.value)}
+              />
+              <ButtonRequestWrap>
+                <LinkWrap>
+                  <StyledTextButton onClick={handleModalCloseSP}>キャンセルする</StyledTextButton>
+                </LinkWrap>
+              </ButtonRequestWrap>
+            </ContentWrap>
+          </Modal.Content>
+        </Fragment>
+      </Modal>
     </Wrap>
   );
 };
 
-export default RequestApplication;
+export default RequestApplicationSP;

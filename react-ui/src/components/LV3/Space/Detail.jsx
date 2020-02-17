@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import Path from 'config/path';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { isAvailableLocalStorage } from 'helpers/storage';
 import SnsShare from 'components/LV2/SnsShare';
 import Image from 'components/LV2/Space/Image';
 import RequestApplication from 'components/LV3/RequestApplication';
+import RequestApplicationSP from 'components/LV3/RequestApplication/SP';
 import ImageCheckRed from 'images/icon-check-circle-red.svg';
 import Info from './Info';
 
@@ -170,42 +172,31 @@ const getCaptionMessage = () => {
   return 'リクエストを送ることで、あなたがスペースに興味を持っていることがホストに伝わります。';
 };
 
+const getParams = () => {
+  let params = null;
+  if (isAvailableLocalStorage() && localStorage.getItem('request_params')) {
+    params = JSON.parse(localStorage.getItem('request_params'));
+  }
+  return params;
+};
+
 export default ({
-  isLogin,
+  loading,
   confirm,
+  space,
+  images,
+  tagList,
+  loginUser,
+  user,
+  recommend,
+  isOverTopView,
+  isBottom,
   isModalOpen,
   handleModalOpen,
   handleModalClose,
-  handleSignUp,
-  space,
-  images,
-  user,
-  recommend,
-  tagList,
-  isOverTopView,
-  isBottom,
-  buttonRequestCreatedisabled,
-  usage,
-  onChangeUsage,
-  breadth,
-  onChangeBreadth,
-  startDate,
-  onChangeStartDateYear,
-  onChangeStartDateMonth,
-  onChangeStartDateDay,
-  endDate,
-  onChangeEndDateYear,
-  onChangeEndDateMonth,
-  onChangeEndDateDay,
-  packageContents,
-  onChangePackageContents,
-  notes,
-  onChangeNotes,
-  errors,
-  buttonRequestDisabled,
-  loading,
-  onClick,
-  onKeyDownButtonMessage,
+  isModalOpenSP,
+  handleModalOpenSP,
+  handleModalCloseSP,
 }) => (
   <Wrap confirm={confirm}>
     <Image images={images} />
@@ -246,38 +237,15 @@ export default ({
             )}
             <RequestButtonWrap>
               <RequestApplication
-                isLogin={isLogin}
+                space={space}
+                loginUser={loginUser}
+                isLogin={!!user.id}
                 confirm={confirm}
-                errors={errors}
-                isPC
+                params={getParams()}
                 isModalOpen={isModalOpen}
                 handleModalOpen={handleModalOpen}
                 handleModalClose={handleModalClose}
-                handleSignUp={handleSignUp}
-                priceFull={space.priceFull}
-                priceTatami={space.priceTatami}
-                buttonRequestCreatedisabled={buttonRequestCreatedisabled}
-                disabled={buttonRequestDisabled}
                 loading={loading}
-                onClick={onClick}
-                onKeyDownButtonMessage={onKeyDownButtonMessage}
-                isRoom={space.sizeType > 0 && space.sizeType < 4}
-                usage={usage}
-                onChangeUsage={onChangeUsage}
-                breadth={breadth}
-                onChangeBreadth={onChangeBreadth}
-                startDate={startDate}
-                onChangeStartDateYear={onChangeStartDateYear}
-                onChangeStartDateMonth={onChangeStartDateMonth}
-                onChangeStartDateDay={onChangeStartDateDay}
-                endDate={endDate}
-                onChangeEndDateYear={onChangeEndDateYear}
-                onChangeEndDateMonth={onChangeEndDateMonth}
-                onChangeEndDateDay={onChangeEndDateDay}
-                packageContents={packageContents}
-                onChangePackageContents={onChangePackageContents}
-                notes={notes}
-                onChangeNotes={onChangeNotes}
               />
             </RequestButtonWrap>
             {!isModalOpen && getCaptionMessage()}
@@ -285,6 +253,19 @@ export default ({
           {!confirm && <SnsShare id={space.id} name={space.title} />}
         </RightInner>
       </RightWrap>
+      {!confirm && (
+        <RequestApplicationSP
+          space={space}
+          loginUser={loginUser}
+          isLogin={!!user.id}
+          confirm={confirm}
+          params={getParams()}
+          isModalOpenSP={isModalOpenSP}
+          handleModalOpenSP={handleModalOpenSP}
+          handleModalCloseSP={handleModalCloseSP}
+          loading={loading}
+        />
+      )}
     </SpaceDetailWrap>
   </Wrap>
 );
