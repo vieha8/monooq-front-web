@@ -33,13 +33,8 @@ class MenuSP extends Component {
   };
 
   render() {
-    const { dispatch, isLogin, user, schedule } = this.props;
+    const { dispatch, isLogin, user } = this.props;
     const { currentMenu, isOpen } = this.state;
-
-    let isSchedule = false;
-    if (schedule && (schedule.user.length > 0 || schedule.host.length > 0)) {
-      isSchedule = true;
-    }
 
     // TODO メニュー操作時のcloseロジック汎用化したい
 
@@ -76,7 +71,6 @@ class MenuSP extends Component {
           userName={user.name}
           userImage={user.imageUrl}
           isLogin={isLogin}
-          isSchedule={isSchedule}
           isHost={user.isHost || false}
           logoutEvent={{
             onClick: e => {
