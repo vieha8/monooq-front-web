@@ -29,7 +29,7 @@ const ContentWrap = styled.div`
   margin: auto;
   position: relative;
   top: 95px;
-  padding: 0 ${Dimens.medium}px 120px;
+  padding: 0 ${Dimens.medium}px 150px;
 `;
 
 const SendMessageWrapOuter = styled.div`
@@ -42,7 +42,6 @@ const SendMessageWrapOuter = styled.div`
   bottom: 0;
   z-index: ${ZIndexes.frontPartsOverFooter};
   text-align: center;
-  border-top: 1px solid ${Colors.borderGray};
   ${props =>
     props.isModal &&
     `
@@ -58,7 +57,14 @@ const SendMessageWrap = styled.div`
   min-width: 320px;
   padding: ${Dimens.small2}px ${Dimens.medium}px;
   background-color: ${Colors.white};
-  border-bottom: 1px solid ${Colors.borderGray};
+  ${props =>
+    props.isModal
+      ? `
+        border-bottom: 1px solid ${Colors.borderGray};
+      `
+      : `
+        border-top: 1px solid ${Colors.borderGray};
+      `};
 `;
 
 const SendMessageWrapInnter = styled.div`
@@ -70,7 +76,7 @@ const SendMessageWrapInnter = styled.div`
 const getRequestSet = (isModal, space, loading, onClick, onKeyDown, disabled, text) => {
   return (
     <SendMessageWrapOuter isModal={isModal}>
-      <SendMessageWrap>
+      <SendMessageWrap isModal={isModal}>
         <SendMessageWrapInnter>
           <SendMessageCaption
             isRoom={space.sizeType > 0 && space.sizeType < 4}
@@ -198,16 +204,16 @@ const RequestApplicationSP = ({
         className="semantic-ui-modal-custom request"
       >
         <Fragment>
+          {getRequestSet(
+            true,
+            space,
+            loading,
+            isSelfSpace ? null : onClickSendMessage,
+            isSelfSpace ? null : onKeyDownButtonMessage,
+            !validate(startDate, endDate, usage, space.sizeType, breadth, packageContents, notes),
+            '',
+          )}
           <Modal.Content scrolling>
-            {getRequestSet(
-              true,
-              space,
-              loading,
-              isSelfSpace ? null : onClickSendMessage,
-              isSelfSpace ? null : onKeyDownButtonMessage,
-              !validate(startDate, endDate, usage, space.sizeType, breadth, packageContents, notes),
-              '',
-            )}
             <ContentWrap>
               <Form
                 errors={errors}

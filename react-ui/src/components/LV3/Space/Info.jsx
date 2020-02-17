@@ -18,7 +18,7 @@ import Price from 'components/LV3/Space/Price';
 import Attention from './Attention';
 
 const AvailabilityWrap = styled.div`
-  margin: ${Dimens.medium}px auto;
+  margin: 0 auto ${Dimens.medium}px;
 `;
 
 const SpaceTitleWrap = styled.div``;
