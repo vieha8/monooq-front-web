@@ -184,7 +184,7 @@ export default ({
               <RequestApplication
                 space={space}
                 loginUser={loginUser}
-                isLogin={!!user.id}
+                isLogin={!!loginUser.id}
                 confirm={confirm}
                 params={getParams()}
                 isModalOpen={isModalOpen}
@@ -202,7 +202,7 @@ export default ({
         <RequestApplicationSP
           space={space}
           loginUser={loginUser}
-          isLogin={!!user.id}
+          isLogin={!!loginUser.id}
           confirm={confirm}
           params={getParams()}
           isModalOpenSP={isModalOpenSP}
