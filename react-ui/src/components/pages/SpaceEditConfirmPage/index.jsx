@@ -165,6 +165,7 @@ class SpaceEditConfirmPage extends Component {
     return (
       <BaseTemplate maxWidth={1440} noMargin>
         <Detail
+          loading={isLoading}
           confirm
           space={space}
           images={space.images.map(image => ({
@@ -172,6 +173,7 @@ class SpaceEditConfirmPage extends Component {
             thumbnail: image.imageUrl || image.tmpUrl || image.preview || dummySpaceImage,
           }))}
           tagList={tagList}
+          loginUser={user}
           user={{
             id: user.id,
             name: user.name,

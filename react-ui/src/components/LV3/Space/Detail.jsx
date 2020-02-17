@@ -6,9 +6,9 @@ import { media } from 'helpers/style/media-query';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import SnsShare from 'components/LV2/SnsShare';
 import Image from 'components/LV2/Space/Image';
+import Question from 'components/LV2/Space/Question';
 import RequestApplication from 'components/LV3/RequestApplication';
 import RequestApplicationSP from 'components/LV3/RequestApplication/SP';
-import ImageCheckRed from 'images/icon-check-circle-red.svg';
 import Info from './Info';
 
 const Wrap = styled.div`
@@ -91,53 +91,9 @@ const RequestTitle = styled.div`
   margin-bottom: ${Dimens.medium_20}px;
 `;
 
-const RequestCheckWrap = styled.div`
-  padding: ${Dimens.medium_20}px;
-  font-size: ${FontSizes.small}px;
-  line-height: normal;
-  color: ${Colors.black};
-  background-color: ${Colors.lightGray1Bg};
-`;
-
-const RequestCheckTitle = styled.div`
-  font-weight: bold;
-  margin-bottom: ${Dimens.medium_20}px;
-`;
-
-const RequestCheckUl = styled.ul`
-  text-align: left;
-`;
-
-const RequestCheckLi = styled.li`
-  position: relative;
-  padding-left: ${Dimens.medium2}px;
-  ${props =>
-    props.margin &&
-    `
-    margin: ${Dimens.small_10}px auto;
-  `};
-  &::before {
-    position: absolute;
-    content: '';
-    top: calc(50% - ${Dimens.small_10}px);
-    left: 0px;
-    width: ${Dimens.medium_20}px;
-    height: ${Dimens.medium_20}px;
-    background-image: url(${ImageCheckRed});
-    background-size: cover;
-    background-position: top left;
-    background-repeat: no-repeat;
-  }
-`;
-
 const RequestButtonWrap = styled.div`
-  display: inline-block;
   min-width: 300px;
   margin: ${Dimens.medium}px auto;
-  ${media.phone`
-    display: block;
-    min-width: auto;
-  `};
 `;
 
 const makeBreadCrumbs = ({
@@ -223,18 +179,7 @@ export default ({
           <RequestCard>
             気になるスペースを見つけたら？
             <RequestTitle>ホストに相談しよう</RequestTitle>
-            {isModalOpen ? (
-              getCaptionMessage()
-            ) : (
-              <RequestCheckWrap>
-                <RequestCheckTitle>よくある確認事項</RequestCheckTitle>
-                <RequestCheckUl>
-                  <RequestCheckLi>預けたい日程は決まっているか</RequestCheckLi>
-                  <RequestCheckLi margin>荷物の量はだいたい決まっているか</RequestCheckLi>
-                  <RequestCheckLi>荷物の出し入れは頻繁に行うか</RequestCheckLi>
-                </RequestCheckUl>
-              </RequestCheckWrap>
-            )}
+            {isModalOpen ? getCaptionMessage() : <Question />}
             <RequestButtonWrap>
               <RequestApplication
                 space={space}
