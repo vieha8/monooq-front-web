@@ -43,7 +43,7 @@ const SpaceEditCompletion = ({ story, userId }) => {
       handleCircuitX(1378, userId);
     }
     dispatch(uiActions.setUiState({ space: {} }));
-  }, []);
+  }, [isUpdate, userId, dispatch]);
 
   const onClickCreateSpace = () => {
     history.push(Path.spaceCreate1());

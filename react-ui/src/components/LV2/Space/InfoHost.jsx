@@ -8,6 +8,7 @@ import { Dimens, FontSizes } from 'variables';
 import { getPrefecture } from 'helpers/prefectures';
 import { formatName } from 'helpers/string';
 import Attribute from 'components/LV2/Space/Attribute';
+import { SectionTitle } from './Section';
 
 const Content = styled.div`
   ${props =>
@@ -47,15 +48,28 @@ const contentHostName = (message, name, prefCode) => {
   );
 };
 
-export default ({ infoHost, message, id, imageUrl, name, prefCode, profile, isNoProfile }) => (
-  <Attribute
-    infoHost={infoHost}
-    message={message}
-    headContent={headContent(id, imageUrl, name)}
-    contentHostName={
-      isNoProfile ? `${formatName(name)}さん` : contentHostName(message, name, prefCode)
-    }
-    contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
-    isNoProfile={isNoProfile}
-  />
+export default ({
+  infoHost,
+  isTitle,
+  message,
+  id,
+  imageUrl,
+  name,
+  prefCode,
+  profile,
+  isNoProfile,
+}) => (
+  <Fragment>
+    {isTitle && <SectionTitle text="ホストについて" />}
+    <Attribute
+      infoHost={infoHost}
+      message={message}
+      headContent={headContent(id, imageUrl, name)}
+      contentHostName={
+        isNoProfile ? `${formatName(name)}さん` : contentHostName(message, name, prefCode)
+      }
+      contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
+      isNoProfile={isNoProfile}
+    />
+  </Fragment>
 );

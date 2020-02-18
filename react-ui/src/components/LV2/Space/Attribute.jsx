@@ -35,6 +35,7 @@ const HostImageWrap = styled.span`
 
 const HostNameWrap = styled.div`
   float: left;
+  width: calc(100% - 60px);
   margin-top: ${Dimens.xsmall_7}px;
   margin-left: ${Dimens.small2_15}px;
   color: ${Colors.brandPrimary};

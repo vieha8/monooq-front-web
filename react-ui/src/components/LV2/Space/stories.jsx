@@ -11,8 +11,6 @@ import InfoHost from './InfoHost';
 import Image from './Image';
 import Price from './Price';
 import Receive from './Receive';
-import SendMessage from './SendMessage';
-import Supplement from './Supplement';
 import InfoUser from './InfoUser';
 
 Address.displayName = 'Address';
@@ -22,8 +20,6 @@ InfoHost.displayName = 'InfoHost';
 Image.displayName = 'Image';
 Price.displayName = 'Price';
 Receive.displayName = 'Receive';
-SendMessage.displayName = 'SendMessage';
-Supplement.displayName = 'Supplement';
 InfoUser.displayName = 'InfoUser';
 
 storiesOf('Molecules(LV2)/Space', module)
@@ -183,30 +179,6 @@ storiesOf('Molecules(LV2)/Space', module)
         <Receive isMeeting />
         <br />
         <Receive isDelivery isMeeting />
-      </div>
-    )),
-  )
-  .add(
-    'SendMessage',
-    withInfo(`
-      ### コンポーネント概要
-      相談するボタン
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <SendMessage onClick={() => console.log('onClick')} />
-        <br />
-        <SendMessage loading onClick={() => console.log('onClick')} />
-      </div>
-    )),
-  )
-  .add(
-    'Supplement',
-    withInfo(`
-      ### コンポーネント概要
-      スペース情報(受取りについて補足)
-    `)(() => (
-      <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <Supplement content="受け取りは日曜日にお願いします" />
       </div>
     )),
   );
