@@ -67,7 +67,7 @@ export default ({ messages, lastReadDt, userIdFrom, userIdTo, hostUser, isOpenMo
     );
   }
 
-  if (messageList.length >= 1) {
+  if (messageList.length >= 1 && !messageList[0].admin) {
     // ルームの初回メッセージをトリガーとして、ユーザー・ホストの「双方」に表示 ※永続表示
     if (hostUser) {
       messageList.splice(1, 0, {
