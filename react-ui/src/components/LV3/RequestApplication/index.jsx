@@ -13,7 +13,7 @@ import Button from 'components/LV1/Forms/Button';
 import LinkCancel from 'components/LV2/Space/LinkCancel';
 import SendMessageButton from 'components/LV2/Space/SendMessageButton';
 import Form from './Form';
-import { handleChangeUI, handleChangeDate, validate } from './Shere';
+import { handleChangeUI, handleChangeDate, validate } from './Share';
 
 moment.locale('ja');
 
@@ -90,7 +90,7 @@ const RequestApplication = ({
     handleModalOpen();
   };
 
-  const onClickSendMessage = async () => {
+  const onClickSendMessage = () => {
     if (!isLogin) {
       dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
       history.push(Path.login());
