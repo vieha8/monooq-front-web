@@ -17,9 +17,10 @@ const Section = styled.div`
 `;
 
 const HilightText = styled(Text)`
-  font-size: ${FontSizes.medium1}px;
+  font-size: ${FontSizes.medium1_22}px;
+  font-weight: bold;
   line-height: ${FontSizes.medium1 * 1.5}px;
-  margin: ${Dimens.medium_20}px auto ${Dimens.small}px auto;
+  margin: ${Dimens.medium2}px auto ${Dimens.small}px auto;
   ${media.phone`
     font-size: 5vw;
     line-height: 7.5vw;
@@ -27,14 +28,14 @@ const HilightText = styled(Text)`
 `;
 
 const ExampleWrap = styled.div`
-  margin-top: ${Dimens.medium1}px;
+  margin-top: ${Dimens.medium_20}px;
   padding: ${Dimens.medium_20}px;
   border: 1px solid #d6d6d6;
   border-radius: 7px;
 `;
 
 const ExampleTextWrap = styled.ul`
-  margin-top: ${Dimens.medium2}px;
+  margin-top: ${Dimens.medium_20}px;
   display: table;
   width: 100%;
 `;
@@ -76,51 +77,30 @@ export default () => (
           cancelContentList={[
             {
               header: '15日前まで',
-              data: '決済金額の0%（決済金額の100％を返金）',
+              data: '決済金額の100%を返金します',
             },
             {
               header: '15日前',
-              data: '決済金額の25%（決済金額の75％を返金）',
+              data: '決済金額の75%を返金します',
             },
             {
               header: '7日前',
-              data: '決済金額の50%（決済金額の50％を返金）',
+              data: '決済金額の50%を返金します',
             },
             {
               header: '利用開始日以降',
-              data: '決済金額の100%（返金はありません）',
+              data: '返金はありません',
             },
           ]}
         />
       </Section>
       <Text>
-        ※連絡がつかないなど、無断でのキャンセルも利用開始日以降の返金はありません。（*）
+        ※連絡がつかないなど、無断でのキャンセルも利用開始日以降の返金はありません。
         <br />
         ※取引成立日が利用開始日まで15日未満の場合も、同様のキャンセル手数料が発生します。
         <br />
         ※同様のキャンセルを繰り返し行われる場合は、アカウント自体の停止等の措置を取らせていただくことがございます。
       </Text>
-    </Section>
-    <Section>
-      <MainTitle
-        mainTitle="無断でスペース利用を延長されている、お荷物を引き取られない場合"
-        text="無断でのスペース利用延長は荷物を引き取る意思がないとみなし、利用規約に費用を請求いたします。"
-        sub
-      />
-      <ContentDescription
-        title="＜負担事項＞"
-        dontActionList={[
-          {
-            text: 'サービス違約金 50万円',
-          },
-          {
-            text: '弊社の引取対応作業費用 要見積もり',
-          },
-          {
-            text: '荷物の一時保管費用 要見積もり',
-          },
-        ]}
-      />
       <ExampleWrap>
         <Text>支払い金額が20,000円の場合のキャンセル例</Text>
         <ExampleTextWrap>
@@ -139,17 +119,37 @@ export default () => (
     </Section>
     <Section>
       <MainTitle
-        mainTitle="ホストのキャンセルについて"
-        text="取引成立後にホスト都合のキャンセルがあると、ユーザーの予定が立たなくなり、あなたにもサービスの信頼にも影響が出ます。スペースのキャンセルを行う場合は下記のペナルティが発生します。"
+        mainTitle="無断でスペース利用を延長されている、お荷物を引き取られない場合"
+        text="無断でのスペースの延長利用は荷物を引き取る意思がないとみなし、利用規約に基づき下記費用を請求いたします。"
         sub
+      />
+      <ContentDescription
+        title="＜負担事項＞"
+        dontActionList={[
+          {
+            text: 'サービス違約金 50万円',
+          },
+          {
+            text: '弊社の引取対応作業費用 要見積もり',
+          },
+          {
+            text: '荷物の一時保管費用 要見積もり',
+          },
+        ]}
       />
     </Section>
     <Section>
       <MainTitle
-        mainTitle="ご自身でゲストにお荷物を返送する場合"
-        text="予めゲストにキャンセルの旨をお伝えし、了承を得てから返送日を指定して対応してください。下記に関しては、ホスト自身が負担するものとなります。"
+        mainTitle="ホストのキャンセルについて"
+        text="取引成立後にホスト都合のキャンセルがあると、ゲストの予定が立たなくなり、あなたにもサービスの信頼にも影響が出ます。スペースのキャンセルを行う場合は下記のペナルティが発生します。"
         sub
       />
+    </Section>
+    <HilightText>ご自身でゲストにお荷物を返送する場合</HilightText>
+    <Section>
+      <Text>
+        予めゲストにキャンセルの旨をお伝えし、了承を得てから返送日を指定して対応してください。下記に関しては、ホスト自身が負担するものとなります。
+      </Text>
       <ContentDescription
         title="＜負担事項＞"
         dontActionList={[
@@ -160,17 +160,16 @@ export default () => (
             text: 'ゲスト宛の荷物の返送料',
           },
           {
-            text: '荷物の返送にかかる工数',
+            text: 'ゲストへのお荷物の返送対応にかかるコスト',
           },
         ]}
       />
     </Section>
+    <HilightText>荷物の返送手配などを行えない場合</HilightText>
     <Section margin="0 auto 80px">
-      <MainTitle
-        mainTitle="荷物の返送手配などを行えない場合"
-        text="万が一、ゲスト宛の荷物の返送手配をご自身で行えない場合は、モノオクが代行いたします。その場合、ホストは下記事項を負担するものとなります。"
-        sub
-      />
+      <Text>
+        万が一、ゲスト宛の荷物の返送手配をご自身で行えない場合は、モノオクが代行いたします。その場合、ホストは下記事項を負担するものとなります。
+      </Text>
       <ContentDescription
         title="＜負担事項＞"
         dontActionList={[
@@ -207,7 +206,7 @@ export default () => (
         />
       </Section>
       <Text>
-        避けられない事故や緊急な事情により、止むを得ずキャンセルしなければならない場合など、モノオクがホストのキャンセル理由が酌量すべき事情と判断した場合には、上記のペナルティは免除される可能性があります。キャンセルをしなくてはならない場合は、速やかにユーザーに事情を連絡してください。その上でモノオクカスタマーサポートまでスペースや荷物の状況をご連絡ください。
+        避けられない事故や緊急な事情により、止むを得ずキャンセルしなければならない場合など、モノオクがホストのキャンセル理由が酌量すべき事情と判断した場合には、上記のペナルティは免除される可能性があります。キャンセルをしなくてはならない場合は、速やかにゲストに事情を連絡してください。その上でモノオクカスタマーサポートまでスペースや荷物の状況をご連絡ください。
       </Text>
     </Section>
   </PageDefault>
