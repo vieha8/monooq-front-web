@@ -30,7 +30,7 @@ export const apiEndpoint = {
 const createApiInstance = token =>
   axios.create({
     baseURL: apiConfig().baseURL,
-    timeout: 20000,
+    timeout: 60000,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const createApiInstance = token =>
 const responseErrorHandler = (resolve, error, path, params) => {
   const { response, message } = error;
   if (!response) {
-    const err = new Error(`Network Error:${path}`);
+    const err = new Error(`API Connection Error:/${path} ${message}`);
     withScope(scope => {
       scope.setExtra('params', params);
       captureException(err);
