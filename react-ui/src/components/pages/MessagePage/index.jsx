@@ -15,6 +15,7 @@ const MessageType = {
   Text: 1,
   Estimate: 2,
   Completed: 3,
+  Admin: 4,
 };
 
 class MessagePage extends Component {
@@ -105,26 +106,35 @@ class MessagePage extends Component {
             }
           }
           break;
-        case MessageType.Completed: {
-          const { request } = message;
-          if (request) {
-            if (isHost) {
+        case MessageType.Completed:
+          {
+            const { request } = message;
+            if (request) {
+              if (isHost) {
+                return {
+                  admin: {
+                    message: `【決済が完了しました】\n見積もりID:${request.id}\nスペース取引成立です！下記住所をゲストにお伝えしました。\n\nスペース所在地:${request.space.address}`,
+                    receivedAt: message.createDt,
+                  },
+                };
+              }
+
               return {
                 admin: {
-                  message: `【決済が完了しました】\n見積もりID:${request.id}\nスペース取引成立です！下記住所をゲストにお伝えしました。\n\nスペース所在地:${request.space.address}`,
+                  message: <Paid request={request} />,
                   receivedAt: message.createDt,
                 },
               };
             }
-
-            return {
-              admin: {
-                message: <Paid request={request} />,
-                receivedAt: message.createDt,
-              },
-            };
           }
           break;
+        case MessageType.Admin: {
+          return {
+            admin: {
+              message: message.text,
+              receivedAt: message.createDt,
+            },
+          };
         }
         default:
           break;
