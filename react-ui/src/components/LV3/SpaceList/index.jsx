@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
@@ -44,24 +44,28 @@ const CaptionSub = styled.div`
 `;
 
 export default ({ isTag, caption, captionSub, spaceList }) => (
-  <Wrapper>
-    <WrapInner>
-      <Caption>{caption}</Caption>
-      <CaptionSub>{captionSub}</CaptionSub>
-      <WrapList>
-        <SearchResult
-          isTag={isTag}
-          isTop
-          key=""
-          spaces={spaceList.map(space => ({
-            ...space,
-            image:
-              space.images.length !== 0
-                ? convertSpaceImgUrl(space.images[0].imageUrl, 'w=600')
-                : dummySpaceImage,
-          }))}
-        />
-      </WrapList>
-    </WrapInner>
-  </Wrapper>
+  <Fragment>
+    {spaceList && (
+      <Wrapper>
+        <WrapInner>
+          <Caption>{caption}</Caption>
+          <CaptionSub>{captionSub}</CaptionSub>
+          <WrapList>
+            <SearchResult
+              isTag={isTag}
+              isTop
+              key=""
+              spaces={spaceList.map(space => ({
+                ...space,
+                image:
+                  space.images.length !== 0
+                    ? convertSpaceImgUrl(space.images[0].imageUrl, 'w=600')
+                    : dummySpaceImage,
+              }))}
+            />
+          </WrapList>
+        </WrapInner>
+      </Wrapper>
+    )}
+  </Fragment>
 );
