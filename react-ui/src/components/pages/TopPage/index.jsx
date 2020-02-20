@@ -16,6 +16,7 @@ class TopPage extends React.Component {
     }
     const { dispatch } = this.props;
     dispatch(sectionActions.getRegion());
+    dispatch(sectionActions.fetchSections());
   }
 
   componentDidMount() {
@@ -45,7 +46,7 @@ class TopPage extends React.Component {
   };
 
   render() {
-    const { user, intercomHash } = this.props;
+    const { sections, user, intercomHash } = this.props;
 
     const isProd =
       document.domain === 'monooq.com' ||
@@ -53,7 +54,7 @@ class TopPage extends React.Component {
 
     return (
       <Fragment>
-        <Top sections={[]} />
+        <Top sections={sections} />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"
@@ -69,6 +70,7 @@ class TopPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  sections: state.section.sections,
   regionId: state.section.regionId,
   user: state.auth.user,
   intercomHash: state.auth.intercom.hash,
