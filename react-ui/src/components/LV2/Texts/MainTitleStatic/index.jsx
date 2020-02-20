@@ -26,6 +26,11 @@ const MainTitleWrap = styled.div`
       `
         margin-top: ${HeaderHeight}px;
     `};
+    ${props =>
+      props.sub &&
+      `
+        margin-top: ${Dimens.medium3_40}px;
+    `};
   `};
   ${media.phone`
     ${props =>

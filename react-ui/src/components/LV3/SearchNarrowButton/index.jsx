@@ -23,10 +23,9 @@ const Wrap = styled.div`
 
 const ButtonWrap = styled.div`
   display: inline-block;
-  min-width: 300px;
+  min-width: 284px;
   ${media.phone`
     display: block;
-    min-width: auto;
   `};
 `;
 

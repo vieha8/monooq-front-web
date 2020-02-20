@@ -92,7 +92,7 @@ const RequestTitle = styled.div`
 `;
 
 const RequestButtonWrap = styled.div`
-  min-width: 300px;
+  min-width: 100%;
   margin: ${Dimens.medium}px auto;
 `;
 
