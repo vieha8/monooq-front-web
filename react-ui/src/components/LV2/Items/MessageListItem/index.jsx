@@ -56,33 +56,41 @@ const Cell = styled.div`
   `};
 `;
 
+const FirstLine = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const MessageDateWrap = styled.div`
+  flex: 0 0 52px;
+`;
+const UserNameWrap = styled.div`
+  flex: 1;
+  padding: 0 ${Dimens.xxsmall_4}px 0 ${Dimens.medium}px;
+`;
+const UserImageWrap = styled.div`
+  flex: 0 0 32px;
+`;
+
 export default ({ link, image, name, receivedAt, lastMessage, isRead }) => (
   <Wrap>
     <Link to={link || ''}>
-      <Cell nametime>
-        <LazyLoad width={32}>
-          <ImageAvatar size={32} src={image} />
-        </LazyLoad>
-        <InlineText.Base
-          maxWidthSp={150}
-          inLineBlock
-          verticalMiddle
-          bold
-          fontSizeSp={`${FontSizes.small}`}
-        >
-          {formatName(name)}
-        </InlineText.Base>
-        <InlineText.Base
-          padding="4px 0"
-          inLineBlock
-          verticalMiddle
-          fontSize={`${FontSizes.small_12}`}
-          color={Colors.lightGray1}
-          float="right"
-        >
-          {formatDate(new Date(receivedAt), formatStringSlash)}
-        </InlineText.Base>
-      </Cell>
+      <FirstLine nametime>
+        <UserImageWrap>
+          <LazyLoad width={32}>
+            <ImageAvatar size={32} src={image} />
+          </LazyLoad>
+        </UserImageWrap>
+        <UserNameWrap>
+          <InlineText.Base inLineBlock bold fontSizeSp={`${FontSizes.small}`}>
+            {formatName(name)}
+          </InlineText.Base>
+        </UserNameWrap>
+        <MessageDateWrap>
+          <InlineText.Base fontSize={`${FontSizes.small_12}`} color={Colors.lightGray1}>
+            {formatDate(new Date(receivedAt), formatStringSlash)}
+          </InlineText.Base>
+        </MessageDateWrap>
+      </FirstLine>
       <Cell lastMessage nametime>
         <InlineText.Base fontSize={15} fontSizeSp={12} whiteSpaceNormal>
           {lastMessage}
