@@ -65,7 +65,7 @@ const MessageDateWrap = styled.div`
 `;
 const UserNameWrap = styled.div`
   flex: 1;
-  padding-left: ${Dimens.medium}px;
+  padding: 0 ${Dimens.xxsmall_4}px 0 ${Dimens.medium}px;
 `;
 const UserImageWrap = styled.div`
   flex: 0 0 32px;
@@ -81,7 +81,7 @@ export default ({ link, image, name, receivedAt, lastMessage, isRead }) => (
           </LazyLoad>
         </UserImageWrap>
         <UserNameWrap>
-          <InlineText.Base maxWidthSp={150} inLineBlock bold fontSizeSp={`${FontSizes.small}`}>
+          <InlineText.Base inLineBlock bold fontSizeSp={`${FontSizes.small}`}>
             {formatName(name)}
           </InlineText.Base>
         </UserNameWrap>
