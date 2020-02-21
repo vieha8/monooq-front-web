@@ -59,15 +59,12 @@ const Cell = styled.div`
 export default ({ link, image, name, receivedAt, lastMessage, isRead }) => (
   <Wrap>
     <Link to={link || ''}>
-      <Cell>
+      <Cell nametime>
         <LazyLoad width={32}>
           <ImageAvatar size={32} src={image} />
         </LazyLoad>
-      </Cell>
-      <Cell nametime>
         <InlineText.Base
           maxWidthSp={150}
-          lineheight={3}
           inLineBlock
           verticalMiddle
           bold
@@ -76,7 +73,7 @@ export default ({ link, image, name, receivedAt, lastMessage, isRead }) => (
           {formatName(name)}
         </InlineText.Base>
         <InlineText.Base
-          lineheight={3.5}
+          padding="4px 0"
           inLineBlock
           verticalMiddle
           fontSize={`${FontSizes.small_12}`}

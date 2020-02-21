@@ -11,12 +11,7 @@ import Attribute from 'components/LV2/Space/Attribute';
 import { SectionTitle } from './Section';
 
 const Content = styled.div`
-  ${props =>
-    props.message &&
-    `
-      margin-top: 0;
-      line-height: ${Dimens.medium3_45}px;
-    `};
+  margin-top: ${Dimens.small}px;
 `;
 
 const ProfileWrap = styled.div`

@@ -7,7 +7,7 @@ import { media } from 'helpers/style/media-query';
 const Wrap = styled.div`
   width: 100%;
   min-height: 20px;
-  margin: ${Dimens.medium_20}px auto;
+  margin: ${Dimens.medium_20}px auto 0;
   &::after {
     clear: both;
     content: '';
@@ -29,42 +29,18 @@ const Wrap = styled.div`
   `};
 `;
 
-const HostImageWrap = styled.span`
-  float: left;
-`;
+const HostImageWrap = styled.span``;
 
-const HostNameWrap = styled.div`
-  float: left;
+const HostNameWrap = styled.span`
+  vertical-align: middle;
+  display: inline-block;
   width: calc(100% - 60px);
-  margin-top: ${Dimens.xsmall_7}px;
   margin-left: ${Dimens.small2_15}px;
   color: ${Colors.brandPrimary};
   font-weight: bold;
-  ${props =>
-    props.isNoProfile &&
-    `
-    margin-top: ${Dimens.small2_15}px;
-  `};
-  ${props =>
-    props.message &&
-    `
-      margin-top: 0;
-      line-height: normal;
-    `};
+  line-height: normal;
   ${media.phone`
-    max-width: 175px;
-    margin-top: ${Dimens.small_10}px;
     font-size: ${FontSizes.small_12}px;
-    ${props =>
-      props.isNoProfile &&
-      `
-      margin-top: ${Dimens.medium_18}px;
-    `};
-    ${props =>
-      props.message &&
-      `
-        margin-top: 0;
-      `};
   `};
 `;
 
@@ -89,9 +65,7 @@ export default ({
 }) => (
   <Wrap infoHost={infoHost} message={message} isNoProfile={isNoProfile}>
     <HostImageWrap>{headContent || <InlineText.Base>{title}</InlineText.Base>}</HostImageWrap>
-    <HostNameWrap message={message} isNoProfile={isNoProfile}>
-      {contentHostName}
-    </HostNameWrap>
+    <HostNameWrap message={message}>{contentHostName}</HostNameWrap>
     {!isNoProfile && <ProfileWrap>{contentProfile}</ProfileWrap>}
   </Wrap>
 );
