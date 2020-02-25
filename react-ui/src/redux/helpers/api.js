@@ -39,11 +39,16 @@ const createApiInstance = token =>
   });
 
 const responseErrorHandler = (resolve, error, path, params) => {
-  const { response, message } = error;
+  const { response, message, request } = error;
   if (!response) {
     const err = new Error(`API Connection Error:/${path} ${message}`);
     withScope(scope => {
-      scope.setExtra('params', params);
+      if (params) {
+        scope.setExtra('params', params.toString());
+      }
+      if (request) {
+        scope.setExtra('request', request.toString());
+      }
       captureException(err);
     });
     resolve({ status: 503, err: message });
