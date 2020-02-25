@@ -80,7 +80,7 @@ const getRequestSet = (isModal, space, loading, onClick, onKeyDown, disabled, te
         <SendMessageWrapInnter>
           <SendMessageCaption
             isRoom={space.sizeType > 0 && space.sizeType < 4}
-            priceTatami={space.priceFull}
+            priceTatami={space.priceTatami}
             priceFull={space.priceFull}
           />
           <SendMessageButton
