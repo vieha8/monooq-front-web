@@ -488,13 +488,31 @@ function* sendEmail(payload, messageDocId) {
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
   if (process.env.REACT_APP_ENV === 'production') {
-    messageBody += `https://monooq.com/messages/${roomId}`;
+    messageBody += `https://monooq.com/messages/${roomId}\n\n\n`;
   } else {
-    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
+    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}\n\n\n`;
   }
 
+  messageBody += '◯取引全体の流れはこちら\n';
+  messageBody += '・荷物を預けたい方\n';
+  messageBody += '1. 見積もり　　ホストと相談して見積もりをもらいましょう。\n';
+  messageBody += '2. 決済　　　　見積もりを確認して決済しましょう。\n';
+  messageBody += '3. 住所を確認　決済の完了が確認されるとホストの詳細住所が届きます。\n';
+  messageBody += '4. 荷物を送る　荷物を送ってお預けを開始しましょう。\n';
+  messageBody += '5. 荷物を回収　期間が終わったら荷物を回収して取引終了です！\n';
+  messageBody += '詳しくはこちら https://help.monooq.com/ja/articles/3029220-\n\n';
+  messageBody += '・スペースを貸したい方\n';
+  messageBody += '1. 見積もり　　　　ゲストと相談して見積もりを出しましょう。\n';
+  messageBody += '2. 決済　　　　　　見積もりを確認して決済しましょう。\n';
+  messageBody += '3. 荷物を受け取る　荷物を受け取りお預けを開始しましょう。\n';
+  messageBody += '4. 荷物を引き渡し　期間が終わったら荷物を回収してもらい取引終了です！\n';
+  messageBody += '詳しくはこちら https://help.monooq.com/ja/articles/3029212-\n\n\n';
+
+  messageBody += '◯月額決済に対応しています！\n';
+  messageBody += '詳しくはこちら https://help.monooq.com/ja/articles/3694568-\n\n\n';
+
   const body = {
-    Subject: 'メッセージが届いています：モノオクからのお知らせ',
+    Subject: '【モノオク】新しいメッセージが届いています！',
     Uid: toUser.firebaseUid,
     Body: messageBody,
     Category: 'message',
