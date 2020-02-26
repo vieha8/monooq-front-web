@@ -1,0 +1,100 @@
+import React, { Fragment } from 'react';
+import styled from 'styled-components';
+import { Dimens, Colors } from 'variables';
+import { media } from 'helpers/style/media-query';
+import InlineText from 'components/LV1/Texts/InlineText';
+import iconBrandCredit from 'images/icon-brand-credit.png';
+import iconCp from 'images/logo-cp.png';
+
+const METHOD_PAYMENT_CREDIT = 0;
+
+const Wrap = styled.div`
+  line-height: normal;
+  margin: ${Dimens.medium_20}px auto;
+  padding-top: ${Dimens.medium_20}px;
+  border-top: 1px solid ${Colors.borderGray};
+  ${media.phone`
+    margin: ${Dimens.medium_20}px auto;
+  `};
+`;
+
+const CreditInfo = styled.div`
+  margin: 0px auto ${Dimens.medium_20}px;
+`;
+
+const Item = styled.div`
+  padding: ${Dimens.medium_20}px;
+  border: 1px solid ${Colors.borderGray};
+  border-radius: 4px;
+  &:first-child {
+    border-radius: 6px 6px 0px 0px;
+    border-bottom: none;
+  }
+  &:last-child {
+    border-radius: 0px 0px 6px 6px;
+  }
+  line-height: 1.5rem;
+`;
+
+const ImageBrandCredit = styled.img`
+  max-width: 160px;
+`;
+
+const ImageCp = styled.img`
+  max-width: 300px;
+  ${media.phoneSmall`
+    max-width: 100%;
+  `};
+`;
+
+const maskify = cc => {
+  return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
+};
+
+export default ({ paymentMethod, number, name }) => (
+  <Wrap>
+    {paymentMethod === METHOD_PAYMENT_CREDIT ? (
+      <Fragment>
+        <InlineText.Bold>クレジットカードで決済する</InlineText.Bold>
+        <br />
+        <br />
+        <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />
+        <br />
+        <br />
+        <CreditInfo>
+          <Item>
+            <InlineText.Bold>カード番号</InlineText.Bold>
+            <br />
+            {maskify(number)}
+          </Item>
+          <Item>
+            <InlineText.Bold>カード名義人</InlineText.Bold>
+            <br />
+            {name}
+          </Item>
+        </CreditInfo>
+        ・お支払い後にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
+        <br />
+        ・「確定する」ボタンを押すことで、お客様は当サイトの個人情報保護方針と利用規約に同意の上、モノオクサービスの予約を確定したことになります。
+      </Fragment>
+    ) : (
+      <Fragment>
+        <InlineText.Bold>コンビニ払い・Pay-easyで決済する</InlineText.Bold>
+        <br />
+        <br />
+        <ImageCp src={iconCp} alt="icon-cp" />
+        <br />
+        <br />
+        ・お支払い方法確定後、お支払いページのURLを発行します。
+        <br />
+        ・「確定する」ボタンを押すことで、お客様は当サイトの個人情報保護方針と利用規約に同意の上、モノオクサービスの予約を確定したことになります。
+        <br />
+        ・お支払い後、モノオクサービス上で決済完了通知が反映されるまでに2時間程度のお時間をいただきます。
+        <br />
+        ・48時間以内にお支払い手続きが行われない場合、自動的にキャンセルとなります。
+        <br />
+        ・お支払い後にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
+      </Fragment>
+    )}
+  </Wrap>
+);
