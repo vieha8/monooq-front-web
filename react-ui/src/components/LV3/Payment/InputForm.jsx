@@ -219,7 +219,13 @@ export default ({
       )}
     </Row>
     <Row button>
-      <Button secondary fill={1} onClick={backButton} onKeyDown={onKeyDownBackButton}>
+      <Button
+        secondary
+        fill={1}
+        disabled={buttonLoading}
+        onClick={backButton}
+        onKeyDown={onKeyDownBackButton}
+      >
         {textBackButton}
       </Button>
     </Row>

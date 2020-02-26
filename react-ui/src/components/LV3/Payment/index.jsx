@@ -155,6 +155,8 @@ const PaymentInputForm = ({
 
   const backButton = () => {
     window.scrollTo(0, 0);
+    dispatch(requestActions.paymentPrepare());
+
     setModeView(MODE_VIEW_INPUT);
     if (modeView === MODE_VIEW_INPUT) {
       history.push(Path.message(roomId));
