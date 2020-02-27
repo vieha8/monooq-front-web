@@ -9,6 +9,7 @@ class ProfileEditPage extends Component {
   render() {
     const { updateSuccess, user, errMessage, isLoading } = this.props;
     if (updateSuccess) {
+      window.scrollTo(0, 0);
       return (
         <BaseTemplate>
           <ProfileEditCompleted userId={user.id} />
