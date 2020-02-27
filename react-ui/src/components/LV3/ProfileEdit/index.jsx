@@ -19,7 +19,6 @@ const PURPOSE_USER = '1';
 const PURPOSE_HOST = '2';
 
 const Validate = {
-  Email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
   phoneNumber: {
     NoHyphenVer: /^0\d{9,10}$/, // 先頭「0」+「半角数字9〜10桁」
     HyphenVer: /^0\d{2,3}-\d{2,4}-\d{4}$/, // 先頭「0」＋「半角数字2〜3桁」＋「-」＋「半角数字1〜4桁」＋「-」＋「半角数字4桁」
