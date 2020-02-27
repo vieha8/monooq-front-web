@@ -13,6 +13,7 @@ import { H1 } from 'components/LV1/Texts/Headline';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
+import isEmailValid from 'domains/validations/email';
 
 const PURPOSE_USER = '1';
 const PURPOSE_HOST = '2';
@@ -78,8 +79,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
       (name === undefined
         ? false
         : name.trim().length > 0 && name.trim().length <= Validate.Profile.nameMax) &&
-      email &&
-      email.match(Validate.Email) &&
+      isEmailValid(email).result &&
       phoneNumber &&
       (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
         phoneNumber.match(Validate.phoneNumber.HyphenVer)) &&
@@ -110,10 +110,9 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
         break;
 
       case 'email':
-        if (!inputValue || inputValue.replace(/\s/g, '').length === 0) {
-          setError.push(ErrorMessages.PleaseInput);
-        } else if (!inputValue.match(Validate.Email)) {
-          setError.push(ErrorMessages.InvalidEmail);
+        const { result, reason } = isEmailValid(inputValue);
+        if (!result) {
+          setError.push(reason);
         }
         break;
 

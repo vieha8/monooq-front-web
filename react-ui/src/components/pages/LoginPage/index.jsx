@@ -6,6 +6,7 @@ import { authActions } from 'redux/modules/auth';
 import AccountTemplate from 'components/templates/AccountTemplate';
 import Login from 'components/LV3/Login';
 import { iskeyDownEnter } from 'helpers/keydown';
+import isEmailValid from 'domains/validations/email';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ class LoginPage extends Component {
 
   validate = () => {
     const { email, password } = this.state;
-    return email && email.length > 0 && password && password.length > 0;
+    return isEmailValid(email).result && password && password.length > 0;
   };
 
   form = () => {

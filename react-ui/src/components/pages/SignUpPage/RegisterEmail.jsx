@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Colors, Dimens, FontSizes, ErrorMessages, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
+import isEmailValid from 'domains/validations/email';
 
 const ErrMessage = styled.div`
   width: 100%;
@@ -62,10 +63,9 @@ export default class RegisterPage extends Component {
 
     switch (propName) {
       case 'email':
-        if (!value || value.trim().length === 0) {
-          errors.push(ErrorMessages.PleaseInput);
-        } else if (!value.match(Validate.Email)) {
-          errors.push(ErrorMessages.InvalidEmail);
+        const { result, reason } = isEmailValid(value);
+        if (!result) {
+          errors.push(reason);
         }
         break;
       case 'password':
@@ -96,7 +96,7 @@ export default class RegisterPage extends Component {
 
   validate = () => {
     const { email, password } = this.state;
-    return email && email.match(Validate.Email) && password && password.match(Validate.Password);
+    return isEmailValid(email).result && password && password.match(Validate.Password);
   };
 
   onKeyDownPassword = e => {
