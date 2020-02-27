@@ -9,9 +9,9 @@ const Wrap = styled.div`
   width: 100%;
 `;
 
-export default ({ sections }) => (
+export default ({ sections, isNoLogin }) => (
   <Wrap>
-    <View />
+    <View isNoLogin={isNoLogin} />
     <PrefectureList list={areaPrefectures} />
     {sections.map((item, i) => (
       <SpaceList

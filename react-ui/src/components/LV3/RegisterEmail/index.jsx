@@ -19,6 +19,15 @@ const Validate = {
   Password: /^([a-zA-Z0-9]{8,})$/,
 };
 
+const Title = styled.div`
+  width: 100%;
+  margin: ${Dimens.medium_20}px auto;
+  font-size: ${FontSizes.medium2}px;
+  font-weight: bold;
+  text-align: center;
+  color: ${Colors.black};
+`;
+
 const Email = styled.div``;
 
 const Pass = styled.div`
@@ -51,16 +60,7 @@ const ToLogin = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-const getLabelPassword = () => {
-  return (
-    <Fragment>
-      パスワード
-      <InlineText.Tiny nobold>&nbsp;※半角英数字のみ8文字以上</InlineText.Tiny>
-    </Fragment>
-  );
-};
-
-const RegisterPage = ({ isRegisterChecking }) => {
+const RegisterPage = ({ isTop, isRegisterChecking }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -111,10 +111,10 @@ const RegisterPage = ({ isRegisterChecking }) => {
 
   return (
     <Fragment>
+      {isTop && <Title>新規登録</Title>}
       <Email>
         <InputForm
-          label="メールアドレス"
-          placeholder="例）info@monooq.com"
+          placeholder="メールアドレス"
           value={email}
           onChange={e => handleChangeUI('email', e.target.value, setEmail(e.target.value))}
         />
@@ -125,8 +125,8 @@ const RegisterPage = ({ isRegisterChecking }) => {
           right="true"
           iconClassName={isVisiblePassword ? 'fal fa-eye' : 'fal fa-eye-slash'}
           type={isVisiblePassword ? 'text' : 'password'}
-          label={getLabelPassword()}
-          placeholder="例）mono09boys"
+          caption="8文字以上の半角英数字で入力してください"
+          placeholder="パスワード"
           value={password}
           onChange={e => handleChangeUI('password', e.target.value, setPassword(e.target.value))}
           onKeyDown={onKeyDownPassword}
@@ -172,18 +172,20 @@ const RegisterPage = ({ isRegisterChecking }) => {
           新規登録
         </Button>
       </Next>
-      <Facebook>
-        <Button
-          facebook
-          fill={1}
-          fontbold
-          onClick={onClickFacebook}
-          loading={isRegisterChecking ? 1 : 0}
-        >
-          Facebookで新規登録
-        </Button>
-      </Facebook>
-      {!isRegisterChecking && (
+      {!isTop && (
+        <Facebook>
+          <Button
+            facebook
+            fill={1}
+            fontbold
+            onClick={onClickFacebook}
+            loading={isRegisterChecking ? 1 : 0}
+          >
+            Facebookで新規登録
+          </Button>
+        </Facebook>
+      )}
+      {!isTop && !isRegisterChecking && (
         <ToLogin>
           <Button
             secondary

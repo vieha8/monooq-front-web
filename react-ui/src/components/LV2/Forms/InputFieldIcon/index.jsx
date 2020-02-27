@@ -39,8 +39,15 @@ const StyledTextButton = styled(TextButton)`
     `};
 `;
 
+const Caption = styled.div`
+  margin-top: ${Dimens.small_10}px;
+  font-size: ${FontSizes.small_12}px;
+  color: ${Colors.lightGray3};
+`;
+
 export default ({
   label,
+  caption,
   right,
   type,
   placeholder,
@@ -83,5 +90,6 @@ export default ({
         </Fragment>
       )}
     </Wrapper>
+    {caption && <Caption>{caption}</Caption>}
   </Fragment>
 );

@@ -54,7 +54,7 @@ class TopPage extends React.Component {
 
     return (
       <Fragment>
-        <Top sections={sections} />
+        <Top sections={sections} isNoLogin={!user.id} />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"
