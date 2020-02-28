@@ -81,14 +81,14 @@ const checkError = (name, value) => {
   const errors = [];
   switch (name) {
     case 'title':
-      if (!value || trimmedLengthZero(value)) {
+      if (trimmedLengthZero(value)) {
         errors.push(ErrorMessages.PleaseInput);
       } else if (value.length > Validate.Title.Max) {
         errors.push(ErrorMessages.LengthMax('タイトル', Validate.Title.Max));
       }
       break;
     case 'introduction':
-      if (!value || trimmedLengthZero(value)) {
+      if (trimmedLengthZero(value)) {
         errors.push(ErrorMessages.PleaseInput);
       } else if (value.length > Validate.Introduction.Max) {
         errors.push(ErrorMessages.LengthMax('紹介文', Validate.Introduction.Max));

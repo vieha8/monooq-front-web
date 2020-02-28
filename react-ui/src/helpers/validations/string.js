@@ -1,1 +1,1 @@
-export const trimmedLengthZero = val => val.trim().length === 0;
+export const trimmedLengthZero = val => !val || val.trim().length === 0;

@@ -63,14 +63,14 @@ export default class RegisterPage extends Component {
 
     switch (propName) {
       case 'email':
-        if (!value || trimmedLengthZero(value)) {
+        if (trimmedLengthZero(value)) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (!value.match(Validate.Email)) {
           errors.push(ErrorMessages.InvalidEmail);
         }
         break;
       case 'password':
-        if (!value || trimmedLengthZero(value)) {
+        if (trimmedLengthZero(value)) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (!value.match(Validate.Password)) {
           errors.push(ErrorMessages.InvalidPassword);

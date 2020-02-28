@@ -101,7 +101,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
         break;
 
       case 'name':
-        if (!inputValue || trimmedLengthZero(inputValue)) {
+        if (trimmedLengthZero(inputValue)) {
           setError.push(ErrorMessages.PleaseInput);
         }
         if (inputValue && inputValue.trim().length > Validate.Profile.nameMax) {

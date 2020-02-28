@@ -95,7 +95,7 @@ export default class RegisterProfilePage extends Component {
         break;
 
       case 'name':
-        if (!value || trimmedLengthZero(value)) {
+        if (trimmedLengthZero(value)) {
           errors.push(ErrorMessages.PleaseInput);
         }
         if (value && value.trim().length > Validate.Profile.nameMax) {

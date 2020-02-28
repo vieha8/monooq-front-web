@@ -21,19 +21,19 @@ const checkError = (name, value) => {
   const errors = [];
   switch (name) {
     case 'postalCode':
-      if (!value || trimmedLengthZero(value)) {
+      if (trimmedLengthZero(value)) {
         errors.push(`郵便番号を${ErrorMessages.PleaseInput}`);
       } else if (!value.match(Validate.PostalCode.Match)) {
         errors.push(ErrorMessages.InvalidPostalCode);
       }
       break;
     case 'pref':
-      if (!value || trimmedLengthZero(value)) {
+      if (trimmedLengthZero(value)) {
         errors.push(`都道府県を${ErrorMessages.PleaseInput}`);
       }
       break;
     case 'town':
-      if (!value || trimmedLengthZero(value)) {
+      if (trimmedLengthZero(value)) {
         errors.push(`市区町村以降を${ErrorMessages.PleaseInput}`);
       }
       break;

@@ -62,7 +62,7 @@ export const handleChangeUI = (propName, inputValue, setItem, setErrors) => {
       break;
 
     case 'packageContents':
-      if (!inputValue || trimmedLengthZero(inputValue)) {
+      if (trimmedLengthZero(inputValue)) {
         setError.push(ErrorMessages.PleaseInput);
       } else if (inputValue.length > Validate.PackageContents.Max) {
         setError.push(ErrorMessages.LengthMax('自己紹介', Validate.PackageContents.Max));
