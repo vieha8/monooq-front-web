@@ -12,6 +12,7 @@ import Button from 'components/LV1/Forms/Button';
 import InputField from 'components/LV1/Forms/InputField';
 import { PictureIcon } from 'components/LV1/Images/ActionIcon';
 import InlineText from 'components/LV1/Texts/InlineText';
+import { trimmedLengthZero } from 'helpers/validations/string';
 
 const Section = styled.div`
   margin-top: ${props => (props.image ? Dimens.medium3_40 : Dimens.medium)}px;
@@ -90,7 +91,7 @@ const MessegeSendForm = ({ hostUser, userIdFrom, userIdTo, isOpenModalError }) =
     }
   };
 
-  const isDisabled = isOpenModalError || (text.trim().length === 0 && !image) || isErrorPickImage;
+  const isDisabled = isOpenModalError || (trimmedLengthZero(text) && !image) || isErrorPickImage;
 
   return (
     <Fragment>

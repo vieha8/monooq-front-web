@@ -9,6 +9,7 @@ import { uiActions } from 'redux/modules/ui';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEdit2 from 'components/LV3/SpaceEdit/Step2';
+import { trimmedLengthZero } from 'helpers/validations/string';
 
 const Validate = {
   PostalCode: {
@@ -20,19 +21,19 @@ const checkError = (name, value) => {
   const errors = [];
   switch (name) {
     case 'postalCode':
-      if (!value || value.trim().length === 0) {
+      if (!value || trimmedLengthZero(value)) {
         errors.push(`郵便番号を${ErrorMessages.PleaseInput}`);
       } else if (!value.match(Validate.PostalCode.Match)) {
         errors.push(ErrorMessages.InvalidPostalCode);
       }
       break;
     case 'pref':
-      if (!value || value.trim().length === 0) {
+      if (!value || trimmedLengthZero(value)) {
         errors.push(`都道府県を${ErrorMessages.PleaseInput}`);
       }
       break;
     case 'town':
-      if (!value || value.trim().length === 0) {
+      if (!value || trimmedLengthZero(value)) {
         errors.push(`市区町村以降を${ErrorMessages.PleaseInput}`);
       }
       break;

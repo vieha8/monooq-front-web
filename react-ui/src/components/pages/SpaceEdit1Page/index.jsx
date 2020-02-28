@@ -13,6 +13,7 @@ import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
 import ModalToProfileEdit from 'components/LV3/ModalToProfileEdit';
+import { trimmedLengthZero } from 'helpers/validations/string';
 
 const ZENKAKU_SPACE_LITERAL = '　';
 const SPACE_LITERAL = ' ';
@@ -80,14 +81,14 @@ const checkError = (name, value) => {
   const errors = [];
   switch (name) {
     case 'title':
-      if (!value || value.trim().length === 0) {
+      if (!value || trimmedLengthZero(value)) {
         errors.push(ErrorMessages.PleaseInput);
       } else if (value.length > Validate.Title.Max) {
         errors.push(ErrorMessages.LengthMax('タイトル', Validate.Title.Max));
       }
       break;
     case 'introduction':
-      if (!value || value.trim().length === 0) {
+      if (!value || trimmedLengthZero(value)) {
         errors.push(ErrorMessages.PleaseInput);
       } else if (value.length > Validate.Introduction.Max) {
         errors.push(ErrorMessages.LengthMax('紹介文', Validate.Introduction.Max));
