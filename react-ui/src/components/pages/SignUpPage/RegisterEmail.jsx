@@ -30,7 +30,7 @@ export default class RegisterPage extends Component {
     return (
       <Fragment>
         {errorMessage && <ErrMessage>{errorMessage}</ErrMessage>}
-        <RegisterEmail isRegisterChecking={isRegistering} />
+        <RegisterEmail isRegisterChecking={isRegistering} gaLabel="Signup Page" />
       </Fragment>
     );
   }

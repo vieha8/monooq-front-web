@@ -161,7 +161,7 @@ export default ({ isNoLogin }) => (
       <TopViewContainer className="container-topview" isNoLogin={isNoLogin}>
         {isNoLogin && (
           <FormWrap>
-            <RegisterEmail isTop />
+            <RegisterEmail isTop gaLabel="Top Page" />
           </FormWrap>
         )}
         <TopViewTitle isNoLogin={isNoLogin} />

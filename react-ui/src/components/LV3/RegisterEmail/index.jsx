@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import ReactGA from 'react-ga';
 import styled from 'styled-components';
 import Path from 'config/path';
 import { Dimens, Colors, FontSizes, ErrorMessages } from 'variables';
@@ -60,7 +61,7 @@ const ToLogin = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-const RegisterPage = ({ isTop, isRegisterChecking }) => {
+const RegisterPage = ({ isTop, isRegisterChecking, gaLabel }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -97,6 +98,11 @@ const RegisterPage = ({ isTop, isRegisterChecking }) => {
 
   const onClickNext = () => {
     dispatch(authActions.signupEmail({ email, password }));
+    ReactGA.event({
+      category: 'signup',
+      action: 'Submit Signup Email',
+      label: gaLabel,
+    });
   };
 
   const onKeyDownPassword = e => {
