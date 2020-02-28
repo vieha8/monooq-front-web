@@ -1,10 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Dimens, Colors, FontSizes } from 'variables';
+import { Dimens, Colors } from 'variables';
 import PageDefault from 'components/LV1/PageDefault';
-import CatchPhrase from 'components/LV1/Texts/CatchPhrase';
-import CatchPhraseSub from 'components/LV1/Texts/CatchPhraseSub';
+import TopViewTitle from 'components/LV2/Texts/TopViewTitle';
 import RegisterEmail from 'components/LV3/RegisterEmail/';
 import SearchForm from 'components/LV3/Top/SearchForm';
 
@@ -38,98 +37,6 @@ const Wrap = styled.div`
     height: ${props => (props.isNoLogin ? '660' : '328')}px;
     background-image: url(${mainVisualSp});
     background-position: top center;
-  `};
-`;
-
-const FormWrap = styled.div`
-  width: 100%;
-  max-width: 382px;
-  padding: ${Dimens.medium_20}px;
-  background-color: ${Colors.white};
-  border: 1px solid ${Colors.borderGray};
-  ${media.giant`
-    max-width: 300px;
-  `};
-  ${media.tablet`
-    margin: auto;
-  `};
-  ${media.phone`
-    width: calc(100% - ${Dimens.medium3_40}px);
-  `};
-`;
-
-const TitleWrap = styled.div`
-  ${props =>
-    props.isNoLogin &&
-    `
-      margin: auto auto auto 5%;
-    `};
-  ${media.desktop`
-    ${props =>
-      props.isNoLogin &&
-      `
-        margin: auto auto auto 2%;
-      `};
-  `};
-  ${media.tablet1`
-    ${props =>
-      props.isNoLogin &&
-      `
-        margin: auto;
-      `};
-  `};
-  ${media.tablet`
-    ${props =>
-      props.isNoLogin &&
-      `
-        margin: auto auto ${Dimens.medium_20}px;
-      `};
-  `};
-`;
-
-const CatchPhraseStyled = styled(CatchPhrase)`
-  ${props =>
-    props.isNoLogin &&
-    `
-      text-align: left;
-    `};
-  ${media.desktop`
-    ${props =>
-      props.isNoLogin &&
-      `
-        font-size: ${FontSizes.large}px;
-        line-height: normal;
-      `};
-  `};
-  ${media.tablet1`
-    ${props =>
-      props.isNoLogin &&
-      `
-        font-size: ${FontSizes.xxlarge}px;
-        text-align: center;
-      `};
-  `};
-  ${media.phone`
-    ${props =>
-      props.isNoLogin &&
-      `
-        font-size: ${FontSizes.medium3}px;
-      `};
-  `};
-`;
-
-const CatchPhraseSubStyled = styled(CatchPhraseSub)`
-  ${props =>
-    props.isNoLogin &&
-    `
-      text-align: left;
-    `};
-  ${media.tablet1`
-    ${props =>
-      props.isNoLogin &&
-      `
-        text-align: center;
-      `};
   `};
 `;
 
@@ -227,37 +134,26 @@ const TopViewContainer = styled(PageDefault)`
   `};
 `;
 
-const InputSearchWrap = styled.div`
-  margin-top: ${Dimens.medium_20}px;
-  margin-bottom: ${Dimens.medium3_40}px;
-`;
-
-const BrStyled = styled.br`
-  display: none;
+const FormWrap = styled.div`
+  width: 100%;
+  max-width: 382px;
+  padding: ${Dimens.medium_20}px;
+  background-color: ${Colors.white};
+  border: 1px solid ${Colors.borderGray};
+  ${media.giant`
+    max-width: 300px;
+  `};
   ${media.tablet`
-    display: block;
+    margin: auto;
+  `};
+  ${media.phone`
+    width: calc(100% - ${Dimens.medium3_40}px);
   `};
 `;
 
-const getTitle = isNoLogin => {
-  return (
-    <Fragment>
-      {isNoLogin ? (
-        <Fragment>
-          置き場に困った荷物を
-          <br />
-          モノオクで預けよう
-        </Fragment>
-      ) : (
-        <Fragment>
-          近所のスペースを
-          <BrStyled />
-          探してみよう
-        </Fragment>
-      )}
-    </Fragment>
-  );
-};
+const InputSearchWrap = styled.div`
+  margin: ${Dimens.medium_20}px auto ${Dimens.medium3_40}px;
+`;
 
 export default ({ isNoLogin }) => (
   <Wrap isNoLogin={isNoLogin}>
@@ -268,12 +164,7 @@ export default ({ isNoLogin }) => (
             <RegisterEmail isTop />
           </FormWrap>
         )}
-        <TitleWrap isNoLogin={isNoLogin}>
-          <CatchPhraseSubStyled isNoLogin={isNoLogin}>
-            物置シェアサービス「モノオク」
-          </CatchPhraseSubStyled>
-          <CatchPhraseStyled isNoLogin={isNoLogin}>{getTitle(isNoLogin)}</CatchPhraseStyled>
-        </TitleWrap>
+        <TopViewTitle isNoLogin={isNoLogin} />
         {!isNoLogin && (
           <InputSearchWrap>
             <SearchForm />
