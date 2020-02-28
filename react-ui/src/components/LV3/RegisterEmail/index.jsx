@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import ReactGA from 'react-ga';
@@ -27,6 +27,10 @@ const Title = styled.div`
   font-weight: bold;
   text-align: center;
   color: ${Colors.black};
+`;
+
+const ErrorHeadWrap = styled.div`
+  text-align: center;
 `;
 
 const Email = styled.div``;
@@ -68,6 +72,10 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
   const [password, setPassword] = useState('');
   const [isVisiblePassword, setIsVisiblePassword] = useState(false);
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    dispatch(authActions.initSignup());
+  }, []);
 
   const validate = () => {
     return email && email.match(Validate.Email) && password && password.match(Validate.Password);
@@ -118,6 +126,11 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
   return (
     <Fragment>
       {isTop && <Title>新規登録</Title>}
+      {errorMessage && (
+        <ErrorHeadWrap>
+          <ErrorList keyName="error_email_other" errors={[errorMessage]} />
+        </ErrorHeadWrap>
+      )}
       <Email>
         <InputForm
           placeholder="メールアドレス"
@@ -125,7 +138,6 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
           onChange={e => handleChangeUI('email', e.target.value, setEmail(e.target.value))}
         />
         <ErrorList keyName="error_email" errors={errors.email} />
-        {errorMessage && <ErrorList keyName="error_email_other" errors={[errorMessage]} />}
       </Email>
       <Pass>
         <InputFieldIcon
