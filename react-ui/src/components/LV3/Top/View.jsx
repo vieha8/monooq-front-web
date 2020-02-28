@@ -15,12 +15,10 @@ const calloutLeft =
   'https://monooq.imgix.net/img%2Fservice%2Fcallout-left.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
 const calloutRight =
   'https://monooq.imgix.net/img%2Fservice%2Fcallout-right.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
-const calloutRightNoLogin =
-  'https://monooq.imgix.net/img%2Fservice%2Fimg-service-right-nologin.png?alt=media&token=eaa45387-efcc-403e-a6ad-3e4357b0f3da';
 
 const Wrap = styled.div`
   width: 100%;
-  height: ${props => (props.isNoLogin ? '612' : '512')}px;
+  height: ${props => (props.isNoLogin ? '630' : '512')}px;
   background-image: url(${mainVisual});
   background-size: cover;
   color: ${Colors.white};
@@ -30,13 +28,20 @@ const Wrap = styled.div`
     ${props =>
       props.isNoLogin &&
       `
-        height: 800px;
+        height: 750px;
       `};
   `};
   ${media.phone`
-    height: ${props => (props.isNoLogin ? '724' : '328')}px;
+    height: ${props => (props.isNoLogin ? '720' : '328')}px;
     background-image: url(${mainVisualSp});
     background-position: top center;
+  `};
+  ${media.phoneSmall`
+    ${props =>
+      props.isNoLogin &&
+      `
+        height: 754px;
+      `};
   `};
 `;
 
@@ -46,7 +51,7 @@ const TopViewWrap = styled.div`
   padding-top: ${props => (props.isNoLogin ? '109' : '209')}px;
   box-sizing: border-box;
   ${media.giant1`
-    padding-top: ${props => (props.isNoLogin ? '114' : '224')}px;
+    padding-top: ${props => (props.isNoLogin ? '109' : '224')}px;
   `};
   ${media.tablet`
     padding-top: ${props => (props.isNoLogin ? '120' : '158')}px;
@@ -68,14 +73,8 @@ const TopViewContainer = styled(PageDefault)`
   ${props =>
     props.isNoLogin
       ? `
+      height: 436px;
       display: flex;
-      &:after {
-        width: 200px;
-        height: 273px;
-        top: 40px;
-        right: 20px;
-        background-image: url(${calloutRightNoLogin});
-      }
       `
       : `
       &:before {
@@ -95,13 +94,8 @@ const TopViewContainer = styled(PageDefault)`
       `};
   ${media.giant1`
     ${props =>
-      props.isNoLogin
-        ? `
-        &:after {
-          right: 6px;
-        }
-        `
-        : `
+      !props.isNoLogin &&
+      `
         &:before {
           top: -130px;
           left: -4px;
@@ -112,16 +106,8 @@ const TopViewContainer = styled(PageDefault)`
         }
       `};
   `};
-  ${media.tablet1`
-    ${props =>
-      props.isNoLogin &&
-      `
-        &:after {
-          display: none;
-        }
-      `};
-  `};
   ${media.tablet`
+    height: auto;
     &:before,
     &:after {
       display: none;
@@ -137,6 +123,8 @@ const TopViewContainer = styled(PageDefault)`
 const FormWrap = styled.div`
   width: 100%;
   max-width: 382px;
+  height: fit-content;
+  margin: auto 0;
   padding: ${Dimens.medium_20}px;
   background-color: ${Colors.white};
   border: 1px solid ${Colors.borderGray};
@@ -144,6 +132,7 @@ const FormWrap = styled.div`
     max-width: 300px;
   `};
   ${media.tablet`
+    max-width: 382px;
     margin: auto;
   `};
   ${media.phone`

@@ -5,17 +5,35 @@ import { media } from 'helpers/style/media-query';
 import CatchPhrase from 'components/LV1/Texts/CatchPhrase';
 import CatchPhraseSub from 'components/LV1/Texts/CatchPhraseSub';
 
+const calloutRightNoLogin =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-service-right-nologin.png?alt=media&token=eaa45387-efcc-403e-a6ad-3e4357b0f3da';
+
 const Wrap = styled.div`
   ${props =>
     props.isNoLogin &&
     `
-      margin: auto auto auto 5%;
+      position: relative;
+      margin: auto auto auto 4%;
+      &:after {
+        content: '';
+        position: absolute;
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 200px;
+        height: 273px;
+        top: -74px;
+        right: -200px;
+        background-image: url(${calloutRightNoLogin});
+      }
     `};
   ${media.desktop`
     ${props =>
       props.isNoLogin &&
       `
         margin: auto auto auto 2%;
+        &:after {
+          right: -160px;
+        }
       `};
   `};
   ${media.tablet1`
@@ -23,6 +41,9 @@ const Wrap = styled.div`
       props.isNoLogin &&
       `
         margin: auto;
+        &:after {
+          display: none;
+        }
       `};
   `};
   ${media.tablet`
@@ -40,6 +61,13 @@ const TitleMain = styled(CatchPhrase)`
     `
       text-align: left;
     `};
+  ${media.giant`
+    ${props =>
+      props.isNoLogin &&
+      `
+        font-size: ${FontSizes.xxlarge_42}px;
+      `};
+  `};
   ${media.desktop`
     ${props =>
       props.isNoLogin &&
