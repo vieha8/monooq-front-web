@@ -149,7 +149,6 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
   };
 
   useEffect(() => {
-    dispatch(userActions.prepareUpdateUser());
     handleChangeUI('name', name);
     handleChangeUI('email', email);
     handleChangeUI('phoneNumber', phoneNumber);
