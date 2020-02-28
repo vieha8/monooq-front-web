@@ -30,11 +30,11 @@ const Wrap = styled.div`
     ${props =>
       props.isNoLogin &&
       `
-        height: 712px;
+        height: 800px;
       `};
   `};
   ${media.phone`
-    height: ${props => (props.isNoLogin ? '660' : '328')}px;
+    height: ${props => (props.isNoLogin ? '724' : '328')}px;
     background-image: url(${mainVisualSp});
     background-position: top center;
   `};
