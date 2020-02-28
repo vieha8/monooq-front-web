@@ -46,7 +46,7 @@ class TopPage extends React.Component {
   };
 
   render() {
-    const { sections, user, intercomHash } = this.props;
+    const { sections, user, intercomHash, isRegistering } = this.props;
 
     const isProd =
       document.domain === 'monooq.com' ||
@@ -54,7 +54,7 @@ class TopPage extends React.Component {
 
     return (
       <Fragment>
-        <Top sections={sections} isNoLogin={!user.id} />
+        <Top sections={sections} isNoLogin={!user.id} isRegisterChecking={isRegistering} />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"
@@ -74,6 +74,7 @@ const mapStateToProps = state => ({
   regionId: state.section.regionId,
   user: state.auth.user,
   intercomHash: state.auth.intercom.hash,
+  isRegistering: state.auth.isRegistering,
 });
 
 export default connect(mapStateToProps)(TopPage);
