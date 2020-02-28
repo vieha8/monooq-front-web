@@ -32,16 +32,9 @@ const Wrap = styled.div`
       `};
   `};
   ${media.phone`
-    height: ${props => (props.isNoLogin ? '720' : '328')}px;
+    height: ${props => (props.isNoLogin ? '754' : '328')}px;
     background-image: url(${mainVisualSp});
     background-position: top center;
-  `};
-  ${media.phoneSmall`
-    ${props =>
-      props.isNoLogin &&
-      `
-        height: 754px;
-      `};
   `};
 `;
 
