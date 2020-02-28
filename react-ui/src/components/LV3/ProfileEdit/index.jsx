@@ -13,7 +13,7 @@ import { H1 } from 'components/LV1/Texts/Headline';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import isEmailValid from 'domains/validations/email';
+import isEmailValid from 'helpers/validations/email';
 
 const PURPOSE_USER = '1';
 const PURPOSE_HOST = '2';

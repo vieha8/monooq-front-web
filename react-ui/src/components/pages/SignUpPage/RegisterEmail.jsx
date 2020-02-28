@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Colors, Dimens, FontSizes, ErrorMessages, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
-import isEmailValid from 'domains/validations/email';
+import isEmailValid from 'helpers/validations/email';
 
 const ErrMessage = styled.div`
   width: 100%;

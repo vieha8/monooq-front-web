@@ -6,7 +6,7 @@ import { authActions } from 'redux/modules/auth';
 import AccountTemplate from 'components/templates/AccountTemplate';
 import Login from 'components/LV3/Login';
 import { iskeyDownEnter } from 'helpers/keydown';
-import isEmailValid from 'domains/validations/email';
+import isEmailValid from 'helpers/validations/email';
 
 class LoginPage extends Component {
   constructor(props) {
