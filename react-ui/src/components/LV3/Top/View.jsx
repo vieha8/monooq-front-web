@@ -155,13 +155,18 @@ const InputSearchWrap = styled.div`
   margin: ${Dimens.medium_20}px auto ${Dimens.medium3_40}px;
 `;
 
-export default ({ isNoLogin, isRegisterChecking }) => (
+export default ({ isNoLogin, isRegisterChecking, errorMessage }) => (
   <Wrap isNoLogin={isNoLogin}>
     <TopViewWrap className="wrapTopView" isNoLogin={isNoLogin}>
       <TopViewContainer className="container-topview" isNoLogin={isNoLogin}>
         {isNoLogin && (
           <FormWrap>
-            <RegisterEmail isTop isRegisterChecking={isRegisterChecking} gaLabel="Top Page" />
+            <RegisterEmail
+              isTop
+              isRegisterChecking={isRegisterChecking}
+              gaLabel="Top Page"
+              errorMessage={errorMessage}
+            />
           </FormWrap>
         )}
         <TopViewTitle isNoLogin={isNoLogin} />

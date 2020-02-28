@@ -14,7 +14,7 @@ class SignUpPage extends Component {
   }
 
   render() {
-    const { errorMessage, isInitialized, isChecking, user } = this.props;
+    const { isInitialized, isChecking, user } = this.props;
 
     if (!isInitialized || isChecking) {
       return <LoadingPage />;
@@ -24,13 +24,7 @@ class SignUpPage extends Component {
       return <Redirect to={Path.top()} />;
     }
 
-    return (
-      <AccountTemplate
-        errorHeader={errorMessage}
-        title="新規登録"
-        form={<RegisterEmail {...this.props} />}
-      />
-    );
+    return <AccountTemplate title="新規登録" form={<RegisterEmail {...this.props} />} />;
   }
 }
 

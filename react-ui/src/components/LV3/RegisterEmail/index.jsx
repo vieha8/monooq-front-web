@@ -61,7 +61,7 @@ const ToLogin = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-const RegisterPage = ({ isTop, isRegisterChecking, gaLabel }) => {
+const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -125,6 +125,7 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel }) => {
           onChange={e => handleChangeUI('email', e.target.value, setEmail(e.target.value))}
         />
         <ErrorList keyName="error_email" errors={errors.email} />
+        {errorMessage && <ErrorList keyName="error_email_other" errors={[errorMessage]} />}
       </Email>
       <Pass>
         <InputFieldIcon
