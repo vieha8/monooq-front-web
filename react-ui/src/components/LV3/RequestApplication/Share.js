@@ -2,7 +2,7 @@ import moment from 'moment';
 import { ErrorMessages } from 'variables';
 import { getToday, generateDateAll } from 'helpers/date';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
-import { trimmedLengthZero } from 'helpers/validations/string';
+import { isTrimmedEmpty } from 'helpers/validations/string';
 
 moment.locale('ja');
 
@@ -62,7 +62,7 @@ export const handleChangeUI = (propName, inputValue, setItem, setErrors) => {
       break;
 
     case 'packageContents':
-      if (trimmedLengthZero(inputValue)) {
+      if (isTrimmedEmpty(inputValue)) {
         setError.push(ErrorMessages.PleaseInput);
       } else if (inputValue.length > Validate.PackageContents.Max) {
         setError.push(ErrorMessages.LengthMax('自己紹介', Validate.PackageContents.Max));

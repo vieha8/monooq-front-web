@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Colors, Dimens, FontSizes, ErrorMessages, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
-import { trimmedLengthZero } from 'helpers/validations/string';
+import { isTrimmedEmpty } from 'helpers/validations/string';
 
 const ErrMessage = styled.div`
   width: 100%;
@@ -63,14 +63,14 @@ export default class RegisterPage extends Component {
 
     switch (propName) {
       case 'email':
-        if (trimmedLengthZero(value)) {
+        if (isTrimmedEmpty(value)) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (!value.match(Validate.Email)) {
           errors.push(ErrorMessages.InvalidEmail);
         }
         break;
       case 'password':
-        if (trimmedLengthZero(value)) {
+        if (isTrimmedEmpty(value)) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (!value.match(Validate.Password)) {
           errors.push(ErrorMessages.InvalidPassword);

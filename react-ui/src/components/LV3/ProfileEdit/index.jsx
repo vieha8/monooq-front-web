@@ -13,7 +13,7 @@ import { H1 } from 'components/LV1/Texts/Headline';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import { trimmedLengthZero } from 'helpers/validations/string';
+import { isTrimmedEmpty } from 'helpers/validations/string';
 
 const PURPOSE_USER = '1';
 const PURPOSE_HOST = '2';
@@ -101,7 +101,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
         break;
 
       case 'name':
-        if (trimmedLengthZero(inputValue)) {
+        if (isTrimmedEmpty(inputValue)) {
           setError.push(ErrorMessages.PleaseInput);
         }
         if (inputValue && inputValue.trim().length > Validate.Profile.nameMax) {
