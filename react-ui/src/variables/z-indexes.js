@@ -6,8 +6,8 @@ export default {
   frontParts: 100,
   footer: 1000,
   frontPartsOverFooter: 1100,
-  loader: 1500,
   nav: 2000,
   modal: 2500,
+  loader: 3500,
   topmost: 9999,
 };
