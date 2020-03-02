@@ -5,7 +5,7 @@ import { Dimens, FontSizes } from 'variables';
 import PageDefault from 'components/LV1/PageDefault';
 import Text from 'components/LV1/Texts/TextStatic';
 
-const StyledWrap = styled(PageDefault)`
+const Wrap = styled(PageDefault)`
   margin-bottom: ${Dimens.large_60}px;
   ${media.tablet`
     margin-bottom: ${Dimens.medium3_40}px;
@@ -29,16 +29,16 @@ const Para = styled(Text)`
 `;
 
 export default ({ title, paraList, isRight }) => (
-  <StyledWrap>
+  <Wrap>
     <Art>{title}</Art>
     <Para isRight={isRight}>
-      {paraList.map((item, i) => (
-        <Fragment key={i.toString()}>
-          {i !== 0 && <br />}
-          {item.text}
-          {item.customText}
-        </Fragment>
-      ))}
+      {paraList &&
+        paraList.map((text, i) => (
+          <Fragment key={i.toString()}>
+            {i !== 0 && <br />}
+            {text}
+          </Fragment>
+        ))}
     </Para>
-  </StyledWrap>
+  </Wrap>
 );
