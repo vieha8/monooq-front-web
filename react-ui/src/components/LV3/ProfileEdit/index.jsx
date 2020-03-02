@@ -107,12 +107,13 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
         }
         break;
 
-      case 'email':
+      case 'email': {
         const { result, reason } = isEmailValid(inputValue);
         if (!result) {
           setError.push(reason);
         }
         break;
+      }
 
       case 'phoneNumber':
         if (!inputValue || inputValue.replace(/\s/g, '').length === 0) {
