@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { userActions } from 'redux/modules/user';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import ProfileEdit from 'components/LV3/ProfileEdit';
 import ProfileEditCompleted from 'components/LV3/ProfileEdit/Completed';
 
 class ProfileEditPage extends Component {
+  constructor(props) {
+    super(props);
+    const { dispatch } = this.props;
+    dispatch(userActions.prepareUpdateUser());
+  }
+
   render() {
     const { updateSuccess, user, errMessage, isLoading } = this.props;
-    if (updateSuccess) {
+
+    if (!updateSuccess) {
       return (
         <BaseTemplate>
-          <ProfileEditCompleted userId={user.id} />
+          <ProfileEdit user={user} errMessage={errMessage} buttonLoading={isLoading} />
         </BaseTemplate>
       );
     }
+
+    window.scrollTo(0, 0);
     return (
       <BaseTemplate>
-        <ProfileEdit user={user} errMessage={errMessage} buttonLoading={isLoading} />
+        <ProfileEditCompleted userId={user.id} />
       </BaseTemplate>
     );
   }

@@ -68,7 +68,6 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
   const [prefCode, setPrefCode] = useState(user.prefCode);
   const [profile, setProfile] = useState(user.profile);
   const [purpose, setPurpose] = useState(user.isHost ? PURPOSE_HOST : PURPOSE_USER);
-  const [isHost, setIsHost] = useState(false);
   const [isNoticeEmail, setNoticeEmail] = useState(user.isNoticeEmail);
 
   const validate = () => {
@@ -148,7 +147,6 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
   };
 
   useEffect(() => {
-    dispatch(userActions.prepareUpdateUser());
     handleChangeUI('name', name);
     handleChangeUI('email', email);
     handleChangeUI('phoneNumber', phoneNumber);
@@ -159,21 +157,18 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
 
   const onClickUpdate = () => {
     if (validate()) {
-      setName(name === undefined ? '' : name.trim());
-      setProfile(profile === undefined ? '' : profile.trim());
-      setIsHost(purpose === PURPOSE_HOST);
       dispatch(
         userActions.updateUser({
           userId: user.id,
           body: {
             imageUrl,
-            name,
+            name: name === undefined ? '' : name.trim(),
             email,
             phoneNumber,
             prefCode,
-            profile,
+            profile: profile === undefined ? '' : profile.trim(),
             purpose,
-            isHost,
+            isHost: purpose === PURPOSE_HOST,
             isNoticeEmail,
           },
         }),
