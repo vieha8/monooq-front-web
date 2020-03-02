@@ -30,11 +30,8 @@ export const validate = (startDate, endDate, usage, sizeType, breadth, packageCo
     usage &&
     breadth &&
     checkBreadth > 0 &&
-    packageContents &&
-    (packageContents === undefined
-      ? false
-      : packageContents.trim().length > 0 &&
-        packageContents.trim().length <= Validate.PackageContents.Max) &&
+    !isTrimmedEmpty(packageContents) &&
+      packageContents.trim().length <= Validate.PackageContents.Max &&
     notes.trim().length <= Validate.Notes.Max &&
     moment(startDateAll).isValid() &&
     moment(endDateAll).isValid() &&

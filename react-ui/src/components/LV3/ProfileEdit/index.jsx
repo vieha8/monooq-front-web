@@ -74,10 +74,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
   const validate = () => {
     return (
       (errors.imageUrl === undefined || (errors.imageUrl && errors.imageUrl.length === 0)) &&
-      name &&
-      (name === undefined
-        ? false
-        : name.trim().length > 0 && name.trim().length <= Validate.Profile.nameMax) &&
+      !isTrimmedEmpty(name) && name.trim().length <= Validate.Profile.nameMax &&
       email &&
       email.match(Validate.Email) &&
       phoneNumber &&

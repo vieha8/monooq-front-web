@@ -229,15 +229,11 @@ class SpaceEdit2Page extends Component {
     const { postalCode, pref, town, line1, receiptType } = this.state;
     const PostalCodeMatch = postalCode ? postalCode.match(Validate.PostalCode.Match) : '';
     return (
-      postalCode &&
-      (postalCode === undefined ? false : postalCode.trim().length > 0) &&
+      !isTrimmedEmpty(postalCode) &&
       PostalCodeMatch &&
-      pref &&
-      (pref === undefined ? false : pref.trim().length > 0) &&
-      town &&
-      (town === undefined ? false : town.trim().length > 0) &&
-      line1 &&
-      (line1 === undefined ? false : line1.trim().length > 0) &&
+      !isTrimmedEmpty(pref) &&
+      !isTrimmedEmpty(town) &&
+      !isTrimmedEmpty(line1) &&
       receiptType &&
       receiptType > 0
     );
@@ -247,11 +243,7 @@ class SpaceEdit2Page extends Component {
     // TODO: 郵便番号のバリデートはあとで実装
     const { postalCode } = this.state;
     const PostalCodeMatch = postalCode ? postalCode.match(Validate.PostalCode.Match) : '';
-    return (
-      postalCode &&
-      (postalCode === undefined ? false : postalCode.trim().length > 0) &&
-      PostalCodeMatch
-    );
+    return !isTrimmedEmpty(postalCode) && PostalCodeMatch;
   };
 
   render() {

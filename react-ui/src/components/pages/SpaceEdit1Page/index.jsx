@@ -397,11 +397,9 @@ class SpaceEdit1Page extends Component {
     const { title, introduction, images, sizeType } = this.state;
 
     return (
-      title &&
-      (title === undefined ? false : title.trim().length > 0) &&
+      !isTrimmedEmpty(title) &&
       title.trim().length <= Validate.Title.Max &&
-      introduction &&
-      (introduction === undefined ? false : introduction.trim().length > 0) &&
+      !isTrimmedEmpty(introduction) &&
       introduction.trim().length <= Validate.Introduction.Max &&
       images &&
       images.length > 0 &&
@@ -415,8 +413,7 @@ class SpaceEdit1Page extends Component {
     const { tagCustom } = this.state;
 
     return (
-      tagCustom &&
-      (tagCustom === undefined ? false : tagCustom.trim().length > 0) &&
+      !isTrimmedEmpty(tagCustom) &&
       tagCustom.trim().length <= Validate.TagCustom.MaxText &&
       !Validate.TagCustom.IncludeSpaceLiteralRegExp.test(tagCustom)
     );
