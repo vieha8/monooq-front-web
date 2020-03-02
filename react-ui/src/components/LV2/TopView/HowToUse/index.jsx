@@ -10,7 +10,6 @@ const Wrap = styled.div`
   position: relative;
   height: 620px;
   color: ${Colors.black};
-  margin-bottom: ${Dimens.medium}px;
   width: 100%;
   overflow: hidden;
   &:after {

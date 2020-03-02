@@ -22,8 +22,9 @@ const Wrap = styled.div`
 const ContentWrap = styled.div`
   width: 100%;
   text-align: center;
+  margin-top: 100px;
   ${media.tablet`
-    margin-top: ${Dimens.medium2_32}px;
+    margin-top: ${Dimens.medium4_50}px;
   `}
 `;
 
