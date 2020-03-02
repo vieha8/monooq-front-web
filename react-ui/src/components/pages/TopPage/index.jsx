@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { sectionActions } from 'redux/modules/section';
 import Top from 'components/LV3/Top';
+import LoadingPage from 'components/LV3/LoadingPage';
 
 class TopPage extends React.Component {
   constructor(props) {
@@ -46,7 +47,11 @@ class TopPage extends React.Component {
   };
 
   render() {
-    const { sections, user, intercomHash } = this.props;
+    const { sections, isChecking, user, intercomHash, isRegistering, errorMessage } = this.props;
+
+    if (isChecking) {
+      return <LoadingPage />;
+    }
 
     const isProd =
       document.domain === 'monooq.com' ||
@@ -54,7 +59,12 @@ class TopPage extends React.Component {
 
     return (
       <Fragment>
-        <Top sections={sections} />
+        <Top
+          sections={sections}
+          isNoLogin={!user.id}
+          isRegisterChecking={isRegistering}
+          errorMessage={errorMessage}
+        />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"
@@ -72,8 +82,11 @@ class TopPage extends React.Component {
 const mapStateToProps = state => ({
   sections: state.section.sections,
   regionId: state.section.regionId,
+  isChecking: state.auth.isChecking,
   user: state.auth.user,
   intercomHash: state.auth.intercom.hash,
+  isRegistering: state.auth.isRegistering,
+  errorMessage: state.auth.errorMessage,
 });
 
 export default connect(mapStateToProps)(TopPage);

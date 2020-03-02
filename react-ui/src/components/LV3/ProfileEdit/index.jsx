@@ -74,7 +74,8 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
   const validate = () => {
     return (
       (errors.imageUrl === undefined || (errors.imageUrl && errors.imageUrl.length === 0)) &&
-      !isTrimmedEmpty(name) && name.trim().length <= Validate.Profile.nameMax &&
+      !isTrimmedEmpty(name) &&
+      name.trim().length <= Validate.Profile.nameMax &&
       email &&
       email.match(Validate.Email) &&
       phoneNumber &&
@@ -147,7 +148,6 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
   };
 
   useEffect(() => {
-    dispatch(userActions.prepareUpdateUser());
     handleChangeUI('name', name);
     handleChangeUI('email', email);
     handleChangeUI('phoneNumber', phoneNumber);
