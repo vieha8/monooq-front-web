@@ -536,6 +536,33 @@ function* request({ payload: { user, space, body } }) {
     handleAccessTrade(105, `new_request_user${user.id}_space${space.id}`);
     handleCircuitX(1374, user.id);
     handleCircuitX(1377, user.id);
+
+    const token = yield* getToken();
+    let messageBody = ``;
+    if (user.name && user.name !== '') {
+      messageBody = `${user.name}さん\n\n`;
+    }
+    messageBody += 'この度はモノオクのご利用ありがとうございます。\n';
+    messageBody +=
+      '人気なスペースは契約が決まり次第埋まっていくため、複数のスペースへリクエストすることをおすすめしております。\n\n';
+
+    messageBody += '一度リクエストした内容を使い回せるので、2回目以降は申請が楽々！\n';
+    messageBody += `▶他のスペースも探すにはこちら: https://monooq.com/spaces/pref${space.prefCode}/\n\n`;
+
+    if (space.prefCode === '13') {
+      messageBody +=
+        '緊急なのになかなか預け先が見つからない…そんなときはモノオク運営のスペースへご相談どうぞ！\n';
+      messageBody += '▶モノオクのスペースはこちら: https://monooq.com/space/4518\n\n';
+    }
+
+    const mailBody = {
+      Subject: `【モノオク】複数スペースへのリクエストがおすすめです!`,
+      Uid: user.firebaseUid,
+      Body: messageBody,
+      Category: 'request_tips',
+    };
+    yield call(postApiRequest, apiEndpoint.sendMail(), mailBody, token);
+
     if (isAvailableLocalStorage()) {
       localStorage.setItem('isRequested', 'true');
     }
