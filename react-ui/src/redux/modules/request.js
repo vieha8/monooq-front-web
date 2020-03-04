@@ -146,6 +146,13 @@ export const requestReducer = handleActions(
   initialState,
 );
 
+const getMessageRoomUrl = roomId => {
+  if (process.env.REACT_APP_ENV !== 'production') {
+    return `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
+  }
+  return `https://monooq.com/messages/${roomId}`;
+};
+
 function* sendEstimateEmail(payload, messageDocId) {
   const { roomId, toUserId } = payload;
 
@@ -154,13 +161,7 @@ function* sendEstimateEmail(payload, messageDocId) {
 
   let messageBody = 'お見積もりが届きました。\n';
   messageBody += '確認するには以下のリンクをクリックしてください。\n';
-
-  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
-  if (process.env.REACT_APP_ENV === 'production') {
-    messageBody += `https://monooq.com/messages/${roomId}`;
-  } else {
-    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
-  }
+  messageBody += `${getMessageRoomUrl(roomId)}`;
 
   const body = {
     Subject: 'お見積もりが届いています：モノオクからのお知らせ',
@@ -229,6 +230,17 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   );
 
   yield sendEstimateEmail({ toUserId: requestUserId, roomId }, messageDoc.id);
+
+  const messageRoomUrl = getMessageRoomUrl(roomId);
+  const smsBody = `【モノオク】\nお見積りが届いています。下記リンクからお支払いを進めましょう。 \n\n${messageRoomUrl}`;
+
+  const bodySMS = {
+    UserId: requestUserId,
+    Body: smsBody,
+  };
+
+  yield call(postApiRequest, apiEndpoint.sendSMS(), bodySMS, token);
+
   yield put(requestActions.estimateSuccess(requestInfo));
 
   handleGTM('estimate', requestInfo.id);
@@ -251,14 +263,7 @@ function* sendRequestNotice(payload) {
   } = payload;
 
   const token = yield* getToken();
-
-  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
-  let urlMessageRoom;
-  if (process.env.REACT_APP_ENV === 'production') {
-    urlMessageRoom = `https://monooq.com/messages/${roomId}`;
-  } else {
-    urlMessageRoom = `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
-  }
+  const urlMessageRoom = getMessageRoomUrl(roomId);
 
   let messageBody = `${formatName(user.name)}さんからスペース利用希望のリクエストが届きました。
 
