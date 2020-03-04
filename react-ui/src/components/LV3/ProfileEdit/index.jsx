@@ -154,7 +154,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
     handleChangeUI('prefCode', prefCode);
     handleChangeUI('profile', profile);
     handleChangeUI('purpose', purpose);
-  }, []);
+  }, [name, email, phoneNumber, prefCode, profile, purpose]);
 
   const onClickUpdate = () => {
     if (validate()) {
