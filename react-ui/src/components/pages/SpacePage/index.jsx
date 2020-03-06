@@ -173,6 +173,7 @@ class SpacePage extends Component {
             imageUrl: space.user.imageUrl,
             profile: space.user.profile,
             prefCode: space.user.prefCode,
+            lastLoginAt: space.user.lastLoginAt,
           }}
           recommend={recommend}
           isOverTopView={isOverTopView}

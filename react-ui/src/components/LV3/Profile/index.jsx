@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react';
+import moment from 'moment';
 import styled from 'styled-components';
+import { getDateRelativeLastLogin } from 'helpers/date';
 import { media } from 'helpers/style/media-query';
 import { Colors, FontSizes, Dimens } from 'variables';
 import { getPrefecture } from 'helpers/prefectures';
@@ -7,6 +9,8 @@ import { formatName } from 'helpers/string';
 import InlineText from 'components/LV1/Texts/InlineText';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import SearchResultItem from 'components/LV2/Items/SearchResultItem';
+
+moment.locale('ja');
 
 const IMAGE_SIZE = 100;
 
@@ -116,7 +120,9 @@ export default ({ image, name, prefCode, lastLoginAt, profile, spaces }) => (
             </ResidenceText>
           )}
           <LastLoginText>
-            <InlineText.Small>{`最終ログイン日:${lastLoginAt}`}</InlineText.Small>
+            <InlineText.Small>
+              {`最終ログイン日: ${getDateRelativeLastLogin(lastLoginAt)}`}
+            </InlineText.Small>
           </LastLoginText>
         </InfoTopWrap>
         <Profile>

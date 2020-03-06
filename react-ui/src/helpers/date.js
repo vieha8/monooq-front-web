@@ -37,6 +37,23 @@ export const getToday = () => {
   moment().format('YYYYMMDD');
 };
 
+export const getDateDiff = (targetDate, type) => {
+  return moment(formatDate(moment().toDate(), formatStringSlashTime)).diff(
+    formatDate(new Date(targetDate), formatStringSlashTime),
+    type,
+  );
+};
+
+export const getDateRelativeLastLogin = targetDate => {
+  let diffDay = getDateDiff(targetDate, 'days');
+  if (diffDay === 0) {
+    diffDay = '24時間以内';
+  } else {
+    diffDay += '日前';
+  }
+  return diffDay;
+};
+
 export const getDateFormated = num => {
   return `0${num}`.slice(-2);
 };
