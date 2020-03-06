@@ -33,7 +33,6 @@ const HostNameWrap = styled.div`
   font-size: ${FontSizes.medium}px;
   line-height: 120%;
   ${media.phone`
-    max-width: 175px;
     margin-top: 2px;
     font-size: ${FontSizes.small2_14}px;
   `};

@@ -293,7 +293,13 @@ export default ({
       {confirm ? 'お支払い内容を確認してください' : 'お支払い方法を選択してください'}
     </HeadMessage>
     <Spacer />
-    <InfoHost id={space.user.id} name={space.user.name} imageUrl={space.user.imageUrl} message />
+    <InfoHost
+      id={space.user.id}
+      name={space.user.name}
+      imageUrl={space.user.imageUrl}
+      lastLoginAt={space.user.lastLoginAt}
+      message
+    />
     <Row to={Path.space(space.id)} noMarginTop borderBottom>
       <ImageWrapper>
         <ImageHero
