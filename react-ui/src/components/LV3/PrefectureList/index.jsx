@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { media, mediaMin } from 'helpers/style/media-query';
@@ -73,7 +73,7 @@ const Caption = styled.div`
   line-height: ${Dimens.medium1}px;
   color: ${Colors.black2};
   ${media.tablet`
-    margin: auto ${Dimens.medium}px 0; 
+    margin: auto ${Dimens.medium}px 0;
   `};
 `;
 
@@ -122,38 +122,55 @@ const WrapRegion = styled.div`
   color: ${Colors.lightGray3};
 `;
 
-export default ({ list }) => (
-  <Wrapper>
-    <WrapInner>
-      <Caption>都道府県別でスペースを探す</Caption>
-      <WrapList>
-        {list.map((item, i) => (
-          <WrapItem key={i.toString()} id={`space_search_area_${(i + 1).toString()}`}>
-            <Wrap>
-              <WrapRegion>{item.region}</WrapRegion>
-              {item.prefectureList.map((prefecture, j) => (
-                <WrapButton key={j.toString()}>
-                  <Link to={Path.spacesByPrefecture(prefecture.id)}>
-                    <Button
-                      key={j.toString()}
-                      quinary
-                      fontSize={14}
-                      fontbold
-                      lineheight={21}
-                      height={38}
-                      padding="8px 10"
-                      borderRadius={6}
-                      fill={1}
-                    >
-                      {prefecture.name}
-                    </Button>
-                  </Link>
-                </WrapButton>
-              ))}
-            </Wrap>
-          </WrapItem>
-        ))}
-      </WrapList>
-    </WrapInner>
-  </Wrapper>
-);
+const PrefectureList = ({ list, regionId }) => {
+  useEffect(() => {
+    const targetId = `space_search_area_${regionId}`;
+    if (document.getElementById(targetId)) {
+      const target = document.getElementById(targetId);
+      target.scrollIntoView({
+        inline: 'center',
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
+    window.scrollTo(0, 0);
+  }, [regionId]);
+
+  return (
+    <Wrapper>
+      <WrapInner>
+        <Caption>都道府県別でスペースを探す</Caption>
+        <WrapList>
+          {list.map((item, i) => (
+            <WrapItem key={i.toString()} id={`space_search_area_${(i + 1).toString()}`}>
+              <Wrap>
+                <WrapRegion>{item.region}</WrapRegion>
+                {item.prefectureList.map((prefecture, j) => (
+                  <WrapButton key={j.toString()}>
+                    <Link to={Path.spacesByPrefecture(prefecture.id)}>
+                      <Button
+                        key={j.toString()}
+                        quinary
+                        fontSize={14}
+                        fontbold
+                        lineheight={21}
+                        height={38}
+                        padding="8px 10"
+                        borderRadius={6}
+                        fill={1}
+                      >
+                        {prefecture.name}
+                      </Button>
+                    </Link>
+                  </WrapButton>
+                ))}
+              </Wrap>
+            </WrapItem>
+          ))}
+        </WrapList>
+      </WrapInner>
+    </Wrapper>
+  );
+};
+
+export default PrefectureList;

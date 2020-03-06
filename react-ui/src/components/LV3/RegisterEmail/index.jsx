@@ -75,7 +75,7 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
 
   useEffect(() => {
     dispatch(authActions.initSignup());
-  }, []);
+  }, [dispatch]);
 
   const validate = () => {
     return email && email.match(Validate.Email) && password && password.match(Validate.Password);

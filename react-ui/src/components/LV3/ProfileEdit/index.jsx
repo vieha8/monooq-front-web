@@ -14,12 +14,12 @@ import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import { isTrimmedEmpty } from 'helpers/validations/string';
+import isEmailValid from 'helpers/validations/email';
 
 const PURPOSE_USER = '1';
 const PURPOSE_HOST = '2';
 
 const Validate = {
-  Email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
   phoneNumber: {
     NoHyphenVer: /^0\d{9,10}$/, // 先頭「0」+「半角数字9〜10桁」
     HyphenVer: /^0\d{2,3}-\d{2,4}-\d{4}$/, // 先頭「0」＋「半角数字2〜3桁」＋「-」＋「半角数字1〜4桁」＋「-」＋「半角数字4桁」
@@ -74,10 +74,11 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
   const validate = () => {
     return (
       (errors.imageUrl === undefined || (errors.imageUrl && errors.imageUrl.length === 0)) &&
-      !isTrimmedEmpty(name) &&
-      name.trim().length <= Validate.Profile.nameMax &&
-      email &&
-      email.match(Validate.Email) &&
+      name &&
+      (name === undefined
+        ? false
+        : name.trim().length > 0 && name.trim().length <= Validate.Profile.nameMax) &&
+      isEmailValid(email).result &&
       phoneNumber &&
       (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
         phoneNumber.match(Validate.phoneNumber.HyphenVer)) &&
@@ -107,13 +108,13 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
         }
         break;
 
-      case 'email':
-        if (!inputValue || inputValue.replace(/\s/g, '').length === 0) {
-          setError.push(ErrorMessages.PleaseInput);
-        } else if (!inputValue.match(Validate.Email)) {
-          setError.push(ErrorMessages.InvalidEmail);
+      case 'email': {
+        const { result, reason } = isEmailValid(inputValue);
+        if (!result) {
+          setError.push(reason);
         }
         break;
+      }
 
       case 'phoneNumber':
         if (!inputValue || inputValue.replace(/\s/g, '').length === 0) {
@@ -154,7 +155,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
     handleChangeUI('prefCode', prefCode);
     handleChangeUI('profile', profile);
     handleChangeUI('purpose', purpose);
-  }, []);
+  }, [name, email, phoneNumber, prefCode, profile, purpose]);
 
   const onClickUpdate = () => {
     if (validate()) {

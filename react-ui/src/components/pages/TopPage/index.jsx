@@ -20,34 +20,16 @@ class TopPage extends React.Component {
     dispatch(sectionActions.fetchSections());
   }
 
-  componentDidMount() {
-    const { regionId } = this.props;
-    this.setScrollRegion(regionId);
-    window.scrollTo(0, 0);
-  }
-
-  componentDidUpdate(prevProps) {
-    const { regionId } = this.props;
-    if (regionId !== prevProps.regionId) {
-      this.setScrollRegion(regionId);
-      window.scrollTo(0, 0);
-    }
-  }
-
-  setScrollRegion = regionId => {
-    const id = `space_search_area_${regionId}`;
-    if (document.getElementById(id)) {
-      const target = document.getElementById(id);
-      target.scrollIntoView({
-        inline: 'center',
-        behavior: 'smooth',
-        block: 'end',
-      });
-    }
-  };
-
   render() {
-    const { sections, isChecking, user, intercomHash, isRegistering, errorMessage } = this.props;
+    const {
+      sections,
+      regionId,
+      isChecking,
+      user,
+      intercomHash,
+      isRegistering,
+      errorMessage,
+    } = this.props;
 
     if (isChecking) {
       return <LoadingPage />;
@@ -64,6 +46,7 @@ class TopPage extends React.Component {
           isNoLogin={!user.id}
           isRegisterChecking={isRegistering}
           errorMessage={errorMessage}
+          regionId={regionId}
         />
         {isProd && (
           <Intercom
