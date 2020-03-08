@@ -24,15 +24,15 @@ const Requested = () => {
       <TextLink to={Path.space(4518)}>▶モノオクのスペースはこちら</TextLink>
       <br />
       <br />
-      ③モノオクから簡単に配送手配ができます！
+      ③モノオクからおすすめ配送！
       <br />
       <TextLink
-        href="https://docs.google.com/forms/d/e/1FAIpQLSfI3YOtJhWe04NlzVOU5_Jr1cMTcEYCEUUus6wJZEyNmws6QA/viewform"
+        href="https://rentora.com/"
         target="_blank"
         rel="noopener noreferrer"
-        className="gaMessageTipsPickgoLinkFirst"
+        className="gaMessageTipsRentoraLinkFirst"
       >
-        ▶配送申込みはこちら
+        ▶申込みはこちら
       </TextLink>
     </Fragment>
   );
