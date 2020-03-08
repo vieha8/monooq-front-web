@@ -27,10 +27,10 @@ const Requested = () => {
       ③モノオクからおすすめ配送！
       <br />
       <TextLink
-        href="https://docs.google.com/forms/d/e/1FAIpQLSfI3YOtJhWe04NlzVOU5_Jr1cMTcEYCEUUus6wJZEyNmws6QA/viewform"
+        href="https://rentora.com/"
         target="_blank"
         rel="noopener noreferrer"
-        className="gaMessageTipsPickgoLinkFirst"
+        className="gaMessageTipsRentoraLinkFirst"
       >
         ▶申込みはこちら
       </TextLink>
