@@ -122,7 +122,8 @@ export default class RegisterProfilePage extends Component {
     const { error, name, prefCode } = this.state;
     return (
       (error.image === undefined || (error.image && error.image.length === 0)) &&
-      !isTrimmedEmpty(name) && name.trim().length <= Validate.Profile.nameMax &&
+      !isTrimmedEmpty(name) &&
+      name.trim().length <= Validate.Profile.nameMax &&
       prefCode
     );
   };
