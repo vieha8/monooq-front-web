@@ -29,8 +29,17 @@ const Wrap = styled(Link)`
         &:hover {
           cursor: pointer;
           opacity: 0.8;
+          color: ${Colors.black};
         }
       `};
+  `};
+
+  ${media.tablet`
+    max-width: 100%;
+    &:nth-child(2) {
+      margin: auto;
+    }
+    margin: ${Dimens.small2}px auto;
   `};
 `;
 
@@ -64,6 +73,9 @@ const TitleSub = styled.div`
 
 const TitleMain = styled.div`
   font-size: ${FontSizes.medium2_26}px;
+  ${media.tablet1`
+    font-size: ${FontSizes.medium1_22}px;
+  `};
 `;
 
 export default ({ link, bgImage, type, titleSub, titleMain }) => (

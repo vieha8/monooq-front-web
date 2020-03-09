@@ -4,7 +4,15 @@ import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import MenuItemTop from 'components/LV1/MenuItemTop';
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin: ${Dimens.large}px auto ${Dimens.medium3_44}px;
+  padding: 0 ${Dimens.medium}px;
+  ${media.phone`
+    margin: ${Dimens.medium2_36}px auto;
+  `};
+`;
 
 const Caption = styled.div`
   font-size: ${FontSizes.medium2}px;
@@ -16,7 +24,11 @@ const Caption = styled.div`
 `;
 
 const ListWrap = styled.div`
+  display: flex;
   margin: ${Dimens.medium1_28}px auto;
+  ${media.tablet`
+    display: block;
+  `};
 `;
 
 export default ({ list }) => (
