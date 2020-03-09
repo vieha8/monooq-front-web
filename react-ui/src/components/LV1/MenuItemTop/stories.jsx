@@ -24,28 +24,25 @@ storiesOf('Atoms(LV1)/MenuItemTop', module)
         <div>
           <MenuItemTop
             link={() => console.log('OnClickAbout')}
+            bgImage={BgImageAbout}
             titleSub="置き場に困った荷物がある方へ"
             titleMain="モノオクをはじめよう"
-            paddingTitle="40px 0"
-            bgImage={BgImageAbout}
           />
           <br />
           <MenuItemTop
             link={() => console.log('OnClickHowto')}
-            titleSub="実際にモノオクを使ってみよう"
-            titleMain="ご利用の流れ"
-            paddingTitle="0 16px 16px 0"
             bgImage={BgImageHowto}
             type="howto"
+            titleSub="実際にモノオクを使ってみよう"
+            titleMain="ご利用の流れ"
           />
           <br />
           <MenuItemTop
             link={() => console.log('OnClickQa')}
-            titleSub="使い方がわからない人へ"
-            titleMain="よくあるご質問"
-            paddingTitle="16px 0 0 16px"
             bgImage={BgImageQa}
             type="qa"
+            titleSub="使い方がわからない人へ"
+            titleMain="よくあるご質問"
           />
         </div>
       </div>

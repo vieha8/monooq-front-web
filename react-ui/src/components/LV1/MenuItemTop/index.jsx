@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Colors, FontSizes } from 'variables';
+import { Dimens, Colors, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 
 const Wrap = styled(Link)`
@@ -18,6 +18,9 @@ const Wrap = styled(Link)`
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  &:nth-child(2) {
+    margin: 0 ${Dimens.small2}px;
+  }
 
   ${mediaMin.tablet`
     ${props =>
@@ -63,7 +66,7 @@ const TitleMain = styled.div`
   font-size: ${FontSizes.medium2_26}px;
 `;
 
-export default ({ titleSub, titleMain, link, type, bgImage }) => (
+export default ({ link, bgImage, type, titleSub, titleMain }) => (
   <Wrap to={link} bgImage={bgImage}>
     <TitleWrap type={type}>
       <TitleSub>{titleSub}</TitleSub>
