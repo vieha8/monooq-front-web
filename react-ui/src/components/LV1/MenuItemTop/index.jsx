@@ -20,6 +20,9 @@ const Wrap = styled.div`
   &:nth-child(2) {
     margin: 0 ${Dimens.small2}px;
   }
+  &:active {
+    opacity: 0.8;
+  }
 
   ${mediaMin.tablet`
     &:hover {
@@ -41,12 +44,7 @@ const LinkStyled = styled.div`
   display: block;
   width: 100%;
   height: 100%;
-  color: ${Colors.black};
-  ${mediaMin.tablet`
-    &:hover {
-      color: ${Colors.black};
-    }
-  `};
+  color: ${Colors.black} !important;
 `;
 
 const TitleWrap = styled.div`
