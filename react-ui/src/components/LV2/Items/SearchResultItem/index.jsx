@@ -73,9 +73,17 @@ const SpaceResultItem = ({
     }
   }, [inView]);
 
+  const onClickSpace = () => {
+    ReactGA.plugin.execute('ec', 'addProduct', {
+      id,
+      name: title,
+    });
+    ReactGA.plugin.execute('ec', 'setAction', 'click', {});
+  };
+
   return (
     <Wrap ref={ref}>
-      <Link to={Path.space(id)}>
+      <Link to={Path.space(id)} onClick={onClickSpace}>
         <Card noPadding noBorder>
           <LazyLoad height={123}>
             <ImageHero
