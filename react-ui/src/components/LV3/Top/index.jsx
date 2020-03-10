@@ -43,6 +43,7 @@ export default ({ sections, regionId, isNoLogin, isRegisterChecking, errorMessag
           type: 'qa',
           titleSub: '使い方がわからない人へ',
           titleMain: 'よくあるご質問',
+          isLinkBlank: true,
         },
       ]}
     />

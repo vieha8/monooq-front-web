@@ -43,6 +43,7 @@ export default ({ list }) => (
           type={item.type}
           titleSub={item.titleSub}
           titleMain={item.titleMain}
+          isLinkBlank={item.isLinkBlank}
         />
       ))}
     </ListWrap>

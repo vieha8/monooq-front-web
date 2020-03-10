@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 
-const Wrap = styled(Link)`
+const Wrap = styled.div`
   display: inline-block;
   position: relative;
   width: 100%;
@@ -13,7 +13,6 @@ const Wrap = styled(Link)`
   font-weight: bold;
   line-height: normal;
   text-decoration: none;
-  color: ${Colors.black};
   background-image: url(${props => props.bgImage});
   background-size: cover;
   background-position: center;
@@ -23,15 +22,10 @@ const Wrap = styled(Link)`
   }
 
   ${mediaMin.tablet`
-    ${props =>
-      !props.disabled &&
-      `
-        &:hover {
-          cursor: pointer;
-          opacity: 0.8;
-          color: ${Colors.black};
-        }
-      `};
+    &:hover {
+      cursor: pointer;
+      opacity: 0.8;
+    }
   `};
 
   ${media.tablet`
@@ -40,6 +34,18 @@ const Wrap = styled(Link)`
       margin: auto;
     }
     margin: ${Dimens.small2}px auto;
+  `};
+`;
+
+const LinkStyled = styled.div`
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: ${Colors.black};
+  ${mediaMin.tablet`
+    &:hover {
+      color: ${Colors.black};
+    }
   `};
 `;
 
@@ -78,11 +84,25 @@ const TitleMain = styled.div`
   `};
 `;
 
-export default ({ link, bgImage, type, titleSub, titleMain }) => (
-  <Wrap to={link} bgImage={bgImage}>
+const getTitle = (type, titleSub, titleMain) => {
+  return (
     <TitleWrap type={type}>
       <TitleSub>{titleSub}</TitleSub>
       <TitleMain>{titleMain}</TitleMain>
     </TitleWrap>
+  );
+};
+
+export default ({ link, bgImage, type, titleSub, titleMain, isLinkBlank }) => (
+  <Wrap bgImage={bgImage}>
+    {isLinkBlank ? (
+      <LinkStyled as="a" href={link} target="_blank" rel="noopener noreferrer">
+        {getTitle(type, titleSub, titleMain)}
+      </LinkStyled>
+    ) : (
+      <LinkStyled as={Link} to={link}>
+        {getTitle(type, titleSub, titleMain)}
+      </LinkStyled>
+    )}
   </Wrap>
 );

@@ -42,6 +42,7 @@ storiesOf('Molecules(LV2)/Lists/MenuItemTopList', module)
               type: 'qa',
               titleSub: '使い方がわからない人へ',
               titleMain: 'よくあるご質問',
+              isLinkBlank: true,
             },
           ]}
         />
