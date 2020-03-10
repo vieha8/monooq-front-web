@@ -806,6 +806,14 @@ function* getRecommendSpaces({ payload: { spaceId } }) {
   yield put(spaceActions.getRecommendSpacesSuccess(res));
 }
 
+const addAddress = (fromData, toData, type) => {
+  let returnData = toData;
+  if (fromData.filter(v => v.types.includes(type)).length === 1) {
+    returnData += fromData.filter(v => v.types.includes(type))[0].long_name;
+  }
+  return returnData;
+};
+
 function* getAddressByPostalCode({ payload: { postalCode } }) {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?key=${GEOCODE_API_KEY}&address=${postalCode}&language=ja`;
 
@@ -826,31 +834,18 @@ function* getAddressByPostalCode({ payload: { postalCode } }) {
     }
 
     if (places && places.results.length > 0) {
-      const pref = places.results[0].address_components.filter(v =>
-        v.types.includes('administrative_area_level_1'),
-      )[0].long_name;
-      let city = places.results[0].address_components.filter(v => v.types.includes('locality'))[0]
-        .long_name;
-
-      if (
-        places.results[0].address_components.filter(v => v.types.includes('sublocality_level_1'))
-          .length === 1
-      ) {
-        city += places.results[0].address_components.filter(v =>
-          v.types.includes('sublocality_level_1'),
-        )[0].long_name;
-      }
-
+      const addressComponents = places.results[0].address_components;
+      let pref = '';
+      let city = '';
       let town = '';
-      if (
-        places.results[0].address_components.filter(v => v.types.includes('sublocality_level_2'))
-          .length === 1
-      ) {
-        town = places.results[0].address_components.filter(v =>
-          v.types.includes('sublocality_level_2'),
-        )[0].long_name;
-      }
-
+      pref = addAddress(addressComponents, pref, 'administrative_area_level_1');
+      city = addAddress(addressComponents, city, 'administrative_area_level_2');
+      city = addAddress(addressComponents, city, 'administrative_area_level_3');
+      city = addAddress(addressComponents, city, 'administrative_area_level_4');
+      city = addAddress(addressComponents, city, 'administrative_area_level_5');
+      city = addAddress(addressComponents, city, 'locality');
+      city = addAddress(addressComponents, city, 'sublocality_level_1');
+      town = addAddress(addressComponents, town, 'sublocality_level_2');
       yield put(spaceActions.getAddressSuccess({ pref, city, town, postalCode }));
     } else {
       yield handleError(
