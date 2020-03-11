@@ -14,11 +14,11 @@ storiesOf('Atoms(LV1)/Texts/StatusText', module).add(
     ステータステキスト
   `)(() => (
     <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-      <StatusText statusColor={Colors.green} text="3日以内" />
+      <StatusText setData={[{ statusColor: Colors.green, viewText: '3日以内' }]} />
       <br />
-      <StatusText statusColor={Colors.brandAccent} text="1週間以内" />
+      <StatusText setData={[{ statusColor: Colors.brandAccent, viewText: '1週間以内' }]} />
       <br />
-      <StatusText text="1ヶ月以内" />
+      <StatusText setData={[{ statusColor: Colors.lightGray2, viewText: '1ヶ月以内' }]} />
     </div>
   )),
 );

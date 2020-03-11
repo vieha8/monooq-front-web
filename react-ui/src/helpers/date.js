@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { Colors } from 'variables';
 
 moment.locale('ja');
 
@@ -45,13 +46,23 @@ export const getDateDiff = (targetDate, type) => {
 };
 
 export const getDateRelativeLastLogin = targetDate => {
-  let diffDay = getDateDiff(targetDate, 'days');
-  if (diffDay === 0) {
-    diffDay = '24時間以内';
-  } else {
-    diffDay += '日前';
+  const result = {};
+  let statusColor = '';
+  let viewText = '';
+  const diffDay = getDateDiff(targetDate, 'days');
+  if (diffDay <= 3) {
+    statusColor = Colors.green;
+    viewText = '3日以内';
+  } else if (diffDay <= 7) {
+    statusColor = Colors.brandAccent;
+    viewText = '1週間以内';
+  } else if (diffDay <= 30) {
+    statusColor = Colors.lightGray2;
+    viewText = '1ヶ月以内';
   }
-  return diffDay;
+  result.statusColor = statusColor;
+  result.viewText = viewText;
+  return result;
 };
 
 export const getDateFormated = num => {
