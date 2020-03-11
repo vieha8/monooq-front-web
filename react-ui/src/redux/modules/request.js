@@ -358,7 +358,15 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
 
   if (!cardToken) {
     // TODO トークン生成失敗理由をキャッチする
-    yield handleError(requestActions.paymentFailed, { errMsg: errMsgCs }, 'payment', '', true);
+    yield handleError(
+      requestActions.paymentFailed,
+      {
+        errMsg: `一時的にシステムに障害が生じている可能性がございます。大変申し訳ありませんが、時間をあけて再度お試しください。`,
+      },
+      'payment',
+      '',
+      true,
+    );
     return;
   }
 
