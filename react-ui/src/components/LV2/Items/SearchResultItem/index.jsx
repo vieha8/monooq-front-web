@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
 import ReactGA from 'react-ga';
-import { useInView } from 'react-intersection-observer';
 import Card from 'components/LV1/Card';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -62,17 +61,6 @@ const SpaceResultItem = ({
   priceFull,
   tags,
 }) => {
-  const [ref, inView] = useInView({ threshold: 0, triggerOnce: true });
-
-  useEffect(() => {
-    if (inView) {
-      ReactGA.plugin.execute('ec', 'addImpression', {
-        id,
-        name: title,
-      });
-    }
-  }, [inView]);
-
   const onClickSpace = () => {
     ReactGA.plugin.execute('ec', 'addProduct', {
       id,
@@ -82,7 +70,7 @@ const SpaceResultItem = ({
   };
 
   return (
-    <Wrap ref={ref}>
+    <Wrap>
       <Link to={Path.space(id)} onClick={onClickSpace}>
         <Card noPadding noBorder>
           <LazyLoad height={123}>
