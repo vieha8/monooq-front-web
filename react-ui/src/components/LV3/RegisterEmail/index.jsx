@@ -145,6 +145,15 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
     dispatch(authActions.signupFacebook());
   };
 
+  const onClickToSignUp = () => {
+    ReactGA.event({
+      category: 'signup',
+      action: 'OnClick To SignUp',
+      label: 'Top Page',
+    });
+    history.push(Path.signUp());
+  };
+
   return (
     <Fragment>
       <ViewMode isTop={isTop}>
@@ -244,7 +253,7 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
       </ViewMode>
       {isTop && (
         <ViewMode isTop sp>
-          <Button primary borderbold fontbold fill={1} onClick={() => history.push(Path.signUp())}>
+          <Button primary borderbold fontbold fill={1} onClick={onClickToSignUp}>
             登録はこちら
           </Button>
         </ViewMode>
