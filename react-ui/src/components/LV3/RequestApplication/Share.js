@@ -2,6 +2,7 @@ import moment from 'moment';
 import { ErrorMessages } from 'variables';
 import { getToday, generateDateAll } from 'helpers/date';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
+import { isTrimmedEmpty } from 'helpers/validations/string';
 
 moment.locale('ja');
 
@@ -29,11 +30,8 @@ export const validate = (startDate, endDate, usage, sizeType, breadth, packageCo
     usage &&
     breadth &&
     checkBreadth > 0 &&
-    packageContents &&
-    (packageContents === undefined
-      ? false
-      : packageContents.trim().length > 0 &&
-        packageContents.trim().length <= Validate.PackageContents.Max) &&
+    !isTrimmedEmpty(packageContents) &&
+    packageContents.trim().length <= Validate.PackageContents.Max &&
     notes.trim().length <= Validate.Notes.Max &&
     moment(startDateAll).isValid() &&
     moment(endDateAll).isValid() &&
@@ -61,7 +59,7 @@ export const handleChangeUI = (propName, inputValue, setItem, setErrors) => {
       break;
 
     case 'packageContents':
-      if (!inputValue || inputValue.trim().length === 0) {
+      if (isTrimmedEmpty(inputValue)) {
         setError.push(ErrorMessages.PleaseInput);
       } else if (inputValue.length > Validate.PackageContents.Max) {
         setError.push(ErrorMessages.LengthMax('自己紹介', Validate.PackageContents.Max));

@@ -6,6 +6,7 @@ import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { handleAccessTrade, handleCircuitX } from 'helpers/asp';
 import { handleGTM } from 'helpers/gtm';
+import { isTrimmedEmpty } from 'helpers/validations/string';
 
 const Validate = {
   ImageSize: {
@@ -94,7 +95,7 @@ export default class RegisterProfilePage extends Component {
         break;
 
       case 'name':
-        if (!value || value.trim().length === 0) {
+        if (isTrimmedEmpty(value)) {
           errors.push(ErrorMessages.PleaseInput);
         }
         if (value && value.trim().length > Validate.Profile.nameMax) {
@@ -121,9 +122,8 @@ export default class RegisterProfilePage extends Component {
     const { error, name, prefCode } = this.state;
     return (
       (error.image === undefined || (error.image && error.image.length === 0)) &&
-      (name === undefined
-        ? false
-        : name.trim().length > 0 && name.trim().length <= Validate.Profile.nameMax) &&
+      !isTrimmedEmpty(name) &&
+      name.trim().length <= Validate.Profile.nameMax &&
       prefCode
     );
   };

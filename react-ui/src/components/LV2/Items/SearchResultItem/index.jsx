@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
+import ReactGA from 'react-ga';
 import Card from 'components/LV1/Card';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -47,7 +48,7 @@ const Title = styled(InlineText.Base)`
   `}
 `;
 
-export default ({
+const SpaceResultItem = ({
   isTag,
   id,
   title,
@@ -59,56 +60,68 @@ export default ({
   addressTown,
   priceFull,
   tags,
-}) => (
-  <Wrap>
-    <Link to={Path.space(id)}>
-      <Card noPadding noBorder>
-        <LazyLoad height={123}>
-          <ImageHero
-            isTag={isTag}
-            src={image}
-            alt={title}
-            height={184}
-            heightTab={195}
-            heightSp={225}
-            heightSpTag={110}
-          />
-        </LazyLoad>
-        <Content>
-          <Row marginTop={10}>
-            <InlineText.Base singleLine fontSize={14} color={Colors.lightGray3}>
-              {isRecommended && (
-                <InlineText.Base
-                  fontSize={14}
-                  bold
-                  color={Colors.brandAccent}
-                  margin={isTag ? '0 4px 0 0' : '0 8px 0 0'}
-                >
-                  <ImageStar src={iconStar} />
-                  {!isTag && '公式おすすめ'}
-                </InlineText.Base>
-              )}
-              {address || addressPref + addressCity + addressTown}
-            </InlineText.Base>
-          </Row>
-          <Row marginTop={4}>
-            <Title fontSize={16} bold lineheight="140%" lineClamp={2}>
-              {title}
-            </Title>
-          </Row>
-          <Row right>
-            <InlineText.Base noWrap fontSize={16} bold color={Colors.brandPrimary}>
-              {`〜${numeral(priceFull).format('0,0')}`}
-              円&nbsp;/&nbsp;月
-            </InlineText.Base>
-          </Row>
-        </Content>
-      </Card>
-    </Link>
-    {tags && tags.length > 0 && (
-      <Row marginTop={12}>
-        <Tag tagList={tags.map(v => v.name)} />
-      </Row>
-    )}
-  </Wrap>
-);
+}) => {
+  const onClickSpace = () => {
+    ReactGA.plugin.execute('ec', 'addProduct', {
+      id,
+      name: title,
+    });
+    ReactGA.plugin.execute('ec', 'setAction', 'click', {});
+  };
+
+  return (
+    <Wrap>
+      <Link to={Path.space(id)} onClick={onClickSpace}>
+        <Card noPadding noBorder>
+          <LazyLoad height={123}>
+            <ImageHero
+              isTag={isTag}
+              src={image}
+              alt={title}
+              height={184}
+              heightTab={195}
+              heightSp={225}
+              heightSpTag={110}
+            />
+          </LazyLoad>
+          <Content>
+            <Row marginTop={10}>
+              <InlineText.Base singleLine fontSize={14} color={Colors.lightGray3}>
+                {isRecommended && (
+                  <InlineText.Base
+                    fontSize={14}
+                    bold
+                    color={Colors.brandAccent}
+                    margin={isTag ? '0 4px 0 0' : '0 8px 0 0'}
+                  >
+                    <ImageStar src={iconStar} />
+                    {!isTag && '公式おすすめ'}
+                  </InlineText.Base>
+                )}
+                {address || addressPref + addressCity + addressTown}
+              </InlineText.Base>
+            </Row>
+            <Row marginTop={4}>
+              <Title fontSize={16} bold lineheight="140%" lineClamp={2}>
+                {title}
+              </Title>
+            </Row>
+            <Row right>
+              <InlineText.Base noWrap fontSize={16} bold color={Colors.brandPrimary}>
+                {`〜${numeral(priceFull).format('0,0')}`}
+                円&nbsp;/&nbsp;月
+              </InlineText.Base>
+            </Row>
+          </Content>
+        </Card>
+      </Link>
+      {tags && tags.length > 0 && (
+        <Row marginTop={12}>
+          <Tag tagList={tags.map(v => v.name)} />
+        </Row>
+      )}
+    </Wrap>
+  );
+};
+
+export default SpaceResultItem;

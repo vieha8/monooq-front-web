@@ -918,7 +918,7 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
                   <br />
                   2.直接運ぶ
                   <br />
-                  3.提携の配送サービス（PickGo）の利用
+                  3.提携の配送サービス（レントラ便）の利用
                 </Answer>
               </Collapsible>
             </QuestionItem>

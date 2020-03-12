@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactGA from 'react-ga';
 import { loggerActions } from 'redux/modules/logger';
 import { spaceActions } from 'redux/modules/space';
 import BaseTemplate from 'components/templates/BaseTemplate';
@@ -64,6 +65,12 @@ class SpacePage extends Component {
         url: `space/${id}`,
         imageUrl: ogImageUrl,
       };
+
+      ReactGA.plugin.execute('ec', 'addProduct', {
+        id: space.id,
+        name: space.title,
+      });
+      ReactGA.plugin.execute('ec', 'setAction', 'detail');
 
       return { meta };
     }
