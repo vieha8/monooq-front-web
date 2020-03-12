@@ -9,6 +9,7 @@ import { uiActions } from 'redux/modules/ui';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEdit2 from 'components/LV3/SpaceEdit/Step2';
+import { isTrimmedEmpty } from 'helpers/validations/string';
 
 const Validate = {
   PostalCode: {
@@ -20,19 +21,19 @@ const checkError = (name, value) => {
   const errors = [];
   switch (name) {
     case 'postalCode':
-      if (!value || value.trim().length === 0) {
+      if (isTrimmedEmpty(value)) {
         errors.push(`郵便番号を${ErrorMessages.PleaseInput}`);
       } else if (!value.match(Validate.PostalCode.Match)) {
         errors.push(ErrorMessages.InvalidPostalCode);
       }
       break;
     case 'pref':
-      if (!value || value.trim().length === 0) {
+      if (isTrimmedEmpty(value)) {
         errors.push(`都道府県を${ErrorMessages.PleaseInput}`);
       }
       break;
     case 'town':
-      if (!value || value.trim().length === 0) {
+      if (isTrimmedEmpty(value)) {
         errors.push(`市区町村以降を${ErrorMessages.PleaseInput}`);
       }
       break;
@@ -228,15 +229,11 @@ class SpaceEdit2Page extends Component {
     const { postalCode, pref, town, line1, receiptType } = this.state;
     const PostalCodeMatch = postalCode ? postalCode.match(Validate.PostalCode.Match) : '';
     return (
-      postalCode &&
-      (postalCode === undefined ? false : postalCode.trim().length > 0) &&
+      !isTrimmedEmpty(postalCode) &&
       PostalCodeMatch &&
-      pref &&
-      (pref === undefined ? false : pref.trim().length > 0) &&
-      town &&
-      (town === undefined ? false : town.trim().length > 0) &&
-      line1 &&
-      (line1 === undefined ? false : line1.trim().length > 0) &&
+      !isTrimmedEmpty(pref) &&
+      !isTrimmedEmpty(town) &&
+      !isTrimmedEmpty(line1) &&
       receiptType &&
       receiptType > 0
     );
@@ -246,11 +243,7 @@ class SpaceEdit2Page extends Component {
     // TODO: 郵便番号のバリデートはあとで実装
     const { postalCode } = this.state;
     const PostalCodeMatch = postalCode ? postalCode.match(Validate.PostalCode.Match) : '';
-    return (
-      postalCode &&
-      (postalCode === undefined ? false : postalCode.trim().length > 0) &&
-      PostalCodeMatch
-    );
+    return !isTrimmedEmpty(postalCode) && PostalCodeMatch;
   };
 
   render() {

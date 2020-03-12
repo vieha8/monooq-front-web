@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import TextLink from 'components/LV1/Texts/TextLink';
+import Path from 'config/path';
 
 const Requested = () => {
   return (
@@ -11,15 +12,27 @@ const Requested = () => {
       支払い完了後に住所詳細をお知らせします。
       <br />
       <br />
-      モノオクから簡単に配送手配ができます！
+      【おすすめ情報】
+      <br />
+      ①スペースは契約が決まり次第埋まっていくため、複数のスペースへリクエストしましょう。
+      <br />
+      一度入力した内容は使い回せるため、他へのリクエストも楽々。
+      <br />
+      <br />
+      ②預け先が見つからない…そんなときはモノオク運営のスペースへご相談どうぞ！(東京都限定)
+      <br />
+      <TextLink to={Path.space(4518)}>▶モノオクのスペースはこちら</TextLink>
+      <br />
+      <br />
+      ③モノオクからおすすめ配送！
       <br />
       <TextLink
-        href="https://docs.google.com/forms/d/e/1FAIpQLSfI3YOtJhWe04NlzVOU5_Jr1cMTcEYCEUUus6wJZEyNmws6QA/viewform"
+        href="https://rentora.com/"
         target="_blank"
         rel="noopener noreferrer"
-        className="gaMessageTipsPickgoLinkFirst"
+        className="gaMessageTipsRentoraLinkFirst"
       >
-        ▶配送申込みはこちら
+        ▶申込みはこちら
       </TextLink>
     </Fragment>
   );

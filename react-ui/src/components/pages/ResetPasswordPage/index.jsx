@@ -6,6 +6,7 @@ import { ErrorMessages } from 'variables';
 import { authActions } from 'redux/modules/auth';
 import AccountTemplate from 'components/templates/AccountTemplate';
 import ResetPassword from 'components/LV3/ResetPassword';
+import { isTrimmedEmpty } from 'helpers/validations/string';
 
 const Validate = {
   Email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
@@ -41,7 +42,7 @@ class ResetPasswordPage extends Component {
 
     switch (propName) {
       case 'email':
-        if (!value || value.trim().length === 0) {
+        if (isTrimmedEmpty(value)) {
           errors.push(ErrorMessages.PleaseInput);
         } else if (!value.match(Validate.Email)) {
           errors.push(ErrorMessages.InvalidEmail);

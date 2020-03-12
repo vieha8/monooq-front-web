@@ -13,6 +13,7 @@ import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
 import ModalToProfileEdit from 'components/LV3/ModalToProfileEdit';
+import { isTrimmedEmpty } from 'helpers/validations/string';
 
 const ZENKAKU_SPACE_LITERAL = '　';
 const SPACE_LITERAL = ' ';
@@ -80,14 +81,14 @@ const checkError = (name, value) => {
   const errors = [];
   switch (name) {
     case 'title':
-      if (!value || value.trim().length === 0) {
+      if (isTrimmedEmpty(value)) {
         errors.push(ErrorMessages.PleaseInput);
       } else if (value.length > Validate.Title.Max) {
         errors.push(ErrorMessages.LengthMax('タイトル', Validate.Title.Max));
       }
       break;
     case 'introduction':
-      if (!value || value.trim().length === 0) {
+      if (isTrimmedEmpty(value)) {
         errors.push(ErrorMessages.PleaseInput);
       } else if (value.length > Validate.Introduction.Max) {
         errors.push(ErrorMessages.LengthMax('紹介文', Validate.Introduction.Max));
@@ -396,11 +397,9 @@ class SpaceEdit1Page extends Component {
     const { title, introduction, images, sizeType } = this.state;
 
     return (
-      title &&
-      (title === undefined ? false : title.trim().length > 0) &&
+      !isTrimmedEmpty(title) &&
       title.trim().length <= Validate.Title.Max &&
-      introduction &&
-      (introduction === undefined ? false : introduction.trim().length > 0) &&
+      !isTrimmedEmpty(introduction) &&
       introduction.trim().length <= Validate.Introduction.Max &&
       images &&
       images.length > 0 &&
@@ -414,8 +413,7 @@ class SpaceEdit1Page extends Component {
     const { tagCustom } = this.state;
 
     return (
-      tagCustom &&
-      (tagCustom === undefined ? false : tagCustom.trim().length > 0) &&
+      !isTrimmedEmpty(tagCustom) &&
       tagCustom.trim().length <= Validate.TagCustom.MaxText &&
       !Validate.TagCustom.IncludeSpaceLiteralRegExp.test(tagCustom)
     );
