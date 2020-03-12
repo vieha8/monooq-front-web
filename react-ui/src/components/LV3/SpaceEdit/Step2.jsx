@@ -30,7 +30,6 @@ export default ({
   onChangePref,
   onChangeTown,
   onChangeLine1,
-  onChangeLine2,
   buttonAddressDisabled,
   buttonAddressLoading,
   onClickGetAddress,
@@ -54,7 +53,6 @@ export default ({
         onChangePref={onChangePref}
         onChangeTown={onChangeTown}
         onChangeLine1={onChangeLine1}
-        onChangeLine2={onChangeLine2}
         buttonAddressDisabled={buttonAddressDisabled}
         buttonAddressLoading={buttonAddressLoading}
         onClickGetAddress={onClickGetAddress}
