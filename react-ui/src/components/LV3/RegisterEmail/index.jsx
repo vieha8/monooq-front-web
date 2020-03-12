@@ -20,6 +20,28 @@ const Validate = {
   Password: /^([a-zA-Z0-9]{8,})$/,
 };
 
+const ViewMode = styled.div`
+  ${props =>
+    !props.isTop &&
+    `
+    display: block !important;
+  `};
+
+  ${props =>
+    props.sp &&
+    `
+    display: none;
+  `};
+  ${media.phone`
+    display: none;
+    ${props =>
+      props.sp &&
+      `
+      display: block;
+    `};
+  `};
+`;
+
 const Title = styled.div`
   width: 100%;
   margin: ${Dimens.medium_20}px auto;
@@ -125,98 +147,107 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
 
   return (
     <Fragment>
-      {isTop && <Title>新規登録</Title>}
-      {errorMessage && (
-        <ErrorHeadWrap>
-          <ErrorList keyName="error_email_other" errors={[errorMessage]} />
-        </ErrorHeadWrap>
-      )}
-      <Email>
-        <InputForm
-          placeholder="メールアドレス"
-          value={email}
-          onChange={e => handleChangeUI('email', e.target.value, setEmail(e.target.value))}
-        />
-        <ErrorList keyName="error_email" errors={errors.email} />
-      </Email>
-      <Pass>
-        <InputFieldIcon
-          right="true"
-          iconClassName={isVisiblePassword ? 'fal fa-eye' : 'fal fa-eye-slash'}
-          type={isVisiblePassword ? 'text' : 'password'}
-          caption="8文字以上の半角英数字で入力してください"
-          placeholder="パスワード"
-          value={password}
-          onChange={e => handleChangeUI('password', e.target.value, setPassword(e.target.value))}
-          onKeyDown={onKeyDownPassword}
-          clickIcon={() => setIsVisiblePassword(!isVisiblePassword)}
-        />
-        <ErrorList keyName="error_password" errors={errors.password} />
-      </Pass>
-      <Terms>
-        <InlineText.Base fontSize={12}>
-          新規登録を行うと、
-          <br />
-          <TextLink
-            to={Path.terms()}
-            target="_blank"
-            rel="noopener noreferrer"
-            fontSize={FontSizes.small_12}
-            color={Colors.brandPrimary}
-          >
-            利用規約
-          </TextLink>
-          と
-          <TextLink
-            to={Path.privacy()}
-            target="_blank"
-            rel="noopener noreferrer"
-            fontSize={FontSizes.small_12}
-            color={Colors.brandPrimary}
-          >
-            個人情報保護方針
-          </TextLink>
-          に同意したとみなします
-        </InlineText.Base>
-      </Terms>
-      <Next>
-        <Button
-          primary
-          fill={1}
-          fontbold
-          onClick={onClickNext}
-          disabled={!validate()}
-          loading={isRegisterChecking ? 1 : 0}
-        >
-          新規登録
-        </Button>
-      </Next>
-      {!isTop && (
-        <Facebook>
+      <ViewMode isTop={isTop}>
+        {isTop && <Title>新規登録</Title>}
+        {errorMessage && (
+          <ErrorHeadWrap>
+            <ErrorList keyName="error_email_other" errors={[errorMessage]} />
+          </ErrorHeadWrap>
+        )}
+        <Email>
+          <InputForm
+            placeholder="メールアドレス"
+            value={email}
+            onChange={e => handleChangeUI('email', e.target.value, setEmail(e.target.value))}
+          />
+          <ErrorList keyName="error_email" errors={errors.email} />
+        </Email>
+        <Pass>
+          <InputFieldIcon
+            right="true"
+            iconClassName={isVisiblePassword ? 'fal fa-eye' : 'fal fa-eye-slash'}
+            type={isVisiblePassword ? 'text' : 'password'}
+            caption="8文字以上の半角英数字で入力してください"
+            placeholder="パスワード"
+            value={password}
+            onChange={e => handleChangeUI('password', e.target.value, setPassword(e.target.value))}
+            onKeyDown={onKeyDownPassword}
+            clickIcon={() => setIsVisiblePassword(!isVisiblePassword)}
+          />
+          <ErrorList keyName="error_password" errors={errors.password} />
+        </Pass>
+        <Terms>
+          <InlineText.Base fontSize={12}>
+            新規登録を行うと、
+            <br />
+            <TextLink
+              to={Path.terms()}
+              target="_blank"
+              rel="noopener noreferrer"
+              fontSize={FontSizes.small_12}
+              color={Colors.brandPrimary}
+            >
+              利用規約
+            </TextLink>
+            と
+            <TextLink
+              to={Path.privacy()}
+              target="_blank"
+              rel="noopener noreferrer"
+              fontSize={FontSizes.small_12}
+              color={Colors.brandPrimary}
+            >
+              個人情報保護方針
+            </TextLink>
+            に同意したとみなします
+          </InlineText.Base>
+        </Terms>
+        <Next>
           <Button
-            facebook
+            primary
             fill={1}
             fontbold
-            onClick={onClickFacebook}
+            onClick={onClickNext}
+            disabled={!validate()}
             loading={isRegisterChecking ? 1 : 0}
           >
-            Facebookで新規登録
+            新規登録
           </Button>
-        </Facebook>
-      )}
-      {!isTop && !isRegisterChecking && (
-        <ToLogin>
-          <Button
-            secondary
-            borderbold
-            fontbold
-            fill={1}
-            onClick={() => history.push(Path.login())}
-            loading={isRegisterChecking ? 1 : 0}
-          >
-            ログインはこちら
+        </Next>
+        {!isTop && (
+          <Facebook>
+            <Button
+              facebook
+              fill={1}
+              fontbold
+              onClick={onClickFacebook}
+              loading={isRegisterChecking ? 1 : 0}
+            >
+              Facebookで新規登録
+            </Button>
+          </Facebook>
+        )}
+        {!isTop && !isRegisterChecking && (
+          <ToLogin>
+            <Button
+              secondary
+              borderbold
+              fontbold
+              fill={1}
+              onClick={() => history.push(Path.login())}
+              loading={isRegisterChecking ? 1 : 0}
+            >
+              ログインはこちら
+            </Button>
+          </ToLogin>
+        )}
+      </ViewMode>
+      {isTop && (
+        <ViewMode isTop sp>
+          <Button primary borderbold fontbold fill={1} onClick={() => history.push(Path.signUp())}>
+            登録はこちら
           </Button>
-        </ToLogin>
+        </ViewMode>
       )}
     </Fragment>
   );
