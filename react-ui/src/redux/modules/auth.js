@@ -474,6 +474,9 @@ function* signUpEmail({ payload: { email, password } }) {
       errMessage = ErrorMessages.FailedSignUpMailExist;
       isOnlyAction = true;
     }
+    yield Sentry.configureScope(scope => {
+      scope.setExtra('email', email);
+    });
     yield handleError(
       authActions.signupFailed,
       errMessage,
