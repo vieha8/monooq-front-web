@@ -140,13 +140,20 @@ const getDescriptionPay = (payType, econtextUrl) => {
     case 1:
       result = (
         <Fragment>
-          ※2ヶ月以上ご利用の場合は、毎月の利用料をクレジットカードで自動的にお支払いいただくことが可能です。
+          ※2ヶ月以上の長期でご利用の場合は、1ヶ月ごとに利用料を決済する「月額決済」がおすすめです。
           <br />
-          ご希望の場合は、ひと月分の利用料をクレジットカードでお支払いの上、
-          <a href="mailto:support@monooq.com">support@monooq.com</a>
-          までご連絡ください。
+          月額決済をご希望の場合は、ホストに初月1ヶ月分の見積もりを発行してもらい、決済をしてください。
           <br />
-          このお見積もりがひと月分でない場合は、ホストにお見積もりを再発行してもらい、お支払いいただくようお願いいたします。
+          初月分の利用料をカード決済した方は、下記より月額自動決済を申請していただくと、翌月分からは自動決済ができます。
+          <br />
+          <a href="https://form.run/@monthly-request" target="_blank" rel="noopener noreferrer">
+            ▶月額自動決済の申し込み
+          </a>
+          <br />
+          <br />
+          <Caution>
+            月額自動決済の申し込みは、必ずモノオク上での決済が完了した後に行ってください。
+          </Caution>
         </Fragment>
       );
       break;
