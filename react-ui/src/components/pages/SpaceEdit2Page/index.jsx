@@ -277,7 +277,6 @@ class SpaceEdit2Page extends Component {
           onChangeTown={v => this.handleChangeUI('town', v)}
           onChangeLine1={v => this.handleChangeUI('line1', v)}
           buttonLoading={isLoading}
-          onChangeLine2={v => this.handleChangeUI('line2', v)}
           buttonAddressDisabled={!this.validatePostCode()}
           buttonAddressLoading={isLoadingAddress}
           onClickGetAddress={this.onClickGetAddress}
