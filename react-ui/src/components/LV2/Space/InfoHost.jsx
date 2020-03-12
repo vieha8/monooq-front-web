@@ -5,9 +5,10 @@ import { getDateRelativeLastLogin } from 'helpers/date';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
-import { FontSizes } from 'variables';
+import { Dimens, FontSizes } from 'variables';
 import { getPrefecture } from 'helpers/prefectures';
 import { formatName } from 'helpers/string';
+import StatusText from 'components/LV1/Texts/StatusText';
 import Attribute from 'components/LV2/Space/Attribute';
 import { SectionTitle } from './Section';
 
@@ -24,6 +25,10 @@ const headContent = (id, imageUrl, name) => {
   );
 };
 
+const LastLoginWrap = styled.div`
+  margin-top: ${Dimens.small}px;
+`;
+
 const contentHostName = (isNoProfile, message, name, prefCode, lastLoginAt) => {
   return (
     <Fragment>
@@ -37,9 +42,11 @@ const contentHostName = (isNoProfile, message, name, prefCode, lastLoginAt) => {
         </Fragment>
       )}
       <br />
-      <InlineText.Small>
-        {`最終ログイン日: ${getDateRelativeLastLogin(lastLoginAt)}`}
-      </InlineText.Small>
+      <LastLoginWrap>
+        <InlineText.Small>
+          <StatusText setData={getDateRelativeLastLogin(lastLoginAt)} />
+        </InlineText.Small>
+      </LastLoginWrap>
     </Fragment>
   );
 };

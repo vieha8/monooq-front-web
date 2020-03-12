@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
 import ReactGA from 'react-ga';
+import { getDateRelativeLastLogin } from 'helpers/date';
 import Card from 'components/LV1/Card';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Tag from 'components/LV1/Texts/Tag';
+import StatusText from 'components/LV1/Texts/StatusText';
 import { Dimens, Colors } from 'variables';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
@@ -30,8 +32,11 @@ const Row = styled.div`
     display: flex;
   `};
   ${props =>
-    props.right &&
+    props.price &&
     `
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     text-align: right;
   `};
 `;
@@ -60,6 +65,7 @@ const SpaceResultItem = ({
   addressTown,
   priceFull,
   tags,
+  user,
 }) => {
   const onClickSpace = () => {
     ReactGA.plugin.execute('ec', 'addProduct', {
@@ -106,7 +112,8 @@ const SpaceResultItem = ({
                 {title}
               </Title>
             </Row>
-            <Row right>
+            <Row price>
+              <StatusText setData={getDateRelativeLastLogin(user.lastLoginAt)} />
               <InlineText.Base noWrap fontSize={16} bold color={Colors.brandPrimary}>
                 {`〜${numeral(priceFull).format('0,0')}`}
                 円&nbsp;/&nbsp;月

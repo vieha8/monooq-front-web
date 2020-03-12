@@ -25,7 +25,7 @@ const Item = styled.div`
   ${props =>
     props.image &&
     `
-    width: 100px;  
+    width: 100px;
     padding-right: ${Dimens.medium}px;
   `};
 `;
@@ -45,6 +45,7 @@ const SummaryMessage = ({ isHost, room }) => {
             imageUrl={room.user.imageUrl}
             infoHost
             message
+            lastLoginAt={room.user.lastLoginAt}
           />
         ) : (
           <InfoHost
@@ -53,6 +54,7 @@ const SummaryMessage = ({ isHost, room }) => {
             imageUrl={room.space.user.imageUrl}
             infoHost
             message
+            lastLoginAt={room.space.user.lastLoginAt}
           />
         )}
         <Row to={Path.space(room.space.id)}>

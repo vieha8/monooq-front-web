@@ -53,7 +53,7 @@ const ResidenceText = styled.div`
   color: ${Colors.black};
 `;
 
-const LastLoginText = styled.div`
+const LastLoginWrap = styled.div`
   margin-top: ${Dimens.small}px;
   color: ${Colors.black};
 `;
@@ -120,11 +120,11 @@ export default ({ image, name, prefCode, lastLoginAt, profile, spaces }) => (
               <InlineText.Small>{`${getPrefecture(prefCode)}在住`}</InlineText.Small>
             </ResidenceText>
           )}
-          <LastLoginText>
+          <LastLoginWrap>
             <InlineText.Small>
               <StatusText setData={getDateRelativeLastLogin(lastLoginAt)} />
             </InlineText.Small>
-          </LastLoginText>
+          </LastLoginWrap>
         </InfoTopWrap>
         <Profile>
           <InlineText.Base>{profile}</InlineText.Base>
