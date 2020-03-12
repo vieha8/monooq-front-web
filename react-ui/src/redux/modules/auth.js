@@ -389,13 +389,11 @@ function* loginEmail({ payload: { email, password } }) {
     yield checkLogin();
     yield put(authActions.loginSuccess());
   } catch (err) {
-    yield handleError(
-      authActions.loginFailed,
-      `${err.message} address:${email}`,
-      'loginEmail',
-      err,
-      true,
-    );
+    yield Sentry.configureScope(scope => {
+      scope.setExtra('email', email);
+    });
+
+    yield handleError(authActions.loginFailed, `${err.message}`, 'loginEmail', err, true);
   }
 }
 
