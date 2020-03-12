@@ -215,8 +215,13 @@ class SpaceEdit2Page extends Component {
     this.setState({ error });
 
     if (propName === 'town') {
-      state.town = value ? value.replace(state.city, '') : '';
-      targetValue = state.town;
+      if (!state.city) {
+        targetValue = value;
+      } else if (!value || !value.startsWith(state.city)) {
+        targetValue = '';
+      } else {
+        targetValue = value.replace(state.city, '');
+      }
     }
 
     state[propName] = targetValue;
