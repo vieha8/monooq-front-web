@@ -5,8 +5,12 @@ import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
 import Payment from './index';
+import Completed from './Completed';
+import InputForm from './InputForm';
 
 Payment.displayName = 'Payment';
+Completed.displayName = 'Completed';
+InputForm.displayName = 'InputForm';
 
 const space = {
   id: 143,
@@ -41,6 +45,7 @@ const space = {
   address: '東京都渋谷区東1-1',
 };
 
+// TODO: 最新化したい。
 storiesOf('Organisms(LV3)/Payment', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(

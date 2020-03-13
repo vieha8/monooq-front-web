@@ -1,51 +1,38 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import moment from 'moment';
 import Path from 'config/path';
-import { Dimens, Colors, FontSizes, ZIndexes } from 'variables';
+import { Dimens, Colors, FontSizes, ZIndexes, ErrorMessages } from 'variables';
 import { media } from 'helpers/style/media-query';
-import { formatRemoveComma } from 'helpers/string';
-import Button from 'components/LV1/Forms/Button';
-import { H2 } from 'components/LV1/Texts/Headline';
-import InlineText from 'components/LV1/Texts/InlineText';
-import ImageHero from 'components/LV1/Images/ImageHero';
-import InfoHost from 'components/LV2/Space/InfoHost';
-import ContentPayment from 'components/LV2/Texts/ContentPayment';
-import InputForm from 'components/LV2/Forms/InputForm';
-import RadioList from 'components/LV2/Forms/RadioList';
-import Select from 'components/LV2/Forms/Select';
-import ErrorList from 'components/LV2/Lists/ErrorList';
+import { iskeyDownEnter } from 'helpers/keydown';
+import { requestActions } from 'redux/modules/request';
+import Info from 'components/LV2/Payment/Info';
+import PaidText from 'components/LV2/Payment/PaidText';
 import {
   Height as HeaderHeight,
   HeightPhone as HeaderHeightPhone,
 } from 'components/LV3/Header/View';
-import iconBrandCredit from 'images/icon-brand-credit.png';
-import iconCp from 'images/logo-cp.png';
-import dummySpaceImage from 'images/img-dummy-space.png';
+import Completed from './Completed';
+import InputForm from './InputForm';
 
 const MAX_PAY_PRICE_CONVENIENT = 49999;
-const METHOD_PAYMENT_CREDIT = 0;
+const MODE_VIEW_INPUT = 0;
+const MODE_VIEW_CONFIRM = 1;
+
+const ValidateRegExp = {
+  CardName: /^[a-zA-Z\s]+$/,
+  CardNumber: /^[0-9]{16}$/,
+  Cvc: /^[0-9]{3}$/,
+};
 
 const Spacer = styled.div`
   margin: ${Dimens.large_60}px auto 0;
   ${media.tablet`
     margin: ${Dimens.medium3_40}px auto 0;
   `};
-`;
-
-const ImageBrandCredit = styled.img`
-  max-width: 160px;
-`;
-
-const ImageCp = styled.img`
-  max-width: 300px;
-  ${media.phoneSmall`
-    max-width: 100%;
-  `};
-`;
-
-const CaptionImageCp = styled.div`
-  font-size: ${FontSizes.small_12}px;
 `;
 
 const HeadMessage = styled.div`
@@ -68,376 +55,267 @@ const HeadMessage = styled.div`
   `};
 `;
 
-const Row = styled.div`
-  ${props =>
-    props.borderTop &&
-    `
-      padding-top: ${Dimens.small2_15}px;
-      border-top: 1px solid ${Colors.borderGray};
-    `};
-  ${props =>
-    props.borderBottom &&
-    `
-    padding-bottom: ${Dimens.small2_15}px;
-    border-bottom: 1px solid ${Colors.borderGray};
-  `};
-  ${props =>
-    !props.noMarginTop &&
-    `
-    margin-top: ${Dimens.medium2}px;
-  `}
-  ${props =>
-    props.alignRight &&
-    `
-    text-align: right;
-  `}
-  ${props =>
-    props.mobile &&
-    `
-    display: none;
-  `}
-  ${props =>
-    props.button &&
-    `
-    max-width: 240px;
-    margin: ${Dimens.small2_15}px auto;
-  `}
-  ${media.tablet`
-    ${props =>
-      props.mobile &&
-      `
-      display: block;
-    `}
-  `}
-  ${media.phone`
-    ${props =>
-      props.button &&
-      `
-      max-width: 100%;
-    `}
-    ${props =>
-      !props.noMarginTop &&
-      `
-      margin-top: ${Dimens.medium_20}px;
-    `}
-  `}
-`;
+const PaymentInputForm = ({
+  space,
+  paymentData,
+  requestPrice,
+  paymentUrl,
+  isPaymentSuccess,
+  paidError,
+  errMsgPayment,
+  buttonLoading,
+}) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
 
-const ImageWrapper = styled.div`
-  display: table-cell;
-  vertical-align: top;
-  width: 100px;
-`;
+  const [errors, setErrors] = useState({});
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const [year, setYear] = useState(moment().year());
+  const [month, setMonth] = useState(moment().month() + 1);
+  const [cvc, setCvc] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState(-1);
+  const [modeView, setModeView] = useState(MODE_VIEW_INPUT);
 
-const ContentWrapper = styled.div`
-  display: table-cell;
-  vertical-align: middle;
-  padding-left: 16px;
-`;
+  const { request_id: requestId } = useParams();
+  const { message_room_id: roomId } = useParams();
 
-const AddressText = styled(InlineText.Base)`
-  display: block;
-  color: ${Colors.brandPrimary};
-`;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [paidError, isPaymentSuccess]);
 
-const TitleText = styled(InlineText.Small)`
-  display: block;
-  ${media.phone`
-    font-size: ${FontSizes.small_12}px;
-  `};
-`;
+  const validate = price => {
+    const chkMonth = `${year}-${month}-01`;
+    const nowMonth = `${moment().year()}-${moment().month() + 1}-01`;
+    const dtFormat = 'YYYY-MM-DD';
 
-const SelectBox = styled.div`
-  display: inline-block;
-  width: 120px;
-  ${media.phone`
-    width: 109px;
-  `};
-`;
+    const chkMonthF = moment(chkMonth, dtFormat).format(dtFormat);
+    const nowMonthF = moment(nowMonth, dtFormat).format(dtFormat);
 
-const Padding = styled.span`
-  display: inline-block;
-  padding: 0 ${Dimens.xsmall}px;
-`;
+    if (paymentMethod === 1) {
+      if (Number(price) > MAX_PAY_PRICE_CONVENIENT) {
+        return false;
+      }
+      return true;
+    }
+    if (paymentMethod === 2) {
+      return true;
+    }
 
-const CmnWrap = styled.div`
-  line-height: normal;
-  margin: ${Dimens.medium_20}px;
-  padding-top: ${Dimens.medium_20}px;
-  border-top: 1px solid ${Colors.borderGray};
-  ${props =>
-    props.noMarginSide &&
-    `
-    margin: ${Dimens.medium_20}px auto;
-  `}
-  ${props =>
-    props.noPaddingTop &&
-    `
-    padding-top: 0px;
-  `}
-  ${props =>
-    props.noBorderTop &&
-    `
-    border-top: none;
-  `}
-  ${media.phone`
-    margin: ${Dimens.medium_20}px auto;
-  `};
-`;
-
-const ConfirmCreditInfo = styled.div`
-  margin: 0px auto ${Dimens.medium_20}px;
-`;
-
-const Item = styled.div`
-  padding: ${Dimens.medium_20}px;
-  border: 1px solid ${Colors.borderGray};
-  border-radius: 4px;
-  &:first-child {
-    border-radius: 6px 6px 0px 0px;
-    border-bottom: none;
-  }
-  &:last-child {
-    border-radius: 0px 0px 6px 6px;
-  }
-  line-height: 1.5rem;
-`;
-
-const maskify = cc => {
-  return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
-};
-
-const contentConfirm = (paymentMethod, number, name) => {
-  if (paymentMethod === METHOD_PAYMENT_CREDIT) {
     return (
-      <Fragment>
-        <CmnWrap noMarginSide>
-          <InlineText.Bold>クレジットカードで決済する</InlineText.Bold>
-          <br />
-          <br />
-          <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />
-          <br />
-          <br />
-          <ConfirmCreditInfo>
-            <Item>
-              <InlineText.Bold>カード番号</InlineText.Bold>
-              <br />
-              {maskify(number)}
-            </Item>
-            <Item>
-              <InlineText.Bold>カード名義人</InlineText.Bold>
-              <br />
-              {name}
-            </Item>
-          </ConfirmCreditInfo>
-          ・お支払い後にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
-          <br />
-          ・「確定する」ボタンを押すことで、お客様は当サイトの個人情報保護方針と利用規約に同意の上、モノオクサービスの予約を確定したことになります。
-        </CmnWrap>
-      </Fragment>
+      name &&
+      name.length > 0 &&
+      name.match(ValidateRegExp.CardName) &&
+      number &&
+      number.match(ValidateRegExp.CardNumber) &&
+      month &&
+      year &&
+      moment(chkMonthF).isSameOrAfter(nowMonthF) &&
+      cvc &&
+      cvc.match(ValidateRegExp.Cvc)
     );
+  };
+
+  const handleChangeUI = (propName, inputValue) => {
+    const setError = [];
+
+    switch (propName) {
+      case 'name':
+        if (!inputValue || inputValue.length === 0) {
+          setError.push(ErrorMessages.PleaseInput);
+        }
+        if (inputValue.length > 0 && !inputValue.match(ValidateRegExp.CardName)) {
+          setError.push(ErrorMessages.AlphaOnly('カード名義'));
+        }
+        break;
+
+      case 'number':
+        if (!inputValue || inputValue.length === 0) {
+          setError.push(ErrorMessages.PleaseInput);
+        }
+        if (Number.isNaN(inputValue) || !String(inputValue).match(ValidateRegExp.CardNumber)) {
+          setError.push(ErrorMessages.CreditCardNumber);
+        }
+        break;
+
+      case 'cvc':
+        if (!inputValue || inputValue.length === 0) {
+          setError.push(ErrorMessages.PleaseInput);
+        }
+        if (Number.isNaN(inputValue) || !String(inputValue).match(ValidateRegExp.Cvc)) {
+          setError.push(ErrorMessages.Cvc);
+        }
+        break;
+
+      default:
+        break;
+    }
+    setErrors(state => ({ ...state, [propName]: setError }));
+  };
+
+  const backButton = () => {
+    window.scrollTo(0, 0);
+    dispatch(requestActions.paymentPrepare());
+
+    setModeView(MODE_VIEW_INPUT);
+    if (modeView === MODE_VIEW_INPUT) {
+      history.push(Path.message(roomId));
+    } else if (modeView === MODE_VIEW_CONFIRM) {
+      setModeView(MODE_VIEW_INPUT);
+    }
+  };
+
+  const onKeyDownBackButton = e => {
+    if (iskeyDownEnter(e)) {
+      backButton();
+    }
+  };
+
+  const payment = () => {
+    dispatch(
+      requestActions.payment({
+        roomId,
+        requestId,
+        payment: {
+          name,
+          number,
+          year,
+          month,
+          cvc,
+        },
+      }),
+    );
+  };
+
+  const paymentConvenience = () => {
+    const apiEndpointName = 'econtext';
+    dispatch(requestActions.paymentOther({ apiEndpointName, requestId }));
+  };
+
+  const paymentBank = () => {
+    const apiEndpointName = 'bank';
+    dispatch(requestActions.paymentOther({ apiEndpointName, requestId }));
+  };
+
+  const confirmButton = () => {
+    window.scrollTo(0, 0);
+    if (paymentMethod === 2) {
+      paymentBank();
+    } else {
+      setModeView(MODE_VIEW_CONFIRM);
+    }
+  };
+
+  const onKeyDownPay = e => {
+    if (iskeyDownEnter(e) && validate()) {
+      if (modeView === MODE_VIEW_INPUT) {
+        confirmButton();
+      } else if (modeView === MODE_VIEW_CONFIRM) {
+        switch (paymentMethod) {
+          case 0:
+            payment();
+            break;
+          case 1:
+            paymentConvenience();
+            break;
+          default:
+        }
+      }
+    }
+  };
+
+  const onClickSubmit = () => {
+    if (modeView === MODE_VIEW_CONFIRM) {
+      if (paymentMethod === 0) {
+        payment();
+      } else {
+        paymentConvenience();
+      }
+    } else {
+      confirmButton();
+    }
+  };
+
+  const getTextBackButton = () => {
+    let textButton = '戻る';
+    if (modeView === MODE_VIEW_CONFIRM) {
+      if (paymentMethod === 0) {
+        textButton = '修正する';
+      } else {
+        textButton = '戻る';
+      }
+    }
+    return textButton;
+  };
+
+  const getTextSubmitButton = () => {
+    let textButton = '確定する';
+    if (modeView !== MODE_VIEW_CONFIRM) {
+      if (paymentMethod !== 2) {
+        textButton = '確認する';
+      }
+    }
+    return textButton;
+  };
+
+  let isConfirm = false;
+  if (modeView === MODE_VIEW_CONFIRM) {
+    isConfirm = true;
   }
+
+  let headline = '';
+  let description = '';
+  if (isPaymentSuccess) {
+    switch (paymentMethod) {
+      case 0:
+        headline = '決済が完了しました';
+        description = <PaidText paymentMethod={paymentMethod} />;
+        break;
+      case 1:
+        headline = 'お支払い方法が確定しました';
+        description = <PaidText paymentMethod={paymentMethod} paymentUrl={paymentUrl} />;
+        break;
+      default:
+    }
+    return <Completed headline={headline} description={description} />;
+  }
+
   return (
     <Fragment>
-      <CmnWrap noMarginSide>
-        <InlineText.Bold>コンビニ払い・Pay-easyで決済する</InlineText.Bold>
-        <br />
-        <br />
-        <ImageCp src={iconCp} alt="icon-cp" />
-        <br />
-        <br />
-        ・お支払い方法確定後、お支払いページのURLを発行します。
-        <br />
-        ・「確定する」ボタンを押すことで、お客様は当サイトの個人情報保護方針と利用規約に同意の上、モノオクサービスの予約を確定したことになります。
-        <br />
-        ・お支払い後、モノオクサービス上で決済完了通知が反映されるまでに2時間程度のお時間をいただきます。
-        <br />
-        ・48時間以内にお支払い手続きが行われない場合、自動的にキャンセルとなります。
-        <br />
-        ・お支払い後にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
-      </CmnWrap>
+      <HeadMessage>
+        {isConfirm ? 'お支払い内容を確認してください' : 'お支払い方法を選択してください'}
+      </HeadMessage>
+      <Spacer />
+      <Info space={space} />
+      <InputForm
+        paymentData={paymentData}
+        errors={errors}
+        paidError={paidError}
+        errMsgPayment={errMsgPayment}
+        isConfirm={isConfirm}
+        paymentMethod={paymentMethod}
+        number={number}
+        name={name}
+        month={month}
+        year={year}
+        cvc={cvc}
+        onChangeName={e => handleChangeUI('name', e.target.value, setName(e.target.value))}
+        onChangeNumber={e => handleChangeUI('number', e.target.value, setNumber(e.target.value))}
+        onChangeMonth={e => handleChangeUI('month', e.target.value, setMonth(e.target.value))}
+        onChangeYear={e => handleChangeUI('year', e.target.value, setYear(e.target.value))}
+        onChangeCvc={e => handleChangeUI('cvc', e.target.value, setCvc(e.target.value))}
+        onClickPaymentMethod={value => setPaymentMethod(value)}
+        backButton={backButton}
+        onKeyDownBackButton={onKeyDownBackButton}
+        textBackButton={getTextBackButton()}
+        disabledPayButton={!validate(requestPrice)}
+        buttonLoading={buttonLoading}
+        onClickSubmit={onClickSubmit}
+        onKeyDownPay={onKeyDownPay}
+        textSubmitButton={getTextSubmitButton()}
+      />
     </Fragment>
   );
 };
 
-export default ({
-  space,
-  payment,
-  onChangeIsHost,
-  paymentMethod,
-  errors,
-  paidError,
-  errMsgPayment,
-  onChangeName,
-  name,
-  onChangeNumber,
-  number,
-  onChangeMonth,
-  month,
-  onChangeYear,
-  year,
-  onChangeCvc,
-  cvc,
-  buttonDisabled,
-  buttonLoading,
-  onKeyDownBack,
-  onKeyDownPay,
-  backButton,
-  submitButton,
-  backButtonText,
-  submitButtonText,
-  confirm,
-}) => (
-  <Fragment>
-    <HeadMessage>
-      {confirm ? 'お支払い内容を確認してください' : 'お支払い方法を選択してください'}
-    </HeadMessage>
-    <Spacer />
-    <InfoHost
-      id={space.user.id}
-      name={space.user.name}
-      imageUrl={space.user.imageUrl}
-      lastLoginAt={space.user.lastLoginAt}
-      message
-    />
-    <Row to={Path.space(space.id)} noMarginTop borderBottom>
-      <ImageWrapper>
-        <ImageHero
-          small
-          src={space.images && space.images.length > 0 ? space.images[0].imageUrl : dummySpaceImage}
-        />
-      </ImageWrapper>
-      <ContentWrapper>
-        <AddressText>
-          {space.addressPref}
-          {space.addressCity}
-          {space.addressTown}
-        </AddressText>
-        <TitleText>{space.title}</TitleText>
-      </ContentWrapper>
-    </Row>
-    <Row noMarginTop>
-      <ContentPayment {...payment} noDescription />
-    </Row>
-    <Row noMarginTop borderTop borderBottom>
-      <H2 as="h2">お支払い方法</H2>
-      {paidError && (
-        <Row>
-          <InlineText.Base color={Colors.error}>{errMsgPayment}</InlineText.Base>
-        </Row>
-      )}
-      {confirm ? (
-        contentConfirm(paymentMethod, number, name)
-      ) : (
-        <RadioList
-          borderTop
-          labels={['クレジットカード', 'コンビニ払い・Pay-easy決済']}
-          captions={[
-            <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />,
-            <Fragment>
-              <ImageCp src={iconCp} alt="icon-cp" />
-              {Number(formatRemoveComma(payment.price)) > MAX_PAY_PRICE_CONVENIENT && (
-                <CaptionImageCp>
-                  ※お支払い金額が50,000円以上の場合、コンビニ払い・Pay-easy決済はご利用いただけません。
-                </CaptionImageCp>
-              )}
-            </Fragment>,
-            '',
-          ]}
-          contents={[
-            <Fragment>
-              <Row>
-                <InputForm
-                  label="カード名義（半角ローマ字）"
-                  placeholder="TARO YAMADA"
-                  autoComplete="cc-name"
-                  onChange={e => onChangeName(e.target.value)}
-                  value={name}
-                />
-                <ErrorList keyName="name_errors" errors={errors.name} />
-              </Row>
-              <Row>
-                <InputForm
-                  label="クレジットカード番号(ハイフン無し16桁半角数字)"
-                  type="text"
-                  autoComplete="cc-number"
-                  placeholder="1234567812345678"
-                  onChange={e => onChangeNumber(e.target.value)}
-                  value={number}
-                />
-                <ErrorList keyName="number_errors" errors={errors.number} />
-              </Row>
-              <Row>
-                <SelectBox>
-                  <Select
-                    label="有効期限"
-                    options={Array(12)
-                      .fill(0)
-                      .map((_, i) => ({ key: i, value: i + 1, text: i + 1 }))}
-                    onChange={e => onChangeMonth(e.target.value)}
-                    value={month}
-                    autoComplete="cc-exp-year"
-                  />
-                </SelectBox>
-                <InlineText.Base>
-                  <Padding>月</Padding>
-                </InlineText.Base>
-                <InlineText.Base>
-                  <Padding>/</Padding>
-                </InlineText.Base>
-                <SelectBox>
-                  <Select
-                    options={Array(10)
-                      .fill(0)
-                      .map((_, i) => ({
-                        key: i,
-                        value: moment().year() + i,
-                        text: moment().year() + i,
-                      }))}
-                    onChange={e => onChangeYear(e.target.value)}
-                    value={year}
-                    autoComplete="cc-exp-month"
-                  />
-                </SelectBox>
-                <InlineText.Base>
-                  <Padding>年</Padding>
-                </InlineText.Base>
-              </Row>
-              <Row>
-                <InputForm
-                  label="セキュリティコード(3桁の半角数字)"
-                  type="text"
-                  placeholder="3桁の数字"
-                  onChange={e => onChangeCvc(e.target.value)}
-                  value={cvc}
-                  autoComplete="cc-csc"
-                />
-                <ErrorList keyName="cvc_errors" errors={errors.cvc} />
-              </Row>
-            </Fragment>,
-            '',
-          ]}
-          onClick={onChangeIsHost}
-          checkedIndex={paymentMethod}
-        />
-      )}
-    </Row>
-    <Row button>
-      <Button secondary fill={1} onClick={backButton} onKeyDown={onKeyDownBack}>
-        {backButtonText}
-      </Button>
-    </Row>
-    <Row button>
-      <Button
-        primary
-        fill={1}
-        disabled={buttonDisabled}
-        loading={buttonLoading}
-        onClick={submitButton}
-        onKeyDown={onKeyDownPay}
-      >
-        {submitButtonText}
-      </Button>
-    </Row>
-  </Fragment>
-);
+export default PaymentInputForm;

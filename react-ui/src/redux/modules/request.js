@@ -23,6 +23,7 @@ const PAYMENT = 'PAYMENT';
 const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 const PAYMENT_FAILED = 'PAYMENT_FAILED';
 const PAYMENT_OTHER = 'PAYMENT_OTHER';
+const PAYMENT_PREPARE = 'PAYMENT_PREPARE';
 const FETCH_SCHEDULE = 'FETCH_SCHEDULE';
 const FETCH_SCHEDULE_SUCCESS = 'FETCH_SCHEDULE_SUCCESS';
 const FETCH_SCHEDULE_FAILED = 'FETCH_SCHEDULE_FAILED';
@@ -41,6 +42,7 @@ export const requestActions = createActions(
   PAYMENT_OTHER,
   PAYMENT_SUCCESS,
   PAYMENT_FAILED,
+  PAYMENT_PREPARE,
   FETCH_SCHEDULE,
   FETCH_SCHEDULE_SUCCESS,
   FETCH_SCHEDULE_FAILED,
@@ -107,6 +109,15 @@ export const requestReducer = handleActions(
         isSuccess: false,
         isFailed: true,
         errMsg: action.payload.errMsg,
+      },
+    }),
+    [PAYMENT_PREPARE]: state => ({
+      ...state,
+      payment: {
+        isSending: false,
+        isSuccess: false,
+        isFailed: false,
+        url: '',
       },
     }),
     [FETCH_SCHEDULE]: state => ({
