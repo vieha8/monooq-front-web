@@ -60,7 +60,7 @@ const RightInner = styled.div`
     `
     position: fixed;
     max-width: 330px;
-    top: ${props.confirm ? `190` : `100`}px;
+    top: 100px;
     z-index: ${ZIndexes.frontPartsOverFooter};
     background-color: ${Colors.white};
     border-radius: ${Dimens.xxsmall}px;
