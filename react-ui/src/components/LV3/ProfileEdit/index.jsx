@@ -13,7 +13,7 @@ import { H1 } from 'components/LV1/Texts/Headline';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import { isTrimmedEmpty } from 'helpers/validations/string';
+import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
 import isEmailValid from 'helpers/validations/email';
 
 const PURPOSE_USER = '1';
@@ -75,7 +75,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
     return (
       (errors.imageUrl === undefined || (errors.imageUrl && errors.imageUrl.length === 0)) &&
       !isTrimmedEmpty(name) &&
-      name.trim().length <= Validate.Profile.nameMax &&
+      isBelowTrimmedLimit(name, Validate.Profile.nameMax) &&
       isEmailValid(email).result &&
       phoneNumber &&
       (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
