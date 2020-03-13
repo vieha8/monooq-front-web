@@ -39,15 +39,12 @@ const createApiInstance = token =>
   });
 
 const responseErrorHandler = (resolve, error, path, params) => {
-  const { response, message, request } = error;
+  const { response, message } = error;
   if (!response) {
     const err = new Error(`API Connection Error:/${path} ${message}`);
     withScope(scope => {
       if (params) {
-        scope.setExtra('params', params.toString());
-      }
-      if (request) {
-        scope.setExtra('request', request.toString());
+        scope.setExtra('params', JSON.stringify(params));
       }
       captureException(err);
     });
