@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -54,6 +55,7 @@ const extensionPhotoMessage = message => {
 };
 
 export default ({ messages, lastReadDt, userIdFrom, userIdTo, hostUser, isOpenModalError }) => {
+  const history = useHistory();
   const messageList = messages;
 
   if (!messageList) {
@@ -184,11 +186,11 @@ export default ({ messages, lastReadDt, userIdFrom, userIdTo, hostUser, isOpenMo
                   new Date(message.estimate.receivedAt),
                   formatStringSlashTime,
                 )}
-                paymentLink={message.estimate.link}
                 status={message.estimate.status}
                 payType={message.estimate.payType}
                 econtextUrl={message.estimate.econtextUrl}
                 isOpenModalError={isOpenModalError}
+                onClickPayment={() => history.push(message.estimate.link)}
               />
             </Row>
           );
