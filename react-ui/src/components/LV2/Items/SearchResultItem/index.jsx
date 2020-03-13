@@ -39,6 +39,11 @@ const Row = styled.div`
     justify-content: space-between;
     text-align: right;
   `};
+  ${props =>
+    props.isNoViewLastLogin &&
+    `
+    display: block;
+  `};
 `;
 
 const ImageStar = styled.img`
@@ -65,7 +70,9 @@ const SpaceResultItem = ({
   addressTown,
   priceFull,
   tags,
+  lastLoginAt,
   user,
+  isNoViewLastLogin,
 }) => {
   const onClickSpace = () => {
     ReactGA.plugin.execute('ec', 'addProduct', {
@@ -112,9 +119,11 @@ const SpaceResultItem = ({
                 {title}
               </Title>
             </Row>
-            <Row price>
-              <StatusText setData={getDateRelativeLastLogin(user.lastLoginAt)} />
-              <InlineText.Base noWrap fontSize={16} bold color={Colors.brandPrimary}>
+            <Row price isNoViewLastLogin={isNoViewLastLogin}>
+              {!isNoViewLastLogin && (
+                <StatusText setData={getDateRelativeLastLogin(lastLoginAt || user.lastLoginAt)} />
+              )}
+              <InlineText.Base noWrap fontSize={16} bold>
                 {`〜${numeral(priceFull).format('0,0')}`}
                 円&nbsp;/&nbsp;月
               </InlineText.Base>

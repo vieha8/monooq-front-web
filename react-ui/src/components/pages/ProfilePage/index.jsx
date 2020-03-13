@@ -49,6 +49,7 @@ class ProfilePage extends Component {
               priceFull: space.priceFull,
               priceTatami: space.priceTatami,
               sizeType: space.sizeType,
+              isNoViewLastLogin: true,
             }))}
         />
       </BaseTemplate>

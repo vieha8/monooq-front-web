@@ -151,6 +151,7 @@ class SpacePage extends Component {
           address: `${s.addressPref}${s.addressCity}`,
           priceFull: s.priceFull,
           priceTatami: s.priceTatami,
+          lastLoginAt: s.user.lastLoginAt,
           onClick: () => this.onClickSpace(s),
         }))
       : null;
