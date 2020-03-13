@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Card from 'components/LV1/Card';
 import Button from 'components/LV1/Forms/Button';
@@ -42,14 +41,6 @@ const Caution = styled.span`
 
 const ButtonWrap = styled.div`
   max-width: 170px;
-`;
-
-const ButtonLinkStyled = styled(Link)`
-  color: ${Colors.white};
-  &:hover,
-  &:active {
-    color: ${Colors.white};
-  }
 `;
 
 const PaymentUrl = styled.a`
