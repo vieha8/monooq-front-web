@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
 import ReactGA from 'react-ga';
+import { getDateRelativeLastLogin } from 'helpers/date';
 import Card from 'components/LV1/Card';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Tag from 'components/LV1/Texts/Tag';
+import StatusText from 'components/LV1/Texts/StatusText';
 import { Dimens, Colors } from 'variables';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
@@ -30,9 +32,17 @@ const Row = styled.div`
     display: flex;
   `};
   ${props =>
-    props.right &&
+    props.price &&
     `
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     text-align: right;
+  `};
+  ${props =>
+    props.isNoViewLastLogin &&
+    `
+    display: block;
   `};
 `;
 
@@ -60,6 +70,9 @@ const SpaceResultItem = ({
   addressTown,
   priceFull,
   tags,
+  lastLoginAt,
+  user,
+  isNoViewLastLogin,
 }) => {
   const onClickSpace = () => {
     ReactGA.plugin.execute('ec', 'addProduct', {
@@ -106,8 +119,11 @@ const SpaceResultItem = ({
                 {title}
               </Title>
             </Row>
-            <Row right>
-              <InlineText.Base noWrap fontSize={16} bold color={Colors.brandPrimary}>
+            <Row price isNoViewLastLogin={isNoViewLastLogin}>
+              {!isNoViewLastLogin && (
+                <StatusText setData={getDateRelativeLastLogin(lastLoginAt || user.lastLoginAt)} />
+              )}
+              <InlineText.Base noWrap fontSize={16} bold>
                 {`〜${numeral(priceFull).format('0,0')}`}
                 円&nbsp;/&nbsp;月
               </InlineText.Base>

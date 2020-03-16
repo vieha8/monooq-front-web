@@ -39,7 +39,13 @@ const TitleText = styled(InlineText.Small)`
 
 export default ({ space }) => (
   <Fragment>
-    <InfoHost id={space.user.id} name={space.user.name} imageUrl={space.user.imageUrl} message />
+    <InfoHost
+      id={space.user.id}
+      name={space.user.name}
+      imageUrl={space.user.imageUrl}
+      lastLoginAt={space.user.lastLoginAt}
+      message
+    />
     <Row to={Path.space(space.id)} borderBottom>
       <ImageWrap>
         <ImageHero

@@ -33,7 +33,7 @@ const Cell = styled.div`
     }
   `};
 
-  ${media.tablet`
+  ${media.tablet1`
     ${props =>
       !props.narrow &&
       `

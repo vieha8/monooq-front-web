@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { userActions } from 'redux/modules/user';
 import { formatName } from 'helpers/string';
-import { formatDate, formatStringSlash } from 'helpers/date';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import Meta from 'components/LV1/Meta';
 import LoadingPage from 'components/LV3/LoadingPage';
@@ -39,7 +38,7 @@ class ProfilePage extends Component {
           name={user.name}
           prefCode={user.prefCode}
           profile={user.profile}
-          lastLoginAt={formatDate(new Date(user.lastLoginAt), formatStringSlash)}
+          lastLoginAt={user.lastLoginAt}
           spaces={(spaces || [])
             .filter(v => v.status !== 'draft')
             .map(space => ({
@@ -50,6 +49,7 @@ class ProfilePage extends Component {
               priceFull: space.priceFull,
               priceTatami: space.priceTatami,
               sizeType: space.sizeType,
+              isNoViewLastLogin: true,
             }))}
         />
       </BaseTemplate>

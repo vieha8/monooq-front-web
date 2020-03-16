@@ -35,7 +35,7 @@ export const validate = (startDate, endDate, usage, sizeType, breadth, packageCo
     notes.trim().length <= Validate.Notes.Max &&
     moment(startDateAll).isValid() &&
     moment(endDateAll).isValid() &&
-    !moment(startDateAll).isBefore(moment(getToday())) &&
+    !moment(startDateAll).isBefore(getToday()) &&
     !moment(startDateAll).isSameOrAfter(moment(endDateAll))
   );
 };
@@ -138,7 +138,7 @@ export const handleChangeDate = (
   const startDateAll = generateDateAll(startDateYear, startDateMonth, startDateDay);
   const endDateAll = generateDateAll(endDateYear, endDateMonth, endDateDay);
   if (moment(startDateAll).isValid() && moment(endDateAll).isValid()) {
-    if (moment(startDateAll).isBefore(moment(getToday()))) {
+    if (moment(startDateAll).isBefore(getToday())) {
       setError.push(ErrorMessages.InvalidStartDate);
     }
     if (moment(startDateAll).isSameOrAfter(moment(endDateAll))) {

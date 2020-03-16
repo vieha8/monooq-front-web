@@ -1,23 +1,16 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { getDateRelativeLastLogin } from 'helpers/date';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
 import { Dimens, FontSizes } from 'variables';
 import { getPrefecture } from 'helpers/prefectures';
 import { formatName } from 'helpers/string';
+import StatusText from 'components/LV1/Texts/StatusText';
 import Attribute from 'components/LV2/Space/Attribute';
 import { SectionTitle } from './Section';
-
-const Content = styled.div`
-  ${props =>
-    props.message &&
-    `
-      margin-top: 0;
-      line-height: ${Dimens.medium3_45}px;
-    `};
-`;
 
 const ProfileWrap = styled.div`
   font-size: ${FontSizes.small}px;
@@ -32,11 +25,15 @@ const headContent = (id, imageUrl, name) => {
   );
 };
 
-const contentHostName = (message, name, prefCode) => {
+const LastLoginWrap = styled.div`
+  margin-top: ${Dimens.small}px;
+`;
+
+const contentHostName = (isNoProfile, message, name, prefCode, lastLoginAt) => {
   return (
-    <Content message={message}>
+    <Fragment>
       {`${formatName(name)}さん`}
-      {!message && (
+      {!isNoProfile && !message && (
         <Fragment>
           <br />
           <InlineText.Base fontSize={FontSizes.small_12}>
@@ -44,7 +41,13 @@ const contentHostName = (message, name, prefCode) => {
           </InlineText.Base>
         </Fragment>
       )}
-    </Content>
+      <br />
+      <LastLoginWrap>
+        <InlineText.Small>
+          <StatusText setData={getDateRelativeLastLogin(lastLoginAt)} />
+        </InlineText.Small>
+      </LastLoginWrap>
+    </Fragment>
   );
 };
 
@@ -58,6 +61,7 @@ export default ({
   prefCode,
   profile,
   isNoProfile,
+  lastLoginAt,
 }) => (
   <Fragment>
     {isTitle && <SectionTitle text="ホストについて" />}
@@ -65,9 +69,7 @@ export default ({
       infoHost={infoHost}
       message={message}
       headContent={headContent(id, imageUrl, name)}
-      contentHostName={
-        isNoProfile ? `${formatName(name)}さん` : contentHostName(message, name, prefCode)
-      }
+      contentHostName={contentHostName(isNoProfile, message, name, prefCode, lastLoginAt)}
       contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
       isNoProfile={isNoProfile}
     />

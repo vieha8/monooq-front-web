@@ -1,9 +1,11 @@
 import moment from 'moment';
+import { Colors } from 'variables';
 
 moment.locale('ja');
 
 export const formatStringSlash = 'yyyy/MM/dd';
 export const formatStringSlashTime = 'yyyy/MM/dd HH:mm:ss';
+export const formatStringSlashTimeISO = 'YYYY-MM-DD HH:mm:ss';
 
 export const formatDate = (date, format) => {
   const replaced = format
@@ -34,7 +36,33 @@ export const getDate = (lengthPeriod, typeText) => {
 };
 
 export const getToday = () => {
-  moment().format('YYYYMMDD');
+  return moment().format('YYYYMMDD');
+};
+
+export const getDateDiff = (targetDate, type) => {
+  const today = moment().format(formatStringSlashTimeISO);
+  const lastLogin = moment(new Date(targetDate)).format(formatStringSlashTimeISO);
+  return moment(today).diff(lastLogin, type);
+};
+
+export const getDateRelativeLastLogin = targetDate => {
+  const result = {};
+  let statusColor = '';
+  let viewText = '';
+  const diffDay = getDateDiff(targetDate, 'days');
+  if (diffDay <= 3) {
+    statusColor = Colors.green;
+    viewText = '3日以内';
+  } else if (diffDay <= 7) {
+    statusColor = Colors.brandAccent;
+    viewText = '1週間以内';
+  } else if (diffDay <= 30) {
+    statusColor = Colors.lightGray2;
+    viewText = '1ヶ月以内';
+  }
+  result.statusColor = statusColor;
+  result.viewText = viewText;
+  return result;
 };
 
 export const getDateFormated = num => {
