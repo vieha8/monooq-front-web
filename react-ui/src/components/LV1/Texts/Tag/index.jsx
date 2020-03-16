@@ -16,10 +16,14 @@ const Tag = styled.div`
   color: ${Colors.lightGray3};
   background-color: ${Colors.lightGray4};
   border-radius: ${Dimens.xxsmall_4}px;
-  cursor: pointer;
-  &:active {
-    opacity: 0.8;
-  }
+  ${props =>
+    !props.isNoLink &&
+    `
+    cursor: pointer;
+    &:active {
+      opacity: 0.8;
+    }
+    `};
   ${props =>
     props.isMarkDelete &&
     `
@@ -41,9 +45,13 @@ const Tag = styled.div`
       }
     `};
   ${mediaMin.tablet`
-    &:hover {
-      opacity: 0.8;
-    }
+    ${props =>
+      !props.isNoLink &&
+      `
+      &:hover {
+        opacity: 0.8;
+      }
+      `};
   `};
 `;
 
@@ -51,7 +59,7 @@ export default ({ tagList, isNoMark, isMarkDelete, isNoLink, onClick }) => (
   <Fragment>
     {isNoLink
       ? tagList.map((tag, i) => (
-          <Tag key={i.toString()} isMarkDelete={isMarkDelete} onClick={onClick}>
+          <Tag key={i.toString()} isMarkDelete={isMarkDelete} onClick={onClick} isNoLink>
             {!isNoMark && '#'}
             {tag}
           </Tag>
