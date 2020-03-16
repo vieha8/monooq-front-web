@@ -1,18 +1,20 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
 import PopupMenu from 'reactjs-popup';
+import styled from 'styled-components';
+import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import { authActions } from 'redux/modules/auth';
-import InfoUser from '../../LV2/InfoUser';
-import MenuItem from '../../LV2/Items/MenuItem';
-import Path from '../../../config/path';
-import AvatarIcon from '../../LV2/ButtonHeader/AvatarIcon';
-import InlineText from '../../LV1/Texts/InlineText';
-import { Colors, Dimens, FontSizes } from '../../../variables';
+import InlineText from 'components/LV1/Texts/InlineText';
+import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
+import InfoUser from 'components/LV2/InfoUser';
+import MenuItem from 'components/LV2/Items/MenuItem';
 
-// TODO styled-componentをViewと統一する
-const ActionCell = styled.div`
+import { Colors, Dimens, FontSizes } from 'variables';
+
+const MenuInner = styled.div``;
+
+const Section = styled.div`
   display: table-cell;
   vertical-align: middle;
   max-width: 300px;
@@ -39,24 +41,32 @@ const TitleMenu = styled.div`
   color: ${Colors.darkGray3};
 `;
 
-const trigger = imageUrl => (
-  <div>
-    <ActionCell>
-      <AvatarIcon imageSrc={imageUrl} />
-    </ActionCell>
-    <ActionCell>
-      <InlineText.Base bold>マイページ</InlineText.Base>
-    </ActionCell>
-  </div>
-);
-
 const MenuPC = () => {
-  const user = useSelector(state => state.auth.user);
   const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.user);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const trigger = imageUrl => (
+    <div>
+      <Section>
+        <AvatarIcon imageSrc={imageUrl} />
+      </Section>
+      <Section>
+        <InlineText.Base bold>マイページ</InlineText.Base>
+      </Section>
+    </div>
+  );
 
   return (
-    <PopupMenu trigger={trigger(user.imageUrl)} position="bottom right" closeOnDocumentClick>
-      <Fragment>
+    <PopupMenu
+      open={isOpen}
+      onOpen={() => setIsOpen(true)}
+      onClose={() => setIsOpen(false)}
+      trigger={trigger(user.imageUrl)}
+      position="bottom right"
+      closeOnDocumentClick
+    >
+      <MenuInner onClick={() => setIsOpen(false)}>
         <InfoUser
           isHost={user.isHost || false}
           id={user.id}
@@ -87,7 +97,7 @@ const MenuPC = () => {
             logout
           />
         )}
-      </Fragment>
+      </MenuInner>
     </PopupMenu>
   );
 };
