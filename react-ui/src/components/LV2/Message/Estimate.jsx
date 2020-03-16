@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Card from 'components/LV1/Card';
 import Button from 'components/LV1/Forms/Button';
@@ -44,19 +43,11 @@ const ButtonWrap = styled.div`
   max-width: 170px;
 `;
 
-const ButtonLinkStyled = styled(Link)`
-  color: ${Colors.white};
-  &:hover,
-  &:active {
-    color: ${Colors.white};
-  }
-`;
-
 const PaymentUrl = styled.a`
   word-break: break-all;
 `;
 
-const buttonPayment = (host, status, payType, paymentLink, isOpenModalError) => {
+const buttonPayment = (host, status, payType, isOpenModalError, onClickPayment) => {
   if (
     host ||
     (payType !== 1 && status === STATUS_PAY_WAITING) ||
@@ -74,8 +65,8 @@ const buttonPayment = (host, status, payType, paymentLink, isOpenModalError) => 
 
   return (
     <ButtonWrap>
-      <Button primary fontbold center fill={1}>
-        <ButtonLinkStyled to={paymentLink}>お支払い画面に進む</ButtonLinkStyled>
+      <Button onClick={onClickPayment} primary fontbold center fill={1}>
+        お支払い画面に進む
       </Button>
     </ButtonWrap>
   );
@@ -194,11 +185,11 @@ export default ({
   price,
   host,
   status,
-  paymentLink,
   receivedAt,
   payType, // 1:クレジットカード 4:イーコンテクスト
   econtextUrl,
   isOpenModalError,
+  onClickPayment,
 }) => (
   <Fragment>
     <Card block borderColor={Colors.brandPrimary} padding={24} paddingSp={14}>
@@ -239,7 +230,7 @@ export default ({
               見積もり内容を確認し、開始日までにお支払いしましょう。支払いを完了すると契約成立し、スペース住所をお知らせします。
               <br />
               <ButtonPaymentWrap>
-                {buttonPayment(host, status, payType, paymentLink, isOpenModalError)}
+                {buttonPayment(host, status, payType, isOpenModalError, onClickPayment)}
               </ButtonPaymentWrap>
               <br />
               {getDescriptionPay(payType, econtextUrl)}
