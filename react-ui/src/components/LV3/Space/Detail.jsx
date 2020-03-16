@@ -57,6 +57,7 @@ const RightWrap = styled.div`
 const RightInner = styled.div`
   ${props =>
     props.isOverTopView &&
+    !props.isBottom &&
     `
     position: fixed;
     max-width: 330px;
@@ -69,8 +70,9 @@ const RightInner = styled.div`
     props.isBottom &&
     `
     position: absolute;
-    top: unset;
-    bottom: 0;
+    bottom: 20px;
+    max-width: 330px;
+    border-radius: ${Dimens.xxsmall}px;
   `};
 `;
 
@@ -174,7 +176,6 @@ export default ({
         <RightInner
           isOverTopView={isOverTopView && !isModalOpen}
           isBottom={isBottom && !isModalOpen}
-          confirm={confirm}
         >
           <RequestCard>
             気になるスペースを見つけたら？
