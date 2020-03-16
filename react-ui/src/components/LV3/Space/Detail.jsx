@@ -57,6 +57,24 @@ const RightWrap = styled.div`
 const RightInner = styled.div`
   ${props =>
     props.isOverTopView &&
+    `
+    position: fixed;
+    max-width: 330px;
+    top: 100px;
+    z-index: ${ZIndexes.frontPartsOverFooter};
+    background-color: ${Colors.white};
+    border-radius: ${Dimens.xxsmall}px;
+  `};
+  ${props =>
+    props.isBottom &&
+    `
+    position: absolute;
+    top: unset;
+    bottom: 0;
+  `};
+  ${props =>
+    props.isOverTopView &&
+    props.confirm &&
     !props.isBottom &&
     `
     position: fixed;
@@ -67,6 +85,7 @@ const RightInner = styled.div`
     border-radius: ${Dimens.xxsmall}px;
   `};
   ${props =>
+    props.confirm &&
     props.isBottom &&
     `
     position: absolute;
@@ -176,6 +195,7 @@ export default ({
         <RightInner
           isOverTopView={isOverTopView && !isModalOpen}
           isBottom={isBottom && !isModalOpen}
+          confirm={confirm}
         >
           <RequestCard>
             気になるスペースを見つけたら？
