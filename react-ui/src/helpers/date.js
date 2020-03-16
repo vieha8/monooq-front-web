@@ -5,6 +5,7 @@ moment.locale('ja');
 
 export const formatStringSlash = 'yyyy/MM/dd';
 export const formatStringSlashTime = 'yyyy/MM/dd HH:mm:ss';
+export const formatStringSlashTimeISO = 'YYYY-MM-DD HH:mm:ss';
 
 export const formatDate = (date, format) => {
   const replaced = format
@@ -35,14 +36,13 @@ export const getDate = (lengthPeriod, typeText) => {
 };
 
 export const getToday = () => {
-  moment().format('YYYYMMDD');
+  return moment().format('YYYYMMDD');
 };
 
 export const getDateDiff = (targetDate, type) => {
-  return moment(formatDate(moment().toDate(), formatStringSlashTime)).diff(
-    formatDate(new Date(targetDate), formatStringSlashTime),
-    type,
-  );
+  const today = moment().format(formatStringSlashTimeISO);
+  const lastLogin = moment(new Date(targetDate)).format(formatStringSlashTimeISO);
+  return moment(today).diff(lastLogin, type);
 };
 
 export const getDateRelativeLastLogin = targetDate => {
