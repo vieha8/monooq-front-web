@@ -101,7 +101,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
         if (isTrimmedEmpty(inputValue)) {
           setError.push(ErrorMessages.PleaseInput);
         }
-        if (inputValue && inputValue.trim().length > Validate.Profile.nameMax) {
+        if (inputValue && !isBelowTrimmedLimit(inputValue, Validate.Profile.nameMax)) {
           setError.push(ErrorMessages.LengthMax('お名前', Validate.Profile.nameMax));
         }
         break;

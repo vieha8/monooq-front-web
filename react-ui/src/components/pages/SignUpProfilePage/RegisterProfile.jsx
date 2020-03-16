@@ -98,7 +98,7 @@ export default class RegisterProfilePage extends Component {
         if (isTrimmedEmpty(value)) {
           errors.push(ErrorMessages.PleaseInput);
         }
-        if (value && value.trim().length > Validate.Profile.nameMax) {
+        if (value && !isBelowTrimmedLimit(value, Validate.Profile.nameMax)) {
           errors.push(ErrorMessages.LengthMax('お名前', Validate.Profile.nameMax));
         }
         break;
