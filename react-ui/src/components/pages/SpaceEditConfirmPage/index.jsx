@@ -33,6 +33,7 @@ class SpaceEditConfirmPage extends Component {
     this.state = {
       isUpdate: !!props.match.params.space_id,
       isOverTopView: false,
+      isBottom: false,
     };
   }
 
@@ -121,22 +122,18 @@ class SpaceEditConfirmPage extends Component {
   };
 
   watchCurrentPosition() {
-    if (window.parent.screen.width > 768) {
+    if (window.parent.screen.width > 768 && this._isMounted) {
       const positionScroll = this.scrollTop();
-      if (this._isMounted) {
-        this.setState({ isOverTopView: false });
-      }
-      if (positionScroll > 485) {
-        if (this._isMounted) {
-          this.setState({ isOverTopView: true });
-        }
-      }
+      this.setState({
+        isOverTopView: positionScroll > 485,
+        isBottom: positionScroll > 2036,
+      });
     }
   }
 
   render() {
     const { space, isLoading, isComplete } = this.props;
-    const { isUpdate, isOverTopView } = this.state;
+    const { isUpdate, isOverTopView, isBottom } = this.state;
 
     if (!isLoading && isUpdate && !space.id) {
       return null;
@@ -182,6 +179,7 @@ class SpaceEditConfirmPage extends Component {
             prefCode: user.prefCode,
           }}
           isOverTopView={isOverTopView}
+          isBottom={isBottom}
         />
         <EntryButtonWrap>
           <ButtonEntry

@@ -72,6 +72,27 @@ const RightInner = styled.div`
     top: unset;
     bottom: 0;
   `};
+  ${props =>
+    props.isOverTopView &&
+    props.confirm &&
+    !props.isBottom &&
+    `
+    position: fixed;
+    max-width: 330px;
+    top: 100px;
+    z-index: ${ZIndexes.frontPartsOverFooter};
+    background-color: ${Colors.white};
+    border-radius: ${Dimens.xxsmall}px;
+  `};
+  ${props =>
+    props.confirm &&
+    props.isBottom &&
+    `
+    position: absolute;
+    bottom: 20px;
+    max-width: 330px;
+    border-radius: ${Dimens.xxsmall}px;
+  `};
 `;
 
 const RequestCard = styled.div`
