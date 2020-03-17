@@ -56,6 +56,7 @@ export default ({
           placeholder="例) 1500002"
           value={formAddress.postalCode}
           onChange={e => onChangePostalCode(e.target.value)}
+          autoComplete="postal-code"
         />
       </PostalCodeLeft>
       <PostalCodeRight>
@@ -82,6 +83,7 @@ export default ({
           placeholder="例) 東京都"
           value={formAddress.pref}
           onChange={e => onChangePref(e.target.value)}
+          autoComplete="address-level1"
         />
       </PrefTownLeft>
       <PrefTownRight>
@@ -90,6 +92,7 @@ export default ({
           placeholder="例) 渋谷区渋谷"
           value={formAddress.town}
           onChange={e => onChangeTown(e.target.value)}
+          autoComplete="address-level2"
         />
       </PrefTownRight>
     </Wrap>
@@ -99,6 +102,7 @@ export default ({
       hintbottom={AddressHint()}
       value={formAddress.line1}
       onChange={e => onChangeLine1(e.target.value)}
+      autoComplete="address-line1"
     />
     <ErrorList keyName="postalCode_errors" errors={errors.postalCode} />
     <ErrorList keyName="address_errors" errors={errors.address} />
