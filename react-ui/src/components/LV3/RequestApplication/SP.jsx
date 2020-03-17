@@ -16,6 +16,7 @@ import SendMessageButton from 'components/LV2/Space/SendMessageButton';
 import SendMessageCaption from 'components/LV2/Space/SendMessageCaption';
 import Form from './Form';
 import { handleChangeUI, handleChangeDate, validate } from './Share';
+import { loggerActions } from '../../../redux/modules/logger';
 
 moment.locale('ja');
 
@@ -155,6 +156,14 @@ const RequestApplicationSP = ({
       handleSignUp();
       return;
     }
+
+    dispatch(
+      loggerActions.recordEvent({
+        event: 'space_request_click',
+        detail: { spaceId: space.id },
+      }),
+    );
+
     handleModalOpenSP();
   };
 
