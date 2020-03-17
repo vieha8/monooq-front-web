@@ -101,18 +101,21 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
   }, [dispatch]);
 
   const validate = () => {
-    return email && email.match(Validate.Email) && password && password.match(Validate.Password);
+    return (
+      isEmailValid(email).result && !isTrimmedEmpty(password) && password.match(Validate.Password)
+    );
   };
 
   const handleChangeUI = (propName, value) => {
     const setError = [];
     switch (propName) {
-      case 'email':
+      case 'email': {
         const { result, reason } = isEmailValid(value);
         if (!result) {
           setError.push(reason);
         }
         break;
+      }
       case 'password':
         if (isTrimmedEmpty(value)) {
           setError.push(ErrorMessages.PleaseInput);
