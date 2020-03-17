@@ -52,7 +52,7 @@ export default ({ isHost, id, imageUrl, name, close }) => (
     <HostNameWrap>
       {isHost && (
         <Fragment>
-          <Tag tagList={['ホスト']} isNoMark />
+          <Tag tagList={['ホスト']} isNoMark isNoLink />
           <br />
         </Fragment>
       )}
