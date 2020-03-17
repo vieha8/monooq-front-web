@@ -2,7 +2,7 @@ import moment from 'moment';
 import { ErrorMessages } from 'variables';
 import { getToday, generateDateAll } from 'helpers/date';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
-import { isTrimmedEmpty } from 'helpers/validations/string';
+import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
 
 moment.locale('ja');
 
@@ -31,8 +31,8 @@ export const validate = (startDate, endDate, usage, sizeType, breadth, packageCo
     breadth &&
     checkBreadth > 0 &&
     !isTrimmedEmpty(packageContents) &&
-    packageContents.trim().length <= Validate.PackageContents.Max &&
-    notes.trim().length <= Validate.Notes.Max &&
+    isBelowTrimmedLimit(packageContents, Validate.PackageContents.Max) &&
+    isBelowTrimmedLimit(notes, Validate.Notes.Max) &&
     moment(startDateAll).isValid() &&
     moment(endDateAll).isValid() &&
     !moment(startDateAll).isBefore(getToday()) &&

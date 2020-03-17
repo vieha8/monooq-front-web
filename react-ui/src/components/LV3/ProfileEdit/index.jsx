@@ -13,7 +13,7 @@ import { H1 } from 'components/LV1/Texts/Headline';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import { isTrimmedEmpty } from 'helpers/validations/string';
+import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
 import isEmailValid from 'helpers/validations/email';
 
 const PURPOSE_USER = '1';
@@ -75,13 +75,13 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
     return (
       (errors.imageUrl === undefined || (errors.imageUrl && errors.imageUrl.length === 0)) &&
       !isTrimmedEmpty(name) &&
-      name.trim().length <= Validate.Profile.nameMax &&
+      isBelowTrimmedLimit(name, Validate.Profile.nameMax) &&
       isEmailValid(email).result &&
       phoneNumber &&
       (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
         phoneNumber.match(Validate.phoneNumber.HyphenVer)) &&
       prefCode &&
-      (!profile || (profile && profile.length <= Validate.Profile.Max)) &&
+      (!profile || isBelowTrimmedLimit(profile, Validate.Profile.Max)) &&
       purpose
     );
   };
@@ -101,7 +101,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
         if (isTrimmedEmpty(inputValue)) {
           setError.push(ErrorMessages.PleaseInput);
         }
-        if (inputValue && inputValue.trim().length > Validate.Profile.nameMax) {
+        if (inputValue && !isBelowTrimmedLimit(inputValue, Validate.Profile.nameMax)) {
           setError.push(ErrorMessages.LengthMax('お名前', Validate.Profile.nameMax));
         }
         break;
@@ -128,7 +128,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
         break;
 
       case 'profile':
-        if (inputValue && inputValue.length > Validate.Profile.Max) {
+        if (inputValue && !isBelowTrimmedLimit(inputValue, Validate.Profile.Max)) {
           setError.push(ErrorMessages.LengthMax('自己紹介', Validate.Profile.Max));
         }
         break;

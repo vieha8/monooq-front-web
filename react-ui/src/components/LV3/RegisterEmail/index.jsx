@@ -14,9 +14,10 @@ import TextLink from 'components/LV1/Texts/TextLink';
 import InputFieldIcon from 'components/LV2/Forms/InputFieldIcon';
 import InputForm from 'components/LV2/Forms/InputForm';
 import ErrorList from 'components/LV2/Lists/ErrorList';
+import { isTrimmedEmpty } from 'helpers/validations/string';
+import isEmailValid from 'helpers/validations/email';
 
 const Validate = {
-  Email: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, // eslint-disable-line
   Password: /^([a-zA-Z0-9]{8,})$/,
 };
 
@@ -100,21 +101,23 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
   }, [dispatch]);
 
   const validate = () => {
-    return email && email.match(Validate.Email) && password && password.match(Validate.Password);
+    return (
+      isEmailValid(email).result && !isTrimmedEmpty(password) && password.match(Validate.Password)
+    );
   };
 
   const handleChangeUI = (propName, value) => {
     const setError = [];
     switch (propName) {
-      case 'email':
-        if (!value || value.trim().length === 0) {
-          setError.push(ErrorMessages.PleaseInput);
-        } else if (!value.match(Validate.Email)) {
-          setError.push(ErrorMessages.InvalidEmail);
+      case 'email': {
+        const { result, reason } = isEmailValid(value);
+        if (!result) {
+          setError.push(reason);
         }
         break;
+      }
       case 'password':
-        if (!value || value.trim().length === 0) {
+        if (isTrimmedEmpty(value)) {
           setError.push(ErrorMessages.PleaseInput);
         } else if (!value.match(Validate.Password)) {
           setError.push(ErrorMessages.InvalidPassword);

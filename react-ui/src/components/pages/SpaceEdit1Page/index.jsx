@@ -13,7 +13,7 @@ import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
 import ModalToProfileEdit from 'components/LV3/ModalToProfileEdit';
-import { isTrimmedEmpty } from 'helpers/validations/string';
+import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
 
 const ZENKAKU_SPACE_LITERAL = '　';
 const SPACE_LITERAL = ' ';
@@ -398,9 +398,9 @@ class SpaceEdit1Page extends Component {
 
     return (
       !isTrimmedEmpty(title) &&
-      title.trim().length <= Validate.Title.Max &&
+      isBelowTrimmedLimit(title, Validate.Title.Max) &&
       !isTrimmedEmpty(introduction) &&
-      introduction.trim().length <= Validate.Introduction.Max &&
+      isBelowTrimmedLimit(introduction, Validate.Introduction.Max) &&
       images &&
       images.length > 0 &&
       (isImageDefault(images[0].ImageUrl) ? images.length > 1 : true) &&
@@ -414,7 +414,7 @@ class SpaceEdit1Page extends Component {
 
     return (
       !isTrimmedEmpty(tagCustom) &&
-      tagCustom.trim().length <= Validate.TagCustom.MaxText &&
+      isBelowTrimmedLimit(tagCustom, Validate.TagCustom.MaxText) &&
       !Validate.TagCustom.IncludeSpaceLiteralRegExp.test(tagCustom)
     );
   };
