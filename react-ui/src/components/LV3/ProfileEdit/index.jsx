@@ -81,7 +81,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
       (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
         phoneNumber.match(Validate.phoneNumber.HyphenVer)) &&
       prefCode &&
-      (!profile || (profile && profile.length <= Validate.Profile.Max)) &&
+      (!profile || isBelowTrimmedLimit(profile, Validate.Profile.Max)) &&
       purpose
     );
   };
@@ -128,7 +128,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
         break;
 
       case 'profile':
-        if (inputValue && inputValue.length > Validate.Profile.Max) {
+        if (inputValue && !isBelowTrimmedLimit(inputValue, Validate.Profile.Max)) {
           setError.push(ErrorMessages.LengthMax('自己紹介', Validate.Profile.Max));
         }
         break;
