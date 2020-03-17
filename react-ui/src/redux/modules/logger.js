@@ -31,8 +31,7 @@ function* record({ payload: { event, detail } }) {
   const prevPath = yield select(state => state.logger.prevPath);
   const referrerUrl = prevPath === '' ? document.referrer : `https://${document.domain}${prevPath}`;
 
-  recordEvent('important_events', {
-    event,
+  recordEvent(event, {
     event_detail: detail,
     user,
     referrer: {
