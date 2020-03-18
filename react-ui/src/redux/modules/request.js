@@ -1,6 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
+import ReactGA from 'react-ga';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { formatName } from 'helpers/string';
 import { handleGTM } from 'helpers/gtm';
@@ -554,6 +555,12 @@ function* request({ payload: { user, space, body } }) {
       },
     }),
   );
+
+  ReactGA.plugin.execute('ec', 'addProduct', {
+    id: space.id,
+    name: space.title,
+  });
+  ReactGA.plugin.execute('ec', 'setAction', 'add', {});
 
   if (isRequested === 'false' && user.id !== 2613) {
     handleGTM('newRequest', user.id);
