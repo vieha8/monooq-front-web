@@ -148,6 +148,8 @@ export default ({
   image,
   onChangeName,
   name,
+  onChangePhoneNumber,
+  phoneNumber,
   onChangeArea,
   prefCode,
   onClickPurposeHost,
@@ -183,6 +185,18 @@ export default ({
       '',
       '',
       'gaSignupName',
+    )}
+    phoneNumber={inputForm(
+      '電話番号',
+      '',
+      '09012345678',
+      e => onChangePhoneNumber(e.target.value),
+      phoneNumber,
+      false,
+      0,
+      '',
+      '',
+      'gaSignupPhoneNumber',
     )}
     prefCode={selectForm(onChangeArea, prefCode, 'gaSignupPref')}
     buttonPurpose={buttonPurpose(isHost, onClickPurposeGuest, onClickPurposeHost)}
