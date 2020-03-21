@@ -113,11 +113,13 @@ const RequestApplicationSP = ({
   const history = useHistory();
   const location = useLocation();
   const isSelfSpace = loginUser.id === (space.user || {}).id;
+  const existPhoneNumber = !!loginUser.phoneNumber;
 
   const [errors, setErrors] = useState({});
   const [usage, setUsage] = useState(params ? params.usage : 0);
   const [breadth, setBreadth] = useState(params ? params.breadth : 0);
   const [packageContents, setPackageContents] = useState(params ? params.packageContents : '');
+  const [phoneNumber, setPhoneNumber] = useState(params ? params.phoneNumber : '');
   const [notes, setNotes] = useState(params ? params.notes : '');
   const [startDate, setStartDate] = useState(
     params
@@ -181,6 +183,7 @@ const RequestApplicationSP = ({
           usage,
           breadth,
           packageContents,
+          phoneNumber: !existPhoneNumber ? phoneNumber : '',
           notes,
           startDate,
           endDate,
@@ -219,7 +222,17 @@ const RequestApplicationSP = ({
             loading,
             isSelfSpace ? null : onClickSendMessage,
             isSelfSpace ? null : onKeyDownButtonMessage,
-            !validate(startDate, endDate, usage, space.sizeType, breadth, packageContents, notes),
+            !validate(
+              startDate,
+              endDate,
+              usage,
+              space.sizeType,
+              breadth,
+              packageContents,
+              existPhoneNumber,
+              phoneNumber,
+              notes,
+            ),
             '',
           )}
           <Modal.Content scrolling>
@@ -304,6 +317,11 @@ const RequestApplicationSP = ({
                 packageContents={packageContents}
                 onChangePackageContents={e =>
                   handleChangeUI('packageContents', e.target.value, setPackageContents, setErrors)
+                }
+                existPhoneNumber={existPhoneNumber}
+                phoneNumber={phoneNumber}
+                onChangePhoneNumber={e =>
+                  handleChangeUI('phoneNumber', e.target.value, setPhoneNumber, setErrors)
                 }
                 notes={notes}
                 onChangeNotes={e => handleChangeUI('notes', e.target.value, setNotes, setErrors)}

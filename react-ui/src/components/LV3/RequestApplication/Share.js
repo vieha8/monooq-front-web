@@ -10,12 +10,26 @@ const Validate = {
   PackageContents: {
     Max: 1000,
   },
+  phoneNumber: {
+    NoHyphenVer: /^0\d{9,10}$/, // 先頭「0」+「半角数字9〜10桁」
+    HyphenVer: /^0\d{2,3}-\d{2,4}-\d{4}$/, // 先頭「0」＋「半角数字2〜3桁」＋「-」＋「半角数字1〜4桁」＋「-」＋「半角数字4桁」
+  },
   Notes: {
     Max: 1000,
   },
 };
 
-export const validate = (startDate, endDate, usage, sizeType, breadth, packageContents, notes) => {
+export const validate = (
+  startDate,
+  endDate,
+  usage,
+  sizeType,
+  breadth,
+  packageContents,
+  existPhoneNumber,
+  phoneNumber,
+  notes,
+) => {
   const startDateAll = generateDateAll(startDate.year, startDate.month, startDate.day);
   const endDateAll = generateDateAll(endDate.year, endDate.month, endDate.day);
 
@@ -32,6 +46,10 @@ export const validate = (startDate, endDate, usage, sizeType, breadth, packageCo
     checkBreadth > 0 &&
     !isTrimmedEmpty(packageContents) &&
     isBelowTrimmedLimit(packageContents, Validate.PackageContents.Max) &&
+    (existPhoneNumber ||
+      (phoneNumber &&
+        (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
+          phoneNumber.match(Validate.phoneNumber.HyphenVer)))) &&
     isBelowTrimmedLimit(notes, Validate.Notes.Max) &&
     moment(startDateAll).isValid() &&
     moment(endDateAll).isValid() &&
@@ -65,6 +83,20 @@ export const handleChangeUI = (propName, inputValue, setItem, setErrors) => {
         setError.push(ErrorMessages.LengthMax('自己紹介', Validate.PackageContents.Max));
       }
       setErrors(state => ({ ...state, packageContents: setError }));
+      break;
+
+    case 'phoneNumber':
+      if (!inputValue || inputValue.replace(/\s/g, '').length === 0) {
+        setError.push(ErrorMessages.PleaseInput);
+      } else if (
+        !(
+          inputValue.match(Validate.phoneNumber.NoHyphenVer) ||
+          inputValue.match(Validate.phoneNumber.HyphenVer)
+        )
+      ) {
+        setError.push(ErrorMessages.InvalidPhoneNumber);
+      }
+      setErrors(state => ({ ...state, phoneNumber: setError }));
       break;
 
     case 'notes':

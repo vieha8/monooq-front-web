@@ -7,20 +7,14 @@ import MenuItemTop from 'components/LV1/MenuItemTop';
 const Wrap = styled.div`
   width: 100%;
   max-width: 1200px;
-  margin: ${Dimens.large}px auto ${Dimens.medium3_44}px;
+  margin: ${Dimens.large}px auto;
   padding: 0 ${Dimens.medium}px;
-  ${media.phone`
-    margin: ${Dimens.medium2_36}px auto;
-  `};
 `;
 
 const Caption = styled.div`
   font-size: ${FontSizes.medium2}px;
   font-weight: bold;
   line-height: ${Dimens.medium1}px;
-  ${media.tablet`
-    margin: auto ${Dimens.medium}px 0;
-  `};
 `;
 
 const ListWrap = styled.div`
@@ -28,6 +22,7 @@ const ListWrap = styled.div`
   margin: ${Dimens.medium1_28}px auto;
   ${media.tablet`
     display: block;
+    margin: ${Dimens.small_10}px auto ${Dimens.medium1_28}px;
   `};
 `;
 

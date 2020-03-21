@@ -333,6 +333,7 @@ export const createRoom = (
   requestUsage,
   requestBreadth,
   requestPackageContents,
+  requestPhoneNumber,
   requestNotes,
   requestSetStartDate,
   requestSetEndDate,
@@ -354,6 +355,13 @@ ${requestUsage}
 【荷物の内容】
 ${requestPackageContents}
 `;
+
+    if (requestPhoneNumber) {
+      requestMessage += `
+【電話番号】
+${requestPhoneNumber}
+`;
+    }
 
     if (requestNotes) {
       requestMessage += `

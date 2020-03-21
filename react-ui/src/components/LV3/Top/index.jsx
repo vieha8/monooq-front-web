@@ -22,6 +22,7 @@ export default ({ sections, regionId, isNoLogin, isRegisterChecking, errorMessag
       isRegisterChecking={isRegisterChecking}
       errorMessage={errorMessage}
     />
+    <PrefectureList list={areaPrefectures} regionId={regionId} />
     <MenuItemTopList
       list={[
         {
@@ -47,7 +48,6 @@ export default ({ sections, regionId, isNoLogin, isRegisterChecking, errorMessag
         },
       ]}
     />
-    <PrefectureList list={areaPrefectures} regionId={regionId} />
     {sections.map((item, i) => (
       <SpaceList
         key={i.toString()}
