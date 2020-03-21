@@ -7,7 +7,7 @@ import { ErrorMessages } from 'variables';
 import { handleAccessTrade, handleCircuitX } from 'helpers/asp';
 import { handleGTM } from 'helpers/gtm';
 import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
-
+import amplitude from 'amplitude-js/amplitude';
 const Validate = {
   ImageSize: {
     Max: 10485760, // 10MB
@@ -79,6 +79,7 @@ export default class RegisterProfilePage extends Component {
       dispatch(uiActions.setUiState({ redirectPath: '' }));
       return;
     }
+    amplitude.getInstance().logEvent('新規登録 - プロフィール登録完了');
 
     history.push(Path.top());
   };
@@ -96,6 +97,8 @@ export default class RegisterProfilePage extends Component {
       case 'image':
         if (value && value.size > Validate.ImageSize.Max) {
           errors.push(ErrorMessages.OverSizeSpaceImage('10MB'));
+        } else {
+          amplitude.getInstance().logEvent('新規登録 - プロフィール写真入力完了');
         }
         state.imageUrlPreview = URL.createObjectURL(value);
         break;
@@ -106,6 +109,8 @@ export default class RegisterProfilePage extends Component {
         }
         if (value && !isBelowTrimmedLimit(value, Validate.Profile.nameMax)) {
           errors.push(ErrorMessages.LengthMax('お名前', Validate.Profile.nameMax));
+        } else {
+          amplitude.getInstance().logEvent('新規登録 - 名前入力完了');
         }
         break;
 
@@ -119,12 +124,16 @@ export default class RegisterProfilePage extends Component {
           )
         ) {
           errors.push(ErrorMessages.InvalidPhoneNumber);
+        } else {
+          amplitude.getInstance().logEvent('新規登録 - 電話番号入力完了');
         }
         break;
 
       case 'prefCode':
         if (!value || value.length === 0) {
           errors.push(ErrorMessages.PleaseSelect);
+        } else {
+          amplitude.getInstance().logEvent('新規登録 - 都道府県入力完了');
         }
         break;
 
