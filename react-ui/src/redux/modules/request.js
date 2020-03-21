@@ -308,7 +308,7 @@ ${packageContents}
   `;
   }
 
-  if (usage) {
+  if (notes) {
     messageBody += `
   【備考】
   ${notes}`;
