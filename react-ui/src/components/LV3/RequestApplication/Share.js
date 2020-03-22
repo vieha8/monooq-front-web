@@ -183,4 +183,14 @@ export const handleChangeDate = (
   setErrors(state => ({ ...state, desiredPeriod: setError }));
 };
 
+export const checkIsErrorStartDate = (year, month, day) => {
+  return moment(generateDateAll(year, month, day)).isBefore(getToday());
+};
+
+export const checkIsErrorEndDate = (startYear, startMonth, startDay, endYear, endMonth, endDay) => {
+  return moment(generateDateAll(startYear, startMonth, startDay)).isSameOrAfter(
+    moment(generateDateAll(endYear, endMonth, endDay)),
+  );
+};
+
 export default validate;
