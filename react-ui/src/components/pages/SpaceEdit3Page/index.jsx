@@ -36,13 +36,21 @@ const checkError = value => {
   return errors;
 };
 
+const calcPriceFull = (priceTatami, tatami) => {
+  return formatRemoveComma(priceTatami) * formatRemoveComma(tatami);
+};
+
 class SpaceEdit3Page extends Component {
   constructor(props) {
     super(props);
     const { space } = this.props;
+    let calculated;
+    if (space.tatami) {
+      calculated = calcPriceFull(space.priceTatami, space.tatami);
+    }
     this.state = {
       isPriceTatami: false,
-      priceFull: space.priceFull || 0,
+      priceFull: calculated || space.priceFull || 0,
       priceTatami: space.priceTatami || 0,
       error: {},
       isUpdate: !!props.match.params.space_id,
@@ -77,15 +85,27 @@ class SpaceEdit3Page extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.id && !prevState.id) {
-      const { priceFull, priceTatami, id, sizeType } = space;
+      const { tatami, priceFull, priceTatami, id, sizeType } = space;
 
       const isPriceTatami = sizeType === 1 || sizeType === 2 || sizeType === 3;
 
+      let calculated;
+      if (tatami) {
+        calculated = calcPriceFull(priceTatami, tatami);
+        console.log(`計算した(getDerivedStateFromProps):${calculated}`);
+      }
+
       const error = {};
-      error.priceFull = checkError(formatRemoveComma(priceFull));
+      error.priceFull = checkError(calculated || formatRemoveComma(priceFull));
       error.priceTatami = checkError(formatRemoveComma(priceTatami));
 
-      return { priceFull, priceTatami, id, isPriceTatami, error };
+      return {
+        priceFull: calculated || formatRemoveComma(priceFull),
+        priceTatami,
+        id,
+        isPriceTatami,
+        error,
+      };
     }
     return null;
   }
@@ -154,6 +174,20 @@ class SpaceEdit3Page extends Component {
     const { error } = state;
     const returnValue = formatRemoveComma(value);
     const priceErrors = checkError(returnValue);
+
+    switch (propName) {
+      case 'priceTatami': {
+        const { space } = this.props;
+        if (space.tatami) {
+          state.priceFull = calcPriceFull(value, space.tatami);
+          this.handleChangePriceUI('priceFull', value);
+        }
+        break;
+      }
+      default:
+        break;
+    }
+
     state[propName] = returnValue === '' ? 0 : returnValue;
     error[propName] = priceErrors;
     this.setState({ ...state, error });

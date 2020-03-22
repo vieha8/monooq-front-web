@@ -74,9 +74,10 @@ export default ({
     </SpaceTitleWrap>
     <InfoHost {...user} infoHost isNoProfile />
     <Description title="スペース概要" text={space.introduction} />
-    {sizeType && getBreadths(sizeType) !== '' && (
-      <Description title="スペースの広さ" text={getBreadths(sizeType)} />
-    )}
+    <Description
+      title="スペースの広さ"
+      text={space.tatami ? `${space.tatami}畳` : getBreadths(sizeType)}
+    />
     <Price sizeType={sizeType} full={space.priceFull} tatami={space.priceTatami} />
     {tagList && tagList.length > 0 && (
       <Fragment>
