@@ -335,6 +335,6 @@ export default () => (
       />
     </ChapterWrap>
 
-    <ArtContainer paraList={['【2017年3月3日制定】', '【2018年3月26日改定】']} isRight />
+    <ArtContainer paraList={['【2017年3月3日制定】', '【2020年4月6日改定】']} isRight />
   </PageDefault>
 );
