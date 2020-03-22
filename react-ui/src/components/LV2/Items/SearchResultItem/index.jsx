@@ -15,7 +15,6 @@ import Path from 'config/path';
 import LazyLoad from 'react-lazyload';
 import iconStar from 'images/img-space-star.svg';
 import { mediaMin } from 'helpers/style/media-query';
-import Availability from 'components/LV1/Texts/Availability';
 
 const Wrap = styled.div`
   cursor: pointer;
@@ -24,17 +23,6 @@ const Wrap = styled.div`
 
 const Content = styled.div`
   text-align: left;
-`;
-
-const CardInner = styled.div`
-  position: relative;
-`;
-
-const AvailabilityLayout = styled.div`
-  position: absolute;
-  z-index: 1;
-  top: 10px;
-  right: 10px;
 `;
 
 const Row = styled.div`
@@ -86,7 +74,6 @@ const SpaceResultItem = ({
   lastLoginAt,
   user,
   isNoViewLastLogin,
-  status,
 }) => {
   const [ref, inView] = useInView({ threshold: 0, triggerOnce: true });
 
@@ -111,22 +98,17 @@ const SpaceResultItem = ({
     <Wrap ref={ref}>
       <Link to={Path.space(id)} onClick={onClickSpace}>
         <Card noPadding noBorder>
-          <CardInner>
-            <LazyLoad height={123}>
-              <ImageHero
-                isTag={isTag}
-                src={image}
-                alt={title}
-                height={184}
-                heightTab={195}
-                heightSp={225}
-                heightSpTag={110}
-              />
-              <AvailabilityLayout>
-                <Availability status={status} />
-              </AvailabilityLayout>
-            </LazyLoad>
-          </CardInner>
+          <LazyLoad height={123}>
+            <ImageHero
+              isTag={isTag}
+              src={image}
+              alt={title}
+              height={184}
+              heightTab={195}
+              heightSp={225}
+              heightSpTag={110}
+            />
+          </LazyLoad>
           <Content>
             <Row marginTop={10}>
               <InlineText.Base singleLine fontSize={14} color={Colors.lightGray3}>
