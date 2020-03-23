@@ -77,6 +77,9 @@ export default ({
   onChangeBreadth,
   packageContents,
   onChangePackageContents,
+  existPhoneNumber,
+  phoneNumber,
+  onChangePhoneNumber,
   notes,
   onChangeNotes,
 }) => (
@@ -132,6 +135,20 @@ export default ({
         />
         <ErrorList keyName="package_contents_errors" errors={errors && errors.packageContents} />
       </Row>
+      {!existPhoneNumber && (
+        <Row>
+          <InputForm
+            label="電話番号"
+            placeholder="09012345678"
+            onChange={onChangePhoneNumber}
+            value={phoneNumber || ''}
+            type="tel"
+            name="tel"
+            autoComplete="tel"
+          />
+          <ErrorList keyName="phoneNumber_errors" errors={errors && errors.phoneNumber} />
+        </Row>
+      )}
       <Row>
         <InputForm
           label="備考"

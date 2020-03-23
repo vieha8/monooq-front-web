@@ -269,6 +269,7 @@ function* sendRequestNotice(payload) {
     usage,
     breadth,
     packageContents,
+    phoneNumber,
     notes,
     setStartDate,
     setEndDate,
@@ -300,7 +301,14 @@ ${usage}
 ${packageContents}
 `;
 
-  if (usage) {
+  if (phoneNumber) {
+    messageBody += `
+  【電話番号】
+  ${phoneNumber}
+  `;
+  }
+
+  if (notes) {
     messageBody += `
   【備考】
   ${notes}`;
@@ -530,6 +538,7 @@ function* request({ payload: { user, space, body } }) {
     usage,
     breadth,
     params.packageContents,
+    params.phoneNumber,
     params.notes,
     setStartDate,
     setEndDate,
@@ -606,6 +615,7 @@ function* request({ payload: { user, space, body } }) {
     usage,
     breadth,
     packageContents: params.packageContents,
+    phoneNumber: params.phoneNumber,
     notes: params.notes,
     setStartDate,
     setEndDate,
