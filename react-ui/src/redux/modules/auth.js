@@ -11,6 +11,7 @@ import { convertImgixUrl } from 'helpers/imgix';
 import { uiActions } from './ui';
 import { loggerActions } from './logger';
 import { handleError } from './error';
+import amplitude from 'amplitude-js/amplitude';
 import {
   getApiRequest,
   postApiRequest,
@@ -463,7 +464,7 @@ function* signUpEmail({ payload: { email, password } }) {
         },
       }),
     );
-
+    amplitude.getInstance().logEvent('新規登録完了（Eメール）');
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
     yield put(push(Path.signUpProfile()));

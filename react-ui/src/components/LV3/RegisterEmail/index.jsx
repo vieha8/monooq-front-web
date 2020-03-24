@@ -8,6 +8,7 @@ import { Dimens, Colors, FontSizes, ErrorMessages } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { media } from 'helpers/style/media-query';
 import { authActions } from 'redux/modules/auth';
+import amplitude from 'amplitude-js/amplitude';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';
@@ -113,6 +114,8 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
         const { result, reason } = isEmailValid(value);
         if (!result) {
           setError.push(reason);
+        } else {
+          amplitude.getInstance().logEvent('メールアドレス入力完了');
         }
         break;
       }
@@ -121,6 +124,8 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
           setError.push(ErrorMessages.PleaseInput);
         } else if (!value.match(Validate.Password)) {
           setError.push(ErrorMessages.InvalidPassword);
+        } else {
+          amplitude.getInstance().logEvent('パスワード入力完了');
         }
         break;
       default:
@@ -149,6 +154,7 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
   };
 
   const onClickToSignUp = () => {
+    amplitude.getInstance().logEvent('登録はこちら（SP）');
     ReactGA.event({
       category: 'signup',
       action: 'OnClick To SignUp',
