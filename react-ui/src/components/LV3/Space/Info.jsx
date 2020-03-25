@@ -76,7 +76,7 @@ export default ({
     <Description title="スペース概要" text={space.introduction} />
     <Description
       title="スペースの広さ"
-      text={space.tatami ? `${space.tatami}畳` : getBreadths(sizeType)}
+      text={space.tatami || space.tatami === '0' ? `${space.tatami}畳` : getBreadths(sizeType)}
     />
     <Price sizeType={sizeType} full={space.priceFull} tatami={space.priceTatami} />
     {tagList && tagList.length > 0 && (
