@@ -122,7 +122,7 @@ class SpaceEdit1Page extends Component {
 
   componentDidMount() {
     const { space, dispatch, match } = this.props;
-    const { isUpdate, images, title, introduction, sizeType, tatami } = this.state;
+    const { isUpdate, images, title, introduction, sizeType } = this.state;
     const spaceId = match.params.space_id;
 
     dispatch(spaceActions.clearSpace());
@@ -393,8 +393,7 @@ class SpaceEdit1Page extends Component {
         }
         break;
       case 'tatami':
-        console.log(`tatami:${value}`);
-        if (!isTrimmedEmpty(value)) {
+        if (!isTrimmedEmpty(Number.toString(value))) {
           if (Number.isNaN(value) || !String(value).match(Validate.Tatami.Num)) {
             errors.push(ErrorMessages.PriceFloat);
           } else {
