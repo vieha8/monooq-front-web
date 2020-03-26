@@ -16,17 +16,22 @@ const Validate = {
     Num: /^[0-9]+$/,
     Max: 300000,
     Min: 3000,
+    MinTokyo: 6000,
   },
 };
 
-const checkError = value => {
+const checkError = (value, addressPref) => {
   const errors = [];
   if (!value || value.length === 0) {
     errors.push(ErrorMessages.PleaseInput);
   } else if (Number.isNaN(value) || !String(value).match(Validate.Price.Num)) {
     errors.push(ErrorMessages.PriceNumber);
   } else {
-    if (value < Validate.Price.Min) {
+    if (addressPref && addressPref === '東京都') {
+      if (value < Validate.Price.MinTokyo) {
+        errors.push(ErrorMessages.PriceMin(Validate.Price.MinTokyo));
+      }
+    } else if (value < Validate.Price.Min) {
       errors.push(ErrorMessages.PriceMin(Validate.Price.Min));
     }
     if (value > Validate.Price.Max) {
@@ -49,7 +54,7 @@ class SpaceEdit3Page extends Component {
       calculated = calcPriceFull(space.priceTatami, space.tatami);
     }
     this.state = {
-      isPriceTatami: false,
+      isPriceTatami: space.sizeType === 1 || space.sizeType === 2 || space.sizeType === 3,
       priceFull: calculated || space.priceFull || 0,
       priceTatami: space.priceTatami || 0,
       error: {},
@@ -72,13 +77,10 @@ class SpaceEdit3Page extends Component {
     if (space.address) {
       dispatch(spaceActions.getGeocode({ address: space.address }));
     }
-    if (isUpdate) {
-      this.handleChangePriceUI('priceFull', priceFull);
-      if (isPriceTatami) {
-        this.handleChangePriceUI('priceTatami', priceTatami);
-      }
+    this.handleChangePriceUI('priceFull', priceFull);
+    if (isPriceTatami) {
+      this.handleChangePriceUI('priceTatami', priceTatami);
     }
-
     this.setState({ isPriceTatami });
   }
 
@@ -92,12 +94,11 @@ class SpaceEdit3Page extends Component {
       let calculated;
       if (tatami) {
         calculated = calcPriceFull(priceTatami, tatami);
-        console.log(`計算した(getDerivedStateFromProps):${calculated}`);
       }
 
       const error = {};
-      error.priceFull = checkError(calculated || formatRemoveComma(priceFull));
-      error.priceTatami = checkError(formatRemoveComma(priceTatami));
+      error.priceFull = checkError(calculated || formatRemoveComma(priceFull), space.addressPref);
+      error.priceTatami = checkError(formatRemoveComma(priceTatami), space.addressPref);
 
       return {
         priceFull: calculated || formatRemoveComma(priceFull),
@@ -170,14 +171,14 @@ class SpaceEdit3Page extends Component {
   };
 
   handleChangePriceUI = (propName, value) => {
+    const { space } = this.props;
     const state = { ...this.state };
     const { error } = state;
     const returnValue = formatRemoveComma(value);
-    const priceErrors = checkError(returnValue);
+    const priceErrors = checkError(returnValue, space.addressPref);
 
     switch (propName) {
       case 'priceTatami': {
-        const { space } = this.props;
         if (space.tatami) {
           state.priceFull = calcPriceFull(value, space.tatami);
           this.handleChangePriceUI('priceFull', value);
@@ -194,21 +195,25 @@ class SpaceEdit3Page extends Component {
   };
 
   validate = () => {
+    const { space } = this.props;
     const { isPriceTatami, priceFull, priceTatami } = this.state;
     const checkPriceFull = formatRemoveComma(priceFull);
     const checkPriceTatami = formatRemoveComma(priceTatami);
     let resultCheckTatami = true;
 
+    let priceMin = Validate.Price.Min;
+    if (space.addressPref && space.addressPref === '東京都') {
+      priceMin = Validate.Price.MinTokyo;
+    }
+
     if (isPriceTatami) {
       resultCheckTatami =
-        checkPriceTatami &&
-        checkPriceTatami >= Validate.Price.Min &&
-        checkPriceTatami <= Validate.Price.Max;
+        checkPriceTatami && checkPriceTatami >= priceMin && checkPriceTatami <= Validate.Price.Max;
     }
 
     return (
       checkPriceFull &&
-      checkPriceFull >= Validate.Price.Min &&
+      checkPriceFull >= priceMin &&
       checkPriceFull <= Validate.Price.Max &&
       resultCheckTatami
     );
