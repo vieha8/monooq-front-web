@@ -74,7 +74,7 @@ export default ({
     </SpaceTitleWrap>
     <InfoHost {...user} infoHost isNoProfile />
     <Description title="スペース概要" text={space.introduction} />
-    {sizeType && getBreadths(sizeType) !== '' && (
+    {getBreadths(sizeType) !== '' && (
       <Description title="スペースの広さ" text={getBreadths(sizeType)} />
     )}
     <Price sizeType={sizeType} full={space.priceFull} tatami={space.priceTatami} />
