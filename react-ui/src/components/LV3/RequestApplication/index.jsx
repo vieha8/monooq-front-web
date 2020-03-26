@@ -14,7 +14,13 @@ import Button from 'components/LV1/Forms/Button';
 import LinkCancel from 'components/LV2/Space/LinkCancel';
 import SendMessageButton from 'components/LV2/Space/SendMessageButton';
 import Form from './Form';
-import { handleChangeUI, handleChangeDate, validate } from './Share';
+import {
+  handleChangeUI,
+  handleChangeDate,
+  validate,
+  checkIsErrorStartDate,
+  checkIsErrorEndDate,
+} from './Share';
 
 moment.locale('ja');
 
@@ -45,38 +51,62 @@ const RequestApplication = ({
   const history = useHistory();
   const location = useLocation();
   const isSelfSpace = loginUser.id === (space.user || {}).id;
+  const existPhoneNumber = !!loginUser.phoneNumber;
 
   const [errors, setErrors] = useState({});
   const [usage, setUsage] = useState(params ? params.usage : 0);
   const [breadth, setBreadth] = useState(params ? params.breadth : 0);
   const [packageContents, setPackageContents] = useState(params ? params.packageContents : '');
+  const [phoneNumber, setPhoneNumber] = useState(params ? params.phoneNumber : '');
   const [notes, setNotes] = useState(params ? params.notes : '');
-  const [startDate, setStartDate] = useState(
-    params
-      ? {
-          year: params.startDate.year || moment().year(),
-          month: params.startDate.month || moment().month() + 1,
-          day: params.startDate.day || moment().date(),
-        }
-      : {
-          year: moment().year(),
-          month: moment().month() + 1,
-          day: moment().date(),
-        },
-  );
-  const [endDate, setEndDate] = useState(
-    params
-      ? {
-          year: params.endDate.year || moment().year(),
-          month: params.endDate.month || moment().month() + 1,
-          day: params.endDate.day || moment().date(),
-        }
-      : {
-          year: moment().year(),
-          month: moment().month() + 2,
-          day: 1,
-        },
-  );
+
+  let setStartDateYear;
+  let setStartDateMonth;
+  let setStartDateDay;
+  if (params) {
+    setStartDateYear = params.startDate.year || moment().year();
+    setStartDateMonth = params.startDate.month || moment().month() + 1;
+    setStartDateDay = params.startDate.day || moment().date();
+  }
+  if (!params || checkIsErrorStartDate(setStartDateYear, setStartDateMonth, setStartDateDay)) {
+    setStartDateYear = moment().year();
+    setStartDateMonth = moment().month() + 1;
+    setStartDateDay = moment().date();
+  }
+  const [startDate, setStartDate] = useState({
+    year: setStartDateYear,
+    month: setStartDateMonth,
+    day: setStartDateDay,
+  });
+
+  let setEndDateYear;
+  let setEndDateMonth;
+  let setEndDateDay;
+  if (params) {
+    setEndDateYear = params.endDate.year || moment().year();
+    setEndDateMonth = params.endDate.month || moment().month() + 2;
+    setEndDateDay = params.endDate.day || '1';
+  }
+  if (
+    !params ||
+    checkIsErrorEndDate(
+      setStartDateYear,
+      setStartDateMonth,
+      setStartDateDay,
+      setEndDateYear,
+      setEndDateMonth,
+      setEndDateDay,
+    )
+  ) {
+    setEndDateYear = moment().year();
+    setEndDateMonth = moment().month() + 2;
+    setEndDateDay = moment().date();
+  }
+  const [endDate, setEndDate] = useState({
+    year: setEndDateYear,
+    month: setEndDateMonth,
+    day: setEndDateDay,
+  });
 
   const handleSignUp = () => {
     dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
@@ -113,6 +143,7 @@ const RequestApplication = ({
           usage,
           breadth,
           packageContents,
+          phoneNumber: !existPhoneNumber ? phoneNumber : '',
           notes,
           startDate,
           endDate,
@@ -211,6 +242,11 @@ const RequestApplication = ({
             onChangePackageContents={e =>
               handleChangeUI('packageContents', e.target.value, setPackageContents, setErrors)
             }
+            existPhoneNumber={existPhoneNumber}
+            phoneNumber={phoneNumber}
+            onChangePhoneNumber={e =>
+              handleChangeUI('phoneNumber', e.target.value, setPhoneNumber, setErrors)
+            }
             notes={notes}
             onChangeNotes={e => handleChangeUI('notes', e.target.value, setNotes, setErrors)}
           />
@@ -219,7 +255,17 @@ const RequestApplication = ({
             onClick={isSelfSpace ? null : onClickSendMessage}
             onKeyDown={isSelfSpace ? null : onKeyDownButtonMessage}
             disabled={
-              !validate(startDate, endDate, usage, space.sizeType, breadth, packageContents, notes)
+              !validate(
+                startDate,
+                endDate,
+                usage,
+                space.sizeType,
+                breadth,
+                packageContents,
+                existPhoneNumber,
+                phoneNumber,
+                notes,
+              )
             }
             handleModalClose={handleModalClose}
           />

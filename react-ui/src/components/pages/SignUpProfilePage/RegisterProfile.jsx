@@ -12,6 +12,10 @@ const Validate = {
   ImageSize: {
     Max: 10485760, // 10MB
   },
+  phoneNumber: {
+    NoHyphenVer: /^0\d{9,10}$/, // 先頭「0」+「半角数字9〜10桁」
+    HyphenVer: /^0\d{2,3}-\d{2,4}-\d{4}$/, // 先頭「0」＋「半角数字2〜3桁」＋「-」＋「半角数字1〜4桁」＋「-」＋「半角数字4桁」
+  },
   Profile: {
     nameMax: 40,
   },
@@ -25,6 +29,7 @@ export default class RegisterProfilePage extends Component {
       image: null,
       imageUrlPreview: '',
       name: '',
+      phoneNumber: '',
       prefCode: '',
       isHost: 0, // 初期値はゲスト
       error: {},
@@ -32,8 +37,9 @@ export default class RegisterProfilePage extends Component {
   }
 
   componentDidMount() {
-    const { name, prefCode } = this.state;
+    const { name, phoneNumber, prefCode } = this.state;
     this.handleChangeForm('name', name);
+    this.handleChangeForm('phoneNumber', phoneNumber);
     this.handleChangeForm('prefCode', prefCode);
 
     const { user } = this.props;
@@ -55,7 +61,7 @@ export default class RegisterProfilePage extends Component {
 
   onClickRegisterProfile = () => {
     const { dispatch, user, history, redirectPath } = this.props;
-    const { image, name, prefCode, isHost } = this.state;
+    const { image, name, phoneNumber, prefCode, isHost } = this.state;
 
     if (isHost === 0) {
       handleGTM('userRegistered', user.id);
@@ -64,7 +70,7 @@ export default class RegisterProfilePage extends Component {
     dispatch(
       userActions.updateUser({
         userId: user.id,
-        body: { imageUrl: image, name, prefCode, isHost: Boolean(isHost) },
+        body: { imageUrl: image, name, phoneNumber, prefCode, isHost: Boolean(isHost) },
       }),
     );
 
@@ -103,6 +109,19 @@ export default class RegisterProfilePage extends Component {
         }
         break;
 
+      case 'phoneNumber':
+        if (!value || value.replace(/\s/g, '').length === 0) {
+          errors.push(ErrorMessages.PleaseInput);
+        } else if (
+          !(
+            value.match(Validate.phoneNumber.NoHyphenVer) ||
+            value.match(Validate.phoneNumber.HyphenVer)
+          )
+        ) {
+          errors.push(ErrorMessages.InvalidPhoneNumber);
+        }
+        break;
+
       case 'prefCode':
         if (!value || value.length === 0) {
           errors.push(ErrorMessages.PleaseSelect);
@@ -119,18 +138,21 @@ export default class RegisterProfilePage extends Component {
   };
 
   validate = () => {
-    const { error, name, prefCode } = this.state;
+    const { error, name, phoneNumber, prefCode } = this.state;
     return (
       (error.image === undefined || (error.image && error.image.length === 0)) &&
       !isTrimmedEmpty(name) &&
       isBelowTrimmedLimit(name, Validate.Profile.nameMax) &&
+      phoneNumber &&
+      (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
+        phoneNumber.match(Validate.phoneNumber.HyphenVer)) &&
       prefCode
     );
   };
 
   render() {
     const { isLoading } = this.props;
-    const { image, imageUrlPreview, name, prefCode, isHost, error } = this.state;
+    const { image, imageUrlPreview, name, phoneNumber, prefCode, isHost, error } = this.state;
 
     return (
       <Fragment>
@@ -142,6 +164,8 @@ export default class RegisterProfilePage extends Component {
           image={image}
           onChangeName={value => this.handleChangeForm('name', value)}
           name={name}
+          onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
+          phoneNumber={phoneNumber}
           onChangeArea={value => this.handleChangeForm('prefCode', value)}
           prefCode={prefCode}
           onClickPurposeGuest={() => this.onClickPurpose(0)}
