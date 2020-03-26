@@ -42,7 +42,7 @@ const checkError = (value, addressPref) => {
 };
 
 const calcPriceFull = (priceTatami, tatami) => {
-  return formatRemoveComma(priceTatami) * formatRemoveComma(tatami);
+  return Math.floor(formatRemoveComma(priceTatami) * formatRemoveComma(tatami));
 };
 
 class SpaceEdit3Page extends Component {
