@@ -5,7 +5,7 @@ export default {
   PleaseSelect: '選択してください。',
   PleaseDo: '行ってください。',
   PriceNumber: '金額は半角数字(整数)で入力してください。',
-  PriceFloat: '金額は半角数字(小数点第一位まで指定可)で入力してください。',
+  PriceFloat: name => `${name}は半角数字(小数点第一位まで指定可)で入力してください。`,
   PriceNumberName: name => `${name}は半角数字(整数)で入力してください。`,
   MustSpaceImage: '写真は1枚以上登録してください。',
   OverSizeSpaceImage: val => `登録できる画像の最大アップロードサイズは${val}です。`,

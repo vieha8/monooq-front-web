@@ -395,7 +395,7 @@ class SpaceEdit1Page extends Component {
       case 'tatami':
         if (!isTrimmedEmpty(Number.toString(value))) {
           if (Number.isNaN(value) || !String(value).match(Validate.Tatami.Num)) {
-            errors.push(ErrorMessages.PriceFloat);
+            errors.push(ErrorMessages.PriceFloat('畳数'));
           } else {
             if (value < Validate.Tatami.Min) {
               errors.push(ErrorMessages.TatamiMin(Validate.Tatami.Min));
