@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Collapsible from 'react-collapsible';
 import { Dimens, FontSizes, Colors } from 'variables';
 import InputForm from 'components/LV2/Forms/InputForm';
-import AreaAroundList from 'components/LV2/Lists/AreaAroundList';
 import IconAreaGray from 'images/icon-area-gray.png';
 
 const Wrap = styled.div``;
@@ -28,12 +27,6 @@ const CollapsibleItem = styled.li`
   width: 100%;
   color: ${Colors.black2};
   border-top: 1px solid ${Colors.lightGray2};
-  ${props =>
-    props.areaAroundList &&
-    `
-      font-weight: bold;
-      padding: ${Dimens.xxsmall_4}px ${Dimens.medium}px;
-  `};
 `;
 
 const CityWrap = styled.div`
@@ -58,12 +51,6 @@ const CityName = title => {
   );
 };
 
-const AreaPinList = styled.ul`
-  width: 100%;
-  white-space: nowrap;
-  padding: ${Dimens.small2}px ${Dimens.xxsmall}px ${Dimens.small2_15}px;
-`;
-
 export default ({ searchConditionSPList, onClickCheckTown }) => (
   <Wrap>
     <ConditionList>
@@ -74,18 +61,6 @@ export default ({ searchConditionSPList, onClickCheckTown }) => (
             open={item.townAreaList.filter(town => town.isChecked).length > 0}
           >
             <CollapsibleItemList>
-              {item.areaAroundList.length > 0 && (
-                <CollapsibleItem areaAroundList>
-                  <AreaPinList>
-                    <AreaAroundList
-                      caption="人気エリア"
-                      captionColor={Colors.lightGray3}
-                      areaAroundList={item.areaAroundList}
-                      isNoScroll
-                    />
-                  </AreaPinList>
-                </CollapsibleItem>
-              )}
               {item.townAreaList.map((town, j) => (
                 <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
                   <InputForm

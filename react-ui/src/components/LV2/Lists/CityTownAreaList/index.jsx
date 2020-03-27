@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
 import Hr from 'components/LV1/HorizontalRule';
-import AreaAroundList from 'components/LV2/Lists/AreaAroundList';
 import TownAreaCheckboxList from 'components/LV2/Lists/TownAreaCheckboxList';
 import IconAreaGray from 'images/icon-area-gray.png';
 
@@ -17,7 +16,7 @@ const Caption = styled.div`
   line-height: ${Dimens.medium1}px;
   color: ${Colors.black2};
   ${media.tablet`
-    margin: auto ${Dimens.medium}px 0; 
+    margin: auto ${Dimens.medium}px 0;
   `};
 `;
 
@@ -42,12 +41,6 @@ const ImageAreaPin = styled.img`
   vertical-align: middle;
 `;
 
-const AreaPinList = styled.ul`
-  width: 100%;
-  white-space: nowrap;
-  padding: ${Dimens.small2}px ${Dimens.xxsmall}px ${Dimens.small2_15}px;
-`;
-
 export default ({ cityTownAreaList, prefecture, onClickCheckCity, onClickCheckTown }) => (
   <Wrap>
     <Caption>
@@ -62,15 +55,6 @@ export default ({ cityTownAreaList, prefecture, onClickCheckCity, onClickCheckTo
             {item.cityName}
             {`(${item.count})`}
           </CityWrap>
-          {item.areaAroundList.length > 0 && (
-            <AreaPinList>
-              <AreaAroundList
-                caption="人気のエリアから選ぶ"
-                captionColor={Colors.lightGray3}
-                areaAroundList={item.areaAroundList}
-              />
-            </AreaPinList>
-          )}
           <Hr margin="10px 0 20px" />
           <TownAreaCheckboxList
             caption="地域から選ぶ"
