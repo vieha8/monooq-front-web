@@ -199,7 +199,16 @@ export default ({
         >
           <RequestCard>
             気になるスペースを見つけたら？
-            <RequestTitle>ホストに相談しよう</RequestTitle>
+            <br />
+            ホストに相談しよう
+            <img src={space.user.imageUrl} />
+            {space.user.name}
+            <br />
+            返信率
+            {space.userMeta && space.userMeta.replyRate}
+            <br />
+            最終ログイン
+            {space.user.lastLoginAt}
             {isModalOpen ? getCaptionMessage() : <Question />}
             <RequestButtonWrap>
               <RequestApplication
