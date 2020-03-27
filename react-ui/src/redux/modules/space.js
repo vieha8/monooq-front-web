@@ -52,6 +52,10 @@ const GET_ADDRESS = 'GET_ADDRESS';
 const GET_ADDRESS_SUCCESS = 'GET_ADDRESS_SUCCESS';
 const GET_ADDRESS_FAILED = 'GET_ADDRESS_FAILED';
 const RESET_ADDRESS = 'RESET_ADDRESS';
+const FETCH_USER_META = 'FETCH_USER_META';
+const FETCH_USER_META_BEGIN = 'FETCH_USER_META_BEGIN';
+const FETCH_USER_META_SUCCESS = 'FETCH_USER_META_SUCCESS';
+const FETCH_USER_META_FAIL = 'FETCH_USER_META_FAIL';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -84,6 +88,10 @@ export const spaceActions = createActions(
   GET_ADDRESS_SUCCESS,
   GET_ADDRESS_FAILED,
   RESET_ADDRESS,
+  FETCH_USER_META,
+  FETCH_USER_META_BEGIN,
+  FETCH_USER_META_SUCCESS,
+  FETCH_USER_META_FAIL,
 );
 
 // Reducer
@@ -252,6 +260,22 @@ export const spaceReducer = handleActions(
       geo: {},
       isLoadingAddress: false,
       errMessage: '',
+    }),
+    [FETCH_USER_META_BEGIN]: (state, _) => ({
+      ...state,
+      isUserMetaFetching: true,
+    }),
+    [FETCH_USER_META_SUCCESS]: (state, action) => ({
+      ...state,
+      isUserMetaFetching: false,
+      space: {
+        ...state.space,
+        userMeta: action.payload,
+      },
+    }),
+    [FETCH_USER_META_FAIL]: (state, _) => ({
+      ...state,
+      isUserMetaFetching: false,
     }),
   },
   initialState,
@@ -861,6 +885,25 @@ function* getAddressByPostalCode({ payload: { postalCode } }) {
   }
 }
 
+function* fetchUserMeta({ payload: { userId } }) {
+  const isFetching = yield select(state => state.space.isUserMetaFetching);
+  if (isFetching) {
+    return;
+  }
+
+  yield put(spaceActions.fetchUserMetaBegin());
+
+  const token = yield* getToken();
+  const { data: payload, err } = yield call(getApiRequest, apiEndpoint.userMeta(userId), {}, token);
+
+  if (err) {
+    yield handleError(spaceActions.fetchUserMetaFail, '', 'fetchUserMeta', err, true);
+    return;
+  }
+
+  yield put(spaceActions.fetchUserMetaSuccess(payload));
+}
+
 export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
@@ -872,4 +915,5 @@ export const spaceSagas = [
   takeEvery(GET_GEOCODE, getGeocode),
   takeEvery(GET_RECOMMEND_SPACES, getRecommendSpaces),
   takeEvery(GET_ADDRESS, getAddressByPostalCode),
+  takeEvery(FETCH_USER_META, fetchUserMeta),
 ];

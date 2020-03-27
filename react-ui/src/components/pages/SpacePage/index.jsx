@@ -40,6 +40,14 @@ class SpacePage extends Component {
     if (prevProps.space && prevProps.space.id !== Number(spaceId) && !this.props.isLoading) {
       this.init();
     }
+
+    const { space } = prevProps;
+    if (space) {
+      const { userId, userMeta } = space;
+      if (!userMeta && userId) {
+        this.props.dispatch(spaceActions.fetchUserMeta({ userId }));
+      }
+    }
   }
 
   componentWillUnmount() {
