@@ -539,6 +539,7 @@ function* updateSpace({ payload: { spaceId, body } }) {
       introduction: params.introduction,
       receiptType: params.receiptType,
       sizeType: params.sizeType,
+      tatami: params.tatami,
       priceFull: params.priceFull,
       priceTatami: params.priceTatami,
       address: params.address,

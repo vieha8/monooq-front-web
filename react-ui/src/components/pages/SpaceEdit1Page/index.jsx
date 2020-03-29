@@ -24,6 +24,11 @@ const Validate = {
   ImageSize: {
     Max: 31457280, // 30MB
   },
+  Tatami: {
+    Num: /^([1-9]\d*|0)(\.\d)?$/,
+    Max: 1000,
+    Min: 1,
+  },
   Introduction: {
     Max: 5000,
   },
@@ -77,53 +82,8 @@ const TagList = [
   },
 ];
 
-const checkError = (name, value) => {
-  const errors = [];
-  switch (name) {
-    case 'title':
-      if (isTrimmedEmpty(value)) {
-        errors.push(ErrorMessages.PleaseInput);
-      } else if (value.length > Validate.Title.Max) {
-        errors.push(ErrorMessages.LengthMax('タイトル', Validate.Title.Max));
-      }
-      break;
-    case 'introduction':
-      if (isTrimmedEmpty(value)) {
-        errors.push(ErrorMessages.PleaseInput);
-      } else if (value.length > Validate.Introduction.Max) {
-        errors.push(ErrorMessages.LengthMax('紹介文', Validate.Introduction.Max));
-      }
-      break;
-    case 'images':
-      if (!value || value.length === 0) {
-        errors.push(ErrorMessages.MustSpaceImage);
-      } else if (value.length === 1) {
-        if (value[0].ImageUrl && isImageDefault(value[0].ImageUrl)) {
-          errors.push(ErrorMessages.MustSpaceImage);
-        }
-      }
-      break;
-    case 'imagesMaxSize':
-      if (value) {
-        errors.push(ErrorMessages.OverSizeSpaceImage('30MB'));
-      }
-      break;
-    case 'sizeType':
-      if (!value || value === 0) {
-        errors.push(ErrorMessages.PleaseSelect);
-      }
-      break;
-    case 'tagCustom':
-      if (value && value.length > Validate.TagCustom.MaxText) {
-        errors.push(ErrorMessages.LengthMax('設備・条件', Validate.TagCustom.MaxText));
-      } else if (Validate.TagCustom.IncludeSpaceLiteralRegExp.test(value)) {
-        errors.push(ErrorMessages.TagCustomIncludesSpaceLiteral);
-      }
-      break;
-    default:
-      break;
-  }
-  return errors;
+const checkSizeType = sizeType => {
+  return sizeType > 0 && sizeType < 4;
 };
 
 class SpaceEdit1Page extends Component {
@@ -135,6 +95,7 @@ class SpaceEdit1Page extends Component {
       title,
       introduction,
       sizeType,
+      tatami,
       tags,
       tagList,
       tagCustomList,
@@ -145,6 +106,8 @@ class SpaceEdit1Page extends Component {
       title: title || '',
       introduction: introduction || '',
       sizeType: sizeType || 0,
+      isSizeTypeOther: false,
+      tatami: tatami || '',
       tags: tags || [],
       tagList: tagList || TagList,
       tagCustom: '',
@@ -195,6 +158,7 @@ class SpaceEdit1Page extends Component {
         status,
         introduction,
         sizeType,
+        tatami,
         tags,
         tagList,
         tagCustomList,
@@ -217,19 +181,17 @@ class SpaceEdit1Page extends Component {
         });
       }
 
-      const error = {};
-      error.sizeType = checkError('sizeType', sizeType);
-
       return {
         title,
         status,
         introduction,
         sizeType,
+        tatami,
         tagList: newStateTagList,
         tagCustomList: newStateTagCustomList,
         images,
         id,
-        error,
+        isSizeTypeOther: !checkSizeType(sizeType),
       };
     }
     return null;
@@ -313,6 +275,7 @@ class SpaceEdit1Page extends Component {
       status,
       introduction,
       sizeType,
+      tatami,
       tagList,
       tagCustomList,
       isUpdate,
@@ -333,6 +296,7 @@ class SpaceEdit1Page extends Component {
           status,
           introduction,
           sizeType: parseInt(sizeType, 10) || 0,
+          tatami: checkSizeType(sizeType) ? parseFloat(tatami) : 0,
           tagList,
           tagCustomList,
         }),
@@ -387,14 +351,78 @@ class SpaceEdit1Page extends Component {
   handleChangeUI = (propName, value) => {
     const { state } = this;
     const { error } = state;
-    const errors = checkError(propName, value);
+    const errors = [];
+
+    switch (propName) {
+      case 'title':
+        if (isTrimmedEmpty(value)) {
+          errors.push(ErrorMessages.PleaseInput);
+        } else if (value.length > Validate.Title.Max) {
+          errors.push(ErrorMessages.LengthMax('タイトル', Validate.Title.Max));
+        }
+        break;
+      case 'introduction':
+        if (isTrimmedEmpty(value)) {
+          errors.push(ErrorMessages.PleaseInput);
+        } else if (value.length > Validate.Introduction.Max) {
+          errors.push(ErrorMessages.LengthMax('紹介文', Validate.Introduction.Max));
+        }
+        break;
+      case 'images':
+        if (!value || value.length === 0) {
+          errors.push(ErrorMessages.MustSpaceImage);
+        } else if (value.length === 1) {
+          if (value[0].ImageUrl && isImageDefault(value[0].ImageUrl)) {
+            errors.push(ErrorMessages.MustSpaceImage);
+          }
+        }
+        break;
+      case 'imagesMaxSize':
+        if (value) {
+          errors.push(ErrorMessages.OverSizeSpaceImage('30MB'));
+        }
+        break;
+      case 'sizeType':
+        if (!value || value === 0) {
+          errors.push(ErrorMessages.PleaseSelect);
+        } else if (checkSizeType(value)) {
+          state.isSizeTypeOther = false;
+        } else {
+          state.tatami = '';
+          state.isSizeTypeOther = true;
+        }
+        break;
+      case 'tatami':
+        if (!isTrimmedEmpty(Number.toString(value))) {
+          if (Number.isNaN(value) || !String(value).match(Validate.Tatami.Num)) {
+            errors.push(ErrorMessages.PriceFloat('畳数'));
+          } else {
+            if (value < Validate.Tatami.Min) {
+              errors.push(ErrorMessages.TatamiMin(Validate.Tatami.Min));
+            }
+            if (value > Validate.Tatami.Max) {
+              errors.push(ErrorMessages.TatamiMax(Validate.Tatami.Max));
+            }
+          }
+        }
+        break;
+      case 'tagCustom':
+        if (value && value.length > Validate.TagCustom.MaxText) {
+          errors.push(ErrorMessages.LengthMax('設備・条件', Validate.TagCustom.MaxText));
+        } else if (Validate.TagCustom.IncludeSpaceLiteralRegExp.test(value)) {
+          errors.push(ErrorMessages.TagCustomIncludesSpaceLiteral);
+        }
+        break;
+      default:
+        break;
+    }
     state[propName] = value;
     error[propName] = errors;
     this.setState({ ...state, error });
   };
 
   validate = () => {
-    const { title, introduction, images, sizeType } = this.state;
+    const { title, introduction, images, sizeType, tatami } = this.state;
 
     return (
       !isTrimmedEmpty(title) &&
@@ -405,7 +433,13 @@ class SpaceEdit1Page extends Component {
       images.length > 0 &&
       (isImageDefault(images[0].ImageUrl) ? images.length > 1 : true) &&
       sizeType &&
-      sizeType > 0
+      sizeType > 0 &&
+      (!tatami ||
+        (tatami &&
+          !Number.isNaN(tatami) &&
+          String(tatami).match(Validate.Tatami.Num) &&
+          tatami >= Validate.Tatami.Min &&
+          tatami <= Validate.Tatami.Max))
     );
   };
 
@@ -440,6 +474,8 @@ class SpaceEdit1Page extends Component {
       status,
       introduction,
       sizeType,
+      isSizeTypeOther,
+      tatami,
       error,
       errorsTagCustomMax,
       isImageUploading,
@@ -477,6 +513,9 @@ class SpaceEdit1Page extends Component {
           onChangeIntroduction={v => this.handleChangeUI('introduction', v)}
           breadth={sizeType}
           onChangeBreadth={v => this.handleChangeUI('sizeType', v)}
+          isSizeTypeOther={isSizeTypeOther}
+          tatami={tatami || ''}
+          onChangeTatami={v => this.handleChangeUI('tatami', v)}
           onClickNext={this.onClickNext}
           onKeyDownButtonNext={this.onKeyDownButtonNext}
           buttonNextDisabled={isOpenModalError || !this.validate()}

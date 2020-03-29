@@ -16,17 +16,22 @@ const Validate = {
     Num: /^[0-9]+$/,
     Max: 300000,
     Min: 3000,
+    MinTokyo: 6000,
   },
 };
 
-const checkError = value => {
+const checkError = (value, addressPref) => {
   const errors = [];
   if (!value || value.length === 0) {
     errors.push(ErrorMessages.PleaseInput);
   } else if (Number.isNaN(value) || !String(value).match(Validate.Price.Num)) {
     errors.push(ErrorMessages.PriceNumber);
   } else {
-    if (value < Validate.Price.Min) {
+    if (addressPref && addressPref === '東京都') {
+      if (value < Validate.Price.MinTokyo) {
+        errors.push(ErrorMessages.PriceMin(Validate.Price.MinTokyo));
+      }
+    } else if (value < Validate.Price.Min) {
       errors.push(ErrorMessages.PriceMin(Validate.Price.Min));
     }
     if (value > Validate.Price.Max) {
@@ -36,13 +41,21 @@ const checkError = value => {
   return errors;
 };
 
+const calcPriceFull = (priceTatami, tatami) => {
+  return Math.floor(formatRemoveComma(priceTatami) * formatRemoveComma(tatami));
+};
+
 class SpaceEdit3Page extends Component {
   constructor(props) {
     super(props);
     const { space } = this.props;
+    let calculated;
+    if (space.tatami) {
+      calculated = calcPriceFull(space.priceTatami, space.tatami);
+    }
     this.state = {
-      isPriceTatami: false,
-      priceFull: space.priceFull || 0,
+      isPriceTatami: space.sizeType === 1 || space.sizeType === 2 || space.sizeType === 3,
+      priceFull: calculated || space.priceFull || 0,
       priceTatami: space.priceTatami || 0,
       error: {},
       isUpdate: !!props.match.params.space_id,
@@ -64,28 +77,36 @@ class SpaceEdit3Page extends Component {
     if (space.address) {
       dispatch(spaceActions.getGeocode({ address: space.address }));
     }
-    if (isUpdate) {
-      this.handleChangePriceUI('priceFull', priceFull);
-      if (isPriceTatami) {
-        this.handleChangePriceUI('priceTatami', priceTatami);
-      }
+    this.handleChangePriceUI('priceFull', priceFull);
+    if (isPriceTatami) {
+      this.handleChangePriceUI('priceTatami', priceTatami);
     }
-
     this.setState({ isPriceTatami });
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.id && !prevState.id) {
-      const { priceFull, priceTatami, id, sizeType } = space;
+      const { tatami, priceFull, priceTatami, id, sizeType } = space;
 
       const isPriceTatami = sizeType === 1 || sizeType === 2 || sizeType === 3;
 
-      const error = {};
-      error.priceFull = checkError(formatRemoveComma(priceFull));
-      error.priceTatami = checkError(formatRemoveComma(priceTatami));
+      let calculated;
+      if (tatami) {
+        calculated = calcPriceFull(priceTatami, tatami);
+      }
 
-      return { priceFull, priceTatami, id, isPriceTatami, error };
+      const error = {};
+      error.priceFull = checkError(calculated || formatRemoveComma(priceFull), space.addressPref);
+      error.priceTatami = checkError(formatRemoveComma(priceTatami), space.addressPref);
+
+      return {
+        priceFull: calculated || formatRemoveComma(priceFull),
+        priceTatami,
+        id,
+        isPriceTatami,
+        error,
+      };
     }
     return null;
   }
@@ -150,31 +171,49 @@ class SpaceEdit3Page extends Component {
   };
 
   handleChangePriceUI = (propName, value) => {
+    const { space } = this.props;
     const state = { ...this.state };
     const { error } = state;
     const returnValue = formatRemoveComma(value);
-    const priceErrors = checkError(returnValue);
+    const priceErrors = checkError(returnValue, space.addressPref);
+
+    switch (propName) {
+      case 'priceTatami': {
+        if (space.tatami) {
+          state.priceFull = calcPriceFull(value, space.tatami);
+          this.handleChangePriceUI('priceFull', value);
+        }
+        break;
+      }
+      default:
+        break;
+    }
+
     state[propName] = returnValue === '' ? 0 : returnValue;
     error[propName] = priceErrors;
     this.setState({ ...state, error });
   };
 
   validate = () => {
+    const { space } = this.props;
     const { isPriceTatami, priceFull, priceTatami } = this.state;
     const checkPriceFull = formatRemoveComma(priceFull);
     const checkPriceTatami = formatRemoveComma(priceTatami);
     let resultCheckTatami = true;
 
+    let priceMin = Validate.Price.Min;
+    if (space.addressPref && space.addressPref === '東京都') {
+      priceMin = Validate.Price.MinTokyo;
+    }
+
     if (isPriceTatami) {
       resultCheckTatami =
-        checkPriceTatami &&
-        checkPriceTatami >= Validate.Price.Min &&
-        checkPriceTatami <= Validate.Price.Max;
+        checkPriceTatami && checkPriceTatami >= priceMin && checkPriceTatami <= Validate.Price.Max;
     }
 
     return (
       checkPriceFull &&
-      checkPriceFull >= Validate.Price.Min &&
+      checkPriceFull >= priceMin &&
       checkPriceFull <= Validate.Price.Max &&
       resultCheckTatami
     );
