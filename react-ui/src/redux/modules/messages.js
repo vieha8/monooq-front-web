@@ -3,6 +3,8 @@ import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, take, select, fork, cancel, cancelled } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { captureException } from '@sentry/browser';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import { getToken } from 'redux/modules/auth';
 import { userActions } from 'redux/modules/user';
 import { spaceActions } from 'redux/modules/space';
@@ -75,18 +77,18 @@ export const messagesReducer = handleActions(
   initialState,
 );
 
-const roomCollection = async () => {
-  const firebase = await import('firebase/app').catch(() => window.location.reload());
-  await import('firebase/firestore').catch(() => window.location.reload());
-  return firebase.firestore().collection('rooms');
+const roomCollection = () => {
+  const firestore = firebase.firestore();
+  return firestore.collection('rooms');
 };
 
 // ルーム取得
 const getRooms = userId =>
   new Promise(async (resolve, reject) => {
     try {
-      const c = await roomCollection();
-      const rooms = await c.where(`user${userId}`, '==', true).get();
+      const rooms = await roomCollection()
+        .where(`user${userId}`, '==', true)
+        .get();
       const res = [];
       rooms.forEach(room => {
         if (room.data().lastMessageDt) {
@@ -382,8 +384,7 @@ ${requestNotes}`;
       lastMessage: requestMessage,
       status: 0,
     };
-    const c = await roomCollection();
-    const roomRef = await c.add(room);
+    const roomRef = await roomCollection().add(room);
     const message = {
       userId: userId1,
       text: requestMessage,
@@ -397,8 +398,7 @@ ${requestNotes}`;
 
 export const getRoomId = (userId1, userId2, spaceId) =>
   new Promise(async resolve => {
-    const c = await roomCollection();
-    const rooms = await c
+    const rooms = await roomCollection()
       .where(`user${userId1}`, '==', true)
       .where(`user${userId2}`, '==', true)
       .where(`space${spaceId}`, '==', true)
