@@ -57,6 +57,7 @@ export default ({
   breadcrumbsList,
   recommend,
   user,
+  userMeta,
 }) => (
   <Fragment>
     <AvailabilityWrap>
@@ -72,7 +73,7 @@ export default ({
         />
       )}
     </SpaceTitleWrap>
-    <InfoHost {...user} infoHost isNoProfile />
+    <InfoHost {...user} infoHost isNoProfile replyRate={userMeta ? userMeta.replyRate : null} />
     <Description title="スペース概要" text={space.introduction} />
     {sizeType && getBreadths(sizeType) !== '' && (
       <Description title="スペースの広さ" text={getBreadths(sizeType)} />
@@ -90,7 +91,7 @@ export default ({
       address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
       map={<SpaceMap lat={space.lat} lng={space.lng} />}
     />
-    <InfoHost {...user} infoHost isTitle />
+    <InfoHost {...user} infoHost isTitle replyRate={userMeta ? userMeta.replyRate : null} />
     <Receive
       isDelivery={
         space.receiptType === receiptTypeList.Both || space.receiptType === receiptTypeList.Delivery

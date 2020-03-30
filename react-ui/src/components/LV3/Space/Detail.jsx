@@ -182,6 +182,7 @@ export default ({
           user={user}
           recommend={recommend}
           breadcrumbsList={makeBreadCrumbs(space)}
+          userMeta={space.userMeta}
         />
       </LeftWrap>
       <RightWrap>
