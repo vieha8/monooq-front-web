@@ -26,10 +26,11 @@ const headContent = (id, imageUrl, name) => {
 };
 
 const LastLoginWrap = styled.div`
-  margin-top: ${Dimens.small}px;
+  margin-top: ${Dimens.xxsmall}px;
 `;
 
 const ReplyRateWrap = styled.div`
+  margin-top: ${Dimens.xxsmall}px;
   color: ${Colors.lightGray3};
   font-size: ${FontSizes.small_12}px;
 `;
