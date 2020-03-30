@@ -9,6 +9,7 @@ import Image from 'components/LV2/Space/Image';
 import Question from 'components/LV2/Space/Question';
 import RequestApplication from 'components/LV3/RequestApplication';
 import RequestApplicationSP from 'components/LV3/RequestApplication/SP';
+import UserMeta from 'components/LV2/UserMeta';
 import Info from './Info';
 
 const Wrap = styled.div`
@@ -198,17 +199,7 @@ export default ({
           confirm={confirm}
         >
           <RequestCard>
-            気になるスペースを見つけたら？
-            <br />
-            ホストに相談しよう
-            <img src={space.user.imageUrl} />
-            {space.user.name}
-            <br />
-            返信率
-            {space.userMeta && space.userMeta.replyRate}
-            <br />
-            最終ログイン
-            {space.user.lastLoginAt}
+            <UserMeta user={space.user} userMeta={space.userMeta} />
             {isModalOpen ? getCaptionMessage() : <Question />}
             <RequestButtonWrap>
               <RequestApplication
