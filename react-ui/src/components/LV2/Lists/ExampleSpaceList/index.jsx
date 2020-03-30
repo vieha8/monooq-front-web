@@ -193,7 +193,7 @@ export default ({ list }) => (
               </Dd>
             </Dl>
           </ItemSection>
-          <Caption>※20%はモノオクの手数料</Caption>
+          <Caption>※30%はモノオクの手数料</Caption>
         </Item>
       ))}
   </List>

@@ -822,7 +822,7 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
             {
               spaceImage: ImagePickupSpace3,
               spaceImageAlt: 'img-space3',
-              spaceImageprice: '3,000円〜',
+              spaceImageprice: '6,000円〜',
               station: '東北沢駅',
               walk: '2分',
               type: '部屋',
@@ -834,15 +834,15 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
               priceList: [
                 {
                   title: '1/4程度のスペースの月額料金',
-                  price: '3,000円',
-                },
-                {
-                  title: '半分のスペースの月額料金',
                   price: '6,000円',
                 },
                 {
+                  title: '半分のスペースの月額料金',
+                  price: '12,000円',
+                },
+                {
                   title: '全てのスペースの月額料金',
-                  price: '10,000円',
+                  price: '18,000円',
                 },
               ],
               spaceId: 2412,
