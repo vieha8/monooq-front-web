@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
-import 'moment/locale/ja';
 
+import { getDateRelativeLastLogin } from 'helpers/date';
 import { Colors, Dimens, FontSizes } from 'variables';
 
 const UserMeta = styled.div`
@@ -45,15 +44,17 @@ export default ({ userMeta, user }) => (
       <UserMetaImage src={user.imageUrl} />
     </UserMetaImageWrap>
     <UserMetaName>{user.name}</UserMetaName>
-    {userMeta && (
+    {userMeta && userMeta.replyRate != 0 && (
       <UserMetaRow>
         <UserMetaColTitle>返信率</UserMetaColTitle>
-        <UserMetaColBody>{(userMeta.replyRate * 100).toFixed(1)}%</UserMetaColBody>
+        <UserMetaColBody>{(userMeta.replyRate * 100).toFixed()}%</UserMetaColBody>
       </UserMetaRow>
     )}
-    <UserMetaRow>
-      <UserMetaColTitle>最終ログイン</UserMetaColTitle>
-      <UserMetaColBody>{moment(user.lastLoginAt).fromNow()}</UserMetaColBody>
-    </UserMetaRow>
+    {getDateRelativeLastLogin(user.lastLoginAt).viewText && (
+      <UserMetaRow>
+        <UserMetaColTitle>最終ログイン</UserMetaColTitle>
+        <UserMetaColBody>{getDateRelativeLastLogin(user.lastLoginAt).viewText}</UserMetaColBody>
+      </UserMetaRow>
+    )}
   </UserMeta>
 );
