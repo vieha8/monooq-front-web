@@ -39,19 +39,10 @@ const ReplyRate = styled.span`
   font-size: ${FontSizes.small_13}px;
 `;
 
-const contentHostName = (isNoProfile, message, name, prefCode, lastLoginAt, replyRate) => {
+const contentHostName = (name, lastLoginAt, replyRate) => {
   return (
     <Fragment>
       {`${formatName(name)}さん`}
-      {!isNoProfile && !message && (
-        <Fragment>
-          <br />
-          <InlineText.Base fontSize={FontSizes.small_12}>
-            {`${getPrefecture(prefCode)}在住`}
-          </InlineText.Base>
-        </Fragment>
-      )}
-      <br />
       <LastLoginWrap>
         <InlineText.Small>
           <StatusText setData={getDateRelativeLastLogin(lastLoginAt)} />
@@ -86,14 +77,7 @@ export default ({
       infoHost={infoHost}
       message={message}
       headContent={headContent(id, imageUrl, name)}
-      contentHostName={contentHostName(
-        isNoProfile,
-        message,
-        name,
-        prefCode,
-        lastLoginAt,
-        replyRate,
-      )}
+      contentHostName={contentHostName(name, lastLoginAt, replyRate)}
       contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
       isNoProfile={isNoProfile}
     />
