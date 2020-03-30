@@ -9,8 +9,8 @@ import Image from 'components/LV2/Space/Image';
 import Question from 'components/LV2/Space/Question';
 import RequestApplication from 'components/LV3/RequestApplication';
 import RequestApplicationSP from 'components/LV3/RequestApplication/SP';
-import UserMeta from 'components/LV2/UserMeta';
 import Info from './Info';
+import { getDateRelativeLastLogin } from 'helpers/date';
 
 const Wrap = styled.div`
   margin: auto;
@@ -110,6 +110,39 @@ const RequestButtonWrap = styled.div`
   margin: ${Dimens.medium}px auto;
 `;
 
+const UserMeta = styled.div`
+  color: ${Colors.darkGray1};
+  font-weight: bold;
+  padding: 0 0 ${Dimens.medium}px 0;
+`;
+const UserMetaTitle = styled.div`
+  font-size: ${FontSizes.medium}px;
+`;
+const UserMetaImageWrap = styled.div`
+  padding: ${Dimens.medium}px 0 ${Dimens.xxsmall_4}px 0;
+`;
+const UserMetaImage = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+`;
+const UserMetaName = styled.div`
+  font-size: ${FontSizes.medium1}px;
+  margin: 0 0 ${Dimens.small}px;
+`;
+const UserMetaRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${Dimens.xxsmall_4}px 0;
+`;
+const UserMetaColTitle = styled.div`
+  font-size: ${FontSizes.small_15}px;
+`;
+const UserMetaColBody = styled.div`
+  font-size: ${FontSizes.medium2}px;
+`;
+
 const makeBreadCrumbs = ({
   addressPref,
   prefCode,
@@ -192,7 +225,28 @@ export default ({
           confirm={confirm}
         >
           <RequestCard>
-            <UserMeta user={space.user} userMeta={space.userMeta} />
+            <UserMeta>
+              <UserMetaTitle>気になるスペースを見つけたら？</UserMetaTitle>
+              <UserMetaTitle>ホストに相談しよう</UserMetaTitle>
+              <UserMetaImageWrap>
+                <UserMetaImage src={space.user.imageUrl} />
+              </UserMetaImageWrap>
+              <UserMetaName>{space.user.name}</UserMetaName>
+              {space.userMeta && space.userMeta.replyRate != 0 && (
+                <UserMetaRow>
+                  <UserMetaColTitle>返信率</UserMetaColTitle>
+                  <UserMetaColBody>{(space.userMeta.replyRate * 100).toFixed()}%</UserMetaColBody>
+                </UserMetaRow>
+              )}
+              {getDateRelativeLastLogin(space.user.lastLoginAt).viewText && (
+                <UserMetaRow>
+                  <UserMetaColTitle>最終ログイン</UserMetaColTitle>
+                  <UserMetaColBody>
+                    {getDateRelativeLastLogin(space.user.lastLoginAt).viewText}
+                  </UserMetaColBody>
+                </UserMetaRow>
+              )}
+            </UserMeta>
             {isModalOpen ? getCaptionMessage() : <Question />}
             <RequestButtonWrap>
               <RequestApplication
