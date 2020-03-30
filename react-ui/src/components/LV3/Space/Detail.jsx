@@ -105,14 +105,6 @@ const RequestCard = styled.div`
   line-height: normal;
 `;
 
-const RequestTitle = styled.div`
-  font-weight: bold;
-  font-size: ${FontSizes.medium1}px;
-  line-height: normal;
-  color: ${Colors.black};
-  margin-bottom: ${Dimens.medium_20}px;
-`;
-
 const RequestButtonWrap = styled.div`
   min-width: 100%;
   margin: ${Dimens.medium}px auto;
