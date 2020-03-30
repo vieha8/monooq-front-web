@@ -3,6 +3,7 @@ import { ErrorMessages } from 'variables';
 import { getToday, generateDateAll } from 'helpers/date';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
 import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
+import { setErrorPhoneNumber, isPhoneNumberWithoutHyphen } from 'helpers/validations/phoneNumber';
 
 moment.locale('ja');
 
@@ -46,10 +47,7 @@ export const validate = (
     checkBreadth > 0 &&
     !isTrimmedEmpty(packageContents) &&
     isBelowTrimmedLimit(packageContents, Validate.PackageContents.Max) &&
-    (existPhoneNumber ||
-      (phoneNumber &&
-        (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
-          phoneNumber.match(Validate.phoneNumber.HyphenVer)))) &&
+    (existPhoneNumber || (phoneNumber && isPhoneNumberWithoutHyphen(phoneNumber))) &&
     isBelowTrimmedLimit(notes, Validate.Notes.Max) &&
     moment(startDateAll).isValid() &&
     moment(endDateAll).isValid() &&
@@ -86,16 +84,7 @@ export const handleChangeUI = (propName, inputValue, setItem, setErrors) => {
       break;
 
     case 'phoneNumber':
-      if (!inputValue || inputValue.replace(/\s/g, '').length === 0) {
-        setError.push(ErrorMessages.PleaseInput);
-      } else if (
-        !(
-          inputValue.match(Validate.phoneNumber.NoHyphenVer) ||
-          inputValue.match(Validate.phoneNumber.HyphenVer)
-        )
-      ) {
-        setError.push(ErrorMessages.InvalidPhoneNumber);
-      }
+      setErrorPhoneNumber(inputValue, setError);
       setErrors(state => ({ ...state, phoneNumber: setError }));
       break;
 
