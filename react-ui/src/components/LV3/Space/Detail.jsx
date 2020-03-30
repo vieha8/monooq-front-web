@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Path from 'config/path';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { getDateRelativeLastLogin } from 'helpers/date';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import SnsShare from 'components/LV2/SnsShare';
 import Image from 'components/LV2/Space/Image';
@@ -10,7 +11,6 @@ import Question from 'components/LV2/Space/Question';
 import RequestApplication from 'components/LV3/RequestApplication';
 import RequestApplicationSP from 'components/LV3/RequestApplication/SP';
 import Info from './Info';
-import { getDateRelativeLastLogin } from 'helpers/date';
 
 const Wrap = styled.div`
   margin: auto;
@@ -232,10 +232,12 @@ export default ({
                 <UserMetaImage src={space.user.imageUrl} />
               </UserMetaImageWrap>
               <UserMetaName>{space.user.name}</UserMetaName>
-              {space.userMeta && space.userMeta.replyRate != 0 && (
+              {space.userMeta && space.userMeta.replyRate !== 0 && (
                 <UserMetaRow>
                   <UserMetaColTitle>返信率</UserMetaColTitle>
-                  <UserMetaColBody>{(space.userMeta.replyRate * 100).toFixed()}%</UserMetaColBody>
+                  <UserMetaColBody>
+                    {`${(space.userMeta.replyRate * 100).toFixed()}%`}
+                  </UserMetaColBody>
                 </UserMetaRow>
               )}
               {getDateRelativeLastLogin(space.user.lastLoginAt).viewText && (

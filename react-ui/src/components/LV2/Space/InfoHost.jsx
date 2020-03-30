@@ -6,7 +6,6 @@ import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
 import { Dimens, FontSizes, Colors } from 'variables';
-import { getPrefecture } from 'helpers/prefectures';
 import { formatName } from 'helpers/string';
 import StatusText from 'components/LV1/Texts/StatusText';
 import Attribute from 'components/LV2/Space/Attribute';
@@ -48,10 +47,10 @@ const contentHostName = (name, lastLoginAt, replyRate) => {
           <StatusText setData={getDateRelativeLastLogin(lastLoginAt)} />
         </InlineText.Small>
       </LastLoginWrap>
-      {replyRate && replyRate != 0 && (
+      {replyRate && replyRate !== 0 && (
         <ReplyRateWrap>
-          {'返信率: '}
-          <ReplyRate>{`${(replyRate * 100).toFixed()}%`}</ReplyRate>
+          返信率:
+          <ReplyRate>{` ${(replyRate * 100).toFixed()}%`}</ReplyRate>
         </ReplyRateWrap>
       )}
     </Fragment>
@@ -65,7 +64,6 @@ export default ({
   id,
   imageUrl,
   name,
-  prefCode,
   profile,
   isNoProfile,
   lastLoginAt,
