@@ -79,7 +79,7 @@ storiesOf('Organisms(LV3)/ServiceOther', module)
                   >
                     PickGo
                   </LinkBlank>
-                  を使えば、引っ越しが 5,000円 から
+                  を使えば、引っ越しが 6,000円 から
                 </Fragment>
               ),
             },
