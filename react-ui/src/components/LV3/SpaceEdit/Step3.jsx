@@ -59,7 +59,7 @@ export default ({
           {isRoom ? (
             <InlineText.Bold>
               地域や条件によりますが、目安は
-              <UnderLine>1畳あたり約5,000〜7,000円/月</UnderLine>
+              <UnderLine>1畳あたり7,000円〜/月</UnderLine>
               です。
             </InlineText.Bold>
           ) : (

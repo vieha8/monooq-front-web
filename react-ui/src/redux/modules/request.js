@@ -2,6 +2,8 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import ReactGA from 'react-ga';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { formatName } from 'helpers/string';
 import { handleGTM } from 'helpers/gtm';
@@ -186,16 +188,14 @@ function* sendEstimateEmail(payload, messageDocId) {
   yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
 }
 
-const roomCollection = async () => {
-  const firebase = await import('firebase/app').catch(() => window.location.reload());
-  await import('firebase/firestore').catch(() => window.location.reload());
-  return firebase.firestore().collection('rooms');
+const roomCollection = () => {
+  const firestore = firebase.firestore();
+  return firestore.collection('rooms');
 };
 
 // Sagas
 function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
-  const c = yield call(roomCollection);
-  const roomDoc = c.doc(roomId);
+  const roomDoc = roomCollection().doc(roomId);
   const room = yield roomDoc.get();
   const { spaceId, userId1, userId2 } = room.data();
 
@@ -433,14 +433,13 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     return;
   }
 
-  const room = yield call(roomCollection);
   const message = {
     messageType: 3,
     createDt: new Date(),
     requestId: parseInt(requestId, 10),
   };
 
-  const roomDoc = room.doc(roomId);
+  const roomDoc = roomCollection().doc(roomId);
   yield roomDoc.collection('messages').add(message);
   yield roomDoc.set(
     {

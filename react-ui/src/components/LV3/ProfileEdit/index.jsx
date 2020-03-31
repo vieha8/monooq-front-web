@@ -15,15 +15,12 @@ import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
 import isEmailValid from 'helpers/validations/email';
+import { isPhoneNumberWithoutHyphen, setErrorPhoneNumber } from 'helpers/validations/phoneNumber';
 
 const PURPOSE_USER = '1';
 const PURPOSE_HOST = '2';
 
 const Validate = {
-  phoneNumber: {
-    NoHyphenVer: /^0\d{9,10}$/, // 先頭「0」+「半角数字9〜10桁」
-    HyphenVer: /^0\d{2,3}-\d{2,4}-\d{4}$/, // 先頭「0」＋「半角数字2〜3桁」＋「-」＋「半角数字1〜4桁」＋「-」＋「半角数字4桁」
-  },
   ImageSize: {
     Max: 10485760, // 10MB
   },
@@ -78,8 +75,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
       isBelowTrimmedLimit(name, Validate.Profile.nameMax) &&
       isEmailValid(email).result &&
       phoneNumber &&
-      (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
-        phoneNumber.match(Validate.phoneNumber.HyphenVer)) &&
+      isPhoneNumberWithoutHyphen(phoneNumber) &&
       prefCode &&
       (!profile || isBelowTrimmedLimit(profile, Validate.Profile.Max)) &&
       purpose
@@ -115,16 +111,7 @@ const ProfileEdit = ({ user, errMessage, buttonLoading }) => {
       }
 
       case 'phoneNumber':
-        if (!inputValue || inputValue.replace(/\s/g, '').length === 0) {
-          setError.push(ErrorMessages.PleaseInput);
-        } else if (
-          !(
-            inputValue.match(Validate.phoneNumber.NoHyphenVer) ||
-            inputValue.match(Validate.phoneNumber.HyphenVer)
-          )
-        ) {
-          setError.push(ErrorMessages.InvalidPhoneNumber);
-        }
+        setErrorPhoneNumber(inputValue, setError);
         break;
 
       case 'profile':
