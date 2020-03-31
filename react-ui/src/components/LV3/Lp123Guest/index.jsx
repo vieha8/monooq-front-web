@@ -441,6 +441,7 @@ const MeritTableTbodyTh = styled.th`
 const MeritTableTbodyTd = styled.td`
   padding: ${Dimens.small2}px ${Dimens.small}px;
   border: solid 1px ${Colors.lightGray2};
+  line-height: normal;
   ${props =>
     props.monooq &&
     `
@@ -714,7 +715,11 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
           <tbody>
             <tr>
               <MeritTableTbodyTh>1畳あたりの平均価格</MeritTableTbodyTh>
-              <MeritTableTbodyTd monooq>6,000円〜</MeritTableTbodyTd>
+              <MeritTableTbodyTd monooq>
+                3,000円〜
+                <br />
+                ※東京都内は別
+              </MeritTableTbodyTd>
               <MeritTableTbodyTd>15,000円〜</MeritTableTbodyTd>
             </tr>
             <tr>
@@ -766,7 +771,7 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
             {
               spaceImage: ImagePickupSpace1,
               spaceImageAlt: 'img-space1',
-              spaceImageprice: '5,000円〜',
+              spaceImageprice: '6,000円〜',
               station: '西川口駅',
               walk: '2分',
               type: '部屋',
@@ -778,7 +783,7 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
               priceList: [
                 {
                   title: '1/4程度のスペースの月額料金',
-                  price: '5,000円',
+                  price: '6,000円',
                 },
                 {
                   title: '半分のスペースの月額料金',
@@ -794,7 +799,7 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
             {
               spaceImage: ImagePickupSpace2,
               spaceImageAlt: 'img-space2',
-              spaceImageprice: '5,000円〜',
+              spaceImageprice: '6,000円〜',
               station: '成瀬駅',
               walk: '5分',
               type: '部屋',
@@ -806,7 +811,7 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
               priceList: [
                 {
                   title: '1/4程度のスペースの月額料金',
-                  price: '5,000円',
+                  price: '6,000円',
                 },
                 {
                   title: '半分のスペースの月額料金',
