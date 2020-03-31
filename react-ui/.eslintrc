@@ -21,6 +21,7 @@
     "fetch": true
   },
   "rules": {
+    "react/jsx-curly-newline": "off",
     "react/prop-types": 0,
     "react/prefer-stateless-function": 0,
     "react/jsx-fragments": [2, "element"],
