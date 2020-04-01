@@ -87,7 +87,7 @@ class MessagePage extends Component {
         }
         case MessageType.Estimate:
           {
-            const { startDate, endDate, price, requestId, request } = message;
+            const { startDate, endDate, requestId, request } = message;
             if (request) {
               return {
                 estimate: {
@@ -95,7 +95,8 @@ class MessagePage extends Component {
                   name: (room.space.user || {}).name,
                   beginAt: startDate.toDate(),
                   endAt: endDate.toDate(),
-                  price,
+                  price: request.price,
+                  fee: request.fee,
                   link: Path.payment(match.params.message_room_id, requestId),
                   receivedAt: message.createDt,
                   status: request.status,
