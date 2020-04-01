@@ -58,7 +58,6 @@ const HeadMessage = styled.div`
 const PaymentInputForm = ({
   space,
   paymentData,
-  requestPrice,
   paymentUrl,
   isPaymentSuccess,
   paidError,
@@ -308,7 +307,7 @@ const PaymentInputForm = ({
         backButton={backButton}
         onKeyDownBackButton={onKeyDownBackButton}
         textBackButton={getTextBackButton()}
-        disabledPayButton={!validate(requestPrice)}
+        disabledPayButton={!validate(paymentData.pricePlusFee)}
         buttonLoading={buttonLoading}
         onClickSubmit={onClickSubmit}
         onKeyDownPay={onKeyDownPay}
