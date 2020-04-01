@@ -334,10 +334,9 @@ class SalesPage extends Component {
 
   contentConfirm = () => {
     const { bankName, branchName, accountType, accountNumber, accountName } = this.state;
-    const { deposit } = this.props;
+    const { deposit, fee } = this.props;
 
-    const serviceFee = Math.round(deposit * 0.2);
-    const payout = deposit - serviceFee;
+    const payout = deposit - fee;
     const payoutFee = payout < 10000 ? 260 : 0;
 
     return (
@@ -358,7 +357,7 @@ class SalesPage extends Component {
           <SalesAmountItem title="お振込可能な売上" amount={deposit} />
         </SalesAmountItemWrap>
         <SalesAmountItemWrap confirm>
-          <SalesAmountItem title="サービス利用料" amount={serviceFee} />
+          <SalesAmountItem title="サービス利用料" amount={fee} />
         </SalesAmountItemWrap>
         <SalesAmountItemWrap confirm>
           <SalesAmountItem title="振込手数料" amount={payoutFee} />
@@ -456,6 +455,7 @@ const mapStateToProps = state => ({
   deposit: state.sales.deposit,
   pending: state.sales.pending,
   paid: state.sales.paid,
+  fee: state.sales.fee,
   isLoading: state.sales.isLoading,
   user: state.auth.user,
   isSend: state.sales.isSend,

@@ -28,6 +28,7 @@ const initialState = {
   deposit: 0,
   pending: 0,
   paid: 0,
+  fee: 0,
   isLoading: false,
 };
 
@@ -44,6 +45,7 @@ export const salesReducer = handleActions(
       deposit: action.payload.deposit,
       pending: action.payload.pending,
       paid: action.payload.paid,
+      fee: action.payload.fee,
       isLoading: false,
       isSend: false,
     }),
