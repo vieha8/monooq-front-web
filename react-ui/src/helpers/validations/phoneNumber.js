@@ -9,8 +9,7 @@ const ValidatePhoneNumber = {
 };
 
 const isPhoneNumberWithoutHyphen = phoneNumber =>
-  phoneNumber.match(ValidatePhoneNumber.NoHyphenVer) ||
-  phoneNumber.match(ValidatePhoneNumber.HyphenVer);
+  phoneNumber.match(ValidatePhoneNumber.NoHyphenVer);
 
 const setErrorPhoneNumber = (v, errorsArray) => {
   if (isPhoneNumberValid(v)) {
