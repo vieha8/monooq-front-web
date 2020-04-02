@@ -13,7 +13,8 @@ import { isTrimmedEmpty } from 'helpers/validations/string';
 
 const Validate = {
   PostalCode: {
-    Match: /^\d{3}-?\d{4}$/, // 7桁の数字であるか(ハイフンは任意)
+    ExtraHyphenMatch: /-/, // ハイフン付き
+    Match: /^\d{7}$/, // 7桁の数字であるか
   },
 };
 
@@ -23,6 +24,8 @@ const checkError = (name, value) => {
     case 'postalCode':
       if (isTrimmedEmpty(value)) {
         errors.push(`郵便番号を${ErrorMessages.PleaseInput}`);
+      } else if (value.match(Validate.PostalCode.ExtraHyphenMatch)) {
+        errors.push('ハイフンを除いて入力してください');
       } else if (!value.match(Validate.PostalCode.Match)) {
         errors.push(ErrorMessages.InvalidPostalCode);
       }
