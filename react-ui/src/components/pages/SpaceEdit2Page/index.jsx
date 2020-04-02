@@ -25,7 +25,7 @@ const checkError = (name, value) => {
       if (isTrimmedEmpty(value)) {
         errors.push(`郵便番号を${ErrorMessages.PleaseInput}`);
       } else if (value.match(Validate.PostalCode.ExtraHyphenMatch)) {
-        errors.push('ハイフンを除いて入力してください');
+        errors.push(ErrorMessages.PleaseWithoutHyphen);
       } else if (!value.match(Validate.PostalCode.Match)) {
         errors.push(ErrorMessages.InvalidPostalCode);
       }
