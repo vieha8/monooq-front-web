@@ -22,27 +22,7 @@ const Validate = {
   Password: /^([a-zA-Z0-9]{8,})$/,
 };
 
-const ViewMode = styled.div`
-  ${props =>
-    !props.isTop &&
-    `
-    display: block !important;
-  `};
-
-  ${props =>
-    props.sp &&
-    `
-    display: none;
-  `};
-  ${media.phone`
-    display: none;
-    ${props =>
-      props.sp &&
-      `
-      display: block;
-    `};
-  `};
-`;
+const ViewMode = styled.div``;
 
 const Title = styled.div`
   width: 100%;
@@ -153,19 +133,9 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
     dispatch(authActions.signupFacebook());
   };
 
-  const onClickToSignUp = () => {
-    amplitude.getInstance().logEvent('登録はこちら（SP）');
-    ReactGA.event({
-      category: 'signup',
-      action: 'OnClick To SignUp',
-      label: 'Top Page',
-    });
-    history.push(Path.signUp());
-  };
-
   return (
     <Fragment>
-      <ViewMode isTop={isTop}>
+      <ViewMode>
         {isTop && <Title>新規登録</Title>}
         {errorMessage && (
           <ErrorHeadWrap>
@@ -260,13 +230,6 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
           </ToLogin>
         )}
       </ViewMode>
-      {isTop && (
-        <ViewMode isTop sp>
-          <Button primary borderbold fontbold fill={1} onClick={onClickToSignUp}>
-            登録はこちら
-          </Button>
-        </ViewMode>
-      )}
     </Fragment>
   );
 };

@@ -32,7 +32,7 @@ const Wrap = styled.div`
       `};
   `};
   ${media.phone`
-    height: ${props => (props.isNoLogin ? '400' : '328')}px;
+    height: ${props => (props.isNoLogin ? '754' : '328')}px;
     background-image: url(${mainVisualSp});
     background-position: top center;
   `};
@@ -50,7 +50,7 @@ const TopViewWrap = styled.div`
     padding-top: ${props => (props.isNoLogin ? '120' : '158')}px;
   `};
   ${media.phone`
-    padding-top: ${props => (props.isNoLogin ? '140' : '98')}px;
+    padding-top: ${props => (props.isNoLogin ? '100' : '98')}px;
   `};
 `;
 
@@ -129,10 +129,7 @@ const FormWrap = styled.div`
     margin: auto;
   `};
   ${media.phone`
-    width: 100%;
-    padding: 0;
-    background-color: unset;
-    border: unset;
+    width: calc(100% - ${Dimens.medium3_40}px);
   `};
 `;
 
