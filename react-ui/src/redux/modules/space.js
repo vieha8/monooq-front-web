@@ -261,7 +261,7 @@ export const spaceReducer = handleActions(
       isLoadingAddress: false,
       errMessage: '',
     }),
-    [FETCH_USER_META_BEGIN]: (state, _) => ({
+    [FETCH_USER_META_BEGIN]: state => ({
       ...state,
       isUserMetaFetching: true,
     }),
@@ -273,7 +273,7 @@ export const spaceReducer = handleActions(
         userMeta: action.payload,
       },
     }),
-    [FETCH_USER_META_FAIL]: (state, _) => ({
+    [FETCH_USER_META_FAIL]: state => ({
       ...state,
       isUserMetaFetching: false,
     }),
