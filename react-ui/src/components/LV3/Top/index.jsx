@@ -15,13 +15,9 @@ const Wrap = styled.div`
   width: 100%;
 `;
 
-export default ({ sections, regionId, isNoLogin, isRegisterChecking, errorMessage }) => (
+export default ({ sections, regionId }) => (
   <Wrap>
-    <View
-      isNoLogin={isNoLogin}
-      isRegisterChecking={isRegisterChecking}
-      errorMessage={errorMessage}
-    />
+    <View />
     <PrefectureList list={areaPrefectures} regionId={regionId} />
     <MenuItemTopList
       list={[
