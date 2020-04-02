@@ -47,12 +47,12 @@ const contentHostName = (name, lastLoginAt, replyRate) => {
           <StatusText setData={getDateRelativeLastLogin(lastLoginAt)} />
         </InlineText.Small>
       </LastLoginWrap>
-      {replyRate && replyRate !== 0 && (
+      {replyRate && replyRate > 0 ? (
         <ReplyRateWrap>
           返信率:
           <ReplyRate>{` ${(replyRate * 100).toFixed()}%`}</ReplyRate>
         </ReplyRateWrap>
-      )}
+      ) : null}
     </Fragment>
   );
 };

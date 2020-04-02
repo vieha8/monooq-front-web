@@ -232,14 +232,14 @@ export default ({
                 <UserMetaImage src={space.user.imageUrl} />
               </UserMetaImageWrap>
               <UserMetaName>{space.user.name}</UserMetaName>
-              {space.userMeta && space.userMeta.replyRate !== 0 && (
+              {space.userMeta && space.userMeta.replyRate > 0 ? (
                 <UserMetaRow>
                   <UserMetaColTitle>返信率</UserMetaColTitle>
                   <UserMetaColBody>
                     {`${(space.userMeta.replyRate * 100).toFixed()}%`}
                   </UserMetaColBody>
                 </UserMetaRow>
-              )}
+              ) : null}
               {getDateRelativeLastLogin(space.user.lastLoginAt).viewText && (
                 <UserMetaRow>
                   <UserMetaColTitle>最終ログイン</UserMetaColTitle>
