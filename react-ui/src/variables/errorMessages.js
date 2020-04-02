@@ -4,6 +4,7 @@ export default {
   PleaseInput: '入力してください。',
   PleaseSelect: '選択してください。',
   PleaseDo: '行ってください。',
+  PleaseWithoutHyphen: 'ハイフンを除いて入力してください。',
   PriceNumber: '金額は半角数字(整数)で入力してください。',
   PriceFloat: name => `${name}は半角数字(小数点第一位まで指定可)で入力してください。`,
   PriceNumberName: name => `${name}は半角数字(整数)で入力してください。`,
