@@ -10,10 +10,10 @@ import { spaceActions } from 'redux/modules/space';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEditStep3 from 'components/LV3/SpaceEdit/Step3';
+import { isNumber } from 'helpers/validations/number';
 
 const Validate = {
   Price: {
-    Num: /^[0-9]+$/,
     Max: 300000,
     Min: 3000,
     MinTokyo: 6000,
@@ -24,7 +24,7 @@ const checkError = (value, addressPref) => {
   const errors = [];
   if (!value || value.length === 0) {
     errors.push(ErrorMessages.PleaseInput);
-  } else if (Number.isNaN(value) || !String(value).match(Validate.Price.Num)) {
+  } else if (!isNumber(value)) {
     errors.push(ErrorMessages.PriceNumber);
   } else {
     if (addressPref && addressPref === '東京都') {

@@ -14,6 +14,7 @@ import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
 import ModalToProfileEdit from 'components/LV3/ModalToProfileEdit';
 import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
+import { isFloat } from 'helpers/validations/number';
 
 const ZENKAKU_SPACE_LITERAL = '　';
 const SPACE_LITERAL = ' ';
@@ -394,7 +395,7 @@ class SpaceEdit1Page extends Component {
         break;
       case 'tatami':
         if (!isTrimmedEmpty(Number.toString(value))) {
-          if (Number.isNaN(value) || !String(value).match(Validate.Tatami.Num)) {
+          if (!isFloat(value)) {
             errors.push(ErrorMessages.PriceFloat('畳数'));
           } else {
             if (value < Validate.Tatami.Min) {
@@ -436,8 +437,7 @@ class SpaceEdit1Page extends Component {
       sizeType > 0 &&
       (!tatami ||
         (tatami &&
-          !Number.isNaN(tatami) &&
-          String(tatami).match(Validate.Tatami.Num) &&
+          isFloat(tatami) &&
           tatami >= Validate.Tatami.Min &&
           tatami <= Validate.Tatami.Max))
     );

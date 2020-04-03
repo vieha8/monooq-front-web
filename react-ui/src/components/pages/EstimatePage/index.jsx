@@ -6,11 +6,11 @@ import BaseTemplate from 'components/templates/BaseTemplate';
 import Estimate from 'components/LV3/Estimate';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
+import { isNumber } from 'helpers/validations/number';
 import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const Validate = {
   Price: {
-    Num: /^[0-9]+$/,
     Max: 300000,
     Min: 3000,
   },
@@ -48,7 +48,7 @@ class EstimatePage extends Component {
 
     if (!returnValue || returnValue.length === 0) {
       errors.push(ErrorMessages.PleaseInput);
-    } else if (Number.isNaN(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
+    } else if (!isNumber(returnValue)) {
       errors.push(ErrorMessages.PriceNumber);
     } else {
       if (returnValue < Validate.Price.Min) {
