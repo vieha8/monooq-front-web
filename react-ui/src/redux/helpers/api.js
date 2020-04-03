@@ -8,6 +8,7 @@ export const apiEndpoint = {
   login: () => `/auth/login`,
   users: id => (id ? `/users/${id}` : `/users`),
   userSpaces: id => `/users/${id}/spaces`,
+  userMeta: id => `/users/${id}/meta`,
   addUserSpaceAccessLog: (userId, spaceId) => `users/${userId}/spaces/${spaceId}`,
   spaces: id => (id ? `/spaces/${id}` : `/spaces`),
   spacesRecommend: id => `/spaces/${id}/recommend/sims`,

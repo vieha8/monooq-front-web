@@ -5,8 +5,7 @@ import { getDateRelativeLastLogin } from 'helpers/date';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Path from 'config/path';
-import { Dimens, FontSizes } from 'variables';
-import { getPrefecture } from 'helpers/prefectures';
+import { Dimens, FontSizes, Colors } from 'variables';
 import { formatName } from 'helpers/string';
 import StatusText from 'components/LV1/Texts/StatusText';
 import Attribute from 'components/LV2/Space/Attribute';
@@ -26,27 +25,34 @@ const headContent = (id, imageUrl, name) => {
 };
 
 const LastLoginWrap = styled.div`
-  margin-top: ${Dimens.small}px;
+  margin-top: ${Dimens.xxsmall}px;
 `;
 
-const contentHostName = (isNoProfile, message, name, prefCode, lastLoginAt) => {
+const ReplyRateWrap = styled.div`
+  margin-top: ${Dimens.xxsmall}px;
+  color: ${Colors.lightGray3};
+  font-size: ${FontSizes.small_12}px;
+`;
+const ReplyRate = styled.span`
+  color: ${Colors.black2};
+  font-size: ${FontSizes.small_13}px;
+`;
+
+const contentHostName = (name, lastLoginAt, replyRate) => {
   return (
     <Fragment>
       {`${formatName(name)}さん`}
-      {!isNoProfile && !message && (
-        <Fragment>
-          <br />
-          <InlineText.Base fontSize={FontSizes.small_12}>
-            {`${getPrefecture(prefCode)}在住`}
-          </InlineText.Base>
-        </Fragment>
-      )}
-      <br />
       <LastLoginWrap>
         <InlineText.Small>
           <StatusText setData={getDateRelativeLastLogin(lastLoginAt)} />
         </InlineText.Small>
       </LastLoginWrap>
+      {replyRate && replyRate > 0 ? (
+        <ReplyRateWrap>
+          返信率:
+          <ReplyRate>{` ${(replyRate * 100).toFixed()}%`}</ReplyRate>
+        </ReplyRateWrap>
+      ) : null}
     </Fragment>
   );
 };
@@ -58,10 +64,10 @@ export default ({
   id,
   imageUrl,
   name,
-  prefCode,
   profile,
   isNoProfile,
   lastLoginAt,
+  replyRate,
 }) => (
   <Fragment>
     {isTitle && <SectionTitle text="ホストについて" />}
@@ -69,7 +75,7 @@ export default ({
       infoHost={infoHost}
       message={message}
       headContent={headContent(id, imageUrl, name)}
-      contentHostName={contentHostName(isNoProfile, message, name, prefCode, lastLoginAt)}
+      contentHostName={contentHostName(name, lastLoginAt, replyRate)}
       contentProfile={<ProfileWrap>{profile}</ProfileWrap>}
       isNoProfile={isNoProfile}
     />
