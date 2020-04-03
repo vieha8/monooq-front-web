@@ -259,7 +259,7 @@ const PaymentInputForm = ({
   };
 
   let isConfirm = false;
-  if (modeView === MODE_VIEW_CONFIRM) {
+  if (modeView === MODE_VIEW_CONFIRM && !errMsgPayment) {
     isConfirm = true;
   }
 
@@ -283,15 +283,14 @@ const PaymentInputForm = ({
   return (
     <Fragment>
       <HeadMessage>
-        {isConfirm ? 'お支払い内容を確認してください' : 'お支払い方法を選択してください'}
+        {errMsgPayment ||
+          (isConfirm ? 'お支払い内容をご確認ください' : 'お支払い方法を選択してください')}
       </HeadMessage>
       <Spacer />
       <Info space={space} />
       <InputForm
         paymentData={paymentData}
         errors={errors}
-        paidError={paidError}
-        errMsgPayment={errMsgPayment}
         isConfirm={isConfirm}
         paymentMethod={paymentMethod}
         number={number}

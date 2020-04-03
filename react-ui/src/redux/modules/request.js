@@ -345,7 +345,7 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     token,
   );
 
-  let errMsg = '以下の理由により決済ができませんでした。\n';
+  let errMsg = '決済ができませんでした。\n';
   const errMsgCs = `${errMsg}繰り返し失敗する場合、モノオクカスタマーサポートまでお問い合わせください。`;
 
   if (err) {
@@ -403,29 +403,27 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
   if (err2) {
     switch (err2) {
       case 'invalid_security_code':
-        errMsg += 'セキュリティコードが無効です。';
+        errMsg = 'セキュリティコードに誤りがあります';
         break;
-
       case 'insufficient_fund':
-        errMsg += 'カードの与信限度枠を超えています';
+        errMsg = 'カードの与信限度枠を超えています';
         break;
-
       case 'stolen_or_lost_card': // このカードは盗難カードまたは紛失カードです
       case 'failed_fraud_check': // このカードは不正だと判定されました。
-        errMsg +=
+        errMsg =
           'こちらのカードはご利用いただくことができません。\n詳細はカード会社にお問い合わせください。';
         break;
-
       case 'failed_processing': // トランザクション処理のプロセスが失敗しました。
       case 'payment_rejected': // 何らかの理由により、課金が拒否されました。
       case 'invalid_account_number': // 利用できないカード番号です。
         errMsg = errMsgCs;
         break;
       case 'already_paid':
-        errMsg += 'お支払済みです。';
+        errMsg = 'この見積もりは既にお支払済みです';
         break;
       default:
-        errMsg += 'カード名義・カード番号・有効期限・セキュリティコードをお確かめください。';
+        errMsg =
+          '決済に失敗しました。カード名義・カード番号・有効期限・セキュリティコードをお確かめください。';
         break;
     }
 
