@@ -38,11 +38,11 @@ class MessagePage extends Component {
     return null;
   }
 
-  componentDidUpdate(prevProps) {
-    const messagesCount = this.props.messages.length;
-    if (messagesCount > 0 && prevProps.isLoading && !this.props.isLoading) {
-      const last = messagesCount + 1;
-      const id = `message_item_${last}`;
+  componentDidUpdate() {
+    const { messages, isLoading } = this.props;
+    const messagesCount = messages.length;
+    if (messagesCount > 0 && !isLoading) {
+      const id = `message_item_${messagesCount}`;
       if (document.getElementById(id)) {
         const target = document.getElementById(id);
         target.scrollIntoView({
