@@ -182,6 +182,7 @@ export default ({ messages, lastReadDt, userIdFrom, userIdTo, hostUser, isOpenMo
                 beginAt={formatDate(new Date(message.estimate.beginAt), formatStringSlash)}
                 endAt={formatDate(new Date(message.estimate.endAt), formatStringSlash)}
                 price={message.estimate.price}
+                fee={message.estimate.fee}
                 receivedAt={formatDate(
                   new Date(message.estimate.receivedAt),
                   formatStringSlashTime,

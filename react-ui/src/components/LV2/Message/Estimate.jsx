@@ -183,6 +183,7 @@ export default ({
   beginAt,
   endAt,
   price,
+  fee,
   host,
   status,
   receivedAt,
@@ -208,8 +209,15 @@ export default ({
         {endAt}
       </Text>
       <Text>
-        料金：
-        {`${formatAddComma(price)}円`}
+        お支払い金額：
+        {`${formatAddComma(price + fee)}円`}
+        {fee > 0 && (
+          <Fragment>
+            <br />
+            (スペース利用料
+            {formatAddComma(price)}円 + サービス利用料{formatAddComma(fee)}円)
+          </Fragment>
+        )}
       </Text>
       <CaptionWrapper>
         <Text>

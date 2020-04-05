@@ -39,7 +39,7 @@ export default ({ onChange, value, errors }) => (
       </Text>
       <Text>
         <InlineText.EmphasisTiny>
-          ※取引成立時の売上は、ユーザーがホストへお支払いするスペース利用総額からサービス手数料20%を引いた金額となります。
+          ※取引成立時の売上は、ゲストがホストへお支払いするスペース利用総額からサービス手数料30%を引いた金額となります。
         </InlineText.EmphasisTiny>
       </Text>
     </TextWrap>

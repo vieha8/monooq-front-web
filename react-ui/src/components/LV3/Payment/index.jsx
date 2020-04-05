@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import moment from 'moment';
+import numeral from 'numeral';
 import Path from 'config/path';
 import { Dimens, Colors, FontSizes, ZIndexes, ErrorMessages } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -58,7 +59,6 @@ const HeadMessage = styled.div`
 const PaymentInputForm = ({
   space,
   paymentData,
-  requestPrice,
   paymentUrl,
   isPaymentSuccess,
   paidError,
@@ -307,7 +307,7 @@ const PaymentInputForm = ({
         backButton={backButton}
         onKeyDownBackButton={onKeyDownBackButton}
         textBackButton={getTextBackButton()}
-        disabledPayButton={!validate(requestPrice)}
+        disabledPayButton={!validate(numeral(paymentData.pricePlusFee).value())}
         buttonLoading={buttonLoading}
         onClickSubmit={onClickSubmit}
         onKeyDownPay={onKeyDownPay}
