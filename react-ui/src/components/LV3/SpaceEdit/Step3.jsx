@@ -93,7 +93,7 @@ export default ({
     <Section marginTop={20}>
       <CommissionWrap>
         <InlineText.Base>
-          スペース利用料の80%が取引成立時の売り上げになります。残りの20%はモノオクが手数料として頂戴し、プラットフォーム運営費用や保管荷物の保険料として活用いたします。
+          スペース利用料の70%が取引成立時の売り上げになります。残りの30%はモノオクが手数料として頂戴し、プラットフォーム運営費用や保管荷物の保険料として活用いたします。
         </InlineText.Base>
       </CommissionWrap>
     </Section>
