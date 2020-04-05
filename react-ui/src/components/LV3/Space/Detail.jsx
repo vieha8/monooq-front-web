@@ -229,9 +229,9 @@ export default ({
               <UserMetaTitle>気になるスペースを見つけたら？</UserMetaTitle>
               <UserMetaTitle>ホストに相談しよう</UserMetaTitle>
               <UserMetaImageWrap>
-                <UserMetaImage src={space.user.imageUrl} />
+                <UserMetaImage src={user.imageUrl} />
               </UserMetaImageWrap>
-              <UserMetaName>{space.user.name}</UserMetaName>
+              <UserMetaName>{user.name}</UserMetaName>
               {space.userMeta && space.userMeta.replyRate > 0 ? (
                 <UserMetaRow>
                   <UserMetaColTitle>返信率</UserMetaColTitle>
@@ -240,7 +240,7 @@ export default ({
                   </UserMetaColBody>
                 </UserMetaRow>
               ) : null}
-              {getDateRelativeLastLogin(space.user.lastLoginAt).viewText && (
+              {getDateRelativeLastLogin(user.lastLoginAt).viewText && (
                 <UserMetaRow>
                   <UserMetaColTitle>最終ログイン</UserMetaColTitle>
                   <UserMetaColBody>
