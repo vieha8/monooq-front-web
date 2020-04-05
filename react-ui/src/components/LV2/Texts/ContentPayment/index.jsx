@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors } from 'variables';
@@ -22,7 +22,7 @@ const Text = styled(InlineText.Base)`
   line-height: 2;
 `;
 
-export default ({ beginAt, endAt, duration, price, noDescription }) => (
+export default ({ beginAt, endAt, duration, price, fee, pricePlusFee, noDescription }) => (
   <div>
     <Row>
       <Text>利用スケジュール</Text>
@@ -38,8 +38,15 @@ export default ({ beginAt, endAt, duration, price, noDescription }) => (
     <Row>
       <Text>お支払い金額</Text>
       <Text>
-        {price}
+        {pricePlusFee}
         円（税込）
+        {fee !== '0' && (
+          <Fragment>
+            <br />
+            (スペース利用料
+            {price}円 + サービス利用料{fee}円)
+          </Fragment>
+        )}
       </Text>
     </Row>
     {!noDescription && (

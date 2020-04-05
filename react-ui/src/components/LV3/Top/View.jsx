@@ -4,7 +4,6 @@ import { media } from 'helpers/style/media-query';
 import { Dimens, Colors } from 'variables';
 import PageDefault from 'components/LV1/PageDefault';
 import TopViewTitle from 'components/LV2/Texts/TopViewTitle';
-import RegisterEmail from 'components/LV3/RegisterEmail/';
 import SearchForm from 'components/LV3/Top/SearchForm';
 
 const mainVisual =
@@ -32,7 +31,7 @@ const Wrap = styled.div`
       `};
   `};
   ${media.phone`
-    height: ${props => (props.isNoLogin ? '400' : '328')}px;
+    height: ${props => (props.isNoLogin ? '754' : '328')}px;
     background-image: url(${mainVisualSp});
     background-position: top center;
   `};
@@ -50,7 +49,7 @@ const TopViewWrap = styled.div`
     padding-top: ${props => (props.isNoLogin ? '120' : '158')}px;
   `};
   ${media.phone`
-    padding-top: ${props => (props.isNoLogin ? '140' : '98')}px;
+    padding-top: ${props => (props.isNoLogin ? '100' : '98')}px;
   `};
 `;
 
@@ -113,53 +112,18 @@ const TopViewContainer = styled(PageDefault)`
   `};
 `;
 
-const FormWrap = styled.div`
-  width: 100%;
-  max-width: 382px;
-  height: fit-content;
-  margin: auto 0;
-  padding: ${Dimens.medium_20}px;
-  background-color: ${Colors.white};
-  border: 1px solid ${Colors.borderGray};
-  ${media.giant`
-    max-width: 300px;
-  `};
-  ${media.tablet`
-    max-width: 382px;
-    margin: auto;
-  `};
-  ${media.phone`
-    width: 100%;
-    padding: 0;
-    background-color: unset;
-    border: unset;
-  `};
-`;
-
 const InputSearchWrap = styled.div`
   margin: ${Dimens.medium_20}px auto ${Dimens.medium3_40}px;
 `;
 
-export default ({ isNoLogin, isRegisterChecking, errorMessage }) => (
-  <Wrap isNoLogin={isNoLogin}>
-    <TopViewWrap className="wrapTopView" isNoLogin={isNoLogin}>
-      <TopViewContainer className="container-topview" isNoLogin={isNoLogin}>
-        {isNoLogin && (
-          <FormWrap>
-            <RegisterEmail
-              isTop
-              isRegisterChecking={isRegisterChecking}
-              gaLabel="Top Page"
-              errorMessage={errorMessage}
-            />
-          </FormWrap>
-        )}
-        <TopViewTitle isNoLogin={isNoLogin} />
-        {!isNoLogin && (
-          <InputSearchWrap>
-            <SearchForm />
-          </InputSearchWrap>
-        )}
+export default () => (
+  <Wrap>
+    <TopViewWrap className="wrapTopView">
+      <TopViewContainer className="container-topview">
+        <TopViewTitle />
+        <InputSearchWrap>
+          <SearchForm />
+        </InputSearchWrap>
       </TopViewContainer>
     </TopViewWrap>
   </Wrap>

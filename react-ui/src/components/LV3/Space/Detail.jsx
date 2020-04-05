@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Path from 'config/path';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { getDateRelativeLastLogin } from 'helpers/date';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import SnsShare from 'components/LV2/SnsShare';
 import Image from 'components/LV2/Space/Image';
@@ -104,17 +105,42 @@ const RequestCard = styled.div`
   line-height: normal;
 `;
 
-const RequestTitle = styled.div`
-  font-weight: bold;
-  font-size: ${FontSizes.medium1}px;
-  line-height: normal;
-  color: ${Colors.black};
-  margin-bottom: ${Dimens.medium_20}px;
-`;
-
 const RequestButtonWrap = styled.div`
   min-width: 100%;
   margin: ${Dimens.medium}px auto;
+`;
+
+const UserMeta = styled.div`
+  color: ${Colors.darkGray1};
+  font-weight: bold;
+  padding: 0 0 ${Dimens.medium}px 0;
+`;
+const UserMetaTitle = styled.div`
+  font-size: ${FontSizes.medium}px;
+`;
+const UserMetaImageWrap = styled.div`
+  padding: ${Dimens.medium}px 0 ${Dimens.xxsmall_4}px 0;
+`;
+const UserMetaImage = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+`;
+const UserMetaName = styled.div`
+  font-size: ${FontSizes.medium1}px;
+  margin: 0 0 ${Dimens.small}px;
+`;
+const UserMetaRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${Dimens.xxsmall_4}px 0;
+`;
+const UserMetaColTitle = styled.div`
+  font-size: ${FontSizes.small_15}px;
+`;
+const UserMetaColBody = styled.div`
+  font-size: ${FontSizes.medium2}px;
 `;
 
 const makeBreadCrumbs = ({
@@ -189,6 +215,7 @@ export default ({
           user={user}
           recommend={recommend}
           breadcrumbsList={makeBreadCrumbs(space)}
+          userMeta={space.userMeta}
         />
       </LeftWrap>
       <RightWrap>
@@ -198,8 +225,30 @@ export default ({
           confirm={confirm}
         >
           <RequestCard>
-            気になるスペースを見つけたら？
-            <RequestTitle>ホストに相談しよう</RequestTitle>
+            <UserMeta>
+              <UserMetaTitle>気になるスペースを見つけたら？</UserMetaTitle>
+              <UserMetaTitle>ホストに相談しよう</UserMetaTitle>
+              <UserMetaImageWrap>
+                <UserMetaImage src={user.imageUrl} />
+              </UserMetaImageWrap>
+              <UserMetaName>{user.name}</UserMetaName>
+              {space.userMeta && space.userMeta.replyRate > 0 ? (
+                <UserMetaRow>
+                  <UserMetaColTitle>返信率</UserMetaColTitle>
+                  <UserMetaColBody>
+                    {`${(space.userMeta.replyRate * 100).toFixed()}%`}
+                  </UserMetaColBody>
+                </UserMetaRow>
+              ) : null}
+              {getDateRelativeLastLogin(user.lastLoginAt).viewText && (
+                <UserMetaRow>
+                  <UserMetaColTitle>最終ログイン</UserMetaColTitle>
+                  <UserMetaColBody>
+                    {getDateRelativeLastLogin(space.user.lastLoginAt).viewText}
+                  </UserMetaColBody>
+                </UserMetaRow>
+              )}
+            </UserMeta>
             {isModalOpen ? getCaptionMessage() : <Question />}
             <RequestButtonWrap>
               <RequestApplication

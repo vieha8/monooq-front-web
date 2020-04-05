@@ -13,6 +13,7 @@ import { uiActions } from 'redux/modules/ui';
 import Button from 'components/LV1/Forms/Button';
 import LinkCancel from 'components/LV2/Space/LinkCancel';
 import SendMessageButton from 'components/LV2/Space/SendMessageButton';
+import amplitude from 'amplitude-js/amplitude';
 import Form from './Form';
 import {
   handleChangeUI,
@@ -115,9 +116,16 @@ const RequestApplication = ({
 
   const onClickButton = () => {
     if (!isLogin) {
+      amplitude.getInstance().logEvent('リクエスト - リクエストボタンをクリック（非ログイン）', {
+        spaceId: space.id,
+      });
       handleSignUp();
       return;
     }
+
+    amplitude.getInstance().logEvent('リクエスト - リクエストボタンをクリック（ログイン）', {
+      spaceId: space.id,
+    });
 
     dispatch(
       loggerActions.recordEvent({
@@ -135,21 +143,23 @@ const RequestApplication = ({
       history.push(Path.login());
       return;
     }
-    dispatch(
-      requestActions.request({
-        user: loginUser,
-        space,
-        body: {
-          usage,
-          breadth,
-          packageContents,
-          phoneNumber: !existPhoneNumber ? phoneNumber : '',
-          notes,
-          startDate,
-          endDate,
-        },
-      }),
-    );
+
+    const payload = {
+      user: loginUser,
+      space,
+      body: {
+        usage,
+        breadth,
+        packageContents,
+        phoneNumber: !existPhoneNumber ? phoneNumber : '',
+        notes,
+        startDate,
+        endDate,
+      },
+    };
+
+    amplitude.getInstance().logEvent('リクエスト - リクエスト申請クリック', payload);
+    dispatch(requestActions.request(payload));
   };
 
   const onKeyDownButtonMessage = e => {

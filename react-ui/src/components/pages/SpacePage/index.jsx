@@ -36,9 +36,19 @@ class SpacePage extends Component {
 
   componentDidUpdate(prevProps) {
     // おすすめから遷移した時はconstructorが発火しないのでここで
-    const spaceId = this.props.match.params.space_id;
-    if (prevProps.space && prevProps.space.id !== Number(spaceId) && !this.props.isLoading) {
+    const { match, isLoading } = this.props;
+    const spaceId = match.params.space_id;
+    if (prevProps.space && prevProps.space.id !== Number(spaceId) && !isLoading) {
       this.init();
+    }
+
+    const { space } = prevProps;
+    if (space) {
+      const { userId, userMeta } = space;
+      if (!userMeta && userId) {
+        const { dispatch } = this.props;
+        dispatch(spaceActions.fetchUserMeta({ userId }));
+      }
     }
   }
 

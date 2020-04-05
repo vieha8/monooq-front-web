@@ -38,11 +38,11 @@ class MessagePage extends Component {
     return null;
   }
 
-  componentDidUpdate(prevProps) {
-    const messagesCount = this.props.messages.length;
-    if (messagesCount > 0 && prevProps.isLoading && !this.props.isLoading) {
-      const last = messagesCount + 1;
-      const id = `message_item_${last}`;
+  componentDidUpdate() {
+    const { messages, isLoading } = this.props;
+    const messagesCount = messages.length;
+    if (messagesCount > 0 && !isLoading) {
+      const id = `message_item_${messagesCount}`;
       if (document.getElementById(id)) {
         const target = document.getElementById(id);
         target.scrollIntoView({
@@ -87,7 +87,7 @@ class MessagePage extends Component {
         }
         case MessageType.Estimate:
           {
-            const { startDate, endDate, price, requestId, request } = message;
+            const { startDate, endDate, requestId, request } = message;
             if (request) {
               return {
                 estimate: {
@@ -95,7 +95,8 @@ class MessagePage extends Component {
                   name: (room.space.user || {}).name,
                   beginAt: startDate.toDate(),
                   endAt: endDate.toDate(),
-                  price,
+                  price: request.price,
+                  fee: request.fee,
                   link: Path.payment(match.params.message_room_id, requestId),
                   receivedAt: message.createDt,
                   status: request.status,

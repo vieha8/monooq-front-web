@@ -87,8 +87,6 @@ const Padding = styled.span`
 export default ({
   paymentData,
   errors,
-  paidError,
-  errMsgPayment,
   isConfirm,
   paymentMethod,
   number,
@@ -117,11 +115,6 @@ export default ({
     </Row>
     <Row noMarginTop borderTop borderBottom>
       <H2 as="h2">お支払い方法</H2>
-      {paidError && (
-        <Row>
-          <InlineText.Base color={Colors.error}>{errMsgPayment}</InlineText.Base>
-        </Row>
-      )}
       {isConfirm ? (
         <ConfirmText paymentMethod={paymentMethod} number={number} name={name} />
       ) : (

@@ -21,15 +21,7 @@ class TopPage extends React.Component {
   }
 
   render() {
-    const {
-      sections,
-      regionId,
-      isChecking,
-      user,
-      intercomHash,
-      isRegistering,
-      errorMessage,
-    } = this.props;
+    const { sections, regionId, isChecking, user, intercomHash } = this.props;
 
     if (isChecking) {
       return <LoadingPage />;
@@ -41,13 +33,7 @@ class TopPage extends React.Component {
 
     return (
       <Fragment>
-        <Top
-          sections={sections}
-          isNoLogin={!user.id}
-          isRegisterChecking={isRegistering}
-          errorMessage={errorMessage}
-          regionId={regionId}
-        />
+        <Top sections={sections} regionId={regionId} />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"
@@ -68,8 +54,6 @@ const mapStateToProps = state => ({
   isChecking: state.auth.isChecking,
   user: state.auth.user,
   intercomHash: state.auth.intercom.hash,
-  isRegistering: state.auth.isRegistering,
-  errorMessage: state.auth.errorMessage,
 });
 
 export default connect(mapStateToProps)(TopPage);
