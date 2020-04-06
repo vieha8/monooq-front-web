@@ -7,8 +7,9 @@ import { ErrorMessages } from 'variables';
 import { handleAccessTrade, handleCircuitX } from 'helpers/asp';
 import { handleGTM } from 'helpers/gtm';
 import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
-import { isPhoneNumberWithoutHyphen } from 'helpers/validations/phoneNumber';
+import { isPhoneNumberWithoutHyphen, setErrorPhoneNumber } from 'helpers/validations/phoneNumber';
 import amplitude from 'amplitude-js/amplitude';
+
 const Validate = {
   ImageSize: {
     Max: 10485760, // 10MB
@@ -112,11 +113,7 @@ export default class RegisterProfilePage extends Component {
         break;
 
       case 'phoneNumber':
-        if (!value || value.replace(/\s/g, '').length === 0) {
-          errors.push(ErrorMessages.PleaseInput);
-        } else if (!isPhoneNumberWithoutHyphen(value)) {
-          errors.push(ErrorMessages.InvalidPhoneNumber);
-        } else {
+        if (setErrorPhoneNumber(value, errors)) {
           amplitude.getInstance().logEvent('新規登録 - 電話番号入力完了');
         }
         break;
