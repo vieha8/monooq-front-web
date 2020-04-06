@@ -7,14 +7,11 @@ import { ErrorMessages } from 'variables';
 import { handleAccessTrade, handleCircuitX } from 'helpers/asp';
 import { handleGTM } from 'helpers/gtm';
 import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
+import { isPhoneNumberWithoutHyphen } from 'helpers/validations/phoneNumber';
 import amplitude from 'amplitude-js/amplitude';
 const Validate = {
   ImageSize: {
     Max: 10485760, // 10MB
-  },
-  phoneNumber: {
-    NoHyphenVer: /^0\d{9,10}$/, // 先頭「0」+「半角数字9〜10桁」
-    HyphenVer: /^0\d{2,3}-\d{2,4}-\d{4}$/, // 先頭「0」＋「半角数字2〜3桁」＋「-」＋「半角数字1〜4桁」＋「-」＋「半角数字4桁」
   },
   Profile: {
     nameMax: 40,
@@ -117,12 +114,7 @@ export default class RegisterProfilePage extends Component {
       case 'phoneNumber':
         if (!value || value.replace(/\s/g, '').length === 0) {
           errors.push(ErrorMessages.PleaseInput);
-        } else if (
-          !(
-            value.match(Validate.phoneNumber.NoHyphenVer) ||
-            value.match(Validate.phoneNumber.HyphenVer)
-          )
-        ) {
+        } else if (!isPhoneNumberWithoutHyphen(value)) {
           errors.push(ErrorMessages.InvalidPhoneNumber);
         } else {
           amplitude.getInstance().logEvent('新規登録 - 電話番号入力完了');
@@ -153,8 +145,7 @@ export default class RegisterProfilePage extends Component {
       !isTrimmedEmpty(name) &&
       isBelowTrimmedLimit(name, Validate.Profile.nameMax) &&
       phoneNumber &&
-      (phoneNumber.match(Validate.phoneNumber.NoHyphenVer) ||
-        phoneNumber.match(Validate.phoneNumber.HyphenVer)) &&
+      isPhoneNumberWithoutHyphen(phoneNumber) &&
       prefCode
     );
   };
