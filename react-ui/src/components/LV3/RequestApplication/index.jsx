@@ -8,7 +8,6 @@ import Path from 'config/path';
 import { Colors } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { requestActions } from 'redux/modules/request';
-import { loggerActions } from 'redux/modules/logger';
 import { uiActions } from 'redux/modules/ui';
 import Button from 'components/LV1/Forms/Button';
 import LinkCancel from 'components/LV2/Space/LinkCancel';
@@ -126,13 +125,6 @@ const RequestApplication = ({
     amplitude.getInstance().logEvent('リクエスト - リクエストボタンをクリック（ログイン）', {
       spaceId: space.id,
     });
-
-    dispatch(
-      loggerActions.recordEvent({
-        event: 'space_request_click',
-        detail: { spaceId: space.id },
-      }),
-    );
 
     handleModalOpen();
   };

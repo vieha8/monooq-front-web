@@ -9,7 +9,6 @@ import { requestReducer } from 'redux/modules/request';
 import { salesReducer } from 'redux/modules/sales';
 import { errorReducer } from 'redux/modules/error';
 import { initReducer } from 'redux/modules/init';
-import { loggerReducer } from 'redux/modules/logger';
 import { sectionReducer } from 'redux/modules/section';
 
 const createReducers = history =>
@@ -25,7 +24,6 @@ const createReducers = history =>
     error: errorReducer,
     init: initReducer,
     section: sectionReducer,
-    logger: loggerReducer,
   });
 
 export default createReducers;

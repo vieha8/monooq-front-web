@@ -9,7 +9,6 @@ import { formatName } from 'helpers/string';
 import { handleGTM } from 'helpers/gtm';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
 import { getUsages } from 'helpers/usages';
-import { loggerActions } from 'redux/modules/logger';
 import { authActions, getToken } from './auth';
 import { createOmiseToken } from '../helpers/omise';
 import Path from '../../config/path';
@@ -549,18 +548,6 @@ function* request({ payload: { user, space, body } }) {
     }
     localStorage.setItem('request_params', JSON.stringify(params));
   }
-
-  yield put(
-    loggerActions.recordEvent({
-      event: 'space_requests',
-      detail: {
-        spaceId: space.id,
-        userId: user.id,
-        roomId,
-        ...params,
-      },
-    }),
-  );
 
   ReactGA.plugin.execute('ec', 'addProduct', {
     id: space.id,

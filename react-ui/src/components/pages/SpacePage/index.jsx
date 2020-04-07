@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga';
-import { loggerActions } from 'redux/modules/logger';
 import { spaceActions } from 'redux/modules/space';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import Meta from 'components/LV1/Meta';
@@ -96,13 +95,6 @@ class SpacePage extends Component {
     dispatch(spaceActions.fetchSpace({ spaceId }));
     dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
     dispatch(spaceActions.getRecommendSpaces({ spaceId }));
-
-    dispatch(
-      loggerActions.recordEvent({
-        event: 'space_views',
-        detail: { spaceId },
-      }),
-    );
   };
 
   makeMetaBreadcrumbs = space => {

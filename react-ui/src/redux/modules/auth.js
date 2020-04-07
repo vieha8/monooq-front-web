@@ -9,7 +9,6 @@ import firebaseConfig from 'config/firebase';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { convertImgixUrl } from 'helpers/imgix';
 import { uiActions } from './ui';
-import { loggerActions } from './logger';
 import { handleError } from './error';
 import amplitude from 'amplitude-js/amplitude';
 import {
@@ -456,14 +455,6 @@ function* signUpEmail({ payload: { email, password } }) {
       return;
     }
 
-    yield put(
-      loggerActions.recordEvent({
-        event: 'user_signups',
-        detail: {
-          data,
-        },
-      }),
-    );
     amplitude.getInstance().logEvent('新規登録完了（Eメール）');
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
@@ -562,15 +553,6 @@ function* checkRedirect() {
     yield put(authActions.checkRedirectEnd());
     return;
   }
-
-  yield put(
-    loggerActions.recordEvent({
-      event: 'user_signups',
-      detail: {
-        data,
-      },
-    }),
-  );
 
   yield put(authActions.signupSuccess(data));
   yield put(authActions.checkRedirectEnd());

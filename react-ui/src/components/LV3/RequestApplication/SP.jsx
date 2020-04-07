@@ -23,7 +23,6 @@ import {
   checkIsErrorStartDate,
   checkIsErrorEndDate,
 } from './Share';
-import { loggerActions } from '../../../redux/modules/logger';
 
 moment.locale('ja');
 
@@ -194,12 +193,6 @@ const RequestApplicationSP = ({
     amplitude.getInstance().logEvent('リクエスト - リクエストボタンをクリック（ログイン）', {
       spaceId: space.id,
     });
-    dispatch(
-      loggerActions.recordEvent({
-        event: 'space_request_click',
-        detail: { spaceId: space.id },
-      }),
-    );
 
     handleModalOpenSP();
   };

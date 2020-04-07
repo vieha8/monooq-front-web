@@ -5,7 +5,6 @@ import axios from 'axios';
 import dummySpaceImage from 'images/img-dummy-space.png';
 import { authActions, getToken } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
-import { loggerActions } from 'redux/modules/logger';
 import {
   getApiRequest,
   postApiRequest,
@@ -734,15 +733,6 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, t
     // TODO エラーハンドリング
     areaSearchRes = areaSearch;
   }
-
-  yield put(
-    loggerActions.recordEvent({
-      event: 'space_searches',
-      detail: {
-        params,
-      },
-    }),
-  );
 
   const breadcrumbs = makeBreadcrumbs(data.conditions);
 
