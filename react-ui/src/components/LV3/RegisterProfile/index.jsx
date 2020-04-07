@@ -194,7 +194,7 @@ export default ({
       phoneNumber,
       false,
       0,
-      '',
+      'tel',
       '',
       'gaSignupPhoneNumber',
     )}
