@@ -18,6 +18,15 @@ const Validate = {
   },
 };
 
+const checkTown = town => {
+  let resultTown = town;
+  const resultRegexp = RegExp('[0-9]').exec(town);
+  if (resultRegexp) {
+    resultTown = town.replace(town.slice(resultRegexp.index), '');
+  }
+  return resultTown;
+};
+
 const checkError = (name, value) => {
   const errors = [];
   switch (name) {
@@ -38,6 +47,8 @@ const checkError = (name, value) => {
     case 'town':
       if (isTrimmedEmpty(value)) {
         errors.push(`市区町村以降を${ErrorMessages.PleaseInput}`);
+      } else if (value !== checkTown(value)) {
+        errors.push(ErrorMessages.InvalidAddressTown);
       }
       break;
     case 'line1':
@@ -199,13 +210,15 @@ class SpaceEdit2Page extends Component {
     const { postalCode, pref, city } = this.state;
     dispatch(spaceActions.getAddress({ postalCode }));
 
+    const checkedTown = checkTown(geo.town);
+
     this.handleChangeUI('pref', geo.pref);
-    this.handleChangeUI('town', geo.town);
+    this.handleChangeUI('town', checkedTown);
 
     this.setState({
       pref: geo.pref || pref,
       city: geo.city || city,
-      town: geo.town,
+      town: checkedTown,
     });
   };
 
@@ -241,6 +254,7 @@ class SpaceEdit2Page extends Component {
       PostalCodeMatch &&
       !isTrimmedEmpty(pref) &&
       !isTrimmedEmpty(town) &&
+      town === checkTown(town) &&
       !isTrimmedEmpty(line1) &&
       receiptType &&
       receiptType > 0
