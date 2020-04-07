@@ -9,6 +9,7 @@ import Path from 'config/path';
 import { Dimens, Colors, FontSizes, ZIndexes, ErrorMessages } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { isAvailableLocalStorage } from 'helpers/storage';
 import { requestActions } from 'redux/modules/request';
 import Info from 'components/LV2/Payment/Info';
 import PaidText from 'components/LV2/Payment/PaidText';
@@ -22,6 +23,7 @@ import InputForm from './InputForm';
 const MAX_PAY_PRICE_CONVENIENT = 49999;
 const MODE_VIEW_INPUT = 0;
 const MODE_VIEW_CONFIRM = 1;
+const NAME_LOCAL_STORAGE_PARAMS = 'payment_params';
 
 const ValidateRegExp = {
   CardName: /^[a-zA-Z\s]+$/,
@@ -68,12 +70,30 @@ const PaymentInputForm = ({
   const history = useHistory();
   const dispatch = useDispatch();
 
+  let defaultName = '';
+  let defaultNumber = '';
+  let defaultYear = moment().year();
+  let defaultMonth = moment().month() + 1;
+  let defaultCvc = '';
+
+  if (process.env.NODE_ENV !== 'production') {
+    if (isAvailableLocalStorage() && localStorage.getItem(NAME_LOCAL_STORAGE_PARAMS)) {
+      const savedParams = JSON.parse(localStorage.getItem(NAME_LOCAL_STORAGE_PARAMS));
+      const { name, number, year, month, cvc } = savedParams;
+      defaultName = name;
+      defaultNumber = number;
+      defaultYear = year;
+      defaultMonth = month;
+      defaultCvc = cvc;
+    }
+  }
+
   const [errors, setErrors] = useState({});
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  const [year, setYear] = useState(moment().year());
-  const [month, setMonth] = useState(moment().month() + 1);
-  const [cvc, setCvc] = useState('');
+  const [name, setName] = useState(defaultName);
+  const [number, setNumber] = useState(defaultNumber);
+  const [year, setYear] = useState(defaultYear);
+  const [month, setMonth] = useState(defaultMonth);
+  const [cvc, setCvc] = useState(defaultCvc);
   const [paymentMethod, setPaymentMethod] = useState(-1);
   const [modeView, setModeView] = useState(MODE_VIEW_INPUT);
 
@@ -185,6 +205,18 @@ const PaymentInputForm = ({
         },
       }),
     );
+    if (process.env.NODE_ENV !== 'production') {
+      if (isAvailableLocalStorage()) {
+        const params = {
+          name,
+          number,
+          year,
+          month,
+          cvc,
+        };
+        localStorage.setItem(NAME_LOCAL_STORAGE_PARAMS, JSON.stringify(params));
+      }
+    }
   };
 
   const paymentConvenience = () => {
