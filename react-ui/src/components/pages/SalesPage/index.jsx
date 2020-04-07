@@ -5,6 +5,7 @@ import Path from 'config/path';
 import { Dimens, FontSizes } from 'variables';
 import selectDepositType from 'helpers/depositTypes';
 import { iskeyDownEnter } from 'helpers/keydown';
+import { isAvailableLocalStorage } from 'helpers/storage';
 import { media } from 'helpers/style/media-query';
 import { salesActions } from 'redux/modules/sales';
 import withAuthRequire from 'components/hooks/withAuthRequire';
@@ -20,6 +21,7 @@ import SalesAmountItem from 'components/LV2/Items/SalesAmountItem';
 import LoadingPage from 'components/LV3/LoadingPage';
 
 const PRICE_MIN_DEPOSIT = 3000;
+const NAME_LOCAL_STORAGE_PARAMS = 'sales_params';
 
 const InputText = styled.div`
   margin-top: ${Dimens.medium2}px;
@@ -130,14 +132,27 @@ class SalesPage extends Component {
     const { dispatch } = this.props;
     dispatch(salesActions.fetchSales());
 
-    this.state = {
-      bankName: '',
-      branchName: '',
-      accountType: '1',
-      accountNumber: '',
-      accountName: '',
-      isConfirm: false,
-    };
+    if (isAvailableLocalStorage() && localStorage.getItem(NAME_LOCAL_STORAGE_PARAMS)) {
+      const savedParams = JSON.parse(localStorage.getItem(NAME_LOCAL_STORAGE_PARAMS));
+      const { bankName, branchName, accountType, accountNumber, accountName } = savedParams;
+      this.state = {
+        bankName: bankName || '',
+        branchName: branchName || '',
+        accountType: accountType || '1',
+        accountNumber: accountNumber || '',
+        accountName: accountName || '',
+        isConfirm: false,
+      };
+    } else {
+      this.state = {
+        bankName: '',
+        branchName: '',
+        accountType: '1',
+        accountNumber: '',
+        accountName: '',
+        isConfirm: false,
+      };
+    }
   }
 
   historyToSpaceInfo = () => {
@@ -204,6 +219,17 @@ class SalesPage extends Component {
       }),
     );
     window.scrollTo(0, 0);
+
+    if (isAvailableLocalStorage()) {
+      const params = {
+        bankName,
+        branchName,
+        accountType,
+        accountNumber,
+        accountName,
+      };
+      localStorage.setItem(NAME_LOCAL_STORAGE_PARAMS, JSON.stringify(params));
+    }
   };
 
   onKeyDownButtonSubmit = e => {
