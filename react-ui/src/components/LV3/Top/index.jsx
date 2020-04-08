@@ -6,6 +6,10 @@ import MenuItemTopList from 'components/LV2/Lists/MenuItemTopList';
 import PrefectureList from 'components/LV3/PrefectureList';
 import SpaceList from 'components/LV3/SpaceList';
 import View from 'components/LV3/Top/View';
+import Merit from 'components/LV3/Lp123Guest/Merit';
+import BizModel from 'components/LV3/Lp123Guest/BizModel';
+import Flow from 'components/LV3/Lp123Guest/Flow';
+import Qa from 'components/LV3/Lp123Guest/Qa';
 
 import BgImageAbout from 'images/bg-top-menu-sub-about.png';
 import BgImageHowto from 'images/bg-top-menu-sub-howto.png';
@@ -44,6 +48,10 @@ export default ({ sections, regionId }) => (
         },
       ]}
     />
+    <Merit />
+    <BizModel />
+    <Flow />
+    <Qa />
     {sections.map((item, i) => (
       <SpaceList
         key={i.toString()}

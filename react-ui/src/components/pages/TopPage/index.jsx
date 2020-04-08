@@ -6,6 +6,7 @@ import { sectionActions } from 'redux/modules/section';
 import Top from 'components/LV3/Top';
 import LoadingPage from 'components/LV3/LoadingPage';
 
+// TODO: 一時的におすすめスペースを非表示としている。
 class TopPage extends React.Component {
   constructor(props) {
     super(props);
@@ -17,11 +18,12 @@ class TopPage extends React.Component {
     }
     const { dispatch } = this.props;
     dispatch(sectionActions.getRegion());
-    dispatch(sectionActions.fetchSections());
+    // dispatch(sectionActions.fetchSections());
   }
 
   render() {
-    const { sections, regionId, isChecking, user, intercomHash } = this.props;
+    // const { sections, regionId, isChecking, user, intercomHash } = this.props;
+    const { regionId, isChecking, user, intercomHash } = this.props;
 
     if (isChecking) {
       return <LoadingPage />;
@@ -33,7 +35,7 @@ class TopPage extends React.Component {
 
     return (
       <Fragment>
-        <Top sections={sections} regionId={regionId} />
+        <Top sections={[]} regionId={regionId} />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"
@@ -49,7 +51,7 @@ class TopPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  sections: state.section.sections,
+  // sections: state.section.sections,
   regionId: state.section.regionId,
   isChecking: state.auth.isChecking,
   user: state.auth.user,
