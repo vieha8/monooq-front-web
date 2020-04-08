@@ -6,6 +6,7 @@ import MenuItemTopList from 'components/LV2/Lists/MenuItemTopList';
 import PrefectureList from 'components/LV3/PrefectureList';
 import SpaceList from 'components/LV3/SpaceList';
 import View from 'components/LV3/Top/View';
+import Want from 'components/LV3/Lp123Guest/Want';
 import Merit from 'components/LV3/Lp123Guest/Merit';
 import BizModel from 'components/LV3/Lp123Guest/BizModel';
 import Flow from 'components/LV3/Lp123Guest/Flow';
@@ -48,8 +49,9 @@ export default ({ sections, regionId }) => (
         },
       ]}
     />
-    <Merit />
     <BizModel />
+    <Want titleWant="こんな荷物ありませんか？" />
+    <Merit />
     <Flow />
     <Qa />
     {sections.map((item, i) => (
