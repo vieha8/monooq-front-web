@@ -290,13 +290,13 @@ export default () => (
         </MeritTableHead>
         <tbody>
           <tr>
-            <MeritTableTbodyTh>1畳あたりの平均価格</MeritTableTbodyTh>
-            <MeritTableTbodyTd monooq>
-              3,000円〜
+            <MeritTableTbodyTh>
+              1畳あたりの料金
               <br />
-              ※東京都内は6,000円〜
-            </MeritTableTbodyTd>
-            <MeritTableTbodyTd>15,000円〜</MeritTableTbodyTd>
+              (東京都の場合)
+            </MeritTableTbodyTh>
+            <MeritTableTbodyTd monooq>6,000円〜/月</MeritTableTbodyTd>
+            <MeritTableTbodyTd>15,000円〜/月</MeritTableTbodyTd>
           </tr>
           <tr>
             <MeritTableTbodyTh>初期費用</MeritTableTbodyTh>
@@ -329,7 +329,11 @@ export default () => (
           <tr>
             <MeritTableTbodyTh>手続き</MeritTableTbodyTh>
             <MeritTableTbodyTd monooq>一切不要</MeritTableTbodyTd>
-            <MeritTableTbodyTd>必要</MeritTableTbodyTd>
+            <MeritTableTbodyTd>
+              必要
+              <br />
+              (契約書類への記入、押印および審査等)
+            </MeritTableTbodyTd>
           </tr>
         </tbody>
       </MeritTable>

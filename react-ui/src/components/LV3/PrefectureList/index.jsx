@@ -167,6 +167,9 @@ const PrefectureList = ({ list, regionId }) => {
               </Wrap>
             </WrapItem>
           ))}
+          <li>
+            <div id="prefecture-list-last" />
+          </li>
         </WrapList>
       </WrapInner>
     </Wrapper>

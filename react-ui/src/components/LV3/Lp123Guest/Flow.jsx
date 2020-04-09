@@ -76,9 +76,9 @@ const getLi = (imageSrc, imageAlt, subTitle, caption) => {
   );
 };
 
-export default () => (
+export default ({ title }) => (
   <Wrap>
-    <SectionTitle text="ご利用の流れ" />
+    <SectionTitle text={title || 'ご利用の流れ'} />
     <Ul>
       {getLi(
         ImageFlow1,
