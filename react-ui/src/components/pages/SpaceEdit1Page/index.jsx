@@ -26,7 +26,6 @@ const Validate = {
     Max: 31457280, // 30MB
   },
   Tatami: {
-    Num: /^([1-9]\d*|0)(\.\d)?$/,
     Max: 1000,
     Min: 1,
   },
