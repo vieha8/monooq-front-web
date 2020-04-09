@@ -20,19 +20,17 @@ export const isValidSpacePrice = val => {
       result: false,
       reason: ErrorMessages.PriceNumber,
     };
+  } else if (val < Validate.Price.Min) {
+    return {
+      result: false,
+      reason: ErrorMessages.EstimateMin(Validate.Price.Min),
+    };
+  } else if (val > Validate.Price.Max) {
+    return {
+      result: false,
+      reason: ErrorMessages.EstimateMax(Validate.Price.Max),
+    };
   } else {
-    if (val < Validate.Price.Min) {
-      return {
-        result: false,
-        reason: ErrorMessages.EstimateMin(Validate.Price.Min),
-      };
-    }
-    if (val > Validate.Price.Max) {
-      return {
-        result: false,
-        reason: ErrorMessages.EstimateMax(Validate.Price.Max),
-      };
-    }
     return {
       result: true,
       reason: null,
@@ -46,26 +44,22 @@ export const isValidSpacePriceTokyo = (val, addressPref) => {
       result: false,
       reason: ErrorMessages.PriceNumber,
     };
+  } else if (addressPref && addressPref === '東京都' && val < Validate.Price.MinTokyo) {
+    return {
+      result: false,
+      reason: ErrorMessages.PriceMin(Validate.Price.MinTokyo),
+    };
+  } else if (val < Validate.Price.Min) {
+    return {
+      reason: false,
+      result: ErrorMessages.PriceMin(Validate.Price.Min),
+    };
+  } else if (val > Validate.Price.Max) {
+    return {
+      reason: false,
+      result: ErrorMessages.PriceMax(Validate.Price.Max),
+    };
   } else {
-    if (addressPref && addressPref === '東京都') {
-      if (val < Validate.Price.MinTokyo) {
-        return {
-          result: false,
-          reason: ErrorMessages.PriceMin(Validate.Price.MinTokyo),
-        };
-      }
-    } else if (val < Validate.Price.Min) {
-      return {
-        reason: false,
-        result: ErrorMessages.PriceMin(Validate.Price.Min),
-      };
-    }
-    if (val > Validate.Price.Max) {
-      return {
-        reason: false,
-        result: ErrorMessages.PriceMax(Validate.Price.Max),
-      };
-    }
     return {
       reason: true,
       result: null,
