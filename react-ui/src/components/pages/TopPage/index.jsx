@@ -5,6 +5,7 @@ import { isAvailableLocalStorage } from 'helpers/storage';
 import { sectionActions } from 'redux/modules/section';
 import Top from 'components/LV3/Top';
 import LoadingPage from 'components/LV3/LoadingPage';
+import RecommendedSpace from './StaticRecommendedSpace';
 
 // TODO: 一時的におすすめスペースを非表示としている。
 class TopPage extends React.Component {
@@ -35,7 +36,7 @@ class TopPage extends React.Component {
 
     return (
       <Fragment>
-        <Top sections={[]} regionId={regionId} />
+        <Top sections={RecommendedSpace} regionId={regionId} />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"

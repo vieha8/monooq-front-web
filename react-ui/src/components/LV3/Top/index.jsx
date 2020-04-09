@@ -53,14 +53,17 @@ export default ({ sections, regionId }) => (
     <Want titleWant="こんな荷物ありませんか？" />
     <Merit />
     <Flow />
-    <Qa />
     {sections.map((item, i) => (
+      <SpaceList key={i.toString()} spaceList={item.contents} />
+    ))}
+    <Qa />
+    {/* {sections.map((item, i) => (
       <SpaceList
         key={i.toString()}
         caption={item.title}
         captionSub="公式がイチオシする高評価スペース"
         spaceList={item.contents}
       />
-    ))}
+    ))} */}
   </Wrap>
 );
