@@ -51,18 +51,18 @@ export const isValidSpacePriceTokyo = (val, addressPref) => {
     };
   } else if (val < Validate.Price.Min) {
     return {
-      reason: false,
-      result: ErrorMessages.PriceMin(Validate.Price.Min),
+      result: false,
+      reason: ErrorMessages.PriceMin(Validate.Price.Min),
     };
   } else if (val > Validate.Price.Max) {
     return {
-      reason: false,
-      result: ErrorMessages.PriceMax(Validate.Price.Max),
+      result: false,
+      reason: ErrorMessages.PriceMax(Validate.Price.Max),
     };
   } else {
     return {
-      reason: true,
-      result: null,
+      result: true,
+      reason: null,
     };
   }
 };
