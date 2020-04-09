@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ErrorMessages } from 'variables';
 import { requestActions } from 'redux/modules/request';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import Estimate from 'components/LV3/Estimate';
