@@ -6,7 +6,7 @@ import BaseTemplate from 'components/templates/BaseTemplate';
 import Estimate from 'components/LV3/Estimate';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
-import { isNumber } from 'helpers/validations/number';
+import { isValidSpacePrice } from 'helpers/validations/spacePrice';
 import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const Validate = {
@@ -46,18 +46,11 @@ class EstimatePage extends Component {
     const errors = [];
     let returnValue = formatRemoveComma(value);
 
-    if (!returnValue || returnValue.length === 0) {
-      errors.push(ErrorMessages.PleaseInput);
-    } else if (!isNumber(returnValue)) {
-      errors.push(ErrorMessages.PriceNumber);
-    } else {
-      if (returnValue < Validate.Price.Min) {
-        errors.push(ErrorMessages.EstimateMin(Validate.Price.Min));
-      }
-      if (returnValue > Validate.Price.Max) {
-        errors.push(ErrorMessages.EstimateMax(Validate.Price.Max));
-      }
+    const { result, reason } = isValidSpacePrice(returnValue);
+    if (result) {
       returnValue = formatAddComma(returnValue);
+    } else {
+      errors.push(reason);
     }
 
     state[propName] = returnValue;
