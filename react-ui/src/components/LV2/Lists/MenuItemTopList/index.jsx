@@ -7,7 +7,7 @@ import MenuItemTop from 'components/LV1/MenuItemTop';
 const Wrap = styled.div`
   width: 100%;
   max-width: 1200px;
-  margin: ${Dimens.large}px auto;
+  margin: ${Dimens.large2}px auto;
   padding: 0 ${Dimens.medium}px;
 `;
 
