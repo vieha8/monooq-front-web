@@ -110,9 +110,11 @@ const SpaceResultItem = ({
                 heightSp={225}
                 heightSpTag={110}
               />
-              <AvailabilityLayout>
-                <Availability status={status} />
-              </AvailabilityLayout>
+              {status && (
+                <AvailabilityLayout>
+                  <Availability status={status} />
+                </AvailabilityLayout>
+              )}
             </LazyLoad>
           </CardInner>
           <Content>
