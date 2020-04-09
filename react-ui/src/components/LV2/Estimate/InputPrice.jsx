@@ -40,6 +40,8 @@ export default ({ onChange, value, errors }) => (
       <Text>
         <InlineText.EmphasisTiny>
           ※取引成立時の売上は、ゲストがホストへお支払いするスペース利用総額からサービス手数料30%を引いた金額となります。
+          <br />
+          （2020年4月5日以前から継続している取引は、以前の手数料のまま反映いたします）
         </InlineText.EmphasisTiny>
       </Text>
     </TextWrap>
