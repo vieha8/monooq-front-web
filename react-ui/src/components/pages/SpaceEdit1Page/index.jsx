@@ -14,7 +14,7 @@ import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
 import ModalToProfileEdit from 'components/LV3/ModalToProfileEdit';
 import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
-import { isFloat } from 'helpers/validations/number';
+import { isValidTatami } from 'helpers/validations/number';
 
 const ZENKAKU_SPACE_LITERAL = '　';
 const SPACE_LITERAL = ' ';
@@ -394,15 +394,9 @@ class SpaceEdit1Page extends Component {
         break;
       case 'tatami':
         if (!isTrimmedEmpty(Number.toString(value))) {
-          if (!isFloat(value)) {
-            errors.push(ErrorMessages.PriceFloat('畳数'));
-          } else {
-            if (value < Validate.Tatami.Min) {
-              errors.push(ErrorMessages.TatamiMin(Validate.Tatami.Min));
-            }
-            if (value > Validate.Tatami.Max) {
-              errors.push(ErrorMessages.TatamiMax(Validate.Tatami.Max));
-            }
+          const { result, reason } = isValidTatami(value);
+          if (!result) {
+            errors.push(reason);
           }
         }
         break;
@@ -434,11 +428,7 @@ class SpaceEdit1Page extends Component {
       (isImageDefault(images[0].ImageUrl) ? images.length > 1 : true) &&
       sizeType &&
       sizeType > 0 &&
-      (!tatami ||
-        (tatami &&
-          isFloat(tatami) &&
-          tatami >= Validate.Tatami.Min &&
-          tatami <= Validate.Tatami.Max))
+      (!tatami || isValidTatami(tatami).result)
     );
   };
 
