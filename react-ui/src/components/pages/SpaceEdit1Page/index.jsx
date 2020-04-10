@@ -7,14 +7,14 @@ import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 import { isImageDefault } from 'helpers/images';
 import { convertSpaceImgUrl } from 'helpers/imgix';
 import { uploadImage } from 'redux/helpers/firebase';
+import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
+import isValidTatami from 'helpers/validations/tatami';
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
 import ModalToProfileEdit from 'components/LV3/ModalToProfileEdit';
-import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
-import { isValidTatami } from 'helpers/validations/tatami';
 
 const ZENKAKU_SPACE_LITERAL = '　';
 const SPACE_LITERAL = ' ';

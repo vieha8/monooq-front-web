@@ -10,59 +10,35 @@ const Validate = {
 };
 
 export const isValidSpacePrice = val => {
+  let result = false;
+  let reason = null;
   if (!val || val.length === 0) {
-    return {
-      result: false,
-      reason: ErrorMessages.PleaseInput,
-    };
+    reason = ErrorMessages.PleaseInput;
   } else if (!isNumber(val)) {
-    return {
-      result: false,
-      reason: ErrorMessages.PriceNumber,
-    };
+    reason = ErrorMessages.PriceNumber;
   } else if (val < Validate.Price.Min) {
-    return {
-      result: false,
-      reason: ErrorMessages.EstimateMin(Validate.Price.Min),
-    };
+    reason = ErrorMessages.EstimateMin(Validate.Price.Min);
   } else if (val > Validate.Price.Max) {
-    return {
-      result: false,
-      reason: ErrorMessages.EstimateMax(Validate.Price.Max),
-    };
+    reason = ErrorMessages.EstimateMax(Validate.Price.Max);
   } else {
-    return {
-      result: true,
-      reason: null,
-    };
+    result = true;
   }
+  return { result, reason };
 };
 
 export const isValidSpacePriceTokyo = (val, addressPref) => {
+  let result = false;
+  let reason = null;
   if (!isNumber(val)) {
-    return {
-      result: false,
-      reason: ErrorMessages.PriceNumber,
-    };
+    reason = ErrorMessages.PriceNumber;
   } else if (addressPref && addressPref === '東京都' && val < Validate.Price.MinTokyo) {
-    return {
-      result: false,
-      reason: ErrorMessages.PriceMin(Validate.Price.MinTokyo),
-    };
+    reason = ErrorMessages.PriceMin(Validate.Price.MinTokyo);
   } else if (val < Validate.Price.Min) {
-    return {
-      result: false,
-      reason: ErrorMessages.PriceMin(Validate.Price.Min),
-    };
+    reason = ErrorMessages.PriceMin(Validate.Price.Min);
   } else if (val > Validate.Price.Max) {
-    return {
-      result: false,
-      reason: ErrorMessages.PriceMax(Validate.Price.Max),
-    };
+    reason = ErrorMessages.PriceMax(Validate.Price.Max);
   } else {
-    return {
-      result: true,
-      reason: null,
-    };
+    result = true;
   }
+  return { result, reason };
 };

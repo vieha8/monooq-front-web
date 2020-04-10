@@ -7,26 +7,20 @@ const Validate = {
     Min: 1,
   },
 };
-export const isValidTatami = val => {
+
+const isValidTatami = val => {
+  let result = false;
+  let reason = null;
   if (!isFloat(val)) {
-    return {
-      result: false,
-      reason: ErrorMessages.PriceFloat('畳数'),
-    };
+    reason = ErrorMessages.PriceFloat('畳数');
   } else if (val < Validate.Tatami.Min) {
-    return {
-      result: false,
-      reason: ErrorMessages.TatamiMin(Validate.Tatami.Min),
-    };
+    reason = ErrorMessages.TatamiMin(Validate.Tatami.Min);
   } else if (val > Validate.Tatami.Max) {
-    return {
-      result: false,
-      reason: ErrorMessages.TatamiMax(Validate.Tatami.Max),
-    };
+    reason = ErrorMessages.TatamiMax(Validate.Tatami.Max);
   } else {
-    return {
-      result: true,
-      reason: null,
-    };
+    result = true;
   }
+  return { result, reason };
 };
+
+export default isValidTatami;
