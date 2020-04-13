@@ -200,6 +200,7 @@ export default ({
   isModalOpenSP,
   handleModalOpenSP,
   handleModalCloseSP,
+  isRequested,
 }) => (
   <Wrap confirm={confirm}>
     <Image images={images} />
@@ -261,6 +262,7 @@ export default ({
                 handleModalOpen={handleModalOpen}
                 handleModalClose={handleModalClose}
                 loading={loading}
+                isRequested={isRequested}
               />
             </RequestButtonWrap>
             {!isModalOpen && getCaptionMessage()}
@@ -279,6 +281,7 @@ export default ({
           handleModalOpenSP={handleModalOpenSP}
           handleModalCloseSP={handleModalCloseSP}
           loading={loading}
+          isRequested={isRequested}
         />
       )}
     </SpaceDetailWrap>

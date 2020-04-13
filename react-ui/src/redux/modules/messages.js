@@ -17,6 +17,8 @@ import { formatName } from 'helpers/string';
 import Path from 'config/path';
 
 // Actions
+const FETCH_ROOMS_ID_START = 'FETCH_ROOMS_ID_START';
+const FETCH_ROOMS_ID_END = 'FETCH_ROOMS_ID_END';
 const FETCH_ROOMS_START = 'FETCH_ROOMS_START';
 const FETCH_ROOMS_END = 'FETCH_ROOMS_END';
 const FETCH_UNREAD_ROOMS_START = 'FETCH_UNREAD_ROOMS_START';
@@ -27,6 +29,8 @@ const SEND_MESSAGE = 'SEND_MESSAGE';
 const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 
 export const messagesActions = createActions(
+  FETCH_ROOMS_ID_START,
+  FETCH_ROOMS_ID_END,
   FETCH_ROOMS_START,
   FETCH_ROOMS_END,
   FETCH_UNREAD_ROOMS_START,
@@ -49,6 +53,11 @@ const initialState = {
 
 export const messagesReducer = handleActions(
   {
+    [FETCH_ROOMS_ID_START]: state => ({ ...state }),
+    [FETCH_ROOMS_ID_END]: (state, { payload }) => ({
+      ...state,
+      roomId: payload.roomId,
+    }),
     [FETCH_ROOMS_START]: state => ({ ...state, isLoading: true }),
     [FETCH_ROOMS_END]: (state, { payload }) => ({
       ...state,
@@ -410,6 +419,11 @@ export const getRoomId = (userId1, userId2, spaceId) =>
     resolve(false);
   });
 
+function* fetchRoomId({ payload: { hostId, guestId, spaceId } }) {
+  const roomId = yield getRoomId(hostId, guestId, spaceId);
+  yield put(messagesActions.fetchRoomsIdEnd({ roomId }));
+}
+
 // メッセージ送信
 function* sendMessage(payload) {
   try {
@@ -551,6 +565,7 @@ function* sendMessageAndNotice({ payload }) {
 
 // Sagas
 export const messagesSagas = [
+  takeEvery(FETCH_ROOMS_ID_START, fetchRoomId),
   takeEvery(FETCH_ROOMS_START, fetchRoomStart),
   takeEvery(FETCH_UNREAD_ROOMS_START, fetchUnreadRoomsStart),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),

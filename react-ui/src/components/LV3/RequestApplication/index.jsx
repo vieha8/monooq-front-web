@@ -20,6 +20,7 @@ import {
   validate,
   checkIsErrorStartDate,
   checkIsErrorEndDate,
+  getButtonRequestText,
 } from './Share';
 
 moment.locale('ja');
@@ -46,6 +47,7 @@ const RequestApplication = ({
   handleModalOpen,
   handleModalClose,
   loading,
+  isRequested,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -280,10 +282,10 @@ const RequestApplication = ({
           borderbold
           fontbold
           fill={1}
-          disabled={confirm || isSelfSpace}
+          disabled={isRequested || confirm || isSelfSpace}
           onClick={onClickButton}
         >
-          {isLogin ? 'リクエストを作成する' : '会員登録してリクエスト'}
+          {getButtonRequestText(isRequested, isLogin)}
         </Button>
       )}
     </Wrap>

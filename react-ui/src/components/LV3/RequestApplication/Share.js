@@ -189,4 +189,16 @@ export const checkIsErrorEndDate = (startYear, startMonth, startDay, endYear, en
   );
 };
 
+export const getButtonRequestText = (isRequested, isLogin) => {
+  let buttonText = 'リクエスト済み';
+  if (!isRequested) {
+    if (isLogin) {
+      buttonText = 'リクエストを作成する';
+    } else {
+      buttonText = '会員登録してリクエスト';
+    }
+  }
+  return buttonText;
+};
+
 export default validate;
