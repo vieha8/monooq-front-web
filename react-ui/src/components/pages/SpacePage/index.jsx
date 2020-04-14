@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 import { spaceActions } from 'redux/modules/space';
+import { messagesActions } from 'redux/modules/messages';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import Meta from 'components/LV1/Meta';
 import Detail from 'components/LV3/Space/Detail';
@@ -24,6 +25,7 @@ class SpacePage extends Component {
       isBottom: false,
       isModalOpen: false,
       isModalOpenSP: false,
+      isLoadedRoom: false,
     };
   }
 
@@ -54,8 +56,22 @@ class SpacePage extends Component {
     window.removeEventListener('scroll', () => this.watchCurrentPosition(), true);
   }
 
-  static getDerivedStateFromProps(nextProps) {
-    const { space } = nextProps;
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { dispatch, match, space, user, isLoading } = nextProps;
+    const { isLoadedRoom } = prevState;
+
+    if (user && user.name !== undefined && !isLoadedRoom && space && !isLoading) {
+      const spaceId = match.params.space_id;
+      dispatch(
+        messagesActions.fetchRoomsIdStart({
+          guestId: (user && user.id) || 0,
+          hostId: (space && space.userId) || 0,
+          spaceId,
+        }),
+      );
+      return { isLoadedRoom: true };
+    }
+
     if (space && space.id) {
       const { title, addressPref, addressCity, introduction, id } = space;
 
@@ -132,7 +148,7 @@ class SpacePage extends Component {
   };
 
   showContent = () => {
-    const { space, user, isRequesting, recommendSpaces } = this.props;
+    const { space, user, isRequesting, recommendSpaces, roomId } = this.props;
     const {
       meta: { title, description, url, imageUrl },
       isOverTopView,
@@ -190,6 +206,7 @@ class SpacePage extends Component {
           isModalOpenSP={isModalOpenSP}
           handleModalOpenSP={() => this.setState({ isModalOpenSP: true })}
           handleModalCloseSP={() => this.setState({ isModalOpenSP: false })}
+          roomId={roomId}
         />
       </BaseTemplate>
     );
@@ -249,6 +266,7 @@ const mapStateToProps = state => ({
   isLoading: state.space.isLoading,
   recommendSpaces: state.space.recommendSpaces,
   isRequesting: state.request.isLoading,
+  roomId: state.messages.roomId,
 });
 
 export default connect(mapStateToProps)(SpacePage);
