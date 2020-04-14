@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import Path from 'config/path';
 import LazyLoad from 'react-lazyload';
 import iconStar from 'images/img-space-star.svg';
-import { mediaMin } from 'helpers/style/media-query';
+import { media, mediaMin } from 'helpers/style/media-query';
 import Availability from 'components/LV1/Texts/Availability';
 
 const Wrap = styled.div`
@@ -56,6 +56,13 @@ const Row = styled.div`
     `
     display: block;
   `};
+  ${media.phone`
+    ${props =>
+      props.price &&
+      `
+      display: block;
+    `};
+  `}
 `;
 
 const ImageStar = styled.img`
@@ -107,7 +114,7 @@ const SpaceResultItem = ({
                 alt={title}
                 height={184}
                 heightTab={195}
-                heightSp={225}
+                heightSp={120}
                 heightSpTag={110}
               />
               {status && (
@@ -135,7 +142,7 @@ const SpaceResultItem = ({
               </InlineText.Base>
             </Row>
             <Row marginTop={4}>
-              <Title fontSize={16} bold lineheight="140%" lineClamp={2}>
+              <Title fontSize={16} fontSizeSp={14} bold lineheight="140%" lineClamp={2}>
                 {title}
               </Title>
             </Row>

@@ -8,6 +8,7 @@ const Wrap = styled.div`
   font-size: ${FontSizes.small_12}px;
   line-height: ${FontSizes.small_12}px;
   font-weight: bold;
+  text-align: left;
   color: ${Colors.lightGray3};
   &:before {
     content: '';
