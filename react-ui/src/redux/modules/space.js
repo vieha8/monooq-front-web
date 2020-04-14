@@ -52,7 +52,6 @@ const GET_ADDRESS_SUCCESS = 'GET_ADDRESS_SUCCESS';
 const GET_ADDRESS_FAILED = 'GET_ADDRESS_FAILED';
 const RESET_ADDRESS = 'RESET_ADDRESS';
 const FETCH_USER_META = 'FETCH_USER_META';
-const FETCH_USER_META_BEGIN = 'FETCH_USER_META_BEGIN';
 const FETCH_USER_META_SUCCESS = 'FETCH_USER_META_SUCCESS';
 const FETCH_USER_META_FAIL = 'FETCH_USER_META_FAIL';
 
@@ -88,7 +87,6 @@ export const spaceActions = createActions(
   GET_ADDRESS_FAILED,
   RESET_ADDRESS,
   FETCH_USER_META,
-  FETCH_USER_META_BEGIN,
   FETCH_USER_META_SUCCESS,
   FETCH_USER_META_FAIL,
 );
@@ -97,6 +95,7 @@ export const spaceActions = createActions(
 const initialState = {
   isComplete: false,
   isLoading: false,
+  isUserMetaFetching: false,
   space: null,
   search: {
     area: [],
@@ -260,21 +259,12 @@ export const spaceReducer = handleActions(
       isLoadingAddress: false,
       errMessage: '',
     }),
-    [FETCH_USER_META_BEGIN]: state => ({
-      ...state,
-      isUserMetaFetching: true,
-    }),
     [FETCH_USER_META_SUCCESS]: (state, action) => ({
       ...state,
-      isUserMetaFetching: false,
       space: {
         ...state.space,
         userMeta: action.payload,
       },
-    }),
-    [FETCH_USER_META_FAIL]: state => ({
-      ...state,
-      isUserMetaFetching: false,
     }),
   },
   initialState,
@@ -321,6 +311,9 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
     }
     payload.images[0] = { imageUrl: dummySpaceImage };
   }
+
+  yield put(spaceActions.fetchUserMeta({ userId: payload.userId }));
+  yield take(spaceActions.fetchUserMetaSuccess);
 
   yield put(spaceActions.fetchSuccessSpace(payload));
 }
@@ -877,13 +870,6 @@ function* getAddressByPostalCode({ payload: { postalCode } }) {
 }
 
 function* fetchUserMeta({ payload: { userId } }) {
-  const isFetching = yield select(state => state.space.isUserMetaFetching);
-  if (isFetching) {
-    return;
-  }
-
-  yield put(spaceActions.fetchUserMetaBegin());
-
   const token = yield* getToken();
   const { data: payload, err } = yield call(getApiRequest, apiEndpoint.userMeta(userId), {}, token);
 

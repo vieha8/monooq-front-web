@@ -37,17 +37,13 @@ class SpacePage extends Component {
     // おすすめから遷移した時はconstructorが発火しないのでここで
     const { match, isLoading } = this.props;
     const spaceId = match.params.space_id;
-    if (prevProps.space && prevProps.space.id !== Number(spaceId) && !isLoading) {
+    if (
+      prevProps.space &&
+      prevProps.space.id &&
+      prevProps.space.id !== Number(spaceId) &&
+      !isLoading
+    ) {
       this.init();
-    }
-
-    const { space } = prevProps;
-    if (space) {
-      const { userId, userMeta } = space;
-      if (!userMeta && userId) {
-        const { dispatch } = this.props;
-        dispatch(spaceActions.fetchUserMeta({ userId }));
-      }
     }
   }
 
@@ -243,7 +239,7 @@ class SpacePage extends Component {
 
   render() {
     const { space } = this.props;
-    return !space ? <LoadingPage /> : this.showContent();
+    return !space || (space && !space.id) ? <LoadingPage /> : this.showContent();
   }
 }
 
