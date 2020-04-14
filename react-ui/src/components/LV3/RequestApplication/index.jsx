@@ -47,13 +47,14 @@ const RequestApplication = ({
   handleModalOpen,
   handleModalClose,
   loading,
-  isRequested,
+  roomId,
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
   const isSelfSpace = loginUser.id === (space.user || {}).id;
   const existPhoneNumber = !!loginUser.phoneNumber;
+  const isRequested = !!roomId;
 
   const [errors, setErrors] = useState({});
   const [usage, setUsage] = useState(params ? params.usage : 0);
@@ -116,6 +117,11 @@ const RequestApplication = ({
   };
 
   const onClickButton = () => {
+    if (isRequested) {
+      history.push(Path.message(roomId));
+      return;
+    }
+
     if (!isLogin) {
       amplitude.getInstance().logEvent('リクエスト - リクエストボタンをクリック（非ログイン）', {
         spaceId: space.id,
@@ -282,10 +288,10 @@ const RequestApplication = ({
           borderbold
           fontbold
           fill={1}
-          disabled={isRequested || confirm || isSelfSpace}
+          disabled={confirm || isSelfSpace}
           onClick={onClickButton}
         >
-          {getButtonRequestText(isRequested, isLogin)}
+          {getButtonRequestText(isRequested, isLogin, isSelfSpace)}
         </Button>
       )}
     </Wrap>

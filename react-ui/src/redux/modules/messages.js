@@ -419,8 +419,8 @@ export const getRoomId = (userId1, userId2, spaceId) =>
     resolve(false);
   });
 
-function* fetchRoomId({ payload: { hostId, guestId, spaceId } }) {
-  const roomId = yield getRoomId(hostId, guestId, spaceId);
+function* fetchRoomId({ payload: { guestId, hostId, spaceId } }) {
+  const roomId = yield getRoomId(guestId, hostId, spaceId);
   yield put(messagesActions.fetchRoomsIdEnd({ roomId }));
 }
 

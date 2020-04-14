@@ -26,7 +26,6 @@ class SpacePage extends Component {
       isModalOpen: false,
       isModalOpenSP: false,
       isLoadedRoom: false,
-      isRequested: false,
     };
   }
 
@@ -62,15 +61,15 @@ class SpacePage extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { dispatch, match, space, user } = nextProps;
+    const { dispatch, match, space, user, isLoading } = nextProps;
     const { isLoadedRoom } = prevState;
 
-    if (user && user.name !== undefined && !isLoadedRoom) {
+    if (user && user.name !== undefined && !isLoadedRoom && space && !isLoading) {
       const spaceId = match.params.space_id;
       dispatch(
         messagesActions.fetchRoomsIdStart({
-          hostId: (space && space.userId) || '',
-          guestId: (user && user.id) || '',
+          guestId: (user && user.id) || 0,
+          hostId: (space && space.userId) || 0,
           spaceId,
         }),
       );
@@ -211,7 +210,7 @@ class SpacePage extends Component {
           isModalOpenSP={isModalOpenSP}
           handleModalOpenSP={() => this.setState({ isModalOpenSP: true })}
           handleModalCloseSP={() => this.setState({ isModalOpenSP: false })}
-          isRequested={!!roomId}
+          roomId={roomId}
         />
       </BaseTemplate>
     );

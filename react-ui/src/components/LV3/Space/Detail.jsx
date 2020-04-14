@@ -200,7 +200,7 @@ export default ({
   isModalOpenSP,
   handleModalOpenSP,
   handleModalCloseSP,
-  isRequested,
+  roomId,
 }) => (
   <Wrap confirm={confirm}>
     <Image images={images} />
@@ -262,7 +262,7 @@ export default ({
                 handleModalOpen={handleModalOpen}
                 handleModalClose={handleModalClose}
                 loading={loading}
-                isRequested={isRequested}
+                roomId={roomId}
               />
             </RequestButtonWrap>
             {!isModalOpen && getCaptionMessage()}
@@ -281,7 +281,7 @@ export default ({
           handleModalOpenSP={handleModalOpenSP}
           handleModalCloseSP={handleModalCloseSP}
           loading={loading}
-          isRequested={isRequested}
+          roomId={roomId}
         />
       )}
     </SpaceDetailWrap>
