@@ -86,13 +86,6 @@ const Cell = styled.div`
   `};
 
   ${media.phone`
-    width: 100%;
-    max-width: 100%;
-    margin: 0 0 ${Dimens.large2_65}px;
-    &:nth-child(2n) {
-      width: 100%;
-      margin: 0 0 ${Dimens.large2_65}px;
-    }
     ${props =>
       props.isTag &&
       `
