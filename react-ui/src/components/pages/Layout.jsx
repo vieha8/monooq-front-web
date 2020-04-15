@@ -4,7 +4,13 @@ import Header from 'components/LV3/Header';
 import Footer from 'components/LV3/Footer';
 import Path from 'config/path';
 
+const getSpaceIdEdit = path => {
+  const pathMatchFirstLevel = path.match(RegExp('/.*?/(.*?)(?=/)/'));
+  return (pathMatchFirstLevel && pathMatchFirstLevel[1]) || '';
+};
+
 const isNoFooterPath = path => {
+  const spaceIdEdit = getSpaceIdEdit(path);
   return (
     path === Path.login() ||
     path === Path.signUp() ||
@@ -13,10 +19,10 @@ const isNoFooterPath = path => {
     path === Path.spaceCreate2() ||
     path === Path.spaceCreate3() ||
     path === Path.createSpaceConfirm() ||
-    path === Path.spaceEdit1() ||
-    path === Path.spaceEdit2() ||
-    path === Path.spaceEdit3() ||
-    path === Path.spaceEditConfirm()
+    path === Path.spaceEdit1(spaceIdEdit) ||
+    path === Path.spaceEdit2(spaceIdEdit) ||
+    path === Path.spaceEdit3(spaceIdEdit) ||
+    path === Path.spaceEditConfirm(spaceIdEdit)
   );
 };
 
