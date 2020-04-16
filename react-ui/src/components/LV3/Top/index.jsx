@@ -16,6 +16,8 @@ import Flow from 'components/LV3/Lp123Guest/Flow';
 import BgImageAbout from 'images/bg-top-menu-sub-about.png';
 import BgImageHowto from 'images/bg-top-menu-sub-howto.png';
 import BgImageQa from 'images/bg-top-menu-sub-qa.png';
+import SearchResult from 'components/LV3/SearchResult';
+import { media } from 'helpers/style/media-query';
 
 const Wrap = styled.div`
   width: 100%;
@@ -34,9 +36,32 @@ const HashLinkStyled = styled(HashLink)`
   color: ${Colors.white} !important;
 `;
 
-export default ({ sections, regionId }) => (
+const ResultWrap = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  margin: ${Dimens.large2}px auto;
+  padding: 0 ${Dimens.medium}px;
+`;
+export default ({ sections, regionId, spaces, onClickSpace }) => (
   <Wrap>
     <View />
+    <ResultWrap>
+      <SearchResult
+        spaces={spaces.map(s => ({
+          ...s,
+          image: (s.images[0] || {}).imageUrl,
+          onClick: () => onClickSpace(s.id),
+        }))}
+      />
+      <MoreButtonWrap>
+        <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
+          <HashLinkStyled to={`${Path.spacesByPrefecture('13')}`}>
+            スペースをもっと見る
+          </HashLinkStyled>
+        </ButtonStyled>
+      </MoreButtonWrap>
+    </ResultWrap>
+
     <PrefectureList list={areaPrefectures} regionId={regionId} />
     <MenuItemTopList
       list={[
