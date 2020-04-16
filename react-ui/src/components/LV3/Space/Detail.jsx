@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Path from 'config/path';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
@@ -118,8 +119,11 @@ const UserMeta = styled.div`
 const UserMetaTitle = styled.div`
   font-size: ${FontSizes.medium}px;
 `;
-const UserMetaImageWrap = styled.div`
-  padding: ${Dimens.medium}px 0 ${Dimens.xxsmall_4}px 0;
+const UserMetaImageWrap = styled(Link)`
+  width: 100px;
+  height: 100px;
+  display: block;
+  margin: ${Dimens.medium}px auto ${Dimens.xxsmall_4}px;
 `;
 const UserMetaImage = styled.img`
   width: 100px;
@@ -229,7 +233,7 @@ export default ({
             <UserMeta>
               <UserMetaTitle>気になるスペースを見つけたら？</UserMetaTitle>
               <UserMetaTitle>ホストに相談しよう</UserMetaTitle>
-              <UserMetaImageWrap>
+              <UserMetaImageWrap to={Path.profile(user.id)}>
                 <UserMetaImage src={user.imageUrl} />
               </UserMetaImageWrap>
               <UserMetaName>{user.name}</UserMetaName>
