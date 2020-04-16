@@ -5,9 +5,9 @@ import { isAvailableLocalStorage } from 'helpers/storage';
 import { sectionActions } from 'redux/modules/section';
 import Top from 'components/LV3/Top';
 import LoadingPage from 'components/LV3/LoadingPage';
-import RecommendedSpace from './StaticRecommendedSpace';
+// import RecommendedSpace from './StaticRecommendedSpace';
 
-// TODO: 一時的におすすめスペースを非表示としている。
+// TODO: アクセス増が想定される場合、おすすめ一覧が固定のものになるよう事前に修正しておく。
 class TopPage extends React.Component {
   constructor(props) {
     super(props);
@@ -19,12 +19,11 @@ class TopPage extends React.Component {
     }
     const { dispatch } = this.props;
     dispatch(sectionActions.getRegion());
-    // dispatch(sectionActions.fetchSections());
+    dispatch(sectionActions.fetchSections());
   }
 
   render() {
-    // const { sections, regionId, isChecking, user, intercomHash } = this.props;
-    const { regionId, isChecking, user, intercomHash } = this.props;
+    const { sections, regionId, isChecking, user, intercomHash } = this.props;
 
     if (isChecking) {
       return <LoadingPage />;
@@ -34,9 +33,11 @@ class TopPage extends React.Component {
       document.domain === 'monooq.com' ||
       document.domain === 'monooq-front-web-staging.herokuapp.com';
 
+    // const sections = RecommendedSpace;
+
     return (
       <Fragment>
-        <Top sections={RecommendedSpace} regionId={regionId} />
+        <Top sections={sections} regionId={regionId} />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"
@@ -52,7 +53,7 @@ class TopPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  // sections: state.section.sections,
+  sections: state.section.sections,
   regionId: state.section.regionId,
   isChecking: state.auth.isChecking,
   user: state.auth.user,

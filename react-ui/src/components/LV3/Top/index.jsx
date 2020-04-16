@@ -68,25 +68,23 @@ export default ({ sections, regionId }) => (
     <Merit />
     <Flow title="すぐに預けられる！" />
     {sections.map((item, i) => (
-      <SpaceList key={i.toString()} spaceList={item.contents} />
-    ))}
-    <MoreButtonWrap>
-      <ButtonStyled primary borderbold fontbold fill={1}>
-        <HashLinkStyled to={`${Path.top()}#topview`}>スペースを探してみよう！</HashLinkStyled>
-      </ButtonStyled>
-      <ButtonStyled primary borderbold fontbold fill={1}>
-        <HashLinkStyled to={`${Path.top()}#prefecture-list-last`}>
-          もっと詳しく知りたい方はこちらへ
-        </HashLinkStyled>
-      </ButtonStyled>
-    </MoreButtonWrap>
-    {/* {sections.map((item, i) => (
+      // <SpaceList key={i.toString()} spaceList={item.contents} />
       <SpaceList
         key={i.toString()}
         caption={item.title}
         captionSub="公式がイチオシする高評価スペース"
         spaceList={item.contents}
       />
-    ))} */}
+    ))}
+    <MoreButtonWrap>
+      <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
+        <HashLinkStyled to={`${Path.top()}#topview`}>スペースを探してみよう！</HashLinkStyled>
+      </ButtonStyled>
+      <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
+        <HashLinkStyled to={`${Path.top()}#prefecture-list-last`}>
+          詳しく知りたい方はこちらへ
+        </HashLinkStyled>
+      </ButtonStyled>
+    </MoreButtonWrap>
   </Wrap>
 );
