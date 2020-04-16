@@ -26,6 +26,7 @@ const Caption = styled.div`
   font-size: ${FontSizes.medium2}px;
   font-weight: bold;
   line-height: ${Dimens.medium1}px;
+  text-align: center;
   color: ${Colors.black2};
   margin-bottom: ${Dimens.small2}px;
   ${media.phone`
@@ -36,8 +37,9 @@ const Caption = styled.div`
 const CaptionSub = styled.div`
   font-size: ${FontSizes.small}px;
   line-height: ${Dimens.small2_14}px;
+  text-align: center;
   color: ${Colors.black2};
-  margin-bottom: ${Dimens.medium2_32}px;
+  margin-bottom: ${Dimens.medium_20}px;
   ${media.phone`
     margin-bottom: 0px;
   `};

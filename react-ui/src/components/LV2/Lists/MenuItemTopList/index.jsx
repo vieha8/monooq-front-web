@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Dimens, FontSizes } from 'variables';
+import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import MenuItemTop from 'components/LV1/MenuItemTop';
+import SectionTitle from 'components/LV3/Lp123Guest/SectionTitle';
 
 const Wrap = styled.div`
   width: 100%;
@@ -11,24 +12,18 @@ const Wrap = styled.div`
   padding: 0 ${Dimens.medium}px;
 `;
 
-const Caption = styled.div`
-  font-size: ${FontSizes.medium2}px;
-  font-weight: bold;
-  line-height: ${Dimens.medium1}px;
-`;
-
 const ListWrap = styled.div`
   display: flex;
   margin: ${Dimens.medium1_28}px auto;
   ${media.tablet`
     display: block;
-    margin: ${Dimens.small_10}px auto ${Dimens.medium1_28}px;
+    margin: -${Dimens.small2}px auto ${Dimens.medium1_28}px;
   `};
 `;
 
 export default ({ list }) => (
   <Wrap>
-    <Caption>はじめての方</Caption>
+    <SectionTitle text="はじめての方" />
     <ListWrap>
       {list.map((item, i) => (
         <MenuItemTop
