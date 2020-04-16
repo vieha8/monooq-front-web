@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ErrorMessages } from 'variables';
 import { requestActions } from 'redux/modules/request';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import Estimate from 'components/LV3/Estimate';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
+import { isNumber } from 'helpers/validations/number';
+import { isValidSpacePrice } from 'helpers/validations/spacePrice';
 import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const Validate = {
   Price: {
-    Num: /^[0-9]+$/,
     Max: 300000,
     Min: 3000,
   },
@@ -46,17 +46,11 @@ class EstimatePage extends Component {
     const errors = [];
     let returnValue = formatRemoveComma(value);
 
-    if (!returnValue || returnValue.length === 0) {
-      errors.push(ErrorMessages.PleaseInput);
-    } else if (Number.isNaN(returnValue) || !String(returnValue).match(Validate.Price.Num)) {
-      errors.push(ErrorMessages.PriceNumber);
-    } else {
-      if (returnValue < Validate.Price.Min) {
-        errors.push(ErrorMessages.EstimateMin(Validate.Price.Min));
-      }
-      if (returnValue > Validate.Price.Max) {
-        errors.push(ErrorMessages.EstimateMax(Validate.Price.Max));
-      }
+    const { result, reason } = isValidSpacePrice(returnValue);
+    if (!result) {
+      errors.push(reason);
+    }
+    if (isNumber(returnValue)) {
       returnValue = formatAddComma(returnValue);
     }
 

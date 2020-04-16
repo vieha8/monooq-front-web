@@ -7,13 +7,14 @@ import { iskeyDownEnter, iskeyDownSpace } from 'helpers/keydown';
 import { isImageDefault } from 'helpers/images';
 import { convertSpaceImgUrl } from 'helpers/imgix';
 import { uploadImage } from 'redux/helpers/firebase';
+import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
+import isValidTatami from 'helpers/validations/tatami';
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEdit1 from 'components/LV3/SpaceEdit/Step1';
 import ModalToProfileEdit from 'components/LV3/ModalToProfileEdit';
-import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
 
 const ZENKAKU_SPACE_LITERAL = '　';
 const SPACE_LITERAL = ' ';
@@ -25,7 +26,6 @@ const Validate = {
     Max: 31457280, // 30MB
   },
   Tatami: {
-    Num: /^([1-9]\d*|0)(\.\d)?$/,
     Max: 1000,
     Min: 1,
   },
@@ -394,15 +394,9 @@ class SpaceEdit1Page extends Component {
         break;
       case 'tatami':
         if (!isTrimmedEmpty(Number.toString(value))) {
-          if (Number.isNaN(value) || !String(value).match(Validate.Tatami.Num)) {
-            errors.push(ErrorMessages.PriceFloat('畳数'));
-          } else {
-            if (value < Validate.Tatami.Min) {
-              errors.push(ErrorMessages.TatamiMin(Validate.Tatami.Min));
-            }
-            if (value > Validate.Tatami.Max) {
-              errors.push(ErrorMessages.TatamiMax(Validate.Tatami.Max));
-            }
+          const { result, reason } = isValidTatami(value);
+          if (!result) {
+            errors.push(reason);
           }
         }
         break;
@@ -434,12 +428,7 @@ class SpaceEdit1Page extends Component {
       (isImageDefault(images[0].ImageUrl) ? images.length > 1 : true) &&
       sizeType &&
       sizeType > 0 &&
-      (!tatami ||
-        (tatami &&
-          !Number.isNaN(tatami) &&
-          String(tatami).match(Validate.Tatami.Num) &&
-          tatami >= Validate.Tatami.Min &&
-          tatami <= Validate.Tatami.Max))
+      (!tatami || isValidTatami(tatami).result)
     );
   };
 

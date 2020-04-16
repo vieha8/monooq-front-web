@@ -10,10 +10,10 @@ import { spaceActions } from 'redux/modules/space';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEditStep3 from 'components/LV3/SpaceEdit/Step3';
+import { isValidSpacePriceTokyo } from 'helpers/validations/spacePrice';
 
 const Validate = {
   Price: {
-    Num: /^[0-9]+$/,
     Max: 300000,
     Min: 3000,
     MinTokyo: 6000,
@@ -24,18 +24,10 @@ const checkError = (value, addressPref) => {
   const errors = [];
   if (!value || value.length === 0) {
     errors.push(ErrorMessages.PleaseInput);
-  } else if (Number.isNaN(value) || !String(value).match(Validate.Price.Num)) {
-    errors.push(ErrorMessages.PriceNumber);
   } else {
-    if (addressPref && addressPref === '東京都') {
-      if (value < Validate.Price.MinTokyo) {
-        errors.push(ErrorMessages.PriceMin(Validate.Price.MinTokyo));
-      }
-    } else if (value < Validate.Price.Min) {
-      errors.push(ErrorMessages.PriceMin(Validate.Price.Min));
-    }
-    if (value > Validate.Price.Max) {
-      errors.push(ErrorMessages.PriceMax(Validate.Price.Max));
+    const { reason, result } = isValidSpacePriceTokyo(value, addressPref);
+    if (!result) {
+      errors.push(reason);
     }
   }
   return errors;
