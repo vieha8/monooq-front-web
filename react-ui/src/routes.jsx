@@ -158,6 +158,10 @@ const Terms = loadable(
   () => import('components/pages/TermsPage').catch(() => window.location.reload()),
   { fallback: <LoadingPage /> },
 );
+const Covid19 = loadable(
+  () => import('components/pages/Covid19Page').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
+);
 const Lp1Host = loadable(
   () => import('components/pages/Lp1HostPage').catch(() => window.location.reload()),
   { fallback: <LoadingPage /> },
@@ -218,6 +222,7 @@ export default ({ history }) => (
         <Route exact path={Path.cancelPolicy()} component={CancelPolicy} />
         <Route exact path={Path.asct()} component={Asct} />
         <Route exact path={Path.privacy()} component={Privacy} />
+        <Route exact path={Path.covid19()} component={Covid19} />
         <Route exact path={Path.terms()} component={Terms} />
         <Route exact path={Path.lp1Host()} component={Lp1Host} />
         <Route exact path={Path.lp1Guest()} component={Lp1Guest} />
