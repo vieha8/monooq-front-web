@@ -5,6 +5,7 @@ import BaseTemplate from 'components/templates/BaseTemplate';
 import Estimate from 'components/LV3/Estimate';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
+import { isNumber } from 'helpers/validations/number';
 import { isValidSpacePrice } from 'helpers/validations/spacePrice';
 import withAuthRequire from 'components/hooks/withAuthRequire';
 
@@ -46,10 +47,11 @@ class EstimatePage extends Component {
     let returnValue = formatRemoveComma(value);
 
     const { result, reason } = isValidSpacePrice(returnValue);
-    if (result) {
-      returnValue = formatAddComma(returnValue);
-    } else {
+    if (!result) {
       errors.push(reason);
+    }
+    if (isNumber(returnValue)) {
+      returnValue = formatAddComma(returnValue);
     }
 
     state[propName] = returnValue;
