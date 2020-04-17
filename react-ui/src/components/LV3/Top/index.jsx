@@ -9,6 +9,7 @@ import MenuItemTopList from 'components/LV2/Lists/MenuItemTopList';
 import PrefectureList from 'components/LV3/PrefectureList';
 import SpaceList from 'components/LV3/SpaceList';
 import View from 'components/LV3/Top/View';
+import Covid19Info from 'components/LV3/Top/Covid19Info';
 import Want from 'components/LV3/Lp123Guest/Want';
 import Merit from 'components/LV3/Lp123Guest/Merit';
 import BizModel from 'components/LV3/Lp123Guest/BizModel';
@@ -37,6 +38,7 @@ const HashLinkStyled = styled(HashLink)`
 export default ({ sections, regionId }) => (
   <Wrap>
     <View />
+    <Covid19Info />
     <PrefectureList list={areaPrefectures} regionId={regionId} />
     <MenuItemTopList
       list={[
