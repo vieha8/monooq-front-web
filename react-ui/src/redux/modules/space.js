@@ -760,11 +760,19 @@ function* searchMyArea() {
 
   let user = yield select(state => state.auth.user);
 
-  if (!user.id) {
+  if (!user.prefCode) {
     yield take(authActions.checkLoginSuccess);
   }
 
   user = yield select(state => state.auth.user);
+
+  /**
+   * ログイン情報が取得できない場合、APIを叩かない
+   */
+
+  if (!user.prefCode) {
+    return;
+  }
 
   const token = yield* getToken();
 
