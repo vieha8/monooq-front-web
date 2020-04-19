@@ -62,7 +62,7 @@ export default ({ sections, regionId, spaces, onClickSpace, user }) => {
           />
           <MoreButtonWrap>
             <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
-              <HashLinkStyled to={`${Path.spacesByPrefecture('13')}`}>
+              <HashLinkStyled to={`${Path.spacesByPrefecture(user.prefCode)}`}>
                 スペースをもっと見る
               </HashLinkStyled>
             </ButtonStyled>
