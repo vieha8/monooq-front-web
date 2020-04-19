@@ -18,6 +18,7 @@ import BgImageHowto from 'images/bg-top-menu-sub-howto.png';
 import BgImageQa from 'images/bg-top-menu-sub-qa.png';
 import SearchResult from 'components/LV3/SearchResult';
 import { media } from 'helpers/style/media-query';
+import { useSelector } from 'react-redux';
 
 const Wrap = styled.div`
   width: 100%;
@@ -42,74 +43,82 @@ const ResultWrap = styled.div`
   margin: ${Dimens.large2}px auto;
   padding: 0 ${Dimens.medium}px;
 `;
-export default ({ sections, regionId, spaces, onClickSpace }) => (
-  <Wrap>
-    <View />
-    <ResultWrap>
-      <SearchResult
-        spaces={spaces.map(s => ({
-          ...s,
-          image: (s.images[0] || {}).imageUrl,
-          onClick: () => onClickSpace(s.id),
-        }))}
+export default ({ sections, regionId, spaces, onClickSpace, user }) => {
+  const isLogin = useSelector(state => state.auth.isLogin);
+
+  return (
+    <Wrap>
+      <View />
+
+      {/* ログインユーザーのみ、自分の住む地域のスペースをレコメンドされる */}
+      {isLogin && (
+        <ResultWrap>
+          <SearchResult
+            spaces={spaces.map(s => ({
+              ...s,
+              image: (s.images[0] || {}).imageUrl,
+              onClick: () => onClickSpace(s.id),
+            }))}
+          />
+          <MoreButtonWrap>
+            <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
+              <HashLinkStyled to={`${Path.spacesByPrefecture('13')}`}>
+                スペースをもっと見る
+              </HashLinkStyled>
+            </ButtonStyled>
+          </MoreButtonWrap>
+        </ResultWrap>
+      )}
+
+      <PrefectureList list={areaPrefectures} regionId={regionId} />
+      <MenuItemTopList
+        list={[
+          {
+            link: Path.about(),
+            bgImage: BgImageAbout,
+            titleSub: '置き場に困った荷物がある方へ',
+            titleMain: 'モノオクをはじめよう',
+          },
+          {
+            link: Path.howtouse(),
+            bgImage: BgImageHowto,
+            type: 'howto',
+            titleSub: '実際にモノオクを使ってみよう',
+            titleMain: 'ご利用の流れ',
+          },
+          {
+            link: 'https://help.monooq.com/',
+            bgImage: BgImageQa,
+            type: 'qa',
+            titleSub: '使い方がわからない人へ',
+            titleMain: 'よくあるご質問',
+            isLinkBlank: true,
+          },
+        ]}
       />
+      <BizModel />
+      <Want titleWant="こんな荷物ありませんか？" />
+      <Merit />
+      <Flow title="すぐに預けられる！" />
+      {sections.map((item, i) => (
+        // <SpaceList key={i.toString()} spaceList={item.contents} />
+        <SpaceList
+          key={i.toString()}
+          caption={item.title}
+          captionSub="公式がイチオシする高評価スペース"
+          spaceList={item.contents}
+        />
+      ))}
       <MoreButtonWrap>
         <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
-          <HashLinkStyled to={`${Path.spacesByPrefecture('13')}`}>
-            スペースをもっと見る
+          <HashLinkStyled to={`${Path.top()}#topview`}>スペースを探してみよう！</HashLinkStyled>
+        </ButtonStyled>
+        <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
+          <HashLinkStyled to={`${Path.top()}#prefecture-list-last`}>
+            詳しく知りたい方はこちらへ
           </HashLinkStyled>
         </ButtonStyled>
       </MoreButtonWrap>
-    </ResultWrap>
-
-    <PrefectureList list={areaPrefectures} regionId={regionId} />
-    <MenuItemTopList
-      list={[
-        {
-          link: Path.about(),
-          bgImage: BgImageAbout,
-          titleSub: '置き場に困った荷物がある方へ',
-          titleMain: 'モノオクをはじめよう',
-        },
-        {
-          link: Path.howtouse(),
-          bgImage: BgImageHowto,
-          type: 'howto',
-          titleSub: '実際にモノオクを使ってみよう',
-          titleMain: 'ご利用の流れ',
-        },
-        {
-          link: 'https://help.monooq.com/',
-          bgImage: BgImageQa,
-          type: 'qa',
-          titleSub: '使い方がわからない人へ',
-          titleMain: 'よくあるご質問',
-          isLinkBlank: true,
-        },
-      ]}
-    />
-    <BizModel />
-    <Want titleWant="こんな荷物ありませんか？" />
-    <Merit />
-    <Flow title="すぐに預けられる！" />
-    {sections.map((item, i) => (
-      // <SpaceList key={i.toString()} spaceList={item.contents} />
-      <SpaceList
-        key={i.toString()}
-        caption={item.title}
-        captionSub="公式がイチオシする高評価スペース"
-        spaceList={item.contents}
-      />
-    ))}
-    <MoreButtonWrap>
-      <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
-        <HashLinkStyled to={`${Path.top()}#topview`}>スペースを探してみよう！</HashLinkStyled>
-      </ButtonStyled>
-      <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
-        <HashLinkStyled to={`${Path.top()}#prefecture-list-last`}>
-          詳しく知りたい方はこちらへ
-        </HashLinkStyled>
-      </ButtonStyled>
-    </MoreButtonWrap>
-  </Wrap>
-);
+    </Wrap>
+  );
+};

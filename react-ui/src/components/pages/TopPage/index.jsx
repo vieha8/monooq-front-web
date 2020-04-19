@@ -14,17 +14,7 @@ import Path from 'config/path';
 class TopPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      limit: 12,
-      offset: 0,
-      sort: 1,
-      keyword: '',
-      pref: '13', // 仮
-      cities: [],
-      towns: [],
-      tags: [],
-      // isInit: false,
-    };
+
     const { referrer } = document;
     if (isAvailableLocalStorage()) {
       if (!localStorage.getItem('referrer')) {
@@ -33,32 +23,12 @@ class TopPage extends React.Component {
     }
 
     const { dispatch } = this.props;
+
     dispatch(sectionActions.getRegion());
     dispatch(sectionActions.fetchSections());
-    const { limit, offset, keyword, pref, cities, towns, sort, tags } = this.state;
 
-    const params = {
-      limit,
-      offset,
-      keyword,
-      prefCode: pref,
-      sort,
-      cities: [],
-      towns: [],
-      tags: [],
-    };
-    if (cities.length > 0) {
-      params.cities = cities;
-    }
-
-    if (towns.length > 0) {
-      params.towns = towns;
-    }
-
-    if (tags.length > 0) {
-      params.tags = tags;
-    }
-    dispatch(spaceActions.doSearch(params));
+    // 非ログイン状態ならAction内で検索をやめてくれるのでここで分岐はしない
+    dispatch(spaceActions.doSearchMyArea());
   }
 
   onClickSpace = spaceId => {
@@ -73,8 +43,6 @@ class TopPage extends React.Component {
       return <LoadingPage />;
     }
 
-    console.log('spaces', spaces);
-
     const isProd =
       document.domain === 'monooq.com' ||
       document.domain === 'monooq-front-web-staging.herokuapp.com';
@@ -83,7 +51,7 @@ class TopPage extends React.Component {
 
     return (
       <Fragment>
-        <Top sections={sections} regionId={regionId} spaces={spaces} onClickSpace />
+        <Top sections={sections} regionId={regionId} spaces={spaces} onClickSpace user={user} />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"

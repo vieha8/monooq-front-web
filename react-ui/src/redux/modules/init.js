@@ -1,6 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, select, take, takeEvery } from 'redux-saga/effects';
 import { authActions } from 'redux/modules/auth';
+import { spaceActions } from 'redux/modules/space';
 import { messagesActions } from 'redux/modules/messages';
 
 // Actions
@@ -35,6 +36,21 @@ function* init() {
   if (user.id) {
     yield put(messagesActions.fetchUnreadRoomsStart());
     yield take(messagesActions.fetchUnreadRoomsEnd);
+  }
+
+  if (user.prefCode) {
+    yield put(
+      spaceActions.doSearch({
+        prefCode: user.prefCode,
+        limit: 12,
+        offset: 0,
+        keyword: '',
+        cities: [],
+        towns: [],
+        tags: [],
+        sort: 1,
+      }),
+    );
   }
 
   yield put(initActions.initSuccess());
