@@ -38,21 +38,6 @@ function* init() {
     yield take(messagesActions.fetchUnreadRoomsEnd);
   }
 
-  if (user.prefCode) {
-    yield put(
-      spaceActions.doSearch({
-        prefCode: user.prefCode,
-        limit: 12,
-        offset: 0,
-        keyword: '',
-        cities: [],
-        towns: [],
-        tags: [],
-        sort: 1,
-      }),
-    );
-  }
-
   yield put(initActions.initSuccess());
 }
 
