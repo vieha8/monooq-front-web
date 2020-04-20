@@ -37,6 +37,7 @@ const DELETE_FAILED_SPACE = 'DELETE_FAILED_SPACE';
 const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
 const ADD_SPACE_ACCESS_LOG = 'ADD_SPACE_ACCESS_LOG';
 const DO_SEARCH = 'DO_SEARCH';
+const DO_SEARCH_MY_AREA = 'DO_SEARCH_MY_AREA';
 const SUCCESS_SEARCH = 'SUCCESS_SEARCH';
 const FAILED_SEARCH = 'FAILED_SEARCH';
 const GET_GEOCODE = 'GET_GEOCODE';
@@ -72,6 +73,7 @@ export const spaceActions = createActions(
   PREPARE_UPDATE_SPACE,
   ADD_SPACE_ACCESS_LOG,
   DO_SEARCH,
+  DO_SEARCH_MY_AREA,
   SUCCESS_SEARCH,
   FAILED_SEARCH,
   RESET_SEARCH,
@@ -184,6 +186,13 @@ export const spaceReducer = handleActions(
       isComplete: false,
     }),
     [DO_SEARCH]: state => ({
+      ...state,
+      search: {
+        ...state.search,
+        isLoading: true,
+      },
+    }),
+    [DO_SEARCH_MY_AREA]: state => ({
       ...state,
       search: {
         ...state.search,
@@ -744,6 +753,78 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, t
   );
 }
 
+function* searchMyArea() {
+  /**
+   * 自分の住所都道府県を元にサジェストするため、ログインユーザー情報を取得する
+   */
+
+  let user = yield select(state => state.auth.user);
+
+  if (!user.prefCode) {
+    yield take(authActions.checkLoginSuccess);
+  }
+
+  user = yield select(state => state.auth.user);
+
+  /**
+   * ログイン情報が取得できない場合、APIを叩かない
+   */
+
+  if (!user.prefCode) {
+    return;
+  }
+
+  const token = yield* getToken();
+
+  const params = {
+    limit: 12,
+    offset: 0,
+    pref: user.prefCode,
+  };
+
+  const { data, err, headers } = yield call(getApiRequest, apiEndpoint.spaces(), params, token);
+
+  if (err) {
+    yield handleError(spaceActions.failedSearch, '', 'search', err, false);
+    return;
+  }
+
+  const res = data.results.map(v => {
+    let images = [];
+    if (v.images.length === 0) {
+      images = [{ imageUrl: dummySpaceImage }];
+    } else {
+      images = v.images.map(image => ({
+        ...image,
+        imageUrl: convertSpaceImgUrl(image.imageUrl, 'w=360'),
+      }));
+    }
+    return { ...v, images };
+  });
+
+  let areaRes = [];
+  let areaSearchRes = [];
+
+  const breadcrumbs = makeBreadcrumbs(data.conditions);
+
+  const isMore = res.length === 12;
+
+  console.log('header', headers);
+
+  yield put(
+    spaceActions.successSearch({
+      spaces: res,
+      isMore,
+      maxCount: parseInt(headers['content-range'], 10),
+      area: areaRes,
+      conditions: data.conditions,
+      breadcrumbs,
+      cities: areaSearchRes,
+      sort: 1,
+    }),
+  );
+}
+
 const makeBreadcrumbs = ({ keyword, pref, cities, towns }) => {
   const breadcrumbs = [{ text: 'トップ', link: Path.top() }];
 
@@ -889,6 +970,7 @@ export const spaceSagas = [
   takeEvery(DELETE_SPACE, deleteSpace),
   takeEvery(ADD_SPACE_ACCESS_LOG, addSpaceAccessLog),
   takeEvery(DO_SEARCH, search),
+  takeEvery(DO_SEARCH_MY_AREA, searchMyArea),
   takeEvery(GET_GEOCODE, getGeocode),
   takeEvery(GET_RECOMMEND_SPACES, getRecommendSpaces),
   takeEvery(GET_ADDRESS, getAddressByPostalCode),
