@@ -7,6 +7,7 @@ import Top from 'components/LV3/Top';
 import LoadingPage from 'components/LV3/LoadingPage';
 import { spaceActions } from 'redux/modules/space';
 import Path from 'config/path';
+import { makeConditionTitle } from 'helpers/search';
 
 // import RecommendedSpace from './StaticRecommendedSpace';
 
@@ -37,11 +38,22 @@ class TopPage extends React.Component {
   };
 
   render() {
-    const { sections, regionId, isChecking, user, intercomHash, spaces } = this.props;
+    const {
+      sections,
+      regionId,
+      isChecking,
+      user,
+      intercomHash,
+      spaces,
+      conditions,
+      maxCount,
+    } = this.props;
 
     if (isChecking) {
       return <LoadingPage />;
     }
+
+    const conditionTitle = makeConditionTitle(conditions);
 
     const isProd =
       document.domain === 'monooq.com' ||
@@ -51,7 +63,15 @@ class TopPage extends React.Component {
 
     return (
       <Fragment>
-        <Top sections={sections} regionId={regionId} spaces={spaces} onClickSpace user={user} />
+        <Top
+          sections={sections}
+          regionId={regionId}
+          spaces={spaces}
+          onClickSpace
+          user={user}
+          maxCount={maxCount}
+          conditionTitle={conditionTitle}
+        />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"
@@ -67,6 +87,8 @@ class TopPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  maxCount: state.space.search.maxCount,
+  conditions: state.space.search.conditions,
   spaces: state.space.search.results,
   sections: state.section.sections,
   regionId: state.section.regionId,

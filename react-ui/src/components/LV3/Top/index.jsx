@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { HashLink } from 'react-router-hash-link';
-import { Dimens, Colors } from 'variables';
+import { Dimens, Colors, FontSizes } from 'variables';
 import Path from 'config/path';
+import { H1 } from 'components/LV1/Texts/Headline';
 import { areaPrefectures } from 'helpers/prefectures';
 import Button from 'components/LV1/Forms/Button';
 import MenuItemTopList from 'components/LV2/Lists/MenuItemTopList';
@@ -18,8 +19,9 @@ import BgImageAbout from 'images/bg-top-menu-sub-about.png';
 import BgImageHowto from 'images/bg-top-menu-sub-howto.png';
 import BgImageQa from 'images/bg-top-menu-sub-qa.png';
 import SearchResult from 'components/LV3/SearchResult';
-import { media } from 'helpers/style/media-query';
 import { useSelector } from 'react-redux';
+import { formatAddComma } from 'helpers/string';
+import InlineText from 'components/LV1/Texts/InlineText';
 
 const Wrap = styled.div`
   width: 100%;
@@ -41,26 +43,49 @@ const HashLinkStyled = styled(HashLink)`
 const ResultWrap = styled.div`
   width: 100%;
   max-width: 1200px;
-  margin: ${Dimens.large2}px auto;
+  margin: ${Dimens.medium}px auto;
   padding: 0 ${Dimens.medium}px;
 `;
-export default ({ sections, regionId, spaces, onClickSpace, user }) => {
+
+const ResultCount = styled.span`
+  font-size: ${FontSizes.large}px;
+  color: ${Colors.brandPrimary};
+  margin-left: ${Dimens.small_10}px;
+  margin-right: ${Dimens.xxsmall_5}px;
+`;
+
+const SearchResultWrap = styled.div`
+  margin: ${Dimens.medium}px auto;
+`;
+
+export default ({ sections, regionId, spaces, onClickSpace, user, maxCount, conditionTitle }) => {
   const isLogin = useSelector(state => state.auth.isLogin);
 
   return (
     <Wrap>
       <View />
-
+      <Covid19Info />
       {/* ログインユーザーのみ、自分の住む地域のスペースをレコメンドされる */}
       {isLogin && (
         <ResultWrap>
-          <SearchResult
-            spaces={spaces.map(s => ({
-              ...s,
-              image: (s.images[0] || {}).imageUrl,
-              onClick: () => onClickSpace(s.id),
-            }))}
-          />
+          <H1 bold>
+            {`${conditionTitle}でスペースを探す`}
+            <br />
+            <ResultCount>{formatAddComma(maxCount)}</ResultCount>
+            <InlineText.Base fontSize={FontSizes.small} nobold>
+              件
+            </InlineText.Base>
+          </H1>
+          <SearchResultWrap>
+            <SearchResult
+              spaces={spaces.map(s => ({
+                ...s,
+                image: (s.images[0] || {}).imageUrl,
+                onClick: () => onClickSpace(s.id),
+              }))}
+            />
+          </SearchResultWrap>
+
           <MoreButtonWrap>
             <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
               <HashLinkStyled to={`${Path.spacesByPrefecture(user.prefCode)}`}>
@@ -70,7 +95,7 @@ export default ({ sections, regionId, spaces, onClickSpace, user }) => {
           </MoreButtonWrap>
         </ResultWrap>
       )}
-      <Covid19Info />
+
       <PrefectureList list={areaPrefectures} regionId={regionId} />
       <MenuItemTopList
         list={[
