@@ -809,8 +809,6 @@ function* searchMyArea() {
 
   const isMore = res.length === 12;
 
-  console.log('header', headers);
-
   yield put(
     spaceActions.successSearch({
       spaces: res,

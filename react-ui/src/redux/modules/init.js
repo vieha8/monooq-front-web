@@ -1,7 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, select, take, takeEvery } from 'redux-saga/effects';
 import { authActions } from 'redux/modules/auth';
-import { spaceActions } from 'redux/modules/space';
 import { messagesActions } from 'redux/modules/messages';
 
 // Actions
