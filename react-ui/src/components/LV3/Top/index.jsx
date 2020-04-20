@@ -6,6 +6,7 @@ import Path from 'config/path';
 import { areaPrefectures } from 'helpers/prefectures';
 import Button from 'components/LV1/Forms/Button';
 import MenuItemTopList from 'components/LV2/Lists/MenuItemTopList';
+import ModalTopDesiredCondition from 'components/LV3/ModalTopDesiredCondition';
 import PrefectureList from 'components/LV3/PrefectureList';
 import SpaceList from 'components/LV3/SpaceList';
 import View from 'components/LV3/Top/View';
@@ -88,5 +89,8 @@ export default ({ sections, regionId }) => (
         </HashLinkStyled>
       </ButtonStyled>
     </MoreButtonWrap>
+    {/* {isOpenModalError && ( */}
+    <ModalTopDesiredCondition />
+    {/* )} */}
   </Wrap>
 );

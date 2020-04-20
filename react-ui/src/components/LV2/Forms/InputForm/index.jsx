@@ -45,6 +45,7 @@ export default ({
   labelSub,
   hint,
   checkbox,
+  fontSize,
   labelCheckBox,
   checked,
   onChange,
@@ -77,6 +78,7 @@ export default ({
     {hint && <InlineText.EmphasisSmall>{hint}</InlineText.EmphasisSmall>}
     {checkbox ? (
       <Check
+        fontSize={fontSize}
         label={labelCheckBox}
         checked={checked}
         onClick={onClick}
