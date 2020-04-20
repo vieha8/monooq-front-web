@@ -60,13 +60,15 @@ const SearchResultWrap = styled.div`
 
 export default ({ sections, regionId, spaces, onClickSpace, user, maxCount, conditionTitle }) => {
   const isLogin = useSelector(state => state.auth.isLogin);
+  const isExistSpace = spaces.length > 0;
 
+  // FIXME:サインアップ直後に検索が走らないのをなんとかする
   return (
     <Wrap>
       <View />
       <Covid19Info />
       {/* ログインユーザーのみ、自分の住む地域のスペースをレコメンドされる */}
-      {isLogin && (
+      {isLogin && isExistSpace && (
         <ResultWrap>
           <H1 bold>
             {`${conditionTitle}でスペースを探す`}
