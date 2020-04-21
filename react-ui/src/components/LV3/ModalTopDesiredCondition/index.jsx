@@ -263,7 +263,7 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
             <InputForm
               checkbox
               fontSize={14}
-              labelCheckBox="半年以上の利用を希望"
+              labelCheckBox="半年以上の利用希望"
               checked={isUseOver6Month}
               onClickCheck={() => setIsUseOver6Month(!isUseOver6Month)}
               onKeyDown={e =>
