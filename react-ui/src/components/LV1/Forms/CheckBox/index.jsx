@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Checkbox } from 'semantic-ui-react';
-import { FontSizes } from 'variables';
 
 const Wrap = styled.div`
   display: flex;

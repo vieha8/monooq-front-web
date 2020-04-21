@@ -79,9 +79,8 @@ const getSelectDate = (option, value, onChange) => {
 };
 
 const ModalTopDesiredCondition = ({ params, isLoading }) => {
-  const [isOpen, setStateOpen] = useState(true);
   const dispatch = useDispatch();
-
+  const [isOpen, setStateOpen] = useState(true);
   const [errors, setErrors] = useState({});
   const [prefCode, setPrefCode] = useState(params ? params.prefCode : 0);
   const [town, setTown] = useState(params ? params.town : '');
