@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 import { Modal } from 'semantic-ui-react';
 import styled from 'styled-components';
+import Path from 'config/path';
 import { Dimens, FontSizes, Colors, ErrorMessages } from 'variables';
 import { requestActions } from 'redux/modules/request';
+import { spaceActions } from 'redux/modules/space';
 import { media } from 'helpers/style/media-query';
 import { iskeyDownSpace } from 'helpers/keydown';
 import { getYear, getDate, getToday, generateDateAll } from 'helpers/date';
@@ -80,6 +83,7 @@ const getSelectDate = (option, value, onChange) => {
 
 const ModalTopDesiredCondition = ({ params, isLoading }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const [isOpen, setStateOpen] = useState(true);
   const [errors, setErrors] = useState({});
   const [prefCode, setPrefCode] = useState(params ? params.prefCode : 0);
@@ -120,6 +124,9 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
         },
       }),
     );
+
+    dispatch(spaceActions.resetSearch());
+    history.push(`${Path.search()}?pref=${prefCode}`);
   };
 
   const handleChangeUI = (propName, inputValue) => {
