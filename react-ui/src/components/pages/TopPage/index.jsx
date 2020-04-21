@@ -64,16 +64,18 @@ class TopPage extends React.Component {
 
     let isViewModalTop = false;
     let requestParams;
-    if (isAvailableLocalStorage()) {
-      if (
-        localStorage.getItem('isRequestedTop') &&
-        localStorage.getItem('isRequestedTop') === 'true'
-      ) {
-        // 希望条件送付済
-      } else if (localStorage.getItem('request_params')) {
-        requestParams = localStorage.getItem('request_params');
-      } else {
-        isViewModalTop = true;
+    if (user && user.isHost !== undefined && !user.isHost) {
+      if (isAvailableLocalStorage()) {
+        if (
+          localStorage.getItem('isRequestedTop') &&
+          localStorage.getItem('isRequestedTop') === 'true'
+        ) {
+          // 希望条件送付済
+        } else if (localStorage.getItem('request_params')) {
+          requestParams = localStorage.getItem('request_params');
+        } else {
+          isViewModalTop = true;
+        }
       }
     }
 
