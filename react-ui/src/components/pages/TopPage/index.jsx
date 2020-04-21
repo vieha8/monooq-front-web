@@ -23,7 +23,7 @@ class TopPage extends React.Component {
   }
 
   render() {
-    const { sections, regionId, isChecking, user, intercomHash } = this.props;
+    const { sections, regionId, isChecking, user, intercomHash, isLoading } = this.props;
 
     if (isChecking) {
       return <LoadingPage />;
@@ -35,9 +35,30 @@ class TopPage extends React.Component {
 
     // const sections = RecommendedSpace;
 
+    let isViewModalTop = false;
+    let requestParams;
+    if (isAvailableLocalStorage()) {
+      if (
+        localStorage.getItem('isRequestedTop') &&
+        localStorage.getItem('isRequestedTop') === 'true'
+      ) {
+        // 希望条件送付済
+      } else if (localStorage.getItem('request_params')) {
+        requestParams = localStorage.getItem('request_params');
+      } else {
+        isViewModalTop = true;
+      }
+    }
+
     return (
       <Fragment>
-        <Top sections={sections} regionId={regionId} />
+        <Top
+          sections={sections}
+          regionId={regionId}
+          isViewModalTop={isViewModalTop}
+          requestParams={requestParams}
+          isLoading={isLoading}
+        />
         {isProd && (
           <Intercom
             appID="v0rdx0ap"
@@ -58,6 +79,7 @@ const mapStateToProps = state => ({
   isChecking: state.auth.isChecking,
   user: state.auth.user,
   intercomHash: state.auth.intercom.hash,
+  isLoading: state.request.isLoading,
 });
 
 export default connect(mapStateToProps)(TopPage);

@@ -1,21 +1,17 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
 import { Modal } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { Dimens, FontSizes, Colors } from 'variables';
-import Path from 'config/path';
-import { uiActions } from 'redux/modules/ui';
-import { isAvailableLocalStorage } from 'helpers/storage';
+import { Dimens, FontSizes, Colors, ErrorMessages } from 'variables';
+import { requestActions } from 'redux/modules/request';
 import { media } from 'helpers/style/media-query';
-import { getYear, getDate } from 'helpers/date';
+import { iskeyDownSpace } from 'helpers/keydown';
+import { getYear, getDate, getToday, generateDateAll } from 'helpers/date';
+import { selectOptionPrefectures } from 'helpers/prefectures';
+import { isTrimmedEmpty } from 'helpers/validations/string';
 import { selectOptionUsages } from 'helpers/usages';
-import {
-  selectOptionBreadths,
-  getBreadthsDetailRoom,
-  getBreadthsDetailOther,
-} from 'helpers/breadths';
+import { selectOptionBreadths } from 'helpers/breadths';
 import Button from 'components/LV1/Forms/Button';
 import CloseIcon from 'components/LV2/ButtonHeader/CloseIcon';
 import InputForm from 'components/LV2/Forms/InputForm';
@@ -78,27 +74,17 @@ const ButtonWrap = styled.div`
   margin: ${Dimens.medium_20}px auto auto;
 `;
 
-const getBreadths = (sizeType, targetBreadth) => {
-  let returnBreadths = 0;
-  if (sizeType > 0 && sizeType < 4 && getBreadthsDetailRoom(targetBreadth)) {
-    returnBreadths = targetBreadth;
-  } else if (getBreadthsDetailOther(targetBreadth)) {
-    returnBreadths = targetBreadth;
-  }
-  return returnBreadths;
-};
-
 const getSelectDate = (option, value, onChange) => {
   return <Select options={option} value={value} onChange={onChange} width="100%" isInline />;
 };
 
-const ModalTopDesiredCondition = ({ params, content }) => {
+const ModalTopDesiredCondition = ({ params, isLoading }) => {
   const [isOpen, setStateOpen] = useState(true);
   const dispatch = useDispatch();
-  const location = useLocation();
-  const history = useHistory();
 
   const [errors, setErrors] = useState({});
+  const [prefCode, setPrefCode] = useState(params ? params.prefCode : 0);
+  const [town, setTown] = useState(params ? params.town : '');
   const [usage, setUsage] = useState(params ? params.usage : 0);
   const [isUseOver6Month, setIsUseOver6Month] = useState(params ? params.isUseOver6Month : false);
   const [breadth, setBreadth] = useState(params ? params.breadth : 0);
@@ -122,19 +108,88 @@ const ModalTopDesiredCondition = ({ params, content }) => {
     day: setStartDateDay,
   });
 
-  const onClickButton = () => {
-    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-    history.push(Path.profileEdit());
+  const onClickSubmit = () => {
+    dispatch(
+      requestActions.bosyu({
+        body: {
+          prefCode,
+          town: town === undefined ? '' : town.trim(),
+          usage,
+          startDate,
+          isUseOver6Month,
+          breadth,
+        },
+      }),
+    );
   };
 
-  const onClickButtonDelLocalStorage = targetName => {
-    if (isAvailableLocalStorage()) {
-      localStorage.removeItem(targetName);
-      console.log(`Local Storage「${targetName}」を削除しました`);
+  const handleChangeUI = (propName, inputValue) => {
+    const setError = [];
+
+    switch (propName) {
+      case 'prefCode':
+      case 'usage':
+      case 'breadth':
+        if (inputValue.length === 0) {
+          setError.push(ErrorMessages.PleaseSelect);
+        }
+        setErrors(state => ({ ...state, [propName]: setError }));
+        break;
+      case 'town':
+        if (isTrimmedEmpty(inputValue)) {
+          setError.push(ErrorMessages.PleaseInput);
+        }
+        setErrors(state => ({ ...state, [propName]: setError }));
+        break;
+      default:
+        break;
     }
   };
 
-  const sizeType = 1;
+  const handleChangeDate = (propName, inputValue, setItem) => {
+    const setError = [];
+
+    let startDateYear = startDate.year;
+    let startDateMonth = startDate.month;
+    let startDateDay = startDate.day;
+
+    switch (propName) {
+      case 'year':
+        startDateYear = inputValue;
+        break;
+      case 'month':
+        startDateMonth = inputValue;
+        break;
+      case 'day':
+        startDateDay = inputValue;
+        break;
+      default:
+        break;
+    }
+    setItem(state => ({ ...state, [propName]: inputValue }));
+
+    const startDateAll = generateDateAll(startDateYear, startDateMonth, startDateDay);
+    if (moment(startDateAll).isValid()) {
+      if (moment(startDateAll).isBefore(getToday())) {
+        setError.push(ErrorMessages.InvalidStartDate);
+      }
+    } else {
+      setError.push(ErrorMessages.InvalidDate);
+    }
+    setErrors(state => ({ ...state, desiredPeriod: setError }));
+  };
+
+  const validate = () => {
+    const startDateAll = generateDateAll(startDate.year, startDate.month, startDate.day);
+    return (
+      prefCode &&
+      !isTrimmedEmpty(town) &&
+      usage &&
+      breadth &&
+      moment(startDateAll).isValid() &&
+      !moment(startDateAll).isBefore(getToday())
+    );
+  };
 
   return (
     <Modal
@@ -157,18 +212,31 @@ const ModalTopDesiredCondition = ({ params, content }) => {
         <FormWrap>
           <Row>
             <Select
-              label="預けたい希望地域"
-              options={selectOptionUsages('選択してください')}
-              // onChange={onChangeUsage}
-              value={usage}
+              label="預けたい都道府県"
+              options={selectOptionPrefectures('選択してください')}
+              onChange={e =>
+                handleChangeUI('prefCode', e.target.value, setPrefCode(e.target.value))
+              }
+              value={prefCode}
             />
-            <ErrorList keyName="usage_errors" errors={errors && errors.usage} />
+            <ErrorList keyName="prefCode_errors" errors={errors.prefCode} />
           </Row>
+          {prefCode > 0 && (
+            <Row>
+              <InputForm
+                label="預けたい市区町村"
+                placeholder="例) 渋谷区渋谷"
+                value={town}
+                onChange={e => handleChangeUI('town', e.target.value, setTown(e.target.value))}
+              />
+              <ErrorList keyName="town_errors" errors={errors.town} />
+            </Row>
+          )}
           <Row>
             <Select
               label="用途"
               options={selectOptionUsages('選択してください')}
-              // onChange={onChangeUsage}
+              onChange={e => handleChangeUI('usage', e.target.value, setUsage(e.target.value))}
               value={usage}
             />
             <ErrorList keyName="usage_errors" errors={errors && errors.usage} />
@@ -176,32 +244,34 @@ const ModalTopDesiredCondition = ({ params, content }) => {
           <Row date>
             <DataSelectTitle>開始希望日</DataSelectTitle>
             <DateSelectWrap>
-              {/* {getSelectDate(getYear(5), startDate && startDate.year, onCHangeStartDateYear)}
-              {getSelectDate(getDate(12, '月'), startDate && startDate.month, onCHangeStartDateMonth)}
-              {getSelectDate(getDate(31, '日'), startDate && startDate.day, onCHangeStartDateDay)}
-               */}
-              {getSelectDate(getYear(5), startDate && startDate.year, null)}
-              {getSelectDate(getDate(12, '月'), startDate && startDate.month, null)}
-              {getSelectDate(getDate(31, '日'), startDate && startDate.day, null)}
+              {getSelectDate(getYear(5), startDate && startDate.year, e =>
+                handleChangeDate('year', e.target.value, setStartDate),
+              )}
+              {getSelectDate(getDate(12, '月'), startDate && startDate.month, e =>
+                handleChangeDate('month', e.target.value, setStartDate),
+              )}
+              {getSelectDate(getDate(31, '日'), startDate && startDate.day, e =>
+                handleChangeDate('day', e.target.value, setStartDate),
+              )}
             </DateSelectWrap>
             <InputForm
               checkbox
               fontSize={14}
               labelCheckBox="半年以上の利用を希望"
               checked={isUseOver6Month}
-              // onClickCheck={() => setNoticeEmail(!isNoticeEmail)}
-              // onKeyDown={e => (iskeyDownSpace(e) ? () => setNoticeEmail(!isNoticeEmail) : null)}
+              onClickCheck={() => setIsUseOver6Month(!isUseOver6Month)}
+              onKeyDown={e =>
+                iskeyDownSpace(e) ? () => setIsUseOver6Month(!isUseOver6Month) : null
+              }
             />
+            <ErrorList keyName="desiredPeriod_errors" errors={errors && errors.desiredPeriod} />
           </Row>
           <Row>
             <Select
               label="希望の広さ"
-              options={selectOptionBreadths(
-                sizeType > 0 && sizeType < 4 ? 'room' : 'other',
-                '選択してください',
-              )}
-              value={getBreadths(sizeType, breadth)}
-              // onChange={onChangeBreadth}
+              options={selectOptionBreadths('', '選択してください')}
+              value={breadth}
+              onChange={e => handleChangeUI('breadth', e.target.value, setBreadth(e.target.value))}
             />
             <ErrorList keyName="breadth_errors" errors={errors && errors.breadth} />
           </Row>
@@ -211,34 +281,13 @@ const ModalTopDesiredCondition = ({ params, content }) => {
             primary
             fill={1}
             fontbold
-            // disabled={!validate()}
-            onClick={() => onClickButton()}
+            disabled={!validate()}
+            onClick={isLoading ? null : () => onClickSubmit()}
+            loading={isLoading}
           >
             完了
           </Button>
         </ButtonWrap>
-        {process.env.NODE_ENV !== 'production' && (
-          <Fragment>
-            <ButtonWrap>
-              <Button
-                secondary
-                fill={1}
-                onClick={() => onClickButtonDelLocalStorage('isRequestedTop')}
-              >
-                LS削除(希望送信済み状態)(開発用)
-              </Button>
-            </ButtonWrap>
-            <ButtonWrap>
-              <Button
-                secondary
-                fill={1}
-                onClick={() => onClickButtonDelLocalStorage('request_params')}
-              >
-                LS削除(ReqForm保存値)(開発用)
-              </Button>
-            </ButtonWrap>
-          </Fragment>
-        )}
       </Modal.Content>
     </Modal>
   );

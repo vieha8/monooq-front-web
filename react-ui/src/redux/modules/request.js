@@ -35,6 +35,9 @@ const REQUEST_FAILED = 'REQUEST_FAILED';
 const FETCH_REQUEST = 'FETCH_REQUEST';
 const FETCH_REQUEST_SUCCESS = 'FETCH_REQUEST_SUCCESS';
 const FETCH_REQUEST_FAILED = 'FETCH_REQUEST_FAILED';
+const BOSYU = 'BOSYU';
+const BOSYU_SUCCESS = 'BOSYU_SUCCESS';
+const BOSYU_FAILED = 'BOSYU_FAILED';
 
 export const requestActions = createActions(
   ESTIMATE,
@@ -54,6 +57,9 @@ export const requestActions = createActions(
   FETCH_REQUEST,
   FETCH_REQUEST_SUCCESS,
   FETCH_REQUEST_FAILED,
+  BOSYU,
+  BOSYU_SUCCESS,
+  BOSYU_FAILED,
 );
 
 // Reducer
@@ -154,6 +160,18 @@ export const requestReducer = handleActions(
     [FETCH_REQUEST_SUCCESS]: (state, action) => ({
       ...state,
       request: action.payload,
+    }),
+    [BOSYU]: state => ({
+      ...state,
+      isLoading: true,
+    }),
+    [BOSYU_SUCCESS]: state => ({
+      ...state,
+      isLoading: false,
+    }),
+    [BOSYU_FAILED]: state => ({
+      ...state,
+      isLoading: false,
     }),
   },
   initialState,
@@ -614,6 +632,25 @@ function* fetchRequest({ payload: requestId }) {
   yield put(requestActions.fetchRequestSuccess(data));
 }
 
+function* bosyu({ payload: { body } }) {
+  const params = generateRequestParams(body);
+
+  console.log(`params(bosyu):${JSON.stringify(params)}`);
+
+  // const setStartDate = `${params.startDate.year}/${params.startDate.month}/${params.startDate.day}`;
+  // const usage = getUsages(params.usage);
+
+  // TODO: 【募集型モデル】API連携実装箇所
+
+  // yield put(requestActions.bosyuFailed());
+
+  if (isAvailableLocalStorage()) {
+    localStorage.setItem('isRequestedTop', 'true');
+  }
+
+  yield put(requestActions.bosyuSuccess());
+}
+
 export const requestSagas = [
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
@@ -621,4 +658,5 @@ export const requestSagas = [
   takeEvery(FETCH_SCHEDULE, fetchSchedule),
   takeEvery(REQUEST, request),
   takeEvery(FETCH_REQUEST, fetchRequest),
+  takeEvery(BOSYU, bosyu),
 ];

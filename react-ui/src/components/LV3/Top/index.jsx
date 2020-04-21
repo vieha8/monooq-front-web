@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { HashLink } from 'react-router-hash-link';
 import { Dimens, Colors } from 'variables';
 import Path from 'config/path';
 import { areaPrefectures } from 'helpers/prefectures';
+import { deleteLocalStorage } from 'helpers/storage';
 import Button from 'components/LV1/Forms/Button';
 import MenuItemTopList from 'components/LV2/Lists/MenuItemTopList';
 import ModalTopDesiredCondition from 'components/LV3/ModalTopDesiredCondition';
@@ -23,6 +24,11 @@ const Wrap = styled.div`
   width: 100%;
 `;
 
+const ButtonTestWrap = styled.div`
+  max-width: 300px;
+  margin: ${Dimens.medium_20}px auto auto;
+`;
+
 const MoreButtonWrap = styled.div`
   max-width: 300px;
   margin: ${Dimens.medium}px auto;
@@ -36,9 +42,23 @@ const HashLinkStyled = styled(HashLink)`
   color: ${Colors.white} !important;
 `;
 
-export default ({ sections, regionId }) => (
+export default ({ sections, regionId, isViewModalTop, requestParams, isLoading }) => (
   <Wrap>
     <View />
+    {process.env.NODE_ENV !== 'production' && (
+      <Fragment>
+        <ButtonTestWrap>
+          <Button secondary fill={1} onClick={() => deleteLocalStorage('isRequestedTop')}>
+            LS削除(希望送信済み状態)(開発用)
+          </Button>
+        </ButtonTestWrap>
+        <ButtonTestWrap>
+          <Button secondary fill={1} onClick={() => deleteLocalStorage('request_params')}>
+            LS削除(ReqForm保存値)(開発用)
+          </Button>
+        </ButtonTestWrap>
+      </Fragment>
+    )}
     <Covid19Info />
     <PrefectureList list={areaPrefectures} regionId={regionId} />
     <MenuItemTopList
@@ -89,8 +109,6 @@ export default ({ sections, regionId }) => (
         </HashLinkStyled>
       </ButtonStyled>
     </MoreButtonWrap>
-    {/* {isOpenModalError && ( */}
-    <ModalTopDesiredCondition />
-    {/* )} */}
+    {isViewModalTop && <ModalTopDesiredCondition params={requestParams} isLoading={isLoading} />}
   </Wrap>
 );
