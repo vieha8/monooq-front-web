@@ -1,18 +1,23 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { HashLink } from 'react-router-hash-link';
+import { useSelector } from 'react-redux';
 import { Dimens, Colors, FontSizes } from 'variables';
 import Path from 'config/path';
-import { H1 } from 'components/LV1/Texts/Headline';
+import { formatAddComma } from 'helpers/string';
 import { areaPrefectures } from 'helpers/prefectures';
 import { deleteLocalStorage } from 'helpers/storage';
 import Button from 'components/LV1/Forms/Button';
+import { H1 } from 'components/LV1/Texts/Headline';
+import InlineText from 'components/LV1/Texts/InlineText';
 import MenuItemTopList from 'components/LV2/Lists/MenuItemTopList';
 import ModalTopDesiredCondition from 'components/LV3/ModalTopDesiredCondition';
 import PrefectureList from 'components/LV3/PrefectureList';
 import SpaceList from 'components/LV3/SpaceList';
 import View from 'components/LV3/Top/View';
 import Covid19Info from 'components/LV3/Top/Covid19Info';
+import SearchResult from 'components/LV3/SearchResult';
+import ModalNoSpaceRecommend from 'components/LV3/ModalNoSpaceRecommend';
 import Want from 'components/LV3/Lp123Guest/Want';
 import Merit from 'components/LV3/Lp123Guest/Merit';
 import BizModel from 'components/LV3/Lp123Guest/BizModel';
@@ -20,10 +25,6 @@ import Flow from 'components/LV3/Lp123Guest/Flow';
 import BgImageAbout from 'images/bg-top-menu-sub-about.png';
 import BgImageHowto from 'images/bg-top-menu-sub-howto.png';
 import BgImageQa from 'images/bg-top-menu-sub-qa.png';
-import SearchResult from 'components/LV3/SearchResult';
-import { useSelector } from 'react-redux';
-import { formatAddComma } from 'helpers/string';
-import InlineText from 'components/LV1/Texts/InlineText';
 
 const Wrap = styled.div`
   width: 100%;
@@ -76,6 +77,7 @@ export default ({
   isViewModalTop,
   requestParams,
   isLoading,
+  modalPrefName,
 }) => {
   const isLogin = useSelector(state => state.auth.isLogin);
   const isExistSpace = spaces && spaces.length > 0;
@@ -180,6 +182,12 @@ export default ({
         </ButtonStyled>
       </MoreButtonWrap>
       {isViewModalTop && <ModalTopDesiredCondition params={requestParams} isLoading={isLoading} />}
+      {modalPrefName && (
+        <ModalNoSpaceRecommend
+          header={`${modalPrefName}にはスペースがありませんでした。`}
+          content="近くの都道府県でスペースを探してみませんか？"
+        />
+      )}
     </Wrap>
   );
 };

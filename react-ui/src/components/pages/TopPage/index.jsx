@@ -48,6 +48,7 @@ class TopPage extends React.Component {
       conditions,
       maxCount,
       isLoading,
+      modalPrefName,
     } = this.props;
 
     if (isChecking) {
@@ -91,6 +92,7 @@ class TopPage extends React.Component {
           isViewModalTop={isViewModalTop}
           requestParams={requestParams}
           isLoading={isLoading}
+          modalPrefName={modalPrefName}
         />
         {isProd && (
           <Intercom
@@ -116,6 +118,7 @@ const mapStateToProps = state => ({
   user: state.auth.user,
   intercomHash: state.auth.intercom.hash,
   isLoading: state.request.isLoading,
+  modalPrefName: state.request.prefName,
 });
 
 export default connect(mapStateToProps)(TopPage);

@@ -9,6 +9,7 @@ import { formatName } from 'helpers/string';
 import { handleGTM } from 'helpers/gtm';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
 import { getUsages } from 'helpers/usages';
+import { getPrefecture } from 'helpers/prefectures';
 import { authActions, getToken } from './auth';
 import { createOmiseToken } from '../helpers/omise';
 import Path from '../../config/path';
@@ -16,7 +17,6 @@ import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import { handleError } from './error';
 import { getRoomId, createRoom } from './messages';
 import { handleAccessTrade, handleCircuitX } from '../../helpers/asp';
-import { getPrefecture } from 'helpers/prefectures';
 
 // Actions
 const ESTIMATE = 'ESTIMATE';
@@ -166,9 +166,10 @@ export const requestReducer = handleActions(
       ...state,
       isLoading: true,
     }),
-    [BOSYU_SUCCESS]: state => ({
+    [BOSYU_SUCCESS]: (state, action) => ({
       ...state,
       isLoading: false,
+      prefName: action.payload.prefName,
     }),
     [BOSYU_FAILED]: state => ({
       ...state,
@@ -677,9 +678,17 @@ function* bosyu({ payload: { body } }) {
   }
 
   // レコメンド用スペース
+  console.log('AAAAAAAAAAAAAAAAAAAAAAA');
+  console.log(pref);
   console.log(data);
 
-  yield put(requestActions.bosyuSuccess());
+  if (data) {
+    // レコメンドスペースが0件の場合
+    yield put(requestActions.bosyuSuccess());
+    yield put(push(`${Path.search()}?pref=${prefCode}`));
+  } else {
+    yield put(requestActions.bosyuSuccess({ prefName: pref }));
+  }
 }
 
 export const requestSagas = [

@@ -4,11 +4,11 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import ModalTopDesiredCondition from './index';
+import ModalNoSpaceRecommend from './index';
 
-ModalTopDesiredCondition.displayName = 'ModalTopDesiredCondition';
+ModalNoSpaceRecommend.displayName = 'ModalNoSpaceRecommend';
 
-storiesOf('Organisms(LV3)/ModalTopDesiredCondition', module)
+storiesOf('Organisms(LV3)/ModalNoSpaceRecommend', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)
   .add(
     'Normal',
@@ -17,7 +17,10 @@ storiesOf('Organisms(LV3)/ModalTopDesiredCondition', module)
           PageNotFound
         `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
-        <ModalTopDesiredCondition params={{}} isLoading={false} />
+        <ModalNoSpaceRecommend
+          header="東京都にはスペースがありませんでした。"
+          content="近くの都道府県でスペースを探してみませんか？"
+        />
       </div>
     )),
   );
