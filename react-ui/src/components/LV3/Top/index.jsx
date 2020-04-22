@@ -60,7 +60,7 @@ const SearchResultWrap = styled.div`
 
 export default ({ sections, regionId, spaces, onClickSpace, user, maxCount, conditionTitle }) => {
   const isLogin = useSelector(state => state.auth.isLogin);
-  const isExistSpace = spaces.length > 0;
+  const isExistSpace = spaces && spaces.length > 0;
 
   // FIXME:サインアップ直後に検索が走らないのをなんとかする
   return (

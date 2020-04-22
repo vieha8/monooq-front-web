@@ -53,8 +53,7 @@ class TopPage extends React.Component {
       return <LoadingPage />;
     }
 
-    const conditionTitle = makeConditionTitle(conditions);
-
+    const conditionTitle = conditions ? makeConditionTitle(conditions) : '';
     const isProd =
       document.domain === 'monooq.com' ||
       document.domain === 'monooq-front-web-staging.herokuapp.com';
