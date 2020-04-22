@@ -214,6 +214,13 @@ export const spaceReducer = handleActions(
         sort: payload.sort,
       },
     }),
+    [FAILED_SEARCH]: state => ({
+      ...state,
+      search: {
+        ...state.search,
+        isLoading: false,
+      },
+    }),
     [RESET_SEARCH]: state => ({
       ...state,
       search: {
@@ -771,6 +778,7 @@ function* searchMyArea() {
    */
 
   if (!user.prefCode) {
+    yield put(spaceActions.failedSearch());
     return;
   }
 
