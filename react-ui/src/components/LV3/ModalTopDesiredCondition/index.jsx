@@ -112,6 +112,7 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
   });
 
   const onClickSubmit = () => {
+    dispatch(spaceActions.resetSearch());
     dispatch(
       requestActions.bosyu({
         body: {
@@ -124,9 +125,6 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
         },
       }),
     );
-
-    dispatch(spaceActions.resetSearch());
-    history.push(`${Path.search()}?pref=${prefCode}`);
   };
 
   const handleChangeUI = (propName, inputValue) => {
