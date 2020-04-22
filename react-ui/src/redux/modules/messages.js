@@ -27,6 +27,7 @@ const FETCH_MESSAGES_START = 'FETCH_MESSAGES_START';
 const FETCH_MESSAGES_END = 'FETCH_MESSAGES_END';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
+const MAKE_BOSYU_ROOM = 'MAKE_BOSYU_ROOM';
 
 export const messagesActions = createActions(
   FETCH_ROOMS_ID_START,
@@ -39,6 +40,7 @@ export const messagesActions = createActions(
   FETCH_MESSAGES_END,
   SEND_MESSAGE,
   UPDATE_MESSAGE,
+  MAKE_BOSYU_ROOM,
 );
 
 // Reducer
@@ -563,6 +565,12 @@ function* sendMessageAndNotice({ payload }) {
   yield sendSMS(payload);
 }
 
+function* makeBosyuRoom({ payload }) {
+  const token = yield* getToken();
+  const { data } = yield call(postApiRequest, apiEndpoint.bosyu(payload), {}, token);
+  yield put(push(Path.message(data.roomId)));
+}
+
 // Sagas
 export const messagesSagas = [
   takeEvery(FETCH_ROOMS_ID_START, fetchRoomId),
@@ -570,4 +578,5 @@ export const messagesSagas = [
   takeEvery(FETCH_UNREAD_ROOMS_START, fetchUnreadRoomsStart),
   takeEvery(FETCH_MESSAGES_START, fetchMessagesStart),
   takeEvery(SEND_MESSAGE, sendMessageAndNotice),
+  takeEvery(MAKE_BOSYU_ROOM, makeBosyuRoom),
 ];
