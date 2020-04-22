@@ -660,7 +660,7 @@ function* bosyu({ payload: { body } }) {
   }
 
   if (isAvailableLocalStorage()) {
-    // localStorage.setItem('isRequestedTop', 'true');
+    localStorage.setItem('isRequestedTop', 'true');
   }
 
   const searchParams = {
