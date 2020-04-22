@@ -11,7 +11,7 @@ import { spaceActions } from 'redux/modules/space';
 import { media } from 'helpers/style/media-query';
 import { iskeyDownSpace } from 'helpers/keydown';
 import { getYear, getDate, getToday, generateDateAll } from 'helpers/date';
-import { getPrefecture, selectOptionPrefectures } from 'helpers/prefectures';
+import { selectOptionPrefectures } from 'helpers/prefectures';
 import { isTrimmedEmpty } from 'helpers/validations/string';
 import { selectOptionUsages } from 'helpers/usages';
 import { selectOptionBreadths } from 'helpers/breadths';
@@ -112,11 +112,10 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
   });
 
   const onClickSubmit = () => {
-    const pref = getPrefecture(prefCode);
     dispatch(
       requestActions.bosyu({
         body: {
-          pref,
+          prefCode,
           town: town === undefined ? '' : town.trim(),
           usage,
           startDate,

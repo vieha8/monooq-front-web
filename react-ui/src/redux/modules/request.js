@@ -16,6 +16,7 @@ import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import { handleError } from './error';
 import { getRoomId, createRoom } from './messages';
 import { handleAccessTrade, handleCircuitX } from '../../helpers/asp';
+import { getPrefecture } from 'helpers/prefectures';
 
 // Actions
 const ESTIMATE = 'ESTIMATE';
@@ -633,10 +634,14 @@ function* fetchRequest({ payload: requestId }) {
 }
 
 function* bosyu({ payload: { body } }) {
-  const { pref, town, usage, startDate, isUseOver6Month, breadth } = generateRequestParams(body);
+  const { prefCode, town, usage, startDate, isUseOver6Month, breadth } = generateRequestParams(
+    body,
+  );
 
   const token = yield* getToken();
   const user = yield select(state => state.auth.user);
+
+  const pref = getPrefecture(prefCode);
 
   const params = {
     prefecture: pref,
@@ -650,7 +655,7 @@ function* bosyu({ payload: { body } }) {
   const { err } = yield call(postApiRequest, apiEndpoint.guestWish(user.id), params, token);
 
   if (err) {
-    yield handleError(requestActions.bosyuFailed, '', 'bosyu', err, false);
+    yield handleError(requestActions.bosyuFailed, '', 'bosyuWish', err, false);
     return;
   }
 
@@ -658,7 +663,21 @@ function* bosyu({ payload: { body } }) {
     // localStorage.setItem('isRequestedTop', 'true');
   }
 
-  // TODO レコメンド用スペース取得
+  const searchParams = {
+    limit: 20, // TODO 暫定
+    offset: 0,
+    prefCode,
+    sizeType: parseInt(breadth, 10),
+    status: 'open,consultation',
+  };
+  const { data, err: err2 } = yield call(getApiRequest, apiEndpoint.spaces(), searchParams, token);
+  if (err2) {
+    yield handleError(requestActions.bosyuFailed, '', 'bosyuSearch', err, false);
+    return;
+  }
+
+  // レコメンド用スペース
+  console.log(data);
 
   yield put(requestActions.bosyuSuccess());
 }
