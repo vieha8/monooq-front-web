@@ -42,6 +42,7 @@ class SearchResultPage extends Component {
       cities: [],
       towns: [],
       isInit: false,
+      recommendSpaces: props.location.state && props.location.state.recommendSpaces,
     };
   }
 
@@ -223,19 +224,26 @@ class SearchResultPage extends Component {
 
   render() {
     const { spaces, isMore, isSearching, conditions } = this.props;
-    const { isInit } = this.state;
+    const { isInit, recommendSpaces } = this.state;
 
-    if (!isInit || (isSearching && spaces.length === 0)) {
-      return <LoadingPage />;
-    }
+    let setSpaces = spaces;
+    if (recommendSpaces) {
+      setSpaces = recommendSpaces.results;
+    } else {
+      if (!isInit || (isSearching && spaces.length === 0)) {
+        return <LoadingPage />;
+      }
 
-    if (spaces.length === 0 && !isMore) {
-      return this.renderNotFound(conditions);
+      if (spaces.length === 0 && !isMore) {
+        return this.renderNotFound(conditions);
+      }
     }
 
     return (
       <BaseTemplate maxWidth={1168}>
-        <SearchResultHeaderPage />
+        <SearchResultHeaderPage
+          recommendSpaceCount={recommendSpaces ? recommendSpaces.results.length : 0}
+        />
         <Content>
           <InfiniteScroll
             pageStart={0}
@@ -245,7 +253,7 @@ class SearchResultPage extends Component {
             initialLoad
           >
             <SearchResult
-              spaces={spaces.map(s => ({
+              spaces={setSpaces.map(s => ({
                 ...s,
                 image: (s.images[0] || {}).imageUrl,
                 onClick: () => this.onClickSpace(s.id),

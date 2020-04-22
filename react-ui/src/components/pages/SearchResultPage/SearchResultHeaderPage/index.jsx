@@ -16,6 +16,7 @@ import SearchResultHeader from 'components/LV3/SearchResultHeader';
 class SearchResultHeaderPage extends Component {
   constructor(props) {
     super(props);
+    const { recommendSpaceCount } = this.props;
     this.state = {
       cityAndTowns: [],
       sortList: [],
@@ -25,6 +26,7 @@ class SearchResultHeaderPage extends Component {
       prefectureList: [],
       isModalOpenPC: false,
       isModalOpenSP: false,
+      recommendSpaceCount,
     };
   }
 
@@ -304,17 +306,28 @@ class SearchResultHeaderPage extends Component {
       prefectureList,
       isModalOpenPC,
       isModalOpenSP,
+      recommendSpaceCount,
     } = this.state;
 
     const conditionTitle = makeConditionTitle(conditions);
 
+    // TODO: 開発完了したら削除する
+    console.log(`パンくず(meta):${JSON.stringify(this.makeMetaBreadcrumbs(conditions))}`);
+    console.log(`パンくず:${JSON.stringify(breadcrumbs)}`);
+
     return (
       <Fragment>
         <Meta
-          title={`${conditionTitle}のスペース検索結果 - モノオク`}
+          title={
+            recommendSpaceCount > 0
+              ? 'あなたにおすすめのスペース - モノオク'
+              : `${conditionTitle}のスペース検索結果 - モノオク`
+          }
           jsonLd={this.makeMetaBreadcrumbs(conditions)}
         />
-        {breadcrumbs && <BreadcrumbsList breadcrumbsList={breadcrumbs} />}
+        {breadcrumbs && (
+          <BreadcrumbsList breadcrumbsList={breadcrumbs} isRecommend={recommendSpaceCount > 0} />
+        )}
         <SearchResultHeader
           isModalOpenPC={isModalOpenPC}
           handleModalOpenPC={() => this.setState({ isModalOpenPC: true })}
@@ -332,6 +345,7 @@ class SearchResultHeaderPage extends Component {
           prefectureList={prefectureList}
           cityTownAreaList={cityAndTowns}
           searchConditionCurrentList={searchConditionCurrentList}
+          recommendSpaceCount={recommendSpaceCount}
         />
         {areaAroundList && areaAroundList.length > 0 && (
           <AreaAroundList areaAroundList={areaAroundList} />

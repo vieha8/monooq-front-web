@@ -169,7 +169,7 @@ export const requestReducer = handleActions(
     [BOSYU_SUCCESS]: (state, action) => ({
       ...state,
       isLoading: false,
-      prefName: action.payload.prefName,
+      prefName: action.payload && action.payload.prefName,
     }),
     [BOSYU_FAILED]: state => ({
       ...state,
@@ -678,14 +678,14 @@ function* bosyu({ payload: { body } }) {
   }
 
   // レコメンド用スペース
-  console.log('AAAAAAAAAAAAAAAAAAAAAAA');
-  console.log(pref);
-  console.log(data);
-
   if (data) {
-    // レコメンドスペースが0件の場合
     yield put(requestActions.bosyuSuccess());
-    yield put(push(`${Path.search()}?pref=${prefCode}`));
+    yield put(
+      push({
+        pathname: Path.search(),
+        state: { recommendSpaces: data },
+      }),
+    );
   } else {
     yield put(requestActions.bosyuSuccess({ prefName: pref }));
   }
