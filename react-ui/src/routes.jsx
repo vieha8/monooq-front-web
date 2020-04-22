@@ -178,6 +178,10 @@ const Lp3Guest = loadable(
   () => import('components/pages/Lp123GuestPage').catch(() => window.location.reload()),
   { fallback: <LoadingPage /> },
 );
+const Bosyu = loadable(
+  () => import('components/pages/BosyuPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
+);
 
 export default ({ history }) => (
   <ConnectedRouter history={history}>
@@ -213,6 +217,7 @@ export default ({ history }) => (
         <Route exact path={Path.spaceEditConfirm()} component={SpaceEditConfirm} />
         <Route exact path={Path.createSpaceCompletion()} component={CreateSpaceCompletion} />
         <Route exact path={Path.spaceEditCompletion()} component={SpaceEditCompletion} />
+        <Route exact path={Path.bosyu()} component={Bosyu} />
         <Route exact path={Path.unsubscribe()} component={Unsubscribe} />
         <Route exact path={Path.sales()} component={Sales} />
         <Route exact path={Path.about()} component={About} />

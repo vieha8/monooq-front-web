@@ -78,4 +78,6 @@ export default {
   lp2Guest: () => '/lp2/guest',
   lp2Guest2: () => '/lp2_2/guest',
   lp3Guest: () => '/lp3/guest',
+  // 募集型
+  bosyu: (hash = ':hash') => `/bosyu/${hash}`,
 };
