@@ -633,20 +633,32 @@ function* fetchRequest({ payload: requestId }) {
 }
 
 function* bosyu({ payload: { body } }) {
-  const params = generateRequestParams(body);
+  const { pref, town, usage, startDate, isUseOver6Month, breadth } = generateRequestParams(body);
 
-  console.log(`params(bosyu):${JSON.stringify(params)}`);
+  const token = yield* getToken();
+  const user = yield select(state => state.auth.user);
 
-  // const setStartDate = `${params.startDate.year}/${params.startDate.month}/${params.startDate.day}`;
-  // const usage = getUsages(params.usage);
+  const params = {
+    prefecture: pref,
+    city: town,
+    usages: parseInt(usage, 10),
+    startDate: new Date(`${startDate.year}/${startDate.month}/${startDate.day}`),
+    isLong: isUseOver6Month,
+    breadth: parseInt(breadth, 10),
+  };
 
-  // TODO: 【募集型モデル】API連携実装箇所
+  const { err } = yield call(postApiRequest, apiEndpoint.guestWish(user.id), params, token);
 
-  // yield put(requestActions.bosyuFailed());
+  if (err) {
+    yield handleError(requestActions.bosyuFailed, '', 'bosyu', err, false);
+    return;
+  }
 
   if (isAvailableLocalStorage()) {
-    localStorage.setItem('isRequestedTop', 'true');
+    // localStorage.setItem('isRequestedTop', 'true');
   }
+
+  // TODO レコメンド用スペース取得
 
   yield put(requestActions.bosyuSuccess());
 }

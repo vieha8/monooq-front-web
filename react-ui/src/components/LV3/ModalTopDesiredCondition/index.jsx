@@ -11,7 +11,7 @@ import { spaceActions } from 'redux/modules/space';
 import { media } from 'helpers/style/media-query';
 import { iskeyDownSpace } from 'helpers/keydown';
 import { getYear, getDate, getToday, generateDateAll } from 'helpers/date';
-import { selectOptionPrefectures } from 'helpers/prefectures';
+import { getPrefecture, selectOptionPrefectures } from 'helpers/prefectures';
 import { isTrimmedEmpty } from 'helpers/validations/string';
 import { selectOptionUsages } from 'helpers/usages';
 import { selectOptionBreadths } from 'helpers/breadths';
@@ -112,10 +112,11 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
   });
 
   const onClickSubmit = () => {
+    const pref = getPrefecture(prefCode);
     dispatch(
       requestActions.bosyu({
         body: {
-          prefCode,
+          pref,
           town: town === undefined ? '' : town.trim(),
           usage,
           startDate,
@@ -231,7 +232,7 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
             <Row>
               <InputForm
                 label="預けたい市区町村"
-                placeholder="例) 渋谷区渋谷"
+                placeholder="例) 渋谷区"
                 value={town}
                 onChange={e => handleChangeUI('town', e.target.value, setTown(e.target.value))}
               />
