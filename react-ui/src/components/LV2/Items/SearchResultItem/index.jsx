@@ -32,8 +32,8 @@ const CardInner = styled.div`
 const AvailabilityLayout = styled.div`
   position: absolute;
   z-index: 1;
-  top: 10px;
-  right: 10px;
+  top: 0px;
+  left: 0px;
 `;
 
 const Row = styled.div`
