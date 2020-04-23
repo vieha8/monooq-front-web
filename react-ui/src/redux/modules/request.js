@@ -682,7 +682,7 @@ function* bosyu({ payload: { body } }) {
     yield put(requestActions.bosyuSuccess());
     yield put(
       push({
-        pathname: Path.search(),
+        pathname: Path.recommend(),
         state: { recommendSpaces: data },
       }),
     );
