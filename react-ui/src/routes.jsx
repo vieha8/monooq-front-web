@@ -42,6 +42,10 @@ const Spaces = loadable(
   () => import('components/pages/SpaceManagementPage').catch(() => window.location.reload()),
   { fallback: <LoadingPage /> },
 );
+const Recommend = loadable(
+  () => import('components/pages/SearchResultRecommendPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
+);
 const Schedule = loadable(
   () => import('components/pages/SchedulePage').catch(() => window.location.reload()),
   { fallback: <LoadingPage /> },
@@ -199,6 +203,7 @@ export default ({ history }) => (
         <Route exact path={Path.spacesByTown()} component={Search} />
         <Route exact path={Path.space()} component={Space} />
         <Route exact path={Path.spaces()} component={Spaces} />
+        <Route exact path={Path.recommend()} component={Recommend} />
         <Route exact path={Path.schedule()} component={Schedule} />
         <Route exact path={Path.profile()} component={Profile} />
         <Route exact path={Path.profileEdit()} component={ProfileEdit} />

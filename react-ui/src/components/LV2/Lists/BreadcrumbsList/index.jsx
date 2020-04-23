@@ -47,7 +47,7 @@ const LinkStyled = styled(Link)`
   }
 `;
 
-export default ({ breadcrumbsList, separatorLandscape, fontColor, isRecommend }) => (
+export default ({ breadcrumbsList, separatorLandscape, fontColor }) => (
   <Wrap>
     <WrapPre>
       {breadcrumbsList.map((item, i) => (
@@ -61,15 +61,6 @@ export default ({ breadcrumbsList, separatorLandscape, fontColor, isRecommend })
           )}
         </Item>
       ))}
-      {isRecommend && (
-        <Item
-          key={(breadcrumbsList.length + 1).toString()}
-          separatorLandscape={separatorLandscape}
-          fontColor={fontColor}
-        >
-          あなたにおすすめのスペース
-        </Item>
-      )}
     </WrapPre>
   </Wrap>
 );

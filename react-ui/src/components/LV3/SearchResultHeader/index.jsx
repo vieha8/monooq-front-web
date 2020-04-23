@@ -84,16 +84,13 @@ export default ({
   prefectureList,
   searchConditionCurrentList,
   cityTownAreaList,
-  recommendSpaceCount,
 }) => (
   <HeaderWrap>
     <ResultCountWrap>
       <H1 bold>
-        {recommendSpaceCount > 0 ? 'あなたにおすすめのスペース' : `${conditionTitle}の検索結果`}
+        {`${conditionTitle}の検索結果`}
         <br />
-        <ResultCount>
-          {recommendSpaceCount > 0 ? recommendSpaceCount : formatAddComma(maxCount)}
-        </ResultCount>
+        <ResultCount>{formatAddComma(maxCount)}</ResultCount>
         <InlineText.Base fontSize={FontSizes.small} nobold>
           件
         </InlineText.Base>
