@@ -667,7 +667,7 @@ function* bosyu({ payload: { body } }) {
   const searchParams = {
     limit: 20, // TODO 暫定
     offset: 0,
-    prefCode,
+    pref: prefCode,
     sizeType: parseInt(breadth, 10),
     status: 'open,consultation',
   };

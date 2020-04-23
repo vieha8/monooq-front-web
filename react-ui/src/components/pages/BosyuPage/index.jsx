@@ -8,7 +8,7 @@ import { messagesActions } from 'redux/modules/messages';
 const BosyuPage = () => {
   const dispatch = useDispatch();
   const match = useRouteMatch('/bosyu/:hash');
-  const hash = match.params.hash;
+  const { hash } = match.params;
 
   useEffect(() => {
     dispatch(messagesActions.makeBosyuRoom(hash));
