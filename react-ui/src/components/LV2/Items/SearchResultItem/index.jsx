@@ -160,7 +160,7 @@ const SpaceResultItem = props => {
                 {/* {} */}
                 {isExistTatamiPrice
                   ? `${numeral(priceTatami).format('0,0')}円〜`
-                  : `〜${numeral(priceFull).format('0,0')}`}
+                  : `〜${numeral(priceFull).format('0,0')}円`}
                 &nbsp;/&nbsp;月
               </InlineText.Base>
             </Row>
