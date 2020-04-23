@@ -54,7 +54,15 @@ const extensionPhotoMessage = message => {
   );
 };
 
-export default ({ messages, lastReadDt, userIdFrom, userIdTo, hostUser, isOpenModalError }) => {
+export default ({
+  messages,
+  lastReadDt,
+  userIdFrom,
+  userIdTo,
+  hostUser,
+  guest,
+  isOpenModalError,
+}) => {
   const history = useHistory();
   const messageList = messages;
 
@@ -67,6 +75,20 @@ export default ({ messages, lastReadDt, userIdFrom, userIdTo, hostUser, isOpenMo
         onClick={() => window.location.reload()}
       />
     );
+  }
+
+  if (messageList.length === 0) {
+    if (hostUser) {
+      messageList.splice(1, 0, {
+        admin: {
+          // TODO フォーム情報を追加する
+          message:
+            `ゲストの${guest.name}さんがスペースを探しています。\n` +
+            '預かれる場合はぜひメッセージを送ってみましょう！\n' +
+            '荷物の内容や利用希望の畳数をゲストに確認すると、見積もりを提出する際の参考になります。\n',
+        },
+      });
+    }
   }
 
   if (messageList.length >= 1 && !messageList[0].admin) {
