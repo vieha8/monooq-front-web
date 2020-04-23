@@ -184,6 +184,8 @@ class MessagePage extends Component {
           userIdFrom={user.id}
           userIdTo={room.user.id}
           hostUser={isHost}
+          guest={isHost ? room.user : user}
+          host={isHost ? user : room.user}
           isOpenModalError={isOpenModalError}
         />
         {isOpenModalError && (
