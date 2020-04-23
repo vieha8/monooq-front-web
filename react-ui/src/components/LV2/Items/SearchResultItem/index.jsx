@@ -77,23 +77,26 @@ const Title = styled(InlineText.Base)`
   `}
 `;
 
-const SpaceResultItem = ({
-  isTag,
-  id,
-  title,
-  isRecommended,
-  image,
-  address,
-  addressPref,
-  addressCity,
-  addressTown,
-  priceFull,
-  tags,
-  lastLoginAt,
-  user,
-  isNoViewLastLogin,
-  status,
-}) => {
+const SpaceResultItem = props => {
+  const {
+    isTag,
+    id,
+    title,
+    isRecommended,
+    image,
+    address,
+    addressPref,
+    addressCity,
+    addressTown,
+    tags,
+    lastLoginAt,
+    user,
+    isNoViewLastLogin,
+    status,
+    priceFull,
+    priceTatami,
+  } = props;
+
   const onClickSpace = () => {
     ReactGA.plugin.execute('ec', 'addProduct', {
       id,
@@ -101,6 +104,9 @@ const SpaceResultItem = ({
     });
     ReactGA.plugin.execute('ec', 'setAction', 'click', {});
   };
+
+  // 畳数あたりの価格が登録されていないスペースの場合があるため
+  const isExistTatamiPrice = !!priceTatami;
 
   return (
     <Wrap>
@@ -151,8 +157,11 @@ const SpaceResultItem = ({
                 <StatusText setData={getDateRelativeLastLogin(lastLoginAt || user.lastLoginAt)} />
               )}
               <InlineText.Base noWrap fontSize={16} bold>
-                {`〜${numeral(priceFull).format('0,0')}`}
-                円&nbsp;/&nbsp;月
+                {/* {} */}
+                {isExistTatamiPrice
+                  ? `${numeral(priceTatami).format('0,0')}円〜`
+                  : `〜${numeral(priceFull).format('0,0')}`}
+                &nbsp;/&nbsp;月
               </InlineText.Base>
             </Row>
           </Content>
