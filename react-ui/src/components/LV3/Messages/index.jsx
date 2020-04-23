@@ -12,9 +12,9 @@ import PhotoMessage from 'components/LV2/Message/Photo';
 import NoneData from 'components/LV2/NoneData';
 import Caution from 'components/LV2/Message/Caution';
 import Requested from 'components/LV2/Message/Requested';
-import MessageSendForm from './SendForm';
 import { getUsages } from 'helpers/usages';
 import { getBreadths } from 'helpers/breadths';
+import MessageSendForm from './SendForm';
 
 const Row = styled.div`
   width: 66%;
@@ -63,6 +63,8 @@ export default ({
   userIdTo,
   hostUser,
   guest,
+  host,
+  space,
   isOpenModalError,
 }) => {
   const history = useHistory();
@@ -79,9 +81,9 @@ export default ({
     );
   }
 
-  if (messageList.length === 0) {
+  if (messageList.length === 0 || (messageList.length >= 1 && messageList[0].self)) {
     if (hostUser) {
-      messageList.splice(1, 0, {
+      messageList.splice(0, 0, {
         admin: {
           message:
             `ゲストの${guest.name}さんが次の内容でスペースを探しています。\n` +
@@ -101,18 +103,38 @@ export default ({
   if (messageList.length >= 1 && !messageList[0].admin) {
     // ルームの初回メッセージをトリガーとして、ユーザー・ホストの「双方」に表示 ※永続表示
     if (hostUser) {
-      messageList.splice(1, 0, {
-        admin: {
-          message:
-            'リクエストを確認し、条件を調整しましょう。\nスペースを貸し出せる場合は、見積もりを発行してください。\n見積もりへの支払いが完了すると取引が成立し、スペース住所の詳細がゲストに伝わります。\n※「見積もりを送る」ボタンはメッセージ送信ボタン下部にあります。',
-        },
-      });
+      if (!messageList[0].self) {
+        messageList.splice(1, 0, {
+          admin: {
+            message:
+              'リクエストを確認し、条件を調整しましょう。\nスペースを貸し出せる場合は、見積もりを発行してください。\n見積もりへの支払いが完了すると取引が成立し、スペース住所の詳細がゲストに伝わります。\n※「見積もりを送る」ボタンはメッセージ送信ボタン下部にあります。',
+          },
+        });
+      }
     } else {
-      messageList.splice(1, 0, {
-        admin: {
-          message: <Requested />,
-        },
-      });
+      if (messageList[0].self) {
+        messageList.splice(1, 0, {
+          admin: {
+            message: <Requested />,
+          },
+        });
+      } else {
+        messageList.splice(1, 0, {
+          admin: {
+            message:
+              `ホストの${host.name}さんが${guest.name}さんの荷物を預かることができます。\n` +
+              '荷物の内容や利用希望の畳数を伝え、気軽に相談してみましょう。\n\n' +
+              `${host.name}さんのスペース詳細:https://monooq.com/space/${space.id}\n\n` +
+              'ーーーーーーーーーーーーーーーーー\n' +
+              `${guest.name}さんの希望条件\n` +
+              `用途:${getUsages(guest.wish.Usages)}\n` +
+              `希望開始日:${formatDate(new Date(guest.wish.StartDate), formatStringSlash)}\n` +
+              `${guest.wish.IsLong ? '半年以上の利用希望\n' : ''}` +
+              `希望の広さ:${getBreadths(guest.wish.Breadth)}\n` +
+              'ーーーーーーーーーーーーーーーーー\n\n',
+          },
+        });
+      }
     }
   }
 
