@@ -103,6 +103,10 @@ class SearchResultRecommendPage extends Component {
     const { isInit, isMore, recommendSpaces } = this.state;
     const setSpaces = recommendSpaces && recommendSpaces.results;
 
+    if (!setSpaces) {
+      history.push(Path.top());
+    }
+
     if (!isInit || (isSearching && setSpaces.length === 0)) {
       return <LoadingPage />;
     }
