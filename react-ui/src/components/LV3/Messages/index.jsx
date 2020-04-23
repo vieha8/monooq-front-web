@@ -12,7 +12,9 @@ import PhotoMessage from 'components/LV2/Message/Photo';
 import NoneData from 'components/LV2/NoneData';
 import Caution from 'components/LV2/Message/Caution';
 import Requested from 'components/LV2/Message/Requested';
-import MessegeSendForm from './SendForm';
+import MessageSendForm from './SendForm';
+import { getUsages } from 'helpers/usages';
+import { getBreadths } from 'helpers/breadths';
 
 const Row = styled.div`
   width: 66%;
@@ -81,10 +83,15 @@ export default ({
     if (hostUser) {
       messageList.splice(1, 0, {
         admin: {
-          // TODO フォーム情報を追加する
           message:
-            `ゲストの${guest.name}さんがスペースを探しています。\n` +
-            '預かれる場合はぜひメッセージを送ってみましょう！\n' +
+            `ゲストの${guest.name}さんが次の内容でスペースを探しています。\n` +
+            '預かれる場合はぜひメッセージを送ってみましょう！\n\n' +
+            'ーーーーーーーーーーーーーーーーー\n' +
+            `用途:${getUsages(guest.wish.Usages)}\n` +
+            `希望開始日:${formatDate(new Date(guest.wish.StartDate), formatStringSlash)}\n` +
+            `${guest.wish.IsLong ? '半年以上の利用希望\n' : ''}` +
+            `希望の広さ:${getBreadths(guest.wish.Breadth)}\n` +
+            'ーーーーーーーーーーーーーーーーー\n\n' +
             '荷物の内容や利用希望の畳数をゲストに確認すると、見積もりを提出する際の参考になります。\n',
         },
       });
@@ -221,7 +228,7 @@ export default ({
 
         return null;
       })}
-      <MessegeSendForm
+      <MessageSendForm
         hostUser={hostUser}
         userIdFrom={userIdFrom}
         userIdTo={userIdTo}
