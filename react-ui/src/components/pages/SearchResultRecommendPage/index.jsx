@@ -60,28 +60,14 @@ class SearchResultRecommendPage extends Component {
       sort: 1,
       pref: '',
       isInit: false,
+      isMore: true,
       recommendSpaces: props.location.state && props.location.state.recommendSpaces,
     };
   }
 
   componentDidMount() {
-    this.init();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!prevState.isInit) {
-      return;
-    }
-
-    const { isSearching } = this.props;
-    if (!isSearching) {
-      this.init();
-    }
-  }
-
-  init = () => {
     this.setState({ offset: 0, isInit: true });
-  };
+  }
 
   // ローディング処理
   loadItems = () => {
@@ -89,8 +75,8 @@ class SearchResultRecommendPage extends Component {
     if (isSearching) {
       return;
     }
-    const { limit, offset, keyword, pref, cities, towns, sort, tags } = this.state;
 
+    const { limit, offset, keyword, pref, sort } = this.state;
     const params = {
       limit,
       offset,
@@ -102,21 +88,9 @@ class SearchResultRecommendPage extends Component {
       tags: [],
     };
 
-    if (cities.length > 0) {
-      params.cities = cities;
-    }
-
-    if (towns.length > 0) {
-      params.towns = towns;
-    }
-
-    if (tags.length > 0) {
-      params.tags = tags;
-    }
-
     dispatch(spaceActions.doSearch(params));
     const newOffset = offset + limit;
-    this.setState({ offset: newOffset });
+    this.setState({ offset: newOffset, isMore: false });
   };
 
   onClickSpace = spaceId => {
@@ -125,15 +99,15 @@ class SearchResultRecommendPage extends Component {
   };
 
   render() {
-    const { history, isMore, isSearching } = this.props;
-    const { isInit, recommendSpaces } = this.state;
+    const { history, isSearching } = this.props;
+    const { isInit, isMore, recommendSpaces } = this.state;
     const setSpaces = recommendSpaces && recommendSpaces.results;
 
     if (!isInit || (isSearching && setSpaces.length === 0)) {
       return <LoadingPage />;
     }
 
-    if (setSpaces.length === 0 && !isMore) {
+    if (setSpaces.length === 0) {
       history.push(Path.pageNotFound());
     }
 
@@ -179,7 +153,6 @@ class SearchResultRecommendPage extends Component {
 
 const mapStateToProps = state => ({
   isSearching: state.space.search.isLoading,
-  isMore: state.space.search.isMore,
 });
 
 export default withAuthRequire(connect(mapStateToProps)(SearchResultRecommendPage));
