@@ -92,7 +92,14 @@ export default ({ searchConditionSPList, onClickCheckTown }) => (
               {item.townAreaList.map((town, j) => (
                 <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
                   <Hoge htmlFor={`searchTwonAreaCheck${town.code}`}>
-                    <Fuga type="checkbox" id={`searchTwonAreaCheck${town.code}`} />
+                    <Fuga
+                      checked={town.isChecked}
+                      onChange={() =>
+                        onClickCheckTown(null, { code: town.code, checked: !town.isChecked })
+                      }
+                      type="checkbox"
+                      id={`searchTwonAreaCheck${town.code}`}
+                    />
                     <BB />
                     {`${town.text}(${town.count})`}
                   </Hoge>
