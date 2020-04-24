@@ -522,7 +522,7 @@ function* sendEmail(payload, messageDocId) {
   messageBody += '詳しくはこちら https://help.monooq.com/ja/articles/3029212-\n\n\n';
 
   messageBody += '◯月額決済に対応しています！\n';
-  messageBody += '詳しくはこちら https://help.monooq.com/ja/articles/3694568-\n\n\n';
+  messageBody += '詳しくはこちら https://help.monooq.com/ja/articles/3694521-\n\n\n';
 
   const body = {
     Subject: '【モノオク】新しいメッセージが届いています！',
