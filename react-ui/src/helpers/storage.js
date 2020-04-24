@@ -36,3 +36,9 @@ export const storageAvailable = type => {
 };
 
 export const isAvailableLocalStorage = () => storageAvailable('localStorage');
+
+export const deleteLocalStorage = targetName => {
+  if (isAvailableLocalStorage()) {
+    localStorage.removeItem(targetName);
+  }
+};

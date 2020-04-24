@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import Path from 'config/path';
@@ -45,6 +45,7 @@ const MessegeSendForm = ({ hostUser, userIdFrom, userIdTo, isOpenModalError }) =
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [isErrorPickImage, setErrorPickImage] = useState(false);
+  const messages = useSelector(state => state.messages);
 
   useEffect(() => {
     const handleBeforeUnload = e => {
@@ -64,6 +65,8 @@ const MessegeSendForm = ({ hostUser, userIdFrom, userIdTo, isOpenModalError }) =
       return;
     }
 
+    const isHostFirst = messages.messages.length === 0 && userIdFrom === messages.room.userId2;
+
     dispatch(
       messagesActions.sendMessage({
         roomId: messageRoomId,
@@ -71,6 +74,7 @@ const MessegeSendForm = ({ hostUser, userIdFrom, userIdTo, isOpenModalError }) =
         text,
         image,
         toUserId: userIdTo,
+        isHostFirst,
       }),
     );
 

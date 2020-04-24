@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import Intercom from 'react-intercom';
 import { connect } from 'react-redux';
-import { isAvailableLocalStorage } from 'helpers/storage';
-import { sectionActions } from 'redux/modules/section';
-import Top from 'components/LV3/Top';
-import LoadingPage from 'components/LV3/LoadingPage';
-import { spaceActions } from 'redux/modules/space';
 import Path from 'config/path';
 import { makeConditionTitle } from 'helpers/search';
+import { isAvailableLocalStorage } from 'helpers/storage';
+import { sectionActions } from 'redux/modules/section';
+import { spaceActions } from 'redux/modules/space';
+import Top from 'components/LV3/Top';
+import LoadingPage from 'components/LV3/LoadingPage';
 
 // import RecommendedSpace from './StaticRecommendedSpace';
 
@@ -47,6 +47,8 @@ class TopPage extends React.Component {
       spaces,
       conditions,
       maxCount,
+      isLoading,
+      modalPrefName,
     } = this.props;
 
     if (isChecking) {
@@ -60,6 +62,23 @@ class TopPage extends React.Component {
 
     // const sections = RecommendedSpace;
 
+    let isViewModalTop = false;
+    let requestParams;
+    if (user && user.isHost !== undefined && !user.isHost) {
+      if (isAvailableLocalStorage()) {
+        if (
+          localStorage.getItem('isRequestedTop') &&
+          localStorage.getItem('isRequestedTop') === 'true'
+        ) {
+          // 希望条件送付済
+        } else if (localStorage.getItem('request_params')) {
+          requestParams = localStorage.getItem('request_params');
+        } else {
+          isViewModalTop = true;
+        }
+      }
+    }
+
     return (
       <Fragment>
         <Top
@@ -70,6 +89,10 @@ class TopPage extends React.Component {
           user={user}
           maxCount={maxCount}
           conditionTitle={conditionTitle}
+          isViewModalTop={isViewModalTop}
+          requestParams={requestParams}
+          isLoading={isLoading}
+          modalPrefName={modalPrefName}
         />
         {isProd && (
           <Intercom
@@ -94,6 +117,8 @@ const mapStateToProps = state => ({
   isChecking: state.auth.isChecking,
   user: state.auth.user,
   intercomHash: state.auth.intercom.hash,
+  isLoading: state.request.isLoading,
+  modalPrefName: state.request.prefName,
 });
 
 export default connect(mapStateToProps)(TopPage);

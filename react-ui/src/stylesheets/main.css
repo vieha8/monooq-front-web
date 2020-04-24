@@ -36,7 +36,7 @@
   color: #888787 !important;
 }
 
-/* 
+/*
   slide menu
  */
 .bm-overlay {
@@ -117,7 +117,7 @@
   }
 }
 
-/* 
+/*
   collapsible
  */
 .Collapsible {
@@ -250,7 +250,7 @@
   transform: rotate(180deg);
 }
 
-/* 
+/*
   Header Menu
  */
 .popup-content {
@@ -267,7 +267,7 @@
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* 
+/*
   Checkbox Custom (semantic-ui)
  */
 .ui.checkbox input[type='checkbox'],
@@ -311,6 +311,7 @@ Modal Search Condition More
 .ui.dimmer {
   z-index: 2500 !important;
   padding: 0 !important;
+  background-color: rgba(181, 181, 181, 0.8);
 }
 
 .semantic-ui-modal-custom {
@@ -347,6 +348,13 @@ Modal Search Condition More
 .semantic-ui-modal-custom.request .scrolling.content {
   max-height: 100vh !important;
   padding: 0 !important;
+}
+
+.semantic-ui-modal-custom-top {
+  width: calc(100% - 32px) !important;
+  min-width: 288px;
+  max-width: 344px;
+  margin: 50px auto 16px !important;
 }
 
 /*

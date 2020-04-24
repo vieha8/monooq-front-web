@@ -6,10 +6,15 @@ const Wrap = styled.div`
   display: flex;
   cursor: pointer;
   vertical-align: top;
+  ${props =>
+    props.fontSize &&
+    `
+    font-size: ${props.fontSize}px;
+  `};
 `;
 
-export default ({ onClick, label, checked, onClickCheck, className, options }) => (
-  <Wrap onClick={onClick}>
+export default ({ onClick, fontSize, label, checked, onClickCheck, className, options }) => (
+  <Wrap onClick={onClick} fontSize={fontSize}>
     <Checkbox
       label={label}
       checked={checked}

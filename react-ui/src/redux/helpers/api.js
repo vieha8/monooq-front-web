@@ -9,6 +9,7 @@ export const apiEndpoint = {
   users: id => (id ? `/users/${id}` : `/users`),
   userSpaces: id => `/users/${id}/spaces`,
   userMeta: id => `/users/${id}/meta`,
+  guestWish: id => `/users/${id}/wish`,
   addUserSpaceAccessLog: (userId, spaceId) => `users/${userId}/spaces/${spaceId}`,
   spaces: id => (id ? `/spaces/${id}` : `/spaces`),
   spacesRecommend: id => `/spaces/${id}/recommend/sims`,
@@ -26,6 +27,7 @@ export const apiEndpoint = {
   areaTowns: cityCode => `spaces/area/c${cityCode}`,
   areaSearch: prefCode => `spaces/area/p${prefCode}/all`,
   intercom: userId => `intercom/hash/${userId}`,
+  bosyu: hash => `/requests/wish/${hash}`,
 };
 
 const createApiInstance = token =>

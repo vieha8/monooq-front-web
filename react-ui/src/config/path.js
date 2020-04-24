@@ -43,8 +43,10 @@ export default {
   profile: (userId = USER_ID) => `/user/${userId}`,
   // プロフィール編集
   profileEdit: () => '/profile/edit',
-  // スペース一覧
+  // ホスト所有スペース一覧
   spaces: () => '/user/spaces',
+  // おすすめスペース一覧
+  recommend: () => '/recommend',
   // 支払い一覧
   paid: () => '/paid',
   // 売上一覧
@@ -78,4 +80,6 @@ export default {
   lp2Guest: () => '/lp2/guest',
   lp2Guest2: () => '/lp2_2/guest',
   lp3Guest: () => '/lp3/guest',
+  // 募集型
+  bosyu: (hash = ':hash') => `/bosyu/${hash}`,
 };

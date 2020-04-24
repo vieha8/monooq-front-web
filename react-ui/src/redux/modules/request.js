@@ -9,6 +9,7 @@ import { formatName } from 'helpers/string';
 import { handleGTM } from 'helpers/gtm';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
 import { getUsages } from 'helpers/usages';
+import { getPrefecture } from 'helpers/prefectures';
 import { authActions, getToken } from './auth';
 import { createOmiseToken } from '../helpers/omise';
 import Path from '../../config/path';
@@ -35,6 +36,9 @@ const REQUEST_FAILED = 'REQUEST_FAILED';
 const FETCH_REQUEST = 'FETCH_REQUEST';
 const FETCH_REQUEST_SUCCESS = 'FETCH_REQUEST_SUCCESS';
 const FETCH_REQUEST_FAILED = 'FETCH_REQUEST_FAILED';
+const BOSYU = 'BOSYU';
+const BOSYU_SUCCESS = 'BOSYU_SUCCESS';
+const BOSYU_FAILED = 'BOSYU_FAILED';
 
 export const requestActions = createActions(
   ESTIMATE,
@@ -54,6 +58,9 @@ export const requestActions = createActions(
   FETCH_REQUEST,
   FETCH_REQUEST_SUCCESS,
   FETCH_REQUEST_FAILED,
+  BOSYU,
+  BOSYU_SUCCESS,
+  BOSYU_FAILED,
 );
 
 // Reducer
@@ -154,6 +161,19 @@ export const requestReducer = handleActions(
     [FETCH_REQUEST_SUCCESS]: (state, action) => ({
       ...state,
       request: action.payload,
+    }),
+    [BOSYU]: state => ({
+      ...state,
+      isLoading: true,
+    }),
+    [BOSYU_SUCCESS]: (state, action) => ({
+      ...state,
+      isLoading: false,
+      prefName: action.payload && action.payload.prefName,
+    }),
+    [BOSYU_FAILED]: state => ({
+      ...state,
+      isLoading: false,
     }),
   },
   initialState,
@@ -614,6 +634,63 @@ function* fetchRequest({ payload: requestId }) {
   yield put(requestActions.fetchRequestSuccess(data));
 }
 
+function* bosyu({ payload: { body } }) {
+  const { prefCode, town, usage, startDate, isUseOver6Month, breadth } = generateRequestParams(
+    body,
+  );
+
+  const token = yield* getToken();
+  const user = yield select(state => state.auth.user);
+
+  const pref = getPrefecture(prefCode);
+
+  const params = {
+    prefecture: pref,
+    city: town,
+    usages: parseInt(usage, 10),
+    startDate: new Date(`${startDate.year}/${startDate.month}/${startDate.day}`),
+    isLong: isUseOver6Month,
+    breadth: parseInt(breadth, 10),
+  };
+
+  const { err } = yield call(postApiRequest, apiEndpoint.guestWish(user.id), params, token);
+
+  if (err) {
+    yield handleError(requestActions.bosyuFailed, '', 'bosyuWish', err, false);
+    return;
+  }
+
+  if (isAvailableLocalStorage()) {
+    localStorage.setItem('isRequestedTop', 'true');
+  }
+
+  const searchParams = {
+    limit: 20, // TODO 暫定
+    offset: 0,
+    pref: prefCode,
+    sizeType: parseInt(breadth, 10),
+    status: 'open,consultation',
+  };
+  const { data, err: err2 } = yield call(getApiRequest, apiEndpoint.spaces(), searchParams, token);
+  if (err2) {
+    yield handleError(requestActions.bosyuFailed, '', 'bosyuSearch', err, false);
+    return;
+  }
+
+  // レコメンド用スペース
+  if (data) {
+    yield put(requestActions.bosyuSuccess());
+    yield put(
+      push({
+        pathname: Path.recommend(),
+        state: { recommendSpaces: data },
+      }),
+    );
+  } else {
+    yield put(requestActions.bosyuSuccess({ prefName: pref }));
+  }
+}
+
 export const requestSagas = [
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
@@ -621,4 +698,5 @@ export const requestSagas = [
   takeEvery(FETCH_SCHEDULE, fetchSchedule),
   takeEvery(REQUEST, request),
   takeEvery(FETCH_REQUEST, fetchRequest),
+  takeEvery(BOSYU, bosyu),
 ];

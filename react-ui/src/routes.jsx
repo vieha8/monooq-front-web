@@ -42,6 +42,10 @@ const Spaces = loadable(
   () => import('components/pages/SpaceManagementPage').catch(() => window.location.reload()),
   { fallback: <LoadingPage /> },
 );
+const Recommend = loadable(
+  () => import('components/pages/SearchResultRecommendPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
+);
 const Schedule = loadable(
   () => import('components/pages/SchedulePage').catch(() => window.location.reload()),
   { fallback: <LoadingPage /> },
@@ -178,6 +182,10 @@ const Lp3Guest = loadable(
   () => import('components/pages/Lp123GuestPage').catch(() => window.location.reload()),
   { fallback: <LoadingPage /> },
 );
+const Bosyu = loadable(
+  () => import('components/pages/BosyuPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
+);
 
 export default ({ history }) => (
   <ConnectedRouter history={history}>
@@ -195,6 +203,7 @@ export default ({ history }) => (
         <Route exact path={Path.spacesByTown()} component={Search} />
         <Route exact path={Path.space()} component={Space} />
         <Route exact path={Path.spaces()} component={Spaces} />
+        <Route exact path={Path.recommend()} component={Recommend} />
         <Route exact path={Path.schedule()} component={Schedule} />
         <Route exact path={Path.profile()} component={Profile} />
         <Route exact path={Path.profileEdit()} component={ProfileEdit} />
@@ -213,6 +222,7 @@ export default ({ history }) => (
         <Route exact path={Path.spaceEditConfirm()} component={SpaceEditConfirm} />
         <Route exact path={Path.createSpaceCompletion()} component={CreateSpaceCompletion} />
         <Route exact path={Path.spaceEditCompletion()} component={SpaceEditCompletion} />
+        <Route exact path={Path.bosyu()} component={Bosyu} />
         <Route exact path={Path.unsubscribe()} component={Unsubscribe} />
         <Route exact path={Path.sales()} component={Sales} />
         <Route exact path={Path.about()} component={About} />
