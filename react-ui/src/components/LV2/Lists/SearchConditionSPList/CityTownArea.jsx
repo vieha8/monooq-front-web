@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Collapsible from 'react-collapsible';
 import { Dimens, FontSizes, Colors } from 'variables';
-import InputForm from 'components/LV2/Forms/InputForm';
 import IconAreaGray from 'images/icon-area-gray.png';
 
 const Wrap = styled.div``;
@@ -42,6 +41,35 @@ const ImageAreaPin = styled.img`
   vertical-align: text-top;
 `;
 
+const Fuga = styled.input`
+  display: none;
+`;
+const BB = styled.div`
+  height: 24px;
+  width: 24px;
+  border: 1px solid #d8d8d8;
+  margin-right: 9.6px;
+
+  input[type='checkbox']:checked + & {
+    background-color: #e85258;
+    background-image: url(/static/media/icon-check.b3761c92.svg);
+    background-size: 76%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: none;
+  }
+`;
+
+const Hoge = styled.label`
+  font-size: 16px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 15px 16px 15px 38px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+`;
+
 const CityName = title => {
   return (
     <CityWrap>
@@ -63,14 +91,11 @@ export default ({ searchConditionSPList, onClickCheckTown }) => (
             <CollapsibleItemList>
               {item.townAreaList.map((town, j) => (
                 <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
-                  <InputForm
-                    checkbox
-                    labelCheckBox={`${town.text}(${town.count})`}
-                    checked={town.isChecked}
-                    options={{ code: town.code }}
-                    onClickCheck={onClickCheckTown}
-                    className="list-citytown"
-                  />
+                  <Hoge htmlFor={`searchTwonAreaCheck${town.code}`}>
+                    <Fuga type="checkbox" id={`searchTwonAreaCheck${town.code}`} />
+                    <BB />
+                    {`${town.text}(${town.count})`}
+                  </Hoge>
                 </CollapsibleItem>
               ))}
             </CollapsibleItemList>
