@@ -66,11 +66,14 @@ export default () => (
       isHr
     />
     <Section>
-      <MainTitle
-        mainTitle="荷物を置く方(ゲスト)のキャンセルについて"
-        text="ホストはあなたのために荷物スペースや搬入の準備を整えてくれています。直前のキャンセルは迷惑となってしまいます。ホストと契約した日程の15日前からキャンセル手数料が発生します。"
-        sub
-      />
+      <MainTitle mainTitle="荷物を置く方(ゲスト)のキャンセルについて" sub />
+      <Text>
+        ホストはあなたのために荷物スペースや搬入の準備を整えてくれています。
+        <br />
+        直前のキャンセルは迷惑となってしまいます。
+        <br />
+        ホストと契約した日程の15日前からキャンセル手数料が発生します。
+      </Text>
       <HilightText>利用開始日から</HilightText>
       <Section margin="0 auto 20px">
         <AboutCancelList
