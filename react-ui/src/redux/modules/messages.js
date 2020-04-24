@@ -535,6 +535,57 @@ function* sendEmail(payload, messageDocId) {
   yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
 }
 
+function* sendHostFirstEmail(payload, messageDocId) {
+  const { roomId, toUserId, text } = payload;
+
+  const token = yield* getToken();
+  const { data: toUser, err } = yield call(getApiRequest, apiEndpoint.users(toUserId), {}, token);
+  if (err) {
+    yield handleError('', '', 'sendEmail', err, false);
+    return;
+  }
+
+  const user = yield select(state => state.auth.user);
+
+  let messageBody = `${toUser.name}さんモノオクのご利用ありがとうございます。\n\n`;
+  messageBody += `ホストの${user.name}さんが${toUser.name}さんの荷物を預かることができます。\n`;
+  messageBody += `荷物の内容や利用希望の広さを伝え、気軽に相談してみましょう。\n\n`;
+
+  messageBody += 'ーーーーーーーーーーーーーーーーー\n';
+  messageBody += 'ホストからのメッセージ:\n';
+  if (text.length !== 0) {
+    messageBody += text;
+  } else {
+    messageBody = '画像が届いています。';
+  }
+
+  messageBody += '\n\n↓こちらからホストにメッセージを送ることが出来ます。↓\n';
+
+  // TODO 開発環境バレ防止の為、URLは環境変数にいれる
+  if (process.env.REACT_APP_ENV === 'production') {
+    messageBody += `https://monooq.com/messages/${roomId}\n`;
+  } else {
+    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}\n`;
+  }
+
+  messageBody += 'ーーーーーーーーーーーーーーーーー\n\n';
+
+  messageBody +=
+    '※希望条件をご回答いただいたゲストのみなさまに、預かれるホストから応募があった際にこちらのメールをお送りしております。\n\n';
+
+  const body = {
+    Subject: `【モノオク】${formatName(
+      user.name,
+    )}さんがあなたの荷物を預かれます！スペースを見てみましょう。\n`,
+    Uid: toUser.firebaseUid,
+    Body: messageBody,
+    Category: 'message',
+    CustomData: { messageDocId },
+  };
+
+  yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
+}
+
 function* sendSMS(payload) {
   const { roomId, toUserId } = payload;
 
@@ -561,13 +612,21 @@ function* sendSMS(payload) {
 
 function* sendMessageAndNotice({ payload }) {
   const messageDocId = yield sendMessage(payload);
-  yield sendEmail(payload, messageDocId);
+  if (payload.isHostFirst) {
+    yield sendHostFirstEmail(payload, messageDocId);
+  } else {
+    yield sendEmail(payload, messageDocId);
+  }
   yield sendSMS(payload);
 }
 
 function* makeBosyuRoom({ payload }) {
   const token = yield* getToken();
-  const { data } = yield call(postApiRequest, apiEndpoint.bosyu(payload), {}, token);
+  const { data, err } = yield call(postApiRequest, apiEndpoint.bosyu(payload), {}, token);
+  if (err) {
+    yield handleError('', '', 'makeBosyuRoom', err, false);
+    return;
+  }
   yield put(push(Path.message(data.roomId)));
 }
 
