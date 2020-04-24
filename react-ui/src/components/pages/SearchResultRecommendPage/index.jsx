@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import InfiniteScroll from 'react-infinite-scroller';
 import Path from 'config/path';
 import { Dimens, FontSizes, Colors } from 'variables';
+import { convertSpaceImgUrl } from 'helpers/imgix';
 import { media } from 'helpers/style/media-query';
 import { spaceActions } from 'redux/modules/space';
 import withAuthRequire from 'components/hooks/withAuthRequire';
@@ -14,6 +15,7 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import { H1 } from 'components/LV1/Texts/Headline';
 import SearchResult from 'components/LV3/SearchResult';
 import LoadingPage from 'components/LV3/LoadingPage';
+import dummySpaceImage from 'images/img-dummy-space.png';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
@@ -144,7 +146,10 @@ class SearchResultRecommendPage extends Component {
             <SearchResult
               spaces={setSpaces.map(s => ({
                 ...s,
-                image: (s.images[0] || {}).imageUrl,
+                image:
+                  s.images.length !== 0
+                    ? convertSpaceImgUrl(s.images[0].imageUrl, 'w=600')
+                    : dummySpaceImage,
                 onClick: () => this.onClickSpace(s.id),
               }))}
             />
