@@ -172,10 +172,6 @@ const SpaceResultItem = ({
               {!isNoViewLastLogin && (
                 <StatusText setData={getDateRelativeLastLogin(lastLoginAt || user.lastLoginAt)} />
               )}
-              <InlineText.Base noWrap fontSize={16} bold>
-                {`〜${numeral(priceFull).format('0,0')}`}
-                円&nbsp;/&nbsp;月
-              </InlineText.Base>
             </Row>
           </Content>
         </Card>
