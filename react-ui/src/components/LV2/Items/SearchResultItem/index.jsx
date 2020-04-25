@@ -37,7 +37,7 @@ const AvailabilityLayout = styled.div`
 `;
 
 const Row = styled.div`
-  margin-top: ${props => props.marginTop || Dimens.xxsmall}px;
+  margin-top: ${props => props.marginTop || Dimens.xsmall}px;
   ${props =>
     props.inline &&
     `
@@ -49,8 +49,7 @@ const Row = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    
+    text-align: right;
   `};
   ${props =>
     props.isNoViewLastLogin &&
@@ -88,13 +87,12 @@ const SpaceResultItem = ({
   addressPref,
   addressCity,
   addressTown,
+  priceFull,
   tags,
   lastLoginAt,
   user,
   isNoViewLastLogin,
   status,
-  priceFull,
-  priceTatami,
 }) => {
   const onClickSpace = () => {
     ReactGA.plugin.execute('ec', 'addProduct', {
@@ -173,6 +171,10 @@ const SpaceResultItem = ({
               {!isNoViewLastLogin && (
                 <StatusText setData={getDateRelativeLastLogin(lastLoginAt || user.lastLoginAt)} />
               )}
+              <InlineText.Base noWrap fontSize={16} bold>
+                {`〜${numeral(priceFull).format('0,0')}`}
+                円&nbsp;/&nbsp;月
+              </InlineText.Base>
             </Row>
           </Content>
         </Card>
