@@ -105,7 +105,7 @@ const SpaceResultItem = ({
   };
 
   // 畳数あたりの価格が登録されていないスペースの場合があるため && 0が登録されている場合が最低価格として表示不適切なため
-  const isExistTatamiPrice = priceTatami && priceTatami > 0;
+  const isExistTatamiPrice = !!priceTatami && priceTatami > 0;
 
   return (
     <Wrap>
