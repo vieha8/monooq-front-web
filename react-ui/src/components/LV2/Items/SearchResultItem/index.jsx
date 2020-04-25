@@ -88,6 +88,7 @@ const SpaceResultItem = ({
   addressCity,
   addressTown,
   priceFull,
+  priceTatami,
   tags,
   lastLoginAt,
   user,
