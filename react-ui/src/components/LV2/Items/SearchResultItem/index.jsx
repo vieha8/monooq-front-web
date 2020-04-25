@@ -104,9 +104,7 @@ const SpaceResultItem = ({
   };
 
   // 畳数あたりの価格が登録されていないスペースの場合があるため && 0が登録されている場合が最低価格として表示不適切なため
-  const isExistTatamiPrice = !!priceTatami && priceTatami > 0;
-  // 0.5畳などの時、部屋全体の価格の方が高いことがあるので、その判定
-  const isFullPriceHigherThanTatami = isExistTatamiPrice && priceFull > priceTatami;
+  const isExistTatamiPrice = !!priceTatami;
 
   return (
     <Wrap>
@@ -154,17 +152,8 @@ const SpaceResultItem = ({
             </Row>
             <Row price isNoViewLastLogin={isNoViewLastLogin}>
               <InlineText.Base noWrap fontSize={16} bold>
-                {isFullPriceHigherThanTatami ? (
-                  <>
-                    {isExistTatamiPrice && `￥${numeral(priceTatami).format('0,0')}`}~
-                    {`￥${numeral(priceFull).format('0,0')}`}
-                  </>
-                ) : (
-                  <>
-                    {isExistTatamiPrice && `￥${numeral(priceFull).format('0,0')}`}~
-                    {`￥${numeral(priceTatami).format('0,0')}`}
-                  </>
-                )}
+                {isExistTatamiPrice && `￥${numeral(priceTatami).format('0,0')}`}~
+                {`￥${numeral(priceFull).format('0,0')}`}
                 <span style={{ fontSize: '80%', fontWeight: 'normal' }}>&nbsp;/&nbsp;月</span>
               </InlineText.Base>
             </Row>
