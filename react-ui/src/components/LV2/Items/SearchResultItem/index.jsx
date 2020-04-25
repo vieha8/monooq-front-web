@@ -78,26 +78,24 @@ const Title = styled(InlineText.Base)`
   `}
 `;
 
-const SpaceResultItem = props => {
-  const {
-    isTag,
-    id,
-    title,
-    isRecommended,
-    image,
-    address,
-    addressPref,
-    addressCity,
-    addressTown,
-    tags,
-    lastLoginAt,
-    user,
-    isNoViewLastLogin,
-    status,
-    priceFull,
-    priceTatami,
-  } = props;
-
+const SpaceResultItem = ({
+  isTag,
+  id,
+  title,
+  isRecommended,
+  image,
+  address,
+  addressPref,
+  addressCity,
+  addressTown,
+  tags,
+  lastLoginAt,
+  user,
+  isNoViewLastLogin,
+  status,
+  priceFull,
+  priceTatami,
+}) => {
   const onClickSpace = () => {
     ReactGA.plugin.execute('ec', 'addProduct', {
       id,
