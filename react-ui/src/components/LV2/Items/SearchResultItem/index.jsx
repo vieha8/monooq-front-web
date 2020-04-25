@@ -37,7 +37,7 @@ const AvailabilityLayout = styled.div`
 `;
 
 const Row = styled.div`
-  margin-top: ${props => props.marginTop || Dimens.xsmall}px;
+  margin-top: ${props => props.marginTop || Dimens.xxsmall}px;
   ${props =>
     props.inline &&
     `
@@ -49,7 +49,8 @@ const Row = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    text-align: right;
+
+    
   `};
   ${props =>
     props.isNoViewLastLogin &&
@@ -107,6 +108,7 @@ const SpaceResultItem = props => {
 
   // 畳数あたりの価格が登録されていないスペースの場合があるため
   const isExistTatamiPrice = !!priceTatami;
+  const isExistFullPrice = !!priceFull;
 
   return (
     <Wrap>
@@ -153,16 +155,16 @@ const SpaceResultItem = props => {
               </Title>
             </Row>
             <Row price isNoViewLastLogin={isNoViewLastLogin}>
+              <InlineText.Base noWrap fontSize={16} bold>
+                {isExistTatamiPrice && `￥${numeral(priceTatami).format('0,0')}`}~
+                {isExistFullPrice && `￥${numeral(priceFull).format('0,0')}`}
+                <span style={{ fontSize: '80%', fontWeight: 'normal' }}>&nbsp;/&nbsp;月</span>
+              </InlineText.Base>
+            </Row>
+            <Row marginTop={8}>
               {!isNoViewLastLogin && (
                 <StatusText setData={getDateRelativeLastLogin(lastLoginAt || user.lastLoginAt)} />
               )}
-              <InlineText.Base noWrap fontSize={16} bold>
-                {/* {} */}
-                {isExistTatamiPrice
-                  ? `${numeral(priceTatami).format('0,0')}円〜`
-                  : `〜${numeral(priceFull).format('0,0')}円`}
-                &nbsp;/&nbsp;月
-              </InlineText.Base>
             </Row>
           </Content>
         </Card>
