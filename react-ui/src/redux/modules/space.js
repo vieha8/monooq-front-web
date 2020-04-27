@@ -51,6 +51,9 @@ const GET_ADDRESS_INIT = 'GET_ADDRESS_INIT';
 const GET_ADDRESS = 'GET_ADDRESS';
 const GET_ADDRESS_SUCCESS = 'GET_ADDRESS_SUCCESS';
 const GET_ADDRESS_FAILED = 'GET_ADDRESS_FAILED';
+const GET_CITIES = 'GET_CITIES';
+const GET_CITIES_SUCCESS = 'GET_CITIES_SUCCESS';
+const GET_CITIES_FAILED = 'GET_CITIES_FAILED';
 const RESET_ADDRESS = 'RESET_ADDRESS';
 const FETCH_USER_META = 'FETCH_USER_META';
 const FETCH_USER_META_SUCCESS = 'FETCH_USER_META_SUCCESS';
@@ -87,6 +90,9 @@ export const spaceActions = createActions(
   GET_ADDRESS,
   GET_ADDRESS_SUCCESS,
   GET_ADDRESS_FAILED,
+  GET_CITIES,
+  GET_CITIES_SUCCESS,
+  GET_CITIES_FAILED,
   RESET_ADDRESS,
   FETCH_USER_META,
   FETCH_USER_META_SUCCESS,
@@ -268,6 +274,19 @@ export const spaceReducer = handleActions(
       ...state,
       isLoadingAddress: false,
       errMessage: action.payload,
+    }),
+    [GET_CITIES]: state => ({
+      ...state,
+      isLoading: true,
+    }),
+    [GET_CITIES_SUCCESS]: (state, { payload: { cities } }) => ({
+      ...state,
+      cities,
+      isLoading: false,
+    }),
+    [GET_CITIES_FAILED]: state => ({
+      ...state,
+      isLoading: false,
     }),
     [RESET_ADDRESS]: (state, _) => ({
       ...state,
@@ -968,6 +987,25 @@ function* fetchUserMeta({ payload: { userId } }) {
   yield put(spaceActions.fetchUserMetaSuccess(payload));
 }
 
+function* getCities({ payload: { prefCode } }) {
+  let cities = [];
+
+  if (prefCode) {
+    const token = yield* getToken();
+    const areaEndpoint = apiEndpoint.areaCitiesGeneral(prefCode);
+    const { data: citiesData, err } = yield call(getApiRequest, areaEndpoint, {}, token);
+
+    if (err) {
+      yield handleError(spaceActions.getCitiesFailed, '', 'getCities', err, true);
+      return;
+    }
+
+    cities = citiesData;
+  }
+
+  yield put(spaceActions.getCitiesSuccess({ cities }));
+}
+
 export const spaceSagas = [
   takeEvery(FETCH_SPACE, getSpace),
   takeEvery(CREATE_SPACE, createSpace),
@@ -980,5 +1018,6 @@ export const spaceSagas = [
   takeEvery(GET_GEOCODE, getGeocode),
   takeEvery(GET_RECOMMEND_SPACES, getRecommendSpaces),
   takeEvery(GET_ADDRESS, getAddressByPostalCode),
+  takeEvery(GET_CITIES, getCities),
   takeEvery(FETCH_USER_META, fetchUserMeta),
 ];
