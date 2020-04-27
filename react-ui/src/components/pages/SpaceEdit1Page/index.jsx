@@ -25,10 +25,6 @@ const Validate = {
   ImageSize: {
     Max: 31457280, // 30MB
   },
-  Tatami: {
-    Max: 1000,
-    Min: 1,
-  },
   Introduction: {
     Max: 5000,
   },

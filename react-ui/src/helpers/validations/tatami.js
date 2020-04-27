@@ -4,7 +4,7 @@ import { isFloat } from 'helpers/validations/number';
 const Validate = {
   Tatami: {
     Max: 1000,
-    Min: 1,
+    Min: 0.1,
   },
 };
 
