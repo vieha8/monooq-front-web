@@ -15,7 +15,7 @@ export default {
   TagCustomIncludesSpaceLiteral: 'スペース文字を含むことはできません。',
   PriceMin: val => `登録できる料金目安は${numeral(val).format('0,0')}円以上です。`,
   PriceMax: val => `登録できる料金目安は${numeral(val).format('0,0')}円以下です。`,
-  TatamiMin: val => `登録できる畳数は${numeral(val).format('0,0')}畳以上です。`,
+  TatamiMin: val => `登録できる畳数は${numeral(val).format('0.0[0000]')}畳以上です。`,
   TatamiMax: val => `登録できる畳数は${numeral(val).format('0,0')}畳以下です。`,
   LengthMax: (name, len) => `${name}は全角${len}文字が上限です。文字数を減らしてください。`,
   EstimateMin: val => `作成できる見積もり料金は${numeral(val).format('0,0')}円以上です。`,
