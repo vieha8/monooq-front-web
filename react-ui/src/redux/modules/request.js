@@ -635,7 +635,7 @@ function* fetchRequest({ payload: requestId }) {
 }
 
 function* bosyu({ payload: { body } }) {
-  const { prefCode, town, usage, startDate, isUseOver6Month, breadth } = generateRequestParams(
+  const { prefCode, city, usage, startDate, isUseOver6Month, breadth } = generateRequestParams(
     body,
   );
 
@@ -646,7 +646,7 @@ function* bosyu({ payload: { body } }) {
 
   const params = {
     prefecture: pref,
-    city: town,
+    city,
     usages: parseInt(usage, 10),
     startDate: new Date(`${startDate.year}/${startDate.month}/${startDate.day}`),
     isLong: isUseOver6Month,

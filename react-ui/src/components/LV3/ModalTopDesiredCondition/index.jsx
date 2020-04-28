@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors, ErrorMessages } from 'variables';
@@ -84,10 +84,11 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
   const [isOpen, setStateOpen] = useState(true);
   const [errors, setErrors] = useState({});
   const [prefCode, setPrefCode] = useState(params ? params.prefCode : 0);
-  const [town, setTown] = useState(params ? params.town : '');
+  const [city, setCity] = useState(params ? params.city : '');
   const [usage, setUsage] = useState(params ? params.usage : 0);
   const [isUseOver6Month, setIsUseOver6Month] = useState(params ? params.isUseOver6Month : false);
   const [breadth, setBreadth] = useState(params ? params.breadth : 0);
+  const cities = useSelector(state => state.space.cities);
 
   let setStartDateYear;
   let setStartDateMonth;
@@ -114,7 +115,7 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
       requestActions.bosyu({
         body: {
           prefCode,
-          town: town === undefined ? '' : town.trim(),
+          city: city === undefined ? '' : city.trim(),
           usage,
           startDate,
           isUseOver6Month,
@@ -136,7 +137,7 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
         }
         setErrors(state => ({ ...state, [propName]: setError }));
         break;
-      case 'town':
+      case 'city':
         if (isTrimmedEmpty(inputValue)) {
           setError.push(ErrorMessages.PleaseInput);
         }
@@ -184,11 +185,20 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
     const startDateAll = generateDateAll(startDate.year, startDate.month, startDate.day);
     return (
       prefCode &&
-      !isTrimmedEmpty(town) &&
+      !isTrimmedEmpty(city) &&
       usage &&
       breadth &&
       moment(startDateAll).isValid() &&
       !moment(startDateAll).isBefore(getToday())
+    );
+  };
+
+  const onChangePrefecture = value => {
+    handleChangeUI('prefCode', value, setPrefCode(value));
+    dispatch(
+      spaceActions.getCities({
+        prefCode: value,
+      }),
     );
   };
 
@@ -215,22 +225,24 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
             <Select
               label="預けたい都道府県"
               options={selectOptionPrefectures('選択してください')}
-              onChange={e =>
-                handleChangeUI('prefCode', e.target.value, setPrefCode(e.target.value))
-              }
+              onChange={e => onChangePrefecture(e.target.value)}
               value={prefCode}
             />
             <ErrorList keyName="prefCode_errors" errors={errors.prefCode} />
           </Row>
-          {prefCode > 0 && (
+          {cities && cities.length > 0 && (
             <Row>
-              <InputForm
+              <Select
                 label="預けたい市区町村"
-                placeholder="例) 渋谷区"
-                value={town}
-                onChange={e => handleChangeUI('town', e.target.value, setTown(e.target.value))}
+                options={cities.map((item, i) => ({
+                  key: i,
+                  value: item.name,
+                  text: item.name,
+                }))}
+                onChange={e => handleChangeUI('city', e.target.value, setCity(e.target.value))}
+                value={city}
               />
-              <ErrorList keyName="town_errors" errors={errors.town} />
+              <ErrorList keyName="city_errors" errors={errors.city} />
             </Row>
           )}
           <Row>

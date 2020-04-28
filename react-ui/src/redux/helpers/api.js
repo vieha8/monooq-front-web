@@ -23,6 +23,7 @@ export const apiEndpoint = {
   features: id => `spaces/features/${id}`,
   sections: () => `sections`,
   region: () => `region`,
+  areaCitiesGeneral: prefCode => `spaces/area/pg${prefCode}`,
   areaCities: prefCode => `spaces/area/p${prefCode}`,
   areaTowns: cityCode => `spaces/area/c${cityCode}`,
   areaSearch: prefCode => `spaces/area/p${prefCode}/all`,
