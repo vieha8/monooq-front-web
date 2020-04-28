@@ -114,7 +114,7 @@ class SearchResultRecommendPage extends Component {
     }
 
     if (setSpaces.length === 0) {
-      history.push(Path.pageNotFound());
+      history.push(Path.top());
     }
 
     return (
