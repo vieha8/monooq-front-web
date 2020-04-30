@@ -147,7 +147,7 @@ const PrefectureList = ({ list, regionId }) => {
                 <WrapRegion>{item.region}</WrapRegion>
                 {item.prefectureList.map((prefecture, j) => (
                   <WrapButton key={j.toString()}>
-                    <Link to={Path.spacesByPrefecture(prefecture.id)}>
+                    <Link to={`${Path.spacesByPrefecture(prefecture.id)}?via=carousel`}>
                       <Button
                         key={j.toString()}
                         quinary
