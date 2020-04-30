@@ -79,36 +79,69 @@ const CityName = title => {
   );
 };
 
-export default ({ searchConditionSPList, onClickCheckTown }) => (
-  <Wrap>
-    <ConditionList>
-      {searchConditionSPList.map((item, i) => (
-        <Item key={`item_citytownarea_${i}`.toString()} className="item-condition-search">
-          <Collapsible
-            trigger={CityName(`${item.cityName}(${item.count})`)}
-            open={item.townAreaList.filter(town => town.isChecked).length > 0}
-          >
-            <CollapsibleItemList>
-              {item.townAreaList.map((town, j) => (
-                <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
-                  <CheckboxLabel htmlFor={`searchTwonAreaCheck${town.code}`}>
-                    <HiddenCheckbox
-                      checked={town.isChecked}
-                      onChange={e =>
-                        onClickCheckTown(null, { code: town.code, checked: e.target.checked })
-                      }
-                      type="checkbox"
-                      id={`searchTwonAreaCheck${town.code}`}
-                    />
-                    <DummyCheckbox />
-                    {`${town.text}(${town.count})`}
-                  </CheckboxLabel>
-                </CollapsibleItem>
-              ))}
-            </CollapsibleItemList>
-          </Collapsible>
-        </Item>
-      ))}
-    </ConditionList>
-  </Wrap>
-);
+export default ({ searchConditionSPList, onClickCheckTown }) => {
+  const checkedTownCount = searchConditionSPList.map(
+    item => item.townAreaList.filter(town => town.isChecked).length,
+  );
+  const isOpeningBoolsDefault = checkedTownCount.map(item => item > 0);
+
+  const [isOpeningBools, setIsOpeningBools] = React.useState(isOpeningBoolsDefault);
+
+  const setIsOpening = React.useCallback(
+    (i, val) => {
+      const copy = [...isOpeningBools];
+      copy[i] = val;
+      setIsOpeningBools(copy);
+    },
+    [isOpeningBools],
+  );
+
+  const onCollapsibleClick = React.useCallback(
+    indexStr => {
+      const index = parseInt(indexStr);
+      const current = isOpeningBools[index];
+
+      setIsOpening(index, isOpeningBoolsDefault[index] || !current);
+    },
+    [isOpeningBools, isOpeningBoolsDefault],
+  );
+
+  return (
+    <Wrap>
+      <ConditionList>
+        {searchConditionSPList.map((item, i) => (
+          <Item key={`item_citytownarea_${i}`.toString()} className="item-condition-search">
+            <Collapsible
+              trigger={CityName(`${item.cityName}(${item.count})`)}
+              accordionPosition={`${i}`}
+              open={isOpeningBools[i]}
+              handleTriggerClick={onCollapsibleClick}
+            >
+              <CollapsibleItemList>
+                {item.townAreaList.map((town, j) => (
+                  <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
+                    <CheckboxLabel htmlFor={`searchTwonAreaCheck${town.code}`}>
+                      <HiddenCheckbox
+                        checked={town.isChecked}
+                        onChange={e => {
+                          onClickCheckTown(null, { code: town.code, checked: e.target.checked });
+                          if (checkedTownCount[i] === 1 && !e.target.checked) {
+                            setIsOpening(i, false);
+                          }
+                        }}
+                        type="checkbox"
+                        id={`searchTwonAreaCheck${town.code}`}
+                      />
+                      <DummyCheckbox />
+                      {`${town.text}(${town.count})`}
+                    </CheckboxLabel>
+                  </CollapsibleItem>
+                ))}
+              </CollapsibleItemList>
+            </Collapsible>
+          </Item>
+        ))}
+      </ConditionList>
+    </Wrap>
+  );
+};
