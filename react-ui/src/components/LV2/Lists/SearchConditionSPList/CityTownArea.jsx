@@ -94,8 +94,8 @@ export default ({ searchConditionSPList, onClickCheckTown }) => (
                   <CheckboxLabel htmlFor={`searchTwonAreaCheck${town.code}`}>
                     <HiddenCheckbox
                       checked={town.isChecked}
-                      onChange={() =>
-                        onClickCheckTown(null, { code: town.code, checked: !town.isChecked })
+                      onChange={e =>
+                        onClickCheckTown(null, { code: town.code, checked: e.target.checked })
                       }
                       type="checkbox"
                       id={`searchTwonAreaCheck${town.code}`}
