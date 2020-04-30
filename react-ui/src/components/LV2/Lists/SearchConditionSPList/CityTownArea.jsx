@@ -41,10 +41,10 @@ const ImageAreaPin = styled.img`
   vertical-align: text-top;
 `;
 
-const Fuga = styled.input`
+const HiddenCheckbox = styled.input`
   display: none;
 `;
-const BB = styled.div`
+const DummyCheckbox = styled.div`
   height: 24px;
   width: 24px;
   border: 1px solid #d8d8d8;
@@ -60,7 +60,7 @@ const BB = styled.div`
   }
 `;
 
-const Hoge = styled.label`
+const CheckboxLabel = styled.label`
   font-size: 16px;
   height: 54px;
   display: flex;
@@ -91,8 +91,8 @@ export default ({ searchConditionSPList, onClickCheckTown }) => (
             <CollapsibleItemList>
               {item.townAreaList.map((town, j) => (
                 <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
-                  <Hoge htmlFor={`searchTwonAreaCheck${town.code}`}>
-                    <Fuga
+                  <CheckboxLabel htmlFor={`searchTwonAreaCheck${town.code}`}>
+                    <HiddenCheckbox
                       checked={town.isChecked}
                       onChange={() =>
                         onClickCheckTown(null, { code: town.code, checked: !town.isChecked })
@@ -100,9 +100,9 @@ export default ({ searchConditionSPList, onClickCheckTown }) => (
                       type="checkbox"
                       id={`searchTwonAreaCheck${town.code}`}
                     />
-                    <BB />
+                    <DummyCheckbox />
                     {`${town.text}(${town.count})`}
-                  </Hoge>
+                  </CheckboxLabel>
                 </CollapsibleItem>
               ))}
             </CollapsibleItemList>
