@@ -103,7 +103,7 @@ export default ({ searchConditionSPList, onClickCheckTown }) => {
 
       setIsOpening(index, isOpeningBoolsDefault[index] || !current);
     },
-    [isOpeningBools, isOpeningBoolsDefault],
+    [isOpeningBools, isOpeningBoolsDefault, setIsOpening],
   );
 
   return (
