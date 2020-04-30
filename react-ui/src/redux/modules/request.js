@@ -662,6 +662,16 @@ function* bosyu({ payload: { body } }) {
 
   if (isAvailableLocalStorage()) {
     localStorage.setItem('isRequestedTop', 'true');
+
+    localStorage.setItem('desiredCondition-prefCode', prefCode);
+    localStorage.setItem('desiredCondition-city', city);
+    localStorage.setItem('desiredCondition-usage', usage);
+    localStorage.setItem(
+      'desiredCondition-startDate',
+      `${startDate.year}/${startDate.month}/${startDate.day}`,
+    );
+    localStorage.setItem('desiredCondition-isUseOver6Month', isUseOver6Month);
+    localStorage.setItem('desiredCondition-breadth', breadth);
   }
 
   const searchParams = {
