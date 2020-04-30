@@ -183,6 +183,12 @@ const getParams = () => {
   let params = null;
   if (isAvailableLocalStorage() && localStorage.getItem('request_params')) {
     params = JSON.parse(localStorage.getItem('request_params'));
+  } else if (isAvailableLocalStorage() && localStorage.getItem('desiredCondition')) {
+    const defaultDesiredCondition = JSON.parse(localStorage.getItem('desiredCondition'));
+    params = {
+      ...defaultDesiredCondition,
+      endDate: {},
+    };
   }
   return params;
 };
