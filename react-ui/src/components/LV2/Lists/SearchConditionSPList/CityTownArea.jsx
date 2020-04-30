@@ -106,6 +106,18 @@ export default ({ searchConditionSPList, onClickCheckTown }) => {
     [isOpeningBools, isOpeningBoolsDefault, setIsOpening],
   );
 
+  const onTownChangeFactory = React.useCallback(
+    (town, i) => {
+      return e => {
+        onClickCheckTown(null, { code: town.code, checked: e.target.checked });
+        if (checkedTownCount[i] === 1 && !e.target.checked) {
+          setIsOpening(i, false);
+        }
+      };
+    },
+    [checkedTownCount, setIsOpening, onClickCheckTown],
+  );
+
   return (
     <Wrap>
       <ConditionList>
@@ -123,12 +135,7 @@ export default ({ searchConditionSPList, onClickCheckTown }) => {
                     <CheckboxLabel htmlFor={`searchTwonAreaCheck${town.code}`}>
                       <HiddenCheckbox
                         checked={town.isChecked}
-                        onChange={e => {
-                          onClickCheckTown(null, { code: town.code, checked: e.target.checked });
-                          if (checkedTownCount[i] === 1 && !e.target.checked) {
-                            setIsOpening(i, false);
-                          }
-                        }}
+                        onChange={onTownChangeFactory(town, i)}
                         type="checkbox"
                         id={`searchTwonAreaCheck${town.code}`}
                       />
