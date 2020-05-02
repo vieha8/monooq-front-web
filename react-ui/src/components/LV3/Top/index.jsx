@@ -131,6 +131,7 @@ export default ({
 
           <SearchResultWrap>
             <SearchResult
+              via="top"
               spaces={spaces.map(s => ({
                 ...s,
                 image: (s.images[0] || {}).imageUrl,

@@ -94,6 +94,7 @@ const SpaceResultItem = ({
   user,
   isNoViewLastLogin,
   status,
+  via,
 }) => {
   const onClickSpace = () => {
     ReactGA.plugin.execute('ec', 'addProduct', {
@@ -110,7 +111,7 @@ const SpaceResultItem = ({
 
   return (
     <Wrap>
-      <Link to={Path.space(id)} onClick={onClickSpace}>
+      <Link to={`${Path.space(id)}${via ? `?via=${via}` : ''}`} onClick={onClickSpace}>
         <Card noPadding noBorder>
           <CardInner>
             <LazyLoad height={123}>

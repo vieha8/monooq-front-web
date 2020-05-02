@@ -54,6 +54,7 @@ export default ({ isTag, caption, captionSub, spaceList }) => (
           <CaptionSub>{captionSub}</CaptionSub>
           <WrapList>
             <SearchResult
+              via="pickup"
               isTag={isTag}
               isTop
               key=""
