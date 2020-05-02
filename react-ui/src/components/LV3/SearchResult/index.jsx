@@ -94,6 +94,7 @@ export default ({
   isMore,
   onClickMore,
   onKeyDownButtonMore,
+  via,
 }) => (
   <Wrap isTop={isTop}>
     {caption && <CaptionWrap>{caption}</CaptionWrap>}
@@ -105,7 +106,7 @@ export default ({
           index={i}
           isTag={isTag}
         >
-          <SearchResultItem {...space} isTag={isTag} />
+          <SearchResultItem {...space} isTag={isTag} via={via} />
         </Cell>
       ))}
     </SpacesWrap>

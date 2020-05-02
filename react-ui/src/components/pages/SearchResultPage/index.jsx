@@ -233,6 +233,18 @@ class SearchResultPage extends Component {
       return this.renderNotFound(conditions);
     }
 
+    let viaParams;
+
+    if (conditions.keyword) {
+      viaParams = 'keyword';
+    } else if (conditions.towns.length > 0) {
+      viaParams = 'town';
+    } else if (conditions.cities.length > 0) {
+      viaParams = 'city';
+    } else if (conditions.pref) {
+      viaParams = 'pref';
+    }
+
     return (
       <BaseTemplate maxWidth={1168}>
         <SearchResultHeaderPage />
@@ -245,6 +257,7 @@ class SearchResultPage extends Component {
             initialLoad
           >
             <SearchResult
+              via={viaParams}
               spaces={spaces.map(s => ({
                 ...s,
                 image: (s.images[0] || {}).imageUrl,
