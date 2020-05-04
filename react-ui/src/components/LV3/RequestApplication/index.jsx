@@ -8,6 +8,7 @@ import Path from 'config/path';
 import { Colors } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { requestActions } from 'redux/modules/request';
+import { userActions } from 'redux/modules/user';
 import { uiActions } from 'redux/modules/ui';
 import Button from 'components/LV1/Forms/Button';
 import LinkCancel from 'components/LV2/Space/LinkCancel';
@@ -160,6 +161,17 @@ const RequestApplication = ({
 
     amplitude.getInstance().logEvent('リクエスト - リクエスト申請クリック', payload);
     dispatch(requestActions.request(payload));
+
+    if (!existPhoneNumber && phoneNumber) {
+      dispatch(
+        userActions.updateUser({
+          userId: loginUser.id,
+          body: {
+            phoneNumber,
+          },
+        }),
+      );
+    }
   };
 
   const onKeyDownButtonMessage = e => {
