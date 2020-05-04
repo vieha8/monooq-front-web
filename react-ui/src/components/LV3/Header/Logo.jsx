@@ -11,10 +11,13 @@ const LogoLink = styled.span`
   display: inline-flex;
   margin-left: ${Dimens.medium3_40}px;
   margin-right: ${Dimens.medium_20}px;
+  ${media.desktop`
+    width: 118px;
+    margin-left: ${Dimens.medium}px;
+  `};
   ${media.tablet`
     width: 100px;
     margin-top: 0px;
-    margin-left: ${Dimens.medium_17}px;
   `};
 `;
 

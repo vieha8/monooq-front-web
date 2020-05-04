@@ -49,6 +49,7 @@ class MenuSP extends Component {
         className={isOpen ? 'open' : 'close'}
       >
         <ServiceMenu
+          history={{ to: Path.historyViewSpace(), onClick: () => this.close() }}
           signupUrl={{ to: Path.signUp(), onClick: () => this.close() }}
           loginUrl={{ to: Path.login(), onClick: () => this.close() }}
           top={{ to: Path.top(), onClick: () => this.close() }}
