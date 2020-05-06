@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
 
 const STATUS_FULL = 'full';
@@ -17,6 +18,9 @@ const Availability = styled.span`
   color: ${Colors.white};
   background-color: ${props => (props.bgColor ? props.bgColor : Colors.green)};
   border-radius: 2px;
+  ${media.phone`
+    padding: ${Dimens.xxsmall_4}px ${Dimens.small}px;
+  `}
 `;
 
 const getComponent = status => {
