@@ -40,10 +40,19 @@ class SearchResultHistoryPage extends Component {
   }
 
   componentDidMount() {
+    this.init();
+  }
+
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch(spaceActions.resetSearch());
+  }
+
+  init = () => {
     const { dispatch } = this.props;
     dispatch(spaceActions.resetSearch());
     this.setState({ offset: 0, isInit: true });
-  }
+  };
 
   // ローディング処理
   loadItems = () => {
