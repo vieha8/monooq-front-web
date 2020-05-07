@@ -42,7 +42,6 @@ class SearchResultHistoryPage extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(spaceActions.resetSearch());
-    this.setState({ offset: 0, isInit: true });
   }
 
   // TODO: あとで整理する
@@ -52,7 +51,11 @@ class SearchResultHistoryPage extends Component {
       if (prevProps.spaces && prevProps.spaces.length === 0) {
         // ユーザ未登録時にスペース閲覧する。そして、スペース一覧画面から新規登録。
         // そして、TOP→スペース一覧画面から閲覧履歴画面に遷移するとここに到達。
-        dispatch(spaceActions.resetSearch());
+        const { isInit } = this.state;
+        if (!isInit) {
+          this.loadItems();
+          dispatch(spaceActions.resetSearch());
+        }
       } else if (
         prevProps.spaces !== null &&
         (prevProps.spaces && prevProps.spaces.length) !== (spaces && spaces.length)
@@ -81,7 +84,7 @@ class SearchResultHistoryPage extends Component {
     };
     dispatch(spaceActions.getSpaceAccessLog(params));
     const newOffset = offset + limit;
-    this.setState({ offset: newOffset });
+    this.setState({ offset: newOffset, isInit: true });
   };
 
   onClickSpace = spaceId => {
