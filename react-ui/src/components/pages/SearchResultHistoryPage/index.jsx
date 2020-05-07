@@ -43,6 +43,21 @@ class SearchResultHistoryPage extends Component {
     this.init();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.isInit) {
+      if (prevProps.spaces !== null) {
+        const { dispatch } = this.props;
+        const params = {
+          limit: prevState.limit,
+          offset: 0,
+        };
+        dispatch(spaceActions.getSpaceAccessLog(params));
+      }
+      return { offset: 0, isInit: true };
+    }
+    return null;
+  }
+
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch(spaceActions.resetSearch());
