@@ -33,16 +33,16 @@ class SearchResultHistoryPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      limit: 8,
+      offset: 0,
       isInit: false,
-      isMore: true,
     };
-
-    const { dispatch } = this.props;
-    dispatch(spaceActions.getSpaceAccessLog());
   }
 
   componentDidMount() {
-    this.setState({ isInit: true, isMore: false });
+    const { dispatch } = this.props;
+    dispatch(spaceActions.resetSearch());
+    this.setState({ offset: 0, isInit: true });
   }
 
   // ローディング処理
@@ -51,7 +51,15 @@ class SearchResultHistoryPage extends Component {
     if (isLoading) {
       return;
     }
-    dispatch(spaceActions.getSpaceAccessLog());
+
+    const { limit, offset } = this.state;
+    const params = {
+      limit,
+      offset,
+    };
+    dispatch(spaceActions.getSpaceAccessLog(params));
+    const newOffset = offset + limit;
+    this.setState({ offset: newOffset });
   };
 
   onClickSpace = spaceId => {
@@ -65,11 +73,16 @@ class SearchResultHistoryPage extends Component {
   };
 
   render() {
-    const { isLoading, spaces } = this.props;
-    const { isInit, isMore } = this.state;
+    const { isLoading, spaces, isMore } = this.props;
+    const { isInit } = this.state;
 
-    if (!isInit || (isLoading && !spaces)) {
+    if (!isInit || (isLoading && spaces && spaces.length === 0)) {
       return <LoadingPage />;
+    }
+
+    let isNoData = false;
+    if (spaces && spaces.length === 0 && !isMore) {
+      isNoData = true;
     }
 
     return (
@@ -77,7 +90,7 @@ class SearchResultHistoryPage extends Component {
         <Meta title="閲覧履歴 - モノオク" />
         <H1 bold>閲覧履歴</H1>
         <Content>
-          {spaces && spaces.length > 0 ? (
+          {!isNoData ? (
             <InfiniteScroll
               pageStart={0}
               loadMore={this.loadItems}
@@ -112,6 +125,7 @@ class SearchResultHistoryPage extends Component {
 const mapStateToProps = state => ({
   isLoading: state.space.isLoading,
   spaces: state.space.spaces,
+  isMore: state.space.isMore,
 });
 
 export default withAuthRequire(connect(mapStateToProps)(SearchResultHistoryPage));

@@ -112,6 +112,7 @@ const initialState = {
   isUserMetaFetching: false,
   space: null,
   spaces: null,
+  isMore: true,
   search: {
     area: [],
     isLoading: false,
@@ -204,8 +205,9 @@ export const spaceReducer = handleActions(
     }),
     [GET_SUCCESS_SPACE_ACCESS_LOG]: (state, action) => ({
       ...state,
-      spaces: action.payload,
+      spaces: [...state.spaces, ...action.payload],
       isLoading: false,
+      isMore: action.payload.isMore,
     }),
     [GET_FAILED_SPACE_ACCESS_LOG]: state => ({
       ...state,
@@ -249,6 +251,7 @@ export const spaceReducer = handleActions(
     }),
     [RESET_SEARCH]: state => ({
       ...state,
+      spaces: [],
       search: {
         ...state.search,
         results: [],
@@ -669,7 +672,12 @@ function* deleteSpace({ payload: { space } }) {
   window.location.href = Path.spaces();
 }
 
-function* getSpaceAccessLog() {
+function* getSpaceAccessLog({ payload: { limit, offset } }) {
+  const params = {
+    limit,
+    offset,
+  };
+
   let user = yield select(state => state.auth.user);
   if (!user.id) {
     yield take(authActions.checkLoginSuccess);
@@ -683,7 +691,7 @@ function* getSpaceAccessLog() {
   const { data: payload, err } = yield call(
     getApiRequest,
     apiEndpoint.getUserSpaceAccessLog(user.id),
-    {},
+    params,
     token,
   );
 
@@ -691,6 +699,8 @@ function* getSpaceAccessLog() {
     yield handleError(spaceActions.getSpaceAccessLogFailed, '', 'getSpaceAccessLog', err, false);
     return;
   }
+
+  payload.isMore = payload.length === limit;
 
   yield put(spaceActions.getSuccessSpaceAccessLog(payload));
 }
