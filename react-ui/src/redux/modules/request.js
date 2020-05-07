@@ -639,6 +639,11 @@ function* bosyu({ payload: { body } }) {
     body,
   );
 
+  const endDate = new Date(
+    startDate.year,
+    startDate.month - 1 + (isUseOver6Month ? 6 : 1),
+    startDate.day - 1,
+  );
   const token = yield* getToken();
   const user = yield select(state => state.auth.user);
 
@@ -675,6 +680,11 @@ function* bosyu({ payload: { body } }) {
           year: startDate.year,
           month: startDate.month,
           day: startDate.day,
+        },
+        endDate: {
+          year: endDate.getFullYear(),
+          month: endDate.getMonth() + 1,
+          day: endDate.getDate(),
         },
       }),
     );
