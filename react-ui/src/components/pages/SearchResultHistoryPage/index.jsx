@@ -40,34 +40,32 @@ class SearchResultHistoryPage extends Component {
   }
 
   componentDidMount() {
-    this.init();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!prevState.isInit) {
-      if (prevProps.spaces !== null) {
-        const { dispatch } = this.props;
-        const params = {
-          limit: prevState.limit,
-          offset: 0,
-        };
-        dispatch(spaceActions.getSpaceAccessLog(params));
-      }
-      return { offset: 0, isInit: true };
-    }
-    return null;
-  }
-
-  componentWillUnmount() {
-    const { dispatch } = this.props;
-    dispatch(spaceActions.resetSearch());
-  }
-
-  init = () => {
     const { dispatch } = this.props;
     dispatch(spaceActions.resetSearch());
     this.setState({ offset: 0, isInit: true });
-  };
+  }
+
+  // TODO: あとで整理する
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.isInit) {
+      const { dispatch, spaces } = this.props;
+      if (prevProps.spaces && prevProps.spaces.length === 0) {
+        // ユーザ未登録時にスペース閲覧する。そして、スペース一覧画面から新規登録。
+        // そして、TOP→スペース一覧画面から閲覧履歴画面に遷移するとここに到達。
+        dispatch(spaceActions.resetSearch());
+      } else if (
+        prevProps.spaces !== null &&
+        (prevProps.spaces && prevProps.spaces.length) !== (spaces && spaces.length)
+      ) {
+        this.loadItems();
+        dispatch(spaceActions.resetSearch());
+      } else {
+        dispatch(spaceActions.resetSearch());
+      }
+      return false;
+    }
+    return true;
+  }
 
   // ローディング処理
   loadItems = () => {
