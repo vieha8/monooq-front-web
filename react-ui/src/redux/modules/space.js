@@ -35,6 +35,9 @@ const SET_SPACE = 'SET_SPACE';
 const DELETE_SPACE = 'DELETE_SPACE';
 const DELETE_FAILED_SPACE = 'DELETE_FAILED_SPACE';
 const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
+const GET_SPACE_ACCESS_LOG = 'GET_SPACE_ACCESS_LOG';
+const GET_SUCCESS_SPACE_ACCESS_LOG = 'GET_SUCCESS_SPACE_ACCESS_LOG';
+const GET_FAILED_SPACE_ACCESS_LOG = 'GET_FAILED_SPACE_ACCESS_LOG';
 const ADD_SPACE_ACCESS_LOG = 'ADD_SPACE_ACCESS_LOG';
 const DO_SEARCH = 'DO_SEARCH';
 const DO_SEARCH_MY_AREA = 'DO_SEARCH_MY_AREA';
@@ -74,6 +77,9 @@ export const spaceActions = createActions(
   DELETE_SPACE,
   DELETE_FAILED_SPACE,
   PREPARE_UPDATE_SPACE,
+  GET_SPACE_ACCESS_LOG,
+  GET_SUCCESS_SPACE_ACCESS_LOG,
+  GET_FAILED_SPACE_ACCESS_LOG,
   ADD_SPACE_ACCESS_LOG,
   DO_SEARCH,
   DO_SEARCH_MY_AREA,
@@ -105,6 +111,8 @@ const initialState = {
   isLoading: false,
   isUserMetaFetching: false,
   space: null,
+  spaces: null,
+  isMore: true,
   search: {
     area: [],
     isLoading: false,
@@ -191,6 +199,20 @@ export const spaceReducer = handleActions(
       ...state,
       isComplete: false,
     }),
+    [GET_SPACE_ACCESS_LOG]: state => ({
+      ...state,
+      isLoading: true,
+    }),
+    [GET_SUCCESS_SPACE_ACCESS_LOG]: (state, action) => ({
+      ...state,
+      spaces: [...state.spaces, ...action.payload],
+      isLoading: false,
+      isMore: action.payload.isMore,
+    }),
+    [GET_FAILED_SPACE_ACCESS_LOG]: state => ({
+      ...state,
+      isLoading: false,
+    }),
     [DO_SEARCH]: state => ({
       ...state,
       search: {
@@ -229,6 +251,7 @@ export const spaceReducer = handleActions(
     }),
     [RESET_SEARCH]: state => ({
       ...state,
+      spaces: [],
       search: {
         ...state.search,
         results: [],
@@ -649,6 +672,39 @@ function* deleteSpace({ payload: { space } }) {
   window.location.href = Path.spaces();
 }
 
+function* getSpaceAccessLog({ payload: { limit, offset } }) {
+  const params = {
+    limit,
+    offset,
+  };
+
+  let user = yield select(state => state.auth.user);
+  if (!user.id) {
+    yield take(authActions.checkLoginSuccess);
+  }
+  user = yield select(state => state.auth.user);
+  if (!user.id) {
+    return;
+  }
+
+  const token = yield* getToken();
+  const { data: payload, err } = yield call(
+    getApiRequest,
+    apiEndpoint.getUserSpaceAccessLog(user.id),
+    params,
+    token,
+  );
+
+  if (err) {
+    yield handleError(spaceActions.getSpaceAccessLogFailed, '', 'getSpaceAccessLog', err, false);
+    return;
+  }
+
+  payload.isMore = payload.length === limit;
+
+  yield put(spaceActions.getSuccessSpaceAccessLog(payload));
+}
+
 function* addSpaceAccessLog({ payload: { spaceId } }) {
   let user = yield select(state => state.auth.user);
   if (!user.id) {
@@ -1012,6 +1068,7 @@ export const spaceSagas = [
   takeEvery(UPDATE_SPACE, updateSpace),
   takeEvery(PREPARE_UPDATE_SPACE, prepareUpdateSpace),
   takeEvery(DELETE_SPACE, deleteSpace),
+  takeEvery(GET_SPACE_ACCESS_LOG, getSpaceAccessLog),
   takeEvery(ADD_SPACE_ACCESS_LOG, addSpaceAccessLog),
   takeEvery(DO_SEARCH, search),
   takeEvery(DO_SEARCH_MY_AREA, searchMyArea),

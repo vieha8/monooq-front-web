@@ -80,6 +80,13 @@ const Base = styled.span`
         max-width: ${props.maxWidthSp}px;
       `}
   `};
+  ${media.phoneSmall`
+    ${props =>
+      props.fontSizeSpSmall &&
+      css`
+        font-size: ${props.fontSizeSpSmall}px;
+      `}
+  `};
 `;
 
 const Bold = styled.b`

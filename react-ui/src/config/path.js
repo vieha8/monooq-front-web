@@ -39,6 +39,8 @@ export default {
   // 決済
   payment: (messageRoomId = MESSAGE_ROOM_ID, requestId = REQUEST_ID) =>
     `/messages/${messageRoomId}/payment/${requestId}`,
+  // 閲覧履歴
+  historyViewSpace: () => '/history',
   // プロフィール
   profile: (userId = USER_ID) => `/user/${userId}`,
   // プロフィール編集

@@ -54,6 +54,9 @@ const ActionWrapper = styled.div`
     `
     margin-left: 0;
   `};
+  ${media.desktop`
+    margin-right: ${Dimens.medium}px;
+  `};
   ${media.tablet`
     position: absolute;
     right: ${Dimens.medium}px;
@@ -91,7 +94,10 @@ const SearchFiledCell = styled.div`
   display: inline-block;
   vertical-align: middle;
   width: auto;
-  margin: ${Dimens.xxsmall_5}px ${Dimens.medium1_26}px 0 ${Dimens.medium_20}px;
+  margin: ${Dimens.xxsmall_5}px ${Dimens.medium1_26}px 0 ${Dimens.xsmall}px;
+  ${media.desktop`
+    margin: ${Dimens.xxsmall_5}px ${Dimens.medium_20}px 0 0;
+  `};
   ${media.tablet`
     margin: 0 ${Dimens.medium1_26}px 0 ${Dimens.medium_20}px;
     ${props =>
@@ -185,6 +191,13 @@ const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLog
                     よくある質問
                   </TextLink>
                 </TextWrapper>
+                {isLogin && (
+                  <TextWrapper>
+                    <TextLink to={Path.historyViewSpace()} color={Colors.black}>
+                      閲覧履歴
+                    </TextLink>
+                  </TextWrapper>
+                )}
               </OnlyPC>
               {isLogin ? (
                 <Fragment>

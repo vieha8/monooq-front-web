@@ -154,7 +154,7 @@ const SpaceResultItem = ({
               </Title>
             </Row>
             <Row price isNoViewLastLogin={isNoViewLastLogin}>
-              <InlineText.Base noWrap fontSize={16} bold>
+              <InlineText.Base noWrap fontSize={16} fontSizeSp={14} fontSizeSpSmall={12} bold>
                 {isExistTatamiPrice &&
                   isPriceFullHigherThanpriceTatami &&
                   `￥${numeral(priceTatami).format('0,0')}`}
