@@ -119,7 +119,6 @@ export default ({
         <ConfirmText paymentMethod={paymentMethod} number={number} name={name} />
       ) : (
         <RadioList
-          borderTop
           labels={['クレジットカード', 'コンビニ払い・Pay-easy決済']}
           captions={[
             <ImageBrandCredit src={iconBrandCredit} alt="icon-brand-credit" />,

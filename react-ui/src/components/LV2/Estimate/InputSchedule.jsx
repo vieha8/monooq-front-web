@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Calendar from 'components/LV1/Forms/Calendar';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -43,6 +43,7 @@ const DateLabel = styled.span`
 `;
 
 export default ({
+  isOnlyBeginDate,
   beginTitle,
   beginDate,
   beginDateFocused,
@@ -68,19 +69,23 @@ export default ({
         isAllowKeyboard={false}
       />
     </DateCell>
-    <Arrow className="fas fa-arrow-right" />
-    <DateCell>
-      <DateLabel>
-        <InlineText.Bold>{endTitle || '利用終了日'}</InlineText.Bold>
-      </DateLabel>
-      <Calendar
-        date={endDate}
-        block
-        focused={Boolean(endDateFocused)}
-        onDateChange={date => onDateChangeEnd(date)}
-        onFocusChange={e => onFocusChangeEnd(e.focused)}
-        isAllowKeyboard={false}
-      />
-    </DateCell>
+    {!isOnlyBeginDate && (
+      <Fragment>
+        <Arrow className="fas fa-arrow-right" />
+        <DateCell>
+          <DateLabel>
+            <InlineText.Bold>{endTitle || '利用終了日'}</InlineText.Bold>
+          </DateLabel>
+          <Calendar
+            date={endDate}
+            block
+            focused={Boolean(endDateFocused)}
+            onDateChange={date => onDateChangeEnd(date)}
+            onFocusChange={e => onFocusChangeEnd(e.focused)}
+            isAllowKeyboard={false}
+          />
+        </DateCell>
+      </Fragment>
+    )}
   </Wrap>
 );

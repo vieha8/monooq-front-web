@@ -24,6 +24,11 @@ const InputFieldWrapper = styled.div`
     `
       width: calc(100% - 40px);
     `};
+  ${props =>
+    props.widthWrap &&
+    `
+      width: ${props.widthWrap}px;
+    `};
 `;
 
 const UnitWrapper = styled.div`
@@ -65,6 +70,7 @@ export default ({
   hintbottom,
   hintBottomRight,
   unit,
+  widthWrap,
   className,
   disabled,
 }) => (
@@ -88,7 +94,7 @@ export default ({
         options={options}
       />
     ) : (
-      <InputFieldWrapper unit={unit} margintop={margintop}>
+      <InputFieldWrapper unit={unit} widthWrap={widthWrap} margintop={margintop}>
         {extension ||
           (multiline ? (
             <InputField
