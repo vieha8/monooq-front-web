@@ -703,11 +703,20 @@ function* bosyu({ payload: { body } }) {
   yield put(requestActions.bosyuSuccess());
 
   const sortedResult = [...recommendSpaces, ...recommendPrefSpaces];
+  const uniqById = array => {
+    const uniquedArray = [];
+    for (const elem of array) {
+      if (!uniquedArray.map(s => s.id).includes(elem.id)) {
+        uniquedArray.push(elem);
+      }
+    }
+    return uniquedArray;
+  };
 
   yield put(
     push({
       pathname: Path.recommend(),
-      state: { recommendSpaces: { results: sortedResult } },
+      state: { recommendSpaces: { results: uniqById(sortedResult).length } },
     }),
   );
 }
