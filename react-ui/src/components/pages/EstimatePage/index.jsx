@@ -11,7 +11,7 @@ import withAuthRequire from 'components/hooks/withAuthRequire';
 
 const Validate = {
   Price: {
-    Max: 300000,
+    Max: 600000,
     Min: 3000,
   },
 };

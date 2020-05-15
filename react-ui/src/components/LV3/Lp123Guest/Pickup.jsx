@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import PickupSpaceList from 'components/LV2/Lists/PickupSpaceList';
-import ImagePickupSpace1 from 'images/lp123guest/pickup-space-1.jpg';
-import ImagePickupSpace1Host from 'images/lp123guest/pickup-space-1-host.jpg';
-import ImagePickupSpace2 from 'images/lp123guest/pickup-space-2.jpg';
-import ImagePickupSpace2Host from 'images/lp123guest/pickup-space-2-host.jpg';
-import ImagePickupSpace3 from 'images/lp123guest/pickup-space-3.jpg';
-import ImagePickupSpace3Host from 'images/lp123guest/pickup-space-3-host.jpg';
+import ImagePickupSpace2203 from 'images/lp123guest/pickup-space-2203.jpg';
+import ImagePickupSpace1Host2203 from 'images/lp123guest/pickup-space-host-2203.jpg';
+import ImagePickupSpace2901 from 'images/lp123guest/pickup-space-2901.jpg';
+import ImagePickupSpaceHost2901 from 'images/lp123guest/pickup-space-host-2901.jpg';
+import ImagePickupSpace4762 from 'images/lp123guest/pickup-space-4762.jpg';
+import ImagePickupSpaceHost4762 from 'images/lp123guest/pickup-space-host-4762.png';
 import SectionTitle from './SectionTitle';
 
 const Wrap = styled.div`
@@ -47,88 +47,76 @@ export default () => (
     <PickupSpaceList
       list={[
         {
-          spaceImage: ImagePickupSpace1,
-          spaceImageAlt: 'img-space1',
+          spaceImage: ImagePickupSpace2203,
+          spaceImageAlt: 'img-space-2203',
           spaceImageprice: '6,000円〜',
-          station: '西川口駅',
-          walk: '2分',
-          type: '部屋',
-          backage: '家具・家電',
-          delivery: '配送/対面',
-          hostImage: ImagePickupSpace1Host,
-          hostImageAlt: 'img-host1',
-          hostName: 'ithurricaneさん',
-          priceList: [
-            {
-              title: '1/4程度のスペースの月額料金',
-              price: '6,000円',
-            },
-            {
-              title: '半分のスペースの月額料金',
-              price: '10,000円',
-            },
-            {
-              title: '全てのスペースの月額料金',
-              price: '18,000円',
-            },
-          ],
-          spaceId: 2278,
-        },
-        {
-          spaceImage: ImagePickupSpace2,
-          spaceImageAlt: 'img-space2',
-          spaceImageprice: '6,000円〜',
-          station: '成瀬駅',
+          station: '成瀬駅(東京都)',
           walk: '5分',
-          type: '部屋',
+          type: '部屋(6畳)',
           backage: '家具・家電',
           delivery: '配送/対面',
-          hostImage: ImagePickupSpace2Host,
-          hostImageAlt: 'img-host2',
-          hostName: 'もかさん',
+          hostImage: ImagePickupSpace1Host2203,
+          hostImageAlt: 'img-host-2203',
+          hostName: 'もか さん',
           priceList: [
             {
-              title: '1/4程度のスペースの月額料金',
+              title: 'スペース1畳分の月額料金',
               price: '6,000円',
             },
             {
-              title: '半分のスペースの月額料金',
-              price: '10,000円',
-            },
-            {
-              title: '全てのスペースの月額料金',
-              price: '20,000円',
+              title: 'スペース全体の月額料金',
+              price: '36,000円',
             },
           ],
           spaceId: 2203,
         },
         {
-          spaceImage: ImagePickupSpace3,
-          spaceImageAlt: 'img-space3',
+          spaceImage: ImagePickupSpace2901,
+          spaceImageAlt: 'img-space-2901',
           spaceImageprice: '6,000円〜',
-          station: '東北沢駅',
-          walk: '2分',
-          type: '部屋',
+          station: '代々木上原駅(東京都)',
+          walk: '5分',
+          type: '部屋(6畳)',
           backage: '家具・家電',
           delivery: '配送/対面',
-          hostImage: ImagePickupSpace3Host,
-          hostImageAlt: 'img-host3',
-          hostName: 'Syunさん',
+          hostImage: ImagePickupSpaceHost2901,
+          hostImageAlt: 'img-host-2901',
+          hostName: 'てんさん さん',
           priceList: [
             {
-              title: '1/4程度のスペースの月額料金',
+              title: 'スペース1畳分の月額料金',
               price: '6,000円',
             },
             {
-              title: '半分のスペースの月額料金',
-              price: '12,000円',
+              title: 'スペース全体の月額料金',
+              price: '36,000円',
+            },
+          ],
+          spaceId: 2901,
+        },
+        {
+          spaceImage: ImagePickupSpace4762,
+          spaceImageAlt: 'img-space3',
+          spaceImageprice: '6,000円〜',
+          station: '鵠沼海岸駅(神奈川県)',
+          walk: '15分',
+          type: '部屋(4.5畳)',
+          backage: '家具・家電',
+          delivery: '配送/対面',
+          hostImage: ImagePickupSpaceHost4762,
+          hostImageAlt: 'img-host-4762',
+          hostName: 'kojika さん',
+          priceList: [
+            {
+              title: 'スペース1畳分の月額料金',
+              price: '6,000円',
             },
             {
-              title: '全てのスペースの月額料金',
+              title: 'スペース全体の月額料金',
               price: '18,000円',
             },
           ],
-          spaceId: 2412,
+          spaceId: 4762,
         },
       ]}
     />

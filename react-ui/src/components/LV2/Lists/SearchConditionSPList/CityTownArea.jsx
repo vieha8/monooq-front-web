@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Collapsible from 'react-collapsible';
 import { Dimens, FontSizes, Colors } from 'variables';
-import InputForm from 'components/LV2/Forms/InputForm';
 import IconAreaGray from 'images/icon-area-gray.png';
 
 const Wrap = styled.div``;
@@ -42,6 +41,35 @@ const ImageAreaPin = styled.img`
   vertical-align: text-top;
 `;
 
+const HiddenCheckbox = styled.input`
+  display: none;
+`;
+const DummyCheckbox = styled.div`
+  height: 24px;
+  width: 24px;
+  border: 1px solid #d8d8d8;
+  margin-right: 9.6px;
+
+  input[type='checkbox']:checked + & {
+    background-color: #e85258;
+    background-image: url(/static/media/icon-check.b3761c92.svg);
+    background-size: 76%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: none;
+  }
+`;
+
+const CheckboxLabel = styled.label`
+  font-size: 16px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 15px 16px 15px 38px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+`;
+
 const CityName = title => {
   return (
     <CityWrap>
@@ -51,32 +79,76 @@ const CityName = title => {
   );
 };
 
-export default ({ searchConditionSPList, onClickCheckTown }) => (
-  <Wrap>
-    <ConditionList>
-      {searchConditionSPList.map((item, i) => (
-        <Item key={`item_citytownarea_${i}`.toString()} className="item-condition-search">
-          <Collapsible
-            trigger={CityName(`${item.cityName}(${item.count})`)}
-            open={item.townAreaList.filter(town => town.isChecked).length > 0}
-          >
-            <CollapsibleItemList>
-              {item.townAreaList.map((town, j) => (
-                <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
-                  <InputForm
-                    checkbox
-                    labelCheckBox={`${town.text}(${town.count})`}
-                    checked={town.isChecked}
-                    options={{ code: town.code }}
-                    onClickCheck={onClickCheckTown}
-                    className="list-citytown"
-                  />
-                </CollapsibleItem>
-              ))}
-            </CollapsibleItemList>
-          </Collapsible>
-        </Item>
-      ))}
-    </ConditionList>
-  </Wrap>
-);
+export default ({ searchConditionSPList, onClickCheckTown }) => {
+  const checkedTownCount = searchConditionSPList.map(
+    item => item.townAreaList.filter(town => town.isChecked).length,
+  );
+  const isOpeningBoolsDefault = checkedTownCount.map(item => item > 0);
+
+  const [isOpeningBools, setIsOpeningBools] = React.useState(isOpeningBoolsDefault);
+
+  const setIsOpening = React.useCallback(
+    (i, val) => {
+      const copy = [...isOpeningBools];
+      copy[i] = val;
+      setIsOpeningBools(copy);
+    },
+    [isOpeningBools],
+  );
+
+  const onCollapsibleClick = React.useCallback(
+    indexStr => {
+      const index = parseInt(indexStr);
+      const current = isOpeningBools[index];
+
+      setIsOpening(index, isOpeningBoolsDefault[index] || !current);
+    },
+    [isOpeningBools, isOpeningBoolsDefault, setIsOpening],
+  );
+
+  const onTownChangeFactory = React.useCallback(
+    (town, i) => {
+      return e => {
+        onClickCheckTown(null, { code: town.code, checked: e.target.checked });
+        if (checkedTownCount[i] === 1 && !e.target.checked) {
+          setIsOpening(i, false);
+        }
+      };
+    },
+    [checkedTownCount, setIsOpening, onClickCheckTown],
+  );
+
+  return (
+    <Wrap>
+      <ConditionList>
+        {searchConditionSPList.map((item, i) => (
+          <Item key={`item_citytownarea_${i}`.toString()} className="item-condition-search">
+            <Collapsible
+              trigger={CityName(`${item.cityName}(${item.count})`)}
+              accordionPosition={`${i}`}
+              open={isOpeningBools[i]}
+              handleTriggerClick={onCollapsibleClick}
+            >
+              <CollapsibleItemList>
+                {item.townAreaList.map((town, j) => (
+                  <CollapsibleItem key={`item_citytownarea_${j}`.toString()}>
+                    <CheckboxLabel htmlFor={`searchTwonAreaCheck${town.code}`}>
+                      <HiddenCheckbox
+                        checked={town.isChecked}
+                        onChange={onTownChangeFactory(town, i)}
+                        type="checkbox"
+                        id={`searchTwonAreaCheck${town.code}`}
+                      />
+                      <DummyCheckbox />
+                      {`${town.text}(${town.count})`}
+                    </CheckboxLabel>
+                  </CollapsibleItem>
+                ))}
+              </CollapsibleItemList>
+            </Collapsible>
+          </Item>
+        ))}
+      </ConditionList>
+    </Wrap>
+  );
+};

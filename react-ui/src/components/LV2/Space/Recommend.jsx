@@ -16,7 +16,7 @@ export default ({ id, name, recommend }) => (
     <SnsShare id={id} name={name} isOnlyTabSp />
     <SectionTitle text="このスペースをみた人はこんなスペースもみています" />
     <RecommendWrap recommend>
-      <SearchResult spaces={recommend} narrow />
+      <SearchResult spaces={recommend} narrow via="recommend" />
     </RecommendWrap>
   </Wrap>
 );

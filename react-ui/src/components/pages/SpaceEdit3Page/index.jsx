@@ -14,7 +14,7 @@ import { isValidSpacePriceTokyo } from 'helpers/validations/spacePrice';
 
 const Validate = {
   Price: {
-    Max: 300000,
+    Max: 600000,
     Min: 3000,
     MinTokyo: 6000,
   },

@@ -50,6 +50,10 @@ const Schedule = loadable(
   () => import('components/pages/SchedulePage').catch(() => window.location.reload()),
   { fallback: <LoadingPage /> },
 );
+const HistoryViewSpace = loadable(
+  () => import('components/pages/SearchResultHistoryPage').catch(() => window.location.reload()),
+  { fallback: <LoadingPage /> },
+);
 const Profile = loadable(
   () => import('components/pages/ProfilePage').catch(() => window.location.reload()),
   { fallback: <LoadingPage /> },
@@ -205,6 +209,7 @@ export default ({ history }) => (
         <Route exact path={Path.spaces()} component={Spaces} />
         <Route exact path={Path.recommend()} component={Recommend} />
         <Route exact path={Path.schedule()} component={Schedule} />
+        <Route exact path={Path.historyViewSpace()} component={HistoryViewSpace} />
         <Route exact path={Path.profile()} component={Profile} />
         <Route exact path={Path.profileEdit()} component={ProfileEdit} />
         <Route exact path={Path.inquiry()} component={Inquiry} />

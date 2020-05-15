@@ -6,6 +6,7 @@ export default ({
   userId,
   userImage,
   userName,
+  history,
   signupUrl,
   loginUrl,
   top,
@@ -26,6 +27,7 @@ export default ({
     {isLogin ? (
       <Fragment>
         <InfoUser isHost={isHost} id={userId} imageUrl={userImage} name={userName} close={close} />
+        <MenuItem title="閲覧履歴" {...history} />
         {isHost && (
           <Fragment>
             <MenuItem title="スペース運営" header />

@@ -66,6 +66,12 @@ const SearchResultWrap = styled.div`
   margin: ${Dimens.medium}px auto;
 `;
 
+const ResultRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export default ({
   sections,
   regionId,
@@ -101,19 +107,31 @@ export default ({
         </Fragment>
       )}
       <Covid19Info />
+      <PrefectureList list={areaPrefectures} regionId={regionId} />
       {/* ログインユーザーのみ、自分の住む地域のスペースをレコメンドされる */}
       {isLogin && isExistSpace && (
         <ResultWrap>
-          <H1 bold>
-            {`${conditionTitle}でスペースを探す`}
-            <br />
-            <ResultCount>{formatAddComma(maxCount)}</ResultCount>
-            <InlineText.Base fontSize={FontSizes.small} nobold>
-              件
-            </InlineText.Base>
-          </H1>
+          <ResultRow>
+            <H1 bold>
+              {`${conditionTitle}のスペース`}
+              <br />
+              <ResultCount>{formatAddComma(maxCount)}</ResultCount>
+              <InlineText.Base fontSize={FontSizes.small} nobold>
+                件
+              </InlineText.Base>
+            </H1>
+            <div>
+              <ButtonStyled borderbold fontSize={14} fontbold fill={1} primary>
+                <HashLinkStyled to={`${Path.spacesByPrefecture(user.prefCode)}?via=top`}>
+                  すべて見る
+                </HashLinkStyled>
+              </ButtonStyled>
+            </div>
+          </ResultRow>
+
           <SearchResultWrap>
             <SearchResult
+              via="top"
               spaces={spaces.map(s => ({
                 ...s,
                 image: (s.images[0] || {}).imageUrl,
@@ -123,8 +141,8 @@ export default ({
           </SearchResultWrap>
 
           <MoreButtonWrap>
-            <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
-              <HashLinkStyled to={`${Path.spacesByPrefecture(user.prefCode)}`}>
+            <ButtonStyled primary borderbold fontSize={14} fontbold fill={1}>
+              <HashLinkStyled to={`${Path.spacesByPrefecture(user.prefCode)}?via=bottom`}>
                 スペースをもっと見る
               </HashLinkStyled>
             </ButtonStyled>
@@ -132,7 +150,6 @@ export default ({
         </ResultWrap>
       )}
 
-      <PrefectureList list={areaPrefectures} regionId={regionId} />
       <MenuItemTopList
         list={[
           {
