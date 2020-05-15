@@ -716,7 +716,7 @@ function* bosyu({ payload: { body } }) {
   yield put(
     push({
       pathname: Path.recommend(),
-      state: { recommendSpaces: { results: uniqById(sortedResult).length } },
+      state: { recommendSpaces: { results: uniqById(sortedResult) } },
     }),
   );
 }
