@@ -11,6 +11,7 @@ import { media } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { requestActions } from 'redux/modules/request';
+import { H1 } from 'components/LV1/Texts/Headline';
 import Info from 'components/LV2/Payment/Info';
 import PaidText from 'components/LV2/Payment/PaidText';
 import {
@@ -31,30 +32,18 @@ const ValidateRegExp = {
   Cvc: /^[0-9]{3}$/,
 };
 
-const Spacer = styled.div`
-  margin: ${Dimens.large_60}px auto 0;
-  ${media.tablet`
-    margin: ${Dimens.medium3_40}px auto 0;
-  `};
+const Wrap = styled.div`
+  width: 100%;
+  max-width: 375px;
+  margin: auto;
 `;
 
-const HeadMessage = styled.div`
-  width: 100%;
-  height: 54px;
-  display: block;
-  position: fixed;
-  left: 0px;
-  top: ${HeaderHeight}px;
-  z-index: ${ZIndexes.frontParts};
-  text-align: center;
-  padding: ${Dimens.medium_17}px;
-  line-height: 22px;
-  font-size: ${FontSizes.small_15}px;
-  font-weight: bold;
-  color: ${Colors.white};
-  background-color: ${Colors.brandPrimary};
-  ${media.tablet`
-    top: ${HeaderHeightPhone}px;
+const TitleCaption = styled.div`
+  margin: ${Dimens.medium}px auto;
+  font-size: ${FontSizes.small}px;
+  line-height: normal;
+  ${media.phone`
+    font-size: ${FontSizes.small_12}px;
   `};
 `;
 
@@ -94,7 +83,8 @@ const PaymentInputForm = ({
   const [year, setYear] = useState(defaultYear);
   const [month, setMonth] = useState(defaultMonth);
   const [cvc, setCvc] = useState(defaultCvc);
-  const [paymentMethod, setPaymentMethod] = useState(-1);
+  const [paymentType, setPaymentType] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState(0);
   const [modeView, setModeView] = useState(MODE_VIEW_INPUT);
 
   const { request_id: requestId } = useParams();
@@ -181,6 +171,8 @@ const PaymentInputForm = ({
     if (modeView === MODE_VIEW_INPUT) {
       history.push(Path.message(roomId));
     } else if (modeView === MODE_VIEW_CONFIRM) {
+      setPaymentType(0);
+      setPaymentMethod(0);
       setModeView(MODE_VIEW_INPUT);
     }
   };
@@ -268,6 +260,12 @@ const PaymentInputForm = ({
     }
   };
 
+  const onClickSubmitConvenience = () => {
+    setPaymentType(1);
+    setPaymentMethod(1);
+    onClickSubmit();
+  };
+
   const getTextBackButton = () => {
     let textButton = '戻る';
     if (modeView === MODE_VIEW_CONFIRM) {
@@ -313,18 +311,18 @@ const PaymentInputForm = ({
   }
 
   return (
-    <Fragment>
-      <HeadMessage>
-        {errMsgPayment ||
-          (isConfirm ? 'お支払い内容をご確認ください' : 'お支払い方法を選択してください')}
-      </HeadMessage>
-      <Spacer />
-      <Info space={space} />
+    <Wrap>
+      <H1 bold>見積もり作成</H1>
+      <TitleCaption>
+        見積もり書をご確認の上、内容に問題なければお支払い方法を選択してください。
+      </TitleCaption>
       <InputForm
+        space={space}
         paymentData={paymentData}
         errors={errors}
         isConfirm={isConfirm}
         paymentMethod={paymentMethod}
+        paymentType={paymentType}
         number={number}
         name={name}
         month={month}
@@ -335,17 +333,18 @@ const PaymentInputForm = ({
         onChangeMonth={e => handleChangeUI('month', e.target.value, setMonth(e.target.value))}
         onChangeYear={e => handleChangeUI('year', e.target.value, setYear(e.target.value))}
         onChangeCvc={e => handleChangeUI('cvc', e.target.value, setCvc(e.target.value))}
-        onClickPaymentMethod={value => setPaymentMethod(value)}
+        onClickPaymentType={value => setPaymentType(value)}
         backButton={backButton}
         onKeyDownBackButton={onKeyDownBackButton}
         textBackButton={getTextBackButton()}
         disabledPayButton={!validate(numeral(paymentData.pricePlusFee).value())}
         buttonLoading={buttonLoading}
         onClickSubmit={onClickSubmit}
+        onClickSubmitConvenience={onClickSubmitConvenience}
         onKeyDownPay={onKeyDownPay}
         textSubmitButton={getTextSubmitButton()}
       />
-    </Fragment>
+    </Wrap>
   );
 };
 

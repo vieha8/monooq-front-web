@@ -4,6 +4,7 @@ import { FontSizes, Colors, Dimens } from 'variables';
 import { formatAddComma } from 'helpers/string';
 import Hr from 'components/LV1/HorizontalRule';
 import InlineText from 'components/LV1/Texts/InlineText';
+import ErrorList from 'components/LV2/Lists/ErrorList';
 
 const Wrap = styled.div`
   width: 100%;
@@ -67,7 +68,7 @@ const getItemRow = (caption, val, isTakeLate, isEstimateTotal) => {
   );
 };
 
-export default ({ price }) => (
+export default ({ price, errors }) => (
   <Wrap>
     <Lavel>
       <InlineText.Bold>内訳</InlineText.Bold>
@@ -83,5 +84,6 @@ export default ({ price }) => (
         {getItemRow('ゲスト支払料金', String(Math.floor(price * 1.1)), false, true)}
       </DateLabel>
     </WrapInner>
+    <ErrorList keyName="tatami_errors" errors={errors} />
   </Wrap>
 );

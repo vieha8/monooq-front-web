@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -20,22 +20,18 @@ const Text = styled.div`
   margin: ${Dimens.small}px auto 0;
 `;
 
-export default ({ value, errors }) => (
-  <Fragment>
-    {errors && errors.length === 0 && (
-      <Wrap>
-        <Label>
-          <InlineText.Bold>終了予定日</InlineText.Bold>
-        </Label>
-        {moment()
-          .add(value, 'months')
-          .format('YYYY年MM月DD日（dd）')}
-        <Text>
-          <InlineText.EmphasisTiny>
-            終了予定日を変更する場合は、利用開始日・利用期間を変更してください。
-          </InlineText.EmphasisTiny>
-        </Text>
-      </Wrap>
-    )}
-  </Fragment>
+export default ({ value }) => (
+  <Wrap>
+    <Label>
+      <InlineText.Bold>終了予定日</InlineText.Bold>
+    </Label>
+    {moment()
+      .add(value, 'months')
+      .format('YYYY年MM月DD日（dd）')}
+    <Text>
+      <InlineText.EmphasisTiny>
+        終了予定日を変更する場合は、利用開始日・利用期間を変更してください。
+      </InlineText.EmphasisTiny>
+    </Text>
+  </Wrap>
 );

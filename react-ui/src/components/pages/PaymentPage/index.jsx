@@ -50,8 +50,6 @@ class PaymentPage extends Component {
             endAt: formatDate(new Date(request.endDate), formatStringSlash),
             duration: moment(request.endDate).diff(moment(request.startDate), 'days') + 1,
             price: numeral(request.price).format('0,0'),
-            fee: numeral(request.fee).format('0,0'),
-            pricePlusFee: numeral(request.pricePlusFee).format('0,0'),
           }}
           paymentUrl={paymentUrl}
           isPaymentSuccess={isPaymentSuccess}

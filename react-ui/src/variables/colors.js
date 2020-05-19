@@ -51,4 +51,5 @@ export default {
   pickup2: '#EFA0C0',
   pickup3: '#18B3F0',
   pickup4: '#F0A818',
+  linkBlue: '#76B0C2',
 };

@@ -45,10 +45,10 @@ const DateLabel = styled.span`
 export default ({
   isOnlyBeginDate,
   beginTitle,
-  beginDate,
-  beginDateFocused,
-  onDateChangeBegin,
-  onFocusChangeBegin,
+  startDate,
+  startDateFocused,
+  onDateChangeStart,
+  onFocusChangeStart,
   endTitle,
   endDate,
   endDateFocused,
@@ -61,11 +61,11 @@ export default ({
         <InlineText.Bold>{beginTitle || '利用開始日'}</InlineText.Bold>
       </DateLabel>
       <Calendar
-        date={beginDate}
+        date={startDate}
         block
-        focused={Boolean(beginDateFocused)}
-        onDateChange={date => onDateChangeBegin(date)}
-        onFocusChange={e => onFocusChangeBegin(e.focused)}
+        focused={Boolean(startDateFocused)}
+        onDateChange={date => onDateChangeStart(date)}
+        onFocusChange={e => onFocusChangeStart(e.focused)}
         isAllowKeyboard={false}
       />
     </DateCell>

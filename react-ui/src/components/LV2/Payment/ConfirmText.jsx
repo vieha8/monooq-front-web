@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { formatAddComma } from 'helpers/string';
 import InlineText from 'components/LV1/Texts/InlineText';
 import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
@@ -11,11 +12,13 @@ const METHOD_PAYMENT_CREDIT = 0;
 const Wrap = styled.div`
   line-height: normal;
   margin: ${Dimens.medium_20}px auto;
-  padding-top: ${Dimens.medium_20}px;
-  border-top: 1px solid ${Colors.borderGray};
   ${media.phone`
     margin: ${Dimens.medium_20}px auto;
   `};
+`;
+
+const PaymentPriceWrap = styled.div`
+  margin: ${Dimens.medium}px auto ${Dimens.medium2_32}px;
 `;
 
 const CreditInfo = styled.div`
@@ -51,8 +54,23 @@ const maskify = cc => {
   return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
 };
 
-export default ({ paymentMethod, number, name }) => (
+const getPaymentPrice = (paymentMethod, checkedIndex) => {
+  let textPrice = `一括払い（${formatAddComma(39600)}円の一括支払）`;
+  if (paymentMethod === METHOD_PAYMENT_CREDIT) {
+    if (checkedIndex === 0) {
+      textPrice = `月々払い（${formatAddComma(19800)}円/月での自動引落）`;
+    }
+  }
+  return textPrice;
+};
+
+export default ({ paymentMethod, checkedIndex, number, name }) => (
   <Wrap>
+    <PaymentPriceWrap>
+      <InlineText.Bold>決済方法</InlineText.Bold>
+      <br />
+      {getPaymentPrice(paymentMethod, checkedIndex)}
+    </PaymentPriceWrap>
     {paymentMethod === METHOD_PAYMENT_CREDIT ? (
       <Fragment>
         <InlineText.Bold>クレジットカードで決済する</InlineText.Bold>

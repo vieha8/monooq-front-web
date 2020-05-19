@@ -251,6 +251,7 @@ export default ({
         return null;
       })}
       <MessageSendForm
+        space={space}
         hostUser={hostUser}
         userIdFrom={userIdFrom}
         userIdTo={userIdTo}
