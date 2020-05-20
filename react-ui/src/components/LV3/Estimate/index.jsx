@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -18,6 +19,8 @@ import UsagePeriod from 'components/LV2/Estimate/UsagePeriod';
 import ExpectedEndDate from 'components/LV2/Estimate/ExpectedEndDate';
 import Tatami from 'components/LV2/Estimate/Tatami';
 import Detail from 'components/LV2/Estimate/Detail';
+
+moment.locale('ja');
 
 const SPACE_TYPE_ROOM = 0;
 const SPACE_TYPE_WHEREHOUSE = 1;
@@ -207,27 +210,27 @@ const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
   }, [startDate, startDateFocus, usagePeriod, tatami, indexTatami]);
 
   const sendRequest = () => {
-    console.log(`userId:${userId}`);
-    console.log(`roomId:${roomId}`);
-    console.log(`startDate:${startDate.toDate()}`);
-    console.log(`usagePeriod:${usagePeriod}`);
-    console.log(`isUndecided:${isUndecided}`);
-    console.log(`indexTatami:${indexTatami}`);
-    console.log(`price:${formatRemoveComma(priceTatami)}`);
-    console.log(`price:${formatRemoveComma(priceFull)}`);
+    let endDate = moment()
+      .add(24, 'months')
+      .subtract(1, 'days');
+    if (!isUndecided) {
+      endDate = moment()
+        .add(usagePeriod, 'months')
+        .subtract(1, 'days');
+    }
 
-    console.log(`priceEstimateBase:${formatRemoveComma(getPriceEstimate())}`);
-    console.log(`priceEstimateBase:${String(Math.floor(getPriceEstimate() * 1.1))}`);
-
-    // dispatch(
-    //   requestActions.estimate({
-    //     userId,
-    //     roomId,
-    //     startDate: startDate.toDate(),
-    //     usagePeriod,
-    //     price: formatRemoveComma(price),
-    //   }),
-    // );
+    dispatch(
+      requestActions.estimate({
+        userId,
+        roomId,
+        startDate: startDate.toDate(),
+        endDate,
+        usagePeriod: isUndecided ? 24 : usagePeriod,
+        isUndecided,
+        indexTatami,
+        price: formatRemoveComma(getPriceEstimate()),
+      }),
+    );
   };
 
   const onKeyDownSend = e => {

@@ -27,6 +27,7 @@ export default ({ value }) => (
     </Label>
     {moment()
       .add(value, 'months')
+      .subtract(1, 'days')
       .format('YYYY年MM月DD日（dd）')}
     <Text>
       <InlineText.EmphasisTiny>
