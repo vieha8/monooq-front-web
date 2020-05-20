@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     `};
   `};
   &:not(:first-child) {
-    margin-top: 16px;
+    margin-top: ${Dimens.xsmall}px;
   }
 `;
 

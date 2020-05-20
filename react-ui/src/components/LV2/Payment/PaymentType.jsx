@@ -1,14 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Dimens, FontSizes } from 'variables';
-import { media } from 'helpers/style/media-query';
 import { formatAddComma } from 'helpers/string';
 import RadioList from 'components/LV2/Forms/RadioList';
 
-const Wrap = styled.div``;
-
 export default ({ checkedIndex, onClick }) => (
-  <Wrap>
+  <div>
     <RadioList
       labelTitle="決済方法"
       labels={[
@@ -18,5 +13,5 @@ export default ({ checkedIndex, onClick }) => (
       checkedIndex={checkedIndex}
       onClick={onClick}
     />
-  </Wrap>
+  </div>
 );

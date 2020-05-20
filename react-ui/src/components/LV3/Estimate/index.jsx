@@ -19,6 +19,9 @@ import ExpectedEndDate from 'components/LV2/Estimate/ExpectedEndDate';
 import Tatami from 'components/LV2/Estimate/Tatami';
 import Detail from 'components/LV2/Estimate/Detail';
 
+const SPACE_TYPE_ROOM = 0;
+const SPACE_TYPE_WHEREHOUSE = 1;
+
 const Validate = {
   UsagePeriod: {
     Max: 24,
@@ -74,7 +77,7 @@ const HyperLink = styled.a`
   `};
 `;
 
-const Estimate = ({ userId, spacePrice, buttonLoading }) => {
+const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
   const dispatch = useDispatch();
   const { message_room_id: roomId } = useParams();
 
@@ -83,19 +86,13 @@ const Estimate = ({ userId, spacePrice, buttonLoading }) => {
   const [startDateFocus, setStartDateFocus] = useState(false);
   const [usagePeriod, setUsagePeriod] = useState('');
   const [isUndecided, setIsUndecided] = useState(false);
-  const [priceTatami, setPriceTatami] = useState(
-    spacePrice && spacePrice.priceTatami > 0 ? spacePrice.priceTatami : 6000,
-  );
-  const [priceFull, setPriceFull] = useState(
-    spacePrice && spacePrice.priceFull > 0 ? spacePrice.priceFull : 6000,
-  );
   const [priceEstimateBase, setPriceEstimateBase] = useState(priceTatami);
   const [tatami, setTatami] = useState('');
   const [indexTatami, setIndexTatami] = useState(0);
 
   function getPriceEstimate() {
     let tatamiBase = 1;
-    if (indexTatami === 0) {
+    if (indexTatami === SPACE_TYPE_ROOM) {
       tatamiBase = tatami;
     }
 
@@ -109,8 +106,6 @@ const Estimate = ({ userId, spacePrice, buttonLoading }) => {
 
   const validate = () => {
     const checkPrice = getPriceEstimate();
-
-    // TODO: 利用期間が未定の場合を考慮
     return (
       startDate &&
       (isUndecided ||
@@ -118,7 +113,7 @@ const Estimate = ({ userId, spacePrice, buttonLoading }) => {
           usagePeriod &&
           usagePeriod >= Validate.UsagePeriod.Min &&
           usagePeriod <= Validate.UsagePeriod.Max)) &&
-      (!tatami || isValidTatami(tatami).result) &&
+      (indexTatami === SPACE_TYPE_WHEREHOUSE || (tatami && isValidTatami(tatami).result)) &&
       checkPrice &&
       checkPrice >= Validate.Price.Min &&
       checkPrice <= Validate.Price.Max
@@ -128,13 +123,11 @@ const Estimate = ({ userId, spacePrice, buttonLoading }) => {
   const checkPriceRenge = () => {
     let msgError = '';
     const checkPrice = getPriceEstimate();
-    // console.log(`checkPrice:${checkPrice}`);
     if (checkPrice < Validate.Price.Min) {
       msgError = ErrorMessages.EstimateMin(Validate.Price.Min);
     } else if (checkPrice > Validate.Price.Max) {
       msgError = ErrorMessages.EstimateMax(Validate.Price.Max);
     }
-    // console.log(`msgError:${msgError}`);
     return msgError;
   };
 
@@ -174,7 +167,7 @@ const Estimate = ({ userId, spacePrice, buttonLoading }) => {
       case 'indexTatami': {
         returnValue = value;
 
-        if (value === 0) {
+        if (indexTatami === SPACE_TYPE_ROOM) {
           setPriceEstimateBase(priceTatami);
         } else {
           setPriceEstimateBase(priceFull);
@@ -185,17 +178,20 @@ const Estimate = ({ userId, spacePrice, buttonLoading }) => {
       default:
     }
 
+    setErrors(state => ({ ...state, [propName]: setError }));
+
     const msgError = checkPriceRenge();
     if (msgError) {
       const errorPriceRange = [];
       errorPriceRange.push(msgError);
-      console.log(`msgError:${msgError}`);
       setErrors(state => ({ ...state, errorPriceRange }));
     } else {
       setErrors(state => ({ ...state, errorPriceRange: '' }));
     }
 
-    setErrors(state => ({ ...state, [propName]: setError }));
+    if (indexTatami === SPACE_TYPE_WHEREHOUSE) {
+      setErrors(state => ({ ...state, tatami: [] }));
+    }
   };
 
   useEffect(() => {
@@ -273,7 +269,7 @@ const Estimate = ({ userId, spacePrice, buttonLoading }) => {
       <Section>
         <Tatami
           errors={errors.tatami}
-          spacePrice={spacePrice}
+          spacePrice={{ priceTatami, priceFull }}
           tatami={tatami}
           onChangeTatami={e => handleChangeUI('tatami', e.target.value, setTatami(e.target.value))}
           indexTatami={indexTatami}

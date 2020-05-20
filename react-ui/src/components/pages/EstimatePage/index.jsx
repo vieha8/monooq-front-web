@@ -20,7 +20,8 @@ class EstimatePage extends Component {
       <BaseTemplate>
         <Estimate
           userId={user && user.id}
-          spacePrice={{ priceTatami, priceFull }}
+          priceTatami={priceTatami && priceTatami > 0 ? priceTatami : 6000}
+          priceFull={priceFull && priceFull > 0 ? priceFull : 6000}
           buttonLoading={isSending}
         />
       </BaseTemplate>
