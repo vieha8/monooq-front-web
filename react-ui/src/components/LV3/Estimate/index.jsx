@@ -189,6 +189,10 @@ const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
       setErrors(state => ({ ...state, errorPriceRange: '' }));
     }
 
+    if (isUndecided === true) {
+      setErrors(state => ({ ...state, usagePeriod: [] }));
+    }
+
     if (indexTatami === SPACE_TYPE_WHEREHOUSE) {
       setErrors(state => ({ ...state, tatami: [] }));
     }
