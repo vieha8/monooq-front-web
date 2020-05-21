@@ -232,6 +232,7 @@ export default ({
                 name={message.estimate.name}
                 beginAt={formatDate(new Date(message.estimate.beginAt), formatStringSlash)}
                 endAt={formatDate(new Date(message.estimate.endAt), formatStringSlash)}
+                usagePeriod={message.estimate.usagePeriod}
                 price={message.estimate.price}
                 fee={message.estimate.fee}
                 receivedAt={formatDate(

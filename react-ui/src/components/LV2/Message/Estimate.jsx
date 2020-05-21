@@ -92,6 +92,8 @@ const getPayInfo = (payType, status) => {
       resultPayType = '未選択';
   }
 
+  // TODO: お支払い回数を追加
+
   switch (status) {
     case STATUS_PAY_ESTIMATE:
     case STATUS_PAY_WAITING:
@@ -131,15 +133,11 @@ const getDescriptionPay = (payType, econtextUrl) => {
     case 1:
       result = (
         <Fragment>
-          ※2ヶ月以上の長期でご利用の場合は、1ヶ月ごとに利用料を決済する「月額決済」がおすすめです。
+          ※決済画面では「月々払い」「一括払い」が選択可能です。
           <br />
-          月額決済をご希望の場合は、ホストに初月1ヶ月分の見積もりを発行してもらい、決済をしてください。
+          ※期間途中で利用をキャンセルされる場合、月々払いのみ差分の返金が可能です。一括払いでは対応しておりませんのでご注意ください。
           <br />
-          初月分の利用料をカード決済した方は、下記より月額自動決済を申請していただくと、翌月分からは自動決済ができます。
-          <br />
-          <a href="https://form.run/@monthly-request" target="_blank" rel="noopener noreferrer">
-            ▶月額自動決済の申し込み
-          </a>
+          ※月々払いはクレジットカードの場合のみご利用可能です。残高不足などにご注意ください。
           <br />
           <br />
           <Caution>
@@ -182,6 +180,7 @@ export default ({
   id,
   beginAt,
   endAt,
+  usagePeriod,
   price,
   fee,
   host,
@@ -208,9 +207,22 @@ export default ({
         利用終了日：
         {endAt}
       </Text>
+      {usagePeriod && (
+        <Text>
+          ご利用の期間：
+          {`${usagePeriod}ヶ月（${beginAt}〜${endAt}）`}
+        </Text>
+      )}
       <Text>
-        お支払い金額：
+        お支払い金額合計：
         {`${formatAddComma(price + fee)}円`}
+        {usagePeriod && (
+          <Fragment>
+            <br />
+            ひと月あたりの金額：
+            {`${formatAddComma(String(Math.floor((price + fee) / usagePeriod)))}円`}
+          </Fragment>
+        )}
         {fee > 0 && (
           <Fragment>
             <br />

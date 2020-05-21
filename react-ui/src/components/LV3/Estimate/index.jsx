@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -6,10 +6,9 @@ import styled from 'styled-components';
 import { Dimens, FontSizes, Colors, ErrorMessages } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
-import { formatAddComma, formatRemoveComma } from 'helpers/string';
+import { formatRemoveComma } from 'helpers/string';
 import { isNumber } from 'helpers/validations/number';
 import isValidTatami from 'helpers/validations/tatami';
-import { isValidSpacePrice } from 'helpers/validations/spacePrice';
 import { isTrimmedEmpty } from 'helpers/validations/string';
 import { requestActions } from 'redux/modules/request';
 import Button from 'components/LV1/Forms/Button';
@@ -210,11 +209,13 @@ const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
   }, [startDate, startDateFocus, usagePeriod, tatami, indexTatami]);
 
   const sendRequest = () => {
-    let endDate = moment()
+    const datedStartDate = startDate.toDate();
+
+    let endDate = moment(datedStartDate)
       .add(24, 'months')
       .subtract(1, 'days');
     if (!isUndecided) {
-      endDate = moment()
+      endDate = moment(datedStartDate)
         .add(usagePeriod, 'months')
         .subtract(1, 'days');
     }
@@ -223,10 +224,11 @@ const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
       requestActions.estimate({
         userId,
         roomId,
-        startDate: startDate.toDate(),
-        endDate,
+        startDate: datedStartDate,
+        endDate: endDate.toDate(),
         usagePeriod: isUndecided ? 24 : usagePeriod,
         isUndecided,
+        tatami,
         indexTatami,
         price: formatRemoveComma(getPriceEstimate()),
       }),
@@ -259,30 +261,38 @@ const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
           isOnlyBeginDate
         />
       </Section>
-      <Section>
-        <UsagePeriod
-          valueUsagePeriod={usagePeriod}
-          onChangeUsagePeriod={v => handleChangeUI('usagePeriod', v, setUsagePeriod(v))}
-          isUndecided={isUndecided}
-          onChangeUndecided={v => handleChangeUI('isUndecided', v, setIsUndecided(v))}
-          errors={errors.usagePeriod}
-        />
-      </Section>
-      {errors.usagePeriod && errors.usagePeriod.length === 0 && (
-        <Section>
-          <ExpectedEndDate value={usagePeriod} />
-        </Section>
+      {startDate && (
+        <Fragment>
+          <Section>
+            <UsagePeriod
+              valueUsagePeriod={usagePeriod}
+              onChangeUsagePeriod={v => handleChangeUI('usagePeriod', v, setUsagePeriod(v))}
+              isUndecided={isUndecided}
+              onChangeUndecided={v => handleChangeUI('isUndecided', v, setIsUndecided(v))}
+              errors={errors.usagePeriod}
+            />
+          </Section>
+          <Section>
+            <ExpectedEndDate
+              isView={errors.usagePeriod && errors.usagePeriod.length === 0}
+              startDate={startDate}
+              usagePeriod={usagePeriod}
+            />
+          </Section>
+          <Section>
+            <Tatami
+              errors={errors.tatami}
+              spacePrice={{ priceTatami, priceFull }}
+              tatami={tatami}
+              onChangeTatami={e =>
+                handleChangeUI('tatami', e.target.value, setTatami(e.target.value))
+              }
+              indexTatami={indexTatami}
+              onClickTatamiMethod={v => handleChangeUI('indexTatami', v, setIndexTatami(v))}
+            />
+          </Section>
+        </Fragment>
       )}
-      <Section>
-        <Tatami
-          errors={errors.tatami}
-          spacePrice={{ priceTatami, priceFull }}
-          tatami={tatami}
-          onChangeTatami={e => handleChangeUI('tatami', e.target.value, setTatami(e.target.value))}
-          indexTatami={indexTatami}
-          onClickTatamiMethod={v => handleChangeUI('indexTatami', v, setIndexTatami(v))}
-        />
-      </Section>
       <Section>
         <Detail price={getPriceEstimate()} errors={errors.errorPriceRange} />
       </Section>
