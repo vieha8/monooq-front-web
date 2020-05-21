@@ -7,6 +7,7 @@ export const breadths = [
 ];
 export const breadthsDetailRoom = ['1畳', '2畳', '3畳', '4畳', '5畳', '6畳', '7畳', '8畳以上'];
 export const breadthsDetailOther = ['一部', 'すべて'];
+const excludeWishBreadthOption = ['クローゼット・収納', '物置き・屋外倉庫'];
 
 export const getBreadths = type => {
   if (type === 0) return '';
@@ -60,4 +61,9 @@ export const selectOptionBreadths = (targetList, placeholder) => {
       };
     }),
   );
+};
+
+export const wishSelectOptionBreadths = (targetList, placeholder) => {
+  const returnList = selectOptionBreadths(targetList, placeholder);
+  return returnList.filter(obj => !excludeWishBreadthOption.includes(obj.text));
 };
