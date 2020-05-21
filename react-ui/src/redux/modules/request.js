@@ -696,8 +696,7 @@ function* bosyu({ payload: { body } }) {
       yield put(requestActions.bosyuSuccess({ prefName: pref }));
       return;
     }
-    const { results } = data;
-    recommendPrefSpaces = results;
+    recommendPrefSpaces = data.results;
   }
 
   yield put(requestActions.bosyuSuccess());
@@ -713,10 +712,15 @@ function* bosyu({ payload: { body } }) {
     return uniquedArray;
   };
 
+  const uniqArray = uniqById(sortedResult);
+  const inCity = uniqArray.filter(space => space.addressCity === city);
+  const outCity = uniqArray.filter(space => space.addressCity !== city);
+  const results = [...inCity, ...outCity];
+
   yield put(
     push({
       pathname: Path.recommend(),
-      state: { recommendSpaces: { results: uniqById(sortedResult) } },
+      state: { recommendSpaces: { results } },
     }),
   );
 }
