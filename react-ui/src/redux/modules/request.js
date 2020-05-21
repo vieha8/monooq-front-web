@@ -658,7 +658,12 @@ function* bosyu({ payload: { body } }) {
     breadth: parseInt(breadth, 10),
   };
 
-  const { err } = yield call(postApiRequest, apiEndpoint.guestWish(user.id), params, token);
+  const { err, data: recommendSpaces } = yield call(
+    postApiRequest,
+    apiEndpoint.guestWish(user.id),
+    params,
+    token,
+  );
 
   if (err) {
     yield handleError(requestActions.bosyuFailed, '', 'bosyuWish', err, false);
@@ -690,31 +695,60 @@ function* bosyu({ payload: { body } }) {
     );
   }
 
-  const searchParams = {
-    limit: 20, // TODO 暫定
-    offset: 0,
-    pref: prefCode,
-    sizeType: parseInt(breadth, 10),
-    status: 'open,consultation',
-  };
-  const { data, err: err2 } = yield call(getApiRequest, apiEndpoint.spaces(), searchParams, token);
-  if (err2) {
-    yield handleError(requestActions.bosyuFailed, '', 'bosyuSearch', err, false);
-    return;
+  const limit = 20; // TODO 暫定
+  let recommendPrefSpaces = [];
+  if (recommendSpaces.length < limit) {
+    const searchParams = {
+      limit,
+      offset: 0,
+      pref: prefCode,
+      sizeType: parseInt(breadth, 10),
+      status: 'open,consultation',
+    };
+
+    const { data, err: err2 } = yield call(
+      getApiRequest,
+      apiEndpoint.spaces(),
+      searchParams,
+      token,
+    );
+    if (err2 && !recommendSpaces.length) {
+      yield handleError(requestActions.bosyuFailed, '', 'bosyuSearch', err, false);
+      return;
+    }
+
+    // レコメンド用スペース
+    if (!data) {
+      yield put(requestActions.bosyuSuccess({ prefName: pref }));
+      return;
+    }
+    recommendPrefSpaces = data.results;
   }
 
-  // レコメンド用スペース
-  if (data) {
-    yield put(requestActions.bosyuSuccess());
-    yield put(
-      push({
-        pathname: Path.recommend(),
-        state: { recommendSpaces: data },
-      }),
-    );
-  } else {
-    yield put(requestActions.bosyuSuccess({ prefName: pref }));
-  }
+  yield put(requestActions.bosyuSuccess());
+
+  const sortedResult = [...recommendSpaces, ...recommendPrefSpaces];
+  const uniqById = array => {
+    const uniquedArray = [];
+    for (const elem of array) {
+      if (!uniquedArray.map(s => s.id).includes(elem.id)) {
+        uniquedArray.push(elem);
+      }
+    }
+    return uniquedArray;
+  };
+
+  const uniqArray = uniqById(sortedResult);
+  const inCity = uniqArray.filter(space => space.addressCity === city);
+  const outCity = uniqArray.filter(space => space.addressCity !== city);
+  const results = [...inCity, ...outCity];
+
+  yield put(
+    push({
+      pathname: Path.recommend(),
+      state: { recommendSpaces: { results } },
+    }),
+  );
 }
 
 export const requestSagas = [
