@@ -374,7 +374,7 @@ ${urlMessageRoom}`;
   yield call(postApiRequest, apiEndpoint.sendSMS(), bodySMS, token);
 }
 
-function* payment({ payload: { roomId, requestId, payment: card } }) {
+function* payment({ payload: { roomId, requestId, paymentType, payment: card } }) {
   // 不正対策
   const token = yield* getToken();
   const { data: requestData, err } = yield call(

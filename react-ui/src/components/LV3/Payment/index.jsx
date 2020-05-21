@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -6,18 +6,13 @@ import styled from 'styled-components';
 import moment from 'moment';
 import numeral from 'numeral';
 import Path from 'config/path';
-import { Dimens, Colors, FontSizes, ZIndexes, ErrorMessages } from 'variables';
+import { Dimens, FontSizes, ErrorMessages } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { requestActions } from 'redux/modules/request';
 import { H1 } from 'components/LV1/Texts/Headline';
-import Info from 'components/LV2/Payment/Info';
 import PaidText from 'components/LV2/Payment/PaidText';
-import {
-  Height as HeaderHeight,
-  HeightPhone as HeaderHeightPhone,
-} from 'components/LV3/Header/View';
 import Completed from './Completed';
 import InputForm from './InputForm';
 
@@ -188,6 +183,7 @@ const PaymentInputForm = ({
       requestActions.payment({
         roomId,
         requestId,
+        paymentType,
         payment: {
           name,
           number,
@@ -312,7 +308,7 @@ const PaymentInputForm = ({
 
   return (
     <Wrap>
-      <H1 bold>見積もり作成</H1>
+      <H1 bold>{isConfirm ? '決済確認画面' : '決済画面'}</H1>
       <TitleCaption>
         見積もり書をご確認の上、内容に問題なければお支払い方法を選択してください。
       </TitleCaption>

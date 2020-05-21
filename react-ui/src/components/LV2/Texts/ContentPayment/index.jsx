@@ -37,7 +37,7 @@ const ItemRow = styled.div`
   `};
 `;
 
-export default ({ price }) => (
+export default ({ price, pricePlusFee }) => (
   <Wrap>
     <TitleSub>お支払い金額</TitleSub>
     <WrapInner>
@@ -61,7 +61,7 @@ export default ({ price }) => (
         </InlineText.Base>
         <InlineText.Base fontSize={18} lineheight="12px" bold>
           &nbsp;&nbsp;
-          {`${formatAddComma(String(Math.floor(price * 1.1)))}円`}
+          {`${formatAddComma(pricePlusFee)}円`}
         </InlineText.Base>
       </ItemRow>
     </WrapInner>

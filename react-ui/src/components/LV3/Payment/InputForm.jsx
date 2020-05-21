@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 import { Dimens, Colors, FontSizes } from 'variables';
-import { media, mediaMin } from 'helpers/style/media-query';
+import { media } from 'helpers/style/media-query';
 import { formatRemoveComma } from 'helpers/string';
 import Button from 'components/LV1/Forms/Button';
 import TextButton from 'components/LV1/Texts/TextButton';
@@ -22,6 +22,9 @@ const MAX_PAY_PRICE_CONVENIENT = 49999;
 
 const CaptionImageCp = styled.div`
   font-size: ${FontSizes.small_12}px;
+  font-weight: bold;
+  line-height: normal;
+  color: ${Colors.brandPrimary};
 `;
 
 const Row = styled.div`
@@ -85,28 +88,37 @@ const ImageLogoPay = styled.img`
   `};
 `;
 
-const LinkStyled = styled.a`
-  margin-right: ${Dimens.medium}px;
-  &:active {
-    opacity: 0.8;
-  }
-  ${mediaMin.tablet`
-    &:hover {
-      opacity: 0.8;
-    }
-  `};
-  ${media.phone`
-    display: block;
-    margin:  ${Dimens.xsmall}px auto 0;
-  `};
+const NoLinkText = styled.div`
+  text-decoration: line-through;
+  color: ${Colors.lightGray10};
 `;
-
-const StyledTextButton = styled(TextButton)``;
 
 const Padding = styled.span`
   display: inline-block;
   padding: 0 ${Dimens.xsmall}px;
 `;
+
+const getEcontextLink = (price, onClick) => {
+  let isOverLimitEcontext = false;
+  if (Number(formatRemoveComma(price)) > MAX_PAY_PRICE_CONVENIENT) {
+    isOverLimitEcontext = true;
+  }
+
+  return (
+    <div>
+      {isOverLimitEcontext ? (
+        <Fragment>
+          <NoLinkText>コンビニ払い・Pay-easyでの決済はこちら</NoLinkText>
+          <CaptionImageCp>
+            ※お支払い金額が50,000円以上の場合、コンビニ払い・Pay-easy決済はご利用いただけません。
+          </CaptionImageCp>
+        </Fragment>
+      ) : (
+        <TextButton onClick={onClick}>コンビニ払い・Pay-easyでの決済はこちら</TextButton>
+      )}
+    </div>
+  );
+};
 
 export default ({
   space,
@@ -229,9 +241,7 @@ export default ({
             <br />
             一部クレジットカード・コンビニはご利用できない場合がございますので、以下の決済可能なお支払い方法をご確認ください。
             <br />
-            <StyledTextButton onClick={onClickSubmitConvenience}>
-              コンビニ払い・Pay-easyでの決済はこちら
-            </StyledTextButton>
+            {getEcontextLink(paymentData.price, onClickSubmitConvenience)}
           </Row>
           <Row>
             <SectionTitleSub text="決済可能なお支払い方法" />
@@ -264,10 +274,5 @@ export default ({
         {textSubmitButton}
       </Button>
     </Row>
-    {Number(formatRemoveComma(paymentData.price)) > MAX_PAY_PRICE_CONVENIENT && (
-      <CaptionImageCp>
-        ※お支払い金額が50,000円以上の場合、コンビニ払い・Pay-easy決済はご利用いただけません。
-      </CaptionImageCp>
-    )}
   </Fragment>
 );

@@ -54,22 +54,29 @@ const maskify = cc => {
   return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
 };
 
-const getPaymentPrice = (paymentMethod, checkedIndex) => {
-  let textPrice = `一括払い（${formatAddComma(39600)}円の一括支払）`;
+const getPaymentPrice = (paymentMethod, checkedIndex, pricePlusFee, pricePlusFeeMonthly) => {
+  let textPrice = `一括払い（${formatAddComma(pricePlusFee)}円の一括支払）`;
   if (paymentMethod === METHOD_PAYMENT_CREDIT) {
     if (checkedIndex === 0) {
-      textPrice = `月々払い（${formatAddComma(19800)}円/月での自動引落）`;
+      textPrice = `月々払い（${formatAddComma(pricePlusFeeMonthly)}円/月での自動引落）`;
     }
   }
   return textPrice;
 };
 
-export default ({ paymentMethod, checkedIndex, number, name }) => (
+export default ({
+  paymentMethod,
+  checkedIndex,
+  pricePlusFee,
+  pricePlusFeeMonthly,
+  number,
+  name,
+}) => (
   <Wrap>
     <PaymentPriceWrap>
       <InlineText.Bold>決済方法</InlineText.Bold>
       <br />
-      {getPaymentPrice(paymentMethod, checkedIndex)}
+      {getPaymentPrice(paymentMethod, checkedIndex, pricePlusFee, pricePlusFeeMonthly)}
     </PaymentPriceWrap>
     {paymentMethod === METHOD_PAYMENT_CREDIT ? (
       <Fragment>
