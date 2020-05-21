@@ -12,7 +12,7 @@ import { getYear, getDate, getToday, generateDateAll } from 'helpers/date';
 import { selectOptionPrefectures } from 'helpers/prefectures';
 import { isTrimmedEmpty } from 'helpers/validations/string';
 import { selectOptionUsages } from 'helpers/usages';
-import { selectOptionBreadths } from 'helpers/breadths';
+import { wishSelectOptionBreadths } from 'helpers/breadths';
 import Button from 'components/LV1/Forms/Button';
 import CloseIcon from 'components/LV2/ButtonHeader/CloseIcon';
 import InputForm from 'components/LV2/Forms/InputForm';
@@ -282,7 +282,7 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
           <Row>
             <Select
               label="希望の広さ"
-              options={selectOptionBreadths('', '選択してください')}
+              options={wishSelectOptionBreadths('', '選択してください')}
               value={breadth}
               onChange={e => handleChangeUI('breadth', e.target.value, setBreadth(e.target.value))}
             />
