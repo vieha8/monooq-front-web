@@ -150,6 +150,27 @@ const TextWrapper = styled.span`
   }
 `;
 
+const HistoryHover = styled(TextWrapper)`
+  position: relative;
+  //& + div {
+  //  display: none;
+  //}
+
+  :hover + div {
+    display: block;
+  }
+`;
+
+const Hoge = styled.div`
+  width: 320px;
+  height: 100px;
+  background: red;
+  position: absolute;
+  z-index: ${ZIndexes.headerHover};
+  top: 91px; // 85 + 6
+  right: 204px; // 191 + alpha
+`;
+
 const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLogo, stories }) => {
   const isLogin = useSelector(state => state.auth.isLogin);
 
@@ -192,11 +213,14 @@ const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLog
                   </TextLink>
                 </TextWrapper>
                 {isLogin && (
-                  <TextWrapper>
-                    <TextLink to={Path.historyViewSpace()} color={Colors.black}>
-                      閲覧履歴
-                    </TextLink>
-                  </TextWrapper>
+                  <>
+                    <HistoryHover>
+                      <TextLink to={Path.historyViewSpace()} color={Colors.black}>
+                        閲覧履歴
+                      </TextLink>
+                    </HistoryHover>
+                    <Hoge></Hoge>
+                  </>
                 )}
               </OnlyPC>
               {isLogin ? (
