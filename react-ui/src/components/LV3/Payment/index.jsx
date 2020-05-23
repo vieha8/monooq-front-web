@@ -183,7 +183,12 @@ const PaymentInputForm = ({
       requestActions.payment({
         roomId,
         requestId,
-        paymentType,
+        info: {
+          paymentType,
+          paymentPrice: paymentData.pricePlusFeeMonthly,
+          startDate: paymentData.beginAt,
+          endDate: paymentData.endAt,
+        },
         payment: {
           name,
           number,

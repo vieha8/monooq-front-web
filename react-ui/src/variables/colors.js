@@ -31,7 +31,6 @@ export default {
   borderGray: '#DBDBDB',
   borderGray2: '#F9F9F9',
   lightPink: '#FFEEEF',
-  linkBlue: '#006494',
   lightBlue: '#D4F1FE',
   error: '#BA4246',
   yellow: '#E7BD63',

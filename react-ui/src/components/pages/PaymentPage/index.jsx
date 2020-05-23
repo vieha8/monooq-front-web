@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import numeral from 'numeral';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';

@@ -7,8 +7,8 @@ export default ({ pricePlusFee, pricePlusFeeMonthly, checkedIndex, onClick }) =>
     <RadioList
       labelTitle="決済方法"
       labels={[
-        `月々払い（${formatAddComma(pricePlusFee)}円/月での自動引落）`,
-        `一括払い（${formatAddComma(pricePlusFeeMonthly)}円の一括支払）`,
+        `月々払い（${formatAddComma(pricePlusFeeMonthly)}円/月での自動引落）`,
+        `一括払い（${formatAddComma(pricePlusFee)}円の一括支払）`,
       ]}
       checkedIndex={checkedIndex}
       onClick={onClick}
