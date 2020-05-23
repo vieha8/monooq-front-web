@@ -559,7 +559,7 @@ function* request({ payload: { user, space, body } }) {
     setStartDate,
     setEndDate,
   );
-  yield put(push(Path.message(roomId)));
+  yield put(push(`${Path.message(roomId)}?phase=start`));
 
   let isRequested = 'false';
   if (isAvailableLocalStorage()) {

@@ -186,7 +186,7 @@ const RequestApplicationSP = ({
 
   const onClickButton = () => {
     if (isRequested) {
-      history.push(Path.message(roomId));
+      history.push(`${Path.message(roomId)}?phase=ongoing`);
       return;
     }
 
