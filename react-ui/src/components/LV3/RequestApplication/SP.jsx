@@ -16,6 +16,7 @@ import SendMessageButton from 'components/LV2/Space/SendMessageButton';
 import SendMessageCaption from 'components/LV2/Space/SendMessageCaption';
 import amplitude from 'amplitude-js/amplitude';
 import Form from './Form';
+import ReactGA from 'react-ga';
 import {
   handleChangeUI,
   handleChangeDate,
@@ -194,12 +195,20 @@ const RequestApplicationSP = ({
       amplitude.getInstance().logEvent('リクエスト - リクエストボタンをクリック（非ログイン）', {
         spaceId: space.id,
       });
+      ReactGA.event({
+        category: 'リクエスト',
+        action: 'リクエストボタンをクリック（非ログイン）',
+      });
       handleSignUp();
       return;
     }
 
     amplitude.getInstance().logEvent('リクエスト - リクエストボタンをクリック（ログイン）', {
       spaceId: space.id,
+    });
+    ReactGA.event({
+      category: 'リクエスト',
+      action: 'リクエストボタンをクリック（ログイン）',
     });
 
     handleModalOpenSP();
