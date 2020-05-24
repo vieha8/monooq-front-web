@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
 import { Dimens, Colors, FontSizes } from 'variables';
-import { media } from 'helpers/style/media-query';
+import { media, mediaMin } from 'helpers/style/media-query';
 import { formatRemoveComma } from 'helpers/string';
 import Button from 'components/LV1/Forms/Button';
 import TextButton from 'components/LV1/Texts/TextButton';
@@ -96,6 +97,25 @@ const NoLinkText = styled.div`
 const Padding = styled.span`
   display: inline-block;
   padding: 0 ${Dimens.xsmall}px;
+`;
+
+const LinkStyled = styled.a`
+  font-size: ${FontSizes.small_15}px;
+  color: ${Colors.linkBlue};
+  margin-right: ${Dimens.medium}px;
+  &:active {
+    opacity: 0.8;
+  }
+  ${mediaMin.tablet`
+    &:hover {
+      opacity: 0.8;
+    }
+  `};
+  ${media.phone`
+    display: block;
+    margin:  ${Dimens.xsmall}px auto 0;
+    font-size: ${FontSizes.small_12}px;
+  `};
 `;
 
 const getEcontextLink = (price, onClick) => {
@@ -237,10 +257,17 @@ export default ({
           </Row>
           <Row>
             <SectionTitleSub text="お支払い方法について" />
-            クレジットカード決済、コンビニ・Pay-easy決済がご利用できます。
+            クレジットカードを用いた月々払い、コンビニ・Pay-easyを用いた一括払いをご利用できます。
+            一部クレジットカード・コンビニはご利用できない場合がございますので、以下の決済可能なお支払いをご確認ください。
             <br />
-            一部クレジットカード・コンビニはご利用できない場合がございますので、以下の決済可能なお支払い方法をご確認ください。
-            <br />
+            <LinkStyled
+              component={Link}
+              href="https://help.monooq.com/ja/articles/2948181"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              利用料の支払い方法について
+            </LinkStyled>
             {getEcontextLink(paymentData.price, onClickSubmitConvenience)}
           </Row>
           <Row>

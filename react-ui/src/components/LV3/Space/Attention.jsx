@@ -68,9 +68,10 @@ const Attention = () => {
       </Section>
       <Section>
         <SectionTitleSub text="お支払い方法について" />
-        クレジットカード決済、コンビニ・Pay-easy決済がご利用できます。
+        クレジットカードを用いた月々払い、コンビニ・Pay-easyを用いた一括払いをご利用できます。
+        一部クレジットカード・コンビニはご利用できない場合がございますので、以下の決済可能なお支払いをご確認ください。
         <br />
-        一部クレジットカード・コンビニはご利用できない場合がございますので、以下の決済可能なお支払い方法をご確認ください。
+        {getLink('https://help.monooq.com/ja/articles/2948181', '利用料の支払い方法について')}
         <SectionTitleSub text="お支払いに関するヘルプ" />
         {getLink('https://help.monooq.com/ja/articles/3124614-', 'クレジットカード決済の手順')}
         {getLink(
