@@ -37,12 +37,9 @@ class SpaceManagementPage extends Component {
     dispatch(spaceActions.deleteSpace({ space }));
   };
 
-  getPrices = (sizeType, priceFull, priceTatami) => {
+  getPrices = (priceFull, priceTatami) => {
     const prices = [numeral(priceFull).format('0,0')];
-    if (sizeType > 0 && sizeType < 4) {
-      // 部屋の場合
-      prices.push(numeral(priceTatami).format('0,0'));
-    }
+    prices.push(numeral(priceTatami).format('0,0'));
     return prices;
   };
 
@@ -89,7 +86,7 @@ class SpaceManagementPage extends Component {
             },
             address: `${space.address}`,
             content: space.title,
-            prices: this.getPrices(space.sizeType, space.priceFull, space.priceTatami),
+            prices: this.getPrices(space.priceFull, space.priceTatami),
             link: Path.space(space.id),
             status: space.status,
             onClickEdit: () => this.onClickEdit(space),
