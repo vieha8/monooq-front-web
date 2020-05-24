@@ -102,6 +102,7 @@ class MessagePage extends Component {
                   receivedAt: message.createDt,
                   status: request.status,
                   payType: request.payType,
+                  isMonthly: request.isMonthly,
                   econtextUrl: request.paymentUrl,
                 },
               };

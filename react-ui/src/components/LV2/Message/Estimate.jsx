@@ -72,7 +72,7 @@ const buttonPayment = (host, status, payType, isOpenModalError, onClickPayment) 
   );
 };
 
-const getPayInfo = (payType, status) => {
+const getPayInfo = (payType, status, isMonthly) => {
   let resultPayType = '';
   let resultStatus = '';
   let messagePayInfo = '※最新のステータスが反映されるまで時間がかかる場合があります。';
@@ -91,8 +91,6 @@ const getPayInfo = (payType, status) => {
     default:
       resultPayType = '未選択';
   }
-
-  // TODO: お支払い回数を追加
 
   switch (status) {
     case STATUS_PAY_ESTIMATE:
@@ -118,6 +116,13 @@ const getPayInfo = (payType, status) => {
     <Fragment>
       お支払い方法：
       {resultPayType}
+      {status === STATUS_PAY_PAID && (
+        <Fragment>
+          <br />
+          お支払い回数：
+          {isMonthly === 1 ? '月額払い' : '一括払い'}
+        </Fragment>
+      )}
       <br />
       お支払いステータス：
       {resultStatus}
@@ -187,6 +192,7 @@ export default ({
   status,
   receivedAt,
   payType, // 1:クレジットカード 4:イーコンテクスト
+  isMonthly, // 0:一括 1:月額
   econtextUrl,
   isOpenModalError,
   onClickPayment,
@@ -264,7 +270,7 @@ export default ({
                 ■お支払い情報
               </InlineText.Base>
               <br />
-              {getPayInfo(payType, status)}
+              {getPayInfo(payType, status, isMonthly)}
               <br />
               <br />
               <Caution>モノオク上でお支払い手続きを行わない場合、保険が適応されません。</Caution>

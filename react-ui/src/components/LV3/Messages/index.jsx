@@ -241,6 +241,7 @@ export default ({
                 )}
                 status={message.estimate.status}
                 payType={message.estimate.payType}
+                isMonthly={message.estimate.isMonthly}
                 econtextUrl={message.estimate.econtextUrl}
                 isOpenModalError={isOpenModalError}
                 onClickPayment={() => history.push(message.estimate.link)}
