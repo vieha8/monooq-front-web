@@ -22,6 +22,7 @@ import { handleAccessTrade, handleCircuitX } from '../../helpers/asp';
 const ESTIMATE = 'ESTIMATE';
 const ESTIMATE_SUCCESS = 'ESTIMATE_SUCCESS';
 const ESTIMATE_FAILED = 'ESTIMATE_FAILED';
+const PAYMENT_CONFIRM = 'PAYMENT_CONFIRM';
 const PAYMENT = 'PAYMENT';
 const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 const PAYMENT_FAILED = 'PAYMENT_FAILED';
@@ -44,6 +45,7 @@ export const requestActions = createActions(
   ESTIMATE,
   ESTIMATE_SUCCESS,
   ESTIMATE_FAILED,
+  PAYMENT_CONFIRM,
   PAYMENT,
   PAYMENT_OTHER,
   PAYMENT_SUCCESS,
@@ -93,6 +95,15 @@ export const requestReducer = handleActions(
     [ESTIMATE_FAILED]: state => ({
       ...state,
       estimate: { isSending: false },
+    }),
+    [PAYMENT_CONFIRM]: state => ({
+      ...state,
+      payment: {
+        isSending: false,
+        isSuccess: false,
+        isFailed: false,
+        errMsg: '',
+      },
     }),
     [PAYMENT]: state => ({
       ...state,

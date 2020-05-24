@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import numeral from 'numeral';
 import Path from 'config/path';
-import { Dimens, FontSizes, ErrorMessages } from 'variables';
+import { Dimens, FontSizes, Colors, ErrorMessages } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { isAvailableLocalStorage } from 'helpers/storage';
@@ -37,6 +37,12 @@ const TitleCaption = styled.div`
   margin: ${Dimens.medium}px auto;
   font-size: ${FontSizes.small}px;
   line-height: normal;
+  ${props =>
+    props.errMsg &&
+    `
+      font-weight: bold;
+      color: ${Colors.brandPrimary};
+    `};
   ${media.phone`
     font-size: ${FontSizes.small_12}px;
   `};
@@ -165,7 +171,7 @@ const PaymentInputForm = ({
     setModeView(MODE_VIEW_INPUT);
     if (modeView === MODE_VIEW_INPUT) {
       history.push(Path.message(roomId));
-    } else if (modeView === MODE_VIEW_CONFIRM) {
+    } else if (modeView === MODE_VIEW_CONFIRM && !errMsgPayment) {
       setPaymentType(0);
       setPaymentMethod(0);
       setModeView(MODE_VIEW_INPUT);
@@ -227,6 +233,7 @@ const PaymentInputForm = ({
     if (paymentMethod === 2) {
       paymentBank();
     } else {
+      dispatch(requestActions.paymentConfirm());
       setModeView(MODE_VIEW_CONFIRM);
     }
   };
@@ -235,7 +242,7 @@ const PaymentInputForm = ({
     if (iskeyDownEnter(e) && validate()) {
       if (modeView === MODE_VIEW_INPUT) {
         confirmButton();
-      } else if (modeView === MODE_VIEW_CONFIRM) {
+      } else if (modeView === MODE_VIEW_CONFIRM && !errMsgPayment) {
         switch (paymentMethod) {
           case 0:
             payment();
@@ -250,7 +257,7 @@ const PaymentInputForm = ({
   };
 
   const onClickSubmit = () => {
-    if (modeView === MODE_VIEW_CONFIRM) {
+    if (modeView === MODE_VIEW_CONFIRM && !errMsgPayment) {
       if (paymentMethod === 0) {
         payment();
       } else {
@@ -269,7 +276,7 @@ const PaymentInputForm = ({
 
   const getTextBackButton = () => {
     let textButton = '戻る';
-    if (modeView === MODE_VIEW_CONFIRM) {
+    if (modeView === MODE_VIEW_CONFIRM && !errMsgPayment) {
       if (paymentMethod === 0) {
         textButton = '修正する';
       } else {
@@ -280,11 +287,9 @@ const PaymentInputForm = ({
   };
 
   const getTextSubmitButton = () => {
-    let textButton = '確定する';
-    if (modeView !== MODE_VIEW_CONFIRM) {
-      if (paymentMethod !== 2) {
-        textButton = '確認する';
-      }
+    let textButton = '確認する';
+    if (modeView === MODE_VIEW_CONFIRM && !errMsgPayment) {
+      textButton = '確定する';
     }
     return textButton;
   };
@@ -314,6 +319,7 @@ const PaymentInputForm = ({
   return (
     <Wrap>
       <H1 bold>{isConfirm ? '決済確認画面' : '決済画面'}</H1>
+      {errMsgPayment && <TitleCaption errMsg>{errMsgPayment}</TitleCaption>}
       <TitleCaption>
         見積もり書をご確認の上、内容に問題なければお支払い方法を選択してください。
       </TitleCaption>
