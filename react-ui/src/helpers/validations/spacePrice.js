@@ -3,7 +3,7 @@ import { isNumber } from 'helpers/validations/number';
 
 const Validate = {
   Price: {
-    Max: 300000,
+    Max: 600000,
     Min: 3000,
     MinTokyo: 6000,
   },
