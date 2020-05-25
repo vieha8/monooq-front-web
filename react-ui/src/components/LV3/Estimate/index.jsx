@@ -276,7 +276,7 @@ const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
         <Detail price={getPriceEstimate()} errors={errors.errorPriceRange} />
       </Section>
       <Section caption>
-        利用金額が変更になった場合、あとから内容を変更して見積もりを再発行することも可能です。
+        見積もりは何度でも発行が可能です。ゲストとのやりとりで条件が変わったら再度見積もりを新たに出してください。
       </Section>
       <Section>
         <ButtonWrap>

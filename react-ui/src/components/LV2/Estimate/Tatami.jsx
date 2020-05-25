@@ -22,10 +22,10 @@ export default ({
 }) => (
   <Wrap>
     <RadioList
-      labelTitle="利用畳数"
+      labelTitle="貸し出しスペース畳数"
       labels={[
-        '一畳から利用する',
-        `全体を利用する（${formatAddComma(spacePrice.priceFull)}円/月）`,
+        '一畳から貸し出す',
+        `全体を貸し出す（${formatAddComma(spacePrice.priceFull)}円/月）`,
       ]}
       contents={[
         <Row>

@@ -24,7 +24,7 @@ export default ({
       type="tel"
       label="利用期間"
       placeholder="00"
-      unit="ヶ月利用する"
+      unit="ヶ月間貸し出す"
       widthWrap={55}
       disabled={isUndecided}
       value={valueUsagePeriod}
@@ -32,7 +32,7 @@ export default ({
     />
     <CheckBoxStyled
       checkbox
-      labelCheckBox="利用期間は未定"
+      labelCheckBox="ゲストの利用期間が未定"
       checked={isUndecided}
       onClickCheck={() => onChangeUndecided(!isUndecided)}
     />
