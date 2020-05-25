@@ -288,10 +288,24 @@ const RequestApplicationSP = ({
                 errors={errors}
                 sizeType={space.sizeType}
                 usage={usage}
-                onChangeUsage={e => handleChangeUI('usage', e.target.value, setUsage, setErrors)}
+                onChangeUsage={e => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '用途入力',
+                    value: e.target.value,
+                  });
+
+                  return handleChangeUI('usage', e.target.value, setUsage, setErrors);
+                }}
                 startDate={startDate}
-                onCHangeStartDateYear={e =>
-                  handleChangeDate(
+                onCHangeStartDateYear={e => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '開始年入力',
+                    value: e.target.value,
+                  });
+
+                  return handleChangeDate(
                     'startDate',
                     'year',
                     e.target.value,
@@ -299,10 +313,16 @@ const RequestApplicationSP = ({
                     setErrors,
                     startDate,
                     endDate,
-                  )
-                }
-                onCHangeStartDateMonth={e =>
-                  handleChangeDate(
+                  );
+                }}
+                onCHangeStartDateMonth={e => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '開始月入力',
+                    value: e.target.value,
+                  });
+
+                  return handleChangeDate(
                     'startDate',
                     'month',
                     e.target.value,
@@ -310,10 +330,15 @@ const RequestApplicationSP = ({
                     setErrors,
                     startDate,
                     endDate,
-                  )
-                }
-                onCHangeStartDateDay={e =>
-                  handleChangeDate(
+                  );
+                }}
+                onCHangeStartDateDay={e => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '開始日入力',
+                    value: e.target.value,
+                  });
+                  return handleChangeDate(
                     'startDate',
                     'day',
                     e.target.value,
@@ -321,11 +346,17 @@ const RequestApplicationSP = ({
                     setErrors,
                     startDate,
                     endDate,
-                  )
-                }
+                  );
+                }}
                 endDate={endDate}
-                onCHangeEndDateYear={e =>
-                  handleChangeDate(
+                onCHangeEndDateYear={e => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '終了年入力',
+                    value: e.target.value,
+                  });
+
+                  return handleChangeDate(
                     'endDate',
                     'year',
                     e.target.value,
@@ -333,10 +364,16 @@ const RequestApplicationSP = ({
                     setErrors,
                     startDate,
                     endDate,
-                  )
-                }
-                onCHangeEndDateMonth={e =>
-                  handleChangeDate(
+                  );
+                }}
+                onCHangeEndDateMonth={e => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '終了月入力',
+                    value: e.target.value,
+                  });
+
+                  return handleChangeDate(
                     'endDate',
                     'month',
                     e.target.value,
@@ -344,10 +381,16 @@ const RequestApplicationSP = ({
                     setErrors,
                     startDate,
                     endDate,
-                  )
-                }
-                onCHangeEndDateDay={e =>
-                  handleChangeDate(
+                  );
+                }}
+                onCHangeEndDateDay={e => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '終了日入力',
+                    value: e.target.value,
+                  });
+
+                  return handleChangeDate(
                     'endDate',
                     'day',
                     e.target.value,
@@ -355,23 +398,54 @@ const RequestApplicationSP = ({
                     setErrors,
                     startDate,
                     endDate,
-                  )
-                }
+                  );
+                }}
                 breadth={breadth}
-                onChangeBreadth={e =>
-                  handleChangeUI('breadth', e.target.value, setBreadth, setErrors)
-                }
+                onChangeBreadth={e => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '希望広さ入力',
+                    value: e.target.value,
+                  });
+
+                  return handleChangeUI('breadth', e.target.value, setBreadth, setErrors);
+                }}
                 packageContents={packageContents}
-                onChangePackageContents={e =>
-                  handleChangeUI('packageContents', e.target.value, setPackageContents, setErrors)
-                }
+                onChangePackageContents={e => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '荷物内容入力',
+                    value: e.target.value,
+                  });
+
+                  return handleChangeUI(
+                    'packageContents',
+                    e.target.value,
+                    setPackageContents,
+                    setErrors,
+                  );
+                }}
                 existPhoneNumber={existPhoneNumber}
                 phoneNumber={phoneNumber}
-                onChangePhoneNumber={e =>
-                  handleChangeUI('phoneNumber', e.target.value, setPhoneNumber, setErrors)
-                }
+                onChangePhoneNumber={e => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '電話番号入力',
+                    value: e.target.value,
+                  });
+
+                  return handleChangeUI('phoneNumber', e.target.value, setPhoneNumber, setErrors);
+                }}
                 notes={notes}
-                onChangeNotes={e => handleChangeUI('notes', e.target.value, setNotes, setErrors)}
+                onChangeNotes={e => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '備考入力',
+                    value: e.target.value,
+                  });
+
+                  return handleChangeUI('notes', e.target.value, setNotes, setErrors);
+                }}
               />
               <LinkCancel handleModalClose={handleModalCloseSP} />
             </ContentWrap>
