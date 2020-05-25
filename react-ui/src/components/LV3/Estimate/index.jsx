@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -122,59 +122,53 @@ const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
     );
   };
 
-  const checkPriceRenge = () => {
-    let msgError = '';
-    const checkPrice = getPriceEstimate();
-    if (checkPrice < Validate.Price.Min) {
-      msgError = ErrorMessages.EstimateMin(Validate.Price.Min);
-    } else if (checkPrice > Validate.Price.Max) {
-      msgError = ErrorMessages.EstimateMax(Validate.Price.Max);
-    }
-    return msgError;
-  };
+  // const checkPriceRenge = () => {
+  //   let msgError = '';
+  //   const checkPrice = getPriceEstimate();
+  //   if (checkPrice < Validate.Price.Min) {
+  //     msgError = ErrorMessages.EstimateMin(Validate.Price.Min);
+  //   } else if (checkPrice > Validate.Price.Max) {
+  //     msgError = ErrorMessages.EstimateMax(Validate.Price.Max);
+  //   }
+  //   return msgError;
+  // };
 
   const handleChangeUI = (propName, value) => {
     const setError = [];
-    let returnValue = formatRemoveComma(value);
-
     switch (propName) {
       case 'usagePeriod':
-        if (!returnValue || returnValue.length === 0) {
+        if (!value || value.length === 0) {
           setError.push(ErrorMessages.PleaseInput);
-        } else if (!isNumber(returnValue)) {
+        } else if (!isNumber(value)) {
           setError.push(ErrorMessages.UsagePeriodNumber);
-        } else if (returnValue < Validate.UsagePeriod.Min) {
+        } else if (value < Validate.UsagePeriod.Min) {
           setError.push(ErrorMessages.UsagePeriodMin(Validate.UsagePeriod.Min));
-        } else if (returnValue > Validate.UsagePeriod.Max) {
-          returnValue = 1;
+        } else if (value > Validate.UsagePeriod.Max) {
           setError.push(ErrorMessages.UsagePeriodMax(Validate.UsagePeriod.Max));
         }
         break;
       case 'tatami':
-        if (!isTrimmedEmpty(Number.toString(returnValue))) {
-          const { result, reason } = isValidTatami(returnValue);
+        if (!isTrimmedEmpty(Number.toString(value))) {
+          const { result, reason } = isValidTatami(value);
           if (!result) {
             setError.push(reason);
           }
         }
         break;
       case 'isUndecided':
-        returnValue = value;
-
-        if (!isUndecided) {
+        if (value) {
           setUsagePeriod('');
+          setErrors(state => ({ ...state, usagePeriod: [] }));
         }
-
         break;
       case 'indexTatami': {
-        returnValue = value;
-
-        if (indexTatami === SPACE_TYPE_ROOM) {
+        if (value === SPACE_TYPE_ROOM) {
+          handleChangeUI('tatami', tatami);
           setPriceEstimateBase(priceTatami);
         } else {
           setPriceEstimateBase(priceFull);
+          setErrors(state => ({ ...state, tatami: [] }));
         }
-
         break;
       }
       default:
@@ -182,31 +176,16 @@ const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
 
     setErrors(state => ({ ...state, [propName]: setError }));
 
-    const msgError = checkPriceRenge();
-    if (msgError) {
-      const errorPriceRange = [];
-      errorPriceRange.push(msgError);
-      setErrors(state => ({ ...state, errorPriceRange }));
-    } else {
-      setErrors(state => ({ ...state, errorPriceRange: '' }));
-    }
-
-    if (isUndecided === true) {
-      setErrors(state => ({ ...state, usagePeriod: [] }));
-    }
-
-    if (indexTatami === SPACE_TYPE_WHEREHOUSE) {
-      setErrors(state => ({ ...state, tatami: [] }));
-    }
+    // TODO: エラー表示タイミング調整(validate側は制御済み)
+    // const msgError = checkPriceRenge();
+    // if (msgError) {
+    //   const errorPriceRange = [];
+    //   errorPriceRange.push(msgError);
+    //   setErrors(state => ({ ...state, errorPriceRange }));
+    // } else {
+    //   setErrors(state => ({ ...state, errorPriceRange: '' }));
+    // }
   };
-
-  useEffect(() => {
-    handleChangeUI('startDate', startDate);
-    handleChangeUI('startDateFocus', startDateFocus);
-    handleChangeUI('usagePeriod', usagePeriod);
-    handleChangeUI('tatami', tatami);
-    handleChangeUI('indexTatami', indexTatami);
-  }, [startDate, startDateFocus, usagePeriod, tatami, indexTatami]);
 
   const sendRequest = () => {
     const datedStartDate = startDate.toDate();
