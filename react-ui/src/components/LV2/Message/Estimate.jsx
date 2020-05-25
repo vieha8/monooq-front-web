@@ -6,6 +6,8 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors } from 'variables';
 import { formatAddComma, formatName } from 'helpers/string';
 
+const IS_UNDECIDED_TRUE = 1;
+const IS_UNDECIDED_FALSE = 0;
 const PAYTYPE_CREDITCARD = 1;
 const PAYTYPE_ECONTEXT = 4;
 const STATUS_PAY_ESTIMATE = 'estimate';
@@ -185,6 +187,7 @@ export default ({
   id,
   beginAt,
   endAt,
+  isUndecided,
   usagePeriod,
   price,
   fee,
@@ -211,18 +214,18 @@ export default ({
       </Text>
       <Text>
         利用終了日：
-        {endAt}
+        {isUndecided === IS_UNDECIDED_TRUE ? '未定' : `${endAt}`}
       </Text>
       {usagePeriod && (
         <Text>
           ご利用の期間：
-          {`${usagePeriod}ヶ月（${beginAt}〜${endAt}）`}
+          {isUndecided === IS_UNDECIDED_TRUE ? '未定' : `${usagePeriod}ヶ月`}
         </Text>
       )}
       <Text>
         お支払い金額合計：
         {`${formatAddComma(price + fee)}円`}
-        {usagePeriod && (
+        {usagePeriod > 0 && (
           <Fragment>
             <br />
             ひと月あたりの金額：

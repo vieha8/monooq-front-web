@@ -206,7 +206,7 @@ const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
         startDate: datedStartDate,
         endDate: endDate.toDate(),
         usagePeriod: isUndecided ? 24 : usagePeriod,
-        isUndecided,
+        isUndecided: isUndecided ? 1 : 0,
         tatami,
         indexTatami,
         price: formatRemoveComma(getPriceEstimate()),
@@ -253,7 +253,7 @@ const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
           </Section>
           <Section>
             <ExpectedEndDate
-              isView={errors.usagePeriod && errors.usagePeriod.length === 0}
+              isView={!isUndecided && errors.usagePeriod && errors.usagePeriod.length === 0}
               startDate={startDate}
               usagePeriod={usagePeriod}
             />
