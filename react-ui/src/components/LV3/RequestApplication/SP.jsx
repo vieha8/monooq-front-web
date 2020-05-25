@@ -86,11 +86,7 @@ const getRequestSet = (isModal, space, loading, onClick, onKeyDown, disabled, te
     <SendMessageWrapOuter isModal={isModal}>
       <SendMessageWrap isModal={isModal}>
         <SendMessageWrapInnter>
-          <SendMessageCaption
-            isRoom={space.sizeType > 0 && space.sizeType < 4}
-            priceTatami={space.priceTatami}
-            priceFull={space.priceFull}
-          />
+          <SendMessageCaption priceTatami={space.priceTatami} priceFull={space.priceFull} />
           <SendMessageButton
             isSP
             loading={loading}

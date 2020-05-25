@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { formatAddComma } from 'helpers/string';
 import InlineText from 'components/LV1/Texts/InlineText';
 import iconBrandCredit from 'images/icon-brand-credit.png';
 import iconCp from 'images/logo-cp.png';
@@ -11,11 +12,13 @@ const METHOD_PAYMENT_CREDIT = 0;
 const Wrap = styled.div`
   line-height: normal;
   margin: ${Dimens.medium_20}px auto;
-  padding-top: ${Dimens.medium_20}px;
-  border-top: 1px solid ${Colors.borderGray};
   ${media.phone`
     margin: ${Dimens.medium_20}px auto;
   `};
+`;
+
+const PaymentPriceWrap = styled.div`
+  margin: ${Dimens.medium}px auto ${Dimens.medium2_32}px;
 `;
 
 const CreditInfo = styled.div`
@@ -51,8 +54,30 @@ const maskify = cc => {
   return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
 };
 
-export default ({ paymentMethod, number, name }) => (
+const getPaymentPrice = (paymentMethod, checkedIndex, pricePlusFee, pricePlusFeeMonthly) => {
+  let textPrice = `一括払い（${formatAddComma(pricePlusFee)}円の一括支払）`;
+  if (paymentMethod === METHOD_PAYMENT_CREDIT) {
+    if (checkedIndex === 0) {
+      textPrice = `月々払い（${formatAddComma(pricePlusFeeMonthly)}円/月での自動引落）`;
+    }
+  }
+  return textPrice;
+};
+
+export default ({
+  paymentMethod,
+  checkedIndex,
+  pricePlusFee,
+  pricePlusFeeMonthly,
+  number,
+  name,
+}) => (
   <Wrap>
+    <PaymentPriceWrap>
+      <InlineText.Bold>決済方法</InlineText.Bold>
+      <br />
+      {getPaymentPrice(paymentMethod, checkedIndex, pricePlusFee, pricePlusFeeMonthly)}
+    </PaymentPriceWrap>
     {paymentMethod === METHOD_PAYMENT_CREDIT ? (
       <Fragment>
         <InlineText.Bold>クレジットカードで決済する</InlineText.Bold>
@@ -73,7 +98,7 @@ export default ({ paymentMethod, number, name }) => (
             {name}
           </Item>
         </CreditInfo>
-        ・お支払い後にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
+        ・お支払いを完了した後、利用を開始される前にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
         <br />
         ・「確定する」ボタンを押すことで、お客様は当サイトの個人情報保護方針と利用規約に同意の上、モノオクサービスの予約を確定したことになります。
       </Fragment>
@@ -93,7 +118,7 @@ export default ({ paymentMethod, number, name }) => (
         <br />
         ・48時間以内にお支払い手続きが行われない場合、自動的にキャンセルとなります。
         <br />
-        ・お支払い後にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
+        ・お支払いを完了した後、利用を開始される前にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
       </Fragment>
     )}
   </Wrap>

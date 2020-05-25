@@ -17,7 +17,7 @@ const Wrap = styled.div`
   `};
 `;
 
-export default ({ sizeType, full, tatami }) => (
+export default ({ full, tatami }) => (
   <Fragment>
     <SectionTitle text="料金の目安" />
     <Wrap>
@@ -30,7 +30,7 @@ export default ({ sizeType, full, tatami }) => (
           detail
         />
       )}
-      {tatami > 0 && sizeType < 4 && (
+      {tatami > 0 && (
         <InputPriceOfType
           image={imageFurnitureTatami}
           title="1畳分のスペースの月額料金"

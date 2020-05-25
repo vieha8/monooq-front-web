@@ -17,7 +17,7 @@ const Radio = styled.div`
   width: ${RADIO_SIZE}px;
   height: ${RADIO_SIZE}px;
   background: ${Colors.white};
-  border: 2px solid ${Colors.brandPrimary};
+  border: 2px solid ${Colors.borderGray};
   border-radius: 15px;
   ${props =>
     props.checked &&
@@ -30,7 +30,7 @@ const Radio = styled.div`
       width: ${RADIO_CHECK_SIZE}px;
       height: ${RADIO_CHECK_SIZE}px;
       border-radius: ${RADIO_CHECK_SIZE / 2}px;
-      background: ${Colors.brandPrimary};
+      background: ${Colors.black};
     }
   `};
 `;
