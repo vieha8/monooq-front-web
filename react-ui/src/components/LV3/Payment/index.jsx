@@ -194,6 +194,7 @@ const PaymentInputForm = ({
           paymentPrice: paymentData.pricePlusFeeMonthly,
           startDate: paymentData.beginAt,
           endDate: paymentData.endAt,
+          isUndecided: paymentData.isUndecided,
         },
         payment: {
           name,

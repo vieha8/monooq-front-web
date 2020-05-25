@@ -47,9 +47,14 @@ class PaymentPage extends Component {
           paymentData={{
             beginAt: formatDate(new Date(request.startDate), formatStringSlash),
             endAt: formatDate(new Date(request.endDate), formatStringSlash),
+            isUndecided: request.isUndecided,
             price: numeral(request.price).format('0,0'),
             pricePlusFee: request.pricePlusFee,
-            pricePlusFeeMonthly: String(Math.floor(request.pricePlusFee / request.usagePeriod)),
+            pricePlusFeeMonthly: String(
+              Math.floor(
+                request.pricePlusFee / (request.isUndecided === 1 ? 1 : request.usagePeriod),
+              ),
+            ),
           }}
           paymentUrl={paymentUrl}
           isPaymentSuccess={isPaymentSuccess}

@@ -74,16 +74,18 @@ const DateItem = styled.div`
   `};
 `;
 
-const getDate = (title, date) => {
+const getDate = (title, date, isUndecided) => {
   return (
     <PeriodItemWrap>
       <Title>{title}</Title>
-      <DateItem>{moment(new Date(date)).format('YYYY年MM月DD日（dd）')}</DateItem>
+      <DateItem>
+        {isUndecided === 1 ? '未定' : moment(new Date(date)).format('YYYY年MM月DD日（dd）')}
+      </DateItem>
     </PeriodItemWrap>
   );
 };
 
-export default ({ space, beginAt, endAt }) => (
+export default ({ space, beginAt, endAt, isUndecided }) => (
   <Fragment>
     <TitleSub>ご利用になるスペース情報</TitleSub>
     <Row to={Path.space(space.id)} borderBottom>
@@ -102,8 +104,8 @@ export default ({ space, beginAt, endAt }) => (
         <LinkDetail>詳しく見る</LinkDetail>
       </ContentWrap>
       <PeriodWrap>
-        {getDate('利用開始日', beginAt)}
-        {getDate('利用終了日', endAt)}
+        {getDate('利用開始日', beginAt, 0)}
+        {getDate('利用終了日', endAt, isUndecided)}
       </PeriodWrap>
     </Row>
   </Fragment>

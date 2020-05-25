@@ -450,6 +450,7 @@ function* payment({ payload: { roomId, requestId, info, payment: card } }) {
       PaymentPrice: info.paymentPrice,
       StartDate: info.startDate,
       EndDate: info.endDate,
+      IsUndecided: info.isUndecided,
     },
     token,
   );
