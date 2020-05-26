@@ -12,7 +12,7 @@ import Question from 'components/LV2/Space/Question';
 import RequestApplication from 'components/LV3/RequestApplication';
 import RequestApplicationSP from 'components/LV3/RequestApplication/SP';
 import Info from './Info';
-
+import ReactGA from 'react-ga';
 const Wrap = styled.div`
   margin: auto;
   padding: 0;
@@ -182,6 +182,10 @@ const getCaptionMessage = () => {
 const getParams = () => {
   let params = null;
   if (isAvailableLocalStorage() && localStorage.getItem('request_params')) {
+    ReactGA.event({
+      category: 'リクエスト',
+      action: '入力内容を復元',
+    });
     params = JSON.parse(localStorage.getItem('request_params'));
   }
   return params;
