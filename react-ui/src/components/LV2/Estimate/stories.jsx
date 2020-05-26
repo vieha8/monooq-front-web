@@ -24,7 +24,7 @@ storiesOf('Molecules(LV2)/Estimate', module)
       - ・price：お見積もり金額
     `)(() => (
       <div style={{ width: '100%', maxWidth: '300px', padding: `${Dimens.storyBookPadding}` }}>
-        <Estimate beginAt="2018年03月20日" endAt="2018年05月20日" duration={60} price="32,000" />
+        <Estimate beginAt="2018年03月20日" endAt="2018年05月20日" price="32,000" />
       </div>
     )),
   )

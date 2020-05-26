@@ -78,10 +78,6 @@ const TagList = [
   },
 ];
 
-const checkSizeType = sizeType => {
-  return sizeType > 0 && sizeType < 4;
-};
-
 class SpaceEdit1Page extends Component {
   constructor(props) {
     super(props);
@@ -102,7 +98,6 @@ class SpaceEdit1Page extends Component {
       title: title || '',
       introduction: introduction || '',
       sizeType: sizeType || 0,
-      isSizeTypeOther: false,
       tatami: tatami || '',
       tags: tags || [],
       tagList: tagList || TagList,
@@ -187,7 +182,6 @@ class SpaceEdit1Page extends Component {
         tagCustomList: newStateTagCustomList,
         images,
         id,
-        isSizeTypeOther: !checkSizeType(sizeType),
       };
     }
     return null;
@@ -292,7 +286,7 @@ class SpaceEdit1Page extends Component {
           status,
           introduction,
           sizeType: parseInt(sizeType, 10) || 0,
-          tatami: checkSizeType(sizeType) ? parseFloat(tatami) : 0,
+          tatami: parseFloat(tatami),
           tagList,
           tagCustomList,
         }),
@@ -381,11 +375,6 @@ class SpaceEdit1Page extends Component {
       case 'sizeType':
         if (!value || value === 0) {
           errors.push(ErrorMessages.PleaseSelect);
-        } else if (checkSizeType(value)) {
-          state.isSizeTypeOther = false;
-        } else {
-          state.tatami = '';
-          state.isSizeTypeOther = true;
         }
         break;
       case 'tatami':
@@ -459,7 +448,6 @@ class SpaceEdit1Page extends Component {
       status,
       introduction,
       sizeType,
-      isSizeTypeOther,
       tatami,
       error,
       errorsTagCustomMax,
@@ -498,7 +486,6 @@ class SpaceEdit1Page extends Component {
           onChangeIntroduction={v => this.handleChangeUI('introduction', v)}
           breadth={sizeType}
           onChangeBreadth={v => this.handleChangeUI('sizeType', v)}
-          isSizeTypeOther={isSizeTypeOther}
           tatami={tatami || ''}
           onChangeTatami={v => this.handleChangeUI('tatami', v)}
           onClickNext={this.onClickNext}

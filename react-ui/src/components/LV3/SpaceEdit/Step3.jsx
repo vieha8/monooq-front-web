@@ -27,10 +27,8 @@ const UnderLine = styled.span`
 `;
 
 export default ({
-  isPriceTatami,
   edit,
   errors,
-  isRoom,
   priceFull,
   onChangePriceFull,
   priceTatami,
@@ -46,40 +44,30 @@ export default ({
     <PageHeader optionItem={{ src: ImageStatusEditSpace3, edit }} />
     <Section marginTopSp={20}>
       <CaptionWrap>
-        <InlineText.Base>
-          {isRoom
-            ? '様々なご相談に対応できるように料金を設定しましょう。'
-            : '目安となる料金を設定しましょう。'}
-        </InlineText.Base>
+        <InlineText.Base>様々なご相談に対応できるように料金を設定しましょう。</InlineText.Base>
       </CaptionWrap>
       <CaptionWrap sub>
         <InlineText.Tiny>
           ゲストによって荷物の内容が異なるので、スペースの広さに対する月額料金を設定してください。
           <br />
-          {isRoom ? (
-            <InlineText.Bold>
-              地域や条件によりますが、目安は
-              <UnderLine>1畳あたり7,000円〜/月</UnderLine>
-              です。
-            </InlineText.Bold>
-          ) : (
-            'より細かな範囲での料金目安がある場合は、スペース紹介文への記入がおすすめです。'
-          )}
+          <InlineText.Bold>
+            地域や条件によりますが、目安は
+            <UnderLine>1畳あたり7,000円〜/月</UnderLine>
+            です。
+          </InlineText.Bold>
         </InlineText.Tiny>
       </CaptionWrap>
     </Section>
     <Section marginTop={20}>
-      {isPriceTatami && (
-        <InputPriceOfType
-          image={imageFurnitureTatami}
-          title="1畳分のスペースの月額料金"
-          caption="スペースの一部を使用する場合の1畳あたりの料金"
-          placeholder="6,000"
-          price={priceTatami}
-          onChange={onChangePriceTatami}
-          error={<ErrorList keyName="price_errors_2" errors={errors.priceTatami} />}
-        />
-      )}
+      <InputPriceOfType
+        image={imageFurnitureTatami}
+        title="1畳分のスペースの月額料金"
+        caption="スペースの一部を使用する場合の1畳あたりの料金"
+        placeholder="6,000"
+        price={priceTatami}
+        onChange={onChangePriceTatami}
+        error={<ErrorList keyName="price_errors_2" errors={errors.priceTatami} />}
+      />
       <InputPriceOfType
         image={imageFurnitureFull}
         title="全てのスペースの月額料金"

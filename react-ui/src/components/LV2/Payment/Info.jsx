@@ -1,16 +1,28 @@
 import React, { Fragment } from 'react';
+import 'moment/locale/ja';
+import moment from 'moment';
 import styled from 'styled-components';
 import Path from 'config/path';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
-import InfoHost from 'components/LV2/Space/InfoHost';
 import dummySpaceImage from 'images/img-dummy-space.png';
 
+moment.locale('ja');
+
+const TitleSub = styled.div`
+  margin: ${Dimens.small}px auto ${Dimens.xsmall}px;
+  font-weight: bold;
+  line-height: normal;
+  ${media.phone`
+    font-size: ${FontSizes.small}px;
+  `};
+`;
+
 const Row = styled.div`
-  padding-bottom: ${Dimens.small2_15}px;
-  border-bottom: 1px solid ${Colors.borderGray};
+  padding: ${Dimens.medium}px;
+  border: 1px solid ${Colors.borderGray};
 `;
 
 const ImageWrap = styled.div`
@@ -27,25 +39,55 @@ const ContentWrap = styled.div`
 
 const AddressText = styled(InlineText.Base)`
   display: block;
-  color: ${Colors.brandPrimary};
 `;
 
-const TitleText = styled(InlineText.Small)`
+const LinkDetail = styled(InlineText.Small)`
   display: block;
+  color: ${Colors.linkBlue};
   ${media.phone`
     font-size: ${FontSizes.small_12}px;
   `};
 `;
 
-export default ({ space }) => (
+const PeriodWrap = styled.div`
+  margin-top: ${Dimens.medium2_32}px;
+`;
+
+const PeriodItemWrap = styled.div`
+  margin-top: ${Dimens.medium}px;
+  ${media.phone`
+    font-size: ${FontSizes.small2_14}px;
+  `};
+`;
+
+const Title = styled.div`
+  font-weight: bold;
+  ${media.phone`
+    font-size: ${FontSizes.small2_14}px;
+  `};
+`;
+
+const DateItem = styled.div`
+  margin-top: ${Dimens.small_10}px;
+  ${media.phone`
+    font-size: ${FontSizes.small2_15}px;
+  `};
+`;
+
+const getDate = (title, date, isUndecided) => {
+  return (
+    <PeriodItemWrap>
+      <Title>{title}</Title>
+      <DateItem>
+        {isUndecided === 1 ? '未定' : moment(new Date(date)).format('YYYY年MM月DD日（dd）')}
+      </DateItem>
+    </PeriodItemWrap>
+  );
+};
+
+export default ({ space, beginAt, endAt, isUndecided }) => (
   <Fragment>
-    <InfoHost
-      id={space.user.id}
-      name={space.user.name}
-      imageUrl={space.user.imageUrl}
-      lastLoginAt={space.user.lastLoginAt}
-      message
-    />
+    <TitleSub>ご利用になるスペース情報</TitleSub>
     <Row to={Path.space(space.id)} borderBottom>
       <ImageWrap>
         <ImageHero
@@ -59,8 +101,12 @@ export default ({ space }) => (
           {space.addressCity}
           {space.addressTown}
         </AddressText>
-        <TitleText>{space.title}</TitleText>
+        <LinkDetail>詳しく見る</LinkDetail>
       </ContentWrap>
+      <PeriodWrap>
+        {getDate('利用開始日', beginAt, 0)}
+        {getDate('利用終了日', endAt, isUndecided)}
+      </PeriodWrap>
     </Row>
   </Fragment>
 );

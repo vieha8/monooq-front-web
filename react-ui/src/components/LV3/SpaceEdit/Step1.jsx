@@ -49,7 +49,6 @@ export default ({
   onChangeIntroduction,
   breadth,
   onChangeBreadth,
-  isSizeTypeOther,
   tatami,
   onChangeTatami,
   tagList,
@@ -133,18 +132,16 @@ export default ({
       />
       <ErrorList keyName="breadth_errors" errors={errors.sizeType} />
     </Section>
-    {!isSizeTypeOther && (
-      <Section>
-        <InputForm
-          label="畳数"
-          placeholder="例) 4.5、6"
-          unit="畳"
-          value={tatami}
-          onChange={e => onChangeTatami(e.target.value)}
-        />
-        <ErrorList keyName="tatami_errors" errors={errors.tatami} />
-      </Section>
-    )}
+    <Section>
+      <InputForm
+        label="畳数"
+        placeholder="例) 4.5、6"
+        unit="畳"
+        value={tatami}
+        onChange={e => onChangeTatami(e.target.value)}
+      />
+      <ErrorList keyName="tatami_errors" errors={errors.tatami} />
+    </Section>
     <Section>
       <TagCheckboxList tagList={tagList} onClickTag={onClickTag} onKeyDownTag={onKeyDownTag} />
       <InputForm

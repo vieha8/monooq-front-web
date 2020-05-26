@@ -22,6 +22,7 @@ import { handleAccessTrade, handleCircuitX } from '../../helpers/asp';
 const ESTIMATE = 'ESTIMATE';
 const ESTIMATE_SUCCESS = 'ESTIMATE_SUCCESS';
 const ESTIMATE_FAILED = 'ESTIMATE_FAILED';
+const PAYMENT_CONFIRM = 'PAYMENT_CONFIRM';
 const PAYMENT = 'PAYMENT';
 const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 const PAYMENT_FAILED = 'PAYMENT_FAILED';
@@ -44,6 +45,7 @@ export const requestActions = createActions(
   ESTIMATE,
   ESTIMATE_SUCCESS,
   ESTIMATE_FAILED,
+  PAYMENT_CONFIRM,
   PAYMENT,
   PAYMENT_OTHER,
   PAYMENT_SUCCESS,
@@ -93,6 +95,15 @@ export const requestReducer = handleActions(
     [ESTIMATE_FAILED]: state => ({
       ...state,
       estimate: { isSending: false },
+    }),
+    [PAYMENT_CONFIRM]: state => ({
+      ...state,
+      payment: {
+        isSending: false,
+        isSuccess: false,
+        isFailed: false,
+        errMsg: '',
+      },
     }),
     [PAYMENT]: state => ({
       ...state,
@@ -213,7 +224,19 @@ const roomCollection = () => {
 };
 
 // Sagas
-function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
+function* estimate({
+  payload: {
+    roomId,
+    userId,
+    startDate,
+    endDate,
+    usagePeriod,
+    isUndecided,
+    tatami,
+    indexTatami,
+    price,
+  },
+}) {
   const roomDoc = roomCollection().doc(roomId);
   const room = yield roomDoc.get();
   const { spaceId, userId1, userId2 } = room.data();
@@ -232,6 +255,10 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
       spaceId,
       startDate,
       endDate,
+      usagePeriod: parseInt(usagePeriod, 10),
+      isUndecided: parseInt(isUndecided, 10),
+      tatami: parseInt(tatami, 10),
+      indexTatami: parseInt(indexTatami, 10),
       price: parseInt(price, 10),
       status: 'estimate',
     },
@@ -250,6 +277,10 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
     price: parseInt(price, 10),
     startDate,
     endDate,
+    usagePeriod: parseInt(usagePeriod, 10),
+    isUndecided: parseInt(isUndecided, 10),
+    tatami: parseInt(tatami, 10),
+    indexTatami: parseInt(indexTatami, 10),
   };
   const messageDoc = yield roomDoc.collection('messages').add(message);
   yield roomDoc.set(
@@ -354,7 +385,7 @@ ${urlMessageRoom}`;
   yield call(postApiRequest, apiEndpoint.sendSMS(), bodySMS, token);
 }
 
-function* payment({ payload: { roomId, requestId, payment: card } }) {
+function* payment({ payload: { roomId, requestId, info, payment: card } }) {
   // 不正対策
   const token = yield* getToken();
   const { data: requestData, err } = yield call(
@@ -415,6 +446,11 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     {
       RequestId: parseInt(requestId, 10),
       CardToken: cardToken,
+      PaymentType: info.paymentType,
+      PaymentPrice: info.paymentPrice,
+      StartDate: info.startDate,
+      EndDate: info.endDate,
+      IsUndecided: info.isUndecided,
     },
     token,
   );

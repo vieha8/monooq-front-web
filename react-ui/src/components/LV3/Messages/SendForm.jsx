@@ -37,7 +37,7 @@ const MessageErr = styled.div`
   color: ${Colors.error};
 `;
 
-const MessegeSendForm = ({ hostUser, userIdFrom, userIdTo, isOpenModalError }) => {
+const MessegeSendForm = ({ space, hostUser, userIdFrom, userIdTo, isOpenModalError }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { message_room_id: messageRoomId } = useParams();
@@ -57,7 +57,10 @@ const MessegeSendForm = ({ hostUser, userIdFrom, userIdTo, isOpenModalError }) =
   });
 
   const onClickEstimate = () => {
-    history.push(Path.estimate(messageRoomId));
+    history.push({
+      pathname: Path.estimate(messageRoomId),
+      state: { priceTatami: space.priceTatami, priceFull: space.priceFull },
+    });
   };
 
   const doSend = () => {

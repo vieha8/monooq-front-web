@@ -232,6 +232,8 @@ export default ({
                 name={message.estimate.name}
                 beginAt={formatDate(new Date(message.estimate.beginAt), formatStringSlash)}
                 endAt={formatDate(new Date(message.estimate.endAt), formatStringSlash)}
+                isUndecided={message.estimate.isUndecided}
+                usagePeriod={message.estimate.usagePeriod}
                 price={message.estimate.price}
                 fee={message.estimate.fee}
                 receivedAt={formatDate(
@@ -240,6 +242,7 @@ export default ({
                 )}
                 status={message.estimate.status}
                 payType={message.estimate.payType}
+                isMonthly={message.estimate.isMonthly}
                 econtextUrl={message.estimate.econtextUrl}
                 isOpenModalError={isOpenModalError}
                 onClickPayment={() => history.push(message.estimate.link)}
@@ -251,6 +254,7 @@ export default ({
         return null;
       })}
       <MessageSendForm
+        space={space}
         hostUser={hostUser}
         userIdFrom={userIdFrom}
         userIdTo={userIdTo}

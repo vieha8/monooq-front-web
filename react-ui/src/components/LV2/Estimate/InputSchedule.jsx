@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Calendar from 'components/LV1/Forms/Calendar';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -43,11 +43,12 @@ const DateLabel = styled.span`
 `;
 
 export default ({
+  isOnlyBeginDate,
   beginTitle,
-  beginDate,
-  beginDateFocused,
-  onDateChangeBegin,
-  onFocusChangeBegin,
+  startDate,
+  startDateFocused,
+  onDateChangeStart,
+  onFocusChangeStart,
   endTitle,
   endDate,
   endDateFocused,
@@ -57,30 +58,34 @@ export default ({
   <Wrap>
     <DateCell>
       <DateLabel>
-        <InlineText.Bold>{beginTitle || '利用開始日'}</InlineText.Bold>
+        <InlineText.Bold>{beginTitle || 'ゲストの利用開始日'}</InlineText.Bold>
       </DateLabel>
       <Calendar
-        date={beginDate}
+        date={startDate}
         block
-        focused={Boolean(beginDateFocused)}
-        onDateChange={date => onDateChangeBegin(date)}
-        onFocusChange={e => onFocusChangeBegin(e.focused)}
+        focused={Boolean(startDateFocused)}
+        onDateChange={date => onDateChangeStart(date)}
+        onFocusChange={e => onFocusChangeStart(e.focused)}
         isAllowKeyboard={false}
       />
     </DateCell>
-    <Arrow className="fas fa-arrow-right" />
-    <DateCell>
-      <DateLabel>
-        <InlineText.Bold>{endTitle || '利用終了日'}</InlineText.Bold>
-      </DateLabel>
-      <Calendar
-        date={endDate}
-        block
-        focused={Boolean(endDateFocused)}
-        onDateChange={date => onDateChangeEnd(date)}
-        onFocusChange={e => onFocusChangeEnd(e.focused)}
-        isAllowKeyboard={false}
-      />
-    </DateCell>
+    {!isOnlyBeginDate && (
+      <Fragment>
+        <Arrow className="fas fa-arrow-right" />
+        <DateCell>
+          <DateLabel>
+            <InlineText.Bold>{endTitle || '利用終了日'}</InlineText.Bold>
+          </DateLabel>
+          <Calendar
+            date={endDate}
+            block
+            focused={Boolean(endDateFocused)}
+            onDateChange={date => onDateChangeEnd(date)}
+            onFocusChange={e => onFocusChangeEnd(e.focused)}
+            isAllowKeyboard={false}
+          />
+        </DateCell>
+      </Fragment>
+    )}
   </Wrap>
 );

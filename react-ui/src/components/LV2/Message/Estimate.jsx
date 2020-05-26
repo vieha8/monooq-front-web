@@ -6,6 +6,8 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors } from 'variables';
 import { formatAddComma, formatName } from 'helpers/string';
 
+const IS_UNDECIDED_TRUE = 1;
+const IS_UNDECIDED_FALSE = 0;
 const PAYTYPE_CREDITCARD = 1;
 const PAYTYPE_ECONTEXT = 4;
 const STATUS_PAY_ESTIMATE = 'estimate';
@@ -72,7 +74,7 @@ const buttonPayment = (host, status, payType, isOpenModalError, onClickPayment) 
   );
 };
 
-const getPayInfo = (payType, status) => {
+const getPayInfo = (payType, status, isMonthly) => {
   let resultPayType = '';
   let resultStatus = '';
   let messagePayInfo = '※最新のステータスが反映されるまで時間がかかる場合があります。';
@@ -116,6 +118,13 @@ const getPayInfo = (payType, status) => {
     <Fragment>
       お支払い方法：
       {resultPayType}
+      {status === STATUS_PAY_PAID && (
+        <Fragment>
+          <br />
+          お支払い回数：
+          {isMonthly === 1 ? '月額払い' : '一括払い'}
+        </Fragment>
+      )}
       <br />
       お支払いステータス：
       {resultStatus}
@@ -131,15 +140,11 @@ const getDescriptionPay = (payType, econtextUrl) => {
     case 1:
       result = (
         <Fragment>
-          ※2ヶ月以上の長期でご利用の場合は、1ヶ月ごとに利用料を決済する「月額決済」がおすすめです。
+          ※決済画面では「月々払い」「一括払い」が選択可能です。
           <br />
-          月額決済をご希望の場合は、ホストに初月1ヶ月分の見積もりを発行してもらい、決済をしてください。
+          ※期間途中で利用をキャンセルされる場合、ホストとの了承を得た上で月々払いのみ差分の返金が可能です。一括払いでは対応しておりませんのでご注意ください。
           <br />
-          初月分の利用料をカード決済した方は、下記より月額自動決済を申請していただくと、翌月分からは自動決済ができます。
-          <br />
-          <a href="https://form.run/@monthly-request" target="_blank" rel="noopener noreferrer">
-            ▶月額自動決済の申し込み
-          </a>
+          ※月々払いはクレジットカードの場合のみご利用可能です。残高不足などにご注意ください。
           <br />
           <br />
           <Caution>
@@ -182,12 +187,15 @@ export default ({
   id,
   beginAt,
   endAt,
+  isUndecided,
+  usagePeriod,
   price,
   fee,
   host,
   status,
   receivedAt,
   payType, // 1:クレジットカード 4:イーコンテクスト
+  isMonthly, // 0:一括 1:月額
   econtextUrl,
   isOpenModalError,
   onClickPayment,
@@ -206,11 +214,24 @@ export default ({
       </Text>
       <Text>
         利用終了日：
-        {endAt}
+        {isUndecided === IS_UNDECIDED_TRUE ? '未定' : `${endAt}`}
       </Text>
+      {usagePeriod && (
+        <Text>
+          ご利用の期間：
+          {isUndecided === IS_UNDECIDED_TRUE ? '未定' : `${usagePeriod}ヶ月`}
+        </Text>
+      )}
       <Text>
-        お支払い金額：
+        お支払い金額合計：
         {`${formatAddComma(price + fee)}円`}
+        {usagePeriod > 0 && (
+          <Fragment>
+            <br />
+            ひと月あたりの金額：
+            {`${formatAddComma(String(Math.floor((price + fee) / usagePeriod)))}円`}
+          </Fragment>
+        )}
         {fee > 0 && (
           <Fragment>
             <br />
@@ -252,7 +273,7 @@ export default ({
                 ■お支払い情報
               </InlineText.Base>
               <br />
-              {getPayInfo(payType, status)}
+              {getPayInfo(payType, status, isMonthly)}
               <br />
               <br />
               <Caution>モノオク上でお支払い手続きを行わない場合、保険が適応されません。</Caution>

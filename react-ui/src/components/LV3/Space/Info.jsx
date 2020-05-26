@@ -81,7 +81,7 @@ export default ({
         text={space.tatami || space.tatami === '0' ? `${space.tatami}畳` : getBreadths(sizeType)}
       />
     )}
-    <Price sizeType={sizeType} full={space.priceFull} tatami={space.priceTatami} />
+    <Price full={space.priceFull} tatami={space.priceTatami} />
     {tagList && tagList.length > 0 && (
       <Fragment>
         <SectionHeader>設備・条件</SectionHeader>
