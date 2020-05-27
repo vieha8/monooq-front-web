@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { requestActions } from 'redux/modules/request';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import withAuthRequire from 'components/hooks/withAuthRequire';
+import LoadingPage from 'components/LV3/LoadingPage';
 import Estimate from 'components/LV3/Estimate';
 
 class EstimatePage extends Component {
@@ -24,6 +25,11 @@ class EstimatePage extends Component {
   render() {
     const { user, isSending, isTakelateBefore } = this.props;
     const { priceTatami, priceFull } = this.state;
+
+    if (isSending) {
+      return <LoadingPage />;
+    }
+
     return (
       <BaseTemplate>
         <Estimate
