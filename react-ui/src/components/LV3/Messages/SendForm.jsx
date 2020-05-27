@@ -59,7 +59,12 @@ const MessegeSendForm = ({ space, hostUser, userIdFrom, userIdTo, isOpenModalErr
   const onClickEstimate = () => {
     history.push({
       pathname: Path.estimate(messageRoomId),
-      state: { priceTatami: space.priceTatami, priceFull: space.priceFull },
+      state: {
+        priceTatami: space.priceTatami,
+        priceFull: space.priceFull,
+        guestId: userIdTo,
+        spaceId: space.id,
+      },
     });
   };
 

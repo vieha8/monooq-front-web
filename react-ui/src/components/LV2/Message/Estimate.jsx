@@ -7,7 +7,6 @@ import { Colors } from 'variables';
 import { formatAddComma, formatName } from 'helpers/string';
 
 const IS_UNDECIDED_TRUE = 1;
-const IS_UNDECIDED_FALSE = 0;
 const PAYTYPE_CREDITCARD = 1;
 const PAYTYPE_ECONTEXT = 4;
 const STATUS_PAY_ESTIMATE = 'estimate';
