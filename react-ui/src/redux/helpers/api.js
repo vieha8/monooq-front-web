@@ -17,7 +17,8 @@ export const apiEndpoint = {
   requests: id => (id ? `/requests/${id}` : `/requests`),
   requestsByUserId: id => `/requests/user/${id}`,
   requestsByHostUserId: id => `/requests/host/${id}`,
-  requestsByHostUserIdTakelateBefore: id => `/requests/hosttb/${id}`,
+  requestsByHostUserIdTakelateBefore: (userId, spaceId) =>
+    `/requests/hosttb/${userId}/spaces/${spaceId}`,
   payments: type => (type ? `/payments/${type}` : `/payments`),
   sendMail: () => `/mailer/send`,
   sendSMS: () => `/sms/send`,
