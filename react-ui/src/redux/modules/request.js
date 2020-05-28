@@ -19,6 +19,9 @@ import { getRoomId, createRoom } from './messages';
 import { handleAccessTrade, handleCircuitX } from '../../helpers/asp';
 
 // Actions
+const FETCH_REQUEST_TAKELATE_BEFORE = 'FETCH_REQUEST_TAKELATE_BEFORE';
+const FETCH_REQUEST_TAKELATE_BEFORE_SUCCESS = 'FETCH_REQUEST_TAKELATE_BEFORE_SUCCESS';
+const FETCH_REQUEST_TAKELATE_BEFORE_FAILED = 'FETCH_REQUEST_TAKELATE_BEFORE_FAILED';
 const ESTIMATE = 'ESTIMATE';
 const ESTIMATE_SUCCESS = 'ESTIMATE_SUCCESS';
 const ESTIMATE_FAILED = 'ESTIMATE_FAILED';
@@ -42,6 +45,9 @@ const BOSYU_SUCCESS = 'BOSYU_SUCCESS';
 const BOSYU_FAILED = 'BOSYU_FAILED';
 
 export const requestActions = createActions(
+  FETCH_REQUEST_TAKELATE_BEFORE,
+  FETCH_REQUEST_TAKELATE_BEFORE_SUCCESS,
+  FETCH_REQUEST_TAKELATE_BEFORE_FAILED,
   ESTIMATE,
   ESTIMATE_SUCCESS,
   ESTIMATE_FAILED,
@@ -84,6 +90,27 @@ const initialState = {
 
 export const requestReducer = handleActions(
   {
+    [FETCH_REQUEST_TAKELATE_BEFORE]: state => ({
+      ...state,
+      estimate: {
+        isSending: true,
+        isTakelateBefore: false,
+      },
+    }),
+    [FETCH_REQUEST_TAKELATE_BEFORE_SUCCESS]: (state, action) => ({
+      ...state,
+      estimate: {
+        isSending: false,
+        isTakelateBefore: action.payload.isTakelateBefore,
+      },
+    }),
+    [FETCH_REQUEST_TAKELATE_BEFORE_FAILED]: state => ({
+      ...state,
+      estimate: {
+        isSending: false,
+        isTakelateBefore: false,
+      },
+    }),
     [ESTIMATE]: state => ({
       ...state,
       estimate: { isSending: true },
@@ -222,6 +249,35 @@ const roomCollection = () => {
   const firestore = firebase.firestore();
   return firestore.collection('rooms');
 };
+
+// TODO: 共通化する
+function* fetchRequestTakelateBefore({ payload: { guestId, spaceId } }) {
+  const token = yield* getToken();
+  const { data: payload, err } = yield call(
+    getApiRequest,
+    apiEndpoint.requestsByHostUserIdTakelateBefore(guestId, spaceId),
+    {},
+    token,
+  );
+
+  if (err) {
+    yield handleError(
+      requestActions.fetchRequestTakelateBeforeFailed,
+      '',
+      'fetchRequestTakelateBefore',
+      err,
+      false,
+    );
+    return;
+  }
+
+  let isTakelateBefore = false;
+  if (payload.length > 0) {
+    isTakelateBefore = true;
+  }
+
+  yield put(requestActions.fetchRequestTakelateBeforeSuccess({ isTakelateBefore }));
+}
 
 // Sagas
 function* estimate({
@@ -665,8 +721,42 @@ function* request({ payload: { user, space, body } }) {
 
 function* fetchRequest({ payload: requestId }) {
   const token = yield* getToken();
-  const { data } = yield call(getApiRequest, apiEndpoint.requests(requestId), {}, token);
-  // TODO エラーハンドリング
+  const { data, err: errReq } = yield call(
+    getApiRequest,
+    apiEndpoint.requests(requestId),
+    {},
+    token,
+  );
+
+  if (errReq) {
+    yield handleError(requestActions.fetchRequestFailed, '', 'fetchRequestFailed', errReq, false);
+    return;
+  }
+
+  const { data: takelateBefore, err: errCheckTakelate } = yield call(
+    getApiRequest,
+    apiEndpoint.requestsByHostUserIdTakelateBefore(data.userId, data.spaceId),
+    {},
+    token,
+  );
+
+  if (errCheckTakelate) {
+    yield handleError(
+      requestActions.fetchRequestFailed,
+      '',
+      'fetchRequestTakelateBefore(payment)',
+      errCheckTakelate,
+      false,
+    );
+    return;
+  }
+
+  let isTakelateBefore = false;
+  if (takelateBefore.length > 0) {
+    isTakelateBefore = true;
+  }
+  data.isTakelateBefore = isTakelateBefore;
+
   yield put(requestActions.fetchRequestSuccess(data));
 }
 
@@ -762,6 +852,7 @@ function* bosyu({ payload: { body } }) {
 }
 
 export const requestSagas = [
+  takeEvery(FETCH_REQUEST_TAKELATE_BEFORE, fetchRequestTakelateBefore),
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
   takeEvery(PAYMENT_OTHER, paymentOther),

@@ -36,6 +36,7 @@ class PaymentPage extends Component {
       return <Redirect to={Path.messageList()} />;
     }
 
+    // TODO: リクエスト取得失敗時のエラーハンドリング
     if (!request) {
       return <LoadingPage />;
     }
@@ -55,6 +56,7 @@ class PaymentPage extends Component {
                 request.pricePlusFee / (request.isUndecided === 1 ? 1 : request.usagePeriod),
               ),
             ),
+            isTakelateBefore: request.isTakelateBefore,
           }}
           paymentUrl={paymentUrl}
           isPaymentSuccess={isPaymentSuccess}

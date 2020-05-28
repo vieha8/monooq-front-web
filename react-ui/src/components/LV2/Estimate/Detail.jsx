@@ -68,7 +68,7 @@ const getItemRow = (caption, val, isTakeLate, isEstimateTotal) => {
   );
 };
 
-export default ({ price, errors }) => (
+export default ({ price, isTakelateBefore, errors }) => (
   <Wrap>
     <Lavel>
       <InlineText.Bold>内訳</InlineText.Bold>
@@ -76,12 +76,22 @@ export default ({ price, errors }) => (
     <WrapInner>
       <DateLabel>
         {getItemRow('スペース基本料金', price, false, false)}
-        {getItemRow('販売手数料', '-30%', true, false)}
-        {getItemRow('あなたの利益', Math.floor(price * 0.7), false, false)}
+        {getItemRow('販売手数料', isTakelateBefore ? '-20%' : '-30%', true, false)}
+        {getItemRow(
+          'あなたの利益',
+          Math.floor(price * (isTakelateBefore ? 0.8 : 0.7)),
+          false,
+          false,
+        )}
         <Hr margin="12px 0" />
         {getItemRow('スペース基本料金', price, false, false)}
-        {getItemRow('ゲストの手数料', '+10%', true, false)}
-        {getItemRow('ゲスト支払料金', String(Math.floor(price * 1.1)), false, true)}
+        {getItemRow('ゲストの手数料', isTakelateBefore ? '0%' : '+10%', true, false)}
+        {getItemRow(
+          'ゲスト支払料金',
+          String(Math.floor(price * (isTakelateBefore ? 1 : 1.1))),
+          false,
+          true,
+        )}
       </DateLabel>
     </WrapInner>
     <ErrorList keyName="tatami_errors" errors={errors} />

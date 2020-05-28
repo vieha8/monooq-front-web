@@ -260,7 +260,7 @@ export default ({
         userIdTo={userIdTo}
         isOpenModalError={isOpenModalError}
       />
-      <Caution />
+      <Caution hostUser={hostUser} />
     </div>
   );
 };

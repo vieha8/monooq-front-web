@@ -79,7 +79,7 @@ const HyperLink = styled.a`
   `};
 `;
 
-const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
+const Estimate = ({ userId, priceTatami, priceFull, isTakelateBefore, buttonLoading }) => {
   const dispatch = useDispatch();
   const { message_room_id: roomId } = useParams();
 
@@ -273,7 +273,11 @@ const Estimate = ({ userId, priceTatami, priceFull, buttonLoading }) => {
         </Fragment>
       )}
       <Section>
-        <Detail price={getPriceEstimate()} errors={errors.errorPriceRange} />
+        <Detail
+          price={getPriceEstimate()}
+          isTakelateBefore={isTakelateBefore}
+          errors={errors.errorPriceRange}
+        />
       </Section>
       <Section caption>
         見積もりは何度でも発行が可能です。ゲストとのやりとりで条件が変わった場合、新たに見積もりを発行してください。
