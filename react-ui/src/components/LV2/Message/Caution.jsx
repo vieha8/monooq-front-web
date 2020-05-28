@@ -10,6 +10,13 @@ const CautionWrap = styled.div`
   flex-direction: column;
   padding: ${Dimens.medium1}px ${Dimens.small}px;
   ${props =>
+    props.news &&
+    `
+    margin-top: ${Dimens.medium_20}px;
+    padding: ${Dimens.medium}px;
+    background-color: ${Colors.lightGray4};
+  `};
+  ${props =>
     props.bottom &&
     `
     border-top: 1px solid ${Colors.borderGray};
@@ -24,8 +31,15 @@ const ItemLink = styled.div`
 `;
 
 const CautionText = styled(InlineText.Small)`
-  margin-bottom: ${Dimens.small2}px;
+  font-weight: bold;
+  ${props =>
+    !props.noMargin &&
+    `
+    margin-bottom: ${Dimens.small2}px;
+  `};
 `;
+
+const CautionTextSub = styled(InlineText.Small)``;
 
 const getTextLink = (url, className, text, isLinkTo) => {
   return (
@@ -43,9 +57,24 @@ const getTextLink = (url, className, text, isLinkTo) => {
   );
 };
 
-const Caution = () => {
+const Caution = ({ hostUser }) => {
   return (
     <Fragment>
+      {hostUser && (
+        <CautionWrap news>
+          <CautionText noMargin>見積もり・決済画面がリニューアルしました！</CautionText>
+          <CautionTextSub>
+            2020年5月25日より見積もりの作成方法が変わりました。詳しくは
+            {getTextLink(
+              'https://help.monooq.com/ja/articles/4036030-',
+              'gaMessageBottomNewsLink',
+              'こちら',
+              false,
+            )}
+            をご確認ください。
+          </CautionTextSub>
+        </CautionWrap>
+      )}
       <CautionWrap>
         <CautionText>モノオクではサービス外のお支払いや現金取引は禁止です。</CautionText>
         <ItemLink>
@@ -85,9 +114,9 @@ const Caution = () => {
         </ItemLink>
       </CautionWrap>
       <CautionWrap bottom>
-        <CautionText>
+        <CautionTextSub>
           経年劣化によるショート・不具合の可能性がある製品に関して。自然発生的な故障のケースは一切の保証ができません。電化製品・家電などでスペース利用を検討している場合はあらかじめご了承ください。
-        </CautionText>
+        </CautionTextSub>
       </CautionWrap>
     </Fragment>
   );
