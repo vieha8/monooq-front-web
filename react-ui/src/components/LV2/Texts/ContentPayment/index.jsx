@@ -37,7 +37,7 @@ const ItemRow = styled.div`
   `};
 `;
 
-export default ({ price, pricePlusFee }) => (
+export default ({ price, pricePlusFee, isTakelateBefore }) => (
   <Wrap>
     <TitleSub>お支払い金額</TitleSub>
     <WrapInner>
@@ -52,7 +52,7 @@ export default ({ price, pricePlusFee }) => (
           ゲストの手数料
         </InlineText.Base>
         <InlineText.Base fontSize={14} color={Colors.lightGray10}>
-          +10%
+          {isTakelateBefore ? '0%' : '+10%'}
         </InlineText.Base>
       </ItemRow>
       <ItemRow isEstimateTotal>

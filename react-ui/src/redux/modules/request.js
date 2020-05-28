@@ -250,6 +250,7 @@ const roomCollection = () => {
   return firestore.collection('rooms');
 };
 
+// TODO: 共通化する
 function* fetchRequestTakelateBefore({ payload: { guestId, spaceId } }) {
   const token = yield* getToken();
   const { data: payload, err } = yield call(
@@ -720,8 +721,42 @@ function* request({ payload: { user, space, body } }) {
 
 function* fetchRequest({ payload: requestId }) {
   const token = yield* getToken();
-  const { data } = yield call(getApiRequest, apiEndpoint.requests(requestId), {}, token);
-  // TODO エラーハンドリング
+  const { data, err: errReq } = yield call(
+    getApiRequest,
+    apiEndpoint.requests(requestId),
+    {},
+    token,
+  );
+
+  if (errReq) {
+    yield handleError(requestActions.fetchRequestFailed, '', 'fetchRequestFailed', errReq, false);
+    return;
+  }
+
+  const { data: takelateBefore, err: errCheckTakelate } = yield call(
+    getApiRequest,
+    apiEndpoint.requestsByHostUserIdTakelateBefore(data.userId, data.spaceId),
+    {},
+    token,
+  );
+
+  if (errCheckTakelate) {
+    yield handleError(
+      requestActions.fetchRequestFailed,
+      '',
+      'fetchRequestTakelateBefore(payment)',
+      errCheckTakelate,
+      false,
+    );
+    return;
+  }
+
+  let isTakelateBefore = false;
+  if (takelateBefore.length > 0) {
+    isTakelateBefore = true;
+  }
+  data.isTakelateBefore = isTakelateBefore;
+
   yield put(requestActions.fetchRequestSuccess(data));
 }
 
