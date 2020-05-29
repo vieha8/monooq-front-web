@@ -10,6 +10,7 @@ import Logo from 'components/LV3/Header/Logo';
 import MessagesIcon from 'components/LV3/Header/MessagesIcon';
 import { useSelector } from 'react-redux';
 import MenuPCVisitor from './MenuPCVisitor';
+import getAvailabilityComponent from 'components/LV1/Texts/Availability';
 
 export const Height = 85;
 export const HeightPhone = 54;
@@ -163,12 +164,72 @@ const HistoryHover = styled(TextWrapper)`
 
 const Hoge = styled.div`
   width: 320px;
-  height: 100px;
-  background: red;
+  background: white;
   position: absolute;
   z-index: ${ZIndexes.headerHover};
   top: 91px; // 85 + 6
   right: 204px; // 191 + alpha
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const Foo = styled.div`
+  margin: 28px 0;
+  font-size: 18px;
+  color: #333333;
+  text-align: center;
+`;
+
+const Rows = styled.div`
+  padding: 0 16px;
+`;
+const Row = styled.div`
+  display: flex;
+  height: 48px;
+  font-size: 12px;
+  line-height: 17px;
+  color: #000000;
+  position: relative;
+  box-sizing: content-box;
+
+  :not(:first-child) {
+    margin-top: 8px;
+  }
+  :not(:last-child) {
+    padding-bottom: 8px;
+    border-bottom: solid 1px #f7f7f7;
+  }
+`;
+const RowImg = styled.img`
+  height: 48px;
+  width: 64px;
+  margin-right: 12px;
+  object-fit: cover;
+`;
+const RowBody = styled.div`
+  height: 34px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  width: 212px;
+  padding: 6px 0 0;
+  display: -webkit-box;
+`;
+
+const RowLabel = styled.div`
+  position: absolute;
+  font-size: 12px;
+  padding: 1.5px 6px;
+  color: ${Colors.white};
+  background-color: ${props => (props.bgColor ? props.bgColor : Colors.green)};
+  border-radius: 2px;
+`;
+const All = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  color: #999999;
+  text-align: center;
+  margin: 8px 0;
+  padding: 16px 0 12px;
 `;
 
 const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLogo, stories }) => {
@@ -219,7 +280,36 @@ const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLog
                         閲覧履歴
                       </TextLink>
                     </HistoryHover>
-                    <Hoge></Hoge>
+                    <Hoge>
+                      <Foo>閲覧履歴</Foo>
+                      <Rows>
+                        <Row>
+                          <RowImg src="https://via.placeholder.com/400x50/0000FF" />
+                          <RowLabel>空室</RowLabel>
+                          <RowBody>
+                            ウォークインクローゼットで大きめの荷物も
+                            ウォークインクローゼットで大きめの荷物も
+                            ウォークインクローゼットで大きめの荷物も
+                            ウォークインクローゼットで大きめの荷物も
+                            ウォークインクローゼットで大きめの荷物も
+                            ウォークインクローゼットで大きめの荷物も
+                          </RowBody>
+                        </Row>
+                        <Row>
+                          <RowImg src="https://via.placeholder.com/400x50/0000FF" />
+                          <RowLabel>空室</RowLabel>
+                          <RowBody>
+                            ウォークインクローゼットで大きめの荷物も
+                            ウォークインクローゼットで大きめの荷物も
+                            ウォークインクローゼットで大きめの荷物も
+                            ウォークインクローゼットで大きめの荷物も
+                            ウォークインクローゼットで大きめの荷物も
+                            ウォークインクローゼットで大きめの荷物も
+                          </RowBody>
+                        </Row>
+                      </Rows>
+                      <All>もっと見る</All>
+                    </Hoge>
                   </>
                 )}
               </OnlyPC>
