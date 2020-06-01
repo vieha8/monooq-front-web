@@ -62,7 +62,7 @@ const Caution = ({ hostUser }) => {
     <Fragment>
       {hostUser && (
         <CautionWrap news>
-          <CautionText noMargin>見積もり・決済画面がリニューアルしました！</CautionText>
+          <CautionText noMargin>見積もり・決済画面をリニューアルしました！</CautionText>
           <CautionTextSub>
             2020年5月25日より見積もりの作成方法が変わりました。詳しくは
             {getTextLink(
