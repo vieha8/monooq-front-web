@@ -205,7 +205,7 @@ const Estimate = ({ userId, priceTatami, priceFull, isTakelateBefore, buttonLoad
         roomId,
         startDate: datedStartDate,
         endDate: endDate.toDate(),
-        usagePeriod: isUndecided ? 24 : usagePeriod,
+        usagePeriod: isUndecided ? 1 : usagePeriod,
         isUndecided: isUndecided ? 1 : 0,
         tatami,
         indexTatami,
