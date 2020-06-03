@@ -28,7 +28,7 @@ export default ({ isView, startDate, usagePeriod }) => (
           <InlineText.Bold>終了予定日</InlineText.Bold>
         </Label>
         {moment(startDate.toDate())
-          .add(usagePeriod || 24, 'months')
+          .add(usagePeriod || 1, 'months')
           .subtract(1, 'days')
           .format('YYYY年MM月DD日（dd）')}
         <Text>

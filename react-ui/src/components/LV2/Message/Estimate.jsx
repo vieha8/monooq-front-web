@@ -121,7 +121,7 @@ const getPayInfo = (payType, status, isMonthly) => {
         <Fragment>
           <br />
           お支払い回数：
-          {isMonthly === 1 ? '月額払い' : '一括払い'}
+          {isMonthly === 1 ? '月々自動払い' : '一括払い'}
         </Fragment>
       )}
       <br />
