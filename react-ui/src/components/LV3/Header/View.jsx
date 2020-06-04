@@ -199,7 +199,7 @@ const Triangle = styled.div`
   border-color: transparent transparent #ffffff transparent;
 `;
 
-const Hoge = styled.div`
+const HoverContainer = styled.div`
   :hover {
     display: block !important;
   }
@@ -213,17 +213,17 @@ const Hoge = styled.div`
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
 `;
 
-const Foo = styled.div`
+const HoverHistoryTitle = styled.div`
   margin: 28px 0;
   font-size: 18px;
   color: #333333;
   text-align: center;
 `;
 
-const Rows = styled.div`
+const HoverHistoryRows = styled.div`
   padding: 0 16px;
 `;
-const Row = styled.div`
+const HoverHistoryRow = styled.div`
   display: flex;
   height: 48px;
   font-size: 12px;
@@ -240,13 +240,13 @@ const Row = styled.div`
     border-bottom: solid 1px #f7f7f7;
   }
 `;
-const RowImg = styled.img`
+const HoverHistoryRowImg = styled.img`
   height: 48px;
   width: 64px;
   margin-right: 12px;
   object-fit: cover;
 `;
-const RowBody = styled.div`
+const HoverHistoryRowBody = styled.div`
   height: 34px;
   overflow: hidden;
   -webkit-box-orient: vertical;
@@ -256,7 +256,7 @@ const RowBody = styled.div`
   display: -webkit-box;
 `;
 
-const RowLabel = styled.div`
+const HoverHistoryRowLabel = styled.div`
   position: absolute;
   font-size: 12px;
   padding: 1.5px 6px;
@@ -264,7 +264,7 @@ const RowLabel = styled.div`
   background-color: ${props => (props.bgColor ? props.bgColor : Colors.green)};
   border-radius: 2px;
 `;
-const All = styled(Link)`
+const HoverHistoryAllLink = styled(Link)`
   display: block;
   font-weight: 500;
   font-size: 14px;
@@ -339,22 +339,26 @@ const HeaderView = ({
                         閲覧履歴
                       </TextLink>
                     </HistoryHover>
-                    <Hoge>
+                    <HoverContainer>
                       <Triangle />
-                      <Foo>閲覧履歴</Foo>
-                      <Rows>
+                      <HoverHistoryTitle>閲覧履歴</HoverHistoryTitle>
+                      <HoverHistoryRows>
                         {accessLogSpaces.map(space => (
-                          <Row>
-                            <RowImg src={space.images.length ? space.images[0].imageUrl : ''} />
-                            <RowLabel bgColor={getStatus(space.status).color}>
+                          <HoverHistoryRow>
+                            <HoverHistoryRowImg
+                              src={space.images.length ? space.images[0].imageUrl : ''}
+                            />
+                            <HoverHistoryRowLabel bgColor={getStatus(space.status).color}>
                               {getStatus(space.status).text}
-                            </RowLabel>
-                            <RowBody>{space.title}</RowBody>
-                          </Row>
+                            </HoverHistoryRowLabel>
+                            <HoverHistoryRowBody>{space.title}</HoverHistoryRowBody>
+                          </HoverHistoryRow>
                         ))}
-                      </Rows>
-                      <All to={Path.historyViewSpace()}>もっと見る</All>
-                    </Hoge>
+                      </HoverHistoryRows>
+                      <HoverHistoryAllLink to={Path.historyViewSpace()}>
+                        もっと見る
+                      </HoverHistoryAllLink>
+                    </HoverContainer>
                   </>
                 )}
               </OnlyPC>
