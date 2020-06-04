@@ -162,7 +162,19 @@ const HistoryHover = styled(TextWrapper)`
   }
 `;
 
+const Triangle = styled.div`
+  position: absolute;
+  top: -12px;
+  right: 25px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 16px 10px;
+  border-color: transparent transparent #ffffff transparent;
+`;
+
 const Hoge = styled.div`
+  border-radius: 6px;
   width: 320px;
   background: white;
   position: absolute;
@@ -281,6 +293,7 @@ const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLog
                       </TextLink>
                     </HistoryHover>
                     <Hoge>
+                      <Triangle />
                       <Foo>閲覧履歴</Foo>
                       <Rows>
                         <Row>
