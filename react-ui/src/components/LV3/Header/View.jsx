@@ -10,6 +10,7 @@ import Logo from 'components/LV3/Header/Logo';
 import MessagesIcon from 'components/LV3/Header/MessagesIcon';
 import { useSelector } from 'react-redux';
 import MenuPCVisitor from './MenuPCVisitor';
+import { Link } from 'react-router-dom';
 
 const STATUS_FULL = 'full';
 const STATUS_CONSULTATION = 'consultation';
@@ -256,13 +257,23 @@ const RowLabel = styled.div`
   background-color: ${props => (props.bgColor ? props.bgColor : Colors.green)};
   border-radius: 2px;
 `;
-const All = styled.div`
+const All = styled(Link)`
+  display: block;
   font-weight: 500;
   font-size: 14px;
   color: #999999;
   text-align: center;
   margin: 8px 0;
   padding: 16px 0 12px;
+  &:link {
+    color: #999999;
+  }
+  &:visited {
+    color: #999999;
+  }
+  &:active {
+    color: #999999;
+  }
 `;
 
 const HeaderView = ({
@@ -335,7 +346,7 @@ const HeaderView = ({
                           </Row>
                         ))}
                       </Rows>
-                      <All>もっと見る</All>
+                      <All to={Path.historyViewSpace()}>もっと見る</All>
                     </Hoge>
                   </>
                 )}
