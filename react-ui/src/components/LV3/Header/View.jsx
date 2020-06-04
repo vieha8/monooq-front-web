@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Path from 'config/path';
-import { Colors, Dimens, ZIndexes } from 'variables';
+import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import TextLink from 'components/LV1/Texts/TextLink';
 import MenuSP from 'components/LV3/Header/MenuSP';
@@ -196,7 +196,7 @@ const Triangle = styled.div`
   height: 0;
   border-style: solid;
   border-width: 0 10px 16px 10px;
-  border-color: transparent transparent #ffffff transparent;
+  border-color: transparent transparent ${Colors.white} transparent;
 `;
 
 const HoverContainer = styled.div`
@@ -215,8 +215,8 @@ const HoverContainer = styled.div`
 
 const HoverHistoryTitle = styled.div`
   margin: 28px 0;
-  font-size: 18px;
-  color: #333333;
+  font-size: ${FontSizes.medium_18};
+  color: ${Colors.darkGray1};
   text-align: center;
 `;
 
@@ -226,9 +226,9 @@ const HoverHistoryRows = styled.div`
 const HoverHistoryRow = styled.div`
   display: flex;
   height: 48px;
-  font-size: 12px;
+  font-size: ${FontSizes.small_12};
   line-height: 17px;
-  color: #000000;
+  color: ${Colors.black};
   position: relative;
   box-sizing: content-box;
 
@@ -258,7 +258,7 @@ const HoverHistoryRowBody = styled.div`
 
 const HoverHistoryRowLabel = styled.div`
   position: absolute;
-  font-size: 12px;
+  font-size: ${FontSizes.small_12};
   padding: 1.5px 6px;
   color: ${Colors.white};
   background-color: ${props => (props.bgColor ? props.bgColor : Colors.green)};
@@ -267,19 +267,19 @@ const HoverHistoryRowLabel = styled.div`
 const HoverHistoryAllLink = styled(Link)`
   display: block;
   font-weight: 500;
-  font-size: 14px;
-  color: #999999;
+  font-size: ${FontSizes.small};
+  color: ${Colors.lightGray3};
   text-align: center;
   margin: 8px 0;
   padding: 16px 0 12px;
   &:link {
-    color: #999999;
+    color: ${Colors.lightGray3};
   }
   &:visited {
-    color: #999999;
+    color: ${Colors.lightGray3};
   }
   &:active {
-    color: #999999;
+    color: ${Colors.lightGray3};
   }
 `;
 
