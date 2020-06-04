@@ -175,9 +175,13 @@ const TextWrapper = styled.span`
 
 const HistoryHover = styled(TextWrapper)`
   position: relative;
-  //& + div {
-  //  display: none;
-  //}
+  & + div {
+    display: none;
+  }
+
+  :hover {
+    height: 150px; // hover領域を広げて間を埋める
+  }
 
   :hover + div {
     display: block;
@@ -196,6 +200,9 @@ const Triangle = styled.div`
 `;
 
 const Hoge = styled.div`
+  :hover {
+    display: block !important;
+  }
   border-radius: 6px;
   width: 320px;
   background: white;
