@@ -11,6 +11,7 @@ import MessagesIcon from 'components/LV3/Header/MessagesIcon';
 import { useSelector } from 'react-redux';
 import MenuPCVisitor from './MenuPCVisitor';
 import { Link } from 'react-router-dom';
+import dummySpaceImage from 'images/img-dummy-space.png';
 
 const STATUS_FULL = 'full';
 const STATUS_CONSULTATION = 'consultation';
@@ -215,7 +216,7 @@ const HoverContainer = styled.div`
 
 const HoverHistoryTitle = styled.div`
   margin: 28px 0;
-  font-size: ${FontSizes.medium_18};
+  font-size: ${FontSizes.medium_18}px;
   color: ${Colors.darkGray1};
   text-align: center;
 `;
@@ -226,7 +227,7 @@ const HoverHistoryRows = styled.div`
 const HoverHistoryRow = styled.div`
   display: flex;
   height: 48px;
-  font-size: ${FontSizes.small_12};
+  font-size: ${FontSizes.small_12}px;
   line-height: 17px;
   color: ${Colors.black};
   position: relative;
@@ -258,7 +259,7 @@ const HoverHistoryRowBody = styled.div`
 
 const HoverHistoryRowLabel = styled.div`
   position: absolute;
-  font-size: ${FontSizes.small_12};
+  font-size: ${FontSizes.small_12}px;
   padding: 1.5px 6px;
   color: ${Colors.white};
   background-color: ${props => (props.bgColor ? props.bgColor : Colors.green)};
@@ -267,7 +268,7 @@ const HoverHistoryRowLabel = styled.div`
 const HoverHistoryAllLink = styled(Link)`
   display: block;
   font-weight: 500;
-  font-size: ${FontSizes.small};
+  font-size: ${FontSizes.small}px;
   color: ${Colors.lightGray3};
   text-align: center;
   margin: 8px 0;
@@ -343,10 +344,10 @@ const HeaderView = ({
                       <Triangle />
                       <HoverHistoryTitle>閲覧履歴</HoverHistoryTitle>
                       <HoverHistoryRows>
-                        {accessLogSpaces.map(space => (
-                          <HoverHistoryRow>
+                        {accessLogSpaces.map((space, i) => (
+                          <HoverHistoryRow key={i}>
                             <HoverHistoryRowImg
-                              src={space.images.length ? space.images[0].imageUrl : ''}
+                              src={space.images.length ? space.images[0].imageUrl : dummySpaceImage}
                             />
                             <HoverHistoryRowLabel bgColor={getStatus(space.status).color}>
                               {getStatus(space.status).text}
