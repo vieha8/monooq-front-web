@@ -14,9 +14,23 @@ import Meta from 'components/LV1/Meta';
 import { H1 } from 'components/LV1/Texts/Headline';
 import NoneData from 'components/LV2/NoneData';
 import SearchResult from 'components/LV3/SearchResult';
+import SpaceRows from 'components/LV3/SpaceRows';
 import LoadingPage from 'components/LV3/LoadingPage';
 import dummySpaceImage from 'images/img-dummy-space.png';
 
+const OnlyPC = styled.span`
+  display: block;
+  ${media.tablet`
+    display: none;
+  `};
+`;
+
+const OnlyPhone = styled.span`
+  display: none;
+  ${media.tablet`
+    display: block;
+  `};
+`;
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
   text-align: center;
@@ -123,16 +137,21 @@ class SearchResultHistoryPage extends Component {
               loader={<Loader size="medium" key={0} />}
               initialLoad
             >
-              <SearchResult
-                spaces={spaces.map(s => ({
-                  ...s,
-                  image:
-                    s.images.length !== 0
-                      ? convertSpaceImgUrl(s.images[0].imageUrl, 'w=600')
-                      : dummySpaceImage,
-                  onClick: () => this.onClickSpace(s.id),
-                }))}
-              />
+              <OnlyPC>
+                <SearchResult
+                  spaces={spaces.map(s => ({
+                    ...s,
+                    image:
+                      s.images.length !== 0
+                        ? convertSpaceImgUrl(s.images[0].imageUrl, 'w=600')
+                        : dummySpaceImage,
+                    onClick: () => this.onClickSpace(s.id),
+                  }))}
+                />
+              </OnlyPC>
+              <OnlyPhone>
+                <SpaceRows spaces={spaces} onClick={this.onClickSpace} />
+              </OnlyPhone>
             </InfiniteScroll>
           ) : (
             <NoneData
