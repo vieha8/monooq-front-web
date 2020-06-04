@@ -68,10 +68,10 @@ const HoverHistoryRowLabel = styled.div`
   border-radius: 2px;
 `;
 
-export default ({ spaces }) => (
+export default ({ spaces, onClick }) => (
   <>
     {spaces.map((space, i) => (
-      <HoverHistoryRow key={i}>
+      <HoverHistoryRow key={i} onClick={() => onClick(space.id)}>
         <HoverHistoryRowImg
           src={space.images.length ? space.images[0].imageUrl : dummySpaceImage}
         />

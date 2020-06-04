@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 import Path from 'config/path';
 import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -230,6 +231,7 @@ const HeaderView = ({
   stories,
   accessLogSpaces,
 }) => {
+  const history = useHistory();
   const isLogin = useSelector(state => state.auth.isLogin);
 
   if (noHeaderButton) {
@@ -241,6 +243,10 @@ const HeaderView = ({
       </Wrap>
     );
   }
+
+  const onClickSpace = spaceId => {
+    history.push(Path.space(spaceId));
+  };
 
   return (
     <Wrap stories={stories}>
@@ -281,7 +287,7 @@ const HeaderView = ({
                       <Triangle />
                       <HoverHistoryTitle>閲覧履歴</HoverHistoryTitle>
                       <HoverHistoryRows>
-                        <SpaceRows spaces={accessLogSpaces} />
+                        <SpaceRows spaces={accessLogSpaces} onClick={onClickSpace} />
                       </HoverHistoryRows>
                       <HoverHistoryAllLink to={Path.historyViewSpace()}>
                         もっと見る
