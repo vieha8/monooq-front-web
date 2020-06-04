@@ -10,7 +10,28 @@ import Logo from 'components/LV3/Header/Logo';
 import MessagesIcon from 'components/LV3/Header/MessagesIcon';
 import { useSelector } from 'react-redux';
 import MenuPCVisitor from './MenuPCVisitor';
-import getAvailabilityComponent from 'components/LV1/Texts/Availability';
+
+const STATUS_FULL = 'full';
+const STATUS_CONSULTATION = 'consultation';
+const STATUS_DRAFT = 'draft';
+const getStatus = status => {
+  let color = Colors.green;
+  let text = '空室';
+  if (status === STATUS_FULL) {
+    color = Colors.brandPrimary;
+    text = '満室';
+  } else if (status === STATUS_CONSULTATION) {
+    color = Colors.lightGray3;
+    text = '要相談';
+  } else if (status === STATUS_DRAFT) {
+    color = Colors.lightGray3;
+    text = '下書き';
+  }
+  return {
+    color,
+    text,
+  };
+};
 
 export const Height = 85;
 export const HeightPhone = 54;
@@ -244,7 +265,15 @@ const All = styled.div`
   padding: 16px 0 12px;
 `;
 
-const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLogo, stories }) => {
+const HeaderView = ({
+  isTop,
+  isLinkRed,
+  isOverTopView,
+  noHeaderButton,
+  noLinkLogo,
+  stories,
+  accessLogSpaces,
+}) => {
   const isLogin = useSelector(state => state.auth.isLogin);
 
   if (noHeaderButton) {
@@ -296,30 +325,15 @@ const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLog
                       <Triangle />
                       <Foo>閲覧履歴</Foo>
                       <Rows>
-                        <Row>
-                          <RowImg src="https://via.placeholder.com/400x50/0000FF" />
-                          <RowLabel>空室</RowLabel>
-                          <RowBody>
-                            ウォークインクローゼットで大きめの荷物も
-                            ウォークインクローゼットで大きめの荷物も
-                            ウォークインクローゼットで大きめの荷物も
-                            ウォークインクローゼットで大きめの荷物も
-                            ウォークインクローゼットで大きめの荷物も
-                            ウォークインクローゼットで大きめの荷物も
-                          </RowBody>
-                        </Row>
-                        <Row>
-                          <RowImg src="https://via.placeholder.com/400x50/0000FF" />
-                          <RowLabel>空室</RowLabel>
-                          <RowBody>
-                            ウォークインクローゼットで大きめの荷物も
-                            ウォークインクローゼットで大きめの荷物も
-                            ウォークインクローゼットで大きめの荷物も
-                            ウォークインクローゼットで大きめの荷物も
-                            ウォークインクローゼットで大きめの荷物も
-                            ウォークインクローゼットで大きめの荷物も
-                          </RowBody>
-                        </Row>
+                        {accessLogSpaces.map(space => (
+                          <Row>
+                            <RowImg src={space.images.length ? space.images[0].imageUrl : ''} />
+                            <RowLabel bgColor={getStatus(space.status).color}>
+                              {getStatus(space.status).text}
+                            </RowLabel>
+                            <RowBody>{space.title}</RowBody>
+                          </Row>
+                        ))}
                       </Rows>
                       <All>もっと見る</All>
                     </Hoge>
