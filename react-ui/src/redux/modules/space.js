@@ -16,6 +16,7 @@ import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertSpaceImgUrl } from 'helpers/imgix';
 import { formatAddComma } from 'helpers/string';
+import { Queue } from 'helpers/queue';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { handleError } from './error';
@@ -704,23 +705,6 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
   payload.isMore = payload.length === limit;
 
   yield put(spaceActions.getSuccessSpaceAccessLog(payload));
-}
-
-class Queue {
-  constructor(init) {
-    this.array = init.slice(0, 20);
-    this.limit = 20;
-  }
-  enqueue(item) {
-    if (this.array.length === this.limit) {
-      this.array.shift();
-    }
-    this.array.push(item);
-  }
-
-  get items() {
-    return this.array;
-  }
 }
 
 function* addSpaceAccessLog({ payload: { spaceId } }) {
