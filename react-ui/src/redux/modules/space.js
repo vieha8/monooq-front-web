@@ -19,6 +19,7 @@ import { formatAddComma } from 'helpers/string';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { handleError } from './error';
+import { isAvailableLocalStorage } from 'helpers/storage';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
@@ -705,13 +706,39 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
   yield put(spaceActions.getSuccessSpaceAccessLog(payload));
 }
 
+class Queue {
+  constructor(init) {
+    this.array = init.slice(0, 20);
+    this.limit = 20;
+  }
+  enqueue(item) {
+    if (this.array.length === this.limit) {
+      this.array.shift();
+    }
+    this.array.push(item);
+  }
+
+  get items() {
+    return this.array;
+  }
+}
+
 function* addSpaceAccessLog({ payload: { spaceId } }) {
   let user = yield select(state => state.auth.user);
   if (!user.id) {
     yield take(authActions.checkLoginSuccess);
   }
   user = yield select(state => state.auth.user);
+
   if (!user.id) {
+    if (isAvailableLocalStorage) {
+      const key = 'anonymous-access-logs';
+      const json = localStorage.getItem(key);
+      const arr = json ? JSON.parse(json) : [];
+      const anonymousAccessLogQueue = new Queue(arr);
+      anonymousAccessLogQueue.enqueue(parseInt(spaceId, 10));
+      localStorage.setItem(key, JSON.stringify(anonymousAccessLogQueue.items));
+    }
     return;
   }
   const token = yield* getToken();
