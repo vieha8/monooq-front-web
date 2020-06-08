@@ -10,9 +10,9 @@ import MenuPC from 'components/LV3/Header/MenuPC';
 import Logo from 'components/LV3/Header/Logo';
 import MessagesIcon from 'components/LV3/Header/MessagesIcon';
 import { useSelector } from 'react-redux';
-import MenuPCVisitor from './MenuPCVisitor';
 import { Link } from 'react-router-dom';
 import SpaceRows from 'components/LV3/SpaceRows';
+import MenuPCVisitor from './MenuPCVisitor';
 
 export const Height = 85;
 export const HeightPhone = 54;
@@ -160,7 +160,7 @@ const HistoryHover = styled(TextWrapper)`
   }
 
   :hover {
-    height: 150px; // hover領域を広げて間を埋める
+    height: 150px;
   }
 
   :hover + div {
@@ -183,34 +183,39 @@ const HoverContainer = styled.div`
   :hover {
     display: block !important;
   }
-  border-radius: 6px;
+  border-radius: ${Dimens.xsmall}px;
   width: 320px;
   background: white;
   position: absolute;
   z-index: ${ZIndexes.headerHover};
-  top: 91px; // 85 + 6
-  right: 204px; // 191 + alpha
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+  top: 75px;
+  right: 245px;
+  box-shadow: 0px 0px ${Dimens.xsmall}px rgba(0, 0, 0, 0.1);
+  ${media.desktop`
+    right: 209px;
+  `};
 `;
 
 const HoverHistoryTitle = styled.div`
-  margin: 28px 0;
+  margin: ${Dimens.medium1_28}px 0;
   font-size: ${FontSizes.medium_18}px;
+  font-weight: bold;
   color: ${Colors.darkGray1};
   text-align: center;
 `;
 
 const HoverHistoryRows = styled.div`
-  padding: 0 16px;
+  padding: 0 ${Dimens.medium}px;
 `;
+
 const HoverHistoryAllLink = styled(Link)`
   display: block;
   font-weight: 500;
   font-size: ${FontSizes.small}px;
   color: ${Colors.lightGray3};
   text-align: center;
-  margin: 8px 0;
-  padding: 16px 0 12px;
+  margin: ${Dimens.small}px 0;
+  padding: ${Dimens.medium}px 0 ${Dimens.small2}px;
   &:link {
     color: ${Colors.lightGray3};
   }
@@ -220,6 +225,13 @@ const HoverHistoryAllLink = styled(Link)`
   &:active {
     color: ${Colors.lightGray3};
   }
+`;
+
+const HoverHistoryNoData = styled.div`
+  font-size: ${FontSizes.small}px;
+  color: ${Colors.lightGray3};
+  text-align: center;
+  margin: ${Dimens.medium1}px 0;
 `;
 
 const HeaderView = ({
@@ -277,7 +289,7 @@ const HeaderView = ({
                   </TextLink>
                 </TextWrapper>
                 {isLogin && (
-                  <>
+                  <Fragment>
                     <HistoryHover>
                       <TextLink to={Path.historyViewSpace()} color={Colors.black}>
                         閲覧履歴
@@ -289,11 +301,15 @@ const HeaderView = ({
                       <HoverHistoryRows>
                         <SpaceRows spaces={accessLogSpaces} onClick={onClickSpace} />
                       </HoverHistoryRows>
-                      <HoverHistoryAllLink to={Path.historyViewSpace()}>
-                        もっと見る
-                      </HoverHistoryAllLink>
+                      {accessLogSpaces && accessLogSpaces.length > 0 ? (
+                        <HoverHistoryAllLink to={Path.historyViewSpace()}>
+                          もっと見る
+                        </HoverHistoryAllLink>
+                      ) : (
+                        <HoverHistoryNoData>閲覧履歴がありません</HoverHistoryNoData>
+                      )}
                     </HoverContainer>
-                  </>
+                  </Fragment>
                 )}
               </OnlyPC>
               {isLogin ? (

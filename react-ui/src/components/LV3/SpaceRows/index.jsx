@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
-
+import { media } from 'helpers/style/media-query';
 import dummySpaceImage from 'images/img-dummy-space.png';
-import { FontSizes, Colors } from 'variables';
+import { Dimens, FontSizes, Colors } from 'variables';
 
 const STATUS_FULL = 'full';
 const STATUS_CONSULTATION = 'consultation';
@@ -34,9 +34,10 @@ const HoverHistoryRow = styled.div`
   color: ${Colors.black};
   position: relative;
   box-sizing: content-box;
+  cursor: pointer;
 
   :not(:first-child) {
-    margin-top: 8px;
+    margin-top: ${Dimens.small}px;
   }
   :not(:last-child) {
     padding-bottom: 8px;
@@ -46,7 +47,7 @@ const HoverHistoryRow = styled.div`
 const HoverHistoryRowImg = styled.img`
   height: 48px;
   width: 64px;
-  margin-right: 12px;
+  margin-right: ${Dimens.small2}px;
   object-fit: cover;
 `;
 const HoverHistoryRowBody = styled.div`
@@ -55,23 +56,27 @@ const HoverHistoryRowBody = styled.div`
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   width: 212px;
-  padding: 6px 0 0;
+  padding: ${Dimens.xsmall}px 0 0;
   display: -webkit-box;
+  font-weight: bold;
+  ${media.phone`
+    width: 100%;
+  `};
 `;
 
 const HoverHistoryRowLabel = styled.div`
   position: absolute;
   font-size: ${FontSizes.small_12}px;
-  padding: 1.5px 6px;
+  padding: 1.5px ${Dimens.xsmall}px;
   color: ${Colors.white};
   background-color: ${props => (props.bgColor ? props.bgColor : Colors.green)};
   border-radius: 2px;
 `;
 
 export default ({ spaces, onClick }) => (
-  <>
+  <Fragment>
     {spaces.map((space, i) => (
-      <HoverHistoryRow key={i} onClick={() => onClick(space.id)}>
+      <HoverHistoryRow key={i.toString()} onClick={() => onClick(space.id)}>
         <HoverHistoryRowImg
           src={space.images.length ? space.images[0].imageUrl : dummySpaceImage}
         />
@@ -81,5 +86,5 @@ export default ({ spaces, onClick }) => (
         <HoverHistoryRowBody>{space.title}</HoverHistoryRowBody>
       </HoverHistoryRow>
     ))}
-  </>
+  </Fragment>
 );

@@ -18,16 +18,16 @@ import SpaceRows from 'components/LV3/SpaceRows';
 import LoadingPage from 'components/LV3/LoadingPage';
 import dummySpaceImage from 'images/img-dummy-space.png';
 
-const OnlyPC = styled.span`
+const OnlyPcTab = styled.span`
   display: block;
-  ${media.tablet`
+  ${media.phone`
     display: none;
   `};
 `;
 
 const OnlyPhone = styled.span`
   display: none;
-  ${media.tablet`
+  ${media.phone`
     display: block;
   `};
 `;
@@ -137,7 +137,7 @@ class SearchResultHistoryPage extends Component {
               loader={<Loader size="medium" key={0} />}
               initialLoad
             >
-              <OnlyPC>
+              <OnlyPcTab>
                 <SearchResult
                   spaces={spaces.map(s => ({
                     ...s,
@@ -148,7 +148,7 @@ class SearchResultHistoryPage extends Component {
                     onClick: () => this.onClickSpace(s.id),
                   }))}
                 />
-              </OnlyPC>
+              </OnlyPcTab>
               <OnlyPhone>
                 <SpaceRows spaces={spaces} onClick={this.onClickSpace} />
               </OnlyPhone>
