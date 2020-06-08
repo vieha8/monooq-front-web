@@ -5,6 +5,7 @@ import Path from 'config/path';
 import { partialMatch } from 'helpers/string';
 import { getSafeValue } from 'helpers/properties';
 import { authActions } from 'redux/modules/auth';
+import { accessLogSpaceActions } from 'redux/modules/accessLogSpace';
 import HeaderComponent from 'components/LV3/Header/View';
 import LPLink from './LPLink';
 
@@ -19,6 +20,9 @@ class Header extends Component {
   componentDidMount() {
     this._isMounted = true;
     window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
+
+    const { dispatch } = this.props;
+    dispatch(accessLogSpaceActions.fetchLog({ limit: 8, offset: 0 }));
   }
 
   componentWillUnmount() {
@@ -142,8 +146,7 @@ class Header extends Component {
   }
 
   render() {
-    const { schedule } = this.props;
-
+    const { schedule, accessLogSpace } = this.props;
     const { isOverTopView } = this.state;
 
     let isSchedule = false;
@@ -177,6 +180,7 @@ class Header extends Component {
               this.logout();
             },
           }}
+          accessLogSpaces={accessLogSpace.spaces}
         />
         {isLp && (
           <LPLink
@@ -192,6 +196,7 @@ class Header extends Component {
 
 const mapStateToProps = state => ({
   schedule: state.request.schedule,
+  accessLogSpace: state.accessLogSpace,
 });
 
 export default withRouter(connect(mapStateToProps)(Header));
