@@ -8,6 +8,7 @@ import { requestSagas } from 'redux/modules/request';
 import { salesSagas } from 'redux/modules/sales';
 import { initSagas } from 'redux/modules/init';
 import { sectionSagas } from 'redux/modules/section';
+import { accessLogSpaceSagas } from 'redux/modules/accessLogSpace';
 
 export function* rootSaga() {
   yield all([
@@ -19,6 +20,7 @@ export function* rootSaga() {
     ...salesSagas,
     ...initSagas,
     ...sectionSagas,
+    ...accessLogSpaceSagas,
   ]);
 }
 

@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router';
 import Path from 'config/path';
-import { Colors, Dimens, ZIndexes } from 'variables';
+import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import TextLink from 'components/LV1/Texts/TextLink';
 import MenuSP from 'components/LV3/Header/MenuSP';
@@ -9,6 +10,8 @@ import MenuPC from 'components/LV3/Header/MenuPC';
 import Logo from 'components/LV3/Header/Logo';
 import MessagesIcon from 'components/LV3/Header/MessagesIcon';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import SpaceRows from 'components/LV3/SpaceRows';
 import MenuPCVisitor from './MenuPCVisitor';
 
 export const Height = 85;
@@ -150,7 +153,97 @@ const TextWrapper = styled.span`
   }
 `;
 
-const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLogo, stories }) => {
+const HistoryHover = styled(TextWrapper)`
+  position: relative;
+  & + div {
+    display: none;
+  }
+
+  :hover {
+    height: 150px;
+  }
+
+  :hover + div {
+    display: block;
+  }
+`;
+
+const Triangle = styled.div`
+  position: absolute;
+  top: -12px;
+  right: 25px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 16px 10px;
+  border-color: transparent transparent ${Colors.white} transparent;
+`;
+
+const HoverContainer = styled.div`
+  :hover {
+    display: block !important;
+  }
+  border-radius: ${Dimens.xsmall}px;
+  width: 320px;
+  background: white;
+  position: absolute;
+  z-index: ${ZIndexes.headerHover};
+  top: 75px;
+  right: 245px;
+  box-shadow: 0px 0px ${Dimens.xsmall}px rgba(0, 0, 0, 0.1);
+  ${media.desktop`
+    right: 209px;
+  `};
+`;
+
+const HoverHistoryTitle = styled.div`
+  margin: ${Dimens.medium1_28}px 0;
+  font-size: ${FontSizes.medium_18}px;
+  font-weight: bold;
+  color: ${Colors.darkGray1};
+  text-align: center;
+`;
+
+const HoverHistoryRows = styled.div`
+  padding: 0 ${Dimens.medium}px;
+`;
+
+const HoverHistoryAllLink = styled(Link)`
+  display: block;
+  font-weight: 500;
+  font-size: ${FontSizes.small}px;
+  color: ${Colors.lightGray3};
+  text-align: center;
+  margin: ${Dimens.small}px 0;
+  padding: ${Dimens.medium}px 0 ${Dimens.small2}px;
+  &:link {
+    color: ${Colors.lightGray3};
+  }
+  &:visited {
+    color: ${Colors.lightGray3};
+  }
+  &:active {
+    color: ${Colors.lightGray3};
+  }
+`;
+
+const HoverHistoryNoData = styled.div`
+  font-size: ${FontSizes.small}px;
+  color: ${Colors.lightGray3};
+  text-align: center;
+  margin: ${Dimens.medium1}px 0;
+`;
+
+const HeaderView = ({
+  isTop,
+  isLinkRed,
+  isOverTopView,
+  noHeaderButton,
+  noLinkLogo,
+  stories,
+  accessLogSpaces,
+}) => {
+  const history = useHistory();
   const isLogin = useSelector(state => state.auth.isLogin);
 
   if (noHeaderButton) {
@@ -162,6 +255,10 @@ const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLog
       </Wrap>
     );
   }
+
+  const onClickSpace = spaceId => {
+    history.push(Path.space(spaceId));
+  };
 
   return (
     <Wrap stories={stories}>
@@ -192,11 +289,27 @@ const HeaderView = ({ isTop, isLinkRed, isOverTopView, noHeaderButton, noLinkLog
                   </TextLink>
                 </TextWrapper>
                 {isLogin && (
-                  <TextWrapper>
-                    <TextLink to={Path.historyViewSpace()} color={Colors.black}>
-                      閲覧履歴
-                    </TextLink>
-                  </TextWrapper>
+                  <Fragment>
+                    <HistoryHover>
+                      <TextLink to={Path.historyViewSpace()} color={Colors.black}>
+                        閲覧履歴
+                      </TextLink>
+                    </HistoryHover>
+                    <HoverContainer>
+                      <Triangle />
+                      <HoverHistoryTitle>閲覧履歴</HoverHistoryTitle>
+                      <HoverHistoryRows>
+                        <SpaceRows spaces={accessLogSpaces} onClick={onClickSpace} />
+                      </HoverHistoryRows>
+                      {accessLogSpaces && accessLogSpaces.length > 0 ? (
+                        <HoverHistoryAllLink to={Path.historyViewSpace()}>
+                          もっと見る
+                        </HoverHistoryAllLink>
+                      ) : (
+                        <HoverHistoryNoData>閲覧履歴がありません</HoverHistoryNoData>
+                      )}
+                    </HoverContainer>
+                  </Fragment>
                 )}
               </OnlyPC>
               {isLogin ? (

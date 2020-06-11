@@ -7,6 +7,7 @@ export default {
   footer: 1000,
   frontPartsOverFooter: 1100,
   nav: 2000,
+  headerHover: 2100,
   modal: 2500,
   loader: 3500,
   topmost: 9999,

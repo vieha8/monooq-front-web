@@ -585,8 +585,14 @@ function* unsubscribe({ payload: { reason, description } }) {
   const user = yield select(state => state.auth.user);
 
   const token = yield* getToken();
-  const { err } = yield call(deleteApiRequest, apiEndpoint.users(user.id), token);
 
+  const bodyUpdate = {
+    deletedReason: reason,
+    deletedDescription: description,
+  };
+  yield call(putApiRequest, apiEndpoint.users(user.id), bodyUpdate, token);
+
+  const { err } = yield call(deleteApiRequest, apiEndpoint.users(user.id), token);
   if (err) {
     yield handleError(authActions.unsubscribeFailed, '', 'unsubscribe', err, true);
     return;
