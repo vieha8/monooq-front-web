@@ -36,7 +36,7 @@ class TopPage extends React.Component {
   componentDidUpdate(prevProps) {
     const { dispatch } = this.props;
     if (!prevProps.user.id && this.props.user.id) {
-      dispatch(authActions.fetchGuestRequests());
+      dispatch(authActions.fetchHasRequested());
     }
   }
 
@@ -72,7 +72,7 @@ class TopPage extends React.Component {
 
     let isViewModalTop = false;
     let requestParams;
-    if (user && user.isHost !== undefined && !user.isHost && user.requests) {
+    if (user && user.isHost !== undefined && !user.isHost && user.hasRequested !== undefined) {
       if (isAvailableLocalStorage()) {
         if (
           localStorage.getItem('isRequestedTop') &&
@@ -81,8 +81,8 @@ class TopPage extends React.Component {
           // 希望条件送付済
         } else if (localStorage.getItem('request_params')) {
           requestParams = localStorage.getItem('request_params');
-        } else if (user.requests.length) {
-          // 稼働中
+        } else if (user.hasRequested) {
+          // リクエスト済み
         } else {
           isViewModalTop = true;
         }

@@ -48,8 +48,8 @@ const CHECK_LOGIN_FAILED = 'CHECK_LOGIN_FAILED';
 
 const SET_USER = 'SET_USER';
 
-const FETCH_GUEST_REQUESTS = 'FETCH_GUEST_REQUESTS';
-const FETCH_GUEST_REQUESTS_SUCCESS = 'FETCH_GUEST_REQUESTS_SUCCESS';
+const FETCH_HAS_REQUESTED = 'FETCH_HAS_REQUESTED';
+const FETCH_HAS_REQUESTED_SUCCESS = 'FETCH_HAS_REQUESTED_SUCCESS';
 
 export const authActions = createActions(
   LOGIN_EMAIL,
@@ -76,8 +76,8 @@ export const authActions = createActions(
   UNSUBSCRIBE_FAILED,
   CHECK_REDIRECT,
   CHECK_REDIRECT_END,
-  FETCH_GUEST_REQUESTS,
-  FETCH_GUEST_REQUESTS_SUCCESS,
+  FETCH_HAS_REQUESTED,
+  FETCH_HAS_REQUESTED_SUCCESS,
 );
 
 // Reducer
@@ -220,11 +220,11 @@ export const authReducer = handleActions(
       isUnsubscribeSuccess: false,
       isUnsubscribeFailed: true,
     }),
-    [FETCH_GUEST_REQUESTS_SUCCESS]: (state, action) => ({
+    [FETCH_HAS_REQUESTED_SUCCESS]: (state, action) => ({
       ...state,
       user: {
         ...state.user,
-        requests: action.payload,
+        hasRequested: action.payload.hasRequested,
       },
     }),
   },
@@ -618,16 +618,16 @@ function* unsubscribe({ payload: { reason, description } }) {
   yield put(authActions.unsubscribeSuccess());
 }
 
-function* fetchGuestRequests() {
+function* fetchHasRequested() {
   const user = yield select(state => state.auth.user);
   if (!user.id || user.isHost) {
     return;
   }
   const token = yield* getToken();
-  const { data, err } = yield call(getApiRequest, apiEndpoint.requestsByUserId(user.id), {}, token);
+  const { data, err } = yield call(getApiRequest, apiEndpoint.hasRequested(user.id), {}, token);
 
   if (!err && data) {
-    yield put(authActions.fetchGuestRequestsSuccess(data));
+    yield put(authActions.fetchHasRequestedSuccess({ hasRequested: false }));
   }
 }
 
@@ -641,5 +641,5 @@ export const authSagas = [
   takeEvery(CHECK_REDIRECT, checkRedirect),
   takeEvery(PASSWORD_RESET, passwordReset),
   takeEvery(UNSUBSCRIBE, unsubscribe),
-  takeEvery(FETCH_GUEST_REQUESTS, fetchGuestRequests),
+  takeEvery(FETCH_HAS_REQUESTED, fetchHasRequested),
 ];
