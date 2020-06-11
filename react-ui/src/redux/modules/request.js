@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, select, call } from 'redux-saga/effects';
+import { put, takeEvery, take, select, call, all } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import firebase from 'firebase/app';
@@ -825,6 +825,22 @@ function* bosyu({ payload: { body } }) {
     recommendPrefSpaces = data.results;
   }
 
+  let anonymousAccessLogSpaces = [];
+  if (isAvailableLocalStorage) {
+    const key = 'anonymous-access-logs';
+    const json = localStorage.getItem(key);
+    const anonymousAccessLogSpaceIds = json ? JSON.parse(json) : [];
+
+    const results = yield all(
+      anonymousAccessLogSpaceIds.map(id => call(getApiRequest, apiEndpoint.spaces(id), token)),
+    );
+    results.reverse().forEach(({ data, err }) => {
+      if (!err) {
+        anonymousAccessLogSpaces = [...anonymousAccessLogSpaces, data];
+      }
+    });
+  }
+
   yield put(requestActions.bosyuSuccess());
 
   const sortedResult = [...recommendSpaces, ...recommendPrefSpaces];
@@ -841,7 +857,7 @@ function* bosyu({ payload: { body } }) {
   const uniqArray = uniqById(sortedResult);
   const inCity = uniqArray.filter(space => space.addressCity === city);
   const outCity = uniqArray.filter(space => space.addressCity !== city);
-  const results = [...inCity, ...outCity];
+  const results = [...anonymousAccessLogSpaces, ...inCity, ...outCity];
 
   yield put(
     push({
