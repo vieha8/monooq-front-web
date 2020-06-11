@@ -708,11 +708,9 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
 }
 
 function* addSpaceAccessLog({ payload: { spaceId } }) {
-  let user = yield select(state => state.auth.user);
-  if (!user.id) {
-    yield take(authActions.checkLoginSuccess);
-  }
-  user = yield select(state => state.auth.user);
+  yield put(authActions.checkLogin());
+  yield take(authActions.checkLoginFinished);
+  const user = yield select(state => state.auth.user);
 
   if (!user.id) {
     if (isAvailableLocalStorage) {
@@ -723,6 +721,7 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
       anonymousAccessLogQueue.enqueue(parseInt(spaceId, 10));
       localStorage.setItem(key, JSON.stringify(anonymousAccessLogQueue.items));
     }
+
     return;
   }
   const token = yield* getToken();
