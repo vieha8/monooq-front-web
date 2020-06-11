@@ -11,6 +11,7 @@ const PAYTYPE_CREDITCARD = 1;
 const PAYTYPE_ECONTEXT = 4;
 const STATUS_PAY_ESTIMATE = 'estimate';
 const STATUS_PAY_WAITING = 'waiting';
+const STATUS_PAY_WAITING_EXPIRRED = 'waitingExpired';
 const STATUS_PAY_PAID = 'paid';
 
 const Text = styled(InlineText.Base)`
@@ -96,6 +97,7 @@ const getPayInfo = (payType, status, isMonthly) => {
   switch (status) {
     case STATUS_PAY_ESTIMATE:
     case STATUS_PAY_WAITING:
+    case STATUS_PAY_WAITING_EXPIRRED:
       resultStatus = 'お支払い待ち';
       break;
     case STATUS_PAY_PAID:
@@ -167,7 +169,7 @@ const getDescriptionPay = (payType, econtextUrl) => {
 };
 
 const isPaymentLimitOver = (date, status) => {
-  if (status === 'paid') {
+  if (status === 'paid' || status === 'waitingExpired') {
     return false;
   }
 

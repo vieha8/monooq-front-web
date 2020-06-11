@@ -140,7 +140,7 @@ storiesOf('Molecules(LV2)/Message', module)
     withInfo(`
       ### コンポーネント概要
       メッセージ(見積もり)(ゲスト)(支払方法:クレジットカード)(支払ステータス:支払完了)
-      status：estimate、waiting、paid
+      status：estimate、waiting、paid、waitingExpired(期限切れだが例外的に支払い待ちにしている状態)
     `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Estimate
