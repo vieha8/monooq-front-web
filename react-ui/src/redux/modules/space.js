@@ -718,7 +718,7 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
       const json = localStorage.getItem(key);
       const arr = json ? JSON.parse(json) : [];
       const anonymousAccessLogQueue = new Queue(arr);
-      anonymousAccessLogQueue.enqueue(parseInt(spaceId, 10));
+      anonymousAccessLogQueue.uniqEnqueue(parseInt(spaceId, 10));
       localStorage.setItem(key, JSON.stringify(anonymousAccessLogQueue.items));
     }
 
