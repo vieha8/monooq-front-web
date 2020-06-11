@@ -48,6 +48,9 @@ const CHECK_LOGIN_FAILED = 'CHECK_LOGIN_FAILED';
 
 const SET_USER = 'SET_USER';
 
+const FETCH_HAS_REQUESTED = 'FETCH_HAS_REQUESTED';
+const FETCH_HAS_REQUESTED_SUCCESS = 'FETCH_HAS_REQUESTED_SUCCESS';
+
 export const authActions = createActions(
   LOGIN_EMAIL,
   LOGIN_FACEBOOK,
@@ -73,6 +76,8 @@ export const authActions = createActions(
   UNSUBSCRIBE_FAILED,
   CHECK_REDIRECT,
   CHECK_REDIRECT_END,
+  FETCH_HAS_REQUESTED,
+  FETCH_HAS_REQUESTED_SUCCESS,
 );
 
 // Reducer
@@ -214,6 +219,13 @@ export const authReducer = handleActions(
       isUnsubscribeTrying: false,
       isUnsubscribeSuccess: false,
       isUnsubscribeFailed: true,
+    }),
+    [FETCH_HAS_REQUESTED_SUCCESS]: (state, action) => ({
+      ...state,
+      user: {
+        ...state.user,
+        hasRequested: action.payload.hasRequested,
+      },
     }),
   },
   initialState,
@@ -612,6 +624,19 @@ function* unsubscribe({ payload: { reason, description } }) {
   yield put(authActions.unsubscribeSuccess());
 }
 
+function* fetchHasRequested() {
+  const user = yield select(state => state.auth.user);
+  if (!user.id || user.isHost) {
+    return;
+  }
+  const token = yield* getToken();
+  const { data, err } = yield call(getApiRequest, apiEndpoint.hasRequested(user.id), {}, token);
+
+  if (!err && data) {
+    yield put(authActions.fetchHasRequestedSuccess({ hasRequested: data.hasRequested }));
+  }
+}
+
 export const authSagas = [
   takeEvery(CHECK_LOGIN, checkLogin),
   takeEvery(LOGIN_EMAIL, loginEmail),
@@ -622,4 +647,5 @@ export const authSagas = [
   takeEvery(CHECK_REDIRECT, checkRedirect),
   takeEvery(PASSWORD_RESET, passwordReset),
   takeEvery(UNSUBSCRIBE, unsubscribe),
+  takeEvery(FETCH_HAS_REQUESTED, fetchHasRequested),
 ];
