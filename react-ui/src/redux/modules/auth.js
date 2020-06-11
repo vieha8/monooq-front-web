@@ -45,6 +45,7 @@ const UNSUBSCRIBE_FAILED = 'UNSUBSCRIBE_FAILED';
 const CHECK_LOGIN = 'CHECK_LOGIN';
 const CHECK_LOGIN_SUCCESS = 'CHECK_LOGIN_SUCCESS';
 const CHECK_LOGIN_FAILED = 'CHECK_LOGIN_FAILED';
+const CHECK_LOGIN_FINISHED = 'CHECK_LOGIN_FINISHED';
 
 const SET_USER = 'SET_USER';
 
@@ -57,6 +58,7 @@ export const authActions = createActions(
   CHECK_LOGIN,
   CHECK_LOGIN_SUCCESS,
   CHECK_LOGIN_FAILED,
+  CHECK_LOGIN_FINISHED,
   INIT_SIGNUP,
   SIGNUP_EMAIL,
   SIGNUP_FACEBOOK,
@@ -123,11 +125,13 @@ export const authReducer = handleActions(
     [CHECK_LOGIN_SUCCESS]: (state, { payload }) => ({
       ...state,
       ...payload,
-      isChecking: false,
     }),
     [CHECK_LOGIN_FAILED]: (state, { payload }) => ({
       ...state,
       ...payload,
+    }),
+    [CHECK_LOGIN_FINISHED]: state => ({
+      ...state,
       isChecking: false,
     }),
     [INIT_SIGNUP]: state => ({
@@ -353,6 +357,7 @@ function* checkLogin() {
 
       if (err || data.id === 0) {
         yield put(authActions.checkLoginFailed({ error: err }));
+        yield put(authActions.checkLoginFinished());
         yield put(authActions.logout());
         window.location.reload();
         return;
@@ -377,7 +382,9 @@ function* checkLogin() {
       }
     }
     yield put(authActions.checkLoginSuccess(status));
+    yield put(authActions.checkLoginFinished());
   } catch (err) {
+    yield put(authActions.checkLoginFinished());
     yield handleError(authActions.checkLoginFailed, '', 'checkLogin', err, false);
   }
 }
