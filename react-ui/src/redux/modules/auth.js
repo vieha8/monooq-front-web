@@ -627,7 +627,7 @@ function* fetchHasRequested() {
   const { data, err } = yield call(getApiRequest, apiEndpoint.hasRequested(user.id), {}, token);
 
   if (!err && data) {
-    yield put(authActions.fetchHasRequestedSuccess({ hasRequested: false }));
+    yield put(authActions.fetchHasRequestedSuccess({ hasRequested: data.hasRequested }));
   }
 }
 
