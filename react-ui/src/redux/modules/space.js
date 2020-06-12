@@ -16,7 +16,7 @@ import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertSpaceImgUrl } from 'helpers/imgix';
 import { formatAddComma } from 'helpers/string';
-import { Queue } from 'helpers/queue';
+import Queue from 'helpers/queue';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { handleError } from './error';

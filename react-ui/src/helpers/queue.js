@@ -1,4 +1,4 @@
-export class Queue {
+export default class Queue {
   constructor(init) {
     this.array = init.slice(0, 20);
     this.limit = 20;
@@ -6,7 +6,7 @@ export class Queue {
 
   uniqEnqueue(item) {
     if (this.array.includes(item)) {
-      const a = this.array.filter(_item => item != _item);
+      const a = this.array.filter(_item => item !== _item);
       this.array = [...a, item];
       return;
     }

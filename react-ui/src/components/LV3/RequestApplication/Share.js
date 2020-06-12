@@ -4,7 +4,6 @@ import { getToday, generateDateAll } from 'helpers/date';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
 import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
 import { setErrorPhoneNumber, isPhoneNumberWithoutHyphen } from 'helpers/validations/phoneNumber';
-import amplitude from 'amplitude-js/amplitude';
 
 moment.locale('ja');
 
