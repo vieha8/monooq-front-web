@@ -125,15 +125,14 @@ export const authReducer = handleActions(
     [CHECK_LOGIN_SUCCESS]: (state, { payload }) => ({
       ...state,
       ...payload,
+      isChecking: false,
     }),
     [CHECK_LOGIN_FAILED]: (state, { payload }) => ({
       ...state,
       ...payload,
-    }),
-    [CHECK_LOGIN_FINISHED]: state => ({
-      ...state,
       isChecking: false,
     }),
+    [CHECK_LOGIN_FINISHED]: state => state,
     [INIT_SIGNUP]: state => ({
       ...state,
       isSignupFailed: false,
