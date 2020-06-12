@@ -16,9 +16,11 @@ import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertSpaceImgUrl } from 'helpers/imgix';
 import { formatAddComma } from 'helpers/string';
+import Queue from 'helpers/queue';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { handleError } from './error';
+import { isAvailableLocalStorage } from 'helpers/storage';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
@@ -706,12 +708,20 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
 }
 
 function* addSpaceAccessLog({ payload: { spaceId } }) {
-  let user = yield select(state => state.auth.user);
+  yield put(authActions.checkLogin());
+  yield take(authActions.checkLoginFinished);
+  const user = yield select(state => state.auth.user);
+
   if (!user.id) {
-    yield take(authActions.checkLoginSuccess);
-  }
-  user = yield select(state => state.auth.user);
-  if (!user.id) {
+    if (isAvailableLocalStorage) {
+      const key = 'anonymous-access-logs';
+      const json = localStorage.getItem(key);
+      const arr = json ? JSON.parse(json) : [];
+      const anonymousAccessLogQueue = new Queue(arr);
+      anonymousAccessLogQueue.uniqEnqueue(parseInt(spaceId, 10));
+      localStorage.setItem(key, JSON.stringify(anonymousAccessLogQueue.items));
+    }
+
     return;
   }
   const token = yield* getToken();
