@@ -6,7 +6,7 @@ export class Queue {
 
   uniqEnqueue(item) {
     if (this.array.includes(item)) {
-      const a = this.array.filter(_item => item != _item);
+      const a = this.array.filter(_item => item !== _item);
       this.array = [...a, item];
       return;
     }
