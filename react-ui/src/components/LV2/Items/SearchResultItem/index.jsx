@@ -119,9 +119,9 @@ const SpaceResultItem = ({
                 isTag={isTag}
                 src={image}
                 alt={title}
-                height={184}
+                height={130}
                 heightTab={195}
-                heightSp={120}
+                heightSp={130}
                 heightSpTag={110}
               />
               {status && (

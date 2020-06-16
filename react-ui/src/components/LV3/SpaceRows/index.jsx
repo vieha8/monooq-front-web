@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import dummySpaceImage from 'images/img-dummy-space.png';
 import { Dimens, FontSizes, Colors } from 'variables';
+import { convertSpaceImgUrl } from 'helpers/imgix';
+import dummySpaceImage from 'images/img-dummy-space.png';
 
 const STATUS_FULL = 'full';
 const STATUS_CONSULTATION = 'consultation';
@@ -78,7 +79,11 @@ export default ({ spaces, onClick }) => (
     {spaces.map((space, i) => (
       <HoverHistoryRow key={i.toString()} onClick={() => onClick(space.id)}>
         <HoverHistoryRowImg
-          src={space.images.length ? space.images[0].imageUrl : dummySpaceImage}
+          src={
+            space.images.length
+              ? convertSpaceImgUrl(`${space.images[0].imageUrl}`, 'w=128&h=94&fit=crop')
+              : dummySpaceImage
+          }
         />
         <HoverHistoryRowLabel bgColor={getStatus(space.status).color}>
           {getStatus(space.status).text}
