@@ -12,10 +12,27 @@ import Button from 'components/LV1/Forms/Button';
 import InputField from 'components/LV1/Forms/InputField';
 import { PictureIcon } from 'components/LV1/Images/ActionIcon';
 import InlineText from 'components/LV1/Texts/InlineText';
+import TextButton from 'components/LV1/Texts/TextButton';
 import { isTrimmedEmpty } from 'helpers/validations/string';
 
 const Section = styled.div`
   margin-top: ${props => (props.image ? Dimens.medium3_40 : Dimens.medium)}px;
+  ${props =>
+    props.template &&
+    `
+      margin-top: 0;
+      padding: ${Dimens.medium}px 0;
+      overflow-x: auto;
+      white-space: nowrap;
+  `};
+`;
+
+const TextButtonStyled = styled(TextButton)`
+  margin: auto ${Dimens.xsmall}px;
+  padding: ${Dimens.small}px ${Dimens.small_10}px;
+  border-radius: ${Dimens.medium_20}px;
+  background-color: ${Colors.lightGray4}; // #e4e4e4
+  color: ${Colors.black} !important;
 `;
 
 const PickImageText = styled(InlineText.Small)`
@@ -37,7 +54,14 @@ const MessageErr = styled.div`
   color: ${Colors.error};
 `;
 
-const MessegeSendForm = ({ space, hostUser, userIdFrom, userIdTo, isOpenModalError }) => {
+const MessegeSendForm = ({
+  space,
+  hostUser,
+  userIdFrom,
+  userIdTo,
+  isOpenModalError,
+  templateList,
+}) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { message_room_id: messageRoomId } = useParams();
@@ -107,7 +131,16 @@ const MessegeSendForm = ({ space, hostUser, userIdFrom, userIdTo, isOpenModalErr
 
   return (
     <Fragment>
-      <Section image>
+      <Section template={templateList && templateList.length > 0}>
+        {templateList &&
+          templateList.length > 0 &&
+          templateList.map((item, i) => (
+            <TextButtonStyled key={i.toString()} onClick={() => setText(text + item.text)}>
+              {item.title}
+            </TextButtonStyled>
+          ))}
+      </Section>
+      <Section>
         <Dropzone
           accept="image/jpeg, image/png"
           onDropAccepted={data => onPickImage(data[0])}

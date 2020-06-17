@@ -16,6 +16,10 @@ import { getUsages } from 'helpers/usages';
 import { getBreadths } from 'helpers/breadths';
 import MessageSendForm from './SendForm';
 
+const STATUS_PAY_ESTIMATE = 'estimate';
+const STATUS_PAY_WAITING = 'waiting';
+const STATUS_PAY_WAITING_EXPIRRED = 'waitingExpired';
+
 const Row = styled.div`
   width: 66%;
   ${props =>
@@ -56,6 +60,57 @@ const extensionPhotoMessage = message => {
   );
 };
 
+const checkStatusEstimate = (templateList, statusEstimate, hostUser) => {
+  switch (statusEstimate) {
+    case '':
+      // 見積もり発行前
+      if (hostUser) {
+        templateList.push({
+          title: '保管可能の返信',
+          text:
+            'リクエストありがとうございます！当スペースでお荷物保管できます！見積もりを発行するのでご確認ください。',
+        });
+        templateList.push({
+          title: '荷物の量・サイズを確認する',
+          text: 'リクエストありがとうございます！お荷物のサイズを教えていただけますか？',
+        });
+        templateList.push({
+          title: '搬入出手段を確認する',
+          text: 'リクエストありがとうございます！お荷物はどのように配送される予定でしょうか？',
+        });
+        templateList.push({
+          title: '保管不可の返信',
+          text: 'リクエストありがとうございます！すみません。荷物のお預かりが難しいです。',
+        });
+      } else {
+        templateList.push({
+          title: '見積もり発行を依頼する',
+          text:
+            'はじめまして！ぜひ使わせいただきたいと思っています。お見積もりの発行をよろしくお願いします！',
+        });
+        templateList.push({
+          title: 'ホストに質問する',
+          text:
+            'はじめまして！ぜひ使わせていただきたいのですが、いくつかご質問してもよろしいでしょうか？',
+        });
+      }
+      break;
+    case STATUS_PAY_ESTIMATE:
+    case STATUS_PAY_WAITING:
+    case STATUS_PAY_WAITING_EXPIRRED:
+      if (hostUser) {
+        templateList.push({
+          title: 'お見積もりを発行しました',
+          text: 'お見積もりを発行しました！内容をご確認の上、決済をお願いします。',
+        });
+      }
+      break;
+    default:
+      break;
+  }
+  return templateList;
+};
+
 export default ({
   messages,
   lastReadDt,
@@ -69,6 +124,8 @@ export default ({
 }) => {
   const history = useHistory();
   const messageList = messages;
+  const templateList = [];
+  let statusEstimate = '';
 
   if (!messageList) {
     return (
@@ -224,6 +281,7 @@ export default ({
 
         if (message.estimate) {
           // 見積もりメッセージ
+          statusEstimate = message.estimate.status;
           return (
             <Row key={key} admin id={id}>
               <EstimateMessage
@@ -259,6 +317,7 @@ export default ({
         userIdFrom={userIdFrom}
         userIdTo={userIdTo}
         isOpenModalError={isOpenModalError}
+        templateList={checkStatusEstimate(templateList, statusEstimate, hostUser)}
       />
       <Caution hostUser={hostUser} />
     </div>
