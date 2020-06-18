@@ -628,6 +628,12 @@ function* unsubscribe({ payload: { reason, description } }) {
   }
 
   yield put(authActions.unsubscribeSuccess());
+
+  if (isAvailableLocalStorage) {
+    localStorage.removeItem('anonymous-access-logs');
+    localStorage.removeItem('isRequestedTop');
+    localStorage.removeItem('request_params');
+  }
 }
 
 function* fetchHasRequested() {
