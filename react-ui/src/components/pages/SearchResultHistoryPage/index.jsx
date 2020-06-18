@@ -172,4 +172,4 @@ const mapStateToProps = state => ({
   isMore: state.space.isMore,
 });
 
-export default withAuthRequire(connect(mapStateToProps)(SearchResultHistoryPage));
+export default connect(mapStateToProps)(SearchResultHistoryPage);

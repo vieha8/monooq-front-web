@@ -1,7 +1,8 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, call, select } from 'redux-saga/effects';
+import { all, put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { authActions, getToken } from 'redux/modules/auth';
 import { getApiRequest, apiEndpoint } from 'redux/helpers/api';
+import { isAvailableLocalStorage } from 'helpers/storage';
 import { handleError } from './error';
 
 // Actions
@@ -45,12 +46,31 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
     offset,
   };
 
-  let user = yield select(state => state.auth.user);
+  yield put(authActions.checkLogin());
+  yield take(authActions.checkLoginFinished);
+
+  const user = yield select(state => state.auth.user);
   if (!user.id) {
-    yield take(authActions.checkLoginSuccess);
-  }
-  user = yield select(state => state.auth.user);
-  if (!user.id) {
+    let anonymousAccessLogSpaces = [];
+    if (isAvailableLocalStorage) {
+      const key = 'anonymous-access-logs';
+      const json = localStorage.getItem(key);
+      const anonymousAccessLogSpaceIds = json ? JSON.parse(json) : [];
+
+      const results = yield all(
+        anonymousAccessLogSpaceIds.map(id => call(getApiRequest, apiEndpoint.spaces(id), token)),
+      );
+      results.reverse().forEach(({ data, err }) => {
+        if (!err) {
+          anonymousAccessLogSpaces = [...anonymousAccessLogSpaces, data];
+        }
+      });
+    }
+
+    yield put(
+      accessLogSpaceActions.fetchLogSuccess({ spaces: anonymousAccessLogSpaces, isMore: false }),
+    );
+
     return;
   }
 
