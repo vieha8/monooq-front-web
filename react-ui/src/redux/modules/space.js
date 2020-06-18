@@ -675,7 +675,6 @@ function* deleteSpace({ payload: { space } }) {
 }
 
 function* getSpaceAccessLog({ payload: { limit, offset } }) {
-  // HERE
   const params = {
     limit,
     offset,
