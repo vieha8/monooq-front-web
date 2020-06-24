@@ -30,6 +30,7 @@ export const validate = (
   existPhoneNumber,
   phoneNumber,
   notes,
+  isEndDecided,
 ) => {
   const startDateAll = generateDateAll(startDate.year, startDate.month, startDate.day);
   const endDateAll = generateDateAll(endDate.year, endDate.month, endDate.day);

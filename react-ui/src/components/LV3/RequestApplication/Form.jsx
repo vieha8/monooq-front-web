@@ -82,6 +82,8 @@ export default ({
   onChangePhoneNumber,
   notes,
   onChangeNotes,
+  isEndDecided,
+  onChangeIsEndDecided,
 }) => (
   <Fragment>
     <Title isTopBar={isTopBar}>リクエスト内容</Title>
@@ -111,6 +113,10 @@ export default ({
           {getSelectDate(getDate(31, '日'), endDate && endDate.day, onCHangeEndDateDay)}
         </DateSelectWrap>
         <ErrorList keyName="desiredPeriod_errors" errors={errors && errors.desiredPeriod} />
+      </Row>
+      <Row>
+        <input checked={!isEndDecided} onChange={onChangeIsEndDecided} type="checkbox" />
+        終了日未定
       </Row>
       <Row>
         <Select
