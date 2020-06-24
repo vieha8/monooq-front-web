@@ -112,6 +112,9 @@ const RequestApplication = ({
     month: setEndDateMonth,
     day: setEndDateDay,
   });
+  const [isEndDecided, setIsEndDecided] = useState(
+    params && params.isEndDecided !== undefined ? params.isEndDecided : true,
+  );
 
   const handleSignUp = () => {
     dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
@@ -165,6 +168,7 @@ const RequestApplication = ({
         notes,
         startDate,
         endDate,
+        isEndDecided,
       },
     };
 
@@ -357,6 +361,16 @@ const RequestApplication = ({
 
               return handleChangeUI('notes', e.target.value, setNotes, setErrors);
             }}
+            isEndDecided={isEndDecided}
+            onChangeIsEndDecided={e => {
+              ReactGA.event({
+                category: 'リクエスト',
+                action: '終了日未定入力',
+                value: e.target.checked,
+              });
+
+              return handleChangeUI('isEndDecided', !e.target.checked, setIsEndDecided, setErrors);
+            }}
           />
           <SendMessageButton
             loading={loading}
@@ -373,6 +387,7 @@ const RequestApplication = ({
                 existPhoneNumber,
                 phoneNumber,
                 notes,
+                isEndDecided,
               )
             }
             handleModalClose={handleModalClose}
