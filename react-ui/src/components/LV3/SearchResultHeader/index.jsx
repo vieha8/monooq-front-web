@@ -84,6 +84,7 @@ export default ({
   prefectureList,
   searchConditionCurrentList,
   cityTownAreaList,
+  isOverTablet,
 }) => (
   <HeaderWrap>
     <ResultCountWrap>
@@ -96,43 +97,46 @@ export default ({
         </InlineText.Base>
       </H1>
     </ResultCountWrap>
-    <SearchConditionWrap>
-      <SearchConditionLeft>
-        <SearchConditionCurrentList
-          searchConditionCurrentList={searchConditionCurrentList}
-          width={364}
-        />
-      </SearchConditionLeft>
-      <SearchConditionRight>
-        <MoreButtonWrap>
-          <SearchConditionMore
-            btnText="地域を絞り込む"
-            prefecture={prefecture}
-            regionPrefectureList={regionPrefectureList}
+    {isOverTablet ? (
+      <SearchConditionWrap>
+        <SearchConditionLeft>
+          <SearchConditionCurrentList
             searchConditionCurrentList={searchConditionCurrentList}
-            cityTownAreaList={cityTownAreaList}
-            onClickMore={onClickMore}
-            onClickCheckCity={onClickCheckCity}
-            onClickCheckTown={onClickCheckTown}
-            isModalOpenPC={isModalOpenPC}
-            handleModalOpenPC={handleModalOpenPC}
-            handleModalClosePC={handleModalClosePC}
+            width={364}
           />
-        </MoreButtonWrap>
-      </SearchConditionRight>
-    </SearchConditionWrap>
-    <SearchNarrowButton
-      modal
-      text="地域を絞り込む"
-      cityTownAreaList={cityTownAreaList}
-      onClickMore={onClickMore}
-      onClickCheckCity={onClickCheckCity}
-      onClickCheckTown={onClickCheckTown}
-      searchConditionCurrentList={searchConditionCurrentList}
-      prefectureList={prefectureList}
-      isModalOpenSP={isModalOpenSP}
-      handleModalOpenSP={handleModalOpenSP}
-      handleModalCloseSP={handleModalCloseSP}
-    />
+        </SearchConditionLeft>
+        <SearchConditionRight>
+          <MoreButtonWrap>
+            <SearchConditionMore
+              btnText="地域を絞り込む"
+              prefecture={prefecture}
+              regionPrefectureList={regionPrefectureList}
+              searchConditionCurrentList={searchConditionCurrentList}
+              cityTownAreaList={cityTownAreaList}
+              onClickMore={onClickMore}
+              onClickCheckCity={onClickCheckCity}
+              onClickCheckTown={onClickCheckTown}
+              isModalOpenPC={isModalOpenPC}
+              handleModalOpenPC={handleModalOpenPC}
+              handleModalClosePC={handleModalClosePC}
+            />
+          </MoreButtonWrap>
+        </SearchConditionRight>
+      </SearchConditionWrap>
+    ) : (
+      <SearchNarrowButton
+        modal
+        text="地域を絞り込む"
+        cityTownAreaList={cityTownAreaList}
+        onClickMore={onClickMore}
+        onClickCheckCity={onClickCheckCity}
+        onClickCheckTown={onClickCheckTown}
+        searchConditionCurrentList={searchConditionCurrentList}
+        prefectureList={prefectureList}
+        isModalOpenSP={isModalOpenSP}
+        handleModalOpenSP={handleModalOpenSP}
+        handleModalCloseSP={handleModalCloseSP}
+      />
+    )}
   </HeaderWrap>
 );
