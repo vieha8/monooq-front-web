@@ -7,13 +7,13 @@ import TopViewTitle from 'components/LV2/Texts/TopViewTitle';
 import SearchForm from 'components/LV3/Top/SearchForm';
 
 const mainVisual =
-  'https://monooq.imgix.net/img%2Fservice%2Fimg-hero.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-hero.png?alt=media&auto=format&auto=compress';
 const mainVisualSp =
-  'https://monooq.imgix.net/img%2Fservice%2Fimg-hero-sp.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-hero-sp.png?alt=media&auto=format&auto=compress';
 const calloutLeft =
-  'https://monooq.imgix.net/img%2Fservice%2Fcallout-left.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fcallout-left.png?alt=media&auto=format&auto=compress';
 const calloutRight =
-  'https://monooq.imgix.net/img%2Fservice%2Fcallout-right.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fcallout-right.png?alt=media&auto=format&auto=compress';
 
 const Wrap = styled.div`
   width: 100%;

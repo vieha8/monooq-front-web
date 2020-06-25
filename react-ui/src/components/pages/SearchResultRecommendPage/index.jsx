@@ -148,7 +148,7 @@ class SearchResultRecommendPage extends Component {
                 ...s,
                 image:
                   s.images.length !== 0
-                    ? convertSpaceImgUrl(s.images[0].imageUrl, 'w=600')
+                    ? convertSpaceImgUrl(s.images[0].imageUrl, 'w=600&auto=compress')
                     : dummySpaceImage,
                 onClick: () => this.onClickSpace(s.id),
               }))}

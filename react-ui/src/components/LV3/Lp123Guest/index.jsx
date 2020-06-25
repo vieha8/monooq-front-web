@@ -15,7 +15,7 @@ import Flow from './Flow';
 import QaList from './Qa';
 
 const ImageHero =
-  'https://monooq.imgix.net/img%2Fservice%2Flp1guest%2Fhero.jpg?alt=media&token=54970526-c660-48de-b378-f63cc44f4666&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Flp1guest%2Fhero.jpg?alt=media&auto=format&auto=compress';
 
 const Wrap = styled.div`
   min-width: 320px;

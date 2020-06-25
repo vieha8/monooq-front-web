@@ -63,7 +63,7 @@ class MessagePage extends Component {
       switch (message.messageType) {
         case MessageType.Text: {
           const imageUrl = message.image
-            ? convertImgixUrl(message.image, 'fit=crop&auto=format')
+            ? convertImgixUrl(message.image, 'fit=crop&auto=format&auto=compress')
             : '';
 
           if (message.userId === user.id) {
@@ -78,7 +78,7 @@ class MessagePage extends Component {
           return {
             other: {
               id: message.userId,
-              userImage: convertImgixUrl(room.user.imageUrl, 'fit=crop&auto=format'),
+              userImage: convertImgixUrl(room.user.imageUrl, 'fit=crop&auto=format&auto=compress'),
               message: message.text,
               image: imageUrl,
               receivedAt: message.createDt,

@@ -374,7 +374,7 @@ function* checkLogin() {
         return;
       }
 
-      data.imageUrl = convertImgixUrl(data.imageUrl, 'w=128&auto=format');
+      data.imageUrl = convertImgixUrl(data.imageUrl, 'w=128&auto=format&auto=compress');
       status.user = data;
 
       yield call(postApiRequest, apiEndpoint.login(), { UserId: data.id }, token);
@@ -445,7 +445,7 @@ function* signUpEmail({ payload: { email, password } }) {
     const firebaseUid = result.user.uid;
 
     const defaultImage =
-      'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault%2Ficon-profile-default.svg?alt=media&token=442f7e2a-b6bc-4f4f-8019-2794307095e2';
+      'https://monooq.imgix.net/img%2Fusers%2Fdefault%2Ficon-profile-default.svg?alt=media&auto=compress';
 
     let referrer = '';
     let inviteCode = '';
