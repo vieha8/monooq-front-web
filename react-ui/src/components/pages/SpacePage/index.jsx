@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga';
+import { isOverTabletWindow } from 'helpers/style/media-query';
 import { spaceActions } from 'redux/modules/space';
 import { messagesActions } from 'redux/modules/messages';
 import BaseTemplate from 'components/templates/BaseTemplate';
@@ -26,12 +27,16 @@ class SpacePage extends Component {
       isModalOpen: false,
       isModalOpenSP: false,
       isLoadedRoom: false,
+      queue: null,
+      isOverTablet: false,
     };
   }
 
   componentDidMount() {
     this._isMounted = true;
+    this.setState({ isOverTablet: isOverTabletWindow() });
     window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
+    window.addEventListener('resize', () => this.checkResize(), true);
     this.setState({ isModalOpen: false, isModalOpenSP: false });
   }
 
@@ -54,6 +59,7 @@ class SpacePage extends Component {
     dispatch(spaceActions.clearSpace());
     this._isMounted = false;
     window.removeEventListener('scroll', () => this.watchCurrentPosition(), true);
+    window.removeEventListener('resize', () => this.checkResize(), true);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -109,6 +115,15 @@ class SpacePage extends Component {
     dispatch(spaceActions.getRecommendSpaces({ spaceId }));
   };
 
+  checkResize = () => {
+    const { queue } = this.state;
+    clearTimeout(queue);
+    const queueFunction = setTimeout(() => {
+      this.setState({ isOverTablet: isOverTabletWindow() });
+    }, 100);
+    this.setState({ queue: queueFunction });
+  };
+
   makeMetaBreadcrumbs = space => {
     const { addressPref, addressCity, addressTown, prefCode, cityCode, townCode } = space;
 
@@ -155,6 +170,7 @@ class SpacePage extends Component {
       isBottom,
       isModalOpen,
       isModalOpenSP,
+      isOverTablet,
     } = this.state;
 
     const recommend = recommendSpaces
@@ -207,6 +223,7 @@ class SpacePage extends Component {
           handleModalOpenSP={() => this.setState({ isModalOpenSP: true })}
           handleModalCloseSP={() => this.setState({ isModalOpenSP: false })}
           roomId={roomId}
+          isOverTablet={isOverTablet}
         />
       </BaseTemplate>
     );

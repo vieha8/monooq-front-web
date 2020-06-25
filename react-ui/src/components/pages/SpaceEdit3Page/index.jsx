@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
+import { isOverPhoneWindow } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
 import { uiActions } from 'redux/modules/ui';
@@ -50,12 +51,17 @@ class SpaceEdit3Page extends Component {
       priceTatami: space.priceTatami || 0,
       error: {},
       isUpdate: !!props.match.params.space_id,
+      queue: null,
+      isOverPhone: false,
     };
   }
 
   componentDidMount() {
     const { match, dispatch, space } = this.props;
     const { isUpdate, priceFull, priceTatami } = this.state;
+
+    this.setState({ isOverPhone: isOverPhoneWindow() });
+    window.addEventListener('resize', () => this.checkResize(), true);
 
     const spaceId = match.params.space_id;
     if (isUpdate && !space.id) {
@@ -67,6 +73,10 @@ class SpaceEdit3Page extends Component {
     }
     this.handleChangePriceUI('priceFull', priceFull);
     this.handleChangePriceUI('priceTatami', priceTatami);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', () => this.checkResize(), true);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -92,6 +102,15 @@ class SpaceEdit3Page extends Component {
     }
     return null;
   }
+
+  checkResize = () => {
+    const { queue } = this.state;
+    clearTimeout(queue);
+    const queueFunction = setTimeout(() => {
+      this.setState({ isOverPhone: isOverPhoneWindow() });
+    }, 100);
+    this.setState({ queue: queueFunction });
+  };
 
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e) && this.validate()) {
@@ -199,7 +218,7 @@ class SpaceEdit3Page extends Component {
 
   render() {
     const { space, isLoading } = this.props;
-    const { priceFull, priceTatami, error, isUpdate } = this.state;
+    const { priceFull, priceTatami, error, isUpdate, isOverPhone } = this.state;
 
     if (!isUpdate && !space.title) {
       // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
@@ -222,6 +241,7 @@ class SpaceEdit3Page extends Component {
           onClickNext={this.onClickNext}
           onKeyDownButtonNext={this.onKeyDownButtonNext}
           buttonNextDisabled={!this.validate()}
+          isOverPhone={isOverPhone}
         />
       </BaseTemplate>
     );

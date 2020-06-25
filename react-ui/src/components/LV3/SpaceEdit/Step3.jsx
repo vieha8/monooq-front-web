@@ -39,6 +39,7 @@ export default ({
   onClickNext,
   onKeyDownButtonNext,
   buttonNextDisabled,
+  isOverPhone,
 }) => (
   <div>
     <PageHeader optionItem={{ src: ImageStatusEditSpace3, edit }} />
@@ -67,6 +68,7 @@ export default ({
         price={priceTatami}
         onChange={onChangePriceTatami}
         error={<ErrorList keyName="price_errors_2" errors={errors.priceTatami} />}
+        isOverPhone={isOverPhone}
       />
       <InputPriceOfType
         image={imageFurnitureFull}
@@ -76,6 +78,7 @@ export default ({
         price={priceFull}
         onChange={onChangePriceFull}
         error={<ErrorList keyName="price_errors_1" errors={errors.priceFull} />}
+        isOverPhone={isOverPhone}
       />
     </Section>
     <Section marginTop={20}>
