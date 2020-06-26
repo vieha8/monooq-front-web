@@ -38,7 +38,7 @@ const SubDescriptionSmall = styled.span`
 `;
 
 const logoPickGo =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format&h=42';
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-pickgo%402x.png?alt=media&auto=format&auto=compress&h=42';
 
 storiesOf('Organisms(LV3)/ServiceOther', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)

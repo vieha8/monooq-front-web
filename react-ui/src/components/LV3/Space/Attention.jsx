@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LazyLoad from 'react-lazyload';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
@@ -80,8 +81,10 @@ const Attention = () => {
         )}
         <SectionTitleSub text="決済可能なお支払い方法" />
         <Wrap>
-          <ImageLogoPay src={ImageLogoPayCredit} maxWidth={110} credit alt="icon-logo-credit" />
-          <ImageLogoPay src={ImageLogoPayEcontext} maxWidth={240} alt="icon-logo-econtext" />
+          <LazyLoad>
+            <ImageLogoPay src={ImageLogoPayCredit} maxWidth={110} credit alt="icon-logo-credit" />
+            <ImageLogoPay src={ImageLogoPayEcontext} maxWidth={240} alt="icon-logo-econtext" />
+          </LazyLoad>
         </Wrap>
       </Section>
       <Section>

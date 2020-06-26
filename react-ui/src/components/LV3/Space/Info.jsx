@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import LazyLoad from 'react-lazyload';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { getBreadths } from 'helpers/breadths';
@@ -90,10 +91,12 @@ export default ({
         </TagListWrap>
       </Fragment>
     )}
-    <Map
-      address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
-      map={<SpaceMap lat={space.lat} lng={space.lng} />}
-    />
+    <LazyLoad>
+      <Map
+        address={`${space.addressPref}${space.addressCity}${space.addressTown}`}
+        map={<SpaceMap lat={space.lat} lng={space.lng} />}
+      />
+    </LazyLoad>
     <InfoHost {...user} infoHost isTitle replyRate={userMeta ? userMeta.replyRate : null} />
     <Receive
       isDelivery={

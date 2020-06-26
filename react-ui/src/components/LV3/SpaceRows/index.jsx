@@ -81,7 +81,10 @@ export default ({ spaces, onClick }) => (
         <HoverHistoryRowImg
           src={
             space.images.length
-              ? convertSpaceImgUrl(`${space.images[0].imageUrl}`, 'w=128&h=94&fit=crop')
+              ? convertSpaceImgUrl(
+                  `${space.images[0].imageUrl}`,
+                  'w=128&h=94&fit=crop&auto=compress',
+                )
               : dummySpaceImage
           }
         />

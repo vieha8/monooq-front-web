@@ -151,7 +151,7 @@ function* fetchRoomStart() {
     const partnerId = user.id === userId1 ? userId2 : userId1;
     room.user = data.find(u => u.id === partnerId);
     if (room.user) {
-      room.user.imageUrl = convertImgixUrl(room.user.imageUrl, 'w=128&auto=format');
+      room.user.imageUrl = convertImgixUrl(room.user.imageUrl, 'w=128&auto=format&auto=compress');
     }
 
     return room;

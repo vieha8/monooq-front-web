@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import LazyLoad from 'react-lazyload';
 import styled from 'styled-components';
 import { HashLink } from 'react-router-hash-link';
 import { useSelector } from 'react-redux';
@@ -150,35 +151,45 @@ export default ({
         </ResultWrap>
       )}
 
-      <MenuItemTopList
-        list={[
-          {
-            link: Path.about(),
-            bgImage: BgImageAbout,
-            titleSub: '置き場に困った荷物がある方へ',
-            titleMain: 'モノオクをはじめよう',
-          },
-          {
-            link: Path.howtouse(),
-            bgImage: BgImageHowto,
-            type: 'howto',
-            titleSub: '実際にモノオクを使ってみよう',
-            titleMain: 'ご利用の流れ',
-          },
-          {
-            link: 'https://help.monooq.com/',
-            bgImage: BgImageQa,
-            type: 'qa',
-            titleSub: '使い方がわからない人へ',
-            titleMain: 'よくあるご質問',
-            isLinkBlank: true,
-          },
-        ]}
-      />
-      <BizModel />
-      <Want titleWant="こんな荷物ありませんか？" />
-      <Merit />
-      <Flow title="すぐに預けられる！" />
+      <LazyLoad>
+        <MenuItemTopList
+          list={[
+            {
+              link: Path.about(),
+              bgImage: BgImageAbout,
+              titleSub: '置き場に困った荷物がある方へ',
+              titleMain: 'モノオクをはじめよう',
+            },
+            {
+              link: Path.howtouse(),
+              bgImage: BgImageHowto,
+              type: 'howto',
+              titleSub: '実際にモノオクを使ってみよう',
+              titleMain: 'ご利用の流れ',
+            },
+            {
+              link: 'https://help.monooq.com/',
+              bgImage: BgImageQa,
+              type: 'qa',
+              titleSub: '使い方がわからない人へ',
+              titleMain: 'よくあるご質問',
+              isLinkBlank: true,
+            },
+          ]}
+        />
+      </LazyLoad>
+      <LazyLoad>
+        <BizModel />
+      </LazyLoad>
+      <LazyLoad>
+        <Want titleWant="こんな荷物ありませんか？" />
+      </LazyLoad>
+      <LazyLoad>
+        <Merit />
+      </LazyLoad>
+      <LazyLoad>
+        <Flow title="すぐに預けられる！" />
+      </LazyLoad>
       {sections.map((item, i) => (
         // <SpaceList key={i.toString()} spaceList={item.contents} />
         <SpaceList
@@ -188,16 +199,18 @@ export default ({
           spaceList={item.contents}
         />
       ))}
-      <MoreButtonWrap>
-        <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
-          <HashLinkStyled to={`${Path.top()}#topview`}>スペースを探してみよう！</HashLinkStyled>
-        </ButtonStyled>
-        <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
-          <HashLinkStyled to={`${Path.top()}#prefecture-list-last`}>
-            詳しく知りたい方はこちらへ
-          </HashLinkStyled>
-        </ButtonStyled>
-      </MoreButtonWrap>
+      <LazyLoad>
+        <MoreButtonWrap>
+          <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
+            <HashLinkStyled to={`${Path.top()}#topview`}>スペースを探してみよう！</HashLinkStyled>
+          </ButtonStyled>
+          <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
+            <HashLinkStyled to={`${Path.top()}#prefecture-list-last`}>
+              詳しく知りたい方はこちらへ
+            </HashLinkStyled>
+          </ButtonStyled>
+        </MoreButtonWrap>
+      </LazyLoad>
       {isViewModalTop && <ModalTopDesiredCondition params={requestParams} isLoading={isLoading} />}
       {modalPrefName && (
         <ModalNoSpaceRecommend

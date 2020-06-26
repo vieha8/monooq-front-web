@@ -572,7 +572,7 @@ function* prepareUpdateSpace({ payload: spaceId }) {
 
   space.images = space.images.map(image => ({
     ...image,
-    imageUrl: convertSpaceImgUrl(image.imageUrl, 'w=1200&h=800&fit=crop'),
+    imageUrl: convertSpaceImgUrl(image.imageUrl, 'w=1200&h=800&fit=crop&auto=compress'),
   }));
 
   space.priceFull = formatAddComma(space.priceFull);

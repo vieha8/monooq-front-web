@@ -129,7 +129,7 @@ const OnlyPC = styled.span`
   `};
 `;
 
-const OnlyPhone = styled.span`
+const OnlyPhoneTablet = styled.span`
   display: none;
   ${media.tablet`
     display: inline-block;
@@ -238,6 +238,7 @@ const HeaderView = ({
   isTop,
   isLinkRed,
   isOverTopView,
+  isOverTablet,
   noHeaderButton,
   noLinkLogo,
   stories,
@@ -267,76 +268,84 @@ const HeaderView = ({
         {!noHeaderButton && (
           <ActionWrapper>
             <ActionWrap>
-              <OnlyPC>
-                <TextWrapper>
-                  <TextLink to={Path.about()} color={Colors.black}>
-                    モノオクとは？
-                  </TextLink>
-                </TextWrapper>
-                <TextWrapper>
-                  <TextLink to={Path.howtouse()} color={Colors.black}>
-                    利用の流れ
-                  </TextLink>
-                </TextWrapper>
-                <TextWrapper>
-                  <TextLink
-                    href="https://help.monooq.com"
-                    color={Colors.black}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    よくある質問
-                  </TextLink>
-                </TextWrapper>
-                {isLogin && (
-                  <Fragment>
-                    <HistoryHover>
-                      <TextLink to={Path.historyViewSpace()} color={Colors.black}>
-                        閲覧履歴
-                      </TextLink>
-                    </HistoryHover>
-                    <HoverContainer>
-                      <Triangle />
-                      <HoverHistoryTitle>閲覧履歴</HoverHistoryTitle>
-                      <HoverHistoryRows>
-                        <SpaceRows spaces={accessLogSpaces} onClick={onClickSpace} />
-                      </HoverHistoryRows>
-                      {accessLogSpaces && accessLogSpaces.length > 0 ? (
-                        <HoverHistoryAllLink to={Path.historyViewSpace()}>
-                          もっと見る
-                        </HoverHistoryAllLink>
-                      ) : (
-                        <HoverHistoryNoData>閲覧履歴がありません</HoverHistoryNoData>
-                      )}
-                    </HoverContainer>
-                  </Fragment>
-                )}
-              </OnlyPC>
+              {isOverTablet && (
+                <OnlyPC>
+                  <TextWrapper>
+                    <TextLink to={Path.about()} color={Colors.black}>
+                      モノオクとは？
+                    </TextLink>
+                  </TextWrapper>
+                  <TextWrapper>
+                    <TextLink to={Path.howtouse()} color={Colors.black}>
+                      利用の流れ
+                    </TextLink>
+                  </TextWrapper>
+                  <TextWrapper>
+                    <TextLink
+                      href="https://help.monooq.com"
+                      color={Colors.black}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      よくある質問
+                    </TextLink>
+                  </TextWrapper>
+                  {isLogin && (
+                    <Fragment>
+                      <HistoryHover>
+                        <TextLink to={Path.historyViewSpace()} color={Colors.black}>
+                          閲覧履歴
+                        </TextLink>
+                      </HistoryHover>
+                      <HoverContainer>
+                        <Triangle />
+                        <HoverHistoryTitle>閲覧履歴</HoverHistoryTitle>
+                        <HoverHistoryRows>
+                          <SpaceRows spaces={accessLogSpaces} onClick={onClickSpace} />
+                        </HoverHistoryRows>
+                        {accessLogSpaces && accessLogSpaces.length > 0 ? (
+                          <HoverHistoryAllLink to={Path.historyViewSpace()}>
+                            もっと見る
+                          </HoverHistoryAllLink>
+                        ) : (
+                          <HoverHistoryNoData>閲覧履歴がありません</HoverHistoryNoData>
+                        )}
+                      </HoverContainer>
+                    </Fragment>
+                  )}
+                </OnlyPC>
+              )}
               {isLogin ? (
                 <Fragment>
                   <SearchFiledCell>
                     <MessagesIcon />
                   </SearchFiledCell>
-                  <OnlyPhone>
-                    <ActionCell noCursol>
-                      <MenuSP />
-                    </ActionCell>
-                  </OnlyPhone>
-                  <OnlyPC>
-                    <MenuPC />
-                  </OnlyPC>
+                  {isOverTablet ? (
+                    <OnlyPC>
+                      <MenuPC />
+                    </OnlyPC>
+                  ) : (
+                    <OnlyPhoneTablet>
+                      <ActionCell noCursol>
+                        <MenuSP />
+                      </ActionCell>
+                    </OnlyPhoneTablet>
+                  )}
                 </Fragment>
               ) : (
                 <Fragment>
                   <AnonymouseWrapper>
-                    <OnlyPhone>
-                      <ActionCell noCursol>
-                        <MenuSP />
-                      </ActionCell>
-                    </OnlyPhone>
-                    <OnlyPC>
-                      <MenuPCVisitor isTop={isTop} isOverTopView={isOverTopView} />
-                    </OnlyPC>
+                    {isOverTablet ? (
+                      <OnlyPC>
+                        <MenuPCVisitor isTop={isTop} isOverTopView={isOverTopView} />
+                      </OnlyPC>
+                    ) : (
+                      <OnlyPhoneTablet>
+                        <ActionCell noCursol>
+                          <MenuSP />
+                        </ActionCell>
+                      </OnlyPhoneTablet>
+                    )}
                   </AnonymouseWrapper>
                 </Fragment>
               )}
