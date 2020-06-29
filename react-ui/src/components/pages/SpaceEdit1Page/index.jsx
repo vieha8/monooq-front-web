@@ -214,7 +214,7 @@ class SpaceEdit1Page extends Component {
         const imagePath = `/img/spaces/tmp/${rand}${timeStamp}.${ext}`;
         const tmpUrl = convertSpaceImgUrl(
           await uploadImage(imagePath, image),
-          'w=1200&h=800&fit=crop',
+          'w=1200&h=800&fit=crop&auto=compress',
         );
         return { ...image, tmpUrl };
       }),

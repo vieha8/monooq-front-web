@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import LazyLoad from 'react-lazyload';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ReactGA from 'react-ga';
@@ -89,7 +90,9 @@ const getIcon = list => {
             rel="noopener noreferrer"
             onClick={() => getEventGA(item.actionText, item.value)}
           >
-            <ImageLogo src={item.imageSrc} alt={item.imageAlt} />
+            <LazyLoad>
+              <ImageLogo src={item.imageSrc} alt={item.imageAlt} />
+            </LazyLoad>
           </LinkStyled>
         </SnsLi>
       ))}

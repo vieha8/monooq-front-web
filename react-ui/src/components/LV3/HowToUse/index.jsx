@@ -6,13 +6,13 @@ import HowToUseList from 'components/LV2/Lists/HowToUseList';
 import TopView from 'components/LV2/TopView/HowToUse';
 
 const howtouse01 =
-  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_01%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_01%402x.png?alt=media&auto=format&auto=compress';
 const howtouse02 =
-  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_02%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_02%402x.png?alt=media&auto=format&auto=compress';
 const howtouse03 =
-  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_03%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_03%402x.png?alt=media&auto=format&auto=compress';
 const howtouse04 =
-  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_04%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_04%402x.png?alt=media&auto=format&auto=compress';
 
 const Wrap = styled.div`
   width: 100%;

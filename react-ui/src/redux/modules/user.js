@@ -108,7 +108,7 @@ export function* getUser({ payload: { userId } }) {
   }
 
   if (data.imageUrl) {
-    data.imageUrl = convertImgixUrl(data.imageUrl, 'w=128&auto=format');
+    data.imageUrl = convertImgixUrl(data.imageUrl, 'w=128&auto=format&auto=compress');
   }
 
   yield put(userActions.fetchSuccessUser(data));

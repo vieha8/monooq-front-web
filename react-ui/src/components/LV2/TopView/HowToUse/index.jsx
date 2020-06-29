@@ -4,7 +4,7 @@ import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 
 const howtouseEyeCatch =
-  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_eye_catch%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_eye_catch%402x.png?alt=media&auto=format&auto=compress';
 
 const Wrap = styled.div`
   position: relative;

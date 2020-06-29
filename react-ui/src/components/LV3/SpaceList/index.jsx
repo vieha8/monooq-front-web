@@ -62,7 +62,7 @@ export default ({ isTag, caption, captionSub, spaceList }) => (
                 ...space,
                 image:
                   space.images.length !== 0
-                    ? convertSpaceImgUrl(space.images[0].imageUrl, 'w=600')
+                    ? convertSpaceImgUrl(space.images[0].imageUrl, 'w=600&auto=compress')
                     : dummySpaceImage,
               }))}
             />

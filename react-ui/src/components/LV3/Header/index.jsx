@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import Path from 'config/path';
+import { isOverTabletWindow } from 'helpers/style/media-query';
 import { partialMatch } from 'helpers/string';
 import { getSafeValue } from 'helpers/properties';
 import { authActions } from 'redux/modules/auth';
@@ -14,12 +15,16 @@ class Header extends Component {
     super(props);
     this.state = {
       isOverTopView: false,
+      queue: null,
+      isOverTablet: true,
     };
   }
 
   componentDidMount() {
     this._isMounted = true;
+    this.setState({ isOverTablet: isOverTabletWindow() });
     window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
+    window.addEventListener('resize', () => this.checkResize(), true);
 
     const { dispatch } = this.props;
     dispatch(accessLogSpaceActions.fetchLog({ limit: 8, offset: 0 }));
@@ -28,10 +33,21 @@ class Header extends Component {
   componentWillUnmount() {
     this._isMounted = false;
     window.removeEventListener('scroll', () => this.watchCurrentPosition(), true);
+    window.removeEventListener('resize', () => this.checkResize(), true);
+
     if (document && document.body) {
       document.body.style.overflowY = 'auto';
     }
   }
+
+  checkResize = () => {
+    const { queue } = this.state;
+    clearTimeout(queue);
+    const queueFunction = setTimeout(() => {
+      this.setState({ isOverTablet: isOverTabletWindow() });
+    }, 100);
+    this.setState({ queue: queueFunction });
+  };
 
   logout = () => {
     if (document && document.body) {
@@ -147,7 +163,7 @@ class Header extends Component {
 
   render() {
     const { schedule, accessLogSpace } = this.props;
-    const { isOverTopView } = this.state;
+    const { isOverTopView, isOverTablet } = this.state;
 
     let isSchedule = false;
     if (schedule && (schedule.user.length > 0 || schedule.host.length > 0)) {
@@ -170,6 +186,7 @@ class Header extends Component {
         <HeaderComponent
           isTop={isTop}
           isOverTopView={isOverTopView}
+          isOverTablet={isOverTablet}
           isLinkRed={this.isLinkRed()}
           noHeaderButton={noHeaderButton}
           noLinkLogo={noLinkLogo}

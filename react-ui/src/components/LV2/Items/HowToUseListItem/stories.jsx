@@ -9,7 +9,7 @@ import HowToUseListItem from './index';
 HowToUseListItem.displayName = 'HowToUseListItem';
 
 const howtouse01 =
-  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_01%402x.png?alt=media&token=eead5b9f-4edf-4f1b-8005-a961f9af062d&auto=format';
+  'https://monooq.imgix.net/img%2Fservice%2Fhowtouse_01%402x.png?alt=media&auto=format&auto=compress';
 
 storiesOf('Molecules(LV2)/Items/HowToUseListItem', module)
   .addDecorator(story => <MemoryRouter>{story()}</MemoryRouter>)

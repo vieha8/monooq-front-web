@@ -11,8 +11,9 @@ import Image from 'components/LV2/Space/Image';
 import Question from 'components/LV2/Space/Question';
 import RequestApplication from 'components/LV3/RequestApplication';
 import RequestApplicationSP from 'components/LV3/RequestApplication/SP';
-import Info from './Info';
 import ReactGA from 'react-ga';
+import Info from './Info';
+
 const Wrap = styled.div`
   margin: auto;
   padding: 0;
@@ -209,6 +210,7 @@ export default ({
   handleModalOpenSP,
   handleModalCloseSP,
   roomId,
+  isOverTablet,
 }) => (
   <Wrap confirm={confirm}>
     <Image images={images} />
@@ -225,58 +227,61 @@ export default ({
           recommend={recommend}
           breadcrumbsList={makeBreadCrumbs(space)}
           userMeta={space.userMeta}
+          isOverTablet={isOverTablet}
         />
       </LeftWrap>
       <RightWrap>
-        <RightInner
-          isOverTopView={isOverTopView && !isModalOpen}
-          isBottom={isBottom && !isModalOpen}
-          confirm={confirm}
-        >
-          <RequestCard>
-            <UserMeta>
-              <UserMetaTitle>気になるスペースを見つけたら？</UserMetaTitle>
-              <UserMetaTitle>ホストに相談しよう</UserMetaTitle>
-              <UserMetaImageWrap to={Path.profile(user.id)}>
-                <UserMetaImage src={user.imageUrl} />
-              </UserMetaImageWrap>
-              <UserMetaName>{user.name}</UserMetaName>
-              {space.userMeta && space.userMeta.replyRate > 0 ? (
-                <UserMetaRow>
-                  <UserMetaColTitle>返信率</UserMetaColTitle>
-                  <UserMetaColBody>
-                    {`${(space.userMeta.replyRate * 100).toFixed()}%`}
-                  </UserMetaColBody>
-                </UserMetaRow>
-              ) : null}
-              {getDateRelativeLastLogin(user.lastLoginAt).viewText && (
-                <UserMetaRow>
-                  <UserMetaColTitle>最終ログイン</UserMetaColTitle>
-                  <UserMetaColBody>
-                    {getDateRelativeLastLogin(space.user.lastLoginAt).viewText}
-                  </UserMetaColBody>
-                </UserMetaRow>
-              )}
-            </UserMeta>
-            {isModalOpen ? getCaptionMessage() : <Question />}
-            <RequestButtonWrap>
-              <RequestApplication
-                space={space}
-                loginUser={loginUser}
-                isLogin={!!loginUser.id}
-                confirm={confirm}
-                params={getParams()}
-                isModalOpen={isModalOpen}
-                handleModalOpen={handleModalOpen}
-                handleModalClose={handleModalClose}
-                loading={loading}
-                roomId={roomId}
-              />
-            </RequestButtonWrap>
-            {!isModalOpen && getCaptionMessage()}
-          </RequestCard>
-          {!confirm && <SnsShare id={space.id} name={space.title} />}
-        </RightInner>
+        {isOverTablet && (
+          <RightInner
+            isOverTopView={isOverTopView && !isModalOpen}
+            isBottom={isBottom && !isModalOpen}
+            confirm={confirm}
+          >
+            <RequestCard>
+              <UserMeta>
+                <UserMetaTitle>気になるスペースを見つけたら？</UserMetaTitle>
+                <UserMetaTitle>ホストに相談しよう</UserMetaTitle>
+                <UserMetaImageWrap to={Path.profile(user.id)}>
+                  <UserMetaImage src={user.imageUrl} />
+                </UserMetaImageWrap>
+                <UserMetaName>{user.name}</UserMetaName>
+                {space.userMeta && space.userMeta.replyRate > 0 ? (
+                  <UserMetaRow>
+                    <UserMetaColTitle>返信率</UserMetaColTitle>
+                    <UserMetaColBody>
+                      {`${(space.userMeta.replyRate * 100).toFixed()}%`}
+                    </UserMetaColBody>
+                  </UserMetaRow>
+                ) : null}
+                {getDateRelativeLastLogin(user.lastLoginAt).viewText && (
+                  <UserMetaRow>
+                    <UserMetaColTitle>最終ログイン</UserMetaColTitle>
+                    <UserMetaColBody>
+                      {getDateRelativeLastLogin(space.user.lastLoginAt).viewText}
+                    </UserMetaColBody>
+                  </UserMetaRow>
+                )}
+              </UserMeta>
+              {isModalOpen ? getCaptionMessage() : <Question />}
+              <RequestButtonWrap>
+                <RequestApplication
+                  space={space}
+                  loginUser={loginUser}
+                  isLogin={!!loginUser.id}
+                  confirm={confirm}
+                  params={getParams()}
+                  isModalOpen={isModalOpen}
+                  handleModalOpen={handleModalOpen}
+                  handleModalClose={handleModalClose}
+                  loading={loading}
+                  roomId={roomId}
+                />
+              </RequestButtonWrap>
+              {!isModalOpen && getCaptionMessage()}
+            </RequestCard>
+            {!confirm && <SnsShare id={space.id} name={space.title} />}
+          </RightInner>
+        )}
       </RightWrap>
       {!confirm && (
         <RequestApplicationSP

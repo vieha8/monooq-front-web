@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Path from 'config/path';
 import { Dimens } from 'variables';
 import { convertSpaceImgUrl } from 'helpers/imgix';
-import { media } from 'helpers/style/media-query';
+import { media, isOverPhoneWindow } from 'helpers/style/media-query';
 import { spaceActions } from 'redux/modules/space';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import Loading from 'components/LV1/Loading';
@@ -49,10 +49,14 @@ class SearchResultHistoryPage extends Component {
       limit: 8,
       offset: 0,
       isInit: false,
+      queue: null,
+      isOverPhone: false,
     };
   }
 
   componentDidMount() {
+    this.setState({ isOverPhone: isOverPhoneWindow() });
+    window.addEventListener('resize', () => this.checkResize(), true);
     const { dispatch } = this.props;
     dispatch(spaceActions.resetSearch());
   }
@@ -83,6 +87,19 @@ class SearchResultHistoryPage extends Component {
     return true;
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', () => this.checkResize(), true);
+  }
+
+  checkResize = () => {
+    const { queue } = this.state;
+    clearTimeout(queue);
+    const queueFunction = setTimeout(() => {
+      this.setState({ isOverPhone: isOverPhoneWindow() });
+    }, 100);
+    this.setState({ queue: queueFunction });
+  };
+
   // ローディング処理
   loadItems = () => {
     const { dispatch, isLoading } = this.props;
@@ -112,7 +129,7 @@ class SearchResultHistoryPage extends Component {
 
   render() {
     const { isLoading, spaces, isMore } = this.props;
-    const { isInit } = this.state;
+    const { isInit, isOverPhone } = this.state;
 
     if (!isInit || (isLoading && spaces && spaces.length === 0)) {
       return <LoadingPage />;
@@ -136,21 +153,24 @@ class SearchResultHistoryPage extends Component {
               loader={<Loader size="medium" key={0} />}
               initialLoad
             >
-              <OnlyPcTab>
-                <SearchResult
-                  spaces={spaces.map(s => ({
-                    ...s,
-                    image:
-                      s.images.length !== 0
-                        ? convertSpaceImgUrl(s.images[0].imageUrl, 'w=600')
-                        : dummySpaceImage,
-                    onClick: () => this.onClickSpace(s.id),
-                  }))}
-                />
-              </OnlyPcTab>
-              <OnlyPhone>
-                <SpaceRows spaces={spaces} onClick={this.onClickSpace} />
-              </OnlyPhone>
+              {isOverPhone ? (
+                <OnlyPcTab>
+                  <SearchResult
+                    spaces={spaces.map(s => ({
+                      ...s,
+                      image:
+                        s.images.length !== 0
+                          ? convertSpaceImgUrl(s.images[0].imageUrl, 'w=600&auto=compress')
+                          : dummySpaceImage,
+                      onClick: () => this.onClickSpace(s.id),
+                    }))}
+                  />
+                </OnlyPcTab>
+              ) : (
+                <OnlyPhone>
+                  <SpaceRows spaces={spaces} onClick={this.onClickSpace} />
+                </OnlyPhone>
+              )}
             </InfiniteScroll>
           ) : (
             <NoneData
