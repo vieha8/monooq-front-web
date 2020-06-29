@@ -7,7 +7,6 @@ import { Dimens } from 'variables';
 import { convertSpaceImgUrl } from 'helpers/imgix';
 import { media, isOverPhoneWindow } from 'helpers/style/media-query';
 import { spaceActions } from 'redux/modules/space';
-import withAuthRequire from 'components/hooks/withAuthRequire';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import Loading from 'components/LV1/Loading';
 import Meta from 'components/LV1/Meta';
@@ -192,4 +191,4 @@ const mapStateToProps = state => ({
   isMore: state.space.isMore,
 });
 
-export default withAuthRequire(connect(mapStateToProps)(SearchResultHistoryPage));
+export default connect(mapStateToProps)(SearchResultHistoryPage);

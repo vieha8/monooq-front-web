@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, call, select } from 'redux-saga/effects';
+import { all, put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import axios from 'axios';
 import dummySpaceImage from 'images/img-dummy-space.png';
@@ -680,12 +680,32 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
     offset,
   };
 
-  let user = yield select(state => state.auth.user);
+  yield put(authActions.checkLogin());
+  yield take(authActions.checkLoginFinished);
+
+  const user = yield select(state => state.auth.user);
   if (!user.id) {
-    yield take(authActions.checkLoginSuccess);
-  }
-  user = yield select(state => state.auth.user);
-  if (!user.id) {
+    // 未ログイン時の閲覧履歴
+
+    let anonymousAccessLogSpaces = [];
+    if (isAvailableLocalStorage) {
+      const key = 'anonymous-access-logs';
+      const json = localStorage.getItem(key);
+      const anonymousAccessLogSpaceIds = json ? JSON.parse(json) : [];
+
+      const results = yield all(
+        anonymousAccessLogSpaceIds.map(id => call(getApiRequest, apiEndpoint.spaces(id), token)),
+      );
+      results.reverse().forEach(({ data, err }) => {
+        if (!err) {
+          anonymousAccessLogSpaces = [...anonymousAccessLogSpaces, data];
+        }
+      });
+    }
+
+    anonymousAccessLogSpaces.isMore = anonymousAccessLogSpaces.length === limit;
+    yield put(spaceActions.getSuccessSpaceAccessLog(anonymousAccessLogSpaces));
+
     return;
   }
 

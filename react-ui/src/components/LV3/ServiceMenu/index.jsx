@@ -41,6 +41,7 @@ export default ({
     ) : (
       <Fragment>
         <MenuItem title="新規登録・ログイン" header />
+        <MenuItem title="閲覧履歴" {...history} />
         <MenuItem title="新規登録" {...signupUrl} />
         <MenuItem title="ログイン" {...loginUrl} />
       </Fragment>

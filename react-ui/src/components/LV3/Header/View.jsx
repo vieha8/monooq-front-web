@@ -290,29 +290,27 @@ const HeaderView = ({
                       よくある質問
                     </TextLink>
                   </TextWrapper>
-                  {isLogin && (
-                    <Fragment>
-                      <HistoryHover>
-                        <TextLink to={Path.historyViewSpace()} color={Colors.black}>
-                          閲覧履歴
-                        </TextLink>
-                      </HistoryHover>
-                      <HoverContainer>
-                        <Triangle />
-                        <HoverHistoryTitle>閲覧履歴</HoverHistoryTitle>
-                        <HoverHistoryRows>
-                          <SpaceRows spaces={accessLogSpaces} onClick={onClickSpace} />
-                        </HoverHistoryRows>
-                        {accessLogSpaces && accessLogSpaces.length > 0 ? (
-                          <HoverHistoryAllLink to={Path.historyViewSpace()}>
-                            もっと見る
-                          </HoverHistoryAllLink>
-                        ) : (
-                          <HoverHistoryNoData>閲覧履歴がありません</HoverHistoryNoData>
-                        )}
-                      </HoverContainer>
-                    </Fragment>
-                  )}
+                  <Fragment>
+                    <HistoryHover>
+                      <TextLink to={Path.historyViewSpace()} color={Colors.black}>
+                        閲覧履歴
+                      </TextLink>
+                    </HistoryHover>
+                    <HoverContainer>
+                      <Triangle />
+                      <HoverHistoryTitle>閲覧履歴</HoverHistoryTitle>
+                      <HoverHistoryRows>
+                        <SpaceRows spaces={accessLogSpaces} onClick={onClickSpace} />
+                      </HoverHistoryRows>
+                      {accessLogSpaces && accessLogSpaces.length > 0 ? (
+                        <HoverHistoryAllLink to={Path.historyViewSpace()}>
+                          もっと見る
+                        </HoverHistoryAllLink>
+                      ) : (
+                        <HoverHistoryNoData>閲覧履歴がありません</HoverHistoryNoData>
+                      )}
+                    </HoverContainer>
+                  </Fragment>
                 </OnlyPC>
               )}
               {isLogin ? (
