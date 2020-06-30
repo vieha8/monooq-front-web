@@ -7,8 +7,10 @@ import BaseTemplate from 'components/templates/BaseTemplate';
 import Meta from 'components/LV1/Meta';
 import Detail from 'components/LV3/Space/Detail';
 import LoadingPage from 'components/LV3/LoadingPage';
-import dummySpaceImage from 'images/img-dummy-space.png';
 import { connect } from 'react-redux';
+
+const dummySpaceImage =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
 class SpacePage extends Component {
   constructor(props) {

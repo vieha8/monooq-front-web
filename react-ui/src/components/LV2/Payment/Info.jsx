@@ -7,7 +7,9 @@ import { Dimens, Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
-import dummySpaceImage from 'images/img-dummy-space.png';
+
+const dummySpaceImage =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
 moment.locale('ja');
 

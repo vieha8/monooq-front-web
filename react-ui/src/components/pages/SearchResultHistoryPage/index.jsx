@@ -15,7 +15,9 @@ import NoneData from 'components/LV2/NoneData';
 import SearchResult from 'components/LV3/SearchResult';
 import SpaceRows from 'components/LV3/SpaceRows';
 import LoadingPage from 'components/LV3/LoadingPage';
-import dummySpaceImage from 'images/img-dummy-space.png';
+
+const dummySpaceImage =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
 const OnlyPcTab = styled.span`
   display: block;

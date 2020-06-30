@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { convertSpaceImgUrl } from 'helpers/imgix';
-import dummySpaceImage from 'images/img-dummy-space.png';
 import SearchResult from 'components/LV3/SearchResult';
+
+const dummySpaceImage =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
 const Wrapper = styled.div`
   width: 100%;

@@ -2,7 +2,6 @@ import { createActions, handleActions } from 'redux-actions';
 import { all, put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import axios from 'axios';
-import dummySpaceImage from 'images/img-dummy-space.png';
 import { authActions, getToken } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
 import {
@@ -19,8 +18,11 @@ import { formatAddComma } from 'helpers/string';
 import Queue from 'helpers/queue';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
-import { handleError } from './error';
 import { isAvailableLocalStorage } from 'helpers/storage';
+import { handleError } from './error';
+
+const dummySpaceImage =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
