@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
 import { convertSpaceImgUrl } from 'helpers/imgix';
-import dummySpaceImage from 'images/img-dummy-space.png';
+
+const dummySpaceImage =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
 const STATUS_FULL = 'full';
 const STATUS_CONSULTATION = 'consultation';

@@ -10,9 +10,11 @@ import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ImagePickerSpace from 'components/LV2/ImagePickerSpace';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import ImageStatusEditSpace1 from 'images/img-status-edit-space1.svg';
 import { Dimens } from 'variables';
 import { PageHeader, Section } from './Shared';
+
+const ImageStatusEditSpace1 =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-status-edit-space1.svg?auto=compress';
 
 const TagListWrap = styled.div`
   margin: ${Dimens.small}px auto 0;

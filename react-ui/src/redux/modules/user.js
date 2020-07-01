@@ -1,6 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, select, call } from 'redux-saga/effects';
-import dummySpaceImage from 'images/img-dummy-space.png';
 import { convertImgixUrl } from 'helpers/imgix';
 import { push } from 'connected-react-router';
 import Path from 'config/path';
@@ -11,6 +10,9 @@ import { authActions, getToken } from './auth';
 import { getApiRequest, putApiRequest, apiEndpoint } from '../helpers/api';
 import { handleError } from './error';
 import { isAvailableLocalStorage } from '../../helpers/storage';
+
+const dummySpaceImage =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
 // Actions
 const FETCH_USER = 'FETCH_USER';

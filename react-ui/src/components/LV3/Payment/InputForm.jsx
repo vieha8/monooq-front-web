@@ -16,8 +16,11 @@ import { SectionTitleSub } from 'components/LV2/Space/Section';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import ImageLogoPayCredit from 'images/logo-pay-credit.svg';
-import ImageLogoPayEcontext from 'images/logo-pay-econtext.svg';
+
+const ImageLogoPayCredit =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-pay-credit.svg?auto=compress';
+const ImageLogoPayEcontext =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-pay-econtext.svg?auto=compress';
 
 const MAX_PAY_PRICE_CONVENIENT = 49999;
 

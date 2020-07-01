@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Colors, Dimens } from 'variables';
-import MessageIcon from 'images/icon-message.png';
+
+const MessageIcon = 'https://monooq.imgix.net/img%2Fservice%2Ficon-message.svg?auto=compress';
 
 const StyledLink = styled(Link)`
   position: relative;

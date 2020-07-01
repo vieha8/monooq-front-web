@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
-import ImageCheckRed from 'images/icon-check-circle-red.svg';
+
+const ImageCheckRed =
+  'https://monooq.imgix.net/img%2Fservice%2Ficon-check-circle-red.svg?auto=compress';
 
 const Wrap = styled.div`
   padding: ${Dimens.medium_20}px;

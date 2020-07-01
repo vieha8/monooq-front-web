@@ -15,7 +15,9 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import { H1 } from 'components/LV1/Texts/Headline';
 import SearchResult from 'components/LV3/SearchResult';
 import LoadingPage from 'components/LV3/LoadingPage';
-import dummySpaceImage from 'images/img-dummy-space.png';
+
+const dummySpaceImage =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;

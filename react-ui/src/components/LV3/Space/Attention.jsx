@@ -4,9 +4,12 @@ import LazyLoad from 'react-lazyload';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
-import ImageLogoPayCredit from 'images/logo-pay-credit.svg';
-import ImageLogoPayEcontext from 'images/logo-pay-econtext.svg';
 import { SectionTitle, SectionTitleSub } from 'components/LV2/Space/Section';
+
+const ImageLogoPayCredit =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-pay-credit.svg?auto=compress';
+const ImageLogoPayEcontext =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-pay-econtext.svg?auto=compress';
 
 const Wrap = styled.div``;
 

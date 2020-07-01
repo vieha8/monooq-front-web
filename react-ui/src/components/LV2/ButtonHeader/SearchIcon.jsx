@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
-import SearchIcon from 'images/icon-search.png';
+
+const SearchIcon = 'https://monooq.imgix.net/img%2Fservice%2Ficon-search.png?auto=compress';
 
 const StyledLink = styled(Link)`
   display: inline-block;

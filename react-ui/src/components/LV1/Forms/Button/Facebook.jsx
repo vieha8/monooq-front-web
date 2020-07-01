@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { mediaMin } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
-import imageFacebook from 'images/icon-facebook.svg';
 import { PrimaryButton } from './Primary';
+
+const imageFacebook = 'https://monooq.imgix.net/img%2Fservice%2Ficon-facebook.svg?auto=compress';
 
 const Facebook = styled(PrimaryButton)`
   background: ${Colors.facebook};
@@ -14,7 +15,7 @@ const Facebook = styled(PrimaryButton)`
       ? `
       cursor: not-allowed;
       border-color: ${Colors.lightGray1};
-      color: ${Colors.lightGray1};    
+      color: ${Colors.lightGray1};
     `
       : `
       &:active {

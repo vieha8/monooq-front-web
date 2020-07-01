@@ -4,11 +4,15 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import InputPriceOfType from 'components/LV2/Forms/InputPriceOfType';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import imageFurnitureFull from 'images/img-furniture-full.svg';
-import imageFurnitureTatami from 'images/img-furniture-tatami.svg';
-import ImageStatusEditSpace3 from 'images/img-status-edit-space3.svg';
 import { Dimens } from 'variables';
 import { PageHeader, Section } from './Shared';
+
+const ImageStatusEditSpace3 =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-status-edit-space3.svg?auto=compress';
+const imageFurnitureFull =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-furniture-full.svg?auto=compress';
+const imageFurnitureTatami =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-furniture-tatami.svg?auto=compress';
 
 const CommissionWrap = styled.div`
   margin-bottom: ${Dimens.medium1}px;

@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
 import { mediaMin } from 'helpers/style/media-query';
-import IconAreaGray from 'images/icon-area-gray.png';
 import { PrimaryButton } from './Primary';
+
+const IconAreaGray = 'https://monooq.imgix.net/img%2Fservice%2Ficon-area-gray.svg?auto=compress';
 
 const Button = styled(PrimaryButton)`
   position: relative;
