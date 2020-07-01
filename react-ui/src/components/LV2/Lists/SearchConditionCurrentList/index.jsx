@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
 import InlineText from 'components/LV1/Texts/InlineText';
 
-const IconAreaRed = 'https://monooq.imgix.net/img%2Fservice%2Ficon-area-red.svg';
+const IconAreaRed = 'https://monooq.imgix.net/img%2Fservice%2Ficon-area-red.svg?auto=compress';
 
 const Wrap = styled.div`
   width: 100%;
