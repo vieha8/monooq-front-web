@@ -77,7 +77,7 @@ const ResultRow = styled.div`
 `;
 
 export default ({
-  sections,
+  // sections,
   regionId,
   spaces,
   onClickSpace,
@@ -193,7 +193,7 @@ export default ({
       <LazyLoad>
         <Flow title="すぐに預けられる！" />
       </LazyLoad>
-      {sections.map((item, i) => (
+      {/* {sections.map((item, i) => (
         // <SpaceList key={i.toString()} spaceList={item.contents} />
         <SpaceList
           key={i.toString()}
@@ -201,7 +201,7 @@ export default ({
           captionSub="公式がイチオシする高評価スペース"
           spaceList={item.contents}
         />
-      ))}
+      ))} */}
       <LazyLoad>
         <MoreButtonWrap>
           <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>

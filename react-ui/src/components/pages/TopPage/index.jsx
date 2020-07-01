@@ -27,7 +27,7 @@ class TopPage extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(sectionActions.getRegion());
-    dispatch(sectionActions.fetchSections());
+    // dispatch(sectionActions.fetchSections());
 
     // 非ログイン状態ならAction内で検索をやめてくれるのでここで分岐はしない
     dispatch(spaceActions.doSearchMyArea());
@@ -47,7 +47,7 @@ class TopPage extends React.Component {
 
   render() {
     const {
-      sections,
+      // sections,
       regionId,
       isChecking,
       user,
@@ -92,7 +92,7 @@ class TopPage extends React.Component {
     return (
       <Fragment>
         <Top
-          sections={sections}
+          // sections={sections}
           regionId={regionId}
           spaces={spaces}
           onClickSpace
@@ -122,7 +122,7 @@ const mapStateToProps = state => ({
   maxCount: state.space.search.maxCount,
   conditions: state.space.search.conditions,
   spaces: state.space.search.results,
-  sections: state.section.sections,
+  // sections: state.section.sections,
   regionId: state.section.regionId,
   isChecking: state.auth.isChecking,
   user: state.auth.user,
