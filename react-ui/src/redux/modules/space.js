@@ -579,7 +579,6 @@ function* prepareUpdateSpace({ payload: spaceId }) {
 
   space.priceFull = formatAddComma(space.priceFull);
   space.priceHalf = formatAddComma(space.priceHalf);
-  space.priceQuarter = formatAddComma(space.priceQuarter);
 
   yield put(uiActions.setUiState({ space }));
 }

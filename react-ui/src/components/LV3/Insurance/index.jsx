@@ -13,9 +13,12 @@ import WhySafeList from 'components/LV2/Lists/WhySafeList';
 import HowSafeList from 'components/LV2/Lists/HowSafeList';
 import QuestionList from 'components/LV2/Lists/QuestionList';
 
-import insuranceImage1 from 'images/img-send-message.svg';
-import insuranceImage2 from 'images/img-check-packages.svg';
-import insuranceImage3 from 'images/img-hart-with-hand.svg';
+const InsuranceImage1 =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-check-packages.svg?auto=compress';
+const InsuranceImage2 =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-check-packages.svg?auto=compress';
+const InsuranceImage3 =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-hart-with-hand.svg?auto=compress';
 
 const ContentWrap = styled.div`
   ${props =>
@@ -105,19 +108,19 @@ export default () => (
       <HowSafeList
         list={[
           {
-            image: insuranceImage1,
+            image: InsuranceImage1,
             label: 'ゲストが気をつけること',
             text:
               'ホストに利用リクエストをする際は、荷物の内容と量を必ずメッセージに明記しましょう。荷物の写真を撮影してメッセージに添付するとなお良いです。事前に連絡をしていない荷物は預けることができず、補償の対象外となります。',
           },
           {
-            image: insuranceImage2,
+            image: InsuranceImage2,
             label: 'ホストが気をつけること',
             text:
               'ゲストの荷物を受け取ったら荷物を置いたスペースの状態を撮影し、メッセージで写真をゲストに送信しましょう。もしもトラブルが起こった際に、荷物の状態や保管状況を確認する上で必要となります。',
           },
           {
-            image: insuranceImage3,
+            image: InsuranceImage3,
             label: '気持ち良く取引をするには？',
             text:
               'ゲスト/ホストも、荷物の内容や量、状態をこまめに確認・共有し、トラブルが起こらないよう注意しましょう。お互いが気持ち良く利用できるような丁寧なコミュニケーションを。',

@@ -4,7 +4,8 @@ import { media } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
 import Hr from 'components/LV1/HorizontalRule';
 import TownAreaCheckboxList from 'components/LV2/Lists/TownAreaCheckboxList';
-import IconAreaGray from 'images/icon-area-gray.png';
+
+const IconAreaGray = 'https://monooq.imgix.net/img%2Fservice%2Ficon-area-gray.svg?auto=compress';
 
 const Wrap = styled.div`
   padding-bottom: 150px;

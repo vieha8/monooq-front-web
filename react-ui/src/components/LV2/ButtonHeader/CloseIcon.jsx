@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
-import CloseIcon from 'images/icon-close-black.png';
+
+const CloseIcon = 'https://monooq.imgix.net/img%2Fservice%2Ficon-close-black.svg?auto=compress';
 
 const Wrap = styled.div`
   display: inline-block;

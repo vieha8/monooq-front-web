@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { mediaMin } from 'helpers/style/media-query';
 import { Colors } from 'variables';
-import LogoLineSrc from 'images/logo-line-w.png';
 import ReactGA from 'react-ga';
 import { PrimaryButton } from './Primary';
+
+const LogoLineSrc = 'https://monooq.imgix.net/img%2Fservice%2Flogo-line-w.png?auto=compress';
 
 const HyperLink = styled.a``;
 
@@ -17,7 +18,7 @@ const Line = styled(PrimaryButton)`
       ? `
       cursor: not-allowed;
       border-color: ${Colors.lightGray1};
-      color: ${Colors.lightGray1};    
+      color: ${Colors.lightGray1};
     `
       : `
       &:active {

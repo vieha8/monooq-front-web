@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Collapsible from 'react-collapsible';
 import { Dimens, FontSizes, Colors } from 'variables';
-import IconAreaGray from 'images/icon-area-gray.png';
+
+const IconAreaGray = 'https://monooq.imgix.net/img%2Fservice%2Ficon-area-gray.svg?auto=compress';
 
 const Wrap = styled.div``;
 

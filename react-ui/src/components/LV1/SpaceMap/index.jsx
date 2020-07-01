@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { media } from 'helpers/style/media-query';
-import mapMarkerIcon from 'images/img-space-map-marker.svg';
+
+const mapMarkerIcon =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-space-map-marker.svg?auto=compress';
 
 const MapContainer = styled.div`
   height: 360px;
   ${media.tablet`
-    height: 240px;  
+    height: 240px;
   `};
 `;
 

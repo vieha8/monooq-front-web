@@ -23,9 +23,12 @@ import Want from 'components/LV3/Lp123Guest/Want';
 import Merit from 'components/LV3/Lp123Guest/Merit';
 import BizModel from 'components/LV3/Lp123Guest/BizModel';
 import Flow from 'components/LV3/Lp123Guest/Flow';
-import BgImageAbout from 'images/bg-top-menu-sub-about.png';
-import BgImageHowto from 'images/bg-top-menu-sub-howto.png';
-import BgImageQa from 'images/bg-top-menu-sub-qa.png';
+
+const BgImageAbout =
+  'https://monooq.imgix.net/img%2Fservice%2Fbg-top-menu-sub-about.png?auto=compress';
+const BgImageHowto =
+  'https://monooq.imgix.net/img%2Fservice%2Fbg-top-menu-sub-howto.png?auto=compress';
+const BgImageQa = 'https://monooq.imgix.net/img%2Fservice%2Fbg-top-menu-sub-qa.png?auto=compress';
 
 const Wrap = styled.div`
   width: 100%;

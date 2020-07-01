@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import MonoboyImage from 'images/img-monoboy-b.png';
-import logoImage from './logo.svg';
-import logoWhiteImage from './logo-white.svg';
+
+const logoImage = 'https://monooq.imgix.net/img%2Fservice%2Flogo.svg?auto=compress';
+const logoWhiteImage = 'https://monooq.imgix.net/img%2Fservice%2Flogo-white.svg?auto=compress';
+const MonoboyImage = 'https://monooq.imgix.net/img%2Fservice%2Fimg-monoboy-b.png?auto=compress';
 
 const Logo = styled.img`
   width: ${props => props.width}px;

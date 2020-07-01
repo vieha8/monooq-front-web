@@ -5,8 +5,11 @@ import { media } from 'helpers/style/media-query';
 import { Dimens } from 'variables';
 import InputPriceOfType from 'components/LV2/Forms/InputPriceOfType';
 import { SectionTitle } from 'components/LV2/Space/Section';
-import imageFurnitureFull from 'images/img-furniture-full.svg';
-import imageFurnitureTatami from 'images/img-furniture-tatami.svg';
+
+const imageFurnitureFull =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-furniture-full.svg?auto=compress';
+const imageFurnitureTatami =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-furniture-tatami.svg?auto=compress';
 
 const Wrap = styled.div`
   display: flex;

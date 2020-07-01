@@ -4,8 +4,10 @@ import { Dimens, Colors } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { formatAddComma } from 'helpers/string';
 import InlineText from 'components/LV1/Texts/InlineText';
-import iconBrandCredit from 'images/icon-brand-credit.png';
-import iconCp from 'images/logo-cp.png';
+
+const iconBrandCredit =
+  'https://monooq.imgix.net/img%2Fservice%2Ficon-brand-credit.png?auto=compress';
+const iconCp = 'https://monooq.imgix.net/img%2Fservice%2Flogo-cp.png?auto=compress';
 
 const METHOD_PAYMENT_CREDIT = 0;
 

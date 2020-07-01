@@ -5,9 +5,11 @@ import Address from 'components/LV2/Forms/Address';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import ImageStatusEditSpace2 from 'images/img-status-edit-space2.svg';
 import { Dimens, FontSizes } from 'variables';
 import { PageHeader, Section } from './Shared';
+
+const ImageStatusEditSpace2 =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-status-edit-space2.svg?auto=compress';
 
 const TitleName = styled.div`
   max-width: 540px;

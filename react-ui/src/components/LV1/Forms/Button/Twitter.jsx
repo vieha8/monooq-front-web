@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { media, mediaMin } from 'helpers/style/media-query';
 import { Colors, Dimens } from 'variables';
-import imageTwitter from 'images/icon-twitter.svg';
 import { PrimaryButton } from './Primary';
+
+const imageTwitter = 'https://monooq.imgix.net/img%2Fservice%2Ficon-twitter.svg?auto=compress';
 
 const Twitter = styled(PrimaryButton)`
   padding: ${Dimens.small_11}px ${Dimens.small_10}px;
