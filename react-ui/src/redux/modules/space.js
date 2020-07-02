@@ -49,6 +49,7 @@ const GET_GEOCODE = 'GET_GEOCODE';
 const GET_FAILED_GEOCODE = 'GET_FAILED_GEOCODE';
 const GET_SUCCESS_GEOCODE = 'GET_SUCCESS_GEOCODE';
 const RESET_SEARCH = 'RESET_SEARCH';
+const INIT_SEARCH = 'INIT_SEARCH';
 const GET_RECOMMEND_SPACES = 'GET_RECOMMEND_SPACES';
 const GET_RECOMMEND_SPACES_SUCCESS = 'GET_RECOMMEND_SPACES_SUCCESS';
 const GET_RECOMMEND_SPACES_FAILED = 'GET_RECOMMEND_SPACES_FAILED';
@@ -88,6 +89,7 @@ export const spaceActions = createActions(
   SUCCESS_SEARCH,
   FAILED_SEARCH,
   RESET_SEARCH,
+  INIT_SEARCH,
   GET_GEOCODE,
   GET_FAILED_GEOCODE,
   GET_SUCCESS_GEOCODE,
@@ -260,6 +262,13 @@ export const spaceReducer = handleActions(
         isMore: true,
         maxCount: 0,
         cities: [],
+      },
+    }),
+    [INIT_SEARCH]: state => ({
+      ...state,
+      search: {
+        ...state.search,
+        isLoading: false,
       },
     }),
     [GET_GEOCODE]: state => ({
