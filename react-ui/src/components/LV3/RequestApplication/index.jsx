@@ -362,14 +362,14 @@ const RequestApplication = ({
               return handleChangeUI('notes', e.target.value, setNotes, setErrors);
             }}
             isEndDecided={isEndDecided}
-            onChangeIsEndDecided={e => {
+            onChangeIsEndDecided={bool => {
               ReactGA.event({
                 category: 'リクエスト',
                 action: '終了日未定入力',
-                value: e.target.checked,
+                value: bool,
               });
 
-              return handleChangeUI('isEndDecided', !e.target.checked, setIsEndDecided, setErrors);
+              return handleChangeUI('isEndDecided', !bool, setIsEndDecided, setErrors);
             }}
           />
           <SendMessageButton

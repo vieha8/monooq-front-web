@@ -115,8 +115,14 @@ export default ({
         <ErrorList keyName="desiredPeriod_errors" errors={errors && errors.desiredPeriod} />
       </Row>
       <Row>
-        <input checked={!isEndDecided} onChange={onChangeIsEndDecided} type="checkbox" />
-        終了日未定
+        <InputForm
+          checkbox
+          label="終了日未定"
+          checked={!isEndDecided}
+          onClickCheck={(_, e) => {
+            onChangeIsEndDecided(e.checked);
+          }}
+        />
       </Row>
       <Row>
         <Select
