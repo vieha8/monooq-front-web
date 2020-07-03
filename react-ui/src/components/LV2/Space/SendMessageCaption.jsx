@@ -21,7 +21,9 @@ const Unit = styled.div``;
 
 export default ({ priceTatami, priceFull }) => (
   <Wrap>
-    <Price>{`${numeral(priceTatami).format('0,0')}〜${numeral(priceFull).format('0,0')}`}</Price>
+    <Price>{`${numeral(priceTatami).format('0,0')}〜`}</Price>
+    <br />
+    <Price>{`${numeral(priceFull).format('0,0')}`}</Price>
     <InlineText.Base fontSize={FontSizes.small_12} bold>
       &nbsp;円/月
     </InlineText.Base>
