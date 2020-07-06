@@ -46,6 +46,9 @@ class SearchResultPage extends Component {
   }
 
   componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(spaceActions.initSearch());
+
     this.init();
   }
 
