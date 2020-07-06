@@ -39,6 +39,11 @@ const DataSelectTitle = styled.div`
   font-size: ${FontSizes.small_15}px;
   line-height: normal;
   font-weight: bold;
+  ${props =>
+    props.marginBottom &&
+    `
+    margin-bottom: ${Dimens.xsmall}px;
+  `};
 `;
 
 const DateSelectWrap = styled.div`
@@ -115,9 +120,9 @@ export default ({
         <ErrorList keyName="desiredPeriod_errors" errors={errors && errors.desiredPeriod} />
       </Row>
       <Row>
+        <DataSelectTitle marginBottom>終了日未定</DataSelectTitle>
         <InputForm
           checkbox
-          label="終了日未定"
           checked={!isEndDecided}
           onClickCheck={(_, e) => {
             onChangeIsEndDecided(e.checked);
