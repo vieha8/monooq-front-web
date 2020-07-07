@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import Intercom from 'react-intercom';
 import { connect } from 'react-redux';
 import Path from 'config/path';
 import { makeConditionTitle } from 'helpers/search';
@@ -51,7 +50,6 @@ class TopPage extends React.Component {
       regionId,
       isChecking,
       user,
-      intercomHash,
       spaces,
       conditions,
       maxCount,
@@ -64,9 +62,6 @@ class TopPage extends React.Component {
     }
 
     const conditionTitle = conditions ? makeConditionTitle(conditions) : '';
-    const isProd =
-      document.domain === 'monooq.com' ||
-      document.domain === 'monooq-front-web-staging.herokuapp.com';
 
     // const sections = RecommendedSpace;
 
@@ -104,15 +99,6 @@ class TopPage extends React.Component {
           isLoading={isLoading}
           modalPrefName={modalPrefName}
         />
-        {isProd && (
-          <Intercom
-            appID="v0rdx0ap"
-            user_id={user.id}
-            email={user.email}
-            name={user.name}
-            user_hash={intercomHash}
-          />
-        )}
       </Fragment>
     );
   }
@@ -126,7 +112,6 @@ const mapStateToProps = state => ({
   regionId: state.section.regionId,
   isChecking: state.auth.isChecking,
   user: state.auth.user,
-  intercomHash: state.auth.intercom.hash,
   isLoading: state.request.isLoading,
   modalPrefName: state.request.prefName,
 });

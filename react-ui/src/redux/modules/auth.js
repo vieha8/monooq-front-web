@@ -95,7 +95,6 @@ const initialState = {
   user: {},
   error: '',
   token: null,
-  intercom: { hash: '' },
 };
 export const authReducer = handleActions(
   {
@@ -380,9 +379,6 @@ function* checkLogin() {
       yield call(postApiRequest, apiEndpoint.login(), { UserId: data.id }, token);
       ReactGA.set({ userId: data.id });
       setSentryConfig(data);
-
-      const { data: intercom } = yield call(getApiRequest, apiEndpoint.intercom(data.id), {}, '');
-      status.intercom = { hash: intercom.hash };
 
       if (isAvailableLocalStorage()) {
         const redirectPath = localStorage.getItem('redirectPath');
