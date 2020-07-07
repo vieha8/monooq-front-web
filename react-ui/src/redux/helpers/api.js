@@ -30,7 +30,6 @@ export const apiEndpoint = {
   areaCities: prefCode => `spaces/area/p${prefCode}`,
   areaTowns: cityCode => `spaces/area/c${cityCode}`,
   areaSearch: prefCode => `spaces/area/p${prefCode}/all`,
-  intercom: userId => `intercom/hash/${userId}`,
   bosyu: hash => `/requests/wish/${hash}`,
   hasRequested: id => `/users/${id}/has_requested`,
 };
