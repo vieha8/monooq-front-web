@@ -240,7 +240,7 @@
   width: 25px;
   height: 25px;
   border: unset;
-  background-image: url('../images/icon-arrow-circle.png');
+  background-image: url('https://monooq.imgix.net/img%2Fservice%2Ficon-arrow-circle.svg?auto=compress');
   background-size: cover;
   background-repeat: no-repeat;
   transform: rotate(0deg);
@@ -296,7 +296,7 @@
 }
 .ui.checkbox input:checked ~ label:after {
   content: '';
-  background-image: url('../images/icon-check.svg') !important;
+  background-image: url('https://monooq.imgix.net/img%2Fservice%2Ficon-check.svg?auto=compress') !important;
   background-size: 76% !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
@@ -378,7 +378,7 @@ React Slick
   left: calc(-50% + 30px);
   width: 60px;
   height: 60px;
-  background-image: url('../images/icon-arrow-circle-big.svg');
+  background-image: url('https://monooq.imgix.net/img%2Fservice%2Ficon-arrow-circle-big.svg?auto=compress');
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -414,7 +414,7 @@ React Slick
   left: calc(-50% + 15px);
   width: 30px;
   height: 30px;
-  background-image: url('../images/icon-arrow-circle-big.svg');
+  background-image: url('https://monooq.imgix.net/img%2Fservice%2Ficon-arrow-circle-big.svg?auto=compress');
   background-size: cover;
   background-repeat: no-repeat;
 }

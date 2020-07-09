@@ -10,6 +10,7 @@ import { salesReducer } from 'redux/modules/sales';
 import { errorReducer } from 'redux/modules/error';
 import { initReducer } from 'redux/modules/init';
 import { sectionReducer } from 'redux/modules/section';
+import { accessLogSpaceReducer } from 'redux/modules/accessLogSpace';
 
 const createReducers = history =>
   combineReducers({
@@ -24,6 +25,7 @@ const createReducers = history =>
     error: errorReducer,
     init: initReducer,
     section: sectionReducer,
+    accessLogSpace: accessLogSpaceReducer,
   });
 
 export default createReducers;

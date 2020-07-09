@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import LazyLoad from 'react-lazyload';
 import styled from 'styled-components';
 import { HashLink } from 'react-router-hash-link';
 import { useSelector } from 'react-redux';
@@ -22,9 +23,12 @@ import Want from 'components/LV3/Lp123Guest/Want';
 import Merit from 'components/LV3/Lp123Guest/Merit';
 import BizModel from 'components/LV3/Lp123Guest/BizModel';
 import Flow from 'components/LV3/Lp123Guest/Flow';
-import BgImageAbout from 'images/bg-top-menu-sub-about.png';
-import BgImageHowto from 'images/bg-top-menu-sub-howto.png';
-import BgImageQa from 'images/bg-top-menu-sub-qa.png';
+
+const BgImageAbout =
+  'https://monooq.imgix.net/img%2Fservice%2Fbg-top-menu-sub-about.png?auto=compress';
+const BgImageHowto =
+  'https://monooq.imgix.net/img%2Fservice%2Fbg-top-menu-sub-howto.png?auto=compress';
+const BgImageQa = 'https://monooq.imgix.net/img%2Fservice%2Fbg-top-menu-sub-qa.png?auto=compress';
 
 const Wrap = styled.div`
   width: 100%;
@@ -73,7 +77,7 @@ const ResultRow = styled.div`
 `;
 
 export default ({
-  sections,
+  // sections,
   regionId,
   spaces,
   onClickSpace,
@@ -150,36 +154,46 @@ export default ({
         </ResultWrap>
       )}
 
-      <MenuItemTopList
-        list={[
-          {
-            link: Path.about(),
-            bgImage: BgImageAbout,
-            titleSub: '置き場に困った荷物がある方へ',
-            titleMain: 'モノオクをはじめよう',
-          },
-          {
-            link: Path.howtouse(),
-            bgImage: BgImageHowto,
-            type: 'howto',
-            titleSub: '実際にモノオクを使ってみよう',
-            titleMain: 'ご利用の流れ',
-          },
-          {
-            link: 'https://help.monooq.com/',
-            bgImage: BgImageQa,
-            type: 'qa',
-            titleSub: '使い方がわからない人へ',
-            titleMain: 'よくあるご質問',
-            isLinkBlank: true,
-          },
-        ]}
-      />
-      <BizModel />
-      <Want titleWant="こんな荷物ありませんか？" />
-      <Merit />
-      <Flow title="すぐに預けられる！" />
-      {sections.map((item, i) => (
+      <LazyLoad>
+        <MenuItemTopList
+          list={[
+            {
+              link: Path.about(),
+              bgImage: BgImageAbout,
+              titleSub: '置き場に困った荷物がある方へ',
+              titleMain: 'モノオクをはじめよう',
+            },
+            {
+              link: Path.howtouse(),
+              bgImage: BgImageHowto,
+              type: 'howto',
+              titleSub: '実際にモノオクを使ってみよう',
+              titleMain: 'ご利用の流れ',
+            },
+            {
+              link: 'https://help.monooq.com/',
+              bgImage: BgImageQa,
+              type: 'qa',
+              titleSub: '使い方がわからない人へ',
+              titleMain: 'よくあるご質問',
+              isLinkBlank: true,
+            },
+          ]}
+        />
+      </LazyLoad>
+      <LazyLoad>
+        <BizModel />
+      </LazyLoad>
+      <LazyLoad>
+        <Want titleWant="こんな荷物ありませんか？" />
+      </LazyLoad>
+      <LazyLoad>
+        <Merit />
+      </LazyLoad>
+      <LazyLoad>
+        <Flow title="すぐに預けられる！" />
+      </LazyLoad>
+      {/* {sections.map((item, i) => (
         // <SpaceList key={i.toString()} spaceList={item.contents} />
         <SpaceList
           key={i.toString()}
@@ -187,17 +201,19 @@ export default ({
           captionSub="公式がイチオシする高評価スペース"
           spaceList={item.contents}
         />
-      ))}
-      <MoreButtonWrap>
-        <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
-          <HashLinkStyled to={`${Path.top()}#topview`}>スペースを探してみよう！</HashLinkStyled>
-        </ButtonStyled>
-        <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
-          <HashLinkStyled to={`${Path.top()}#prefecture-list-last`}>
-            詳しく知りたい方はこちらへ
-          </HashLinkStyled>
-        </ButtonStyled>
-      </MoreButtonWrap>
+      ))} */}
+      <LazyLoad>
+        <MoreButtonWrap>
+          <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
+            <HashLinkStyled to={`${Path.top()}#topview`}>スペースを探してみよう！</HashLinkStyled>
+          </ButtonStyled>
+          <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
+            <HashLinkStyled to={`${Path.top()}#prefecture-list-last`}>
+              詳しく知りたい方はこちらへ
+            </HashLinkStyled>
+          </ButtonStyled>
+        </MoreButtonWrap>
+      </LazyLoad>
       {isViewModalTop && <ModalTopDesiredCondition params={requestParams} isLoading={isLoading} />}
       {modalPrefName && (
         <ModalNoSpaceRecommend

@@ -6,7 +6,7 @@ import CatchPhrase from 'components/LV1/Texts/CatchPhrase';
 import CatchPhraseSub from 'components/LV1/Texts/CatchPhraseSub';
 
 const calloutRightNoLogin =
-  'https://monooq.imgix.net/img%2Fservice%2Fimg-service-right-nologin.png?alt=media&token=eaa45387-efcc-403e-a6ad-3e4357b0f3da';
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-service-right-nologin.png?alt=media&auto=compress';
 
 const Wrap = styled.div`
   ${props =>

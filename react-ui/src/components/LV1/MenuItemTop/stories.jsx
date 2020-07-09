@@ -4,11 +4,13 @@ import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
 
-import BgImageAbout from 'images/bg-top-menu-sub-about.png';
-import BgImageHowto from 'images/bg-top-menu-sub-howto.png';
-import BgImageQa from 'images/bg-top-menu-sub-qa.png';
-
 import MenuItemTop from './index';
+
+const BgImageAbout =
+  'https://monooq.imgix.net/img%2Fservice%2Fbg-top-menu-sub-about.png?auto=compress';
+const BgImageHowto =
+  'https://monooq.imgix.net/img%2Fservice%2Fbg-top-menu-sub-howto.png?auto=compress';
+const BgImageQa = 'https://monooq.imgix.net/img%2Fservice%2Fbg-top-menu-sub-qa.png?auto=compress';
 
 MenuItemTop.displayName = 'MenuItemTop';
 

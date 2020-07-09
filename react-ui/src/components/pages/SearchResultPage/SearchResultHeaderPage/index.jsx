@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Path from 'config/path';
 import { Colors } from 'variables';
+import { isOverTabletWindow } from 'helpers/style/media-query';
 import { areaPrefectures } from 'helpers/prefectures';
 import { parse, stringify } from 'helpers/query-string';
 import { makeConditionTitle } from 'helpers/search';
@@ -25,11 +26,16 @@ class SearchResultHeaderPage extends Component {
       prefectureList: [],
       isModalOpenPC: false,
       isModalOpenSP: false,
+      queue: null,
+      isOverTablet: false,
     };
   }
 
   componentDidMount() {
     const { conditions, cities, area } = this.props;
+
+    this.setState({ isOverTablet: isOverTabletWindow() });
+    window.addEventListener('resize', () => this.checkResize(), true);
 
     const cityAndTowns = cities.map(v => {
       const isCheckedCity = this.isDefaultCheckCity(v, conditions);
@@ -97,6 +103,19 @@ class SearchResultHeaderPage extends Component {
       prefectureList,
     });
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', () => this.checkResize(), true);
+  }
+
+  checkResize = () => {
+    const { queue } = this.state;
+    clearTimeout(queue);
+    const queueFunction = setTimeout(() => {
+      this.setState({ isOverTablet: isOverTabletWindow() });
+    }, 100);
+    this.setState({ queue: queueFunction });
+  };
 
   makeSortPath = sort => {
     const { location } = this.props;
@@ -304,6 +323,7 @@ class SearchResultHeaderPage extends Component {
       prefectureList,
       isModalOpenPC,
       isModalOpenSP,
+      isOverTablet,
     } = this.state;
 
     const conditionTitle = makeConditionTitle(conditions);
@@ -332,6 +352,7 @@ class SearchResultHeaderPage extends Component {
           prefectureList={prefectureList}
           cityTownAreaList={cityAndTowns}
           searchConditionCurrentList={searchConditionCurrentList}
+          isOverTablet={isOverTablet}
         />
         {areaAroundList && areaAroundList.length > 0 && (
           <AreaAroundList areaAroundList={areaAroundList} />

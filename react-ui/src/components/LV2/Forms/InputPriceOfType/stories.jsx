@@ -2,12 +2,13 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
-import imageFurnitureFull from 'images/img-furniture-full.svg';
-import imageFurnitureHalf from 'images/img-furniture-half.svg';
-import imageFurnitureQuarter from 'images/img-furniture-quarter.svg';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-
 import InputPriceOfType from './index';
+
+const imageFurnitureFull =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-furniture-full.svg?auto=compress';
+const imageFurnitureTatami =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-furniture-tatami.svg?auto=compress';
 
 InputPriceOfType.displayName = 'InputPriceOfType';
 
@@ -29,23 +30,13 @@ storiesOf('Molecules(LV2)/Forms/InputPriceOfType', module).add(
       />
       <br />
       <InputPriceOfType
-        image={imageFurnitureHalf}
+        image={imageFurnitureTatami}
         title="スペース半分"
         caption="あなたのスペースの「半分」を使用する荷物の場合の料金"
         placeholder="4000"
         price="4000"
         onChange=""
         error={<ErrorList keyName="price_errors_2" errors={['error1', 'error2', 'error3']} />}
-      />
-      <br />
-      <InputPriceOfType
-        image={imageFurnitureQuarter}
-        title="スペース1/4"
-        caption="あなたのスペースの「4分の1」を使用する荷物の場合の料金"
-        placeholder="5000"
-        price="5000"
-        onChange=""
-        error={<ErrorList keyName="price_errors_3" errors={['error1', 'error2', 'error3']} />}
       />
     </div>
   )),

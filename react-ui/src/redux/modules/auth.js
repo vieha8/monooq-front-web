@@ -45,8 +45,12 @@ const UNSUBSCRIBE_FAILED = 'UNSUBSCRIBE_FAILED';
 const CHECK_LOGIN = 'CHECK_LOGIN';
 const CHECK_LOGIN_SUCCESS = 'CHECK_LOGIN_SUCCESS';
 const CHECK_LOGIN_FAILED = 'CHECK_LOGIN_FAILED';
+const CHECK_LOGIN_FINISHED = 'CHECK_LOGIN_FINISHED';
 
 const SET_USER = 'SET_USER';
+
+const FETCH_HAS_REQUESTED = 'FETCH_HAS_REQUESTED';
+const FETCH_HAS_REQUESTED_SUCCESS = 'FETCH_HAS_REQUESTED_SUCCESS';
 
 export const authActions = createActions(
   LOGIN_EMAIL,
@@ -57,6 +61,7 @@ export const authActions = createActions(
   CHECK_LOGIN,
   CHECK_LOGIN_SUCCESS,
   CHECK_LOGIN_FAILED,
+  CHECK_LOGIN_FINISHED,
   INIT_SIGNUP,
   SIGNUP_EMAIL,
   SIGNUP_FACEBOOK,
@@ -73,6 +78,8 @@ export const authActions = createActions(
   UNSUBSCRIBE_FAILED,
   CHECK_REDIRECT,
   CHECK_REDIRECT_END,
+  FETCH_HAS_REQUESTED,
+  FETCH_HAS_REQUESTED_SUCCESS,
 );
 
 // Reducer
@@ -88,7 +95,6 @@ const initialState = {
   user: {},
   error: '',
   token: null,
-  intercom: { hash: '' },
 };
 export const authReducer = handleActions(
   {
@@ -130,6 +136,7 @@ export const authReducer = handleActions(
       ...payload,
       isChecking: false,
     }),
+    [CHECK_LOGIN_FINISHED]: state => state,
     [INIT_SIGNUP]: state => ({
       ...state,
       isSignupFailed: false,
@@ -214,6 +221,13 @@ export const authReducer = handleActions(
       isUnsubscribeTrying: false,
       isUnsubscribeSuccess: false,
       isUnsubscribeFailed: true,
+    }),
+    [FETCH_HAS_REQUESTED_SUCCESS]: (state, action) => ({
+      ...state,
+      user: {
+        ...state.user,
+        hasRequested: action.payload.hasRequested,
+      },
     }),
   },
   initialState,
@@ -353,20 +367,18 @@ function* checkLogin() {
 
       if (err || data.id === 0) {
         yield put(authActions.checkLoginFailed({ error: err }));
+        yield put(authActions.checkLoginFinished());
         yield put(authActions.logout());
         window.location.reload();
         return;
       }
 
-      data.imageUrl = convertImgixUrl(data.imageUrl, 'w=128&auto=format');
+      data.imageUrl = convertImgixUrl(data.imageUrl, 'w=128&auto=format&auto=compress');
       status.user = data;
 
       yield call(postApiRequest, apiEndpoint.login(), { UserId: data.id }, token);
       ReactGA.set({ userId: data.id });
       setSentryConfig(data);
-
-      const { data: intercom } = yield call(getApiRequest, apiEndpoint.intercom(data.id), {}, '');
-      status.intercom = { hash: intercom.hash };
 
       if (isAvailableLocalStorage()) {
         const redirectPath = localStorage.getItem('redirectPath');
@@ -377,7 +389,9 @@ function* checkLogin() {
       }
     }
     yield put(authActions.checkLoginSuccess(status));
+    yield put(authActions.checkLoginFinished());
   } catch (err) {
+    yield put(authActions.checkLoginFinished());
     yield handleError(authActions.checkLoginFailed, '', 'checkLogin', err, false);
   }
 }
@@ -427,7 +441,7 @@ function* signUpEmail({ payload: { email, password } }) {
     const firebaseUid = result.user.uid;
 
     const defaultImage =
-      'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fusers%2Fdefault%2Ficon-profile-default.svg?alt=media&token=442f7e2a-b6bc-4f4f-8019-2794307095e2';
+      'https://monooq.imgix.net/img%2Fusers%2Fdefault%2Ficon-profile-default.svg?alt=media&auto=compress';
 
     let referrer = '';
     let inviteCode = '';
@@ -585,8 +599,14 @@ function* unsubscribe({ payload: { reason, description } }) {
   const user = yield select(state => state.auth.user);
 
   const token = yield* getToken();
-  const { err } = yield call(deleteApiRequest, apiEndpoint.users(user.id), token);
 
+  const bodyUpdate = {
+    deletedReason: reason,
+    deletedDescription: description,
+  };
+  yield call(putApiRequest, apiEndpoint.users(user.id), bodyUpdate, token);
+
+  const { err } = yield call(deleteApiRequest, apiEndpoint.users(user.id), token);
   if (err) {
     yield handleError(authActions.unsubscribeFailed, '', 'unsubscribe', err, true);
     return;
@@ -604,6 +624,25 @@ function* unsubscribe({ payload: { reason, description } }) {
   }
 
   yield put(authActions.unsubscribeSuccess());
+
+  if (isAvailableLocalStorage) {
+    localStorage.removeItem('anonymous-access-logs');
+    localStorage.removeItem('isRequestedTop');
+    localStorage.removeItem('request_params');
+  }
+}
+
+function* fetchHasRequested() {
+  const user = yield select(state => state.auth.user);
+  if (!user.id || user.isHost) {
+    return;
+  }
+  const token = yield* getToken();
+  const { data, err } = yield call(getApiRequest, apiEndpoint.hasRequested(user.id), {}, token);
+
+  if (!err && data) {
+    yield put(authActions.fetchHasRequestedSuccess({ hasRequested: data.hasRequested }));
+  }
 }
 
 export const authSagas = [
@@ -616,4 +655,5 @@ export const authSagas = [
   takeEvery(CHECK_REDIRECT, checkRedirect),
   takeEvery(PASSWORD_RESET, passwordReset),
   takeEvery(UNSUBSCRIBE, unsubscribe),
+  takeEvery(FETCH_HAS_REQUESTED, fetchHasRequested),
 ];

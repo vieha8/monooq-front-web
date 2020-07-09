@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
+import { isOverPhoneWindow } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
 import { uiActions } from 'redux/modules/ui';
@@ -46,11 +47,12 @@ class SpaceEdit3Page extends Component {
       calculated = calcPriceFull(space.priceTatami, space.tatami);
     }
     this.state = {
-      isPriceTatami: space.sizeType === 1 || space.sizeType === 2 || space.sizeType === 3,
       priceFull: calculated || space.priceFull || 0,
       priceTatami: space.priceTatami || 0,
       error: {},
       isUpdate: !!props.match.params.space_id,
+      queue: null,
+      isOverPhone: false,
     };
   }
 
@@ -58,30 +60,29 @@ class SpaceEdit3Page extends Component {
     const { match, dispatch, space } = this.props;
     const { isUpdate, priceFull, priceTatami } = this.state;
 
+    this.setState({ isOverPhone: isOverPhoneWindow() });
+    window.addEventListener('resize', () => this.checkResize(), true);
+
     const spaceId = match.params.space_id;
     if (isUpdate && !space.id) {
       dispatch(spaceActions.prepareUpdateSpace(spaceId));
     }
 
-    const { sizeType } = space;
-    const isPriceTatami = sizeType === 1 || sizeType === 2 || sizeType === 3;
-
     if (space.address) {
       dispatch(spaceActions.getGeocode({ address: space.address }));
     }
     this.handleChangePriceUI('priceFull', priceFull);
-    if (isPriceTatami) {
-      this.handleChangePriceUI('priceTatami', priceTatami);
-    }
-    this.setState({ isPriceTatami });
+    this.handleChangePriceUI('priceTatami', priceTatami);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', () => this.checkResize(), true);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { space } = nextProps;
     if (space.id && !prevState.id) {
-      const { tatami, priceFull, priceTatami, id, sizeType } = space;
-
-      const isPriceTatami = sizeType === 1 || sizeType === 2 || sizeType === 3;
+      const { tatami, priceFull, priceTatami, id } = space;
 
       let calculated;
       if (tatami) {
@@ -96,12 +97,20 @@ class SpaceEdit3Page extends Component {
         priceFull: calculated || formatRemoveComma(priceFull),
         priceTatami,
         id,
-        isPriceTatami,
         error,
       };
     }
     return null;
   }
+
+  checkResize = () => {
+    const { queue } = this.state;
+    clearTimeout(queue);
+    const queueFunction = setTimeout(() => {
+      this.setState({ isOverPhone: isOverPhoneWindow() });
+    }, 100);
+    this.setState({ queue: queueFunction });
+  };
 
   onKeyDownButtonNext = e => {
     if (iskeyDownEnter(e) && this.validate()) {
@@ -117,7 +126,7 @@ class SpaceEdit3Page extends Component {
 
   onClickNext = () => {
     const { dispatch, space, history } = this.props;
-    const { priceFull, priceTatami, isPriceTatami, isUpdate } = this.state;
+    const { priceFull, priceTatami, isUpdate } = this.state;
 
     if (space.address) {
       const { geocode } = this.props;
@@ -134,7 +143,7 @@ class SpaceEdit3Page extends Component {
 
     const saveSpace = Object.assign(space, {
       priceFull: formatRemoveComma(priceFull),
-      priceTatami: isPriceTatami ? formatRemoveComma(priceTatami) : '0',
+      priceTatami: formatRemoveComma(priceTatami),
     });
     dispatch(
       uiActions.setUiState({
@@ -148,12 +157,12 @@ class SpaceEdit3Page extends Component {
 
   onClickBack = () => {
     const { dispatch, history, space } = this.props;
-    const { priceFull, priceTatami, isPriceTatami, isUpdate } = this.state;
+    const { priceFull, priceTatami, isUpdate } = this.state;
     dispatch(
       uiActions.setUiState({
         space: Object.assign(space, {
           priceFull: formatRemoveComma(priceFull),
-          priceTatami: isPriceTatami ? formatRemoveComma(priceTatami) : '0',
+          priceTatami: formatRemoveComma(priceTatami),
         }),
       }),
     );
@@ -188,32 +197,28 @@ class SpaceEdit3Page extends Component {
 
   validate = () => {
     const { space } = this.props;
-    const { isPriceTatami, priceFull, priceTatami } = this.state;
+    const { priceFull, priceTatami } = this.state;
     const checkPriceFull = formatRemoveComma(priceFull);
     const checkPriceTatami = formatRemoveComma(priceTatami);
-    let resultCheckTatami = true;
 
     let priceMin = Validate.Price.Min;
     if (space.addressPref && space.addressPref === '東京都') {
       priceMin = Validate.Price.MinTokyo;
     }
 
-    if (isPriceTatami) {
-      resultCheckTatami =
-        checkPriceTatami && checkPriceTatami >= priceMin && checkPriceTatami <= Validate.Price.Max;
-    }
-
     return (
       checkPriceFull &&
       checkPriceFull >= priceMin &&
       checkPriceFull <= Validate.Price.Max &&
-      resultCheckTatami
+      checkPriceTatami &&
+      checkPriceTatami >= priceMin &&
+      checkPriceTatami <= Validate.Price.Max
     );
   };
 
   render() {
     const { space, isLoading } = this.props;
-    const { isPriceTatami, priceFull, priceTatami, error, isUpdate } = this.state;
+    const { priceFull, priceTatami, error, isUpdate, isOverPhone } = this.state;
 
     if (!isUpdate && !space.title) {
       // 新規登録画面でリロードされた場合、登録TOP画面にリダイレクト
@@ -223,11 +228,9 @@ class SpaceEdit3Page extends Component {
     return (
       <BaseTemplate maxWidth={540}>
         <SpaceEditStep3
-          isPriceTatami={isPriceTatami}
           sizeType={space.sizeType}
           edit={isUpdate}
           errors={error}
-          isRoom={space.sizeType > 0 && space.sizeType < 4}
           priceFull={parseInt(priceFull, 10) === 0 ? '' : formatAddComma(priceFull)}
           onChangePriceFull={v => this.handleChangePriceUI('priceFull', v)}
           priceTatami={parseInt(priceTatami, 10) === 0 ? '' : formatAddComma(priceTatami)}
@@ -238,6 +241,7 @@ class SpaceEdit3Page extends Component {
           onClickNext={this.onClickNext}
           onKeyDownButtonNext={this.onKeyDownButtonNext}
           buttonNextDisabled={!this.validate()}
+          isOverPhone={isOverPhone}
         />
       </BaseTemplate>
     );

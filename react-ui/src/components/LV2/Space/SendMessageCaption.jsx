@@ -9,33 +9,26 @@ const Wrap = styled.div`
   display: inline-block;
   margin-left: -${Dimens.medium}px;
   text-align: center;
-  line-height: ${Dimens.medium4}px;
-  ${props =>
-    props.isRoom &&
-    `
-      line-height: normal;
-    `};
+  line-height: normal;
 `;
 
 const Price = styled.span`
-  font-size: ${FontSizes.medium_18}px;
+  font-size: ${FontSizes.medium1}px;
   font-weight: bold;
 `;
 
 const Unit = styled.div``;
 
-export default ({ isRoom, priceTatami, priceFull }) => (
-  <Wrap isRoom={isRoom}>
-    <Price>
-      {isRoom ? numeral(priceTatami).format('0,0') : `〜${numeral(priceFull).format('0,0')}`}
-    </Price>
+export default ({ priceTatami, priceFull }) => (
+  <Wrap>
+    <Price>{`${numeral(priceTatami).format('0,0')}〜`}</Price>
+    <br />
+    <Price>{`${numeral(priceFull).format('0,0')}`}</Price>
     <InlineText.Base fontSize={FontSizes.small_12} bold>
       &nbsp;円/月
     </InlineText.Base>
-    {isRoom && (
-      <Unit>
-        <InlineText.EmphasisTiny>1畳あたり</InlineText.EmphasisTiny>
-      </Unit>
-    )}
+    <Unit>
+      <InlineText.EmphasisTiny>1畳あたり</InlineText.EmphasisTiny>
+    </Unit>
   </Wrap>
 );

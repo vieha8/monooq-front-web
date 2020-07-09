@@ -44,3 +44,7 @@ export const isTabletWindow = () =>
   window && window.innerWidth >= sizes.phone && window.innerWidth <= sizes.desktop;
 
 export const isPcWindow = () => window && window.innerWidth >= sizes.desktop;
+
+export const isOverTabletWindow = () => window && window.innerWidth > sizes.tablet;
+
+export const isOverPhoneWindow = () => window && window.innerWidth > sizes.phone;

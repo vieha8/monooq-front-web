@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LazyLoad from 'react-lazyload';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
-import ImageLogoPayCredit from 'images/logo-pay-credit.svg';
-import ImageLogoPayEcontext from 'images/logo-pay-econtext.svg';
 import { SectionTitle, SectionTitleSub } from 'components/LV2/Space/Section';
+
+const ImageLogoPayCredit =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-pay-credit.svg?auto=compress';
+const ImageLogoPayEcontext =
+  'https://monooq.imgix.net/img%2Fservice%2Flogo-pay-econtext.svg?auto=compress';
 
 const Wrap = styled.div``;
 
@@ -68,9 +72,10 @@ const Attention = () => {
       </Section>
       <Section>
         <SectionTitleSub text="お支払い方法について" />
-        クレジットカード決済、コンビニ・Pay-easy決済がご利用できます。
+        月々払い（クレジットカードのみ可能）、一括払い（クレジットカード・コンビニ・Pay-easy）をご利用できます。
+        一部クレジットカード・コンビニはご利用できない場合がございますので、以下の決済可能なお支払いをご確認ください。
         <br />
-        一部クレジットカード・コンビニはご利用できない場合がございますので、以下の決済可能なお支払い方法をご確認ください。
+        {getLink('https://help.monooq.com/ja/articles/2948181', '利用料の支払い方法について')}
         <SectionTitleSub text="お支払いに関するヘルプ" />
         {getLink('https://help.monooq.com/ja/articles/3124614-', 'クレジットカード決済の手順')}
         {getLink(
@@ -79,8 +84,10 @@ const Attention = () => {
         )}
         <SectionTitleSub text="決済可能なお支払い方法" />
         <Wrap>
-          <ImageLogoPay src={ImageLogoPayCredit} maxWidth={110} credit alt="icon-logo-credit" />
-          <ImageLogoPay src={ImageLogoPayEcontext} maxWidth={240} alt="icon-logo-econtext" />
+          <LazyLoad>
+            <ImageLogoPay src={ImageLogoPayCredit} maxWidth={110} credit alt="icon-logo-credit" />
+            <ImageLogoPay src={ImageLogoPayEcontext} maxWidth={240} alt="icon-logo-econtext" />
+          </LazyLoad>
         </Wrap>
       </Section>
       <Section>

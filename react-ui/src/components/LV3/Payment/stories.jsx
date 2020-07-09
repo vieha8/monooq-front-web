@@ -62,7 +62,6 @@ storiesOf('Organisms(LV3)/Payment', module)
           payment={{
             beginAt: '2019/07/12',
             endAt: '2019/07/31',
-            duration: 20,
             price: 5000,
           }}
           errors=""

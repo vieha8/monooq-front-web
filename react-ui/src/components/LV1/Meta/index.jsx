@@ -18,7 +18,7 @@ class Head extends React.Component {
       ogUrl: `https://monooq.com/${props.ogUrl || ''}`,
       ogImageUrl:
         props.ogImageUrl ||
-        'https://firebasestorage.googleapis.com/v0/b/monooq-prod.appspot.com/o/img%2Fogp%2Fdefault.png?alt=media&token=8c810b60-d284-4235-8f51-a73a03d9d089',
+        'https://monooq.imgix.net/img%2Fogp%2Fdefault.png?alt=media&auto=compress?auto=compress',
     };
   }
 

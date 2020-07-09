@@ -12,9 +12,10 @@ import { Dimens, Colors } from 'variables';
 import { Link } from 'react-router-dom';
 import Path from 'config/path';
 import LazyLoad from 'react-lazyload';
-import iconStar from 'images/img-space-star.svg';
 import { media, mediaMin } from 'helpers/style/media-query';
 import Availability from 'components/LV1/Texts/Availability';
+
+const IconStar = 'https://monooq.imgix.net/img%2Fservice%2Fimg-space-star.svg?auto=compress';
 
 const Wrap = styled.div`
   cursor: pointer;
@@ -141,7 +142,7 @@ const SpaceResultItem = ({
                     color={Colors.brandAccent}
                     margin={isTag ? '0 4px 0 0' : '0 8px 0 0'}
                   >
-                    <ImageStar src={iconStar} />
+                    <ImageStar src={IconStar} />
                     {!isTag && '公式おすすめ'}
                   </InlineText.Base>
                 )}

@@ -8,11 +8,14 @@ import Button from 'components/LV1/Forms/Button';
 import { H3 } from 'components/LV1/Texts/Headline';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
-import IconInteriaBlack from 'images/icon-interia-black.svg';
-import IconInteriaGray from 'images/icon-interia-gray.svg';
-import IconHomeBlack from 'images/icon-home-black.svg';
-import IconHomeGray from 'images/icon-home-gray.svg';
 import Form from './Form';
+
+const IconInteriaBlack =
+  'https://monooq.imgix.net/img%2Fservice%2Ficon-interia-black.svg?auto=compress';
+const IconInteriaGray =
+  'https://monooq.imgix.net/img%2Fservice%2Ficon-interia-black.svg?auto=compress';
+const IconHomeBlack = 'https://monooq.imgix.net/img%2Fservice%2Ficon-home-black.svg?auto=compress';
+const IconHomeGray = 'https://monooq.imgix.net/img%2Fservice%2Ficon-home-gray.svg?auto=compress';
 
 const regsiterProfileImage = (imagePreview, image, onChangeImage) => {
   return (

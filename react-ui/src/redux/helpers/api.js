@@ -17,6 +17,8 @@ export const apiEndpoint = {
   requests: id => (id ? `/requests/${id}` : `/requests`),
   requestsByUserId: id => `/requests/user/${id}`,
   requestsByHostUserId: id => `/requests/host/${id}`,
+  requestsByHostUserIdTakelateBefore: (userId, spaceId) =>
+    `/requests/hosttb/${userId}/spaces/${spaceId}`,
   payments: type => (type ? `/payments/${type}` : `/payments`),
   sendMail: () => `/mailer/send`,
   sendSMS: () => `/sms/send`,
@@ -28,8 +30,8 @@ export const apiEndpoint = {
   areaCities: prefCode => `spaces/area/p${prefCode}`,
   areaTowns: cityCode => `spaces/area/c${cityCode}`,
   areaSearch: prefCode => `spaces/area/p${prefCode}/all`,
-  intercom: userId => `intercom/hash/${userId}`,
   bosyu: hash => `/requests/wish/${hash}`,
+  hasRequested: id => `/users/${id}/has_requested`,
 };
 
 const createApiInstance = token =>

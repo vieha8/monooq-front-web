@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -7,6 +7,8 @@ import Text from 'components/LV1/Texts/TextStatic';
 import MainTitleWrap from 'components/LV2/Texts/MainTitleStatic';
 import AboutCancelList from 'components/LV2/Lists/AboutCancelList';
 import ContentDescription from 'components/LV2/Texts/ContentDescription';
+
+const HyperLink = styled.a``;
 
 const Section = styled.div`
   ${props =>
@@ -92,7 +94,21 @@ export default () => (
             },
             {
               header: '利用開始日以降',
-              data: '返金はありません',
+              data: (
+                <Fragment>
+                  原則返金はありません
+                  <br />
+                  (月々自動払いに限り、
+                  <HyperLink
+                    href="https://help.monooq.com/ja/articles/4054053"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    こちら
+                  </HyperLink>
+                  の条件を満たす場合に返金可能)
+                </Fragment>
+              ),
             },
           ]}
         />

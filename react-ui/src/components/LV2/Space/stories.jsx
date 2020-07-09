@@ -161,7 +161,6 @@ storiesOf('Molecules(LV2)/Space', module)
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <Price full price="¥40,000" />
         <Price half price="¥20,000" />
-        <Price quarter price="¥10,000" />
       </div>
     )),
   )

@@ -25,7 +25,7 @@ export default ({ focused, date, placeholder, onDateChange, onFocusChange, isAll
   <Wrap focused={focused}>
     <SingleDatePicker
       date={date}
-      placeholder={placeholder || '日付を選択してください'}
+      placeholder={placeholder || '荷物の搬入日を選択する'}
       block
       showDefaultInputIcon
       onDateChange={onDateChange}

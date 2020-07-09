@@ -192,6 +192,7 @@ export default ({
   onChange,
   placeholder,
   marginLeft,
+  isOverPhone,
 }) =>
   detail ? (
     <Wrap marginLeft={marginLeft}>
@@ -215,25 +216,29 @@ export default ({
   ) : (
     <Wrap price>
       <PriceWrap price>
-        <OnlySP>
-          <TitleWrap price>{title}</TitleWrap>
-          <Caption price top>
-            <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small}>
-              {caption}
-            </InlineText.Base>
-          </Caption>
-        </OnlySP>
+        {!isOverPhone && (
+          <OnlySP>
+            <TitleWrap price>{title}</TitleWrap>
+            <Caption price top>
+              <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small}>
+                {caption}
+              </InlineText.Base>
+            </Caption>
+          </OnlySP>
+        )}
         <ImageWrap price>
           <Image src={image} alt="img-space-price" />
         </ImageWrap>
-        <OnlyPcTab>
-          <TitleWrap price>{title}</TitleWrap>
-          <Caption price>
-            <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small}>
-              {caption}
-            </InlineText.Base>
-          </Caption>
-        </OnlyPcTab>
+        {isOverPhone && (
+          <OnlyPcTab>
+            <TitleWrap price>{title}</TitleWrap>
+            <Caption price>
+              <InlineText.Base color={Colors.darkGray2} fontSize={FontSizes.small}>
+                {caption}
+              </InlineText.Base>
+            </Caption>
+          </OnlyPcTab>
+        )}
         <InputWrapper price>
           <InputForm
             type="tel"

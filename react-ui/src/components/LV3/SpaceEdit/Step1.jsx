@@ -10,9 +10,11 @@ import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ImagePickerSpace from 'components/LV2/ImagePickerSpace';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-import ImageStatusEditSpace1 from 'images/img-status-edit-space1.svg';
 import { Dimens } from 'variables';
 import { PageHeader, Section } from './Shared';
+
+const ImageStatusEditSpace1 =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-status-edit-space1.svg?auto=compress';
 
 const TagListWrap = styled.div`
   margin: ${Dimens.small}px auto 0;
@@ -49,7 +51,6 @@ export default ({
   onChangeIntroduction,
   breadth,
   onChangeBreadth,
-  isSizeTypeOther,
   tatami,
   onChangeTatami,
   tagList,
@@ -133,18 +134,16 @@ export default ({
       />
       <ErrorList keyName="breadth_errors" errors={errors.sizeType} />
     </Section>
-    {!isSizeTypeOther && (
-      <Section>
-        <InputForm
-          label="畳数"
-          placeholder="例) 4.5、6"
-          unit="畳"
-          value={tatami}
-          onChange={e => onChangeTatami(e.target.value)}
-        />
-        <ErrorList keyName="tatami_errors" errors={errors.tatami} />
-      </Section>
-    )}
+    <Section>
+      <InputForm
+        label="畳数"
+        placeholder="例) 4.5、6"
+        unit="畳"
+        value={tatami}
+        onChange={e => onChangeTatami(e.target.value)}
+      />
+      <ErrorList keyName="tatami_errors" errors={errors.tatami} />
+    </Section>
     <Section>
       <TagCheckboxList tagList={tagList} onClickTag={onClickTag} onKeyDownTag={onKeyDownTag} />
       <InputForm

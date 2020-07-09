@@ -6,10 +6,12 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors } from 'variables';
 import { formatAddComma, formatName } from 'helpers/string';
 
+const IS_UNDECIDED_TRUE = 1;
 const PAYTYPE_CREDITCARD = 1;
 const PAYTYPE_ECONTEXT = 4;
 const STATUS_PAY_ESTIMATE = 'estimate';
 const STATUS_PAY_WAITING = 'waiting';
+const STATUS_PAY_WAITING_EXPIRRED = 'waitingExpired';
 const STATUS_PAY_PAID = 'paid';
 
 const Text = styled(InlineText.Base)`
@@ -72,7 +74,7 @@ const buttonPayment = (host, status, payType, isOpenModalError, onClickPayment) 
   );
 };
 
-const getPayInfo = (payType, status) => {
+const getPayInfo = (payType, status, isMonthly) => {
   let resultPayType = '';
   let resultStatus = '';
   let messagePayInfo = '※最新のステータスが反映されるまで時間がかかる場合があります。';
@@ -95,6 +97,7 @@ const getPayInfo = (payType, status) => {
   switch (status) {
     case STATUS_PAY_ESTIMATE:
     case STATUS_PAY_WAITING:
+    case STATUS_PAY_WAITING_EXPIRRED:
       resultStatus = 'お支払い待ち';
       break;
     case STATUS_PAY_PAID:
@@ -116,6 +119,13 @@ const getPayInfo = (payType, status) => {
     <Fragment>
       お支払い方法：
       {resultPayType}
+      {status === STATUS_PAY_PAID && (
+        <Fragment>
+          <br />
+          お支払い回数：
+          {isMonthly === 1 ? '月々自動払い' : '一括払い'}
+        </Fragment>
+      )}
       <br />
       お支払いステータス：
       {resultStatus}
@@ -131,20 +141,13 @@ const getDescriptionPay = (payType, econtextUrl) => {
     case 1:
       result = (
         <Fragment>
-          ※2ヶ月以上の長期でご利用の場合は、1ヶ月ごとに利用料を決済する「月額決済」がおすすめです。
-          <br />
-          月額決済をご希望の場合は、ホストに初月1ヶ月分の見積もりを発行してもらい、決済をしてください。
-          <br />
-          初月分の利用料をカード決済した方は、下記より月額自動決済を申請していただくと、翌月分からは自動決済ができます。
-          <br />
-          <a href="https://form.run/@monthly-request" target="_blank" rel="noopener noreferrer">
-            ▶月額自動決済の申し込み
-          </a>
+          ※お支払い画面では「月々自動払い」「一括払い」のいずれかを選択できます。
           <br />
           <br />
-          <Caution>
-            月額自動決済の申し込みは、必ずモノオク上での決済が完了した後に行ってください。
-          </Caution>
+          ※月々自動払いを選択された場合、翌月以降の利用料は更新日に自動決済されます。月々自動払いはクレジットカード決済のみ対応しております。
+          <br />
+          <br />
+          ※利用終了日が未定の場合は、一括決済を選択した場合でもひと月分のお支払いとなります。翌月以降もスペースを利用する場合は、再度ホストからお見積もりをもらいお支払い手続きを行なってください。
         </Fragment>
       );
       break;
@@ -166,7 +169,7 @@ const getDescriptionPay = (payType, econtextUrl) => {
 };
 
 const isPaymentLimitOver = (date, status) => {
-  if (status === 'paid') {
+  if (status === 'paid' || status === 'waitingExpired') {
     return false;
   }
 
@@ -182,12 +185,15 @@ export default ({
   id,
   beginAt,
   endAt,
+  isUndecided,
+  usagePeriod,
   price,
   fee,
   host,
   status,
   receivedAt,
   payType, // 1:クレジットカード 4:イーコンテクスト
+  isMonthly, // 0:一括 1:月額
   econtextUrl,
   isOpenModalError,
   onClickPayment,
@@ -206,11 +212,24 @@ export default ({
       </Text>
       <Text>
         利用終了日：
-        {endAt}
+        {isUndecided === IS_UNDECIDED_TRUE ? '未定' : `${endAt}`}
       </Text>
+      {usagePeriod && (
+        <Text>
+          ご利用の期間：
+          {isUndecided === IS_UNDECIDED_TRUE ? '未定' : `${usagePeriod}ヶ月`}
+        </Text>
+      )}
       <Text>
-        お支払い金額：
+        お支払い金額合計：
         {`${formatAddComma(price + fee)}円`}
+        {usagePeriod > 0 && (
+          <Fragment>
+            <br />
+            ひと月あたりの金額：
+            {`${formatAddComma(String(Math.floor((price + fee) / usagePeriod)))}円`}
+          </Fragment>
+        )}
         {fee > 0 && (
           <Fragment>
             <br />
@@ -235,7 +254,7 @@ export default ({
             <Caution>支払期限を過ぎています。ホストに再度見積もりを出してもらいましょう。</Caution>
           ) : (
             <Fragment>
-              見積もり内容を確認し、開始日までにお支払いしましょう。支払いを完了すると契約成立し、スペース住所をお知らせします。
+              見積もり内容を確認し、お支払いに進みましょう。支払いを完了すると利用契約が成立し、スペース住所が表示されます。
               <br />
               <ButtonPaymentWrap>
                 {buttonPayment(host, status, payType, isOpenModalError, onClickPayment)}
@@ -252,10 +271,10 @@ export default ({
                 ■お支払い情報
               </InlineText.Base>
               <br />
-              {getPayInfo(payType, status)}
+              {getPayInfo(payType, status, isMonthly)}
               <br />
               <br />
-              <Caution>モノオク上でお支払い手続きを行わない場合、保険が適応されません。</Caution>
+              <Caution>保険適応のため、必ずモノオクサービス上でお支払いください。</Caution>
             </Fragment>
           )}
         </Text>

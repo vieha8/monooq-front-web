@@ -40,12 +40,12 @@ const Covid19Info = () => {
       <Title>
         <TextStatic fontSizeSp={12} style={{ verticalAlign: 'middle' }}>
           <Icon className="far fa-check-circle" />
-          新型コロナウイルス感染拡大に対する取り組み
+          緊急事態宣言解除後のサービス運営方針について
         </TextStatic>
       </Title>
       <Caption>
         <TextStatic fontSizeSp={12}>
-          緊急事態宣言中にモノオクを利用するにあたっての運営方針は以下をご確認ください。
+          緊急事態宣言解除後にモノオクを利用するにあたっての運営方針は以下をご確認ください。
         </TextStatic>
       </Caption>
       <DetailLink>

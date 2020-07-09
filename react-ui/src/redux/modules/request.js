@@ -1,5 +1,5 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, select, call } from 'redux-saga/effects';
+import { put, takeEvery, take, select, call, all } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import firebase from 'firebase/app';
@@ -19,9 +19,13 @@ import { getRoomId, createRoom } from './messages';
 import { handleAccessTrade, handleCircuitX } from '../../helpers/asp';
 
 // Actions
+const FETCH_REQUEST_TAKELATE_BEFORE = 'FETCH_REQUEST_TAKELATE_BEFORE';
+const FETCH_REQUEST_TAKELATE_BEFORE_SUCCESS = 'FETCH_REQUEST_TAKELATE_BEFORE_SUCCESS';
+const FETCH_REQUEST_TAKELATE_BEFORE_FAILED = 'FETCH_REQUEST_TAKELATE_BEFORE_FAILED';
 const ESTIMATE = 'ESTIMATE';
 const ESTIMATE_SUCCESS = 'ESTIMATE_SUCCESS';
 const ESTIMATE_FAILED = 'ESTIMATE_FAILED';
+const PAYMENT_CONFIRM = 'PAYMENT_CONFIRM';
 const PAYMENT = 'PAYMENT';
 const PAYMENT_SUCCESS = 'PAYMENT_SUCCESS';
 const PAYMENT_FAILED = 'PAYMENT_FAILED';
@@ -41,9 +45,13 @@ const BOSYU_SUCCESS = 'BOSYU_SUCCESS';
 const BOSYU_FAILED = 'BOSYU_FAILED';
 
 export const requestActions = createActions(
+  FETCH_REQUEST_TAKELATE_BEFORE,
+  FETCH_REQUEST_TAKELATE_BEFORE_SUCCESS,
+  FETCH_REQUEST_TAKELATE_BEFORE_FAILED,
   ESTIMATE,
   ESTIMATE_SUCCESS,
   ESTIMATE_FAILED,
+  PAYMENT_CONFIRM,
   PAYMENT,
   PAYMENT_OTHER,
   PAYMENT_SUCCESS,
@@ -82,6 +90,27 @@ const initialState = {
 
 export const requestReducer = handleActions(
   {
+    [FETCH_REQUEST_TAKELATE_BEFORE]: state => ({
+      ...state,
+      estimate: {
+        isSending: true,
+        isTakelateBefore: false,
+      },
+    }),
+    [FETCH_REQUEST_TAKELATE_BEFORE_SUCCESS]: (state, action) => ({
+      ...state,
+      estimate: {
+        isSending: false,
+        isTakelateBefore: action.payload.isTakelateBefore,
+      },
+    }),
+    [FETCH_REQUEST_TAKELATE_BEFORE_FAILED]: state => ({
+      ...state,
+      estimate: {
+        isSending: false,
+        isTakelateBefore: false,
+      },
+    }),
     [ESTIMATE]: state => ({
       ...state,
       estimate: { isSending: true },
@@ -93,6 +122,15 @@ export const requestReducer = handleActions(
     [ESTIMATE_FAILED]: state => ({
       ...state,
       estimate: { isSending: false },
+    }),
+    [PAYMENT_CONFIRM]: state => ({
+      ...state,
+      payment: {
+        isSending: false,
+        isSuccess: false,
+        isFailed: false,
+        errMsg: '',
+      },
     }),
     [PAYMENT]: state => ({
       ...state,
@@ -212,8 +250,49 @@ const roomCollection = () => {
   return firestore.collection('rooms');
 };
 
+// TODO: 共通化する
+function* fetchRequestTakelateBefore({ payload: { guestId, spaceId } }) {
+  const token = yield* getToken();
+  const { data: payload, err } = yield call(
+    getApiRequest,
+    apiEndpoint.requestsByHostUserIdTakelateBefore(guestId, spaceId),
+    {},
+    token,
+  );
+
+  if (err) {
+    yield handleError(
+      requestActions.fetchRequestTakelateBeforeFailed,
+      '',
+      'fetchRequestTakelateBefore',
+      err,
+      false,
+    );
+    return;
+  }
+
+  let isTakelateBefore = false;
+  if (payload.length > 0) {
+    isTakelateBefore = true;
+  }
+
+  yield put(requestActions.fetchRequestTakelateBeforeSuccess({ isTakelateBefore }));
+}
+
 // Sagas
-function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
+function* estimate({
+  payload: {
+    roomId,
+    userId,
+    startDate,
+    endDate,
+    usagePeriod,
+    isUndecided,
+    tatami,
+    indexTatami,
+    price,
+  },
+}) {
   const roomDoc = roomCollection().doc(roomId);
   const room = yield roomDoc.get();
   const { spaceId, userId1, userId2 } = room.data();
@@ -232,6 +311,10 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
       spaceId,
       startDate,
       endDate,
+      usagePeriod: parseInt(usagePeriod, 10),
+      isUndecided: parseInt(isUndecided, 10),
+      tatami: parseInt(tatami, 10),
+      indexTatami: parseInt(indexTatami, 10),
       price: parseInt(price, 10),
       status: 'estimate',
     },
@@ -250,6 +333,10 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
     price: parseInt(price, 10),
     startDate,
     endDate,
+    usagePeriod: parseInt(usagePeriod, 10),
+    isUndecided: parseInt(isUndecided, 10),
+    tatami: parseInt(tatami, 10),
+    indexTatami: parseInt(indexTatami, 10),
   };
   const messageDoc = yield roomDoc.collection('messages').add(message);
   yield roomDoc.set(
@@ -354,7 +441,7 @@ ${urlMessageRoom}`;
   yield call(postApiRequest, apiEndpoint.sendSMS(), bodySMS, token);
 }
 
-function* payment({ payload: { roomId, requestId, payment: card } }) {
+function* payment({ payload: { roomId, requestId, info, payment: card } }) {
   // 不正対策
   const token = yield* getToken();
   const { data: requestData, err } = yield call(
@@ -415,6 +502,11 @@ function* payment({ payload: { roomId, requestId, payment: card } }) {
     {
       RequestId: parseInt(requestId, 10),
       CardToken: cardToken,
+      PaymentType: info.paymentType,
+      PaymentPrice: info.paymentPrice,
+      StartDate: info.startDate,
+      EndDate: info.endDate,
+      IsUndecided: info.isUndecided,
     },
     token,
   );
@@ -559,7 +651,7 @@ function* request({ payload: { user, space, body } }) {
     setStartDate,
     setEndDate,
   );
-  yield put(push(Path.message(roomId)));
+  yield put(push(`${Path.message(roomId)}?phase=start`));
 
   let isRequested = 'false';
   if (isAvailableLocalStorage()) {
@@ -629,8 +721,42 @@ function* request({ payload: { user, space, body } }) {
 
 function* fetchRequest({ payload: requestId }) {
   const token = yield* getToken();
-  const { data } = yield call(getApiRequest, apiEndpoint.requests(requestId), {}, token);
-  // TODO エラーハンドリング
+  const { data, err: errReq } = yield call(
+    getApiRequest,
+    apiEndpoint.requests(requestId),
+    {},
+    token,
+  );
+
+  if (errReq) {
+    yield handleError(requestActions.fetchRequestFailed, '', 'fetchRequestFailed', errReq, false);
+    return;
+  }
+
+  const { data: takelateBefore, err: errCheckTakelate } = yield call(
+    getApiRequest,
+    apiEndpoint.requestsByHostUserIdTakelateBefore(data.userId, data.spaceId),
+    {},
+    token,
+  );
+
+  if (errCheckTakelate) {
+    yield handleError(
+      requestActions.fetchRequestFailed,
+      '',
+      'fetchRequestTakelateBefore(payment)',
+      errCheckTakelate,
+      false,
+    );
+    return;
+  }
+
+  let isTakelateBefore = false;
+  if (takelateBefore.length > 0) {
+    isTakelateBefore = true;
+  }
+  data.isTakelateBefore = isTakelateBefore;
+
   yield put(requestActions.fetchRequestSuccess(data));
 }
 
@@ -719,6 +845,22 @@ function* bosyu({ payload: { body } }) {
     recommendPrefSpaces = data.results;
   }
 
+  let anonymousAccessLogSpaces = [];
+  if (isAvailableLocalStorage) {
+    const key = 'anonymous-access-logs';
+    const json = localStorage.getItem(key);
+    const anonymousAccessLogSpaceIds = json ? JSON.parse(json) : [];
+
+    const results = yield all(
+      anonymousAccessLogSpaceIds.map(id => call(getApiRequest, apiEndpoint.spaces(id), token)),
+    );
+    results.reverse().forEach(({ data, err }) => {
+      if (!err) {
+        anonymousAccessLogSpaces = [...anonymousAccessLogSpaces, data];
+      }
+    });
+  }
+
   const sortedResult = [...recommendSpaces, ...recommendPrefSpaces];
   const uniqById = array => {
     const uniquedArray = [];
@@ -733,7 +875,7 @@ function* bosyu({ payload: { body } }) {
   const uniqArray = uniqById(sortedResult);
   const inCity = uniqArray.filter(space => space.addressCity === city);
   const outCity = uniqArray.filter(space => space.addressCity !== city);
-  const results = [...inCity, ...outCity];
+  const results = [...anonymousAccessLogSpaces, ...inCity, ...outCity];
 
   if (results.length) {
     yield put(requestActions.bosyuSuccess());
@@ -749,6 +891,7 @@ function* bosyu({ payload: { body } }) {
 }
 
 export const requestSagas = [
+  takeEvery(FETCH_REQUEST_TAKELATE_BEFORE, fetchRequestTakelateBefore),
   takeEvery(ESTIMATE, estimate),
   takeEvery(PAYMENT, payment),
   takeEvery(PAYMENT_OTHER, paymentOther),

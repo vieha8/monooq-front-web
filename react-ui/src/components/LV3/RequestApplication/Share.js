@@ -4,7 +4,6 @@ import { getToday, generateDateAll } from 'helpers/date';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
 import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
 import { setErrorPhoneNumber, isPhoneNumberWithoutHyphen } from 'helpers/validations/phoneNumber';
-import amplitude from 'amplitude-js/amplitude';
 
 moment.locale('ja');
 
@@ -65,9 +64,7 @@ export const handleChangeUI = (propName, inputValue, setItem, setErrors) => {
       if (inputValue.length === 0) {
         setError.push(ErrorMessages.PleaseSelect);
       }
-      amplitude.getInstance().logEvent('リクエスト - 用途入力', {
-        usage: inputValue,
-      });
+
       setErrors(state => ({ ...state, usage: setError }));
       break;
 
@@ -75,9 +72,7 @@ export const handleChangeUI = (propName, inputValue, setItem, setErrors) => {
       if (inputValue.length === 0) {
         setError.push(ErrorMessages.PleaseSelect);
       }
-      amplitude.getInstance().logEvent('リクエスト - 希望広さ入力', {
-        breadth: inputValue,
-      });
+
       setErrors(state => ({ ...state, breadth: setError }));
       break;
 

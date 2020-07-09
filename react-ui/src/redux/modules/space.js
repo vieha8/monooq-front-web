@@ -1,8 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
-import { put, takeEvery, take, call, select } from 'redux-saga/effects';
+import { all, put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import axios from 'axios';
-import dummySpaceImage from 'images/img-dummy-space.png';
 import { authActions, getToken } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
 import {
@@ -16,9 +15,14 @@ import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertSpaceImgUrl } from 'helpers/imgix';
 import { formatAddComma } from 'helpers/string';
+import Queue from 'helpers/queue';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
+import { isAvailableLocalStorage } from 'helpers/storage';
 import { handleError } from './error';
+
+const dummySpaceImage =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
@@ -47,6 +51,7 @@ const GET_GEOCODE = 'GET_GEOCODE';
 const GET_FAILED_GEOCODE = 'GET_FAILED_GEOCODE';
 const GET_SUCCESS_GEOCODE = 'GET_SUCCESS_GEOCODE';
 const RESET_SEARCH = 'RESET_SEARCH';
+const INIT_SEARCH = 'INIT_SEARCH';
 const GET_RECOMMEND_SPACES = 'GET_RECOMMEND_SPACES';
 const GET_RECOMMEND_SPACES_SUCCESS = 'GET_RECOMMEND_SPACES_SUCCESS';
 const GET_RECOMMEND_SPACES_FAILED = 'GET_RECOMMEND_SPACES_FAILED';
@@ -86,6 +91,7 @@ export const spaceActions = createActions(
   SUCCESS_SEARCH,
   FAILED_SEARCH,
   RESET_SEARCH,
+  INIT_SEARCH,
   GET_GEOCODE,
   GET_FAILED_GEOCODE,
   GET_SUCCESS_GEOCODE,
@@ -258,6 +264,13 @@ export const spaceReducer = handleActions(
         isMore: true,
         maxCount: 0,
         cities: [],
+      },
+    }),
+    [INIT_SEARCH]: state => ({
+      ...state,
+      search: {
+        ...state.search,
+        isLoading: false,
       },
     }),
     [GET_GEOCODE]: state => ({
@@ -570,12 +583,11 @@ function* prepareUpdateSpace({ payload: spaceId }) {
 
   space.images = space.images.map(image => ({
     ...image,
-    imageUrl: convertSpaceImgUrl(image.imageUrl, 'w=1200&h=800&fit=crop'),
+    imageUrl: convertSpaceImgUrl(image.imageUrl, 'w=1200&h=800&fit=crop&auto=compress'),
   }));
 
   space.priceFull = formatAddComma(space.priceFull);
   space.priceHalf = formatAddComma(space.priceHalf);
-  space.priceQuarter = formatAddComma(space.priceQuarter);
 
   yield put(uiActions.setUiState({ space }));
 }
@@ -678,12 +690,32 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
     offset,
   };
 
-  let user = yield select(state => state.auth.user);
+  yield put(authActions.checkLogin());
+  yield take(authActions.checkLoginFinished);
+
+  const user = yield select(state => state.auth.user);
   if (!user.id) {
-    yield take(authActions.checkLoginSuccess);
-  }
-  user = yield select(state => state.auth.user);
-  if (!user.id) {
+    // 未ログイン時の閲覧履歴
+
+    let anonymousAccessLogSpaces = [];
+    if (isAvailableLocalStorage) {
+      const key = 'anonymous-access-logs';
+      const json = localStorage.getItem(key);
+      const anonymousAccessLogSpaceIds = json ? JSON.parse(json) : [];
+
+      const results = yield all(
+        anonymousAccessLogSpaceIds.map(id => call(getApiRequest, apiEndpoint.spaces(id), token)),
+      );
+      results.reverse().forEach(({ data, err }) => {
+        if (!err) {
+          anonymousAccessLogSpaces = [...anonymousAccessLogSpaces, data];
+        }
+      });
+    }
+
+    anonymousAccessLogSpaces.isMore = anonymousAccessLogSpaces.length === limit;
+    yield put(spaceActions.getSuccessSpaceAccessLog(anonymousAccessLogSpaces));
+
     return;
   }
 
@@ -706,12 +738,20 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
 }
 
 function* addSpaceAccessLog({ payload: { spaceId } }) {
-  let user = yield select(state => state.auth.user);
+  yield put(authActions.checkLogin());
+  yield take(authActions.checkLoginFinished);
+  const user = yield select(state => state.auth.user);
+
   if (!user.id) {
-    yield take(authActions.checkLoginSuccess);
-  }
-  user = yield select(state => state.auth.user);
-  if (!user.id) {
+    if (isAvailableLocalStorage) {
+      const key = 'anonymous-access-logs';
+      const json = localStorage.getItem(key);
+      const arr = json ? JSON.parse(json) : [];
+      const anonymousAccessLogQueue = new Queue(arr);
+      anonymousAccessLogQueue.uniqEnqueue(parseInt(spaceId, 10));
+      localStorage.setItem(key, JSON.stringify(anonymousAccessLogQueue.items));
+    }
+
     return;
   }
   const token = yield* getToken();

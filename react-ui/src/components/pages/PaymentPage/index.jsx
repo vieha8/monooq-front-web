@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import numeral from 'numeral';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -37,6 +36,7 @@ class PaymentPage extends Component {
       return <Redirect to={Path.messageList()} />;
     }
 
+    // TODO: リクエスト取得失敗時のエラーハンドリング
     if (!request) {
       return <LoadingPage />;
     }
@@ -48,10 +48,15 @@ class PaymentPage extends Component {
           paymentData={{
             beginAt: formatDate(new Date(request.startDate), formatStringSlash),
             endAt: formatDate(new Date(request.endDate), formatStringSlash),
-            duration: moment(request.endDate).diff(moment(request.startDate), 'days') + 1,
+            isUndecided: request.isUndecided,
             price: numeral(request.price).format('0,0'),
-            fee: numeral(request.fee).format('0,0'),
-            pricePlusFee: numeral(request.pricePlusFee).format('0,0'),
+            pricePlusFee: request.pricePlusFee,
+            pricePlusFeeMonthly: String(
+              Math.floor(
+                request.pricePlusFee / (request.isUndecided === 1 ? 1 : request.usagePeriod),
+              ),
+            ),
+            isTakelateBefore: request.isTakelateBefore,
           }}
           paymentUrl={paymentUrl}
           isPaymentSuccess={isPaymentSuccess}
