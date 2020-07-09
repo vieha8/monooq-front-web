@@ -190,6 +190,7 @@ const getParams = () => {
     params = JSON.parse(localStorage.getItem('request_params'));
   } else if (isAvailableLocalStorage() && localStorage.getItem('desiredCondition')) {
     params = JSON.parse(localStorage.getItem('desiredCondition'));
+    delete params.breadth;
   }
   return params;
 };
