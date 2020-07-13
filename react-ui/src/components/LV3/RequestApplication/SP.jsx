@@ -175,6 +175,9 @@ const RequestApplicationSP = ({
     month: setEndDateMonth,
     day: setEndDateDay,
   });
+  const [isEndDecided, setIsEndDecided] = useState(
+    params && params.isEndDecided !== undefined ? params.isEndDecided : true,
+  );
 
   const handleSignUp = () => {
     dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
@@ -228,6 +231,7 @@ const RequestApplicationSP = ({
         notes,
         startDate,
         endDate,
+        isEndDecided,
       },
     };
 
@@ -275,6 +279,7 @@ const RequestApplicationSP = ({
               existPhoneNumber,
               phoneNumber,
               notes,
+              isEndDecided,
             ),
             '',
           )}
@@ -441,6 +446,16 @@ const RequestApplicationSP = ({
                   });
 
                   return handleChangeUI('notes', e.target.value, setNotes, setErrors);
+                }}
+                isEndDecided={isEndDecided}
+                onChangeIsEndDecided={bool => {
+                  ReactGA.event({
+                    category: 'リクエスト',
+                    action: '終了日未定入力',
+                    value: bool,
+                  });
+
+                  return handleChangeUI('isEndDecided', !bool, setIsEndDecided, setErrors);
                 }}
               />
               <LinkCancel handleModalClose={handleModalCloseSP} />

@@ -628,7 +628,9 @@ function* request({ payload: { user, space, body } }) {
   }
 
   const setStartDate = `${params.startDate.year}/${params.startDate.month}/${params.startDate.day}`;
-  const setEndDate = `${params.endDate.year}/${params.endDate.month}/${params.endDate.day}`;
+  const setEndDate = params.isEndDecided
+    ? `${params.endDate.year}/${params.endDate.month}/${params.endDate.day}`
+    : '終了日未定';
   const usage = getUsages(params.usage);
   const breadth =
     space.sizeType > 0 && space.sizeType < 4
