@@ -7,6 +7,7 @@ import { Dimens, Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
+import { Link } from 'react-router-dom';
 
 const dummySpaceImage =
   'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
@@ -103,7 +104,11 @@ export default ({ space, beginAt, endAt, isUndecided }) => (
           {space.addressCity}
           {space.addressTown}
         </AddressText>
-        <LinkDetail>詳しく見る</LinkDetail>
+        <Link target="_blank" to={Path.space(space.id)}>
+          <a>
+            <LinkDetail>詳しく見る</LinkDetail>
+          </a>
+        </Link>
       </ContentWrap>
       <PeriodWrap>
         {getDate('利用開始日', beginAt, 0)}
