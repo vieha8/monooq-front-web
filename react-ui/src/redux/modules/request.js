@@ -765,6 +765,11 @@ function* bosyu({ payload: { body } }) {
     body,
   );
 
+  const endDate = new Date(
+    startDate.year,
+    startDate.month - 1 + (isUseOver6Month ? 6 : 1),
+    startDate.day - 1,
+  );
   const token = yield* getToken();
   const user = yield select(state => state.auth.user);
 
@@ -793,6 +798,27 @@ function* bosyu({ payload: { body } }) {
 
   if (isAvailableLocalStorage()) {
     localStorage.setItem('isRequestedTop', 'true');
+
+    localStorage.setItem(
+      'desiredCondition',
+      JSON.stringify({
+        usage,
+        breadth,
+        prefCode,
+        city,
+        isUseOver6Month,
+        startDate: {
+          year: startDate.year,
+          month: startDate.month,
+          day: startDate.day,
+        },
+        endDate: {
+          year: endDate.getFullYear(),
+          month: endDate.getMonth() + 1,
+          day: endDate.getDate(),
+        },
+      }),
+    );
   }
 
   const limit = 20; // TODO 暫定
@@ -816,12 +842,6 @@ function* bosyu({ payload: { body } }) {
       yield handleError(requestActions.bosyuFailed, '', 'bosyuSearch', err, false);
       return;
     }
-
-    // レコメンド用スペース
-    if (!data) {
-      yield put(requestActions.bosyuSuccess({ prefName: pref }));
-      return;
-    }
     recommendPrefSpaces = data.results;
   }
 
@@ -841,8 +861,6 @@ function* bosyu({ payload: { body } }) {
     });
   }
 
-  yield put(requestActions.bosyuSuccess());
-
   const sortedResult = [...recommendSpaces, ...recommendPrefSpaces];
   const uniqById = array => {
     const uniquedArray = [];
@@ -859,12 +877,17 @@ function* bosyu({ payload: { body } }) {
   const outCity = uniqArray.filter(space => space.addressCity !== city);
   const results = [...anonymousAccessLogSpaces, ...inCity, ...outCity];
 
-  yield put(
-    push({
-      pathname: Path.recommend(),
-      state: { recommendSpaces: { results } },
-    }),
-  );
+  if (results.length) {
+    yield put(requestActions.bosyuSuccess());
+    yield put(
+      push({
+        pathname: Path.recommend(),
+        state: { recommendSpaces: { results } },
+      }),
+    );
+  } else {
+    yield put(requestActions.bosyuSuccess({ prefName: pref }));
+  }
 }
 
 export const requestSagas = [
