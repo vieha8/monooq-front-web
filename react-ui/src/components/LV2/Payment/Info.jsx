@@ -105,9 +105,7 @@ export default ({ space, beginAt, endAt, isUndecided }) => (
           {space.addressTown}
         </AddressText>
         <Link target="_blank" to={Path.space(space.id)}>
-          <a>
-            <LinkDetail>詳しく見る</LinkDetail>
-          </a>
+          <LinkDetail>詳しく見る</LinkDetail>
         </Link>
       </ContentWrap>
       <PeriodWrap>
