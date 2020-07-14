@@ -14,7 +14,7 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import MenuItemTopList from 'components/LV2/Lists/MenuItemTopList';
 import ModalTopDesiredCondition from 'components/LV3/ModalTopDesiredCondition';
 import PrefectureList from 'components/LV3/PrefectureList';
-import SpaceList from 'components/LV3/SpaceList';
+// import SpaceList from 'components/LV3/SpaceList';
 import View from 'components/LV3/Top/View';
 import Covid19Info from 'components/LV3/Top/Covid19Info';
 import SearchResult from 'components/LV3/SearchResult';
