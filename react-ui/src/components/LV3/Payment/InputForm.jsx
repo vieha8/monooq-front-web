@@ -121,7 +121,7 @@ const LinkStyled = styled.a`
   `};
 `;
 
-const getEcontextLink = (price, onClick) => {
+const getEcontextLink = (price, onClick, isUndecided) => {
   let isOverLimitEcontext = false;
   if (Number(formatRemoveComma(price)) > MAX_PAY_PRICE_CONVENIENT) {
     isOverLimitEcontext = true;
@@ -137,7 +137,9 @@ const getEcontextLink = (price, onClick) => {
           </CaptionImageCp>
         </Fragment>
       ) : (
-        <TextButton onClick={onClick}>コンビニ払い・Pay-easyでの決済はこちら</TextButton>
+        isUndecided === 0 && (
+          <TextButton onClick={onClick}>コンビニ払い・Pay-easyでの決済はこちら</TextButton>
+        )
       )}
     </div>
   );
@@ -271,7 +273,7 @@ export default ({
             >
               利用料の支払い方法について
             </LinkStyled>
-            {getEcontextLink(paymentData.price, onClickSubmitConvenience)}
+            {getEcontextLink(paymentData.price, onClickSubmitConvenience, paymentData.isUndecided)}
           </Row>
           <Row>
             <SectionTitleSub text="決済可能なお支払い方法" />
