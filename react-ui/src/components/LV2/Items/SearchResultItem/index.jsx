@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
 import ReactGA from 'react-ga';
@@ -66,6 +66,11 @@ const Row = styled.div`
   `}
 `;
 
+const TagRow = styled(Row)`
+  ${props => (props.hasMoreTags ? 'height: 72px' : '')}
+  overflow: hidden;
+`;
+
 const ImageStar = styled.img`
   max-width: 20px;
   margin-right: 2px;
@@ -76,6 +81,9 @@ const Title = styled(InlineText.Base)`
   ${mediaMin.phone`
     height: 44px;
   `}
+`;
+const ShowMore = styled.div`
+  text-align: center;
 `;
 
 const SpaceResultItem = ({
@@ -97,6 +105,19 @@ const SpaceResultItem = ({
   status,
   via,
 }) => {
+  const [hasHiddenTags, setHasHiddenTags] = useState(false);
+  const [calcTagsHeight, setCalcTagsHeight] = useState(false);
+  const [isOpenTags, setIsOpenTags] = useState(false);
+  const tagsContainerRef = useRef(null);
+
+  useEffect(() => {
+    const current = tagsContainerRef.current;
+    if (calcTagsHeight || !current) return;
+
+    setCalcTagsHeight(true);
+    setHasHiddenTags(current.clientHeight > 72);
+  }, [tagsContainerRef.current, calcTagsHeight]);
+
   const onClickSpace = () => {
     ReactGA.plugin.execute('ec', 'addProduct', {
       id,
@@ -172,9 +193,18 @@ const SpaceResultItem = ({
         </Card>
       </Link>
       {tags && tags.length > 0 && (
-        <Row marginTop={12}>
-          <Tag tagList={tags.map(v => v.name)} />
-        </Row>
+        <>
+          <TagRow hasMoreTags={hasHiddenTags && !isOpenTags} marginTop={12} ref={tagsContainerRef}>
+            <Tag tagList={tags.map(v => v.name)} />
+          </TagRow>
+          {hasHiddenTags && !isOpenTags && (
+            <ShowMore onClick={() => setIsOpenTags(true)}>
+              <InlineText.Tiny singleLine fontSize={14} color={Colors.lightGray3}>
+                もっと見る
+              </InlineText.Tiny>
+            </ShowMore>
+          )}
+        </>
       )}
     </Wrap>
   );
