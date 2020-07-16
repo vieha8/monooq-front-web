@@ -116,7 +116,7 @@ const SpaceResultItem = ({
 
     setCalcTagsHeight(true);
     setHasHiddenTags(current.clientHeight > 72);
-  }, [tagsContainerRef.current, calcTagsHeight]);
+  }, [calcTagsHeight]);
 
   const onClickSpace = () => {
     ReactGA.plugin.execute('ec', 'addProduct', {
