@@ -5,7 +5,6 @@ import { makeConditionTitle } from 'helpers/search';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { sectionActions } from 'redux/modules/section';
 import { spaceActions } from 'redux/modules/space';
-import { authActions } from 'redux/modules/auth';
 import Top from 'components/LV3/Top';
 import LoadingPage from 'components/LV3/LoadingPage';
 
@@ -30,13 +29,6 @@ class TopPage extends React.Component {
 
     // 非ログイン状態ならAction内で検索をやめてくれるのでここで分岐はしない
     dispatch(spaceActions.doSearchMyArea());
-  }
-
-  componentDidUpdate(prevProps) {
-    const { dispatch } = this.props;
-    if (!prevProps.user.id && this.props.user.id) {
-      dispatch(authActions.fetchHasRequested());
-    }
   }
 
   onClickSpace = spaceId => {
@@ -67,7 +59,7 @@ class TopPage extends React.Component {
 
     let isViewModalTop = false;
     let requestParams;
-    if (user && user.isHost !== undefined && !user.isHost && user.hasRequested !== undefined) {
+    if (user && user.isHost !== undefined && !user.isHost) {
       if (isAvailableLocalStorage()) {
         if (
           localStorage.getItem('isRequestedTop') &&
@@ -76,8 +68,6 @@ class TopPage extends React.Component {
           // 希望条件送付済
         } else if (localStorage.getItem('request_params')) {
           requestParams = localStorage.getItem('request_params');
-        } else if (user.hasRequested) {
-          // リクエスト済み
         } else {
           isViewModalTop = true;
         }
