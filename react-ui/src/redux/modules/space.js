@@ -24,6 +24,18 @@ import { handleError } from './error';
 const dummySpaceImage =
   'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
+const uniqById = arr => {
+  const uniqDic = arr.reduce((ob, item) => {
+    const key = item.id;
+    if (!ob[key]) {
+      return { ...ob, [key]: item };
+    } else {
+      return { ...ob };
+    }
+  }, {});
+  return Object.values(uniqDic);
+};
+
 // Actions
 const CLEAR_SPACE = 'CLEAR_SPACE';
 const FETCH_SPACE = 'FETCH_SPACE';
@@ -238,7 +250,7 @@ export const spaceReducer = handleActions(
       search: {
         ...state.search,
         isLoading: false,
-        results: [...state.search.results, ...payload.spaces],
+        results: uniqById([...state.search.results, ...payload.spaces]),
         isMore: payload.isMore,
         maxCount: payload.maxCount,
         area: payload.area,
