@@ -52,7 +52,7 @@ class SpaceEdit3Page extends Component {
       error: {},
       isUpdate: !!props.match.params.space_id,
       queue: null,
-      isOverPhone: false,
+      isOverPhone: isOverPhoneWindow(),
     };
   }
 
