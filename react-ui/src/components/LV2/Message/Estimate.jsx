@@ -200,10 +200,23 @@ export default ({
 }) => (
   <Fragment>
     <Card block borderColor={Colors.brandPrimary} padding={24} paddingSp={14}>
-      <Text>{host ? '【見積もりを送りました】' : '【見積もりが届きました】'}</Text>
-      {!host && <Text>{`${formatName(name)}さんからのお見積もり`}</Text>}
       <Text>
-        ID：
+        <InlineText.Base fontSize={20} bold>
+          {host ? '見積もりを送りました' : '見積もりが届きました'}
+        </InlineText.Base>
+      </Text>
+      {!host && (
+        <Fragment>
+          <br />
+          <Text>{`${formatName(name)}さんからのお見積もり`}</Text>
+        </Fragment>
+      )}
+      <br />
+      <InlineText.Base fontSize={17} bold>
+        ■基本情報
+      </InlineText.Base>
+      <Text>
+        見積もりID：
         {id}
       </Text>
       <Text>
@@ -254,7 +267,9 @@ export default ({
             <Caution>支払期限を過ぎています。ホストに再度見積もりを出してもらいましょう。</Caution>
           ) : (
             <Fragment>
-              見積もり内容を確認し、お支払いに進みましょう。支払いを完了すると利用契約が成立し、スペース住所が表示されます。
+              見積もり内容を確認して決済しましょう。
+              <br />
+              支払いを完了すると利用契約が成立し、スペース住所が表示されます。
               <br />
               <ButtonPaymentWrap>
                 {buttonPayment(host, status, payType, isOpenModalError, onClickPayment)}
