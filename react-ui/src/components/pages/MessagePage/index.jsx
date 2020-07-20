@@ -114,18 +114,9 @@ class MessagePage extends Component {
           {
             const { request } = message;
             if (request) {
-              if (isHost) {
-                return {
-                  admin: {
-                    message: `【決済が完了しました】\n見積もりID:${request.id}\nスペース取引成立です！下記住所をゲストにお伝えしました。\n\nスペース所在地:${request.space.address}`,
-                    receivedAt: message.createDt,
-                  },
-                };
-              }
-
               return {
                 admin: {
-                  message: <Paid request={request} />,
+                  message: <Paid request={request} isHost={isHost} />,
                   receivedAt: message.createDt,
                 },
               };

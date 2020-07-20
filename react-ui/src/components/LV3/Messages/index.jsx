@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { formatDate, formatStringSlash, formatStringSlashTime } from 'helpers/date';
+import InlineText from 'components/LV1/Texts/InlineText';
 import AdminMessage from 'components/LV2/Message/Admin';
 import SelfMessage from 'components/LV2/Message/MySelf';
 import OtherMessage from 'components/LV2/Message/Other';
@@ -142,16 +143,44 @@ export default ({
     if (hostUser) {
       messageList.splice(0, 0, {
         admin: {
-          message:
-            `ゲストの${guest.name}さんが次の内容でスペースを探しています。\n` +
-            '預かれる場合はぜひメッセージを送ってみましょう！\n\n' +
-            'ーーーーーーーーーーーーーーーーー\n' +
-            `用途:${getUsages(guest.wish.Usages)}\n` +
-            `希望開始日:${formatDate(new Date(guest.wish.StartDate), formatStringSlash)}\n` +
-            `${guest.wish.IsLong ? '半年以上の利用希望\n' : ''}` +
-            `希望の広さ:${getBreadths(guest.wish.Breadth)}\n` +
-            'ーーーーーーーーーーーーーーーーー\n\n' +
-            '荷物の内容や利用希望の畳数をゲストに確認すると、見積もりを提出する際の参考になります。\n',
+          message: (
+            <Fragment>
+              <InlineText.Base fontSize={20} bold>
+                スペースを探しているゲストがいます
+              </InlineText.Base>
+              <br />
+              <br />
+              ゲストの
+              {guest.name}
+              さんが次の内容でスペースを探しています。
+              <br />
+              預かれる場合はぜひメッセージを送ってみましょう！
+              <br />
+              <br />
+              <InlineText.Base fontSize={17} bold>
+                {`■${guest.name}`}
+                さんの希望条件
+              </InlineText.Base>
+              <br />
+              用途:
+              {getUsages(guest.wish.Usages)}
+              <br />
+              希望開始日:
+              {formatDate(new Date(guest.wish.StartDate), formatStringSlash)}
+              {guest.wish.IsLong && (
+                <Fragment>
+                  <br />
+                  半年以上の利用希望
+                </Fragment>
+              )}
+              <br />
+              希望の広さ:
+              {getBreadths(guest.wish.Breadth)}
+              <br />
+              <br />
+              荷物の内容や利用希望の畳数をゲストに確認すると、見積もりを提出する際の参考になります。
+            </Fragment>
+          ),
         },
       });
     }
@@ -163,8 +192,22 @@ export default ({
       if (!messageList[0].self) {
         messageList.splice(1, 0, {
           admin: {
-            message:
-              'リクエストを確認し、条件を調整しましょう。\nスペースを貸し出せる場合は、見積もりを発行してください。\n見積もりへの支払いが完了すると取引が成立し、スペース住所の詳細がゲストに伝わります。\n※「見積もりを送る」ボタンはメッセージ送信ボタン下部にあります。',
+            message: (
+              <Fragment>
+                <InlineText.Base fontSize={20} bold>
+                  リクエストが届きました
+                </InlineText.Base>
+                <br />
+                <br />
+                リクエストを確認し、条件を調整しましょう。
+                <br />
+                スペースを貸し出せる場合は見積もりを発行してください。
+                <br />
+                見積もりへの支払いが完了すると取引が成立し、スペース住所の詳細がゲストに伝わります。
+                <br />
+                ※「見積もりを送る」ボタンはメッセージ送信ボタン下部にあります。
+              </Fragment>
+            ),
           },
         });
       }
@@ -178,17 +221,53 @@ export default ({
       } else {
         messageList.splice(1, 0, {
           admin: {
-            message:
-              `ホストの${host.name}さんが${guest.name}さんの荷物を預かることができます。\n` +
-              '荷物の内容や利用希望の畳数を伝え、気軽に相談してみましょう。\n\n' +
-              `${host.name}さんのスペース詳細:https://monooq.com/space/${space.id}\n\n` +
-              'ーーーーーーーーーーーーーーーーー\n' +
-              `${guest.name}さんの希望条件\n` +
-              `用途:${getUsages(guest.wish.Usages)}\n` +
-              `希望開始日:${formatDate(new Date(guest.wish.StartDate), formatStringSlash)}\n` +
-              `${guest.wish.IsLong ? '半年以上の利用希望\n' : ''}` +
-              `希望の広さ:${getBreadths(guest.wish.Breadth)}\n` +
-              'ーーーーーーーーーーーーーーーーー\n\n',
+            message: (
+              <Fragment>
+                <InlineText.Base fontSize={20} bold>
+                  荷物を預かることが可能なホストがいます
+                </InlineText.Base>
+                <br />
+                <br />
+                ホストの
+                {host.name}
+                さんが
+                {guest.name}
+                さんの荷物を預かることができます。
+                <br />
+                荷物の内容や利用希望の畳数を伝え、気軽に相談してみましょう。
+                <br />
+                <br />
+                <InlineText.Base fontSize={17} bold>
+                  ■スペース詳細
+                </InlineText.Base>
+                <br />
+                {`https://monooq.com/space/${space.id}`}
+                <br />
+                <br />
+                <InlineText.Base fontSize={17} bold>
+                  {`■${guest.name}`}
+                  さんの希望条件
+                </InlineText.Base>
+                <br />
+                用途:
+                {getUsages(guest.wish.Usages)}
+                <br />
+                希望開始日:
+                {formatDate(new Date(guest.wish.StartDate), formatStringSlash)}
+                {guest.wish.IsLong && (
+                  <Fragment>
+                    <br />
+                    半年以上の利用希望
+                  </Fragment>
+                )}
+                <br />
+                希望の広さ:
+                {getBreadths(guest.wish.Breadth)}
+                <br />
+                <br />
+                荷物の内容や利用希望の畳数をゲストに確認すると、見積もりを提出する際の参考になります。
+              </Fragment>
+            ),
           },
         });
       }
