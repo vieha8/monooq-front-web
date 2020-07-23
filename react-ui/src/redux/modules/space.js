@@ -25,15 +25,14 @@ const dummySpaceImage =
   'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
 const uniqById = arr => {
-  const uniqDic = arr.reduce((ob, item) => {
-    const key = item.id;
-    if (!ob[key]) {
-      return { ...ob, [key]: item };
-    } else {
-      return { ...ob };
+  const uniq = [];
+  arr.forEach(item => {
+    const exist = uniq.find(i => i.id === item.id);
+    if (!exist) {
+      uniq.push(item);
     }
-  }, {});
-  return Object.values(uniqDic);
+  });
+  return uniq;
 };
 
 // Actions
