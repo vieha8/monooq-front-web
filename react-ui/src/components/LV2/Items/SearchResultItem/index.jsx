@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
 import ReactGA from 'react-ga';
@@ -66,6 +66,11 @@ const Row = styled.div`
   `}
 `;
 
+const TagRow = styled(Row)`
+  ${props => (props.hasMoreTags ? 'height: 72px' : '')}
+  overflow: hidden;
+`;
+
 const ImageStar = styled.img`
   max-width: 20px;
   margin-right: 2px;
@@ -76,6 +81,15 @@ const Title = styled(InlineText.Base)`
   ${mediaMin.phone`
     height: 44px;
   `}
+`;
+
+const ShowMore = styled.div`
+  text-align: center;
+`;
+
+const ShowMoreText = styled(InlineText.Tiny)`
+  font-weight: bold;
+  text-decoration: underline;
 `;
 
 const SpaceResultItem = ({
@@ -97,6 +111,19 @@ const SpaceResultItem = ({
   status,
   via,
 }) => {
+  const [hasHiddenTags, setHasHiddenTags] = useState(false);
+  const [calcTagsHeight, setCalcTagsHeight] = useState(false);
+  const [isOpenTags, setIsOpenTags] = useState(false);
+  const tagsContainerRef = useRef(null);
+
+  useEffect(() => {
+    const { current } = tagsContainerRef;
+    if (calcTagsHeight || !current) return;
+
+    setCalcTagsHeight(true);
+    setHasHiddenTags(current.clientHeight > 72);
+  }, [calcTagsHeight]);
+
   const onClickSpace = () => {
     ReactGA.plugin.execute('ec', 'addProduct', {
       id,
@@ -159,7 +186,7 @@ const SpaceResultItem = ({
                 {isExistTatamiPrice &&
                   isPriceFullHigherThanpriceTatami &&
                   `￥${numeral(priceTatami).format('0,0')}`}
-                ~{`￥${numeral(priceFull).format('0,0')}`}
+                {`~￥${numeral(priceFull).format('0,0')}`}
                 <span style={{ fontSize: '80%', fontWeight: 'normal' }}>&nbsp;/&nbsp;月</span>
               </InlineText.Base>
             </Row>
@@ -172,9 +199,18 @@ const SpaceResultItem = ({
         </Card>
       </Link>
       {tags && tags.length > 0 && (
-        <Row marginTop={12}>
-          <Tag tagList={tags.map(v => v.name)} />
-        </Row>
+        <Fragment>
+          <TagRow hasMoreTags={hasHiddenTags && !isOpenTags} marginTop={12} ref={tagsContainerRef}>
+            <Tag tagList={tags.map(v => v.name)} />
+          </TagRow>
+          {hasHiddenTags && !isOpenTags && (
+            <ShowMore onClick={() => setIsOpenTags(true)}>
+              <ShowMoreText singleLine fontSize={14} color={Colors.lightGray3}>
+                もっと見る
+              </ShowMoreText>
+            </ShowMore>
+          )}
+        </Fragment>
       )}
     </Wrap>
   );
