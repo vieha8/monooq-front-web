@@ -79,7 +79,14 @@ export default class RegisterProfilePage extends Component {
     }
     amplitude.getInstance().logEvent('新規登録 - プロフィール登録完了');
 
-    history.push(Path.top());
+    if (isHost === 0) {
+      history.push(Path.top());
+    } else {
+      history.push({
+        pathname: Path.spaceCreate1(),
+        state: { isFromRegister: true },
+      });
+    }
   };
 
   onClickPurpose = newState => {
