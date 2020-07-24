@@ -82,7 +82,10 @@ export default class RegisterProfilePage extends Component {
     if (isHost === 0) {
       history.push(Path.top());
     } else {
-      history.push(Path.spaces());
+      history.push({
+        pathname: Path.spaceCreate1(),
+        state: { isFromRegister: true },
+      });
     }
   };
 

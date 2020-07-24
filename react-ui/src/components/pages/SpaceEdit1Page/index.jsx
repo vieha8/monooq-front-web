@@ -108,6 +108,7 @@ class SpaceEdit1Page extends Component {
       isImageUploading: false,
       isOpenModalError: false,
       isUpdate: !!props.match.params.space_id,
+      isFromRegister: !!(props.location.state && props.location.state.isFromRegister),
     };
   }
 
@@ -138,9 +139,12 @@ class SpaceEdit1Page extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const { user, space } = nextProps;
+    const { isFromRegister } = prevState;
 
-    if (!user.email || !user.phoneNumber) {
-      return { isOpenModalError: true };
+    if (!isFromRegister) {
+      if (!user.email || !user.phoneNumber) {
+        return { isOpenModalError: true };
+      }
     }
 
     if ((space.id && !prevState.id) || space.id !== prevState.id) {
