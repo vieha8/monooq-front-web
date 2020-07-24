@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 import styled from 'styled-components';
 import numeral from 'numeral';
 import ReactGA from 'react-ga';
@@ -82,8 +82,14 @@ const Title = styled(InlineText.Base)`
     height: 44px;
   `}
 `;
+
 const ShowMore = styled.div`
   text-align: center;
+`;
+
+const ShowMoreText = styled(InlineText.Tiny)`
+  font-weight: bold;
+  text-decoration: underline;
 `;
 
 const SpaceResultItem = ({
@@ -111,7 +117,7 @@ const SpaceResultItem = ({
   const tagsContainerRef = useRef(null);
 
   useEffect(() => {
-    const current = tagsContainerRef.current;
+    const { current } = tagsContainerRef;
     if (calcTagsHeight || !current) return;
 
     setCalcTagsHeight(true);
@@ -180,7 +186,7 @@ const SpaceResultItem = ({
                 {isExistTatamiPrice &&
                   isPriceFullHigherThanpriceTatami &&
                   `￥${numeral(priceTatami).format('0,0')}`}
-                ~{`￥${numeral(priceFull).format('0,0')}`}
+                {`~￥${numeral(priceFull).format('0,0')}`}
                 <span style={{ fontSize: '80%', fontWeight: 'normal' }}>&nbsp;/&nbsp;月</span>
               </InlineText.Base>
             </Row>
@@ -193,18 +199,18 @@ const SpaceResultItem = ({
         </Card>
       </Link>
       {tags && tags.length > 0 && (
-        <>
+        <Fragment>
           <TagRow hasMoreTags={hasHiddenTags && !isOpenTags} marginTop={12} ref={tagsContainerRef}>
             <Tag tagList={tags.map(v => v.name)} />
           </TagRow>
           {hasHiddenTags && !isOpenTags && (
             <ShowMore onClick={() => setIsOpenTags(true)}>
-              <InlineText.Tiny singleLine fontSize={14} color={Colors.lightGray3}>
+              <ShowMoreText singleLine fontSize={14} color={Colors.lightGray3}>
                 もっと見る
-              </InlineText.Tiny>
+              </ShowMoreText>
             </ShowMore>
           )}
-        </>
+        </Fragment>
       )}
     </Wrap>
   );
