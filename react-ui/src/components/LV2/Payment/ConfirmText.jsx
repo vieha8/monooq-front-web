@@ -52,6 +52,10 @@ const ImageCp = styled.img`
   `};
 `;
 
+const HyperLink = styled.a`
+  color: ${Colors.brandPrimary};
+`;
+
 const maskify = cc => {
   return cc.slice(0, -4).replace(/./g, '*') + cc.slice(-4);
 };
@@ -102,7 +106,15 @@ export default ({
         </CreditInfo>
         ・お支払いを完了した後、利用を開始される前にキャンセルされた場合、預かり開始日の15日前からキャンセル手数料が発生します。
         <br />
-        ・「確定する」ボタンを押すことで、お客様は当サイトの個人情報保護方針と利用規約に同意の上、モノオクサービスの予約を確定したことになります。
+        ・「確定する」ボタンを押すことで、お客様は当サイトの
+        <HyperLink href="https://monooq.com/privacy" target="_blank" rel="noopener noreferrer">
+          個人情報保護方針
+        </HyperLink>
+        と
+        <HyperLink href="https://monooq.com/terms" target="_blank" rel="noopener noreferrer">
+          利用規約
+        </HyperLink>
+        に同意の上、モノオクサービスの予約を確定したことになります。
       </Fragment>
     ) : (
       <Fragment>
@@ -114,7 +126,15 @@ export default ({
         <br />
         ・お支払い方法確定後、お支払いページのURLを発行します。
         <br />
-        ・「確定する」ボタンを押すことで、お客様は当サイトの個人情報保護方針と利用規約に同意の上、モノオクサービスの予約を確定したことになります。
+        ・「確定する」ボタンを押すことで、お客様は当サイトの
+        <HyperLink href="https://monooq.com/privacy" target="_blank" rel="noopener noreferrer">
+          個人情報保護方針
+        </HyperLink>
+        と
+        <HyperLink href="https://monooq.com/terms" target="_blank" rel="noopener noreferrer">
+          利用規約
+        </HyperLink>
+        に同意の上、モノオクサービスの予約を確定したことになります。
         <br />
         ・お支払い後、モノオクサービス上で決済完了通知が反映されるまでに2時間程度のお時間をいただきます。
         <br />
