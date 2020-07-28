@@ -1,31 +1,31 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { formatDate, formatStringSlash } from 'helpers/date';
-import { formatAddComma } from 'helpers/string';
+// import { formatDate, formatStringSlash } from 'helpers/date';
+// import { formatAddComma } from 'helpers/string';
 import InlineText from 'components/LV1/Texts/InlineText';
 
-const PAYTYPE_CREDITCARD = 1;
-const PAYTYPE_ECONTEXT = 4;
+// const PAYTYPE_CREDITCARD = 1;
+// const PAYTYPE_ECONTEXT = 4;
 
 const Wrap = styled(InlineText.Base)`
   display: block;
   font-size: 14px;
 `;
 
-const getTextPayType = payType => {
-  let resultPayType = '';
-  switch (payType) {
-    case PAYTYPE_CREDITCARD:
-      resultPayType = 'クレジットカード決済';
-      break;
-    case PAYTYPE_ECONTEXT:
-      resultPayType = 'コンビニ払い・Pay-easy決済';
-      break;
-    default:
-      resultPayType = 'その他';
-  }
-  return resultPayType;
-};
+// const getTextPayType = payType => {
+//   let resultPayType = '';
+//   switch (payType) {
+//     case PAYTYPE_CREDITCARD:
+//       resultPayType = 'クレジットカード決済';
+//       break;
+//     case PAYTYPE_ECONTEXT:
+//       resultPayType = 'コンビニ払い・Pay-easy決済';
+//       break;
+//     default:
+//       resultPayType = 'その他';
+//   }
+//   return resultPayType;
+// };
 
 const Paid = ({ isHost, request }) => (
   <Wrap>
@@ -61,7 +61,8 @@ const Paid = ({ isHost, request }) => (
         </a>
       </Fragment>
     )}
-    <br />
+    {/* TODO: 見積もり決済改修の絡みで一時的に非表示とする */}
+    {/* <br />
     <br />
     <InlineText.Base fontSize={17} bold>
       ■お支払い情報
@@ -85,7 +86,7 @@ const Paid = ({ isHost, request }) => (
     {`(スペース利用料${formatAddComma(request.price)}円 + サービス利用料${formatAddComma(
       request.fee,
     )}円)`}
-    <br />
+    <br /> */}
   </Wrap>
 );
 
