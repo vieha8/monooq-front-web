@@ -191,7 +191,7 @@ const PaymentInputForm = ({
         requestId,
         info: {
           paymentType,
-          paymentPrice: paymentType === 0 ? paymentData.pricePlusFeeMonthly : paymentData.price,
+          paymentPrice: paymentType === 0 ? paymentData.priceMonthly : paymentData.price,
           startDate: paymentData.beginAt,
           endDate: paymentData.endAt,
           isUndecided: paymentData.isUndecided,

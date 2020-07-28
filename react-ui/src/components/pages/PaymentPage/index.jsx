@@ -49,6 +49,9 @@ class PaymentPage extends Component {
             endAt: formatDate(new Date(request.endDate), formatStringSlash),
             isUndecided: request.isUndecided,
             price: String(request.price),
+            priceMonthly: String(
+              Math.floor(request.price / (request.isUndecided === 1 ? 1 : request.usagePeriod)),
+            ),
             pricePlusFee: String(request.pricePlusFee),
             pricePlusFeeMonthly: String(
               Math.floor(
