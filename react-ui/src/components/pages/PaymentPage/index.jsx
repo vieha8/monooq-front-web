@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import numeral from 'numeral';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Path from 'config/path';
@@ -49,7 +48,7 @@ class PaymentPage extends Component {
             beginAt: formatDate(new Date(request.startDate), formatStringSlash),
             endAt: formatDate(new Date(request.endDate), formatStringSlash),
             isUndecided: request.isUndecided,
-            price: numeral(request.price).format('0,0'),
+            price: String(request.price),
             pricePlusFee: String(request.pricePlusFee),
             pricePlusFeeMonthly: String(
               Math.floor(
