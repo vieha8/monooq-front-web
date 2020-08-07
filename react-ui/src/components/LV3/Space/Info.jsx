@@ -12,7 +12,7 @@ import Tag from 'components/LV1/Texts/Tag';
 import Description from 'components/LV2/Space/Description';
 import BreadcrumbsList from 'components/LV2/Lists/BreadcrumbsList';
 import Map from 'components/LV2/Space/Map';
-import Recommend from 'components/LV2/Space/Recommend';
+// import Recommend from 'components/LV2/Space/Recommend';
 import Receive from 'components/LV2/Space/Receive';
 import InfoHost from 'components/LV2/Space/InfoHost';
 import Price from 'components/LV3/Space/Price';
@@ -56,7 +56,7 @@ export default ({
   sizeType,
   tagList,
   breadcrumbsList,
-  recommend,
+  // recommend,
   user,
   userMeta,
 }) => (
@@ -107,8 +107,8 @@ export default ({
       }
     />
     <Attention />
-    {!confirm && recommend && recommend.length > 0 && (
+    {/* {!confirm && recommend && recommend.length > 0 && (
       <Recommend id={id} name={name} recommend={recommend} />
-    )}
+    )} */}
   </Fragment>
 );
