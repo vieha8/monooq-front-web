@@ -114,7 +114,7 @@ class SpacePage extends Component {
     dispatch(spaceActions.clearSpace());
     dispatch(spaceActions.fetchSpace({ spaceId }));
     dispatch(spaceActions.addSpaceAccessLog({ spaceId }));
-    dispatch(spaceActions.getRecommendSpaces({ spaceId }));
+    // dispatch(spaceActions.getRecommendSpaces({ spaceId }));
   };
 
   checkResize = () => {
@@ -165,7 +165,8 @@ class SpacePage extends Component {
   };
 
   showContent = () => {
-    const { space, user, isRequesting, recommendSpaces, roomId } = this.props;
+    // const { space, user, isRequesting, recommendSpaces, roomId } = this.props;
+    const { space, user, isRequesting, roomId } = this.props;
     const {
       meta: { title, description, url, imageUrl },
       isOverTopView,
@@ -175,18 +176,18 @@ class SpacePage extends Component {
       isOverTablet,
     } = this.state;
 
-    const recommend = recommendSpaces
-      ? recommendSpaces.map(s => ({
-          id: s.id,
-          image: (s.images[0] || {}).imageUrl,
-          title: s.title,
-          address: `${s.addressPref}${s.addressCity}`,
-          priceFull: s.priceFull,
-          priceTatami: s.priceTatami,
-          lastLoginAt: s.user.lastLoginAt,
-          onClick: () => this.onClickSpace(s),
-        }))
-      : null;
+    // const recommend = recommendSpaces
+    //   ? recommendSpaces.map(s => ({
+    //       id: s.id,
+    //       image: (s.images[0] || {}).imageUrl,
+    //       title: s.title,
+    //       address: `${s.addressPref}${s.addressCity}`,
+    //       priceFull: s.priceFull,
+    //       priceTatami: s.priceTatami,
+    //       lastLoginAt: s.user.lastLoginAt,
+    //       onClick: () => this.onClickSpace(s),
+    //     }))
+    //   : null;
 
     return (
       <BaseTemplate maxWidth={1440} noMargin>
@@ -215,7 +216,7 @@ class SpacePage extends Component {
             prefCode: space.user.prefCode,
             lastLoginAt: space.user.lastLoginAt,
           }}
-          recommend={recommend}
+          // recommend={recommend}
           isOverTopView={isOverTopView}
           isBottom={isBottom}
           isModalOpen={isModalOpen}
@@ -283,7 +284,7 @@ const mapStateToProps = state => ({
   user: state.auth.user,
   space: state.space.space,
   isLoading: state.space.isLoading,
-  recommendSpaces: state.space.recommendSpaces,
+  // recommendSpaces: state.space.recommendSpaces,
   isRequesting: state.request.isLoading,
   roomId: state.messages.roomId,
 });

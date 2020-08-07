@@ -203,7 +203,7 @@ export default ({
   tagList,
   loginUser,
   user,
-  recommend,
+  // recommend,
   isOverTopView,
   isBottom,
   isModalOpen,
@@ -227,7 +227,7 @@ export default ({
           sizeType={space.sizeType}
           tagList={tagList}
           user={user}
-          recommend={recommend}
+          // recommend={recommend}
           breadcrumbsList={makeBreadCrumbs(space)}
           userMeta={space.userMeta}
           isOverTablet={isOverTablet}
