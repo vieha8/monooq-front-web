@@ -73,7 +73,7 @@ const MenuPC = () => {
           imageUrl={user.imageUrl}
           name={user.name}
         />
-        {user.isHost && (
+        {user.isHost ? (
           <Fragment>
             <TitleMenu>スペース運営</TitleMenu>
             <MenuItem
@@ -84,6 +84,15 @@ const MenuPC = () => {
             <MenuItem title="スペースの管理" to={Path.spaces()} />
             <MenuItem title="利用状況" to={Path.schedule()} />
             <MenuItem title="売上・振込申請" to={Path.sales()} />
+          </Fragment>
+        ) : (
+          <Fragment>
+            <MenuItem title="メッセージ管理" to={Path.messageList()} />
+            <MenuItem
+              title="配送手配"
+              href="https://www.hacobell.com/register?tenant_code=monooq"
+              blank
+            />
           </Fragment>
         )}
         {user && (

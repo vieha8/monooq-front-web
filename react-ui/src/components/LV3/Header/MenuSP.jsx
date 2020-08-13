@@ -54,6 +54,11 @@ class MenuSP extends Component {
           loginUrl={{ to: Path.login(), onClick: () => this.close() }}
           top={{ to: Path.top(), onClick: () => this.close() }}
           about={{ to: Path.about(), onClick: () => this.close() }}
+          messages={{ to: Path.messageList(), onClick: () => this.close() }}
+          haisou={{
+            href: 'https://www.hacobell.com/register?tenant_code=monooq',
+            onClick: () => this.close(),
+          }}
           schedule={{ to: Path.schedule(), onClick: () => this.close() }}
           spaces={{ to: Path.spaces(), onClick: () => this.close() }}
           addSpace={{
