@@ -25,21 +25,21 @@ const Requested = () => {
       一度入力した内容は使い回せるため、他へのリクエストも楽々。
       <br />
       <br />
-      ②預け先が見つからない…そんなときはモノオク運営のスペースへご相談どうぞ！(東京都限定)
-      <br />
-      <TextLink to={Path.space(4518)}>▶モノオクのスペースはこちら</TextLink>
-      <br />
-      <br />
-      ③モノオクからおすすめ配送！
+      ②モノオクからお得な料金で荷物配送ができます。
       <br />
       <TextLink
-        href="https://rentora.com/"
+        href="https://www.hacobell.com/register?tenant_code=monooq"
         target="_blank"
         rel="noopener noreferrer"
         className="gaMessageTipsRentoraLinkFirst"
       >
-        ▶申込みはこちら
+        ▶配送手配はこちら
       </TextLink>
+      <br />
+      <br />
+      ③預け先が見つからない…そんなときはモノオク運営のスペースへご相談どうぞ！(東京都限定)
+      <br />
+      <TextLink to={Path.space(4518)}>▶モノオクのスペースはこちら</TextLink>
     </Fragment>
   );
 };
