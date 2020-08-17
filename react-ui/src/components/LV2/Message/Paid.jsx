@@ -49,15 +49,15 @@ const Paid = ({ isHost, request }) => (
       <Fragment>
         <br />
         <br />
-        モノオクからおすすめ配送！
+        モノオクからお得な料金で荷物の配送ができます。
         <br />
         <a
-          href="https://rentora.com/"
+          href="https://www.hacobell.com/register?tenant_code=monooq"
           target="_blank"
           rel="noopener noreferrer"
           className="gaMessageTipsRentoraLinkPaid"
         >
-          ▶申込みはこちら
+          ▶配送手配はこちら
         </a>
       </Fragment>
     )}
