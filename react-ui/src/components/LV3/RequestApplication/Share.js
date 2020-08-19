@@ -49,7 +49,7 @@ export const validate = (
     !isTrimmedEmpty(packageContents) &&
     isBelowTrimmedLimit(packageContents, Validate.PackageContents.Max) &&
     (existPhoneNumber || (phoneNumber && isPhoneNumberWithoutHyphen(phoneNumber))) &&
-    isBelowTrimmedLimit(notes, Validate.Notes.Max) &&
+    (!notes || isBelowTrimmedLimit(notes, Validate.Notes.Max)) &&
     moment(startDateAll).isValid() &&
     moment(endDateAll).isValid() &&
     !moment(startDateAll).isBefore(getToday()) &&

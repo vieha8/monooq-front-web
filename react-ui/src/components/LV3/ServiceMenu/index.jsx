@@ -11,6 +11,8 @@ export default ({
   loginUrl,
   top,
   about,
+  messages,
+  haisou,
   isLogin,
   schedule,
   isHost,
@@ -27,23 +29,31 @@ export default ({
     {isLogin ? (
       <Fragment>
         <InfoUser isHost={isHost} id={userId} imageUrl={userImage} name={userName} close={close} />
-        <MenuItem title="閲覧履歴" {...history} />
-        {isHost && (
+        {isHost ? (
           <Fragment>
+            <MenuItem title="閲覧履歴" {...history} />
             <MenuItem title="スペース運営" header />
             <MenuItem title="スペースの新規登録" {...addSpace} />
             <MenuItem title="スペースの管理" {...spaces} />
             <MenuItem title="利用状況" {...schedule} />
             <MenuItem title="売上・振込申請" {...sales} />
           </Fragment>
+        ) : (
+          <Fragment>
+            <MenuItem title="マイページ" header />
+            <MenuItem title="閲覧履歴" {...history} />
+            <MenuItem title="メッセージ管理" {...messages} />
+            <MenuItem title="配送手配" {...haisou} blank />
+          </Fragment>
         )}
       </Fragment>
     ) : (
       <Fragment>
         <MenuItem title="新規登録・ログイン" header />
-        <MenuItem title="閲覧履歴" {...history} />
         <MenuItem title="新規登録" {...signupUrl} />
         <MenuItem title="ログイン" {...loginUrl} />
+        <MenuItem title="履歴" header />
+        <MenuItem title="スペース閲覧履歴" {...history} />
       </Fragment>
     )}
     <MenuItem title="サービスについて" header />

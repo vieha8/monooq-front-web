@@ -382,7 +382,15 @@ export default () => {
                     <br />
                     2.直接運ぶ
                     <br />
-                    3.提携の配送サービス（レントラ便など）の利用
+                    3.モノオクからお得な料金で
+                    <a
+                      href="https://www.hacobell.com/register?tenant_code=monooq"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="gaHacobelAbout"
+                    >
+                      配送手配
+                    </a>
                   </Answer>
                 </Collapsible>
               </QuestionItem>

@@ -686,6 +686,10 @@ function* request({ payload: { user, space, body } }) {
 
     messageBody += '一度リクエストした内容を使い回せるので、2回目以降は申請が楽々！\n';
     messageBody += `▶他のスペースも探すにはこちら: https://monooq.com/spaces/pref${space.prefCode}/\n\n`;
+    messageBody += `また、配送業者は既にお決まりですか？モノオクからお得な配送の手配が可能です。\n`;
+    messageBody += `https://www.hacobell.com/register?tenant_code=monooq\n\n`;
+    messageBody += `何かご不明点があれば、いつでもモノオクまでお問い合わせくださいませ。\n`;
+    messageBody += `モノオク公式LINE：https://line.me/R/ti/p/%40wna0649g\n\n`;
 
     if (space.prefCode === '13') {
       messageBody +=
