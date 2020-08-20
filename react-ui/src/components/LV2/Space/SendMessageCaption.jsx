@@ -17,18 +17,33 @@ const Price = styled.span`
   font-weight: bold;
 `;
 
-const Unit = styled.div``;
+const Unit = styled.div`
+  ${props =>
+    props.tatami &&
+    `
+    margin-bottom: ${Dimens.small}px;
+  `};
+`;
 
 export default ({ priceTatami, priceFull }) => (
   <Wrap>
-    <Price>{`${numeral(priceTatami).format('0,0')}〜`}</Price>
-    <br />
-    <Price>{`${numeral(priceFull).format('0,0')}`}</Price>
-    <InlineText.Base fontSize={FontSizes.small_12} bold>
-      &nbsp;円/月
-    </InlineText.Base>
+    {priceTatami && priceTatami > 0 && priceFull > priceTatami && (
+      <Unit tatami>
+        <InlineText.EmphasisTiny>1畳あたり</InlineText.EmphasisTiny>
+        <br />
+        <Price>{`${numeral(priceTatami).format('0,0')}`}</Price>
+        <InlineText.Base fontSize={FontSizes.small_12} bold>
+          &nbsp;円/月
+        </InlineText.Base>
+      </Unit>
+    )}
     <Unit>
-      <InlineText.EmphasisTiny>1畳あたり</InlineText.EmphasisTiny>
+      <InlineText.EmphasisTiny>全て利用</InlineText.EmphasisTiny>
+      <br />
+      <Price>{`${numeral(priceFull).format('0,0')}`}</Price>
+      <InlineText.Base fontSize={FontSizes.small_12} bold>
+        &nbsp;円/月
+      </InlineText.Base>
     </Unit>
   </Wrap>
 );

@@ -11,13 +11,17 @@ const Wrap = styled.div`
     `
     margin: auto;
     display: inline-block;
-    min-width: 185px;
+    min-width: 165px;
   `};
+`;
+
+const ButtonStyled = styled(Button)`
+  font-size: 13px;
 `;
 
 export default ({ isSP, loading, onClick, onKeyDown, disabled, text }) => (
   <Wrap isSP={isSP}>
-    <Button
+    <ButtonStyled
       center
       primary
       fontbold
@@ -28,6 +32,6 @@ export default ({ isSP, loading, onClick, onKeyDown, disabled, text }) => (
       onKeyDown={onKeyDown}
     >
       {text || 'リクエスト申請'}
-    </Button>
+    </ButtonStyled>
   </Wrap>
 );
