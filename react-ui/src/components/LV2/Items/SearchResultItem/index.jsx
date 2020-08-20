@@ -50,7 +50,6 @@ const Row = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    text-align: right;
   `};
   ${props =>
     props.isNoViewLastLogin &&
@@ -137,6 +136,22 @@ const SpaceResultItem = ({
   // 1畳未満のスペースは部屋全体価格が畳数単価より低い場合があるため
   const isPriceFullHigherThanpriceTatami = priceFull > priceTatami;
 
+  const getViewPrice = () => (
+    <Fragment>
+      {isExistTatamiPrice && isPriceFullHigherThanpriceTatami && (
+        <Fragment>
+          <span style={{ fontSize: '80%', fontWeight: 'normal' }}>1畳あたり:</span>
+          {`￥${numeral(priceTatami).format('0,0')}`}
+          <span style={{ fontSize: '80%', fontWeight: 'normal' }}>&nbsp;/&nbsp;月</span>
+          <br />
+        </Fragment>
+      )}
+      <span style={{ fontSize: '80%', fontWeight: 'normal' }}>全て利用:</span>
+      {`￥${numeral(priceFull).format('0,0')}`}
+      <span style={{ fontSize: '80%', fontWeight: 'normal' }}>&nbsp;/&nbsp;月</span>
+    </Fragment>
+  );
+
   return (
     <Wrap>
       <Link to={`${Path.space(id)}${via ? `?via=${via}` : ''}`} onClick={onClickSpace}>
@@ -183,11 +198,7 @@ const SpaceResultItem = ({
             </Row>
             <Row price isNoViewLastLogin={isNoViewLastLogin}>
               <InlineText.Base noWrap fontSize={16} fontSizeSp={14} fontSizeSpSmall={12} bold>
-                {isExistTatamiPrice &&
-                  isPriceFullHigherThanpriceTatami &&
-                  `￥${numeral(priceTatami).format('0,0')}`}
-                {`~￥${numeral(priceFull).format('0,0')}`}
-                <span style={{ fontSize: '80%', fontWeight: 'normal' }}>&nbsp;/&nbsp;月</span>
+                {getViewPrice()}
               </InlineText.Base>
             </Row>
             <Row marginTop={8}>

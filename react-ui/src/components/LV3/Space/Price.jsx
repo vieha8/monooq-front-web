@@ -33,7 +33,7 @@ export default ({ full, tatami }) => (
           detail
         />
       )}
-      {tatami > 0 && (
+      {tatami && tatami > 0 && full > tatami && (
         <InputPriceOfType
           image={imageFurnitureTatami}
           title="1畳分のスペースの月額料金"
