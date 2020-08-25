@@ -280,19 +280,7 @@ function* fetchRequestTakelateBefore({ payload: { guestId, spaceId } }) {
 }
 
 // Sagas
-function* estimate({
-  payload: {
-    roomId,
-    userId,
-    startDate,
-    endDate,
-    usagePeriod,
-    isUndecided,
-    tatami,
-    indexTatami,
-    price,
-  },
-}) {
+function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   const roomDoc = roomCollection().doc(roomId);
   const room = yield roomDoc.get();
   const { spaceId, userId1, userId2 } = room.data();
@@ -311,10 +299,10 @@ function* estimate({
       spaceId,
       startDate,
       endDate,
-      usagePeriod: parseInt(usagePeriod, 10),
-      isUndecided: parseInt(isUndecided, 10),
-      tatami: parseInt(tatami, 10),
-      indexTatami: parseInt(indexTatami, 10),
+      usagePeriod: parseInt(1, 10),
+      isUndecided: parseInt(0, 10),
+      tatami: parseInt(0, 10),
+      indexTatami: parseInt(0, 10),
       price: parseInt(price, 10),
       status: 'estimate',
     },
@@ -333,10 +321,10 @@ function* estimate({
     price: parseInt(price, 10),
     startDate,
     endDate,
-    usagePeriod: parseInt(usagePeriod, 10),
-    isUndecided: parseInt(isUndecided, 10),
-    tatami: parseInt(tatami, 10),
-    indexTatami: parseInt(indexTatami, 10),
+    usagePeriod: parseInt(1, 10),
+    isUndecided: parseInt(0, 10),
+    tatami: parseInt(0, 10),
+    indexTatami: parseInt(0, 10),
   };
   const messageDoc = yield roomDoc.collection('messages').add(message);
   yield roomDoc.set(

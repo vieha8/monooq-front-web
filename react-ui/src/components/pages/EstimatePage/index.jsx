@@ -34,8 +34,8 @@ class EstimatePage extends Component {
       <BaseTemplate>
         <Estimate
           userId={user && user.id}
-          priceTatami={priceTatami && priceTatami > 0 ? priceTatami : 6000}
-          priceFull={priceFull && priceFull > 0 ? priceFull : 6000}
+          priceTatami={priceTatami && priceTatami > 0 ? priceTatami : 0}
+          priceFull={priceFull && priceFull > 0 ? priceFull : 0}
           isTakelateBefore={isTakelateBefore}
           buttonLoading={isSending}
         />

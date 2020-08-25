@@ -33,7 +33,7 @@ const InputFieldWrapper = styled.div`
 
 const UnitWrapper = styled.div`
   display: inline-block;
-  padding: 0 ${Dimens.small2}px;
+  padding: 0 0 0 ${Dimens.small2}px;
 `;
 
 const HintBottomWrap = styled.div`
