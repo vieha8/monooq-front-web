@@ -87,23 +87,19 @@ class MessagePage extends Component {
         }
         case MessageType.Estimate:
           {
-            const { startDate, endDate, requestId, request, usagePeriod } = message;
+            const { startDate, requestId, request } = message;
             if (request) {
               return {
                 estimate: {
                   id: requestId,
                   name: (room.space.user || {}).name,
                   beginAt: startDate.toDate(),
-                  endAt: endDate.toDate(),
-                  isUndecided: request.isUndecided,
-                  usagePeriod: request.isUndecided === 1 ? 1 : usagePeriod,
                   price: request.price,
                   fee: request.fee,
                   link: Path.payment(match.params.message_room_id, requestId),
                   receivedAt: message.createDt,
                   status: request.status,
                   payType: request.payType,
-                  isMonthly: request.isMonthly,
                   econtextUrl: request.paymentUrl,
                 },
               };
