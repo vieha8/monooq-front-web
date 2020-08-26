@@ -131,11 +131,13 @@ const Estimate = ({ userId, priceTatami, priceFull, isTakelateBefore, buttonLoad
           onChange={v => handleChangeUI('price', v, setPrice(formatRemoveComma(v)))}
           errors={errors.price}
         />
-        <CaptionBasePrice>
-          {priceTatami && priceTatami > 0
-            ? `あなたの登録料金は1畳につき${formatAddComma(priceTatami)}円です。`
-            : `あなたの登録料金は全てのスペースで${formatAddComma(priceFull)}円です。`}
-        </CaptionBasePrice>
+        {(priceTatami > 0 || priceFull > 0) && (
+          <CaptionBasePrice>
+            {priceTatami && priceTatami > 0
+              ? `あなたの登録料金は1畳につき${formatAddComma(priceTatami)}円です。`
+              : `あなたの登録料金は全てのスペースで${formatAddComma(priceFull)}円です。`}
+          </CaptionBasePrice>
+        )}
       </Section>
       <Hr margin="25px 0" />
       <Section>

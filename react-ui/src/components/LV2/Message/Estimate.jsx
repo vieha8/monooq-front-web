@@ -4,11 +4,8 @@ import Card from 'components/LV1/Card';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Colors } from 'variables';
-import { formatAddComma, formatName } from 'helpers/string';
+import { formatAddComma } from 'helpers/string';
 
-const IS_UNDECIDED_TRUE = 1;
-const PAYTYPE_CREDITCARD = 1;
-const PAYTYPE_ECONTEXT = 4;
 const STATUS_PAY_ESTIMATE = 'estimate';
 const STATUS_PAY_WAITING = 'waiting';
 const STATUS_PAY_WAITING_EXPIRRED = 'waitingExpired';
