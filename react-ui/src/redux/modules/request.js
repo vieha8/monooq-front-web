@@ -230,12 +230,14 @@ function* sendEstimateEmail(payload, messageDocId) {
   const token = yield* getToken();
   const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId), {}, token);
 
-  let messageBody = 'お見積もりが届きました。\n';
+  let messageBody = '見積りが届きました。\n';
   messageBody += '確認するには以下のリンクをクリックしてください。\n';
-  messageBody += `${getMessageRoomUrl(roomId)}`;
+  messageBody += `${getMessageRoomUrl(roomId)}\n\n`;
+  messageBody +=
+    'お支払いを完了することでスペース利用契約が成立し、スペースの詳細住所をお知らせします。';
 
   const body = {
-    Subject: 'お見積もりが届いています：モノオクからのお知らせ',
+    Subject: '【モノオク】見積りが届きました',
     Uid: toUser.firebaseUid,
     Body: messageBody,
     category: 'estimate',
@@ -329,7 +331,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   const messageDoc = yield roomDoc.collection('messages').add(message);
   yield roomDoc.set(
     {
-      lastMessage: 'お見積もりが届いています',
+      lastMessage: '見積りが届きました',
       lastMessageDt: new Date(),
     },
     { merge: true },
@@ -338,7 +340,9 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   yield sendEstimateEmail({ toUserId: requestUserId, roomId }, messageDoc.id);
 
   const messageRoomUrl = getMessageRoomUrl(roomId);
-  const smsBody = `【モノオク】\nお見積りが届いています。下記リンクからお支払いを進めましょう。 \n\n${messageRoomUrl}`;
+  let smsBody = `【モノオク】\n見積りが届きました。下記リンクからお支払いを進めましょう。 \n\n`;
+  smsBody += `${messageRoomUrl}\n\n`;
+  smsBody += `お支払いを完了することでスペース利用契約が成立し、スペースの詳細住所をお知らせします。`;
 
   const bodySMS = {
     UserId: requestUserId,
