@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -84,7 +84,6 @@ const PaymentInputForm = ({
   const [year, setYear] = useState(defaultYear);
   const [month, setMonth] = useState(defaultMonth);
   const [cvc, setCvc] = useState(defaultCvc);
-  const [paymentType, setPaymentType] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState(0);
   const [modeView, setModeView] = useState(MODE_VIEW_INPUT);
 
@@ -172,7 +171,6 @@ const PaymentInputForm = ({
     if (modeView === MODE_VIEW_INPUT) {
       history.push(Path.message(roomId));
     } else if (modeView === MODE_VIEW_CONFIRM && !errMsgPayment) {
-      setPaymentType(0);
       setPaymentMethod(0);
       setModeView(MODE_VIEW_INPUT);
     }
@@ -190,12 +188,9 @@ const PaymentInputForm = ({
         roomId,
         requestId,
         info: {
-          paymentType,
-          paymentPrice:
-            paymentType === 0 ? paymentData.pricePlusFeeMonthly : paymentData.pricePlusFee,
+          paymentPrice: paymentData.pricePlusFee,
           startDate: paymentData.beginAt,
           endDate: paymentData.endAt,
-          isUndecided: paymentData.isUndecided,
         },
         payment: {
           name,
@@ -271,7 +266,6 @@ const PaymentInputForm = ({
   };
 
   const onClickSubmitConvenience = () => {
-    setPaymentType(1);
     setPaymentMethod(1);
     onClickSubmit();
   };
@@ -306,7 +300,7 @@ const PaymentInputForm = ({
   if (isPaymentSuccess) {
     switch (paymentMethod) {
       case 0:
-        headline = '決済が完了しました';
+        headline = 'お支払いが完了しました';
         description = <PaidText paymentMethod={paymentMethod} />;
         break;
       case 1:
@@ -320,10 +314,18 @@ const PaymentInputForm = ({
 
   return (
     <Wrap>
-      <H1 bold>{isConfirm ? '決済確認画面' : '決済画面'}</H1>
+      <H1 bold>{isConfirm ? 'お支払い確認' : 'お支払い'}</H1>
       {errMsgPayment && <TitleCaption errMsg>{errMsgPayment}</TitleCaption>}
       <TitleCaption>
-        見積もり書をご確認の上、内容に問題なければお支払い方法を選択してください。
+        {isConfirm ? (
+          'こちらの内容でよろしければ、お支払いを確定しましょう。'
+        ) : (
+          <Fragment>
+            見積もりを確認し、問題がなければお支払いしましょう。
+            <br />
+            支払い完了後、スペースの詳細住所をお知らせします。
+          </Fragment>
+        )}
       </TitleCaption>
       <InputForm
         space={space}
@@ -331,7 +333,6 @@ const PaymentInputForm = ({
         errors={errors}
         isConfirm={isConfirm}
         paymentMethod={paymentMethod}
-        paymentType={paymentType}
         number={number}
         name={name}
         month={month}
@@ -342,7 +343,6 @@ const PaymentInputForm = ({
         onChangeMonth={e => handleChangeUI('month', e.target.value, setMonth(e.target.value))}
         onChangeYear={e => handleChangeUI('year', e.target.value, setYear(e.target.value))}
         onChangeCvc={e => handleChangeUI('cvc', e.target.value, setCvc(e.target.value))}
-        onClickPaymentType={value => setPaymentType(value)}
         backButton={backButton}
         onKeyDownBackButton={onKeyDownBackButton}
         textBackButton={getTextBackButton()}

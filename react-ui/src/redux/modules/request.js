@@ -490,11 +490,11 @@ function* payment({ payload: { roomId, requestId, info, payment: card } }) {
     {
       RequestId: parseInt(requestId, 10),
       CardToken: cardToken,
-      PaymentType: info.paymentType,
+      PaymentType: 0,
       PaymentPrice: info.paymentPrice,
       StartDate: info.startDate,
       EndDate: info.endDate,
-      IsUndecided: info.isUndecided,
+      IsUndecided: 0,
     },
     token,
   );

@@ -1,26 +1,18 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import moment from 'moment';
 import { Dimens, Colors, FontSizes } from 'variables';
-import { media, mediaMin } from 'helpers/style/media-query';
+import { media } from 'helpers/style/media-query';
 import { formatRemoveComma } from 'helpers/string';
 import Button from 'components/LV1/Forms/Button';
 import TextButton from 'components/LV1/Texts/TextButton';
 import InlineText from 'components/LV1/Texts/InlineText';
 import Info from 'components/LV2/Payment/Info';
 import ConfirmText from 'components/LV2/Payment/ConfirmText';
-import PaymentType from 'components/LV2/Payment/PaymentType';
-import ContentPayment from 'components/LV2/Texts/ContentPayment';
 import { SectionTitleSub } from 'components/LV2/Space/Section';
 import InputForm from 'components/LV2/Forms/InputForm';
 import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
-
-const ImageLogoPayCredit =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-pay-credit.svg?auto=compress';
-const ImageLogoPayEcontext =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-pay-econtext.svg?auto=compress';
 
 const MAX_PAY_PRICE_CONVENIENT = 49999;
 
@@ -32,13 +24,8 @@ const CaptionImageCp = styled.div`
 `;
 
 const Row = styled.div`
-  font-size: ${FontSizes.small2_14}px;
+  font-size: ${FontSizes.small}px;
   line-height: normal;
-  ${props =>
-    props.borderBottom &&
-    `
-    padding-bottom: ${Dimens.medium2_32}px;
-  `};
   ${props =>
     !props.noMarginTop &&
     `
@@ -72,26 +59,6 @@ const SelectBox = styled.div`
   `};
 `;
 
-const ImageLogoPay = styled.img`
-  display: block;
-  width: 100%;
-  height: auto;
-  ${props =>
-    props.credit &&
-    `
-    margin: ${Dimens.medium}px ${Dimens.medium3_40}px ${Dimens.medium}px 0;
-  `};
-  ${props =>
-    props.maxWidth &&
-    `
-    max-width:  ${props.maxWidth}px;
-  `};
-  ${media.phone`
-    display: block;
-    margin:  ${Dimens.small2}px 0 0;
-  `};
-`;
-
 const NoLinkText = styled.div`
   text-decoration: line-through;
   color: ${Colors.lightGray10};
@@ -102,26 +69,7 @@ const Padding = styled.span`
   padding: 0 ${Dimens.xsmall}px;
 `;
 
-const LinkStyled = styled.a`
-  font-size: ${FontSizes.small_15}px;
-  color: ${Colors.linkBlue};
-  margin-right: ${Dimens.medium}px;
-  &:active {
-    opacity: 0.8;
-  }
-  ${mediaMin.tablet`
-    &:hover {
-      opacity: 0.8;
-    }
-  `};
-  ${media.phone`
-    display: block;
-    margin:  ${Dimens.xsmall}px auto 0;
-    font-size: ${FontSizes.small_12}px;
-  `};
-`;
-
-const getEcontextLink = (price, onClick, isUndecided) => {
+const getEcontextLink = (price, onClick) => {
   let isOverLimitEcontext = false;
   if (Number(formatRemoveComma(price)) > MAX_PAY_PRICE_CONVENIENT) {
     isOverLimitEcontext = true;
@@ -137,9 +85,7 @@ const getEcontextLink = (price, onClick, isUndecided) => {
           </CaptionImageCp>
         </Fragment>
       ) : (
-        isUndecided === 0 && (
-          <TextButton onClick={onClick}>コンビニ払い・Pay-easyでの決済はこちら</TextButton>
-        )
+        <TextButton onClick={onClick}>コンビニ払い・Pay-easyでの決済はこちら</TextButton>
       )}
     </div>
   );
@@ -151,7 +97,6 @@ export default ({
   errors,
   isConfirm,
   paymentMethod,
-  paymentType,
   number,
   name,
   month,
@@ -169,29 +114,16 @@ export default ({
   buttonLoading,
   onClickSubmit,
   onClickSubmitConvenience,
-  onClickPaymentType,
   onKeyDownPay,
   textSubmitButton,
 }) => (
   <Fragment>
     <Info space={space} {...paymentData} />
     <Row noMarginTop>
-      <ContentPayment {...paymentData} />
-    </Row>
-    <Row noMarginTop borderBottom>
       {isConfirm ? (
-        <ConfirmText
-          {...paymentData}
-          paymentMethod={paymentMethod}
-          checkedIndex={paymentType}
-          number={number}
-          name={name}
-        />
+        <ConfirmText {...paymentData} paymentMethod={paymentMethod} number={number} name={name} />
       ) : (
         <Fragment>
-          <Row>
-            <PaymentType {...paymentData} checkedIndex={paymentType} onClick={onClickPaymentType} />
-          </Row>
           <Row>
             <InputForm
               label="カード名義（半角ローマ字）"
@@ -251,9 +183,9 @@ export default ({
           </Row>
           <Row>
             <InputForm
-              label="セキュリティコード(3桁の半角数字)"
+              label="セキュリティコード"
               type="text"
-              placeholder="3桁の数字"
+              placeholder="3桁の半角数字"
               onChange={onChangeCvc}
               value={cvc}
               autoComplete="cc-csc"
@@ -262,23 +194,11 @@ export default ({
           </Row>
           <Row>
             <SectionTitleSub text="お支払い方法について" />
-            月々払い（クレジットカードのみ可能）、一括払い（クレジットカード・コンビニ・Pay-easy）をご利用できます。
-            一部クレジットカード・コンビニはご利用できない場合がございますので、以下の決済可能なお支払い方法をご確認ください。
+            クレジットカード
+            (VISA、Mastercard)でのお支払いが可能です。契約は1ヶ月毎に自動更新されます。
             <br />
-            <LinkStyled
-              component={Link}
-              href="https://help.monooq.com/ja/articles/2948181"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              利用料の支払い方法について
-            </LinkStyled>
-            {getEcontextLink(paymentData.price, onClickSubmitConvenience, paymentData.isUndecided)}
-          </Row>
-          <Row>
-            <SectionTitleSub text="決済可能なお支払い方法" />
-            <ImageLogoPay src={ImageLogoPayCredit} maxWidth={110} credit alt="icon-logo-credit" />
-            <ImageLogoPay src={ImageLogoPayEcontext} maxWidth={240} alt="icon-logo-econtext" />
+            契約を終了する場合は、更新日前にモノオクカスタマーサポートまでご連絡ください。
+            {getEcontextLink(paymentData.price, onClickSubmitConvenience)}
           </Row>
         </Fragment>
       )}
