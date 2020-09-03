@@ -81,9 +81,6 @@ export default ({ paymentMethod, number, name }) => (
       </Fragment>
     ) : (
       <Fragment>
-        <InlineText.Bold>コンビニ払い・Pay-easyで決済する</InlineText.Bold>
-        <br />
-        <br />
         <ImageCp src={iconCp} alt="icon-cp" />
         <br />
         <br />
@@ -97,9 +94,9 @@ export default ({ paymentMethod, number, name }) => (
         <HyperLink href="https://monooq.com/terms" target="_blank" rel="noopener noreferrer">
           利用規約
         </HyperLink>
-        に同意の上、モノオクサービスの予約を確定したことになります。
+        に同意の上、モノオクのスペース利用契約が成立したとみなします。
         <br />
-        ・お支払い後、モノオクサービス上で決済完了通知が反映されるまでに2時間程度のお時間をいただきます。
+        ・お支払い後、サービス上で支払い完了通知が反映されるまでに2時間程度のお時間をいただきます。
         <br />
         ・48時間以内にお支払い手続きが行われない場合、自動的にキャンセルとなります。
         <br />

@@ -198,7 +198,8 @@ export default ({
             (VISA、Mastercard)でのお支払いが可能です。契約は1ヶ月毎に自動更新されます。
             <br />
             契約を終了する場合は、更新日前にモノオクカスタマーサポートまでご連絡ください。
-            {getEcontextLink(paymentData.price, onClickSubmitConvenience)}
+            {paymentData.isExistEcontext &&
+              getEcontextLink(paymentData.price, onClickSubmitConvenience)}
           </Row>
         </Fragment>
       )}

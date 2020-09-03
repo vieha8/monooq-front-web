@@ -95,6 +95,7 @@ export const requestReducer = handleActions(
       estimate: {
         isSending: true,
         isTakelateBefore: false,
+        isExistEcontext: false,
       },
     }),
     [FETCH_REQUEST_TAKELATE_BEFORE_SUCCESS]: (state, action) => ({
@@ -102,6 +103,7 @@ export const requestReducer = handleActions(
       estimate: {
         isSending: false,
         isTakelateBefore: action.payload.isTakelateBefore,
+        isExistEcontext: action.payload.isExistEcontext,
       },
     }),
     [FETCH_REQUEST_TAKELATE_BEFORE_FAILED]: state => ({
@@ -109,6 +111,7 @@ export const requestReducer = handleActions(
       estimate: {
         isSending: false,
         isTakelateBefore: false,
+        isExistEcontext: false,
       },
     }),
     [ESTIMATE]: state => ({
@@ -278,7 +281,31 @@ function* fetchRequestTakelateBefore({ payload: { guestId, spaceId } }) {
     isTakelateBefore = true;
   }
 
-  yield put(requestActions.fetchRequestTakelateBeforeSuccess({ isTakelateBefore }));
+  const { data: econtext, err: errCheckEcontext } = yield call(
+    getApiRequest,
+    apiEndpoint.requestsEcontext(guestId, spaceId),
+    {},
+    token,
+  );
+
+  if (errCheckEcontext) {
+    yield handleError(
+      requestActions.fetchRequestFailed,
+      '',
+      'requestsEcontext(estimate)',
+      errCheckEcontext,
+      false,
+    );
+    return;
+  }
+  let isExistEcontext = false;
+  if (econtext.length > 0) {
+    isExistEcontext = true;
+  }
+
+  yield put(
+    requestActions.fetchRequestTakelateBeforeSuccess({ isTakelateBefore, isExistEcontext }),
+  );
 }
 
 // Sagas
@@ -754,6 +781,29 @@ function* fetchRequest({ payload: requestId }) {
     isTakelateBefore = true;
   }
   data.isTakelateBefore = isTakelateBefore;
+
+  const { data: econtext, err: errCheckEcontext } = yield call(
+    getApiRequest,
+    apiEndpoint.requestsEcontext(data.userId, data.spaceId),
+    {},
+    token,
+  );
+
+  if (errCheckEcontext) {
+    yield handleError(
+      requestActions.fetchRequestFailed,
+      '',
+      'requestsEcontext(payment)',
+      errCheckEcontext,
+      false,
+    );
+    return;
+  }
+  let isExistEcontext = false;
+  if (econtext.length > 0) {
+    isExistEcontext = true;
+  }
+  data.isExistEcontext = isExistEcontext;
 
   yield put(requestActions.fetchRequestSuccess(data));
 }

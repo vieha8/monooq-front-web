@@ -60,8 +60,12 @@ const buttonPayment = (host, status, payType, isOpenModalError, onClickPayment) 
             お支払い完了
           </Button>
         </ButtonWrap>
-        <br />
-        以降、1ヶ月毎に料金が引き落としされます。
+        {payType !== 4 && (
+          <Fragment>
+            <br />
+            以降、1ヶ月毎に料金が引き落としされます。
+          </Fragment>
+        )}
       </Fragment>
     );
   }
@@ -142,7 +146,7 @@ export default ({
       <Text>
         {host && 'ゲスト'}
         支払い料金：
-        {`${formatAddComma(price + fee)}円`}
+        {`${formatAddComma(price + fee)}円/月`}
         {fee > 0 && (
           <Fragment>
             <br />
@@ -207,6 +211,7 @@ export default ({
                       <PaymentUrl href={econtextUrl} target="_blank" rel="noopener noreferrer">
                         {econtextUrl}
                       </PaymentUrl>
+                      <br />
                     </Fragment>
                   )}
                 </Fragment>
@@ -217,6 +222,14 @@ export default ({
             <Fragment>
               <br />
               <Caution>保険適応のため、必ずモノオクサービス上でお支払いください。</Caution>
+              {payType === 4 && (
+                <Fragment>
+                  <br />
+                  <Caution>
+                    コンビニ支払いは、サービス内反映まで最大2時間ほどかかる場合がございます。
+                  </Caution>
+                </Fragment>
+              )}
             </Fragment>
           )}
         </Text>

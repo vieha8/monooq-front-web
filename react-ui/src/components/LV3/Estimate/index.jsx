@@ -11,7 +11,6 @@ import { Validate as ValidatePrice, isValidSpacePrice } from 'helpers/validation
 import { requestActions } from 'redux/modules/request';
 import Button from 'components/LV1/Forms/Button';
 import { H1 } from 'components/LV1/Texts/Headline';
-import HyperLink from 'components/LV1/Texts/HyperLink';
 import Hr from 'components/LV1/HorizontalRule';
 import InputSchedule from 'components/LV2/Estimate/InputSchedule';
 import InputPrice from 'components/LV2/Estimate/InputPrice';
@@ -34,6 +33,13 @@ const Section = styled.div`
     color: ${Colors.lightGray10};
     line-height: normal;
   `};
+  ${props =>
+    props.econtext &&
+    `
+    font-size: ${FontSizes.small_12}px;
+    color: ${Colors.error};
+    line-height: normal;
+  `};
 `;
 
 const CaptionBasePrice = styled.div`
@@ -54,11 +60,14 @@ const ButtonWrap = styled.div`
   `};
 `;
 
-const LinkHelpWrap = styled.div`
-  margin-top: ${Dimens.medium2}px;
-`;
-
-const Estimate = ({ userId, priceTatami, priceFull, isTakelateBefore, buttonLoading }) => {
+const Estimate = ({
+  userId,
+  priceTatami,
+  priceFull,
+  isTakelateBefore,
+  isExistEcontext,
+  buttonLoading,
+}) => {
   const dispatch = useDispatch();
   const { message_room_id: roomId } = useParams();
 
@@ -146,6 +155,11 @@ const Estimate = ({ userId, priceTatami, priceFull, isTakelateBefore, buttonLoad
       <Section caption>
         ゲストが支払うとスペース利用契約が成立し、利用開始日から1ヶ月毎に利用料が自動支払いされます。
       </Section>
+      {isExistEcontext && (
+        <Section econtext>
+          ゲストがコンビニ支払いをした場合は、更新の都度見積もりを送信し、ゲストに支払いをしてもらう必要があります。
+        </Section>
+      )}
       <Section>
         <ButtonWrap>
           <Button
@@ -160,15 +174,6 @@ const Estimate = ({ userId, priceTatami, priceFull, isTakelateBefore, buttonLoad
             この見積もりを送信
           </Button>
         </ButtonWrap>
-        <LinkHelpWrap>
-          <HyperLink
-            href="https://help.monooq.com/ja/articles/3694521"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            見積もりの出し方
-          </HyperLink>
-        </LinkHelpWrap>
       </Section>
     </Wrap>
   );

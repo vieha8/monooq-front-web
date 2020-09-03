@@ -50,6 +50,7 @@ class PaymentPage extends Component {
             price: String(request.price),
             pricePlusFee: String(request.pricePlusFee),
             isTakelateBefore: request.isTakelateBefore,
+            isExistEcontext: request.isExistEcontext,
           }}
           paymentUrl={paymentUrl}
           isPaymentSuccess={isPaymentSuccess}
