@@ -81,6 +81,8 @@ export default ({ paymentMethod, number, name }) => (
       </Fragment>
     ) : (
       <Fragment>
+        <InlineText.Bold>コンビニ払い・Pay-easyで決済する</InlineText.Bold>
+        <br />
         <ImageCp src={iconCp} alt="icon-cp" />
         <br />
         <br />

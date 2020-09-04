@@ -53,11 +53,18 @@ const buttonPayment = (host, status, payType, isOpenModalError, onClickPayment) 
     status === STATUS_PAY_PAID ||
     isOpenModalError
   ) {
+    let resultStatus = 'お支払い中';
+    switch (status) {
+      case STATUS_PAY_PAID:
+        resultStatus = 'お支払い完了';
+        break;
+      default:
+    }
     return (
       <Fragment>
         <ButtonWrap>
           <Button primary fontbold center fill={1} disabled>
-            お支払い完了
+            {resultStatus}
           </Button>
         </ButtonWrap>
         {payType !== 4 && (
@@ -152,7 +159,7 @@ export default ({
             <br />
             {`(スペース料金${formatAddComma(price)}円 + ${
               host ? 'ゲスト' : ''
-            }利用料${formatAddComma(fee)}円)`}
+            }ゲスト利用料${formatAddComma(fee)}円)`}
           </Fragment>
         )}
       </Text>
@@ -202,7 +209,7 @@ export default ({
                   <ButtonPaymentWrap>
                     {buttonPayment(host, status, payType, isOpenModalError, onClickPayment)}
                   </ButtonPaymentWrap>
-                  {payType === 4 && (
+                  {payType === 4 && status !== STATUS_PAY_PAID && (
                     <Fragment>
                       <br />
                       下記からお支払い画面に移動し、お支払いをお願いします。
