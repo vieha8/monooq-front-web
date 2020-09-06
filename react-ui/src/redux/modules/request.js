@@ -334,6 +334,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
       indexTatami: parseInt(0, 10),
       price: parseInt(price, 10),
       status: 'estimate',
+      isMonthly: parseInt(1, 10),
     },
     token,
   );
