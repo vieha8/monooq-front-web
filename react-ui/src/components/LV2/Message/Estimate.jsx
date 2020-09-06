@@ -165,6 +165,13 @@ export default ({
       </Text>
       <CaptionWrapper>
         <Text>
+          {!host && (
+            <Fragment>
+              この見積もりにお支払いすると、スペース利用契約が成立し詳細住所をお知らせします。
+              <br />
+              <br />
+            </Fragment>
+          )}
           {host && !isPaymentLimitOver(beginAt, status) && (
             <Fragment>
               {getPayInfo(payType, status)}
