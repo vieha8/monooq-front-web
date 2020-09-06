@@ -21,6 +21,9 @@ const Paid = ({ isHost, request }) => (
       : 'ホストと日時を調整し、スペースへ荷物を送りましょう。'}
     <br />
     <br />
+    見積もりID：
+    {request.id}
+    <br />
     スペースの住所：
     <br />
     <InlineText.Base fontSize={17} bold>
