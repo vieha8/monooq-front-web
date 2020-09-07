@@ -153,7 +153,7 @@ const Estimate = ({
         <Detail price={price} isTakelateBefore={isTakelateBefore} />
       </Section>
       <Section caption>
-        ゲストが支払うとスペース利用契約が成立し、利用開始日から1ヶ月毎に利用料が自動支払いされます。
+        ゲストが支払うとスペース利用契約が成立します。利用料は、利用開始日から1ヶ月毎に自動支払いされます。
       </Section>
       {isExistEcontext && (
         <Section econtext>

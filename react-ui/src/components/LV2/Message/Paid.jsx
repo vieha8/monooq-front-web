@@ -45,6 +45,13 @@ const Paid = ({ isHost, request }) => (
         </a>
       </Fragment>
     )}
+    {isHost && request && request.payType === 4 && (
+      <Fragment>
+        <br />
+        <br />
+        ゲストがコンビニ・Pay-easy支払いをご利用のため、延長の場合は一ヶ月ごとに新たな見積もりを提出しましょう。
+      </Fragment>
+    )}
   </Wrap>
 );
 

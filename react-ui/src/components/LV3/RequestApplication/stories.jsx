@@ -14,7 +14,7 @@ storiesOf('Organisms(LV3)/RequestApplication', module)
     'Normal',
     withInfo(`
         ### コンポーネント概要
-        リクエスト申請モーダル
+        リクエスト送信モーダル
       `)(() => (
       <div style={{ padding: `${Dimens.storyBookPadding}` }}>
         <RequestApplication

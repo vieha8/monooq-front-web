@@ -125,7 +125,7 @@ export default ({ space, beginAt, price, pricePlusFee, isTakelateBefore }) => (
           </ItemRow>
           <ItemRow>
             <InlineText.Base fontSize={14} color={Colors.lightGray10}>
-              ゲストの手数料
+              ゲスト手数料
             </InlineText.Base>
             <InlineText.Base fontSize={14} color={Colors.lightGray10}>
               {isTakelateBefore ? '0%' : '+10%'}

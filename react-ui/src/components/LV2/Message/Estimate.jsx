@@ -70,7 +70,7 @@ const buttonPayment = (host, status, payType, isOpenModalError, onClickPayment) 
         {payType !== 4 && (
           <Fragment>
             <br />
-            以降、1ヶ月毎に料金が引き落としされます。
+            利用開始日から一ヶ月ごとに、料金が自動支払いされます。
           </Fragment>
         )}
       </Fragment>
@@ -157,9 +157,7 @@ export default ({
         {fee > 0 && (
           <Fragment>
             <br />
-            {`(スペース料金${formatAddComma(price)}円 + ${
-              host ? 'ゲスト' : ''
-            }ゲスト利用料${formatAddComma(fee)}円)`}
+            {`(スペース料金${formatAddComma(price)}円 + ゲスト手数料${formatAddComma(fee)}円)`}
           </Fragment>
         )}
       </Text>

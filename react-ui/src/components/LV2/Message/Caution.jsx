@@ -57,24 +57,9 @@ const getTextLink = (url, className, text, isLinkTo) => {
   );
 };
 
-const Caution = ({ hostUser }) => {
+const Caution = () => {
   return (
     <Fragment>
-      {hostUser && (
-        <CautionWrap news>
-          <CautionText noMargin>見積もり・決済画面をリニューアルしました！</CautionText>
-          <CautionTextSub>
-            2020年5月25日より見積もりの作成方法が変わりました。詳しくは
-            {getTextLink(
-              'https://help.monooq.com/ja/articles/4036030-',
-              'gaMessageBottomNewsLink',
-              'こちら',
-              false,
-            )}
-            をご確認ください。
-          </CautionTextSub>
-        </CautionWrap>
-      )}
       <CautionWrap>
         <CautionText>モノオクではサービス外のお支払いや現金取引は禁止です。</CautionText>
         <ItemLink>

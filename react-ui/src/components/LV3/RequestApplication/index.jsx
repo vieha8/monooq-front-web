@@ -172,7 +172,7 @@ const RequestApplication = ({
       },
     };
 
-    amplitude.getInstance().logEvent('リクエスト - リクエスト申請クリック', payload);
+    amplitude.getInstance().logEvent('リクエスト - リクエスト送信クリック', payload);
     dispatch(requestActions.request(payload));
 
     if (!existPhoneNumber && phoneNumber) {

@@ -75,7 +75,7 @@ export default ({ price, isTakelateBefore }) => (
     <WrapInner>
       <DateLabel>
         {getItemRow('スペース料金', price, false, false)}
-        {getItemRow('販売手数料', isTakelateBefore ? '-20%' : '-30%', true, false)}
+        {getItemRow('ホスト手数料', isTakelateBefore ? '-20%' : '-30%', true, false)}
         {getItemRow(
           'あなたの利益',
           Math.floor(price * (isTakelateBefore ? 0.8 : 0.7)),
@@ -84,7 +84,7 @@ export default ({ price, isTakelateBefore }) => (
         )}
         <Hr margin="12px 0" />
         {getItemRow('スペース料金', price, false, false)}
-        {getItemRow('ゲストの手数料', isTakelateBefore ? '0%' : '+10%', true, false)}
+        {getItemRow('ゲスト手数料', isTakelateBefore ? '0%' : '+10%', true, false)}
         {getItemRow(
           'ゲスト支払料金',
           String(Math.floor(price * (isTakelateBefore ? 1 : 1.1))),

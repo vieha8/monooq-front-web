@@ -393,7 +393,7 @@ export default ({
         isOpenModalError={isOpenModalError}
         templateList={checkStatusEstimate(templateList, statusEstimate, hostUser)}
       />
-      <Caution hostUser={hostUser} />
+      <Caution />
     </div>
   );
 };
