@@ -37,7 +37,7 @@ class EstimatePage extends Component {
           priceTatami={priceTatami && priceTatami > 0 ? priceTatami : 6000}
           priceFull={priceFull && priceFull > 0 ? priceFull : 6000}
           isTakelateBefore={isTakelateBefore}
-          buttonLoading={isSending}
+          buttonLoading={false}
         />
       </BaseTemplate>
     );
