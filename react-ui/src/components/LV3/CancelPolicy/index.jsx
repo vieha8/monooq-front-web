@@ -94,21 +94,7 @@ export default () => (
             },
             {
               header: '利用開始日以降',
-              data: (
-                <Fragment>
-                  原則返金はありません
-                  <br />
-                  (月々自動払いに限り、
-                  <HyperLink
-                    href="https://help.monooq.com/ja/articles/4054053"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    こちら
-                  </HyperLink>
-                  の条件を満たす場合に返金可能)
-                </Fragment>
-              ),
+              data: <Fragment>原則返金はありません</Fragment>,
             },
           ]}
         />
