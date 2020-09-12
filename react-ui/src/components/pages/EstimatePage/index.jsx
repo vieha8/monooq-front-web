@@ -38,7 +38,7 @@ class EstimatePage extends Component {
           priceFull={priceFull && priceFull > 0 ? priceFull : 0}
           isTakelateBefore={isTakelateBefore}
           isExistEcontext={isExistEcontext}
-          buttonLoading={isSending}
+          buttonLoading={false}
         />
       </BaseTemplate>
     );
