@@ -23,7 +23,7 @@ class EstimatePage extends Component {
   }
 
   render() {
-    const { user, isSending, isTakelateBefore } = this.props;
+    const { user, isSending, isTakelateBefore, isExistEcontext } = this.props;
     const { priceTatami, priceFull } = this.state;
 
     if (isSending) {
@@ -34,9 +34,10 @@ class EstimatePage extends Component {
       <BaseTemplate>
         <Estimate
           userId={user && user.id}
-          priceTatami={priceTatami && priceTatami > 0 ? priceTatami : 6000}
-          priceFull={priceFull && priceFull > 0 ? priceFull : 6000}
+          priceTatami={priceTatami && priceTatami > 0 ? priceTatami : 0}
+          priceFull={priceFull && priceFull > 0 ? priceFull : 0}
           isTakelateBefore={isTakelateBefore}
+          isExistEcontext={isExistEcontext}
           buttonLoading={false}
         />
       </BaseTemplate>
@@ -48,6 +49,7 @@ const mapStateToProps = state => ({
   user: state.auth.user,
   isSending: state.request.estimate.isSending,
   isTakelateBefore: state.request.estimate.isTakelateBefore,
+  isExistEcontext: state.request.estimate.isExistEcontext,
 });
 
 export default withAuthRequire(connect(mapStateToProps)(EstimatePage));

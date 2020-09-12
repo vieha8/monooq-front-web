@@ -58,7 +58,7 @@ export default ({
   <Wrap>
     <DateCell>
       <DateLabel>
-        <InlineText.Bold>{beginTitle || 'ゲストの利用開始日'}</InlineText.Bold>
+        <InlineText.Bold>{beginTitle || '貸し出し開始日'}</InlineText.Bold>
       </DateLabel>
       <Calendar
         date={startDate}

@@ -37,7 +37,7 @@ const ContentWrap = styled.div`
   max-width: 768px;
   margin: auto;
   position: relative;
-  top: 135px;
+  top: 160px;
   padding: 0 ${Dimens.medium}px 150px;
 `;
 
@@ -235,7 +235,7 @@ const RequestApplicationSP = ({
       },
     };
 
-    amplitude.getInstance().logEvent('リクエスト - リクエスト申請クリック', payload);
+    amplitude.getInstance().logEvent('リクエスト - リクエスト送信クリック', payload);
     dispatch(requestActions.request(payload));
   };
 

@@ -1,50 +1,34 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-// import { formatDate, formatStringSlash } from 'helpers/date';
-// import { formatAddComma } from 'helpers/string';
 import InlineText from 'components/LV1/Texts/InlineText';
-
-// const PAYTYPE_CREDITCARD = 1;
-// const PAYTYPE_ECONTEXT = 4;
 
 const Wrap = styled(InlineText.Base)`
   display: block;
   font-size: 14px;
 `;
 
-// const getTextPayType = payType => {
-//   let resultPayType = '';
-//   switch (payType) {
-//     case PAYTYPE_CREDITCARD:
-//       resultPayType = 'クレジットカード決済';
-//       break;
-//     case PAYTYPE_ECONTEXT:
-//       resultPayType = 'コンビニ払い・Pay-easy決済';
-//       break;
-//     default:
-//       resultPayType = 'その他';
-//   }
-//   return resultPayType;
-// };
-
 const Paid = ({ isHost, request }) => (
   <Wrap>
     <InlineText.Base fontSize={20} bold>
-      決済が完了しました
+      {isHost ? 'ゲストの支払いが完了しました' : 'お支払いしました'}
     </InlineText.Base>
     <br />
     <br />
-    スペース取引成立です！
+    スペース利用契約の成立です！
     <br />
-    {isHost ? '下記住所をゲストにお伝えしました。' : '下記住所まで荷物を送りましょう。'}
+    {isHost
+      ? '次の住所をゲストにお伝えしました。'
+      : 'ホストと日時を調整し、スペースへ荷物を送りましょう。'}
     <br />
+    <br />
+    見積もりID：
+    {request.id}
+    <br />
+    スペースの住所：
     <br />
     <InlineText.Base fontSize={17} bold>
-      ■スペース情報
+      {request.space.address}
     </InlineText.Base>
-    <br />
-    所在地：
-    {request.space.address}
     {!isHost && (
       <Fragment>
         <br />
@@ -61,32 +45,13 @@ const Paid = ({ isHost, request }) => (
         </a>
       </Fragment>
     )}
-    {/* TODO: 見積もり決済改修の絡みで一時的に非表示とする */}
-    {/* <br />
-    <br />
-    <InlineText.Base fontSize={17} bold>
-      ■お支払い情報
-    </InlineText.Base>
-    <br />
-    見積もりID:
-    {request.id}
-    <br />
-    対象期間：
-    {`${formatDate(new Date(request.startDate), formatStringSlash)} 〜 ${formatDate(
-      new Date(request.endDate),
-      formatStringSlash,
-    )}`}
-    <br />
-    支払方法：
-    {`${getTextPayType(request.payType)}(${request.isMonthly === 1 ? '月々自動払い' : '一括払い'})`}
-    <br />
-    支払金額：
-    {`${formatAddComma(request.price + request.fee)}円`}
-    <br />
-    {`(スペース利用料${formatAddComma(request.price)}円 + サービス利用料${formatAddComma(
-      request.fee,
-    )}円)`}
-    <br /> */}
+    {isHost && request && request.payType === 4 && (
+      <Fragment>
+        <br />
+        <br />
+        ゲストがコンビニ・Pay-easy支払いをご利用のため、延長の場合は一ヶ月ごとに新たな見積もりを提出しましょう。
+      </Fragment>
+    )}
   </Wrap>
 );
 

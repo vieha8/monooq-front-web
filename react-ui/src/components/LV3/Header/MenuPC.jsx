@@ -92,6 +92,7 @@ const MenuPC = () => {
               title="配送手配"
               href="https://www.hacobell.com/register?tenant_code=monooq"
               blank
+              className="gaMenuPcRentoraLink"
             />
           </Fragment>
         )}

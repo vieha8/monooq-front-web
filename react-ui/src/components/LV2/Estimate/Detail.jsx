@@ -4,7 +4,6 @@ import { FontSizes, Colors, Dimens } from 'variables';
 import { formatAddComma } from 'helpers/string';
 import Hr from 'components/LV1/HorizontalRule';
 import InlineText from 'components/LV1/Texts/InlineText';
-import ErrorList from 'components/LV2/Lists/ErrorList';
 
 const Wrap = styled.div`
   width: 100%;
@@ -51,7 +50,7 @@ const getItemRow = (caption, val, isTakeLate, isEstimateTotal) => {
           </InlineText.Base>
           <InlineText.Base fontSize={18} lineheight="12px" bold>
             &nbsp;&nbsp;
-            {`${formatAddComma(val)}円`}
+            {`${formatAddComma(val)}円 / 月`}
           </InlineText.Base>
         </Fragment>
       ) : (
@@ -68,15 +67,15 @@ const getItemRow = (caption, val, isTakeLate, isEstimateTotal) => {
   );
 };
 
-export default ({ price, isTakelateBefore, errors }) => (
+export default ({ price, isTakelateBefore }) => (
   <Wrap>
     <Lavel>
       <InlineText.Bold>内訳</InlineText.Bold>
     </Lavel>
     <WrapInner>
       <DateLabel>
-        {getItemRow('スペース基本料金', price, false, false)}
-        {getItemRow('販売手数料', isTakelateBefore ? '-20%' : '-30%', true, false)}
+        {getItemRow('スペース料金', price, false, false)}
+        {getItemRow('ホスト手数料', isTakelateBefore ? '-20%' : '-30%', true, false)}
         {getItemRow(
           'あなたの利益',
           Math.floor(price * (isTakelateBefore ? 0.8 : 0.7)),
@@ -84,8 +83,8 @@ export default ({ price, isTakelateBefore, errors }) => (
           false,
         )}
         <Hr margin="12px 0" />
-        {getItemRow('スペース基本料金', price, false, false)}
-        {getItemRow('ゲストの手数料', isTakelateBefore ? '0%' : '+10%', true, false)}
+        {getItemRow('スペース料金', price, false, false)}
+        {getItemRow('ゲスト手数料', isTakelateBefore ? '0%' : '+10%', true, false)}
         {getItemRow(
           'ゲスト支払料金',
           String(Math.floor(price * (isTakelateBefore ? 1 : 1.1))),
@@ -94,6 +93,5 @@ export default ({ price, isTakelateBefore, errors }) => (
         )}
       </DateLabel>
     </WrapInner>
-    <ErrorList keyName="tatami_errors" errors={errors} />
   </Wrap>
 );

@@ -1,7 +1,7 @@
 import { ErrorMessages } from 'variables';
 import { isNumber } from 'helpers/validations/number';
 
-const Validate = {
+export const Validate = {
   Price: {
     Max: 600000,
     Min: 3000,

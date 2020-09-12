@@ -6,20 +6,12 @@ import { ErrorMessages } from 'variables';
 import { isOverPhoneWindow } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { formatAddComma, formatRemoveComma } from 'helpers/string';
+import { Validate as ValidatePrice, isValidSpacePriceTokyo } from 'helpers/validations/spacePrice';
 import { uiActions } from 'redux/modules/ui';
 import { spaceActions } from 'redux/modules/space';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import SpaceEditStep3 from 'components/LV3/SpaceEdit/Step3';
-import { isValidSpacePriceTokyo } from 'helpers/validations/spacePrice';
-
-const Validate = {
-  Price: {
-    Max: 600000,
-    Min: 3000,
-    MinTokyo: 6000,
-  },
-};
 
 const checkError = (value, addressPref) => {
   const errors = [];
@@ -201,18 +193,18 @@ class SpaceEdit3Page extends Component {
     const checkPriceFull = formatRemoveComma(priceFull);
     const checkPriceTatami = formatRemoveComma(priceTatami);
 
-    let priceMin = Validate.Price.Min;
+    let priceMin = ValidatePrice.Price.Min;
     if (space.addressPref && space.addressPref === '東京都') {
-      priceMin = Validate.Price.MinTokyo;
+      priceMin = ValidatePrice.Price.MinTokyo;
     }
 
     return (
       checkPriceFull &&
       checkPriceFull >= priceMin &&
-      checkPriceFull <= Validate.Price.Max &&
+      checkPriceFull <= ValidatePrice.Price.Max &&
       checkPriceTatami &&
       checkPriceTatami >= priceMin &&
-      checkPriceTatami <= Validate.Price.Max
+      checkPriceTatami <= ValidatePrice.Price.Max
     );
   };
 

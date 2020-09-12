@@ -43,7 +43,7 @@ export default ({
             <MenuItem title="マイページ" header />
             <MenuItem title="閲覧履歴" {...history} />
             <MenuItem title="メッセージ管理" {...messages} />
-            <MenuItem title="配送手配" {...haisou} blank />
+            <MenuItem title="配送手配" {...haisou} blank className="gaMenuSpRentoraLink" />
           </Fragment>
         )}
       </Fragment>

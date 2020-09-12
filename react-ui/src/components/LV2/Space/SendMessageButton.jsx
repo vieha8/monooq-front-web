@@ -31,7 +31,7 @@ export default ({ isSP, loading, onClick, onKeyDown, disabled, text }) => (
       onClick={onClick}
       onKeyDown={onKeyDown}
     >
-      {text || 'リクエスト申請'}
+      {text || 'リクエスト送信'}
     </ButtonStyled>
   </Wrap>
 );

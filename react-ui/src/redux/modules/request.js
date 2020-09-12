@@ -95,6 +95,7 @@ export const requestReducer = handleActions(
       estimate: {
         isSending: true,
         isTakelateBefore: false,
+        isExistEcontext: false,
       },
     }),
     [FETCH_REQUEST_TAKELATE_BEFORE_SUCCESS]: (state, action) => ({
@@ -102,6 +103,7 @@ export const requestReducer = handleActions(
       estimate: {
         isSending: false,
         isTakelateBefore: action.payload.isTakelateBefore,
+        isExistEcontext: action.payload.isExistEcontext,
       },
     }),
     [FETCH_REQUEST_TAKELATE_BEFORE_FAILED]: state => ({
@@ -109,6 +111,7 @@ export const requestReducer = handleActions(
       estimate: {
         isSending: false,
         isTakelateBefore: false,
+        isExistEcontext: false,
       },
     }),
     [ESTIMATE]: state => ({
@@ -230,12 +233,14 @@ function* sendEstimateEmail(payload, messageDocId) {
   const token = yield* getToken();
   const { data: toUser } = yield call(getApiRequest, apiEndpoint.users(toUserId), {}, token);
 
-  let messageBody = 'お見積もりが届きました。\n';
+  let messageBody = '見積りが届きました。\n';
   messageBody += '確認するには以下のリンクをクリックしてください。\n';
-  messageBody += `${getMessageRoomUrl(roomId)}`;
+  messageBody += `${getMessageRoomUrl(roomId)}\n\n`;
+  messageBody +=
+    'お支払いを完了することでスペース利用契約が成立し、スペースの詳細住所をお知らせします。';
 
   const body = {
-    Subject: 'お見積もりが届いています：モノオクからのお知らせ',
+    Subject: '【モノオク】見積りが届きました',
     Uid: toUser.firebaseUid,
     Body: messageBody,
     category: 'estimate',
@@ -276,23 +281,35 @@ function* fetchRequestTakelateBefore({ payload: { guestId, spaceId } }) {
     isTakelateBefore = true;
   }
 
-  yield put(requestActions.fetchRequestTakelateBeforeSuccess({ isTakelateBefore }));
+  const { data: econtext, err: errCheckEcontext } = yield call(
+    getApiRequest,
+    apiEndpoint.requestsEcontext(guestId, spaceId),
+    {},
+    token,
+  );
+
+  if (errCheckEcontext) {
+    yield handleError(
+      requestActions.fetchRequestFailed,
+      '',
+      'requestsEcontext(estimate)',
+      errCheckEcontext,
+      false,
+    );
+    return;
+  }
+  let isExistEcontext = false;
+  if (econtext.length > 0) {
+    isExistEcontext = true;
+  }
+
+  yield put(
+    requestActions.fetchRequestTakelateBeforeSuccess({ isTakelateBefore, isExistEcontext }),
+  );
 }
 
 // Sagas
-function* estimate({
-  payload: {
-    roomId,
-    userId,
-    startDate,
-    endDate,
-    usagePeriod,
-    isUndecided,
-    tatami,
-    indexTatami,
-    price,
-  },
-}) {
+function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
   const roomDoc = roomCollection().doc(roomId);
   const room = yield roomDoc.get();
   const { spaceId, userId1, userId2 } = room.data();
@@ -311,12 +328,13 @@ function* estimate({
       spaceId,
       startDate,
       endDate,
-      usagePeriod: parseInt(usagePeriod, 10),
-      isUndecided: parseInt(isUndecided, 10),
-      tatami: parseInt(tatami, 10),
-      indexTatami: parseInt(indexTatami, 10),
+      usagePeriod: parseInt(1, 10),
+      isUndecided: parseInt(0, 10),
+      tatami: parseInt(0, 10),
+      indexTatami: parseInt(0, 10),
       price: parseInt(price, 10),
       status: 'estimate',
+      isMonthly: parseInt(1, 10),
     },
     token,
   );
@@ -333,15 +351,15 @@ function* estimate({
     price: parseInt(price, 10),
     startDate,
     endDate,
-    usagePeriod: parseInt(usagePeriod, 10),
-    isUndecided: parseInt(isUndecided, 10),
-    tatami: parseInt(tatami, 10),
-    indexTatami: parseInt(indexTatami, 10),
+    usagePeriod: parseInt(1, 10),
+    isUndecided: parseInt(0, 10),
+    tatami: parseInt(0, 10),
+    indexTatami: parseInt(0, 10),
   };
   const messageDoc = yield roomDoc.collection('messages').add(message);
   yield roomDoc.set(
     {
-      lastMessage: 'お見積もりが届いています',
+      lastMessage: '見積りが届きました',
       lastMessageDt: new Date(),
     },
     { merge: true },
@@ -350,7 +368,9 @@ function* estimate({
   yield sendEstimateEmail({ toUserId: requestUserId, roomId }, messageDoc.id);
 
   const messageRoomUrl = getMessageRoomUrl(roomId);
-  const smsBody = `【モノオク】\nお見積りが届いています。下記リンクからお支払いを進めましょう。 \n\n${messageRoomUrl}`;
+  let smsBody = `【モノオク】\n見積りが届きました。下記リンクからお支払いを進めましょう。 \n\n`;
+  smsBody += `${messageRoomUrl}\n\n`;
+  smsBody += `お支払いを完了することでスペース利用契約が成立し、スペースの詳細住所をお知らせします。`;
 
   const bodySMS = {
     UserId: requestUserId,
@@ -502,11 +522,11 @@ function* payment({ payload: { roomId, requestId, info, payment: card } }) {
     {
       RequestId: parseInt(requestId, 10),
       CardToken: cardToken,
-      PaymentType: info.paymentType,
+      PaymentType: 0,
       PaymentPrice: info.paymentPrice,
       StartDate: info.startDate,
       EndDate: info.endDate,
-      IsUndecided: info.isUndecided,
+      IsUndecided: 0,
     },
     token,
   );
@@ -762,6 +782,29 @@ function* fetchRequest({ payload: requestId }) {
     isTakelateBefore = true;
   }
   data.isTakelateBefore = isTakelateBefore;
+
+  const { data: econtext, err: errCheckEcontext } = yield call(
+    getApiRequest,
+    apiEndpoint.requestsEcontext(data.userId, data.spaceId),
+    {},
+    token,
+  );
+
+  if (errCheckEcontext) {
+    yield handleError(
+      requestActions.fetchRequestFailed,
+      '',
+      'requestsEcontext(payment)',
+      errCheckEcontext,
+      false,
+    );
+    return;
+  }
+  let isExistEcontext = false;
+  if (econtext.length > 0) {
+    isExistEcontext = true;
+  }
+  data.isExistEcontext = isExistEcontext;
 
   yield put(requestActions.fetchRequestSuccess(data));
 }

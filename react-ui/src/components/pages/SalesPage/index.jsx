@@ -258,12 +258,12 @@ class SalesPage extends Component {
     const { before, deposit, pending, paid } = this.props;
     return (
       <SalesAmountItemWrap>
-        <SalesAmountItem title="お振込可能な売上" amount={deposit} bold colorPrimary />
-        {before > 0 && <SalesAmountItem title="保管開始前の売上" amount={before} />}
-        {pending > 0 && <SalesAmountItem title="お振込対応中の売上" amount={pending} />}
-        {paid > 0 && <SalesAmountItem title="お振込済みの売上" amount={paid} />}
+        <SalesAmountItem title="振込可能な売上" amount={deposit} bold colorPrimary />
+        {before > 0 && <SalesAmountItem title="計上待ちの売上" amount={before} />}
+        {pending > 0 && <SalesAmountItem title="振込対応中の売上" amount={pending} />}
+        {paid > 0 && <SalesAmountItem title="振込済みの売上" amount={paid} />}
         <CautionWrapper>
-          <CautionText>※保管開始済みの取引の売上のみ振込申請ができます。</CautionText>
+          <CautionText>※毎月の更新日以降に前月分の売上が振込可能になります。</CautionText>
         </CautionWrapper>
       </SalesAmountItemWrap>
     );
@@ -380,31 +380,26 @@ class SalesPage extends Component {
           <Confirm label="口座名義" value={accountName} />
         </ConfirmSalesWrap>
         <SalesAmountItemWrap confirm>
-          <SalesAmountItem title="お振込可能な売上" amount={deposit} />
+          <SalesAmountItem title="振込可能な売上" amount={deposit} />
         </SalesAmountItemWrap>
         <SalesAmountItemWrap confirm>
-          <SalesAmountItem title="サービス利用料" amount={fee} />
+          <SalesAmountItem title="ホスト手数料" amount={fee} />
         </SalesAmountItemWrap>
         <SalesAmountItemWrap confirm>
           <SalesAmountItem title="振込手数料" amount={payoutFee} />
         </SalesAmountItemWrap>
         <SalesAmountItemWrap confirm>
-          <SalesAmountItem title="お振込金額" amount={payout - payoutFee} bold colorPrimary />
+          <SalesAmountItem title="振込金額" amount={payout - payoutFee} bold colorPrimary />
         </SalesAmountItemWrap>
         <CautionWrapper>
           <CautionText>
-            ※振込金額が10,000円以上の場合、振込手数料が無料になります。10,000円未満の場合、260円振込手数料が売上から引かれます。ご了承ください。
+            ※振込金額が10,000円以上の場合は振込手数料が無料、10,000円未満の場合は振込手数料260円が売上から引かれます。
           </CautionText>
           <CautionText>
             ※お振込完了まで10営業日ほどかかります。あらかじめご了承ください。
-            営業日は土・日・祝、年末年始(12/30〜1/3)以外の平日を指します。
-            <br />
-            ※正しい口座情報が記載されていない場合、確認にお時間をいただきますのでご了承ください。
-            <br />
-            ※売上金のお振込は、モノオクが決済システムを委託している「オミセジャパン」経由で行われます。着金確認の際は、モノオクではなくオミセジャパンよりお振込されますので、あらかじめご了承ください。
           </CautionText>
           <CautionText>
-            ※銀行口座の情報が間違っている場合、振込ができません。振込手数料を売上から引かせていただきます。入力内容をしっかりご確認ください。
+            ※売上金のお振込は、モノオクが決済システムを委託している「オミセジャパン」経由で行われます。着金確認の際は、モノオクではなくオミセジャパンよりお振込されますので、あらかじめご了承ください。
           </CautionText>
         </CautionWrapper>
         <ButtonEntry

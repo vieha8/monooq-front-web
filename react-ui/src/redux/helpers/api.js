@@ -19,6 +19,7 @@ export const apiEndpoint = {
   requestsByHostUserId: id => `/requests/host/${id}`,
   requestsByHostUserIdTakelateBefore: (userId, spaceId) =>
     `/requests/hosttb/${userId}/spaces/${spaceId}`,
+  requestsEcontext: (userId, spaceId) => `/requests/re/${userId}/spaces/${spaceId}`,
   payments: type => (type ? `/payments/${type}` : `/payments`),
   sendMail: () => `/mailer/send`,
   sendSMS: () => `/sms/send`,

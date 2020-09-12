@@ -1,39 +1,22 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Dimens, FontSizes, Colors, ErrorMessages } from 'variables';
-import { media, mediaMin } from 'helpers/style/media-query';
+import { Dimens, FontSizes, Colors } from 'variables';
+import { media } from 'helpers/style/media-query';
 import { iskeyDownEnter } from 'helpers/keydown';
-import { formatRemoveComma } from 'helpers/string';
-import { isNumber } from 'helpers/validations/number';
-import isValidTatami from 'helpers/validations/tatami';
-import { isTrimmedEmpty } from 'helpers/validations/string';
+import { formatAddComma, formatRemoveComma } from 'helpers/string';
+import { Validate as ValidatePrice, isValidSpacePrice } from 'helpers/validations/spacePrice';
 import { requestActions } from 'redux/modules/request';
 import Button from 'components/LV1/Forms/Button';
 import { H1 } from 'components/LV1/Texts/Headline';
+import Hr from 'components/LV1/HorizontalRule';
 import InputSchedule from 'components/LV2/Estimate/InputSchedule';
-import UsagePeriod from 'components/LV2/Estimate/UsagePeriod';
-import ExpectedEndDate from 'components/LV2/Estimate/ExpectedEndDate';
-import Tatami from 'components/LV2/Estimate/Tatami';
+import InputPrice from 'components/LV2/Estimate/InputPrice';
 import Detail from 'components/LV2/Estimate/Detail';
 
 moment.locale('ja');
-
-const SPACE_TYPE_ROOM = 0;
-const SPACE_TYPE_WHEREHOUSE = 1;
-
-const Validate = {
-  UsagePeriod: {
-    Max: 24,
-    Min: 1,
-  },
-  Price: {
-    Max: 600000,
-    Min: 3000,
-  },
-};
 
 const Wrap = styled.div`
   width: 100%;
@@ -50,6 +33,23 @@ const Section = styled.div`
     color: ${Colors.lightGray10};
     line-height: normal;
   `};
+  ${props =>
+    props.econtext &&
+    `
+    font-size: ${FontSizes.small_12}px;
+    color: ${Colors.error};
+    line-height: normal;
+  `};
+`;
+
+const CaptionBasePrice = styled.div`
+  width: fit-content;
+  margin-top: ${Dimens.small_10}px;
+  padding: ${Dimens.xxsmall_5}px;
+  font-size: ${FontSizes.small_13}px;
+  line-height: normal;
+  color: ${Colors.darkGray1};
+  background-color: ${Colors.lightGray1Bg};
 `;
 
 const ButtonWrap = styled.div`
@@ -60,156 +60,58 @@ const ButtonWrap = styled.div`
   `};
 `;
 
-const LinkHelpWrap = styled.div`
-  margin-top: ${Dimens.medium2}px;
-`;
-
-const HyperLink = styled.a`
-  color: ${Colors.brandPrimary};
-  font-size: ${FontSizes.small_15}px;
-  &:active {
-    color: ${Colors.brandPrimary};
-    opacity: 0.8;
-  }
-  ${mediaMin.tablet`
-    &:hover {
-      color: ${Colors.brandPrimary};
-      opacity: 0.8;
-    }
-  `};
-`;
-
-const Estimate = ({ userId, priceTatami, priceFull, isTakelateBefore, buttonLoading }) => {
+const Estimate = ({
+  userId,
+  priceTatami,
+  priceFull,
+  isTakelateBefore,
+  isExistEcontext,
+  buttonLoading,
+}) => {
   const dispatch = useDispatch();
   const { message_room_id: roomId } = useParams();
 
   const [errors, setErrors] = useState({});
   const [startDate, setStartDate] = useState(null);
   const [startDateFocus, setStartDateFocus] = useState(false);
-  const [usagePeriod, setUsagePeriod] = useState('');
-  const [isUndecided, setIsUndecided] = useState(false);
-  const [priceEstimateBase, setPriceEstimateBase] = useState(priceTatami);
-  const [tatami, setTatami] = useState('');
-  const [indexTatami, setIndexTatami] = useState(0);
-
-  function getPriceEstimate() {
-    let tatamiBase = 1;
-    if (indexTatami === SPACE_TYPE_ROOM) {
-      tatamiBase = tatami;
-    }
-
-    const returnPrice =
-      !isUndecided && usagePeriod && usagePeriod > 0
-        ? priceEstimateBase * tatamiBase * usagePeriod
-        : priceEstimateBase * tatamiBase;
-
-    return returnPrice > 0 ? returnPrice : 0;
-  }
+  const [price, setPrice] = useState('');
 
   const validate = () => {
-    const checkPrice = getPriceEstimate();
     return (
-      startDate &&
-      (isUndecided ||
-        (!isUndecided &&
-          usagePeriod &&
-          usagePeriod >= Validate.UsagePeriod.Min &&
-          usagePeriod <= Validate.UsagePeriod.Max)) &&
-      (indexTatami === SPACE_TYPE_WHEREHOUSE || (tatami && isValidTatami(tatami).result)) &&
-      checkPrice &&
-      checkPrice >= Validate.Price.Min &&
-      checkPrice <= Validate.Price.Max
+      startDate && price && price >= ValidatePrice.Price.Min && price <= ValidatePrice.Price.Max
     );
   };
-
-  // const checkPriceRenge = () => {
-  //   let msgError = '';
-  //   const checkPrice = getPriceEstimate();
-  //   if (checkPrice < Validate.Price.Min) {
-  //     msgError = ErrorMessages.EstimateMin(Validate.Price.Min);
-  //   } else if (checkPrice > Validate.Price.Max) {
-  //     msgError = ErrorMessages.EstimateMax(Validate.Price.Max);
-  //   }
-  //   return msgError;
-  // };
 
   const handleChangeUI = (propName, value) => {
     const setError = [];
     switch (propName) {
-      case 'usagePeriod':
-        if (!value || value.length === 0) {
-          setError.push(ErrorMessages.PleaseInput);
-        } else if (!isNumber(value)) {
-          setError.push(ErrorMessages.UsagePeriodNumber);
-        } else if (value < Validate.UsagePeriod.Min) {
-          setError.push(ErrorMessages.UsagePeriodMin(Validate.UsagePeriod.Min));
-        } else if (value > Validate.UsagePeriod.Max) {
-          setError.push(ErrorMessages.UsagePeriodMax(Validate.UsagePeriod.Max));
-        }
-        break;
-      case 'tatami':
-        if (!isTrimmedEmpty(Number.toString(value))) {
-          const { result, reason } = isValidTatami(value);
-          if (!result) {
-            setError.push(reason);
-          }
-        }
-        break;
-      case 'isUndecided':
-        if (value) {
-          setUsagePeriod('');
-          setErrors(state => ({ ...state, usagePeriod: [] }));
-        }
-        break;
-      case 'indexTatami': {
-        if (value === SPACE_TYPE_ROOM) {
-          handleChangeUI('tatami', tatami);
-          setPriceEstimateBase(priceTatami);
-        } else {
-          setPriceEstimateBase(priceFull);
-          setErrors(state => ({ ...state, tatami: [] }));
+      case 'price': {
+        const newPrice = formatRemoveComma(value);
+        const { reason, result } = isValidSpacePrice(newPrice);
+        if (!result) {
+          setError.push(reason);
         }
         break;
       }
       default:
     }
-
     setErrors(state => ({ ...state, [propName]: setError }));
-
-    // TODO: エラー表示タイミング調整(validate側は制御済み)
-    // const msgError = checkPriceRenge();
-    // if (msgError) {
-    //   const errorPriceRange = [];
-    //   errorPriceRange.push(msgError);
-    //   setErrors(state => ({ ...state, errorPriceRange }));
-    // } else {
-    //   setErrors(state => ({ ...state, errorPriceRange: '' }));
-    // }
   };
 
   const sendRequest = () => {
     const datedStartDate = startDate.toDate();
-
-    let endDate = moment(datedStartDate)
-      .add(24, 'months')
-      .subtract(1, 'days');
-    if (!isUndecided) {
-      endDate = moment(datedStartDate)
-        .add(usagePeriod, 'months')
-        .subtract(1, 'days');
-    }
+    const datedEndDate = moment(datedStartDate)
+      .add(1, 'months')
+      .subtract(1, 'days')
+      .toDate();
 
     dispatch(
       requestActions.estimate({
         userId,
         roomId,
         startDate: datedStartDate,
-        endDate: endDate.toDate(),
-        usagePeriod: isUndecided ? 1 : usagePeriod,
-        isUndecided: isUndecided ? 1 : 0,
-        tatami,
-        indexTatami,
-        price: formatRemoveComma(getPriceEstimate()),
+        endDate: datedEndDate,
+        price: formatRemoveComma(price),
       }),
     );
   };
@@ -220,14 +122,6 @@ const Estimate = ({ userId, priceTatami, priceFull, isTakelateBefore, buttonLoad
     }
   };
 
-  function onDateChange(date) {
-    setStartDate(date);
-  }
-
-  function onFocusChangeDatePicker(focus) {
-    setStartDateFocus(focus);
-  }
-
   return (
     <Wrap>
       <H1 bold>見積もり作成</H1>
@@ -235,53 +129,37 @@ const Estimate = ({ userId, priceTatami, priceFull, isTakelateBefore, buttonLoad
         <InputSchedule
           startDate={startDate}
           startDateFocused={startDateFocus}
-          onDateChangeStart={date => onDateChange(date)}
-          onFocusChangeStart={focus => onFocusChangeDatePicker(focus)}
+          onDateChangeStart={date => setStartDate(date)}
+          onFocusChangeStart={focus => setStartDateFocus(focus)}
           isOnlyBeginDate
         />
       </Section>
-      {startDate && (
-        <Fragment>
-          <Section>
-            <UsagePeriod
-              valueUsagePeriod={usagePeriod}
-              onChangeUsagePeriod={v => handleChangeUI('usagePeriod', v, setUsagePeriod(v))}
-              isUndecided={isUndecided}
-              onChangeUndecided={v => handleChangeUI('isUndecided', v, setIsUndecided(v))}
-              errors={errors.usagePeriod}
-            />
-          </Section>
-          <Section>
-            <ExpectedEndDate
-              isView={!isUndecided && errors.usagePeriod && errors.usagePeriod.length === 0}
-              startDate={startDate}
-              usagePeriod={usagePeriod}
-            />
-          </Section>
-          <Section>
-            <Tatami
-              errors={errors.tatami}
-              spacePrice={{ priceTatami, priceFull }}
-              tatami={tatami}
-              onChangeTatami={e =>
-                handleChangeUI('tatami', e.target.value, setTatami(e.target.value))
-              }
-              indexTatami={indexTatami}
-              onClickTatamiMethod={v => handleChangeUI('indexTatami', v, setIndexTatami(v))}
-            />
-          </Section>
-        </Fragment>
-      )}
       <Section>
-        <Detail
-          price={getPriceEstimate()}
-          isTakelateBefore={isTakelateBefore}
-          errors={errors.errorPriceRange}
+        <InputPrice
+          price={price}
+          onChange={v => handleChangeUI('price', v, setPrice(formatRemoveComma(v)))}
+          errors={errors.price}
         />
+        {(priceTatami > 0 || priceFull > 0) && (
+          <CaptionBasePrice>
+            {priceTatami && priceTatami > 0
+              ? `あなたの登録料金は1畳につき${formatAddComma(priceTatami)}円です。`
+              : `あなたの登録料金は全てのスペースで${formatAddComma(priceFull)}円です。`}
+          </CaptionBasePrice>
+        )}
+      </Section>
+      <Hr margin="25px 0" />
+      <Section>
+        <Detail price={price} isTakelateBefore={isTakelateBefore} />
       </Section>
       <Section caption>
-        見積もりは何度でも発行が可能です。ゲストとのやりとりで条件が変わった場合、新たに見積もりを発行してください。
+        ゲストが支払うとスペース利用契約が成立します。利用料は、利用開始日から1ヶ月毎に自動支払いされます。
       </Section>
+      {isExistEcontext && (
+        <Section econtext>
+          ゲストがコンビニ支払いをした場合は、更新の都度見積もりを送信し、ゲストに支払いをしてもらう必要があります。
+        </Section>
+      )}
       <Section>
         <ButtonWrap>
           <Button
@@ -296,15 +174,6 @@ const Estimate = ({ userId, priceTatami, priceFull, isTakelateBefore, buttonLoad
             この見積もりを送信
           </Button>
         </ButtonWrap>
-        <LinkHelpWrap>
-          <HyperLink
-            href="https://help.monooq.com/ja/articles/3694521"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            見積もりの出し方
-          </HyperLink>
-        </LinkHelpWrap>
       </Section>
     </Wrap>
   );
