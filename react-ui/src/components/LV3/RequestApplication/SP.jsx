@@ -37,7 +37,7 @@ const ContentWrap = styled.div`
   max-width: 768px;
   margin: auto;
   position: relative;
-  top: 135px;
+  top: 160px;
   padding: 0 ${Dimens.medium}px 150px;
 `;
 
