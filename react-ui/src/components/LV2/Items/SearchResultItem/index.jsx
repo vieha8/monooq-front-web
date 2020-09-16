@@ -17,6 +17,9 @@ import Availability from 'components/LV1/Texts/Availability';
 
 const IconStar = 'https://monooq.imgix.net/img%2Fservice%2Fimg-space-star.svg?auto=compress';
 
+const dummySpaceImage =
+  'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
+
 const Wrap = styled.div`
   cursor: pointer;
   margin: auto;
@@ -160,7 +163,7 @@ const SpaceResultItem = ({
             <LazyLoad height={123}>
               <ImageHero
                 isTag={isTag}
-                src={image}
+                src={image || dummySpaceImage}
                 alt={title}
                 height={184}
                 heightTab={195}
