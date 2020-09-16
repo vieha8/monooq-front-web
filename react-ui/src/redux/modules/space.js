@@ -222,7 +222,7 @@ export const spaceReducer = handleActions(
     }),
     [GET_SUCCESS_SPACE_ACCESS_LOG]: (state, action) => ({
       ...state,
-      spaces: [...state.spaces, ...action.payload],
+      spaces: [...(state.spaces || []), ...action.payload],
       isLoading: false,
       isMore: action.payload.isMore,
     }),
@@ -704,6 +704,7 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
   yield put(authActions.checkLogin());
   yield take(authActions.checkLoginFinished);
 
+  const token = yield* getToken();
   const user = yield select(state => state.auth.user);
   if (!user.id) {
     // 未ログイン時の閲覧履歴
@@ -713,7 +714,6 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
       const key = 'anonymous-access-logs';
       const json = localStorage.getItem(key);
       const anonymousAccessLogSpaceIds = json ? JSON.parse(json) : [];
-
       const results = yield all(
         anonymousAccessLogSpaceIds.map(id => call(getApiRequest, apiEndpoint.spaces(id), token)),
       );
@@ -730,7 +730,6 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
     return;
   }
 
-  const token = yield* getToken();
   const { data: payload, err } = yield call(
     getApiRequest,
     apiEndpoint.getUserSpaceAccessLog(user.id),

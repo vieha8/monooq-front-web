@@ -41,7 +41,7 @@ const ButtonTestWrap = styled.div`
 
 const MoreButtonWrap = styled.div`
   max-width: 300px;
-  margin: ${Dimens.medium}px auto;
+  margin: ${Dimens.medium}px auto ${Dimens.medium2_32}px;
 `;
 
 const ButtonStyled = styled(Button)`
@@ -80,6 +80,7 @@ export default ({
   // sections,
   regionId,
   spaces,
+  spacesHistory,
   onClickSpace,
   user,
   maxCount,
@@ -112,6 +113,30 @@ export default ({
       )}
       <Covid19Info />
       <PrefectureList list={areaPrefectures} regionId={regionId} />
+      {spacesHistory && spacesHistory.length > 0 && (
+        <ResultWrap>
+          <ResultRow>
+            <H1 bold>閲覧履歴</H1>
+          </ResultRow>
+
+          <SearchResultWrap>
+            <SearchResult
+              via="top"
+              spaces={spacesHistory.map(s => ({
+                ...s,
+                image: (s.images[0] || {}).imageUrl,
+                onClick: () => onClickSpace(s.id),
+              }))}
+            />
+          </SearchResultWrap>
+
+          <MoreButtonWrap>
+            <ButtonStyled primary borderbold fontSize={14} fontbold fill={1}>
+              <HashLinkStyled to={Path.historyViewSpace()}>もっと見る</HashLinkStyled>
+            </ButtonStyled>
+          </MoreButtonWrap>
+        </ResultWrap>
+      )}
       {/* ログインユーザーのみ、自分の住む地域のスペースをレコメンドされる */}
       {isLogin && isExistSpace && (
         <ResultWrap>

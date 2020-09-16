@@ -14,6 +14,10 @@ import LoadingPage from 'components/LV3/LoadingPage';
 class TopPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      limit: 8,
+      offset: 0,
+    };
 
     const { referrer } = document;
     if (isAvailableLocalStorage()) {
@@ -31,6 +35,18 @@ class TopPage extends React.Component {
     dispatch(spaceActions.doSearchMyArea());
   }
 
+  componentDidMount() {
+    const { dispatch } = this.props;
+    const { limit, offset } = this.state;
+    const params = {
+      limit,
+      offset,
+    };
+    dispatch(spaceActions.getSpaceAccessLog(params));
+    const newOffset = offset + limit;
+    this.setState({ offset: newOffset });
+  }
+
   onClickSpace = spaceId => {
     const { history } = this.props;
     history.push(Path.space(spaceId));
@@ -43,6 +59,7 @@ class TopPage extends React.Component {
       isChecking,
       user,
       spaces,
+      spacesHistory,
       conditions,
       maxCount,
       isLoading,
@@ -80,6 +97,7 @@ class TopPage extends React.Component {
           // sections={sections}
           regionId={regionId}
           spaces={spaces}
+          spacesHistory={spacesHistory}
           onClickSpace
           user={user}
           maxCount={maxCount}
@@ -98,6 +116,7 @@ const mapStateToProps = state => ({
   maxCount: state.space.search.maxCount,
   conditions: state.space.search.conditions,
   spaces: state.space.search.results,
+  spacesHistory: state.space.spaces,
   // sections: state.section.sections,
   regionId: state.section.regionId,
   isChecking: state.auth.isChecking,
