@@ -41,6 +41,7 @@ class TopPage extends React.Component {
     const params = {
       limit,
       offset,
+      refresh: true,
     };
     dispatch(spaceActions.getSpaceAccessLog(params));
     const newOffset = offset + limit;

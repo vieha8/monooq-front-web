@@ -6,7 +6,7 @@ import { isOverTabletWindow } from 'helpers/style/media-query';
 import { partialMatch } from 'helpers/string';
 import { getSafeValue } from 'helpers/properties';
 import { authActions } from 'redux/modules/auth';
-import { accessLogSpaceActions } from 'redux/modules/accessLogSpace';
+import { spaceActions } from 'redux/modules/space';
 import HeaderComponent from 'components/LV3/Header/View';
 import LPLink from './LPLink';
 
@@ -27,7 +27,7 @@ class Header extends Component {
     window.addEventListener('resize', () => this.checkResize(), true);
 
     const { dispatch } = this.props;
-    dispatch(accessLogSpaceActions.fetchLog({ limit: 8, offset: 0 }));
+    dispatch(spaceActions.getSpaceAccessLog({ limit: 8, ifEmpty: true }));
   }
 
   componentWillUnmount() {
@@ -162,7 +162,7 @@ class Header extends Component {
   }
 
   render() {
-    const { schedule, accessLogSpace } = this.props;
+    const { schedule, spaces } = this.props;
     const { isOverTopView, isOverTablet } = this.state;
 
     let isSchedule = false;
@@ -197,7 +197,7 @@ class Header extends Component {
               this.logout();
             },
           }}
-          accessLogSpaces={accessLogSpace.spaces}
+          accessLogSpaces={spaces || []}
         />
         {isLp && (
           <LPLink
@@ -213,7 +213,7 @@ class Header extends Component {
 
 const mapStateToProps = state => ({
   schedule: state.request.schedule,
-  accessLogSpace: state.accessLogSpace,
+  spaces: state.space.spaces,
 });
 
 export default withRouter(connect(mapStateToProps)(Header));
