@@ -8,8 +8,6 @@ import MainTitleWrap from 'components/LV2/Texts/MainTitleStatic';
 import AboutCancelList from 'components/LV2/Lists/AboutCancelList';
 import ContentDescription from 'components/LV2/Texts/ContentDescription';
 
-const HyperLink = styled.a``;
-
 const Section = styled.div`
   ${props =>
     props.margin &&

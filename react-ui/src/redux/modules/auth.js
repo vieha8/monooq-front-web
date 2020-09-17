@@ -19,6 +19,7 @@ import {
   putApiRequest,
 } from '../helpers/api';
 import { parseUrl } from '../../helpers/query-string';
+import { spaceActions } from 'redux/modules/space';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -431,6 +432,8 @@ function* logout() {
     localStorage.removeItem(tokenCacheKey);
   }
   const auth = yield call(getFirebaseAuth);
+
+  yield put(spaceActions.clearSpaceAccessLog());
   yield auth().signOut();
 }
 
