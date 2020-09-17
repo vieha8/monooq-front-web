@@ -122,7 +122,7 @@ export default ({
           <SearchResultWrap>
             <SearchResult
               via="top"
-              spaces={spacesHistory.map(s => ({
+              spaces={spacesHistory.slice(0, 8).map(s => ({
                 ...s,
                 image: (s.images[0] || {}).imageUrl,
                 onClick: () => onClickSpace(s.id),
