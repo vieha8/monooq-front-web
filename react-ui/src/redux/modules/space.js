@@ -875,7 +875,7 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, t
   yield put(
     spaceActions.successSearch({
       spaces: res,
-      isMore,
+      isMore: headers['x-mnq-has-more'] === 'true',
       maxCount: parseInt(headers['content-range'], 10),
       area: areaRes,
       conditions: data.conditions,
