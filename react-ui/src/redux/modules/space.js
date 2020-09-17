@@ -871,7 +871,6 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, t
 
   const breadcrumbs = makeBreadcrumbs(data.conditions);
 
-  const isMore = res.length === limit;
   yield put(
     spaceActions.successSearch({
       spaces: res,
