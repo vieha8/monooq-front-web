@@ -33,7 +33,7 @@ export default ({ full, tatami }) => (
           detail
         />
       )}
-      {tatami && tatami > 0 && full > tatami && (
+      {tatami && tatami > 0 && full > tatami ? (
         <InputPriceOfType
           image={imageFurnitureTatami}
           title="1畳分のスペースの月額料金"
@@ -42,7 +42,7 @@ export default ({ full, tatami }) => (
           detail
           marginLeft
         />
-      )}
+      ) : null}
     </Wrap>
   </Fragment>
 );
