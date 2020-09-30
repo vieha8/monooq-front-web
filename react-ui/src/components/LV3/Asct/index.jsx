@@ -58,7 +58,7 @@ export default () => (
           },
           {
             header: '代金の支払方法',
-            data: 'クレジットカード、コンビニ払い・Pay-easy決済',
+            data: 'クレジットカード',
           },
           {
             header: '代金の支払時期',
