@@ -357,7 +357,7 @@ export default () => {
               </QuestionItem>
               <QuestionItem>
                 <Collapsible trigger="Q. 支払い方法を教えてください。">
-                  <Answer>クレジットカード・コンビニ支払いに対応しています。</Answer>
+                  <Answer>クレジットカード（VISA・MasterCard）に対応しています。</Answer>
                 </Collapsible>
               </QuestionItem>
             </QuestionRow>
