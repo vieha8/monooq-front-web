@@ -38,15 +38,23 @@ const Row = styled.div`
 export default ({ userId }) => (
   <Wrap>
     <H1 bold>退会処理が完了できませんでした</H1>
-    <InlineText.Base>
-      現在進行中の取引があります。
-      <br />
-      荷物の引取りや、引き渡しが完了していない場合は退会ができません。
-      <br />
-      スケジュールを確認して取引を完了してください。
-    </InlineText.Base>
+    <Row>
+      <InlineText.Base>
+        現在進行中の取引があります。
+        <br />
+        荷物の引取りや、引き渡しが完了していない場合は退会ができません。
+        <br />
+        スケジュールを確認して取引を完了してください。
+      </InlineText.Base>
+    </Row>
     <Row>
       <TextLink to={Path.schedule(userId)}>スケジュールを確認する</TextLink>
+    </Row>
+    <Row>
+      ご不明な点がありましたら、以下からモノオクサポートにご連絡ください。
+      <br />
+      <br />
+      <TextLink to={Path.inquiry()}>お問い合わせ</TextLink>
     </Row>
   </Wrap>
 );
