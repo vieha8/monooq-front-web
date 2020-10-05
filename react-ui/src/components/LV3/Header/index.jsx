@@ -7,6 +7,7 @@ import { partialMatch } from 'helpers/string';
 import { getSafeValue } from 'helpers/properties';
 import { authActions } from 'redux/modules/auth';
 import { accessLogSpaceActions } from 'redux/modules/accessLogSpace';
+import ChannelService from 'components/LV1/ChannelService';
 import HeaderComponent from 'components/LV3/Header/View';
 import LPLink from './LPLink';
 
@@ -30,6 +31,49 @@ class Header extends Component {
     dispatch(accessLogSpaceActions.fetchLog({ limit: 8, offset: 0 }));
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.isLogin !== prevProps.isLogin) {
+      if (this.props.isLogin) {
+        const {
+          id,
+          name,
+          email,
+          phoneNumber,
+          isHost,
+          isNoticeEmail,
+          isNoticeSMS,
+          lastLoginAt,
+          prefCode,
+          refererUrl,
+          createdAt,
+          UpdatedAt,
+        } = this.props.user;
+
+        ChannelService.boot({
+          pluginKey: 'faef3b55-fa0e-4d90-a97d-1c4f7f5848d2',
+          memberId: id,
+          profile: {
+            name,
+            email,
+            mobileNumber: phoneNumber,
+            isHost,
+            isNoticeEmail,
+            isNoticeSMS,
+            lastLoginAt,
+            prefCode,
+            refererUrl,
+            createdAt,
+            UpdatedAt,
+          },
+        });
+      } else {
+        ChannelService.boot({
+          pluginKey: 'faef3b55-fa0e-4d90-a97d-1c4f7f5848d2',
+        });
+      }
+    }
+  }
+
   componentWillUnmount() {
     this._isMounted = false;
     window.removeEventListener('scroll', () => this.watchCurrentPosition(), true);
@@ -38,6 +82,8 @@ class Header extends Component {
     if (document && document.body) {
       document.body.style.overflowY = 'auto';
     }
+
+    ChannelService.shutdown();
   }
 
   checkResize = () => {
@@ -212,6 +258,8 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
+  user: state.auth.user,
+  isLogin: state.auth.isLogin,
   schedule: state.request.schedule,
   accessLogSpace: state.accessLogSpace,
 });
