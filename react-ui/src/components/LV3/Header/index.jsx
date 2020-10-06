@@ -11,6 +11,47 @@ import ChannelService from 'components/LV1/ChannelService';
 import HeaderComponent from 'components/LV3/Header/View';
 import LPLink from './LPLink';
 
+function bootChannelService(isLogin, user) {
+  if (isLogin) {
+    const {
+      id,
+      name,
+      email,
+      phoneNumber,
+      isHost,
+      isNoticeEmail,
+      isNoticeSMS,
+      lastLoginAt,
+      prefCode,
+      refererUrl,
+      createdAt,
+      UpdatedAt,
+    } = user;
+
+    ChannelService.boot({
+      pluginKey: 'faef3b55-fa0e-4d90-a97d-1c4f7f5848d2',
+      memberId: id,
+      profile: {
+        name,
+        email,
+        mobileNumber: phoneNumber,
+        isHost,
+        isNoticeEmail,
+        isNoticeSMS,
+        lastLoginAt,
+        prefCode,
+        refererUrl,
+        createdAt,
+        UpdatedAt,
+      },
+    });
+  } else {
+    ChannelService.boot({
+      pluginKey: 'faef3b55-fa0e-4d90-a97d-1c4f7f5848d2',
+    });
+  }
+}
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -27,50 +68,14 @@ class Header extends Component {
     window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
     window.addEventListener('resize', () => this.checkResize(), true);
 
-    const { dispatch } = this.props;
+    const { dispatch, isLogin, user } = this.props;
+    bootChannelService(isLogin, user);
     dispatch(accessLogSpaceActions.fetchLog({ limit: 8, offset: 0 }));
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.isLogin !== prevProps.isLogin) {
-      if (this.props.isLogin) {
-        const {
-          id,
-          name,
-          email,
-          phoneNumber,
-          isHost,
-          isNoticeEmail,
-          isNoticeSMS,
-          lastLoginAt,
-          prefCode,
-          refererUrl,
-          createdAt,
-          UpdatedAt,
-        } = this.props.user;
-
-        ChannelService.boot({
-          pluginKey: 'faef3b55-fa0e-4d90-a97d-1c4f7f5848d2',
-          memberId: id,
-          profile: {
-            name,
-            email,
-            mobileNumber: phoneNumber,
-            isHost,
-            isNoticeEmail,
-            isNoticeSMS,
-            lastLoginAt,
-            prefCode,
-            refererUrl,
-            createdAt,
-            UpdatedAt,
-          },
-        });
-      } else {
-        ChannelService.boot({
-          pluginKey: 'faef3b55-fa0e-4d90-a97d-1c4f7f5848d2',
-        });
-      }
+      bootChannelService(this.props.isLogin, this.props.user);
     }
   }
 
