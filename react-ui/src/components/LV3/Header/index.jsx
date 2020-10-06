@@ -7,6 +7,7 @@ import { partialMatch } from 'helpers/string';
 import { getSafeValue } from 'helpers/properties';
 import { authActions } from 'redux/modules/auth';
 import { accessLogSpaceActions } from 'redux/modules/accessLogSpace';
+import { getPrefecture } from 'helpers/prefectures';
 import ChannelService from 'components/LV1/ChannelService';
 import HeaderComponent from 'components/LV3/Header/View';
 import LPLink from './LPLink';
@@ -39,7 +40,7 @@ function bootChannelService(isLogin, user) {
         isNoticeEmail,
         isNoticeSMS,
         lastLoginAt,
-        prefCode,
+        prefCode: getPrefecture(prefCode),
         refererUrl,
         createdAt,
         UpdatedAt,
