@@ -70,12 +70,15 @@ class Header extends Component {
     window.addEventListener('resize', () => this.checkResize(), true);
 
     const { dispatch, isLogin, user } = this.props;
-    bootChannelService(isLogin, user);
     dispatch(accessLogSpaceActions.fetchLog({ limit: 8, offset: 0 }));
+    bootChannelService(isLogin, user);
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.isLogin !== prevProps.isLogin) {
+    if (
+      this.props.isLogin !== prevProps.isLogin ||
+      this.props.location.pathname !== prevProps.location.pathname
+    ) {
       bootChannelService(this.props.isLogin, this.props.user);
     }
   }
