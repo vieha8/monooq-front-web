@@ -8,8 +8,6 @@ import { SectionTitle, SectionTitleSub } from 'components/LV2/Space/Section';
 
 const ImageLogoPayCredit =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-pay-credit.svg?auto=compress';
-const ImageLogoPayEcontext =
-  'https://monooq.imgix.net/img%2Fservice%2Flogo-pay-econtext.svg?auto=compress';
 
 const Wrap = styled.div``;
 
@@ -72,21 +70,15 @@ const Attention = () => {
       </Section>
       <Section>
         <SectionTitleSub text="お支払い方法について" />
-        月々払い（クレジットカードのみ可能）、一括払い（クレジットカード・コンビニ・Pay-easy）をご利用できます。
-        一部クレジットカード・コンビニはご利用できない場合がございますので、以下の決済可能なお支払いをご確認ください。
+        クレジッドカード（VISA・MasterCard）での月々払いをご利用いただけます。
         <br />
         {getLink('https://help.monooq.com/ja/articles/2948181', '利用料の支払い方法について')}
         <SectionTitleSub text="お支払いに関するヘルプ" />
-        {getLink('https://help.monooq.com/ja/articles/3124614-', 'クレジットカード決済の手順')}
-        {getLink(
-          'https://help.monooq.com/ja/articles/3124622-',
-          'コンビニ払い・Pay-easy決済の手順',
-        )}
+        {getLink('https://help.monooq.com/ja/articles/2948181-', 'クレジットカード決済の手順')}
         <SectionTitleSub text="決済可能なお支払い方法" />
         <Wrap>
           <LazyLoad>
             <ImageLogoPay src={ImageLogoPayCredit} maxWidth={110} credit alt="icon-logo-credit" />
-            <ImageLogoPay src={ImageLogoPayEcontext} maxWidth={240} alt="icon-logo-econtext" />
           </LazyLoad>
         </Wrap>
       </Section>

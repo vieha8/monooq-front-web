@@ -6,9 +6,9 @@ import { isOverTabletWindow } from 'helpers/style/media-query';
 import { partialMatch } from 'helpers/string';
 import { getSafeValue } from 'helpers/properties';
 import { authActions } from 'redux/modules/auth';
-import { accessLogSpaceActions } from 'redux/modules/accessLogSpace';
 import { getPrefecture } from 'helpers/prefectures';
 import ChannelService from 'components/LV1/ChannelService';
+import { spaceActions } from 'redux/modules/space';
 import HeaderComponent from 'components/LV3/Header/View';
 import LPLink from './LPLink';
 
@@ -70,7 +70,7 @@ class Header extends Component {
     window.addEventListener('resize', () => this.checkResize(), true);
 
     const { dispatch, isLogin, user } = this.props;
-    dispatch(accessLogSpaceActions.fetchLog({ limit: 8, offset: 0 }));
+    dispatch(spaceActions.getSpaceAccessLog({ limit: 8, ifEmpty: true }));
     bootChannelService(isLogin, user);
   }
 
@@ -79,6 +79,7 @@ class Header extends Component {
       this.props.isLogin !== prevProps.isLogin ||
       this.props.location.pathname !== prevProps.location.pathname
     ) {
+      ChannelService.shutdown();
       bootChannelService(this.props.isLogin, this.props.user);
     }
   }
@@ -217,7 +218,7 @@ class Header extends Component {
   }
 
   render() {
-    const { schedule, accessLogSpace } = this.props;
+    const { schedule, spaces } = this.props;
     const { isOverTopView, isOverTablet } = this.state;
 
     let isSchedule = false;
@@ -252,7 +253,7 @@ class Header extends Component {
               this.logout();
             },
           }}
-          accessLogSpaces={accessLogSpace.spaces}
+          accessLogSpaces={spaces || []}
         />
         {isLp && (
           <LPLink
@@ -270,7 +271,7 @@ const mapStateToProps = state => ({
   user: state.auth.user,
   isLogin: state.auth.isLogin,
   schedule: state.request.schedule,
-  accessLogSpace: state.accessLogSpace,
+  spaces: state.space.spaces,
 });
 
 export default withRouter(connect(mapStateToProps)(Header));

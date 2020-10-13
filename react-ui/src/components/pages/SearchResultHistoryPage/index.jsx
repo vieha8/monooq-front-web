@@ -50,13 +50,13 @@ class SearchResultHistoryPage extends Component {
     this.state = {
       limit: 8,
       offset: 0,
-      isInit: false,
       queue: null,
       isOverPhone: false,
     };
   }
 
   componentDidMount() {
+    this.loadItems();
     this.setState({ isOverPhone: isOverPhoneWindow() });
     window.addEventListener('resize', () => this.checkResize(), true);
     const { dispatch } = this.props;
@@ -72,14 +72,12 @@ class SearchResultHistoryPage extends Component {
         // そして、TOP→スペース一覧画面から閲覧履歴画面に遷移するとここに到達。
         const { isInit } = this.state;
         if (!isInit) {
-          this.loadItems();
           dispatch(spaceActions.resetSearch());
         }
       } else if (
         prevProps.spaces !== null &&
         (prevProps.spaces && prevProps.spaces.length) !== (spaces && spaces.length)
       ) {
-        this.loadItems();
         dispatch(spaceActions.resetSearch());
       } else {
         dispatch(spaceActions.resetSearch());
@@ -104,19 +102,12 @@ class SearchResultHistoryPage extends Component {
 
   // ローディング処理
   loadItems = () => {
-    const { dispatch, isLoading } = this.props;
-    if (isLoading) {
-      return;
-    }
-
-    const { limit, offset } = this.state;
+    const { dispatch } = this.props;
+    const { limit } = this.state;
     const params = {
       limit,
-      offset,
     };
     dispatch(spaceActions.getSpaceAccessLog(params));
-    const newOffset = offset + limit;
-    this.setState({ offset: newOffset, isInit: true });
   };
 
   onClickSpace = spaceId => {
@@ -131,9 +122,9 @@ class SearchResultHistoryPage extends Component {
 
   render() {
     const { isLoading, spaces, isMore } = this.props;
-    const { isInit, isOverPhone } = this.state;
+    const { isOverPhone } = this.state;
 
-    if (!isInit || (isLoading && spaces && spaces.length === 0)) {
+    if (isLoading || !spaces) {
       return <LoadingPage />;
     }
 
@@ -188,7 +179,7 @@ class SearchResultHistoryPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.space.isLoading,
+  isLoading: state.space.isAccessLogLoading,
   spaces: state.space.spaces,
   isMore: state.space.isMore,
 });

@@ -51,9 +51,11 @@ const DELETE_SPACE = 'DELETE_SPACE';
 const DELETE_FAILED_SPACE = 'DELETE_FAILED_SPACE';
 const PREPARE_UPDATE_SPACE = 'PREPARE_UPDATE_SPACE';
 const GET_SPACE_ACCESS_LOG = 'GET_SPACE_ACCESS_LOG';
+const GETTING_SPACE_ACCESS_LOG = 'GETTING_SPACE_ACCESS_LOG';
 const GET_SUCCESS_SPACE_ACCESS_LOG = 'GET_SUCCESS_SPACE_ACCESS_LOG';
 const GET_FAILED_SPACE_ACCESS_LOG = 'GET_FAILED_SPACE_ACCESS_LOG';
 const ADD_SPACE_ACCESS_LOG = 'ADD_SPACE_ACCESS_LOG';
+const CLEAR_SPACE_ACCESS_LOG = 'CLEAR_SPACE_ACCESS_LOG';
 const DO_SEARCH = 'DO_SEARCH';
 const DO_SEARCH_MY_AREA = 'DO_SEARCH_MY_AREA';
 const SUCCESS_SEARCH = 'SUCCESS_SEARCH';
@@ -94,8 +96,10 @@ export const spaceActions = createActions(
   DELETE_FAILED_SPACE,
   PREPARE_UPDATE_SPACE,
   GET_SPACE_ACCESS_LOG,
+  GETTING_SPACE_ACCESS_LOG,
   GET_SUCCESS_SPACE_ACCESS_LOG,
   GET_FAILED_SPACE_ACCESS_LOG,
+  CLEAR_SPACE_ACCESS_LOG,
   ADD_SPACE_ACCESS_LOG,
   DO_SEARCH,
   DO_SEARCH_MY_AREA,
@@ -126,6 +130,8 @@ export const spaceActions = createActions(
 const initialState = {
   isComplete: false,
   isLoading: false,
+  isAccessLogLoading: false,
+  accessLogOffset: 0,
   isUserMetaFetching: false,
   space: null,
   spaces: null,
@@ -216,19 +222,28 @@ export const spaceReducer = handleActions(
       ...state,
       isComplete: false,
     }),
-    [GET_SPACE_ACCESS_LOG]: state => ({
+
+    [GETTING_SPACE_ACCESS_LOG]: state => ({
       ...state,
-      isLoading: true,
+      isAccessLogLoading: true,
     }),
     [GET_SUCCESS_SPACE_ACCESS_LOG]: (state, action) => ({
       ...state,
-      spaces: [...state.spaces, ...action.payload],
-      isLoading: false,
+      spaces: [...action.payload],
+      isAccessLogLoading: false,
       isMore: action.payload.isMore,
+      accessLogOffset: action.payload.offset,
+    }),
+    [CLEAR_SPACE_ACCESS_LOG]: state => ({
+      ...state,
+      spaces: [],
+      isAccessLogLoading: false,
+      isMore: true,
+      accessLogOffset: 0,
     }),
     [GET_FAILED_SPACE_ACCESS_LOG]: state => ({
       ...state,
-      isLoading: false,
+      isAccessLogLoading: false,
     }),
     [DO_SEARCH]: state => ({
       ...state,
@@ -268,7 +283,6 @@ export const spaceReducer = handleActions(
     }),
     [RESET_SEARCH]: state => ({
       ...state,
-      spaces: [],
       search: {
         ...state.search,
         results: [],
@@ -695,25 +709,19 @@ function* deleteSpace({ payload: { space } }) {
   window.location.href = Path.spaces();
 }
 
-function* getSpaceAccessLog({ payload: { limit, offset } }) {
-  const params = {
-    limit,
-    offset,
-  };
-
+function* getSpaceAccessLog({ payload: { limit, ifEmpty = false, refresh = false } }) {
   yield put(authActions.checkLogin());
   yield take(authActions.checkLoginFinished);
 
+  const token = yield* getToken();
   const user = yield select(state => state.auth.user);
   if (!user.id) {
     // 未ログイン時の閲覧履歴
-
     let anonymousAccessLogSpaces = [];
     if (isAvailableLocalStorage) {
       const key = 'anonymous-access-logs';
       const json = localStorage.getItem(key);
       const anonymousAccessLogSpaceIds = json ? JSON.parse(json) : [];
-
       const results = yield all(
         anonymousAccessLogSpaceIds.map(id => call(getApiRequest, apiEndpoint.spaces(id), token)),
       );
@@ -725,13 +733,23 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
     }
 
     anonymousAccessLogSpaces.isMore = anonymousAccessLogSpaces.length === limit;
+    anonymousAccessLogSpaces.offset = 0;
     yield put(spaceActions.getSuccessSpaceAccessLog(anonymousAccessLogSpaces));
 
     return;
   }
 
-  const token = yield* getToken();
-  const { data: payload, err } = yield call(
+  const { isLoading, spaces, accessLogOffset } = yield select(state => state.space);
+  if (isLoading || (ifEmpty && spaces && spaces.length !== 0)) return;
+
+  yield put(spaceActions.gettingSpaceAccessLog());
+
+  const offset = refresh ? 0 : accessLogOffset;
+  const params = {
+    limit,
+    offset,
+  };
+  const { data, err } = yield call(
     getApiRequest,
     apiEndpoint.getUserSpaceAccessLog(user.id),
     params,
@@ -743,8 +761,9 @@ function* getSpaceAccessLog({ payload: { limit, offset } }) {
     return;
   }
 
-  payload.isMore = payload.length === limit;
-
+  const payload = refresh ? data : [...(spaces || []), ...data];
+  payload.isMore = data.length === limit;
+  payload.offset = offset + data.length;
   yield put(spaceActions.getSuccessSpaceAccessLog(payload));
 }
 
@@ -761,6 +780,7 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
       const anonymousAccessLogQueue = new Queue(arr);
       anonymousAccessLogQueue.uniqEnqueue(parseInt(spaceId, 10));
       localStorage.setItem(key, JSON.stringify(anonymousAccessLogQueue.items));
+      yield put(spaceActions.getSpaceAccessLog({ limit: 8, refresh: true }));
     }
 
     return;
@@ -775,6 +795,8 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
   if (err) {
     yield handleError('', '', 'addSpaceAccessLog', err, false);
   }
+
+  yield put(spaceActions.getSpaceAccessLog({ limit: 8, refresh: true }));
 }
 
 function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, tags, sort } }) {
@@ -871,11 +893,10 @@ function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, t
 
   const breadcrumbs = makeBreadcrumbs(data.conditions);
 
-  const isMore = res.length === limit;
   yield put(
     spaceActions.successSearch({
       spaces: res,
-      isMore,
+      isMore: headers['x-mnq-has-more'] === 'true',
       maxCount: parseInt(headers['content-range'], 10),
       area: areaRes,
       conditions: data.conditions,
