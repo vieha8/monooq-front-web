@@ -12,6 +12,9 @@ import { spaceActions } from 'redux/modules/space';
 import HeaderComponent from 'components/LV3/Header/View';
 import LPLink from './LPLink';
 
+const KEY_CHANNEL_PROD = '1a0525b6-4c6d-4752-a1fa-41301134bc4e';
+const KEY_CHANNEL_DEV = 'faef3b55-fa0e-4d90-a97d-1c4f7f5848d2';
+
 function bootChannelService(isLogin, user) {
   if (isLogin) {
     const {
@@ -30,7 +33,7 @@ function bootChannelService(isLogin, user) {
     } = user;
 
     ChannelService.boot({
-      pluginKey: 'faef3b55-fa0e-4d90-a97d-1c4f7f5848d2',
+      pluginKey: KEY_CHANNEL_PROD,
       memberId: id,
       profile: {
         name,
@@ -48,7 +51,7 @@ function bootChannelService(isLogin, user) {
     });
   } else {
     ChannelService.boot({
-      pluginKey: 'faef3b55-fa0e-4d90-a97d-1c4f7f5848d2',
+      pluginKey: KEY_CHANNEL_PROD,
     });
   }
 }
