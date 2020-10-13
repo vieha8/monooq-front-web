@@ -33,7 +33,7 @@ function bootChannelService(isLogin, user) {
     } = user;
 
     ChannelService.boot({
-      pluginKey: process.env.NODE_ENV === 'production' ? KEY_CHANNEL_PROD : KEY_CHANNEL_DEV,
+      pluginKey: process.env.REACT_APP_ENV === 'production' ? KEY_CHANNEL_PROD : KEY_CHANNEL_DEV,
       memberId: id,
       profile: {
         name,
@@ -51,7 +51,7 @@ function bootChannelService(isLogin, user) {
     });
   } else {
     ChannelService.boot({
-      pluginKey: process.env.NODE_ENV === 'production' ? KEY_CHANNEL_PROD : KEY_CHANNEL_DEV,
+      pluginKey: process.env.REACT_APP_ENV === 'production' ? KEY_CHANNEL_PROD : KEY_CHANNEL_DEV,
     });
   }
 }
