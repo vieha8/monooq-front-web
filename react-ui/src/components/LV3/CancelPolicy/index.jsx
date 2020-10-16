@@ -27,33 +27,6 @@ const HilightText = styled(Text)`
   `};
 `;
 
-const ExampleWrap = styled.div`
-  margin-top: ${Dimens.medium_20}px;
-  padding: ${Dimens.medium_20}px;
-  border: 1px solid #d6d6d6;
-  border-radius: 7px;
-`;
-
-const ExampleTextWrap = styled.ul`
-  margin-top: ${Dimens.medium_20}px;
-  display: table;
-  width: 100%;
-`;
-
-const ExampleText = styled.li`
-  display: table-cell;
-  font-size: ${FontSizes.small}px;
-  line-height: ${FontSizes.small * 2}px;
-  width: 50%;
-  ${media.tablet`
-    &:not(:first-child) {
-      margin-top: ${Dimens.medium}px;
-    }
-    display: block;
-    width: 100%;
-  `};
-`;
-
 const MainTitle = props => {
   return <MainTitleWrap {...props} fontSizeSp={24} />;
 };
@@ -68,13 +41,13 @@ export default () => (
     <Section>
       <MainTitle mainTitle="荷物を置く方(ゲスト)のキャンセルについて" sub />
       <Text>
-        ホストはあなたのために荷物スペースや搬入の準備を整えてくれています。
+        ホストはゲストのためにスペースの用意や搬入の準備を整えてくれています。
         <br />
-        直前のキャンセルは迷惑となってしまいます。
+        直前のキャンセルはご迷惑となりますので、キャンセルを行う場合は、お早めにホスト及びモノオクサポートへのご連絡をお願いいたします。
         <br />
-        ホストと契約した日程の15日前からキャンセル手数料が発生します。
+        またホストと契約した利用開始日の14日前からキャンセル料が発生します。
       </Text>
-      <HilightText>利用開始日から</HilightText>
+      <HilightText>キャンセルのタイミングと利用金額のご返金について</HilightText>
       <Section margin="0 auto 20px">
         <AboutCancelList
           cancelContentList={[
@@ -97,28 +70,42 @@ export default () => (
           ]}
         />
       </Section>
+      <HilightText>
+        例）
+        <br />
+        利用開始日: 4月20日
+        <br />
+        利用料金/月: 11,000円
+        <br />
+        <Text>(スペース利用料: 10,000円 / ゲスト手数料: 1,000円)</Text>
+      </HilightText>
+      <Section margin="0 auto 20px">
+        <AboutCancelList
+          cancelContentList={[
+            {
+              header: '4月5日以前にキャンセルした場合',
+              data: '10,000円を返金',
+            },
+            {
+              header: '4月6日〜12日以前にキャンセルした場合',
+              data: '7,500円を返金',
+            },
+            {
+              header: '4月13日〜16日以前にキャンセルした場合',
+              data: '5,000円を返金',
+            },
+            {
+              header: '4月17日〜20日以降にキャンセルした場合',
+              data: '返金なし',
+            },
+          ]}
+        />
+      </Section>
       <Text>
-        ※連絡がつかないなど、無断でのキャンセルも利用開始日以降の返金はありません。
+        ※ゲスト手数料は、返金の対象には含まれません。
         <br />
-        ※取引成立日が利用開始日まで15日未満の場合も、同様のキャンセル手数料が発生します。
-        <br />
-        ※同様のキャンセルを繰り返し行われる場合は、アカウント自体の停止等の措置を取らせていただくことがございます。
+        ※同様のキャンセルを繰り返し行われる場合は、悪質な行為とみなしアカウント停止の措置を取らせていただく場合がございます。
       </Text>
-      <ExampleWrap>
-        <Text>支払い金額が20,000円の場合のキャンセル例</Text>
-        <ExampleTextWrap>
-          <ExampleText>
-            開始15日前(00:00以降)のキャンセル
-            <br />
-            20,000×0.75＝15,000円を返金
-          </ExampleText>
-          <ExampleText>
-            開始7日前(00:00以降)のキャンセル
-            <br />
-            20,000×0.5＝10,000円を返金
-          </ExampleText>
-        </ExampleTextWrap>
-      </ExampleWrap>
     </Section>
     <Section>
       <MainTitle

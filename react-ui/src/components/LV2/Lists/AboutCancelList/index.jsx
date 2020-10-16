@@ -27,7 +27,7 @@ const ContentWrap = styled.div`
 `;
 
 const Header = styled.div`
-  width: 178.22px;
+  width: 285px;
   font-weight: bold;
   margin-right: ${Dimens.medium_20}px;
   display: table-cell;
