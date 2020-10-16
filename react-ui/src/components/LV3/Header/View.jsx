@@ -139,8 +139,12 @@ const OnlyPhoneTablet = styled.span`
 
 const TextWrapper = styled.span`
   width: 106px;
+  ${media.tablet1`
+    width: 95px;
+  `};
   ${media.tablet`
-    max-width: 106px;
+    width: 106px;
+    min-width: 106px;
   `};
   ${media.phone`
     min-width: 128px;
