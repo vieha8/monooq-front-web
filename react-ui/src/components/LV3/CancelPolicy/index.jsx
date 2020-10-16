@@ -47,25 +47,29 @@ export default () => (
         <br />
         またホストと契約した利用開始日の14日前からキャンセル料が発生します。
       </Text>
-      <HilightText>キャンセルのタイミングと利用金額のご返金について</HilightText>
       <Section margin="0 auto 20px">
         <AboutCancelList
           cancelContentList={[
             {
-              header: '15日前まで',
-              data: '決済金額の100%を返金します',
+              title: true,
+              header: 'キャンセルのタイミング',
+              data: '利用金額のご返金',
             },
             {
-              header: '15日前',
-              data: '決済金額の75%を返金します',
+              header: '利用開始日から15日以上前のキャンセル',
+              data: 'お支払い金額全額を返金',
             },
             {
-              header: '7日前',
-              data: '決済金額の50%を返金します',
+              header: '利用開始日から8日〜14日前までのキャンセル',
+              data: 'お支払い金額の75%を返金',
             },
             {
-              header: '利用開始日以降',
-              data: <Fragment>原則返金はありません</Fragment>,
+              header: '利用開始日から4日〜7日前までのキャンセル',
+              data: 'お支払い金額の50%を返金',
+            },
+            {
+              header: '利用開始日以降及び開始日から3日前までのキャンセル',
+              data: '返金なし',
             },
           ]}
         />
