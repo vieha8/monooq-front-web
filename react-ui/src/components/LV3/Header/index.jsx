@@ -72,9 +72,8 @@ class Header extends Component {
     window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
     window.addEventListener('resize', () => this.checkResize(), true);
 
-    const { dispatch, isLogin, user } = this.props;
+    const { dispatch } = this.props;
     dispatch(spaceActions.getSpaceAccessLog({ limit: 8, ifEmpty: true }));
-    bootChannelService(isLogin, user);
   }
 
   componentDidUpdate(prevProps) {
@@ -82,6 +81,7 @@ class Header extends Component {
       this.props.isLogin !== prevProps.isLogin ||
       this.props.location.pathname !== prevProps.location.pathname
     ) {
+      ChannelService.shutdown();
       bootChannelService(this.props.isLogin, this.props.user);
     }
   }
@@ -220,7 +220,7 @@ class Header extends Component {
   }
 
   render() {
-    const { schedule, spaces } = this.props;
+    const { schedule, spaces, isLogin, user } = this.props;
     const { isOverTopView, isOverTablet } = this.state;
 
     let isSchedule = false;
@@ -238,6 +238,13 @@ class Header extends Component {
     const noLinkLogo = this.isSignUpProfile(nowPath);
 
     const isLp = this.isLp(nowPath);
+
+    if (TIMER_CHANNEL !== false) {
+      clearTimeout(TIMER_CHANNEL);
+    }
+    TIMER_CHANNEL = setTimeout(() => {
+      bootChannelService(isLogin, user);
+    }, 3000);
 
     return (
       <Fragment>
