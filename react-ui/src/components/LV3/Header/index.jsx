@@ -56,6 +56,8 @@ function bootChannelService(isLogin, user) {
   }
 }
 
+let TIMER_CHANNEL = false;
+
 class Header extends Component {
   constructor(props) {
     super(props);
