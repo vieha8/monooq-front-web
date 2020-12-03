@@ -13,6 +13,7 @@ class Lp123GuestPage extends React.Component {
       headline: '',
       titleWant: '',
       buttonLink: '',
+      isViewPrefuctureList: false,
     };
   }
 
@@ -24,6 +25,7 @@ class Lp123GuestPage extends React.Component {
     let headline = this.getHeadlineLp1();
     let titleWant = 'こんな荷物ありませんか？';
     let buttonLink = Path.signUp();
+    let isViewPrefuctureList = false;
 
     if (partialMatch(targetUrl, Path.lp2Guest()) || partialMatch(targetUrl, Path.lp2Guest2())) {
       titleMeta =
@@ -39,7 +41,14 @@ class Lp123GuestPage extends React.Component {
     if (partialMatch(targetUrl, Path.lp1Guest2()) || partialMatch(targetUrl, Path.lp2Guest2())) {
       buttonLink = Path.top();
     }
-    this.setState({ titleWant, headline, titleMeta, buttonLink });
+    if (
+      partialMatch(targetUrl, Path.lp1Guest3()) ||
+      partialMatch(targetUrl, Path.lp2Guest3()) ||
+      partialMatch(targetUrl, Path.lp3Guest3())
+    ) {
+      isViewPrefuctureList = true;
+    }
+    this.setState({ titleWant, headline, titleMeta, buttonLink, isViewPrefuctureList });
   }
 
   getHeadlineLp1 = () => {
@@ -73,13 +82,14 @@ class Lp123GuestPage extends React.Component {
   };
 
   render() {
-    const { titleMeta, headline, titleWant, buttonLink } = this.state;
+    const { titleMeta, headline, titleWant, buttonLink, isViewPrefuctureList } = this.state;
     return (
       <Lp123Guest
         titleMeta={titleMeta}
         headline={headline}
         titleWant={titleWant}
         buttonLink={buttonLink}
+        isViewPrefuctureList={isViewPrefuctureList}
       />
     );
   }

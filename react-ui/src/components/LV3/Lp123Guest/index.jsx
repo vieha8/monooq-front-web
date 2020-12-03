@@ -2,9 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
+import { areaPrefectures } from 'helpers/prefectures';
 import Meta from 'components/LV1/Meta';
 import PageDefault from 'components/LV1/PageDefault';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
+import PrefectureList from 'components/LV3/PrefectureList';
 import ImageBarLeft from 'images/lp123guest/icon-bar-left.png';
 import ImageBarRight from 'images/lp123guest/icon-bar-right.png';
 import Want from './Want';
@@ -113,7 +115,7 @@ const ContentsWrap = styled(PageDefault)`
   `};
 `;
 
-export default ({ titleMeta, headline, titleWant, buttonLink }) => (
+export default ({ titleMeta, headline, titleWant, buttonLink, isViewPrefuctureList }) => (
   <Wrap>
     <Meta title={titleMeta} noindex />
     <TopWrap>
@@ -127,7 +129,7 @@ export default ({ titleMeta, headline, titleWant, buttonLink }) => (
       <Want titleWant={titleWant} />
       <Merit />
       <BizModel />
-      <Pickup />
+      {isViewPrefuctureList ? <PrefectureList list={areaPrefectures} regionId="" /> : <Pickup />}
       <Flow />
       <QaList />
     </ContentsWrap>
