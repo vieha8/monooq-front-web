@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Hr from 'components/LV1/HorizontalRule';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';
+import { partialMatch } from 'helpers/string';
 import { media } from 'helpers/style/media-query';
 import Path from 'config/path';
+import LPLink from './LPLink';
 import ListItem from './ListItem';
 import CompanyInfo from './CompanyInfo';
 
@@ -175,6 +177,16 @@ export default ({ bottomMargin, bottomMarginOnlySP }) => {
         <WrapItems company>
           <CompanyInfo />
         </WrapItems>
+        {bottomMargin && (
+          <LPLink
+            isOverTopView
+            isPageLp123Guest={!partialMatch(window.location.pathname, Path.lp1Host())}
+            isPageLp12GuestLinkTop={
+              partialMatch(window.location.pathname, Path.lp1Guest2()) ||
+              partialMatch(window.location.pathname, Path.lp2Guest2())
+            }
+          />
+        )}
       </WrapInner>
     </Wrap>
   );

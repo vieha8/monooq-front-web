@@ -26,14 +26,17 @@ const isNoFooterPath = path => {
   );
 };
 
-const isBottomMarginPath = path => {
+const isLpPath = path => {
   return (
     path === Path.lp1Host() ||
     path === Path.lp1Guest() ||
     path === Path.lp1Guest2() ||
+    path === Path.lp1Guest3() ||
     path === Path.lp2Guest() ||
     path === Path.lp2Guest2() ||
-    path === Path.lp3Guest()
+    path === Path.lp2Guest3() ||
+    path === Path.lp3Guest() ||
+    path === Path.lp3Guest3()
   );
 };
 
@@ -43,24 +46,22 @@ const isBottomMarginSpPath = path => {
 
 const BaseLayout = ({ children }) => {
   const [isNoFooter, setIsNoFooter] = useState(false);
-  const [isBottomMargin, setIsBottomMargin] = useState(false);
+  const [isLP, setIsLP] = useState(false);
   const [isBottomMarginSp, setIsBottomMarginSp] = useState(false);
   const location = useLocation();
   const { pathname } = location;
 
   useEffect(() => {
     setIsNoFooter(isNoFooterPath(pathname));
-    setIsBottomMargin(isBottomMarginPath(pathname));
+    setIsLP(isLpPath(pathname));
     setIsBottomMarginSp(isBottomMarginSpPath(pathname));
   }, [pathname]);
 
   return (
     <Fragment>
-      <Header />
+      {!isLP && <Header />}
       {children}
-      {!isNoFooter && (
-        <Footer bottomMargin={isBottomMargin} bottomMarginOnlySP={isBottomMarginSp} />
-      )}
+      {!isNoFooter && <Footer bottomMargin={isLP} bottomMarginOnlySP={isBottomMarginSp} />}
     </Fragment>
   );
 };
