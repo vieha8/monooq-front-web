@@ -10,7 +10,6 @@ import { getPrefecture } from 'helpers/prefectures';
 import ChannelService from 'components/LV1/ChannelService';
 import { spaceActions } from 'redux/modules/space';
 import HeaderComponent from 'components/LV3/Header/View';
-import LPLink from './LPLink';
 
 const KEY_CHANNEL_PROD = '1a0525b6-4c6d-4752-a1fa-41301134bc4e';
 const KEY_CHANNEL_DEV = 'faef3b55-fa0e-4d90-a97d-1c4f7f5848d2';
@@ -140,17 +139,6 @@ class Header extends Component {
     }
   };
 
-  isLp = path => {
-    return (
-      partialMatch(path, Path.lp1Guest()) ||
-      partialMatch(path, Path.lp1Guest2()) ||
-      partialMatch(path, Path.lp2Guest()) ||
-      partialMatch(path, Path.lp2Guest2()) ||
-      partialMatch(path, Path.lp3Guest()) ||
-      partialMatch(path, Path.lp1Host())
-    );
-  };
-
   isLpGuest = path => {
     return (
       partialMatch(path, Path.lp1Guest()) ||
@@ -159,10 +147,6 @@ class Header extends Component {
       partialMatch(path, Path.lp2Guest2()) ||
       partialMatch(path, Path.lp3Guest())
     );
-  };
-
-  isLpGuest2 = path => {
-    return partialMatch(path, Path.lp1Guest2()) || partialMatch(path, Path.lp2Guest2());
   };
 
   isSignUpProfile = path => {
@@ -176,8 +160,7 @@ class Header extends Component {
       partialMatch(path, Path.howtouse()) ||
       partialMatch(path, Path.lp1Host()) ||
       partialMatch(path, Path.signUp()) ||
-      partialMatch(path, Path.login()) ||
-      this.isLpGuest(path)
+      partialMatch(path, Path.login())
     );
   };
 
@@ -196,11 +179,7 @@ class Header extends Component {
 
       this.setStateOverTopView(false);
 
-      if (
-        partialMatch(path, Path.about()) ||
-        partialMatch(path, Path.howtouse()) ||
-        this.isLpGuest(path)
-      ) {
+      if (partialMatch(path, Path.about()) || partialMatch(path, Path.howtouse())) {
         positionScrollPC = 540;
         positionScrollSP = 320;
       } else if (partialMatch(path, Path.lp1Host())) {
@@ -235,13 +214,8 @@ class Header extends Component {
     const nowPath = window.location.pathname;
     const isTop = nowPath === '/';
 
-    const noHeaderButton =
-      this.isSignUpProfile(nowPath) ||
-      partialMatch(nowPath, Path.lp1Host()) ||
-      this.isLpGuest(nowPath);
+    const noHeaderButton = this.isSignUpProfile(nowPath) || partialMatch(nowPath, Path.lp1Host());
     const noLinkLogo = this.isSignUpProfile(nowPath);
-
-    const isLp = this.isLp(nowPath);
 
     if (TIMER_CHANNEL !== false) {
       clearTimeout(TIMER_CHANNEL);
@@ -268,13 +242,6 @@ class Header extends Component {
           }}
           accessLogSpaces={spaces || []}
         />
-        {isLp && (
-          <LPLink
-            isOverTopView={isOverTopView}
-            isPageLp123Guest={this.isLpGuest(nowPath)}
-            isPageLp12GuestLinkTop={this.isLpGuest2(nowPath)}
-          />
-        )}
       </Fragment>
     );
   }
