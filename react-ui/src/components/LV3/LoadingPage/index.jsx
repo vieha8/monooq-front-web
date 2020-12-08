@@ -10,6 +10,10 @@ const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
   background: rgba(255, 255, 255, 1);
+
+  & ~ footer {
+    display: none;
+  }
 `;
 
 const Content = styled.div`
