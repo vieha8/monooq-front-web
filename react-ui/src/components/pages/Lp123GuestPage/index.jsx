@@ -27,12 +27,19 @@ class Lp123GuestPage extends React.Component {
     let buttonLink = Path.signUp();
     let isViewPrefuctureList = false;
 
-    if (partialMatch(targetUrl, Path.lp2Guest()) || partialMatch(targetUrl, Path.lp2Guest2())) {
+    if (
+      partialMatch(targetUrl, Path.lp2Guest()) ||
+      partialMatch(targetUrl, Path.lp2Guest2()) ||
+      partialMatch(targetUrl, Path.lp2Guest3())
+    ) {
       titleMeta =
         'レンタル倉庫・コンテナより安く荷物を預けるなら「モノオク」｜トランクルーム・コンテナよりもお手軽に収納';
       headline = this.getHeadlineLp2();
       titleWant = '荷物の保管場所に困ってませんか？';
-    } else if (partialMatch(targetUrl, Path.lp3Guest())) {
+    } else if (
+      partialMatch(targetUrl, Path.lp3Guest()) ||
+      partialMatch(targetUrl, Path.lp3Guest3())
+    ) {
       titleMeta =
         '引っ越し荷物の一時保管を安くするなら「モノオク」｜トランクルーム・コンテナよりもお手軽に収納';
       headline = this.getHeadlineLp3();
