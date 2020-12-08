@@ -25,12 +25,25 @@ const Wrap = styled.div`
   margin: auto;
 `;
 
+const CardStyled = styled(Card)`
+  ${media.tablet`
+    display: flex;
+  `}
+`;
+
 const Content = styled.div`
   text-align: left;
+  ${media.tablet`
+    width: 60%;
+    margin-left:  ${Dimens.small_10}px;
+  `}
 `;
 
 const CardInner = styled.div`
   position: relative;
+  ${media.tablet`
+    width: 40%;
+  `}
 `;
 
 const AvailabilityLayout = styled.div`
@@ -59,6 +72,13 @@ const Row = styled.div`
     `
     display: block;
   `};
+  ${media.tablet`
+    ${props =>
+      props.top &&
+      `
+      margin-top: 0px;
+    `};
+  `}
   ${media.phone`
     ${props =>
       props.price &&
@@ -80,6 +100,7 @@ const ImageStar = styled.img`
 `;
 
 const Title = styled(InlineText.Base)`
+  word-wrap: break-word;
   ${mediaMin.phone`
     height: 44px;
   `}
@@ -158,7 +179,7 @@ const SpaceResultItem = ({
   return (
     <Wrap>
       <Link to={`${Path.space(id)}${via ? `?via=${via}` : ''}`} onClick={onClickSpace}>
-        <Card noPadding noBorder>
+        <CardStyled noPadding noBorder>
           <CardInner>
             <LazyLoad height={123}>
               <ImageHero
@@ -178,7 +199,7 @@ const SpaceResultItem = ({
             </LazyLoad>
           </CardInner>
           <Content>
-            <Row marginTop={10}>
+            <Row marginTop={10} top>
               <InlineText.Base singleLine fontSize={14} color={Colors.lightGray3}>
                 {isRecommended && (
                   <InlineText.Base
@@ -210,7 +231,7 @@ const SpaceResultItem = ({
               )}
             </Row>
           </Content>
-        </Card>
+        </CardStyled>
       </Link>
       {tags && tags.length > 0 && (
         <Fragment>

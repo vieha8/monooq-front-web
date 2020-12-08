@@ -46,6 +46,19 @@ const Cell = styled.div`
       `};
   `};
 
+  ${media.tablet`
+    ${props =>
+      !props.narrow &&
+      `
+        width: 100%;
+        max-width: 100%;
+        &:nth-child(2n) {
+          width: 100%;
+          margin: 0 0 ${Dimens.medium2_32}px;
+        }
+      `};
+  `};
+
   ${media.phone`
     ${props =>
       props.isTag &&
