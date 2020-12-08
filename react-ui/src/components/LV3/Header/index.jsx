@@ -139,16 +139,6 @@ class Header extends Component {
     }
   };
 
-  isLpGuest = path => {
-    return (
-      partialMatch(path, Path.lp1Guest()) ||
-      partialMatch(path, Path.lp1Guest2()) ||
-      partialMatch(path, Path.lp2Guest()) ||
-      partialMatch(path, Path.lp2Guest2()) ||
-      partialMatch(path, Path.lp3Guest())
-    );
-  };
-
   isSignUpProfile = path => {
     return partialMatch(path, Path.signUpProfile());
   };
