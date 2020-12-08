@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Dimens, FontSizes } from 'variables';
+import { Dimens, FontSizes, Colors } from 'variables';
 import Button from 'components/LV1/Forms/Button';
 import SearchResultItem from 'components/LV2/Items/SearchResultItem';
 
@@ -42,6 +42,39 @@ const Cell = styled.div`
         &:nth-child(2n) {
           width: calc(50% - ${Dimens.small}px);
           margin: 0 0 ${Dimens.medium2_32}px;
+        }
+      `};
+  `};
+
+  ${media.tablet`
+    ${props =>
+      !props.narrow &&
+      `
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 ${Dimens.medium}px ${Dimens.medium}px 0;
+        padding-bottom: ${Dimens.medium}px;
+        border-bottom: 1px solid ${Colors.borderGray};
+        &:nth-child(2n) {
+          width: 100%;
+          margin: 0 0 ${Dimens.medium2_32}px;
+        }
+        &:after {
+          position: absolute;
+          top: 50%;
+          right: 5px;
+          content: '';
+          margin-top: -13px;
+          width: 10px;
+          height: 10px;
+          border-top: 2px solid ${Colors.darkGray1};
+          border-right: 2px solid ${Colors.darkGray1};
+          -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+          filter: alpha(opacity=1);
+          opacity: 1;
+          background-image: none !important;
         }
       `};
   `};
