@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -20,7 +20,7 @@ import Select from 'components/LV2/Forms/Select';
 import ErrorList from 'components/LV2/Lists/ErrorList';
 import { checkIsErrorStartDate } from 'components/LV3/RequestApplication/Share';
 
-moment.locale('ja');
+dayjs.locale('ja');
 
 const CloseIconWrap = styled.div`
   position: absolute;
@@ -94,14 +94,14 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
   let setStartDateMonth;
   let setStartDateDay;
   if (params) {
-    setStartDateYear = params.startDate.year || moment().year();
-    setStartDateMonth = params.startDate.month || moment().month() + 1;
-    setStartDateDay = params.startDate.day || moment().date();
+    setStartDateYear = params.startDate.year || dayjs().year();
+    setStartDateMonth = params.startDate.month || dayjs().month() + 1;
+    setStartDateDay = params.startDate.day || dayjs().date();
   }
   if (!params || checkIsErrorStartDate(setStartDateYear, setStartDateMonth, setStartDateDay)) {
-    setStartDateYear = moment().year();
-    setStartDateMonth = moment().month() + 1;
-    setStartDateDay = moment().date();
+    setStartDateYear = dayjs().year();
+    setStartDateMonth = dayjs().month() + 1;
+    setStartDateDay = dayjs().date();
   }
   const [startDate, setStartDate] = useState({
     year: setStartDateYear,
@@ -171,8 +171,8 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
     setItem(state => ({ ...state, [propName]: inputValue }));
 
     const startDateAll = generateDateAll(startDateYear, startDateMonth, startDateDay);
-    if (moment(startDateAll).isValid()) {
-      if (moment(startDateAll).isBefore(getToday())) {
+    if (dayjs(startDateAll).isValid()) {
+      if (dayjs(startDateAll).isBefore(getToday())) {
         setError.push(ErrorMessages.InvalidStartDate);
       }
     } else {
@@ -188,8 +188,8 @@ const ModalTopDesiredCondition = ({ params, isLoading }) => {
       !isTrimmedEmpty(city) &&
       usage &&
       breadth &&
-      moment(startDateAll).isValid() &&
-      !moment(startDateAll).isBefore(getToday())
+      dayjs(startDateAll).isValid() &&
+      !dayjs(startDateAll).isBefore(getToday())
     );
   };
 

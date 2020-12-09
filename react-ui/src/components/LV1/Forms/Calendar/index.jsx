@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import 'moment/locale/ja';
-import moment from 'moment';
+import 'dayjs/locale/ja';
+import dayjs from 'dayjs';
 import { Colors } from 'variables';
 
 import 'react-dates/initialize';
@@ -9,7 +9,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import 'stylesheets/datepicker_overrieds.css';
 import { SingleDatePicker } from 'react-dates';
 
-moment.locale('ja');
+dayjs.locale('ja');
 
 const Wrap = styled.div`
   width: 100%;

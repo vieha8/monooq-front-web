@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import numeral from 'numeral';
 import Path from 'config/path';
 import { Dimens, FontSizes, Colors, ErrorMessages } from 'variables';
@@ -62,8 +62,8 @@ const PaymentInputForm = ({
 
   let defaultName = '';
   let defaultNumber = '';
-  let defaultYear = moment().year();
-  let defaultMonth = moment().month() + 1;
+  let defaultYear = dayjs().year();
+  let defaultMonth = dayjs().month() + 1;
   let defaultCvc = '';
 
   if (process.env.NODE_ENV !== 'production') {
@@ -96,11 +96,11 @@ const PaymentInputForm = ({
 
   const validate = price => {
     const chkMonth = `${year}-${month}-01`;
-    const nowMonth = `${moment().year()}-${moment().month() + 1}-01`;
+    const nowMonth = `${dayjs().year()}-${dayjs().month() + 1}-01`;
     const dtFormat = 'YYYY-MM-DD';
 
-    const chkMonthF = moment(chkMonth, dtFormat).format(dtFormat);
-    const nowMonthF = moment(nowMonth, dtFormat).format(dtFormat);
+    const chkMonthF = dayjs(chkMonth, dtFormat).format(dtFormat);
+    const nowMonthF = dayjs(nowMonth, dtFormat).format(dtFormat);
 
     if (paymentMethod === 1) {
       if (Number(price) > MAX_PAY_PRICE_CONVENIENT) {
@@ -120,7 +120,7 @@ const PaymentInputForm = ({
       number.match(ValidateRegExp.CardNumber) &&
       month &&
       year &&
-      moment(chkMonthF).isSameOrAfter(nowMonthF) &&
+      dayjs(chkMonthF).isSameOrAfter(nowMonthF) &&
       cvc &&
       cvc.match(ValidateRegExp.Cvc)
     );

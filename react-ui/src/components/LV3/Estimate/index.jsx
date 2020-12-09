@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -16,7 +16,7 @@ import InputSchedule from 'components/LV2/Estimate/InputSchedule';
 import InputPrice from 'components/LV2/Estimate/InputPrice';
 import Detail from 'components/LV2/Estimate/Detail';
 
-moment.locale('ja');
+dayjs.locale('ja');
 
 const Wrap = styled.div`
   width: 100%;
@@ -100,7 +100,7 @@ const Estimate = ({
 
   const sendRequest = () => {
     const datedStartDate = startDate.toDate();
-    const datedEndDate = moment(datedStartDate)
+    const datedEndDate = dayjs(datedStartDate)
       .add(1, 'months')
       .subtract(1, 'days')
       .toDate();
