@@ -68,7 +68,7 @@ export default () => (
         </Item>
         <Item>
           <Collapsible trigger="Q. 支払い方法は何に対応していますか？">
-            <Answer>クレジットカード（VISA・MasterCard）に対応しています。</Answer>
+            <Answer>クレジットカード払い（VISA・MasterCard）に対応しています。</Answer>
           </Collapsible>
         </Item>
       </Row>
