@@ -8,7 +8,6 @@ import Meta from 'components/LV1/Meta';
 import { unregister } from './registerServiceWorker';
 import createStore, { history } from './redux/store';
 import Routes from './routes';
-import './index.css';
 import { initAmplitude } from './helpers/amplitude';
 
 initAmplitude();

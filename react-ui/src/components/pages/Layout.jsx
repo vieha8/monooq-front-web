@@ -3,6 +3,7 @@ import { useLocation } from 'react-router';
 import Header from 'components/LV3/Header';
 import Footer from 'components/LV3/Footer';
 import Path from 'config/path';
+import '../../stylesheets/main.css';
 
 const getSpaceIdEdit = path => {
   const pathMatchFirstLevel = path.match(RegExp('/.*?/(.*?)(?=/)/'));
