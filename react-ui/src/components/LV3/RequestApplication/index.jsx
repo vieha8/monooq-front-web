@@ -3,7 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import moment from 'moment';
+import 'dayjs/locale/ja';
+import dayjs from 'dayjs';
 import Path from 'config/path';
 import { Colors } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
@@ -25,7 +26,7 @@ import {
   getButtonRequestText,
 } from './Share';
 
-moment.locale('ja');
+dayjs.locale('ja');
 
 const Wrap = styled.div`
   text-align: left;
@@ -51,6 +52,7 @@ const RequestApplication = ({
   loading,
   roomId,
 }) => {
+  console.log('RequestApplication');
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -69,14 +71,14 @@ const RequestApplication = ({
   let setStartDateMonth;
   let setStartDateDay;
   if (params) {
-    setStartDateYear = params.startDate.year || moment().year();
-    setStartDateMonth = params.startDate.month || moment().month() + 1;
-    setStartDateDay = params.startDate.day || moment().date();
+    setStartDateYear = params.startDate.year || dayjs().year();
+    setStartDateMonth = params.startDate.month || dayjs().month() + 1;
+    setStartDateDay = params.startDate.day || dayjs().date();
   }
   if (!params || checkIsErrorStartDate(setStartDateYear, setStartDateMonth, setStartDateDay)) {
-    setStartDateYear = moment().year();
-    setStartDateMonth = moment().month() + 1;
-    setStartDateDay = moment().date();
+    setStartDateYear = dayjs().year();
+    setStartDateMonth = dayjs().month() + 1;
+    setStartDateDay = dayjs().date();
   }
   const [startDate, setStartDate] = useState({
     year: setStartDateYear,
@@ -88,8 +90,8 @@ const RequestApplication = ({
   let setEndDateMonth;
   let setEndDateDay;
   if (params) {
-    setEndDateYear = params.endDate.year || moment().year();
-    setEndDateMonth = params.endDate.month || moment().month() + 2;
+    setEndDateYear = params.endDate.year || dayjs().year();
+    setEndDateMonth = params.endDate.month || dayjs().month() + 2;
     setEndDateDay = params.endDate.day || '1';
   }
   if (
@@ -103,9 +105,9 @@ const RequestApplication = ({
       setEndDateDay,
     )
   ) {
-    setEndDateYear = moment().year();
-    setEndDateMonth = moment().month() + 2;
-    setEndDateDay = moment().date();
+    setEndDateYear = dayjs().year();
+    setEndDateMonth = dayjs().month() + 2;
+    setEndDateDay = dayjs().date();
   }
   const [endDate, setEndDate] = useState({
     year: setEndDateYear,
