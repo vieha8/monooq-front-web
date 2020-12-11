@@ -49,9 +49,6 @@ storiesOf('Molecules(LV2)/Estimate', module)
           endDate={moment()}
           beginDateFocused
           onDateChangeBegin={() => {}}
-          onFocusChangeBegin={() => {}}
-          onDateChangeEnd={() => {}}
-          onFocusChangeEnd={() => {}}
         />
       </div>
     )),
