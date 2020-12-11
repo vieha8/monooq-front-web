@@ -20,11 +20,13 @@ const CustomInput = ({ value, onClick }) => {
 };
 
 export default ({ date, onDateChange }) => (
-  <SingleDatePicker
-    selected={date}
-    onChange={onDateChange}
-    dateFormat="yyyy/MM/dd"
-    locale="ja"
-    customInput={<CustomInput />}
-  />
+  <div>
+    <SingleDatePicker
+      selected={date}
+      onChange={onDateChange}
+      dateFormat="yyyy/MM/dd"
+      locale="ja"
+      customInput={<CustomInput />}
+    />
+  </div>
 );
