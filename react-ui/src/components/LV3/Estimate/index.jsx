@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';

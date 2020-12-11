@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
 import { Colors } from 'variables';
 
 dayjs.locale('ja');

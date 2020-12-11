@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
 import Path from 'config/path';
 import { Modal } from 'semantic-ui-react';
 import styled from 'styled-components';

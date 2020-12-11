@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from 'semantic-ui-react';
 import styled from 'styled-components';

@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { ErrorMessages } from 'variables';
 import { getToday, generateDateAll } from 'helpers/date';

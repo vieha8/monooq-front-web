@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
 import Path from 'config/path';
 import { Colors } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';

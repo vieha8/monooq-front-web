@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
 import styled from 'styled-components';
 import { getDateRelativeLastLogin } from 'helpers/date';
 import { media } from 'helpers/style/media-query';
