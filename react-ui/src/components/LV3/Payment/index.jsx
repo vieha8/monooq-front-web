@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import numeral from 'numeral';
 import Path from 'config/path';
 import { Dimens, FontSizes, Colors, ErrorMessages } from 'variables';
@@ -15,6 +16,8 @@ import { H1 } from 'components/LV1/Texts/Headline';
 import PaidText from 'components/LV2/Payment/PaidText';
 import Completed from './Completed';
 import InputForm from './InputForm';
+
+dayjs.extend(isSameOrAfter);
 
 const MAX_PAY_PRICE_CONVENIENT = 49999;
 const MODE_VIEW_INPUT = 0;

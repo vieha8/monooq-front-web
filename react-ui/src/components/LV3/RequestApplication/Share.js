@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { ErrorMessages } from 'variables';
 import { getToday, generateDateAll } from 'helpers/date';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
@@ -6,6 +7,7 @@ import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string'
 import { setErrorPhoneNumber, isPhoneNumberWithoutHyphen } from 'helpers/validations/phoneNumber';
 
 dayjs.locale('ja');
+dayjs.extend(isSameOrAfter);
 
 const Validate = {
   PackageContents: {
