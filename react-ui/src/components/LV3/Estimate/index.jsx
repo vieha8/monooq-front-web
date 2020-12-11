@@ -73,12 +73,24 @@ const Estimate = ({
 
   const [errors, setErrors] = useState({});
   const [startDate, setStartDate] = useState(null);
-  const [startDateFocus, setStartDateFocus] = useState(false);
   const [price, setPrice] = useState('');
+
+  function isDate(targetDate) {
+    let result = false;
+    const date = dayjs(targetDate).format('YYYY/MM/DD');
+    if (date.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
+      result = true; // YYYY/MM/DD
+    }
+    return result;
+  }
 
   const validate = () => {
     return (
-      startDate && price && price >= ValidatePrice.Price.Min && price <= ValidatePrice.Price.Max
+      startDate &&
+      isDate(startDate) &&
+      price &&
+      price >= ValidatePrice.Price.Min &&
+      price <= ValidatePrice.Price.Max
     );
   };
 
@@ -99,8 +111,7 @@ const Estimate = ({
   };
 
   const sendRequest = () => {
-    const datedStartDate = startDate.toDate();
-    const datedEndDate = dayjs(datedStartDate)
+    const datedEndDate = dayjs(startDate)
       .add(1, 'months')
       .subtract(1, 'days')
       .toDate();
@@ -109,7 +120,7 @@ const Estimate = ({
       requestActions.estimate({
         userId,
         roomId,
-        startDate: datedStartDate,
+        startDate,
         endDate: datedEndDate,
         price: formatRemoveComma(price),
       }),
@@ -126,13 +137,7 @@ const Estimate = ({
     <Wrap>
       <H1 bold>見積もり作成</H1>
       <Section>
-        <InputSchedule
-          startDate={startDate}
-          startDateFocused={startDateFocus}
-          onDateChangeStart={date => setStartDate(date)}
-          onFocusChangeStart={focus => setStartDateFocus(focus)}
-          isOnlyBeginDate
-        />
+        <InputSchedule startDate={startDate} onDateChangeStart={date => setStartDate(date)} />
       </Section>
       <Section>
         <InputPrice
