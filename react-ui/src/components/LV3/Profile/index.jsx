@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
 import styled from 'styled-components';
 import { getDateRelativeLastLogin } from 'helpers/date';
 import { media } from 'helpers/style/media-query';
@@ -11,7 +12,7 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import StatusText from 'components/LV1/Texts/StatusText';
 import SearchResultItem from 'components/LV2/Items/SearchResultItem';
 
-moment.locale('ja');
+dayjs.locale('ja');
 
 const IMAGE_SIZE = 100;
 

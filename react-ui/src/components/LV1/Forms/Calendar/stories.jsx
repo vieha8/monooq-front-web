@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 import Calendar from './index';
 
@@ -39,7 +39,7 @@ storiesOf('Atoms(LV1)/Forms/Calendar', module)
         }}
       >
         <Calendar
-          date={moment()}
+          date={dayjs()}
           focused
           block
           onDateChange={date => console.log(date)}

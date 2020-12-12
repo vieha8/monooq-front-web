@@ -1,7 +1,8 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
 import { Colors } from 'variables';
 
-moment.locale('ja');
+dayjs.locale('ja');
 
 export const formatStringSlash = 'yyyy/MM/dd';
 export const formatStringSlashTime = 'yyyy/MM/dd HH:mm:ss';
@@ -24,8 +25,8 @@ export const getYear = lengthYear => {
     .fill(0)
     .map((_, i) => ({
       key: i,
-      value: moment().year() + i,
-      text: `${moment().year() + i}年`,
+      value: dayjs().year() + i,
+      text: `${dayjs().year() + i}年`,
     }));
 };
 
@@ -36,13 +37,13 @@ export const getDate = (lengthPeriod, typeText) => {
 };
 
 export const getToday = () => {
-  return moment().format('YYYYMMDD');
+  return dayjs().format('YYYYMMDD');
 };
 
 export const getDateDiff = (targetDate, type) => {
-  const today = moment().format(formatStringSlashTimeISO);
-  const lastLogin = moment(new Date(targetDate)).format(formatStringSlashTimeISO);
-  return moment(today).diff(lastLogin, type);
+  const today = dayjs().format(formatStringSlashTimeISO);
+  const lastLogin = dayjs(new Date(targetDate)).format(formatStringSlashTimeISO);
+  return dayjs(today).diff(lastLogin, type);
 };
 
 export const getDateRelativeLastLogin = targetDate => {

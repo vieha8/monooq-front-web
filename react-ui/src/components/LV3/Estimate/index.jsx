@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -16,7 +17,7 @@ import InputSchedule from 'components/LV2/Estimate/InputSchedule';
 import InputPrice from 'components/LV2/Estimate/InputPrice';
 import Detail from 'components/LV2/Estimate/Detail';
 
-moment.locale('ja');
+dayjs.locale('ja');
 
 const Wrap = styled.div`
   width: 100%;
@@ -77,7 +78,7 @@ const Estimate = ({
 
   function isDate(targetDate) {
     let result = false;
-    const date = moment(targetDate).format('YYYY/MM/DD');
+    const date = dayjs(targetDate).format('YYYY/MM/DD');
     if (date.match(/^\d{4}\/\d{2}\/\d{2}$/)) {
       result = true; // YYYY/MM/DD
     }
@@ -111,7 +112,7 @@ const Estimate = ({
   };
 
   const sendRequest = () => {
-    const datedEndDate = moment(startDate)
+    const datedEndDate = dayjs(startDate)
       .add(1, 'months')
       .subtract(1, 'days')
       .toDate();
