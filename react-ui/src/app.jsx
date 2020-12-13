@@ -9,9 +9,7 @@ import { unregister } from './registerServiceWorker';
 import createStore, { history } from './redux/store';
 import Routes from './routes';
 import './index.css';
-import { initAmplitude } from './helpers/amplitude';
 
-initAmplitude();
 const Error = loadable(() =>
   import('components/LV3/ErrorModal').catch(() => window.location.reload()),
 );
