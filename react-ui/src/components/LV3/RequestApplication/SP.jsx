@@ -15,7 +15,6 @@ import { uiActions } from 'redux/modules/ui';
 import LinkCancel from 'components/LV2/Space/LinkCancel';
 import SendMessageButton from 'components/LV2/Space/SendMessageButton';
 import SendMessageCaption from 'components/LV2/Space/SendMessageCaption';
-import amplitude from 'amplitude-js/amplitude';
 import Form from './Form';
 import ReactGA from 'react-ga';
 import {
@@ -192,9 +191,6 @@ const RequestApplicationSP = ({
     }
 
     if (!isLogin) {
-      amplitude.getInstance().logEvent('リクエスト - リクエストボタンをクリック（非ログイン）', {
-        spaceId: space.id,
-      });
       ReactGA.event({
         category: 'リクエスト',
         action: 'リクエストボタンをクリック（非ログイン）',
@@ -203,9 +199,6 @@ const RequestApplicationSP = ({
       return;
     }
 
-    amplitude.getInstance().logEvent('リクエスト - リクエストボタンをクリック（ログイン）', {
-      spaceId: space.id,
-    });
     ReactGA.event({
       category: 'リクエスト',
       action: 'リクエストボタンをクリック（ログイン）',
@@ -236,7 +229,6 @@ const RequestApplicationSP = ({
       },
     };
 
-    amplitude.getInstance().logEvent('リクエスト - リクエスト送信クリック', payload);
     dispatch(requestActions.request(payload));
   };
 

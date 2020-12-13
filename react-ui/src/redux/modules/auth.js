@@ -8,9 +8,9 @@ import Path from 'config/path';
 import firebaseConfig from 'config/firebase';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { convertImgixUrl } from 'helpers/imgix';
+import { spaceActions } from 'redux/modules/space';
 import { uiActions } from './ui';
 import { handleError } from './error';
-import amplitude from 'amplitude-js/amplitude';
 import {
   getApiRequest,
   postApiRequest,
@@ -19,7 +19,6 @@ import {
   putApiRequest,
 } from '../helpers/api';
 import { parseUrl } from '../../helpers/query-string';
-import { spaceActions } from 'redux/modules/space';
 
 // Actions
 const LOGIN_EMAIL = 'LOGIN_EMAIL';
@@ -472,7 +471,6 @@ function* signUpEmail({ payload: { email, password } }) {
       return;
     }
 
-    amplitude.getInstance().logEvent('新規登録完了（Eメール）');
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
     yield put(push(Path.signUpProfile()));
