@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
@@ -45,13 +45,10 @@ storiesOf('Molecules(LV2)/Estimate', module)
         }}
       >
         <InputSchedule
-          beginDate={moment()}
-          endDate={moment()}
+          beginDate={dayjs()}
+          endDate={dayjs()}
           beginDateFocused
           onDateChangeBegin={() => {}}
-          onFocusChangeBegin={() => {}}
-          onDateChangeEnd={() => {}}
-          onFocusChangeEnd={() => {}}
         />
       </div>
     )),

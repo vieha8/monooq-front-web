@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import 'moment/locale/ja';
-import moment from 'moment';
+import 'dayjs/locale/ja';
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 import Path from 'config/path';
 import { Dimens, Colors, FontSizes } from 'variables';
@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 const dummySpaceImage =
   'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
 
-moment.locale('ja');
+dayjs.locale('ja');
 
 const TitleSub = styled.div`
   margin: ${Dimens.small}px auto ${Dimens.xsmall}px;
@@ -113,7 +113,7 @@ export default ({ space, beginAt, price, pricePlusFee, isTakelateBefore }) => (
       <PaymentInfoWrap>
         <PaymentInfoItem>
           <Title>利用開始日</Title>
-          <DateItem>{moment(new Date(beginAt)).format('YYYY年MM月DD日（dd）')}</DateItem>
+          <DateItem>{dayjs(new Date(beginAt)).format('YYYY年MM月DD日（dd）')}</DateItem>
         </PaymentInfoItem>
         <PaymentInfoItem>
           <Title>利用開始日</Title>

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { formatRemoveComma } from 'helpers/string';
@@ -169,8 +169,8 @@ export default ({
                   .fill(0)
                   .map((_, i) => ({
                     key: i,
-                    value: moment().year() + i,
-                    text: moment().year() + i,
+                    value: dayjs().year() + i,
+                    text: dayjs().year() + i,
                   }))}
                 onChange={onChangeYear}
                 value={year}

@@ -1,11 +1,14 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ja';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import { ErrorMessages } from 'variables';
 import { getToday, generateDateAll } from 'helpers/date';
 import { getBreadthsDetailRoom, getBreadthsDetailOther } from 'helpers/breadths';
 import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
 import { setErrorPhoneNumber, isPhoneNumberWithoutHyphen } from 'helpers/validations/phoneNumber';
 
-moment.locale('ja');
+dayjs.locale('ja');
+dayjs.extend(isSameOrAfter);
 
 const Validate = {
   PackageContents: {
@@ -50,10 +53,10 @@ export const validate = (
     isBelowTrimmedLimit(packageContents, Validate.PackageContents.Max) &&
     (existPhoneNumber || (phoneNumber && isPhoneNumberWithoutHyphen(phoneNumber))) &&
     (!notes || isBelowTrimmedLimit(notes, Validate.Notes.Max)) &&
-    moment(startDateAll).isValid() &&
-    moment(endDateAll).isValid() &&
-    !moment(startDateAll).isBefore(getToday()) &&
-    !moment(startDateAll).isSameOrAfter(moment(endDateAll))
+    dayjs(startDateAll).isValid() &&
+    dayjs(endDateAll).isValid() &&
+    !dayjs(startDateAll).isBefore(getToday()) &&
+    !dayjs(startDateAll).isSameOrAfter(dayjs(endDateAll))
   );
 };
 
@@ -161,11 +164,11 @@ export const handleChangeDate = (
 
   const startDateAll = generateDateAll(startDateYear, startDateMonth, startDateDay);
   const endDateAll = generateDateAll(endDateYear, endDateMonth, endDateDay);
-  if (moment(startDateAll).isValid() && moment(endDateAll).isValid()) {
-    if (moment(startDateAll).isBefore(getToday())) {
+  if (dayjs(startDateAll).isValid() && dayjs(endDateAll).isValid()) {
+    if (dayjs(startDateAll).isBefore(getToday())) {
       setError.push(ErrorMessages.InvalidStartDate);
     }
-    if (moment(startDateAll).isSameOrAfter(moment(endDateAll))) {
+    if (dayjs(startDateAll).isSameOrAfter(dayjs(endDateAll))) {
       setError.push(ErrorMessages.InvalidDateReverse);
     }
   } else {
@@ -176,12 +179,12 @@ export const handleChangeDate = (
 };
 
 export const checkIsErrorStartDate = (year, month, day) => {
-  return moment(generateDateAll(year, month, day)).isBefore(getToday());
+  return dayjs(generateDateAll(year, month, day)).isBefore(getToday());
 };
 
 export const checkIsErrorEndDate = (startYear, startMonth, startDay, endYear, endMonth, endDay) => {
-  return moment(generateDateAll(startYear, startMonth, startDay)).isSameOrAfter(
-    moment(generateDateAll(endYear, endMonth, endDay)),
+  return dayjs(generateDateAll(startYear, startMonth, startDay)).isSameOrAfter(
+    dayjs(generateDateAll(endYear, endMonth, endDay)),
   );
 };
 

@@ -1,38 +1,37 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
-import 'moment/locale/ja';
-import moment from 'moment';
+import SingleDatePicker, { registerLocale } from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import ja from 'date-fns/locale/ja';
 import { Colors } from 'variables';
 
-import 'react-dates/initialize';
-import 'react-dates/lib/css/_datepicker.css';
-import 'stylesheets/datepicker_overrieds.css';
-import { SingleDatePicker } from 'react-dates';
+registerLocale('ja', ja);
 
-moment.locale('ja');
-
-const Wrap = styled.div`
+const Button = styled.button`
   width: 100%;
+  padding: 14px;
+  border-radius: 4px;
   border: 1px solid ${Colors.borderGray};
-  ${props =>
-    props.focused &&
-    `
-    border: 1px solid ${Colors.brandPrimary};
-  `};
+  background-color: ${Colors.white};
 `;
 
-export default ({ focused, date, placeholder, onDateChange, onFocusChange, isAllowKeyboard }) => (
-  <Wrap focused={focused}>
+const CustomInput = forwardRef(({ value, onClick }, ref) => {
+  return (
+    <Button onClick={onClick} ref={ref}>
+      {value || '荷物の搬入日を選択する'}
+    </Button>
+  );
+});
+
+export default ({ date, onDateChange, ref }) => (
+  <div>
     <SingleDatePicker
-      date={date}
-      placeholder={placeholder || '荷物の搬入日を選択する'}
-      block
-      showDefaultInputIcon
-      onDateChange={onDateChange}
-      focused={focused}
-      onFocusChange={onFocusChange}
-      numberOfMonths={1}
-      readOnly={!isAllowKeyboard}
+      selected={date}
+      onChange={onDateChange}
+      dateFormat="yyyy/MM/dd"
+      locale="ja"
+      customInput={<CustomInput />}
+      ref={ref}
     />
-  </Wrap>
+  </div>
 );
