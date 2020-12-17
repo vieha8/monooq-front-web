@@ -2,9 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ImageBgWorry from 'images/lp123guest/bg-worry.png';
-import ImageBgWorryPerson from 'images/lp123guest/bg-worry-person.png';
 import SectionTitle from './SectionTitle';
+const ImageBgWorry =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fbg-worry.png?alt=media&auto=format&auto=compress';
+const ImageBgWorryPerson =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fbg-worry-person.png?alt=media&auto=format&auto=compress';
 
 const Wrap = styled.div``;
 

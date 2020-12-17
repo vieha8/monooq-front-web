@@ -3,13 +3,19 @@ import styled from 'styled-components';
 import { Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import PickupSpaceList from 'components/LV2/Lists/PickupSpaceList';
-import ImagePickupSpace2203 from 'images/lp123guest/pickup-space-2203.jpg';
-import ImagePickupSpace1Host2203 from 'images/lp123guest/pickup-space-host-2203.jpg';
-import ImagePickupSpace2901 from 'images/lp123guest/pickup-space-2901.jpg';
-import ImagePickupSpaceHost2901 from 'images/lp123guest/pickup-space-host-2901.jpg';
-import ImagePickupSpace4762 from 'images/lp123guest/pickup-space-4762.jpg';
-import ImagePickupSpaceHost4762 from 'images/lp123guest/pickup-space-host-4762.png';
 import SectionTitle from './SectionTitle';
+const ImagePickupSpace2203 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fpickup-space-2203.jpg?alt=media&auto=format&auto=compress';
+const ImagePickupSpace1Host2203 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fpickup-space-host-2203.jpg?alt=media&auto=format&auto=compress';
+const ImagePickupSpace2901 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fpickup-space-2901.jpeg?alt=media&auto=format&auto=compress';
+const ImagePickupSpaceHost2901 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fpickup-space-host-2901.jpg?alt=media&auto=format&auto=compress';
+const ImagePickupSpace4762 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fpickup-space-4762.jpg?alt=media&auto=format&auto=compress';
+const ImagePickupSpaceHost4762 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fpickup-space-host-4762.png?alt=media&auto=format&auto=compress';
 
 const Wrap = styled.div`
   position: relative;
