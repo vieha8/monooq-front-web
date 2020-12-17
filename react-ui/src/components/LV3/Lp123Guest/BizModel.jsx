@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ImageBizModel from 'images/lp123guest/businessmodel.png';
 import SectionTitle from './SectionTitle';
+const ImageBizModel =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fbusinessmodel.png?alt=media&auto=format&auto=compress';
 
 const Wrap = styled.div`
   position: relative;

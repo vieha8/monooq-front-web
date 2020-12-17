@@ -2,10 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ImageFlow1 from 'images/lp123guest/flow-1.png';
-import ImageFlow2 from 'images/lp123guest/flow-2.png';
-import ImageFlow3 from 'images/lp123guest/flow-3.png';
 import SectionTitle from './SectionTitle';
+const ImageFlow1 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fflow-1.png?alt=media&auto=format&auto=compress';
+const ImageFlow2 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fflow-2.png?alt=media&auto=format&auto=compress';
+const ImageFlow3 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fflow-3.png?alt=media&auto=format&auto=compress';
 
 const Wrap = styled.div`
   max-width: 900px;

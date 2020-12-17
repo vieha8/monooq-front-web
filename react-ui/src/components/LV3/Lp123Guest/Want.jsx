@@ -2,13 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
-import ImageWantFile from 'images/lp123guest/icon-want-file.png';
-import ImageWantGolf from 'images/lp123guest/icon-want-golf.png';
-import ImageWantHome from 'images/lp123guest/icon-want-home.png';
-import ImageWantSnowboard from 'images/lp123guest/icon-want-snowboard.png';
-import ImageWantTruck from 'images/lp123guest/icon-want-truck.png';
-import ImageWantWear from 'images/lp123guest/icon-want-wear.png';
 import SectionTitle from './SectionTitle';
+const ImageWantFile =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-file.png?alt=media&auto=format&auto=compress';
+const ImageWantGolf =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-golf.png?alt=media&auto=format&auto=compress';
+const ImageWantHome =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-home.png?alt=media&auto=format&auto=compress';
+const ImageWantSnowboard =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-snowboard.png?alt=media&auto=format&auto=compress';
+const ImageWantTruck =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-truck.png?alt=media&auto=format&auto=compress';
+const ImageWantWear =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-wear.png?alt=media&auto=format&auto=compress';
 
 const WantWrap = styled.div`
   max-width: 960px;

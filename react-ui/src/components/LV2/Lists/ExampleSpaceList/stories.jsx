@@ -3,9 +3,10 @@ import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
-
-import ImageExample1 from 'images/lp1host/example-1.jpg';
 import ExampleSpaceList from './index';
+
+const ImageExample1 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fexample-1.jpg?alt=media&auto=format&auto=compress';
 
 ExampleSpaceList.displayName = 'ExampleSpaceList';
 

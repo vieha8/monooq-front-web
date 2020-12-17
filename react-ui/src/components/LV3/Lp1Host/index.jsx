@@ -11,33 +11,60 @@ import Meta from 'components/LV1/Meta';
 import PageDefault from 'components/LV1/PageDefault';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ExampleSpaceList from 'components/LV2/Lists/ExampleSpaceList';
-import ImageHero from 'images/lp1host/fv-bg.jpeg';
-import ImageWoman from 'images/lp1host/fv-woman.png';
-import ImageWhatMonooq from 'images/lp1host/what-monooq.jpg';
-import ImageWhatBg from 'images/lp1host/what-bg.png';
-import ImageSpace1 from 'images/lp1host/space-1.jpg';
-import ImageSpace2 from 'images/lp1host/space-2.jpg';
-import ImageSpace3 from 'images/lp1host/space-3.jpg';
-import ImageSpace4 from 'images/lp1host/space-4.jpg';
-import ImageSpace5 from 'images/lp1host/space-5.jpg';
-import ImageSpace6 from 'images/lp1host/space-6.jpg';
-import ImageSpace7 from 'images/lp1host/space-7.jpg';
-import ImageSpace8 from 'images/lp1host/space-8.jpg';
-import ImageSpace9 from 'images/lp1host/space-9.jpg';
-import ImageSpace10 from 'images/lp1host/space-10.jpg';
-import ImageExample1 from 'images/lp1host/example-1.jpg';
-import ImageExample2 from 'images/lp1host/example-2.jpg';
-import ImageExample3 from 'images/lp1host/example-3.jpg';
-import ImageFlow1 from 'images/lp1host/flow-1.png';
-import ImageFlow2 from 'images/lp1host/flow-2.png';
-import ImageFlow3 from 'images/lp1host/flow-3.png';
-import ImageFlow4 from 'images/lp1host/flow-4.png';
-import ImageFlow5 from 'images/lp1host/flow-5.png';
-import ImageFlow6 from 'images/lp1host/flow-6.png';
-import ImageFlow7 from 'images/lp1host/flow-7.png';
-import ImageFlow8 from 'images/lp1host/flow-8.png';
-import ImageFlow9 from 'images/lp1host/flow-9.png';
-import ImageFlow10 from 'images/lp1host/flow-10.png';
+const ImageHero =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Ffv-bg.jpeg?alt=media&auto=format&auto=compress';
+const ImageWoman =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Ffv-woman.png?alt=media&auto=format&auto=compress';
+const ImageWhatMonooq =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fwhat-monooq.jpg?alt=media&auto=format&auto=compress';
+const ImageWhatBg =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fwhat-bg.png?alt=media&auto=format&auto=compress';
+const ImageSpace1 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fspace-1.jpg?alt=media&auto=format&auto=compress';
+const ImageSpace2 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fspace-2.jpg?alt=media&auto=format&auto=compress';
+const ImageSpace3 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fspace-3.jpg?alt=media&auto=format&auto=compress';
+const ImageSpace4 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fspace-4.jpg?alt=media&auto=format&auto=compress';
+const ImageSpace5 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fspace-5.jpg?alt=media&auto=format&auto=compress';
+const ImageSpace6 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fspace-6.jpg?alt=media&auto=format&auto=compress';
+const ImageSpace7 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fspace-7.jpg?alt=media&auto=format&auto=compress';
+const ImageSpace8 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fspace-8.jpg?alt=media&auto=format&auto=compress';
+const ImageSpace9 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fspace-9.jpg?alt=media&auto=format&auto=compress';
+const ImageSpace10 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fspace-10.jpg?alt=media&auto=format&auto=compress';
+const ImageExample1 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fexample-1.jpg?alt=media&auto=format&auto=compress';
+const ImageExample2 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fexample-2.jpg?alt=media&auto=format&auto=compress';
+const ImageExample3 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fexample-3.jpg?alt=media&auto=format&auto=compress';
+const ImageFlow1 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fflow-1.png?alt=media&auto=format&auto=compress';
+const ImageFlow2 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fflow-2.png?alt=media&auto=format&auto=compress';
+const ImageFlow3 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fflow-3.png?alt=media&auto=format&auto=compress';
+const ImageFlow4 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fflow-4.png?alt=media&auto=format&auto=compress';
+const ImageFlow5 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fflow-5.png?alt=media&auto=format&auto=compress';
+const ImageFlow6 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fflow-6.png?alt=media&auto=format&auto=compress';
+const ImageFlow7 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fflow-7.png?alt=media&auto=format&auto=compress';
+const ImageFlow8 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fflow-8.png?alt=media&auto=format&auto=compress';
+const ImageFlow9 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fflow-9.png?alt=media&auto=format&auto=compress';
+const ImageFlow10 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Fflow-10.png?alt=media&auto=format&auto=compress';
 
 const Wrap = styled.div`
   min-width: 320px;

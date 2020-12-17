@@ -3,10 +3,12 @@ import { MemoryRouter } from 'react-router-dom';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
 import { Dimens } from 'variables';
-
-import ImagePickupSpace1 from 'images/lp123guest/pickup-space-1.jpg';
-import ImagePickupSpace1Host from 'images/lp123guest/pickup-space-1-host.jpg';
 import PickupSpaceList from './index';
+
+const ImagePickupSpace1 =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fpickup-space-1.jpg?alt=media&auto=format&auto=compress';
+const ImagePickupSpace1Host =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fpickup-space-1-host.jpg?alt=media&auto=format&auto=compress';
 
 PickupSpaceList.displayName = 'PickupSpaceList';
 

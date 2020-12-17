@@ -7,8 +7,6 @@ import Meta from 'components/LV1/Meta';
 import PageDefault from 'components/LV1/PageDefault';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import PrefectureList from 'components/LV3/PrefectureList';
-import ImageBarLeft from 'images/lp123guest/icon-bar-left.png';
-import ImageBarRight from 'images/lp123guest/icon-bar-right.png';
 import Want from './Want';
 import Merit from './Merit';
 import BizModel from './BizModel';
@@ -16,6 +14,10 @@ import Pickup from './Pickup';
 import Flow from './Flow';
 import QaList from './Qa';
 
+const ImageBarLeft =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-bar-left.png?alt=media&auto=format&auto=compress';
+const ImageBarRight =
+  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-bar-right.png?alt=media&auto=format&auto=compress';
 const ImageHero =
   'https://monooq.imgix.net/img%2Fservice%2Flp1guest%2Fhero.jpg?alt=media&auto=format&auto=compress';
 
