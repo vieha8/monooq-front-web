@@ -169,8 +169,12 @@ export default ({
                   .fill(0)
                   .map((_, i) => ({
                     key: i,
-                    value: dayjs().year() + i,
-                    text: dayjs().year() + i,
+                    value: dayjs()
+                      .add(i, 'year')
+                      .year(),
+                    text: dayjs()
+                      .add(i, 'year')
+                      .year(),
                   }))}
                 onChange={onChangeYear}
                 value={year}
@@ -180,6 +184,7 @@ export default ({
             <InlineText.Base>
               <Padding>年</Padding>
             </InlineText.Base>
+            <ErrorList keyName="limit_card_errors" errors={errors.limitCard} />
           </Row>
           <Row>
             <InputForm

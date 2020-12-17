@@ -14,8 +14,8 @@ import { uiActions } from 'redux/modules/ui';
 import Button from 'components/LV1/Forms/Button';
 import LinkCancel from 'components/LV2/Space/LinkCancel';
 import SendMessageButton from 'components/LV2/Space/SendMessageButton';
-import Form from './Form';
 import ReactGA from 'react-ga';
+import Form from './Form';
 import {
   handleChangeUI,
   handleChangeDate,
@@ -89,7 +89,11 @@ const RequestApplication = ({
   let setEndDateDay;
   if (params) {
     setEndDateYear = params.endDate.year || dayjs().year();
-    setEndDateMonth = params.endDate.month || dayjs().month() + 2;
+    setEndDateMonth =
+      params.endDate.month ||
+      dayjs()
+        .add(1, 'month')
+        .month() + 1;
     setEndDateDay = params.endDate.day || '1';
   }
   if (
@@ -104,7 +108,10 @@ const RequestApplication = ({
     )
   ) {
     setEndDateYear = dayjs().year();
-    setEndDateMonth = dayjs().month() + 2;
+    setEndDateMonth =
+      dayjs()
+        .add(1, 'month')
+        .month() + 1;
     setEndDateDay = dayjs().date();
   }
   const [endDate, setEndDate] = useState({

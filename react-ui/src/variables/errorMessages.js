@@ -22,6 +22,7 @@ export default {
   EstimateMax: val => `スペース料金は${numeral(val).format('0,0')}円以下で設定してください。`,
   AlphaOnly: name => `${name}は半角ローマ字で入力してください。`,
   CreditCardNumber: 'クレジットカード番号は16桁の半角数字で入力してください。',
+  LimitCard: '正しい有効期限を設定してください。',
   Cvc: 'セキュリティコードは3桁の半角数字で入力してください。',
   InvalidPostalCode: 'これは正しい郵便番号ではないようです。',
   InvalidEmail: 'これは正しいメールアドレスではないようです。',

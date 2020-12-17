@@ -152,7 +152,11 @@ const RequestApplicationSP = ({
   let setEndDateDay;
   if (params) {
     setEndDateYear = params.endDate.year || dayjs().year();
-    setEndDateMonth = params.endDate.month || dayjs().month() + 2;
+    setEndDateMonth =
+      params.endDate.month ||
+      dayjs()
+        .add(1, 'month')
+        .month() + 1;
     setEndDateDay = params.endDate.day || '1';
   }
   if (
@@ -167,7 +171,10 @@ const RequestApplicationSP = ({
     )
   ) {
     setEndDateYear = dayjs().year();
-    setEndDateMonth = dayjs().month() + 2;
+    setEndDateMonth =
+      dayjs()
+        .add(1, 'month')
+        .month() + 1;
     setEndDateDay = dayjs().date();
   }
   const [endDate, setEndDate] = useState({
