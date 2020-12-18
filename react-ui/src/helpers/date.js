@@ -25,8 +25,12 @@ export const getYear = lengthYear => {
     .fill(0)
     .map((_, i) => ({
       key: i,
-      value: dayjs().year() + i,
-      text: `${dayjs().year() + i}年`,
+      value: dayjs()
+        .add(i, 'year')
+        .year(),
+      text: `${dayjs()
+        .add(i, 'year')
+        .year()}年`,
     }));
 };
 

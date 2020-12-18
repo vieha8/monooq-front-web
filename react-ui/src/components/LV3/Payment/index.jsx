@@ -23,6 +23,7 @@ const MAX_PAY_PRICE_CONVENIENT = 49999;
 const MODE_VIEW_INPUT = 0;
 const MODE_VIEW_CONFIRM = 1;
 const NAME_LOCAL_STORAGE_PARAMS = 'payment_params';
+const FOMAT_DATE = 'YYYY-MM-DD';
 
 const ValidateRegExp = {
   CardName: /^[a-zA-Z\s]+$/,
@@ -100,10 +101,8 @@ const PaymentInputForm = ({
   const validate = price => {
     const chkMonth = `${year}-${month}-01`;
     const nowMonth = `${dayjs().year()}-${dayjs().month() + 1}-01`;
-    const dtFormat = 'YYYY-MM-DD';
-
-    const chkMonthF = dayjs(chkMonth, dtFormat).format(dtFormat);
-    const nowMonthF = dayjs(nowMonth, dtFormat).format(dtFormat);
+    const chkMonthF = dayjs(chkMonth, FOMAT_DATE).format(FOMAT_DATE);
+    const nowMonthF = dayjs(nowMonth, FOMAT_DATE).format(FOMAT_DATE);
 
     if (paymentMethod === 1) {
       if (Number(price) > MAX_PAY_PRICE_CONVENIENT) {
@@ -131,6 +130,7 @@ const PaymentInputForm = ({
 
   const handleChangeUI = (propName, inputValue) => {
     const setError = [];
+    let isChangeDate = false;
 
     switch (propName) {
       case 'name':
@@ -151,6 +151,27 @@ const PaymentInputForm = ({
         }
         break;
 
+      case 'month':
+      case 'year': {
+        let targetMonth = month;
+        let targetYear = year;
+        if (propName === 'month') {
+          targetMonth = inputValue;
+        } else {
+          targetYear = inputValue;
+        }
+        const chkMonth = `${targetYear}-${targetMonth}-01`;
+        const nowMonth = `${dayjs().year()}-${dayjs().month() + 1}-01`;
+        const chkMonthF = dayjs(chkMonth, FOMAT_DATE).format(FOMAT_DATE);
+        const nowMonthF = dayjs(nowMonth, FOMAT_DATE).format(FOMAT_DATE);
+
+        if (dayjs(chkMonthF).isBefore(nowMonthF)) {
+          setError.push(ErrorMessages.LimitCard);
+        }
+        isChangeDate = true;
+        break;
+      }
+
       case 'cvc':
         if (!inputValue || inputValue.length === 0) {
           setError.push(ErrorMessages.PleaseInput);
@@ -163,7 +184,11 @@ const PaymentInputForm = ({
       default:
         break;
     }
-    setErrors(state => ({ ...state, [propName]: setError }));
+    if (isChangeDate) {
+      setErrors(state => ({ ...state, [propName]: setError, limitCard: setError }));
+    } else {
+      setErrors(state => ({ ...state, [propName]: setError }));
+    }
   };
 
   const backButton = () => {
