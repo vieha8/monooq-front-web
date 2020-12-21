@@ -37,7 +37,16 @@ const isLpPath = path => {
     path === Path.lp2Guest2() ||
     path === Path.lp2Guest3() ||
     path === Path.lp3Guest() ||
-    path === Path.lp3Guest3()
+    path === Path.lp3Guest3() ||
+    path === `${Path.lp1Host()}/` ||
+    path === `${Path.lp1Guest()}/` ||
+    path === `${Path.lp1Guest2()}/` ||
+    path === `${Path.lp1Guest3()}/` ||
+    path === `${Path.lp2Guest()}/` ||
+    path === `${Path.lp2Guest2()}/` ||
+    path === `${Path.lp2Guest3()}/` ||
+    path === `${Path.lp3Guest()}/` ||
+    path === `${Path.lp3Guest3()}/`
   );
 };
 
