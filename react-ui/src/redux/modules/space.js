@@ -15,11 +15,15 @@ import { uploadImage } from 'redux/helpers/firebase';
 import fileType from 'helpers/file-type';
 import { convertBaseUrl, convertSpaceImgUrl } from 'helpers/imgix';
 import { formatAddComma } from 'helpers/string';
+import dayjs from 'dayjs';
 import Queue from 'helpers/queue';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { handleError } from './error';
+
+const STATUS_FULL = 'full';
+const STATUS_OPEN = 'open';
 
 const dummySpaceImage =
   'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
@@ -366,6 +370,63 @@ export const spaceReducer = handleActions(
   initialState,
 );
 
+function evaluation(params, lastMsg) {
+  let resultScore = 0;
+  const nowMonth = `${dayjs().year()}-${dayjs().month() + 1}-${dayjs().date()}`;
+
+  if (params.createdAt) {
+    const chkMonth = `${dayjs(params.createdAt).year()}-${dayjs(params.createdAt).month() +
+      1}-${dayjs(params.createdAt).date()}`;
+    if (dayjs(nowMonth).diff(chkMonth, 'day') < 31) {
+      // console.log('登録30日以内の新規スペース：2点加算');
+      resultScore += 2;
+    }
+  }
+
+  if (params.images.length > 2) {
+    // console.log('スペース画像が3枚以上：1点加算');
+    resultScore += 1;
+  }
+
+  if (params.tags.length > 6) {
+    // console.log('タグ7個以上：1点加算');
+    resultScore += 1;
+  }
+
+  if (params.title.includes('分') || params.introduction.includes('分')) {
+    // console.log('アクセス情報が掲載されている：1点加算');
+    resultScore += 1;
+  }
+
+  if (params.introduction.includes('曜日')) {
+    // console.log('対応可能日が掲載されている：1点加算');
+    resultScore += 1;
+  }
+
+  if (lastMsg) {
+    resultScore += 1;
+    // console.log('過去に1度でもリクエスト受けたことあるなら1点加算');
+
+    const chkMonthLastMsg = `${dayjs(lastMsg).year()}-${dayjs(lastMsg).month() + 1}-${dayjs(
+      lastMsg,
+    ).date()}`;
+    if (dayjs(nowMonth).diff(chkMonthLastMsg, 'day') < 91) {
+      // console.log('直近90以内にリクエスト受けたことあるなら1点加算');
+      resultScore += 1;
+    }
+  }
+
+  if (params.status === STATUS_FULL) {
+    // console.log('スペースのステータスが「満室」：2点減点');
+    resultScore -= 2;
+  } else if (params.status === STATUS_OPEN) {
+    // console.log('スペースのステータスが「稼働中」：1点減点');
+    resultScore -= 1;
+  }
+
+  return resultScore;
+}
+
 // Sagas
 function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   const token = yield* getToken();
@@ -503,6 +564,7 @@ const createImageUrls = (spaceId, images) =>
 function* createSpace({ payload: { body } }) {
   const params = generateSpaceRequestParams(body);
   const { images } = params;
+  params.score = evaluation(params, null);
   params.images = null;
 
   if (params.prefecture) {
@@ -642,6 +704,24 @@ function* updateSpace({ payload: { spaceId, body } }) {
   }
 
   const token = yield* getToken();
+  const { data: payload, err: errLastMsg } = yield call(
+    getApiRequest,
+    apiEndpoint.spacesLastMsg(spaceId),
+    {},
+    token,
+  );
+
+  if (errLastMsg) {
+    yield handleError(
+      spaceActions.updateFailedSpace,
+      '',
+      'updateSpace(errLastMsg)',
+      errLastMsg,
+      false,
+    );
+    return;
+  }
+
   const { data, status, err } = yield call(
     putApiRequest,
     apiEndpoint.spaces(spaceId),
@@ -661,6 +741,8 @@ function* updateSpace({ payload: { spaceId, body } }) {
       images: params.images,
       tags: params.tags,
       status: params.status,
+      score: evaluation(params, payload.lastMsg),
+      isUpdate: true,
     },
     token,
   );
