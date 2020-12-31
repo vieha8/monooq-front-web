@@ -52,7 +52,8 @@ export default ({
     <Wrap>
       <PostalCodeLeft>
         <InputForm
-          type="tel"
+          type="text"
+          inputmode="tel"
           placeholder="例) 1500002"
           value={formAddress.postalCode}
           onChange={e => onChangePostalCode(e.target.value)}
