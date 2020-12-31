@@ -32,6 +32,8 @@ const AddressHint = () => (
   <Fragment>
     番地以降・マンション名は取引の成立後、成立相手にのみ表示されます。
     <br />
+    郵便番号はハイフン(-)ありで入力してください。
+    <br />
     番地は半角数字で入力してください。
   </Fragment>
 );
@@ -54,7 +56,7 @@ export default ({
         <InputForm
           type="text"
           inputmode="tel"
-          placeholder="例) 1500002"
+          placeholder="例) 150-0002"
           value={formAddress.postalCode}
           onChange={e => onChangePostalCode(e.target.value)}
           autoComplete="postal-code"
