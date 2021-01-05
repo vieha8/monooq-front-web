@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import ReactGA from 'react-ga';
@@ -21,16 +21,7 @@ const Validate = {
   Password: /^([a-zA-Z0-9]{8,})$/,
 };
 
-const ViewMode = styled.div``;
-
-const Title = styled.div`
-  width: 100%;
-  margin: ${Dimens.medium_20}px auto;
-  font-size: ${FontSizes.medium2}px;
-  font-weight: bold;
-  text-align: center;
-  color: ${Colors.black};
-`;
+const Wrap = styled.div``;
 
 const ErrorHeadWrap = styled.div`
   text-align: center;
@@ -68,7 +59,7 @@ const ToLogin = styled.div`
   border-top: 1px solid ${Colors.borderGray};
 `;
 
-const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
+const RegisterPage = ({ isRegisterChecking, gaLabel, errorMessage }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -129,103 +120,98 @@ const RegisterPage = ({ isTop, isRegisterChecking, gaLabel, errorMessage }) => {
   };
 
   return (
-    <Fragment>
-      <ViewMode>
-        {isTop && <Title>新規登録</Title>}
-        {errorMessage && (
-          <ErrorHeadWrap>
-            <ErrorList keyName="error_email_other" errors={[errorMessage]} />
-          </ErrorHeadWrap>
-        )}
-        <Email>
-          <InputForm
-            placeholder="メールアドレス"
-            value={email}
-            onChange={e => handleChangeUI('email', e.target.value, setEmail(e.target.value))}
-          />
-          <ErrorList keyName="error_email" errors={errors.email} />
-        </Email>
-        <Pass>
-          <InputFieldIcon
-            right="true"
-            iconClassName={isVisiblePassword ? 'fal fa-eye' : 'fal fa-eye-slash'}
-            type={isVisiblePassword ? 'text' : 'password'}
-            caption="8文字以上の半角英数字で入力してください"
-            placeholder="パスワード"
-            value={password}
-            onChange={e => handleChangeUI('password', e.target.value, setPassword(e.target.value))}
-            onKeyDown={onKeyDownPassword}
-            clickIcon={() => setIsVisiblePassword(!isVisiblePassword)}
-          />
-          <ErrorList keyName="error_password" errors={errors.password} />
-        </Pass>
-        <Terms>
-          <InlineText.Base fontSize={12}>
-            新規登録を行うと、
-            <br />
-            <TextLink
-              to={Path.terms()}
-              target="_blank"
-              rel="noopener noreferrer"
-              fontSize={FontSizes.small_12}
-              color={Colors.brandPrimary}
-            >
-              利用規約
-            </TextLink>
-            と
-            <TextLink
-              to={Path.privacy()}
-              target="_blank"
-              rel="noopener noreferrer"
-              fontSize={FontSizes.small_12}
-              color={Colors.brandPrimary}
-            >
-              個人情報保護方針
-            </TextLink>
-            に同意したとみなします
-          </InlineText.Base>
-        </Terms>
-        <Next>
+    <Wrap>
+      {errorMessage && (
+        <ErrorHeadWrap>
+          <ErrorList keyName="error_email_other" errors={[errorMessage]} />
+        </ErrorHeadWrap>
+      )}
+      <Email>
+        <InputForm
+          placeholder="メールアドレス"
+          value={email}
+          onChange={e => handleChangeUI('email', e.target.value, setEmail(e.target.value))}
+        />
+        <ErrorList keyName="error_email" errors={errors.email} />
+      </Email>
+      <Pass>
+        <InputFieldIcon
+          right="true"
+          iconClassName={isVisiblePassword ? 'fal fa-eye' : 'fal fa-eye-slash'}
+          type={isVisiblePassword ? 'text' : 'password'}
+          caption="8文字以上の半角英数字で入力してください"
+          placeholder="パスワード"
+          value={password}
+          onChange={e => handleChangeUI('password', e.target.value, setPassword(e.target.value))}
+          onKeyDown={onKeyDownPassword}
+          clickIcon={() => setIsVisiblePassword(!isVisiblePassword)}
+        />
+        <ErrorList keyName="error_password" errors={errors.password} />
+      </Pass>
+      <Terms>
+        <InlineText.Base fontSize={12}>
+          新規登録を行うと、
+          <br />
+          <TextLink
+            to={Path.terms()}
+            target="_blank"
+            rel="noopener noreferrer"
+            fontSize={FontSizes.small_12}
+            color={Colors.brandPrimary}
+          >
+            利用規約
+          </TextLink>
+          と
+          <TextLink
+            to={Path.privacy()}
+            target="_blank"
+            rel="noopener noreferrer"
+            fontSize={FontSizes.small_12}
+            color={Colors.brandPrimary}
+          >
+            個人情報保護方針
+          </TextLink>
+          に同意したとみなします
+        </InlineText.Base>
+      </Terms>
+      <Next>
+        <Button
+          primary
+          fill={1}
+          fontbold
+          onClick={onClickNext}
+          disabled={!validate()}
+          loading={isRegisterChecking ? 1 : 0}
+        >
+          新規登録
+        </Button>
+      </Next>
+      <Facebook>
+        <Button
+          facebook
+          fill={1}
+          fontbold
+          onClick={onClickFacebook}
+          loading={isRegisterChecking ? 1 : 0}
+        >
+          Facebookで新規登録
+        </Button>
+      </Facebook>
+      {!isRegisterChecking && (
+        <ToLogin>
           <Button
-            primary
-            fill={1}
+            secondary
+            borderbold
             fontbold
-            onClick={onClickNext}
-            disabled={!validate()}
+            fill={1}
+            onClick={() => history.push(Path.login())}
             loading={isRegisterChecking ? 1 : 0}
           >
-            新規登録
+            ログインはこちら
           </Button>
-        </Next>
-        {!isTop && (
-          <Facebook>
-            <Button
-              facebook
-              fill={1}
-              fontbold
-              onClick={onClickFacebook}
-              loading={isRegisterChecking ? 1 : 0}
-            >
-              Facebookで新規登録
-            </Button>
-          </Facebook>
-        )}
-        {!isTop && !isRegisterChecking && (
-          <ToLogin>
-            <Button
-              secondary
-              borderbold
-              fontbold
-              fill={1}
-              onClick={() => history.push(Path.login())}
-              loading={isRegisterChecking ? 1 : 0}
-            >
-              ログインはこちら
-            </Button>
-          </ToLogin>
-        )}
-      </ViewMode>
-    </Fragment>
+        </ToLogin>
+      )}
+    </Wrap>
   );
 };
 

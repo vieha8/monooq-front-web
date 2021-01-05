@@ -16,7 +16,7 @@ const TagList = () => [
     options: { code: 1 },
   },
   {
-    text: 'エレベータあり',
+    text: 'エレベーターあり',
     isChecked: true,
     onClickCheckTown: () => console.log('onClickCheckTown'),
     options: { code: 2 },

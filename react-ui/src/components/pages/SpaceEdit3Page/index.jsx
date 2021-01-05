@@ -218,7 +218,7 @@ class SpaceEdit3Page extends Component {
     }
 
     return (
-      <BaseTemplate maxWidth={540}>
+      <BaseTemplate maxWidth={540} setMargin="20px auto 0">
         <SpaceEditStep3
           sizeType={space.sizeType}
           edit={isUpdate}

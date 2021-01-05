@@ -9,6 +9,7 @@ const PageDefault = styled.div`
   margin: 0 auto;
   padding: 0 ${Dimens.medium}px;
   box-sizing: initial;
+  overflow: hidden;
 `;
 
 export default PageDefault;

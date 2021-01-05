@@ -281,7 +281,7 @@ class SpaceEdit2Page extends Component {
     error.address = [errMessage];
 
     return (
-      <BaseTemplate maxWidth={540}>
+      <BaseTemplate maxWidth={540} setMargin="20px auto 0">
         <SpaceEdit2
           edit={isUpdate}
           errors={error}

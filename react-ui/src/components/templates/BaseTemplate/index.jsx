@@ -13,7 +13,7 @@ const Wrap = styled.div`
 const Content = styled.div`
   width: 100%;
   max-width: ${props => (props.maxWidth ? props.maxWidth : 768)}px;
-  margin: auto;
+  margin: ${props => (props.setMargin ? `${props.setMargin}px` : 'auto')};
   ${media.tablet`
     float: none;
     margin-left: 0;
@@ -22,11 +22,13 @@ const Content = styled.div`
   `};
 `;
 
-export default ({ maxWidth, noMargin, children }) => (
+export default ({ maxWidth, noMargin, setMargin, children }) => (
   <Page noMargin={noMargin}>
     <PageClearfix>
       <Wrap>
-        <Content maxWidth={maxWidth}>{children}</Content>
+        <Content maxWidth={maxWidth} setMargin={setMargin}>
+          {children}
+        </Content>
       </Wrap>
     </PageClearfix>
   </Page>

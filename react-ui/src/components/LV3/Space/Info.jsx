@@ -49,9 +49,9 @@ const TagListWrap = styled.div`
 `;
 
 export default ({
-  confirm,
+  // confirm,
   space,
-  id,
+  // id,
   name,
   sizeType,
   tagList,

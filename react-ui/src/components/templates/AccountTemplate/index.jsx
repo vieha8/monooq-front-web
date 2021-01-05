@@ -5,20 +5,11 @@ import { Colors, Dimens, FontSizes } from 'variables';
 import { H1 } from 'components/LV1/Texts/Headline';
 
 const Page = styled.div`
-  padding: 85px 0;
-  ${media.phone`
-    padding: 54px 0;
-  `};
+  padding: ${Dimens.medium_20}px 0;
 `;
 
 const Spacer = styled.div`
-  margin-top: 54px;
-  ${media.tablet`
-    margin-top: 24px;
-  `};
-  ${media.phone`
-    margin-top: 54px;
-  `};
+  margin-top: ${Dimens.headerHeight}px;
 `;
 
 const Title = styled(H1)`

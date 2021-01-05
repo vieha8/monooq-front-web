@@ -14,9 +14,6 @@ import { Link } from 'react-router-dom';
 import SpaceRows from 'components/LV3/SpaceRows';
 import MenuPCVisitor from './MenuPCVisitor';
 
-export const Height = 85;
-export const HeightPhone = 54;
-
 const Wrap = styled.header`
   position: fixed;
   ${props =>
@@ -33,16 +30,11 @@ const Wrap = styled.header`
 const Nav = styled.nav`
   display: flex;
   align-items: center;
-  height: ${Height}px;
+  height: ${Dimens.headerHeight}px;
   transition: 0.3s;
-  ${props =>
-    (props.isOverTopView || (!props.isLinkRed && !props.top)) &&
-    `
-    background: rgba(255, 255, 255, 0.8);
-    transition: 0.3s;
-  `}
+  background: ${Colors.white};
+  border-bottom: 1px solid ${Colors.borderGray};
   ${media.tablet`
-    height: ${HeightPhone}px;
     position: relative;
     display: flex;
   `};
@@ -238,24 +230,15 @@ const HoverHistoryNoData = styled.div`
   margin: ${Dimens.medium1}px 0;
 `;
 
-const HeaderView = ({
-  isTop,
-  isLinkRed,
-  isOverTopView,
-  isOverTablet,
-  noHeaderButton,
-  noLinkLogo,
-  stories,
-  accessLogSpaces,
-}) => {
+const HeaderView = ({ isOverTablet, noHeaderButton, stories, accessLogSpaces }) => {
   const history = useHistory();
   const isLogin = useSelector(state => state.auth.isLogin);
 
   if (noHeaderButton) {
     return (
       <Wrap stories={stories}>
-        <Nav top={isTop} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
-          <Logo noLink={noLinkLogo} />
+        <Nav id="nav">
+          <Logo noLink />
         </Nav>
       </Wrap>
     );
@@ -267,8 +250,8 @@ const HeaderView = ({
 
   return (
     <Wrap stories={stories}>
-      <Nav top={isTop} isOverTopView={isOverTopView} isLinkRed={isLinkRed} id="nav">
-        <Logo noLink={noLinkLogo} />
+      <Nav id="nav">
+        <Logo noLink={noHeaderButton} />
         {!noHeaderButton && (
           <ActionWrapper>
             <ActionWrap>
@@ -339,7 +322,7 @@ const HeaderView = ({
                   <AnonymouseWrapper>
                     {isOverTablet ? (
                       <OnlyPC>
-                        <MenuPCVisitor isTop={isTop} isOverTopView={isOverTopView} />
+                        <MenuPCVisitor />
                       </OnlyPC>
                     ) : (
                       <OnlyPhoneTablet>

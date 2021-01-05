@@ -23,35 +23,12 @@ const TextWrapper = styled.span`
   }
 `;
 
-const linkColor = (top, isOverTopView, isHoverColor) => {
-  let resultVal = Colors.brandPrimary;
-
-  if (top) {
-    if (isOverTopView) {
-      if (isHoverColor) {
-        resultVal = Colors.brandTerciary;
-      }
-    } else {
-      resultVal = Colors.white;
-    }
-  } else if (isHoverColor) {
-    resultVal = Colors.brandTerciary;
-  }
-
-  return resultVal;
-};
-
-const MenuPCVisitor = ({ isTop, isOverTopView }) => {
+const MenuPCVisitor = () => {
   const history = useHistory();
   return (
     <Fragment>
       <TextWrapper>
-        <TextLink
-          to={Path.login()}
-          color={linkColor(isTop, isOverTopView, false)}
-          colorhover={linkColor(isTop, isOverTopView, true)}
-          bold="true"
-        >
+        <TextLink to={Path.login()} color={Colors.brandPrimary} bold="true">
           ログイン
         </TextLink>
       </TextWrapper>
@@ -63,7 +40,7 @@ const MenuPCVisitor = ({ isTop, isOverTopView }) => {
           fontbold
           height={40}
           lineheight={15}
-          color={linkColor(isTop, isOverTopView, false)}
+          color={Colors.brandPrimary}
         >
           新規登録
         </Button>

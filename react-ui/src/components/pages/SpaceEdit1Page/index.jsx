@@ -42,7 +42,7 @@ const TagList = [
     options: { code: 1 },
   },
   {
-    text: 'エレベータあり',
+    text: 'エレベーターあり',
     isChecked: false,
     options: { code: 2 },
   },
@@ -471,7 +471,7 @@ class SpaceEdit1Page extends Component {
     }
 
     return (
-      <BaseTemplate maxWidth={540}>
+      <BaseTemplate maxWidth={540} setMargin="20px auto 0">
         <SpaceEdit1
           edit={isUpdate}
           errors={error}

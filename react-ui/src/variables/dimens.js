@@ -48,4 +48,5 @@ export default {
   huge_86: 86,
   fixedWidthPc: 1200,
   storyBookPadding: `20px 40px`,
+  headerHeight: 55,
 };

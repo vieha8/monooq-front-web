@@ -55,6 +55,7 @@ const TopViewWrap = styled.div`
 
 const TopViewContainer = styled(PageDefault)`
   position: relative;
+  overflow: visible;
   &:before,
   &:after {
     content: '';

@@ -18,7 +18,7 @@ const ErrMessage = styled.div`
   display: block;
   position: fixed;
   left: 0px;
-  top: 85px;
+  top: ${Dimens.headerHeight}px;
   z-index: ${ZIndexes.frontParts};
   text-align: center;
   padding: ${Dimens.medium_17}px;

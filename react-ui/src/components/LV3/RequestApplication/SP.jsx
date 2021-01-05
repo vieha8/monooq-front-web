@@ -106,7 +106,6 @@ const RequestApplicationSP = ({
   space,
   loginUser,
   isLogin,
-  confirm,
   params,
   isModalOpenSP,
   handleModalOpenSP,
@@ -253,7 +252,7 @@ const RequestApplicationSP = ({
         loading,
         onClickButton,
         null,
-        confirm || isSelfSpace,
+        isSelfSpace,
         getButtonRequestText(isRequested, isLogin, isSelfSpace),
       )}
       <Modal

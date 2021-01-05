@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { HeightPhone as HeaderHeight } from 'components/LV3/Header/View';
+import { Dimens } from 'variables';
 
 const Page = styled.div`
   width: 100%;
   max-width: ${props => (props.noMargin ? '100%' : '1440px')};
   margin: 0 auto;
-  margin-top: 85px;
+  margin-top: ${Dimens.headerHeight}px;
   padding: 20px 20px 80px;
   ${props =>
     props.noMargin &&
@@ -15,18 +15,16 @@ const Page = styled.div`
   `};
 
   ${media.tablet`
-    margin-top: 80px;
     ${props =>
       props.noMargin &&
       `
-      margin-top: 0px;
-      padding: ${HeaderHeight}px 0px;
+      margin-top: 0;
+      padding: 0;
     `};
   `};
 
   ${media.phone`
-    margin-top: 54px;
-    padding: ${HeaderHeight - 10}px 15px 15px;
+    padding: 15px;
     ${props =>
       props.fillPhone &&
       `
@@ -36,8 +34,8 @@ const Page = styled.div`
     ${props =>
       props.noMargin &&
       `
-      margin-top: 0px;
-      padding: ${HeaderHeight}px 0px;
+      margin-top: 0;
+      padding: 0;
     `};
   `};
 `;

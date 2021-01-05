@@ -1,10 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import styled from 'styled-components';
+import { Dimens } from 'variables';
 import Path from 'config/path';
 import { isOverTabletWindow } from 'helpers/style/media-query';
 import { partialMatch } from 'helpers/string';
-import { getSafeValue } from 'helpers/properties';
 import { authActions } from 'redux/modules/auth';
 import { getPrefecture } from 'helpers/prefectures';
 import ChannelService from 'components/LV1/ChannelService';
@@ -57,22 +58,23 @@ function bootChannelService(isLogin, user) {
   }
 }
 
+const Wrap = styled.div`
+  margin-top: ${Dimens.headerHeight}px;
+`;
+
 let TIMER_CHANNEL = false;
 
 class Header extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOverTopView: false,
       queue: null,
       isOverTablet: true,
     };
   }
 
   componentDidMount() {
-    this._isMounted = true;
     this.setState({ isOverTablet: isOverTabletWindow() });
-    window.addEventListener('scroll', () => this.watchCurrentPosition(), true);
     window.addEventListener('resize', () => this.checkResize(), true);
 
     const { dispatch } = this.props;
@@ -90,14 +92,10 @@ class Header extends Component {
   }
 
   componentWillUnmount() {
-    this._isMounted = false;
-    window.removeEventListener('scroll', () => this.watchCurrentPosition(), true);
     window.removeEventListener('resize', () => this.checkResize(), true);
-
     if (document && document.body) {
       document.body.style.overflowY = 'auto';
     }
-
     ChannelService.shutdown();
   }
 
@@ -118,94 +116,16 @@ class Header extends Component {
     dispatch(authActions.logout());
   };
 
-  scrollTop = () => {
-    const isWebKit = this.browser ? this.browser.isWebKit : false;
-    let tgt;
-
-    if ('scrollingElement' in document) {
-      tgt = document.scrollingElement;
-    } else if (isWebKit) {
-      tgt = document.body;
-    } else {
-      tgt = document.documentElement;
-    }
-    const scrollTop = (tgt && tgt.scrollTop) || 0;
-    return Math.max(window.pageYOffset, scrollTop);
-  };
-
-  setStateOverTopView = isOverTopView => {
-    if (this._isMounted) {
-      this.setState({ isOverTopView });
-    }
-  };
-
-  isSignUpProfile = path => {
-    return partialMatch(path, Path.signUpProfile());
-  };
-
-  isLinkRed = () => {
-    const path = window.location.pathname;
-    return !!(
-      partialMatch(path, Path.about()) ||
-      partialMatch(path, Path.howtouse()) ||
-      partialMatch(path, Path.lp1Host()) ||
-      partialMatch(path, Path.signUp()) ||
-      partialMatch(path, Path.login())
-    );
-  };
-
-  isScrollPage = () => {
-    const path = window.location.pathname;
-    return !!(path && (path === '/' || this.isLinkRed()));
-  };
-
-  watchCurrentPosition() {
-    const path = window.location.pathname;
-    let positionScrollPC = 450;
-    let positionScrollSP = 290;
-
-    if (this.isScrollPage) {
-      const positionScroll = this.scrollTop();
-
-      this.setStateOverTopView(false);
-
-      if (partialMatch(path, Path.about()) || partialMatch(path, Path.howtouse())) {
-        positionScrollPC = 540;
-        positionScrollSP = 320;
-      } else if (partialMatch(path, Path.lp1Host())) {
-        positionScrollPC = 520;
-        positionScrollSP = 360;
-      }
-
-      const widthWindow = getSafeValue(() => window.parent.screen.width);
-      if (widthWindow) {
-        if (widthWindow > 480) {
-          if (positionScroll > positionScrollPC) {
-            this.setStateOverTopView(true);
-          }
-        } else if (positionScroll > positionScrollSP) {
-          this.setStateOverTopView(true);
-        }
-      } else {
-        this.setStateOverTopView(true);
-      }
-    }
-  }
-
   render() {
     const { schedule, spaces, isLogin, user } = this.props;
-    const { isOverTopView, isOverTablet } = this.state;
+    const { isOverTablet } = this.state;
 
     let isSchedule = false;
     if (schedule && (schedule.user.length > 0 || schedule.host.length > 0)) {
       isSchedule = true;
     }
 
-    const nowPath = window.location.pathname;
-    const isTop = nowPath === '/';
-
-    const noHeaderButton = this.isSignUpProfile(nowPath) || partialMatch(nowPath, Path.lp1Host());
-    const noLinkLogo = this.isSignUpProfile(nowPath);
+    const noHeaderButton = partialMatch(window.location.pathname, Path.signUpProfile());
 
     if (TIMER_CHANNEL !== false) {
       clearTimeout(TIMER_CHANNEL);
@@ -215,14 +135,10 @@ class Header extends Component {
     }, 3000);
 
     return (
-      <Fragment>
+      <Wrap>
         <HeaderComponent
-          isTop={isTop}
-          isOverTopView={isOverTopView}
           isOverTablet={isOverTablet}
-          isLinkRed={this.isLinkRed()}
           noHeaderButton={noHeaderButton}
-          noLinkLogo={noLinkLogo}
           isSchedule={isSchedule}
           logoutEvent={{
             onClick: e => {
@@ -232,7 +148,7 @@ class Header extends Component {
           }}
           accessLogSpaces={spaces || []}
         />
-      </Fragment>
+      </Wrap>
     );
   }
 }

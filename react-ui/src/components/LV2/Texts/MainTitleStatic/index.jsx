@@ -5,13 +5,12 @@ import { Dimens } from 'variables';
 import Hr from 'components/LV1/HorizontalRule';
 import MainTitle from 'components/LV1/Texts/MainTitleStatic';
 import Text from 'components/LV1/Texts/TextStatic';
-import { Height as HeaderHeight } from 'components/LV3/Header/View';
 
 const MainTitleWrap = styled.div`
   ${props =>
     !props.noMarginTop &&
     `
-    margin-top: calc(${HeaderHeight}px + ${Dimens.medium3_40}px);
+    margin-top: ${Dimens.medium3_40}px;
   `};
   ${props =>
     props.sub &&
@@ -20,18 +19,6 @@ const MainTitleWrap = styled.div`
       padding: 0;
       margin-top: ${Dimens.large2}px;
   `};
-  ${media.tablet`
-    ${props =>
-      !props.noMarginTop &&
-      `
-        margin-top: ${HeaderHeight}px;
-    `};
-    ${props =>
-      props.sub &&
-      `
-        margin-top: ${Dimens.medium3_40}px;
-    `};
-  `};
   ${media.phone`
     ${props =>
       props.sub &&
@@ -39,6 +26,11 @@ const MainTitleWrap = styled.div`
         width: 100%;
         padding: 0;
       `};
+    ${props =>
+      !props.noMarginTop &&
+      `
+      margin-top: ${Dimens.medium_20}px;
+    `};
   `};
 `;
 

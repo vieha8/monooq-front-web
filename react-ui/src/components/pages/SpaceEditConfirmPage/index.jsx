@@ -9,7 +9,7 @@ import { spaceActions } from 'redux/modules/space';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import { withAuthRequire, withHandleBeforeUnload } from 'components/hooks';
 import ButtonEntry from 'components/LV2/Forms/ButtonEntry';
-import Detail from 'components/LV3/Space/Detail';
+import DetailConfirm from 'components/LV3/Space/DetailConfirm';
 
 const dummySpaceImage =
   'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
@@ -163,7 +163,7 @@ class SpaceEditConfirmPage extends Component {
     const { user } = this.props;
     return (
       <BaseTemplate maxWidth={1440} noMargin>
-        <Detail
+        <DetailConfirm
           loading={isLoading}
           confirm
           space={space}

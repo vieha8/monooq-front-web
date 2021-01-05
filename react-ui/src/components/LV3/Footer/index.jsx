@@ -179,7 +179,6 @@ export default ({ bottomMargin, bottomMarginOnlySP }) => {
         </WrapItems>
         {bottomMargin && (
           <LPLink
-            isOverTopView
             isPageLp123Guest={!partialMatch(window.location.pathname, Path.lp1Host())}
             isPageLp12GuestLinkTop={
               partialMatch(window.location.pathname, Path.lp1Guest2()) ||

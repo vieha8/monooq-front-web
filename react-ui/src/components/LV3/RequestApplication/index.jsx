@@ -43,7 +43,6 @@ const RequestApplication = ({
   space,
   loginUser,
   isLogin,
-  confirm,
   params,
   isModalOpen,
   handleModalOpen,
@@ -401,7 +400,7 @@ const RequestApplication = ({
           borderbold
           fontbold
           fill={1}
-          disabled={confirm || isSelfSpace}
+          disabled={isSelfSpace}
           onClick={onClickButton}
         >
           {getButtonRequestText(isRequested, isLogin, isSelfSpace)}
