@@ -16,7 +16,6 @@ import ModalTopDesiredCondition from 'components/LV3/ModalTopDesiredCondition';
 import PrefectureList from 'components/LV3/PrefectureList';
 // import SpaceList from 'components/LV3/SpaceList';
 import View from 'components/LV3/Top/View';
-import Covid19Info from 'components/LV3/Top/Covid19Info';
 import SearchResult from 'components/LV3/SearchResult';
 import ModalNoSpaceRecommend from 'components/LV3/ModalNoSpaceRecommend';
 import Want from 'components/LV3/Lp123Guest/Want';
@@ -111,7 +110,6 @@ export default ({
           </ButtonTestWrap>
         </Fragment>
       )}
-      <Covid19Info />
       <PrefectureList list={areaPrefectures} regionId={regionId} />
       {spacesHistory && spacesHistory.length > 0 && (
         <ResultWrap>

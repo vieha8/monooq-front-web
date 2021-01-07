@@ -74,7 +74,6 @@ export default {
   asct: () => '/asct',
   privacy: () => '/privacy',
   terms: () => '/terms',
-  covid19: () => '/covid19',
   // LP
   lp1Host: () => '/lp1/host',
   lp1Guest: () => '/lp1/guest',
