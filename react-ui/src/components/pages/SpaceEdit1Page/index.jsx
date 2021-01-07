@@ -315,7 +315,10 @@ class SpaceEdit1Page extends Component {
 
       if (tagCustomList && tagCustomList.length >= Validate.TagCustom.MaxArrayCount) {
         textError = ErrorMessages.TagCustomMax;
-      } else if (tagCustomList.filter(n => n === e.target.value).length > 0) {
+      } else if (
+        tagCustomList.filter(n => n === e.target.value).length > 0 ||
+        TagList.filter(item => item.text === e.target.value).length > 0
+      ) {
         textError = ErrorMessages.TagCustomSame;
       } else {
         const inputVal = e.target.value;
