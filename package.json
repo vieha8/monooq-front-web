@@ -1,31 +1,15 @@
 {
-  "name": "heroku-cra-node",
-  "version": "1.0.0",
-  "description": "How to use create-react-app with a custom Node API on Heroku",
+  "name": "monooq-front-web",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "node server",
-    "heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p $PORT"
   },
-  "cacheDirectories": [
-    "node_modules",
-    "react-ui/node_modules"
-  ],
   "dependencies": {
-    "compression": "^1.7.3",
-    "express": "^4.16.3",
-    "morgan": "^1.9.1",
-    "rendertron-middleware": "^0.1.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mars/heroku-cra-node.git"
-  },
-  "keywords": [
-    "node",
-    "heroku",
-    "create-react-app",
-    "react"
-  ],
-  "license": "MIT",
-  "devDependencies": {}
+    "next": "10.0.5",
+    "react": "17.0.1",
+    "react-dom": "17.0.1"
+  }
 }

@@ -1,7 +1,0 @@
-{
-  "projects": {
-    "default": "monooq-dev",
-    "development": "monooq-dev",
-    "production": "monooq-prod"
-  }
-}
