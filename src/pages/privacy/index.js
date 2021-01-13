@@ -1,5 +1,3 @@
 export default function Privacy() {
-  return (
-    <div>This is Privacy page</div>
-  )
+  return <div>This is Privacy page</div>;
 }

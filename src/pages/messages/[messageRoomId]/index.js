@@ -1,5 +1,3 @@
 export default function MessageByRoomId() {
-  return (
-    <div>This is MessageByRoomId page</div>
-  )
+  return <div>This is MessageByRoomId page</div>;
 }
