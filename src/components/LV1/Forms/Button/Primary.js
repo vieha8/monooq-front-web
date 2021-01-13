@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link } from 'next/link';
 import { Colors, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 
