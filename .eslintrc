@@ -10,12 +10,13 @@
     "sessionStorage": true,
     "FileReader": true,
     "Headers": true,
-    "fetch": true
+    "fetch": true,
+    "require": true
   },
   "rules": {
-    "react/jsx-curly-newline": "off",
     "react/prop-types": 0,
     "react/prefer-stateless-function": 0,
+    "react/jsx-curly-newline": "off",
     "react/jsx-fragments": [2, "element"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/react-in-jsx-scope": "off",
