@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, take, select, fork, cancel, cancelled } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+// import { push } from 'connected-react-router';
 import { captureException } from '@sentry/browser';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -96,9 +96,7 @@ const roomCollection = () => {
 const getRooms = userId =>
   new Promise(async (resolve, reject) => {
     try {
-      const rooms = await roomCollection()
-        .where(`user${userId}`, '==', true)
-        .get();
+      const rooms = await roomCollection().where(`user${userId}`, '==', true).get();
       const res = [];
       rooms.forEach(room => {
         if (room.data().lastMessageDt) {
@@ -190,10 +188,7 @@ const getMessages = roomId =>
     try {
       const c = await roomCollection();
       const roomDoc = await c.doc(roomId);
-      const messages = await roomDoc
-        .collection('messages')
-        .orderBy('createDt')
-        .get();
+      const messages = await roomDoc.collection('messages').orderBy('createDt').get();
 
       const room = await roomDoc.get();
       const res = {
@@ -259,14 +254,14 @@ function* fetchMessagesStart({ payload: roomId }) {
   const messageData = yield getMessages(roomId);
   const { room, messageObserver } = messageData;
   if (!room) {
-    yield put(push(Path.pageNotFound()));
+    // yield put(push(Path.pageNotFound())); // TODO: connected-react-router
     return;
   }
 
   // アクセス制限
   if (user.id !== 7111 && user.id !== 2613 && user.id !== 9000) {
     if (!(room.userId1 === user.id || room.userId2 === user.id)) {
-      yield put(push(Path.pageNotFound()));
+      // yield put(push(Path.pageNotFound())); // TODO: connected-react-router
       return;
     }
   }
@@ -627,7 +622,7 @@ function* makeBosyuRoom({ payload }) {
     yield handleError('', '', 'makeBosyuRoom', err, false);
     return;
   }
-  yield put(push(Path.message(data.roomId)));
+  // yield put(push(Path.message(data.roomId))); // TODO: connected-react-router
 }
 
 // Sagas

@@ -1,6 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { all, put, takeEvery, take, call, select } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+// import { push } from 'connected-react-router';
 import axios from 'axios';
 import { authActions, getToken } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
@@ -353,7 +353,7 @@ export const spaceReducer = handleActions(
       ...state,
       isLoading: false,
     }),
-    [RESET_ADDRESS]: (state, _) => ({
+    [RESET_ADDRESS]: state => ({
       ...state,
       geo: {},
       isLoadingAddress: false,
@@ -375,8 +375,9 @@ function evaluation(params, lastMsg) {
   const nowMonth = `${dayjs().year()}-${dayjs().month() + 1}-${dayjs().date()}`;
 
   if (params.createdAt) {
-    const chkMonth = `${dayjs(params.createdAt).year()}-${dayjs(params.createdAt).month() +
-      1}-${dayjs(params.createdAt).date()}`;
+    const chkMonth = `${dayjs(params.createdAt).year()}-${
+      dayjs(params.createdAt).month() + 1
+    }-${dayjs(params.createdAt).date()}`;
     if (dayjs(nowMonth).diff(chkMonth, 'day') < 31) {
       // console.log('登録30日以内の新規スペース：2点加算');
       resultScore += 2;
@@ -638,7 +639,7 @@ function* prepareUpdateSpace({ payload: spaceId }) {
 
   if (err) {
     if (status === 404) {
-      yield put(push(Path.pageNotFound()));
+      // yield put(push(Path.pageNotFound())); // TODO: connected-react-router
     } else {
       yield handleError(spaceActions.fetchFailedSpace, '', 'prepareUpdateSpace', err, false);
     }
@@ -881,6 +882,52 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
   yield put(spaceActions.getSpaceAccessLog({ limit: 8, refresh: true }));
 }
 
+const makeBreadcrumbs = ({ keyword, pref, cities, towns }) => {
+  const breadcrumbs = [{ text: 'トップ', link: Path.top() }];
+
+  if (towns && towns.length === 1) {
+    breadcrumbs.push(
+      {
+        text: pref.name,
+        link: Path.spacesByPrefecture(pref.code),
+      },
+      {
+        text: cities[0].name,
+        link: Path.spacesByCity(pref.code, cities[0].code),
+      },
+      {
+        text: `${towns[0].name}のスペース一覧`,
+      },
+    );
+  } else if (cities && cities.length === 1) {
+    breadcrumbs.push(
+      {
+        text: pref.name,
+        link: Path.spacesByPrefecture(pref.code),
+      },
+      {
+        text: `${cities[0].name}のスペース一覧`,
+      },
+    );
+  } else if (pref && pref.name) {
+    breadcrumbs.push({
+      text: `${pref.name}のスペース一覧`,
+    });
+  } else if (keyword && keyword !== '') {
+    breadcrumbs.push({
+      text: `スペース検索結果`,
+    });
+  }
+
+  if (breadcrumbs.length === 1) {
+    breadcrumbs.push({
+      text: `スペース検索結果`,
+    });
+  }
+
+  return breadcrumbs;
+};
+
 function* search({ payload: { limit, offset, keyword, prefCode, cities, towns, tags, sort } }) {
   const token = yield* getToken();
 
@@ -1039,8 +1086,8 @@ function* searchMyArea() {
     return { ...v, images };
   });
 
-  let areaRes = [];
-  let areaSearchRes = [];
+  const areaRes = [];
+  const areaSearchRes = [];
 
   const breadcrumbs = makeBreadcrumbs(data.conditions);
 
@@ -1059,52 +1106,6 @@ function* searchMyArea() {
     }),
   );
 }
-
-const makeBreadcrumbs = ({ keyword, pref, cities, towns }) => {
-  const breadcrumbs = [{ text: 'トップ', link: Path.top() }];
-
-  if (towns && towns.length === 1) {
-    breadcrumbs.push(
-      {
-        text: pref.name,
-        link: Path.spacesByPrefecture(pref.code),
-      },
-      {
-        text: cities[0].name,
-        link: Path.spacesByCity(pref.code, cities[0].code),
-      },
-      {
-        text: `${towns[0].name}のスペース一覧`,
-      },
-    );
-  } else if (cities && cities.length === 1) {
-    breadcrumbs.push(
-      {
-        text: pref.name,
-        link: Path.spacesByPrefecture(pref.code),
-      },
-      {
-        text: `${cities[0].name}のスペース一覧`,
-      },
-    );
-  } else if (pref && pref.name) {
-    breadcrumbs.push({
-      text: `${pref.name}のスペース一覧`,
-    });
-  } else if (keyword && keyword !== '') {
-    breadcrumbs.push({
-      text: `スペース検索結果`,
-    });
-  }
-
-  if (breadcrumbs.length === 1) {
-    breadcrumbs.push({
-      text: `スペース検索結果`,
-    });
-  }
-
-  return breadcrumbs;
-};
 
 function* getRecommendSpaces({ payload: { spaceId } }) {
   const token = yield* getToken();
