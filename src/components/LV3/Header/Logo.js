@@ -30,7 +30,7 @@ const Logo = ({ noLink }) => {
     );
   }
   return (
-    <Link href={Path.top()}>
+    <Link href={Path.top()} passHref>
       <LogoLink as="a">
         <ImageLogo.HeaderFill />
       </LogoLink>

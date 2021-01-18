@@ -128,23 +128,13 @@ export const PrimaryButton = styled.div`
   `};
 `;
 
-const HyperLink = styled.a``;
-
 export default props =>
   props.link ? (
-    props.blank ? (
-      <Link href={props.href}>
-        <HyperLink {...props} target="_blank">
-          <PrimaryButton {...props} />
-        </HyperLink>
-      </Link>
-    ) : (
-      <Link href={props.href}>
-        <a>
-          <PrimaryButton {...props} />
-        </a>
-      </Link>
-    )
+    <Link href={props.href}>
+      <a {...props} target={props.blank ? '_blank' : '_self'}>
+        <PrimaryButton {...props} />
+      </a>
+    </Link>
   ) : (
     <PrimaryButton {...props} tabIndex={0} />
   );

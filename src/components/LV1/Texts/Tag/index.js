@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
 import { mediaMin } from 'helpers/style/media-query';
-import { Link } from 'next/link';
+import Link from 'next/link';
 import Path from 'config/path';
 
 const Tag = styled.div`

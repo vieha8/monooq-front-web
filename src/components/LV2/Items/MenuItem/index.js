@@ -57,7 +57,7 @@ export default ({
   blank ? (
     <MenuItem logout={logout}>
       <LinkWrap line={line} logout={logout}>
-        <Link href={href || ''}>
+        <Link href={href || ''} passHref>
           <MenuLink
             as="a"
             onClick={logoutEvent || onClick}
@@ -87,16 +87,16 @@ export default ({
   ) : (
     <MenuItem>
       <LinkWrap line={line}>
-        <MenuLink as={Link} href={to} onClick={onClick}>
-          <a>
+        <Link href={to} onClick={onClick} passHref>
+          <MenuLink as="a">
             <MenuText>
               <InlineText.Base fontSize={FontSizes.small}>{title}</InlineText.Base>
             </MenuText>
             <NotificationWrapper>
               <NotificationCount count={notificationCount} />
             </NotificationWrapper>
-          </a>
-        </MenuLink>
+          </MenuLink>
+        </Link>
       </LinkWrap>
     </MenuItem>
   );
