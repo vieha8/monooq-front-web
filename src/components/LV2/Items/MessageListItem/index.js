@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { media, mediaMin } from 'helpers/style/media-query';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
@@ -73,38 +73,40 @@ const UserImageWrap = styled.div`
 
 export default ({ link, image, name, receivedAt, lastMessage, isRead }) => (
   <Wrap>
-    <Link to={link || ''}>
-      <FirstLine nametime>
-        <UserImageWrap>
-          <LazyLoad width={32}>
-            <ImageAvatar size={32} src={image} />
-          </LazyLoad>
-        </UserImageWrap>
-        <UserNameWrap>
-          <InlineText.Base inLineBlock bold fontSizeSp={`${FontSizes.small}`}>
-            {formatName(name)}
+    <Link href={link || ''}>
+      <a>
+        <FirstLine nametime>
+          <UserImageWrap>
+            <LazyLoad width={32}>
+              <ImageAvatar size={32} src={image} />
+            </LazyLoad>
+          </UserImageWrap>
+          <UserNameWrap>
+            <InlineText.Base inLineBlock bold fontSizeSp={`${FontSizes.small}`}>
+              {formatName(name)}
+            </InlineText.Base>
+          </UserNameWrap>
+          <MessageDateWrap>
+            <InlineText.Base fontSize={`${FontSizes.small_12}`} color={Colors.lightGray1}>
+              {formatDate(new Date(receivedAt), formatStringSlash)}
+            </InlineText.Base>
+          </MessageDateWrap>
+        </FirstLine>
+        <Cell lastMessage nametime>
+          <InlineText.Base fontSize={15} fontSizeSp={12} whiteSpaceNormal>
+            {lastMessage}
           </InlineText.Base>
-        </UserNameWrap>
-        <MessageDateWrap>
-          <InlineText.Base fontSize={`${FontSizes.small_12}`} color={Colors.lightGray1}>
-            {formatDate(new Date(receivedAt), formatStringSlash)}
+          <InlineText.Base
+            inLineBlock
+            verticalMiddle
+            fontSize={`${FontSizes.small_12}`}
+            color={Colors.brandPrimary}
+            float="right"
+          >
+            {!isRead && '●'}
           </InlineText.Base>
-        </MessageDateWrap>
-      </FirstLine>
-      <Cell lastMessage nametime>
-        <InlineText.Base fontSize={15} fontSizeSp={12} whiteSpaceNormal>
-          {lastMessage}
-        </InlineText.Base>
-        <InlineText.Base
-          inLineBlock
-          verticalMiddle
-          fontSize={`${FontSizes.small_12}`}
-          color={Colors.brandPrimary}
-          float="right"
-        >
-          {!isRead && '●'}
-        </InlineText.Base>
-      </Cell>
+        </Cell>
+      </a>
     </Link>
   </Wrap>
 );

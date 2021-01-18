@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { media, mediaMin } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
 import Button from 'components/LV1/Forms/Button';
@@ -147,20 +147,22 @@ const PrefectureList = ({ list, regionId }) => {
                 <WrapRegion>{item.region}</WrapRegion>
                 {item.prefectureList.map((prefecture, j) => (
                   <WrapButton key={j.toString()}>
-                    <Link to={`${Path.spacesByPrefecture(prefecture.id)}?via=carousel`}>
-                      <Button
-                        key={j.toString()}
-                        quinary
-                        fontSize={14}
-                        fontbold
-                        lineheight={21}
-                        height={38}
-                        padding="8px 10"
-                        borderRadius={6}
-                        fill={1}
-                      >
-                        {prefecture.name}
-                      </Button>
+                    <Link href={`${Path.spacesByPrefecture(prefecture.id)}?via=carousel`}>
+                      <a>
+                        <Button
+                          key={j.toString()}
+                          quinary
+                          fontSize={14}
+                          fontbold
+                          lineheight={21}
+                          height={38}
+                          padding="8px 10"
+                          borderRadius={6}
+                          fill={1}
+                        >
+                          {prefecture.name}
+                        </Button>
+                      </a>
                     </Link>
                   </WrapButton>
                 ))}

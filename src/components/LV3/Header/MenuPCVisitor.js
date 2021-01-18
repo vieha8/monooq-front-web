@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router';
+import { useRouter } from 'next/router';
 import TextLink from '../../LV1/Texts/TextLink';
 import Path from '../../../config/path';
 import Button from '../../LV1/Forms/Button';
@@ -24,7 +24,7 @@ const TextWrapper = styled.span`
 `;
 
 const MenuPCVisitor = () => {
-  const history = useHistory();
+  const router = useRouter();
   return (
     <Fragment>
       <TextWrapper>
@@ -36,7 +36,7 @@ const MenuPCVisitor = () => {
         <Button
           quaternary
           link
-          onClick={() => history.push(Path.signUp())}
+          onClick={() => router.push(Path.signUp())}
           fontbold
           height={40}
           lineheight={15}

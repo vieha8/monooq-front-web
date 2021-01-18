@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { Colors, Dimens } from 'variables';
 
@@ -27,8 +27,10 @@ const NoticeIcon = styled.span`
 `;
 
 export default ({ href, onClick, messageCount }) => (
-  <StyledLink to={href || ''} onClick={onClick}>
-    <Image src={MessageIcon} messageCount={messageCount} alt="icon-chat" />
-    {messageCount > 0 && <NoticeIcon />}
+  <StyledLink href={href || ''} onClick={onClick}>
+    <a>
+      <Image src={MessageIcon} messageCount={messageCount} alt="icon-chat" />
+      {messageCount > 0 && <NoticeIcon />}
+    </a>
   </StyledLink>
 );

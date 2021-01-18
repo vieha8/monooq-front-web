@@ -3,7 +3,7 @@ import Path from 'config/path';
 
 import styled from 'styled-components';
 import { Dimens, Colors } from 'variables';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import PageDefault from 'components/LV1/PageDefault';
 import Text from 'components/LV1/Texts/TextStatic';
 import MainTitlePage from 'components/LV2/Texts/MainTitleStatic';
@@ -33,7 +33,11 @@ export default () => (
           },
           {
             header: 'ホームページ',
-            data: <LinkText to={Path.top()}>https://monooq.com/</LinkText>,
+            data: (
+              <LinkText href={Path.top()}>
+                <a>https://monooq.com/</a>
+              </LinkText>
+            ),
           },
           {
             header: 'メールアドレス',
@@ -74,7 +78,9 @@ export default () => (
             data: (
               <Fragment>
                 モノオクの定める
-                <LinkText to={Path.cancelPolicy()}>キャンセルポリシー</LinkText>
+                <LinkText href={Path.cancelPolicy()}>
+                  <a>キャンセルポリシー</a>
+                </LinkText>
                 がございます。お支払い前に必ずお読みください。
               </Fragment>
             ),

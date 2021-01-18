@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Path from 'config/path';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { media, mediaMin } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';

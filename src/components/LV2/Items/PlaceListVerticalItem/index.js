@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Colors, Dimens } from 'variables';
 import Card from 'components/LV1/Card';
 import ImageHero from 'components/LV1/Images/ImageHero';
@@ -90,38 +90,42 @@ const PriceText = styled(InlineText.Base)`
 export default ({ href, onClick, image, manage, address, content, prices, status, furniture }) =>
   manage ? (
     <Wrap manage>
-      <Link to={href || ''}>
-        <CardStyled noBorder noPadding pointer onClick={onClick}>
-          <ImageWrapper>
-            <ImageHero large src={image.src} alt={image.alt} />
-          </ImageWrapper>
-          <ContentWrapper>
-            <TopWrap>
-              <Availability status={status} />
-            </TopWrap>
-            <ContentTextWrap manage={manage}>
-              <ContentText>{content || ''}</ContentText>
-              <PriceText manage={manage}>{`${prices.join('円/')}円`}</PriceText>
-            </ContentTextWrap>
-          </ContentWrapper>
-        </CardStyled>
+      <Link href={href || ''}>
+        <a>
+          <CardStyled noBorder noPadding pointer onClick={onClick}>
+            <ImageWrapper>
+              <ImageHero large src={image.src} alt={image.alt} />
+            </ImageWrapper>
+            <ContentWrapper>
+              <TopWrap>
+                <Availability status={status} />
+              </TopWrap>
+              <ContentTextWrap manage={manage}>
+                <ContentText>{content || ''}</ContentText>
+                <PriceText manage={manage}>{`${prices.join('円/')}円`}</PriceText>
+              </ContentTextWrap>
+            </ContentWrapper>
+          </CardStyled>
+        </a>
       </Link>
     </Wrap>
   ) : (
     <Wrap>
-      <Link to={href || ''}>
-        <Card noPadding pointer onClick={onClick}>
-          <ImageWrapper>
-            <ImageHero height={150} medium src={image.src} alt={image.alt} />
-          </ImageWrapper>
-          <ContentWrapper>
-            <AddressText>{address || ''}</AddressText>
-            <ContentTextWrap>{content || ''}</ContentTextWrap>
-            <HomeApplianceText>{furniture ? '家具・家電OK' : ' '}</HomeApplianceText>
-            <PriceLabel>料金目安（30日間）</PriceLabel>
-            <PriceText>{prices.join(' / ')}</PriceText>
-          </ContentWrapper>
-        </Card>
+      <Link href={href || ''}>
+        <a>
+          <Card noPadding pointer onClick={onClick}>
+            <ImageWrapper>
+              <ImageHero height={150} medium src={image.src} alt={image.alt} />
+            </ImageWrapper>
+            <ContentWrapper>
+              <AddressText>{address || ''}</AddressText>
+              <ContentTextWrap>{content || ''}</ContentTextWrap>
+              <HomeApplianceText>{furniture ? '家具・家電OK' : ' '}</HomeApplianceText>
+              <PriceLabel>料金目安（30日間）</PriceLabel>
+              <PriceText>{prices.join(' / ')}</PriceText>
+            </ContentWrapper>
+          </Card>
+        </a>
       </Link>
     </Wrap>
   );

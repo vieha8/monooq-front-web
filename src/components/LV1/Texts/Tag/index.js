@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Dimens, FontSizes, Colors } from 'variables';
 import { mediaMin } from 'helpers/style/media-query';
-import { Link } from 'react-router-dom';
+import { Link } from 'next/link';
 import Path from 'config/path';
 
 const Tag = styled.div`
@@ -65,11 +65,13 @@ export default ({ tagList, isNoMark, isMarkDelete, isNoLink, onClick }) => (
           </Tag>
         ))
       : tagList.map((tag, i) => (
-          <Link key={i.toString()} to={`${Path.search()}?tags=${tag}`}>
-            <Tag isMarkDelete={isMarkDelete}>
-              {!isNoMark && '#'}
-              {tag}
-            </Tag>
+          <Link key={i.toString()} href={`${Path.search()}?tags=${tag}`}>
+            <a>
+              <Tag isMarkDelete={isMarkDelete}>
+                {!isNoMark && '#'}
+                {tag}
+              </Tag>
+            </a>
           </Link>
         ))}
   </Fragment>

@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'next/link';
+import Link from 'next/link';
 import { Colors, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 
-const TextLink = styled.div`
+const TextLinkStyled = styled.div`
   color: ${Colors.linkBlue};
   line-height: normal;
   font-size: ${props => props.fontSize || FontSizes.small_15}px;
@@ -91,12 +91,14 @@ const TextLink = styled.div`
           `
         };
 
-        ${props.colorhover &&
+        ${
+          props.colorhover &&
           `
             &:hover {
               color: ${props.colorhover};
             }
-          `};
+          `
+        };
 
         ${
           props.color
@@ -114,28 +116,37 @@ const TextLink = styled.div`
           `
         };
 
-        ${props.error &&
+        ${
+          props.error &&
           `
             &:hover { color: ${Colors.error}; opacity: 0.8; }
-          `};
+          `
+        };
 
       `};
   `};
 `;
 
-export default props =>
-  props.href ? (
+const TextLink = props => {
+  return props.href ? (
     props.key ? (
-      <TextLink as="a" {...props} href={props.href} key={props.key}>
-        {props.children}
-      </TextLink>
+      <Link href={props.href}>
+        <TextLinkStyled as="a" {...props} key={props.key}>
+          {props.children}
+        </TextLinkStyled>
+      </Link>
     ) : (
-      <TextLink as="a" {...props} href={props.href}>
-        {props.children}
-      </TextLink>
+      <Link href={props.href}>
+        <TextLinkStyled as="a" {...props}>
+          {props.children}
+        </TextLinkStyled>
+      </Link>
     )
   ) : (
-    <TextLink as={Link} {...props} to={props.to || ''}>
-      {props.children}
-    </TextLink>
+    <TextLinkStyled as={Link} {...props} href={props.to || ''}>
+      <a>{props.children}</a>
+    </TextLinkStyled>
   );
+};
+
+export default TextLink;

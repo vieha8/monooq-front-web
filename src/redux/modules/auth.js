@@ -235,17 +235,16 @@ export const authReducer = handleActions(
 
 const getFirebaseAuth = async () => {
   const firebase = await import('firebase/app').catch(() => window.location.reload());
-  await import('firebase/auth').catch(() => window.location.reload());
+  await import('@firebase/auth').catch(() => window.location.reload());
 
   try {
-    firebase.initializeApp(firebaseConfig());
+    firebase.default.initializeApp(firebaseConfig());
   } catch (err) {
     if (!/already exists/.test(err.message)) {
       console.error('Firebase initialization error', err.stack);
     }
   }
-
-  return firebase.auth;
+  return firebase.default.auth;
 };
 
 const getLoginUserFirebaseAuth = () =>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 import Path from 'config/path';
 import { Colors, Dimens, FontSizes, ZIndexes } from 'variables';

@@ -1,7 +1,7 @@
 import React from 'react';
 import Linkify from 'react-linkify';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Card from 'components/LV1/Card';
 import PageClearfix from 'components/LV1/PageClearfix';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
@@ -26,8 +26,10 @@ export default ({ id, image, extension, message, receivedAt }) => (
   <PageClearfix>
     <div>
       <AvatarWrapper>
-        <Link to={Path.profile(id)}>
-          <ImageAvatar size={32} src={image} alt="" />
+        <Link href={Path.profile(id)}>
+          <a>
+            <ImageAvatar size={32} src={image} alt="" />
+          </a>
         </Link>
       </AvatarWrapper>
       <CardWrapper>

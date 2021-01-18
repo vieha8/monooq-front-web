@@ -1,7 +1,7 @@
 import React from 'react';
 import ImageLogo from 'components/LV1/Images/ImageLogo';
 import Path from 'config/path';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -30,9 +30,11 @@ const Logo = ({ noLink }) => {
     );
   }
   return (
-    <LogoLink to={Path.top()} as={Link}>
-      <ImageLogo.HeaderFill />
-    </LogoLink>
+    <Link href={Path.top()}>
+      <LogoLink as="a">
+        <ImageLogo.HeaderFill />
+      </LogoLink>
+    </Link>
   );
 };
 

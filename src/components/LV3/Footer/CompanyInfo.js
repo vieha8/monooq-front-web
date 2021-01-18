@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media } from 'helpers/style/media-query';

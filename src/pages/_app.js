@@ -1,12 +1,17 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
-import * as React from 'react';
+import wrapper from 'redux/store';
+import BaseLayout from 'components/Layout';
 import 'semantic-ui-css/semantic.min.css';
 import 'styles/globals.css';
-import wrapper from 'redux/store';
+import 'styles/main.css';
 
 function App({ Component, ...props }) {
-  return <Component {...props} />;
+  return (
+    <BaseLayout>
+      <Component {...props} />
+    </BaseLayout>
+  );
 }
 
 export default wrapper.withRedux(App);

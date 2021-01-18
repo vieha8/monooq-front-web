@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Dimens, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 import { SectionTitle, SectionTitleSub } from 'components/LV2/Space/Section';
+import Link from 'next/link';
 
 const ImageLogoPayCredit =
   'https://monooq.imgix.net/img%2Fservice%2Flogo-pay-credit.svg?auto=compress';
@@ -63,13 +64,11 @@ const Attention = () => {
         <SectionTitleSub text="お支払い方法について" />
         クレジッドカード（VISA・MasterCard）での月々払いをご利用いただけます。
         <br />
-        <LinkStyled
-          href="https://help.monooq.com/ja/articles/2948181"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          利用料の支払い方法について
-        </LinkStyled>
+        <Link href="https://help.monooq.com/ja/articles/2948181">
+          <LinkStyled target="_blank" rel="noopener noreferrer">
+            利用料の支払い方法について
+          </LinkStyled>
+        </Link>
         <SectionTitleSub text="決済可能なお支払い方法" />
         <Wrap>
           <LazyLoad>

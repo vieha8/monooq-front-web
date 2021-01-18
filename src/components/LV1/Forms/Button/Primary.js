@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'next/link';
+import Link from 'next/link';
 import { Colors, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 
@@ -133,12 +133,16 @@ const HyperLink = styled.a``;
 export default props =>
   props.link ? (
     props.blank ? (
-      <HyperLink {...props} href={props.href} target="_blank">
-        <PrimaryButton {...props} />
-      </HyperLink>
+      <Link href={props.href}>
+        <HyperLink {...props} target="_blank">
+          <PrimaryButton {...props} />
+        </HyperLink>
+      </Link>
     ) : (
-      <Link to={props.href}>
-        <PrimaryButton {...props} />
+      <Link href={props.href}>
+        <a>
+          <PrimaryButton {...props} />
+        </a>
       </Link>
     )
   ) : (

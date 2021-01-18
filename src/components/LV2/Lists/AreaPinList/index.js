@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { mediaMin } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
 import Button from 'components/LV1/Forms/Button';
@@ -60,11 +60,13 @@ export default ({ areaPinList }) => (
       {areaPinList.map((item, i) => (
         <Item key={i.toString()}>
           <LinkStyled
-            to={item.link}
+            href={item.link}
             color={Colors.lightGray3}
             rel={item.count < 5 ? 'nofollow' : ''}
           >
-            <Button areaPin>{item.name}</Button>
+            <a>
+              <Button areaPin>{item.name}</Button>
+            </a>
           </LinkStyled>
         </Item>
       ))}
