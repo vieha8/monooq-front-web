@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import Router from 'next/router';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
 import LoadingPage from 'components/LV3/LoadingPage';
@@ -20,7 +20,7 @@ const withAuthRequire = Component => props => {
   }
 
   if (!isLogin && isInit) {
-    return <Redirect to={Path.login()} />;
+    Router.push(Path.login());
   }
 
   return <Component {...props} />;

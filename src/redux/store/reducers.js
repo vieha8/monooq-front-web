@@ -1,4 +1,4 @@
-import { connectRouter } from 'connected-react-router';
+// import { connectRouter } from 'connected-react-router';
 import { combineReducers } from 'redux';
 import { authReducer } from 'redux/modules/auth';
 import { messagesReducer } from 'redux/modules/messages';
@@ -11,9 +11,9 @@ import { errorReducer } from 'redux/modules/error';
 import { initReducer } from 'redux/modules/init';
 import { sectionReducer } from 'redux/modules/section';
 
-const createReducers = history =>
+const createReducers = () =>
   combineReducers({
-    router: connectRouter(history),
+    // router: connectRouter(history),
     auth: authReducer,
     messages: messagesReducer,
     space: spaceReducer,

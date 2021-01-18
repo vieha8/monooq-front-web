@@ -1,6 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, call, takeEvery, select } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
+// import { push } from 'connected-react-router';
 import ReactGA from 'react-ga';
 import * as Sentry from '@sentry/browser';
 import { ErrorMessages } from 'variables';
@@ -426,7 +426,7 @@ function* loginFacebook() {
 }
 
 function* logout() {
-  yield put(push(Path.top()));
+  // yield put(push(Path.top()));  // TODO: connected-react-router
   if (isAvailableLocalStorage()) {
     localStorage.removeItem(tokenCacheKey);
   }
@@ -473,7 +473,7 @@ function* signUpEmail({ payload: { email, password } }) {
 
     yield put(authActions.signupSuccess(data));
     yield put(authActions.checkLogin());
-    yield put(push(Path.signUpProfile()));
+    // yield put(push(Path.signUpProfile())); // TODO: connected-react-router
   } catch (err) {
     let errMessage = '';
     let isOnlyAction = false;
@@ -571,7 +571,7 @@ function* checkRedirect() {
 
   yield put(authActions.signupSuccess(data));
   yield put(authActions.checkRedirectEnd());
-  yield put(push(Path.signUpProfile()));
+  // yield put(push(Path.signUpProfile()));  // TODO: connected-react-router
 }
 
 function* passwordReset({ payload: { email } }) {
