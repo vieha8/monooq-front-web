@@ -290,9 +290,9 @@ const HeaderView = ({ isOverTablet, noHeaderButton, stories, accessLogSpaces }) 
                         <SpaceRows spaces={accessLogSpaces} onClick={onClickSpace} />
                       </HoverHistoryRows>
                       {accessLogSpaces && accessLogSpaces.length > 0 ? (
-                        <HoverHistoryAllLink href={Path.historyViewSpace()}>
-                          <a>もっと見る</a>
-                        </HoverHistoryAllLink>
+                        <Link href={Path.historyViewSpace()} passHref>
+                          <HoverHistoryAllLink as="a">もっと見る</HoverHistoryAllLink>
+                        </Link>
                       ) : (
                         <HoverHistoryNoData>閲覧履歴がありません</HoverHistoryNoData>
                       )}

@@ -1,16 +1,28 @@
-/* html,
+/*
+* Noto Sans Japanese (japanese) http://www.google.com/fonts/earlyaccess
+ */
+
+ @font-face {
+  font-family: 'Noto Sans Japanese';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://d2j6gkx8orv8i2.cloudfront.net/fonts/NotoSansJP-Regular-Sub.woff2) format('woff2'),
+    url(https://d2j6gkx8orv8i2.cloudfront.net/fonts/NotoSansJP-Regular-Sub.woff) format('woff'),
+    url(https://d2j6gkx8orv8i2.cloudfront.net/fonts/NotoSansJP-Regular-Sub.otf) format('opentype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans Japanese';
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://d2j6gkx8orv8i2.cloudfront.net/fonts/NotoSansJP-Bold-Sub.woff2) format('woff2'),
+    url(https://d2j6gkx8orv8i2.cloudfront.net/fonts/NotoSansJP-Bold-Sub.woff2) format('woff'),
+    url(https://d2j6gkx8orv8i2.cloudfront.net/fonts/NotoSansJP-Bold-Sub.woff2) format('opentype');
+  font-display: swap;
+}
+
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans Japanese', 'ヒラギノ角ゴ Pro W3',
+    'ヒラギノ角ゴ W3', -apple-system, BlinkMacSystemFont, 'メイリオ', 'ＭＳ Ｐゴシック', sans-serif;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  box-sizing: border-box;
-} */

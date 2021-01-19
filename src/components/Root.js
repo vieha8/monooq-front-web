@@ -3,41 +3,42 @@ import { connect } from 'react-redux';
 import * as Sentry from '@sentry/browser';
 import ReactGA from 'react-ga';
 import { initActions } from 'redux/modules/init';
-import { parse } from 'helpers/query-string';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import dynamic from 'next/dynamic';
+import { withRouter } from 'next/router';
 
-const SystemError = dynamic(() =>
-  import('components/LV3/SystemError').catch(() => window.location.reload()),
-);
+const SystemError = dynamic(() => import('components/LV3/SystemError'));
 
 class Root extends React.Component {
   constructor(props) {
     super(props);
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    const isIncompatible =
-      userAgent.indexOf('msie') !== -1 ||
-      userAgent.indexOf('trident') !== -1 ||
-      !localStorage ||
-      !sessionStorage;
-
     this.state = {
-      isIncompatible,
+      isIncompatible: false,
       hasError: false,
     };
   }
 
   static getDerivedStateFromError(error) {
     // Update state so the next render will show the fallback UI.
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV === 'development') {
       console.error(error);
     }
     return { hasError: true };
   }
 
   componentDidMount() {
-    const { history, dispatch } = this.props;
-    const query = parse(history.location.search);
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const isIncompatible =
+      userAgent.indexOf('msie') !== -1 ||
+      userAgent.indexOf('trident') !== -1 ||
+      !localStorage ||
+      !sessionStorage;
+    this.setState({ isIncompatible });
+
+    const {
+      dispatch,
+      router: { query },
+    } = this.props;
     if (isAvailableLocalStorage() && query.invite_code) {
       localStorage.setItem('invite_code', query.invite_code);
     }
@@ -88,4 +89,4 @@ class Root extends React.Component {
   }
 }
 
-export default connect()(Root);
+export default connect()(withRouter(Root));
