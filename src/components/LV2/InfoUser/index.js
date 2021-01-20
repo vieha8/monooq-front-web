@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Path from 'config/path';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -45,8 +45,10 @@ const LinkStyled = styled(Link)`
 export default ({ isHost, id, imageUrl, name, close }) => (
   <Wrap>
     <HostImageWrap>
-      <Link to={Path.profile(id)} onClick={close}>
-        <ImageAvatar size={54} src={imageUrl} alt={name} />
+      <Link href={Path.profile(id)} onClick={close}>
+        <a>
+          <ImageAvatar size={54} src={imageUrl} alt={name} />
+        </a>
       </Link>
     </HostImageWrap>
     <HostNameWrap>
@@ -58,10 +60,12 @@ export default ({ isHost, id, imageUrl, name, close }) => (
       )}
       <InlineText.Base bold>{`${formatName(name)}さん`}</InlineText.Base>
       <br />
-      <LinkStyled to={Path.profileEdit()} onClick={close}>
-        <InlineText.Base color={Colors.lightGray3} fontSize={12}>
-          プロフィール編集
-        </InlineText.Base>
+      <LinkStyled href={Path.profileEdit()} onClick={close}>
+        <a>
+          <InlineText.Base color={Colors.lightGray3} fontSize={12}>
+            プロフィール編集
+          </InlineText.Base>
+        </a>
       </LinkStyled>
     </HostNameWrap>
   </Wrap>

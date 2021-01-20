@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'next/link';
+import Link from 'next/link';
 import { Dimens, Colors, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
 
@@ -94,12 +94,14 @@ const getTitle = (type, titleSub, titleMain) => {
 export default ({ link, bgImage, type, titleSub, titleMain, isLinkBlank }) => (
   <Wrap bgImage={bgImage}>
     {isLinkBlank ? (
-      <LinkStyled as="a" href={link} target="_blank" rel="noopener noreferrer">
-        {getTitle(type, titleSub, titleMain)}
-      </LinkStyled>
+      <Link>
+        <LinkStyled as="a" href={link} target="_blank" rel="noopener noreferrer">
+          {getTitle(type, titleSub, titleMain)}
+        </LinkStyled>
+      </Link>
     ) : (
-      <LinkStyled as={Link} to={link}>
-        {getTitle(type, titleSub, titleMain)}
+      <LinkStyled as={Link} href={link}>
+        <a>{getTitle(type, titleSub, titleMain)}</a>
       </LinkStyled>
     )}
   </Wrap>

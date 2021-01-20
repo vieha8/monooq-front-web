@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { getDateRelativeLastLogin } from 'helpers/date';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -18,8 +18,10 @@ const ProfileWrap = styled.div`
 
 const headContent = (id, imageUrl, name) => {
   return (
-    <Link to={Path.profile(id)}>
-      <ImageAvatar size={45} src={imageUrl} alt={name} />
+    <Link href={Path.profile(id)}>
+      <a>
+        <ImageAvatar size={45} src={imageUrl} alt={name} />
+      </a>
     </Link>
   );
 };

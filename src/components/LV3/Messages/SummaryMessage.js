@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Path from 'config/path';
 import { Dimens, Colors } from 'variables';
 import ImageHero from 'components/LV1/Images/ImageHero';

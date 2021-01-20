@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { withRouter } from 'next/router';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import Path from 'config/path';
+import { authActions } from 'redux/modules/auth';
+import { spaceActions } from 'redux/modules/space';
+import { getPrefecture } from 'helpers/prefectures';
 import { isOverTabletWindow } from 'helpers/style/media-query';
 import { partialMatch } from 'helpers/string';
-import { authActions } from 'redux/modules/auth';
-import { getPrefecture } from 'helpers/prefectures';
 import ChannelService from 'components/LV1/ChannelService';
-import { spaceActions } from 'redux/modules/space';
 import HeaderComponent from 'components/LV3/Header/View';
 
 const KEY_CHANNEL_PROD = '1a0525b6-4c6d-4752-a1fa-41301134bc4e';
@@ -82,12 +82,14 @@ class Header extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      this.props.isLogin !== prevProps.isLogin ||
-      this.props.location.pathname !== prevProps.location.pathname
-    ) {
+    const {
+      isLogin,
+      user,
+      router: { pathname },
+    } = this.props;
+    if (isLogin !== prevProps.isLogin || pathname !== prevProps.router.pathname) {
       ChannelService.shutdown();
-      bootChannelService(this.props.isLogin, this.props.user);
+      bootChannelService(isLogin, user);
     }
   }
 
@@ -117,7 +119,13 @@ class Header extends Component {
   };
 
   render() {
-    const { schedule, spaces, isLogin, user } = this.props;
+    const {
+      schedule,
+      spaces,
+      isLogin,
+      user,
+      router: { pathname },
+    } = this.props;
     const { isOverTablet } = this.state;
 
     let isSchedule = false;
@@ -125,7 +133,7 @@ class Header extends Component {
       isSchedule = true;
     }
 
-    const noHeaderButton = partialMatch(window.location.pathname, Path.signUpProfile());
+    const noHeaderButton = partialMatch(pathname, Path.signUpProfile());
 
     if (TIMER_CHANNEL !== false) {
       clearTimeout(TIMER_CHANNEL);

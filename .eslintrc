@@ -27,6 +27,10 @@
         "beforeSelfClosing": "always"
       }
     ],
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "aspects": [ "invalidHref", "preferButton" ]
+    }],
+    "no-nested-ternary": "off",
     "prettier/prettier": ["error", { "endOfLine": "auto" }]
   },
   "settings": {

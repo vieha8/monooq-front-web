@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Dimens, FontSizes, Colors } from 'variables';
 
 const Wrap = styled.nav``;
@@ -53,8 +53,8 @@ export default ({ breadcrumbsList, separatorLandscape, fontColor }) => (
       {breadcrumbsList.map((item, i) => (
         <Item key={i.toString()} separatorLandscape={separatorLandscape} fontColor={fontColor}>
           {item.link ? (
-            <LinkStyled to={item.link} color={Colors.lightGray3}>
-              {item.text}
+            <LinkStyled href={item.link} color={Colors.lightGray3}>
+              <a>{item.text}</a>
             </LinkStyled>
           ) : (
             item.text

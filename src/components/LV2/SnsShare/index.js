@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import LazyLoad from 'react-lazyload';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import ReactGA from 'react-ga';
 import { Colors, Dimens, FontSizes } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
@@ -86,17 +86,18 @@ const getIcon = list => {
     <Fragment>
       {list.map((item, i) => (
         <SnsLi key={i.toString()}>
-          <LinkStyled
-            component={Link}
-            href={item.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => getEventGA(item.actionText, item.value)}
-          >
-            <LazyLoad>
-              <ImageLogo src={item.imageSrc} alt={item.imageAlt} />
-            </LazyLoad>
-          </LinkStyled>
+          <Link>
+            <LinkStyled
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => getEventGA(item.actionText, item.value)}
+            >
+              <LazyLoad>
+                <ImageLogo src={item.imageSrc} alt={item.imageAlt} />
+              </LazyLoad>
+            </LinkStyled>
+          </Link>
         </SnsLi>
       ))}
     </Fragment>

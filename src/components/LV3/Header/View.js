@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router';
+import { useRouter } from 'next/router';
 import Path from 'config/path';
 import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
@@ -10,7 +10,7 @@ import MenuPC from 'components/LV3/Header/MenuPC';
 import Logo from 'components/LV3/Header/Logo';
 import MessagesIcon from 'components/LV3/Header/MessagesIcon';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import SpaceRows from 'components/LV3/SpaceRows';
 import MenuPCVisitor from './MenuPCVisitor';
 
@@ -231,7 +231,7 @@ const HoverHistoryNoData = styled.div`
 `;
 
 const HeaderView = ({ isOverTablet, noHeaderButton, stories, accessLogSpaces }) => {
-  const history = useHistory();
+  const router = useRouter();
   const isLogin = useSelector(state => state.auth.isLogin);
 
   if (noHeaderButton) {
@@ -245,7 +245,7 @@ const HeaderView = ({ isOverTablet, noHeaderButton, stories, accessLogSpaces }) 
   }
 
   const onClickSpace = spaceId => {
-    history.push(Path.space(spaceId));
+    router.push(Path.space(spaceId));
   };
 
   return (
@@ -290,9 +290,9 @@ const HeaderView = ({ isOverTablet, noHeaderButton, stories, accessLogSpaces }) 
                         <SpaceRows spaces={accessLogSpaces} onClick={onClickSpace} />
                       </HoverHistoryRows>
                       {accessLogSpaces && accessLogSpaces.length > 0 ? (
-                        <HoverHistoryAllLink to={Path.historyViewSpace()}>
-                          もっと見る
-                        </HoverHistoryAllLink>
+                        <Link href={Path.historyViewSpace()} passHref>
+                          <HoverHistoryAllLink as="a">もっと見る</HoverHistoryAllLink>
+                        </Link>
                       ) : (
                         <HoverHistoryNoData>閲覧履歴がありません</HoverHistoryNoData>
                       )}

@@ -9,7 +9,7 @@ import InlineText from 'components/LV1/Texts/InlineText';
 import Tag from 'components/LV1/Texts/Tag';
 import StatusText from 'components/LV1/Texts/StatusText';
 import { Dimens, Colors } from 'variables';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Path from 'config/path';
 import LazyLoad from 'react-lazyload';
 import { media, mediaMin } from 'helpers/style/media-query';
@@ -178,60 +178,62 @@ const SpaceResultItem = ({
 
   return (
     <Wrap>
-      <Link to={`${Path.space(id)}${via ? `?via=${via}` : ''}`} onClick={onClickSpace}>
-        <CardStyled noPadding noBorder>
-          <CardInner>
-            <LazyLoad height={123}>
-              <ImageHero
-                isTag={isTag}
-                src={image || dummySpaceImage}
-                alt={title}
-                height={184}
-                heightTab={195}
-                heightSp={120}
-                heightSpTag={110}
-              />
-              {status && (
-                <AvailabilityLayout>
-                  <Availability status={status} />
-                </AvailabilityLayout>
-              )}
-            </LazyLoad>
-          </CardInner>
-          <Content>
-            <Row marginTop={10} top>
-              <InlineText.Base singleLine fontSize={14} color={Colors.lightGray3}>
-                {isRecommended && (
-                  <InlineText.Base
-                    fontSize={14}
-                    bold
-                    color={Colors.brandAccent}
-                    margin={isTag ? '0 4px 0 0' : '0 8px 0 0'}
-                  >
-                    <ImageStar src={IconStar} />
-                    {!isTag && '公式おすすめ'}
-                  </InlineText.Base>
+      <Link href={`${Path.space(id)}${via ? `?via=${via}` : ''}`} onClick={onClickSpace}>
+        <a>
+          <CardStyled noPadding noBorder>
+            <CardInner>
+              <LazyLoad height={123}>
+                <ImageHero
+                  isTag={isTag}
+                  src={image || dummySpaceImage}
+                  alt={title}
+                  height={184}
+                  heightTab={195}
+                  heightSp={120}
+                  heightSpTag={110}
+                />
+                {status && (
+                  <AvailabilityLayout>
+                    <Availability status={status} />
+                  </AvailabilityLayout>
                 )}
-                {address || addressPref + addressCity + addressTown}
-              </InlineText.Base>
-            </Row>
-            <Row marginTop={4}>
-              <Title fontSize={16} fontSizeSp={14} bold lineheight="140%" lineClamp={2}>
-                {title}
-              </Title>
-            </Row>
-            <Row price isNoViewLastLogin={isNoViewLastLogin}>
-              <InlineText.Base noWrap fontSize={16} fontSizeSp={14} fontSizeSpSmall={12} bold>
-                {getViewPrice()}
-              </InlineText.Base>
-            </Row>
-            <Row marginTop={8}>
-              {!isNoViewLastLogin && (
-                <StatusText setData={getDateRelativeLastLogin(lastLoginAt || user.lastLoginAt)} />
-              )}
-            </Row>
-          </Content>
-        </CardStyled>
+              </LazyLoad>
+            </CardInner>
+            <Content>
+              <Row marginTop={10} top>
+                <InlineText.Base singleLine fontSize={14} color={Colors.lightGray3}>
+                  {isRecommended && (
+                    <InlineText.Base
+                      fontSize={14}
+                      bold
+                      color={Colors.brandAccent}
+                      margin={isTag ? '0 4px 0 0' : '0 8px 0 0'}
+                    >
+                      <ImageStar src={IconStar} />
+                      {!isTag && '公式おすすめ'}
+                    </InlineText.Base>
+                  )}
+                  {address || addressPref + addressCity + addressTown}
+                </InlineText.Base>
+              </Row>
+              <Row marginTop={4}>
+                <Title fontSize={16} fontSizeSp={14} bold lineheight="140%" lineClamp={2}>
+                  {title}
+                </Title>
+              </Row>
+              <Row price isNoViewLastLogin={isNoViewLastLogin}>
+                <InlineText.Base noWrap fontSize={16} fontSizeSp={14} fontSizeSpSmall={12} bold>
+                  {getViewPrice()}
+                </InlineText.Base>
+              </Row>
+              <Row marginTop={8}>
+                {!isNoViewLastLogin && (
+                  <StatusText setData={getDateRelativeLastLogin(lastLoginAt || user.lastLoginAt)} />
+                )}
+              </Row>
+            </Content>
+          </CardStyled>
+        </a>
       </Link>
       {tags && tags.length > 0 && (
         <Fragment>

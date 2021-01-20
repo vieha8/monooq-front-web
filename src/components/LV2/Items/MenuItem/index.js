@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 import NotificationCount from 'components/LV1/NotificationCount';
 import MenuItem from 'components/LV1/MenuItem';
@@ -57,22 +57,23 @@ export default ({
   blank ? (
     <MenuItem logout={logout}>
       <LinkWrap line={line} logout={logout}>
-        <MenuLink
-          as="a"
-          href={href || ''}
-          onClick={logoutEvent || onClick}
-          target={logoutEvent ? '' : '_blank'}
-          logout={logout}
-        >
-          <MenuText>
-            <InlineText.Base fontSize={FontSizes.small} color={logout && Colors.lightGray3}>
-              {title}
-            </InlineText.Base>
-          </MenuText>
-          <NotificationWrapper>
-            <NotificationCount count={notificationCount} />
-          </NotificationWrapper>
-        </MenuLink>
+        <Link href={href || ''} passHref>
+          <MenuLink
+            as="a"
+            onClick={logoutEvent || onClick}
+            target={logoutEvent ? '' : '_blank'}
+            logout={logout}
+          >
+            <MenuText>
+              <InlineText.Base fontSize={FontSizes.small} color={logout && Colors.lightGray3}>
+                {title}
+              </InlineText.Base>
+            </MenuText>
+            <NotificationWrapper>
+              <NotificationCount count={notificationCount} />
+            </NotificationWrapper>
+          </MenuLink>
+        </Link>
       </LinkWrap>
     </MenuItem>
   ) : header ? (
@@ -86,14 +87,16 @@ export default ({
   ) : (
     <MenuItem>
       <LinkWrap line={line}>
-        <MenuLink as={Link} to={to} onClick={onClick}>
-          <MenuText>
-            <InlineText.Base fontSize={FontSizes.small}>{title}</InlineText.Base>
-          </MenuText>
-          <NotificationWrapper>
-            <NotificationCount count={notificationCount} />
-          </NotificationWrapper>
-        </MenuLink>
+        <Link href={to} onClick={onClick} passHref>
+          <MenuLink as="a">
+            <MenuText>
+              <InlineText.Base fontSize={FontSizes.small}>{title}</InlineText.Base>
+            </MenuText>
+            <NotificationWrapper>
+              <NotificationCount count={notificationCount} />
+            </NotificationWrapper>
+          </MenuLink>
+        </Link>
       </LinkWrap>
     </MenuItem>
   );

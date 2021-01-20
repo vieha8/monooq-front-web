@@ -8,7 +8,7 @@ import { media } from 'helpers/style/media-query';
 import { formatAddComma } from 'helpers/string';
 import ImageHero from 'components/LV1/Images/ImageHero';
 import InlineText from 'components/LV1/Texts/InlineText';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const dummySpaceImage =
   'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
@@ -106,8 +106,10 @@ export default ({ space, beginAt, price, pricePlusFee, isTakelateBefore }) => (
           {space.addressCity}
           {space.addressTown}
         </AddressText>
-        <Link target="_blank" to={Path.space(space.id)}>
-          <LinkDetail>詳しく見る</LinkDetail>
+        <Link target="_blank" href={Path.space(space.id)}>
+          <a>
+            <LinkDetail>詳しく見る</LinkDetail>
+          </a>
         </Link>
       </SpaceWrap>
       <PaymentInfoWrap>

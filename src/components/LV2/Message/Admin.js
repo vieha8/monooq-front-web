@@ -1,6 +1,6 @@
 import React from 'react';
 import Linkify from 'react-linkify';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 import Card from 'components/LV1/Card';
 import InlineText from 'components/LV1/Texts/InlineText';
@@ -18,7 +18,9 @@ export default ({ message, link, receivedAt }) => (
         <Linkify properties={{ target: '_blank' }}>{message}</Linkify>
       </InlineText.Base>
       <InlineText.Base fontSize={15}>
-        <Link to={link.url || ''}>{link.text || ''}</Link>
+        <Link href={link.url || ''}>
+          <a>{link.text || ''}</a>
+        </Link>
       </InlineText.Base>
     </Card>
     <DateWrapper>

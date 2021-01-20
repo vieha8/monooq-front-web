@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { media, mediaMin } from 'helpers/style/media-query';
 import { Dimens, Colors, FontSizes } from 'variables';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const List = styled.ul`
   margin: ${Dimens.medium2}px auto;
@@ -86,18 +86,15 @@ export default ({ list, isCenter, landscape, color, isLinkEvent }) => (
     {list.map((item, i) => (
       <Item key={i.toString()} landscape={landscape}>
         {isLinkEvent ? (
-          <StyledLink to={item.path} color={color} current={item.current}>
-            {item.text}
+          <StyledLink href={item.path} color={color} current={item.current}>
+            <a>{item.text}</a>
           </StyledLink>
         ) : (
-          <Anchor
-            href={item.path}
-            target={item.blank || '_self'}
-            color={color}
-            current={item.current}
-          >
-            {item.text}
-          </Anchor>
+          <Link href={item.path}>
+            <Anchor target={item.blank || '_self'} color={color} current={item.current}>
+              {item.text}
+            </Anchor>
+          </Link>
         )}
       </Item>
     ))}

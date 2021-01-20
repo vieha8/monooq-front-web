@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Path from 'config/path';
 import { Dimens, Colors } from 'variables';
 import { media, mediaMin } from 'helpers/style/media-query';
@@ -91,8 +91,10 @@ export default ({ spaces }) => (
         </Fragment>
       ))}
       <ListItem AddSpace>
-        <LinkStyled to={Path.spaceCreate1()}>
-          <AddIcon>新しいスペースを登録する</AddIcon>
+        <LinkStyled href={Path.spaceCreate1()}>
+          <a>
+            <AddIcon>新しいスペースを登録する</AddIcon>
+          </a>
         </LinkStyled>
       </ListItem>
     </Wrap>

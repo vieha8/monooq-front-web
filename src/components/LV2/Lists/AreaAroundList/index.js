@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { media, mediaMin } from 'helpers/style/media-query';
 import { Dimens, FontSizes, Colors } from 'variables';
 import Button from 'components/LV1/Forms/Button';
@@ -89,13 +89,15 @@ export default ({ captionColor, areaAroundList, isNoScroll }) => (
       {areaAroundList.map((item, i) => (
         <Item key={i.toString()} isNoScroll={isNoScroll}>
           <LinkStyled
-            to={item.link}
+            href={item.link}
             color={Colors.lightGray3}
             rel={item.count < 5 ? 'nofollow' : ''}
           >
-            <Button quaternary circle height={30} fontSize={14} lineheight={6}>
-              {item.text}
-            </Button>
+            <a>
+              <Button quaternary circle height={30} fontSize={14} lineheight={6}>
+                {item.text}
+              </Button>
+            </a>
           </LinkStyled>
         </Item>
       ))}

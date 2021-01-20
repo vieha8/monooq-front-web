@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import Path from 'config/path';
 import { Dimens, FontSizes, Colors } from 'variables';
 import PageDefault from 'components/LV1/PageDefault';
@@ -170,7 +170,9 @@ export default () => (
         paraList={[
           <Fragment>
             1.登録利用者は、登録情報に含まれる登録利用者の個人情報（個人情報の保護に関する法律（以下「個人情報保護法」といいます。）第2条1項に定義する個人情報を意味します。）について、当社の
-            <LinkText to={Path.privacy()}>個人情報保護方針</LinkText>
+            <LinkText href={Path.privacy()}>
+              <a>個人情報保護方針</a>
+            </LinkText>
             に従って取り扱われることに同意するものとします。
           </Fragment>,
           '2.登録利用者は、スペース利用契約の締結及びその交渉に必要な範囲で、他の登録利用者に自身の氏名、メールアドレス、電話番号や住所等の登録情報（個人情報を含む）が提供されることを了承するものとします。この場合、当該情報を提供された登録利用者は個人情報保護法その他の法令に従い適切に管理するものとします。',

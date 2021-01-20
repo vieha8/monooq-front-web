@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import PageClearfix from 'components/LV1/PageClearfix';
 import ImageAvatar from 'components/LV1/Images/ImageAvatar';
 import ImageHero from 'components/LV1/Images/ImageHero';
@@ -44,8 +44,10 @@ export default ({ user, isHost, href, onClick, image, address }) => (
   <Fragment>
     <PageClearfix>
       <HostContent>
-        <Link to={Path.profile(user.id)}>
-          <ImageAvatar size={45} src={user.imageUrl} alt={user.name} />
+        <Link href={Path.profile(user.id)}>
+          <a>
+            <ImageAvatar size={45} src={user.imageUrl} alt={user.name} />
+          </a>
         </Link>
       </HostContent>
       <HostContent>
@@ -61,13 +63,15 @@ export default ({ user, isHost, href, onClick, image, address }) => (
       </HostContent>
     </PageClearfix>
     <PageClearfix>
-      <Row to={href || ''} onClick={onClick}>
-        <ImageWrapper>
-          <ImageHero small src={image.src} alt={image.alt} />
-        </ImageWrapper>
-        <ContentWrapper>
-          <AddressText>{address}</AddressText>
-        </ContentWrapper>
+      <Row href={href || ''} onClick={onClick}>
+        <a>
+          <ImageWrapper>
+            <ImageHero small src={image.src} alt={image.alt} />
+          </ImageWrapper>
+          <ContentWrapper>
+            <AddressText>{address}</AddressText>
+          </ContentWrapper>
+        </a>
       </Row>
     </PageClearfix>
   </Fragment>

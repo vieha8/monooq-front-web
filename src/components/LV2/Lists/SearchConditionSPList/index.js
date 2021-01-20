@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import styled from 'styled-components';
 import Collapsible from 'react-collapsible';
 import { Dimens, FontSizes, Colors } from 'variables';
