@@ -495,12 +495,7 @@ function* sendEmail(payload, messageDocId) {
   messageBody += '\n\n返信するには以下のリンクをクリックしてください。\n';
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
-  if (process.env.REACT_APP_ENV === 'production') {
-    messageBody += `https://monooq.com/messages/${roomId}\n\n\n`;
-  } else {
-    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}\n\n\n`;
-  }
-
+  messageBody += `${process.env.NEXT_PUBLIC_MESSAGE_BASE_URL}${roomId}\n\n\n`;
   messageBody += '◯取引全体の流れはこちら\n';
   messageBody += '・荷物を預けたい方\n';
   messageBody += '1. 見積もり　　ホストと相談して見積もりをもらいましょう。\n';
@@ -557,14 +552,8 @@ function* sendHostFirstEmail(payload, messageDocId) {
   messageBody += '\n\n↓こちらからホストにメッセージを送ることが出来ます。↓\n';
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
-  if (process.env.REACT_APP_ENV === 'production') {
-    messageBody += `https://monooq.com/messages/${roomId}\n`;
-  } else {
-    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}\n`;
-  }
-
+  messageBody += `${process.env.NEXT_PUBLIC_MESSAGE_BASE_URL}${roomId}\n`;
   messageBody += 'ーーーーーーーーーーーーーーーーー\n\n';
-
   messageBody +=
     '※希望条件をご回答いただいたゲストのみなさまに、預かれるホストから応募があった際にこちらのメールをお送りしております。\n\n';
 
@@ -591,11 +580,7 @@ function* sendSMS(payload) {
   let messageBody = `【モノオク】${name}メッセージが届いています。下記リンクからご確認ください。\n\n`;
 
   // TODO 開発環境バレ防止の為、URLは環境変数にいれる
-  if (process.env.REACT_APP_ENV === 'production') {
-    messageBody += `https://monooq.com/messages/${roomId}`;
-  } else {
-    messageBody += `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
-  }
+  messageBody += `${process.env.NEXT_PUBLIC_MESSAGE_BASE_URL}${roomId}`;
 
   const body = {
     UserId: toUserId,

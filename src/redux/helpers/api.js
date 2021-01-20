@@ -1,5 +1,4 @@
 import axios from 'axios';
-import apiConfig from 'config/api';
 import { captureException, withScope } from '@sentry/browser';
 import { parseUrl, stringify } from '../../helpers/query-string';
 
@@ -38,7 +37,7 @@ export const apiEndpoint = {
 
 const createApiInstance = token =>
   axios.create({
-    baseURL: apiConfig().baseURL,
+    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
     timeout: 60000,
     headers: {
       Accept: 'application/json',
