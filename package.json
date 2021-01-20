@@ -18,7 +18,6 @@
     "core-js": "^3.8.2",
     "dayjs": "^1.10.3",
     "firebase": "^8.2.2",
-    "history": "^5.0.0",
     "next": "10.0.5",
     "next-redux-wrapper": "^6.0.2",
     "numeral": "^2.0.6",

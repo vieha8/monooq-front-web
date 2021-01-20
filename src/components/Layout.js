@@ -69,7 +69,7 @@ const BaseLayout = ({ children }) => {
     <Fragment>
       {!isLP && <Header />}
       {children}
-      {/* {!isNoFooter && <Footer bottomMargin={isLP} bottomMarginOnlySP={isBottomMarginSp} />} */}
+      {!isNoFooter && <Footer bottomMargin={isLP} bottomMarginOnlySP={isBottomMarginSp} />}
     </Fragment>
   );
 };
