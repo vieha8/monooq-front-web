@@ -1,6 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { all, put, takeEvery, take, call, select } from 'redux-saga/effects';
-// import { push } from 'connected-react-router';
+import { push } from 'connected-next-router';
 import axios from 'axios';
 import { authActions, getToken } from 'redux/modules/auth';
 import { uiActions } from 'redux/modules/ui';
@@ -639,7 +639,7 @@ function* prepareUpdateSpace({ payload: spaceId }) {
 
   if (err) {
     if (status === 404) {
-      // yield put(push(Path.pageNotFound())); // TODO: connected-react-router
+      yield put(push(Path.pageNotFound()));
     } else {
       yield handleError(spaceActions.fetchFailedSpace, '', 'prepareUpdateSpace', err, false);
     }

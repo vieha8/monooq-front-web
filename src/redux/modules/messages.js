@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, take, select, fork, cancel, cancelled } from 'redux-saga/effects';
-// import { push } from 'connected-react-router';
+import { push } from 'connected-next-router';
 import { captureException } from '@sentry/browser';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -254,14 +254,14 @@ function* fetchMessagesStart({ payload: roomId }) {
   const messageData = yield getMessages(roomId);
   const { room, messageObserver } = messageData;
   if (!room) {
-    // yield put(push(Path.pageNotFound())); // TODO: connected-react-router
+    yield put(push(Path.pageNotFound()));
     return;
   }
 
   // アクセス制限
   if (user.id !== 7111 && user.id !== 2613 && user.id !== 9000) {
     if (!(room.userId1 === user.id || room.userId2 === user.id)) {
-      // yield put(push(Path.pageNotFound())); // TODO: connected-react-router
+      yield put(push(Path.pageNotFound()));
       return;
     }
   }
@@ -622,7 +622,7 @@ function* makeBosyuRoom({ payload }) {
     yield handleError('', '', 'makeBosyuRoom', err, false);
     return;
   }
-  // yield put(push(Path.message(data.roomId))); // TODO: connected-react-router
+  yield put(push(Path.message(data.roomId)));
 }
 
 // Sagas
