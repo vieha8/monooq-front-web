@@ -1,7 +1,7 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, select, call } from 'redux-saga/effects';
 import { convertImgixUrl } from 'helpers/imgix';
-// import { push } from 'connected-react-router';
+import { push } from 'connected-next-router';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { uploadImage } from '../helpers/firebase';
@@ -146,7 +146,7 @@ function* getSpaces(params) {
 
   if (err) {
     if (status === 404) {
-      // yield put(push(Path.pageNotFound())); // TODO: connected-react-router
+      yield put(push(Path.pageNotFound()));
     } else {
       yield handleError(userActions.fetchFailedUserSpaces, '', functionName, err, false);
     }
@@ -216,7 +216,7 @@ function* updateUser({ payload: { userId, body } }) {
 
   const redirectPath = yield select(state => state.ui.redirectPath);
   if (redirectPath) {
-    // yield put(push(redirectPath)); // TODO: connected-react-router
+    yield put(push(redirectPath));
   }
 }
 
