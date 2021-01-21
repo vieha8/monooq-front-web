@@ -1,6 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call, all } from 'redux-saga/effects';
-// import { push } from 'connected-react-router';
+import { push } from 'connected-next-router';
 import ReactGA from 'react-ga';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -383,7 +383,7 @@ function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
 
   handleGTM('estimate', requestInfo.id);
 
-  // yield put(push(Path.message(roomId))); // TODO: connected-react-router
+  yield put(push(Path.message(roomId)));
 }
 
 function* sendRequestNotice(payload) {
@@ -643,7 +643,7 @@ function* request({ payload: { user, space, body } }) {
   let roomId = yield call(getRoomId, user.id, space.user.id, space.id);
   if (roomId) {
     yield put(requestActions.requestSuccess());
-    // yield put(push(Path.message(roomId))); // TODO: connected-react-router
+    yield put(push(Path.message(roomId)));
     return;
   }
 
@@ -673,7 +673,7 @@ function* request({ payload: { user, space, body } }) {
     setStartDate,
     setEndDate,
   );
-  // yield put(push(`${Path.message(roomId)}?phase=start`)); // TODO: connected-react-router
+  yield put(push(`${Path.message(roomId)}?phase=start`));
 
   let isRequested = 'false';
   if (isAvailableLocalStorage()) {
@@ -928,12 +928,12 @@ function* bosyu({ payload: { body } }) {
 
   if (results.length) {
     yield put(requestActions.bosyuSuccess());
-    // yield put(
-    //   push({
-    //     pathname: Path.recommend(),
-    //     state: { recommendSpaces: { results } },
-    //   }),
-    // ); // TODO: connected-react-router
+    yield put(
+      push({
+        pathname: Path.recommend(),
+        query: { recommendSpaces: { results } },
+      }),
+    );
   } else {
     yield put(requestActions.bosyuSuccess({ prefName: pref }));
   }

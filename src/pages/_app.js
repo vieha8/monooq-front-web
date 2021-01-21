@@ -1,5 +1,6 @@
 import wrapper from 'redux/store';
 import dynamic from 'next/dynamic';
+import { ConnectedRouter } from 'connected-next-router';
 import 'semantic-ui-css/semantic.min.css';
 import 'styles/globals.css';
 import 'styles/main.css';
@@ -9,11 +10,13 @@ const BaseLayout = dynamic(() => import('components/Layout'));
 
 function App({ Component, ...props }) {
   return (
-    <Root>
-      <BaseLayout>
-        <Component {...props} />
-      </BaseLayout>
-    </Root>
+    <ConnectedRouter>
+      <Root>
+        <BaseLayout>
+          <Component {...props} />
+        </BaseLayout>
+      </Root>
+    </ConnectedRouter>
   );
 }
 
