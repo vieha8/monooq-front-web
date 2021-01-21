@@ -1,8 +1,11 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import Header from 'components/LV3/Header';
-import Footer from 'components/LV3/Footer';
 import Path from 'config/path';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import Fonts from 'helpers/style/load-fonts';
+
+const Header = dynamic(() => import('components/LV3/Header'));
+const Footer = dynamic(() => import('components/LV3/Footer'));
 
 const getSpaceIdEdit = path => {
   const pathMatchFirstLevel = path.match(RegExp('/.*?/(.*?)(?=/)/'));
@@ -63,6 +66,7 @@ const BaseLayout = ({ children }) => {
     setIsNoFooter(isNoFooterPath(pathname));
     setIsLP(isLpPath(pathname));
     setIsBottomMarginSp(isBottomMarginSpPath(pathname));
+    Fonts();
   }, [pathname]);
 
   return (
