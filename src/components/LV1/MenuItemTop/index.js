@@ -100,9 +100,9 @@ export default ({ link, bgImage, type, titleSub, titleMain, isLinkBlank }) => (
         </LinkStyled>
       </Link>
     ) : (
-      <LinkStyled as={Link} href={link} passHref>
-        <a>{getTitle(type, titleSub, titleMain)}</a>
-      </LinkStyled>
+      <Link href={link} passHref>
+        <LinkStyled as="a">{getTitle(type, titleSub, titleMain)}</LinkStyled>
+      </Link>
     )}
   </Wrap>
 );
