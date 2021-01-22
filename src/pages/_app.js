@@ -1,6 +1,7 @@
 import wrapper from 'redux/store';
 import dynamic from 'next/dynamic';
 import { ConnectedRouter } from 'connected-next-router';
+import 'styles/reset.css';
 import 'semantic-ui-css/semantic.min.css';
 import 'styles/globals.css';
 import 'styles/main.css';

@@ -12,9 +12,6 @@ import { partialMatch } from 'helpers/string';
 import ChannelService from 'components/LV1/ChannelService';
 import HeaderComponent from 'components/LV3/Header/View';
 
-const KEY_CHANNEL_PROD = '1a0525b6-4c6d-4752-a1fa-41301134bc4e';
-const KEY_CHANNEL_DEV = 'faef3b55-fa0e-4d90-a97d-1c4f7f5848d2';
-
 function bootChannelService(isLogin, user) {
   if (isLogin) {
     const {
@@ -34,7 +31,7 @@ function bootChannelService(isLogin, user) {
     } = user;
 
     ChannelService.boot({
-      pluginKey: process.env.REACT_APP_ENV === 'production' ? KEY_CHANNEL_PROD : KEY_CHANNEL_DEV,
+      pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
       memberId: id,
       profile: {
         name,
@@ -53,7 +50,7 @@ function bootChannelService(isLogin, user) {
     });
   } else {
     ChannelService.boot({
-      pluginKey: process.env.REACT_APP_ENV === 'production' ? KEY_CHANNEL_PROD : KEY_CHANNEL_DEV,
+      pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
     });
   }
 }

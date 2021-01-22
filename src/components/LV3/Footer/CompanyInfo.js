@@ -27,9 +27,11 @@ const WrapList = styled.div`
 
 export default () => (
   <Wrapper>
-    <WrapLogo to={Path.top()}>
-      <ImageLogo.Header width={112} />
-    </WrapLogo>
+    <Link href={Path.top()} passHref>
+      <WrapLogo as="a">
+        <ImageLogo.Header width={112} />
+      </WrapLogo>
+    </Link>
     <WrapList>&copy; MonooQ inc.</WrapList>
   </Wrapper>
 );

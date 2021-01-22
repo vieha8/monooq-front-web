@@ -1,25 +1,10 @@
 export default () => {
-  const configDevelopment = {
-    apiKey: 'AIzaSyAi3A3gJonR9pyB0HARfbmnCXgM3tmIgUI',
-    authDomain: 'monooq-dev.firebaseapp.com',
-    databaseURL: 'https://monooq-dev.firebaseio.com',
-    projectId: 'monooq-dev',
-    storageBucket: 'gs://monooq-dev.appspot.com/',
-    messagingSenderId: '752653028012',
+  return {
+    apiKey: process.env.NEXT_PUBLIC_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+    databaseURL: process.env.NEXT_PUBLIC_DATABASE_URL,
+    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
   };
-
-  const configProduction = {
-    apiKey: 'AIzaSyAOzkRrYFUdzQ2kuwMyTjrjcsbhKOfuQVo',
-    authDomain: 'monooq-prod.firebaseapp.com',
-    databaseURL: 'https://monooq-prod.firebaseio.com',
-    projectId: 'monooq-prod',
-    storageBucket: 'monooq-prod.appspot.com',
-    messagingSenderId: '569699475393',
-  };
-
-  if (process.env.REACT_APP_ENV && process.env.REACT_APP_ENV === 'production') {
-    return configProduction;
-  }
-
-  return configDevelopment;
 };

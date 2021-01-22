@@ -221,10 +221,7 @@ export const requestReducer = handleActions(
 );
 
 const getMessageRoomUrl = roomId => {
-  if (process.env.REACT_APP_ENV !== 'production') {
-    return `https://monooq-front-web-dev.herokuapp.com/messages/${roomId}`;
-  }
-  return `https://monooq.com/messages/${roomId}`;
+  return `${process.env.NEXT_PUBLIC_MESSAGE_BASE_URL}${roomId}`;
 };
 
 function* sendEstimateEmail(payload, messageDocId) {
