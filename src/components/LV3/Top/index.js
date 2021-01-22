@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import LazyLoad from 'react-lazyload';
 import styled from 'styled-components';
-import { HashLink } from 'react-router-hash-link';
+import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { Dimens, Colors, FontSizes } from 'variables';
 import Path from 'config/path';
@@ -47,7 +47,7 @@ const ButtonStyled = styled(Button)`
   margin: ${Dimens.medium}px auto;
 `;
 
-const HashLinkStyled = styled(HashLink)`
+const LinkStyled = styled(Link)`
   color: ${Colors.white} !important;
 `;
 
@@ -130,7 +130,9 @@ export default ({
 
           <MoreButtonWrap>
             <ButtonStyled primary borderbold fontSize={14} fontbold fill={1}>
-              <HashLinkStyled to={Path.historyViewSpace()}>もっと見る</HashLinkStyled>
+              <Link href={Path.historyViewSpace()} passHref>
+                <LinkStyled as="a">もっと見る</LinkStyled>
+              </Link>
             </ButtonStyled>
           </MoreButtonWrap>
         </ResultWrap>
@@ -149,9 +151,9 @@ export default ({
             </H1>
             <div>
               <ButtonStyled borderbold fontSize={14} fontbold fill={1} primary>
-                <HashLinkStyled to={`${Path.spacesByPrefecture(user.prefCode)}?via=top`}>
-                  すべて見る
-                </HashLinkStyled>
+                <Link href={`${Path.spacesByPrefecture(user.prefCode)}?via=top`} passHref>
+                  <LinkStyled as="a">すべて見る</LinkStyled>
+                </Link>
               </ButtonStyled>
             </div>
           </ResultRow>
@@ -169,9 +171,9 @@ export default ({
 
           <MoreButtonWrap>
             <ButtonStyled primary borderbold fontSize={14} fontbold fill={1}>
-              <HashLinkStyled to={`${Path.spacesByPrefecture(user.prefCode)}?via=bottom`}>
-                スペースをもっと見る
-              </HashLinkStyled>
+              <Link href={`${Path.spacesByPrefecture(user.prefCode)}?via=bottom`} passHref>
+                <LinkStyled as="a">スペースをもっと見る</LinkStyled>
+              </Link>
             </ButtonStyled>
           </MoreButtonWrap>
         </ResultWrap>
@@ -228,12 +230,14 @@ export default ({
       <LazyLoad>
         <MoreButtonWrap>
           <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
-            <HashLinkStyled to={`${Path.top()}#topview`}>スペースを探してみよう！</HashLinkStyled>
+            <Link href={`${Path.top()}#topview`} passHref>
+              <LinkStyled as="a">スペースを探してみよう！</LinkStyled>
+            </Link>
           </ButtonStyled>
           <ButtonStyled tertiary borderbold fontSize={14} fontbold fill={1}>
-            <HashLinkStyled to={`${Path.top()}#prefecture-list-last`}>
-              詳しく知りたい方はこちらへ
-            </HashLinkStyled>
+            <Link href={`${Path.top()}#prefecture-list-last`} passHref>
+              <LinkStyled as="a">詳しく知りたい方はこちらへ</LinkStyled>
+            </Link>
           </ButtonStyled>
         </MoreButtonWrap>
       </LazyLoad>
