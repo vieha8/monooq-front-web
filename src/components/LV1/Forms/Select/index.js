@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Colors } from 'variables';
 
-import arrowImage from './drop-down-arrow.png';
+const arrowImage = require('./drop-down-arrow.png');
 
 const Select = styled.select`
   appearance: none;

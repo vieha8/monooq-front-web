@@ -25,6 +25,7 @@
     "next-redux-wrapper": "^6.0.2",
     "nprogress": "^0.2.0",
     "numeral": "^2.0.6",
+    "postcss": "^8.2.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^6.7.0",
     "react": "17.0.1",

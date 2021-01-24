@@ -3,15 +3,14 @@ import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import SectionTitle from './SectionTitle';
+
 const ImageBizModel =
   'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fbusinessmodel.png?alt=media&auto=format&auto=compress';
 
 const Wrap = styled.div`
   position: relative;
   padding: ${Dimens.medium2}px 0;
-  &:nth-child(1) {
-    border: solid 5px ${Colors.brandPrimary} !important;
-  }
+
   ${media.tablet`
     padding: ${Dimens.medium2}px ${Dimens.medium}px;
   `};

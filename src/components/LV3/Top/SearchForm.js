@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactGA from 'react-ga';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Path from 'config/path';
 import { Dimens } from 'variables';
@@ -48,7 +48,7 @@ const Wrap = styled.div`
 const TopSearchForm = () => {
   const [keyword, setKeyword] = useState('');
   const dispatch = useDispatch();
-  const history = useHistory();
+  const router = useRouter();
 
   const doSearch = () => {
     dispatch(spaceActions.resetSearch());
@@ -61,7 +61,7 @@ const TopSearchForm = () => {
       label: query,
     });
 
-    history.push(path);
+    router.push(path);
   };
 
   const onKeyDown = e => {

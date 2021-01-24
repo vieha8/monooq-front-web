@@ -94,15 +94,15 @@ const getTitle = (type, titleSub, titleMain) => {
 export default ({ link, bgImage, type, titleSub, titleMain, isLinkBlank }) => (
   <Wrap bgImage={bgImage}>
     {isLinkBlank ? (
-      <Link>
-        <LinkStyled as="a" href={link} target="_blank" rel="noopener noreferrer">
+      <Link href={link} passHref>
+        <LinkStyled as="a" target="_blank" rel="noopener noreferrer">
           {getTitle(type, titleSub, titleMain)}
         </LinkStyled>
       </Link>
     ) : (
-      <LinkStyled as={Link} href={link}>
-        <a>{getTitle(type, titleSub, titleMain)}</a>
-      </LinkStyled>
+      <Link href={link} passHref>
+        <LinkStyled as="a">{getTitle(type, titleSub, titleMain)}</LinkStyled>
+      </Link>
     )}
   </Wrap>
 );
