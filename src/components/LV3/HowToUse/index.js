@@ -52,14 +52,14 @@ const Headline = styled.div`
   `};
 `;
 
-export default () => (
+const HowToUse = () => (
   <Wrap>
     <TopView />
     <ContentWrap>
       <Attention>登録から搬入出までかんたん４ステップ！</Attention>
       <Headline>荷物を預ける利用手順</Headline>
       <HowToUseList
-        HowToUseList={[
+        howToUseList={[
           [
             {
               image: howtouse01,
@@ -102,3 +102,5 @@ export default () => (
     </ContentWrap>
   </Wrap>
 );
+
+export default HowToUse;

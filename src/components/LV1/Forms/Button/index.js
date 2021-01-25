@@ -29,7 +29,7 @@ const handleText = ({ loading, children, isInverted }) => {
   return children;
 };
 
-export default ({ loading, disabled, isInverted, ...props }) => {
+const Button = ({ loading, disabled, isInverted, ...props }) => {
   const {
     secondary,
     tertiary,
@@ -149,3 +149,5 @@ export default ({ loading, disabled, isInverted, ...props }) => {
     </Primary>
   );
 };
+
+export default Button;

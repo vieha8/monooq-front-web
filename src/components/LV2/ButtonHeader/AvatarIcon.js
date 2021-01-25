@@ -8,8 +8,8 @@ const LinkStyled = styled(Link)`
   width: 100%;
 `;
 
-export default ({ to, imageSrc, size }) =>
-  to ? (
+export default function AvatarIcon({ to, imageSrc, size }) {
+  return to ? (
     <LinkStyled href={to}>
       <a>
         <ImageAvatar src={imageSrc} size={size || 40} />
@@ -18,3 +18,4 @@ export default ({ to, imageSrc, size }) =>
   ) : (
     <ImageAvatar src={imageSrc} size={size || 40} />
   );
+}

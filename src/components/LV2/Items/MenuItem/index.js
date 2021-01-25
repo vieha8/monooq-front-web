@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 import NotificationCount from 'components/LV1/NotificationCount';
-import MenuItem from 'components/LV1/MenuItem';
+import MenuItemLv1 from 'components/LV1/MenuItem';
 import InlineText from 'components/LV1/Texts/InlineText';
 import { Dimens, FontSizes, Colors } from 'variables';
 
@@ -42,7 +42,7 @@ const LinkWrap = styled.div`
     `};
 `;
 
-export default ({
+export default function MenuItem({
   blank,
   line,
   logout,
@@ -53,9 +53,9 @@ export default ({
   notificationCount,
   to,
   header,
-}) =>
-  blank ? (
-    <MenuItem logout={logout}>
+}) {
+  return blank ? (
+    <MenuItemLv1 logout={logout}>
       <LinkWrap line={line} logout={logout}>
         <Link href={href || ''} passHref>
           <MenuLink
@@ -75,17 +75,17 @@ export default ({
           </MenuLink>
         </Link>
       </LinkWrap>
-    </MenuItem>
+    </MenuItemLv1>
   ) : header ? (
-    <MenuItem header={header}>
+    <MenuItemLv1 header={header}>
       <MenuText>
         <InlineText.Base fontSize={FontSizes.small_12} color={Colors.darkGray3}>
           {title}
         </InlineText.Base>
       </MenuText>
-    </MenuItem>
+    </MenuItemLv1>
   ) : (
-    <MenuItem>
+    <MenuItemLv1>
       <LinkWrap line={line}>
         <Link href={to} onClick={onClick} passHref>
           <MenuLink as="a">
@@ -98,5 +98,6 @@ export default ({
           </MenuLink>
         </Link>
       </LinkWrap>
-    </MenuItem>
+    </MenuItemLv1>
   );
+}

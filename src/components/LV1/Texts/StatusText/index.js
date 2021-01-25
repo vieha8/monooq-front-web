@@ -21,4 +21,6 @@ const Wrap = styled.div`
   }
 `;
 
-export default ({ setData }) => <Wrap statusColor={setData.statusColor}>{setData.viewText}</Wrap>;
+export default function StatusText({ setData }) {
+  return <Wrap statusColor={setData.statusColor}>{setData.viewText}</Wrap>;
+}

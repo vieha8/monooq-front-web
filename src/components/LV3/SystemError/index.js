@@ -26,7 +26,7 @@ const MonoboyWrap = styled.div`
   `};
 `;
 
-export default () => (
+const SystemError = () => (
   <PageDefault>
     <WrapContent>
       <MonoboyWrap>
@@ -50,3 +50,5 @@ export default () => (
     </WrapContent>
   </PageDefault>
 );
+
+export default SystemError;

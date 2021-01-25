@@ -117,15 +117,17 @@ const InputSearchWrap = styled.div`
   margin: ${Dimens.medium_20}px auto ${Dimens.medium3_40}px;
 `;
 
-export default () => (
-  <Wrap id="topview">
-    <TopViewWrap className="wrapTopView">
-      <TopViewContainer className="container-topview">
-        <TopViewTitle />
-        <InputSearchWrap>
-          <SearchForm />
-        </InputSearchWrap>
-      </TopViewContainer>
-    </TopViewWrap>
-  </Wrap>
-);
+export default function View() {
+  return (
+    <Wrap id="topview">
+      <TopViewWrap className="wrapTopView">
+        <TopViewContainer className="container-topview">
+          <TopViewTitle />
+          <InputSearchWrap>
+            <SearchForm />
+          </InputSearchWrap>
+        </TopViewContainer>
+      </TopViewWrap>
+    </Wrap>
+  );
+}

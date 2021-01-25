@@ -115,7 +115,7 @@ const Description = styled.div`
   `}
 `;
 
-export default () => (
+const HowToUseTopView = () => (
   <Wrap>
     <EyeCatch src={howtouseEyeCatch} />
     <ContentWrap>
@@ -131,3 +131,5 @@ export default () => (
     </ContentWrap>
   </Wrap>
 );
+
+export default HowToUseTopView;

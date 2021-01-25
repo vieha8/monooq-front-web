@@ -22,7 +22,8 @@ const Image = styled.img`
   border-radius: 50%;
   margin: auto;
   ${media.phone`
-    margin: auto auto margin-bottom: ${Dimens.medium1}px;
+    margin: auto auto; 
+    margin-bottom: ${Dimens.medium1}px;
   `};
 `;
 
@@ -49,16 +50,18 @@ const StyledLabel = styled(Label)`
   `};
 `;
 
-export default ({ list }) => (
-  <HowSafeContentWrapper>
-    {list.map((item, i) => (
-      <HowSafeWrap key={i.toString()}>
-        <Image src={item.image} />
-        <Wrapper>
-          <StyledLabel>{item.label}</StyledLabel>
-          <Text>{item.text}</Text>
-        </Wrapper>
-      </HowSafeWrap>
-    ))}
-  </HowSafeContentWrapper>
-);
+export default function HowSafeList({ list }) {
+  return (
+    <HowSafeContentWrapper>
+      {list.map((item, i) => (
+        <HowSafeWrap key={i.toString()}>
+          <Image src={item.image} />
+          <Wrapper>
+            <StyledLabel>{item.label}</StyledLabel>
+            <Text>{item.text}</Text>
+          </Wrapper>
+        </HowSafeWrap>
+      ))}
+    </HowSafeContentWrapper>
+  );
+}

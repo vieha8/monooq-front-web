@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FontSizes, Colors, Dimens, ZIndexes } from 'variables';
 import { media } from 'helpers/style/media-query';
 import SectionTitle from './SectionTitle';
+
 const ImageBgWorry =
   'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fbg-worry.png?alt=media&auto=format&auto=compress';
 const ImageBgWorryPerson =
@@ -254,7 +255,7 @@ const MeritTableTbodyTd = styled.td`
     `};
 `;
 
-export default () => (
+const Merit = () => (
   <Wrap>
     <WorryWrap>
       <WorryWrapUl>
@@ -342,3 +343,5 @@ export default () => (
     </MeritWrap>
   </Wrap>
 );
+
+export default Merit;

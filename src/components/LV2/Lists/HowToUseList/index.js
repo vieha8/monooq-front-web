@@ -43,10 +43,10 @@ const ItemWrap = styled.div`
   `};
 `;
 
-export default ({ HowToUseList }) => (
+const HowToUseList = ({ howToUseList }) => (
   <Fragment>
-    {HowToUseList &&
-      HowToUseList.map((ListItem, i) => (
+    {howToUseList &&
+      howToUseList.map((ListItem, i) => (
         <ItemWrap key={i.toString()}>
           {ListItem.map((item, j) => (
             <HowToUseListItem
@@ -61,3 +61,5 @@ export default ({ HowToUseList }) => (
       ))}
   </Fragment>
 );
+
+export default HowToUseList;
