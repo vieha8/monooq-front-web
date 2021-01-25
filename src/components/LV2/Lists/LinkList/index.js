@@ -86,11 +86,13 @@ export default ({ list, isCenter, landscape, color, isLinkEvent }) => (
     {list.map((item, i) => (
       <Item key={i.toString()} landscape={landscape}>
         {isLinkEvent ? (
-          <StyledLink href={item.path} color={color} current={item.current}>
-            <a>{item.text}</a>
-          </StyledLink>
+          <Link href={item.path} passHref>
+            <StyledLink color={color} current={item.current}>
+              {item.text}
+            </StyledLink>
+          </Link>
         ) : (
-          <Link href={item.path}>
+          <Link href={item.path} passHref>
             <Anchor target={item.blank || '_self'} color={color} current={item.current}>
               {item.text}
             </Anchor>
