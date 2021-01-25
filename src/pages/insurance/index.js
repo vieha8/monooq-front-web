@@ -1,3 +1,6 @@
-export default function Insurance() {
-  return <div>This is Insurance page</div>;
-}
+import React from 'react';
+import Insurance from 'components/LV3/Insurance';
+
+const InsurancePage = React.memo(() => <Insurance />);
+
+export default InsurancePage;

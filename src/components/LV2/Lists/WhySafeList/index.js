@@ -61,19 +61,21 @@ const LabelText = styled.span`
   `};
 `;
 
-export default ({ list }) => (
-  <WhySafeContentWrapper>
-    {list.map((item, i) => (
-      <WhySafeWrap key={i.toString()}>
-        <Label>
-          <IconWrapper className="fa-layers fa-fw fa-2x">
-            <CircleIcon className="fas fa-circle" />
-            <BookmarkIcon className="far fa-bookmark" data-fa-transform="shrink-6" />
-          </IconWrapper>
-          <LabelText>{item.label}</LabelText>
-        </Label>
-        <Text>{item.text}</Text>
-      </WhySafeWrap>
-    ))}
-  </WhySafeContentWrapper>
-);
+export default function WhySafeList({ list }) {
+  return (
+    <WhySafeContentWrapper>
+      {list.map((item, i) => (
+        <WhySafeWrap key={i.toString()}>
+          <Label>
+            <IconWrapper className="fa-layers fa-fw fa-2x">
+              <CircleIcon className="fas fa-circle" />
+              <BookmarkIcon className="far fa-bookmark" data-fa-transform="shrink-6" />
+            </IconWrapper>
+            <LabelText>{item.label}</LabelText>
+          </Label>
+          <Text>{item.text}</Text>
+        </WhySafeWrap>
+      ))}
+    </WhySafeContentWrapper>
+  );
+}

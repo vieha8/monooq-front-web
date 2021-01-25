@@ -49,16 +49,18 @@ const StyledLabel = styled(Label)`
   `};
 `;
 
-export default ({ list }) => (
-  <HowSafeContentWrapper>
-    {list.map((item, i) => (
-      <HowSafeWrap key={i.toString()}>
-        <Image src={item.image} />
-        <Wrapper>
-          <StyledLabel>{item.label}</StyledLabel>
-          <Text>{item.text}</Text>
-        </Wrapper>
-      </HowSafeWrap>
-    ))}
-  </HowSafeContentWrapper>
-);
+export default function HowSafeList({ list }) {
+  return (
+    <HowSafeContentWrapper>
+      {list.map((item, i) => (
+        <HowSafeWrap key={i.toString()}>
+          <Image src={item.image} />
+          <Wrapper>
+            <StyledLabel>{item.label}</StyledLabel>
+            <Text>{item.text}</Text>
+          </Wrapper>
+        </HowSafeWrap>
+      ))}
+    </HowSafeContentWrapper>
+  );
+}

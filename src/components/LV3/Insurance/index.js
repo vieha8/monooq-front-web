@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { HashLink } from 'react-router-hash-link';
+import Link from 'next/link';
 import Path from 'config/path';
 
 import styled from 'styled-components';
@@ -145,7 +145,9 @@ export default () => (
             textCustom: (
               <Fragment>
                 モノオクで定める
-                <HashLink to={`${Path.rule()}#not-allowed`}>「取引ができない荷物」</HashLink>
+                <Link href={`${Path.rule()}#not-allowed`}>
+                  <a>「取引ができない荷物」</a>
+                </Link>
                 に記載された違反の荷物の場合。
               </Fragment>
             ),
@@ -226,7 +228,9 @@ export default () => (
             textCustom: (
               <Fragment>
                 モノオクで定める
-                <HashLink to={`${Path.rule()}#not-allowed`}>「取引ができない荷物」</HashLink>
+                <Link href={`${Path.rule()}#not-allowed`}>
+                  <a>「取引ができない荷物」</a>
+                </Link>
                 に記載された違反の荷物の場合。
               </Fragment>
             ),
