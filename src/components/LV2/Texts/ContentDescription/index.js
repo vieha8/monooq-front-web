@@ -25,20 +25,22 @@ const TextWrapper = styled.div`
   margin-bottom: ${Dimens.small2}px;
 `;
 
-export default ({ title, dontActionList }) => (
-  <ContentWrap>
-    <Title>{title}</Title>
-    {dontActionList.map((item, i) => (
-      <TextWrapper key={i.toString()}>
-        <Text>{`・${item.text}`}</Text>
-        {item.textSubList &&
-          item.textSubList.map((itemSub, j) => (
-            <ItemSub key={j.toString()}>
-              {!item.textSubListNoBar && '- '}
-              {itemSub}
-            </ItemSub>
-          ))}
-      </TextWrapper>
-    ))}
-  </ContentWrap>
-);
+export default function ContentDescription({ title, dontActionList }) {
+  return (
+    <ContentWrap>
+      <Title>{title}</Title>
+      {dontActionList.map((item, i) => (
+        <TextWrapper key={i.toString()}>
+          <Text>{`・${item.text}`}</Text>
+          {item.textSubList &&
+            item.textSubList.map((itemSub, j) => (
+              <ItemSub key={j.toString()}>
+                {!item.textSubListNoBar && '- '}
+                {itemSub}
+              </ItemSub>
+            ))}
+        </TextWrapper>
+      ))}
+    </ContentWrap>
+  );
+}

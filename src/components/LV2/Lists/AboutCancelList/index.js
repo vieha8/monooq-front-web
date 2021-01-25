@@ -83,13 +83,15 @@ const Data = styled.div`
   `};
 `;
 
-export default ({ cancelContentList }) => (
-  <Wrap>
-    {cancelContentList.map((item, i) => (
-      <ContentWrap key={i.toString()} title={item.title}>
-        <Header title={item.title}>{item.header}</Header>
-        <Data title={item.title}>{item.data}</Data>
-      </ContentWrap>
-    ))}
-  </Wrap>
-);
+export default function AboutCancelList({ cancelContentList }) {
+  return (
+    <Wrap>
+      {cancelContentList.map((item, i) => (
+        <ContentWrap key={i.toString()} title={item.title}>
+          <Header title={item.title}>{item.header}</Header>
+          <Data title={item.title}>{item.data}</Data>
+        </ContentWrap>
+      ))}
+    </Wrap>
+  );
+}

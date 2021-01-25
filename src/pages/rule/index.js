@@ -1,3 +1,6 @@
-export default function Rule() {
-  return <div>This is Rule page</div>;
-}
+import React from 'react';
+import Rule from 'components/LV3/Rule';
+
+const RulePage = React.memo(() => <Rule />);
+
+export default RulePage;
