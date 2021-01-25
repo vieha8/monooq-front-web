@@ -38,19 +38,21 @@ const Title = styled(Label)`
   `};
 `;
 
-export default ({ title, text, list }) => (
-  <Wrap>
-    {title && <Title>{title}</Title>}
-    {list && (
-      <ListWrap>
-        {list.map((item, i) => (
-          <List as="li" key={i.toString()} isNoDisc={item.isNoDisc}>
-            {item.text}
-            {item.textCustom}
-          </List>
-        ))}
-      </ListWrap>
-    )}
-    {text && <Text>{text}</Text>}
-  </Wrap>
-);
+export default function QuestionList({ title, text, list }) {
+  return (
+    <Wrap>
+      {title && <Title>{title}</Title>}
+      {list && (
+        <ListWrap>
+          {list.map((item, i) => (
+            <List as="li" key={i.toString()} isNoDisc={item.isNoDisc}>
+              {item.text}
+              {item.textCustom}
+            </List>
+          ))}
+        </ListWrap>
+      )}
+      {text && <Text>{text}</Text>}
+    </Wrap>
+  );
+}
