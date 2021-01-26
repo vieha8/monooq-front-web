@@ -2,7 +2,7 @@
 * Noto Sans Japanese (japanese) http://www.google.com/fonts/earlyaccess
  */
 
- @font-face {
+ /* @font-face {
   font-family: 'Noto Sans Japanese';
   font-style: normal;
   font-weight: 400;
@@ -20,9 +20,9 @@
     url(https://d2j6gkx8orv8i2.cloudfront.net/fonts/NotoSansJP-Bold-Sub.woff2) format('woff'),
     url(https://d2j6gkx8orv8i2.cloudfront.net/fonts/NotoSansJP-Bold-Sub.woff2) format('opentype');
   font-display: swap;
-}
+} */
 
 body {
-  font-family: 'Noto Sans', 'Noto Sans CJK JP', 'Noto Sans Japanese', 'ヒラギノ角ゴ Pro W3',
+  font-family: 'Noto Sans JP', 'Noto Sans CJK JP', 'Noto Sans Japanese', 'ヒラギノ角ゴ Pro W3',
     'ヒラギノ角ゴ W3', -apple-system, BlinkMacSystemFont, 'メイリオ', 'ＭＳ Ｐゴシック', sans-serif;
 }
