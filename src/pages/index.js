@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Path from 'config/path';
 import { makeConditionTitle } from 'helpers/search';
@@ -6,7 +6,7 @@ import { isAvailableLocalStorage } from 'helpers/storage';
 import { sectionActions } from 'redux/modules/section';
 import { spaceActions } from 'redux/modules/space';
 import Top from 'components/LV3/Top';
-import LoadingPage from 'components/LV3/LoadingPage';
+import BaseLayout from 'components/Layout';
 
 // import RecommendedSpace from './StaticRecommendedSpace';
 
@@ -67,10 +67,6 @@ class Home extends React.Component {
       modalPrefName,
     } = this.props;
 
-    // if (isChecking) {
-    //   return <LoadingPage />;
-    // }
-
     const conditionTitle = conditions ? makeConditionTitle(conditions) : '';
 
     // const sections = RecommendedSpace;
@@ -93,7 +89,7 @@ class Home extends React.Component {
     }
 
     return (
-      <Fragment>
+      <BaseLayout>
         <Top
           // sections={sections}
           regionId={regionId}
@@ -108,7 +104,7 @@ class Home extends React.Component {
           isLoading={isLoading}
           modalPrefName={modalPrefName}
         />
-      </Fragment>
+      </BaseLayout>
     );
   }
 }

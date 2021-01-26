@@ -32,24 +32,10 @@ const isNoFooterPath = path => {
 
 const isLpPath = path => {
   return (
-    path === Path.lp1Host() ||
-    path === Path.lp1Guest() ||
-    path === Path.lp1Guest2() ||
-    path === Path.lp1Guest3() ||
-    path === Path.lp2Guest() ||
-    path === Path.lp2Guest2() ||
-    path === Path.lp2Guest3() ||
-    path === Path.lp3Guest() ||
-    path === Path.lp3Guest3() ||
-    path === `${Path.lp1Host()}/` ||
-    path === `${Path.lp1Guest()}/` ||
-    path === `${Path.lp1Guest2()}/` ||
-    path === `${Path.lp1Guest3()}/` ||
-    path === `${Path.lp2Guest()}/` ||
-    path === `${Path.lp2Guest2()}/` ||
-    path === `${Path.lp2Guest3()}/` ||
-    path === `${Path.lp3Guest()}/` ||
-    path === `${Path.lp3Guest3()}/`
+    path === Path.lpHost() ||
+    path === Path.lpGuest() ||
+    path === `${Path.lpHost()}/` ||
+    path === `${Path.lpGuest()}/`
   );
 };
 
@@ -57,12 +43,11 @@ const isBottomMarginSpPath = path => {
   return path === Path.spaces() || path === Path.search();
 };
 
-const BaseLayout = ({ children, title }) => {
+const BaseLayout = ({ children, title, noindex }) => {
   const [isNoFooter, setIsNoFooter] = useState(false);
   const [isLP, setIsLP] = useState(false);
   const [isBottomMarginSp, setIsBottomMarginSp] = useState(false);
   const { pathname } = useRouter();
-  const DEFAULT_TITLE = 'モノオク｜荷物の困ったを解決する、あたらしい物置きのかたち';
 
   useEffect(() => {
     setIsNoFooter(isNoFooterPath(pathname));
@@ -70,6 +55,8 @@ const BaseLayout = ({ children, title }) => {
     setIsBottomMarginSp(isBottomMarginSpPath(pathname));
     Fonts();
   }, [pathname]);
+
+  const DEFAULT_TITLE = 'モノオク｜荷物の困ったを解決する、あたらしい物置きのかたち';
 
   return (
     <Fragment>
@@ -80,6 +67,7 @@ const BaseLayout = ({ children, title }) => {
           content="width=device-width,initial-scale=1,shrink-to-fit=no,minimum-scale=1,maximum-scale=1"
         />
         <meta property="og:title" content={title || DEFAULT_TITLE} />
+        {noindex && <meta name="robots" content="noindex" />}
         <link rel="canonical" href="https://monooq.com" />
       </Head>
 
