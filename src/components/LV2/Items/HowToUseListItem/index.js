@@ -65,7 +65,7 @@ const TextWrap = styled.div`
       content: '';
       position: absolute;
       left: -50%;
-      top: 86px
+      top: 86px;
       width: 200%;
       height: 250px;
       background: ${Colors.lightGray1Bg};
@@ -106,7 +106,7 @@ const Detail = styled.div`
   line-height: ${Dimens.medium_22}px;
 `;
 
-export default ({ image, contentNo, title, detail }) => (
+const HowToUseListItem = ({ image, contentNo, title, detail }) => (
   <Wrap>
     <Image src={image} />
     <TextWrap>
@@ -118,3 +118,5 @@ export default ({ image, contentNo, title, detail }) => (
     </TextWrap>
   </Wrap>
 );
+
+export default HowToUseListItem;

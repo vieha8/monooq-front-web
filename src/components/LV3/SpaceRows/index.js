@@ -72,7 +72,7 @@ const HoverHistoryRowLabel = styled.div`
   border-radius: 2px;
 `;
 
-export default ({ spaces, onClick }) => (
+const SpaceRows = ({ spaces, onClick }) => (
   <Fragment>
     {spaces.map((space, i) => (
       <HoverHistoryRow key={i.toString()} onClick={() => onClick(space.id)}>
@@ -94,3 +94,5 @@ export default ({ spaces, onClick }) => (
     ))}
   </Fragment>
 );
+
+export default SpaceRows;

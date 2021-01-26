@@ -21,7 +21,7 @@ const SelectWrapper = styled.div`
   `};
 `;
 
-export default ({ label, hint, value, onChange, options, width, isInline, className }) => (
+const CustomSelect = ({ label, hint, value, onChange, options, width, isInline, className }) => (
   <Fragment>
     {label && (
       <H3 bold as="h3">
@@ -40,3 +40,5 @@ export default ({ label, hint, value, onChange, options, width, isInline, classN
     </SelectWrapper>
   </Fragment>
 );
+
+export default CustomSelect;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import SectionTitle from './SectionTitle';
+
 const ImageWantFile =
   'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-file.png?alt=media&auto=format&auto=compress';
 const ImageWantGolf =
@@ -88,16 +89,18 @@ const getLi = (imageSrc, imageAlt, text) => {
   );
 };
 
-export default ({ titleWant }) => (
-  <WantWrap>
-    <SectionTitle text={titleWant} />
-    <WantUl>
-      {getLi(ImageWantTruck, 'img-truck', '引越し時の荷物')}
-      {getLi(ImageWantHome, 'img-home', 'リフォーム中の荷物')}
-      {getLi(ImageWantSnowboard, 'img-snowboard', '季節のレジャー用品')}
-      {getLi(ImageWantFile, 'img-file', '仕事道具・書類')}
-      {getLi(ImageWantWear, 'img-wear', '衣替え時の衣類')}
-      {getLi(ImageWantGolf, 'img-golf', '趣味の道具')}
-    </WantUl>
-  </WantWrap>
-);
+export default function Want({ titleWant }) {
+  return (
+    <WantWrap>
+      <SectionTitle text={titleWant} />
+      <WantUl>
+        {getLi(ImageWantTruck, 'img-truck', '引越し時の荷物')}
+        {getLi(ImageWantHome, 'img-home', 'リフォーム中の荷物')}
+        {getLi(ImageWantSnowboard, 'img-snowboard', '季節のレジャー用品')}
+        {getLi(ImageWantFile, 'img-file', '仕事道具・書類')}
+        {getLi(ImageWantWear, 'img-wear', '衣替え時の衣類')}
+        {getLi(ImageWantGolf, 'img-golf', '趣味の道具')}
+      </WantUl>
+    </WantWrap>
+  );
+}

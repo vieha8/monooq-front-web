@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import MenuItem from 'components/LV2/Items/MenuItem';
 import InfoUser from 'components/LV2/InfoUser';
 
-export default ({
+const ServiceMenu = ({
   userId,
   userImage,
   userName,
@@ -68,3 +68,5 @@ export default ({
     {isLogin && <MenuItem title="ログアウト" {...logoutEvent} blank logout />}
   </Fragment>
 );
+
+export default ServiceMenu;

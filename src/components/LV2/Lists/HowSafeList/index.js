@@ -22,7 +22,8 @@ const Image = styled.img`
   border-radius: 50%;
   margin: auto;
   ${media.phone`
-    margin: auto auto margin-bottom: ${Dimens.medium1}px;
+    margin: auto auto; 
+    margin-bottom: ${Dimens.medium1}px;
   `};
 `;
 

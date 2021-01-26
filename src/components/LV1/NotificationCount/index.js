@@ -20,9 +20,12 @@ const NoticeCount = styled.div`
   line-height: normal;
 `;
 
-export default ({ count }) =>
-  count > 0 && (
-    <NoticeCountWrap>
-      <NoticeCount>{count}</NoticeCount>
-    </NoticeCountWrap>
+export default function NotificationCount({ count }) {
+  return (
+    count > 0 && (
+      <NoticeCountWrap>
+        <NoticeCount>{count}</NoticeCount>
+      </NoticeCountWrap>
+    )
   );
+}

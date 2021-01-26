@@ -1,6 +1,6 @@
 let prevPath = '';
 
-export default () => next => action => {
+const prevPathMiddleware = () => next => action => {
   if (action.type === '@@router/LOCATION_CHANGE') {
     const newAction = {
       ...action,
@@ -14,3 +14,5 @@ export default () => next => action => {
   }
   return next(action);
 };
+
+export default prevPathMiddleware;
