@@ -22,14 +22,16 @@ const Content = styled.div`
   `};
 `;
 
-export default ({ maxWidth, noMargin, setMargin, children }) => (
-  <Page noMargin={noMargin}>
-    <PageClearfix>
-      <Wrap>
-        <Content maxWidth={maxWidth} setMargin={setMargin}>
-          {children}
-        </Content>
-      </Wrap>
-    </PageClearfix>
-  </Page>
-);
+export default function BaseTemplate({ maxWidth, noMargin, setMargin, children }) {
+  return (
+    <Page noMargin={noMargin}>
+      <PageClearfix>
+        <Wrap>
+          <Content maxWidth={maxWidth} setMargin={setMargin}>
+            {children}
+          </Content>
+        </Wrap>
+      </PageClearfix>
+    </Page>
+  );
+}
