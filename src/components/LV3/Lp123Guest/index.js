@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import { areaPrefectures } from 'helpers/prefectures';
-import Meta from 'components/LV1/Meta';
 import PageDefault from 'components/LV1/PageDefault';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import PrefectureList from 'components/LV3/PrefectureList';
@@ -117,23 +116,29 @@ const ContentsWrap = styled(PageDefault)`
   `};
 `;
 
-export default ({ titleMeta, headline, titleWant, buttonLink, isViewPrefuctureList }) => (
-  <Wrap>
-    <Meta title={titleMeta} noindex />
-    <TopWrap>
-      <TopMessageContent>
-        <TopTitle itemProp="headline">{headline}</TopTitle>
-        <InitialCost>初期費用0円</InitialCost>
-        <ButtonCaption caption="60秒で簡単登録" text="保管スペースを探す" link href={buttonLink} />
-      </TopMessageContent>
-    </TopWrap>
-    <ContentsWrap>
-      <Want titleWant={titleWant} />
-      <Merit />
-      <BizModel />
-      {isViewPrefuctureList ? <PrefectureList list={areaPrefectures} regionId="" /> : <Pickup />}
-      <Flow />
-      <QaList />
-    </ContentsWrap>
-  </Wrap>
-);
+export default function Lp123Guest({ headline, titleWant, buttonLink, isViewPrefuctureList }) {
+  return (
+    <Wrap>
+      <TopWrap>
+        <TopMessageContent>
+          <TopTitle itemProp="headline">{headline}</TopTitle>
+          <InitialCost>初期費用0円</InitialCost>
+          <ButtonCaption
+            caption="60秒で簡単登録"
+            text="保管スペースを探す"
+            link
+            href={buttonLink}
+          />
+        </TopMessageContent>
+      </TopWrap>
+      <ContentsWrap>
+        <Want titleWant={titleWant} />
+        <Merit />
+        <BizModel />
+        {isViewPrefuctureList ? <PrefectureList list={areaPrefectures} regionId="" /> : <Pickup />}
+        <Flow />
+        <QaList />
+      </ContentsWrap>
+    </Wrap>
+  );
+}

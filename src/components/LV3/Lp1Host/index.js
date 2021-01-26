@@ -1,16 +1,16 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import ImageSlider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import Collapsible from 'react-collapsible';
 import Path from 'config/path';
-import Meta from 'components/LV1/Meta';
 import PageDefault from 'components/LV1/PageDefault';
 import ButtonCaption from 'components/LV2/Forms/ButtonCaption';
 import ExampleSpaceList from 'components/LV2/Lists/ExampleSpaceList';
+
 const ImageHero =
   'https://monooq.imgix.net/img%2Fservice%2Flp1host%2Ffv-bg.jpeg?alt=media&auto=format&auto=compress';
 const ImageWoman =
@@ -508,11 +508,6 @@ function getQaList(list) {
 
 export default () => (
   <Wrap>
-    <Meta
-      title="毎月3万円の副収入が得られる!?空きスペースに荷物を置くだけの簡単副業「モノオク」"
-      noindex
-    />
-
     <TopWrap>
       <TopMessageContent>
         <TopTitle itemProp="headline">
