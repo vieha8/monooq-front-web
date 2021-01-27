@@ -32,10 +32,24 @@ const isNoFooterPath = path => {
 
 const isLpPath = path => {
   return (
-    path === Path.lpHost() ||
-    path === Path.lpGuest() ||
-    path === `${Path.lpHost()}/` ||
-    path === `${Path.lpGuest()}/`
+    path === Path.lp1Host() ||
+    path === Path.lp1Guest() ||
+    path === Path.lp1Guest2() ||
+    path === Path.lp1Guest3() ||
+    path === Path.lp2Guest() ||
+    path === Path.lp2Guest2() ||
+    path === Path.lp2Guest3() ||
+    path === Path.lp3Guest() ||
+    path === Path.lp3Guest3() ||
+    path === `${Path.lp1Host()}/` ||
+    path === `${Path.lp1Guest()}/` ||
+    path === `${Path.lp1Guest2()}/` ||
+    path === `${Path.lp1Guest3()}/` ||
+    path === `${Path.lp2Guest()}/` ||
+    path === `${Path.lp2Guest2()}/` ||
+    path === `${Path.lp2Guest3()}/` ||
+    path === `${Path.lp3Guest()}/` ||
+    path === `${Path.lp3Guest3()}/`
   );
 };
 
@@ -47,14 +61,14 @@ const BaseLayout = ({ children, title, noindex }) => {
   const [isNoFooter, setIsNoFooter] = useState(false);
   const [isLP, setIsLP] = useState(false);
   const [isBottomMarginSp, setIsBottomMarginSp] = useState(false);
-  const { pathname } = useRouter();
+  const { asPath: path } = useRouter();
 
   useEffect(() => {
-    setIsNoFooter(isNoFooterPath(pathname));
-    setIsLP(isLpPath(pathname));
-    setIsBottomMarginSp(isBottomMarginSpPath(pathname));
+    setIsNoFooter(isNoFooterPath(path));
+    setIsLP(isLpPath(path));
+    setIsBottomMarginSp(isBottomMarginSpPath(path));
     Fonts();
-  }, [pathname]);
+  }, [path]);
 
   const DEFAULT_TITLE = 'モノオク｜荷物の困ったを解決する、あたらしい物置きのかたち';
 

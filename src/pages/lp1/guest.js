@@ -7,7 +7,7 @@ import BaseLayout from 'components/Layout';
 class Lp123GuestPage extends React.Component {
   constructor(props) {
     super(props);
-    const targetUrl = props.match ? props.match.url : '';
+    const targetUrl = props.router.asPath;
     this.state = {
       targetUrl,
       titleMeta: '',

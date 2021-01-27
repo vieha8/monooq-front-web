@@ -21,40 +21,32 @@ module.exports = withBundleAnalyzer(
           destination: '/spaces/pref/:prefecture/city/:cityCode/town/:townCode',
         },
         {
-          source: '/lp1/host',
-          destination: '/lp/host',
-        },
-        {
-          source: '/lp1/guest',
-          destination: '/lp/guest',
-        },
-        {
           source: '/lp1_2/guest',
-          destination: '/lp/guest',
+          destination: '/lp1/guest',
         },
         {
           source: '/lp1_3/guest',
-          destination: '/lp/guest',
+          destination: '/lp1/guest',
         },
         {
           source: '/lp2/guest',
-          destination: '/lp/guest',
+          destination: '/lp1/guest',
         },
         {
           source: '/lp2_2/guest',
-          destination: '/lp/guest',
+          destination: '/lp1/guest',
         },
         {
           source: '/lp2_3/guest',
-          destination: '/lp/guest',
+          destination: '/lp1/guest',
         },
         {
           source: '/lp3/guest',
-          destination: '/lp/guest',
+          destination: '/lp1/guest',
         },
         {
           source: '/lp3_3/guest',
-          destination: '/lp/guest',
+          destination: '/lp1/guest',
         },
       ];
     },
