@@ -30,7 +30,7 @@ const ButtonWrap = styled.div`
 
 const UnsubscribeText = styled.div``;
 
-export default ({ isLogin }) => (
+const Inquiry = ({ isLogin }) => (
   <Fragment>
     <H1 bold>お問い合わせ</H1>
     <Wrap>
@@ -64,3 +64,5 @@ export default ({ isLogin }) => (
     </Wrap>
   </Fragment>
 );
+
+export default Inquiry;
