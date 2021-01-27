@@ -30,6 +30,7 @@
     "postcss-preset-env": "^6.7.0",
     "react": "17.0.1",
     "react-burger-menu": "^3.0.3",
+    "react-collapsible": "^2.8.1",
     "react-dom": "17.0.1",
     "react-ga": "^3.3.0",
     "react-google-maps": "^9.4.5",
@@ -48,10 +49,14 @@
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-lazyload": "^3.1.0",
+    "@types/styled-components": "^5.1.7",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.17.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^7.1.0",
+    "eslint-import-resolver-babel-module": "^5.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.3.1",
