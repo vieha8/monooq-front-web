@@ -1,10 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PageNotFound from 'components/LV3/PageNotFound';
 
-const PageNotFoundPage = React.memo(() => (
-  <Fragment>
-    <PageNotFound />
-  </Fragment>
-));
+const PageNotFoundPage = React.memo(() => <PageNotFound />);
 
 export default PageNotFoundPage;
