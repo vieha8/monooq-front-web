@@ -37,11 +37,19 @@ module.exports = withBundleAnalyzer(
           destination: '/lp/guest',
         },
         {
+          source: '/lp2/guest',
+          destination: '/lp/guest',
+        },
+        {
           source: '/lp2_2/guest',
           destination: '/lp/guest',
         },
         {
           source: '/lp2_3/guest',
+          destination: '/lp/guest',
+        },
+        {
+          source: '/lp3/guest',
           destination: '/lp/guest',
         },
         {
