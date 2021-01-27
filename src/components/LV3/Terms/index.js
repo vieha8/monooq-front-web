@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-
 import styled from 'styled-components';
 import { media } from 'helpers/style/media-query';
 import Link from 'next/link';
@@ -23,12 +22,15 @@ const Chapter = styled.div`
   `};
 `;
 
-const ChapterContainer = props => (
-  <div>
-    <Chapter>{props.title}</Chapter>
-    {props.children}
-  </div>
-);
+const ChapterContainer = props => {
+  const { title, children } = props;
+  return (
+    <div>
+      <Chapter>{title}</Chapter>
+      {children}
+    </div>
+  );
+};
 
 const ChapterWrap = styled(ChapterContainer)`
   margin-bottom: ${Dimens.large2}px;
