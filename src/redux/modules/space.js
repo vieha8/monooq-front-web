@@ -20,6 +20,7 @@ import Queue from 'helpers/queue';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { isAvailableLocalStorage } from 'helpers/storage';
+import isBrowserEnv from 'helpers/browser-env';
 import { handleError } from './error';
 
 const STATUS_FULL = 'full';
@@ -448,7 +449,7 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   if (err) {
     if (status === 404) {
       // yield put(push(Path.pageNotFound()));
-      window.location.href = Path.pageNotFound();
+      if (isBrowserEnv) window.location.href = Path.pageNotFound();
       // node.jsサーバー側で404返すための処置
     } else {
       yield handleError(spaceActions.fetchFailedSpace, '', 'getSpace', err, false);
