@@ -86,9 +86,8 @@ const getIcon = list => {
     <Fragment>
       {list.map((item, i) => (
         <SnsLi key={i.toString()}>
-          <Link>
+          <Link href={item.url} passHref>
             <LinkStyled
-              href={item.url}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => getEventGA(item.actionText, item.value)}

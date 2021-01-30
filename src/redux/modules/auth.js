@@ -329,10 +329,10 @@ const checkLoginWithEmailLink = (auth, email, url) => {
 };
 
 function* checkLogin() {
-  const { query } = parseUrl(window.location.href);
+  const { query } = parseUrl(global.window && window.location.href);
   const auth = yield call(getFirebaseAuth);
   if (query.mode && query.mode === 'signIn') {
-    yield call(checkLoginWithEmailLink, auth, query.email, window.location.href);
+    yield call(checkLoginWithEmailLink, auth, query.email, global.window && window.location.href);
   }
   const status = { isLogin: false };
   try {

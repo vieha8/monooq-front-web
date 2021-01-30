@@ -1,3 +1,5 @@
+import isBrowserEnv from './browser-env';
+
 export const storageAvailable = type => {
   let storage;
   const x = '__storage_test__';
@@ -35,7 +37,7 @@ export const storageAvailable = type => {
   }
 };
 
-export const isAvailableLocalStorage = () => storageAvailable('localStorage');
+export const isAvailableLocalStorage = () => isBrowserEnv && storageAvailable('localStorage');
 
 export const deleteLocalStorage = targetName => {
   if (isAvailableLocalStorage()) {

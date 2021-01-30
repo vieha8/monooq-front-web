@@ -104,6 +104,7 @@ const parserForArrayFormat = options => {
 };
 
 export const extract = input => {
+  if (!input) return '';
   const queryStart = input.indexOf('?');
   if (queryStart === -1) {
     return '';
@@ -205,6 +206,6 @@ export const stringify = (obj, options) => {
 };
 
 export const parseUrl = (input, options) => ({
-  url: input.split('?')[0] || '',
+  url: input?.split('?')[0] || '',
   query: parse(extract(input), options),
 });

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
+import ReactGA from 'react-ga';
 import Path from 'config/path';
 import { Colors } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
@@ -14,7 +13,6 @@ import { uiActions } from 'redux/modules/ui';
 import Button from 'components/LV1/Forms/Button';
 import LinkCancel from 'components/LV2/Space/LinkCancel';
 import SendMessageButton from 'components/LV2/Space/SendMessageButton';
-import ReactGA from 'react-ga';
 import Form from './Form';
 import {
   handleChangeUI,
@@ -40,6 +38,7 @@ const ContentWrap = styled.div`
 
 // TODO: SPと記述が重複している箇所は共通化したい。
 const RequestApplication = ({
+  router,
   space,
   loginUser,
   isLogin,
@@ -51,8 +50,6 @@ const RequestApplication = ({
   roomId,
 }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const location = useLocation();
   const isSelfSpace = loginUser.id === (space.user || {}).id;
   const existPhoneNumber = !!loginUser.phoneNumber;
   const isRequested = !!roomId;
@@ -88,11 +85,7 @@ const RequestApplication = ({
   let setEndDateDay;
   if (params) {
     setEndDateYear = params.endDate.year || dayjs().year();
-    setEndDateMonth =
-      params.endDate.month ||
-      dayjs()
-        .add(1, 'month')
-        .month() + 1;
+    setEndDateMonth = params.endDate.month || dayjs().add(1, 'month').month() + 1;
     setEndDateDay = params.endDate.day || '1';
   }
   if (
@@ -107,10 +100,7 @@ const RequestApplication = ({
     )
   ) {
     setEndDateYear = dayjs().year();
-    setEndDateMonth =
-      dayjs()
-        .add(1, 'month')
-        .month() + 1;
+    setEndDateMonth = dayjs().add(1, 'month').month() + 1;
     setEndDateDay = dayjs().date();
   }
   const [endDate, setEndDate] = useState({
@@ -123,13 +113,13 @@ const RequestApplication = ({
   );
 
   const handleSignUp = () => {
-    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-    history.push(Path.signUp());
+    dispatch(uiActions.setUiState({ redirectPath: router.pathname }));
+    router.push(Path.signUp());
   };
 
   const onClickButton = () => {
     if (isRequested) {
-      history.push(Path.message(roomId));
+      router.push(Path.message(roomId));
       return;
     }
 
@@ -152,8 +142,8 @@ const RequestApplication = ({
 
   const onClickSendMessage = () => {
     if (!isLogin) {
-      dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-      history.push(Path.login());
+      dispatch(uiActions.setUiState({ redirectPath: router.pathname }));
+      router.push(Path.login());
       return;
     }
 

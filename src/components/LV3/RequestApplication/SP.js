@@ -1,12 +1,11 @@
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
-import { useLocation } from 'react-router-dom';
 import dayjs from 'dayjs';
 import 'dayjs/locale/ja';
-import Path from 'config/path';
 import { Modal } from 'semantic-ui-react';
 import styled from 'styled-components';
+import ReactGA from 'react-ga';
+import Path from 'config/path';
 import { Dimens, Colors, ZIndexes } from 'variables';
 import { iskeyDownEnter } from 'helpers/keydown';
 import { media } from 'helpers/style/media-query';
@@ -16,7 +15,6 @@ import LinkCancel from 'components/LV2/Space/LinkCancel';
 import SendMessageButton from 'components/LV2/Space/SendMessageButton';
 import SendMessageCaption from 'components/LV2/Space/SendMessageCaption';
 import Form from './Form';
-import ReactGA from 'react-ga';
 import {
   handleChangeUI,
   handleChangeDate,
@@ -103,6 +101,7 @@ const getRequestSet = (isModal, space, loading, onClick, onKeyDown, disabled, te
 };
 
 const RequestApplicationSP = ({
+  router,
   space,
   loginUser,
   isLogin,
@@ -114,8 +113,6 @@ const RequestApplicationSP = ({
   roomId,
 }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const location = useLocation();
   const isSelfSpace = loginUser.id === (space.user || {}).id;
   const existPhoneNumber = !!loginUser.phoneNumber;
   const isRequested = !!roomId;
@@ -151,11 +148,7 @@ const RequestApplicationSP = ({
   let setEndDateDay;
   if (params) {
     setEndDateYear = params.endDate.year || dayjs().year();
-    setEndDateMonth =
-      params.endDate.month ||
-      dayjs()
-        .add(1, 'month')
-        .month() + 1;
+    setEndDateMonth = params.endDate.month || dayjs().add(1, 'month').month() + 1;
     setEndDateDay = params.endDate.day || '1';
   }
   if (
@@ -170,10 +163,7 @@ const RequestApplicationSP = ({
     )
   ) {
     setEndDateYear = dayjs().year();
-    setEndDateMonth =
-      dayjs()
-        .add(1, 'month')
-        .month() + 1;
+    setEndDateMonth = dayjs().add(1, 'month').month() + 1;
     setEndDateDay = dayjs().date();
   }
   const [endDate, setEndDate] = useState({
@@ -186,13 +176,14 @@ const RequestApplicationSP = ({
   );
 
   const handleSignUp = () => {
-    dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-    history.push(Path.signUp());
+    const router = useRouter();
+    dispatch(uiActions.setUiState({ redirectPath: router.pathname }));
+    router.push(Path.signUp());
   };
 
   const onClickButton = () => {
     if (isRequested) {
-      history.push(`${Path.message(roomId)}?phase=ongoing`);
+      router.push(`${Path.message(roomId)}?phase=ongoing`);
       return;
     }
 
@@ -215,8 +206,8 @@ const RequestApplicationSP = ({
 
   const onClickSendMessage = () => {
     if (!isLogin) {
-      dispatch(uiActions.setUiState({ redirectPath: location.pathname }));
-      history.push(Path.login());
+      dispatch(uiActions.setUiState({ redirectPath: router.pathname }));
+      router.push(Path.login());
       return;
     }
 

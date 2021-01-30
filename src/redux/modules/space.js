@@ -808,7 +808,7 @@ function* getSpaceAccessLog({ payload: { limit, ifEmpty = false, refresh = false
   if (!user.id) {
     // 未ログイン時の閲覧履歴
     let anonymousAccessLogSpaces = [];
-    if (isAvailableLocalStorage) {
+    if (isAvailableLocalStorage()) {
       const key = 'anonymous-access-logs';
       const json = localStorage.getItem(key);
       const anonymousAccessLogSpaceIds = json ? JSON.parse(json) : [];
@@ -863,7 +863,7 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
   const user = yield select(state => state.auth.user);
 
   if (!user.id) {
-    if (isAvailableLocalStorage) {
+    if (isAvailableLocalStorage()) {
       const key = 'anonymous-access-logs';
       const json = localStorage.getItem(key);
       const arr = json ? JSON.parse(json) : [];
