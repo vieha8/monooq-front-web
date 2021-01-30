@@ -118,7 +118,6 @@ const mapStateToProps = state => ({
   spacesHistory: state.space.spaces,
   // sections: state.section.sections,
   regionId: state.section.regionId,
-  isChecking: state.auth.isChecking,
   user: state.auth.user,
   isLoading: state.request.isLoading,
   modalPrefName: state.request.prefName,
