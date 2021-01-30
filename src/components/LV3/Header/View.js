@@ -156,7 +156,7 @@ const HistoryHover = styled(TextWrapper)`
   }
 
   :hover {
-    height: 150px;
+    height: 155px;
   }
 
   :hover + div {

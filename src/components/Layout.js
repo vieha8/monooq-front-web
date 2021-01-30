@@ -57,19 +57,20 @@ const isBottomMarginSpPath = path => {
   return path === Path.spaces() || path === Path.search();
 };
 
-const BaseLayout = ({ children, title }) => {
+const BaseLayout = ({ children, title, noindex }) => {
   const [isNoFooter, setIsNoFooter] = useState(false);
   const [isLP, setIsLP] = useState(false);
   const [isBottomMarginSp, setIsBottomMarginSp] = useState(false);
-  const { pathname } = useRouter();
-  const DEFAULT_TITLE = 'モノオク｜荷物の困ったを解決する、あたらしい物置きのかたち';
+  const { asPath: path } = useRouter();
 
   useEffect(() => {
-    setIsNoFooter(isNoFooterPath(pathname));
-    setIsLP(isLpPath(pathname));
-    setIsBottomMarginSp(isBottomMarginSpPath(pathname));
+    setIsNoFooter(isNoFooterPath(path));
+    setIsLP(isLpPath(path));
+    setIsBottomMarginSp(isBottomMarginSpPath(path));
     Fonts();
-  }, [pathname]);
+  }, [path]);
+
+  const DEFAULT_TITLE = 'モノオク｜荷物の困ったを解決する、あたらしい物置きのかたち';
 
   return (
     <Fragment>
@@ -80,6 +81,7 @@ const BaseLayout = ({ children, title }) => {
           content="width=device-width,initial-scale=1,shrink-to-fit=no,minimum-scale=1,maximum-scale=1"
         />
         <meta property="og:title" content={title || DEFAULT_TITLE} />
+        {noindex && <meta name="robots" content="noindex" />}
         <link rel="canonical" href="https://monooq.com" />
       </Head>
 

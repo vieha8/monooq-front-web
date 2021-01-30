@@ -128,10 +128,10 @@ export const PrimaryButton = styled.div`
   `};
 `;
 
-export default props =>
-  props.link ? (
-    <Link href={props.href}>
-      <a {...props} target={props.blank ? '_blank' : '_self'}>
+export default ({ link, href, blank, ...props }) =>
+  link ? (
+    <Link href={href} passHref>
+      <a {...props} target={blank ? '_blank' : '_self'}>
         <PrimaryButton {...props} />
       </a>
     </Link>

@@ -6,7 +6,7 @@ const withImages = require('next-images');
 
 module.exports = withBundleAnalyzer(
   withImages({
-    rewrites() {
+    async rewrites() {
       return [
         {
           source: '/spaces/pref:prefecture',
@@ -19,6 +19,34 @@ module.exports = withBundleAnalyzer(
         {
           source: '/spaces/pref:prefecture/city:cityCode/town:townCode',
           destination: '/spaces/pref/:prefecture/city/:cityCode/town/:townCode',
+        },
+        {
+          source: '/lp1_2/guest',
+          destination: '/lp1/guest',
+        },
+        {
+          source: '/lp1_3/guest',
+          destination: '/lp1/guest',
+        },
+        {
+          source: '/lp2/guest',
+          destination: '/lp1/guest',
+        },
+        {
+          source: '/lp2_2/guest',
+          destination: '/lp1/guest',
+        },
+        {
+          source: '/lp2_3/guest',
+          destination: '/lp1/guest',
+        },
+        {
+          source: '/lp3/guest',
+          destination: '/lp1/guest',
+        },
+        {
+          source: '/lp3_3/guest',
+          destination: '/lp1/guest',
         },
       ];
     },

@@ -271,13 +271,15 @@ export default ({ list }) => (
             {item.priceList &&
               item.priceList.map((itemPrice, j) => (
                 <SpacePlanLi key={j.toString()}>
-                  <SpacePlanLiLink to={Path.space(item.spaceId)}>
-                    {itemPrice.title}
-                    <SpacePlanLiPrice>
-                      {itemPrice.price}
-                      <PlanLiSmallButton>詳細をみる</PlanLiSmallButton>
-                    </SpacePlanLiPrice>
-                  </SpacePlanLiLink>
+                  <Link href={Path.space(item.spaceId)} passHref>
+                    <SpacePlanLiLink as="a">
+                      {itemPrice.title}
+                      <SpacePlanLiPrice>
+                        {itemPrice.price}
+                        <PlanLiSmallButton>詳細をみる</PlanLiSmallButton>
+                      </SpacePlanLiPrice>
+                    </SpacePlanLiLink>
+                  </Link>
                 </SpacePlanLi>
               ))}
           </SpacePlanUl>

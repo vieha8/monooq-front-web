@@ -75,6 +75,8 @@ export default {
   privacy: () => '/privacy',
   terms: () => '/terms',
   // LP
+  lpHost: () => '/lp/host',
+  lpGuest: () => '/lp/guest',
   lp1Host: () => '/lp1/host',
   lp1Guest: () => '/lp1/guest',
   lp1Guest2: () => '/lp1_2/guest',
