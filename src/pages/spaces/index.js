@@ -16,6 +16,7 @@ import { H1 } from 'components/LV1/Texts/Headline';
 import SearchResult from 'components/LV3/SearchResult';
 import NoneData from 'components/LV2/NoneData';
 import LoadingPage from 'components/LV3/LoadingPage';
+import BaseLayout from 'components/Layout';
 
 const Loader = styled(Loading)`
   margin: ${Dimens.medium2}px auto auto;
@@ -101,9 +102,18 @@ class SearchResultPage extends Component {
       sort: 1,
     };
 
-    const { location, match } = this.props;
+    const {
+      search,
+      router: { asPath },
+      pageProps: { query },
+    } = this.props;
     const { keyword, sort, pref: queryPref, cities: queryCities, towns: queryTowns, tags } = parse(
-      location.search,
+      search,
+    );
+    console.log('search', search);
+    console.log(
+      '{ keyword, sort, pref: queryPref, cities: queryCities, towns: queryTowns, tags }',
+      { keyword, sort, pref: queryPref, cities: queryCities, towns: queryTowns, tags },
     );
     if (sort) {
       conditions.sort = Number(sort);
@@ -112,7 +122,7 @@ class SearchResultPage extends Component {
       conditions.tags = tags.split(',');
     }
 
-    if (!match.url.indexOf('/search')) {
+    if (!asPath.indexOf('/search')) {
       // フリーワード検索
       if (keyword) {
         conditions.keyword = keyword;
@@ -127,7 +137,7 @@ class SearchResultPage extends Component {
         conditions.cities = queryCities.split(',');
       }
     } else {
-      const { pref_code: prefCode, city_code: cityCode, town_code: townCode } = match.params;
+      const { pref: prefCode, city: cityCode, town: townCode } = query;
       if (prefCode && cityCode && townCode) {
         // 町域一覧
         conditions.pref = prefCode;
@@ -166,6 +176,67 @@ class SearchResultPage extends Component {
     }
   };
 
+  makeMetaBreadcrumbs = conditions => {
+    const { pref, cities, towns } = conditions;
+
+    let position = 1;
+    const baseUrl = 'https://monooq.com';
+    const itemList = [
+      {
+        '@type': 'ListItem',
+        position,
+        name: 'トップ',
+        item: baseUrl,
+      },
+    ];
+
+    if (pref && pref.name) {
+      position += 1;
+      itemList.push({
+        '@type': 'ListItem',
+        position,
+        name: `${pref.name}のスペース`,
+        item: `${baseUrl}/pref${pref.code}`,
+      });
+      if (cities.length === 1) {
+        position += 1;
+        const city = cities[0];
+        itemList.push({
+          '@type': 'ListItem',
+          position,
+          name: `${city.name}のスペース`,
+          item: `${baseUrl}/pref${pref.code}/city${city.code}`,
+        });
+        if (towns.length === 1) {
+          position += 1;
+          const town = towns[0];
+          itemList.push({
+            '@type': 'ListItem',
+            position,
+            name: `${town.name}のスペース`,
+            item: `${baseUrl}/pref${pref.code}/city${city.code}/town${town.code}`,
+          });
+        }
+      }
+    }
+
+    if (itemList.length === 1) {
+      position += 1;
+      itemList.push({
+        '@type': 'ListItem',
+        position,
+        name: `スペース検索結果`,
+        item: `${baseUrl}/search`,
+      });
+    }
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: itemList,
+    };
+  };
+
   // ローディング処理
   loadItems = () => {
     const { dispatch, isSearching } = this.props;
@@ -196,6 +267,7 @@ class SearchResultPage extends Component {
     if (tags.length > 0) {
       params.tags = tags;
     }
+    console.log('=params', params);
 
     dispatch(spaceActions.doSearch(params));
     const newOffset = offset + limit;
@@ -244,28 +316,36 @@ class SearchResultPage extends Component {
       viaParams = 'pref';
     }
 
+    const conditionTitle = makeConditionTitle(conditions);
+    console.log('root-conditions', conditions);
+
     return (
-      <BaseTemplate maxWidth={1168}>
-        <SearchResultHeader />
-        <Content>
-          <InfiniteScroll
-            pageStart={0}
-            loadMore={this.loadItems}
-            hasMore={isMore}
-            loader={<Loader size="medium" key={0} />}
-            initialLoad
-          >
-            <SearchResult
-              via={viaParams}
-              spaces={spaces.map(s => ({
-                ...s,
-                image: (s.images[0] || {}).imageUrl,
-                onClick: () => this.onClickSpace(s.id),
-              }))}
-            />
-          </InfiniteScroll>
-        </Content>
-      </BaseTemplate>
+      <BaseLayout
+        title={`${conditionTitle}のスペース検索結果 - モノオク`}
+        jsonLd={this.makeMetaBreadcrumbs(conditions)}
+      >
+        <BaseTemplate maxWidth={1168}>
+          <SearchResultHeader conditions={conditions} conditionTitle={conditionTitle} />
+          <Content>
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadItems}
+              hasMore={isMore}
+              loader={<Loader size="medium" key={0} />}
+              initialLoad
+            >
+              <SearchResult
+                via={viaParams}
+                spaces={spaces.map(s => ({
+                  ...s,
+                  image: (s.images[0] || {}).imageUrl,
+                  onClick: () => this.onClickSpace(s.id),
+                }))}
+              />
+            </InfiniteScroll>
+          </Content>
+        </BaseTemplate>
+      </BaseLayout>
     );
   }
 }
@@ -275,6 +355,15 @@ const mapStateToProps = state => ({
   isSearching: state.space.search.isLoading,
   isMore: state.space.search.isMore,
   conditions: state.space.search.conditions,
+  search: state.router.location.search,
 });
 
 export default connect(mapStateToProps)(SearchResultPage);
+
+export const getServerSideProps = ({ query }) => {
+  return {
+    props: {
+      query,
+    },
+  };
+};

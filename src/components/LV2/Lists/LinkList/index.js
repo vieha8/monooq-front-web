@@ -55,7 +55,7 @@ const Anchor = styled.a`
   `};
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled.a`
   ${props => props.color && `color: ${props.color};`}
   ${props =>
     props.current &&

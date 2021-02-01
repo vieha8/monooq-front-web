@@ -5,13 +5,11 @@ import { Colors } from 'variables';
 import { isOverTabletWindow } from 'helpers/style/media-query';
 import { areaPrefectures } from 'helpers/prefectures';
 import { parse, stringify } from 'helpers/query-string';
-import { makeConditionTitle } from 'helpers/search';
 import BreadcrumbsList from 'components/LV2/Lists/BreadcrumbsList';
 import AreaAroundList from 'components/LV2/Lists/AreaAroundList';
 import AreaPinList from 'components/LV2/Lists/AreaPinList';
 import SortList from 'components/LV2/Lists/LinkList';
 import SearchResultHeader from 'components/LV3/SpaceSearchResultHeader/SearchResultHeader';
-import BaseLayout from 'components/Layout';
 
 class SearchResultHeaderPage extends Component {
   constructor(props) {
@@ -32,6 +30,7 @@ class SearchResultHeaderPage extends Component {
 
   componentDidMount() {
     const { conditions, cities, area } = this.props;
+    // console.log('==cities', cities)
 
     this.setState({ isOverTablet: isOverTabletWindow() });
     window.addEventListener('resize', () => this.checkResize(), true);
@@ -117,8 +116,8 @@ class SearchResultHeaderPage extends Component {
   };
 
   makeSortPath = sort => {
-    const { location } = this.props;
-    const q = parse(location.search);
+    const { search } = this.props;
+    const q = parse(search);
     q.sort = sort;
     const newQuery = stringify(q);
     return `${window.location.pathname}?${newQuery}`;
@@ -184,19 +183,19 @@ class SearchResultHeaderPage extends Component {
 
     this.setState({ isModalOpenPC: false, isModalOpenSP: false });
 
-    const { history, conditions } = this.props;
+    const { router, conditions } = this.props;
 
     if (townsCode.length === 1 && citiesCode.length === 1) {
       // 町域ひとつ
-      history.push(Path.spacesByTown(conditions.pref.code, citiesCode[0], townsCode[0]));
+      router.push(Path.spacesByTown(conditions.pref.code, citiesCode[0], townsCode[0]));
     } else if (townsCode.length === 0 && citiesCode.length === 1) {
       // 市区町村ひとつ
-      history.push(Path.spacesByCity(conditions.pref.code, citiesCode[0]));
+      router.push(Path.spacesByCity(conditions.pref.code, citiesCode[0]));
     } else {
       const query = `?pref=${conditions.pref.code}&cities=${citiesCode.join(
         ',',
       )}&towns=${townsCode.join(',')}`;
-      history.push(`${Path.search()}${query}`);
+      router.push(`${Path.search()}${query}`);
     }
   };
 
@@ -250,69 +249,8 @@ class SearchResultHeaderPage extends Component {
     return list;
   };
 
-  makeMetaBreadcrumbs = conditions => {
-    const { pref, cities, towns } = conditions;
-
-    let position = 1;
-    const baseUrl = 'https://monooq.com';
-    const itemList = [
-      {
-        '@type': 'ListItem',
-        position,
-        name: 'トップ',
-        item: baseUrl,
-      },
-    ];
-
-    if (pref && pref.name) {
-      position += 1;
-      itemList.push({
-        '@type': 'ListItem',
-        position,
-        name: `${pref.name}のスペース`,
-        item: `${baseUrl}/pref${pref.code}`,
-      });
-      if (cities.length === 1) {
-        position += 1;
-        const city = cities[0];
-        itemList.push({
-          '@type': 'ListItem',
-          position,
-          name: `${city.name}のスペース`,
-          item: `${baseUrl}/pref${pref.code}/city${city.code}`,
-        });
-        if (towns.length === 1) {
-          position += 1;
-          const town = towns[0];
-          itemList.push({
-            '@type': 'ListItem',
-            position,
-            name: `${town.name}のスペース`,
-            item: `${baseUrl}/pref${pref.code}/city${city.code}/town${town.code}`,
-          });
-        }
-      }
-    }
-
-    if (itemList.length === 1) {
-      position += 1;
-      itemList.push({
-        '@type': 'ListItem',
-        position,
-        name: `スペース検索結果`,
-        item: `${baseUrl}/search`,
-      });
-    }
-
-    return {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: itemList,
-    };
-  };
-
   render() {
-    const { maxCount, breadcrumbs, conditions } = this.props;
+    const { maxCount, breadcrumbs, conditions, conditionTitle } = this.props;
     const {
       cityAndTowns,
       sortList,
@@ -325,43 +263,36 @@ class SearchResultHeaderPage extends Component {
       isOverTablet,
     } = this.state;
 
-    const conditionTitle = makeConditionTitle(conditions);
-
     return (
-      <BaseLayout
-        title={`${conditionTitle}のスペース検索結果 - モノオク`}
-        jsonLd={this.makeMetaBreadcrumbs(conditions)}
-      >
-        <Fragment>
-          {breadcrumbs && <BreadcrumbsList breadcrumbsList={breadcrumbs} />}
-          <SearchResultHeader
-            isModalOpenPC={isModalOpenPC}
-            handleModalOpenPC={() => this.setState({ isModalOpenPC: true })}
-            handleModalClosePC={() => this.setState({ isModalOpenPC: false })}
-            isModalOpenSP={isModalOpenSP}
-            handleModalOpenSP={() => this.setState({ isModalOpenSP: true })}
-            handleModalCloseSP={() => this.setState({ isModalOpenSP: false })}
-            conditionTitle={conditionTitle}
-            maxCount={maxCount}
-            prefecture={conditions.pref.name}
-            onClickMore={this.onClickMore}
-            onClickCheckCity={this.onClickCheckCity}
-            onClickCheckTown={this.onClickCheckTown}
-            regionPrefectureList={areaPrefectures}
-            prefectureList={prefectureList}
-            cityTownAreaList={cityAndTowns}
-            searchConditionCurrentList={searchConditionCurrentList}
-            isOverTablet={isOverTablet}
-          />
-          {areaAroundList && areaAroundList.length > 0 && (
-            <AreaAroundList areaAroundList={areaAroundList} />
-          )}
-          {areaPinList && areaPinList.length > 0 && <AreaPinList areaPinList={areaPinList} />}
-          {sortList && sortList.length > 0 && (
-            <SortList list={sortList} isLinkEvent landscape color={Colors.brandPrimary} />
-          )}
-        </Fragment>
-      </BaseLayout>
+      <Fragment>
+        {breadcrumbs && <BreadcrumbsList breadcrumbsList={breadcrumbs} />}
+        <SearchResultHeader
+          isModalOpenPC={isModalOpenPC}
+          handleModalOpenPC={() => this.setState({ isModalOpenPC: true })}
+          handleModalClosePC={() => this.setState({ isModalOpenPC: false })}
+          isModalOpenSP={isModalOpenSP}
+          handleModalOpenSP={() => this.setState({ isModalOpenSP: true })}
+          handleModalCloseSP={() => this.setState({ isModalOpenSP: false })}
+          conditionTitle={conditionTitle}
+          maxCount={maxCount}
+          prefecture={conditions.pref.name}
+          onClickMore={this.onClickMore}
+          onClickCheckCity={this.onClickCheckCity}
+          onClickCheckTown={this.onClickCheckTown}
+          regionPrefectureList={areaPrefectures}
+          prefectureList={prefectureList}
+          cityTownAreaList={cityAndTowns}
+          searchConditionCurrentList={searchConditionCurrentList}
+          isOverTablet={isOverTablet}
+        />
+        {areaAroundList && areaAroundList.length > 0 && (
+          <AreaAroundList areaAroundList={areaAroundList} />
+        )}
+        {areaPinList && areaPinList.length > 0 && <AreaPinList areaPinList={areaPinList} />}
+        {sortList && sortList.length > 0 && (
+          <SortList list={sortList} isLinkEvent landscape color={Colors.brandPrimary} />
+        )}
+      </Fragment>
     );
   }
 }
@@ -372,6 +303,7 @@ const mapStateToProps = state => ({
   area: state.space.search.area,
   conditions: state.space.search.conditions,
   cities: state.space.search.cities,
+  search: state.router.location.search,
 });
 
 export default connect(mapStateToProps)(SearchResultHeaderPage);
