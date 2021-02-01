@@ -78,7 +78,7 @@ const SpaceRows = ({ spaces, onClick }) => (
       <HoverHistoryRow key={i.toString()} onClick={() => onClick(space.id)}>
         <HoverHistoryRowImg
           src={
-            space.images.length
+            space.images?.length
               ? convertSpaceImgUrl(
                   `${space.images[0].imageUrl}`,
                   'w=128&h=94&fit=crop&auto=compress',
