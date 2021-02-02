@@ -110,11 +110,6 @@ class SearchResultPage extends Component {
     const { keyword, sort, pref: queryPref, cities: queryCities, towns: queryTowns, tags } = parse(
       search,
     );
-    console.log('search', search);
-    console.log(
-      '{ keyword, sort, pref: queryPref, cities: queryCities, towns: queryTowns, tags }',
-      { keyword, sort, pref: queryPref, cities: queryCities, towns: queryTowns, tags },
-    );
     if (sort) {
       conditions.sort = Number(sort);
     }
@@ -166,8 +161,8 @@ class SearchResultPage extends Component {
   };
 
   onClickBackSearchCondition = () => {
-    const { history } = this.props;
-    history.push(Path.searchCondition());
+    const { router } = this.props;
+    router.push(Path.searchCondition());
   };
 
   onKeyDownButtonResearch = e => {
@@ -267,16 +262,14 @@ class SearchResultPage extends Component {
     if (tags.length > 0) {
       params.tags = tags;
     }
-    console.log('=params', params);
-
     dispatch(spaceActions.doSearch(params));
     const newOffset = offset + limit;
     this.setState({ offset: newOffset });
   };
 
   onClickSpace = spaceId => {
-    const { history } = this.props;
-    history.push(Path.space(spaceId));
+    const { router } = this.props;
+    router.push(Path.space(spaceId));
   };
 
   renderNotFound = conditions => (
@@ -317,7 +310,6 @@ class SearchResultPage extends Component {
     }
 
     const conditionTitle = makeConditionTitle(conditions);
-    console.log('root-conditions', conditions);
 
     return (
       <BaseLayout

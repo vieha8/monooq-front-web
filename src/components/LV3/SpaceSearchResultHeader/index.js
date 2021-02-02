@@ -30,7 +30,6 @@ class SearchResultHeaderPage extends Component {
 
   componentDidMount() {
     const { conditions, cities, area } = this.props;
-    // console.log('==cities', cities)
 
     this.setState({ isOverTablet: isOverTabletWindow() });
     window.addEventListener('resize', () => this.checkResize(), true);

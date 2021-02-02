@@ -314,6 +314,10 @@ Modal Search Condition More
   background-color: rgba(181, 181, 181, 0.8);
 }
 
+body.dimmed.dimmable {
+  overflow: hidden!important;
+}
+
 .semantic-ui-modal-custom {
   width: 100vw !important;
   height: 100vh !important;
