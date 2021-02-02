@@ -12,22 +12,19 @@ import BaseLayout from 'components/Layout';
 class SearchConditionPage extends Component {
   constructor(props) {
     super(props);
-
+    let savedConditions = {
+      keyword: '',
+      prefCode: 0,
+    };
     if (isAvailableLocalStorage() && localStorage.getItem('searchCondition')) {
-      const savedConditions = JSON.parse(localStorage.getItem('searchCondition'));
-      const { keyword, prefCode } = savedConditions;
-      this.state = {
-        keyword: keyword || '',
-        prefCode: prefCode || 0,
-        error: {},
-      };
-    } else {
-      this.state = {
-        keyword: '',
-        prefCode: 0,
-        error: {},
-      };
+      savedConditions = JSON.parse(localStorage.getItem('searchCondition'));
     }
+    const { keyword, prefCode } = savedConditions;
+    this.state = {
+      keyword,
+      prefCode,
+      error: {},
+    };
   }
 
   onKeyDownButtonSearch = e => {
@@ -62,12 +59,11 @@ class SearchConditionPage extends Component {
   };
 
   handleChangeUI = (propName, value) => {
-    const { state } = this;
-    const { error } = state;
-    const errors = [];
-    state[propName] = value;
-    error[propName] = errors;
-    this.setState({ ...state, error });
+    const { error } = this.state;
+    this.setState({
+      [propName]: value,
+      [error[propName]]: [],
+    });
   };
 
   validate = () => {

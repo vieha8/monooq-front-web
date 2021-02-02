@@ -176,7 +176,6 @@ const RequestApplicationSP = ({
   );
 
   const handleSignUp = () => {
-    const router = useRouter();
     dispatch(uiActions.setUiState({ redirectPath: router.pathname }));
     router.push(Path.signUp());
   };
