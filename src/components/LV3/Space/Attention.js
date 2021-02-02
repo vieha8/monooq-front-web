@@ -64,7 +64,7 @@ const Attention = () => {
         <SectionTitleSub text="お支払い方法について" />
         クレジッドカード（VISA・MasterCard）での月々払いをご利用いただけます。
         <br />
-        <Link href="https://help.monooq.com/ja/articles/2948181">
+        <Link href="https://help.monooq.com/ja/articles/2948181" passHref>
           <LinkStyled target="_blank" rel="noopener noreferrer">
             利用料の支払い方法について
           </LinkStyled>

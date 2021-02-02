@@ -10,6 +10,7 @@ import AreaAroundList from 'components/LV2/Lists/AreaAroundList';
 import AreaPinList from 'components/LV2/Lists/AreaPinList';
 import SortList from 'components/LV2/Lists/LinkList';
 import SearchResultHeader from 'components/LV3/SpaceSearchResultHeader/SearchResultHeader';
+import { withRouter } from 'next/router';
 
 class SearchResultHeaderPage extends Component {
   constructor(props) {
@@ -305,4 +306,4 @@ const mapStateToProps = state => ({
   search: state.router.location.search,
 });
 
-export default connect(mapStateToProps)(SearchResultHeaderPage);
+export default connect(mapStateToProps)(withRouter(SearchResultHeaderPage));

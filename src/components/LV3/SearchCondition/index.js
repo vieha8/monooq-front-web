@@ -47,7 +47,7 @@ const ButtonWrap = styled.div`
   `};
 `;
 
-export default ({
+const SearchCondition = ({
   errors,
   keyword,
   onChangeKeyword,
@@ -94,3 +94,5 @@ export default ({
     </SearchButtonWrap>
   </Fragment>
 );
+
+export default SearchCondition;
