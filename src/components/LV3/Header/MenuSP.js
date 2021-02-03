@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import BurgerMenu from 'react-burger-menu';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
-import { authActions } from 'redux/modules/auth';
+import authActions from 'redux/actions/auth';
 import ServiceMenu from 'components/LV3/ServiceMenu';
 
 class MenuSP extends Component {

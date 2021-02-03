@@ -4,7 +4,7 @@ import { put, call, takeEvery, take, select, fork, cancel, cancelled } from 'red
 import { push } from 'connected-next-router';
 import { captureException } from '@sentry/browser';
 import dynamic from 'next/dynamic';
-import { getToken } from 'redux/modules/auth';
+import { getToken } from 'redux/sagas/auth/generators';
 import { userActions } from 'redux/modules/user';
 import { spaceActions } from 'redux/modules/space';
 import { handleError } from 'redux/modules/error';

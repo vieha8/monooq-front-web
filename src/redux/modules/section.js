@@ -1,6 +1,6 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, call, fork } from 'redux-saga/effects';
-import { getToken } from './auth';
+import { getToken } from 'redux/sagas/auth/generators';
 import { getApiRequest, apiEndpoint } from '../helpers/api';
 import { handleError } from './error';
 

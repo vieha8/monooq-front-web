@@ -4,7 +4,7 @@ import PopupMenu from 'reactjs-popup';
 import styled from 'styled-components';
 import Path from 'config/path';
 import { uiActions } from 'redux/modules/ui';
-import { authActions } from 'redux/modules/auth';
+import authActions from 'redux/actions/auth';
 import InlineText from 'components/LV1/Texts/InlineText';
 import AvatarIcon from 'components/LV2/ButtonHeader/AvatarIcon';
 import InfoUser from 'components/LV2/InfoUser';

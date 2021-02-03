@@ -4,7 +4,7 @@ import { withRouter } from 'next/router';
 import styled from 'styled-components';
 import { Dimens } from 'variables';
 import Path from 'config/path';
-import { authActions } from 'redux/modules/auth';
+import authActions from 'redux/actions/auth';
 import { spaceActions } from 'redux/modules/space';
 import { getPrefecture } from 'helpers/prefectures';
 import { isOverTabletWindow } from 'helpers/style/media-query';

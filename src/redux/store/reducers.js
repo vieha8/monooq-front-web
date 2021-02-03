@@ -1,6 +1,6 @@
 import { routerReducer } from 'connected-next-router';
 import { combineReducers } from 'redux';
-import { authReducer } from 'redux/modules/auth';
+import authReducer from 'redux/modules/auth';
 import { messagesReducer } from 'redux/modules/messages';
 import { uiReducer } from 'redux/modules/ui';
 import { spaceReducer } from 'redux/modules/space';
