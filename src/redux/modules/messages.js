@@ -3,8 +3,7 @@ import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, take, select, fork, cancel, cancelled } from 'redux-saga/effects';
 import { push } from 'connected-next-router';
 import { captureException } from '@sentry/browser';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import dynamic from 'next/dynamic';
 import { getToken } from 'redux/modules/auth';
 import { userActions } from 'redux/modules/user';
 import { spaceActions } from 'redux/modules/space';
@@ -15,6 +14,9 @@ import fileType from 'helpers/file-type';
 import { convertImgixUrl, convertSpaceImgUrl } from 'helpers/imgix';
 import { formatName } from 'helpers/string';
 import Path from 'config/path';
+
+dynamic(() => import('firebase/firestore'));
+const firebase = dynamic(() => import('firebase/app'));
 
 // Actions
 const FETCH_ROOMS_ID_START = 'FETCH_ROOMS_ID_START';
