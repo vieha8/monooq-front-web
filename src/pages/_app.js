@@ -1,6 +1,7 @@
 import wrapper from 'redux/store';
 import dynamic from 'next/dynamic';
 import { ConnectedRouter } from 'connected-next-router';
+import Meta from 'components/LV1/Meta';
 import 'semantic-ui-css/semantic.min.css';
 import 'styles/reset.css';
 import 'styles/globals.css';
@@ -13,6 +14,7 @@ function App({ Component, ...props }) {
   return (
     <ConnectedRouter>
       <Root>
+        <Meta />
         <BaseLayout>
           <Component {...props} />
         </BaseLayout>

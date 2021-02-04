@@ -41,7 +41,7 @@ class Head extends React.Component {
       noindex,
       jsonLd,
     } = this.state;
-    const path = window.location.pathname;
+    const path = global.window && window.location.pathname;
     return (
       <Helmet>
         <title>{title}</title>
