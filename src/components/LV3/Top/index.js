@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import LazyLoad from 'react-lazyload';
+import dynamic from 'next/dynamic';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
@@ -11,17 +12,18 @@ import { deleteLocalStorage } from 'helpers/storage';
 import Button from 'components/LV1/Forms/Button';
 import { H1 } from 'components/LV1/Texts/Headline';
 import InlineText from 'components/LV1/Texts/InlineText';
-import MenuItemTopList from 'components/LV2/Lists/MenuItemTopList';
-import ModalTopDesiredCondition from 'components/LV3/ModalTopDesiredCondition';
 import PrefectureList from 'components/LV3/PrefectureList';
 // import SpaceList from 'components/LV3/SpaceList';
 import View from 'components/LV3/Top/View';
-import SearchResult from 'components/LV3/SearchResult';
-import ModalNoSpaceRecommend from 'components/LV3/ModalNoSpaceRecommend';
-import Want from 'components/LV3/Lp123Guest/Want';
-import Merit from 'components/LV3/Lp123Guest/Merit';
-import BizModel from 'components/LV3/Lp123Guest/BizModel';
-import Flow from 'components/LV3/Lp123Guest/Flow';
+
+const MenuItemTopList = dynamic(() => import('components/LV2/Lists/MenuItemTopList'));
+const ModalTopDesiredCondition = dynamic(() => import('components/LV3/ModalTopDesiredCondition'));
+const SearchResult = dynamic(() => import('components/LV3/SearchResult'));
+const ModalNoSpaceRecommend = dynamic(() => import('components/LV3/ModalNoSpaceRecommend'));
+const Want = dynamic(() => import('components/LV3/Lp123Guest/Want'));
+const Merit = dynamic(() => import('components/LV3/Lp123Guest/Merit'));
+const BizModel = dynamic(() => import('components/LV3/Lp123Guest/BizModel'));
+const Flow = dynamic(() => import('components/LV3/Lp123Guest/Flow'));
 
 const BgImageAbout =
   'https://monooq.imgix.net/img%2Fservice%2Fbg-top-menu-sub-about.png?auto=compress';
