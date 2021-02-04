@@ -6,6 +6,7 @@ const withImages = require('next-images');
 
 module.exports = withBundleAnalyzer(
   withImages({
+    productionBrowserSourceMaps: true,
     async rewrites() {
       return [
         {
