@@ -5,8 +5,8 @@ import { makeConditionTitle } from 'helpers/search';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { sectionActions } from 'redux/modules/section';
 import { spaceActions } from 'redux/modules/space';
+import LoadingPage from 'components/LV3/LoadingPage';
 import Top from 'components/LV3/Top';
-import BaseLayout from 'components/Layout';
 
 // import RecommendedSpace from './StaticRecommendedSpace';
 
@@ -57,7 +57,7 @@ class Home extends React.Component {
     const {
       // sections,
       regionId,
-      // isChecking,
+      isChecking,
       user,
       spaces,
       spacesHistory,
@@ -66,6 +66,10 @@ class Home extends React.Component {
       isLoading,
       modalPrefName,
     } = this.props;
+
+    if (isChecking) {
+      return <LoadingPage />;
+    }
 
     const conditionTitle = conditions ? makeConditionTitle(conditions) : '';
 
@@ -89,22 +93,20 @@ class Home extends React.Component {
     }
 
     return (
-      <BaseLayout>
-        <Top
-          // sections={sections}
-          regionId={regionId}
-          spaces={spaces}
-          spacesHistory={spacesHistory}
-          onClickSpace
-          user={user}
-          maxCount={maxCount}
-          conditionTitle={conditionTitle}
-          isViewModalTop={isViewModalTop}
-          requestParams={requestParams}
-          isLoading={isLoading}
-          modalPrefName={modalPrefName}
-        />
-      </BaseLayout>
+      <Top
+        // sections={sections}
+        regionId={regionId}
+        spaces={spaces}
+        spacesHistory={spacesHistory}
+        onClickSpace
+        user={user}
+        maxCount={maxCount}
+        conditionTitle={conditionTitle}
+        isViewModalTop={isViewModalTop}
+        requestParams={requestParams}
+        isLoading={isLoading}
+        modalPrefName={modalPrefName}
+      />
     );
   }
 }

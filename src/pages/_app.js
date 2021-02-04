@@ -7,12 +7,15 @@ import 'styles/globals.css';
 import 'styles/main.css';
 
 const Root = dynamic(() => import('components/Root'));
+const BaseLayout = dynamic(() => import('components/Layout'));
 
 function App({ Component, ...props }) {
   return (
     <ConnectedRouter>
       <Root>
-        <Component {...props} />
+        <BaseLayout>
+          <Component {...props} />
+        </BaseLayout>
       </Root>
     </ConnectedRouter>
   );
