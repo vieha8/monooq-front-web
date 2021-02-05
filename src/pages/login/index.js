@@ -60,7 +60,7 @@ class LoginPage extends Component {
   };
 
   form = () => {
-    const { isChecking, loginFailed, history } = this.props;
+    const { isChecking, loginFailed, router } = this.props;
     const { email, password, isUnVisiblePW, hasChanged } = this.state;
     return (
       <Login
@@ -76,7 +76,7 @@ class LoginPage extends Component {
         loginFailed={loginFailed && !hasChanged && !isChecking}
         isLoginChecking={isChecking}
         buttonDisabled={!this.validate()}
-        onClickSignup={() => history.push(Path.signUp())}
+        onClickSignup={() => router.push(Path.signUp())}
       />
     );
   };

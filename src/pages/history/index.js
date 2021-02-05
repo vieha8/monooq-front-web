@@ -10,11 +10,11 @@ import { spaceActions } from 'redux/modules/space';
 import BaseTemplate from 'components/templates/BaseTemplate';
 import Loading from 'components/LV1/Loading';
 import { H1 } from 'components/LV1/Texts/Headline';
+import Meta from 'components/LV1/Meta';
 import NoneData from 'components/LV2/NoneData';
 import SearchResult from 'components/LV3/SearchResult';
 import SpaceRows from 'components/LV3/SpaceRows';
 import LoadingPage from 'components/LV3/LoadingPage';
-import BaseLayout from 'components/Layout';
 
 const dummySpaceImage =
   'https://monooq.imgix.net/img%2Fservice%2Fimg-dummy-space.png?alt=dummy&auto=format&auto=compress';
@@ -134,47 +134,46 @@ class SearchResultHistoryPage extends Component {
     }
 
     return (
-      <BaseLayout title="閲覧履歴 - モノオク">
-        <BaseTemplate maxWidth={1168}>
-          <H1 bold>閲覧履歴</H1>
-          <Content>
-            {!isNoData ? (
-              <InfiniteScroll
-                pageStart={0}
-                loadMore={this.loadItems}
-                hasMore={isMore}
-                loader={<Loader size="medium" key={0} />}
-                initialLoad
-              >
-                {isOverPhone ? (
-                  <OnlyPcTab>
-                    <SearchResult
-                      spaces={spaces.map(s => ({
-                        ...s,
-                        image:
-                          s.images.length !== 0
-                            ? convertSpaceImgUrl(s.images[0].imageUrl, 'w=600&auto=compress')
-                            : dummySpaceImage,
-                        onClick: () => this.onClickSpace(s.id),
-                      }))}
-                    />
-                  </OnlyPcTab>
-                ) : (
-                  <OnlyPhone>
-                    <SpaceRows spaces={spaces} onClick={this.onClickSpace} />
-                  </OnlyPhone>
-                )}
-              </InfiniteScroll>
-            ) : (
-              <NoneData
-                caption="検索履歴がありません。"
-                buttonText="TOPに戻る"
-                onClick={this.onClickBackTop}
-              />
-            )}
-          </Content>
-        </BaseTemplate>
-      </BaseLayout>
+      <BaseTemplate maxWidth={1168}>
+        <Meta title="閲覧履歴 - モノオク" />
+        <H1 bold>閲覧履歴</H1>
+        <Content>
+          {!isNoData ? (
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadItems}
+              hasMore={isMore}
+              loader={<Loader size="medium" key={0} />}
+              initialLoad
+            >
+              {isOverPhone ? (
+                <OnlyPcTab>
+                  <SearchResult
+                    spaces={spaces.map(s => ({
+                      ...s,
+                      image:
+                        s.images.length !== 0
+                          ? convertSpaceImgUrl(s.images[0].imageUrl, 'w=600&auto=compress')
+                          : dummySpaceImage,
+                      onClick: () => this.onClickSpace(s.id),
+                    }))}
+                  />
+                </OnlyPcTab>
+              ) : (
+                <OnlyPhone>
+                  <SpaceRows spaces={spaces} onClick={this.onClickSpace} />
+                </OnlyPhone>
+              )}
+            </InfiniteScroll>
+          ) : (
+            <NoneData
+              caption="検索履歴がありません。"
+              buttonText="TOPに戻る"
+              onClick={this.onClickBackTop}
+            />
+          )}
+        </Content>
+      </BaseTemplate>
     );
   }
 }
