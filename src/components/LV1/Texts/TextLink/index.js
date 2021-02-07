@@ -127,11 +127,15 @@ const TextLinkStyled = styled.div`
   `};
 `;
 
-const TextLink = props => (
-  <Link href={props.href || props.to || ''} passHref>
-    <TextLinkStyled as="a" href={props.href || props.to || ''} key={props.key} {...props}>
-      {props.children}
-    </TextLinkStyled>
-  </Link>
-);
+const TextLink = props => {
+  const { href, to, key, children } = props;
+  return (
+    <Link href={href || to || ''} passHref>
+      <TextLinkStyled as="a" key={key} {...props}>
+        {children}
+      </TextLinkStyled>
+    </Link>
+  );
+};
+
 export default TextLink;

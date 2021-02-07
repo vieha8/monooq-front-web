@@ -9,12 +9,14 @@ import 'styles/main.css';
 
 const Root = dynamic(() => import('components/Root'));
 const BaseLayout = dynamic(() => import('components/Layout'));
+const Error = dynamic(() => import('components/LV3/ErrorModal'));
 
 function App({ Component, ...props }) {
   return (
     <ConnectedRouter>
       <Root>
         <Meta />
+        <Error />
         <BaseLayout>
           <Component {...props} />
         </BaseLayout>

@@ -17,6 +17,7 @@ import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import { handleError } from './error';
 import { getRoomId, createRoom } from './messages';
 import { handleAccessTrade, handleCircuitX } from '../../helpers/asp';
+import { spaceActions } from './space';
 
 // Actions
 const FETCH_REQUEST_TAKELATE_BEFORE = 'FETCH_REQUEST_TAKELATE_BEFORE';
@@ -925,12 +926,8 @@ function* bosyu({ payload: { body } }) {
 
   if (results.length) {
     yield put(requestActions.bosyuSuccess());
-    yield put(
-      push({
-        pathname: Path.recommend(),
-        query: { recommendSpaces: { results } },
-      }),
-    );
+    yield put(spaceActions.setInitRecommendSpaces({ results }));
+    yield put(push({ pathname: Path.recommend() }));
   } else {
     yield put(requestActions.bosyuSuccess({ prefName: pref }));
   }
