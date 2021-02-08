@@ -1,208 +1,177 @@
-import React, { Fragment } from 'react';
-import styled from 'styled-components';
-import { Dimens, Colors, FontSizes } from 'variables';
-import { selectOptionPrefectures } from 'helpers/prefectures';
-import { mediaMin } from 'helpers/style/media-query';
-import RegsiterProfileImage from 'components/LV1/Forms/DragAndDrop/RegisterProfileImage';
-import Button from 'components/LV1/Forms/Button';
-import { H3 } from 'components/LV1/Texts/Headline';
-import InputForm from 'components/LV2/Forms/InputForm';
-import Select from 'components/LV2/Forms/Select';
-import Form from './Form';
+import React, { Component, Fragment } from 'react';
+import { withRouter } from 'next/router';
+import { userActions } from 'redux/modules/user';
+import { uiActions } from 'redux/modules/ui';
+import Path from 'config/path';
+import { ErrorMessages } from 'variables';
+import { handleAccessTrade, handleCircuitX } from 'helpers/asp';
+import { handleGTM } from 'helpers/gtm';
+import { isTrimmedEmpty, isBelowTrimmedLimit } from 'helpers/validations/string';
+import { isPhoneNumberWithoutHyphen, setErrorPhoneNumber } from 'helpers/validations/phoneNumber';
+import RegisterProfile from 'components/LV3/RegisterProfile/RegisterProfileForm';
 
-const IconInteriaBlack =
-  'https://monooq.imgix.net/img%2Fservice%2Ficon-interia-black.svg?auto=compress';
-const IconInteriaGray =
-  'https://monooq.imgix.net/img%2Fservice%2Ficon-interia-black.svg?auto=compress';
-const IconHomeBlack = 'https://monooq.imgix.net/img%2Fservice%2Ficon-home-black.svg?auto=compress';
-const IconHomeGray = 'https://monooq.imgix.net/img%2Fservice%2Ficon-home-gray.svg?auto=compress';
-
-const regsiterProfileImage = (imagePreview, image, onChangeImage) => {
-  return (
-    <RegsiterProfileImage onDrop={data => onChangeImage(data[0])} image={imagePreview || image} />
-  );
+const Validate = {
+  ImageSize: {
+    Max: 10485760, // 10MB
+  },
+  Profile: {
+    nameMax: 40,
+  },
 };
 
-const inputForm = (
-  label,
-  hint,
-  placeholder,
-  onChange,
-  value,
-  multiline,
-  rows,
-  type,
-  extension,
-  className,
-) => {
-  return (
-    <InputForm
-      label={label}
-      hint={hint}
-      placeholder={placeholder}
-      onChange={onChange}
-      value={value}
-      multiline={multiline}
-      rows={rows}
-      type={type}
-      extension={extension}
-      className={className}
-    />
-  );
-};
+class RegisterProfilePage extends Component {
+  constructor(props) {
+    super(props);
 
-const selectForm = (onChangeArea, prefCode, className) => {
-  return (
-    <Select
-      label="お住いの都道府県"
-      options={selectOptionPrefectures('選択してください')}
-      onChange={e => onChangeArea(e.target.value)}
-      value={prefCode}
-      className={className}
-    />
-  );
-};
-
-const ButtonWrap = styled.div`
-  width: 100%;
-  display: flex;
-  margin-top: ${Dimens.small}px;
-`;
-
-const ButtonPurpose = styled.div`
-  box-sizing: border-box;
-  width: calc(100% - 2.5px);
-  padding: ${Dimens.huge}px 0 ${Dimens.medium1}px;
-  text-align: center;
-  font-size: ${FontSizes.small}px;
-  font-weight: bold;
-  line-height: normal;
-  border: 2px solid ${Colors.borderGray};
-  border-radius: 3px;
-  cursor: pointer;
-  ${props =>
-    props.home
-      ? `
-        background-image: url(${IconHomeBlack}), url(${IconHomeGray});
-        background-size: 0, 56px;
-        `
-      : `
-        background-image: url(${IconInteriaBlack}), url(${IconInteriaGray});
-        background-size: 0, 50px;
-        `};
-  background-position: center calc(50% - 12px);
-  background-repeat: no-repeat;
-  &:nth-child(2n) {
-    margin-left: ${Dimens.xxsmall_5}px;
+    this.state = {
+      image: null,
+      imageUrlPreview: '',
+      name: '',
+      phoneNumber: '',
+      prefCode: '',
+      isHost: 0, // 初期値はゲスト
+      error: {},
+    };
   }
-  ${props =>
-    props.isHost &&
-    `
-      background-size: ${props.home ? '56px, 0' : '50px, 0'};
-      background-color: ${Colors.lightGray1Bg};
-      border: 2px solid ${Colors.black};
-    `};
-  ${mediaMin.tablet`
-    &:hover {
-      opacity: 0.8;
+
+  componentDidMount() {
+    const { name, phoneNumber, prefCode } = this.state;
+    this.handleChangeForm('name', name);
+    this.handleChangeForm('phoneNumber', phoneNumber);
+    this.handleChangeForm('prefCode', prefCode);
+
+    const { user } = this.props;
+    handleGTM('leadUserRegistered', user.id);
+    handleAccessTrade(100, `user_register_${user.id}`);
+    handleCircuitX(1373, user.id);
+    handleCircuitX(1376, user.id);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { user } = nextProps;
+    if (user && user.name !== '' && !prevState.name) {
+      const newError = prevState.error;
+      newError.name = [];
+      return { name: user.name, imageUrlPreview: user.imageUrl, error: newError };
     }
-  `};
-`;
+    return null;
+  }
 
-const buttonPurpose = (isHost, onClickPurposeGuest, onClickPurposeHost) => {
-  return (
-    <Fragment>
-      <H3 bold as="h3">
-        用途が近いのはどちらですか？
-      </H3>
-      <ButtonWrap>
-        <ButtonPurpose onClick={onClickPurposeGuest} isHost={!isHost}>
-          荷物を預ける
-        </ButtonPurpose>
-        <ButtonPurpose onClick={onClickPurposeHost} home isHost={isHost}>
-          スペース運営する
-        </ButtonPurpose>
-      </ButtonWrap>
-    </Fragment>
-  );
-};
+  onClickRegisterProfile = () => {
+    const { dispatch, user, router, redirectPath } = this.props;
+    const { image, name, phoneNumber, prefCode, isHost } = this.state;
 
-const buttonFinish = (buttonDisabled, buttonLoading, onClickRegisterProfile) => {
-  return (
-    <Button
-      primary
-      borderbold
-      fontbold
-      fill={1}
-      loading={buttonLoading}
-      disabled={buttonDisabled}
-      onClick={onClickRegisterProfile}
-    >
-      完了
-    </Button>
-  );
-};
+    if (isHost === 0) {
+      handleGTM('userRegistered', user.id);
+    }
 
-export default ({
-  isHost,
-  errors,
-  onChangeImage,
-  imagePreview,
-  image,
-  onChangeName,
-  name,
-  onChangePhoneNumber,
-  phoneNumber,
-  onChangeArea,
-  prefCode,
-  onClickPurposeHost,
-  onClickPurposeGuest,
-  buttonDisabled,
-  buttonLoading,
-  onClickRegisterProfile,
-  story,
-}) => (
-  <Form
-    story={story}
-    errors={errors}
-    image={inputForm(
-      '',
-      '',
-      '',
-      '',
-      '',
-      false,
-      0,
-      '',
-      regsiterProfileImage(imagePreview, image, onChangeImage),
-      'gaSignupImage',
-    )}
-    name={inputForm(
-      'お名前',
-      '',
-      '入力してください',
-      e => onChangeName(e.target.value),
-      name,
-      false,
-      0,
-      '',
-      '',
-      'gaSignupName',
-    )}
-    phoneNumber={inputForm(
-      '電話番号',
-      '',
-      '09012345678',
-      e => onChangePhoneNumber(e.target.value),
-      phoneNumber,
-      false,
-      0,
-      'tel',
-      '',
-      'gaSignupPhoneNumber',
-    )}
-    prefCode={selectForm(onChangeArea, prefCode, 'gaSignupPref')}
-    buttonPurpose={buttonPurpose(isHost, onClickPurposeGuest, onClickPurposeHost)}
-    button={buttonFinish(buttonDisabled, buttonLoading, onClickRegisterProfile)}
-  />
-);
+    dispatch(
+      userActions.updateUser({
+        userId: user.id,
+        body: { imageUrl: image, name, phoneNumber, prefCode, isHost: Boolean(isHost) },
+      }),
+    );
+
+    if (redirectPath && redirectPath !== '') {
+      router.push(redirectPath);
+      dispatch(uiActions.setUiState({ redirectPath: '' }));
+      return;
+    }
+
+    if (isHost === 0) {
+      router.push(Path.top());
+    } else {
+      router.push({
+        pathname: Path.spaceCreate1(),
+        state: { isFromRegister: true },
+      });
+    }
+  };
+
+  onClickPurpose = newState => {
+    this.setState({ isHost: newState });
+  };
+
+  handleChangeForm = (name, value) => {
+    const { state } = this;
+    const { error } = state;
+    const errors = [];
+
+    switch (name) {
+      case 'image':
+        if (value && value.size > Validate.ImageSize.Max) {
+          errors.push(ErrorMessages.OverSizeSpaceImage('10MB'));
+        }
+        state.imageUrlPreview = URL.createObjectURL(value);
+        break;
+
+      case 'name':
+        if (isTrimmedEmpty(value)) {
+          errors.push(ErrorMessages.PleaseInput);
+        }
+        if (value && !isBelowTrimmedLimit(value, Validate.Profile.nameMax)) {
+          errors.push(ErrorMessages.LengthMax('お名前', Validate.Profile.nameMax));
+        }
+        break;
+
+      case 'phoneNumber':
+        setErrorPhoneNumber(value, errors);
+        break;
+
+      case 'prefCode':
+        if (!value || value.length === 0) {
+          errors.push(ErrorMessages.PleaseSelect);
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    state[name] = value;
+    error[name] = errors;
+    this.setState({ ...state, error });
+  };
+
+  validate = () => {
+    const { error, name, phoneNumber, prefCode } = this.state;
+    return (
+      (error.image === undefined || (error.image && error.image.length === 0)) &&
+      !isTrimmedEmpty(name) &&
+      isBelowTrimmedLimit(name, Validate.Profile.nameMax) &&
+      phoneNumber &&
+      isPhoneNumberWithoutHyphen(phoneNumber) &&
+      prefCode
+    );
+  };
+
+  render() {
+    const { isLoading } = this.props;
+    const { image, imageUrlPreview, name, phoneNumber, prefCode, isHost, error } = this.state;
+
+    return (
+      <Fragment>
+        <RegisterProfile
+          isHost={isHost}
+          errors={error}
+          onChangeImage={picked => this.handleChangeForm('image', picked)}
+          imagePreview={imageUrlPreview}
+          image={image}
+          onChangeName={value => this.handleChangeForm('name', value)}
+          name={name}
+          onChangePhoneNumber={value => this.handleChangeForm('phoneNumber', value)}
+          phoneNumber={phoneNumber}
+          onChangeArea={value => this.handleChangeForm('prefCode', value)}
+          prefCode={prefCode}
+          onClickPurposeGuest={() => this.onClickPurpose(0)}
+          onClickPurposeHost={() => this.onClickPurpose(1)}
+          buttonDisabled={!this.validate()}
+          buttonLoading={isLoading}
+          onClickRegisterProfile={this.onClickRegisterProfile}
+        />
+      </Fragment>
+    );
+  }
+}
+
+export default withRouter(RegisterProfilePage);
