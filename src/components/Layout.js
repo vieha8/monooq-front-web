@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import Head from 'next/head';
 import Path from 'config/path';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -57,7 +56,7 @@ const isBottomMarginSpPath = path => {
   return path === Path.spaces() || path === Path.search();
 };
 
-const BaseLayout = ({ children, title, noindex }) => {
+const BaseLayout = ({ children }) => {
   const [isNoFooter, setIsNoFooter] = useState(false);
   const [isLP, setIsLP] = useState(false);
   const [isBottomMarginSp, setIsBottomMarginSp] = useState(false);
@@ -70,21 +69,8 @@ const BaseLayout = ({ children, title, noindex }) => {
     Fonts();
   }, [path]);
 
-  const DEFAULT_TITLE = 'モノオク｜荷物の困ったを解決する、あたらしい物置きのかたち';
-
   return (
     <Fragment>
-      <Head>
-        <title>{title || DEFAULT_TITLE}</title>
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1,shrink-to-fit=no,minimum-scale=1,maximum-scale=1"
-        />
-        <meta property="og:title" content={title || DEFAULT_TITLE} />
-        {noindex && <meta name="robots" content="noindex" />}
-        <link rel="canonical" href="https://monooq.com" />
-      </Head>
-
       {!isLP && <Header />}
       {children}
       {!isNoFooter && <Footer bottomMargin={isLP} bottomMarginOnlySP={isBottomMarginSp} />}

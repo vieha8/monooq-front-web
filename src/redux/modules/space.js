@@ -83,6 +83,7 @@ const RESET_ADDRESS = 'RESET_ADDRESS';
 const FETCH_USER_META = 'FETCH_USER_META';
 const FETCH_USER_META_SUCCESS = 'FETCH_USER_META_SUCCESS';
 const FETCH_USER_META_FAIL = 'FETCH_USER_META_FAIL';
+const SET_INIT_RECOMMEND_SPACES = 'SET_INIT_RECOMMEND_SPACES';
 
 export const spaceActions = createActions(
   CLEAR_SPACE,
@@ -128,6 +129,7 @@ export const spaceActions = createActions(
   FETCH_USER_META,
   FETCH_USER_META_SUCCESS,
   FETCH_USER_META_FAIL,
+  SET_INIT_RECOMMEND_SPACES,
 );
 
 // Reducer
@@ -157,6 +159,7 @@ const initialState = {
     cities: [],
   },
   recommendSpaces: [],
+  initRecommendSpaces: [],
   geo: {},
 };
 
@@ -365,6 +368,10 @@ export const spaceReducer = handleActions(
         ...state.space,
         userMeta: action.payload,
       },
+    }),
+    [SET_INIT_RECOMMEND_SPACES]: (state, { payload }) => ({
+      ...state,
+      initRecommendSpaces: payload,
     }),
   },
   initialState,

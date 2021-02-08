@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Modal, Button } from 'semantic-ui-react';
+import { errorActions } from 'redux/modules/error';
 
 const usePrevious = value => {
   const ref = useRef(null);
@@ -10,7 +11,7 @@ const usePrevious = value => {
   return ref.current;
 };
 
-const ErrorModal = () => {
+const ErrorModal = ({ dispatch }) => {
   const [isOpen, setIsOpen] = useState(false);
   const prevState = usePrevious(isOpen);
 
@@ -38,10 +39,17 @@ const ErrorModal = () => {
         )}
       </Modal.Content>
       <Modal.Actions>
-        <Button onClick={() => setIsOpen(false)}>閉じる</Button>
+        <Button
+          onClick={() => {
+            dispatch(errorActions.resetError());
+            setIsOpen(false);
+          }}
+        >
+          閉じる
+        </Button>
       </Modal.Actions>
     </Modal>
   );
 };
 
-export default ErrorModal;
+export default connect()(ErrorModal);

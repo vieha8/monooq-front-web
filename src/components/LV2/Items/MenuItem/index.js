@@ -87,8 +87,8 @@ export default function MenuItem({
   ) : (
     <MenuItemLv1>
       <LinkWrap line={line}>
-        <Link href={to} onClick={onClick} passHref>
-          <MenuLink as="a">
+        <Link href={to} passHref>
+          <MenuLink as="a" onClick={onClick}>
             <MenuText>
               <InlineText.Base fontSize={FontSizes.small}>{title}</InlineText.Base>
             </MenuText>

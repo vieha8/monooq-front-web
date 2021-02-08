@@ -5,7 +5,7 @@ import { Colors, Dimens } from 'variables';
 
 const MessageIconUrl = 'https://monooq.imgix.net/img%2Fservice%2Ficon-message.svg?auto=compress';
 
-const StyledLink = styled(Link)`
+const StyledLink = styled.a`
   position: relative;
   display: inline-block;
 `;
@@ -28,11 +28,11 @@ const NoticeIcon = styled.span`
 
 export default function MessageIcon({ href, onClick, messageCount }) {
   return (
-    <StyledLink href={href || ''} onClick={onClick}>
-      <a>
+    <Link href={href || ''} onClick={onClick} passHref>
+      <StyledLink>
         <Image src={MessageIconUrl} messageCount={messageCount} alt="icon-chat" />
         {messageCount > 0 && <NoticeIcon />}
-      </a>
-    </StyledLink>
+      </StyledLink>
+    </Link>
   );
 }
