@@ -2,8 +2,7 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call, all } from 'redux-saga/effects';
 import { push } from 'connected-next-router';
 import ReactGA from 'react-ga';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import dynamic from 'next/dynamic';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { formatName } from 'helpers/string';
 import { handleGTM } from 'helpers/gtm';
@@ -18,6 +17,9 @@ import { handleError } from './error';
 import { getRoomId, createRoom } from './messages';
 import { handleAccessTrade, handleCircuitX } from '../../helpers/asp';
 import { spaceActions } from './space';
+
+dynamic(() => import('firebase/firestore'));
+const firebase = dynamic(() => import('firebase/app'));
 
 // Actions
 const FETCH_REQUEST_TAKELATE_BEFORE = 'FETCH_REQUEST_TAKELATE_BEFORE';

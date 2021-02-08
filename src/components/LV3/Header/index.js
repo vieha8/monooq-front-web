@@ -9,50 +9,56 @@ import { spaceActions } from 'redux/modules/space';
 import { getPrefecture } from 'helpers/prefectures';
 import { isOverTabletWindow } from 'helpers/style/media-query';
 import { partialMatch } from 'helpers/string';
-import ChannelService from 'components/LV1/ChannelService';
 import HeaderComponent from 'components/LV3/Header/View';
 
-function bootChannelService(isLogin, user) {
-  if (isLogin) {
-    const {
-      id,
-      name,
-      email,
-      phoneNumber,
-      inviteCode,
-      isHost,
-      isNoticeEmail,
-      isNoticeSMS,
-      lastLoginAt,
-      prefCode,
-      refererUrl,
-      createdAt,
-      UpdatedAt,
-    } = user;
+function shutdownChannelService() {
+  import('components/LV1/ChannelService').then(ChannelService => {
+    ChannelService.default.shutdown();
+  });
+}
 
-    ChannelService.boot({
-      pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
-      memberId: id,
-      profile: {
+function bootChannelService(isLogin, user) {
+  import('components/LV1/ChannelService').then(ChannelService => {
+    if (isLogin) {
+      const {
+        id,
         name,
         email,
-        mobileNumber: phoneNumber,
+        phoneNumber,
         inviteCode,
         isHost,
         isNoticeEmail,
         isNoticeSMS,
         lastLoginAt,
-        prefCode: getPrefecture(prefCode),
+        prefCode,
         refererUrl,
         createdAt,
         UpdatedAt,
-      },
-    });
-  } else {
-    ChannelService.boot({
-      pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
-    });
-  }
+      } = user;
+      ChannelService.default.boot({
+        pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
+        memberId: id,
+        profile: {
+          name,
+          email,
+          mobileNumber: phoneNumber,
+          inviteCode,
+          isHost,
+          isNoticeEmail,
+          isNoticeSMS,
+          lastLoginAt,
+          prefCode: getPrefecture(prefCode),
+          refererUrl,
+          createdAt,
+          UpdatedAt,
+        },
+      });
+    } else {
+      ChannelService.default.boot({
+        pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
+      });
+    }
+  });
 }
 
 const Wrap = styled.div`
@@ -85,7 +91,7 @@ class Header extends Component {
       router: { pathname },
     } = this.props;
     if (isLogin !== prevProps.isLogin || pathname !== prevProps.router.pathname) {
-      ChannelService.shutdown();
+      shutdownChannelService();
       bootChannelService(isLogin, user);
     }
   }
@@ -95,7 +101,7 @@ class Header extends Component {
     if (document && document.body) {
       document.body.style.overflowY = 'auto';
     }
-    ChannelService.shutdown();
+    shutdownChannelService();
   }
 
   checkResize = () => {
