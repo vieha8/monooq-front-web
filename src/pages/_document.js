@@ -7,28 +7,6 @@ export default class AppDocument extends Document {
     return (
       <Html>
         <Head lang="ja">
-          <meta charSet="utf-8" />
-          <meta name="theme-color" content="#000000" />
-          <meta
-            name="description"
-            content="モノオクは荷物の置き場所に困っている人と余ったスペースを活用したい人をつなぐ、物置きシェアサービスです。利用シーンは引っ越し・リフォーム・出張・転勤・留学など。トランクルームを使う様に、気軽に荷物を預けるためのあたらしい仕組みです。"
-          />
-          <meta name="keywords" content="荷物預かり,引っ越し,物置き,シェア,保管" />
-          <meta property="og:site_name" content="モノオク" />
-          <meta
-            property="og:description"
-            content="モノオクは荷物の置き場所に困っている人と余ったスペースを活用したい人をつなぐ、物置きシェアサービスです。利用シーンは引っ越し・リフォーム・出張・転勤・留学など。トランクルームを使う様に、気軽に荷物を預けるためのあたらしい仕組みです。"
-          />
-          <meta property="og:type" content="website" />
-          <meta property="og:url" content="https://monooq.com/" />
-          <meta
-            property="og:image"
-            content="https://monooq.imgix.net/img%2Fogp%2Fdefault.png?alt=media&auto=compress?auto=compress"
-          />
-          <meta name="twitter:card" content="summary_large_image" />
-          <link rel="manifest" href="/manifest.json" />
-          <link rel="icon" href="/favicon.ico" />
-          <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
             rel="preload"

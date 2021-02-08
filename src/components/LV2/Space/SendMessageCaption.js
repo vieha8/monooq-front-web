@@ -27,7 +27,7 @@ const Unit = styled.div`
 
 export default ({ priceTatami, priceFull }) => (
   <Wrap>
-    {priceTatami && priceTatami > 0 && priceFull > priceTatami && (
+    {priceTatami > 0 && priceFull > priceTatami && (
       <Unit tatami>
         <InlineText.EmphasisTiny>1畳あたり</InlineText.EmphasisTiny>
         <br />

@@ -25,7 +25,7 @@ const ButtonWrap = styled.div`
   ${media.phone`
     display: block;
     width: 100%;
-    max-width: 100%
+    max-width: 100%;
     position: relative;
     left: 0px;
     bottom: 0px;

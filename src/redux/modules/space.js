@@ -20,6 +20,7 @@ import Queue from 'helpers/queue';
 import Path from 'config/path';
 import { ErrorMessages } from 'variables';
 import { isAvailableLocalStorage } from 'helpers/storage';
+import isBrowserEnv from 'helpers/browser-env';
 import { handleError } from './error';
 
 const STATUS_FULL = 'full';
@@ -448,7 +449,7 @@ function* getSpace({ payload: { spaceId, isSelfOnly } }) {
   if (err) {
     if (status === 404) {
       // yield put(push(Path.pageNotFound()));
-      window.location.href = Path.pageNotFound();
+      if (isBrowserEnv) window.location.href = Path.pageNotFound();
       // node.jsサーバー側で404返すための処置
     } else {
       yield handleError(spaceActions.fetchFailedSpace, '', 'getSpace', err, false);
@@ -808,7 +809,7 @@ function* getSpaceAccessLog({ payload: { limit, ifEmpty = false, refresh = false
   if (!user.id) {
     // 未ログイン時の閲覧履歴
     let anonymousAccessLogSpaces = [];
-    if (isAvailableLocalStorage) {
+    if (isAvailableLocalStorage()) {
       const key = 'anonymous-access-logs';
       const json = localStorage.getItem(key);
       const anonymousAccessLogSpaceIds = json ? JSON.parse(json) : [];
@@ -863,7 +864,7 @@ function* addSpaceAccessLog({ payload: { spaceId } }) {
   const user = yield select(state => state.auth.user);
 
   if (!user.id) {
-    if (isAvailableLocalStorage) {
+    if (isAvailableLocalStorage()) {
       const key = 'anonymous-access-logs';
       const json = localStorage.getItem(key);
       const arr = json ? JSON.parse(json) : [];

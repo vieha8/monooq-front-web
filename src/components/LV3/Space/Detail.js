@@ -180,9 +180,11 @@ export default ({
             <UserMeta>
               <UserMetaTitle>気になるスペースを見つけたら？</UserMetaTitle>
               <UserMetaTitle>ホストに相談しよう</UserMetaTitle>
-              <UserMetaImageWrap to={Path.profile(user.id)}>
-                <UserMetaImage src={user.imageUrl} />
-              </UserMetaImageWrap>
+              <Link href={Path.profile(user.id)} passHref>
+                <UserMetaImageWrap as="a">
+                  <UserMetaImage src={user.imageUrl} />
+                </UserMetaImageWrap>
+              </Link>
               <UserMetaName>{user.name}</UserMetaName>
               {space.userMeta && space.userMeta.replyRate > 0 ? (
                 <UserMetaRow>

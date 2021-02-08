@@ -34,7 +34,7 @@ const Item = styled.li`
   }
 `;
 
-const LinkStyled = styled(Link)`
+const LinkStyled = styled.a`
   line-height: ${Dimens.medium_20}px;
   color: ${Colors.lightGray3};
   &:hover {
@@ -53,9 +53,9 @@ export default ({ breadcrumbsList, separatorLandscape, fontColor }) => (
       {breadcrumbsList.map((item, i) => (
         <Item key={i.toString()} separatorLandscape={separatorLandscape} fontColor={fontColor}>
           {item.link ? (
-            <LinkStyled href={item.link} color={Colors.lightGray3}>
-              <a>{item.text}</a>
-            </LinkStyled>
+            <Link href={item.link} passHref>
+              <LinkStyled color={Colors.lightGray3}>{item.text}</LinkStyled>
+            </Link>
           ) : (
             item.text
           )}

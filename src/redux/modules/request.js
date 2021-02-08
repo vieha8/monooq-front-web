@@ -895,7 +895,7 @@ function* bosyu({ payload: { body } }) {
   }
 
   let anonymousAccessLogSpaces = [];
-  if (isAvailableLocalStorage) {
+  if (isAvailableLocalStorage()) {
     const key = 'anonymous-access-logs';
     const json = localStorage.getItem(key);
     const anonymousAccessLogSpaceIds = json ? JSON.parse(json) : [];
