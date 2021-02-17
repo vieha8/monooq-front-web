@@ -3,7 +3,6 @@ import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, take, select, fork, cancel, cancelled } from 'redux-saga/effects';
 import { push } from 'connected-next-router';
 import { captureException } from '@sentry/browser';
-import dynamic from 'next/dynamic';
 import { getToken } from 'redux/modules/auth';
 import { userActions } from 'redux/modules/user';
 import { spaceActions } from 'redux/modules/space';
@@ -14,9 +13,6 @@ import fileType from 'helpers/file-type';
 import { convertImgixUrl, convertSpaceImgUrl } from 'helpers/imgix';
 import { formatName } from 'helpers/string';
 import Path from 'config/path';
-
-dynamic(() => import('firebase/firestore'));
-const firebase = dynamic(() => import('firebase/app'));
 
 // Actions
 const FETCH_ROOMS_ID_START = 'FETCH_ROOMS_ID_START';
@@ -89,8 +85,11 @@ export const messagesReducer = handleActions(
   initialState,
 );
 
-const roomCollection = () => {
-  const firestore = firebase.firestore();
+const roomCollection = async () => {
+  const firebase = await import('firebase/app');
+  await import('firebase/firestore');
+
+  const firestore = firebase.default.firestore();
   return firestore.collection('rooms');
 };
 
@@ -98,7 +97,8 @@ const roomCollection = () => {
 const getRooms = userId =>
   new Promise(async (resolve, reject) => {
     try {
-      const rooms = await roomCollection().where(`user${userId}`, '==', true).get();
+      const roomCollectionResult = await roomCollection();
+      const rooms = await roomCollectionResult.where(`user${userId}`, '==', true).get();
       const res = [];
       rooms.forEach(room => {
         if (room.data().lastMessageDt) {
@@ -391,7 +391,8 @@ ${requestNotes}`;
       lastMessage: requestMessage,
       status: 0,
     };
-    const roomRef = await roomCollection().add(room);
+    const roomCollectionResult = await roomCollection();
+    const roomRef = await roomCollectionResult.add(room);
     const message = {
       userId: userId1,
       text: requestMessage,
@@ -405,7 +406,8 @@ ${requestNotes}`;
 
 export const getRoomId = (userId1, userId2, spaceId) =>
   new Promise(async resolve => {
-    const rooms = await roomCollection()
+    const roomCollectionResult = await roomCollection();
+    const rooms = await roomCollectionResult
       .where(`user${userId1}`, '==', true)
       .where(`user${userId2}`, '==', true)
       .where(`space${spaceId}`, '==', true)

@@ -2,7 +2,6 @@ import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, take, select, call, all } from 'redux-saga/effects';
 import { push } from 'connected-next-router';
 import ReactGA from 'react-ga';
-import dynamic from 'next/dynamic';
 import { isAvailableLocalStorage } from 'helpers/storage';
 import { formatName } from 'helpers/string';
 import { handleGTM } from 'helpers/gtm';
@@ -17,9 +16,6 @@ import { handleError } from './error';
 import { getRoomId, createRoom } from './messages';
 import { handleAccessTrade, handleCircuitX } from '../../helpers/asp';
 import { spaceActions } from './space';
-
-dynamic(() => import('firebase/firestore'));
-const firebase = dynamic(() => import('firebase/app'));
 
 // Actions
 const FETCH_REQUEST_TAKELATE_BEFORE = 'FETCH_REQUEST_TAKELATE_BEFORE';
@@ -250,8 +246,11 @@ function* sendEstimateEmail(payload, messageDocId) {
   yield call(postApiRequest, apiEndpoint.sendMail(), body, token);
 }
 
-const roomCollection = () => {
-  const firestore = firebase.firestore();
+const roomCollection = async () => {
+  const firebase = await import('firebase/app');
+  await import('firebase/firestore');
+
+  const firestore = firebase.default.firestore();
   return firestore.collection('rooms');
 };
 
@@ -310,7 +309,8 @@ function* fetchRequestTakelateBefore({ payload: { guestId, spaceId } }) {
 
 // Sagas
 function* estimate({ payload: { roomId, userId, startDate, endDate, price } }) {
-  const roomDoc = roomCollection().doc(roomId);
+  const roomCollectionResult = yield roomCollection();
+  const roomDoc = roomCollectionResult.doc(roomId);
   const room = yield roomDoc.get();
   const { spaceId, userId1, userId2 } = room.data();
 
@@ -568,7 +568,8 @@ function* payment({ payload: { roomId, requestId, info, payment: card } }) {
     requestId: parseInt(requestId, 10),
   };
 
-  const roomDoc = roomCollection().doc(roomId);
+  const roomCollectionResult = yield roomCollection();
+  const roomDoc = roomCollectionResult.doc(roomId);
   yield roomDoc.collection('messages').add(message);
   yield roomDoc.set(
     {
