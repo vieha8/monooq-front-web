@@ -67,7 +67,7 @@ class Home extends React.Component {
       modalPrefName,
     } = this.props;
 
-    if (isChecking) {
+    if (isChecking || isLoading) {
       return <LoadingPage />;
     }
 
@@ -91,7 +91,7 @@ class Home extends React.Component {
         }
       }
     }
-
+    return <div> INDEX </div>
     return (
       <Top
         // sections={sections}
