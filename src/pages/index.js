@@ -91,7 +91,6 @@ class Home extends React.Component {
         }
       }
     }
-    return <div> INDEX </div>
     return (
       <Top
         // sections={sections}
