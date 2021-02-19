@@ -25,7 +25,7 @@ const Button = styled(PrimaryButton)`
     left: ${Dimens.small_9}px;
     width: ${Dimens.small2_14}px;
     height: ${Dimens.medium_17}px;
-    background-image: url(${IconAreaGray});
+    //background-image: url(${IconAreaGray});
     background-position: top center;
     background-size: cover;
     background-repeat: no-repeat;

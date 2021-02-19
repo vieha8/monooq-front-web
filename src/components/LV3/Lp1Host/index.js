@@ -78,7 +78,7 @@ const TopWrap = styled.div`
   color: ${Colors.black};
   overflow: hidden;
   background-color: ${Colors.darkGray1};
-  background-image: url(${ImageHero});
+  //background-image: url(${ImageHero});
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -91,7 +91,7 @@ const TopWrap = styled.div`
     bottom: 0;
     width: 500px;
     height: inherit;
-    background-image: url(${ImageWoman});
+    //background-image: url(${ImageWoman});
     background-size: contain;
     background-position: bottom right;
     background-repeat: no-repeat;
@@ -211,7 +211,7 @@ const CatchPhraseText = styled.span`
 
 const BusinessmodelWrap = styled.div`
   position: relative;
-  background-image: url(${ImageWhatBg});
+  //background-image: url(${ImageWhatBg});
   background-size: 200px 200px;
   background-position: top left;
   background-repeat: repeat;

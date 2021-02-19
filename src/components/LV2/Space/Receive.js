@@ -29,7 +29,7 @@ const ItemWrap = styled.div`
     left: 0px;
     width: ${Dimens.medium1}px;
     height: ${Dimens.medium1}px;
-    background-image: url(${props => (props.isEnable ? ImageCheckGreen : ImageCheckWhite)});
+    //background-image: url(${props => (props.isEnable ? ImageCheckGreen : ImageCheckWhite)});
     background-size: cover;
     background-position: top left;
     background-repeat: no-repeat;

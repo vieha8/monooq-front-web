@@ -53,7 +53,7 @@ const DummyCheckbox = styled.div`
 
   input[type='checkbox']:checked + & {
     background-color: #e85258;
-    background-image: url(/static/media/icon-check.b3761c92.svg);
+    //background-image: url(/static/media/icon-check.b3761c92.svg);
     background-size: 76%;
     background-position: center center;
     background-repeat: no-repeat;

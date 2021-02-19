@@ -13,7 +13,7 @@ const Wrap = styled.div`
   font-weight: bold;
   line-height: normal;
   text-decoration: none;
-  background-image: url(${props => props.bgImage});
+  //background-image: url(${props => props.bgImage});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

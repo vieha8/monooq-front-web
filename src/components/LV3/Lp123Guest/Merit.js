@@ -18,7 +18,7 @@ const WorryWrap = styled.div`
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   background-color: ${Colors.lightGray9};
-  background-image: url(${ImageBgWorry});
+  //background-image: url(${ImageBgWorry});
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -67,7 +67,7 @@ const WorryWrapUl = styled.div`
   max-width: 960px;
   margin: auto;
   padding: 0px ${Dimens.medium2}px;
-  background-image: url(${ImageBgWorryPerson});
+  //background-image: url(${ImageBgWorryPerson});
   background-repeat: no-repeat;
   background-size: 280px;
   background-position: bottom right;
@@ -102,11 +102,11 @@ const WorryLi = styled.li`
 
 // TODO: activeクラス付与時のみ、background-position
 const Marker = styled.span`
-  background-image: -webkit-linear-gradient(left, transparent 50%, rgb(255, 220, 139) 0%);
-  background-image: -moz-linear-gradient(left, transparent 50%, rgb(255, 220, 139) 0%);
-  background-image: -ms-linear-gradient(left, transparent 50%, rgb(255, 220, 139) 0%);
-  background-image: -o-linear-gradient(left, transparent 50%, rgb(255, 220, 139) 0%);
-  background-image: linear-gradient(left, transparent 50%, rgb(255, 220, 139) 0%);
+  //background-image: -webkit-linear-gradient(left, transparent 50%, rgb(255, 220, 139) 0%);
+  //background-image: -moz-linear-gradient(left, transparent 50%, rgb(255, 220, 139) 0%);
+  //background-image: -ms-linear-gradient(left, transparent 50%, rgb(255, 220, 139) 0%);
+  //background-image: -o-linear-gradient(left, transparent 50%, rgb(255, 220, 139) 0%);
+  //background-image: linear-gradient(left, transparent 50%, rgb(255, 220, 139) 0%);
   background-repeat: repeat-x;
   background-size: 200% 0.8em;
   background-position: 0 0.5em;

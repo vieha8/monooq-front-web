@@ -18,7 +18,7 @@ const calloutRight =
 const Wrap = styled.div`
   width: 100%;
   height: ${props => (props.isNoLogin ? '630' : '512')}px;
-  background-image: url(${mainVisual});
+  //background-image: url(${mainVisual});
   background-size: cover;
   color: ${Colors.white};
   background-repeat: no-repeat;
@@ -32,7 +32,7 @@ const Wrap = styled.div`
   `};
   ${media.phone`
     height: ${props => (props.isNoLogin ? '754' : '328')}px;
-    background-image: url(${mainVisualSp});
+    //background-image: url(${mainVisualSp});
     background-position: top center;
   `};
 `;
@@ -75,14 +75,14 @@ const TopViewContainer = styled(PageDefault)`
         height: 160px;
         top: -114px;
         left: -58px;
-        background-image: url(${calloutLeft});
+        //background-image: url(${calloutLeft});
       }
       &:after {
         width: 416px;
         height: 166px;
         top: -104px;
         right: -40px;
-        background-image: url(${calloutRight});
+        //background-image: url(${calloutRight});
       }
       `};
   ${media.giant1`

@@ -33,7 +33,7 @@ const TopWrap = styled.div`
   width: 100%;
   overflow: hidden;
   background-color: ${Colors.darkGray1};
-  background-image: url(${ImageHero});
+  //background-image: url(${ImageHero});
   background-size: cover;
   background-position: top center;
   background-repeat: no-repeat;

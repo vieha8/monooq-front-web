@@ -37,7 +37,7 @@ const Item = styled.li`
     left: 0px;
     width: ${Dimens.medium_20}px;
     height: ${Dimens.medium_20}px;
-    background-image: url(${ImageCheckRed});
+    //background-image: url(${ImageCheckRed});
     background-size: cover;
     background-position: top left;
     background-repeat: no-repeat;

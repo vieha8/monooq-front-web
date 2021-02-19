@@ -74,7 +74,7 @@ const Cell = styled.div`
           transform: rotate(45deg);
           filter: alpha(opacity=1);
           opacity: 1;
-          background-image: none !important;
+          //background-image: none !important;
         }
       `};
   `};

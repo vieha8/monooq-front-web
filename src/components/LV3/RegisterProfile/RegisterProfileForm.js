@@ -83,11 +83,11 @@ const ButtonPurpose = styled.div`
   ${props =>
     props.home
       ? `
-        background-image: url(${IconHomeBlack}), url(${IconHomeGray});
+        //background-image: url(${IconHomeBlack}), url(${IconHomeGray});
         background-size: 0, 56px;
         `
       : `
-        background-image: url(${IconInteriaBlack}), url(${IconInteriaGray});
+        //background-image: url(${IconInteriaBlack}), url(${IconInteriaGray});
         background-size: 0, 50px;
         `};
   background-position: center calc(50% - 12px);

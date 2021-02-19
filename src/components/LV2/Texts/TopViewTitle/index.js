@@ -23,7 +23,7 @@ const Wrap = styled.div`
         height: 273px;
         top: -74px;
         right: -200px;
-        background-image: url(${calloutRightNoLogin});
+        //background-image: url(${calloutRightNoLogin});
       }
     `};
   ${media.desktop`
