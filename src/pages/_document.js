@@ -36,7 +36,7 @@ export default class AppDocument extends Document {
             href="/fonts/fa-regular-400.woff2"
             crossOrigin="anonymous"
           />
-          <script
+          {/* <script
             defer
             src="/js/regular.js"
             integrity="sha384-Uc9toywOA44owltk1MWl0lQZ+L0mBzJkLQcdif6+JtG9izvok9DLJtCZX57Uq3k2"
@@ -47,13 +47,11 @@ export default class AppDocument extends Document {
             src="/js/fontawesome.js"
             integrity="sha384-EMmnH+Njn8umuoSMZ3Ae3bC9hDknHKOWL2e9WJD/cN6XLeAN7tr5ZQ0Hx5HDHtkS"
             crossOrigin="anonymous"
-          />
+          /> */}
         </Head>
         <body>
           <Main />
           <NextScript 
-          nonce
-          render={null}
           />
         </body>
       </Html>
