@@ -7,9 +7,9 @@ import 'styles/reset.css';
 import 'styles/globals.css';
 import 'styles/main.css';
 
-const Root = dynamic(() => import('components/Root'), {ssr: false});
-const BaseLayout = dynamic(() => import('components/Layout'),  { ssr: false });
-const Error = dynamic(() => import('components/LV3/ErrorModal'), { ssr: false});
+const Root = dynamic(() => import('components/Root'), { loading: <div />});
+const BaseLayout = dynamic(() => import('components/Layout'),  { loading: <div />});
+const Error = dynamic(() => import('components/LV3/ErrorModal'), { loading: <div />});
 
 function App({ Component, ...props }) {
   return (
