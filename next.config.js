@@ -4,8 +4,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const withImages = require('next-images');
 
-module.exports = withBundleAnalyzer(
-  withImages({
+module.exports = withImages(
+  withBundleAnalyzer({
     async rewrites() {
       return [
         {
