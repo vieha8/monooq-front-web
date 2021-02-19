@@ -93,6 +93,9 @@ export default ({
   const isExistSpace = spaces && spaces.length > 0;
 
   // FIXME:サインアップ直後に検索が走らないのをなんとかする
+  if(isLoading) {
+    return <div> Load </div>
+  }
   return (
     <Wrap>
       <View />
