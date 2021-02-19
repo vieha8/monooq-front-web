@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import Fonts from 'helpers/style/load-fonts';
 
-const Header = dynamic(() => import('components/LV3/Header'));
-const Footer = dynamic(() => import('components/LV3/Footer'));
+// const Header = dynamic(() => import('components/LV3/Header'));
+// const Footer = dynamic(() => import('components/LV3/Footer'));
 
 const getSpaceIdEdit = path => {
   const pathMatchFirstLevel = path.match(RegExp('/.*?/(.*?)(?=/)/'));
@@ -71,9 +71,9 @@ const BaseLayout = ({ children }) => {
 
   return (
     <Fragment>
-      {!isLP && <Header />}
+      {/* {!isLP && <Header />} */}
       {children}
-      {!isNoFooter && <Footer bottomMargin={isLP} bottomMarginOnlySP={isBottomMarginSp} />}
+      {/* {!isNoFooter && <Footer bottomMargin={isLP} bottomMarginOnlySP={isBottomMarginSp} />} */}
     </Fragment>
   );
 };
