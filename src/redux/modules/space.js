@@ -2,7 +2,8 @@ import { createActions, handleActions } from 'redux-actions';
 import { all, put, takeEvery, take, call, select } from 'redux-saga/effects';
 import { push } from 'connected-next-router';
 import axios from 'axios';
-import { authActions, getToken } from 'redux/modules/auth';
+import authActions from 'redux/actions/auth';
+import { getToken } from 'redux/sagas/auth/generators';
 import { uiActions } from 'redux/modules/ui';
 import {
   getApiRequest,

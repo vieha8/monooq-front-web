@@ -5,7 +5,7 @@ class ChannelService {
 
   loadScript() {
     const w = global.window && window;
-    if(!w) return;
+    if (!w) return;
     if (w && w.ChannelIO) {
       return (window.console.error || window.console.log || function () {})(
         'ChannelIO script included twice.',
@@ -43,11 +43,12 @@ class ChannelService {
   }
 
   boot(settings) {
-    global.window && window.ChannelIO('boot', settings);
+    console.log('channel boot');
+    global.window && global.window.ChannelIO && window.ChannelIO('boot', settings);
   }
 
   shutdown() {
-    global.window && window.ChannelIO('shutdown');
+    global.window && window.ChannelIO && window.ChannelIO('shutdown');
   }
 }
 

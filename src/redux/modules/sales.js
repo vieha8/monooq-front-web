@@ -1,9 +1,9 @@
 import { createActions, handleActions } from 'redux-actions';
 import { put, takeEvery, call, select } from 'redux-saga/effects';
 
+import { getToken } from 'redux/sagas/auth/generators';
 import { getApiRequest, postApiRequest, apiEndpoint } from '../helpers/api';
 import { handleError } from './error';
-import { getToken } from './auth';
 
 // Actions
 const FETCH_SALES = 'FETCH_SALES';

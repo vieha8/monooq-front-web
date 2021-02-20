@@ -3,7 +3,12 @@ import { eventChannel } from 'redux-saga';
 import { put, call, takeEvery, take, select, fork, cancel, cancelled } from 'redux-saga/effects';
 import { push } from 'connected-next-router';
 import { captureException } from '@sentry/browser';
+<<<<<<< HEAD
 import { getToken } from 'redux/modules/auth';
+=======
+import dynamic from 'next/dynamic';
+import { getToken } from 'redux/sagas/auth/generators';
+>>>>>>> 568df103bcc6d8316e02a77521614155e30938d1
 import { userActions } from 'redux/modules/user';
 import { spaceActions } from 'redux/modules/space';
 import { handleError } from 'redux/modules/error';
