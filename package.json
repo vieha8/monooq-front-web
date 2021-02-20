@@ -6,6 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p $PORT",
+    "e2e": "start-test start 3000 cy:open",
+    "cy:open": "cypress open",
+    "pree2e": "rm -rf .nyc_output coverage .next || true",
+    "check-coverage-limits": "check-total --min 100",
     "lint": "eslint src",
     "fix": "eslint src --fix",
     "precommit": "pretty-quick --staged"
@@ -53,9 +57,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@cypress/code-coverage": "^3.9.2",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
     "babel-plugin-module-resolver": "^4.1.0",
+    "check-code-coverage": "^1.10.0",
+    "cypress": "^6.5.0",
     "eslint": "^7.17.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^7.1.0",
@@ -65,7 +73,11 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.6.3",
+    "jest-dom": "^4.0.0",
     "prettier": "^2.2.1",
-    "pretty-quick": "^3.1.0"
+    "pretty-quick": "^3.1.0",
+    "start-server-and-test": "^1.12.0"
   }
 }
