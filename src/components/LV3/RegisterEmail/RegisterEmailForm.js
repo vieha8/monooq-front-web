@@ -9,7 +9,7 @@ import { iskeyDownEnter } from 'helpers/keydown';
 import { media } from 'helpers/style/media-query';
 import { isTrimmedEmpty } from 'helpers/validations/string';
 import isEmailValid from 'helpers/validations/email';
-import { authActions } from 'redux/modules/auth';
+import authActions from 'redux/sagas/auth/generators';
 import Button from 'components/LV1/Forms/Button';
 import InlineText from 'components/LV1/Texts/InlineText';
 import TextLink from 'components/LV1/Texts/TextLink';

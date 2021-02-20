@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Path from 'config/path';
-import { authActions } from 'redux/sagas/auth/generators';
+import authActions  from 'redux/sagas/auth/generators';
 import AccountTemplate from 'components/templates/AccountTemplate';
 import Login from 'components/LV3/Login';
 import { iskeyDownEnter } from 'helpers/keydown';
