@@ -12,9 +12,9 @@ import { partialMatch } from 'helpers/string';
 import HeaderComponent from 'components/LV3/Header/View';
 import dynamic from 'next/dynamic'
 
-const ChannelService = dynamic(()=> import('components/LV1/ChannelService'))
+const ChannelService = dynamic(()=> import('components/LV1/ChannelService').then(r =>r ))
 function shutdownChannelService() {
-  ChannelService.then(c => {
+  ChannelService && ChannelService.then(c => {
     c.default.shutdown();
   });
 }
