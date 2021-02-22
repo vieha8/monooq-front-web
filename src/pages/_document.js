@@ -4,13 +4,14 @@ import { ServerStyleSheet } from 'styled-components';
 
 export default class AppDocument extends Document {
   render() {
-    return(
-      <html>
-        <body>
-          <Main />
-        </body>
-      </html>
-    )
+    // return(
+    //   <html>
+    //     <body>
+    //       <Main />
+    //       <NextScript />
+    //     </body>
+    //   </html>
+    // )
     return (
       <Html>
         <Head lang="ja">
