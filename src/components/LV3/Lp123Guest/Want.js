@@ -3,19 +3,14 @@ import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import SectionTitle from './SectionTitle';
+import Image from 'next/image'
 
-const ImageWantFile =
-  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-file.png?alt=media&auto=format&auto=compress';
-const ImageWantGolf =
-  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-golf.png?alt=media&auto=format&auto=compress';
-const ImageWantHome =
-  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-home.png?alt=media&auto=format&auto=compress';
-const ImageWantSnowboard =
-  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-snowboard.png?alt=media&auto=format&auto=compress';
-const ImageWantTruck =
-  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-truck.png?alt=media&auto=format&auto=compress';
-const ImageWantWear =
-  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Ficon-want-wear.png?alt=media&auto=format&auto=compress';
+const ImageWantFile = '/images/img_service_lp123guest_icon-want-file.png';
+const ImageWantGolf = '/images/img_service_lp123guest_icon-want-golf.png'
+const ImageWantHome = '/images/img_service_lp123guest_icon-want-home.png'
+const ImageWantSnowboard = '/images/img_service_lp123guest_icon-want-snowboard.png'
+const ImageWantTruck = '/images/img_service_lp123guest_icon-want-truck.png'
+const ImageWantWear = '/images/img_service_lp123guest_icon-want-wear.png'
 
 const WantWrap = styled.div`
   max-width: 960px;
@@ -82,7 +77,7 @@ const getLi = (imageSrc, imageAlt, text) => {
   return (
     <WantLi>
       <WantLiFigure>
-        <WantLiImg src={imageSrc} alt={imageAlt} />
+        <Image width={100} objectFit='contain' src={imageSrc} alt={imageAlt} />
         <figcaption>{text}</figcaption>
       </WantLiFigure>
     </WantLi>
