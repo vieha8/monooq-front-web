@@ -10,53 +10,56 @@ import { getPrefecture } from 'helpers/prefectures';
 import { isOverTabletWindow } from 'helpers/style/media-query';
 import { partialMatch } from 'helpers/string';
 import HeaderComponent from 'components/LV3/Header/View';
-import dynamic from 'next/dynamic'
 
-const channnelSeviceAction = dynamic(()=> import('components/LV1/ChannelService').then(r =>r && r.default ))
 function shutdownChannelService() {
-  return channnelSeviceAction && channnelSeviceAction.shutdown();
+  import('components/LV1/ChannelService').then(ChannelService => {
+    ChannelService.default.shutdown();
+  });
 }
 
 function bootChannelService(isLogin, user) {
-  if (!channnelSeviceAction) return
-  if(isLogin) {
-    const {
-      id,
-      name,
-      email,
-      phoneNumber,
-      inviteCode,
-      isHost,
-      isNoticeEmail,
-      isNoticeSMS,
-      lastLoginAt,
-      prefCode,
-      refererUrl,
-      createdAt,
-      UpdatedAt,
-    } = user;
-    channnelSeviceAction.boot({
-      pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
-      memberId: id,
-      profile: {
+  import('components/LV1/ChannelService').then(ChannelService => {
+    if (isLogin) {
+      const {
+        id,
         name,
         email,
-        mobileNumber: phoneNumber,
+        phoneNumber,
         inviteCode,
         isHost,
         isNoticeEmail,
         isNoticeSMS,
         lastLoginAt,
-        prefCode: getPrefecture(prefCode),
+        prefCode,
         refererUrl,
         createdAt,
         UpdatedAt,
-      },
-    });
-    return 
-  }
-  channnelSeviceAction.boot({
-    pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
+      } = user;
+      ChannelService.default.boot({
+        pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
+        memberId: id,
+        profile: {
+          name,
+          email,
+          mobileNumber: phoneNumber,
+          inviteCode,
+          isHost,
+          isNoticeEmail,
+          isNoticeSMS,
+          lastLoginAt,
+          prefCode: getPrefecture(prefCode),
+          refererUrl,
+          createdAt,
+          UpdatedAt,
+        },
+      });
+      return true
+    } else {
+      ChannelService.default.boot({
+        pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
+      });
+      return true
+    }
   });
 }
 
@@ -142,7 +145,7 @@ class Header extends Component {
     }
     TIMER_CHANNEL = setTimeout(() => {
       bootChannelService(isLogin, user);
-    }, 20);
+    }, 300);
 
     return (
       <Wrap>
