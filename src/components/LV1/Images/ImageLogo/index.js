@@ -19,12 +19,12 @@ const MonoboyImage = 'images/img_service_img-monoboy-b.png';
 // `;
 
 export default {
-  Base: ({ width }) => <Image objectFit='contain' src={logoImage} alt="logo" width={ width || 280} />,
-  BaseWhite: ({ width }) => <Image objectFit='contain' src={logoWhiteImage} alt="logo" width={ width ||  280} />,
-  Header: ({ width }) => <Image objectFit='contain' src={logoImage} alt="logo" width={ width ||  80} />,
-  HeaderFill: () => <Image objectFit='contain' src={logoImage} alt="logo" />,
-  Footer: ({ width }) => <Image objectFit='contain' src={logoImage} alt="logo" width={ width ||  120} />,
+  Base: ({ width }) => <Image objectFit='contain' src={logoImage} alt="logo" width={ width || 280} height={width/4 || 70} />,
+  BaseWhite: ({ width }) => <Image objectFit='contain' src={logoWhiteImage} alt="logo" width={ width ||  280} height={width/4 || 70} />,
+  Header: ({ width }) => <Image objectFit='contain' src={logoImage} alt="logo" width={ width ||  80} height={width/4 || 20} />,
+  HeaderFill: () => <Image objectFit='contain' src={logoImage} alt="logo" width={'100%'} height={'auto'} />,
+  Footer: ({ width }) => <Image objectFit='contain' src={logoImage} alt="logo" width={ width ||  120} height={width/4 || 30} />,
   HeaderWhite: ({ width }) => <Image objectFit='contain' src={logoWhiteImage} alt="logo" width={ width ||  80} />,
-  HeaderWhiteFill: () => <Image objectFit='contain' src={logoWhiteImage} alt="logo" />,
-  MonoboyBlack: () => <Image objectFit='contain' src={MonoboyImage} alt="monoboy" />,
+  HeaderWhiteFill: () => <Image objectFit='contain' src={logoWhiteImage} alt="logo" width={'100%'} height={'auto'}/>,
+  MonoboyBlack: () => <Image objectFit='contain' src={MonoboyImage} alt="monoboy" width={'100%'} height={'auto'}/>,
 };
