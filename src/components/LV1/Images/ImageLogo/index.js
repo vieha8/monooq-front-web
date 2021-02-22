@@ -1,22 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 import Image from 'next/image'
 
-const logoImage = '/images/logo-test.png';
+const logoImage = '/images/img_service_logo.svg';
 // const logoWhiteImage = 'https://monooq.imgix.net/img%2Fservice%2Flogo-white.svg?auto=compress';
 // const MonoboyImage = 'https://monooq.imgix.net/img%2Fservice%2Fimg-monoboy-b.png?auto=compress';
-const logoWhiteImage = 'images/logo-test.png';
-const MonoboyImage = 'images/logo-test.png';
+const logoWhiteImage = 'images/img_service_logo-white.svg';
+const MonoboyImage = 'images/img_service_img-monoboy-b.png';
 
-const Logo = styled.img`
-  width: ${props => props.width}px;
-  height: ${props => props.width / 4}px;
-`;
+// const Logo = styled.img`
+//   width: ${props => props.width}px;
+//   height: ${props => props.width / 4}px;
+// `;
 
-const LogoFill = styled.img`
-  width: 100%;
-  height: auto;
-`;
+// const LogoFill = styled.img`
+//   width: 100%;
+//   height: auto;
+// `;
 
 export default {
   Base: ({ width }) => <Image objectFit='contain' src={logoImage} alt="logo" width={ width || 280} />,
