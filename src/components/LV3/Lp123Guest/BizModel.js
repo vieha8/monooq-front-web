@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { FontSizes, Colors, Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import SectionTitle from './SectionTitle';
+import Image from 'next/image'
 
-const ImageBizModel =
-  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fbusinessmodel.png?alt=media&auto=format&auto=compress';
+const ImageBizModel = 'images/img_service_lp123guest_businessmodel.jpeg';
 
 const Wrap = styled.div`
   position: relative;
@@ -22,9 +22,9 @@ const Figure = styled.figure`
   font-size: ${FontSizes.medium2_26}px;
 `;
 
-const FigureImage = styled.img`
-  width: 100%;
-`;
+// const FigureImage = styled.img`
+//   width: 100%;
+// `;
 
 const Figcaption = styled.figcaption`
   margin-top: ${Dimens.medium_20}px;
@@ -51,7 +51,10 @@ export default () => (
   <Wrap>
     <SectionTitle text="モノオクの仕組み" />
     <Figure>
-      <FigureImage src={ImageBizModel} alt="img-businessmodel" />
+      <Image 
+      width={'100%'}
+      objectFit='contain'
+      src={ImageBizModel} alt="img-businessmodel" />
       <Figcaption>
         <Marker>モノオクは「荷物を預けたい人」と「荷物を保管したい人」を繋ぐサービス</Marker>
         です。
