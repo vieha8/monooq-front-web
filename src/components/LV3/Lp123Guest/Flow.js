@@ -72,7 +72,7 @@ const getLi = (imageSrc, imageAlt, subTitle, caption) => {
   return (
     <Li>
       <Item>
-        <Image width={50} height={'auto'} src={imageSrc} alt={imageAlt} />
+        <Image width={50} height={50} src={imageSrc} alt={imageAlt} />
         <SubTitle>{subTitle}</SubTitle>
         <br />
         <Caption>{caption}</Caption>
