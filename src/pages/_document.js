@@ -7,7 +7,7 @@ export default class AppDocument extends Document {
     return (
       <Html>
         <Head lang="ja">
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          {/* <link rel="preconnect" href="https://fonts.gstatic.com" /> */}
           <link
             rel="preload"
             as="style"
