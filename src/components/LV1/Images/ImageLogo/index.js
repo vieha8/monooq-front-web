@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import Image from 'next/image'
 
-const logoImage = '/images/img_service_logo.svg';
+const logoImage = '/images/logo-test.png';
 // const logoWhiteImage = 'https://monooq.imgix.net/img%2Fservice%2Flogo-white.svg?auto=compress';
 // const MonoboyImage = 'https://monooq.imgix.net/img%2Fservice%2Fimg-monoboy-b.png?auto=compress';
-const logoWhiteImage = 'images/img_service_logo-white.svg';
-const MonoboyImage = 'images/img_service_img-monoboy-b.png';
+const logoWhiteImage = 'images/logo-test.png';
+const MonoboyImage = 'images/logo-test.png';
 
 const Logo = styled.img`
   width: ${props => props.width}px;
