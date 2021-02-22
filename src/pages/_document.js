@@ -7,7 +7,7 @@ export default class AppDocument extends Document {
     return(
       <html>
         <body>
-          <div> 1</div>
+          <Main />
         </body>
       </html>
     )
