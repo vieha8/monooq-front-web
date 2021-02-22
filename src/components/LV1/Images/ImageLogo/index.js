@@ -19,12 +19,12 @@ const LogoFill = styled.img`
 `;
 
 export default {
-  Base: ({ width }) => <Image src={logoImage} alt="logo" width={width || 280} />,
-  BaseWhite: ({ width }) => <Image src={logoWhiteImage} alt="logo" width={width || 280} />,
-  Header: ({ width }) => <Image src={logoImage} alt="logo" width={width || 80} />,
+  Base: ({ width }) => <Image src={logoImage} alt="logo" width={ 280} />,
+  BaseWhite: ({ width }) => <Image src={logoWhiteImage} alt="logo" width={ 280} />,
+  Header: ({ width }) => <Image src={logoImage} alt="logo" width={ 80} />,
   HeaderFill: () => <Image src={logoImage} alt="logo" />,
-  Footer: ({ width }) => <Image src={logoImage} alt="logo" width={width || 120} />,
-  HeaderWhite: ({ width }) => <Image src={logoWhiteImage} alt="logo" width={width || 80} />,
+  Footer: ({ width }) => <Image src={logoImage} alt="logo" width={ 120} />,
+  HeaderWhite: ({ width }) => <Image src={logoWhiteImage} alt="logo" width={ 80} />,
   HeaderWhiteFill: () => <Image src={logoWhiteImage} alt="logo" />,
   MonoboyBlack: () => <Image src={MonoboyImage} alt="monoboy" />,
 };
