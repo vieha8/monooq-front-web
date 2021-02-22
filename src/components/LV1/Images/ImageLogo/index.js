@@ -5,8 +5,8 @@ import Image from 'next/image'
 const logoImage = '/images/img_service_logo.svg';
 // const logoWhiteImage = 'https://monooq.imgix.net/img%2Fservice%2Flogo-white.svg?auto=compress';
 // const MonoboyImage = 'https://monooq.imgix.net/img%2Fservice%2Fimg-monoboy-b.png?auto=compress';
-const logoWhiteImage = '/images/img_service_logo.svg';
-const MonoboyImage = '/images/img_service_logo.svg';
+const logoWhiteImage = 'images/img_service_logo-white.svg';
+const MonoboyImage = 'images/img_service_img-monoboy-b.png';
 
 const Logo = styled.img`
   width: ${props => props.width}px;
@@ -19,7 +19,7 @@ const LogoFill = styled.img`
 `;
 
 export default {
-  Base: ({ width }) => <Image src={logoImage} alt="logo" width={ 280} />,
+  Base: ({ width }) => <Image src={logoImage} alt="logo" width={280} />,
   BaseWhite: ({ width }) => <Image src={logoWhiteImage} alt="logo" width={ 280} />,
   Header: ({ width }) => <Image src={logoImage} alt="logo" width={ 80} />,
   HeaderFill: () => <Image src={logoImage} alt="logo" />,
