@@ -12,14 +12,15 @@ import { partialMatch } from 'helpers/string';
 import HeaderComponent from 'components/LV3/Header/View';
 import dynamic from 'next/dynamic'
 
+const ChannelService = dynamic(()=> import('components/LV1/ChannelService'))
 function shutdownChannelService() {
-  dynamic(() => import('components/LV1/ChannelService')).then(ChannelService => {
-    ChannelService.default.shutdown();
+  ChannelService.then(c => {
+    c.default.shutdown();
   });
 }
 
 function bootChannelService(isLogin, user) {
-  import('components/LV1/ChannelService').then(ChannelService => {
+  ChannelService.then(c => {
     if (isLogin) {
       const {
         id,
@@ -36,7 +37,7 @@ function bootChannelService(isLogin, user) {
         createdAt,
         UpdatedAt,
       } = user;
-      ChannelService.default.boot({
+      c.default.boot({
         pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
         memberId: id,
         profile: {
@@ -55,7 +56,7 @@ function bootChannelService(isLogin, user) {
         },
       });
     } else {
-      ChannelService.default.boot({
+      c.default.boot({
         pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
       });
     }
