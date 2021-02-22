@@ -53,12 +53,10 @@ function bootChannelService(isLogin, user) {
           UpdatedAt,
         },
       });
-      return true
     } else {
       ChannelService.default.boot({
         pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
       });
-      return true
     }
   });
 }
@@ -145,7 +143,7 @@ class Header extends Component {
     }
     TIMER_CHANNEL = setTimeout(() => {
       bootChannelService(isLogin, user);
-    }, 300);
+    }, 3000);
 
     return (
       <Wrap>
