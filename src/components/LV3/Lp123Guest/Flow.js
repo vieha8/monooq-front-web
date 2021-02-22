@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import { Dimens } from 'variables';
 import { media } from 'helpers/style/media-query';
 import SectionTitle from './SectionTitle';
-const ImageFlow1 =
-  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fflow-1.png?alt=media&auto=format&auto=compress';
-const ImageFlow2 =
-  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fflow-2.png?alt=media&auto=format&auto=compress';
-const ImageFlow3 =
-  'https://monooq.imgix.net/img%2Fservice%2Flp123guest%2Fflow-3.png?alt=media&auto=format&auto=compress';
+import Image from 'next/image'
+
+const ImageFlow1 = '/images/img_service_lp123guest_flow-1.png'
+const ImageFlow2 = '/images/img_service_lp123guest_flow-2.png'
+const ImageFlow3 = '/images/img_service_lp123guest_flow-3.png'
 
 const Wrap = styled.div`
   max-width: 900px;
@@ -47,14 +46,17 @@ const Li = styled.li`
 const Item = styled.div`
   padding: ${Dimens.small_10}px;
   overflow: hidden;
-`;
-
-const Image = styled.img`
-  width: 50px;
   margin-bottom: 0;
   margin-right: 5px;
   float: left;
 `;
+
+// const Image = styled.img`
+//   width: 50px;
+//   margin-bottom: 0;
+//   margin-right: 5px;
+//   float: left;
+// `;
 
 const SubTitle = styled.b`
   font-weight: bold;
@@ -70,7 +72,7 @@ const getLi = (imageSrc, imageAlt, subTitle, caption) => {
   return (
     <Li>
       <Item>
-        <Image src={imageSrc} alt={imageAlt} />
+        <Image width={50} height={'auto'} src={imageSrc} alt={imageAlt} />
         <SubTitle>{subTitle}</SubTitle>
         <br />
         <Caption>{caption}</Caption>
