@@ -24,7 +24,7 @@ export default class AppDocument extends Document {
           <link
             rel="stylesheet"
             type="text/css"
-            href="/css/fontawesome-all.min.css"
+            href="/css/fontawesome.min.css"
           />
           <link
             rel="preload"
