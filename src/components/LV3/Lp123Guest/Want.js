@@ -77,7 +77,9 @@ const getLi = (imageSrc, imageAlt, text) => {
   return (
     <WantLi>
       <WantLiFigure>
-        <Image width={100} objectFit='contain' src={imageSrc} alt={imageAlt} />
+        <WantLiImg>
+          <Image objectFit='contain' src={imageSrc} alt={imageAlt} />
+        </WantLiImg>
         <figcaption>{text}</figcaption>
       </WantLiFigure>
     </WantLi>
