@@ -19,12 +19,12 @@ const LogoFill = styled.img`
 `;
 
 export default {
-  Base: ({ width }) => <Image src={logoImage} alt="logo" width={ width || 280} />,
-  BaseWhite: ({ width }) => <Image src={logoWhiteImage} alt="logo" width={ width ||  280} />,
-  Header: ({ width }) => <Image src={logoImage} alt="logo" width={ width ||  80} />,
-  HeaderFill: () => <Image src={logoImage} alt="logo" />,
-  Footer: ({ width }) => <Image src={logoImage} alt="logo" width={ width ||  120} />,
-  HeaderWhite: ({ width }) => <Image src={logoWhiteImage} alt="logo" width={ width ||  80} />,
-  HeaderWhiteFill: () => <Image src={logoWhiteImage} alt="logo" />,
-  MonoboyBlack: () => <Image src={MonoboyImage} alt="monoboy" />,
+  Base: ({ width }) => <Image objectFit='contain' src={logoImage} alt="logo" width={ width || 280} />,
+  BaseWhite: ({ width }) => <Image objectFit='contain' src={logoWhiteImage} alt="logo" width={ width ||  280} />,
+  Header: ({ width }) => <Image objectFit='contain' src={logoImage} alt="logo" width={ width ||  80} />,
+  HeaderFill: () => <Image objectFit='contain' src={logoImage} alt="logo" />,
+  Footer: ({ width }) => <Image objectFit='contain' src={logoImage} alt="logo" width={ width ||  120} />,
+  HeaderWhite: ({ width }) => <Image objectFit='contain' src={logoWhiteImage} alt="logo" width={ width ||  80} />,
+  HeaderWhiteFill: () => <Image objectFit='contain' src={logoWhiteImage} alt="logo" />,
+  MonoboyBlack: () => <Image objectFit='contain' src={MonoboyImage} alt="monoboy" />,
 };
