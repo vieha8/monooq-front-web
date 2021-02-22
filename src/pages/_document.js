@@ -16,11 +16,11 @@ export default class AppDocument extends Document {
       <Html>
         <Head lang="ja">
           {/* <link rel="preconnect" href="https://fonts.gstatic.com" /> */}
-          <link
+          {/* <link
             rel="preload"
             as="style"
             href="/css/fontawesome-all.min.css"
-          />
+          /> */}
           <link
             rel="stylesheet"
             type="text/css"
