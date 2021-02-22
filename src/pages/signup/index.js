@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Path from 'config/path';
-import { authActions } from 'redux/modules/auth';
+import authActions from 'redux/sagas/auth/generators';
 import AccountTemplate from 'components/templates/AccountTemplate';
 import LoadingPage from 'components/LV3/LoadingPage';
 import RegisterEmail from 'components/LV3/RegisterEmail';
