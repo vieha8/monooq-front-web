@@ -12,54 +12,51 @@ import { partialMatch } from 'helpers/string';
 import HeaderComponent from 'components/LV3/Header/View';
 import dynamic from 'next/dynamic'
 
-const ChannelService = dynamic(()=> import('components/LV1/ChannelService').then(r =>r ))
+const channnelSeviceAction = dynamic(()=> import('components/LV1/ChannelService').then(r =>r && r.default ))
 function shutdownChannelService() {
-  ChannelService && ChannelService.then(c => {
-    c.default.shutdown();
-  });
+  return channnelSeviceAction && channnelSeviceAction.shutdown();
 }
 
 function bootChannelService(isLogin, user) {
-  ChannelService.then(c => {
-    if (isLogin) {
-      const {
-        id,
+  if (!channnelSeviceAction) return
+  if(isLogin) {
+    const {
+      id,
+      name,
+      email,
+      phoneNumber,
+      inviteCode,
+      isHost,
+      isNoticeEmail,
+      isNoticeSMS,
+      lastLoginAt,
+      prefCode,
+      refererUrl,
+      createdAt,
+      UpdatedAt,
+    } = user;
+    channnelSeviceAction.boot({
+      pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
+      memberId: id,
+      profile: {
         name,
         email,
-        phoneNumber,
+        mobileNumber: phoneNumber,
         inviteCode,
         isHost,
         isNoticeEmail,
         isNoticeSMS,
         lastLoginAt,
-        prefCode,
+        prefCode: getPrefecture(prefCode),
         refererUrl,
         createdAt,
         UpdatedAt,
-      } = user;
-      c.default.boot({
-        pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
-        memberId: id,
-        profile: {
-          name,
-          email,
-          mobileNumber: phoneNumber,
-          inviteCode,
-          isHost,
-          isNoticeEmail,
-          isNoticeSMS,
-          lastLoginAt,
-          prefCode: getPrefecture(prefCode),
-          refererUrl,
-          createdAt,
-          UpdatedAt,
-        },
-      });
-    } else {
-      c.default.boot({
-        pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
-      });
-    }
+      },
+    });
+    return 
+  }
+  channnelSeviceAction.boot({
+    pluginKey: process.env.NEXT_PUBLIC_KEY_CHANNEL_IO,
   });
 }
 
