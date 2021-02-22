@@ -10,9 +10,10 @@ import { getPrefecture } from 'helpers/prefectures';
 import { isOverTabletWindow } from 'helpers/style/media-query';
 import { partialMatch } from 'helpers/string';
 import HeaderComponent from 'components/LV3/Header/View';
+import dynamic from 'next/dynamic'
 
 function shutdownChannelService() {
-  import('components/LV1/ChannelService').then(ChannelService => {
+  dynamic(() => import('components/LV1/ChannelService')).then(ChannelService => {
     ChannelService.default.shutdown();
   });
 }
@@ -143,7 +144,7 @@ class Header extends Component {
     }
     TIMER_CHANNEL = setTimeout(() => {
       bootChannelService(isLogin, user);
-    }, 3000);
+    }, 20);
 
     return (
       <Wrap>
