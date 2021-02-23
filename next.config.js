@@ -6,7 +6,34 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const withPlugins = require('next-compose-plugins');
 
 const withImages = require('next-images');
-
+const nextConfig = {
+	webpack(config) {
+	   config.module.rules.push({
+        test: /\.(png|svg|eot|otf|ttf|woff|woff2)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 8192,
+            publicPath: '/_next/static/',
+            outputPath: 'static/',
+            name: '[name].[ext]',
+          },
+        },
+		});
+		config.resolve.alias['../../theme.config$'] = path.join(config.context, '/semantic-ui/theme.config');
+    config.plugins.push(
+				new OptimizeCssAssetsPlugin({
+					assetNameRegExp: /\.css$/g,
+					cssProcessor: CleanCss,
+					cssProcessorOptions: {
+						sourceMap: true,
+					},
+					canPrint: true,
+				})
+			);
+		return config;
+	},
+};
 module.exports = withPlugins([
   withFonts(
     withImages(
@@ -62,4 +89,6 @@ module.exports = withPlugins([
       }),
     )
   )
-])
+],
+nextConfig
+)
