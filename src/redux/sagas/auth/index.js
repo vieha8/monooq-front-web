@@ -1,4 +1,4 @@
-import { takeEvery } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import generators from './generators';
 
 import {
@@ -15,16 +15,16 @@ import {
 } from '../../actions/auth';
 
 const authSagas = [
-  takeEvery(CHECK_LOGIN, generators.checkLogin),
-  takeEvery(LOGIN_EMAIL, generators.loginEmail),
-  takeEvery(LOGIN_FACEBOOK, generators.loginFacebook),
-  takeEvery(LOGOUT, generators.logout),
-  takeEvery(SIGNUP_EMAIL, generators.signUpEmail),
-  takeEvery(SIGNUP_FACEBOOK, generators.signUpFacebook),
-  takeEvery(CHECK_REDIRECT, generators.checkRedirect),
-  takeEvery(PASSWORD_RESET, generators.passwordReset),
-  takeEvery(UNSUBSCRIBE, generators.unsubscribe),
-  takeEvery(FETCH_HAS_REQUESTED, generators.fetchHasRequested),
+  takeLatest(CHECK_LOGIN, generators.checkLogin),
+  takeLatest(LOGIN_EMAIL, generators.loginEmail),
+  takeLatest(LOGIN_FACEBOOK, generators.loginFacebook),
+  takeLatest(LOGOUT, generators.logout),
+  takeLatest(SIGNUP_EMAIL, generators.signUpEmail),
+  takeLatest(SIGNUP_FACEBOOK, generators.signUpFacebook),
+  takeLatest(CHECK_REDIRECT, generators.checkRedirect),
+  takeLatest(PASSWORD_RESET, generators.passwordReset),
+  takeLatest(UNSUBSCRIBE, generators.unsubscribe),
+  takeLatest(FETCH_HAS_REQUESTED, generators.fetchHasRequested),
 ];
 
 export default authSagas;
