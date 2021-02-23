@@ -6,6 +6,7 @@ import 'semantic-ui-css/semantic.min.css';
 import 'styles/reset.css';
 import 'styles/globals.css';
 import 'styles/main.css';
+import { NextSeo } from 'next-seo';
 
 const Root = dynamic(() => import('components/Root'), { loading: <div />});
 const BaseLayout = dynamic(() => import('components/Layout'),  { loading: <div />});
@@ -17,6 +18,18 @@ function App({ Component, ...props }) {
       <Root>
         <Meta />
         <Error />
+        <NextSeo
+          openGraph={{
+            type: 'website',
+            locale: 'en_IE',
+            site_name: 'SiteName',
+          }}
+          twitter={{
+            handle: '@handle',
+            site: '@site',
+            cardType: 'summary_large_image',
+          }}
+        />
         <BaseLayout>
           <Component {...props} />
         </BaseLayout>
