@@ -27,6 +27,7 @@ class ChannelService {
       const s = document.createElement('script');
       s.type = 'text/javascript';
       s.async = true;
+      s.defer = true;
       s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
       s.charset = 'UTF-8';
       const x = document.getElementsByTagName('script')[0];
