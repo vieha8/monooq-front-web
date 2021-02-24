@@ -57,10 +57,11 @@ export default class AppDocument extends Document {
             integrity="sha384-EMmnH+Njn8umuoSMZ3Ae3bC9hDknHKOWL2e9WJD/cN6XLeAN7tr5ZQ0Hx5HDHtkS"
             crossOrigin="anonymous"
           /> */}
-            <title>My page title</title>
+            <title>Test title, up point please. :D.</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <meta name="description" content="Meta description content goes here." />
+        <meta name="description" content="Meta description content goes here.  Hihihihihihihihihihihihihihihiih.." />
         <meta http-equiv = "content-language" content = "ja"></meta>
+        <link rel="shortcut icon" href="/favicon.ico" />
         </Head>
         <body>
           <Main />
