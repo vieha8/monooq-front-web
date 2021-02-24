@@ -16,12 +16,12 @@ function App({ Component, ...props }) {
   return (
     <ConnectedRouter>
       <Root>
-        <Meta />
+        {/* <Meta /> */}
         <Error />
         <NextSeo
           openGraph={{
             type: 'website',
-            locale: 'en_IE',
+            locale: 'ja_JP',
             site_name: 'SiteName',
           }}
           twitter={{
