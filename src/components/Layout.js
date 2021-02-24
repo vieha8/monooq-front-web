@@ -4,8 +4,8 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import Fonts from 'helpers/style/load-fonts';
 
-const Header = dynamic(() => import('components/LV3/Header'), { loading: () => <p>...</p> });
-const Footer = dynamic(() => import('components/LV3/Footer'), { loading: () => <p>...</p> });
+const Header = dynamic(() => import('components/LV3/Header'), { loading: () => <p>...</p>, ssr: false });
+const Footer = dynamic(() => import('components/LV3/Footer'), { loading: () => <p>...</p>, ssr: false });
 
 const getSpaceIdEdit = path => {
   const pathMatchFirstLevel = path.match(RegExp('/.*?/(.*?)(?=/)/'));
