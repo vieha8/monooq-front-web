@@ -13,8 +13,8 @@ export default class AppDocument extends Document {
     //   </html>
     // )
     return (
-      <Html>
-        <Head lang="ja">
+      <Html lang="ja">
+        <Head>
           {/* <link rel="preconnect" href="https://fonts.gstatic.com" /> */}
           {/* <link
             rel="preload"
@@ -57,6 +57,10 @@ export default class AppDocument extends Document {
             integrity="sha384-EMmnH+Njn8umuoSMZ3Ae3bC9hDknHKOWL2e9WJD/cN6XLeAN7tr5ZQ0Hx5HDHtkS"
             crossOrigin="anonymous"
           /> */}
+            <title>My page title</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="description" content="Meta description content goes here." />
+        <meta http-equiv = "content-language" content = "ja"></meta>
         </Head>
         <body>
           <Main />
